@@ -20,6 +20,7 @@ import com.liferay.commerce.wish.list.exception.NoSuchWishListException;
 import com.liferay.commerce.wish.list.model.CommerceWishList;
 import com.liferay.commerce.wish.list.service.CommerceWishListService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
@@ -28,7 +29,12 @@ import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -44,6 +50,7 @@ import org.osgi.service.component.annotations.Reference;
 	property = {
 		"javax.portlet.name=" + CommerceWishListPortletKeys.COMMERCE_WISH_LIST,
 		"javax.portlet.name=" + CommerceWishListPortletKeys.COMMERCE_WISH_LIST_CONTENT,
+		"javax.portlet.name=" + CommerceWishListPortletKeys.MY_COMMERCE_WISH_LISTS,
 		"mvc.command.name=editCommerceWishList"
 	},
 	service = MVCActionCommand.class
@@ -87,6 +94,11 @@ public class EditCommerceWishListMVCActionCommand extends BaseMVCActionCommand {
 			else if (cmd.equals(Constants.DELETE)) {
 				deleteCommerceWishLists(actionRequest);
 			}
+			else if (cmd.equals(Constants.SAVE)) {
+				saveCommerceWishList(actionRequest, actionResponse);
+
+				hideDefaultSuccessMessage(actionRequest);
+			}
 		}
 		catch (Exception e) {
 			if (e instanceof NoSuchWishListException ||
@@ -107,6 +119,29 @@ public class EditCommerceWishListMVCActionCommand extends BaseMVCActionCommand {
 				throw e;
 			}
 		}
+	}
+
+	protected void saveCommerceWishList(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws PortalException {
+
+		Locale locale = _portal.getLocale(actionRequest);
+
+		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
+			"content.Language", locale, getClass());
+
+		String name = LanguageUtil.get(resourceBundle, "new-wish-list");
+
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			CommerceWishList.class.getName(), actionRequest);
+
+		CommerceWishList commerceWishList =
+			_commerceWishListService.addCommerceWishList(
+				name, false, serviceContext);
+
+		actionResponse.setRenderParameter(
+			"commerceWishListId",
+			String.valueOf(commerceWishList.getCommerceWishListId()));
 	}
 
 	protected void updateCommerceWishList(ActionRequest actionRequest)
@@ -134,5 +169,8 @@ public class EditCommerceWishListMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private CommerceWishListService _commerceWishListService;
+
+	@Reference
+	private Portal _portal;
 
 }

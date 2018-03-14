@@ -25,10 +25,37 @@ CommerceWishListItem commerceWishListItem = (CommerceWishListItem)row.getObject(
 %>
 
 <c:choose>
-	<c:when test="<%= commerceWishListItem.isIgnoreSKUCombinations() %>">
-		<aui:button cssClass="btn-lg" value="add-to-cart" />
+	<c:when test="<%= portletName.equals(CommerceWishListPortletKeys.COMMERCE_WISH_LIST) %>">
+		<liferay-ui:icon-menu direction="left-side" icon="<%= StringPool.BLANK %>" markupView="lexicon" message="<%= StringPool.BLANK %>" showWhenSingleIcon="<%= true %>">
+			<portlet:actionURL name="editCommerceWishListItem" var="deleteURL">
+				<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="commerceWishListItemId" value="<%= String.valueOf(commerceWishListItem.getCommerceWishListItemId()) %>" />
+			</portlet:actionURL>
+
+			<liferay-ui:icon-delete
+				url="<%= deleteURL %>"
+			/>
+		</liferay-ui:icon-menu>
 	</c:when>
 	<c:otherwise>
-		<aui:button cssClass="btn-primary" href="<%= commerceWishListDisplayContext.getCPDefinitionURL(commerceWishListItem.getCPDefinitionId(), themeDisplay) %>" name="selectOptions" value="select-options" />
+		<c:choose>
+			<c:when test="<%= commerceWishListItem.isIgnoreSKUCombinations() %>">
+				<liferay-commerce-cart:add-to-cart
+					CPDefinitionId="<%= commerceWishListItem.getCPDefinitionId() %>"
+					CPInstanceId="<%= commerceWishListItem.getCPInstanceId() %>"
+					elementClasses="btn-lg btn-primary"
+				/>
+			</c:when>
+			<c:otherwise>
+				<aui:button
+					cssClass="btn-primary"
+					href="<%= commerceWishListDisplayContext.getCPDefinitionURL(commerceWishListItem.getCPDefinitionId(), themeDisplay) %>"
+					name="selectOptions"
+					type="button"
+					value="select-options"
+				/>
+			</c:otherwise>
+		</c:choose>
 	</c:otherwise>
 </c:choose>
