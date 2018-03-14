@@ -19,6 +19,7 @@
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 
 <%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %><%@
+taglib uri="http://liferay.com/tld/commerce-cart" prefix="liferay-commerce-cart" %><%@
 taglib uri="http://liferay.com/tld/commerce-wish-list" prefix="liferay-commerce-wish-list" %><%@
 taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %><%@
 taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %><%@
@@ -30,6 +31,7 @@ page import="com.liferay.commerce.product.content.constants.CPContentWebKeys" %>
 page import="com.liferay.commerce.product.content.util.CPContentHelper" %><%@
 page import="com.liferay.commerce.product.model.CPDefinition" %><%@
 page import="com.liferay.commerce.product.model.CPInstance" %><%@
+page import="com.liferay.commerce.wish.list.constants.CommerceWishListPortletKeys" %><%@
 page import="com.liferay.commerce.wish.list.exception.CommerceWishListNameException" %><%@
 page import="com.liferay.commerce.wish.list.exception.NoSuchWishListException" %><%@
 page import="com.liferay.commerce.wish.list.exception.NoSuchWishListItemException" %><%@

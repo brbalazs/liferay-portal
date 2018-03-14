@@ -47,7 +47,7 @@ import org.osgi.service.component.annotations.Reference;
 	property = {
 		"com.liferay.portlet.add-default-resource=true",
 		"com.liferay.portlet.css-class-wrapper=portlet-commerce-wish-list",
-		"com.liferay.portlet.display-category=commerce",
+		"com.liferay.portlet.display-category=hidden",
 		"com.liferay.portlet.layout-cacheable=true",
 		"com.liferay.portlet.preferences-owned-by-group=true",
 		"com.liferay.portlet.preferences-unique-per-layout=false",
@@ -55,7 +55,7 @@ import org.osgi.service.component.annotations.Reference;
 		"com.liferay.portlet.private-session-attributes=false",
 		"com.liferay.portlet.render-weight=50",
 		"com.liferay.portlet.scopeable=true",
-		"javax.portlet.display-name=Commerce Wish Lists",
+		"javax.portlet.display-name=Wish Lists",
 		"javax.portlet.expiration-cache=0",
 		"javax.portlet.init-param.view-template=/view.jsp",
 		"javax.portlet.name=" + CommerceWishListPortletKeys.COMMERCE_WISH_LIST,

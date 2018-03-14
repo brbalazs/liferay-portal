@@ -22,31 +22,44 @@ ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_
 CommerceWishList commerceWishList = (CommerceWishList)row.getObject();
 %>
 
-<liferay-ui:icon-menu
-	direction="left-side"
-	icon="<%= StringPool.BLANK %>"
-	markupView="lexicon"
-	message="<%= StringPool.BLANK %>"
-	showWhenSingleIcon="<%= true %>"
->
-	<portlet:renderURL var="editURL">
-		<portlet:param name="mvcRenderCommandName" value="editCommerceWishList" />
-		<portlet:param name="redirect" value="<%= currentURL %>" />
-		<portlet:param name="commerceWishListId" value="<%= String.valueOf(commerceWishList.getCommerceWishListId()) %>" />
-	</portlet:renderURL>
+<c:choose>
+	<c:when test="<%= portletName.equals(CommerceWishListPortletKeys.COMMERCE_WISH_LIST) %>">
+		<liferay-ui:icon-menu direction="left-side" icon="<%= StringPool.BLANK %>" markupView="lexicon" message="<%= StringPool.BLANK %>" showWhenSingleIcon="<%= true %>">
+			<portlet:renderURL var="editURL">
+				<portlet:param name="mvcRenderCommandName" value="editCommerceWishList" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="commerceWishListId" value="<%= String.valueOf(commerceWishList.getCommerceWishListId()) %>" />
+			</portlet:renderURL>
 
-	<liferay-ui:icon
-		message="edit"
-		url="<%= editURL %>"
-	/>
+			<liferay-ui:icon
+				message="edit"
+				url="<%= editURL %>"
+			/>
 
-	<portlet:actionURL name="editCommerceWishList" var="deleteURL">
-		<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
-		<portlet:param name="redirect" value="<%= currentURL %>" />
-		<portlet:param name="commerceWishListId" value="<%= String.valueOf(commerceWishList.getCommerceWishListId()) %>" />
-	</portlet:actionURL>
+			<portlet:actionURL name="editCommerceWishList" var="deleteURL">
+				<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="commerceWishListId" value="<%= String.valueOf(commerceWishList.getCommerceWishListId()) %>" />
+			</portlet:actionURL>
 
-	<liferay-ui:icon-delete
-		url="<%= deleteURL %>"
-	/>
-</liferay-ui:icon-menu>
+			<liferay-ui:icon-delete
+				url="<%= deleteURL %>"
+			/>
+		</liferay-ui:icon-menu>
+	</c:when>
+	<c:otherwise>
+		<c:if test="<%= !commerceWishList.getDefaultWishList() %>">
+			<portlet:actionURL name="editCommerceWishList" var="deleteURL">
+				<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="commerceWishListId" value="<%= String.valueOf(commerceWishList.getCommerceWishListId()) %>" />
+			</portlet:actionURL>
+
+			<liferay-ui:icon
+				icon="times"
+				markupView="lexicon"
+				url="<%= deleteURL %>"
+			/>
+		</c:if>
+	</c:otherwise>
+</c:choose>
