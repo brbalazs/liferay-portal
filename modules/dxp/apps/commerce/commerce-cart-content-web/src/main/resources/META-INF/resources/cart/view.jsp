@@ -106,7 +106,7 @@ Map<Long, List<CommerceOrderValidatorResult>> commerceOrderValidatorResultMap = 
 					<liferay-ui:search-container-column-text
 						name="description"
 					>
-						<a href="<%= commerceCartContentDisplayContext.getCPDefinitionURL(cpDefinition.getCPDefinitionId(), themeDisplay) %>">
+						<a class="font-weight-bold" href="<%= commerceCartContentDisplayContext.getCPDefinitionURL(cpDefinition.getCPDefinitionId(), themeDisplay) %>">
 							<%= HtmlUtil.escape(cpDefinition.getName(languageId)) %>
 						</a>
 
