@@ -26,10 +26,13 @@ long cpInstanceId = 0;
 if (cpInstance != null) {
 	cpInstanceId = cpInstance.getCPInstanceId();
 }
+
+String productContentId = renderResponse.getNamespace() + cpDefinition.getCPDefinitionId() + "ProductContent";
 %>
 
 <liferay-commerce-wish-list:add-to-wish-list
 	CPDefinitionId="<%= cpCatalogEntry.getCPDefinitionId() %>"
 	CPInstanceId="<%= cpInstanceId %>"
 	elementClasses="btn-lg btn-default"
+	productContentId='<%= productContentId %>'
 />
