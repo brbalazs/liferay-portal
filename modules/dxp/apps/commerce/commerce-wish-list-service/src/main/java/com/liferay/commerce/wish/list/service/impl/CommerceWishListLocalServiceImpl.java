@@ -128,6 +128,15 @@ public class CommerceWishListLocalServiceImpl
 	}
 
 	@Override
+	public CommerceWishList fetchCommerceWishList(
+		long groupId, long userId, boolean defaultWishList,
+		OrderByComparator<CommerceWishList> orderByComparator) {
+
+		return commerceWishListPersistence.fetchByG_U_D_First(
+			groupId, userId, defaultWishList, orderByComparator);
+	}
+
+	@Override
 	public List<CommerceWishList> getCommerceWishLists(
 		long groupId, int start, int end,
 		OrderByComparator<CommerceWishList> orderByComparator) {
