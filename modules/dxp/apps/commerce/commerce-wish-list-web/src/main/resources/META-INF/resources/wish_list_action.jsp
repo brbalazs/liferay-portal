@@ -24,7 +24,13 @@ CommerceWishList commerceWishList = (CommerceWishList)row.getObject();
 
 <c:choose>
 	<c:when test="<%= portletName.equals(CommerceWishListPortletKeys.COMMERCE_WISH_LIST) %>">
-		<liferay-ui:icon-menu direction="left-side" icon="<%= StringPool.BLANK %>" markupView="lexicon" message="<%= StringPool.BLANK %>" showWhenSingleIcon="<%= true %>">
+		<liferay-ui:icon-menu
+			direction="left-side"
+			icon="<%= StringPool.BLANK %>"
+			markupView="lexicon"
+			message="<%= StringPool.BLANK %>"
+			showWhenSingleIcon="<%= true %>"
+		>
 			<portlet:renderURL var="editURL">
 				<portlet:param name="mvcRenderCommandName" value="editCommerceWishList" />
 				<portlet:param name="redirect" value="<%= currentURL %>" />

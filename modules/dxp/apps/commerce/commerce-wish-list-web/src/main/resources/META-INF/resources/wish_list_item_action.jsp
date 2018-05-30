@@ -26,7 +26,13 @@ CommerceWishListItem commerceWishListItem = (CommerceWishListItem)row.getObject(
 
 <c:choose>
 	<c:when test="<%= portletName.equals(CommerceWishListPortletKeys.COMMERCE_WISH_LIST) %>">
-		<liferay-ui:icon-menu direction="left-side" icon="<%= StringPool.BLANK %>" markupView="lexicon" message="<%= StringPool.BLANK %>" showWhenSingleIcon="<%= true %>">
+		<liferay-ui:icon-menu
+			direction="left-side"
+			icon="<%= StringPool.BLANK %>"
+			markupView="lexicon"
+			message="<%= StringPool.BLANK %>"
+			showWhenSingleIcon="<%= true %>"
+		>
 			<portlet:actionURL name="editCommerceWishListItem" var="deleteURL">
 				<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
 				<portlet:param name="redirect" value="<%= currentURL %>" />
@@ -48,13 +54,7 @@ CommerceWishListItem commerceWishListItem = (CommerceWishListItem)row.getObject(
 				/>
 			</c:when>
 			<c:otherwise>
-				<aui:button
-					cssClass="btn-primary"
-					href="<%= commerceWishListDisplayContext.getCPDefinitionURL(commerceWishListItem.getCPDefinitionId(), themeDisplay) %>"
-					name="selectOptions"
-					type="button"
-					value="select-options"
-				/>
+				<aui:button cssClass="btn-primary" href="<%= commerceWishListDisplayContext.getCPDefinitionURL(commerceWishListItem.getCPDefinitionId(), themeDisplay) %>" name="selectOptions" value="select-options" />
 			</c:otherwise>
 		</c:choose>
 	</c:otherwise>

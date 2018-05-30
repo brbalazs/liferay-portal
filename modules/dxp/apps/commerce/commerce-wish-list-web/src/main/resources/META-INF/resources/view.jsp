@@ -92,8 +92,13 @@ SearchContainer<CommerceWishList> commerceWishListSearchContainer = commerceWish
 					<portlet:param name="redirect" value="<%= currentURL %>" />
 				</portlet:actionURL>
 
-				<liferay-frontend:add-menu inline="<%= true %>">
-					<liferay-frontend:add-menu-item title='<%= LanguageUtil.get(request, "add-wish-list") %>' url="<%= addCommerceWishListActionURL %>" />
+				<liferay-frontend:add-menu
+					inline="<%= true %>"
+				>
+					<liferay-frontend:add-menu-item
+						title='<%= LanguageUtil.get(request, "add-wish-list") %>'
+						url="<%= addCommerceWishListActionURL %>"
+					/>
 				</liferay-frontend:add-menu>
 			</div>
 		</div>
