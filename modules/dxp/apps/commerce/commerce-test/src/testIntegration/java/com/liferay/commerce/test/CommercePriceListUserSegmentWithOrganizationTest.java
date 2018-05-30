@@ -16,7 +16,7 @@ package com.liferay.commerce.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.commerce.price.list.model.CommercePriceList;
-import com.liferay.commerce.test.util.CommercePriceListTestUtil;
+import com.liferay.commerce.price.list.test.util.CommercePriceListTestUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.Role;
