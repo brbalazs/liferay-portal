@@ -16,9 +16,9 @@ class AddToWishList extends PortletBase {
 		if (productContent) {
 			ddmFormValues = JSON.stringify(productContent.getFormValues());
 
-            if(this.cpInstanceId == "0"){
-                this.cpInstanceId = productContent.getCPInstanceId();
-            }
+			if (this.cpInstanceId == '0') {
+				this.cpInstanceId = productContent.getCPInstanceId();
+			}
 		}
 
 		let formData = new FormData();
