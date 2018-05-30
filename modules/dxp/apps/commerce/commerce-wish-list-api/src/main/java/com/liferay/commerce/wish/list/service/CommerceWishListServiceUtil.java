@@ -55,6 +55,15 @@ public class CommerceWishListServiceUtil {
 		getService().deleteCommerceWishList(commerceWishListId);
 	}
 
+	public static com.liferay.commerce.wish.list.model.CommerceWishList fetchCommerceWishList(
+		long groupId, long userId, boolean defaultWishList,
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.wish.list.model.CommerceWishList> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .fetchCommerceWishList(groupId, userId, defaultWishList,
+			orderByComparator);
+	}
+
 	public static com.liferay.commerce.wish.list.model.CommerceWishList getCommerceWishList(
 		long commerceWishListId)
 		throws com.liferay.portal.kernel.exception.PortalException {

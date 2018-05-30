@@ -49,6 +49,15 @@ public class CommerceWishListServiceWrapper implements CommerceWishListService,
 	}
 
 	@Override
+	public com.liferay.commerce.wish.list.model.CommerceWishList fetchCommerceWishList(
+		long groupId, long userId, boolean defaultWishList,
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.wish.list.model.CommerceWishList> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceWishListService.fetchCommerceWishList(groupId, userId,
+			defaultWishList, orderByComparator);
+	}
+
+	@Override
 	public com.liferay.commerce.wish.list.model.CommerceWishList getCommerceWishList(
 		long commerceWishListId)
 		throws com.liferay.portal.kernel.exception.PortalException {

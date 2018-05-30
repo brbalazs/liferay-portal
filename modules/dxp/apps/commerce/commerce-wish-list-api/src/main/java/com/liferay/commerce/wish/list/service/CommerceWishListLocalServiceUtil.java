@@ -201,6 +201,14 @@ public class CommerceWishListLocalServiceUtil {
 		return getService().fetchCommerceWishList(commerceWishListId);
 	}
 
+	public static com.liferay.commerce.wish.list.model.CommerceWishList fetchCommerceWishList(
+		long groupId, long userId, boolean defaultWishList,
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.wish.list.model.CommerceWishList> orderByComparator) {
+		return getService()
+				   .fetchCommerceWishList(groupId, userId, defaultWishList,
+			orderByComparator);
+	}
+
 	/**
 	* Returns the commerce wish list matching the UUID and group.
 	*

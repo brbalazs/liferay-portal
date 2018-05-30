@@ -210,6 +210,14 @@ public class CommerceWishListLocalServiceWrapper
 		return _commerceWishListLocalService.fetchCommerceWishList(commerceWishListId);
 	}
 
+	@Override
+	public com.liferay.commerce.wish.list.model.CommerceWishList fetchCommerceWishList(
+		long groupId, long userId, boolean defaultWishList,
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.wish.list.model.CommerceWishList> orderByComparator) {
+		return _commerceWishListLocalService.fetchCommerceWishList(groupId,
+			userId, defaultWishList, orderByComparator);
+	}
+
 	/**
 	* Returns the commerce wish list matching the UUID and group.
 	*

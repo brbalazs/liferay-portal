@@ -94,6 +94,23 @@ public class CommerceWishListServiceSoap {
 		}
 	}
 
+	public static com.liferay.commerce.wish.list.model.CommerceWishListSoap fetchCommerceWishList(
+		long groupId, long userId, boolean defaultWishList,
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.wish.list.model.CommerceWishList> orderByComparator)
+		throws RemoteException {
+		try {
+			com.liferay.commerce.wish.list.model.CommerceWishList returnValue = CommerceWishListServiceUtil.fetchCommerceWishList(groupId,
+					userId, defaultWishList, orderByComparator);
+
+			return com.liferay.commerce.wish.list.model.CommerceWishListSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.commerce.wish.list.model.CommerceWishListSoap getCommerceWishList(
 		long commerceWishListId) throws RemoteException {
 		try {

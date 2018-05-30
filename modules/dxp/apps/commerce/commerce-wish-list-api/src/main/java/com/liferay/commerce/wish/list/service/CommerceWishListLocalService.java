@@ -186,6 +186,11 @@ public interface CommerceWishListLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceWishList fetchCommerceWishList(long commerceWishListId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceWishList fetchCommerceWishList(long groupId, long userId,
+		boolean defaultWishList,
+		OrderByComparator<CommerceWishList> orderByComparator);
+
 	/**
 	* Returns the commerce wish list matching the UUID and group.
 	*
