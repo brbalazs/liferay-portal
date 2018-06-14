@@ -4,8 +4,8 @@
 [subrepo]
 	autopull = false
 	cmdver = liferay
-	commit = bdb66037054dad871a53bc4739f9740cd2bf523b
+	commit = 84739b744374bc45375a34a5272cdcd1a7c4faee
 	mergebuttonmergecommits = false
 	mode = push
-	parent = 51daf5bb28d6cc500f242ce80d2492f4220957a6
+	parent = 7f1d09eb7d0bb072f2c3e0114d709f2e33e57e7a
 	remote = git@github.com:liferay/com-liferay-portal-rules-engine-drools-private.git
