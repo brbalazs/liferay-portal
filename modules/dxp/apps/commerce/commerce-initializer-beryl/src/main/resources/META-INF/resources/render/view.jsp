@@ -29,6 +29,12 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 	<div class="product-detail-header">
 		<h2 class="commerce-title"><%= cpCatalogEntry.getName() %></h2>
 
+		<div hidden>
+			<div class="meta-title"><%= cpCatalogEntry.getMetaTitle(themeDisplay.getLanguageId()) %></div>
+			<div class="meta-description"><%= cpCatalogEntry.getMetaDescription(themeDisplay.getLanguageId()) %></div>
+			<div class="meta-keywords"><%= cpCatalogEntry.getMetaKeywords(themeDisplay.getLanguageId()) %></div>
+		</div>
+
 		<div class="autofit-float autofit-row product-detail-secondary-info">
 			<div class="autofit-col">
 				<div class="commerce-sku">
