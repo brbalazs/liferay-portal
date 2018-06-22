@@ -20,6 +20,7 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.search.CPDefinitionIndexer;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -87,6 +88,21 @@ public class IndexCPCatalogEntryImpl implements CPCatalogEntry {
 	public double getHeight() {
 		return GetterUtil.getDouble(
 			_document.get(CPDefinitionIndexer.FIELD_HEIGHT));
+	}
+
+	@Override
+	public String getMetaDescription(String languageId) {
+		return StringPool.BLANK;
+	}
+
+	@Override
+	public String getMetaKeywords(String languageId) {
+		return StringPool.BLANK;
+	}
+
+	@Override
+	public String getMetaTitle(String languageId) {
+		return StringPool.BLANK;
 	}
 
 	@Override

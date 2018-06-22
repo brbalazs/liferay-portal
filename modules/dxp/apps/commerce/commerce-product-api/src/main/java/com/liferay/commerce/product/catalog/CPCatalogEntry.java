@@ -33,6 +33,12 @@ public interface CPCatalogEntry {
 
 	public double getHeight();
 
+	public String getMetaDescription(String languageId);
+
+	public String getMetaKeywords(String languageId);
+
+	public String getMetaTitle(String languageId);
+
 	public String getName();
 
 	public String getProductTypeName();

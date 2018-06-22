@@ -83,6 +83,21 @@ public class DatabaseCPCatalogEntryImpl implements CPCatalogEntry {
 	}
 
 	@Override
+	public String getMetaDescription(String languageId) {
+		return _cpDefinition.getMetaDescription(languageId);
+	}
+
+	@Override
+	public String getMetaKeywords(String languageId) {
+		return _cpDefinition.getMetaKeywords(languageId);
+	}
+
+	@Override
+	public String getMetaTitle(String languageId) {
+		return _cpDefinition.getMetaTitle(languageId);
+	}
+
+	@Override
 	public String getName() {
 		return _cpDefinition.getName(_languageId);
 	}
