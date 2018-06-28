@@ -1,0 +1,103 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ * <p>
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ * <p>
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
+package com.liferay.commerce.internal.price;
+
+import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.discount.CommerceDiscountValue;
+import com.liferay.commerce.price.CommerceOrderPrice;
+
+import java.math.BigDecimal;
+
+/**
+ * @author Alessio Antonio Rendina
+ */
+public class CommerceOrderPriceImpl implements CommerceOrderPrice {
+
+	@Override
+	public CommerceDiscountValue getDiscountedSubtotal() {
+		return _discountedSubtotal;
+	}
+
+	@Override
+	public CommerceDiscountValue getDiscountedTotal() {
+		return _discountedTotal;
+	}
+
+	@Override
+	public CommerceDiscountValue getShippingDiscountValue() {
+		return _shippingDiscountValue;
+	}
+
+	@Override
+	public CommerceMoney getShippingValue() {
+		return _shippingValue;
+	}
+
+	@Override
+	public CommerceMoney getSubtotal() {
+		return _subtotal;
+	}
+
+	@Override
+	public BigDecimal getTaxValue() {
+		return _taxValue;
+	}
+
+	@Override
+	public CommerceMoney getTotal() {
+		return _total;
+	}
+
+	public void setDiscountedSubtotal(
+		CommerceDiscountValue discountedSubtotal) {
+
+		_discountedSubtotal = discountedSubtotal;
+	}
+
+	public void setDiscountedTotal(CommerceDiscountValue discountedTotal) {
+		_discountedTotal = discountedTotal;
+	}
+
+	public void setShippingDiscountValue(
+		CommerceDiscountValue shippingDiscountValue) {
+
+		_shippingDiscountValue = shippingDiscountValue;
+	}
+
+	public void setShippingValue(CommerceMoney shippingValue) {
+		_shippingValue = shippingValue;
+	}
+
+	public void setSubtotal(CommerceMoney subtotal) {
+		_subtotal = subtotal;
+	}
+
+	public void setTaxValue(BigDecimal taxValue) {
+		_taxValue = taxValue;
+	}
+
+	public void setTotal(CommerceMoney total) {
+		_total = total;
+	}
+
+	private CommerceDiscountValue _discountedSubtotal;
+	private CommerceDiscountValue _discountedTotal;
+	private CommerceDiscountValue _shippingDiscountValue;
+	private CommerceMoney _shippingValue;
+	private CommerceMoney _subtotal;
+	private CommerceMoney _total;
+	private BigDecimal _taxValue;
+
+}

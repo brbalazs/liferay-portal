@@ -18,29 +18,30 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.portal.kernel.exception.PortalException;
+
+import java.math.BigDecimal;
 
 /**
  * @author Marco Leo
+ * @author Alessio Antonio Rendina
  */
 @ProviderType
 public interface CommerceOrderPrice {
 
-	public CommerceMoney getFinalPrice(
-			long cpInstanceId, int quantity, boolean includeDiscounts,
-			boolean includeTaxes, CommerceContext commerceContext)
-		throws PortalException;
+	public CommerceDiscountValue getDiscountedSubtotal();
 
-	public CommerceMoney getUnitMaxPrice(
-			long cpDefinitionId, int quantity, CommerceContext commerceContext)
-		throws PortalException;
+	public CommerceDiscountValue getDiscountedTotal();
 
-	public CommerceMoney getUnitMinPrice(
-			long cpDefinitionId, int quantity, CommerceContext commerceContext)
-		throws PortalException;
+	public CommerceDiscountValue getShippingDiscountValue();
 
-	public CommerceMoney getUnitPrice(
-			long cpInstanceId, int quantity, CommerceContext commerceContext)
-		throws PortalException;
+	public CommerceMoney getShippingValue();
+
+	public CommerceMoney getSubtotal();
+
+	public BigDecimal getTaxValue();
+
+	public CommerceMoney getTotal();
 
 }
