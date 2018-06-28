@@ -17,6 +17,7 @@ package com.liferay.commerce.internal.price;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
+import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.portal.kernel.exception.PortalException;
 
@@ -26,11 +27,21 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Alessio Antonio Rendins
+ * @author Alessio Antonio Rendina
  */
 @Component
 public class CommerceOrderPriceCalculationImpl
 	implements CommerceOrderPriceCalculation {
+
+	@Override
+	public CommerceOrderPrice getCommerceOrderPrice(
+			long commerceOrderId, CommerceContext commerceContext)
+		throws PortalException {
+
+		CommerceOrderPrice commerceOrderPrice = new CommerceOrderPriceImpl();
+
+		return commerceOrderPrice;
+	}
 
 	@Override
 	public CommerceMoney getShippingValue(

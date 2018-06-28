@@ -26,6 +26,10 @@ import com.liferay.portal.kernel.exception.PortalException;
 @ProviderType
 public interface CommerceOrderPriceCalculation {
 
+	public CommerceOrderPrice getCommerceOrderPrice(
+			long commerceOrderId, CommerceContext commerceContext)
+		throws PortalException;
+
 	public CommerceMoney getShippingValue(
 			long commerceOrderId, CommerceContext commerceContext)
 		throws PortalException;
