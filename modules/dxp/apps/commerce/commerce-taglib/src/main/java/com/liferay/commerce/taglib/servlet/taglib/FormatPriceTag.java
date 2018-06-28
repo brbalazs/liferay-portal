@@ -79,7 +79,6 @@ public class FormatPriceTag extends IncludeTag {
 		super.setPageContext(pageContext);
 
 		commercePriceFormatter = ServletContextUtil.getCommercePriceFormatter();
-
 		servletContext = ServletContextUtil.getServletContext();
 	}
 

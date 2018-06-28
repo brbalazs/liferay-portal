@@ -14,7 +14,7 @@
  */
 --%>
 
-<%@ include file="/price/init.jsp" %>
+<%@ include file="/format_price/init.jsp" %>
 
 <%
 String formattedPrice = (String)request.getAttribute("liferay-commerce:format-price:formattedPrice");
