@@ -18,7 +18,9 @@
 
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 
-<%@ page import="com.liferay.commerce.discount.CommerceDiscountValue" %><%@ page import="java.math.BigDecimal" %>
-<%@ page import="com.liferay.portal.kernel.util.ArrayUtil" %>
+<%@ page import="com.liferay.commerce.discount.CommerceDiscountValue" %><%@
+page import="com.liferay.portal.kernel.util.ArrayUtil" %>
+
+<%@ page import="java.math.BigDecimal" %>
 
 <liferay-theme:defineObjects />

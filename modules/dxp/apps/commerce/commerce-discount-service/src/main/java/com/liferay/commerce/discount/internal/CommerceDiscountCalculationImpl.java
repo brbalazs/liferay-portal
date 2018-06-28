@@ -164,6 +164,49 @@ public class CommerceDiscountCalculationImpl
 	}
 
 	private CommerceDiscountValue _getCommerceDiscountValue(
+			BigDecimal amount, CommerceContext commerceContext,
+			SearchContext searchContext)
+		throws PortalException {
+
+		BaseModelSearchResult<CommerceDiscount> baseModelSearchResult =
+			_commerceDiscountLocalService.searchCommerceDiscounts(
+				searchContext);
+
+		List<CommerceDiscountValue> commerceDiscountValues = new ArrayList<>();
+
+		CommerceCurrency commerceCurrency =
+			commerceContext.getCommerceCurrency();
+
+		for (CommerceDiscount commerceDiscount :
+				baseModelSearchResult.getBaseModels()) {
+
+			if (_isValidDiscount(commerceContext, commerceDiscount)) {
+				commerceDiscountValues.add(
+					_getCommerceDiscountValue(
+						commerceDiscount, amount, commerceCurrency));
+			}
+		}
+
+		BigDecimal currentDiscountAmount = BigDecimal.ZERO;
+
+		CommerceDiscountValue selectedDiscount = null;
+
+		for (CommerceDiscountValue commerceDiscountValue :
+				commerceDiscountValues) {
+
+			BigDecimal discountAmount =
+				commerceDiscountValue.getDiscountAmount();
+
+			if (discountAmount.compareTo(currentDiscountAmount) > 0) {
+				currentDiscountAmount = discountAmount;
+				selectedDiscount = commerceDiscountValue;
+			}
+		}
+
+		return selectedDiscount;
+	}
+
+	private CommerceDiscountValue _getCommerceDiscountValue(
 		CommerceDiscount commerceDiscount, BigDecimal amount,
 		CommerceCurrency commerceCurrency) {
 
@@ -218,49 +261,6 @@ public class CommerceDiscountCalculationImpl
 		return new CommerceDiscountValue(
 			commerceDiscount.getCommerceDiscountId(), currentDiscountAmount,
 			discountPercentage, values);
-	}
-
-	private CommerceDiscountValue _getCommerceDiscountValue(
-			BigDecimal amount, CommerceContext commerceContext,
-			SearchContext searchContext)
-		throws PortalException {
-
-		BaseModelSearchResult<CommerceDiscount> baseModelSearchResult =
-			_commerceDiscountLocalService.searchCommerceDiscounts(
-				searchContext);
-
-		List<CommerceDiscountValue> commerceDiscountValues = new ArrayList<>();
-
-		CommerceCurrency commerceCurrency =
-			commerceContext.getCommerceCurrency();
-
-		for (CommerceDiscount commerceDiscount :
-				baseModelSearchResult.getBaseModels()) {
-
-			if (_isValidDiscount(commerceContext, commerceDiscount)) {
-				commerceDiscountValues.add(
-					_getCommerceDiscountValue(
-						commerceDiscount, amount, commerceCurrency));
-			}
-		}
-
-		BigDecimal currentDiscountAmount = BigDecimal.ZERO;
-
-		CommerceDiscountValue selectedDiscount = null;
-
-		for (CommerceDiscountValue commerceDiscountValue :
-				commerceDiscountValues) {
-
-			BigDecimal discountAmount =
-				commerceDiscountValue.getDiscountAmount();
-
-			if (discountAmount.compareTo(currentDiscountAmount) > 0) {
-				currentDiscountAmount = discountAmount;
-				selectedDiscount = commerceDiscountValue;
-			}
-		}
-
-		return selectedDiscount;
 	}
 
 	private BigDecimal _getDiscountAmount(

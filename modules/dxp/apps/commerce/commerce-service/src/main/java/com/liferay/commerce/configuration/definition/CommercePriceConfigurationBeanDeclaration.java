@@ -16,6 +16,7 @@ package com.liferay.commerce.configuration.definition;
 
 import com.liferay.commerce.configuration.CommercePriceConfiguration;
 import com.liferay.portal.kernel.settings.definition.ConfigurationBeanDeclaration;
+
 import org.osgi.service.component.annotations.Component;
 
 /**

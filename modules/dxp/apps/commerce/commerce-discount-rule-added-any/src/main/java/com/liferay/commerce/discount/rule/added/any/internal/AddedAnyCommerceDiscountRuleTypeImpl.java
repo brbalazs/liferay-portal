@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 
 import java.util.List;
 import java.util.Locale;
@@ -33,8 +34,6 @@ import java.util.ResourceBundle;
 import java.util.function.ToLongFunction;
 import java.util.stream.Stream;
 
-import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.UnicodeProperties;
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -64,12 +63,12 @@ public class AddedAnyCommerceDiscountRuleTypeImpl
 		}
 
 		List<CommerceOrderItem> commerceOrderItems =
-				commerceOrder.getCommerceOrderItems();
+			commerceOrder.getCommerceOrderItems();
 
 		Stream<CommerceOrderItem> stream = commerceOrderItems.stream();
 
-		long[] orderItemDefinitionIds =
-			stream.mapToLong(_getOrderItemToLongFunction()).toArray();
+		long[] orderItemDefinitionIds = stream.mapToLong(
+			_getOrderItemToLongFunction()).toArray();
 
 		String settingsProperty = commerceDiscountRule.getSettingsProperty(
 			commerceDiscountRule.getType());
@@ -100,6 +99,7 @@ public class AddedAnyCommerceDiscountRuleTypeImpl
 
 	private ToLongFunction<CommerceOrderItem> _getOrderItemToLongFunction() {
 		return new ToLongFunction<CommerceOrderItem>() {
+
 			@Override
 			public long applyAsLong(CommerceOrderItem commerceOrderItem) {
 				try {
@@ -113,6 +113,7 @@ public class AddedAnyCommerceDiscountRuleTypeImpl
 					return 0;
 				}
 			}
+
 		};
 	}
 

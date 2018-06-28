@@ -97,7 +97,7 @@ public class CommerceOrderPriceImpl implements CommerceOrderPrice {
 	private CommerceDiscountValue _shippingDiscountValue;
 	private CommerceMoney _shippingValue;
 	private CommerceMoney _subtotal;
-	private CommerceMoney _total;
 	private BigDecimal _taxValue;
+	private CommerceMoney _total;
 
 }

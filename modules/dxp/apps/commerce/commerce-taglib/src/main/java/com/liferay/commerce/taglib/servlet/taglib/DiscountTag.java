@@ -41,7 +41,6 @@ import com.liferay.taglib.util.IncludeTag;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import java.math.BigDecimal;
 
 /**
  * @author Alessio Antonio Rendina
@@ -113,6 +112,10 @@ public class DiscountTag extends IncludeTag {
 		return super.doStartTag();
 	}
 
+	public void setCPInstanceId(long cpInstanceId) {
+		_cpInstanceId = cpInstanceId;
+	}
+
 	@Override
 	public void setPageContext(PageContext pageContext) {
 		super.setPageContext(pageContext);
@@ -121,10 +124,6 @@ public class DiscountTag extends IncludeTag {
 			ServletContextUtil.getCommercePriceCalculation();
 		configurationProvider = ServletContextUtil.getConfigurationProvider();
 		servletContext = ServletContextUtil.getServletContext();
-	}
-
-	public void setCPInstanceId(long cpInstanceId) {
-		_cpInstanceId = cpInstanceId;
 	}
 
 	public void setQuantity(int quantity) {

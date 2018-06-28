@@ -59,7 +59,6 @@ String quantityInputId = renderResponse.getNamespace() + cpDefinitionId + "Quant
 				<span class="commerce-price">
 					<liferay-commerce:price CPDefinitionId="<%= cpDefinitionId %>" />
 				</span>
-
 				<span class="commerce-discount">
 					<liferay-commerce:discount CPInstanceId="<%= (cpSku == null) ? 0 : cpSku.getCPInstanceId() %>" />
 				</span>

@@ -17,6 +17,7 @@ package com.liferay.commerce.configuration.definition;
 import com.liferay.commerce.configuration.CommercePriceConfiguration;
 import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.portal.kernel.settings.definition.ConfigurationPidMapping;
+
 import org.osgi.service.component.annotations.Component;
 
 /**

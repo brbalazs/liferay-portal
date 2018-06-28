@@ -16,10 +16,8 @@ package com.liferay.commerce.price;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.discount.CommerceDiscountValue;
-import com.liferay.portal.kernel.exception.PortalException;
 
 import java.math.BigDecimal;
 
