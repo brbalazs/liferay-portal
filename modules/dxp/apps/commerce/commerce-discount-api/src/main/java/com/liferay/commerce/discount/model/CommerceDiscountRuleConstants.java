@@ -25,10 +25,4 @@ public class CommerceDiscountRuleConstants {
 
 	public static final String TYPE_CART_TOTAL = "cart-total";
 
-	public static final String TYPE_PURCHASED_ALL = "purchased-all";
-
-	public static final String TYPE_PURCHASED_ANY = "purchased-any";
-
-	public static final String TYPE_SPENT_AMOUNT = "spent-amount";
-
 }
