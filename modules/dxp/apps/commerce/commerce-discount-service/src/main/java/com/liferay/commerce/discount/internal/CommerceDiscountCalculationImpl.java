@@ -71,7 +71,6 @@ public class CommerceDiscountCalculationImpl
 			commerceContext.getCouponCode(), Type.APPLY_TO_SHIPPING);
 
 		return _getCommerceDiscountValue(
-			commerceOrder.getGroupId(), commerceContext.getUserId(),
 			orderShippingCost, commerceContext, searchContext);
 	}
 
@@ -89,7 +88,6 @@ public class CommerceDiscountCalculationImpl
 			commerceContext.getCouponCode(), Type.APPLY_TO_SUBTOTAL);
 
 		return _getCommerceDiscountValue(
-			commerceOrder.getGroupId(), commerceContext.getUserId(),
 			orderSubtotal, commerceContext, searchContext);
 	}
 
@@ -107,8 +105,7 @@ public class CommerceDiscountCalculationImpl
 			commerceContext.getCouponCode(), Type.APPLY_TO_TOTAL);
 
 		return _getCommerceDiscountValue(
-			commerceOrder.getGroupId(), commerceContext.getUserId(), orderTotal,
-			commerceContext, searchContext);
+			orderTotal, commerceContext, searchContext);
 	}
 
 	@Override
@@ -127,7 +124,6 @@ public class CommerceDiscountCalculationImpl
 			commerceContext.getCouponCode(), Type.APPLY_TO_PRODUCT);
 
 		return _getCommerceDiscountValue(
-			cpInstance.getGroupId(), commerceContext.getUserId(),
 			productUnitPrice, commerceContext, searchContext);
 	}
 
@@ -179,39 +175,39 @@ public class CommerceDiscountCalculationImpl
 			values[2] = commerceDiscount.getLevel3();
 		}
 
-		BigDecimal curentDiscountAmount = BigDecimal.ZERO;
+		BigDecimal currentDiscountAmount = BigDecimal.ZERO;
 
 		BigDecimal discountedAmount = amount;
 
 		if (commerceDiscount.isUsePercentage()) {
-			curentDiscountAmount = _getDiscountAmount(
+			currentDiscountAmount = _getDiscountAmount(
 				discountedAmount, commerceDiscount.getLevel1());
 
-			discountedAmount = discountedAmount.subtract(curentDiscountAmount);
+			discountedAmount = discountedAmount.subtract(currentDiscountAmount);
 
-			curentDiscountAmount = _getDiscountAmount(
+			currentDiscountAmount = _getDiscountAmount(
 				discountedAmount, commerceDiscount.getLevel2());
 
-			discountedAmount = discountedAmount.subtract(curentDiscountAmount);
+			discountedAmount = discountedAmount.subtract(currentDiscountAmount);
 
-			curentDiscountAmount = _getDiscountAmount(
+			currentDiscountAmount = _getDiscountAmount(
 				discountedAmount, commerceDiscount.getLevel3());
 
-			discountedAmount = discountedAmount.subtract(curentDiscountAmount);
+			discountedAmount = discountedAmount.subtract(currentDiscountAmount);
 
-			curentDiscountAmount = amount.subtract(discountedAmount);
+			currentDiscountAmount = amount.subtract(discountedAmount);
 
-			if (curentDiscountAmount.compareTo(
+			if (currentDiscountAmount.compareTo(
 					commerceDiscount.getMaximumDiscountAmount()) > 0) {
 
-				curentDiscountAmount =
+				currentDiscountAmount =
 					commerceDiscount.getMaximumDiscountAmount();
 			}
 		}
 		else {
-			curentDiscountAmount = commerceDiscount.getLevel1();
+			currentDiscountAmount = commerceDiscount.getLevel1();
 
-			discountedAmount = discountedAmount.subtract(curentDiscountAmount);
+			discountedAmount = discountedAmount.subtract(currentDiscountAmount);
 		}
 
 		BigDecimal discountPercentage = discountedAmount.divide(
@@ -220,13 +216,13 @@ public class CommerceDiscountCalculationImpl
 		discountPercentage = discountPercentage.multiply(_ONE_HUNDRED);
 
 		return new CommerceDiscountValue(
-			commerceDiscount.getCommerceDiscountId(), curentDiscountAmount,
+			commerceDiscount.getCommerceDiscountId(), currentDiscountAmount,
 			discountPercentage, values);
 	}
 
 	private CommerceDiscountValue _getCommerceDiscountValue(
-			long groupId, long userId, BigDecimal amount,
-			CommerceContext commerceContext, SearchContext searchContext)
+			BigDecimal amount, CommerceContext commerceContext,
+			SearchContext searchContext)
 		throws PortalException {
 
 		BaseModelSearchResult<CommerceDiscount> baseModelSearchResult =
@@ -241,9 +237,7 @@ public class CommerceDiscountCalculationImpl
 		for (CommerceDiscount commerceDiscount :
 				baseModelSearchResult.getBaseModels()) {
 
-			if (_isValidDiscount(
-					groupId, userId, commerceContext, commerceDiscount)) {
-
+			if (_isValidDiscount(commerceContext, commerceDiscount)) {
 				commerceDiscountValues.add(
 					_getCommerceDiscountValue(
 						commerceDiscount, amount, commerceCurrency));
@@ -282,8 +276,8 @@ public class CommerceDiscountCalculationImpl
 	}
 
 	private boolean _isValidDiscount(
-		long groupId, long userId, CommerceContext commerceContext,
-		CommerceDiscount commerceDiscount) {
+			CommerceContext commerceContext, CommerceDiscount commerceDiscount)
+		throws PortalException {
 
 		List<CommerceDiscountRule> commerceDiscountRules =
 			_commerceDiscountRuleLocalService.getCommerceDiscountRules(
@@ -298,7 +292,7 @@ public class CommerceDiscountCalculationImpl
 					commerceDiscountRule.getType());
 
 			if (!commerceDiscountRuleType.evaluate(
-					groupId, userId, commerceContext)) {
+					commerceDiscountRule, commerceContext)) {
 
 				return false;
 			}
