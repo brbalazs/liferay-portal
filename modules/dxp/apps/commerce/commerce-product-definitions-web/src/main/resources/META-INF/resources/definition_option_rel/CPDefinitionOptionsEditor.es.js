@@ -37,9 +37,9 @@ class CPDefinitionOptionsEditor extends Component {
 
 								var formData = new FormData();
 
-								formData.set(instance.namespace + 'cmd', 'add_multiple');
-								formData.set(instance.namespace + 'cpDefinitionId', instance.cpDefinitionId);
-								formData.set(instance.namespace + 'cpOptionIds', selectedItems);
+								formData.append(instance.namespace + 'cmd', 'add_multiple');
+								formData.append(instance.namespace + 'cpDefinitionId', instance.cpDefinitionId);
+								formData.append(instance.namespace + 'cpOptionIds', selectedItems);
 
 								fetch(
 									instance.editProductDefinitionOptionRelURL,

@@ -97,10 +97,11 @@ class CPDefinitionOptionDetail extends Component {
 
 	_deleteOption() {
 		let form = this.element.querySelector('.option-detail form');
+		form.querySelector('[name=' + this.namespace + 'cmd]').value = 'delete';
 
 		var formData = new FormData(form);
 
-		formData.set(this.namespace + 'cmd', 'delete');
+		// formData.set(this.namespace + 'cmd', 'delete');
 
 		fetch(
 			form.action,

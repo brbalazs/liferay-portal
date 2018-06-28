@@ -412,7 +412,7 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 </div>
 
 <aui:script>
-	const zoomImage = document.getElementById('<portlet:namespace />zoom-image');
+	var zoomImage = document.getElementById('<portlet:namespace />zoom-image');
 	function detectMousePosition(event) {
 		const cursorPos = {
 			x: event.offsetX / event.target.clientWidth,
