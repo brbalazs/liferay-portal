@@ -22,6 +22,7 @@ import com.liferay.commerce.order.CommerceOrderHelper;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.util.CPInstanceHelper;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 
@@ -57,6 +58,10 @@ public class ServletContextUtil {
 
 	public static final CommercePriceFormatter getCommercePriceFormatter() {
 		return _instance._getCommercePriceFormatter();
+	}
+
+	public static final ConfigurationProvider getConfigurationProvider() {
+		return _instance._getConfigurationProvider();
 	}
 
 	public static final CPInstanceHelper getCPInstanceHelper() {
@@ -125,6 +130,13 @@ public class ServletContextUtil {
 	}
 
 	@Reference(unbind = "-")
+	protected void setConfigurationProvider(
+		ConfigurationProvider configurationProvider) {
+
+		_configurationProvider = configurationProvider;
+	}
+
+	@Reference(unbind = "-")
 	protected void setCPInstanceHelper(CPInstanceHelper cpInstanceHelper) {
 		_cpInstanceHelper = cpInstanceHelper;
 	}
@@ -177,6 +189,10 @@ public class ServletContextUtil {
 		return _commercePriceFormatter;
 	}
 
+	private ConfigurationProvider _getConfigurationProvider() {
+		return _configurationProvider;
+	}
+
 	private CPInstanceHelper _getCPInstanceHelper() {
 		return _cpInstanceHelper;
 	}
@@ -204,6 +220,7 @@ public class ServletContextUtil {
 		_commerceOrderModelResourcePermission;
 	private CommercePriceFormatter _commercePriceFormatter;
 	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
+	private ConfigurationProvider _configurationProvider;
 	private CPInstanceHelper _cpInstanceHelper;
 	private PortletResourcePermission _cpPortletResourcePermission;
 	private PanelAppRegistry _panelAppRegistry;
