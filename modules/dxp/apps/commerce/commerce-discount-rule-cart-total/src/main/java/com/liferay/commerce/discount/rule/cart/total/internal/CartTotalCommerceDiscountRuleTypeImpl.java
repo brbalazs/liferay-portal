@@ -15,15 +15,22 @@
 package com.liferay.commerce.discount.rule.cart.total.internal;
 
 import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.discount.model.CommerceDiscountRule;
 import com.liferay.commerce.discount.model.CommerceDiscountRuleConstants;
 import com.liferay.commerce.discount.rule.type.CommerceDiscountRuleType;
+import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.price.CommerceOrderPriceCalculation;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
+import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Alessio Antonio Rendina
@@ -41,7 +48,30 @@ public class CartTotalCommerceDiscountRuleTypeImpl
 
 	@Override
 	public boolean evaluate(
-		long groupId, long userId, CommerceContext commerceContext) {
+			CommerceDiscountRule commerceDiscountRule,
+			CommerceContext commerceContext)
+		throws PortalException {
+
+		CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
+
+		if (commerceOrder == null) {
+			return false;
+		}
+
+		CommerceMoney totalCommerceMoney =
+			_commerceOrderPriceCalculation.getTotal(
+				commerceOrder.getCommerceOrderId(), commerceContext);
+
+		BigDecimal orderPrice = totalCommerceMoney.getPrice();
+
+		String settingsProperty = commerceDiscountRule.getSettingsProperty(
+			commerceDiscountRule.getType());
+
+		BigDecimal cartTotal = new BigDecimal(settingsProperty);
+
+		if (orderPrice.compareTo(cartTotal) > 0) {
+			return true;
+		}
 
 		return false;
 	}
@@ -60,4 +90,6 @@ public class CartTotalCommerceDiscountRuleTypeImpl
 			resourceBundle, CommerceDiscountRuleConstants.TYPE_CART_TOTAL);
 	}
 
+	@Reference
+	private CommerceOrderPriceCalculation _commerceOrderPriceCalculation;
 }

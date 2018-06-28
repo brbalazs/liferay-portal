@@ -15,15 +15,32 @@
 package com.liferay.commerce.discount.rule.added.all.internal;
 
 import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.discount.model.CommerceDiscountRule;
 import com.liferay.commerce.discount.model.CommerceDiscountRuleConstants;
+import com.liferay.commerce.discount.model.CommerceDiscountUserSegmentRel;
 import com.liferay.commerce.discount.rule.type.CommerceDiscountRuleType;
+import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.model.CommerceOrderItem;
+import com.liferay.commerce.price.CommerceOrderPriceCalculation;
+import com.liferay.commerce.price.CommerceProductPriceCalculation;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.function.ToLongFunction;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.UnicodeProperties;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Alessio Antonio Rendina
@@ -41,9 +58,30 @@ public class AddedAllCommerceDiscountRuleTypeImpl
 
 	@Override
 	public boolean evaluate(
-		long groupId, long userId, CommerceContext commerceContext) {
+			CommerceDiscountRule commerceDiscountRule,
+			CommerceContext commerceContext)
+		throws PortalException {
 
-		return false;
+		CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
+
+		if (commerceOrder == null) {
+			return false;
+		}
+
+		List<CommerceOrderItem> commerceOrderItems =
+			commerceOrder.getCommerceOrderItems();
+
+		Stream<CommerceOrderItem> stream = commerceOrderItems.stream();
+
+		long[] orderItemDefinitionIds =
+			stream.mapToLong(_getOrderItemToLongFunction()).toArray();
+
+		String settingsProperty = commerceDiscountRule.getSettingsProperty(
+			commerceDiscountRule.getType());
+
+		long[] cpDefinitionIds = StringUtil.split(settingsProperty, 0L);
+
+		return ArrayUtil.containsAll(orderItemDefinitionIds, cpDefinitionIds);
 	}
 
 	@Override
@@ -58,5 +96,26 @@ public class AddedAllCommerceDiscountRuleTypeImpl
 
 		return LanguageUtil.get(resourceBundle, "has-all-of-these-products");
 	}
+
+	private ToLongFunction<CommerceOrderItem> _getOrderItemToLongFunction() {
+		return new ToLongFunction<CommerceOrderItem>() {
+			@Override
+			public long applyAsLong(CommerceOrderItem commerceOrderItem) {
+				try {
+					return commerceOrderItem.getCPDefinitionId();
+				}
+				catch (PortalException pe) {
+					if (_log.isDebugEnabled()) {
+						_log.debug(pe, pe);
+					}
+
+					return 0;
+				}
+			}
+		};
+	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		AddedAllCommerceDiscountRuleTypeImpl.class);
 
 }

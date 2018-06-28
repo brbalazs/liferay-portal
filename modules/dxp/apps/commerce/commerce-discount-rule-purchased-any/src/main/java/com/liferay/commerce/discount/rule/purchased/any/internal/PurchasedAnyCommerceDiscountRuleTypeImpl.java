@@ -15,8 +15,10 @@
 package com.liferay.commerce.discount.rule.purchased.any.internal;
 
 import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.discount.model.CommerceDiscountRule;
 import com.liferay.commerce.discount.model.CommerceDiscountRuleConstants;
 import com.liferay.commerce.discount.rule.type.CommerceDiscountRuleType;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
@@ -41,7 +43,9 @@ public class PurchasedAnyCommerceDiscountRuleTypeImpl
 
 	@Override
 	public boolean evaluate(
-		long groupId, long userId, CommerceContext commerceContext) {
+			CommerceDiscountRule commerceDiscountRule,
+			CommerceContext commerceContext)
+		throws PortalException {
 
 		return false;
 	}

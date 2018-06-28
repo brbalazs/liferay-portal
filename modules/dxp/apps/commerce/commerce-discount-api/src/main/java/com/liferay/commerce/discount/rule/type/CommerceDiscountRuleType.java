@@ -17,6 +17,8 @@ package com.liferay.commerce.discount.rule.type;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.discount.model.CommerceDiscountRule;
+import com.liferay.portal.kernel.exception.PortalException;
 
 import java.util.Locale;
 
@@ -28,7 +30,9 @@ import java.util.Locale;
 public interface CommerceDiscountRuleType {
 
 	public boolean evaluate(
-		long groupId, long userId, CommerceContext commerceContext);
+			CommerceDiscountRule commerceDiscountRule,
+			CommerceContext commerceContext)
+		throws PortalException;
 
 	public String getKey();
 
