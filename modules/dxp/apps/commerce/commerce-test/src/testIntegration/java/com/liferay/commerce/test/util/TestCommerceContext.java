@@ -36,12 +36,14 @@ public class TestCommerceContext implements CommerceContext {
 
 	public TestCommerceContext(
 		CommerceCurrency commerceCurrency, User contextUser,
-		Organization organization, CommerceOrder commerceOrder) {
+		Organization organization, CommerceOrder commerceOrder,
+		String couponCode) {
 
 		_commerceCurrency = commerceCurrency;
 		_contextUser = contextUser;
 		_organization = organization;
 		_commerceOrder = commerceOrder;
+		_couponCode = couponCode;
 	}
 
 	@Override
@@ -83,7 +85,7 @@ public class TestCommerceContext implements CommerceContext {
 
 	@Override
 	public String getCouponCode() {
-		return null;
+		return _couponCode;
 	}
 
 	@Override
@@ -104,6 +106,7 @@ public class TestCommerceContext implements CommerceContext {
 	private final CommerceCurrency _commerceCurrency;
 	private final CommerceOrder _commerceOrder;
 	private final User _contextUser;
+	private final String _couponCode;
 	private final Organization _organization;
 
 }

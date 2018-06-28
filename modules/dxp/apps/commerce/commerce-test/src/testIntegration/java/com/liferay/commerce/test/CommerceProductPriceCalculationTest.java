@@ -168,7 +168,7 @@ public class CommerceProductPriceCalculationTest {
 				null, serviceContext);
 
 		CommerceContext commerceContext = new TestCommerceContext(
-			commerceCurrency, _buyerUser1, _organization, null);
+			commerceCurrency, _buyerUser1, _organization, null, null);
 
 		CommerceMoney commerceMoney =
 			_commerceProductPriceCalculation.getUnitPrice(
@@ -274,7 +274,7 @@ public class CommerceProductPriceCalculationTest {
 			null, serviceContext);
 
 		CommerceContext commerceContext = new TestCommerceContext(
-			commerceCurrency, _buyerUser1, _organization, null);
+			commerceCurrency, _buyerUser1, _organization, null, null);
 
 		CommerceMoney commerceMoney =
 			_commerceProductPriceCalculation.getUnitPrice(
@@ -351,7 +351,7 @@ public class CommerceProductPriceCalculationTest {
 				null, serviceContext);
 
 		CommerceContext commerceContext = new TestCommerceContext(
-			commerceCurrency, _buyerUser1, _organization, null);
+			commerceCurrency, _buyerUser1, _organization, null, null);
 
 		CommerceMoney commerceMoney =
 			_commerceProductPriceCalculation.getUnitPrice(
@@ -447,7 +447,7 @@ public class CommerceProductPriceCalculationTest {
 		}
 
 		CommerceContext commerceContext = new TestCommerceContext(
-			commerceCurrency, _buyerUser1, _organization, null);
+			commerceCurrency, _buyerUser1, _organization, null, null);
 
 		CommerceMoney commerceMoney =
 			_commerceProductPriceCalculation.getUnitPrice(
@@ -536,7 +536,7 @@ public class CommerceProductPriceCalculationTest {
 			null, quantity, serviceContext);
 
 		CommerceContext commerceContext = new TestCommerceContext(
-			commerceCurrency, _buyerUser1, _organization, null);
+			commerceCurrency, _buyerUser1, _organization, null, null);
 
 		CommerceMoney commerceMoney =
 			_commerceProductPriceCalculation.getUnitPrice(

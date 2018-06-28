@@ -111,7 +111,7 @@ public class CommerceOrderItemLocalServiceTest {
 		Assert.assertNotNull(commerceCurrency);
 
 		CommerceContext commerceContext = new TestCommerceContext(
-			commerceCurrency, null, null, null);
+			commerceCurrency, null, null, null, null);
 
 		CommerceOrderItem commerceOrderItem =
 			_commerceOrderItemLocalService.addCommerceOrderItem(
@@ -177,7 +177,7 @@ public class CommerceOrderItemLocalServiceTest {
 		Assert.assertNotNull(commerceCurrency);
 
 		CommerceContext commerceContext = new TestCommerceContext(
-			commerceCurrency, null, null, null);
+			commerceCurrency, null, null, null, null);
 
 		_commerceOrderItemLocalService.addCommerceOrderItem(
 			commerceOrder.getCommerceOrderId(), cpInstance.getCPInstanceId(), 1,
@@ -226,7 +226,7 @@ public class CommerceOrderItemLocalServiceTest {
 		Assert.assertNotNull(commerceCurrency);
 
 		CommerceContext commerceContext = new TestCommerceContext(
-			commerceCurrency, null, null, null);
+			commerceCurrency, null, null, null, null);
 
 		_commerceOrderItemLocalService.addCommerceOrderItem(
 			commerceOrder.getCommerceOrderId(), cpInstance.getCPInstanceId(), 1,

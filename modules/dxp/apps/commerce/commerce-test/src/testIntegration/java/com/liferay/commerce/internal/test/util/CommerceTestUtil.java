@@ -291,7 +291,7 @@ public class CommerceTestUtil {
 				commerceOrder.getGroupId());
 
 		CommerceContext commerceContext = new TestCommerceContext(
-			commerceCurrency, null, null, commerceOrder);
+			commerceCurrency, null, null, commerceOrder, null);
 
 		return CommerceOrderLocalServiceUtil.checkoutCommerceOrder(
 			commerceOrder.getCommerceOrderId(), commerceContext,
