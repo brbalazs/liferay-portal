@@ -12,28 +12,22 @@
  * details.
  */
 
-package com.liferay.commerce.constants;
+package com.liferay.commerce.configuration;
+
+import aQute.bnd.annotation.metatype.Meta;
+import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
 
 /**
- * @author Andrea Di Giorgi
  * @author Alessio Antonio Rendina
- * @author Marco Leo
  */
-public class CommerceConstants {
+@ExtendedObjectClassDefinition(category = "pricing")
+@Meta.OCD(
+	id = "com.liferay.commerce.configuration.CommercePriceConfiguration",
+	localization = "content/Language", name = "price-configuration-name"
+)
+public interface CommercePriceConfiguration {
 
-	public static final String ORDER_SERVICE_NAME =
-		"com.liferay.commerce.order";
-
-	public static final String PAYMENT_SERVLET_PATH = "commerce-payment";
-
-	public static final String PRICE_SERVICE_NAME =
-		"com.liferay.commerce.price";
-
-	public static final String RESOURCE_NAME = "com.liferay.commerce";
-
-	public static final String SHIPPING_SERVICE_NAME =
-		"com.liferay.commerce.shipping";
-
-	public static final String TAXES_COMMERCE_ADMIN_MODULE_KEY = "taxes";
+	@Meta.AD(deflt = "true", name = "display-discount-levels", required = false)
+	public boolean displayDiscountLevels();
 
 }

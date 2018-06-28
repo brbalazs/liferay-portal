@@ -12,28 +12,28 @@
  * details.
  */
 
-package com.liferay.commerce.constants;
+package com.liferay.commerce.configuration.definition;
+
+import com.liferay.commerce.configuration.CommercePriceConfiguration;
+import com.liferay.commerce.constants.CommerceConstants;
+import com.liferay.portal.kernel.settings.definition.ConfigurationPidMapping;
+import org.osgi.service.component.annotations.Component;
 
 /**
- * @author Andrea Di Giorgi
  * @author Alessio Antonio Rendina
- * @author Marco Leo
  */
-public class CommerceConstants {
+@Component
+public class CommercePriceConfigurationPidMapping
+	implements ConfigurationPidMapping {
 
-	public static final String ORDER_SERVICE_NAME =
-		"com.liferay.commerce.order";
+	@Override
+	public Class<?> getConfigurationBeanClass() {
+		return CommercePriceConfiguration.class;
+	}
 
-	public static final String PAYMENT_SERVLET_PATH = "commerce-payment";
-
-	public static final String PRICE_SERVICE_NAME =
-		"com.liferay.commerce.price";
-
-	public static final String RESOURCE_NAME = "com.liferay.commerce";
-
-	public static final String SHIPPING_SERVICE_NAME =
-		"com.liferay.commerce.shipping";
-
-	public static final String TAXES_COMMERCE_ADMIN_MODULE_KEY = "taxes";
+	@Override
+	public String getConfigurationPid() {
+		return CommerceConstants.PRICE_SERVICE_NAME;
+	}
 
 }
