@@ -184,7 +184,6 @@ public class PriceTag extends IncludeTag {
 		if (_cpInstance == null) {
 			_formattedPrice = getFormattedPrice(
 				_quantity, commerceContext, locale);
-			_showPromoPrice = false;
 		}
 		else {
 			CommerceMoney priceCommerceMoney =
@@ -200,7 +199,7 @@ public class PriceTag extends IncludeTag {
 
 			BigDecimal promoPrice = promoPriceCommerceMoney.getPrice();
 
-			if ((promoPrice.compareTo(BigDecimal.ZERO) <= 0) ||
+			if ((promoPrice.compareTo(BigDecimal.ZERO) > 0) &&
 				(promoPrice.compareTo(priceCommerceMoney.getPrice()) < 0)) {
 
 				_formattedPromoPrice = promoPriceCommerceMoney.format(locale);
@@ -214,7 +213,7 @@ public class PriceTag extends IncludeTag {
 		CPDefinition cpDefinition = CPDefinitionServiceUtil.getCPDefinition(
 			_cpDefinitionId);
 
-		if (_quantity == 0) {
+		if (_quantity <= 0) {
 			CPDefinitionInventory cpDefinitionInventory =
 				CPDefinitionInventoryServiceUtil.
 					fetchCPDefinitionInventoryByCPDefinitionId(_cpDefinitionId);

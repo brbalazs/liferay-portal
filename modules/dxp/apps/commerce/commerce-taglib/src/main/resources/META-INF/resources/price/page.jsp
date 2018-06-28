@@ -40,7 +40,7 @@ boolean showPromoPrice = (boolean)request.getAttribute("liferay-commerce:price:s
 	</c:when>
 	<c:otherwise>
 		<c:choose>
-			<c:when test="<%= showPromoPrice %>">
+			<c:when test="<%= showPromoPrice && Validator.isNotNull(formattedPromoPrice) %>">
 				<span class="product-price"><del><%= formattedPrice %></del></span>
 
 				<span class="product-promo-price"><%= formattedPromoPrice %></span>
