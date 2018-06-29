@@ -61,7 +61,7 @@ public class CartTotalCommerceDiscountRuleTypeImpl
 
 		CommerceMoney totalCommerceMoney =
 			_commerceOrderPriceCalculation.getTotal(
-				commerceOrder.getCommerceOrderId(), commerceContext);
+				commerceOrder, commerceContext);
 
 		BigDecimal orderPrice = totalCommerceMoney.getPrice();
 

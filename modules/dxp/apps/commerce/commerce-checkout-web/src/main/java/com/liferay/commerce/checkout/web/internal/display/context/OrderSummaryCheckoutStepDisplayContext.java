@@ -113,10 +113,8 @@ public class OrderSummaryCheckoutStepDisplayContext {
 	}
 
 	public String getCommerceOrderSubtotal() throws PortalException {
-		CommerceOrder commerceOrder = getCommerceOrder();
-
 		CommerceMoney subtotal = _commerceOrderPriceCalculation.getSubtotal(
-			commerceOrder.getCommerceOrderId(), _commerceContext);
+			getCommerceOrder(), _commerceContext);
 
 		return subtotal.format(PortalUtil.getLocale(_httpServletRequest));
 	}

@@ -18,6 +18,8 @@ import com.liferay.commerce.checkout.web.constants.CommerceCheckoutWebKeys;
 import com.liferay.commerce.checkout.web.internal.display.context.BaseAddressCheckoutStepDisplayContext;
 import com.liferay.commerce.checkout.web.util.BaseCommerceCheckoutStep;
 import com.liferay.commerce.constants.CommerceOrderActionKeys;
+import com.liferay.commerce.constants.CommerceWebKeys;
+import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.exception.CommerceAddressCityException;
 import com.liferay.commerce.exception.CommerceAddressCountryException;
 import com.liferay.commerce.exception.CommerceAddressNameException;
@@ -133,6 +135,9 @@ public abstract class BaseAddressCommerceCheckoutStep
 	protected void updateCommerceOrderAddress(ActionRequest actionRequest)
 		throws Exception {
 
+		CommerceContext commerceContext =
+			(CommerceContext)actionRequest.getAttribute(
+				CommerceWebKeys.COMMERCE_CONTEXT);
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
@@ -158,11 +163,13 @@ public abstract class BaseAddressCommerceCheckoutStep
 			themeDisplay.getPermissionChecker(), commerceOrder,
 			CommerceOrderActionKeys.CHECKOUT_COMMERCE_ORDER);
 
-		updateCommerceOrderAddress(commerceOrder, commerceAddressId);
+		updateCommerceOrderAddress(
+			commerceOrder, commerceAddressId, commerceContext);
 	}
 
 	protected abstract void updateCommerceOrderAddress(
-			CommerceOrder commerceOrder, long commerceAddressId)
+			CommerceOrder commerceOrder, long commerceAddressId,
+			CommerceContext commerceContext)
 		throws Exception;
 
 	@Reference

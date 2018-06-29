@@ -266,6 +266,10 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 	protected void updateCommerceOrder(ActionRequest actionRequest)
 		throws Exception {
 
+		CommerceContext commerceContext =
+			(CommerceContext)actionRequest.getAttribute(
+				CommerceWebKeys.COMMERCE_CONTEXT);
+
 		long commerceOrderId = ParamUtil.getLong(
 			actionRequest, "commerceOrderId");
 
@@ -296,7 +300,8 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 				commerceOrder.getCommerceShippingMethodId(),
 				commerceOrder.getShippingOptionName(), purchaseOrderNumber,
 				commerceOrder.getSubtotal(), commerceOrder.getShippingPrice(),
-				commerceOrder.getTotal(), commerceOrder.getAdvanceStatus());
+				commerceOrder.getTotal(), commerceOrder.getAdvanceStatus(),
+				commerceContext);
 		}
 		else {
 			_commerceOrderService.addOrganizationCommerceOrder(

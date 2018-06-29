@@ -14,9 +14,12 @@
 
 package com.liferay.commerce.order.content.web.internal.display.context;
 
-import com.liferay.commerce.currency.util.CommercePriceFormatter;
+import com.liferay.commerce.constants.CommerceWebKeys;
+import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.content.web.internal.portlet.configuration.CommerceOrderContentPortletInstanceConfiguration;
+import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -40,12 +43,12 @@ public class CommerceOrderContentDisplayContext
 	public CommerceOrderContentDisplayContext(
 			HttpServletRequest httpServletRequest,
 			CommerceOrderLocalService commerceOrderLocalService,
-			CommercePriceFormatter commercePriceFormatter)
+			CommerceOrderPriceCalculation commerceOrderPriceCalculation)
 		throws ConfigurationException {
 
 		super(httpServletRequest, commerceOrderLocalService);
 
-		_commercePriceFormatter = commercePriceFormatter;
+		_commerceOrderPriceCalculation = commerceOrderPriceCalculation;
 
 		PortletDisplay portletDisplay = cpRequestHelper.getPortletDisplay();
 
@@ -69,12 +72,17 @@ public class CommerceOrderContentDisplayContext
 	public String getCommerceOrderTotal(long commerceOrderId)
 		throws PortalException {
 
+		CommerceContext commerceContext =
+			(CommerceContext)httpServletRequest.getAttribute(
+				CommerceWebKeys.COMMERCE_CONTEXT);
+
 		CommerceOrder commerceOrder =
 			commerceOrderLocalService.fetchCommerceOrder(commerceOrderId);
 
-		return _commercePriceFormatter.format(
-			commerceOrder.getCommerceCurrency(), commerceOrder.getTotal(),
-			cpRequestHelper.getLocale());
+		CommerceMoney total = _commerceOrderPriceCalculation.getTotal(
+			commerceOrder, commerceContext);
+
+		return total.format(cpRequestHelper.getLocale());
 	}
 
 	public String getDisplayStyle() {
@@ -131,7 +139,7 @@ public class CommerceOrderContentDisplayContext
 
 	private final CommerceOrderContentPortletInstanceConfiguration
 		_commerceOrderContentPortletInstanceConfiguration;
-	private final CommercePriceFormatter _commercePriceFormatter;
+	private final CommerceOrderPriceCalculation _commerceOrderPriceCalculation;
 	private long _displayStyleGroupId;
 	private SearchContainer<CommerceOrder> _searchContainer;
 

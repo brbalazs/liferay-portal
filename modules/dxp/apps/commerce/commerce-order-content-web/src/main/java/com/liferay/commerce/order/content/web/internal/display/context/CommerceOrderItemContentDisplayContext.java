@@ -14,8 +14,7 @@
 
 package com.liferay.commerce.order.content.web.internal.display.context;
 
-import com.liferay.commerce.currency.util.CommercePriceFormatter;
-import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.commerce.service.CommerceOrderItemLocalService;
@@ -41,14 +40,12 @@ public class CommerceOrderItemContentDisplayContext
 			HttpServletRequest httpServletRequest,
 			CommerceOrderLocalService commerceOrderLocalService,
 			CommerceOrderItemLocalService commerceOrderItemLocalService,
-			CommercePriceFormatter commercePriceFormatter,
 			CPDefinitionHelper cpDefinitionHelper)
 		throws ConfigurationException {
 
 		super(httpServletRequest, commerceOrderLocalService);
 
 		_commerceOrderItemLocalService = commerceOrderItemLocalService;
-		_commercePriceFormatter = commercePriceFormatter;
 		_cpDefinitionHelper = cpDefinitionHelper;
 	}
 
@@ -63,14 +60,12 @@ public class CommerceOrderItemContentDisplayContext
 		throws PortalException {
 
 		CommerceOrderItem commerceOrderItem =
-			_commerceOrderItemLocalService.fetchCommerceOrderItem(
+			_commerceOrderItemLocalService.getCommerceOrderItem(
 				commerceOrderItemId);
 
-		CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
+		CommerceMoney priceMoney = commerceOrderItem.getPriceMoney();
 
-		return _commercePriceFormatter.format(
-			commerceOrder.getCommerceCurrency(), commerceOrderItem.getPrice(),
-			cpRequestHelper.getLocale());
+		return priceMoney.format(cpRequestHelper.getLocale());
 	}
 
 	@Override
@@ -113,7 +108,6 @@ public class CommerceOrderItemContentDisplayContext
 	}
 
 	private final CommerceOrderItemLocalService _commerceOrderItemLocalService;
-	private final CommercePriceFormatter _commercePriceFormatter;
 	private final CPDefinitionHelper _cpDefinitionHelper;
 	private SearchContainer<CommerceOrderItem> _searchContainer;
 

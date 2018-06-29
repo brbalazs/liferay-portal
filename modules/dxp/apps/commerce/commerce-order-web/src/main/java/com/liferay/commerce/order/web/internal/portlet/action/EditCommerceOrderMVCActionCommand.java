@@ -15,6 +15,8 @@
 package com.liferay.commerce.order.web.internal.portlet.action;
 
 import com.liferay.commerce.constants.CommercePortletKeys;
+import com.liferay.commerce.constants.CommerceWebKeys;
+import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.service.CommerceOrderService;
@@ -198,6 +200,10 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	protected void updatePayment(ActionRequest actionRequest) throws Exception {
+		CommerceContext commerceContext =
+			(CommerceContext)actionRequest.getAttribute(
+				CommerceWebKeys.COMMERCE_CONTEXT);
+
 		long commerceOrderId = ParamUtil.getLong(
 			actionRequest, "commerceOrderId");
 
@@ -230,7 +236,8 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 						commerceOrder.getShippingOptionName(),
 						purchaseOrderNumber, commerceOrder.getSubtotal(),
 						commerceOrder.getShippingPrice(),
-						commerceOrder.getTotal(), advanceStatus);
+						commerceOrder.getTotal(), advanceStatus,
+						commerceContext);
 
 					_commerceOrderService.updatePaymentStatus(
 						commerceOrder.getCommerceOrderId(), paymentStatus,
@@ -274,6 +281,10 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 		long commerceOrderId = ParamUtil.getLong(
 			actionRequest, "commerceOrderId");
 
+		CommerceContext commerceContext =
+			(CommerceContext)actionRequest.getAttribute(
+				CommerceWebKeys.COMMERCE_CONTEXT);
+
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
 			commerceOrderId);
 
@@ -291,7 +302,7 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 			commerceOrder.getShippingOptionName(),
 			commerceOrder.getPurchaseOrderNumber(), new BigDecimal(subtotal),
 			new BigDecimal(shippingPrice), new BigDecimal(total),
-			commerceOrder.getAdvanceStatus());
+			commerceOrder.getAdvanceStatus(), commerceContext);
 	}
 
 	private static final TransactionConfig _transactionConfig;

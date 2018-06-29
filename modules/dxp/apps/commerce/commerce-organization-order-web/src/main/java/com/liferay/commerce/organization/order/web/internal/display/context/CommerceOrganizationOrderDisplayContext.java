@@ -376,15 +376,11 @@ public class CommerceOrganizationOrderDisplayContext {
 	public String getCommerceOrderValue(CommerceOrder commerceOrder)
 		throws PortalException {
 
-		CommerceMoney commerceMoney = commerceOrder.getTotalMoney();
+		CommerceMoney subtotal = _commerceOrderPriceCalculation.getSubtotal(
+			commerceOrder,
+			_commerceOrganizationOrderRequestHelper.getCommerceContext());
 
-		if (commerceOrder.isOpen()) {
-			commerceMoney = _commerceOrderPriceCalculation.getSubtotal(
-				commerceOrder.getCommerceOrderId(),
-				_commerceOrganizationOrderRequestHelper.getCommerceContext());
-		}
-
-		return commerceMoney.format(
+		return subtotal.format(
 			_commerceOrganizationOrderRequestHelper.getLocale());
 	}
 

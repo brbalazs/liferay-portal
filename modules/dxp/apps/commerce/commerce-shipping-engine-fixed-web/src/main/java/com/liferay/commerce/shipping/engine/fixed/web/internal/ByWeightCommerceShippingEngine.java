@@ -132,7 +132,7 @@ public class ByWeightCommerceShippingEngine implements CommerceShippingEngine {
 
 		CommerceMoney commerceMoney =
 			_commerceOrderPriceCalculation.getSubtotal(
-				commerceOrder.getCommerceOrderId(), commerceContext);
+				commerceOrder, commerceContext);
 
 		BigDecimal orderPrice = commerceMoney.getPrice();
 

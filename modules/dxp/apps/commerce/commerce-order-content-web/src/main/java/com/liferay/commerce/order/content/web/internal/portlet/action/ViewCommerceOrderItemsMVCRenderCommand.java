@@ -15,7 +15,6 @@
 package com.liferay.commerce.order.content.web.internal.portlet.action;
 
 import com.liferay.commerce.constants.CommercePortletKeys;
-import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.order.content.web.internal.display.context.CommerceOrderItemContentDisplayContext;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.commerce.service.CommerceOrderItemLocalService;
@@ -62,8 +61,7 @@ public class ViewCommerceOrderItemsMVCRenderCommand
 				commerceOrderItemContentDisplayContext =
 					new CommerceOrderItemContentDisplayContext(
 						httpServletRequest, _commerceOrderLocalService,
-						_commerceOrderItemLocalService, _commercePriceFormatter,
-						_cpDefinitionHelper);
+						_commerceOrderItemLocalService, _cpDefinitionHelper);
 
 			renderRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -81,9 +79,6 @@ public class ViewCommerceOrderItemsMVCRenderCommand
 
 	@Reference
 	private CommerceOrderLocalService _commerceOrderLocalService;
-
-	@Reference
-	private CommercePriceFormatter _commercePriceFormatter;
 
 	@Reference
 	private CPDefinitionHelper _cpDefinitionHelper;

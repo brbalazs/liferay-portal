@@ -17,7 +17,6 @@ package com.liferay.commerce.cart.content.web.internal.display.context;
 import com.liferay.commerce.cart.content.web.internal.display.context.util.CommerceCartContentRequestHelper;
 import com.liferay.commerce.cart.content.web.internal.portlet.configuration.CommerceCartContentPortletInstanceConfiguration;
 import com.liferay.commerce.context.CommerceContext;
-import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
@@ -138,27 +137,10 @@ public class CommerceCartContentDisplayContext {
 	}
 
 	public String getCommerceOrderSubtotal() throws PortalException {
-		CommerceOrder commerceOrder = getCommerceOrder();
+		CommerceMoney subtotal = _commerceOrderPriceCalculation.getSubtotal(
+			getCommerceOrder(), commerceContext);
 
-		if (commerceOrder == null) {
-			CommerceContext commerceContext =
-				commerceCartContentRequestHelper.getCommerceContext();
-
-			CommerceCurrency commerceCurrency =
-				commerceContext.getCommerceCurrency();
-
-			CommerceMoney commerceMoney = commerceCurrency.getZero();
-
-			return commerceMoney.format(
-				commerceCartContentRequestHelper.getLocale());
-		}
-
-		CommerceMoney commerceMoney =
-			_commerceOrderPriceCalculation.getSubtotal(
-				getCommerceOrderId(), commerceContext);
-
-		return commerceMoney.format(
-			commerceCartContentRequestHelper.getLocale());
+		return subtotal.format(commerceCartContentRequestHelper.getLocale());
 	}
 
 	public Map<Long, List<CommerceOrderValidatorResult>>

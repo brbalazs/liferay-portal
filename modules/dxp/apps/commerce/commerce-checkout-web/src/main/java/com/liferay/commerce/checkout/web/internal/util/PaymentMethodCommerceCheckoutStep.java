@@ -19,6 +19,8 @@ import com.liferay.commerce.checkout.web.internal.display.context.PaymentMethodC
 import com.liferay.commerce.checkout.web.util.BaseCommerceCheckoutStep;
 import com.liferay.commerce.checkout.web.util.CommerceCheckoutStep;
 import com.liferay.commerce.constants.CommerceOrderActionKeys;
+import com.liferay.commerce.constants.CommerceWebKeys;
+import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.exception.CommerceOrderPaymentMethodException;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.web.security.permission.resource.CommerceOrderPermission;
@@ -131,6 +133,9 @@ public class PaymentMethodCommerceCheckoutStep
 			throw new CommerceOrderPaymentMethodException();
 		}
 
+		CommerceContext commerceContext =
+			(CommerceContext)actionRequest.getAttribute(
+				CommerceWebKeys.COMMERCE_CONTEXT);
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
@@ -158,7 +163,7 @@ public class PaymentMethodCommerceCheckoutStep
 			commerceOrder.getShippingOptionName(),
 			commerceOrder.getPurchaseOrderNumber(), commerceOrder.getSubtotal(),
 			commerceOrder.getShippingPrice(), commerceOrder.getTotal(),
-			commerceOrder.getAdvanceStatus());
+			commerceOrder.getAdvanceStatus(), commerceContext);
 	}
 
 	@Reference

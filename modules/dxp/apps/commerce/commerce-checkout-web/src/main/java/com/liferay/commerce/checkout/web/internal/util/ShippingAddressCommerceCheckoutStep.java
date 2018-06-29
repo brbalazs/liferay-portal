@@ -17,6 +17,7 @@ package com.liferay.commerce.checkout.web.internal.util;
 import com.liferay.commerce.checkout.web.internal.display.context.BaseAddressCheckoutStepDisplayContext;
 import com.liferay.commerce.checkout.web.internal.display.context.ShippingAddressCheckoutStepDisplayContext;
 import com.liferay.commerce.checkout.web.util.CommerceCheckoutStep;
+import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.portal.kernel.exception.PortalException;
 
@@ -64,7 +65,8 @@ public class ShippingAddressCommerceCheckoutStep
 
 	@Override
 	protected void updateCommerceOrderAddress(
-			CommerceOrder commerceOrder, long commerceAddressId)
+			CommerceOrder commerceOrder, long commerceAddressId,
+			CommerceContext commerceContext)
 		throws Exception {
 
 		commerceOrderLocalService.updateCommerceOrder(
@@ -75,7 +77,7 @@ public class ShippingAddressCommerceCheckoutStep
 			commerceOrder.getShippingOptionName(),
 			commerceOrder.getPurchaseOrderNumber(), commerceOrder.getSubtotal(),
 			commerceOrder.getShippingPrice(), commerceOrder.getTotal(),
-			commerceOrder.getAdvanceStatus());
+			commerceOrder.getAdvanceStatus(), commerceContext);
 	}
 
 }

@@ -15,8 +15,8 @@
 package com.liferay.commerce.order.content.web.internal.portlet.action;
 
 import com.liferay.commerce.constants.CommercePortletKeys;
-import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.order.content.web.internal.display.context.CommerceOrderContentDisplayContext;
+import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -61,7 +61,7 @@ public class CommerceOrderContentConfigurationAction
 				commerceOrderContentDisplayContext =
 					new CommerceOrderContentDisplayContext(
 						httpServletRequest, _commerceOrderLocalService,
-						_commercePriceFormatter);
+						_commerceOrderPriceCalculation);
 
 			httpServletRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -90,7 +90,7 @@ public class CommerceOrderContentConfigurationAction
 	private CommerceOrderLocalService _commerceOrderLocalService;
 
 	@Reference
-	private CommercePriceFormatter _commercePriceFormatter;
+	private CommerceOrderPriceCalculation _commerceOrderPriceCalculation;
 
 	@Reference
 	private Portal _portal;

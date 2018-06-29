@@ -185,15 +185,10 @@ public class CommerceOrderListDisplayContext {
 	public String getCommerceOrderValue(CommerceOrder commerceOrder)
 		throws PortalException {
 
-		CommerceMoney commerceMoney = commerceOrder.getTotalMoney();
+		CommerceMoney subtotal = _commerceOrderPriceCalculation.getSubtotal(
+			commerceOrder, _commerceOrderRequestHelper.getCommerceContext());
 
-		if (commerceOrder.isOpen()) {
-			commerceMoney = _commerceOrderPriceCalculation.getSubtotal(
-				commerceOrder.getCommerceOrderId(),
-				_commerceOrderRequestHelper.getCommerceContext());
-		}
-
-		return commerceMoney.format(_commerceOrderRequestHelper.getLocale());
+		return subtotal.format(_commerceOrderRequestHelper.getLocale());
 	}
 
 	public List<NavigationItem> getNavigationItems() throws PortalException {
