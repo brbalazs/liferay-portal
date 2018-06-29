@@ -413,7 +413,8 @@ public interface CommerceOrderLocalService extends BaseLocalService,
 		long commercePaymentMethodId, long commerceShippingMethodId,
 		String shippingOptionName, String purchaseOrderNumber,
 		BigDecimal subtotal, BigDecimal shippingPrice, BigDecimal total,
-		String advanceStatus) throws PortalException;
+		String advanceStatus, CommerceContext commerceContext)
+		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
 	public CommerceOrder updateOrderStatus(long commerceOrderId, int orderStatus)

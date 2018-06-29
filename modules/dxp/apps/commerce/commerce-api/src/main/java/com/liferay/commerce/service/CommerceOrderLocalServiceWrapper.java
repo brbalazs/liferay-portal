@@ -568,12 +568,13 @@ public class CommerceOrderLocalServiceWrapper
 		long commercePaymentMethodId, long commerceShippingMethodId,
 		String shippingOptionName, String purchaseOrderNumber,
 		java.math.BigDecimal subtotal, java.math.BigDecimal shippingPrice,
-		java.math.BigDecimal total, String advanceStatus)
+		java.math.BigDecimal total, String advanceStatus,
+		com.liferay.commerce.context.CommerceContext commerceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceOrderLocalService.updateCommerceOrder(commerceOrderId,
 			billingAddressId, shippingAddressId, commercePaymentMethodId,
 			commerceShippingMethodId, shippingOptionName, purchaseOrderNumber,
-			subtotal, shippingPrice, total, advanceStatus);
+			subtotal, shippingPrice, total, advanceStatus, commerceContext);
 	}
 
 	@Override

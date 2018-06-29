@@ -886,7 +886,8 @@ public class CommerceOrderServiceHttp {
 		long commercePaymentMethodId, long commerceShippingMethodId,
 		String shippingOptionName, String purchaseOrderNumber,
 		java.math.BigDecimal subtotal, java.math.BigDecimal shippingPrice,
-		java.math.BigDecimal total, String advanceStatus)
+		java.math.BigDecimal total, String advanceStatus,
+		com.liferay.commerce.context.CommerceContext commerceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceOrderServiceUtil.class,
@@ -896,7 +897,7 @@ public class CommerceOrderServiceHttp {
 					commerceOrderId, billingAddressId, shippingAddressId,
 					commercePaymentMethodId, commerceShippingMethodId,
 					shippingOptionName, purchaseOrderNumber, subtotal,
-					shippingPrice, total, advanceStatus);
+					shippingPrice, total, advanceStatus, commerceContext);
 
 			Object returnObj = null;
 
@@ -1175,7 +1176,8 @@ public class CommerceOrderServiceHttp {
 	private static final Class<?>[] _updateCommerceOrderParameterTypes25 = new Class[] {
 			long.class, long.class, long.class, long.class, long.class,
 			String.class, String.class, java.math.BigDecimal.class,
-			java.math.BigDecimal.class, java.math.BigDecimal.class, String.class
+			java.math.BigDecimal.class, java.math.BigDecimal.class, String.class,
+			com.liferay.commerce.context.CommerceContext.class
 		};
 	private static final Class<?>[] _updateOrderStatusParameterTypes26 = new Class[] {
 			long.class, int.class
