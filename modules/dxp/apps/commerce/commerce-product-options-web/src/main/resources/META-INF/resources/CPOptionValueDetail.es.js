@@ -112,11 +112,10 @@ class CPOptionValueDetail extends Component {
 
 	_deleteOptionValue() {
 		let form = this.element.querySelector('.option-value-detail form');
+
 		form.querySelector('[name=' + this.namespace + 'cmd]').value = 'delete';
 
 		var formData = new FormData(form);
-
-		// formData.set(this.namespace + "cmd", "delete");
 
 		fetch(
 			form.action,
@@ -136,11 +135,10 @@ class CPOptionValueDetail extends Component {
 
 	_saveOptionValue() {
 		let form = this.element.querySelector('.option-value-detail form');
+
 		form.querySelector('[name=' + this.namespace + 'cpOptionId]').value = this.cpOptionId;
 
 		var formData = new FormData(form);
-
-		// formData.set(this.namespace + 'cpOptionId', this.cpOptionId);
 
 		fetch(
 			form.action,
