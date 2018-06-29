@@ -1,6 +1,6 @@
-// EasyZoom core styles
+// liferayzoom core styles
 
-.easyzoom {
+.liferayzoom {
 	position: relative;
 
 	// 'Shrink-wrap' the element
@@ -10,23 +10,23 @@
 	*zoom: 1;
 }
 
-.easyzoom img {
+.liferayzoom img {
 	vertical-align: bottom;
 }
 
-.easyzoom.is-loading img {
+.liferayzoom.is-loading img {
 	cursor: progress;
 }
 
-.easyzoom.is-ready img {
+.liferayzoom.is-ready img {
 	cursor: crosshair;
 }
 
-.easyzoom.is-error img {
+.liferayzoom.is-error img {
 	cursor: not-allowed;
 }
 
-.easyzoom-notice {
+.liferayzoom-notice {
 	background: #FFF;
 	box-shadow: 0 0 10px #888;
 	left: 50%;
@@ -39,13 +39,13 @@
 	z-index: 150;
 }
 
-.easyzoom-flyout {
+.liferayzoom-flyout {
 	position:absolute;
 	background: #FFF;
 	overflow: hidden;
 	z-index: 100;
 
-	.easyzoom.product-detail-image:not(:hover) & {
+	.liferayzoom.product-detail-image:not(:hover) & {
 		display: none;
 	}
 
@@ -56,16 +56,16 @@
 	}
 }
 
-// EasyZoom layout variations
+// liferayzoom layout variations
 
-.easyzoom--overlay .easyzoom-flyout {
+.liferayzoom--overlay .liferayzoom-flyout {
 	height: 100%;
 	left: 0;
 	top: 0;
 	width: 100%;
 }
 
-.easyzoom--adjacent .easyzoom-flyout {
+.liferayzoom--adjacent .liferayzoom-flyout {
 	height: 100%;
 	left: 0;
 	margin-left: 20px;
@@ -83,8 +83,8 @@
 		width: 100%;
 	}
 
-	.easyzoom--adjacent {
-		.easyzoom-flyout {
+	.liferayzoom--adjacent {
+		.liferayzoom-flyout {
 			margin-left: 0;
 
 			@include media-breakpoint-up(lg) {

@@ -102,12 +102,12 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 				<c:if test="<%= Validator.isNotNull(cpCatalogEntry.getDefaultImageFileUrl()) %>">
 					<div class="product-detail-image-column">
 						<div class="full-image product-detail-image-container">
-							<div class="easyzoom easyzoom--adjacent product-detail-image">
+							<div class="liferayzoom liferayzoom--adjacent product-detail-image">
 								<a href="<%= cpCatalogEntry.getDefaultImageFileUrl() %>" tabindex="-1">
 									<img class="img-fluid" id="<portlet:namespace />full-image" src="<%= cpCatalogEntry.getDefaultImageFileUrl() %>">
 								</a>
 
-								<div class="easyzoom-flyout">
+								<div class="liferayzoom-flyout">
 									<img id="<portlet:namespace />zoom-image" src="<%= cpCatalogEntry.getDefaultImageFileUrl() %>" style="position: absolute">
 								</div>
 							</div>
