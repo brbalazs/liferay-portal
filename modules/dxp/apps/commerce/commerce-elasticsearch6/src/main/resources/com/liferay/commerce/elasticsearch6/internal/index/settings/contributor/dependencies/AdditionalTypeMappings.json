@@ -52,6 +52,10 @@
 			"store": true,
 			"type": "integer"
 		},
+		"couponCode": {
+			"store": true,
+			"type": "keyword"
+		},
 		"optionsNames": {
 			"store": true,
 			"type": "keyword"
