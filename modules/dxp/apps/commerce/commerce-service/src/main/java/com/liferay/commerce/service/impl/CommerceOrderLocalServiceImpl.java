@@ -23,6 +23,7 @@ import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
+import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.exception.CommerceOrderBillingAddressException;
 import com.liferay.commerce.exception.CommerceOrderPaymentMethodException;
 import com.liferay.commerce.exception.CommerceOrderPurchaseOrderNumberException;
@@ -40,6 +41,7 @@ import com.liferay.commerce.model.CommercePaymentEngineResult;
 import com.liferay.commerce.model.CommercePaymentMethod;
 import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.organization.service.CommerceOrganizationLocalService;
+import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.product.util.DDMFormValuesHelper;
 import com.liferay.commerce.service.base.CommerceOrderLocalServiceBaseImpl;
@@ -315,18 +317,34 @@ public class CommerceOrderLocalServiceImpl
 
 		serviceContext.setScopeGroupId(commerceOrder.getGroupId());
 
-		CommerceMoney subtotalCommerceMoney =
-			_commerceOrderPriceCalculation.getSubtotal(
-				commerceOrder.getCommerceOrderId(), commerceContext);
+		CommerceOrderPrice commerceOrderPrice =
+			_commerceOrderPriceCalculation.getCommerceOrderPrice(
+				commerceOrder, commerceContext);
 
-		BigDecimal subtotal = subtotalCommerceMoney.getPrice();
+		CommerceMoney subtotal = commerceOrderPrice.getSubtotal();
+		CommerceDiscountValue subtotalDiscountValue =
+			commerceOrderPrice.getSubtotalDiscountValue();
 
-		BigDecimal shippingPrice = commerceOrder.getShippingPrice();
+		BigDecimal subtotalPrice = subtotal.getPrice();
 
-		BigDecimal total = subtotal.add(shippingPrice);
+		if (subtotalDiscountValue != null) {
+			subtotalPrice = subtotalPrice.subtract(
+				subtotalDiscountValue.getDiscountAmount());
+		}
 
-		commerceOrder.setSubtotal(subtotal);
-		commerceOrder.setTotal(total);
+		CommerceMoney total = commerceOrderPrice.getTotal();
+		CommerceDiscountValue totalDiscountValue =
+			commerceOrderPrice.getTotalDiscountValue();
+
+		BigDecimal totalPrice = total.getPrice();
+
+		if (totalDiscountValue != null) {
+			totalPrice = totalPrice.subtract(
+				totalDiscountValue.getDiscountAmount());
+		}
+
+		commerceOrder.setSubtotal(subtotalPrice);
+		commerceOrder.setTotal(totalPrice);
 		commerceOrder.setOrderStatus(
 			CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS);
 
@@ -696,6 +714,7 @@ public class CommerceOrderLocalServiceImpl
 		return newCommerceOrder;
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommerceOrder resetCommerceOrderShipping(long commerceOrderId)
 		throws PortalException {
@@ -703,14 +722,11 @@ public class CommerceOrderLocalServiceImpl
 		CommerceOrder commerceOrder =
 			commerceOrderLocalService.getCommerceOrder(commerceOrderId);
 
-		return commerceOrderLocalService.updateCommerceOrder(
-			commerceOrder.getCommerceOrderId(),
-			commerceOrder.getBillingAddressId(),
-			commerceOrder.getShippingAddressId(),
-			commerceOrder.getCommercePaymentMethodId(), 0, null,
-			commerceOrder.getPurchaseOrderNumber(), commerceOrder.getSubtotal(),
-			BigDecimal.ZERO, commerceOrder.getTotal(),
-			commerceOrder.getAdvanceStatus());
+		commerceOrder.setCommerceShippingMethodId(0);
+		commerceOrder.setShippingOptionName(null);
+		commerceOrder.setShippingPrice(BigDecimal.ZERO);
+
+		return commerceOrderPersistence.update(commerceOrder);
 	}
 
 	@Override
@@ -876,7 +892,7 @@ public class CommerceOrderLocalServiceImpl
 			long commercePaymentMethodId, long commerceShippingMethodId,
 			String shippingOptionName, String purchaseOrderNumber,
 			BigDecimal subtotal, BigDecimal shippingPrice, BigDecimal total,
-			String advanceStatus)
+			String advanceStatus, CommerceContext commerceContext)
 		throws PortalException {
 
 		CommerceOrder commerceOrder = commerceOrderPersistence.findByPrimaryKey(
@@ -889,6 +905,21 @@ public class CommerceOrderLocalServiceImpl
 		commerceOrder.setShippingOptionName(shippingOptionName);
 		commerceOrder.setPurchaseOrderNumber(purchaseOrderNumber);
 		commerceOrder.setSubtotal(subtotal);
+
+		if (commerceContext != null) {
+			CommerceOrderPrice commerceOrderPrice =
+				_commerceOrderPriceCalculation.getCommerceOrderPrice(
+					commerceOrder, commerceContext);
+
+			CommerceDiscountValue shippingDiscountValue =
+				commerceOrderPrice.getShippingDiscountValue();
+
+			if (shippingDiscountValue != null) {
+				shippingPrice = shippingPrice.subtract(
+					shippingDiscountValue.getDiscountAmount());
+			}
+		}
+
 		commerceOrder.setShippingPrice(shippingPrice);
 		commerceOrder.setTotal(total);
 		commerceOrder.setAdvanceStatus(advanceStatus);

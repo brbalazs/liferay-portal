@@ -384,7 +384,7 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 			long commercePaymentMethodId, long commerceShippingMethodId,
 			String shippingOptionName, String purchaseOrderNumber,
 			BigDecimal subtotal, BigDecimal shippingPrice, BigDecimal total,
-			String advanceStatus)
+			String advanceStatus, CommerceContext commerceContext)
 		throws PortalException {
 
 		_commerceOrderModelResourcePermission.check(
@@ -394,7 +394,7 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 			commerceOrderId, billingAddressId, shippingAddressId,
 			commercePaymentMethodId, commerceShippingMethodId,
 			shippingOptionName, purchaseOrderNumber, subtotal, shippingPrice,
-			total, advanceStatus);
+			total, advanceStatus, commerceContext);
 	}
 
 	@Override
