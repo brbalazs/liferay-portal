@@ -27,8 +27,6 @@ import com.liferay.portal.kernel.util.WebKeys;
 
 import java.math.BigDecimal;
 
-import java.text.DecimalFormat;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -93,12 +91,7 @@ public class CartTotalCommerceDiscountRuleDisplayContext {
 			return typeSettings;
 		}
 
-		DecimalFormat decimalFormat = new DecimalFormat(
-			commerceCurrency.getFormatPattern());
-
-		decimalFormat.setParseBigDecimal(true);
-
-		BigDecimal value = (BigDecimal)decimalFormat.parse(typeSettings);
+		BigDecimal value = new BigDecimal(typeSettings);
 
 		value = commerceCurrency.round(value);
 
