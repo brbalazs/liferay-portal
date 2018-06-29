@@ -26,16 +26,6 @@ import java.math.BigDecimal;
 public class CommerceOrderPriceImpl implements CommerceOrderPrice {
 
 	@Override
-	public CommerceDiscountValue getDiscountedSubtotal() {
-		return _discountedSubtotal;
-	}
-
-	@Override
-	public CommerceDiscountValue getDiscountedTotal() {
-		return _discountedTotal;
-	}
-
-	@Override
 	public CommerceDiscountValue getShippingDiscountValue() {
 		return _shippingDiscountValue;
 	}
@@ -51,6 +41,11 @@ public class CommerceOrderPriceImpl implements CommerceOrderPrice {
 	}
 
 	@Override
+	public CommerceDiscountValue getSubtotalDiscountValue() {
+		return _subtotalDiscountValue;
+	}
+
+	@Override
 	public BigDecimal getTaxValue() {
 		return _taxValue;
 	}
@@ -60,14 +55,9 @@ public class CommerceOrderPriceImpl implements CommerceOrderPrice {
 		return _total;
 	}
 
-	public void setDiscountedSubtotal(
-		CommerceDiscountValue discountedSubtotal) {
-
-		_discountedSubtotal = discountedSubtotal;
-	}
-
-	public void setDiscountedTotal(CommerceDiscountValue discountedTotal) {
-		_discountedTotal = discountedTotal;
+	@Override
+	public CommerceDiscountValue getTotalDiscountValue() {
+		return _totalDiscountValue;
 	}
 
 	public void setShippingDiscountValue(
@@ -84,6 +74,12 @@ public class CommerceOrderPriceImpl implements CommerceOrderPrice {
 		_subtotal = subtotal;
 	}
 
+	public void setSubtotalDiscountValue(
+		CommerceDiscountValue subtotalDiscountValue) {
+
+		_subtotalDiscountValue = subtotalDiscountValue;
+	}
+
 	public void setTaxValue(BigDecimal taxValue) {
 		_taxValue = taxValue;
 	}
@@ -92,12 +88,18 @@ public class CommerceOrderPriceImpl implements CommerceOrderPrice {
 		_total = total;
 	}
 
-	private CommerceDiscountValue _discountedSubtotal;
-	private CommerceDiscountValue _discountedTotal;
+	public void setTotalDiscountValue(
+		CommerceDiscountValue totalDiscountValue) {
+
+		_totalDiscountValue = totalDiscountValue;
+	}
+
 	private CommerceDiscountValue _shippingDiscountValue;
 	private CommerceMoney _shippingValue;
 	private CommerceMoney _subtotal;
+	private CommerceDiscountValue _subtotalDiscountValue;
 	private BigDecimal _taxValue;
 	private CommerceMoney _total;
+	private CommerceDiscountValue _totalDiscountValue;
 
 }

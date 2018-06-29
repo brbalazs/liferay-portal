@@ -28,18 +28,18 @@ import java.math.BigDecimal;
 @ProviderType
 public interface CommerceOrderPrice {
 
-	public CommerceDiscountValue getDiscountedSubtotal();
-
-	public CommerceDiscountValue getDiscountedTotal();
-
 	public CommerceDiscountValue getShippingDiscountValue();
 
 	public CommerceMoney getShippingValue();
 
 	public CommerceMoney getSubtotal();
 
+	public CommerceDiscountValue getSubtotalDiscountValue();
+
 	public BigDecimal getTaxValue();
 
 	public CommerceMoney getTotal();
+
+	public CommerceDiscountValue getTotalDiscountValue();
 
 }
