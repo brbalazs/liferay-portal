@@ -222,7 +222,7 @@ public class CommerceOrganizationOrderDisplayContext {
 	public String getCommerceOrderItemPrice(CommerceOrderItem commerceOrderItem)
 		throws PortalException {
 
-		CommerceMoney commerceMoney = commerceOrderItem.getPriceMoney();
+		CommerceMoney commerceMoney = commerceOrderItem.getUnitPriceMoney();
 
 		return commerceMoney.format(
 			_commerceOrganizationOrderRequestHelper.getLocale());

@@ -81,15 +81,15 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 					name="quantity"
 				/>
 
+				<%
+				CommerceMoney finalPriceMoney = commerceOrderItem.getFinalPriceMoney();
+				%>
+
 				<liferay-ui:search-container-column-text
 					cssClass="table-cell-content"
 					name="price"
-				>
-					<liferay-commerce:format-price
-						price="<%= commerceOrderItem.getPrice() %>"
-						quantity="<%= commerceOrderItem.getQuantity() %>"
-					/>
-				</liferay-ui:search-container-column-text>
+					value="<%= finalPriceMoney.format(locale) %>"
+				/>
 			</liferay-ui:search-container-row>
 
 			<liferay-ui:search-iterator

@@ -138,13 +138,14 @@ Map<Long, List<CommerceOrderValidatorResult>> commerceOrderValidatorResultMap = 
 							</div>
 						</liferay-ui:search-container-column-text>
 
+						<%
+						CommerceMoney finalPriceMoney = commerceOrderItem.getFinalPriceMoney();
+						%>
+
 						<liferay-ui:search-container-column-text>
 							<div class="value-section">
 								<span class="commerce-value">
-									<liferay-commerce:format-price
-										price="<%= commerceOrderItem.getPrice() %>"
-										quantity="<%= commerceOrderItem.getQuantity() %>"
-									/>
+									<%= finalPriceMoney.format(locale) %>
 								</span>
 							</div>
 						</liferay-ui:search-container-column-text>

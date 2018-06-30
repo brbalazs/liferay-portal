@@ -296,14 +296,14 @@ List<CommerceOrderValidatorResult> commerceOrderValidatorResults = new ArrayList
 			</c:otherwise>
 		</c:choose>
 
+		<%
+		CommerceMoney finalPriceMoney = commerceOrderItem.getFinalPriceMoney();
+		%>
+
 		<liferay-ui:search-container-column-text
 			name="price"
-		>
-			<liferay-commerce:format-price
-				price="<%= commerceOrderItem.getPrice() %>"
-				quantity="<%= commerceOrderItem.getQuantity() %>"
-			/>
-		</liferay-ui:search-container-column-text>
+			value="<%= finalPriceMoney.format(locale) %>"
+		/>
 
 		<liferay-ui:search-container-column-text>
 
