@@ -146,10 +146,12 @@ public class CommerceTestUtil {
 			ServiceContextTestUtil.getServiceContext(
 				commerceOrder.getGroupId());
 
+		CommerceContext commerceContext = new TestCommerceContext(
+			commerceOrder.getCommerceCurrency(), null, null, null, null);
+
 		return CommerceOrderItemLocalServiceUtil.addCommerceOrderItem(
 			commerceOrderId, cpInstanceId, quantity, RandomTestUtil.randomInt(),
-			null, new BigDecimal(RandomTestUtil.nextDouble()), null,
-			serviceContext);
+			null, commerceContext, serviceContext);
 	}
 
 	public static CommercePaymentMethod addCommercePaymentMethod(long groupId)

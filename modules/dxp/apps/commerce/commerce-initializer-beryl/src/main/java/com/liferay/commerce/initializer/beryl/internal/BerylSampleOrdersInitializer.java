@@ -166,11 +166,10 @@ public class BerylSampleOrdersInitializer extends BaseBerylSampleInitializer {
 		}
 
 		int quantity = jsonObject.getInt("quantity");
-		BigDecimal price = getBigDecimal(jsonObject, "price");
 
 		_commerceOrderItemLocalService.addCommerceOrderItem(
 			commerceOrder.getCommerceOrderId(), cpInstanceId, quantity,
-			quantity, null, price, null, serviceContext);
+			quantity, null, null, serviceContext);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

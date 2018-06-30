@@ -150,7 +150,25 @@ public class CommerceOrderItemPersistenceTest {
 
 		newCommerceOrderItem.setSku(RandomTestUtil.randomString());
 
-		newCommerceOrderItem.setPrice(new BigDecimal(
+		newCommerceOrderItem.setUnitPrice(new BigDecimal(
+				RandomTestUtil.nextDouble()));
+
+		newCommerceOrderItem.setDiscountAmount(new BigDecimal(
+				RandomTestUtil.nextDouble()));
+
+		newCommerceOrderItem.setFinalPrice(new BigDecimal(
+				RandomTestUtil.nextDouble()));
+
+		newCommerceOrderItem.setDiscountPersentageLeve1(new BigDecimal(
+				RandomTestUtil.nextDouble()));
+
+		newCommerceOrderItem.setDiscountPersentageLeve2(new BigDecimal(
+				RandomTestUtil.nextDouble()));
+
+		newCommerceOrderItem.setDiscountPersentageLeve3(new BigDecimal(
+				RandomTestUtil.nextDouble()));
+
+		newCommerceOrderItem.setDiscountPersentageLeve4(new BigDecimal(
 				RandomTestUtil.nextDouble()));
 
 		_commerceOrderItems.add(_persistence.update(newCommerceOrderItem));
@@ -187,8 +205,20 @@ public class CommerceOrderItemPersistenceTest {
 			newCommerceOrderItem.getName());
 		Assert.assertEquals(existingCommerceOrderItem.getSku(),
 			newCommerceOrderItem.getSku());
-		Assert.assertEquals(existingCommerceOrderItem.getPrice(),
-			newCommerceOrderItem.getPrice());
+		Assert.assertEquals(existingCommerceOrderItem.getUnitPrice(),
+			newCommerceOrderItem.getUnitPrice());
+		Assert.assertEquals(existingCommerceOrderItem.getDiscountAmount(),
+			newCommerceOrderItem.getDiscountAmount());
+		Assert.assertEquals(existingCommerceOrderItem.getFinalPrice(),
+			newCommerceOrderItem.getFinalPrice());
+		Assert.assertEquals(existingCommerceOrderItem.getDiscountPersentageLeve1(),
+			newCommerceOrderItem.getDiscountPersentageLeve1());
+		Assert.assertEquals(existingCommerceOrderItem.getDiscountPersentageLeve2(),
+			newCommerceOrderItem.getDiscountPersentageLeve2());
+		Assert.assertEquals(existingCommerceOrderItem.getDiscountPersentageLeve3(),
+			newCommerceOrderItem.getDiscountPersentageLeve3());
+		Assert.assertEquals(existingCommerceOrderItem.getDiscountPersentageLeve4(),
+			newCommerceOrderItem.getDiscountPersentageLeve4());
 	}
 
 	@Test
@@ -241,7 +271,10 @@ public class CommerceOrderItemPersistenceTest {
 			"userId", true, "userName", true, "createDate", true,
 			"modifiedDate", true, "commerceOrderId", true, "CPInstanceId",
 			true, "quantity", true, "shippedQuantity", true, "name", true,
-			"sku", true, "price", true);
+			"sku", true, "unitPrice", true, "discountAmount", true,
+			"finalPrice", true, "discountPersentageLeve1", true,
+			"discountPersentageLeve2", true, "discountPersentageLeve3", true,
+			"discountPersentageLeve4", true);
 	}
 
 	@Test
@@ -470,7 +503,26 @@ public class CommerceOrderItemPersistenceTest {
 
 		commerceOrderItem.setSku(RandomTestUtil.randomString());
 
-		commerceOrderItem.setPrice(new BigDecimal(RandomTestUtil.nextDouble()));
+		commerceOrderItem.setUnitPrice(new BigDecimal(
+				RandomTestUtil.nextDouble()));
+
+		commerceOrderItem.setDiscountAmount(new BigDecimal(
+				RandomTestUtil.nextDouble()));
+
+		commerceOrderItem.setFinalPrice(new BigDecimal(
+				RandomTestUtil.nextDouble()));
+
+		commerceOrderItem.setDiscountPersentageLeve1(new BigDecimal(
+				RandomTestUtil.nextDouble()));
+
+		commerceOrderItem.setDiscountPersentageLeve2(new BigDecimal(
+				RandomTestUtil.nextDouble()));
+
+		commerceOrderItem.setDiscountPersentageLeve3(new BigDecimal(
+				RandomTestUtil.nextDouble()));
+
+		commerceOrderItem.setDiscountPersentageLeve4(new BigDecimal(
+				RandomTestUtil.nextDouble()));
 
 		_commerceOrderItems.add(_persistence.update(commerceOrderItem));
 

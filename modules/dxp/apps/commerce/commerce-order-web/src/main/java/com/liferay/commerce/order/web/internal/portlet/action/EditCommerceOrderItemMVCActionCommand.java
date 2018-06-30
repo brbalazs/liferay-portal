@@ -31,8 +31,6 @@ import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 
-import java.math.BigDecimal;
-
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 
@@ -76,7 +74,7 @@ public class EditCommerceOrderItemMVCActionCommand
 
 			_commerceOrderItemService.addCommerceOrderItem(
 				commerceOrderId, cpInstanceId, 1, 0, cpInstance.getDDMContent(),
-				cpInstance.getPrice(), commerceContext, serviceContext);
+				commerceContext, serviceContext);
 		}
 	}
 
@@ -128,23 +126,25 @@ public class EditCommerceOrderItemMVCActionCommand
 		long commerceOrderItemId = ParamUtil.getLong(
 			actionRequest, "commerceOrderItemId");
 
+		CommerceContext commerceContext =
+			(CommerceContext)actionRequest.getAttribute(
+				CommerceWebKeys.COMMERCE_CONTEXT);
+
 		CommerceOrderItem commerceOrderItem =
 			_commerceOrderItemService.getCommerceOrderItem(commerceOrderItemId);
 
 		CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
 
 		int quantity = ParamUtil.getInteger(actionRequest, "quantity");
-		BigDecimal price = (BigDecimal)ParamUtil.getNumber(
-			actionRequest, "price", BigDecimal.ZERO);
 
 		if (commerceOrder.isOpen()) {
 			_commerceOrderItemService.updateCommerceOrderItem(
-				commerceOrderItemId, quantity);
+				commerceOrderItemId, quantity, commerceContext);
 		}
 		else {
 			_commerceOrderItemService.updateCommerceOrderItem(
 				commerceOrderItemId, quantity, commerceOrderItem.getJson(),
-				price);
+				commerceContext);
 		}
 	}
 

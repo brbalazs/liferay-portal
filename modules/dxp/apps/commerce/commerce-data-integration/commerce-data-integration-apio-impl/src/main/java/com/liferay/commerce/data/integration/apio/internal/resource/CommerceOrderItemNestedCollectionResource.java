@@ -90,7 +90,23 @@ public class CommerceOrderItemNestedCollectionResource
 		).addNumber(
 			"shippedQuantity", CommerceOrderItem::getShippedQuantity
 		).addNumber(
-			"price", CommerceOrderItem::getPrice
+			"unitPrice", CommerceOrderItem::getUnitPrice
+		).addNumber(
+			"finalPrice", CommerceOrderItem::getFinalPrice
+		).addNumber(
+			"discountAmount", CommerceOrderItem::getDiscountAmount
+		).addNumber(
+			"discountPersentageLeve1",
+			CommerceOrderItem::getDiscountPersentageLeve1
+		).addNumber(
+			"discountPersentageLeve2",
+			CommerceOrderItem::getDiscountPersentageLeve2
+		).addNumber(
+			"discountPersentageLeve3",
+			CommerceOrderItem::getDiscountPersentageLeve3
+		).addNumber(
+			"discountPersentageLeve4",
+			CommerceOrderItem::getDiscountPersentageLeve4
 		).addDate(
 			"dateCreated", CommerceOrderItem::getCreateDate
 		).addDate(

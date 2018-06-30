@@ -424,7 +424,7 @@ public class CommerceCloudClientImpl implements CommerceCloudClient {
 
 			JSONObject orderItemJSONObject = _jsonFactory.createJSONObject();
 
-			BigDecimal price = commerceOrderItem.getPrice();
+			BigDecimal price = commerceOrderItem.getFinalPrice();
 			int quantity = commerceOrderItem.getQuantity();
 
 			BigDecimal unitPrice = price.divide(BigDecimal.valueOf(quantity));

@@ -43,8 +43,6 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
-import java.math.BigDecimal;
-
 import java.util.List;
 
 import org.frutilla.FrutillaRule;
@@ -116,8 +114,8 @@ public class CommerceOrderItemLocalServiceTest {
 		CommerceOrderItem commerceOrderItem =
 			_commerceOrderItemLocalService.addCommerceOrderItem(
 				commerceOrder.getCommerceOrderId(),
-				cpInstance.getCPInstanceId(), 1, 0, null, new BigDecimal(3),
-				commerceContext, serviceContext);
+				cpInstance.getCPInstanceId(), 1, 0, null, commerceContext,
+				serviceContext);
 
 		List<CommerceOrderItem> commerceOrderItems =
 			commerceOrder.getCommerceOrderItems();
@@ -181,7 +179,7 @@ public class CommerceOrderItemLocalServiceTest {
 
 		_commerceOrderItemLocalService.addCommerceOrderItem(
 			commerceOrder.getCommerceOrderId(), cpInstance.getCPInstanceId(), 1,
-			0, null, new BigDecimal(3), commerceContext, serviceContext);
+			0, null, commerceContext, serviceContext);
 	}
 
 	@Test(expected = CommerceOrderValidatorException.class)
@@ -230,7 +228,7 @@ public class CommerceOrderItemLocalServiceTest {
 
 		_commerceOrderItemLocalService.addCommerceOrderItem(
 			commerceOrder.getCommerceOrderId(), cpInstance.getCPInstanceId(), 1,
-			0, null, new BigDecimal(3), commerceContext, serviceContext);
+			0, null, commerceContext, serviceContext);
 	}
 
 	@Rule

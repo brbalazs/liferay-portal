@@ -15,6 +15,8 @@
 package com.liferay.commerce.organization.order.web.internal.portlet.action;
 
 import com.liferay.commerce.constants.CommercePortletKeys;
+import com.liferay.commerce.constants.CommerceWebKeys;
+import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.exception.CommerceOrderValidatorException;
 import com.liferay.commerce.exception.NoSuchOrderException;
 import com.liferay.commerce.exception.NoSuchOrderItemException;
@@ -75,6 +77,10 @@ public class EditCommerceOrderItemMVCActionCommand
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
+		CommerceContext commerceContext =
+			(CommerceContext)actionRequest.getAttribute(
+				CommerceWebKeys.COMMERCE_CONTEXT);
+
 		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
 		long commerceOrderItemId = ParamUtil.getLong(
@@ -94,7 +100,7 @@ public class EditCommerceOrderItemMVCActionCommand
 
 				_commerceOrderItemService.updateCommerceOrderItem(
 					commerceOrderItem.getCommerceOrderItemId(), quantity,
-					commerceOrderItem.getJson(), commerceOrderItem.getPrice());
+					commerceOrderItem.getJson(), commerceContext);
 			}
 			else if (cmd.equals(Constants.RESET)) {
 				deleteCommerceOrderItems(actionRequest);
