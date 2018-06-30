@@ -130,27 +130,6 @@ public class CPOptionValueServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.product.model.CPOptionValueSoap updateCPOptionValue(
-		long cpOptionValueId, String[] titleMapLanguageIds,
-		String[] titleMapValues, double priority, String key,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws RemoteException {
-		try {
-			Map<Locale, String> titleMap = LocalizationUtil.getLocalizationMap(titleMapLanguageIds,
-					titleMapValues);
-
-			com.liferay.commerce.product.model.CPOptionValue returnValue = CPOptionValueServiceUtil.updateCPOptionValue(cpOptionValueId,
-					titleMap, priority, key, serviceContext);
-
-			return com.liferay.commerce.product.model.CPOptionValueSoap.toSoapModel(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
 	public static com.liferay.commerce.product.model.CPOptionValueSoap[] getCPOptionValues(
 		long cpOptionId, int start, int end) throws RemoteException {
 		try {
@@ -173,6 +152,27 @@ public class CPOptionValueServiceSoap {
 			int returnValue = CPOptionValueServiceUtil.getCPOptionValuesCount(cpOptionId);
 
 			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.product.model.CPOptionValueSoap updateCPOptionValue(
+		long cpOptionValueId, String[] titleMapLanguageIds,
+		String[] titleMapValues, double priority, String key,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			Map<Locale, String> titleMap = LocalizationUtil.getLocalizationMap(titleMapLanguageIds,
+					titleMapValues);
+
+			com.liferay.commerce.product.model.CPOptionValue returnValue = CPOptionValueServiceUtil.updateCPOptionValue(cpOptionValueId,
+					titleMap, priority, key, serviceContext);
+
+			return com.liferay.commerce.product.model.CPOptionValueSoap.toSoapModel(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);

@@ -182,47 +182,12 @@ public class CPOptionValueServiceHttp {
 		}
 	}
 
-	public static com.liferay.commerce.product.model.CPOptionValue updateCPOptionValue(
-		HttpPrincipal httpPrincipal, long cpOptionValueId,
-		java.util.Map<java.util.Locale, String> titleMap, double priority,
-		String key,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(CPOptionValueServiceUtil.class,
-					"updateCPOptionValue", _updateCPOptionValueParameterTypes4);
-
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					cpOptionValueId, titleMap, priority, key, serviceContext);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
-			}
-
-			return (com.liferay.commerce.product.model.CPOptionValue)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
 	public static java.util.List<com.liferay.commerce.product.model.CPOptionValue> getCPOptionValues(
 		HttpPrincipal httpPrincipal, long cpOptionId, int start, int end)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CPOptionValueServiceUtil.class,
-					"getCPOptionValues", _getCPOptionValuesParameterTypes5);
+					"getCPOptionValues", _getCPOptionValuesParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					cpOptionId, start, end);
@@ -255,7 +220,7 @@ public class CPOptionValueServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(CPOptionValueServiceUtil.class,
 					"getCPOptionValuesCount",
-					_getCPOptionValuesCountParameterTypes6);
+					_getCPOptionValuesCountParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					cpOptionId);
@@ -282,6 +247,41 @@ public class CPOptionValueServiceHttp {
 		}
 	}
 
+	public static com.liferay.commerce.product.model.CPOptionValue updateCPOptionValue(
+		HttpPrincipal httpPrincipal, long cpOptionValueId,
+		java.util.Map<java.util.Locale, String> titleMap, double priority,
+		String key,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		try {
+			MethodKey methodKey = new MethodKey(CPOptionValueServiceUtil.class,
+					"updateCPOptionValue", _updateCPOptionValueParameterTypes6);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey,
+					cpOptionValueId, titleMap, priority, key, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (com.liferay.commerce.product.model.CPOptionValue)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(CPOptionValueServiceHttp.class);
 	private static final Class<?>[] _addCPOptionValueParameterTypes0 = new Class[] {
 			long.class, java.util.Map.class, double.class, String.class,
@@ -296,14 +296,14 @@ public class CPOptionValueServiceHttp {
 	private static final Class<?>[] _getCPOptionValueParameterTypes3 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _updateCPOptionValueParameterTypes4 = new Class[] {
-			long.class, java.util.Map.class, double.class, String.class,
-			com.liferay.portal.kernel.service.ServiceContext.class
-		};
-	private static final Class<?>[] _getCPOptionValuesParameterTypes5 = new Class[] {
+	private static final Class<?>[] _getCPOptionValuesParameterTypes4 = new Class[] {
 			long.class, int.class, int.class
 		};
-	private static final Class<?>[] _getCPOptionValuesCountParameterTypes6 = new Class[] {
+	private static final Class<?>[] _getCPOptionValuesCountParameterTypes5 = new Class[] {
 			long.class
+		};
+	private static final Class<?>[] _updateCPOptionValueParameterTypes6 = new Class[] {
+			long.class, java.util.Map.class, double.class, String.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 }
