@@ -240,8 +240,11 @@ public class CommerceDiscountCalculationImpl
 
 			currentDiscountAmount = amount.subtract(discountedAmount);
 
-			if (currentDiscountAmount.compareTo(
-					commerceDiscount.getMaximumDiscountAmount()) > 0) {
+			BigDecimal maximumDiscountAmount =
+				commerceDiscount.getMaximumDiscountAmount();
+
+			if ((maximumDiscountAmount.compareTo(BigDecimal.ZERO) > 0) &&
+				(currentDiscountAmount.compareTo(maximumDiscountAmount) > 0)) {
 
 				currentDiscountAmount =
 					commerceDiscount.getMaximumDiscountAmount();
