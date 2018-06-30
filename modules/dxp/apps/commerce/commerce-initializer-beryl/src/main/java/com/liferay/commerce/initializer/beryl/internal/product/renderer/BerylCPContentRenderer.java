@@ -39,6 +39,7 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"commerce.product.content.renderer.key=" + BerylCPContentRenderer.KEY,
+		"commerce.product.content.renderer.order=1000",
 		"commerce.product.content.renderer.type=grouped",
 		"commerce.product.content.renderer.type=simple",
 		"commerce.product.content.renderer.type=virtual"

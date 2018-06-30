@@ -40,6 +40,7 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"commerce.product.content.renderer.key=" + GroupedCPContentRenderer.KEY,
+		"commerce.product.content.renderer.order=" + Integer.MIN_VALUE,
 		"commerce.product.content.renderer.type=" + GroupedCPTypeConstants.NAME
 	},
 	service = CPContentRenderer.class

@@ -16,6 +16,7 @@ package com.liferay.commerce.product.content.web.internal.render.list.entry;
 
 import com.liferay.commerce.product.content.render.list.entry.CPContentListEntryRenderer;
 import com.liferay.commerce.product.content.render.list.entry.CPContentListEntryRendererRegistry;
+import com.liferay.commerce.product.content.web.internal.render.util.comparator.CPContentListEntryRendererServiceWrapperOrderComparator;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerCustomizerFactory;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerCustomizerFactory.ServiceWrapper;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
@@ -29,6 +30,7 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -121,6 +123,10 @@ public class CPContentListEntryRendererRegistryImpl
 			cpContentListEntryRendererServiceWrappers = ListUtil.fromCollection(
 				_cpContentListEntryRendererServiceTrackerMap.values());
 
+		Collections.sort(
+			cpContentListEntryRendererServiceWrappers,
+			_cpContentListEntryRendererServiceWrapperOrderComparator);
+
 		for (ServiceWrapper<CPContentListEntryRenderer>
 				cpContentListEntryRendererServiceWrapper :
 					cpContentListEntryRendererServiceWrappers) {
@@ -202,5 +208,8 @@ public class CPContentListEntryRendererRegistryImpl
 	private ServiceTrackerMap
 		<String, ServiceWrapper<CPContentListEntryRenderer>>
 			_cpContentListEntryRendererServiceTrackerMap;
+	private final Comparator<ServiceWrapper<CPContentListEntryRenderer>>
+		_cpContentListEntryRendererServiceWrapperOrderComparator =
+			new CPContentListEntryRendererServiceWrapperOrderComparator();
 
 }

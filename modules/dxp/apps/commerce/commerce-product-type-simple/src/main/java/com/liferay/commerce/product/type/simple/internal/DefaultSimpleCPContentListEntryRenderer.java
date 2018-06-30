@@ -37,6 +37,7 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"commerce.product.content.list.entry.renderer.key=" + DefaultSimpleCPContentListEntryRenderer.KEY,
+		"commerce.product.content.list.entry.renderer.order=" + Integer.MIN_VALUE,
 		"commerce.product.content.list.entry.renderer.portlet.name=" + CPPortletKeys.CP_PUBLISHER_WEB,
 		"commerce.product.content.list.entry.renderer.portlet.name=" + CPPortletKeys.CP_SEARCH_RESULTS
 	},
