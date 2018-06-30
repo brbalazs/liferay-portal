@@ -1032,6 +1032,7 @@
 		<exception>CPInstanceDDMContent</exception>
 		<exception>CPInstanceDisplayDate</exception>
 		<exception>CPInstanceExpirationDate</exception>
+		<exception>CPInstanceSku</exception>
 		<exception>CPMeasurementUnitKey</exception>
 		<exception>CPOptionCategoryKey</exception>
 		<exception>CPOptionKey</exception>
