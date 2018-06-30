@@ -29,25 +29,27 @@ CommerceOrderItem commerceOrderItem = (CommerceOrderItem)row.getObject();
 	message="<%= StringPool.BLANK %>"
 	showWhenSingleIcon="<%= true %>"
 >
-	<liferay-portlet:renderURL var="editURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
-		<portlet:param name="mvcRenderCommandName" value="editCommerceOrderItem" />
-		<portlet:param name="redirect" value="<%= currentURL %>" />
-		<portlet:param name="commerceOrderId" value="<%= String.valueOf(commerceOrderItem.getCommerceOrderId()) %>" />
-		<portlet:param name="commerceOrderItemId" value="<%= String.valueOf(commerceOrderItem.getCommerceOrderItemId()) %>" />
-	</liferay-portlet:renderURL>
+	<c:if test="<%= CommerceOrderPermission.contains(permissionChecker, commerceOrderItem.getCommerceOrderId(), ActionKeys.UPDATE) %>">
+		<liferay-portlet:renderURL var="editURL">
+			<portlet:param name="mvcRenderCommandName" value="editCommerceOrderItem" />
+			<portlet:param name="redirect" value="<%= currentURL %>" />
+			<portlet:param name="commerceOrderId" value="<%= String.valueOf(commerceOrderItem.getCommerceOrderId()) %>" />
+			<portlet:param name="commerceOrderItemId" value="<%= String.valueOf(commerceOrderItem.getCommerceOrderItemId()) %>" />
+		</liferay-portlet:renderURL>
 
-	<liferay-ui:icon
-		message="edit"
-		url="<%= editURL %>"
-	/>
+		<liferay-ui:icon
+			message="edit"
+			url="<%= editURL %>"
+		/>
 
-	<portlet:actionURL name="editCommerceOrderItem" var="deleteURL">
-		<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
-		<portlet:param name="redirect" value="<%= currentURL %>" />
-		<portlet:param name="commerceOrderItemId" value="<%= String.valueOf(commerceOrderItem.getCommerceOrderItemId()) %>" />
-	</portlet:actionURL>
+		<portlet:actionURL name="editCommerceOrderItem" var="deleteURL">
+			<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
+			<portlet:param name="redirect" value="<%= currentURL %>" />
+			<portlet:param name="commerceOrderItemId" value="<%= String.valueOf(commerceOrderItem.getCommerceOrderItemId()) %>" />
+		</portlet:actionURL>
 
-	<liferay-ui:icon-delete
-		url="<%= deleteURL %>"
-	/>
+		<liferay-ui:icon-delete
+			url="<%= deleteURL %>"
+		/>
+	</c:if>
 </liferay-ui:icon-menu>

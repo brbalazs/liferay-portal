@@ -23,6 +23,13 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 CommerceOrderItem commerceOrderItem = commerceOrderEditDisplayContext.getCommerceOrderItem();
 
 CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
+
+portletDisplay.setShowBackIcon(true);
+portletDisplay.setURLBack(String.valueOf(commerceOrderEditDisplayContext.getCommerceOrderItemsPortletURL()));
+
+String title = LanguageUtil.format(request, "order-x", commerceOrder.getCommerceOrderId()) + " - " + commerceOrderItem.getSku();
+
+renderResponse.setTitle(title);
 %>
 
 <portlet:actionURL name="editCommerceOrderItem" var="editCommerceOrderItemActionURL" />
