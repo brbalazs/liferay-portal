@@ -40,8 +40,6 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.io.Serializable;
 
-import java.math.BigDecimal;
-
 import java.util.List;
 
 /**
@@ -80,8 +78,8 @@ public interface CommerceOrderItemLocalService extends BaseLocalService,
 	@Indexable(type = IndexableType.REINDEX)
 	public CommerceOrderItem addCommerceOrderItem(long commerceOrderId,
 		long cpInstanceId, int quantity, int shippedQuantity, String json,
-		BigDecimal price, CommerceContext commerceContext,
-		ServiceContext serviceContext) throws PortalException;
+		CommerceContext commerceContext, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	* Creates a new commerce order item with the primary key. Does not add the commerce order item to the database.
@@ -291,9 +289,11 @@ public interface CommerceOrderItemLocalService extends BaseLocalService,
 		CommerceOrderItem commerceOrderItem);
 
 	public CommerceOrderItem updateCommerceOrderItem(long commerceOrderItemId,
-		int quantity) throws PortalException;
+		int quantity, CommerceContext commerceContext)
+		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
 	public CommerceOrderItem updateCommerceOrderItem(long commerceOrderItemId,
-		int quantity, String json, BigDecimal price) throws PortalException;
+		int quantity, String json, CommerceContext commerceContext)
+		throws PortalException;
 }

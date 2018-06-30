@@ -94,7 +94,13 @@ public class CommerceOrderItemModelImpl extends BaseModelImpl<CommerceOrderItem>
 			{ "json", Types.CLOB },
 			{ "name", Types.VARCHAR },
 			{ "sku", Types.VARCHAR },
-			{ "price", Types.DECIMAL }
+			{ "unitPrice", Types.DECIMAL },
+			{ "discountAmount", Types.DECIMAL },
+			{ "finalPrice", Types.DECIMAL },
+			{ "discountPersentageLeve1", Types.DECIMAL },
+			{ "discountPersentageLeve2", Types.DECIMAL },
+			{ "discountPersentageLeve3", Types.DECIMAL },
+			{ "discountPersentageLeve4", Types.DECIMAL }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
 
@@ -113,10 +119,16 @@ public class CommerceOrderItemModelImpl extends BaseModelImpl<CommerceOrderItem>
 		TABLE_COLUMNS_MAP.put("json", Types.CLOB);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("sku", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("price", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("unitPrice", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("discountAmount", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("finalPrice", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("discountPersentageLeve1", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("discountPersentageLeve2", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("discountPersentageLeve3", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("discountPersentageLeve4", Types.DECIMAL);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table CommerceOrderItem (commerceOrderItemId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commerceOrderId LONG,CPInstanceId LONG,quantity INTEGER,shippedQuantity INTEGER,json TEXT null,name STRING null,sku VARCHAR(75) null,price DECIMAL(30, 16) null)";
+	public static final String TABLE_SQL_CREATE = "create table CommerceOrderItem (commerceOrderItemId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commerceOrderId LONG,CPInstanceId LONG,quantity INTEGER,shippedQuantity INTEGER,json TEXT null,name STRING null,sku VARCHAR(75) null,unitPrice DECIMAL(30, 16) null,discountAmount DECIMAL(30, 16) null,finalPrice DECIMAL(30, 16) null,discountPersentageLeve1 DECIMAL(30, 16) null,discountPersentageLeve2 DECIMAL(30, 16) null,discountPersentageLeve3 DECIMAL(30, 16) null,discountPersentageLeve4 DECIMAL(30, 16) null)";
 	public static final String TABLE_SQL_DROP = "drop table CommerceOrderItem";
 	public static final String ORDER_BY_JPQL = " ORDER BY commerceOrderItem.createDate ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY CommerceOrderItem.createDate ASC";
@@ -163,7 +175,13 @@ public class CommerceOrderItemModelImpl extends BaseModelImpl<CommerceOrderItem>
 		model.setJson(soapModel.getJson());
 		model.setName(soapModel.getName());
 		model.setSku(soapModel.getSku());
-		model.setPrice(soapModel.getPrice());
+		model.setUnitPrice(soapModel.getUnitPrice());
+		model.setDiscountAmount(soapModel.getDiscountAmount());
+		model.setFinalPrice(soapModel.getFinalPrice());
+		model.setDiscountPersentageLeve1(soapModel.getDiscountPersentageLeve1());
+		model.setDiscountPersentageLeve2(soapModel.getDiscountPersentageLeve2());
+		model.setDiscountPersentageLeve3(soapModel.getDiscountPersentageLeve3());
+		model.setDiscountPersentageLeve4(soapModel.getDiscountPersentageLeve4());
 
 		return model;
 	}
@@ -243,7 +261,13 @@ public class CommerceOrderItemModelImpl extends BaseModelImpl<CommerceOrderItem>
 		attributes.put("json", getJson());
 		attributes.put("name", getName());
 		attributes.put("sku", getSku());
-		attributes.put("price", getPrice());
+		attributes.put("unitPrice", getUnitPrice());
+		attributes.put("discountAmount", getDiscountAmount());
+		attributes.put("finalPrice", getFinalPrice());
+		attributes.put("discountPersentageLeve1", getDiscountPersentageLeve1());
+		attributes.put("discountPersentageLeve2", getDiscountPersentageLeve2());
+		attributes.put("discountPersentageLeve3", getDiscountPersentageLeve3());
+		attributes.put("discountPersentageLeve4", getDiscountPersentageLeve4());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -337,10 +361,50 @@ public class CommerceOrderItemModelImpl extends BaseModelImpl<CommerceOrderItem>
 			setSku(sku);
 		}
 
-		BigDecimal price = (BigDecimal)attributes.get("price");
+		BigDecimal unitPrice = (BigDecimal)attributes.get("unitPrice");
 
-		if (price != null) {
-			setPrice(price);
+		if (unitPrice != null) {
+			setUnitPrice(unitPrice);
+		}
+
+		BigDecimal discountAmount = (BigDecimal)attributes.get("discountAmount");
+
+		if (discountAmount != null) {
+			setDiscountAmount(discountAmount);
+		}
+
+		BigDecimal finalPrice = (BigDecimal)attributes.get("finalPrice");
+
+		if (finalPrice != null) {
+			setFinalPrice(finalPrice);
+		}
+
+		BigDecimal discountPersentageLeve1 = (BigDecimal)attributes.get(
+				"discountPersentageLeve1");
+
+		if (discountPersentageLeve1 != null) {
+			setDiscountPersentageLeve1(discountPersentageLeve1);
+		}
+
+		BigDecimal discountPersentageLeve2 = (BigDecimal)attributes.get(
+				"discountPersentageLeve2");
+
+		if (discountPersentageLeve2 != null) {
+			setDiscountPersentageLeve2(discountPersentageLeve2);
+		}
+
+		BigDecimal discountPersentageLeve3 = (BigDecimal)attributes.get(
+				"discountPersentageLeve3");
+
+		if (discountPersentageLeve3 != null) {
+			setDiscountPersentageLeve3(discountPersentageLeve3);
+		}
+
+		BigDecimal discountPersentageLeve4 = (BigDecimal)attributes.get(
+				"discountPersentageLeve4");
+
+		if (discountPersentageLeve4 != null) {
+			setDiscountPersentageLeve4(discountPersentageLeve4);
 		}
 	}
 
@@ -651,13 +715,79 @@ public class CommerceOrderItemModelImpl extends BaseModelImpl<CommerceOrderItem>
 
 	@JSON
 	@Override
-	public BigDecimal getPrice() {
-		return _price;
+	public BigDecimal getUnitPrice() {
+		return _unitPrice;
 	}
 
 	@Override
-	public void setPrice(BigDecimal price) {
-		_price = price;
+	public void setUnitPrice(BigDecimal unitPrice) {
+		_unitPrice = unitPrice;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getDiscountAmount() {
+		return _discountAmount;
+	}
+
+	@Override
+	public void setDiscountAmount(BigDecimal discountAmount) {
+		_discountAmount = discountAmount;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getFinalPrice() {
+		return _finalPrice;
+	}
+
+	@Override
+	public void setFinalPrice(BigDecimal finalPrice) {
+		_finalPrice = finalPrice;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getDiscountPersentageLeve1() {
+		return _discountPersentageLeve1;
+	}
+
+	@Override
+	public void setDiscountPersentageLeve1(BigDecimal discountPersentageLeve1) {
+		_discountPersentageLeve1 = discountPersentageLeve1;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getDiscountPersentageLeve2() {
+		return _discountPersentageLeve2;
+	}
+
+	@Override
+	public void setDiscountPersentageLeve2(BigDecimal discountPersentageLeve2) {
+		_discountPersentageLeve2 = discountPersentageLeve2;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getDiscountPersentageLeve3() {
+		return _discountPersentageLeve3;
+	}
+
+	@Override
+	public void setDiscountPersentageLeve3(BigDecimal discountPersentageLeve3) {
+		_discountPersentageLeve3 = discountPersentageLeve3;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getDiscountPersentageLeve4() {
+		return _discountPersentageLeve4;
+	}
+
+	@Override
+	public void setDiscountPersentageLeve4(BigDecimal discountPersentageLeve4) {
+		_discountPersentageLeve4 = discountPersentageLeve4;
 	}
 
 	public long getColumnBitmask() {
@@ -766,7 +896,13 @@ public class CommerceOrderItemModelImpl extends BaseModelImpl<CommerceOrderItem>
 		commerceOrderItemImpl.setJson(getJson());
 		commerceOrderItemImpl.setName(getName());
 		commerceOrderItemImpl.setSku(getSku());
-		commerceOrderItemImpl.setPrice(getPrice());
+		commerceOrderItemImpl.setUnitPrice(getUnitPrice());
+		commerceOrderItemImpl.setDiscountAmount(getDiscountAmount());
+		commerceOrderItemImpl.setFinalPrice(getFinalPrice());
+		commerceOrderItemImpl.setDiscountPersentageLeve1(getDiscountPersentageLeve1());
+		commerceOrderItemImpl.setDiscountPersentageLeve2(getDiscountPersentageLeve2());
+		commerceOrderItemImpl.setDiscountPersentageLeve3(getDiscountPersentageLeve3());
+		commerceOrderItemImpl.setDiscountPersentageLeve4(getDiscountPersentageLeve4());
 
 		commerceOrderItemImpl.resetOriginalValues();
 
@@ -911,14 +1047,26 @@ public class CommerceOrderItemModelImpl extends BaseModelImpl<CommerceOrderItem>
 			commerceOrderItemCacheModel.sku = null;
 		}
 
-		commerceOrderItemCacheModel.price = getPrice();
+		commerceOrderItemCacheModel.unitPrice = getUnitPrice();
+
+		commerceOrderItemCacheModel.discountAmount = getDiscountAmount();
+
+		commerceOrderItemCacheModel.finalPrice = getFinalPrice();
+
+		commerceOrderItemCacheModel.discountPersentageLeve1 = getDiscountPersentageLeve1();
+
+		commerceOrderItemCacheModel.discountPersentageLeve2 = getDiscountPersentageLeve2();
+
+		commerceOrderItemCacheModel.discountPersentageLeve3 = getDiscountPersentageLeve3();
+
+		commerceOrderItemCacheModel.discountPersentageLeve4 = getDiscountPersentageLeve4();
 
 		return commerceOrderItemCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("{commerceOrderItemId=");
 		sb.append(getCommerceOrderItemId());
@@ -948,8 +1096,20 @@ public class CommerceOrderItemModelImpl extends BaseModelImpl<CommerceOrderItem>
 		sb.append(getName());
 		sb.append(", sku=");
 		sb.append(getSku());
-		sb.append(", price=");
-		sb.append(getPrice());
+		sb.append(", unitPrice=");
+		sb.append(getUnitPrice());
+		sb.append(", discountAmount=");
+		sb.append(getDiscountAmount());
+		sb.append(", finalPrice=");
+		sb.append(getFinalPrice());
+		sb.append(", discountPersentageLeve1=");
+		sb.append(getDiscountPersentageLeve1());
+		sb.append(", discountPersentageLeve2=");
+		sb.append(getDiscountPersentageLeve2());
+		sb.append(", discountPersentageLeve3=");
+		sb.append(getDiscountPersentageLeve3());
+		sb.append(", discountPersentageLeve4=");
+		sb.append(getDiscountPersentageLeve4());
 		sb.append("}");
 
 		return sb.toString();
@@ -957,7 +1117,7 @@ public class CommerceOrderItemModelImpl extends BaseModelImpl<CommerceOrderItem>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(49);
+		StringBundler sb = new StringBundler(67);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.commerce.model.CommerceOrderItem");
@@ -1020,8 +1180,32 @@ public class CommerceOrderItemModelImpl extends BaseModelImpl<CommerceOrderItem>
 		sb.append(getSku());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>price</column-name><column-value><![CDATA[");
-		sb.append(getPrice());
+			"<column><column-name>unitPrice</column-name><column-value><![CDATA[");
+		sb.append(getUnitPrice());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>discountAmount</column-name><column-value><![CDATA[");
+		sb.append(getDiscountAmount());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>finalPrice</column-name><column-value><![CDATA[");
+		sb.append(getFinalPrice());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>discountPersentageLeve1</column-name><column-value><![CDATA[");
+		sb.append(getDiscountPersentageLeve1());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>discountPersentageLeve2</column-name><column-value><![CDATA[");
+		sb.append(getDiscountPersentageLeve2());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>discountPersentageLeve3</column-name><column-value><![CDATA[");
+		sb.append(getDiscountPersentageLeve3());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>discountPersentageLeve4</column-name><column-value><![CDATA[");
+		sb.append(getDiscountPersentageLeve4());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -1053,7 +1237,13 @@ public class CommerceOrderItemModelImpl extends BaseModelImpl<CommerceOrderItem>
 	private String _name;
 	private String _nameCurrentLanguageId;
 	private String _sku;
-	private BigDecimal _price;
+	private BigDecimal _unitPrice;
+	private BigDecimal _discountAmount;
+	private BigDecimal _finalPrice;
+	private BigDecimal _discountPersentageLeve1;
+	private BigDecimal _discountPersentageLeve2;
+	private BigDecimal _discountPersentageLeve3;
+	private BigDecimal _discountPersentageLeve4;
 	private long _columnBitmask;
 	private CommerceOrderItem _escapedModel;
 }

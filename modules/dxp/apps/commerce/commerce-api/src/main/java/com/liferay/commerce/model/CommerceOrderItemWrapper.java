@@ -74,7 +74,13 @@ public class CommerceOrderItemWrapper implements CommerceOrderItem,
 		attributes.put("json", getJson());
 		attributes.put("name", getName());
 		attributes.put("sku", getSku());
-		attributes.put("price", getPrice());
+		attributes.put("unitPrice", getUnitPrice());
+		attributes.put("discountAmount", getDiscountAmount());
+		attributes.put("finalPrice", getFinalPrice());
+		attributes.put("discountPersentageLeve1", getDiscountPersentageLeve1());
+		attributes.put("discountPersentageLeve2", getDiscountPersentageLeve2());
+		attributes.put("discountPersentageLeve3", getDiscountPersentageLeve3());
+		attributes.put("discountPersentageLeve4", getDiscountPersentageLeve4());
 
 		return attributes;
 	}
@@ -165,10 +171,50 @@ public class CommerceOrderItemWrapper implements CommerceOrderItem,
 			setSku(sku);
 		}
 
-		BigDecimal price = (BigDecimal)attributes.get("price");
+		BigDecimal unitPrice = (BigDecimal)attributes.get("unitPrice");
 
-		if (price != null) {
-			setPrice(price);
+		if (unitPrice != null) {
+			setUnitPrice(unitPrice);
+		}
+
+		BigDecimal discountAmount = (BigDecimal)attributes.get("discountAmount");
+
+		if (discountAmount != null) {
+			setDiscountAmount(discountAmount);
+		}
+
+		BigDecimal finalPrice = (BigDecimal)attributes.get("finalPrice");
+
+		if (finalPrice != null) {
+			setFinalPrice(finalPrice);
+		}
+
+		BigDecimal discountPersentageLeve1 = (BigDecimal)attributes.get(
+				"discountPersentageLeve1");
+
+		if (discountPersentageLeve1 != null) {
+			setDiscountPersentageLeve1(discountPersentageLeve1);
+		}
+
+		BigDecimal discountPersentageLeve2 = (BigDecimal)attributes.get(
+				"discountPersentageLeve2");
+
+		if (discountPersentageLeve2 != null) {
+			setDiscountPersentageLeve2(discountPersentageLeve2);
+		}
+
+		BigDecimal discountPersentageLeve3 = (BigDecimal)attributes.get(
+				"discountPersentageLeve3");
+
+		if (discountPersentageLeve3 != null) {
+			setDiscountPersentageLeve3(discountPersentageLeve3);
+		}
+
+		BigDecimal discountPersentageLeve4 = (BigDecimal)attributes.get(
+				"discountPersentageLeve4");
+
+		if (discountPersentageLeve4 != null) {
+			setDiscountPersentageLeve4(discountPersentageLeve4);
 		}
 	}
 
@@ -266,9 +312,75 @@ public class CommerceOrderItemWrapper implements CommerceOrderItem,
 		return _commerceOrderItem.getDefaultLanguageId();
 	}
 
+	/**
+	* Returns the discount amount of this commerce order item.
+	*
+	* @return the discount amount of this commerce order item
+	*/
+	@Override
+	public BigDecimal getDiscountAmount() {
+		return _commerceOrderItem.getDiscountAmount();
+	}
+
+	/**
+	* Returns the discount persentage leve1 of this commerce order item.
+	*
+	* @return the discount persentage leve1 of this commerce order item
+	*/
+	@Override
+	public BigDecimal getDiscountPersentageLeve1() {
+		return _commerceOrderItem.getDiscountPersentageLeve1();
+	}
+
+	/**
+	* Returns the discount persentage leve2 of this commerce order item.
+	*
+	* @return the discount persentage leve2 of this commerce order item
+	*/
+	@Override
+	public BigDecimal getDiscountPersentageLeve2() {
+		return _commerceOrderItem.getDiscountPersentageLeve2();
+	}
+
+	/**
+	* Returns the discount persentage leve3 of this commerce order item.
+	*
+	* @return the discount persentage leve3 of this commerce order item
+	*/
+	@Override
+	public BigDecimal getDiscountPersentageLeve3() {
+		return _commerceOrderItem.getDiscountPersentageLeve3();
+	}
+
+	/**
+	* Returns the discount persentage leve4 of this commerce order item.
+	*
+	* @return the discount persentage leve4 of this commerce order item
+	*/
+	@Override
+	public BigDecimal getDiscountPersentageLeve4() {
+		return _commerceOrderItem.getDiscountPersentageLeve4();
+	}
+
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return _commerceOrderItem.getExpandoBridge();
+	}
+
+	/**
+	* Returns the final price of this commerce order item.
+	*
+	* @return the final price of this commerce order item
+	*/
+	@Override
+	public BigDecimal getFinalPrice() {
+		return _commerceOrderItem.getFinalPrice();
+	}
+
+	@Override
+	public com.liferay.commerce.currency.model.CommerceMoney getFinalPriceMoney()
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceOrderItem.getFinalPriceMoney();
 	}
 
 	/**
@@ -378,22 +490,6 @@ public class CommerceOrderItemWrapper implements CommerceOrderItem,
 	}
 
 	/**
-	* Returns the price of this commerce order item.
-	*
-	* @return the price of this commerce order item
-	*/
-	@Override
-	public BigDecimal getPrice() {
-		return _commerceOrderItem.getPrice();
-	}
-
-	@Override
-	public com.liferay.commerce.currency.model.CommerceMoney getPriceMoney()
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _commerceOrderItem.getPriceMoney();
-	}
-
-	/**
 	* Returns the primary key of this commerce order item.
 	*
 	* @return the primary key of this commerce order item
@@ -436,6 +532,22 @@ public class CommerceOrderItemWrapper implements CommerceOrderItem,
 	@Override
 	public String getSku() {
 		return _commerceOrderItem.getSku();
+	}
+
+	/**
+	* Returns the unit price of this commerce order item.
+	*
+	* @return the unit price of this commerce order item
+	*/
+	@Override
+	public BigDecimal getUnitPrice() {
+		return _commerceOrderItem.getUnitPrice();
+	}
+
+	@Override
+	public com.liferay.commerce.currency.model.CommerceMoney getUnitPriceMoney()
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceOrderItem.getUnitPriceMoney();
 	}
 
 	/**
@@ -561,6 +673,56 @@ public class CommerceOrderItemWrapper implements CommerceOrderItem,
 		_commerceOrderItem.setCreateDate(createDate);
 	}
 
+	/**
+	* Sets the discount amount of this commerce order item.
+	*
+	* @param discountAmount the discount amount of this commerce order item
+	*/
+	@Override
+	public void setDiscountAmount(BigDecimal discountAmount) {
+		_commerceOrderItem.setDiscountAmount(discountAmount);
+	}
+
+	/**
+	* Sets the discount persentage leve1 of this commerce order item.
+	*
+	* @param discountPersentageLeve1 the discount persentage leve1 of this commerce order item
+	*/
+	@Override
+	public void setDiscountPersentageLeve1(BigDecimal discountPersentageLeve1) {
+		_commerceOrderItem.setDiscountPersentageLeve1(discountPersentageLeve1);
+	}
+
+	/**
+	* Sets the discount persentage leve2 of this commerce order item.
+	*
+	* @param discountPersentageLeve2 the discount persentage leve2 of this commerce order item
+	*/
+	@Override
+	public void setDiscountPersentageLeve2(BigDecimal discountPersentageLeve2) {
+		_commerceOrderItem.setDiscountPersentageLeve2(discountPersentageLeve2);
+	}
+
+	/**
+	* Sets the discount persentage leve3 of this commerce order item.
+	*
+	* @param discountPersentageLeve3 the discount persentage leve3 of this commerce order item
+	*/
+	@Override
+	public void setDiscountPersentageLeve3(BigDecimal discountPersentageLeve3) {
+		_commerceOrderItem.setDiscountPersentageLeve3(discountPersentageLeve3);
+	}
+
+	/**
+	* Sets the discount persentage leve4 of this commerce order item.
+	*
+	* @param discountPersentageLeve4 the discount persentage leve4 of this commerce order item
+	*/
+	@Override
+	public void setDiscountPersentageLeve4(BigDecimal discountPersentageLeve4) {
+		_commerceOrderItem.setDiscountPersentageLeve4(discountPersentageLeve4);
+	}
+
 	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
@@ -575,6 +737,16 @@ public class CommerceOrderItemWrapper implements CommerceOrderItem,
 	@Override
 	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_commerceOrderItem.setExpandoBridgeAttributes(serviceContext);
+	}
+
+	/**
+	* Sets the final price of this commerce order item.
+	*
+	* @param finalPrice the final price of this commerce order item
+	*/
+	@Override
+	public void setFinalPrice(BigDecimal finalPrice) {
+		_commerceOrderItem.setFinalPrice(finalPrice);
 	}
 
 	/**
@@ -674,16 +846,6 @@ public class CommerceOrderItemWrapper implements CommerceOrderItem,
 	}
 
 	/**
-	* Sets the price of this commerce order item.
-	*
-	* @param price the price of this commerce order item
-	*/
-	@Override
-	public void setPrice(BigDecimal price) {
-		_commerceOrderItem.setPrice(price);
-	}
-
-	/**
 	* Sets the primary key of this commerce order item.
 	*
 	* @param primaryKey the primary key of this commerce order item
@@ -726,6 +888,16 @@ public class CommerceOrderItemWrapper implements CommerceOrderItem,
 	@Override
 	public void setSku(String sku) {
 		_commerceOrderItem.setSku(sku);
+	}
+
+	/**
+	* Sets the unit price of this commerce order item.
+	*
+	* @param unitPrice the unit price of this commerce order item
+	*/
+	@Override
+	public void setUnitPrice(BigDecimal unitPrice) {
+		_commerceOrderItem.setUnitPrice(unitPrice);
 	}
 
 	/**

@@ -32,8 +32,6 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
-import java.math.BigDecimal;
-
 import java.util.List;
 
 /**
@@ -62,8 +60,8 @@ public interface CommerceOrderItemService extends BaseService {
 	 */
 	public CommerceOrderItem addCommerceOrderItem(long commerceOrderId,
 		long cpInstanceId, int quantity, int shippedQuantity, String json,
-		BigDecimal price, CommerceContext commerceContext,
-		ServiceContext serviceContext) throws PortalException;
+		CommerceContext commerceContext, ServiceContext serviceContext)
+		throws PortalException;
 
 	public void deleteCommerceOrderItem(long commerceOrderItemId)
 		throws PortalException;
@@ -114,8 +112,10 @@ public interface CommerceOrderItemService extends BaseService {
 		int start, int end, Sort sort) throws PortalException;
 
 	public CommerceOrderItem updateCommerceOrderItem(long commerceOrderItemId,
-		int quantity) throws PortalException;
+		int quantity, CommerceContext commerceContext)
+		throws PortalException;
 
 	public CommerceOrderItem updateCommerceOrderItem(long commerceOrderItemId,
-		int quantity, String json, BigDecimal price) throws PortalException;
+		int quantity, String json, CommerceContext commerceContext)
+		throws PortalException;
 }

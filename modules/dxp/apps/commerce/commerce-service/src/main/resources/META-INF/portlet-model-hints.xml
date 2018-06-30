@@ -138,9 +138,13 @@
 		</field>
 		<field localized="true" name="name" type="String" />
 		<field name="sku" type="String" />
-		<field name="price" type="BigDecimal">
-			<validator name="number" />
-		</field>
+		<field name="unitPrice" type="BigDecimal" />
+		<field name="discountAmount" type="BigDecimal" />
+		<field name="finalPrice" type="BigDecimal" />
+		<field name="discountPersentageLeve1" type="BigDecimal" />
+		<field name="discountPersentageLeve2" type="BigDecimal" />
+		<field name="discountPersentageLeve3" type="BigDecimal" />
+		<field name="discountPersentageLeve4" type="BigDecimal" />
 	</model>
 	<model name="com.liferay.commerce.model.CommerceOrderNote">
 		<field name="commerceOrderNoteId" type="long" />

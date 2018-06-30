@@ -373,6 +373,7 @@ public interface CommerceOrderLocalService extends BaseLocalService,
 		long commerceOrderId, CommerceContext commerceContext)
 		throws PortalException;
 
+	@Indexable(type = IndexableType.REINDEX)
 	public CommerceOrder resetCommerceOrderShipping(long commerceOrderId)
 		throws PortalException;
 

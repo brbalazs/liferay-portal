@@ -154,7 +154,13 @@ create table CommerceOrderItem (
 	json TEXT null,
 	name STRING null,
 	sku VARCHAR(75) null,
-	price DECIMAL(30, 16) null
+	unitPrice DECIMAL(30, 16) null,
+	discountAmount DECIMAL(30, 16) null,
+	finalPrice DECIMAL(30, 16) null,
+	discountPersentageLeve1 DECIMAL(30, 16) null,
+	discountPersentageLeve2 DECIMAL(30, 16) null,
+	discountPersentageLeve3 DECIMAL(30, 16) null,
+	discountPersentageLeve4 DECIMAL(30, 16) null
 );
 
 create table CommerceOrderNote (

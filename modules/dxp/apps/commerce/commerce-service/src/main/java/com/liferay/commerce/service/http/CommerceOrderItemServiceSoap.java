@@ -67,13 +67,13 @@ import java.rmi.RemoteException;
 public class CommerceOrderItemServiceSoap {
 	public static com.liferay.commerce.model.CommerceOrderItemSoap addCommerceOrderItem(
 		long commerceOrderId, long cpInstanceId, int quantity,
-		int shippedQuantity, String json, java.math.BigDecimal price,
+		int shippedQuantity, String json,
 		com.liferay.commerce.context.CommerceContext commerceContext,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.commerce.model.CommerceOrderItem returnValue = CommerceOrderItemServiceUtil.addCommerceOrderItem(commerceOrderId,
-					cpInstanceId, quantity, shippedQuantity, json, price,
+					cpInstanceId, quantity, shippedQuantity, json,
 					commerceContext, serviceContext);
 
 			return com.liferay.commerce.model.CommerceOrderItemSoap.toSoapModel(returnValue);
@@ -201,10 +201,12 @@ public class CommerceOrderItemServiceSoap {
 	}
 
 	public static com.liferay.commerce.model.CommerceOrderItemSoap updateCommerceOrderItem(
-		long commerceOrderItemId, int quantity) throws RemoteException {
+		long commerceOrderItemId, int quantity,
+		com.liferay.commerce.context.CommerceContext commerceContext)
+		throws RemoteException {
 		try {
 			com.liferay.commerce.model.CommerceOrderItem returnValue = CommerceOrderItemServiceUtil.updateCommerceOrderItem(commerceOrderItemId,
-					quantity);
+					quantity, commerceContext);
 
 			return com.liferay.commerce.model.CommerceOrderItemSoap.toSoapModel(returnValue);
 		}
@@ -217,10 +219,11 @@ public class CommerceOrderItemServiceSoap {
 
 	public static com.liferay.commerce.model.CommerceOrderItemSoap updateCommerceOrderItem(
 		long commerceOrderItemId, int quantity, String json,
-		java.math.BigDecimal price) throws RemoteException {
+		com.liferay.commerce.context.CommerceContext commerceContext)
+		throws RemoteException {
 		try {
 			com.liferay.commerce.model.CommerceOrderItem returnValue = CommerceOrderItemServiceUtil.updateCommerceOrderItem(commerceOrderItemId,
-					quantity, json, price);
+					quantity, json, commerceContext);
 
 			return com.liferay.commerce.model.CommerceOrderItemSoap.toSoapModel(returnValue);
 		}
