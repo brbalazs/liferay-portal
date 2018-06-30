@@ -26,8 +26,6 @@ import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermi
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
 import com.liferay.portal.kernel.service.ServiceContext;
 
-import java.math.BigDecimal;
-
 import java.util.List;
 
 /**
@@ -39,8 +37,8 @@ public class CommerceOrderItemServiceImpl
 	@Override
 	public CommerceOrderItem addCommerceOrderItem(
 			long commerceOrderId, long cpInstanceId, int quantity,
-			int shippedQuantity, String json, BigDecimal price,
-			CommerceContext commerceContext, ServiceContext serviceContext)
+			int shippedQuantity, String json, CommerceContext commerceContext,
+			ServiceContext serviceContext)
 		throws PortalException {
 
 		_commerceOrderModelResourcePermission.check(
@@ -48,7 +46,7 @@ public class CommerceOrderItemServiceImpl
 
 		return commerceOrderItemLocalService.addCommerceOrderItem(
 			commerceOrderId, cpInstanceId, quantity, shippedQuantity, json,
-			price, commerceContext, serviceContext);
+			commerceContext, serviceContext);
 	}
 
 	@Override
@@ -190,7 +188,8 @@ public class CommerceOrderItemServiceImpl
 
 	@Override
 	public CommerceOrderItem updateCommerceOrderItem(
-			long commerceOrderItemId, int quantity)
+			long commerceOrderItemId, int quantity,
+			CommerceContext commerceContext)
 		throws PortalException {
 
 		CommerceOrderItem commerceOrderItem =
@@ -202,13 +201,13 @@ public class CommerceOrderItemServiceImpl
 			ActionKeys.UPDATE);
 
 		return commerceOrderItemLocalService.updateCommerceOrderItem(
-			commerceOrderItemId, quantity);
+			commerceOrderItemId, quantity, commerceContext);
 	}
 
 	@Override
 	public CommerceOrderItem updateCommerceOrderItem(
 			long commerceOrderItemId, int quantity, String json,
-			BigDecimal price)
+			CommerceContext commerceContext)
 		throws PortalException {
 
 		CommerceOrderItem commerceOrderItem =
@@ -220,7 +219,8 @@ public class CommerceOrderItemServiceImpl
 			ActionKeys.UPDATE);
 
 		return commerceOrderItemLocalService.updateCommerceOrderItem(
-			commerceOrderItem.getCommerceOrderItemId(), quantity, json, price);
+			commerceOrderItem.getCommerceOrderItemId(), quantity, json,
+			commerceContext);
 	}
 
 	private static volatile ModelResourcePermission<CommerceOrder>
