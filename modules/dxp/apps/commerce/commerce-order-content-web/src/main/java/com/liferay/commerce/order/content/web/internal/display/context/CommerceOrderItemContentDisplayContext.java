@@ -63,7 +63,7 @@ public class CommerceOrderItemContentDisplayContext
 			_commerceOrderItemLocalService.getCommerceOrderItem(
 				commerceOrderItemId);
 
-		CommerceMoney priceMoney = commerceOrderItem.getPriceMoney();
+		CommerceMoney priceMoney = commerceOrderItem.getUnitPriceMoney();
 
 		return priceMoney.format(cpRequestHelper.getLocale());
 	}

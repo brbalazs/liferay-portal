@@ -393,7 +393,7 @@ public class AuthorizeNetCommercePaymentEngine
 			lineItem.setQuantity(
 				BigDecimal.valueOf(commerceOrderItem.getQuantity()));
 
-			BigDecimal unitPrice = commerceOrderItem.getPrice();
+			BigDecimal unitPrice = commerceOrderItem.getUnitPrice();
 
 			unitPrice = unitPrice.divide(
 				new BigDecimal(commerceOrderItem.getQuantity()));
