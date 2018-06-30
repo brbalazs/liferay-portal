@@ -59,11 +59,11 @@ public class CartTotalCommerceDiscountRuleTypeImpl
 			return false;
 		}
 
-		CommerceMoney totalCommerceMoney =
-			_commerceOrderPriceCalculation.getTotal(
+		CommerceMoney orderPriceMoney =
+			_commerceOrderPriceCalculation.getSubtotal(
 				commerceOrder, commerceContext);
 
-		BigDecimal orderPrice = totalCommerceMoney.getPrice();
+		BigDecimal orderPrice = orderPriceMoney.getPrice();
 
 		String settingsProperty = commerceDiscountRule.getSettingsProperty(
 			commerceDiscountRule.getType());
