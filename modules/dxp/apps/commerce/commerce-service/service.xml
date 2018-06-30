@@ -329,7 +329,13 @@
 		<column name="json" type="String" />
 		<column localized="true" name="name" type="String" />
 		<column name="sku" type="String" />
-		<column name="price" type="BigDecimal" />
+		<column name="unitPrice" type="BigDecimal" />
+		<column name="discountAmount" type="BigDecimal" />
+		<column name="finalPrice" type="BigDecimal" />
+		<column name="discountPersentageLeve1" type="BigDecimal" />
+		<column name="discountPersentageLeve2" type="BigDecimal" />
+		<column name="discountPersentageLeve3" type="BigDecimal" />
+		<column name="discountPersentageLeve4" type="BigDecimal" />
 
 		<!-- Order -->
 
