@@ -17,6 +17,7 @@ package com.liferay.commerce.product.definitions.web.internal.portlet.action;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.exception.CPDefinitionIgnoreSKUCombinationsException;
 import com.liferay.commerce.product.exception.CPInstanceDDMContentException;
+import com.liferay.commerce.product.exception.CPInstanceSkuException;
 import com.liferay.commerce.product.exception.NoSuchSkuContributorCPDefinitionOptionRelException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
@@ -125,6 +126,7 @@ public class EditCPInstanceMVCActionCommand extends BaseMVCActionCommand {
 		catch (Exception e) {
 			if (e instanceof CPDefinitionIgnoreSKUCombinationsException ||
 				e instanceof CPInstanceDDMContentException ||
+				e instanceof CPInstanceSkuException ||
 				e instanceof
 					NoSuchSkuContributorCPDefinitionOptionRelException) {
 
@@ -133,10 +135,8 @@ public class EditCPInstanceMVCActionCommand extends BaseMVCActionCommand {
 
 				SessionErrors.add(actionRequest, e.getClass());
 
-				String redirect = ParamUtil.getString(
-					actionRequest, "redirect");
-
-				sendRedirect(actionRequest, actionResponse, redirect);
+				actionResponse.setRenderParameter(
+					"mvcRenderCommandName", "editProductInstance");
 			}
 			else {
 				throw new PortletException(e);
