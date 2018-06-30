@@ -36,6 +36,11 @@ List<CommerceOrder> results = searchContainer.getResults();
 	entries="<%= results %>"
 >
 	<c:choose>
+		<c:when test="<%= commerceOrganizationOrderDisplayContext.getOrganization() == null %>">
+			<div class="alert alert-warning text-center">
+				<liferay-ui:message key="please-select-an-account" />
+			</div>
+		</c:when>
 		<c:when test="<%= (commerceOrganizationOrderDisplayContext.getOrganization() != null) && !results.isEmpty() %>">
 			<div class="order-cards-row" id="<portlet:namespace />openOrdersContainer">
 
