@@ -43,12 +43,6 @@
 			<rtexprvalue>true</rtexprvalue>
 			<type>java.math.BigDecimal</type>
 		</attribute>
-		<attribute>
-			<name>quantity</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>int</type>
-		</attribute>
 	</tag>
 	<tag>
 		<name>order-transitions</name>

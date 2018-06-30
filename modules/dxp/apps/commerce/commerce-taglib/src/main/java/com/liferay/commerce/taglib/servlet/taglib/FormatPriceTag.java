@@ -57,8 +57,6 @@ public class FormatPriceTag extends IncludeTag {
 				(CommerceContext)request.getAttribute(
 					CommerceWebKeys.COMMERCE_CONTEXT);
 
-			_price.multiply(BigDecimal.valueOf(_quantity));
-
 			_formattedPrice = commercePriceFormatter.format(
 				commerceContext.getCommerceCurrency(), _price,
 				themeDisplay.getLocale());
@@ -86,16 +84,11 @@ public class FormatPriceTag extends IncludeTag {
 		_price = price;
 	}
 
-	public void setQuantity(int quantity) {
-		_quantity = quantity;
-	}
-
 	@Override
 	protected void cleanUp() {
 		super.cleanUp();
 
 		_price = BigDecimal.ZERO;
-		_quantity = 0;
 	}
 
 	@Override
@@ -117,6 +110,5 @@ public class FormatPriceTag extends IncludeTag {
 
 	private String _formattedPrice;
 	private BigDecimal _price = BigDecimal.ZERO;
-	private int _quantity;
 
 }
