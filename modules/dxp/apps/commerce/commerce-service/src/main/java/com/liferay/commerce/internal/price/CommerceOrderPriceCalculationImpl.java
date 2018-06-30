@@ -113,12 +113,7 @@ public class CommerceOrderPriceCalculationImpl
 		for (CommerceOrderItem commerceOrderItem :
 				commerceOrder.getCommerceOrderItems()) {
 
-			CommerceMoney finalPriceCommerceMoney =
-				_commerceProductPriceCalculation.getFinalPrice(
-					commerceOrderItem.getCPInstanceId(),
-					commerceOrderItem.getQuantity(), commerceContext);
-
-			subtotal = subtotal.add(finalPriceCommerceMoney.getPrice());
+			subtotal = subtotal.add(commerceOrderItem.getFinalPrice());
 		}
 
 		return _commerceMoneyFactory.create(
