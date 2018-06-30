@@ -17,6 +17,7 @@ package com.liferay.commerce.product.service.impl;
 import com.liferay.commerce.product.exception.CPInstanceDDMContentException;
 import com.liferay.commerce.product.exception.CPInstanceDisplayDateException;
 import com.liferay.commerce.product.exception.CPInstanceExpirationDateException;
+import com.liferay.commerce.product.exception.CPInstanceSkuException;
 import com.liferay.commerce.product.exception.NoSuchSkuContributorCPDefinitionOptionRelException;
 import com.liferay.commerce.product.internal.util.SKUCombinationsIterator;
 import com.liferay.commerce.product.model.CPDefinition;
@@ -148,7 +149,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			status = WorkflowConstants.STATUS_SCHEDULED;
 		}
 
-		validate(0, cpDefinitionId, ddmContent, status, serviceContext);
+		validate(0, cpDefinitionId, sku, ddmContent, status, serviceContext);
 
 		long cpInstanceId = counterLocalService.increment();
 
@@ -341,8 +342,8 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
 			validate(
 				cpInstance.getCPInstanceId(), cpInstance.getCPDefinitionId(),
-				cpInstance.getDDMContent(), cpInstance.getStatus(),
-				serviceContext);
+				cpInstance.getSku(), cpInstance.getDDMContent(),
+				cpInstance.getStatus(), serviceContext);
 		}
 	}
 
@@ -609,7 +610,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			cpInstanceId);
 
 		validate(
-			cpInstanceId, cpInstance.getCPDefinitionId(),
+			cpInstanceId, cpInstance.getCPDefinitionId(), cpInstance.getSku(),
 			cpInstance.getDDMContent(), cpInstance.getStatus(), serviceContext);
 
 		Date displayDate = null;
@@ -1005,9 +1006,26 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 	}
 
 	protected void validate(
-			long cpInstanceId, long cpDefinitionId, String ddmContent,
-			int status, ServiceContext serviceContext)
+			long cpInstanceId, long cpDefinitionId, String sku,
+			String ddmContent, int status, ServiceContext serviceContext)
 		throws PortalException {
+
+		CPInstance cpInstance = cpInstancePersistence.fetchByC_S(
+			cpDefinitionId, sku);
+
+		if (cpInstanceId > 0) {
+			CPInstance oldCPInstance = cpInstanceLocalService.getCPInstance(
+				cpInstanceId);
+
+			if (!sku.equals(oldCPInstance.getSku()) && (cpInstance != null)) {
+				throw new CPInstanceSkuException();
+			}
+		}
+		else {
+			if (cpInstance != null) {
+				throw new CPInstanceSkuException();
+			}
+		}
 
 		int workflowAction = serviceContext.getWorkflowAction();
 
@@ -1019,15 +1037,15 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 				List<CPInstance> cpInstances = cpInstancePersistence.findByC_ST(
 					cpDefinitionId, WorkflowConstants.STATUS_APPROVED, 0, 2);
 
-				for (CPInstance cpInstance : cpInstances) {
-					if (cpInstance.getCPInstanceId() == cpInstanceId) {
+				for (CPInstance curCPInstance : cpInstances) {
+					if (curCPInstance.getCPInstanceId() == cpInstanceId) {
 						continue;
 					}
 
 					if (status == WorkflowConstants.STATUS_APPROVED) {
 						updateStatus(
 							serviceContext.getUserId(),
-							cpInstance.getCPInstanceId(),
+							curCPInstance.getCPInstanceId(),
 							WorkflowConstants.STATUS_EXPIRED, serviceContext,
 							new HashMap<String, Serializable>());
 					}
@@ -1037,11 +1055,11 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 				List<CPInstance> cpInstances = cpInstancePersistence.findByC_ST(
 					cpDefinitionId, WorkflowConstants.STATUS_APPROVED);
 
-				for (CPInstance cpInstance : cpInstances) {
-					if (Validator.isNull(cpInstance.getDDMContent())) {
+				for (CPInstance curCPInstance : cpInstances) {
+					if (Validator.isNull(curCPInstance.getDDMContent())) {
 						updateStatus(
 							serviceContext.getUserId(),
-							cpInstance.getCPInstanceId(),
+							curCPInstance.getCPInstanceId(),
 							WorkflowConstants.STATUS_INACTIVE, serviceContext,
 							new HashMap<String, Serializable>());
 					}
@@ -1049,11 +1067,11 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 					if ((cpInstanceId <= 0) &&
 						(status == WorkflowConstants.STATUS_APPROVED) &&
 						DDMFormValuesUtil.equals(
-							ddmContent, cpInstance.getDDMContent())) {
+							ddmContent, curCPInstance.getDDMContent())) {
 
 						updateStatus(
 							serviceContext.getUserId(),
-							cpInstance.getCPInstanceId(),
+							curCPInstance.getCPInstanceId(),
 							WorkflowConstants.STATUS_EXPIRED, serviceContext,
 							new HashMap<String, Serializable>());
 					}
