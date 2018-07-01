@@ -47,7 +47,7 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"commerce.product.rule.type.key=" + CPRuleConstants.TYPE_ASSET_CATEGORY,
-		"commerce.product.rule.type.order:Integer=10"
+		"commerce.product.rule.type.order:Integer=200"
 	},
 	service = CPRuleType.class
 )

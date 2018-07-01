@@ -22,8 +22,10 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.filter.BooleanFilter;
+import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -34,7 +36,7 @@ import org.osgi.service.component.annotations.Component;
 	immediate = true,
 	property = {
 		"commerce.product.rule.type.key=" + CPRuleConstants.TYPE_ALL_PRODUCTS,
-		"commerce.product.rule.type.order:Integer=10"
+		"commerce.product.rule.type.order:Integer=100"
 	},
 	service = CPRuleType.class
 )
@@ -47,12 +49,15 @@ public class AllProductsCPRuleTypeImpl implements CPRuleType {
 
 	@Override
 	public String getKey() {
-		return CPRuleConstants.TYPE_ASSET_CATEGORY;
+		return CPRuleConstants.TYPE_ALL_PRODUCTS;
 	}
 
 	@Override
 	public String getLabel(Locale locale) {
-		return LanguageUtil.get(locale, "all-products");
+		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
+			"content.Language", locale, getClass());
+
+		return LanguageUtil.get(resourceBundle, "all-products");
 	}
 
 	@Override
