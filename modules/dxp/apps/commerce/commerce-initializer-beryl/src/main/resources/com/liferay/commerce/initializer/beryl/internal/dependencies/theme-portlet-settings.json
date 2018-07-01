@@ -18,9 +18,9 @@
 		"portletPreferences": {
 			"displayStyle": "",
 			"displayStyleGroupId": "",
-			"grouped--cpTypeListEntryRendererKey": "beryl",
-			"simple--cpTypeListEntryRendererKey": "beryl",
-			"virtual--cpTypeListEntryRendererKey": "beryl"
+			"grouped--cpTypeListEntryRendererKey": "search-result-beryl",
+			"simple--cpTypeListEntryRendererKey": "search-result-beryl",
+			"virtual--cpTypeListEntryRendererKey": "search-result-beryl"
 		}
 	}
 ]
