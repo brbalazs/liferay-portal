@@ -118,12 +118,40 @@ public class CommerceOrganizationServiceHttp {
 		}
 	}
 
+	public static void deleteOrganization(HttpPrincipal httpPrincipal,
+		long organizationId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		try {
+			MethodKey methodKey = new MethodKey(CommerceOrganizationServiceUtil.class,
+					"deleteOrganization", _deleteOrganizationParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey,
+					organizationId);
+
+			try {
+				TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static com.liferay.portal.kernel.model.Organization fetchOrganization(
 		HttpPrincipal httpPrincipal, long organizationId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceOrganizationServiceUtil.class,
-					"fetchOrganization", _fetchOrganizationParameterTypes2);
+					"fetchOrganization", _fetchOrganizationParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					organizationId);
@@ -155,7 +183,7 @@ public class CommerceOrganizationServiceHttp {
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceOrganizationServiceUtil.class,
-					"getOrganization", _getOrganizationParameterTypes3);
+					"getOrganization", _getOrganizationParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					organizationId);
@@ -182,41 +210,13 @@ public class CommerceOrganizationServiceHttp {
 		}
 	}
 
-	public static void deleteOrganization(HttpPrincipal httpPrincipal,
-		long organizationId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceOrganizationServiceUtil.class,
-					"deleteOrganization", _deleteOrganizationParameterTypes3);
-
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					organizationId);
-
-			try {
-				TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
-			}
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
 	public static com.liferay.portal.kernel.model.Address getOrganizationPrimaryAddress(
 		HttpPrincipal httpPrincipal, long organizationId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceOrganizationServiceUtil.class,
 					"getOrganizationPrimaryAddress",
-					_getOrganizationPrimaryAddressParameterTypes4);
+					_getOrganizationPrimaryAddressParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					organizationId);
@@ -249,7 +249,7 @@ public class CommerceOrganizationServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceOrganizationServiceUtil.class,
 					"getOrganizationPrimaryEmailAddress",
-					_getOrganizationPrimaryEmailAddressParameterTypes5);
+					_getOrganizationPrimaryEmailAddressParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					organizationId);
@@ -283,7 +283,7 @@ public class CommerceOrganizationServiceHttp {
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceOrganizationServiceUtil.class,
-					"searchOrganizations", _searchOrganizationsParameterTypes6);
+					"searchOrganizations", _searchOrganizationsParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, userId,
 					organizationId, type, keywords, start, end, sorts);
@@ -318,7 +318,7 @@ public class CommerceOrganizationServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceOrganizationServiceUtil.class,
 					"searchOrganizationsByGroup",
-					_searchOrganizationsByGroupParameterTypes7);
+					_searchOrganizationsByGroupParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
 					userId, type, keywords, start, end, sorts);
@@ -351,7 +351,7 @@ public class CommerceOrganizationServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceOrganizationServiceUtil.class,
 					"unsetOrganizationUsers",
-					_unsetOrganizationUsersParameterTypes8);
+					_unsetOrganizationUsersParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					organizationId, userIds);
@@ -383,7 +383,7 @@ public class CommerceOrganizationServiceHttp {
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceOrganizationServiceUtil.class,
-					"updateOrganization", _updateOrganizationParameterTypes9);
+					"updateOrganization", _updateOrganizationParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					organizationId, name, emailAddressId, address, addressId,
@@ -421,33 +421,31 @@ public class CommerceOrganizationServiceHttp {
 			long.class, String[].class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _fetchOrganizationParameterTypes2 = new Class[] {
+	private static final Class<?>[] _deleteOrganizationParameterTypes2 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _getOrganizationParameterTypes3 = new Class[] {
+	private static final Class<?>[] _fetchOrganizationParameterTypes3 = new Class[] {
 			long.class
 		};
-
-	private static final Class<?>[] _deleteOrganizationParameterTypes3 = new Class[] {
+	private static final Class<?>[] _getOrganizationParameterTypes4 = new Class[] {
 			long.class
 		};
-
-	private static final Class<?>[] _getOrganizationPrimaryAddressParameterTypes4 =
+	private static final Class<?>[] _getOrganizationPrimaryAddressParameterTypes5 =
 		new Class[] { long.class };
-	private static final Class<?>[] _getOrganizationPrimaryEmailAddressParameterTypes5 =
+	private static final Class<?>[] _getOrganizationPrimaryEmailAddressParameterTypes6 =
 		new Class[] { long.class };
-	private static final Class<?>[] _searchOrganizationsParameterTypes6 = new Class[] {
+	private static final Class<?>[] _searchOrganizationsParameterTypes7 = new Class[] {
 			long.class, long.class, String.class, String.class, int.class,
 			int.class, com.liferay.portal.kernel.search.Sort[].class
 		};
-	private static final Class<?>[] _searchOrganizationsByGroupParameterTypes7 = new Class[] {
+	private static final Class<?>[] _searchOrganizationsByGroupParameterTypes8 = new Class[] {
 			long.class, long.class, String.class, String.class, int.class,
 			int.class, com.liferay.portal.kernel.search.Sort[].class
 		};
-	private static final Class<?>[] _unsetOrganizationUsersParameterTypes8 = new Class[] {
+	private static final Class<?>[] _unsetOrganizationUsersParameterTypes9 = new Class[] {
 			long.class, long[].class
 		};
-	private static final Class<?>[] _updateOrganizationParameterTypes9 = new Class[] {
+	private static final Class<?>[] _updateOrganizationParameterTypes10 = new Class[] {
 			long.class, String.class, long.class, String.class, long.class,
 			String.class, String.class, String.class, String.class, String.class,
 			long.class, long.class, boolean.class, byte[].class,

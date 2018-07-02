@@ -426,60 +426,60 @@ public interface CommerceOrderItemModel extends BaseModel<CommerceOrderItem>,
 	public void setFinalPrice(BigDecimal finalPrice);
 
 	/**
-	 * Returns the discount persentage leve1 of this commerce order item.
+	 * Returns the discount percentage level1 of this commerce order item.
 	 *
-	 * @return the discount persentage leve1 of this commerce order item
+	 * @return the discount percentage level1 of this commerce order item
 	 */
-	public BigDecimal getDiscountPersentageLeve1();
+	public BigDecimal getDiscountPercentageLevel1();
 
 	/**
-	 * Sets the discount persentage leve1 of this commerce order item.
+	 * Sets the discount percentage level1 of this commerce order item.
 	 *
-	 * @param discountPersentageLeve1 the discount persentage leve1 of this commerce order item
+	 * @param discountPercentageLevel1 the discount percentage level1 of this commerce order item
 	 */
-	public void setDiscountPersentageLeve1(BigDecimal discountPersentageLeve1);
+	public void setDiscountPercentageLevel1(BigDecimal discountPercentageLevel1);
 
 	/**
-	 * Returns the discount persentage leve2 of this commerce order item.
+	 * Returns the discount percentage level2 of this commerce order item.
 	 *
-	 * @return the discount persentage leve2 of this commerce order item
+	 * @return the discount percentage level2 of this commerce order item
 	 */
-	public BigDecimal getDiscountPersentageLeve2();
+	public BigDecimal getDiscountPercentageLevel2();
 
 	/**
-	 * Sets the discount persentage leve2 of this commerce order item.
+	 * Sets the discount percentage level2 of this commerce order item.
 	 *
-	 * @param discountPersentageLeve2 the discount persentage leve2 of this commerce order item
+	 * @param discountPercentageLevel2 the discount percentage level2 of this commerce order item
 	 */
-	public void setDiscountPersentageLeve2(BigDecimal discountPersentageLeve2);
+	public void setDiscountPercentageLevel2(BigDecimal discountPercentageLevel2);
 
 	/**
-	 * Returns the discount persentage leve3 of this commerce order item.
+	 * Returns the discount percentage level3 of this commerce order item.
 	 *
-	 * @return the discount persentage leve3 of this commerce order item
+	 * @return the discount percentage level3 of this commerce order item
 	 */
-	public BigDecimal getDiscountPersentageLeve3();
+	public BigDecimal getDiscountPercentageLevel3();
 
 	/**
-	 * Sets the discount persentage leve3 of this commerce order item.
+	 * Sets the discount percentage level3 of this commerce order item.
 	 *
-	 * @param discountPersentageLeve3 the discount persentage leve3 of this commerce order item
+	 * @param discountPercentageLevel3 the discount percentage level3 of this commerce order item
 	 */
-	public void setDiscountPersentageLeve3(BigDecimal discountPersentageLeve3);
+	public void setDiscountPercentageLevel3(BigDecimal discountPercentageLevel3);
 
 	/**
-	 * Returns the discount persentage leve4 of this commerce order item.
+	 * Returns the discount percentage level4 of this commerce order item.
 	 *
-	 * @return the discount persentage leve4 of this commerce order item
+	 * @return the discount percentage level4 of this commerce order item
 	 */
-	public BigDecimal getDiscountPersentageLeve4();
+	public BigDecimal getDiscountPercentageLevel4();
 
 	/**
-	 * Sets the discount persentage leve4 of this commerce order item.
+	 * Sets the discount percentage level4 of this commerce order item.
 	 *
-	 * @param discountPersentageLeve4 the discount persentage leve4 of this commerce order item
+	 * @param discountPercentageLevel4 the discount percentage level4 of this commerce order item
 	 */
-	public void setDiscountPersentageLeve4(BigDecimal discountPersentageLeve4);
+	public void setDiscountPercentageLevel4(BigDecimal discountPercentageLevel4);
 
 	@Override
 	public boolean isNew();

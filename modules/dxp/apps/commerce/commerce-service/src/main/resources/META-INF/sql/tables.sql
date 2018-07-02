@@ -157,10 +157,10 @@ create table CommerceOrderItem (
 	unitPrice DECIMAL(30, 16) null,
 	discountAmount DECIMAL(30, 16) null,
 	finalPrice DECIMAL(30, 16) null,
-	discountPersentageLeve1 DECIMAL(30, 16) null,
-	discountPersentageLeve2 DECIMAL(30, 16) null,
-	discountPersentageLeve3 DECIMAL(30, 16) null,
-	discountPersentageLeve4 DECIMAL(30, 16) null
+	discountPercentageLevel1 DECIMAL(30, 16) null,
+	discountPercentageLevel2 DECIMAL(30, 16) null,
+	discountPercentageLevel3 DECIMAL(30, 16) null,
+	discountPercentageLevel4 DECIMAL(30, 16) null
 );
 
 create table CommerceOrderNote (

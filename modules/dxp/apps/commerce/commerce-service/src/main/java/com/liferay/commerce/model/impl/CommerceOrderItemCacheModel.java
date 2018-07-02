@@ -103,14 +103,14 @@ public class CommerceOrderItemCacheModel implements CacheModel<CommerceOrderItem
 		sb.append(discountAmount);
 		sb.append(", finalPrice=");
 		sb.append(finalPrice);
-		sb.append(", discountPersentageLeve1=");
-		sb.append(discountPersentageLeve1);
-		sb.append(", discountPersentageLeve2=");
-		sb.append(discountPersentageLeve2);
-		sb.append(", discountPersentageLeve3=");
-		sb.append(discountPersentageLeve3);
-		sb.append(", discountPersentageLeve4=");
-		sb.append(discountPersentageLeve4);
+		sb.append(", discountPercentageLevel1=");
+		sb.append(discountPercentageLevel1);
+		sb.append(", discountPercentageLevel2=");
+		sb.append(discountPercentageLevel2);
+		sb.append(", discountPercentageLevel3=");
+		sb.append(discountPercentageLevel3);
+		sb.append(", discountPercentageLevel4=");
+		sb.append(discountPercentageLevel4);
 		sb.append("}");
 
 		return sb.toString();
@@ -175,10 +175,10 @@ public class CommerceOrderItemCacheModel implements CacheModel<CommerceOrderItem
 		commerceOrderItemImpl.setUnitPrice(unitPrice);
 		commerceOrderItemImpl.setDiscountAmount(discountAmount);
 		commerceOrderItemImpl.setFinalPrice(finalPrice);
-		commerceOrderItemImpl.setDiscountPersentageLeve1(discountPersentageLeve1);
-		commerceOrderItemImpl.setDiscountPersentageLeve2(discountPersentageLeve2);
-		commerceOrderItemImpl.setDiscountPersentageLeve3(discountPersentageLeve3);
-		commerceOrderItemImpl.setDiscountPersentageLeve4(discountPersentageLeve4);
+		commerceOrderItemImpl.setDiscountPercentageLevel1(discountPercentageLevel1);
+		commerceOrderItemImpl.setDiscountPercentageLevel2(discountPercentageLevel2);
+		commerceOrderItemImpl.setDiscountPercentageLevel3(discountPercentageLevel3);
+		commerceOrderItemImpl.setDiscountPercentageLevel4(discountPercentageLevel4);
 
 		commerceOrderItemImpl.resetOriginalValues();
 
@@ -212,10 +212,10 @@ public class CommerceOrderItemCacheModel implements CacheModel<CommerceOrderItem
 		unitPrice = (BigDecimal)objectInput.readObject();
 		discountAmount = (BigDecimal)objectInput.readObject();
 		finalPrice = (BigDecimal)objectInput.readObject();
-		discountPersentageLeve1 = (BigDecimal)objectInput.readObject();
-		discountPersentageLeve2 = (BigDecimal)objectInput.readObject();
-		discountPersentageLeve3 = (BigDecimal)objectInput.readObject();
-		discountPersentageLeve4 = (BigDecimal)objectInput.readObject();
+		discountPercentageLevel1 = (BigDecimal)objectInput.readObject();
+		discountPercentageLevel2 = (BigDecimal)objectInput.readObject();
+		discountPercentageLevel3 = (BigDecimal)objectInput.readObject();
+		discountPercentageLevel4 = (BigDecimal)objectInput.readObject();
 	}
 
 	@Override
@@ -271,10 +271,10 @@ public class CommerceOrderItemCacheModel implements CacheModel<CommerceOrderItem
 		objectOutput.writeObject(unitPrice);
 		objectOutput.writeObject(discountAmount);
 		objectOutput.writeObject(finalPrice);
-		objectOutput.writeObject(discountPersentageLeve1);
-		objectOutput.writeObject(discountPersentageLeve2);
-		objectOutput.writeObject(discountPersentageLeve3);
-		objectOutput.writeObject(discountPersentageLeve4);
+		objectOutput.writeObject(discountPercentageLevel1);
+		objectOutput.writeObject(discountPercentageLevel2);
+		objectOutput.writeObject(discountPercentageLevel3);
+		objectOutput.writeObject(discountPercentageLevel4);
 	}
 
 	public long commerceOrderItemId;
@@ -294,8 +294,8 @@ public class CommerceOrderItemCacheModel implements CacheModel<CommerceOrderItem
 	public BigDecimal unitPrice;
 	public BigDecimal discountAmount;
 	public BigDecimal finalPrice;
-	public BigDecimal discountPersentageLeve1;
-	public BigDecimal discountPersentageLeve2;
-	public BigDecimal discountPersentageLeve3;
-	public BigDecimal discountPersentageLeve4;
+	public BigDecimal discountPercentageLevel1;
+	public BigDecimal discountPercentageLevel2;
+	public BigDecimal discountPercentageLevel3;
+	public BigDecimal discountPercentageLevel4;
 }

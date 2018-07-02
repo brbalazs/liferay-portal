@@ -132,44 +132,12 @@ public class CommerceDiscountServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.commerce.discount.model.CommerceDiscount> getCommerceDiscounts(
-		HttpPrincipal httpPrincipal, long groupId, String couponCode)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceDiscountServiceUtil.class,
-					"getCommerceDiscounts", _getCommerceDiscountsParameterTypes2);
-
-			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
-					couponCode);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
-			}
-
-			return (java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
 	public static com.liferay.commerce.discount.model.CommerceDiscount getCommerceDiscount(
 		HttpPrincipal httpPrincipal, long commerceDiscountId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceDiscountServiceUtil.class,
-					"getCommerceDiscount", _getCommerceDiscountParameterTypes3);
+					"getCommerceDiscount", _getCommerceDiscountParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					commerceDiscountId);
@@ -202,10 +170,42 @@ public class CommerceDiscountServiceHttp {
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceDiscountServiceUtil.class,
-					"getCommerceDiscounts", _getCommerceDiscountsParameterTypes4);
+					"getCommerceDiscounts", _getCommerceDiscountsParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
 					start, end, orderByComparator);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static java.util.List<com.liferay.commerce.discount.model.CommerceDiscount> getCommerceDiscounts(
+		HttpPrincipal httpPrincipal, long groupId, String couponCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		try {
+			MethodKey methodKey = new MethodKey(CommerceDiscountServiceUtil.class,
+					"getCommerceDiscounts", _getCommerceDiscountsParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
+					couponCode);
 
 			Object returnObj = null;
 
@@ -358,15 +358,15 @@ public class CommerceDiscountServiceHttp {
 	private static final Class<?>[] _deleteCommerceDiscountParameterTypes1 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _getCommerceDiscountsParameterTypes2 = new Class[] {
-			long.class, String.class
-		};
-	private static final Class<?>[] _getCommerceDiscountParameterTypes3 = new Class[] {
+	private static final Class<?>[] _getCommerceDiscountParameterTypes2 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _getCommerceDiscountsParameterTypes4 = new Class[] {
+	private static final Class<?>[] _getCommerceDiscountsParameterTypes3 = new Class[] {
 			long.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
+		};
+	private static final Class<?>[] _getCommerceDiscountsParameterTypes4 = new Class[] {
+			long.class, String.class
 		};
 	private static final Class<?>[] _getCommerceDiscountsCountParameterTypes5 = new Class[] {
 			long.class

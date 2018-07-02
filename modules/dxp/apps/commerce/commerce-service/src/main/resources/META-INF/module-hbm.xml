@@ -150,10 +150,10 @@
 		<property name="unitPrice" type="org.hibernate.type.BigDecimalType" />
 		<property name="discountAmount" type="org.hibernate.type.BigDecimalType" />
 		<property name="finalPrice" type="org.hibernate.type.BigDecimalType" />
-		<property name="discountPersentageLeve1" type="org.hibernate.type.BigDecimalType" />
-		<property name="discountPersentageLeve2" type="org.hibernate.type.BigDecimalType" />
-		<property name="discountPersentageLeve3" type="org.hibernate.type.BigDecimalType" />
-		<property name="discountPersentageLeve4" type="org.hibernate.type.BigDecimalType" />
+		<property name="discountPercentageLevel1" type="org.hibernate.type.BigDecimalType" />
+		<property name="discountPercentageLevel2" type="org.hibernate.type.BigDecimalType" />
+		<property name="discountPercentageLevel3" type="org.hibernate.type.BigDecimalType" />
+		<property name="discountPercentageLevel4" type="org.hibernate.type.BigDecimalType" />
 	</class>
 	<class name="com.liferay.commerce.model.impl.CommerceOrderNoteImpl" table="CommerceOrderNote">
 		<id name="commerceOrderNoteId" type="long">

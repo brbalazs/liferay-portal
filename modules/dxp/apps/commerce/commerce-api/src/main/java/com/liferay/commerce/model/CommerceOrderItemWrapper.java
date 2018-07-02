@@ -77,10 +77,10 @@ public class CommerceOrderItemWrapper implements CommerceOrderItem,
 		attributes.put("unitPrice", getUnitPrice());
 		attributes.put("discountAmount", getDiscountAmount());
 		attributes.put("finalPrice", getFinalPrice());
-		attributes.put("discountPersentageLeve1", getDiscountPersentageLeve1());
-		attributes.put("discountPersentageLeve2", getDiscountPersentageLeve2());
-		attributes.put("discountPersentageLeve3", getDiscountPersentageLeve3());
-		attributes.put("discountPersentageLeve4", getDiscountPersentageLeve4());
+		attributes.put("discountPercentageLevel1", getDiscountPercentageLevel1());
+		attributes.put("discountPercentageLevel2", getDiscountPercentageLevel2());
+		attributes.put("discountPercentageLevel3", getDiscountPercentageLevel3());
+		attributes.put("discountPercentageLevel4", getDiscountPercentageLevel4());
 
 		return attributes;
 	}
@@ -189,32 +189,32 @@ public class CommerceOrderItemWrapper implements CommerceOrderItem,
 			setFinalPrice(finalPrice);
 		}
 
-		BigDecimal discountPersentageLeve1 = (BigDecimal)attributes.get(
-				"discountPersentageLeve1");
+		BigDecimal discountPercentageLevel1 = (BigDecimal)attributes.get(
+				"discountPercentageLevel1");
 
-		if (discountPersentageLeve1 != null) {
-			setDiscountPersentageLeve1(discountPersentageLeve1);
+		if (discountPercentageLevel1 != null) {
+			setDiscountPercentageLevel1(discountPercentageLevel1);
 		}
 
-		BigDecimal discountPersentageLeve2 = (BigDecimal)attributes.get(
-				"discountPersentageLeve2");
+		BigDecimal discountPercentageLevel2 = (BigDecimal)attributes.get(
+				"discountPercentageLevel2");
 
-		if (discountPersentageLeve2 != null) {
-			setDiscountPersentageLeve2(discountPersentageLeve2);
+		if (discountPercentageLevel2 != null) {
+			setDiscountPercentageLevel2(discountPercentageLevel2);
 		}
 
-		BigDecimal discountPersentageLeve3 = (BigDecimal)attributes.get(
-				"discountPersentageLeve3");
+		BigDecimal discountPercentageLevel3 = (BigDecimal)attributes.get(
+				"discountPercentageLevel3");
 
-		if (discountPersentageLeve3 != null) {
-			setDiscountPersentageLeve3(discountPersentageLeve3);
+		if (discountPercentageLevel3 != null) {
+			setDiscountPercentageLevel3(discountPercentageLevel3);
 		}
 
-		BigDecimal discountPersentageLeve4 = (BigDecimal)attributes.get(
-				"discountPersentageLeve4");
+		BigDecimal discountPercentageLevel4 = (BigDecimal)attributes.get(
+				"discountPercentageLevel4");
 
-		if (discountPersentageLeve4 != null) {
-			setDiscountPersentageLeve4(discountPersentageLeve4);
+		if (discountPercentageLevel4 != null) {
+			setDiscountPercentageLevel4(discountPercentageLevel4);
 		}
 	}
 
@@ -323,43 +323,43 @@ public class CommerceOrderItemWrapper implements CommerceOrderItem,
 	}
 
 	/**
-	* Returns the discount persentage leve1 of this commerce order item.
+	* Returns the discount percentage level1 of this commerce order item.
 	*
-	* @return the discount persentage leve1 of this commerce order item
+	* @return the discount percentage level1 of this commerce order item
 	*/
 	@Override
-	public BigDecimal getDiscountPersentageLeve1() {
-		return _commerceOrderItem.getDiscountPersentageLeve1();
+	public BigDecimal getDiscountPercentageLevel1() {
+		return _commerceOrderItem.getDiscountPercentageLevel1();
 	}
 
 	/**
-	* Returns the discount persentage leve2 of this commerce order item.
+	* Returns the discount percentage level2 of this commerce order item.
 	*
-	* @return the discount persentage leve2 of this commerce order item
+	* @return the discount percentage level2 of this commerce order item
 	*/
 	@Override
-	public BigDecimal getDiscountPersentageLeve2() {
-		return _commerceOrderItem.getDiscountPersentageLeve2();
+	public BigDecimal getDiscountPercentageLevel2() {
+		return _commerceOrderItem.getDiscountPercentageLevel2();
 	}
 
 	/**
-	* Returns the discount persentage leve3 of this commerce order item.
+	* Returns the discount percentage level3 of this commerce order item.
 	*
-	* @return the discount persentage leve3 of this commerce order item
+	* @return the discount percentage level3 of this commerce order item
 	*/
 	@Override
-	public BigDecimal getDiscountPersentageLeve3() {
-		return _commerceOrderItem.getDiscountPersentageLeve3();
+	public BigDecimal getDiscountPercentageLevel3() {
+		return _commerceOrderItem.getDiscountPercentageLevel3();
 	}
 
 	/**
-	* Returns the discount persentage leve4 of this commerce order item.
+	* Returns the discount percentage level4 of this commerce order item.
 	*
-	* @return the discount persentage leve4 of this commerce order item
+	* @return the discount percentage level4 of this commerce order item
 	*/
 	@Override
-	public BigDecimal getDiscountPersentageLeve4() {
-		return _commerceOrderItem.getDiscountPersentageLeve4();
+	public BigDecimal getDiscountPercentageLevel4() {
+		return _commerceOrderItem.getDiscountPercentageLevel4();
 	}
 
 	@Override
@@ -684,43 +684,43 @@ public class CommerceOrderItemWrapper implements CommerceOrderItem,
 	}
 
 	/**
-	* Sets the discount persentage leve1 of this commerce order item.
+	* Sets the discount percentage level1 of this commerce order item.
 	*
-	* @param discountPersentageLeve1 the discount persentage leve1 of this commerce order item
+	* @param discountPercentageLevel1 the discount percentage level1 of this commerce order item
 	*/
 	@Override
-	public void setDiscountPersentageLeve1(BigDecimal discountPersentageLeve1) {
-		_commerceOrderItem.setDiscountPersentageLeve1(discountPersentageLeve1);
+	public void setDiscountPercentageLevel1(BigDecimal discountPercentageLevel1) {
+		_commerceOrderItem.setDiscountPercentageLevel1(discountPercentageLevel1);
 	}
 
 	/**
-	* Sets the discount persentage leve2 of this commerce order item.
+	* Sets the discount percentage level2 of this commerce order item.
 	*
-	* @param discountPersentageLeve2 the discount persentage leve2 of this commerce order item
+	* @param discountPercentageLevel2 the discount percentage level2 of this commerce order item
 	*/
 	@Override
-	public void setDiscountPersentageLeve2(BigDecimal discountPersentageLeve2) {
-		_commerceOrderItem.setDiscountPersentageLeve2(discountPersentageLeve2);
+	public void setDiscountPercentageLevel2(BigDecimal discountPercentageLevel2) {
+		_commerceOrderItem.setDiscountPercentageLevel2(discountPercentageLevel2);
 	}
 
 	/**
-	* Sets the discount persentage leve3 of this commerce order item.
+	* Sets the discount percentage level3 of this commerce order item.
 	*
-	* @param discountPersentageLeve3 the discount persentage leve3 of this commerce order item
+	* @param discountPercentageLevel3 the discount percentage level3 of this commerce order item
 	*/
 	@Override
-	public void setDiscountPersentageLeve3(BigDecimal discountPersentageLeve3) {
-		_commerceOrderItem.setDiscountPersentageLeve3(discountPersentageLeve3);
+	public void setDiscountPercentageLevel3(BigDecimal discountPercentageLevel3) {
+		_commerceOrderItem.setDiscountPercentageLevel3(discountPercentageLevel3);
 	}
 
 	/**
-	* Sets the discount persentage leve4 of this commerce order item.
+	* Sets the discount percentage level4 of this commerce order item.
 	*
-	* @param discountPersentageLeve4 the discount persentage leve4 of this commerce order item
+	* @param discountPercentageLevel4 the discount percentage level4 of this commerce order item
 	*/
 	@Override
-	public void setDiscountPersentageLeve4(BigDecimal discountPersentageLeve4) {
-		_commerceOrderItem.setDiscountPersentageLeve4(discountPersentageLeve4);
+	public void setDiscountPercentageLevel4(BigDecimal discountPercentageLevel4) {
+		_commerceOrderItem.setDiscountPercentageLevel4(discountPercentageLevel4);
 	}
 
 	@Override

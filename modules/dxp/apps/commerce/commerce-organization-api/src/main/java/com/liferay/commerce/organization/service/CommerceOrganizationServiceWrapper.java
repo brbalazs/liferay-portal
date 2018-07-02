@@ -53,15 +53,16 @@ public class CommerceOrganizationServiceWrapper
 	}
 
 	@Override
+	public void deleteOrganization(long organizationId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		_commerceOrganizationService.deleteOrganization(organizationId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.model.Organization fetchOrganization(
 		long organizationId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceOrganizationService.fetchOrganization(organizationId);
-	}
-
-	public void deleteOrganization(long organizationId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		_commerceOrganizationService.deleteOrganization(organizationId);
 	}
 
 	@Override

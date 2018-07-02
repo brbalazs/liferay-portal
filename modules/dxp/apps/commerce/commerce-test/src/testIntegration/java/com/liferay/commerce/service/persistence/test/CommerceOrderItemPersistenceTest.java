@@ -159,16 +159,16 @@ public class CommerceOrderItemPersistenceTest {
 		newCommerceOrderItem.setFinalPrice(new BigDecimal(
 				RandomTestUtil.nextDouble()));
 
-		newCommerceOrderItem.setDiscountPersentageLeve1(new BigDecimal(
+		newCommerceOrderItem.setDiscountPercentageLevel1(new BigDecimal(
 				RandomTestUtil.nextDouble()));
 
-		newCommerceOrderItem.setDiscountPersentageLeve2(new BigDecimal(
+		newCommerceOrderItem.setDiscountPercentageLevel2(new BigDecimal(
 				RandomTestUtil.nextDouble()));
 
-		newCommerceOrderItem.setDiscountPersentageLeve3(new BigDecimal(
+		newCommerceOrderItem.setDiscountPercentageLevel3(new BigDecimal(
 				RandomTestUtil.nextDouble()));
 
-		newCommerceOrderItem.setDiscountPersentageLeve4(new BigDecimal(
+		newCommerceOrderItem.setDiscountPercentageLevel4(new BigDecimal(
 				RandomTestUtil.nextDouble()));
 
 		_commerceOrderItems.add(_persistence.update(newCommerceOrderItem));
@@ -211,14 +211,14 @@ public class CommerceOrderItemPersistenceTest {
 			newCommerceOrderItem.getDiscountAmount());
 		Assert.assertEquals(existingCommerceOrderItem.getFinalPrice(),
 			newCommerceOrderItem.getFinalPrice());
-		Assert.assertEquals(existingCommerceOrderItem.getDiscountPersentageLeve1(),
-			newCommerceOrderItem.getDiscountPersentageLeve1());
-		Assert.assertEquals(existingCommerceOrderItem.getDiscountPersentageLeve2(),
-			newCommerceOrderItem.getDiscountPersentageLeve2());
-		Assert.assertEquals(existingCommerceOrderItem.getDiscountPersentageLeve3(),
-			newCommerceOrderItem.getDiscountPersentageLeve3());
-		Assert.assertEquals(existingCommerceOrderItem.getDiscountPersentageLeve4(),
-			newCommerceOrderItem.getDiscountPersentageLeve4());
+		Assert.assertEquals(existingCommerceOrderItem.getDiscountPercentageLevel1(),
+			newCommerceOrderItem.getDiscountPercentageLevel1());
+		Assert.assertEquals(existingCommerceOrderItem.getDiscountPercentageLevel2(),
+			newCommerceOrderItem.getDiscountPercentageLevel2());
+		Assert.assertEquals(existingCommerceOrderItem.getDiscountPercentageLevel3(),
+			newCommerceOrderItem.getDiscountPercentageLevel3());
+		Assert.assertEquals(existingCommerceOrderItem.getDiscountPercentageLevel4(),
+			newCommerceOrderItem.getDiscountPercentageLevel4());
 	}
 
 	@Test
@@ -272,9 +272,9 @@ public class CommerceOrderItemPersistenceTest {
 			"modifiedDate", true, "commerceOrderId", true, "CPInstanceId",
 			true, "quantity", true, "shippedQuantity", true, "name", true,
 			"sku", true, "unitPrice", true, "discountAmount", true,
-			"finalPrice", true, "discountPersentageLeve1", true,
-			"discountPersentageLeve2", true, "discountPersentageLeve3", true,
-			"discountPersentageLeve4", true);
+			"finalPrice", true, "discountPercentageLevel1", true,
+			"discountPercentageLevel2", true, "discountPercentageLevel3", true,
+			"discountPercentageLevel4", true);
 	}
 
 	@Test
@@ -512,16 +512,16 @@ public class CommerceOrderItemPersistenceTest {
 		commerceOrderItem.setFinalPrice(new BigDecimal(
 				RandomTestUtil.nextDouble()));
 
-		commerceOrderItem.setDiscountPersentageLeve1(new BigDecimal(
+		commerceOrderItem.setDiscountPercentageLevel1(new BigDecimal(
 				RandomTestUtil.nextDouble()));
 
-		commerceOrderItem.setDiscountPersentageLeve2(new BigDecimal(
+		commerceOrderItem.setDiscountPercentageLevel2(new BigDecimal(
 				RandomTestUtil.nextDouble()));
 
-		commerceOrderItem.setDiscountPersentageLeve3(new BigDecimal(
+		commerceOrderItem.setDiscountPercentageLevel3(new BigDecimal(
 				RandomTestUtil.nextDouble()));
 
-		commerceOrderItem.setDiscountPersentageLeve4(new BigDecimal(
+		commerceOrderItem.setDiscountPercentageLevel4(new BigDecimal(
 				RandomTestUtil.nextDouble()));
 
 		_commerceOrderItems.add(_persistence.update(commerceOrderItem));

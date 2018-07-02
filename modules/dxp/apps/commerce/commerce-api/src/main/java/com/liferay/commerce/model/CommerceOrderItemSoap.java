@@ -53,10 +53,10 @@ public class CommerceOrderItemSoap implements Serializable {
 		soapModel.setUnitPrice(model.getUnitPrice());
 		soapModel.setDiscountAmount(model.getDiscountAmount());
 		soapModel.setFinalPrice(model.getFinalPrice());
-		soapModel.setDiscountPersentageLeve1(model.getDiscountPersentageLeve1());
-		soapModel.setDiscountPersentageLeve2(model.getDiscountPersentageLeve2());
-		soapModel.setDiscountPersentageLeve3(model.getDiscountPersentageLeve3());
-		soapModel.setDiscountPersentageLeve4(model.getDiscountPersentageLeve4());
+		soapModel.setDiscountPercentageLevel1(model.getDiscountPercentageLevel1());
+		soapModel.setDiscountPercentageLevel2(model.getDiscountPercentageLevel2());
+		soapModel.setDiscountPercentageLevel3(model.getDiscountPercentageLevel3());
+		soapModel.setDiscountPercentageLevel4(model.getDiscountPercentageLevel4());
 
 		return soapModel;
 	}
@@ -248,36 +248,36 @@ public class CommerceOrderItemSoap implements Serializable {
 		_finalPrice = finalPrice;
 	}
 
-	public BigDecimal getDiscountPersentageLeve1() {
-		return _discountPersentageLeve1;
+	public BigDecimal getDiscountPercentageLevel1() {
+		return _discountPercentageLevel1;
 	}
 
-	public void setDiscountPersentageLeve1(BigDecimal discountPersentageLeve1) {
-		_discountPersentageLeve1 = discountPersentageLeve1;
+	public void setDiscountPercentageLevel1(BigDecimal discountPercentageLevel1) {
+		_discountPercentageLevel1 = discountPercentageLevel1;
 	}
 
-	public BigDecimal getDiscountPersentageLeve2() {
-		return _discountPersentageLeve2;
+	public BigDecimal getDiscountPercentageLevel2() {
+		return _discountPercentageLevel2;
 	}
 
-	public void setDiscountPersentageLeve2(BigDecimal discountPersentageLeve2) {
-		_discountPersentageLeve2 = discountPersentageLeve2;
+	public void setDiscountPercentageLevel2(BigDecimal discountPercentageLevel2) {
+		_discountPercentageLevel2 = discountPercentageLevel2;
 	}
 
-	public BigDecimal getDiscountPersentageLeve3() {
-		return _discountPersentageLeve3;
+	public BigDecimal getDiscountPercentageLevel3() {
+		return _discountPercentageLevel3;
 	}
 
-	public void setDiscountPersentageLeve3(BigDecimal discountPersentageLeve3) {
-		_discountPersentageLeve3 = discountPersentageLeve3;
+	public void setDiscountPercentageLevel3(BigDecimal discountPercentageLevel3) {
+		_discountPercentageLevel3 = discountPercentageLevel3;
 	}
 
-	public BigDecimal getDiscountPersentageLeve4() {
-		return _discountPersentageLeve4;
+	public BigDecimal getDiscountPercentageLevel4() {
+		return _discountPercentageLevel4;
 	}
 
-	public void setDiscountPersentageLeve4(BigDecimal discountPersentageLeve4) {
-		_discountPersentageLeve4 = discountPersentageLeve4;
+	public void setDiscountPercentageLevel4(BigDecimal discountPercentageLevel4) {
+		_discountPercentageLevel4 = discountPercentageLevel4;
 	}
 
 	private long _commerceOrderItemId;
@@ -297,8 +297,8 @@ public class CommerceOrderItemSoap implements Serializable {
 	private BigDecimal _unitPrice;
 	private BigDecimal _discountAmount;
 	private BigDecimal _finalPrice;
-	private BigDecimal _discountPersentageLeve1;
-	private BigDecimal _discountPersentageLeve2;
-	private BigDecimal _discountPersentageLeve3;
-	private BigDecimal _discountPersentageLeve4;
+	private BigDecimal _discountPercentageLevel1;
+	private BigDecimal _discountPercentageLevel2;
+	private BigDecimal _discountPercentageLevel3;
+	private BigDecimal _discountPercentageLevel4;
 }
