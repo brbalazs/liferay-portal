@@ -16,6 +16,8 @@ package com.liferay.commerce.discount.internal;
 
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
+import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.discount.CommerceDiscountCalculation;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.discount.internal.search.CommerceDiscountIndexer;
@@ -194,11 +196,13 @@ public class CommerceDiscountCalculationImpl
 		for (CommerceDiscountValue commerceDiscountValue :
 				commerceDiscountValues) {
 
-			BigDecimal discountAmount =
+			CommerceMoney discountAmount =
 				commerceDiscountValue.getDiscountAmount();
 
-			if (discountAmount.compareTo(currentDiscountAmount) > 0) {
-				currentDiscountAmount = discountAmount;
+			if (currentDiscountAmount.compareTo(discountAmount.getPrice()) <
+					0) {
+
+				currentDiscountAmount = discountAmount.getPrice();
 				selectedDiscount = commerceDiscountValue;
 			}
 		}
@@ -210,12 +214,13 @@ public class CommerceDiscountCalculationImpl
 		CommerceDiscount commerceDiscount, BigDecimal amount,
 		CommerceCurrency commerceCurrency) {
 
-		BigDecimal[] values = new BigDecimal[3];
+		BigDecimal[] values = new BigDecimal[4];
 
 		if (commerceDiscount.isUsePercentage()) {
 			values[0] = commerceDiscount.getLevel1();
 			values[1] = commerceDiscount.getLevel2();
 			values[2] = commerceDiscount.getLevel3();
+			values[3] = commerceDiscount.getLevel4();
 		}
 
 		BigDecimal currentDiscountAmount = BigDecimal.ZERO;
@@ -261,9 +266,12 @@ public class CommerceDiscountCalculationImpl
 
 		discountPercentage = discountPercentage.multiply(_ONE_HUNDRED);
 
+		CommerceMoney discountAmount = _commerceMoneyFactory.create(
+			commerceCurrency, currentDiscountAmount);
+
 		return new CommerceDiscountValue(
-			commerceDiscount.getCommerceDiscountId(), currentDiscountAmount,
-			discountPercentage, values);
+			commerceDiscount.getCommerceDiscountId(), discountAmount,
+			_ONE_HUNDRED.subtract(discountPercentage), values);
 	}
 
 	private BigDecimal _getDiscountAmount(
@@ -314,6 +322,9 @@ public class CommerceDiscountCalculationImpl
 
 	@Reference
 	private CommerceDiscountRuleTypeRegistry _commerceDiscountRuleTypeRegistry;
+
+	@Reference
+	private CommerceMoneyFactory _commerceMoneyFactory;
 
 	@Reference
 	private CPInstanceLocalService _cpInstanceLocalService;
