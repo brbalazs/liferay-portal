@@ -14,13 +14,13 @@
 
 package com.liferay.commerce.product.definitions.web.internal.servlet.taglib.ui;
 
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.product.definitions.web.internal.display.context.CPDefinitionShippingInfoDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
 import com.liferay.commerce.product.definitions.web.servlet.taglib.ui.CPDefinitionScreenNavigationConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.service.CPDefinitionService;
-import com.liferay.commerce.product.service.CPMeasurementUnitService;
+import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
@@ -94,9 +94,9 @@ public class CPDefinitionShippingScreenNavigationEntry
 				cpDefinitionShippingInfoDisplayContext =
 					new CPDefinitionShippingInfoDisplayContext(
 						_actionHelper, httpServletRequest,
-						_commerceCurrencyService, _cpDefinitionHelper,
+						_commerceCurrencyLocalService, _cpDefinitionHelper,
 						_cpDefinitionService, _itemSelector,
-						_cpMeasurementUnitService);
+						_cpMeasurementUnitLocalService);
 
 			httpServletRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -118,7 +118,7 @@ public class CPDefinitionShippingScreenNavigationEntry
 	private ActionHelper _actionHelper;
 
 	@Reference
-	private CommerceCurrencyService _commerceCurrencyService;
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
 	@Reference
 	private CPDefinitionHelper _cpDefinitionHelper;
@@ -127,7 +127,7 @@ public class CPDefinitionShippingScreenNavigationEntry
 	private CPDefinitionService _cpDefinitionService;
 
 	@Reference
-	private CPMeasurementUnitService _cpMeasurementUnitService;
+	private CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;
 
 	@Reference
 	private ItemSelector _itemSelector;

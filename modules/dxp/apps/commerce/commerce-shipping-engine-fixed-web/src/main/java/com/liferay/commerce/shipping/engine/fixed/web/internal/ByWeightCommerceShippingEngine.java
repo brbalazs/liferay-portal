@@ -24,12 +24,12 @@ import com.liferay.commerce.model.CommerceShippingEngine;
 import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.model.CommerceShippingOption;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
-import com.liferay.commerce.service.CommerceAddressRestrictionService;
-import com.liferay.commerce.service.CommerceShippingMethodService;
+import com.liferay.commerce.service.CommerceAddressRestrictionLocalService;
+import com.liferay.commerce.service.CommerceShippingMethodLocalService;
 import com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOption;
 import com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOptionRel;
-import com.liferay.commerce.shipping.engine.fixed.service.CommerceShippingFixedOptionRelService;
-import com.liferay.commerce.shipping.engine.fixed.service.CommerceShippingFixedOptionService;
+import com.liferay.commerce.shipping.engine.fixed.service.CommerceShippingFixedOptionLocalService;
+import com.liferay.commerce.shipping.engine.fixed.service.CommerceShippingFixedOptionRelLocalService;
 import com.liferay.commerce.util.CommerceShippingHelper;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -108,15 +108,15 @@ public class ByWeightCommerceShippingEngine implements CommerceShippingEngine {
 		long groupId) {
 
 		CommerceShippingMethod commerceShippingMethod =
-			_commerceShippingMethodService.fetchCommerceShippingMethod(
+			_commerceShippingMethodLocalService.fetchCommerceShippingMethod(
 				groupId, KEY);
 
 		if (commerceShippingMethod == null) {
 			return Collections.emptyList();
 		}
 
-		return
-			_commerceShippingFixedOptionService.getCommerceShippingFixedOptions(
+		return _commerceShippingFixedOptionLocalService.
+			getCommerceShippingFixedOptions(
 				commerceShippingMethod.getCommerceShippingMethodId(),
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
@@ -140,7 +140,7 @@ public class ByWeightCommerceShippingEngine implements CommerceShippingEngine {
 			commerceOrderItems);
 
 		CommerceShippingFixedOptionRel commerceShippingFixedOptionRel =
-			_commerceShippingFixedOptionRelService.
+			_commerceShippingFixedOptionRelLocalService.
 				fetchCommerceShippingFixedOptionRel(
 					commerceShippingFixedOption.
 						getCommerceShippingFixedOptionId(),
@@ -153,6 +153,10 @@ public class ByWeightCommerceShippingEngine implements CommerceShippingEngine {
 		}
 
 		String name = commerceShippingFixedOption.getName(locale);
+
+		if (_commerceShippingHelper.isFreeShipping(commerceOrder)) {
+			new CommerceShippingOption(name, name, BigDecimal.ZERO);
+		}
 
 		BigDecimal amount = commerceShippingFixedOptionRel.getFixedPrice();
 
@@ -190,7 +194,7 @@ public class ByWeightCommerceShippingEngine implements CommerceShippingEngine {
 				commerceShippingFixedOptions) {
 
 			boolean restricted =
-				_commerceAddressRestrictionService.
+				_commerceAddressRestrictionLocalService.
 					isCommerceShippingMethodRestricted(
 						commerceShippingFixedOption.
 							getCommerceShippingMethodId(),
@@ -222,24 +226,25 @@ public class ByWeightCommerceShippingEngine implements CommerceShippingEngine {
 		ByWeightCommerceShippingEngine.class);
 
 	@Reference
-	private CommerceAddressRestrictionService
-		_commerceAddressRestrictionService;
+	private CommerceAddressRestrictionLocalService
+		_commerceAddressRestrictionLocalService;
 
 	@Reference
 	private CommerceOrderPriceCalculation _commerceOrderPriceCalculation;
 
 	@Reference
-	private CommerceShippingFixedOptionRelService
-		_commerceShippingFixedOptionRelService;
+	private CommerceShippingFixedOptionLocalService
+		_commerceShippingFixedOptionLocalService;
 
 	@Reference
-	private CommerceShippingFixedOptionService
-		_commerceShippingFixedOptionService;
+	private CommerceShippingFixedOptionRelLocalService
+		_commerceShippingFixedOptionRelLocalService;
 
 	@Reference
 	private CommerceShippingHelper _commerceShippingHelper;
 
 	@Reference
-	private CommerceShippingMethodService _commerceShippingMethodService;
+	private CommerceShippingMethodLocalService
+		_commerceShippingMethodLocalService;
 
 }

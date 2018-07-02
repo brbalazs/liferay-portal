@@ -23,6 +23,7 @@ import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.organization.service.CommerceOrganizationLocalService;
 import com.liferay.commerce.organization.util.CommerceOrganizationHelper;
 import com.liferay.commerce.service.CommerceOrderItemService;
+import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.petra.lang.CentralizedThreadLocal;
 import com.liferay.petra.string.StringPool;
@@ -78,7 +79,7 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 				organization.getOrganizationId(), 0, null);
 		}
 		else {
-			commerceOrder = _commerceOrderService.addUserCommerceOrder(
+			commerceOrder = _commerceOrderLocalService.addUserCommerceOrder(
 				themeDisplay.getScopeGroupId(), themeDisplay.getUserId());
 		}
 
@@ -454,6 +455,9 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
+
+	@Reference
+	private CommerceOrderLocalService _commerceOrderLocalService;
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;

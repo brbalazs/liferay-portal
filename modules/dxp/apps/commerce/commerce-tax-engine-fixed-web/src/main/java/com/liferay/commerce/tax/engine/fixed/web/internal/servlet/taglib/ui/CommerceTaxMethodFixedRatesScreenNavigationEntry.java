@@ -15,7 +15,7 @@
 package com.liferay.commerce.tax.engine.fixed.web.internal.servlet.taglib.ui;
 
 import com.liferay.commerce.constants.CommerceTaxScreenNavigationConstants;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.model.CommerceTaxMethod;
 import com.liferay.commerce.product.service.CPTaxCategoryService;
 import com.liferay.commerce.service.CommerceTaxMethodService;
@@ -36,7 +36,6 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -107,16 +106,13 @@ public class CommerceTaxMethodFixedRatesScreenNavigationEntry
 		RenderRequest renderRequest =
 			(RenderRequest)httpServletRequest.getAttribute(
 				JavaConstants.JAVAX_PORTLET_REQUEST);
-		RenderResponse renderResponse =
-			(RenderResponse)httpServletRequest.getAttribute(
-				JavaConstants.JAVAX_PORTLET_RESPONSE);
 
 		CommerceTaxFixedRatesDisplayContext
 			commerceTaxFixedRatesDisplayContext =
 				new CommerceTaxFixedRatesDisplayContext(
-					_commerceCurrencyService, _commerceTaxFixedRateService,
+					_commerceCurrencyLocalService, _commerceTaxFixedRateService,
 					_commerceTaxMethodService, _cpTaxCategoryService,
-					renderRequest, renderResponse);
+					renderRequest);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -128,7 +124,7 @@ public class CommerceTaxMethodFixedRatesScreenNavigationEntry
 	}
 
 	@Reference
-	private CommerceCurrencyService _commerceCurrencyService;
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
 	@Reference
 	private CommerceTaxFixedRateService _commerceTaxFixedRateService;

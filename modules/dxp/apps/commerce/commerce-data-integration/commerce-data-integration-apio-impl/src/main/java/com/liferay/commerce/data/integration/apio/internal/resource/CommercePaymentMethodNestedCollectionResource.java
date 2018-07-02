@@ -100,7 +100,8 @@ public class CommercePaymentMethodNestedCollectionResource
 	}
 
 	private PageItems<CommercePaymentMethod> _getPageItems(
-		Pagination pagination, Long webSiteId) {
+			Pagination pagination, Long webSiteId)
+		throws PortalException {
 
 		List<CommercePaymentMethod> commercePaymentMethods =
 			_commercePaymentMethodService.getCommercePaymentMethods(

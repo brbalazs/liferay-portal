@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.discount.rule.cart.total.internal;
 
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.discount.model.CommerceDiscountRuleConstants;
 import com.liferay.commerce.discount.rule.cart.total.internal.display.context.CartTotalCommerceDiscountRuleDisplayContext;
 import com.liferay.commerce.discount.rule.type.CommerceDiscountRuleTypeJSPContributor;
@@ -48,7 +48,7 @@ public class CartTotalCommerceDiscountRuleTypeJSPContributor
 		CartTotalCommerceDiscountRuleDisplayContext
 			cartTotalCommerceDiscountRuleDisplayContext =
 				new CartTotalCommerceDiscountRuleDisplayContext(
-					_commerceCurrencyService, _commerceDiscountRuleService,
+					_commerceCurrencyLocalService, _commerceDiscountRuleService,
 					httpServletRequest);
 
 		httpServletRequest.setAttribute(
@@ -61,7 +61,7 @@ public class CartTotalCommerceDiscountRuleTypeJSPContributor
 	}
 
 	@Reference
-	private CommerceCurrencyService _commerceCurrencyService;
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
 	@Reference
 	private CommerceDiscountRuleService _commerceDiscountRuleService;

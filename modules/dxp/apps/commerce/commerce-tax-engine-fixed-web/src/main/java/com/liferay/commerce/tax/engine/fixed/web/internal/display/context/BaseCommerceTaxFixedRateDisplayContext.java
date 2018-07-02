@@ -17,7 +17,7 @@ package com.liferay.commerce.tax.engine.fixed.web.internal.display.context;
 import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.constants.CommerceTaxScreenNavigationConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.model.CommerceTaxMethod;
 import com.liferay.commerce.service.CommerceTaxMethodService;
 import com.liferay.commerce.tax.engine.fixed.web.internal.display.context.util.CommerceTaxFixedRateRequestHelper;
@@ -32,7 +32,6 @@ import com.liferay.portal.kernel.util.Validator;
 
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
 
 /**
  * @author Marco Leo
@@ -41,11 +40,11 @@ import javax.portlet.RenderResponse;
 public abstract class BaseCommerceTaxFixedRateDisplayContext<T> {
 
 	public BaseCommerceTaxFixedRateDisplayContext(
-		CommerceCurrencyService commerceCurrencyService,
+		CommerceCurrencyLocalService commerceCurrencyLocalService,
 		CommerceTaxMethodService commerceTaxMethodService,
-		RenderRequest renderRequest, RenderResponse renderResponse) {
+		RenderRequest renderRequest) {
 
-		this.commerceCurrencyService = commerceCurrencyService;
+		this.commerceCurrencyLocalService = commerceCurrencyLocalService;
 		this.commerceTaxMethodService = commerceTaxMethodService;
 
 		commerceTaxFixedRateRequestHelper =
@@ -63,7 +62,7 @@ public abstract class BaseCommerceTaxFixedRateDisplayContext<T> {
 		}
 
 		CommerceCurrency commerceCurrency =
-			commerceCurrencyService.fetchPrimaryCommerceCurrency(
+			commerceCurrencyLocalService.fetchPrimaryCommerceCurrency(
 				commerceTaxFixedRateRequestHelper.getScopeGroupId());
 
 		if (commerceCurrency != null) {
@@ -197,7 +196,7 @@ public abstract class BaseCommerceTaxFixedRateDisplayContext<T> {
 			"screenNavigationCategoryKey", getScreenNavigationCategoryKey());
 	}
 
-	protected final CommerceCurrencyService commerceCurrencyService;
+	protected final CommerceCurrencyLocalService commerceCurrencyLocalService;
 	protected final CommerceTaxFixedRateRequestHelper
 		commerceTaxFixedRateRequestHelper;
 	protected final CommerceTaxMethodService commerceTaxMethodService;

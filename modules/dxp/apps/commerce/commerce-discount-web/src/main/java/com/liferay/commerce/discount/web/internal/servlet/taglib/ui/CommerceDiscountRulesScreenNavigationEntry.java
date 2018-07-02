@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.discount.web.internal.servlet.taglib.ui;
 
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.commerce.discount.rule.type.CommerceDiscountRuleTypeJSPContributorRegistry;
 import com.liferay.commerce.discount.rule.type.CommerceDiscountRuleTypeRegistry;
@@ -105,7 +105,7 @@ public class CommerceDiscountRulesScreenNavigationEntry
 
 		CommerceDiscountRuleDisplayContext commerceDiscountRuleDisplayContext =
 			new CommerceDiscountRuleDisplayContext(
-				_commerceCurrencyService, _commerceDiscountRuleService,
+				_commerceCurrencyLocalService, _commerceDiscountRuleService,
 				_commerceDiscountRuleTypeJSPContributorRegistry,
 				_commerceDiscountRuleTypeRegistry, _commerceDiscountService,
 				_commerceDiscountTargetRegistry,
@@ -122,7 +122,7 @@ public class CommerceDiscountRulesScreenNavigationEntry
 	}
 
 	@Reference
-	private CommerceCurrencyService _commerceCurrencyService;
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
 	@Reference
 	private CommerceDiscountRuleService _commerceDiscountRuleService;

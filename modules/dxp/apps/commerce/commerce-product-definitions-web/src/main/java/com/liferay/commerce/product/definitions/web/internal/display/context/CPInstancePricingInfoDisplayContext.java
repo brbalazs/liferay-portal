@@ -15,7 +15,7 @@
 package com.liferay.commerce.product.definitions.web.internal.display.context;
 
 import com.liferay.commerce.currency.model.CommerceCurrency;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
@@ -42,14 +42,14 @@ public class CPInstancePricingInfoDisplayContext
 			CPDefinitionOptionRelService cpDefinitionOptionRelService,
 			CPInstanceService cpInstanceService,
 			CPInstanceHelper cpInstanceHelper,
-			CommerceCurrencyService commerceCurrencyService)
+			CommerceCurrencyLocalService commerceCurrencyLocalService)
 		throws PortalException {
 
 		super(
 			actionHelper, httpServletRequest, commercePriceFormatter,
 			cpDefinitionOptionRelService, cpInstanceService, cpInstanceHelper);
 
-		_commerceCurrencyService = commerceCurrencyService;
+		_commerceCurrencyLocalService = commerceCurrencyLocalService;
 	}
 
 	public String getCommerceCurrencyCode() {
@@ -77,10 +77,10 @@ public class CPInstancePricingInfoDisplayContext
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		return _commerceCurrencyService.fetchPrimaryCommerceCurrency(
+		return _commerceCurrencyLocalService.fetchPrimaryCommerceCurrency(
 			themeDisplay.getScopeGroupId());
 	}
 
-	private final CommerceCurrencyService _commerceCurrencyService;
+	private final CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
 }

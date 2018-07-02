@@ -18,7 +18,7 @@ import com.liferay.commerce.checkout.web.constants.CommerceCheckoutWebKeys;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommercePaymentMethod;
-import com.liferay.commerce.service.CommercePaymentMethodService;
+import com.liferay.commerce.service.CommercePaymentMethodLocalService;
 import com.liferay.commerce.util.comparator.CommercePaymentMethodNameComparator;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -28,7 +28,6 @@ import com.liferay.portal.kernel.util.WebKeys;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Andrea Di Giorgi
@@ -36,12 +35,10 @@ import javax.servlet.http.HttpServletResponse;
 public class PaymentMethodCheckoutStepDisplayContext {
 
 	public PaymentMethodCheckoutStepDisplayContext(
-			CommercePaymentMethodService commercePaymentMethodService,
-			HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse)
-		throws PortalException {
+		CommercePaymentMethodLocalService commercePaymentMethodLocalService,
+		HttpServletRequest httpServletRequest) {
 
-		_commercePaymentMethodService = commercePaymentMethodService;
+		_commercePaymentMethodLocalService = commercePaymentMethodLocalService;
 		_httpServletRequest = httpServletRequest;
 
 		_commerceOrder = (CommerceOrder)httpServletRequest.getAttribute(
@@ -66,7 +63,7 @@ public class PaymentMethodCheckoutStepDisplayContext {
 		}
 
 		List<CommercePaymentMethod> commercePaymentMethods =
-			_commercePaymentMethodService.getCommercePaymentMethods(
+			_commercePaymentMethodLocalService.getCommercePaymentMethods(
 				_commerceOrder.getSiteGroupId(),
 				commerceAddress.getCommerceCountryId(), true);
 
@@ -76,7 +73,8 @@ public class PaymentMethodCheckoutStepDisplayContext {
 	}
 
 	private final CommerceOrder _commerceOrder;
-	private final CommercePaymentMethodService _commercePaymentMethodService;
+	private final CommercePaymentMethodLocalService
+		_commercePaymentMethodLocalService;
 	private final HttpServletRequest _httpServletRequest;
 
 }

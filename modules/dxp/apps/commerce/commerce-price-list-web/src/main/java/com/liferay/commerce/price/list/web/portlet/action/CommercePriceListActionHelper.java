@@ -61,8 +61,8 @@ public class CommercePriceListActionHelper {
 		return commercePriceEntries;
 	}
 
-	public CommercePriceEntry getCommercePriceEntry(
-		RenderRequest renderRequest) {
+	public CommercePriceEntry getCommercePriceEntry(RenderRequest renderRequest)
+		throws PortalException {
 
 		CommercePriceEntry commercePriceEntry =
 			(CommercePriceEntry)renderRequest.getAttribute(

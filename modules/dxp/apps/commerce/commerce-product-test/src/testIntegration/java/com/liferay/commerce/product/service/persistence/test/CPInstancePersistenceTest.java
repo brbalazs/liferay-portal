@@ -151,7 +151,7 @@ public class CPInstancePersistenceTest {
 
 		newCPInstance.setPurchasable(RandomTestUtil.randomBoolean());
 
-		newCPInstance.setDDMContent(RandomTestUtil.randomString());
+		newCPInstance.setJson(RandomTestUtil.randomString());
 
 		newCPInstance.setWidth(RandomTestUtil.nextDouble());
 
@@ -216,8 +216,8 @@ public class CPInstancePersistenceTest {
 			newCPInstance.getManufacturerPartNumber());
 		Assert.assertEquals(existingCPInstance.isPurchasable(),
 			newCPInstance.isPurchasable());
-		Assert.assertEquals(existingCPInstance.getDDMContent(),
-			newCPInstance.getDDMContent());
+		Assert.assertEquals(existingCPInstance.getJson(),
+			newCPInstance.getJson());
 		AssertUtils.assertEquals(existingCPInstance.getWidth(),
 			newCPInstance.getWidth());
 		AssertUtils.assertEquals(existingCPInstance.getHeight(),
@@ -656,7 +656,7 @@ public class CPInstancePersistenceTest {
 
 		cpInstance.setPurchasable(RandomTestUtil.randomBoolean());
 
-		cpInstance.setDDMContent(RandomTestUtil.randomString());
+		cpInstance.setJson(RandomTestUtil.randomString());
 
 		cpInstance.setWidth(RandomTestUtil.nextDouble());
 

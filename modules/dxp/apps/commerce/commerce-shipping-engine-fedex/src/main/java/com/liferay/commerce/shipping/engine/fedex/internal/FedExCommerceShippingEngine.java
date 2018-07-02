@@ -24,8 +24,8 @@ import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.model.CommerceShippingOption;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
-import com.liferay.commerce.service.CommerceAddressRestrictionService;
-import com.liferay.commerce.service.CommerceShippingMethodService;
+import com.liferay.commerce.service.CommerceAddressRestrictionLocalService;
+import com.liferay.commerce.service.CommerceShippingMethodLocalService;
 import com.liferay.commerce.shipping.engine.fedex.internal.util.FedExCommerceShippingOptionHelper;
 import com.liferay.commerce.util.CommerceShippingHelper;
 import com.liferay.commerce.util.CommerceShippingOriginLocatorRegistry;
@@ -70,7 +70,7 @@ public class FedExCommerceShippingEngine implements CommerceShippingEngine {
 				commerceOrder.getShippingAddress();
 
 			boolean restricted =
-				_commerceAddressRestrictionService.
+				_commerceAddressRestrictionLocalService.
 					isCommerceShippingMethodRestricted(
 						_getCommerceShippingMethodId(commerceOrder),
 						commerceAddress.getCommerceCountryId());
@@ -117,7 +117,7 @@ public class FedExCommerceShippingEngine implements CommerceShippingEngine {
 
 	private long _getCommerceShippingMethodId(CommerceOrder commerceOrder) {
 		CommerceShippingMethod commerceShippingMethod =
-			_commerceShippingMethodService.fetchCommerceShippingMethod(
+			_commerceShippingMethodLocalService.fetchCommerceShippingMethod(
 				commerceOrder.getGroupId(), KEY);
 
 		if (commerceShippingMethod == null) {
@@ -133,8 +133,8 @@ public class FedExCommerceShippingEngine implements CommerceShippingEngine {
 	}
 
 	@Reference
-	private CommerceAddressRestrictionService
-		_commerceAddressRestrictionService;
+	private CommerceAddressRestrictionLocalService
+		_commerceAddressRestrictionLocalService;
 
 	@Reference
 	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
@@ -146,7 +146,8 @@ public class FedExCommerceShippingEngine implements CommerceShippingEngine {
 	private CommerceShippingHelper _commerceShippingHelper;
 
 	@Reference
-	private CommerceShippingMethodService _commerceShippingMethodService;
+	private CommerceShippingMethodLocalService
+		_commerceShippingMethodLocalService;
 
 	@Reference
 	private CommerceShippingOriginLocatorRegistry

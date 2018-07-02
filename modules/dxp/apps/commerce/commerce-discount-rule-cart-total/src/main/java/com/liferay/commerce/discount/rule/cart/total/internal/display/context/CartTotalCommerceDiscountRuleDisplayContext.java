@@ -15,7 +15,7 @@
 package com.liferay.commerce.discount.rule.cart.total.internal.display.context;
 
 import com.liferay.commerce.currency.model.CommerceCurrency;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.discount.model.CommerceDiscountRule;
 import com.liferay.commerce.discount.service.CommerceDiscountRuleService;
 import com.liferay.petra.string.StringPool;
@@ -35,11 +35,11 @@ import javax.servlet.http.HttpServletRequest;
 public class CartTotalCommerceDiscountRuleDisplayContext {
 
 	public CartTotalCommerceDiscountRuleDisplayContext(
-		CommerceCurrencyService commerceCurrencyService,
+		CommerceCurrencyLocalService commerceCurrencyLocalService,
 		CommerceDiscountRuleService commerceDiscountRuleService,
 		HttpServletRequest httpServletRequest) {
 
-		_commerceCurrencyService = commerceCurrencyService;
+		_commerceCurrencyLocalService = commerceCurrencyLocalService;
 		_commerceDiscountRuleService = commerceDiscountRuleService;
 		_httpServletRequest = httpServletRequest;
 	}
@@ -103,11 +103,11 @@ public class CartTotalCommerceDiscountRuleDisplayContext {
 			(ThemeDisplay)_httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		return _commerceCurrencyService.fetchPrimaryCommerceCurrency(
+		return _commerceCurrencyLocalService.fetchPrimaryCommerceCurrency(
 			themeDisplay.getScopeGroupId());
 	}
 
-	private final CommerceCurrencyService _commerceCurrencyService;
+	private final CommerceCurrencyLocalService _commerceCurrencyLocalService;
 	private CommerceDiscountRule _commerceDiscountRule;
 	private final CommerceDiscountRuleService _commerceDiscountRuleService;
 	private final HttpServletRequest _httpServletRequest;

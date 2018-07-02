@@ -50,14 +50,17 @@ if ((commerceDiscount != null) && !commerceDiscount.getUsePercentage()) {
 <%
 boolean level2Disabled = true;
 boolean level3Disabled = true;
+boolean level4Disabled = true;
 
 if (commerceDiscount != null) {
 	level2Disabled = commerceDiscount.getLevel2().doubleValue() <= 0;
 	level3Disabled = commerceDiscount.getLevel3().doubleValue() <= 0;
+	level4Disabled = commerceDiscount.getLevel4().doubleValue() <= 0;
 }
 
 String level2CssClass = "form-group level2Container";
 String level3CssClass = "form-group level3Container";
+String level4CssClass = "form-group level4Container";
 
 if (level2Disabled) {
 	level2CssClass += " hide";
@@ -65,6 +68,10 @@ if (level2Disabled) {
 
 if (level3Disabled) {
 	level3CssClass += " hide";
+}
+
+if (level4Disabled) {
+	level4CssClass += " hide";
 }
 
 String itemRetractableCssClass = "input-item-retractable";
@@ -122,7 +129,25 @@ if (!usePercentage) {
 	</div>
 
 	<div class="<%= level3CssClass %>">
-		<aui:input disabled="<%= level3Disabled %>" name="level3" suffix="<%= levelSuffix %>" type="text" value="<%= (commerceDiscount == null) ? BigDecimal.ZERO : commerceDiscountDisplayContext.round(commerceDiscount.getLevel3()) %>">
+		<label for="<portlet:namespace />level3"><liferay-ui:message key="level3" /></label>
+
+		<div class="input-group">
+			<aui:input disabled="<%= level3Disabled %>" label="" name="level3" suffix="<%= levelSuffix %>" type="text" value="<%= (commerceDiscount == null) ? BigDecimal.ZERO : commerceDiscountDisplayContext.round(commerceDiscount.getLevel3()) %>" wrapperCssClass="input-group-append input-group-item">
+				<aui:validator name="number" />
+			</aui:input>
+
+			<div class="input-group-item input-group-item-shrink">
+				<aui:button name="level3PlusButton" value="+" />
+			</div>
+
+			<div class="input-group-item input-group-item-shrink">
+				<aui:button cssClass='<%= level3Disabled ? "hide" : StringPool.BLANK %>' name="level3MinusButton" value="-" />
+			</div>
+		</div>
+	</div>
+
+	<div class="<%= level4CssClass %>">
+		<aui:input disabled="<%= level4Disabled %>" name="level4" suffix="<%= levelSuffix %>" type="text" value="<%= (commerceDiscount == null) ? BigDecimal.ZERO : commerceDiscountDisplayContext.round(commerceDiscount.getLevel4()) %>">
 			<aui:validator name="number" />
 		</aui:input>
 	</div>
@@ -204,6 +229,8 @@ if ((commerceDiscount != null) && !Objects.equals(commerceDiscount.getLimitation
 				A.one('#<portlet:namespace />level1MinusButton').addClass('hide');
 				A.one('#<portlet:namespace />levelsContainer .level3Container').addClass('hide');
 				A.one('#<portlet:namespace />level2MinusButton').addClass('hide');
+				A.one('#<portlet:namespace />levelsContainer .level4Container').addClass('hide');
+				A.one('#<portlet:namespace />level3MinusButton').addClass('hide');
 
 				A.all('#<portlet:namespace />levelsContainer .input-group-addon').html('<%= commerceDiscountDisplayContext.getDefaultCommerceCurrencyCode() %>');
 				A.one('#<portlet:namespace />level1Label').html('<liferay-ui:message key="discount-amount" />');
@@ -234,6 +261,13 @@ if ((commerceDiscount != null) && !Objects.equals(commerceDiscount.getLimitation
 				A.one('#<portlet:namespace />level2MinusButton').addClass('hide');
 
 				A.one('#<portlet:namespace />level3').attr('disabled', true);
+
+				if (!A.one('#<portlet:namespace />levelsContainer .level4Container').hasClass('hide')) {
+					A.one('#<portlet:namespace />levelsContainer .level4Container').addClass('hide');
+					A.one('#<portlet:namespace />level3MinusButton').addClass('hide');
+
+					A.one('#<portlet:namespace />level4').attr('disabled', true);
+				}
 			}
 		}
 	);
@@ -255,6 +289,33 @@ if ((commerceDiscount != null) && !Objects.equals(commerceDiscount.getLimitation
 			A.one('#<portlet:namespace />level2MinusButton').addClass('hide');
 
 			A.one('#<portlet:namespace />level3').attr('disabled', true);
+
+			if (!A.one('#<portlet:namespace />levelsContainer .level4Container').hasClass('hide')) {
+				A.one('#<portlet:namespace />levelsContainer .level4Container').addClass('hide');
+				A.one('#<portlet:namespace />level3MinusButton').addClass('hide');
+
+				A.one('#<portlet:namespace />level4').attr('disabled', true);
+			}
+		}
+	);
+
+	A.one('#<portlet:namespace />level3PlusButton').on(
+		'click',
+		function() {
+			A.one('#<portlet:namespace />level4').attr('disabled', false);
+
+			A.one('#<portlet:namespace />level3MinusButton').removeClass('hide');
+			A.one('#<portlet:namespace />levelsContainer .level4Container').removeClass('hide');
+		}
+	);
+
+	A.one('#<portlet:namespace />level3MinusButton').on(
+		'click',
+		function() {
+			A.one('#<portlet:namespace />levelsContainer .level4Container').addClass('hide');
+			A.one('#<portlet:namespace />level3MinusButton').addClass('hide');
+
+			A.one('#<portlet:namespace />level4').attr('disabled', true);
 		}
 	);
 

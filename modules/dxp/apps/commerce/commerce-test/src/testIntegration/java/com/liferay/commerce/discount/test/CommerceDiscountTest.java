@@ -318,19 +318,19 @@ public class CommerceDiscountTest {
 
 		CommerceDiscount commerceDiscount1 =
 			CommerceDiscountTestUtil.addPercentageCommerceDiscount(
-				_group.getGroupId(), 10, 15, 20,
+				_group.getGroupId(), 10, 15, 20, 0,
 				CommerceDiscountConstants.TARGET_PRODUCT,
 				cpDefinition1.getCPDefinitionId());
 
 		CommerceDiscount commerceDiscount2 =
 			CommerceDiscountTestUtil.addPercentageCommerceDiscount(
-				_group.getGroupId(), 30, 0, 0,
+				_group.getGroupId(), 30, 0, 0, 0,
 				CommerceDiscountConstants.TARGET_CATEGORIES,
 				assetCategory1.getCategoryId());
 
 		CommerceDiscount commerceDiscount3 =
 			CommerceDiscountTestUtil.addPercentageCommerceDiscount(
-				_group.getGroupId(), 50, 0, 0,
+				_group.getGroupId(), 50, 0, 0, 0,
 				CommerceDiscountConstants.TARGET_CATEGORIES,
 				assetCategory2.getCategoryId());
 
@@ -453,8 +453,10 @@ public class CommerceDiscountTest {
 		CommerceDiscountValue discountValue =
 			commerceProductPrice.getDiscountValue();
 
+		CommerceMoney discountAmount = discountValue.getDiscountAmount();
+
 		Assert.assertEquals(
-			commerceDiscount.getLevel1(), discountValue.getDiscountAmount());
+			commerceDiscount.getLevel1(), discountAmount.getPrice());
 
 		BigDecimal expectedPrice = cpInstance.getPrice().subtract(
 			commerceDiscount.getLevel1());
@@ -517,8 +519,10 @@ public class CommerceDiscountTest {
 		CommerceDiscountValue discountValue =
 			commerceProductPrice.getDiscountValue();
 
+		CommerceMoney discountAmount = discountValue.getDiscountAmount();
+
 		Assert.assertEquals(
-			commerceDiscount.getLevel1(), discountValue.getDiscountAmount());
+			commerceDiscount.getLevel1(), discountAmount.getPrice());
 
 		BigDecimal expectedPrice = cpInstance.getPrice().subtract(
 			commerceDiscount.getLevel1());

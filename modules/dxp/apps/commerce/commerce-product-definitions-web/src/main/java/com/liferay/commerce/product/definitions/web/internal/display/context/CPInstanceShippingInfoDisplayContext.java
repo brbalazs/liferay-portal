@@ -19,7 +19,7 @@ import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
 import com.liferay.commerce.product.model.CPMeasurementUnit;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
 import com.liferay.commerce.product.service.CPInstanceService;
-import com.liferay.commerce.product.service.CPMeasurementUnitService;
+import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -40,14 +40,14 @@ public class CPInstanceShippingInfoDisplayContext
 			CPDefinitionOptionRelService cpDefinitionOptionRelService,
 			CPInstanceService cpInstanceService,
 			CPInstanceHelper cpInstanceHelper,
-			CPMeasurementUnitService cpMeasurementUnitService)
+			CPMeasurementUnitLocalService cpMeasurementUnitLocalService)
 		throws PortalException {
 
 		super(
 			actionHelper, httpServletRequest, commercePriceFormatter,
 			cpDefinitionOptionRelService, cpInstanceService, cpInstanceHelper);
 
-		_cpMeasurementUnitService = cpMeasurementUnitService;
+		_cpMeasurementUnitLocalService = cpMeasurementUnitLocalService;
 	}
 
 	public String getCPMeasurementUnitName(int type) {
@@ -56,7 +56,7 @@ public class CPInstanceShippingInfoDisplayContext
 				WebKeys.THEME_DISPLAY);
 
 		CPMeasurementUnit cpMeasurementUnit =
-			_cpMeasurementUnitService.fetchPrimaryCPMeasurementUnit(
+			_cpMeasurementUnitLocalService.fetchPrimaryCPMeasurementUnit(
 				themeDisplay.getScopeGroupId(), type);
 
 		if (cpMeasurementUnit != null) {
@@ -66,6 +66,6 @@ public class CPInstanceShippingInfoDisplayContext
 		return StringPool.BLANK;
 	}
 
-	private final CPMeasurementUnitService _cpMeasurementUnitService;
+	private final CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;
 
 }

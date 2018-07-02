@@ -57,10 +57,7 @@ String quantityInputId = renderResponse.getNamespace() + cpDefinitionId + "Quant
 		<div class="product-expand">
 			<div class="product-price">
 				<span class="commerce-price">
-					<liferay-commerce:price CPDefinitionId="<%= cpDefinitionId %>" />
-				</span>
-				<span class="commerce-discount">
-					<liferay-commerce:discount CPInstanceId="<%= (cpSku == null) ? 0 : cpSku.getCPInstanceId() %>" />
+					<liferay-commerce:price CPDefinitionId="<%= cpDefinitionId %>" discountLabel="<%= LanguageUtil.get(request, "you-save") %>" />
 				</span>
 			</div>
 		</div>

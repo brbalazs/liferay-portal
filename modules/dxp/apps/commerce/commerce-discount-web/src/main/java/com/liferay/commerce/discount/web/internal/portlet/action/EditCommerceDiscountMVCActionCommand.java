@@ -168,6 +168,8 @@ public class EditCommerceDiscountMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, "level2", BigDecimal.ZERO);
 		BigDecimal level3 = (BigDecimal)ParamUtil.getNumber(
 			actionRequest, "level3", BigDecimal.ZERO);
+		BigDecimal level4 = (BigDecimal)ParamUtil.getNumber(
+			actionRequest, "level4", BigDecimal.ZERO);
 		String limitationType = ParamUtil.getString(
 			actionRequest, "limitationType");
 		int limitationTimes = ParamUtil.getInteger(
@@ -219,22 +221,22 @@ public class EditCommerceDiscountMVCActionCommand extends BaseMVCActionCommand {
 		if (commerceDiscountId <= 0) {
 			commerceDiscount = _commerceDiscountService.addCommerceDiscount(
 				title, target, useCouponCode, couponCode, usePercentage,
-				maximumDiscountAmount, level1, level2, level3, limitationType,
-				limitationTimes, active, displayDateMonth, displayDateDay,
-				displayDateYear, displayDateHour, displayDateMinute,
-				expirationDateMonth, expirationDateDay, expirationDateYear,
-				expirationDateHour, expirationDateMinute, neverExpire,
-				serviceContext);
-		}
-		else {
-			commerceDiscount = _commerceDiscountService.updateCommerceDiscount(
-				commerceDiscountId, title, target, useCouponCode, couponCode,
-				usePercentage, maximumDiscountAmount, level1, level2, level3,
+				maximumDiscountAmount, level1, level2, level3, level4,
 				limitationType, limitationTimes, active, displayDateMonth,
 				displayDateDay, displayDateYear, displayDateHour,
 				displayDateMinute, expirationDateMonth, expirationDateDay,
 				expirationDateYear, expirationDateHour, expirationDateMinute,
 				neverExpire, serviceContext);
+		}
+		else {
+			commerceDiscount = _commerceDiscountService.updateCommerceDiscount(
+				commerceDiscountId, title, target, useCouponCode, couponCode,
+				usePercentage, maximumDiscountAmount, level1, level2, level3,
+				level4, limitationType, limitationTimes, active,
+				displayDateMonth, displayDateDay, displayDateYear,
+				displayDateHour, displayDateMinute, expirationDateMonth,
+				expirationDateDay, expirationDateYear, expirationDateHour,
+				expirationDateMinute, neverExpire, serviceContext);
 		}
 
 		if (commerceDiscount != null) {

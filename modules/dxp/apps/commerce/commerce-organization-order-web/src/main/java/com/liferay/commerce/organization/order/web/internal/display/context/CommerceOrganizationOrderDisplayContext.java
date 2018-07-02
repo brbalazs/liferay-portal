@@ -385,7 +385,8 @@ public class CommerceOrganizationOrderDisplayContext {
 	}
 
 	public List<CommerceShipmentItem> getCommerceShipmentItems(
-		long commerceOrderItemId) {
+			long commerceOrderItemId)
+		throws PortalException {
 
 		return _commerceShipmentItemService.getCommerceShipmentItems(
 			commerceOrderItemId);
@@ -675,7 +676,16 @@ public class CommerceOrganizationOrderDisplayContext {
 
 		searchContext.setCompanyId(
 			_commerceOrganizationOrderRequestHelper.getCompanyId());
-		searchContext.setGroupIds(new long[] {_organization.getGroupId()});
+
+		long groupId =
+			_commerceOrganizationOrderRequestHelper.getScopeGroupId();
+
+		if (_organization != null) {
+			groupId = _organization.getGroupId();
+		}
+
+		searchContext.setGroupIds(new long[] {groupId});
+
 		searchContext.setKeywords(_keywords);
 		searchContext.setStart(_searchContainer.getStart());
 		searchContext.setEnd(_searchContainer.getEnd());

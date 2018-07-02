@@ -14,12 +14,12 @@
 
 package com.liferay.commerce.shipping.engine.fixed.web.internal.display.context;
 
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.model.CommerceWarehouse;
 import com.liferay.commerce.product.model.CPMeasurementUnit;
-import com.liferay.commerce.product.service.CPMeasurementUnitService;
+import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceRegionService;
 import com.liferay.commerce.service.CommerceShippingMethodService;
@@ -56,19 +56,19 @@ public class CommerceShippingFixedOptionRelsDisplayContext
 
 	public CommerceShippingFixedOptionRelsDisplayContext(
 		CommerceCountryService commerceCountryService,
-		CommerceCurrencyService commerceCurrencyService,
+		CommerceCurrencyLocalService commerceCurrencyLocalService,
 		CommerceRegionService commerceRegionService,
 		CommerceShippingMethodService commerceShippingMethodService,
 		CommerceShippingFixedOptionService commerceShippingFixedOptionService,
 		CommerceWarehouseService commerceWarehouseService,
 		CommerceShippingFixedOptionRelService
 			commerceShippingFixedOptionRelService,
-		CPMeasurementUnitService cpMeasurementUnitService,
+		CPMeasurementUnitLocalService cpMeasurementUnitLocalService,
 		PortletResourcePermission portletResourcePermission,
 		RenderRequest renderRequest, RenderResponse renderResponse) {
 
 		super(
-			commerceCurrencyService, commerceShippingMethodService,
+			commerceCurrencyLocalService, commerceShippingMethodService,
 			portletResourcePermission, renderRequest, renderResponse);
 
 		_commerceCountryService = commerceCountryService;
@@ -78,7 +78,7 @@ public class CommerceShippingFixedOptionRelsDisplayContext
 		_commerceWarehouseService = commerceWarehouseService;
 		_commerceShippingFixedOptionRelService =
 			commerceShippingFixedOptionRelService;
-		_cpMeasurementUnitService = cpMeasurementUnitService;
+		_cpMeasurementUnitLocalService = cpMeasurementUnitLocalService;
 
 		setDefaultOrderByCol("country");
 	}
@@ -91,7 +91,7 @@ public class CommerceShippingFixedOptionRelsDisplayContext
 			themeDisplay.getScopeGroupId(), true);
 	}
 
-	public long getCommerceCountryId() {
+	public long getCommerceCountryId() throws PortalException {
 		long commerceCountryId = 0;
 
 		CommerceShippingFixedOptionRel commerceShippingFixedOptionRel =
@@ -105,7 +105,7 @@ public class CommerceShippingFixedOptionRelsDisplayContext
 		return commerceCountryId;
 	}
 
-	public long getCommerceRegionId() {
+	public long getCommerceRegionId() throws PortalException {
 		long commerceRegionId = 0;
 
 		CommerceShippingFixedOptionRel commerceShippingFixedOptionRel =
@@ -119,12 +119,14 @@ public class CommerceShippingFixedOptionRelsDisplayContext
 		return commerceRegionId;
 	}
 
-	public List<CommerceRegion> getCommerceRegions() {
+	public List<CommerceRegion> getCommerceRegions() throws PortalException {
 		return _commerceRegionService.getCommerceRegions(
 			getCommerceCountryId(), true);
 	}
 
-	public CommerceShippingFixedOptionRel getCommerceShippingFixedOptionRel() {
+	public CommerceShippingFixedOptionRel getCommerceShippingFixedOptionRel()
+		throws PortalException {
+
 		CommerceShippingFixedOptionRel commerceShippingFixedOptionRel =
 			(CommerceShippingFixedOptionRel)renderRequest.getAttribute(
 				CommerceShippingEngineFixedWebKeys.
@@ -163,7 +165,9 @@ public class CommerceShippingFixedOptionRelsDisplayContext
 				QueryUtil.ALL_POS);
 	}
 
-	public List<CommerceWarehouse> getCommerceWarehouses() {
+	public List<CommerceWarehouse> getCommerceWarehouses()
+		throws PortalException {
+
 		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
@@ -180,7 +184,7 @@ public class CommerceShippingFixedOptionRelsDisplayContext
 			WebKeys.THEME_DISPLAY);
 
 		CPMeasurementUnit cpMeasurementUnit =
-			_cpMeasurementUnitService.fetchPrimaryCPMeasurementUnit(
+			_cpMeasurementUnitLocalService.fetchPrimaryCPMeasurementUnit(
 				themeDisplay.getScopeGroupId(), type);
 
 		if (cpMeasurementUnit != null) {
@@ -256,6 +260,6 @@ public class CommerceShippingFixedOptionRelsDisplayContext
 	private final CommerceShippingFixedOptionService
 		_commerceShippingFixedOptionService;
 	private final CommerceWarehouseService _commerceWarehouseService;
-	private final CPMeasurementUnitService _cpMeasurementUnitService;
+	private final CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;
 
 }

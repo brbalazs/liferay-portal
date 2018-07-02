@@ -18,7 +18,7 @@ import com.liferay.commerce.product.content.search.web.internal.util.CPSpecifica
 import com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue;
 import com.liferay.commerce.product.model.CPSpecificationOption;
 import com.liferay.commerce.product.service.CPDefinitionSpecificationOptionValueService;
-import com.liferay.commerce.product.service.CPSpecificationOptionService;
+import com.liferay.commerce.product.service.CPSpecificationOptionLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.facet.Facet;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -39,13 +39,13 @@ public class CPSpecificationOptionFacetsDisplayContext {
 	public CPSpecificationOptionFacetsDisplayContext(
 		CPDefinitionSpecificationOptionValueService
 			cpDefinitionSpecificationOptionValueService,
-		CPSpecificationOptionService cpSpecificationOptionService,
+		CPSpecificationOptionLocalService cpSpecificationOptionLocalService,
 		RenderRequest renderRequest, List<Facet> facets,
 		PortletSharedSearchResponse portletSharedSearchResponse) {
 
 		_cpDefinitionSpecificationOptionValueService =
 			cpDefinitionSpecificationOptionValueService;
-		_cpSpecificationOptionService = cpSpecificationOptionService;
+		_cpSpecificationOptionLocalService = cpSpecificationOptionLocalService;
 		_renderRequest = renderRequest;
 		_facets = facets;
 		_portletSharedSearchResponse = portletSharedSearchResponse;
@@ -60,7 +60,7 @@ public class CPSpecificationOptionFacetsDisplayContext {
 			CPSpecificationOptionFacetsUtil.
 				getCPSpecificationOptionIdFromIndexFieldName(fieldName);
 
-		return _cpSpecificationOptionService.fetchCPSpecificationOption(
+		return _cpSpecificationOptionLocalService.fetchCPSpecificationOption(
 			GetterUtil.getLong(cpSpecificationOptionId));
 	}
 
@@ -122,7 +122,8 @@ public class CPSpecificationOptionFacetsDisplayContext {
 
 	private final CPDefinitionSpecificationOptionValueService
 		_cpDefinitionSpecificationOptionValueService;
-	private final CPSpecificationOptionService _cpSpecificationOptionService;
+	private final CPSpecificationOptionLocalService
+		_cpSpecificationOptionLocalService;
 	private final List<Facet> _facets;
 	private final Locale _locale;
 	private final PortletSharedSearchResponse _portletSharedSearchResponse;

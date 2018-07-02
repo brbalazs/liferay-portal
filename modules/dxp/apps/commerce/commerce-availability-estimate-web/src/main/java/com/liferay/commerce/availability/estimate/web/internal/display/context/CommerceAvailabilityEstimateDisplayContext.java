@@ -95,7 +95,9 @@ public class CommerceAvailabilityEstimateDisplayContext {
 		return portletURL;
 	}
 
-	public SearchContainer<CommerceAvailabilityEstimate> getSearchContainer() {
+	public SearchContainer<CommerceAvailabilityEstimate> getSearchContainer()
+		throws PortalException {
+
 		if (_searchContainer != null) {
 			return _searchContainer;
 		}

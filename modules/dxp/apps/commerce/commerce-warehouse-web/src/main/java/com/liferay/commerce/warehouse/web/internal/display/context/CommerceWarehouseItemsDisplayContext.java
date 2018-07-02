@@ -102,7 +102,9 @@ public class CommerceWarehouseItemsDisplayContext {
 			cpInstance.getCPInstanceId());
 	}
 
-	public List<CommerceWarehouse> getCommerceWarehouses() {
+	public List<CommerceWarehouse> getCommerceWarehouses()
+		throws PortalException {
+
 		return _getCommerceWarehouses();
 	}
 
@@ -145,7 +147,9 @@ public class CommerceWarehouseItemsDisplayContext {
 			CommerceActionKeys.MANAGE_COMMERCE_WAREHOUSES);
 	}
 
-	private List<CommerceWarehouse> _getCommerceWarehouses() {
+	private List<CommerceWarehouse> _getCommerceWarehouses()
+		throws PortalException {
+
 		RenderRequest renderRequest = _cpRequestHelper.getRenderRequest();
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(

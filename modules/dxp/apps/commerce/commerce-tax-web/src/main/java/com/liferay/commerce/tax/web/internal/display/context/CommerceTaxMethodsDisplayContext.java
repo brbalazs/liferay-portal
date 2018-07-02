@@ -18,6 +18,7 @@ import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.model.CommerceTaxEngine;
 import com.liferay.commerce.model.CommerceTaxMethod;
+import com.liferay.commerce.service.CommerceTaxMethodLocalService;
 import com.liferay.commerce.service.CommerceTaxMethodService;
 import com.liferay.commerce.util.CommerceTaxEngineRegistry;
 import com.liferay.commerce.util.comparator.CommerceTaxMethodNameComparator;
@@ -48,11 +49,13 @@ public class CommerceTaxMethodsDisplayContext {
 
 	public CommerceTaxMethodsDisplayContext(
 		CommerceTaxEngineRegistry commerceTaxEngineRegistry,
+		CommerceTaxMethodLocalService commerceTaxMethodLocalService,
 		CommerceTaxMethodService commerceTaxMethodService,
 		PortletResourcePermission portletResourcePermission,
 		RenderRequest renderRequest, RenderResponse renderResponse) {
 
 		_commerceTaxEngineRegistry = commerceTaxEngineRegistry;
+		_commerceTaxMethodLocalService = commerceTaxMethodLocalService;
 		_commerceTaxMethodService = commerceTaxMethodService;
 		_portletResourcePermission = portletResourcePermission;
 		_renderRequest = renderRequest;
@@ -201,7 +204,7 @@ public class CommerceTaxMethodsDisplayContext {
 			_commerceTaxEngineRegistry.getCommerceTaxEngine(engineKey);
 
 		CommerceTaxMethod commerceTaxMethod =
-			_commerceTaxMethodService.createCommerceTaxMethod(0);
+			_commerceTaxMethodLocalService.createCommerceTaxMethod(0);
 
 		Locale locale = LocaleUtil.getSiteDefault();
 
@@ -220,6 +223,7 @@ public class CommerceTaxMethodsDisplayContext {
 
 	private final CommerceTaxEngineRegistry _commerceTaxEngineRegistry;
 	private CommerceTaxMethod _commerceTaxMethod;
+	private final CommerceTaxMethodLocalService _commerceTaxMethodLocalService;
 	private final CommerceTaxMethodService _commerceTaxMethodService;
 	private final PortletResourcePermission _portletResourcePermission;
 	private final RenderRequest _renderRequest;

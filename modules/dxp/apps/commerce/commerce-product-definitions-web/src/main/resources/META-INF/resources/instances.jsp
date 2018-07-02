@@ -158,7 +158,7 @@ String displayStyle = cpInstanceDisplayContext.getDisplayStyle();
 						>
 
 							<%
-							Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>> cpDefinitionOptionRelListMap = cpInstanceDisplayContext.parseCPInstanceDDMContent(cpInstance.getCPInstanceId());
+							Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>> cpDefinitionOptionRelListMap = cpInstanceDisplayContext.cpInstanceJsonParse(cpInstance.getCPInstanceId());
 
 							PortletURL rowURL = renderResponse.createRenderURL();
 

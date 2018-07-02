@@ -88,7 +88,8 @@ public class CommerceRegionNestedCollectionResource
 	}
 
 	private PageItems<CommerceRegion> _getPageItems(
-		Pagination pagination, Long commerceCountryId) {
+			Pagination pagination, Long commerceCountryId)
+		throws PortalException {
 
 		List<CommerceRegion> commerceRegions =
 			_commerceRegionService.getCommerceRegions(

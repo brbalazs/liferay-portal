@@ -15,9 +15,9 @@
 package com.liferay.commerce.shipping.engine.fixed.web.internal.servlet.taglib.ui;
 
 import com.liferay.commerce.constants.CommerceConstants;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.model.CommerceShippingMethod;
-import com.liferay.commerce.product.service.CPMeasurementUnitService;
+import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceRegionService;
 import com.liferay.commerce.service.CommerceShippingMethodService;
@@ -123,12 +123,12 @@ public class CommerceShippingMethodFixedOptionSettingsScreenNavigationEntry
 		CommerceShippingFixedOptionRelsDisplayContext
 			commerceShippingFixedOptionRelsDisplayContext =
 				new CommerceShippingFixedOptionRelsDisplayContext(
-					_commerceCountryService, _commerceCurrencyService,
+					_commerceCountryService, _commerceCurrencyLocalService,
 					_commerceRegionService, _commerceShippingMethodService,
 					_commerceShippingFixedOptionService,
 					_commerceWarehouseService,
 					_commerceShippingFixedOptionRelService,
-					_cpMeasurementUnitService, _portletResourcePermission,
+					_cpMeasurementUnitLocalService, _portletResourcePermission,
 					renderRequest, renderResponse);
 
 		httpServletRequest.setAttribute(
@@ -144,7 +144,7 @@ public class CommerceShippingMethodFixedOptionSettingsScreenNavigationEntry
 	private CommerceCountryService _commerceCountryService;
 
 	@Reference
-	private CommerceCurrencyService _commerceCurrencyService;
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
 	@Reference
 	private CommerceRegionService _commerceRegionService;
@@ -164,7 +164,7 @@ public class CommerceShippingMethodFixedOptionSettingsScreenNavigationEntry
 	private CommerceWarehouseService _commerceWarehouseService;
 
 	@Reference
-	private CPMeasurementUnitService _cpMeasurementUnitService;
+	private CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;
 
 	@Reference
 	private JSPRenderer _jspRenderer;

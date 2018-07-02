@@ -134,7 +134,8 @@ public class CommercePriceEntryNestedCollectionResource
 	}
 
 	private PageItems<CommercePriceEntry> _getPageItems(
-		Pagination pagination, Long commercePriceListId) {
+			Pagination pagination, Long commercePriceListId)
+		throws PortalException {
 
 		List<CommercePriceEntry> commercePriceEntries =
 			_commercePriceEntryService.getCommercePriceEntries(

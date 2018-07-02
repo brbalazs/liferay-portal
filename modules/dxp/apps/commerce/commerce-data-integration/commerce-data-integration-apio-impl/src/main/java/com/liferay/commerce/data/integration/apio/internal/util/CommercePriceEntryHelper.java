@@ -57,7 +57,9 @@ public class CommercePriceEntryHelper {
 		);
 	}
 
-	public CommercePriceEntry getCommercePriceEntry(Long commercePriceEntryId) {
+	public CommercePriceEntry getCommercePriceEntry(Long commercePriceEntryId)
+		throws PortalException {
+
 		CommercePriceEntry commercePriceEntry =
 			_commercePriceEntryService.fetchCommercePriceEntry(
 				commercePriceEntryId);

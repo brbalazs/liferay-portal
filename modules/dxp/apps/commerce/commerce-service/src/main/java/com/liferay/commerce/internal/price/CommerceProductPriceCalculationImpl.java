@@ -87,8 +87,10 @@ public class CommerceProductPriceCalculationImpl
 		finalPrice = finalPrice.multiply(BigDecimal.valueOf(quantity));
 
 		if (commerceDiscountValue != null) {
-			finalPrice = finalPrice.subtract(
-				commerceDiscountValue.getDiscountAmount());
+			CommerceMoney discountAmount =
+				commerceDiscountValue.getDiscountAmount();
+
+			finalPrice = finalPrice.subtract(discountAmount.getPrice());
 		}
 
 		commerceProductPrice.setCommerceDiscountValue(commerceDiscountValue);

@@ -82,6 +82,20 @@ public class CPInstanceDisplayContext
 		_cpInstanceHelper = cpInstanceHelper;
 	}
 
+	public Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			cpInstanceJsonParse(long cpInstanceId)
+		throws PortalException {
+
+		if (cpInstanceId <= 0) {
+			return Collections.emptyMap();
+		}
+
+		CPInstance cpInstance = _cpInstanceService.getCPInstance(cpInstanceId);
+
+		return _cpInstanceHelper.getCPDefinitionOptionRelsMap(
+			cpInstance.getJson());
+	}
+
 	public String formatPrice(long groupId, BigDecimal price)
 		throws PortalException {
 
@@ -107,7 +121,7 @@ public class CPInstanceDisplayContext
 		throws PortalException {
 
 		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-			cpDefinitionOptionRelListMap = parseCPInstanceDDMContent(
+			cpDefinitionOptionRelListMap = cpInstanceJsonParse(
 				getCPInstanceId());
 
 		if (cpDefinitionOptionRelListMap.isEmpty() ||
@@ -304,20 +318,6 @@ public class CPInstanceDisplayContext
 
 	public boolean hasDynamicInclude(String key) {
 		return DynamicIncludeUtil.hasDynamicInclude(key);
-	}
-
-	public Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
-			parseCPInstanceDDMContent(long cpInstanceId)
-		throws PortalException {
-
-		if (cpInstanceId <= 0) {
-			return Collections.emptyMap();
-		}
-
-		CPInstance cpInstance = _cpInstanceService.getCPInstance(cpInstanceId);
-
-		return _cpInstanceHelper.getCPDefinitionOptionRelsMap(
-			cpInstance.getDDMContent());
 	}
 
 	public String renderOptions(

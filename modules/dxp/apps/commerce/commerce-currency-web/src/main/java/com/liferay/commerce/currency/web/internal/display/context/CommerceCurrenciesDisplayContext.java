@@ -165,7 +165,9 @@ public class CommerceCurrenciesDisplayContext {
 		return portletURL;
 	}
 
-	public CommerceCurrency getPrimaryCommerceCurrency() {
+	public CommerceCurrency getPrimaryCommerceCurrency()
+		throws PortalException {
+
 		if (_primaryCommerceCurrency != null) {
 			return _primaryCommerceCurrency;
 		}
@@ -185,7 +187,9 @@ public class CommerceCurrenciesDisplayContext {
 			roundingModeName, CharPool.UNDERLINE, CharPool.SPACE);
 	}
 
-	public SearchContainer<CommerceCurrency> getSearchContainer() {
+	public SearchContainer<CommerceCurrency> getSearchContainer()
+		throws PortalException {
+
 		if (_searchContainer != null) {
 			return _searchContainer;
 		}

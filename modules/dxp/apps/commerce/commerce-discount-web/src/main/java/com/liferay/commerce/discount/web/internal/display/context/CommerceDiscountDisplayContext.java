@@ -15,7 +15,7 @@
 package com.liferay.commerce.discount.web.internal.display.context;
 
 import com.liferay.commerce.currency.model.CommerceCurrency;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.commerce.discount.model.CommerceDiscountUserSegmentRel;
 import com.liferay.commerce.discount.service.CommerceDiscountService;
@@ -66,14 +66,14 @@ import javax.servlet.http.HttpServletRequest;
 public class CommerceDiscountDisplayContext {
 
 	public CommerceDiscountDisplayContext(
-		CommerceCurrencyService commerceCurrencyService,
+		CommerceCurrencyLocalService commerceCurrencyLocalService,
 		CommerceDiscountService commerceDiscountService,
 		CommerceDiscountTargetRegistry commerceDiscountTargetRegistry,
 		CommerceDiscountUserSegmentRelService
 			commerceDiscountUserSegmentRelService,
 		HttpServletRequest httpServletRequest, ItemSelector itemSelector) {
 
-		_commerceCurrencyService = commerceCurrencyService;
+		_commerceCurrencyLocalService = commerceCurrencyLocalService;
 		_commerceDiscountService = commerceDiscountService;
 		_commerceDiscountTargetRegistry = commerceDiscountTargetRegistry;
 		_commerceDiscountUserSegmentRelService =
@@ -134,7 +134,7 @@ public class CommerceDiscountDisplayContext {
 
 	public String getDefaultCommerceCurrencyCode() {
 		CommerceCurrency commerceCurrency =
-			_commerceCurrencyService.fetchPrimaryCommerceCurrency(
+			_commerceCurrencyLocalService.fetchPrimaryCommerceCurrency(
 				commerceDiscountRequestHelper.getScopeGroupId());
 
 		if (commerceCurrency == null) {
@@ -308,7 +308,7 @@ public class CommerceDiscountDisplayContext {
 
 	public BigDecimal round(BigDecimal value) {
 		CommerceCurrency commerceCurrency =
-			_commerceCurrencyService.fetchPrimaryCommerceCurrency(
+			_commerceCurrencyLocalService.fetchPrimaryCommerceCurrency(
 				commerceDiscountRequestHelper.getScopeGroupId());
 
 		if (commerceCurrency == null) {
@@ -400,7 +400,7 @@ public class CommerceDiscountDisplayContext {
 	protected final ItemSelector itemSelector;
 	protected final PortalPreferences portalPreferences;
 
-	private final CommerceCurrencyService _commerceCurrencyService;
+	private final CommerceCurrencyLocalService _commerceCurrencyLocalService;
 	private CommerceDiscount _commerceDiscount;
 	private final CommerceDiscountService _commerceDiscountService;
 	private final CommerceDiscountTargetRegistry

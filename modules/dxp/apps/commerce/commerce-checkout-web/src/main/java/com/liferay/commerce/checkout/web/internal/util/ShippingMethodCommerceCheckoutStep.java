@@ -30,7 +30,7 @@ import com.liferay.commerce.model.CommerceShippingOption;
 import com.liferay.commerce.order.web.security.permission.resource.CommerceOrderPermission;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.service.CommerceOrderService;
-import com.liferay.commerce.service.CommerceShippingMethodService;
+import com.liferay.commerce.service.CommerceShippingMethodLocalService;
 import com.liferay.commerce.util.CommerceShippingEngineRegistry;
 import com.liferay.commerce.util.CommerceShippingHelper;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
@@ -93,11 +93,13 @@ public class ShippingMethodCommerceCheckoutStep
 			(CommerceOrder)httpServletRequest.getAttribute(
 				CommerceCheckoutWebKeys.COMMERCE_ORDER);
 
-		if (!_commerceShippingHelper.isShippable(commerceOrder)) {
+		if (!_commerceShippingHelper.isShippable(commerceOrder) ||
+			_commerceShippingHelper.isFreeShipping(commerceOrder)) {
+
 			return false;
 		}
 
-		if (_commerceShippingMethodService.getCommerceShippingMethodsCount(
+		if (_commerceShippingMethodLocalService.getCommerceShippingMethodsCount(
 				commerceOrder.getSiteGroupId(), true) > 0) {
 
 			return true;
@@ -135,8 +137,7 @@ public class ShippingMethodCommerceCheckoutStep
 			shippingMethodCheckoutStepDisplayContext =
 				new ShippingMethodCheckoutStepDisplayContext(
 					_commercePriceFormatter, _commerceShippingEngineRegistry,
-					_commerceShippingMethodService, httpServletRequest,
-					httpServletResponse);
+					_commerceShippingMethodLocalService, httpServletRequest);
 
 		httpServletRequest.setAttribute(
 			CommerceCheckoutWebKeys.COMMERCE_CHECKOUT_STEP_DISPLAY_CONTEXT,
@@ -154,7 +155,7 @@ public class ShippingMethodCommerceCheckoutStep
 		throws PortalException {
 
 		CommerceShippingMethod commerceShippingMethod =
-			_commerceShippingMethodService.getCommerceShippingMethod(
+			_commerceShippingMethodLocalService.getCommerceShippingMethod(
 				commerceShippingMethodId);
 
 		if (!commerceShippingMethod.isActive()) {
@@ -258,7 +259,8 @@ public class ShippingMethodCommerceCheckoutStep
 	private CommerceShippingHelper _commerceShippingHelper;
 
 	@Reference
-	private CommerceShippingMethodService _commerceShippingMethodService;
+	private CommerceShippingMethodLocalService
+		_commerceShippingMethodLocalService;
 
 	@Reference
 	private JSPRenderer _jspRenderer;

@@ -21,10 +21,11 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceShippingEngine;
 import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.model.CommerceShippingOption;
-import com.liferay.commerce.service.CommerceAddressRestrictionService;
-import com.liferay.commerce.service.CommerceShippingMethodService;
+import com.liferay.commerce.service.CommerceAddressRestrictionLocalService;
+import com.liferay.commerce.service.CommerceShippingMethodLocalService;
 import com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOption;
-import com.liferay.commerce.shipping.engine.fixed.service.CommerceShippingFixedOptionService;
+import com.liferay.commerce.shipping.engine.fixed.service.CommerceShippingFixedOptionLocalService;
+import com.liferay.commerce.util.CommerceShippingHelper;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -102,15 +103,15 @@ public class FixedCommerceShippingEngine implements CommerceShippingEngine {
 		long groupId) {
 
 		CommerceShippingMethod commerceShippingMethod =
-			_commerceShippingMethodService.fetchCommerceShippingMethod(
+			_commerceShippingMethodLocalService.fetchCommerceShippingMethod(
 				groupId, KEY);
 
 		if (commerceShippingMethod == null) {
 			return Collections.emptyList();
 		}
 
-		return
-			_commerceShippingFixedOptionService.getCommerceShippingFixedOptions(
+		return _commerceShippingFixedOptionLocalService.
+			getCommerceShippingFixedOptions(
 				commerceShippingMethod.getCommerceShippingMethodId(),
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
@@ -131,7 +132,7 @@ public class FixedCommerceShippingEngine implements CommerceShippingEngine {
 				commerceShippingFixedOptions) {
 
 			boolean restricted =
-				_commerceAddressRestrictionService.
+				_commerceAddressRestrictionLocalService.
 					isCommerceShippingMethodRestricted(
 						commerceShippingFixedOption.
 							getCommerceShippingMethodId(),
@@ -142,6 +143,14 @@ public class FixedCommerceShippingEngine implements CommerceShippingEngine {
 			}
 
 			String name = commerceShippingFixedOption.getName(locale);
+
+			if (_commerceShippingHelper.isFreeShipping(commerceOrder)) {
+				commerceShippingOptions.add(
+					new CommerceShippingOption(name, name, BigDecimal.ZERO));
+
+				continue;
+			}
+
 			BigDecimal amount = commerceShippingFixedOption.getAmount();
 
 			commerceShippingOptions.add(
@@ -160,14 +169,18 @@ public class FixedCommerceShippingEngine implements CommerceShippingEngine {
 		FixedCommerceShippingEngine.class);
 
 	@Reference
-	private CommerceAddressRestrictionService
-		_commerceAddressRestrictionService;
+	private CommerceAddressRestrictionLocalService
+		_commerceAddressRestrictionLocalService;
 
 	@Reference
-	private CommerceShippingFixedOptionService
-		_commerceShippingFixedOptionService;
+	private CommerceShippingFixedOptionLocalService
+		_commerceShippingFixedOptionLocalService;
 
 	@Reference
-	private CommerceShippingMethodService _commerceShippingMethodService;
+	private CommerceShippingHelper _commerceShippingHelper;
+
+	@Reference
+	private CommerceShippingMethodLocalService
+		_commerceShippingMethodLocalService;
 
 }

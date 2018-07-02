@@ -239,7 +239,9 @@ public class CommerceOrderEditDisplayContext {
 		return label;
 	}
 
-	public List<CommercePaymentMethod> getCommercePaymentMethods() {
+	public List<CommercePaymentMethod> getCommercePaymentMethods()
+		throws PortalException {
+
 		return _commercePaymentMethodService.getCommercePaymentMethods(
 			_commerceOrderRequestHelper.getScopeGroupId());
 	}

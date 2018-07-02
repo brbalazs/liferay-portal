@@ -16,7 +16,7 @@ package com.liferay.commerce.product.definitions.web.internal.portlet.action;
 
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.exception.CPDefinitionIgnoreSKUCombinationsException;
-import com.liferay.commerce.product.exception.CPInstanceDDMContentException;
+import com.liferay.commerce.product.exception.CPInstanceJsonException;
 import com.liferay.commerce.product.exception.CPInstanceSkuException;
 import com.liferay.commerce.product.exception.NoSuchSkuContributorCPDefinitionOptionRelException;
 import com.liferay.commerce.product.model.CPDefinition;
@@ -125,7 +125,7 @@ public class EditCPInstanceMVCActionCommand extends BaseMVCActionCommand {
 		}
 		catch (Exception e) {
 			if (e instanceof CPDefinitionIgnoreSKUCombinationsException ||
-				e instanceof CPInstanceDDMContentException ||
+				e instanceof CPInstanceJsonException ||
 				e instanceof CPInstanceSkuException ||
 				e instanceof
 					NoSuchSkuContributorCPDefinitionOptionRelException) {

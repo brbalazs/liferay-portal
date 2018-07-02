@@ -22,7 +22,7 @@ import com.liferay.commerce.product.definitions.web.servlet.taglib.ui.CPInstance
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
 import com.liferay.commerce.product.service.CPInstanceService;
-import com.liferay.commerce.product.service.CPMeasurementUnitService;
+import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
@@ -103,7 +103,7 @@ public class CPInstanceShippingInfoScreenNavigationEntry
 						_actionHelper, httpServletRequest,
 						_commercePriceFormatter, _cpDefinitionOptionRelService,
 						_cpInstanceService, _cpInstanceHelper,
-						_cpMeasurementUnitService);
+						_cpMeasurementUnitLocalService);
 
 			httpServletRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -140,7 +140,7 @@ public class CPInstanceShippingInfoScreenNavigationEntry
 	private CPInstanceService _cpInstanceService;
 
 	@Reference
-	private CPMeasurementUnitService _cpMeasurementUnitService;
+	private CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;
 
 	@Reference
 	private JSPRenderer _jspRenderer;

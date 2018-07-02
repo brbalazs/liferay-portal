@@ -80,12 +80,12 @@ public class CPInstanceCommercePriceEntryDisplayContext
 			price, cpRequestHelper.getLocale());
 	}
 
-	public CommercePriceEntry getCommercePriceEntry() {
+	public CommercePriceEntry getCommercePriceEntry() throws PortalException {
 		return _commercePriceListActionHelper.getCommercePriceEntry(
 			cpRequestHelper.getRenderRequest());
 	}
 
-	public long getCommercePriceEntryId() {
+	public long getCommercePriceEntryId() throws PortalException {
 		long commercePriceEntryId = 0;
 
 		CommercePriceEntry commercePriceEntry = getCommercePriceEntry();

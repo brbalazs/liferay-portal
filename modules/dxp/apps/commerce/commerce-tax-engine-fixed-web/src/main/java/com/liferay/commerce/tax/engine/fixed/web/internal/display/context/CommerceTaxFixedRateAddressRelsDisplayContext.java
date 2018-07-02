@@ -15,7 +15,7 @@
 package com.liferay.commerce.tax.engine.fixed.web.internal.display.context;
 
 import com.liferay.commerce.constants.CommerceActionKeys;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.product.model.CPTaxCategory;
@@ -38,7 +38,6 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import java.util.List;
 
 import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
 
 /**
  * @author Marco Leo
@@ -50,18 +49,18 @@ public class CommerceTaxFixedRateAddressRelsDisplayContext
 
 	public CommerceTaxFixedRateAddressRelsDisplayContext(
 		CommerceCountryService commerceCountryService,
-		CommerceCurrencyService commerceCurrencyService,
+		CommerceCurrencyLocalService commerceCurrencyLocalService,
 		CommerceRegionService commerceRegionService,
 		CommerceTaxMethodService commerceTaxMethodService,
 		CommerceTaxFixedRateAddressRelService
 			commerceTaxFixedRateAddressRelService,
 		CPTaxCategoryService cpTaxCategoryService,
 		PortletResourcePermission portletResourcePermission,
-		RenderRequest renderRequest, RenderResponse renderResponse) {
+		RenderRequest renderRequest) {
 
 		super(
-			commerceCurrencyService, commerceTaxMethodService, renderRequest,
-			renderResponse);
+			commerceCurrencyLocalService, commerceTaxMethodService,
+			renderRequest);
 
 		_commerceCountryService = commerceCountryService;
 		_commerceRegionService = commerceRegionService;

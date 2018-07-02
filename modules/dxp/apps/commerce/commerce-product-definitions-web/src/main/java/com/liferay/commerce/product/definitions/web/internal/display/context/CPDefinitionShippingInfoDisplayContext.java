@@ -15,11 +15,11 @@
 package com.liferay.commerce.product.definitions.web.internal.display.context;
 
 import com.liferay.commerce.currency.model.CommerceCurrency;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
 import com.liferay.commerce.product.model.CPMeasurementUnit;
 import com.liferay.commerce.product.service.CPDefinitionService;
-import com.liferay.commerce.product.service.CPMeasurementUnitService;
+import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.petra.string.StringPool;
@@ -37,18 +37,18 @@ public class CPDefinitionShippingInfoDisplayContext
 
 	public CPDefinitionShippingInfoDisplayContext(
 			ActionHelper actionHelper, HttpServletRequest httpServletRequest,
-			CommerceCurrencyService commerceCurrencyService,
+			CommerceCurrencyLocalService commerceCurrencyLocalService,
 			CPDefinitionHelper cpDefinitionHelper,
 			CPDefinitionService cpDefinitionService, ItemSelector itemSelector,
-			CPMeasurementUnitService cpMeasurementUnitService)
+			CPMeasurementUnitLocalService cpMeasurementUnitLocalService)
 		throws PortalException {
 
 		super(
 			actionHelper, httpServletRequest, cpDefinitionHelper,
 			cpDefinitionService, itemSelector);
 
-		_commerceCurrencyService = commerceCurrencyService;
-		_cpMeasurementUnitService = cpMeasurementUnitService;
+		_commerceCurrencyLocalService = commerceCurrencyLocalService;
+		_cpMeasurementUnitLocalService = cpMeasurementUnitLocalService;
 	}
 
 	public String getCommerceCurrencyCode() {
@@ -57,7 +57,7 @@ public class CPDefinitionShippingInfoDisplayContext
 				WebKeys.THEME_DISPLAY);
 
 		CommerceCurrency commerceCurrency =
-			_commerceCurrencyService.fetchPrimaryCommerceCurrency(
+			_commerceCurrencyLocalService.fetchPrimaryCommerceCurrency(
 				themeDisplay.getScopeGroupId());
 
 		if (commerceCurrency == null) {
@@ -73,7 +73,7 @@ public class CPDefinitionShippingInfoDisplayContext
 				WebKeys.THEME_DISPLAY);
 
 		CPMeasurementUnit cpMeasurementUnit =
-			_cpMeasurementUnitService.fetchPrimaryCPMeasurementUnit(
+			_cpMeasurementUnitLocalService.fetchPrimaryCPMeasurementUnit(
 				themeDisplay.getScopeGroupId(), type);
 
 		if (cpMeasurementUnit != null) {
@@ -83,7 +83,7 @@ public class CPDefinitionShippingInfoDisplayContext
 		return StringPool.BLANK;
 	}
 
-	private final CommerceCurrencyService _commerceCurrencyService;
-	private final CPMeasurementUnitService _cpMeasurementUnitService;
+	private final CommerceCurrencyLocalService _commerceCurrencyLocalService;
+	private final CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;
 
 }

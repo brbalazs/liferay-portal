@@ -16,7 +16,7 @@ package com.liferay.commerce.internal.context;
 
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.discount.CommerceDiscountCouponCodeHelper;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.CommerceOrderHttpHelper;
@@ -42,7 +42,7 @@ public class CommerceContextImpl implements CommerceContext {
 
 	public CommerceContextImpl(
 		HttpServletRequest httpServletRequest,
-		CommerceCurrencyService commerceCurrencyService,
+		CommerceCurrencyLocalService commerceCurrencyLocalService,
 		CommerceDiscountCouponCodeHelper commerceDiscountCouponCodeHelper,
 		CommerceOrderHttpHelper commerceOrderHttpHelper,
 		CommerceOrganizationHelper commerceOrganizationHelper,
@@ -51,7 +51,7 @@ public class CommerceContextImpl implements CommerceContext {
 		CPRuleLocalService cpRuleLocalService, Portal portal) {
 
 		_httpServletRequest = httpServletRequest;
-		_commerceCurrencyService = commerceCurrencyService;
+		_commerceCurrencyLocalService = commerceCurrencyLocalService;
 		_commerceDiscountCouponCodeHelper = commerceDiscountCouponCodeHelper;
 		_commerceOrderHttpHelper = commerceOrderHttpHelper;
 		_commerceOrganizationHelper = commerceOrganizationHelper;
@@ -70,7 +70,7 @@ public class CommerceContextImpl implements CommerceContext {
 		long groupId = _portal.getScopeGroupId(_httpServletRequest);
 
 		_commerceCurrency =
-			_commerceCurrencyService.fetchPrimaryCommerceCurrency(groupId);
+			_commerceCurrencyLocalService.fetchPrimaryCommerceCurrency(groupId);
 
 		return _commerceCurrency;
 	}
@@ -155,7 +155,7 @@ public class CommerceContextImpl implements CommerceContext {
 	}
 
 	private CommerceCurrency _commerceCurrency;
-	private final CommerceCurrencyService _commerceCurrencyService;
+	private final CommerceCurrencyLocalService _commerceCurrencyLocalService;
 	private final CommerceDiscountCouponCodeHelper
 		_commerceDiscountCouponCodeHelper;
 	private CommerceOrder _commerceOrder;

@@ -16,7 +16,7 @@ package com.liferay.commerce.shipping.engine.fixed.web.internal.display.context;
 
 import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.currency.model.CommerceCurrency;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.service.CommerceShippingMethodService;
 import com.liferay.commerce.shipping.web.admin.ShippingMethodsCommerceAdminModule;
@@ -44,12 +44,12 @@ import javax.portlet.RenderResponse;
 public abstract class BaseCommerceShippingFixedOptionDisplayContext<T> {
 
 	public BaseCommerceShippingFixedOptionDisplayContext(
-		CommerceCurrencyService commerceCurrencyService,
+		CommerceCurrencyLocalService commerceCurrencyLocalService,
 		CommerceShippingMethodService commerceShippingMethodService,
 		PortletResourcePermission portletResourcePermission,
 		RenderRequest renderRequest, RenderResponse renderResponse) {
 
-		this.commerceCurrencyService = commerceCurrencyService;
+		this.commerceCurrencyLocalService = commerceCurrencyLocalService;
 		this.commerceShippingMethodService = commerceShippingMethodService;
 		this.portletResourcePermission = portletResourcePermission;
 		this.renderRequest = renderRequest;
@@ -197,7 +197,7 @@ public abstract class BaseCommerceShippingFixedOptionDisplayContext<T> {
 		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		return commerceCurrencyService.fetchPrimaryCommerceCurrency(
+		return commerceCurrencyLocalService.fetchPrimaryCommerceCurrency(
 			themeDisplay.getScopeGroupId());
 	}
 
@@ -207,7 +207,7 @@ public abstract class BaseCommerceShippingFixedOptionDisplayContext<T> {
 			getScreenNavigationCategoryKey());
 	}
 
-	protected final CommerceCurrencyService commerceCurrencyService;
+	protected final CommerceCurrencyLocalService commerceCurrencyLocalService;
 	protected final CommerceShippingMethodService commerceShippingMethodService;
 	protected final PortletResourcePermission portletResourcePermission;
 	protected final RenderRequest renderRequest;

@@ -65,8 +65,8 @@ public class CPDefinitionInventoryDisplayContext
 			cpDefinitionInventoryEngineRegistry;
 	}
 
-	public List<CommerceAvailabilityEstimate>
-		getCommerceAvailabilityEstimates() {
+	public List<CommerceAvailabilityEstimate> getCommerceAvailabilityEstimates()
+		throws PortalException {
 
 		return _commerceAvailabilityEstimateService.
 			getCommerceAvailabilityEstimates(

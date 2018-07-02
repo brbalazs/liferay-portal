@@ -23,7 +23,7 @@ import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.payment.engine.money.order.internal.MoneyOrderCommercePaymentEngine;
 import com.liferay.commerce.payment.engine.money.order.internal.display.context.MoneyOrderCheckoutStepDisplayContext;
 import com.liferay.commerce.service.CommerceOrderService;
-import com.liferay.commerce.service.CommercePaymentMethodService;
+import com.liferay.commerce.service.CommercePaymentMethodLocalService;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -90,7 +90,7 @@ public class MoneyOrderCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 		}
 
 		CommercePaymentMethod commercePaymentMethod =
-			_commercePaymentMethodService.getCommercePaymentMethod(
+			_commercePaymentMethodLocalService.getCommercePaymentMethod(
 				commercePaymentMethodId);
 
 		if (MoneyOrderCommercePaymentEngine.KEY.equals(
@@ -150,7 +150,8 @@ public class MoneyOrderCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 	private CommerceOrderService _commerceOrderService;
 
 	@Reference
-	private CommercePaymentMethodService _commercePaymentMethodService;
+	private CommercePaymentMethodLocalService
+		_commercePaymentMethodLocalService;
 
 	@Reference
 	private ConfigurationProvider _configurationProvider;

@@ -16,8 +16,8 @@ package com.liferay.commerce.shipping.engine.fixed.web.internal.portlet.action;
 
 import com.liferay.commerce.admin.constants.CommerceAdminPortletKeys;
 import com.liferay.commerce.constants.CommerceConstants;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
-import com.liferay.commerce.product.service.CPMeasurementUnitService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
+import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceRegionService;
 import com.liferay.commerce.service.CommerceShippingMethodService;
@@ -73,13 +73,14 @@ public class EditCommerceShippingFixedOptionRelMVCRenderCommand
 			CommerceShippingFixedOptionRelsDisplayContext
 				commerceShippingFixedOptionRelsDisplayContext =
 					new CommerceShippingFixedOptionRelsDisplayContext(
-						_commerceCountryService, _commerceCurrencyService,
+						_commerceCountryService, _commerceCurrencyLocalService,
 						_commerceRegionService, _commerceShippingMethodService,
 						_commerceShippingFixedOptionService,
 						_commerceWarehouseService,
 						_commerceShippingFixedOptionRelService,
-						_cpMeasurementUnitService, _portletResourcePermission,
-						renderRequest, renderResponse);
+						_cpMeasurementUnitLocalService,
+						_portletResourcePermission, renderRequest,
+						renderResponse);
 
 			renderRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -113,7 +114,7 @@ public class EditCommerceShippingFixedOptionRelMVCRenderCommand
 	private CommerceCountryService _commerceCountryService;
 
 	@Reference
-	private CommerceCurrencyService _commerceCurrencyService;
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
 	@Reference
 	private CommerceRegionService _commerceRegionService;
@@ -133,7 +134,7 @@ public class EditCommerceShippingFixedOptionRelMVCRenderCommand
 	private CommerceWarehouseService _commerceWarehouseService;
 
 	@Reference
-	private CPMeasurementUnitService _cpMeasurementUnitService;
+	private CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;
 
 	@Reference
 	private Portal _portal;

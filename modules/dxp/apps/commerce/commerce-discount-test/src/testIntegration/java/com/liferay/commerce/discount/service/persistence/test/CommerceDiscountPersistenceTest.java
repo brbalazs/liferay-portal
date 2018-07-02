@@ -162,6 +162,9 @@ public class CommerceDiscountPersistenceTest {
 		newCommerceDiscount.setLevel3(new BigDecimal(
 				RandomTestUtil.nextDouble()));
 
+		newCommerceDiscount.setLevel4(new BigDecimal(
+				RandomTestUtil.nextDouble()));
+
 		newCommerceDiscount.setLimitationType(RandomTestUtil.randomString());
 
 		newCommerceDiscount.setLimitationTimes(RandomTestUtil.nextInt());
@@ -224,6 +227,8 @@ public class CommerceDiscountPersistenceTest {
 			newCommerceDiscount.getLevel2());
 		Assert.assertEquals(existingCommerceDiscount.getLevel3(),
 			newCommerceDiscount.getLevel3());
+		Assert.assertEquals(existingCommerceDiscount.getLevel4(),
+			newCommerceDiscount.getLevel4());
 		Assert.assertEquals(existingCommerceDiscount.getLimitationType(),
 			newCommerceDiscount.getLimitationType());
 		Assert.assertEquals(existingCommerceDiscount.getLimitationTimes(),
@@ -346,10 +351,11 @@ public class CommerceDiscountPersistenceTest {
 			"modifiedDate", true, "title", true, "target", true,
 			"useCouponCode", true, "couponCode", true, "usePercentage", true,
 			"maximumDiscountAmount", true, "level1", true, "level2", true,
-			"level3", true, "limitationType", true, "limitationTimes", true,
-			"numberOfUse", true, "active", true, "displayDate", true,
-			"expirationDate", true, "lastPublishDate", true, "status", true,
-			"statusByUserId", true, "statusByUserName", true, "statusDate", true);
+			"level3", true, "level4", true, "limitationType", true,
+			"limitationTimes", true, "numberOfUse", true, "active", true,
+			"displayDate", true, "expirationDate", true, "lastPublishDate",
+			true, "status", true, "statusByUserId", true, "statusByUserName",
+			true, "statusDate", true);
 	}
 
 	@Test
@@ -599,6 +605,8 @@ public class CommerceDiscountPersistenceTest {
 		commerceDiscount.setLevel2(new BigDecimal(RandomTestUtil.nextDouble()));
 
 		commerceDiscount.setLevel3(new BigDecimal(RandomTestUtil.nextDouble()));
+
+		commerceDiscount.setLevel4(new BigDecimal(RandomTestUtil.nextDouble()));
 
 		commerceDiscount.setLimitationType(RandomTestUtil.randomString());
 

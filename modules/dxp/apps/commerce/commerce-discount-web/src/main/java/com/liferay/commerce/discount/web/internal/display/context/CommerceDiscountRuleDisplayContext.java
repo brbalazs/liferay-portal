@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.discount.web.internal.display.context;
 
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.discount.model.CommerceDiscountRule;
 import com.liferay.commerce.discount.rule.type.CommerceDiscountRuleType;
 import com.liferay.commerce.discount.rule.type.CommerceDiscountRuleTypeJSPContributor;
@@ -59,7 +59,7 @@ public class CommerceDiscountRuleDisplayContext
 	extends CommerceDiscountDisplayContext {
 
 	public CommerceDiscountRuleDisplayContext(
-		CommerceCurrencyService commerceCurrencyService,
+		CommerceCurrencyLocalService commerceCurrencyLocalService,
 		CommerceDiscountRuleService commerceDiscountRuleService,
 		CommerceDiscountRuleTypeJSPContributorRegistry
 			commerceDiscountRuleTypeJSPContributorRegistry,
@@ -72,7 +72,7 @@ public class CommerceDiscountRuleDisplayContext
 		HttpServletRequest httpServletRequest, ItemSelector itemSelector) {
 
 		super(
-			commerceCurrencyService, commerceDiscountService,
+			commerceCurrencyLocalService, commerceDiscountService,
 			commerceDiscountTargetRegistry,
 			commerceDiscountUserSegmentRelService, httpServletRequest,
 			itemSelector);

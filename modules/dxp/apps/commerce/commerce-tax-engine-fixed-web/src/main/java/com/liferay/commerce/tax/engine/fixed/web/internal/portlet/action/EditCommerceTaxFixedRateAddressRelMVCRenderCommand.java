@@ -16,7 +16,7 @@ package com.liferay.commerce.tax.engine.fixed.web.internal.portlet.action;
 
 import com.liferay.commerce.admin.constants.CommerceAdminPortletKeys;
 import com.liferay.commerce.constants.CommerceConstants;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.product.service.CPTaxCategoryService;
 import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceRegionService;
@@ -71,11 +71,11 @@ public class EditCommerceTaxFixedRateAddressRelMVCRenderCommand
 			CommerceTaxFixedRateAddressRelsDisplayContext
 				commerceTaxFixedRateAddressRelsDisplayContext =
 					new CommerceTaxFixedRateAddressRelsDisplayContext(
-						_commerceCountryService, _commerceCurrencyService,
+						_commerceCountryService, _commerceCurrencyLocalService,
 						_commerceRegionService, _commerceTaxMethodService,
 						_commerceTaxFixedRateAddressRelService,
 						_cpTaxCategoryService, _portletResourcePermission,
-						renderRequest, renderResponse);
+						renderRequest);
 
 			renderRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -109,7 +109,7 @@ public class EditCommerceTaxFixedRateAddressRelMVCRenderCommand
 	private CommerceCountryService _commerceCountryService;
 
 	@Reference
-	private CommerceCurrencyService _commerceCurrencyService;
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
 	@Reference
 	private CommerceRegionService _commerceRegionService;

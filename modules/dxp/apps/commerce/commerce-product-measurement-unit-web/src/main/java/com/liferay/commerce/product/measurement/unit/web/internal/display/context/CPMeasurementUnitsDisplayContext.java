@@ -138,7 +138,9 @@ public class CPMeasurementUnitsDisplayContext {
 		return portletURL;
 	}
 
-	public CPMeasurementUnit getPrimaryCPMeasurementUnit() {
+	public CPMeasurementUnit getPrimaryCPMeasurementUnit()
+		throws PortalException {
+
 		if (_primaryCPMeasurementUnit != null) {
 			return _primaryCPMeasurementUnit;
 		}
@@ -153,7 +155,9 @@ public class CPMeasurementUnitsDisplayContext {
 		return _primaryCPMeasurementUnit;
 	}
 
-	public SearchContainer<CPMeasurementUnit> getSearchContainer() {
+	public SearchContainer<CPMeasurementUnit> getSearchContainer()
+		throws PortalException {
+
 		if (_searchContainer != null) {
 			return _searchContainer;
 		}

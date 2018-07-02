@@ -24,7 +24,7 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceShippingEngine;
 import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.model.CommerceShippingOption;
-import com.liferay.commerce.service.CommerceShippingMethodService;
+import com.liferay.commerce.service.CommerceShippingMethodLocalService;
 import com.liferay.commerce.util.CommerceShippingEngineRegistry;
 import com.liferay.commerce.util.comparator.CommerceShippingOptionLabelComparator;
 import com.liferay.petra.string.CharPool;
@@ -37,7 +37,6 @@ import com.liferay.portal.kernel.util.WebKeys;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Andrea Di Giorgi
@@ -45,16 +44,15 @@ import javax.servlet.http.HttpServletResponse;
 public class ShippingMethodCheckoutStepDisplayContext {
 
 	public ShippingMethodCheckoutStepDisplayContext(
-			CommercePriceFormatter commercePriceFormatter,
-			CommerceShippingEngineRegistry commerceShippingEngineRegistry,
-			CommerceShippingMethodService commerceShippingMethodService,
-			HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse)
-		throws PortalException {
+		CommercePriceFormatter commercePriceFormatter,
+		CommerceShippingEngineRegistry commerceShippingEngineRegistry,
+		CommerceShippingMethodLocalService commerceShippingMethodLocalService,
+		HttpServletRequest httpServletRequest) {
 
 		_commercePriceFormatter = commercePriceFormatter;
 		_commerceShippingEngineRegistry = commerceShippingEngineRegistry;
-		_commerceShippingMethodService = commerceShippingMethodService;
+		_commerceShippingMethodLocalService =
+			commerceShippingMethodLocalService;
 		_httpServletRequest = httpServletRequest;
 
 		_commerceOrder = (CommerceOrder)httpServletRequest.getAttribute(
@@ -66,7 +64,7 @@ public class ShippingMethodCheckoutStepDisplayContext {
 	}
 
 	public List<CommerceShippingMethod> getCommerceShippingMethods() {
-		return _commerceShippingMethodService.getCommerceShippingMethods(
+		return _commerceShippingMethodLocalService.getCommerceShippingMethods(
 			_commerceOrder.getSiteGroupId(), true);
 	}
 
@@ -131,7 +129,8 @@ public class ShippingMethodCheckoutStepDisplayContext {
 	private final CommercePriceFormatter _commercePriceFormatter;
 	private final CommerceShippingEngineRegistry
 		_commerceShippingEngineRegistry;
-	private final CommerceShippingMethodService _commerceShippingMethodService;
+	private final CommerceShippingMethodLocalService
+		_commerceShippingMethodLocalService;
 	private final HttpServletRequest _httpServletRequest;
 
 }

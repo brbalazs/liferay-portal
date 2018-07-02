@@ -30,7 +30,7 @@ import com.liferay.commerce.product.model.CPOptionCategory;
 import com.liferay.commerce.product.model.CPSpecificationOption;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPDefinitionSpecificationOptionValueLocalService;
-import com.liferay.commerce.product.service.CPMeasurementUnitService;
+import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.product.service.CPOptionCategoryLocalService;
 import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldTypeServicesTracker;
 import com.liferay.petra.string.StringPool;
@@ -233,7 +233,7 @@ public class CPCompareContentHelperImpl implements CPCompareContentHelper {
 		long groupId, Locale locale) {
 
 		CPMeasurementUnit cpMeasurementUnit =
-			_cpMeasurementUnitService.fetchPrimaryCPMeasurementUnit(
+			_cpMeasurementUnitLocalService.fetchPrimaryCPMeasurementUnit(
 				groupId, CPMeasurementUnitConstants.TYPE_DIMENSION);
 
 		if (cpMeasurementUnit == null) {
@@ -379,7 +379,7 @@ public class CPCompareContentHelperImpl implements CPCompareContentHelper {
 		_cpDefinitionSpecificationOptionValueLocalService;
 
 	@Reference
-	private CPMeasurementUnitService _cpMeasurementUnitService;
+	private CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;
 
 	@Reference
 	private CPOptionCategoryLocalService _cpOptionCategoryLocalService;

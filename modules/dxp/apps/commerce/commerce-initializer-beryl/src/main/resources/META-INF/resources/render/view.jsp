@@ -120,25 +120,17 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 		<div class="product-detail-info">
 			<div class="autofit-float autofit-row product-detail-info-header">
 				<div class="autofit-col autofit-col-expand">
-					<h2 class="commerce-price" data-text-cp-instance-price>
+					<h2 class="commerce-price" data-text-cp-instance-price id="<portlet:namespace />commercePrice">
 						<c:if test="<%= cpSku != null %>">
-							<liferay-commerce:price CPDefinitionId="<%= cpDefinitionId %>" CPInstanceId="<%= cpSku.getCPInstanceId() %>" />
+							<liferay-commerce:price
+								CPDefinitionId="<%= cpDefinitionId %>"
+								CPInstanceId="<%= cpSku.getCPInstanceId() %>"
+								discountLabel="<%= LanguageUtil.get(request, "you-save") %>"
+								promoPriceLabel="<%= LanguageUtil.get(request, "was") %>"
+							/>
 						</c:if>
 					</h2>
 				</div>
-
-				<c:if test="<%= cpSku != null %>">
-					<div class="autofit-col autofit-col-expand">
-						<div class="autofit-section">
-							<strong data-text-cp-instance-price>
-								<liferay-commerce:price
-									CPDefinitionId="<%= cpDefinitionId %>"
-									CPInstanceId="<%= cpSku.getCPInstanceId() %>"
-								/>
-							</strong>
-						</div>
-					</div>
-				</c:if>
 			</div>
 
 			<c:choose>
@@ -413,17 +405,21 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 
 <aui:script>
 	var zoomImage = document.getElementById('<portlet:namespace />zoom-image');
+
 	function detectMousePosition(event) {
 		const cursorPos = {
 			x: event.offsetX / event.target.clientWidth,
 			y: event.offsetY / event.target.clientHeight
 		};
+
 		const translate = {
 			x: (zoomImage.width - zoomImage.parentElement.offsetWidth) * cursorPos.x * -1,
 			y: (zoomImage.height - zoomImage.parentElement.offsetHeight) * cursorPos.y * -1
 		};
+
 		zoomImage.style.transform = 'translate(' + translate.x + 'px, ' + translate.y + 'px)';
 	}
+
 	document.getElementById('<portlet:namespace />full-image').addEventListener('mousemove', detectMousePosition);
 </aui:script>
 

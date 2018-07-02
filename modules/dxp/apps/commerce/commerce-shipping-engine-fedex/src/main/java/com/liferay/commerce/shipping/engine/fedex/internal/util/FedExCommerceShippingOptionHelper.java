@@ -61,6 +61,7 @@ import com.liferay.commerce.model.CommerceShippingOption;
 import com.liferay.commerce.model.CommerceShippingOriginLocator;
 import com.liferay.commerce.model.Dimensions;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
+import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPMeasurementUnit;
 import com.liferay.commerce.product.model.CPMeasurementUnitConstants;
@@ -246,6 +247,14 @@ public class FedExCommerceShippingOptionHelper {
 			List<CommerceOrderItem> commerceOrderItems,
 			CommerceAddress originAddress)
 		throws Exception {
+
+		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
+			CPDefinition cpDefinition = commerceOrderItem.getCPDefinition();
+
+			if (!cpDefinition.isShippable() || cpDefinition.isFreeShipping()) {
+				commerceOrderItems.remove(commerceOrderItem);
+			}
+		}
 
 		RateRequest rateRequest = _getRateRequest(
 			commerceOrderItems, originAddress);

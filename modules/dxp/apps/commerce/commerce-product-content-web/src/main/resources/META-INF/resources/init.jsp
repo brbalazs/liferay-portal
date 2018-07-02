@@ -19,8 +19,6 @@
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 
 <%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %><%@
-taglib uri="http://liferay.com/tld/commerce" prefix="liferay-commerce" %><%@
-taglib uri="http://liferay.com/tld/commerce-cart" prefix="liferay-commerce-cart" %><%@
 taglib uri="http://liferay.com/tld/commerce-product" prefix="liferay-commerce-product" %><%@
 taglib uri="http://liferay.com/tld/ddm" prefix="liferay-ddm" %><%@
 taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %><%@
@@ -48,7 +46,6 @@ page import="com.liferay.commerce.product.content.web.internal.constants.CPPubli
 page import="com.liferay.commerce.product.content.web.internal.display.context.CPCompareContentDisplayContext" %><%@
 page import="com.liferay.commerce.product.content.web.internal.display.context.CPCompareContentMiniDisplayContext" %><%@
 page import="com.liferay.commerce.product.content.web.internal.display.context.CPContentConfigurationDisplayContext" %><%@
-page import="com.liferay.commerce.product.content.web.internal.display.context.CPPreviewContentDisplayContext" %><%@
 page import="com.liferay.commerce.product.content.web.internal.display.context.CPPublisherConfigurationDisplayContext" %><%@
 page import="com.liferay.commerce.product.content.web.internal.display.context.CPPublisherDisplayContext" %><%@
 page import="com.liferay.commerce.product.content.web.internal.portlet.CPCompareContentMiniPortlet" %><%@
@@ -57,9 +54,6 @@ page import="com.liferay.commerce.product.content.web.internal.portlet.CPContent
 page import="com.liferay.commerce.product.content.web.internal.portlet.CPPublisherPortlet" %><%@
 page import="com.liferay.commerce.product.data.source.CPDataSource" %><%@
 page import="com.liferay.commerce.product.data.source.CPDataSourceResult" %><%@
-page import="com.liferay.commerce.product.model.CPDefinition" %><%@
-page import="com.liferay.commerce.product.model.CPDefinitionOptionRel" %><%@
-page import="com.liferay.commerce.product.model.CPDefinitionOptionValueRel" %><%@
 page import="com.liferay.commerce.product.model.CPInstance" %><%@
 page import="com.liferay.commerce.product.model.CPOptionCategory" %><%@
 page import="com.liferay.commerce.product.model.CPSpecificationOption" %><%@
@@ -80,8 +74,7 @@ page import="com.liferay.portal.kernel.util.WebKeys" %>
 page import="java.util.HashMap" %><%@
 page import="java.util.List" %><%@
 page import="java.util.Map" %><%@
-page import="java.util.Set" %><%@
-page import="java.util.StringJoiner" %>
+page import="java.util.Set" %>
 
 <%@ page import="javax.portlet.PortletURL" %>
 

@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.shipping.engine.fixed.web.internal.display.context;
 
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.service.CommerceShippingMethodService;
@@ -50,7 +50,7 @@ public class CommerceShippingFixedOptionsDisplayContext
 		<CommerceShippingFixedOption> {
 
 	public CommerceShippingFixedOptionsDisplayContext(
-		CommerceCurrencyService commerceCurrencyService,
+		CommerceCurrencyLocalService commerceCurrencyLocalService,
 		CommercePriceFormatter commercePriceFormatter,
 		CommerceShippingMethodService commerceShippingMethodService,
 		CommerceShippingFixedOptionService commerceShippingFixedOptionService,
@@ -58,7 +58,7 @@ public class CommerceShippingFixedOptionsDisplayContext
 		RenderRequest renderRequest, RenderResponse renderResponse) {
 
 		super(
-			commerceCurrencyService, commerceShippingMethodService,
+			commerceCurrencyLocalService, commerceShippingMethodService,
 			portletResourcePermission, renderRequest, renderResponse);
 
 		_commercePriceFormatter = commercePriceFormatter;
@@ -66,7 +66,9 @@ public class CommerceShippingFixedOptionsDisplayContext
 			commerceShippingFixedOptionService;
 	}
 
-	public CommerceShippingFixedOption getCommerceShippingFixedOption() {
+	public CommerceShippingFixedOption getCommerceShippingFixedOption()
+		throws PortalException {
+
 		CommerceShippingFixedOption commerceShippingFixedOption =
 			(CommerceShippingFixedOption)renderRequest.getAttribute(
 				CommerceShippingEngineFixedWebKeys.

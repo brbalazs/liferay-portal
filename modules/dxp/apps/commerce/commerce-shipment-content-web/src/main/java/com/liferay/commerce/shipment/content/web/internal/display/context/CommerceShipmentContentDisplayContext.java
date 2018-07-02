@@ -22,8 +22,8 @@ import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.model.CommerceShippingEngine;
 import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.order.CommerceOrderHttpHelper;
-import com.liferay.commerce.service.CommerceShipmentItemService;
-import com.liferay.commerce.service.CommerceShipmentService;
+import com.liferay.commerce.service.CommerceShipmentItemLocalService;
+import com.liferay.commerce.service.CommerceShipmentLocalService;
 import com.liferay.commerce.shipment.content.web.internal.display.context.util.CommerceShipmentContentRequestHelper;
 import com.liferay.commerce.util.CommerceShippingEngineRegistry;
 import com.liferay.commerce.util.comparator.CommerceShipmentCreateDateComparator;
@@ -53,14 +53,14 @@ public class CommerceShipmentContentDisplayContext {
 
 	public CommerceShipmentContentDisplayContext(
 		CommerceOrderHttpHelper commerceOrderHttpHelper,
-		CommerceShipmentItemService commerceShipmentItemService,
-		CommerceShipmentService commerceShipmentService,
+		CommerceShipmentItemLocalService commerceShipmentItemLocalService,
+		CommerceShipmentLocalService commerceShipmentLocalService,
 		CommerceShippingEngineRegistry commerceShippingEngineRegistry,
 		RenderRequest renderRequest) {
 
 		_commerceOrderHttpHelper = commerceOrderHttpHelper;
-		_commerceShipmentItemService = commerceShipmentItemService;
-		_commerceShipmentService = commerceShipmentService;
+		_commerceShipmentItemLocalService = commerceShipmentItemLocalService;
+		_commerceShipmentLocalService = commerceShipmentLocalService;
 		_commerceShippingEngineRegistry = commerceShippingEngineRegistry;
 
 		_commerceShipmentContentRequestHelper =
@@ -102,8 +102,9 @@ public class CommerceShipmentContentDisplayContext {
 
 	public CommerceShipment getCommerceShipment() throws PortalException {
 		if ((_commerceShipment == null) && (_commerceShipmentId > 0)) {
-			_commerceShipment = _commerceShipmentService.getCommerceShipment(
-				_commerceShipmentId);
+			_commerceShipment =
+				_commerceShipmentLocalService.getCommerceShipment(
+					_commerceShipmentId);
 		}
 
 		return _commerceShipment;
@@ -142,11 +143,12 @@ public class CommerceShipmentContentDisplayContext {
 			_commerceShipmentContentRequestHelper.getLiferayPortletRequest(),
 			getPortletURL(), null, "this-shipment-has-no-items");
 
-		int total = _commerceShipmentItemService.getCommerceShipmentItemsCount(
-			_commerceShipmentId);
+		int total =
+			_commerceShipmentItemLocalService.getCommerceShipmentItemsCount(
+				_commerceShipmentId);
 
 		List<CommerceShipmentItem> results =
-			_commerceShipmentItemService.getCommerceShipmentItems(
+			_commerceShipmentItemLocalService.getCommerceShipmentItems(
 				_commerceShipmentId,
 				_commerceShipmentItemSearchContainer.getStart(),
 				_commerceShipmentItemSearchContainer.getEnd(),
@@ -239,13 +241,14 @@ public class CommerceShipmentContentDisplayContext {
 			groupId = organization.getGroupId();
 		}
 
-		int total = _commerceShipmentService.getCommerceShipmentsCountByGroupId(
-			groupId);
+		int total =
+			_commerceShipmentLocalService.getCommerceShipmentsCountByGroupId(
+				groupId);
 
 		_searchContainer.setTotal(total);
 
 		List<CommerceShipment> results =
-			_commerceShipmentService.getCommerceShipmentsByGroupId(
+			_commerceShipmentLocalService.getCommerceShipmentsByGroupId(
 				groupId, _searchContainer.getStart(), _searchContainer.getEnd(),
 				new CommerceShipmentCreateDateComparator());
 
@@ -280,10 +283,11 @@ public class CommerceShipmentContentDisplayContext {
 	private final Format _commerceShipmentDateFormatDate;
 	private final Format _commerceShipmentDateFormatTime;
 	private final long _commerceShipmentId;
+	private final CommerceShipmentItemLocalService
+		_commerceShipmentItemLocalService;
 	private SearchContainer<CommerceShipmentItem>
 		_commerceShipmentItemSearchContainer;
-	private final CommerceShipmentItemService _commerceShipmentItemService;
-	private final CommerceShipmentService _commerceShipmentService;
+	private final CommerceShipmentLocalService _commerceShipmentLocalService;
 	private final CommerceShippingEngineRegistry
 		_commerceShippingEngineRegistry;
 	private SearchContainer<CommerceShipment> _searchContainer;

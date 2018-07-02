@@ -115,7 +115,7 @@ public class CommerceCountriesDisplayContext
 			BaseModelSearchResult<CommerceCountry>
 				commerceCountryBaseModelSearchResult =
 					_commerceCountryService.searchCommerceCountries(
-						searchContext);
+						themeDisplay.getScopeGroupId(), searchContext);
 
 			total = commerceCountryBaseModelSearchResult.getLength();
 			results = commerceCountryBaseModelSearchResult.getBaseModels();

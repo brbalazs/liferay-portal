@@ -80,7 +80,9 @@ public class CommercePriceListDisplayContext
 		setDefaultOrderByType("asc");
 	}
 
-	public List<CommerceCurrency> getCommerceCurrencies() {
+	public List<CommerceCurrency> getCommerceCurrencies()
+		throws PortalException {
+
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
