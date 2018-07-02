@@ -94,22 +94,6 @@ public class CommerceAddressRestrictionServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.model.CommerceAddressRestrictionSoap fetchCommerceAddressRestriction(
-		String className, long classPK, long commerceCountryId)
-		throws RemoteException {
-		try {
-			com.liferay.commerce.model.CommerceAddressRestriction returnValue = CommerceAddressRestrictionServiceUtil.fetchCommerceAddressRestriction(className,
-					classPK, commerceCountryId);
-
-			return com.liferay.commerce.model.CommerceAddressRestrictionSoap.toSoapModel(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
 	public static com.liferay.commerce.model.CommerceAddressRestrictionSoap[] getCommerceAddressRestrictions(
 		String className, long classPK, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceAddressRestriction> orderByComparator)
@@ -133,37 +117,6 @@ public class CommerceAddressRestrictionServiceSoap {
 		try {
 			int returnValue = CommerceAddressRestrictionServiceUtil.getCommerceAddressRestrictionsCount(className,
 					classPK);
-
-			return returnValue;
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	public static boolean isCommerceAddressRestricted(String className,
-		long classPK, long commerceCountryId) throws RemoteException {
-		try {
-			boolean returnValue = CommerceAddressRestrictionServiceUtil.isCommerceAddressRestricted(className,
-					classPK, commerceCountryId);
-
-			return returnValue;
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	public static boolean isCommercePaymentMethodRestricted(
-		long commercePaymentMethodId, long commerceCountryId)
-		throws RemoteException {
-		try {
-			boolean returnValue = CommerceAddressRestrictionServiceUtil.isCommercePaymentMethodRestricted(commercePaymentMethodId,
-					commerceCountryId);
 
 			return returnValue;
 		}

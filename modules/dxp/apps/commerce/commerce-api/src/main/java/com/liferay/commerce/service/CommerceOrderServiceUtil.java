@@ -51,18 +51,6 @@ public class CommerceOrderServiceUtil {
 			orderOrganizationId, shippingAddressId, purchaseOrderNumber);
 	}
 
-	public static com.liferay.commerce.model.CommerceOrder addUserCommerceOrder(
-		long groupId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().addUserCommerceOrder(groupId);
-	}
-
-	public static com.liferay.commerce.model.CommerceOrder addUserCommerceOrder(
-		long groupId, long orderUserId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().addUserCommerceOrder(groupId, orderUserId);
-	}
-
 	public static com.liferay.commerce.model.CommerceOrder approveCommerceOrder(
 		long commerceOrderId)
 		throws com.liferay.portal.kernel.exception.PortalException {

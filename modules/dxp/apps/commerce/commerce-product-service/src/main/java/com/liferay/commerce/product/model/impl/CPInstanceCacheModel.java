@@ -95,8 +95,8 @@ public class CPInstanceCacheModel implements CacheModel<CPInstance>,
 		sb.append(manufacturerPartNumber);
 		sb.append(", purchasable=");
 		sb.append(purchasable);
-		sb.append(", DDMContent=");
-		sb.append(DDMContent);
+		sb.append(", json=");
+		sb.append(json);
 		sb.append(", width=");
 		sb.append(width);
 		sb.append(", height=");
@@ -196,11 +196,11 @@ public class CPInstanceCacheModel implements CacheModel<CPInstance>,
 
 		cpInstanceImpl.setPurchasable(purchasable);
 
-		if (DDMContent == null) {
-			cpInstanceImpl.setDDMContent("");
+		if (json == null) {
+			cpInstanceImpl.setJson("");
 		}
 		else {
-			cpInstanceImpl.setDDMContent(DDMContent);
+			cpInstanceImpl.setJson(json);
 		}
 
 		cpInstanceImpl.setWidth(width);
@@ -284,7 +284,7 @@ public class CPInstanceCacheModel implements CacheModel<CPInstance>,
 		manufacturerPartNumber = objectInput.readUTF();
 
 		purchasable = objectInput.readBoolean();
-		DDMContent = objectInput.readUTF();
+		json = objectInput.readUTF();
 
 		width = objectInput.readDouble();
 
@@ -363,11 +363,11 @@ public class CPInstanceCacheModel implements CacheModel<CPInstance>,
 
 		objectOutput.writeBoolean(purchasable);
 
-		if (DDMContent == null) {
+		if (json == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeUTF(DDMContent);
+			objectOutput.writeUTF(json);
 		}
 
 		objectOutput.writeDouble(width);
@@ -421,7 +421,7 @@ public class CPInstanceCacheModel implements CacheModel<CPInstance>,
 	public String gtin;
 	public String manufacturerPartNumber;
 	public boolean purchasable;
-	public String DDMContent;
+	public String json;
 	public double width;
 	public double height;
 	public double depth;

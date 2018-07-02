@@ -42,14 +42,9 @@ public class CPDAvailabilityEstimateServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.commerce.service.impl.CPDAvailabilityEstimateServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static void deleteCPDAvailabilityEstimate(
-		long cpdAvailabilityEstimateId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		getService().deleteCPDAvailabilityEstimate(cpdAvailabilityEstimateId);
-	}
-
 	public static com.liferay.commerce.model.CPDAvailabilityEstimate fetchCPDAvailabilityEstimateByCPDefinitionId(
-		long cpDefinitionId) {
+		long cpDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .fetchCPDAvailabilityEstimateByCPDefinitionId(cpDefinitionId);
 	}

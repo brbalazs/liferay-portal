@@ -78,18 +78,21 @@ public class CommerceCountryServiceWrapper implements CommerceCountryService,
 	@Override
 	public java.util.List<com.liferay.commerce.model.CommerceCountry> getCommerceCountries(
 		long groupId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceCountry> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceCountry> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceCountryService.getCommerceCountries(groupId, start,
 			end, orderByComparator);
 	}
 
 	@Override
-	public int getCommerceCountriesCount(long groupId) {
+	public int getCommerceCountriesCount(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceCountryService.getCommerceCountriesCount(groupId);
 	}
 
 	@Override
-	public int getCommerceCountriesCount(long groupId, boolean active) {
+	public int getCommerceCountriesCount(long groupId, boolean active)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceCountryService.getCommerceCountriesCount(groupId, active);
 	}
 
@@ -112,7 +115,8 @@ public class CommerceCountryServiceWrapper implements CommerceCountryService,
 
 	@Override
 	public java.util.List<com.liferay.commerce.model.CommerceCountry> getShippingCommerceCountries(
-		long groupId, boolean shippingAllowed, boolean active) {
+		long groupId, boolean shippingAllowed, boolean active)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceCountryService.getShippingCommerceCountries(groupId,
 			shippingAllowed, active);
 	}
@@ -127,9 +131,11 @@ public class CommerceCountryServiceWrapper implements CommerceCountryService,
 
 	@Override
 	public com.liferay.portal.kernel.search.BaseModelSearchResult<com.liferay.commerce.model.CommerceCountry> searchCommerceCountries(
+		long groupId,
 		com.liferay.portal.kernel.search.SearchContext searchContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _commerceCountryService.searchCommerceCountries(searchContext);
+		return _commerceCountryService.searchCommerceCountries(groupId,
+			searchContext);
 	}
 
 	@Override

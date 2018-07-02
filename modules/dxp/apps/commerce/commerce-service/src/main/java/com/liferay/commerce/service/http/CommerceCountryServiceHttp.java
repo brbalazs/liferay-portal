@@ -211,7 +211,8 @@ public class CommerceCountryServiceHttp {
 
 	public static java.util.List<com.liferay.commerce.model.CommerceCountry> getCommerceCountries(
 		HttpPrincipal httpPrincipal, long groupId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceCountry> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceCountry> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceCountryServiceUtil.class,
 					"getCommerceCountries", _getCommerceCountriesParameterTypes5);
@@ -225,6 +226,10 @@ public class CommerceCountryServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -238,7 +243,8 @@ public class CommerceCountryServiceHttp {
 	}
 
 	public static int getCommerceCountriesCount(HttpPrincipal httpPrincipal,
-		long groupId) {
+		long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceCountryServiceUtil.class,
 					"getCommerceCountriesCount",
@@ -252,6 +258,10 @@ public class CommerceCountryServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -265,7 +275,8 @@ public class CommerceCountryServiceHttp {
 	}
 
 	public static int getCommerceCountriesCount(HttpPrincipal httpPrincipal,
-		long groupId, boolean active) {
+		long groupId, boolean active)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceCountryServiceUtil.class,
 					"getCommerceCountriesCount",
@@ -280,6 +291,10 @@ public class CommerceCountryServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -326,7 +341,8 @@ public class CommerceCountryServiceHttp {
 
 	public static java.util.List<com.liferay.commerce.model.CommerceCountry> getShippingCommerceCountries(
 		HttpPrincipal httpPrincipal, long groupId, boolean shippingAllowed,
-		boolean active) {
+		boolean active)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceCountryServiceUtil.class,
 					"getShippingCommerceCountries",
@@ -341,6 +357,10 @@ public class CommerceCountryServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -387,7 +407,7 @@ public class CommerceCountryServiceHttp {
 	}
 
 	public static com.liferay.portal.kernel.search.BaseModelSearchResult<com.liferay.commerce.model.CommerceCountry> searchCommerceCountries(
-		HttpPrincipal httpPrincipal,
+		HttpPrincipal httpPrincipal, long groupId,
 		com.liferay.portal.kernel.search.SearchContext searchContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
@@ -395,7 +415,7 @@ public class CommerceCountryServiceHttp {
 					"searchCommerceCountries",
 					_searchCommerceCountriesParameterTypes11);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey,
+			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
 					searchContext);
 
 			Object returnObj = null;
@@ -531,7 +551,7 @@ public class CommerceCountryServiceHttp {
 	private static final Class<?>[] _getWarehouseCommerceCountriesParameterTypes10 =
 		new Class[] { long.class, boolean.class };
 	private static final Class<?>[] _searchCommerceCountriesParameterTypes11 = new Class[] {
-			com.liferay.portal.kernel.search.SearchContext.class
+			long.class, com.liferay.portal.kernel.search.SearchContext.class
 		};
 	private static final Class<?>[] _setActiveParameterTypes12 = new Class[] {
 			long.class, boolean.class

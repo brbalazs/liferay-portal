@@ -62,13 +62,15 @@ public class CommerceCurrencyServiceUtil {
 	}
 
 	public static com.liferay.commerce.currency.model.CommerceCurrency fetchPrimaryCommerceCurrency(
-		long groupId) {
+		long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().fetchPrimaryCommerceCurrency(groupId);
 	}
 
 	public static java.util.List<com.liferay.commerce.currency.model.CommerceCurrency> getCommerceCurrencies(
 		long groupId, boolean active, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.currency.model.CommerceCurrency> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.currency.model.CommerceCurrency> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .getCommerceCurrencies(groupId, active, start, end,
 			orderByComparator);
@@ -76,16 +78,19 @@ public class CommerceCurrencyServiceUtil {
 
 	public static java.util.List<com.liferay.commerce.currency.model.CommerceCurrency> getCommerceCurrencies(
 		long groupId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.currency.model.CommerceCurrency> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.currency.model.CommerceCurrency> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .getCommerceCurrencies(groupId, start, end, orderByComparator);
 	}
 
-	public static int getCommerceCurrenciesCount(long groupId) {
+	public static int getCommerceCurrenciesCount(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getCommerceCurrenciesCount(groupId);
 	}
 
-	public static int getCommerceCurrenciesCount(long groupId, boolean active) {
+	public static int getCommerceCurrenciesCount(long groupId, boolean active)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getCommerceCurrenciesCount(groupId, active);
 	}
 

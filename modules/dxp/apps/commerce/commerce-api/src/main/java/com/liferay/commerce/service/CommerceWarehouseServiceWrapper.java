@@ -77,7 +77,8 @@ public class CommerceWarehouseServiceWrapper implements CommerceWarehouseService
 	@Override
 	public java.util.List<com.liferay.commerce.model.CommerceWarehouse> getCommerceWarehouses(
 		long groupId, boolean active, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceWarehouse> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceWarehouse> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceWarehouseService.getCommerceWarehouses(groupId, active,
 			start, end, orderByComparator);
 	}
@@ -95,7 +96,8 @@ public class CommerceWarehouseServiceWrapper implements CommerceWarehouseService
 	@Override
 	public java.util.List<com.liferay.commerce.model.CommerceWarehouse> getCommerceWarehouses(
 		long groupId, long commerceCountryId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceWarehouse> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceWarehouse> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceWarehouseService.getCommerceWarehouses(groupId,
 			commerceCountryId, start, end, orderByComparator);
 	}
@@ -109,7 +111,8 @@ public class CommerceWarehouseServiceWrapper implements CommerceWarehouseService
 	}
 
 	@Override
-	public int getCommerceWarehousesCount(long groupId, long commerceCountryId) {
+	public int getCommerceWarehousesCount(long groupId, long commerceCountryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceWarehouseService.getCommerceWarehousesCount(groupId,
 			commerceCountryId);
 	}

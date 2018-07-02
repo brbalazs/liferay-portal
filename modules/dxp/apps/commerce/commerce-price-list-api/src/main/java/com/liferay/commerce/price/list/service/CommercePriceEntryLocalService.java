@@ -203,10 +203,6 @@ public interface CommercePriceEntryLocalService extends BaseLocalService,
 		String externalReferenceCode);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommercePriceEntry> fetchCommercePriceEntries(long groupId,
-		int start, int end);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommercePriceEntry fetchCommercePriceEntry(long commercePriceEntryId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -249,6 +245,10 @@ public interface CommercePriceEntryLocalService extends BaseLocalService,
 	public List<CommercePriceEntry> getCommercePriceEntries(
 		long commercePriceListId, int start, int end,
 		OrderByComparator<CommercePriceEntry> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePriceEntry> getCommercePriceEntriesByGroupId(
+		long groupId, int start, int end);
 
 	/**
 	* Returns all the commerce price entries matching the UUID and company.

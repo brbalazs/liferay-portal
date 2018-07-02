@@ -53,6 +53,7 @@ public class CommerceDiscountSoap implements Serializable {
 		soapModel.setLevel1(model.getLevel1());
 		soapModel.setLevel2(model.getLevel2());
 		soapModel.setLevel3(model.getLevel3());
+		soapModel.setLevel4(model.getLevel4());
 		soapModel.setLimitationType(model.getLimitationType());
 		soapModel.setLimitationTimes(model.getLimitationTimes());
 		soapModel.setNumberOfUse(model.getNumberOfUse());
@@ -262,6 +263,14 @@ public class CommerceDiscountSoap implements Serializable {
 		_level3 = level3;
 	}
 
+	public BigDecimal getLevel4() {
+		return _level4;
+	}
+
+	public void setLevel4(BigDecimal level4) {
+		_level4 = level4;
+	}
+
 	public String getLimitationType() {
 		return _limitationType;
 	}
@@ -371,6 +380,7 @@ public class CommerceDiscountSoap implements Serializable {
 	private BigDecimal _level1;
 	private BigDecimal _level2;
 	private BigDecimal _level3;
+	private BigDecimal _level4;
 	private String _limitationType;
 	private int _limitationTimes;
 	private int _numberOfUse;

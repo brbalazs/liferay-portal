@@ -55,41 +55,13 @@ import com.liferay.portal.kernel.util.MethodKey;
  */
 @ProviderType
 public class CPDAvailabilityEstimateServiceHttp {
-	public static void deleteCPDAvailabilityEstimate(
-		HttpPrincipal httpPrincipal, long cpdAvailabilityEstimateId)
+	public static com.liferay.commerce.model.CPDAvailabilityEstimate fetchCPDAvailabilityEstimateByCPDefinitionId(
+		HttpPrincipal httpPrincipal, long cpDefinitionId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CPDAvailabilityEstimateServiceUtil.class,
-					"deleteCPDAvailabilityEstimate",
-					_deleteCPDAvailabilityEstimateParameterTypes0);
-
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					cpdAvailabilityEstimateId);
-
-			try {
-				TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
-			}
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
-	public static com.liferay.commerce.model.CPDAvailabilityEstimate fetchCPDAvailabilityEstimateByCPDefinitionId(
-		HttpPrincipal httpPrincipal, long cpDefinitionId) {
-		try {
-			MethodKey methodKey = new MethodKey(CPDAvailabilityEstimateServiceUtil.class,
 					"fetchCPDAvailabilityEstimateByCPDefinitionId",
-					_fetchCPDAvailabilityEstimateByCPDefinitionIdParameterTypes1);
+					_fetchCPDAvailabilityEstimateByCPDefinitionIdParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					cpDefinitionId);
@@ -100,6 +72,10 @@ public class CPDAvailabilityEstimateServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -120,7 +96,7 @@ public class CPDAvailabilityEstimateServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(CPDAvailabilityEstimateServiceUtil.class,
 					"updateCPDAvailabilityEstimate",
-					_updateCPDAvailabilityEstimateParameterTypes2);
+					_updateCPDAvailabilityEstimateParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					cpdAvailabilityEstimateId, cpDefinitionId,
@@ -149,11 +125,9 @@ public class CPDAvailabilityEstimateServiceHttp {
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(CPDAvailabilityEstimateServiceHttp.class);
-	private static final Class<?>[] _deleteCPDAvailabilityEstimateParameterTypes0 =
+	private static final Class<?>[] _fetchCPDAvailabilityEstimateByCPDefinitionIdParameterTypes0 =
 		new Class[] { long.class };
-	private static final Class<?>[] _fetchCPDAvailabilityEstimateByCPDefinitionIdParameterTypes1 =
-		new Class[] { long.class };
-	private static final Class<?>[] _updateCPDAvailabilityEstimateParameterTypes2 =
+	private static final Class<?>[] _updateCPDAvailabilityEstimateParameterTypes1 =
 		new Class[] {
 			long.class, long.class, long.class,
 			com.liferay.portal.kernel.service.ServiceContext.class

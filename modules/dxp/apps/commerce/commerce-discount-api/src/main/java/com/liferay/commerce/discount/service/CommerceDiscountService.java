@@ -63,11 +63,12 @@ public interface CommerceDiscountService extends BaseService {
 	public CommerceDiscount addCommerceDiscount(String title, String target,
 		boolean useCouponCode, String couponCode, boolean usePercentage,
 		BigDecimal maximumDiscountAmount, BigDecimal level1, BigDecimal level2,
-		BigDecimal level3, String limitationType, int limitationTimes,
-		boolean active, int displayDateMonth, int displayDateDay,
-		int displayDateYear, int displayDateHour, int displayDateMinute,
-		int expirationDateMonth, int expirationDateDay, int expirationDateYear,
-		int expirationDateHour, int expirationDateMinute, boolean neverExpire,
+		BigDecimal level3, BigDecimal level4, String limitationType,
+		int limitationTimes, boolean active, int displayDateMonth,
+		int displayDateDay, int displayDateYear, int displayDateHour,
+		int displayDateMinute, int expirationDateMonth, int expirationDateDay,
+		int expirationDateYear, int expirationDateHour,
+		int expirationDateMinute, boolean neverExpire,
 		ServiceContext serviceContext) throws PortalException;
 
 	public void deleteCommerceDiscount(long commerceDiscountId)
@@ -106,10 +107,10 @@ public interface CommerceDiscountService extends BaseService {
 		String title, String target, boolean useCouponCode, String couponCode,
 		boolean usePercentage, BigDecimal maximumDiscountAmount,
 		BigDecimal level1, BigDecimal level2, BigDecimal level3,
-		String limitationType, int limitationTimes, boolean active,
-		int displayDateMonth, int displayDateDay, int displayDateYear,
-		int displayDateHour, int displayDateMinute, int expirationDateMonth,
-		int expirationDateDay, int expirationDateYear, int expirationDateHour,
-		int expirationDateMinute, boolean neverExpire,
+		BigDecimal level4, String limitationType, int limitationTimes,
+		boolean active, int displayDateMonth, int displayDateDay,
+		int displayDateYear, int displayDateHour, int displayDateMinute,
+		int expirationDateMonth, int expirationDateDay, int expirationDateYear,
+		int expirationDateHour, int expirationDateMinute, boolean neverExpire,
 		ServiceContext serviceContext) throws PortalException;
 }

@@ -96,20 +96,6 @@ public class CommerceShipmentItemServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.model.CommerceShipmentItemSoap fetchCommerceShipmentItem(
-		long commerceShipmentItemId) throws RemoteException {
-		try {
-			com.liferay.commerce.model.CommerceShipmentItem returnValue = CommerceShipmentItemServiceUtil.fetchCommerceShipmentItem(commerceShipmentItemId);
-
-			return com.liferay.commerce.model.CommerceShipmentItemSoap.toSoapModel(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
 	public static com.liferay.commerce.model.CommerceShipmentItemSoap[] getCommerceShipmentItems(
 		long commerceOrderItemId) throws RemoteException {
 		try {

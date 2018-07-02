@@ -94,6 +94,7 @@ public class CommerceDiscountModelImpl extends BaseModelImpl<CommerceDiscount>
 			{ "level1", Types.DECIMAL },
 			{ "level2", Types.DECIMAL },
 			{ "level3", Types.DECIMAL },
+			{ "level4", Types.DECIMAL },
 			{ "limitationType", Types.VARCHAR },
 			{ "limitationTimes", Types.INTEGER },
 			{ "numberOfUse", Types.INTEGER },
@@ -126,6 +127,7 @@ public class CommerceDiscountModelImpl extends BaseModelImpl<CommerceDiscount>
 		TABLE_COLUMNS_MAP.put("level1", Types.DECIMAL);
 		TABLE_COLUMNS_MAP.put("level2", Types.DECIMAL);
 		TABLE_COLUMNS_MAP.put("level3", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("level4", Types.DECIMAL);
 		TABLE_COLUMNS_MAP.put("limitationType", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("limitationTimes", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("numberOfUse", Types.INTEGER);
@@ -139,7 +141,7 @@ public class CommerceDiscountModelImpl extends BaseModelImpl<CommerceDiscount>
 		TABLE_COLUMNS_MAP.put("statusDate", Types.TIMESTAMP);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table CommerceDiscount (uuid_ VARCHAR(75) null,commerceDiscountId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,title VARCHAR(75) null,target VARCHAR(75) null,useCouponCode BOOLEAN,couponCode VARCHAR(75) null,usePercentage BOOLEAN,maximumDiscountAmount DECIMAL(30, 16) null,level1 DECIMAL(30, 16) null,level2 DECIMAL(30, 16) null,level3 DECIMAL(30, 16) null,limitationType VARCHAR(75) null,limitationTimes INTEGER,numberOfUse INTEGER,active_ BOOLEAN,displayDate DATE null,expirationDate DATE null,lastPublishDate DATE null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
+	public static final String TABLE_SQL_CREATE = "create table CommerceDiscount (uuid_ VARCHAR(75) null,commerceDiscountId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,title VARCHAR(75) null,target VARCHAR(75) null,useCouponCode BOOLEAN,couponCode VARCHAR(75) null,usePercentage BOOLEAN,maximumDiscountAmount DECIMAL(30, 16) null,level1 DECIMAL(30, 16) null,level2 DECIMAL(30, 16) null,level3 DECIMAL(30, 16) null,level4 DECIMAL(30, 16) null,limitationType VARCHAR(75) null,limitationTimes INTEGER,numberOfUse INTEGER,active_ BOOLEAN,displayDate DATE null,expirationDate DATE null,lastPublishDate DATE null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
 	public static final String TABLE_SQL_DROP = "drop table CommerceDiscount";
 	public static final String ORDER_BY_JPQL = " ORDER BY commerceDiscount.createDate DESC";
 	public static final String ORDER_BY_SQL = " ORDER BY CommerceDiscount.createDate DESC";
@@ -194,6 +196,7 @@ public class CommerceDiscountModelImpl extends BaseModelImpl<CommerceDiscount>
 		model.setLevel1(soapModel.getLevel1());
 		model.setLevel2(soapModel.getLevel2());
 		model.setLevel3(soapModel.getLevel3());
+		model.setLevel4(soapModel.getLevel4());
 		model.setLimitationType(soapModel.getLimitationType());
 		model.setLimitationTimes(soapModel.getLimitationTimes());
 		model.setNumberOfUse(soapModel.getNumberOfUse());
@@ -287,6 +290,7 @@ public class CommerceDiscountModelImpl extends BaseModelImpl<CommerceDiscount>
 		attributes.put("level1", getLevel1());
 		attributes.put("level2", getLevel2());
 		attributes.put("level3", getLevel3());
+		attributes.put("level4", getLevel4());
 		attributes.put("limitationType", getLimitationType());
 		attributes.put("limitationTimes", getLimitationTimes());
 		attributes.put("numberOfUse", getNumberOfUse());
@@ -408,6 +412,12 @@ public class CommerceDiscountModelImpl extends BaseModelImpl<CommerceDiscount>
 
 		if (level3 != null) {
 			setLevel3(level3);
+		}
+
+		BigDecimal level4 = (BigDecimal)attributes.get("level4");
+
+		if (level4 != null) {
+			setLevel4(level4);
 		}
 
 		String limitationType = (String)attributes.get("limitationType");
@@ -769,6 +779,17 @@ public class CommerceDiscountModelImpl extends BaseModelImpl<CommerceDiscount>
 
 	@JSON
 	@Override
+	public BigDecimal getLevel4() {
+		return _level4;
+	}
+
+	@Override
+	public void setLevel4(BigDecimal level4) {
+		_level4 = level4;
+	}
+
+	@JSON
+	@Override
 	public String getLimitationType() {
 		if (_limitationType == null) {
 			return "";
@@ -1086,6 +1107,7 @@ public class CommerceDiscountModelImpl extends BaseModelImpl<CommerceDiscount>
 		commerceDiscountImpl.setLevel1(getLevel1());
 		commerceDiscountImpl.setLevel2(getLevel2());
 		commerceDiscountImpl.setLevel3(getLevel3());
+		commerceDiscountImpl.setLevel4(getLevel4());
 		commerceDiscountImpl.setLimitationType(getLimitationType());
 		commerceDiscountImpl.setLimitationTimes(getLimitationTimes());
 		commerceDiscountImpl.setNumberOfUse(getNumberOfUse());
@@ -1267,6 +1289,8 @@ public class CommerceDiscountModelImpl extends BaseModelImpl<CommerceDiscount>
 
 		commerceDiscountCacheModel.level3 = getLevel3();
 
+		commerceDiscountCacheModel.level4 = getLevel4();
+
 		commerceDiscountCacheModel.limitationType = getLimitationType();
 
 		String limitationType = commerceDiscountCacheModel.limitationType;
@@ -1334,7 +1358,7 @@ public class CommerceDiscountModelImpl extends BaseModelImpl<CommerceDiscount>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(57);
+		StringBundler sb = new StringBundler(59);
 
 		sb.append("{uuid=");
 		sb.append(getUuid());
@@ -1370,6 +1394,8 @@ public class CommerceDiscountModelImpl extends BaseModelImpl<CommerceDiscount>
 		sb.append(getLevel2());
 		sb.append(", level3=");
 		sb.append(getLevel3());
+		sb.append(", level4=");
+		sb.append(getLevel4());
 		sb.append(", limitationType=");
 		sb.append(getLimitationType());
 		sb.append(", limitationTimes=");
@@ -1399,7 +1425,7 @@ public class CommerceDiscountModelImpl extends BaseModelImpl<CommerceDiscount>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(88);
+		StringBundler sb = new StringBundler(91);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.commerce.discount.model.CommerceDiscount");
@@ -1472,6 +1498,10 @@ public class CommerceDiscountModelImpl extends BaseModelImpl<CommerceDiscount>
 		sb.append(
 			"<column><column-name>level3</column-name><column-value><![CDATA[");
 		sb.append(getLevel3());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>level4</column-name><column-value><![CDATA[");
+		sb.append(getLevel4());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>limitationType</column-name><column-value><![CDATA[");
@@ -1551,6 +1581,7 @@ public class CommerceDiscountModelImpl extends BaseModelImpl<CommerceDiscount>
 	private BigDecimal _level1;
 	private BigDecimal _level2;
 	private BigDecimal _level3;
+	private BigDecimal _level4;
 	private String _limitationType;
 	private int _limitationTimes;
 	private int _numberOfUse;

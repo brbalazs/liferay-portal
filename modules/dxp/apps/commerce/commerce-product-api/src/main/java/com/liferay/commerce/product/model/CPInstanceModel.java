@@ -295,19 +295,19 @@ public interface CPInstanceModel extends BaseModel<CPInstance>, ShardedModel,
 	public void setPurchasable(boolean purchasable);
 
 	/**
-	 * Returns the ddm content of this cp instance.
+	 * Returns the json of this cp instance.
 	 *
-	 * @return the ddm content of this cp instance
+	 * @return the json of this cp instance
 	 */
 	@AutoEscape
-	public String getDDMContent();
+	public String getJson();
 
 	/**
-	 * Sets the ddm content of this cp instance.
+	 * Sets the json of this cp instance.
 	 *
-	 * @param DDMContent the ddm content of this cp instance
+	 * @param json the json of this cp instance
 	 */
-	public void setDDMContent(String DDMContent);
+	public void setJson(String json);
 
 	/**
 	 * Returns the width of this cp instance.

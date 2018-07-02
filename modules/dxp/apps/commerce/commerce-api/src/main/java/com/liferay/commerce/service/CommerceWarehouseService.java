@@ -79,7 +79,8 @@ public interface CommerceWarehouseService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceWarehouse> getCommerceWarehouses(long groupId,
 		boolean active, int start, int end,
-		OrderByComparator<CommerceWarehouse> orderByComparator);
+		OrderByComparator<CommerceWarehouse> orderByComparator)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceWarehouse> getCommerceWarehouses(long groupId,
@@ -90,14 +91,16 @@ public interface CommerceWarehouseService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceWarehouse> getCommerceWarehouses(long groupId,
 		long commerceCountryId, int start, int end,
-		OrderByComparator<CommerceWarehouse> orderByComparator);
+		OrderByComparator<CommerceWarehouse> orderByComparator)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceWarehousesCount(long groupId, boolean active,
 		long commerceCountryId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommerceWarehousesCount(long groupId, long commerceCountryId);
+	public int getCommerceWarehousesCount(long groupId, long commerceCountryId)
+		throws PortalException;
 
 	/**
 	* Returns the OSGi service identifier.

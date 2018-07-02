@@ -66,7 +66,8 @@ public class CommerceRegionServiceWrapper implements CommerceRegionService,
 	@Override
 	public java.util.List<com.liferay.commerce.model.CommerceRegion> getCommerceRegions(
 		long commerceCountryId, boolean active, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceRegion> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceRegion> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceRegionService.getCommerceRegions(commerceCountryId,
 			active, start, end, orderByComparator);
 	}
@@ -74,18 +75,21 @@ public class CommerceRegionServiceWrapper implements CommerceRegionService,
 	@Override
 	public java.util.List<com.liferay.commerce.model.CommerceRegion> getCommerceRegions(
 		long commerceCountryId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceRegion> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceRegion> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceRegionService.getCommerceRegions(commerceCountryId,
 			start, end, orderByComparator);
 	}
 
 	@Override
-	public int getCommerceRegionsCount(long commerceCountryId) {
+	public int getCommerceRegionsCount(long commerceCountryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceRegionService.getCommerceRegionsCount(commerceCountryId);
 	}
 
 	@Override
-	public int getCommerceRegionsCount(long commerceCountryId, boolean active) {
+	public int getCommerceRegionsCount(long commerceCountryId, boolean active)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceRegionService.getCommerceRegionsCount(commerceCountryId,
 			active);
 	}

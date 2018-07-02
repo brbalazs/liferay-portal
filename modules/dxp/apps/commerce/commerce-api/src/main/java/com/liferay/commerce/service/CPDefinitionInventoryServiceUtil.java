@@ -63,11 +63,6 @@ public class CPDefinitionInventoryServiceUtil {
 		getService().deleteCPDefinitionInventory(cpDefinitionInventoryId);
 	}
 
-	public static com.liferay.commerce.model.CPDefinitionInventory fetchCPDefinitionInventory(
-		long cpDefinitionInventoryId) {
-		return getService().fetchCPDefinitionInventory(cpDefinitionInventoryId);
-	}
-
 	public static com.liferay.commerce.model.CPDefinitionInventory fetchCPDefinitionInventoryByCPDefinitionId(
 		long cpDefinitionId)
 		throws com.liferay.portal.kernel.exception.PortalException {

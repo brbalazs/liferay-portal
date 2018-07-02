@@ -93,13 +93,6 @@ public class CommerceUserSegmentEntryServiceWrapper
 	}
 
 	@Override
-	public com.liferay.portal.kernel.search.BaseModelSearchResult<com.liferay.commerce.user.segment.model.CommerceUserSegmentEntry> searchCommerceUserSegmentEntries(
-		com.liferay.portal.kernel.search.SearchContext searchContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _commerceUserSegmentEntryService.searchCommerceUserSegmentEntries(searchContext);
-	}
-
-	@Override
 	public com.liferay.commerce.user.segment.model.CommerceUserSegmentEntry updateCommerceUserSegmentEntry(
 		long commerceUserSegmentEntryId,
 		java.util.Map<java.util.Locale, String> nameMap, String key,

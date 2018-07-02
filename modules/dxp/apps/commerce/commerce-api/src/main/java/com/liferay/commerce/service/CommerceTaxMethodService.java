@@ -62,14 +62,8 @@ public interface CommerceTaxMethodService extends BaseService {
 		boolean percentage, boolean active, ServiceContext serviceContext)
 		throws PortalException;
 
-	public CommerceTaxMethod createCommerceTaxMethod(long commerceTaxMethodId);
-
 	public void deleteCommerceTaxMethod(long commerceTaxMethodId)
 		throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public CommerceTaxMethod fetchCommerceTaxMethod(long groupId,
-		String engineKey);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceTaxMethod getCommerceTaxMethod(long commerceTaxMethodId)
@@ -81,10 +75,7 @@ public interface CommerceTaxMethodService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceTaxMethod> getCommerceTaxMethods(long groupId,
-		boolean active);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommerceTaxMethodsCount(long groupId, boolean active);
+		boolean active) throws PortalException;
 
 	/**
 	* Returns the OSGi service identifier.

@@ -55,14 +55,16 @@ public class CommerceCurrencyServiceWrapper implements CommerceCurrencyService,
 
 	@Override
 	public com.liferay.commerce.currency.model.CommerceCurrency fetchPrimaryCommerceCurrency(
-		long groupId) {
+		long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceCurrencyService.fetchPrimaryCommerceCurrency(groupId);
 	}
 
 	@Override
 	public java.util.List<com.liferay.commerce.currency.model.CommerceCurrency> getCommerceCurrencies(
 		long groupId, boolean active, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.currency.model.CommerceCurrency> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.currency.model.CommerceCurrency> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceCurrencyService.getCommerceCurrencies(groupId, active,
 			start, end, orderByComparator);
 	}
@@ -70,18 +72,21 @@ public class CommerceCurrencyServiceWrapper implements CommerceCurrencyService,
 	@Override
 	public java.util.List<com.liferay.commerce.currency.model.CommerceCurrency> getCommerceCurrencies(
 		long groupId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.currency.model.CommerceCurrency> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.currency.model.CommerceCurrency> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceCurrencyService.getCommerceCurrencies(groupId, start,
 			end, orderByComparator);
 	}
 
 	@Override
-	public int getCommerceCurrenciesCount(long groupId) {
+	public int getCommerceCurrenciesCount(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceCurrencyService.getCommerceCurrenciesCount(groupId);
 	}
 
 	@Override
-	public int getCommerceCurrenciesCount(long groupId, boolean active) {
+	public int getCommerceCurrenciesCount(long groupId, boolean active)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceCurrencyService.getCommerceCurrenciesCount(groupId,
 			active);
 	}

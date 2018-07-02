@@ -290,7 +290,8 @@ public class CPDefinitionServiceHttp {
 	public static java.util.List<com.liferay.commerce.product.model.CPDefinition> getCPDefinitions(
 		HttpPrincipal httpPrincipal, long groupId, String productTypeName,
 		String languageId, int status, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.product.model.CPDefinition> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.product.model.CPDefinition> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CPDefinitionServiceUtil.class,
 					"getCPDefinitions", _getCPDefinitionsParameterTypes6);
@@ -305,6 +306,10 @@ public class CPDefinitionServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -318,7 +323,8 @@ public class CPDefinitionServiceHttp {
 	}
 
 	public static java.util.List<com.liferay.commerce.product.model.CPDefinition> getCPDefinitionsByCategoryId(
-		HttpPrincipal httpPrincipal, long categoryId, int start, int end) {
+		HttpPrincipal httpPrincipal, long categoryId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CPDefinitionServiceUtil.class,
 					"getCPDefinitionsByCategoryId",
@@ -333,6 +339,10 @@ public class CPDefinitionServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -346,7 +356,8 @@ public class CPDefinitionServiceHttp {
 	}
 
 	public static int getCPDefinitionsCount(HttpPrincipal httpPrincipal,
-		long groupId, String productTypeName, String languageId, int status) {
+		long groupId, String productTypeName, String languageId, int status)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CPDefinitionServiceUtil.class,
 					"getCPDefinitionsCount",
@@ -361,6 +372,10 @@ public class CPDefinitionServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -374,7 +389,8 @@ public class CPDefinitionServiceHttp {
 	}
 
 	public static int getCPDefinitionsCountByCategoryId(
-		HttpPrincipal httpPrincipal, long categoryId) {
+		HttpPrincipal httpPrincipal, long categoryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CPDefinitionServiceUtil.class,
 					"getCPDefinitionsCountByCategoryId",
@@ -389,6 +405,10 @@ public class CPDefinitionServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 

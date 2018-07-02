@@ -67,7 +67,7 @@ public class CommerceDiscountCacheModel implements CacheModel<CommerceDiscount>,
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(57);
+		StringBundler sb = new StringBundler(59);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -103,6 +103,8 @@ public class CommerceDiscountCacheModel implements CacheModel<CommerceDiscount>,
 		sb.append(level2);
 		sb.append(", level3=");
 		sb.append(level3);
+		sb.append(", level4=");
+		sb.append(level4);
 		sb.append(", limitationType=");
 		sb.append(limitationType);
 		sb.append(", limitationTimes=");
@@ -195,6 +197,7 @@ public class CommerceDiscountCacheModel implements CacheModel<CommerceDiscount>,
 		commerceDiscountImpl.setLevel1(level1);
 		commerceDiscountImpl.setLevel2(level2);
 		commerceDiscountImpl.setLevel3(level3);
+		commerceDiscountImpl.setLevel4(level4);
 
 		if (limitationType == null) {
 			commerceDiscountImpl.setLimitationType("");
@@ -276,6 +279,7 @@ public class CommerceDiscountCacheModel implements CacheModel<CommerceDiscount>,
 		level1 = (BigDecimal)objectInput.readObject();
 		level2 = (BigDecimal)objectInput.readObject();
 		level3 = (BigDecimal)objectInput.readObject();
+		level4 = (BigDecimal)objectInput.readObject();
 		limitationType = objectInput.readUTF();
 
 		limitationTimes = objectInput.readInt();
@@ -350,6 +354,7 @@ public class CommerceDiscountCacheModel implements CacheModel<CommerceDiscount>,
 		objectOutput.writeObject(level1);
 		objectOutput.writeObject(level2);
 		objectOutput.writeObject(level3);
+		objectOutput.writeObject(level4);
 
 		if (limitationType == null) {
 			objectOutput.writeUTF("");
@@ -398,6 +403,7 @@ public class CommerceDiscountCacheModel implements CacheModel<CommerceDiscount>,
 	public BigDecimal level1;
 	public BigDecimal level2;
 	public BigDecimal level3;
+	public BigDecimal level4;
 	public String limitationType;
 	public int limitationTimes;
 	public int numberOfUse;

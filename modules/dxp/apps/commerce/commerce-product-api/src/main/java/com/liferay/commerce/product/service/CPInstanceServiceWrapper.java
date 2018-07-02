@@ -35,7 +35,7 @@ public class CPInstanceServiceWrapper implements CPInstanceService,
 	@Override
 	public com.liferay.commerce.product.model.CPInstance addCPInstance(
 		long cpDefinitionId, String sku, String gtin,
-		String manufacturerPartNumber, boolean purchasable, String ddmContent,
+		String manufacturerPartNumber, boolean purchasable, String json,
 		boolean published, int displayDateMonth, int displayDateDay,
 		int displayDateYear, int displayDateHour, int displayDateMinute,
 		int expirationDateMonth, int expirationDateDay, int expirationDateYear,
@@ -43,7 +43,7 @@ public class CPInstanceServiceWrapper implements CPInstanceService,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _cpInstanceService.addCPInstance(cpDefinitionId, sku, gtin,
-			manufacturerPartNumber, purchasable, ddmContent, published,
+			manufacturerPartNumber, purchasable, json, published,
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, expirationDateMonth, expirationDateDay,
 			expirationDateYear, expirationDateHour, expirationDateMinute,
@@ -138,13 +138,6 @@ public class CPInstanceServiceWrapper implements CPInstanceService,
 	}
 
 	@Override
-	public com.liferay.portal.kernel.search.BaseModelSearchResult<com.liferay.commerce.product.model.CPInstance> searchCPInstances(
-		com.liferay.portal.kernel.search.SearchContext searchContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _cpInstanceService.searchCPInstances(searchContext);
-	}
-
-	@Override
 	public com.liferay.commerce.product.model.CPInstance updateCPInstance(
 		long cpInstanceId, String sku, String gtin,
 		String manufacturerPartNumber, boolean purchasable, boolean published,
@@ -185,7 +178,7 @@ public class CPInstanceServiceWrapper implements CPInstanceService,
 	@Override
 	public com.liferay.commerce.product.model.CPInstance upsertCPInstance(
 		long cpDefinitionId, String sku, String gtin,
-		String manufacturerPartNumber, boolean purchasable, String ddmContent,
+		String manufacturerPartNumber, boolean purchasable, String json,
 		double width, double height, double depth, double weight,
 		java.math.BigDecimal price, java.math.BigDecimal promoPrice,
 		java.math.BigDecimal cost, boolean published,
@@ -196,13 +189,12 @@ public class CPInstanceServiceWrapper implements CPInstanceService,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _cpInstanceService.upsertCPInstance(cpDefinitionId, sku, gtin,
-			manufacturerPartNumber, purchasable, ddmContent, width, height,
-			depth, weight, price, promoPrice, cost, published,
-			externalReferenceCode, displayDateMonth, displayDateDay,
-			displayDateYear, displayDateHour, displayDateMinute,
-			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, neverExpire,
-			serviceContext);
+			manufacturerPartNumber, purchasable, json, width, height, depth,
+			weight, price, promoPrice, cost, published, externalReferenceCode,
+			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
+			displayDateMinute, expirationDateMonth, expirationDateDay,
+			expirationDateYear, expirationDateHour, expirationDateMinute,
+			neverExpire, serviceContext);
 	}
 
 	@Override

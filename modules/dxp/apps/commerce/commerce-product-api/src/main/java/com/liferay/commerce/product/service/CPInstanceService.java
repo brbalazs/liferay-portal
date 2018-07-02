@@ -22,7 +22,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
-import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
@@ -63,7 +62,7 @@ public interface CPInstanceService extends BaseService {
 	 */
 	public CPInstance addCPInstance(long cpDefinitionId, String sku,
 		String gtin, String manufacturerPartNumber, boolean purchasable,
-		String ddmContent, boolean published, int displayDateMonth,
+		String json, boolean published, int displayDateMonth,
 		int displayDateDay, int displayDateYear, int displayDateHour,
 		int displayDateMinute, int expirationDateMonth, int expirationDateDay,
 		int expirationDateYear, int expirationDateHour,
@@ -119,10 +118,6 @@ public interface CPInstanceService extends BaseService {
 		long groupId, String keywords, int status, int start, int end, Sort sort)
 		throws PortalException;
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public BaseModelSearchResult<CPInstance> searchCPInstances(
-		SearchContext searchContext) throws PortalException;
-
 	public CPInstance updateCPInstance(long cpInstanceId, String sku,
 		String gtin, String manufacturerPartNumber, boolean purchasable,
 		boolean published, int displayDateMonth, int displayDateDay,
@@ -141,12 +136,12 @@ public interface CPInstanceService extends BaseService {
 
 	public CPInstance upsertCPInstance(long cpDefinitionId, String sku,
 		String gtin, String manufacturerPartNumber, boolean purchasable,
-		String ddmContent, double width, double height, double depth,
-		double weight, BigDecimal price, BigDecimal promoPrice,
-		BigDecimal cost, boolean published, String externalReferenceCode,
-		int displayDateMonth, int displayDateDay, int displayDateYear,
-		int displayDateHour, int displayDateMinute, int expirationDateMonth,
-		int expirationDateDay, int expirationDateYear, int expirationDateHour,
+		String json, double width, double height, double depth, double weight,
+		BigDecimal price, BigDecimal promoPrice, BigDecimal cost,
+		boolean published, String externalReferenceCode, int displayDateMonth,
+		int displayDateDay, int displayDateYear, int displayDateHour,
+		int displayDateMinute, int expirationDateMonth, int expirationDateDay,
+		int expirationDateYear, int expirationDateHour,
 		int expirationDateMinute, boolean neverExpire,
 		ServiceContext serviceContext) throws PortalException;
 }

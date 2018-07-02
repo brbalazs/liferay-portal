@@ -16,6 +16,7 @@ create table CommerceDiscount (
 	level1 DECIMAL(30, 16) null,
 	level2 DECIMAL(30, 16) null,
 	level3 DECIMAL(30, 16) null,
+	level4 DECIMAL(30, 16) null,
 	limitationType VARCHAR(75) null,
 	limitationTimes INTEGER,
 	numberOfUse INTEGER,

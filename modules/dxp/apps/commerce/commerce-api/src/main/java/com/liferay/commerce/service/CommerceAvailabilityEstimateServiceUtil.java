@@ -67,13 +67,15 @@ public class CommerceAvailabilityEstimateServiceUtil {
 
 	public static java.util.List<com.liferay.commerce.model.CommerceAvailabilityEstimate> getCommerceAvailabilityEstimates(
 		long groupId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceAvailabilityEstimate> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceAvailabilityEstimate> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .getCommerceAvailabilityEstimates(groupId, start, end,
 			orderByComparator);
 	}
 
-	public static int getCommerceAvailabilityEstimatesCount(long groupId) {
+	public static int getCommerceAvailabilityEstimatesCount(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getCommerceAvailabilityEstimatesCount(groupId);
 	}
 

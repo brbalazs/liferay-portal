@@ -22,20 +22,20 @@ import com.liferay.portal.kernel.exception.PortalException;
  * @author Marco Leo
  */
 @ProviderType
-public class CPInstanceDDMContentException extends PortalException {
+public class CPInstanceJsonException extends PortalException {
 
-	public CPInstanceDDMContentException() {
+	public CPInstanceJsonException() {
 	}
 
-	public CPInstanceDDMContentException(String msg) {
+	public CPInstanceJsonException(String msg) {
 		super(msg);
 	}
 
-	public CPInstanceDDMContentException(String msg, Throwable cause) {
+	public CPInstanceJsonException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public CPInstanceDDMContentException(Throwable cause) {
+	public CPInstanceJsonException(Throwable cause) {
 		super(cause);
 	}
 

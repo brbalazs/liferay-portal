@@ -1539,7 +1539,7 @@ public class CPDefinitionLocalServiceImpl
 					QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
 			for (CPInstance cpInstance : cpInstances) {
-				if (Validator.isNull(cpInstance.getDDMContent())) {
+				if (Validator.isNull(cpInstance.getJson())) {
 					cpInstanceLocalService.updateStatus(
 						userId, cpInstance.getCPInstanceId(),
 						WorkflowConstants.STATUS_INACTIVE, serviceContext,

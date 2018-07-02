@@ -79,6 +79,7 @@ public class CommerceDiscountWrapper implements CommerceDiscount,
 		attributes.put("level1", getLevel1());
 		attributes.put("level2", getLevel2());
 		attributes.put("level3", getLevel3());
+		attributes.put("level4", getLevel4());
 		attributes.put("limitationType", getLimitationType());
 		attributes.put("limitationTimes", getLimitationTimes());
 		attributes.put("numberOfUse", getNumberOfUse());
@@ -197,6 +198,12 @@ public class CommerceDiscountWrapper implements CommerceDiscount,
 
 		if (level3 != null) {
 			setLevel3(level3);
+		}
+
+		BigDecimal level4 = (BigDecimal)attributes.get("level4");
+
+		if (level4 != null) {
+			setLevel4(level4);
 		}
 
 		String limitationType = (String)attributes.get("limitationType");
@@ -399,6 +406,16 @@ public class CommerceDiscountWrapper implements CommerceDiscount,
 	@Override
 	public BigDecimal getLevel3() {
 		return _commerceDiscount.getLevel3();
+	}
+
+	/**
+	* Returns the level4 of this commerce discount.
+	*
+	* @return the level4 of this commerce discount
+	*/
+	@Override
+	public BigDecimal getLevel4() {
+		return _commerceDiscount.getLevel4();
 	}
 
 	/**
@@ -870,6 +887,16 @@ public class CommerceDiscountWrapper implements CommerceDiscount,
 	@Override
 	public void setLevel3(BigDecimal level3) {
 		_commerceDiscount.setLevel3(level3);
+	}
+
+	/**
+	* Sets the level4 of this commerce discount.
+	*
+	* @param level4 the level4 of this commerce discount
+	*/
+	@Override
+	public void setLevel4(BigDecimal level4) {
+		_commerceDiscount.setLevel4(level4);
 	}
 
 	/**

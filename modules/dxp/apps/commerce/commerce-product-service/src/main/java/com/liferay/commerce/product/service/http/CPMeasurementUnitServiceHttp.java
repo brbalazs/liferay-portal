@@ -120,7 +120,8 @@ public class CPMeasurementUnitServiceHttp {
 	}
 
 	public static com.liferay.commerce.product.model.CPMeasurementUnit fetchPrimaryCPMeasurementUnit(
-		HttpPrincipal httpPrincipal, long groupId, int type) {
+		HttpPrincipal httpPrincipal, long groupId, int type)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CPMeasurementUnitServiceUtil.class,
 					"fetchPrimaryCPMeasurementUnit",
@@ -135,6 +136,10 @@ public class CPMeasurementUnitServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -182,7 +187,8 @@ public class CPMeasurementUnitServiceHttp {
 	public static java.util.List<com.liferay.commerce.product.model.CPMeasurementUnit> getCPMeasurementUnits(
 		HttpPrincipal httpPrincipal, long groupId, int type, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.product.model.CPMeasurementUnit> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.product.model.CPMeasurementUnit> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CPMeasurementUnitServiceUtil.class,
 					"getCPMeasurementUnits",
@@ -197,6 +203,10 @@ public class CPMeasurementUnitServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -210,7 +220,8 @@ public class CPMeasurementUnitServiceHttp {
 	}
 
 	public static int getCPMeasurementUnitsCount(HttpPrincipal httpPrincipal,
-		long groupId, int type) {
+		long groupId, int type)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CPMeasurementUnitServiceUtil.class,
 					"getCPMeasurementUnitsCount",
@@ -225,6 +236,10 @@ public class CPMeasurementUnitServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 

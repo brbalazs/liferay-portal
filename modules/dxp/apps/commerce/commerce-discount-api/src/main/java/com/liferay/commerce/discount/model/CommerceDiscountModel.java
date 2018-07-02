@@ -356,6 +356,20 @@ public interface CommerceDiscountModel extends BaseModel<CommerceDiscount>,
 	public void setLevel3(BigDecimal level3);
 
 	/**
+	 * Returns the level4 of this commerce discount.
+	 *
+	 * @return the level4 of this commerce discount
+	 */
+	public BigDecimal getLevel4();
+
+	/**
+	 * Sets the level4 of this commerce discount.
+	 *
+	 * @param level4 the level4 of this commerce discount
+	 */
+	public void setLevel4(BigDecimal level4);
+
+	/**
 	 * Returns the limitation type of this commerce discount.
 	 *
 	 * @return the limitation type of this commerce discount

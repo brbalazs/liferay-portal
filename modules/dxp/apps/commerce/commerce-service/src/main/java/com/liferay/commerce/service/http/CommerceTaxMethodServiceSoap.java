@@ -94,39 +94,10 @@ public class CommerceTaxMethodServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.model.CommerceTaxMethodSoap createCommerceTaxMethod(
-		long commerceTaxMethodId) throws RemoteException {
-		try {
-			com.liferay.commerce.model.CommerceTaxMethod returnValue = CommerceTaxMethodServiceUtil.createCommerceTaxMethod(commerceTaxMethodId);
-
-			return com.liferay.commerce.model.CommerceTaxMethodSoap.toSoapModel(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
 	public static void deleteCommerceTaxMethod(long commerceTaxMethodId)
 		throws RemoteException {
 		try {
 			CommerceTaxMethodServiceUtil.deleteCommerceTaxMethod(commerceTaxMethodId);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	public static com.liferay.commerce.model.CommerceTaxMethodSoap fetchCommerceTaxMethod(
-		long groupId, String engineKey) throws RemoteException {
-		try {
-			com.liferay.commerce.model.CommerceTaxMethod returnValue = CommerceTaxMethodServiceUtil.fetchCommerceTaxMethod(groupId,
-					engineKey);
-
-			return com.liferay.commerce.model.CommerceTaxMethodSoap.toSoapModel(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -172,21 +143,6 @@ public class CommerceTaxMethodServiceSoap {
 					active);
 
 			return com.liferay.commerce.model.CommerceTaxMethodSoap.toSoapModels(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	public static int getCommerceTaxMethodsCount(long groupId, boolean active)
-		throws RemoteException {
-		try {
-			int returnValue = CommerceTaxMethodServiceUtil.getCommerceTaxMethodsCount(groupId,
-					active);
-
-			return returnValue;
 		}
 		catch (Exception e) {
 			_log.error(e, e);

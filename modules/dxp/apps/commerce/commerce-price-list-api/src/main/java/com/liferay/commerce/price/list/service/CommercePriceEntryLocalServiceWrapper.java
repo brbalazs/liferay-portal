@@ -223,13 +223,6 @@ public class CommercePriceEntryLocalServiceWrapper
 	}
 
 	@Override
-	public java.util.List<com.liferay.commerce.price.list.model.CommercePriceEntry> fetchCommercePriceEntries(
-		long groupId, int start, int end) {
-		return _commercePriceEntryLocalService.fetchCommercePriceEntries(groupId,
-			start, end);
-	}
-
-	@Override
 	public com.liferay.commerce.price.list.model.CommercePriceEntry fetchCommercePriceEntry(
 		long commercePriceEntryId) {
 		return _commercePriceEntryLocalService.fetchCommercePriceEntry(commercePriceEntryId);
@@ -292,6 +285,13 @@ public class CommercePriceEntryLocalServiceWrapper
 		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.price.list.model.CommercePriceEntry> orderByComparator) {
 		return _commercePriceEntryLocalService.getCommercePriceEntries(commercePriceListId,
 			start, end, orderByComparator);
+	}
+
+	@Override
+	public java.util.List<com.liferay.commerce.price.list.model.CommercePriceEntry> getCommercePriceEntriesByGroupId(
+		long groupId, int start, int end) {
+		return _commercePriceEntryLocalService.getCommercePriceEntriesByGroupId(groupId,
+			start, end);
 	}
 
 	/**

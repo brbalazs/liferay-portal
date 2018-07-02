@@ -102,20 +102,6 @@ public class CPDefinitionInventoryServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.model.CPDefinitionInventorySoap fetchCPDefinitionInventory(
-		long cpDefinitionInventoryId) throws RemoteException {
-		try {
-			com.liferay.commerce.model.CPDefinitionInventory returnValue = CPDefinitionInventoryServiceUtil.fetchCPDefinitionInventory(cpDefinitionInventoryId);
-
-			return com.liferay.commerce.model.CPDefinitionInventorySoap.toSoapModel(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
 	public static com.liferay.commerce.model.CPDefinitionInventorySoap fetchCPDefinitionInventoryByCPDefinitionId(
 		long cpDefinitionId) throws RemoteException {
 		try {

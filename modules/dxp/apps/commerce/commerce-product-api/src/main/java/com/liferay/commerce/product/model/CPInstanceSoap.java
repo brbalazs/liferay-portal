@@ -49,7 +49,7 @@ public class CPInstanceSoap implements Serializable {
 		soapModel.setGtin(model.getGtin());
 		soapModel.setManufacturerPartNumber(model.getManufacturerPartNumber());
 		soapModel.setPurchasable(model.isPurchasable());
-		soapModel.setDDMContent(model.getDDMContent());
+		soapModel.setJson(model.getJson());
 		soapModel.setWidth(model.getWidth());
 		soapModel.setHeight(model.getHeight());
 		soapModel.setDepth(model.getDepth());
@@ -226,12 +226,12 @@ public class CPInstanceSoap implements Serializable {
 		_purchasable = purchasable;
 	}
 
-	public String getDDMContent() {
-		return _DDMContent;
+	public String getJson() {
+		return _json;
 	}
 
-	public void setDDMContent(String DDMContent) {
-		_DDMContent = DDMContent;
+	public void setJson(String json) {
+		_json = json;
 	}
 
 	public double getWidth() {
@@ -379,7 +379,7 @@ public class CPInstanceSoap implements Serializable {
 	private String _gtin;
 	private String _manufacturerPartNumber;
 	private boolean _purchasable;
-	private String _DDMContent;
+	private String _json;
 	private double _width;
 	private double _height;
 	private double _depth;

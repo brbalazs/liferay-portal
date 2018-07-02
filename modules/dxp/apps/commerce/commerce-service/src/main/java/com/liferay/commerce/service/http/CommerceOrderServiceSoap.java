@@ -83,35 +83,6 @@ public class CommerceOrderServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.model.CommerceOrderSoap addUserCommerceOrder(
-		long groupId) throws RemoteException {
-		try {
-			com.liferay.commerce.model.CommerceOrder returnValue = CommerceOrderServiceUtil.addUserCommerceOrder(groupId);
-
-			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModel(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	public static com.liferay.commerce.model.CommerceOrderSoap addUserCommerceOrder(
-		long groupId, long orderUserId) throws RemoteException {
-		try {
-			com.liferay.commerce.model.CommerceOrder returnValue = CommerceOrderServiceUtil.addUserCommerceOrder(groupId,
-					orderUserId);
-
-			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModel(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
 	public static com.liferay.commerce.model.CommerceOrderSoap approveCommerceOrder(
 		long commerceOrderId) throws RemoteException {
 		try {

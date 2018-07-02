@@ -156,41 +156,13 @@ public class CommerceShippingMethodServiceHttp {
 		}
 	}
 
-	public static com.liferay.commerce.model.CommerceShippingMethod fetchCommerceShippingMethod(
-		HttpPrincipal httpPrincipal, long groupId, String engineKey) {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceShippingMethodServiceUtil.class,
-					"fetchCommerceShippingMethod",
-					_fetchCommerceShippingMethodParameterTypes3);
-
-			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
-					engineKey);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
-			}
-
-			return (com.liferay.commerce.model.CommerceShippingMethod)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
 	public static com.liferay.commerce.model.CommerceShippingMethod getCommerceShippingMethod(
 		HttpPrincipal httpPrincipal, long commerceShippingMethodId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceShippingMethodServiceUtil.class,
 					"getCommerceShippingMethod",
-					_getCommerceShippingMethodParameterTypes4);
+					_getCommerceShippingMethodParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					commerceShippingMethodId);
@@ -223,7 +195,7 @@ public class CommerceShippingMethodServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceShippingMethodServiceUtil.class,
 					"getCommerceShippingMethods",
-					_getCommerceShippingMethodsParameterTypes5);
+					_getCommerceShippingMethodsParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId);
 
@@ -250,11 +222,12 @@ public class CommerceShippingMethodServiceHttp {
 	}
 
 	public static java.util.List<com.liferay.commerce.model.CommerceShippingMethod> getCommerceShippingMethods(
-		HttpPrincipal httpPrincipal, long groupId, boolean active) {
+		HttpPrincipal httpPrincipal, long groupId, boolean active)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceShippingMethodServiceUtil.class,
 					"getCommerceShippingMethods",
-					_getCommerceShippingMethodsParameterTypes6);
+					_getCommerceShippingMethodsParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
 					active);
@@ -265,6 +238,10 @@ public class CommerceShippingMethodServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -278,11 +255,12 @@ public class CommerceShippingMethodServiceHttp {
 	}
 
 	public static int getCommerceShippingMethodsCount(
-		HttpPrincipal httpPrincipal, long groupId, boolean active) {
+		HttpPrincipal httpPrincipal, long groupId, boolean active)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceShippingMethodServiceUtil.class,
 					"getCommerceShippingMethodsCount",
-					_getCommerceShippingMethodsCountParameterTypes7);
+					_getCommerceShippingMethodsCountParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
 					active);
@@ -293,6 +271,10 @@ public class CommerceShippingMethodServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -311,7 +293,7 @@ public class CommerceShippingMethodServiceHttp {
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceShippingMethodServiceUtil.class,
-					"setActive", _setActiveParameterTypes8);
+					"setActive", _setActiveParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					commerceShippingMethodId, active);
@@ -347,7 +329,7 @@ public class CommerceShippingMethodServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceShippingMethodServiceUtil.class,
 					"updateCommerceShippingMethod",
-					_updateCommerceShippingMethodParameterTypes9);
+					_updateCommerceShippingMethodParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					commerceShippingMethodId, nameMap, descriptionMap,
@@ -385,24 +367,21 @@ public class CommerceShippingMethodServiceHttp {
 		new Class[] { long.class };
 	private static final Class<?>[] _deleteCommerceShippingMethodParameterTypes2 =
 		new Class[] { long.class };
-	private static final Class<?>[] _fetchCommerceShippingMethodParameterTypes3 = new Class[] {
-			long.class, String.class
+	private static final Class<?>[] _getCommerceShippingMethodParameterTypes3 = new Class[] {
+			long.class
 		};
-	private static final Class<?>[] _getCommerceShippingMethodParameterTypes4 = new Class[] {
+	private static final Class<?>[] _getCommerceShippingMethodsParameterTypes4 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[] _getCommerceShippingMethodsParameterTypes5 = new Class[] {
-			long.class
-		};
-	private static final Class<?>[] _getCommerceShippingMethodsParameterTypes6 = new Class[] {
 			long.class, boolean.class
 		};
-	private static final Class<?>[] _getCommerceShippingMethodsCountParameterTypes7 =
+	private static final Class<?>[] _getCommerceShippingMethodsCountParameterTypes6 =
 		new Class[] { long.class, boolean.class };
-	private static final Class<?>[] _setActiveParameterTypes8 = new Class[] {
+	private static final Class<?>[] _setActiveParameterTypes7 = new Class[] {
 			long.class, boolean.class
 		};
-	private static final Class<?>[] _updateCommerceShippingMethodParameterTypes9 =
+	private static final Class<?>[] _updateCommerceShippingMethodParameterTypes8 =
 		new Class[] {
 			long.class, java.util.Map.class, java.util.Map.class,
 			java.io.File.class, double.class, boolean.class

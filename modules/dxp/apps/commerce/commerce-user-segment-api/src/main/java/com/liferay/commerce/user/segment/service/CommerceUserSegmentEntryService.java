@@ -22,7 +22,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
-import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
@@ -94,10 +93,6 @@ public interface CommerceUserSegmentEntryService extends BaseService {
 	public BaseModelSearchResult<CommerceUserSegmentEntry> searchCommerceUserSegmentEntries(
 		long companyId, long groupId, String keywords, int start, int end,
 		Sort sort) throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public BaseModelSearchResult<CommerceUserSegmentEntry> searchCommerceUserSegmentEntries(
-		SearchContext searchContext) throws PortalException;
 
 	public CommerceUserSegmentEntry updateCommerceUserSegmentEntry(
 		long commerceUserSegmentEntryId, Map<Locale, String> nameMap,

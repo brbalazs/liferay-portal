@@ -53,13 +53,6 @@ public class CPSpecificationOptionServiceWrapper
 	}
 
 	@Override
-	public com.liferay.commerce.product.model.CPSpecificationOption fetchCPSpecificationOption(
-		long cpSpecificationOptionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _cpSpecificationOptionService.fetchCPSpecificationOption(cpSpecificationOptionId);
-	}
-
-	@Override
 	public com.liferay.commerce.product.model.CPSpecificationOption getCPSpecificationOption(
 		long cpSpecificationOptionId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -76,7 +69,8 @@ public class CPSpecificationOptionServiceWrapper
 	}
 
 	@Override
-	public int getCPSpecificationOptionsCount(long groupId) {
+	public int getCPSpecificationOptionsCount(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _cpSpecificationOptionService.getCPSpecificationOptionsCount(groupId);
 	}
 

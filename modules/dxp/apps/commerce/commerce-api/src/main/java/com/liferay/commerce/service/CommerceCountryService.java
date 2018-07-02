@@ -85,13 +85,16 @@ public interface CommerceCountryService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceCountry> getCommerceCountries(long groupId, int start,
-		int end, OrderByComparator<CommerceCountry> orderByComparator);
+		int end, OrderByComparator<CommerceCountry> orderByComparator)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommerceCountriesCount(long groupId);
+	public int getCommerceCountriesCount(long groupId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommerceCountriesCount(long groupId, boolean active);
+	public int getCommerceCountriesCount(long groupId, boolean active)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceCountry getCommerceCountry(long commerceCountryId)
@@ -106,7 +109,7 @@ public interface CommerceCountryService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceCountry> getShippingCommerceCountries(long groupId,
-		boolean shippingAllowed, boolean active);
+		boolean shippingAllowed, boolean active) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceCountry> getWarehouseCommerceCountries(long groupId,
@@ -114,7 +117,7 @@ public interface CommerceCountryService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public BaseModelSearchResult<CommerceCountry> searchCommerceCountries(
-		SearchContext searchContext) throws PortalException;
+		long groupId, SearchContext searchContext) throws PortalException;
 
 	public CommerceCountry setActive(long commerceCountryId, boolean active)
 		throws PortalException;

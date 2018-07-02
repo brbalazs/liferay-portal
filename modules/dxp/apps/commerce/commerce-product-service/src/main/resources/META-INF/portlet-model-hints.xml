@@ -228,7 +228,7 @@
 		<field name="purchasable" type="boolean">
 			<hint name="default-value">true</hint>
 		</field>
-		<field name="DDMContent" type="String">
+		<field name="json" type="String">
 			<hint-collection name="CLOB" />
 		</field>
 		<field name="width" type="double">

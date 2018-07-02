@@ -53,12 +53,9 @@ public interface CPDAvailabilityEstimateService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link CPDAvailabilityEstimateServiceUtil} to access the cpd availability estimate remote service. Add custom service methods to {@link com.liferay.commerce.service.impl.CPDAvailabilityEstimateServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public void deleteCPDAvailabilityEstimate(long cpdAvailabilityEstimateId)
-		throws PortalException;
-
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CPDAvailabilityEstimate fetchCPDAvailabilityEstimateByCPDefinitionId(
-		long cpDefinitionId);
+		long cpDefinitionId) throws PortalException;
 
 	/**
 	* Returns the OSGi service identifier.

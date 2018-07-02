@@ -70,20 +70,22 @@ public interface CommerceShippingFixedOptionService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceShippingFixedOption fetchCommerceShippingFixedOption(
-		long commerceShippingFixedOptionId);
+		long commerceShippingFixedOptionId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceShippingFixedOption> getCommerceShippingFixedOptions(
-		long commerceShippingMethodId, int start, int end);
+		long commerceShippingMethodId, int start, int end)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceShippingFixedOption> getCommerceShippingFixedOptions(
 		long commerceShippingMethodId, int start, int end,
-		OrderByComparator<CommerceShippingFixedOption> orderByComparator);
+		OrderByComparator<CommerceShippingFixedOption> orderByComparator)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceShippingFixedOptionsCount(
-		long commerceShippingMethodId);
+		long commerceShippingMethodId) throws PortalException;
 
 	/**
 	* Returns the OSGi service identifier.

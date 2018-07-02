@@ -65,57 +65,24 @@ public class CommerceShippingFixedOptionRelServiceUtil {
 	}
 
 	public static com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOptionRel fetchCommerceShippingFixedOptionRel(
-		long commerceShippingFixedOptionRelId) {
+		long commerceShippingFixedOptionRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .fetchCommerceShippingFixedOptionRel(commerceShippingFixedOptionRelId);
 	}
 
-	public static com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOptionRel fetchCommerceShippingFixedOptionRel(
-		long commerceShippingFixedOptionId, long commerceCountryId,
-		long commerceRegionId, String zip, double weight) {
-		return getService()
-				   .fetchCommerceShippingFixedOptionRel(commerceShippingFixedOptionId,
-			commerceCountryId, commerceRegionId, zip, weight);
-	}
-
-	public static java.util.List<com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOptionRel> getCommerceShippingFixedOptionRels(
-		long commerceShippingFixedOptionId, int start, int end) {
-		return getService()
-				   .getCommerceShippingFixedOptionRels(commerceShippingFixedOptionId,
-			start, end);
-	}
-
-	public static java.util.List<com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOptionRel> getCommerceShippingFixedOptionRels(
-		long commerceShippingFixedOptionId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOptionRel> orderByComparator) {
-		return getService()
-				   .getCommerceShippingFixedOptionRels(commerceShippingFixedOptionId,
-			start, end, orderByComparator);
-	}
-
-	public static int getCommerceShippingFixedOptionRelsCount(
-		long commerceShippingFixedOptionId) {
-		return getService()
-				   .getCommerceShippingFixedOptionRelsCount(commerceShippingFixedOptionId);
-	}
-
-	public static java.util.List<com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOptionRel> getCommerceShippingMethodFixedOptionRels(
-		long commerceShippingMethodId, int start, int end) {
-		return getService()
-				   .getCommerceShippingMethodFixedOptionRels(commerceShippingMethodId,
-			start, end);
-	}
-
 	public static java.util.List<com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOptionRel> getCommerceShippingMethodFixedOptionRels(
 		long commerceShippingMethodId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOptionRel> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOptionRel> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .getCommerceShippingMethodFixedOptionRels(commerceShippingMethodId,
 			start, end, orderByComparator);
 	}
 
 	public static int getCommerceShippingMethodFixedOptionRelsCount(
-		long commerceShippingMethodId) {
+		long commerceShippingMethodId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .getCommerceShippingMethodFixedOptionRelsCount(commerceShippingMethodId);
 	}

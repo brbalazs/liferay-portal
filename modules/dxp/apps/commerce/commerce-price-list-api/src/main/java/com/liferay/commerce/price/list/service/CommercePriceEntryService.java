@@ -79,11 +79,8 @@ public interface CommercePriceEntryService extends BaseService {
 		String externalReferenceCode) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommercePriceEntry> fetchCommercePriceEntries(long groupId,
-		int start, int end);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public CommercePriceEntry fetchCommercePriceEntry(long commercePriceEntryId);
+	public CommercePriceEntry fetchCommercePriceEntry(long commercePriceEntryId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePriceEntry> getCommercePriceEntries(
@@ -92,25 +89,34 @@ public interface CommercePriceEntryService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePriceEntry> getCommercePriceEntries(
 		long commercePriceListId, int start, int end,
-		OrderByComparator<CommercePriceEntry> orderByComparator);
+		OrderByComparator<CommercePriceEntry> orderByComparator)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommercePriceEntriesCount(long commercePriceListId);
+	public List<CommercePriceEntry> getCommercePriceEntriesByGroupId(
+		long groupId, int start, int end) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommercePriceEntriesCountByGroupId(long groupId);
+	public int getCommercePriceEntriesCount(long commercePriceListId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommercePriceEntriesCountByGroupId(long groupId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePriceEntry> getInstanceCommercePriceEntries(
-		long cpInstanceId, int start, int end);
+		long cpInstanceId, int start, int end) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePriceEntry> getInstanceCommercePriceEntries(
 		long cpInstanceId, int start, int end,
-		OrderByComparator<CommercePriceEntry> orderByComparator);
+		OrderByComparator<CommercePriceEntry> orderByComparator)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getInstanceCommercePriceEntriesCount(long cpInstanceId);
+	public int getInstanceCommercePriceEntriesCount(long cpInstanceId)
+		throws PortalException;
 
 	/**
 	* Returns the OSGi service identifier.

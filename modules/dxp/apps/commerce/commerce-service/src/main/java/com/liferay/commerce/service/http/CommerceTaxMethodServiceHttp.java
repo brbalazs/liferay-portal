@@ -92,41 +92,13 @@ public class CommerceTaxMethodServiceHttp {
 		}
 	}
 
-	public static com.liferay.commerce.model.CommerceTaxMethod createCommerceTaxMethod(
-		HttpPrincipal httpPrincipal, long commerceTaxMethodId) {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceTaxMethodServiceUtil.class,
-					"createCommerceTaxMethod",
-					_createCommerceTaxMethodParameterTypes1);
-
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					commerceTaxMethodId);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
-			}
-
-			return (com.liferay.commerce.model.CommerceTaxMethod)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
 	public static void deleteCommerceTaxMethod(HttpPrincipal httpPrincipal,
 		long commerceTaxMethodId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceTaxMethodServiceUtil.class,
 					"deleteCommerceTaxMethod",
-					_deleteCommerceTaxMethodParameterTypes2);
+					_deleteCommerceTaxMethodParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					commerceTaxMethodId);
@@ -149,40 +121,12 @@ public class CommerceTaxMethodServiceHttp {
 		}
 	}
 
-	public static com.liferay.commerce.model.CommerceTaxMethod fetchCommerceTaxMethod(
-		HttpPrincipal httpPrincipal, long groupId, String engineKey) {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceTaxMethodServiceUtil.class,
-					"fetchCommerceTaxMethod",
-					_fetchCommerceTaxMethodParameterTypes3);
-
-			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
-					engineKey);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
-			}
-
-			return (com.liferay.commerce.model.CommerceTaxMethod)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
 	public static com.liferay.commerce.model.CommerceTaxMethod getCommerceTaxMethod(
 		HttpPrincipal httpPrincipal, long commerceTaxMethodId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceTaxMethodServiceUtil.class,
-					"getCommerceTaxMethod", _getCommerceTaxMethodParameterTypes4);
+					"getCommerceTaxMethod", _getCommerceTaxMethodParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					commerceTaxMethodId);
@@ -215,7 +159,7 @@ public class CommerceTaxMethodServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceTaxMethodServiceUtil.class,
 					"getCommerceTaxMethods",
-					_getCommerceTaxMethodsParameterTypes5);
+					_getCommerceTaxMethodsParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId);
 
@@ -242,11 +186,12 @@ public class CommerceTaxMethodServiceHttp {
 	}
 
 	public static java.util.List<com.liferay.commerce.model.CommerceTaxMethod> getCommerceTaxMethods(
-		HttpPrincipal httpPrincipal, long groupId, boolean active) {
+		HttpPrincipal httpPrincipal, long groupId, boolean active)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceTaxMethodServiceUtil.class,
 					"getCommerceTaxMethods",
-					_getCommerceTaxMethodsParameterTypes6);
+					_getCommerceTaxMethodsParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
 					active);
@@ -257,38 +202,14 @@ public class CommerceTaxMethodServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
 			return (java.util.List<com.liferay.commerce.model.CommerceTaxMethod>)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
-	public static int getCommerceTaxMethodsCount(HttpPrincipal httpPrincipal,
-		long groupId, boolean active) {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceTaxMethodServiceUtil.class,
-					"getCommerceTaxMethodsCount",
-					_getCommerceTaxMethodsCountParameterTypes7);
-
-			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
-					active);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
-			}
-
-			return ((Integer)returnObj).intValue();
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -302,7 +223,7 @@ public class CommerceTaxMethodServiceHttp {
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceTaxMethodServiceUtil.class,
-					"setActive", _setActiveParameterTypes8);
+					"setActive", _setActiveParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					commerceTaxMethodId, active);
@@ -338,7 +259,7 @@ public class CommerceTaxMethodServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceTaxMethodServiceUtil.class,
 					"updateCommerceTaxMethod",
-					_updateCommerceTaxMethodParameterTypes9);
+					_updateCommerceTaxMethodParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					commerceTaxMethodId, nameMap, descriptionMap, percentage,
@@ -372,31 +293,22 @@ public class CommerceTaxMethodServiceHttp {
 			boolean.class, boolean.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _createCommerceTaxMethodParameterTypes1 = new Class[] {
+	private static final Class<?>[] _deleteCommerceTaxMethodParameterTypes1 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _deleteCommerceTaxMethodParameterTypes2 = new Class[] {
+	private static final Class<?>[] _getCommerceTaxMethodParameterTypes2 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _fetchCommerceTaxMethodParameterTypes3 = new Class[] {
-			long.class, String.class
-		};
-	private static final Class<?>[] _getCommerceTaxMethodParameterTypes4 = new Class[] {
+	private static final Class<?>[] _getCommerceTaxMethodsParameterTypes3 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _getCommerceTaxMethodsParameterTypes5 = new Class[] {
-			long.class
-		};
-	private static final Class<?>[] _getCommerceTaxMethodsParameterTypes6 = new Class[] {
+	private static final Class<?>[] _getCommerceTaxMethodsParameterTypes4 = new Class[] {
 			long.class, boolean.class
 		};
-	private static final Class<?>[] _getCommerceTaxMethodsCountParameterTypes7 = new Class[] {
+	private static final Class<?>[] _setActiveParameterTypes5 = new Class[] {
 			long.class, boolean.class
 		};
-	private static final Class<?>[] _setActiveParameterTypes8 = new Class[] {
-			long.class, boolean.class
-		};
-	private static final Class<?>[] _updateCommerceTaxMethodParameterTypes9 = new Class[] {
+	private static final Class<?>[] _updateCommerceTaxMethodParameterTypes6 = new Class[] {
 			long.class, java.util.Map.class, java.util.Map.class, boolean.class,
 			boolean.class
 		};

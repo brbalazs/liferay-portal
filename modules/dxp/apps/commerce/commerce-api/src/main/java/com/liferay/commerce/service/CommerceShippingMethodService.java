@@ -71,10 +71,6 @@ public interface CommerceShippingMethodService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public CommerceShippingMethod fetchCommerceShippingMethod(long groupId,
-		String engineKey);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceShippingMethod getCommerceShippingMethod(
 		long commerceShippingMethodId) throws PortalException;
 
@@ -84,10 +80,11 @@ public interface CommerceShippingMethodService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceShippingMethod> getCommerceShippingMethods(
-		long groupId, boolean active);
+		long groupId, boolean active) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommerceShippingMethodsCount(long groupId, boolean active);
+	public int getCommerceShippingMethodsCount(long groupId, boolean active)
+		throws PortalException;
 
 	/**
 	* Returns the OSGi service identifier.

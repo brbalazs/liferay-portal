@@ -74,17 +74,21 @@ public interface CommerceRegionService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceRegion> getCommerceRegions(long commerceCountryId,
 		boolean active, int start, int end,
-		OrderByComparator<CommerceRegion> orderByComparator);
+		OrderByComparator<CommerceRegion> orderByComparator)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceRegion> getCommerceRegions(long commerceCountryId,
-		int start, int end, OrderByComparator<CommerceRegion> orderByComparator);
+		int start, int end, OrderByComparator<CommerceRegion> orderByComparator)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommerceRegionsCount(long commerceCountryId);
+	public int getCommerceRegionsCount(long commerceCountryId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommerceRegionsCount(long commerceCountryId, boolean active);
+	public int getCommerceRegionsCount(long commerceCountryId, boolean active)
+		throws PortalException;
 
 	/**
 	* Returns the OSGi service identifier.

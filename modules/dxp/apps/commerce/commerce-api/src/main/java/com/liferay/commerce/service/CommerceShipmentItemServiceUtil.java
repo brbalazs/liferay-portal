@@ -57,25 +57,23 @@ public class CommerceShipmentItemServiceUtil {
 		getService().deleteCommerceShipmentItem(commerceShipmentItemId);
 	}
 
-	public static com.liferay.commerce.model.CommerceShipmentItem fetchCommerceShipmentItem(
-		long commerceShipmentItemId) {
-		return getService().fetchCommerceShipmentItem(commerceShipmentItemId);
-	}
-
 	public static java.util.List<com.liferay.commerce.model.CommerceShipmentItem> getCommerceShipmentItems(
-		long commerceOrderItemId) {
+		long commerceOrderItemId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getCommerceShipmentItems(commerceOrderItemId);
 	}
 
 	public static java.util.List<com.liferay.commerce.model.CommerceShipmentItem> getCommerceShipmentItems(
 		long commerceShipmentId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceShipmentItem> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceShipmentItem> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .getCommerceShipmentItems(commerceShipmentId, start, end,
 			orderByComparator);
 	}
 
-	public static int getCommerceShipmentItemsCount(long commerceShipmentId) {
+	public static int getCommerceShipmentItemsCount(long commerceShipmentId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getCommerceShipmentItemsCount(commerceShipmentId);
 	}
 

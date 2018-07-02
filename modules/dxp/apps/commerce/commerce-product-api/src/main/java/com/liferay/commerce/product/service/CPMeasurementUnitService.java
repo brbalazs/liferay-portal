@@ -67,7 +67,7 @@ public interface CPMeasurementUnitService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CPMeasurementUnit fetchPrimaryCPMeasurementUnit(long groupId,
-		int type);
+		int type) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CPMeasurementUnit getCPMeasurementUnit(long cpMeasurementUnitId)
@@ -76,10 +76,12 @@ public interface CPMeasurementUnitService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CPMeasurementUnit> getCPMeasurementUnits(long groupId,
 		int type, int start, int end,
-		OrderByComparator<CPMeasurementUnit> orderByComparator);
+		OrderByComparator<CPMeasurementUnit> orderByComparator)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCPMeasurementUnitsCount(long groupId, int type);
+	public int getCPMeasurementUnitsCount(long groupId, int type)
+		throws PortalException;
 
 	/**
 	* Returns the OSGi service identifier.

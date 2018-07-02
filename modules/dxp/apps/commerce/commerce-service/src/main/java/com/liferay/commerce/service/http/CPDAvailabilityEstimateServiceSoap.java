@@ -65,18 +65,6 @@ import java.rmi.RemoteException;
  */
 @ProviderType
 public class CPDAvailabilityEstimateServiceSoap {
-	public static void deleteCPDAvailabilityEstimate(
-		long cpdAvailabilityEstimateId) throws RemoteException {
-		try {
-			CPDAvailabilityEstimateServiceUtil.deleteCPDAvailabilityEstimate(cpdAvailabilityEstimateId);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
 	public static com.liferay.commerce.model.CPDAvailabilityEstimateSoap fetchCPDAvailabilityEstimateByCPDefinitionId(
 		long cpDefinitionId) throws RemoteException {
 		try {

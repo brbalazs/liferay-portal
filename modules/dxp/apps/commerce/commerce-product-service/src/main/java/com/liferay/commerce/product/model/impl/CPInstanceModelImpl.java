@@ -94,7 +94,7 @@ public class CPInstanceModelImpl extends BaseModelImpl<CPInstance>
 			{ "gtin", Types.VARCHAR },
 			{ "manufacturerPartNumber", Types.VARCHAR },
 			{ "purchasable", Types.BOOLEAN },
-			{ "DDMContent", Types.CLOB },
+			{ "json", Types.CLOB },
 			{ "width", Types.DOUBLE },
 			{ "height", Types.DOUBLE },
 			{ "depth", Types.DOUBLE },
@@ -128,7 +128,7 @@ public class CPInstanceModelImpl extends BaseModelImpl<CPInstance>
 		TABLE_COLUMNS_MAP.put("gtin", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("manufacturerPartNumber", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("purchasable", Types.BOOLEAN);
-		TABLE_COLUMNS_MAP.put("DDMContent", Types.CLOB);
+		TABLE_COLUMNS_MAP.put("json", Types.CLOB);
 		TABLE_COLUMNS_MAP.put("width", Types.DOUBLE);
 		TABLE_COLUMNS_MAP.put("height", Types.DOUBLE);
 		TABLE_COLUMNS_MAP.put("depth", Types.DOUBLE);
@@ -147,7 +147,7 @@ public class CPInstanceModelImpl extends BaseModelImpl<CPInstance>
 		TABLE_COLUMNS_MAP.put("statusDate", Types.TIMESTAMP);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table CPInstance (uuid_ VARCHAR(75) null,CPInstanceId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,CPDefinitionId LONG,sku VARCHAR(75) null,gtin VARCHAR(75) null,manufacturerPartNumber VARCHAR(75) null,purchasable BOOLEAN,DDMContent TEXT null,width DOUBLE,height DOUBLE,depth DOUBLE,weight DOUBLE,price DECIMAL(30, 16) null,promoPrice DECIMAL(30, 16) null,cost DECIMAL(30, 16) null,published BOOLEAN,externalReferenceCode VARCHAR(75) null,displayDate DATE null,expirationDate DATE null,lastPublishDate DATE null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
+	public static final String TABLE_SQL_CREATE = "create table CPInstance (uuid_ VARCHAR(75) null,CPInstanceId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,CPDefinitionId LONG,sku VARCHAR(75) null,gtin VARCHAR(75) null,manufacturerPartNumber VARCHAR(75) null,purchasable BOOLEAN,json TEXT null,width DOUBLE,height DOUBLE,depth DOUBLE,weight DOUBLE,price DECIMAL(30, 16) null,promoPrice DECIMAL(30, 16) null,cost DECIMAL(30, 16) null,published BOOLEAN,externalReferenceCode VARCHAR(75) null,displayDate DATE null,expirationDate DATE null,lastPublishDate DATE null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
 	public static final String TABLE_SQL_DROP = "drop table CPInstance";
 	public static final String ORDER_BY_JPQL = " ORDER BY cpInstance.displayDate DESC, cpInstance.createDate DESC";
 	public static final String ORDER_BY_SQL = " ORDER BY CPInstance.displayDate DESC, CPInstance.createDate DESC";
@@ -199,7 +199,7 @@ public class CPInstanceModelImpl extends BaseModelImpl<CPInstance>
 		model.setGtin(soapModel.getGtin());
 		model.setManufacturerPartNumber(soapModel.getManufacturerPartNumber());
 		model.setPurchasable(soapModel.isPurchasable());
-		model.setDDMContent(soapModel.getDDMContent());
+		model.setJson(soapModel.getJson());
 		model.setWidth(soapModel.getWidth());
 		model.setHeight(soapModel.getHeight());
 		model.setDepth(soapModel.getDepth());
@@ -293,7 +293,7 @@ public class CPInstanceModelImpl extends BaseModelImpl<CPInstance>
 		attributes.put("gtin", getGtin());
 		attributes.put("manufacturerPartNumber", getManufacturerPartNumber());
 		attributes.put("purchasable", isPurchasable());
-		attributes.put("DDMContent", getDDMContent());
+		attributes.put("json", getJson());
 		attributes.put("width", getWidth());
 		attributes.put("height", getHeight());
 		attributes.put("depth", getDepth());
@@ -398,10 +398,10 @@ public class CPInstanceModelImpl extends BaseModelImpl<CPInstance>
 			setPurchasable(purchasable);
 		}
 
-		String DDMContent = (String)attributes.get("DDMContent");
+		String json = (String)attributes.get("json");
 
-		if (DDMContent != null) {
-			setDDMContent(DDMContent);
+		if (json != null) {
+			setJson(json);
 		}
 
 		Double width = (Double)attributes.get("width");
@@ -756,18 +756,18 @@ public class CPInstanceModelImpl extends BaseModelImpl<CPInstance>
 
 	@JSON
 	@Override
-	public String getDDMContent() {
-		if (_DDMContent == null) {
+	public String getJson() {
+		if (_json == null) {
 			return "";
 		}
 		else {
-			return _DDMContent;
+			return _json;
 		}
 	}
 
 	@Override
-	public void setDDMContent(String DDMContent) {
-		_DDMContent = DDMContent;
+	public void setJson(String json) {
+		_json = json;
 	}
 
 	@JSON
@@ -1271,7 +1271,7 @@ public class CPInstanceModelImpl extends BaseModelImpl<CPInstance>
 		cpInstanceImpl.setGtin(getGtin());
 		cpInstanceImpl.setManufacturerPartNumber(getManufacturerPartNumber());
 		cpInstanceImpl.setPurchasable(isPurchasable());
-		cpInstanceImpl.setDDMContent(getDDMContent());
+		cpInstanceImpl.setJson(getJson());
 		cpInstanceImpl.setWidth(getWidth());
 		cpInstanceImpl.setHeight(getHeight());
 		cpInstanceImpl.setDepth(getDepth());
@@ -1462,12 +1462,12 @@ public class CPInstanceModelImpl extends BaseModelImpl<CPInstance>
 
 		cpInstanceCacheModel.purchasable = isPurchasable();
 
-		cpInstanceCacheModel.DDMContent = getDDMContent();
+		cpInstanceCacheModel.json = getJson();
 
-		String DDMContent = cpInstanceCacheModel.DDMContent;
+		String json = cpInstanceCacheModel.json;
 
-		if ((DDMContent != null) && (DDMContent.length() == 0)) {
-			cpInstanceCacheModel.DDMContent = null;
+		if ((json != null) && (json.length() == 0)) {
+			cpInstanceCacheModel.json = null;
 		}
 
 		cpInstanceCacheModel.width = getWidth();
@@ -1576,8 +1576,8 @@ public class CPInstanceModelImpl extends BaseModelImpl<CPInstance>
 		sb.append(getManufacturerPartNumber());
 		sb.append(", purchasable=");
 		sb.append(isPurchasable());
-		sb.append(", DDMContent=");
-		sb.append(getDDMContent());
+		sb.append(", json=");
+		sb.append(getJson());
 		sb.append(", width=");
 		sb.append(getWidth());
 		sb.append(", height=");
@@ -1676,8 +1676,8 @@ public class CPInstanceModelImpl extends BaseModelImpl<CPInstance>
 		sb.append(isPurchasable());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>DDMContent</column-name><column-value><![CDATA[");
-		sb.append(getDDMContent());
+			"<column><column-name>json</column-name><column-value><![CDATA[");
+		sb.append(getJson());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>width</column-name><column-value><![CDATA[");
@@ -1775,7 +1775,7 @@ public class CPInstanceModelImpl extends BaseModelImpl<CPInstance>
 	private String _gtin;
 	private String _manufacturerPartNumber;
 	private boolean _purchasable;
-	private String _DDMContent;
+	private String _json;
 	private double _width;
 	private double _height;
 	private double _depth;

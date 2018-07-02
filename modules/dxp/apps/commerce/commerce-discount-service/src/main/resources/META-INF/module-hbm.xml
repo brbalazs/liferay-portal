@@ -27,6 +27,7 @@
 		<property name="level1" type="org.hibernate.type.BigDecimalType" />
 		<property name="level2" type="org.hibernate.type.BigDecimalType" />
 		<property name="level3" type="org.hibernate.type.BigDecimalType" />
+		<property name="level4" type="org.hibernate.type.BigDecimalType" />
 		<property name="limitationType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="limitationTimes" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="numberOfUse" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />

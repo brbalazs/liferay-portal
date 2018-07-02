@@ -71,23 +71,28 @@ public interface CommerceCurrencyService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public CommerceCurrency fetchPrimaryCommerceCurrency(long groupId);
+	public CommerceCurrency fetchPrimaryCommerceCurrency(long groupId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceCurrency> getCommerceCurrencies(long groupId,
 		boolean active, int start, int end,
-		OrderByComparator<CommerceCurrency> orderByComparator);
+		OrderByComparator<CommerceCurrency> orderByComparator)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceCurrency> getCommerceCurrencies(long groupId,
 		int start, int end,
-		OrderByComparator<CommerceCurrency> orderByComparator);
+		OrderByComparator<CommerceCurrency> orderByComparator)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommerceCurrenciesCount(long groupId);
+	public int getCommerceCurrenciesCount(long groupId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommerceCurrenciesCount(long groupId, boolean active);
+	public int getCommerceCurrenciesCount(long groupId, boolean active)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceCurrency getCommerceCurrency(long commerceCurrencyId)

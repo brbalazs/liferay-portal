@@ -69,10 +69,6 @@ public interface CPSpecificationOptionService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public CPSpecificationOption fetchCPSpecificationOption(
-		long cpSpecificationOptionId) throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CPSpecificationOption getCPSpecificationOption(
 		long cpSpecificationOptionId) throws PortalException;
 
@@ -83,7 +79,8 @@ public interface CPSpecificationOptionService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCPSpecificationOptionsCount(long groupId);
+	public int getCPSpecificationOptionsCount(long groupId)
+		throws PortalException;
 
 	/**
 	* Returns the OSGi service identifier.

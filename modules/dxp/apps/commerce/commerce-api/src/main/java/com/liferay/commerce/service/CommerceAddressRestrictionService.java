@@ -64,17 +64,14 @@ public interface CommerceAddressRestrictionService extends BaseService {
 		long commerceAddressRestrictionId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public CommerceAddressRestriction fetchCommerceAddressRestriction(
-		String className, long classPK, long commerceCountryId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceAddressRestriction> getCommerceAddressRestrictions(
 		String className, long classPK, int start, int end,
-		OrderByComparator<CommerceAddressRestriction> orderByComparator);
+		OrderByComparator<CommerceAddressRestriction> orderByComparator)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceAddressRestrictionsCount(String className,
-		long classPK);
+		long classPK) throws PortalException;
 
 	/**
 	* Returns the OSGi service identifier.
@@ -84,14 +81,7 @@ public interface CommerceAddressRestrictionService extends BaseService {
 	public String getOSGiServiceIdentifier();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public boolean isCommerceAddressRestricted(String className, long classPK,
-		long commerceCountryId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public boolean isCommercePaymentMethodRestricted(
-		long commercePaymentMethodId, long commerceCountryId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public boolean isCommerceShippingMethodRestricted(
-		long commerceShippingMethodId, long commerceCountryId);
+		long commerceShippingMethodId, long commerceCountryId)
+		throws PortalException;
 }

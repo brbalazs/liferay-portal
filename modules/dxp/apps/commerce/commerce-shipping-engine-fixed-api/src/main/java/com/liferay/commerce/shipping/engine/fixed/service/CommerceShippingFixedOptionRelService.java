@@ -71,38 +71,17 @@ public interface CommerceShippingFixedOptionRelService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceShippingFixedOptionRel fetchCommerceShippingFixedOptionRel(
-		long commerceShippingFixedOptionRelId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public CommerceShippingFixedOptionRel fetchCommerceShippingFixedOptionRel(
-		long commerceShippingFixedOptionId, long commerceCountryId,
-		long commerceRegionId, String zip, double weight);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommerceShippingFixedOptionRel> getCommerceShippingFixedOptionRels(
-		long commerceShippingFixedOptionId, int start, int end);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommerceShippingFixedOptionRel> getCommerceShippingFixedOptionRels(
-		long commerceShippingFixedOptionId, int start, int end,
-		OrderByComparator<CommerceShippingFixedOptionRel> orderByComparator);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommerceShippingFixedOptionRelsCount(
-		long commerceShippingFixedOptionId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommerceShippingFixedOptionRel> getCommerceShippingMethodFixedOptionRels(
-		long commerceShippingMethodId, int start, int end);
+		long commerceShippingFixedOptionRelId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceShippingFixedOptionRel> getCommerceShippingMethodFixedOptionRels(
 		long commerceShippingMethodId, int start, int end,
-		OrderByComparator<CommerceShippingFixedOptionRel> orderByComparator);
+		OrderByComparator<CommerceShippingFixedOptionRel> orderByComparator)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceShippingMethodFixedOptionRelsCount(
-		long commerceShippingMethodId);
+		long commerceShippingMethodId) throws PortalException;
 
 	/**
 	* Returns the OSGi service identifier.

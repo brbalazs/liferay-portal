@@ -58,23 +58,18 @@ public class CommerceAddressRestrictionServiceUtil {
 			.deleteCommerceAddressRestriction(commerceAddressRestrictionId);
 	}
 
-	public static com.liferay.commerce.model.CommerceAddressRestriction fetchCommerceAddressRestriction(
-		String className, long classPK, long commerceCountryId) {
-		return getService()
-				   .fetchCommerceAddressRestriction(className, classPK,
-			commerceCountryId);
-	}
-
 	public static java.util.List<com.liferay.commerce.model.CommerceAddressRestriction> getCommerceAddressRestrictions(
 		String className, long classPK, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceAddressRestriction> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceAddressRestriction> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .getCommerceAddressRestrictions(className, classPK, start,
 			end, orderByComparator);
 	}
 
 	public static int getCommerceAddressRestrictionsCount(String className,
-		long classPK) {
+		long classPK)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .getCommerceAddressRestrictionsCount(className, classPK);
 	}
@@ -88,22 +83,9 @@ public class CommerceAddressRestrictionServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	public static boolean isCommerceAddressRestricted(String className,
-		long classPK, long commerceCountryId) {
-		return getService()
-				   .isCommerceAddressRestricted(className, classPK,
-			commerceCountryId);
-	}
-
-	public static boolean isCommercePaymentMethodRestricted(
-		long commercePaymentMethodId, long commerceCountryId) {
-		return getService()
-				   .isCommercePaymentMethodRestricted(commercePaymentMethodId,
-			commerceCountryId);
-	}
-
 	public static boolean isCommerceShippingMethodRestricted(
-		long commerceShippingMethodId, long commerceCountryId) {
+		long commerceShippingMethodId, long commerceCountryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .isCommerceShippingMethodRestricted(commerceShippingMethodId,
 			commerceCountryId);

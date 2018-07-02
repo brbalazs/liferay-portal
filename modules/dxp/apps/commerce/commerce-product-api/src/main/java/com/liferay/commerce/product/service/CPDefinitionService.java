@@ -106,18 +106,20 @@ public interface CPDefinitionService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CPDefinition> getCPDefinitions(long groupId,
 		String productTypeName, String languageId, int status, int start,
-		int end, OrderByComparator<CPDefinition> orderByComparator);
+		int end, OrderByComparator<CPDefinition> orderByComparator)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CPDefinition> getCPDefinitionsByCategoryId(long categoryId,
-		int start, int end);
+		int start, int end) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCPDefinitionsCount(long groupId, String productTypeName,
-		String languageId, int status);
+		String languageId, int status) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCPDefinitionsCountByCategoryId(long categoryId);
+	public int getCPDefinitionsCountByCategoryId(long categoryId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public String getLayoutUuid(long cpDefinitionId) throws PortalException;

@@ -70,15 +70,9 @@ public class CommercePriceEntryServiceWrapper
 	}
 
 	@Override
-	public java.util.List<com.liferay.commerce.price.list.model.CommercePriceEntry> fetchCommercePriceEntries(
-		long groupId, int start, int end) {
-		return _commercePriceEntryService.fetchCommercePriceEntries(groupId,
-			start, end);
-	}
-
-	@Override
 	public com.liferay.commerce.price.list.model.CommercePriceEntry fetchCommercePriceEntry(
-		long commercePriceEntryId) {
+		long commercePriceEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commercePriceEntryService.fetchCommercePriceEntry(commercePriceEntryId);
 	}
 
@@ -92,24 +86,36 @@ public class CommercePriceEntryServiceWrapper
 	@Override
 	public java.util.List<com.liferay.commerce.price.list.model.CommercePriceEntry> getCommercePriceEntries(
 		long commercePriceListId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.price.list.model.CommercePriceEntry> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.price.list.model.CommercePriceEntry> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commercePriceEntryService.getCommercePriceEntries(commercePriceListId,
 			start, end, orderByComparator);
 	}
 
 	@Override
-	public int getCommercePriceEntriesCount(long commercePriceListId) {
+	public java.util.List<com.liferay.commerce.price.list.model.CommercePriceEntry> getCommercePriceEntriesByGroupId(
+		long groupId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commercePriceEntryService.getCommercePriceEntriesByGroupId(groupId,
+			start, end);
+	}
+
+	@Override
+	public int getCommercePriceEntriesCount(long commercePriceListId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commercePriceEntryService.getCommercePriceEntriesCount(commercePriceListId);
 	}
 
 	@Override
-	public int getCommercePriceEntriesCountByGroupId(long groupId) {
+	public int getCommercePriceEntriesCountByGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commercePriceEntryService.getCommercePriceEntriesCountByGroupId(groupId);
 	}
 
 	@Override
 	public java.util.List<com.liferay.commerce.price.list.model.CommercePriceEntry> getInstanceCommercePriceEntries(
-		long cpInstanceId, int start, int end) {
+		long cpInstanceId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commercePriceEntryService.getInstanceCommercePriceEntries(cpInstanceId,
 			start, end);
 	}
@@ -117,13 +123,15 @@ public class CommercePriceEntryServiceWrapper
 	@Override
 	public java.util.List<com.liferay.commerce.price.list.model.CommercePriceEntry> getInstanceCommercePriceEntries(
 		long cpInstanceId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.price.list.model.CommercePriceEntry> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.price.list.model.CommercePriceEntry> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commercePriceEntryService.getInstanceCommercePriceEntries(cpInstanceId,
 			start, end, orderByComparator);
 	}
 
 	@Override
-	public int getInstanceCommercePriceEntriesCount(long cpInstanceId) {
+	public int getInstanceCommercePriceEntriesCount(long cpInstanceId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commercePriceEntryService.getInstanceCommercePriceEntriesCount(cpInstanceId);
 	}
 

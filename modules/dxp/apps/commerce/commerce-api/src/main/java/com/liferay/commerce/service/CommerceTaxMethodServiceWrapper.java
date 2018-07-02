@@ -45,22 +45,9 @@ public class CommerceTaxMethodServiceWrapper implements CommerceTaxMethodService
 	}
 
 	@Override
-	public com.liferay.commerce.model.CommerceTaxMethod createCommerceTaxMethod(
-		long commerceTaxMethodId) {
-		return _commerceTaxMethodService.createCommerceTaxMethod(commerceTaxMethodId);
-	}
-
-	@Override
 	public void deleteCommerceTaxMethod(long commerceTaxMethodId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		_commerceTaxMethodService.deleteCommerceTaxMethod(commerceTaxMethodId);
-	}
-
-	@Override
-	public com.liferay.commerce.model.CommerceTaxMethod fetchCommerceTaxMethod(
-		long groupId, String engineKey) {
-		return _commerceTaxMethodService.fetchCommerceTaxMethod(groupId,
-			engineKey);
 	}
 
 	@Override
@@ -79,14 +66,9 @@ public class CommerceTaxMethodServiceWrapper implements CommerceTaxMethodService
 
 	@Override
 	public java.util.List<com.liferay.commerce.model.CommerceTaxMethod> getCommerceTaxMethods(
-		long groupId, boolean active) {
+		long groupId, boolean active)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceTaxMethodService.getCommerceTaxMethods(groupId, active);
-	}
-
-	@Override
-	public int getCommerceTaxMethodsCount(long groupId, boolean active) {
-		return _commerceTaxMethodService.getCommerceTaxMethodsCount(groupId,
-			active);
 	}
 
 	/**

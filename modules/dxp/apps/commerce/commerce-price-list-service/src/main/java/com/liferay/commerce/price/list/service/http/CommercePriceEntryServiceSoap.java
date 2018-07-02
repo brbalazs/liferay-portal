@@ -132,11 +132,11 @@ public class CommercePriceEntryServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.price.list.model.CommercePriceEntrySoap[] fetchCommercePriceEntries(
+	public static com.liferay.commerce.price.list.model.CommercePriceEntrySoap[] getCommercePriceEntriesByGroupId(
 		long groupId, int start, int end) throws RemoteException {
 		try {
 			java.util.List<com.liferay.commerce.price.list.model.CommercePriceEntry> returnValue =
-				CommercePriceEntryServiceUtil.fetchCommercePriceEntries(groupId,
+				CommercePriceEntryServiceUtil.getCommercePriceEntriesByGroupId(groupId,
 					start, end);
 
 			return com.liferay.commerce.price.list.model.CommercePriceEntrySoap.toSoapModels(returnValue);

@@ -35,14 +35,9 @@ public class CPDAvailabilityEstimateServiceWrapper
 	}
 
 	@Override
-	public void deleteCPDAvailabilityEstimate(long cpdAvailabilityEstimateId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		_cpdAvailabilityEstimateService.deleteCPDAvailabilityEstimate(cpdAvailabilityEstimateId);
-	}
-
-	@Override
 	public com.liferay.commerce.model.CPDAvailabilityEstimate fetchCPDAvailabilityEstimateByCPDefinitionId(
-		long cpDefinitionId) {
+		long cpDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _cpdAvailabilityEstimateService.fetchCPDAvailabilityEstimateByCPDefinitionId(cpDefinitionId);
 	}
 

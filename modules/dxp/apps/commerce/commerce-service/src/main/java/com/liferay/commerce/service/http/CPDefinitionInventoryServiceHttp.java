@@ -127,41 +127,13 @@ public class CPDefinitionInventoryServiceHttp {
 		}
 	}
 
-	public static com.liferay.commerce.model.CPDefinitionInventory fetchCPDefinitionInventory(
-		HttpPrincipal httpPrincipal, long cpDefinitionInventoryId) {
-		try {
-			MethodKey methodKey = new MethodKey(CPDefinitionInventoryServiceUtil.class,
-					"fetchCPDefinitionInventory",
-					_fetchCPDefinitionInventoryParameterTypes2);
-
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					cpDefinitionInventoryId);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
-			}
-
-			return (com.liferay.commerce.model.CPDefinitionInventory)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
 	public static com.liferay.commerce.model.CPDefinitionInventory fetchCPDefinitionInventoryByCPDefinitionId(
 		HttpPrincipal httpPrincipal, long cpDefinitionId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CPDefinitionInventoryServiceUtil.class,
 					"fetchCPDefinitionInventoryByCPDefinitionId",
-					_fetchCPDefinitionInventoryByCPDefinitionIdParameterTypes3);
+					_fetchCPDefinitionInventoryByCPDefinitionIdParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					cpDefinitionId);
@@ -200,7 +172,7 @@ public class CPDefinitionInventoryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(CPDefinitionInventoryServiceUtil.class,
 					"updateCPDefinitionInventory",
-					_updateCPDefinitionInventoryParameterTypes4);
+					_updateCPDefinitionInventoryParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					cpDefinitionInventoryId, cpDefinitionInventoryEngine,
@@ -240,12 +212,9 @@ public class CPDefinitionInventoryServiceHttp {
 	private static final Class<?>[] _deleteCPDefinitionInventoryParameterTypes1 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _fetchCPDefinitionInventoryParameterTypes2 = new Class[] {
-			long.class
-		};
-	private static final Class<?>[] _fetchCPDefinitionInventoryByCPDefinitionIdParameterTypes3 =
+	private static final Class<?>[] _fetchCPDefinitionInventoryByCPDefinitionIdParameterTypes2 =
 		new Class[] { long.class };
-	private static final Class<?>[] _updateCPDefinitionInventoryParameterTypes4 = new Class[] {
+	private static final Class<?>[] _updateCPDefinitionInventoryParameterTypes3 = new Class[] {
 			long.class, String.class, String.class, boolean.class, boolean.class,
 			int.class, boolean.class, int.class, int.class, String.class,
 			int.class, com.liferay.portal.kernel.service.ServiceContext.class

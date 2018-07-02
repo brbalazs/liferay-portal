@@ -82,16 +82,19 @@ public class CommerceCountryServiceUtil {
 
 	public static java.util.List<com.liferay.commerce.model.CommerceCountry> getCommerceCountries(
 		long groupId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceCountry> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.model.CommerceCountry> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .getCommerceCountries(groupId, start, end, orderByComparator);
 	}
 
-	public static int getCommerceCountriesCount(long groupId) {
+	public static int getCommerceCountriesCount(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getCommerceCountriesCount(groupId);
 	}
 
-	public static int getCommerceCountriesCount(long groupId, boolean active) {
+	public static int getCommerceCountriesCount(long groupId, boolean active)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getCommerceCountriesCount(groupId, active);
 	}
 
@@ -111,7 +114,8 @@ public class CommerceCountryServiceUtil {
 	}
 
 	public static java.util.List<com.liferay.commerce.model.CommerceCountry> getShippingCommerceCountries(
-		long groupId, boolean shippingAllowed, boolean active) {
+		long groupId, boolean shippingAllowed, boolean active)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .getShippingCommerceCountries(groupId, shippingAllowed,
 			active);
@@ -124,9 +128,10 @@ public class CommerceCountryServiceUtil {
 	}
 
 	public static com.liferay.portal.kernel.search.BaseModelSearchResult<com.liferay.commerce.model.CommerceCountry> searchCommerceCountries(
+		long groupId,
 		com.liferay.portal.kernel.search.SearchContext searchContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().searchCommerceCountries(searchContext);
+		return getService().searchCommerceCountries(groupId, searchContext);
 	}
 
 	public static com.liferay.commerce.model.CommerceCountry setActive(

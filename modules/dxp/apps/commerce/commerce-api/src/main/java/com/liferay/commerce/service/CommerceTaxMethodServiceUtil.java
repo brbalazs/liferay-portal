@@ -53,19 +53,9 @@ public class CommerceTaxMethodServiceUtil {
 			percentage, active, serviceContext);
 	}
 
-	public static com.liferay.commerce.model.CommerceTaxMethod createCommerceTaxMethod(
-		long commerceTaxMethodId) {
-		return getService().createCommerceTaxMethod(commerceTaxMethodId);
-	}
-
 	public static void deleteCommerceTaxMethod(long commerceTaxMethodId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		getService().deleteCommerceTaxMethod(commerceTaxMethodId);
-	}
-
-	public static com.liferay.commerce.model.CommerceTaxMethod fetchCommerceTaxMethod(
-		long groupId, String engineKey) {
-		return getService().fetchCommerceTaxMethod(groupId, engineKey);
 	}
 
 	public static com.liferay.commerce.model.CommerceTaxMethod getCommerceTaxMethod(
@@ -81,12 +71,9 @@ public class CommerceTaxMethodServiceUtil {
 	}
 
 	public static java.util.List<com.liferay.commerce.model.CommerceTaxMethod> getCommerceTaxMethods(
-		long groupId, boolean active) {
+		long groupId, boolean active)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getCommerceTaxMethods(groupId, active);
-	}
-
-	public static int getCommerceTaxMethodsCount(long groupId, boolean active) {
-		return getService().getCommerceTaxMethodsCount(groupId, active);
 	}
 
 	/**

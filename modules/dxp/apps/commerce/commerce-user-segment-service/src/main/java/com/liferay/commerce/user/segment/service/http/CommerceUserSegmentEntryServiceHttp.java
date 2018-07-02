@@ -258,40 +258,6 @@ public class CommerceUserSegmentEntryServiceHttp {
 		}
 	}
 
-	public static com.liferay.portal.kernel.search.BaseModelSearchResult<com.liferay.commerce.user.segment.model.CommerceUserSegmentEntry> searchCommerceUserSegmentEntries(
-		HttpPrincipal httpPrincipal,
-		com.liferay.portal.kernel.search.SearchContext searchContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceUserSegmentEntryServiceUtil.class,
-					"searchCommerceUserSegmentEntries",
-					_searchCommerceUserSegmentEntriesParameterTypes6);
-
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					searchContext);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
-			}
-
-			return (com.liferay.portal.kernel.search.BaseModelSearchResult<com.liferay.commerce.user.segment.model.CommerceUserSegmentEntry>)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
 	public static com.liferay.commerce.user.segment.model.CommerceUserSegmentEntry updateCommerceUserSegmentEntry(
 		HttpPrincipal httpPrincipal, long commerceUserSegmentEntryId,
 		java.util.Map<java.util.Locale, String> nameMap, String key,
@@ -301,7 +267,7 @@ public class CommerceUserSegmentEntryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceUserSegmentEntryServiceUtil.class,
 					"updateCommerceUserSegmentEntry",
-					_updateCommerceUserSegmentEntryParameterTypes7);
+					_updateCommerceUserSegmentEntryParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					commerceUserSegmentEntryId, nameMap, key, active, priority,
@@ -351,9 +317,7 @@ public class CommerceUserSegmentEntryServiceHttp {
 			long.class, long.class, String.class, int.class, int.class,
 			com.liferay.portal.kernel.search.Sort.class
 		};
-	private static final Class<?>[] _searchCommerceUserSegmentEntriesParameterTypes6 =
-		new Class[] { com.liferay.portal.kernel.search.SearchContext.class };
-	private static final Class<?>[] _updateCommerceUserSegmentEntryParameterTypes7 =
+	private static final Class<?>[] _updateCommerceUserSegmentEntryParameterTypes6 =
 		new Class[] {
 			long.class, java.util.Map.class, String.class, boolean.class,
 			double.class, com.liferay.portal.kernel.service.ServiceContext.class

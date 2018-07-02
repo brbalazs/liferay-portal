@@ -65,10 +65,6 @@ public interface CPDefinitionInventoryService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public CPDefinitionInventory fetchCPDefinitionInventory(
-		long cpDefinitionInventoryId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CPDefinitionInventory fetchCPDefinitionInventoryByCPDefinitionId(
 		long cpDefinitionId) throws PortalException;
 

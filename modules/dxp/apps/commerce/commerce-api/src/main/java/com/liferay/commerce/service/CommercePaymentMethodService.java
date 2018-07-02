@@ -77,18 +77,16 @@ public interface CommercePaymentMethodService extends BaseService {
 		long commercePaymentMethodId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommercePaymentMethod> getCommercePaymentMethods(long groupId);
+	public List<CommercePaymentMethod> getCommercePaymentMethods(long groupId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePaymentMethod> getCommercePaymentMethods(long groupId,
-		boolean active);
+		boolean active) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommercePaymentMethod> getCommercePaymentMethods(long groupId,
-		long commerceCountryId, boolean active);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommercePaymentMethodsCount(long groupId, boolean active);
+	public int getCommercePaymentMethodsCount(long groupId, boolean active)
+		throws PortalException;
 
 	/**
 	* Returns the OSGi service identifier.

@@ -62,13 +62,15 @@ public class CommerceShippingFixedOptionServiceUtil {
 	}
 
 	public static com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOption fetchCommerceShippingFixedOption(
-		long commerceShippingFixedOptionId) {
+		long commerceShippingFixedOptionId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .fetchCommerceShippingFixedOption(commerceShippingFixedOptionId);
 	}
 
 	public static java.util.List<com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOption> getCommerceShippingFixedOptions(
-		long commerceShippingMethodId, int start, int end) {
+		long commerceShippingMethodId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .getCommerceShippingFixedOptions(commerceShippingMethodId,
 			start, end);
@@ -76,14 +78,16 @@ public class CommerceShippingFixedOptionServiceUtil {
 
 	public static java.util.List<com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOption> getCommerceShippingFixedOptions(
 		long commerceShippingMethodId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOption> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOption> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .getCommerceShippingFixedOptions(commerceShippingMethodId,
 			start, end, orderByComparator);
 	}
 
 	public static int getCommerceShippingFixedOptionsCount(
-		long commerceShippingMethodId) {
+		long commerceShippingMethodId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .getCommerceShippingFixedOptionsCount(commerceShippingMethodId);
 	}

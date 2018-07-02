@@ -59,12 +59,6 @@ public class CPSpecificationOptionServiceUtil {
 		getService().deleteCPSpecificationOption(cpSpecificationOptionId);
 	}
 
-	public static com.liferay.commerce.product.model.CPSpecificationOption fetchCPSpecificationOption(
-		long cpSpecificationOptionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().fetchCPSpecificationOption(cpSpecificationOptionId);
-	}
-
 	public static com.liferay.commerce.product.model.CPSpecificationOption getCPSpecificationOption(
 		long cpSpecificationOptionId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -80,7 +74,8 @@ public class CPSpecificationOptionServiceUtil {
 			orderByComparator);
 	}
 
-	public static int getCPSpecificationOptionsCount(long groupId) {
+	public static int getCPSpecificationOptionsCount(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getCPSpecificationOptionsCount(groupId);
 	}
 

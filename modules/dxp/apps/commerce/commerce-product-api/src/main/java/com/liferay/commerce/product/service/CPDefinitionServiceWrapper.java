@@ -123,27 +123,31 @@ public class CPDefinitionServiceWrapper implements CPDefinitionService,
 	public java.util.List<com.liferay.commerce.product.model.CPDefinition> getCPDefinitions(
 		long groupId, String productTypeName, String languageId, int status,
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.product.model.CPDefinition> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.product.model.CPDefinition> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _cpDefinitionService.getCPDefinitions(groupId, productTypeName,
 			languageId, status, start, end, orderByComparator);
 	}
 
 	@Override
 	public java.util.List<com.liferay.commerce.product.model.CPDefinition> getCPDefinitionsByCategoryId(
-		long categoryId, int start, int end) {
+		long categoryId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _cpDefinitionService.getCPDefinitionsByCategoryId(categoryId,
 			start, end);
 	}
 
 	@Override
 	public int getCPDefinitionsCount(long groupId, String productTypeName,
-		String languageId, int status) {
+		String languageId, int status)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _cpDefinitionService.getCPDefinitionsCount(groupId,
 			productTypeName, languageId, status);
 	}
 
 	@Override
-	public int getCPDefinitionsCountByCategoryId(long categoryId) {
+	public int getCPDefinitionsCountByCategoryId(long categoryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _cpDefinitionService.getCPDefinitionsCountByCategoryId(categoryId);
 	}
 

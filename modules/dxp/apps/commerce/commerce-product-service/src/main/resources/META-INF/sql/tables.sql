@@ -184,7 +184,7 @@ create table CPInstance (
 	gtin VARCHAR(75) null,
 	manufacturerPartNumber VARCHAR(75) null,
 	purchasable BOOLEAN,
-	DDMContent TEXT null,
+	json TEXT null,
 	width DOUBLE,
 	height DOUBLE,
 	depth DOUBLE,

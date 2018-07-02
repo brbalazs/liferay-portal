@@ -123,7 +123,8 @@ public class CommerceShippingFixedOptionServiceHttp {
 	}
 
 	public static com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOption fetchCommerceShippingFixedOption(
-		HttpPrincipal httpPrincipal, long commerceShippingFixedOptionId) {
+		HttpPrincipal httpPrincipal, long commerceShippingFixedOptionId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceShippingFixedOptionServiceUtil.class,
 					"fetchCommerceShippingFixedOption",
@@ -138,6 +139,10 @@ public class CommerceShippingFixedOptionServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -152,7 +157,7 @@ public class CommerceShippingFixedOptionServiceHttp {
 
 	public static java.util.List<com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOption> getCommerceShippingFixedOptions(
 		HttpPrincipal httpPrincipal, long commerceShippingMethodId, int start,
-		int end) {
+		int end) throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceShippingFixedOptionServiceUtil.class,
 					"getCommerceShippingFixedOptions",
@@ -167,6 +172,10 @@ public class CommerceShippingFixedOptionServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -182,7 +191,8 @@ public class CommerceShippingFixedOptionServiceHttp {
 	public static java.util.List<com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOption> getCommerceShippingFixedOptions(
 		HttpPrincipal httpPrincipal, long commerceShippingMethodId, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOption> orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOption> orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceShippingFixedOptionServiceUtil.class,
 					"getCommerceShippingFixedOptions",
@@ -197,6 +207,10 @@ public class CommerceShippingFixedOptionServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -210,7 +224,8 @@ public class CommerceShippingFixedOptionServiceHttp {
 	}
 
 	public static int getCommerceShippingFixedOptionsCount(
-		HttpPrincipal httpPrincipal, long commerceShippingMethodId) {
+		HttpPrincipal httpPrincipal, long commerceShippingMethodId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceShippingFixedOptionServiceUtil.class,
 					"getCommerceShippingFixedOptionsCount",
@@ -225,6 +240,10 @@ public class CommerceShippingFixedOptionServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 

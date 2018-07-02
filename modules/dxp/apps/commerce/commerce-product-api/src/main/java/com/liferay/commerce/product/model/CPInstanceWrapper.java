@@ -74,7 +74,7 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 		attributes.put("gtin", getGtin());
 		attributes.put("manufacturerPartNumber", getManufacturerPartNumber());
 		attributes.put("purchasable", isPurchasable());
-		attributes.put("DDMContent", getDDMContent());
+		attributes.put("json", getJson());
 		attributes.put("width", getWidth());
 		attributes.put("height", getHeight());
 		attributes.put("depth", getDepth());
@@ -176,10 +176,10 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 			setPurchasable(purchasable);
 		}
 
-		String DDMContent = (String)attributes.get("DDMContent");
+		String json = (String)attributes.get("json");
 
-		if (DDMContent != null) {
-			setDDMContent(DDMContent);
+		if (json != null) {
+			setJson(json);
 		}
 
 		Double width = (Double)attributes.get("width");
@@ -347,16 +347,6 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 	}
 
 	/**
-	* Returns the ddm content of this cp instance.
-	*
-	* @return the ddm content of this cp instance
-	*/
-	@Override
-	public String getDDMContent() {
-		return _cpInstance.getDDMContent();
-	}
-
-	/**
 	* Returns the depth of this cp instance.
 	*
 	* @return the depth of this cp instance
@@ -429,6 +419,16 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 	@Override
 	public double getHeight() {
 		return _cpInstance.getHeight();
+	}
+
+	/**
+	* Returns the json of this cp instance.
+	*
+	* @return the json of this cp instance
+	*/
+	@Override
+	public String getJson() {
+		return _cpInstance.getJson();
 	}
 
 	/**
@@ -880,16 +880,6 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 	}
 
 	/**
-	* Sets the ddm content of this cp instance.
-	*
-	* @param DDMContent the ddm content of this cp instance
-	*/
-	@Override
-	public void setDDMContent(String DDMContent) {
-		_cpInstance.setDDMContent(DDMContent);
-	}
-
-	/**
 	* Sets the depth of this cp instance.
 	*
 	* @param depth the depth of this cp instance
@@ -973,6 +963,16 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 	@Override
 	public void setHeight(double height) {
 		_cpInstance.setHeight(height);
+	}
+
+	/**
+	* Sets the json of this cp instance.
+	*
+	* @param json the json of this cp instance
+	*/
+	@Override
+	public void setJson(String json) {
+		_cpInstance.setJson(json);
 	}
 
 	/**
