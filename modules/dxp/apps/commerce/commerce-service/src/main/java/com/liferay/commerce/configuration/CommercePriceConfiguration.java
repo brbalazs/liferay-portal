@@ -28,7 +28,9 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 )
 public interface CommercePriceConfiguration {
 
-	@Meta.AD(deflt = "true", name = "display-discount-levels", required = false)
+	@Meta.AD(
+		deflt = "false", name = "display-discount-levels", required = false
+	)
 	public boolean displayDiscountLevels();
 
 }
