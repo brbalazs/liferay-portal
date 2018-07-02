@@ -132,10 +132,6 @@ public class CommerceOrderPriceCalculationImpl
 
 		BigDecimal taxValue = BigDecimal.ZERO;
 
-		for (CommerceOrderItem commerceOrderItem :
-				commerceOrder.getCommerceOrderItems()) {
-		}
-
 		return _commerceMoneyFactory.create(
 			commerceContext.getCommerceCurrency(), taxValue);
 	}

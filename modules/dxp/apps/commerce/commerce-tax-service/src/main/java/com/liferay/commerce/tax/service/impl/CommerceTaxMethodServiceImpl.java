@@ -158,8 +158,8 @@ public class CommerceTaxMethodServiceImpl
 
 	private static volatile PortletResourcePermission
 		_portletResourcePermission =
-		PortletResourcePermissionFactory.getInstance(
-			CommerceTaxMethodServiceImpl.class, "_portletResourcePermission",
-			CommerceConstants.RESOURCE_NAME);
+			PortletResourcePermissionFactory.getInstance(
+				CommerceTaxMethodServiceImpl.class,
+				"_portletResourcePermission", CommerceConstants.RESOURCE_NAME);
 
 }
