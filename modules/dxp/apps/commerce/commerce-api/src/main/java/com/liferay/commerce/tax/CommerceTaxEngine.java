@@ -12,17 +12,30 @@
  * details.
  */
 
-package com.liferay.commerce.model.impl;
+package com.liferay.commerce.model;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.commerce.exception.CommerceTaxEngineException;
+import com.liferay.commerce.tax.CommerceTaxCalculateRequest;
+import com.liferay.commerce.tax.CommerceTaxRate;
+
+import java.util.List;
+import java.util.Locale;
+
 /**
+ * @author Marco Leo
  * @author Alessio Antonio Rendina
  */
 @ProviderType
-public class CommerceTaxMethodImpl extends CommerceTaxMethodBaseImpl {
+public interface CommerceTaxEngine {
 
-	public CommerceTaxMethodImpl() {
-	}
+	public List<CommerceTaxRate> getCommerceTaxRates(
+			CommerceTaxCalculateRequest commerceTaxCalculateRequest)
+		throws CommerceTaxEngineException;
+
+	public String getDescription(Locale locale);
+
+	public String getName(Locale locale);
 
 }

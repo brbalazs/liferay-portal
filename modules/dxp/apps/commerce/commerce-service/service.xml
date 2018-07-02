@@ -681,52 +681,6 @@
 
 		<reference entity="Image" package-path="com.liferay.portal" />
 	</entity>
-	<entity local-service="true" name="CommerceTaxMethod" remote-service="true">
-
-		<!-- PK fields -->
-
-		<column name="commerceTaxMethodId" primary="true" type="long" />
-
-		<!-- Group instance -->
-
-		<column name="groupId" type="long" />
-
-		<!-- Audit fields -->
-
-		<column name="companyId" type="long" />
-		<column name="userId" type="long" />
-		<column name="userName" type="String" />
-		<column name="createDate" type="Date" />
-		<column name="modifiedDate" type="Date" />
-
-		<!-- Other fields -->
-
-		<column localized="true" name="name" type="String" />
-		<column localized="true" name="description" type="String" />
-		<column name="engineKey" type="String" />
-		<column name="percentage" type="boolean" />
-		<column name="active" type="boolean" />
-
-		<!-- Order -->
-
-		<order by="desc">
-			<order-column name="createDate" />
-		</order>
-
-		<!-- Finder methods -->
-
-		<finder name="GroupId" return-type="Collection">
-			<finder-column name="groupId" />
-		</finder>
-		<finder name="G_E" return-type="CommerceTaxMethod" unique="true">
-			<finder-column name="groupId" />
-			<finder-column name="engineKey" />
-		</finder>
-		<finder name="G_A" return-type="Collection">
-			<finder-column name="groupId" />
-			<finder-column name="active" />
-		</finder>
-	</entity>
 	<entity local-service="true" name="CommerceWarehouse" remote-service="true">
 
 		<!-- PK fields -->
@@ -927,9 +881,6 @@
 		<exception>CommerceShippingEngine</exception>
 		<exception>CommerceShippingMethodEngineKey</exception>
 		<exception>CommerceShippingMethodName</exception>
-		<exception>CommerceTaxEngine</exception>
-		<exception>CommerceTaxMethodEngineKey</exception>
-		<exception>CommerceTaxMethodName</exception>
 		<exception>CommerceWarehouseActive</exception>
 		<exception>CommerceWarehouseCommerceRegionId</exception>
 		<exception>CommerceWarehouseName</exception>

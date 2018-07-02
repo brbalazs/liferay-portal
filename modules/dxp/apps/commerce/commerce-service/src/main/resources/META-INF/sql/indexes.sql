@@ -59,9 +59,6 @@ create index IX_DB0BB83C on CommerceShipmentItem (groupId);
 create index IX_42E5F6EF on CommerceShippingMethod (groupId, active_);
 create unique index IX_C4557F93 on CommerceShippingMethod (groupId, engineKey[$COLUMN_LENGTH:75$]);
 
-create index IX_F3810116 on CommerceTaxMethod (groupId, active_);
-create unique index IX_BA569BFA on CommerceTaxMethod (groupId, engineKey[$COLUMN_LENGTH:75$]);
-
 create index IX_81487FD9 on CommerceWarehouse (groupId, active_, commerceCountryId);
 create index IX_4500A0CA on CommerceWarehouse (groupId, commerceCountryId);
 create index IX_5F7D8BED on CommerceWarehouse (groupId, primary_);

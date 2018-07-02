@@ -12,28 +12,35 @@
  * details.
  */
 
-package com.liferay.commerce.model;
+package com.liferay.commerce.tax;
 
-import aQute.bnd.annotation.ProviderType;
-
-import com.liferay.commerce.exception.CommerceTaxEngineException;
-
-import java.util.List;
-import java.util.Locale;
+import java.math.BigDecimal;
 
 /**
  * @author Marco Leo
- * @author Alessio Antonio Rendina
  */
-@ProviderType
-public interface CommerceTaxEngine {
+public class CommerceTaxRate {
 
-	public List<CommerceTaxRate> getCommerceTaxRates(
-			CommerceTaxCalculateRequest commerceTaxCalculateRequest)
-		throws CommerceTaxEngineException;
+	public CommerceTaxRate(String name, String label, BigDecimal rate) {
+		_name = name;
+		_label = label;
+		_rate = rate;
+	}
 
-	public String getDescription(Locale locale);
+	public String getLabel() {
+		return _label;
+	}
 
-	public String getName(Locale locale);
+	public String getName() {
+		return _name;
+	}
+
+	public BigDecimal getRate() {
+		return _rate;
+	}
+
+	private final String _label;
+	private final String _name;
+	private final BigDecimal _rate;
 
 }
