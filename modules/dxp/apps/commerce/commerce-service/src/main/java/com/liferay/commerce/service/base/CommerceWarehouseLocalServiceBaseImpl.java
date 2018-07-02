@@ -37,7 +37,6 @@ import com.liferay.commerce.service.persistence.CommerceShipmentItemFinder;
 import com.liferay.commerce.service.persistence.CommerceShipmentItemPersistence;
 import com.liferay.commerce.service.persistence.CommerceShipmentPersistence;
 import com.liferay.commerce.service.persistence.CommerceShippingMethodPersistence;
-import com.liferay.commerce.service.persistence.CommerceTaxMethodPersistence;
 import com.liferay.commerce.service.persistence.CommerceWarehouseFinder;
 import com.liferay.commerce.service.persistence.CommerceWarehouseItemFinder;
 import com.liferay.commerce.service.persistence.CommerceWarehouseItemPersistence;
@@ -912,44 +911,6 @@ public abstract class CommerceWarehouseLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the commerce tax method local service.
-	 *
-	 * @return the commerce tax method local service
-	 */
-	public com.liferay.commerce.service.CommerceTaxMethodLocalService getCommerceTaxMethodLocalService() {
-		return commerceTaxMethodLocalService;
-	}
-
-	/**
-	 * Sets the commerce tax method local service.
-	 *
-	 * @param commerceTaxMethodLocalService the commerce tax method local service
-	 */
-	public void setCommerceTaxMethodLocalService(
-		com.liferay.commerce.service.CommerceTaxMethodLocalService commerceTaxMethodLocalService) {
-		this.commerceTaxMethodLocalService = commerceTaxMethodLocalService;
-	}
-
-	/**
-	 * Returns the commerce tax method persistence.
-	 *
-	 * @return the commerce tax method persistence
-	 */
-	public CommerceTaxMethodPersistence getCommerceTaxMethodPersistence() {
-		return commerceTaxMethodPersistence;
-	}
-
-	/**
-	 * Sets the commerce tax method persistence.
-	 *
-	 * @param commerceTaxMethodPersistence the commerce tax method persistence
-	 */
-	public void setCommerceTaxMethodPersistence(
-		CommerceTaxMethodPersistence commerceTaxMethodPersistence) {
-		this.commerceTaxMethodPersistence = commerceTaxMethodPersistence;
-	}
-
-	/**
 	 * Returns the commerce warehouse local service.
 	 *
 	 * @return the commerce warehouse local service
@@ -1364,10 +1325,6 @@ public abstract class CommerceWarehouseLocalServiceBaseImpl
 	protected com.liferay.commerce.service.CommerceShippingMethodLocalService commerceShippingMethodLocalService;
 	@BeanReference(type = CommerceShippingMethodPersistence.class)
 	protected CommerceShippingMethodPersistence commerceShippingMethodPersistence;
-	@BeanReference(type = com.liferay.commerce.service.CommerceTaxMethodLocalService.class)
-	protected com.liferay.commerce.service.CommerceTaxMethodLocalService commerceTaxMethodLocalService;
-	@BeanReference(type = CommerceTaxMethodPersistence.class)
-	protected CommerceTaxMethodPersistence commerceTaxMethodPersistence;
 	@BeanReference(type = CommerceWarehouseLocalService.class)
 	protected CommerceWarehouseLocalService commerceWarehouseLocalService;
 	@BeanReference(type = CommerceWarehousePersistence.class)

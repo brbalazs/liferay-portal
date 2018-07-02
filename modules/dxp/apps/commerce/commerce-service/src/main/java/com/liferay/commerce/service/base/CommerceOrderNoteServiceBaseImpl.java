@@ -35,7 +35,6 @@ import com.liferay.commerce.service.persistence.CommerceShipmentItemFinder;
 import com.liferay.commerce.service.persistence.CommerceShipmentItemPersistence;
 import com.liferay.commerce.service.persistence.CommerceShipmentPersistence;
 import com.liferay.commerce.service.persistence.CommerceShippingMethodPersistence;
-import com.liferay.commerce.service.persistence.CommerceTaxMethodPersistence;
 import com.liferay.commerce.service.persistence.CommerceWarehouseFinder;
 import com.liferay.commerce.service.persistence.CommerceWarehouseItemFinder;
 import com.liferay.commerce.service.persistence.CommerceWarehouseItemPersistence;
@@ -874,63 +873,6 @@ public abstract class CommerceOrderNoteServiceBaseImpl extends BaseServiceImpl
 	}
 
 	/**
-	 * Returns the commerce tax method local service.
-	 *
-	 * @return the commerce tax method local service
-	 */
-	public com.liferay.commerce.service.CommerceTaxMethodLocalService getCommerceTaxMethodLocalService() {
-		return commerceTaxMethodLocalService;
-	}
-
-	/**
-	 * Sets the commerce tax method local service.
-	 *
-	 * @param commerceTaxMethodLocalService the commerce tax method local service
-	 */
-	public void setCommerceTaxMethodLocalService(
-		com.liferay.commerce.service.CommerceTaxMethodLocalService commerceTaxMethodLocalService) {
-		this.commerceTaxMethodLocalService = commerceTaxMethodLocalService;
-	}
-
-	/**
-	 * Returns the commerce tax method remote service.
-	 *
-	 * @return the commerce tax method remote service
-	 */
-	public com.liferay.commerce.service.CommerceTaxMethodService getCommerceTaxMethodService() {
-		return commerceTaxMethodService;
-	}
-
-	/**
-	 * Sets the commerce tax method remote service.
-	 *
-	 * @param commerceTaxMethodService the commerce tax method remote service
-	 */
-	public void setCommerceTaxMethodService(
-		com.liferay.commerce.service.CommerceTaxMethodService commerceTaxMethodService) {
-		this.commerceTaxMethodService = commerceTaxMethodService;
-	}
-
-	/**
-	 * Returns the commerce tax method persistence.
-	 *
-	 * @return the commerce tax method persistence
-	 */
-	public CommerceTaxMethodPersistence getCommerceTaxMethodPersistence() {
-		return commerceTaxMethodPersistence;
-	}
-
-	/**
-	 * Sets the commerce tax method persistence.
-	 *
-	 * @param commerceTaxMethodPersistence the commerce tax method persistence
-	 */
-	public void setCommerceTaxMethodPersistence(
-		CommerceTaxMethodPersistence commerceTaxMethodPersistence) {
-		this.commerceTaxMethodPersistence = commerceTaxMethodPersistence;
-	}
-
-	/**
 	 * Returns the commerce warehouse local service.
 	 *
 	 * @return the commerce warehouse local service
@@ -1479,12 +1421,6 @@ public abstract class CommerceOrderNoteServiceBaseImpl extends BaseServiceImpl
 	protected com.liferay.commerce.service.CommerceShippingMethodService commerceShippingMethodService;
 	@BeanReference(type = CommerceShippingMethodPersistence.class)
 	protected CommerceShippingMethodPersistence commerceShippingMethodPersistence;
-	@BeanReference(type = com.liferay.commerce.service.CommerceTaxMethodLocalService.class)
-	protected com.liferay.commerce.service.CommerceTaxMethodLocalService commerceTaxMethodLocalService;
-	@BeanReference(type = com.liferay.commerce.service.CommerceTaxMethodService.class)
-	protected com.liferay.commerce.service.CommerceTaxMethodService commerceTaxMethodService;
-	@BeanReference(type = CommerceTaxMethodPersistence.class)
-	protected CommerceTaxMethodPersistence commerceTaxMethodPersistence;
 	@BeanReference(type = com.liferay.commerce.service.CommerceWarehouseLocalService.class)
 	protected com.liferay.commerce.service.CommerceWarehouseLocalService commerceWarehouseLocalService;
 	@BeanReference(type = com.liferay.commerce.service.CommerceWarehouseService.class)

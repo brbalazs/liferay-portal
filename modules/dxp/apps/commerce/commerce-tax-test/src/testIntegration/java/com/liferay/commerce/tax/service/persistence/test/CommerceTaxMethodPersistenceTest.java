@@ -12,15 +12,15 @@
  *
  */
 
-package com.liferay.commerce.service.persistence.test;
+package com.liferay.commerce.tax.service.persistence.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 
-import com.liferay.commerce.exception.NoSuchTaxMethodException;
-import com.liferay.commerce.model.CommerceTaxMethod;
-import com.liferay.commerce.service.CommerceTaxMethodLocalServiceUtil;
-import com.liferay.commerce.service.persistence.CommerceTaxMethodPersistence;
-import com.liferay.commerce.service.persistence.CommerceTaxMethodUtil;
+import com.liferay.commerce.tax.exception.NoSuchTaxMethodException;
+import com.liferay.commerce.tax.model.CommerceTaxMethod;
+import com.liferay.commerce.tax.service.CommerceTaxMethodLocalServiceUtil;
+import com.liferay.commerce.tax.service.persistence.CommerceTaxMethodPersistence;
+import com.liferay.commerce.tax.service.persistence.CommerceTaxMethodUtil;
 
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
@@ -69,7 +69,7 @@ public class CommerceTaxMethodPersistenceTest {
 	public static final AggregateTestRule aggregateTestRule = new AggregateTestRule(new LiferayIntegrationTestRule(),
 			PersistenceTestRule.INSTANCE,
 			new TransactionalTestRule(Propagation.REQUIRED,
-				"com.liferay.commerce.service"));
+				"com.liferay.commerce.tax.service"));
 
 	@Before
 	public void setUp() {
