@@ -57,6 +57,12 @@ public class CommerceShippingHelperImpl implements CommerceShippingHelper {
 		double volume = 0;
 
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
+			CPDefinition cpDefinition = commerceOrderItem.getCPDefinition();
+
+			if (!cpDefinition.isShippable() || cpDefinition.isFreeShipping()) {
+				continue;
+			}
+
 			Dimensions dimensions = getDimensions(
 				commerceOrderItem.getCPInstance());
 
@@ -96,12 +102,35 @@ public class CommerceShippingHelperImpl implements CommerceShippingHelper {
 		double weight = 0;
 
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
+			CPDefinition cpDefinition = commerceOrderItem.getCPDefinition();
+
+			if (!cpDefinition.isShippable() || cpDefinition.isFreeShipping()) {
+				continue;
+			}
+
 			weight +=
 				getWeight(commerceOrderItem.getCPInstance()) *
 					commerceOrderItem.getQuantity();
 		}
 
 		return weight;
+	}
+
+	@Override
+	public boolean isFreeShipping(CommerceOrder commerceOrder)
+		throws PortalException {
+
+		for (CommerceOrderItem commerceOrderItem :
+				commerceOrder.getCommerceOrderItems()) {
+
+			CPDefinition cpDefinition = commerceOrderItem.getCPDefinition();
+
+			if (cpDefinition.isFreeShipping()) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	@Override
