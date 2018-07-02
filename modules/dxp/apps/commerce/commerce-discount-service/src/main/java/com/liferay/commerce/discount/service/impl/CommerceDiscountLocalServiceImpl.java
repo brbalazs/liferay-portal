@@ -76,10 +76,10 @@ public class CommerceDiscountLocalServiceImpl
 			String title, String target, boolean useCouponCode,
 			String couponCode, boolean usePercentage,
 			BigDecimal maximumDiscountAmount, BigDecimal level1,
-			BigDecimal level2, BigDecimal level3, String limitationType,
-			int limitationTimes, boolean active, int displayDateMonth,
-			int displayDateDay, int displayDateYear, int displayDateHour,
-			int displayDateMinute, int expirationDateMonth,
+			BigDecimal level2, BigDecimal level3, BigDecimal level4,
+			String limitationType, int limitationTimes, boolean active,
+			int displayDateMonth, int displayDateDay, int displayDateYear,
+			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
 			boolean neverExpire, ServiceContext serviceContext)
@@ -128,6 +128,7 @@ public class CommerceDiscountLocalServiceImpl
 		commerceDiscount.setLevel1(level1);
 		commerceDiscount.setLevel2(level2);
 		commerceDiscount.setLevel3(level3);
+		commerceDiscount.setLevel4(level4);
 		commerceDiscount.setLimitationType(limitationType);
 		commerceDiscount.setLimitationTimes(limitationTimes);
 		commerceDiscount.setActive(active);
@@ -314,10 +315,10 @@ public class CommerceDiscountLocalServiceImpl
 			long commerceDiscountId, String title, String target,
 			boolean useCouponCode, String couponCode, boolean usePercentage,
 			BigDecimal maximumDiscountAmount, BigDecimal level1,
-			BigDecimal level2, BigDecimal level3, String limitationType,
-			int limitationTimes, boolean active, int displayDateMonth,
-			int displayDateDay, int displayDateYear, int displayDateHour,
-			int displayDateMinute, int expirationDateMonth,
+			BigDecimal level2, BigDecimal level3, BigDecimal level4,
+			String limitationType, int limitationTimes, boolean active,
+			int displayDateMonth, int displayDateDay, int displayDateYear,
+			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
 			boolean neverExpire, ServiceContext serviceContext)
@@ -356,6 +357,7 @@ public class CommerceDiscountLocalServiceImpl
 		commerceDiscount.setLevel1(level1);
 		commerceDiscount.setLevel2(level2);
 		commerceDiscount.setLevel3(level3);
+		commerceDiscount.setLevel4(level4);
 		commerceDiscount.setLimitationType(limitationType);
 		commerceDiscount.setLimitationTimes(limitationTimes);
 		commerceDiscount.setActive(active);
