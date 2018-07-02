@@ -184,13 +184,6 @@ public class CommercePriceEntryLocalServiceImpl
 	}
 
 	@Override
-	public List<CommercePriceEntry> fetchCommercePriceEntries(
-		long groupId, int start, int end) {
-
-		return commercePriceEntryPersistence.findByGroupId(groupId, start, end);
-	}
-
-	@Override
 	public CommercePriceEntry fetchCommercePriceEntry(
 		long cpInstanceId, long commercePriceListId) {
 
@@ -213,6 +206,13 @@ public class CommercePriceEntryLocalServiceImpl
 
 		return commercePriceEntryPersistence.findByCommercePriceListId(
 			commercePriceListId, start, end, orderByComparator);
+	}
+
+	@Override
+	public List<CommercePriceEntry> getCommercePriceEntriesByGroupId(
+		long groupId, int start, int end) {
+
+		return commercePriceEntryPersistence.findByGroupId(groupId, start, end);
 	}
 
 	@Override
