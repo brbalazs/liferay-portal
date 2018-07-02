@@ -33,6 +33,7 @@
 		<column name="level1" type="BigDecimal" />
 		<column name="level2" type="BigDecimal" />
 		<column name="level3" type="BigDecimal" />
+		<column name="level4" type="BigDecimal" />
 		<column name="limitationType" type="String" />
 		<column name="limitationTimes" type="int" />
 		<column name="numberOfUse" type="int" />
