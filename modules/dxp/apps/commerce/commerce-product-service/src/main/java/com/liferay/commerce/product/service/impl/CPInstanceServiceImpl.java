@@ -21,7 +21,6 @@ import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.base.CPInstanceServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
-import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
@@ -44,13 +43,13 @@ public class CPInstanceServiceImpl extends CPInstanceServiceBaseImpl {
 	@Override
 	public CPInstance addCPInstance(
 			long cpDefinitionId, String sku, String gtin,
-			String manufacturerPartNumber, boolean purchasable,
-			String ddmContent, boolean published, int displayDateMonth,
-			int displayDateDay, int displayDateYear, int displayDateHour,
-			int displayDateMinute, int expirationDateMonth,
-			int expirationDateDay, int expirationDateYear,
-			int expirationDateHour, int expirationDateMinute,
-			boolean neverExpire, ServiceContext serviceContext)
+			String manufacturerPartNumber, boolean purchasable, String json,
+			boolean published, int displayDateMonth, int displayDateDay,
+			int displayDateYear, int displayDateHour, int displayDateMinute,
+			int expirationDateMonth, int expirationDateDay,
+			int expirationDateYear, int expirationDateHour,
+			int expirationDateMinute, boolean neverExpire,
+			ServiceContext serviceContext)
 		throws PortalException {
 
 		_cpDefinitionModelResourcePermission.check(
@@ -58,11 +57,10 @@ public class CPInstanceServiceImpl extends CPInstanceServiceBaseImpl {
 
 		return cpInstanceLocalService.addCPInstance(
 			cpDefinitionId, sku, gtin, manufacturerPartNumber, purchasable,
-			ddmContent, published, displayDateMonth, displayDateDay,
-			displayDateYear, displayDateHour, displayDateMinute,
-			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, neverExpire,
-			serviceContext);
+			json, published, displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear, expirationDateHour,
+			expirationDateMinute, neverExpire, serviceContext);
 	}
 
 	@Override
@@ -196,14 +194,6 @@ public class CPInstanceServiceImpl extends CPInstanceServiceBaseImpl {
 	}
 
 	@Override
-	public BaseModelSearchResult<CPInstance> searchCPInstances(
-			SearchContext searchContext)
-		throws PortalException {
-
-		return cpInstanceLocalService.searchCPInstances(searchContext);
-	}
-
-	@Override
 	public CPInstance updateCPInstance(
 			long cpInstanceId, String sku, String gtin,
 			String manufacturerPartNumber, boolean purchasable,
@@ -267,10 +257,10 @@ public class CPInstanceServiceImpl extends CPInstanceServiceBaseImpl {
 	@Override
 	public CPInstance upsertCPInstance(
 			long cpDefinitionId, String sku, String gtin,
-			String manufacturerPartNumber, boolean purchasable,
-			String ddmContent, double width, double height, double depth,
-			double weight, BigDecimal price, BigDecimal promoPrice,
-			BigDecimal cost, boolean published, String externalReferenceCode,
+			String manufacturerPartNumber, boolean purchasable, String json,
+			double width, double height, double depth, double weight,
+			BigDecimal price, BigDecimal promoPrice, BigDecimal cost,
+			boolean published, String externalReferenceCode,
 			int displayDateMonth, int displayDateDay, int displayDateYear,
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
@@ -295,7 +285,7 @@ public class CPInstanceServiceImpl extends CPInstanceServiceBaseImpl {
 
 		return cpInstanceLocalService.upsertCPInstance(
 			cpDefinitionId, sku, gtin, manufacturerPartNumber, purchasable,
-			ddmContent, width, height, depth, weight, price, promoPrice, cost,
+			json, width, height, depth, weight, price, promoPrice, cost,
 			published, externalReferenceCode, displayDateMonth, displayDateDay,
 			displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
