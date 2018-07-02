@@ -15,9 +15,9 @@
 package com.liferay.commerce.tax.engine.fixed.internal.engine;
 
 import com.liferay.commerce.exception.CommerceTaxEngineException;
-import com.liferay.commerce.model.CommerceTaxCalculateRequest;
-import com.liferay.commerce.model.CommerceTaxEngine;
-import com.liferay.commerce.model.CommerceTaxRate;
+import com.liferay.commerce.tax.CommerceTaxCalculateRequest;
+import com.liferay.commerce.tax.CommerceTaxEngine;
+import com.liferay.commerce.tax.CommerceTaxValue;
 import com.liferay.commerce.tax.engine.fixed.model.CommerceTaxFixedRate;
 import com.liferay.commerce.tax.engine.fixed.service.CommerceTaxFixedRateLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -26,8 +26,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -48,11 +47,11 @@ public class FixedCommerceTaxEngine implements CommerceTaxEngine {
 	public static final String KEY = "fixed-tax";
 
 	@Override
-	public List<CommerceTaxRate> getCommerceTaxRates(
+	public CommerceTaxValue getCommerceTaxRate(
 			CommerceTaxCalculateRequest commerceTaxCalculateRequest)
 		throws CommerceTaxEngineException {
 
-		List<CommerceTaxRate> commerceTaxRates = new ArrayList<>();
+		CommerceTaxValue commerceTaxValue = null;
 
 		try {
 			CommerceTaxFixedRate commerceTaxFixedRate =
@@ -60,10 +59,8 @@ public class FixedCommerceTaxEngine implements CommerceTaxEngine {
 					commerceTaxCalculateRequest.getTaxCategoryId(),
 					commerceTaxCalculateRequest.getCommerceTaxMethodId());
 
-			CommerceTaxRate commerceTaxRate = new CommerceTaxRate(
-				KEY, KEY, commerceTaxFixedRate.getRate());
-
-			commerceTaxRates.add(commerceTaxRate);
+			commerceTaxValue = new CommerceTaxValue(
+				KEY, KEY, BigDecimal.valueOf(commerceTaxFixedRate.getRate()));
 		}
 		catch (PortalException pe) {
 			_log.error(pe, pe);
@@ -71,7 +68,7 @@ public class FixedCommerceTaxEngine implements CommerceTaxEngine {
 			throw new CommerceTaxEngineException(pe);
 		}
 
-		return commerceTaxRates;
+		return commerceTaxValue;
 	}
 
 	@Override

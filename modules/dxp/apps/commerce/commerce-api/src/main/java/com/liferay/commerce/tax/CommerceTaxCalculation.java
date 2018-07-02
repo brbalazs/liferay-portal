@@ -16,9 +16,27 @@ package com.liferay.commerce.tax;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.portal.kernel.exception.PortalException;
+
+import java.math.BigDecimal;
+
+import java.util.List;
+
 /**
  * @author Marco Leo
  */
 @ProviderType
 public interface CommerceTaxCalculation {
+
+	public List<CommerceTaxValue> getCommerceTaxValues(
+			CommerceOrder commerceOrder, CommerceContext commerceContext)
+		throws PortalException;
+
+	public List<CommerceTaxValue> getCommerceTaxValues(
+			long groupId, long cpInstanceId, long commerceOrderId,
+			BigDecimal amount, CommerceContext commerceContext)
+		throws PortalException;
+
 }

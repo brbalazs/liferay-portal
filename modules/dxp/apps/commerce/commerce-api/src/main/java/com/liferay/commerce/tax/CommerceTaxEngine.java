@@ -12,15 +12,12 @@
  * details.
  */
 
-package com.liferay.commerce.model;
+package com.liferay.commerce.tax;
 
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.exception.CommerceTaxEngineException;
-import com.liferay.commerce.tax.CommerceTaxCalculateRequest;
-import com.liferay.commerce.tax.CommerceTaxRate;
 
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -30,7 +27,7 @@ import java.util.Locale;
 @ProviderType
 public interface CommerceTaxEngine {
 
-	public List<CommerceTaxRate> getCommerceTaxRates(
+	public CommerceTaxValue getCommerceTaxRate(
 			CommerceTaxCalculateRequest commerceTaxCalculateRequest)
 		throws CommerceTaxEngineException;
 

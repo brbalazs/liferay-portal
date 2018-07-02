@@ -16,7 +16,7 @@ package com.liferay.commerce.util;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.commerce.model.CommerceTaxEngine;
+import com.liferay.commerce.tax.CommerceTaxEngine;
 
 import java.util.Map;
 

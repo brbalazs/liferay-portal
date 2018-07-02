@@ -16,10 +16,10 @@ package com.liferay.commerce.tax.engine.fixed.internal.engine;
 
 import com.liferay.commerce.exception.CommerceTaxEngineException;
 import com.liferay.commerce.model.CommerceAddress;
-import com.liferay.commerce.model.CommerceTaxCalculateRequest;
-import com.liferay.commerce.model.CommerceTaxEngine;
-import com.liferay.commerce.model.CommerceTaxRate;
 import com.liferay.commerce.service.CommerceAddressLocalService;
+import com.liferay.commerce.tax.CommerceTaxCalculateRequest;
+import com.liferay.commerce.tax.CommerceTaxEngine;
+import com.liferay.commerce.tax.CommerceTaxValue;
 import com.liferay.commerce.tax.engine.fixed.model.CommerceTaxFixedRateAddressRel;
 import com.liferay.commerce.tax.engine.fixed.service.CommerceTaxFixedRateAddressRelLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -28,8 +28,6 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -50,11 +48,11 @@ public class ByAddressCommerceTaxEngine implements CommerceTaxEngine {
 	public static final String KEY = "by-address";
 
 	@Override
-	public List<CommerceTaxRate> getCommerceTaxRates(
+	public CommerceTaxValue getCommerceTaxRate(
 			CommerceTaxCalculateRequest commerceTaxCalculateRequest)
 		throws CommerceTaxEngineException {
 
-		List<CommerceTaxRate> commerceTaxRates = new ArrayList<>();
+		CommerceTaxValue commerceTaxValue = null;
 
 		try {
 			CommerceAddress commerceAddress =
@@ -79,7 +77,7 @@ public class ByAddressCommerceTaxEngine implements CommerceTaxEngine {
 			throw new CommerceTaxEngineException(pe);
 		}
 
-		return commerceTaxRates;
+		return commerceTaxValue;
 	}
 
 	@Override

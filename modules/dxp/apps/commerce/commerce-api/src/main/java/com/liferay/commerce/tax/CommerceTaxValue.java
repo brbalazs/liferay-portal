@@ -19,12 +19,16 @@ import java.math.BigDecimal;
 /**
  * @author Marco Leo
  */
-public class CommerceTaxRate {
+public class CommerceTaxValue {
 
-	public CommerceTaxRate(String name, String label, BigDecimal rate) {
+	public CommerceTaxValue(String name, String label, BigDecimal amount) {
 		_name = name;
 		_label = label;
-		_rate = rate;
+		_amount = amount;
+	}
+
+	public BigDecimal getAmount() {
+		return _amount;
 	}
 
 	public String getLabel() {
@@ -35,12 +39,8 @@ public class CommerceTaxRate {
 		return _name;
 	}
 
-	public BigDecimal getRate() {
-		return _rate;
-	}
-
+	private final BigDecimal _amount;
 	private final String _label;
 	private final String _name;
-	private final BigDecimal _rate;
 
 }

@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.internal.util;
 
-import com.liferay.commerce.model.CommerceTaxEngine;
+import com.liferay.commerce.tax.CommerceTaxEngine;
 import com.liferay.commerce.util.CommerceTaxEngineRegistry;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
