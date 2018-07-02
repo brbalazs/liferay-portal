@@ -470,10 +470,10 @@ public class CommerceOrderItemLocalServiceImpl
 		CommerceDiscountValue commerceDiscountValue) {
 
 		BigDecimal discountAmount = BigDecimal.ZERO;
-		BigDecimal discountPersentageLeve1 = BigDecimal.ZERO;
-		BigDecimal discountPersentageLeve2 = BigDecimal.ZERO;
-		BigDecimal discountPersentageLeve3 = BigDecimal.ZERO;
-		BigDecimal discountPersentageLeve4 = BigDecimal.ZERO;
+		BigDecimal discountPercentageLevel1 = BigDecimal.ZERO;
+		BigDecimal discountPercentageLevel2 = BigDecimal.ZERO;
+		BigDecimal discountPercentageLevel3 = BigDecimal.ZERO;
+		BigDecimal discountPercentageLevel4 = BigDecimal.ZERO;
 
 		if (commerceDiscountValue != null) {
 			discountAmount = commerceDiscountValue.getDiscountAmount();
@@ -481,27 +481,27 @@ public class CommerceOrderItemLocalServiceImpl
 			BigDecimal[] percentages = commerceDiscountValue.getPercentages();
 
 			if (percentages.length >= 1) {
-				discountPersentageLeve1 = percentages[0];
+				discountPercentageLevel1 = percentages[0];
 			}
 
 			if (percentages.length >= 2) {
-				discountPersentageLeve1 = percentages[1];
+				discountPercentageLevel1 = percentages[1];
 			}
 
 			if (percentages.length >= 3) {
-				discountPersentageLeve1 = percentages[2];
+				discountPercentageLevel1 = percentages[2];
 			}
 
 			if (percentages.length >= 4) {
-				discountPersentageLeve1 = percentages[3];
+				discountPercentageLevel1 = percentages[3];
 			}
 		}
 
 		commerceOrderItem.setDiscountAmount(discountAmount);
-		commerceOrderItem.setDiscountPersentageLeve1(discountPersentageLeve1);
-		commerceOrderItem.setDiscountPersentageLeve2(discountPersentageLeve2);
-		commerceOrderItem.setDiscountPersentageLeve3(discountPersentageLeve3);
-		commerceOrderItem.setDiscountPersentageLeve4(discountPersentageLeve4);
+		commerceOrderItem.setDiscountPercentageLevel1(discountPercentageLevel1);
+		commerceOrderItem.setDiscountPercentageLevel2(discountPercentageLevel2);
+		commerceOrderItem.setDiscountPercentageLevel3(discountPercentageLevel3);
+		commerceOrderItem.setDiscountPercentageLevel4(discountPercentageLevel4);
 	}
 
 	private static final String[] _SELECTED_FIELD_NAMES =

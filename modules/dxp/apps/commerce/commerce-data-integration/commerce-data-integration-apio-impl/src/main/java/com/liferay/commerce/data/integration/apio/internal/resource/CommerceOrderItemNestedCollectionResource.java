@@ -96,17 +96,17 @@ public class CommerceOrderItemNestedCollectionResource
 		).addNumber(
 			"discountAmount", CommerceOrderItem::getDiscountAmount
 		).addNumber(
-			"discountPersentageLeve1",
-			CommerceOrderItem::getDiscountPersentageLeve1
+			"discountPercentageLevel1",
+			CommerceOrderItem::getDiscountPercentageLevel1
 		).addNumber(
-			"discountPersentageLeve2",
-			CommerceOrderItem::getDiscountPersentageLeve2
+			"discountPercentageLevel2",
+			CommerceOrderItem::getDiscountPercentageLevel2
 		).addNumber(
-			"discountPersentageLeve3",
-			CommerceOrderItem::getDiscountPersentageLeve3
+			"discountPercentageLevel3",
+			CommerceOrderItem::getDiscountPercentageLevel3
 		).addNumber(
-			"discountPersentageLeve4",
-			CommerceOrderItem::getDiscountPersentageLeve4
+			"discountPercentageLevel4",
+			CommerceOrderItem::getDiscountPercentageLevel4
 		).addDate(
 			"dateCreated", CommerceOrderItem::getCreateDate
 		).addDate(
