@@ -24,6 +24,7 @@ import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
+import com.liferay.commerce.tax.CommerceTaxCalculation;
 import com.liferay.portal.kernel.exception.PortalException;
 
 import java.math.BigDecimal;
@@ -129,8 +130,14 @@ public class CommerceOrderPriceCalculationImpl
 			return null;
 		}
 
+		BigDecimal taxValue = BigDecimal.ZERO;
+
+		for (CommerceOrderItem commerceOrderItem :
+				commerceOrder.getCommerceOrderItems()) {
+		}
+
 		return _commerceMoneyFactory.create(
-			commerceContext.getCommerceCurrency(), BigDecimal.ZERO);
+			commerceContext.getCommerceCurrency(), taxValue);
 	}
 
 	@Override
@@ -172,5 +179,8 @@ public class CommerceOrderPriceCalculationImpl
 
 	@Reference
 	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
+
+	@Reference
+	private CommerceTaxCalculation _commerceTaxCalculation;
 
 }
