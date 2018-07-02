@@ -1,0 +1,17 @@
+#
+# Liferay App Version 4.0.0
+#
+
+app.artifacts-4.0.0=\
+	com.liferay.saml.addon.keep.alive.web-2.0.1.jar,\
+	com.liferay.saml.api-2.0.1.jar,\
+	com.liferay.saml.impl-2.0.1.jar,\
+	com.liferay.saml.opensaml.integration-2.0.2.jar,\
+	com.liferay.saml.persistence.api-2.0.1.jar,\
+	com.liferay.saml.persistence.service-2.0.1.jar,\
+	com.liferay.saml.web-2.0.1.jar,\
+	saml-hook-7.1.10.2.war
+
+app.change.log-4.0.0=LPS-74544 
+
+app.git.id-4.0.0=5a396aad81fbcf70e0396cd955c9c81029ea424b
