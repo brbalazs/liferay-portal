@@ -174,6 +174,7 @@
 		<reference entity="Company" package-path="com.liferay.portal" />
 		<reference entity="Group" package-path="com.liferay.portal" />
 		<reference entity="WorkflowInstanceLink" package-path="com.liferay.portal" />
+		<reference entity="AssetCategory" package-path="com.liferay.portlet.asset" />
 		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
 		<reference entity="AssetLink" package-path="com.liferay.portlet.asset" />
 		<reference entity="ExpandoRow" package-path="com.liferay.portlet.expando" />
@@ -535,7 +536,7 @@
 		<column name="gtin" type="String" />
 		<column name="manufacturerPartNumber" type="String" />
 		<column name="purchasable" type="boolean" />
-		<column name="DDMContent" type="String" />
+		<column name="json" type="String" />
 		<column name="width" type="double" />
 		<column name="height" type="double" />
 		<column name="depth" type="double" />
@@ -1029,9 +1030,9 @@
 		<exception>CPDefinitionOptionValueRelKey</exception>
 		<exception>CPDefinitionProductTypeName</exception>
 		<exception>CPFriendlyURLEntry</exception>
-		<exception>CPInstanceDDMContent</exception>
 		<exception>CPInstanceDisplayDate</exception>
 		<exception>CPInstanceExpirationDate</exception>
+		<exception>CPInstanceJson</exception>
 		<exception>CPInstanceSku</exception>
 		<exception>CPMeasurementUnitKey</exception>
 		<exception>CPOptionCategoryKey</exception>
