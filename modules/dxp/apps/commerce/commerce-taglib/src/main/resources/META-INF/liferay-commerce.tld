@@ -17,23 +17,6 @@
 		</attribute>
 	</tag>
 	<tag>
-		<name>discount</name>
-		<tag-class>com.liferay.commerce.taglib.servlet.taglib.DiscountTag</tag-class>
-		<body-content>JSP</body-content>
-		<attribute>
-			<name>CPInstanceId</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>long</type>
-		</attribute>
-		<attribute>
-			<name>quantity</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>int</type>
-		</attribute>
-	</tag>
-	<tag>
 		<name>format-price</name>
 		<tag-class>com.liferay.commerce.taglib.servlet.taglib.FormatPriceTag</tag-class>
 		<body-content>JSP</body-content>
@@ -77,19 +60,41 @@
 			<type>long</type>
 		</attribute>
 		<attribute>
+			<name>discountLabel</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>promoPriceLabel</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
 			<name>quantity</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>int</type>
 		</attribute>
 		<attribute>
-			<name>showPriceRange</name>
+			<name>showDiscount</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>boolean</type>
 		</attribute>
 		<attribute>
-			<name>showPromoPrice</name>
+			<name>showDiscountAmount</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+		</attribute>
+		<attribute>
+			<name>showPercentage</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+		</attribute>
+		<attribute>
+			<name>showPriceRange</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>boolean</type>

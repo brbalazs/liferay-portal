@@ -1,4 +1,10 @@
-<%--
+<%@ page import="com.liferay.commerce.currency.model.CommerceCurrency" %>
+<%@ page import="com.liferay.commerce.discount.CommerceDiscountValue" %>
+<%@ page import="java.text.DecimalFormat" %>
+<%@ page import="java.math.BigDecimal" %>
+<%@ page import="com.liferay.portal.kernel.util.ArrayUtil" %>
+<%@ page import="com.liferay.petra.string.StringPool" %>
+<%@ page import="com.liferay.commerce.currency.model.CommerceMoney" %><%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -17,11 +23,18 @@
 <%@ include file="/price/init.jsp" %>
 
 <%
+CommerceDiscountValue commerceDiscountValue = (CommerceDiscountValue)request.getAttribute("liferay-commerce:price:commerceDiscountValue");
 CPInstance cpInstance = (CPInstance)request.getAttribute("liferay-commerce:price:cpInstance");
+DecimalFormat decimalFormat = (DecimalFormat)request.getAttribute("liferay-commerce:price:decimalFormat");
+boolean displayDiscountLevels = (boolean)request.getAttribute("liferay-commerce:price:displayDiscountLevels");
+String discountLabel = (String)request.getAttribute("liferay-commerce:price:discountLabel");
 String formattedPrice = (String)request.getAttribute("liferay-commerce:price:formattedPrice");
 String formattedPromoPrice = (String)request.getAttribute("liferay-commerce:price:formattedPromoPrice");
+String promoPriceLabel = (String)request.getAttribute("liferay-commerce:price:promoPriceLabel");
+boolean showDiscount = (boolean)request.getAttribute("liferay-commerce:price:showDiscount");
+boolean showDiscountAmount = (boolean)request.getAttribute("liferay-commerce:price:showDiscountAmount");
+boolean showPercentage = (boolean)request.getAttribute("liferay-commerce:price:showPercentage");
 boolean showPriceRange = (boolean)request.getAttribute("liferay-commerce:price:showPriceRange");
-boolean showPromoPrice = (boolean)request.getAttribute("liferay-commerce:price:showPromoPrice");
 %>
 
 <c:choose>
@@ -40,10 +53,59 @@ boolean showPromoPrice = (boolean)request.getAttribute("liferay-commerce:price:s
 	</c:when>
 	<c:otherwise>
 		<c:choose>
-			<c:when test="<%= showPromoPrice && Validator.isNotNull(formattedPromoPrice) %>">
-				<span class="product-price"><del><%= formattedPrice %></del></span>
+			<c:when test="<%= showDiscount && Validator.isNotNull(formattedPromoPrice) %>">
+                <span class="product-promo-price">
+                    <%= (Validator.isNull(promoPriceLabel)) ? StringPool.BLANK : promoPriceLabel %>
 
-				<span class="product-promo-price"><%= formattedPromoPrice %></span>
+                    <del><%= formattedPrice %></del>
+                </span>
+
+                <span class="product-price"><%= formattedPromoPrice %></span>
+
+				<c:if test="<%= commerceDiscountValue != null %>">
+
+					<%
+					CommerceMoney discountAmount = commerceDiscountValue.getDiscountAmount();
+					%>
+
+                    <span class="commerce-discount">
+                        <%= (Validator.isNull(discountLabel)) ? StringPool.BLANK : discountLabel %>
+
+                        <c:if test="<%= showDiscountAmount %>">
+                            <span class="discount-amount"><%= discountAmount.format(locale) %></span>
+                        </c:if>
+
+                        <c:if test="<%= showPercentage %>">
+
+                            <%
+                            BigDecimal[] percentages = commerceDiscountValue.getPercentages();
+
+                            decimalFormat.setPositiveSuffix(StringPool.PERCENT);
+                            %>
+
+                            <c:choose>
+                                <c:when test="<%= displayDiscountLevels && !ArrayUtil.isEmpty(percentages) %>">
+                                    <span class="discount-percentage-level1"><%= decimalFormat.format(percentages[0]) %></span>
+
+                                    <c:if test="<%= percentages[1].compareTo(BigDecimal.ZERO) > 0 %>">
+                                        <span class="discount-percentage-level2"><%= decimalFormat.format(percentages[1]) %></span>
+                                    </c:if>
+
+                                    <c:if test="<%= percentages[2].compareTo(BigDecimal.ZERO) > 0 %>">
+                                        <span class="discount-percentage-level3"><%= decimalFormat.format(percentages[2]) %></span>
+                                    </c:if>
+
+                                    <c:if test="<%= percentages[3].compareTo(BigDecimal.ZERO) > 0 %>">
+                                        <span class="discount-percentage-level4"><%= decimalFormat.format(percentages[3]) %></span>
+                                    </c:if>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="discount-percentage"><%= decimalFormat.format(commerceDiscountValue.getDiscountPercentage()) %></span>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:if>
+                    </span>
+				</c:if>
 			</c:when>
 			<c:otherwise>
 				<span class="product-price"><%= formattedPrice %></span>
