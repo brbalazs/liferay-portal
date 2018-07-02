@@ -16,8 +16,8 @@ package com.liferay.commerce.tax.web.internal.servlet.taglib.ui;
 
 import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.constants.CommerceTaxScreenNavigationConstants;
-import com.liferay.commerce.taxt.model.CommerceTaxMethod;
-import com.liferay.commerce.taxt.service.CommerceTaxMethodLocalService;
+import com.liferay.commerce.tax.model.CommerceTaxMethod;
+import com.liferay.commerce.tax.service.CommerceTaxMethodLocalService;
 import com.liferay.commerce.tax.service.CommerceTaxMethodService;
 import com.liferay.commerce.tax.web.internal.display.context.CommerceTaxMethodsDisplayContext;
 import com.liferay.commerce.util.CommerceTaxEngineRegistry;

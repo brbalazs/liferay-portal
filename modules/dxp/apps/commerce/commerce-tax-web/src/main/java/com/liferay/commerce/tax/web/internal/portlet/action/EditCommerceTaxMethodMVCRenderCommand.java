@@ -16,8 +16,8 @@ package com.liferay.commerce.tax.web.internal.portlet.action;
 
 import com.liferay.commerce.admin.constants.CommerceAdminPortletKeys;
 import com.liferay.commerce.constants.CommerceConstants;
-import com.liferay.commerce.exception.NoSuchTaxMethodException;
-import com.liferay.commerce.taxt.service.CommerceTaxMethodLocalService;
+import com.liferay.commerce.tax.exception.NoSuchTaxMethodException;
+import com.liferay.commerce.tax.service.CommerceTaxMethodLocalService;
 import com.liferay.commerce.tax.service.CommerceTaxMethodService;
 import com.liferay.commerce.tax.web.internal.display.context.CommerceTaxMethodsDisplayContext;
 import com.liferay.commerce.util.CommerceTaxEngineRegistry;

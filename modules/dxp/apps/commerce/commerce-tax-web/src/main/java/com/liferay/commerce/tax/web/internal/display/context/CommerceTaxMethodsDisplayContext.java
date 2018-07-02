@@ -16,7 +16,7 @@ package com.liferay.commerce.tax.web.internal.display.context;
 
 import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommerceConstants;
-import com.liferay.commerce.model.CommerceTaxEngine;
+import com.liferay.commerce.tax.CommerceTaxEngine;
 import com.liferay.commerce.tax.model.CommerceTaxMethod;
 import com.liferay.commerce.tax.service.CommerceTaxMethodLocalService;
 import com.liferay.commerce.tax.service.CommerceTaxMethodService;
