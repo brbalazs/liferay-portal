@@ -12,24 +12,14 @@
  * details.
  */
 
-package com.liferay.commerce.model;
-
-import java.io.Serializable;
+package com.liferay.commerce.tax;
 
 import java.math.BigDecimal;
-
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.Map;
 
 /**
  * @author Marco Leo
  */
 public class CommerceTaxCalculateRequest {
-
-	public Map<String, Serializable> getAttributes() {
-		return _attributes;
-	}
 
 	public long getCommerceAddressId() {
 		return _commerceAddressId;
@@ -37,10 +27,6 @@ public class CommerceTaxCalculateRequest {
 
 	public long getCommerceTaxMethodId() {
 		return _commerceTaxMethodId;
-	}
-
-	public Locale getLocale() {
-		return _locale;
 	}
 
 	public BigDecimal getPrice() {
@@ -59,20 +45,12 @@ public class CommerceTaxCalculateRequest {
 		return _userId;
 	}
 
-	public void setAttributes(Map<String, Serializable> attributes) {
-		_attributes = attributes;
-	}
-
 	public void setCommerceAddressId(long commerceAddressId) {
 		_commerceAddressId = commerceAddressId;
 	}
 
 	public void setCommerceTaxMethodId(long commerceTaxMethodId) {
 		_commerceTaxMethodId = commerceTaxMethodId;
-	}
-
-	public void setLocale(Locale locale) {
-		_locale = locale;
 	}
 
 	public void setPrice(BigDecimal price) {
@@ -91,10 +69,8 @@ public class CommerceTaxCalculateRequest {
 		_userId = userId;
 	}
 
-	private Map<String, Serializable> _attributes = new LinkedHashMap<>();
 	private long _commerceAddressId;
 	private long _commerceTaxMethodId;
-	private Locale _locale;
 	private BigDecimal _price;
 	private long _siteGroupId;
 	private long _taxCategoryId;
