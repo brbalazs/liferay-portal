@@ -15,12 +15,12 @@
 package com.liferay.commerce.product.tax.category.web.internal.display.context;
 
 import com.liferay.commerce.constants.CommerceConstants;
-import com.liferay.commerce.tax.model.CommerceTaxMethod;
 import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.model.CPTaxCategory;
 import com.liferay.commerce.product.service.CPTaxCategoryService;
 import com.liferay.commerce.product.tax.category.web.internal.servlet.taglib.ui.CPTaxCategoryScreenNavigationEntry;
 import com.liferay.commerce.product.util.comparator.CPTaxCategoryCreateDateComparator;
+import com.liferay.commerce.tax.model.CommerceTaxMethod;
 import com.liferay.commerce.tax.service.CommerceTaxMethodService;
 import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
 import com.liferay.portal.kernel.dao.search.RowChecker;

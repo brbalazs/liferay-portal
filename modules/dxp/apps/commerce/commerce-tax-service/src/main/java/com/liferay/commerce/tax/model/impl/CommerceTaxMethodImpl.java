@@ -24,4 +24,5 @@ public class CommerceTaxMethodImpl extends CommerceTaxMethodBaseImpl {
 
 	public CommerceTaxMethodImpl() {
 	}
+
 }

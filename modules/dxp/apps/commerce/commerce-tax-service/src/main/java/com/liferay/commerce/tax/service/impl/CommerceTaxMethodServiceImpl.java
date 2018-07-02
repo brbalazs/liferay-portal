@@ -35,9 +35,9 @@ public class CommerceTaxMethodServiceImpl
 
 	@Override
 	public CommerceTaxMethod addCommerceTaxMethod(
-		Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
-		String engineKey, boolean percentage, boolean active,
-		ServiceContext serviceContext)
+			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
+			String engineKey, boolean percentage, boolean active,
+			ServiceContext serviceContext)
 		throws PortalException {
 
 		_portletResourcePermission.check(
@@ -51,7 +51,7 @@ public class CommerceTaxMethodServiceImpl
 
 	@Override
 	public CommerceTaxMethod createCommerceTaxMethod(
-		long groupId, long commerceTaxMethodId)
+			long groupId, long commerceTaxMethodId)
 		throws PortalException {
 
 		_portletResourcePermission.check(
@@ -107,7 +107,7 @@ public class CommerceTaxMethodServiceImpl
 
 	@Override
 	public List<CommerceTaxMethod> getCommerceTaxMethods(
-		long groupId, boolean active)
+			long groupId, boolean active)
 		throws PortalException {
 
 		_portletResourcePermission.check(
@@ -138,9 +138,9 @@ public class CommerceTaxMethodServiceImpl
 
 	@Override
 	public CommerceTaxMethod updateCommerceTaxMethod(
-		long commerceTaxMethodId, Map<Locale, String> nameMap,
-		Map<Locale, String> descriptionMap, boolean percentage,
-		boolean active)
+			long commerceTaxMethodId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, boolean percentage,
+			boolean active)
 		throws PortalException {
 
 		CommerceTaxMethod commerceTaxMethod =
@@ -159,7 +159,7 @@ public class CommerceTaxMethodServiceImpl
 	private static volatile PortletResourcePermission
 		_portletResourcePermission =
 		PortletResourcePermissionFactory.getInstance(
-			CommerceTaxMethodServiceImpl.class,
-			"_portletResourcePermission", CommerceConstants.RESOURCE_NAME);
+			CommerceTaxMethodServiceImpl.class, "_portletResourcePermission",
+			CommerceConstants.RESOURCE_NAME);
 
 }

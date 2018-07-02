@@ -18,7 +18,9 @@ import com.liferay.commerce.tax.model.CommerceTaxMethod;
 import com.liferay.portal.kernel.util.CollatorUtil;
 
 import java.io.Serializable;
+
 import java.text.Collator;
+
 import java.util.Comparator;
 import java.util.Locale;
 

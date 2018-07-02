@@ -17,9 +17,9 @@ package com.liferay.commerce.tax.web.internal.display.context;
 import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.model.CommerceTaxEngine;
-import com.liferay.commerce.tax..model.CommerceTaxMethod;
-import com.liferay.commerce.tax..service.CommerceTaxMethodLocalService;
-import com.liferay.commerce.tax..service.CommerceTaxMethodService;
+import com.liferay.commerce.tax.model.CommerceTaxMethod;
+import com.liferay.commerce.tax.service.CommerceTaxMethodLocalService;
+import com.liferay.commerce.tax.service.CommerceTaxMethodService;
 import com.liferay.commerce.tax.util.comparator.CommerceTaxMethodNameComparator;
 import com.liferay.commerce.util.CommerceTaxEngineRegistry;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
@@ -200,11 +200,15 @@ public class CommerceTaxMethodsDisplayContext {
 	protected CommerceTaxMethod getDefaultCommerceTaxMethod(String engineKey)
 		throws PortalException {
 
+		ThemeDisplay themeDisplay = (ThemeDisplay)_renderRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
 		CommerceTaxEngine commerceTaxEngine =
 			_commerceTaxEngineRegistry.getCommerceTaxEngine(engineKey);
 
 		CommerceTaxMethod commerceTaxMethod =
-			_commerceTaxMethodLocalService.createCommerceTaxMethod(0);
+			_commerceTaxMethodService.createCommerceTaxMethod(
+				themeDisplay.getScopeGroupId(), 0);
 
 		Locale locale = LocaleUtil.getSiteDefault();
 
