@@ -99,14 +99,26 @@ public class CommerceWarehouseServiceImpl
 	public CommerceWarehouse getCommerceWarehouse(long commerceWarehouseId)
 		throws PortalException {
 
-		return commerceWarehouseLocalService.getCommerceWarehouse(
-			commerceWarehouseId);
+		CommerceWarehouse commerceWarehouse =
+			commerceWarehouseLocalService.getCommerceWarehouse(
+				commerceWarehouseId);
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), commerceWarehouse.getGroupId(),
+			CommerceActionKeys.MANAGE_COMMERCE_WAREHOUSES);
+
+		return commerceWarehouse;
 	}
 
 	@Override
 	public List<CommerceWarehouse> getCommerceWarehouses(
-		long groupId, boolean active, int start, int end,
-		OrderByComparator<CommerceWarehouse> orderByComparator) {
+			long groupId, boolean active, int start, int end,
+			OrderByComparator<CommerceWarehouse> orderByComparator)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_WAREHOUSES);
 
 		return commerceWarehouseLocalService.getCommerceWarehouses(
 			groupId, active, start, end, orderByComparator);
@@ -118,14 +130,23 @@ public class CommerceWarehouseServiceImpl
 			int end, OrderByComparator<CommerceWarehouse> orderByComparator)
 		throws PortalException {
 
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_WAREHOUSES);
+
 		return commerceWarehouseLocalService.getCommerceWarehouses(
 			groupId, active, commerceCountryId, start, end, orderByComparator);
 	}
 
 	@Override
 	public List<CommerceWarehouse> getCommerceWarehouses(
-		long groupId, long commerceCountryId, int start, int end,
-		OrderByComparator<CommerceWarehouse> orderByComparator) {
+			long groupId, long commerceCountryId, int start, int end,
+			OrderByComparator<CommerceWarehouse> orderByComparator)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_WAREHOUSES);
 
 		return commerceWarehouseLocalService.getCommerceWarehouses(
 			groupId, commerceCountryId, start, end, orderByComparator);
@@ -136,13 +157,21 @@ public class CommerceWarehouseServiceImpl
 			long groupId, boolean active, long commerceCountryId)
 		throws PortalException {
 
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_WAREHOUSES);
+
 		return commerceWarehouseLocalService.getCommerceWarehousesCount(
 			groupId, active, commerceCountryId);
 	}
 
 	@Override
-	public int getCommerceWarehousesCount(
-		long groupId, long commerceCountryId) {
+	public int getCommerceWarehousesCount(long groupId, long commerceCountryId)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_WAREHOUSES);
 
 		return commerceWarehouseLocalService.getCommerceWarehousesCount(
 			groupId, commerceCountryId);
@@ -155,6 +184,10 @@ public class CommerceWarehouseServiceImpl
 			OrderByComparator<CommerceWarehouse> orderByComparator)
 		throws PortalException {
 
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_WAREHOUSES);
+
 		return commerceWarehouseLocalService.search(
 			groupId, keywords, all, commerceCountryId, start, end,
 			orderByComparator);
@@ -166,6 +199,10 @@ public class CommerceWarehouseServiceImpl
 			long commerceCountryId)
 		throws PortalException {
 
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_WAREHOUSES);
+
 		return commerceWarehouseLocalService.searchCount(
 			groupId, keywords, active, commerceCountryId);
 	}
@@ -173,6 +210,16 @@ public class CommerceWarehouseServiceImpl
 	@Override
 	public CommerceWarehouse setActive(long commerceWarehouseId, boolean active)
 		throws PortalException {
+
+		CommerceWarehouse commerceWarehouse =
+			commerceWarehouseLocalService.fetchCommerceWarehouse(
+				commerceWarehouseId);
+
+		if (commerceWarehouse != null) {
+			_portletResourcePermission.check(
+				getPermissionChecker(), commerceWarehouse.getGroupId(),
+				CommerceActionKeys.MANAGE_COMMERCE_WAREHOUSES);
+		}
 
 		return commerceWarehouseLocalService.setActive(
 			commerceWarehouseId, active);

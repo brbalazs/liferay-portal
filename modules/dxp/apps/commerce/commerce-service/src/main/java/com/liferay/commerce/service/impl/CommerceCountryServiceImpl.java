@@ -96,20 +96,35 @@ public class CommerceCountryServiceImpl extends CommerceCountryServiceBaseImpl {
 
 	@Override
 	public List<CommerceCountry> getCommerceCountries(
-		long groupId, int start, int end,
-		OrderByComparator<CommerceCountry> orderByComparator) {
+			long groupId, int start, int end,
+			OrderByComparator<CommerceCountry> orderByComparator)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_COUNTRIES);
 
 		return commerceCountryLocalService.getCommerceCountries(
 			groupId, start, end, orderByComparator);
 	}
 
 	@Override
-	public int getCommerceCountriesCount(long groupId) {
+	public int getCommerceCountriesCount(long groupId) throws PortalException {
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_COUNTRIES);
+
 		return commerceCountryLocalService.getCommerceCountriesCount(groupId);
 	}
 
 	@Override
-	public int getCommerceCountriesCount(long groupId, boolean active) {
+	public int getCommerceCountriesCount(long groupId, boolean active)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_COUNTRIES);
+
 		return commerceCountryLocalService.getCommerceCountriesCount(
 			groupId, active);
 	}
@@ -124,7 +139,12 @@ public class CommerceCountryServiceImpl extends CommerceCountryServiceBaseImpl {
 
 	@Override
 	public List<CommerceCountry> getShippingCommerceCountries(
-		long groupId, boolean shippingAllowed, boolean active) {
+			long groupId, boolean shippingAllowed, boolean active)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_COUNTRIES);
 
 		return commerceCountryLocalService.getShippingCommerceCountries(
 			groupId, shippingAllowed, active);
@@ -137,7 +157,7 @@ public class CommerceCountryServiceImpl extends CommerceCountryServiceBaseImpl {
 
 		_portletResourcePermission.check(
 			getPermissionChecker(), groupId,
-			CommerceActionKeys.MANAGE_COMMERCE_WAREHOUSES);
+			CommerceActionKeys.MANAGE_COMMERCE_COUNTRIES);
 
 		return commerceCountryLocalService.getWarehouseCommerceCountries(
 			groupId, all);
@@ -145,8 +165,12 @@ public class CommerceCountryServiceImpl extends CommerceCountryServiceBaseImpl {
 
 	@Override
 	public BaseModelSearchResult<CommerceCountry> searchCommerceCountries(
-			SearchContext searchContext)
+			long groupId, SearchContext searchContext)
 		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_COUNTRIES);
 
 		return commerceCountryLocalService.searchCommerceCountries(
 			searchContext);

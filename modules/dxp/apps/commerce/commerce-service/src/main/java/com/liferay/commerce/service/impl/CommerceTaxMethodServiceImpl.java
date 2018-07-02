@@ -50,12 +50,6 @@ public class CommerceTaxMethodServiceImpl
 	}
 
 	@Override
-	public CommerceTaxMethod createCommerceTaxMethod(long commerceTaxMethodId) {
-		return commerceTaxMethodLocalService.createCommerceTaxMethod(
-			commerceTaxMethodId);
-	}
-
-	@Override
 	public void deleteCommerceTaxMethod(long commerceTaxMethodId)
 		throws PortalException {
 
@@ -72,19 +66,18 @@ public class CommerceTaxMethodServiceImpl
 	}
 
 	@Override
-	public CommerceTaxMethod fetchCommerceTaxMethod(
-		long groupId, String engineKey) {
-
-		return commerceTaxMethodLocalService.fetchCommerceTaxMethod(
-			groupId, engineKey);
-	}
-
-	@Override
 	public CommerceTaxMethod getCommerceTaxMethod(long commerceTaxMethodId)
 		throws PortalException {
 
-		return commerceTaxMethodLocalService.getCommerceTaxMethod(
-			commerceTaxMethodId);
+		CommerceTaxMethod commerceTaxMethod =
+			commerceTaxMethodLocalService.getCommerceTaxMethod(
+				commerceTaxMethodId);
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), commerceTaxMethod.getGroupId(),
+			CommerceActionKeys.MANAGE_COMMERCE_TAX_METHODS);
+
+		return commerceTaxMethod;
 	}
 
 	@Override
@@ -100,15 +93,14 @@ public class CommerceTaxMethodServiceImpl
 
 	@Override
 	public List<CommerceTaxMethod> getCommerceTaxMethods(
-		long groupId, boolean active) {
+			long groupId, boolean active)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_TAX_METHODS);
 
 		return commerceTaxMethodLocalService.getCommerceTaxMethods(
-			groupId, active);
-	}
-
-	@Override
-	public int getCommerceTaxMethodsCount(long groupId, boolean active) {
-		return commerceTaxMethodLocalService.getCommerceTaxMethodsCount(
 			groupId, active);
 	}
 

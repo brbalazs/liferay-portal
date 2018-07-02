@@ -70,15 +70,30 @@ public class CommerceCurrencyServiceImpl
 	}
 
 	@Override
-	public CommerceCurrency fetchPrimaryCommerceCurrency(long groupId) {
-		return commerceCurrencyLocalService.fetchPrimaryCommerceCurrency(
-			groupId);
+	public CommerceCurrency fetchPrimaryCommerceCurrency(long groupId)
+		throws PortalException {
+
+		CommerceCurrency commerceCurrency =
+			commerceCurrencyLocalService.fetchPrimaryCommerceCurrency(groupId);
+
+		if (commerceCurrency != null) {
+			_portletResourcePermission.check(
+				getPermissionChecker(), commerceCurrency.getGroupId(),
+				CommerceCurrencyActionKeys.MANAGE_COMMERCE_CURRENCIES);
+		}
+
+		return commerceCurrency;
 	}
 
 	@Override
 	public List<CommerceCurrency> getCommerceCurrencies(
-		long groupId, boolean active, int start, int end,
-		OrderByComparator<CommerceCurrency> orderByComparator) {
+			long groupId, boolean active, int start, int end,
+			OrderByComparator<CommerceCurrency> orderByComparator)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceCurrencyActionKeys.MANAGE_COMMERCE_CURRENCIES);
 
 		return commerceCurrencyLocalService.getCommerceCurrencies(
 			groupId, active, start, end, orderByComparator);
@@ -86,20 +101,35 @@ public class CommerceCurrencyServiceImpl
 
 	@Override
 	public List<CommerceCurrency> getCommerceCurrencies(
-		long groupId, int start, int end,
-		OrderByComparator<CommerceCurrency> orderByComparator) {
+			long groupId, int start, int end,
+			OrderByComparator<CommerceCurrency> orderByComparator)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceCurrencyActionKeys.MANAGE_COMMERCE_CURRENCIES);
 
 		return commerceCurrencyLocalService.getCommerceCurrencies(
 			groupId, start, end, orderByComparator);
 	}
 
 	@Override
-	public int getCommerceCurrenciesCount(long groupId) {
+	public int getCommerceCurrenciesCount(long groupId) throws PortalException {
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceCurrencyActionKeys.MANAGE_COMMERCE_CURRENCIES);
+
 		return commerceCurrencyLocalService.getCommerceCurrenciesCount(groupId);
 	}
 
 	@Override
-	public int getCommerceCurrenciesCount(long groupId, boolean active) {
+	public int getCommerceCurrenciesCount(long groupId, boolean active)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceCurrencyActionKeys.MANAGE_COMMERCE_CURRENCIES);
+
 		return commerceCurrencyLocalService.getCommerceCurrenciesCount(
 			groupId, active);
 	}
@@ -108,15 +138,29 @@ public class CommerceCurrencyServiceImpl
 	public CommerceCurrency getCommerceCurrency(long commerceCurrencyId)
 		throws PortalException {
 
-		return commerceCurrencyLocalService.getCommerceCurrency(
-			commerceCurrencyId);
+		CommerceCurrency commerceCurrency =
+			commerceCurrencyLocalService.getCommerceCurrency(
+				commerceCurrencyId);
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), commerceCurrency.getGroupId(),
+			CommerceCurrencyActionKeys.MANAGE_COMMERCE_CURRENCIES);
+
+		return commerceCurrency;
 	}
 
 	@Override
 	public CommerceCurrency getCommerceCurrency(long groupId, String code)
 		throws PortalException {
 
-		return commerceCurrencyLocalService.getCommerceCurrency(groupId, code);
+		CommerceCurrency commerceCurrency =
+			commerceCurrencyLocalService.getCommerceCurrency(groupId, code);
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), commerceCurrency.getGroupId(),
+			CommerceCurrencyActionKeys.MANAGE_COMMERCE_CURRENCIES);
+
+		return commerceCurrency;
 	}
 
 	@Override

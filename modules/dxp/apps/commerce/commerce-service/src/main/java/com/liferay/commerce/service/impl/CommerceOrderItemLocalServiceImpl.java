@@ -84,7 +84,7 @@ public class CommerceOrderItemLocalServiceImpl
 			cpInstanceId);
 
 		if (Validator.isNull(json) || json.equals("[]")) {
-			json = cpInstance.getDDMContent();
+			json = cpInstance.getJson();
 		}
 
 		CPDefinition cpDefinition = _cpDefinitionLocalService.getCPDefinition(
@@ -476,7 +476,10 @@ public class CommerceOrderItemLocalServiceImpl
 		BigDecimal discountPercentageLevel4 = BigDecimal.ZERO;
 
 		if (commerceDiscountValue != null) {
-			discountAmount = commerceDiscountValue.getDiscountAmount();
+			CommerceMoney discountAmountCommerceMoney =
+				commerceDiscountValue.getDiscountAmount();
+
+			discountAmount = discountAmountCommerceMoney.getPrice();
 
 			BigDecimal[] percentages = commerceDiscountValue.getPercentages();
 

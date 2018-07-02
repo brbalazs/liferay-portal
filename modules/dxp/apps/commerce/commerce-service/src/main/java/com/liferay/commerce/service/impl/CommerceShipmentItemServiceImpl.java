@@ -16,6 +16,8 @@ package com.liferay.commerce.service.impl;
 
 import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommerceConstants;
+import com.liferay.commerce.model.CommerceOrderItem;
+import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.service.base.CommerceShipmentItemServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -65,16 +67,17 @@ public class CommerceShipmentItemServiceImpl
 	}
 
 	@Override
-	public CommerceShipmentItem fetchCommerceShipmentItem(
-		long commerceShipmentItemId) {
-
-		return commerceShipmentItemLocalService.fetchCommerceShipmentItem(
-			commerceShipmentItemId);
-	}
-
-	@Override
 	public List<CommerceShipmentItem> getCommerceShipmentItems(
-		long commerceOrderItemId) {
+			long commerceOrderItemId)
+		throws PortalException {
+
+		CommerceOrderItem commerceOrderItem =
+			commerceOrderItemLocalService.getCommerceOrderItem(
+				commerceOrderItemId);
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), commerceOrderItem.getGroupId(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
 
 		return commerceShipmentItemLocalService.getCommerceShipmentItems(
 			commerceOrderItemId);
@@ -82,15 +85,34 @@ public class CommerceShipmentItemServiceImpl
 
 	@Override
 	public List<CommerceShipmentItem> getCommerceShipmentItems(
-		long commerceShipmentId, int start, int end,
-		OrderByComparator<CommerceShipmentItem> orderByComparator) {
+			long commerceShipmentId, int start, int end,
+			OrderByComparator<CommerceShipmentItem> orderByComparator)
+		throws PortalException {
+
+		CommerceShipment commerceShipment =
+			commerceShipmentLocalService.getCommerceShipment(
+				commerceShipmentId);
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), commerceShipment.getGroupId(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
 
 		return commerceShipmentItemLocalService.getCommerceShipmentItems(
 			commerceShipmentId, start, end, orderByComparator);
 	}
 
 	@Override
-	public int getCommerceShipmentItemsCount(long commerceShipmentId) {
+	public int getCommerceShipmentItemsCount(long commerceShipmentId)
+		throws PortalException {
+
+		CommerceShipment commerceShipment =
+			commerceShipmentLocalService.getCommerceShipment(
+				commerceShipmentId);
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), commerceShipment.getGroupId(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
+
 		return commerceShipmentItemLocalService.getCommerceShipmentItemsCount(
 			commerceShipmentId);
 	}

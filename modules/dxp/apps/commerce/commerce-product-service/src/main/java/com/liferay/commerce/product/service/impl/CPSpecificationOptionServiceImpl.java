@@ -69,21 +69,19 @@ public class CPSpecificationOptionServiceImpl
 	}
 
 	@Override
-	public CPSpecificationOption fetchCPSpecificationOption(
-			long cpSpecificationOptionId)
-		throws PortalException {
-
-		return cpSpecificationOptionLocalService.fetchCPSpecificationOption(
-			cpSpecificationOptionId);
-	}
-
-	@Override
 	public CPSpecificationOption getCPSpecificationOption(
 			long cpSpecificationOptionId)
 		throws PortalException {
 
-		return cpSpecificationOptionLocalService.getCPSpecificationOption(
-			cpSpecificationOptionId);
+		CPSpecificationOption cpSpecificationOption =
+			cpSpecificationOptionLocalService.getCPSpecificationOption(
+				cpSpecificationOptionId);
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), cpSpecificationOption.getGroupId(),
+			CPActionKeys.MANAGE_COMMERCE_PRODUCT_SPECIFICATION_OPTIONS);
+
+		return cpSpecificationOption;
 	}
 
 	@Override
@@ -92,12 +90,22 @@ public class CPSpecificationOptionServiceImpl
 			OrderByComparator<CPSpecificationOption> orderByComparator)
 		throws PortalException {
 
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CPActionKeys.MANAGE_COMMERCE_PRODUCT_SPECIFICATION_OPTIONS);
+
 		return cpSpecificationOptionLocalService.getCPSpecificationOptions(
 			groupId, start, end, orderByComparator);
 	}
 
 	@Override
-	public int getCPSpecificationOptionsCount(long groupId) {
+	public int getCPSpecificationOptionsCount(long groupId)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CPActionKeys.MANAGE_COMMERCE_PRODUCT_SPECIFICATION_OPTIONS);
+
 		return cpSpecificationOptionLocalService.getCPSpecificationOptionsCount(
 			groupId);
 	}
@@ -108,6 +116,10 @@ public class CPSpecificationOptionServiceImpl
 				long companyId, long groupId, Boolean facetable,
 				String keywords, int start, int end, Sort sort)
 		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CPActionKeys.MANAGE_COMMERCE_PRODUCT_SPECIFICATION_OPTIONS);
 
 		return cpSpecificationOptionLocalService.searchCPSpecificationOptions(
 			companyId, groupId, facetable, keywords, start, end, sort);

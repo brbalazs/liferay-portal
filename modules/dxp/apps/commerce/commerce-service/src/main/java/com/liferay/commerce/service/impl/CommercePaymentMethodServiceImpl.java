@@ -93,34 +93,50 @@ public class CommercePaymentMethodServiceImpl
 			long commercePaymentMethodId)
 		throws PortalException {
 
-		return commercePaymentMethodLocalService.getCommercePaymentMethod(
-			commercePaymentMethodId);
+		CommercePaymentMethod commercePaymentMethod =
+			commercePaymentMethodLocalService.getCommercePaymentMethod(
+				commercePaymentMethodId);
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), commercePaymentMethod.getGroupId(),
+			CommerceActionKeys.MANAGE_COMMERCE_PAYMENT_METHODS);
+
+		return commercePaymentMethod;
 	}
 
 	@Override
-	public List<CommercePaymentMethod> getCommercePaymentMethods(long groupId) {
+	public List<CommercePaymentMethod> getCommercePaymentMethods(long groupId)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_PAYMENT_METHODS);
+
 		return commercePaymentMethodLocalService.getCommercePaymentMethods(
 			groupId);
 	}
 
 	@Override
 	public List<CommercePaymentMethod> getCommercePaymentMethods(
-		long groupId, boolean active) {
+			long groupId, boolean active)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_PAYMENT_METHODS);
 
 		return commercePaymentMethodLocalService.getCommercePaymentMethods(
 			groupId, active);
 	}
 
 	@Override
-	public List<CommercePaymentMethod> getCommercePaymentMethods(
-		long groupId, long commerceCountryId, boolean active) {
+	public int getCommercePaymentMethodsCount(long groupId, boolean active)
+		throws PortalException {
 
-		return commercePaymentMethodLocalService.getCommercePaymentMethods(
-			groupId, commerceCountryId, active);
-	}
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_PAYMENT_METHODS);
 
-	@Override
-	public int getCommercePaymentMethodsCount(long groupId, boolean active) {
 		return commercePaymentMethodLocalService.getCommercePaymentMethodsCount(
 			groupId, active);
 	}

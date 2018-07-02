@@ -30,6 +30,8 @@ public class CommerceUserServiceImpl extends CommerceUserServiceBaseImpl {
 
 	@Override
 	public User getUser(long userId) throws PortalException {
+		_checkUser(userId);
+
 		return userLocalService.getUser(userId);
 	}
 

@@ -15,8 +15,12 @@
 package com.liferay.commerce.service.impl;
 
 import com.liferay.commerce.model.CPDAvailabilityEstimate;
+import com.liferay.commerce.product.constants.CPActionKeys;
+import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.service.base.CPDAvailabilityEstimateServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
 import com.liferay.portal.kernel.service.ServiceContext;
 
 /**
@@ -26,16 +30,13 @@ public class CPDAvailabilityEstimateServiceImpl
 	extends CPDAvailabilityEstimateServiceBaseImpl {
 
 	@Override
-	public void deleteCPDAvailabilityEstimate(long cpdAvailabilityEstimateId)
+	public CPDAvailabilityEstimate fetchCPDAvailabilityEstimateByCPDefinitionId(
+			long cpDefinitionId)
 		throws PortalException {
 
-		cpdAvailabilityEstimateLocalService.deleteCPDAvailabilityEstimate(
-			cpdAvailabilityEstimateId);
-	}
-
-	@Override
-	public CPDAvailabilityEstimate fetchCPDAvailabilityEstimateByCPDefinitionId(
-		long cpDefinitionId) {
+		_cpDefinitionModelResourcePermission.check(
+			getPermissionChecker(), cpDefinitionId,
+			CPActionKeys.MANAGE_CATALOG);
 
 		return cpdAvailabilityEstimateLocalService.
 			fetchCPDAvailabilityEstimateByCPDefinitionId(cpDefinitionId);
@@ -47,10 +48,20 @@ public class CPDAvailabilityEstimateServiceImpl
 			long commerceAvailabilityEstimateId, ServiceContext serviceContext)
 		throws PortalException {
 
+		_cpDefinitionModelResourcePermission.check(
+			getPermissionChecker(), cpDefinitionId,
+			CPActionKeys.MANAGE_CATALOG);
+
 		return cpdAvailabilityEstimateLocalService.
 			updateCPDAvailabilityEstimate(
 				cpdAvailabilityEstimateId, cpDefinitionId,
 				commerceAvailabilityEstimateId, serviceContext);
 	}
+
+	private static volatile ModelResourcePermission<CPDefinition>
+		_cpDefinitionModelResourcePermission =
+			ModelResourcePermissionFactory.getInstance(
+				CPDAvailabilityEstimateServiceImpl.class,
+				"_cpDefinitionModelResourcePermission", CPDefinition.class);
 
 }

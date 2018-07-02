@@ -376,7 +376,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 
 		for (CPInstance cpInstance : cpInstances) {
 			JSONArray jsonArray = JSONFactoryUtil.createJSONArray(
-				cpInstance.getDDMContent());
+				cpInstance.getJson());
 
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -440,7 +440,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 				QueryUtil.ALL_POS, null);
 
 		for (CPInstance cpInstance : cpInstances) {
-			if (Validator.isNull(cpInstance.getDDMContent())) {
+			if (Validator.isNull(cpInstance.getJson())) {
 				cpInstanceLocalService.updateStatus(
 					serviceContext.getUserId(), cpInstance.getCPInstanceId(),
 					WorkflowConstants.STATUS_INACTIVE, serviceContext,

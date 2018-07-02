@@ -67,20 +67,22 @@ public class CPDefinitionInventoryServiceImpl
 	}
 
 	@Override
-	public CPDefinitionInventory fetchCPDefinitionInventory(
-		long cpDefinitionInventoryId) {
-
-		return cpDefinitionInventoryLocalService.fetchCPDefinitionInventory(
-			cpDefinitionInventoryId);
-	}
-
-	@Override
 	public CPDefinitionInventory fetchCPDefinitionInventoryByCPDefinitionId(
 			long cpDefinitionId)
 		throws PortalException {
 
-		return cpDefinitionInventoryLocalService.
-			fetchCPDefinitionInventoryByCPDefinitionId(cpDefinitionId);
+		CPDefinitionInventory cpDefinitionInventory =
+			cpDefinitionInventoryLocalService.
+				fetchCPDefinitionInventoryByCPDefinitionId(cpDefinitionId);
+
+		if (cpDefinitionInventory != null) {
+			_portletResourcePermission.check(
+				getPermissionChecker(), cpDefinitionInventory.getGroupId(),
+				CommerceActionKeys.
+					MANAGE_COMMERCE_PRODUCT_DEFINITION_INVENTORY);
+		}
+
+		return cpDefinitionInventory;
 	}
 
 	@Override

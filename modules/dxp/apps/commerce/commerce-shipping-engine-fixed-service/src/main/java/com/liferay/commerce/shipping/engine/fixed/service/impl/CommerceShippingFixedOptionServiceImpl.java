@@ -16,6 +16,8 @@ package com.liferay.commerce.shipping.engine.fixed.service.impl;
 
 import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommerceConstants;
+import com.liferay.commerce.model.CommerceShippingMethod;
+import com.liferay.commerce.service.CommerceShippingMethodService;
 import com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOption;
 import com.liferay.commerce.shipping.engine.fixed.service.base.CommerceShippingFixedOptionServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -23,6 +25,7 @@ import com.liferay.portal.kernel.security.permission.resource.PortletResourcePer
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermissionFactory;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.math.BigDecimal;
 
@@ -72,37 +75,66 @@ public class CommerceShippingFixedOptionServiceImpl
 
 	@Override
 	public CommerceShippingFixedOption fetchCommerceShippingFixedOption(
-		long commerceShippingFixedOptionId) {
+			long commerceShippingFixedOptionId)
+		throws PortalException {
 
-		return commerceShippingFixedOptionLocalService.
-			fetchCommerceShippingFixedOption(commerceShippingFixedOptionId);
+		CommerceShippingFixedOption commerceShippingFixedOption =
+			commerceShippingFixedOptionLocalService.
+				fetchCommerceShippingFixedOption(commerceShippingFixedOptionId);
+
+		if (commerceShippingFixedOption != null) {
+			_portletResourcePermission.check(
+				getPermissionChecker(),
+				commerceShippingFixedOption.getGroupId(),
+				CommerceActionKeys.MANAGE_COMMERCE_SHIPPING_METHODS);
+		}
+
+		return commerceShippingFixedOption;
 	}
 
 	@Override
 	public List<CommerceShippingFixedOption> getCommerceShippingFixedOptions(
-		long commerceShippingMethodId, int start, int end) {
+			long commerceShippingMethodId, int start, int end)
+		throws PortalException {
+
+		CommerceShippingMethod commerceShippingMethod =
+			_commerceShippingMethodService.getCommerceShippingMethod(
+				commerceShippingMethodId);
 
 		return commerceShippingFixedOptionLocalService.
 			getCommerceShippingFixedOptions(
-				commerceShippingMethodId, start, end);
+				commerceShippingMethod.getCommerceShippingMethodId(), start,
+				end);
 	}
 
 	@Override
 	public List<CommerceShippingFixedOption> getCommerceShippingFixedOptions(
-		long commerceShippingMethodId, int start, int end,
-		OrderByComparator<CommerceShippingFixedOption> orderByComparator) {
+			long commerceShippingMethodId, int start, int end,
+			OrderByComparator<CommerceShippingFixedOption> orderByComparator)
+		throws PortalException {
+
+		CommerceShippingMethod commerceShippingMethod =
+			_commerceShippingMethodService.getCommerceShippingMethod(
+				commerceShippingMethodId);
 
 		return commerceShippingFixedOptionLocalService.
 			getCommerceShippingFixedOptions(
-				commerceShippingMethodId, start, end, orderByComparator);
+				commerceShippingMethod.getCommerceShippingMethodId(), start,
+				end, orderByComparator);
 	}
 
 	@Override
 	public int getCommerceShippingFixedOptionsCount(
-		long commerceShippingMethodId) {
+			long commerceShippingMethodId)
+		throws PortalException {
+
+		CommerceShippingMethod commerceShippingMethod =
+			_commerceShippingMethodService.getCommerceShippingMethod(
+				commerceShippingMethodId);
 
 		return commerceShippingFixedOptionLocalService.
-			getCommerceShippingFixedOptionsCount(commerceShippingMethodId);
+			getCommerceShippingFixedOptionsCount(
+				commerceShippingMethod.getCommerceShippingMethodId());
 	}
 
 	@Override
@@ -131,5 +163,8 @@ public class CommerceShippingFixedOptionServiceImpl
 			PortletResourcePermissionFactory.getInstance(
 				CommerceShippingFixedOptionServiceImpl.class,
 				"_portletResourcePermission", CommerceConstants.RESOURCE_NAME);
+
+	@ServiceReference(type = CommerceShippingMethodService.class)
+	private CommerceShippingMethodService _commerceShippingMethodService;
 
 }

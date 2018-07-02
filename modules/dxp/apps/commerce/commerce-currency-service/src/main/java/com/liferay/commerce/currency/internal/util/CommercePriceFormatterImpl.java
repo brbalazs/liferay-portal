@@ -17,7 +17,7 @@ package com.liferay.commerce.currency.internal.util;
 import com.liferay.commerce.currency.configuration.RoundingTypeConfiguration;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceCurrencyConstants;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -80,7 +80,7 @@ public class CommercePriceFormatterImpl implements CommercePriceFormatter {
 		throws PortalException {
 
 		CommerceCurrency commerceCurrency =
-			_commerceCurrencyService.fetchPrimaryCommerceCurrency(groupId);
+			_commerceCurrencyLocalService.fetchPrimaryCommerceCurrency(groupId);
 
 		return format(commerceCurrency, price, locale);
 	}
@@ -135,7 +135,7 @@ public class CommercePriceFormatterImpl implements CommercePriceFormatter {
 	}
 
 	@Reference
-	private CommerceCurrencyService _commerceCurrencyService;
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
 	@Reference
 	private Portal _portal;

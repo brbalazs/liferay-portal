@@ -70,14 +70,26 @@ public class CommerceAvailabilityEstimateServiceImpl
 			long commerceAvailabilityEstimateId)
 		throws PortalException {
 
-		return commerceAvailabilityEstimateLocalService.
-			getCommerceAvailabilityEstimate(commerceAvailabilityEstimateId);
+		CommerceAvailabilityEstimate commerceAvailabilityEstimate =
+			commerceAvailabilityEstimateLocalService.
+				getCommerceAvailabilityEstimate(commerceAvailabilityEstimateId);
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), commerceAvailabilityEstimate.getGroupId(),
+			CommerceActionKeys.MANAGE_COMMERCE_AVAILABILITY_ESTIMATES);
+
+		return commerceAvailabilityEstimate;
 	}
 
 	@Override
 	public List<CommerceAvailabilityEstimate> getCommerceAvailabilityEstimates(
-		long groupId, int start, int end,
-		OrderByComparator<CommerceAvailabilityEstimate> orderByComparator) {
+			long groupId, int start, int end,
+			OrderByComparator<CommerceAvailabilityEstimate> orderByComparator)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_AVAILABILITY_ESTIMATES);
 
 		return commerceAvailabilityEstimateLocalService.
 			getCommerceAvailabilityEstimates(
@@ -85,7 +97,13 @@ public class CommerceAvailabilityEstimateServiceImpl
 	}
 
 	@Override
-	public int getCommerceAvailabilityEstimatesCount(long groupId) {
+	public int getCommerceAvailabilityEstimatesCount(long groupId)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_AVAILABILITY_ESTIMATES);
+
 		return commerceAvailabilityEstimateLocalService.
 			getCommerceAvailabilityEstimatesCount(groupId);
 	}

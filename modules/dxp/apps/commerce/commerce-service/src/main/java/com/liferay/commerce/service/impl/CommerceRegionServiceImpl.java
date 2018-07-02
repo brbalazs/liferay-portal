@@ -69,7 +69,14 @@ public class CommerceRegionServiceImpl extends CommerceRegionServiceBaseImpl {
 	public CommerceRegion getCommerceRegion(long commerceRegionId)
 		throws PortalException {
 
-		return commerceRegionLocalService.getCommerceRegion(commerceRegionId);
+		CommerceRegion commerceRegion =
+			commerceRegionLocalService.getCommerceRegion(commerceRegionId);
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), commerceRegion.getGroupId(),
+			CommerceActionKeys.MANAGE_COMMERCE_COUNTRIES);
+
+		return commerceRegion;
 	}
 
 	@Override
@@ -82,8 +89,16 @@ public class CommerceRegionServiceImpl extends CommerceRegionServiceBaseImpl {
 
 	@Override
 	public List<CommerceRegion> getCommerceRegions(
-		long commerceCountryId, boolean active, int start, int end,
-		OrderByComparator<CommerceRegion> orderByComparator) {
+			long commerceCountryId, boolean active, int start, int end,
+			OrderByComparator<CommerceRegion> orderByComparator)
+		throws PortalException {
+
+		CommerceCountry commerceCountry =
+			commerceCountryLocalService.getCommerceCountry(commerceCountryId);
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), commerceCountry.getGroupId(),
+			CommerceActionKeys.MANAGE_COMMERCE_COUNTRIES);
 
 		return commerceRegionLocalService.getCommerceRegions(
 			commerceCountryId, active, start, end, orderByComparator);
@@ -91,21 +106,47 @@ public class CommerceRegionServiceImpl extends CommerceRegionServiceBaseImpl {
 
 	@Override
 	public List<CommerceRegion> getCommerceRegions(
-		long commerceCountryId, int start, int end,
-		OrderByComparator<CommerceRegion> orderByComparator) {
+			long commerceCountryId, int start, int end,
+			OrderByComparator<CommerceRegion> orderByComparator)
+		throws PortalException {
+
+		CommerceCountry commerceCountry =
+			commerceCountryLocalService.getCommerceCountry(commerceCountryId);
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), commerceCountry.getGroupId(),
+			CommerceActionKeys.MANAGE_COMMERCE_COUNTRIES);
 
 		return commerceRegionLocalService.getCommerceRegions(
 			commerceCountryId, start, end, orderByComparator);
 	}
 
 	@Override
-	public int getCommerceRegionsCount(long commerceCountryId) {
+	public int getCommerceRegionsCount(long commerceCountryId)
+		throws PortalException {
+
+		CommerceCountry commerceCountry =
+			commerceCountryLocalService.getCommerceCountry(commerceCountryId);
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), commerceCountry.getGroupId(),
+			CommerceActionKeys.MANAGE_COMMERCE_COUNTRIES);
+
 		return commerceRegionLocalService.getCommerceRegionsCount(
 			commerceCountryId);
 	}
 
 	@Override
-	public int getCommerceRegionsCount(long commerceCountryId, boolean active) {
+	public int getCommerceRegionsCount(long commerceCountryId, boolean active)
+		throws PortalException {
+
+		CommerceCountry commerceCountry =
+			commerceCountryLocalService.getCommerceCountry(commerceCountryId);
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), commerceCountry.getGroupId(),
+			CommerceActionKeys.MANAGE_COMMERCE_COUNTRIES);
+
 		return commerceRegionLocalService.getCommerceRegionsCount(
 			commerceCountryId, active);
 	}

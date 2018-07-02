@@ -20,7 +20,6 @@ import com.liferay.commerce.user.segment.model.CommerceUserSegmentEntry;
 import com.liferay.commerce.user.segment.service.base.CommerceUserSegmentEntryServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
-import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
@@ -112,18 +111,12 @@ public class CommerceUserSegmentEntryServiceImpl
 				int end, Sort sort)
 		throws PortalException {
 
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId, ActionKeys.VIEW);
+
 		return commerceUserSegmentEntryLocalService.
 			searchCommerceUserSegmentEntries(
 				companyId, groupId, keywords, start, end, sort);
-	}
-
-	@Override
-	public BaseModelSearchResult<CommerceUserSegmentEntry>
-			searchCommerceUserSegmentEntries(SearchContext searchContext)
-		throws PortalException {
-
-		return commerceUserSegmentEntryLocalService.
-			searchCommerceUserSegmentEntries(searchContext);
 	}
 
 	@Override

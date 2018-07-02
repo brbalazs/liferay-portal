@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.product.service.impl;
 
+import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinition;
@@ -154,8 +155,13 @@ public class CPDefinitionServiceImpl extends CPDefinitionServiceBaseImpl {
 
 	@Override
 	public List<CPDefinition> getCPDefinitions(
-		long groupId, String productTypeName, String languageId, int status,
-		int start, int end, OrderByComparator<CPDefinition> orderByComparator) {
+			long groupId, String productTypeName, String languageId, int status,
+			int start, int end,
+			OrderByComparator<CPDefinition> orderByComparator)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId, CPActionKeys.MANAGE_CATALOG);
 
 		return cpDefinitionLocalService.getCPDefinitions(
 			groupId, productTypeName, languageId, status, start, end,
@@ -164,7 +170,15 @@ public class CPDefinitionServiceImpl extends CPDefinitionServiceBaseImpl {
 
 	@Override
 	public List<CPDefinition> getCPDefinitionsByCategoryId(
-		long categoryId, int start, int end) {
+			long categoryId, int start, int end)
+		throws PortalException {
+
+		AssetCategory assetCategory =
+			assetCategoryLocalService.getAssetCategory(categoryId);
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), assetCategory.getGroupId(),
+			CPActionKeys.MANAGE_CATALOG);
 
 		return cpDefinitionLocalService.getCPDefinitionsByCategoryId(
 			categoryId, start, end);
@@ -172,14 +186,27 @@ public class CPDefinitionServiceImpl extends CPDefinitionServiceBaseImpl {
 
 	@Override
 	public int getCPDefinitionsCount(
-		long groupId, String productTypeName, String languageId, int status) {
+			long groupId, String productTypeName, String languageId, int status)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId, CPActionKeys.MANAGE_CATALOG);
 
 		return cpDefinitionLocalService.getCPDefinitionsCount(
 			groupId, productTypeName, languageId, status);
 	}
 
 	@Override
-	public int getCPDefinitionsCountByCategoryId(long categoryId) {
+	public int getCPDefinitionsCountByCategoryId(long categoryId)
+		throws PortalException {
+
+		AssetCategory assetCategory =
+			assetCategoryLocalService.getAssetCategory(categoryId);
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), assetCategory.getGroupId(),
+			CPActionKeys.MANAGE_CATALOG);
+
 		return cpDefinitionLocalService.getCPDefinitionsCountByCategoryId(
 			categoryId);
 	}

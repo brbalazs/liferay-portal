@@ -188,6 +188,14 @@ public class CPDefinitionOptionValueRelServiceImpl
 				String keywords, int start, int end, Sort sort)
 		throws PortalException {
 
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			cpDefinitionOptionRelLocalService.getCPDefinitionOptionRel(
+				cpDefinitionOptionRelId);
+
+		_cpDefinitionModelResourcePermission.check(
+			getPermissionChecker(), cpDefinitionOptionRel.getCPDefinitionId(),
+			ActionKeys.VIEW);
+
 		return cpDefinitionOptionValueRelLocalService.
 			searchCPDefinitionOptionValueRels(
 				companyId, groupId, cpDefinitionOptionRelId, keywords, start,

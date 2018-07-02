@@ -16,6 +16,8 @@ package com.liferay.commerce.shipping.engine.fixed.service.impl;
 
 import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommerceConstants;
+import com.liferay.commerce.model.CommerceShippingMethod;
+import com.liferay.commerce.service.CommerceShippingMethodService;
 import com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOptionRel;
 import com.liferay.commerce.shipping.engine.fixed.service.base.CommerceShippingFixedOptionRelServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -23,6 +25,7 @@ import com.liferay.portal.kernel.security.permission.resource.PortletResourcePer
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermissionFactory;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.math.BigDecimal;
 
@@ -77,84 +80,54 @@ public class CommerceShippingFixedOptionRelServiceImpl
 
 	@Override
 	public CommerceShippingFixedOptionRel fetchCommerceShippingFixedOptionRel(
-		long commerceShippingFixedOptionRelId) {
+			long commerceShippingFixedOptionRelId)
+		throws PortalException {
 
-		return commerceShippingFixedOptionRelLocalService.
-			fetchCommerceShippingFixedOptionRel(
-				commerceShippingFixedOptionRelId);
-	}
+		CommerceShippingFixedOptionRel commerceShippingFixedOptionRel =
+			commerceShippingFixedOptionRelLocalService.
+				fetchCommerceShippingFixedOptionRel(
+					commerceShippingFixedOptionRelId);
 
-	@Override
-	public CommerceShippingFixedOptionRel fetchCommerceShippingFixedOptionRel(
-		long commerceShippingFixedOptionId, long commerceCountryId,
-		long commerceRegionId, String zip, double weight) {
+		if (commerceShippingFixedOptionRel != null) {
+			_portletResourcePermission.check(
+				getPermissionChecker(),
+				commerceShippingFixedOptionRel.getGroupId(),
+				CommerceActionKeys.MANAGE_COMMERCE_SHIPPING_METHODS);
+		}
 
-		return commerceShippingFixedOptionRelLocalService.
-			fetchCommerceShippingFixedOptionRel(
-				commerceShippingFixedOptionId, commerceCountryId,
-				commerceRegionId, zip, weight);
-	}
-
-	@Override
-	public List<CommerceShippingFixedOptionRel>
-		getCommerceShippingFixedOptionRels(
-			long commerceShippingFixedOptionId, int start, int end) {
-
-		return commerceShippingFixedOptionRelLocalService.
-			getCommerceShippingFixedOptionRels(
-				commerceShippingFixedOptionId, start, end);
+		return commerceShippingFixedOptionRel;
 	}
 
 	@Override
 	public List<CommerceShippingFixedOptionRel>
-		getCommerceShippingFixedOptionRels(
-			long commerceShippingFixedOptionId, int start, int end,
-			OrderByComparator<CommerceShippingFixedOptionRel>
-				orderByComparator) {
+			getCommerceShippingMethodFixedOptionRels(
+				long commerceShippingMethodId, int start, int end,
+				OrderByComparator<CommerceShippingFixedOptionRel>
+					orderByComparator)
+		throws PortalException {
 
-		return commerceShippingFixedOptionRelLocalService.
-			getCommerceShippingFixedOptionRels(
-				commerceShippingFixedOptionId, start, end, orderByComparator);
-	}
-
-	@Override
-	public int getCommerceShippingFixedOptionRelsCount(
-		long commerceShippingFixedOptionId) {
-
-		return commerceShippingFixedOptionRelLocalService.
-			getCommerceShippingFixedOptionRelsCount(
-				commerceShippingFixedOptionId);
-	}
-
-	@Override
-	public List<CommerceShippingFixedOptionRel>
-		getCommerceShippingMethodFixedOptionRels(
-			long commerceShippingMethodId, int start, int end) {
+		CommerceShippingMethod commerceShippingMethod =
+			_commerceShippingMethodService.getCommerceShippingMethod(
+				commerceShippingMethodId);
 
 		return commerceShippingFixedOptionRelLocalService.
 			getCommerceShippingMethodFixedOptionRels(
-				commerceShippingMethodId, start, end);
-	}
-
-	@Override
-	public List<CommerceShippingFixedOptionRel>
-		getCommerceShippingMethodFixedOptionRels(
-			long commerceShippingMethodId, int start, int end,
-			OrderByComparator<CommerceShippingFixedOptionRel>
-				orderByComparator) {
-
-		return commerceShippingFixedOptionRelLocalService.
-			getCommerceShippingMethodFixedOptionRels(
-				commerceShippingMethodId, start, end, orderByComparator);
+				commerceShippingMethod.getCommerceShippingMethodId(), start,
+				end, orderByComparator);
 	}
 
 	@Override
 	public int getCommerceShippingMethodFixedOptionRelsCount(
-		long commerceShippingMethodId) {
+			long commerceShippingMethodId)
+		throws PortalException {
+
+		CommerceShippingMethod commerceShippingMethod =
+			_commerceShippingMethodService.getCommerceShippingMethod(
+				commerceShippingMethodId);
 
 		return commerceShippingFixedOptionRelLocalService.
 			getCommerceShippingMethodFixedOptionRelsCount(
-				commerceShippingMethodId);
+				commerceShippingMethod.getCommerceShippingMethodId());
 	}
 
 	@Override
@@ -186,5 +159,8 @@ public class CommerceShippingFixedOptionRelServiceImpl
 			PortletResourcePermissionFactory.getInstance(
 				CommerceShippingFixedOptionRelServiceImpl.class,
 				"_portletResourcePermission", CommerceConstants.RESOURCE_NAME);
+
+	@ServiceReference(type = CommerceShippingMethodService.class)
+	private CommerceShippingMethodService _commerceShippingMethodService;
 
 }

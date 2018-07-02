@@ -65,18 +65,12 @@ public class CommerceAddressRestrictionServiceImpl
 	}
 
 	@Override
-	public CommerceAddressRestriction fetchCommerceAddressRestriction(
-		String className, long classPK, long commerceCountryId) {
-
-		return commerceAddressRestrictionLocalService.
-			fetchCommerceAddressRestriction(
-				className, classPK, commerceCountryId);
-	}
-
-	@Override
 	public List<CommerceAddressRestriction> getCommerceAddressRestrictions(
-		String className, long classPK, int start, int end,
-		OrderByComparator<CommerceAddressRestriction> orderByComparator) {
+			String className, long classPK, int start, int end,
+			OrderByComparator<CommerceAddressRestriction> orderByComparator)
+		throws PortalException {
+
+		checkModel(className, classPK);
 
 		return commerceAddressRestrictionLocalService.
 			getCommerceAddressRestrictions(
@@ -85,33 +79,22 @@ public class CommerceAddressRestrictionServiceImpl
 
 	@Override
 	public int getCommerceAddressRestrictionsCount(
-		String className, long classPK) {
+			String className, long classPK)
+		throws PortalException {
+
+		checkModel(className, classPK);
 
 		return commerceAddressRestrictionLocalService.
 			getCommerceAddressRestrictionsCount(className, classPK);
 	}
 
 	@Override
-	public boolean isCommerceAddressRestricted(
-		String className, long classPK, long commerceCountryId) {
-
-		return
-			commerceAddressRestrictionLocalService.isCommerceAddressRestricted(
-				className, classPK, commerceCountryId);
-	}
-
-	@Override
-	public boolean isCommercePaymentMethodRestricted(
-		long commercePaymentMethodId, long commerceCountryId) {
-
-		return commerceAddressRestrictionLocalService.
-			isCommercePaymentMethodRestricted(
-				commercePaymentMethodId, commerceCountryId);
-	}
-
-	@Override
 	public boolean isCommerceShippingMethodRestricted(
-		long commerceShippingMethodId, long commerceCountryId) {
+			long commerceShippingMethodId, long commerceCountryId)
+		throws PortalException {
+
+		checkModel(
+			CommerceShippingMethod.class.getName(), commerceShippingMethodId);
 
 		return commerceAddressRestrictionLocalService.
 			isCommerceShippingMethodRestricted(

@@ -328,8 +328,11 @@ public class CommerceOrderLocalServiceImpl
 		BigDecimal subtotalPrice = subtotal.getPrice();
 
 		if (subtotalDiscountValue != null) {
+			CommerceMoney subtotalDiscountAmount =
+				subtotalDiscountValue.getDiscountAmount();
+
 			subtotalPrice = subtotalPrice.subtract(
-				subtotalDiscountValue.getDiscountAmount());
+				subtotalDiscountAmount.getPrice());
 		}
 
 		CommerceMoney total = commerceOrderPrice.getTotal();
@@ -339,8 +342,10 @@ public class CommerceOrderLocalServiceImpl
 		BigDecimal totalPrice = total.getPrice();
 
 		if (totalDiscountValue != null) {
-			totalPrice = totalPrice.subtract(
-				totalDiscountValue.getDiscountAmount());
+			CommerceMoney totalDiscountAmount =
+				totalDiscountValue.getDiscountAmount();
+
+			totalPrice = totalPrice.subtract(totalDiscountAmount.getPrice());
 		}
 
 		commerceOrder.setSubtotal(subtotalPrice);
@@ -914,8 +919,11 @@ public class CommerceOrderLocalServiceImpl
 				commerceOrderPrice.getShippingDiscountValue();
 
 			if (shippingDiscountValue != null) {
+				CommerceMoney shippingDiscountAmount =
+					shippingDiscountValue.getDiscountAmount();
+
 				shippingPrice = shippingPrice.subtract(
-					shippingDiscountValue.getDiscountAmount());
+					shippingDiscountAmount.getPrice());
 			}
 		}
 

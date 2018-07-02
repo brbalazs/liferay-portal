@@ -86,8 +86,13 @@ public class CPDefinitionVirtualSettingServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		fetchCPDefinitionVirtualSettingByCPDefinitionId(
-			cpDefinitionVirtualSettingId);
+		CPDefinitionVirtualSetting cpDefinitionVirtualSetting =
+			cpDefinitionVirtualSettingLocalService.
+				getCPDefinitionVirtualSetting(cpDefinitionVirtualSettingId);
+
+		_cpDefinitionModelResourcePermission.check(
+			getPermissionChecker(),
+			cpDefinitionVirtualSetting.getCPDefinitionId(), ActionKeys.VIEW);
 
 		return cpDefinitionVirtualSettingLocalService.
 			updateCPDefinitionVirtualSetting(

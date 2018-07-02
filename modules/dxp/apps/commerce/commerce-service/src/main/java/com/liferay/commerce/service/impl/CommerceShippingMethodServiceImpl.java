@@ -88,20 +88,19 @@ public class CommerceShippingMethodServiceImpl
 	}
 
 	@Override
-	public CommerceShippingMethod fetchCommerceShippingMethod(
-		long groupId, String engineKey) {
-
-		return commerceShippingMethodLocalService.fetchCommerceShippingMethod(
-			groupId, engineKey);
-	}
-
-	@Override
 	public CommerceShippingMethod getCommerceShippingMethod(
 			long commerceShippingMethodId)
 		throws PortalException {
 
-		return commerceShippingMethodLocalService.getCommerceShippingMethod(
-			commerceShippingMethodId);
+		CommerceShippingMethod commerceShippingMethod =
+			commerceShippingMethodLocalService.getCommerceShippingMethod(
+				commerceShippingMethodId);
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), commerceShippingMethod.getGroupId(),
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPPING_METHODS);
+
+		return commerceShippingMethod;
 	}
 
 	@Override
@@ -118,14 +117,25 @@ public class CommerceShippingMethodServiceImpl
 
 	@Override
 	public List<CommerceShippingMethod> getCommerceShippingMethods(
-		long groupId, boolean active) {
+			long groupId, boolean active)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPPING_METHODS);
 
 		return commerceShippingMethodLocalService.getCommerceShippingMethods(
 			groupId, active);
 	}
 
 	@Override
-	public int getCommerceShippingMethodsCount(long groupId, boolean active) {
+	public int getCommerceShippingMethodsCount(long groupId, boolean active)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPPING_METHODS);
+
 		return
 			commerceShippingMethodLocalService.getCommerceShippingMethodsCount(
 				groupId, active);

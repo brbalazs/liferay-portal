@@ -95,6 +95,10 @@ public class CPRuleServiceImpl extends CPRuleServiceBaseImpl {
 			Sort sort)
 		throws PortalException {
 
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId,
+			CPActionKeys.VIEW_COMMERCE_PRODUCT_RULES);
+
 		return cpRuleLocalService.searchCPRules(
 			companyId, groupId, keywords, start, end, sort);
 	}
