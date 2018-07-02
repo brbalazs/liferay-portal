@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.initializer.beryl.internal;
 
-import com.liferay.commerce.product.importer.CPFileImporter;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
@@ -60,120 +59,7 @@ public class BerylThemePortletSettingsInitializer {
 
 			String portletName = jsonObject.getString("portletName");
 
-			_setCPContentPortletSettings(
-				jsonObject, portletName, serviceContext);
-			_setCPSearchResultPortletSettings(
-				jsonObject, portletName, serviceContext);
-		}
-	}
-
-	private void _setCPContentPortletSettings(
-			JSONObject jsonObject, String portletName,
-			ServiceContext serviceContext)
-		throws Exception {
-
-		if (portletName.equals(_CP_CONTENT_PORTLET_NAME)) {
-			String instanceId = jsonObject.getString("instanceId");
-			String layoutFriendlyURL = jsonObject.getString(
-				"layoutFriendlyURL");
-
-			JSONObject portletPreferencesJSONObject = jsonObject.getJSONObject(
-				"portletPreferences");
-
-			String portletId = PortletIdCodec.encode(portletName, instanceId);
-
-			PortletPreferences portletSetup =
-				PortletPreferencesFactoryUtil.getLayoutPortletSetup(
-					serviceContext.getCompanyId(),
-					serviceContext.getScopeGroupId(),
-					PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
-					LayoutConstants.DEFAULT_PLID, portletId, StringPool.BLANK);
-
-			Iterator<String> iterator = portletPreferencesJSONObject.keys();
-
-			while (iterator.hasNext()) {
-				String key = iterator.next();
-
-				String value = portletPreferencesJSONObject.getString(key);
-
-				if (key.equals("displayStyleGroupId")) {
-					value = String.valueOf(serviceContext.getScopeGroupId());
-				}
-
-				portletSetup.setValue(key, value);
-			}
-
-			portletSetup.store();
-
-			long plid = LayoutConstants.DEFAULT_PLID;
-
-			if (Validator.isNotNull(layoutFriendlyURL)) {
-				Layout layout = _layoutLocalService.fetchLayoutByFriendlyURL(
-					serviceContext.getScopeGroupId(), false, layoutFriendlyURL);
-
-				if (layout != null) {
-					plid = layout.getPlid();
-				}
-			}
-
-			if (plid > LayoutConstants.DEFAULT_PLID) {
-				_setPlidPortletPreferences(plid, portletId, serviceContext);
-			}
-		}
-	}
-
-	private void _setCPSearchResultPortletSettings(
-			JSONObject jsonObject, String portletName,
-			ServiceContext serviceContext)
-		throws Exception {
-
-		if (portletName.equals(_CP_SEARCH_RESULT_PORTLET_NAME)) {
-			String instanceId = jsonObject.getString("instanceId");
-			String layoutFriendlyURL = jsonObject.getString(
-				"layoutFriendlyURL");
-
-			JSONObject portletPreferencesJSONObject = jsonObject.getJSONObject(
-				"portletPreferences");
-
-			String portletId = PortletIdCodec.encode(portletName, instanceId);
-
-			PortletPreferences portletSetup =
-				PortletPreferencesFactoryUtil.getLayoutPortletSetup(
-					serviceContext.getCompanyId(),
-					serviceContext.getScopeGroupId(),
-					PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
-					LayoutConstants.DEFAULT_PLID, portletId, StringPool.BLANK);
-
-			Iterator<String> iterator = portletPreferencesJSONObject.keys();
-
-			while (iterator.hasNext()) {
-				String key = iterator.next();
-
-				String value = portletPreferencesJSONObject.getString(key);
-
-				if (key.equals("displayStyleGroupId")) {
-					value = String.valueOf(serviceContext.getScopeGroupId());
-				}
-
-				portletSetup.setValue(key, value);
-			}
-
-			portletSetup.store();
-
-			long plid = LayoutConstants.DEFAULT_PLID;
-
-			if (Validator.isNotNull(layoutFriendlyURL)) {
-				Layout layout = _layoutLocalService.fetchLayoutByFriendlyURL(
-					serviceContext.getScopeGroupId(), false, layoutFriendlyURL);
-
-				if (layout != null) {
-					plid = layout.getPlid();
-				}
-			}
-
-			if (plid > LayoutConstants.DEFAULT_PLID) {
-				_setPlidPortletPreferences(plid, portletId, serviceContext);
-			}
+			_setPortletSettings(jsonObject, portletName, serviceContext);
 		}
 	}
 
@@ -191,16 +77,56 @@ public class BerylThemePortletSettingsInitializer {
 		portletSetup.store();
 	}
 
-	private static final String _CP_CONTENT_PORTLET_NAME =
-		"com_liferay_commerce_product_content_web_internal_portlet_" +
-			"CPContentPortlet";
+	private void _setPortletSettings(
+			JSONObject jsonObject, String portletName,
+			ServiceContext serviceContext)
+		throws Exception {
 
-	private static final String _CP_SEARCH_RESULT_PORTLET_NAME =
-		"com_liferay_commerce_product_content_search_web_internal_portlet_" +
-			"CPSearchResultsPortlet";
+		String instanceId = jsonObject.getString("instanceId");
+		String layoutFriendlyURL = jsonObject.getString("layoutFriendlyURL");
 
-	@Reference
-	private CPFileImporter _cpFileImporter;
+		JSONObject portletPreferencesJSONObject = jsonObject.getJSONObject(
+			"portletPreferences");
+
+		String portletId = PortletIdCodec.encode(portletName, instanceId);
+
+		PortletPreferences portletSetup =
+			PortletPreferencesFactoryUtil.getLayoutPortletSetup(
+				serviceContext.getCompanyId(), serviceContext.getScopeGroupId(),
+				PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
+				LayoutConstants.DEFAULT_PLID, portletId, StringPool.BLANK);
+
+		Iterator<String> iterator = portletPreferencesJSONObject.keys();
+
+		while (iterator.hasNext()) {
+			String key = iterator.next();
+
+			String value = portletPreferencesJSONObject.getString(key);
+
+			if (key.equals("displayStyleGroupId")) {
+				value = String.valueOf(serviceContext.getScopeGroupId());
+			}
+
+			portletSetup.setValue(key, value);
+		}
+
+		portletSetup.store();
+
+		long plid = LayoutConstants.DEFAULT_PLID;
+
+		if (Validator.isNotNull(layoutFriendlyURL)) {
+			Layout layout = _layoutLocalService.fetchLayoutByFriendlyURL(
+				serviceContext.getScopeGroupId(), true, layoutFriendlyURL);
+
+			if (layout != null) {
+				plid = layout.getPlid();
+			}
+		}
+
+		if (plid > LayoutConstants.DEFAULT_PLID) {
+			_setPlidPortletPreferences(plid, portletId, serviceContext);
+		}
+	}
 
 	@Reference
 	private JSONFactory _jsonFactory;
