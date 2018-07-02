@@ -214,7 +214,7 @@ public class CommerceTaxFixedRateAddressRelWrapper
 	}
 
 	@Override
-	public com.liferay.commerce.model.CommerceTaxMethod getCommerceTaxMethod()
+	public com.liferay.commerce.tax.model.CommerceTaxMethod getCommerceTaxMethod()
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceTaxFixedRateAddressRel.getCommerceTaxMethod();
 	}

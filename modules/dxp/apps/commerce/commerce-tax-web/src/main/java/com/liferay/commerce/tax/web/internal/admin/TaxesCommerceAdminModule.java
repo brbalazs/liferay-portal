@@ -16,8 +16,8 @@ package com.liferay.commerce.tax.web.internal.admin;
 
 import com.liferay.commerce.admin.CommerceAdminModule;
 import com.liferay.commerce.constants.CommerceConstants;
-import com.liferay.commerce.service.CommerceTaxMethodLocalService;
-import com.liferay.commerce.service.CommerceTaxMethodService;
+import com.liferay.commerce.tax.service.CommerceTaxMethodLocalService;
+import com.liferay.commerce.tax.service.CommerceTaxMethodService;
 import com.liferay.commerce.tax.web.internal.display.context.CommerceTaxMethodsDisplayContext;
 import com.liferay.commerce.util.CommerceTaxEngineRegistry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;

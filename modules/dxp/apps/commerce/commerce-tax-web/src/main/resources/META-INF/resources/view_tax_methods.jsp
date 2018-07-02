@@ -47,7 +47,7 @@ SearchContainer<CommerceTaxMethod> commerceTaxMethodSearchContainer = commerceTa
 		searchContainer="<%= commerceTaxMethodSearchContainer %>"
 	>
 		<liferay-ui:search-container-row
-			className="com.liferay.commerce.model.CommerceTaxMethod"
+			className="com.liferay.commerce.tax.model.CommerceTaxMethod"
 			keyProperty="commerceTaxMethodId"
 			modelVar="commerceTaxMethod"
 		>

@@ -17,7 +17,7 @@ package com.liferay.commerce.tax.engine.fixed.web.internal.portlet.action;
 import com.liferay.commerce.admin.constants.CommerceAdminPortletKeys;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.product.service.CPTaxCategoryService;
-import com.liferay.commerce.service.CommerceTaxMethodService;
+import com.liferay.commerce.tax.service.CommerceTaxMethodService;
 import com.liferay.commerce.tax.engine.fixed.exception.NoSuchTaxFixedRateException;
 import com.liferay.commerce.tax.engine.fixed.service.CommerceTaxFixedRateService;
 import com.liferay.commerce.tax.engine.fixed.web.internal.display.context.CommerceTaxFixedRatesDisplayContext;

@@ -29,7 +29,7 @@ long commerceTaxMethodId = commerceTaxMethod.getCommerceTaxMethodId();
 <portlet:actionURL name="editCommerceTaxMethod" var="editCommerceTaxMethodActionURL" />
 
 <aui:form action="<%= editCommerceTaxMethodActionURL %>" cssClass="container-fluid-1280" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "saveCommerceTaxMethod();" %>'>
-	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commerceTaxMethodId <= 0) ? Constants.ADD : Constants.UPDATE %>" />
+	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= commerceTaxMethod.isNew() ? Constants.ADD : Constants.UPDATE %>" />
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="commerceTaxMethodId" type="hidden" value="<%= commerceTaxMethodId %>" />
 	<aui:input name="engineKey" type="hidden" value="<%= commerceTaxMethod.getEngineKey() %>" />
