@@ -19,7 +19,6 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.search.CPDefinitionIndexer;
-import com.liferay.commerce.product.search.FacetImpl;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelService;
 import com.liferay.commerce.product.service.CPOptionService;
@@ -38,6 +37,7 @@ import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.facet.Facet;
+import com.liferay.portal.kernel.search.facet.MultiValueFacet;
 import com.liferay.portal.kernel.search.facet.collector.FacetCollector;
 import com.liferay.portal.kernel.search.facet.collector.TermCollector;
 import com.liferay.portal.kernel.servlet.ServletResponseUtil;
@@ -143,7 +143,9 @@ public class CPDefinitionsFacetsMVCResourceCommand
 		}
 
 		if (facet == null) {
-			facet = new FacetImpl(indexFieldName, searchContext);
+			facet = new MultiValueFacet(searchContext);
+
+			facet.setFieldName(indexFieldName);
 
 			searchContext.addFacet(facet);
 		}

@@ -32,7 +32,6 @@ import com.liferay.commerce.product.model.CPDisplayLayout;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPInstanceConstants;
 import com.liferay.commerce.product.model.impl.CPDefinitionImpl;
-import com.liferay.commerce.product.search.FacetImpl;
 import com.liferay.commerce.product.service.base.CPDefinitionLocalServiceBaseImpl;
 import com.liferay.commerce.product.type.CPType;
 import com.liferay.commerce.product.type.CPTypeServicesTracker;
@@ -61,6 +60,7 @@ import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.facet.Facet;
+import com.liferay.portal.kernel.search.facet.MultiValueFacet;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -768,15 +768,19 @@ public class CPDefinitionLocalServiceImpl
 
 			for (Map.Entry<String, List<String>> entry : facetMap.entrySet()) {
 				String fieldName = entry.getKey();
-
-				FacetImpl facet = new FacetImpl(fieldName, searchContext);
-
 				List<String> facetValues = entry.getValue();
 
 				String[] facetValuesArray = ArrayUtil.toStringArray(
 					facetValues);
 
-				facet.select(facetValuesArray);
+				MultiValueFacet multiValueFacet = new MultiValueFacet(
+					searchContext);
+
+				multiValueFacet.setFieldName(fieldName);
+				multiValueFacet.setStatic(true);
+				multiValueFacet.setValues(facetValuesArray);
+
+				searchContext.setAttribute(fieldName, facetValuesArray);
 
 				if (fieldName.equals("assetCategoryIds")) {
 					Stream<String> stream = Arrays.stream(facetValuesArray);
@@ -787,7 +791,7 @@ public class CPDefinitionLocalServiceImpl
 					searchContext.setAssetCategoryIds(assetCategoryIds);
 				}
 
-				facets.add(facet);
+				facets.add(multiValueFacet);
 			}
 		}
 
