@@ -18,18 +18,18 @@
 	<ul class="nav nav-nested">
 		<#list nav_items as nav_item>
 			<#assign
-			nav_child_is_selected = false
-			nav_item_attr_has_popup = ""
-			nav_item_attr_selected = ""
-			nav_item_css_class = "nav-item"
-			nav_item_layout = nav_item.getLayout()
+				nav_child_is_selected = false
+				nav_item_attr_has_popup = ""
+				nav_item_attr_selected = ""
+				nav_item_css_class = "nav-item"
+				nav_item_layout = nav_item.getLayout()
 			/>
 
 			<#if nav_item.hasChildren()>
 				<#list nav_item.getChildren() as nav_child>
 					<#if nav_child.isSelected()>
 						<#assign
-						nav_child_is_selected = true
+							nav_child_is_selected = true
 						/>
 					</#if>
 				</#list>
@@ -37,9 +37,9 @@
 
 			<#if nav_item.isSelected() && !nav_child_is_selected>
 				<#assign
-				nav_item_attr_has_popup = "aria-haspopup='true'"
-				nav_item_attr_selected = "aria-selected='true'"
-				nav_item_css_class = "nav-item selected"
+					nav_item_attr_has_popup = "aria-haspopup='true'"
+					nav_item_attr_selected = "aria-selected='true'"
+					nav_item_css_class = "nav-item selected"
 				/>
 			</#if>
 
@@ -56,15 +56,15 @@
 				<ul class="child-menu nav" role="menu">
 					<#list nav_item.getChildren() as nav_child>
 						<#assign
-						nav_child_attr_selected = "selected"
-						nav_child_css_class = "nav-item"
-						nav_child_layout = nav_child.getLayout()
+							nav_child_attr_selected = "selected"
+							nav_child_css_class = "nav-item"
+							nav_child_layout = nav_child.getLayout()
 						/>
 
 						<#if nav_child.isSelected()>
 							<#assign
-							nav_child_attr_selected = "aria-selected='true'"
-							nav_child_css_class = "selected"
+								nav_child_attr_selected = "aria-selected='true'"
+								nav_child_css_class = "selected"
 							/>
 						</#if>
 

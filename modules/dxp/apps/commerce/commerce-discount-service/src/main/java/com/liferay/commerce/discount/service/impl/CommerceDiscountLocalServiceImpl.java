@@ -598,10 +598,10 @@ public class CommerceDiscountLocalServiceImpl
 					groupId, couponCode,
 					new CommerceDiscountCreateDateComparator(true));
 
-			if ((commerceDiscountId <= 0) && (commerceDiscount != null) ||
-				(commerceDiscount != null) &&
+			if (((commerceDiscountId <= 0) && (commerceDiscount != null)) ||
+				((commerceDiscount != null) &&
 				(commerceDiscountId !=
-					commerceDiscount.getCommerceDiscountId())) {
+					commerceDiscount.getCommerceDiscountId()))) {
 
 				throw new CommerceDiscountCouponCodeException();
 			}
