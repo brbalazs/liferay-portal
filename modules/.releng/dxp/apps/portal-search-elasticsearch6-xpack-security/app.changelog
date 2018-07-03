@@ -1,0 +1,10 @@
+#
+# Liferay App Version 2.0.0
+#
+
+app.artifacts-2.0.0=\
+	com.liferay.portal.search.elasticsearch6.xpack.security.impl-2.0.2.jar
+
+app.change.log-2.0.0=LPS-77699 LPS-79679
+
+app.git.id-2.0.0=5c1209849ecb6ef5d49d3013f383f0651acdb752
