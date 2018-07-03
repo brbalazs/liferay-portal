@@ -329,7 +329,7 @@ public class CPDefinitionLocalServiceImpl
 		return cpDefinitionLocalService.addCPDefinition(
 			nameMap, shortDescriptionMap, descriptionMap, urlTitleMap,
 			metaTitleMap, metaDescriptionMap, metaKeywordsMap, productTypeName,
-			ignoreSKUCombinations, false, false, false, 0, 0, 0, 0, 0, 0, false,
+			ignoreSKUCombinations, true, false, false, 0, 0, 0, 0, 0, 0, false,
 			false, ddmStructureKey, published, displayDateMonth, displayDateDay,
 			displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
