@@ -66,8 +66,12 @@ public class CommerceDiscountCalculationImpl
 
 		CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
 
+		if (commerceOrder == null) {
+			return null;
+		}
+
 		SearchContext searchContext = buildSearchContext(
-			commerceOrder.getCompanyId(), commerceOrder.getGroupId(), 0, 0,
+			commerceOrder.getCompanyId(), commerceOrder.getSiteGroupId(), 0, 0,
 			commerceOrder.getCommerceOrderId(),
 			commerceContext.getCommerceUserSegmentEntryIds(),
 			commerceContext.getCouponCode(), Type.APPLY_TO_SHIPPING);
@@ -84,7 +88,7 @@ public class CommerceDiscountCalculationImpl
 		CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
 
 		SearchContext searchContext = buildSearchContext(
-			commerceOrder.getCompanyId(), commerceOrder.getGroupId(), 0, 0,
+			commerceOrder.getCompanyId(), commerceOrder.getSiteGroupId(), 0, 0,
 			commerceOrder.getCommerceOrderId(),
 			commerceContext.getCommerceUserSegmentEntryIds(),
 			commerceContext.getCouponCode(), Type.APPLY_TO_SUBTOTAL);
@@ -101,7 +105,7 @@ public class CommerceDiscountCalculationImpl
 		CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
 
 		SearchContext searchContext = buildSearchContext(
-			commerceOrder.getCompanyId(), commerceOrder.getGroupId(), 0, 0,
+			commerceOrder.getCompanyId(), commerceOrder.getSiteGroupId(), 0, 0,
 			commerceOrder.getCommerceOrderId(),
 			commerceContext.getCommerceUserSegmentEntryIds(),
 			commerceContext.getCouponCode(), Type.APPLY_TO_TOTAL);
