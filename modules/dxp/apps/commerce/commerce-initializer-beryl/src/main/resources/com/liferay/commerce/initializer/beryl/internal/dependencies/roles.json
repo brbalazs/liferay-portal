@@ -43,5 +43,16 @@
 		"name": "Buyer",
 		"scope": 3,
 		"type": 3
+	},
+	{
+		"actions": {
+			"actionIds": [
+				"VIEW_PRICE"
+			],
+			"resource": "com.liferay.commerce.product"
+		},
+		"name": "User",
+		"scope": 2,
+		"type": 1
 	}
 ]
