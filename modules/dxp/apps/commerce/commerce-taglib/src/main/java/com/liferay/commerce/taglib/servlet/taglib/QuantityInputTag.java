@@ -18,7 +18,7 @@ import com.liferay.commerce.constants.CPDefinitionInventoryConstants;
 import com.liferay.commerce.model.CPDefinitionInventory;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.service.CPDefinitionServiceUtil;
-import com.liferay.commerce.service.CPDefinitionInventoryServiceUtil;
+import com.liferay.commerce.service.CPDefinitionInventoryLocalServiceUtil;
 import com.liferay.commerce.taglib.servlet.taglib.internal.servlet.ServletContextUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -47,7 +47,7 @@ public class QuantityInputTag extends IncludeTag {
 				CPDefinitionInventoryConstants.DEFAULT_MULTIPLE_ORDER_QUANTITY;
 
 			CPDefinitionInventory cpDefinitionInventory =
-				CPDefinitionInventoryServiceUtil.
+				CPDefinitionInventoryLocalServiceUtil.
 					fetchCPDefinitionInventoryByCPDefinitionId(_cpDefinitionId);
 
 			if (cpDefinitionInventory != null) {

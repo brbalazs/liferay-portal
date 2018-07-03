@@ -17,7 +17,7 @@ package com.liferay.commerce.cart.taglib.servlet.taglib;
 import com.liferay.commerce.constants.CPDefinitionInventoryConstants;
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.model.CPDefinitionInventory;
-import com.liferay.commerce.service.CPDefinitionInventoryServiceUtil;
+import com.liferay.commerce.service.CPDefinitionInventoryLocalServiceUtil;
 import com.liferay.frontend.taglib.soy.servlet.taglib.ComponentRendererTag;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -56,7 +56,7 @@ public class AddToCartTag extends ComponentRendererTag {
 				context.get("cpDefinitionId"));
 
 			CPDefinitionInventory cpDefinitionInventory =
-				CPDefinitionInventoryServiceUtil.
+				CPDefinitionInventoryLocalServiceUtil.
 					fetchCPDefinitionInventoryByCPDefinitionId(cpDefinitionId);
 
 			if (cpDefinitionInventory != null) {
