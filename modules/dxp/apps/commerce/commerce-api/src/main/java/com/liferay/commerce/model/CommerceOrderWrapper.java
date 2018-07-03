@@ -874,9 +874,9 @@ public class CommerceOrderWrapper implements CommerceOrder,
 	}
 
 	@Override
-	public com.liferay.commerce.currency.model.CommerceMoney getSubTotalMoney()
+	public com.liferay.commerce.currency.model.CommerceMoney getSubtotalMoney()
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _commerceOrder.getSubTotalMoney();
+		return _commerceOrder.getSubtotalMoney();
 	}
 
 	/**

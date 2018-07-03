@@ -822,7 +822,7 @@ public class CommerceOrderServiceHttp {
 		long billingAddressId, long shippingAddressId,
 		long commercePaymentMethodId, long commerceShippingMethodId,
 		String shippingOptionName, String purchaseOrderNumber,
-		java.math.BigDecimal subtotal, java.math.BigDecimal shippingPrice,
+		java.math.BigDecimal subtotal, java.math.BigDecimal shippingAmount,
 		java.math.BigDecimal total, String advanceStatus,
 		com.liferay.commerce.context.CommerceContext commerceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -834,7 +834,7 @@ public class CommerceOrderServiceHttp {
 					commerceOrderId, billingAddressId, shippingAddressId,
 					commercePaymentMethodId, commerceShippingMethodId,
 					shippingOptionName, purchaseOrderNumber, subtotal,
-					shippingPrice, total, advanceStatus, commerceContext);
+					shippingAmount, total, advanceStatus, commerceContext);
 
 			Object returnObj = null;
 

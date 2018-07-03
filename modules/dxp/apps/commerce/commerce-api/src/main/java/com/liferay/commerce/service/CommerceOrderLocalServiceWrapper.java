@@ -52,7 +52,7 @@ public class CommerceOrderLocalServiceWrapper
 		long commerceCurrencyId, long billingAddressId, long shippingAddressId,
 		long commercePaymentMethodId, long commerceShippingMethodId,
 		String shippingOptionName, String purchaseOrderNumber,
-		java.math.BigDecimal subtotal, java.math.BigDecimal shippingPrice,
+		java.math.BigDecimal subtotal, java.math.BigDecimal shippingAmount,
 		java.math.BigDecimal total, int paymentStatus, int orderStatus,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -60,7 +60,7 @@ public class CommerceOrderLocalServiceWrapper
 			orderOrganizationId, orderUserId, commerceCurrencyId,
 			billingAddressId, shippingAddressId, commercePaymentMethodId,
 			commerceShippingMethodId, shippingOptionName, purchaseOrderNumber,
-			subtotal, shippingPrice, total, paymentStatus, orderStatus,
+			subtotal, shippingAmount, total, paymentStatus, orderStatus,
 			serviceContext);
 	}
 
@@ -576,14 +576,14 @@ public class CommerceOrderLocalServiceWrapper
 		long commerceOrderId, long billingAddressId, long shippingAddressId,
 		long commercePaymentMethodId, long commerceShippingMethodId,
 		String shippingOptionName, String purchaseOrderNumber,
-		java.math.BigDecimal subtotal, java.math.BigDecimal shippingPrice,
+		java.math.BigDecimal subtotal, java.math.BigDecimal shippingAmount,
 		java.math.BigDecimal total, String advanceStatus,
 		com.liferay.commerce.context.CommerceContext commerceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceOrderLocalService.updateCommerceOrder(commerceOrderId,
 			billingAddressId, shippingAddressId, commercePaymentMethodId,
 			commerceShippingMethodId, shippingOptionName, purchaseOrderNumber,
-			subtotal, shippingPrice, total, advanceStatus, commerceContext);
+			subtotal, shippingAmount, total, advanceStatus, commerceContext);
 	}
 
 	@Override
@@ -621,6 +621,17 @@ public class CommerceOrderLocalServiceWrapper
 		return _commerceOrderLocalService.updateShippingAddress(commerceOrderId,
 			name, description, street1, street2, street3, city, zip,
 			commerceRegionId, commerceCountryId, phoneNumber, serviceContext);
+	}
+
+	@Override
+	public com.liferay.commerce.model.CommerceOrder updateShippingMethod(
+		long commerceOrderId, long commerceShippingMethodId,
+		String shippingOptionName, java.math.BigDecimal shippingAmount,
+		com.liferay.commerce.context.CommerceContext commerceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceOrderLocalService.updateShippingMethod(commerceOrderId,
+			commerceShippingMethodId, shippingOptionName, shippingAmount,
+			commerceContext);
 	}
 
 	@Override

@@ -433,7 +433,7 @@ public class CommerceOrderServiceSoap {
 		long commerceOrderId, long billingAddressId, long shippingAddressId,
 		long commercePaymentMethodId, long commerceShippingMethodId,
 		String shippingOptionName, String purchaseOrderNumber,
-		java.math.BigDecimal subtotal, java.math.BigDecimal shippingPrice,
+		java.math.BigDecimal subtotal, java.math.BigDecimal shippingAmount,
 		java.math.BigDecimal total, String advanceStatus,
 		com.liferay.commerce.context.CommerceContext commerceContext)
 		throws RemoteException {
@@ -442,7 +442,7 @@ public class CommerceOrderServiceSoap {
 					billingAddressId, shippingAddressId,
 					commercePaymentMethodId, commerceShippingMethodId,
 					shippingOptionName, purchaseOrderNumber, subtotal,
-					shippingPrice, total, advanceStatus, commerceContext);
+					shippingAmount, total, advanceStatus, commerceContext);
 
 			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModel(returnValue);
 		}

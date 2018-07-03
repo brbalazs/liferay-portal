@@ -86,7 +86,7 @@ public interface CommerceOrderLocalService extends BaseLocalService,
 		long billingAddressId, long shippingAddressId,
 		long commercePaymentMethodId, long commerceShippingMethodId,
 		String shippingOptionName, String purchaseOrderNumber,
-		BigDecimal subtotal, BigDecimal shippingPrice, BigDecimal total,
+		BigDecimal subtotal, BigDecimal shippingAmount, BigDecimal total,
 		int paymentStatus, int orderStatus, ServiceContext serviceContext)
 		throws PortalException;
 
@@ -417,7 +417,7 @@ public interface CommerceOrderLocalService extends BaseLocalService,
 		long billingAddressId, long shippingAddressId,
 		long commercePaymentMethodId, long commerceShippingMethodId,
 		String shippingOptionName, String purchaseOrderNumber,
-		BigDecimal subtotal, BigDecimal shippingPrice, BigDecimal total,
+		BigDecimal subtotal, BigDecimal shippingAmount, BigDecimal total,
 		String advanceStatus, CommerceContext commerceContext)
 		throws PortalException;
 
@@ -439,6 +439,12 @@ public interface CommerceOrderLocalService extends BaseLocalService,
 		String street3, String city, String zip, long commerceRegionId,
 		long commerceCountryId, String phoneNumber,
 		ServiceContext serviceContext) throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public CommerceOrder updateShippingMethod(long commerceOrderId,
+		long commerceShippingMethodId, String shippingOptionName,
+		BigDecimal shippingAmount, CommerceContext commerceContext)
+		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
 	public CommerceOrder updateStatus(long userId, long commerceOrderId,
