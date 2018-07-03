@@ -148,7 +148,7 @@ public class ShippingMethodCommerceCheckoutStep
 			"/checkout_step/shipping_method.jsp");
 	}
 
-	protected BigDecimal getShippingPrice(
+	protected BigDecimal getShippingAmount(
 			CommerceContext commerceContext, CommerceOrder commerceOrder,
 			long commerceShippingMethodId, String shippingOptionName,
 			Locale locale)
@@ -228,19 +228,13 @@ public class ShippingMethodCommerceCheckoutStep
 		String shippingOptionName = commerceShippingOptionKey.substring(
 			pos + 1);
 
-		BigDecimal shippingPrice = getShippingPrice(
+		BigDecimal shippingAmount = getShippingAmount(
 			commerceContext, commerceOrder, commerceShippingMethodId,
 			shippingOptionName, themeDisplay.getLocale());
 
-		_commerceOrderLocalService.updateCommerceOrder(
-			commerceOrder.getCommerceOrderId(),
-			commerceOrder.getBillingAddressId(),
-			commerceOrder.getShippingAddressId(),
-			commerceOrder.getCommercePaymentMethodId(),
-			commerceShippingMethodId, shippingOptionName,
-			commerceOrder.getPurchaseOrderNumber(), commerceOrder.getSubtotal(),
-			shippingPrice, commerceOrder.getTotal(),
-			commerceOrder.getAdvanceStatus(), commerceContext);
+		_commerceOrderLocalService.updateShippingMethod(
+			commerceOrder.getCommerceOrderId(), commerceShippingMethodId,
+			shippingOptionName, shippingAmount, commerceContext);
 	}
 
 	@Reference
