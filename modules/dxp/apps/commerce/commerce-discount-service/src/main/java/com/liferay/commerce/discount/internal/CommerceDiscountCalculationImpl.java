@@ -143,7 +143,7 @@ public class CommerceDiscountCalculationImpl
 		attributes.put(CommerceDiscountIndexer.FIELD_COUPON_CODE, couponCode);
 		attributes.put(
 			CommerceDiscountIndexer.FIELD_TARGET_TYPE,
-			commerceDiscountTargetType);
+			commerceDiscountTargetType.toString());
 		attributes.put("commerceOrderId", commerceOrderId);
 		attributes.put(
 			"commerceUserSegmentEntryIds", commerceUserSegmentEntryIds);

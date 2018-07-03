@@ -79,6 +79,10 @@
 		"specificationOptionsNames": {
 			"store": true,
 			"type": "keyword"
+		},
+		"targetType": {
+			"store": true,
+			"type": "keyword"
 		}
 	}
 }
