@@ -204,7 +204,7 @@ public class CommerceOrderImpl extends CommerceOrderBaseImpl {
 	}
 
 	@Override
-	public CommerceMoney getSubTotalMoney() throws PortalException {
+	public CommerceMoney getSubtotalMoney() throws PortalException {
 		return CommerceMoneyFactoryUtil.create(
 			getCommerceCurrencyId(), getSubtotal());
 	}
