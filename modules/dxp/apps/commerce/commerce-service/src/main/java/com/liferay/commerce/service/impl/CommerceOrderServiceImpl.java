@@ -379,7 +379,7 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 			long commerceOrderId, long billingAddressId, long shippingAddressId,
 			long commercePaymentMethodId, long commerceShippingMethodId,
 			String shippingOptionName, String purchaseOrderNumber,
-			BigDecimal subtotal, BigDecimal shippingPrice, BigDecimal total,
+			BigDecimal subtotal, BigDecimal shippingAmount, BigDecimal total,
 			String advanceStatus, CommerceContext commerceContext)
 		throws PortalException {
 
@@ -389,7 +389,7 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 		return commerceOrderLocalService.updateCommerceOrder(
 			commerceOrderId, billingAddressId, shippingAddressId,
 			commercePaymentMethodId, commerceShippingMethodId,
-			shippingOptionName, purchaseOrderNumber, subtotal, shippingPrice,
+			shippingOptionName, purchaseOrderNumber, subtotal, shippingAmount,
 			total, advanceStatus, commerceContext);
 	}
 

@@ -113,7 +113,7 @@ public class CommerceOrderLocalServiceImpl
 			long shippingAddressId, long commercePaymentMethodId,
 			long commerceShippingMethodId, String shippingOptionName,
 			String purchaseOrderNumber, BigDecimal subtotal,
-			BigDecimal shippingPrice, BigDecimal total, int paymentStatus,
+			BigDecimal shippingAmount, BigDecimal total, int paymentStatus,
 			int orderStatus, ServiceContext serviceContext)
 		throws PortalException {
 
@@ -161,7 +161,7 @@ public class CommerceOrderLocalServiceImpl
 		commerceOrder.setShippingOptionName(shippingOptionName);
 		commerceOrder.setPurchaseOrderNumber(purchaseOrderNumber);
 		commerceOrder.setSubtotal(subtotal);
-		commerceOrder.setShippingAmount(shippingPrice);
+		commerceOrder.setShippingAmount(shippingAmount);
 		commerceOrder.setTotal(total);
 		commerceOrder.setPaymentStatus(paymentStatus);
 		commerceOrder.setOrderStatus(orderStatus);
@@ -675,6 +675,33 @@ public class CommerceOrderLocalServiceImpl
 				commerceOrderItem.getCommerceOrderItemId(), commerceContext);
 		}
 
+		CommerceOrderPrice commerceOrderPrice =
+			_commerceOrderPriceCalculation.getCommerceOrderPrice(
+				commerceOrder, commerceContext);
+
+		CommerceMoney shippingValue = commerceOrderPrice.getShippingValue();
+		CommerceMoney subtotal = commerceOrderPrice.getSubtotal();
+		CommerceMoney taxValue = commerceOrderPrice.getTaxValue();
+		CommerceMoney total = commerceOrderPrice.getTotal();
+
+		commerceOrder.setShippingAmount(shippingValue.getPrice());
+		commerceOrder.setSubtotal(subtotal.getPrice());
+		commerceOrder.setTaxAmount(taxValue.getPrice());
+		commerceOrder.setTotal(total.getPrice());
+
+		CommerceDiscountValue shippingDiscountValue =
+			commerceOrderPrice.getShippingDiscountValue();
+		CommerceDiscountValue subtotalDiscountValue =
+			commerceOrderPrice.getSubtotalDiscountValue();
+		CommerceDiscountValue totalDiscountValue =
+			commerceOrderPrice.getTotalDiscountValue();
+
+		_setCommerceOrderShippingDiscountValue(
+			commerceOrder, shippingDiscountValue);
+		_setCommerceOrderSubtotalDiscountValue(
+			commerceOrder, subtotalDiscountValue);
+		_setCommerceOrderTotalDiscountValue(commerceOrder, totalDiscountValue);
+
 		return commerceOrder;
 	}
 
@@ -917,7 +944,7 @@ public class CommerceOrderLocalServiceImpl
 			long commerceOrderId, long billingAddressId, long shippingAddressId,
 			long commercePaymentMethodId, long commerceShippingMethodId,
 			String shippingOptionName, String purchaseOrderNumber,
-			BigDecimal subtotal, BigDecimal shippingPrice, BigDecimal total,
+			BigDecimal subtotal, BigDecimal shippingAmount, BigDecimal total,
 			String advanceStatus, CommerceContext commerceContext)
 		throws PortalException {
 
@@ -944,12 +971,12 @@ public class CommerceOrderLocalServiceImpl
 				CommerceMoney shippingDiscountAmount =
 					shippingDiscountValue.getDiscountAmount();
 
-				shippingPrice = shippingPrice.subtract(
+				shippingAmount = shippingAmount.subtract(
 					shippingDiscountAmount.getPrice());
 			}
 		}
 
-		commerceOrder.setShippingAmount(shippingPrice);
+		commerceOrder.setShippingAmount(shippingAmount);
 		commerceOrder.setTotal(total);
 		commerceOrder.setAdvanceStatus(advanceStatus);
 
@@ -1043,6 +1070,29 @@ public class CommerceOrderLocalServiceImpl
 			zip, commerceRegionId, commerceCountryId, phoneNumber,
 			CommerceOrder::getShippingAddressId,
 			CommerceOrder::setShippingAddressId, serviceContext);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceOrder updateShippingMethod(
+			long commerceOrderId, long commerceShippingMethodId,
+			String shippingOptionName, BigDecimal shippingAmount,
+			CommerceContext commerceContext)
+		throws PortalException {
+
+		CommerceOrder commerceOrder = commerceOrderPersistence.findByPrimaryKey(
+			commerceOrderId);
+
+		commerceOrder.setCommerceShippingMethodId(commerceShippingMethodId);
+		commerceOrder.setShippingOptionName(shippingOptionName);
+		commerceOrder.setShippingAmount(shippingAmount);
+
+		commerceOrderPersistence.update(commerceOrder);
+
+		commerceOrder = commerceOrderLocalService.recalculatePrice(
+			commerceOrder.getCommerceOrderId(), commerceContext);
+
+		return commerceOrder;
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
@@ -1385,6 +1435,144 @@ public class CommerceOrderLocalServiceImpl
 		CommerceOrderConstants.ORDER_STATUS_DECLINED,
 		CommerceOrderConstants.ORDER_STATUS_DISPUTED
 	};
+
+	private void _setCommerceOrderShippingDiscountValue(
+		CommerceOrder commerceOrder,
+		CommerceDiscountValue commerceDiscountValue) {
+
+		BigDecimal discountAmount = BigDecimal.ZERO;
+		BigDecimal discountPercentageLevel1 = BigDecimal.ZERO;
+		BigDecimal discountPercentageLevel2 = BigDecimal.ZERO;
+		BigDecimal discountPercentageLevel3 = BigDecimal.ZERO;
+		BigDecimal discountPercentageLevel4 = BigDecimal.ZERO;
+
+		if (commerceDiscountValue != null) {
+			CommerceMoney discountAmountCommerceMoney =
+				commerceDiscountValue.getDiscountAmount();
+
+			discountAmount = discountAmountCommerceMoney.getPrice();
+
+			BigDecimal[] percentages = commerceDiscountValue.getPercentages();
+
+			if (percentages.length >= 1) {
+				discountPercentageLevel1 = percentages[0];
+			}
+
+			if (percentages.length >= 2) {
+				discountPercentageLevel1 = percentages[1];
+			}
+
+			if (percentages.length >= 3) {
+				discountPercentageLevel1 = percentages[2];
+			}
+
+			if (percentages.length >= 4) {
+				discountPercentageLevel1 = percentages[3];
+			}
+		}
+
+		commerceOrder.setShippingDiscountAmount(discountAmount);
+		commerceOrder.setShippingDiscountPercentageLevel1(
+			discountPercentageLevel1);
+		commerceOrder.setShippingDiscountPercentageLevel2(
+			discountPercentageLevel2);
+		commerceOrder.setShippingDiscountPercentageLevel3(
+			discountPercentageLevel3);
+		commerceOrder.setShippingDiscountPercentageLevel4(
+			discountPercentageLevel4);
+	}
+
+	private void _setCommerceOrderSubtotalDiscountValue(
+		CommerceOrder commerceOrder,
+		CommerceDiscountValue commerceDiscountValue) {
+
+		BigDecimal discountAmount = BigDecimal.ZERO;
+		BigDecimal discountPercentageLevel1 = BigDecimal.ZERO;
+		BigDecimal discountPercentageLevel2 = BigDecimal.ZERO;
+		BigDecimal discountPercentageLevel3 = BigDecimal.ZERO;
+		BigDecimal discountPercentageLevel4 = BigDecimal.ZERO;
+
+		if (commerceDiscountValue != null) {
+			CommerceMoney discountAmountCommerceMoney =
+				commerceDiscountValue.getDiscountAmount();
+
+			discountAmount = discountAmountCommerceMoney.getPrice();
+
+			BigDecimal[] percentages = commerceDiscountValue.getPercentages();
+
+			if (percentages.length >= 1) {
+				discountPercentageLevel1 = percentages[0];
+			}
+
+			if (percentages.length >= 2) {
+				discountPercentageLevel1 = percentages[1];
+			}
+
+			if (percentages.length >= 3) {
+				discountPercentageLevel1 = percentages[2];
+			}
+
+			if (percentages.length >= 4) {
+				discountPercentageLevel1 = percentages[3];
+			}
+		}
+
+		commerceOrder.setSubtotalDiscountAmount(discountAmount);
+		commerceOrder.setSubtotalDiscountPercentageLevel1(
+			discountPercentageLevel1);
+		commerceOrder.setSubtotalDiscountPercentageLevel2(
+			discountPercentageLevel2);
+		commerceOrder.setSubtotalDiscountPercentageLevel3(
+			discountPercentageLevel3);
+		commerceOrder.setSubtotalDiscountPercentageLevel4(
+			discountPercentageLevel4);
+	}
+
+	private void _setCommerceOrderTotalDiscountValue(
+		CommerceOrder commerceOrder,
+		CommerceDiscountValue commerceDiscountValue) {
+
+		BigDecimal discountAmount = BigDecimal.ZERO;
+		BigDecimal discountPercentageLevel1 = BigDecimal.ZERO;
+		BigDecimal discountPercentageLevel2 = BigDecimal.ZERO;
+		BigDecimal discountPercentageLevel3 = BigDecimal.ZERO;
+		BigDecimal discountPercentageLevel4 = BigDecimal.ZERO;
+
+		if (commerceDiscountValue != null) {
+			CommerceMoney discountAmountCommerceMoney =
+				commerceDiscountValue.getDiscountAmount();
+
+			discountAmount = discountAmountCommerceMoney.getPrice();
+
+			BigDecimal[] percentages = commerceDiscountValue.getPercentages();
+
+			if (percentages.length >= 1) {
+				discountPercentageLevel1 = percentages[0];
+			}
+
+			if (percentages.length >= 2) {
+				discountPercentageLevel1 = percentages[1];
+			}
+
+			if (percentages.length >= 3) {
+				discountPercentageLevel1 = percentages[2];
+			}
+
+			if (percentages.length >= 4) {
+				discountPercentageLevel1 = percentages[3];
+			}
+		}
+
+		commerceOrder.setTotalDiscountAmount(discountAmount);
+		commerceOrder.setTotalDiscountPercentageLevel1(
+			discountPercentageLevel1);
+		commerceOrder.setTotalDiscountPercentageLevel2(
+			discountPercentageLevel2);
+		commerceOrder.setTotalDiscountPercentageLevel3(
+			discountPercentageLevel3);
+		commerceOrder.setTotalDiscountPercentageLevel4(
+			discountPercentageLevel4);
+	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceOrderLocalServiceImpl.class);
