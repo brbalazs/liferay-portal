@@ -119,7 +119,7 @@ if (portletName.equals(CommerceWishListPortletKeys.COMMERCE_WISH_LIST)) {
 							name="price"
 							value="<%= commerceWishListDisplayContext.getCommerceWishListItemPrice(commerceWishListItem) %>"
 						/>
-						
+
 						<c:if test="<%= portletName.equals(CommerceWishListPortletKeys.COMMERCE_WISH_LIST_CONTENT) %>">
 							<liferay-ui:search-container-column-text>
 								<portlet:actionURL name="editCommerceWishListItem" var="deleteURL">
