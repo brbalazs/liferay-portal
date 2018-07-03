@@ -45,12 +45,20 @@ public class CommerceTaxCalculateRequest {
 		return _userId;
 	}
 
+	public boolean isPercentage() {
+		return _percentage;
+	}
+
 	public void setCommerceAddressId(long commerceAddressId) {
 		_commerceAddressId = commerceAddressId;
 	}
 
 	public void setCommerceTaxMethodId(long commerceTaxMethodId) {
 		_commerceTaxMethodId = commerceTaxMethodId;
+	}
+
+	public void setPercentage(boolean percentage) {
+		_percentage = percentage;
 	}
 
 	public void setPrice(BigDecimal price) {
@@ -71,6 +79,7 @@ public class CommerceTaxCalculateRequest {
 
 	private long _commerceAddressId;
 	private long _commerceTaxMethodId;
+	private boolean _percentage;
 	private BigDecimal _price;
 	private long _siteGroupId;
 	private long _taxCategoryId;

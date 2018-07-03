@@ -48,7 +48,7 @@ public class FixedCommerceTaxEngine implements CommerceTaxEngine {
 	public static final String KEY = "fixed-tax";
 
 	@Override
-	public CommerceTaxValue getCommerceTaxRate(
+	public CommerceTaxValue getCommerceTaxValue(
 			CommerceTaxCalculateRequest commerceTaxCalculateRequest)
 		throws CommerceTaxEngineException {
 
@@ -60,8 +60,20 @@ public class FixedCommerceTaxEngine implements CommerceTaxEngine {
 					commerceTaxCalculateRequest.getTaxCategoryId(),
 					commerceTaxCalculateRequest.getCommerceTaxMethodId());
 
-			commerceTaxValue = new CommerceTaxValue(
-				KEY, KEY, BigDecimal.valueOf(commerceTaxFixedRate.getRate()));
+			BigDecimal rate = BigDecimal.valueOf(
+				commerceTaxFixedRate.getRate());
+
+			BigDecimal amount = commerceTaxCalculateRequest.getPrice();
+
+			BigDecimal taxValue = rate;
+
+			if (commerceTaxCalculateRequest.isPercentage()) {
+				taxValue = amount.multiply(rate);
+
+				taxValue = taxValue.divide(_ONE_HUNDRED);
+			}
+
+			commerceTaxValue = new CommerceTaxValue(KEY, KEY, taxValue);
 		}
 		catch (PortalException pe) {
 			_log.error(pe, pe);
@@ -90,6 +102,8 @@ public class FixedCommerceTaxEngine implements CommerceTaxEngine {
 		return ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 	}
+
+	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		FixedCommerceTaxEngine.class);

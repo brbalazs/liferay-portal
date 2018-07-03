@@ -48,7 +48,7 @@ public class ByAddressCommerceTaxEngine implements CommerceTaxEngine {
 	public static final String KEY = "by-address";
 
 	@Override
-	public CommerceTaxValue getCommerceTaxRate(
+	public CommerceTaxValue getCommerceTaxValue(
 			CommerceTaxCalculateRequest commerceTaxCalculateRequest)
 		throws CommerceTaxEngineException {
 

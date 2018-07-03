@@ -27,7 +27,7 @@ import java.util.Locale;
 @ProviderType
 public interface CommerceTaxEngine {
 
-	public CommerceTaxValue getCommerceTaxRate(
+	public CommerceTaxValue getCommerceTaxValue(
 			CommerceTaxCalculateRequest commerceTaxCalculateRequest)
 		throws CommerceTaxEngineException;
 

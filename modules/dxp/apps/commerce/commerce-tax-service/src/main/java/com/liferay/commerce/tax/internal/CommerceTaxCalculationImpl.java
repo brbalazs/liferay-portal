@@ -15,6 +15,8 @@
 package com.liferay.commerce.tax.internal;
 
 import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.exception.CommerceTaxEngineException;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
@@ -106,7 +108,9 @@ public class CommerceTaxCalculationImpl implements CommerceTaxCalculation {
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
-		if (cpDefinition.isTaxExempt()) {
+		if (cpDefinition.isTaxExempt() ||
+			(cpDefinition.getCPTaxCategoryId() <= 0)) {
+
 			return commerceTaxValues;
 		}
 
@@ -126,6 +130,8 @@ public class CommerceTaxCalculationImpl implements CommerceTaxCalculation {
 		for (CommerceTaxMethod commerceTaxMethod : commerceTaxMethods) {
 			commerceTaxCalculateRequest.setCommerceTaxMethodId(
 				commerceTaxMethod.getCommerceTaxMethodId());
+			commerceTaxCalculateRequest.setPercentage(
+				commerceTaxMethod.isPercentage());
 
 			CommerceTaxEngine commerceTaxEngine =
 				_commerceTaxEngineRegistry.getCommerceTaxEngine(
@@ -133,7 +139,7 @@ public class CommerceTaxCalculationImpl implements CommerceTaxCalculation {
 
 			try {
 				CommerceTaxValue commerceTaxValue =
-					commerceTaxEngine.getCommerceTaxRate(
+					commerceTaxEngine.getCommerceTaxValue(
 						commerceTaxCalculateRequest);
 
 				commerceTaxValues.add(commerceTaxValue);
@@ -146,8 +152,29 @@ public class CommerceTaxCalculationImpl implements CommerceTaxCalculation {
 		return commerceTaxValues;
 	}
 
+	@Override
+	public CommerceMoney getTaxAmount(
+			CommerceOrder commerceOrder, CommerceContext commerceContext)
+		throws PortalException {
+
+		BigDecimal taxAmount = BigDecimal.ZERO;
+
+		List<CommerceTaxValue> commerceTaxValues = getCommerceTaxValues(
+			commerceOrder, commerceContext);
+
+		for (CommerceTaxValue commerceTaxValue : commerceTaxValues) {
+			taxAmount = taxAmount.add(commerceTaxValue.getAmount());
+		}
+
+		return _commerceMoneyFactory.create(
+			commerceContext.getCommerceCurrency(), taxAmount);
+	}
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceTaxCalculationImpl.class);
+
+	@Reference
+	private CommerceMoneyFactory _commerceMoneyFactory;
 
 	@Reference
 	private CommerceTaxEngineRegistry _commerceTaxEngineRegistry;
