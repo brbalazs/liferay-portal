@@ -21,5 +21,4 @@ dependencies {
 	compileOnly project(":private:apps:commerce:commerce-product-api")
 	compileOnly project(":private:apps:commerce:commerce-product-content-api")
 	compileOnly project(":private:apps:commerce:commerce-wish-list-api")
-	compileOnly project(":private:apps:commerce:commerce-wish-list-taglib")
 }

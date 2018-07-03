@@ -103,8 +103,6 @@
 					<div class="row">
 						<div class="col-md-12">
 							<@liferay_util["dynamic-include"] key="com.liferay.commerce.product.content.web#/add_to_cart#" />
-
-							<@liferay_util["dynamic-include"] key="com.liferay.commerce.product.content.web#/add_to_wish_list#" />
 						</div>
 					</div>
 				</div>
