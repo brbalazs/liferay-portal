@@ -250,8 +250,24 @@
 		<column name="shippingOptionName" type="String" />
 		<column name="purchaseOrderNumber" type="String" />
 		<column name="subtotal" type="BigDecimal" />
-		<column name="shippingPrice" type="BigDecimal" />
+		<column name="subtotalDiscountAmount" type="BigDecimal" />
+		<column db-name="subtotalDiscountPercentLevel1" name="subtotalDiscountPercentageLevel1" type="BigDecimal" />
+		<column db-name="subtotalDiscountPercentLevel2" name="subtotalDiscountPercentageLevel2" type="BigDecimal" />
+		<column db-name="subtotalDiscountPercentLevel3" name="subtotalDiscountPercentageLevel3" type="BigDecimal" />
+		<column db-name="subtotalDiscountPercentLevel4" name="subtotalDiscountPercentageLevel4" type="BigDecimal" />
+		<column name="shippingAmount" type="BigDecimal" />
+		<column name="shippingDiscountAmount" type="BigDecimal" />
+		<column db-name="shippingDiscountPercentLevel1" name="shippingDiscountPercentageLevel1" type="BigDecimal" />
+		<column db-name="shippingDiscountPercentLevel2" name="shippingDiscountPercentageLevel2" type="BigDecimal" />
+		<column db-name="shippingDiscountPercentLevel3" name="shippingDiscountPercentageLevel3" type="BigDecimal" />
+		<column db-name="shippingDiscountPercentLevel4" name="shippingDiscountPercentageLevel4" type="BigDecimal" />
+		<column name="taxAmount" type="BigDecimal" />
 		<column name="total" type="BigDecimal" />
+		<column name="totalDiscountAmount" type="BigDecimal" />
+		<column name="totalDiscountPercentageLevel1" type="BigDecimal" />
+		<column name="totalDiscountPercentageLevel2" type="BigDecimal" />
+		<column name="totalDiscountPercentageLevel3" type="BigDecimal" />
+		<column name="totalDiscountPercentageLevel4" type="BigDecimal" />
 		<column name="advanceStatus" type="String" />
 		<column name="paymentStatus" type="int" />
 		<column name="orderStatus" type="int" />
