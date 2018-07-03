@@ -1,4 +1,7 @@
 <#assign
+	company_display_name = getterUtil.getString(themeDisplay.getThemeSetting("company-name"))
+	company_email = getterUtil.getString(themeDisplay.getThemeSetting("company-email"))
+	copyright = getterUtil.getString(themeDisplay.getThemeSetting("copyright"))
 	orderItemsQuantity = commerceOrderHttpHelper.getCommerceOrderItemsQuantity(request)
 	cartUrl = commerceOrderHttpHelper.getCommerceCartPortletURL(request)
 	currentOrganization = (commerceOrganizationHelper.getCurrentOrganization(request))!""

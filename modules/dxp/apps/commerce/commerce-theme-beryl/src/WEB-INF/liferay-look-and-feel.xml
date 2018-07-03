@@ -8,6 +8,9 @@
 	<theme id="commerce-theme-beryl" name="Commerce Theme Beryl">
 		<template-extension>ftl</template-extension>
 		<settings>
+			<setting configurable="true" key="company-email" type="textarea" />
+			<setting configurable="true" key="company-name" type="textarea" />
+			<setting configurable="true" key="copyright" type="textarea" />
 			<setting configurable="true" key="demo-mode" type="checkbox" value="false" />
 			<setting configurable="false" key="show-maximize-minimize-application-links" type="checkbox" value="false" />
 			<setting configurable="false" key="show-site-name-default" value="false" />

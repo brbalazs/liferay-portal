@@ -3,11 +3,11 @@
 		<#if show_site_name>
 			<span class="text-truncate-inline">
 				<span class="text-truncate">
-						${site_name}
+					${site_name}
 				</span>
 			</span>
 		<#else>
-			<img alt="Beryl Logo" class="b2b-logo-image" src="${images_folder}/beryl-logo.png">
+			<img alt="Beryl Logo" class="b2b-logo-image" src="${site_logo}">
 		</#if>
 	</h1>
 
