@@ -21,6 +21,16 @@ CommerceOrganizationOrderDisplayContext commerceOrganizationOrderDisplayContext 
 
 CommerceOrder commerceOrder = commerceOrganizationOrderDisplayContext.getCommerceOrder();
 
+CommerceOrderPrice commerceOrderPrice = commerceOrganizationOrderDisplayContext.getCommerceOrderPrice();
+
+CommerceMoney shippingValue = commerceOrderPrice.getShippingValue();
+CommerceDiscountValue shippingDiscountValue = commerceOrderPrice.getShippingDiscountValue();
+CommerceMoney subtotal = commerceOrderPrice.getSubtotal();
+CommerceDiscountValue subtotalDiscountValue = commerceOrderPrice.getSubtotalDiscountValue();
+CommerceMoney taxValue = commerceOrderPrice.getTaxValue();
+CommerceDiscountValue totalDiscountValue = commerceOrderPrice.getTotalDiscountValue();
+CommerceMoney totalOrder = commerceOrderPrice.getTotal();
+
 List<CommerceOrderValidatorResult> commerceOrderValidatorResults = new ArrayList<>();
 %>
 
@@ -195,10 +205,79 @@ List<CommerceOrderValidatorResult> commerceOrderValidatorResults = new ArrayList
 
 		<div class="autofit-col autofit-col-expand">
 			<div class="autofit-section">
-				<h3 class="order-details-title"><liferay-ui:message key="order-value" /></h3>
+				<h3 class="order-details-title"><liferay-ui:message key="subtotal" /></h3>
 
 				<div class="order-details-subtitle order-value">
-					<%= HtmlUtil.escape(commerceOrganizationOrderDisplayContext.getCommerceOrderValue(commerceOrder)) %>
+					<%= HtmlUtil.escape(subtotal.format(locale)) %>
+				</div>
+
+				<c:if test="<%= subtotalDiscountValue != null %>">
+
+					<%
+					CommerceMoney subtotalDiscountAmount = subtotalDiscountValue.getDiscountAmount();
+					%>
+
+					<h3 class="order-details-title"><liferay-ui:message key="subtotal-discount" /></h3>
+
+					<div class="order-details-subtitle order-value">
+						<%= HtmlUtil.escape(subtotalDiscountAmount.format(locale)) %>
+					</div>
+
+					<div class="order-details-subtitle order-value">
+						<%= HtmlUtil.escape(commerceOrganizationOrderDisplayContext.getFormattedPercentage(subtotalDiscountValue.getDiscountPercentage())) %>
+					</div>
+				</c:if>
+
+				<h3 class="order-details-title"><liferay-ui:message key="delivery" /></h3>
+
+				<div class="order-details-subtitle order-value">
+					<%= HtmlUtil.escape(shippingValue.format(locale)) %>
+				</div>
+
+				<c:if test="<%= shippingDiscountValue != null %>">
+
+					<%
+					CommerceMoney shippingDiscountAmount = shippingDiscountValue.getDiscountAmount();
+					%>
+
+					<h3 class="order-details-title"><liferay-ui:message key="delivery-discount" /></h3>
+
+					<div class="order-details-subtitle order-value">
+						<%= HtmlUtil.escape(shippingDiscountAmount.format(locale)) %>
+					</div>
+
+					<div class="order-details-subtitle order-value">
+						<%= HtmlUtil.escape(commerceOrganizationOrderDisplayContext.getFormattedPercentage(shippingDiscountValue.getDiscountPercentage())) %>
+					</div>
+				</c:if>
+
+				<h3 class="order-details-title"><liferay-ui:message key="tax" /></h3>
+
+				<div class="order-details-subtitle order-value">
+					<%= HtmlUtil.escape(taxValue.format(locale)) %>
+				</div>
+
+				<c:if test="<%= totalDiscountValue != null %>">
+
+					<%
+					CommerceMoney totalDiscountAmount = totalDiscountValue.getDiscountAmount();
+					%>
+
+					<h3 class="order-details-title"><liferay-ui:message key="total-discount" /></h3>
+
+					<div class="order-details-subtitle order-value">
+						<%= HtmlUtil.escape(totalDiscountAmount.format(locale)) %>
+					</div>
+
+					<div class="order-details-subtitle order-value">
+						<%= HtmlUtil.escape(commerceOrganizationOrderDisplayContext.getFormattedPercentage(totalDiscountValue.getDiscountPercentage())) %>
+					</div>
+				</c:if>
+
+				<h3 class="order-details-title"><liferay-ui:message key="total" /></h3>
+
+				<div class="order-details-subtitle order-value">
+					<%= HtmlUtil.escape(totalOrder.format(locale)) %>
 				</div>
 			</div>
 		</div>

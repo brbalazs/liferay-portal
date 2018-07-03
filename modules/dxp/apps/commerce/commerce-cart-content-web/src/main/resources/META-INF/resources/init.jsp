@@ -34,6 +34,7 @@ page import="com.liferay.commerce.cart.content.web.internal.portlet.CommerceCart
 page import="com.liferay.commerce.cart.content.web.internal.portlet.CommerceCartContentPortlet" %><%@
 page import="com.liferay.commerce.cart.content.web.internal.portlet.CommerceCartContentTotalPortlet" %><%@
 page import="com.liferay.commerce.currency.model.CommerceMoney" %><%@
+page import="com.liferay.commerce.discount.CommerceDiscountValue" %><%@
 page import="com.liferay.commerce.exception.CommerceOrderValidatorException" %><%@
 page import="com.liferay.commerce.model.CommerceOrderItem" %><%@
 page import="com.liferay.commerce.order.CommerceOrderValidatorResult" %><%@

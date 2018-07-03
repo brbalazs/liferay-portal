@@ -26,9 +26,9 @@ contextObjects.put("commerceCartContentMiniDisplayContext", commerceCartContentM
 CommerceOrderPrice commerceOrderPrice = commerceCartContentMiniDisplayContext.getCommerceOrderPrice();
 
 CommerceMoney subtotal = commerceOrderPrice.getSubtotal();
-
+CommerceDiscountValue subtotalDiscountValue = commerceOrderPrice.getSubtotalDiscountValue();
 CommerceMoney taxValue = commerceOrderPrice.getTaxValue();
-
+CommerceDiscountValue totalDiscountValue = commerceOrderPrice.getTotalDiscountValue();
 CommerceMoney totalOrder = commerceOrderPrice.getTotal();
 
 SearchContainer<CommerceOrderItem> commerceOrderItemSearchContainer = commerceCartContentMiniDisplayContext.getSearchContainer();
@@ -153,6 +153,25 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 			<div class="autofit-col">
 				<div class="commerce-value"><%= HtmlUtil.escape(subtotal.format(locale)) %></div>
 			</div>
+
+			<c:if test="<%= subtotalDiscountValue != null %>">
+
+				<%
+				CommerceMoney subtotalDiscountAmount = subtotalDiscountValue.getDiscountAmount();
+				%>
+
+				<div class="autofit-col autofit-col-expand">
+					<div class="commerce-description"><liferay-ui:message key="subtotal-discount" /></div>
+				</div>
+
+				<div class="commerce-value">
+					<%= HtmlUtil.escape(subtotalDiscountAmount.format(locale)) %>
+				</div>
+
+				<div class="commerce-value">
+					<%= HtmlUtil.escape(commerceCartContentMiniDisplayContext.getFormattedPercentage(subtotalDiscountValue.getDiscountPercentage())) %>
+				</div>
+			</c:if>
 		</li>
 		<li class="autofit-row commerce-tax">
 			<div class="autofit-col autofit-col-expand">
@@ -164,6 +183,25 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 			</div>
 		</li>
 		<li class="autofit-row commerce-total">
+			<c:if test="<%= totalDiscountValue != null %>">
+
+				<%
+				CommerceMoney totalDiscountAmount = totalDiscountValue.getDiscountAmount();
+				%>
+
+				<div class="autofit-col autofit-col-expand">
+					<div class="commerce-description"><liferay-ui:message key="total-discount" /></div>
+				</div>
+
+				<div class="commerce-value">
+					<%= HtmlUtil.escape(totalDiscountAmount.format(locale)) %>
+				</div>
+
+				<div class="commerce-value">
+					<%= HtmlUtil.escape(commerceCartContentMiniDisplayContext.getFormattedPercentage(totalDiscountValue.getDiscountPercentage())) %>
+				</div>
+			</c:if>
+
 			<div class="autofit-col autofit-col-expand">
 				<div class="commerce-description"><liferay-ui:message key="total" /></div>
 			</div>

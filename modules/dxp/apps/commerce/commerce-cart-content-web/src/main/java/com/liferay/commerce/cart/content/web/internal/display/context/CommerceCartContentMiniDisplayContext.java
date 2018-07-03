@@ -15,6 +15,8 @@
 package com.liferay.commerce.cart.content.web.internal.display.context;
 
 import com.liferay.commerce.cart.content.web.internal.portlet.configuration.CommerceCartContentMiniPortletInstanceConfiguration;
+import com.liferay.commerce.currency.util.CommercePriceFormatter;
+import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
@@ -22,8 +24,11 @@ import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.service.CommerceOrderItemService;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.theme.PortletDisplay;
+
+import java.math.BigDecimal;
 
 import javax.portlet.PortletURL;
 
@@ -41,6 +46,7 @@ public class CommerceCartContentMiniDisplayContext
 			CommerceOrderItemService commerceOrderItemService,
 			CommerceOrderPriceCalculation commerceOrderPriceCalculation,
 			CommerceOrderValidatorRegistry commerceOrderValidatorRegistry,
+			CommercePriceFormatter commercePriceFormatter,
 			CommerceProductPriceCalculation commerceProductPriceCalculation,
 			CPDefinitionHelper cpDefinitionHelper,
 			CPInstanceHelper cpInstanceHelper)
@@ -60,6 +66,7 @@ public class CommerceCartContentMiniDisplayContext
 				CommerceCartContentMiniPortletInstanceConfiguration.class);
 
 		_commerceOrderHttpHelper = commerceOrderHttpHelper;
+		_commercePriceFormatter = commercePriceFormatter;
 	}
 
 	public String getCommerceCartPortletURL() throws PortalException {
@@ -99,9 +106,24 @@ public class CommerceCartContentMiniDisplayContext
 		return _displayStyleGroupId;
 	}
 
+	public String getFormattedPercentage(BigDecimal percentage)
+		throws PortalException {
+
+		CommerceOrder commerceOrder = getCommerceOrder();
+
+		if (commerceOrder == null) {
+			return StringPool.BLANK;
+		}
+
+		return _commercePriceFormatter.format(
+			commerceOrder.getCommerceCurrency(), percentage,
+			commerceCartContentRequestHelper.getLocale());
+	}
+
 	private final CommerceCartContentMiniPortletInstanceConfiguration
 		_commerceCartContentMiniPortletInstanceConfiguration;
 	private final CommerceOrderHttpHelper _commerceOrderHttpHelper;
+	private final CommercePriceFormatter _commercePriceFormatter;
 	private long _displayStyleGroupId;
 
 }

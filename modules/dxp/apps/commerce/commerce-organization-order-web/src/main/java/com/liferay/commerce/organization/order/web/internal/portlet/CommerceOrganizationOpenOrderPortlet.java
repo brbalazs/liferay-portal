@@ -15,6 +15,7 @@
 package com.liferay.commerce.organization.order.web.internal.portlet;
 
 import com.liferay.commerce.constants.CommercePortletKeys;
+import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.organization.order.web.internal.display.context.CommerceOrganizationOrderDisplayContext;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
@@ -25,7 +26,6 @@ import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.service.CommerceOrderNoteService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceShipmentItemService;
-import com.liferay.commerce.util.CommerceShippingEngineRegistry;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.messaging.proxy.ProxyModeThreadLocal;
 import com.liferay.portal.kernel.messaging.proxy.ProxyModeThreadLocalCloseable;
@@ -100,9 +100,9 @@ public class CommerceOrganizationOpenOrderPortlet extends MVCPortlet {
 						_commerceAddressService, _commerceOrderItemService,
 						_commerceOrderLocalService, _commerceOrderNoteService,
 						_commerceOrderPriceCalculation, _commerceOrderService,
-						_commerceShipmentItemService,
-						_commerceShippingEngineRegistry, _cpInstanceHelper,
-						_jsonFactory, _modelResourcePermission, renderRequest);
+						_commercePriceFormatter, _commerceShipmentItemService,
+						_cpInstanceHelper, _jsonFactory,
+						_modelResourcePermission, renderRequest);
 
 			renderRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -134,10 +134,10 @@ public class CommerceOrganizationOpenOrderPortlet extends MVCPortlet {
 	private CommerceOrderService _commerceOrderService;
 
 	@Reference
-	private CommerceShipmentItemService _commerceShipmentItemService;
+	private CommercePriceFormatter _commercePriceFormatter;
 
 	@Reference
-	private CommerceShippingEngineRegistry _commerceShippingEngineRegistry;
+	private CommerceShipmentItemService _commerceShipmentItemService;
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;

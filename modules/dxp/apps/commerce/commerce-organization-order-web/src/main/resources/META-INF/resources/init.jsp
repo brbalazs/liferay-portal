@@ -31,6 +31,7 @@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 <%@ page import="com.liferay.commerce.constants.CommerceOrderActionKeys" %><%@
 page import="com.liferay.commerce.constants.CommerceOrderConstants" %><%@
 page import="com.liferay.commerce.currency.model.CommerceMoney" %><%@
+page import="com.liferay.commerce.discount.CommerceDiscountValue" %><%@
 page import="com.liferay.commerce.exception.CommerceOrderNoteContentException" %><%@
 page import="com.liferay.commerce.exception.CommerceOrderValidatorException" %><%@
 page import="com.liferay.commerce.exception.NoSuchOrderException" %><%@
@@ -47,6 +48,7 @@ page import="com.liferay.commerce.order.web.security.permission.resource.Commerc
 page import="com.liferay.commerce.organization.order.web.internal.display.context.CommerceOrganizationOrderDisplayContext" %><%@
 page import="com.liferay.commerce.organization.order.web.internal.portlet.CommerceOrganizationOpenOrderPortlet" %><%@
 page import="com.liferay.commerce.organization.order.web.internal.search.CommerceOrderDisplayTerms" %><%@
+page import="com.liferay.commerce.price.CommerceOrderPrice" %><%@
 page import="com.liferay.frontend.taglib.servlet.taglib.util.AddMenuKeys" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.dao.search.ResultRow" %><%@

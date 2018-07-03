@@ -33,6 +33,7 @@ page import="com.liferay.commerce.checkout.web.internal.display.context.Shipping
 page import="com.liferay.commerce.checkout.web.util.CommerceCheckoutStep" %><%@
 page import="com.liferay.commerce.constants.CommerceOrderPaymentConstants" %><%@
 page import="com.liferay.commerce.currency.model.CommerceMoney" %><%@
+page import="com.liferay.commerce.discount.CommerceDiscountValue" %><%@
 page import="com.liferay.commerce.exception.CommerceAddressCityException" %><%@
 page import="com.liferay.commerce.exception.CommerceAddressCountryException" %><%@
 page import="com.liferay.commerce.exception.CommerceAddressNameException" %><%@
