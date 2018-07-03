@@ -107,6 +107,12 @@ public class CPDefinitionIndexer extends BaseIndexer<CPDefinition> {
 	public static final String FIELD_IS_IGNORE_SKU_COMBINATIONS =
 		"isIgnoreSKUCombinations";
 
+	public static final String FIELD_META_DESCRIPTION = "metaDescription";
+
+	public static final String FIELD_META_KEYWORDS = "metaKeywords";
+
+	public static final String FIELD_META_TITLE = "metaTitle";
+
 	public static final String FIELD_OPTION_IDS = "optionsIds";
 
 	public static final String FIELD_OPTION_NAMES = "optionsNames";
@@ -301,6 +307,10 @@ public class CPDefinitionIndexer extends BaseIndexer<CPDefinition> {
 			String description = cpDefinition.getDescription(languageId);
 			String name = cpDefinition.getName(languageId);
 			String urlTitle = languageIdToUrlTitleMap.get(languageId);
+			String metaDescription = cpDefinition.getMetaDescription(
+				languageId);
+			String metaKeywords = cpDefinition.getMetaKeywords(languageId);
+			String metaTitle = cpDefinition.getMetaTitle(languageId);
 			String shortDescription = cpDefinition.getShortDescription(
 				languageId);
 
@@ -308,6 +318,9 @@ public class CPDefinitionIndexer extends BaseIndexer<CPDefinition> {
 				document.addText(Field.DESCRIPTION, description);
 				document.addText(Field.NAME, name);
 				document.addText(Field.URL, urlTitle);
+				document.addText(FIELD_META_DESCRIPTION, metaDescription);
+				document.addText(FIELD_META_KEYWORDS, metaKeywords);
+				document.addText(FIELD_META_TITLE, metaTitle);
 				document.addText(FIELD_SHORT_DESCRIPTION, shortDescription);
 				document.addText("defaultLanguageId", languageId);
 			}
@@ -322,6 +335,17 @@ public class CPDefinitionIndexer extends BaseIndexer<CPDefinition> {
 			document.addText(
 				LocalizationUtil.getLocalizedName(Field.URL, languageId),
 				urlTitle);
+			document.addText(
+				LocalizationUtil.getLocalizedName(
+					FIELD_META_DESCRIPTION, languageId),
+				metaDescription);
+			document.addText(
+				LocalizationUtil.getLocalizedName(
+					FIELD_META_KEYWORDS, languageId),
+				metaKeywords);
+			document.addText(
+				LocalizationUtil.getLocalizedName(FIELD_META_TITLE, languageId),
+				metaTitle);
 			document.addText(
 				LocalizationUtil.getLocalizedName(
 					FIELD_SHORT_DESCRIPTION, languageId),
