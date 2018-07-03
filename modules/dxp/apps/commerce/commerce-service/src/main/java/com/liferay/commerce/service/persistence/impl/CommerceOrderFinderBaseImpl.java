@@ -45,6 +45,22 @@ public class CommerceOrderFinderBaseImpl extends BasePersistenceImpl<CommerceOrd
 			Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 			dbColumnNames.put("uuid", "uuid_");
+			dbColumnNames.put("subtotalDiscountPercentageLevel1",
+				"subtotalDiscountPercentLevel1");
+			dbColumnNames.put("subtotalDiscountPercentageLevel2",
+				"subtotalDiscountPercentLevel2");
+			dbColumnNames.put("subtotalDiscountPercentageLevel3",
+				"subtotalDiscountPercentLevel3");
+			dbColumnNames.put("subtotalDiscountPercentageLevel4",
+				"subtotalDiscountPercentLevel4");
+			dbColumnNames.put("shippingDiscountPercentageLevel1",
+				"shippingDiscountPercentLevel1");
+			dbColumnNames.put("shippingDiscountPercentageLevel2",
+				"shippingDiscountPercentLevel2");
+			dbColumnNames.put("shippingDiscountPercentageLevel3",
+				"shippingDiscountPercentLevel3");
+			dbColumnNames.put("shippingDiscountPercentageLevel4",
+				"shippingDiscountPercentLevel4");
 
 			field.set(this, dbColumnNames);
 		}
