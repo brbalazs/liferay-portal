@@ -63,6 +63,7 @@ import com.liferay.portal.kernel.model.ListTypeConstants;
 import com.liferay.portal.kernel.model.OrganizationConstants;
 import com.liferay.portal.kernel.model.Portlet;
 import com.liferay.portal.kernel.model.Theme;
+import com.liferay.portal.kernel.model.ThemeSetting;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
@@ -95,6 +96,7 @@ import java.util.Collections;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -162,6 +164,8 @@ public class BerylSiteInitializer implements SiteInitializer {
 			_cpFileImporter.updateLookAndFeel(
 				_BERYL_THEME_ID, true, serviceContext);
 
+			updateLogo(serviceContext);
+
 			_berylLayoutsInitializer.initialize(serviceContext);
 
 			createRoles(serviceContext);
@@ -171,6 +175,8 @@ public class BerylSiteInitializer implements SiteInitializer {
 			createCPRule(serviceContext);
 
 			_berylThemePortletSettingsInitializer.initialize(serviceContext);
+
+			setThemeSettings(serviceContext);
 		}
 		catch (InitializationException ie) {
 			throw ie;
@@ -487,6 +493,16 @@ public class BerylSiteInitializer implements SiteInitializer {
 		return serviceContext;
 	}
 
+	protected JSONObject getThemeSettingsJSONObject() throws Exception {
+		Class<?> clazz = getClass();
+
+		String themeSettingsJSON = StringUtil.read(
+			clazz.getClassLoader(), DEPENDENCY_PATH + "theme-settings.json",
+			false);
+
+		return _jsonFactory.createJSONObject(themeSettingsJSON);
+	}
+
 	protected void importProducts(ServiceContext serviceContext)
 		throws Exception {
 
@@ -571,6 +587,35 @@ public class BerylSiteInitializer implements SiteInitializer {
 		}
 	}
 
+	protected void setThemeSettings(ServiceContext serviceContext)
+		throws Exception {
+
+		JSONObject themeSettingsJSONObject = getThemeSettingsJSONObject();
+
+		Iterator<String> iterator = themeSettingsJSONObject.keys();
+
+		while (iterator.hasNext()) {
+			String key = iterator.next();
+
+			String value = themeSettingsJSONObject.getString(key);
+
+			updateThemeSetting(key, value, serviceContext);
+		}
+	}
+
+	protected void updateLogo(ServiceContext serviceContext) throws Exception {
+		Class<?> clazz = getClass();
+
+		ClassLoader classLoader = clazz.getClassLoader();
+
+		InputStream inputStream = classLoader.getResourceAsStream(
+			DEPENDENCY_PATH + "images/beryl-logo.png");
+
+		File file = FileUtil.createTempFile(inputStream);
+
+		_cpFileImporter.updateLogo(file, true, true, serviceContext);
+	}
+
 	protected void updateOrganizationTypes() throws Exception {
 		Configuration[] configurations = _configurationAdmin.listConfigurations(
 			_getConfigurationFilter(_ORGANIZATION_TYPE_CONFIGURATION_PID));
@@ -578,6 +623,24 @@ public class BerylSiteInitializer implements SiteInitializer {
 		for (String organizationType : _ORGANIZATION_TYPES) {
 			_updateOrganizationType(configurations, organizationType);
 		}
+	}
+
+	protected void updateThemeSetting(
+		String key, String value, ServiceContext serviceContext) {
+
+		Theme theme = _themeLocalService.fetchTheme(
+			serviceContext.getCompanyId(), _BERYL_THEME_ID);
+
+		if (theme == null) {
+			return;
+		}
+
+		Map<String, ThemeSetting> configurableSettings =
+			theme.getConfigurableSettings();
+
+		ThemeSetting themeSetting = configurableSettings.get(key);
+
+		themeSetting.setValue(value);
 	}
 
 	private void _addDemoAccountOrganizations(
