@@ -1,0 +1,12 @@
+#
+# Liferay App Version 4.0.0
+#
+
+app.artifacts-4.0.0=\
+	com.liferay.oauth.api-2.0.0.jar,\
+	com.liferay.oauth.service-2.0.0.jar,\
+	com.liferay.oauth.web-2.0.2.jar
+
+app.change.log-4.0.0=LPS-77699 LPS-79679 
+
+app.git.id-4.0.0=5c1209849ecb6ef5d49d3013f383f0651acdb752
