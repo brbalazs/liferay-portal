@@ -21,7 +21,6 @@ import com.liferay.commerce.internal.security.permission.CommerceOrderWorkflowPe
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.service.base.CommerceOrderServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
@@ -51,7 +50,9 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 			long shippingAddressId, String purchaseOrderNumber)
 		throws PortalException {
 
-		_checkOrganizationUser(orderOrganizationId);
+		_portletResourcePermission.contains(
+			getPermissionChecker(), groupId,
+			CommerceOrderActionKeys.ADD_COMMERCE_ORDER);
 
 		return commerceOrderLocalService.addOrganizationCommerceOrder(
 			groupId, getUserId(), siteGroupId, orderOrganizationId,
@@ -454,20 +455,6 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 			getPermissionChecker(), commerceOrderId, ActionKeys.UPDATE);
 
 		return commerceOrderLocalService.updateUser(commerceOrderId, userId);
-	}
-
-	private void _checkOrganizationUser(long orderOrganizationId)
-		throws PortalException {
-
-		User user = getUser();
-
-		for (long organizationId : user.getOrganizationIds()) {
-			if (organizationId == orderOrganizationId) {
-				return;
-			}
-		}
-
-		throw new PrincipalException();
 	}
 
 	private static volatile ModelResourcePermission<CommerceOrder>

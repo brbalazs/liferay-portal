@@ -19,6 +19,8 @@ package com.liferay.commerce.constants;
  */
 public class CommerceOrderActionKeys {
 
+	public static final String ADD_COMMERCE_ORDER = "ADD_COMMERCE_ORDER";
+
 	public static final String APPROVE_COMMERCE_ORDER =
 		"APPROVE_COMMERCE_ORDER";
 
