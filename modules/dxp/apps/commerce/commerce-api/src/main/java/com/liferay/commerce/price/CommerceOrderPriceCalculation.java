@@ -31,10 +31,6 @@ public interface CommerceOrderPriceCalculation {
 			CommerceOrder commerceOrder, CommerceContext commerceContext)
 		throws PortalException;
 
-	public CommerceMoney getShippingValue(
-			CommerceOrder commerceOrder, CommerceContext commerceContext)
-		throws PortalException;
-
 	public CommerceMoney getSubtotal(
 			CommerceOrder commerceOrder, CommerceContext commerceContext)
 		throws PortalException;
