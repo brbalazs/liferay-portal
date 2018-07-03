@@ -1,10 +1,4 @@
-<%@ page import="com.liferay.commerce.currency.model.CommerceCurrency" %>
-<%@ page import="com.liferay.commerce.discount.CommerceDiscountValue" %>
-<%@ page import="java.text.DecimalFormat" %>
-<%@ page import="java.math.BigDecimal" %>
-<%@ page import="com.liferay.portal.kernel.util.ArrayUtil" %>
-<%@ page import="com.liferay.petra.string.StringPool" %>
-<%@ page import="com.liferay.commerce.currency.model.CommerceMoney" %><%--
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *

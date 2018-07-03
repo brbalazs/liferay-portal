@@ -21,8 +21,16 @@
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
-<%@ page import="com.liferay.commerce.product.model.CPInstance" %><%@
+<%@ page import="com.liferay.commerce.currency.model.CommerceMoney" %><%@
+page import="com.liferay.commerce.discount.CommerceDiscountValue" %><%@
+page import="com.liferay.commerce.product.model.CPInstance" %><%@
+page import="com.liferay.petra.string.StringPool" %><%@
+page import="com.liferay.portal.kernel.util.ArrayUtil" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %>
+
+<%@ page import="java.math.BigDecimal" %>
+
+<%@ page import="java.text.DecimalFormat" %>
 
 <liferay-theme:defineObjects />
 
