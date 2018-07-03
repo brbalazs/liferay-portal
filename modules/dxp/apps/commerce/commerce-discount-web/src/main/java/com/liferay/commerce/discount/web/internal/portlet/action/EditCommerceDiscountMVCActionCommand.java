@@ -18,16 +18,22 @@ import com.liferay.commerce.discount.constants.CommerceDiscountPortletKeys;
 import com.liferay.commerce.discount.exception.CommerceDiscountCouponCodeException;
 import com.liferay.commerce.discount.exception.NoSuchDiscountException;
 import com.liferay.commerce.discount.model.CommerceDiscount;
+import com.liferay.commerce.discount.model.CommerceDiscountConstants;
 import com.liferay.commerce.discount.model.CommerceDiscountUserSegmentRel;
 import com.liferay.commerce.discount.service.CommerceDiscountService;
 import com.liferay.commerce.discount.service.CommerceDiscountUserSegmentRelService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.transaction.Propagation;
+import com.liferay.portal.kernel.transaction.TransactionConfig;
+import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
@@ -36,6 +42,7 @@ import com.liferay.portal.kernel.util.StringUtil;
 import java.math.BigDecimal;
 
 import java.util.Calendar;
+import java.util.concurrent.Callable;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -90,8 +97,12 @@ public class EditCommerceDiscountMVCActionCommand extends BaseMVCActionCommand {
 
 		try {
 			if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
-				CommerceDiscount commerceDiscount = updateCommerceDiscount(
-					actionRequest);
+				Callable<CommerceDiscount> commerceDiscountCallable =
+					new CommerceDiscountCallable(actionRequest);
+
+				CommerceDiscount commerceDiscount =
+					TransactionInvokerUtil.invoke(
+						_transactionConfig, commerceDiscountCallable);
 
 				String redirect = getSaveAndContinueRedirect(
 					actionRequest, commerceDiscount);
@@ -102,24 +113,24 @@ public class EditCommerceDiscountMVCActionCommand extends BaseMVCActionCommand {
 				deleteCommerceDiscounts(actionRequest);
 			}
 		}
-		catch (Exception e) {
-			if (e instanceof CommerceDiscountCouponCodeException) {
+		catch (Throwable t) {
+			if (t instanceof CommerceDiscountCouponCodeException) {
 				hideDefaultErrorMessage(actionRequest);
 
-				SessionErrors.add(actionRequest, e.getClass());
+				SessionErrors.add(actionRequest, t.getClass());
 
 				actionResponse.setRenderParameter(
 					"mvcRenderCommandName", "editCommerceDiscount");
 			}
-			else if (e instanceof NoSuchDiscountException ||
-					 e instanceof PrincipalException) {
+			else if (t instanceof NoSuchDiscountException ||
+					 t instanceof PrincipalException) {
 
-				SessionErrors.add(actionRequest, e.getClass());
+				SessionErrors.add(actionRequest, t.getClass());
 
 				actionResponse.setRenderParameter("mvcPath", "/error.jsp");
 			}
 			else {
-				throw e;
+				_log.error(t, t);
 			}
 		}
 	}
@@ -170,10 +181,6 @@ public class EditCommerceDiscountMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, "level3", BigDecimal.ZERO);
 		BigDecimal level4 = (BigDecimal)ParamUtil.getNumber(
 			actionRequest, "level4", BigDecimal.ZERO);
-		String limitationType = ParamUtil.getString(
-			actionRequest, "limitationType");
-		int limitationTimes = ParamUtil.getInteger(
-			actionRequest, "limitationTimes");
 		boolean active = ParamUtil.getBoolean(actionRequest, "active");
 
 		int displayDateMonth = ParamUtil.getInteger(
@@ -222,18 +229,18 @@ public class EditCommerceDiscountMVCActionCommand extends BaseMVCActionCommand {
 			commerceDiscount = _commerceDiscountService.addCommerceDiscount(
 				title, target, useCouponCode, couponCode, usePercentage,
 				maximumDiscountAmount, level1, level2, level3, level4,
-				limitationType, limitationTimes, active, displayDateMonth,
-				displayDateDay, displayDateYear, displayDateHour,
-				displayDateMinute, expirationDateMonth, expirationDateDay,
-				expirationDateYear, expirationDateHour, expirationDateMinute,
-				neverExpire, serviceContext);
+				CommerceDiscountConstants.LIMITATION_TYPE_UNLIMITED, 0, active,
+				displayDateMonth, displayDateDay, displayDateYear,
+				displayDateHour, displayDateMinute, expirationDateMonth,
+				expirationDateDay, expirationDateYear, expirationDateHour,
+				expirationDateMinute, neverExpire, serviceContext);
 		}
 		else {
 			commerceDiscount = _commerceDiscountService.updateCommerceDiscount(
 				commerceDiscountId, title, target, useCouponCode, couponCode,
 				usePercentage, maximumDiscountAmount, level1, level2, level3,
-				level4, limitationType, limitationTimes, active,
-				displayDateMonth, displayDateDay, displayDateYear,
+				level4, CommerceDiscountConstants.LIMITATION_TYPE_UNLIMITED, 0,
+				active, displayDateMonth, displayDateDay, displayDateYear,
 				displayDateHour, displayDateMinute, expirationDateMonth,
 				expirationDateDay, expirationDateYear, expirationDateHour,
 				expirationDateMinute, neverExpire, serviceContext);
@@ -282,6 +289,13 @@ public class EditCommerceDiscountMVCActionCommand extends BaseMVCActionCommand {
 		}
 	}
 
+	private static final Log _log = LogFactoryUtil.getLog(
+		EditCommerceDiscountMVCActionCommand.class);
+
+	private static final TransactionConfig _transactionConfig =
+		TransactionConfig.Factory.create(
+			Propagation.REQUIRED, new Class<?>[] {Exception.class});
+
 	@Reference
 	private CommerceDiscountService _commerceDiscountService;
 
@@ -291,5 +305,21 @@ public class EditCommerceDiscountMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private Portal _portal;
+
+	private class CommerceDiscountCallable
+		implements Callable<CommerceDiscount> {
+
+		@Override
+		public CommerceDiscount call() throws Exception {
+			return updateCommerceDiscount(_actionRequest);
+		}
+
+		private CommerceDiscountCallable(ActionRequest actionRequest) {
+			_actionRequest = actionRequest;
+		}
+
+		private final ActionRequest _actionRequest;
+
+	}
 
 }

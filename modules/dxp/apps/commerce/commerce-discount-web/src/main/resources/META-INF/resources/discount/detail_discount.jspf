@@ -153,30 +153,6 @@ if (!usePercentage) {
 	</div>
 </div>
 
-<aui:select bean="<%= commerceDiscount %>" model="<%= CommerceDiscount.class %>" name="limitationType">
-
-	<%
-	for (String limitationType : CommerceDiscountConstants.LIMITATION_TYPES) {
-	%>
-
-		<aui:option label="<%= LanguageUtil.get(request, limitationType) %>" selected="<%= (commerceDiscount != null) && limitationType.equals(commerceDiscount.getLimitationType()) %>" value="<%= limitationType %>" />
-
-	<%
-	}
-	%>
-
-</aui:select>
-
-<%
-String limitationTimesWrapperCssClass = "limitation-times-input-wrapper hide";
-
-if ((commerceDiscount != null) && !Objects.equals(commerceDiscount.getLimitationType(), CommerceDiscountConstants.LIMITATION_TYPE_UNLIMITED)) {
-	limitationTimesWrapperCssClass = "limitation-times-input-wrapper";
-}
-%>
-
-<aui:input bean="<%= commerceDiscount %>" model="<%= CommerceDiscount.class %>" name="limitationTimes" wrapperCssClass="<%= limitationTimesWrapperCssClass %>" />
-
 <aui:input bean="<%= commerceDiscount %>" checked="<%= (commerceDiscount == null) ? false : commerceDiscount.getActive() %>" model="<%= CommerceDiscount.class %>" name="active" type="toggle-switch" />
 
 <aui:script use="aui-toggler">
@@ -316,22 +292,6 @@ if ((commerceDiscount != null) && !Objects.equals(commerceDiscount.getLimitation
 			A.one('#<portlet:namespace />level3MinusButton').addClass('hide');
 
 			A.one('#<portlet:namespace />level4').attr('disabled', true);
-		}
-	);
-
-	A.one('#<portlet:namespace />limitationType').on(
-		'change',
-		function(event) {
-			if (this.val() == '<%= CommerceDiscountConstants.LIMITATION_TYPE_UNLIMITED %>') {
-				A.all('.limitation-times-input-wrapper').addClass('hide');
-
-				A.one('#<portlet:namespace />limitationTimes').attr('disabled', true);
-			}
-			else {
-				A.one('#<portlet:namespace />limitationTimes').attr('disabled', false);
-
-				A.all('.limitation-times-input-wrapper').removeClass('hide');
-			}
 		}
 	);
 </aui:script>
