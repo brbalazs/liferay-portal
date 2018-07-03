@@ -67,7 +67,7 @@ public class CommerceOrderCacheModel implements CacheModel<CommerceOrder>,
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(57);
+		StringBundler sb = new StringBundler(89);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -107,10 +107,42 @@ public class CommerceOrderCacheModel implements CacheModel<CommerceOrder>,
 		sb.append(purchaseOrderNumber);
 		sb.append(", subtotal=");
 		sb.append(subtotal);
-		sb.append(", shippingPrice=");
-		sb.append(shippingPrice);
+		sb.append(", subtotalDiscountAmount=");
+		sb.append(subtotalDiscountAmount);
+		sb.append(", subtotalDiscountPercentageLevel1=");
+		sb.append(subtotalDiscountPercentageLevel1);
+		sb.append(", subtotalDiscountPercentageLevel2=");
+		sb.append(subtotalDiscountPercentageLevel2);
+		sb.append(", subtotalDiscountPercentageLevel3=");
+		sb.append(subtotalDiscountPercentageLevel3);
+		sb.append(", subtotalDiscountPercentageLevel4=");
+		sb.append(subtotalDiscountPercentageLevel4);
+		sb.append(", shippingAmount=");
+		sb.append(shippingAmount);
+		sb.append(", shippingDiscountAmount=");
+		sb.append(shippingDiscountAmount);
+		sb.append(", shippingDiscountPercentageLevel1=");
+		sb.append(shippingDiscountPercentageLevel1);
+		sb.append(", shippingDiscountPercentageLevel2=");
+		sb.append(shippingDiscountPercentageLevel2);
+		sb.append(", shippingDiscountPercentageLevel3=");
+		sb.append(shippingDiscountPercentageLevel3);
+		sb.append(", shippingDiscountPercentageLevel4=");
+		sb.append(shippingDiscountPercentageLevel4);
+		sb.append(", taxAmount=");
+		sb.append(taxAmount);
 		sb.append(", total=");
 		sb.append(total);
+		sb.append(", totalDiscountAmount=");
+		sb.append(totalDiscountAmount);
+		sb.append(", totalDiscountPercentageLevel1=");
+		sb.append(totalDiscountPercentageLevel1);
+		sb.append(", totalDiscountPercentageLevel2=");
+		sb.append(totalDiscountPercentageLevel2);
+		sb.append(", totalDiscountPercentageLevel3=");
+		sb.append(totalDiscountPercentageLevel3);
+		sb.append(", totalDiscountPercentageLevel4=");
+		sb.append(totalDiscountPercentageLevel4);
 		sb.append(", advanceStatus=");
 		sb.append(advanceStatus);
 		sb.append(", paymentStatus=");
@@ -191,8 +223,24 @@ public class CommerceOrderCacheModel implements CacheModel<CommerceOrder>,
 		}
 
 		commerceOrderImpl.setSubtotal(subtotal);
-		commerceOrderImpl.setShippingPrice(shippingPrice);
+		commerceOrderImpl.setSubtotalDiscountAmount(subtotalDiscountAmount);
+		commerceOrderImpl.setSubtotalDiscountPercentageLevel1(subtotalDiscountPercentageLevel1);
+		commerceOrderImpl.setSubtotalDiscountPercentageLevel2(subtotalDiscountPercentageLevel2);
+		commerceOrderImpl.setSubtotalDiscountPercentageLevel3(subtotalDiscountPercentageLevel3);
+		commerceOrderImpl.setSubtotalDiscountPercentageLevel4(subtotalDiscountPercentageLevel4);
+		commerceOrderImpl.setShippingAmount(shippingAmount);
+		commerceOrderImpl.setShippingDiscountAmount(shippingDiscountAmount);
+		commerceOrderImpl.setShippingDiscountPercentageLevel1(shippingDiscountPercentageLevel1);
+		commerceOrderImpl.setShippingDiscountPercentageLevel2(shippingDiscountPercentageLevel2);
+		commerceOrderImpl.setShippingDiscountPercentageLevel3(shippingDiscountPercentageLevel3);
+		commerceOrderImpl.setShippingDiscountPercentageLevel4(shippingDiscountPercentageLevel4);
+		commerceOrderImpl.setTaxAmount(taxAmount);
 		commerceOrderImpl.setTotal(total);
+		commerceOrderImpl.setTotalDiscountAmount(totalDiscountAmount);
+		commerceOrderImpl.setTotalDiscountPercentageLevel1(totalDiscountPercentageLevel1);
+		commerceOrderImpl.setTotalDiscountPercentageLevel2(totalDiscountPercentageLevel2);
+		commerceOrderImpl.setTotalDiscountPercentageLevel3(totalDiscountPercentageLevel3);
+		commerceOrderImpl.setTotalDiscountPercentageLevel4(totalDiscountPercentageLevel4);
 
 		if (advanceStatus == null) {
 			commerceOrderImpl.setAdvanceStatus("");
@@ -259,8 +307,24 @@ public class CommerceOrderCacheModel implements CacheModel<CommerceOrder>,
 		shippingOptionName = objectInput.readUTF();
 		purchaseOrderNumber = objectInput.readUTF();
 		subtotal = (BigDecimal)objectInput.readObject();
-		shippingPrice = (BigDecimal)objectInput.readObject();
+		subtotalDiscountAmount = (BigDecimal)objectInput.readObject();
+		subtotalDiscountPercentageLevel1 = (BigDecimal)objectInput.readObject();
+		subtotalDiscountPercentageLevel2 = (BigDecimal)objectInput.readObject();
+		subtotalDiscountPercentageLevel3 = (BigDecimal)objectInput.readObject();
+		subtotalDiscountPercentageLevel4 = (BigDecimal)objectInput.readObject();
+		shippingAmount = (BigDecimal)objectInput.readObject();
+		shippingDiscountAmount = (BigDecimal)objectInput.readObject();
+		shippingDiscountPercentageLevel1 = (BigDecimal)objectInput.readObject();
+		shippingDiscountPercentageLevel2 = (BigDecimal)objectInput.readObject();
+		shippingDiscountPercentageLevel3 = (BigDecimal)objectInput.readObject();
+		shippingDiscountPercentageLevel4 = (BigDecimal)objectInput.readObject();
+		taxAmount = (BigDecimal)objectInput.readObject();
 		total = (BigDecimal)objectInput.readObject();
+		totalDiscountAmount = (BigDecimal)objectInput.readObject();
+		totalDiscountPercentageLevel1 = (BigDecimal)objectInput.readObject();
+		totalDiscountPercentageLevel2 = (BigDecimal)objectInput.readObject();
+		totalDiscountPercentageLevel3 = (BigDecimal)objectInput.readObject();
+		totalDiscountPercentageLevel4 = (BigDecimal)objectInput.readObject();
 		advanceStatus = objectInput.readUTF();
 
 		paymentStatus = objectInput.readInt();
@@ -333,8 +397,24 @@ public class CommerceOrderCacheModel implements CacheModel<CommerceOrder>,
 		}
 
 		objectOutput.writeObject(subtotal);
-		objectOutput.writeObject(shippingPrice);
+		objectOutput.writeObject(subtotalDiscountAmount);
+		objectOutput.writeObject(subtotalDiscountPercentageLevel1);
+		objectOutput.writeObject(subtotalDiscountPercentageLevel2);
+		objectOutput.writeObject(subtotalDiscountPercentageLevel3);
+		objectOutput.writeObject(subtotalDiscountPercentageLevel4);
+		objectOutput.writeObject(shippingAmount);
+		objectOutput.writeObject(shippingDiscountAmount);
+		objectOutput.writeObject(shippingDiscountPercentageLevel1);
+		objectOutput.writeObject(shippingDiscountPercentageLevel2);
+		objectOutput.writeObject(shippingDiscountPercentageLevel3);
+		objectOutput.writeObject(shippingDiscountPercentageLevel4);
+		objectOutput.writeObject(taxAmount);
 		objectOutput.writeObject(total);
+		objectOutput.writeObject(totalDiscountAmount);
+		objectOutput.writeObject(totalDiscountPercentageLevel1);
+		objectOutput.writeObject(totalDiscountPercentageLevel2);
+		objectOutput.writeObject(totalDiscountPercentageLevel3);
+		objectOutput.writeObject(totalDiscountPercentageLevel4);
 
 		if (advanceStatus == null) {
 			objectOutput.writeUTF("");
@@ -380,8 +460,24 @@ public class CommerceOrderCacheModel implements CacheModel<CommerceOrder>,
 	public String shippingOptionName;
 	public String purchaseOrderNumber;
 	public BigDecimal subtotal;
-	public BigDecimal shippingPrice;
+	public BigDecimal subtotalDiscountAmount;
+	public BigDecimal subtotalDiscountPercentageLevel1;
+	public BigDecimal subtotalDiscountPercentageLevel2;
+	public BigDecimal subtotalDiscountPercentageLevel3;
+	public BigDecimal subtotalDiscountPercentageLevel4;
+	public BigDecimal shippingAmount;
+	public BigDecimal shippingDiscountAmount;
+	public BigDecimal shippingDiscountPercentageLevel1;
+	public BigDecimal shippingDiscountPercentageLevel2;
+	public BigDecimal shippingDiscountPercentageLevel3;
+	public BigDecimal shippingDiscountPercentageLevel4;
+	public BigDecimal taxAmount;
 	public BigDecimal total;
+	public BigDecimal totalDiscountAmount;
+	public BigDecimal totalDiscountPercentageLevel1;
+	public BigDecimal totalDiscountPercentageLevel2;
+	public BigDecimal totalDiscountPercentageLevel3;
+	public BigDecimal totalDiscountPercentageLevel4;
 	public String advanceStatus;
 	public int paymentStatus;
 	public int orderStatus;

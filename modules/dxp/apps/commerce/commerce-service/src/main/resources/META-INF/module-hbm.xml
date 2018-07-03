@@ -119,8 +119,24 @@
 		<property name="shippingOptionName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="purchaseOrderNumber" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="subtotal" type="org.hibernate.type.BigDecimalType" />
-		<property name="shippingPrice" type="org.hibernate.type.BigDecimalType" />
+		<property name="subtotalDiscountAmount" type="org.hibernate.type.BigDecimalType" />
+		<property column="subtotalDiscountPercentLevel1" name="subtotalDiscountPercentageLevel1" type="org.hibernate.type.BigDecimalType" />
+		<property column="subtotalDiscountPercentLevel2" name="subtotalDiscountPercentageLevel2" type="org.hibernate.type.BigDecimalType" />
+		<property column="subtotalDiscountPercentLevel3" name="subtotalDiscountPercentageLevel3" type="org.hibernate.type.BigDecimalType" />
+		<property column="subtotalDiscountPercentLevel4" name="subtotalDiscountPercentageLevel4" type="org.hibernate.type.BigDecimalType" />
+		<property name="shippingAmount" type="org.hibernate.type.BigDecimalType" />
+		<property name="shippingDiscountAmount" type="org.hibernate.type.BigDecimalType" />
+		<property column="shippingDiscountPercentLevel1" name="shippingDiscountPercentageLevel1" type="org.hibernate.type.BigDecimalType" />
+		<property column="shippingDiscountPercentLevel2" name="shippingDiscountPercentageLevel2" type="org.hibernate.type.BigDecimalType" />
+		<property column="shippingDiscountPercentLevel3" name="shippingDiscountPercentageLevel3" type="org.hibernate.type.BigDecimalType" />
+		<property column="shippingDiscountPercentLevel4" name="shippingDiscountPercentageLevel4" type="org.hibernate.type.BigDecimalType" />
+		<property name="taxAmount" type="org.hibernate.type.BigDecimalType" />
 		<property name="total" type="org.hibernate.type.BigDecimalType" />
+		<property name="totalDiscountAmount" type="org.hibernate.type.BigDecimalType" />
+		<property name="totalDiscountPercentageLevel1" type="org.hibernate.type.BigDecimalType" />
+		<property name="totalDiscountPercentageLevel2" type="org.hibernate.type.BigDecimalType" />
+		<property name="totalDiscountPercentageLevel3" type="org.hibernate.type.BigDecimalType" />
+		<property name="totalDiscountPercentageLevel4" type="org.hibernate.type.BigDecimalType" />
 		<property name="advanceStatus" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="paymentStatus" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="orderStatus" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />

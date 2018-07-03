@@ -55,8 +55,24 @@ public class CommerceOrderSoap implements Serializable {
 		soapModel.setShippingOptionName(model.getShippingOptionName());
 		soapModel.setPurchaseOrderNumber(model.getPurchaseOrderNumber());
 		soapModel.setSubtotal(model.getSubtotal());
-		soapModel.setShippingPrice(model.getShippingPrice());
+		soapModel.setSubtotalDiscountAmount(model.getSubtotalDiscountAmount());
+		soapModel.setSubtotalDiscountPercentageLevel1(model.getSubtotalDiscountPercentageLevel1());
+		soapModel.setSubtotalDiscountPercentageLevel2(model.getSubtotalDiscountPercentageLevel2());
+		soapModel.setSubtotalDiscountPercentageLevel3(model.getSubtotalDiscountPercentageLevel3());
+		soapModel.setSubtotalDiscountPercentageLevel4(model.getSubtotalDiscountPercentageLevel4());
+		soapModel.setShippingAmount(model.getShippingAmount());
+		soapModel.setShippingDiscountAmount(model.getShippingDiscountAmount());
+		soapModel.setShippingDiscountPercentageLevel1(model.getShippingDiscountPercentageLevel1());
+		soapModel.setShippingDiscountPercentageLevel2(model.getShippingDiscountPercentageLevel2());
+		soapModel.setShippingDiscountPercentageLevel3(model.getShippingDiscountPercentageLevel3());
+		soapModel.setShippingDiscountPercentageLevel4(model.getShippingDiscountPercentageLevel4());
+		soapModel.setTaxAmount(model.getTaxAmount());
 		soapModel.setTotal(model.getTotal());
+		soapModel.setTotalDiscountAmount(model.getTotalDiscountAmount());
+		soapModel.setTotalDiscountPercentageLevel1(model.getTotalDiscountPercentageLevel1());
+		soapModel.setTotalDiscountPercentageLevel2(model.getTotalDiscountPercentageLevel2());
+		soapModel.setTotalDiscountPercentageLevel3(model.getTotalDiscountPercentageLevel3());
+		soapModel.setTotalDiscountPercentageLevel4(model.getTotalDiscountPercentageLevel4());
 		soapModel.setAdvanceStatus(model.getAdvanceStatus());
 		soapModel.setPaymentStatus(model.getPaymentStatus());
 		soapModel.setOrderStatus(model.getOrderStatus());
@@ -268,12 +284,108 @@ public class CommerceOrderSoap implements Serializable {
 		_subtotal = subtotal;
 	}
 
-	public BigDecimal getShippingPrice() {
-		return _shippingPrice;
+	public BigDecimal getSubtotalDiscountAmount() {
+		return _subtotalDiscountAmount;
 	}
 
-	public void setShippingPrice(BigDecimal shippingPrice) {
-		_shippingPrice = shippingPrice;
+	public void setSubtotalDiscountAmount(BigDecimal subtotalDiscountAmount) {
+		_subtotalDiscountAmount = subtotalDiscountAmount;
+	}
+
+	public BigDecimal getSubtotalDiscountPercentageLevel1() {
+		return _subtotalDiscountPercentageLevel1;
+	}
+
+	public void setSubtotalDiscountPercentageLevel1(
+		BigDecimal subtotalDiscountPercentageLevel1) {
+		_subtotalDiscountPercentageLevel1 = subtotalDiscountPercentageLevel1;
+	}
+
+	public BigDecimal getSubtotalDiscountPercentageLevel2() {
+		return _subtotalDiscountPercentageLevel2;
+	}
+
+	public void setSubtotalDiscountPercentageLevel2(
+		BigDecimal subtotalDiscountPercentageLevel2) {
+		_subtotalDiscountPercentageLevel2 = subtotalDiscountPercentageLevel2;
+	}
+
+	public BigDecimal getSubtotalDiscountPercentageLevel3() {
+		return _subtotalDiscountPercentageLevel3;
+	}
+
+	public void setSubtotalDiscountPercentageLevel3(
+		BigDecimal subtotalDiscountPercentageLevel3) {
+		_subtotalDiscountPercentageLevel3 = subtotalDiscountPercentageLevel3;
+	}
+
+	public BigDecimal getSubtotalDiscountPercentageLevel4() {
+		return _subtotalDiscountPercentageLevel4;
+	}
+
+	public void setSubtotalDiscountPercentageLevel4(
+		BigDecimal subtotalDiscountPercentageLevel4) {
+		_subtotalDiscountPercentageLevel4 = subtotalDiscountPercentageLevel4;
+	}
+
+	public BigDecimal getShippingAmount() {
+		return _shippingAmount;
+	}
+
+	public void setShippingAmount(BigDecimal shippingAmount) {
+		_shippingAmount = shippingAmount;
+	}
+
+	public BigDecimal getShippingDiscountAmount() {
+		return _shippingDiscountAmount;
+	}
+
+	public void setShippingDiscountAmount(BigDecimal shippingDiscountAmount) {
+		_shippingDiscountAmount = shippingDiscountAmount;
+	}
+
+	public BigDecimal getShippingDiscountPercentageLevel1() {
+		return _shippingDiscountPercentageLevel1;
+	}
+
+	public void setShippingDiscountPercentageLevel1(
+		BigDecimal shippingDiscountPercentageLevel1) {
+		_shippingDiscountPercentageLevel1 = shippingDiscountPercentageLevel1;
+	}
+
+	public BigDecimal getShippingDiscountPercentageLevel2() {
+		return _shippingDiscountPercentageLevel2;
+	}
+
+	public void setShippingDiscountPercentageLevel2(
+		BigDecimal shippingDiscountPercentageLevel2) {
+		_shippingDiscountPercentageLevel2 = shippingDiscountPercentageLevel2;
+	}
+
+	public BigDecimal getShippingDiscountPercentageLevel3() {
+		return _shippingDiscountPercentageLevel3;
+	}
+
+	public void setShippingDiscountPercentageLevel3(
+		BigDecimal shippingDiscountPercentageLevel3) {
+		_shippingDiscountPercentageLevel3 = shippingDiscountPercentageLevel3;
+	}
+
+	public BigDecimal getShippingDiscountPercentageLevel4() {
+		return _shippingDiscountPercentageLevel4;
+	}
+
+	public void setShippingDiscountPercentageLevel4(
+		BigDecimal shippingDiscountPercentageLevel4) {
+		_shippingDiscountPercentageLevel4 = shippingDiscountPercentageLevel4;
+	}
+
+	public BigDecimal getTaxAmount() {
+		return _taxAmount;
+	}
+
+	public void setTaxAmount(BigDecimal taxAmount) {
+		_taxAmount = taxAmount;
 	}
 
 	public BigDecimal getTotal() {
@@ -282,6 +394,50 @@ public class CommerceOrderSoap implements Serializable {
 
 	public void setTotal(BigDecimal total) {
 		_total = total;
+	}
+
+	public BigDecimal getTotalDiscountAmount() {
+		return _totalDiscountAmount;
+	}
+
+	public void setTotalDiscountAmount(BigDecimal totalDiscountAmount) {
+		_totalDiscountAmount = totalDiscountAmount;
+	}
+
+	public BigDecimal getTotalDiscountPercentageLevel1() {
+		return _totalDiscountPercentageLevel1;
+	}
+
+	public void setTotalDiscountPercentageLevel1(
+		BigDecimal totalDiscountPercentageLevel1) {
+		_totalDiscountPercentageLevel1 = totalDiscountPercentageLevel1;
+	}
+
+	public BigDecimal getTotalDiscountPercentageLevel2() {
+		return _totalDiscountPercentageLevel2;
+	}
+
+	public void setTotalDiscountPercentageLevel2(
+		BigDecimal totalDiscountPercentageLevel2) {
+		_totalDiscountPercentageLevel2 = totalDiscountPercentageLevel2;
+	}
+
+	public BigDecimal getTotalDiscountPercentageLevel3() {
+		return _totalDiscountPercentageLevel3;
+	}
+
+	public void setTotalDiscountPercentageLevel3(
+		BigDecimal totalDiscountPercentageLevel3) {
+		_totalDiscountPercentageLevel3 = totalDiscountPercentageLevel3;
+	}
+
+	public BigDecimal getTotalDiscountPercentageLevel4() {
+		return _totalDiscountPercentageLevel4;
+	}
+
+	public void setTotalDiscountPercentageLevel4(
+		BigDecimal totalDiscountPercentageLevel4) {
+		_totalDiscountPercentageLevel4 = totalDiscountPercentageLevel4;
 	}
 
 	public String getAdvanceStatus() {
@@ -359,8 +515,24 @@ public class CommerceOrderSoap implements Serializable {
 	private String _shippingOptionName;
 	private String _purchaseOrderNumber;
 	private BigDecimal _subtotal;
-	private BigDecimal _shippingPrice;
+	private BigDecimal _subtotalDiscountAmount;
+	private BigDecimal _subtotalDiscountPercentageLevel1;
+	private BigDecimal _subtotalDiscountPercentageLevel2;
+	private BigDecimal _subtotalDiscountPercentageLevel3;
+	private BigDecimal _subtotalDiscountPercentageLevel4;
+	private BigDecimal _shippingAmount;
+	private BigDecimal _shippingDiscountAmount;
+	private BigDecimal _shippingDiscountPercentageLevel1;
+	private BigDecimal _shippingDiscountPercentageLevel2;
+	private BigDecimal _shippingDiscountPercentageLevel3;
+	private BigDecimal _shippingDiscountPercentageLevel4;
+	private BigDecimal _taxAmount;
 	private BigDecimal _total;
+	private BigDecimal _totalDiscountAmount;
+	private BigDecimal _totalDiscountPercentageLevel1;
+	private BigDecimal _totalDiscountPercentageLevel2;
+	private BigDecimal _totalDiscountPercentageLevel3;
+	private BigDecimal _totalDiscountPercentageLevel4;
 	private String _advanceStatus;
 	private int _paymentStatus;
 	private int _orderStatus;

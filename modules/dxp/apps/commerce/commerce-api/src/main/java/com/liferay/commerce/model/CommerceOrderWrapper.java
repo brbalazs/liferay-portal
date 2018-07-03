@@ -81,8 +81,36 @@ public class CommerceOrderWrapper implements CommerceOrder,
 		attributes.put("shippingOptionName", getShippingOptionName());
 		attributes.put("purchaseOrderNumber", getPurchaseOrderNumber());
 		attributes.put("subtotal", getSubtotal());
-		attributes.put("shippingPrice", getShippingPrice());
+		attributes.put("subtotalDiscountAmount", getSubtotalDiscountAmount());
+		attributes.put("subtotalDiscountPercentageLevel1",
+			getSubtotalDiscountPercentageLevel1());
+		attributes.put("subtotalDiscountPercentageLevel2",
+			getSubtotalDiscountPercentageLevel2());
+		attributes.put("subtotalDiscountPercentageLevel3",
+			getSubtotalDiscountPercentageLevel3());
+		attributes.put("subtotalDiscountPercentageLevel4",
+			getSubtotalDiscountPercentageLevel4());
+		attributes.put("shippingAmount", getShippingAmount());
+		attributes.put("shippingDiscountAmount", getShippingDiscountAmount());
+		attributes.put("shippingDiscountPercentageLevel1",
+			getShippingDiscountPercentageLevel1());
+		attributes.put("shippingDiscountPercentageLevel2",
+			getShippingDiscountPercentageLevel2());
+		attributes.put("shippingDiscountPercentageLevel3",
+			getShippingDiscountPercentageLevel3());
+		attributes.put("shippingDiscountPercentageLevel4",
+			getShippingDiscountPercentageLevel4());
+		attributes.put("taxAmount", getTaxAmount());
 		attributes.put("total", getTotal());
+		attributes.put("totalDiscountAmount", getTotalDiscountAmount());
+		attributes.put("totalDiscountPercentageLevel1",
+			getTotalDiscountPercentageLevel1());
+		attributes.put("totalDiscountPercentageLevel2",
+			getTotalDiscountPercentageLevel2());
+		attributes.put("totalDiscountPercentageLevel3",
+			getTotalDiscountPercentageLevel3());
+		attributes.put("totalDiscountPercentageLevel4",
+			getTotalDiscountPercentageLevel4());
 		attributes.put("advanceStatus", getAdvanceStatus());
 		attributes.put("paymentStatus", getPaymentStatus());
 		attributes.put("orderStatus", getOrderStatus());
@@ -213,16 +241,127 @@ public class CommerceOrderWrapper implements CommerceOrder,
 			setSubtotal(subtotal);
 		}
 
-		BigDecimal shippingPrice = (BigDecimal)attributes.get("shippingPrice");
+		BigDecimal subtotalDiscountAmount = (BigDecimal)attributes.get(
+				"subtotalDiscountAmount");
 
-		if (shippingPrice != null) {
-			setShippingPrice(shippingPrice);
+		if (subtotalDiscountAmount != null) {
+			setSubtotalDiscountAmount(subtotalDiscountAmount);
+		}
+
+		BigDecimal subtotalDiscountPercentageLevel1 = (BigDecimal)attributes.get(
+				"subtotalDiscountPercentageLevel1");
+
+		if (subtotalDiscountPercentageLevel1 != null) {
+			setSubtotalDiscountPercentageLevel1(subtotalDiscountPercentageLevel1);
+		}
+
+		BigDecimal subtotalDiscountPercentageLevel2 = (BigDecimal)attributes.get(
+				"subtotalDiscountPercentageLevel2");
+
+		if (subtotalDiscountPercentageLevel2 != null) {
+			setSubtotalDiscountPercentageLevel2(subtotalDiscountPercentageLevel2);
+		}
+
+		BigDecimal subtotalDiscountPercentageLevel3 = (BigDecimal)attributes.get(
+				"subtotalDiscountPercentageLevel3");
+
+		if (subtotalDiscountPercentageLevel3 != null) {
+			setSubtotalDiscountPercentageLevel3(subtotalDiscountPercentageLevel3);
+		}
+
+		BigDecimal subtotalDiscountPercentageLevel4 = (BigDecimal)attributes.get(
+				"subtotalDiscountPercentageLevel4");
+
+		if (subtotalDiscountPercentageLevel4 != null) {
+			setSubtotalDiscountPercentageLevel4(subtotalDiscountPercentageLevel4);
+		}
+
+		BigDecimal shippingAmount = (BigDecimal)attributes.get("shippingAmount");
+
+		if (shippingAmount != null) {
+			setShippingAmount(shippingAmount);
+		}
+
+		BigDecimal shippingDiscountAmount = (BigDecimal)attributes.get(
+				"shippingDiscountAmount");
+
+		if (shippingDiscountAmount != null) {
+			setShippingDiscountAmount(shippingDiscountAmount);
+		}
+
+		BigDecimal shippingDiscountPercentageLevel1 = (BigDecimal)attributes.get(
+				"shippingDiscountPercentageLevel1");
+
+		if (shippingDiscountPercentageLevel1 != null) {
+			setShippingDiscountPercentageLevel1(shippingDiscountPercentageLevel1);
+		}
+
+		BigDecimal shippingDiscountPercentageLevel2 = (BigDecimal)attributes.get(
+				"shippingDiscountPercentageLevel2");
+
+		if (shippingDiscountPercentageLevel2 != null) {
+			setShippingDiscountPercentageLevel2(shippingDiscountPercentageLevel2);
+		}
+
+		BigDecimal shippingDiscountPercentageLevel3 = (BigDecimal)attributes.get(
+				"shippingDiscountPercentageLevel3");
+
+		if (shippingDiscountPercentageLevel3 != null) {
+			setShippingDiscountPercentageLevel3(shippingDiscountPercentageLevel3);
+		}
+
+		BigDecimal shippingDiscountPercentageLevel4 = (BigDecimal)attributes.get(
+				"shippingDiscountPercentageLevel4");
+
+		if (shippingDiscountPercentageLevel4 != null) {
+			setShippingDiscountPercentageLevel4(shippingDiscountPercentageLevel4);
+		}
+
+		BigDecimal taxAmount = (BigDecimal)attributes.get("taxAmount");
+
+		if (taxAmount != null) {
+			setTaxAmount(taxAmount);
 		}
 
 		BigDecimal total = (BigDecimal)attributes.get("total");
 
 		if (total != null) {
 			setTotal(total);
+		}
+
+		BigDecimal totalDiscountAmount = (BigDecimal)attributes.get(
+				"totalDiscountAmount");
+
+		if (totalDiscountAmount != null) {
+			setTotalDiscountAmount(totalDiscountAmount);
+		}
+
+		BigDecimal totalDiscountPercentageLevel1 = (BigDecimal)attributes.get(
+				"totalDiscountPercentageLevel1");
+
+		if (totalDiscountPercentageLevel1 != null) {
+			setTotalDiscountPercentageLevel1(totalDiscountPercentageLevel1);
+		}
+
+		BigDecimal totalDiscountPercentageLevel2 = (BigDecimal)attributes.get(
+				"totalDiscountPercentageLevel2");
+
+		if (totalDiscountPercentageLevel2 != null) {
+			setTotalDiscountPercentageLevel2(totalDiscountPercentageLevel2);
+		}
+
+		BigDecimal totalDiscountPercentageLevel3 = (BigDecimal)attributes.get(
+				"totalDiscountPercentageLevel3");
+
+		if (totalDiscountPercentageLevel3 != null) {
+			setTotalDiscountPercentageLevel3(totalDiscountPercentageLevel3);
+		}
+
+		BigDecimal totalDiscountPercentageLevel4 = (BigDecimal)attributes.get(
+				"totalDiscountPercentageLevel4");
+
+		if (totalDiscountPercentageLevel4 != null) {
+			setTotalDiscountPercentageLevel4(totalDiscountPercentageLevel4);
 		}
 
 		String advanceStatus = (String)attributes.get("advanceStatus");
@@ -538,6 +677,66 @@ public class CommerceOrderWrapper implements CommerceOrder,
 		return _commerceOrder.getShippingAddressId();
 	}
 
+	/**
+	* Returns the shipping amount of this commerce order.
+	*
+	* @return the shipping amount of this commerce order
+	*/
+	@Override
+	public BigDecimal getShippingAmount() {
+		return _commerceOrder.getShippingAmount();
+	}
+
+	/**
+	* Returns the shipping discount amount of this commerce order.
+	*
+	* @return the shipping discount amount of this commerce order
+	*/
+	@Override
+	public BigDecimal getShippingDiscountAmount() {
+		return _commerceOrder.getShippingDiscountAmount();
+	}
+
+	/**
+	* Returns the shipping discount percentage level1 of this commerce order.
+	*
+	* @return the shipping discount percentage level1 of this commerce order
+	*/
+	@Override
+	public BigDecimal getShippingDiscountPercentageLevel1() {
+		return _commerceOrder.getShippingDiscountPercentageLevel1();
+	}
+
+	/**
+	* Returns the shipping discount percentage level2 of this commerce order.
+	*
+	* @return the shipping discount percentage level2 of this commerce order
+	*/
+	@Override
+	public BigDecimal getShippingDiscountPercentageLevel2() {
+		return _commerceOrder.getShippingDiscountPercentageLevel2();
+	}
+
+	/**
+	* Returns the shipping discount percentage level3 of this commerce order.
+	*
+	* @return the shipping discount percentage level3 of this commerce order
+	*/
+	@Override
+	public BigDecimal getShippingDiscountPercentageLevel3() {
+		return _commerceOrder.getShippingDiscountPercentageLevel3();
+	}
+
+	/**
+	* Returns the shipping discount percentage level4 of this commerce order.
+	*
+	* @return the shipping discount percentage level4 of this commerce order
+	*/
+	@Override
+	public BigDecimal getShippingDiscountPercentageLevel4() {
+		return _commerceOrder.getShippingDiscountPercentageLevel4();
+	}
+
 	@Override
 	public com.liferay.commerce.currency.model.CommerceMoney getShippingMoney()
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -552,16 +751,6 @@ public class CommerceOrderWrapper implements CommerceOrder,
 	@Override
 	public String getShippingOptionName() {
 		return _commerceOrder.getShippingOptionName();
-	}
-
-	/**
-	* Returns the shipping price of this commerce order.
-	*
-	* @return the shipping price of this commerce order
-	*/
-	@Override
-	public BigDecimal getShippingPrice() {
-		return _commerceOrder.getShippingPrice();
 	}
 
 	/**
@@ -634,10 +823,70 @@ public class CommerceOrderWrapper implements CommerceOrder,
 		return _commerceOrder.getSubtotal();
 	}
 
+	/**
+	* Returns the subtotal discount amount of this commerce order.
+	*
+	* @return the subtotal discount amount of this commerce order
+	*/
+	@Override
+	public BigDecimal getSubtotalDiscountAmount() {
+		return _commerceOrder.getSubtotalDiscountAmount();
+	}
+
+	/**
+	* Returns the subtotal discount percentage level1 of this commerce order.
+	*
+	* @return the subtotal discount percentage level1 of this commerce order
+	*/
+	@Override
+	public BigDecimal getSubtotalDiscountPercentageLevel1() {
+		return _commerceOrder.getSubtotalDiscountPercentageLevel1();
+	}
+
+	/**
+	* Returns the subtotal discount percentage level2 of this commerce order.
+	*
+	* @return the subtotal discount percentage level2 of this commerce order
+	*/
+	@Override
+	public BigDecimal getSubtotalDiscountPercentageLevel2() {
+		return _commerceOrder.getSubtotalDiscountPercentageLevel2();
+	}
+
+	/**
+	* Returns the subtotal discount percentage level3 of this commerce order.
+	*
+	* @return the subtotal discount percentage level3 of this commerce order
+	*/
+	@Override
+	public BigDecimal getSubtotalDiscountPercentageLevel3() {
+		return _commerceOrder.getSubtotalDiscountPercentageLevel3();
+	}
+
+	/**
+	* Returns the subtotal discount percentage level4 of this commerce order.
+	*
+	* @return the subtotal discount percentage level4 of this commerce order
+	*/
+	@Override
+	public BigDecimal getSubtotalDiscountPercentageLevel4() {
+		return _commerceOrder.getSubtotalDiscountPercentageLevel4();
+	}
+
 	@Override
 	public com.liferay.commerce.currency.model.CommerceMoney getSubTotalMoney()
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceOrder.getSubTotalMoney();
+	}
+
+	/**
+	* Returns the tax amount of this commerce order.
+	*
+	* @return the tax amount of this commerce order
+	*/
+	@Override
+	public BigDecimal getTaxAmount() {
+		return _commerceOrder.getTaxAmount();
 	}
 
 	/**
@@ -648,6 +897,56 @@ public class CommerceOrderWrapper implements CommerceOrder,
 	@Override
 	public BigDecimal getTotal() {
 		return _commerceOrder.getTotal();
+	}
+
+	/**
+	* Returns the total discount amount of this commerce order.
+	*
+	* @return the total discount amount of this commerce order
+	*/
+	@Override
+	public BigDecimal getTotalDiscountAmount() {
+		return _commerceOrder.getTotalDiscountAmount();
+	}
+
+	/**
+	* Returns the total discount percentage level1 of this commerce order.
+	*
+	* @return the total discount percentage level1 of this commerce order
+	*/
+	@Override
+	public BigDecimal getTotalDiscountPercentageLevel1() {
+		return _commerceOrder.getTotalDiscountPercentageLevel1();
+	}
+
+	/**
+	* Returns the total discount percentage level2 of this commerce order.
+	*
+	* @return the total discount percentage level2 of this commerce order
+	*/
+	@Override
+	public BigDecimal getTotalDiscountPercentageLevel2() {
+		return _commerceOrder.getTotalDiscountPercentageLevel2();
+	}
+
+	/**
+	* Returns the total discount percentage level3 of this commerce order.
+	*
+	* @return the total discount percentage level3 of this commerce order
+	*/
+	@Override
+	public BigDecimal getTotalDiscountPercentageLevel3() {
+		return _commerceOrder.getTotalDiscountPercentageLevel3();
+	}
+
+	/**
+	* Returns the total discount percentage level4 of this commerce order.
+	*
+	* @return the total discount percentage level4 of this commerce order
+	*/
+	@Override
+	public BigDecimal getTotalDiscountPercentageLevel4() {
+		return _commerceOrder.getTotalDiscountPercentageLevel4();
 	}
 
 	@Override
@@ -1035,6 +1334,70 @@ public class CommerceOrderWrapper implements CommerceOrder,
 	}
 
 	/**
+	* Sets the shipping amount of this commerce order.
+	*
+	* @param shippingAmount the shipping amount of this commerce order
+	*/
+	@Override
+	public void setShippingAmount(BigDecimal shippingAmount) {
+		_commerceOrder.setShippingAmount(shippingAmount);
+	}
+
+	/**
+	* Sets the shipping discount amount of this commerce order.
+	*
+	* @param shippingDiscountAmount the shipping discount amount of this commerce order
+	*/
+	@Override
+	public void setShippingDiscountAmount(BigDecimal shippingDiscountAmount) {
+		_commerceOrder.setShippingDiscountAmount(shippingDiscountAmount);
+	}
+
+	/**
+	* Sets the shipping discount percentage level1 of this commerce order.
+	*
+	* @param shippingDiscountPercentageLevel1 the shipping discount percentage level1 of this commerce order
+	*/
+	@Override
+	public void setShippingDiscountPercentageLevel1(
+		BigDecimal shippingDiscountPercentageLevel1) {
+		_commerceOrder.setShippingDiscountPercentageLevel1(shippingDiscountPercentageLevel1);
+	}
+
+	/**
+	* Sets the shipping discount percentage level2 of this commerce order.
+	*
+	* @param shippingDiscountPercentageLevel2 the shipping discount percentage level2 of this commerce order
+	*/
+	@Override
+	public void setShippingDiscountPercentageLevel2(
+		BigDecimal shippingDiscountPercentageLevel2) {
+		_commerceOrder.setShippingDiscountPercentageLevel2(shippingDiscountPercentageLevel2);
+	}
+
+	/**
+	* Sets the shipping discount percentage level3 of this commerce order.
+	*
+	* @param shippingDiscountPercentageLevel3 the shipping discount percentage level3 of this commerce order
+	*/
+	@Override
+	public void setShippingDiscountPercentageLevel3(
+		BigDecimal shippingDiscountPercentageLevel3) {
+		_commerceOrder.setShippingDiscountPercentageLevel3(shippingDiscountPercentageLevel3);
+	}
+
+	/**
+	* Sets the shipping discount percentage level4 of this commerce order.
+	*
+	* @param shippingDiscountPercentageLevel4 the shipping discount percentage level4 of this commerce order
+	*/
+	@Override
+	public void setShippingDiscountPercentageLevel4(
+		BigDecimal shippingDiscountPercentageLevel4) {
+		_commerceOrder.setShippingDiscountPercentageLevel4(shippingDiscountPercentageLevel4);
+	}
+
+	/**
 	* Sets the shipping option name of this commerce order.
 	*
 	* @param shippingOptionName the shipping option name of this commerce order
@@ -1042,16 +1405,6 @@ public class CommerceOrderWrapper implements CommerceOrder,
 	@Override
 	public void setShippingOptionName(String shippingOptionName) {
 		_commerceOrder.setShippingOptionName(shippingOptionName);
-	}
-
-	/**
-	* Sets the shipping price of this commerce order.
-	*
-	* @param shippingPrice the shipping price of this commerce order
-	*/
-	@Override
-	public void setShippingPrice(BigDecimal shippingPrice) {
-		_commerceOrder.setShippingPrice(shippingPrice);
 	}
 
 	/**
@@ -1125,6 +1478,70 @@ public class CommerceOrderWrapper implements CommerceOrder,
 	}
 
 	/**
+	* Sets the subtotal discount amount of this commerce order.
+	*
+	* @param subtotalDiscountAmount the subtotal discount amount of this commerce order
+	*/
+	@Override
+	public void setSubtotalDiscountAmount(BigDecimal subtotalDiscountAmount) {
+		_commerceOrder.setSubtotalDiscountAmount(subtotalDiscountAmount);
+	}
+
+	/**
+	* Sets the subtotal discount percentage level1 of this commerce order.
+	*
+	* @param subtotalDiscountPercentageLevel1 the subtotal discount percentage level1 of this commerce order
+	*/
+	@Override
+	public void setSubtotalDiscountPercentageLevel1(
+		BigDecimal subtotalDiscountPercentageLevel1) {
+		_commerceOrder.setSubtotalDiscountPercentageLevel1(subtotalDiscountPercentageLevel1);
+	}
+
+	/**
+	* Sets the subtotal discount percentage level2 of this commerce order.
+	*
+	* @param subtotalDiscountPercentageLevel2 the subtotal discount percentage level2 of this commerce order
+	*/
+	@Override
+	public void setSubtotalDiscountPercentageLevel2(
+		BigDecimal subtotalDiscountPercentageLevel2) {
+		_commerceOrder.setSubtotalDiscountPercentageLevel2(subtotalDiscountPercentageLevel2);
+	}
+
+	/**
+	* Sets the subtotal discount percentage level3 of this commerce order.
+	*
+	* @param subtotalDiscountPercentageLevel3 the subtotal discount percentage level3 of this commerce order
+	*/
+	@Override
+	public void setSubtotalDiscountPercentageLevel3(
+		BigDecimal subtotalDiscountPercentageLevel3) {
+		_commerceOrder.setSubtotalDiscountPercentageLevel3(subtotalDiscountPercentageLevel3);
+	}
+
+	/**
+	* Sets the subtotal discount percentage level4 of this commerce order.
+	*
+	* @param subtotalDiscountPercentageLevel4 the subtotal discount percentage level4 of this commerce order
+	*/
+	@Override
+	public void setSubtotalDiscountPercentageLevel4(
+		BigDecimal subtotalDiscountPercentageLevel4) {
+		_commerceOrder.setSubtotalDiscountPercentageLevel4(subtotalDiscountPercentageLevel4);
+	}
+
+	/**
+	* Sets the tax amount of this commerce order.
+	*
+	* @param taxAmount the tax amount of this commerce order
+	*/
+	@Override
+	public void setTaxAmount(BigDecimal taxAmount) {
+		_commerceOrder.setTaxAmount(taxAmount);
+	}
+
+	/**
 	* Sets the total of this commerce order.
 	*
 	* @param total the total of this commerce order
@@ -1132,6 +1549,60 @@ public class CommerceOrderWrapper implements CommerceOrder,
 	@Override
 	public void setTotal(BigDecimal total) {
 		_commerceOrder.setTotal(total);
+	}
+
+	/**
+	* Sets the total discount amount of this commerce order.
+	*
+	* @param totalDiscountAmount the total discount amount of this commerce order
+	*/
+	@Override
+	public void setTotalDiscountAmount(BigDecimal totalDiscountAmount) {
+		_commerceOrder.setTotalDiscountAmount(totalDiscountAmount);
+	}
+
+	/**
+	* Sets the total discount percentage level1 of this commerce order.
+	*
+	* @param totalDiscountPercentageLevel1 the total discount percentage level1 of this commerce order
+	*/
+	@Override
+	public void setTotalDiscountPercentageLevel1(
+		BigDecimal totalDiscountPercentageLevel1) {
+		_commerceOrder.setTotalDiscountPercentageLevel1(totalDiscountPercentageLevel1);
+	}
+
+	/**
+	* Sets the total discount percentage level2 of this commerce order.
+	*
+	* @param totalDiscountPercentageLevel2 the total discount percentage level2 of this commerce order
+	*/
+	@Override
+	public void setTotalDiscountPercentageLevel2(
+		BigDecimal totalDiscountPercentageLevel2) {
+		_commerceOrder.setTotalDiscountPercentageLevel2(totalDiscountPercentageLevel2);
+	}
+
+	/**
+	* Sets the total discount percentage level3 of this commerce order.
+	*
+	* @param totalDiscountPercentageLevel3 the total discount percentage level3 of this commerce order
+	*/
+	@Override
+	public void setTotalDiscountPercentageLevel3(
+		BigDecimal totalDiscountPercentageLevel3) {
+		_commerceOrder.setTotalDiscountPercentageLevel3(totalDiscountPercentageLevel3);
+	}
+
+	/**
+	* Sets the total discount percentage level4 of this commerce order.
+	*
+	* @param totalDiscountPercentageLevel4 the total discount percentage level4 of this commerce order
+	*/
+	@Override
+	public void setTotalDiscountPercentageLevel4(
+		BigDecimal totalDiscountPercentageLevel4) {
+		_commerceOrder.setTotalDiscountPercentageLevel4(totalDiscountPercentageLevel4);
 	}
 
 	/**

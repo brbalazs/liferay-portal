@@ -19,8 +19,6 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 
-import java.math.BigDecimal;
-
 /**
  * @author Marco Leo
  * @author Alessio Antonio Rendina
@@ -36,7 +34,7 @@ public interface CommerceOrderPrice {
 
 	public CommerceDiscountValue getSubtotalDiscountValue();
 
-	public BigDecimal getTaxValue();
+	public CommerceMoney getTaxValue();
 
 	public CommerceMoney getTotal();
 

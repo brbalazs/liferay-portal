@@ -5269,6 +5269,22 @@ public class CommerceOrderPersistenceImpl extends BasePersistenceImpl<CommerceOr
 			Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 			dbColumnNames.put("uuid", "uuid_");
+			dbColumnNames.put("subtotalDiscountPercentageLevel1",
+				"subtotalDiscountPercentLevel1");
+			dbColumnNames.put("subtotalDiscountPercentageLevel2",
+				"subtotalDiscountPercentLevel2");
+			dbColumnNames.put("subtotalDiscountPercentageLevel3",
+				"subtotalDiscountPercentLevel3");
+			dbColumnNames.put("subtotalDiscountPercentageLevel4",
+				"subtotalDiscountPercentLevel4");
+			dbColumnNames.put("shippingDiscountPercentageLevel1",
+				"shippingDiscountPercentLevel1");
+			dbColumnNames.put("shippingDiscountPercentageLevel2",
+				"shippingDiscountPercentLevel2");
+			dbColumnNames.put("shippingDiscountPercentageLevel3",
+				"shippingDiscountPercentLevel3");
+			dbColumnNames.put("shippingDiscountPercentageLevel4",
+				"shippingDiscountPercentLevel4");
 
 			field.set(this, dbColumnNames);
 		}
@@ -6247,6 +6263,13 @@ public class CommerceOrderPersistenceImpl extends BasePersistenceImpl<CommerceOr
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No CommerceOrder exists with the key {";
 	private static final Log _log = LogFactoryUtil.getLog(CommerceOrderPersistenceImpl.class);
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
-				"uuid"
+				"uuid", "subtotalDiscountPercentageLevel1",
+				"subtotalDiscountPercentageLevel2",
+				"subtotalDiscountPercentageLevel3",
+				"subtotalDiscountPercentageLevel4",
+				"shippingDiscountPercentageLevel1",
+				"shippingDiscountPercentageLevel2",
+				"shippingDiscountPercentageLevel3",
+				"shippingDiscountPercentageLevel4"
 			});
 }

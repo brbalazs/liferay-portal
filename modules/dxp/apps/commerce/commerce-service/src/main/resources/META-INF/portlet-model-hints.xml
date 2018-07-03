@@ -111,8 +111,24 @@
 		</field>
 		<field name="purchaseOrderNumber" type="String" />
 		<field name="subtotal" type="BigDecimal" />
-		<field name="shippingPrice" type="BigDecimal" />
+		<field name="subtotalDiscountAmount" type="BigDecimal" />
+		<field name="subtotalDiscountPercentageLevel1" type="BigDecimal" />
+		<field name="subtotalDiscountPercentageLevel2" type="BigDecimal" />
+		<field name="subtotalDiscountPercentageLevel3" type="BigDecimal" />
+		<field name="subtotalDiscountPercentageLevel4" type="BigDecimal" />
+		<field name="shippingAmount" type="BigDecimal" />
+		<field name="shippingDiscountAmount" type="BigDecimal" />
+		<field name="shippingDiscountPercentageLevel1" type="BigDecimal" />
+		<field name="shippingDiscountPercentageLevel2" type="BigDecimal" />
+		<field name="shippingDiscountPercentageLevel3" type="BigDecimal" />
+		<field name="shippingDiscountPercentageLevel4" type="BigDecimal" />
+		<field name="taxAmount" type="BigDecimal" />
 		<field name="total" type="BigDecimal" />
+		<field name="totalDiscountAmount" type="BigDecimal" />
+		<field name="totalDiscountPercentageLevel1" type="BigDecimal" />
+		<field name="totalDiscountPercentageLevel2" type="BigDecimal" />
+		<field name="totalDiscountPercentageLevel3" type="BigDecimal" />
+		<field name="totalDiscountPercentageLevel4" type="BigDecimal" />
 		<field name="advanceStatus" type="String" />
 		<field name="paymentStatus" type="int" />
 		<field name="orderStatus" type="int" />

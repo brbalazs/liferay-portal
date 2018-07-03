@@ -96,8 +96,24 @@ public class CommerceOrderModelImpl extends BaseModelImpl<CommerceOrder>
 			{ "shippingOptionName", Types.VARCHAR },
 			{ "purchaseOrderNumber", Types.VARCHAR },
 			{ "subtotal", Types.DECIMAL },
-			{ "shippingPrice", Types.DECIMAL },
+			{ "subtotalDiscountAmount", Types.DECIMAL },
+			{ "subtotalDiscountPercentLevel1", Types.DECIMAL },
+			{ "subtotalDiscountPercentLevel2", Types.DECIMAL },
+			{ "subtotalDiscountPercentLevel3", Types.DECIMAL },
+			{ "subtotalDiscountPercentLevel4", Types.DECIMAL },
+			{ "shippingAmount", Types.DECIMAL },
+			{ "shippingDiscountAmount", Types.DECIMAL },
+			{ "shippingDiscountPercentLevel1", Types.DECIMAL },
+			{ "shippingDiscountPercentLevel2", Types.DECIMAL },
+			{ "shippingDiscountPercentLevel3", Types.DECIMAL },
+			{ "shippingDiscountPercentLevel4", Types.DECIMAL },
+			{ "taxAmount", Types.DECIMAL },
 			{ "total", Types.DECIMAL },
+			{ "totalDiscountAmount", Types.DECIMAL },
+			{ "totalDiscountPercentageLevel1", Types.DECIMAL },
+			{ "totalDiscountPercentageLevel2", Types.DECIMAL },
+			{ "totalDiscountPercentageLevel3", Types.DECIMAL },
+			{ "totalDiscountPercentageLevel4", Types.DECIMAL },
 			{ "advanceStatus", Types.VARCHAR },
 			{ "paymentStatus", Types.INTEGER },
 			{ "orderStatus", Types.INTEGER },
@@ -128,8 +144,24 @@ public class CommerceOrderModelImpl extends BaseModelImpl<CommerceOrder>
 		TABLE_COLUMNS_MAP.put("shippingOptionName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("purchaseOrderNumber", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("subtotal", Types.DECIMAL);
-		TABLE_COLUMNS_MAP.put("shippingPrice", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("subtotalDiscountAmount", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("subtotalDiscountPercentLevel1", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("subtotalDiscountPercentLevel2", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("subtotalDiscountPercentLevel3", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("subtotalDiscountPercentLevel4", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("shippingAmount", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("shippingDiscountAmount", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("shippingDiscountPercentLevel1", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("shippingDiscountPercentLevel2", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("shippingDiscountPercentLevel3", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("shippingDiscountPercentLevel4", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("taxAmount", Types.DECIMAL);
 		TABLE_COLUMNS_MAP.put("total", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("totalDiscountAmount", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("totalDiscountPercentageLevel1", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("totalDiscountPercentageLevel2", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("totalDiscountPercentageLevel3", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("totalDiscountPercentageLevel4", Types.DECIMAL);
 		TABLE_COLUMNS_MAP.put("advanceStatus", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("paymentStatus", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("orderStatus", Types.INTEGER);
@@ -139,7 +171,7 @@ public class CommerceOrderModelImpl extends BaseModelImpl<CommerceOrder>
 		TABLE_COLUMNS_MAP.put("statusDate", Types.TIMESTAMP);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table CommerceOrder (uuid_ VARCHAR(75) null,commerceOrderId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,siteGroupId LONG,orderOrganizationId LONG,orderUserId LONG,commerceCurrencyId LONG,billingAddressId LONG,shippingAddressId LONG,commercePaymentMethodId LONG,commerceShippingMethodId LONG,shippingOptionName VARCHAR(255) null,purchaseOrderNumber VARCHAR(75) null,subtotal DECIMAL(30, 16) null,shippingPrice DECIMAL(30, 16) null,total DECIMAL(30, 16) null,advanceStatus VARCHAR(75) null,paymentStatus INTEGER,orderStatus INTEGER,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
+	public static final String TABLE_SQL_CREATE = "create table CommerceOrder (uuid_ VARCHAR(75) null,commerceOrderId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,siteGroupId LONG,orderOrganizationId LONG,orderUserId LONG,commerceCurrencyId LONG,billingAddressId LONG,shippingAddressId LONG,commercePaymentMethodId LONG,commerceShippingMethodId LONG,shippingOptionName VARCHAR(255) null,purchaseOrderNumber VARCHAR(75) null,subtotal DECIMAL(30, 16) null,subtotalDiscountAmount DECIMAL(30, 16) null,subtotalDiscountPercentLevel1 DECIMAL(30, 16) null,subtotalDiscountPercentLevel2 DECIMAL(30, 16) null,subtotalDiscountPercentLevel3 DECIMAL(30, 16) null,subtotalDiscountPercentLevel4 DECIMAL(30, 16) null,shippingAmount DECIMAL(30, 16) null,shippingDiscountAmount DECIMAL(30, 16) null,shippingDiscountPercentLevel1 DECIMAL(30, 16) null,shippingDiscountPercentLevel2 DECIMAL(30, 16) null,shippingDiscountPercentLevel3 DECIMAL(30, 16) null,shippingDiscountPercentLevel4 DECIMAL(30, 16) null,taxAmount DECIMAL(30, 16) null,total DECIMAL(30, 16) null,totalDiscountAmount DECIMAL(30, 16) null,totalDiscountPercentageLevel1 DECIMAL(30, 16) null,totalDiscountPercentageLevel2 DECIMAL(30, 16) null,totalDiscountPercentageLevel3 DECIMAL(30, 16) null,totalDiscountPercentageLevel4 DECIMAL(30, 16) null,advanceStatus VARCHAR(75) null,paymentStatus INTEGER,orderStatus INTEGER,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
 	public static final String TABLE_SQL_DROP = "drop table CommerceOrder";
 	public static final String ORDER_BY_JPQL = " ORDER BY commerceOrder.createDate ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY CommerceOrder.createDate ASC";
@@ -197,8 +229,24 @@ public class CommerceOrderModelImpl extends BaseModelImpl<CommerceOrder>
 		model.setShippingOptionName(soapModel.getShippingOptionName());
 		model.setPurchaseOrderNumber(soapModel.getPurchaseOrderNumber());
 		model.setSubtotal(soapModel.getSubtotal());
-		model.setShippingPrice(soapModel.getShippingPrice());
+		model.setSubtotalDiscountAmount(soapModel.getSubtotalDiscountAmount());
+		model.setSubtotalDiscountPercentageLevel1(soapModel.getSubtotalDiscountPercentageLevel1());
+		model.setSubtotalDiscountPercentageLevel2(soapModel.getSubtotalDiscountPercentageLevel2());
+		model.setSubtotalDiscountPercentageLevel3(soapModel.getSubtotalDiscountPercentageLevel3());
+		model.setSubtotalDiscountPercentageLevel4(soapModel.getSubtotalDiscountPercentageLevel4());
+		model.setShippingAmount(soapModel.getShippingAmount());
+		model.setShippingDiscountAmount(soapModel.getShippingDiscountAmount());
+		model.setShippingDiscountPercentageLevel1(soapModel.getShippingDiscountPercentageLevel1());
+		model.setShippingDiscountPercentageLevel2(soapModel.getShippingDiscountPercentageLevel2());
+		model.setShippingDiscountPercentageLevel3(soapModel.getShippingDiscountPercentageLevel3());
+		model.setShippingDiscountPercentageLevel4(soapModel.getShippingDiscountPercentageLevel4());
+		model.setTaxAmount(soapModel.getTaxAmount());
 		model.setTotal(soapModel.getTotal());
+		model.setTotalDiscountAmount(soapModel.getTotalDiscountAmount());
+		model.setTotalDiscountPercentageLevel1(soapModel.getTotalDiscountPercentageLevel1());
+		model.setTotalDiscountPercentageLevel2(soapModel.getTotalDiscountPercentageLevel2());
+		model.setTotalDiscountPercentageLevel3(soapModel.getTotalDiscountPercentageLevel3());
+		model.setTotalDiscountPercentageLevel4(soapModel.getTotalDiscountPercentageLevel4());
 		model.setAdvanceStatus(soapModel.getAdvanceStatus());
 		model.setPaymentStatus(soapModel.getPaymentStatus());
 		model.setOrderStatus(soapModel.getOrderStatus());
@@ -289,8 +337,36 @@ public class CommerceOrderModelImpl extends BaseModelImpl<CommerceOrder>
 		attributes.put("shippingOptionName", getShippingOptionName());
 		attributes.put("purchaseOrderNumber", getPurchaseOrderNumber());
 		attributes.put("subtotal", getSubtotal());
-		attributes.put("shippingPrice", getShippingPrice());
+		attributes.put("subtotalDiscountAmount", getSubtotalDiscountAmount());
+		attributes.put("subtotalDiscountPercentageLevel1",
+			getSubtotalDiscountPercentageLevel1());
+		attributes.put("subtotalDiscountPercentageLevel2",
+			getSubtotalDiscountPercentageLevel2());
+		attributes.put("subtotalDiscountPercentageLevel3",
+			getSubtotalDiscountPercentageLevel3());
+		attributes.put("subtotalDiscountPercentageLevel4",
+			getSubtotalDiscountPercentageLevel4());
+		attributes.put("shippingAmount", getShippingAmount());
+		attributes.put("shippingDiscountAmount", getShippingDiscountAmount());
+		attributes.put("shippingDiscountPercentageLevel1",
+			getShippingDiscountPercentageLevel1());
+		attributes.put("shippingDiscountPercentageLevel2",
+			getShippingDiscountPercentageLevel2());
+		attributes.put("shippingDiscountPercentageLevel3",
+			getShippingDiscountPercentageLevel3());
+		attributes.put("shippingDiscountPercentageLevel4",
+			getShippingDiscountPercentageLevel4());
+		attributes.put("taxAmount", getTaxAmount());
 		attributes.put("total", getTotal());
+		attributes.put("totalDiscountAmount", getTotalDiscountAmount());
+		attributes.put("totalDiscountPercentageLevel1",
+			getTotalDiscountPercentageLevel1());
+		attributes.put("totalDiscountPercentageLevel2",
+			getTotalDiscountPercentageLevel2());
+		attributes.put("totalDiscountPercentageLevel3",
+			getTotalDiscountPercentageLevel3());
+		attributes.put("totalDiscountPercentageLevel4",
+			getTotalDiscountPercentageLevel4());
 		attributes.put("advanceStatus", getAdvanceStatus());
 		attributes.put("paymentStatus", getPaymentStatus());
 		attributes.put("orderStatus", getOrderStatus());
@@ -424,16 +500,127 @@ public class CommerceOrderModelImpl extends BaseModelImpl<CommerceOrder>
 			setSubtotal(subtotal);
 		}
 
-		BigDecimal shippingPrice = (BigDecimal)attributes.get("shippingPrice");
+		BigDecimal subtotalDiscountAmount = (BigDecimal)attributes.get(
+				"subtotalDiscountAmount");
 
-		if (shippingPrice != null) {
-			setShippingPrice(shippingPrice);
+		if (subtotalDiscountAmount != null) {
+			setSubtotalDiscountAmount(subtotalDiscountAmount);
+		}
+
+		BigDecimal subtotalDiscountPercentageLevel1 = (BigDecimal)attributes.get(
+				"subtotalDiscountPercentageLevel1");
+
+		if (subtotalDiscountPercentageLevel1 != null) {
+			setSubtotalDiscountPercentageLevel1(subtotalDiscountPercentageLevel1);
+		}
+
+		BigDecimal subtotalDiscountPercentageLevel2 = (BigDecimal)attributes.get(
+				"subtotalDiscountPercentageLevel2");
+
+		if (subtotalDiscountPercentageLevel2 != null) {
+			setSubtotalDiscountPercentageLevel2(subtotalDiscountPercentageLevel2);
+		}
+
+		BigDecimal subtotalDiscountPercentageLevel3 = (BigDecimal)attributes.get(
+				"subtotalDiscountPercentageLevel3");
+
+		if (subtotalDiscountPercentageLevel3 != null) {
+			setSubtotalDiscountPercentageLevel3(subtotalDiscountPercentageLevel3);
+		}
+
+		BigDecimal subtotalDiscountPercentageLevel4 = (BigDecimal)attributes.get(
+				"subtotalDiscountPercentageLevel4");
+
+		if (subtotalDiscountPercentageLevel4 != null) {
+			setSubtotalDiscountPercentageLevel4(subtotalDiscountPercentageLevel4);
+		}
+
+		BigDecimal shippingAmount = (BigDecimal)attributes.get("shippingAmount");
+
+		if (shippingAmount != null) {
+			setShippingAmount(shippingAmount);
+		}
+
+		BigDecimal shippingDiscountAmount = (BigDecimal)attributes.get(
+				"shippingDiscountAmount");
+
+		if (shippingDiscountAmount != null) {
+			setShippingDiscountAmount(shippingDiscountAmount);
+		}
+
+		BigDecimal shippingDiscountPercentageLevel1 = (BigDecimal)attributes.get(
+				"shippingDiscountPercentageLevel1");
+
+		if (shippingDiscountPercentageLevel1 != null) {
+			setShippingDiscountPercentageLevel1(shippingDiscountPercentageLevel1);
+		}
+
+		BigDecimal shippingDiscountPercentageLevel2 = (BigDecimal)attributes.get(
+				"shippingDiscountPercentageLevel2");
+
+		if (shippingDiscountPercentageLevel2 != null) {
+			setShippingDiscountPercentageLevel2(shippingDiscountPercentageLevel2);
+		}
+
+		BigDecimal shippingDiscountPercentageLevel3 = (BigDecimal)attributes.get(
+				"shippingDiscountPercentageLevel3");
+
+		if (shippingDiscountPercentageLevel3 != null) {
+			setShippingDiscountPercentageLevel3(shippingDiscountPercentageLevel3);
+		}
+
+		BigDecimal shippingDiscountPercentageLevel4 = (BigDecimal)attributes.get(
+				"shippingDiscountPercentageLevel4");
+
+		if (shippingDiscountPercentageLevel4 != null) {
+			setShippingDiscountPercentageLevel4(shippingDiscountPercentageLevel4);
+		}
+
+		BigDecimal taxAmount = (BigDecimal)attributes.get("taxAmount");
+
+		if (taxAmount != null) {
+			setTaxAmount(taxAmount);
 		}
 
 		BigDecimal total = (BigDecimal)attributes.get("total");
 
 		if (total != null) {
 			setTotal(total);
+		}
+
+		BigDecimal totalDiscountAmount = (BigDecimal)attributes.get(
+				"totalDiscountAmount");
+
+		if (totalDiscountAmount != null) {
+			setTotalDiscountAmount(totalDiscountAmount);
+		}
+
+		BigDecimal totalDiscountPercentageLevel1 = (BigDecimal)attributes.get(
+				"totalDiscountPercentageLevel1");
+
+		if (totalDiscountPercentageLevel1 != null) {
+			setTotalDiscountPercentageLevel1(totalDiscountPercentageLevel1);
+		}
+
+		BigDecimal totalDiscountPercentageLevel2 = (BigDecimal)attributes.get(
+				"totalDiscountPercentageLevel2");
+
+		if (totalDiscountPercentageLevel2 != null) {
+			setTotalDiscountPercentageLevel2(totalDiscountPercentageLevel2);
+		}
+
+		BigDecimal totalDiscountPercentageLevel3 = (BigDecimal)attributes.get(
+				"totalDiscountPercentageLevel3");
+
+		if (totalDiscountPercentageLevel3 != null) {
+			setTotalDiscountPercentageLevel3(totalDiscountPercentageLevel3);
+		}
+
+		BigDecimal totalDiscountPercentageLevel4 = (BigDecimal)attributes.get(
+				"totalDiscountPercentageLevel4");
+
+		if (totalDiscountPercentageLevel4 != null) {
+			setTotalDiscountPercentageLevel4(totalDiscountPercentageLevel4);
 		}
 
 		String advanceStatus = (String)attributes.get("advanceStatus");
@@ -838,13 +1025,142 @@ public class CommerceOrderModelImpl extends BaseModelImpl<CommerceOrder>
 
 	@JSON
 	@Override
-	public BigDecimal getShippingPrice() {
-		return _shippingPrice;
+	public BigDecimal getSubtotalDiscountAmount() {
+		return _subtotalDiscountAmount;
 	}
 
 	@Override
-	public void setShippingPrice(BigDecimal shippingPrice) {
-		_shippingPrice = shippingPrice;
+	public void setSubtotalDiscountAmount(BigDecimal subtotalDiscountAmount) {
+		_subtotalDiscountAmount = subtotalDiscountAmount;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getSubtotalDiscountPercentageLevel1() {
+		return _subtotalDiscountPercentageLevel1;
+	}
+
+	@Override
+	public void setSubtotalDiscountPercentageLevel1(
+		BigDecimal subtotalDiscountPercentageLevel1) {
+		_subtotalDiscountPercentageLevel1 = subtotalDiscountPercentageLevel1;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getSubtotalDiscountPercentageLevel2() {
+		return _subtotalDiscountPercentageLevel2;
+	}
+
+	@Override
+	public void setSubtotalDiscountPercentageLevel2(
+		BigDecimal subtotalDiscountPercentageLevel2) {
+		_subtotalDiscountPercentageLevel2 = subtotalDiscountPercentageLevel2;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getSubtotalDiscountPercentageLevel3() {
+		return _subtotalDiscountPercentageLevel3;
+	}
+
+	@Override
+	public void setSubtotalDiscountPercentageLevel3(
+		BigDecimal subtotalDiscountPercentageLevel3) {
+		_subtotalDiscountPercentageLevel3 = subtotalDiscountPercentageLevel3;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getSubtotalDiscountPercentageLevel4() {
+		return _subtotalDiscountPercentageLevel4;
+	}
+
+	@Override
+	public void setSubtotalDiscountPercentageLevel4(
+		BigDecimal subtotalDiscountPercentageLevel4) {
+		_subtotalDiscountPercentageLevel4 = subtotalDiscountPercentageLevel4;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getShippingAmount() {
+		return _shippingAmount;
+	}
+
+	@Override
+	public void setShippingAmount(BigDecimal shippingAmount) {
+		_shippingAmount = shippingAmount;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getShippingDiscountAmount() {
+		return _shippingDiscountAmount;
+	}
+
+	@Override
+	public void setShippingDiscountAmount(BigDecimal shippingDiscountAmount) {
+		_shippingDiscountAmount = shippingDiscountAmount;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getShippingDiscountPercentageLevel1() {
+		return _shippingDiscountPercentageLevel1;
+	}
+
+	@Override
+	public void setShippingDiscountPercentageLevel1(
+		BigDecimal shippingDiscountPercentageLevel1) {
+		_shippingDiscountPercentageLevel1 = shippingDiscountPercentageLevel1;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getShippingDiscountPercentageLevel2() {
+		return _shippingDiscountPercentageLevel2;
+	}
+
+	@Override
+	public void setShippingDiscountPercentageLevel2(
+		BigDecimal shippingDiscountPercentageLevel2) {
+		_shippingDiscountPercentageLevel2 = shippingDiscountPercentageLevel2;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getShippingDiscountPercentageLevel3() {
+		return _shippingDiscountPercentageLevel3;
+	}
+
+	@Override
+	public void setShippingDiscountPercentageLevel3(
+		BigDecimal shippingDiscountPercentageLevel3) {
+		_shippingDiscountPercentageLevel3 = shippingDiscountPercentageLevel3;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getShippingDiscountPercentageLevel4() {
+		return _shippingDiscountPercentageLevel4;
+	}
+
+	@Override
+	public void setShippingDiscountPercentageLevel4(
+		BigDecimal shippingDiscountPercentageLevel4) {
+		_shippingDiscountPercentageLevel4 = shippingDiscountPercentageLevel4;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getTaxAmount() {
+		return _taxAmount;
+	}
+
+	@Override
+	public void setTaxAmount(BigDecimal taxAmount) {
+		_taxAmount = taxAmount;
 	}
 
 	@JSON
@@ -856,6 +1172,65 @@ public class CommerceOrderModelImpl extends BaseModelImpl<CommerceOrder>
 	@Override
 	public void setTotal(BigDecimal total) {
 		_total = total;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getTotalDiscountAmount() {
+		return _totalDiscountAmount;
+	}
+
+	@Override
+	public void setTotalDiscountAmount(BigDecimal totalDiscountAmount) {
+		_totalDiscountAmount = totalDiscountAmount;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getTotalDiscountPercentageLevel1() {
+		return _totalDiscountPercentageLevel1;
+	}
+
+	@Override
+	public void setTotalDiscountPercentageLevel1(
+		BigDecimal totalDiscountPercentageLevel1) {
+		_totalDiscountPercentageLevel1 = totalDiscountPercentageLevel1;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getTotalDiscountPercentageLevel2() {
+		return _totalDiscountPercentageLevel2;
+	}
+
+	@Override
+	public void setTotalDiscountPercentageLevel2(
+		BigDecimal totalDiscountPercentageLevel2) {
+		_totalDiscountPercentageLevel2 = totalDiscountPercentageLevel2;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getTotalDiscountPercentageLevel3() {
+		return _totalDiscountPercentageLevel3;
+	}
+
+	@Override
+	public void setTotalDiscountPercentageLevel3(
+		BigDecimal totalDiscountPercentageLevel3) {
+		_totalDiscountPercentageLevel3 = totalDiscountPercentageLevel3;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getTotalDiscountPercentageLevel4() {
+		return _totalDiscountPercentageLevel4;
+	}
+
+	@Override
+	public void setTotalDiscountPercentageLevel4(
+		BigDecimal totalDiscountPercentageLevel4) {
+		_totalDiscountPercentageLevel4 = totalDiscountPercentageLevel4;
 	}
 
 	@JSON
@@ -1109,8 +1484,24 @@ public class CommerceOrderModelImpl extends BaseModelImpl<CommerceOrder>
 		commerceOrderImpl.setShippingOptionName(getShippingOptionName());
 		commerceOrderImpl.setPurchaseOrderNumber(getPurchaseOrderNumber());
 		commerceOrderImpl.setSubtotal(getSubtotal());
-		commerceOrderImpl.setShippingPrice(getShippingPrice());
+		commerceOrderImpl.setSubtotalDiscountAmount(getSubtotalDiscountAmount());
+		commerceOrderImpl.setSubtotalDiscountPercentageLevel1(getSubtotalDiscountPercentageLevel1());
+		commerceOrderImpl.setSubtotalDiscountPercentageLevel2(getSubtotalDiscountPercentageLevel2());
+		commerceOrderImpl.setSubtotalDiscountPercentageLevel3(getSubtotalDiscountPercentageLevel3());
+		commerceOrderImpl.setSubtotalDiscountPercentageLevel4(getSubtotalDiscountPercentageLevel4());
+		commerceOrderImpl.setShippingAmount(getShippingAmount());
+		commerceOrderImpl.setShippingDiscountAmount(getShippingDiscountAmount());
+		commerceOrderImpl.setShippingDiscountPercentageLevel1(getShippingDiscountPercentageLevel1());
+		commerceOrderImpl.setShippingDiscountPercentageLevel2(getShippingDiscountPercentageLevel2());
+		commerceOrderImpl.setShippingDiscountPercentageLevel3(getShippingDiscountPercentageLevel3());
+		commerceOrderImpl.setShippingDiscountPercentageLevel4(getShippingDiscountPercentageLevel4());
+		commerceOrderImpl.setTaxAmount(getTaxAmount());
 		commerceOrderImpl.setTotal(getTotal());
+		commerceOrderImpl.setTotalDiscountAmount(getTotalDiscountAmount());
+		commerceOrderImpl.setTotalDiscountPercentageLevel1(getTotalDiscountPercentageLevel1());
+		commerceOrderImpl.setTotalDiscountPercentageLevel2(getTotalDiscountPercentageLevel2());
+		commerceOrderImpl.setTotalDiscountPercentageLevel3(getTotalDiscountPercentageLevel3());
+		commerceOrderImpl.setTotalDiscountPercentageLevel4(getTotalDiscountPercentageLevel4());
 		commerceOrderImpl.setAdvanceStatus(getAdvanceStatus());
 		commerceOrderImpl.setPaymentStatus(getPaymentStatus());
 		commerceOrderImpl.setOrderStatus(getOrderStatus());
@@ -1297,9 +1688,41 @@ public class CommerceOrderModelImpl extends BaseModelImpl<CommerceOrder>
 
 		commerceOrderCacheModel.subtotal = getSubtotal();
 
-		commerceOrderCacheModel.shippingPrice = getShippingPrice();
+		commerceOrderCacheModel.subtotalDiscountAmount = getSubtotalDiscountAmount();
+
+		commerceOrderCacheModel.subtotalDiscountPercentageLevel1 = getSubtotalDiscountPercentageLevel1();
+
+		commerceOrderCacheModel.subtotalDiscountPercentageLevel2 = getSubtotalDiscountPercentageLevel2();
+
+		commerceOrderCacheModel.subtotalDiscountPercentageLevel3 = getSubtotalDiscountPercentageLevel3();
+
+		commerceOrderCacheModel.subtotalDiscountPercentageLevel4 = getSubtotalDiscountPercentageLevel4();
+
+		commerceOrderCacheModel.shippingAmount = getShippingAmount();
+
+		commerceOrderCacheModel.shippingDiscountAmount = getShippingDiscountAmount();
+
+		commerceOrderCacheModel.shippingDiscountPercentageLevel1 = getShippingDiscountPercentageLevel1();
+
+		commerceOrderCacheModel.shippingDiscountPercentageLevel2 = getShippingDiscountPercentageLevel2();
+
+		commerceOrderCacheModel.shippingDiscountPercentageLevel3 = getShippingDiscountPercentageLevel3();
+
+		commerceOrderCacheModel.shippingDiscountPercentageLevel4 = getShippingDiscountPercentageLevel4();
+
+		commerceOrderCacheModel.taxAmount = getTaxAmount();
 
 		commerceOrderCacheModel.total = getTotal();
+
+		commerceOrderCacheModel.totalDiscountAmount = getTotalDiscountAmount();
+
+		commerceOrderCacheModel.totalDiscountPercentageLevel1 = getTotalDiscountPercentageLevel1();
+
+		commerceOrderCacheModel.totalDiscountPercentageLevel2 = getTotalDiscountPercentageLevel2();
+
+		commerceOrderCacheModel.totalDiscountPercentageLevel3 = getTotalDiscountPercentageLevel3();
+
+		commerceOrderCacheModel.totalDiscountPercentageLevel4 = getTotalDiscountPercentageLevel4();
 
 		commerceOrderCacheModel.advanceStatus = getAdvanceStatus();
 
@@ -1339,7 +1762,7 @@ public class CommerceOrderModelImpl extends BaseModelImpl<CommerceOrder>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(57);
+		StringBundler sb = new StringBundler(89);
 
 		sb.append("{uuid=");
 		sb.append(getUuid());
@@ -1379,10 +1802,42 @@ public class CommerceOrderModelImpl extends BaseModelImpl<CommerceOrder>
 		sb.append(getPurchaseOrderNumber());
 		sb.append(", subtotal=");
 		sb.append(getSubtotal());
-		sb.append(", shippingPrice=");
-		sb.append(getShippingPrice());
+		sb.append(", subtotalDiscountAmount=");
+		sb.append(getSubtotalDiscountAmount());
+		sb.append(", subtotalDiscountPercentageLevel1=");
+		sb.append(getSubtotalDiscountPercentageLevel1());
+		sb.append(", subtotalDiscountPercentageLevel2=");
+		sb.append(getSubtotalDiscountPercentageLevel2());
+		sb.append(", subtotalDiscountPercentageLevel3=");
+		sb.append(getSubtotalDiscountPercentageLevel3());
+		sb.append(", subtotalDiscountPercentageLevel4=");
+		sb.append(getSubtotalDiscountPercentageLevel4());
+		sb.append(", shippingAmount=");
+		sb.append(getShippingAmount());
+		sb.append(", shippingDiscountAmount=");
+		sb.append(getShippingDiscountAmount());
+		sb.append(", shippingDiscountPercentageLevel1=");
+		sb.append(getShippingDiscountPercentageLevel1());
+		sb.append(", shippingDiscountPercentageLevel2=");
+		sb.append(getShippingDiscountPercentageLevel2());
+		sb.append(", shippingDiscountPercentageLevel3=");
+		sb.append(getShippingDiscountPercentageLevel3());
+		sb.append(", shippingDiscountPercentageLevel4=");
+		sb.append(getShippingDiscountPercentageLevel4());
+		sb.append(", taxAmount=");
+		sb.append(getTaxAmount());
 		sb.append(", total=");
 		sb.append(getTotal());
+		sb.append(", totalDiscountAmount=");
+		sb.append(getTotalDiscountAmount());
+		sb.append(", totalDiscountPercentageLevel1=");
+		sb.append(getTotalDiscountPercentageLevel1());
+		sb.append(", totalDiscountPercentageLevel2=");
+		sb.append(getTotalDiscountPercentageLevel2());
+		sb.append(", totalDiscountPercentageLevel3=");
+		sb.append(getTotalDiscountPercentageLevel3());
+		sb.append(", totalDiscountPercentageLevel4=");
+		sb.append(getTotalDiscountPercentageLevel4());
 		sb.append(", advanceStatus=");
 		sb.append(getAdvanceStatus());
 		sb.append(", paymentStatus=");
@@ -1404,7 +1859,7 @@ public class CommerceOrderModelImpl extends BaseModelImpl<CommerceOrder>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(88);
+		StringBundler sb = new StringBundler(136);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.commerce.model.CommerceOrder");
@@ -1487,12 +1942,76 @@ public class CommerceOrderModelImpl extends BaseModelImpl<CommerceOrder>
 		sb.append(getSubtotal());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>shippingPrice</column-name><column-value><![CDATA[");
-		sb.append(getShippingPrice());
+			"<column><column-name>subtotalDiscountAmount</column-name><column-value><![CDATA[");
+		sb.append(getSubtotalDiscountAmount());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>subtotalDiscountPercentageLevel1</column-name><column-value><![CDATA[");
+		sb.append(getSubtotalDiscountPercentageLevel1());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>subtotalDiscountPercentageLevel2</column-name><column-value><![CDATA[");
+		sb.append(getSubtotalDiscountPercentageLevel2());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>subtotalDiscountPercentageLevel3</column-name><column-value><![CDATA[");
+		sb.append(getSubtotalDiscountPercentageLevel3());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>subtotalDiscountPercentageLevel4</column-name><column-value><![CDATA[");
+		sb.append(getSubtotalDiscountPercentageLevel4());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>shippingAmount</column-name><column-value><![CDATA[");
+		sb.append(getShippingAmount());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>shippingDiscountAmount</column-name><column-value><![CDATA[");
+		sb.append(getShippingDiscountAmount());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>shippingDiscountPercentageLevel1</column-name><column-value><![CDATA[");
+		sb.append(getShippingDiscountPercentageLevel1());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>shippingDiscountPercentageLevel2</column-name><column-value><![CDATA[");
+		sb.append(getShippingDiscountPercentageLevel2());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>shippingDiscountPercentageLevel3</column-name><column-value><![CDATA[");
+		sb.append(getShippingDiscountPercentageLevel3());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>shippingDiscountPercentageLevel4</column-name><column-value><![CDATA[");
+		sb.append(getShippingDiscountPercentageLevel4());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>taxAmount</column-name><column-value><![CDATA[");
+		sb.append(getTaxAmount());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>total</column-name><column-value><![CDATA[");
 		sb.append(getTotal());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>totalDiscountAmount</column-name><column-value><![CDATA[");
+		sb.append(getTotalDiscountAmount());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>totalDiscountPercentageLevel1</column-name><column-value><![CDATA[");
+		sb.append(getTotalDiscountPercentageLevel1());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>totalDiscountPercentageLevel2</column-name><column-value><![CDATA[");
+		sb.append(getTotalDiscountPercentageLevel2());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>totalDiscountPercentageLevel3</column-name><column-value><![CDATA[");
+		sb.append(getTotalDiscountPercentageLevel3());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>totalDiscountPercentageLevel4</column-name><column-value><![CDATA[");
+		sb.append(getTotalDiscountPercentageLevel4());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>advanceStatus</column-name><column-value><![CDATA[");
@@ -1566,8 +2085,24 @@ public class CommerceOrderModelImpl extends BaseModelImpl<CommerceOrder>
 	private String _shippingOptionName;
 	private String _purchaseOrderNumber;
 	private BigDecimal _subtotal;
-	private BigDecimal _shippingPrice;
+	private BigDecimal _subtotalDiscountAmount;
+	private BigDecimal _subtotalDiscountPercentageLevel1;
+	private BigDecimal _subtotalDiscountPercentageLevel2;
+	private BigDecimal _subtotalDiscountPercentageLevel3;
+	private BigDecimal _subtotalDiscountPercentageLevel4;
+	private BigDecimal _shippingAmount;
+	private BigDecimal _shippingDiscountAmount;
+	private BigDecimal _shippingDiscountPercentageLevel1;
+	private BigDecimal _shippingDiscountPercentageLevel2;
+	private BigDecimal _shippingDiscountPercentageLevel3;
+	private BigDecimal _shippingDiscountPercentageLevel4;
+	private BigDecimal _taxAmount;
 	private BigDecimal _total;
+	private BigDecimal _totalDiscountAmount;
+	private BigDecimal _totalDiscountPercentageLevel1;
+	private BigDecimal _totalDiscountPercentageLevel2;
+	private BigDecimal _totalDiscountPercentageLevel3;
+	private BigDecimal _totalDiscountPercentageLevel4;
 	private String _advanceStatus;
 	private int _paymentStatus;
 	private int _orderStatus;
