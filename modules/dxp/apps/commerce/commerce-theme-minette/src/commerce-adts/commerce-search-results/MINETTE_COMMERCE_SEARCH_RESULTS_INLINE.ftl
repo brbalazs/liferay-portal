@@ -94,10 +94,6 @@
 													<@liferay_commerce["compare-product"] CPDefinitionId=cpDefinitionId />
 												</div>
 											</div>
-
-											<div class="autofit-col">
-												<a class="add-to-list-link" href="#placeholder"><@liferay_ui["message"] key="save-for-later" /></a>
-											</div>
 										</div>
 									<#else>
 										<div class="autofit-row">
