@@ -44,7 +44,7 @@ int orderStatus = BeanParamUtil.getInteger(commerceOrder, request, "orderStatus"
 							<aui:validator name="number" />
 						</aui:input>
 
-						<aui:input name="shippingPrice" suffix="<%= commerceCurrency.getCode() %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getShippingPrice()) %>">
+						<aui:input name="shippingPrice" suffix="<%= commerceCurrency.getCode() %>" type="text" value="<%= commerceCurrency.round(commerceOrder.getShippingAmount()) %>">
 							<aui:validator name="number" />
 						</aui:input>
 

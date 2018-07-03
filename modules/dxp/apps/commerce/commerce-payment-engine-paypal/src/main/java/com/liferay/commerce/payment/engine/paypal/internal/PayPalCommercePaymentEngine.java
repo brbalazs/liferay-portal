@@ -237,7 +237,7 @@ public class PayPalCommercePaymentEngine implements CommercePaymentEngine {
 
 		Details details = new Details();
 
-		details.setShipping(String.valueOf(commerceOrder.getShippingPrice()));
+		details.setShipping(String.valueOf(commerceOrder.getShippingAmount()));
 		details.setSubtotal(String.valueOf(commerceOrder.getSubtotal()));
 
 		amount.setDetails(details);

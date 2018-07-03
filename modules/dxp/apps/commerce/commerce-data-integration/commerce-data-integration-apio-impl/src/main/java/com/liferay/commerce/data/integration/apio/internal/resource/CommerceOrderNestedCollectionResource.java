@@ -83,7 +83,7 @@ public class CommerceOrderNestedCollectionResource
 		).addString(
 			"purchaseOrderNumber", CommerceOrder::getPurchaseOrderNumber
 		).addNumber(
-			"shippingPrice", CommerceOrder::getShippingPrice
+			"shippingPrice", CommerceOrder::getShippingAmount
 		).addNumber(
 			"total", CommerceOrder::getTotal
 		).addString(

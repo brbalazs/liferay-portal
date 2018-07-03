@@ -94,7 +94,7 @@ public class CommerceCheckoutTest {
 			0.0001);
 
 		BigDecimal expectedTotal = expectedSubTotal.add(
-			commerceOrder.getShippingPrice());
+			commerceOrder.getShippingAmount());
 
 		BigDecimal actualTotal = commerceOrder.getTotal();
 

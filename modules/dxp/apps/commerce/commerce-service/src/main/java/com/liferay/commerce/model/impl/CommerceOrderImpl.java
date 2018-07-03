@@ -200,7 +200,7 @@ public class CommerceOrderImpl extends CommerceOrderBaseImpl {
 	@Override
 	public CommerceMoney getShippingMoney() throws PortalException {
 		return CommerceMoneyFactoryUtil.create(
-			getCommerceCurrencyId(), getShippingPrice());
+			getCommerceCurrencyId(), getShippingAmount());
 	}
 
 	@Override

@@ -299,7 +299,7 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 				shippingAddressId, commerceOrder.getCommercePaymentMethodId(),
 				commerceOrder.getCommerceShippingMethodId(),
 				commerceOrder.getShippingOptionName(), purchaseOrderNumber,
-				commerceOrder.getSubtotal(), commerceOrder.getShippingPrice(),
+				commerceOrder.getSubtotal(), commerceOrder.getShippingAmount(),
 				commerceOrder.getTotal(), commerceOrder.getAdvanceStatus(),
 				commerceContext);
 		}

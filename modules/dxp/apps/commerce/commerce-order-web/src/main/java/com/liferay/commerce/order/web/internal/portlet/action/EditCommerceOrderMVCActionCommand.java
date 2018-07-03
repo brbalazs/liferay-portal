@@ -235,7 +235,7 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 						commerceOrder.getCommerceShippingMethodId(),
 						commerceOrder.getShippingOptionName(),
 						purchaseOrderNumber, commerceOrder.getSubtotal(),
-						commerceOrder.getShippingPrice(),
+						commerceOrder.getShippingAmount(),
 						commerceOrder.getTotal(), advanceStatus,
 						commerceContext);
 

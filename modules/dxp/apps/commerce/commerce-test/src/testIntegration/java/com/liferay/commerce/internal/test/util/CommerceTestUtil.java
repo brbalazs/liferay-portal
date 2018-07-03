@@ -122,7 +122,8 @@ public class CommerceTestUtil {
 		commerceOrder.setShippingOptionName(
 			commerceShippingFixedOption.getName());
 
-		commerceOrder.setShippingPrice(commerceShippingFixedOption.getAmount());
+		commerceOrder.setShippingAmount(
+			commerceShippingFixedOption.getAmount());
 
 		return CommerceOrderLocalServiceUtil.updateCommerceOrder(commerceOrder);
 	}

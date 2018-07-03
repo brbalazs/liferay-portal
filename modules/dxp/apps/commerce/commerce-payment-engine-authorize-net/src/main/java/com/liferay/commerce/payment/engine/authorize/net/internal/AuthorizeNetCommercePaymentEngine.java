@@ -456,7 +456,7 @@ public class AuthorizeNetCommercePaymentEngine
 
 		ExtendedAmountType extendedAmount = new ExtendedAmountType();
 
-		extendedAmount.setAmount(commerceOrder.getShippingPrice());
+		extendedAmount.setAmount(commerceOrder.getShippingAmount());
 
 		CommerceShippingMethod commerceShippingMethod =
 			commerceOrder.getCommerceShippingMethod();

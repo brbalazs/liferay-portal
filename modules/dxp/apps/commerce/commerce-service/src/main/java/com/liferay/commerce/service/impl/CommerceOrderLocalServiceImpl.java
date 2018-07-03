@@ -161,7 +161,7 @@ public class CommerceOrderLocalServiceImpl
 		commerceOrder.setShippingOptionName(shippingOptionName);
 		commerceOrder.setPurchaseOrderNumber(purchaseOrderNumber);
 		commerceOrder.setSubtotal(subtotal);
-		commerceOrder.setShippingPrice(shippingPrice);
+		commerceOrder.setShippingAmount(shippingPrice);
 		commerceOrder.setTotal(total);
 		commerceOrder.setPaymentStatus(paymentStatus);
 		commerceOrder.setOrderStatus(orderStatus);
@@ -695,7 +695,7 @@ public class CommerceOrderLocalServiceImpl
 			shippingAddressId, commerceOrder.getCommercePaymentMethodId(),
 			commerceOrder.getCommerceShippingMethodId(),
 			commerceOrder.getShippingOptionName(), StringPool.BLANK,
-			commerceOrder.getSubtotal(), commerceOrder.getShippingPrice(),
+			commerceOrder.getSubtotal(), commerceOrder.getShippingAmount(),
 			commerceOrder.getTotal(),
 			CommerceOrderConstants.PAYMENT_STATUS_PENDING,
 			CommerceOrderConstants.ORDER_STATUS_OPEN, serviceContext);
@@ -728,7 +728,7 @@ public class CommerceOrderLocalServiceImpl
 
 		commerceOrder.setCommerceShippingMethodId(0);
 		commerceOrder.setShippingOptionName(null);
-		commerceOrder.setShippingPrice(BigDecimal.ZERO);
+		commerceOrder.setShippingAmount(BigDecimal.ZERO);
 
 		return commerceOrderPersistence.update(commerceOrder);
 	}
@@ -927,7 +927,7 @@ public class CommerceOrderLocalServiceImpl
 			}
 		}
 
-		commerceOrder.setShippingPrice(shippingPrice);
+		commerceOrder.setShippingAmount(shippingPrice);
 		commerceOrder.setTotal(total);
 		commerceOrder.setAdvanceStatus(advanceStatus);
 

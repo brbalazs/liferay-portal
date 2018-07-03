@@ -402,7 +402,7 @@ public class CommerceAddressLocalServiceImpl
 			long commerceShippingMethodId =
 				commerceOrder.getCommerceShippingMethodId();
 			String shippingOptionName = commerceOrder.getShippingOptionName();
-			BigDecimal shippingPrice = commerceOrder.getShippingPrice();
+			BigDecimal shippingPrice = commerceOrder.getShippingAmount();
 
 			if (billingAddressId == commerceAddressId) {
 				billingAddressId = 0;
