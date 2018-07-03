@@ -14,8 +14,13 @@
 
 package com.liferay.commerce.discount.internal.discount;
 
+import com.liferay.commerce.constants.CommerceWebKeys;
+import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.discount.CommerceDiscountCouponCodeHelper;
+import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.organization.util.CommerceOrganizationHelper;
+import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.util.Portal;
@@ -52,6 +57,14 @@ public class CommerceDiscountCouponCodeHelperImpl
 
 		httpSession.setAttribute(
 			_getSessionAttributeKey(httpServletRequest), couponCode);
+
+		CommerceOrder currentCommerceOrder =
+			_commerceOrderHttpHelper.getCurrentCommerceOrder(
+				httpServletRequest);
+
+		_commerceOrderLocalService.recalculatePrice(
+			currentCommerceOrder.getCommerceOrderId(),
+			_getCommerceContext(httpServletRequest));
 	}
 
 	@Override
@@ -80,6 +93,21 @@ public class CommerceDiscountCouponCodeHelperImpl
 
 		httpSession.setAttribute(
 			_getSessionAttributeKey(httpServletRequest), null);
+
+		CommerceOrder currentCommerceOrder =
+			_commerceOrderHttpHelper.getCurrentCommerceOrder(
+				httpServletRequest);
+
+		_commerceOrderLocalService.recalculatePrice(
+			currentCommerceOrder.getCommerceOrderId(),
+			_getCommerceContext(httpServletRequest));
+	}
+
+	private CommerceContext _getCommerceContext(
+		HttpServletRequest httpServletRequest) {
+
+		return (CommerceContext)httpServletRequest.getAttribute(
+			CommerceWebKeys.COMMERCE_CONTEXT);
 	}
 
 	private String _getSessionAttributeKey(
@@ -101,6 +129,12 @@ public class CommerceDiscountCouponCodeHelperImpl
 
 	private static final String _SESSION_COMMERCE_DISCOUNT_COUPON_CODE =
 		"LIFERAY_SHARED_COMMERCE_DISCOUNT_COUPON_CODE_";
+
+	@Reference
+	private CommerceOrderHttpHelper _commerceOrderHttpHelper;
+
+	@Reference
+	private CommerceOrderLocalService _commerceOrderLocalService;
 
 	@Reference
 	private CommerceOrganizationHelper _commerceOrganizationHelper;
