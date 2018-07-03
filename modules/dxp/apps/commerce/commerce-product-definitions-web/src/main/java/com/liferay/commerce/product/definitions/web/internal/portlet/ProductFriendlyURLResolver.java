@@ -36,8 +36,10 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutFriendlyURLComposite;
 import com.liferay.portal.kernel.model.Organization;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.FriendlyURLResolver;
 import com.liferay.portal.kernel.service.LayoutLocalService;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.InheritableMap;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -257,7 +259,12 @@ public class ProductFriendlyURLResolver implements FriendlyURLResolver {
 			return;
 		}
 
-		long userId = _portal.getUserId(httpServletRequest);
+		User user = _portal.getUser(httpServletRequest);
+
+		if (user == null) {
+			user = _userLocalService.getDefaultUser(
+				_portal.getCompanyId(httpServletRequest));
+		}
 
 		Organization organization =
 			_commerceOrganizationHelper.getCurrentOrganization(
@@ -271,7 +278,7 @@ public class ProductFriendlyURLResolver implements FriendlyURLResolver {
 
 		long[] commerceUserSegmentEntryIds =
 			_commerceUserSegmentHelper.getCommerceUserSegmentIds(
-				groupId, organizationId, userId);
+				groupId, organizationId, user.getUserId());
 
 		List<CPRule> cpRules = _cpRuleLocalService.getCPRules(
 			groupId, commerceUserSegmentEntryIds);
@@ -308,5 +315,8 @@ public class ProductFriendlyURLResolver implements FriendlyURLResolver {
 
 	@Reference
 	private Portal _portal;
+
+	@Reference
+	private UserLocalService _userLocalService;
 
 }
