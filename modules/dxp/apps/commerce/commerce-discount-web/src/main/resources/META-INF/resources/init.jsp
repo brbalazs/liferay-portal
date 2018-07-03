@@ -33,7 +33,6 @@ page import="com.liferay.commerce.discount.exception.NoSuchDiscountException" %>
 page import="com.liferay.commerce.discount.exception.NoSuchDiscountRelException" %><%@
 page import="com.liferay.commerce.discount.exception.NoSuchDiscountRuleException" %><%@
 page import="com.liferay.commerce.discount.model.CommerceDiscount" %><%@
-page import="com.liferay.commerce.discount.model.CommerceDiscountConstants" %><%@
 page import="com.liferay.commerce.discount.model.CommerceDiscountRel" %><%@
 page import="com.liferay.commerce.discount.model.CommerceDiscountRule" %><%@
 page import="com.liferay.commerce.discount.model.CommerceDiscountUserSegmentRel" %><%@
@@ -64,8 +63,7 @@ page import="com.liferay.portal.kernel.workflow.WorkflowConstants" %>
 
 <%@ page import="java.util.HashMap" %><%@
 page import="java.util.List" %><%@
-page import="java.util.Map" %><%@
-page import="java.util.Objects" %>
+page import="java.util.Map" %>
 
 <%@ page import="javax.portlet.PortletURL" %>
 

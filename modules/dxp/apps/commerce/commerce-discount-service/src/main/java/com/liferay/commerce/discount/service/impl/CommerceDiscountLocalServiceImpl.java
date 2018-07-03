@@ -600,8 +600,8 @@ public class CommerceDiscountLocalServiceImpl
 
 			if (((commerceDiscountId <= 0) && (commerceDiscount != null)) ||
 				((commerceDiscount != null) &&
-				(commerceDiscountId !=
-					commerceDiscount.getCommerceDiscountId()))) {
+				 (commerceDiscountId !=
+					 commerceDiscount.getCommerceDiscountId()))) {
 
 				throw new CommerceDiscountCouponCodeException();
 			}
