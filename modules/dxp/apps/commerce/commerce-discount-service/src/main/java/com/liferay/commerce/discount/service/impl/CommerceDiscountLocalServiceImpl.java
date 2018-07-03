@@ -23,6 +23,7 @@ import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.commerce.discount.service.base.CommerceDiscountLocalServiceBaseImpl;
 import com.liferay.commerce.discount.target.CommerceDiscountTarget;
 import com.liferay.commerce.discount.target.CommerceDiscountTargetRegistry;
+import com.liferay.commerce.discount.util.comparator.CommerceDiscountCreateDateComparator;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -91,7 +92,8 @@ public class CommerceDiscountLocalServiceImpl
 		long groupId = serviceContext.getScopeGroupId();
 
 		validate(
-			groupId, title, target, useCouponCode, couponCode, limitationType);
+			groupId, 0, title, target, useCouponCode, couponCode,
+			limitationType);
 
 		Date now = new Date();
 
@@ -329,8 +331,8 @@ public class CommerceDiscountLocalServiceImpl
 			commerceDiscountPersistence.findByPrimaryKey(commerceDiscountId);
 
 		validate(
-			commerceDiscount.getGroupId(), title, target, useCouponCode,
-			couponCode, limitationType);
+			commerceDiscount.getGroupId(), commerceDiscountId, title, target,
+			useCouponCode, couponCode, limitationType);
 
 		Date now = new Date();
 
@@ -571,8 +573,8 @@ public class CommerceDiscountLocalServiceImpl
 	}
 
 	protected void validate(
-			long groupId, String title, String target, boolean useCouponCode,
-			String couponCode, String limitationType)
+			long groupId, long commerceDiscountId, String title, String target,
+			boolean useCouponCode, String couponCode, String limitationType)
 		throws PortalException {
 
 		if (Validator.isNull(title)) {
@@ -591,10 +593,16 @@ public class CommerceDiscountLocalServiceImpl
 				throw new CommerceDiscountCouponCodeException();
 			}
 
-			List<CommerceDiscount> commerceDiscounts =
-				commerceDiscountPersistence.findByG_C(groupId, couponCode);
+			CommerceDiscount commerceDiscount =
+				commerceDiscountPersistence.fetchByG_C_First(
+					groupId, couponCode,
+					new CommerceDiscountCreateDateComparator(true));
 
-			if (!commerceDiscounts.isEmpty()) {
+			if ((commerceDiscountId <= 0) && (commerceDiscount != null) ||
+				(commerceDiscount != null) &&
+				(commerceDiscountId !=
+					commerceDiscount.getCommerceDiscountId())) {
+
 				throw new CommerceDiscountCouponCodeException();
 			}
 		}
