@@ -52,6 +52,11 @@ public interface CPFileImporter {
 			ServiceContext serviceContext)
 		throws Exception;
 
+	public void updateLogo(
+			File file, boolean privateLayout, boolean logo,
+			ServiceContext serviceContext)
+		throws PortalException;
+
 	public void updateLookAndFeel(
 			String themeId, boolean privateLayout,
 			ServiceContext serviceContext)

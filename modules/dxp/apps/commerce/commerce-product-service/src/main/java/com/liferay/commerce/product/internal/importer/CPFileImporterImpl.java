@@ -198,6 +198,16 @@ public class CPFileImporterImpl implements CPFileImporter {
 	}
 
 	@Override
+	public void updateLogo(
+			File file, boolean privateLayout, boolean logo,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		_layoutSetLocalService.updateLogo(
+			serviceContext.getScopeGroupId(), privateLayout, logo, file);
+	}
+
+	@Override
 	public void updateLookAndFeel(
 			String themeId, boolean privateLayout,
 			ServiceContext serviceContext)
