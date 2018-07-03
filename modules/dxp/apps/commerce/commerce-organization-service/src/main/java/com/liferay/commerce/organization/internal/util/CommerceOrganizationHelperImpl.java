@@ -78,14 +78,18 @@ public class CommerceOrganizationHelperImpl
 			return null;
 		}
 
-		if (!_commerceOrganizationLocalService.hasGroupOrganization(
+		Organization organization =
+			_commerceOrganizationService.fetchOrganization(
+				currentOrganizationId);
+
+		if ((organization != null) &&
+			!_commerceOrganizationLocalService.hasGroupOrganization(
 				groupId, currentOrganizationId)) {
 
 			return null;
 		}
 
-		return _commerceOrganizationService.fetchOrganization(
-			currentOrganizationId);
+		return organization;
 	}
 
 	@Override
