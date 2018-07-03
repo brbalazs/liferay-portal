@@ -18,8 +18,6 @@ import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.price.CommerceOrderPrice;
 
-import java.math.BigDecimal;
-
 /**
  * @author Alessio Antonio Rendina
  */
@@ -46,7 +44,7 @@ public class CommerceOrderPriceImpl implements CommerceOrderPrice {
 	}
 
 	@Override
-	public BigDecimal getTaxValue() {
+	public CommerceMoney getTaxValue() {
 		return _taxValue;
 	}
 
@@ -80,7 +78,7 @@ public class CommerceOrderPriceImpl implements CommerceOrderPrice {
 		_subtotalDiscountValue = subtotalDiscountValue;
 	}
 
-	public void setTaxValue(BigDecimal taxValue) {
+	public void setTaxValue(CommerceMoney taxValue) {
 		_taxValue = taxValue;
 	}
 
@@ -98,7 +96,7 @@ public class CommerceOrderPriceImpl implements CommerceOrderPrice {
 	private CommerceMoney _shippingValue;
 	private CommerceMoney _subtotal;
 	private CommerceDiscountValue _subtotalDiscountValue;
-	private BigDecimal _taxValue;
+	private CommerceMoney _taxValue;
 	private CommerceMoney _total;
 	private CommerceDiscountValue _totalDiscountValue;
 
