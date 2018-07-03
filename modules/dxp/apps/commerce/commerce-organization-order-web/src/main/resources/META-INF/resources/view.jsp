@@ -70,12 +70,19 @@ CommerceOrganizationOrderDisplayContext commerceOrganizationOrderDisplayContext 
 						value="<%= HtmlUtil.escape(commerceOrganizationOrderDisplayContext.getCommerceOrderDateTime(commerceOrder)) %>"
 					/>
 
-					<liferay-ui:search-container-column-status
-						name="status"
-						status="<%= commerceOrder.getStatus() %>"
-						statusByUserId="<%= commerceOrder.getStatusByUserId() %>"
-						statusDate="<%= commerceOrder.getStatusDate() %>"
+					<liferay-ui:search-container-column-text
+						name="order-status"
+						value="<%= commerceOrganizationOrderDisplayContext.getCommerceOrderStatus(commerceOrder) %>"
 					/>
+
+					<c:if test="<%= commerceOrganizationOrderDisplayContext.isOpenOrdersTab() && WorkflowDefinitionLinkLocalServiceUtil.hasWorkflowDefinitionLink(themeDisplay.getCompanyId(), scopeGroupId, CommerceOrder.class.getName()) %>">
+						<liferay-ui:search-container-column-status
+							name="buyer-workflow-status"
+							status="<%= commerceOrder.getStatus() %>"
+							statusByUserId="<%= commerceOrder.getStatusByUserId() %>"
+							statusDate="<%= commerceOrder.getStatusDate() %>"
+						/>
+					</c:if>
 
 					<liferay-ui:search-container-column-text
 						name="customer-name"
@@ -88,8 +95,8 @@ CommerceOrganizationOrderDisplayContext commerceOrganizationOrderDisplayContext 
 					/>
 
 					<liferay-ui:search-container-column-text
-						name="order-value"
-						value="<%= commerceOrganizationOrderDisplayContext.getCommerceOrderValue(commerceOrder) %>"
+						name="order-total"
+						value="<%= commerceOrganizationOrderDisplayContext.getCommerceOrderTotal(commerceOrder) %>"
 					/>
 
 					<liferay-ui:search-container-column-jsp

@@ -373,6 +373,17 @@ public class CommerceOrganizationOrderDisplayContext {
 			commerceOrder.getCreateDate());
 	}
 
+	public String getCommerceOrderTotal(CommerceOrder commerceOrder)
+		throws PortalException {
+
+		CommerceMoney total = _commerceOrderPriceCalculation.getTotal(
+			commerceOrder,
+			_commerceOrganizationOrderRequestHelper.getCommerceContext());
+
+		return total.format(
+			_commerceOrganizationOrderRequestHelper.getLocale());
+	}
+
 	public String getCommerceOrderValue(CommerceOrder commerceOrder)
 		throws PortalException {
 
@@ -545,6 +556,10 @@ public class CommerceOrganizationOrderDisplayContext {
 		return false;
 	}
 
+	public boolean isOpenOrdersTab() {
+		return _tabs1.equals("open-orders");
+	}
+
 	public boolean isShowAddButton() {
 		return true;
 	}
@@ -603,7 +618,7 @@ public class CommerceOrganizationOrderDisplayContext {
 
 		searchContext.addFacet(simpleFacet);
 
-		if (_tabs1.equals("open-orders")) {
+		if (isOpenOrdersTab()) {
 			searchContext.setAttribute(
 				simpleFacet.getFieldId(),
 				String.valueOf(CommerceOrderConstants.ORDER_STATUS_OPEN));
@@ -817,7 +832,7 @@ public class CommerceOrganizationOrderDisplayContext {
 		_searchContainer.setEmptyResultsMessage(
 			_getEmptyResultsMessage(filterByStatuses));
 
-		if (_tabs1.equals("open-orders")) {
+		if (isOpenOrdersTab()) {
 			_searchContainer.setRowChecker(
 				new EmptyOnClickRowChecker(
 					_commerceOrganizationOrderRequestHelper.
