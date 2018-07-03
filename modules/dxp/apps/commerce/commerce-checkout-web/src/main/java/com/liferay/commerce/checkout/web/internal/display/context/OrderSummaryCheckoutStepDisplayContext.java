@@ -23,6 +23,7 @@ import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.CommerceOrderValidatorResult;
+import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
@@ -106,17 +107,9 @@ public class OrderSummaryCheckoutStepDisplayContext {
 		return DLUtil.getThumbnailSrc(fileEntry, themeDisplay);
 	}
 
-	public String getCommerceOrderShippingPrice() throws PortalException {
-		CommerceMoney commerceMoney = _commerceOrder.getShippingMoney();
-
-		return commerceMoney.format(PortalUtil.getLocale(_httpServletRequest));
-	}
-
-	public String getCommerceOrderSubtotal() throws PortalException {
-		CommerceMoney subtotal = _commerceOrderPriceCalculation.getSubtotal(
+	public CommerceOrderPrice getCommerceOrderPrice() throws PortalException {
+		return _commerceOrderPriceCalculation.getCommerceOrderPrice(
 			getCommerceOrder(), _commerceContext);
-
-		return subtotal.format(PortalUtil.getLocale(_httpServletRequest));
 	}
 
 	public Map<Long, List<CommerceOrderValidatorResult>>

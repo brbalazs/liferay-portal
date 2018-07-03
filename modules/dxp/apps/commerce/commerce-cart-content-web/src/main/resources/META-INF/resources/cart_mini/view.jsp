@@ -23,6 +23,14 @@ Map<String, Object> contextObjects = new HashMap<>();
 
 contextObjects.put("commerceCartContentMiniDisplayContext", commerceCartContentMiniDisplayContext);
 
+CommerceOrderPrice commerceOrderPrice = commerceCartContentMiniDisplayContext.getCommerceOrderPrice();
+
+CommerceMoney subtotal = commerceOrderPrice.getSubtotal();
+
+CommerceMoney taxValue = commerceOrderPrice.getTaxValue();
+
+CommerceMoney totalOrder = commerceOrderPrice.getTotal();
+
 SearchContainer<CommerceOrderItem> commerceOrderItemSearchContainer = commerceCartContentMiniDisplayContext.getSearchContainer();
 
 PortletURL portletURL = commerceCartContentMiniDisplayContext.getPortletURL();
@@ -107,7 +115,8 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 						}
 						%>
 
-						<div class="list-group-subtitle">SKU: <%= HtmlUtil.escape(stringJoiner.toString()) %></div>
+						<div class="list-group-subtitle">SKU: <%= HtmlUtil.escape(commerceOrderItem.getSku()) %></div>
+						<div class="list-group-subtitle"><%= HtmlUtil.escape(stringJoiner.toString()) %></div>
 					</div>
 				</liferay-ui:search-container-column-text>
 
@@ -138,11 +147,20 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 	<ul class="commerce-order-items-footer">
 		<li class="autofit-row commerce-tax">
 			<div class="autofit-col autofit-col-expand">
+				<div class="commerce-description"><liferay-ui:message key="subtotal" /></div>
+			</div>
+
+			<div class="autofit-col">
+				<div class="commerce-value"><%= HtmlUtil.escape(subtotal.format(locale)) %></div>
+			</div>
+		</li>
+		<li class="autofit-row commerce-tax">
+			<div class="autofit-col autofit-col-expand">
 				<div class="commerce-description"><liferay-ui:message key="tax" /></div>
 			</div>
 
 			<div class="autofit-col">
-				<div class="commerce-value">$0.00</div>
+				<div class="commerce-value"><%= HtmlUtil.escape(taxValue.format(locale)) %></div>
 			</div>
 		</li>
 		<li class="autofit-row commerce-total">
@@ -151,7 +169,7 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 			</div>
 
 			<div class="autofit-col">
-				<div class="commerce-value"><%= HtmlUtil.escape(commerceCartContentMiniDisplayContext.getCommerceOrderSubtotal()) %></div>
+				<div class="commerce-value"><%= HtmlUtil.escape(totalOrder.format(locale)) %></div>
 			</div>
 		</li>
 	</ul>

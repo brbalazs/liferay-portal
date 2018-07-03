@@ -17,11 +17,11 @@ package com.liferay.commerce.cart.content.web.internal.display.context;
 import com.liferay.commerce.cart.content.web.internal.display.context.util.CommerceCartContentRequestHelper;
 import com.liferay.commerce.cart.content.web.internal.portlet.configuration.CommerceCartContentPortletInstanceConfiguration;
 import com.liferay.commerce.context.CommerceContext;
-import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.CommerceOrderValidatorResult;
+import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
@@ -136,11 +136,9 @@ public class CommerceCartContentDisplayContext {
 		return DLUtil.getThumbnailSrc(fileEntry, themeDisplay);
 	}
 
-	public String getCommerceOrderSubtotal() throws PortalException {
-		CommerceMoney subtotal = _commerceOrderPriceCalculation.getSubtotal(
+	public CommerceOrderPrice getCommerceOrderPrice() throws PortalException {
+		return _commerceOrderPriceCalculation.getCommerceOrderPrice(
 			getCommerceOrder(), commerceContext);
-
-		return subtotal.format(commerceCartContentRequestHelper.getLocale());
 	}
 
 	public Map<Long, List<CommerceOrderValidatorResult>>
@@ -195,32 +193,6 @@ public class CommerceCartContentDisplayContext {
 		}
 
 		return _displayStyleGroupId;
-	}
-
-	public String getFormattedFinalPrice(CommerceOrderItem commerceOrderItem)
-		throws PortalException {
-
-		CommerceMoney commerceMoney =
-			_commerceProductPriceCalculation.getFinalPrice(
-				commerceOrderItem.getCPInstanceId(),
-				commerceOrderItem.getQuantity(), commerceContext);
-
-		return commerceMoney.format(
-			commerceCartContentRequestHelper.getLocale());
-	}
-
-	public String getFormattedUnitPrice(CommerceOrderItem commerceOrderItem)
-		throws PortalException {
-
-		CommerceMoney commerceMoney =
-			_commerceProductPriceCalculation.getUnitPrice(
-				commerceOrderItem.getCPInstanceId(),
-				commerceOrderItem.getQuantity(),
-				commerceContext.getCommercePriceList(),
-				commerceContext.getCommerceCurrency());
-
-		return commerceMoney.format(
-			commerceCartContentRequestHelper.getLocale());
 	}
 
 	public List<KeyValuePair> getKeyValuePairs(String json, Locale locale)

@@ -21,6 +21,16 @@ OrderSummaryCheckoutStepDisplayContext orderSummaryCheckoutStepDisplayContext = 
 
 CommerceOrder commerceOrder = orderSummaryCheckoutStepDisplayContext.getCommerceOrder();
 
+CommerceOrderPrice commerceOrderPrice = orderSummaryCheckoutStepDisplayContext.getCommerceOrderPrice();
+
+CommerceMoney subtotal = commerceOrderPrice.getSubtotal();
+
+CommerceMoney taxValue = commerceOrderPrice.getTaxValue();
+
+CommerceMoney shippingValue = commerceOrderPrice.getShippingValue();
+
+CommerceMoney totalOrder = commerceOrderPrice.getTotal();
+
 String commercePaymentMethodName = StringPool.BLANK;
 String commerceShippingMethodName = StringPool.BLANK;
 
@@ -160,13 +170,22 @@ Map<Long, List<CommerceOrderValidatorResult>> commerceOrderValidatorResultMap = 
 			</div>
 
 			<ul class="commerce-checkout-summary-footer">
+				<li class="autofit-row commerce-subtotal">
+					<div class="autofit-col autofit-col-expand">
+						<div class="commerce-description"><liferay-ui:message key="subtotal" /></div>
+					</div>
+
+					<div class="autofit-col">
+						<div class="commerce-value"><%= HtmlUtil.escape(subtotal.format(locale)) %></div>
+					</div>
+				</li>
 				<li class="autofit-row commerce-delivery">
 					<div class="autofit-col autofit-col-expand">
 						<div class="commerce-description"><liferay-ui:message key="delivery" /></div>
 					</div>
 
 					<div class="autofit-col">
-						<div class="commerce-value"><%= HtmlUtil.escape(orderSummaryCheckoutStepDisplayContext.getCommerceOrderShippingPrice()) %></div>
+						<div class="commerce-value"><%= HtmlUtil.escape(shippingValue.format(locale)) %></div>
 					</div>
 				</li>
 				<li class="autofit-row commerce-tax">
@@ -175,7 +194,7 @@ Map<Long, List<CommerceOrderValidatorResult>> commerceOrderValidatorResultMap = 
 					</div>
 
 					<div class="autofit-col">
-						<div class="commerce-value">$0.00</div>
+						<div class="commerce-value"><%= HtmlUtil.escape(taxValue.format(locale)) %></div>
 					</div>
 				</li>
 				<li class="autofit-row commerce-total">
@@ -184,7 +203,7 @@ Map<Long, List<CommerceOrderValidatorResult>> commerceOrderValidatorResultMap = 
 					</div>
 
 					<div class="autofit-col">
-						<div class="commerce-value"><%= HtmlUtil.escape(orderSummaryCheckoutStepDisplayContext.getCommerceOrderSubtotal()) %></div>
+						<div class="commerce-value"><%= HtmlUtil.escape(totalOrder.format(locale)) %></div>
 					</div>
 				</li>
 			</ul>
@@ -234,14 +253,12 @@ Map<Long, List<CommerceOrderValidatorResult>> commerceOrderValidatorResultMap = 
 					<liferay-ui:message key="method" />
 				</h5>
 
-				<img src="" />
-
 				<div class="shipping-description">
 					<%= HtmlUtil.escape(commerceShippingMethodName) %>
 				</div>
 
 				<div class="shipping-cost">
-					<%= HtmlUtil.escape(orderSummaryCheckoutStepDisplayContext.getCommerceOrderShippingPrice()) %>
+					<%= HtmlUtil.escape(shippingValue.format(locale)) %>
 				</div>
 			</div>
 

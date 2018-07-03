@@ -49,6 +49,7 @@ page import="com.liferay.commerce.model.CommercePaymentMethod" %><%@
 page import="com.liferay.commerce.model.CommerceShippingMethod" %><%@
 page import="com.liferay.commerce.model.CommerceShippingOption" %><%@
 page import="com.liferay.commerce.order.CommerceOrderValidatorResult" %><%@
+page import="com.liferay.commerce.price.CommerceOrderPrice" %><%@
 page import="com.liferay.commerce.product.model.CPDefinition" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.bean.BeanParamUtil" %><%@

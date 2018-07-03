@@ -19,6 +19,14 @@
 <%
 CommerceCartContentTotalDisplayContext commerceCartContentTotalDisplayContext = (CommerceCartContentTotalDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
+CommerceOrderPrice commerceOrderPrice = commerceCartContentTotalDisplayContext.getCommerceOrderPrice();
+
+CommerceMoney subtotal = commerceOrderPrice.getSubtotal();
+
+CommerceMoney taxValue = commerceOrderPrice.getTaxValue();
+
+CommerceMoney totalOrder = commerceOrderPrice.getTotal();
+
 Map<String, Object> contextObjects = new HashMap<>();
 
 contextObjects.put("commerceCartContentTotalDisplayContext", commerceCartContentTotalDisplayContext);
@@ -36,11 +44,31 @@ SearchContainer<CommerceOrderItem> commerceOrderItemSearchContainer = commerceCa
 	<div class="order-total text-dark">
 		<div class="row">
 			<div class="col-auto">
+				<h3 class="h4"><liferay-ui:message key="subtotal" /></h3>
+			</div>
+
+			<div class="col text-right">
+				<h3 class="h4"><%= HtmlUtil.escape(subtotal.format(locale)) %></h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-auto">
+				<h3 class="h4"><liferay-ui:message key="tax" /></h3>
+			</div>
+
+			<div class="col text-right">
+				<h3 class="h4"><%= HtmlUtil.escape(taxValue.format(locale)) %></h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-auto">
 				<h3 class="h4"><liferay-ui:message key="total" /></h3>
 			</div>
 
 			<div class="col text-right">
-				<h3 class="h4"><%= HtmlUtil.escape(commerceCartContentTotalDisplayContext.getCommerceOrderSubtotal()) %></h3>
+				<h3 class="h4"><%= HtmlUtil.escape(totalOrder.format(locale)) %></h3>
 			</div>
 		</div>
 	</div>
