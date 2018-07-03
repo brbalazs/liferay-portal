@@ -1,0 +1,14 @@
+#
+# Liferay App Version 5.0.0
+#
+
+app.artifacts-5.0.0=\
+	com.liferay.sync.api-4.0.3.jar,\
+	com.liferay.sync.oauth-2.0.0.jar,\
+	com.liferay.sync.security-3.0.0.jar,\
+	com.liferay.sync.service-2.0.3.jar,\
+	com.liferay.sync.web-2.0.4.jar
+
+app.change.log-5.0.0=LPS-69359 LPS-69661 LPS-69926 LPS-73935 LPS-74544 LPS-75049 LPS-77425 LPS-77578 LPS-77699 LPS-79653 LPS-80332 LPS-82828 SYNC-1715 SYNC-1780 
+
+app.git.id-5.0.0=5c1209849ecb6ef5d49d3013f383f0651acdb752
