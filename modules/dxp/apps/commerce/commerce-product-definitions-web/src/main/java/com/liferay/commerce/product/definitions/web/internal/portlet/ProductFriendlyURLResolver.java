@@ -137,18 +137,39 @@ public class ProductFriendlyURLResolver implements FriendlyURLResolver {
 				layoutActualURL + StringPool.QUESTION + queryString;
 		}
 
-		_portal.addPageSubtitle(cpCatalogEntry.getName(), httpServletRequest);
-		_portal.addPageDescription(
-			cpCatalogEntry.getShortDescription(), httpServletRequest);
+		String description = cpCatalogEntry.getMetaDescription(languageId);
 
-		List<AssetTag> assetTags = _assetTagLocalService.getTags(
-			CPDefinition.class.getName(), cpCatalogEntry.getCPDefinitionId());
-
-		if (!assetTags.isEmpty()) {
-			_portal.addPageKeywords(
-				ListUtil.toString(assetTags, AssetTag.NAME_ACCESSOR),
-				httpServletRequest);
+		if (Validator.isNull(description)) {
+			description = cpCatalogEntry.getShortDescription();
 		}
+
+		if (Validator.isNotNull(description)) {
+			_portal.addPageDescription(description, httpServletRequest);
+		}
+
+		String keywords = cpCatalogEntry.getMetaKeywords(languageId);
+
+		if (Validator.isNull(keywords)) {
+			List<AssetTag> assetTags = _assetTagLocalService.getTags(
+				CPDefinition.class.getName(),
+				cpCatalogEntry.getCPDefinitionId());
+
+			if (ListUtil.isNotEmpty(assetTags)) {
+				keywords = ListUtil.toString(assetTags, AssetTag.NAME_ACCESSOR);
+			}
+		}
+
+		if (Validator.isNotNull(keywords)) {
+			_portal.addPageKeywords(keywords, httpServletRequest);
+		}
+
+		String subtitle = cpCatalogEntry.getMetaTitle(languageId);
+
+		if (Validator.isNull(subtitle)) {
+			subtitle = cpCatalogEntry.getName();
+		}
+
+		_portal.addPageSubtitle(subtitle, httpServletRequest);
 
 		return layoutActualURL;
 	}
