@@ -310,8 +310,11 @@ public class CommerceOrderLocalServiceImpl
 		// Commerce order
 
 		CommerceOrder commerceOrder =
-			commerceOrderLocalService.approveCommerceOrder(
-				serviceContext.getUserId(), commerceOrderId);
+			commerceOrderLocalService.recalculatePrice(
+				commerceOrderId, commerceContext);
+
+		commerceOrder = commerceOrderLocalService.approveCommerceOrder(
+			serviceContext.getUserId(), commerceOrderId);
 
 		validateCheckout(commerceOrder);
 
@@ -656,6 +659,25 @@ public class CommerceOrderLocalServiceImpl
 		commerceOrderLocalService.deleteCommerceOrder(guestCommerceOrderId);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceOrder recalculatePrice(
+			long commerceOrderId, CommerceContext commerceContext)
+		throws PortalException {
+
+		CommerceOrder commerceOrder = commerceOrderPersistence.findByPrimaryKey(
+			commerceOrderId);
+
+		for (CommerceOrderItem commerceOrderItem :
+				commerceOrder.getCommerceOrderItems()) {
+
+			commerceOrderItemLocalService.updateCommerceOrderItemPrice(
+				commerceOrderItem.getCommerceOrderItemId(), commerceContext);
+		}
+
+		return commerceOrder;
+	}
+
 	@Override
 	public CommerceOrder reorderCommerceOrder(
 			long userId, long commerceOrderId, CommerceContext commerceContext)
@@ -778,7 +800,7 @@ public class CommerceOrderLocalServiceImpl
 			commerceOrder);
 
 		if (commercePaymentEngine == null) {
-			commerceOrder = updatePaymentStatus(
+			updatePaymentStatus(
 				commerceOrder.getCommerceOrderId(),
 				CommerceOrderConstants.PAYMENT_STATUS_PAID, serviceContext);
 

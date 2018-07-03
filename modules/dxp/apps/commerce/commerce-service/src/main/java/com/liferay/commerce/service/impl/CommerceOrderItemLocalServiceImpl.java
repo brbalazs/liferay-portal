@@ -298,12 +298,6 @@ public class CommerceOrderItemLocalServiceImpl
 		CommerceOrderItem commerceOrderItem =
 			commerceOrderItemPersistence.findByPrimaryKey(commerceOrderItemId);
 
-		CPInstance cpInstance = commerceOrderItem.getCPInstance();
-
-		BigDecimal price = cpInstance.getPrice();
-
-		price = price.multiply(new BigDecimal(quantity));
-
 		return updateCommerceOrderItem(
 			commerceOrderItemId, quantity, commerceOrderItem.getJson(),
 			commerceContext);
@@ -333,6 +327,34 @@ public class CommerceOrderItemLocalServiceImpl
 
 		commerceOrderItem.setQuantity(quantity);
 		commerceOrderItem.setJson(json);
+		commerceOrderItem.setUnitPrice(unitPrice.getPrice());
+		commerceOrderItem.setFinalPrice(finalPrice.getPrice());
+
+		_setCommerceOrderItemDiscountValue(
+			commerceOrderItem, commerceProductPrice.getDiscountValue());
+
+		commerceOrderItemPersistence.update(commerceOrderItem);
+
+		return commerceOrderItem;
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceOrderItem updateCommerceOrderItemPrice(
+			long commerceOrderItemId, CommerceContext commerceContext)
+		throws PortalException {
+
+		CommerceOrderItem commerceOrderItem =
+			commerceOrderItemPersistence.findByPrimaryKey(commerceOrderItemId);
+
+		CommerceProductPrice commerceProductPrice =
+			_commerceProductPriceCalculation.getCommerceProductPrice(
+				commerceOrderItem.getCPInstanceId(),
+				commerceOrderItem.getQuantity(), commerceContext);
+
+		CommerceMoney unitPrice = commerceProductPrice.getUnitPrice();
+		CommerceMoney finalPrice = commerceProductPrice.getFinalPrice();
+
 		commerceOrderItem.setUnitPrice(unitPrice.getPrice());
 		commerceOrderItem.setFinalPrice(finalPrice.getPrice());
 
