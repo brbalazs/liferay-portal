@@ -59,9 +59,12 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.ListTypeConstants;
 import com.liferay.portal.kernel.model.OrganizationConstants;
 import com.liferay.portal.kernel.model.Portlet;
+import com.liferay.portal.kernel.model.ResourceConstants;
+import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.Theme;
 import com.liferay.portal.kernel.model.ThemeSetting;
 import com.liferay.portal.kernel.model.User;
@@ -69,6 +72,8 @@ import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.OrganizationLocalService;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ThemeLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
@@ -470,6 +475,8 @@ public class BerylSiteInitializer implements SiteInitializer {
 		_cpFileImporter.createRoles(jsonArray, serviceContext);
 
 		createCommerceRoles(jsonArray);
+
+		updateUserRole(serviceContext);
 	}
 
 	protected ServiceContext getServiceContext(long groupId)
@@ -641,6 +648,19 @@ public class BerylSiteInitializer implements SiteInitializer {
 		ThemeSetting themeSetting = configurableSettings.get(key);
 
 		themeSetting.setValue(value);
+	}
+
+	protected void updateUserRole(ServiceContext serviceContext)
+		throws PortalException {
+
+		Role role = _roleLocalService.fetchRole(
+			serviceContext.getCompanyId(), "User");
+
+		_resourcePermissionLocalService.addResourcePermission(
+			serviceContext.getCompanyId(), "com.liferay.commerce.product",
+			ResourceConstants.SCOPE_GROUP_TEMPLATE,
+			String.valueOf(GroupConstants.DEFAULT_PARENT_GROUP_ID),
+			role.getRoleId(), "VIEW_PRICE");
 	}
 
 	private void _addDemoAccountOrganizations(
@@ -1038,6 +1058,12 @@ public class BerylSiteInitializer implements SiteInitializer {
 
 	@Reference
 	private Portal _portal;
+
+	@Reference
+	private ResourcePermissionLocalService _resourcePermissionLocalService;
+
+	@Reference
+	private RoleLocalService _roleLocalService;
 
 	@Reference(
 		target = "(osgi.web.symbolicname=com.liferay.commerce.initializer.beryl)"
