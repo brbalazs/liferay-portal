@@ -18,7 +18,7 @@ import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.discount.CommerceDiscountCalculation;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.price.CommerceProductPrice;
@@ -263,7 +263,7 @@ public class CommerceProductPriceCalculationImpl
 			}
 
 			CommerceCurrency priceListCurrency =
-				_commerceCurrencyService.getCommerceCurrency(
+				_commerceCurrencyLocalService.getCommerceCurrency(
 					commercePriceList.getCommerceCurrencyId());
 
 			if (!priceListCurrency.isPrimary()) {
@@ -275,7 +275,7 @@ public class CommerceProductPriceCalculationImpl
 	}
 
 	@Reference
-	private CommerceCurrencyService _commerceCurrencyService;
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
 	@Reference
 	private CommerceDiscountCalculation _commerceDiscountCalculation;

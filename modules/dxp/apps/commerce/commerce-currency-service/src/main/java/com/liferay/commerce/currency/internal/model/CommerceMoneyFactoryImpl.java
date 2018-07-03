@@ -18,7 +18,7 @@ import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.currency.model.CommerceMoneyFactoryUtil;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.portal.kernel.exception.PortalException;
 
@@ -53,7 +53,8 @@ public class CommerceMoneyFactoryImpl implements CommerceMoneyFactory {
 		throws PortalException {
 
 		CommerceCurrency commerceCurrency =
-			_commerceCurrencyService.getCommerceCurrency(commerceCurrencyId);
+			_commerceCurrencyLocalService.getCommerceCurrency(
+				commerceCurrencyId);
 
 		return create(commerceCurrency, price);
 	}
@@ -64,7 +65,7 @@ public class CommerceMoneyFactoryImpl implements CommerceMoneyFactory {
 	}
 
 	@Reference
-	private CommerceCurrencyService _commerceCurrencyService;
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
 	@Reference
 	private CommercePriceFormatter _commercePriceFormatter;
