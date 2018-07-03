@@ -369,6 +369,10 @@ public interface CommerceOrderLocalService extends BaseLocalService,
 		long userCommerceOrderId, CommerceContext commerceContext,
 		ServiceContext serviceContext) throws PortalException;
 
+	@Indexable(type = IndexableType.REINDEX)
+	public CommerceOrder recalculatePrice(long commerceOrderId,
+		CommerceContext commerceContext) throws PortalException;
+
 	public CommerceOrder reorderCommerceOrder(long userId,
 		long commerceOrderId, CommerceContext commerceContext)
 		throws PortalException;

@@ -357,6 +357,15 @@ public class CommerceOrderItemLocalServiceUtil {
 			json, commerceContext);
 	}
 
+	public static com.liferay.commerce.model.CommerceOrderItem updateCommerceOrderItemPrice(
+		long commerceOrderItemId,
+		com.liferay.commerce.context.CommerceContext commerceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .updateCommerceOrderItemPrice(commerceOrderItemId,
+			commerceContext);
+	}
+
 	public static CommerceOrderItemLocalService getService() {
 		return _serviceTracker.getService();
 	}

@@ -296,4 +296,9 @@ public interface CommerceOrderItemLocalService extends BaseLocalService,
 	public CommerceOrderItem updateCommerceOrderItem(long commerceOrderItemId,
 		int quantity, String json, CommerceContext commerceContext)
 		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public CommerceOrderItem updateCommerceOrderItemPrice(
+		long commerceOrderItemId, CommerceContext commerceContext)
+		throws PortalException;
 }

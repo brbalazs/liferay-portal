@@ -453,6 +453,13 @@ public class CommerceOrderLocalServiceUtil {
 			commerceContext, serviceContext);
 	}
 
+	public static com.liferay.commerce.model.CommerceOrder recalculatePrice(
+		long commerceOrderId,
+		com.liferay.commerce.context.CommerceContext commerceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().recalculatePrice(commerceOrderId, commerceContext);
+	}
+
 	public static com.liferay.commerce.model.CommerceOrder reorderCommerceOrder(
 		long userId, long commerceOrderId,
 		com.liferay.commerce.context.CommerceContext commerceContext)

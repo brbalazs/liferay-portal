@@ -382,6 +382,15 @@ public class CommerceOrderItemLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.commerce.model.CommerceOrderItem updateCommerceOrderItemPrice(
+		long commerceOrderItemId,
+		com.liferay.commerce.context.CommerceContext commerceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceOrderItemLocalService.updateCommerceOrderItemPrice(commerceOrderItemId,
+			commerceContext);
+	}
+
+	@Override
 	public CommerceOrderItemLocalService getWrappedService() {
 		return _commerceOrderItemLocalService;
 	}
