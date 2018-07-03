@@ -62,12 +62,6 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 			<div class="col-lg-6 col-md-5">
 				<h1><%= cpCatalogEntry.getName() %></h1>
 
-				<div hidden>
-					<div class="meta-title"><%= cpCatalogEntry.getMetaTitle(themeDisplay.getLanguageId()) %></div>
-					<div class="meta-description"><%= cpCatalogEntry.getMetaDescription(themeDisplay.getLanguageId()) %></div>
-					<div class="meta-keywords"><%= cpCatalogEntry.getMetaKeywords(themeDisplay.getLanguageId()) %></div>
-				</div>
-
 				<c:choose>
 					<c:when test="<%= cpInstance != null %>">
 						<h4 class="sku"><%= cpInstance.getSku() %></h4>
