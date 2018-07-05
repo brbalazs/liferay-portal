@@ -13,6 +13,6 @@ dependencies {
 	compileOnly group: "javax.portlet", name: "portlet-api", version: "3.0.0"
 	compileOnly group: "javax.servlet", name: "javax.servlet-api", version: "3.0.1"
 	compileOnly group: "org.osgi", name: "org.osgi.service.component.annotations", version: "1.3.0"
-	compileOnly project(":private:apps:commerce:commerce-api")
+	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.api", version: "1.0.0-20180705.212041-1"
 	compileOnly project(":private:apps:commerce:commerce-cloud-client-api")
 }
