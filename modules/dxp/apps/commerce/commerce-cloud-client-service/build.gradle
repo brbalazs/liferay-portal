@@ -9,13 +9,13 @@ dependencies {
 	compileOnly group: "com.liferay", name: "com.liferay.petra.string", version: "2.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.portal.configuration.metatype.api", version: "1.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.portal.spring.extender", version: "2.0.0"
+	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.api", version: "1.0.0-20180705.212041-1"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "3.5.0"
 	compileOnly group: "javax.servlet", name: "javax.servlet-api", version: "3.0.1"
-	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.api", version: "1.0.0-20180705.212041-1"
 	compileOnly project(":private:apps:commerce:commerce-cloud-client-api")
 	compileOnly project(":private:apps:commerce:commerce-forecast-api")
 
 	testCompile group: "com.liferay", name: "com.liferay.petra.reflect", version: "1.1.0"
-	testCompile group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "3.3.0"
 	testCompile group: "com.liferay.commerce", name: "com.liferay.commerce.currency.api", version: "1.0.0-20180705.212219-1"
+	testCompile group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "3.3.0"
 }
