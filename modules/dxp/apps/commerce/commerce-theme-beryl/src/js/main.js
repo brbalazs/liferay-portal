@@ -34,8 +34,6 @@
 			Liferay.after(
 				'commerce:productAddedToCart',
 				function(event) {
-					Liferay.Portlet.refresh('#p_p_id_com_liferay_commerce_cart_content_web_internal_portlet_CommerceCartContentMiniPortlet_INSTANCE_commerceCartContentMiniPortlet_0_');
-
 					var cartIcon = A.one('#b2b-mini-cart > a');
 
 					if (cartIcon) {

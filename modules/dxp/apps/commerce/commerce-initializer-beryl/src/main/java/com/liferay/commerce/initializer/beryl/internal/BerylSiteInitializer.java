@@ -20,6 +20,7 @@ import com.liferay.asset.kernel.model.AssetVocabulary;
 import com.liferay.asset.kernel.service.AssetCategoryLocalService;
 import com.liferay.asset.kernel.service.AssetVocabularyLocalService;
 import com.liferay.commerce.constants.CPDefinitionInventoryConstants;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.model.CommerceWarehouse;
@@ -37,6 +38,7 @@ import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPDefinitionSpecificationOptionValueLocalService;
 import com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.product.service.CPRuleLocalService;
 import com.liferay.commerce.product.service.CPRuleUserSegmentRelLocalService;
 import com.liferay.commerce.product.service.CPSpecificationOptionLocalService;
@@ -380,6 +382,14 @@ public class BerylSiteInitializer implements SiteInitializer {
 		_addDemoAccountOrganizations(
 			group.getOrganizationId(), group.getNameCurrentValue(),
 			ACCOUNT_ORGANIZATIONS_COUNT, serviceContext);
+
+		_commerceCountryLocalService.importDefaultCountries(serviceContext);
+		_commerceCurrencyLocalService.importDefaultValues(serviceContext);
+		_commerceUserSegmentEntryLocalService.
+			importSystemCommerceUserSegmentEntries(serviceContext);
+		_commerceWarehouseLocalService.importDefaultCommerceWarehouse(
+			serviceContext);
+		_cpMeasurementUnitLocalService.importDefaultValues(serviceContext);
 	}
 
 	protected void createCommerceRoles(JSONArray jsonArray) throws Exception {
@@ -912,6 +922,9 @@ public class BerylSiteInitializer implements SiteInitializer {
 	@Reference
 	private CommerceCountryLocalService _commerceCountryLocalService;
 
+	@Reference
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
+
 	@Reference(
 		target = "(javax.portlet.name=com_liferay_commerce_dashboard_web_internal_portlet_CommerceDashboardDateRangeSelectorPortlet)"
 	)
@@ -1020,6 +1033,9 @@ public class BerylSiteInitializer implements SiteInitializer {
 
 	@Reference
 	private CPInstanceLocalService _cpInstanceLocalService;
+
+	@Reference
+	private CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;
 
 	@Reference
 	private CPRuleLocalService _cpRuleLocalService;
