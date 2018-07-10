@@ -882,7 +882,7 @@ public class BerylSiteInitializer implements SiteInitializer {
 	}
 
 	private static final String _BERYL_THEME_ID =
-		"beryl_WAR_commercethemeberyl";
+		"beryl_WAR_commerceberyltheme";
 
 	private static final String _COMMERCE_ROLE_CONFIGURATION_PID =
 		"com.liferay.commerce.user.web.internal.configuration." +
@@ -1089,7 +1089,7 @@ public class BerylSiteInitializer implements SiteInitializer {
 	@Reference
 	private ThemeLocalService _themeLocalService;
 
-	@Reference(target = "(osgi.web.symbolicname=commerce-theme-beryl)")
+	@Reference(target = "(osgi.web.symbolicname=commerce-beryl-theme)")
 	private ServletContext _themeServletContext;
 
 	@Reference
