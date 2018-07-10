@@ -5,7 +5,7 @@
 	<compatibility>
 		<version>7.1.0+</version>
 	</compatibility>
-	<theme id="commerce-theme-minette" name="Minette">
+	<theme id="minette" name="Minette">
 		<template-extension>ftl</template-extension>
 		<settings>
 			<setting configurable="true" key="demo-mode" type="checkbox" value="false" />
