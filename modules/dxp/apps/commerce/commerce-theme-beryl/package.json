@@ -17,7 +17,6 @@
 	],
 	"liferayTheme": {
 		"baseTheme": "styled",
-		"distName": "commerce-theme-beryl",
 		"hookModules": [
 			"liferay-theme-es2015-hook"
 		],
