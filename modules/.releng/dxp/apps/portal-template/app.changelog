@@ -1,0 +1,15 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.portal.template.freemarker-4.0.0.jar,\
+	com.liferay.portal.template.soy.api-1.0.1.jar,\
+	com.liferay.portal.template.soy.context.contributor-2.0.0.jar,\
+	com.liferay.portal.template.soy.impl-1.0.2.jar,\
+	com.liferay.portal.template.velocity-3.0.0.jar,\
+	com.liferay.portal.template.xsl-3.0.0.jar
+
+app.change.log-1.0.0=LPS-77699 LPS-80296 LPS-80332 LPS-80517 LPS-81582 LPS-82343
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

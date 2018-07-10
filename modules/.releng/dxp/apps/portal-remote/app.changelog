@@ -1,0 +1,27 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.portal.remote.axis.extender-2.0.0.jar,\
+	com.liferay.portal.remote.cxf.common-4.0.1.jar,\
+	com.liferay.portal.remote.http.tunnel.extender-3.0.0.jar,\
+	com.liferay.portal.remote.jaxrs.whiteboard-1.0.6.jar,\
+	com.liferay.portal.remote.jaxrs.whiteboard.debug-1.0.1.jar,\
+	com.liferay.portal.remote.jaxrs.whiteboard.jaxb.json-1.0.2.jar,\
+	com.liferay.portal.remote.json.web.service.extender-3.0.0.jar,\
+	com.liferay.portal.remote.rest.extender-3.0.1.jar,\
+	com.liferay.portal.remote.soap.extender.api-2.0.0.jar,\
+	com.liferay.portal.remote.soap.extender.impl-2.0.0.jar,\
+	javax.json-api-1.0.jar,\
+	org.apache.aries.javax.jax.rs.api-0.0.1-20180514.145128-46-LIFERAY-CACHED.jar,\
+	org.apache.aries.jax.rs.jaxb.json-0.0.1-20180608.092312-9-LIFERAY-CACHED.jar,\
+	org.apache.aries.jax.rs.whiteboard-0.0.1-20180626.192612-91-LIFERAY-CACHED.jar,\
+	org.apache.servicemix.specs.annotation.api-1.3_1.jar,\
+	org.osgi.service.jaxrs-1.0.0.jar,\
+	org.osgi.util.function-1.1.0.jar,\
+	org.osgi.util.promise-1.1.0.jar
+
+app.change.log-1.0.0=LPS-77699 LPS-80332 LPS-80517 LPS-80681 LPS-81952 LPS-82343 LPS-82420 LPS-82850
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

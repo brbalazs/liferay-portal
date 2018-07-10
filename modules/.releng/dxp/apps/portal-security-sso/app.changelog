@@ -1,0 +1,25 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.portal.security.sso.cas.api-2.0.1.jar,\
+	com.liferay.portal.security.sso.cas.impl-1.0.1.jar,\
+	com.liferay.portal.security.sso.facebook.connect.api-2.0.1.jar,\
+	com.liferay.portal.security.sso.facebook.connect.impl-1.0.1.jar,\
+	com.liferay.portal.security.sso.google.api-2.0.1.jar,\
+	com.liferay.portal.security.sso.google.impl-1.0.1.jar,\
+	com.liferay.portal.security.sso.ntlm.api-2.0.2.jar,\
+	com.liferay.portal.security.sso.ntlm.impl-1.0.1.jar,\
+	com.liferay.portal.security.sso.openid.api-2.0.1.jar,\
+	com.liferay.portal.security.sso.openid.connect.api-1.0.3.jar,\
+	com.liferay.portal.security.sso.openid.connect.impl-1.0.3.jar,\
+	com.liferay.portal.security.sso.openid.impl-1.0.1.jar,\
+	com.liferay.portal.security.sso.opensso.api-2.0.1.jar,\
+	com.liferay.portal.security.sso.opensso.impl-1.0.2.jar,\
+	com.liferay.portal.security.sso.token.api-2.0.0.jar,\
+	com.liferay.portal.security.sso.token.impl-2.0.1.jar
+
+app.change.log-1.0.0=LPS-79653 LPS-79679 LPS-80332 LPS-80684 LPS-81555 LPS-81901
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

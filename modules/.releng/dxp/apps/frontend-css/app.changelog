@@ -1,0 +1,12 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.frontend.css.common-3.0.1.jar,\
+	com.liferay.frontend.css.rtl.servlet-2.0.0.jar,\
+	com.liferay.frontend.css.web-2.0.0.jar
+
+app.change.log-1.0.0=LPS-77425 LPS-79566 LPS-80097 LPS-80145 LPS-80332 LPS-80490 LPS-80710 LPS-80861 LPS-81044 LPS-81197 LPS-81499 LPS-81677 LPS-81679 LPS-81857 LPS-82109 LPS-82362
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

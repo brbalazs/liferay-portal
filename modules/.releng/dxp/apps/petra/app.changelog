@@ -1,0 +1,14 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.petra.doulos-4.0.1.jar,\
+	com.liferay.petra.io.delta-2.0.0.jar,\
+	com.liferay.petra.json.web.service.client-8.0.0.jar,\
+	com.liferay.petra.mail.template-1.0.1.jar,\
+	com.liferay.petra.model.adapter-2.0.0.jar
+
+app.change.log-1.0.0=LPS-79679 LPS-79799 LPS-80332 LPS-81951 LPS-82828
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

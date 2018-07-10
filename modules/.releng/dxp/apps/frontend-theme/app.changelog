@@ -1,0 +1,15 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	admin-theme-2.0.6.war,\
+	classic-theme-2.0.7.war,\
+	com.liferay.frontend.theme.contributor.extender-3.0.0.jar,\
+	com.liferay.frontend.theme.favicon.servlet-2.0.0.jar,\
+	com.liferay.frontend.theme.styled-3.0.3.jar,\
+	com.liferay.frontend.theme.unstyled-3.0.3.jar
+
+app.change.log-1.0.0=LPS-80332 LPS-80517 LPS-82420 LPS-82623 LPS-82665 LPS-83106
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

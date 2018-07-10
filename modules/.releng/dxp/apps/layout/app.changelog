@@ -1,0 +1,30 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.layout.admin.api-1.0.1.jar,\
+	com.liferay.layout.admin.web-2.0.15.jar,\
+	com.liferay.layout.api-1.0.1.jar,\
+	com.liferay.layout.impl-3.0.0.jar,\
+	com.liferay.layout.item.selector.api-2.0.0.jar,\
+	com.liferay.layout.item.selector.web-2.0.2.jar,\
+	com.liferay.layout.page.template.api-1.1.0.jar,\
+	com.liferay.layout.page.template.service-1.0.6.jar,\
+	com.liferay.layout.prototype.api-2.0.0.jar,\
+	com.liferay.layout.prototype.impl-2.0.0.jar,\
+	com.liferay.layout.set.prototype.api-2.0.0.jar,\
+	com.liferay.layout.set.prototype.impl-3.0.0.jar,\
+	com.liferay.layout.set.prototype.web-2.0.1.jar,\
+	com.liferay.layout.taglib-3.0.6.jar,\
+	com.liferay.layout.type.controller.asset.display-1.0.3.jar,\
+	com.liferay.layout.type.controller.content-1.0.4.jar,\
+	com.liferay.layout.type.controller.control.panel-3.0.0.jar,\
+	com.liferay.layout.type.controller.full.page.application-3.0.0.jar,\
+	com.liferay.layout.type.controller.link.to.page-1.0.1.jar,\
+	com.liferay.layout.type.controller.node-3.0.0.jar,\
+	com.liferay.layout.uad-1.0.1.jar
+
+app.change.log-1.0.0=LPS-0 LPS-77699 LPS-79638 LPS-79653 LPS-79664 LPS-79679 LPS-80295 LPS-80332 LPS-80479 LPS-80728 LPS-80927 LPS-80954 LPS-81383 LPS-81404 LPS-81446 LPS-81897 LPS-81928 LPS-82015 LPS-82021/LPS-82022 LPS-82048 LPS-82210 LPS-82343 LPS-82401 LPS-82444 LPS-82572 LPS-82612 LPS-82821 LPS-83093
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

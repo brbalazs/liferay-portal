@@ -1,0 +1,27 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.journal.api-3.0.2.jar,\
+	com.liferay.journal.content.asset.addon.entry.api-1.0.1.jar,\
+	com.liferay.journal.content.asset.addon.entry.comments-2.0.0.jar,\
+	com.liferay.journal.content.asset.addon.entry.conversions-3.0.0.jar,\
+	com.liferay.journal.content.asset.addon.entry.locales-2.0.0.jar,\
+	com.liferay.journal.content.asset.addon.entry.print-3.0.0.jar,\
+	com.liferay.journal.content.asset.addon.entry.ratings-3.0.0.jar,\
+	com.liferay.journal.content.asset.addon.entry.related.assets-3.0.0.jar,\
+	com.liferay.journal.content.web-3.0.5.jar,\
+	com.liferay.journal.editor.configuration-2.0.0.jar,\
+	com.liferay.journal.item.selector.api-2.0.0.jar,\
+	com.liferay.journal.item.selector.web-2.0.0.jar,\
+	com.liferay.journal.lang-3.0.6.jar,\
+	com.liferay.journal.ratings.definition-3.0.0.jar,\
+	com.liferay.journal.service-4.0.11.jar,\
+	com.liferay.journal.taglib-2.0.0.jar,\
+	com.liferay.journal.terms.of.use-3.0.1.jar,\
+	com.liferay.journal.web-2.0.9.jar
+
+app.change.log-1.0.0=LPS-0 LPS-79653 LPS-80332 LPS-80517 LPS-80556 LPS-80652 LPS-80689 LPS-80826 LPS-82828 LPS-83016 LPS-83160
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

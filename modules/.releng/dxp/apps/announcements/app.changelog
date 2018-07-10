@@ -1,0 +1,13 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.announcements.api-2.0.0.jar,\
+	com.liferay.announcements.editor.configuration-1.0.2.jar,\
+	com.liferay.announcements.uad-1.0.2.jar,\
+	com.liferay.announcements.web-3.0.2.jar
+
+app.change.log-1.0.0=LPS-80332 LPS-82828
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

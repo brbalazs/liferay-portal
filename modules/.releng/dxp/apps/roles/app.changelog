@@ -1,0 +1,16 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.roles.admin.api-3.0.0.jar,\
+	com.liferay.roles.admin.impl-2.0.0.jar,\
+	com.liferay.roles.admin.web-2.0.2.jar,\
+	com.liferay.roles.item.selector.api-1.0.1.jar,\
+	com.liferay.roles.item.selector.web-1.0.1.jar,\
+	com.liferay.roles.selector.web-2.0.1.jar,\
+	com.liferay.roles.uad-1.0.1.jar
+
+app.change.log-1.0.0=LPS-0 LPS-77699 LPS-79653 LPS-80332 LPS-80762 LPS-80927 LPS-81404
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

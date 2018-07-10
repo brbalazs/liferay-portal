@@ -1,0 +1,11 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.analytics.api-1.0.1.jar,\
+	com.liferay.analytics.data.binding.impl-1.0.1.jar
+
+app.change.log-1.0.0=LPS-65627 LPS-74544 LPS-75049 LPS-75418 LPS-75962 LPS-76012 LPS-76226 LPS-76288 LPS-76580 LPS-80332 
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

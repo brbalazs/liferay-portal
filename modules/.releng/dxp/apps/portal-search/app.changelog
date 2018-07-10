@@ -1,0 +1,16 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.portal.search-5.0.4.jar,\
+	com.liferay.portal.search.admin.web-1.0.1.jar,\
+	com.liferay.portal.search.api-2.0.5.jar,\
+	com.liferay.portal.search.engine.adapter.api-1.0.1.jar,\
+	com.liferay.portal.search.spi-2.0.0.jar,\
+	com.liferay.portal.search.web-3.0.8.jar,\
+	com.liferay.portal.search.web.api-2.0.2.jar
+
+app.change.log-1.0.0=LPS-0 LPS-77699 LPS-79653 LPS-79679 LPS-80332 LPS-80976 LPS-82343 LPS-82828
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

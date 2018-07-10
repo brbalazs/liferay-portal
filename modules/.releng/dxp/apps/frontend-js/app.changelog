@@ -1,0 +1,20 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.frontend.js.aui.web-2.0.2.jar,\
+	com.liferay.frontend.js.bundle.config.extender-2.0.0.jar,\
+	com.liferay.frontend.js.loader.modules.extender-3.0.4.jar,\
+	com.liferay.frontend.js.loader.modules.extender.api-2.0.2.jar,\
+	com.liferay.frontend.js.metal.web-2.0.3.jar,\
+	com.liferay.frontend.js.minifier-1.0.1.jar,\
+	com.liferay.frontend.js.node.shims-2.0.1.jar,\
+	com.liferay.frontend.js.polyfill.babel.web-2.0.0.jar,\
+	com.liferay.frontend.js.spa.web-2.0.6.jar,\
+	com.liferay.frontend.js.top.head.extender-1.0.1.jar,\
+	com.liferay.frontend.js.web-2.0.6.jar
+
+app.change.log-1.0.0=LPS-0 LPS-77699 LPS-79653 LPS-79709 LPS-80332 LPS-80517 LPS-82343 LPS-82420 LPS-82481 LPS-82568 LPS-82734 LPS-82828 LRQA-41876
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

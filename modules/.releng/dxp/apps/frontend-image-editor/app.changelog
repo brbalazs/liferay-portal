@@ -1,0 +1,19 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.frontend.image.editor.api-2.0.0.jar,\
+	com.liferay.frontend.image.editor.capability.brightness-2.0.3.jar,\
+	com.liferay.frontend.image.editor.capability.contrast-2.0.3.jar,\
+	com.liferay.frontend.image.editor.capability.crop-2.0.1.jar,\
+	com.liferay.frontend.image.editor.capability.effects-2.0.2.jar,\
+	com.liferay.frontend.image.editor.capability.resize-2.0.1.jar,\
+	com.liferay.frontend.image.editor.capability.rotate-2.0.1.jar,\
+	com.liferay.frontend.image.editor.capability.saturation-2.0.3.jar,\
+	com.liferay.frontend.image.editor.integration.document.library-2.0.1.jar,\
+	com.liferay.frontend.image.editor.web-2.0.1.jar
+
+app.change.log-1.0.0=LPS-77699 LPS-80332 LPS-81713 LPS-82756
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

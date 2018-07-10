@@ -1,0 +1,19 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.oauth2.provider.api-1.0.4.jar,\
+	com.liferay.oauth2.provider.jsonws-1.0.9.jar,\
+	com.liferay.oauth2.provider.rest-1.0.9.jar,\
+	com.liferay.oauth2.provider.rest.spi-1.0.0.jar,\
+	com.liferay.oauth2.provider.scope.api-1.0.2.jar,\
+	com.liferay.oauth2.provider.scope.impl-1.0.8.jar,\
+	com.liferay.oauth2.provider.scope.liferay.api-1.0.2.jar,\
+	com.liferay.oauth2.provider.scope.spi-1.0.1.jar,\
+	com.liferay.oauth2.provider.service-1.0.2.jar,\
+	com.liferay.oauth2.provider.web-1.0.10.jar
+
+app.change.log-1.0.0=LPS-77699 LPS-79679 LPS-82828 
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

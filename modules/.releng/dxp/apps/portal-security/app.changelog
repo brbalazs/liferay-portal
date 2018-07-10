@@ -1,0 +1,19 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.portal.security.antisamy-3.0.0.jar,\
+	com.liferay.portal.security.auth.verifier-3.0.2.jar,\
+	com.liferay.portal.security.auto.login-3.0.1.jar,\
+	com.liferay.portal.security.exportimport.api-3.0.0.jar,\
+	com.liferay.portal.security.ldap.api-1.0.4.jar,\
+	com.liferay.portal.security.ldap.impl-1.0.4.jar,\
+	com.liferay.portal.security.service.access.policy.api-3.0.0.jar,\
+	com.liferay.portal.security.service.access.policy.service-3.0.0.jar,\
+	com.liferay.portal.security.service.access.policy.web-2.0.3.jar,\
+	com.liferay.portal.security.service.access.quota.api-1.0.1.jar
+
+app.change.log-1.0.0=LPS-0 LPS-77699 LPS-79653 LPS-79679 LPS-79799 LPS-79919 LPS-80332 LPS-80778 LPS-81028 LPS-81571 LPS-81723 LPS-82261 LPS-82343 LPS-82828
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

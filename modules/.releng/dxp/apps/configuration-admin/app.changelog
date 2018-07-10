@@ -1,0 +1,11 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.configuration.admin.api-1.0.1.jar,\
+	com.liferay.configuration.admin.web-2.0.10.jar
+
+app.change.log-1.0.0=LPS-79679 LPS-80332 LPS-80341
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

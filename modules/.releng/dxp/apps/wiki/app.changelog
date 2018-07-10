@@ -1,0 +1,22 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.wiki.api-3.0.3.jar,\
+	com.liferay.wiki.editor.configuration-2.0.0.jar,\
+	com.liferay.wiki.editor.link.browse.web-1.0.1.jar,\
+	com.liferay.wiki.engine.creole-3.0.0.jar,\
+	com.liferay.wiki.engine.html-3.0.0.jar,\
+	com.liferay.wiki.engine.input.editor.common-4.0.2.jar,\
+	com.liferay.wiki.engine.lang-2.0.0.jar,\
+	com.liferay.wiki.engine.text-3.0.0.jar,\
+	com.liferay.wiki.layout.prototype-2.0.0.jar,\
+	com.liferay.wiki.navigation.web-3.0.0.jar,\
+	com.liferay.wiki.service-2.0.3.jar,\
+	com.liferay.wiki.uad-1.0.1.jar,\
+	com.liferay.wiki.web-4.0.7.jar
+
+app.change.log-1.0.0=LPS-77699 LPS-79653 LPS-79679 LPS-80003 LPS-80332 LPS-80513 LPS-80688 LPS-80728 LPS-80927 LPS-81373 LPS-81404 LPS-81931 LPS-82343 LPS-82828
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

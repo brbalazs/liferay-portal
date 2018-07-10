@@ -1,0 +1,46 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.dynamic.data.mapping.api-4.2.1.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.impl-2.0.1.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.instance-1.0.1.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.web-2.0.2.jar,\
+	com.liferay.dynamic.data.mapping.expression-3.0.2.jar,\
+	com.liferay.dynamic.data.mapping.form.analytics-2.0.0.jar,\
+	com.liferay.dynamic.data.mapping.form.builder-1.0.11.jar,\
+	com.liferay.dynamic.data.mapping.form.evaluator.impl-1.0.2.jar,\
+	com.liferay.dynamic.data.mapping.form.field.type-3.0.0.jar,\
+	com.liferay.dynamic.data.mapping.form.renderer-3.0.6.jar,\
+	com.liferay.dynamic.data.mapping.form.taglib-1.0.1.jar,\
+	com.liferay.dynamic.data.mapping.form.values.factory-3.0.1.jar,\
+	com.liferay.dynamic.data.mapping.form.values.query-3.0.0.jar,\
+	com.liferay.dynamic.data.mapping.form.web-1.0.12.jar,\
+	com.liferay.dynamic.data.mapping.io-3.0.0.jar,\
+	com.liferay.dynamic.data.mapping.lang-3.0.0.jar,\
+	com.liferay.dynamic.data.mapping.service-3.0.11.jar,\
+	com.liferay.dynamic.data.mapping.taglib-3.1.0.jar,\
+	com.liferay.dynamic.data.mapping.type.captcha-3.0.1.jar,\
+	com.liferay.dynamic.data.mapping.type.checkbox-3.0.1.jar,\
+	com.liferay.dynamic.data.mapping.type.checkbox.multiple-2.0.1.jar,\
+	com.liferay.dynamic.data.mapping.type.date-3.0.1.jar,\
+	com.liferay.dynamic.data.mapping.type.document.library-1.0.4.jar,\
+	com.liferay.dynamic.data.mapping.type.editor-3.0.1.jar,\
+	com.liferay.dynamic.data.mapping.type.fieldset-1.0.2.jar,\
+	com.liferay.dynamic.data.mapping.type.grid-1.0.2.jar,\
+	com.liferay.dynamic.data.mapping.type.key.value-3.0.1.jar,\
+	com.liferay.dynamic.data.mapping.type.numeric-1.0.3.jar,\
+	com.liferay.dynamic.data.mapping.type.options-3.0.1.jar,\
+	com.liferay.dynamic.data.mapping.type.paragraph-3.0.1.jar,\
+	com.liferay.dynamic.data.mapping.type.password-2.0.1.jar,\
+	com.liferay.dynamic.data.mapping.type.radio-3.0.2.jar,\
+	com.liferay.dynamic.data.mapping.type.select-3.0.2.jar,\
+	com.liferay.dynamic.data.mapping.type.text-3.0.1.jar,\
+	com.liferay.dynamic.data.mapping.type.validation-3.0.2.jar,\
+	com.liferay.dynamic.data.mapping.validator-3.0.0.jar,\
+	com.liferay.dynamic.data.mapping.web-2.0.4.jar
+
+app.change.log-1.0.0=LPS-75815 LPS-77699 LPS-78974 LPS-79277 LPS-79494 LPS-79653 LPS-79679 LPS-80246 LPS-80332 LPS-80517 LPS-80810 LPS-81584 LPS-81613 LPS-81650 LPS-81793 LPS-82113 LPS-82343 LPS-82408 LPS-82464 LPS-82568 LPS-82728 LPS-82828 LPS-83069 LPS-83152
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

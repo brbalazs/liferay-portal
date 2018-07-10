@@ -1,0 +1,11 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.changeset.api-1.2.0.jar,\
+	com.liferay.changeset.service-1.0.3.jar
+
+app.change.log-1.0.0=LPS-81816 LPS-82289 LPS-82446
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467

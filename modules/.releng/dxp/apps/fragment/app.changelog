@@ -1,0 +1,20 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.fragment.api-1.0.3.jar,\
+	com.liferay.fragment.display.web-1.0.3.jar,\
+	com.liferay.fragment.entry.processor.editable-1.0.5.jar,\
+	com.liferay.fragment.entry.processor.nullable-1.0.1.jar,\
+	com.liferay.fragment.entry.processor.portlet-1.0.5.jar,\
+	com.liferay.fragment.impl-1.0.1.jar,\
+	com.liferay.fragment.item.selector.api-1.0.1.jar,\
+	com.liferay.fragment.item.selector.web-1.0.3.jar,\
+	com.liferay.fragment.service-1.0.6.jar,\
+	com.liferay.fragment.taglib-1.0.1.jar,\
+	com.liferay.fragment.web-1.0.9.jar
+
+app.change.log-1.0.0=LPS-77699 LPS-79350 LPS-79653 LPS-79679 LPS-80332 LPS-80517 LPS-80527 LPS-82572 LPS-82712 LPS-82828
+
+app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467
