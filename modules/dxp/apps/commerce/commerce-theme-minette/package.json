@@ -15,6 +15,6 @@
 		"version": "7.1"
 	},
 	"main": "package.json",
-	"name": "commerce-theme-minette-theme",
+	"name": "commerce-minette-theme",
 	"version": "1.0.0"
 }
