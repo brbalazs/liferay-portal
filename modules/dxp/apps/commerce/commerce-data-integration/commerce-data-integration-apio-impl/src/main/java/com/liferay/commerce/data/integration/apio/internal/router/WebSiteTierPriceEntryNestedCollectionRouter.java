@@ -21,6 +21,7 @@ import com.liferay.apio.architect.routes.NestedCollectionRoutes;
 import com.liferay.commerce.data.integration.apio.identifiers.CommerceTierPriceEntryIdentifier;
 import com.liferay.commerce.price.list.model.CommerceTierPriceEntry;
 import com.liferay.commerce.price.list.service.CommerceTierPriceEntryService;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
 
 import java.util.List;
@@ -54,9 +55,10 @@ public class WebSiteTierPriceEntryNestedCollectionRouter implements
 	}
 
 	private PageItems<CommerceTierPriceEntry> _getPageItems(
-		Pagination pagination, long groupId) {
+			Pagination pagination, long groupId)
+		throws PortalException {
 
-		/*List<CommerceTierPriceEntry> commercePriceEntries =
+		List<CommerceTierPriceEntry> commercePriceEntries =
 			_commerceTierPriceEntryService.fetchCommerceTierPriceEntries(
 				groupId, pagination.getStartPosition(),
 				pagination.getEndPosition());
@@ -64,8 +66,7 @@ public class WebSiteTierPriceEntryNestedCollectionRouter implements
 			_commerceTierPriceEntryService.
 				getCommerceTierPriceEntriesCountByGroupId(groupId);
 
-		return new PageItems<>(commercePriceEntries, count);*/
-		return null;
+		return new PageItems<>(commercePriceEntries, count);
 	}
 
 	@Reference

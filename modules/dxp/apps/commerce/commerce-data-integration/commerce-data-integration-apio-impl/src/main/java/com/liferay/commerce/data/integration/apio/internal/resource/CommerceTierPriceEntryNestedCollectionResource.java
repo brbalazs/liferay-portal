@@ -130,9 +130,10 @@ public class CommerceTierPriceEntryNestedCollectionResource
 	}
 
 	private PageItems<CommerceTierPriceEntry> _getPageItems(
-		Pagination pagination, Long commercePriceEntryId) {
+			Pagination pagination, Long commercePriceEntryId)
+		throws PortalException {
 
-		/*List<CommerceTierPriceEntry> commerceTierPriceEntries =
+		List<CommerceTierPriceEntry> commerceTierPriceEntries =
 			_commerceTierPriceEntryService.getCommerceTierPriceEntries(
 				commercePriceEntryId, pagination.getStartPosition(),
 				pagination.getEndPosition());
@@ -149,8 +150,7 @@ public class CommerceTierPriceEntryNestedCollectionResource
 			_commerceTierPriceEntryService.getCommerceTierPriceEntriesCount(
 				commercePriceEntryId);
 
-		return new PageItems<>(commerceTierPriceEntries, count);*/
-		return null;
+		return new PageItems<>(commerceTierPriceEntries, count);*
 	}
 
 	private CommerceTierPriceEntry _updateCommercePriceEntry(

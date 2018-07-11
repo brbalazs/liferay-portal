@@ -22,7 +22,10 @@ import com.liferay.commerce.price.list.service.CommerceTierPriceEntryService;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserService;
 import com.liferay.portal.kernel.util.StringBundler;
 
 import java.math.BigDecimal;
@@ -39,9 +42,10 @@ import org.osgi.service.component.annotations.Reference;
 public class CommerceTierPriceEntryHelper {
 
 	public CommerceTierPriceEntry getCommerceTierPriceEntry(
-		Long commerceTierPriceEntryId) {
+			Long commerceTierPriceEntryId)
+		throws PortalException {
 
-		/*CommerceTierPriceEntry commerceTierPriceEntry =
+		CommerceTierPriceEntry commerceTierPriceEntry =
 			_commerceTierPriceEntryService.fetchCommerceTierPriceEntry(
 				commerceTierPriceEntryId);
 
@@ -51,8 +55,7 @@ public class CommerceTierPriceEntryHelper {
 					commerceTierPriceEntryId);
 		}
 
-		return commerceTierPriceEntry;*/
-		return null;
+		return commerceTierPriceEntry;*
 	}
 
 	public CommerceTierPriceEntry updateCommerceTierPriceEntry(
@@ -96,7 +99,7 @@ public class CommerceTierPriceEntryHelper {
 			Long commercePriceEntryId, String priceEntryExternalReferenceCode)
 		throws PortalException {
 
-		/*if (commercePriceEntryId > 0) {
+		if (commercePriceEntryId > 0) {
 			CommercePriceEntry commercePriceEntry =
 				_commercePriceEntryService.fetchCommercePriceEntry(
 					commercePriceEntryId);
@@ -107,14 +110,17 @@ public class CommerceTierPriceEntryHelper {
 		}
 
 		if (priceEntryExternalReferenceCode != null) {
+			User user = _userService.getUserById(
+				PrincipalThreadLocal.getUserId());
+
 			CommercePriceEntry commercePriceEntry =
 				_commercePriceEntryService.fetchByExternalReferenceCode(
-					priceEntryExternalReferenceCode);
+					user.getCompanyId(), priceEntryExternalReferenceCode);
 
 			if (commercePriceEntry != null) {
 				return commercePriceEntry.getGroupId();
 			}
-		}*/
+		}
 
 		StringBundler sb = new StringBundler(6);
 
@@ -136,5 +142,8 @@ public class CommerceTierPriceEntryHelper {
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;
+
+	@Reference
+	private UserService _userService;
 
 }
