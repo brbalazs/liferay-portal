@@ -56,16 +56,16 @@ public class WebSiteTierPriceEntryNestedCollectionRouter implements
 	private PageItems<CommerceTierPriceEntry> _getPageItems(
 		Pagination pagination, long groupId) {
 
-		List<CommerceTierPriceEntry> commercePriceEntries =
+		/*List<CommerceTierPriceEntry> commercePriceEntries =
 			_commerceTierPriceEntryService.fetchCommerceTierPriceEntries(
 				groupId, pagination.getStartPosition(),
 				pagination.getEndPosition());
-
 		int count =
 			_commerceTierPriceEntryService.
 				getCommerceTierPriceEntriesCountByGroupId(groupId);
 
-		return new PageItems<>(commercePriceEntries, count);
+		return new PageItems<>(commercePriceEntries, count);*/
+		return null;
 	}
 
 	@Reference

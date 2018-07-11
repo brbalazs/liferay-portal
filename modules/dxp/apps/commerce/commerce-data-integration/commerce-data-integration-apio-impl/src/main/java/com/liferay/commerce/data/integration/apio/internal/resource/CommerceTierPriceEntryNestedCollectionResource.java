@@ -132,7 +132,7 @@ public class CommerceTierPriceEntryNestedCollectionResource
 	private PageItems<CommerceTierPriceEntry> _getPageItems(
 		Pagination pagination, Long commercePriceEntryId) {
 
-		List<CommerceTierPriceEntry> commerceTierPriceEntries =
+		/*List<CommerceTierPriceEntry> commerceTierPriceEntries =
 			_commerceTierPriceEntryService.getCommerceTierPriceEntries(
 				commercePriceEntryId, pagination.getStartPosition(),
 				pagination.getEndPosition());
@@ -149,7 +149,8 @@ public class CommerceTierPriceEntryNestedCollectionResource
 			_commerceTierPriceEntryService.getCommerceTierPriceEntriesCount(
 				commercePriceEntryId);
 
-		return new PageItems<>(commerceTierPriceEntries, count);
+		return new PageItems<>(commerceTierPriceEntries, count);*/
+		return null;
 	}
 
 	private CommerceTierPriceEntry _updateCommercePriceEntry(

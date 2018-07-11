@@ -41,7 +41,7 @@ public class CommerceTierPriceEntryHelper {
 	public CommerceTierPriceEntry getCommerceTierPriceEntry(
 		Long commerceTierPriceEntryId) {
 
-		CommerceTierPriceEntry commerceTierPriceEntry =
+		/*CommerceTierPriceEntry commerceTierPriceEntry =
 			_commerceTierPriceEntryService.fetchCommerceTierPriceEntry(
 				commerceTierPriceEntryId);
 
@@ -51,7 +51,8 @@ public class CommerceTierPriceEntryHelper {
 					commerceTierPriceEntryId);
 		}
 
-		return commerceTierPriceEntry;
+		return commerceTierPriceEntry;*/
+		return null;
 	}
 
 	public CommerceTierPriceEntry updateCommerceTierPriceEntry(
@@ -95,7 +96,7 @@ public class CommerceTierPriceEntryHelper {
 			Long commercePriceEntryId, String priceEntryExternalReferenceCode)
 		throws PortalException {
 
-		if (commercePriceEntryId > 0) {
+		/*if (commercePriceEntryId > 0) {
 			CommercePriceEntry commercePriceEntry =
 				_commercePriceEntryService.fetchCommercePriceEntry(
 					commercePriceEntryId);
@@ -113,7 +114,7 @@ public class CommerceTierPriceEntryHelper {
 			if (commercePriceEntry != null) {
 				return commercePriceEntry.getGroupId();
 			}
-		}
+		}*/
 
 		StringBundler sb = new StringBundler(6);
 
