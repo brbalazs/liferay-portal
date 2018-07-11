@@ -150,7 +150,7 @@ public class CommerceTierPriceEntryNestedCollectionResource
 			_commerceTierPriceEntryService.getCommerceTierPriceEntriesCount(
 				commercePriceEntryId);
 
-		return new PageItems<>(commerceTierPriceEntries, count);*
+		return new PageItems<>(commerceTierPriceEntries, count);
 	}
 
 	private CommerceTierPriceEntry _updateCommercePriceEntry(
