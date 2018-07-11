@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Commerce Initializer Beryl
 Bundle-SymbolicName: com.liferay.commerce.initializer.beryl
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.1
 Import-Package:\
 	!org.json,\
 	\
