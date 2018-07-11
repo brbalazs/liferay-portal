@@ -8,5 +8,5 @@ dependencies {
 	compileOnly group: "com.liferay", name: "com.liferay.portal.dao.orm.custom.sql.api", version: "1.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.portal.spring.extender", version: "2.0.0"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "3.5.0"
-	compileOnly project(":private:apps:commerce:commerce-forecast-api")
+	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.forecast.api", version: "1.0.0"
 }
