@@ -54,7 +54,7 @@ public class CommerceTierPriceEntryHelper {
 				"Unable to find tier price entry with ID " +
 					commerceTierPriceEntryId);
 		}
-		
+
 		return commerceTierPriceEntry;
 	}
 
