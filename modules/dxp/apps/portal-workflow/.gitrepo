@@ -4,8 +4,8 @@
 [subrepo]
 	autopull = false
 	cmdver = liferay
-	commit = 73cac22a5c3e5d284cda1ffd9ce5f41e85283fb0
+	commit = 5de6ba90501fc415583e8c0165ab16d734265c96
 	mergebuttonmergecommits = false
 	mode = push
-	parent = b75edb196946c08664a5376aee62c766df774b27
+	parent = d001286114b3cfea46b6b0323dcf2e015fd5a522
 	remote = git@github.com:liferay/com-liferay-portal-workflow-private.git
