@@ -739,8 +739,8 @@ public class FedExCommerceShippingOptionHelper {
 				_getRequestedPackageLineItemsByDimensions(commerceOrderItems);
 		}
 		else if (packingType.equals(
-					FedExCommerceShippingEngineConstants.
-						PACKING_TYPE_ONE_ITEM_PER_PACKAGE)) {
+					 FedExCommerceShippingEngineConstants.
+						 PACKING_TYPE_ONE_ITEM_PER_PACKAGE)) {
 
 			requestedPackageLineItems =
 				_getRequestedPackageLineItemsOneItemPerPackage(

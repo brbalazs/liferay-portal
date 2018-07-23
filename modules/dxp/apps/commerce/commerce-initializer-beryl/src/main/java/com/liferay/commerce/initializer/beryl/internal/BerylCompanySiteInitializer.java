@@ -73,7 +73,7 @@ public class BerylCompanySiteInitializer
 				ExpandoColumnConstants.BOOLEAN, true, false);
 		}
 		else if (!(boolean)expandoBridge.getAttribute(
-					_RUN_BERYL_COMPANY_SITE_INITIALIZER, false)) {
+					 _RUN_BERYL_COMPANY_SITE_INITIALIZER, false)) {
 
 			return;
 		}
