@@ -1,8 +1,18 @@
-task prepareWeDeployModules(type: Sync)
+task cleanDeployDir(type: Delete)
+task deployPublicModules(type: GradleBuild)
+task prepareWeDeployModules(type: Copy)
 task wedeploy(type: Exec)
+
+File deployConfigsDir = file("wedeploy/lfr/osgi-configs")
+File deployDir = file("wedeploy/lfr/deploy")
 
 configurations {
 	weDeployModules
+}
+
+cleanDeployDir {
+	delete deployDir
+	delete fileTree(dir: deployConfigsDir, include: "com.liferay.commerce.*.cfg")
 }
 
 dependencies {
@@ -13,9 +23,27 @@ dependencies {
 	}
 }
 
+deployPublicModules {
+	dependsOn cleanDeployDir
+	dir = new File(rootDir.parentFile, "com-liferay-commerce")
+
+	startParameter.projectProperties = [
+		"forced.configs.deploy.dir": deployConfigsDir.absolutePath,
+		"forced.deploy.dir": deployDir.absolutePath
+	]
+
+	startParameter.parallelProjectExecutionEnabled = true
+	startParameter.systemPropertiesArgs = ["build.profile": "portal"]
+
+	tasks = ["deploy"]
+}
+
 prepareWeDeployModules {
+	dependsOn cleanDeployDir
+	dependsOn deployPublicModules
+
 	from configurations.weDeployModules
-	into "wedeploy/lfr/deploy"
+	into deployDir
 }
 
 wedeploy {
