@@ -93,6 +93,7 @@ import com.liferay.site.exception.InitializationException;
 import com.liferay.site.initializer.SiteInitializer;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 
 import java.math.BigDecimal;
@@ -475,12 +476,7 @@ public class BerylSiteInitializer implements SiteInitializer {
 	}
 
 	protected void createRoles(ServiceContext serviceContext) throws Exception {
-		Class<?> clazz = getClass();
-
-		String rolesJSON = StringUtil.read(
-			clazz.getClassLoader(), DEPENDENCY_PATH + "roles.json", true);
-
-		JSONArray jsonArray = _jsonFactory.createJSONArray(rolesJSON);
+		JSONArray jsonArray = _getJSONArray("roles.json");
 
 		_cpFileImporter.createRoles(jsonArray, serviceContext);
 
@@ -510,25 +506,10 @@ public class BerylSiteInitializer implements SiteInitializer {
 		return serviceContext;
 	}
 
-	protected JSONObject getThemeSettingsJSONObject() throws Exception {
-		Class<?> clazz = getClass();
-
-		String themeSettingsJSON = StringUtil.read(
-			clazz.getClassLoader(), DEPENDENCY_PATH + "theme-settings.json",
-			false);
-
-		return _jsonFactory.createJSONObject(themeSettingsJSON);
-	}
-
 	protected void importProducts(ServiceContext serviceContext)
 		throws Exception {
 
-		Class<?> clazz = getClass();
-
-		String productsJSON = StringUtil.read(
-			clazz.getClassLoader(), DEPENDENCY_PATH + "products.json", false);
-
-		JSONArray jsonArray = _jsonFactory.createJSONArray(productsJSON);
+		JSONArray jsonArray = _getJSONArray("products.json");
 
 		AssetVocabulary assetVocabulary = _getAssetVocabulary(
 			_COMMERCE_VOCABULARY, serviceContext);
@@ -607,7 +588,8 @@ public class BerylSiteInitializer implements SiteInitializer {
 	protected void setThemeSettings(ServiceContext serviceContext)
 		throws Exception {
 
-		JSONObject themeSettingsJSONObject = getThemeSettingsJSONObject();
+		JSONObject themeSettingsJSONObject = _getJSONObject(
+			"theme-settings.json");
 
 		Iterator<String> iterator = themeSettingsJSONObject.keys();
 
@@ -785,6 +767,24 @@ public class BerylSiteInitializer implements SiteInitializer {
 		sb.append(StringPool.CLOSE_PARENTHESIS);
 
 		return sb.toString();
+	}
+
+	private String _getJSON(String name) throws IOException {
+		return StringUtil.read(
+			BerylSiteInitializer.class.getClassLoader(),
+			DEPENDENCY_PATH + name);
+	}
+
+	private JSONArray _getJSONArray(String name) throws Exception {
+		String json = _getJSON(name);
+
+		return _jsonFactory.createJSONArray(json);
+	}
+
+	private JSONObject _getJSONObject(String name) throws Exception {
+		String json = _getJSON(name);
+
+		return _jsonFactory.createJSONObject(json);
 	}
 
 	private String[] _getOrganizationTypeChildrenTypes(
