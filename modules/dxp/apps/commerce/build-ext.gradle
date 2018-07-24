@@ -6,13 +6,13 @@ task wedeploy(type: Exec)
 File deployConfigsDir = file("wedeploy/lfr/osgi-configs")
 File deployDir = file("wedeploy/lfr/deploy")
 
-configurations {
-	weDeployModules
-}
-
 cleanDeployDir {
 	delete deployDir
 	delete fileTree(dir: deployConfigsDir, include: "com.liferay.commerce.*.cfg")
+}
+
+configurations {
+	weDeployModules
 }
 
 dependencies {
