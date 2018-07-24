@@ -21,8 +21,7 @@ import com.liferay.asset.kernel.service.AssetCategoryLocalService;
 import com.liferay.asset.kernel.service.AssetVocabularyLocalService;
 import com.liferay.commerce.constants.CPDefinitionInventoryConstants;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
-import com.liferay.commerce.model.CommerceCountry;
-import com.liferay.commerce.model.CommerceRegion;
+import com.liferay.commerce.initializer.util.CommerceWarehousesImporter;
 import com.liferay.commerce.model.CommerceWarehouse;
 import com.liferay.commerce.organization.constants.CommerceOrganizationConstants;
 import com.liferay.commerce.organization.service.CommerceOrganizationLocalService;
@@ -46,7 +45,6 @@ import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
 import com.liferay.commerce.service.CommerceCountryLocalService;
 import com.liferay.commerce.service.CommerceRegionLocalService;
 import com.liferay.commerce.service.CommerceWarehouseItemLocalService;
-import com.liferay.commerce.service.CommerceWarehouseLocalService;
 import com.liferay.commerce.user.segment.model.CommerceUserSegmentEntry;
 import com.liferay.commerce.user.segment.model.CommerceUserSegmentEntryConstants;
 import com.liferay.commerce.user.segment.service.CommerceUserSegmentEntryLocalService;
@@ -178,7 +176,10 @@ public class BerylSiteInitializer implements SiteInitializer {
 
 			createRoles(serviceContext);
 
-			importProducts(serviceContext);
+			List<CommerceWarehouse> commerceWarehouses =
+				_importCommerceWarehouses(serviceContext);
+
+			importProducts(commerceWarehouses, serviceContext);
 
 			createCPRule(serviceContext);
 
@@ -245,52 +246,6 @@ public class BerylSiteInitializer implements SiteInitializer {
 		}
 
 		return assetCategoryIds;
-	}
-
-	protected List<CommerceWarehouse> addCommerceWarehouses(
-			ServiceContext serviceContext)
-		throws PortalException {
-
-		CommerceCountry commerceCountry =
-			_commerceCountryLocalService.fetchCommerceCountry(
-				serviceContext.getScopeGroupId(), 840);
-
-		CommerceRegion commerceRegion =
-			_commerceRegionLocalService.getCommerceRegion(
-				commerceCountry.getCommerceCountryId(), "MN");
-
-		List<CommerceWarehouse> commerceWarehouses = new ArrayList<>();
-
-		commerceWarehouses.add(
-			_commerceWarehouseLocalService.addCommerceWarehouse(
-				"Thief River Falls, Minnesota", StringPool.BLANK, true,
-				"1101 MN-1", "", "", "Thief River Falls", "56701",
-				commerceRegion.getCommerceRegionId(),
-				commerceCountry.getCommerceCountryId(), 48.1252560, -96.1635400,
-				serviceContext));
-
-		commerceRegion = _commerceRegionLocalService.getCommerceRegion(
-			commerceCountry.getCommerceCountryId(), "IA");
-
-		commerceWarehouses.add(
-			_commerceWarehouseLocalService.addCommerceWarehouse(
-				"Des Moines, Iowa", StringPool.BLANK, true, "1330 Grand Ave",
-				"", "", "Des Moines", "50309",
-				commerceRegion.getCommerceRegionId(),
-				commerceCountry.getCommerceCountryId(), 41.5853130, -93.6345580,
-				serviceContext));
-
-		commerceRegion = _commerceRegionLocalService.getCommerceRegion(
-			commerceCountry.getCommerceCountryId(), "ID");
-
-		commerceWarehouses.add(
-			_commerceWarehouseLocalService.addCommerceWarehouse(
-				"Twin Falls, Idaho", StringPool.BLANK, true, "660 Park Ave", "",
-				"", "Twin Falls", "83301", commerceRegion.getCommerceRegionId(),
-				commerceCountry.getCommerceCountryId(), 42.5408580,
-				-114.4663890, serviceContext));
-
-		return commerceWarehouses;
 	}
 
 	protected void addCPDefinitionAttachmentFileEntry(
@@ -388,7 +343,7 @@ public class BerylSiteInitializer implements SiteInitializer {
 		_commerceCurrencyLocalService.importDefaultValues(serviceContext);
 		_commerceUserSegmentEntryLocalService.
 			importSystemCommerceUserSegmentEntries(serviceContext);
-		_commerceWarehouseLocalService.importDefaultCommerceWarehouse(
+		_commerceWarehousesImporter.importDefaultCommerceWarehouse(
 			serviceContext);
 		_cpMeasurementUnitLocalService.importDefaultValues(serviceContext);
 	}
@@ -506,16 +461,15 @@ public class BerylSiteInitializer implements SiteInitializer {
 		return serviceContext;
 	}
 
-	protected void importProducts(ServiceContext serviceContext)
+	protected void importProducts(
+			List<CommerceWarehouse> commerceWarehouses,
+			ServiceContext serviceContext)
 		throws Exception {
 
 		JSONArray jsonArray = _getJSONArray("products.json");
 
 		AssetVocabulary assetVocabulary = _getAssetVocabulary(
 			_COMMERCE_VOCABULARY, serviceContext);
-
-		List<CommerceWarehouse> commerceWarehouses = addCommerceWarehouses(
-			serviceContext);
 
 		for (int i = 0; i < jsonArray.length(); i++) {
 			JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -857,6 +811,16 @@ public class BerylSiteInitializer implements SiteInitializer {
 		return urlTitleMap;
 	}
 
+	private List<CommerceWarehouse> _importCommerceWarehouses(
+			ServiceContext serviceContext)
+		throws Exception {
+
+		JSONArray jsonArray = _getJSONArray("warehouses.json");
+
+		return _commerceWarehousesImporter.importCommerceWarehouses(
+			jsonArray, serviceContext);
+	}
+
 	private void _updateOrganizationType(
 			Configuration[] configurations, String organizationType)
 		throws Exception {
@@ -963,9 +927,6 @@ public class BerylSiteInitializer implements SiteInitializer {
 	)
 	private Portlet _commerceOrganizationPortlet;
 
-	@Reference
-	private CommerceRegionLocalService _commerceRegionLocalService;
-
 	@Reference(
 		target = "(javax.portlet.name=com_liferay_commerce_shipment_web_internal_portlet_CommerceShipmentPortlet)"
 	)
@@ -990,7 +951,7 @@ public class BerylSiteInitializer implements SiteInitializer {
 		_commerceWarehouseItemLocalService;
 
 	@Reference
-	private CommerceWarehouseLocalService _commerceWarehouseLocalService;
+	private CommerceWarehousesImporter _commerceWarehousesImporter;
 
 	@Reference
 	private ConfigurationAdmin _configurationAdmin;

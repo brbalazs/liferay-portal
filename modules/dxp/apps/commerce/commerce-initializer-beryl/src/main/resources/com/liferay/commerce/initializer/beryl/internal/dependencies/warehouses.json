@@ -1,0 +1,32 @@
+[
+	{
+		"City": "Thief River Falls",
+		"Country": 840,
+		"Latitude": 48.1252560,
+		"Longitude": -96.1635400,
+		"Name": "Thief River Falls, Minnesota",
+		"Region": "MN",
+		"Street1": "1101 MN-1",
+		"Zip": "56701"
+	},
+	{
+		"City": "Des Moines",
+		"Country": 840,
+		"Latitude": 41.5853130,
+		"Longitude": -93.6345580,
+		"Name": "Des Moines, Iowa",
+		"Region": "IA",
+		"Street1": "1330 Grand Ave",
+		"Zip": "50309"
+	},
+	{
+		"City": "Twin Falls",
+		"Country": 840,
+		"Latitude": 42.5408580,
+		"Longitude": -114.4663890,
+		"Name": "Twin Falls, Idaho",
+		"Region": "ID",
+		"Street1": "660 Park Ave",
+		"Zip": "83301"
+	}
+]
