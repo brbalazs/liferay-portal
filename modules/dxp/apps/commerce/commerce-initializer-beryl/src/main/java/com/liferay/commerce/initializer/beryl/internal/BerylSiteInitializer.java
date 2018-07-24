@@ -24,7 +24,6 @@ import com.liferay.commerce.product.constants.CPRuleConstants;
 import com.liferay.commerce.product.importer.CPFileImporter;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPRule;
-import com.liferay.commerce.product.service.CPDefinitionSpecificationOptionValueLocalService;
 import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.product.service.CPRuleLocalService;
 import com.liferay.commerce.product.service.CPRuleUserSegmentRelLocalService;
@@ -646,10 +645,6 @@ public class BerylSiteInitializer implements SiteInitializer {
 
 	@Reference
 	private CPDefinitionsImporter _cpDefinitionsImporter;
-
-	@Reference
-	private CPDefinitionSpecificationOptionValueLocalService
-		_cpDefinitionSpecificationOptionValueLocalService;
 
 	@Reference
 	private CPFileImporter _cpFileImporter;
