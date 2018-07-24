@@ -22,5 +22,6 @@ import com.liferay.apio.architect.identifier.Identifier;
  * @author Zoltán Takács
  * @review
  */
-public interface CommercePriceEntryIdentifier extends Identifier<Long> {
+public interface CommercePriceEntryIdentifier
+	extends Identifier<ClassPKExternalReferenceCode> {
 }

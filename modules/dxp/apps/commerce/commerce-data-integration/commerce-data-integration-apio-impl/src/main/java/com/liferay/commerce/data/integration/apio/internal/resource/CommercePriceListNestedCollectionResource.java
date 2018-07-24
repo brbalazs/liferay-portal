@@ -23,6 +23,7 @@ import com.liferay.apio.architect.resource.NestedCollectionResource;
 import com.liferay.apio.architect.routes.ItemRoutes;
 import com.liferay.apio.architect.routes.NestedCollectionRoutes;
 import com.liferay.commerce.currency.exception.NoSuchCurrencyException;
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
 import com.liferay.commerce.data.integration.apio.identifiers.CommercePriceListIdentifier;
 import com.liferay.commerce.data.integration.apio.internal.exceptions.ConflictException;
 import com.liferay.commerce.data.integration.apio.internal.form.CommercePriceListUpdaterForm;
@@ -59,19 +60,21 @@ import org.osgi.service.component.annotations.Reference;
 public class CommercePriceListNestedCollectionResource
 	implements
 		NestedCollectionResource<CommercePriceList,
-			Long, CommercePriceListIdentifier, Long, WebSiteIdentifier> {
+			ClassPKExternalReferenceCode, CommercePriceListIdentifier, Long,
+			WebSiteIdentifier> {
 
 	@Override
-	public NestedCollectionRoutes<CommercePriceList, Long, Long>
-		collectionRoutes(
-			NestedCollectionRoutes.Builder<CommercePriceList, Long, Long>
-				builder) {
+	public NestedCollectionRoutes<CommercePriceList,
+		ClassPKExternalReferenceCode, Long>
+			collectionRoutes(
+				NestedCollectionRoutes.Builder<CommercePriceList,
+					ClassPKExternalReferenceCode, Long>
+						builder) {
 
 		return builder.addGetter(
 			this::_getPageItems
 		).addCreator(
-			this::_upsertCommercePriceList,
-			_hasPermission.forAddingIn(CommercePriceListIdentifier.class),
+			this::_upsertCommercePriceList, (credentials, s) -> true,
 			CommercePriceListUpserterForm::buildForm
 		).build();
 	}
@@ -82,28 +85,33 @@ public class CommercePriceListNestedCollectionResource
 	}
 
 	@Override
-	public ItemRoutes<CommercePriceList, Long> itemRoutes(
-		ItemRoutes.Builder<CommercePriceList, Long> builder) {
+	public ItemRoutes<CommercePriceList,
+		ClassPKExternalReferenceCode> itemRoutes(
+			ItemRoutes.Builder<CommercePriceList, ClassPKExternalReferenceCode>
+				builder) {
 
 		return builder.addGetter(
-			_commercePriceListHelper::getCommercePriceList
+			_commercePriceListHelper::
+				getCommercePriceListByClassPKExternalReferenceCode
 		).addUpdater(
-			this::_updateCommercePriceList, _hasPermission::forUpdating,
+			this::_updateCommercePriceList, (credentials, s) -> true,
 			CommercePriceListUpdaterForm::buildForm
 		).addRemover(
-			idempotent(_commercePriceListService::deleteCommercePriceList),
-			_hasPermission::forDeleting
+			idempotent(_commercePriceListHelper::deletePriceList),
+			(credentials, s) -> true
 		).build();
 	}
 
 	@Override
 	public Representor<CommercePriceList> representor(
-		Representor.Builder<CommercePriceList, Long> builder) {
+		Representor.Builder<CommercePriceList, ClassPKExternalReferenceCode>
+			builder) {
 
 		return builder.types(
 			"CommercePriceList"
 		).identifier(
-			CommercePriceList::getCommercePriceListId
+			_commercePriceListHelper::
+				commercePriceListToClassPKExternalReferenceCode
 		).addBidirectionalModel(
 			"webSite", "commercePriceLists", WebSiteIdentifier.class,
 			CommercePriceList::getGroupId
@@ -152,13 +160,14 @@ public class CommercePriceListNestedCollectionResource
 	}
 
 	private CommercePriceList _updateCommercePriceList(
-			Long commercePriceListId,
+			ClassPKExternalReferenceCode classPKExternalReferenceCode,
 			CommercePriceListUpdaterForm commercePriceListUpdaterForm)
 		throws NotFoundException, PortalException {
 
 		try {
 			return _commercePriceListHelper.updateCommercePriceList(
-				commercePriceListId, commercePriceListUpdaterForm.getCurrency(),
+				classPKExternalReferenceCode,
+				commercePriceListUpdaterForm.getCurrency(),
 				commercePriceListUpdaterForm.getName(),
 				commercePriceListUpdaterForm.getPriority(),
 				commercePriceListUpdaterForm.isNeverExpire(),
@@ -201,7 +210,8 @@ public class CommercePriceListNestedCollectionResource
 				commercePriceListUpserterForm.isNeverExpire(),
 				commercePriceListUpserterForm.getDisplayDate(),
 				commercePriceListUpserterForm.getExpirationDate(),
-				commercePriceListUpserterForm.getExternalReferenceCode());
+				commercePriceListUpserterForm.getExternalReferenceCode(),
+				commercePriceListUpserterForm.getActive());
 		}
 		catch (NoSuchPriceListException nsple) {
 			throw new NotFoundException(

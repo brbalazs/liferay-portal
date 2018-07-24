@@ -58,6 +58,8 @@ public class CommercePriceEntryUpserterForm {
 			"price", CommercePriceEntryUpserterForm::_setPrice
 		).addRequiredDouble(
 			"promoPrice", CommercePriceEntryUpserterForm::_setPromoPrice
+		).addOptionalBoolean(
+			"standardPrice", CommercePriceEntryUpserterForm::_setStandardPrice
 		).build();
 	}
 
@@ -85,6 +87,10 @@ public class CommercePriceEntryUpserterForm {
 		return _skuExternalReferenceCode;
 	}
 
+	public Boolean getStandardPrice() {
+		return _standardPrice;
+	}
+
 	private void _setCommercePriceEntryId(Long commercePriceEntryId) {
 		_commercePriceEntryId = commercePriceEntryId;
 	}
@@ -109,11 +115,16 @@ public class CommercePriceEntryUpserterForm {
 		_skuExternalReferenceCode = skuExternalReferenceCode;
 	}
 
+	private void _setStandardPrice(Boolean standardPrice) {
+		_standardPrice = standardPrice;
+	}
+
 	private Long _commercePriceEntryId = 0L;
 	private Long _commerceProductInstanceId = 0L;
 	private String _externalReferenceCode;
 	private Double _price;
 	private Double _promoPrice;
 	private String _skuExternalReferenceCode;
+	private Boolean _standardPrice;
 
 }

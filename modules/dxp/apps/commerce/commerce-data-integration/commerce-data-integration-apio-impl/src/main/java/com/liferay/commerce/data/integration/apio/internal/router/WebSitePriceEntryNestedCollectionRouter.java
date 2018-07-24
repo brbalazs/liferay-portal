@@ -18,6 +18,7 @@ import com.liferay.apio.architect.pagination.PageItems;
 import com.liferay.apio.architect.pagination.Pagination;
 import com.liferay.apio.architect.router.NestedCollectionRouter;
 import com.liferay.apio.architect.routes.NestedCollectionRoutes;
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
 import com.liferay.commerce.data.integration.apio.identifiers.CommercePriceEntryIdentifier;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.service.CommercePriceEntryService;
@@ -41,13 +42,16 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true)
 public class WebSitePriceEntryNestedCollectionRouter implements
 	NestedCollectionRouter<CommercePriceEntry,
-		Long, CommercePriceEntryIdentifier, Long, WebSiteIdentifier> {
+		ClassPKExternalReferenceCode, CommercePriceEntryIdentifier, Long,
+		WebSiteIdentifier> {
 
 	@Override
-	public NestedCollectionRoutes<CommercePriceEntry, Long, Long>
-		collectionRoutes(
-			NestedCollectionRoutes.Builder<CommercePriceEntry, Long, Long>
-				builder) {
+	public NestedCollectionRoutes<CommercePriceEntry,
+		ClassPKExternalReferenceCode, Long>
+			collectionRoutes(
+				NestedCollectionRoutes.Builder<CommercePriceEntry,
+					ClassPKExternalReferenceCode, Long>
+						builder) {
 
 		return builder.addGetter(
 			this::_getPageItems

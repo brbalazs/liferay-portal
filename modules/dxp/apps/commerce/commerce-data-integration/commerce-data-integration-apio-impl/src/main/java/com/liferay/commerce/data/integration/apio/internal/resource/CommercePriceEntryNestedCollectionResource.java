@@ -22,14 +22,17 @@ import com.liferay.apio.architect.representor.Representor;
 import com.liferay.apio.architect.resource.NestedCollectionResource;
 import com.liferay.apio.architect.routes.ItemRoutes;
 import com.liferay.apio.architect.routes.NestedCollectionRoutes;
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
 import com.liferay.commerce.data.integration.apio.identifiers.CommercePriceEntryIdentifier;
 import com.liferay.commerce.data.integration.apio.identifiers.CommercePriceListIdentifier;
 import com.liferay.commerce.data.integration.apio.internal.exceptions.ConflictException;
 import com.liferay.commerce.data.integration.apio.internal.form.CommercePriceEntryUpdaterForm;
 import com.liferay.commerce.data.integration.apio.internal.form.CommercePriceEntryUpserterForm;
 import com.liferay.commerce.data.integration.apio.internal.util.CommercePriceEntryHelper;
+import com.liferay.commerce.data.integration.apio.internal.util.CommercePriceListHelper;
 import com.liferay.commerce.price.list.exception.DuplicateCommercePriceEntryException;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
+import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceEntryService;
 import com.liferay.commerce.product.exception.NoSuchCPInstanceException;
 import com.liferay.portal.apio.permission.HasPermission;
@@ -57,20 +60,22 @@ import org.osgi.service.component.annotations.Reference;
 public class CommercePriceEntryNestedCollectionResource
 	implements
 		NestedCollectionResource<CommercePriceEntry,
-			Long, CommercePriceEntryIdentifier, Long,
+			ClassPKExternalReferenceCode, CommercePriceEntryIdentifier,
+			ClassPKExternalReferenceCode,
 			CommercePriceListIdentifier> {
 
 	@Override
-	public NestedCollectionRoutes<CommercePriceEntry, Long, Long>
-		collectionRoutes(
-			NestedCollectionRoutes.Builder<CommercePriceEntry, Long, Long>
-				builder) {
+	public NestedCollectionRoutes<CommercePriceEntry,
+		ClassPKExternalReferenceCode, ClassPKExternalReferenceCode>
+			collectionRoutes(
+				NestedCollectionRoutes.Builder<CommercePriceEntry,
+					ClassPKExternalReferenceCode, ClassPKExternalReferenceCode>
+						builder) {
 
 		return builder.addGetter(
 			this::_getPageItems
 		).addCreator(
-			this::_upsertCommercePriceEntry,
-			_hasPermission.forAddingIn(CommercePriceEntryIdentifier.class),
+			this::_upsertCommercePriceEntry, (credentials, s) -> true,
 			CommercePriceEntryUpserterForm::buildForm
 		).build();
 	}
@@ -81,32 +86,39 @@ public class CommercePriceEntryNestedCollectionResource
 	}
 
 	@Override
-	public ItemRoutes<CommercePriceEntry, Long> itemRoutes(
-		ItemRoutes.Builder<CommercePriceEntry, Long> builder) {
+	public ItemRoutes<CommercePriceEntry,
+		ClassPKExternalReferenceCode> itemRoutes(
+			ItemRoutes.Builder<CommercePriceEntry, ClassPKExternalReferenceCode>
+				builder) {
 
 		return builder.addGetter(
-			_commercePriceEntryHelper::getCommercePriceEntry
+			_commercePriceEntryHelper::
+				getCommercePriceEntryByClassPKExternalReferenceCode
 		).addUpdater(
-			this::_updateCommercePriceEntry, _hasPermission::forUpdating,
+			this::_updateCommercePriceEntry, (credentials, s) -> true,
 			CommercePriceEntryUpdaterForm::buildForm
 		).addRemover(
-			idempotent(_commercePriceEntryService::deleteCommercePriceEntry),
-			_hasPermission::forDeleting
+			idempotent(_commercePriceEntryHelper::deletePriceEntry),
+			(credentials, s) -> true
 		).build();
 	}
 
 	@Override
 	public Representor<CommercePriceEntry> representor(
-		Representor.Builder<CommercePriceEntry, Long> builder) {
+		Representor.Builder<CommercePriceEntry, ClassPKExternalReferenceCode>
+			builder) {
 
 		return builder.types(
 			"CommercePriceEntry"
 		).identifier(
-			CommercePriceEntry::getCommercePriceEntryId
+			_commercePriceEntryHelper::
+				commercePriceEntryToClassPKExternalReferenceCode
 		).addBidirectionalModel(
 			"commercePriceList", "commercePriceEntries",
 			CommercePriceListIdentifier.class,
-			CommercePriceEntry::getCommercePriceListId
+			commercePriceEntry -> _commercePriceListHelper.
+				commercePriceListIdToClassPKExternalReferenceCode(
+					commercePriceEntry.getCommercePriceListId())
 		).addBidirectionalModel(
 			"webSite", "commercePriceEntries", WebSiteIdentifier.class,
 			CommercePriceEntry::getGroupId
@@ -134,52 +146,67 @@ public class CommercePriceEntryNestedCollectionResource
 	}
 
 	private PageItems<CommercePriceEntry> _getPageItems(
-			Pagination pagination, Long commercePriceListId)
+			Pagination pagination,
+			ClassPKExternalReferenceCode
+				commercePriceListClassExternalReferenceCode)
 		throws PortalException {
+
+		CommercePriceList commercePriceList =
+			_commercePriceListHelper.
+				getCommercePriceListByClassPKExternalReferenceCode(
+					commercePriceListClassExternalReferenceCode);
 
 		List<CommercePriceEntry> commercePriceEntries =
 			_commercePriceEntryService.getCommercePriceEntries(
-				commercePriceListId, pagination.getStartPosition(),
-				pagination.getEndPosition());
+				commercePriceList.getCommercePriceListId(),
+				pagination.getStartPosition(), pagination.getEndPosition());
 
 		if (_log.isDebugEnabled()) {
 			if (ListUtil.isEmpty(commercePriceEntries)) {
 				_log.debug(
 					"Unable to find Price Entries in Price List with ID " +
-						commercePriceListId);
+						commercePriceListClassExternalReferenceCode);
 			}
 		}
 
 		int count = _commercePriceEntryService.getCommercePriceEntriesCount(
-			commercePriceListId);
+			commercePriceList.getCommercePriceListId());
 
 		return new PageItems<>(commercePriceEntries, count);
 	}
 
 	private CommercePriceEntry _updateCommercePriceEntry(
-			Long commercePriceEntryId,
+			ClassPKExternalReferenceCode classPKExternalReferenceCode,
 			CommercePriceEntryUpdaterForm commercePriceEntryUpdaterForm)
 		throws PortalException {
 
 		return _commercePriceEntryHelper.updateCommercePriceEntry(
-			commercePriceEntryId, commercePriceEntryUpdaterForm.getPrice(),
+			classPKExternalReferenceCode,
+			commercePriceEntryUpdaterForm.getPrice(),
 			commercePriceEntryUpdaterForm.getPromoPrice());
 	}
 
 	private CommercePriceEntry _upsertCommercePriceEntry(
-			Long commercePriceListId,
+			ClassPKExternalReferenceCode
+				commercePriceListClassPKExternalReferenceCode,
 			CommercePriceEntryUpserterForm commercePriceEntryUpserterForm)
 		throws PortalException {
 
 		try {
+			CommercePriceList commercePriceList =
+				_commercePriceListHelper.
+					getCommercePriceListByClassPKExternalReferenceCode(
+						commercePriceListClassPKExternalReferenceCode);
+
 			return _commercePriceEntryHelper.upsertCommercePriceEntry(
 				commercePriceEntryUpserterForm.getCommercePriceEntryId(),
 				commercePriceEntryUpserterForm.getCommerceProductInstanceId(),
-				commercePriceListId,
+				commercePriceList.getCommercePriceListId(),
 				commercePriceEntryUpserterForm.getExternalReferenceCode(),
 				commercePriceEntryUpserterForm.getSkuExternalReferenceCode(),
 				commercePriceEntryUpserterForm.getPrice(),
-				commercePriceEntryUpserterForm.getPromoPrice());
+				commercePriceEntryUpserterForm.getPromoPrice(),
+				commercePriceEntryUpserterForm.getStandardPrice());
 		}
 		catch (NoSuchCPInstanceException nscpie) {
 			throw new NotFoundException(
@@ -200,6 +227,9 @@ public class CommercePriceEntryNestedCollectionResource
 
 	@Reference
 	private CommercePriceEntryService _commercePriceEntryService;
+
+	@Reference
+	private CommercePriceListHelper _commercePriceListHelper;
 
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.price.list.model.CommercePriceEntry)"

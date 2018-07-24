@@ -18,7 +18,6 @@ import com.liferay.apio.architect.functional.Try;
 import com.liferay.apio.architect.uri.Path;
 import com.liferay.apio.architect.uri.mapper.PathIdentifierMapper;
 import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.util.GetterUtil;
 
 import javax.ws.rs.BadRequestException;
@@ -46,7 +45,7 @@ public class ClassPKExternalReferenceCodeIdentifierMapper
 
 		long classPK = _getAsLong(components[0]);
 
-		String externalReferenceCode = StringPool.BLANK;
+		String externalReferenceCode = null;
 
 		if (components.length == 2) {
 			externalReferenceCode = components[1];

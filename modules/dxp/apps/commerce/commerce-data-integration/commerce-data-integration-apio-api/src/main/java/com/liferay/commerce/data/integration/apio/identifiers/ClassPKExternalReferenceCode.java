@@ -25,7 +25,7 @@ public interface ClassPKExternalReferenceCode {
 	public static ClassPKExternalReferenceCode create(
 		long classPK, String externalReferenceCode) {
 
-		if ((classPK == 0) || (externalReferenceCode == null)) {
+		if ((classPK == 0) && (externalReferenceCode == null)) {
 			return null;
 		}
 

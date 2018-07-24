@@ -17,14 +17,27 @@ package com.liferay.commerce.data.integration.apio.internal.util;
 import com.liferay.apio.architect.functional.Try;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
 import com.liferay.commerce.price.list.model.CommercePriceList;
+import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
 import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.service.persistence.CompanyProvider;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+
+import java.io.Serializable;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -45,6 +58,53 @@ public class CommercePriceListHelper {
 		);
 	}
 
+	public ClassPKExternalReferenceCode
+		commercePriceListIdToClassPKExternalReferenceCode(
+			long commercePriceListId) {
+
+		try {
+			CommercePriceList commercePriceList =
+				_commercePriceListService.fetchCommercePriceList(
+					commercePriceListId);
+
+			return commercePriceListToClassPKExternalReferenceCode(
+				commercePriceList);
+		}
+		catch (PortalException pe) {
+			_log.error(
+				"Unable to find Price List with ID " + commercePriceListId, pe);
+		}
+
+		return null;
+	}
+
+	public ClassPKExternalReferenceCode
+		commercePriceListToClassPKExternalReferenceCode(
+			CommercePriceList commercePriceList) {
+
+		if (commercePriceList != null) {
+			return ClassPKExternalReferenceCode.create(
+				commercePriceList.getCommercePriceListId(),
+				commercePriceList.getExternalReferenceCode());
+		}
+
+		return null;
+	}
+
+	public void deletePriceList(
+			ClassPKExternalReferenceCode classPKExternalReferenceCode)
+		throws PortalException {
+
+		CommercePriceList commercePriceList =
+			getCommercePriceListByClassPKExternalReferenceCode(
+				classPKExternalReferenceCode);
+
+		if (commercePriceList != null) {
+			_commercePriceListService.deleteCommercePriceList(
+				commercePriceList.getCommercePriceListId());
+		}
+	}
+
 	public CommercePriceList getCommercePriceList(Long commercePriceListId)
 		throws PortalException {
 
@@ -52,14 +112,34 @@ public class CommercePriceListHelper {
 			commercePriceListId);
 	}
 
-	public CommercePriceList updateCommercePriceList(
-			Long commercePriceListId, String currency, String name,
-			Double priority, Boolean neverExpire, Date displayDate,
-			Date expirationDate)
+	public CommercePriceList getCommercePriceListByClassPKExternalReferenceCode(
+			ClassPKExternalReferenceCode classPKExternalReferenceCode)
 		throws PortalException {
 
-		CommercePriceList commercePriceList = getCommercePriceList(
-			commercePriceListId);
+		long commercePriceListId = classPKExternalReferenceCode.getClassPK();
+
+		if (commercePriceListId > 0) {
+			return _commercePriceListService.fetchCommercePriceList(
+				commercePriceListId);
+		}
+		else {
+			String externalReferenceCode =
+				classPKExternalReferenceCode.getExternalReferenceCode();
+
+			return _commercePriceListService.fetchByExternalReferenceCode(
+				_companyProvider.getCompanyId(), externalReferenceCode);
+		}
+	}
+
+	public CommercePriceList updateCommercePriceList(
+			ClassPKExternalReferenceCode classPKExternalReferenceCode,
+			String currency, String name, Double priority, Boolean neverExpire,
+			Date displayDate, Date expirationDate)
+		throws PortalException {
+
+		CommercePriceList commercePriceList =
+			getCommercePriceListByClassPKExternalReferenceCode(
+				classPKExternalReferenceCode);
 
 		long groupId = commercePriceList.getGroupId();
 
@@ -115,17 +195,17 @@ public class CommercePriceListHelper {
 		}
 
 		return _commercePriceListService.updateCommercePriceList(
-			commercePriceListId, commerceCurrencyId, name, priority,
-			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
-			displayDateMinute, expirationDateMonth, expirationDateDay,
-			expirationDateYear, expirationDateHour, expirationDateMinute,
-			neverExpire, serviceContext);
+			commercePriceList.getCommercePriceListId(), commerceCurrencyId,
+			name, priority, displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear, expirationDateHour,
+			expirationDateMinute, neverExpire, serviceContext);
 	}
 
 	public CommercePriceList upsertCommercePriceList(
 			Long groupId, Long commercePriceListId, String currency,
 			String name, Double priority, Boolean neverExpire, Date displayDate,
-			Date expirationDate, String externalReferenceCode)
+			Date expirationDate, String externalReferenceCode, Boolean active)
 		throws PortalException {
 
 		long commerceCurrencyId = _getCommerceCurrencyId(groupId, currency);
@@ -179,12 +259,28 @@ public class CommercePriceListHelper {
 			expirationDateHour += 12;
 		}
 
-		return _commercePriceListService.upsertCommercePriceList(
-			commercePriceListId, commerceCurrencyId, name, priority,
-			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
-			displayDateMinute, expirationDateMonth, expirationDateDay,
-			expirationDateYear, expirationDateHour, expirationDateMinute,
-			externalReferenceCode, neverExpire, serviceContext);
+		CommercePriceList commercePriceList =
+			_commercePriceListService.upsertCommercePriceList(
+				commercePriceListId, commerceCurrencyId, name, priority,
+				displayDateMonth, displayDateDay, displayDateYear,
+				displayDateHour, displayDateMinute, expirationDateMonth,
+				expirationDateDay, expirationDateYear, expirationDateHour,
+				expirationDateMinute, externalReferenceCode, neverExpire,
+				serviceContext);
+
+		if (!active) {
+			User user = _userLocalService.getUserById(
+				PrincipalThreadLocal.getUserId());
+
+			Map<String, Serializable> workflowContext = new HashMap<>();
+
+			_commercePriceListLocalService.updateStatus(
+				user.getUserId(), commercePriceList.getCommercePriceListId(),
+				WorkflowConstants.STATUS_DRAFT, serviceContext,
+				workflowContext);
+		}
+
+		return commercePriceList;
 	}
 
 	private Calendar _convertDateToCalendar(Date date) {
@@ -204,13 +300,25 @@ public class CommercePriceListHelper {
 		return commerceCurrency.getCommerceCurrencyId();
 	}
 
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommercePriceListHelper.class);
+
 	@Reference
 	private CommerceCurrencyService _commerceCurrencyService;
+
+	@Reference
+	private CommercePriceListLocalService _commercePriceListLocalService;
 
 	@Reference
 	private CommercePriceListService _commercePriceListService;
 
 	@Reference
+	private CompanyProvider _companyProvider;
+
+	@Reference
 	private ServiceContextHelper _serviceContextHelper;
+
+	@Reference
+	private UserLocalService _userLocalService;
 
 }

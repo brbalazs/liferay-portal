@@ -62,7 +62,13 @@ public class CommercePriceListUpserterForm {
 			"currency", CommercePriceListUpserterForm::_setCurrency
 		).addRequiredString(
 			"name", CommercePriceListUpserterForm::_setName
+		).addOptionalBoolean(
+			"active", CommercePriceListUpserterForm::_setActive
 		).build();
+	}
+
+	public Boolean getActive() {
+		return _active;
 	}
 
 	public Long getCommercePriceListId() {
@@ -97,6 +103,10 @@ public class CommercePriceListUpserterForm {
 		return _neverExpire;
 	}
 
+	private void _setActive(Boolean active) {
+		_active = active;
+	}
+
 	private void _setCommercePriceListId(Long commercePriceListId) {
 		_commercePriceListId = commercePriceListId;
 	}
@@ -129,6 +139,7 @@ public class CommercePriceListUpserterForm {
 		_priority = priority;
 	}
 
+	private Boolean _active;
 	private Long _commercePriceListId = 0L;
 	private String _currency;
 	private Date _displayDate;

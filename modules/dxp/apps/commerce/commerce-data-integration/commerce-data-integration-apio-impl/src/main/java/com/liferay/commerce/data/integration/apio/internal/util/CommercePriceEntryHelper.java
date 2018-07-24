@@ -15,12 +15,17 @@
 package com.liferay.commerce.data.integration.apio.internal.util;
 
 import com.liferay.apio.architect.functional.Try;
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceEntryService;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.persistence.CompanyProvider;
 
 import java.math.BigDecimal;
 
@@ -57,40 +62,109 @@ public class CommercePriceEntryHelper {
 		);
 	}
 
-	public CommercePriceEntry getCommercePriceEntry(Long commercePriceEntryId)
+	public ClassPKExternalReferenceCode
+		commercePriceEntryIdToClassPKExternalReferenceCode(
+			long commercePriceEntryId) {
+
+		try {
+			CommercePriceEntry commercePriceEntry =
+				_commercePriceEntryService.fetchCommercePriceEntry(
+					commercePriceEntryId);
+
+			return commercePriceEntryToClassPKExternalReferenceCode(
+				commercePriceEntry);
+		}
+		catch (PortalException pe) {
+			_log.error(
+				"Unable to find Price Entry with ID " + commercePriceEntryId,
+				pe);
+		}
+
+		return null;
+	}
+
+	public ClassPKExternalReferenceCode
+		commercePriceEntryToClassPKExternalReferenceCode(
+			CommercePriceEntry commercePriceEntry) {
+
+		if (commercePriceEntry != null) {
+			return ClassPKExternalReferenceCode.create(
+				commercePriceEntry.getCommercePriceEntryId(),
+				commercePriceEntry.getExternalReferenceCode());
+		}
+
+		return null;
+	}
+
+	public void deletePriceEntry(
+			ClassPKExternalReferenceCode classPKExternalReferenceCode)
 		throws PortalException {
 
 		CommercePriceEntry commercePriceEntry =
-			_commercePriceEntryService.fetchCommercePriceEntry(
-				commercePriceEntryId);
+			getCommercePriceEntryByClassPKExternalReferenceCode(
+				classPKExternalReferenceCode);
 
-		if (commercePriceEntry == null) {
-			throw new NotFoundException(
-				"Unable to find price entry with ID " + commercePriceEntryId);
+		if (commercePriceEntry != null) {
+			_commercePriceEntryService.deleteCommercePriceEntry(
+				commercePriceEntry.getCommercePriceEntryId());
 		}
+	}
 
-		return commercePriceEntry;
+	public CommercePriceEntry
+			getCommercePriceEntryByClassPKExternalReferenceCode(
+				ClassPKExternalReferenceCode
+					commercePriceEntryClassPKExternalReferenceCode)
+		throws PortalException {
+
+		long commercePriceEntryId =
+			commercePriceEntryClassPKExternalReferenceCode.getClassPK();
+
+		if (commercePriceEntryId > 0) {
+			CommercePriceEntry commercePriceEntry =
+				_commercePriceEntryService.fetchCommercePriceEntry(
+					commercePriceEntryId);
+
+			if (commercePriceEntry == null) {
+				throw new NotFoundException(
+					"Unable to find price entry with ID " +
+						commercePriceEntryId);
+			}
+
+			return commercePriceEntry;
+		}
+		else {
+			String externalReferenceCode =
+				commercePriceEntryClassPKExternalReferenceCode.
+					getExternalReferenceCode();
+
+			return _commercePriceEntryService.fetchByExternalReferenceCode(
+				_companyProvider.getCompanyId(), externalReferenceCode);
+		}
 	}
 
 	public CommercePriceEntry updateCommercePriceEntry(
-			Long commercePriceEntryId, Double price, Double promoPrice)
+			ClassPKExternalReferenceCode classPKExternalReferenceCode,
+			Double price, Double promoPrice)
 		throws PortalException {
 
-		CommercePriceEntry commercePriceEntry = getCommercePriceEntry(
-			commercePriceEntryId);
+		CommercePriceEntry commercePriceEntry =
+			getCommercePriceEntryByClassPKExternalReferenceCode(
+				classPKExternalReferenceCode);
 
 		ServiceContext serviceContext = _serviceContextHelper.getServiceContext(
 			commercePriceEntry.getGroupId());
 
 		return _commercePriceEntryService.updateCommercePriceEntry(
-			commercePriceEntryId, BigDecimal.valueOf(price),
-			BigDecimal.valueOf(promoPrice), serviceContext);
+			commercePriceEntry.getCommercePriceEntryId(),
+			BigDecimal.valueOf(price), BigDecimal.valueOf(promoPrice),
+			serviceContext);
 	}
 
 	public CommercePriceEntry upsertCommercePriceEntry(
 			Long commercePriceEntryId, Long commerceProductInstanceId,
 			Long commercePriceListId, String externalReferenceCode,
-			String skuExternalReferenceCode, Double price, Double promoPrice)
+			String skuExternalReferenceCode, Double price, Double promoPrice,
+			Boolean standardPrice)
 		throws PortalException {
 
 		CommercePriceList commercePriceList =
@@ -99,11 +173,31 @@ public class CommercePriceEntryHelper {
 		ServiceContext serviceContext = _serviceContextHelper.getServiceContext(
 			commercePriceList.getGroupId());
 
-		return _commercePriceEntryService.upsertCommercePriceEntry(
-			commercePriceEntryId, commerceProductInstanceId,
-			commercePriceListId, externalReferenceCode,
-			BigDecimal.valueOf(price), BigDecimal.valueOf(promoPrice),
-			skuExternalReferenceCode, serviceContext);
+		CommercePriceEntry commercePriceEntry =
+			_commercePriceEntryService.upsertCommercePriceEntry(
+				commercePriceEntryId, commerceProductInstanceId,
+				commercePriceListId, externalReferenceCode,
+				BigDecimal.valueOf(price), BigDecimal.valueOf(promoPrice),
+				skuExternalReferenceCode, serviceContext);
+
+		if (standardPrice != null) {
+			CPInstance cpInstance = commercePriceEntry.getCPInstance();
+
+			if (standardPrice) {
+				_cpInstanceService.updatePricingInfo(
+					cpInstance.getCPInstanceId(), new BigDecimal(price),
+					new BigDecimal(promoPrice), cpInstance.getCost(),
+					serviceContext);
+			}
+			else {
+				_cpInstanceService.updatePricingInfo(
+					cpInstance.getCPInstanceId(), new BigDecimal(0),
+					new BigDecimal(promoPrice), cpInstance.getCost(),
+					serviceContext);
+			}
+		}
+
+		return commercePriceEntry;
 	}
 
 	private static CPInstance _getCPInstance(
@@ -124,11 +218,20 @@ public class CommercePriceEntryHelper {
 		return cpInstance;
 	}
 
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommercePriceEntryHelper.class);
+
 	@Reference
 	private CommercePriceEntryService _commercePriceEntryService;
 
 	@Reference
 	private CommercePriceListHelper _commercePriceListHelper;
+
+	@Reference
+	private CompanyProvider _companyProvider;
+
+	@Reference
+	private CPInstanceService _cpInstanceService;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;

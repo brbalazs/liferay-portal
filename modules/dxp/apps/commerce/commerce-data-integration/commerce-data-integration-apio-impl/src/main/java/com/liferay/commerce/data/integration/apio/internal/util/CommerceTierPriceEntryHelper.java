@@ -22,10 +22,8 @@ import com.liferay.commerce.price.list.service.CommerceTierPriceEntryService;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.UserService;
+import com.liferay.portal.kernel.service.persistence.CompanyProvider;
 import com.liferay.portal.kernel.util.StringBundler;
 
 import java.math.BigDecimal;
@@ -110,12 +108,10 @@ public class CommerceTierPriceEntryHelper {
 		}
 
 		if (priceEntryExternalReferenceCode != null) {
-			User user = _userService.getUserById(
-				PrincipalThreadLocal.getUserId());
-
 			CommercePriceEntry commercePriceEntry =
 				_commercePriceEntryService.fetchByExternalReferenceCode(
-					user.getCompanyId(), priceEntryExternalReferenceCode);
+					_companyProvider.getCompanyId(),
+					priceEntryExternalReferenceCode);
 
 			if (commercePriceEntry != null) {
 				return commercePriceEntry.getGroupId();
@@ -141,9 +137,9 @@ public class CommerceTierPriceEntryHelper {
 	private CommerceTierPriceEntryService _commerceTierPriceEntryService;
 
 	@Reference
-	private ServiceContextHelper _serviceContextHelper;
+	private CompanyProvider _companyProvider;
 
 	@Reference
-	private UserService _userService;
+	private ServiceContextHelper _serviceContextHelper;
 
 }
