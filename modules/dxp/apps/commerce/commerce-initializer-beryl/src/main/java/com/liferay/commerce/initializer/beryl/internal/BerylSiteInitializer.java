@@ -14,42 +14,25 @@
 
 package com.liferay.commerce.initializer.beryl.internal;
 
-import com.liferay.asset.kernel.model.AssetCategory;
-import com.liferay.asset.kernel.model.AssetCategoryConstants;
-import com.liferay.asset.kernel.model.AssetVocabulary;
-import com.liferay.asset.kernel.service.AssetCategoryLocalService;
-import com.liferay.asset.kernel.service.AssetVocabularyLocalService;
-import com.liferay.commerce.constants.CPDefinitionInventoryConstants;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
+import com.liferay.commerce.initializer.util.CPDefinitionsImporter;
 import com.liferay.commerce.initializer.util.CommerceWarehousesImporter;
 import com.liferay.commerce.model.CommerceWarehouse;
 import com.liferay.commerce.organization.constants.CommerceOrganizationConstants;
 import com.liferay.commerce.organization.service.CommerceOrganizationLocalService;
 import com.liferay.commerce.product.constants.CPRuleConstants;
 import com.liferay.commerce.product.importer.CPFileImporter;
-import com.liferay.commerce.product.model.CPAttachmentFileEntryConstants;
 import com.liferay.commerce.product.model.CPDefinition;
-import com.liferay.commerce.product.model.CPFriendlyURLEntry;
-import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPRule;
-import com.liferay.commerce.product.service.CPAttachmentFileEntryLocalService;
-import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPDefinitionSpecificationOptionValueLocalService;
-import com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService;
-import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.product.service.CPRuleLocalService;
 import com.liferay.commerce.product.service.CPRuleUserSegmentRelLocalService;
 import com.liferay.commerce.product.service.CPSpecificationOptionLocalService;
-import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
 import com.liferay.commerce.service.CommerceCountryLocalService;
-import com.liferay.commerce.service.CommerceRegionLocalService;
-import com.liferay.commerce.service.CommerceWarehouseItemLocalService;
 import com.liferay.commerce.user.segment.model.CommerceUserSegmentEntry;
 import com.liferay.commerce.user.segment.model.CommerceUserSegmentEntryConstants;
 import com.liferay.commerce.user.segment.service.CommerceUserSegmentEntryLocalService;
-import com.liferay.document.library.kernel.model.DLFolderConstants;
-import com.liferay.document.library.kernel.service.DLAppService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -68,7 +51,6 @@ import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.Theme;
 import com.liferay.portal.kernel.model.ThemeSetting;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.OrganizationLocalService;
@@ -78,15 +60,13 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ThemeLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.ArrayUtil;
-import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.FileUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
-import com.liferay.portal.kernel.util.MimeTypes;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.site.exception.InitializationException;
 import com.liferay.site.initializer.SiteInitializer;
 
@@ -94,13 +74,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import java.math.BigDecimal;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.Dictionary;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -179,7 +153,7 @@ public class BerylSiteInitializer implements SiteInitializer {
 			List<CommerceWarehouse> commerceWarehouses =
 				_importCommerceWarehouses(serviceContext);
 
-			importProducts(commerceWarehouses, serviceContext);
+			_importCPDefinitions(commerceWarehouses, serviceContext);
 
 			createCPRule(serviceContext);
 
@@ -210,119 +184,6 @@ public class BerylSiteInitializer implements SiteInitializer {
 		}
 
 		return true;
-	}
-
-	protected List<Long> addAssetCategories(
-			long vocabularyId, JSONArray jsonArray,
-			ServiceContext serviceContext)
-		throws Exception {
-
-		List<Long> assetCategoryIds = new ArrayList<>();
-
-		long classNameId = _portal.getClassNameId(AssetCategory.class);
-
-		for (int i = 0; i < jsonArray.length(); i++) {
-			String title = jsonArray.getString(i);
-
-			AssetCategory assetCategory = _getAssetCategory(
-				vocabularyId, title, serviceContext);
-
-			assetCategoryIds.add(assetCategory.getCategoryId());
-
-			List<CPFriendlyURLEntry> cpFriendlyURLEntries =
-				_cpFriendlyURLEntryLocalService.getCPFriendlyURLEntries(
-					serviceContext.getScopeGroupId(), classNameId,
-					assetCategory.getCategoryId());
-
-			if (cpFriendlyURLEntries.isEmpty()) {
-				Map<Locale, String> urlTitleMap = _getUniqueUrlTitles(
-					assetCategory);
-
-				_cpFriendlyURLEntryLocalService.addCPFriendlyURLEntries(
-					serviceContext.getScopeGroupId(),
-					serviceContext.getCompanyId(), AssetCategory.class,
-					assetCategory.getCategoryId(), urlTitleMap);
-			}
-		}
-
-		return assetCategoryIds;
-	}
-
-	protected void addCPDefinitionAttachmentFileEntry(
-			long cpDefinitionId, String fileName, ServiceContext serviceContext)
-		throws Exception {
-
-		Class<?> clazz = getClass();
-
-		ClassLoader classLoader = clazz.getClassLoader();
-
-		long classNameId = _portal.getClassNameId(CPDefinition.class);
-
-		Map<Locale, String> titleMap = Collections.singletonMap(
-			serviceContext.getLocale(), fileName);
-
-		InputStream inputStream = classLoader.getResourceAsStream(
-			DEPENDENCY_PATH + "images/" + fileName);
-
-		if (inputStream == null) {
-			return;
-		}
-
-		File file = null;
-		FileEntry fileEntry = null;
-
-		try {
-			file = FileUtil.createTempFile(inputStream);
-
-			fileEntry = _dlAppService.addFileEntry(
-				serviceContext.getScopeGroupId(),
-				DLFolderConstants.DEFAULT_PARENT_FOLDER_ID, fileName,
-				_mimeTypes.getContentType(file), fileName, StringPool.BLANK,
-				StringPool.BLANK, file, serviceContext);
-		}
-		finally {
-			FileUtil.delete(file);
-		}
-
-		Calendar displayCalendar = CalendarFactoryUtil.getCalendar(
-			serviceContext.getTimeZone());
-
-		displayCalendar.add(Calendar.YEAR, -1);
-
-		int displayDateMonth = displayCalendar.get(Calendar.MONTH);
-		int displayDateDay = displayCalendar.get(Calendar.DAY_OF_MONTH);
-		int displayDateYear = displayCalendar.get(Calendar.YEAR);
-		int displayDateHour = displayCalendar.get(Calendar.HOUR);
-		int displayDateMinute = displayCalendar.get(Calendar.MINUTE);
-		int displayDateAmPm = displayCalendar.get(Calendar.AM_PM);
-
-		if (displayDateAmPm == Calendar.PM) {
-			displayDateHour += 12;
-		}
-
-		Calendar expirationCalendar = CalendarFactoryUtil.getCalendar(
-			serviceContext.getTimeZone());
-
-		expirationCalendar.add(Calendar.MONTH, 1);
-
-		int expirationDateMonth = expirationCalendar.get(Calendar.MONTH);
-		int expirationDateDay = expirationCalendar.get(Calendar.DAY_OF_MONTH);
-		int expirationDateYear = expirationCalendar.get(Calendar.YEAR);
-		int expirationDateHour = expirationCalendar.get(Calendar.HOUR);
-		int expirationDateMinute = expirationCalendar.get(Calendar.MINUTE);
-		int expirationDateAmPm = expirationCalendar.get(Calendar.AM_PM);
-
-		if (expirationDateAmPm == Calendar.PM) {
-			expirationDateHour += 12;
-		}
-
-		_cpAttachmentFileEntryLocalService.addCPAttachmentFileEntry(
-			classNameId, cpDefinitionId, fileEntry.getFileEntryId(),
-			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
-			displayDateMinute, expirationDateMonth, expirationDateDay,
-			expirationDateYear, expirationDateHour, expirationDateMinute, true,
-			titleMap, null, 0, CPAttachmentFileEntryConstants.TYPE_IMAGE,
-			serviceContext);
 	}
 
 	protected void configureB2BSite(long groupId, ServiceContext serviceContext)
@@ -356,61 +217,6 @@ public class BerylSiteInitializer implements SiteInitializer {
 
 			_createCommerceRole(name);
 		}
-	}
-
-	protected CPDefinition createCPDefinition(
-			String title, String description, String sku,
-			List<Long> assetCategoryIds, ServiceContext serviceContext)
-		throws PortalException {
-
-		serviceContext.setAssetCategoryIds(
-			ArrayUtil.toLongArray(assetCategoryIds));
-
-		Calendar displayCalendar = CalendarFactoryUtil.getCalendar(
-			serviceContext.getTimeZone());
-
-		displayCalendar.add(Calendar.YEAR, -1);
-
-		int displayDateMonth = displayCalendar.get(Calendar.MONTH);
-		int displayDateDay = displayCalendar.get(Calendar.DAY_OF_MONTH);
-		int displayDateYear = displayCalendar.get(Calendar.YEAR);
-		int displayDateHour = displayCalendar.get(Calendar.HOUR);
-		int displayDateMinute = displayCalendar.get(Calendar.MINUTE);
-		int displayDateAmPm = displayCalendar.get(Calendar.AM_PM);
-
-		if (displayDateAmPm == Calendar.PM) {
-			displayDateHour += 12;
-		}
-
-		Calendar expirationCalendar = CalendarFactoryUtil.getCalendar(
-			serviceContext.getTimeZone());
-
-		expirationCalendar.add(Calendar.MONTH, 1);
-
-		int expirationDateMonth = expirationCalendar.get(Calendar.MONTH);
-		int expirationDateDay = expirationCalendar.get(Calendar.DAY_OF_MONTH);
-		int expirationDateYear = expirationCalendar.get(Calendar.YEAR);
-		int expirationDateHour = expirationCalendar.get(Calendar.HOUR);
-		int expirationDateMinute = expirationCalendar.get(Calendar.MINUTE);
-		int expirationDateAmPm = expirationCalendar.get(Calendar.AM_PM);
-
-		if (expirationDateAmPm == Calendar.PM) {
-			expirationDateHour += 12;
-		}
-
-		Map<Locale, String> titleMap = Collections.singletonMap(
-			serviceContext.getLocale(), title);
-		Map<Locale, String> descriptionMap = Collections.singletonMap(
-			serviceContext.getLocale(), description);
-
-		return _cpDefinitionLocalService.addCPDefinition(
-			titleMap, null, descriptionMap, titleMap, null, null, null,
-			"simple", true, true, false, false, 0, 10, 10, 10, 10, 0, false,
-			false, null, true, displayDateMonth, displayDateDay,
-			displayDateYear, displayDateHour, displayDateMinute,
-			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, true, sku,
-			StringPool.BLANK, serviceContext);
 	}
 
 	protected void createCPRule(ServiceContext serviceContext)
@@ -459,84 +265,6 @@ public class BerylSiteInitializer implements SiteInitializer {
 		serviceContext.setTimeZone(user.getTimeZone());
 
 		return serviceContext;
-	}
-
-	protected void importProducts(
-			List<CommerceWarehouse> commerceWarehouses,
-			ServiceContext serviceContext)
-		throws Exception {
-
-		JSONArray jsonArray = _getJSONArray("products.json");
-
-		AssetVocabulary assetVocabulary = _getAssetVocabulary(
-			_COMMERCE_VOCABULARY, serviceContext);
-
-		for (int i = 0; i < jsonArray.length(); i++) {
-			JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-			BigDecimal cost = BigDecimal.valueOf(
-				jsonObject.getDouble("Cost", 0));
-			String description = jsonObject.getString("Description");
-			String image = jsonObject.getString("Image");
-			String name = jsonObject.getString("Name");
-			BigDecimal price = BigDecimal.valueOf(
-				jsonObject.getDouble("Price", 0));
-			String sku = jsonObject.getString("Sku");
-
-			int[] warehouseQuantities = {
-				jsonObject.getInt("Warehouse1"),
-				jsonObject.getInt("Warehouse2"), jsonObject.getInt("Warehouse3")
-			};
-
-			JSONArray categories = jsonObject.getJSONArray("Categories");
-
-			//Asset categories
-
-			List<Long> assetCategoryIds = addAssetCategories(
-				assetVocabulary.getVocabularyId(), categories, serviceContext);
-
-			// Commerce product definition
-
-			CPDefinition cpDefinition = createCPDefinition(
-				name, description, sku, assetCategoryIds, serviceContext);
-
-			// Commerce product instance
-
-			CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
-				cpDefinition.getCPDefinitionId(), sku);
-
-			cpInstance.setPrice(price);
-			cpInstance.setCost(cost);
-
-			_cpInstanceLocalService.updateCPInstance(cpInstance);
-
-			// Commerce warehouse item
-
-			for (int j = 0; j < commerceWarehouses.size(); j++) {
-				CommerceWarehouse commerceWarehouse = commerceWarehouses.get(j);
-
-				_commerceWarehouseItemLocalService.addCommerceWarehouseItem(
-					commerceWarehouse.getCommerceWarehouseId(),
-					cpInstance.getCPInstanceId(), warehouseQuantities[j],
-					serviceContext);
-			}
-
-			// Commerce product definition inventory
-
-			_cpDefinitionInventoryLocalService.addCPDefinitionInventory(
-				cpDefinition.getCPDefinitionId(), null, null, false, false, 0,
-				true, CPDefinitionInventoryConstants.DEFAULT_MIN_ORDER_QUANTITY,
-				CPDefinitionInventoryConstants.DEFAULT_MAX_ORDER_QUANTITY, null,
-				CPDefinitionInventoryConstants.DEFAULT_MULTIPLE_ORDER_QUANTITY,
-				serviceContext);
-
-			// Commerce product attachment file entry
-
-			if (Validator.isNotNull(image)) {
-				addCPDefinitionAttachmentFileEntry(
-					cpDefinition.getCPDefinitionId(), image, serviceContext);
-			}
-		}
 	}
 
 	protected void setThemeSettings(ServiceContext serviceContext)
@@ -672,45 +400,6 @@ public class BerylSiteInitializer implements SiteInitializer {
 			_getOrganizationTypeProperties(configuration, organizationType));
 	}
 
-	private AssetCategory _getAssetCategory(
-			long vocabularyId, String title, ServiceContext serviceContext)
-		throws PortalException {
-
-		AssetCategory assetCategory = _assetCategoryLocalService.fetchCategory(
-			serviceContext.getScopeGroupId(),
-			AssetCategoryConstants.DEFAULT_PARENT_CATEGORY_ID, title,
-			vocabularyId);
-
-		if (assetCategory == null) {
-			Map<Locale, String> titleMap = Collections.singletonMap(
-				LocaleUtil.getSiteDefault(), title);
-
-			assetCategory = _assetCategoryLocalService.addCategory(
-				serviceContext.getUserId(), serviceContext.getScopeGroupId(),
-				AssetCategoryConstants.DEFAULT_PARENT_CATEGORY_ID, titleMap,
-				null, vocabularyId, new String[0], serviceContext);
-		}
-
-		return assetCategory;
-	}
-
-	private AssetVocabulary _getAssetVocabulary(
-			String name, ServiceContext serviceContext)
-		throws PortalException {
-
-		AssetVocabulary assetVocabulary =
-			_assetVocabularyLocalService.fetchGroupVocabulary(
-				serviceContext.getScopeGroupId(), name);
-
-		if (assetVocabulary == null) {
-			assetVocabulary = _assetVocabularyLocalService.addVocabulary(
-				serviceContext.getUserId(), serviceContext.getScopeGroupId(),
-				name, serviceContext);
-		}
-
-		return assetVocabulary;
-	}
-
 	private String _getConfigurationFilter(String configurationPid) {
 		StringBundler sb = new StringBundler(5);
 
@@ -788,29 +477,6 @@ public class BerylSiteInitializer implements SiteInitializer {
 		return properties;
 	}
 
-	private Map<Locale, String> _getUniqueUrlTitles(
-		AssetCategory assetCategory) {
-
-		Map<Locale, String> urlTitleMap = new HashMap<>();
-
-		Map<Locale, String> titleMap = assetCategory.getTitleMap();
-
-		long classNameId = _portal.getClassNameId(AssetCategory.class);
-
-		for (Map.Entry<Locale, String> titleEntry : titleMap.entrySet()) {
-			String languageId = LocaleUtil.toLanguageId(titleEntry.getKey());
-
-			String urlTitle = _cpFriendlyURLEntryLocalService.buildUrlTitle(
-				assetCategory.getGroupId(), classNameId,
-				assetCategory.getCategoryId(), languageId,
-				titleEntry.getValue());
-
-			urlTitleMap.put(titleEntry.getKey(), urlTitle);
-		}
-
-		return urlTitleMap;
-	}
-
 	private List<CommerceWarehouse> _importCommerceWarehouses(
 			ServiceContext serviceContext)
 		throws Exception {
@@ -819,6 +485,23 @@ public class BerylSiteInitializer implements SiteInitializer {
 
 		return _commerceWarehousesImporter.importCommerceWarehouses(
 			jsonArray, serviceContext);
+	}
+
+	private List<CPDefinition> _importCPDefinitions(
+			List<CommerceWarehouse> commerceWarehouses,
+			ServiceContext serviceContext)
+		throws Exception {
+
+		JSONArray jsonArray = _getJSONArray("products.json");
+
+		long[] commerceWarehouseIds = ListUtil.toLongArray(
+			commerceWarehouses,
+			CommerceWarehouse.COMMERCE_WAREHOUSE_ID_ACCESSOR);
+
+		return _cpDefinitionsImporter.importCPDefinitions(
+			jsonArray, _COMMERCE_VOCABULARY, commerceWarehouseIds,
+			BerylSiteInitializer.class.getClassLoader(),
+			DEPENDENCY_PATH + "images/", serviceContext);
 	}
 
 	private void _updateOrganizationType(
@@ -864,12 +547,6 @@ public class BerylSiteInitializer implements SiteInitializer {
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		BerylSiteInitializer.class);
-
-	@Reference
-	private AssetCategoryLocalService _assetCategoryLocalService;
-
-	@Reference
-	private AssetVocabularyLocalService _assetVocabularyLocalService;
 
 	@Reference
 	private BerylLayoutsInitializer _berylLayoutsInitializer;
@@ -947,18 +624,10 @@ public class BerylSiteInitializer implements SiteInitializer {
 	private Portlet _commerceVirtualOrderItemContentPortlet;
 
 	@Reference
-	private CommerceWarehouseItemLocalService
-		_commerceWarehouseItemLocalService;
-
-	@Reference
 	private CommerceWarehousesImporter _commerceWarehousesImporter;
 
 	@Reference
 	private ConfigurationAdmin _configurationAdmin;
-
-	@Reference
-	private CPAttachmentFileEntryLocalService
-		_cpAttachmentFileEntryLocalService;
 
 	@Reference(
 		target = "(javax.portlet.name=com_liferay_commerce_product_content_web_internal_portlet_CPCompareContentMiniPortlet)"
@@ -976,11 +645,7 @@ public class BerylSiteInitializer implements SiteInitializer {
 	private Portlet _cpContentPortlet;
 
 	@Reference
-	private CPDefinitionInventoryLocalService
-		_cpDefinitionInventoryLocalService;
-
-	@Reference
-	private CPDefinitionLocalService _cpDefinitionLocalService;
+	private CPDefinitionsImporter _cpDefinitionsImporter;
 
 	@Reference
 	private CPDefinitionSpecificationOptionValueLocalService
@@ -988,12 +653,6 @@ public class BerylSiteInitializer implements SiteInitializer {
 
 	@Reference
 	private CPFileImporter _cpFileImporter;
-
-	@Reference
-	private CPFriendlyURLEntryLocalService _cpFriendlyURLEntryLocalService;
-
-	@Reference
-	private CPInstanceLocalService _cpInstanceLocalService;
 
 	@Reference
 	private CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;
@@ -1019,16 +678,10 @@ public class BerylSiteInitializer implements SiteInitializer {
 		_cpSpecificationOptionLocalService;
 
 	@Reference
-	private DLAppService _dlAppService;
-
-	@Reference
 	private GroupLocalService _groupLocalService;
 
 	@Reference
 	private JSONFactory _jsonFactory;
-
-	@Reference
-	private MimeTypes _mimeTypes;
 
 	@Reference
 	private OrganizationLocalService _organizationLocalService;
