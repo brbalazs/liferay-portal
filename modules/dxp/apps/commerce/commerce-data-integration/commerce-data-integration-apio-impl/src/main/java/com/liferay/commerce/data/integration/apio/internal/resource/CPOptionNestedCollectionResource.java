@@ -31,13 +31,11 @@ import com.liferay.commerce.product.service.CPOptionService;
 import com.liferay.portal.apio.permission.HasPermission;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
-
-import java.util.List;
-
-import javax.ws.rs.BadRequestException;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+
+import javax.ws.rs.BadRequestException;
+import java.util.List;
 
 /**
  * @author Rodrigo Guedes de Souza
@@ -56,7 +54,7 @@ public class CPOptionNestedCollectionResource
 			this::_getPageItems
 		).addCreator(
 			this::_addCPOption,
-			_hasPermission.forAddingIn(CPOptionIdentifier.class),
+			_hasPermission.forAddingIn(WebSiteIdentifier.class),
 			CPOptionCreatorForm::buildForm
 		).build();
 	}

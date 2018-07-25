@@ -20,7 +20,7 @@ import com.liferay.apio.architect.function.throwable.ThrowableBiFunction;
 import com.liferay.apio.architect.identifier.Identifier;
 import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommerceConstants;
-import com.liferay.commerce.data.integration.apio.identifiers.CommerceAddressIdentifier;
+import com.liferay.commerce.data.integration.apio.identifiers.CommerceAccountIdentifier;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.portal.apio.permission.HasPermission;
@@ -42,10 +42,11 @@ public class CommerceAddressPermissionImpl implements HasPermission<Long> {
 	public <S> HasNestedAddingPermissionFunction<S> forAddingIn(
 		Class<? extends Identifier<S>> identifierClass) {
 
-		if (identifierClass.equals(CommerceAddressIdentifier.class)) {
-			return (credentials, groupId) ->
+		if (identifierClass.equals(CommerceAccountIdentifier.class)) {
+			return (credentials, commerceAccountId) ->
 				_portletResourcePermission.contains(
-					(PermissionChecker)credentials.get(), (Long)groupId,
+					(PermissionChecker)credentials.get(),
+					(Long)commerceAccountId,
 					CommerceActionKeys.MANAGE_COMMERCE_ADDRESSES);
 		}
 

@@ -35,14 +35,12 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
-
-import java.util.Arrays;
-import java.util.List;
-
-import javax.ws.rs.NotFoundException;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+
+import javax.ws.rs.NotFoundException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Provides the information necessary to expose <a
@@ -65,7 +63,7 @@ public class CPDefinitionNestedCollectionResource
 			this::_getPageItems
 		).addCreator(
 			this::_addCPDefinition,
-			_hasPermission.forAddingIn(CPDefinitionIdentifier.class),
+			_hasPermission.forAddingIn(WebSiteIdentifier.class),
 			CPDefinitionUpserterForm::buildForm
 		).build();
 	}

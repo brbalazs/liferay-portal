@@ -64,7 +64,7 @@ public class CommerceAccountNestedCollectionResource
 			this::_getPageItems, Company.class
 		).addCreator(
 			this::_addAccount,
-			_hasPermission.forAddingIn(CommerceAccountIdentifier.class),
+			_hasPermission.forAddingIn(WebSiteIdentifier.class),
 			CommerceAccountUpserterForm::buildForm
 		).build();
 	}

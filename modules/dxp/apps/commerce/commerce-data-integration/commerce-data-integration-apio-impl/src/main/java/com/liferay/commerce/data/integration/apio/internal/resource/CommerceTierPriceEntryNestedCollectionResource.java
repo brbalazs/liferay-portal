@@ -74,7 +74,8 @@ public class CommerceTierPriceEntryNestedCollectionResource
 		return builder.addGetter(
 			this::_getPageItems
 		).addCreator(
-			this::_upsertCommerceTierPriceEntry, (credentials, s) -> true,
+			this::_upsertCommerceTierPriceEntry,
+			_hasPermission.forAddingIn(CommercePriceEntryIdentifier.class),
 			CommerceTierPriceEntryUpserterForm::buildForm
 		).build();
 	}

@@ -18,7 +18,9 @@ import com.liferay.apio.architect.alias.routes.permission.HasNestedAddingPermiss
 import com.liferay.apio.architect.credentials.Credentials;
 import com.liferay.apio.architect.function.throwable.ThrowableBiFunction;
 import com.liferay.apio.architect.identifier.Identifier;
-import com.liferay.commerce.data.integration.apio.identifiers.CommerceTierPriceEntryIdentifier;
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
+import com.liferay.commerce.data.integration.apio.identifiers.CommercePriceEntryIdentifier;
+import com.liferay.commerce.data.integration.apio.internal.util.CommercePriceEntryHelper;
 import com.liferay.commerce.price.list.constants.CommercePriceListActionKeys;
 import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
@@ -45,17 +47,22 @@ public class CommerceTierPriceEntryHasPermissionImpl
 	public <S> HasNestedAddingPermissionFunction<S> forAddingIn(
 		Class<? extends Identifier<S>> identifierClass) {
 
-		if (identifierClass.equals(CommerceTierPriceEntryIdentifier.class)) {
-			return (credentials, commercePriceEntryId) -> {
-				CommercePriceEntry commercePriceEntry =
-					_commercePriceEntryService.fetchCommercePriceEntry(
-						(Long)commercePriceEntryId);
+		if (identifierClass.equals(CommercePriceEntryIdentifier.class)) {
+			return (
+				credentials,
+				priceEntryClassPKExternalReferenceCode) -> {
+					CommercePriceEntry commercePriceEntry =
+						_commercePriceEntryHelper.
+							getCommercePriceEntryByClassPKExternalReferenceCode(
+								(ClassPKExternalReferenceCode)
+									priceEntryClassPKExternalReferenceCode);
 
-				return _portletResourcePermission.contains(
-					(PermissionChecker)credentials.get(),
-					commercePriceEntry.getGroupId(),
-					CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
-			};
+					return _portletResourcePermission.contains(
+						(PermissionChecker)credentials.get(),
+						commercePriceEntry.getGroupId(),
+						CommercePriceListActionKeys.
+							MANAGE_COMMERCE_PRICE_LISTS);
+				};
 		}
 
 		return (credentials, s) -> false;
@@ -89,6 +96,9 @@ public class CommerceTierPriceEntryHasPermissionImpl
 				CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
 		};
 	}
+
+	@Reference
+	private CommercePriceEntryHelper _commercePriceEntryHelper;
 
 	@Reference
 	private CommercePriceEntryService _commercePriceEntryService;

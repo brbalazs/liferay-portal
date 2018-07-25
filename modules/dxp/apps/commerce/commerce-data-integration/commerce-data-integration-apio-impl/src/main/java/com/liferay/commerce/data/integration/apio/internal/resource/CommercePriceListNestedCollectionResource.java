@@ -74,7 +74,8 @@ public class CommercePriceListNestedCollectionResource
 		return builder.addGetter(
 			this::_getPageItems
 		).addCreator(
-			this::_upsertCommercePriceList, (credentials, s) -> true,
+			this::_upsertCommercePriceList,
+			_hasPermission.forAddingIn(WebSiteIdentifier.class),
 			CommercePriceListUpserterForm::buildForm
 		).build();
 	}
@@ -94,11 +95,11 @@ public class CommercePriceListNestedCollectionResource
 			_commercePriceListHelper::
 				getCommercePriceListByClassPKExternalReferenceCode
 		).addUpdater(
-			this::_updateCommercePriceList, (credentials, s) -> true,
+			this::_updateCommercePriceList, _hasPermission::forUpdating,
 			CommercePriceListUpdaterForm::buildForm
 		).addRemover(
 			idempotent(_commercePriceListHelper::deletePriceList),
-			(credentials, s) -> true
+			_hasPermission::forDeleting
 		).build();
 	}
 
@@ -240,6 +241,6 @@ public class CommercePriceListNestedCollectionResource
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.price.list.model.CommercePriceList)"
 	)
-	private HasPermission<Long> _hasPermission;
+	private HasPermission<ClassPKExternalReferenceCode> _hasPermission;
 
 }

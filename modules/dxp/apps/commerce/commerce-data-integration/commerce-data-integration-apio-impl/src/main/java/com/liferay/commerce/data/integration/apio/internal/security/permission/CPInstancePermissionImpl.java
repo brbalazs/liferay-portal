@@ -18,7 +18,7 @@ import com.liferay.apio.architect.alias.routes.permission.HasNestedAddingPermiss
 import com.liferay.apio.architect.credentials.Credentials;
 import com.liferay.apio.architect.function.throwable.ThrowableTriFunction;
 import com.liferay.apio.architect.identifier.Identifier;
-import com.liferay.commerce.data.integration.apio.identifiers.CPInstanceIdentifier;
+import com.liferay.commerce.data.integration.apio.identifiers.CPDefinitionIdentifier;
 import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPInstance;
@@ -42,10 +42,10 @@ public class CPInstancePermissionImpl implements HasPermission<Long> {
 	public <S> HasNestedAddingPermissionFunction<S> forAddingIn(
 		Class<? extends Identifier<S>> identifierClass) {
 
-		if (identifierClass.equals(CPInstanceIdentifier.class)) {
-			return (credentials, groupId) ->
+		if (identifierClass.equals(CPDefinitionIdentifier.class)) {
+			return (credentials, cpDefinitionId) ->
 				_portletResourcePermission.contains(
-					(PermissionChecker)credentials.get(), (Long)groupId,
+					(PermissionChecker)credentials.get(), (Long)cpDefinitionId,
 					CPActionKeys.ADD_COMMERCE_PRODUCT_INSTANCE);
 		}
 

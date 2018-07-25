@@ -18,7 +18,8 @@ import com.liferay.apio.architect.alias.routes.permission.HasNestedAddingPermiss
 import com.liferay.apio.architect.credentials.Credentials;
 import com.liferay.apio.architect.function.throwable.ThrowableBiFunction;
 import com.liferay.apio.architect.identifier.Identifier;
-import com.liferay.commerce.data.integration.apio.identifiers.CommercePriceListIdentifier;
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
+import com.liferay.commerce.data.integration.apio.internal.util.CommercePriceListHelper;
 import com.liferay.commerce.price.list.constants.CommercePriceListActionKeys;
 import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.model.CommercePriceList;
@@ -26,6 +27,7 @@ import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.portal.apio.permission.HasPermission;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
+import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -36,13 +38,14 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	property = "model.class.name=com.liferay.commerce.price.list.model.CommercePriceList"
 )
-public class CommercePriceListHasPermissionImpl implements HasPermission<Long> {
+public class CommercePriceListHasPermissionImpl
+	implements HasPermission<ClassPKExternalReferenceCode> {
 
 	@Override
 	public <S> HasNestedAddingPermissionFunction<S> forAddingIn(
 		Class<? extends Identifier<S>> identifierClass) {
 
-		if (identifierClass.equals(CommercePriceListIdentifier.class)) {
+		if (identifierClass.equals(WebSiteIdentifier.class)) {
 			return (credentials, groupId) ->
 				_portletResourcePermission.contains(
 					(PermissionChecker)credentials.get(), (Long)groupId,
@@ -53,25 +56,33 @@ public class CommercePriceListHasPermissionImpl implements HasPermission<Long> {
 	}
 
 	@Override
-	public Boolean forDeleting(Credentials credentials, Long entryId)
+	public Boolean forDeleting(
+			Credentials credentials,
+			ClassPKExternalReferenceCode classPKExternalReferenceCode)
 		throws Exception {
 
-		return _forItemRoutesOperations().apply(credentials, entryId);
+		return _forItemRoutesOperations().apply(
+			credentials, classPKExternalReferenceCode);
 	}
 
 	@Override
-	public Boolean forUpdating(Credentials credentials, Long entryId)
+	public Boolean forUpdating(
+			Credentials credentials,
+			ClassPKExternalReferenceCode classPKExternalReferenceCode)
 		throws Exception {
 
-		return _forItemRoutesOperations().apply(credentials, entryId);
+		return _forItemRoutesOperations().apply(
+			credentials, classPKExternalReferenceCode);
 	}
 
-	private ThrowableBiFunction<Credentials, Long, Boolean>
-		_forItemRoutesOperations() {
+	private ThrowableBiFunction<Credentials,
+		ClassPKExternalReferenceCode, Boolean>
+			_forItemRoutesOperations() {
 
 		return (credentials, entryId) -> {
 			CommercePriceList commercePriceEntry =
-				_commercePriceListService.fetchCommercePriceList(entryId);
+				_commercePriceListHelper.
+					getCommercePriceListByClassPKExternalReferenceCode(entryId);
 
 			return _portletResourcePermission.contains(
 				(PermissionChecker)credentials.get(),
@@ -79,6 +90,9 @@ public class CommercePriceListHasPermissionImpl implements HasPermission<Long> {
 				CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
 		};
 	}
+
+	@Reference
+	private CommercePriceListHelper _commercePriceListHelper;
 
 	@Reference
 	private CommercePriceListService _commercePriceListService;

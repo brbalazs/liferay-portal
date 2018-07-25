@@ -18,7 +18,10 @@ import com.liferay.apio.architect.alias.routes.permission.HasNestedAddingPermiss
 import com.liferay.apio.architect.credentials.Credentials;
 import com.liferay.apio.architect.function.throwable.ThrowableBiFunction;
 import com.liferay.apio.architect.identifier.Identifier;
-import com.liferay.commerce.data.integration.apio.identifiers.CommercePriceEntryIdentifier;
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
+import com.liferay.commerce.data.integration.apio.identifiers.CommercePriceListIdentifier;
+import com.liferay.commerce.data.integration.apio.internal.util.CommercePriceEntryHelper;
+import com.liferay.commerce.data.integration.apio.internal.util.CommercePriceListHelper;
 import com.liferay.commerce.price.list.constants.CommercePriceListActionKeys;
 import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
@@ -39,48 +42,62 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=com.liferay.commerce.price.list.model.CommercePriceEntry"
 )
 public class CommercePriceEntryHasPermissionImpl
-	implements HasPermission<Long> {
+	implements HasPermission<ClassPKExternalReferenceCode> {
 
 	@Override
 	public <S> HasNestedAddingPermissionFunction<S> forAddingIn(
 		Class<? extends Identifier<S>> identifierClass) {
 
-		if (identifierClass.equals(CommercePriceEntryIdentifier.class)) {
-			return (credentials, commercePriceListId) -> {
-				CommercePriceList commercePriceList =
-					_commercePriceListService.fetchCommercePriceList(
-						(Long)commercePriceListId);
+		if (identifierClass.equals(CommercePriceListIdentifier.class)) {
+			return (
+				credentials,
+				priceListClassPKExternalReferenceCode) -> {
+					CommercePriceList commercePriceList =
+						_commercePriceListHelper.
+							getCommercePriceListByClassPKExternalReferenceCode(
+								(ClassPKExternalReferenceCode)
+									priceListClassPKExternalReferenceCode);
 
-				return _portletResourcePermission.contains(
-					(PermissionChecker)credentials.get(),
-					commercePriceList.getGroupId(),
-					CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
-			};
+					return _portletResourcePermission.contains(
+						(PermissionChecker)credentials.get(),
+						commercePriceList.getGroupId(),
+						CommercePriceListActionKeys.
+							MANAGE_COMMERCE_PRICE_LISTS);
+				};
 		}
 
 		return (credentials, s) -> false;
 	}
 
 	@Override
-	public Boolean forDeleting(Credentials credentials, Long entryId)
+	public Boolean forDeleting(
+			Credentials credentials,
+			ClassPKExternalReferenceCode classPKExternalReferenceCode)
 		throws Exception {
 
-		return _forItemRoutesOperations().apply(credentials, entryId);
+		return _forItemRoutesOperations().apply(
+			credentials, classPKExternalReferenceCode);
 	}
 
 	@Override
-	public Boolean forUpdating(Credentials credentials, Long entryId)
+	public Boolean forUpdating(
+			Credentials credentials,
+			ClassPKExternalReferenceCode classPKExternalReferenceCode)
 		throws Exception {
 
-		return _forItemRoutesOperations().apply(credentials, entryId);
+		return _forItemRoutesOperations().apply(
+			credentials, classPKExternalReferenceCode);
 	}
 
-	private ThrowableBiFunction<Credentials, Long, Boolean>
-		_forItemRoutesOperations() {
+	private ThrowableBiFunction<Credentials,
+		ClassPKExternalReferenceCode, Boolean>
+			_forItemRoutesOperations() {
 
-		return (credentials, entryId) -> {
+		return (credentials, classPKExternalReferenceCode) -> {
 			CommercePriceEntry commercePriceEntry =
-				_commercePriceEntryService.fetchCommercePriceEntry(entryId);
+				_commercePriceEntryHelper.
+					getCommercePriceEntryByClassPKExternalReferenceCode(
+						classPKExternalReferenceCode);
 
 			return _portletResourcePermission.contains(
 				(PermissionChecker)credentials.get(),
@@ -90,7 +107,13 @@ public class CommercePriceEntryHasPermissionImpl
 	}
 
 	@Reference
+	private CommercePriceEntryHelper _commercePriceEntryHelper;
+
+	@Reference
 	private CommercePriceEntryService _commercePriceEntryService;
+
+	@Reference
+	private CommercePriceListHelper _commercePriceListHelper;
 
 	@Reference
 	private CommercePriceListService _commercePriceListService;

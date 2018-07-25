@@ -57,7 +57,7 @@ public class CommerceAddressNestedCollectionResource
 			this::_getPageItems
 		).addCreator(
 			this::_addCommerceAddress,
-			_hasPermission.forAddingIn(CommerceAddressIdentifier.class),
+			_hasPermission.forAddingIn(CommerceAccountIdentifier.class),
 			CommerceAddressCreatorForm::buildForm
 		).build();
 	}
