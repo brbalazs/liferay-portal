@@ -22,6 +22,7 @@ import com.liferay.commerce.cloud.server.util.JsonUtil;
 import com.liferay.commerce.cloud.server.util.VertxUtil;
 
 import io.vertx.core.AsyncResult;
+import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
@@ -53,8 +54,16 @@ public class PushSenderServiceImpl implements PushSenderService {
 		Project project, List<Forecast> forecasts,
 		Handler<AsyncResult<Void>> handler) {
 
+		String host = project.getCallbackHost();
+
+		if ((host == null) || host.isEmpty()) {
+			handler.handle(Future.succeededFuture());
+
+			return;
+		}
+
 		HttpRequest<Void> httpRequest = _webClient.post(
-			project.getCallbackHost(),
+			host,
 			"/o/commerce-cloud-client-rest/" + project.getId() + "/forecasts"
 		).as(
 			BodyCodec.none()
