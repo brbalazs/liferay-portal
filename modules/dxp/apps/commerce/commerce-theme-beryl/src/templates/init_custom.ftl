@@ -3,7 +3,7 @@
 	company_email = getterUtil.getString(themeDisplay.getThemeSetting("company-email"))
 	copyright = getterUtil.getString(themeDisplay.getThemeSetting("copyright"))
 	orderItemsQuantity = commerceOrderHttpHelper.getCommerceOrderItemsQuantity(request)
-	cartUrl = commerceOrderHttpHelper.getCommerceCartPortletURL(request)
+	cartUrl = commerceOrderHttpHelper.getCommerceCartPortletURL(request)!""
 	currentOrganization = (commerceOrganizationHelper.getCurrentOrganization(request))!""
 	demo_mode = getterUtil.getBoolean(themeDisplay.getThemeSetting("demo-mode"))
 	userManagementUrl = commerceOrganizationHelper.getCommerceUserPortletURL(request)
