@@ -1,0 +1,11 @@
+#
+# Liferay App Version 2.0.0
+#
+
+app.artifacts-2.0.0=\
+	com.liferay.frontend.theme.westeros.bank.site.initializer-1.0.5.jar,\
+	westeros-bank-theme-2.0.7.war
+
+app.change.log-2.0.0=LPS-81238 LPS-83766
+
+app.git.id-2.0.0=34b672d00b97d85c790fc57fe2a9268fb46b2587
