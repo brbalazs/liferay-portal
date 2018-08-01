@@ -145,9 +145,9 @@ public class BerylSiteInitializer implements SiteInitializer {
 
 			updateLogo(serviceContext);
 
-			_berylLayoutsInitializer.initialize(serviceContext);
-
 			createRoles(serviceContext);
+
+			_berylLayoutsInitializer.initialize(serviceContext);
 
 			List<CommerceWarehouse> commerceWarehouses =
 				_importCommerceWarehouses(serviceContext);

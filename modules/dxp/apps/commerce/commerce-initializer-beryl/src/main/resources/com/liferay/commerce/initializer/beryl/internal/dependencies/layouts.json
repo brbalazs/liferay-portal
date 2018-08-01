@@ -193,6 +193,20 @@
 	{
 		"layoutTemplateId": "1_column",
 		"name": "Account Management",
+		"permissions": [
+			{
+				"actionIds": [
+					"VIEW"
+				],
+				"roleName": "Account Manager",
+				"scope": 4
+			},
+			{
+				"actionIds": [],
+				"roleName": "Site Member",
+				"scope": 4
+			}
+		],
 		"portlets": [
 			{
 				"layoutColumnId": "column-1",
