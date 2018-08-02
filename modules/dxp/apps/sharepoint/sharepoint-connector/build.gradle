@@ -5,5 +5,5 @@ dependencies {
 	compileOnly group: "commons-httpclient", name: "commons-httpclient", version: "3.1"
 	compileOnly group: "org.apache.axis", name: "axis-jaxrpc", version: "1.4"
 
-	testCompile group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "3.0.0"
+	testCompile group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "default"
 }

@@ -16,5 +16,5 @@ dependencies {
 	testCompile group: "com.liferay", name: "com.liferay.petra.concurrent", version: "2.0.0"
 	testCompile group: "com.liferay", name: "com.liferay.petra.lang", version: "2.0.0"
 	testCompile group: "com.liferay", name: "com.liferay.petra.memory", version: "2.0.0"
-	testCompile group: "com.liferay.portal", name: "com.liferay.util.java", version: "3.0.0"
+	testCompile group: "com.liferay.portal", name: "com.liferay.util.java", version: "default"
 }
