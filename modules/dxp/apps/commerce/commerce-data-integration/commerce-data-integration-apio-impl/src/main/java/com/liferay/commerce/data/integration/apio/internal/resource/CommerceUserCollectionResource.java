@@ -27,6 +27,7 @@ import com.liferay.commerce.data.integration.apio.internal.form.CommerceUserUpse
 import com.liferay.external.reference.service.ERUserLocalService;
 import com.liferay.person.apio.architect.identifier.PersonIdentifier;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.apio.user.CurrentUser;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -36,7 +37,6 @@ import com.liferay.portal.kernel.model.Contact;
 import com.liferay.portal.kernel.model.ListType;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserWrapper;
-import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.ListTypeLocalService;
 import com.liferay.portal.kernel.service.RoleService;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -73,7 +73,7 @@ public class CommerceUserCollectionResource
 		return builder.addGetter(
 			this::_getPageItems, ThemeDisplay.class
 		).addCreator(
-			this::_addUser, ThemeDisplay.class, _hasPermission::forAdding,
+			this::_addUser, CurrentUser.class, _hasPermission::forAdding,
 			CommerceUserUpserterForm::buildForm
 		).build();
 	}
@@ -130,17 +130,12 @@ public class CommerceUserCollectionResource
 
 	private UserWrapper _addUser(
 			CommerceUserUpserterForm commerceUserUpserterForm,
-			ThemeDisplay themeDisplay)
+			User currentUser)
 		throws PortalException {
 
-		User user = _userLocalService.getUserById(
-			PrincipalThreadLocal.getUserId());
-
-		Company company = themeDisplay.getCompany();
-
-		user = _erUserLocalService.addOrUpdateUser(
+		User user = _erUserLocalService.addOrUpdateUser(
 			commerceUserUpserterForm.getExternalReferenceCode(),
-			user.getUserId(), company.getCompanyId(), false,
+			currentUser.getUserId(), currentUser.getCompanyId(), false,
 			commerceUserUpserterForm.getPassword1(),
 			commerceUserUpserterForm.getPassword2(), false,
 			commerceUserUpserterForm.getAlternateName(),
