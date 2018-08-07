@@ -64,7 +64,7 @@ public class CommerceAccountNestedCollectionResource
 		return builder.addGetter(
 			this::_getPageItems, CurrentUser.class
 		).addCreator(
-			this::_addAccount,
+			this::_addAccount, CurrentUser.class,
 			_hasPermission.forAddingIn(WebSiteIdentifier.class),
 			CommerceAccountUpserterForm::buildForm
 		).build();
@@ -111,7 +111,8 @@ public class CommerceAccountNestedCollectionResource
 
 	private Organization _addAccount(
 			Long webSiteId,
-			CommerceAccountUpserterForm commerceAccountUpserterForm)
+			CommerceAccountUpserterForm commerceAccountUpserterForm,
+			User currentUser)
 		throws Exception {
 
 		Group group = _groupLocalService.getGroup(webSiteId);
@@ -123,7 +124,8 @@ public class CommerceAccountNestedCollectionResource
 			parentOrganizationId, commerceAccountUpserterForm.getName(),
 			commerceAccountUpserterForm.getRegionId(),
 			commerceAccountUpserterForm.getCountryId(),
-			commerceAccountUpserterForm.getCommerceUserIds());
+			commerceAccountUpserterForm.getCommerceUserIds(),
+			currentUser);
 	}
 
 	private PageItems<Organization> _getPageItems(

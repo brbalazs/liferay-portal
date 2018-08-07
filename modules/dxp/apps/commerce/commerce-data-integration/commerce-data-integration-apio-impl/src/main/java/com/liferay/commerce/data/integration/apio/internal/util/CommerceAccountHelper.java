@@ -24,7 +24,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.ListTypeConstants;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 
@@ -46,10 +45,11 @@ public class CommerceAccountHelper {
 
 	public Organization upsert(
 			String externalReferenceCode, long parentOrganizationId,
-			String name, long regionId, long countryId, List<Long> userIds)
+			String name, long regionId, long countryId, List<Long> userIds,
+			User currentUser)
 		throws PortalException {
 
-		ServiceContext serviceContext = _getServiceContext();
+		ServiceContext serviceContext = _getServiceContext(currentUser);
 
 		Organization organization =
 			_erOrganizationLocalService.addOrUpdateOrganization(
@@ -84,17 +84,14 @@ public class CommerceAccountHelper {
 		}
 	}
 
-	private ServiceContext _getServiceContext() throws PortalException {
-		User user = _userLocalService.getUserById(
-			PrincipalThreadLocal.getUserId());
-
+	private ServiceContext _getServiceContext(User currentUser) throws PortalException {
 		ServiceContext serviceContext = new ServiceContext();
 
 		serviceContext.setAddGroupPermissions(true);
 		serviceContext.setAddGuestPermissions(true);
-		serviceContext.setCompanyId(user.getCompanyId());
-		serviceContext.setTimeZone(user.getTimeZone());
-		serviceContext.setUserId(user.getUserId());
+		serviceContext.setCompanyId(currentUser.getCompanyId());
+		serviceContext.setTimeZone(currentUser.getTimeZone());
+		serviceContext.setUserId(currentUser.getUserId());
 
 		return serviceContext;
 	}
