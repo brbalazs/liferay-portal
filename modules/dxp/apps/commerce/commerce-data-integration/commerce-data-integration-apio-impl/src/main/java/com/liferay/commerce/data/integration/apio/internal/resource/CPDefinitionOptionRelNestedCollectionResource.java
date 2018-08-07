@@ -30,9 +30,9 @@ import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.apio.user.CurrentUser;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 
@@ -59,7 +59,7 @@ public class CPDefinitionOptionRelNestedCollectionResource
 		return builder.addGetter(
 			this::_getPageItems
 		).addCreator(
-			this::_addCPDefinitionOptionRel,
+			this::_addCPDefinitionOptionRel, CurrentUser.class,
 			_hasPermission.forAddingIn(CPDefinitionIdentifier.class),
 			CPDefinitionOptionRelCreatorForm::buildForm
 		).build();
@@ -109,11 +109,10 @@ public class CPDefinitionOptionRelNestedCollectionResource
 
 	private CPDefinitionOptionRel _addCPDefinitionOptionRel(
 			Long cpDefinitionId,
-			CPDefinitionOptionRelCreatorForm cpDefinitionOptionRelCreatorForm)
+			CPDefinitionOptionRelCreatorForm cpDefinitionOptionRelCreatorForm,
+			User currentUser)
 		throws PortalException {
 
-		User user = _userLocalService.getUserById(
-			PrincipalThreadLocal.getUserId());
 		CPDefinition cpDefinition = _cpDefinitionService.getCPDefinition(
 			cpDefinitionId);
 
@@ -121,9 +120,9 @@ public class CPDefinitionOptionRelNestedCollectionResource
 
 		serviceContext.setAddGroupPermissions(true);
 		serviceContext.setAddGuestPermissions(true);
-		serviceContext.setCompanyId(user.getCompanyId());
-		serviceContext.setTimeZone(user.getTimeZone());
-		serviceContext.setUserId(user.getUserId());
+		serviceContext.setCompanyId(currentUser.getCompanyId());
+		serviceContext.setTimeZone(currentUser.getTimeZone());
+		serviceContext.setUserId(currentUser.getUserId());
 		serviceContext.setScopeGroupId(cpDefinition.getGroupId());
 
 		return _cpDefinitionOptionRelService.addCPDefinitionOptionRel(
