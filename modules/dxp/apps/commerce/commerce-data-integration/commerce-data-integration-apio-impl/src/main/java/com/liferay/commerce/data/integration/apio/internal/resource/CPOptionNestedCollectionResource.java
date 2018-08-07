@@ -29,7 +29,9 @@ import com.liferay.commerce.product.exception.CPOptionKeyException;
 import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.service.CPOptionService;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.apio.user.CurrentUser;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
 
 import java.util.List;
@@ -55,7 +57,7 @@ public class CPOptionNestedCollectionResource
 		return builder.addGetter(
 			this::_getPageItems
 		).addCreator(
-			this::_addCPOption,
+			this::_addCPOption, CurrentUser.class,
 			_hasPermission.forAddingIn(WebSiteIdentifier.class),
 			CPOptionCreatorForm::buildForm
 		).build();
@@ -76,8 +78,8 @@ public class CPOptionNestedCollectionResource
 			idempotent(_cpOptionService::deleteCPOption),
 			_hasPermission::forDeleting
 		).addUpdater(
-			this::_updateCPOption, _hasPermission::forUpdating,
-			CPOptionCreatorForm::buildForm
+			this::_updateCPOption, CurrentUser.class,
+			_hasPermission::forUpdating, CPOptionCreatorForm::buildForm
 		).build();
 	}
 
@@ -102,7 +104,8 @@ public class CPOptionNestedCollectionResource
 	}
 
 	private CPOption _addCPOption(
-			Long webSiteId, CPOptionCreatorForm cpOptionCreatorForm)
+			Long webSiteId, CPOptionCreatorForm cpOptionCreatorForm,
+			User currentUser)
 		throws PortalException {
 
 		try {
@@ -110,7 +113,7 @@ public class CPOptionNestedCollectionResource
 				webSiteId, cpOptionCreatorForm.getNameMap(),
 				cpOptionCreatorForm.getDescriptionMap(),
 				cpOptionCreatorForm.getFieldType(),
-				cpOptionCreatorForm.getKey());
+				cpOptionCreatorForm.getKey(), currentUser);
 		}
 		catch (CPOptionKeyException cpoke) {
 			throw new BadRequestException(
@@ -135,13 +138,15 @@ public class CPOptionNestedCollectionResource
 	}
 
 	private CPOption _updateCPOption(
-			Long cpOptionId, CPOptionCreatorForm cpOptionCreatorForm)
+			Long cpOptionId, CPOptionCreatorForm cpOptionCreatorForm,
+			User currentUser)
 		throws PortalException {
 
 		return _cpOptionHelper.updateCPOption(
 			cpOptionId, cpOptionCreatorForm.getNameMap(),
 			cpOptionCreatorForm.getDescriptionMap(),
-			cpOptionCreatorForm.getFieldType(), cpOptionCreatorForm.getKey());
+			cpOptionCreatorForm.getFieldType(), cpOptionCreatorForm.getKey(),
+			currentUser);
 	}
 
 	@Reference

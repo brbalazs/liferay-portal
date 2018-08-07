@@ -20,7 +20,6 @@ import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
@@ -45,22 +44,20 @@ public class CPInstanceHelper {
 			double height, double depth, double weight, double cost,
 			double price, double promoPrice, boolean published,
 			Date displayDate, Date expirationDate, boolean neverExpire,
-			String externalReference)
+			String externalReference, User currentUser)
 		throws PortalException {
 
 		CPDefinition cpDefinition = _cpDefinitionService.getCPDefinition(
 			cpDefinitionId);
-		User user = userLocalService.getUserById(
-			PrincipalThreadLocal.getUserId());
 
 		ServiceContext serviceContext = new ServiceContext();
 
 		serviceContext.setAddGroupPermissions(true);
 		serviceContext.setAddGuestPermissions(true);
-		serviceContext.setCompanyId(user.getCompanyId());
+		serviceContext.setCompanyId(currentUser.getCompanyId());
 		serviceContext.setScopeGroupId(cpDefinition.getGroupId());
-		serviceContext.setTimeZone(user.getTimeZone());
-		serviceContext.setUserId(user.getUserId());
+		serviceContext.setTimeZone(currentUser.getTimeZone());
+		serviceContext.setUserId(currentUser.getUserId());
 
 		Calendar displayCalendar = CalendarFactoryUtil.getCalendar(
 			serviceContext.getTimeZone());

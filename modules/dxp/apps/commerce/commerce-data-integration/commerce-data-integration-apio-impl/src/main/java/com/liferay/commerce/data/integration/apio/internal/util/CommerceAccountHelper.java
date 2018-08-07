@@ -84,7 +84,9 @@ public class CommerceAccountHelper {
 		}
 	}
 
-	private ServiceContext _getServiceContext(User currentUser) throws PortalException {
+	private ServiceContext _getServiceContext(User currentUser)
+		throws PortalException {
+
 		ServiceContext serviceContext = new ServiceContext();
 
 		serviceContext.setAddGroupPermissions(true);

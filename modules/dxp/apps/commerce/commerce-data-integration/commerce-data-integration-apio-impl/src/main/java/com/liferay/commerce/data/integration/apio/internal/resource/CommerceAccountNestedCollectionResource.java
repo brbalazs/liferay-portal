@@ -34,7 +34,6 @@ import com.liferay.portal.apio.user.CurrentUser;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.User;
@@ -124,8 +123,7 @@ public class CommerceAccountNestedCollectionResource
 			parentOrganizationId, commerceAccountUpserterForm.getName(),
 			commerceAccountUpserterForm.getRegionId(),
 			commerceAccountUpserterForm.getCountryId(),
-			commerceAccountUpserterForm.getCommerceUserIds(),
-			currentUser);
+			commerceAccountUpserterForm.getCommerceUserIds(), currentUser);
 	}
 
 	private PageItems<Organization> _getPageItems(
@@ -135,9 +133,9 @@ public class CommerceAccountNestedCollectionResource
 		BaseModelSearchResult<Organization> result =
 			_commerceOrganizationService.searchOrganizationsByGroup(
 				webSiteId, currentUser.getUserId(),
-				CommerceOrganizationConstants.TYPE_ACCOUNT,
-				StringPool.BLANK, pagination.getStartPosition(),
-				pagination.getEndPosition(), null);
+				CommerceOrganizationConstants.TYPE_ACCOUNT, StringPool.BLANK,
+				pagination.getStartPosition(), pagination.getEndPosition(),
+				null);
 
 		return new PageItems<>(result.getBaseModels(), result.getLength());
 	}

@@ -40,6 +40,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
@@ -76,7 +77,7 @@ public class CommercePriceListNestedCollectionResource
 		return builder.addGetter(
 			this::_getPageItems
 		).addCreator(
-			this::_upsertCommercePriceList,
+			this::_upsertCommercePriceList, CurrentUser.class,
 			_hasPermission.forAddingIn(WebSiteIdentifier.class),
 			CommercePriceListUpserterForm::buildForm
 		).build();
@@ -96,7 +97,7 @@ public class CommercePriceListNestedCollectionResource
 		return builder.addGetter(
 			_commercePriceListHelper::
 				getCommercePriceListByClassPKExternalReferenceCode,
-				Company.class
+			Company.class
 		).addUpdater(
 			this::_updateCommercePriceList, _hasPermission::forUpdating,
 			CommercePriceListUpdaterForm::buildForm
@@ -202,7 +203,8 @@ public class CommercePriceListNestedCollectionResource
 
 	private CommercePriceList _upsertCommercePriceList(
 			Long groupId,
-			CommercePriceListUpserterForm commercePriceListUpserterForm)
+			CommercePriceListUpserterForm commercePriceListUpserterForm,
+			User currentUser)
 		throws PortalException {
 
 		try {
@@ -215,7 +217,7 @@ public class CommercePriceListNestedCollectionResource
 				commercePriceListUpserterForm.getDisplayDate(),
 				commercePriceListUpserterForm.getExpirationDate(),
 				commercePriceListUpserterForm.getExternalReferenceCode(),
-				commercePriceListUpserterForm.getActive());
+				commercePriceListUpserterForm.getActive(), currentUser);
 		}
 		catch (NoSuchPriceListException nsple) {
 			throw new NotFoundException(

@@ -29,7 +29,9 @@ import com.liferay.commerce.data.integration.apio.internal.util.CPInstanceHelper
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.apio.user.CurrentUser;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.util.List;
@@ -53,7 +55,7 @@ public class CPInstanceNestedCollectionResource
 		return builder.addGetter(
 			this::_getPageItems
 		).addCreator(
-			this::_addCPInstance,
+			this::_addCPInstance, CurrentUser.class,
 			_hasPermission.forAddingIn(CPDefinitionIdentifier.class),
 			CPInstanceUpserterForm::buildForm
 		).build();
@@ -99,7 +101,8 @@ public class CPInstanceNestedCollectionResource
 	}
 
 	private CPInstance _addCPInstance(
-			Long cpDefinitionId, CPInstanceUpserterForm cpInstanceUpserterForm)
+			Long cpDefinitionId, CPInstanceUpserterForm cpInstanceUpserterForm,
+			User currentUser)
 		throws PortalException {
 
 		return _cpInstanceHelper.upsertCPInstance(
@@ -117,7 +120,7 @@ public class CPInstanceNestedCollectionResource
 			cpInstanceUpserterForm.getDisplayDate(),
 			cpInstanceUpserterForm.getExpirationDate(),
 			cpInstanceUpserterForm.getNeverExpire(),
-			cpInstanceUpserterForm.getExternalReferenceCode());
+			cpInstanceUpserterForm.getExternalReferenceCode(), currentUser);
 	}
 
 	private PageItems<CPInstance> _getPageItems(

@@ -18,7 +18,6 @@ import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.service.CPOptionLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 
@@ -36,10 +35,12 @@ public class CPOptionHelper {
 
 	public CPOption createCPOption(
 			Long webSiteId, Map<Locale, String> nameMap,
-			Map<Locale, String> descriptionMap, String fieldType, String key)
+			Map<Locale, String> descriptionMap, String fieldType, String key,
+			User currentUser)
 		throws PortalException {
 
-		ServiceContext serviceContext = _getServiceContext(webSiteId);
+		ServiceContext serviceContext = _getServiceContext(
+			webSiteId, currentUser);
 
 		return _cpOptionLocalService.addCPOption(
 			nameMap, descriptionMap, fieldType, false, false, false, key,
@@ -48,7 +49,8 @@ public class CPOptionHelper {
 
 	public CPOption updateCPOption(
 			Long cpOptionId, Map<Locale, String> nameMap,
-			Map<Locale, String> descriptionMap, String fieldType, String key)
+			Map<Locale, String> descriptionMap, String fieldType, String key,
+			User currentUser)
 		throws PortalException {
 
 		CPOption cpOption = _cpOptionLocalService.getCPOption(cpOptionId);
@@ -59,7 +61,7 @@ public class CPOptionHelper {
 		cpOption.setNameMap(nameMap);
 
 		ServiceContext serviceContext = _getServiceContext(
-			cpOption.getGroupId());
+			cpOption.getGroupId(), currentUser);
 
 		return _cpOptionLocalService.updateCPOption(
 			cpOptionId, cpOption.getNameMap(), cpOption.getDescriptionMap(),
@@ -68,20 +70,17 @@ public class CPOptionHelper {
 			cpOption.getKey(), serviceContext);
 	}
 
-	private ServiceContext _getServiceContext(Long groupId)
+	private ServiceContext _getServiceContext(Long groupId, User currentUser)
 		throws PortalException {
-
-		User user = _userLocalService.getUserById(
-			PrincipalThreadLocal.getUserId());
 
 		ServiceContext serviceContext = new ServiceContext();
 
 		serviceContext.setAddGroupPermissions(true);
 		serviceContext.setAddGuestPermissions(true);
-		serviceContext.setCompanyId(user.getCompanyId());
+		serviceContext.setCompanyId(currentUser.getCompanyId());
 		serviceContext.setScopeGroupId(groupId);
-		serviceContext.setTimeZone(user.getTimeZone());
-		serviceContext.setUserId(user.getUserId());
+		serviceContext.setTimeZone(currentUser.getTimeZone());
+		serviceContext.setUserId(currentUser.getUserId());
 
 		return serviceContext;
 	}

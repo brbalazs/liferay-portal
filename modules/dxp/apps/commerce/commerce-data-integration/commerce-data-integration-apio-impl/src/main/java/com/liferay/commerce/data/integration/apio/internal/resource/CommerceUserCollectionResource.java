@@ -32,7 +32,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Contact;
 import com.liferay.portal.kernel.model.ListType;
 import com.liferay.portal.kernel.model.User;
@@ -129,8 +128,7 @@ public class CommerceUserCollectionResource
 	}
 
 	private UserWrapper _addUser(
-			CommerceUserUpserterForm commerceUserUpserterForm,
-			User currentUser)
+			CommerceUserUpserterForm commerceUserUpserterForm, User currentUser)
 		throws PortalException {
 
 		User user = _erUserLocalService.addOrUpdateUser(

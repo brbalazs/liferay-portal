@@ -26,7 +26,6 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
@@ -115,7 +114,7 @@ public class CommercePriceListHelper {
 	}
 
 	public CommercePriceList getCommercePriceListByClassPKExternalReferenceCode(
-		ClassPKExternalReferenceCode classPKExternalReferenceCode)
+			ClassPKExternalReferenceCode classPKExternalReferenceCode)
 		throws PortalException {
 
 		long companyId = _companyProvider.getCompanyId();
@@ -220,7 +219,8 @@ public class CommercePriceListHelper {
 	public CommercePriceList upsertCommercePriceList(
 			Long groupId, Long commercePriceListId, String currency,
 			String name, Double priority, Boolean neverExpire, Date displayDate,
-			Date expirationDate, String externalReferenceCode, Boolean active)
+			Date expirationDate, String externalReferenceCode, Boolean active,
+			User currentUser)
 		throws PortalException {
 
 		long commerceCurrencyId = _getCommerceCurrencyId(groupId, currency);
@@ -284,13 +284,11 @@ public class CommercePriceListHelper {
 				serviceContext);
 
 		if (!active) {
-			User user = _userLocalService.getUserById(
-				PrincipalThreadLocal.getUserId());
-
 			Map<String, Serializable> workflowContext = new HashMap<>();
 
 			_commercePriceListLocalService.updateStatus(
-				user.getUserId(), commercePriceList.getCommercePriceListId(),
+				currentUser.getUserId(),
+				commercePriceList.getCommercePriceListId(),
 				WorkflowConstants.STATUS_DRAFT, serviceContext,
 				workflowContext);
 		}
