@@ -35,9 +35,11 @@ import com.liferay.commerce.price.list.exception.NoSuchPriceListException;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.apio.user.CurrentUser;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
@@ -93,7 +95,8 @@ public class CommercePriceListNestedCollectionResource
 
 		return builder.addGetter(
 			_commercePriceListHelper::
-				getCommercePriceListByClassPKExternalReferenceCode
+				getCommercePriceListByClassPKExternalReferenceCode,
+				Company.class
 		).addUpdater(
 			this::_updateCommercePriceList, _hasPermission::forUpdating,
 			CommercePriceListUpdaterForm::buildForm

@@ -24,8 +24,10 @@ import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
+import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.service.persistence.CompanyProvider;
@@ -113,7 +115,20 @@ public class CommercePriceListHelper {
 	}
 
 	public CommercePriceList getCommercePriceListByClassPKExternalReferenceCode(
-			ClassPKExternalReferenceCode classPKExternalReferenceCode)
+		ClassPKExternalReferenceCode classPKExternalReferenceCode)
+		throws PortalException {
+
+		long companyId = _companyProvider.getCompanyId();
+
+		Company company = _companyLocalService.getCompany(companyId);
+
+		return getCommercePriceListByClassPKExternalReferenceCode(
+			classPKExternalReferenceCode, company);
+	}
+
+	public CommercePriceList getCommercePriceListByClassPKExternalReferenceCode(
+			ClassPKExternalReferenceCode classPKExternalReferenceCode,
+			Company company)
 		throws PortalException {
 
 		long commercePriceListId = classPKExternalReferenceCode.getClassPK();
@@ -127,7 +142,7 @@ public class CommercePriceListHelper {
 				classPKExternalReferenceCode.getExternalReferenceCode();
 
 			return _commercePriceListService.fetchByExternalReferenceCode(
-				_companyProvider.getCompanyId(), externalReferenceCode);
+				company.getCompanyId(), externalReferenceCode);
 		}
 	}
 
@@ -311,6 +326,9 @@ public class CommercePriceListHelper {
 
 	@Reference
 	private CommercePriceListService _commercePriceListService;
+
+	@Reference
+	private CompanyLocalService _companyLocalService;
 
 	@Reference
 	private CompanyProvider _companyProvider;
