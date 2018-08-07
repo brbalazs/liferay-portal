@@ -79,10 +79,11 @@ public class CommercePriceListHasPermissionImpl
 		ClassPKExternalReferenceCode, Boolean>
 			_forItemRoutesOperations() {
 
-		return (credentials, entryId) -> {
+		return (credentials, classPKExternalReferenceCode) -> {
 			CommercePriceList commercePriceEntry =
 				_commercePriceListHelper.
-					getCommercePriceListByClassPKExternalReferenceCode(entryId);
+					getCommercePriceListByClassPKExternalReferenceCode(
+						classPKExternalReferenceCode);
 
 			return _portletResourcePermission.contains(
 				(PermissionChecker)credentials.get(),
