@@ -30,14 +30,15 @@ import com.liferay.commerce.organization.constants.CommerceOrganizationConstants
 import com.liferay.commerce.organization.service.CommerceOrganizationService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.apio.user.CurrentUser;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Organization;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
-import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.UserService;
 import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
@@ -61,7 +62,7 @@ public class CommerceAccountNestedCollectionResource
 		NestedCollectionRoutes.Builder<Organization, Long, Long> builder) {
 
 		return builder.addGetter(
-			this::_getPageItems, Company.class
+			this::_getPageItems, CurrentUser.class
 		).addCreator(
 			this::_addAccount,
 			_hasPermission.forAddingIn(WebSiteIdentifier.class),
@@ -126,14 +127,13 @@ public class CommerceAccountNestedCollectionResource
 	}
 
 	private PageItems<Organization> _getPageItems(
-			Pagination pagination, Long webSiteId, Company company)
+			Pagination pagination, Long webSiteId, User currentUser)
 		throws PortalException {
-
-		long userId = PrincipalThreadLocal.getUserId();
 
 		BaseModelSearchResult<Organization> result =
 			_commerceOrganizationService.searchOrganizationsByGroup(
-				webSiteId, userId, CommerceOrganizationConstants.TYPE_ACCOUNT,
+				webSiteId, currentUser.getUserId(),
+				CommerceOrganizationConstants.TYPE_ACCOUNT,
 				StringPool.BLANK, pagination.getStartPosition(),
 				pagination.getEndPosition(), null);
 
