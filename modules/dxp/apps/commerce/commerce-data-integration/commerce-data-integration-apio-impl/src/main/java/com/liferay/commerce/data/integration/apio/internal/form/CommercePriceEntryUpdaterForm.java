@@ -67,6 +67,5 @@ public class CommercePriceEntryUpdaterForm {
 
 	private Double _price;
 	private Double _promoPrice;
-	private Boolean _standardPrice;
 
 }
