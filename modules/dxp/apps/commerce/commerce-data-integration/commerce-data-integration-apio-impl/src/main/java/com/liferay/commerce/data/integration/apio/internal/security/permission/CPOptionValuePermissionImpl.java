@@ -21,7 +21,9 @@ import com.liferay.apio.architect.identifier.Identifier;
 import com.liferay.commerce.data.integration.apio.identifiers.CPOptionIdentifier;
 import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.constants.CPConstants;
+import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.model.CPOptionValue;
+import com.liferay.commerce.product.service.CPOptionService;
 import com.liferay.commerce.product.service.CPOptionValueService;
 import com.liferay.portal.apio.permission.HasPermission;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
@@ -44,10 +46,14 @@ public class CPOptionValuePermissionImpl implements HasPermission<Long> {
 		Class<? extends Identifier<S>> identifierClass) {
 
 		if (identifierClass.equals(CPOptionIdentifier.class)) {
-			return (credentials, cpOptionId) ->
-				_portletResourcePermission.contains(
-					(PermissionChecker)credentials.get(), (Long)cpOptionId,
+			return (credentials, cpOptionId) -> {
+				CPOption cpOption = _cpOptionService.fetchCPOption(
+					(Long)cpOptionId);
+
+				return _portletResourcePermission.contains(
+					(PermissionChecker)credentials.get(), cpOption.getGroupId(),
 					CPActionKeys.ADD_COMMERCE_PRODUCT_OPTION_VALUE);
+			};
 		}
 
 		return (credentials, s) -> false;
@@ -82,6 +88,9 @@ public class CPOptionValuePermissionImpl implements HasPermission<Long> {
 				cpOptionValue.getGroupId(), actionId);
 		};
 	}
+
+	@Reference
+	private CPOptionService _cpOptionService;
 
 	@Reference
 	private CPOptionValueService _cpOptionValueService;

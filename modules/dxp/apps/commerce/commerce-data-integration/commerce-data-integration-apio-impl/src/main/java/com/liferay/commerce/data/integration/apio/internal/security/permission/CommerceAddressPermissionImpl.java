@@ -22,8 +22,10 @@ import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.data.integration.apio.identifiers.CommerceAccountIdentifier;
 import com.liferay.commerce.model.CommerceAddress;
+import com.liferay.commerce.organization.service.CommerceOrganizationService;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 
@@ -43,11 +45,16 @@ public class CommerceAddressPermissionImpl implements HasPermission<Long> {
 		Class<? extends Identifier<S>> identifierClass) {
 
 		if (identifierClass.equals(CommerceAccountIdentifier.class)) {
-			return (credentials, commerceAccountId) ->
-				_portletResourcePermission.contains(
+			return (credentials, commerceAccountId) -> {
+				Organization organization =
+					_commerceOrganizationService.fetchOrganization(
+						(Long)commerceAccountId);
+
+				return _portletResourcePermission.contains(
 					(PermissionChecker)credentials.get(),
-					(Long)commerceAccountId,
+					organization.getGroupId(),
 					CommerceActionKeys.MANAGE_COMMERCE_ADDRESSES);
+			};
 		}
 
 		return (credentials, s) -> false;
@@ -83,6 +90,9 @@ public class CommerceAddressPermissionImpl implements HasPermission<Long> {
 
 	@Reference
 	private CommerceAddressService _commerceAddressService;
+
+	@Reference
+	private CommerceOrganizationService _commerceOrganizationService;
 
 	@Reference(
 		target = "(resource.name=" + CommerceConstants.RESOURCE_NAME + ")"

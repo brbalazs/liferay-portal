@@ -20,12 +20,13 @@ import com.liferay.apio.architect.function.throwable.ThrowableTriFunction;
 import com.liferay.apio.architect.identifier.Identifier;
 import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.constants.CPConstants;
+import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
+import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.portal.apio.permission.HasPermission;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
-import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -43,11 +44,17 @@ public class CPDefinitionOptionRelPermissionImpl
 	public <S> HasNestedAddingPermissionFunction<S> forAddingIn(
 		Class<? extends Identifier<S>> identifierClass) {
 
-		if (identifierClass.equals(WebSiteIdentifier.class)) {
-			return (credentials, groupId) ->
-				_portletResourcePermission.contains(
-					(PermissionChecker)credentials.get(), (Long)groupId,
+		if (identifierClass.equals(CPDefinitionIdentifier.class)) {
+			return (credentials, cpDefinitionId) -> {
+				CPDefinition cpDefinition =
+					_cpDefinitionService.fetchCPDefinition(
+						(Long)cpDefinitionId);
+
+				return _portletResourcePermission.contains(
+					(PermissionChecker)credentials.get(),
+					cpDefinition.getGroupId(),
 					CPActionKeys.ADD_COMMERCE_PRODUCT_INSTANCE);
+			};
 		}
 
 		return (credentials, s) -> false;
@@ -87,6 +94,9 @@ public class CPDefinitionOptionRelPermissionImpl
 
 	@Reference
 	private CPDefinitionOptionRelService _cpDefinitionOptionRelService;
+
+	@Reference
+	private CPDefinitionService _cpDefinitionService;
 
 	@Reference(target = "(resource.name=" + CPConstants.RESOURCE_NAME + ")")
 	private PortletResourcePermission _portletResourcePermission;

@@ -20,10 +20,12 @@ import com.liferay.apio.architect.function.throwable.ThrowableBiFunction;
 import com.liferay.apio.architect.identifier.Identifier;
 import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.constants.CommerceOrderActionKeys;
-import com.liferay.commerce.data.integration.apio.identifiers.CommerceOrderIdentifier;
+import com.liferay.commerce.data.integration.apio.identifiers.CommerceAccountIdentifier;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.organization.service.CommerceOrganizationService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 
@@ -42,11 +44,17 @@ public class CommerceOrderPermissionImpl implements HasPermission<Long> {
 	public <S> HasNestedAddingPermissionFunction<S> forAddingIn(
 		Class<? extends Identifier<S>> identifierClass) {
 
-		if (identifierClass.equals(CommerceOrderIdentifier.class)) {
-			return (credentials, groupId) ->
-				_portletResourcePermission.contains(
-					(PermissionChecker)credentials.get(), (Long)groupId,
+		if (identifierClass.equals(CommerceAccountIdentifier.class)) {
+			return (credentials, commerceAccountId) -> {
+				Organization organization =
+					_commerceOrganizationService.fetchOrganization(
+						(Long)commerceAccountId);
+
+				return _portletResourcePermission.contains(
+					(PermissionChecker)credentials.get(),
+					organization.getGroupId(),
 					CommerceOrderActionKeys.MANAGE_COMMERCE_ORDERS);
+			};
 		}
 
 		return (credentials, s) -> false;
@@ -82,6 +90,9 @@ public class CommerceOrderPermissionImpl implements HasPermission<Long> {
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
+
+	@Reference
+	private CommerceOrganizationService _commerceOrganizationService;
 
 	@Reference(
 		target = "(resource.name=" + CommerceConstants.RESOURCE_NAME + ")"
