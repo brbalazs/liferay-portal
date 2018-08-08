@@ -18,6 +18,7 @@ import aQute.bnd.annotation.ProviderType;
 
 /**
  * @author Rodrigo Guedes de Souza
+ * @author Zoltán Takács
  */
 @ProviderType
 public interface ClassPKExternalReferenceCode {
@@ -25,8 +26,9 @@ public interface ClassPKExternalReferenceCode {
 	public static ClassPKExternalReferenceCode create(
 		long classPK, String externalReferenceCode) {
 
-		if ((classPK == 0) && (externalReferenceCode == null)) {
-			return null;
+		if (classPK == 0) {
+			throw new UnsupportedOperationException(
+				"Class Primary Key cannot be 0");
 		}
 
 		return new ClassPKExternalReferenceCode() {
@@ -38,6 +40,10 @@ public interface ClassPKExternalReferenceCode {
 
 			@Override
 			public String getExternalReferenceCode() {
+				if (externalReferenceCode == null) {
+					return "";
+				}
+
 				return externalReferenceCode;
 			}
 
