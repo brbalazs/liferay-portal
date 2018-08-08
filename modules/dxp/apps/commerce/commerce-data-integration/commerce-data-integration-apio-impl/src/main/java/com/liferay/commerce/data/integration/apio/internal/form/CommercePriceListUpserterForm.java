@@ -55,6 +55,8 @@ public class CommercePriceListUpserterForm {
 			"externalReferenceCode",
 			CommercePriceListUpserterForm::_setExternalReferenceCode
 		).addRequiredBoolean(
+			"active", CommercePriceListUpserterForm::_setActive
+		).addRequiredBoolean(
 			"neverExpire", CommercePriceListUpserterForm::_setNeverExpire
 		).addRequiredDouble(
 			"priority", CommercePriceListUpserterForm::_setPriority
@@ -62,8 +64,6 @@ public class CommercePriceListUpserterForm {
 			"currency", CommercePriceListUpserterForm::_setCurrency
 		).addRequiredString(
 			"name", CommercePriceListUpserterForm::_setName
-		).addOptionalBoolean(
-			"active", CommercePriceListUpserterForm::_setActive
 		).build();
 	}
 
