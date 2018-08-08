@@ -42,6 +42,8 @@ public class CommercePriceEntryUpserterForm {
 			__ -> "This form can be used to upsert a price entry"
 		).constructor(
 			CommercePriceEntryUpserterForm::new
+		).addOptionalBoolean(
+			"standardPrice", CommercePriceEntryUpserterForm::_setStandardPrice
 		).addOptionalLong(
 			"commercePriceEntryId",
 			CommercePriceEntryUpserterForm::_setCommercePriceEntryId
@@ -58,8 +60,6 @@ public class CommercePriceEntryUpserterForm {
 			"price", CommercePriceEntryUpserterForm::_setPrice
 		).addRequiredDouble(
 			"promoPrice", CommercePriceEntryUpserterForm::_setPromoPrice
-		).addOptionalBoolean(
-			"standardPrice", CommercePriceEntryUpserterForm::_setStandardPrice
 		).build();
 	}
 
