@@ -10,3 +10,16 @@ app.artifacts-1.0.0=\
 app.change.log-1.0.0=LPS-77699 LPS-79653 LPS-80332 LPS-82354
 
 app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467
+
+#
+# Liferay App Version 1.0.1
+#
+
+app.artifacts-1.0.1=\
+	com.liferay.mentions.api-3.0.2.jar,\
+	com.liferay.mentions.service-3.0.1.jar,\
+	com.liferay.mentions.web-3.0.3.jar
+
+app.change.log-1.0.1=LPS-77699 LPS-78938 LPS-84092 
+
+app.git.id-1.0.1=be4b7731faf454f5eb13d5b9c4e8bd58e561120d
