@@ -15,3 +15,21 @@ app.artifacts-1.0.0=\
 app.change.log-1.0.0=LPS-79653 LPS-79679 LPS-80332 LPS-81880 LPS-82795 LPS-82828
 
 app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467
+
+#
+# Liferay App Version 1.0.1
+#
+
+app.artifacts-1.0.1=\
+	com.liferay.comment.analytics-1.0.1.jar,\
+	com.liferay.comment.api-3.0.0.jar,\
+	com.liferay.comment.editor.configuration-2.0.0.jar,\
+	com.liferay.comment.page.comments.web-2.0.2.jar,\
+	com.liferay.comment.ratings.definition-3.0.0.jar,\
+	com.liferay.comment.sanitizer-3.0.0.jar,\
+	com.liferay.comment.taglib-1.0.4.jar,\
+	com.liferay.comment.web-3.0.9.jar
+
+app.change.log-1.0.1=LPS-74544 LPS-77699 LPS-79679 LPS-82827 LPS-82911 LPS-83297 LPS-83705 LPS-84090 
+
+app.git.id-1.0.1=9ccf0002c3e2996c8dc9173717033b3ad7e6dcb0
