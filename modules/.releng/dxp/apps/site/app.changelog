@@ -19,3 +19,25 @@ app.artifacts-1.0.0=\
 app.change.log-1.0.0=LPS-77699 LPS-79653 LPS-79679 LPS-79748 LPS-79799 LPS-80332 LPS-80505 LPS-80765 LPS-80876 LPS-80927 LPS-81028 LPS-81237 LPS-81404 LPS-81655 LPS-81999 LPS-82261 LPS-82343 LPS-82562 LPS-82572 LPS-82828
 
 app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467
+
+#
+# Liferay App Version 1.0.1
+#
+
+app.artifacts-1.0.1=\
+	com.liferay.site.admin.web-2.0.8.jar,\
+	com.liferay.site.api-3.0.3.jar,\
+	com.liferay.site.browser.web-3.0.1.jar,\
+	com.liferay.site.impl-1.0.5.jar,\
+	com.liferay.site.item.selector.api-2.0.0.jar,\
+	com.liferay.site.item.selector.web-3.0.0.jar,\
+	com.liferay.site.memberships.web-2.0.2.jar,\
+	com.liferay.site.my.sites.web-3.0.2.jar,\
+	com.liferay.site.service-1.0.2.jar,\
+	com.liferay.site.taglib-1.0.1.jar,\
+	com.liferay.site.teams.uad-1.0.5.jar,\
+	com.liferay.site.teams.web-2.0.3.jar
+
+app.change.log-1.0.1=LPS-74544 LPS-77699 LPS-78938 LPS-79679 LPS-82958 LPS-83697 LPS-83705 LPS-84319 
+
+app.git.id-1.0.1=a8cd220544e590a37736bfd05a8abc111c72b318
