@@ -21,3 +21,27 @@ app.artifacts-1.0.0=\
 app.change.log-1.0.0=LPS-0 LPS-79653 LPS-79679 LPS-80332 LPS-82828
 
 app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467
+
+#
+# Liferay App Version 1.0.1
+#
+
+app.artifacts-1.0.1=\
+	com.liferay.portlet.configuration.css.web-3.0.17.jar,\
+	com.liferay.portlet.configuration.icon.close-3.0.0.jar,\
+	com.liferay.portlet.configuration.icon.edit-3.0.0.jar,\
+	com.liferay.portlet.configuration.icon.edit.defaults-3.0.0.jar,\
+	com.liferay.portlet.configuration.icon.edit.guest-3.0.0.jar,\
+	com.liferay.portlet.configuration.icon.help-3.0.0.jar,\
+	com.liferay.portlet.configuration.icon.locator.impl-1.0.1.jar,\
+	com.liferay.portlet.configuration.icon.maximize-3.0.0.jar,\
+	com.liferay.portlet.configuration.icon.minimize-3.0.0.jar,\
+	com.liferay.portlet.configuration.icon.print-3.0.0.jar,\
+	com.liferay.portlet.configuration.icon.refresh-3.0.0.jar,\
+	com.liferay.portlet.configuration.sharing.web-3.0.4.jar,\
+	com.liferay.portlet.configuration.toolbar.contributor.locator.impl-1.0.1.jar,\
+	com.liferay.portlet.configuration.web-2.0.19.jar
+
+app.change.log-1.0.1=LPS-0 LPS-77699 LPS-79679 LPS-81208 LPS-83705 LPS-84039 
+
+app.git.id-1.0.1=74e19f8416e46067da61f3215b23002dc64306e5
