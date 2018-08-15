@@ -10,3 +10,16 @@ app.artifacts-1.0.0=\
 app.change.log-1.0.0=LPS-82828
 
 app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467
+
+#
+# Liferay App Version 1.0.1
+#
+
+app.artifacts-1.0.1=\
+	com.liferay.dynamic.data.lists.api-3.0.4.jar,\
+	com.liferay.dynamic.data.lists.service-2.0.9.jar,\
+	com.liferay.dynamic.data.lists.web-3.0.10.jar
+
+app.change.log-1.0.1=LPS-74544 LPS-78938 LPS-82171 LPS-82352 LPS-82827 LPS-82963 LPS-83705 LPS-84039 LPS-84090 LPS-84119 
+
+app.git.id-1.0.1=d3b9bb720a57268ea93824209c9a775934864f7c
