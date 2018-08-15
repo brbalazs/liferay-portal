@@ -15,3 +15,21 @@ app.artifacts-4.0.0=\
 app.change.log-4.0.0=LPS-66605 LPS-66853 LPS-66997 LPS-67012 LPS-67411 LPS-67730 LPS-69271 LPS-71605 LPS-72021 LPS-72359 LPS-72803 LPS-73292 LPS-74897 LPS-75049 LPS-76221 LPS-77185 LPS-77238 LPS-77425 LPS-77628 LPS-77699 LPS-78208 LPS-79653 LPS-79679 LPS-80332 LPS-80517 LPS-82343 LPS-82828
 
 app.git.id-4.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467
+
+#
+# Liferay App Version 4.0.1
+#
+
+app.artifacts-4.0.1=\
+	com.liferay.knowledge.base.api-5.0.9.jar,\
+	com.liferay.knowledge.base.editor.configuration-2.0.3.jar,\
+	com.liferay.knowledge.base.item.selector.api-2.0.2.jar,\
+	com.liferay.knowledge.base.item.selector.web-2.0.3.jar,\
+	com.liferay.knowledge.base.markdown.converter.api-1.0.3.jar,\
+	com.liferay.knowledge.base.markdown.converter.impl-1.0.4.jar,\
+	com.liferay.knowledge.base.service-2.0.8.jar,\
+	com.liferay.knowledge.base.web-2.0.17.jar
+
+app.change.log-4.0.1=LPS-72021 LPS-74544 LPS-77699 LPS-78938 LPS-79679 LPS-82580 LPS-82757 LPS-82827 LPS-83064 LPS-83365 LPS-84039 LPS-84092 LPS-84261 
+
+app.git.id-4.0.1=1b01bedf84ceca8c44bd40f910bfad7e73018c7e
