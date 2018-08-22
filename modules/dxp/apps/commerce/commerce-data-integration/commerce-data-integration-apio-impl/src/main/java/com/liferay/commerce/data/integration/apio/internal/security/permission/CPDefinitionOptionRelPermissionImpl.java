@@ -18,6 +18,7 @@ import com.liferay.apio.architect.alias.routes.permission.HasNestedAddingPermiss
 import com.liferay.apio.architect.credentials.Credentials;
 import com.liferay.apio.architect.function.throwable.ThrowableTriFunction;
 import com.liferay.apio.architect.identifier.Identifier;
+import com.liferay.commerce.data.integration.apio.identifiers.CPDefinitionIdentifier;
 import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinition;
