@@ -26,10 +26,10 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.service.persistence.CompanyProvider;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
@@ -117,7 +117,7 @@ public class CommercePriceListHelper {
 			ClassPKExternalReferenceCode classPKExternalReferenceCode)
 		throws PortalException {
 
-		long companyId = _companyProvider.getCompanyId();
+		long companyId = CompanyThreadLocal.getCompanyId();
 
 		Company company = _companyLocalService.getCompany(companyId);
 
@@ -327,9 +327,6 @@ public class CommercePriceListHelper {
 
 	@Reference
 	private CompanyLocalService _companyLocalService;
-
-	@Reference
-	private CompanyProvider _companyProvider;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;

@@ -24,8 +24,8 @@ import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.persistence.CompanyProvider;
 
 import java.math.BigDecimal;
 
@@ -138,7 +138,7 @@ public class CommercePriceEntryHelper {
 					getExternalReferenceCode();
 
 			return _commercePriceEntryService.fetchByExternalReferenceCode(
-				_companyProvider.getCompanyId(), externalReferenceCode);
+				CompanyThreadLocal.getCompanyId(), externalReferenceCode);
 		}
 	}
 
@@ -226,9 +226,6 @@ public class CommercePriceEntryHelper {
 
 	@Reference
 	private CommercePriceListHelper _commercePriceListHelper;
-
-	@Reference
-	private CompanyProvider _companyProvider;
 
 	@Reference
 	private CPInstanceService _cpInstanceService;
