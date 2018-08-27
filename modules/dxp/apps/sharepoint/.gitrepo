@@ -4,8 +4,8 @@
 [subrepo]
 	autopull = false
 	cmdver = liferay
-	commit = efd58f31aa93c50768b4323b34328853998de20f
+	commit = e6a0a184350baf3e7c2648a30450eb60a8d806d0
 	mergebuttonmergecommits = false
 	mode = push
-	parent = 1b5c25df2ef97ee6cbd535aba89355e937f9750f
+	parent = d6eef4248e04e79d57360cf3ac5f158d9648a8a3
 	remote = git@github.com:liferay/com-liferay-sharepoint-private.git
