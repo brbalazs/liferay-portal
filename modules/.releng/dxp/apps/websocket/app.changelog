@@ -8,3 +8,14 @@ app.artifacts-1.0.0=\
 app.change.log-1.0.0=LPS-80332
 
 app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467
+
+#
+# Liferay App Version 1.0.1
+#
+
+app.artifacts-1.0.1=\
+	com.liferay.websocket.whiteboard-2.0.2.jar
+
+app.change.log-1.0.1=LPS-84093 LPS-84119
+
+app.git.id-1.0.1=eed598c6732132fa8ad2ee6f7a78dc2063491801
