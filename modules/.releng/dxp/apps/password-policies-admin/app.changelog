@@ -25,3 +25,17 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-77699 LPS-78938 LPS-83697 LPS-83705 LPS-84236 LPS-84236/LPS-84237 LPS-84238 LPS-84269 LPS-84312 
 
 app.git.id-1.0.1=b67a3a6a41b48ee1c321d8df4067ee7c7736e428
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.password.policies.admin.api-3.0.0.jar,\
+	com.liferay.password.policies.admin.impl-2.0.1.jar,\
+	com.liferay.password.policies.admin.uad-1.0.5.jar,\
+	com.liferay.password.policies.admin.web-2.0.8.jar
+
+app.change.log-1.0.2=LPS-78938 LPS-79581 LPS-83697 LPS-84239 LPS-84627 
+
+app.git.id-1.0.2=040d5ba6d5bd19ca93fa3012bcf57b1eadd6215c
