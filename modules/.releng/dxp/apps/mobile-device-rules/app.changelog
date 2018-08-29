@@ -23,3 +23,16 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-78938 LPS-83705 LPS-83995 LPS-84092
 
 app.git.id-1.0.1=d79a9d904dcb7fae74d4dc80efa38bf348876dcc
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.mobile.device.rules.api-3.0.3.jar,\
+	com.liferay.mobile.device.rules.service-2.0.2.jar,\
+	com.liferay.mobile.device.rules.web-2.0.5.jar
+
+app.change.log-1.0.2=LPS-69953 LPS-84119 
+
+app.git.id-1.0.2=974be2ff34d41dd9fe62487eda41684bf49d2ba2
