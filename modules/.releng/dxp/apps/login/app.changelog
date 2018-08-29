@@ -27,3 +27,18 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-74544 LPS-83705 LPS-84119 
 
 app.git.id-1.0.1=4413546de54f8017e6c8570a8e110fa7a144284f
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.login.authentication.facebook.connect.web-3.0.0.jar,\
+	com.liferay.login.authentication.google.web-3.0.0.jar,\
+	com.liferay.login.authentication.openid.connect.web-1.0.4.jar,\
+	com.liferay.login.authentication.openid.web-3.0.2.jar,\
+	com.liferay.login.web-3.0.9.jar
+
+app.change.log-1.0.2=LPS-82716 LPS-83431 LPS-84119 LPS-84379 
+
+app.git.id-1.0.2=4157b4de20708a8b641f7d7c8de9217eba032d92
