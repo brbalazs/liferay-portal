@@ -21,3 +21,15 @@ app.artifacts-4.0.1=\
 app.change.log-4.0.1=LPS-78938 
 
 app.git.id-4.0.1=bc67b1b00a1aeaa4e7acac120e90111f41f9d625
+
+#
+# Liferay App Version 4.0.2
+#
+
+app.artifacts-4.0.2=\
+	com.liferay.screens.api-4.0.0.jar,\
+	com.liferay.screens.service-2.0.2.jar
+
+app.change.log-4.0.2=LPS-84093 
+
+app.git.id-4.0.2=4f70bb8ea631f15265c0514e504727452007c2ef
