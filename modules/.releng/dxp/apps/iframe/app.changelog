@@ -19,3 +19,14 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-77699 LPS-79679 LPS-83705 LPS-84092
 
 app.git.id-1.0.1=9e0a6c41e1c23c0102a7e4e9d02c1da68d3a200b
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.iframe.web-2.0.5.jar
+
+app.change.log-1.0.2=LPS-84119
+
+app.git.id-1.0.2=1102feba97d0424908ddd3d4afbf084ae31d307c
