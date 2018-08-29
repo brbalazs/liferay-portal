@@ -31,3 +31,20 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-0 LPS-72545 LPS-73631 LPS-77699 LPS-79679 LPS-80387 LPS-80820 LPS-81411 LPS-82008 LPS-82714 LPS-82828 LPS-83092 LPS-83193 LPS-83389 LPS-83485 LPS-83574 LPS-83705 LPS-83745 LPS-83995 
 
 app.git.id-1.0.1=da28b51e89e2e39fcd3e5723759f59a5e54cdbad
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.portal.search-5.0.8.jar,\
+	com.liferay.portal.search.admin.web-1.0.2.jar,\
+	com.liferay.portal.search.api-2.0.7.jar,\
+	com.liferay.portal.search.engine.adapter.api-1.4.0.jar,\
+	com.liferay.portal.search.spi-2.0.0.jar,\
+	com.liferay.portal.search.web-3.0.23.jar,\
+	com.liferay.portal.search.web.api-2.0.2.jar
+
+app.change.log-1.0.2=LPS-0 LPS-73631 LPS-77699 LPS-79679 LPS-80387 LPS-80820 LPS-81411 LPS-82007 LPS-82714 LPS-82828 LPS-83092 LPS-83193 LPS-83705 LPS-83745 LPS-83995 LPS-84093 LPS-84119 LPS-84409 
+
+app.git.id-1.0.2=6f41f3b5cfb5c34ad41f3839f4a39a73d603c368
