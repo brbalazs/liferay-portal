@@ -25,3 +25,17 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-77699 LPS-83697 LPS-83705 LPS-84090 
 
 app.git.id-1.0.1=9104bbb7cb92d0e1af7ca600d21a0e72ba1b4bdb
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.announcements.api-2.0.0.jar,\
+	com.liferay.announcements.editor.configuration-1.0.2.jar,\
+	com.liferay.announcements.uad-1.0.5.jar,\
+	com.liferay.announcements.web-3.0.7.jar
+
+app.change.log-1.0.2=LPS-82828 LPS-83697 LPS-84119 
+
+app.git.id-1.0.2=408a61d1e606275027b2b3b9ef20b1feeae9b8cc
