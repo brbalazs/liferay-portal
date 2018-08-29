@@ -29,3 +29,19 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-74544 LPS-77699 LPS-78938 LPS-79679 LPS-83697 LPS-83705 
 
 app.git.id-1.0.1=31f1b5617e65ceca0a24d7156413b273611a3774
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.user.groups.admin.api-3.0.0.jar,\
+	com.liferay.user.groups.admin.impl-2.0.0.jar,\
+	com.liferay.user.groups.admin.item.selector.api-1.0.1.jar,\
+	com.liferay.user.groups.admin.item.selector.web-1.0.1.jar,\
+	com.liferay.user.groups.admin.uad-1.0.5.jar,\
+	com.liferay.user.groups.admin.web-2.0.7.jar
+
+app.change.log-1.0.2=LPS-78938 LPS-83697 LPS-84093 
+
+app.git.id-1.0.2=a80b0757dd0b78bc8de703bc777689f3111728df
