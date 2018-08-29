@@ -37,3 +37,23 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-78938 LPS-84119 
 
 app.git.id-1.0.1=45637a8d464d6410eea54e3d4ce381e1844f1628
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.portal.security.audit.api-3.0.1.jar,\
+	com.liferay.portal.security.audit.event.generators-2.0.0.jar,\
+	com.liferay.portal.security.audit.event.generators.api-2.0.0.jar,\
+	com.liferay.portal.security.audit.event.generators.user.management-2.0.0.jar,\
+	com.liferay.portal.security.audit.impl-1.0.1.jar,\
+	com.liferay.portal.security.audit.router-3.0.2.jar,\
+	com.liferay.portal.security.audit.storage.api-3.0.0.jar,\
+	com.liferay.portal.security.audit.storage.service-3.0.3.jar,\
+	com.liferay.portal.security.audit.web-2.0.0.jar,\
+	com.liferay.portal.security.audit.wiring-3.0.0.jar
+
+app.change.log-1.0.2=LPS-84093 LPS-84119 
+
+app.git.id-1.0.2=f184eeb5ff46eb699c098d5698303b1af6c2a642
