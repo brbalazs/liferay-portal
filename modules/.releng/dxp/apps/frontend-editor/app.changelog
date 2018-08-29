@@ -31,3 +31,20 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-82299 LPS-82655 LPS-83248 LPS-83409 LPS-83468 LPS-83595 LPS-84090 LPS-84119 
 
 app.git.id-1.0.1=ed1e800ab968534fa5b84218f7ce60f47bb1f3d5
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.frontend.editor.alloyeditor.web-2.0.9.jar,\
+	com.liferay.frontend.editor.api-1.0.1.jar,\
+	com.liferay.frontend.editor.ckeditor.web-2.0.8.jar,\
+	com.liferay.frontend.editor.lang-3.0.6.jar,\
+	com.liferay.frontend.editor.simple.web-2.0.3.jar,\
+	com.liferay.frontend.editor.taglib-1.0.1.jar,\
+	com.liferay.frontend.editor.tinymce.web-2.0.7.jar
+
+app.change.log-1.0.2=LPS-83494 LPS-83758 LPS-84119 LPS-84123 LPS-84222 LPS-84769 
+
+app.git.id-1.0.2=0fc98b1673366773dceecc7baffe2c7c76d15081
