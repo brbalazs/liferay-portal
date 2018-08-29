@@ -73,3 +73,41 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-45495 LPS-74544 LPS-78938 LPS-80017 LPS-82509 LPS-82828 LPS-83162 LPS-83261 LPS-83292 LPS-83346 LPS-83460 LPS-83470 LPS-83697 LPS-84095 LPS-84435 LPS-92509 
 
 app.git.id-1.0.1=a68c906c107e3a15983de6ea855feffabd582130
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.portal.cluster.multiple-2.0.5.jar,\
+	com.liferay.portal.cluster.single-3.0.0.jar,\
+	com.liferay.portal.compound.session.id-3.0.0.jar,\
+	com.liferay.portal.custom.jsp.bag.api-2.0.0.jar,\
+	com.liferay.portal.dao.orm.custom.sql.api-1.0.1.jar,\
+	com.liferay.portal.dao.orm.custom.sql.impl-1.0.4.jar,\
+	com.liferay.portal.executor-3.0.0.jar,\
+	com.liferay.portal.inactive.request.handler-1.0.1.jar,\
+	com.liferay.portal.init.servlet.filter-3.0.0.jar,\
+	com.liferay.portal.instance.lifecycle.api-1.0.2.jar,\
+	com.liferay.portal.instance.lifecycle.impl-1.0.3.jar,\
+	com.liferay.portal.jmx-5.0.2.jar,\
+	com.liferay.portal.jmx.api-2.0.0.jar,\
+	com.liferay.portal.license.deployer-2.0.2.jar,\
+	com.liferay.portal.messaging-5.0.5.jar,\
+	com.liferay.portal.monitoring-6.0.2.jar,\
+	com.liferay.portal.output.stream.container-4.0.0.jar,\
+	com.liferay.portal.output.stream.container.api-2.0.0.jar,\
+	com.liferay.portal.pop.notifications-3.0.0.jar,\
+	com.liferay.portal.properties.swapper-2.0.4.jar,\
+	com.liferay.portal.spring.extender.api-3.0.0.jar,\
+	com.liferay.portal.spring.extender.impl-1.0.5.jar,\
+	com.liferay.portal.uad-1.0.5.jar,\
+	com.liferay.portal.upgrade.api-2.0.3.jar,\
+	com.liferay.portal.upgrade.impl-2.0.3.jar,\
+	com.liferay.portal.upload-1.0.3.jar,\
+	com.liferay.portal.verify.extender-4.0.2.jar,\
+	com.liferay.portal.weblogic.support-3.0.0.jar
+
+app.change.log-1.0.2=LPS-74544 LPS-78938 LPS-82603 LPS-82828 LPS-83697 LPS-84093 LPS-84119 LPS-84409 LPS-84626 
+
+app.git.id-1.0.2=c211fba6dff1ae243e2f6ac7453915d5f1ca52bf
