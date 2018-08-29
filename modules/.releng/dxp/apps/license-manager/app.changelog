@@ -19,3 +19,14 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-83258 LPS-83705
 
 app.git.id-1.0.1=f788c03f1ec1951d80c964da446d4cccfbb6a116
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.license.manager.web-3.0.3.jar
+
+app.change.log-1.0.2=LPS-84119
+
+app.git.id-1.0.2=08428fca529c87d22e8ba9c7e2674471b18d7a11
