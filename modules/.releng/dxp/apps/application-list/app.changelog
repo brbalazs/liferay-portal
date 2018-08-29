@@ -25,3 +25,17 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-84090 LPS-84119 
 
 app.git.id-1.0.1=5f2f56d0c79ede738183b2304a600659469b89fc
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.application.list.api-3.0.1.jar,\
+	com.liferay.application.list.my.account.permissions-2.0.1.jar,\
+	com.liferay.application.list.taglib-3.0.2.jar,\
+	com.liferay.application.list.user.personal.site.permissions-3.0.1.jar
+
+app.change.log-1.0.2=LPS-84065 
+
+app.git.id-1.0.2=e6040f9211e2aa936def9eb23ef6c02567547a11
