@@ -73,3 +73,41 @@ app.artifacts-2.0.1=\
 app.change.log-2.0.1=LPS-74544 LPS-76893 LPS-77699 LPS-78938 LPS-79679 LPS-82009 LPS-82299 LPS-83248 LPS-83705 LPS-84090 LPS-84355 
 
 app.git.id-2.0.1=7453d12599b0f74d52174774074beedb4c6f013d
+
+#
+# Liferay App Version 2.0.2
+#
+
+app.artifacts-2.0.2=\
+	com.liferay.adaptive.media.api-3.0.1.jar,\
+	com.liferay.adaptive.media.blogs.editor.configuration-2.0.1.jar,\
+	com.liferay.adaptive.media.blogs.item.selector.web-2.0.0.jar,\
+	com.liferay.adaptive.media.blogs.web-2.0.0.jar,\
+	com.liferay.adaptive.media.blogs.web.fragment-2.0.0.jar,\
+	com.liferay.adaptive.media.content.transformer.api-2.0.0.jar,\
+	com.liferay.adaptive.media.content.transformer.impl-1.0.2.jar,\
+	com.liferay.adaptive.media.demo.data.creator.api-2.0.0.jar,\
+	com.liferay.adaptive.media.demo.data.creator.impl-2.0.0.jar,\
+	com.liferay.adaptive.media.document.library-2.0.1.jar,\
+	com.liferay.adaptive.media.document.library.item.selector.web-2.0.0.jar,\
+	com.liferay.adaptive.media.document.library.thumbnails-2.0.3.jar,\
+	com.liferay.adaptive.media.document.library.web-2.0.0.jar,\
+	com.liferay.adaptive.media.image.api-2.0.1.jar,\
+	com.liferay.adaptive.media.image.content.transformer-2.0.2.jar,\
+	com.liferay.adaptive.media.image.content.transformer.backwards.compatibility-2.0.0.jar,\
+	com.liferay.adaptive.media.image.impl-2.0.9.jar,\
+	com.liferay.adaptive.media.image.item.selector.api-2.0.0.jar,\
+	com.liferay.adaptive.media.image.item.selector.impl-2.0.1.jar,\
+	com.liferay.adaptive.media.image.js.web-2.0.2.jar,\
+	com.liferay.adaptive.media.image.service-2.0.3.jar,\
+	com.liferay.adaptive.media.image.taglib-2.0.1.jar,\
+	com.liferay.adaptive.media.image.web-2.0.1.jar,\
+	com.liferay.adaptive.media.item.selector.upload.web-2.0.1.jar,\
+	com.liferay.adaptive.media.journal.editor.configuration-2.0.1.jar,\
+	com.liferay.adaptive.media.journal.web-2.0.0.jar,\
+	com.liferay.adaptive.media.upload-1.0.1.jar,\
+	com.liferay.adaptive.media.web-2.0.8.jar
+
+app.change.log-2.0.2=LPS-84090 LPS-84119 
+
+app.git.id-2.0.2=dd2d39a4b61e227924c3c6b9697d437db6574270
