@@ -21,3 +21,15 @@ app.artifacts-3.0.1=\
 app.change.log-3.0.1=LPS-77699 LPS-78938 LPS-81095 LPS-81194 LPS-83697 LPS-83705 LPS-84092
 
 app.git.id-3.0.1=4968b7559b85fe87377be560c852bb1ba6bc09ed
+
+#
+# Liferay App Version 3.0.2
+#
+
+app.artifacts-3.0.2=\
+	com.liferay.notifications.uad-1.0.5.jar,\
+	com.liferay.notifications.web-2.0.4.jar
+
+app.change.log-3.0.2=LPS-78938 LPS-83697 
+
+app.git.id-3.0.2=ec9c92b3b4e740a4d14da19cca34fa261e9def6e
