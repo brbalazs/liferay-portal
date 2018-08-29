@@ -27,3 +27,18 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-79679 LPS-80332 LPS-82828 LPS-84119 
 
 app.git.id-1.0.1=9ee3803410411bf4d1a57ab47cc0e43304b375ab
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.petra.doulos-4.0.2.jar,\
+	com.liferay.petra.io.delta-2.0.0.jar,\
+	com.liferay.petra.json.web.service.client-8.1.0.jar,\
+	com.liferay.petra.mail.template-1.0.1.jar,\
+	com.liferay.petra.model.adapter-2.0.0.jar
+
+app.change.log-1.0.2=LPS-79679 LPS-80332 LPS-82828 LPS-84093 LPS-84119 LPS-84813 
+
+app.git.id-1.0.2=585fa2539036bbc6b360e0d50262e11c1900eaa4
