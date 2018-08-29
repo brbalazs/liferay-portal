@@ -23,3 +23,16 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-77699 LPS-78938 LPS-83705 LPS-84119 
 
 app.git.id-1.0.1=b1c001e8778121726088c873da271e12f6c02581
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.polls.api-5.0.0.jar,\
+	com.liferay.polls.service-4.0.6.jar,\
+	com.liferay.polls.web-3.0.4.jar
+
+app.change.log-1.0.2=LPS-69953 LPS-84093 LPS-84119 
+
+app.git.id-1.0.2=919b72534e58368a6577d5abad40fad89b37d979
