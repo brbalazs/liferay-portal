@@ -87,3 +87,48 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-74544 LPS-77292 LPS-77699 LPS-78938 LPS-79679 LPS-80971 LPS-82763 LPS-83081 LPS-83107 LPS-83226 LPS-83228 LPS-83459 LPS-83495 LPS-83549 LPS-83599 LPS-83705 LPS-83795 LPS-84039 LPS-84090 LPS-84119 LPS-84297 
 
 app.git.id-1.0.1=004e19558f83cf2de6b353f980dbbdf4c6f30c02
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.asset.api-1.0.1.jar,\
+	com.liferay.asset.browser.web-2.0.4.jar,\
+	com.liferay.asset.categories.admin.web-2.0.9.jar,\
+	com.liferay.asset.categories.navigation.api-2.0.0.jar,\
+	com.liferay.asset.categories.navigation.web-3.0.6.jar,\
+	com.liferay.asset.categories.selector.web-1.0.5.jar,\
+	com.liferay.asset.categories.service-2.0.4.jar,\
+	com.liferay.asset.category.property.api-1.0.1.jar,\
+	com.liferay.asset.category.property.service-1.0.3.jar,\
+	com.liferay.asset.display.api-1.0.2.jar,\
+	com.liferay.asset.display.impl-1.0.2.jar,\
+	com.liferay.asset.display.page.api-2.0.0.jar,\
+	com.liferay.asset.display.page.item.selector.api-1.0.1.jar,\
+	com.liferay.asset.display.page.item.selector.web-1.0.3.jar,\
+	com.liferay.asset.display.page.service-1.0.6.jar,\
+	com.liferay.asset.display.web-2.0.1.jar,\
+	com.liferay.asset.entry.query.processor.custom.user.attributes-3.0.0.jar,\
+	com.liferay.asset.entry.rel.api-1.0.1.jar,\
+	com.liferay.asset.entry.rel.service-1.0.3.jar,\
+	com.liferay.asset.link.service-1.0.3.jar,\
+	com.liferay.asset.publisher.api-1.0.1.jar,\
+	com.liferay.asset.publisher.layout.prototype-2.0.1.jar,\
+	com.liferay.asset.publisher.web-2.0.22.jar,\
+	com.liferay.asset.service-2.0.2.jar,\
+	com.liferay.asset.tag.stats.api-1.0.1.jar,\
+	com.liferay.asset.tag.stats.service-1.0.4.jar,\
+	com.liferay.asset.taglib-3.0.8.jar,\
+	com.liferay.asset.tags.admin.web-2.0.8.jar,\
+	com.liferay.asset.tags.api-2.0.0.jar,\
+	com.liferay.asset.tags.compiler.web-3.0.1.jar,\
+	com.liferay.asset.tags.navigation.api-2.0.0.jar,\
+	com.liferay.asset.tags.navigation.web-4.0.4.jar,\
+	com.liferay.asset.tags.selector.web-1.0.4.jar,\
+	com.liferay.asset.tags.service-3.0.5.jar,\
+	com.liferay.asset.web-3.0.1.jar
+
+app.change.log-1.0.2=LPS-69953 LPS-74544 LPS-82245 LPS-83736 LPS-84039 LPS-84119 LPS-84201 LPS-84549 LPS-84656 
+
+app.git.id-1.0.2=927b2335d0aded76a005d807062d934e0f69c144
