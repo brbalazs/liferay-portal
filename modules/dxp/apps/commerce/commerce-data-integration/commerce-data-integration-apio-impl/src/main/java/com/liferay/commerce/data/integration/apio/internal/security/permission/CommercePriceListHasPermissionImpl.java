@@ -75,8 +75,8 @@ public class CommercePriceListHasPermissionImpl
 			credentials, classPKExternalReferenceCode);
 	}
 
-	private ThrowableBiFunction<Credentials,
-		ClassPKExternalReferenceCode, Boolean>
+	private ThrowableBiFunction
+		<Credentials, ClassPKExternalReferenceCode, Boolean>
 			_forItemRoutesOperations() {
 
 		return (credentials, classPKExternalReferenceCode) -> {

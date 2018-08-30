@@ -54,150 +54,151 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(immediate = true)
 public class CommerceAccountNestedCollectionResource
-        implements NestedCollectionResource<Organization,
-        ClassPKExternalReferenceCode,
-        CommerceAccountIdentifierWithExternalReference, Long,
-        WebSiteIdentifier> {
+	implements NestedCollectionResource
+		<Organization, ClassPKExternalReferenceCode,
+			CommerceAccountIdentifierWithExternalReference, Long,
+			WebSiteIdentifier> {
 
-    @Override
-    public NestedCollectionRoutes
-            <Organization, ClassPKExternalReferenceCode, Long>
-    collectionRoutes(
-            NestedCollectionRoutes.Builder<Organization,
-                    ClassPKExternalReferenceCode, Long> builder) {
+	@Override
+	public NestedCollectionRoutes
+		<Organization, ClassPKExternalReferenceCode, Long>
+			collectionRoutes(
+				NestedCollectionRoutes.Builder
+					<Organization, ClassPKExternalReferenceCode, Long>
+						 builder) {
 
-        return builder.addGetter(
-                this::_getPageItems, Company.class
-        ).addCreator(
-                this::_addAccount,
-                _hasPermission.forAddingIn(WebSiteIdentifier.class),
-                CommerceAccountUpserterForm::buildForm
-        ).build();
-    }
+		return builder.addGetter(
+			this::_getPageItems, Company.class
+		).addCreator(
+			this::_addAccount,
+			_hasPermission.forAddingIn(WebSiteIdentifier.class),
+			CommerceAccountUpserterForm::buildForm
+		).build();
+	}
 
-    @Override
-    public String getName() {
-        return "commerce-account";
-    }
+	@Override
+	public String getName() {
+		return "commerce-account";
+	}
 
-    @Override
-    public ItemRoutes<Organization, ClassPKExternalReferenceCode> itemRoutes(
-            ItemRoutes.Builder<Organization, ClassPKExternalReferenceCode>
-                    builder) {
+	@Override
+	public ItemRoutes<Organization, ClassPKExternalReferenceCode> itemRoutes(
+		ItemRoutes.Builder<Organization, ClassPKExternalReferenceCode>
+			builder) {
 
-        return builder.addGetter(
-                _commerceAccountHelper::getOrganization
-        ).addRemover(
-                idempotent(_commerceAccountHelper::deleteOrganization),
-                _hasPermission::forDeleting
-        ).build();
-    }
+		return builder.addGetter(
+			_commerceAccountHelper::getOrganization
+		).addRemover(
+			idempotent(_commerceAccountHelper::deleteOrganization),
+			_hasPermission::forDeleting
+		).build();
+	}
 
-    @Override
-    public Representor<Organization> representor(
-            Representor.Builder<Organization, ClassPKExternalReferenceCode>
-                    builder) {
+	@Override
+	public Representor<Organization> representor(
+		Representor.Builder<Organization, ClassPKExternalReferenceCode>
+			builder) {
 
-        return builder.types(
-                "CommerceAccount"
-        ).identifier(
-                _commerceAccountHelper::organizationToClassPKExternalReferenceCode
-        ).addBidirectionalModel(
-                "website", "commerceAccounts", WebSiteIdentifier.class,
-                this::_getSiteId
-        ).addLinkedModel(
-                "website", WebSiteIdentifier.class, this::_getSiteId
-        ).addNumberList(
-                "members", this::_getUserIds
-        ).addString(
-                "externalReferenceCode", Organization::getExternalReferenceCode
-        ).addString(
-                "name", Organization::getName
-        ).addNumber(
-                "id", Organization::getOrganizationId
-        ).build();
-    }
+		return builder.types(
+			"CommerceAccount"
+		).identifier(
+			_commerceAccountHelper::organizationToClassPKExternalReferenceCode
+		).addBidirectionalModel(
+			"website", "commerceAccounts", WebSiteIdentifier.class,
+			this::_getSiteId
+		).addLinkedModel(
+			"website", WebSiteIdentifier.class, this::_getSiteId
+		).addNumberList(
+			"members", this::_getUserIds
+		).addString(
+			"externalReferenceCode", Organization::getExternalReferenceCode
+		).addString(
+			"name", Organization::getName
+		).addNumber(
+			"id", Organization::getOrganizationId
+		).build();
+	}
 
-    private Organization _addAccount(
-            Long webSiteId,
-            CommerceAccountUpserterForm commerceAccountUpserterForm)
-            throws Exception {
+	private Organization _addAccount(
+			Long webSiteId,
+			CommerceAccountUpserterForm commerceAccountUpserterForm)
+		throws Exception {
 
-        Group group = _groupLocalService.getGroup(webSiteId);
+		Group group = _groupLocalService.getGroup(webSiteId);
 
-        Long parentOrganizationId = group.getClassPK();
+		Long parentOrganizationId = group.getClassPK();
 
-        return _commerceAccountHelper.upsert(
-                commerceAccountUpserterForm.getExternalReferenceCode(),
-                parentOrganizationId, commerceAccountUpserterForm.getName(),
-                commerceAccountUpserterForm.getRegionId(),
-                commerceAccountUpserterForm.getCountryId(),
-                commerceAccountUpserterForm.getCommerceUserIds());
-    }
+		return _commerceAccountHelper.upsert(
+			commerceAccountUpserterForm.getExternalReferenceCode(),
+			parentOrganizationId, commerceAccountUpserterForm.getName(),
+			commerceAccountUpserterForm.getRegionId(),
+			commerceAccountUpserterForm.getCountryId(),
+			commerceAccountUpserterForm.getCommerceUserIds());
+	}
 
-    private PageItems<Organization> _getPageItems(
-            Pagination pagination, Long webSiteId, Company company)
-            throws PortalException {
+	private PageItems<Organization> _getPageItems(
+			Pagination pagination, Long webSiteId, Company company)
+		throws PortalException {
 
-        long userId = PrincipalThreadLocal.getUserId();
+		long userId = PrincipalThreadLocal.getUserId();
 
-        BaseModelSearchResult<Organization> result =
-                _commerceOrganizationService.searchOrganizationsByGroup(
-                        webSiteId, userId, CommerceOrganizationConstants.TYPE_ACCOUNT,
-                        StringPool.BLANK, pagination.getStartPosition(),
-                        pagination.getEndPosition(), null);
+		BaseModelSearchResult<Organization> result =
+			_commerceOrganizationService.searchOrganizationsByGroup(
+				webSiteId, userId, CommerceOrganizationConstants.TYPE_ACCOUNT,
+				StringPool.BLANK, pagination.getStartPosition(),
+				pagination.getEndPosition(), null);
 
-        return new PageItems<>(result.getBaseModels(), result.getLength());
-    }
+		return new PageItems<>(result.getBaseModels(), result.getLength());
+	}
 
-    private Long _getSiteId(Organization organization) {
-        return Try.success(
-                organization.getGroupId()
-        ).map(
-                _groupLocalService::getGroup
-        ).map(
-                Group::getGroupId
-        ).orElse(
-                null
-        );
-    }
+	private Long _getSiteId(Organization organization) {
+		return Try.success(
+			organization.getGroupId()
+		).map(
+			_groupLocalService::getGroup
+		).map(
+			Group::getGroupId
+		).orElse(
+			null
+		);
+	}
 
-    private List<Number> _getUserIds(Organization organization) {
-        List<Number> userIds = new ArrayList<>();
+	private List<Number> _getUserIds(Organization organization) {
+		List<Number> userIds = new ArrayList<>();
 
-        try {
-            long[] ids = _userService.getOrganizationUserIds(
-                    organization.getOrganizationId());
+		try {
+			long[] ids = _userService.getOrganizationUserIds(
+				organization.getOrganizationId());
 
-            for (long id : ids) {
-                userIds.add(id);
-            }
-        }
-        catch (PortalException pe) {
-            _log.error("Unable to retrieve users", pe);
-        }
+			for (long id : ids) {
+				userIds.add(id);
+			}
+		}
+		catch (PortalException pe) {
+			_log.error("Unable to retrieve users", pe);
+		}
 
-        return userIds;
-    }
+		return userIds;
+	}
 
-    private static final Log _log = LogFactoryUtil.getLog(
-            CommerceAccountNestedCollectionResource.class);
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceAccountNestedCollectionResource.class);
 
-    @Reference
-    private CommerceAccountHelper _commerceAccountHelper;
+	@Reference
+	private CommerceAccountHelper _commerceAccountHelper;
 
-    @Reference
-    private CommerceOrganizationService _commerceOrganizationService;
+	@Reference
+	private CommerceOrganizationService _commerceOrganizationService;
 
-    @Reference
-    private GroupLocalService _groupLocalService;
+	@Reference
+	private GroupLocalService _groupLocalService;
 
-    @Reference(
-            target = "(model.class.name=com.liferay.portal.kernel.model.Organization)"
-    )
-    private HasPermission<ClassPKExternalReferenceCode> _hasPermission;
+	@Reference(
+		target = "(model.class.name=com.liferay.portal.kernel.model.Organization)"
+	)
+	private HasPermission<ClassPKExternalReferenceCode> _hasPermission;
 
-    @Reference
-    private UserService _userService;
+	@Reference
+	private UserService _userService;
 
 }

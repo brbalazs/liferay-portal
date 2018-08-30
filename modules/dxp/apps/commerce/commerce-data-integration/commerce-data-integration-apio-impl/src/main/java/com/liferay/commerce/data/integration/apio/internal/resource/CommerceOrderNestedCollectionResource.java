@@ -46,9 +46,9 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(immediate = true)
 public class CommerceOrderNestedCollectionResource
-	implements
-		NestedCollectionResource<CommerceOrder, Long,
-			CommerceOrderIdentifier, Long, CommerceAccountIdentifier> {
+	implements NestedCollectionResource
+		<CommerceOrder, Long, CommerceOrderIdentifier, Long,
+			CommerceAccountIdentifier> {
 
 	@Override
 	public NestedCollectionRoutes<CommerceOrder, Long, Long> collectionRoutes(

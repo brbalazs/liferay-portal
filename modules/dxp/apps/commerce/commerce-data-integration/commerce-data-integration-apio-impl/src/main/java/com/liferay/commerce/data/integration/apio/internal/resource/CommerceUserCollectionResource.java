@@ -54,23 +54,24 @@ import org.osgi.service.component.annotations.Reference;
  * @author Eduardo V. Bruno
  */
 @Component(
-		immediate = true, property = "service.ranking:Integer=" + Integer.MAX_VALUE
+	immediate = true, property = "service.ranking:Integer=" + Integer.MAX_VALUE
 )
 public class CommerceUserCollectionResource
-		implements CollectionResource<UserWrapper, ClassPKExternalReferenceCode,
-		CommerceUserdentifierWithExternalReference> {
+	implements CollectionResource
+		<UserWrapper, ClassPKExternalReferenceCode,
+			CommerceUserdentifierWithExternalReference> {
 
 	@Override
 	public CollectionRoutes<UserWrapper, ClassPKExternalReferenceCode>
-	collectionRoutes(
+		collectionRoutes(
 			CollectionRoutes.Builder<UserWrapper, ClassPKExternalReferenceCode>
-					builder) {
+				builder) {
 
 		return builder.addGetter(
-				this::_getPageItems, ThemeDisplay.class
+			this::_getPageItems, ThemeDisplay.class
 		).addCreator(
-				this::_addUser, ThemeDisplay.class, _hasPermission::forAdding,
-				CommerceUserUpserterForm::buildForm
+			this::_addUser, ThemeDisplay.class, _hasPermission::forAdding,
+			CommerceUserUpserterForm::buildForm
 		).build();
 	}
 
@@ -81,58 +82,58 @@ public class CommerceUserCollectionResource
 
 	@Override
 	public ItemRoutes<UserWrapper, ClassPKExternalReferenceCode> itemRoutes(
-			ItemRoutes.Builder<UserWrapper, ClassPKExternalReferenceCode> builder) {
+		ItemRoutes.Builder<UserWrapper, ClassPKExternalReferenceCode> builder) {
 
 		return builder.addGetter(
-				this::_getUserWrapper, ThemeDisplay.class
+			this::_getUserWrapper, ThemeDisplay.class
 		).addRemover(
-				idempotent(_commerceUserHelper::deleteUser),
-				_hasPermission::forDeleting
+			idempotent(_commerceUserHelper::deleteUser),
+			_hasPermission::forDeleting
 		).build();
 	}
 
 	@Override
 	public Representor<UserWrapper> representor(
-			Representor.Builder<UserWrapper, ClassPKExternalReferenceCode>
-					builder) {
+		Representor.Builder<UserWrapper, ClassPKExternalReferenceCode>
+			builder) {
 
 		return builder.types(
-				"Person"
+			"Person"
 		).identifier(
-				_commerceUserHelper::userToClassPKExternalReferenceCode
+			_commerceUserHelper::userToClassPKExternalReferenceCode
 		).addString(
-				"email", User::getEmailAddress
+			"email", User::getEmailAddress
 		).addString(
-				"accountExternalReferenceCode",
-				UserWrapper::getExternalReferenceCode
+			"accountExternalReferenceCode",
+			UserWrapper::getExternalReferenceCode
 		).addString(
-				"familyName", User::getLastName
+			"familyName", User::getLastName
 		).addString(
-				"givenName", User::getFirstName
+			"givenName", User::getFirstName
 		).addString(
-				"jobTitle", User::getJobTitle
+			"jobTitle", User::getJobTitle
 		).addString(
-				"name", User::getFullName
+			"name", User::getFullName
 		).addNumberList(
-				"commerceAccountIds", this::_getCommerceAccountIds
+			"commerceAccountIds", this::_getCommerceAccountIds
 		).addStringList(
-				"roleNames", this::_getRoleNames
+			"roleNames", this::_getRoleNames
 		).addString(
-				"jobTitle", UserWrapper::getJobTitle
+			"jobTitle", UserWrapper::getJobTitle
 		).build();
 	}
 
 	private UserWrapper _addUser(
 			CommerceUserUpserterForm commerceUserUpserterForm,
 			ThemeDisplay themeDisplay)
-			throws PortalException {
+		throws PortalException {
 
 		User user = _userService.getUserById(PrincipalThreadLocal.getUserId());
 
 		Company company = themeDisplay.getCompany();
 
 		return _commerceUserHelper.upsert(
-				company.getCompanyId(), user.getUserId(), commerceUserUpserterForm);
+			company.getCompanyId(), user.getUserId(), commerceUserUpserterForm);
 	}
 
 	private List<Number> _getCommerceAccountIds(UserWrapper userWrapper) {
@@ -152,11 +153,11 @@ public class CommerceUserCollectionResource
 
 	private PageItems<UserWrapper> _getPageItems(
 			Pagination pagination, ThemeDisplay themeDisplay)
-			throws PortalException {
+		throws PortalException {
 
 		List<User> users = _userService.getCompanyUsers(
-				themeDisplay.getCompanyId(), pagination.getStartPosition(),
-				pagination.getEndPosition());
+			themeDisplay.getCompanyId(), pagination.getStartPosition(),
+			pagination.getEndPosition());
 
 		List<UserWrapper> userWrappers = new ArrayList<>(users.size());
 
@@ -165,7 +166,7 @@ public class CommerceUserCollectionResource
 		}
 
 		int total = _userService.getCompanyUsersCount(
-				themeDisplay.getCompanyId());
+			themeDisplay.getCompanyId());
 
 		return new PageItems<>(userWrappers, total);
 	}
@@ -189,7 +190,7 @@ public class CommerceUserCollectionResource
 
 	private UserWrapper _getUserWrapper(
 			ClassPKExternalReferenceCode userId, ThemeDisplay themeDisplay)
-			throws PortalException {
+		throws PortalException {
 
 		User user = _commerceUserHelper.getUser(userId);
 
@@ -201,7 +202,7 @@ public class CommerceUserCollectionResource
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-			CommerceUserCollectionResource.class);
+		CommerceUserCollectionResource.class);
 
 	@Reference
 	private CommerceUserHelper _commerceUserHelper;
@@ -210,7 +211,7 @@ public class CommerceUserCollectionResource
 	private ERUserLocalService _erUserLocalService;
 
 	@Reference(
-			target = "(model.class.name=com.liferay.portal.kernel.model.User)"
+		target = "(model.class.name=com.liferay.portal.kernel.model.User)"
 	)
 	private HasPermission<ClassPKExternalReferenceCode> _hasPermission;
 

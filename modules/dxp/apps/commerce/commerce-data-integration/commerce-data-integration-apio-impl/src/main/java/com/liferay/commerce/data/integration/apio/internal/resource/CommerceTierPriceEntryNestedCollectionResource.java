@@ -58,17 +58,16 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(immediate = true)
 public class CommerceTierPriceEntryNestedCollectionResource
-	implements
-		NestedCollectionResource<CommerceTierPriceEntry, Long,
-			CommerceTierPriceEntryIdentifier, ClassPKExternalReferenceCode,
-			CommercePriceEntryIdentifier> {
+	implements NestedCollectionResource
+		<CommerceTierPriceEntry, Long, CommerceTierPriceEntryIdentifier,
+			ClassPKExternalReferenceCode, CommercePriceEntryIdentifier> {
 
 	@Override
-	public NestedCollectionRoutes<CommerceTierPriceEntry,
-		Long, ClassPKExternalReferenceCode>
+	public NestedCollectionRoutes
+		<CommerceTierPriceEntry, Long, ClassPKExternalReferenceCode>
 			collectionRoutes(
-				NestedCollectionRoutes.Builder<CommerceTierPriceEntry,
-					Long, ClassPKExternalReferenceCode>
+				NestedCollectionRoutes.Builder
+					<CommerceTierPriceEntry, Long, ClassPKExternalReferenceCode>
 						builder) {
 
 		return builder.addGetter(

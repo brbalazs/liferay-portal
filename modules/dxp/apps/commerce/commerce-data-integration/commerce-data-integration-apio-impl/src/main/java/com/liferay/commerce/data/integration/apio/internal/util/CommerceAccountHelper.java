@@ -43,136 +43,136 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = CommerceAccountHelper.class)
 public class CommerceAccountHelper {
 
-    public void deleteOrganization(
-            ClassPKExternalReferenceCode classPKExternalReferenceCode)
-            throws PortalException {
+	public void deleteOrganization(
+			ClassPKExternalReferenceCode classPKExternalReferenceCode)
+		throws PortalException {
 
-        Organization organization = getOrganization(
-                classPKExternalReferenceCode);
+		Organization organization = getOrganization(
+			classPKExternalReferenceCode);
 
-        if (organization == null) {
-            if (_log.isInfoEnabled()) {
-                _log.info(
-                        "Account does not exist, entry " +
-                                classPKExternalReferenceCode.getClassPK() + ":" +
-                                classPKExternalReferenceCode.
-                                        getExternalReferenceCode());
-            }
-        }
-        else {
-            long organizationId = organization.getOrganizationId();
+		if (organization == null) {
+			if (_log.isInfoEnabled()) {
+				_log.info(
+					"Account does not exist, entry " +
+						classPKExternalReferenceCode.getClassPK() + ":" +
+							classPKExternalReferenceCode.
+								getExternalReferenceCode());
+			}
+		}
+		else {
+			long organizationId = organization.getOrganizationId();
 
-            _removeAllMembers(organizationId);
-            _commerceOrganizationService.deleteOrganization(organizationId);
-        }
-    }
+			_removeAllMembers(organizationId);
+			_commerceOrganizationService.deleteOrganization(organizationId);
+		}
+	}
 
-    public Organization getOrganization(
-            ClassPKExternalReferenceCode classPKExternalReferenceCode)
-            throws PortalException {
+	public Organization getOrganization(
+			ClassPKExternalReferenceCode classPKExternalReferenceCode)
+		throws PortalException {
 
-        long organizationId = classPKExternalReferenceCode.getClassPK();
+		long organizationId = classPKExternalReferenceCode.getClassPK();
 
-        if (organizationId > 0) {
-            return _commerceOrganizationService.getOrganization(organizationId);
-        }
+		if (organizationId > 0) {
+			return _commerceOrganizationService.getOrganization(organizationId);
+		}
 
-        long companyId = _companyProvider.getCompanyId();
+		long companyId = _companyProvider.getCompanyId();
 
-        String externalReferenceCode =
-                classPKExternalReferenceCode.getExternalReferenceCode();
+		String externalReferenceCode =
+			classPKExternalReferenceCode.getExternalReferenceCode();
 
-        return _organizationLocalService.fetchOrganizationByReferenceCode(
-                companyId, externalReferenceCode);
-    }
+		return _organizationLocalService.fetchOrganizationByReferenceCode(
+			companyId, externalReferenceCode);
+	}
 
-    public ClassPKExternalReferenceCode
-    organizationToClassPKExternalReferenceCode(Organization organization) {
+	public ClassPKExternalReferenceCode
+		organizationToClassPKExternalReferenceCode(Organization organization) {
 
-        if (organization == null) {
-            return null;
-        }
+		if (organization == null) {
+			return null;
+		}
 
-        return ClassPKExternalReferenceCode.create(
-                organization.getOrganizationId(),
-                organization.getExternalReferenceCode());
-    }
+		return ClassPKExternalReferenceCode.create(
+			organization.getOrganizationId(),
+			organization.getExternalReferenceCode());
+	}
 
-    public Organization upsert(
-            String externalReferenceCode, long parentOrganizationId,
-            String name, long regionId, long countryId, List<Long> userIds)
-            throws PortalException {
+	public Organization upsert(
+			String externalReferenceCode, long parentOrganizationId,
+			String name, long regionId, long countryId, List<Long> userIds)
+		throws PortalException {
 
-        ServiceContext serviceContext = _getServiceContext();
+		ServiceContext serviceContext = _getServiceContext();
 
-        Organization organization =
-                _erOrganizationLocalService.addOrUpdateOrganization(
-                        externalReferenceCode, serviceContext.getUserId(),
-                        parentOrganizationId, name,
-                        CommerceOrganizationConstants.TYPE_ACCOUNT, regionId, countryId,
-                        ListTypeConstants.ORGANIZATION_STATUS_DEFAULT, StringPool.BLANK,
-                        false, false, null, serviceContext);
+		Organization organization =
+			_erOrganizationLocalService.addOrUpdateOrganization(
+				externalReferenceCode, serviceContext.getUserId(),
+				parentOrganizationId, name,
+				CommerceOrganizationConstants.TYPE_ACCOUNT, regionId, countryId,
+				ListTypeConstants.ORGANIZATION_STATUS_DEFAULT, StringPool.BLANK,
+				false, false, null, serviceContext);
 
-        _addMembers(organization, userIds);
+		_addMembers(organization, userIds);
 
-        return organization;
-    }
+		return organization;
+	}
 
-    private void _addMembers(Organization organization, List<Long> userIds) {
-        if (userIds != null) {
-            _removeAllMembers(organization.getOrganizationId());
+	private void _addMembers(Organization organization, List<Long> userIds) {
+		if (userIds != null) {
+			_removeAllMembers(organization.getOrganizationId());
 
-            for (Long userId : userIds) {
-                try {
-                    User userMember = _userLocalService.getUser(userId);
+			for (Long userId : userIds) {
+				try {
+					User userMember = _userLocalService.getUser(userId);
 
-                    if (userMember != null) {
-                        _userLocalService.addOrganizationUser(
-                                organization.getOrganizationId(), userId);
-                    }
-                }
-                catch (PortalException pe) {
-                    _log.error("Error on add member", pe);
-                }
-            }
-        }
-    }
+					if (userMember != null) {
+						_userLocalService.addOrganizationUser(
+							organization.getOrganizationId(), userId);
+					}
+				}
+				catch (PortalException pe) {
+					_log.error("Error on add member", pe);
+				}
+			}
+		}
+	}
 
-    private ServiceContext _getServiceContext() throws PortalException {
-        User user = _userLocalService.getUserById(
-                PrincipalThreadLocal.getUserId());
+	private ServiceContext _getServiceContext() throws PortalException {
+		User user = _userLocalService.getUserById(
+			PrincipalThreadLocal.getUserId());
 
-        ServiceContext serviceContext = new ServiceContext();
+		ServiceContext serviceContext = new ServiceContext();
 
-        serviceContext.setAddGroupPermissions(true);
-        serviceContext.setAddGuestPermissions(true);
-        serviceContext.setCompanyId(user.getCompanyId());
-        serviceContext.setTimeZone(user.getTimeZone());
-        serviceContext.setUserId(user.getUserId());
+		serviceContext.setAddGroupPermissions(true);
+		serviceContext.setAddGuestPermissions(true);
+		serviceContext.setCompanyId(user.getCompanyId());
+		serviceContext.setTimeZone(user.getTimeZone());
+		serviceContext.setUserId(user.getUserId());
 
-        return serviceContext;
-    }
+		return serviceContext;
+	}
 
-    private void _removeAllMembers(long organizationId) {
-        _userLocalService.clearOrganizationUsers(organizationId);
-    }
+	private void _removeAllMembers(long organizationId) {
+		_userLocalService.clearOrganizationUsers(organizationId);
+	}
 
-    private static final Log _log = LogFactoryUtil.getLog(
-            CommerceAccountHelper.class);
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceAccountHelper.class);
 
-    @Reference
-    private CommerceOrganizationService _commerceOrganizationService;
+	@Reference
+	private CommerceOrganizationService _commerceOrganizationService;
 
-    @Reference
-    private CompanyProvider _companyProvider;
+	@Reference
+	private CompanyProvider _companyProvider;
 
-    @Reference
-    private EROrganizationLocalService _erOrganizationLocalService;
+	@Reference
+	private EROrganizationLocalService _erOrganizationLocalService;
 
-    @Reference
-    private OrganizationLocalService _organizationLocalService;
+	@Reference
+	private OrganizationLocalService _organizationLocalService;
 
-    @Reference
-    private UserLocalService _userLocalService;
+	@Reference
+	private UserLocalService _userLocalService;
 
 }

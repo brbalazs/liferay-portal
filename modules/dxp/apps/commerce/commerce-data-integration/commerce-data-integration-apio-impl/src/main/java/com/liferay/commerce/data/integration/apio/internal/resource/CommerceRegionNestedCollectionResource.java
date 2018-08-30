@@ -36,8 +36,9 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(immediate = true)
 public class CommerceRegionNestedCollectionResource
-	implements NestedCollectionResource<CommerceRegion, Long,
-		CommerceRegionIdentifier, Long, CommerceCountryIdentifier> {
+	implements NestedCollectionResource
+		<CommerceRegion, Long, CommerceRegionIdentifier, Long,
+			CommerceCountryIdentifier> {
 
 	@Override
 	public NestedCollectionRoutes<CommerceRegion, Long, Long> collectionRoutes(

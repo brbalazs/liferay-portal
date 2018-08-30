@@ -40,17 +40,17 @@ import org.osgi.service.component.annotations.Reference;
  * @review
  */
 @Component(immediate = true)
-public class WebSitePriceEntryNestedCollectionRouter implements
-	NestedCollectionRouter<CommercePriceEntry,
-		ClassPKExternalReferenceCode, CommercePriceEntryIdentifier, Long,
-		WebSiteIdentifier> {
+public class WebSitePriceEntryNestedCollectionRouter
+	implements NestedCollectionRouter
+		<CommercePriceEntry, ClassPKExternalReferenceCode,
+			CommercePriceEntryIdentifier, Long, WebSiteIdentifier> {
 
 	@Override
-	public NestedCollectionRoutes<CommercePriceEntry,
-		ClassPKExternalReferenceCode, Long>
+	public NestedCollectionRoutes
+		<CommercePriceEntry, ClassPKExternalReferenceCode, Long>
 			collectionRoutes(
-				NestedCollectionRoutes.Builder<CommercePriceEntry,
-					ClassPKExternalReferenceCode, Long>
+				NestedCollectionRoutes.Builder
+					<CommercePriceEntry, ClassPKExternalReferenceCode, Long>
 						builder) {
 
 		return builder.addGetter(
