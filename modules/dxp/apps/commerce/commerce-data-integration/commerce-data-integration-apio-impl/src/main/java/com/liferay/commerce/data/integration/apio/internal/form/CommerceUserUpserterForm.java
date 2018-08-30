@@ -16,11 +16,10 @@ package com.liferay.commerce.data.integration.apio.internal.form;
 
 import com.liferay.apio.architect.form.Form;
 import com.liferay.portal.kernel.util.ArrayUtil;
-import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * @author Rodrigo Guedes de Souza
@@ -40,12 +39,6 @@ public class CommerceUserUpserterForm {
 			"externalReferenceCode",
 			CommerceUserUpserterForm::_setExternalReferenceCode
 		).addRequiredString(
-			"gender", CommerceUserUpserterForm::_setGender
-		).addRequiredString(
-			"alternateName", CommerceUserUpserterForm::_setAlternateName
-		).addRequiredDate(
-			"birthDate", CommerceUserUpserterForm::_setBirthDate
-		).addRequiredString(
 			"email", CommerceUserUpserterForm::_setEmail
 		).addOptionalString(
 			"familyName", CommerceUserUpserterForm::_setFamilyName
@@ -53,32 +46,19 @@ public class CommerceUserUpserterForm {
 			"givenName", CommerceUserUpserterForm::_setGivenName
 		).addRequiredString(
 			"jobTitle", CommerceUserUpserterForm::_setJobTitle
-		).addOptionalString(
-			"password1", CommerceUserUpserterForm::_setPassword1
-		).addOptionalString(
-			"password2", CommerceUserUpserterForm::_setPassword2
 		).addOptionalLongList(
 			"commerceAccountIds",
 			CommerceUserUpserterForm::_setCommerceAccountIds
-		).addOptionalLongList(
-			"roleIds", CommerceUserUpserterForm::_setRoleIds
+		).addOptionalString(
+			"roleNames", CommerceUserUpserterForm::_setRoleNames
+		).addOptionalString(
+			"accountExternalReferenceCode",
+			CommerceUserUpserterForm::_setAccountIdExternalReferenceCode
 		).build();
 	}
 
-	public String getAlternateName() {
-		return _alternateName;
-	}
-
-	public int getBirthdayDay() {
-		return _birthdayDay;
-	}
-
-	public int getBirthdayMonth() {
-		return _birthdayMonth;
-	}
-
-	public int getBirthdayYear() {
-		return _birthdayYear;
+	public String getAccountExternalReferenceCode() {
+		return _accountExternalReferenceCode;
 	}
 
 	public long[] getCommerceAccountIds() {
@@ -109,38 +89,24 @@ public class CommerceUserUpserterForm {
 		return _jobTitle;
 	}
 
-	public String getPassword1() {
-		return _password1;
-	}
-
-	public String getPassword2() {
-		return _password2;
-	}
-
-	public long[] getRoleIds() {
-		if (_roleIds == null) {
-			return new long[0];
+	public String[] getRoleNames() {
+		if ((_roleNames == null) || _roleNames.isEmpty()) {
+			return new String[0];
 		}
 
-		return ArrayUtil.toLongArray(_roleIds);
+		Stream<String> roleStream = Arrays.stream(_roleNames.split(","));
+
+		return roleStream.map(
+			String::trim
+		).toArray(
+			String[]::new
+		);
 	}
 
-	public boolean isMale() {
-		return _male;
-	}
+	private void _setAccountIdExternalReferenceCode(
+		String accountExternalReferenceCode) {
 
-	private void _setAlternateName(String alternateName) {
-		_alternateName = alternateName;
-	}
-
-	private void _setBirthDate(Date birthDate) {
-		Calendar calendar = CalendarFactoryUtil.getCalendar();
-
-		calendar.setTime(birthDate);
-
-		_birthdayMonth = calendar.get(Calendar.MONTH);
-		_birthdayDay = calendar.get(Calendar.DATE);
-		_birthdayYear = calendar.get(Calendar.YEAR);
+		_accountExternalReferenceCode = accountExternalReferenceCode;
 	}
 
 	private void _setCommerceAccountIds(List<Long> commerceAccountIds) {
@@ -159,10 +125,6 @@ public class CommerceUserUpserterForm {
 		_familyName = familyName;
 	}
 
-	private void _setGender(String gender) {
-		_male = "male".equals(gender);
-	}
-
 	private void _setGivenName(String givenName) {
 		_givenName = givenName;
 	}
@@ -171,31 +133,17 @@ public class CommerceUserUpserterForm {
 		_jobTitle = jobTitle;
 	}
 
-	private void _setPassword1(String password1) {
-		_password1 = password1;
+	private void _setRoleNames(String roleNames) {
+		_roleNames = roleNames;
 	}
 
-	private void _setPassword2(String password2) {
-		_password2 = password2;
-	}
-
-	private void _setRoleIds(List<Long> roleIds) {
-		_roleIds = roleIds;
-	}
-
-	private String _alternateName;
-	private int _birthdayDay;
-	private int _birthdayMonth;
-	private int _birthdayYear;
+	private String _accountExternalReferenceCode;
 	private List<Long> _commerceAccountIds;
 	private String _email;
 	private String _externalReferenceCode;
 	private String _familyName;
 	private String _givenName;
 	private String _jobTitle;
-	private Boolean _male;
-	private String _password1;
-	private String _password2;
-	private List<Long> _roleIds;
+	private String _roleNames;
 
 }
