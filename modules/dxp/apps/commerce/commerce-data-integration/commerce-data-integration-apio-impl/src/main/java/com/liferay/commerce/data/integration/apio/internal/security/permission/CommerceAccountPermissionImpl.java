@@ -18,6 +18,8 @@ import com.liferay.apio.architect.alias.routes.permission.HasNestedAddingPermiss
 import com.liferay.apio.architect.credentials.Credentials;
 import com.liferay.apio.architect.function.throwable.ThrowableTriFunction;
 import com.liferay.apio.architect.identifier.Identifier;
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
+import com.liferay.commerce.data.integration.apio.internal.util.CommerceAccountHelper;
 import com.liferay.portal.apio.permission.HasPermission;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
@@ -35,7 +37,8 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	property = "model.class.name=com.liferay.portal.kernel.model.Organization"
 )
-public class CommerceAccountPermissionImpl implements HasPermission<Long> {
+public class CommerceAccountPermissionImpl
+	implements HasPermission<ClassPKExternalReferenceCode> {
 
 	@Override
 	public <S> HasNestedAddingPermissionFunction<S> forAddingIn(
@@ -52,7 +55,8 @@ public class CommerceAccountPermissionImpl implements HasPermission<Long> {
 	}
 
 	@Override
-	public Boolean forDeleting(Credentials credentials, Long entryId)
+	public Boolean forDeleting(
+			Credentials credentials, ClassPKExternalReferenceCode entryId)
 		throws Exception {
 
 		return _forItemRoutesOperations().apply(
@@ -60,25 +64,30 @@ public class CommerceAccountPermissionImpl implements HasPermission<Long> {
 	}
 
 	@Override
-	public Boolean forUpdating(Credentials credentials, Long entryId)
+	public Boolean forUpdating(
+			Credentials credentials, ClassPKExternalReferenceCode entryId)
 		throws Exception {
 
 		return _forItemRoutesOperations().apply(
 			credentials, entryId, ActionKeys.UPDATE);
 	}
 
-	private ThrowableTriFunction<Credentials, Long, String, Boolean>
-		_forItemRoutesOperations() {
+	private ThrowableTriFunction
+		<Credentials, ClassPKExternalReferenceCode, String, Boolean>
+			_forItemRoutesOperations() {
 
-		return (credentials, organizationId, actionId) -> {
-			Organization organization = _organizationService.fetchOrganization(
-				organizationId);
+		return (credentials, entryId, actionId) -> {
+			Organization organization = _commerceAccountHelper.getOrganization(
+				entryId);
 
 			return _portletResourcePermission.contains(
 				(PermissionChecker)credentials.get(), organization.getGroupId(),
 				actionId);
 		};
 	}
+
+	@Reference
+	private CommerceAccountHelper _commerceAccountHelper;
 
 	@Reference
 	private OrganizationService _organizationService;
