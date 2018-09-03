@@ -22,5 +22,6 @@ import com.liferay.apio.architect.identifier.Identifier;
  * @author Zoltán Takács
  * @review
  */
-public interface CPDefinitionIdentifier extends Identifier<Long> {
+public interface CPDefinitionIdentifier
+	extends Identifier<ClassPKExternalReferenceCode> {
 }

@@ -19,5 +19,6 @@ import com.liferay.apio.architect.identifier.Identifier;
 /**
  * @author Rodrigo Guedes de Souza
  */
-public interface CommerceOrderIdentifier extends Identifier<Long> {
+public interface CommerceOrderIdentifier
+	extends Identifier<ClassPKExternalReferenceCode> {
 }

@@ -19,5 +19,6 @@ import com.liferay.apio.architect.identifier.Identifier;
 /**
  * @author Rodrigo Guedes de Souza
  */
-public interface CPInstanceIdentifier extends Identifier<Long> {
+public interface CPInstanceIdentifier
+	extends Identifier<ClassPKExternalReferenceCode> {
 }
