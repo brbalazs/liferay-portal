@@ -19,6 +19,10 @@ import com.liferay.apio.architect.credentials.Credentials;
 import com.liferay.apio.architect.function.throwable.ThrowableTriFunction;
 import com.liferay.apio.architect.identifier.Identifier;
 import com.liferay.commerce.data.integration.apio.identifiers.CPDefinitionIdentifier;
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
+import com.liferay.commerce.data.integration.apio.internal.util.CPDefinitionHelper;
+import com.liferay.commerce.product.constants.CPActionKeys;
+import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
@@ -48,25 +52,20 @@ public class CPDefinitionOptionRelPermissionImpl
 		Class<? extends Identifier<S>> identifierClass) {
 
 		if (identifierClass.equals(CPDefinitionIdentifier.class)) {
-			return (credentials, cpDefinitionId) -> {
-				CPDefinition cpDefinition =
-					_cpDefinitionService.fetchCPDefinition(
-						(Long)cpDefinitionId);
+			return (
+				credentials,
+				cpDefinitionClassPKExternalReferenceCode) -> {
+					CPDefinition cpDefinition =
+						_cpDefinitionHelper.
+							getCPDefinitionByClassPKExternalReferenceCode(
+								(ClassPKExternalReferenceCode)
+									cpDefinitionClassPKExternalReferenceCode);
 
-				if (cpDefinition == null) {
-					if (_log.isDebugEnabled()) {
-						_log.debug(
-							"No CPDefinition exists with primary key " +
-								cpDefinitionId);
-					}
-
-					return false;
-				}
-
-				return _cpDefinitionModelResourcePermission.contains(
-					(PermissionChecker)credentials.get(), cpDefinition,
-					ActionKeys.UPDATE);
-			};
+					return _portletResourcePermission.contains(
+						(PermissionChecker)credentials.get(),
+						cpDefinition.getGroupId(),
+						CPActionKeys.ADD_COMMERCE_PRODUCT_INSTANCE);
+				};
 		}
 
 		return (credentials, s) -> false;
@@ -120,6 +119,9 @@ public class CPDefinitionOptionRelPermissionImpl
 	)
 	private ModelResourcePermission<CPDefinition>
 		_cpDefinitionModelResourcePermission;
+
+	@Reference
+	private CPDefinitionHelper _cpDefinitionHelper;
 
 	@Reference
 	private CPDefinitionOptionRelService _cpDefinitionOptionRelService;

@@ -24,11 +24,12 @@ import com.liferay.apio.architect.routes.ItemRoutes;
 import com.liferay.apio.architect.routes.NestedCollectionRoutes;
 import com.liferay.commerce.data.integration.apio.identifiers.CPDefinitionIdentifier;
 import com.liferay.commerce.data.integration.apio.identifiers.CPDefinitionOptionRelIdentifier;
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
 import com.liferay.commerce.data.integration.apio.internal.form.CPDefinitionOptionRelCreatorForm;
+import com.liferay.commerce.data.integration.apio.internal.util.CPDefinitionHelper;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
-import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.portal.apio.permission.HasPermission;
 import com.liferay.portal.apio.user.CurrentUser;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -47,14 +48,16 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true)
 public class CPDefinitionOptionRelNestedCollectionResource
 	implements NestedCollectionResource
-		<CPDefinitionOptionRel, Long, CPDefinitionOptionRelIdentifier, Long,
-		CPDefinitionIdentifier> {
+		<CPDefinitionOptionRel, Long,
+			CPDefinitionOptionRelIdentifier, ClassPKExternalReferenceCode,
+			CPDefinitionIdentifier> {
 
 	@Override
-	public NestedCollectionRoutes<CPDefinitionOptionRel, Long, Long>
-		collectionRoutes(NestedCollectionRoutes.Builder
-			<CPDefinitionOptionRel, Long, Long>
-			builder) {
+	public NestedCollectionRoutes
+		<CPDefinitionOptionRel, Long, ClassPKExternalReferenceCode>
+			collectionRoutes(NestedCollectionRoutes.Builder
+				<CPDefinitionOptionRel, Long, ClassPKExternalReferenceCode>
+				builder) {
 
 		return builder.addGetter(
 			this::_getPageItems
@@ -94,7 +97,9 @@ public class CPDefinitionOptionRelNestedCollectionResource
 		).addBidirectionalModel(
 			"commerceProductDefinition", "commerceProductDefinitionOptions",
 			CPDefinitionIdentifier.class,
-			CPDefinitionOptionRel::getCPDefinitionId
+			cpDefinitionOptionRel -> _cpDefinitionHelper.
+				cpDefinitionIdToclassPKExternalReferenceCode(
+					cpDefinitionOptionRel.getCPDefinitionId())
 		).addDate(
 			"dateCreated", CPDefinitionOptionRel::getCreateDate
 		).addDate(
@@ -107,13 +112,15 @@ public class CPDefinitionOptionRelNestedCollectionResource
 	}
 
 	private CPDefinitionOptionRel _addCPDefinitionOptionRel(
-			Long cpDefinitionId,
+			ClassPKExternalReferenceCode
+				cpDefinitionClassPKExternalReferenceCode,
 			CPDefinitionOptionRelCreatorForm cpDefinitionOptionRelCreatorForm,
 			User currentUser)
 		throws PortalException {
 
-		CPDefinition cpDefinition = _cpDefinitionService.getCPDefinition(
-			cpDefinitionId);
+		CPDefinition cpDefinition =
+			_cpDefinitionHelper.getCPDefinitionByClassPKExternalReferenceCode(
+				cpDefinitionClassPKExternalReferenceCode);
 
 		ServiceContext serviceContext = new ServiceContext();
 
@@ -125,32 +132,38 @@ public class CPDefinitionOptionRelNestedCollectionResource
 		serviceContext.setScopeGroupId(cpDefinition.getGroupId());
 
 		return _cpDefinitionOptionRelService.addCPDefinitionOptionRel(
-			cpDefinitionId,
+			cpDefinition.getCPDefinitionId(),
 			cpDefinitionOptionRelCreatorForm.getCommerceProductOptionId(),
 			serviceContext);
 	}
 
 	private PageItems<CPDefinitionOptionRel> _getPageItems(
-			Pagination pagination, Long cpDefinitionId)
+			Pagination pagination,
+			ClassPKExternalReferenceCode
+				cpDefinitionClassPKExternalReferenceCode)
 		throws PortalException {
+
+		CPDefinition cpDefinition =
+			_cpDefinitionHelper.getCPDefinitionByClassPKExternalReferenceCode(
+				cpDefinitionClassPKExternalReferenceCode);
 
 		List<CPDefinitionOptionRel> cpDefinitionOptionRels =
 			_cpDefinitionOptionRelService.getCPDefinitionOptionRels(
-				cpDefinitionId, pagination.getStartPosition(),
+				cpDefinition.getCPDefinitionId(), pagination.getStartPosition(),
 				pagination.getEndPosition());
 
 		int total =
 			_cpDefinitionOptionRelService.getCPDefinitionOptionRelsCount(
-				cpDefinitionId);
+				cpDefinition.getCPDefinitionId());
 
 		return new PageItems<>(cpDefinitionOptionRels, total);
 	}
 
 	@Reference
-	private CPDefinitionOptionRelService _cpDefinitionOptionRelService;
+	private CPDefinitionHelper _cpDefinitionHelper;
 
 	@Reference
-	private CPDefinitionService _cpDefinitionService;
+	private CPDefinitionOptionRelService _cpDefinitionOptionRelService;
 
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.product.model.CPDefinitionOptionRel)"

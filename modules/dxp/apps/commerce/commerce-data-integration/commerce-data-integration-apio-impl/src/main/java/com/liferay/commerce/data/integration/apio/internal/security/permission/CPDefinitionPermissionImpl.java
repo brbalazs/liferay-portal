@@ -18,10 +18,11 @@ import com.liferay.apio.architect.alias.routes.permission.HasNestedAddingPermiss
 import com.liferay.apio.architect.credentials.Credentials;
 import com.liferay.apio.architect.function.throwable.ThrowableTriFunction;
 import com.liferay.apio.architect.identifier.Identifier;
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
+import com.liferay.commerce.data.integration.apio.internal.util.CPDefinitionHelper;
 import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinition;
-import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.portal.apio.permission.HasPermission;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -41,7 +42,8 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	property = "model.class.name=com.liferay.commerce.product.model.CPDefinition"
 )
-public class CPDefinitionPermissionImpl implements HasPermission<Long> {
+public class CPDefinitionPermissionImpl
+	implements HasPermission<ClassPKExternalReferenceCode> {
 
 	@Override
 	public <S> HasNestedAddingPermissionFunction<S> forAddingIn(
@@ -58,27 +60,34 @@ public class CPDefinitionPermissionImpl implements HasPermission<Long> {
 	}
 
 	@Override
-	public Boolean forDeleting(Credentials credentials, Long entryId)
+	public Boolean forDeleting(
+			Credentials credentials,
+			ClassPKExternalReferenceCode classPKExternalReferenceCode)
 		throws Exception {
 
 		return _forItemRoutesOperations().apply(
-			credentials, entryId, ActionKeys.DELETE);
+			credentials, classPKExternalReferenceCode, ActionKeys.DELETE);
 	}
 
 	@Override
-	public Boolean forUpdating(Credentials credentials, Long entryId)
+	public Boolean forUpdating(
+			Credentials credentials,
+			ClassPKExternalReferenceCode classPKExternalReferenceCode)
 		throws Exception {
 
 		return _forItemRoutesOperations().apply(
-			credentials, entryId, ActionKeys.UPDATE);
+			credentials, classPKExternalReferenceCode, ActionKeys.UPDATE);
 	}
 
-	private ThrowableTriFunction<Credentials, Long, String, Boolean>
-		_forItemRoutesOperations() {
+	private ThrowableTriFunction
+		<Credentials, ClassPKExternalReferenceCode, String, Boolean>
+			_forItemRoutesOperations() {
 
-		return (credentials, cpDefinitionId, actionId) -> {
-			CPDefinition cpDefinition = _cpDefinitionService.fetchCPDefinition(
-				cpDefinitionId);
+		return (credentials, classPKExternalReferenceCode, actionId) -> {
+			CPDefinition cpDefinition =
+				_cpDefinitionHelper.
+					getCPDefinitionByClassPKExternalReferenceCode(
+						classPKExternalReferenceCode);
 
 			if (cpDefinition == null) {
 				if (_log.isDebugEnabled()) {
@@ -105,7 +114,7 @@ public class CPDefinitionPermissionImpl implements HasPermission<Long> {
 		_cpDefinitionModelResourcePermission;
 
 	@Reference
-	private CPDefinitionService _cpDefinitionService;
+	private CPDefinitionHelper _cpDefinitionHelper;
 
 	@Reference(target = "(resource.name=" + CPConstants.RESOURCE_NAME + ")")
 	private PortletResourcePermission _portletResourcePermission;

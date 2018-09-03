@@ -14,20 +14,28 @@
 
 package com.liferay.commerce.data.integration.apio.internal.util;
 
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPDefinitionService;
+import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.service.persistence.CompanyProvider;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.math.BigDecimal;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -38,24 +46,124 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = CPInstanceHelper.class)
 public class CPInstanceHelper {
 
+	public ClassPKExternalReferenceCode
+		cpInstanceIdToClassPKExternalReferenceCode(long cpDefinitionId) {
+
+		try {
+			CPInstance cpInstance = _cpInstanceService.fetchCPInstance(
+				cpDefinitionId);
+
+			return cpInstanceToClassPKExternalReferenceCode(cpInstance);
+		}
+		catch (PortalException pe) {
+			_log.error(
+				"Unable to find CPInstance with ID " + cpDefinitionId, pe);
+		}
+
+		return null;
+	}
+
+	public ClassPKExternalReferenceCode
+		cpInstanceToClassPKExternalReferenceCode(CPInstance cpInstance) {
+
+		if (cpInstance != null) {
+			return ClassPKExternalReferenceCode.create(
+				cpInstance.getCPDefinitionId(),
+				cpInstance.getExternalReferenceCode());
+		}
+
+		return null;
+	}
+
+	public void deleteCPInstance(
+			ClassPKExternalReferenceCode classPKExternalReferenceCode)
+		throws PortalException {
+
+		CPInstance cpInstance = getCPInstanceByClassPKExternalReferenceCode(
+			classPKExternalReferenceCode);
+
+		if (cpInstance != null) {
+			_cpInstanceService.deleteCPInstance(cpInstance.getCPInstanceId());
+
+			long cpDefinitionId = cpInstance.getCPDefinitionId();
+
+			int total = _cpInstanceService.getCPDefinitionInstancesCount(
+				cpDefinitionId, WorkflowConstants.STATUS_ANY);
+
+			if (total == 0) {
+				_cpDefinitionService.deleteCPDefinition(cpDefinitionId);
+			}
+		}
+	}
+
+	public CPInstance getCPInstanceByClassPKExternalReferenceCode(
+		ClassPKExternalReferenceCode cpInstanceClassPKExternalReferenceCode) {
+
+		Long cpInstanceId = cpInstanceClassPKExternalReferenceCode.getClassPK();
+
+		if (cpInstanceId > 0) {
+			return _cpInstanceLocalService.fetchCPInstance(cpInstanceId);
+		}
+		else {
+			String externalReferenceCode =
+				cpInstanceClassPKExternalReferenceCode.
+					getExternalReferenceCode();
+
+			return _cpInstanceLocalService.fetchByExternalReferenceCode(
+				_companyProvider.getCompanyId(), externalReferenceCode);
+		}
+	}
+
 	public CPInstance upsertCPInstance(
-			long cpDefinitionId, String sku, String gtin,
+			ClassPKExternalReferenceCode
+				cpDefinitionClassPKExternalReferenceCode,
+			String sku, String gtin, String manufacturerPartNumber,
+			boolean purchasable, double width, double height, double depth,
+			double weight, double cost, double price, double promoPrice,
+			boolean published, Date displayDate, Date expirationDate,
+			boolean neverExpire, String externalReference, User currentUser)
+		throws PortalException {
+
+		CPDefinition cpDefinition =
+			_cpDefinitionHelper.getCPDefinitionByClassPKExternalReferenceCode(
+				cpDefinitionClassPKExternalReferenceCode);
+
+		return upsertCPInstance(
+			cpDefinition.getGroupId(), cpDefinition.getCPDefinitionId(), sku,
+			gtin, manufacturerPartNumber, purchasable, width, height, depth,
+			weight, cost, price, promoPrice, published, displayDate,
+			expirationDate, neverExpire, externalReference, null, null, null,
+			null, null, true, currentUser);
+	}
+
+	public CPInstance upsertCPInstance(
+			long groupId, long cpDefinitionId, String sku, String gtin,
 			String manufacturerPartNumber, boolean purchasable, double width,
 			double height, double depth, double weight, double cost,
 			double price, double promoPrice, boolean published,
 			Date displayDate, Date expirationDate, boolean neverExpire,
-			String externalReference, User currentUser)
+			String externalReference, Map<Locale, String> titleMap,
+			Map<Locale, String> descriptionMap,
+			Map<Locale, String> shortDescriptionMap, String productTypeName,
+			String productExternalReferenceCode, boolean active,
+			User currentUser)
 		throws PortalException {
 
-		CPDefinition cpDefinition = _cpDefinitionService.getCPDefinition(
-			cpDefinitionId);
+		if (productExternalReferenceCode != null) {
+			CPDefinition cpDefinition = _cpDefinitionHelper.upsertCPDefinition(
+				groupId, titleMap, descriptionMap, shortDescriptionMap,
+				productTypeName, null, productExternalReferenceCode, null,
+				active);
+
+			cpDefinitionId = cpDefinition.getCPDefinitionId();
+		}
 
 		ServiceContext serviceContext = new ServiceContext();
 
 		serviceContext.setAddGroupPermissions(true);
 		serviceContext.setAddGuestPermissions(true);
 		serviceContext.setCompanyId(currentUser.getCompanyId());
-		serviceContext.setScopeGroupId(cpDefinition.getGroupId());
+		serviceContext.setScopeGroupId(groupId);
 		serviceContext.setTimeZone(currentUser.getTimeZone());
 		serviceContext.setUserId(currentUser.getUserId());
 
@@ -112,13 +220,25 @@ public class CPInstanceHelper {
 			serviceContext);
 	}
 
+	private static final Log _log = LogFactoryUtil.getLog(
+		CPInstanceHelper.class);
+
 	@Reference
-	protected UserLocalService userLocalService;
+	private CompanyProvider _companyProvider;
+
+	@Reference
+	private CPDefinitionHelper _cpDefinitionHelper;
 
 	@Reference
 	private CPDefinitionService _cpDefinitionService;
 
 	@Reference
+	private CPInstanceLocalService _cpInstanceLocalService;
+
+	@Reference
 	private CPInstanceService _cpInstanceService;
+
+	@Reference
+	private UserLocalService _userLocalService;
 
 }

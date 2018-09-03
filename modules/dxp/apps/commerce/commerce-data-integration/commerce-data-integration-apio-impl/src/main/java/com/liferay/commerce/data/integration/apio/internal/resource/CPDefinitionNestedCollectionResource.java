@@ -23,8 +23,9 @@ import com.liferay.apio.architect.resource.NestedCollectionResource;
 import com.liferay.apio.architect.routes.ItemRoutes;
 import com.liferay.apio.architect.routes.NestedCollectionRoutes;
 import com.liferay.commerce.data.integration.apio.identifiers.CPDefinitionIdentifier;
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
 import com.liferay.commerce.data.integration.apio.internal.form.CPDefinitionUpserterForm;
-import com.liferay.commerce.data.integration.apio.internal.util.CommerceProductDefinitionHelper;
+import com.liferay.commerce.data.integration.apio.internal.util.CPDefinitionHelper;
 import com.liferay.commerce.product.exception.CPDefinitionProductTypeNameException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.service.CPDefinitionService;
@@ -54,16 +55,20 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true)
 public class CPDefinitionNestedCollectionResource
 	implements NestedCollectionResource
-		<CPDefinition, Long, CPDefinitionIdentifier, Long, WebSiteIdentifier> {
+		<CPDefinition, ClassPKExternalReferenceCode,
+			CPDefinitionIdentifier, Long, WebSiteIdentifier> {
 
 	@Override
-	public NestedCollectionRoutes<CPDefinition, Long, Long> collectionRoutes(
-		NestedCollectionRoutes.Builder<CPDefinition, Long, Long> builder) {
+	public NestedCollectionRoutes
+		<CPDefinition, ClassPKExternalReferenceCode, Long> collectionRoutes(
+			NestedCollectionRoutes.Builder
+				<CPDefinition, ClassPKExternalReferenceCode, Long>
+					builder) {
 
 		return builder.addGetter(
 			this::_getPageItems
 		).addCreator(
-			this::_addCPDefinition,
+			this::_upsertCPDefinition,
 			_hasPermission.forAddingIn(WebSiteIdentifier.class),
 			CPDefinitionUpserterForm::buildForm
 		).build();
@@ -75,25 +80,27 @@ public class CPDefinitionNestedCollectionResource
 	}
 
 	@Override
-	public ItemRoutes<CPDefinition, Long> itemRoutes(
-		ItemRoutes.Builder<CPDefinition, Long> builder) {
+	public ItemRoutes<CPDefinition, ClassPKExternalReferenceCode> itemRoutes(
+		ItemRoutes.Builder<CPDefinition, ClassPKExternalReferenceCode>
+			builder) {
 
 		return builder.addGetter(
-			_cpDefinitionService::getCPDefinition
+			_cpDefinitionHelper::getCPDefinitionByClassPKExternalReferenceCode
 		).addRemover(
-			idempotent(_cpDefinitionService::deleteCPDefinition),
+			idempotent(_cpDefinitionHelper::deleteCPDefinition),
 			_hasPermission::forDeleting
 		).build();
 	}
 
 	@Override
 	public Representor<CPDefinition> representor(
-		Representor.Builder<CPDefinition, Long> builder) {
+		Representor.Builder<CPDefinition, ClassPKExternalReferenceCode>
+			builder) {
 
 		return builder.types(
 			"CommerceProductDefinition"
 		).identifier(
-			CPDefinition::getCPDefinitionId
+			_cpDefinitionHelper::cpDefinitionToClassPKExternalReferenceCode
 		).addBidirectionalModel(
 			"webSite", "commerceProductDefinitions", WebSiteIdentifier.class,
 			CPDefinition::getGroupId
@@ -114,28 +121,6 @@ public class CPDefinitionNestedCollectionResource
 		).addStringList(
 			"skus", this::_getSKUs
 		).build();
-	}
-
-	private CPDefinition _addCPDefinition(
-			Long webSiteId, CPDefinitionUpserterForm cpDefinitionUpserterForm)
-		throws PortalException {
-
-		try {
-			return _commerceProductDefinitionHelper.upsertCPDefinition(
-				webSiteId, cpDefinitionUpserterForm.getTitleMap(),
-				cpDefinitionUpserterForm.getDescriptionMap(),
-				cpDefinitionUpserterForm.getShortDescriptionMap(),
-				cpDefinitionUpserterForm.getProductTypeName(),
-				ArrayUtil.toLongArray(
-					cpDefinitionUpserterForm.getAssetCategoryIds()),
-				cpDefinitionUpserterForm.getExternalReferenceCode());
-		}
-		catch (CPDefinitionProductTypeNameException cpdptne) {
-			throw new NotFoundException(
-				"Product type not available: " +
-					cpDefinitionUpserterForm.getProductTypeName(),
-				cpdptne);
-		}
 	}
 
 	private PageItems<CPDefinition> _getPageItems(
@@ -159,8 +144,32 @@ public class CPDefinitionNestedCollectionResource
 			_cpInstanceLocalService.getSKUs(cpDefinition.getCPDefinitionId()));
 	}
 
+	private CPDefinition _upsertCPDefinition(
+			Long webSiteId, CPDefinitionUpserterForm cpDefinitionUpserterForm)
+		throws PortalException {
+
+		try {
+			return _cpDefinitionHelper.upsertCPDefinition(
+				webSiteId, cpDefinitionUpserterForm.getTitleMap(),
+				cpDefinitionUpserterForm.getDescriptionMap(),
+				cpDefinitionUpserterForm.getShortDescriptionMap(),
+				cpDefinitionUpserterForm.getProductTypeName(),
+				ArrayUtil.toLongArray(
+					cpDefinitionUpserterForm.getAssetCategoryIds()),
+				cpDefinitionUpserterForm.getExternalReferenceCode(),
+				cpDefinitionUpserterForm.getDefaultSku(),
+				cpDefinitionUpserterForm.getActive());
+		}
+		catch (CPDefinitionProductTypeNameException cpdptne) {
+			throw new NotFoundException(
+				"Product type not available: " +
+					cpDefinitionUpserterForm.getProductTypeName(),
+				cpdptne);
+		}
+	}
+
 	@Reference
-	private CommerceProductDefinitionHelper _commerceProductDefinitionHelper;
+	private CPDefinitionHelper _cpDefinitionHelper;
 
 	@Reference
 	private CPDefinitionService _cpDefinitionService;
@@ -171,6 +180,6 @@ public class CPDefinitionNestedCollectionResource
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.product.model.CPDefinition)"
 	)
-	private HasPermission<Long> _hasPermission;
+	private HasPermission<ClassPKExternalReferenceCode> _hasPermission;
 
 }

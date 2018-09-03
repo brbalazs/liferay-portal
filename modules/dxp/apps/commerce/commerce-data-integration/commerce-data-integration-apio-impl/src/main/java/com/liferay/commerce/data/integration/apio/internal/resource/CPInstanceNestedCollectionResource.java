@@ -24,8 +24,11 @@ import com.liferay.apio.architect.routes.ItemRoutes;
 import com.liferay.apio.architect.routes.NestedCollectionRoutes;
 import com.liferay.commerce.data.integration.apio.identifiers.CPDefinitionIdentifier;
 import com.liferay.commerce.data.integration.apio.identifiers.CPInstanceIdentifier;
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
 import com.liferay.commerce.data.integration.apio.internal.form.CPInstanceUpserterForm;
+import com.liferay.commerce.data.integration.apio.internal.util.CPDefinitionHelper;
 import com.liferay.commerce.data.integration.apio.internal.util.CPInstanceHelper;
+import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.portal.apio.permission.HasPermission;
@@ -33,6 +36,7 @@ import com.liferay.portal.apio.user.CurrentUser;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
 
 import java.util.List;
 
@@ -45,16 +49,22 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true)
 public class CPInstanceNestedCollectionResource
 	implements NestedCollectionResource
-		<CPInstance, Long, CPInstanceIdentifier, Long, CPDefinitionIdentifier> {
+		<CPInstance, ClassPKExternalReferenceCode, CPInstanceIdentifier,
+			ClassPKExternalReferenceCode, CPDefinitionIdentifier> {
 
 	@Override
-	public NestedCollectionRoutes<CPInstance, Long, Long> collectionRoutes(
-		NestedCollectionRoutes.Builder<CPInstance, Long, Long> builder) {
+	public NestedCollectionRoutes
+		<CPInstance, ClassPKExternalReferenceCode, ClassPKExternalReferenceCode>
+			collectionRoutes(
+				NestedCollectionRoutes.Builder
+					<CPInstance, ClassPKExternalReferenceCode,
+						ClassPKExternalReferenceCode>
+							builder) {
 
 		return builder.addGetter(
 			this::_getPageItems
 		).addCreator(
-			this::_addCPInstance, CurrentUser.class,
+			this::_upsertCPInstance, CurrentUser.class,
 			_hasPermission.forAddingIn(CPDefinitionIdentifier.class),
 			CPInstanceUpserterForm::buildForm
 		).build();
@@ -66,28 +76,34 @@ public class CPInstanceNestedCollectionResource
 	}
 
 	@Override
-	public ItemRoutes<CPInstance, Long> itemRoutes(
-		ItemRoutes.Builder<CPInstance, Long> builder) {
+	public ItemRoutes<CPInstance, ClassPKExternalReferenceCode> itemRoutes(
+		ItemRoutes.Builder<CPInstance, ClassPKExternalReferenceCode> builder) {
 
 		return builder.addGetter(
-			_cpInstanceService::getCPInstance
+			_cpInstanceHelper::getCPInstanceByClassPKExternalReferenceCode
 		).addRemover(
-			idempotent(_cpInstanceService::deleteCPInstance),
+			idempotent(_cpInstanceHelper::deleteCPInstance),
 			_hasPermission::forDeleting
 		).build();
 	}
 
 	@Override
 	public Representor<CPInstance> representor(
-		Representor.Builder<CPInstance, Long> builder) {
+		Representor.Builder<CPInstance, ClassPKExternalReferenceCode> builder) {
 
 		return builder.types(
 			"CommerceProductInstance"
 		).identifier(
-			CPInstance::getCPInstanceId
+			_cpInstanceHelper::cpInstanceToClassPKExternalReferenceCode
 		).addBidirectionalModel(
 			"commerceProductDefinition", "commerceProductInstances",
-			CPDefinitionIdentifier.class, CPInstance::getCPDefinitionId
+			CPDefinitionIdentifier.class,
+			cpInstance -> _cpDefinitionHelper.
+				cpDefinitionIdToclassPKExternalReferenceCode(
+					cpInstance.getCPDefinitionId())
+		).addBidirectionalModel(
+			"webSite", "commerceProductInstances", WebSiteIdentifier.class,
+			CPInstance::getGroupId
 		).addDate(
 			"dateCreated", CPInstance::getCreateDate
 		).addDate(
@@ -99,14 +115,38 @@ public class CPInstanceNestedCollectionResource
 		).build();
 	}
 
-	private CPInstance _addCPInstance(
-			Long cpDefinitionId, CPInstanceUpserterForm cpInstanceUpserterForm,
-			User currentUser)
+	private PageItems<CPInstance> _getPageItems(
+			Pagination pagination,
+			ClassPKExternalReferenceCode
+				cpDefinitionClassPKExternalReferenceCode)
+		throws PortalException {
+
+		CPDefinition cpDefinition =
+			_cpDefinitionHelper.getCPDefinitionByClassPKExternalReferenceCode(
+				cpDefinitionClassPKExternalReferenceCode);
+
+		List<CPInstance> cpInstances =
+			_cpInstanceService.getCPDefinitionInstances(
+				cpDefinition.getCPDefinitionId(), WorkflowConstants.STATUS_ANY,
+				pagination.getStartPosition(), pagination.getEndPosition(),
+				null);
+
+		int total = _cpInstanceService.getCPDefinitionInstancesCount(
+			cpDefinition.getCPDefinitionId(),
+			WorkflowConstants.STATUS_APPROVED);
+
+		return new PageItems<>(cpInstances, total);
+	}
+
+	private CPInstance _upsertCPInstance(
+			ClassPKExternalReferenceCode
+				cpDefinitionClassPKExternalReferenceCode,
+			CPInstanceUpserterForm cpInstanceUpserterForm, User currentUser)
 		throws PortalException {
 
 		return _cpInstanceHelper.upsertCPInstance(
-			cpDefinitionId, cpInstanceUpserterForm.getSku(),
-			cpInstanceUpserterForm.getGtin(),
+			cpDefinitionClassPKExternalReferenceCode,
+			cpInstanceUpserterForm.getSku(), cpInstanceUpserterForm.getGtin(),
 			cpInstanceUpserterForm.getManufacturerPartNumber(),
 			cpInstanceUpserterForm.getPurchasable(),
 			cpInstanceUpserterForm.getWidth(),
@@ -122,21 +162,8 @@ public class CPInstanceNestedCollectionResource
 			cpInstanceUpserterForm.getExternalReferenceCode(), currentUser);
 	}
 
-	private PageItems<CPInstance> _getPageItems(
-			Pagination pagination, Long cpDefinitionId)
-		throws PortalException {
-
-		List<CPInstance> cpInstances =
-			_cpInstanceService.getCPDefinitionInstances(
-				cpDefinitionId, WorkflowConstants.STATUS_ANY,
-				pagination.getStartPosition(), pagination.getEndPosition(),
-				null);
-
-		int total = _cpInstanceService.getCPDefinitionInstancesCount(
-			cpDefinitionId, WorkflowConstants.STATUS_APPROVED);
-
-		return new PageItems<>(cpInstances, total);
-	}
+	@Reference
+	private CPDefinitionHelper _cpDefinitionHelper;
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
@@ -147,6 +174,6 @@ public class CPInstanceNestedCollectionResource
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.product.model.CPInstance)"
 	)
-	private HasPermission<Long> _hasPermission;
+	private HasPermission<ClassPKExternalReferenceCode> _hasPermission;
 
 }
