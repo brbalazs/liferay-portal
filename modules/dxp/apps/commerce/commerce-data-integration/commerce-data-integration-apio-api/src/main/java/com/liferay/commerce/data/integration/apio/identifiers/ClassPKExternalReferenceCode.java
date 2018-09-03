@@ -26,7 +26,7 @@ public interface ClassPKExternalReferenceCode {
 	public static ClassPKExternalReferenceCode create(
 		long classPK, String externalReferenceCode) {
 
-		if (classPK == 0) {
+		if ((classPK == 0) && (externalReferenceCode == null)) {
 			throw new UnsupportedOperationException(
 				"Class Primary Key cannot be 0");
 		}
