@@ -24,6 +24,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.persistence.CompanyProvider;
 import com.liferay.portal.kernel.util.StringBundler;
 
 import java.math.BigDecimal;
@@ -135,6 +136,9 @@ public class CommerceTierPriceEntryHelper {
 
 	@Reference
 	private CommerceTierPriceEntryService _commerceTierPriceEntryService;
+
+	@Reference
+	private CompanyProvider _companyProvider;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;

@@ -180,21 +180,19 @@ public class CommercePriceEntryHelper {
 				BigDecimal.valueOf(price), BigDecimal.valueOf(promoPrice),
 				skuExternalReferenceCode, serviceContext);
 
-		if (standardPrice != null) {
-			CPInstance cpInstance = commercePriceEntry.getCPInstance();
+		CPInstance cpInstance = commercePriceEntry.getCPInstance();
 
-			if (standardPrice) {
-				_cpInstanceService.updatePricingInfo(
-					cpInstance.getCPInstanceId(), new BigDecimal(price),
-					new BigDecimal(promoPrice), cpInstance.getCost(),
-					serviceContext);
-			}
-			else {
-				_cpInstanceService.updatePricingInfo(
-					cpInstance.getCPInstanceId(), new BigDecimal(0),
-					new BigDecimal(promoPrice), cpInstance.getCost(),
-					serviceContext);
-			}
+		if (standardPrice) {
+			_cpInstanceService.updatePricingInfo(
+				cpInstance.getCPInstanceId(), new BigDecimal(price),
+				new BigDecimal(promoPrice), cpInstance.getCost(),
+				serviceContext);
+		}
+		else {
+			_cpInstanceService.updatePricingInfo(
+				cpInstance.getCPInstanceId(), new BigDecimal(0),
+				new BigDecimal(promoPrice), cpInstance.getCost(),
+				serviceContext);
 		}
 
 		return commercePriceEntry;
