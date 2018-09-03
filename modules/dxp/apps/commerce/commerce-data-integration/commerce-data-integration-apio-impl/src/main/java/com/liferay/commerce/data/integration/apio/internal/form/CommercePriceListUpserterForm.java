@@ -64,6 +64,8 @@ public class CommercePriceListUpserterForm {
 			"currency", CommercePriceListUpserterForm::_setCurrency
 		).addRequiredString(
 			"name", CommercePriceListUpserterForm::_setName
+		).addRequiredBoolean(
+			"active", CommercePriceListUpserterForm::_setActive
 		).build();
 	}
 

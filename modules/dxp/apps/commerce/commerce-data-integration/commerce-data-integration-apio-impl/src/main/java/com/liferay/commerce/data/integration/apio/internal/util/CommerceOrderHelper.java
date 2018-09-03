@@ -14,10 +14,22 @@
 
 package com.liferay.commerce.data.integration.apio.internal.util;
 
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
+import com.liferay.commerce.model.CommerceAddress;
+import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.model.CommerceRegion;
+import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.persistence.CompanyProvider;
+
+import java.util.Locale;
+
+import javax.ws.rs.NotFoundException;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -28,31 +40,293 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = CommerceOrderHelper.class)
 public class CommerceOrderHelper {
 
-	public CommerceOrder updateCommerceOrder(
-			Long commerceOrderId, Long orderStatus, Long paymentStatus)
+	public static String getBillingAddressCity(CommerceOrder commerceOrder) {
+		CommerceAddress commerceAddress = _getBillingAddress(commerceOrder);
+
+		if (commerceAddress != null) {
+			return commerceAddress.getCity();
+		}
+
+		return null;
+	}
+
+	public static String getBillingAddressCountry(
+		CommerceOrder commerceOrder, Locale locale) {
+
+		CommerceAddress commerceAddress = _getBillingAddress(commerceOrder);
+
+		if (commerceAddress != null) {
+			CommerceCountry commerceCountry = _getCommerceCountry(
+				commerceAddress);
+
+			if (commerceCountry != null) {
+				return commerceCountry.getName(locale);
+			}
+		}
+
+		return null;
+	}
+
+	public static String getBillingAddressState(CommerceOrder commerceOrder) {
+		CommerceAddress commerceAddress = _getBillingAddress(commerceOrder);
+
+		if (commerceAddress != null) {
+			CommerceRegion commerceRegion = _getCommerceRegion(commerceAddress);
+
+			if (commerceRegion != null) {
+				return commerceRegion.getName();
+			}
+		}
+
+		return null;
+	}
+
+	public static String getBillingAddressStreet(CommerceOrder commerceOrder) {
+		CommerceAddress commerceAddress = _getBillingAddress(commerceOrder);
+
+		if (commerceAddress != null) {
+			return commerceAddress.getStreet1();
+		}
+
+		return null;
+	}
+
+	public static String getBillingAddressZip(CommerceOrder commerceOrder) {
+		CommerceAddress commerceAddress = _getBillingAddress(commerceOrder);
+
+		if (commerceAddress != null) {
+			return commerceAddress.getZip();
+		}
+
+		return null;
+	}
+
+	public static String getShippingAddressCity(CommerceOrder commerceOrder) {
+		CommerceAddress commerceAddress = _getShippingAddress(commerceOrder);
+
+		if (commerceAddress != null) {
+			return commerceAddress.getCity();
+		}
+
+		return null;
+	}
+
+	public static String getShippingAddressCountry(
+		CommerceOrder commerceOrder, Locale locale) {
+
+		CommerceAddress commerceAddress = _getShippingAddress(commerceOrder);
+
+		if (commerceAddress != null) {
+			CommerceCountry commerceCountry = _getCommerceCountry(
+				commerceAddress);
+
+			if (commerceCountry != null) {
+				return commerceCountry.getName(locale);
+			}
+		}
+
+		return null;
+	}
+
+	public static String getShippingAddressState(CommerceOrder commerceOrder) {
+		CommerceAddress commerceAddress = _getShippingAddress(commerceOrder);
+
+		if (commerceAddress != null) {
+			CommerceRegion commerceRegion = _getCommerceRegion(commerceAddress);
+
+			if (commerceRegion != null) {
+				return commerceRegion.getName();
+			}
+		}
+
+		return null;
+	}
+
+	public static String getShippingAddressStreet(CommerceOrder commerceOrder) {
+		CommerceAddress commerceAddress = _getShippingAddress(commerceOrder);
+
+		if (commerceAddress != null) {
+			return commerceAddress.getStreet1();
+		}
+
+		return null;
+	}
+
+	public static String getShippingAddressZip(CommerceOrder commerceOrder) {
+		CommerceAddress commerceAddress = _getShippingAddress(commerceOrder);
+
+		if (commerceAddress != null) {
+			return commerceAddress.getZip();
+		}
+
+		return null;
+	}
+
+	public ClassPKExternalReferenceCode
+		commerceOrderIdToClassPKExternalReferenceCode(long commerceOrderId) {
+
+		CommerceOrder commerceOrder =
+			_commerceOrderLocalService.fetchCommerceOrder(commerceOrderId);
+
+		return commerceOrderToClassPKExternalReferenceCode(commerceOrder);
+	}
+
+	public ClassPKExternalReferenceCode
+		commerceOrderToClassPKExternalReferenceCode(
+			CommerceOrder commerceOrder) {
+
+		if (commerceOrder != null) {
+			return ClassPKExternalReferenceCode.create(
+				commerceOrder.getCommerceOrderId(),
+				commerceOrder.getExternalReferenceCode());
+		}
+
+		return null;
+	}
+
+	public CommerceOrder getCommerceOrderByClassPKExternalReferenceCode(
+			ClassPKExternalReferenceCode
+				commerceOrderClassPKExternalReferenceCode)
 		throws PortalException {
 
-		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
-			commerceOrderId);
+		long commerceOrderId =
+			commerceOrderClassPKExternalReferenceCode.getClassPK();
+
+		if (commerceOrderId > 0) {
+			CommerceOrder commerceOrderItem =
+				_commerceOrderLocalService.getCommerceOrder(commerceOrderId);
+
+			if (commerceOrderItem == null) {
+				throw new NotFoundException(
+					"Unable to find order with ID " + commerceOrderId);
+			}
+
+			return commerceOrderItem;
+		}
+		else {
+			String externalReferenceCode =
+				commerceOrderClassPKExternalReferenceCode.
+					getExternalReferenceCode();
+
+			return _commerceOrderLocalService.fetchByExternalReferenceCode(
+				_companyProvider.getCompanyId(), externalReferenceCode);
+		}
+	}
+
+	public CommerceOrder updateCommerceOrder(
+			ClassPKExternalReferenceCode
+				commerceOrderClassPKExternalReferenceCode,
+			Long orderStatus, Long paymentStatus, String externalReferenceCode)
+		throws PortalException {
+
+		CommerceOrder commerceOrder =
+			getCommerceOrderByClassPKExternalReferenceCode(
+				commerceOrderClassPKExternalReferenceCode);
 
 		ServiceContext serviceContext = _serviceContextHelper.getServiceContext(
 			commerceOrder.getGroupId());
 
+		_commerceOrderService.updateCommerceOrder(
+			commerceOrder.getCommerceOrderId(),
+			commerceOrder.getBillingAddressId(),
+			commerceOrder.getShippingAddressId(),
+			commerceOrder.getCommercePaymentMethodId(),
+			commerceOrder.getCommerceShippingMethodId(),
+			commerceOrder.getShippingOptionName(),
+			commerceOrder.getPurchaseOrderNumber(), commerceOrder.getSubtotal(),
+			commerceOrder.getShippingAmount(), commerceOrder.getTotal(),
+			commerceOrder.getAdvanceStatus(), externalReferenceCode, null);
+
 		if (orderStatus != null) {
 			_commerceOrderService.updateOrderStatus(
-				commerceOrderId, orderStatus.intValue());
+				commerceOrder.getCommerceOrderId(), orderStatus.intValue());
 		}
 
 		if (paymentStatus != null) {
 			_commerceOrderService.updatePaymentStatus(
-				commerceOrderId, paymentStatus.intValue(), serviceContext);
+				commerceOrder.getCommerceOrderId(), paymentStatus.intValue(),
+				serviceContext);
 		}
 
-		return _commerceOrderService.getCommerceOrder(commerceOrderId);
+		return _commerceOrderService.getCommerceOrder(
+			commerceOrder.getCommerceOrderId());
 	}
+
+	private static CommerceAddress _getBillingAddress(
+		CommerceOrder commerceOrder) {
+
+		try {
+			return commerceOrder.getBillingAddress();
+		}
+		catch (PortalException pe) {
+			_log.error(
+				"Unable to find billing address with ID " +
+					commerceOrder.getBillingAddressId(),
+				pe);
+		}
+
+		return null;
+	}
+
+	private static CommerceCountry _getCommerceCountry(
+		CommerceAddress commerceAddress) {
+
+		try {
+			return commerceAddress.getCommerceCountry();
+		}
+		catch (PortalException pe) {
+			_log.error(
+				"Unable to find country with ID " +
+					commerceAddress.getCommerceCountryId(),
+				pe);
+		}
+
+		return null;
+	}
+
+	private static CommerceRegion _getCommerceRegion(
+		CommerceAddress commerceAddress) {
+
+		try {
+			return commerceAddress.getCommerceRegion();
+		}
+		catch (PortalException pe) {
+			_log.error(
+				"Unable to find region with ID " +
+					commerceAddress.getCommerceRegionId(),
+				pe);
+		}
+
+		return null;
+	}
+
+	private static CommerceAddress _getShippingAddress(
+		CommerceOrder commerceOrder) {
+
+		try {
+			return commerceOrder.getShippingAddress();
+		}
+		catch (PortalException pe) {
+			_log.error(
+				"Unable to find shipping address with ID " +
+					commerceOrder.getBillingAddressId(),
+				pe);
+		}
+
+		return null;
+	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceOrderHelper.class);
+
+	@Reference
+	private CommerceOrderLocalService _commerceOrderLocalService;
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
+
+	@Reference
+	private CompanyProvider _companyProvider;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;

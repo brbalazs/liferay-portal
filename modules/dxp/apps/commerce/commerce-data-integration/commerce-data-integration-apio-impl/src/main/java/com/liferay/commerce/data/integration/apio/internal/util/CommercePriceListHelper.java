@@ -289,7 +289,7 @@ public class CommercePriceListHelper {
 			_commercePriceListLocalService.updateStatus(
 				currentUser.getUserId(),
 				commercePriceList.getCommercePriceListId(),
-				WorkflowConstants.STATUS_DRAFT, serviceContext,
+				WorkflowConstants.STATUS_INACTIVE, serviceContext,
 				workflowContext);
 		}
 

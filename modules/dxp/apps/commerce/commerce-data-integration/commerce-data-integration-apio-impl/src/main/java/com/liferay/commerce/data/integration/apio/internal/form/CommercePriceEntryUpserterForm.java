@@ -60,6 +60,8 @@ public class CommercePriceEntryUpserterForm {
 			"price", CommercePriceEntryUpserterForm::_setPrice
 		).addRequiredDouble(
 			"promoPrice", CommercePriceEntryUpserterForm::_setPromoPrice
+		).addRequiredBoolean(
+			"standardPrice", CommercePriceEntryUpserterForm::_setStandardPrice
 		).build();
 	}
 

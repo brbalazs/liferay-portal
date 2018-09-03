@@ -51,7 +51,7 @@ public class CPDefinitionUpserterForm {
 			CPDefinitionUpserterForm::new
 		).addOptionalLongList(
 			"assetCategoryIds", CPDefinitionUpserterForm::_setAssetCategoryIds
-		).addRequiredString(
+		).addOptionalString(
 			"description", CPDefinitionUpserterForm::_setDescription
 		).addOptionalString(
 			"shortDescription", CPDefinitionUpserterForm::_setShortDescription
@@ -62,7 +62,15 @@ public class CPDefinitionUpserterForm {
 		).addRequiredString(
 			"externalReferenceCode",
 			CPDefinitionUpserterForm::_setExternalReferenceCode
+		).addOptionalString(
+			"defaultSku", CPDefinitionUpserterForm::_setDefaultSku
+		).addRequiredBoolean(
+			"active", CPDefinitionUpserterForm::_setActive
 		).build();
+	}
+
+	public Boolean getActive() {
+		return _active;
 	}
 
 	public List<Long> getAssetCategoryIds() {
@@ -71,6 +79,10 @@ public class CPDefinitionUpserterForm {
 		}
 
 		return _assetCategoryIds;
+	}
+
+	public String getDefaultSku() {
+		return _defaultSku;
 	}
 
 	public Map<Locale, String> getDescriptionMap() {
@@ -87,15 +99,23 @@ public class CPDefinitionUpserterForm {
 
 	public Map<Locale, String> getShortDescriptionMap() {
 		return Collections.singletonMap(
-			LocaleUtil.getDefault(), _shortDescritpion);
+			LocaleUtil.getDefault(), _shortDescription);
 	}
 
 	public Map<Locale, String> getTitleMap() {
 		return Collections.singletonMap(LocaleUtil.getDefault(), _title);
 	}
 
+	private void _setActive(Boolean active) {
+		_active = active;
+	}
+
 	private void _setAssetCategoryIds(List<Long> assetCategoryIds) {
 		_assetCategoryIds = assetCategoryIds;
+	}
+
+	private void _setDefaultSku(String defaultSku) {
+		_defaultSku = defaultSku;
 	}
 
 	private void _setDescription(String description) {
@@ -111,18 +131,20 @@ public class CPDefinitionUpserterForm {
 	}
 
 	private void _setShortDescription(String shortDescription) {
-		_shortDescritpion = shortDescription;
+		_shortDescription = shortDescription;
 	}
 
 	private void _setTitle(String title) {
 		_title = title;
 	}
 
+	private Boolean _active;
 	private List<Long> _assetCategoryIds;
+	private String _defaultSku;
 	private String _description;
 	private String _externalReferenceCode;
 	private String _productTypeName;
-	private String _shortDescritpion;
+	private String _shortDescription;
 	private String _title;
 
 }

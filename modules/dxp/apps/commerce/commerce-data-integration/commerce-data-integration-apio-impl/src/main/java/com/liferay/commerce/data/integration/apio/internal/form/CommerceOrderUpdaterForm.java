@@ -30,11 +30,18 @@ public class CommerceOrderUpdaterForm {
 			__ -> "This form can be used to update an order"
 		).constructor(
 			CommerceOrderUpdaterForm::new
+		).addOptionalString(
+			"externalReferenceCode",
+			CommerceOrderUpdaterForm::_setExternalReferenceCode
 		).addOptionalLong(
 			"orderStatus", CommerceOrderUpdaterForm::_setOrderStatus
 		).addOptionalLong(
 			"paymentStatus", CommerceOrderUpdaterForm::_setPaymentStatus
 		).build();
+	}
+
+	public String getExternalReferenceCode() {
+		return _externalReferenceCode;
 	}
 
 	public Long getOrderStatus() {
@@ -45,6 +52,10 @@ public class CommerceOrderUpdaterForm {
 		return _paymentStatus;
 	}
 
+	private void _setExternalReferenceCode(String externalReferenceCode) {
+		_externalReferenceCode = externalReferenceCode;
+	}
+
 	private void _setOrderStatus(Long orderStatus) {
 		_orderStatus = orderStatus;
 	}
@@ -53,6 +64,7 @@ public class CommerceOrderUpdaterForm {
 		_paymentStatus = paymentStatus;
 	}
 
+	private String _externalReferenceCode;
 	private Long _orderStatus;
 	private Long _paymentStatus;
 

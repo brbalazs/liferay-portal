@@ -20,12 +20,15 @@ import com.liferay.apio.architect.function.throwable.ThrowableBiFunction;
 import com.liferay.apio.architect.identifier.Identifier;
 import com.liferay.commerce.constants.CommerceOrderActionKeys;
 import com.liferay.commerce.constants.CommerceOrderConstants;
-import com.liferay.commerce.data.integration.apio.identifiers.CommerceAccountIdentifier;
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
+import com.liferay.commerce.data.integration.apio.identifiers.CommerceOrderIdentifier;
+import com.liferay.commerce.data.integration.apio.internal.util.CommerceOrderHelper;
+import com.liferay.commerce.data.integration.apio.internal.util.CommerceOrderNoteHelper;
 import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.organization.service.CommerceOrganizationService;
+import com.liferay.commerce.model.CommerceOrderNote;
+import com.liferay.commerce.service.CommerceOrderNoteService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.portal.apio.permission.HasPermission;
-import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 
@@ -36,24 +39,27 @@ import org.osgi.service.component.annotations.Reference;
  * @author Rodrigo Guedes de Souza
  */
 @Component(
-	property = "model.class.name=com.liferay.commerce.model.CommerceOrder"
+	property = "model.class.name=com.liferay.commerce.model.CommerceOrderNote"
 )
-public class CommerceOrderPermissionImpl implements HasPermission<Long> {
+public class CommerceOrderNotePermissionImpl
+	implements HasPermission<ClassPKExternalReferenceCode> {
 
 	@Override
 	public <S> HasNestedAddingPermissionFunction<S> forAddingIn(
 		Class<? extends Identifier<S>> identifierClass) {
 
-		if (identifierClass.equals(CommerceAccountIdentifier.class)) {
-			return (credentials, commerceAccountId) -> {
-				Organization organization =
-					_commerceOrganizationService.fetchOrganization(
-						(Long)commerceAccountId);
+		if (identifierClass.equals(CommerceOrderIdentifier.class)) {
+			return (credentials, commerceOrderClassPKExternalReferenceCode) -> {
+				CommerceOrder commerceOrder =
+					_commerceOrderHelper.
+						getCommerceOrderByClassPKExternalReferenceCode(
+							(ClassPKExternalReferenceCode)
+								commerceOrderClassPKExternalReferenceCode);
 
 				return _portletResourcePermission.contains(
 					(PermissionChecker)credentials.get(),
-					organization.getGroupId(),
-					CommerceOrderActionKeys.MANAGE_COMMERCE_ORDERS);
+					commerceOrder.getGroupId(),
+					CommerceOrderActionKeys.MANAGE_COMMERCE_ORDER_NOTES);
 			};
 		}
 
@@ -61,38 +67,49 @@ public class CommerceOrderPermissionImpl implements HasPermission<Long> {
 	}
 
 	@Override
-	public Boolean forDeleting(Credentials credentials, Long entryId)
+	public Boolean forDeleting(
+			Credentials credentials, ClassPKExternalReferenceCode entryId)
 		throws Exception {
 
 		return _forItemRoutesOperations().apply(credentials, entryId);
 	}
 
 	@Override
-	public Boolean forUpdating(Credentials credentials, Long entryId)
+	public Boolean forUpdating(
+			Credentials credentials, ClassPKExternalReferenceCode entryId)
 		throws Exception {
 
 		return _forItemRoutesOperations().apply(credentials, entryId);
 	}
 
-	private ThrowableBiFunction<Credentials, Long, Boolean>
-		_forItemRoutesOperations() {
+	private ThrowableBiFunction
+		<Credentials, ClassPKExternalReferenceCode, Boolean>
+			_forItemRoutesOperations() {
 
-		return (credentials, commerceOrderId) -> {
-			CommerceOrder commerceOrder =
-				_commerceOrderService.fetchCommerceOrder(commerceOrderId);
+		return (credentials, commerceOrderNoteClassPKExternalReferenceCode) -> {
+			CommerceOrderNote commerceOrderNote =
+				_commerceOrderNoteHelper.
+					getCommerceOrderNoteByClassPKExternalReferenceCode(
+						commerceOrderNoteClassPKExternalReferenceCode);
 
 			return _portletResourcePermission.contains(
 				(PermissionChecker)credentials.get(),
-				commerceOrder.getGroupId(),
-				CommerceOrderActionKeys.MANAGE_COMMERCE_ORDERS);
+				commerceOrderNote.getGroupId(),
+				CommerceOrderActionKeys.MANAGE_COMMERCE_ORDER_NOTES);
 		};
 	}
 
 	@Reference
-	private CommerceOrderService _commerceOrderService;
+	private CommerceOrderHelper _commerceOrderHelper;
 
 	@Reference
-	private CommerceOrganizationService _commerceOrganizationService;
+	private CommerceOrderNoteHelper _commerceOrderNoteHelper;
+
+	@Reference
+	private CommerceOrderNoteService _commerceOrderNoteService;
+
+	@Reference
+	private CommerceOrderService _commerceOrderService;
 
 	@Reference(
 		target = "(resource.name=" + CommerceOrderConstants.RESOURCE_NAME + ")"

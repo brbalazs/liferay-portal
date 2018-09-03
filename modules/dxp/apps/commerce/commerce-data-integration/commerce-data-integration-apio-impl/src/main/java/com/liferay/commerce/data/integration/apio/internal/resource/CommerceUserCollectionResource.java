@@ -71,7 +71,7 @@ public class CommerceUserCollectionResource
 
 	@Override
 	public String getName() {
-		return "person";
+		return "commerce-person";
 	}
 
 	@Override
