@@ -82,11 +82,19 @@ public class CommercePriceListUpserterForm {
 	}
 
 	public Date getDisplayDate() {
-		return _displayDate;
+		if (_displayDate != null) {
+			return new Date(_displayDate.getTime());
+		}
+
+		return null;
 	}
 
 	public Date getExpirationDate() {
-		return _expirationDate;
+		if (_expirationDate != null) {
+			return new Date(_expirationDate.getTime());
+		}
+
+		return null;
 	}
 
 	public String getExternalReferenceCode() {
