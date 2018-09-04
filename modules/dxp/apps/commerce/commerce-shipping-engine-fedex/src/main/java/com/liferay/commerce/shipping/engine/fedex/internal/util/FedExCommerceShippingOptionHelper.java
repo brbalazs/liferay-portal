@@ -496,7 +496,7 @@ public class FedExCommerceShippingOptionHelper {
 		return new Money(_commerceCurrency.getCode(), amount);
 	}
 
-	private NonNegativeInteger _getNonNegativeInteger(int d) {
+	private NonNegativeInteger _getNonnegativeInteger(int d) {
 		return new NonNegativeInteger(String.valueOf(d));
 	}
 
@@ -578,11 +578,11 @@ public class FedExCommerceShippingOptionHelper {
 
 		requestedPackageLineItem.setDimensions(
 			new com.fedex.ws.rate.v22.Dimensions(
-				_getNonNegativeInteger(fedExDepth),
-				_getNonNegativeInteger(fedExWidth),
-				_getNonNegativeInteger(fedExHeight), _linearUnits));
+				_getNonnegativeInteger(fedExDepth),
+				_getNonnegativeInteger(fedExWidth),
+				_getNonnegativeInteger(fedExHeight), _linearUnits));
 		requestedPackageLineItem.setGroupPackageCount(
-			_getNonNegativeInteger(groupPackageCount));
+			_getNonnegativeInteger(groupPackageCount));
 		requestedPackageLineItem.setInsuredValue(_getMoney(price));
 		requestedPackageLineItem.setSequenceNumber(
 			_getPositiveInteger(sequenceNumber));
@@ -756,7 +756,7 @@ public class FedExCommerceShippingOptionHelper {
 				_fedExCommerceShippingEngineGroupServiceConfiguration.
 					dropoffType()));
 		requestedShipment.setPackageCount(
-			_getNonNegativeInteger(requestedPackageLineItems.length));
+			_getNonnegativeInteger(requestedPackageLineItems.length));
 		requestedShipment.setRateRequestTypes(
 			new RateRequestType[] {
 				RateRequestType.LIST, RateRequestType.PREFERRED
