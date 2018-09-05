@@ -53,9 +53,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Rodrigo Guedes de Souza
  * @author Eduardo V. Bruno
  */
-@Component(
-	immediate = true, property = "service.ranking:Integer=" + Integer.MAX_VALUE
-)
+@Component(immediate = true)
 public class CommerceUserCollectionResource
 	implements CollectionResource
 		<UserWrapper, ClassPKExternalReferenceCode,
