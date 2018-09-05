@@ -19,21 +19,23 @@ import com.liferay.apio.architect.credentials.Credentials;
 import com.liferay.apio.architect.function.throwable.ThrowableTriFunction;
 import com.liferay.apio.architect.identifier.Identifier;
 import com.liferay.commerce.data.integration.apio.identifiers.CPDefinitionIdentifier;
-import com.liferay.commerce.product.constants.CPActionKeys;
-import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
-import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Rodrigo Guedes de Souza
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	property = "model.class.name=com.liferay.commerce.product.model.CPDefinitionOptionRel"
@@ -51,10 +53,19 @@ public class CPDefinitionOptionRelPermissionImpl
 					_cpDefinitionService.fetchCPDefinition(
 						(Long)cpDefinitionId);
 
-				return _portletResourcePermission.contains(
-					(PermissionChecker)credentials.get(),
-					cpDefinition.getGroupId(),
-					CPActionKeys.ADD_COMMERCE_PRODUCT_INSTANCE);
+				if (cpDefinition == null) {
+					if (_log.isDebugEnabled()) {
+						_log.debug(
+							"No CPDefinition exists with primary key " +
+								cpDefinitionId);
+					}
+
+					return false;
+				}
+
+				return _cpDefinitionModelResourcePermission.contains(
+					(PermissionChecker)credentials.get(), cpDefinition,
+					ActionKeys.UPDATE);
 			};
 		}
 
@@ -66,8 +77,7 @@ public class CPDefinitionOptionRelPermissionImpl
 		throws Exception {
 
 		return _forItemRoutesOperations().apply(
-			credentials, entryId,
-			CPActionKeys.DELETE_COMMERCE_PRODUCT_INSTANCE);
+			credentials, entryId, ActionKeys.UPDATE);
 	}
 
 	@Override
@@ -75,8 +85,7 @@ public class CPDefinitionOptionRelPermissionImpl
 		throws Exception {
 
 		return _forItemRoutesOperations().apply(
-			credentials, entryId,
-			CPActionKeys.UPDATE_COMMERCE_PRODUCT_INSTANCE);
+			credentials, entryId, ActionKeys.UPDATE);
 	}
 
 	private ThrowableTriFunction<Credentials, Long, String, Boolean>
@@ -87,19 +96,35 @@ public class CPDefinitionOptionRelPermissionImpl
 				_cpDefinitionOptionRelService.fetchCPDefinitionOptionRel(
 					cpDefinitionOptionRelId);
 
-			return _portletResourcePermission.contains(
+			if (cpDefinitionOptionRel == null) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"No CPDefinitionOptionRel exists with primary key " +
+							cpDefinitionOptionRelId);
+				}
+
+				return false;
+			}
+
+			return _cpDefinitionModelResourcePermission.contains(
 				(PermissionChecker)credentials.get(),
-				cpDefinitionOptionRel.getGroupId(), actionId);
+				cpDefinitionOptionRel.getCPDefinitionId(), actionId);
 		};
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CPDefinitionOptionRelPermissionImpl.class);
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.product.model.CPDefinition)"
+	)
+	private ModelResourcePermission<CPDefinition>
+		_cpDefinitionModelResourcePermission;
 
 	@Reference
 	private CPDefinitionOptionRelService _cpDefinitionOptionRelService;
 
 	@Reference
 	private CPDefinitionService _cpDefinitionService;
-
-	@Reference(target = "(resource.name=" + CPConstants.RESOURCE_NAME + ")")
-	private PortletResourcePermission _portletResourcePermission;
 
 }

@@ -26,6 +26,8 @@ import com.liferay.commerce.product.model.CPOptionValue;
 import com.liferay.commerce.product.service.CPOptionService;
 import com.liferay.commerce.product.service.CPOptionValueService;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
@@ -35,6 +37,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Rodrigo Guedes de Souza
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	property = "model.class.name=com.liferay.commerce.product.model.CPOptionValue"
@@ -50,9 +53,19 @@ public class CPOptionValuePermissionImpl implements HasPermission<Long> {
 				CPOption cpOption = _cpOptionService.fetchCPOption(
 					(Long)cpOptionId);
 
+				if (cpOption == null) {
+					if (_log.isDebugEnabled()) {
+						_log.debug(
+							"No CPOption exists with primary key " +
+								cpOptionId);
+					}
+
+					return false;
+				}
+
 				return _portletResourcePermission.contains(
 					(PermissionChecker)credentials.get(), cpOption.getGroupId(),
-					CPActionKeys.ADD_COMMERCE_PRODUCT_OPTION_VALUE);
+					CPActionKeys.MANAGE_CATALOG);
 			};
 		}
 
@@ -72,8 +85,7 @@ public class CPOptionValuePermissionImpl implements HasPermission<Long> {
 		throws Exception {
 
 		return _forItemRoutesOperations().apply(
-			credentials, entryId,
-			CPActionKeys.UPDATE_COMMERCE_PRODUCT_OPTION_VALUE);
+			credentials, entryId, CPActionKeys.MANAGE_CATALOG);
 	}
 
 	private ThrowableTriFunction<Credentials, Long, String, Boolean>
@@ -83,11 +95,24 @@ public class CPOptionValuePermissionImpl implements HasPermission<Long> {
 			CPOptionValue cpOptionValue =
 				_cpOptionValueService.fetchCPOptionValue(cpOptionValueId);
 
+			if (cpOptionValue == null) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"No CPOptionValue exists with primary key " +
+							cpOptionValueId);
+				}
+
+				return false;
+			}
+
 			return _portletResourcePermission.contains(
 				(PermissionChecker)credentials.get(),
 				cpOptionValue.getGroupId(), actionId);
 		};
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CPOptionValuePermissionImpl.class);
 
 	@Reference
 	private CPOptionService _cpOptionService;

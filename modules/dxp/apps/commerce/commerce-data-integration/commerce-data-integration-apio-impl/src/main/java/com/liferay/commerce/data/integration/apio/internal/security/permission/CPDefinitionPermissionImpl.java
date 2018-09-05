@@ -23,8 +23,11 @@ import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
 
@@ -33,6 +36,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Rodrigo Guedes de Souza
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	property = "model.class.name=com.liferay.commerce.product.model.CPDefinition"
@@ -76,11 +80,29 @@ public class CPDefinitionPermissionImpl implements HasPermission<Long> {
 			CPDefinition cpDefinition = _cpDefinitionService.fetchCPDefinition(
 				cpDefinitionId);
 
-			return _portletResourcePermission.contains(
-				(PermissionChecker)credentials.get(), cpDefinition.getGroupId(),
-				actionId);
+			if (cpDefinition == null) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"No CPDefinition exists with primary key " +
+							cpDefinitionId);
+				}
+
+				return false;
+			}
+
+			return _cpDefinitionModelResourcePermission.contains(
+				(PermissionChecker)credentials.get(), cpDefinition, actionId);
 		};
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CPDefinitionPermissionImpl.class);
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.product.model.CPDefinition)"
+	)
+	private ModelResourcePermission<CPDefinition>
+		_cpDefinitionModelResourcePermission;
 
 	@Reference
 	private CPDefinitionService _cpDefinitionService;
