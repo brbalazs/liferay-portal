@@ -21,23 +21,29 @@ import com.liferay.apio.architect.resource.NestedCollectionResource;
 import com.liferay.apio.architect.routes.ItemRoutes;
 import com.liferay.apio.architect.routes.NestedCollectionRoutes;
 import com.liferay.commerce.constants.CommerceOrderConstants;
+import com.liferay.commerce.currency.exception.NoSuchCurrencyException;
 import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
 import com.liferay.commerce.data.integration.apio.identifiers.CommerceAccountIdentifier;
 import com.liferay.commerce.data.integration.apio.identifiers.CommerceAddressIdentifier;
 import com.liferay.commerce.data.integration.apio.identifiers.CommerceOrderIdentifier;
 import com.liferay.commerce.data.integration.apio.identifiers.CommercePaymentMethodIdentifier;
+import com.liferay.commerce.data.integration.apio.identifiers.SiteGroupIdOrganizationId;
+import com.liferay.commerce.data.integration.apio.identifiers.WebSiteIdentifierWithOrganization;
 import com.liferay.commerce.data.integration.apio.internal.form.CommerceOrderUpdaterForm;
+import com.liferay.commerce.data.integration.apio.internal.form.CommerceOrderUpserterForm;
 import com.liferay.commerce.data.integration.apio.internal.util.CommerceOrderHelper;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.organization.service.CommerceOrganizationService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.person.apio.architect.identifier.PersonIdentifier;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.apio.user.CurrentUser;
+import com.liferay.portal.kernel.exception.NoSuchOrganizationException;
+import com.liferay.portal.kernel.exception.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
@@ -48,6 +54,8 @@ import java.util.Locale;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import javax.ws.rs.NotFoundException;
+
 /**
  * @author Rodrigo Guedes de Souza
  */
@@ -55,19 +63,24 @@ import org.osgi.service.component.annotations.Reference;
 public class CommerceOrderNestedCollectionResource
 	implements NestedCollectionResource
 		<CommerceOrder, ClassPKExternalReferenceCode, CommerceOrderIdentifier,
-		Long, CommerceAccountIdentifier> {
+			SiteGroupIdOrganizationId, WebSiteIdentifierWithOrganization> {
 
 	@Override
 	public NestedCollectionRoutes
-		<CommerceOrder, ClassPKExternalReferenceCode, Long>
+		<CommerceOrder, ClassPKExternalReferenceCode, SiteGroupIdOrganizationId>
 			collectionRoutes(
 				NestedCollectionRoutes.Builder
-					<CommerceOrder, ClassPKExternalReferenceCode, Long>
+					<CommerceOrder, ClassPKExternalReferenceCode,
+						SiteGroupIdOrganizationId>
 						builder) {
 
 		return builder.addGetter(
 			this::_getPageItems
-		).build();
+		).addCreator(
+			this::_createCommerceOrder, CurrentUser.class,
+			_hasPermission.forAddingIn(WebSiteIdentifierWithOrganization.class),
+				CommerceOrderUpserterForm::buildForm)
+			.build();
 	}
 
 	@Override
@@ -166,6 +179,45 @@ public class CommerceOrderNestedCollectionResource
 		).build();
 	}
 
+	private CommerceOrder _createCommerceOrder(
+		SiteGroupIdOrganizationId siteGroupIdOrganizationId,
+		CommerceOrderUpserterForm commerceOrderUpserterForm,
+		User currentUser)
+		throws PortalException {
+
+		try {
+			return _commerceOrderHelper.createCommerceOrder(
+				siteGroupIdOrganizationId.getSiteGroupId(),
+				commerceOrderUpserterForm.getOrderOrganizationId(),
+				commerceOrderUpserterForm.getOrderUserId(),
+				commerceOrderUpserterForm.getCurrency(),
+				commerceOrderUpserterForm.getShippingAddressId(),
+				commerceOrderUpserterForm.getPurchaseOrderNumber(),
+				currentUser);
+		}
+		catch (NoSuchCurrencyException nsce) {
+			throw new NotFoundException(
+				String.format(
+					"Unable to find currency with code: %s. Currency code " +
+					"should be expressed with 3-letter ISO 4217 format",
+					commerceOrderUpserterForm.getCurrency()),
+				nsce);
+		}
+		catch (NoSuchOrganizationException nsoe) {
+			throw new NotFoundException(
+				"Unable to find organization with primary key " +
+				commerceOrderUpserterForm.getOrderOrganizationId(),
+				nsoe);
+		}
+		catch (NoSuchUserException nsue) {
+			throw new NotFoundException(
+				"Unable to find user with primary key " +
+				commerceOrderUpserterForm.getOrderUserId(),
+				nsue);
+		}
+	}
+
+
 	private String _getAccountExternalReferenceCode(
 		CommerceOrder commerceOrder) {
 
@@ -223,21 +275,29 @@ public class CommerceOrderNestedCollectionResource
 	}
 
 	private PageItems<CommerceOrder> _getPageItems(
-			Pagination pagination, Long organizationId)
+			Pagination pagination,
+			SiteGroupIdOrganizationId siteGroupIdOrganizationId)
 		throws PortalException {
 
-		Organization organization =
-			_commerceOrganizationService.getOrganization(organizationId);
+		long groupId = 0L;
 
-		Group group = organization.getGroup();
+		if (siteGroupIdOrganizationId.getOrganizationId() > 0) {
+			Organization organization =
+				_commerceOrganizationService.getOrganization(
+					siteGroupIdOrganizationId.getOrganizationId());
+
+			groupId = organization.getGroupId();
+		}
+		else {
+			groupId = siteGroupIdOrganizationId.getSiteGroupId();
+		}
 
 		List<CommerceOrder> commerceOrders =
 			_commerceOrderService.getCommerceOrders(
-				group.getGroupId(), pagination.getStartPosition(),
+				groupId, pagination.getStartPosition(),
 				pagination.getEndPosition(), null);
 
-		int total = _commerceOrderService.getCommerceOrdersCount(
-			group.getGroupId());
+		int total = _commerceOrderService.getCommerceOrdersCount(groupId);
 
 		return new PageItems<>(commerceOrders, total);
 	}
