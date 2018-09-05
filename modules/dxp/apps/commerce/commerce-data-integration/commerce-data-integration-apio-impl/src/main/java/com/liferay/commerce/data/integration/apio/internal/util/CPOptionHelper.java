@@ -19,7 +19,6 @@ import com.liferay.commerce.product.service.CPOptionLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.UserLocalService;
 
 import java.util.Locale;
 import java.util.Map;
@@ -87,8 +86,5 @@ public class CPOptionHelper {
 
 	@Reference
 	private CPOptionLocalService _cpOptionLocalService;
-
-	@Reference
-	private UserLocalService _userLocalService;
 
 }
