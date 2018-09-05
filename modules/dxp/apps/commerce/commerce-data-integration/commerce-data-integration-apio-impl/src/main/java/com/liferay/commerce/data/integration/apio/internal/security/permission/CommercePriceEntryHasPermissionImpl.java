@@ -26,9 +26,9 @@ import com.liferay.commerce.price.list.constants.CommercePriceListActionKeys;
 import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
-import com.liferay.commerce.price.list.service.CommercePriceEntryService;
-import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 
@@ -55,6 +55,17 @@ public class CommercePriceEntryHasPermissionImpl
 						getCommercePriceListByClassPKExternalReferenceCode(
 							(ClassPKExternalReferenceCode)
 								priceListClassPKExternalReferenceCode);
+
+				if (commercePriceList == null) {
+					if (_log.isDebugEnabled()) {
+						_log.debug(
+							"No CommercePriceList exists with external " +
+								"reference code " +
+									priceListClassPKExternalReferenceCode);
+					}
+
+					return false;
+				}
 
 				return _portletResourcePermission.contains(
 					(PermissionChecker)credentials.get(),
@@ -96,6 +107,16 @@ public class CommercePriceEntryHasPermissionImpl
 					getCommercePriceEntryByClassPKExternalReferenceCode(
 						classPKExternalReferenceCode);
 
+			if (commercePriceEntry == null) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"No CommercePriceEntry exists with external " +
+							"reference code " + classPKExternalReferenceCode);
+				}
+
+				return false;
+			}
+
 			return _portletResourcePermission.contains(
 				(PermissionChecker)credentials.get(),
 				commercePriceEntry.getGroupId(),
@@ -103,17 +124,14 @@ public class CommercePriceEntryHasPermissionImpl
 		};
 	}
 
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommercePriceEntryHasPermissionImpl.class);
+
 	@Reference
 	private CommercePriceEntryHelper _commercePriceEntryHelper;
 
 	@Reference
-	private CommercePriceEntryService _commercePriceEntryService;
-
-	@Reference
 	private CommercePriceListHelper _commercePriceListHelper;
-
-	@Reference
-	private CommercePriceListService _commercePriceListService;
 
 	@Reference(
 		target = "(resource.name=" + CommercePriceListConstants.RESOURCE_NAME + ")"

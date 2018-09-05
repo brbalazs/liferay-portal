@@ -21,6 +21,8 @@ import com.liferay.apio.architect.identifier.Identifier;
 import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
 import com.liferay.commerce.data.integration.apio.internal.util.CommerceAccountHelper;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
@@ -29,6 +31,7 @@ import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.service.CompanyService;
 import com.liferay.portal.kernel.service.OrganizationService;
+import com.liferay.portal.kernel.service.permission.OrganizationPermissionUtil;
 import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
 
 import org.osgi.service.component.annotations.Component;
@@ -36,6 +39,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Rodrigo Guedes de Souza
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	property = "model.class.name=com.liferay.portal.kernel.model.Organization"
@@ -86,20 +90,33 @@ public class CommerceAccountPermissionImpl
 			Organization organization = _commerceAccountHelper.getOrganization(
 				classPKExternalReferenceCode, company);
 
-			return _portletResourcePermission.contains(
+			if (organization == null) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"No Organization exists with identifier: {}",
+							classPKExternalReferenceCode;
+				}
+
+				return false;
+			}
+
+			return OrganizationPermissionUtil.contains(
 				(PermissionChecker)credentials.get(), organization.getGroupId(),
 				actionId);
 		};
 	}
 
-	@Reference
-	private CommerceAccountHelper _commerceAccountHelper;
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceAccountPermissionImpl.class);
 
 	@Reference
 	private CompanyService _companyService;
 
 	@Reference
 	private OrganizationService _organizationService;
+
+	@Reference
+	private CommerceAccountHelper _commerceAccountHelper;
 
 	@Reference
 	private PortletResourcePermission _portletResourcePermission;

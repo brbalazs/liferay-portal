@@ -25,6 +25,8 @@ import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.organization.service.CommerceOrganizationService;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
@@ -34,6 +36,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Rodrigo Guedes de Souza
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	property = "model.class.name=com.liferay.commerce.model.CommerceAddress"
@@ -49,6 +52,16 @@ public class CommerceAddressPermissionImpl implements HasPermission<Long> {
 				Organization organization =
 					_commerceOrganizationService.fetchOrganization(
 						(Long)commerceAccountId);
+
+				if (organization == null) {
+					if (_log.isDebugEnabled()) {
+						_log.debug(
+							"No Organization exists with primary key " +
+								commerceAccountId);
+					}
+
+					return false;
+				}
 
 				return _portletResourcePermission.contains(
 					(PermissionChecker)credentials.get(),
@@ -81,12 +94,25 @@ public class CommerceAddressPermissionImpl implements HasPermission<Long> {
 			CommerceAddress commerceAddress =
 				_commerceAddressService.fetchCommerceAddress(commerceAddressId);
 
+			if (commerceAddress == null) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"No CommerceAddress exists with primary key " +
+							commerceAddressId);
+				}
+
+				return false;
+			}
+
 			return _portletResourcePermission.contains(
 				(PermissionChecker)credentials.get(),
 				commerceAddress.getGroupId(),
 				CommerceActionKeys.MANAGE_COMMERCE_ADDRESSES);
 		};
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceAddressPermissionImpl.class);
 
 	@Reference
 	private CommerceAddressService _commerceAddressService;

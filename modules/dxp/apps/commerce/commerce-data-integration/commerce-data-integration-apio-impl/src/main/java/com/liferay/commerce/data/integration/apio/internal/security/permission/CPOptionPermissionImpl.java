@@ -23,6 +23,8 @@ import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.service.CPOptionService;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
@@ -33,6 +35,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Rodrigo Guedes de Souza
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	property = "model.class.name=com.liferay.commerce.product.model.CPOption"
@@ -75,11 +78,23 @@ public class CPOptionPermissionImpl implements HasPermission<Long> {
 		return (credentials, cpOptionId, actionId) -> {
 			CPOption cpOption = _cpOptionService.fetchCPOption(cpOptionId);
 
+			if (cpOption == null) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"No CPOption exists with primary key " + cpOptionId);
+				}
+
+				return false;
+			}
+
 			return _portletResourcePermission.contains(
 				(PermissionChecker)credentials.get(), cpOption.getGroupId(),
 				actionId);
 		};
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CPOptionPermissionImpl.class);
 
 	@Reference
 	private CPOptionService _cpOptionService;

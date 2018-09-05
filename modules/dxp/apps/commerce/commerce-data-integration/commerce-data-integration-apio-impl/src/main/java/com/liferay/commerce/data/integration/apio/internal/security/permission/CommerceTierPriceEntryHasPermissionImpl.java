@@ -25,9 +25,10 @@ import com.liferay.commerce.price.list.constants.CommercePriceListActionKeys;
 import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommerceTierPriceEntry;
-import com.liferay.commerce.price.list.service.CommercePriceEntryService;
 import com.liferay.commerce.price.list.service.CommerceTierPriceEntryService;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 
@@ -54,6 +55,17 @@ public class CommerceTierPriceEntryHasPermissionImpl
 						getCommercePriceEntryByClassPKExternalReferenceCode(
 							(ClassPKExternalReferenceCode)
 								priceEntryClassPKExternalReferenceCode);
+
+				if (commercePriceEntry == null) {
+					if (_log.isDebugEnabled()) {
+						_log.debug(
+							"No CommercePriceEntry exists with external " +
+								"reference code " +
+									priceEntryClassPKExternalReferenceCode);
+					}
+
+					return false;
+				}
 
 				return _portletResourcePermission.contains(
 					(PermissionChecker)credentials.get(),
@@ -87,6 +99,16 @@ public class CommerceTierPriceEntryHasPermissionImpl
 				_commerceTierPriceEntryService.fetchCommerceTierPriceEntry(
 					entryId);
 
+			if (commercePriceEntry == null) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"No CommerceTierPriceEntry exists with primary key " +
+							entryId);
+				}
+
+				return false;
+			}
+
 			return _portletResourcePermission.contains(
 				(PermissionChecker)credentials.get(),
 				commercePriceEntry.getGroupId(),
@@ -94,11 +116,11 @@ public class CommerceTierPriceEntryHasPermissionImpl
 		};
 	}
 
-	@Reference
-	private CommercePriceEntryHelper _commercePriceEntryHelper;
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceTierPriceEntryHasPermissionImpl.class);
 
 	@Reference
-	private CommercePriceEntryService _commercePriceEntryService;
+	private CommercePriceEntryHelper _commercePriceEntryHelper;
 
 	@Reference
 	private CommerceTierPriceEntryService _commerceTierPriceEntryService;

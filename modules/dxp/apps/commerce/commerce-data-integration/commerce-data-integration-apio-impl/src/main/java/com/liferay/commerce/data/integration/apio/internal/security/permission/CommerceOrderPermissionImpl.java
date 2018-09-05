@@ -16,17 +16,21 @@ package com.liferay.commerce.data.integration.apio.internal.security.permission;
 
 import com.liferay.apio.architect.alias.routes.permission.HasNestedAddingPermissionFunction;
 import com.liferay.apio.architect.credentials.Credentials;
-import com.liferay.apio.architect.function.throwable.ThrowableBiFunction;
+import com.liferay.apio.architect.function.throwable.ThrowableTriFunction;
 import com.liferay.apio.architect.identifier.Identifier;
 import com.liferay.commerce.constants.CommerceOrderActionKeys;
 import com.liferay.commerce.constants.CommerceOrderConstants;
-import com.liferay.commerce.data.integration.apio.identifiers.CommerceAccountIdentifier;
+import com.liferay.commerce.data.integration.apio.identifiers.SiteGroupIdOrganizationId;
+import com.liferay.commerce.data.integration.apio.identifiers.WebSiteIdentifierWithOrganization;
+import com.liferay.commerce.data.integration.apio.internal.util.CommerceOrderHelper;
 import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.organization.service.CommerceOrganizationService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.portal.apio.permission.HasPermission;
-import com.liferay.portal.kernel.model.Organization;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 
 import org.osgi.service.component.annotations.Component;
@@ -34,6 +38,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Rodrigo Guedes de Souza
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	property = "model.class.name=com.liferay.commerce.model.CommerceOrder"
@@ -44,16 +49,20 @@ public class CommerceOrderPermissionImpl implements HasPermission<Long> {
 	public <S> HasNestedAddingPermissionFunction<S> forAddingIn(
 		Class<? extends Identifier<S>> identifierClass) {
 
-		if (identifierClass.equals(CommerceAccountIdentifier.class)) {
-			return (credentials, commerceAccountId) -> {
-				Organization organization =
-					_commerceOrganizationService.fetchOrganization(
-						(Long)commerceAccountId);
+		if (identifierClass.equals(WebSiteIdentifierWithOrganization.class)) {
+			return (credentials, commerceOrderSiteGroupIdOrganizationId) -> {
+				long groupId =
+					_commerceOrderHelper.getGroupIdBySiteGroupIdOrganizationId(
+						(SiteGroupIdOrganizationId)
+							commerceOrderSiteGroupIdOrganizationId);
+
+				if (groupId <= 0) {
+					return false;
+				}
 
 				return _portletResourcePermission.contains(
-					(PermissionChecker)credentials.get(),
-					organization.getGroupId(),
-					CommerceOrderActionKeys.MANAGE_COMMERCE_ORDERS);
+					(PermissionChecker)credentials.get(), groupId,
+					CommerceOrderActionKeys.ADD_COMMERCE_ORDER);
 			};
 		}
 
@@ -64,35 +73,54 @@ public class CommerceOrderPermissionImpl implements HasPermission<Long> {
 	public Boolean forDeleting(Credentials credentials, Long entryId)
 		throws Exception {
 
-		return _forItemRoutesOperations().apply(credentials, entryId);
+		return _forItemRoutesOperations().apply(
+			credentials, entryId, ActionKeys.DELETE);
 	}
 
 	@Override
 	public Boolean forUpdating(Credentials credentials, Long entryId)
 		throws Exception {
 
-		return _forItemRoutesOperations().apply(credentials, entryId);
+		return _forItemRoutesOperations().apply(
+			credentials, entryId, ActionKeys.UPDATE);
 	}
 
-	private ThrowableBiFunction<Credentials, Long, Boolean>
+	private ThrowableTriFunction<Credentials, Long, String, Boolean>
 		_forItemRoutesOperations() {
 
-		return (credentials, commerceOrderId) -> {
+		return (credentials, commerceOrderId, actionId) -> {
 			CommerceOrder commerceOrder =
 				_commerceOrderService.fetchCommerceOrder(commerceOrderId);
 
-			return _portletResourcePermission.contains(
-				(PermissionChecker)credentials.get(),
-				commerceOrder.getGroupId(),
-				CommerceOrderActionKeys.MANAGE_COMMERCE_ORDERS);
+			if (commerceOrder == null) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"No CommerceOrder exists with primary key " +
+							commerceOrder);
+				}
+
+				return false;
+			}
+
+			return _commerceOrderModelResourcePermission.contains(
+				(PermissionChecker)credentials.get(), commerceOrder, actionId);
 		};
 	}
 
-	@Reference
-	private CommerceOrderService _commerceOrderService;
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceOrderPermissionImpl.class);
 
 	@Reference
-	private CommerceOrganizationService _commerceOrganizationService;
+	private CommerceOrderHelper _commerceOrderHelper;
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.model.CommerceOrder)"
+	)
+	private ModelResourcePermission<CommerceOrder>
+		_commerceOrderModelResourcePermission;
+
+	@Reference
+	private CommerceOrderService _commerceOrderService;
 
 	@Reference(
 		target = "(resource.name=" + CommerceOrderConstants.RESOURCE_NAME + ")"

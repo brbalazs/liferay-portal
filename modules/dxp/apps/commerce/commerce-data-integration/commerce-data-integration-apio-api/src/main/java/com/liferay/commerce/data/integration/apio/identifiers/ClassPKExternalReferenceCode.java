@@ -47,6 +47,18 @@ public interface ClassPKExternalReferenceCode {
 				return externalReferenceCode;
 			}
 
+			@Override
+			public String toString() {
+				StringBuilder sb = new StringBuilder("{");
+
+				sb.append("classPK=");
+				sb.append(classPK);
+				sb.append(", externalReferenceCode=");
+				sb.append(externalReferenceCode);
+				sb.append("}");
+
+				return sb.toString();
+			}
 		};
 	}
 

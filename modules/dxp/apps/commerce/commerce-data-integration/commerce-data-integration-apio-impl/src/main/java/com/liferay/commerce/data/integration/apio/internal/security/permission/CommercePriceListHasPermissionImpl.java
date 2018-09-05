@@ -23,8 +23,9 @@ import com.liferay.commerce.data.integration.apio.internal.util.CommercePriceLis
 import com.liferay.commerce.price.list.constants.CommercePriceListActionKeys;
 import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.model.CommercePriceList;
-import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
@@ -85,6 +86,16 @@ public class CommercePriceListHasPermissionImpl
 					getCommercePriceListByClassPKExternalReferenceCode(
 						classPKExternalReferenceCode);
 
+			if (commercePriceEntry == null) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"No CommercePriceEntry exists with external " +
+							"reference code " + classPKExternalReferenceCode);
+				}
+
+				return false;
+			}
+
 			return _portletResourcePermission.contains(
 				(PermissionChecker)credentials.get(),
 				commercePriceEntry.getGroupId(),
@@ -92,11 +103,11 @@ public class CommercePriceListHasPermissionImpl
 		};
 	}
 
-	@Reference
-	private CommercePriceListHelper _commercePriceListHelper;
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommercePriceListHasPermissionImpl.class);
 
 	@Reference
-	private CommercePriceListService _commercePriceListService;
+	private CommercePriceListHelper _commercePriceListHelper;
 
 	@Reference(
 		target = "(resource.name=" + CommercePriceListConstants.RESOURCE_NAME + ")"
