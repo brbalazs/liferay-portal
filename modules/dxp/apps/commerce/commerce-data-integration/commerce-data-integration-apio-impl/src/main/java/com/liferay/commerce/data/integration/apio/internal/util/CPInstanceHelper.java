@@ -24,9 +24,9 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.service.persistence.CompanyProvider;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
@@ -110,7 +110,7 @@ public class CPInstanceHelper {
 					getExternalReferenceCode();
 
 			return _cpInstanceLocalService.fetchByExternalReferenceCode(
-				_companyProvider.getCompanyId(), externalReferenceCode);
+				CompanyThreadLocal.getCompanyId(), externalReferenceCode);
 		}
 	}
 
@@ -222,9 +222,6 @@ public class CPInstanceHelper {
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CPInstanceHelper.class);
-
-	@Reference
-	private CompanyProvider _companyProvider;
 
 	@Reference
 	private CPDefinitionHelper _cpDefinitionHelper;

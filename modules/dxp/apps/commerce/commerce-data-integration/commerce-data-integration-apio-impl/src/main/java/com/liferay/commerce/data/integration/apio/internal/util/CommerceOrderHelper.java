@@ -24,8 +24,8 @@ import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.persistence.CompanyProvider;
 
 import java.util.Locale;
 
@@ -209,7 +209,7 @@ public class CommerceOrderHelper {
 					getExternalReferenceCode();
 
 			return _commerceOrderLocalService.fetchByExternalReferenceCode(
-				_companyProvider.getCompanyId(), externalReferenceCode);
+				CompanyThreadLocal.getCompanyId(), externalReferenceCode);
 		}
 	}
 
@@ -324,9 +324,6 @@ public class CommerceOrderHelper {
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
-
-	@Reference
-	private CompanyProvider _companyProvider;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;

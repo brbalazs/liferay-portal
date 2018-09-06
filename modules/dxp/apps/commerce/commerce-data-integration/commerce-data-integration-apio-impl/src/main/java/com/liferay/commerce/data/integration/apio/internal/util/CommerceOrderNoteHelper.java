@@ -22,8 +22,8 @@ import com.liferay.commerce.service.CommerceOrderNoteLocalService;
 import com.liferay.commerce.service.CommerceOrderNoteService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.persistence.CompanyProvider;
 
 import javax.ws.rs.NotFoundException;
 
@@ -89,7 +89,7 @@ public class CommerceOrderNoteHelper {
 					getExternalReferenceCode();
 
 			return _commerceOrderNoteLocalService.fetchByExternalReferenceCode(
-				_companyProvider.getCompanyId(), externalReferenceCode);
+				CompanyThreadLocal.getCompanyId(), externalReferenceCode);
 		}
 	}
 
@@ -120,9 +120,6 @@ public class CommerceOrderNoteHelper {
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
-
-	@Reference
-	private CompanyProvider _companyProvider;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;
