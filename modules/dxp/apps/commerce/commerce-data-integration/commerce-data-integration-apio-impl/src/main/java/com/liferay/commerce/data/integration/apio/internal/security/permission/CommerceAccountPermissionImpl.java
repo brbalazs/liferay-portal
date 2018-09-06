@@ -21,10 +21,13 @@ import com.liferay.apio.architect.identifier.Identifier;
 import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
 import com.liferay.commerce.data.integration.apio.internal.util.CommerceAccountHelper;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Organization;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
+import com.liferay.portal.kernel.service.CompanyService;
 import com.liferay.portal.kernel.service.OrganizationService;
 import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
 
@@ -76,9 +79,12 @@ public class CommerceAccountPermissionImpl
 		<Credentials, ClassPKExternalReferenceCode, String, Boolean>
 			_forItemRoutesOperations() {
 
-		return (credentials, entryId, actionId) -> {
+		return (credentials, classPKExternalReferenceCode, actionId) -> {
+			Company company = _companyService.getCompanyById(
+				CompanyThreadLocal.getCompanyId());
+
 			Organization organization = _commerceAccountHelper.getOrganization(
-				entryId);
+				classPKExternalReferenceCode, company);
 
 			return _portletResourcePermission.contains(
 				(PermissionChecker)credentials.get(), organization.getGroupId(),
@@ -88,6 +94,9 @@ public class CommerceAccountPermissionImpl
 
 	@Reference
 	private CommerceAccountHelper _commerceAccountHelper;
+
+	@Reference
+	private CompanyService _companyService;
 
 	@Reference
 	private OrganizationService _organizationService;

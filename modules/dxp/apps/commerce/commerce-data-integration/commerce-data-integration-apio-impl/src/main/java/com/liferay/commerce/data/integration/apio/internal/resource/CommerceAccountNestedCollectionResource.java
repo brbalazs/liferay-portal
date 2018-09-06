@@ -85,7 +85,7 @@ public class CommerceAccountNestedCollectionResource
 			builder) {
 
 		return builder.addGetter(
-			_commerceAccountHelper::getOrganization
+			_commerceAccountHelper::getOrganization, Company.class
 		).addRemover(
 			_commerceAccountHelper::deleteOrganization, Company.class,
 			_hasPermission::forDeleting
