@@ -20,6 +20,7 @@ import com.liferay.external.reference.service.ERUserLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
@@ -28,7 +29,6 @@ import com.liferay.portal.kernel.service.OrganizationLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.service.persistence.CompanyProvider;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 
@@ -44,10 +44,11 @@ import org.osgi.service.component.annotations.Reference;
 public class CommerceUserHelper {
 
 	public void deleteUser(
-			ClassPKExternalReferenceCode classPKExternalReferenceCode)
+			ClassPKExternalReferenceCode classPKExternalReferenceCode,
+			Company company)
 		throws PortalException {
 
-		User user = getUser(classPKExternalReferenceCode);
+		User user = getUser(classPKExternalReferenceCode, company);
 
 		if (user == null) {
 			if (_log.isInfoEnabled()) {
@@ -64,7 +65,8 @@ public class CommerceUserHelper {
 	}
 
 	public User getUser(
-			ClassPKExternalReferenceCode classPKExternalReferenceCode)
+			ClassPKExternalReferenceCode classPKExternalReferenceCode,
+			Company company)
 		throws PortalException {
 
 		long classPK = classPKExternalReferenceCode.getClassPK();
@@ -73,10 +75,9 @@ public class CommerceUserHelper {
 			return _userLocalService.getUserById(classPK);
 		}
 
-		long companyId = _companyProvider.getCompanyId();
-
 		return _userLocalService.fetchUserByReferenceCode(
-			companyId, classPKExternalReferenceCode.getExternalReferenceCode());
+			company.getCompanyId(),
+			classPKExternalReferenceCode.getExternalReferenceCode());
 	}
 
 	public UserWrapper upsert(
@@ -190,9 +191,6 @@ public class CommerceUserHelper {
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceUserHelper.class);
-
-	@Reference
-	private CompanyProvider _companyProvider;
 
 	@Reference
 	private ERUserLocalService _erUserLocalService;

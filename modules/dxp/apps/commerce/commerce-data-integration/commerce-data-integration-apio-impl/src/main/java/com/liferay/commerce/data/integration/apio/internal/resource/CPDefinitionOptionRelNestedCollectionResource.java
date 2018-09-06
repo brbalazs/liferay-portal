@@ -78,8 +78,7 @@ public class CPDefinitionOptionRelNestedCollectionResource
 			_cpDefinitionOptionRelService::getCPDefinitionOptionRel
 		).addRemover(
 			idempotent(
-				_cpDefinitionOptionRelService::
-					deleteCPDefinitionOptionRel),
+				_cpDefinitionOptionRelService::deleteCPDefinitionOptionRel),
 			_hasPermission::forDeleting
 		).build();
 	}

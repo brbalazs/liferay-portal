@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.data.integration.apio.internal.resource;
 
-import static com.liferay.portal.apio.idempotent.Idempotent.idempotent;
-
 import com.liferay.apio.architect.pagination.PageItems;
 import com.liferay.apio.architect.pagination.Pagination;
 import com.liferay.apio.architect.representor.Representor;
@@ -39,7 +37,6 @@ import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.ListTypeLocalService;
 import com.liferay.portal.kernel.service.RoleService;
 import com.liferay.portal.kernel.service.UserService;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +49,7 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Rodrigo Guedes de Souza
  * @author Eduardo V. Bruno
+ * @author Zoltán Takács
  */
 @Component(immediate = true)
 public class CommerceUserCollectionResource
@@ -66,9 +64,9 @@ public class CommerceUserCollectionResource
 				builder) {
 
 		return builder.addGetter(
-			this::_getPageItems, ThemeDisplay.class
+			this::_getPageItems, Company.class
 		).addCreator(
-			this::_addUser, ThemeDisplay.class, _hasPermission::forAdding,
+			this::_addUser, Company.class, _hasPermission::forAdding,
 			CommerceUserUpserterForm::buildForm
 		).build();
 	}
@@ -83,9 +81,9 @@ public class CommerceUserCollectionResource
 		ItemRoutes.Builder<UserWrapper, ClassPKExternalReferenceCode> builder) {
 
 		return builder.addGetter(
-			this::_getUserWrapper, ThemeDisplay.class
+			this::_getUserWrapper, Company.class
 		).addRemover(
-			idempotent(_commerceUserHelper::deleteUser),
+			_commerceUserHelper::deleteUser, Company.class,
 			_hasPermission::forDeleting
 		).build();
 	}
@@ -122,13 +120,10 @@ public class CommerceUserCollectionResource
 	}
 
 	private UserWrapper _addUser(
-			CommerceUserUpserterForm commerceUserUpserterForm,
-			ThemeDisplay themeDisplay)
+			CommerceUserUpserterForm commerceUserUpserterForm, Company company)
 		throws PortalException {
 
 		User user = _userService.getUserById(PrincipalThreadLocal.getUserId());
-
-		Company company = themeDisplay.getCompany();
 
 		return _commerceUserHelper.upsert(
 			company.getCompanyId(), user.getUserId(), commerceUserUpserterForm);
@@ -150,11 +145,11 @@ public class CommerceUserCollectionResource
 	}
 
 	private PageItems<UserWrapper> _getPageItems(
-			Pagination pagination, ThemeDisplay themeDisplay)
+			Pagination pagination, Company company)
 		throws PortalException {
 
 		List<User> users = _userService.getCompanyUsers(
-			themeDisplay.getCompanyId(), pagination.getStartPosition(),
+			company.getCompanyId(), pagination.getStartPosition(),
 			pagination.getEndPosition());
 
 		List<UserWrapper> userWrappers = new ArrayList<>(users.size());
@@ -163,8 +158,7 @@ public class CommerceUserCollectionResource
 			userWrappers.add(new UserWrapper(user));
 		}
 
-		int total = _userService.getCompanyUsersCount(
-			themeDisplay.getCompanyId());
+		int total = _userService.getCompanyUsersCount(company.getCompanyId());
 
 		return new PageItems<>(userWrappers, total);
 	}
@@ -187,10 +181,10 @@ public class CommerceUserCollectionResource
 	}
 
 	private UserWrapper _getUserWrapper(
-			ClassPKExternalReferenceCode userId, ThemeDisplay themeDisplay)
+			ClassPKExternalReferenceCode userId, Company company)
 		throws PortalException {
 
-		User user = _commerceUserHelper.getUser(userId);
+		User user = _commerceUserHelper.getUser(userId, company);
 
 		if (user == null) {
 			throw new NotFoundException();
