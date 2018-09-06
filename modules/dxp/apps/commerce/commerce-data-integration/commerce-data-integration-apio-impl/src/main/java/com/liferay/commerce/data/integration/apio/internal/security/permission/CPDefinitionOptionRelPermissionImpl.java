@@ -21,8 +21,6 @@ import com.liferay.apio.architect.identifier.Identifier;
 import com.liferay.commerce.data.integration.apio.identifiers.CPDefinitionIdentifier;
 import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
 import com.liferay.commerce.data.integration.apio.internal.util.CPDefinitionHelper;
-import com.liferay.commerce.product.constants.CPActionKeys;
-import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelService;
@@ -61,11 +59,10 @@ public class CPDefinitionOptionRelPermissionImpl
 								(ClassPKExternalReferenceCode)
 									cpDefinitionClassPKExternalReferenceCode);
 
-					return _portletResourcePermission.contains(
-						(PermissionChecker)credentials.get(),
-						cpDefinition.getGroupId(),
-						CPActionKeys.ADD_COMMERCE_PRODUCT_INSTANCE);
-				};
+				return _cpDefinitionModelResourcePermission.contains(
+					(PermissionChecker)credentials.get(), cpDefinition.getGroupId(),
+					ActionKeys.UPDATE);
+			};
 		}
 
 		return (credentials, s) -> false;

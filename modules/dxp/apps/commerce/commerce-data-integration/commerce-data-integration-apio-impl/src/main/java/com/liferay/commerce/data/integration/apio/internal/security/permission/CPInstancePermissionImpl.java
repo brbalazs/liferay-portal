@@ -34,6 +34,7 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 
+import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -79,7 +80,7 @@ public class CPInstancePermissionImpl
 
 		return _forItemRoutesOperations().apply(
 			credentials, classPKExternalReferenceCode,
-			CPActionKeys.DELETE_COMMERCE_PRODUCT_INSTANCE);
+			ActionKeys.UPDATE);
 	}
 
 	@Override
@@ -114,12 +115,6 @@ public class CPInstancePermissionImpl
 	private static final Log _log = LogFactoryUtil.getLog(
 		CPInstancePermissionImpl.class);
 
-	@Reference(
-		target = "(model.class.name=com.liferay.commerce.product.model.CPDefinition)"
-	)
-	private ModelResourcePermission<CPDefinition>
-		_cpDefinitionModelResourcePermission;
-
 	@Reference
 	private CPDefinitionHelper _cpDefinitionHelper;
 
@@ -128,5 +123,8 @@ public class CPInstancePermissionImpl
 
 	@Reference
 	private CPInstanceService _cpInstanceService;
+
+	@Reference(target = "(resource.name=" + CPConstants.RESOURCE_NAME + ")")
+	private PortletResourcePermission _portletResourcePermission;
 
 }

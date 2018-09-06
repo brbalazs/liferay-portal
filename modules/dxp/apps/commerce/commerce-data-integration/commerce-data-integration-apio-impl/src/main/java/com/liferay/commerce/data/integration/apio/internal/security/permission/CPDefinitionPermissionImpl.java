@@ -89,18 +89,8 @@ public class CPDefinitionPermissionImpl
 					getCPDefinitionByClassPKExternalReferenceCode(
 						classPKExternalReferenceCode);
 
-			if (cpDefinition == null) {
-				if (_log.isDebugEnabled()) {
-					_log.debug(
-						"No CPDefinition exists with primary key " +
-							cpDefinitionId);
-				}
-
-				return false;
-			}
-
 			return _cpDefinitionModelResourcePermission.contains(
-				(PermissionChecker)credentials.get(), cpDefinition, actionId);
+				(PermissionChecker)credentials.get(), cpDefinition.getGroupId(), actionId);
 		};
 	}
 
