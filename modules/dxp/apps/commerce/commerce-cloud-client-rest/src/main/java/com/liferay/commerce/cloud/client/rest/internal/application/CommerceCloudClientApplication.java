@@ -72,13 +72,17 @@ public class CommerceCloudClientApplication extends Application {
 		if (Validator.isNull(_projectId)) {
 			_log.error("Project ID is not configured properly");
 
-			return Response.serverError().build();
+			ResponseBuilder serverErrorResponseBuilder = Response.serverError();
+
+			return serverErrorResponseBuilder.build();
 		}
 
 		if (!_projectId.equals(projectId)) {
 			_log.error("Project ID \"" + projectId + "\" does not match");
 
-			return Response.status(Status.FORBIDDEN).build();
+			return Response.status(
+				Status.FORBIDDEN
+			).build();
 		}
 
 		try {
@@ -101,7 +105,9 @@ public class CommerceCloudClientApplication extends Application {
 			ResponseBuilder responseBuilder = null;
 
 			if (t instanceof CommerceCloudClientException) {
-				responseBuilder = Response.status(Status.BAD_REQUEST);
+				responseBuilder = Response.status(
+					Status.BAD_REQUEST
+				);
 			}
 			else {
 				responseBuilder = Response.serverError();
@@ -110,7 +116,9 @@ public class CommerceCloudClientApplication extends Application {
 			return responseBuilder.build();
 		}
 
-		return Response.ok().build();
+		ResponseBuilder okResponseBuilder = Response.ok();
+
+		return okResponseBuilder.build();
 	}
 
 	@Override
