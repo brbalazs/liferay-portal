@@ -199,16 +199,10 @@ public class CommerceUserCollectionResource
 	@Reference
 	private CommerceUserHelper _commerceUserHelper;
 
-	@Reference
-	private ERUserLocalService _erUserLocalService;
-
 	@Reference(
 		target = "(model.class.name=com.liferay.portal.kernel.model.User)"
 	)
 	private HasPermission<ClassPKExternalReferenceCode> _hasPermission;
-
-	@Reference
-	private ListTypeLocalService _listTypeLocalService;
 
 	@Reference
 	private RoleService _roleService;
