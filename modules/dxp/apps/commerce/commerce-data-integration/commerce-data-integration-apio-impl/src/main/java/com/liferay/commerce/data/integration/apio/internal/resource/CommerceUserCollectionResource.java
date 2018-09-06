@@ -122,10 +122,8 @@ public class CommerceUserCollectionResource
 			ThemeDisplay themeDisplay)
 		throws PortalException {
 
-		User user = _userService.getUserById(themeDisplay.getUserId());
-
 		return _commerceUserHelper.upsert(
-			themeDisplay.getCompanyId(), user.getUserId(),
+			themeDisplay.getCompanyId(), themeDisplay.getUserId(),
 			commerceUserUpserterForm);
 	}
 

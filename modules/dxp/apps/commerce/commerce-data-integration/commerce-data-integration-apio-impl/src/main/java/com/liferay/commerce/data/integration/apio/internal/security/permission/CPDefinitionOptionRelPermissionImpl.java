@@ -50,18 +50,16 @@ public class CPDefinitionOptionRelPermissionImpl
 		Class<? extends Identifier<S>> identifierClass) {
 
 		if (identifierClass.equals(CPDefinitionIdentifier.class)) {
-			return (
-				credentials,
-				cpDefinitionClassPKExternalReferenceCode) -> {
-					CPDefinition cpDefinition =
-						_cpDefinitionHelper.
-							getCPDefinitionByClassPKExternalReferenceCode(
-								(ClassPKExternalReferenceCode)
-									cpDefinitionClassPKExternalReferenceCode);
+			return (credentials, cpDefinitionClassPKExternalReferenceCode) -> {
+				CPDefinition cpDefinition =
+					_cpDefinitionHelper.
+						getCPDefinitionByClassPKExternalReferenceCode(
+							(ClassPKExternalReferenceCode)
+								cpDefinitionClassPKExternalReferenceCode);
 
 				return _cpDefinitionModelResourcePermission.contains(
-					(PermissionChecker)credentials.get(), cpDefinition.getGroupId(),
-					ActionKeys.UPDATE);
+					(PermissionChecker)credentials.get(),
+					cpDefinition.getGroupId(), ActionKeys.UPDATE);
 			};
 		}
 
@@ -111,14 +109,14 @@ public class CPDefinitionOptionRelPermissionImpl
 	private static final Log _log = LogFactoryUtil.getLog(
 		CPDefinitionOptionRelPermissionImpl.class);
 
+	@Reference
+	private CPDefinitionHelper _cpDefinitionHelper;
+
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.product.model.CPDefinition)"
 	)
 	private ModelResourcePermission<CPDefinition>
 		_cpDefinitionModelResourcePermission;
-
-	@Reference
-	private CPDefinitionHelper _cpDefinitionHelper;
 
 	@Reference
 	private CPDefinitionOptionRelService _cpDefinitionOptionRelService;

@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
@@ -102,11 +103,8 @@ public class CPDefinitionHelper {
 				cpDefinitionClassPKExternalReferenceCode.
 					getExternalReferenceCode();
 
-			User user = _userLocalService.getUserById(
-				PrincipalThreadLocal.getUserId());
-
 			return _cpDefinitionLocalService.fetchByExternalReferenceCode(
-				user.getCompanyId(), externalReferenceCode);
+				CompanyThreadLocal.getCompanyId(), externalReferenceCode);
 		}
 	}
 

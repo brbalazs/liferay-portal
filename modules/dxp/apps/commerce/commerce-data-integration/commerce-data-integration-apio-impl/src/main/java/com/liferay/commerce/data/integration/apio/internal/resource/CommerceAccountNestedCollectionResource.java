@@ -29,12 +29,14 @@ import com.liferay.commerce.organization.constants.CommerceOrganizationConstants
 import com.liferay.commerce.organization.service.CommerceOrganizationService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.apio.user.CurrentUser;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Organization;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.UserService;
@@ -66,9 +68,9 @@ public class CommerceAccountNestedCollectionResource
 						 builder) {
 
 		return builder.addGetter(
-			this::_getPageItems, ThemeDisplay.class
+			this::_getPageItems, CurrentUser.class
 		).addCreator(
-			this::_addAccount,
+			this::_addAccount, CurrentUser.class,
 			_hasPermission.forAddingIn(WebSiteIdentifier.class),
 			CommerceAccountUpserterForm::buildForm
 		).build();
@@ -119,7 +121,8 @@ public class CommerceAccountNestedCollectionResource
 
 	private Organization _addAccount(
 			Long webSiteId,
-			CommerceAccountUpserterForm commerceAccountUpserterForm)
+			CommerceAccountUpserterForm commerceAccountUpserterForm,
+			User currentUser)
 		throws Exception {
 
 		Group group = _groupLocalService.getGroup(webSiteId);
@@ -129,16 +132,16 @@ public class CommerceAccountNestedCollectionResource
 			group.getClassPK(), commerceAccountUpserterForm.getName(),
 			commerceAccountUpserterForm.getRegionId(),
 			commerceAccountUpserterForm.getCountryId(),
-			commerceAccountUpserterForm.getCommerceUserIds());
+			commerceAccountUpserterForm.getCommerceUserIds(), currentUser);
 	}
 
 	private PageItems<Organization> _getPageItems(
-			Pagination pagination, Long webSiteId, ThemeDisplay themeDisplay)
+			Pagination pagination, Long webSiteId, User currentUser)
 		throws PortalException {
 
 		BaseModelSearchResult<Organization> result =
 			_commerceOrganizationService.searchOrganizationsByGroup(
-				webSiteId, themeDisplay.getUserId(),
+				webSiteId, currentUser.getUserId(),
 				CommerceOrganizationConstants.TYPE_ACCOUNT, StringPool.BLANK,
 				pagination.getStartPosition(), pagination.getEndPosition(),
 				null);

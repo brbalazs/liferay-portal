@@ -28,13 +28,10 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.portal.apio.permission.HasPermission;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
-import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
-
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -53,20 +50,18 @@ public class CPInstancePermissionImpl
 		Class<? extends Identifier<S>> identifierClass) {
 
 		if (identifierClass.equals(CPDefinitionIdentifier.class)) {
-			return (
-				credentials,
-				cpDefinitionClassPKExternalReferenceCode) -> {
-					CPDefinition cpDefinition =
-						_cpDefinitionHelper.
-							getCPDefinitionByClassPKExternalReferenceCode(
-								(ClassPKExternalReferenceCode)
-									cpDefinitionClassPKExternalReferenceCode);
+			return (credentials, cpDefinitionClassPKExternalReferenceCode) -> {
+				CPDefinition cpDefinition =
+					_cpDefinitionHelper.
+						getCPDefinitionByClassPKExternalReferenceCode(
+							(ClassPKExternalReferenceCode)
+								cpDefinitionClassPKExternalReferenceCode);
 
-					return _portletResourcePermission.contains(
-						(PermissionChecker)credentials.get(),
-						cpDefinition.getGroupId(),
-						CPActionKeys.ADD_COMMERCE_PRODUCT_INSTANCE);
-				};
+				return _portletResourcePermission.contains(
+					(PermissionChecker)credentials.get(),
+					cpDefinition.getGroupId(),
+					CPActionKeys.ADD_COMMERCE_PRODUCT_INSTANCE);
+			};
 		}
 
 		return (credentials, s) -> false;
@@ -79,8 +74,7 @@ public class CPInstancePermissionImpl
 		throws Exception {
 
 		return _forItemRoutesOperations().apply(
-			credentials, classPKExternalReferenceCode,
-			ActionKeys.UPDATE);
+			credentials, classPKExternalReferenceCode, ActionKeys.UPDATE);
 	}
 
 	@Override
@@ -99,21 +93,17 @@ public class CPInstancePermissionImpl
 			_forItemRoutesOperations() {
 
 		return (
-			credentials, cpInstanceClassPKExternalReferenceCode,
-			actionId) -> {
-				CPInstance cpInstance =
-					_cpInstanceHelper.
-						getCPInstanceByClassPKExternalReferenceCode(
-							cpInstanceClassPKExternalReferenceCode);
+				credentials, cpInstanceClassPKExternalReferenceCode,
+				actionId) -> {
+			CPInstance cpInstance =
+				_cpInstanceHelper.getCPInstanceByClassPKExternalReferenceCode(
+					cpInstanceClassPKExternalReferenceCode);
 
-				return _portletResourcePermission.contains(
-					(PermissionChecker)credentials.get(),
-					cpInstance.getGroupId(), actionId);
-			};
+			return _portletResourcePermission.contains(
+				(PermissionChecker)credentials.get(), cpInstance.getGroupId(),
+				actionId);
+		};
 	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		CPInstancePermissionImpl.class);
 
 	@Reference
 	private CPDefinitionHelper _cpDefinitionHelper;

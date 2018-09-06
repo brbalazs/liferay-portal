@@ -96,8 +96,7 @@ public class CommerceOrderNestedCollectionResource
 		return builder.types(
 			"CommerceOrder"
 		).identifier(
-			_commerceOrderHelper::
-				commerceOrderToClassPKExternalReferenceCode
+			_commerceOrderHelper::commerceOrderToClassPKExternalReferenceCode
 		).addBidirectionalModel(
 			"commerceAccount", "commerceOrders",
 			CommerceAccountIdentifier.class,
