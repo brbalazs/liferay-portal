@@ -53,7 +53,7 @@ import org.osgi.service.component.annotations.Reference;
 public class CommerceUserCollectionResource
 	implements CollectionResource
 		<UserWrapper, ClassPKExternalReferenceCode,
-			CommerceUserdentifierWithExternalReference> {
+		CommerceUserdentifierWithExternalReference> {
 
 	@Override
 	public CollectionRoutes<UserWrapper, ClassPKExternalReferenceCode>

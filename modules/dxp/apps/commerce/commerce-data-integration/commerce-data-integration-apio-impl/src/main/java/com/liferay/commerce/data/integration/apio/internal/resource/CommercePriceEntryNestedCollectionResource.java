@@ -60,18 +60,18 @@ import org.osgi.service.component.annotations.Reference;
 public class CommercePriceEntryNestedCollectionResource
 	implements NestedCollectionResource
 		<CommercePriceEntry, ClassPKExternalReferenceCode,
-			CommercePriceEntryIdentifier, ClassPKExternalReferenceCode,
-			CommercePriceListIdentifier> {
+		CommercePriceEntryIdentifier, ClassPKExternalReferenceCode,
+		CommercePriceListIdentifier> {
 
 	@Override
 	public NestedCollectionRoutes
 		<CommercePriceEntry, ClassPKExternalReferenceCode,
-			ClassPKExternalReferenceCode>
-				collectionRoutes(
-					NestedCollectionRoutes.Builder
-						<CommercePriceEntry, ClassPKExternalReferenceCode,
-							ClassPKExternalReferenceCode>
-								builder) {
+		ClassPKExternalReferenceCode>
+			collectionRoutes(
+				NestedCollectionRoutes.Builder
+					<CommercePriceEntry, ClassPKExternalReferenceCode,
+						ClassPKExternalReferenceCode>
+							builder) {
 
 		return builder.addGetter(
 			this::_getPageItems

@@ -40,7 +40,7 @@ import org.osgi.service.component.annotations.Reference;
 public class CommerceOrderItemNestedCollectionResource
 	implements NestedCollectionResource
 		<CommerceOrderItem, Long, CommerceOrderItemIdentifier, Long,
-			CommerceOrderIdentifier> {
+		CommerceOrderIdentifier> {
 
 	@Override
 	public NestedCollectionRoutes<CommerceOrderItem, Long, Long>

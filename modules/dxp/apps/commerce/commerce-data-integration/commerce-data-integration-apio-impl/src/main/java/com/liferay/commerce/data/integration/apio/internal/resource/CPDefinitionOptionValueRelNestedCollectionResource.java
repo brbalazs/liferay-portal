@@ -37,9 +37,9 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true)
 public class CPDefinitionOptionValueRelNestedCollectionResource
 	implements NestedCollectionResource
-		<CPDefinitionOptionValueRel, Long,
-			CPDefinitionOptionValueRelIdentifier, Long,
-			CPDefinitionOptionRelIdentifier> {
+		<CPDefinitionOptionValueRel, Long, CPDefinitionOptionValueRelIdentifier,
+		Long,
+		CPDefinitionOptionRelIdentifier> {
 
 	@Override
 	public NestedCollectionRoutes<CPDefinitionOptionValueRel, Long, Long>
