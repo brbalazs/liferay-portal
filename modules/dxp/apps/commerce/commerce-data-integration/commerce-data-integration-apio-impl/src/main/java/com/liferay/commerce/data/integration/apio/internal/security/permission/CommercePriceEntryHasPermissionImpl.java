@@ -49,21 +49,18 @@ public class CommercePriceEntryHasPermissionImpl
 		Class<? extends Identifier<S>> identifierClass) {
 
 		if (identifierClass.equals(CommercePriceListIdentifier.class)) {
-			return (
-				credentials,
-				priceListClassPKExternalReferenceCode) -> {
-					CommercePriceList commercePriceList =
-						_commercePriceListHelper.
-							getCommercePriceListByClassPKExternalReferenceCode(
-								(ClassPKExternalReferenceCode)
-									priceListClassPKExternalReferenceCode);
+			return (credentials, priceListClassPKExternalReferenceCode) -> {
+				CommercePriceList commercePriceList =
+					_commercePriceListHelper.
+						getCommercePriceListByClassPKExternalReferenceCode(
+							(ClassPKExternalReferenceCode)
+								priceListClassPKExternalReferenceCode);
 
-					return _portletResourcePermission.contains(
-						(PermissionChecker)credentials.get(),
-						commercePriceList.getGroupId(),
-						CommercePriceListActionKeys.
-							MANAGE_COMMERCE_PRICE_LISTS);
-				};
+				return _portletResourcePermission.contains(
+					(PermissionChecker)credentials.get(),
+					commercePriceList.getGroupId(),
+					CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+			};
 		}
 
 		return (credentials, s) -> false;
