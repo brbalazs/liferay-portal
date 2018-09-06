@@ -22,6 +22,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.ListTypeConstants;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.User;
@@ -29,7 +30,6 @@ import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.OrganizationLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.service.persistence.CompanyProvider;
 
 import java.util.List;
 
@@ -44,11 +44,12 @@ import org.osgi.service.component.annotations.Reference;
 public class CommerceAccountHelper {
 
 	public void deleteOrganization(
-			ClassPKExternalReferenceCode classPKExternalReferenceCode)
+			ClassPKExternalReferenceCode classPKExternalReferenceCode,
+			Company company)
 		throws PortalException {
 
 		Organization organization = getOrganization(
-			classPKExternalReferenceCode);
+			classPKExternalReferenceCode, company);
 
 		if (organization == null) {
 			if (_log.isInfoEnabled()) {
@@ -68,7 +69,8 @@ public class CommerceAccountHelper {
 	}
 
 	public Organization getOrganization(
-			ClassPKExternalReferenceCode classPKExternalReferenceCode)
+			ClassPKExternalReferenceCode classPKExternalReferenceCode,
+			Company company)
 		throws PortalException {
 
 		long organizationId = classPKExternalReferenceCode.getClassPK();
@@ -77,7 +79,7 @@ public class CommerceAccountHelper {
 			return _commerceOrganizationService.getOrganization(organizationId);
 		}
 
-		long companyId = _companyProvider.getCompanyId();
+		long companyId = company.getCompanyId();
 
 		String externalReferenceCode =
 			classPKExternalReferenceCode.getExternalReferenceCode();
@@ -162,9 +164,6 @@ public class CommerceAccountHelper {
 
 	@Reference
 	private CommerceOrganizationService _commerceOrganizationService;
-
-	@Reference
-	private CompanyProvider _companyProvider;
 
 	@Reference
 	private EROrganizationLocalService _erOrganizationLocalService;

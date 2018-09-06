@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.data.integration.apio.internal.resource;
 
-import static com.liferay.portal.apio.idempotent.Idempotent.idempotent;
-
 import com.liferay.apio.architect.functional.Try;
 import com.liferay.apio.architect.pagination.PageItems;
 import com.liferay.apio.architect.pagination.Pagination;
@@ -34,6 +32,7 @@ import com.liferay.portal.apio.permission.HasPermission;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
@@ -88,7 +87,7 @@ public class CommerceAccountNestedCollectionResource
 		return builder.addGetter(
 			_commerceAccountHelper::getOrganization
 		).addRemover(
-			idempotent(_commerceAccountHelper::deleteOrganization),
+			_commerceAccountHelper::deleteOrganization, Company.class,
 			_hasPermission::forDeleting
 		).build();
 	}
