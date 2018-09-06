@@ -24,7 +24,6 @@ import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalRef
 import com.liferay.commerce.data.integration.apio.identifiers.CommerceUserdentifierWithExternalReference;
 import com.liferay.commerce.data.integration.apio.internal.form.CommerceUserUpserterForm;
 import com.liferay.commerce.data.integration.apio.internal.util.CommerceUserHelper;
-import com.liferay.external.reference.service.ERUserLocalService;
 import com.liferay.portal.apio.permission.HasPermission;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -33,10 +32,9 @@ import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserWrapper;
-import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
-import com.liferay.portal.kernel.service.ListTypeLocalService;
 import com.liferay.portal.kernel.service.RoleService;
 import com.liferay.portal.kernel.service.UserService;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +64,7 @@ public class CommerceUserCollectionResource
 		return builder.addGetter(
 			this::_getPageItems, Company.class
 		).addCreator(
-			this::_addUser, Company.class, _hasPermission::forAdding,
+			this::_addUser, ThemeDisplay.class, _hasPermission::forAdding,
 			CommerceUserUpserterForm::buildForm
 		).build();
 	}
@@ -120,13 +118,15 @@ public class CommerceUserCollectionResource
 	}
 
 	private UserWrapper _addUser(
-			CommerceUserUpserterForm commerceUserUpserterForm, Company company)
+			CommerceUserUpserterForm commerceUserUpserterForm,
+			ThemeDisplay themeDisplay)
 		throws PortalException {
 
-		User user = _userService.getUserById(PrincipalThreadLocal.getUserId());
+		User user = _userService.getUserById(themeDisplay.getUserId());
 
 		return _commerceUserHelper.upsert(
-			company.getCompanyId(), user.getUserId(), commerceUserUpserterForm);
+			themeDisplay.getCompanyId(), user.getUserId(),
+			commerceUserUpserterForm);
 	}
 
 	private List<Number> _getCommerceAccountIds(UserWrapper userWrapper) {
