@@ -28,8 +28,11 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 
 import org.osgi.service.component.annotations.Component;
@@ -57,10 +60,19 @@ public class CPInstancePermissionImpl
 							(ClassPKExternalReferenceCode)
 								cpDefinitionClassPKExternalReferenceCode);
 
-				return _portletResourcePermission.contains(
-					(PermissionChecker)credentials.get(),
-					cpDefinition.getGroupId(),
-					CPActionKeys.ADD_COMMERCE_PRODUCT_INSTANCE);
+				if (cpDefinition == null) {
+					if (_log.isDebugEnabled()) {
+						_log.debug(
+							"No CPDefinition exists with primary key " +
+								cpDefinitionClassPKExternalReferenceCode);
+					}
+
+					return false;
+				}
+
+				return _cpDefinitionModelResourcePermission.contains(
+						(PermissionChecker)credentials.get(), cpDefinition,
+						ActionKeys.UPDATE);
 			};
 		}
 
@@ -99,11 +111,14 @@ public class CPInstancePermissionImpl
 				_cpInstanceHelper.getCPInstanceByClassPKExternalReferenceCode(
 					cpInstanceClassPKExternalReferenceCode);
 
-			return _portletResourcePermission.contains(
-				(PermissionChecker)credentials.get(), cpInstance.getGroupId(),
+			return _cpDefinitionModelResourcePermission.contains(
+				(PermissionChecker)credentials.get(), cpInstance.getCPDefinition(),
 				actionId);
 		};
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+			CPInstancePermissionImpl.class);
 
 	@Reference
 	private CPDefinitionHelper _cpDefinitionHelper;
@@ -114,7 +129,10 @@ public class CPInstancePermissionImpl
 	@Reference
 	private CPInstanceService _cpInstanceService;
 
-	@Reference(target = "(resource.name=" + CPConstants.RESOURCE_NAME + ")")
-	private PortletResourcePermission _portletResourcePermission;
+	@Reference(
+			target = "(model.class.name=com.liferay.commerce.product.model.CPDefinition)"
+	)
+	private ModelResourcePermission<CPDefinition>
+		_cpDefinitionModelResourcePermission;
 
 }
