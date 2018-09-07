@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 import javax.ws.rs.BadRequestException;
 
@@ -125,7 +126,7 @@ public class CommerceUserHelper {
 			commerceUserUpserterForm.getCommerceAccountIds();
 
 		if (ArrayUtil.isEmpty(commerceAccountIds) &&
-			!_isEmpty(accountExternalReferenceCode)) {
+			!Validator.isBlank(accountExternalReferenceCode)) {
 
 			Organization organization =
 				_organizationLocalService.fetchOrganizationByReferenceCode(
@@ -179,14 +180,6 @@ public class CommerceUserHelper {
 		}
 
 		return user.getScreenName();
-	}
-
-	private boolean _isEmpty(String string) {
-		if ((string == null) || string.isEmpty()) {
-			return true;
-		}
-
-		return false;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
