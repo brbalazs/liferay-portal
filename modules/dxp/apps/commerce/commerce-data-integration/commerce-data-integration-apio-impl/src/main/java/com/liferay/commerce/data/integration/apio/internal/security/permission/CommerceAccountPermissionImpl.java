@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.service.CompanyService;
-import com.liferay.portal.kernel.service.OrganizationService;
 import com.liferay.portal.kernel.service.permission.OrganizationPermissionUtil;
 import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
 
@@ -93,8 +92,8 @@ public class CommerceAccountPermissionImpl
 			if (organization == null) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(
-						"No Organization exists with identifier: {}",
-							classPKExternalReferenceCode;
+						"No Organization exists with identifier: " +
+							classPKExternalReferenceCode);
 				}
 
 				return false;
@@ -110,13 +109,10 @@ public class CommerceAccountPermissionImpl
 		CommerceAccountPermissionImpl.class);
 
 	@Reference
-	private CompanyService _companyService;
-
-	@Reference
-	private OrganizationService _organizationService;
-
-	@Reference
 	private CommerceAccountHelper _commerceAccountHelper;
+
+	@Reference
+	private CompanyService _companyService;
 
 	@Reference
 	private PortletResourcePermission _portletResourcePermission;

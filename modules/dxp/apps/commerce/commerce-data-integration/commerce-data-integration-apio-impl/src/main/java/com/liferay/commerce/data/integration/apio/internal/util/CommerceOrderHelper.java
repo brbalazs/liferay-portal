@@ -47,50 +47,6 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = CommerceOrderHelper.class)
 public class CommerceOrderHelper {
 
-
-	public CommerceOrder createCommerceOrder(
-		long groupId, long orderOrganizationId, long orderUserId,
-		String currency, long shippingAddressId, String purchaseOrderNumber,
-		User currentUser)
-		throws PortalException {
-
-		long commerceCurrencyId = _getCommerceCurrencyId(groupId, currency);
-
-		if (orderOrganizationId > 0) {
-			Organization organization =
-				_commerceOrganizationService.getOrganization(
-					orderOrganizationId);
-
-			return _commerceOrderService.addOrganizationCommerceOrder(
-				organization.getGroupId(), groupId,
-				organization.getOrganizationId(), commerceCurrencyId,
-				shippingAddressId, purchaseOrderNumber);
-		}
-
-		return _commerceOrderService.addUserCommerceOrder(
-			groupId, currentUser.getUserId(), orderUserId, commerceCurrencyId);
-	}
-
-	public long getGroupIdBySiteGroupIdOrganizationId(
-		SiteGroupIdOrganizationId commerceOrderSiteGroupIdOrganizationId)
-		throws PortalException {
-
-		if (commerceOrderSiteGroupIdOrganizationId.getOrganizationId() > 0) {
-			Organization organization =
-				_commerceOrganizationService.fetchOrganization(
-					commerceOrderSiteGroupIdOrganizationId.getOrganizationId());
-
-			if (organization == null) {
-				return 0;
-			}
-
-			return organization.getGroupId();
-		}
-
-		return commerceOrderSiteGroupIdOrganizationId.getSiteGroupId();
-	}
-
-
 	public static String getBillingAddressCity(CommerceOrder commerceOrder) {
 		CommerceAddress commerceAddress = _getBillingAddress(commerceOrder);
 
@@ -235,6 +191,29 @@ public class CommerceOrderHelper {
 		return null;
 	}
 
+	public CommerceOrder createCommerceOrder(
+			long groupId, long orderOrganizationId, long orderUserId,
+			String currency, long shippingAddressId, String purchaseOrderNumber,
+			User currentUser)
+		throws PortalException {
+
+		long commerceCurrencyId = _getCommerceCurrencyId(groupId, currency);
+
+		if (orderOrganizationId > 0) {
+			Organization organization =
+				_commerceOrganizationService.getOrganization(
+					orderOrganizationId);
+
+			return _commerceOrderService.addOrganizationCommerceOrder(
+				organization.getGroupId(), groupId,
+				organization.getOrganizationId(), commerceCurrencyId,
+				shippingAddressId, purchaseOrderNumber);
+		}
+
+		return _commerceOrderService.addUserCommerceOrder(
+			groupId, currentUser.getUserId(), orderUserId, commerceCurrencyId);
+	}
+
 	public CommerceOrder getCommerceOrderByClassPKExternalReferenceCode(
 			ClassPKExternalReferenceCode
 				commerceOrderClassPKExternalReferenceCode)
@@ -262,6 +241,25 @@ public class CommerceOrderHelper {
 			return _commerceOrderLocalService.fetchByExternalReferenceCode(
 				CompanyThreadLocal.getCompanyId(), externalReferenceCode);
 		}
+	}
+
+	public long getGroupIdBySiteGroupIdOrganizationId(
+			SiteGroupIdOrganizationId commerceOrderSiteGroupIdOrganizationId)
+		throws PortalException {
+
+		if (commerceOrderSiteGroupIdOrganizationId.getOrganizationId() > 0) {
+			Organization organization =
+				_commerceOrganizationService.fetchOrganization(
+					commerceOrderSiteGroupIdOrganizationId.getOrganizationId());
+
+			if (organization == null) {
+				return 0;
+			}
+
+			return organization.getGroupId();
+		}
+
+		return commerceOrderSiteGroupIdOrganizationId.getSiteGroupId();
 	}
 
 	public CommerceOrder updateCommerceOrder(
@@ -376,19 +374,17 @@ public class CommerceOrderHelper {
 		return commerceCurrency.getCommerceCurrencyId();
 	}
 
-	@Reference
-	private CommerceCurrencyService _commerceCurrencyService;
-
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceOrderHelper.class);
+
+	@Reference
+	private CommerceCurrencyService _commerceCurrencyService;
 
 	@Reference
 	private CommerceOrderLocalService _commerceOrderLocalService;
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
-
 
 	@Reference
 	private CommerceOrganizationService _commerceOrganizationService;

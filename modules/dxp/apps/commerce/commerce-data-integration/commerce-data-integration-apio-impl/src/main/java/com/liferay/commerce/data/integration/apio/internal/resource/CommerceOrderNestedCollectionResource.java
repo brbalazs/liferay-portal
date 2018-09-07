@@ -51,10 +51,10 @@ import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
 import java.util.List;
 import java.util.Locale;
 
+import javax.ws.rs.NotFoundException;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-
-import javax.ws.rs.NotFoundException;
 
 /**
  * @author Rodrigo Guedes de Souza
@@ -71,7 +71,7 @@ public class CommerceOrderNestedCollectionResource
 			collectionRoutes(
 				NestedCollectionRoutes.Builder
 					<CommerceOrder, ClassPKExternalReferenceCode,
-						SiteGroupIdOrganizationId>
+					SiteGroupIdOrganizationId>
 						builder) {
 
 		return builder.addGetter(
@@ -180,9 +180,9 @@ public class CommerceOrderNestedCollectionResource
 	}
 
 	private CommerceOrder _createCommerceOrder(
-		SiteGroupIdOrganizationId siteGroupIdOrganizationId,
-		CommerceOrderUpserterForm commerceOrderUpserterForm,
-		User currentUser)
+			SiteGroupIdOrganizationId siteGroupIdOrganizationId,
+			CommerceOrderUpserterForm commerceOrderUpserterForm,
+			User currentUser)
 		throws PortalException {
 
 		try {
@@ -206,17 +206,14 @@ public class CommerceOrderNestedCollectionResource
 		catch (NoSuchOrganizationException nsoe) {
 			throw new NotFoundException(
 				"Unable to find organization with primary key " +
-				commerceOrderUpserterForm.getOrderOrganizationId(),
-				nsoe);
+				commerceOrderUpserterForm.getOrderOrganizationId(), nsoe);
 		}
 		catch (NoSuchUserException nsue) {
 			throw new NotFoundException(
 				"Unable to find user with primary key " +
-				commerceOrderUpserterForm.getOrderUserId(),
-				nsue);
+				commerceOrderUpserterForm.getOrderUserId(), nsue);
 		}
 	}
-
 
 	private String _getAccountExternalReferenceCode(
 		CommerceOrder commerceOrder) {
