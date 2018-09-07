@@ -14,16 +14,22 @@
 
 package com.liferay.commerce.data.integration.apio.internal.util;
 
+import com.liferay.commerce.currency.model.CommerceCurrency;
+import com.liferay.commerce.currency.service.CommerceCurrencyService;
 import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
+import com.liferay.commerce.data.integration.apio.identifiers.SiteGroupIdOrganizationId;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceRegion;
+import com.liferay.commerce.organization.service.CommerceOrganizationService;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Organization;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -36,9 +42,54 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Rodrigo Guedes de Souza
+ * @author Alessio Antonio Rendina
  */
 @Component(immediate = true, service = CommerceOrderHelper.class)
 public class CommerceOrderHelper {
+
+
+	public CommerceOrder createCommerceOrder(
+		long groupId, long orderOrganizationId, long orderUserId,
+		String currency, long shippingAddressId, String purchaseOrderNumber,
+		User currentUser)
+		throws PortalException {
+
+		long commerceCurrencyId = _getCommerceCurrencyId(groupId, currency);
+
+		if (orderOrganizationId > 0) {
+			Organization organization =
+				_commerceOrganizationService.getOrganization(
+					orderOrganizationId);
+
+			return _commerceOrderService.addOrganizationCommerceOrder(
+				organization.getGroupId(), groupId,
+				organization.getOrganizationId(), commerceCurrencyId,
+				shippingAddressId, purchaseOrderNumber);
+		}
+
+		return _commerceOrderService.addUserCommerceOrder(
+			groupId, currentUser.getUserId(), orderUserId, commerceCurrencyId);
+	}
+
+	public long getGroupIdBySiteGroupIdOrganizationId(
+		SiteGroupIdOrganizationId commerceOrderSiteGroupIdOrganizationId)
+		throws PortalException {
+
+		if (commerceOrderSiteGroupIdOrganizationId.getOrganizationId() > 0) {
+			Organization organization =
+				_commerceOrganizationService.fetchOrganization(
+					commerceOrderSiteGroupIdOrganizationId.getOrganizationId());
+
+			if (organization == null) {
+				return 0;
+			}
+
+			return organization.getGroupId();
+		}
+
+		return commerceOrderSiteGroupIdOrganizationId.getSiteGroupId();
+	}
+
 
 	public static String getBillingAddressCity(CommerceOrder commerceOrder) {
 		CommerceAddress commerceAddress = _getBillingAddress(commerceOrder);
@@ -316,6 +367,19 @@ public class CommerceOrderHelper {
 		return null;
 	}
 
+	private long _getCommerceCurrencyId(Long groupId, String currencyCode)
+		throws PortalException {
+
+		CommerceCurrency commerceCurrency =
+			_commerceCurrencyService.getCommerceCurrency(groupId, currencyCode);
+
+		return commerceCurrency.getCommerceCurrencyId();
+	}
+
+	@Reference
+	private CommerceCurrencyService _commerceCurrencyService;
+
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceOrderHelper.class);
 
@@ -324,6 +388,10 @@ public class CommerceOrderHelper {
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
+
+
+	@Reference
+	private CommerceOrganizationService _commerceOrganizationService;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;
