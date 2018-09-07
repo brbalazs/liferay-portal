@@ -23,7 +23,6 @@ import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalRef
 import com.liferay.commerce.data.integration.apio.internal.util.CPDefinitionHelper;
 import com.liferay.commerce.data.integration.apio.internal.util.CPInstanceHelper;
 import com.liferay.commerce.product.constants.CPActionKeys;
-import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceService;
@@ -33,7 +32,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
-import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -112,27 +110,27 @@ public class CPInstancePermissionImpl
 					cpInstanceClassPKExternalReferenceCode);
 
 			return _cpDefinitionModelResourcePermission.contains(
-				(PermissionChecker)credentials.get(), cpInstance.getCPDefinition(),
-				actionId);
+				(PermissionChecker)credentials.get(),
+				cpInstance.getCPDefinition(), actionId);
 		};
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-			CPInstancePermissionImpl.class);
+		CPInstancePermissionImpl.class);
 
 	@Reference
 	private CPDefinitionHelper _cpDefinitionHelper;
-
-	@Reference
-	private CPInstanceHelper _cpInstanceHelper;
-
-	@Reference
-	private CPInstanceService _cpInstanceService;
 
 	@Reference(
 			target = "(model.class.name=com.liferay.commerce.product.model.CPDefinition)"
 	)
 	private ModelResourcePermission<CPDefinition>
 		_cpDefinitionModelResourcePermission;
+
+	@Reference
+	private CPInstanceHelper _cpInstanceHelper;
+
+	@Reference
+	private CPInstanceService _cpInstanceService;
 
 }

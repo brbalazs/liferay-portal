@@ -40,7 +40,6 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.UserService;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
 
 import java.util.ArrayList;
