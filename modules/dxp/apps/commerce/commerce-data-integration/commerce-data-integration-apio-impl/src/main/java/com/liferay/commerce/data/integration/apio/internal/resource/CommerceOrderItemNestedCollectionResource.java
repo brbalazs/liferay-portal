@@ -47,20 +47,19 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true)
 public class CommerceOrderItemNestedCollectionResource
 	implements NestedCollectionResource
-		<CommerceOrderItem,
-			ClassPKExternalReferenceCode, CommerceOrderItemIdentifier,
-			ClassPKExternalReferenceCode,
-			CommerceOrderIdentifier> {
+		<CommerceOrderItem, ClassPKExternalReferenceCode,
+		CommerceOrderItemIdentifier, ClassPKExternalReferenceCode,
+		CommerceOrderIdentifier> {
 
 	@Override
 	public NestedCollectionRoutes
 		<CommerceOrderItem, ClassPKExternalReferenceCode,
-			ClassPKExternalReferenceCode>
-				collectionRoutes(
-					NestedCollectionRoutes.Builder
-						<CommerceOrderItem, ClassPKExternalReferenceCode,
-							ClassPKExternalReferenceCode>
-								builder) {
+		ClassPKExternalReferenceCode>
+			collectionRoutes(
+				NestedCollectionRoutes.Builder
+					<CommerceOrderItem, ClassPKExternalReferenceCode,
+						ClassPKExternalReferenceCode>
+							builder) {
 
 		return builder.addGetter(
 			this::_getPageItems

@@ -69,8 +69,8 @@ public class CPInstancePermissionImpl
 				}
 
 				return _cpDefinitionModelResourcePermission.contains(
-						(PermissionChecker)credentials.get(), cpDefinition,
-						ActionKeys.UPDATE);
+					(PermissionChecker)credentials.get(), cpDefinition,
+					ActionKeys.UPDATE);
 			};
 		}
 
@@ -122,7 +122,7 @@ public class CPInstancePermissionImpl
 	private CPDefinitionHelper _cpDefinitionHelper;
 
 	@Reference(
-			target = "(model.class.name=com.liferay.commerce.product.model.CPDefinition)"
+		target = "(model.class.name=com.liferay.commerce.product.model.CPDefinition)"
 	)
 	private ModelResourcePermission<CPDefinition>
 		_cpDefinitionModelResourcePermission;

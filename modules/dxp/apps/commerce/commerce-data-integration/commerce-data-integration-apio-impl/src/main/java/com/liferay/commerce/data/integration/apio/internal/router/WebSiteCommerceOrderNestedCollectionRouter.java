@@ -39,8 +39,8 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true)
 public class WebSiteCommerceOrderNestedCollectionRouter
 	implements NestedCollectionRouter
-		<CommerceOrder, ClassPKExternalReferenceCode,
-			CommerceOrderIdentifier, Long, WebSiteIdentifier> {
+		<CommerceOrder, ClassPKExternalReferenceCode, CommerceOrderIdentifier,
+		Long, WebSiteIdentifier> {
 
 	@Override
 	public NestedCollectionRoutes

@@ -42,8 +42,8 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true)
 public class WebSiteCPInstanceNestedCollectionRouter
 	implements NestedCollectionRouter
-		<CPInstance, ClassPKExternalReferenceCode,
-			CPInstanceIdentifier, Long, WebSiteIdentifier> {
+		<CPInstance, ClassPKExternalReferenceCode, CPInstanceIdentifier, Long,
+		WebSiteIdentifier> {
 
 	@Override
 	public NestedCollectionRoutes

@@ -55,8 +55,8 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true)
 public class CPDefinitionNestedCollectionResource
 	implements NestedCollectionResource
-		<CPDefinition, ClassPKExternalReferenceCode,
-			CPDefinitionIdentifier, Long, WebSiteIdentifier> {
+		<CPDefinition, ClassPKExternalReferenceCode, CPDefinitionIdentifier,
+		Long, WebSiteIdentifier> {
 
 	@Override
 	public NestedCollectionRoutes
