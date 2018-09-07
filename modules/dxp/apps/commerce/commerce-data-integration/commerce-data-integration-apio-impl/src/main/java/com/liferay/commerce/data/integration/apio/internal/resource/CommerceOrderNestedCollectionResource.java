@@ -63,7 +63,7 @@ import org.osgi.service.component.annotations.Reference;
 public class CommerceOrderNestedCollectionResource
 	implements NestedCollectionResource
 		<CommerceOrder, ClassPKExternalReferenceCode, CommerceOrderIdentifier,
-			SiteGroupIdOrganizationId, WebSiteIdentifierWithOrganization> {
+		SiteGroupIdOrganizationId, WebSiteIdentifierWithOrganization> {
 
 	@Override
 	public NestedCollectionRoutes
@@ -79,8 +79,8 @@ public class CommerceOrderNestedCollectionResource
 		).addCreator(
 			this::_createCommerceOrder, CurrentUser.class,
 			_hasPermission.forAddingIn(WebSiteIdentifierWithOrganization.class),
-				CommerceOrderUpserterForm::buildForm)
-			.build();
+			CommerceOrderUpserterForm::buildForm
+		).build();
 	}
 
 	@Override
@@ -199,19 +199,21 @@ public class CommerceOrderNestedCollectionResource
 			throw new NotFoundException(
 				String.format(
 					"Unable to find currency with code: %s. Currency code " +
-					"should be expressed with 3-letter ISO 4217 format",
+						"should be expressed with 3-letter ISO 4217 format",
 					commerceOrderUpserterForm.getCurrency()),
 				nsce);
 		}
 		catch (NoSuchOrganizationException nsoe) {
 			throw new NotFoundException(
 				"Unable to find organization with primary key " +
-				commerceOrderUpserterForm.getOrderOrganizationId(), nsoe);
+					commerceOrderUpserterForm.getOrderOrganizationId(),
+				nsoe);
 		}
 		catch (NoSuchUserException nsue) {
 			throw new NotFoundException(
 				"Unable to find user with primary key " +
-				commerceOrderUpserterForm.getOrderUserId(), nsue);
+					commerceOrderUpserterForm.getOrderUserId(),
+				nsue);
 		}
 	}
 
