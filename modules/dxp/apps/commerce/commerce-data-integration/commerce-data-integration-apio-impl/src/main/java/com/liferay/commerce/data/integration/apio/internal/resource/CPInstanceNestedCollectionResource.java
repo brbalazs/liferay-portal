@@ -58,8 +58,8 @@ public class CPInstanceNestedCollectionResource
 			collectionRoutes(
 				NestedCollectionRoutes.Builder
 					<CPInstance, ClassPKExternalReferenceCode,
-						ClassPKExternalReferenceCode>
-							builder) {
+					ClassPKExternalReferenceCode>
+						builder) {
 
 		return builder.addGetter(
 			this::_getPageItems

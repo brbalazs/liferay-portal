@@ -58,8 +58,8 @@ public class CommerceOrderItemNestedCollectionResource
 			collectionRoutes(
 				NestedCollectionRoutes.Builder
 					<CommerceOrderItem, ClassPKExternalReferenceCode,
-						ClassPKExternalReferenceCode>
-							builder) {
+					ClassPKExternalReferenceCode>
+						builder) {
 
 		return builder.addGetter(
 			this::_getPageItems
