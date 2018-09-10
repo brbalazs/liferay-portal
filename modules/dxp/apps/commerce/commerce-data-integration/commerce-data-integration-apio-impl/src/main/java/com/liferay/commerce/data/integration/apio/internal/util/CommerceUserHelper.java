@@ -134,7 +134,7 @@ public class CommerceUserHelper {
 			if (organization == null) {
 				throw new BadRequestException(
 					"Account with external reference code " +
-						accountExternalReferenceCode + " not found.");
+						accountExternalReferenceCode + " not found");
 			}
 
 			commerceAccountIds = new long[] {organization.getOrganizationId()};
