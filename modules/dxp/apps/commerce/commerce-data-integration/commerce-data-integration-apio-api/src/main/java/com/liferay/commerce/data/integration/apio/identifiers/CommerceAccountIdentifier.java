@@ -14,10 +14,14 @@
 
 package com.liferay.commerce.data.integration.apio.identifiers;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.apio.architect.identifier.Identifier;
 
 /**
- * @author Rodrigo Guedes de Souza
+ * @author Eduardo Vasques Bruno
  */
-public interface CommerceAccountIdentifier extends Identifier<Long> {
+@ProviderType
+public interface CommerceAccountIdentifier
+	extends Identifier<ClassPKExternalReferenceCode> {
 }

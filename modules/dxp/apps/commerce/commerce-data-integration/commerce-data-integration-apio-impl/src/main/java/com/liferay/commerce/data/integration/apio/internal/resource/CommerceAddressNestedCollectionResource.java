@@ -20,11 +20,13 @@ import com.liferay.apio.architect.representor.Representor;
 import com.liferay.apio.architect.resource.NestedCollectionResource;
 import com.liferay.apio.architect.routes.ItemRoutes;
 import com.liferay.apio.architect.routes.NestedCollectionRoutes;
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
 import com.liferay.commerce.data.integration.apio.identifiers.CommerceAccountIdentifier;
 import com.liferay.commerce.data.integration.apio.identifiers.CommerceAddressIdentifier;
 import com.liferay.commerce.data.integration.apio.identifiers.CommerceCountryIdentifier;
 import com.liferay.commerce.data.integration.apio.identifiers.CommerceRegionIdentifier;
 import com.liferay.commerce.data.integration.apio.internal.form.CommerceAddressCreatorForm;
+import com.liferay.commerce.data.integration.apio.internal.util.CommerceAccountHelper;
 import com.liferay.commerce.data.integration.apio.internal.util.ServiceContextHelper;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.organization.service.CommerceOrganizationService;
@@ -46,12 +48,15 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true)
 public class CommerceAddressNestedCollectionResource
 	implements NestedCollectionResource
-		<CommerceAddress, Long, CommerceAddressIdentifier, Long,
-		CommerceAccountIdentifier> {
+		<CommerceAddress, Long, CommerceAddressIdentifier,
+		ClassPKExternalReferenceCode, CommerceAccountIdentifier> {
 
 	@Override
-	public NestedCollectionRoutes<CommerceAddress, Long, Long> collectionRoutes(
-		NestedCollectionRoutes.Builder<CommerceAddress, Long, Long> builder) {
+	public NestedCollectionRoutes
+		<CommerceAddress, Long, ClassPKExternalReferenceCode> collectionRoutes(
+			NestedCollectionRoutes.Builder
+				<CommerceAddress, Long, ClassPKExternalReferenceCode>
+					builder) {
 
 		return builder.addGetter(
 			this::_getPageItems
@@ -92,7 +97,10 @@ public class CommerceAddressNestedCollectionResource
 			CommerceAddress::getCommerceAddressId
 		).addBidirectionalModel(
 			"commerceAccount", "commerceAddresses",
-			CommerceAccountIdentifier.class, CommerceAddress::getClassPK
+			CommerceAccountIdentifier.class,
+			commerceAddress -> _commerceAccountHelper.
+				organizationIdToClassPKExternalReferenceCode(
+					commerceAddress.getClassPK())
 		).addString(
 			"name", CommerceAddress::getName
 		).addString(
@@ -127,12 +135,13 @@ public class CommerceAddressNestedCollectionResource
 	}
 
 	private CommerceAddress _addCommerceAddress(
-			Long organizationId,
+			ClassPKExternalReferenceCode classPKExternalReferenceCode,
 			CommerceAddressCreatorForm commerceAddressCreatorForm)
 		throws PortalException {
 
 		Organization organization =
-			_commerceOrganizationService.getOrganization(organizationId);
+			_commerceOrganizationService.getOrganization(
+				classPKExternalReferenceCode.getClassPK());
 
 		Group group = organization.getGroup();
 
@@ -156,11 +165,13 @@ public class CommerceAddressNestedCollectionResource
 	}
 
 	private PageItems<CommerceAddress> _getPageItems(
-			Pagination pagination, Long organizationId)
+			Pagination pagination,
+			ClassPKExternalReferenceCode classPKExternalReferenceCode)
 		throws PortalException {
 
 		Organization organization =
-			_commerceOrganizationService.getOrganization(organizationId);
+			_commerceOrganizationService.getOrganization(
+				classPKExternalReferenceCode.getClassPK());
 
 		Group group = organization.getGroup();
 
@@ -194,6 +205,9 @@ public class CommerceAddressNestedCollectionResource
 			commerceAddressCreatorForm.getDefaultShipping(),
 			new ServiceContext());
 	}
+
+	@Reference
+	private CommerceAccountHelper _commerceAccountHelper;
 
 	@Reference
 	private CommerceAddressService _commerceAddressService;

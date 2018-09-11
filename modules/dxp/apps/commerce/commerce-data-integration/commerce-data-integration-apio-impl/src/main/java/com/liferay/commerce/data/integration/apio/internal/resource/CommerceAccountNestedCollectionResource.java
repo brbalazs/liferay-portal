@@ -22,7 +22,7 @@ import com.liferay.apio.architect.resource.NestedCollectionResource;
 import com.liferay.apio.architect.routes.ItemRoutes;
 import com.liferay.apio.architect.routes.NestedCollectionRoutes;
 import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
-import com.liferay.commerce.data.integration.apio.identifiers.CommerceAccountIdentifierWithExternalReference;
+import com.liferay.commerce.data.integration.apio.identifiers.CommerceAccountIdentifier;
 import com.liferay.commerce.data.integration.apio.internal.form.CommerceAccountUpserterForm;
 import com.liferay.commerce.data.integration.apio.internal.util.CommerceAccountHelper;
 import com.liferay.commerce.organization.constants.CommerceOrganizationConstants;
@@ -54,9 +54,8 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true)
 public class CommerceAccountNestedCollectionResource
 	implements NestedCollectionResource
-		<Organization, ClassPKExternalReferenceCode,
-		CommerceAccountIdentifierWithExternalReference, Long,
-		WebSiteIdentifier> {
+		<Organization, ClassPKExternalReferenceCode, CommerceAccountIdentifier,
+		Long, WebSiteIdentifier> {
 
 	@Override
 	public NestedCollectionRoutes

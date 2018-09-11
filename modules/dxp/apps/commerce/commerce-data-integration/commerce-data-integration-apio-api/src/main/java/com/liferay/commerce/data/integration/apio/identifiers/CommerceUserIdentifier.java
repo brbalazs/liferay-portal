@@ -22,6 +22,6 @@ import com.liferay.apio.architect.identifier.Identifier;
  * @author Eduardo Vasques Bruno
  */
 @ProviderType
-public interface CommerceUserIdentifierWithExternalReference
+public interface CommerceUserIdentifier
 	extends Identifier<ClassPKExternalReferenceCode> {
 }

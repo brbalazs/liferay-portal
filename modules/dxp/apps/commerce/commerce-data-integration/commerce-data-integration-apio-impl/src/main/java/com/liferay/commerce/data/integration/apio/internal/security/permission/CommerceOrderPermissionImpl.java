@@ -20,8 +20,7 @@ import com.liferay.apio.architect.function.throwable.ThrowableTriFunction;
 import com.liferay.apio.architect.identifier.Identifier;
 import com.liferay.commerce.constants.CommerceOrderActionKeys;
 import com.liferay.commerce.constants.CommerceOrderConstants;
-import com.liferay.commerce.data.integration.apio.identifiers.SiteGroupIdOrganizationId;
-import com.liferay.commerce.data.integration.apio.identifiers.WebSiteIdentifierWithOrganization;
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
 import com.liferay.commerce.data.integration.apio.internal.util.CommerceOrderHelper;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.service.CommerceOrderService;
@@ -32,6 +31,7 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
+import com.liferay.site.apio.architect.identifier.WebSiteIdentifier;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -43,54 +43,52 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	property = "model.class.name=com.liferay.commerce.model.CommerceOrder"
 )
-public class CommerceOrderPermissionImpl implements HasPermission<Long> {
+public class CommerceOrderPermissionImpl
+	implements HasPermission<ClassPKExternalReferenceCode> {
 
 	@Override
 	public <S> HasNestedAddingPermissionFunction<S> forAddingIn(
 		Class<? extends Identifier<S>> identifierClass) {
 
-		if (identifierClass.equals(WebSiteIdentifierWithOrganization.class)) {
-			return (credentials, commerceOrderSiteGroupIdOrganizationId) -> {
-				long groupId =
-					_commerceOrderHelper.getGroupIdBySiteGroupIdOrganizationId(
-						(SiteGroupIdOrganizationId)
-							commerceOrderSiteGroupIdOrganizationId);
-
-				if (groupId <= 0) {
-					return false;
-				}
-
-				return _portletResourcePermission.contains(
-					(PermissionChecker)credentials.get(), groupId,
+		if (identifierClass.equals(WebSiteIdentifier.class)) {
+			return (credentials, groupId) ->
+				_portletResourcePermission.contains(
+					(PermissionChecker)credentials.get(), (Long)groupId,
 					CommerceOrderActionKeys.ADD_COMMERCE_ORDER);
-			};
 		}
 
 		return (credentials, s) -> false;
 	}
 
 	@Override
-	public Boolean forDeleting(Credentials credentials, Long entryId)
+	public Boolean forDeleting(
+			Credentials credentials,
+			ClassPKExternalReferenceCode classPKExternalReferenceCode)
 		throws Exception {
 
 		return _forItemRoutesOperations().apply(
-			credentials, entryId, ActionKeys.DELETE);
+			credentials, classPKExternalReferenceCode, ActionKeys.DELETE);
 	}
 
 	@Override
-	public Boolean forUpdating(Credentials credentials, Long entryId)
+	public Boolean forUpdating(
+			Credentials credentials,
+			ClassPKExternalReferenceCode classPKExternalReferenceCode)
 		throws Exception {
 
 		return _forItemRoutesOperations().apply(
-			credentials, entryId, ActionKeys.UPDATE);
+			credentials, classPKExternalReferenceCode, ActionKeys.UPDATE);
 	}
 
-	private ThrowableTriFunction<Credentials, Long, String, Boolean>
-		_forItemRoutesOperations() {
+	private ThrowableTriFunction
+		<Credentials, ClassPKExternalReferenceCode, String, Boolean>
+			_forItemRoutesOperations() {
 
-		return (credentials, commerceOrderId, actionId) -> {
+		return (credentials, classPKExternalReferenceCode, actionId) -> {
 			CommerceOrder commerceOrder =
-				_commerceOrderService.fetchCommerceOrder(commerceOrderId);
+				_commerceOrderHelper.
+					getCommerceOrderByClassPKExternalReferenceCode(
+						classPKExternalReferenceCode);
 
 			if (commerceOrder == null) {
 				if (_log.isDebugEnabled()) {

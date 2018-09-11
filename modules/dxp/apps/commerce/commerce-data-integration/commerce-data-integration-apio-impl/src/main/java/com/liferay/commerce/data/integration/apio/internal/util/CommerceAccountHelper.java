@@ -26,7 +26,6 @@ import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.ListTypeConstants;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.OrganizationLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
@@ -73,6 +72,15 @@ public class CommerceAccountHelper {
 			Company company)
 		throws PortalException {
 
+		return getOrganization(
+			classPKExternalReferenceCode, company.getCompanyId());
+	}
+
+	public Organization getOrganization(
+			ClassPKExternalReferenceCode classPKExternalReferenceCode,
+			long companyId)
+		throws PortalException {
+
 		long organizationId = classPKExternalReferenceCode.getClassPK();
 
 		if (organizationId > 0) {
@@ -83,7 +91,16 @@ public class CommerceAccountHelper {
 			classPKExternalReferenceCode.getExternalReferenceCode();
 
 		return _organizationLocalService.fetchOrganizationByReferenceCode(
-			CompanyThreadLocal.getCompanyId(), externalReferenceCode);
+			companyId, externalReferenceCode);
+	}
+
+	public ClassPKExternalReferenceCode
+		organizationIdToClassPKExternalReferenceCode(long organizationId) {
+
+		Organization organization = _organizationLocalService.fetchOrganization(
+			organizationId);
+
+		return organizationToClassPKExternalReferenceCode(organization);
 	}
 
 	public ClassPKExternalReferenceCode

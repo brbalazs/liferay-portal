@@ -17,7 +17,6 @@ package com.liferay.commerce.data.integration.apio.internal.util;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.service.CommerceCurrencyService;
 import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
-import com.liferay.commerce.data.integration.apio.identifiers.SiteGroupIdOrganizationId;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.model.CommerceOrder;
@@ -241,25 +240,6 @@ public class CommerceOrderHelper {
 			return _commerceOrderLocalService.fetchByExternalReferenceCode(
 				CompanyThreadLocal.getCompanyId(), externalReferenceCode);
 		}
-	}
-
-	public long getGroupIdBySiteGroupIdOrganizationId(
-			SiteGroupIdOrganizationId commerceOrderSiteGroupIdOrganizationId)
-		throws PortalException {
-
-		if (commerceOrderSiteGroupIdOrganizationId.getOrganizationId() > 0) {
-			Organization organization =
-				_commerceOrganizationService.fetchOrganization(
-					commerceOrderSiteGroupIdOrganizationId.getOrganizationId());
-
-			if (organization == null) {
-				return 0;
-			}
-
-			return organization.getGroupId();
-		}
-
-		return commerceOrderSiteGroupIdOrganizationId.getSiteGroupId();
 	}
 
 	public CommerceOrder updateCommerceOrder(

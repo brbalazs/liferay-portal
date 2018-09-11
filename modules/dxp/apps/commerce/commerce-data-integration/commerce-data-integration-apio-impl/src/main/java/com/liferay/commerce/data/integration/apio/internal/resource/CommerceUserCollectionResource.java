@@ -21,7 +21,7 @@ import com.liferay.apio.architect.resource.CollectionResource;
 import com.liferay.apio.architect.routes.CollectionRoutes;
 import com.liferay.apio.architect.routes.ItemRoutes;
 import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
-import com.liferay.commerce.data.integration.apio.identifiers.CommerceUserIdentifierWithExternalReference;
+import com.liferay.commerce.data.integration.apio.identifiers.CommerceUserIdentifier;
 import com.liferay.commerce.data.integration.apio.internal.form.CommerceUserUpserterForm;
 import com.liferay.commerce.data.integration.apio.internal.util.CommerceUserHelper;
 import com.liferay.portal.apio.permission.HasPermission;
@@ -52,8 +52,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true)
 public class CommerceUserCollectionResource
 	implements CollectionResource
-		<UserWrapper, ClassPKExternalReferenceCode,
-		CommerceUserIdentifierWithExternalReference> {
+		<UserWrapper, ClassPKExternalReferenceCode, CommerceUserIdentifier> {
 
 	@Override
 	public CollectionRoutes<UserWrapper, ClassPKExternalReferenceCode>

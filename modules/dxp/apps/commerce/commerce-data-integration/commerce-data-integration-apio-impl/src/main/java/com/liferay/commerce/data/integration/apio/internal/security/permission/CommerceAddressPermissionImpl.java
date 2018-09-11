@@ -20,7 +20,9 @@ import com.liferay.apio.architect.function.throwable.ThrowableBiFunction;
 import com.liferay.apio.architect.identifier.Identifier;
 import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommerceConstants;
+import com.liferay.commerce.data.integration.apio.identifiers.ClassPKExternalReferenceCode;
 import com.liferay.commerce.data.integration.apio.identifiers.CommerceAccountIdentifier;
+import com.liferay.commerce.data.integration.apio.internal.util.CommerceAccountHelper;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.organization.service.CommerceOrganizationService;
 import com.liferay.commerce.service.CommerceAddressService;
@@ -28,8 +30,10 @@ import com.liferay.portal.apio.permission.HasPermission;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Organization;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
+import com.liferay.portal.kernel.service.CompanyService;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -37,6 +41,7 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Rodrigo Guedes de Souza
  * @author Alessio Antonio Rendina
+ * @author Zoltán Takács
  */
 @Component(
 	property = "model.class.name=com.liferay.commerce.model.CommerceAddress"
@@ -48,16 +53,18 @@ public class CommerceAddressPermissionImpl implements HasPermission<Long> {
 		Class<? extends Identifier<S>> identifierClass) {
 
 		if (identifierClass.equals(CommerceAccountIdentifier.class)) {
-			return (credentials, commerceAccountId) -> {
+			return (credentials, classPKExternalReferenceCode) -> {
 				Organization organization =
-					_commerceOrganizationService.fetchOrganization(
-						(Long)commerceAccountId);
+					(Organization)_commerceAccountHelper.getOrganization(
+						(ClassPKExternalReferenceCode)
+							classPKExternalReferenceCode,
+						CompanyThreadLocal.getCompanyId());
 
 				if (organization == null) {
 					if (_log.isDebugEnabled()) {
 						_log.debug(
 							"No Organization exists with primary key " +
-								commerceAccountId);
+								organization.getOrganizationId());
 					}
 
 					return false;
@@ -115,10 +122,16 @@ public class CommerceAddressPermissionImpl implements HasPermission<Long> {
 		CommerceAddressPermissionImpl.class);
 
 	@Reference
+	private CommerceAccountHelper _commerceAccountHelper;
+
+	@Reference
 	private CommerceAddressService _commerceAddressService;
 
 	@Reference
 	private CommerceOrganizationService _commerceOrganizationService;
+
+	@Reference
+	private CompanyService _companyService;
 
 	@Reference(
 		target = "(resource.name=" + CommerceConstants.RESOURCE_NAME + ")"
