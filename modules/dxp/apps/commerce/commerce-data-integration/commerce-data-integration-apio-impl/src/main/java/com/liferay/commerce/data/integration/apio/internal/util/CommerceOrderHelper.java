@@ -190,29 +190,6 @@ public class CommerceOrderHelper {
 		return null;
 	}
 
-	public CommerceOrder createCommerceOrder(
-			long groupId, long orderOrganizationId, long orderUserId,
-			String currency, long shippingAddressId, String purchaseOrderNumber,
-			User currentUser)
-		throws PortalException {
-
-		long commerceCurrencyId = _getCommerceCurrencyId(groupId, currency);
-
-		if (orderOrganizationId > 0) {
-			Organization organization =
-				_commerceOrganizationService.getOrganization(
-					orderOrganizationId);
-
-			return _commerceOrderService.addOrganizationCommerceOrder(
-				organization.getGroupId(), groupId,
-				organization.getOrganizationId(), commerceCurrencyId,
-				shippingAddressId, purchaseOrderNumber);
-		}
-
-		return _commerceOrderService.addUserCommerceOrder(
-			groupId, currentUser.getUserId(), orderUserId, commerceCurrencyId);
-	}
-
 	public CommerceOrder getCommerceOrderByClassPKExternalReferenceCode(
 			ClassPKExternalReferenceCode
 				commerceOrderClassPKExternalReferenceCode)
@@ -279,6 +256,29 @@ public class CommerceOrderHelper {
 
 		return _commerceOrderService.getCommerceOrder(
 			commerceOrder.getCommerceOrderId());
+	}
+
+	public CommerceOrder upsertCommerceOrder(
+			long groupId, long orderOrganizationId, long orderUserId,
+			String currency, long shippingAddressId, String purchaseOrderNumber,
+			User currentUser)
+		throws PortalException {
+
+		long commerceCurrencyId = _getCommerceCurrencyId(groupId, currency);
+
+		if (orderOrganizationId > 0) {
+			Organization organization =
+				_commerceOrganizationService.getOrganization(
+					orderOrganizationId);
+
+			return _commerceOrderService.addOrganizationCommerceOrder(
+				organization.getGroupId(), groupId,
+				organization.getOrganizationId(), commerceCurrencyId,
+				shippingAddressId, purchaseOrderNumber);
+		}
+
+		return _commerceOrderService.addUserCommerceOrder(
+			groupId, currentUser.getUserId(), orderUserId, commerceCurrencyId);
 	}
 
 	private static CommerceAddress _getBillingAddress(

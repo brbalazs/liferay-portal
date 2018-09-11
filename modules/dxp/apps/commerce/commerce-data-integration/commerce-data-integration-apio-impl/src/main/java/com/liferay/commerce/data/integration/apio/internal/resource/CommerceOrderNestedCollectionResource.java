@@ -79,7 +79,7 @@ public class CommerceOrderNestedCollectionResource
 		return builder.addGetter(
 			this::_getPageItems, CurrentUser.class
 		).addCreator(
-			this::_createCommerceOrder, CurrentUser.class,
+			this::_upsertCommerceOrder, CurrentUser.class,
 			_hasPermission.forAddingIn(WebSiteIdentifier.class),
 			CommerceOrderUpserterForm::buildForm
 		).build();
@@ -183,42 +183,6 @@ public class CommerceOrderNestedCollectionResource
 		).addLocalizedStringByLocale(
 			"shippingCountry", CommerceOrderHelper::getShippingAddressCountry
 		).build();
-	}
-
-	private CommerceOrder _createCommerceOrder(
-			Long groupId, CommerceOrderUpserterForm commerceOrderUpserterForm,
-			User currentUser)
-		throws PortalException {
-
-		try {
-			return _commerceOrderHelper.createCommerceOrder(
-				groupId, commerceOrderUpserterForm.getOrderOrganizationId(),
-				commerceOrderUpserterForm.getOrderUserId(),
-				commerceOrderUpserterForm.getCurrency(),
-				commerceOrderUpserterForm.getShippingAddressId(),
-				commerceOrderUpserterForm.getPurchaseOrderNumber(),
-				currentUser);
-		}
-		catch (NoSuchCurrencyException nsce) {
-			throw new NotFoundException(
-				String.format(
-					"Unable to find currency with code: %s. Currency code " +
-						"should be expressed with 3-letter ISO 4217 format",
-					commerceOrderUpserterForm.getCurrency()),
-				nsce);
-		}
-		catch (NoSuchOrganizationException nsoe) {
-			throw new NotFoundException(
-				"Unable to find organization with primary key " +
-					commerceOrderUpserterForm.getOrderOrganizationId(),
-				nsoe);
-		}
-		catch (NoSuchUserException nsue) {
-			throw new NotFoundException(
-				"Unable to find user with primary key " +
-					commerceOrderUpserterForm.getOrderUserId(),
-				nsue);
-		}
 	}
 
 	private String _getAccountExternalReferenceCode(
@@ -340,6 +304,42 @@ public class CommerceOrderNestedCollectionResource
 			commerceOrderUpdaterForm.getOrderStatus(),
 			commerceOrderUpdaterForm.getPaymentStatus(),
 			commerceOrderUpdaterForm.getExternalReferenceCode());
+	}
+
+	private CommerceOrder _upsertCommerceOrder(
+			Long groupId, CommerceOrderUpserterForm commerceOrderUpserterForm,
+			User currentUser)
+		throws PortalException {
+
+		try {
+			return _commerceOrderHelper.upsertCommerceOrder(
+				groupId, commerceOrderUpserterForm.getOrderOrganizationId(),
+				commerceOrderUpserterForm.getOrderUserId(),
+				commerceOrderUpserterForm.getCurrency(),
+				commerceOrderUpserterForm.getShippingAddressId(),
+				commerceOrderUpserterForm.getPurchaseOrderNumber(),
+				currentUser);
+		}
+		catch (NoSuchCurrencyException nsce) {
+			throw new NotFoundException(
+				String.format(
+					"Unable to find currency with code: %s. Currency code " +
+						"should be expressed with 3-letter ISO 4217 format",
+					commerceOrderUpserterForm.getCurrency()),
+				nsce);
+		}
+		catch (NoSuchOrganizationException nsoe) {
+			throw new NotFoundException(
+				"Unable to find organization with primary key " +
+					commerceOrderUpserterForm.getOrderOrganizationId(),
+				nsoe);
+		}
+		catch (NoSuchUserException nsue) {
+			throw new NotFoundException(
+				"Unable to find user with primary key " +
+					commerceOrderUpserterForm.getOrderUserId(),
+				nsue);
+		}
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
