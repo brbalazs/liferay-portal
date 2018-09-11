@@ -125,13 +125,6 @@ public class CommerceOrderNoteNestedCollectionResource
 		).build();
 	}
 
-	private CommerceOrderNote _getCommerceOrderNote(Long commerceOrderNoteId)
-		throws PortalException {
-
-		return _commerceOrderNoteService.getCommerceOrderNote(
-			commerceOrderNoteId);
-	}
-
 	private PageItems<CommerceOrderNote> _getPageItems(
 			Pagination pagination,
 			ClassPKExternalReferenceCode

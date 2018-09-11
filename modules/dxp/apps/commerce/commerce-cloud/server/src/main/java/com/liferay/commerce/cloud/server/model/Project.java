@@ -105,14 +105,13 @@ public class Project implements JsonSerializable {
 		return jsonObject;
 	}
 
-	private static final Set<String> _clientPropertyKeys;
-
-	static {
-		_clientPropertyKeys = new HashSet<>();
-
-		_clientPropertyKeys.add("callbackHost");
-		_clientPropertyKeys.add("forecastingHistorySize");
-	}
+	private static final Set<String> _clientPropertyKeys =
+		new HashSet<String>() {
+			{
+				add("callbackHost");
+				add("forecastingHistorySize");
+			}
+		};
 
 	private boolean _active;
 	private String _apiKey;
