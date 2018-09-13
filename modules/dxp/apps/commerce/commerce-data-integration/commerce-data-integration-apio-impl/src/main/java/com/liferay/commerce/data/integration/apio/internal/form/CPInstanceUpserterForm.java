@@ -157,7 +157,7 @@ public class CPInstanceUpserterForm {
 
 	public Map<Locale, String> getShortDescriptionMap() {
 		return Collections.singletonMap(
-			LocaleUtil.getDefault(), _shortDescritpion);
+			LocaleUtil.getDefault(), _shortDescription);
 	}
 
 	public String getSku() {
@@ -241,7 +241,7 @@ public class CPInstanceUpserterForm {
 	}
 
 	private void _setShortDescription(String shortDescription) {
-		_shortDescritpion = shortDescription;
+		_shortDescription = shortDescription;
 	}
 
 	private void _setSku(String sku) {
@@ -276,7 +276,7 @@ public class CPInstanceUpserterForm {
 	private double _promoPrice;
 	private boolean _published;
 	private boolean _purchasable;
-	private String _shortDescritpion;
+	private String _shortDescription;
 	private String _sku;
 	private String _title;
 	private double _weight;
