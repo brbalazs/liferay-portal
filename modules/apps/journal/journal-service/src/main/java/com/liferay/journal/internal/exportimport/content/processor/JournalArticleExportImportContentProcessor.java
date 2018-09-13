@@ -58,6 +58,8 @@ import com.liferay.portal.kernel.xml.XPath;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -190,6 +192,8 @@ public class JournalArticleExportImportContentProcessor
 	@Override
 	public void validateContentReferences(long groupId, String content)
 		throws PortalException {
+
+		content = _excludeHTMLComments(content);
 
 		validateJournalArticleReferences(content);
 
@@ -525,6 +529,18 @@ public class JournalArticleExportImportContentProcessor
 		}
 	}
 
+	private String _excludeHTMLComments(String content) {
+		Matcher matcher = _htmlCommentRegexPattern.matcher(content);
+
+		while (matcher.find()) {
+			content = matcher.replaceAll(StringPool.BLANK);
+
+			matcher = _htmlCommentRegexPattern.matcher(content);
+		}
+
+		return content;
+	}
+
 	private List<String> _fetchContentsFromDDMFormValues(
 		List<DDMFormFieldValue> ddmFormFieldValues) {
 
@@ -590,6 +606,10 @@ public class JournalArticleExportImportContentProcessor
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		JournalArticleExportImportContentProcessor.class);
+
+	private static final Pattern _htmlCommentRegexPattern = Pattern.compile(
+		"\\<![ \\r\\n\\t]*(--([^\\-]|[\\r\\n]|-[^\\-])*--" +
+			"[ \\r\\n\\t]*)\\>");
 
 	@Reference(
 		target = "(model.class.name=com.liferay.dynamic.data.mapping.storage.DDMFormValues)"
