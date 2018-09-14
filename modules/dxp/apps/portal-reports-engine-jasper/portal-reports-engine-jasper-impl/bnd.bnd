@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Portal Reports Engine Jasper Implementation
 Bundle-SymbolicName: com.liferay.portal.reports.engine.jasper.impl
-Bundle-Version: 1.0.2
+Bundle-Version: 1.0.3
 DynamicImport-Package: *
 Import-Package:\
 	!antlr.*,\
