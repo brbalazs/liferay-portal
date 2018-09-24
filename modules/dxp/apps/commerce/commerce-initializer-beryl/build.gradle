@@ -64,7 +64,7 @@ dependencies {
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.initializer.util", version: "1.0.0-20180724.221234-1"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.organization.api", version: "1.0.0"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.price.list.api", version: "1.0.0"
-	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.product.api", version: "2.0.0-20180905.080004-1"
+	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.product.api", version: "2.0.0-20180924.161553-2"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.product.content.api", version: "1.0.0"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.product.type.grouped.api", version: "1.0.0"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.product.type.virtual.api", version: "1.0.0"
