@@ -270,6 +270,11 @@ public class EditCompanyMVCActionCommand extends BaseFormMVCActionCommand {
 		String languageId = ParamUtil.getString(actionRequest, "languageId");
 
 		if (Validator.isNull(languageId)) {
+			SessionErrors.add(
+				actionRequest, RequiredLocaleException.class,
+				new RequiredLocaleException(
+					"you-must-choose-a-default-language"));
+
 			return;
 		}
 
@@ -278,11 +283,8 @@ public class EditCompanyMVCActionCommand extends BaseFormMVCActionCommand {
 
 		String newLanguageIds = properties.getProperty(PropsKeys.LOCALES);
 
-		if (Validator.isNull(newLanguageIds)) {
-			return;
-		}
-
-		if (!StringUtil.contains(
+		if (Validator.isNull(newLanguageIds) ||
+			!StringUtil.contains(
 				newLanguageIds, languageId, StringPool.COMMA)) {
 
 			SessionErrors.add(
