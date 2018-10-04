@@ -1,0 +1,10 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.frontend.js.portlet.extender-1.0.5.jar
+
+app.change.log-1.0.0=LPS-84977
+
+app.git.id-1.0.0=1eff8331e894322cc6ae51933476cb55b21d67b6
