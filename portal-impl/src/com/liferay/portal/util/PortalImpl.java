@@ -2593,11 +2593,19 @@ public class PortalImpl implements Portal {
 		return null;
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public String[] getGroupPermissions(HttpServletRequest request) {
 		return request.getParameterValues("groupPermissions");
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public String[] getGroupPermissions(
 		HttpServletRequest request, String className) {
@@ -2612,11 +2620,19 @@ public class PortalImpl implements Portal {
 			groupPermissions, className, inputPermissionsShowOptions);
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public String[] getGroupPermissions(PortletRequest portletRequest) {
 		return portletRequest.getParameterValues("groupPermissions");
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public String[] getGroupPermissions(
 		PortletRequest portletRequest, String className) {
@@ -2631,11 +2647,19 @@ public class PortalImpl implements Portal {
 			groupPermissions, className, inputPermissionsShowOptions);
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public String[] getGuestPermissions(HttpServletRequest request) {
 		return request.getParameterValues("guestPermissions");
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public String[] getGuestPermissions(
 		HttpServletRequest request, String className) {
@@ -2650,11 +2674,19 @@ public class PortalImpl implements Portal {
 			guestPermissions, className, inputPermissionsShowOptions);
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public String[] getGuestPermissions(PortletRequest portletRequest) {
 		return portletRequest.getParameterValues("guestPermissions");
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public String[] getGuestPermissions(
 		PortletRequest portletRequest, String className) {
