@@ -38,6 +38,7 @@ import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
 import com.liferay.portal.kernel.service.PersistedResourcedModelLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.permission.ModelPermissions;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.transaction.Isolation;
@@ -361,9 +362,21 @@ public interface JournalArticleLocalService
 	 * Adds the model resources with the permissions to the web content article.
 	 *
 	 * @param article the web content article to add resources to
+	 * @param modelPermissions the model permissions
+	 */
+	public void addArticleResources(
+			JournalArticle article, ModelPermissions modelPermissions)
+		throws PortalException;
+
+	/**
+	 * Adds the model resources with the permissions to the web content article.
+	 *
+	 * @param article the web content article to add resources to
 	 * @param groupPermissions the group permissions to be added
 	 * @param guestPermissions the guest permissions to be added
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
 	 */
+	@Deprecated
 	public void addArticleResources(
 			JournalArticle article, String[] groupPermissions,
 			String[] guestPermissions)
@@ -390,7 +403,9 @@ public interface JournalArticleLocalService
 	 * @param articleId the primary key of the web content article
 	 * @param groupPermissions the group permissions to be added
 	 * @param guestPermissions the guest permissions to be added
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
 	 */
+	@Deprecated
 	public void addArticleResources(
 			long groupId, String articleId, String[] groupPermissions,
 			String[] guestPermissions)

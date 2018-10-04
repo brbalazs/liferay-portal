@@ -34,6 +34,7 @@ import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
 import com.liferay.portal.kernel.service.PersistedResourcedModelLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.permission.ModelPermissions;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
@@ -103,6 +104,14 @@ public interface KBArticleLocalService
 		throws PortalException;
 
 	public void addKBArticleResources(
+			KBArticle kbArticle, ModelPermissions modelPermissions)
+		throws PortalException;
+
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
+	public void addKBArticleResources(
 			KBArticle kbArticle, String[] groupPermissions,
 			String[] guestPermissions)
 		throws PortalException;
@@ -112,6 +121,10 @@ public interface KBArticleLocalService
 			boolean addGuestPermissions)
 		throws PortalException;
 
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
 	public void addKBArticleResources(
 			long kbArticleId, String[] groupPermissions,
 			String[] guestPermissions)
