@@ -1,0 +1,11 @@
+#
+# Liferay App Version 2.0.0
+#
+
+app.artifacts-2.0.0=\
+	com.liferay.frontend.theme.porygon.site.initializer-1.0.3.jar,\
+	porygon-theme-2.0.1.war
+
+app.change.log-2.0.0=LPS-0 LPS-77425 LPS-83327 LPS-83719 LPS-83915 LPS-84748 LPS-85720
+
+app.git.id-2.0.0=1eff8331e894322cc6ae51933476cb55b21d67b6
