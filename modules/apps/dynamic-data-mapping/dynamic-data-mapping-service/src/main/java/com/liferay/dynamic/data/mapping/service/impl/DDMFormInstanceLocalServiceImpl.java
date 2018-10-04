@@ -38,6 +38,7 @@ import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.permission.ModelPermissions;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -102,8 +103,7 @@ public class DDMFormInstanceLocalServiceImpl
 		}
 		else {
 			addFormInstanceResources(
-				ddmFormInstance, serviceContext.getGroupPermissions(),
-				serviceContext.getGuestPermissions());
+				ddmFormInstance, serviceContext.getModelPermissions());
 		}
 
 		long structureVersionId = getStructureVersionId(ddmStructureId);
@@ -164,6 +164,21 @@ public class DDMFormInstanceLocalServiceImpl
 			addGuestPermissions);
 	}
 
+	@Override
+	public void addFormInstanceResources(
+			DDMFormInstance ddmFormInstance, ModelPermissions modelPermissions)
+		throws PortalException {
+
+		resourceLocalService.addModelResources(
+			ddmFormInstance.getCompanyId(), ddmFormInstance.getGroupId(),
+			ddmFormInstance.getUserId(), DDMFormInstance.class.getName(),
+			ddmFormInstance.getFormInstanceId(), modelPermissions);
+	}
+
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public void addFormInstanceResources(
 			DDMFormInstance ddmFormInstance, String[] groupPermissions,
