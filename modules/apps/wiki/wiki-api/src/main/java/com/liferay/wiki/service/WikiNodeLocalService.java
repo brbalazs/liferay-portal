@@ -83,7 +83,8 @@ public interface WikiNodeLocalService
 		throws PortalException;
 
 	/**
-	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 * @deprecated As of Judson (7.1.x), replaced by {@link
+	 #addNodeResources(WikiNode, ModelPermissions)}
 	 */
 	@Deprecated
 	public void addNodeResources(
@@ -100,7 +101,8 @@ public interface WikiNodeLocalService
 		throws PortalException;
 
 	/**
-	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 * @deprecated As of Judson (7.1.x), replaced by {@link
+	 #addNodeResources(WikiNode, ModelPermissions)}
 	 */
 	@Deprecated
 	public void addNodeResources(
