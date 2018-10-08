@@ -164,7 +164,8 @@ public class WikiNodeLocalServiceImpl extends WikiNodeLocalServiceBaseImpl {
 	}
 
 	/**
-	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 * @deprecated As of Judson (7.1.x), replaced by {@link
+	 *             #addNodeResources(WikiNode, ModelPermissions)}
 	 */
 	@Deprecated
 	@Override
@@ -200,7 +201,8 @@ public class WikiNodeLocalServiceImpl extends WikiNodeLocalServiceBaseImpl {
 	}
 
 	/**
-	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 * @deprecated As of Judson (7.1.x), replaced by {@link
+	 *             #addNodeResources(WikiNode, ModelPermissions)}
 	 */
 	@Deprecated
 	@Override
