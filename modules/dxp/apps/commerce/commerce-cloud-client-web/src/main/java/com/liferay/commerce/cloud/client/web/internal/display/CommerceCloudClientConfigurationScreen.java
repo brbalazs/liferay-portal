@@ -43,7 +43,7 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Andrea Di Giorgi
  */
-@Component(immediate = true)
+@Component(immediate = true, service = ConfigurationScreen.class)
 public class CommerceCloudClientConfigurationScreen
 	implements ConfigurationScreen {
 

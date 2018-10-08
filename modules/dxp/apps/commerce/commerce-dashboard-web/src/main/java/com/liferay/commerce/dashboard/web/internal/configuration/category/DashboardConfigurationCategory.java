@@ -21,7 +21,7 @@ import org.osgi.service.component.annotations.Component;
 /**
  * @author Andrea Di Giorgi
  */
-@Component
+@Component(service = ConfigurationCategory.class)
 public class DashboardConfigurationCategory implements ConfigurationCategory {
 
 	public static final String CATEGORY_KEY = "dashboard";

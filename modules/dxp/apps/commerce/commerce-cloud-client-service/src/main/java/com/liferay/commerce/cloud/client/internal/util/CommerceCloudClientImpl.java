@@ -73,7 +73,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	configurationPid = CommerceCloudClientConstants.CONFIGURATION_PID,
-	immediate = true
+	immediate = true, service = CommerceCloudClient.class
 )
 public class CommerceCloudClientImpl implements CommerceCloudClient {
 
