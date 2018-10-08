@@ -58,8 +58,8 @@ public class BerylSampleForecastsBuilder {
 		JSONArray productsJSONArray = new JSONArray(productsJSON);
 
 		for (int customerId = 0;
-			customerId <= BerylSiteInitializer.ACCOUNT_ORGANIZATIONS_COUNT;
-			customerId++) {
+			 customerId <= BerylSiteInitializer.ACCOUNT_ORGANIZATIONS_COUNT;
+			 customerId++) {
 
 			_writeForecasts(
 				outputDirPath, customerId,

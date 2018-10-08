@@ -52,8 +52,8 @@ public class BerylSampleOrdersBuilder {
 		JSONArray productsJSONArray = new JSONArray(productsJSON);
 
 		for (int organizationId = 1;
-			organizationId <= BerylSiteInitializer.ACCOUNT_ORGANIZATIONS_COUNT;
-			organizationId++) {
+			 organizationId <= BerylSiteInitializer.ACCOUNT_ORGANIZATIONS_COUNT;
+			 organizationId++) {
 
 			_writeOrders(outputDirPath, organizationId, productsJSONArray);
 		}
