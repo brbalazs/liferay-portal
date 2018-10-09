@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Sharepoint REST Repository
 Bundle-SymbolicName: com.liferay.sharepoint.rest.repository
-Bundle-Version: 2.0.6
+Bundle-Version: 2.0.7
 Import-Package:\
 	!com.mashape.unirest.*,\
 	\
