@@ -479,6 +479,7 @@ public class KaleoFormsAdminPortlet extends MVCPortlet {
 			actionRequest, "workflowDefinitionName");
 		int workflowDefinitionVersion = ParamUtil.getInteger(
 			actionRequest, "workflowDefinitionVersion");
+
 		String kaleoTaskFormPairsData = ParamUtil.getString(
 			actionRequest, "kaleoTaskFormPairsData");
 
