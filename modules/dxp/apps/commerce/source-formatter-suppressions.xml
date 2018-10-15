@@ -3,5 +3,6 @@
 <suppressions>
 	<checkstyle>
 		<suppress checks="JSONNamingCheck" files="commerce-cloud/server/.*" />
+		<suppress checks="MissingEmptyLineCheck" files="commerce-cloud/server/src/main/java/com/liferay/commerce/cloud/server/HttpServerVerticle\.java" />
 	</checkstyle>
 </suppressions>

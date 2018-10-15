@@ -195,6 +195,13 @@ public class HttpServerVerticle extends AbstractVerticle {
 
 		Router router = Router.router(vertx);
 
+		ProjectService projectService = ProjectService.createProxy(vertx);
+
+		ProjectAuthHandler projectAuthHandler = new ProjectAuthHandler(
+			projectService);
+
+		ActiveProjectAuthHandler activeProjectAuthHandler =
+			new ActiveProjectAuthHandler();
 		ForecastConfigurationService forecastConfigurationService =
 			ForecastConfigurationService.createProxy(vertx);
 		ForecastOrderService forecastOrderService =
@@ -202,18 +209,10 @@ public class HttpServerVerticle extends AbstractVerticle {
 		ForecastProcessorService forecastProcessorService =
 			ForecastProcessorService.createProxy(vertx);
 		ForecastService forecastService = ForecastService.createProxy(vertx);
-		ProjectService projectService = ProjectService.createProxy(vertx);
-
-		ProjectAuthHandler projectAuthHandler = new ProjectAuthHandler(
-			projectService);
 
 		_addRouteEleflowForecastCallback(
 			router, projectAuthHandler, forecastProcessorService,
 			forecastService);
-
-		ActiveProjectAuthHandler activeProjectAuthHandler =
-			new ActiveProjectAuthHandler();
-
 		_addRouteGetForecastConfiguration(
 			router, projectAuthHandler, activeProjectAuthHandler,
 			forecastConfigurationService);

@@ -219,12 +219,13 @@ public class FedExCommerceShippingOptionHelper {
 			_serviceTypes.size());
 
 		for (Map.Entry<String, List<BigDecimal>> entry : rates.entrySet()) {
-			String name = entry.getKey();
 			List<BigDecimal> amounts = entry.getValue();
 
 			if (amounts.size() < originAddresses.size()) {
 				continue;
 			}
+
+			String name = entry.getKey();
 
 			String label = getCommerceShippingOptionLabel(
 				name, _resourceBundle);
