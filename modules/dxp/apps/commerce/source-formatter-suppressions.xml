@@ -4,6 +4,7 @@
 	<checkstyle>
 		<suppress checks="JSONNamingCheck" files="commerce-cloud/server/.*" />
 		<suppress checks="MissingEmptyLineCheck" files="commerce-cloud/server/src/main/java/com/liferay/commerce/cloud/server/HttpServerVerticle\.java" />
+		<suppress checks="VariableDeclarationAsUsedCheck" files=".*" />
 	</checkstyle>
 	<source-check>
 		<suppress checks="JavaAPISignatureCheck" files="commerce-initializer-beryl/src/main/java/com/liferay/commerce/initializer/beryl/internal/BerylLayoutsInitializer\.java" />
