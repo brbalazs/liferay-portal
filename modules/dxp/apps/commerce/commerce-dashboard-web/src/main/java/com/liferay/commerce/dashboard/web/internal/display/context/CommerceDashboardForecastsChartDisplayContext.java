@@ -30,7 +30,6 @@ import com.liferay.frontend.taglib.chart.model.AxisY;
 import com.liferay.frontend.taglib.chart.model.MixedDataColumn;
 import com.liferay.frontend.taglib.chart.model.predictive.PredictiveChartConfig;
 import com.liferay.ibm.icu.text.DateFormat;
-import com.liferay.ibm.icu.text.DateFormat.Field;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.exception.NoSuchCompanyException;
 import com.liferay.portal.kernel.exception.NoSuchOrganizationException;
@@ -49,7 +48,6 @@ import com.liferay.portal.kernel.util.ListUtil;
 import java.math.BigDecimal;
 
 import java.text.AttributedCharacterIterator;
-import java.text.AttributedCharacterIterator.Attribute;
 import java.text.Format;
 
 import java.util.ArrayList;
@@ -257,18 +255,20 @@ public class CommerceDashboardForecastsChartDisplayContext
 		while (attributedCharacterIterator.current() !=
 					AttributedCharacterIterator.DONE) {
 
-			Map<Attribute, Object> attributesMap =
+			Map<AttributedCharacterIterator.Attribute, Object> attributesMap =
 				attributedCharacterIterator.getAttributes();
 
 			if (attributesMap.isEmpty()) {
 				sb.append(attributedCharacterIterator.current());
 			}
 			else {
-				Set<Attribute> attributes = attributesMap.keySet();
+				Set<AttributedCharacterIterator.Attribute> attributes =
+					attributesMap.keySet();
 
-				Iterator<Attribute> iterator = attributes.iterator();
+				Iterator<AttributedCharacterIterator.Attribute> iterator =
+					attributes.iterator();
 
-				Field field = (Field)iterator.next();
+				DateFormat.Field field = (DateFormat.Field)iterator.next();
 
 				int calendarField = field.getCalendarField();
 

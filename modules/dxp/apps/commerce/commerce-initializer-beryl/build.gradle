@@ -14,9 +14,6 @@ task buildForecasts(type: JavaExec)
 task buildOrders(type: JavaExec)
 task formatJSON
 
-sourceCompatibility = "1.8"
-targetCompatibility = "1.8"
-
 File dependenciesDir = file("src/main/resources/com/liferay/commerce/initializer/customer/portal/internal/dependencies")
 
 File forecastsDir = new File(dependenciesDir, "forecasts")

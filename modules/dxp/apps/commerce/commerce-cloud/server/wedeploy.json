@@ -1,4 +1,6 @@
 {
-	"dependencies": ["data"],
+	"dependencies": [
+		"data"
+	],
 	"id": "server"
 }

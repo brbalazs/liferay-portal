@@ -40,8 +40,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
-import javax.ws.rs.core.Response.Status;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -72,7 +70,8 @@ public class CommerceCloudClientApplication extends Application {
 		if (Validator.isNull(_projectId)) {
 			_log.error("Project ID is not configured properly");
 
-			ResponseBuilder serverErrorResponseBuilder = Response.serverError();
+			Response.ResponseBuilder serverErrorResponseBuilder =
+				Response.serverError();
 
 			return serverErrorResponseBuilder.build();
 		}
@@ -81,7 +80,7 @@ public class CommerceCloudClientApplication extends Application {
 			_log.error("Project ID \"" + projectId + "\" does not match");
 
 			return Response.status(
-				Status.FORBIDDEN
+				Response.Status.FORBIDDEN
 			).build();
 		}
 
@@ -102,11 +101,11 @@ public class CommerceCloudClientApplication extends Application {
 		catch (Throwable t) {
 			_log.error("Unable to add forecast entries from JSON " + json, t);
 
-			ResponseBuilder responseBuilder = null;
+			Response.ResponseBuilder responseBuilder = null;
 
 			if (t instanceof CommerceCloudClientException) {
 				responseBuilder = Response.status(
-					Status.BAD_REQUEST
+					Response.Status.BAD_REQUEST
 				);
 			}
 			else {
@@ -116,7 +115,7 @@ public class CommerceCloudClientApplication extends Application {
 			return responseBuilder.build();
 		}
 
-		ResponseBuilder okResponseBuilder = Response.ok();
+		Response.ResponseBuilder okResponseBuilder = Response.ok();
 
 		return okResponseBuilder.build();
 	}
