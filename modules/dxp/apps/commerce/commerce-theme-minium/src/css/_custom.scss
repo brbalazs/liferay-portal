@@ -3,10 +3,14 @@
 /* inject:imports */
 /* endinject */
 
-body.signed-in #minium {
-  padding-top: 56px;
-}
-
-body.open #minium {
-  padding-left: 320px;
+#minium {
+  transition: padding ease 500ms;
+  
+  body.signed-in & {
+    padding-top: 56px;
+  }
+  
+  body.open & {
+    padding-left: 320px;
+  }
 }
