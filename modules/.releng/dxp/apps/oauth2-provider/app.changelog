@@ -23,17 +23,17 @@ app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467
 #
 
 app.artifacts-1.1.0=\
-	com.liferay.oauth2.provider.api-1.2.0.jar,\
-	com.liferay.oauth2.provider.jsonws-1.0.18.jar,\
-	com.liferay.oauth2.provider.rest-1.0.24.jar,\
-	com.liferay.oauth2.provider.rest.spi-1.0.0.jar,\
-	com.liferay.oauth2.provider.scope.api-1.0.2.jar,\
-	com.liferay.oauth2.provider.scope.impl-1.0.24.jar,\
-	com.liferay.oauth2.provider.scope.liferay.api-1.0.2.jar,\
-	com.liferay.oauth2.provider.scope.spi-1.0.1.jar,\
-	com.liferay.oauth2.provider.service-1.0.7.jar,\
-	com.liferay.oauth2.provider.web-1.0.27.jar
+	com.liferay.oauth2.provider.api-1.2.1.jar,\
+	com.liferay.oauth2.provider.jsonws-1.0.19.jar,\
+	com.liferay.oauth2.provider.rest-1.0.27.jar,\
+	com.liferay.oauth2.provider.rest.spi-1.0.1.jar,\
+	com.liferay.oauth2.provider.scope.api-1.0.3.jar,\
+	com.liferay.oauth2.provider.scope.impl-1.0.25.jar,\
+	com.liferay.oauth2.provider.scope.liferay.api-1.0.3.jar,\
+	com.liferay.oauth2.provider.scope.spi-1.0.2.jar,\
+	com.liferay.oauth2.provider.service-1.0.9.jar,\
+	com.liferay.oauth2.provider.web-1.0.28.jar
 
-app.change.log-1.1.0=LPS-74544 LPS-77699 LPS-78938 LPS-79679 LPS-81743 LPS-82460 LPS-83494 LPS-84092 LPS-84119 LPS-85296 OAUTH2-175 OAUTH2-208 OAUTH2-210 OAUTH2-211 OAUTH2-214 OAUTH2-215 OAUTH2-216 OAUTH2-218 OAUTH2-227 
+app.change.log-1.1.0=LPS-85849 LPS-86408 LPS-86473 OAUTH2-116 OAUTH2-124 OAUTH2-128 OAUTH2-131 OAUTH2-143 OAUTH2-150 OAUTH2-227 OAUTH2-229
 
-app.git.id-1.1.0=38cd763da1e4ee4eea0de171ae7cbedfc15308a4
+app.git.id-1.1.0=649173f3854a2a44b5c388c8dc2494597276c461
