@@ -1,0 +1,50 @@
+.minium-button {
+  --button-bg: var(--color-theme);
+  --button-fg: var(--color-bg);
+
+  align-items: center;
+  background-color: var(--button-bg);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  color: var(--button-fg);
+  display: inline-flex;
+  font-size: 10px;
+  font-weight: 900;
+  height: 54px;
+  justify-content: center;
+  letter-spacing: 1px;
+  padding: 20px;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  & + & {
+    margin-left: var(--minium-gutter);
+  }
+
+  &:hover {
+    color: var(--button-fg);
+    text-decoration: none;
+  }
+
+  &--outline {
+    --button-bg: var(--color-bg);
+    --button-fg: var(--color-theme);
+
+    border-color: currentColor;
+  }
+
+  &--block {
+    display: flex;
+    border-radius: 0;
+  }
+
+  &--small {
+    height: 44px;
+  }
+
+  &--big {
+    font-size: 12px;
+    height: 64px;
+    min-width: 170px;
+  }
+}

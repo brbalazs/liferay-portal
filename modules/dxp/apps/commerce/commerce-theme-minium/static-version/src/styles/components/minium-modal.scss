@@ -1,0 +1,44 @@
+.minium-modal {
+  align-items: stretch;
+  background: var(--color-bg);
+  border-radius: 8px;
+  box-shadow: var(--minium-shadow);
+  color: var(--color-fg);
+  display: flex;
+  height: 90vh;
+  max-height: 650px;
+  max-width: 520px;
+  min-height: 200px;
+  position: relative;
+  width: 90vw;
+
+  &__close {
+    color: currentColor;
+    font-size: 14px;
+    padding: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    &:hover {
+      color: currentColor;
+    }
+
+    svg {
+      display: block;
+    }
+  }
+
+  &__content {
+    overflow: auto;
+    padding: 50px 60px;
+    width: 100%;
+  }
+
+  &__title {
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 42px;
+    margin-bottom: 30px;
+  }
+}

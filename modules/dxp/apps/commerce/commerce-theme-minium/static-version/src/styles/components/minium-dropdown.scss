@@ -1,0 +1,33 @@
+.minium-dropdown {
+  --dropdown-color-bg: var(--color-bg);
+  position: relative;
+
+  &.is-open::before {
+    border: 10px solid transparent;
+    border-bottom-color: var(--dropdown-color-bg);
+    border-top-width: 0;
+    top: 100%;
+    content: '';
+    position: absolute;
+    right: 24px;
+    z-index: 60;
+  }
+
+  &__curtain {
+    background-color: var(--dropdown-color-bg);
+    box-shadow: var(--minium-shadow);
+    border-radius: 8px;
+    display: grid;
+    height: 530px;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    width: 450px;
+    z-index: 60;
+
+    .minium-dropdown:not(.is-open) & {
+      display: none;
+    }
+  }
+}

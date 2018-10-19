@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
+
+@import "./components/account-list.scss";
+@import "./components/account-selector.scss";
+@import "./components/account-switcher.scss";
+@import "./components/main-link.scss";
+@import "./components/main-navigation.scss";
+@import "./components/minium-button.scss";
+@import "./components/minium-content.scss";
+@import "./components/minium-dropdown.scss";
+@import "./components/minium-cart.scss";
+@import "./components/minium-dot.scss";
+@import "./components/minium-frame.scss";
+@import "./components/minium-icon.scss";
+@import "./components/minium-item.scss";
+@import "./components/minium-link.scss";
+@import "./components/minium-logo.scss";
+@import "./components/minium-modal.scss";
+@import "./components/minium-search.scss";
+@import "./components/minium-sidebar.scss";
+@import "./components/minium-suggestions.scss";
+@import "./components/minium-tabs.scss";
+@import "./components/minium-toast.scss";
+@import "./components/minium-topbar.scss";
+@import "./components/notification-badge.scss";
+@import "./components/quantity-selector.scss";
+@import "./components/small-table.scss";
+@import "./components/user-nav.scss";
+
+#minium {
+  --color-fg: #5c5e5e;
+  --color-fg-alt: #7f848d;
+  --color-bg: #fff;
+  --color-bg-medium: #fcfcfc;
+  --color-bg-alt: #f7f7f8;
+  --color-bg-dark: #34373e;
+  --color-border: #eceef1;
+  --color-shadow: #5c5e5e23;
+
+  --color-theme: #4c84ff;
+  --color-theme-transparent: #4c84ff11;
+
+  --color-modal-mask: rgba(52,55,62,0.6);
+
+  --color-mood-good: #78d89c;
+  --color-mood-neutral: #fee4b8;
+  --color-mood-bad: #ec676a;
+  
+  --minium-shadow: 0 10px 20px var(--color-shadow);
+  
+  --frame-size: 70px;
+  --sidebar-width: 300px;
+  --content-max-width: 1440px;
+  --minium-small-gutter: 20px;
+  --minium-gutter: 20px;
+  --minium-big-gutter: 40px;
+  
+  --transition: ease 200ms;
+  --micro-transition: ease 100ms;
+
+  font-family: 'Roboto', sans-serif;
+}
+
+.u-tar {
+  text-align: right;
+}
+
+.u-tac {
+  text-align: center;
+}
+
+.u-hoverable {
+  @media (hover: hover) {
+    &::before {
+      background-color: var(--color-theme);
+      content: '';
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      transition: opacity var(--micro-transition);
+      width: 2px;
+    }
+
+    &:not(:hover)::before {
+      opacity: 0;
+    }
+  }
+}

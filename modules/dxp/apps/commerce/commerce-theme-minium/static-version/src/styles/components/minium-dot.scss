@@ -1,0 +1,22 @@
+.minium-dot {
+  --dot-size: 14px;
+  --dot-color: var(--color-theme);
+
+  background-color: var(--dot-color);
+  border-radius: 50%;
+  display: inline-block;
+  height: var(--dot-size);
+  width: var(--dot-size);
+
+  &--good {
+    --dot-color: var(--color-mood-good);
+  }
+
+  &--neutral {
+    --dot-color: var(--color-mood-neutral);
+  }
+
+  &--bad {
+    --dot-color: var(--color-mood-bad);
+  }
+}

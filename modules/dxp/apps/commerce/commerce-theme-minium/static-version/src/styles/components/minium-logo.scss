@@ -1,0 +1,22 @@
+.minium-logo {
+  align-items: center;
+  display: flex;
+  height: var(--frame-size);
+  overflow: hidden;
+  padding-left: 24px;
+
+  svg {
+    min-width: 95px;
+  }
+
+  &__type {
+    transition:
+      opacity var(--transition),
+      transform var(--transition);
+
+    .minium-sidebar:not(:hover) & {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+  }
+}

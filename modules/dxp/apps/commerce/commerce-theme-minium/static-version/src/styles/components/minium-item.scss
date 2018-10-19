@@ -1,0 +1,29 @@
+.minium-item {
+  --item-image-size: 60px;
+
+  display: grid;
+  font-size: 12px;
+  grid-gap: 10px;
+  grid-template-columns: var(--item-image-size) 1fr auto;
+  grid-template-rows: var(--item-image-size);
+
+  &--search {
+    --item-image-size: 50px;
+    font-size: 14px;
+  }
+
+  &__image {
+    align-self: center;
+    border-radius: 4px;
+    margin: auto;
+    max-height: var(--item-image-size);
+    max-width: 100%;
+  }
+
+  &__content {
+    align-self: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

@@ -1,0 +1,12 @@
+.notification-badge {
+  align-items: center;
+  background-color: var(--color-theme);
+  border-radius: 50%;
+  color: var(--color-bg);
+  display: inline-flex;
+  font-size: 12px;
+  height: 21px;
+  justify-content: center;
+  margin-left: 15px;
+  width: 21px;
+}

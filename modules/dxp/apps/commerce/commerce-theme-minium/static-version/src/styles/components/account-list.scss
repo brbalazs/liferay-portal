@@ -1,0 +1,35 @@
+.account-list {
+  font-size: 16px;
+  font-weight: 500;
+
+  &__title {
+    font-size: 1.125em;
+    height: 40px;
+    margin-top: 15px;
+    padding: 0 15px;
+  }
+
+  &__item {
+    color: currentColor;
+    display: block;
+    margin-top: 15px;
+    padding: 0 15px;
+    position: relative;
+
+    &:hover {
+      color: currentColor;
+      text-decoration: none;
+    }
+
+    &:not(:hover) span {
+      opacity: 0.6;
+    }
+
+    img {
+      border-radius: 50%;
+      height: 40px;
+      margin-right: 10px;
+      width: 40px;
+    }
+  }
+}

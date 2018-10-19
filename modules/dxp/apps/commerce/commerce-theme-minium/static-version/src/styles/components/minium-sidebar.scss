@@ -1,0 +1,27 @@
+.minium-sidebar {
+  background-color: var(--color-bg);
+  box-shadow: 0 0 0 var(--color-shadow);
+  color: var(--color-fg-alt);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition:
+    box-shadow var(--transition),
+    width var(--transition);
+  width: var(--frame-size);
+
+  &:hover {
+    box-shadow: 20px 0 40px var(--color-shadow);
+    width: var(--sidebar-width);
+  }
+
+  &__start {
+    flex: 1 1 50%;
+  }
+
+  &__end {
+    align-items: flex-end;
+    display: flex;
+    flex: 1 1 50%;
+  }
+}

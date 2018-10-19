@@ -1,0 +1,85 @@
+.main-link {
+  align-items: center;
+  color: currentColor;
+  display: grid;
+  font-size: 14px;
+  grid-template: "icon label" 70px / var(--frame-size) 1fr;
+  position: relative;
+  text-decoration: none;
+
+  &:hover {
+    background-color: var(--color-theme-transparent);
+    color: currentColor;
+    text-decoration: none;
+  }
+
+  &.is-active {
+    color: var(--color-fg);
+    font-weight: bold;
+
+    &::before {
+      background-color: var(--color-theme);
+      content: '';
+      display: block;
+      height: 70%;
+      left: 0;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+    }
+  }
+
+  &--sub {
+    grid-template-rows: 36px;
+    grid-template-columns: calc(10px + var(--frame-size)) 1fr;
+
+    &.is-active::before {
+      height: 10px;
+      left: 35px;
+      width: 2px;
+    }
+  }
+
+  &__icon {
+    align-items: center;
+    display: flex;
+    font-size: 21px;
+    grid-area: icon;
+    height: var(--frame-size);
+    justify-content: center;
+    position: relative;
+
+    &.has-notification::before {
+      background-color: var(--color-theme);
+      border-radius: 50%;
+      content: '';
+      height: 6px;
+      position: absolute;
+      right: 22px;
+      top: 22px;
+      width: 6px;
+    }
+
+    .main-link.is-active & {
+      color: var(--color-theme);
+    }
+  }
+
+  &__label {
+    grid-area: label;
+    overflow: hidden;
+    padding-right: 15px;
+    text-overflow: ellipsis;
+    transition:
+      opacity var(--transition),
+      transform var(--transition);
+    white-space: nowrap;
+    transform: translateX(-15px);
+
+    .minium-sidebar:not(:hover) & {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+  }
+}
