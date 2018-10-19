@@ -1,6 +1,12 @@
-/* These inject tags are used for dynamically creating imports for themelet styles, you can place them where ever you like in this file. */
+@import "./static-version/src/styles/minium";
 
 /* inject:imports */
 /* endinject */
 
-/* This file allows you to override default styles in one central location for easier upgrade and maintenance. */
+body.signed-in #minium {
+  padding-top: 56px;
+}
+
+body.open #minium {
+  padding-left: 320px;
+}
