@@ -39,3 +39,17 @@ app.artifacts-1.0.2=\
 app.change.log-1.0.2=APIO-162 APIO-210 LRDOCS-5613 
 
 app.git.id-1.0.2=225e0a667e1cbbe24ecd16c53279bcf61267ea11
+
+#
+# Liferay App Version 1.0.3
+#
+
+app.artifacts-1.0.3=\
+	com.liferay.apio.architect.api-1.8.0.jar,\
+	com.liferay.apio.architect.exception.mapper.impl-1.0.7.jar,\
+	com.liferay.apio.architect.impl-1.0.15.jar,\
+	com.liferay.apio.architect.uri.mapper.impl-1.0.3.jar
+
+app.change.log-1.0.3=APIO-140 APIO-162 APIO-210 APIO-216 APIO-217 APIO-228 APIO-232 APIO-234 APIO-236 APIO-237 APIO-248 APIO-252 APIO-253 APIO-255 APIO-257 APIO-258 APIO-260 APIO-261 APIO-262 APIO-270 APIO-276 APIO-277 APIO-99 LPS-84119 LPS-85609 LRDOCS-5615 LRDOCS-5619
+
+app.git.id-1.0.3=ddaa4296f13a40037c546e23568e967b3627e329
