@@ -15,3 +15,21 @@ app.artifacts-4.0.0=\
 app.change.log-4.0.0=LPS-74544 
 
 app.git.id-4.0.0=5a396aad81fbcf70e0396cd955c9c81029ea424b
+
+#
+# Liferay App Version 4.0.1
+#
+
+app.artifacts-4.0.1=\
+	com.liferay.saml.addon.keep.alive.web-2.0.2.jar,\
+	com.liferay.saml.api-2.1.0.jar,\
+	com.liferay.saml.impl-2.0.6.jar,\
+	com.liferay.saml.opensaml.integration-2.0.15.jar,\
+	com.liferay.saml.persistence.api-2.0.2.jar,\
+	com.liferay.saml.persistence.service-2.0.4.jar,\
+	com.liferay.saml.web-2.0.2.jar,\
+	saml-hook-7.1.10.3.war
+
+app.change.log-4.0.1=LPS-74544 LPS-74900 LPS-78938 LPS-79679 LPS-82176 LPS-82751 LPS-83403 LPS-84119 LPS-84540 LPS-85296 LPS-86072 LPS-86408 
+
+app.git.id-4.0.1=3d77bf06242105b6f90057b4ac5d4a8449873615
