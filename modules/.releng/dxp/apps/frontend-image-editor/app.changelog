@@ -57,3 +57,23 @@ app.artifacts-1.0.2=\
 app.change.log-1.0.2=LPS-84119 
 
 app.git.id-1.0.2=5a2bd8aff29ca5c54f8687ee5a70d915054f10a4
+
+#
+# Liferay App Version 1.0.3
+#
+
+app.artifacts-1.0.3=\
+	com.liferay.frontend.image.editor.api-2.0.0.jar,\
+	com.liferay.frontend.image.editor.capability.brightness-2.0.4.jar,\
+	com.liferay.frontend.image.editor.capability.contrast-2.0.4.jar,\
+	com.liferay.frontend.image.editor.capability.crop-2.0.1.jar,\
+	com.liferay.frontend.image.editor.capability.effects-2.0.3.jar,\
+	com.liferay.frontend.image.editor.capability.resize-2.0.1.jar,\
+	com.liferay.frontend.image.editor.capability.rotate-2.0.1.jar,\
+	com.liferay.frontend.image.editor.capability.saturation-2.0.4.jar,\
+	com.liferay.frontend.image.editor.integration.document.library-2.0.7.jar,\
+	com.liferay.frontend.image.editor.web-2.0.7.jar
+
+app.change.log-1.0.3=LPS-74544 LPS-83494 LPS-84119 LPS-85296 
+
+app.git.id-1.0.3=350b0d9713312e1267ca3c0f3dbafa9b69674783
