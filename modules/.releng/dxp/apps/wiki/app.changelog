@@ -66,3 +66,26 @@ app.artifacts-1.0.2=\
 app.change.log-1.0.2=LPS-69953 LPS-78938 LPS-83697 LPS-84093 LPS-84119 LPS-84370 
 
 app.git.id-1.0.2=1210305a6cb5a8793e27ae6b0be5fdbdb58fe664
+
+#
+# Liferay App Version 1.0.3
+#
+
+app.artifacts-1.0.3=\
+	com.liferay.wiki.api-3.0.6.jar,\
+	com.liferay.wiki.editor.configuration-2.0.2.jar,\
+	com.liferay.wiki.editor.link.browse.web-1.0.2.jar,\
+	com.liferay.wiki.engine.creole-3.0.6.jar,\
+	com.liferay.wiki.engine.html-3.0.0.jar,\
+	com.liferay.wiki.engine.input.editor.common-4.0.3.jar,\
+	com.liferay.wiki.engine.lang-2.0.0.jar,\
+	com.liferay.wiki.engine.text-3.0.1.jar,\
+	com.liferay.wiki.layout.prototype-2.0.0.jar,\
+	com.liferay.wiki.navigation.web-3.0.4.jar,\
+	com.liferay.wiki.service-2.0.16.jar,\
+	com.liferay.wiki.uad-3.0.0.jar,\
+	com.liferay.wiki.web-4.0.28.jar
+
+app.change.log-1.0.3=LPS-74544 LPS-77699 LPS-78938 LPS-81743 LPS-83241 LPS-83494 LPS-83697 LPS-83813 LPS-84119 LPS-84399 LPS-84683 LPS-85049 LPS-85296 LPS-85849 LPS-86181 LPS-86408 LPS-86413 
+
+app.git.id-1.0.3=72ebf04409c6149233f261afa9c99acad6bfa327
