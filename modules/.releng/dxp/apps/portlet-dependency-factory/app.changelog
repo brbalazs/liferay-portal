@@ -19,3 +19,14 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-80310
 
 app.git.id-1.0.1=c0cdedfb2f0d55b3f7749e8c4a338fbe096fbc98
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.portlet.dependency.factory.impl-1.0.4.jar
+
+app.change.log-1.0.2=LPS-80388 LPS-86408
+
+app.git.id-1.0.2=8512abe066f3ae0b11c720b79048ef953e1f3d63
