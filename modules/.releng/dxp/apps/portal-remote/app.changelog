@@ -82,3 +82,29 @@ app.artifacts-1.0.2=\
 app.change.log-1.0.2=LPS-80681 LPS-82460 LPS-82828 LPS-82850 LPS-83308 LPS-84093 LPS-84626 
 
 app.git.id-1.0.2=16445ef563879b6fc57a74e5fbb86f2c569e3c1f
+
+#
+# Liferay App Version 1.0.3
+#
+
+app.artifacts-1.0.3=\
+	com.liferay.portal.remote.axis.extender-2.0.2.jar,\
+	com.liferay.portal.remote.cxf.common-4.0.5.jar,\
+	com.liferay.portal.remote.http.tunnel.extender-3.0.2.jar,\
+	com.liferay.portal.remote.http.whiteboard.debug-1.0.3.jar,\
+	com.liferay.portal.remote.jaxrs.whiteboard-2.0.2.jar,\
+	com.liferay.portal.remote.jaxrs.whiteboard.debug-1.0.7.jar,\
+	com.liferay.portal.remote.jaxrs.whiteboard.jaxb.json-1.0.3.jar,\
+	com.liferay.portal.remote.json.web.service.extender-3.0.0.jar,\
+	com.liferay.portal.remote.rest.extender-3.0.6.jar,\
+	com.liferay.portal.remote.soap.extender.api-2.0.0.jar,\
+	com.liferay.portal.remote.soap.extender.impl-2.0.4.jar,\
+	geronimo-jaxrs_2.1_spec-1.1.jar,\
+	javax.json-api-1.0.jar,\
+	org.apache.aries.jax.rs.jaxb.json-1.0.0.jar,\
+	org.apache.aries.jax.rs.whiteboard-1.0.2-20181022.083746-4.jar,\
+	org.osgi.service.jaxrs-1.0.0.jar
+
+app.change.log-1.0.3=LPS-74544 LPS-80681 LPS-82460 LPS-82828 LPS-82850 LPS-84119 LPS-85260 LPS-85296 LPS-86079 LPS-86332 LPS-86408 OAUTH2-44 
+
+app.git.id-1.0.3=f4412c0bdb746a9ae82ede089216d30016954e1f
