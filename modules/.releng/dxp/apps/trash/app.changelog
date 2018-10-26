@@ -39,3 +39,17 @@ app.artifacts-1.0.2=\
 app.change.log-1.0.2=LPS-84093 LPS-84119 LPS-84549 
 
 app.git.id-1.0.2=a1c0934905f4fe6ef67a393ab421ff429f8dd4c5
+
+#
+# Liferay App Version 1.0.3
+#
+
+app.artifacts-1.0.3=\
+	com.liferay.trash.api-1.0.5.jar,\
+	com.liferay.trash.service-2.0.9.jar,\
+	com.liferay.trash.taglib-3.0.3.jar,\
+	com.liferay.trash.web-2.0.11.jar
+
+app.change.log-1.0.3=LPS-74129 LPS-83241 LPS-83522 LPS-84119 LPS-85296 LPS-85849 LPS-86408 LPS-86413
+
+app.git.id-1.0.3=58e7f99f978f97edc1effc57edb9e946de1318c1
