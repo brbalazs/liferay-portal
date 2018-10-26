@@ -19,3 +19,14 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-84009 LPS-84092
 
 app.git.id-1.0.1=5410259ba9846241043edbec4dd317644bdb643a
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.microsoft.translator-2.0.6.jar
+
+app.change.log-1.0.2=LPS-84119
+
+app.git.id-1.0.2=01e02591e1b8f98bbdec3f345da24684ed6cfaea
