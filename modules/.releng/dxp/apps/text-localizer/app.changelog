@@ -21,3 +21,15 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-84093 
 
 app.git.id-1.0.1=62e71e830133ac1e08fbe3f6ae0913803c45b2a0
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.text.localizer.address.api-1.0.2.jar,\
+	com.liferay.text.localizer.taglib-1.0.3.jar
+
+app.change.log-1.0.2=LPS-86408
+
+app.git.id-1.0.2=0978cad1f9117dea19eb8c3f414e024de39fcb8c
