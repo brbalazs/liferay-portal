@@ -33,3 +33,15 @@ app.artifacts-1.0.2=\
 app.change.log-1.0.2=LPS-84093 
 
 app.git.id-1.0.2=594b3dcf701065018e2e73e09ce858db3b708dce
+
+#
+# Liferay App Version 1.0.3
+#
+
+app.artifacts-1.0.3=\
+	com.liferay.portal.lock.api-3.0.1.jar,\
+	com.liferay.portal.lock.service-3.0.6.jar
+
+app.change.log-1.0.3=LPS-74544 LPS-84119 LPS-85849
+
+app.git.id-1.0.3=d4a77b093f41b578953078fc5c3e94dd8d6154c6
