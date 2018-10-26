@@ -84,3 +84,32 @@ app.artifacts-1.0.2=\
 app.change.log-1.0.2=LPS-69953 LPS-78938 LPS-82079 LPS-82483 LPS-82546 LPS-83697 LPS-84119 LPS-84602 
 
 app.git.id-1.0.2=91913bc0c274c523dafa105839efcb326d7744df
+
+#
+# Liferay App Version 1.0.3
+#
+
+app.artifacts-1.0.3=\
+	com.liferay.document.library.analytics-2.0.3.jar,\
+	com.liferay.document.library.api-4.1.3.jar,\
+	com.liferay.document.library.content.api-1.0.3.jar,\
+	com.liferay.document.library.content.service-1.0.4.jar,\
+	com.liferay.document.library.document.conversion-1.0.11.jar,\
+	com.liferay.document.library.file.rank.api-1.0.3.jar,\
+	com.liferay.document.library.file.rank.service-1.0.8.jar,\
+	com.liferay.document.library.item.selector.web-2.0.6.jar,\
+	com.liferay.document.library.layout.set.prototype-3.0.1.jar,\
+	com.liferay.document.library.repository.authorization.api-2.0.2.jar,\
+	com.liferay.document.library.repository.cmis.api-2.0.5.jar,\
+	com.liferay.document.library.repository.cmis.impl-3.0.10.jar,\
+	com.liferay.document.library.repository.external.api-2.0.7.jar,\
+	com.liferay.document.library.repository.search-4.0.2.jar,\
+	com.liferay.document.library.service-3.0.25.jar,\
+	com.liferay.document.library.sync.api-1.0.2.jar,\
+	com.liferay.document.library.sync.service-1.0.3.jar,\
+	com.liferay.document.library.uad-3.0.0.jar,\
+	com.liferay.document.library.web-3.0.34.jar
+
+app.change.log-1.0.3=LPS-74544 LPS-77699 LPS-78938 LPS-81743 LPS-82483 LPS-82546 LPS-83241 LPS-83494 LPS-83697 LPS-83821 LPS-84043 LPS-84043: LPS-84119 LPS-84399 LPS-84914 LPS-85217 LPS-85224 LPS-85247 LPS-85296 LPS-85306 LPS-85347 LPS-85732 LPS-85849 LPS-85982 LPS-85994 LPS-86262 LPS-86408 LPS-86413 LPS-86473 
+
+app.git.id-1.0.3=9b379761ee330fd49ecbac4a633d06d5bd961194
