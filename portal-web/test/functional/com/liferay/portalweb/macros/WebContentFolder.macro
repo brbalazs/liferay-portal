@@ -39,7 +39,9 @@ definition {
 
 		LexiconEntry.gotoAdd();
 
-		MenuItem.click(menuItem = "Subfolder");
+		if (IsElementPresent(key_menuItem = "Subfolder", locator1 = "MenuItem#ANY_MENU_ITEM")) {
+			MenuItem.click(menuItem = "Subfolder");
+		}
 
 		PortletEntry.inputName(name = "${subfolderName}");
 
