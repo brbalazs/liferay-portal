@@ -1,0 +1,10 @@
+#
+# Liferay App Version 4.0.0
+#
+
+app.artifacts-4.0.0=\
+	social-bookmarks-hook-7.1.0.3.war
+
+app.change.log-4.0.0=LPS-84378
+
+app.git.id-4.0.0=bba0cfd4f6ebb469a74562d0fd620aa4eeaa4cdc
