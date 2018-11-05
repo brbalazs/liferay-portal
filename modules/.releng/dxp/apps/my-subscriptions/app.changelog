@@ -1,0 +1,10 @@
+#
+# Liferay App Version 4.0.0
+#
+
+app.artifacts-4.0.0=\
+	com.liferay.my.subscriptions.web-2.0.5.jar
+
+app.change.log-4.0.0=LPS-86655
+
+app.git.id-4.0.0=bba0cfd4f6ebb469a74562d0fd620aa4eeaa4cdc
