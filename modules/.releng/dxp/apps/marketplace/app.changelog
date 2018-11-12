@@ -5,9 +5,9 @@
 app.artifacts-10=\
 	com.liferay.marketplace.api-5.0.3.jar,\
 	com.liferay.marketplace.app.manager.web-2.0.16.jar,\
-	com.liferay.marketplace.service-4.0.8.jar,\
+	com.liferay.marketplace.service-4.0.9.jar,\
 	com.liferay.marketplace.store.web-4.0.5.jar
 
-app.change.log-10=LPS-84119 LPS-85849 LPS-86444 LPS-86782
+app.change.log-10=LPS-81704 LPS-85849 LPS-86444 LPS-86782 LPS-86917
 
-app.git.id-10=23228db4232a4e62496a7e312ab732bf8eeb9de3
+app.git.id-10=271668dd0c7adedb4a0421c3c28e02ae5057b590
