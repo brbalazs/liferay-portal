@@ -49,3 +49,16 @@ app.artifacts-1.0.3=\
 app.change.log-1.0.3=LPS-74544 LPS-83522 LPS-84119 LPS-85157 LPS-85193 LPS-85296 LPS-85575 LPS-85610 LPS-85969 LPS-86452 LPS-86490 
 
 app.git.id-1.0.3=681d4235bc674e45c89ba3667b2e21e66bfcba3c
+
+#
+# Liferay App Version 1.0.4
+#
+
+app.artifacts-1.0.4=\
+	com.liferay.frontend.css.common-3.0.1.jar,\
+	com.liferay.frontend.css.rtl.servlet-2.0.6.jar,\
+	com.liferay.frontend.css.web-2.0.11.jar
+
+app.change.log-1.0.4=LPS-84711 LPS-87135 
+
+app.git.id-1.0.4=c19b035a6bb9116cfb7164943795c2b7ee1169a3
