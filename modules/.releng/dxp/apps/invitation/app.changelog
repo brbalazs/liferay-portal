@@ -36,3 +36,16 @@ app.artifacts-1.0.2=\
 app.change.log-1.0.2=LPS-77699 LPS-78613 LPS-83494 LPS-84119 LPS-85849
 
 app.git.id-1.0.2=de2034b8898b698020d5b896287c1d939723231f
+
+#
+# Liferay App Version 1.0.3
+#
+
+app.artifacts-1.0.3=\
+	com.liferay.invitation.invite.members.api-3.0.3.jar,\
+	com.liferay.invitation.invite.members.service-4.0.6.jar,\
+	com.liferay.invitation.invite.members.web-2.0.9.jar
+
+app.change.log-1.0.3=LPS-81704 
+
+app.git.id-1.0.3=3f63b13df95fe9bc84a553ba241b8523307f6057
