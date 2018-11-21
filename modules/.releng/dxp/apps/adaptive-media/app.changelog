@@ -149,3 +149,41 @@ app.artifacts-2.0.3=\
 app.change.log-2.0.3=LPS-74544 LPS-77699 LPS-81743 LPS-83241 LPS-83818 LPS-84090 LPS-84119 LPS-84850 LPS-84851 LPS-84906 LPS-85296 LPS-85536 LPS-85611 LPS-85849 LPS-85966 LPS-86105 LPS-86408 LPS-86413 LPS-86473 
 
 app.git.id-2.0.3=1d383b71bd73f51a917ac1674db90b1c7013c823
+
+#
+# Liferay App Version 2.0.4
+#
+
+app.artifacts-2.0.4=\
+	com.liferay.adaptive.media.api-3.0.2.jar,\
+	com.liferay.adaptive.media.blogs.editor.configuration-2.0.2.jar,\
+	com.liferay.adaptive.media.blogs.item.selector.web-2.0.1.jar,\
+	com.liferay.adaptive.media.blogs.web-2.0.3.jar,\
+	com.liferay.adaptive.media.blogs.web.fragment-2.0.2.jar,\
+	com.liferay.adaptive.media.content.transformer.api-2.0.1.jar,\
+	com.liferay.adaptive.media.content.transformer.impl-1.0.3.jar,\
+	com.liferay.adaptive.media.demo.data.creator.api-2.0.0.jar,\
+	com.liferay.adaptive.media.demo.data.creator.impl-2.0.1.jar,\
+	com.liferay.adaptive.media.document.library-2.0.3.jar,\
+	com.liferay.adaptive.media.document.library.item.selector.web-2.0.2.jar,\
+	com.liferay.adaptive.media.document.library.thumbnails-2.0.5.jar,\
+	com.liferay.adaptive.media.document.library.web-2.0.2.jar,\
+	com.liferay.adaptive.media.image.api-2.0.3.jar,\
+	com.liferay.adaptive.media.image.content.transformer-2.0.3.jar,\
+	com.liferay.adaptive.media.image.content.transformer.backwards.compatibility-2.0.1.jar,\
+	com.liferay.adaptive.media.image.impl-2.0.13.jar,\
+	com.liferay.adaptive.media.image.item.selector.api-2.0.1.jar,\
+	com.liferay.adaptive.media.image.item.selector.impl-2.0.3.jar,\
+	com.liferay.adaptive.media.image.js.web-2.0.6.jar,\
+	com.liferay.adaptive.media.image.service-2.0.8.jar,\
+	com.liferay.adaptive.media.image.taglib-2.0.1.jar,\
+	com.liferay.adaptive.media.image.web-2.0.2.jar,\
+	com.liferay.adaptive.media.item.selector.upload.web-2.0.2.jar,\
+	com.liferay.adaptive.media.journal.editor.configuration-2.0.1.jar,\
+	com.liferay.adaptive.media.journal.web-2.0.2.jar,\
+	com.liferay.adaptive.media.upload-1.0.2.jar,\
+	com.liferay.adaptive.media.web-2.0.15.jar
+
+app.change.log-2.0.4=LPS-77699 LPS-79679 LPS-81704 LPS-83241 LPS-83705 LPS-84090 LPS-84119 LPS-84850 LPS-84851 LPS-85296 LPS-85611 LPS-85966 LPS-86105 LPS-86408 LPS-86413 LPS-86473 LPS-86762 LPS-86806 
+
+app.git.id-2.0.4=63ee8cc77ab4f44b3166bb2fdbfd5c97f5a29ca9
