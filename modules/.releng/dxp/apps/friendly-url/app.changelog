@@ -45,3 +45,15 @@ app.artifacts-1.0.3=\
 app.change.log-1.0.3=LPS-81670 LPS-84119 LPS-85107 LPS-85849 LPS-86413
 
 app.git.id-1.0.3=904ba8978f41e14b6cae9e7c377298315fcf140f
+
+#
+# Liferay App Version 1.0.4
+#
+
+app.artifacts-1.0.4=\
+	com.liferay.friendly.url.api-1.0.3.jar,\
+	com.liferay.friendly.url.service-1.0.15.jar
+
+app.change.log-1.0.4=LPS-81670 LPS-81704 LPS-86369 LPS-86545 LPS-87198 
+
+app.git.id-1.0.4=37e572d87f6e470007df9d4eb1e3f54b2fd3d931
