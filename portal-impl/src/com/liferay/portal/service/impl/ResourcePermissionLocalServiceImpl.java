@@ -222,7 +222,7 @@ public class ResourcePermissionLocalServiceImpl
 		throws PortalException {
 
 		ModelPermissions modelPermissions = ModelPermissionsFactory.create(
-			groupPermissions, guestPermissions);
+			groupPermissions, guestPermissions, name);
 
 		addModelResourcePermissions(
 			companyId, groupId, userId, name, primKey, modelPermissions);
@@ -1689,7 +1689,7 @@ public class ResourcePermissionLocalServiceImpl
 		throws PortalException {
 
 		ModelPermissions modelPermissions = ModelPermissionsFactory.create(
-			groupPermissions, guestPermissions);
+			groupPermissions, guestPermissions, name);
 
 		updateResourcePermissions(
 			companyId, groupId, name, primKey, modelPermissions);

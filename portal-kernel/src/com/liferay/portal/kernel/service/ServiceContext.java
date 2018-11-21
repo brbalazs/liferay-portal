@@ -213,7 +213,7 @@ public class ServiceContext implements Cloneable, Serializable {
 		ModelPermissions modelPermissions = getModelPermissions();
 
 		if (modelPermissions == null) {
-			modelPermissions = new ModelPermissions();
+			modelPermissions = new ModelPermissions(modelName);
 		}
 
 		modelPermissions.addRolePermissions(
