@@ -134,3 +134,33 @@ app.artifacts-1.0.3=\
 app.change.log-1.0.3=LPS-74544 LPS-75815 LPS-77699 LPS-80388 LPS-82453 LPS-83241 LPS-83494 LPS-83743 LPS-83824 LPS-83827 LPS-84119 LPS-84209 LPS-84478 LPS-84507 LPS-84587 LPS-84653 LPS-84733 LPS-84790 LPS-85099 LPS-85177 LPS-85281 LPS-85296 LPS-85353 LPS-85356 LPS-85381 LPS-85450 LPS-85742 LPS-85849 LPS-85865 LPS-85952 LPS-85976 LPS-86152 LPS-86408 LPS-86413 
 
 app.git.id-1.0.3=c926da9658dcabbc7825fecdef8831fd4ef8892d
+
+#
+# Liferay App Version 1.0.4
+#
+
+app.artifacts-1.0.4=\
+	com.liferay.dynamic.data.mapping.api-4.7.1.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.impl-2.0.8.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.instance-1.0.3.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.web-2.0.11.jar,\
+	com.liferay.dynamic.data.mapping.expression-3.0.4.jar,\
+	com.liferay.dynamic.data.mapping.form.analytics-2.0.3.jar,\
+	com.liferay.dynamic.data.mapping.form.builder-1.0.34.jar,\
+	com.liferay.dynamic.data.mapping.form.evaluator.impl-1.0.7.jar,\
+	com.liferay.dynamic.data.mapping.form.field.type-3.0.16.jar,\
+	com.liferay.dynamic.data.mapping.form.renderer-3.0.24.jar,\
+	com.liferay.dynamic.data.mapping.form.taglib-1.0.5.jar,\
+	com.liferay.dynamic.data.mapping.form.values.factory-3.0.4.jar,\
+	com.liferay.dynamic.data.mapping.form.values.query-3.0.1.jar,\
+	com.liferay.dynamic.data.mapping.form.web-1.0.44.jar,\
+	com.liferay.dynamic.data.mapping.io-3.0.10.jar,\
+	com.liferay.dynamic.data.mapping.lang-3.0.8.jar,\
+	com.liferay.dynamic.data.mapping.service-3.0.40.jar,\
+	com.liferay.dynamic.data.mapping.taglib-3.2.1.jar,\
+	com.liferay.dynamic.data.mapping.validator-3.0.3.jar,\
+	com.liferay.dynamic.data.mapping.web-2.0.28.jar
+
+app.change.log-1.0.4=LPS-79431 LPS-81704 LPS-83714 LPS-84760 LPS-85637 LPS-85915 LPS-86420: LPS-86440 LPS-86806 LPS-86932 LPS-87198 
+
+app.git.id-1.0.4=0e39158489e3304d0e024e9b942ddb5858101d3e
