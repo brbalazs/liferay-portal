@@ -1,12 +1,11 @@
-.minium-button {
-  --button-bg: var(--color-theme);
-  --button-fg: var(--color-bg);
+.minium-button.minium-button {
+  --button-color: var(--color-theme);
 
   align-items: center;
-  background-color: var(--button-bg);
-  border: 2px solid transparent;
+  background-color: var(--button-bg, var(--button-color));
+  border: 2px solid var(--button-color);
   border-radius: 8px;
-  color: var(--button-fg);
+  color: var(--button-fg, var(--color-bg));
   display: inline-flex;
   font-size: 10px;
   font-weight: 900;
@@ -14,6 +13,7 @@
   justify-content: center;
   letter-spacing: 1px;
   padding: 20px;
+  text-decoration: none;
   text-transform: uppercase;
   white-space: nowrap;
 
@@ -21,16 +21,23 @@
     margin-left: var(--minium-gutter);
   }
 
-  &:hover {
-    color: var(--button-fg);
-    text-decoration: none;
+  &--good {
+    --button-color: var(--color-mood-good);
+  }
+
+  &--bad {
+    --button-color: var(--color-mood-bad);
+  }
+
+  &--neutral {
+    --button-color: var(--color-mood-neutral);
   }
 
   &--outline {
+    // background-color: var(--color-bg);
+    // color: var(--button-color);
     --button-bg: var(--color-bg);
-    --button-fg: var(--color-theme);
-
-    border-color: currentColor;
+    --button-fg: var(--button-color);
   }
 
   &--block {
@@ -40,6 +47,10 @@
 
   &--small {
     height: 44px;
+
+    & + & {
+      margin-left: var(--minium-small-gutter);
+    }
   }
 
   &--big {

@@ -1,10 +1,42 @@
 import Vue from "vue";
 import App from "./App.vue";
+import MiniumTable from "../public/soy-components/test/src/MiniumTable";
+import "intersection-observer";
 
 import "./styles/minium.scss";
 import "./styles/test.scss";
 
 Vue.config.productionTip = false;
+
+// if (typeof Object.assign != 'function') {
+//   // Must be writable: true, enumerable: false, configurable: true
+//   Object.defineProperty(Object, "assign", {
+//     value: function assign(target, varArgs) { // .length of function is 2
+//       'use strict';
+//       if (target == null) { // TypeError if undefined or null
+//         throw new TypeError('Cannot convert undefined or null to object');
+//       }
+
+//       var to = Object(target);
+
+//       for (var index = 1; index < arguments.length; index++) {
+//         var nextSource = arguments[index];
+
+//         if (nextSource != null) { // Skip over if undefined or null
+//           for (var nextKey in nextSource) {
+//             // Avoid bugs when hasOwnProperty is shadowed
+//             if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+//               to[nextKey] = nextSource[nextKey];
+//             }
+//           }
+//         }
+//       }
+//       return to;
+//     },
+//     writable: true,
+//     configurable: true
+//   });
+// }
 
 new Vue({
   render: h => h(App)
@@ -22,3 +54,154 @@ new IntersectionObserver(
     threshold: 1.0
   }
 ).observe(document.querySelector("[name=minium-top]"));
+
+// eslint-disable-next-line
+// const badge = new clay.ClayBadge(
+//   {
+//     label: "10",
+//     style: "primary"
+//   },
+//   "#badge"
+// );
+
+// let actionItemsWithQuickItems = [
+//   {
+//     href: "#1",
+//     icon: "trash",
+//     label: "Remove",
+//     quickAction: true
+//   },
+//   {
+//     href: "#2",
+//     icon: "download",
+//     label: "Download",
+//     quickAction: true,
+//     separator: true
+//   }
+// ];
+let item = {
+  date: "07.04.2018",
+  time: "11:43 AM",
+  image: "http://placehold.it/100",
+  imageAlt: "Placeholder image",
+  productName: "White Label Matte Orange",
+  productType: "Engine",
+  labels: ["New"],
+  order: "2018213431",
+  account: "Bob’s Sporting Mx",
+  accountCode: "007274",
+  created: "John Doe",
+  createdLink: "#john-doe",
+  referent: "Test",
+  status: {
+    label: "Approved",
+    badge: "good"
+  },
+  amount: "$ 59,301.00",
+  actionsLink: "#",
+  actionsLinkLabel: "Work on this order",
+  actions: [
+    {
+      label: "Good",
+      href: "#",
+      type: "good"
+    },
+    {
+      label: "Bad",
+      href: "#",
+      type: "bad"
+    },
+    {
+      label: "Neutral",
+      href: "#",
+      type: "neutral"
+    },
+    {
+      label: "Default",
+      href: "#"
+    },
+    {
+      label: "Primary",
+      href: "#",
+      type: "primary"
+    }
+  ]
+};
+
+let items = new Array(20).fill(item);
+
+// items.forEach(item => {
+//   item.actionItems = actionItemsWithQuickItems;
+// });
+
+// eslint-disable-next-line
+new MiniumTable(
+  {
+    items: items,
+    schema: {
+      fields: [
+        {
+          contentRenderer: "miniumCell",
+          fieldName: "productName",
+          subTitleField: "productType",
+          label: "Simple"
+        },
+        {
+          contentRenderer: "miniumImage",
+          fieldName: "image",
+          altField: "imageAlt",
+          label: "Image"
+        },
+        {
+          contentRenderer: "miniumCell",
+          fieldName: "date",
+          subTitleField: "time",
+          label: "Datetime"
+        },
+        {
+          contentRenderer: "miniumCell",
+          fieldName: "account",
+          label: "No subtitle"
+        },
+        {
+          contentRenderer: "label",
+          fieldName: "labels",
+          label: "Label",
+          labelStylesMap: {
+            Spicy: "warning",
+            "Very Spicy": "danger",
+            "*": "success"
+          }
+        },
+        {
+          contentRenderer: "miniumLink",
+          fieldName: "created",
+          fieldLink: "createdLink",
+          label: "Link"
+        },
+        {
+          contentRenderer: "miniumStatus",
+          fieldName: "status",
+          label: "Status"
+        },
+        {
+          contentRenderer: "miniumActions",
+          fieldName: "actions",
+          linkField: "actionsLink",
+          linkLabelField: "actionsLinkLabel",
+          label: ""
+        }
+      ],
+      inputNameField: "type",
+      inputNamesMap: {
+        folder: "folder",
+        chef: "chef",
+        "*": "recipe"
+      },
+      inputValueField: "id"
+    },
+    selectable: true,
+    showActionsMenu: false
+  },
+  "#test-table"
+);

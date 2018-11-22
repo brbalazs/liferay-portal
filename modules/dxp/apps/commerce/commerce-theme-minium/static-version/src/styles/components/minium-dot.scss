@@ -2,11 +2,19 @@
   --dot-size: 14px;
   --dot-color: var(--color-theme);
 
-  background-color: var(--dot-color);
-  border-radius: 50%;
-  display: inline-block;
-  height: var(--dot-size);
-  width: var(--dot-size);
+  display: grid;
+  grid-gap: 5px;
+  align-items: center;
+  grid-template-columns: auto 1fr;
+
+  &::before {
+    background-color: var(--dot-color);
+    border-radius: 50%;
+    content: '';
+    display: inline-block;
+    height: var(--dot-size);
+    width: var(--dot-size);
+  }
 
   &--good {
     --dot-color: var(--color-mood-good);

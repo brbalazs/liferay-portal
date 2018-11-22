@@ -10,6 +10,9 @@
     "build:storybook": "vue-cli-service build:storybook -c config/storybook"
   },
   "dependencies": {
+    "clay": "^2.4.1",
+    "clay-table": "^2.4.1",
+    "intersection-observer": "^0.5.1",
     "vue": "^2.5.17"
   },
   "devDependencies": {

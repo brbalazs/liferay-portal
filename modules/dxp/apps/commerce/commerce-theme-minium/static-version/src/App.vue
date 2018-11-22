@@ -11,9 +11,13 @@
     <div class="minium-frame__content js-scroll-area">
       <a name="minium-top"></a>
       <div class="minium-content">
-        <div style="height: 2000px; background: white; padding-top: 40px; text-align: center; border-radius: 8px; color: #9D9E9E; font-size: 11px; text-transform: uppercase; letter-spacing: 1.1px;">
+        <div style="height: 200px; background: white; padding-top: 40px; text-align: center; border-radius: 8px; color: #9D9E9E; font-size: 11px; text-transform: uppercase; letter-spacing: 1.1px;">
           👉 Page content HERE! 👈
+
         </div>
+        <br>
+        <br>
+        <div id="test-table"></div>
       </div>
     </div>
 
