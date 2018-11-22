@@ -1,6 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
-import MiniumTable from "../public/soy-components/test/src/MiniumTable";
+import MiniumTable from "../public/soy-components/minium-table/src/MiniumTable";
 import "intersection-observer";
 
 import "./styles/minium.scss";
