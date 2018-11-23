@@ -16,6 +16,7 @@
   text-decoration: none;
   text-transform: uppercase;
   white-space: nowrap;
+  cursor: pointer;
 
   & + & {
     margin-left: var(--minium-gutter);
@@ -53,9 +54,28 @@
     }
   }
 
+  &--disabled {
+    background-color: var(--color-disabled);
+    cursor: inherit;
+  }
+
   &--big {
     font-size: 12px;
     height: 64px;
     min-width: 170px;
+  }
+  
+  &--inline {
+    display: inline-block;
+    padding: 0;
+    border: none;
+    background: transparent;
+    height: auto;
+    min-width: auto;
+    color: var(--color-theme);
+
+    &:hover {
+      color: inherit;
+    }
   }
 }

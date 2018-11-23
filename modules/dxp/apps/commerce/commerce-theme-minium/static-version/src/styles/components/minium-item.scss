@@ -2,14 +2,21 @@
   --item-image-size: 60px;
 
   display: grid;
+  position: relative;
   font-size: 12px;
   grid-gap: 10px;
-  grid-template-columns: var(--item-image-size) 1fr auto;
-  grid-template-rows: var(--item-image-size);
+  grid-template-columns: var(--item-image-size) 1fr 100px;
+  overflow: hidden;
+  max-height: 130px;
+  transition: max-height .2s ease-in, padding .1s ease-in;
 
   &--search {
     --item-image-size: 50px;
     font-size: 14px;
+  }
+
+  .minium-item.is-not-valid & {
+    opacity: .3;
   }
 
   &__image {
@@ -25,5 +32,86 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  &__error {
+    grid-column: 1 / 3;
+    font-weight: 600;
+    color: var(--color-mood-bad)
+  }
+
+  &__delete {
+    margin: 10px auto 0;
+    align-items: center;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    color: var(--color-mood-bad);
+    display: flex;
+    height: 16px;
+    justify-content: center;
+    position: relative;
+    width: 16px;
+
+    &:hover {
+      color: var(--color-mood-bad);
+    }
+
+    @media (hover: hover) {
+      .minium-cart__item:not(:hover) &:not(:focus) {
+        opacity: 0;
+      }
+    }
+
+    &::before,
+    &::after {
+      display: block;
+      content: '';
+      height: 8px;
+      width: 2px;
+      background-color: currentColor;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(var(--rotate, 45deg));
+    }
+
+    &::after {
+      --rotate: -45deg;
+    }
+
+    &.is-disabled{
+      opacity: .5;
+      cursor: wait;
+    }
+  }
+
+  &__cancel-delete {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-bg-alt);
+    z-index: 2;
+    transition: transform .2s ease-in;
+    transform: translateX(100%);
+
+    .minium-item.is-deleting & {
+      transform: translateX(0%);
+    } 
+  }
+
+  &.is-collapsed, {
+    padding: 0 10px;
+    border-width: 0;
+    max-height: 0;
+  }
+  
+  &.is-not-valid {
+    background-color:  var(--color-bg-mood-bad);
   }
 }

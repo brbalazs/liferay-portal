@@ -1,6 +1,10 @@
 import Vue from "vue";
 import App from "./App.vue";
+
+import Cart from "../public/soy-components/Cart";
+import AccountSelector from "../public/soy-components/AccountSelector";
 import MiniumTable from "../public/soy-components/minium-table/src/MiniumTable";
+
 import "intersection-observer";
 
 import "./styles/minium.scss";
@@ -205,3 +209,46 @@ new MiniumTable(
   },
   "#test-table"
 );
+
+fetch("http://localhost:3000/api/cart/CA0001", {
+  method: "GET"
+})
+  .then(response => response.json())
+  .then(cartState => {
+    new Cart(
+      {
+        cartId: cartState.cartId,
+        localization: {
+          Products: "Products",
+          ViewDetails: "View details",
+          Units: "Units",
+          of: "of",
+          Discount: "Discount",
+          Subtotal: "Subtotal",
+          Items: "Items",
+          GrandTotal: "Grand total",
+          Submit: "Submit",
+          Cancel: "Cancel",
+          TheElementHasBeenRemoved: "The element has been removed"
+        },
+        products: cartState.products,
+        summary: cartState.summary,
+        checkoutUrl: cartState.checkoutUrl,
+        detailsUrl: cartState.detailsUrl
+      },
+      ".minium-topbar__cart-wrapper"
+    );
+  });
+
+fetch("http://localhost:3000/api/accounts", {
+  method: "GET"
+})
+  .then(response => response.json())
+  .then(accounts => {
+    new AccountSelector(
+      {
+        accounts: accounts
+      },
+      ".minium-topbar__account-selector-wrapper"
+    );
+  });

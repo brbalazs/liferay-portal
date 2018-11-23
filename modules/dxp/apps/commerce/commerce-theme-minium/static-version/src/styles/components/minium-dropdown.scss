@@ -11,14 +11,18 @@
     position: absolute;
     right: 24px;
     z-index: 60;
+    transition: max-height .2s ease-in, opacity .2s ease-in;
+    opacity: 0;
   }
 
   &__curtain {
+    display: none;
     background-color: var(--dropdown-color-bg);
     box-shadow: var(--minium-shadow);
     border-radius: 8px;
     display: grid;
     height: 530px;
+    max-height: 0;
     overflow: hidden;
     position: absolute;
     right: 0;
@@ -26,8 +30,16 @@
     width: 450px;
     z-index: 60;
 
-    .minium-dropdown:not(.is-open) & {
-      display: none;
+    &.is-open {
+      max-height: 530px;
+      display: block;
+      opacity: 1;
+    }
+
+    &.is-closing {
+      display: block;
+      max-height: 0px;
+      opacity: 0;
     }
   }
 }

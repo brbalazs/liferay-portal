@@ -1,10 +1,11 @@
 .quantity-selector {
-  display: grid;
-  grid-gap: 5px 0;
-  grid-template: "minus input plus" "remove remove remove";
-  justify-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+   
 
-  &__input {
+  &__input,
+  &__select {
     -moz-appearance: textfield;
     border-radius: 8px;
     border: 2px solid rgba(180,187,201,0.25);
@@ -14,6 +15,7 @@
     height: 30px;
     text-align: center;
     width: 50px;
+    background: white;
 
     &:focus {
       border-color: var(--color-theme);
@@ -45,43 +47,7 @@
     }
   }
 
-  &__remove {
-    align-items: center;
-    border: 2px solid currentColor;
-    border-radius: 50%;
-    color: var(--color-mood-bad);
-    display: flex;
-    grid-area: remove;
-    height: 16px;
-    justify-content: center;
-    position: relative;
-    width: 16px;
-
-    &:hover {
-      color: var(--color-mood-bad);
-    }
-
-    @media (hover: hover) {
-      .minium-cart__item:not(:hover) & {
-        opacity: 0;
-      }
-    }
-
-    &::before,
-    &::after {
-      display: block;
-      content: '';
-      height: 8px;
-      width: 2px;
-      background-color: currentColor;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(var(--rotate, 45deg));
-    }
-
-    &::after {
-      --rotate: -45deg;
-    }
+  &.is-disabled{
+    opacity: .5;
   }
 }

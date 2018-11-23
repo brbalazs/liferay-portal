@@ -1,0 +1,78 @@
+{namespace AccountSelector}
+
+{template .render}
+    {@param openingState: string}
+    {@param filteredAccounts: ?}
+
+    {let $curtainClasses kind="text"}
+        {nil}
+        {if $openingState == 'open'}
+            {sp}is-open
+        {/if}
+        {if $openingState == 'closing'}
+            {sp}is-closing
+        {/if}
+    {/let}
+
+    <div class="minium-dropdown">
+        <a 
+            href="#" 
+            class="minium-topbar__button"
+            data-onclick="toggleAccountSelector"
+        >
+            <div class="account-selector">
+                <div class="account-selector__image"><img src="/avatar.jpg" alt=""></div>
+                <div class="account-selector__title">Select Account &amp; Order</div>
+                <div class="account-selector__info">No order selected</div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="minium-icon">
+                <rect fill="currentColor" x="5" y="5" width="90" height="90" rx="10" ry="10"></rect>
+            </svg>
+        </a>
+        <div class="minium-dropdown__curtain{$curtainClasses}">
+            <div class="account-switcher is-visible">
+                <div class="account-switcher__section">
+                    <div class="minium-search">
+                        <div class="minium-search__input">
+                            <input 
+                                type="text" 
+                                placeholder="Search Acconts…" 
+                                data-onkeyup="handleFilterChange"
+                            >
+                        </div>
+                        <a href="#" class="minium-search__button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="minium-icon">
+                                <rect fill="currentColor" x="5" y="5" width="90" height="90" rx="10" ry="10"></rect>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="account-switcher__section account-switcher__section--fill">
+                    <div class="account-list">
+                        <div class="account-list__title">Select Account...</div>
+                        {foreach $account in $filteredAccounts}
+                            {call .item}
+                                {param id: $account.id /}
+                                {param thumbnail: $account.thumbnail /}
+                                {param name: $account.name /}
+                                {param link: $account.link /}
+                            {/call}
+                        {/foreach}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{/template}
+
+{template .item}
+    {@param thumbnail: string }
+    {@param name: string }
+
+    <div class="minium-dropdown">
+        <a href="/{$name}" class="account-list__item u-hoverable">
+            <img src="{$thumbnail}" alt="{$name}">
+            <span>{$name}</span>
+        </a>
+    </div>
+{/template}

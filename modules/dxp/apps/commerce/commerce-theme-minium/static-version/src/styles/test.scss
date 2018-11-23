@@ -22,12 +22,3 @@
 //     }
 //   }
 // }
-
-.account-switcher:focus-within {
-  opacity: 0;
-  position: absolute;
-  pointer-events: none;
-}
-.account-switcher:focus-within + .account-switcher {
-  display: flex;
-}

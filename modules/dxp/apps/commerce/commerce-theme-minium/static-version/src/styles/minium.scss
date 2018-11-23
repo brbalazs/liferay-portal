@@ -26,6 +26,8 @@
 @import "./components/quantity-selector.scss";
 @import "./components/small-table.scss";
 @import "./components/user-nav.scss";
+@import "./components/price.scss";
+@import "./components/loaders.scss";
 
 #minium {
   --color-fg: #5c5e5e;
@@ -36,7 +38,8 @@
   --color-bg-dark: #34373e;
   --color-border: #eceef1;
   --color-shadow: #5c5e5e23;
-
+  --color-disabled: #c9daff;
+  
   --color-theme: #4c84ff;
   --color-theme-transparent: #4c84ff11;
 
@@ -45,6 +48,7 @@
   --color-mood-good: #78d89c;
   --color-mood-neutral: #fee4b8;
   --color-mood-bad: #ec676a;
+  --color-bg-mood-bad: #fef7f7;
   
   --minium-shadow: 0 10px 20px var(--color-shadow);
   
@@ -82,13 +86,15 @@
       width: 2px;
     }
 
+    &.is-not-valid::before {
+      background-color: var(--color-mood-bad);
+    }
+
     &:not(:hover)::before {
       opacity: 0;
     }
   }
 }
-
-
 
 .table {
   border-spacing: 0 5px;
