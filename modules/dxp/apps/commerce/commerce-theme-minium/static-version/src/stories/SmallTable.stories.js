@@ -5,8 +5,8 @@ import "../styles/minium.scss";
 import SmallTable from "../components/SmallTable.vue";
 
 storiesOf("Small Table", module).add("default", () => ({
-  components: { SmallTable },
-  render() {
-    return <small-table />;
-  }
+	components: { SmallTable },
+	render() {
+		return <small-table />;
+	}
 }));

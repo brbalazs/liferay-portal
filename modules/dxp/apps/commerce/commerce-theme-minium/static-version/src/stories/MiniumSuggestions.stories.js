@@ -5,8 +5,8 @@ import "../styles/minium.scss";
 import MiniumSuggestions from "../components/MiniumSuggestions.vue";
 
 storiesOf("Suggestions", module).add("default", () => ({
-  components: { MiniumSuggestions },
-  render() {
-    return <minium-suggestions />;
-  }
+	components: { MiniumSuggestions },
+	render() {
+		return <minium-suggestions />;
+	}
 }));

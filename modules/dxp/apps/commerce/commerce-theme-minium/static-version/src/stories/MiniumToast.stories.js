@@ -5,8 +5,8 @@ import "../styles/minium.scss";
 import MiniumToast from "../components/MiniumToast.vue";
 
 storiesOf("Toast", module).add("default", () => ({
-  components: { MiniumToast },
-  render() {
-    return <minium-toast>Lorem ipsum</minium-toast>;
-  }
+	components: { MiniumToast },
+	render() {
+		return <minium-toast>Lorem ipsum</minium-toast>;
+	}
 }));

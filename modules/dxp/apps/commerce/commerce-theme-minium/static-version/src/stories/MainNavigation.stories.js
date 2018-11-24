@@ -5,8 +5,8 @@ import "../styles/minium.scss";
 import MainNavigation from "../components/MainNavigation.vue";
 
 storiesOf("Main Navigation", module).add("default", () => ({
-  components: { MainNavigation },
-  render() {
-    return <main-navigation />;
-  }
+	components: { MainNavigation },
+	render() {
+		return <main-navigation />;
+	}
 }));

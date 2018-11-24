@@ -5,8 +5,8 @@ import "../styles/minium.scss";
 import AccountList from "../components/AccountList.vue";
 
 storiesOf("Account List", module).add("default", () => ({
-  components: { AccountList },
-  render() {
-    return <account-list />;
-  }
+	components: { AccountList },
+	render() {
+		return <account-list />;
+	}
 }));

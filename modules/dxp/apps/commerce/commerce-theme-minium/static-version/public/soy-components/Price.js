@@ -7,21 +7,21 @@ import "./Price";
 class Price extends Component {}
 
 Price.STATE = {
-  formattedPrice: {
-    value: null
-  },
-  formattedPromoPrice: {
-    value: null
-  },
-  additionalDiscountedClasses: {
-    value: ""
-  },
-  additionalOldPriceClasses: {
-    value: ""
-  },
-  additionalPriceClasses: {
-    value: ""
-  }
+formattedPrice: {
+	value: null
+},
+formattedPromoPrice: {
+	value: null
+},
+additionalDiscountedClasses: {
+	value: ""
+},
+additionalOldPriceClasses: {
+	value: ""
+},
+additionalPriceClasses: {
+	value: ""
+}
 };
 
 Soy.register(Price, template);

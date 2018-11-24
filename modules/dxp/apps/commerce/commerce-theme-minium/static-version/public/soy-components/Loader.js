@@ -8,21 +8,21 @@ import "./Price";
 class Loader extends Component {}
 
 Loader.STATE = {
-  content: {
-    value: null
-  },
-  isUpdating: {
-    value: false
-  },
-  inverted: {
-    value: false
-  },
-  loaderType: {
-    value: null
-  },
-  type: {
-    value: "default"
-  }
+content: {
+	value: null
+},
+isUpdating: {
+	value: false
+},
+inverted: {
+	value: false
+},
+loaderType: {
+	value: null
+},
+type: {
+	value: "default"
+}
 };
 
 Soy.register(Loader, template);

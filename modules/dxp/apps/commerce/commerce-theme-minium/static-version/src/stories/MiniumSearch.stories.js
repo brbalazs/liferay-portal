@@ -5,15 +5,15 @@ import "../styles/minium.scss";
 import MiniumSearch from "../components/MiniumSearch.vue";
 
 storiesOf("Search", module)
-  .add("default", () => ({
-    components: { MiniumSearch },
-    render() {
-      return <minium-search />;
-    }
-  }))
-  .add("with placeholder", () => ({
-    components: { MiniumSearch },
-    render() {
-      return <minium-search placeholder="Placeholder" />;
-    }
-  }));
+.add("default", () => ({
+	components: { MiniumSearch },
+	render() {
+	  return <minium-search />;
+	}
+}))
+.add("with placeholder", () => ({
+	components: { MiniumSearch },
+	render() {
+	  return <minium-search placeholder="Placeholder" />;
+	}
+}));

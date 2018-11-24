@@ -13,242 +13,242 @@ import "./styles/test.scss";
 Vue.config.productionTip = false;
 
 // if (typeof Object.assign != 'function') {
-//   // Must be writable: true, enumerable: false, configurable: true
-//   Object.defineProperty(Object, "assign", {
-//     value: function assign(target, varArgs) { // .length of function is 2
-//       'use strict';
-//       if (target == null) { // TypeError if undefined or null
-//         throw new TypeError('Cannot convert undefined or null to object');
-//       }
+//	 // Must be writable: true, enumerable: false, configurable: true
+//	 Object.defineProperty(Object, "assign", {
+//		 value: function assign(target, varArgs) { // .length of function is 2
+//			 'use strict';
+//			 if (target == null) { // TypeError if undefined or null
+//				 throw new TypeError('Cannot convert undefined or null to object');
+//			 }
 
-//       var to = Object(target);
+//			 var to = Object(target);
 
-//       for (var index = 1; index < arguments.length; index++) {
-//         var nextSource = arguments[index];
+//			 for (var index = 1; index < arguments.length; index++) {
+//				 var nextSource = arguments[index];
 
-//         if (nextSource != null) { // Skip over if undefined or null
-//           for (var nextKey in nextSource) {
-//             // Avoid bugs when hasOwnProperty is shadowed
-//             if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
-//               to[nextKey] = nextSource[nextKey];
-//             }
-//           }
-//         }
-//       }
-//       return to;
-//     },
-//     writable: true,
-//     configurable: true
-//   });
+//				 if (nextSource != null) { // Skip over if undefined or null
+//					 for (var nextKey in nextSource) {
+//						 // Avoid bugs when hasOwnProperty is shadowed
+//						 if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+//							 to[nextKey] = nextSource[nextKey];
+//						 }
+//					 }
+//				 }
+//			 }
+//			 return to;
+//		 },
+//		 writable: true,
+//		 configurable: true
+//	 });
 // }
 
 new Vue({
-  render: h => h(App)
+	render: h => h(App)
 }).$mount("#app");
 
 new IntersectionObserver(
-  entries => {
-    document
-      .getElementById("minium")
-      .classList.toggle("is-scrolled", !entries[0].isIntersecting);
-  },
-  {
-    root: document.querySelector(".js-scroll-area"),
-    rootMargin: "10px",
-    threshold: 1.0
-  }
+	entries => {
+		document
+			.getElementById("minium")
+			.classList.toggle("is-scrolled", !entries[0].isIntersecting);
+	},
+	{
+		root: document.querySelector(".js-scroll-area"),
+		rootMargin: "10px",
+		threshold: 1.0
+	}
 ).observe(document.querySelector("[name=minium-top]"));
 
 // eslint-disable-next-line
 // const badge = new clay.ClayBadge(
-//   {
-//     label: "10",
-//     style: "primary"
-//   },
-//   "#badge"
+//	 {
+//		 label: "10",
+//		 style: "primary"
+//	 },
+//	 "#badge"
 // );
 
 // let actionItemsWithQuickItems = [
-//   {
-//     href: "#1",
-//     icon: "trash",
-//     label: "Remove",
-//     quickAction: true
-//   },
-//   {
-//     href: "#2",
-//     icon: "download",
-//     label: "Download",
-//     quickAction: true,
-//     separator: true
-//   }
+//	 {
+//		 href: "#1",
+//		 icon: "trash",
+//		 label: "Remove",
+//		 quickAction: true
+//	 },
+//	 {
+//		 href: "#2",
+//		 icon: "download",
+//		 label: "Download",
+//		 quickAction: true,
+//		 separator: true
+//	 }
 // ];
 let item = {
-  date: "07.04.2018",
-  time: "11:43 AM",
-  image: "http://placehold.it/100",
-  imageAlt: "Placeholder image",
-  productName: "White Label Matte Orange",
-  productType: "Engine",
-  labels: ["New"],
-  order: "2018213431",
-  account: "Bob’s Sporting Mx",
-  accountCode: "007274",
-  created: "John Doe",
-  createdLink: "#john-doe",
-  referent: "Test",
-  status: {
-    label: "Approved",
-    badge: "good"
-  },
-  amount: "$ 59,301.00",
-  actionsLink: "#",
-  actionsLinkLabel: "Work on this order",
-  actions: [
-    {
-      label: "Good",
-      href: "#",
-      type: "good"
-    },
-    {
-      label: "Bad",
-      href: "#",
-      type: "bad"
-    },
-    {
-      label: "Neutral",
-      href: "#",
-      type: "neutral"
-    },
-    {
-      label: "Default",
-      href: "#"
-    },
-    {
-      label: "Primary",
-      href: "#",
-      type: "primary"
-    }
-  ]
+	date: "07.04.2018",
+	time: "11:43 AM",
+	image: "http://placehold.it/100",
+	imageAlt: "Placeholder image",
+	productName: "White Label Matte Orange",
+	productType: "Engine",
+	labels: ["New"],
+	order: "2018213431",
+	account: "Bob’s Sporting Mx",
+	accountCode: "007274",
+	created: "John Doe",
+	createdLink: "#john-doe",
+	referent: "Test",
+	status: {
+		label: "Approved",
+		badge: "good"
+	},
+	amount: "$ 59,301.00",
+	actionsLink: "#",
+	actionsLinkLabel: "Work on this order",
+	actions: [
+		{
+			label: "Good",
+			href: "#",
+			type: "good"
+		},
+		{
+			label: "Bad",
+			href: "#",
+			type: "bad"
+		},
+		{
+			label: "Neutral",
+			href: "#",
+			type: "neutral"
+		},
+		{
+			label: "Default",
+			href: "#"
+		},
+		{
+			label: "Primary",
+			href: "#",
+			type: "primary"
+		}
+	]
 };
 
 let items = new Array(20).fill(item);
 
 // items.forEach(item => {
-//   item.actionItems = actionItemsWithQuickItems;
+//	 item.actionItems = actionItemsWithQuickItems;
 // });
 
 // eslint-disable-next-line
 new MiniumTable(
-  {
-    items: items,
-    schema: {
-      fields: [
-        {
-          contentRenderer: "miniumCell",
-          fieldName: "productName",
-          subTitleField: "productType",
-          label: "Simple"
-        },
-        {
-          contentRenderer: "miniumImage",
-          fieldName: "image",
-          altField: "imageAlt",
-          label: "Image"
-        },
-        {
-          contentRenderer: "miniumCell",
-          fieldName: "date",
-          subTitleField: "time",
-          label: "Datetime"
-        },
-        {
-          contentRenderer: "miniumCell",
-          fieldName: "account",
-          label: "No subtitle"
-        },
-        {
-          contentRenderer: "label",
-          fieldName: "labels",
-          label: "Label",
-          labelStylesMap: {
-            Spicy: "warning",
-            "Very Spicy": "danger",
-            "*": "success"
-          }
-        },
-        {
-          contentRenderer: "miniumLink",
-          fieldName: "created",
-          fieldLink: "createdLink",
-          label: "Link"
-        },
-        {
-          contentRenderer: "miniumStatus",
-          fieldName: "status",
-          label: "Status"
-        },
-        {
-          contentRenderer: "miniumActions",
-          fieldName: "actions",
-          linkField: "actionsLink",
-          linkLabelField: "actionsLinkLabel",
-          label: ""
-        }
-      ],
-      inputNameField: "type",
-      inputNamesMap: {
-        folder: "folder",
-        chef: "chef",
-        "*": "recipe"
-      },
-      inputValueField: "id"
-    },
-    selectable: true,
-    showActionsMenu: false
-  },
-  "#test-table"
+	{
+		items: items,
+		schema: {
+			fields: [
+				{
+					contentRenderer: "miniumCell",
+					fieldName: "productName",
+					subTitleField: "productType",
+					label: "Simple"
+				},
+				{
+					contentRenderer: "miniumImage",
+					fieldName: "image",
+					altField: "imageAlt",
+					label: "Image"
+				},
+				{
+					contentRenderer: "miniumCell",
+					fieldName: "date",
+					subTitleField: "time",
+					label: "Datetime"
+				},
+				{
+					contentRenderer: "miniumCell",
+					fieldName: "account",
+					label: "No subtitle"
+				},
+				{
+					contentRenderer: "label",
+					fieldName: "labels",
+					label: "Label",
+					labelStylesMap: {
+						Spicy: "warning",
+						"Very Spicy": "danger",
+						"*": "success"
+					}
+				},
+				{
+					contentRenderer: "miniumLink",
+					fieldName: "created",
+					fieldLink: "createdLink",
+					label: "Link"
+				},
+				{
+					contentRenderer: "miniumStatus",
+					fieldName: "status",
+					label: "Status"
+				},
+				{
+					contentRenderer: "miniumActions",
+					fieldName: "actions",
+					linkField: "actionsLink",
+					linkLabelField: "actionsLinkLabel",
+					label: ""
+				}
+			],
+			inputNameField: "type",
+			inputNamesMap: {
+				folder: "folder",
+				chef: "chef",
+				"*": "recipe"
+			},
+			inputValueField: "id"
+		},
+		selectable: true,
+		showActionsMenu: false
+	},
+	"#test-table"
 );
 
 fetch("http://localhost:3000/api/cart/CA0001", {
-  method: "GET"
+	method: "GET"
 })
-  .then(response => response.json())
-  .then(cartState => {
-    new Cart(
-      {
-        cartId: cartState.cartId,
-        localization: {
-          Products: "Products",
-          ViewDetails: "View details",
-          Units: "Units",
-          of: "of",
-          Discount: "Discount",
-          Subtotal: "Subtotal",
-          Items: "Items",
-          GrandTotal: "Grand total",
-          Submit: "Submit",
-          Cancel: "Cancel",
-          TheElementHasBeenRemoved: "The element has been removed"
-        },
-        products: cartState.products,
-        summary: cartState.summary,
-        checkoutUrl: cartState.checkoutUrl,
-        detailsUrl: cartState.detailsUrl
-      },
-      ".minium-topbar__cart-wrapper"
-    );
-  });
+	.then(response => response.json())
+	.then(cartState => {
+		new Cart(
+			{
+				cartId: cartState.cartId,
+				localization: {
+					Products: "Products",
+					ViewDetails: "View details",
+					Units: "Units",
+					of: "of",
+					Discount: "Discount",
+					Subtotal: "Subtotal",
+					Items: "Items",
+					GrandTotal: "Grand total",
+					Submit: "Submit",
+					Cancel: "Cancel",
+					TheElementHasBeenRemoved: "The element has been removed"
+				},
+				products: cartState.products,
+				summary: cartState.summary,
+				checkoutUrl: cartState.checkoutUrl,
+				detailsUrl: cartState.detailsUrl
+			},
+			".minium-topbar__cart-wrapper"
+		);
+	});
 
 fetch("http://localhost:3000/api/accounts", {
-  method: "GET"
+	method: "GET"
 })
-  .then(response => response.json())
-  .then(accounts => {
-    new AccountSelector(
-      {
-        accounts: accounts
-      },
-      ".minium-topbar__account-selector-wrapper"
-    );
-  });
+	.then(response => response.json())
+	.then(accounts => {
+		new AccountSelector(
+			{
+				accounts: accounts
+			},
+			".minium-topbar__account-selector-wrapper"
+		);
+	});

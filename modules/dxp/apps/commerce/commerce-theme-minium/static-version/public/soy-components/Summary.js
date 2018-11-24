@@ -8,9 +8,9 @@ import "./Loader";
 class Summary extends Component {}
 
 Summary.STATE = {
-  isLoading: {
-    value: false
-  }
+isLoading: {
+	value: false
+}
 };
 
 Soy.register(Summary, template);
