@@ -629,7 +629,7 @@ public class MiniumlSiteInitializer implements SiteInitializer {
 	private RoleLocalService _roleLocalService;
 
 	@Reference(
-		target = "(osgi.web.symbolicname=com.liferay.commerce.initializer.minium)"
+		target = "(osgi.web.symbolicname=com.liferay.commerce.theme.minium.site.initializer)"
 	)
 	private ServletContext _servletContext;
 
