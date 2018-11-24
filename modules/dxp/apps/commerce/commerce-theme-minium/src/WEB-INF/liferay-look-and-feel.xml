@@ -12,6 +12,7 @@
 			<setting configurable="true" key="show-top-menu" type="checkbox" value="false" />
 		</settings>
 		<portlet-decorator id="barebone" name="Barebone">
+			<default-portlet-decorator>true</default-portlet-decorator>
 			<portlet-decorator-css-class>portlet-barebone</portlet-decorator-css-class>
 		</portlet-decorator>
 		<portlet-decorator id="borderless" name="Borderless">
