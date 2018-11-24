@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.commerce.initializer.minium.internal;
+package com.liferay.commerce.theme.minium.site.initializer.internal;
 
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.initializer.util.CPDefinitionsImporter;
@@ -101,7 +101,8 @@ public class MiniumlSiteInitializer implements SiteInitializer {
 	public static final int ACCOUNT_ORGANIZATIONS_COUNT = 3;
 
 	public static final String DEPENDENCIES_PATH =
-		"com/liferay/commerce/initializer/minium/internal/dependencies/";
+		"com/liferay/commerce/theme/minium/site/initializer/internal" +
+			"/dependencies/";
 
 	public static final String KEY = "minium-initializer";
 

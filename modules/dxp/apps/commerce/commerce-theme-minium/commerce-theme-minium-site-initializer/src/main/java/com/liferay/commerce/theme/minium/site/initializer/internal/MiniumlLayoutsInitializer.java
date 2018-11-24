@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.commerce.initializer.minium.internal;
+package com.liferay.commerce.theme.minium.site.initializer.internal;
 
 import com.liferay.commerce.product.importer.CPFileImporter;
 import com.liferay.portal.kernel.json.JSONArray;

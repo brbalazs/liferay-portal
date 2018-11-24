@@ -1,7 +1,0 @@
-Bundle-Name: Liferay Commerce Initializer Minium
-Bundle-SymbolicName: com.liferay.commerce.initializer.minium
-Bundle-Version: 1.0.3
-Require-Capability:\
-	soy;\
-		filter:="(type=commerce-cart-taglib)"
-Web-ContextPath: /commerce-initializer-minium
