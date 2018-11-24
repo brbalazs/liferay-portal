@@ -7,6 +7,10 @@
 	</compatibility>
 	<theme id="minium" name="Minium">
 		<template-extension>ftl</template-extension>
+		<settings>
+			<setting configurable="true" key="copyright" type="textarea" />
+			<setting configurable="true" key="show-top-menu" type="checkbox" value="false" />
+		</settings>
 		<portlet-decorator id="barebone" name="Barebone">
 			<portlet-decorator-css-class>portlet-barebone</portlet-decorator-css-class>
 		</portlet-decorator>
