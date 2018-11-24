@@ -1,81 +1,83 @@
 .minium-button.minium-button {
-  --button-color: var(--color-theme);
+	--button-color: var(--color-theme);
 
-  align-items: center;
-  background-color: var(--button-bg, var(--button-color));
-  border: 2px solid var(--button-color);
-  border-radius: 8px;
-  color: var(--button-fg, var(--color-bg));
-  display: inline-flex;
-  font-size: 10px;
-  font-weight: 900;
-  height: 54px;
-  justify-content: center;
-  letter-spacing: 1px;
-  padding: 20px;
-  text-decoration: none;
-  text-transform: uppercase;
-  white-space: nowrap;
-  cursor: pointer;
+	align-items: center;
+	background-color: var(--button-bg, var(--button-color));
+	border: 2px solid var(--button-color);
+	border-radius: 8px;
+	color: var(--button-fg, var(--color-bg));
+	cursor: pointer;
+	display: inline-flex;
+	font-size: 10px;
+	font-weight: 900;
+	height: 54px;
+	justify-content: center;
+	letter-spacing: 1px;
+	padding: 20px;
+	text-decoration: none;
+	text-transform: uppercase;
+	white-space: nowrap;
 
-  & + & {
-    margin-left: var(--minium-gutter);
-  }
+	& + & {
+		margin-left: var(--minium-gutter);
+	}
 
-  &--good {
-    --button-color: var(--color-mood-good);
-  }
+	&--good {
+		--button-color: var(--color-mood-good);
+	}
 
-  &--bad {
-    --button-color: var(--color-mood-bad);
-  }
+	&--bad {
+		--button-color: var(--color-mood-bad);
+	}
 
-  &--neutral {
-    --button-color: var(--color-mood-neutral);
-  }
+	&--neutral {
+		--button-color: var(--color-mood-neutral);
+	}
 
-  &--outline {
-    // background-color: var(--color-bg);
-    // color: var(--button-color);
-    --button-bg: var(--color-bg);
-    --button-fg: var(--button-color);
-  }
+	&--outline {
 
-  &--block {
-    display: flex;
-    border-radius: 0;
-  }
+		// background-color: var(--color-bg);
+		// color: var(--button-color);
 
-  &--small {
-    height: 44px;
+		--button-bg: var(--color-bg);
+		--button-fg: var(--button-color);
+	}
 
-    & + & {
-      margin-left: var(--minium-small-gutter);
-    }
-  }
+	&--block {
+		border-radius: 0;
+		display: flex;
+	}
 
-  &--disabled {
-    background-color: var(--color-disabled);
-    cursor: inherit;
-  }
+	&--small {
+		height: 44px;
 
-  &--big {
-    font-size: 12px;
-    height: 64px;
-    min-width: 170px;
-  }
-  
-  &--inline {
-    display: inline-block;
-    padding: 0;
-    border: none;
-    background: transparent;
-    height: auto;
-    min-width: auto;
-    color: var(--color-theme);
+		& + & {
+			margin-left: var(--minium-small-gutter);
+		}
+	}
 
-    &:hover {
-      color: inherit;
-    }
-  }
+	&--disabled {
+		background-color: var(--color-disabled);
+		cursor: inherit;
+	}
+
+	&--big {
+		font-size: 12px;
+		height: 64px;
+		min-width: 170px;
+	}
+
+	&--inline {
+		background: transparent;
+		border: none;
+		color: var(--color-theme);
+		display: inline-block;
+		height: auto;
+		min-width: auto;
+		padding: 0;
+
+		&:hover {
+			color: inherit;
+		}
+	}
 }

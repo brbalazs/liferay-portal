@@ -1,30 +1,30 @@
 .minium-dot {
-  --dot-size: 14px;
-  --dot-color: var(--color-theme);
+	--dot-size: 14px;
+	--dot-color: var(--color-theme);
 
-  display: grid;
-  grid-gap: 5px;
-  align-items: center;
-  grid-template-columns: auto 1fr;
+	align-items: center;
+	display: grid;
+	grid-gap: 5px;
+	grid-template-columns: auto 1fr;
 
-  &::before {
-    background-color: var(--dot-color);
-    border-radius: 50%;
-    content: '';
-    display: inline-block;
-    height: var(--dot-size);
-    width: var(--dot-size);
-  }
+	&::before {
+		background-color: var(--dot-color);
+		border-radius: 50%;
+		content: '';
+		display: inline-block;
+		height: var(--dot-size);
+		width: var(--dot-size);
+	}
 
-  &--good {
-    --dot-color: var(--color-mood-good);
-  }
+	&--good {
+		--dot-color: var(--color-mood-good);
+	}
 
-  &--neutral {
-    --dot-color: var(--color-mood-neutral);
-  }
+	&--neutral {
+		--dot-color: var(--color-mood-neutral);
+	}
 
-  &--bad {
-    --dot-color: var(--color-mood-bad);
-  }
+	&--bad {
+		--dot-color: var(--color-mood-bad);
+	}
 }

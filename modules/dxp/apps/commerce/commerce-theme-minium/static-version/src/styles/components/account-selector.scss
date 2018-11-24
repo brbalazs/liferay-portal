@@ -1,40 +1,40 @@
 .account-selector {
-  color: var(--color-fg);
-  display: grid;
-  font-size: 16px;
-  font-weight: 500;
-  grid-gap: 0 10px;
-  grid-template:
-    "image title" min-content
-    "image info" min-content / 40px 201px;
+	color: var(--color-fg);
+	display: grid;
+	font-size: 16px;
+	font-weight: 500;
+	grid-gap: 0 10px;
+	grid-template:
+		"image title" min-content
+		"image info" min-content / 40px 201px;
 
-  &__image {
-    grid-area: image;
+	&__image {
+		grid-area: image;
 
-    img {
-      border-radius: 50%;
-      width: 100%;
-    }
+		img {
+			border-radius: 50%;
+			width: 100%;
+		}
 
-    &:empty {
-      display: none;
-    }
-  }
+		&:empty {
+			display: none;
+		}
+	}
 
-  &__title {
-    align-self: end;
-    grid-area: title;
-    line-height: 1;
-  }
-  
-  &__info {
-    font-size: 0.75em;
-    grid-area: info;
-    line-height: 1;
-    margin-top: 4px;
+	&__title {
+		align-self: end;
+		grid-area: title;
+		line-height: 1;
+	}
 
-    &:empty {
-      display: none;
-    }
-  }
+	&__info {
+		font-size: 0.75em;
+		grid-area: info;
+		line-height: 1;
+		margin-top: 4px;
+
+		&:empty {
+			display: none;
+		}
+	}
 }

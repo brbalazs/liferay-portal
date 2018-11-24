@@ -1,50 +1,50 @@
 .minium-suggestions {
-  background: var(--color-bg-medium);
-  display: flex;
-  flex-direction: column;
-  max-height: 100%;
-  overflow: auto;
-  
-  &__wrapper {
-    overflow: auto;
-    padding: 20px 0;
-  }
+	background: var(--color-bg-medium);
+	display: flex;
+	flex-direction: column;
+	max-height: 100%;
+	overflow: auto;
 
-  &__label {
-    font-size: 12px;
-    padding: 10px 20px;
-  }
+	&__wrapper {
+		overflow: auto;
+		padding: 20px 0;
+	}
 
-  &__item {
-    align-items: center;
-    display: flex;
-    font-size: 16px;
-    justify-content: flex-start;
-    min-height: 70px;
-    padding: 10px 20px;
-    position: relative;
+	&__label {
+		font-size: 12px;
+		padding: 10px 20px;
+	}
 
-    &:hover {
-      background-color: var(--color-bg);
-    }
-  }
+	&__item {
+		align-items: center;
+		display: flex;
+		font-size: 16px;
+		justify-content: flex-start;
+		min-height: 70px;
+		padding: 10px 20px;
+		position: relative;
 
-  &__hints {
-    align-items: center;
-    background-color: var(--color-bg-alt);
-    color: var(--color-fg-alt);
-    display: flex;
-    flex: 0 0 40px;
-    font-size: 14px;
-    padding: 0 20px;
+		&:hover {
+			background-color: var(--color-bg);
+		}
+	}
 
-    svg {
-      font-size: 21px;
-      margin-right: 10px;
+	&__hints {
+		align-items: center;
+		background-color: var(--color-bg-alt);
+		color: var(--color-fg-alt);
+		display: flex;
+		flex: 0 0 40px;
+		font-size: 14px;
+		padding: 0 20px;
 
-      &:not(:first-of-type) {
-        margin-left: 30px;
-      }
-    }
-  }
+		svg {
+			font-size: 21px;
+			margin-right: 10px;
+
+			&:not(:first-of-type) {
+				margin-left: 30px;
+			}
+		}
+	}
 }

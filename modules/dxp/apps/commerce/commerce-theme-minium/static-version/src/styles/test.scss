@@ -1,24 +1,29 @@
 // .minium-topbar__button:focus {
-//   .account-selector__image,
-//   .account-selector__info {
-//     display: none;
-//   }
+//	 .account-selector__image,
+//	 .account-selector__info {
+//		 display: none;
+//	 }
+
 // }
 
 // .main-navigation {
-//   &__submenu {
-//     .minium-sidebar:not(:hover) &,
-//     .main-link:not(:focus) + & {
-//       display: none;
-//     }
-//   }
+
+//	 &__submenu {
+//		 .minium-sidebar:not(:hover) &,
+//		 .main-link:not(:focus) + & {
+//			 display: none;
+//		 }
+//	 }
+
 // }
 
 // a:focus + .minium-cart {
-//   & {
-//     &:not(.is-open) {
-//       box-shadow: -20px 0 40px var(--color-shadow);
-//       transform: translateX(0);
-//     }
-//   }
+
+//	 & {
+//		 &:not(.is-open) {
+//			 box-shadow: -20px 0 40px var(--color-shadow);
+//			 transform: translateX(0);
+//		 }
+//	 }
+
 // }

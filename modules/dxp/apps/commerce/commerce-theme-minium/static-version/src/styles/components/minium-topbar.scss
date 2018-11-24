@@ -1,58 +1,58 @@
 .minium-topbar {
-  background-color: var(--color-bg);
-  color: var(--color-fg-alt);
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  justify-content: space-between;
-  position: relative;
+	background-color: var(--color-bg);
+	color: var(--color-fg-alt);
+	display: grid;
+	grid-template-columns: repeat(3, auto);
+	justify-content: space-between;
+	position: relative;
 
-  &__start,
-  &__end {
-    display: flex;
-  }
+	&__start,
+	&__end {
+		display: flex;
+	}
 
-  &__button {
-    align-items: center;
-    color: currentColor;
-    cursor: pointer;
-    display: flex;
-    font-size: 14px;
-    height: var(--frame-size);
-    margin: 0;
-    min-width: var(--frame-size);
-    justify-content: center;
-    padding: 14px;
+	&__button {
+		align-items: center;
+		color: currentColor;
+		cursor: pointer;
+		display: flex;
+		font-size: 14px;
+		height: var(--frame-size);
+		justify-content: center;
+		margin: 0;
+		min-width: var(--frame-size);
+		padding: 14px;
 
-    &:hover {
-      color: currentColor;
-      text-decoration: none;
-    }
+		&:hover {
+			color: currentColor;
+			text-decoration: none;
+		}
 
-    svg {
-      display: inline-block;
-      font-size: 21px;
-      margin: 10px;
-    }
+		svg {
+			display: inline-block;
+			font-size: 21px;
+			margin: 10px;
+		}
 
-    &[disabled],
-    &.is-disabled {
-      opacity: 0.5;
-    }
+		&[disabled],
+		&.is-disabled {
+			opacity: 0.5;
+		}
 
-    &.is-active {
-      background-color: var(--color-bg-alt);
-    }
-  }
+		&.is-active {
+			background-color: var(--color-bg-alt);
+		}
+	}
 
-  &__search {
-    background-color: var(--color-bg-alt);
-    grid-column: span 3;
-    max-height: var(--frame-size);
-    overflow: hidden;
-    transition: max-height var(--transition);
+	&__search {
+		background-color: var(--color-bg-alt);
+		grid-column: span 3;
+		max-height: var(--frame-size);
+		overflow: hidden;
+		transition: max-height var(--transition);
 
-    .minium-frame:not(.has-search) & {
-      max-height: 0;
-    }
-  }
+		.minium-frame:not(.has-search) & {
+			max-height: 0;
+		}
+	}
 }

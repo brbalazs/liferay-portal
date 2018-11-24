@@ -1,17 +1,17 @@
 .minium-loader-container {
-	position: relative;
 	display: inline;
+	position: relative;
 
 	&__loader {
-		position: absolute;
-		display: block;
-		top: 0;
-		left: 0;
 		bottom: 0;
-		right: 0;
+		display: block;
+		left: 0;
 		opacity: 0;
-        z-index: -1;
-        color: #C9DAFF
+		position: absolute;
+		right: 0;
+		top: 0;
+		z-index: -1;
+		color: #C9DAFF
 	}
 
 	&__content {
@@ -31,51 +31,51 @@
 
 .loader-dots {
 	display: flex;
+	left: 50%;
 	position: absolute;
 	top: 50%;
-	left: 50%;
 	transform: translate(-50%, -50%);
 
 	&--right {
 		left: auto;
 		right: 0;
 		transform: translateY(-50%);
-    }
-    
-    &--left {
+	}
+
+	&--left {
 		left: 0;
 		right: auto;
 		transform: translateY(-50%);
-    }
-    
-    &__dot {
-        margin: 2px;
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--color-fg);
-        transform: scale(0.5);
-        animation: scale-dot .8s ease-out infinite;
+	}
 
-        &:nth-of-type(2) {
-            animation-delay: 0.2s;
-        }
-        &:nth-of-type(3) {
-            animation-delay: 0.3s;
-        }
-        &:nth-of-type(4) {
-            animation-delay: 0.4s;
-        }
-        &:nth-of-type(5) {
-            animation-delay: 0.5s;
-        }
-    }
+	&__dot {
+		animation: scale-dot .8s ease-out infinite;
+		background: var(--color-fg);
+		border-radius: 50%;
+		height: 6px;
+		margin: 2px;
+		transform: scale(0.5);
+		width: 6px;
 
-    &--inverted {
-        .loader-dots__dot {
-            background: var(--light);
-        }
-    }
+		&:nth-of-type(2) {
+			animation-delay: 0.2s;
+		}
+		&:nth-of-type(3) {
+			animation-delay: 0.3s;
+		}
+		&:nth-of-type(4) {
+			animation-delay: 0.4s;
+		}
+		&:nth-of-type(5) {
+			animation-delay: 0.5s;
+		}
+	}
+
+	&--inverted {
+		.loader-dots__dot {
+			background: var(--light);
+		}
+	}
 }
 
 @keyframes scale-dot {

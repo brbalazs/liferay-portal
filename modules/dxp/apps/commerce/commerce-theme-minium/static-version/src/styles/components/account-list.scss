@@ -1,36 +1,36 @@
 .account-list {
-  font-size: 16px;
-  font-weight: 500;
-  padding-bottom: 15px;
-  
-  &__title {
-    font-size: 1.125em;
-    height: 40px;
-    margin-top: 15px;
-    padding: 0 15px;
-  }
+	font-size: 16px;
+	font-weight: 500;
+	padding-bottom: 15px;
 
-  &__item {
-    color: currentColor;
-    display: block;
-    margin-top: 15px;
-    padding: 0 15px;
-    position: relative;
+	&__title {
+		font-size: 1.125em;
+		height: 40px;
+		margin-top: 15px;
+		padding: 0 15px;
+	}
 
-    &:hover {
-      color: currentColor;
-      text-decoration: none;
-    }
+	&__item {
+		color: currentColor;
+		display: block;
+		margin-top: 15px;
+		padding: 0 15px;
+		position: relative;
 
-    &:not(:hover) span {
-      opacity: 0.6;
-    }
+		&:hover {
+			color: currentColor;
+			text-decoration: none;
+		}
 
-    img {
-      border-radius: 50%;
-      height: 40px;
-      margin-right: 10px;
-      width: 40px;
-    }
-  }
+		&:not(:hover) span {
+			opacity: 0.6;
+		}
+
+		img {
+			border-radius: 50%;
+			height: 40px;
+			margin-right: 10px;
+			width: 40px;
+		}
+	}
 }
