@@ -243,12 +243,12 @@ fetch("http://localhost:3000/api/cart/CA0001", {
 fetch("http://localhost:3000/api/accounts", {
 	method: "GET"
 })
-	.then(response => response.json())
-	.then(accounts => {
-		new AccountSelector(
-			{
-				accounts: accounts
-			},
-			".minium-topbar__account-selector-wrapper"
-		);
-	});
+.then(response => response.json())
+.then(accounts => {
+	new AccountSelector(
+		{
+			accounts: accounts
+		},
+		".minium-topbar__account-selector-wrapper"
+	);
+});
