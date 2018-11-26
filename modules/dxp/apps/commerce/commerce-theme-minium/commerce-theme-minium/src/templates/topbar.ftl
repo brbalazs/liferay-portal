@@ -121,6 +121,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="minium-topbar__cart-wrapper">
 				<@liferay_commerce_cart["mini-cart"] />
 			</div>

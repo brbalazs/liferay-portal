@@ -20,7 +20,6 @@ $color-mood-neutral: #FEE4B8;
 $color-mood-bad: #EC676A;
 $color-bg-mood-bad: #FEF7F7;
 
-// TODO find minium-shadow occurrences
 $minium-shadow: 0 10px 20px $color-shadow;
 $minium-small-gutter: 10px;
 $minium-gutter: 20px;
@@ -32,7 +31,6 @@ $content-max-width: 1440px;
 
 $transition: ease 200ms;
 $micro-transition: ease 100ms;
-
 
 @import "./components/account-list.scss";
 @import "./components/account-selector.scss";
@@ -234,7 +232,6 @@ html:not(.ie):not(.edge) .close {
 
 html.ie,
 html.edge {
-
 	.toggle-wrapper {
 		align-items: center;
 		display: flex;
