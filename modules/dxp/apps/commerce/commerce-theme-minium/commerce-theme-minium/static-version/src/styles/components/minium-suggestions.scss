@@ -1,5 +1,5 @@
 .minium-suggestions {
-	background: var(--color-bg-medium);
+	background: $color-bg-medium;
 	display: flex;
 	flex-direction: column;
 	max-height: 100%;
@@ -25,14 +25,14 @@
 		position: relative;
 
 		&:hover {
-			background-color: var(--color-bg);
+			background-color: $color-bg;
 		}
 	}
 
 	&__hints {
 		align-items: center;
-		background-color: var(--color-bg-alt);
-		color: var(--color-fg-alt);
+		background-color: $color-bg-alt;
+		color: $color-fg-alt;
 		display: flex;
 		flex: 0 0 40px;
 		font-size: 14px;

@@ -3,22 +3,22 @@
 	color: currentColor;
 	display: grid;
 	font-size: 14px;
-	grid-template: "icon label" 70px / var(--frame-size) 1fr;
+	grid-template: "icon label" 70px / $frame-size 1fr;
 	position: relative;
 	text-decoration: none;
 
 	&:hover {
-		background-color: var(--color-theme-transparent);
+		background-color: $color-theme-transparent;
 		color: currentColor;
 		text-decoration: none;
 	}
 
 	&.is-active {
-		color: var(--color-fg);
+		color: $color-fg;
 		font-weight: bold;
 
 		&::before {
-			background-color: var(--color-theme);
+			background-color: $color-theme;
 			content: '';
 			display: block;
 			height: 70%;
@@ -31,7 +31,7 @@
 	}
 
 	&--sub {
-		grid-template-columns: calc(10px + var(--frame-size)) 1fr;
+		grid-template-columns: calc(10px + $frame-size) 1fr;
 		grid-template-rows: 36px;
 
 		&.is-active::before {
@@ -46,12 +46,12 @@
 		display: flex;
 		font-size: 21px;
 		grid-area: icon;
-		height: var(--frame-size);
+		height: $frame-size;
 		justify-content: center;
 		position: relative;
 
 		&.has-notification::before {
-			background-color: var(--color-theme);
+			background-color: $color-theme;
 			border-radius: 50%;
 			content: '';
 			height: 6px;
@@ -62,7 +62,7 @@
 		}
 
 		.main-link.is-active & {
-			color: var(--color-theme);
+			color: $color-theme;
 		}
 	}
 
@@ -72,8 +72,8 @@
 		padding-right: 15px;
 		text-overflow: ellipsis;
 		transition:
-			opacity var(--transition),
-			transform var(--transition);
+			opacity $transition,
+			transform $transition;
 		transform: translateX(-15px);
 		white-space: nowrap;
 

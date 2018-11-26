@@ -1,14 +1,14 @@
 .user-nav {
 	align-items: center;
-	background-color: var(--color-bg-alt);
+	background-color: $color-bg-alt;
 	border-radius: 25px 8px 8px 25px;
 	display: flex;
 	margin: 10px;
 	padding: 5px;
 	position: relative;
 	transition:
-		border-radius var(--transition),
-		background-color var(--transition);
+		border-radius $transition,
+		background-color $transition;
 	width: 100%;
 
 	&:hover {
@@ -31,7 +31,7 @@
 		}
 
 		&.has-notification::before {
-			background-color: var(--color-theme);
+			background-color: $color-theme;
 			border-radius: 50%;
 			content: '';
 			height: 6px;
@@ -43,14 +43,14 @@
 	}
 
 	&__name {
-		color: var(--color-fg);
+		color: $color-fg;
 		font-size: 14px;
 		font-weight: bold;
 		padding: 10px;
 		position: relative;
 		transition:
-			opacity var(--transition),
-			transform var(--transition);
+			opacity $transition,
+			transform $transition;
 		white-space: nowrap;
 
 		.minium-sidebar:not(:hover) & {
@@ -66,8 +66,8 @@
 		left: 0;
 		position: absolute;
 		transition:
-			opacity var(--transition),
-			transform var(--transition);
+			opacity $transition,
+			transform $transition;
 		width: 100%;
 
 		.user-nav:not(:hover) & {

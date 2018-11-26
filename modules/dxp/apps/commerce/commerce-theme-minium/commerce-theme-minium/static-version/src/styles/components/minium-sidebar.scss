@@ -1,18 +1,18 @@
 .minium-sidebar {
-	background-color: var(--color-bg);
-	box-shadow: 0 0 0 var(--color-shadow);
-	color: var(--color-fg-alt);
+	background-color: $color-bg;
+	box-shadow: 0 0 0 $color-shadow;
+	color: $color-fg-alt;
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
 	transition:
-		box-shadow var(--transition),
-		width var(--transition);
-	width: var(--frame-size);
+		box-shadow $transition,
+		width $transition;
+	width: $frame-size;
 
 	&:hover {
-		box-shadow: 20px 0 40px var(--color-shadow);
-		width: var(--sidebar-width);
+		box-shadow: 20px 0 40px $color-shadow;
+		width: $sidebar-width;
 	}
 
 	&__start {

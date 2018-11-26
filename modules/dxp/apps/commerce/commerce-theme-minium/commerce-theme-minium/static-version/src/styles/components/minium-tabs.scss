@@ -6,7 +6,7 @@
 
 	&__tab {
 		align-items: center;
-		color: var(--color-fg-alt);
+		color: $color-fg-alt;
 		display: flex;
 		font-size: 11px;
 		letter-spacing: 1.1px;
@@ -25,13 +25,13 @@
 
 		&:hover,
 		&.is-active {
-			color: var(--color-fg);
+			color: $color-fg;
 			font-weight: bold;
 			text-decoration: none;
 		}
 
 		&.is-active::before {
-			background-color: var(--color-theme);
+			background-color: $color-theme;
 			bottom: 0;
 			content: '';
 			height: 2px;

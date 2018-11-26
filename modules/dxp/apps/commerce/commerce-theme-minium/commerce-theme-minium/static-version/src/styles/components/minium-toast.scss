@@ -1,11 +1,9 @@
 .minium-toast {
-	--mood: var(--color-theme);
-
 	animation: toast-enter 500ms forwards 500ms;
-	background-color: var(--color-bg);
-	border: 2px solid var(--mood);
+	background-color: $color-bg;
+	border: 2px solid $color-theme;
 	border-radius: 8px;
-	box-shadow: var(--minium-shadow);
+	box-shadow: $minium-shadow;
 	display: grid;
 	font-size: 12px;
 	grid-template-columns: 60px 270px;
@@ -18,21 +16,29 @@
 	}
 
 	&--success {
-		--mood: var(--color-mood-good);
+		border-color: $color-mood-good;
 	}
 
 	&--fail {
-		--mood: var(--color-mood-bad);
+		border-color: $color-mood-bad;
 	}
 
 	&__icon {
 		align-items: center;
-		background-color: var(--mood);
-		color: var(--color-bg);
+		background-color: $color-theme;
+		color: $color-bg;
 		display: flex;
 		font-size: 21px;
 		justify-content: center;
 		width: 60px;
+	}
+
+	&--success &__icon {
+		background-color: $color-mood-good;
+	}
+
+	&--fail &__icon {
+		background-color: $color-mood-bad;
 	}
 
 	&__content {

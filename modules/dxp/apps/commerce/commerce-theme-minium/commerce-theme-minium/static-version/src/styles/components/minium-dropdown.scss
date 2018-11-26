@@ -1,10 +1,9 @@
 .minium-dropdown {
-	--dropdown-color-bg: var(--color-bg);
 	position: relative;
 
 	&.is-open::before {
 		border: 10px solid transparent;
-		border-bottom-color: var(--dropdown-color-bg);
+		border-bottom-color: $color-bg;
 		border-top-width: 0;
 		content: '';
 		opacity: 0;
@@ -16,9 +15,9 @@
 	}
 
 	&__curtain {
-		background-color: var(--dropdown-color-bg);
+		background-color: $color-bg;
 		border-radius: 8px;
-		box-shadow: var(--minium-shadow);
+		box-shadow: $minium-shadow;
 		display: none;
 		display: grid;
 		height: 530px;

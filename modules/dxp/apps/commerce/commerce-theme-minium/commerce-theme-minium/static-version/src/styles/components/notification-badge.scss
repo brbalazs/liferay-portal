@@ -1,8 +1,8 @@
 .notification-badge {
 	align-items: center;
-	background-color: var(--color-theme);
+	background-color: $color-theme;
 	border-radius: 50%;
-	color: var(--color-bg);
+	color: $color-bg;
 	display: inline-flex;
 	font-size: 12px;
 	height: 21px;

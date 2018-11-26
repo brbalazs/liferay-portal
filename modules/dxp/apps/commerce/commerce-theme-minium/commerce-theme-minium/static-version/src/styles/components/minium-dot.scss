@@ -1,6 +1,5 @@
 .minium-dot {
-	--dot-size: 14px;
-	--dot-color: var(--color-theme);
+	$dot-size: 14px;
 
 	align-items: center;
 	display: grid;
@@ -8,23 +7,23 @@
 	grid-template-columns: auto 1fr;
 
 	&::before {
-		background-color: var(--dot-color);
+		background-color: $color-theme;
 		border-radius: 50%;
 		content: '';
 		display: inline-block;
-		height: var(--dot-size);
-		width: var(--dot-size);
+		height: $dot-size;
+		width: $dot-size;
 	}
 
-	&--good {
-		--dot-color: var(--color-mood-good);
+	&--good::before {
+		background-color: $color-mood-good;
 	}
 
-	&--neutral {
-		--dot-color: var(--color-mood-neutral);
+	&--neutral::before {
+		background-color: $color-mood-neutral;
 	}
 
-	&--bad {
-		--dot-color: var(--color-mood-bad);
+	&--bad::before {
+		background-color: $color-mood-bad;
 	}
 }

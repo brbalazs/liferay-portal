@@ -8,7 +8,7 @@
 		input {
 			background-color: transparent;
 			border: 0;
-			caret-color: var(--color-theme);
+			caret-color: $color-theme;
 			font-size: 14px;
 			height: 100%;
 			width: 100%;
@@ -18,7 +18,7 @@
 			}
 
 			&::placeholder {
-				color: var(--color-fg);
+				color: $color-fg;
 				font-weight: bold;
 				opacity: 0.35;
 			}
@@ -30,9 +30,9 @@
 		color: currentColor;
 		display: flex;
 		font-size: 21px;
-		height: var(--frame-size);
+		height: $frame-size;
 		justify-content: center;
-		width: var(--frame-size);
+		width: $frame-size;
 
 		&:hover {
 			color: currentColor;

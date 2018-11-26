@@ -1,5 +1,39 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
 
+$color-fg: #5C5E5E;
+$color-fg-alt: #7F848D;
+$color-bg: #FFF;
+$color-bg-medium: #FCFCFC;
+$color-bg-alt: #F7F7F8;
+$color-bg-dark: #34373E;
+$color-border: #ECEEF1;
+$color-shadow: rgba(92, 94, 94, 0.14);
+$color-disabled: #C9DAFF;
+
+$color-theme: #4C84FF;
+$color-theme-transparent: rgba(76, 132, 255, 0.067);
+
+$color-modal-mask: rgba(52,55,62,0.6);
+
+$color-mood-good: #78D89C;
+$color-mood-neutral: #FEE4B8;
+$color-mood-bad: #EC676A;
+$color-bg-mood-bad: #FEF7F7;
+
+// TODO find minium-shadow occurrences
+$minium-shadow: 0 10px 20px $color-shadow;
+$minium-small-gutter: 10px;
+$minium-gutter: 20px;
+$minium-big-gutter: 40px;
+
+$frame-size: 70px;
+$sidebar-width: 300px;
+$content-max-width: 1440px;
+
+$transition: ease 200ms;
+$micro-transition: ease 100ms;
+
+
 @import "./components/account-list.scss";
 @import "./components/account-selector.scss";
 @import "./components/account-switcher.scss";
@@ -30,38 +64,6 @@
 @import "./components/user-nav.scss";
 
 #minium {
-	--color-fg: #5C5E5E;
-	--color-fg-alt: #7F848D;
-	--color-bg: #FFF;
-	--color-bg-medium: #FCFCFC;
-	--color-bg-alt: #F7F7F8;
-	--color-bg-dark: #34373E;
-	--color-border: #ECEEF1;
-	--color-shadow: #5C5E5E23;
-	--color-disabled: #C9DAFF;
-
-	--color-theme: #4C84FF;
-	--color-theme-transparent: #4C84FF11;
-
-	--color-modal-mask: rgba(52,55,62,0.6);
-
-	--color-mood-good: #78D89C;
-	--color-mood-neutral: #FEE4B8;
-	--color-mood-bad: #EC676A;
-	--color-bg-mood-bad: #FEF7F7;
-
-	--minium-shadow: 0 10px 20px var(--color-shadow);
-
-	--frame-size: 70px;
-	--sidebar-width: 300px;
-	--content-max-width: 1440px;
-	--minium-small-gutter: 10px;
-	--minium-gutter: 20px;
-	--minium-big-gutter: 40px;
-
-	--transition: ease 200ms;
-	--micro-transition: ease 100ms;
-
 	font-family: 'Roboto', sans-serif;
 }
 
@@ -76,18 +78,18 @@
 .u-hoverable {
 	@media (hover: hover) {
 		&::before {
-			background-color: var(--color-theme);
+			background-color: $color-theme;
 			content: '';
 			height: 100%;
 			left: 0;
 			position: absolute;
 			top: 0;
-			transition: opacity var(--micro-transition);
+			transition: opacity $micro-transition;
 			width: 2px;
 		}
 
 		&.is-not-valid::before {
-			background-color: var(--color-mood-bad);
+			background-color: $color-mood-bad;
 		}
 
 		&:not(:hover)::before {
@@ -202,7 +204,7 @@
 	}
 
 	&__buttons {
-		margin: 0 var(--minium-gutter);
+		margin: 0 $minium-gutter;
 	}
 
 	html:not(.ie):not(.edge) .table tr.is-active & {

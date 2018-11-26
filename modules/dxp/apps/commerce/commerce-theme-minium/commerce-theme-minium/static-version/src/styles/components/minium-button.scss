@@ -1,11 +1,11 @@
 .minium-button.minium-button {
-	--button-color: var(--color-theme);
+	--button-color: $color-theme;
 
 	align-items: center;
 	background-color: var(--button-bg, var(--button-color));
 	border: 2px solid var(--button-color);
 	border-radius: 8px;
-	color: var(--button-fg, var(--color-bg));
+	color: var(--button-fg, $color-bg);
 	cursor: pointer;
 	display: inline-flex;
 	font-size: 10px;
@@ -19,27 +19,27 @@
 	white-space: nowrap;
 
 	& + & {
-		margin-left: var(--minium-gutter);
+		margin-left: $minium-gutter;
 	}
 
 	&--good {
-		--button-color: var(--color-mood-good);
+		--button-color: $color-mood-good;
 	}
 
 	&--bad {
-		--button-color: var(--color-mood-bad);
+		--button-color: $color-mood-bad;
 	}
 
 	&--neutral {
-		--button-color: var(--color-mood-neutral);
+		--button-color: $color-mood-neutral;
 	}
 
 	&--outline {
 
-		// background-color: var(--color-bg);
+		// background-color: $color-bg;
 		// color: var(--button-color);
 
-		--button-bg: var(--color-bg);
+		--button-bg: $color-bg;
 		--button-fg: var(--button-color);
 	}
 
@@ -52,12 +52,12 @@
 		height: 44px;
 
 		& + & {
-			margin-left: var(--minium-small-gutter);
+			margin-left: $minium-small-gutter;
 		}
 	}
 
 	&--disabled {
-		background-color: var(--color-disabled);
+		background-color: $color-disabled;
 		cursor: inherit;
 	}
 
@@ -70,7 +70,7 @@
 	&--inline {
 		background: transparent;
 		border: none;
-		color: var(--color-theme);
+		color: $color-theme;
 		display: inline-block;
 		height: auto;
 		min-width: auto;

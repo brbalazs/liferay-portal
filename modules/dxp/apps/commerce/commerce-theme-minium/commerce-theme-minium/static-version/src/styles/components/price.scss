@@ -5,13 +5,13 @@
 			font-weight: bold;
 	}
 	&--old {
-		color: var(--color-fg-alt);
+		color: $color-fg-alt;
 		font-weight: normal;
 		margin-left: 10px;
 		text-decoration: line-through;
 	}
 
 	&--discounted {
-		color: var(--color-mood-bad)
+		color: $color-mood-bad
 	}
 }

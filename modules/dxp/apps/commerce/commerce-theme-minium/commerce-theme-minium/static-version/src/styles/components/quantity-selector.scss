@@ -9,7 +9,7 @@
 		background: white;
 		border: 2px solid rgba(180,187,201,0.25);
 		border-radius: 8px;
-		color: var(--color-fg);
+		color: $color-fg;
 		font-family: Roboto;
 		font-size: 12px;
 		height: 30px;
@@ -17,7 +17,7 @@
 		width: 50px;
 
 		&:focus {
-			border-color: var(--color-theme);
+			border-color: $color-theme;
 			outline: none;
 		}
 
@@ -29,7 +29,7 @@
 	}
 
 	&__btn {
-		color: var(--color-fg-alt);
+		color: $color-fg-alt;
 		font-size: 14px;
 		font-weight: bold;
 		line-height: 30px;

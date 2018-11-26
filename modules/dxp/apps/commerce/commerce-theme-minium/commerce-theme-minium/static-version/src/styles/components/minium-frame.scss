@@ -1,9 +1,11 @@
 .minium-frame {
-	background-color: var(--color-bg-alt);
+	background-color: $color-bg-alt;
 	display: grid;
-	grid-template:
-		"sidebar topbar" auto
-		"sidebar content" 1fr / var(--frame-size) 1fr;
+	grid-template-areas:
+		"sidebar topbar"
+		"sidebar content";
+	grid-template-columns: $frame-size 1fr;
+	grid-template-rows: auto 1fr;
 	height: 100vh;
 	overflow: hidden;
 
@@ -25,7 +27,7 @@
 	}
 
 	&__overlay {
-		background-color: var(--color-modal-mask);
+		background-color: $color-modal-mask;
 		grid-area: content;
 		overflow: auto;
 		padding-bottom: 10%;
@@ -38,14 +40,14 @@
 
 	&__toolbar {
 		align-self: flex-start;
-		background-color: var(--color-bg);
+		background-color: $color-bg;
 		box-shadow: 0 0 0 transparent;
 		grid-area: content;
-		height: var(--frame-size);
+		height: $frame-size;
 		position: relative;
 		transition:
-			box-shadow var(--transition),
-			transform var(--transition);
+			box-shadow $transition,
+			transform $transition;
 		width: 100%;
 
 		.minium-frame:not(.is-scrolled) &,
@@ -55,7 +57,7 @@
 
 		.minium-frame.is-scrolled &,
 		.minium-frame.has-search & {
-			box-shadow: var(--minium-shadow);
+			box-shadow: $minium-shadow;
 		}
 	}
 
@@ -64,9 +66,9 @@
 		align-self: flex-end;
 		grid-area: content;
 		justify-self: center;
-		padding: var(--minium-gutter);
+		padding: $minium-gutter;
 		position: relative;
-		transition: transform var(--transition);
+		transition: transform $transition;
 
 		&:empty {
 			display: none;
@@ -78,13 +80,13 @@
 	}
 
 	&__cta {
-		filter: drop-shadow(var(--minium-shadow));
+		filter: drop-shadow($color-shadow);
 	}
 
 	&__dock {
-		background: var(--color-bg);
+		background: $color-bg;
 		border-radius: 8px 8px 0 0;
-		box-shadow: 0 -20px 40px 0 var(--color-shadow);
+		box-shadow: 0 -20px 40px 0 $color-shadow;
 	}
 
 	&__tray {
@@ -102,7 +104,7 @@
 
 	&__modal {
 		align-items: center;
-		background: var(--color-modal-mask);
+		background: $color-modal-mask;
 		bottom: 0;
 		display: flex;
 		justify-content: center;

@@ -1,9 +1,9 @@
 .minium-modal {
 	align-items: stretch;
-	background: var(--color-bg);
+	background: $color-bg;
 	border-radius: 8px;
-	box-shadow: var(--minium-shadow);
-	color: var(--color-fg);
+	box-shadow: $minium-shadow;
+	color: $color-fg;
 	display: flex;
 	height: 90vh;
 	max-height: 650px;

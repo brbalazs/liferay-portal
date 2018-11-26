@@ -1,6 +1,6 @@
 .minium-topbar {
-	background-color: var(--color-bg);
-	color: var(--color-fg-alt);
+	background-color: $color-bg;
+	color: $color-fg-alt;
 	display: grid;
 	grid-template-columns: repeat(3, auto);
 	justify-content: space-between;
@@ -17,10 +17,10 @@
 		cursor: pointer;
 		display: flex;
 		font-size: 14px;
-		height: var(--frame-size);
+		height: $frame-size;
 		justify-content: center;
 		margin: 0;
-		min-width: var(--frame-size);
+		min-width: $frame-size;
 		padding: 14px;
 
 		&:hover {
@@ -40,16 +40,16 @@
 		}
 
 		&.is-active {
-			background-color: var(--color-bg-alt);
+			background-color: $color-bg-alt;
 		}
 	}
 
 	&__search {
-		background-color: var(--color-bg-alt);
+		background-color: $color-bg-alt;
 		grid-column: span 3;
-		max-height: var(--frame-size);
+		max-height: $frame-size;
 		overflow: hidden;
-		transition: max-height var(--transition);
+		transition: max-height $transition;
 
 		.minium-frame:not(.has-search) & {
 			max-height: 0;
