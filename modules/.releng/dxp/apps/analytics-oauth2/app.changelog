@@ -1,0 +1,10 @@
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+    com.liferay.analytics.oauth2-1.0.5.jar
+
+app.change.log-1.0.0=LPS-86412
+
+app.git.id-1.0.0=649173f3854a2a44b5c388c8dc2494597276c461
