@@ -8,7 +8,7 @@
 	transition: padding ease 500ms;
 
 	body.signed-in & {
-		padding-top: 56px;
+		padding-top: $liferay-topbar-size;
 	}
 
 	body.open & {

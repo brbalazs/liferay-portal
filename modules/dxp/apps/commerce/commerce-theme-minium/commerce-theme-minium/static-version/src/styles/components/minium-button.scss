@@ -1,11 +1,9 @@
 .minium-button.minium-button {
-	--button-color: $color-theme;
-
 	align-items: center;
-	background-color: var(--button-bg, var(--button-color));
-	border: 2px solid var(--button-color);
+	background-color: $color-theme;
+	border: 0 solid currentColor;
 	border-radius: 8px;
-	color: var(--button-fg, $color-bg);
+	color: $color-bg;
 	cursor: pointer;
 	display: inline-flex;
 	font-size: 10px;
@@ -23,24 +21,33 @@
 	}
 
 	&--good {
-		--button-color: $color-mood-good;
+		background-color: $color-mood-good;
 	}
 
 	&--bad {
-		--button-color: $color-mood-bad;
+		background-color: $color-mood-bad;
 	}
 
 	&--neutral {
-		--button-color: $color-mood-neutral;
+		background-color: $color-mood-neutral;
 	}
 
 	&--outline {
+		background-color: $color-bg;
+		border-width: 2px;
+		color: $color-theme;
 
-		// background-color: $color-bg;
-		// color: var(--button-color);
+		&.minium-button--good {
+			color: $color-mood-good;
+		}
 
-		--button-bg: $color-bg;
-		--button-fg: var(--button-color);
+		&.minium-button--bad {
+			color: $color-mood-bad;
+		}
+
+		&.minium-button--neutral {
+			color: $color-mood-neutral;
+		}
 	}
 
 	&--block {

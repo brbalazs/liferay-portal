@@ -3,7 +3,9 @@
 	color: currentColor;
 	display: grid;
 	font-size: 14px;
-	grid-template: "icon label" 70px / $frame-size 1fr;
+	grid-template-areas: "icon label";
+	grid-template-columns: $frame-size 1fr;
+	grid-template-rows: 70px;
 	position: relative;
 	text-decoration: none;
 

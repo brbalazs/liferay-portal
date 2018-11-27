@@ -13,6 +13,10 @@
 	width: 390px;
 	z-index: 40;
 
+	body.signed-in & {
+		top: $frame-size + $liferay-topbar-size;
+	}
+
 	&:not(.is-open) {
 		box-shadow: 0 0 0 $color-shadow;
 		transform: translateX(100%);
