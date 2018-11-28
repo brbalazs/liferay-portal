@@ -11,7 +11,7 @@
 		right: 24px;
 		top: 100%;
 		transition: max-height .2s ease-in, opacity .2s ease-in;
-		z-index: 60;
+		z-index: 1160;
 	}
 
 	&__curtain {
@@ -27,7 +27,7 @@
 		right: 0;
 		top: calc(100% + 10px);
 		width: 450px;
-		z-index: 60;
+		z-index: 1160;
 
 		&.is-open {
 			display: block;

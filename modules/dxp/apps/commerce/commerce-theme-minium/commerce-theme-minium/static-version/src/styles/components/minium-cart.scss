@@ -11,7 +11,7 @@
 		box-shadow $transition,
 		transform $transition;
 	width: 390px;
-	z-index: 40;
+	z-index: 1140;
 
 	body.signed-in & {
 		top: $frame-size + $liferay-topbar-size;

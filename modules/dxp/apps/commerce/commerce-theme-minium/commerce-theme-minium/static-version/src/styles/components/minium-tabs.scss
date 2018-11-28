@@ -20,7 +20,7 @@
 
 		em {
 			font-style: normal;
-			margin-right: 10px;
+			// margin-right: 10px;
 		}
 
 		&:hover,
@@ -39,5 +39,9 @@
 			position: absolute;
 			width: 50px;
 		}
+	}
+
+	.minium-topbar__middle & {
+		height: $frame-size;
 	}
 }

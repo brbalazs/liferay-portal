@@ -21,10 +21,13 @@
 
 		<#if (portlet_configuration_icons?has_content || portlet_title_menus?has_content)>
 			<header class="portlet-topper">
+				<svg width="18" height="10" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 0H0v2h2V0zM0 4h2v2H0V4zm4 0h2v2H4V4zm6 0H8v2h2V4zm2 0h2v2h-2V4zm6 0h-2v2h2V4zM0 8h2v2H0V8zm6 0H4v2h2V8zm2 0h2v2H8V8zm6 0h-2v2h2V8zm2 0h2v2h-2V8zM4 0h2v2H4V0zm6 0H8v2h2V0zm2 0h2v2h-2V0zm6 0h-2v2h2V0z" fill="#fff"/></svg>
 				<div class="portlet-title-default">
 					<span class="portlet-name-text">${portlet_display_name}</span>
 				</div>
+			</header>
 
+			<div class="portlet-topper-toolbar-wrapper">
 				<#foreach portletTitleMenu in portlet_title_menus>
 					<menu class="portlet-topper-toolbar" id="portlet-title-menu_${portlet_id}_${portletTitleMenu_index}" type="toolbar">
 						<@liferay_ui["menu"] menu=portletTitleMenu />
@@ -36,7 +39,7 @@
 						<@liferay_portlet["icon-options"] portletConfigurationIcons=portlet_configuration_icons />
 					</menu>
 				</#if>
-			</header>
+			</div>
 
 			<#assign portlet_content_css_class = portlet_content_css_class + " portlet-content-editable" />
 		</#if>

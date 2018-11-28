@@ -12,13 +12,13 @@
 	&__topbar {
 		display: grid;
 		grid-area: topbar;
-		z-index: 5;
+		z-index: 1105;
 	}
 
 	&__sidebar {
 		display: grid;
 		grid-area: sidebar;
-		z-index: 20;
+		z-index: 1120;
 	}
 
 	&__content {
@@ -95,7 +95,7 @@
 		justify-self: end;
 		margin-right: 20px;
 		margin-top: 20px;
-		z-index: 100;
+		z-index: 1190;
 
 		&:empty {
 			display: none;
@@ -112,7 +112,7 @@
 		position: fixed;
 		right: 0;
 		top: 0;
-		z-index: 80;
+		z-index: 1180;
 
 		&:not(.is-visible) {
 			display: none;

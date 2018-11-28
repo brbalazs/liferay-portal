@@ -4,6 +4,7 @@
 	color: $color-fg-alt;
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 	overflow: hidden;
 	transition:
 		box-shadow $transition,
@@ -16,12 +17,17 @@
 	}
 
 	&__start {
-		flex: 1 1 50%;
+		flex: 1 0 70px;
+	}
+
+	&__middle {
+		overflow: scroll;
+		padding: 40px 0;
 	}
 
 	&__end {
 		align-items: flex-end;
 		display: flex;
-		flex: 1 1 50%;
+		flex: 1 0 70px;
 	}
 }
