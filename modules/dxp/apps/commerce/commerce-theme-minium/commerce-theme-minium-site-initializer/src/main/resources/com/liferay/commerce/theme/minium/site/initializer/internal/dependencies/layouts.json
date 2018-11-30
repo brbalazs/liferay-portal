@@ -100,6 +100,9 @@
 	{
 		"icon" : "icon-orders.png",
 		"layoutTemplateId": "1_column",
+		"lookAndFeel": {
+			"lfr-theme:regular:show-top-menu": true
+		},
 		"name": "Orders",
 		"portlets": [
 			{
@@ -108,7 +111,54 @@
 				"portletName": "com_liferay_commerce_organization_order_web_internal_portlet_CommerceOrganizationOrderPortlet"
 			}
 		],
-		"privateLayout": true
+		"privateLayout": true,
+		"subLayouts": [
+			{
+				"layoutTemplateId": "1_column",
+				"lookAndFeel": {
+					"lfr-theme:regular:show-top-menu": true
+				},
+				"name": "Pending",
+				"portlets": [
+					{
+						"layoutColumnId": "column-1",
+						"layoutColumnPos": 0,
+						"portletName": "com_liferay_commerce_organization_order_web_internal_portlet_CommerceOrganizationOrderPortlet"
+					}
+				],
+				"privateLayout": true
+			},
+			{
+				"layoutTemplateId": "1_column",
+				"lookAndFeel": {
+					"lfr-theme:regular:show-top-menu": true
+				},
+				"name": "Open",
+				"portlets": [
+					{
+						"layoutColumnId": "column-1",
+						"layoutColumnPos": 0,
+						"portletName": "com_liferay_commerce_organization_order_web_internal_portlet_CommerceOrganizationOrderPortlet"
+					}
+				],
+				"privateLayout": true
+			},
+			{
+				"layoutTemplateId": "1_column",
+				"lookAndFeel": {
+					"lfr-theme:regular:show-top-menu": true
+				},
+				"name": "Completed",
+				"portlets": [
+					{
+						"layoutColumnId": "column-1",
+						"layoutColumnPos": 0,
+						"portletName": "com_liferay_commerce_organization_order_web_internal_portlet_CommerceOrganizationOrderPortlet"
+					}
+				],
+				"privateLayout": true
+			}
+		]
 	},
 	{
 		"hidden": true,
