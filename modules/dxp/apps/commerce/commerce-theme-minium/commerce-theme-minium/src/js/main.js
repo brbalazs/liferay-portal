@@ -31,17 +31,20 @@ Liferay.on(
 	*/
 
 	function() {
-		new IntersectionObserver(
-			entries => {
-				document
-					.getElementById("minium")
-					.classList.toggle("is-scrolled", !entries[0].isIntersecting);
-			},
-			{
-				root: document.querySelector(".js-scroll-area"),
-				rootMargin: "10px",
-				threshold: 1.0
-			}
-		).observe(document.querySelector("[name=minium-top]"));
+		var jsScrollArea = document.querySelector(".js-scroll-area");
+		var miniumTop = document.querySelector("[name=minium-top]");
+
+		if (jsScrollArea && miniumTop) {
+			new IntersectionObserver(
+				entries => {
+					document.getElementById("minium").classList.toggle("is-scrolled", !entries[0].isIntersecting);
+				},
+				{
+					root: jsScrollArea,
+					rootMargin: "10px",
+					threshold: 1.0
+				}
+			).observe(miniumTop);
+		}
 	}
 );
