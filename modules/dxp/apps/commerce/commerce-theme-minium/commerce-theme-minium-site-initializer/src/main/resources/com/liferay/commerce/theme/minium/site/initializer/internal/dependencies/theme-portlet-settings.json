@@ -5,7 +5,7 @@
 		"portletPreferences": {
 			"displayDepth": "0",
 			"displayStyle": {
-				"FileName": "MINUM_SITE_NAVIGATION.ftl",
+				"FileName": "MINIUM_SITE_NAVIGATION.ftl",
 				"Name": "Minium Site Navigation",
 				"PortletClassName": "com.liferay.portal.kernel.theme.NavItem"
 			},
@@ -14,18 +14,17 @@
 			"portletSetupCss": "",
 			"portletSetupPortletDecoratorId": "barebone",
 			"portletSetupUseCustomTitle": "false",
-			"rootLayoutLevel": "0",
-			"rootLayoutType": "select",
-			"rootLayoutUuid": ""
+			"rootMenuItemLevel": "0",
+			"rootMenuItemType": "select"
 		}
 	},
 	{
-		"instanceId": "siteNavigationMenuPortlet_sub_navigations",
+		"instanceId": "siteNavigationMenuPortlet_sub_navigation",
 		"portletName": "com_liferay_site_navigation_menu_web_portlet_SiteNavigationMenuPortlet",
 		"portletPreferences": {
 			"displayDepth": "0",
 			"displayStyle": {
-				"FileName": "MINUM_SUB_SITE_NAVIGATION.ftl",
+				"FileName": "MINIUM_SUB_SITE_NAVIGATION.ftl",
 				"Name": "Minium Sub Site Navigation",
 				"PortletClassName": "com.liferay.portal.kernel.theme.NavItem"
 			},
@@ -34,9 +33,8 @@
 			"portletSetupCss": "",
 			"portletSetupPortletDecoratorId": "barebone",
 			"portletSetupUseCustomTitle": "false",
-			"rootLayoutLevel": "0",
-			"rootLayoutType": "select",
-			"rootLayoutUuid": ""
+			"rootMenuItemLevel": "0",
+			"rootMenuItemType": "relative"
 		}
 	}
 ]
