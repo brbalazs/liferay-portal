@@ -11,13 +11,10 @@
 	/>
 </#macro>
 
-<#macro site_navigation_menu_sub_navigations
-	default_preferences = ""
-	instance_id="siteNavigationMenuPortlet_sub_navigations">
-
+<#macro site_navigation_menu_sub_navigation default_preferences = "">
 	<@liferay_portlet["runtime"]
 		defaultPreferences=default_preferences
-		instanceId=instance_id
+		instanceId="siteNavigationMenuPortlet_sub_navigation"
 		portletName="com_liferay_site_navigation_menu_web_portlet_SiteNavigationMenuPortlet"
 	/>
 </#macro>
