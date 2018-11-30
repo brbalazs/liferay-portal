@@ -26,8 +26,8 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Marco Leo
  */
-@Component(service = MiniumlLayoutsInitializer.class)
-public class MiniumlLayoutsInitializer {
+@Component(service = MiniumLayoutsInitializer.class)
+public class MiniumLayoutsInitializer {
 
 	public void initialize(ServiceContext serviceContext) throws Exception {
 		_cpFileImporter.cleanLayouts(serviceContext);
@@ -39,16 +39,16 @@ public class MiniumlLayoutsInitializer {
 		throws Exception {
 
 		ClassLoader classLoader =
-			MiniumlLayoutsInitializer.class.getClassLoader();
+			MiniumLayoutsInitializer.class.getClassLoader();
 
 		String json = StringUtil.read(
 			classLoader,
-			MiniumlSiteInitializer.DEPENDENCIES_PATH + "layouts.json", false);
+			MiniumSiteInitializer.DEPENDENCIES_PATH + "layouts.json", false);
 
 		JSONArray jsonArray = _jsonFactory.createJSONArray(json);
 
 		_cpFileImporter.createLayouts(
-			jsonArray, classLoader, MiniumlSiteInitializer.DEPENDENCIES_PATH,
+			jsonArray, classLoader, MiniumSiteInitializer.DEPENDENCIES_PATH,
 			serviceContext);
 	}
 

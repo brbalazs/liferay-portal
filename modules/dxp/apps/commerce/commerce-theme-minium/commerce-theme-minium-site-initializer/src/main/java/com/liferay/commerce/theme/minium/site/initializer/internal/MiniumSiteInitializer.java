@@ -90,13 +90,14 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Marco Leo
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
-	property = "site.initializer.key=" + MiniumlSiteInitializer.KEY,
+	property = "site.initializer.key=" + MiniumSiteInitializer.KEY,
 	service = SiteInitializer.class
 )
-public class MiniumlSiteInitializer implements SiteInitializer {
+public class MiniumSiteInitializer implements SiteInitializer {
 
 	public static final int ACCOUNT_ORGANIZATIONS_COUNT = 3;
 
@@ -146,7 +147,7 @@ public class MiniumlSiteInitializer implements SiteInitializer {
 
 			createRoles(serviceContext);
 
-			_miniumlLayoutsInitializer.initialize(serviceContext);
+			_miniumLayoutsInitializer.initialize(serviceContext);
 
 			List<CommerceWarehouse> commerceWarehouses =
 				_importCommerceWarehouses(serviceContext);
@@ -413,7 +414,7 @@ public class MiniumlSiteInitializer implements SiteInitializer {
 
 	private String _getJSON(String name) throws IOException {
 		return StringUtil.read(
-			MiniumlSiteInitializer.class.getClassLoader(),
+			MiniumSiteInitializer.class.getClassLoader(),
 			DEPENDENCIES_PATH + name);
 	}
 
@@ -499,7 +500,7 @@ public class MiniumlSiteInitializer implements SiteInitializer {
 
 		return _cpDefinitionsImporter.importCPDefinitions(
 			jsonArray, _COMMERCE_VOCABULARY, commerceWarehouseIds,
-			MiniumlSiteInitializer.class.getClassLoader(),
+			MiniumSiteInitializer.class.getClassLoader(),
 			DEPENDENCIES_PATH + "images/", serviceContext);
 	}
 
@@ -509,7 +510,7 @@ public class MiniumlSiteInitializer implements SiteInitializer {
 		JSONArray jsonArray = _getJSONArray("portlet-settings.json");
 
 		_portletSettingsImporter.importPortletSettings(
-			jsonArray, MiniumlSiteInitializer.class.getClassLoader(),
+			jsonArray, MiniumSiteInitializer.class.getClassLoader(),
 			DEPENDENCIES_PATH + "display_templates/", serviceContext);
 	}
 
@@ -519,7 +520,7 @@ public class MiniumlSiteInitializer implements SiteInitializer {
 		JSONArray jsonArray = _getJSONArray("theme-portlet-settings.json");
 
 		_portletSettingsImporter.importPortletSettings(
-			jsonArray, MiniumlSiteInitializer.class.getClassLoader(),
+			jsonArray, MiniumSiteInitializer.class.getClassLoader(),
 			DEPENDENCIES_PATH + "display_templates/", serviceContext);
 	}
 
@@ -564,7 +565,7 @@ public class MiniumlSiteInitializer implements SiteInitializer {
 		CommerceOrganizationConstants.TYPES);
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		MiniumlSiteInitializer.class);
+		MiniumSiteInitializer.class);
 
 	@Reference
 	private CommerceCountryLocalService _commerceCountryLocalService;
@@ -611,7 +612,7 @@ public class MiniumlSiteInitializer implements SiteInitializer {
 	private JSONFactory _jsonFactory;
 
 	@Reference
-	private MiniumlLayoutsInitializer _miniumlLayoutsInitializer;
+	private MiniumLayoutsInitializer _miniumLayoutsInitializer;
 
 	@Reference
 	private OrganizationLocalService _organizationLocalService;
