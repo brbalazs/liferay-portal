@@ -1,7 +1,7 @@
 [
 	{
 		"icon" : "icon-dashboard.png",
-		"layoutTemplateId": "dashboard_1_3_2_columns",
+		"layoutTemplateId": "1_3_2_columns",
 		"name": "Dashboard",
 		"portlets": [
 			{
@@ -48,7 +48,7 @@
 	},
 	{
 		"icon" : "icon-catalog.png",
-		"layoutTemplateId": "catalog_1_2_columns",
+		"layoutTemplateId": "1_2_columns_i",
 		"name": "Catalog",
 		"portlets": [
 			{
@@ -64,12 +64,12 @@
 			{
 				"layoutColumnId": "column-3",
 				"layoutColumnPos": 0,
-				"portletName": "com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_beryl"
+				"portletName": "com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_minium"
 			},
 			{
 				"layoutColumnId": "column-3",
 				"layoutColumnPos": 1,
-				"portletName": "com_liferay_commerce_product_content_search_web_internal_portlet_CPSearchResultsPortlet_INSTANCE_beryl"
+				"portletName": "com_liferay_commerce_product_content_search_web_internal_portlet_CPSearchResultsPortlet_INSTANCE_minium"
 			},
 			{
 				"layoutColumnId": "column-3",
@@ -87,7 +87,7 @@
 			{
 				"layoutColumnId": "column-1",
 				"layoutColumnPos": 0,
-				"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPContentPortlet_INSTANCE_beryl"
+				"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPContentPortlet_INSTANCE_minium"
 			},
 			{
 				"layoutColumnId": "column-1",
@@ -229,6 +229,24 @@
 				"layoutColumnId": "column-1",
 				"layoutColumnPos": 0,
 				"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPCompareContentPortlet"
+			}
+		],
+		"privateLayout": true
+	},
+	{
+		"hidden": true,
+		"layoutTemplateId": "2_columns_ii",
+		"name": "Wish List",
+		"portlets": [
+			{
+				"layoutColumnId": "column-1",
+				"layoutColumnPos": 0,
+				"portletName": "com_liferay_commerce_wish_list_web_internal_portlet_MyCommerceWishListsPortlet"
+			},
+			{
+				"layoutColumnId": "column-2",
+				"layoutColumnPos": 0,
+				"portletName": "com_liferay_commerce_wish_list_web_internal_portlet_CommerceWishListContentPortlet"
 			}
 		],
 		"privateLayout": true
