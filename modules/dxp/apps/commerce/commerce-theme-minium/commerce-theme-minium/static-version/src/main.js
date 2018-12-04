@@ -3,6 +3,7 @@ import App from "./App.vue";
 
 // import Cart from "../public/soy-components/Cart";
 import AccountSelector from "../public/soy-components/account-selector/src/AccountSelector";
+import AddToCartButton from "../public/soy-components/add-to-cart/src/AddToCartButton";
 import MiniumTable from "../public/soy-components/minium-table/src/MiniumTable";
 
 import "intersection-observer";
@@ -211,7 +212,6 @@ new MiniumTable(
 );
 
 
-
 fetch( 'api/accounts/current', {
     method: 'GET'
 })
@@ -230,3 +230,45 @@ fetch( 'api/accounts/current', {
         '.minium-topbar__account-selector-wrapper'
     );
 })
+
+
+new AddToCartButton(
+	{
+		settings: {
+			minQuantity: 1,
+			maxQuantity: 100
+		}
+	},
+	"#qsbtn1"
+);
+new AddToCartButton(
+	{
+		quantity: 2345,
+		settings: {
+			minQuantity: 1,
+			maxQuantity: 100
+		}
+	},
+	"#qsbtn2"
+);
+new AddToCartButton(
+	{
+		editMode: true,
+		quantity: 2345,
+		settings: {
+			minQuantity: 1,
+			maxQuantity: 10000,
+			multipleQuantities: 5
+		}
+	},
+	"#qsbtn3"
+);
+new AddToCartButton(
+	{
+		editMode: true,
+		settings: {
+			allowedOptions: [5, 10, 100, 1000, 2500]
+		}
+	},
+	"#qsbtn4"
+);

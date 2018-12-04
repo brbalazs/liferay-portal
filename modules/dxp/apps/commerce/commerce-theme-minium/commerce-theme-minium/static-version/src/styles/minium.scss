@@ -36,6 +36,7 @@ $micro-transition: ease 100ms;
 @import "./components/account-list.scss";
 @import "./components/account-selector.scss";
 @import "./components/account-switcher.scss";
+@import "./components/add-to-cart-button.scss";
 @import "./components/loaders.scss";
 @import "./components/main-link.scss";
 @import "./components/main-navigation.scss";
@@ -265,7 +266,7 @@ html.edge {
 	margin-top: $minium-big-gutter;
 }
 
-.portlet:not(:hover) .portlet-topper-toolbar-wrapper {
+.portlet:not(:hover):not(.open) .portlet-topper-toolbar-wrapper {
 	display: none;
 }
 
