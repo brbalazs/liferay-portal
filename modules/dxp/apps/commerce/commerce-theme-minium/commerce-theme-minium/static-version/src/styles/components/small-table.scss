@@ -16,14 +16,12 @@
 
 	tbody tr,
 	.d-table-row-group .d-table-row {
-
 		&:nth-child(odd) {
 			background-color: $color-bg-alt;
 		}
 
 		td,
 		.d-table-cell {
-
 			&:first-child {
 				border-radius: 8px 0 0 8px;
 			}

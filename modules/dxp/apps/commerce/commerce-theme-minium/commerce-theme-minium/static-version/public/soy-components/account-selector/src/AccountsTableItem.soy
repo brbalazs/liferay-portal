@@ -4,18 +4,18 @@
  * This renders the component's whole content.
  */
 {template .render}
-    {@param thumbnail: string }
-    {@param name: string }
-    {@param? query: string }
+	{@param thumbnail: string }
+	{@param name: string }
+	{@param? query: string }
 
-    <span 
-        class="account-list__item u-hoverable"
-        data-onclick="_handleItemClick"
-    >
-        <img src="{$thumbnail}" alt="{$name}">
-        {call AutocompleteItem.render}
-            {param text: $name /}
-            {param query: $query /}
-        {/call}
-    </span>
+	<span
+		class="account-list__item u-hoverable"
+		data-onclick="_handleItemClick"
+	>
+		<img src="{$thumbnail}" alt="{$name}">
+		{call AutocompleteItem.render}
+			{param text: $name /}
+			{param query: $query /}
+		{/call}
+	</span>
 {/template}

@@ -10,50 +10,50 @@ import './AccountsTableItem';
 
 class AccountsTable extends Component {
 
-    created(){
-        this._handleFilterChange = debounce(this._handleFilterChange, 500);
-    }
+	created() {
+		this._handleFilterChange = debounce(this._handleFilterChange, 500);
+	}
 
-    handleSelectAccount(accountData) {
-        this.emit('accountSelected', accountData)
-    }
+	handleSelectAccount(accountData) {
+		this.emit('accountSelected', accountData)
+	}
 
-    _handleFilterChange(evt) {
-        this.filterString = evt.target.value;
-        return this._getAccounts();
-    }
-    
-    _handleSubmitFilter(evt) {
-        evt.preventDefault();
-        return this._getAccounts();
-    }
-    
-    _getAccounts() {
-        return this.emit('getAccounts', this.filterString)
-    }
+	_handleFilterChange(evt) {
+		this.filterString = evt.target.value;
+		return this._getAccounts();
+	}
+
+	_handleSubmitFilter(evt) {
+		evt.preventDefault();
+		return this._getAccounts();
+	}
+
+	_getAccounts() {
+		return this.emit('getAccounts', this.filterString)
+	}
 }
 
 Soy.register(AccountsTable, template);
 
 AccountsTable.STATE = {
-    currentAccount: Config.shapeOf(
-        {
-            id: Config.string(),
-            name: Config.string(),
-            thumbnail: Config.string()
-        }
-    ),
-    filterString: Config.string().value('').internal(),
+	currentAccount: Config.shapeOf(
+		{
+			id: Config.string(),
+			name: Config.string(),
+			thumbnail: Config.string()
+		}
+	),
+	filterString: Config.string().value('').internal(),
 	accounts: Config.arrayOf(
-        Config.shapeOf(
-            {
-                id: Config.string(),
-                name: Config.string(),
-                thumbnail: Config.string()
-            }
-        )
-    ),
-    createNewOrderLink: Config.string()
+		Config.shapeOf(
+			{
+				id: Config.string(),
+				name: Config.string(),
+				thumbnail: Config.string()
+			}
+		)
+	),
+	createNewOrderLink: Config.string()
 };
 
 export {AccountsTable};

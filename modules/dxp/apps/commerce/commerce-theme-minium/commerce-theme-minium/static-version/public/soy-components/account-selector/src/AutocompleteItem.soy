@@ -4,19 +4,19 @@
  * This renders the component's whole content.
  */
 {template .render}
-    {@param? firstGroup: string }
-    {@param? secondGroup: string }
-    {@param? thirdGroup: string }
+	{@param? firstGroup: string }
+	{@param? secondGroup: string }
+	{@param? thirdGroup: string }
 
-    <span 
-        class="autocomplete-item"
-    >
-        {$firstGroup}
-        {if isNonnull($secondGroup)}
-            <strong>{$secondGroup}</strong>
-        {/if}
-        {if isNonnull($thirdGroup)}
-            {$thirdGroup}
-        {/if}
-    </span>
+	<span
+		class="autocomplete-item"
+	>
+		{$firstGroup}
+		{if isNonnull($secondGroup)}
+			<strong>{$secondGroup}</strong>
+		{/if}
+		{if isNonnull($thirdGroup)}
+			{$thirdGroup}
+		{/if}
+	</span>
 {/template}

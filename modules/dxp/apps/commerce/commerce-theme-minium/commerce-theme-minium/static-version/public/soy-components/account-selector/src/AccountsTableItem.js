@@ -8,28 +8,28 @@ import './AutocompleteItem';
 
 class AccountsTableItem extends Component {
 
-    _handleItemClick() {
-        this.emit('selectAccount', {
-            id: this.id,
-            name: this.name,
-            thumbnail: this.thumbnail
-        })
-    }
+	_handleItemClick() {
+		this.emit('selectAccount', {
+			id: this.id,
+			name: this.name,
+			thumbnail: this.thumbnail
+		})
+	}
 
 }
 
 Soy.register(AccountsTableItem, template);
 
 AccountsTableItem.STATE = {
-    id: Config.oneOfType(
-        [
-            Config.string(),
-            Config.number()
-        ]
-    ),
-    name: Config.string(),
-    thumbnail: Config.string(),
-    query: Config.string()
+	id: Config.oneOfType(
+		[
+			Config.string(),
+			Config.number()
+		]
+	),
+	name: Config.string(),
+	thumbnail: Config.string(),
+	query: Config.string()
 };
 
 export {AccountsTableItem};

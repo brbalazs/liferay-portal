@@ -211,26 +211,24 @@ new MiniumTable(
 	"#test-table"
 );
 
-
 fetch( 'api/accounts/current', {
-    method: 'GET'
+	method: 'GET'
 })
-.then((response) => response.json())
-.then((accountsState) => {
-    new AccountSelector(
-        {
-            accountsAPI: 'api/accounts',
-            currentAccount: accountsState.currentAccount,
-            currentOrder: accountsState.currentOrder,
-            viewAllAccountsLink: '/view-all-accounts',
-            createNewAccountLink: '/create-new-account',
-            viewAllOrdersLink: '/view-all-orders',
-            createNewOrderLink: '/create-new-order'
-        }, 
-        '.minium-topbar__account-selector-wrapper'
-    );
-})
-
+	.then((response) => response.json())
+	.then((accountsState) => {
+		new AccountSelector(
+			{
+				accountsAPI: 'api/accounts',
+				currentAccount: accountsState.currentAccount,
+				currentOrder: accountsState.currentOrder,
+				viewAllAccountsLink: '/view-all-accounts',
+				createNewAccountLink: '/create-new-account',
+				viewAllOrdersLink: '/view-all-orders',
+				createNewOrderLink: '/create-new-order'
+			},
+			'.minium-topbar__account-selector-wrapper'
+		);
+	})
 
 new AddToCartButton(
 	{
