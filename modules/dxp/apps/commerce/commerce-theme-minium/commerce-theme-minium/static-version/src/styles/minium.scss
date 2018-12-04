@@ -66,6 +66,12 @@ $micro-transition: ease 100ms;
 	font-family: 'Roboto', sans-serif;
 }
 
+
+button {
+	background: none;
+	border: none;
+}
+
 .u-tar {
 	text-align: right;
 }
@@ -324,4 +330,16 @@ html.edge {
 .portlet-topper-toolbar > span > a,
 .portlet-topper-toolbar .lfr-icon-menu > a {
 	color: white;
+}
+
+.d-table-head-group {
+	display: table-header-group;
+	vertical-align: middle;
+	border-color: inherit
+}
+
+.d-table-row-group {
+	display: table-row-group;
+	vertical-align: middle;
+	border-color: inherit
 }

@@ -16,6 +16,7 @@
 		margin-top: 15px;
 		padding: 0 15px;
 		position: relative;
+		cursor: pointer;
 
 		&:hover {
 			color: currentColor;
@@ -23,7 +24,7 @@
 		}
 
 		&:not(:hover) span {
-			opacity: 0.6;
+			opacity: 0.8;
 		}
 
 		img {
@@ -31,6 +32,10 @@
 			height: 40px;
 			margin-right: 10px;
 			width: 40px;
+		}
+
+		strong {
+			color: $color-fg;
 		}
 	}
 }
