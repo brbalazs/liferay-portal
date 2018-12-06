@@ -1,9 +1,15 @@
 import Vue from "vue";
 import App from "./App.vue";
+import { EventEmitter } from "metal-events";
+
+window.Liferay = new EventEmitter();
+window.Liferay.fire = window.Liferay.emit;
 
 // import Cart from "../public/soy-components/Cart";
 import AccountSelector from "../public/soy-components/account-selector/src/AccountSelector";
 import AddToCartButton from "../public/soy-components/add-to-cart/src/AddToCartButton";
+import MiniumSearchBar from "../public/soy-components/minium-search-bar/src/MiniumSearchBar";
+import MiniumSearchResults from "../public/soy-components/minium-search-results/src/MiniumSearchResults";
 import MiniumTable from "../public/soy-components/minium-table/src/MiniumTable";
 
 import "intersection-observer";
@@ -211,24 +217,24 @@ new MiniumTable(
 	"#test-table"
 );
 
-fetch( 'api/accounts/current', {
-	method: 'GET'
-})
-	.then((response) => response.json())
-	.then((accountsState) => {
-		new AccountSelector(
-			{
-				accountsAPI: 'api/accounts',
-				currentAccount: accountsState.currentAccount,
-				currentOrder: accountsState.currentOrder,
-				viewAllAccountsLink: '/view-all-accounts',
-				createNewAccountLink: '/create-new-account',
-				viewAllOrdersLink: '/view-all-orders',
-				createNewOrderLink: '/create-new-order'
-			},
-			'.minium-topbar__account-selector-wrapper'
-		);
-	})
+// fetch( 'api/accounts/current', {
+// 	method: 'GET'
+// })
+// 	.then((response) => response.json())
+// 	.then((accountsState) => {
+// 		new AccountSelector(
+// 			{
+// 				accountsAPI: 'api/accounts',
+// 				currentAccount: accountsState.currentAccount,
+// 				currentOrder: accountsState.currentOrder,
+// 				viewAllAccountsLink: '/view-all-accounts',
+// 				createNewAccountLink: '/create-new-account',
+// 				viewAllOrdersLink: '/view-all-orders',
+// 				createNewOrderLink: '/create-new-order'
+// 			},
+// 			'.minium-topbar__account-selector-wrapper'
+// 		);
+// 	})
 
 new AddToCartButton(
 	{
@@ -270,3 +276,73 @@ new AddToCartButton(
 	},
 	"#qsbtn4"
 );
+
+new MiniumSearchBar(
+	{
+		placeholder: "Search Product Name, SKU, Client…",
+		id: "minium-search-input"
+	},
+	"#minium-search"
+);
+
+function getItems(category) {
+	return [
+		{
+			type: "label",
+			value: category
+		},
+		...new Array(3).fill({
+			type: "item",
+			image: "http://placehold.it/100",
+			title: "Vestibulum Marmitta commodo urna",
+			subtitle: "AR385672"
+		}),
+		{
+			type: "category",
+			value: category
+		}
+	];
+}
+
+new MiniumSearchResults(
+	{
+		results: [
+			{
+				type: "category",
+				value: "Pending Orders"
+			},
+			{
+				type: "category",
+				value: "All Contents"
+			},
+			...getItems("Pending Orders"),
+			...getItems("Catalog")
+		]
+	},
+	"#minium-search-results"
+);
+
+function handleKeyDownForSearch(e) {
+	if (e.key === "Escape") {
+		toggleMiniumSearch();
+	}
+}
+
+function toggleMiniumSearch() {
+	const status = document
+		.getElementById("minium")
+		.classList.toggle("has-search");
+	document.querySelectorAll(".js-toggle-search").forEach(el => {
+		el.classList.toggle("is-active", status);
+	});
+
+	if (status) {
+		document.addEventListener("keydown", handleKeyDownForSearch);
+	} else {
+		document.removeEventListener("keydown", handleKeyDownForSearch);
+	}
+}
+
+document.querySelectorAll(".js-toggle-search").forEach(el => {
+	el.addEventListener("click", toggleMiniumSearch);
+});

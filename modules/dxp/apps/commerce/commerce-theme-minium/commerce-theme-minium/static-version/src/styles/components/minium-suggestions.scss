@@ -24,8 +24,19 @@
 		padding: 10px 20px;
 		position: relative;
 
-		&:hover {
+		&.is-selected {
 			background-color: $color-bg;
+
+			&::before {
+				background-color: $color-theme;
+				content: '';
+				height: 100%;
+				left: 0;
+				position: absolute;
+				top: 0;
+				transition: opacity $micro-transition;
+				width: 2px;
+			}
 		}
 	}
 

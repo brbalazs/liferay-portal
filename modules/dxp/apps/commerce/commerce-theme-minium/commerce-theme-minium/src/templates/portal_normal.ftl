@@ -31,6 +31,9 @@
 				</#if>
 			</div>
 		</div>
+
+		<#--  The toolbar is needed to create the shadow when scrolling  -->
+		<div class="minium-frame__toolbar (is-visible)"></div>
 	</div>
 
 	<@liferay_util["include"] page=body_bottom_include />

@@ -308,6 +308,11 @@ html.edge {
 	}
 }
 
+.portlet-content-editable {
+	border-radius: 8px;
+	min-height: 52px;
+}
+
 .portlet-title-default {
 	display: none;
 }

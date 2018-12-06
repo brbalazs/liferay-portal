@@ -2,11 +2,10 @@
   <div class="minium-topbar">
     <div class="minium-topbar__start">
       <a href="#" class="minium-topbar__button">
-        <minium-icon />
-        Back
+        <minium-icon/>Back
       </a>
-      <label class="minium-topbar__button (is-active)" for="minium-search-input">
-        <minium-icon />
+      <label class="minium-topbar__button (is-active) js-toggle-search" for="minium-search-input">
+        <minium-icon/>
       </label>
     </div>
     <div class="minium-topbar__middle">
@@ -16,8 +15,8 @@
       <div class="minium-topbar__account-selector-wrapper"></div>
       <div class="minium-topbar__cart-wrapper"></div>
     </div>
-    <div class="minium-topbar__search">
-      <minium-search placeholder="Search Product Name, SKU, Client…" />
+    <div class="minium-topbar__search" id="minium-search">
+      <!-- <minium-search placeholder="Search Product Name, SKU, Client…" id="minium-search-input"/> -->
     </div>
   </div>
 </template>

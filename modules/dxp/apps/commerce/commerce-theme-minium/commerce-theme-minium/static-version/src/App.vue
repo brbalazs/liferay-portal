@@ -40,8 +40,8 @@
       <a href="#" class="minium-button">Compare</a>
     </div>
 
-    <div class="minium-frame__overlay (is-visible)">
-      <minium-suggestions/>
+    <div class="minium-frame__overlay (is-visible)" id="minium-search-results">
+      <!-- <minium-suggestions/> -->
     </div>
 
     <div class="minium-frame__tray">

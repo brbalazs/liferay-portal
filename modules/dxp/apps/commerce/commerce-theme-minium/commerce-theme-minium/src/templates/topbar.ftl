@@ -8,7 +8,7 @@
 				Back
 			</a>
 
-			<label class="minium-topbar__button (is-active)" for="minium-search-input">
+			<label class="minium-topbar__button (is-active) js-toggle-search" for="minium-search-input">
 				<svg class="minium-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
 					<rect fill="currentColor" height="90" rx="10" ry="10" width="90" x="5" y="5" />
 				</svg>
@@ -127,7 +127,7 @@
 		<div class="minium-topbar__search">
 			<div class="minium-search">
 				<div class="minium-search__input">
-					<input placeholder="Search Product Name, SKU, Client…" type="text">
+					<input placeholder="Search Product Name, SKU, Client…" type="text" id="minium-search-input">
 				</div>
 
 				<a class="minium-search__button" href="#">
