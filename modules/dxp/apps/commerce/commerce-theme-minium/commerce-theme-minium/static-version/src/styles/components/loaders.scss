@@ -1,8 +1,8 @@
 .minium-loader {
 	display: inline-block;
-	position: relative;
 	min-height: 8px;
-	
+	position: relative;
+
 	&__dots-wrapper {
 		&--inverted {
 			.minium-loader__dot {
@@ -12,15 +12,15 @@
 	}
 
 	&__dot {
-		display: inline-block;
+		animation: scale-dot .8s ease-out infinite;
 		background: $color-fg;
 		border-radius: 50%;
+		display: inline-block;
 		height: 6px;
 		margin: 2px;
 		transform: scale(0.5);
 		width: 6px;
-		animation: scale-dot .8s ease-out infinite;
-		
+
 		&:nth-of-type(2) {
 			animation-delay: 0.2s;
 		}
@@ -34,9 +34,7 @@
 			animation-delay: 0.5s;
 		}
 	}
-
 }
-
 
 @keyframes scale-dot {
 	0% {

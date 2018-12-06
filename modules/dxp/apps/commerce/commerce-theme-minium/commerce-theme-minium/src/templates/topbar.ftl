@@ -127,7 +127,7 @@
 		<div class="minium-topbar__search">
 			<div class="minium-search">
 				<div class="minium-search__input">
-					<input placeholder="Search Product Name, SKU, Client…" type="text" id="minium-search-input">
+					<input id="minium-search-input" placeholder="Search Product Name, SKU, Client…" type="text">
 				</div>
 
 				<a class="minium-search__button" href="#">
