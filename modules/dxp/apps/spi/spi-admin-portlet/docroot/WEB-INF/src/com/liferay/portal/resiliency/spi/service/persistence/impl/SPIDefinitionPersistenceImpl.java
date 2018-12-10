@@ -1218,7 +1218,6 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 	}
 
 	private static final String _FINDER_COLUMN_C_N_COMPANYID_2 = "spiDefinition.companyId = ? AND ";
-	private static final String _FINDER_COLUMN_C_N_NAME_1 = "spiDefinition.name IS NULL";
 	private static final String _FINDER_COLUMN_C_N_NAME_2 = "spiDefinition.name = ?";
 	private static final String _FINDER_COLUMN_C_N_NAME_3 = "(spiDefinition.name IS NULL OR spiDefinition.name = '')";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_C_S = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
@@ -2899,7 +2898,6 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_CA_CP_CONNECTORADDRESS_1 = "spiDefinition.connectorAddress IS NULL AND ";
 	private static final String _FINDER_COLUMN_CA_CP_CONNECTORADDRESS_2 = "spiDefinition.connectorAddress = ? AND ";
 	private static final String _FINDER_COLUMN_CA_CP_CONNECTORADDRESS_3 = "(spiDefinition.connectorAddress IS NULL OR spiDefinition.connectorAddress = '') AND ";
 	private static final String _FINDER_COLUMN_CA_CP_CONNECTORPORT_2 = "spiDefinition.connectorPort = ?";

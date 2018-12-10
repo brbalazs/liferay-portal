@@ -1331,7 +1331,6 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_CONSUMERKEY_CONSUMERKEY_1 = "oAuthApplication.consumerKey IS NULL";
 	private static final String _FINDER_COLUMN_CONSUMERKEY_CONSUMERKEY_2 = "oAuthApplication.consumerKey = ?";
 	private static final String _FINDER_COLUMN_CONSUMERKEY_CONSUMERKEY_3 = "(oAuthApplication.consumerKey IS NULL OR oAuthApplication.consumerKey = '')";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_C_N = new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
@@ -1900,7 +1899,6 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	private static final String _FINDER_COLUMN_C_N_COMPANYID_2 = "oAuthApplication.companyId = ? AND ";
-	private static final String _FINDER_COLUMN_C_N_NAME_1 = "oAuthApplication.name IS NULL";
 	private static final String _FINDER_COLUMN_C_N_NAME_2 = "lower(oAuthApplication.name) LIKE ?";
 	private static final String _FINDER_COLUMN_C_N_NAME_3 = "(oAuthApplication.name IS NULL OR oAuthApplication.name LIKE '')";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_U_N = new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
@@ -2469,7 +2467,6 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	private static final String _FINDER_COLUMN_U_N_USERID_2 = "oAuthApplication.userId = ? AND ";
-	private static final String _FINDER_COLUMN_U_N_NAME_1 = "oAuthApplication.name IS NULL";
 	private static final String _FINDER_COLUMN_U_N_NAME_2 = "lower(oAuthApplication.name) LIKE ?";
 	private static final String _FINDER_COLUMN_U_N_NAME_3 = "(oAuthApplication.name IS NULL OR oAuthApplication.name LIKE '')";
 

@@ -632,7 +632,6 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_UUID_UUID_1 = "kaleoProcess.uuid IS NULL";
 	private static final String _FINDER_COLUMN_UUID_UUID_2 = "kaleoProcess.uuid = ?";
 	private static final String _FINDER_COLUMN_UUID_UUID_3 = "(kaleoProcess.uuid IS NULL OR kaleoProcess.uuid = '')";
 	public static final FinderPath FINDER_PATH_FETCH_BY_UUID_G = new FinderPath(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
@@ -876,7 +875,6 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_UUID_G_UUID_1 = "kaleoProcess.uuid IS NULL AND ";
 	private static final String _FINDER_COLUMN_UUID_G_UUID_2 = "kaleoProcess.uuid = ? AND ";
 	private static final String _FINDER_COLUMN_UUID_G_UUID_3 = "(kaleoProcess.uuid IS NULL OR kaleoProcess.uuid = '') AND ";
 	private static final String _FINDER_COLUMN_UUID_G_GROUPID_2 = "kaleoProcess.groupId = ?";
@@ -1459,7 +1457,6 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_UUID_C_UUID_1 = "kaleoProcess.uuid IS NULL AND ";
 	private static final String _FINDER_COLUMN_UUID_C_UUID_2 = "kaleoProcess.uuid = ? AND ";
 	private static final String _FINDER_COLUMN_UUID_C_UUID_3 = "(kaleoProcess.uuid IS NULL OR kaleoProcess.uuid = '') AND ";
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 = "kaleoProcess.companyId = ?";

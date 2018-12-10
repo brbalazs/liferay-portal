@@ -319,8 +319,6 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_1 =
-		"samlSpSession.samlSpSessionKey IS NULL";
 	private static final String _FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_2 =
 		"samlSpSession.samlSpSessionKey = ?";
 	private static final String _FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_3 =
@@ -560,7 +558,6 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_JSESSIONID_JSESSIONID_1 = "samlSpSession.jSessionId IS NULL";
 	private static final String _FINDER_COLUMN_JSESSIONID_JSESSIONID_2 = "samlSpSession.jSessionId = ?";
 	private static final String _FINDER_COLUMN_JSESSIONID_JSESSIONID_3 = "(samlSpSession.jSessionId IS NULL OR samlSpSession.jSessionId = '')";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_NAMEIDVALUE =
@@ -1109,7 +1106,6 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_1 = "samlSpSession.nameIdValue IS NULL";
 	private static final String _FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_2 = "samlSpSession.nameIdValue = ?";
 	private static final String _FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_3 = "(samlSpSession.nameIdValue IS NULL OR samlSpSession.nameIdValue = '')";
 	public static final FinderPath FINDER_PATH_FETCH_BY_SESSIONINDEX = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
@@ -1347,7 +1343,6 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_1 = "samlSpSession.sessionIndex IS NULL";
 	private static final String _FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_2 = "samlSpSession.sessionIndex = ?";
 	private static final String _FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_3 = "(samlSpSession.sessionIndex IS NULL OR samlSpSession.sessionIndex = '')";
 
