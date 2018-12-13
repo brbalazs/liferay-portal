@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.cloud.client.internal.configuration.category;
 
+import com.liferay.commerce.cloud.client.constants.CommerceCloudClientConstants;
 import com.liferay.configuration.admin.category.ConfigurationCategory;
 
 import org.osgi.service.component.annotations.Component;
@@ -37,16 +38,12 @@ public class CommerceInsightsConfigurationCategory
 
 	@Override
 	public String getCategoryKey() {
-		return _CATEGORY_KEY;
+		return CommerceCloudClientConstants.CATEGORY_KEY;
 	}
 
 	@Override
 	public String getCategorySection() {
-		return _CATEGORY_SECTION;
+		return CommerceCloudClientConstants.CATEGORY_SECTION;
 	}
-
-	private static final String _CATEGORY_KEY = "commerce-insights";
-
-	private static final String _CATEGORY_SECTION = "commerce";
 
 }
