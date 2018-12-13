@@ -81,9 +81,13 @@ $micro-transition: ease 100ms;
 	}
 }
 
-button{
+button {
 	background: none;
 	border: none;
+}
+
+svg {
+	vertical-align: middle
 }
 
 .u-tar {

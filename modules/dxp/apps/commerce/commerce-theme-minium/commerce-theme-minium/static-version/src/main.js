@@ -6,7 +6,8 @@ window.Liferay = new EventEmitter();
 window.Liferay.fire = window.Liferay.emit;
 
 // import Cart from "../public/soy-components/Cart";
-import AccountSelector from "../public/soy-components/account-selector/src/AccountSelector";
+// import AccountSelector from "../public/soy-components/account-selector/src/AccountSelector";
+import UserInvitation from "../public/soy-components/user-invitation/src/UserInvitation";
 import AddToCartButton from "../public/soy-components/add-to-cart/src/AddToCartButton";
 import MiniumProductGallery from "../public/soy-components/minium-product-gallery/src/MiniumProductGallery";
 import MiniumSearchBar from "../public/soy-components/minium-search-bar/src/MiniumSearchBar";
@@ -376,6 +377,11 @@ function handleKeyDownForSearch(e) {
 		toggleMiniumSearch();
 	}
 }
+
+const userInvitation = new UserInvitation({
+    usersAPI: 'api/users',
+    invitationAPI: 'api/invitation'
+}, '.minium-content')
 
 function toggleMiniumSearch() {
 	const status = document
