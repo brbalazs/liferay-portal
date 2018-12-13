@@ -23,6 +23,10 @@ import com.liferay.portal.kernel.util.StringUtil;
  */
 public class CommerceCloudClientConstants {
 
+	public static final String CATEGORY_KEY = "commerce-insights";
+
+	public static final String CATEGORY_SECTION = "commerce";
+
 	public static final String CONFIGURATION_PID =
 		"com.liferay.commerce.cloud.client.configuration." +
 			"CommerceCloudClientConfiguration";

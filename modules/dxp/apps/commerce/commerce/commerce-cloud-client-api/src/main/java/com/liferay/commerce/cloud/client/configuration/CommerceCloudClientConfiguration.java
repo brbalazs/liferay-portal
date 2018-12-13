@@ -23,7 +23,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
  * @author Andrea Di Giorgi
  */
 @ExtendedObjectClassDefinition(
-	category = "commerce-insights", generateUI = false,
+	category = CommerceCloudClientConstants.CATEGORY_KEY, generateUI = false,
 	scope = ExtendedObjectClassDefinition.Scope.SYSTEM
 )
 @Meta.OCD(
