@@ -102,8 +102,13 @@
         </div>
         <br>
         <br>
+        <details-header></details-header>
+        <br>
+        <br>
         <div id="test-table"></div>
       </div>
+
+
     </div>
 
     <div class="minium-frame__toolbar (is-visible)"></div>
@@ -153,6 +158,7 @@ import MiniumSuggestions from "./components/MiniumSuggestions";
 import MiniumTabs from "./components/MiniumTabs";
 import MiniumToast from "./components/MiniumToast";
 import MiniumTopbar from "./components/MiniumTopbar";
+import DetailsHeader from "./components/DetailsHeader";
 
 export default {
   components: {
@@ -162,7 +168,8 @@ export default {
     MiniumSuggestions,
     MiniumTabs,
     MiniumToast,
-    MiniumTopbar
+    MiniumTopbar,
+    DetailsHeader
   }
 };
 </script>

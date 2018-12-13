@@ -67,13 +67,21 @@ $micro-transition: ease 100ms;
 @import "./components/product-detail.scss";
 @import "./components/quantity-selector.scss";
 @import "./components/small-table.scss";
+@import "./components/user-invitation.scss";
 @import "./components/user-nav.scss";
+@import "./components/details-header.scss";
 
 #minium {
 	font-family: 'Roboto', sans-serif;
+	
+	button{
+		&:focus {
+			outline: none;
+		}
+	}
 }
 
-button {
+button{
 	background: none;
 	border: none;
 }

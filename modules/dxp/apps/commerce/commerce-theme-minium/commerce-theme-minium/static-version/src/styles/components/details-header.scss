@@ -1,0 +1,93 @@
+.details-header {
+
+    &__section {
+        background: white;
+        border-radius: 8px;
+        padding: 30px;
+        margin-bottom: 5px;
+        display: flex;
+        &:last-child {
+            margin-bottom: 45px;
+        }
+    }
+
+    &__primary {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__main-data {
+        display: grid;
+        grid-template-areas: "avatar name" "avatar email";
+        grid-auto-columns: auto 1fr;
+        grid-gap: 0 20px;
+        margin-right: 20px;
+    }
+    
+    &__info-wrapper {
+        display: flex;
+        align-items: baseline;
+        justify-items: center;
+        align-self: center;
+        margin-right: 120px;
+
+        &:last-of-type {
+            margin-right: 0;
+        }
+    }
+
+    &__action {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+    }
+
+    &__avatar {
+        grid-area: avatar;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    &__name {
+        grid-area: name;
+        align-self: end;
+        font-size: 22px;
+        color: $color-fg;
+    }
+    
+    &__email {
+        grid-area: email;
+        align-self: start;
+        font-size: 14px;
+        color: $color-fg;
+    }
+
+    &__nav {
+        padding: 0 30px;
+        height: 60px;
+        justify-content: center;
+    }
+
+    &__label {
+        color: $color-fg-alt;
+        font-size: 11px;
+        letter-spacing: 1.1px;
+        text-transform: uppercase;
+        margin-right: 10px;
+        line-height: 1.4;
+        vertical-align: baseline;
+    }
+
+    &__value {
+        font-size: 14px;
+        color: $color-fg;
+        vertical-align: baseline;
+    }
+}
