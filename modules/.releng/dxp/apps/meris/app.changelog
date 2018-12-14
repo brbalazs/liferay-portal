@@ -8,3 +8,14 @@ app.artifacts-1.0.0=\
 app.change.log-1.0.0=LPS-79327 LPS-80332
 
 app.git.id-1.0.0=cc4369c2895d8f4d85d7a019aa84ec133e9ff467
+
+#
+# Liferay App Version 1.0.1
+#
+
+app.artifacts-1.0.1=\
+	com.liferay.meris.api-1.0.1.jar
+
+app.change.log-1.0.1=LPS-79327 LPS-80332
+
+app.git.id-1.0.1=d63201088edb7fcf3d8498960696b2e3998a4b99

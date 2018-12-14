@@ -222,3 +222,48 @@ app.artifacts-1.0.4=\
 app.change.log-1.0.4=LPS-81704 LPS-84810 LPS-85945 LPS-85996 LPS-86179 LPS-86627 LPS-86806 LPS-86949 LPS-86991 LPS-87198 
 
 app.git.id-1.0.4=fd9bf3d8c96afdd65be90fe68417bb10bc76eeb1
+
+#
+# Liferay App Version 1.0.5
+#
+
+app.artifacts-1.0.5=\
+	com.liferay.asset.api-1.1.1.jar,\
+	com.liferay.asset.browser.web-2.0.7.jar,\
+	com.liferay.asset.categories.admin.web-2.0.13.jar,\
+	com.liferay.asset.categories.navigation.api-2.0.0.jar,\
+	com.liferay.asset.categories.navigation.web-3.0.8.jar,\
+	com.liferay.asset.categories.selector.web-1.0.6.jar,\
+	com.liferay.asset.categories.service-2.0.9.jar,\
+	com.liferay.asset.category.property.api-1.0.3.jar,\
+	com.liferay.asset.category.property.service-1.0.7.jar,\
+	com.liferay.asset.display.api-1.2.0.jar,\
+	com.liferay.asset.display.impl-1.0.3.jar,\
+	com.liferay.asset.display.page.api-2.0.2.jar,\
+	com.liferay.asset.display.page.item.selector.api-1.0.1.jar,\
+	com.liferay.asset.display.page.item.selector.web-1.0.5.jar,\
+	com.liferay.asset.display.page.service-1.0.11.jar,\
+	com.liferay.asset.display.web-2.0.1.jar,\
+	com.liferay.asset.entry.query.processor.custom.user.attributes-3.0.1.jar,\
+	com.liferay.asset.entry.rel.api-1.1.0.jar,\
+	com.liferay.asset.entry.rel.service-1.0.6.jar,\
+	com.liferay.asset.link.service-1.0.6.jar,\
+	com.liferay.asset.publisher.api-1.0.1.jar,\
+	com.liferay.asset.publisher.layout.prototype-2.0.1.jar,\
+	com.liferay.asset.publisher.web-2.0.39.jar,\
+	com.liferay.asset.service-2.0.5.jar,\
+	com.liferay.asset.tag.stats.api-1.0.2.jar,\
+	com.liferay.asset.tag.stats.service-1.0.6.jar,\
+	com.liferay.asset.taglib-3.0.13.jar,\
+	com.liferay.asset.tags.admin.web-2.0.13.jar,\
+	com.liferay.asset.tags.api-2.0.0.jar,\
+	com.liferay.asset.tags.compiler.web-3.0.1.jar,\
+	com.liferay.asset.tags.navigation.api-2.0.0.jar,\
+	com.liferay.asset.tags.navigation.web-4.0.6.jar,\
+	com.liferay.asset.tags.selector.web-1.0.6.jar,\
+	com.liferay.asset.tags.service-3.0.7.jar,\
+	com.liferay.asset.web-3.0.1.jar
+
+app.change.log-1.0.5=LPS-77699 LPS-79653 LPS-80332 LPS-80517 LPS-81704 LPS-83705 LPS-84119 LPS-84810 LPS-85849 LPS-85996 LPS-86408 LPS-86627 LPS-86806 LPS-86949 LPS-86991 LPS-87198 
+
+app.git.id-1.0.5=d63201088edb7fcf3d8498960696b2e3998a4b99

@@ -19,3 +19,14 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-77699 LPS-79679 LPS-83494 LPS-83660 LPS-83705 LPS-86625
 
 app.git.id-1.0.1=57f55a8d423342af7a707405f1f9e7328df29224
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.gogo.shell.web-2.0.17.jar
+
+app.change.log-1.0.2=LPS-86625
+
+app.git.id-1.0.2=d63201088edb7fcf3d8498960696b2e3998a4b99

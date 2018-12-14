@@ -19,3 +19,14 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-85296 LPS-86408
 
 app.git.id-1.0.1=3202ec50ee9d581139b21a7a619f472a68e1f099
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.xstream.configurator.api-3.0.2.jar
+
+app.change.log-1.0.2=LPS-86408
+
+app.git.id-1.0.2=d63201088edb7fcf3d8498960696b2e3998a4b99

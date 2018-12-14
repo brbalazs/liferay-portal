@@ -69,3 +69,21 @@ app.artifacts-1.0.3=\
 app.change.log-1.0.3=LPS-84119 LPS-85296 LPS-86408 
 
 app.git.id-1.0.3=9214859669438fdc489893f00edf81b701217051
+
+#
+# Liferay App Version 1.0.4
+#
+
+app.artifacts-1.0.4=\
+	com.liferay.portal.configuration.cluster-4.0.3.jar,\
+	com.liferay.portal.configuration.extender-4.0.4.jar,\
+	com.liferay.portal.configuration.metatype.definitions.annotations-3.0.4.jar,\
+	com.liferay.portal.configuration.metatype.definitions.equinox-3.0.0.jar,\
+	com.liferay.portal.configuration.module.configuration-3.0.4.jar,\
+	com.liferay.portal.configuration.settings-3.0.8.jar,\
+	com.liferay.portal.configuration.upgrade.api-1.1.1.jar,\
+	com.liferay.portal.configuration.upgrade.impl-1.0.4.jar
+
+app.change.log-1.0.4=LPS-80332 LPS-82828 LPS-84119 LPS-86408 
+
+app.git.id-1.0.4=d63201088edb7fcf3d8498960696b2e3998a4b99

@@ -67,3 +67,16 @@ app.artifacts-1.0.4=\
 app.change.log-1.0.4=LPS-77699 LPS-79679 LPS-82828 LPS-84119 LPS-85296 LPS-86408 
 
 app.git.id-1.0.4=4939a67da453e27613f2c9b3629bab56a0b0e8c1
+
+#
+# Liferay App Version 1.0.5
+#
+
+app.artifacts-1.0.5=\
+	com.liferay.portal.scheduler-5.0.9.jar,\
+	com.liferay.portal.scheduler.multiple-2.0.7.jar,\
+	com.liferay.portal.scheduler.quartz-4.0.8.jar
+
+app.change.log-1.0.5=LPS-77699 LPS-79653 LPS-80332 LPS-80517 LPS-80843 LPS-82343 LPS-84119 LPS-85799 
+
+app.git.id-1.0.5=d63201088edb7fcf3d8498960696b2e3998a4b99

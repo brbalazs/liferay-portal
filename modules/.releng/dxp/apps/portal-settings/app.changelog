@@ -102,3 +102,24 @@ app.artifacts-1.0.4=\
 app.change.log-1.0.4=LPS-86714 LPS-86799 
 
 app.git.id-1.0.4=8ac8bc867e573c5c2861b8c13ed79d838be03959
+
+#
+# Liferay App Version 1.0.5
+#
+
+app.artifacts-1.0.5=\
+	com.liferay.portal.settings.api-3.0.2.jar,\
+	com.liferay.portal.settings.authentication.cas.web-2.0.5.jar,\
+	com.liferay.portal.settings.authentication.facebook.connect.web-2.0.3.jar,\
+	com.liferay.portal.settings.authentication.google.web-2.0.3.jar,\
+	com.liferay.portal.settings.authentication.ldap.web-2.0.11.jar,\
+	com.liferay.portal.settings.authentication.ntlm.web-2.0.3.jar,\
+	com.liferay.portal.settings.authentication.openid.connect.web-1.0.4.jar,\
+	com.liferay.portal.settings.authentication.openid.web-2.0.3.jar,\
+	com.liferay.portal.settings.authentication.opensso.web-2.0.5.jar,\
+	com.liferay.portal.settings.lang-2.0.11.jar,\
+	com.liferay.portal.settings.web-2.0.15.jar
+
+app.change.log-1.0.5=LPS-77699 LPS-82828 LPS-86408 LPS-86799 LRQA-44033 
+
+app.git.id-1.0.5=d63201088edb7fcf3d8498960696b2e3998a4b99

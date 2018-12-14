@@ -67,3 +67,17 @@ app.artifacts-1.0.4=\
 app.change.log-1.0.4=LPS-81704 
 
 app.git.id-1.0.4=e91bb8fddd23f7c943d4fa4be43b21b11802b700
+
+#
+# Liferay App Version 1.0.5
+#
+
+app.artifacts-1.0.5=\
+	com.liferay.contacts.api-3.0.3.jar,\
+	com.liferay.contacts.service-3.0.5.jar,\
+	com.liferay.contacts.uad-3.0.1.jar,\
+	com.liferay.contacts.web-2.0.16.jar
+
+app.change.log-1.0.5=LPS-77699 LPS-81704 LPS-85849 
+
+app.git.id-1.0.5=d63201088edb7fcf3d8498960696b2e3998a4b99

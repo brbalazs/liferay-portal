@@ -62,3 +62,16 @@ app.artifacts-3.0.4=\
 app.change.log-3.0.4=LPS-81704 
 
 app.git.id-3.0.4=3c4caf6456c87939ef591d4aa03ac39df639c4e7
+
+#
+# Liferay App Version 3.0.5
+#
+
+app.artifacts-3.0.5=\
+	com.liferay.calendar.api-3.0.6.jar,\
+	com.liferay.calendar.service-3.0.20.jar,\
+	com.liferay.calendar.web-2.0.28.jar
+
+app.change.log-3.0.5=LPS-81704 LPS-85849 LPS-86593 
+
+app.git.id-3.0.5=d63201088edb7fcf3d8498960696b2e3998a4b99

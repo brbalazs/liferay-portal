@@ -62,3 +62,16 @@ app.artifacts-1.0.4=\
 app.change.log-1.0.4=LPS-81704 
 
 app.git.id-1.0.4=b194a130aa5738fdf7a090712f3f8da0869b5cdf
+
+#
+# Liferay App Version 1.0.5
+#
+
+app.artifacts-1.0.5=\
+	com.liferay.subscription.api-1.0.3.jar,\
+	com.liferay.subscription.service-1.0.6.jar,\
+	com.liferay.subscription.web-1.0.6.jar
+
+app.change.log-1.0.5=LPS-81704 LPS-85849 LPS-86408
+
+app.git.id-1.0.5=d63201088edb7fcf3d8498960696b2e3998a4b99

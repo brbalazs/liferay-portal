@@ -127,3 +127,29 @@ app.artifacts-1.0.4=\
 app.change.log-1.0.4=LPS-84119 LPS-85134 LPS-87198 
 
 app.git.id-1.0.4=9927e7331508092c84919767cecdfa6fe92ad27d
+
+#
+# Liferay App Version 1.0.5
+#
+
+app.artifacts-1.0.5=\
+	com.liferay.product.navigation.control.menu.api-4.0.1.jar,\
+	com.liferay.product.navigation.control.menu.impl-1.0.2.jar,\
+	com.liferay.product.navigation.control.menu.theme.contributor-3.0.2.jar,\
+	com.liferay.product.navigation.control.menu.web-3.0.12.jar,\
+	com.liferay.product.navigation.control.panel-3.0.0.jar,\
+	com.liferay.product.navigation.product.menu.api-1.0.1.jar,\
+	com.liferay.product.navigation.product.menu.theme.contributor-3.0.5.jar,\
+	com.liferay.product.navigation.product.menu.web-3.0.6.jar,\
+	com.liferay.product.navigation.simulation.api-2.0.0.jar,\
+	com.liferay.product.navigation.simulation.device-3.0.3.jar,\
+	com.liferay.product.navigation.simulation.theme.contributor-3.0.1.jar,\
+	com.liferay.product.navigation.simulation.web-4.0.6.jar,\
+	com.liferay.product.navigation.site.administration-3.0.9.jar,\
+	com.liferay.product.navigation.taglib-3.0.2.jar,\
+	com.liferay.product.navigation.user-3.0.2.jar,\
+	com.liferay.product.navigation.user.personal.bar.web-3.0.2.jar
+
+app.change.log-1.0.5=LPS-72545 LPS-79653 LPS-80332 LPS-81102 LPS-83705 LPS-84119 LPS-84652 LPS-85157 LPS-85539 LPS-86031 LPS-86408 LPS-87198 
+
+app.git.id-1.0.5=d63201088edb7fcf3d8498960696b2e3998a4b99

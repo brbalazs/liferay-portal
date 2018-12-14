@@ -41,3 +41,14 @@ app.artifacts-1.0.3=\
 app.change.log-1.0.3=LPS-85296 LPS-86408
 
 app.git.id-1.0.3=7c3c05d649a531605748e0ca7b78c21a1c258f10
+
+#
+# Liferay App Version 1.0.4
+#
+
+app.artifacts-1.0.4=\
+	com.liferay.monitoring.web-2.0.8.jar
+
+app.change.log-1.0.4=LPS-86408
+
+app.git.id-1.0.4=d63201088edb7fcf3d8498960696b2e3998a4b99

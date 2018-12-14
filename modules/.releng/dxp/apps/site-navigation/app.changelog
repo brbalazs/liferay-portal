@@ -137,3 +137,31 @@ app.artifacts-1.0.4=\
 app.change.log-1.0.4=LPS-0 LPS-77699 LPS-79679 LPS-81704 LPS-82570 LPS-82594 LPS-83455 LPS-84119 LPS-84585 LPS-86142 
 
 app.git.id-1.0.4=63aa6f70dd1feb6005ebca865d3dd4d401260d51
+
+#
+# Liferay App Version 1.0.5
+#
+
+app.artifacts-1.0.5=\
+	com.liferay.site.navigation.admin.api-1.0.1.jar,\
+	com.liferay.site.navigation.admin.web-1.0.21.jar,\
+	com.liferay.site.navigation.api-2.3.0.jar,\
+	com.liferay.site.navigation.breadcrumb.web-4.0.7.jar,\
+	com.liferay.site.navigation.directory.web-3.0.3.jar,\
+	com.liferay.site.navigation.item.selector.api-1.0.1.jar,\
+	com.liferay.site.navigation.item.selector.web-1.0.6.jar,\
+	com.liferay.site.navigation.lang-1.0.15.jar,\
+	com.liferay.site.navigation.language.api-2.0.0.jar,\
+	com.liferay.site.navigation.language.web-4.0.5.jar,\
+	com.liferay.site.navigation.menu.item.api-1.0.1.jar,\
+	com.liferay.site.navigation.menu.item.layout-1.0.13.jar,\
+	com.liferay.site.navigation.menu.item.node-1.0.3.jar,\
+	com.liferay.site.navigation.menu.item.url-1.0.2.jar,\
+	com.liferay.site.navigation.menu.web-3.0.19.jar,\
+	com.liferay.site.navigation.service-1.0.20.jar,\
+	com.liferay.site.navigation.site.map.web-3.0.6.jar,\
+	com.liferay.site.navigation.taglib-3.0.8.jar
+
+app.change.log-1.0.5=LPS-0 LPS-77699 LPS-80142 LPS-80332 LPS-80510 LPS-80618 LPS-81704 LPS-81787 LPS-82021/LPS-82022 LPS-82343 LPS-83494 LPS-84119 LPS-85296 LPS-85500 LPS-85849 LPS-86408 
+
+app.git.id-1.0.5=d63201088edb7fcf3d8498960696b2e3998a4b99

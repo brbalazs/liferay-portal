@@ -45,3 +45,15 @@ app.artifacts-1.0.3=\
 app.change.log-1.0.3=LPS-81704 
 
 app.git.id-1.0.3=bd6acf77fa95def122e83fb3af813a0dccb0e37c
+
+#
+# Liferay App Version 1.0.4
+#
+
+app.artifacts-1.0.4=\
+	com.liferay.changeset.api-1.2.2.jar,\
+	com.liferay.changeset.service-1.0.8.jar
+
+app.change.log-1.0.4=LPS-81704 LPS-85849 
+
+app.git.id-1.0.4=d63201088edb7fcf3d8498960696b2e3998a4b99

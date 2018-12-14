@@ -67,3 +67,17 @@ app.artifacts-1.0.4=\
 app.change.log-1.0.4=LPS-86460 
 
 app.git.id-1.0.4=62a7ff27f2491eab16da2ca652280a9af015e60c
+
+#
+# Liferay App Version 1.0.5
+#
+
+app.artifacts-1.0.5=\
+	com.liferay.flags.api-3.0.3.jar,\
+	com.liferay.flags.service-3.0.4.jar,\
+	com.liferay.flags.taglib-3.0.7.jar,\
+	com.liferay.flags.web-3.0.5.jar
+
+app.change.log-1.0.5=LPS-77699 LPS-85577 LPS-86408 LPS-86460
+
+app.git.id-1.0.5=d63201088edb7fcf3d8498960696b2e3998a4b99

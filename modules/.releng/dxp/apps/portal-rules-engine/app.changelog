@@ -21,3 +21,15 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-85296 
 
 app.git.id-1.0.1=caa4a2c325b93e79efc05da10a4071904ad2e800
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.portal.rules.engine.api-3.0.2.jar,\
+	com.liferay.portal.rules.engine.wiring-3.0.1.jar
+
+app.change.log-1.0.2=LPS-82828 LPS-85296
+
+app.git.id-1.0.2=d63201088edb7fcf3d8498960696b2e3998a4b99

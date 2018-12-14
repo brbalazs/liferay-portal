@@ -82,3 +82,20 @@ app.artifacts-1.0.4=\
 app.change.log-1.0.4=LPS-86714 LPS-86914
 
 app.git.id-1.0.4=e3e2c9820e7df1220f574a0c154e58b8aba4a21a
+
+#
+# Liferay App Version 1.0.5
+#
+
+app.artifacts-1.0.5=\
+	com.liferay.portal.store.cmis-3.0.6.jar,\
+	com.liferay.portal.store.db-3.0.2.jar,\
+	com.liferay.portal.store.file.system-3.0.9.jar,\
+	com.liferay.portal.store.ignore.duplicates.wrapper-2.0.6.jar,\
+	com.liferay.portal.store.jcr-3.0.11.jar,\
+	com.liferay.portal.store.s3-3.0.24.jar,\
+	com.liferay.portal.store.safe.file.name.wrapper-2.0.4.jar
+
+app.change.log-1.0.5=LPS-86914 
+
+app.git.id-1.0.5=d63201088edb7fcf3d8498960696b2e3998a4b99
