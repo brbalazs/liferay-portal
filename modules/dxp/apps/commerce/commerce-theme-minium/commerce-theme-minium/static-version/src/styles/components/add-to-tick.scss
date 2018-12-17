@@ -1,0 +1,59 @@
+.add-to-tick {
+
+    width: 40px;
+    height: 40px;
+
+    &__circle {
+        fill: #C9DAFF;
+        opacity: 1;
+        stroke-dasharray: 130;
+        stroke-dashoffset: 130;
+        transition: all .5s;
+    }
+    
+    &__tick {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      transition-delay: 2s;
+      transition: stroke-dashoffset .2s ease-out;
+      
+    }
+    
+    &__add {
+        opacity: 1;
+        stroke-dasharray: 100;
+        stroke-dashoffset: 0;
+        transform-origin: 50%;
+        transition: all .2s ease-out;
+        transition-delay: 0s;
+        
+        line {
+            fill:none;
+            stroke:#4c83ff;
+            stroke-miterlimit:10;
+            stroke-width:11px
+        }
+    }
+
+    &--is-added {
+        .add-to-tick__circle,
+        .add-to-tick__tick {
+            opacity: 1;
+            stroke-dashoffset: 0;
+        }
+        .add-to-tick__circle {
+            fill: #a7e5be;
+        }
+        .add-to-tick__add {
+            opacity: 0;
+            transform: scale(.2);
+            transition-delay: 0s;
+        }
+        .add-to-tick__tick {
+            transition-delay: .2s;
+        }
+    }
+}
+
+  
+  
