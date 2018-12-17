@@ -2,6 +2,7 @@
 
     width: 40px;
     height: 40px;
+    cursor: pointer;
 
     &__circle {
         fill: #C9DAFF;
@@ -12,10 +13,16 @@
     }
     
     &__tick {
-      stroke-dasharray: 100;
-      stroke-dashoffset: 100;
-      transition-delay: 2s;
-      transition: stroke-dashoffset .2s ease-out;
+
+        fill:none;
+        stroke:#a7e5be;
+        stroke-linecap:round;
+        stroke-linejoin:round;
+        stroke-width:11px;
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+        transition-delay: 2s;
+        transition: stroke-dashoffset .2s ease-out;
       
     }
     
@@ -29,9 +36,15 @@
         
         line {
             fill:none;
-            stroke:#4c83ff;
+            stroke:#C9DAFF;
             stroke-miterlimit:10;
             stroke-width:11px
+        }
+    }
+
+    &:hover {
+        .add-to-tick__add line {
+            stroke: #4c83ff
         }
     }
 
@@ -43,6 +56,11 @@
         }
         .add-to-tick__circle {
             fill: #a7e5be;
+        }
+        &:hover {
+            .add-to-tick__tick {
+                stroke:#4bc287;
+            }
         }
         .add-to-tick__add {
             opacity: 0;
