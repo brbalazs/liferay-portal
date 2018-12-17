@@ -44,8 +44,8 @@
                     65479123
                 </div>
             </div>
-      </section>      
-      <section class="details-header__section details-header__nav">
+        </section>      
+        <section class="details-header__section details-header__nav">
             <div class="minium-tabs">
                 <a href="#" class="minium-tabs__tab is-active">
                     <em>Pending</em> (32)
@@ -57,6 +57,6 @@
                     <em>Back Order</em>
                 </a>
             </div>
-      </section>      
+        </section>      
     </div>
 </template>

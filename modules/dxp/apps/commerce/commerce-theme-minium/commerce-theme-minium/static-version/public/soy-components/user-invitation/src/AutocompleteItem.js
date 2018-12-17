@@ -36,7 +36,7 @@ class AutocompleteItem extends Component {
 		this.firstGroup = results[1] || null;
 		this.secondGroup = results[2] || null;
 		this.thirdGroup = results[3] || null;
-		return true
+		return true;
 	}
 
 }
