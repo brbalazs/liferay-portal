@@ -1,0 +1,29 @@
+.product-gallery {
+    display: grid;
+    grid-template-areas: "current current current" "prev thumbnails next";
+    grid-gap: 20px;
+    color: $color-fg;
+
+    &__current {
+        grid-template: current;
+        width: 100%;
+        height: 500px;
+    }
+
+    &__prev,
+    &__next {
+        width: 50px;
+    }
+
+    &__prev {
+        grid-template: prev
+    }
+    
+    &__next {
+        grid-template: next
+    }
+
+    &__thumbnail {
+        grid-template: thumbnails
+    }
+}

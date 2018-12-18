@@ -5,23 +5,6 @@
 	flex-direction: column;
 	height: 525px;
 
-	&__header {
-		display: flex;
-		margin-bottom: 35px;
-		flex-shrink: 0;
-	}
-
-	&__close {
-		display: flex;
-	}
-
-	&__title {
-		margin-bottom: 0;
-		flex-grow: 1;
-		font-weight: 100;
-		color: $color-fg;
-	}
-
 	&__input {
 		flex-shrink: 0;
 	}

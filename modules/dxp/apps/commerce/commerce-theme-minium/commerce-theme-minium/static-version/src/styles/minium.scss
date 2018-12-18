@@ -71,6 +71,10 @@ $micro-transition: ease 100ms;
 @import "./components/user-nav.scss";
 @import "./components/details-header.scss";
 @import "./components/add-to-tick.scss";
+@import "./components/product-details-modal.scss";
+@import "./components/product-gallery.scss";
+@import "./components/product-card.scss";
+@import "./components/modal.scss";
 
 #minium {
 	font-family: 'Roboto', sans-serif;
@@ -87,7 +91,7 @@ $micro-transition: ease 100ms;
 	}
 
 	.modal-body {
-		padding: 30px;
+		padding: 20px;
 	}
 }
 

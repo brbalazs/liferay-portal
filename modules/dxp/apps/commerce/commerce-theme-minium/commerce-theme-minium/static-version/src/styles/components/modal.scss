@@ -1,0 +1,20 @@
+.commerce-modal {
+    &__header {
+        display: flex;
+        margin-bottom: 20px;
+        flex-shrink: 0;
+    }
+    
+    &__close {
+        display: flex;
+        margin-left: auto;
+    }
+    
+    &__title {
+        margin-bottom: 0;
+        flex-grow: 1;
+        font-weight: 100;
+        color: $color-fg;
+    }
+}
+
