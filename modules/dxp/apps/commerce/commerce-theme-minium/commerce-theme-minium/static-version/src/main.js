@@ -139,7 +139,7 @@ let item = {
 	]
 };
 
-let items = new Array(20).fill(item);
+let items = new Array(4).fill(item);
 
 // items.forEach(item => {
 //	 item.actionItems = actionItemsWithQuickItems;
@@ -149,6 +149,7 @@ let items = new Array(20).fill(item);
 new MiniumTable(
 	{
 		items: items,
+		tableClasses: "minium-table",
 		schema: {
 			fields: [
 				{
@@ -217,6 +218,53 @@ new MiniumTable(
 	"#test-table"
 );
 
+new MiniumTable(
+	{
+		items: items,
+		tableClasses: "minium-table minium-table--mini",
+		schema: {
+			fields: [
+				{
+					contentRenderer: "miniumCell",
+					fieldName: "account",
+					label: "No subtitle"
+				},
+				{
+					contentRenderer: "label",
+					fieldName: "labels",
+					label: "Label",
+					labelStylesMap: {
+						Spicy: "warning",
+						"Very Spicy": "danger",
+						"*": "success"
+					}
+				},
+				{
+					contentRenderer: "miniumLink",
+					fieldName: "created",
+					fieldLink: "createdLink",
+					label: "Link"
+				},
+				{
+					contentRenderer: "miniumStatus",
+					fieldName: "status",
+					label: "Status"
+				}
+			],
+			inputNameField: "type",
+			inputNamesMap: {
+				folder: "folder",
+				chef: "chef",
+				"*": "recipe"
+			},
+			inputValueField: "id"
+		},
+		selectable: false,
+		showActionsMenu: false
+	},
+	"#test-table-mini"
+);
+
 // fetch( 'api/accounts/current', {
 // 	method: 'GET'
 // })
@@ -236,54 +284,54 @@ new MiniumTable(
 // 		);
 // 	})
 
-new AddToCartButton(
-	{
-		settings: {
-			minQuantity: 1,
-			maxQuantity: 100
-		}
-	},
-	"#qsbtn1"
-);
-new AddToCartButton(
-	{
-		quantity: 2345,
-		settings: {
-			minQuantity: 1,
-			maxQuantity: 100
-		}
-	},
-	"#qsbtn2"
-);
-new AddToCartButton(
-	{
-		editMode: true,
-		quantity: 2345,
-		settings: {
-			minQuantity: 1,
-			maxQuantity: 10000,
-			multipleQuantities: 5
-		}
-	},
-	"#qsbtn3"
-);
-new AddToCartButton(
-	{
-		editMode: true,
-		settings: {
-			allowedOptions: [5, 10, 100, 1000, 2500]
-		}
-	},
-	"#qsbtn4"
-);
+// new AddToCartButton(
+// 	{
+// 		settings: {
+// 			minQuantity: 1,
+// 			maxQuantity: 100
+// 		}
+// 	},
+// 	"#qsbtn1"
+// );
+// new AddToCartButton(
+// 	{
+// 		quantity: 2345,
+// 		settings: {
+// 			minQuantity: 1,
+// 			maxQuantity: 100
+// 		}
+// 	},
+// 	"#qsbtn2"
+// );
+// new AddToCartButton(
+// 	{
+// 		editMode: true,
+// 		quantity: 2345,
+// 		settings: {
+// 			minQuantity: 1,
+// 			maxQuantity: 10000,
+// 			multipleQuantities: 5
+// 		}
+// 	},
+// 	"#qsbtn3"
+// );
+// new AddToCartButton(
+// 	{
+// 		editMode: true,
+// 		settings: {
+// 			allowedOptions: [5, 10, 100, 1000, 2500]
+// 		}
+// 	},
+// 	"#qsbtn4"
+// );
 
-new MiniumSearchBar(
-	{
-		placeholder: "Search Product Name, SKU, Client…",
-		id: "minium-search-input"
-	},
-	"#minium-search"
-);
+// new MiniumSearchBar(
+// 	{
+// 		placeholder: "Search Product Name, SKU, Client…",
+// 		id: "minium-search-input"
+// 	},
+// 	"#minium-search"
+// );
 
 function getItems(category) {
 	return [

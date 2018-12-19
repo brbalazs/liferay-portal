@@ -1,0 +1,36 @@
+.minium-product-gallery {
+  margin: $minium-big-gutter 0;
+
+  img {
+    max-width: 100%;
+  }
+
+  &__main {
+    // height: 500px;
+    img {
+      border-radius: 8px;
+    }
+  }
+
+  &__thumbs {
+    display: flex;
+    height: 60px;
+    overflow: scroll;
+  }
+
+  &__thumb {
+    border: 2px solid transparent;
+    border-radius: 4px;
+    flex-shrink: 0;
+    height: 100%;
+    overflow: hidden;
+
+    & + & {
+      margin-left: $minium-small-gutter;
+    }
+
+    &.is-active {
+      border-color: $color-theme;
+    }
+  }
+}
