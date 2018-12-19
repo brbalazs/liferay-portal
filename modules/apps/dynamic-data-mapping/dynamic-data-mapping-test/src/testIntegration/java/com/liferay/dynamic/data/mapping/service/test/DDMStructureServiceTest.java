@@ -119,10 +119,8 @@ public class DDMStructureServiceTest extends BaseDDMServiceTestCase {
 	public void testGetStructuresWithSiteAdminPermission() throws Throwable {
 		DDMStructure structure1 = addStructure(
 			_classNameId, StringUtil.randomString());
-
 		DDMStructure structure2 = addStructure(
 			_classNameId, StringUtil.randomString());
-
 		String modelName = ResourceActionsUtil.getCompositeModelName(
 			PortalUtil.getClassName(_classNameId),
 			DDMStructure.class.getName());
