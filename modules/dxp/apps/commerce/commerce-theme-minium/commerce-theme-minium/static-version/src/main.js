@@ -455,4 +455,3 @@ new MiniumProductGallery(
 	},
 	"#minium-product-gallery"
 );
-
