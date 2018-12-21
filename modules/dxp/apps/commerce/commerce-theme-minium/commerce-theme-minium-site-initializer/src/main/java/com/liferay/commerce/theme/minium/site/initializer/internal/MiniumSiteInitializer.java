@@ -504,16 +504,6 @@ public class MiniumSiteInitializer implements SiteInitializer {
 			DEPENDENCIES_PATH + "images/", serviceContext);
 	}
 
-	private void _importPortletSettings(ServiceContext serviceContext)
-		throws Exception {
-
-		JSONArray jsonArray = _getJSONArray("portlet-settings.json");
-
-		_portletSettingsImporter.importPortletSettings(
-			jsonArray, MiniumSiteInitializer.class.getClassLoader(),
-			DEPENDENCIES_PATH + "display_templates/", serviceContext);
-	}
-
 	private void _importThemePortletSettings(ServiceContext serviceContext)
 		throws Exception {
 
