@@ -19,27 +19,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-6">
-              <div class="minium-product-gallery">
-                <figure class="minium-product-gallery__main">
-                  <img src="//placehold.it/800x600/EBEBEB" alt>
-                </figure>
-                <div class="minium-product-gallery__thumbs">
-                  <img src="//placehold.it/80x60/EBEBEB" alt class="minium-product-gallery__thumb">
-                  <img src="//placehold.it/80x60/EBEBEB" alt class="minium-product-gallery__thumb">
-                  <img
-                    src="//placehold.it/80x60/EBEBEB"
-                    alt
-                    class="minium-product-gallery__thumb is-active"
-                  >
-                  <img src="//placehold.it/80x60/EBEBEB" alt class="minium-product-gallery__thumb">
-                  <img src="//placehold.it/80x60/EBEBEB" alt class="minium-product-gallery__thumb">
-                  <img src="//placehold.it/80x60/EBEBEB" alt class="minium-product-gallery__thumb">
-                  <img src="//placehold.it/80x60/EBEBEB" alt class="minium-product-gallery__thumb">
-                  <img src="//placehold.it/80x60/EBEBEB" alt class="minium-product-gallery__thumb">
-                </div>
-              </div>
-            </div>
+            <div class="col-6" id="minium-product-gallery"></div>
             <article class="col-6">
               <header class="minium-product-header">
                 <div class="minium-dot minium-dot--good">In Stock</div>
@@ -49,7 +29,7 @@
                 >Throttle Body Integer euismod tristique posuere</h2>
                 <h4 class="minium-product-header__subtitle">Engine</h4>
               </header>
-              <p>Nam vestibulum ex eget purus posuere suscipit. Donec interdum egestas felis rutrum condimentum. Phasellus varius suscipit ornare.</p>
+              <p>Nam vestibulum ex eget purus posuere suscipit. Donec interdum egestas felis rutrum condimentum. Phasellus varius suscipit ornare. Nam vestibulum ex eget purus posuere suscipit. Donec interdum egestas felis rutrum condimentum. Phasellus varius suscipit ornare.</p>
               <div id="test-table-mini"></div>
               <a class="minium-link" href="#">View More</a>
               <div class="product-detail__actions">

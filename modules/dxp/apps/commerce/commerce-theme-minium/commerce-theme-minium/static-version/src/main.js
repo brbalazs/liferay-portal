@@ -8,6 +8,7 @@ window.Liferay.fire = window.Liferay.emit;
 // import Cart from "../public/soy-components/Cart";
 import AccountSelector from "../public/soy-components/account-selector/src/AccountSelector";
 import AddToCartButton from "../public/soy-components/add-to-cart/src/AddToCartButton";
+import MiniumProductGallery from "../public/soy-components/minium-product-gallery/src/MiniumProductGallery";
 import MiniumSearchBar from "../public/soy-components/minium-search-bar/src/MiniumSearchBar";
 import MiniumSearchResults from "../public/soy-components/minium-search-results/src/MiniumSearchResults";
 import MiniumTable from "../public/soy-components/minium-table/src/MiniumTable";
@@ -394,3 +395,64 @@ function toggleMiniumSearch() {
 document.querySelectorAll(".js-toggle-search").forEach(el => {
 	el.addEventListener("click", toggleMiniumSearch);
 });
+
+const images = [
+	{
+		color: "#1abc9c",
+		width: 1600,
+		height: 1200
+	},
+	{
+		color: "#9b59b6",
+		width: 1200,
+		height: 1600
+	},
+	{
+		color: "#e67e22",
+		width: 1200,
+		height: 1200
+	},
+	{
+		color: "#95a5a6",
+		width: 1600,
+		height: 1600
+	},
+	{
+		color: "#3498db",
+		width: 1600,
+		height: 800
+	},
+	{
+		color: "#e74c3c",
+		width: 800,
+		height: 1600
+	},
+	{
+		color: "#2ecc71",
+		width: 1600,
+		height: 1200
+	},
+	{
+		color: "#f1c40f",
+		width: 1600,
+		height: 1200
+	},
+	{
+		color: "#34495e",
+		width: 1600,
+		height: 1200
+	}
+]
+
+new MiniumProductGallery(
+	{
+		images: images.map(img => ({
+			thumb: `//placehold.it/${img.width/20}x${img.height/20}/${img.color.substr(1)}/fff`,
+			preview: `//placehold.it/${img.width/2}x${img.height/2}/${img.color.substr(1)}/fff`,
+			full: `//placehold.it/${img.width}x${img.height}/${img.color.substr(1)}/fff`,
+			description: 'Alt text here'
+		}))
+	},
+	"#minium-product-gallery"
+);
+

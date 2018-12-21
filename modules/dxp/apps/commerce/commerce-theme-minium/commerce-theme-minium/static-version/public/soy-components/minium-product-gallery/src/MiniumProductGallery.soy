@@ -1,0 +1,26 @@
+{namespace MiniumProductGallery}
+
+{template .render}
+	{@param selected: int }
+	{@param images: ? }
+
+	<div class="minium-product-gallery">
+		<figure class="minium-product-gallery__main">
+			<img
+				src="{$images[$selected].preview}"
+				alt="{$images[$selected].description}"
+			>
+		</figure>
+		<div class="minium-product-gallery__thumbs">
+			{foreach $image in $images}
+				<div
+					class="minium-product-gallery__thumb {if index($image) == $selected}is-active{/if}"
+					data-index="{index($image)}"
+					data-onclick="handleThumbClick"
+				>
+					<img src="{$image.thumb}" alt="{$image.description}">
+				</div>
+			{/foreach}
+		</div>
+	</div>
+{/template}
