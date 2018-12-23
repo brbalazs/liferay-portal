@@ -37,6 +37,8 @@ $micro-transition: ease 100ms;
 @import "./components/account-selector.scss";
 @import "./components/account-switcher.scss";
 @import "./components/add-to-cart-button.scss";
+@import "./components/add-to-tick.scss";
+@import "./components/details-header.scss";
 @import "./components/loaders.scss";
 @import "./components/main-link.scss";
 @import "./components/main-navigation.scss";
@@ -62,23 +64,21 @@ $micro-transition: ease 100ms;
 @import "./components/minium-toast.scss";
 @import "./components/minium-topbar.scss";
 @import "./components/minium-typo.scss";
+@import "./components/modal.scss";
 @import "./components/notification-badge.scss";
 @import "./components/price.scss";
+@import "./components/product-card.scss";
 @import "./components/product-detail.scss";
+@import "./components/product-details-modal.scss";
+@import "./components/product-gallery.scss";
 @import "./components/quantity-selector.scss";
 @import "./components/small-table.scss";
 @import "./components/user-invitation.scss";
 @import "./components/user-nav.scss";
-@import "./components/details-header.scss";
-@import "./components/add-to-tick.scss";
-@import "./components/product-details-modal.scss";
-@import "./components/product-gallery.scss";
-@import "./components/product-card.scss";
-@import "./components/modal.scss";
 
 #minium {
 	font-family: 'Roboto', sans-serif;
-	
+
 	button{
 		&:focus {
 			outline: none;
@@ -86,8 +86,8 @@ $micro-transition: ease 100ms;
 	}
 
 	.modal-content {
-		box-shadow: 0 17px 84px 0 rgba(52, 55, 62, 0.2);
 		border: none;
+		box-shadow: 0 17px 84px 0 rgba(52, 55, 62, 0.2);
 	}
 
 	.modal-body {

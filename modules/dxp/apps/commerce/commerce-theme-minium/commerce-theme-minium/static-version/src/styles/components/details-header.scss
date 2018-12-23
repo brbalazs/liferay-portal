@@ -1,93 +1,92 @@
 .details-header {
+&__section {
+	background: white;
+	border-radius: 8px;
+	display: flex;
+	margin-bottom: 5px;
+	padding: 30px;
+	&:last-child {
+	 margin-bottom: 45px;
+	}
+}
 
-    &__section {
-        background: white;
-        border-radius: 8px;
-        padding: 30px;
-        margin-bottom: 5px;
-        display: flex;
-        &:last-child {
-            margin-bottom: 45px;
-        }
-    }
+&__primary {
+	display: flex;
+	justify-content: space-between;
+}
 
-    &__primary {
-        display: flex;
-        justify-content: space-between;
-    }
+&__main-data {
+	display: grid;
+	grid-auto-columns: auto 1fr;
+	grid-gap: 0 20px;
+	grid-template-areas: "avatar name" "avatar email";
+	margin-right: 20px;
+}
 
-    &__main-data {
-        display: grid;
-        grid-template-areas: "avatar name" "avatar email";
-        grid-auto-columns: auto 1fr;
-        grid-gap: 0 20px;
-        margin-right: 20px;
-    }
-    
-    &__info-wrapper {
-        display: flex;
-        align-items: baseline;
-        justify-items: center;
-        align-self: center;
-        margin-right: 120px;
+&__info-wrapper {
+	align-items: baseline;
+	align-self: center;
+	display: flex;
+	justify-items: center;
+	margin-right: 120px;
 
-        &:last-of-type {
-            margin-right: 0;
-        }
-    }
+	&:last-of-type {
+	 margin-right: 0;
+	}
+}
 
-    &__action {
-        display: flex;
-        align-items: center;
-        justify-items: center;
-    }
+&__action {
+	align-items: center;
+	display: flex;
+	justify-items: center;
+}
 
-    &__avatar {
-        grid-area: avatar;
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        overflow: hidden;
+&__avatar {
+	border-radius: 50%;
+	grid-area: avatar;
+	height: 120px;
+	overflow: hidden;
+	width: 120px;
 
-        img {
-            width: 100%;
-            height: auto;
-        }
-    }
+	img {
+	 width: 100%;
+	 height: auto;
+	}
+}
 
-    &__name {
-        grid-area: name;
-        align-self: end;
-        font-size: 22px;
-        color: $color-fg;
-    }
-    
-    &__email {
-        grid-area: email;
-        align-self: start;
-        font-size: 14px;
-        color: $color-fg;
-    }
+&__name {
+	align-self: end;
+	color: $color-fg;
+	font-size: 22px;
+	grid-area: name;
+}
 
-    &__nav {
-        padding: 0 30px;
-        height: 60px;
-        justify-content: center;
-    }
+&__email {
+	align-self: start;
+	color: $color-fg;
+	font-size: 14px;
+	grid-area: email;
+}
 
-    &__label {
-        color: $color-fg-alt;
-        font-size: 11px;
-        letter-spacing: 1.1px;
-        text-transform: uppercase;
-        margin-right: 10px;
-        line-height: 1.4;
-        vertical-align: baseline;
-    }
+&__nav {
+	height: 60px;
+	justify-content: center;
+	padding: 0 30px;
+}
 
-    &__value {
-        font-size: 14px;
-        color: $color-fg;
-        vertical-align: baseline;
-    }
+&__label {
+	color: $color-fg-alt;
+	font-size: 11px;
+	letter-spacing: 1.1px;
+	line-height: 1.4;
+	margin-right: 10px;
+	text-transform: uppercase;
+	vertical-align: baseline;
+}
+
+&__value {
+	color: $color-fg;
+	font-size: 14px;
+	vertical-align: baseline;
+}
 }

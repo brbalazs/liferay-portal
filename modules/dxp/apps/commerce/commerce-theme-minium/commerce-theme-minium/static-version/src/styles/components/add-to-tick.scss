@@ -1,77 +1,71 @@
 .add-to-tick {
+cursor: pointer;
+height: 40px;
+width: 40px;
 
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-
-    &__circle {
-        fill: #C9DAFF;
-        opacity: 1;
-        stroke-dasharray: 130;
-        stroke-dashoffset: 130;
-        transition: all .5s;
-    }
-    
-    &__tick {
-
-        fill:none;
-        stroke:#a7e5be;
-        stroke-linecap:round;
-        stroke-linejoin:round;
-        stroke-width:11px;
-        stroke-dasharray: 100;
-        stroke-dashoffset: 100;
-        transition-delay: 2s;
-        transition: stroke-dashoffset .2s ease-out;
-      
-    }
-    
-    &__add {
-        opacity: 1;
-        stroke-dasharray: 100;
-        stroke-dashoffset: 0;
-        transform-origin: 50%;
-        transition: all .2s ease-out;
-        transition-delay: 0s;
-        
-        line {
-            fill:none;
-            stroke:#C9DAFF;
-            stroke-miterlimit:10;
-            stroke-width:11px
-        }
-    }
-
-    &:hover {
-        .add-to-tick__add line {
-            stroke: #4c83ff
-        }
-    }
-
-    &--is-added {
-        .add-to-tick__circle,
-        .add-to-tick__tick {
-            opacity: 1;
-            stroke-dashoffset: 0;
-        }
-        .add-to-tick__circle {
-            fill: #a7e5be;
-        }
-        &:hover {
-            .add-to-tick__tick {
-                stroke:#4bc287;
-            }
-        }
-        .add-to-tick__add {
-            opacity: 0;
-            transform: scale(.2);
-            transition-delay: 0s;
-        }
-        .add-to-tick__tick {
-            transition-delay: .2s;
-        }
-    }
+&__circle {
+	fill: #C9DAFF;
+	opacity: 1;
+	stroke-dasharray: 130;
+	stroke-dashoffset: 130;
+	transition: all .5s;
 }
 
-  
-  
+&__tick {
+	fill:none;
+	stroke:#A7E5BE;
+	stroke-linecap:round;
+	stroke-linejoin:round;
+	stroke-width:11px;
+	stroke-dasharray: 100;
+	stroke-dashoffset: 100;
+	transition: stroke-dashoffset .2s ease-out;
+	transition-delay: 2s;
+}
+
+&__add {
+	opacity: 1;
+	stroke-dasharray: 100;
+	stroke-dashoffset: 0;
+	transform-origin: 50%;
+	transition: all .2s ease-out;
+	transition-delay: 0s;
+
+	line {
+	 fill:none;
+	 stroke:#C9DAFF;
+	 stroke-miterlimit:10;
+	 stroke-width:11px
+	}
+}
+
+&:hover {
+	.add-to-tick__add line {
+	 stroke: #4c83ff
+	}
+}
+
+&--is-added {
+	.add-to-tick__circle,
+	.add-to-tick__tick {
+	 opacity: 1;
+	 stroke-dashoffset: 0;
+	}
+	.add-to-tick__circle {
+	 fill: #A7E5BE;
+	}
+	&:hover {
+	 .add-to-tick__tick {
+		stroke:#4BC287;
+	 }
+	}
+	.add-to-tick__add {
+	 opacity: 0;
+	 transform: scale(.2);
+	 transition-delay: 0s;
+	}
+	.add-to-tick__tick {
+	 transition-delay: .2s;
+	}
+}
+}

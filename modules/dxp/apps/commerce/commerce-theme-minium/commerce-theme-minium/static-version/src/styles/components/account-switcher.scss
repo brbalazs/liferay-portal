@@ -1,8 +1,8 @@
 .account-switcher {
+	border-radius: 8px;
 	display: flex;
 	flex-direction: column;
 	max-height: 530px;
-	border-radius: 8px;
 	overflow: hidden;
 	position: relative;
 
@@ -31,9 +31,9 @@
 	}
 
 	&__title {
+		align-self: center;
 		font-size: 18px;
 		font-weight: 500;
-		align-self: center;
 		padding: 20px;
 	}
 
@@ -41,10 +41,10 @@
 		align-items: center;
 		color: $color-fg-alt;
 		display: flex;
+		flex-grow: 0;
 		font-size: 14px;
 		height: 70px;
 		padding: 20px 0 20px 20px;
-		flex-grow: 0;
 
 		&:hover {
 			color: $color-fg-alt;
