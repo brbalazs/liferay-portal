@@ -48,8 +48,8 @@
 				<notification-type>email</notification-type>
 				<notification-type>im</notification-type>
 				<notification-type>private-message</notification-type>
-				<notification-type>user-notification</notification-type>
 				<notification-type>push-notification</notification-type>
+				<notification-type>user-notification</notification-type>
 				<recipients receptionType="to">
 					<assignees/>
 				</recipients>
@@ -109,8 +109,8 @@
 				<notification-type>email</notification-type>
 				<notification-type>im</notification-type>
 				<notification-type>private-message</notification-type>
-				<notification-type>user-notification</notification-type>
 				<notification-type>push-notification</notification-type>
+				<notification-type>user-notification</notification-type>
 				<recipients receptionType="to">
 					<assignees/>
 				</recipients>
@@ -170,8 +170,8 @@
 				<notification-type>email</notification-type>
 				<notification-type>im</notification-type>
 				<notification-type>private-message</notification-type>
-				<notification-type>user-notification</notification-type>
 				<notification-type>push-notification</notification-type>
+				<notification-type>user-notification</notification-type>
 				<recipients receptionType="to">
 					<assignees/>
 				</recipients>
@@ -231,8 +231,8 @@
 				<notification-type>email</notification-type>
 				<notification-type>im</notification-type>
 				<notification-type>private-message</notification-type>
-				<notification-type>user-notification</notification-type>
 				<notification-type>push-notification</notification-type>
+				<notification-type>user-notification</notification-type>
 				<recipients receptionType="to">
 					<assignees/>
 				</recipients>
