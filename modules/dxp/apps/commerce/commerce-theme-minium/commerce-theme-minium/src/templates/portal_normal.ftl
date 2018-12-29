@@ -35,6 +35,10 @@
 		<#--  The toolbar is needed to create the shadow when scrolling  -->
 
 		<div class="minium-frame__toolbar (is-visible)"></div>
+
+		<div class="minium-frame__overlay (is-visible)" id="minium-search-results">
+			<@liferay_commerce_ui["search-results"] />
+		</div>
 	</div>
 
 	<@liferay_util["include"] page=body_bottom_include />
