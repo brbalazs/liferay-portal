@@ -6,6 +6,23 @@ AUI().ready(
 	*/
 
 	function() {
+
+		const searchBar = Liferay.component('search-bar');
+
+		if (searchBar) {
+			searchBar.on('toogled', function(status) {
+				document.querySelectorAll(".js-toggle-search").forEach(el => {
+					el.classList.toggle("is-active", status);
+				});
+
+				document.getElementById("minium")
+					.classList.toggle("has-search", status);
+			});
+
+			document.querySelectorAll(".js-toggle-search").forEach(el => {
+				el.classList.toggle("is-active", searchBar.active);
+		});
+		}
 	}
 );
 
