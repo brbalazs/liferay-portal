@@ -81,3 +81,19 @@ app.artifacts-1.0.5=\
 app.change.log-1.0.5=LRDOCS-5845 
 
 app.git.id-1.0.5=d63201088edb7fcf3d8498960696b2e3998a4b99
+
+#
+# Liferay App Version 1.0.6
+#
+
+app.artifacts-1.0.6=\
+	com.liferay.apio.architect.api-1.9.0.jar,\
+	com.liferay.apio.architect.exception.mapper.impl-1.0.9.jar,\
+	com.liferay.apio.architect.impl-1.0.18.jar,\
+	com.liferay.apio.architect.uri.mapper.impl-1.0.5.jar,\
+	io.vavr-0.9.2.jar,\
+	io.vavr.match-0.9.2.jar
+
+app.change.log-1.0.6=LPS-87553 LRDOCS-5845 
+
+app.git.id-1.0.6=6dcb28dd795d0ed8917a38ca2a280e529bc4f632

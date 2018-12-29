@@ -98,3 +98,19 @@ app.artifacts-1.0.5=\
 app.change.log-1.0.5=LPS-80332 LPS-86408 LPS-86806 LPS-87729 
 
 app.git.id-1.0.5=d63201088edb7fcf3d8498960696b2e3998a4b99
+
+#
+# Liferay App Version 1.0.6
+#
+
+app.artifacts-1.0.6=\
+	com.liferay.portal.cache.api-1.1.1.jar,\
+	com.liferay.portal.cache.ehcache.impl-1.0.11.jar,\
+	com.liferay.portal.cache.ehcache.provider-3.0.0.jar,\
+	com.liferay.portal.cache.ehcache.spi-1.0.1.jar,\
+	com.liferay.portal.cache.impl-1.0.13.jar,\
+	com.liferay.portal.cache.multiple-2.0.7.jar
+
+app.change.log-1.0.6=LPS-80332 LPS-85008 LPS-86408 LPS-87729
+
+app.git.id-1.0.6=6dcb28dd795d0ed8917a38ca2a280e529bc4f632

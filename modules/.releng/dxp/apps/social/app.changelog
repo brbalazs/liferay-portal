@@ -107,3 +107,25 @@ app.artifacts-1.0.4=\
 app.change.log-1.0.4=LPS-79819 LPS-80332 LPS-84119 LPS-85296 LPS-86408 
 
 app.git.id-1.0.4=d63201088edb7fcf3d8498960696b2e3998a4b99
+
+#
+# Liferay App Version 1.0.5
+#
+
+app.artifacts-1.0.5=\
+	com.liferay.social.activities.api-2.0.0.jar,\
+	com.liferay.social.activities.taglib-1.0.2.jar,\
+	com.liferay.social.activities.web-3.0.5.jar,\
+	com.liferay.social.activity.api-2.0.3.jar,\
+	com.liferay.social.bookmark.facebook-1.0.4.jar,\
+	com.liferay.social.bookmark.linkedin-1.0.4.jar,\
+	com.liferay.social.bookmark.plusone-1.0.5.jar,\
+	com.liferay.social.bookmark.twitter-1.0.4.jar,\
+	com.liferay.social.bookmarks.analytics-1.0.2.jar,\
+	com.liferay.social.bookmarks.api-1.0.2.jar,\
+	com.liferay.social.bookmarks.taglib-1.0.5.jar,\
+	com.liferay.social.user.statistics.api-2.0.0.jar
+
+app.change.log-1.0.5=LPS-79819 LPS-80332 LPS-85296 LPS-86408 LPS-86806
+
+app.git.id-1.0.5=6dcb28dd795d0ed8917a38ca2a280e529bc4f632

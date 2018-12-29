@@ -21,3 +21,15 @@ app.artifacts-1.0.1=\
 app.change.log-1.0.1=LPS-85972 
 
 app.git.id-1.0.1=d63201088edb7fcf3d8498960696b2e3998a4b99
+
+#
+# Liferay App Version 1.0.2
+#
+
+app.artifacts-1.0.2=\
+	com.liferay.portal.odata.api-1.8.2.jar,\
+	com.liferay.portal.odata.impl-1.0.16.jar
+
+app.change.log-1.0.2=LPS-85008 LPS-85972 
+
+app.git.id-1.0.2=6dcb28dd795d0ed8917a38ca2a280e529bc4f632

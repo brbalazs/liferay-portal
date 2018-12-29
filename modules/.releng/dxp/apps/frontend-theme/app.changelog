@@ -98,3 +98,20 @@ app.artifacts-1.0.5=\
 app.change.log-1.0.5=LPS-80332 LPS-83241 LPS-85296 LPS-85780 LPS-85974 LPS-86408 LPS-86812 
 
 app.git.id-1.0.5=d63201088edb7fcf3d8498960696b2e3998a4b99
+
+#
+# Liferay App Version 1.0.6
+#
+
+app.artifacts-1.0.6=\
+	admin-theme-2.0.18.war,\
+	classic-theme-2.0.21.war,\
+	com.liferay.frontend.theme.contributor.extender-3.0.4.jar,\
+	com.liferay.frontend.theme.dxp.override-1.0.6.jar,\
+	com.liferay.frontend.theme.favicon.servlet-2.0.0.jar,\
+	com.liferay.frontend.theme.styled-3.0.12.jar,\
+	com.liferay.frontend.theme.unstyled-3.0.17.jar
+
+app.change.log-1.0.6=LPS-80332 LPS-83241 LPS-85780 LPS-85974 LPS-86408 LPS-86806 LPS-86812 
+
+app.git.id-1.0.6=6dcb28dd795d0ed8917a38ca2a280e529bc4f632
