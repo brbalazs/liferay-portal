@@ -10,5 +10,6 @@
 		<suppress checks="JavaAPISignatureCheck" files="commerce-initializer-beryl/src/main/java/com/liferay/commerce/initializer/beryl/internal/BerylLayoutsInitializer\.java" />
 		<suppress checks="JavaAPISignatureCheck" files="commerce-initializer-beryl/src/main/java/com/liferay/commerce/initializer/beryl/internal/BerylThemePortletSettingsInitializer\.java" />
 		<suppress checks="JavaAPISignatureCheck" files="commerce-theme-minium/commerce-theme-minium-site-initializer/src/main/java/com/liferay/commerce/theme/minium/site/initializer/internal/MiniumLayoutsInitializer\.java" />
+		<suppress checks="XMLLookAndFeelCompatibilityVersionCheck" files="commerce-theme-minium/commerce-theme-minium/src/WEB-INF/liferay-look-and-feel\.xml" />
 	</source-check>
 </suppressions>
