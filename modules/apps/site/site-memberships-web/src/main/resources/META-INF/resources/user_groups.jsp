@@ -82,7 +82,7 @@ UserGroupsWebConfiguration userGroupsWebConfiguration = ConfigurationProviderUti
 	</liferay-ui:search-container>
 </aui:form>
 
-<portlet:actionURL name="addGroupUserGroups" var="addGroupUserGroupsURL" >
+<portlet:actionURL name="addGroupUserGroups" var="addGroupUserGroupsURL">
 	<portlet:param name="redirect" value="<%= currentURL %>" />
 </portlet:actionURL>
 
