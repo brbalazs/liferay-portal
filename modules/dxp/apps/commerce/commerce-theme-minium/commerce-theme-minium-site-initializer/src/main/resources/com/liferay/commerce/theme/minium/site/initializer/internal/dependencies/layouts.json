@@ -189,6 +189,13 @@
 				"actionIds": [
 					"VIEW"
 				],
+				"roleName": "Account Administrator",
+				"scope": 4
+			},
+			{
+				"actionIds": [
+					"VIEW"
+				],
 				"roleName": "Account Manager",
 				"scope": 4
 			},
@@ -202,7 +209,7 @@
 			{
 				"layoutColumnId": "column-1",
 				"layoutColumnPos": 0,
-				"portletName": "com_liferay_commerce_organization_web_internal_portlet_CommerceOrganizationPortlet"
+				"portletName": "com_liferay_commerce_account_web_internal_portlet_CommerceAccountPortlet"
 			}
 		],
 		"privateLayout": true
