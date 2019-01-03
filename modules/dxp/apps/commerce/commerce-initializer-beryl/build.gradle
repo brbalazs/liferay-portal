@@ -45,9 +45,9 @@ buildOrders {
 
 dependencies {
 	builder group: "com.liferay", name: "com.liferay.petra.string", version: "2.0.0"
+	builder group: "com.liferay.commerce", name: "com.liferay.commerce.forecast.api", version: "1.0.0"
 	builder group: "com.liferay.portal", name: "com.liferay.portal.kernel", transitive: false, version: "3.5.0"
 	builder group: "org.json", name: "json", version: "20180130"
-	builder group: "com.liferay.commerce", name: "com.liferay.commerce.forecast.api", version: "1.0.0"
 
 	compileOnly group: "com.liferay", name: "com.liferay.dynamic.data.mapping.api", version: "4.1.0"
 	compileOnly group: "com.liferay", name: "com.liferay.frontend.taglib", version: "3.0.0"
