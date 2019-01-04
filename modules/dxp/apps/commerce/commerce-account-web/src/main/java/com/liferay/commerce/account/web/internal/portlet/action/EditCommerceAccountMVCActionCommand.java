@@ -22,9 +22,10 @@ import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.model.CommerceAccountUserRel;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.service.CommerceAccountUserRelService;
-import com.liferay.commerce.user.service.CommerceUserService;
 import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
@@ -33,11 +34,15 @@ import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
-import com.liferay.portal.kernel.service.UserGroupRoleService;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.transaction.Propagation;
+import com.liferay.portal.kernel.transaction.TransactionConfig;
+import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+
+import java.util.concurrent.Callable;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -89,33 +94,37 @@ public class EditCommerceAccountMVCActionCommand extends BaseMVCActionCommand {
 
 		try {
 			if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
-				updateCommerceAccount(actionRequest);
+				Callable<CommerceAccount> commerceAccountCallable =
+					new CommerceAccountCallable(actionRequest);
+
+				TransactionInvokerUtil.invoke(
+					_transactionConfig, commerceAccountCallable);
 			}
 		}
-		catch (Exception e) {
-			if (e instanceof NoSuchAccountException ||
-				e instanceof PrincipalException) {
+		catch (Throwable t) {
+			if (t instanceof NoSuchAccountException ||
+				t instanceof PrincipalException) {
 
-				SessionErrors.add(actionRequest, e.getClass());
+				SessionErrors.add(actionRequest, t.getClass());
 
 				actionResponse.setRenderParameter("mvcPath", "/error.jsp");
 			}
-			else if (e instanceof CommerceAccountNameException ||
-					 e instanceof DuplicateCommerceAccountException) {
+			else if (t instanceof CommerceAccountNameException ||
+					 t instanceof DuplicateCommerceAccountException) {
 
 				hideDefaultErrorMessage(actionRequest);
 
-				SessionErrors.add(actionRequest, e.getClass());
+				SessionErrors.add(actionRequest, t.getClass());
 			}
 			else {
-				throw e;
+				_log.error(t, t);
 			}
 		}
 
 		hideDefaultSuccessMessage(actionRequest);
 	}
 
-	protected void updateCommerceAccount(ActionRequest actionRequest)
+	protected CommerceAccount updateCommerceAccount(ActionRequest actionRequest)
 		throws Exception {
 
 		long commerceAccountId = ParamUtil.getLong(
@@ -144,23 +153,35 @@ public class EditCommerceAccountMVCActionCommand extends BaseMVCActionCommand {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			CommerceAccount.class.getName(), actionRequest);
 
+		CommerceAccount commerceAccount;
+
 		if ((commerceAccountId > 0) &&
 			(commerceAccountId != parentCommerceAccountId)) {
 
-			_commerceAccountService.updateCommerceAccount(
+			commerceAccount = _commerceAccountService.updateCommerceAccount(
 				commerceAccountId, name, !deleteLogo, logoBytes, email, taxId,
 				active, serviceContext);
 		}
 		else {
-			_commerceAccountService.addCommerceAccount(
+			commerceAccount = _commerceAccountService.addCommerceAccount(
 				name, parentCommerceAccountId, email, taxId, active,
 				externalReferenceCode, serviceContext);
 
 			// Add administrator users
 
-			addAdminUsers(commerceAccountId, actionRequest);
+			addAdminUsers(
+				commerceAccount.getCommerceAccountId(), actionRequest);
 		}
+
+		return commerceAccount;
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		EditCommerceAccountMVCActionCommand.class);
+
+	private static final TransactionConfig _transactionConfig =
+		TransactionConfig.Factory.create(
+			Propagation.REQUIRED, new Class<?>[] {Exception.class});
 
 	@Reference
 	private CommerceAccountService _commerceAccountService;
@@ -169,15 +190,24 @@ public class EditCommerceAccountMVCActionCommand extends BaseMVCActionCommand {
 	private CommerceAccountUserRelService _commerceAccountUserRelService;
 
 	@Reference
-	private CommerceUserService _commerceUserService;
-
-	@Reference
 	private DLAppLocalService _dlAppLocalService;
 
 	@Reference
 	private RoleLocalService _roleLocalService;
 
-	@Reference
-	private UserGroupRoleService _userGroupRoleService;
+	private class CommerceAccountCallable implements Callable<CommerceAccount> {
+
+		@Override
+		public CommerceAccount call() throws Exception {
+			return updateCommerceAccount(_actionRequest);
+		}
+
+		private CommerceAccountCallable(ActionRequest actionRequest) {
+			_actionRequest = actionRequest;
+		}
+
+		private final ActionRequest _actionRequest;
+
+	}
 
 }
