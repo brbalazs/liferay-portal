@@ -15,7 +15,7 @@
 package com.liferay.commerce.account.web.internal.frontend;
 
 import com.liferay.commerce.account.model.CommerceAccountOrganizationRel;
-import com.liferay.commerce.account.service.CommerceAccountOrganizationRelLocalService;
+import com.liferay.commerce.account.service.CommerceAccountOrganizationRelService;
 import com.liferay.commerce.account.web.internal.model.Organization;
 import com.liferay.commerce.frontend.ClayTable;
 import com.liferay.commerce.frontend.ClayTableSchema;
@@ -58,12 +58,9 @@ public class CommerceAccountOrganizationClayTable
 	public int countItems(long groupId, Filter filter) throws PortalException {
 		AccountFilterImpl accountFilter = (AccountFilterImpl)filter;
 
-		List<CommerceAccountOrganizationRel> commerceAccountOrganizationRels =
-			_commerceAccountOrganizationRelLocalService.
-				getCommerceAccountOrganizationRels(
-					accountFilter.getAccountId());
-
-		return commerceAccountOrganizationRels.size();
+		return _commerceAccountOrganizationRelService.
+			getCommerceAccountOrganizationRelsCount(
+				accountFilter.getAccountId());
 	}
 
 	@Override
@@ -92,9 +89,10 @@ public class CommerceAccountOrganizationClayTable
 		List<Organization> organizations = new ArrayList<>();
 
 		List<CommerceAccountOrganizationRel> commerceAccountOrganizationRels =
-			_commerceAccountOrganizationRelLocalService.
+			_commerceAccountOrganizationRelService.
 				getCommerceAccountOrganizationRels(
-					accountFilter.getAccountId());
+					accountFilter.getAccountId(), pagination.getStartPosition(),
+					pagination.getEndPosition());
 
 		for (CommerceAccountOrganizationRel commerceAccountOrganizationRel :
 				commerceAccountOrganizationRels) {
@@ -108,14 +106,7 @@ public class CommerceAccountOrganizationClayTable
 					getPath(organization.getTreePath())));
 		}
 
-		int end = pagination.getEndPosition();
-
-		if (end > organizations.size()) {
-			end = organizations.size();
-		}
-
-		return organizations.subList(
-			pagination.getStartPosition(), pagination.getEndPosition());
+		return organizations;
 	}
 
 	@Override
@@ -146,8 +137,8 @@ public class CommerceAccountOrganizationClayTable
 	private ClayTableSchemaBuilderFactory _clayTableSchemaBuilderFactory;
 
 	@Reference
-	private CommerceAccountOrganizationRelLocalService
-		_commerceAccountOrganizationRelLocalService;
+	private CommerceAccountOrganizationRelService
+		_commerceAccountOrganizationRelService;
 
 	@Reference
 	private OrganizationLocalService _organizationLocalService;

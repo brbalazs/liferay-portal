@@ -14,6 +14,8 @@
 
 package com.liferay.commerce.account.web.internal.frontend;
 
+import com.liferay.commerce.account.model.CommerceAccountUserRel;
+import com.liferay.commerce.account.service.CommerceAccountUserRelService;
 import com.liferay.commerce.account.web.internal.model.Member;
 import com.liferay.commerce.frontend.ClayTable;
 import com.liferay.commerce.frontend.ClayTableSchema;
@@ -22,16 +24,10 @@ import com.liferay.commerce.frontend.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
-import com.liferay.commerce.user.service.CommerceUserService;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.service.GroupLocalService;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,17 +54,10 @@ public class CommerceAccountUserClayTable
 
 	@Override
 	public int countItems(long groupId, Filter filter) throws PortalException {
-		Group group = _groupLocalService.getGroup(groupId);
-
 		AccountFilterImpl accountFilter = (AccountFilterImpl)filter;
 
-		BaseModelSearchResult<User> baseModelSearchResult =
-			_commerceUserService.searchCommerceAccountUsers(
-				group.getCompanyId(), accountFilter.getAccountId(),
-				accountFilter.getKeywords(), WorkflowConstants.STATUS_ANY,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
-
-		return baseModelSearchResult.getLength();
+		return _commerceAccountUserRelService.getCommerceAccountUserRelsCount(
+			accountFilter.getAccountId());
 	}
 
 	@Override
@@ -97,14 +86,16 @@ public class CommerceAccountUserClayTable
 
 		List<Member> members = new ArrayList<>();
 
-		BaseModelSearchResult<User> baseModelSearchResult =
-			_commerceUserService.searchCommerceAccountUsers(
-				groupId, accountFilter.getAccountId(),
-				accountFilter.getKeywords(), WorkflowConstants.STATUS_ANY,
-				pagination.getStartPosition(), pagination.getEndPosition(),
-				sort);
+		List<CommerceAccountUserRel> commerceAccountUserRels =
+			_commerceAccountUserRelService.getCommerceAccountUserRels(
+				accountFilter.getAccountId(), pagination.getStartPosition(),
+				pagination.getEndPosition());
 
-		for (User user : baseModelSearchResult.getBaseModels()) {
+		for (CommerceAccountUserRel commerceAccountUserRel :
+				commerceAccountUserRels) {
+
+			User user = commerceAccountUserRel.getUser();
+
 			members.add(
 				new Member(
 					user.getUserId(), user.getFullName(),
@@ -133,9 +124,6 @@ public class CommerceAccountUserClayTable
 	private ClayTableSchemaBuilderFactory _clayTableSchemaBuilderFactory;
 
 	@Reference
-	private CommerceUserService _commerceUserService;
-
-	@Reference
-	private GroupLocalService _groupLocalService;
+	private CommerceAccountUserRelService _commerceAccountUserRelService;
 
 }

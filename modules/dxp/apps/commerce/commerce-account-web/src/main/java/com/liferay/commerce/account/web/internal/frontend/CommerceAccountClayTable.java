@@ -27,7 +27,6 @@ import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletProvider;
@@ -91,11 +90,10 @@ public class CommerceAccountClayTable
 
 	@Override
 	public int countItems(long groupId, Filter filter) throws PortalException {
-		List<CommerceAccount> userCommerceAccounts =
-			_commerceAccountService.getUserCommerceAccounts(
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		AccountFilterImpl accountFilter = (AccountFilterImpl)filter;
 
-		return userCommerceAccounts.size();
+		return _commerceAccountService.getUserCommerceAccountsCount(
+			accountFilter.getAccountId());
 	}
 
 	@Override
