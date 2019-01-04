@@ -15,9 +15,9 @@
 package com.liferay.commerce.account.web.internal.portlet.action;
 
 import com.liferay.commerce.account.constants.CommerceAccountPortletKeys;
+import com.liferay.commerce.account.exception.NoSuchAccountUserRelException;
 import com.liferay.commerce.account.model.CommerceAccountUserRel;
 import com.liferay.commerce.account.service.CommerceAccountUserRelService;
-import com.liferay.portal.kernel.exception.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.UserEmailAddressException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -82,7 +82,7 @@ public class InviteUserMVCActionCommand extends BaseMVCActionCommand {
 			}
 		}
 		catch (Exception e) {
-			if (e instanceof NoSuchUserException ||
+			if (e instanceof NoSuchAccountUserRelException ||
 				e instanceof PrincipalException) {
 
 				SessionErrors.add(actionRequest, e.getClass());
