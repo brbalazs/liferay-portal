@@ -10,7 +10,7 @@ dependencies {
 	compileOnly group: "com.liferay", name: "com.liferay.petra.string", version: "2.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.portal.configuration.metatype.api", version: "1.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.users.admin.api", version: "3.0.0"
-	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.account.api", version: "1.0.0-20190104.133049-1"
+	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.account.api", version: "1.0.0-20190105.005328-2"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.api", version: "4.0.0-20190104.133235-3"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.frontend.api", version: "1.0.0-20190104.133347-1"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.frontend.taglib", version: "1.0.0-20190104.133539-1"
