@@ -20,5 +20,5 @@ dependencies {
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.api", version: "4.0.0-20190104.133235-3"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.frontend.api", version: "1.0.0-20190104.133347-1"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.frontend.taglib", version: "1.0.0-20190104.133539-1"
-	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.user.api", version: "1.1.0-20190105.002310-2"
+	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.user.api", version: "1.0.3-20190105.004049-2"
 }
