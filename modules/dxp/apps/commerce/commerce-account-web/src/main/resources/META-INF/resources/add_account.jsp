@@ -32,6 +32,8 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 	<div class="lfr-form-content">
 		<aui:input label="name" name="name" type="text" />
 
+		<aui:input label="administrator-id" name="userIds" type="text" />
+
 		<aui:input label="administrator-email" name="emailAddresses" type="text" />
 	</div>
 

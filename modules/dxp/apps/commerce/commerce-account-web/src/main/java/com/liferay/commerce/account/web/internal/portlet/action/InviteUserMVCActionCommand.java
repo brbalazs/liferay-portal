@@ -56,6 +56,8 @@ public class InviteUserMVCActionCommand extends BaseMVCActionCommand {
 		long commerceAccountId = ParamUtil.getLong(
 			actionRequest, "commerceAccountId");
 
+		long[] userIds = StringUtil.split(
+			ParamUtil.getString(actionRequest, "userIds"), 0L);
 		String[] emailAddresses = ParamUtil.getStringValues(
 			actionRequest, "emailAddresses");
 
@@ -63,7 +65,7 @@ public class InviteUserMVCActionCommand extends BaseMVCActionCommand {
 			CommerceAccountUserRel.class.getName(), actionRequest);
 
 		_commerceAccountUserRelService.addCommerceAccountUserRels(
-			commerceAccountId, emailAddresses, null, serviceContext);
+			commerceAccountId, userIds, emailAddresses, null, serviceContext);
 	}
 
 	@Override
