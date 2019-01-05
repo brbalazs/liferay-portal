@@ -47,6 +47,7 @@
 						<div class="account-switcher__section account-switcher__section--fill">
 							<div class="account-list">
 								<div class="account-list__title">Select Account...</div>
+
 								<a class="account-list__item u-hoverable" href="#">
 									<img alt="" src="http://placehold.it/100">
 									<span>Forward Auto Service</span>

@@ -69,6 +69,7 @@
 				</div>
 
 				<a href="{$item[$fieldSchema.linkField]}" class="actions__link">{$item[$fieldSchema.linkLabelField]}</a>
+
 				<div class="actions__buttons">
 					{foreach $actionItem in $item.actions}
 						<a class="minium-button minium-button--small minium-button--{$actionItem.type ?: 'outline'}" href="{$actionItem.href}">
