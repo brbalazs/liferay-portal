@@ -40,7 +40,16 @@
 	</aui:script>
 </div>
 
+<commerce-ui:user-invitation componentId="userInvitation" />
+
 <aui:script>
+
+	function <portlet:namespace />inviteUser(uri) {
+		const userInvitation = Liferay.component('userInvitation');
+
+		userInvitation.open();
+	}
+
 	function <portlet:namespace />addCommerceAccount(uri) {
 		Liferay.Util.openWindow(
 			{
@@ -80,4 +89,17 @@
 		},
 		['aui-dialog', 'aui-dialog-iframe']
 	);
+
+
+	Liferay.componentReady('userInvitation')
+		.them(
+			userInvitation => {
+				return userInvitation.on(
+					'userInvitationSave', 
+					(event) => {
+						console.log(event)
+					}
+				);
+			}
+		);
 </aui:script>

@@ -92,25 +92,13 @@ CommerceAccount commerceAccount = commerceAccountMembersDisplayContext.getCurren
 	</div>
 </aui:form>
 
+<commerce-ui:user-invitation componentId="userInvitation" />
+
 <aui:script>
 	function <portlet:namespace />inviteUser(uri) {
-		Liferay.Util.openWindow(
-			{
-				dialog: {
-					centered: true,
-					destroyOnClose: true,
-					height: 600,
-					modal: true,
-					width: 700
-				},
-				dialogIframe: {
-					bodyCssClass: 'dialog-with-footer'
-				},
-				id: 'inviteUserDialog',
-				title: '<liferay-ui:message key="invite-users" />',
-				uri: uri
-			}
-		);
+		const userInvitation = Liferay.component('userInvitation');
+
+		userInvitation.open();
 	}
 
 	function <portlet:namespace />removeUsers() {
@@ -160,4 +148,17 @@ CommerceAccount commerceAccount = commerceAccountMembersDisplayContext.getCurren
 		},
 		['aui-base']
 	);
+
+	Liferay.componentReady('userInvitation')
+		.them(
+			userInvitation => {
+				return userInvitation.on(
+					'userInvitationSave', 
+					(event) => {
+						console.log(event)
+					}
+				);
+			}
+		);
+
 </aui:script>
