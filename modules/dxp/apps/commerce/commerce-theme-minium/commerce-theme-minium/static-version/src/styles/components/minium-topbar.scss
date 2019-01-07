@@ -51,5 +51,9 @@
 		max-height: $frame-size;
 		overflow: hidden;
 		transition: max-height $transition;
+
+		.minium-frame:not(.has-search) & {
+			max-height: 0;
+		}
 	}
 }

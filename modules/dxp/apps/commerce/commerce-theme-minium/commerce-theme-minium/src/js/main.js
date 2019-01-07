@@ -19,9 +19,9 @@ AUI().ready(
 					.classList.toggle("has-search", status);
 			});
 
-			document.querySelectorAll(".js-toggle-search").forEach(el => {
-				el.classList.toggle("is-active", searchBar.active);
-		});
+		// 	document.querySelectorAll(".js-toggle-search").forEach(el => {
+		// 		el.classList.toggle("is-active", searchBar.active);
+		// });
 		}
 	}
 );

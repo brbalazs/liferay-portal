@@ -378,10 +378,10 @@ function handleKeyDownForSearch(e) {
 	}
 }
 
-const userInvitation = new UserInvitation({
-	usersAPI: 'api/users',
-	invitationAPI: 'api/invitation'
-}, '.minium-content')
+// const userInvitation = new UserInvitation({
+// 	usersAPI: 'api/users',
+// 	invitationAPI: 'api/invitation'
+// }, '.minium-content')
 
 function toggleMiniumSearch() {
 	const status = document
