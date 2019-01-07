@@ -29,6 +29,7 @@ import org.osgi.service.component.annotations.Component;
 	immediate = true,
 	property = {
 		"commerce.data.provider.key=" + CommerceAccountClayTable.NAME,
+		"commerce.data.provider.key=" + CommerceAccountOrganizationClayTable.NAME,
 		"commerce.data.provider.key=" + CommerceAccountUserClayTable.NAME
 	},
 	service = FilterFactory.class
