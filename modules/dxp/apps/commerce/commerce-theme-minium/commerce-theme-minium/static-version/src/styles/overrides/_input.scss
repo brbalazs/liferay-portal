@@ -1,0 +1,56 @@
+.control-label {
+    grid-area: label;
+    font-weight: 400;
+    color: $color-fg-alt;
+    font-size: 11px;
+    letter-spacing: 1.1px;
+    line-height: 1.4;
+    margin-right: 10px;
+    text-transform: uppercase;
+    vertical-align: baseline;
+}
+
+.form-control {
+    grid-area: input;
+    background-color: transparent;
+    padding: 0.5rem;
+    border-width: 2px;
+    border-color: $color-border;
+    border-radius: 5px;
+}
+
+.form-validator-stack {
+    grid-area: message;
+}
+
+.form-inline {
+    display: grid;
+    grid-template-areas: "label input" "label message";
+    grid-auto-columns: min-content auto;
+
+    .control-label {
+        align-self: start;
+        margin-top: 12px;
+        text-align: right;
+        width: 80px;
+    }
+
+    .form-control {
+        min-width: 100%;
+    }
+
+    &.form-group {
+        margin-bottom: 30px;
+    }
+}
+
+.logoselector-content {
+    display: flex;
+
+    .portrait-icons {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 20px;
+    }
+}

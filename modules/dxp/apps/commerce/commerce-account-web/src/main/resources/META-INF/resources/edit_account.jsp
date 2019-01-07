@@ -36,44 +36,84 @@ CommerceAccount commerceAccount = commerceAccountDisplayContext.getCurrentCommer
 
 	<aui:model-context bean="<%= commerceAccount %>" model="<%= CommerceAccount.class %>" />
 
-	<div class="row">
-		<aui:fieldset cssClass="col-md-6">
-			<liferay-ui:error exception="<%= CommerceAccountNameException.class %>" message="please-enter-a-valid-name" />
-			<liferay-ui:error exception="<%= DuplicateCommerceAccountException.class %>" message="the-account-name-is-already-taken" />
-
-			<aui:input autoFocus="<%= windowState.equals(WindowState.MAXIMIZED) %>" name="name" />
-
-			<aui:input name="email" />
-
-			<aui:input checked="<%= (commerceAccount == null) ? true : commerceAccount.isActive() %>" name="active" type="toggle-switch" />
-		</aui:fieldset>
-
-		<aui:fieldset cssClass="col-md-6">
-			<div>
-				<c:if test="<%= commerceAccount != null %>">
-
-					<%
-					long logoId = commerceAccount.getLogoId();
-
-					UserFileUploadsConfiguration userFileUploadsConfiguration = commerceAccountDisplayContext.getUserFileUploadsConfiguration();
-					%>
-
-					<liferay-ui:logo-selector
-						currentLogoURL='<%= themeDisplay.getPathImage() + "/organization_logo?img_id=" + logoId + "&t=" + WebServerServletTokenUtil.getToken(logoId) %>'
-						defaultLogo="<%= logoId == 0 %>"
-						defaultLogoURL='<%= themeDisplay.getPathImage() + "/organization_logo?img_id=0" %>'
-						logoDisplaySelector=".organization-logo"
-						maxFileSize="<%= userFileUploadsConfiguration.imageMaxSize() %>"
-						tempImageFileName="<%= String.valueOf(themeDisplay.getScopeGroupId()) %>"
-					/>
-				</c:if>
+	<section class="details-header__section">
+		<div class="row">
+			<div class="col-lg-4 u-vac">
+				<aui:fieldset>
+					<c:if test="<%= commerceAccount != null %>">
+	
+						<%
+						long logoId = commerceAccount.getLogoId();
+	
+						UserFileUploadsConfiguration userFileUploadsConfiguration = commerceAccountDisplayContext.getUserFileUploadsConfiguration();
+						%>
+	
+						<liferay-ui:logo-selector
+							currentLogoURL='<%= themeDisplay.getPathImage() + "/organization_logo?img_id=" + logoId + "&t=" + WebServerServletTokenUtil.getToken(logoId) %>'
+							defaultLogo="<%= logoId == 0 %>"
+							defaultLogoURL='<%= themeDisplay.getPathImage() + "/organization_logo?img_id=0" %>'
+							logoDisplaySelector=".organization-logo"
+							maxFileSize="<%= userFileUploadsConfiguration.imageMaxSize() %>"
+							tempImageFileName="<%= String.valueOf(themeDisplay.getScopeGroupId()) %>"
+						/>
+					</c:if>
+				</aui:fieldset>
 			</div>
-		</aui:fieldset>
+			
+			<div class="col-lg-4 u-vac mt-4 mt-lg-0">
+				<aui:input name="name" inlineLabel="true"/>
+				<aui:input name="email" inlineLabel="true" wrapperCssClass="mb-0"/>
+			</div>
+		</div>
+	</section>
 
-		<aui:button-row>
-			<aui:button type="submit" />
-		</aui:button-row>
+	<section class="details-header__section pb-0">
+		<div class="row">
+			<div class="col-lg-4">
+				<aui:select label="country" name="commerceCountryId" inlineLabel="true" showEmptyOption="<%= true %>">
+					<aui:option 
+						label="Test" 
+						value="1" 
+					/>
+					<aui:option 
+						label="Test 2" 
+						value="2" 
+					/>
+				</aui:select>
+			</div>
+			<div class="col-lg-4">
+				<aui:select label="region" name="commerceRegionId" inlineLabel="true" showEmptyOption="<%= true %>">
+					
+					<aui:option 
+						label="Test" 
+						value="1" 
+					/>
+
+					<aui:option 
+						label="Test 2" 
+						value="2" 
+					/>
+
+				</aui:select>
+			</div>
+
+			<div class="col-lg-4">
+				<aui:input type="text" name="address" inlineLabel="true"/>
+			</div>
+			<div class="col-lg-4">
+				<aui:input type="text" name="zipCode" inlineLabel="true"/>
+			</div>
+			<div class="col-lg-4">
+				<aui:input type="text" name="city" inlineLabel="true"/>
+			</div>
+		</div>
+	</section>
+
+	<div class="minium-frame__cta is-visible">
+		<button class="minium-button minium-button--big minium-button--outline">Cancel</button>
+		<aui:button type="submit" cssClass="minium-button minium-button--big" />
 	</div>
+
 </aui:form>
 
 <liferay-frontend:screen-navigation

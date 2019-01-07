@@ -18,6 +18,10 @@ import com.liferay.commerce.account.constants.CommerceAccountPortletKeys;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.account.web.internal.display.context.CommerceAccountDisplayContext;
+import com.liferay.commerce.account.web.internal.display.context.CommerceAccountAddressesDisplayContext;
+import com.liferay.commerce.service.CommerceAddressService;
+import com.liferay.commerce.service.CommerceCountryService;
+import com.liferay.commerce.service.CommerceRegionService;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.util.Portal;
@@ -64,8 +68,18 @@ public class EditCommerceAccountMVCRenderCommand implements MVCRenderCommand {
 				_commerceAccountHelper, _commerceAccountService,
 				httpServletRequest, _portal, _userFileUploadsConfiguration);
 
+		CommerceAccountAddressesDisplayContext
+			commerceAccountAddressesDisplayContext =
+				new CommerceAccountAddressesDisplayContext(
+					_commerceAccountHelper, _commerceAccountService,
+					_commerceAddressService, _commerceCountryService,
+					_commerceRegionService, httpServletRequest, _portal);
+
 		renderRequest.setAttribute(
-			WebKeys.PORTLET_DISPLAY_CONTEXT, commerceAccountDisplayContext);
+			WebKeys.PORTLET_DISPLAY_CONTEXT, 
+			commerceAccountDisplayContext/*,
+			commerceAccountAddressesDisplayContext*/
+		);
 
 		return "/edit_account.jsp";
 	}
@@ -82,6 +96,15 @@ public class EditCommerceAccountMVCRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private CommerceAccountService _commerceAccountService;
+
+	@Reference
+	private CommerceCountryService _commerceCountryService;
+
+	@Reference
+	private CommerceAddressService _commerceAddressService;
+
+	@Reference
+	private CommerceRegionService _commerceRegionService;
 
 	@Reference
 	private Portal _portal;

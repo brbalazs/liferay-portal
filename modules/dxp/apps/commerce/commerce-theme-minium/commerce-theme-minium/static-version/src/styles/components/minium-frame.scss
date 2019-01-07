@@ -63,13 +63,6 @@
 
 	&__cta,
 	&__dock {
-		align-self: flex-end;
-		grid-area: content;
-		justify-self: center;
-		padding: $minium-gutter;
-		position: relative;
-		transition: transform $transition;
-
 		&:empty {
 			display: none;
 		}
@@ -79,7 +72,33 @@
 		}
 	}
 
+	&__dock {
+		align-self: flex-end;
+		grid-area: content;
+		justify-self: center;
+		padding: $minium-gutter;
+		position: relative;
+		transition: transform $transition;
+	}
+
 	&__cta {
+		position: fixed;
+		padding: 20px;
+		transition: transform ease 200ms;
+		position: fixed;
+		bottom: 10px;
+		z-index: 100;
+		right: 0;
+		display: flex;
+		justify-content: center;
+		transition: left ease 500ms;
+
+		left: $frame-size;
+
+		body.open & {
+			left: calc(320px + #{$frame-size});
+		}
+
 		filter: drop-shadow($color-shadow);
 	}
 

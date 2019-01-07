@@ -74,6 +74,8 @@ $micro-transition: ease 100ms;
 @import "./components/small-table.scss";
 @import "./components/user-invitation.scss";
 @import "./components/user-nav.scss";
+@import "./overrides/input.scss";
+@import "./overrides/nav.scss";
 
 #minium {
 	font-family: 'Roboto', sans-serif;
@@ -100,6 +102,12 @@ $micro-transition: ease 100ms;
 	&.show {
 		opacity: .6;
 	}
+}
+
+.u-vac {
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 button {
