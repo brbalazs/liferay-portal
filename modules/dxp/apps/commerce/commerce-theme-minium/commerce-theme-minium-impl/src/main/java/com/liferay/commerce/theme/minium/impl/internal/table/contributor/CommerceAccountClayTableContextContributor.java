@@ -19,7 +19,9 @@ import com.liferay.commerce.frontend.ClayTableContextContributor;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -49,6 +51,16 @@ public class CommerceAccountClayTableContextContributor
 		}
 
 		context.put("actionsMenuVariant", "miniumActionsMenuVariant");
+	}
+
+
+	@Override
+	public Set<String> getDependencies(ClayTable clayTable, HttpServletRequest httpServletRequest) {
+		Set<String> dependencies = new HashSet<>();
+
+		dependencies.add("commerce-theme-minium-impl@1.0.0/action_menus/MiniumExtensions.es");
+
+		return dependencies;
 	}
 
 	private static final String _MINIUM_THEME_ID = "minium_WAR_miniumtheme";
