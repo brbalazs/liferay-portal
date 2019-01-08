@@ -18,7 +18,6 @@ import com.liferay.commerce.account.constants.CommerceAccountPortletKeys;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.account.web.internal.display.context.CommerceAccountDisplayContext;
-import com.liferay.commerce.account.web.internal.display.context.CommerceAccountAddressesDisplayContext;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceRegionService;
@@ -68,17 +67,9 @@ public class EditCommerceAccountMVCRenderCommand implements MVCRenderCommand {
 				_commerceAccountHelper, _commerceAccountService,
 				httpServletRequest, _portal, _userFileUploadsConfiguration);
 
-		CommerceAccountAddressesDisplayContext
-			commerceAccountAddressesDisplayContext =
-				new CommerceAccountAddressesDisplayContext(
-					_commerceAccountHelper, _commerceAccountService,
-					_commerceAddressService, _commerceCountryService,
-					_commerceRegionService, httpServletRequest, _portal);
-
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, 
-			commerceAccountDisplayContext/*,
-			commerceAccountAddressesDisplayContext*/
+			commerceAccountDisplayContext
 		);
 
 		return "/edit_account.jsp";
