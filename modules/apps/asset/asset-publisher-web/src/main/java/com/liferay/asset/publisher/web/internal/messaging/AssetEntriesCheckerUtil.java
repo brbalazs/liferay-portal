@@ -40,12 +40,10 @@ import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUti
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.PortletPreferencesLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.util.Accessor;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.LocaleThreadLocal;
-import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.SubscriptionSender;
 import com.liferay.portal.kernel.util.TimeZoneThreadLocal;
@@ -267,8 +265,9 @@ public class AssetEntriesCheckerUtil {
 		subscriptionSender.setCompanyId(assetEntry.getCompanyId());
 		subscriptionSender.setContextAttributes(
 			"[$ASSET_ENTRIES$]",
-			ListUtil.toString(
-				assetEntries, _titleAccessor, StringPool.COMMA_AND_SPACE));
+			com.liferay.petra.string.StringUtil.merge(
+				assetEntries, AssetEntry::getTitle,
+				StringPool.COMMA_AND_SPACE));
 		subscriptionSender.setFrom(fromAddress, fromName);
 		subscriptionSender.setGroupId(assetEntry.getGroupId());
 		subscriptionSender.setHtmlFormat(true);
@@ -342,26 +341,6 @@ public class AssetEntriesCheckerUtil {
 			subscriptionSender.flushNotificationsAsync();
 		}
 	}
-
-	private static final Accessor<AssetEntry, String> _titleAccessor =
-		new Accessor<AssetEntry, String>() {
-
-			@Override
-			public String get(AssetEntry assetEntry) {
-				return assetEntry.getTitle(LocaleUtil.getSiteDefault());
-			}
-
-			@Override
-			public Class<String> getAttributeClass() {
-				return String.class;
-			}
-
-			@Override
-			public Class<AssetEntry> getTypeClass() {
-				return AssetEntry.class;
-			}
-
-		};
 
 	@Reference
 	private AssetHelper _assetHelper;
