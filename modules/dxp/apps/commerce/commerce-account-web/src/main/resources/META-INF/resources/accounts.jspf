@@ -15,32 +15,30 @@
 --%>
 
 <div class="minium-frame__cta is-visible">
-	<a 
-		href="<%= commerceAccountDisplayContext.getAddCommerceAccountHref() %>" 
-		class="minium-button minium-button--big"
-	>
+	<a class="minium-button minium-button--big" href="<%= commerceAccountDisplayContext.getAddCommerceAccountHref() %>">
 		<%= LanguageUtil.get(request, addButtonTitle) %>
 	</a>
 </div>
 
 <div class="commerce-account-container" id="<portlet:namespace />entriesContainer">
-
-<commerce-ui:table
-	dataProviderKey="commerceAccounts"
-	filter="<%= commerceAccountDisplayContext.getAccountFilter() %>"
-	itemPerPage="<%= 5 %>"
-	namespace="<%= renderResponse.getNamespace() %>"
-	pageNumber="1"
-	portletURL="<%= portletURL %>"
-	tableName="commerceAccounts"
-/>
+	<commerce-ui:table
+		dataProviderKey="commerceAccounts"
+		filter="<%= commerceAccountDisplayContext.getAccountFilter() %>"
+		itemPerPage="<%= 5 %>"
+		namespace="<%= renderResponse.getNamespace() %>"
+		pageNumber="1"
+		portletURL="<%= portletURL %>"
+		tableName="commerceAccounts"
+	/>
 
 	<aui:script>
 		Liferay.Util.focusFormField('#<portlet:namespace />keywords');
 	</aui:script>
 </div>
 
-<commerce-ui:user-invitation componentId="userInvitation" />
+<commerce-ui:user-invitation
+	componentId="userInvitation"
+/>
 
 <aui:script>
 
@@ -90,12 +88,11 @@
 		['aui-dialog', 'aui-dialog-iframe']
 	);
 
-
 	Liferay.componentReady('userInvitation')
 		.then(
 			userInvitation => {
 				return userInvitation.on(
-					'userInvitationSave', 
+					'userInvitationSave',
 					(event) => {
 						console.log(event)
 					}

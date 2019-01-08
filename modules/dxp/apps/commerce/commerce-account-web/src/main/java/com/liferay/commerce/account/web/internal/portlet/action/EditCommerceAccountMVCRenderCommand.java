@@ -68,9 +68,7 @@ public class EditCommerceAccountMVCRenderCommand implements MVCRenderCommand {
 				httpServletRequest, _portal, _userFileUploadsConfiguration);
 
 		renderRequest.setAttribute(
-			WebKeys.PORTLET_DISPLAY_CONTEXT, 
-			commerceAccountDisplayContext
-		);
+			WebKeys.PORTLET_DISPLAY_CONTEXT, commerceAccountDisplayContext);
 
 		return "/edit_account.jsp";
 	}
@@ -89,10 +87,10 @@ public class EditCommerceAccountMVCRenderCommand implements MVCRenderCommand {
 	private CommerceAccountService _commerceAccountService;
 
 	@Reference
-	private CommerceCountryService _commerceCountryService;
+	private CommerceAddressService _commerceAddressService;
 
 	@Reference
-	private CommerceAddressService _commerceAddressService;
+	private CommerceCountryService _commerceCountryService;
 
 	@Reference
 	private CommerceRegionService _commerceRegionService;

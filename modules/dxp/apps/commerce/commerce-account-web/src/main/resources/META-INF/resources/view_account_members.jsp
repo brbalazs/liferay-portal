@@ -92,7 +92,9 @@ CommerceAccount commerceAccount = commerceAccountMembersDisplayContext.getCurren
 	</div>
 </aui:form>
 
-<commerce-ui:user-invitation componentId="userInvitation" />
+<commerce-ui:user-invitation
+	componentId="userInvitation"
+/>
 
 <aui:script>
 	function <portlet:namespace />inviteUser(uri) {
@@ -153,7 +155,7 @@ CommerceAccount commerceAccount = commerceAccountMembersDisplayContext.getCurren
 		.them(
 			userInvitation => {
 				return userInvitation.on(
-					'userInvitationSave', 
+					'userInvitationSave',
 					(event) => {
 						console.log(event)
 					}

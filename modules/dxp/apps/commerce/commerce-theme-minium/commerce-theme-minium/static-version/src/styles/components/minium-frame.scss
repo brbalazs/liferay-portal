@@ -82,16 +82,16 @@
 	}
 
 	&__cta {
-		position: fixed;
-		padding: 20px;
-		transition: transform ease 200ms;
-		position: fixed;
 		bottom: 10px;
-		z-index: 100;
-		right: 0;
 		display: flex;
 		justify-content: center;
+		padding: 20px;
+		position: fixed;
+		position: fixed;
+		right: 0;
+		transition: transform ease 200ms;
 		transition: left ease 500ms;
+		z-index: 100;
 
 		left: $frame-size;
 

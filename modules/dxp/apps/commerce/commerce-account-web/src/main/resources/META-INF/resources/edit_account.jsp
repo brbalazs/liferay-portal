@@ -41,13 +41,13 @@ CommerceAccount commerceAccount = commerceAccountDisplayContext.getCurrentCommer
 			<div class="col-lg-4 u-vac">
 				<aui:fieldset>
 					<c:if test="<%= commerceAccount != null %>">
-	
+
 						<%
 						long logoId = commerceAccount.getLogoId();
-	
+
 						UserFileUploadsConfiguration userFileUploadsConfiguration = commerceAccountDisplayContext.getUserFileUploadsConfiguration();
 						%>
-	
+
 						<liferay-ui:logo-selector
 							currentLogoURL='<%= themeDisplay.getPathImage() + "/organization_logo?img_id=" + logoId + "&t=" + WebServerServletTokenUtil.getToken(logoId) %>'
 							defaultLogo="<%= logoId == 0 %>"
@@ -59,10 +59,10 @@ CommerceAccount commerceAccount = commerceAccountDisplayContext.getCurrentCommer
 					</c:if>
 				</aui:fieldset>
 			</div>
-			
-			<div class="col-lg-4 u-vac mt-4 mt-lg-0">
-				<aui:input name="name" inlineLabel="true"/>
-				<aui:input name="email" inlineLabel="true" wrapperCssClass="mb-0"/>
+
+			<div class="col-lg-4 mt-4 mt-lg-0 u-vac">
+				<aui:input inlineLabel="true" name="name" />
+				<aui:input inlineLabel="true" name="email" wrapperCssClass="mb-0" />
 			</div>
 		</div>
 	</section>
@@ -70,50 +70,40 @@ CommerceAccount commerceAccount = commerceAccountDisplayContext.getCurrentCommer
 	<section class="details-header__section pb-0">
 		<div class="row">
 			<div class="col-lg-4">
-				<aui:select label="country" name="commerceCountryId" inlineLabel="true" showEmptyOption="<%= true %>">
-					<aui:option 
-						label="Test" 
-						value="1" 
-					/>
-					<aui:option 
-						label="Test 2" 
-						value="2" 
-					/>
-				</aui:select>
-			</div>
-			<div class="col-lg-4">
-				<aui:select label="region" name="commerceRegionId" inlineLabel="true" showEmptyOption="<%= true %>">
-					
-					<aui:option 
-						label="Test" 
-						value="1" 
-					/>
+				<aui:select inlineLabel="true" label="country" name="commerceCountryId" showEmptyOption="<%= true %>">
+					<aui:option label="Test" value="1" />
 
-					<aui:option 
-						label="Test 2" 
-						value="2" 
-					/>
-
+					<aui:option label="Test 2" value="2" />
 				</aui:select>
 			</div>
 
 			<div class="col-lg-4">
-				<aui:input type="text" name="address" inlineLabel="true"/>
+				<aui:select inlineLabel="true" label="region" name="commerceRegionId" showEmptyOption="<%= true %>">
+					<aui:option label="Test" value="1" />
+
+					<aui:option label="Test 2" value="2" />
+				</aui:select>
 			</div>
+
 			<div class="col-lg-4">
-				<aui:input type="text" name="zipCode" inlineLabel="true"/>
+				<aui:input inlineLabel="true" name="address" type="text" />
 			</div>
+
 			<div class="col-lg-4">
-				<aui:input type="text" name="city" inlineLabel="true"/>
+				<aui:input inlineLabel="true" name="zipCode" type="text" />
+			</div>
+
+			<div class="col-lg-4">
+				<aui:input inlineLabel="true" name="city" type="text" />
 			</div>
 		</div>
 	</section>
 
 	<div class="minium-frame__cta is-visible">
 		<button class="minium-button minium-button--big minium-button--outline">Cancel</button>
-		<aui:button type="submit" cssClass="minium-button minium-button--big" />
-	</div>
 
+		<aui:button cssClass="minium-button minium-button--big" type="submit" />
+	</div>
 </aui:form>
 
 <liferay-frontend:screen-navigation
