@@ -23,18 +23,25 @@ import com.liferay.commerce.frontend.ClayTableActionProvider;
 import com.liferay.commerce.frontend.ClayTableSchema;
 import com.liferay.commerce.frontend.ClayTableSchemaBuilder;
 import com.liferay.commerce.frontend.ClayTableSchemaBuilderFactory;
+import com.liferay.commerce.frontend.ClayTableSchemaField;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.webserver.WebServerServletTokenUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.portlet.PortletURL;
 
@@ -89,7 +96,9 @@ public class CommerceAccountClayTable
 	}
 
 	@Override
-	public int countItems(long groupId, Filter filter) throws PortalException {
+	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
+		throws PortalException {
+
 		AccountFilterImpl accountFilter = (AccountFilterImpl)filter;
 
 		return _commerceAccountService.getUserCommerceAccountsCount(
@@ -101,7 +110,21 @@ public class CommerceAccountClayTable
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		clayTableSchemaBuilder.addField("name");
+		Map<String, Object> properties = new HashMap<>();
+
+		properties.put("cssClass", "marcoTest");
+
+		ClayTableSchemaField thumbnailField = clayTableSchemaBuilder.addField(
+			"thumbnail", "");
+
+		thumbnailField.setContentRenderer("image");
+		thumbnailField.setProperties(properties);
+
+		ClayTableSchemaField nameField = clayTableSchemaBuilder.addField(
+			"name", "name");
+
+		nameField.setContentRenderer("main");
+
 		clayTableSchemaBuilder.addField("accountId", "id");
 		clayTableSchemaBuilder.addField("email", "contact");
 		clayTableSchemaBuilder.addField("address", "billing-address");
@@ -116,12 +139,16 @@ public class CommerceAccountClayTable
 
 	@Override
 	public List<Account> getItems(
-			long groupId, Filter filter, Pagination pagination, Sort sort)
+			HttpServletRequest httpServletRequest, Filter filter,
+			Pagination pagination, Sort sort)
 		throws PortalException {
 
-		List<Account> accounts = new ArrayList<>();
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
 
-		List<CommerceAccount> commerceAccounts;
+		List<Account> accounts = new ArrayList<>();
+		List<CommerceAccount> commerceAccounts = new ArrayList<>();
 
 		AccountFilterImpl accountFilter = (AccountFilterImpl)filter;
 
@@ -130,11 +157,27 @@ public class CommerceAccountClayTable
 			pagination.getStartPosition(), pagination.getEndPosition());
 
 		for (CommerceAccount commerceAccount : commerceAccounts) {
+			StringBundler thumbnailSB = new StringBundler(5);
+
+			thumbnailSB.append(themeDisplay.getPathImage());
+
+			if (commerceAccount.getLogoId() == 0) {
+				thumbnailSB.append("/organization_logo?img_id=0");
+			}
+			else {
+				thumbnailSB.append("/organization_logo?img_id=");
+				thumbnailSB.append(commerceAccount.getLogoId());
+				thumbnailSB.append("&t=");
+				thumbnailSB.append(
+					WebServerServletTokenUtil.getToken(
+						commerceAccount.getLogoId()));
+			}
+
 			accounts.add(
 				new Account(
 					commerceAccount.getCommerceAccountId(),
 					commerceAccount.getName(), StringPool.BLANK,
-					StringPool.BLANK));
+					StringPool.BLANK, thumbnailSB.toString()));
 		}
 
 		return accounts;

@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -53,7 +55,9 @@ public class CommerceAccountUserClayTable
 	public static final String NAME = "commerce-account-users";
 
 	@Override
-	public int countItems(long groupId, Filter filter) throws PortalException {
+	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
+		throws PortalException {
+
 		AccountFilterImpl accountFilter = (AccountFilterImpl)filter;
 
 		return _commerceAccountUserRelService.getCommerceAccountUserRelsCount(
@@ -79,7 +83,8 @@ public class CommerceAccountUserClayTable
 
 	@Override
 	public List<Member> getItems(
-			long groupId, Filter filter, Pagination pagination, Sort sort)
+			HttpServletRequest httpServletRequest, Filter filter,
+			Pagination pagination, Sort sort)
 		throws PortalException {
 
 		AccountFilterImpl accountFilter = (AccountFilterImpl)filter;

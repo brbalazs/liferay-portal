@@ -38,6 +38,7 @@ import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.util.Portal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,12 +126,15 @@ public class CommerceAccountAddressClayTable
 	}
 
 	@Override
-	public int countItems(long groupId, Filter filter) throws PortalException {
+	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
+		throws PortalException {
+
 		AccountAddressFilterImpl accountFilter =
 			(AccountAddressFilterImpl)filter;
 
 		return _commerceAddressService.getCommerceAddressesCount(
-			groupId, accountFilter.getClassName(), accountFilter.getClassPK());
+			_portal.getScopeGroupId(httpServletRequest),
+			accountFilter.getClassName(), accountFilter.getClassPK());
 	}
 
 	@Override
@@ -152,7 +156,8 @@ public class CommerceAccountAddressClayTable
 
 	@Override
 	public List<Address> getItems(
-			long groupId, Filter filter, Pagination pagination, Sort sort)
+			HttpServletRequest httpServletRequest, Filter filter,
+			Pagination pagination, Sort sort)
 		throws PortalException {
 
 		AccountAddressFilterImpl accountFilter =
@@ -162,9 +167,10 @@ public class CommerceAccountAddressClayTable
 
 		List<CommerceAddress> commerceAddresses =
 			_commerceAddressService.getCommerceAddresses(
-				groupId, accountFilter.getClassName(),
-				accountFilter.getClassPK(), pagination.getStartPosition(),
-				pagination.getEndPosition(), null);
+				_portal.getScopeGroupId(httpServletRequest),
+				accountFilter.getClassName(), accountFilter.getClassPK(),
+				pagination.getStartPosition(), pagination.getEndPosition(),
+				null);
 
 		for (CommerceAddress commerceAddress : commerceAddresses) {
 			addresses.add(
@@ -212,5 +218,8 @@ public class CommerceAccountAddressClayTable
 
 	@Reference
 	private CommerceAddressService _commerceAddressService;
+
+	@Reference
+	private Portal _portal;
 
 }

@@ -35,6 +35,8 @@ import com.liferay.portal.kernel.util.StringUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -55,7 +57,9 @@ public class CommerceAccountOrganizationClayTable
 	public static final String NAME = "commerce-account-organizations";
 
 	@Override
-	public int countItems(long groupId, Filter filter) throws PortalException {
+	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
+		throws PortalException {
+
 		AccountFilterImpl accountFilter = (AccountFilterImpl)filter;
 
 		return _commerceAccountOrganizationRelService.
@@ -81,7 +85,8 @@ public class CommerceAccountOrganizationClayTable
 
 	@Override
 	public List<Organization> getItems(
-			long groupId, Filter filter, Pagination pagination, Sort sort)
+			HttpServletRequest httpServletRequest, Filter filter,
+			Pagination pagination, Sort sort)
 		throws PortalException {
 
 		AccountFilterImpl accountFilter = (AccountFilterImpl)filter;
