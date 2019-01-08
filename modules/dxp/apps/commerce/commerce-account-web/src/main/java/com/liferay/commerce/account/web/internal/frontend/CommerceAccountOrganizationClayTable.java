@@ -49,7 +49,7 @@ import org.osgi.service.component.annotations.Reference;
 		"commerce.data.provider.key=" + CommerceAccountOrganizationClayTable.NAME,
 		"commerce.table.name=" + CommerceAccountOrganizationClayTable.NAME
 	},
-	service = {CommerceDataSetDataProvider.class, ClayTable.class}
+	service = {ClayTable.class, CommerceDataSetDataProvider.class}
 )
 public class CommerceAccountOrganizationClayTable
 	implements CommerceDataSetDataProvider<Organization>, ClayTable {
