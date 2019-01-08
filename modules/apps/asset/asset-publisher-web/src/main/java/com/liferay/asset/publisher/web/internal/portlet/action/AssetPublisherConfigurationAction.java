@@ -135,6 +135,9 @@ public class AssetPublisherConfigurationAction
 			assetPublisherWebConfiguration);
 
 		request.setAttribute(
+			AssetPublisherWebKeys.ASSET_PUBLISHER_HELPER, assetPublisherHelper);
+
+		request.setAttribute(
 			AssetPublisherWebKeys.ASSET_PUBLISHER_WEB_UTIL,
 			assetPublisherWebUtil);
 
