@@ -92,7 +92,7 @@
 
 
 	Liferay.componentReady('userInvitation')
-		.them(
+		.then(
 			userInvitation => {
 				return userInvitation.on(
 					'userInvitationSave', 
