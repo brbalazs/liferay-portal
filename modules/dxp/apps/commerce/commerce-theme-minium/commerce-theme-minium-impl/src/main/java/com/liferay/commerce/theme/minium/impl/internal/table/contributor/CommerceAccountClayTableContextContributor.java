@@ -53,12 +53,15 @@ public class CommerceAccountClayTableContextContributor
 		context.put("actionsMenuVariant", "miniumActionsMenuVariant");
 	}
 
-
 	@Override
-	public Set<String> getDependencies(ClayTable clayTable, HttpServletRequest httpServletRequest) {
+	public Set<String> getDependencies(
+		ClayTable clayTable, HttpServletRequest httpServletRequest) {
+
 		Set<String> dependencies = new HashSet<>();
 
-		dependencies.add("commerce-theme-minium-impl@1.0.0/action_menus/MiniumExtensions.es");
+		dependencies.add(
+			"commerce-theme-minium-impl@1.0.0/action_menus" +
+				"/MiniumExtensions.es");
 
 		return dependencies;
 	}

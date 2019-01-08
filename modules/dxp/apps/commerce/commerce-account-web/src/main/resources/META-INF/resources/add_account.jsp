@@ -1,4 +1,4 @@
-<%@ page import="com.liferay.portal.kernel.util.ParamUtil" %><%--
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -17,8 +17,6 @@
 <%@ include file="/init.jsp" %>
 
 <%
-CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-
 long commerceAccountId = ParamUtil.getLong(request, "commerceAccountId");
 %>
 

@@ -43,12 +43,12 @@
 
 <commerce-ui:table
 	dataProviderKey="commerceAccounts"
+	filter="<%= commerceAccountDisplayContext.getAccountFilter() %>"
 	itemPerPage="<%= 5 %>"
 	namespace="<%= renderResponse.getNamespace() %>"
 	pageNumber="1"
 	portletURL="<%= portletURL %>"
 	tableName="commerceAccounts"
-	filter="<%= commerceAccountDisplayContext.getAccountFilter() %>"
 />
 
 	<aui:script>
