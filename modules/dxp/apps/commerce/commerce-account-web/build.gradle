@@ -12,7 +12,7 @@ dependencies {
 	compileOnly group: "com.liferay", name: "com.liferay.users.admin.api", version: "3.0.0"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.account.api", version: "1.0.0-20190107.115636-3"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.api", version: "4.0.0-20190104.133235-3"
-	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.frontend.api", version: "1.0.0-20190104.133347-1"
+	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.frontend.api", version: "1.0.0-20190106.002030-4"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.frontend.taglib", version: "1.0.0-20190104.133539-1"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.user.api", version: "1.0.0"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "3.3.0"
