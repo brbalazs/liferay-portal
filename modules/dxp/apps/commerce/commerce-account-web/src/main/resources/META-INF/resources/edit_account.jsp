@@ -27,7 +27,7 @@ CommerceAccount commerceAccount = commerceAccountDisplayContext.getCurrentCommer
 <aui:form action="<%= editCommerceAccountActionURL %>" method="post" name="fm">
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commerceAccount == null) ? Constants.ADD : Constants.UPDATE %>" />
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-	<aui:input name="commerceAccountIdId" type="hidden" value="<%= (commerceAccount == null) ? 0 : commerceAccount.getCommerceAccountId() %>" />
+	<aui:input name="commerceAccountId" type="hidden" value="<%= (commerceAccount == null) ? 0 : commerceAccount.getCommerceAccountId() %>" />
 
 	<liferay-ui:error-marker
 		key="<%= WebKeys.ERROR_SECTION %>"

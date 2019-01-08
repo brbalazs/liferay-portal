@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.liferay.portal.kernel.util.ParamUtil" %><%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -18,6 +18,8 @@
 
 <%
 CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+
+long commerceAccountId = ParamUtil.getLong(request, "commerceAccountId");
 %>
 
 <portlet:actionURL name="editCommerceAccount" var="editCommerceAccountActionURL" />
@@ -25,7 +27,7 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 <aui:form action="<%= editCommerceAccountActionURL %>" method="post" name="commerceAccountFm">
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.ADD %>" />
 	<aui:input name="active" type="hidden" value="<%= true %>" />
-	<aui:input name="parentCommerceAccountId" type="hidden" value="<%= commerceAccountDisplayContext.getCurrentCommerceAccountId() %>" />
+	<aui:input name="parentCommerceAccountId" type="hidden" value="<%= commerceAccountId %>" />
 
 	<liferay-ui:error exception="<%= UserEmailAddressException.MustValidate.class %>" message="please-enter-a-valid-email-address" />
 

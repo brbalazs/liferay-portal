@@ -2,7 +2,7 @@ apply plugin: "com.liferay.lang.merger"
 
 dependencies {
 	compileOnly group: "com.liferay", name: "com.liferay.application.list.api", version: "3.0.0"
-	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.frontend.api", version: "1.0.0-20190105.165701-3"
+	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.frontend.api", version: "1.0.0-20190108.143315-6"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "3.3.0"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "3.5.0"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.util.taglib", version: "3.0.0"
