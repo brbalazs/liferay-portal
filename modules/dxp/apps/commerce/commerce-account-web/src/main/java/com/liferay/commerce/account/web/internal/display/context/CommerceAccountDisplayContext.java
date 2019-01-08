@@ -16,7 +16,9 @@ package com.liferay.commerce.account.web.internal.display.context;
 
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
+import com.liferay.commerce.account.web.internal.frontend.AccountFilterImpl;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -48,6 +50,15 @@ public class CommerceAccountDisplayContext
 			portal);
 
 		_userFileUploadsConfiguration = userFileUploadsConfiguration;
+	}
+
+	public AccountFilterImpl getAccountFilter() throws PortalException {
+		AccountFilterImpl accountFilter = new AccountFilterImpl();
+
+		accountFilter.setAccountId(getCurrentCommerceAccountId());
+		accountFilter.setKeywords(getKeywords());
+
+		return accountFilter;
 	}
 
 	public String getAddCommerceAccountHref() throws WindowStateException {

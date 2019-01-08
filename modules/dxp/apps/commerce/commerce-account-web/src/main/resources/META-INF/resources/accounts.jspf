@@ -48,6 +48,7 @@
 	pageNumber="1"
 	portletURL="<%= portletURL %>"
 	tableName="commerceAccounts"
+	filter="<%= commerceAccountDisplayContext.getAccountFilter() %>"
 />
 
 	<aui:script>
