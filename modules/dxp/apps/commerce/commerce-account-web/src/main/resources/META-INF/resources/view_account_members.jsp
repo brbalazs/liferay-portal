@@ -72,6 +72,12 @@ CommerceAccount commerceAccount = commerceAccountMembersDisplayContext.getCurren
 	</div>
 </aui:form>
 
+<div class="minium-frame__cta is-visible">
+	<aui:button 
+	cssClass="minium-button minium-button--big js-invite-user"
+	onClick='<%= renderResponse.getNamespace() + "openUserInvitation();" %>'  value="invite-user" />
+</div>
+
 <portlet:actionURL name="inviteUser" var="inviteUserActionURL" />
 
 <div class="container-fluid-1280">
@@ -90,11 +96,17 @@ CommerceAccount commerceAccount = commerceAccountMembersDisplayContext.getCurren
 />
 
 <aui:script>
-	function <portlet:namespace />inviteUser(uri) {
-		const userInvitation = Liferay.component('userInvitation');
 
-		userInvitation.open();
-	}
+	Liferay.provide(
+		window,
+		'<portlet:namespace />openUserInvitation',
+		function(evt) {
+			console.log(evt)
+			const userInvitation = Liferay.component('userInvitation');
+			console.log(userInvitation)
+			userInvitation.open();
+		}
+	);
 
 	function <portlet:namespace />removeUsers() {
 		if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-remove-the-selected-users" />')) {
@@ -145,7 +157,7 @@ CommerceAccount commerceAccount = commerceAccountMembersDisplayContext.getCurren
 	);
 
 	Liferay.componentReady('userInvitation')
-		.them(
+		.then(
 			userInvitation => {
 				return userInvitation.on(
 					'userInvitationSave',

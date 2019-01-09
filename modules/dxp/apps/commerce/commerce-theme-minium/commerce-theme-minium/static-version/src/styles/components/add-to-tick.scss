@@ -20,7 +20,7 @@ width: 40px;
 	stroke-dasharray: 100;
 	stroke-dashoffset: 100;
 	transition: stroke-dashoffset .2s ease-out;
-	transition-delay: 2s;
+	// transition-delay: 2s;
 }
 
 &__add {
@@ -29,7 +29,7 @@ width: 40px;
 	stroke-dashoffset: 0;
 	transform-origin: 50%;
 	transition: all .2s ease-out;
-	transition-delay: 0s;
+	// transition-delay: 0s;
 
 	line {
 	 fill:none;
@@ -62,10 +62,10 @@ width: 40px;
 	.add-to-tick__add {
 	 opacity: 0;
 	 transform: scale(.2);
-	 transition-delay: 0s;
+	//  transition-delay: 0s;
 	}
 	.add-to-tick__tick {
-	 transition-delay: .2s;
+	//  transition-delay: .2s;
 	}
 }
 }
