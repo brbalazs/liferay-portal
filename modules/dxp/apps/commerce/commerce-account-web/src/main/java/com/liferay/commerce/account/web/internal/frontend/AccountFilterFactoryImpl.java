@@ -14,16 +14,24 @@
 
 package com.liferay.commerce.account.web.internal.frontend;
 
+import com.liferay.commerce.account.configuration.CommerceAccountGroupServiceConfiguration;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.FilterFactory;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Marco Leo
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -49,7 +57,32 @@ public class AccountFilterFactoryImpl implements FilterFactory {
 
 		accountFilter.setKeywords(keywords);
 
+		try {
+			CommerceAccountGroupServiceConfiguration
+				commerceAccountGroupServiceConfiguration =
+					_configurationProvider.getGroupConfiguration(
+						CommerceAccountGroupServiceConfiguration.class,
+						_portal.getScopeGroupId(httpServletRequest));
+
+			accountFilter.setCommerceSiteType(
+				commerceAccountGroupServiceConfiguration.commerceSiteType());
+		}
+		catch (PortalException pe) {
+			if (_log.isDebugEnabled()) {
+				_log.error(pe, pe);
+			}
+		}
+
 		return accountFilter;
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		AccountFilterFactoryImpl.class);
+
+	@Reference
+	private ConfigurationProvider _configurationProvider;
+
+	@Reference
+	private Portal _portal;
 
 }
