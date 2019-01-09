@@ -14,17 +14,19 @@
 
 package com.liferay.commerce.account.web.internal.display.context;
 
+import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.account.web.internal.frontend.AccountFilterImpl;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.webserver.WebServerServletTokenUtil;
 import com.liferay.users.admin.configuration.UserFileUploadsConfiguration;
 
 import javax.portlet.PortletURL;
@@ -89,6 +91,22 @@ public class CommerceAccountDisplayContext
 		sb.append(StringPool.APOSTROPHE);
 		sb.append(StringPool.CLOSE_PARENTHESIS);
 		sb.append(StringPool.SEMICOLON);
+
+		return sb.toString();
+	}
+
+	public String getLogo(CommerceAccount commerceAccount) {
+		ThemeDisplay themeDisplay =
+			commerceAccountRequestHelper.getThemeDisplay();
+
+		StringBundler sb = new StringBundler(5);
+
+		sb.append(themeDisplay.getPathImage());
+		sb.append("/organization_logo?img_id=");
+		sb.append(commerceAccount.getLogoId());
+		sb.append("&t=");
+		sb.append(
+			WebServerServletTokenUtil.getToken(commerceAccount.getLogoId()));
 
 		return sb.toString();
 	}

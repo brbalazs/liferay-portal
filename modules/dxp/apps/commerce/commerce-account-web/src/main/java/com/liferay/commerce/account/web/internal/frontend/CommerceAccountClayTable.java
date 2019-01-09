@@ -31,7 +31,7 @@ import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.portlet.PortletProvider;
+import com.liferay.portal.kernel.portlet.PortletProvider.Action;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -78,17 +78,15 @@ public class CommerceAccountClayTable
 
 		Account account = (Account)model;
 
-		PortletURL editURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, Account.class.getName(),
-			PortletProvider.Action.EDIT);
+		PortletURL viewURL = PortletProviderUtil.getPortletURL(
+			httpServletRequest, Account.class.getName(), Action.VIEW);
 
-		editURL.setParameter("mvcRenderCommandName", "editCommerceAccount");
-		editURL.setParameter(
+		viewURL.setParameter(
 			"commerceAccountId", String.valueOf(account.getAccountId()));
 
 		ClayTableAction clayTableAction = new ClayTableAction(
-			editURL.toString(), StringPool.BLANK,
-			LanguageUtil.get(httpServletRequest, "edit"), false, false);
+			viewURL.toString(), StringPool.BLANK,
+			LanguageUtil.get(httpServletRequest, "view"), false, false);
 
 		clayTableActions.add(clayTableAction);
 

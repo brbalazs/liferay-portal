@@ -74,23 +74,16 @@ CommerceAccount commerceAccount = commerceAccountMembersDisplayContext.getCurren
 
 <portlet:actionURL name="inviteUser" var="inviteUserActionURL" />
 
-<aui:form action="<%= inviteUserActionURL %>" method="post" name="fm">
-	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.REMOVE %>" />
-	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-	<aui:input name="commerceAccountId" type="hidden" value="<%= commerceAccount.getCommerceAccountId() %>" />
-	<aui:input name="removeUserIds" type="hidden" />
-
-	<div class="container-fluid-1280">
-		<commerce-ui:table
-			dataProviderKey="commerce-account-users"
-			itemPerPage="<%= 5 %>"
-			namespace="<%= renderResponse.getNamespace() %>"
-			pageNumber="1"
-			portletURL="<%= commerceAccountMembersDisplayContext.getPortletURL() %>"
-			tableName="commerce-account-users"
-		/>
-	</div>
-</aui:form>
+<div class="container-fluid-1280">
+	<commerce-ui:table
+		dataProviderKey="commerce-account-users"
+		itemPerPage="<%= 5 %>"
+		namespace="<%= renderResponse.getNamespace() %>"
+		pageNumber="1"
+		portletURL="<%= commerceAccountMembersDisplayContext.getPortletURL() %>"
+		tableName="commerce-account-users"
+	/>
+</div>
 
 <commerce-ui:user-invitation
 	componentId="userInvitation"

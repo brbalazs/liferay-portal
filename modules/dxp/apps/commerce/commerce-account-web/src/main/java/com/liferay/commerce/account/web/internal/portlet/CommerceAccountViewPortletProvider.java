@@ -40,9 +40,9 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = "model.class.name=com.liferay.commerce.account.web.internal.model.Account",
-	service = {EditPortletProvider.class, ManagePortletProvider.class}
+	service = ViewPortletProvider.class
 )
-public class CommerceAccountPortletProvider
+public class CommerceAccountViewPortletProvider
 	extends BasePortletProvider
 	implements EditPortletProvider, ManagePortletProvider, ViewPortletProvider {
 
@@ -65,8 +65,12 @@ public class CommerceAccountPortletProvider
 		long plid = _portal.getPlidFromPortletId(
 			group.getGroupId(), getPortletName());
 
-		return PortletURLFactoryUtil.create(
+		PortletURL portletURL = PortletURLFactoryUtil.create(
 			request, getPortletName(), plid, PortletRequest.RENDER_PHASE);
+
+		portletURL.setParameter("mvcRenderCommandName", "viewCommerceAccount");
+
+		return portletURL;
 	}
 
 	@Reference

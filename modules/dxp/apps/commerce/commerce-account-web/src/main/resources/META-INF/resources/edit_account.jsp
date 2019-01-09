@@ -105,11 +105,3 @@ CommerceAccount commerceAccount = commerceAccountDisplayContext.getCurrentCommer
 		<aui:button cssClass="minium-button minium-button--big" type="submit" />
 	</div>
 </aui:form>
-
-<liferay-frontend:screen-navigation
-	containerCssClass="col-md-10"
-	context="<%= commerceAccount %>"
-	key="<%= CommerceAccountScreenNavigationConstants.SCREEN_NAVIGATION_KEY %>"
-	navCssClass="col-md-2"
-	portletURL="<%= currentURLObj %>"
-/>
