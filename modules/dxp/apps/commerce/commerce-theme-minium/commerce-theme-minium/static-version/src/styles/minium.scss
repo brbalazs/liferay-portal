@@ -232,7 +232,20 @@ svg {
 	padding: 5px;
 	position: absolute;
 	right: 5px;
+	transform-origin: right bottom;
+	transition: transform ease 200ms;
 	z-index: 10;
+
+	@media (hover: hover) {
+		&:not(:hover) {
+			transform: scale(0.4);
+			
+			.portlet-topper-toolbar {
+				opacity: 0;
+				pointer-events: none;
+			}
+		}
+	}
 }
 
 .portlet-topper-toolbar > a,
