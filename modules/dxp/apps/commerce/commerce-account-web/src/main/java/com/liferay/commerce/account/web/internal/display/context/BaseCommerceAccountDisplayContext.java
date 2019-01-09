@@ -245,7 +245,6 @@ public abstract class BaseCommerceAccountDisplayContext {
 
 		BaseModelSearchResult<CommerceAccount> baseModelSearchResult =
 			commerceAccountService.searchCommerceAccounts(
-				commerceAccountRequestHelper.getScopeGroupId(),
 				CommerceAccountConstants.DEFAULT_PARENT_ACCOUNT_ID,
 				getKeywords(), true, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
 				sort);

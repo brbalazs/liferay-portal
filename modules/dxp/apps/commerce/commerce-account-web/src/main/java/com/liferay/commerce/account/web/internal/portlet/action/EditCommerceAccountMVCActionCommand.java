@@ -158,11 +158,10 @@ public class EditCommerceAccountMVCActionCommand extends BaseMVCActionCommand {
 			(commerceAccountId != parentCommerceAccountId)) {
 
 			return _commerceAccountService.updateCommerceAccount(
-				commerceAccountId, name, !deleteLogo, logoBytes, email, taxId,
-				active, serviceContext);
+				commerceAccountId, name, email, taxId, active, serviceContext);
 		}
 		else {
-			return _commerceAccountService.addCommerceAccount(
+			return _commerceAccountService.addBusinessCommerceAccount(
 				name, parentCommerceAccountId, email, taxId, active,
 				externalReferenceCode, userIds, emailAddresses, serviceContext);
 		}

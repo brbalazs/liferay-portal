@@ -97,7 +97,8 @@ public class CommerceAccountClayTable
 		AccountFilterImpl accountFilter = (AccountFilterImpl)filter;
 
 		return _commerceAccountService.getUserCommerceAccountsCount(
-			accountFilter.getAccountId(), accountFilter.getKeywords());
+			accountFilter.getAccountId(), accountFilter.getCommerceSiteType(),
+			accountFilter.getKeywords());
 	}
 
 	@Override
@@ -138,8 +139,9 @@ public class CommerceAccountClayTable
 		AccountFilterImpl accountFilter = (AccountFilterImpl)filter;
 
 		commerceAccounts = _commerceAccountService.getUserCommerceAccounts(
-			accountFilter.getAccountId(), accountFilter.getKeywords(),
-			pagination.getStartPosition(), pagination.getEndPosition());
+			accountFilter.getAccountId(), accountFilter.getCommerceSiteType(),
+			accountFilter.getKeywords(), pagination.getStartPosition(),
+			pagination.getEndPosition());
 
 		for (CommerceAccount commerceAccount : commerceAccounts) {
 			StringBundler thumbnailSB = new StringBundler(5);
