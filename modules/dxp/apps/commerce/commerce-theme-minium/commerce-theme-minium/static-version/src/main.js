@@ -435,13 +435,13 @@ const images = [
 	},
 	{
 		color: "#2ecc71",
-		width: 1600,
-		height: 1200
+		width: 800,
+		height: 600
 	},
 	{
 		color: "#f1c40f",
-		width: 1600,
-		height: 1200
+		width: 480,
+		height: 320
 	},
 	{
 		color: "#34495e",

@@ -30,15 +30,19 @@ var soyIdom = goog.require('soy.idom');
  */
 var $render = function(opt_data, opt_ijData, opt_ijData_deprecated) {
   opt_ijData = opt_ijData_deprecated || opt_ijData;
-  /** @type {number} */
-  var selected = soy.asserts.assertType(goog.isNumber(opt_data.selected), 'selected', opt_data.selected, 'number');
+  /** @type {boolean} */
+  var fullscreen = soy.asserts.assertType(goog.isBoolean(opt_data.fullscreen) || opt_data.fullscreen === 1 || opt_data.fullscreen === 0, 'fullscreen', opt_data.fullscreen, 'boolean');
   /** @type {?} */
   var images = opt_data.images;
+  /** @type {number} */
+  var selected = soy.asserts.assertType(goog.isNumber(opt_data.selected), 'selected', opt_data.selected, 'number');
   incrementalDom.elementOpenStart('div');
       incrementalDom.attr('class', 'minium-product-gallery');
   incrementalDom.elementOpenEnd();
-  incrementalDom.elementOpenStart('figure');
+  incrementalDom.elementOpenStart('figure', images[selected].preview);
       incrementalDom.attr('class', 'minium-product-gallery__main');
+      incrementalDom.attr('data-onclick', 'toggleFullscreen');
+      incrementalDom.attr('key', images[selected].preview);
   incrementalDom.elementOpenEnd();
   incrementalDom.elementOpenStart('img');
       incrementalDom.attr('src', images[selected].preview);
@@ -46,21 +50,33 @@ var $render = function(opt_data, opt_ijData, opt_ijData_deprecated) {
   incrementalDom.elementOpenEnd();
   incrementalDom.elementClose('img');
   incrementalDom.elementClose('figure');
+  if (fullscreen) {
+    incrementalDom.elementOpenStart('div');
+        incrementalDom.attr('class', 'minium-product-gallery__fullscreen');
+        incrementalDom.attr('data-onclick', 'toggleFullscreen');
+    incrementalDom.elementOpenEnd();
+    incrementalDom.elementOpenStart('img');
+        incrementalDom.attr('src', images[selected].full);
+        incrementalDom.attr('alt', images[selected].description);
+    incrementalDom.elementOpenEnd();
+    incrementalDom.elementClose('img');
+    incrementalDom.elementClose('div');
+  }
   incrementalDom.elementOpenStart('div');
       incrementalDom.attr('class', 'minium-product-gallery__thumbs');
   incrementalDom.elementOpenEnd();
-  var image11List = images;
-  var image11ListLen = image11List.length;
-  for (var image11Index = 0; image11Index < image11ListLen; image11Index++) {
-    var image11Data = image11List[image11Index];
+  var image22List = images;
+  var image22ListLen = image22List.length;
+  for (var image22Index = 0; image22Index < image22ListLen; image22Index++) {
+    var image22Data = image22List[image22Index];
     incrementalDom.elementOpenStart('div');
-        incrementalDom.attr('class', 'minium-product-gallery__thumb ' + (image11Index == selected ? 'is-active' : ''));
-        incrementalDom.attr('data-index', image11Index);
+        incrementalDom.attr('class', 'minium-product-gallery__thumb ' + (image22Index == selected ? 'is-active' : ''));
+        incrementalDom.attr('data-index', image22Index);
         incrementalDom.attr('data-onclick', 'handleThumbClick');
     incrementalDom.elementOpenEnd();
     incrementalDom.elementOpenStart('img');
-        incrementalDom.attr('src', image11Data.thumb);
-        incrementalDom.attr('alt', image11Data.description);
+        incrementalDom.attr('src', image22Data.thumb);
+        incrementalDom.attr('alt', image22Data.description);
     incrementalDom.elementOpenEnd();
     incrementalDom.elementClose('img');
     incrementalDom.elementClose('div');
@@ -71,8 +87,9 @@ var $render = function(opt_data, opt_ijData, opt_ijData_deprecated) {
 exports.render = $render;
 /**
  * @typedef {{
- *  selected: number,
+ *  fullscreen: boolean,
  *  images: ?,
+ *  selected: number,
  * }}
  */
 $render.Params;
@@ -80,8 +97,8 @@ if (goog.DEBUG) {
   $render.soyTemplateName = 'MiniumProductGallery.render';
 }
 
-exports.render.params = ["selected","images"];
-exports.render.types = {"selected":"int ","images":"? "};
+exports.render.params = ["fullscreen","images","selected"];
+exports.render.types = {"fullscreen":"bool ","images":"? ","selected":"int "};
 templates = exports;
 return exports;
 

@@ -1,16 +1,32 @@
 {namespace MiniumProductGallery}
 
 {template .render}
-	{@param selected: int }
+	{@param fullscreen: bool }
 	{@param images: ? }
+	{@param selected: int }
 
 	<div class="minium-product-gallery">
-		<figure class="minium-product-gallery__main">
+		<figure
+			class="minium-product-gallery__main"
+			data-onclick="toggleFullscreen"
+			key="{$images[$selected].preview}"
+		>
 			<img
 				src="{$images[$selected].preview}"
 				alt="{$images[$selected].description}"
 			>
 		</figure>
+
+		{if $fullscreen}
+			<div class="minium-product-gallery__fullscreen" data-onclick="toggleFullscreen">
+				<img
+					src="{$images[$selected].full}"
+					alt="{$images[$selected].description}"
+				>
+				<div class="minium-product-gallery__prev minium-product-gallery__prev--big"></div>
+				<div class="minium-product-gallery__next minium-product-gallery__next--big"></div>
+			</div>
+		{/if}
 
 		<div class="minium-product-gallery__thumbs">
 			{foreach $image in $images}

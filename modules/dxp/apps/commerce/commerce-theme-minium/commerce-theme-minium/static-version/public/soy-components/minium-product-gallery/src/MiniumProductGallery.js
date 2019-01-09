@@ -6,6 +6,10 @@ class MiniumProductGallery extends Component {
 	handleThumbClick(e) {
 		this.selected = parseInt(e.delegateTarget.dataset.index, 10);
 	}
+
+	toggleFullscreen() {
+		this.fullscreen = !this.fullscreen;
+	}
 }
 
 Soy.register(MiniumProductGallery, template);
@@ -16,6 +20,9 @@ MiniumProductGallery.STATE = {
 	},
 	selected: {
 		value: 0
+	},
+	fullscreen: {
+		value: false
 	}
 };
 
