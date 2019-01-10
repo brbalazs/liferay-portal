@@ -34,14 +34,16 @@ var $render = function(opt_data, opt_ijData, opt_ijData_deprecated) {
   var fullscreen = soy.asserts.assertType(goog.isBoolean(opt_data.fullscreen) || opt_data.fullscreen === 1 || opt_data.fullscreen === 0, 'fullscreen', opt_data.fullscreen, 'boolean');
   /** @type {?} */
   var images = opt_data.images;
+  /** @type {boolean|null|undefined} */
+  var loading = soy.asserts.assertType(opt_data.loading == null || (goog.isBoolean(opt_data.loading) || opt_data.loading === 1 || opt_data.loading === 0), 'loading', opt_data.loading, 'boolean|null|undefined');
   /** @type {number} */
   var selected = soy.asserts.assertType(goog.isNumber(opt_data.selected), 'selected', opt_data.selected, 'number');
   incrementalDom.elementOpenStart('div');
       incrementalDom.attr('class', 'minium-product-gallery');
   incrementalDom.elementOpenEnd();
   incrementalDom.elementOpenStart('figure', images[selected].preview);
-      incrementalDom.attr('class', 'minium-product-gallery__main');
-      incrementalDom.attr('data-onclick', 'toggleFullscreen');
+      incrementalDom.attr('class', 'minium-product-gallery__main ' + (loading ? 'is-loading' : ''));
+      incrementalDom.attr('data-onclick', 'openFullscreen');
       incrementalDom.attr('key', images[selected].preview);
   incrementalDom.elementOpenEnd();
   incrementalDom.elementOpenStart('img');
@@ -53,30 +55,40 @@ var $render = function(opt_data, opt_ijData, opt_ijData_deprecated) {
   if (fullscreen) {
     incrementalDom.elementOpenStart('div');
         incrementalDom.attr('class', 'minium-product-gallery__fullscreen');
-        incrementalDom.attr('data-onclick', 'toggleFullscreen');
+        incrementalDom.attr('data-onclick', 'closeFullscreen');
     incrementalDom.elementOpenEnd();
     incrementalDom.elementOpenStart('img');
         incrementalDom.attr('src', images[selected].full);
         incrementalDom.attr('alt', images[selected].description);
     incrementalDom.elementOpenEnd();
     incrementalDom.elementClose('img');
+    incrementalDom.elementOpenStart('div');
+        incrementalDom.attr('class', 'minium-product-gallery__prev minium-product-gallery__prev--big');
+        incrementalDom.attr('data-onclick', 'goToPrev');
+    incrementalDom.elementOpenEnd();
+    incrementalDom.elementClose('div');
+    incrementalDom.elementOpenStart('div');
+        incrementalDom.attr('class', 'minium-product-gallery__next minium-product-gallery__next--big');
+        incrementalDom.attr('data-onclick', 'goToNext');
+    incrementalDom.elementOpenEnd();
+    incrementalDom.elementClose('div');
     incrementalDom.elementClose('div');
   }
   incrementalDom.elementOpenStart('div');
       incrementalDom.attr('class', 'minium-product-gallery__thumbs');
   incrementalDom.elementOpenEnd();
-  var image22List = images;
-  var image22ListLen = image22List.length;
-  for (var image22Index = 0; image22Index < image22ListLen; image22Index++) {
-    var image22Data = image22List[image22Index];
+  var image27List = images;
+  var image27ListLen = image27List.length;
+  for (var image27Index = 0; image27Index < image27ListLen; image27Index++) {
+    var image27Data = image27List[image27Index];
     incrementalDom.elementOpenStart('div');
-        incrementalDom.attr('class', 'minium-product-gallery__thumb ' + (image22Index == selected ? 'is-active' : ''));
-        incrementalDom.attr('data-index', image22Index);
+        incrementalDom.attr('class', 'minium-product-gallery__thumb ' + (image27Index == selected ? 'is-active' : ''));
+        incrementalDom.attr('data-index', image27Index);
         incrementalDom.attr('data-onclick', 'handleThumbClick');
     incrementalDom.elementOpenEnd();
     incrementalDom.elementOpenStart('img');
-        incrementalDom.attr('src', image22Data.thumb);
-        incrementalDom.attr('alt', image22Data.description);
+        incrementalDom.attr('src', image27Data.thumb);
+        incrementalDom.attr('alt', image27Data.description);
     incrementalDom.elementOpenEnd();
     incrementalDom.elementClose('img');
     incrementalDom.elementClose('div');
@@ -89,6 +101,7 @@ exports.render = $render;
  * @typedef {{
  *  fullscreen: boolean,
  *  images: ?,
+ *  loading: (boolean|null|undefined),
  *  selected: number,
  * }}
  */
@@ -97,8 +110,8 @@ if (goog.DEBUG) {
   $render.soyTemplateName = 'MiniumProductGallery.render';
 }
 
-exports.render.params = ["fullscreen","images","selected"];
-exports.render.types = {"fullscreen":"bool ","images":"? ","selected":"int "};
+exports.render.params = ["fullscreen","images","loading","selected"];
+exports.render.types = {"fullscreen":"bool ","images":"? ","loading":"bool ","selected":"int "};
 templates = exports;
 return exports;
 

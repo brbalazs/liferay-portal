@@ -3,12 +3,13 @@
 {template .render}
 	{@param fullscreen: bool }
 	{@param images: ? }
+	{@param? loading: bool }
 	{@param selected: int }
 
 	<div class="minium-product-gallery">
 		<figure
-			class="minium-product-gallery__main"
-			data-onclick="toggleFullscreen"
+			class="minium-product-gallery__main {if $loading}is-loading{/if}"
+			data-onclick="openFullscreen"
 			key="{$images[$selected].preview}"
 		>
 			<img
@@ -18,13 +19,19 @@
 		</figure>
 
 		{if $fullscreen}
-			<div class="minium-product-gallery__fullscreen" data-onclick="toggleFullscreen">
+			<div class="minium-product-gallery__fullscreen" data-onclick="closeFullscreen">
 				<img
 					src="{$images[$selected].full}"
 					alt="{$images[$selected].description}"
 				>
-				<div class="minium-product-gallery__prev minium-product-gallery__prev--big"></div>
-				<div class="minium-product-gallery__next minium-product-gallery__next--big"></div>
+				<div
+					class="minium-product-gallery__prev minium-product-gallery__prev--big"
+					data-onclick="goToPrev"
+				></div>
+				<div
+					class="minium-product-gallery__next minium-product-gallery__next--big"
+					data-onclick="goToNext"
+				></div>
 			</div>
 		{/if}
 

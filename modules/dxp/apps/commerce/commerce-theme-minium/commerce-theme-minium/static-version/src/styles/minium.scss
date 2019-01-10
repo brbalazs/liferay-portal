@@ -199,14 +199,15 @@ svg {
 	.portlet:hover > .portlet-content-editable,
 	.portlet.focus > .portlet-content-editable {
 		border-radius: 4px;
-		box-shadow: 0 0 4px 1px #B0CBFF
+		box-shadow: 0 0 4px 1px #B0CBFF;
 	}
 }
 
 .portlet-content-editable {
 	border-radius: 8px;
+	box-shadow: 0 0 0 1px #e5eeff;
+	min-height: 28px;
 	border-width: 0;
-	min-height: 52px;
 }
 
 .portlet-title-default {
@@ -238,7 +239,7 @@ svg {
 	z-index: 10;
 
 	@media (hover: hover) {
-		&:not(:hover) {
+		.portlet:not(.open) &:not(:hover) {
 			transform: scale(0.4);
 
 			.portlet-topper-toolbar {
