@@ -1,0 +1,19 @@
+[
+	{
+		"CategoryKey": "quantity",
+		"Key": "quantity"
+	},
+	{
+		"CategoryKey": "technical-details",
+		"Facetable": true,
+		"Key": "material"
+	},
+	{
+		"CategoryKey": "other-features",
+		"Key": "warranty"
+	},
+	{
+		"CategoryKey": "weight-dimensions",
+		"Key": "weight"
+	}
+]
