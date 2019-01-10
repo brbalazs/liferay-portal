@@ -158,6 +158,8 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 			_importThemePortletSettings(serviceContext);
 
+			_importPortletSettings(serviceContext);
+
 			setThemeSettings(serviceContext);
 		}
 		catch (InitializationException ie) {
@@ -502,6 +504,24 @@ public class MiniumSiteInitializer implements SiteInitializer {
 			jsonArray, _COMMERCE_VOCABULARY, commerceWarehouseIds,
 			MiniumSiteInitializer.class.getClassLoader(),
 			DEPENDENCIES_PATH + "images/", serviceContext);
+	}
+
+	private void _importPortletSettings(ServiceContext serviceContext)
+		throws Exception {
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Importing portlet settings...");
+		}
+
+		JSONArray jsonArray = _getJSONArray("portlet-settings.json");
+
+		_portletSettingsImporter.importPortletSettings(
+			jsonArray, MiniumSiteInitializer.class.getClassLoader(),
+			DEPENDENCIES_PATH + "display_templates/", serviceContext);
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Portlet settings successfully imported");
+		}
 	}
 
 	private void _importThemePortletSettings(ServiceContext serviceContext)
