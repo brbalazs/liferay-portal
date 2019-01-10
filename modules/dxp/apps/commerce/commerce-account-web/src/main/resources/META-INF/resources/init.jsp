@@ -39,7 +39,6 @@ page import="com.liferay.commerce.exception.NoSuchAddressException" %><%@
 page import="com.liferay.commerce.model.CommerceAddress" %><%@
 page import="com.liferay.commerce.model.CommerceCountry" %><%@
 page import="com.liferay.commerce.model.CommerceRegion" %><%@
-page import="com.liferay.frontend.taglib.servlet.taglib.util.AddMenuKeys" %><%@
 page import="com.liferay.portal.kernel.exception.NoSuchUserException" %><%@
 page import="com.liferay.portal.kernel.exception.UserEmailAddressException" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@

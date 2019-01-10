@@ -36,30 +36,15 @@
 	</aui:script>
 </div>
 
-
 <div class="minium-frame__cta is-visible">
-	<aui:button 
-	cssClass="minium-button minium-button--big js-invite-user"
-	onClick='<%= renderResponse.getNamespace() + "openUserInvitation();" %>'  value="invite-user" />
+	<a class="minium-button minium-button--big" href="<%= commerceAccountDisplayContext.getAddCommerceAccountHref() %>"><%= LanguageUtil.get(request, addButtonTitle) %></a>
 </div>
 
 <commerce-ui:user-invitation
 	componentId="userInvitation"
 />
 
-
 <aui:script>
-
-	Liferay.provide(
-		window,
-		'<portlet:namespace />openUserInvitation',
-		function(evt) {
-			const userInvitation = Liferay.component('userInvitation');
-			console.log('open');
-			userInvitation.open();
-		}
-	);
-
 	function <portlet:namespace />addCommerceAccount(uri) {
 		Liferay.Util.openWindow(
 			{

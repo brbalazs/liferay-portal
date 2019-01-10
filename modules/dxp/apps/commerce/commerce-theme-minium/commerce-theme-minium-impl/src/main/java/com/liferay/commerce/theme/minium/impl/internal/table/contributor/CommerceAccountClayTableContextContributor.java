@@ -16,6 +16,7 @@ package com.liferay.commerce.theme.minium.impl.internal.table.contributor;
 
 import com.liferay.commerce.frontend.ClayTable;
 import com.liferay.commerce.frontend.ClayTableContextContributor;
+import com.liferay.frontend.js.loader.modules.extender.npm.NPMResolver;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -26,12 +27,17 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Marco Leo
  */
 @Component(
-	immediate = true, property = "commerce.table.name=commerceAccounts",
+	immediate = true,
+	property = {
+		"commerce.table.name=commerceAccounts",
+		"commerce.table.name=commerceAccountUsers"
+	},
 	service = ClayTableContextContributor.class
 )
 public class CommerceAccountClayTableContextContributor
@@ -60,11 +66,13 @@ public class CommerceAccountClayTableContextContributor
 		Set<String> dependencies = new HashSet<>();
 
 		dependencies.add(
-			"commerce-theme-minium-impl@1.0.0/action_menus" +
-				"/MiniumExtensions.es");
+			_npmResolver.resolveModuleName(
+				"commerce-theme-minium-impl/action_menus/MiniumExtensions.es"));
 
 		return dependencies;
 	}
+	@Reference
+	private NPMResolver _npmResolver;
 
 	private static final String _MINIUM_THEME_ID = "minium_WAR_miniumtheme";
 
