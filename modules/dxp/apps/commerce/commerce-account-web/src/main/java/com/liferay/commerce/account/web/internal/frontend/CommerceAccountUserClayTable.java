@@ -52,7 +52,7 @@ import org.osgi.service.component.annotations.Reference;
 public class CommerceAccountUserClayTable
 	implements CommerceDataSetDataProvider<Member>, ClayTable {
 
-	public static final String NAME = "commerce-account-users";
+	public static final String NAME = "commerceAccountUsers";
 
 	@Override
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
@@ -120,9 +120,11 @@ public class CommerceAccountUserClayTable
 
 		Stream<Role> stream = roles.stream();
 
-		return (String[])stream.map(
+		return stream.map(
 			Role::getName
-		).toArray();
+		).toArray(
+			String[]::new
+		);
 	}
 
 	@Reference
