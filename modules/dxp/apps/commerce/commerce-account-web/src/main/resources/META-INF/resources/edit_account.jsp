@@ -101,7 +101,6 @@ CommerceAccount commerceAccount = commerceAccountDisplayContext.getCurrentCommer
 
 	<div class="minium-frame__cta is-visible">
 		<button class="minium-button minium-button--big minium-button--outline">Cancel</button>
-
 		<aui:button cssClass="minium-button minium-button--big" type="submit" />
 	</div>
 </aui:form>

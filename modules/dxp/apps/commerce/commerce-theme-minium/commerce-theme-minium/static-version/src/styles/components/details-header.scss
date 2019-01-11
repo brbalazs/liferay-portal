@@ -28,7 +28,7 @@
 		align-self: center;
 		display: flex;
 		justify-items: center;
-		margin-right: 120px;
+		margin-right: 20px;
 
 		&:last-of-type {
 			margin-right: 0;
@@ -88,6 +88,7 @@
 		color: $color-fg;
 		font-size: 14px;
 		vertical-align: baseline;
+		line-height: 1.5;
 	}
 
 	&__secondary {

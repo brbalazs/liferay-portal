@@ -87,19 +87,21 @@
 		justify-content: center;
 		padding: 20px;
 		position: fixed;
-		position: fixed;
 		right: 0;
 		transition: transform ease 200ms;
 		transition: left ease 500ms;
 		z-index: 100;
-
 		left: $frame-size;
+		pointer-events: none;
+		filter: drop-shadow($color-shadow);
 
 		body.open & {
 			left: calc(320px + #{$frame-size});
 		}
 
-		filter: drop-shadow($color-shadow);
+		.minium-button {
+			pointer-events: auto;
+		}
 	}
 
 	&__dock {

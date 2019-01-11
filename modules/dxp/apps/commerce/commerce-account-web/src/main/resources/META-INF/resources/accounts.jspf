@@ -14,12 +14,6 @@
  */
 --%>
 
-<div class="minium-frame__cta is-visible">
-	<a class="minium-button minium-button--big" href="<%= commerceAccountDisplayContext.getAddCommerceAccountHref() %>">
-		<%= LanguageUtil.get(request, addButtonTitle) %>
-	</a>
-</div>
-
 <div class="commerce-account-container" id="<portlet:namespace />entriesContainer">
 	<commerce-ui:table
 		dataProviderKey="commerceAccounts"
@@ -37,33 +31,23 @@
 </div>
 
 <div class="minium-frame__cta is-visible">
-	<a class="minium-button minium-button--big" href="<%= commerceAccountDisplayContext.getAddCommerceAccountHref() %>"><%= LanguageUtil.get(request, addButtonTitle) %></a>
+	<aui:button cssClass="js-invite-user minium-button minium-button--big" onClick='<%= renderResponse.getNamespace() + "openAddAccountModal();" %>' value="add-account" />
 </div>
 
-<commerce-ui:user-invitation
-	componentId="userInvitation"
+<commerce-ui:add-account-modal
+	componentId="addAccountModal"
 />
 
 <aui:script>
-	function <portlet:namespace />addCommerceAccount(uri) {
-		Liferay.Util.openWindow(
-			{
-				dialog: {
-					centered: true,
-					destroyOnClose: true,
-					height: 600,
-					modal: true,
-					width: 700
-				},
-				dialogIframe: {
-					bodyCssClass: 'dialog-with-footer'
-				},
-				id: 'commerceAccountDialog',
-				title: '<liferay-ui:message key="add-account" />',
-				uri: uri
-			}
-		);
-	}
+
+	Liferay.provide(
+		window,
+		'<portlet:namespace />openAddAccountModal',
+		function(evt) {
+			const addAccountModal = Liferay.component('addAccountModal');
+			addAccountModal.open();
+		}
+	);
 
 	Liferay.provide(
 		window,

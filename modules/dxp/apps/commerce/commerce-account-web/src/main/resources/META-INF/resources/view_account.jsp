@@ -27,22 +27,55 @@ CommerceAccount commerceAccount = commerceAccountDisplayContext.getCurrentCommer
 	<portlet:param name="commerceAccountId" value="<%= String.valueOf(commerceAccount.getCommerceAccountId()) %>" />
 </portlet:renderURL>
 
-<section class="details-header__section">
-	<div class="row">
-		<div class="col-lg-4 u-vac">
-			<img alt="<%= commerceAccount.getName() %>" src="<%= commerceAccountDisplayContext.getLogo(commerceAccount) %>">
+<div class="details-header">
+	<section class="details-header__section details-header__primary">
+		<div class="details-header__main-data">
+			<div class="details-header__avatar">
+				<img src="https://via.placeholder.com/120" alt="avatar" />
+			</div>
+			<div class="details-header__name">
+				<%= commerceAccount.getName() %>
+			</div>
+			<div class="details-header__email">
+				<%= commerceAccount.getEmail() %>
+			</div>
 		</div>
-
-		<div class="col-lg-4 mt-4 mt-lg-0 u-vac">
-			<aui:button href="<%= editCommerceAccountURL %>" value="edit-account" />
+		<div class="details-header__info-wrapper">
+			<div class="details-header__label">
+				Address
+			</div>
+			<div class="details-header__value">
+				PO Box 467<br />
+				New York (NY) 10002
+			</div>
 		</div>
-	</div>
-</section>
+		<div class="details-header__action">
+			<aui:button cssClass="minium-button minium-button--big minium-button--outline" href="<%= editCommerceAccountURL %>" value="edit-account" />
+		</div>
+	</section>
+	<section class="details-header__section details-header__secondary">
+		<div class="details-header__info-wrapper">
+			<div class="details-header__label">
+				Vat Number
+			</div>
+			<div class="details-header__value">
+				123456789123456
+			</div>
+		</div>
+		<div class="details-header__info-wrapper">
+			<div class="details-header__label">
+				Custmer Id
+			</div>
+			<div class="details-header__value">
+				65479123
+			</div>
+		</div>
+	</section>      
 
-<liferay-frontend:screen-navigation
-	containerCssClass="col-md-10"
-	context="<%= commerceAccount %>"
-	key="<%= CommerceAccountScreenNavigationConstants.SCREEN_NAVIGATION_KEY %>"
-	navCssClass="col-md-2"
-	portletURL="<%= currentURLObj %>"
-/>
+	<liferay-frontend:screen-navigation
+		containerCssClass="p-0"
+		context="<%= commerceAccount %>"
+		key="<%= CommerceAccountScreenNavigationConstants.SCREEN_NAVIGATION_KEY %>"
+		portletURL="<%= currentURLObj %>"
+	/>  
+</div>   

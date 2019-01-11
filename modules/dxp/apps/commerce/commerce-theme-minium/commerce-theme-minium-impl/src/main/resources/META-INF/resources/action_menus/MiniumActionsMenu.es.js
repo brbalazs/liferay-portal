@@ -1,6 +1,6 @@
 import Soy from 'metal-soy';
-import template from './MiniumActionsMenu.soy';
 import Component from 'metal-component';
+import template from './MiniumActionsMenu.soy';
 
 class MiniumActionsMenu extends Component {
 

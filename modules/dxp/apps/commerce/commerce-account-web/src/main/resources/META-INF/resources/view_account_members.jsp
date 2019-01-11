@@ -30,23 +30,21 @@ CommerceAccountMembersDisplayContext commerceAccountMembersDisplayContext = (Com
 />
 
 <div class="minium-frame__cta is-visible">
-	<aui:button cssClass="js-invite-user minium-button minium-button--big" onClick='<%= renderResponse.getNamespace() + "openUserInvitation();" %>' value="invite-user" />
+	<aui:button cssClass="js-invite-user minium-button minium-button--big" onClick='<%= renderResponse.getNamespace() + "openUserInvitationModal();" %>' value="invite-user" />
 </div>
 
-<commerce-ui:user-invitation
-	componentId="userInvitation"
+<commerce-ui:user-invitation-modal
+	componentId="userInvitationModal"
 />
 
 <aui:script>
 
 	Liferay.provide(
 		window,
-		'<portlet:namespace />openUserInvitation',
+		'<portlet:namespace />openUserInvitationModal',
 		function(evt) {
-			console.log(evt)
-			const userInvitation = Liferay.component('userInvitation');
-			console.log(userInvitation)
-			userInvitation.open();
+			const userInvitationModal = Liferay.component('userInvitationModal');
+			userInvitationModal.open();
 		}
 	);
 
