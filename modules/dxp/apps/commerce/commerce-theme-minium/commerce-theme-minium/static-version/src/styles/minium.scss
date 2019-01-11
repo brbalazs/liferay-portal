@@ -76,8 +76,8 @@ $micro-transition: ease 100ms;
 @import "./components/user-invitation.scss";
 @import "./components/user-nav.scss";
 @import "./overrides/input.scss";
-@import "./overrides/nav.scss";
 @import "./overrides/modal.scss";
+@import "./overrides/nav.scss";
 
 #minium {
 	font-family: 'Roboto', sans-serif;
@@ -205,8 +205,8 @@ svg {
 
 .portlet-content-editable {
 	border-radius: 8px;
-	min-height: 52px;
 	border-width: 0;
+	min-height: 52px;
 }
 
 .portlet-title-default {
@@ -240,7 +240,7 @@ svg {
 	@media (hover: hover) {
 		&:not(:hover) {
 			transform: scale(0.4);
-			
+
 			.portlet-topper-toolbar {
 				opacity: 0;
 				pointer-events: none;
@@ -277,8 +277,8 @@ svg {
 
 .portlet-borderless .portlet-title-text {
 	@include base-title;
-	max-width: 100%;
 	display: block;
+	max-width: 100%;
 }
 
 .portlet-decorate {
@@ -288,8 +288,8 @@ svg {
 
 	.portlet-title-text {
 		@include card-title;
-		max-width: 100%;
 		display: block;
+		max-width: 100%;
 	}
 
 	.portlet-content-container {
@@ -298,7 +298,7 @@ svg {
 }
 
 .portlet-layout .portlet-header {
-  margin-bottom: 0;
+margin-bottom: 0;
 }
 
 .portlet-header-tools {
@@ -307,16 +307,14 @@ svg {
 	top: 5px;
 }
 
-
-
 .panel-group .panel:last-child {
 	margin-bottom: 0;
 }
 
 #minium {
 	.panel {
-		border: 0;
 		background-color: transparent;
+		border: 0;
 	}
 
 	.panel-heading .panel-title {

@@ -2,38 +2,38 @@ $searchHeight: 70px;
 $topBarHeight: 70px;
 
 .modal {
-    left: $frame-size;
-    top: 140px;
+left: $frame-size;
+top: 140px;
 
-    .has-search & {
-        top: $topBarHeight + $searchHeight;
-    }
-    
+.has-search & {
+	top: $topBarHeight + $searchHeight;
+}
+
 	body.signed-in & {
 		top: $liferay-topbar-size + $topBarHeight;
-    }
-    
-    body.signed-in .has-search & {
-        top: $liferay-topbar-size + $topBarHeight + $searchHeight;
-    }
+}
 
-    body.open & {
-        left: 320px + $frame-size;
-    }
+body.signed-in .has-search & {
+	top: $liferay-topbar-size + $topBarHeight + $searchHeight;
+}
+
+body.open & {
+	left: 320px + $frame-size;
+}
 }
 
 .user-invitation-wrapper {
-    .lexicon-icon {
-        width: 24px;
-        height: 22px;
-    }
+.lexicon-icon {
+	height: 22px;
+	width: 24px;
+}
 
-    .modal {
-        display: none;
-    }
+.modal {
+	display: none;
+}
 
-    .modal-dialog {
-        position: relative;
-        max-width: 500px;
-    }
+.modal-dialog {
+	max-width: 500px;
+	position: relative;
+}
 }

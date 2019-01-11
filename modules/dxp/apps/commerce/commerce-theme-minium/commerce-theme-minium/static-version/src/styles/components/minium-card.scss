@@ -1,22 +1,22 @@
 @mixin card-title {
-  background-color: $color-bg;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 1.2px;
-  line-height: 16px;
-  margin-bottom: 5px;
-  padding: 12px 30px;
-  text-transform: uppercase;
+background-color: $color-bg;
+border-radius: 8px;
+font-size: 12px;
+font-weight: 500;
+letter-spacing: 1.2px;
+line-height: 16px;
+margin-bottom: 5px;
+padding: 12px 30px;
+text-transform: uppercase;
 }
 
 @mixin card-content {
-  @include content-text;
+@include content-text;
 
-  background-color: $color-bg;
-  border-radius: 8px;
-  min-height: 70px;
-  padding: 30px 30px calc(30px - 1rem);
+background-color: $color-bg;
+border-radius: 8px;
+min-height: 70px;
+padding: 30px 30px calc(30px - 1rem);
 }
 
 .minium-card {
@@ -24,11 +24,11 @@ color: $color-fg;
 margin-bottom: $minium-big-gutter;
 
 &__title {
-  @include card-title;
+@include card-title;
 }
 
 &__content {
-  @include card-content;
+@include card-content;
 }
 
 &__tabs {
