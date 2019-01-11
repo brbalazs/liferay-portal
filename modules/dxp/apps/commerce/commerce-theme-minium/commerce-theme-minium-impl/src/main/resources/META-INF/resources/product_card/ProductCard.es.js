@@ -3,6 +3,7 @@
 import template from './ProductCard.soy';
 import Component from 'metal-component';
 import Soy, {Config} from 'metal-soy';
+
 import 'commerce-frontend-taglib/add_to_cart/AddToCartButton.es';
 
 class ProductCard extends Component {};

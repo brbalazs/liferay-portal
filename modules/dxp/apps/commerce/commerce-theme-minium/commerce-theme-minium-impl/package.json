@@ -1,7 +1,7 @@
 {
 	"dependencies": {
-		"clay": "^2.4.1",
-		"clay-icon": "^2.2.0",
+		"clay": "^2.5.0",
+		"clay-icon": "^2.5.0",
 		"clay-modal": "^2.5.0",
 		"metal": "^2.13.2",
 		"metal-component": "^2.13.2",
@@ -21,9 +21,10 @@
 	},
 	"name": "commerce-theme-minium-impl",
 	"scripts": {
-		"build": "metalsoy --soyDeps \"node_modules/clay-*/src/**/*.soy\" && cross-env NODE_ENV=production babel --source-maps -d classes/META-INF/resources src/main/resources/META-INF/resources && liferay-npm-bundler && npm run cleanSoy",
+		"build": "metalsoy --soyDeps \"node_modules/+(clay-*/src|com.liferay.commerce.frontend.taglib)/**/*.soy\" \"node_modules/clay-*/src/**/*.soy\" && cross-env NODE_ENV=production babel --source-maps -d classes/META-INF/resources src/main/resources/META-INF/resources && liferay-npm-bundler && npm run cleanSoy",
 		"checkFormat": "npm run csf",
 		"cleanSoy": "rimraf src/**/*.soy.js",
+		"compileSoy": "metalsoy --soyDeps \"node_modules/+(clay-*/src|commerce-frontend-taglib)/**/*.soy\"",
 		"csf": "csf src/**/*.js src/**/*.scss src/**/*.soy",
 		"format": "npm run csf -- -i"
 	},

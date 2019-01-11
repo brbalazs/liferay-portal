@@ -71,9 +71,10 @@ public class CommerceAccountClayTableContextContributor
 
 		return dependencies;
 	}
-	@Reference
-	private NPMResolver _npmResolver;
 
 	private static final String _MINIUM_THEME_ID = "minium_WAR_miniumtheme";
+
+	@Reference
+	private NPMResolver _npmResolver;
 
 }
