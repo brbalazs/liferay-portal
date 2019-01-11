@@ -3,12 +3,15 @@
 		"Key": "quantity"
 	},
 	{
+		"Key": "fit"
+	},
+	{
 		"Key": "warranty"
 	},
 	{
 		"Key": "material"
 	},
 	{
-		"Key": "weight-dimensions"
+		"Key": "dimensions"
 	}
 ]

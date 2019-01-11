@@ -1,25 +1,29 @@
 [
 	{
-		"Name": "ABS Sensor",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Brake System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN93015.jpg"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN93015",
-		"Manufacturer Part Number": "BB98318",
-		"Inventory - Southwest Warehouse":60,
-		"Inventory - Northwest Warehouse":60,
-		"Inventory - Northeast Warehouse":20,
+		"ManufacturerPartNumber": "BB98318",
+		"Name": "ABS Sensor",
 		"Price": 50.00,
-		"Promo Price": 45.00,
+		"PromoPrice": 45.00,
+		"Sku": "MIN93015",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4"
 			},
 			{
 				"Key": "material",
@@ -46,41 +50,34 @@
 				"Value": "7"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2009 Audi A4",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 60,
+		"Warehouse2": 60,
+		"Warehouse3": 20
 	},
 	{
-		"Name": "Brake Fluid",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Brake System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"Minium_24.png"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN93016",
-		"Manufacturer Part Number": "BB98319",
-		"Inventory - Southwest Warehouse":100,
-		"Inventory - Northwest Warehouse":40,
-		"Inventory - Northeast Warehouse":100,
+		"ManufacturerPartNumber": "BB98319",
+		"Name": "Brake Fluid",
 		"Price": 80.00,
-		"Promo Price": 72.00,
+		"PromoPrice": 72.00,
+		"Sku": "MIN93016",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "12"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
 				"Key": "warranty",
 				"Value": "1 Year Unlimited Mileage Warranty"
 			},
@@ -101,41 +98,34 @@
 				"Value": "4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 100,
+		"Warehouse2": 40,
+		"Warehouse3": 100
 	},
 	{
-		"Name": "Brake Fluid",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Brake System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"Minium_24.png"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN93016",
-		"Manufacturer Part Number": "BB98320",
-		"Inventory - Southwest Warehouse":100,
-		"Inventory - Northwest Warehouse":20,
-		"Inventory - Northeast Warehouse":60,
+		"ManufacturerPartNumber": "BB98320",
+		"Name": "Brake Fluid",
 		"Price": 80.00,
-		"Promo Price": 72.00,
+		"PromoPrice": 72.00,
+		"Sku": "MIN93016",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "48"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
 				"Key": "warranty",
 				"Value": "1 Year Unlimited Mileage Warranty"
 			},
@@ -156,41 +146,34 @@
 				"Value": "4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 100,
+		"Warehouse2": 20,
+		"Warehouse3": 60
 	},
 	{
-		"Name": "Brake Fluid",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Brake System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"Minium_24.png"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN93016",
-		"Manufacturer Part Number": "BB98321",
-		"Inventory - Southwest Warehouse":100,
-		"Inventory - Northwest Warehouse":100,
-		"Inventory - Northeast Warehouse":40,
+		"ManufacturerPartNumber": "BB98321",
+		"Name": "Brake Fluid",
 		"Price": 80.00,
-		"Promo Price": 72.00,
+		"PromoPrice": 72.00,
+		"Sku": "MIN93016",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "112"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
 				"Key": "warranty",
 				"Value": "1 Year Unlimited Mileage Warranty"
 			},
@@ -211,39 +194,32 @@
 				"Value": "4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 100,
+		"Warehouse2": 100,
+		"Warehouse3": 40
 	},
 	{
-		"Name": "Premium Brake Fluid",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Brake System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"Minium_24.png"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN93017",
-		"Manufacturer Part Number": "BB98322",
-		"Inventory - Southwest Warehouse":60,
-		"Inventory - Northwest Warehouse":60,
-		"Inventory - Northeast Warehouse":40,
+		"ManufacturerPartNumber": "BB98322",
+		"Name": "Premium Brake Fluid",
 		"Price": 100.00,
-		"Promo Price": 90.00,
+		"PromoPrice": 90.00,
+		"Sku": "MIN93017",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "6"
-			},
-			{
-				"Key": "material",
-				"Value": ""
 			},
 			{
 				"Key": "warranty",
@@ -266,36 +242,39 @@
 				"Value": "4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 60,
+		"Warehouse2": 60,
+		"Warehouse3": 40
 	},
 	{
-		"Name": "Brake Pads",
-		"Category":[
+		"Attachment": "Installation Guide",
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Brake System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN93018.jpg",
 			"Minium_24.png"
 		],
-		"Attachment": "Installation Guide",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN93018",
-		"Manufacturer Part Number": "BB98323",
-		"Inventory - Southwest Warehouse":40,
-		"Inventory - Northwest Warehouse":40,
-		"Inventory - Northeast Warehouse":40,
+		"ManufacturerPartNumber": "BB98323",
+		"Name": "Brake Pads",
 		"Price": 21.00,
-		"Promo Price": 18.90,
+		"PromoPrice": 18.90,
+		"RelatedProducts": ["Wear Sensors"],
+		"Sku": "MIN93018",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4, 2010 Toyota Tundra, 2010 Dodge Charger"
 			},
 			{
 				"Key": "material",
@@ -322,36 +301,39 @@
 				"Value": "6.2"
 			}
 		],
-		"Related Products": "Wear Sensors",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2009 Audi A4;2010 Toyota Tundra; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 40,
+		"Warehouse2": 40,
+		"Warehouse3": 40
 	},
 	{
-		"Name": "Premium Brake Pads",
-		"Category":[
+		"Attachment": "Installation Guide",
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Brake System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN93018.jpg",
 			"Minium_24.png"
 		],
-		"Attachment": "Installation Guide",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN93019",
-		"Manufacturer Part Number": "BB98324",
-		"Inventory - Southwest Warehouse":20,
-		"Inventory - Northwest Warehouse":20,
-		"Inventory - Northeast Warehouse":20,
+		"ManufacturerPartNumber": "BB98324",
+		"Name": "Premium Brake Pads",
 		"Price": 29.00,
-		"Promo Price": 26.10,
+		"PromoPrice": 26.10,
+		"RelatedProducts": ["Wear Sensors"],
+		"Sku": "MIN93019",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4, 2010 Toyota Tundra, 2010 Dodge Charger"
 			},
 			{
 				"Key": "material",
@@ -378,36 +360,37 @@
 				"Value": "6.2"
 			}
 		],
-		"Related Products": "Wear Sensors",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2009 Audi A4;2010 Toyota Tundra; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 20,
+		"Warehouse2": 20,
+		"Warehouse3": 20
 	},
 	{
-		"Name": "Brake Rotors",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Brake System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN93020.jpg",
 			"Minium_32.png"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN93020",
-		"Manufacturer Part Number": "BB98325",
-		"Inventory - Southwest Warehouse":100,
-		"Inventory - Northwest Warehouse":100,
-		"Inventory - Northeast Warehouse":100,
+		"ManufacturerPartNumber": "BB98325",
+		"Name": "Brake Rotors",
 		"Price": 40.00,
-		"Promo Price": 36.00,
+		"PromoPrice": 36.00,
+		"Sku": "MIN93020",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2009 Audi A4, 2015 Ford Expedition, 2011 GMC Sierra"
 			},
 			{
 				"Key": "material",
@@ -434,33 +417,34 @@
 				"Value": "10.2"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2009 Audi A4;2015 Ford Expedition; 2011 GMC Sierra",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 100,
+		"Warehouse2": 100,
+		"Warehouse3": 100
 	},
 	{
-		"Name": "Calipers",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Brake System"
 		],
-		"Images": [],
-		"Attachment": "",
 		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN93021",
-		"Manufacturer Part Number": "BB98324",
-		"Inventory - Southwest Warehouse":60,
-		"Inventory - Northwest Warehouse":60,
-		"Inventory - Northeast Warehouse":60,
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
+		"Images": [],
+		"ManufacturerPartNumber": "BB98324",
+		"Name": "Calipers",
 		"Price": 90.00,
-		"Promo Price": 81.00,
+		"PromoPrice": 81.00,
+		"Sku": "MIN93021",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2009 Audi A4, 2015 Ford Expedition, 2011 GMC Sierra"
 			},
 			{
 				"Key": "material",
@@ -487,37 +471,38 @@
 				"Value": "9.4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2009 Audi A4;2015 Ford Expedition; 2011 GMC Sierra",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 60,
+		"Warehouse2": 60,
+		"Warehouse3": 60
 	},
 	{
-		"Name": "Hoses",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Brake System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN93022.jpg"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN93022",
-		"Manufacturer Part Number": "BB98325",
-		"Inventory - Southwest Warehouse":40,
-		"Inventory - Northwest Warehouse":40,
-		"Inventory - Northeast Warehouse":40,
+		"ManufacturerPartNumber": "BB98325",
+		"Name": "Hoses",
 		"Price": 120.00,
-		"Promo Price": 108.00,
+		"PromoPrice": 108.00,
+		"Sku": "MIN93022",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "6"
 			},
 			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4"
+			},
+			{
 				"Key": "material",
 				"Value": "Rubber"
 			},
@@ -542,37 +527,38 @@
 				"Value": "12"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2009 Audi A4",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 40,
+		"Warehouse2": 40,
+		"Warehouse3": 40
 	},
 	{
-		"Name": "Hoses",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Brake System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN93022.jpg"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN93022",
-		"Manufacturer Part Number": "BB98326",
-		"Inventory - Southwest Warehouse":40,
-		"Inventory - Northwest Warehouse":20,
-		"Inventory - Northeast Warehouse":20,
+		"ManufacturerPartNumber": "BB98326",
+		"Name": "Hoses",
 		"Price": 120.00,
-		"Promo Price": 108.00,
+		"PromoPrice": 108.00,
+		"Sku": "MIN93022",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "24"
 			},
 			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4"
+			},
+			{
 				"Key": "material",
 				"Value": "Rubber"
 			},
@@ -597,37 +583,38 @@
 				"Value": "12"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2009 Audi A4",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 40,
+		"Warehouse2": 20,
+		"Warehouse3": 20
 	},
 	{
-		"Name": "Hoses",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Brake System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN93022.jpg"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN93022",
-		"Manufacturer Part Number": "BB98327",
-		"Inventory - Southwest Warehouse":40,
-		"Inventory - Northwest Warehouse":100,
-		"Inventory - Northeast Warehouse":100,
+		"ManufacturerPartNumber": "BB98327",
+		"Name": "Hoses",
 		"Price": 120.00,
-		"Promo Price": 108.00,
+		"PromoPrice": 108.00,
+		"Sku": "MIN93022",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "48"
 			},
 			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2015 Ford Expedition, 2010 Dodge Charger"
+			},
+			{
 				"Key": "material",
 				"Value": "Rubber"
 			},
@@ -652,36 +639,37 @@
 				"Value": "12"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2015 Ford Expedition; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 40,
+		"Warehouse2": 100,
+		"Warehouse3": 100
 	},
 	{
-		"Name": "Timing Belt",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Brake System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN93023.jpeg",
 			"Minium_22.png"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN93023",
-		"Manufacturer Part Number": "BB98328",
-		"Inventory - Southwest Warehouse":20,
-		"Inventory - Northwest Warehouse":60,
-		"Inventory - Northeast Warehouse":60,
+		"ManufacturerPartNumber": "BB98328",
+		"Name": "Timing Belt",
 		"Price": 600.00,
-		"Promo Price": 540.00,
+		"PromoPrice": 540.00,
+		"Sku": "MIN93023",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "12"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2015 Ford Expedition, 2010 Dodge Charger"
 			},
 			{
 				"Key": "material",
@@ -708,36 +696,39 @@
 				"Value": "12"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2015 Ford Expedition; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 20,
+		"Warehouse2": 60,
+		"Warehouse3": 60
 	},
 	{
-		"Name": "Master Cylinder",
-		"Category":[
+		"Attachment": "Installation Guide",
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Brake System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN93024.jpg",
 			"Minium_15.png"
 		],
-		"Attachment": "Installation Guide",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN93024",
-		"Manufacturer Part Number": "BB98329",
-		"Inventory - Southwest Warehouse":100,
-		"Inventory - Northwest Warehouse":40,
-		"Inventory - Northeast Warehouse":40,
+		"ManufacturerPartNumber": "BB98329",
+		"Name": "Master Cylinder",
 		"Price": 78.00,
-		"Promo Price": 70.20,
+		"PromoPrice": 70.20,
+		"RelatedProducts": ["Wear Sensors"],
+		"Sku": "MIN93024",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4, 2010 Toyota Tundra, 2010 Dodge Charger"
 			},
 			{
 				"Key": "material",
@@ -764,36 +755,39 @@
 				"Value": "2.5"
 			}
 		],
-		"Related Products": "Wear Sensors",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2009 Audi A4;2010 Toyota Tundra; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 100,
+		"Warehouse2": 40,
+		"Warehouse3": 40
 	},
 	{
-		"Name": "Master Cylinder",
-		"Category":[
+		"Attachment": "Installation Guide",
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Brake System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN93024.jpg",
 			"Minium_15.png"
 		],
-		"Attachment": "Installation Guide",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN93025",
-		"Manufacturer Part Number": "BB98330",
-		"Inventory - Southwest Warehouse":60,
-		"Inventory - Northwest Warehouse":20,
-		"Inventory - Northeast Warehouse":20,
+		"ManufacturerPartNumber": "BB98330",
+		"Name": "Master Cylinder",
 		"Price": 34.00,
-		"Promo Price": 30.60,
+		"PromoPrice": 30.60,
+		"RelatedProducts": ["Wear Sensors"],
+		"Sku": "MIN93025",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4, 2010 Toyota Tundra, 2010 Dodge Charger"
 			},
 			{
 				"Key": "material",
@@ -820,36 +814,39 @@
 				"Value": "2.5"
 			}
 		],
-		"Related Products": "Wear Sensors",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2009 Audi A4;2010 Toyota Tundra; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 60,
+		"Warehouse2": 20,
+		"Warehouse3": 20
 	},
 	{
-		"Name": "Master Cylinder",
-		"Category":[
+		"Attachment": "Installation Guide",
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Brake System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN93024.jpg",
 			"Minium_15.png"
 		],
-		"Attachment": "Installation Guide",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN93026",
-		"Manufacturer Part Number": "BB98331",
-		"Inventory - Southwest Warehouse":40,
-		"Inventory - Northwest Warehouse":100,
-		"Inventory - Northeast Warehouse":100,
+		"ManufacturerPartNumber": "BB98331",
+		"Name": "Master Cylinder",
 		"Price": 39.00,
-		"Promo Price": 35.10,
+		"PromoPrice": 35.10,
+		"RelatedProducts": ["Wear Sensors"],
+		"Sku": "MIN93026",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4, 2010 Toyota Tundra, 2010 Dodge Charger"
 			},
 			{
 				"Key": "material",
@@ -876,39 +873,38 @@
 				"Value": "2.5"
 			}
 		],
-		"Related Products": "Wear Sensors",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2009 Audi A4;2010 Toyota Tundra; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 40,
+		"Warehouse2": 100,
+		"Warehouse3": 100
 	},
 	{
-		"Name": "Wear Sensors",
-		"Category":[
+		"Attachment": "Installation Guide",
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Brake System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN93027.png"
 		],
-		"Attachment": "Installation Guide",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN93027",
-		"Manufacturer Part Number": "BB98332",
-		"Inventory - Southwest Warehouse":20,
-		"Inventory - Northwest Warehouse":60,
-		"Inventory - Northeast Warehouse":60,
+		"ManufacturerPartNumber": "BB98332",
+		"Name": "Wear Sensors",
 		"Price": 60.00,
-		"Promo Price": 54.00,
+		"PromoPrice": 54.00,
+		"RelatedProducts": ["Brake Pads", "Premium Brake Pads"],
+		"Sku": "MIN93027",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
 			},
 			{
-				"Key": "material",
-				"Value": ""
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4, 2010 Toyota Tundra, 2010 Dodge Charger"
 			},
 			{
 				"Key": "warranty",
@@ -931,33 +927,34 @@
 				"Value": "6.2"
 			}
 		],
-		"Related Products": "Brake Pads, Premium Brake Pads",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2009 Audi A4;2010 Toyota Tundra; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 20,
+		"Warehouse2": 60,
+		"Warehouse3": 60
 	},
 	{
-		"Name": "Bearings",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Engine"
 		],
-		"Images": [],
-		"Attachment": "",
 		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN00673",
-		"Manufacturer Part Number": "EX938051",
-		"Inventory - Southwest Warehouse":100,
-		"Inventory - Northwest Warehouse":40,
-		"Inventory - Northeast Warehouse":40,
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
+		"Images": [],
+		"ManufacturerPartNumber": "EX938051",
+		"Name": "Bearings",
 		"Price": 70.00,
-		"Promo Price": 59.50,
+		"PromoPrice": 59.50,
+		"Sku": "MIN00673",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4, 2010 Toyota Tundra, 2010 Dodge Charger"
 			},
 			{
 				"Key": "material",
@@ -984,33 +981,34 @@
 				"Value": "10.2"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2009 Audi A4;2010 Toyota Tundra; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 100,
+		"Warehouse2": 40,
+		"Warehouse3": 40
 	},
 	{
-		"Name": "Cams",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Engine"
 		],
-		"Images": [],
-		"Attachment": "",
 		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN00674",
-		"Manufacturer Part Number": "EX938052",
-		"Inventory - Southwest Warehouse":60,
-		"Inventory - Northwest Warehouse":100,
-		"Inventory - Northeast Warehouse":20,
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
+		"Images": [],
+		"ManufacturerPartNumber": "EX938052",
+		"Name": "Cams",
 		"Price": 695.00,
-		"Promo Price": 590.75,
+		"PromoPrice": 590.75,
+		"Sku": "MIN00674",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4, 2010 Toyota Tundra, 2010 Dodge Charger"
 			},
 			{
 				"Key": "material",
@@ -1037,33 +1035,34 @@
 				"Value": "9.4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2009 Audi A4;2010 Toyota Tundra; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 60,
+		"Warehouse2": 100,
+		"Warehouse3": 20
 	},
 	{
-		"Name": "Engine Mount",
-		"Category":[
+		"AvailabilityEstimate": "5-7 days",
+		"BackOrders": true,
+		"Category": [
 			"Engine"
 		],
-		"Images": [],
-		"Attachment": "",
 		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN00675",
-		"Manufacturer Part Number": "EX938053",
-		"Inventory - Southwest Warehouse":40,
-		"Inventory - Northwest Warehouse":100,
-		"Inventory - Northeast Warehouse":100,
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
+		"Images": [],
+		"ManufacturerPartNumber": "EX938053",
+		"Name": "Engine Mount",
 		"Price": 120.00,
-		"Promo Price": 102.00,
+		"PromoPrice": 102.00,
+		"Sku": "MIN00675",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2009 Audi A4, 2015 Ford Expedition, 2011 GMC Sierra"
 			},
 			{
 				"Key": "material",
@@ -1090,39 +1089,31 @@
 				"Value": "12"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "5-7 days",
-		"Fit": "2009 Audi A4;2015 Ford Expedition; 2011 GMC Sierra",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 40,
+		"Warehouse2": 100,
+		"Warehouse3": 100
 	},
 	{
 		"Name": "Motor Oil",
-		"Category":[
+		"Category": [
 			"Engine"
 		],
 		"Images": [
 			"Minium_24.png"
 		],
-		"Attachment": "",
 		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
 		"Sku": "MIN00676",
-		"Manufacturer Part Number": "EX938054",
-		"Inventory - Southwest Warehouse":20,
-		"Inventory - Northwest Warehouse":100,
-		"Inventory - Northeast Warehouse":60,
+		"ManufacturerPartNumber": "EX938054",
+		"Warehouse1": 20,
+		"Warehouse2": 100,
+		"Warehouse3": 60,
 		"Price": 450.00,
-		"Promo Price": 382.50,
+		"PromoPrice": 382.50,
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "24"
-			},
-			{
-				"Key": "material",
-				"Value": ""
 			},
 			{
 				"Key": "warranty",
@@ -1145,35 +1136,38 @@
 				"Value": "4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "5-7 days",
-		"Fit": "",
-		"Tax Category": "Normal Product"
+		"BackOrders": true,
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
+		"AvailabilityEstimate": "5-7 days",
+
+		"TaxCategory": "Normal Product"
 	},
 	{
-		"Name": "Oil Pump",
-		"Category":[
+		"AvailabilityEstimate": "5-7 days",
+		"BackOrders": true,
+		"Category": [
 			"Engine"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"Minium_35.png"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN00677",
-		"Manufacturer Part Number": "EX938055",
-		"Inventory - Southwest Warehouse":100,
-		"Inventory - Northwest Warehouse":20,
-		"Inventory - Northeast Warehouse":40,
+		"ManufacturerPartNumber": "EX938055",
+		"Name": "Oil Pump",
 		"Price": 79.00,
-		"Promo Price": 67.15,
+		"PromoPrice": 67.15,
+		"Sku": "MIN00677",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2009 Audi A4, 2015 Ford Expedition, 2011 GMC Sierra"
 			},
 			{
 				"Key": "material",
@@ -1200,33 +1194,34 @@
 				"Value": "7"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "5-7 days",
-		"Fit": "2009 Audi A4;2015 Ford Expedition; 2011 GMC Sierra",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 100,
+		"Warehouse2": 20,
+		"Warehouse3": 40
 	},
 	{
-		"Name": "Piston",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Engine"
 		],
-		"Images": [],
-		"Attachment": "",
 		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN00678",
-		"Manufacturer Part Number": "EX938056",
-		"Inventory - Southwest Warehouse":60,
-		"Inventory - Northwest Warehouse":60,
-		"Inventory - Northeast Warehouse":20,
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
+		"Images": [],
+		"ManufacturerPartNumber": "EX938056",
+		"Name": "Piston",
 		"Price": 14.00,
-		"Promo Price": 11.90,
+		"PromoPrice": 11.90,
+		"Sku": "MIN00678",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2009 Audi A4, 2015 Ford Expedition, 2011 GMC Sierra"
 			},
 			{
 				"Key": "material",
@@ -1253,33 +1248,34 @@
 				"Value": "4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2009 Audi A4;2015 Ford Expedition; 2011 GMC Sierra",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 60,
+		"Warehouse2": 60,
+		"Warehouse3": 20
 	},
 	{
-		"Name": "Pulley Kit",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Engine"
 		],
-		"Images": [],
-		"Attachment": "",
 		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN00679",
-		"Manufacturer Part Number": "EX938057",
-		"Inventory - Southwest Warehouse":40,
-		"Inventory - Northwest Warehouse":40,
-		"Inventory - Northeast Warehouse":100,
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
+		"Images": [],
+		"ManufacturerPartNumber": "EX938057",
+		"Name": "Pulley Kit",
 		"Price": 201.00,
-		"Promo Price": 170.85,
+		"PromoPrice": 170.85,
+		"Sku": "MIN00679",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2009 Audi A4, 2015 Ford Expedition, 2011 GMC Sierra"
 			},
 			{
 				"Key": "material",
@@ -1306,35 +1302,36 @@
 				"Value": "6.2"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2009 Audi A4;2015 Ford Expedition; 2011 GMC Sierra",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 40,
+		"Warehouse2": 40,
+		"Warehouse3": 100
 	},
 	{
-		"Name": "Seal",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Engine"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN00680.jpeg"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN00680",
-		"Manufacturer Part Number": "EX938058",
-		"Inventory - Southwest Warehouse":20,
-		"Inventory - Northwest Warehouse":20,
-		"Inventory - Northeast Warehouse":60,
+		"ManufacturerPartNumber": "EX938058",
+		"Name": "Seal",
 		"Price": 30.00,
-		"Promo Price": 25.50,
+		"PromoPrice": 25.50,
+		"Sku": "MIN00680",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "2"
+			},
+			{
+				"Key": "fit",
+				"Value": "2009 Audi A4, 2015 Ford Expedition, 2011 GMC Sierra"
 			},
 			{
 				"Key": "material",
@@ -1361,36 +1358,37 @@
 				"Value": "10.2"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2009 Audi A4;2015 Ford Expedition; 2011 GMC Sierra",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 20,
+		"Warehouse2": 20,
+		"Warehouse3": 60
 	},
 	{
-		"Name": "Timing Chain Tensioner",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Engine"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN00681.jpeg",
 			"Minium_18.png"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN00681",
-		"Manufacturer Part Number": "EX938059",
-		"Inventory - Southwest Warehouse":100,
-		"Inventory - Northwest Warehouse":100,
-		"Inventory - Northeast Warehouse":40,
+		"ManufacturerPartNumber": "EX938059",
+		"Name": "Timing Chain Tensioner",
 		"Price": 30.00,
-		"Promo Price": 25.50,
+		"PromoPrice": 25.50,
+		"Sku": "MIN00681",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4"
 			},
 			{
 				"Key": "material",
@@ -1417,35 +1415,36 @@
 				"Value": "9.4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2009 Audi A4",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 100,
+		"Warehouse2": 100,
+		"Warehouse3": 40
 	},
 	{
-		"Name": "Timing Chain",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Engine"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN00682.png"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN00682",
-		"Manufacturer Part Number": "EX938060",
-		"Inventory - Southwest Warehouse":60,
-		"Inventory - Northwest Warehouse":60,
-		"Inventory - Northeast Warehouse":40,
+		"ManufacturerPartNumber": "EX938060",
+		"Name": "Timing Chain",
 		"Price": 23.00,
-		"Promo Price": 19.55,
+		"PromoPrice": 19.55,
+		"Sku": "MIN00682",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2015 Ford Expedition, 2010 Dodge Charger"
 			},
 			{
 				"Key": "material",
@@ -1472,35 +1471,36 @@
 				"Value": "12"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2015 Ford Expedition; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 60,
+		"Warehouse2": 60,
+		"Warehouse3": 40
 	},
 	{
-		"Name": "Valve Cover Grommets",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Engine"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN00683.jpg"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN00683",
-		"Manufacturer Part Number": "EX938061",
-		"Inventory - Southwest Warehouse":40,
-		"Inventory - Northwest Warehouse":40,
-		"Inventory - Northeast Warehouse":40,
+		"ManufacturerPartNumber": "EX938061",
+		"Name": "Valve Cover Grommets",
 		"Price": 6.00,
-		"Promo Price": 5.10,
+		"PromoPrice": 5.10,
+		"Sku": "MIN00683",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "2"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2015 Ford Expedition, 2010 Dodge Charger"
 			},
 			{
 				"Key": "material",
@@ -1527,33 +1527,34 @@
 				"Value": "10.2"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2015 Ford Expedition; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 40,
+		"Warehouse2": 40,
+		"Warehouse3": 40
 	},
 	{
-		"Name": "Catalytic Converters",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Exhaust System"
 		],
-		"Images": [],
-		"Attachment": "",
 		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN77822",
-		"Manufacturer Part Number": "ES98205",
-		"Inventory - Southwest Warehouse":20,
-		"Inventory - Northwest Warehouse":60,
-		"Inventory - Northeast Warehouse":20,
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
+		"Images": [],
+		"ManufacturerPartNumber": "ES98205",
+		"Name": "Catalytic Converters",
 		"Price": 106.00,
-		"Promo Price": 90.10,
+		"PromoPrice": 90.10,
+		"Sku": "MIN77822",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2015 Ford Expedition, 2010 Dodge Charger"
 			},
 			{
 				"Key": "material",
@@ -1580,35 +1581,36 @@
 				"Value": "9.4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2015 Ford Expedition; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 20,
+		"Warehouse2": 60,
+		"Warehouse3": 20
 	},
 	{
-		"Name": "Exhaust Clamps",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Exhaust System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN77823.jpg"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN77823",
-		"Manufacturer Part Number": "ES98206",
-		"Inventory - Southwest Warehouse":100,
-		"Inventory - Northwest Warehouse":20,
-		"Inventory - Northeast Warehouse":100,
+		"ManufacturerPartNumber": "ES98206",
+		"Name": "Exhaust Clamps",
 		"Price": 9.00,
-		"Promo Price": 7.65,
+		"PromoPrice": 7.65,
+		"Sku": "MIN77823",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2009 Audi A4, 2015 Ford Expedition, 2011 GMC Sierra"
 			},
 			{
 				"Key": "material",
@@ -1635,35 +1637,36 @@
 				"Value": "12"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2009 Audi A4;2015 Ford Expedition; 2011 GMC Sierra",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 100,
+		"Warehouse2": 20,
+		"Warehouse3": 100
 	},
 	{
-		"Name": "Muffler/Resonators",
-		"Category":[
+		"AvailabilityEstimate": "7-14 days",
+		"BackOrders": true,
+		"Category": [
 			"Exhaust System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN77824.jpg"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN77824",
-		"Manufacturer Part Number": "ES98207",
-		"Inventory - Southwest Warehouse":60,
-		"Inventory - Northwest Warehouse":100,
-		"Inventory - Northeast Warehouse":60,
+		"ManufacturerPartNumber": "ES98207",
+		"Name": "Muffler/Resonators",
 		"Price": 32.00,
-		"Promo Price": 27.20,
+		"PromoPrice": 27.20,
+		"Sku": "MIN77824",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2009 Audi A4, 2015 Ford Expedition, 2011 GMC Sierra"
 			},
 			{
 				"Key": "material",
@@ -1690,35 +1693,36 @@
 				"Value": "4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "7-14 days",
-		"Fit": "2009 Audi A4;2015 Ford Expedition; 2011 GMC Sierra",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 60,
+		"Warehouse2": 100,
+		"Warehouse3": 60
 	},
 	{
-		"Name": "Lift Support",
-		"Category":[
+		"AvailabilityEstimate": "7-14 days",
+		"BackOrders": true,
+		"Category": [
 			"Exhaust System"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN77825.png"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN77825",
-		"Manufacturer Part Number": "ES98208",
-		"Inventory - Southwest Warehouse":40,
-		"Inventory - Northwest Warehouse":20,
-		"Inventory - Northeast Warehouse":40,
+		"ManufacturerPartNumber": "ES98208",
+		"Name": "Lift Support",
 		"Price": 20.00,
-		"Promo Price": 17.00,
+		"PromoPrice": 17.00,
+		"Sku": "MIN77825",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4"
 			},
 			{
 				"Key": "material",
@@ -1745,35 +1749,36 @@
 				"Value": "7"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "7-14 days",
-		"Fit": "2008 Audi A4;2009 Audi A4",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 40,
+		"Warehouse2": 20,
+		"Warehouse3": 40
 	},
 	{
-		"Name": "Turbocharger",
-		"Category":[
+		"AvailabilityEstimate": "5-7 days",
+		"BackOrders": true,
+		"Category": [
 			"Turbocharger"
 		],
+		"Description": "Includes wastegate actuator. Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment.",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN19999.jpg"
 		],
-		"Attachment": "",
-		"Description": "Includes wastegate actuator. Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment.",
-		"Sku": "MIN19999",
-		"Manufacturer Part Number": "TC90432",
-		"Inventory - Southwest Warehouse":100,
-		"Inventory - Northwest Warehouse":60,
-		"Inventory - Northeast Warehouse":20,
+		"ManufacturerPartNumber": "TC90432",
+		"Name": "Turbocharger",
 		"Price": 665.00,
-		"Promo Price": 565.25,
+		"PromoPrice": 565.25,
+		"Sku": "MIN19999",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4, 2010 Toyota Tundra, 2010 Dodge Charger"
 			},
 			{
 				"Key": "material",
@@ -1800,35 +1805,36 @@
 				"Value": "15.3"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "5-7 days",
-		"Fit": "2008 Audi A4;2009 Audi A4;2010 Toyota Tundra; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 100,
+		"Warehouse2": 60,
+		"Warehouse3": 20
 	},
 	{
-		"Name": "Ball Joints",
-		"Category":[
+		"AvailabilityEstimate": "5-7 days",
+		"BackOrders": true,
+		"Category": [
 			"Suspension"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN38794.jpeg"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN38794",
-		"Manufacturer Part Number": "HM88893",
-		"Inventory - Southwest Warehouse":100,
-		"Inventory - Northwest Warehouse":40,
-		"Inventory - Northeast Warehouse":100,
+		"ManufacturerPartNumber": "HM88893",
+		"Name": "Ball Joints",
 		"Price": 152.00,
-		"Promo Price": 129.20,
+		"PromoPrice": 129.20,
+		"Sku": "MIN38794",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2015 Ford Expedition, 2010 Dodge Charger"
 			},
 			{
 				"Key": "material",
@@ -1855,33 +1861,34 @@
 				"Value": "10.2"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "5-7 days",
-		"Fit": "2008 Audi A4;2015 Ford Expedition; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 100,
+		"Warehouse2": 40,
+		"Warehouse3": 100
 	},
 	{
-		"Name": "Bushings",
-		"Category":[
+		"AvailabilityEstimate": "5-7 days",
+		"BackOrders": true,
+		"Category": [
 			"Suspension"
 		],
-		"Images": [],
-		"Attachment": "",
 		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN38795",
-		"Manufacturer Part Number": "HM88894",
-		"Inventory - Southwest Warehouse":100,
-		"Inventory - Northwest Warehouse":20,
-		"Inventory - Northeast Warehouse":60,
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
+		"Images": [],
+		"ManufacturerPartNumber": "HM88894",
+		"Name": "Bushings",
 		"Price": 18.00,
-		"Promo Price": 15.30,
+		"PromoPrice": 15.30,
+		"Sku": "MIN38795",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2015 Ford Expedition, 2010 Dodge Charger"
 			},
 			{
 				"Key": "material",
@@ -1908,39 +1915,36 @@
 				"Value": "9.4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "5-7 days",
-		"Fit": "2008 Audi A4;2015 Ford Expedition; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 100,
+		"Warehouse2": 20,
+		"Warehouse3": 60
 	},
 	{
-		"Name": "CV Axles",
-		"Category":[
+		"AvailabilityEstimate": "5-7 days",
+		"BackOrders": true,
+		"Category": [
 			"Suspension"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN38796.png"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN38796",
-		"Manufacturer Part Number": "HM88895",
-		"Inventory - Southwest Warehouse":20,
-		"Inventory - Northwest Warehouse":100,
-		"Inventory - Northeast Warehouse":40,
+		"ManufacturerPartNumber": "HM88895",
+		"Name": "CV Axles",
 		"Price": 89.00,
-		"Promo Price": 75.65,
+		"PromoPrice": 75.65,
+		"Sku": "MIN38796",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
 			},
 			{
-				"Key": "material",
-				"Value": ""
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4, 2010 Toyota Tundra, 2010 Dodge Charger"
 			},
 			{
 				"Key": "warranty",
@@ -1963,44 +1967,41 @@
 				"Value": "12"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "5-7 days",
-		"Fit": "2008 Audi A4;2009 Audi A4;2010 Toyota Tundra; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 20,
+		"Warehouse2": 100,
+		"Warehouse3": 40
 	},
 	{
-		"Name": "Universal CV Boot",
-		"Category":[
+		"AvailabilityEstimate": "5-7 days",
+		"BackOrders": true,
+		"Category": [
 			"Suspension"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN38797.jpeg",
 			"Minium_20.png"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN38797",
-		"Manufacturer Part Number": "HM88896",
-		"Inventory - Southwest Warehouse":60,
-		"Inventory - Northwest Warehouse":100,
-		"Inventory - Northeast Warehouse":20,
+		"ManufacturerPartNumber": "HM88896",
+		"Name": "Universal CV Boot",
 		"Price": 185.00,
-		"Promo Price": 157.25,
+		"PromoPrice": 157.25,
+		"Sku": "MIN38797",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "24"
 			},
 			{
-				"Key": "material",
-				"Value": "Neoprene"
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4, 2010 Toyota Tundra, 2010 Dodge Charger"
 			},
 			{
-				"Key": "warranty",
-				"Value": ""
+				"Key": "material",
+				"Value": "Neoprene"
 			},
 			{
 				"Key": "weight",
@@ -2019,37 +2020,34 @@
 				"Value": "4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "5-7 days",
-		"Fit": "2008 Audi A4;2009 Audi A4;2010 Toyota Tundra; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 60,
+		"Warehouse2": 100,
+		"Warehouse3": 20
 	},
 	{
-		"Name": "Hub Bearing Assembly - Rear",
-		"Category":[
+		"AvailabilityEstimate": "5-7 days",
+		"BackOrders": true,
+		"Category": [
 			"Suspension"
 		],
-		"Images": [],
-		"Attachment": "",
 		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN38798",
-		"Manufacturer Part Number": "HM88897",
-		"Inventory - Southwest Warehouse":40,
-		"Inventory - Northwest Warehouse":60,
-		"Inventory - Northeast Warehouse":100,
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
+		"Images": [],
+		"ManufacturerPartNumber": "HM88897",
+		"Name": "Hub Bearing Assembly - Rear",
 		"Price": 175.00,
-		"Promo Price": 148.75,
+		"PromoPrice": 148.75,
+		"Sku": "MIN38798",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
 			},
 			{
-				"Key": "material",
-				"Value": ""
+				"Key": "fit",
+				"Value": "2009 Audi A4, 2015 Ford Expedition, 2011 GMC Sierra"
 			},
 			{
 				"Key": "warranty",
@@ -2072,40 +2070,37 @@
 				"Value": "7"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "5-7 days",
-		"Fit": "2009 Audi A4;2015 Ford Expedition; 2011 GMC Sierra",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 40,
+		"Warehouse2": 60,
+		"Warehouse3": 100
 	},
 	{
-		"Name": "Coil Spring - Rear",
-		"Category":[
+		"AvailabilityEstimate": "5-7 days",
+		"BackOrders": true,
+		"Category": [
 			"Suspension"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN38799.jpg",
 			"Minium_1.png"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN38799",
-		"Manufacturer Part Number": "HM88898",
-		"Inventory - Southwest Warehouse":20,
-		"Inventory - Northwest Warehouse":20,
-		"Inventory - Northeast Warehouse":60,
+		"ManufacturerPartNumber": "HM88898",
+		"Name": "Coil Spring - Rear",
 		"Price": 104.00,
-		"Promo Price": 88.40,
+		"PromoPrice": 88.40,
+		"Sku": "MIN38799",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "2"
 			},
 			{
-				"Key": "material",
-				"Value": ""
+				"Key": "fit",
+				"Value": "2009 Audi A4, 2015 Ford Expedition, 2011 GMC Sierra"
 			},
 			{
 				"Key": "warranty",
@@ -2128,35 +2123,36 @@
 				"Value": "4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "5-7 days",
-		"Fit": "2009 Audi A4;2015 Ford Expedition; 2011 GMC Sierra",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 20,
+		"Warehouse2": 20,
+		"Warehouse3": 60
 	},
 	{
-		"Name": "Power Steering Pumo",
-		"Category":[
+		"AvailabilityEstimate": "5-7 days",
+		"BackOrders": true,
+		"Category": [
 			"Suspension"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN38800.jpg"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN38800",
-		"Manufacturer Part Number": "HM88899",
-		"Inventory - Southwest Warehouse":100,
-		"Inventory - Northwest Warehouse":60,
-		"Inventory - Northeast Warehouse":40,
+		"ManufacturerPartNumber": "HM88899",
+		"Name": "Power Steering Pumo",
 		"Price": 160.00,
-		"Promo Price": 152.00,
+		"PromoPrice": 152.00,
+		"Sku": "MIN38800",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2009 Audi A4, 2015 Ford Expedition, 2011 GMC Sierra"
 			},
 			{
 				"Key": "material",
@@ -2183,39 +2179,31 @@
 				"Value": "6.2"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "5-7 days",
-		"Fit": "2009 Audi A4;2015 Ford Expedition; 2011 GMC Sierra",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 100,
+		"Warehouse2": 60,
+		"Warehouse3": 40
 	},
 	{
 		"Name": "Differential Ring and Pinion - Universal",
-		"Category":[
+		"Category": [
 			"Suspension"
 		],
 		"Images": [
 			"MIN38801.jpeg"
 		],
-		"Attachment": "",
 		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
 		"Sku": "MIN38801",
-		"Manufacturer Part Number": "HM88900",
-		"Inventory - Southwest Warehouse":60,
-		"Inventory - Northwest Warehouse":100,
-		"Inventory - Northeast Warehouse":20,
+		"ManufacturerPartNumber": "HM88900",
+		"Warehouse1": 60,
+		"Warehouse2": 100,
+		"Warehouse3": 20,
 		"Price": 211.00,
-		"Promo Price": 200.45,
+		"PromoPrice": 200.45,
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
-			},
-			{
-				"Key": "material",
-				"Value": ""
 			},
 			{
 				"Key": "warranty",
@@ -2238,39 +2226,38 @@
 				"Value": "10.2"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "7-14 days",
-		"Fit": "",
-		"Tax Category": "Normal Product"
+		"BackOrders": true,
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
+		"AvailabilityEstimate": "7-14 days",
+
+		"TaxCategory": "Normal Product"
 	},
 	{
-		"Name": "Shock Absorber",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Suspension"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN38802.jpg"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN38802",
-		"Manufacturer Part Number": "HM88901",
-		"Inventory - Southwest Warehouse":40,
-		"Inventory - Northwest Warehouse":60,
-		"Inventory - Northeast Warehouse":100,
+		"ManufacturerPartNumber": "HM88901",
+		"Name": "Shock Absorber",
 		"Price": 75.00,
-		"Promo Price": 71.25,
+		"PromoPrice": 71.25,
+		"Sku": "MIN38802",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
 			},
 			{
-				"Key": "material",
-				"Value": ""
+				"Key": "fit",
+				"Value": "2009 Audi A4, 2015 Ford Expedition, 2011 GMC Sierra"
 			},
 			{
 				"Key": "warranty",
@@ -2293,35 +2280,36 @@
 				"Value": "9.4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2009 Audi A4;2015 Ford Expedition; 2011 GMC Sierra",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 40,
+		"Warehouse2": 60,
+		"Warehouse3": 100
 	},
 	{
-		"Name": "Shock Strut - Front",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Suspension"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN38803.jpg"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN38803",
-		"Manufacturer Part Number": "HM88902",
-		"Inventory - Southwest Warehouse":60,
-		"Inventory - Northwest Warehouse":40,
-		"Inventory - Northeast Warehouse":60,
+		"ManufacturerPartNumber": "HM88902",
+		"Name": "Shock Strut - Front",
 		"Price": 129.00,
-		"Promo Price": 122.55,
+		"PromoPrice": 122.55,
+		"Sku": "MIN38803",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4"
 			},
 			{
 				"Key": "material",
@@ -2348,35 +2336,36 @@
 				"Value": "12"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2009 Audi A4",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 60,
+		"Warehouse2": 40,
+		"Warehouse3": 60
 	},
 	{
-		"Name": "Tie Rod End Tool",
-		"Category":[
+		"AvailabilityEstimate": "7-14 days",
+		"BackOrders": true,
+		"Category": [
 			"Suspension"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN38804.jpeg"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN38804",
-		"Manufacturer Part Number": "HM88903",
-		"Inventory - Southwest Warehouse":20,
-		"Inventory - Northwest Warehouse":60,
-		"Inventory - Northeast Warehouse":40,
+		"ManufacturerPartNumber": "HM88903",
+		"Name": "Tie Rod End Tool",
 		"Price": 35.00,
-		"Promo Price": 33.25,
+		"PromoPrice": 33.25,
+		"Sku": "MIN38804",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4"
 			},
 			{
 				"Key": "material",
@@ -2403,43 +2392,31 @@
 				"Value": "10.2"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "7-14 days",
-		"Fit": "2008 Audi A4;2009 Audi A4",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 20,
+		"Warehouse2": 60,
+		"Warehouse3": 40
 	},
 	{
 		"Name": "Wheel Bearing Grease",
-		"Category":[
+		"Category": [
 			"Suspension"
 		],
 		"Images": [
 			"Minium_24.png"
 		],
-		"Attachment": "",
 		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
 		"Sku": "MIN38805",
-		"Manufacturer Part Number": "HM88904",
-		"Inventory - Southwest Warehouse":100,
-		"Inventory - Northwest Warehouse":20,
-		"Inventory - Northeast Warehouse":20,
+		"ManufacturerPartNumber": "HM88904",
+		"Warehouse1": 100,
+		"Warehouse2": 20,
+		"Warehouse3": 20,
 		"Price": 54.00,
-		"Promo Price": 51.30,
+		"PromoPrice": 51.30,
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "6"
-			},
-			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
-				"Key": "warranty",
-				"Value": ""
 			},
 			{
 				"Key": "weight",
@@ -2458,39 +2435,38 @@
 				"Value": "9.4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "",
-		"Tax Category": "Normal Product"
+		"BackOrders": true,
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
+		"AvailabilityEstimate": "3-5 days",
+
+		"TaxCategory": "Normal Product"
 	},
 	{
-		"Name": "CV Axles",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Transmission"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN38796.png"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN55853",
-		"Manufacturer Part Number": "TT00024",
-		"Inventory - Southwest Warehouse":20,
-		"Inventory - Northwest Warehouse":100,
-		"Inventory - Northeast Warehouse":100,
+		"ManufacturerPartNumber": "TT00024",
+		"Name": "CV Axles",
 		"Price": 89.00,
-		"Promo Price": 84.55,
+		"PromoPrice": 84.55,
+		"Sku": "MIN55853",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
 			},
 			{
-				"Key": "material",
-				"Value": ""
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4"
 			},
 			{
 				"Key": "warranty",
@@ -2513,32 +2489,28 @@
 				"Value": "12"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2009 Audi A4",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 20,
+		"Warehouse2": 100,
+		"Warehouse3": 100
 	},
 	{
 		"Name": "Universal CV Boot",
-		"Category":[
+		"Category": [
 			"Transmission"
 		],
 		"Images": [
 			"MIN38797.jpeg",
 			"Minium_20.png"
 		],
-		"Attachment": "",
 		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
 		"Sku": "MIN55854",
-		"Manufacturer Part Number": "TT00025",
-		"Inventory - Southwest Warehouse":60,
-		"Inventory - Northwest Warehouse":20,
-		"Inventory - Northeast Warehouse":60,
+		"ManufacturerPartNumber": "TT00025",
+		"Warehouse1": 60,
+		"Warehouse2": 20,
+		"Warehouse3": 60,
 		"Price": 185.00,
-		"Promo Price": 175.75,
+		"PromoPrice": 175.75,
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
@@ -2547,10 +2519,6 @@
 			{
 				"Key": "material",
 				"Value": "Neoprene"
-			},
-			{
-				"Key": "warranty",
-				"Value": ""
 			},
 			{
 				"Key": "weight",
@@ -2569,41 +2537,36 @@
 				"Value": "4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "",
-		"Tax Category": "Normal Product"
+		"BackOrders": true,
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
+		"AvailabilityEstimate": "3-5 days",
+
+		"TaxCategory": "Normal Product"
 	},
 	{
-		"Name": "Drive Shafts",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Transmission"
 		],
-		"Images": [],
-		"Attachment": "",
 		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN55855",
-		"Manufacturer Part Number": "TT00026",
-		"Inventory - Southwest Warehouse":40,
-		"Inventory - Northwest Warehouse":60,
-		"Inventory - Northeast Warehouse":40,
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
+		"Images": [],
+		"ManufacturerPartNumber": "TT00026",
+		"Name": "Drive Shafts",
 		"Price": 396.00,
-		"Promo Price": 376.20,
+		"PromoPrice": 376.20,
+		"Sku": "MIN55855",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
-				"Key": "warranty",
-				"Value": ""
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4"
 			},
 			{
 				"Key": "weight",
@@ -2622,43 +2585,32 @@
 				"Value": "7"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2009 Audi A4",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 40,
+		"Warehouse2": 60,
+		"Warehouse3": 40
 	},
 	{
-		"Name": "Transmission Fluid",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Transmission"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"Minium_24.png"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN55856",
-		"Manufacturer Part Number": "TT00027",
-		"Inventory - Southwest Warehouse":20,
-		"Inventory - Northwest Warehouse":40,
-		"Inventory - Northeast Warehouse":40,
+		"ManufacturerPartNumber": "TT00027",
+		"Name": "Transmission Fluid",
 		"Price": 42.00,
-		"Promo Price": 39.90,
+		"PromoPrice": 39.90,
+		"Sku": "MIN55856",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "6"
-			},
-			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
-				"Key": "warranty",
-				"Value": ""
 			},
 			{
 				"Key": "weight",
@@ -2677,33 +2629,34 @@
 				"Value": "4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 20,
+		"Warehouse2": 40,
+		"Warehouse3": 40
 	},
 	{
-		"Name": "Mount",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Transmission"
 		],
-		"Images": [],
-		"Attachment": "",
 		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN55857",
-		"Manufacturer Part Number": "TT00028",
-		"Inventory - Southwest Warehouse":100,
-		"Inventory - Northwest Warehouse":20,
-		"Inventory - Northeast Warehouse":40,
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
+		"Images": [],
+		"ManufacturerPartNumber": "TT00028",
+		"Name": "Mount",
 		"Price": 3.00,
-		"Promo Price": 2.85,
+		"PromoPrice": 2.85,
+		"Sku": "MIN55857",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2009 Audi A4, 2015 Ford Expedition, 2011 GMC Sierra"
 			},
 			{
 				"Key": "material",
@@ -2730,41 +2683,34 @@
 				"Value": "10.2"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2009 Audi A4;2015 Ford Expedition; 2011 GMC Sierra",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 100,
+		"Warehouse2": 20,
+		"Warehouse3": 40
 	},
 	{
-		"Name": "Wheel Seal - Front",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Transmission"
 		],
-		"Images": [],
-		"Attachment": "",
 		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN55858",
-		"Manufacturer Part Number": "TT00029",
-		"Inventory - Southwest Warehouse":100,
-		"Inventory - Northwest Warehouse":100,
-		"Inventory - Northeast Warehouse":20,
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
+		"Images": [],
+		"ManufacturerPartNumber": "TT00029",
+		"Name": "Wheel Seal - Front",
 		"Price": 4.00,
-		"Promo Price": 3.80,
+		"PromoPrice": 3.80,
+		"Sku": "MIN55858",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
-				"Key": "warranty",
-				"Value": ""
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2009 Audi A4, 2010 Toyota Tundra, 2010 Dodge Charger"
 			},
 			{
 				"Key": "weight",
@@ -2783,33 +2729,34 @@
 				"Value": "9.4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2009 Audi A4;2010 Toyota Tundra; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 100,
+		"Warehouse2": 100,
+		"Warehouse3": 20
 	},
 	{
-		"Name": "Torque Converters",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Transmission"
 		],
-		"Images": [],
-		"Attachment": "",
 		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN55859",
-		"Manufacturer Part Number": "TT00030",
-		"Inventory - Southwest Warehouse":60,
-		"Inventory - Northwest Warehouse":100,
-		"Inventory - Northeast Warehouse":100,
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
+		"Images": [],
+		"ManufacturerPartNumber": "TT00030",
+		"Name": "Torque Converters",
 		"Price": 34.00,
-		"Promo Price": 32.30,
+		"PromoPrice": 32.30,
+		"Sku": "MIN55859",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2015 Ford Expedition, 2010 Dodge Charger"
 			},
 			{
 				"Key": "material",
@@ -2836,35 +2783,36 @@
 				"Value": "12"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2015 Ford Expedition; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 60,
+		"Warehouse2": 100,
+		"Warehouse3": 100
 	},
 	{
-		"Name": "Transmission Cooler Line Assembly",
-		"Category":[
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Category": [
 			"Transmission"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN55860.png"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN55860",
-		"Manufacturer Part Number": "TT00031",
-		"Inventory - Southwest Warehouse":20,
-		"Inventory - Northwest Warehouse":60,
-		"Inventory - Northeast Warehouse":60,
+		"ManufacturerPartNumber": "TT00031",
+		"Name": "Transmission Cooler Line Assembly",
 		"Price": 15.00,
-		"Promo Price": 14.25,
+		"PromoPrice": 14.25,
+		"Sku": "MIN55860",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2015 Ford Expedition, 2010 Dodge Charger"
 			},
 			{
 				"Key": "material",
@@ -2891,36 +2839,37 @@
 				"Value": "4"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "3-5 days",
-		"Fit": "2008 Audi A4;2015 Ford Expedition; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 20,
+		"Warehouse2": 60,
+		"Warehouse3": 60
 	},
 	{
-		"Name": "U-Joint",
-		"Category":[
+		"AvailabilityEstimate": "7-14 days",
+		"BackOrders": true,
+		"Category": [
 			"Transmission"
 		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
 		"Images": [
 			"MIN55861.jpg",
 			"Minium_31.png"
 		],
-		"Attachment": "",
-		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
-		"Sku": "MIN55861",
-		"Manufacturer Part Number": "TT00032",
-		"Inventory - Southwest Warehouse":60,
-		"Inventory - Northwest Warehouse":20,
-		"Inventory - Northeast Warehouse":40,
+		"ManufacturerPartNumber": "TT00032",
+		"Name": "U-Joint",
 		"Price": 24.00,
-		"Promo Price": 22.80,
+		"PromoPrice": 22.80,
+		"Sku": "MIN55861",
 		"SpecificationOptions": [
 			{
 				"Key": "quantity",
 				"Value": "1"
+			},
+			{
+				"Key": "fit",
+				"Value": "2008 Audi A4, 2015 Ford Expedition, 2010 Dodge Charger"
 			},
 			{
 				"Key": "material",
@@ -2947,12 +2896,9 @@
 				"Value": "7"
 			}
 		],
-		"Related Products": "",
-		"Allow Back Orders": true,
-		"Display Availability": true,
-		"Display Stock Quantity": true,
-		"Availability Estimate": "7-14 days",
-		"Fit": "2008 Audi A4;2015 Ford Expedition; 2010 Dodge Charger",
-		"Tax Category": "Normal Product"
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 60,
+		"Warehouse2": 20,
+		"Warehouse3": 40
 	}
 ]
