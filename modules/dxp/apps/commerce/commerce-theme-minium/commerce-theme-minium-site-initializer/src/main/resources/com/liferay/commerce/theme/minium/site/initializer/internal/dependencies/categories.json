@@ -1,14 +1,20 @@
 [
 	{
-		"Title": "Hubs"
+		"Title": "Brake System"
 	},
 	{
-		"Title": "Wheels"
+		"Title": "Engine"
 	},
 	{
-		"Title": "Spindles"
+		"Title": "Exhaust System"
 	},
 	{
-		"Title": "Casters"
+		"Title": "Suspension"
+	},
+	{
+		"Title": "Transmission"
+	},
+	{
+		"Title": "Turbocharger"
 	}
 ]
