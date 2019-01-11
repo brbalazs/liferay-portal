@@ -64,7 +64,6 @@ $micro-transition: ease 100ms;
 @import "./components/minium-tabs.scss";
 @import "./components/minium-toast.scss";
 @import "./components/minium-topbar.scss";
-@import "./components/modal.scss";
 @import "./components/notification-badge.scss";
 @import "./components/price.scss";
 @import "./components/product-card.scss";
@@ -75,6 +74,7 @@ $micro-transition: ease 100ms;
 @import "./components/small-table.scss";
 @import "./components/user-invitation.scss";
 @import "./components/user-nav.scss";
+@import "./components/commerce-modal.scss";
 @import "./overrides/input.scss";
 @import "./overrides/modal.scss";
 @import "./overrides/nav.scss";
@@ -94,7 +94,7 @@ $micro-transition: ease 100ms;
 	}
 
 	.modal-body {
-		padding: 20px;
+		padding: 30px;
 	}
 }
 

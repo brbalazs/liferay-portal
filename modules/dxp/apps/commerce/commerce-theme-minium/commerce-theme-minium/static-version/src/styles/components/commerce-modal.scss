@@ -1,0 +1,53 @@
+.commerce-modal {
+	&__header {
+		display: flex;
+		flex-shrink: 0;
+		margin-bottom: 30px;
+	}
+
+	&__close {
+		display: flex;
+		margin-left: auto;
+	}
+
+	&__title {
+		color: $color-fg;
+		flex-grow: 1;
+		font-weight: 100;
+		margin-bottom: 0;
+		font-size: 28px;
+	}
+	
+	&__content {
+		flex-grow: 1;
+	}
+
+	&__label {
+		display: block;
+		margin-bottom: 5px;
+		color: #9D9E9E;
+		font-size: 11px;
+		font-weight: normal;
+		text-transform: uppercase;
+		white-space: nowrap;
+		line-height: 1;
+		margin-left: 14px;
+		letter-spacing: 1px;
+	}
+
+	&__input {
+		border: 2px solid $color-shadow;
+		border-radius: 10px 14px;
+		color: $color-fg;
+		padding: 10px;
+		width: 100%;
+		margin-bottom: 15px;
+		outline: none;
+	}
+
+	&__actions {
+		margin-top: 20px;
+		display: flex;
+		justify-content: center;
+	}
+}

@@ -1,7 +1,7 @@
 .user-invitation {
 	display: flex;
 	flex-direction: column;
-	height: 525px;
+	height: 360px;
 
 	&__input {
 		flex-shrink: 0;
@@ -51,7 +51,7 @@
 		display: flex;
 		flex-wrap: wrap;
 		margin-bottom: -3px;
-		max-height: 90px;
+		max-height: 76px;
 		overflow: auto;
 	}
 
