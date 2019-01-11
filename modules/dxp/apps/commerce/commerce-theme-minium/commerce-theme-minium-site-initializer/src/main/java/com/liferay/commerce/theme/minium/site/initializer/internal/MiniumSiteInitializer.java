@@ -16,6 +16,8 @@ package com.liferay.commerce.theme.minium.site.initializer.internal;
 
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.initializer.util.CPDefinitionsImporter;
+import com.liferay.commerce.initializer.util.CPOptionCategoriesImporter;
+import com.liferay.commerce.initializer.util.CPSpecificationOptionsImporter;
 import com.liferay.commerce.initializer.util.CommerceWarehousesImporter;
 import com.liferay.commerce.initializer.util.PortletSettingsImporter;
 import com.liferay.commerce.model.CommerceWarehouse;
@@ -25,6 +27,7 @@ import com.liferay.commerce.product.constants.CPRuleConstants;
 import com.liferay.commerce.product.importer.CPFileImporter;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPRule;
+import com.liferay.commerce.product.service.CPDefinitionLinkLocalService;
 import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
 import com.liferay.commerce.product.service.CPRuleLocalService;
 import com.liferay.commerce.product.service.CPRuleUserSegmentRelLocalService;
@@ -73,7 +76,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -85,7 +90,9 @@ import javax.servlet.ServletContext;
 
 import org.osgi.service.cm.Configuration;
 import org.osgi.service.cm.ConfigurationAdmin;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 
 /**
@@ -133,6 +140,10 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		return _servletContext.getContextPath() + "/images/thumbnail.png";
 	}
 
+	public void init() {
+		_cpDefinitions = new HashMap<>();
+	}
+
 	@Override
 	public void initialize(long groupId) throws InitializationException {
 		try {
@@ -149,10 +160,17 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 			_miniumLayoutsInitializer.initialize(serviceContext);
 
+			_importCPOptionCategories(serviceContext);
+
+			_importCPSpecificationOptions(serviceContext);
+
 			List<CommerceWarehouse> commerceWarehouses =
 				_importCommerceWarehouses(serviceContext);
 
-			_importCPDefinitions(commerceWarehouses, serviceContext);
+			List<CPDefinition> cpDefinitions = _importCPDefinitions(
+				commerceWarehouses, serviceContext);
+
+			_importRelatedProducts(cpDefinitions, serviceContext);
 
 			createCPRule(serviceContext);
 
@@ -186,6 +204,11 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		}
 
 		return true;
+	}
+
+	@Activate
+	protected void activate() {
+		init();
 	}
 
 	protected void configureB2BSite(long groupId, ServiceContext serviceContext)
@@ -246,6 +269,15 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		createCommerceRoles(jsonArray);
 
 		updateUserRole(serviceContext);
+	}
+
+	@Deactivate
+	protected void deactivate() {
+		_cpDefinitions = null;
+	}
+
+	protected CPDefinition getCPDefinitionByName(String name) {
+		return _cpDefinitions.get(name);
 	}
 
 	protected ServiceContext getServiceContext(long groupId)
@@ -414,6 +446,19 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		return sb.toString();
 	}
 
+	private long[] _getCPDefinitionEntryIds(JSONArray jsonArray) {
+		List<Long> cpDefinitionIdsList = new ArrayList<>();
+
+		for (int i = 0; i < jsonArray.length(); i++) {
+			CPDefinition cpDefinitionEntry = getCPDefinitionByName(
+				jsonArray.getString(i));
+
+			cpDefinitionIdsList.add(cpDefinitionEntry.getCPDefinitionId());
+		}
+
+		return ArrayUtil.toLongArray(cpDefinitionIdsList);
+	}
+
 	private String _getJSON(String name) throws IOException {
 		return StringUtil.read(
 			MiniumSiteInitializer.class.getClassLoader(),
@@ -506,6 +551,42 @@ public class MiniumSiteInitializer implements SiteInitializer {
 			DEPENDENCIES_PATH + "images/", serviceContext);
 	}
 
+	private void _importCPOptionCategories(ServiceContext serviceContext)
+		throws Exception {
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Importing commerce product option categories...");
+		}
+
+		JSONArray jsonArray = _getJSONArray("option-categories.json");
+
+		_cpOptionCategoriesImporter.importCPOptionCategories(
+			jsonArray, serviceContext);
+
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				"Commerce product option categories successfully imported");
+		}
+	}
+
+	private void _importCPSpecificationOptions(ServiceContext serviceContext)
+		throws Exception {
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Importing commerce product specification options...");
+		}
+
+		JSONArray jsonArray = _getJSONArray("specification-options.json");
+
+		_cpSpecificationOptionsImporter.importCPSpecificationOptions(
+			jsonArray, serviceContext);
+
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				"Commerce product specification options successfully imported");
+		}
+	}
+
 	private void _importPortletSettings(ServiceContext serviceContext)
 		throws Exception {
 
@@ -521,6 +602,54 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Portlet settings successfully imported");
+		}
+	}
+
+	private void _importRelatedProducts(
+			JSONArray jsonArray, ServiceContext serviceContext)
+		throws Exception {
+
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject productJSONObject = jsonArray.getJSONObject(i);
+
+			String name = productJSONObject.getString("Name");
+
+			CPDefinition cpDefinition = getCPDefinitionByName(name);
+
+			JSONArray relatedProducts = productJSONObject.getJSONArray(
+				"RelatedProducts");
+
+			if (relatedProducts == null) {
+				continue;
+			}
+
+			_cpDefinitionLinkLocalService.updateCPDefinitionLinks(
+				cpDefinition.getCPDefinitionId(),
+				_getCPDefinitionEntryIds(relatedProducts), "related",
+				serviceContext);
+		}
+	}
+
+	private void _importRelatedProducts(
+			List<CPDefinition> cpDefinitions, ServiceContext serviceContext)
+		throws Exception {
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Importing related products...");
+		}
+
+		for (CPDefinition cpDefinition : cpDefinitions) {
+			_cpDefinitions.put(
+				cpDefinition.getName(serviceContext.getLanguageId()),
+				cpDefinition);
+		}
+
+		JSONArray jsonArray = _getJSONArray("products.json");
+
+		_importRelatedProducts(jsonArray, serviceContext);
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Related products successfully imported");
 		}
 	}
 
@@ -597,6 +726,11 @@ public class MiniumSiteInitializer implements SiteInitializer {
 	private ConfigurationAdmin _configurationAdmin;
 
 	@Reference
+	private CPDefinitionLinkLocalService _cpDefinitionLinkLocalService;
+
+	private Map<String, CPDefinition> _cpDefinitions;
+
+	@Reference
 	private CPDefinitionsImporter _cpDefinitionsImporter;
 
 	@Reference
@@ -604,6 +738,9 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 	@Reference
 	private CPMeasurementUnitLocalService _cpMeasurementUnitLocalService;
+
+	@Reference
+	private CPOptionCategoriesImporter _cpOptionCategoriesImporter;
 
 	@Reference
 	private CPRuleLocalService _cpRuleLocalService;
@@ -614,6 +751,9 @@ public class MiniumSiteInitializer implements SiteInitializer {
 	@Reference
 	private CPSpecificationOptionLocalService
 		_cpSpecificationOptionLocalService;
+
+	@Reference
+	private CPSpecificationOptionsImporter _cpSpecificationOptionsImporter;
 
 	@Reference
 	private GroupLocalService _groupLocalService;
