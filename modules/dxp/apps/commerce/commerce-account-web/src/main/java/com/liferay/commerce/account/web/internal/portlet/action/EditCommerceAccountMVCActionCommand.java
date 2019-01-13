@@ -21,8 +21,12 @@ import com.liferay.commerce.account.exception.NoSuchAccountException;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.document.library.kernel.service.DLAppLocalService;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.portlet.PortletProvider.Action;
+import com.liferay.portal.kernel.portlet.PortletProviderUtil;
+import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.repository.model.FileEntry;
@@ -37,6 +41,7 @@ import com.liferay.portal.kernel.util.StringUtil;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletURL;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -63,7 +68,13 @@ public class EditCommerceAccountMVCActionCommand extends BaseMVCActionCommand {
 
 		try {
 			if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
-				updateCommerceAccount(actionRequest);
+				CommerceAccount commerceAccount = updateCommerceAccount(
+					actionRequest);
+
+				String redirect = getSaveAndContinueRedirect(
+					actionRequest, commerceAccount);
+
+				sendRedirect(actionRequest, actionResponse, redirect);
 			}
 		}
 		catch (Throwable t) {
@@ -89,7 +100,28 @@ public class EditCommerceAccountMVCActionCommand extends BaseMVCActionCommand {
 		hideDefaultSuccessMessage(actionRequest);
 	}
 
-	protected void updateCommerceAccount(ActionRequest actionRequest)
+	protected String getSaveAndContinueRedirect(
+			ActionRequest actionRequest, CommerceAccount commerceAccount)
+		throws PortalException {
+
+		PortletURL managePortletURL = PortletProviderUtil.getPortletURL(
+			actionRequest, CommerceAccount.class.getName(), Action.MANAGE);
+
+		PortletURL portletURL = PortletProviderUtil.getPortletURL(
+			actionRequest, CommerceAccount.class.getName(), Action.VIEW);
+
+		portletURL.setParameter(
+			"commerceAccountId",
+			String.valueOf(commerceAccount.getCommerceAccountId()));
+
+		portletURL.setParameter(
+			PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL",
+			managePortletURL.toString());
+
+		return portletURL.toString();
+	}
+
+	protected CommerceAccount updateCommerceAccount(ActionRequest actionRequest)
 		throws Exception {
 
 		long commerceAccountId = ParamUtil.getLong(
@@ -125,12 +157,12 @@ public class EditCommerceAccountMVCActionCommand extends BaseMVCActionCommand {
 		if ((commerceAccountId > 0) &&
 			(commerceAccountId != parentCommerceAccountId)) {
 
-			_commerceAccountService.updateCommerceAccount(
+			return _commerceAccountService.updateCommerceAccount(
 				commerceAccountId, name, !deleteLogo, logoBytes, email, taxId,
 				active, serviceContext);
 		}
 		else {
-			_commerceAccountService.addCommerceAccount(
+			return _commerceAccountService.addCommerceAccount(
 				name, parentCommerceAccountId, email, taxId, active,
 				externalReferenceCode, userIds, emailAddresses, serviceContext);
 		}
