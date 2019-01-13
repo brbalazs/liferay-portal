@@ -20,6 +20,10 @@
 CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommerceAccount commerceAccount = commerceAccountDisplayContext.getCurrentCommerceAccount();
+
+String redirect = ParamUtil.getString(request, "redirect");
+
+String backURL = ParamUtil.getString(request, "backURL", redirect);
 %>
 
 <portlet:actionURL name="editCommerceAccount" var="editCommerceAccountActionURL" />
@@ -100,7 +104,7 @@ CommerceAccount commerceAccount = commerceAccountDisplayContext.getCurrentCommer
 	</section>
 
 	<div class="minium-frame__cta is-visible">
-		<button class="minium-button minium-button--big minium-button--outline">Cancel</button>
+		<aui:button cssClass="minium-button minium-button--big minium-button--outline" href="<%= backURL %>" value="cancel" />
 		<aui:button cssClass="minium-button minium-button--big" type="submit" />
 	</div>
 </aui:form>

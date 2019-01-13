@@ -30,7 +30,6 @@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 page import="com.liferay.commerce.account.model.CommerceAccount" %><%@
 page import="com.liferay.commerce.account.web.internal.display.context.CommerceAccountAddressesDisplayContext" %><%@
 page import="com.liferay.commerce.account.web.internal.display.context.CommerceAccountDisplayContext" %><%@
-page import="com.liferay.commerce.account.web.internal.display.context.CommerceAccountMembersDisplayContext" %><%@
 page import="com.liferay.commerce.account.web.internal.servlet.taglib.ui.CommerceAccountScreenNavigationConstants" %><%@
 page import="com.liferay.commerce.exception.CommerceAddressCityException" %><%@
 page import="com.liferay.commerce.exception.CommerceAddressCountryException" %><%@
@@ -43,6 +42,7 @@ page import="com.liferay.portal.kernel.exception.NoSuchUserException" %><%@
 page import="com.liferay.portal.kernel.exception.UserEmailAddressException" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.language.UnicodeLanguageUtil" %><%@
+page import="com.liferay.portal.kernel.portlet.PortletQName" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.UnicodeFormatter" %><%@

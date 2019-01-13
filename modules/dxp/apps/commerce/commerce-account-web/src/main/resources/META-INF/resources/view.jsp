@@ -20,10 +20,7 @@
 CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommerceAccount commerceAccount = commerceAccountDisplayContext.getCurrentCommerceAccount();
-String keywords = commerceAccountDisplayContext.getKeywords();
 PortletURL portletURL = commerceAccountDisplayContext.getPortletURL();
-
-String addButtonTitle = "add-account";
 %>
 
 <%@ include file="/accounts.jspf" %>

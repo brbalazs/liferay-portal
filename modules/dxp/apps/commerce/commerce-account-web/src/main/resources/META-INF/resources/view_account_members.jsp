@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-CommerceAccountMembersDisplayContext commerceAccountMembersDisplayContext = (CommerceAccountMembersDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 %>
 
 <commerce-ui:table
@@ -25,7 +25,7 @@ CommerceAccountMembersDisplayContext commerceAccountMembersDisplayContext = (Com
 	itemPerPage="<%= 5 %>"
 	namespace="<%= renderResponse.getNamespace() %>"
 	pageNumber="1"
-	portletURL="<%= commerceAccountMembersDisplayContext.getPortletURL() %>"
+	portletURL="<%= commerceAccountDisplayContext.getPortletURL() %>"
 	tableName="commerceAccountUsers"
 />
 
@@ -37,6 +37,15 @@ CommerceAccountMembersDisplayContext commerceAccountMembersDisplayContext = (Com
 	componentId="userInvitationModal"
 />
 
+<portlet:actionURL name="inviteUser" var="inviteUserActionURL" />
+
+<aui:form action="<%= inviteUserActionURL %>" method="post" name="inviteUserFm">
+	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.ASSIGN %>" />
+	<aui:input name="commerceAccountId" type="hidden" value="<%= commerceAccountDisplayContext.getCurrentCommerceAccountId() %>" />
+	<aui:input name="userIds" type="hidden" />
+	<aui:input name="emailAddresses" type="hidden" />
+</aui:form>
+
 <aui:script>
 
 	Liferay.provide(
@@ -47,5 +56,29 @@ CommerceAccountMembersDisplayContext commerceAccountMembersDisplayContext = (Com
 			userInvitationModal.open();
 		}
 	);
+
+	Liferay.componentReady('userInvitationModal').then(userInvitationModal => {
+		userInvitationModal.on('inviteUserToAccount', (users) => {
+
+			let existingUsersIds = users.filter(
+				el => el.userId
+			).map(usr =>
+				usr.userId
+			).join(',');
+
+			let newUsersEmails = users.filter(
+				el => !el.userId
+			).map(usr =>
+				usr.email
+			).join(',');
+
+			document.querySelector('#<portlet:namespace />userIds').value = existingUsersIds;
+			document.querySelector('#<portlet:namespace />emailAddresses').value = newUsersEmails;
+
+			userInvitationModal.close();
+
+			submitForm(document.<portlet:namespace />inviteUserFm);
+		});
+	});
 
 </aui:script>
