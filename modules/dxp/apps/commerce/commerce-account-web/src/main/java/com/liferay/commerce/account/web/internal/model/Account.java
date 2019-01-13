@@ -21,13 +21,14 @@ public class Account {
 
 	public Account(
 		long accountId, String name, String email, String address,
-		String thumbnail) {
+		String thumbnail, String href) {
 
 		_accountId = accountId;
 		_name = name;
 		_email = email;
 		_address = address;
 		_thumbnail = thumbnail;
+		_href = href;
 	}
 
 	public long getAccountId() {
@@ -42,6 +43,10 @@ public class Account {
 		return _email;
 	}
 
+	public String getHref() {
+		return _href;
+	}
+
 	public String getName() {
 		return _name;
 	}
@@ -53,6 +58,7 @@ public class Account {
 	private final long _accountId;
 	private final String _address;
 	private final String _email;
+	private final String _href;
 	private final String _name;
 	private final String _thumbnail;
 

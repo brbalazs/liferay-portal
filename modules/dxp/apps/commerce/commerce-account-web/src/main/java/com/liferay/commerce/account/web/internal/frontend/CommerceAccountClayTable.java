@@ -33,15 +33,15 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletProvider.Action;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
+import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.webserver.WebServerServletTokenUtil;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.portlet.PortletURL;
 
@@ -78,14 +78,11 @@ public class CommerceAccountClayTable
 
 		Account account = (Account)model;
 
-		PortletURL viewURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, Account.class.getName(), Action.VIEW);
-
-		viewURL.setParameter(
-			"commerceAccountId", String.valueOf(account.getAccountId()));
+		String viewURL = _getAccountViewDetailURL(
+			account.getAccountId(), httpServletRequest);
 
 		ClayTableAction clayTableAction = new ClayTableAction(
-			viewURL.toString(), StringPool.BLANK,
+			viewURL, StringPool.BLANK,
 			LanguageUtil.get(httpServletRequest, "view"), false, false);
 
 		clayTableActions.add(clayTableAction);
@@ -108,20 +105,10 @@ public class CommerceAccountClayTable
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		Map<String, Object> properties = new HashMap<>();
-
-		properties.put("cssClass", "marcoTest");
-
-		ClayTableSchemaField thumbnailField = clayTableSchemaBuilder.addField(
-			"thumbnail", "");
-
-		thumbnailField.setContentRenderer("image");
-		thumbnailField.setProperties(properties);
-
 		ClayTableSchemaField nameField = clayTableSchemaBuilder.addField(
 			"name", "name");
 
-		nameField.setContentRenderer("main");
+		nameField.setContentRenderer("imageName");
 
 		clayTableSchemaBuilder.addField("accountId", "id");
 		clayTableSchemaBuilder.addField("email", "contact");
@@ -175,7 +162,10 @@ public class CommerceAccountClayTable
 				new Account(
 					commerceAccount.getCommerceAccountId(),
 					commerceAccount.getName(), StringPool.BLANK,
-					StringPool.BLANK, thumbnailSB.toString()));
+					StringPool.BLANK, thumbnailSB.toString(),
+					_getAccountViewDetailURL(
+						commerceAccount.getCommerceAccountId(),
+						httpServletRequest)));
 		}
 
 		return accounts;
@@ -186,10 +176,30 @@ public class CommerceAccountClayTable
 		return true;
 	}
 
+	private String _getAccountViewDetailURL(
+			long commerceAccountId, HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		PortletURL viewURL = PortletProviderUtil.getPortletURL(
+			httpServletRequest, CommerceAccount.class.getName(), Action.VIEW);
+
+		viewURL.setParameter(
+			"commerceAccountId", String.valueOf(commerceAccountId));
+
+		viewURL.setParameter(
+			PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL",
+			_portal.getCurrentURL(httpServletRequest));
+
+		return viewURL.toString();
+	}
+
 	@Reference
 	private ClayTableSchemaBuilderFactory _clayTableSchemaBuilderFactory;
 
 	@Reference
 	private CommerceAccountService _commerceAccountService;
+
+	@Reference
+	private Portal _portal;
 
 }
