@@ -39,7 +39,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "model.class.name=com.liferay.commerce.account.web.internal.model.Account",
+	property = "model.class.name=com.liferay.commerce.account.model.CommerceAccount",
 	service = ViewPortletProvider.class
 )
 public class CommerceAccountViewPortletProvider
