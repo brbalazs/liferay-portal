@@ -13,19 +13,19 @@
 	{@param? description: string}
 	{@param settings: ? }
 
-	{let $availabilityDotClasses kind="text"}
-		d-inline-block minium-dot minium-dot--
-		{switch $availability}
-			{case 'inStock'}
-				good
-			{case 'available'}
-				neutral
-			{default}
-				bad
-		{/switch}
-	{/let}
-
 	<div class="product-card">
+		{let $availabilityDotClasses kind="text"}
+			d-inline-block minium-dot minium-dot--
+			{switch $availability}
+				{case 'inStock'}
+					good
+				{case 'available'}
+					neutral
+				{default}
+					bad
+			{/switch}
+		{/let}
+
 		{if isNonnull($pictureUrl)}
 			<div class="product-card__picture" style="background-image: url({$pictureUrl})"></div>
 		{/if}
