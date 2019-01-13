@@ -23,8 +23,7 @@ taglib uri="http://liferay.com/tld/commerce-ui" prefix="commerce-ui" %><%@
 taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %><%@
 taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %><%@
 taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
-taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %><%@
-taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
+taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
 <%@ page import="com.liferay.commerce.account.exception.NoSuchAccountException" %><%@
 page import="com.liferay.commerce.account.model.CommerceAccount" %><%@
@@ -41,11 +40,9 @@ page import="com.liferay.commerce.model.CommerceRegion" %><%@
 page import="com.liferay.portal.kernel.exception.NoSuchUserException" %><%@
 page import="com.liferay.portal.kernel.exception.UserEmailAddressException" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
-page import="com.liferay.portal.kernel.language.UnicodeLanguageUtil" %><%@
 page import="com.liferay.portal.kernel.portlet.PortletQName" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
-page import="com.liferay.portal.kernel.util.UnicodeFormatter" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %><%@
 page import="com.liferay.portal.kernel.webserver.WebServerServletTokenUtil" %><%@
 page import="com.liferay.users.admin.configuration.UserFileUploadsConfiguration" %>

@@ -84,16 +84,16 @@
 	&__cta {
 		bottom: 10px;
 		display: flex;
+		filter: drop-shadow($color-shadow);
 		justify-content: center;
+		left: $frame-size;
 		padding: 20px;
+		pointer-events: none;
 		position: fixed;
 		right: 0;
 		transition: transform ease 200ms;
 		transition: left ease 500ms;
 		z-index: 100;
-		left: $frame-size;
-		pointer-events: none;
-		filter: drop-shadow($color-shadow);
 
 		body.open & {
 			left: calc(320px + #{$frame-size});

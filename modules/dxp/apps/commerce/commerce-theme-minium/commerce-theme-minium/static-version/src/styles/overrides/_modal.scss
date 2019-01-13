@@ -23,22 +23,21 @@ body.open & {
 }
 
 .commerce-modal-wrapper {
-    .lexicon-icon {
-        height: 22px;
-        width: 24px;
+.lexicon-icon {
+	height: 22px;
+	width: 24px;
 
-        path {
-            fill: $color-fg-alt;
-        }
-    }
-    
+	path {
+	 fill: $color-fg-alt;
+	}
+}
 
-    .modal {
-        display: none;
-    }
+.modal {
+	display: none;
+}
 
-    .modal-dialog {
-        max-width: 540px;
-        position: relative;
-    }
+.modal-dialog {
+	max-width: 540px;
+	position: relative;
+}
 }

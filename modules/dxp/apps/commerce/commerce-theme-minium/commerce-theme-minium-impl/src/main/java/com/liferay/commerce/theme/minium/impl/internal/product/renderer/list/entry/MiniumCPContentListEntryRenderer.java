@@ -112,7 +112,6 @@ public class MiniumCPContentListEntryRenderer
 
 		Set<String> dependencies = new HashSet<>();
 
-
 		// System.out.println(_npmResolver.resolveModuleName(
 		// 	"commerce-frontend-taglib/add_to_cart/AddToCartButton.es"));
 
