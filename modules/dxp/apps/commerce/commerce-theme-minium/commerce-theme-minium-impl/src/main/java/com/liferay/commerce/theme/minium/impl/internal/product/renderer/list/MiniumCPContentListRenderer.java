@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -65,10 +66,16 @@ public class MiniumCPContentListRenderer implements CPContentListRenderer {
 		throws Exception {
 
 		_jspRenderer.renderJSP(
-			httpServletRequest, httpServletResponse, "/render/view.jsp");
+			_servletContext, httpServletRequest, httpServletResponse,
+			"/render/view.jsp");
 	}
 
 	@Reference
 	private JSPRenderer _jspRenderer;
+
+	@Reference(
+		target = "(osgi.web.symbolicname=com.liferay.commerce.theme.minium.impl)"
+	)
+	private ServletContext _servletContext;
 
 }
