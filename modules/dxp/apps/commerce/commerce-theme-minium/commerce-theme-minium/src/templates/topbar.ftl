@@ -1,6 +1,14 @@
 <div class="minium-frame__topbar">
 	<div class="minium-topbar">
 		<div class="minium-topbar__start">
+			<#if back_url?has_content>
+				<a class="minium-topbar__button" href="${back_url}">
+					<svg class="minium-icon">
+						<use href="${themeDisplay.getPathThemeImages()}/commerce-icons.svg#back" />
+					</svg>
+					${languageUtil.get(locale, "back")}
+				</a>
+			</#if>
 			<label class="minium-topbar__button (is-active) js-toggle-search" for="minium-search-input">
 				<svg class="minium-icon">
 					<use href="${themeDisplay.getPathThemeImages()}/commerce-icons.svg#search" />
