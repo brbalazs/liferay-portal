@@ -17,7 +17,7 @@ package com.liferay.commerce.account.web.internal.servlet.taglib.ui;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
-import com.liferay.commerce.account.web.internal.display.context.CommerceAccountMembersDisplayContext;
+import com.liferay.commerce.account.web.internal.display.context.CommerceAccountDisplayContext;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
@@ -87,15 +87,13 @@ public class CommerceAccountMembersScreenNavigationEntry
 			HttpServletResponse httpServletResponse)
 		throws IOException {
 
-		CommerceAccountMembersDisplayContext
-			commerceAccountMembersDisplayContext =
-				new CommerceAccountMembersDisplayContext(
-					_commerceAccountHelper, _commerceAccountService,
-					httpServletRequest, _portal);
+		CommerceAccountDisplayContext commerceAccountDisplayContext =
+			new CommerceAccountDisplayContext(
+				_commerceAccountHelper, _commerceAccountService,
+				httpServletRequest, _portal, null);
 
 		httpServletRequest.setAttribute(
-			WebKeys.PORTLET_DISPLAY_CONTEXT,
-			commerceAccountMembersDisplayContext);
+			WebKeys.PORTLET_DISPLAY_CONTEXT, commerceAccountDisplayContext);
 
 		_jspRenderer.renderJSP(
 			httpServletRequest, httpServletResponse,
