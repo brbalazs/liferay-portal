@@ -413,7 +413,8 @@ public class CommerceCloudClientImpl implements CommerceCloudClient {
 
 		jsonObject.put("createTime", Long.valueOf(createDate.getTime()));
 
-		jsonObject.put("customerId", Long.valueOf(commerceOrder.getClassPK()));
+		jsonObject.put(
+			"customerId", Long.valueOf(commerceOrder.getCommerceAccountId()));
 		jsonObject.put(
 			"orderId", Long.valueOf(commerceOrder.getCommerceOrderId()));
 
