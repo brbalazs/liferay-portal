@@ -25,10 +25,12 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -97,8 +99,11 @@ public abstract class BaseCommerceAccountDisplayContext {
 			return _keywords;
 		}
 
-		_keywords = ParamUtil.getString(
-			commerceAccountRequestHelper.getRequest(), "keywords", null);
+		HttpServletRequest httpServletRequest =
+			PortalUtil.getOriginalServletRequest(
+				commerceAccountRequestHelper.getRequest());
+
+		_keywords = ParamUtil.getString(httpServletRequest, "q", null);
 
 		if (_keywords == null) {
 			return StringPool.BLANK;
@@ -167,6 +172,20 @@ public abstract class BaseCommerceAccountDisplayContext {
 			commerceAccountRequestHelper.getLiferayPortletResponse();
 
 		PortletURL portletURL = liferayPortletResponse.createRenderURL();
+
+		HttpServletRequest httpServletRequest =
+			PortalUtil.getOriginalServletRequest(
+				commerceAccountRequestHelper.getRequest());
+
+		String backURL = ParamUtil.getString(
+			httpServletRequest,
+			PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL");
+
+		if (Validator.isNotNull(backURL)) {
+			portletURL.setParameter(
+				PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL",
+				backURL);
+		}
 
 		String redirect = ParamUtil.getString(
 			commerceAccountRequestHelper.getRequest(), "redirect");

@@ -45,6 +45,10 @@ public class AccountFilterFactoryImpl implements FilterFactory {
 
 		accountFilter.setAccountId(commerceAccountId);
 
+		String keywords = ParamUtil.getString(httpServletRequest, "q");
+
+		accountFilter.setKeywords(keywords);
+
 		return accountFilter;
 	}
 
