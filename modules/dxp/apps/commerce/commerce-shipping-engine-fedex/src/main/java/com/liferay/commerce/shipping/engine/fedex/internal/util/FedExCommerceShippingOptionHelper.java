@@ -132,7 +132,7 @@ public class FedExCommerceShippingOptionHelper {
 		_cpMeasurementUnitLocalService = cpMeasurementUnitLocalService;
 		_resourceBundle = resourceBundle;
 
-		long groupId = _commerceOrder.getSiteGroupId();
+		long groupId = _commerceOrder.getGroupId();
 
 		_commerceCurrency =
 			_commerceCurrencyLocalService.fetchPrimaryCommerceCurrency(groupId);
@@ -398,7 +398,7 @@ public class FedExCommerceShippingOptionHelper {
 
 		List<CommerceCurrency> commerceCurrencies =
 			_commerceCurrencyLocalService.getCommerceCurrencies(
-				_commerceOrder.getSiteGroupId(), true);
+				_commerceOrder.getGroupId(), true);
 
 		for (CommerceCurrency commerceCurrency : commerceCurrencies) {
 			if (StringUtil.equalsIgnoreCase(code, commerceCurrency.getCode())) {
@@ -444,7 +444,7 @@ public class FedExCommerceShippingOptionHelper {
 
 		List<CPMeasurementUnit> cpMeasurementUnits =
 			_cpMeasurementUnitLocalService.getCPMeasurementUnits(
-				_commerceOrder.getSiteGroupId(), keys, type);
+				_commerceOrder.getGroupId(), keys, type);
 
 		if (cpMeasurementUnits.isEmpty()) {
 			throw new CommerceShippingEngineException.MustSetMeasurementUnit(
