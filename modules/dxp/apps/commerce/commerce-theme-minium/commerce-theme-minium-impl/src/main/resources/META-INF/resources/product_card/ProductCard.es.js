@@ -31,7 +31,15 @@ ProductCard.STATE = {
 	description: Config.string(),
 	spritemap: Config.string(),
 	detailsLink: Config.string(),
-	minQuantity: Config.number()
+	minQuantity: Config.number(),
+	settings: Config.shapeOf(
+		{
+			allowedOptions: Config.array(Config.number()),
+			maxQuantity: Config.number(),
+			minQuantity: Config.number(),
+			multipleQuantities: Config.number()
+		}
+	).value({})
 };
 
 export {ProductCard};

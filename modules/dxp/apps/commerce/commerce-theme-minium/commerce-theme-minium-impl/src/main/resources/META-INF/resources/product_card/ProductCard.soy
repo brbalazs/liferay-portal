@@ -11,6 +11,7 @@
 		name: string
 	]>}
 	{@param? description: string}
+	{@param settings: ? }
 
 	{let $availabilityDotClasses kind="text"}
 		d-inline-block minium-dot minium-dot--
@@ -54,7 +55,7 @@
 			{call AddToCartButton.render}
 				{param quantity: 1 /}
 				{param editMode: false /}
-				{param settings: [] /}
+				{param settings: $settings /}
 				{param productId: '234' /}
 			{/call}
 		</div>
