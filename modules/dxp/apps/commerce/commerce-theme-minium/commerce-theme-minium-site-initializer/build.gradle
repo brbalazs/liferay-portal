@@ -8,7 +8,7 @@ dependencies {
 	compileOnly group: "com.liferay", name: "com.liferay.portal.instance.lifecycle", version: "1.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.portlet.display.template", version: "2.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.site.api", version: "3.0.0"
-	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.api", version: "4.0.0-20190112.183252-4"
+	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.api", version: "4.0.0-20190113.200019-5"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.cart.taglib", version: "1.0.0"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.currency.api", version: "1.0.0"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.initializer.util", version: "1.0.0"
