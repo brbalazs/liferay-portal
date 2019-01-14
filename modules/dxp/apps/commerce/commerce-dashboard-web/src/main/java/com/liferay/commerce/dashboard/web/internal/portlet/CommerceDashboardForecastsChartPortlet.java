@@ -14,11 +14,11 @@
 
 package com.liferay.commerce.dashboard.web.internal.portlet;
 
+import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.dashboard.web.internal.constants.CommerceDashboardPortletKeys;
 import com.liferay.commerce.dashboard.web.internal.display.context.CommerceDashboardForecastsChartDisplayContext;
 import com.liferay.commerce.forecast.service.CommerceForecastEntryLocalService;
 import com.liferay.commerce.forecast.service.CommerceForecastValueLocalService;
-import com.liferay.commerce.organization.service.CommerceOrganizationService;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
@@ -73,7 +73,7 @@ public class CommerceDashboardForecastsChartPortlet extends MVCPortlet {
 					new CommerceDashboardForecastsChartDisplayContext(
 						_commerceForecastEntryLocalService,
 						_commerceForecastValueLocalService,
-						_commerceOrganizationService, _companyService,
+						_commerceAccountService, _companyService,
 						_configurationProvider, _cpInstanceService,
 						renderRequest);
 
@@ -97,15 +97,15 @@ public class CommerceDashboardForecastsChartPortlet extends MVCPortlet {
 		_commerceForecastValueLocalService;
 
 	@Reference
-	private CommerceOrganizationService _commerceOrganizationService;
-
-	@Reference
 	private CompanyService _companyService;
 
 	@Reference
-	private ConfigurationProvider _configurationProvider;
+	private ConfigurationProvider _configurationProvider;CommerceAccountHelperImpl.java
 
 	@Reference
 	private CPInstanceService _cpInstanceService;
+
+	@Reference
+	private CommerceAccountService _commerceAccountService;
 
 }

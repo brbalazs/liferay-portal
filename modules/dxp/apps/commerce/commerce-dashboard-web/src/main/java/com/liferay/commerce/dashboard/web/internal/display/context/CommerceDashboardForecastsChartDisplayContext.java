@@ -14,6 +14,8 @@
 
 package com.liferay.commerce.dashboard.web.internal.display.context;
 
+import com.liferay.commerce.account.model.CommerceAccount;
+import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.dashboard.web.internal.configuration.CommerceDashboardForecastsChartPortletInstanceConfiguration;
@@ -23,7 +25,6 @@ import com.liferay.commerce.forecast.model.CommerceForecastEntryConstants;
 import com.liferay.commerce.forecast.model.CommerceForecastValue;
 import com.liferay.commerce.forecast.service.CommerceForecastEntryLocalService;
 import com.liferay.commerce.forecast.service.CommerceForecastValueLocalService;
-import com.liferay.commerce.organization.service.CommerceOrganizationService;
 import com.liferay.commerce.product.exception.NoSuchCPInstanceException;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.frontend.taglib.chart.model.AxisY;
@@ -35,7 +36,6 @@ import com.liferay.portal.kernel.exception.NoSuchCompanyException;
 import com.liferay.portal.kernel.exception.NoSuchOrganizationException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Company;
-import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.CompanyService;
@@ -75,7 +75,7 @@ public class CommerceDashboardForecastsChartDisplayContext
 	public CommerceDashboardForecastsChartDisplayContext(
 			CommerceForecastEntryLocalService commerceForecastEntryLocalService,
 			CommerceForecastValueLocalService commerceForecastValueLocalService,
-			CommerceOrganizationService commerceOrganizationService,
+			CommerceAccountService commerceAccountService,
 			CompanyService companyService,
 			ConfigurationProvider configurationProvider,
 			CPInstanceService cpInstanceService, RenderRequest renderRequest)
@@ -85,7 +85,7 @@ public class CommerceDashboardForecastsChartDisplayContext
 
 		_commerceForecastEntryLocalService = commerceForecastEntryLocalService;
 		_commerceForecastValueLocalService = commerceForecastValueLocalService;
-		_commerceOrganizationService = commerceOrganizationService;
+		_commerceAccountService = commerceAccountService;
 		_companyService = companyService;
 		_cpInstanceService = cpInstanceService;
 
@@ -444,7 +444,7 @@ public class CommerceDashboardForecastsChartDisplayContext
 		_commerceForecastEntryLocalService;
 	private final CommerceForecastValueLocalService
 		_commerceForecastValueLocalService;
-	private final CommerceOrganizationService _commerceOrganizationService;
+	private final CommerceAccountService _commerceAccountService;
 	private final CompanyService _companyService;
 	private final CPInstanceService _cpInstanceService;
 
@@ -486,11 +486,11 @@ public class CommerceDashboardForecastsChartDisplayContext
 
 			if (customerId > 0) {
 				try {
-					Organization organization =
-						_commerceOrganizationService.getOrganization(
+					CommerceAccount commerceAccount =
+						_commerceAccountService.getCommerceAccount(
 							customerId);
 
-					return organization.getName();
+					return commerceAccount.getName();
 				}
 				catch (NoSuchOrganizationException nsoe) {
 					return String.valueOf(customerId);

@@ -11,7 +11,7 @@ dependencies {
 	compileOnly group: "com.liferay", name: "com.liferay.portal.configuration.metatype.api", version: "1.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.users.admin.api", version: "3.0.0"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.account.api", version: "1.0.0-20190113.194658-4"
-	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.api", version: "4.0.0-20190113.214944-7"
+	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.api", version: "4.0.0-20190114.041917-8"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.frontend.api", version: "1.0.0-20190108.143315-6"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.frontend.taglib", version: "1.0.0-20190113.201119-5"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.user.api", version: "1.0.0"

@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.dashboard.web.internal.display.context;
 
+import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.dashboard.web.internal.configuration.CommerceDashboardCompanyConfiguration;
 import com.liferay.commerce.dashboard.web.internal.display.context.util.CommerceDashboardRequestHelper;
@@ -53,14 +54,9 @@ public class CommerceDashboardDisplayContext {
 			CommerceContext commerceContext =
 				commerceDashboardRequestHelper.getCommerceContext();
 
-			Organization organization = commerceContext.getOrganization();
+			CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
 
-			if (organization != null) {
-				_customerId = organization.getOrganizationId();
-			}
-			else {
-				_customerId = commerceDashboardRequestHelper.getUserId();
-			}
+			_customerId = commerceAccount.getCommerceAccountId();
 		}
 
 		Calendar calendar = CalendarFactoryUtil.getCalendar(

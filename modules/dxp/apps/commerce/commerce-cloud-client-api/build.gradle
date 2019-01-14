@@ -2,7 +2,7 @@ dependencies {
 	compileOnly group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.1.0"
 	compileOnly group: "com.liferay", name: "com.liferay.petra.string", version: "2.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.portal.configuration.metatype.api", version: "1.0.0"
-	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.api", version: "4.0.0-20190113.214944-7"
+	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.api", version: "4.0.0-20190114.041917-8"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.forecast.api", version: "1.0.0"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "3.5.0"
 	compileOnly group: "org.osgi", name: "org.osgi.core", version: "5.0.0"

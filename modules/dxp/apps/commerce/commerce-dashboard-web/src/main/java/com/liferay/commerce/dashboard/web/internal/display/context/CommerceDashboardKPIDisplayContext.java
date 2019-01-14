@@ -190,7 +190,7 @@ public class CommerceDashboardKPIDisplayContext
 			RestrictionsFactoryUtil.between(
 				"createDate", _startDate, _endDate));
 		dynamicQuery.add(
-			RestrictionsFactoryUtil.eq("orderOrganizationId", getCustomerId()));
+			RestrictionsFactoryUtil.eq("commerceAccountId", getCustomerId()));
 		dynamicQuery.add(
 			RestrictionsFactoryUtil.eq("orderStatus", _ORDER_STATUS));
 		dynamicQuery.add(

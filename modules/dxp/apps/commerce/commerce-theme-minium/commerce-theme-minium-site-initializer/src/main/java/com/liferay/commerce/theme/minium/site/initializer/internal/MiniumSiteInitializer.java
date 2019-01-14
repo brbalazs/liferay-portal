@@ -21,8 +21,6 @@ import com.liferay.commerce.initializer.util.CPSpecificationOptionsImporter;
 import com.liferay.commerce.initializer.util.CommerceWarehousesImporter;
 import com.liferay.commerce.initializer.util.PortletSettingsImporter;
 import com.liferay.commerce.model.CommerceWarehouse;
-import com.liferay.commerce.organization.constants.CommerceOrganizationConstants;
-import com.liferay.commerce.organization.service.CommerceOrganizationLocalService;
 import com.liferay.commerce.product.constants.CPRuleConstants;
 import com.liferay.commerce.product.importer.CPFileImporter;
 import com.liferay.commerce.product.model.CPDefinition;
@@ -46,8 +44,6 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
-import com.liferay.portal.kernel.model.ListTypeConstants;
-import com.liferay.portal.kernel.model.OrganizationConstants;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.Theme;
@@ -214,16 +210,14 @@ public class MiniumSiteInitializer implements SiteInitializer {
 	protected void configureB2BSite(long groupId, ServiceContext serviceContext)
 		throws Exception {
 
-		updateOrganizationTypes();
-
-		_commerceOrganizationLocalService.configureB2BSite(
-			groupId, serviceContext);
-
 		Group group = _groupLocalService.getGroup(groupId);
 
-		_addDemoAccountOrganizations(
-			group.getOrganizationId(), group.getNameCurrentValue(),
-			ACCOUNT_ORGANIZATIONS_COUNT, serviceContext);
+		group.setType(GroupConstants.TYPE_SITE_PRIVATE);
+		group.setManualMembership(false);
+		group.setMembershipRestriction(
+			GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION);
+
+		_groupLocalService.updateGroup(group);
 
 		_commerceCountryLocalService.importDefaultCountries(serviceContext);
 		_commerceCurrencyLocalService.importDefaultValues(serviceContext);
@@ -331,15 +325,6 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		_cpFileImporter.updateLogo(file, true, true, serviceContext);
 	}
 
-	protected void updateOrganizationTypes() throws Exception {
-		Configuration[] configurations = _configurationAdmin.listConfigurations(
-			_getConfigurationFilter(_ORGANIZATION_TYPE_CONFIGURATION_PID));
-
-		for (String organizationType : _ORGANIZATION_TYPES) {
-			_updateOrganizationType(configurations, organizationType);
-		}
-	}
-
 	protected void updateThemeSetting(
 		String key, String value, ServiceContext serviceContext) {
 
@@ -369,26 +354,6 @@ public class MiniumSiteInitializer implements SiteInitializer {
 			ResourceConstants.SCOPE_GROUP_TEMPLATE,
 			String.valueOf(GroupConstants.DEFAULT_PARENT_GROUP_ID),
 			role.getRoleId(), "VIEW_PRICE");
-	}
-
-	private void _addDemoAccountOrganizations(
-			long organizationId, String groupName, int quantity,
-			ServiceContext serviceContext)
-		throws Exception {
-
-		int i = 1;
-
-		while (i <= quantity) {
-			String name = "Demo Account " + groupName + StringPool.SPACE + i;
-
-			_organizationLocalService.addOrganization(
-				serviceContext.getUserId(), organizationId, name,
-				CommerceOrganizationConstants.TYPE_ACCOUNT, 0L, 0L,
-				ListTypeConstants.ORGANIZATION_STATUS_DEFAULT, StringPool.BLANK,
-				false, serviceContext);
-
-			i++;
-		}
 	}
 
 	private void _createCommerceRole(String name) throws Exception {
@@ -421,17 +386,6 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		properties.put("roleName", name);
 
 		configuration.update(properties);
-	}
-
-	private void _createOrganizationType(String organizationType)
-		throws Exception {
-
-		Configuration configuration =
-			_configurationAdmin.createFactoryConfiguration(
-				_ORGANIZATION_TYPE_CONFIGURATION_PID, StringPool.QUESTION);
-
-		configuration.update(
-			_getOrganizationTypeProperties(configuration, organizationType));
 	}
 
 	private String _getConfigurationFilter(String configurationPid) {
@@ -475,53 +429,6 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		String json = _getJSON(name);
 
 		return _jsonFactory.createJSONObject(json);
-	}
-
-	private String[] _getOrganizationTypeChildrenTypes(
-		String organizationType) {
-
-		if (organizationType.equals(OrganizationConstants.TYPE_ORGANIZATION)) {
-			return new String[] {
-				OrganizationConstants.TYPE_ORGANIZATION,
-				CommerceOrganizationConstants.TYPE_ACCOUNT
-			};
-		}
-		else if (organizationType.equals(
-					CommerceOrganizationConstants.TYPE_ACCOUNT)) {
-
-			return new String[] {
-				OrganizationConstants.TYPE_ORGANIZATION,
-				CommerceOrganizationConstants.TYPE_BRANCH
-			};
-		}
-
-		return new String[0];
-	}
-
-	private Dictionary<String, Object> _getOrganizationTypeProperties(
-		Configuration configuration, String organizationType) {
-
-		Dictionary<String, Object> properties = configuration.getProperties();
-
-		if (properties == null) {
-			properties = new Hashtable<>();
-		}
-
-		boolean rootable = false;
-
-		if (organizationType.equals(OrganizationConstants.TYPE_ORGANIZATION)) {
-			rootable = true;
-		}
-
-		properties.put(
-			"childrenTypes",
-			_getOrganizationTypeChildrenTypes(organizationType));
-		properties.put("countryEnabled", false);
-		properties.put("countryRequired", false);
-		properties.put("name", organizationType);
-		properties.put("rootable", rootable);
-
-		return properties;
 	}
 
 	private List<CommerceWarehouse> _importCommerceWarehouses(
@@ -663,30 +570,6 @@ public class MiniumSiteInitializer implements SiteInitializer {
 			DEPENDENCIES_PATH + "display_templates/", serviceContext);
 	}
 
-	private void _updateOrganizationType(
-			Configuration[] configurations, String organizationType)
-		throws Exception {
-
-		if (configurations != null) {
-			for (Configuration configuration : configurations) {
-				Dictionary<String, Object> properties =
-					configuration.getProperties();
-
-				String name = (String)properties.get("name");
-
-				if (organizationType.equals(name)) {
-					configuration.update(
-						_getOrganizationTypeProperties(
-							configuration, organizationType));
-
-					return;
-				}
-			}
-		}
-
-		_createOrganizationType(organizationType);
-	}
-
 	private static final String _COMMERCE_ROLE_CONFIGURATION_PID =
 		"com.liferay.commerce.user.web.internal.configuration." +
 			"CommerceRoleGroupServiceConfiguration";
@@ -699,10 +582,6 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		"com.liferay.organizations.service.internal.configuration." +
 			"OrganizationTypeConfiguration";
 
-	private static final String[] _ORGANIZATION_TYPES = ArrayUtil.append(
-		new String[] {OrganizationConstants.TYPE_ORGANIZATION},
-		CommerceOrganizationConstants.TYPES);
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		MiniumSiteInitializer.class);
 
@@ -711,9 +590,6 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 	@Reference
 	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
-
-	@Reference
-	private CommerceOrganizationLocalService _commerceOrganizationLocalService;
 
 	@Reference
 	private CommerceUserSegmentEntryLocalService
