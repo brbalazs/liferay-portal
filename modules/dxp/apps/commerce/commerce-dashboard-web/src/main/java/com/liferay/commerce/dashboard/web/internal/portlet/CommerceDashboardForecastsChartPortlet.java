@@ -100,7 +100,7 @@ public class CommerceDashboardForecastsChartPortlet extends MVCPortlet {
 	private CompanyService _companyService;
 
 	@Reference
-	private ConfigurationProvider _configurationProvider;CommerceAccountHelperImpl.java
+	private ConfigurationProvider _configurationProvider;
 
 	@Reference
 	private CPInstanceService _cpInstanceService;
