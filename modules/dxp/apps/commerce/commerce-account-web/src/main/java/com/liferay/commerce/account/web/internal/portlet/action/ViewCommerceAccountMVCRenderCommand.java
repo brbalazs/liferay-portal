@@ -18,9 +18,6 @@ import com.liferay.commerce.account.constants.CommerceAccountPortletKeys;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.account.web.internal.display.context.CommerceAccountDisplayContext;
-import com.liferay.commerce.service.CommerceAddressService;
-import com.liferay.commerce.service.CommerceCountryService;
-import com.liferay.commerce.service.CommerceRegionService;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -71,15 +68,6 @@ public class ViewCommerceAccountMVCRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private CommerceAccountService _commerceAccountService;
-
-	@Reference
-	private CommerceAddressService _commerceAddressService;
-
-	@Reference
-	private CommerceCountryService _commerceCountryService;
-
-	@Reference
-	private CommerceRegionService _commerceRegionService;
 
 	@Reference
 	private Portal _portal;

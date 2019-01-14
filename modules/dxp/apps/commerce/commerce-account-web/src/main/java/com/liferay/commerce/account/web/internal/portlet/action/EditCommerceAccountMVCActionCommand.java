@@ -22,8 +22,6 @@ import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.portlet.PortletQName;
@@ -77,23 +75,23 @@ public class EditCommerceAccountMVCActionCommand extends BaseMVCActionCommand {
 				sendRedirect(actionRequest, actionResponse, redirect);
 			}
 		}
-		catch (Throwable t) {
-			if (t instanceof NoSuchAccountException ||
-				t instanceof PrincipalException) {
+		catch (Exception e) {
+			if (e instanceof NoSuchAccountException ||
+				e instanceof PrincipalException) {
 
-				SessionErrors.add(actionRequest, t.getClass());
+				SessionErrors.add(actionRequest, e.getClass());
 
 				actionResponse.setRenderParameter("mvcPath", "/error.jsp");
 			}
-			else if (t instanceof CommerceAccountNameException ||
-					 t instanceof DuplicateCommerceAccountException) {
+			else if (e instanceof CommerceAccountNameException ||
+					 e instanceof DuplicateCommerceAccountException) {
 
 				hideDefaultErrorMessage(actionRequest);
 
-				SessionErrors.add(actionRequest, t.getClass());
+				SessionErrors.add(actionRequest, e.getClass());
 			}
 			else {
-				_log.error(t, t);
+				throw e;
 			}
 		}
 
@@ -168,9 +166,6 @@ public class EditCommerceAccountMVCActionCommand extends BaseMVCActionCommand {
 			name, parentCommerceAccountId, email, taxId, active,
 			externalReferenceCode, userIds, emailAddresses, serviceContext);
 	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		EditCommerceAccountMVCActionCommand.class);
 
 	@Reference
 	private CommerceAccountService _commerceAccountService;

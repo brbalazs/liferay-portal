@@ -61,8 +61,8 @@ import org.osgi.service.component.annotations.Reference;
 		"commerce.table.name=" + CommerceAccountAddressClayTable.NAME
 	},
 	service = {
-		ClayTable.class, ClayTableActionProvider.class,
-		CommerceDataSetDataProvider.class
+		CommerceDataSetDataProvider.class, ClayTable.class,
+		ClayTableActionProvider.class
 	}
 )
 public class CommerceAccountAddressClayTable
