@@ -89,6 +89,9 @@ public class CommerceDashboardForecastsChartPortlet extends MVCPortlet {
 	}
 
 	@Reference
+	private CommerceAccountService _commerceAccountService;
+
+	@Reference
 	private CommerceForecastEntryLocalService
 		_commerceForecastEntryLocalService;
 
@@ -104,8 +107,5 @@ public class CommerceDashboardForecastsChartPortlet extends MVCPortlet {
 
 	@Reference
 	private CPInstanceService _cpInstanceService;
-
-	@Reference
-	private CommerceAccountService _commerceAccountService;
 
 }

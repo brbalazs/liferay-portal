@@ -265,7 +265,9 @@
 		"Name": "Brake Pads",
 		"Price": 21.00,
 		"PromoPrice": 18.90,
-		"RelatedProducts": ["Wear Sensors"],
+		"RelatedProducts": [
+			"Wear Sensors"
+		],
 		"Sku": "MIN93018",
 		"SpecificationOptions": [
 			{
@@ -324,7 +326,9 @@
 		"Name": "Premium Brake Pads",
 		"Price": 29.00,
 		"PromoPrice": 26.10,
-		"RelatedProducts": ["Wear Sensors"],
+		"RelatedProducts": [
+			"Wear Sensors"
+		],
 		"Sku": "MIN93019",
 		"SpecificationOptions": [
 			{
@@ -719,7 +723,9 @@
 		"Name": "Master Cylinder",
 		"Price": 78.00,
 		"PromoPrice": 70.20,
-		"RelatedProducts": ["Wear Sensors"],
+		"RelatedProducts": [
+			"Wear Sensors"
+		],
 		"Sku": "MIN93024",
 		"SpecificationOptions": [
 			{
@@ -778,7 +784,9 @@
 		"Name": "Master Cylinder",
 		"Price": 34.00,
 		"PromoPrice": 30.60,
-		"RelatedProducts": ["Wear Sensors"],
+		"RelatedProducts": [
+			"Wear Sensors"
+		],
 		"Sku": "MIN93025",
 		"SpecificationOptions": [
 			{
@@ -837,7 +845,9 @@
 		"Name": "Master Cylinder",
 		"Price": 39.00,
 		"PromoPrice": 35.10,
-		"RelatedProducts": ["Wear Sensors"],
+		"RelatedProducts": [
+			"Wear Sensors"
+		],
 		"Sku": "MIN93026",
 		"SpecificationOptions": [
 			{
@@ -895,7 +905,10 @@
 		"Name": "Wear Sensors",
 		"Price": 60.00,
 		"PromoPrice": 54.00,
-		"RelatedProducts": ["Brake Pads", "Premium Brake Pads"],
+		"RelatedProducts": [
+			"Brake Pads",
+			"Premium Brake Pads"
+		],
 		"Sku": "MIN93027",
 		"SpecificationOptions": [
 			{

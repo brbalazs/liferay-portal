@@ -71,28 +71,40 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 		}
 	);
 
-	Liferay.componentReady('userInvitationModal').then(userInvitationModal => {
-		userInvitationModal.on('inviteUserToAccount', (users) => {
+	Liferay.componentReady('userInvitationModal').then(
+		function(userInvitationModal) {
+			userInvitationModal.on(
+				'inviteUserToAccount',
+				function(users) {
+					let existingUsersIds = users.filter(
+						function(el) {
+							el.userId
+						}
+					).map(
+						function(usr) {
+							usr.userId
+						}
+					).join(',');
 
-			let existingUsersIds = users.filter(
-				el => el.userId
-			).map(usr =>
-				usr.userId
-			).join(',');
+					let newUsersEmails = users.filter(
+						function(el) {
+							!el.userId
+						}
+					).map(
+						function(usr) {
+							usr.email
+						}
+					).join(',');
 
-			let newUsersEmails = users.filter(
-				el => !el.userId
-			).map(usr =>
-				usr.email
-			).join(',');
+					document.querySelector('#<portlet:namespace />userIds').value = existingUsersIds;
+					document.querySelector('#<portlet:namespace />emailAddresses').value = newUsersEmails;
 
-			document.querySelector('#<portlet:namespace />userIds').value = existingUsersIds;
-			document.querySelector('#<portlet:namespace />emailAddresses').value = newUsersEmails;
+					userInvitationModal.close();
 
-			userInvitationModal.close();
-
-			submitForm(document.<portlet:namespace />inviteUserFm);
-		});
-	});
+					submitForm(document.<portlet:namespace />inviteUserFm);
+				}
+			);
+		}
+	);
 
 </aui:script>

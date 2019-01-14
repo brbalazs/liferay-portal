@@ -94,7 +94,7 @@ String backURL = ParamUtil.getString(request, "backURL", redirect);
 			</div>
 
 			<div class="col-lg-4">
-				<aui:input inlineLabel="true" name="zipCode" type="text" />
+				<aui:input inlineLabel="true" label="zip" name="zipCode" type="text" />
 			</div>
 
 			<div class="col-lg-4">

@@ -578,10 +578,6 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 	private static final String _MINIUM_THEME_ID = "minium_WAR_miniumtheme";
 
-	private static final String _ORGANIZATION_TYPE_CONFIGURATION_PID =
-		"com.liferay.organizations.service.internal.configuration." +
-			"OrganizationTypeConfiguration";
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		MiniumSiteInitializer.class);
 

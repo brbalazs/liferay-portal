@@ -24,7 +24,7 @@ import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.portlet.PortletProvider.Action;
+import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -105,10 +105,12 @@ public class EditCommerceAccountMVCActionCommand extends BaseMVCActionCommand {
 		throws PortalException {
 
 		PortletURL managePortletURL = PortletProviderUtil.getPortletURL(
-			actionRequest, CommerceAccount.class.getName(), Action.MANAGE);
+			actionRequest, CommerceAccount.class.getName(),
+			PortletProvider.Action.MANAGE);
 
 		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			actionRequest, CommerceAccount.class.getName(), Action.VIEW);
+			actionRequest, CommerceAccount.class.getName(),
+			PortletProvider.Action.VIEW);
 
 		portletURL.setParameter(
 			"commerceAccountId",
@@ -130,7 +132,6 @@ public class EditCommerceAccountMVCActionCommand extends BaseMVCActionCommand {
 		String name = ParamUtil.getString(actionRequest, "name");
 		long parentCommerceAccountId = ParamUtil.getLong(
 			actionRequest, "parentCommerceAccountId");
-		boolean deleteLogo = ParamUtil.getBoolean(actionRequest, "deleteLogo");
 		String email = ParamUtil.getString(actionRequest, "email");
 		String taxId = ParamUtil.getString(actionRequest, "taxId");
 		boolean active = ParamUtil.getBoolean(actionRequest, "active");
@@ -160,11 +161,10 @@ public class EditCommerceAccountMVCActionCommand extends BaseMVCActionCommand {
 			return _commerceAccountService.updateCommerceAccount(
 				commerceAccountId, name, email, taxId, active, serviceContext);
 		}
-		else {
-			return _commerceAccountService.addBusinessCommerceAccount(
-				name, parentCommerceAccountId, email, taxId, active,
-				externalReferenceCode, userIds, emailAddresses, serviceContext);
-		}
+
+		return _commerceAccountService.addBusinessCommerceAccount(
+			name, parentCommerceAccountId, email, taxId, active,
+			externalReferenceCode, userIds, emailAddresses, serviceContext);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

@@ -31,7 +31,7 @@ import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.portlet.PortletProvider.Action;
+import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.search.Sort;
@@ -183,7 +183,8 @@ public class CommerceAccountClayTable
 		throws PortalException {
 
 		PortletURL viewURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, CommerceAccount.class.getName(), Action.VIEW);
+			httpServletRequest, CommerceAccount.class.getName(),
+			PortletProvider.Action.VIEW);
 
 		viewURL.setParameter(
 			"commerceAccountId", String.valueOf(commerceAccountId));

@@ -58,29 +58,41 @@
 		}
 	);
 
-	Liferay.componentReady('addAccountModal').then(addAccountModal => {
-		addAccountModal.on('AddAccountModalSave', (event) => {
+	Liferay.componentReady('addAccountModal').then(
+		function(addAccountModal) {
+			addAccountModal.on(
+				'AddAccountModalSave',
+				function(event) {
+					let existingUsersIds = event.administratorsEmail.filter(
+						function(el) {
+							return el.userId;
+						}
+					).map(
+						function(usr) {
+							usr.userId
+						}
+					).join(',');
 
-			let existingUsersIds = event.administratorsEmail.filter(
-				el => el.userId
-			).map(usr =>
-				usr.userId
-			).join(',');
+					let newUsersEmails = event.administratorsEmail.filter(
+						function(el) {
+							!el.userId
+						}
+					).map(
+						function(usr) {
+							usr.email
+						}
+					).join(',');
 
-			let newUsersEmails = event.administratorsEmail.filter(
-				el => !el.userId
-			).map(usr =>
-				usr.email
-			).join(',');
+					document.querySelector('#<portlet:namespace />name').value = event.accountName;
+					document.querySelector('#<portlet:namespace />userIds').value = existingUsersIds;
+					document.querySelector('#<portlet:namespace />emailAddresses').value = newUsersEmails;
 
-			document.querySelector('#<portlet:namespace />name').value = event.accountName;
-			document.querySelector('#<portlet:namespace />userIds').value = existingUsersIds;
-			document.querySelector('#<portlet:namespace />emailAddresses').value = newUsersEmails;
+					addAccountModal.close();
 
-			addAccountModal.close();
-
-			submitForm(document.<portlet:namespace />commerceAccountFm);
-		});
-	});
+					submitForm(document.<portlet:namespace />commerceAccountFm);
+				}
+			);
+		}
+	);
 
 </aui:script>

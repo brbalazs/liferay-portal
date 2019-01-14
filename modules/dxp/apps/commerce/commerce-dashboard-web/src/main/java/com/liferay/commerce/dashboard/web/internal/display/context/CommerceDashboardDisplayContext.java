@@ -22,7 +22,6 @@ import com.liferay.commerce.dashboard.web.internal.util.CommerceDashboardUtil;
 import com.liferay.commerce.forecast.model.CommerceForecastEntryConstants;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Layout;
-import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 
@@ -54,7 +53,8 @@ public class CommerceDashboardDisplayContext {
 			CommerceContext commerceContext =
 				commerceDashboardRequestHelper.getCommerceContext();
 
-			CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
+			CommerceAccount commerceAccount =
+				commerceContext.getCommerceAccount();
 
 			_customerId = commerceAccount.getCommerceAccountId();
 		}

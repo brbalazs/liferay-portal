@@ -438,13 +438,13 @@ public class CommerceDashboardForecastsChartDisplayContext
 	private static final Format _dateFormat =
 		FastDateFormatFactoryUtil.getSimpleDateFormat("yyyy-MM-dd");
 
+	private final CommerceAccountService _commerceAccountService;
 	private final CommerceDashboardForecastsChartPortletInstanceConfiguration
 		_commerceDashboardForecastsChartPortletInstanceConfiguration;
 	private final CommerceForecastEntryLocalService
 		_commerceForecastEntryLocalService;
 	private final CommerceForecastValueLocalService
 		_commerceForecastValueLocalService;
-	private final CommerceAccountService _commerceAccountService;
 	private final CompanyService _companyService;
 	private final CPInstanceService _cpInstanceService;
 
@@ -487,8 +487,7 @@ public class CommerceDashboardForecastsChartDisplayContext
 			if (customerId > 0) {
 				try {
 					CommerceAccount commerceAccount =
-						_commerceAccountService.getCommerceAccount(
-							customerId);
+						_commerceAccountService.getCommerceAccount(customerId);
 
 					return commerceAccount.getName();
 				}
