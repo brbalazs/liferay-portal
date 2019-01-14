@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.theme.minium.site.initializer.internal;
 
+import com.liferay.commerce.account.util.CommerceAccountRoleHelper;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.initializer.util.CPDefinitionsImporter;
 import com.liferay.commerce.initializer.util.CPOptionCategoriesImporter;
@@ -226,6 +227,8 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		_commerceWarehousesImporter.importDefaultCommerceWarehouse(
 			serviceContext);
 		_cpMeasurementUnitLocalService.importDefaultValues(serviceContext);
+
+		_commerceAccountRoleHelper.checkCommerceAccountRoles(serviceContext);
 	}
 
 	protected void createCommerceRoles(JSONArray jsonArray) throws Exception {
@@ -580,6 +583,9 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		MiniumSiteInitializer.class);
+
+	@Reference
+	private CommerceAccountRoleHelper _commerceAccountRoleHelper;
 
 	@Reference
 	private CommerceCountryLocalService _commerceCountryLocalService;
