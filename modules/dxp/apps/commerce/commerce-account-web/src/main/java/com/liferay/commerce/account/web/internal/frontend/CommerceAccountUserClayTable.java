@@ -14,24 +14,36 @@
 
 package com.liferay.commerce.account.web.internal.frontend;
 
+import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.model.CommerceAccountUserRel;
 import com.liferay.commerce.account.service.CommerceAccountUserRelService;
 import com.liferay.commerce.account.web.internal.model.Member;
 import com.liferay.commerce.frontend.ClayTable;
+import com.liferay.commerce.frontend.ClayTableAction;
+import com.liferay.commerce.frontend.ClayTableActionProvider;
 import com.liferay.commerce.frontend.ClayTableSchema;
 import com.liferay.commerce.frontend.ClayTableSchemaBuilder;
 import com.liferay.commerce.frontend.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.portlet.PortletProvider;
+import com.liferay.portal.kernel.portlet.PortletProviderUtil;
+import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
+
+import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -47,12 +59,37 @@ import org.osgi.service.component.annotations.Reference;
 		"commerce.data.provider.key=" + CommerceAccountUserClayTable.NAME,
 		"commerce.table.name=" + CommerceAccountUserClayTable.NAME
 	},
-	service = {ClayTable.class, CommerceDataSetDataProvider.class}
+	service = {
+		CommerceDataSetDataProvider.class, ClayTable.class,
+		ClayTableActionProvider.class
+	}
 )
 public class CommerceAccountUserClayTable
-	implements CommerceDataSetDataProvider<Member>, ClayTable {
+	implements CommerceDataSetDataProvider<Member>, ClayTable,
+			   ClayTableActionProvider {
 
 	public static final String NAME = "commerceAccountUsers";
+
+	@Override
+	public List<ClayTableAction> clayTableActions(
+			HttpServletRequest httpServletRequest, long groupId, Object model)
+		throws PortalException {
+
+		List<ClayTableAction> clayTableActions = new ArrayList<>();
+
+		Member member = (Member)model;
+
+		String viewURL = _getAccountUserViewDetailURL(
+			member.getMemberId(), httpServletRequest);
+
+		ClayTableAction clayTableAction = new ClayTableAction(
+			viewURL, StringPool.BLANK,
+			LanguageUtil.get(httpServletRequest, "view"), false, false);
+
+		clayTableActions.add(clayTableAction);
+
+		return clayTableActions;
+	}
 
 	@Override
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
@@ -127,10 +164,40 @@ public class CommerceAccountUserClayTable
 		);
 	}
 
+	private String _getAccountUserViewDetailURL(
+			long userId, HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		PortletURL viewURL = PortletProviderUtil.getPortletURL(
+			httpServletRequest, CommerceAccount.class.getName(),
+			PortletProvider.Action.VIEW);
+
+		viewURL.setParameter("mvcRenderCommandName", "viewCommerceAccountUser");
+
+		long commerceAccountId = ParamUtil.getLong(
+			httpServletRequest, "commerceAccountId");
+
+		if (commerceAccountId > 0) {
+			viewURL.setParameter(
+				"commerceAccountId", String.valueOf(commerceAccountId));
+		}
+
+		viewURL.setParameter("userId", String.valueOf(userId));
+
+		viewURL.setParameter(
+			PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL",
+			_portal.getCurrentURL(httpServletRequest));
+
+		return viewURL.toString();
+	}
+
 	@Reference
 	private ClayTableSchemaBuilderFactory _clayTableSchemaBuilderFactory;
 
 	@Reference
 	private CommerceAccountUserRelService _commerceAccountUserRelService;
+
+	@Reference
+	private Portal _portal;
 
 }
