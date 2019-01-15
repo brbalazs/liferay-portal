@@ -18,6 +18,7 @@ import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.account.web.internal.servlet.taglib.ui.CommerceAccountScreenNavigationConstants;
+import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceCountry;
@@ -25,18 +26,14 @@ import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceRegionService;
-import com.liferay.commerce.util.CommerceUtil;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
-import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
-import com.liferay.portal.kernel.search.BaseModelSearchResult;
-import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
+import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -61,15 +58,18 @@ public class CommerceAccountAddressesDisplayContext
 		CommerceAddressService commerceAddressService,
 		CommerceCountryService commerceCountryService,
 		CommerceRegionService commerceRegionService,
-		HttpServletRequest httpServletRequest, Portal portal) {
+		HttpServletRequest httpServletRequest,
+		ModelResourcePermission<CommerceAccount> modelResourcePermission,
+		Portal portal, PortletResourcePermission portletResourcePermission) {
 
 		super(
 			commerceAccountHelper, commerceAccountService, httpServletRequest,
-			portal);
+			modelResourcePermission, portal);
 
 		_commerceAddressService = commerceAddressService;
 		_commerceCountryService = commerceCountryService;
 		_commerceRegionService = commerceRegionService;
+		_portletResourcePermission = portletResourcePermission;
 	}
 
 	public String getAddCommerceAddressHref() throws WindowStateException {
@@ -227,59 +227,17 @@ public class CommerceAccountAddressesDisplayContext
 		return portletURL;
 	}
 
-	public SearchContainer<CommerceAddress> getSearchContainer()
-		throws PortalException {
-
-		if (_searchContainer != null) {
-			return _searchContainer;
-		}
-
-		_searchContainer = new SearchContainer<>(
-			commerceAccountRequestHelper.getLiferayPortletRequest(),
-			getPortletURL(), null, "there-are-no-addresses");
-
-		OrderByComparator<CommerceAddress> orderByComparator =
-			CommerceUtil.getCommerceAddressOrderByComparator(
-				getOrderByCol(), getOrderByType());
-
-		_searchContainer.setOrderByCol(getOrderByCol());
-		_searchContainer.setOrderByComparator(orderByComparator);
-		_searchContainer.setOrderByType(getOrderByType());
-		_searchContainer.setRowChecker(
-			new EmptyOnClickRowChecker(
-				commerceAccountRequestHelper.getLiferayPortletResponse()));
-
-		CommerceAccount commerceAccount = getCurrentCommerceAccount();
-
-		Sort sort = CommerceUtil.getCommerceAddressSort(
-			getOrderByCol(), getOrderByType());
-
-		BaseModelSearchResult<CommerceAddress>
-			commerceAddressBaseModelSearchResult =
-				_commerceAddressService.searchCommerceAddresses(
-					commerceAccountRequestHelper.getCompanyId(),
-					commerceAccountRequestHelper.getScopeGroupId(),
-					commerceAccount.getModelClassName(),
-					commerceAccount.getCommerceAccountId(), getKeywords(),
-					_searchContainer.getStart(), _searchContainer.getEnd(),
-					sort);
-
-		_searchContainer.setTotal(
-			commerceAddressBaseModelSearchResult.getLength());
-		_searchContainer.setResults(
-			commerceAddressBaseModelSearchResult.getBaseModels());
-
-		return _searchContainer;
-	}
-
 	public boolean hasManageCommerceAddressPermission() {
-		return true;
+		return _portletResourcePermission.contains(
+			commerceAccountRequestHelper.getPermissionChecker(),
+			commerceAccountRequestHelper.getScopeGroupId(),
+			CommerceActionKeys.MANAGE_COMMERCE_ADDRESSES);
 	}
 
 	private final CommerceAddressService _commerceAddressService;
 	private final CommerceCountryService _commerceCountryService;
 	private final CommerceRegionService _commerceRegionService;
 	private String _keywords;
-	private SearchContainer<CommerceAddress> _searchContainer;
+	private final PortletResourcePermission _portletResourcePermission;
 
 }

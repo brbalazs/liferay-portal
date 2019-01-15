@@ -28,6 +28,8 @@ import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -50,11 +52,14 @@ public abstract class BaseCommerceAccountDisplayContext {
 	public BaseCommerceAccountDisplayContext(
 		CommerceAccountHelper commerceAccountHelper,
 		CommerceAccountService commerceAccountService,
-		HttpServletRequest httpServletRequest, Portal portal) {
+		HttpServletRequest httpServletRequest,
+		ModelResourcePermission<CommerceAccount> modelResourcePermission,
+		Portal portal) {
 
 		_commerceAccountHelper = commerceAccountHelper;
 
 		this.commerceAccountService = commerceAccountService;
+		this.modelResourcePermission = modelResourcePermission;
 		this.portal = portal;
 
 		commerceAccountRequestHelper = new CommerceAccountRequestHelper(
@@ -232,6 +237,14 @@ public abstract class BaseCommerceAccountDisplayContext {
 		return portletURL;
 	}
 
+	public boolean hasEditCommerceAccountPermissions(long commerceAccountId)
+		throws PortalException {
+
+		return modelResourcePermission.contains(
+			commerceAccountRequestHelper.getPermissionChecker(),
+			commerceAccountId, ActionKeys.UPDATE);
+	}
+
 	public boolean isSelectedCommerceAccount() throws PortalException {
 		long commerceAccountId = ParamUtil.getLong(
 			commerceAccountRequestHelper.getRequest(), "commerceAccountId");
@@ -266,6 +279,8 @@ public abstract class BaseCommerceAccountDisplayContext {
 
 	protected final CommerceAccountRequestHelper commerceAccountRequestHelper;
 	protected final CommerceAccountService commerceAccountService;
+	protected final ModelResourcePermission<CommerceAccount>
+		modelResourcePermission;
 	protected final Portal portal;
 
 	private CommerceAccount _getCurrentAccount() throws PortalException {

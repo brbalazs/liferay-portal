@@ -23,6 +23,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -44,12 +45,14 @@ public class CommerceAccountDisplayContext
 	public CommerceAccountDisplayContext(
 		CommerceAccountHelper commerceAccountHelper,
 		CommerceAccountService commerceAccountService,
-		HttpServletRequest httpServletRequest, Portal portal,
+		HttpServletRequest httpServletRequest,
+		ModelResourcePermission<CommerceAccount> modelResourcePermission,
+		Portal portal,
 		UserFileUploadsConfiguration userFileUploadsConfiguration) {
 
 		super(
 			commerceAccountHelper, commerceAccountService, httpServletRequest,
-			portal);
+			modelResourcePermission, portal);
 
 		_userFileUploadsConfiguration = userFileUploadsConfiguration;
 	}

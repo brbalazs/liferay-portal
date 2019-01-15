@@ -14,10 +14,12 @@
 
 package com.liferay.commerce.account.web.internal.display.context;
 
+import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
@@ -34,13 +36,15 @@ public class CommerceAccountUserDisplayContext
 	public CommerceAccountUserDisplayContext(
 		CommerceAccountHelper commerceAccountHelper,
 		CommerceAccountService commerceAccountService,
-		HttpServletRequest httpServletRequest, Portal portal,
+		HttpServletRequest httpServletRequest,
+		ModelResourcePermission<CommerceAccount> modelResourcePermission,
+		Portal portal,
 		UserFileUploadsConfiguration userFileUploadsConfiguration,
 		UserLocalService userLocalService) {
 
 		super(
 			commerceAccountHelper, commerceAccountService, httpServletRequest,
-			portal);
+			modelResourcePermission, portal);
 
 		_userLocalService = userLocalService;
 		_userFileUploadsConfiguration = userFileUploadsConfiguration;
