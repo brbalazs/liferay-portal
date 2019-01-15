@@ -1,0 +1,25 @@
+$placeholder-colors: (
+	#9BE2BD,
+	#B3EFF5,
+	#FEE4B8,
+	#FFB78C,
+    #FF83A3,
+	#F5B3EF,
+	#B48FF7,
+    #639DFF
+);
+
+.commerce {
+    @each $color in $placeholder-colors {
+        $index: index($placeholder-colors, $color);
+        &-c-#{$index} {
+            color: $color;
+        }
+        &-bc-#{$index} {
+            background-color: $color;
+        }
+        &-bdc-#{$index} {
+            border-color: $color;
+        }
+    }
+}

@@ -69,3 +69,14 @@ width: 40px;
 	}
 }
 }
+
+.user-item:hover {
+	.add-to-tick.add-to-tick__add line {
+		stroke: #4c83ff
+	}
+	.add-to-tick--is-added {
+		.add-to-tick__circle {
+			fill: #A7E5BE;
+		}
+	}
+}

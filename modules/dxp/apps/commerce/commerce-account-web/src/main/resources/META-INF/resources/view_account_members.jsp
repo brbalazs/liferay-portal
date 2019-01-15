@@ -32,6 +32,7 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 <div class="minium-frame__cta is-visible">
 	<aui:button cssClass="js-invite-user minium-button minium-button--big" onClick='<%= renderResponse.getNamespace() + "openUserInvitationModal();" %>' value="invite-user" />
 	<aui:button cssClass="js-invite-user minium-button minium-button--big" onClick='<%= renderResponse.getNamespace() + "openUserRolesModal();" %>' value="user-roles" />
+	<aui:button cssClass="js-invite-user minium-button minium-button--big" onClick='<%= renderResponse.getNamespace() + "openAddOrganizationsModal();" %>' value="add-organizations" />
 </div>
 
 <commerce-ui:user-invitation-modal
@@ -40,6 +41,10 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 
 <commerce-ui:user-roles-modal
 	componentId="userRolesModal"
+/>
+
+<commerce-ui:add-organizations-modal
+	componentId="addOrganizationsModal"
 />
 
 <portlet:actionURL name="inviteUser" var="inviteUserActionURL" />
@@ -68,6 +73,15 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 		function(evt) {
 			const userRolesModal = Liferay.component('userRolesModal');
 			userRolesModal.open();
+		}
+	);
+
+	Liferay.provide(
+		window,
+		'<portlet:namespace />openAddOrganizationsModal',
+		function(evt) {
+			const addOrganizationsModal = Liferay.component('addOrganizationsModal');
+			addOrganizationsModal.open();
 		}
 	);
 

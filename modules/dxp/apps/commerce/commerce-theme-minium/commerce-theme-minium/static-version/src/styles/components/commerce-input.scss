@@ -6,7 +6,9 @@
     }
 
     &__label {
-        color: $color-fg-alt
+        color: $color-fg-alt;
+        margin-bottom: 0;
+        font-weight: normal;
     }
 
     &--checked {
