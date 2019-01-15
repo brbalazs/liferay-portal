@@ -21,6 +21,8 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 
 CommerceAccount commerceAccount = commerceAccountDisplayContext.getCurrentCommerceAccount();
 PortletURL portletURL = commerceAccountDisplayContext.getPortletURL();
+
+request.setAttribute("view.jsp-filterPerAccount", true);
 %>
 
 <%@ include file="/accounts.jspf" %>

@@ -57,7 +57,16 @@ public class CommerceAccountDisplayContext
 	public AccountFilterImpl getAccountFilter() throws PortalException {
 		AccountFilterImpl accountFilter = new AccountFilterImpl();
 
-		accountFilter.setAccountId(getCurrentCommerceAccountId());
+		HttpServletRequest httpServletRequest =
+			commerceAccountRequestHelper.getRequest();
+
+		boolean filterPerAcount = (boolean)httpServletRequest.getAttribute(
+			"view.jsp-filterPerAccount");
+
+		if (filterPerAcount) {
+			accountFilter.setAccountId(getCurrentCommerceAccountId());
+		}
+
 		accountFilter.setKeywords(getKeywords());
 
 		return accountFilter;
