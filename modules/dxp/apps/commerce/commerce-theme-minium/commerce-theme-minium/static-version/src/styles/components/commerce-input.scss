@@ -1,0 +1,17 @@
+.commerce-checkbox {
+    display: flex;
+
+    &__input {
+        margin-right: 10px;
+    }
+
+    &__label {
+        color: $color-fg-alt
+    }
+
+    &--checked {
+        .commerce-checkbox__label {
+            color: $color-fg
+        }
+    }
+}
