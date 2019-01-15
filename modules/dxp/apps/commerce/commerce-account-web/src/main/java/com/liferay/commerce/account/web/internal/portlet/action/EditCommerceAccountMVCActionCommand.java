@@ -132,6 +132,7 @@ public class EditCommerceAccountMVCActionCommand extends BaseMVCActionCommand {
 		String name = ParamUtil.getString(actionRequest, "name");
 		long parentCommerceAccountId = ParamUtil.getLong(
 			actionRequest, "parentCommerceAccountId");
+		boolean deleteLogo = ParamUtil.getBoolean(actionRequest, "deleteLogo");
 		String email = ParamUtil.getString(actionRequest, "email");
 		String taxId = ParamUtil.getString(actionRequest, "taxId");
 		boolean active = ParamUtil.getBoolean(actionRequest, "active");
@@ -159,7 +160,8 @@ public class EditCommerceAccountMVCActionCommand extends BaseMVCActionCommand {
 			(commerceAccountId != parentCommerceAccountId)) {
 
 			return _commerceAccountService.updateCommerceAccount(
-				commerceAccountId, name, email, taxId, active, serviceContext);
+				commerceAccountId, name, !deleteLogo, logoBytes,email, taxId,
+				active, serviceContext);
 		}
 
 		return _commerceAccountService.addBusinessCommerceAccount(
