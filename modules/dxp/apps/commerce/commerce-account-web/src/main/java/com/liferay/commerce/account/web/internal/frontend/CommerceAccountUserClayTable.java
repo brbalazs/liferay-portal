@@ -36,8 +36,12 @@ import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,14 +83,26 @@ public class CommerceAccountUserClayTable
 
 		Member member = (Member)model;
 
-		String viewURL = _getAccountUserViewDetailURL(
-			member.getMemberId(), httpServletRequest);
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
 
-		ClayTableAction clayTableAction = new ClayTableAction(
-			viewURL, StringPool.BLANK,
-			LanguageUtil.get(httpServletRequest, "view"), false, false);
+		long commerceAccountId = ParamUtil.getLong(
+			httpServletRequest, "commerceAccountId");
 
-		clayTableActions.add(clayTableAction);
+		if (_modelResourcePermission.contains(
+				themeDisplay.getPermissionChecker(), commerceAccountId,
+				ActionKeys.VIEW)) {
+
+			String viewURL = _getAccountUserViewDetailURL(
+				member.getMemberId(), httpServletRequest);
+
+			ClayTableAction clayTableAction = new ClayTableAction(
+				viewURL, StringPool.BLANK,
+				LanguageUtil.get(httpServletRequest, "view"), false, false);
+
+			clayTableActions.add(clayTableAction);
+		}
 
 		return clayTableActions;
 	}
@@ -196,6 +212,11 @@ public class CommerceAccountUserClayTable
 
 	@Reference
 	private CommerceAccountUserRelService _commerceAccountUserRelService;
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.account.model.CommerceAccount)"
+	)
+	private ModelResourcePermission<CommerceAccount> _modelResourcePermission;
 
 	@Reference
 	private Portal _portal;

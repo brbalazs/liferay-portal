@@ -35,6 +35,8 @@ import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -78,14 +80,23 @@ public class CommerceAccountClayTable
 
 		Account account = (Account)model;
 
-		String viewURL = _getAccountViewDetailURL(
-			account.getAccountId(), httpServletRequest);
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
 
-		ClayTableAction clayTableAction = new ClayTableAction(
-			viewURL, StringPool.BLANK,
-			LanguageUtil.get(httpServletRequest, "view"), false, false);
+		if (_modelResourcePermission.contains(
+				themeDisplay.getPermissionChecker(), account.getAccountId(),
+				ActionKeys.VIEW)) {
 
-		clayTableActions.add(clayTableAction);
+			String viewURL = _getAccountViewDetailURL(
+				account.getAccountId(), httpServletRequest);
+
+			ClayTableAction clayTableAction = new ClayTableAction(
+				viewURL, StringPool.BLANK,
+				LanguageUtil.get(httpServletRequest, "view"), false, false);
+
+			clayTableActions.add(clayTableAction);
+		}
 
 		return clayTableActions;
 	}
@@ -134,14 +145,15 @@ public class CommerceAccountClayTable
 				WebKeys.THEME_DISPLAY);
 
 		List<Account> accounts = new ArrayList<>();
-		List<CommerceAccount> commerceAccounts = new ArrayList<>();
 
 		AccountFilterImpl accountFilter = (AccountFilterImpl)filter;
 
-		commerceAccounts = _commerceAccountService.getUserCommerceAccounts(
-			accountFilter.getAccountId(), accountFilter.getCommerceSiteType(),
-			accountFilter.getKeywords(), pagination.getStartPosition(),
-			pagination.getEndPosition());
+		List<CommerceAccount> commerceAccounts =
+			_commerceAccountService.getUserCommerceAccounts(
+				accountFilter.getAccountId(),
+				accountFilter.getCommerceSiteType(),
+				accountFilter.getKeywords(), pagination.getStartPosition(),
+				pagination.getEndPosition());
 
 		for (CommerceAccount commerceAccount : commerceAccounts) {
 			StringBundler thumbnailSB = new StringBundler(5);
@@ -201,6 +213,11 @@ public class CommerceAccountClayTable
 
 	@Reference
 	private CommerceAccountService _commerceAccountService;
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.account.model.CommerceAccount)"
+	)
+	private ModelResourcePermission<CommerceAccount> _modelResourcePermission;
 
 	@Reference
 	private Portal _portal;

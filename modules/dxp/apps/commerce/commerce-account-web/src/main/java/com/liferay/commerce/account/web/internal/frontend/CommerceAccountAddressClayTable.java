@@ -16,6 +16,8 @@ package com.liferay.commerce.account.web.internal.frontend;
 
 import com.liferay.commerce.account.web.internal.model.Account;
 import com.liferay.commerce.account.web.internal.model.Address;
+import com.liferay.commerce.constants.CommerceActionKeys;
+import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.frontend.ClayTable;
 import com.liferay.commerce.frontend.ClayTableAction;
 import com.liferay.commerce.frontend.ClayTableActionProvider;
@@ -38,9 +40,13 @@ import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.portlet.PortletURL;
@@ -75,6 +81,18 @@ public class CommerceAccountAddressClayTable
 	public List<ClayTableAction> clayTableActions(
 			HttpServletRequest httpServletRequest, long groupId, Object model)
 		throws PortalException {
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
+		if (!_portletResourcePermission.contains(
+				themeDisplay.getPermissionChecker(),
+				themeDisplay.getScopeGroupId(),
+				CommerceActionKeys.MANAGE_COMMERCE_ADDRESSES)) {
+
+			return Collections.emptyList();
+		}
 
 		List<ClayTableAction> clayTableActions = new ArrayList<>();
 
@@ -221,5 +239,10 @@ public class CommerceAccountAddressClayTable
 
 	@Reference
 	private Portal _portal;
+
+	@Reference(
+		target = "(resource.name=" + CommerceConstants.RESOURCE_NAME + ")"
+	)
+	private PortletResourcePermission _portletResourcePermission;
 
 }
