@@ -47,13 +47,27 @@
 				{/foreach}
 			</p>
 		{/if}
+
 		{if isNonnull($description)}
-			<p class="product-card__description">{$description}</p>
+			<p class="product-card__description">
+				{$description}
+			</p>
 		{/if}
+
+		<div class="product-card__price">
+			<span>
+				<span class="price price--big price--discounted">
+					$ 127.00
+				</span>
+				<span class="price price--old">
+					$ 160.00
+				</span>
+			</span>
+		</div>
 
 		<div>
 			{call AddToCartButton.render}
-				{param quantity: 1 /}
+				{param quantity: 0 /}
 				{param editMode: false /}
 				{param settings: $settings /}
 				{param productId: '234' /}

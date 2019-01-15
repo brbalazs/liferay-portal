@@ -24,15 +24,17 @@ List<CPCatalogEntry> cpCatalogEntries = cpDataSourceResult.getCPCatalogEntries()
 
 <c:choose>
 	<c:when test="<%= !cpCatalogEntries.isEmpty() %>">
-		<div class="row">
+		<div class="minium-product-tiles">
 
 			<%
 			for (CPCatalogEntry cpCatalogEntry : cpCatalogEntries) {
 			%>
 
-				<liferay-commerce-product:product-list-entry-renderer
-					CPCatalogEntry = "<%= cpCatalogEntry %>"
-				/>
+				<div class="minium-product-tiles__item">
+					<liferay-commerce-product:product-list-entry-renderer
+						CPCatalogEntry = "<%= cpCatalogEntry %>"
+					/>
+				</div>
 
 			<%
 			}

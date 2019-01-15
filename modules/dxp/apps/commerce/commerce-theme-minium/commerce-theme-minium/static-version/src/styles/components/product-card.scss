@@ -85,4 +85,13 @@ transition: box-shadow .2s ease-in-out;
 	top: 20px;
 	width: 30px;
 }
+
+&__description {
+	margin: 0;
+	line-height: 28px;
+}
+
+&__price {
+	margin: 8px 0;
+}
 }
