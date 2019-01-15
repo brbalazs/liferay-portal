@@ -18,6 +18,7 @@ import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.account.web.internal.display.context.CommerceAccountAddressesDisplayContext;
+import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceRegionService;
@@ -26,6 +27,7 @@ import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -95,7 +97,8 @@ public class CommerceAccountAddressesScreenNavigationEntry
 				new CommerceAccountAddressesDisplayContext(
 					_commerceAccountHelper, _commerceAccountService,
 					_commerceAddressService, _commerceCountryService,
-					_commerceRegionService, httpServletRequest, _portal);
+					_commerceRegionService, httpServletRequest, _portal,
+					_portletResourcePermission);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -126,5 +129,10 @@ public class CommerceAccountAddressesScreenNavigationEntry
 
 	@Reference
 	private Portal _portal;
+
+	@Reference(
+		target = "(resource.name=" + CommerceConstants.RESOURCE_NAME + ")"
+	)
+	private PortletResourcePermission _portletResourcePermission;
 
 }

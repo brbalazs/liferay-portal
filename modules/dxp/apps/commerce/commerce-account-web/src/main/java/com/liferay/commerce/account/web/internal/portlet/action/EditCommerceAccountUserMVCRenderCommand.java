@@ -15,11 +15,13 @@
 package com.liferay.commerce.account.web.internal.portlet.action;
 
 import com.liferay.commerce.account.constants.CommerceAccountPortletKeys;
+import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.account.web.internal.display.context.CommerceAccountUserDisplayContext;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -64,8 +66,8 @@ public class EditCommerceAccountUserMVCRenderCommand
 		CommerceAccountUserDisplayContext commerceAccountUserDisplayContext =
 			new CommerceAccountUserDisplayContext(
 				_commerceAccountHelper, _commerceAccountService,
-				httpServletRequest, _portal, _userFileUploadsConfiguration,
-				_userLocalService);
+				httpServletRequest, _modelResourcePermission, _portal,
+				_userFileUploadsConfiguration, _userLocalService);
 
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, commerceAccountUserDisplayContext);
@@ -85,6 +87,11 @@ public class EditCommerceAccountUserMVCRenderCommand
 
 	@Reference
 	private CommerceAccountService _commerceAccountService;
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.account.model.CommerceAccount)"
+	)
+	private ModelResourcePermission<CommerceAccount> _modelResourcePermission;
 
 	@Reference
 	private Portal _portal;

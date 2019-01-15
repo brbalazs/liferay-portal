@@ -23,6 +23,7 @@ import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.users.admin.configuration.UserFileUploadsConfiguration;
@@ -85,7 +86,8 @@ public class CommerceAccountInfoScreenNavigationEntry
 		CommerceAccountDisplayContext commerceAccountDisplayContext =
 			new CommerceAccountDisplayContext(
 				_commerceAccountHelper, _commerceAccountService,
-				httpServletRequest, _portal, _userFileUploadsConfiguration);
+				httpServletRequest, _modelResourcePermission, _portal,
+				_userFileUploadsConfiguration);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, commerceAccountDisplayContext);
@@ -109,6 +111,11 @@ public class CommerceAccountInfoScreenNavigationEntry
 
 	@Reference
 	private JSPRenderer _jspRenderer;
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.account.model.CommerceAccount)"
+	)
+	private ModelResourcePermission<CommerceAccount> _modelResourcePermission;
 
 	@Reference
 	private Portal _portal;

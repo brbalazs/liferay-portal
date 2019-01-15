@@ -23,6 +23,7 @@ import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -90,7 +91,7 @@ public class CommerceAccountMembersScreenNavigationEntry
 		CommerceAccountDisplayContext commerceAccountDisplayContext =
 			new CommerceAccountDisplayContext(
 				_commerceAccountHelper, _commerceAccountService,
-				httpServletRequest, _portal, null);
+				httpServletRequest, _modelResourcePermission, _portal, null);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, commerceAccountDisplayContext);
@@ -108,6 +109,11 @@ public class CommerceAccountMembersScreenNavigationEntry
 
 	@Reference
 	private JSPRenderer _jspRenderer;
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.account.model.CommerceAccount)"
+	)
+	private ModelResourcePermission<CommerceAccount> _modelResourcePermission;
 
 	@Reference
 	private Portal _portal;
