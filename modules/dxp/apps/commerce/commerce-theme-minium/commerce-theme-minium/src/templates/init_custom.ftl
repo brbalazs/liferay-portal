@@ -1,7 +1,7 @@
 <#assign
 	copyright = getterUtil.getString(themeDisplay.getThemeSetting("copyright"))
 	show_top_menu = getterUtil.getBoolean(themeDisplay.getThemeSetting("show-top-menu"))
-	userManagementUrl = commerceOrganizationHelper.getCommerceUserPortletURL(request)
+	userManagementUrl = ""
 	wishlistUrl = commerceWishListHttpHelper.getCommerceWishListPortletURL(request)
 	wish_lists_text = languageUtil.get(locale, "wish-lists")
 	my_profile_text = languageUtil.get(locale, "my-profile")
