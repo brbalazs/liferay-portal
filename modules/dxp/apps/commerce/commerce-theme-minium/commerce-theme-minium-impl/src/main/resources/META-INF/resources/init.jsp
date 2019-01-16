@@ -23,14 +23,27 @@ taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %><%@
 taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
+<%@
+		taglib uri="http://liferay.com/tld/commerce-ui" prefix="commerce-ui" %>
+<%@
+		taglib uri="http://liferay.com/tld/commerce" prefix="liferay-commerce" %><%@
+		taglib uri="http://liferay.com/tld/commerce-cart" prefix="liferay-commerce-cart" %>
+<%@
+		taglib uri="http://liferay.com/tld/soy" prefix="soy" %>
+
 <%@ page import="com.liferay.commerce.product.catalog.CPCatalogEntry" %><%@
 page import="com.liferay.commerce.product.constants.CPWebKeys" %><%@
 page import="com.liferay.commerce.product.data.source.CPDataSourceResult" %>
 
 <%@ page import="java.util.List" %>
+<%@ page import="com.liferay.portal.kernel.language.LanguageUtil" %>
 
 <liferay-frontend:defineObjects />
 
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
+
+<%
+	String languageId = LanguageUtil.getLanguageId(locale);
+%>

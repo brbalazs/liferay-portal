@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.theme.minium.site.initializer.internal;
 
+import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.account.util.CommerceAccountRoleHelper;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.initializer.util.CPDefinitionsImporter;
@@ -58,6 +59,10 @@ import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ThemeLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
+import com.liferay.portal.kernel.settings.ModifiableSettings;
+import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -102,8 +107,6 @@ import org.osgi.service.component.annotations.Reference;
 	service = SiteInitializer.class
 )
 public class MiniumSiteInitializer implements SiteInitializer {
-
-	public static final int ACCOUNT_ORGANIZATIONS_COUNT = 3;
 
 	public static final String DEPENDENCIES_PATH =
 		"com/liferay/commerce/theme/minium/site/initializer/internal" +
@@ -229,6 +232,19 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		_cpMeasurementUnitLocalService.importDefaultValues(serviceContext);
 
 		_commerceAccountRoleHelper.checkCommerceAccountRoles(serviceContext);
+
+		Settings settings = _settingsFactory.getSettings(
+			new GroupServiceSettingsLocator(
+				groupId, CommerceAccountConstants.SERVICE_NAME));
+
+		ModifiableSettings modifiableSettings =
+			settings.getModifiableSettings();
+
+		modifiableSettings.setValue(
+			"commerceSiteType",
+			String.valueOf(CommerceAccountConstants.SITE_TYPE_B2B));
+
+		modifiableSettings.store();
 	}
 
 	protected void createCommerceRoles(JSONArray jsonArray) throws Exception {
@@ -667,5 +683,8 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 	@Reference
 	private UserLocalService _userLocalService;
+
+	@Reference
+	private SettingsFactory _settingsFactory;
 
 }

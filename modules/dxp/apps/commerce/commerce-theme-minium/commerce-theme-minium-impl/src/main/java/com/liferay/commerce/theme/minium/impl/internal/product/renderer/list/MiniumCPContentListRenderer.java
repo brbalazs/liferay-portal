@@ -67,7 +67,7 @@ public class MiniumCPContentListRenderer implements CPContentListRenderer {
 
 		_jspRenderer.renderJSP(
 			_servletContext, httpServletRequest, httpServletResponse,
-			"/render/view.jsp");
+			"/list_render/view.jsp");
 	}
 
 	@Reference
