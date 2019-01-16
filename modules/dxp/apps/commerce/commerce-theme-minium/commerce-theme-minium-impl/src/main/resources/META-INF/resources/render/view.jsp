@@ -100,7 +100,7 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 
 			<div class="product-detail__actions">
 
-				<div class="autofit-col commerce-quantity-input">
+				<div class="commerce-quantity-input">
 					<liferay-commerce:quantity-input
 							CPDefinitionId="<%= cpDefinitionId %>"
 							useSelect="<%= false %>"
@@ -133,33 +133,60 @@ List<CPAttachmentFileEntry> cpAttachmentFileEntries = cpContentHelper.getCPAttac
 
 <div class="row">
 	<div class="col">
+		<div class="minium-card">
+			<div class="minium-card__tabs">
+				<ul class="product-detail-description-tabs minium-tabs" role="tablist">
 
+					<c:if test="<%= cpContentHelper.hasCPDefinitionSpecificationOptionValues(cpDefinitionId) %>">
+						<li class="nav-item minium-tabs__tab" role="presentation">
+							<a aria-controls="<portlet:namespace />specifications" aria-expanded="false" class="nav-link" data-toggle="tab" href="#<portlet:namespace />specifications" role="tab">
+								<%= LanguageUtil.get(resourceBundle, "specifications") %>
+							</a>
+						</li>
+					</c:if>
+
+					<c:if test="<%= !cpAttachmentFileEntries.isEmpty() %>">
+						<li class="nav-item minium-tabs__tab" role="presentation">
+							<a aria-controls="<portlet:namespace />attachments" aria-expanded="false" class="nav-link" data-toggle="tab" href="#<portlet:namespace />attachments" role="tab">
+								<%= LanguageUtil.get(resourceBundle, "attachments") %>
+							</a>
+						</li>
+					</c:if>
+				</ul>
+
+			</div>
+		</div>
 	</div>
 </div>
-
-
-<div class="product-detail-description">
-	<div class="container-fluid container-fluid-max-xl">
-		<ul class="nav nav-underline product-detail-description-tabs" role="tablist">
-
-			<c:if test="<%= cpContentHelper.hasCPDefinitionSpecificationOptionValues(cpDefinitionId) %>">
-				<li class="nav-item" role="presentation">
-					<a aria-controls="<portlet:namespace />specifications" aria-expanded="false" class="nav-link" data-toggle="tab" href="#<portlet:namespace />specifications" role="tab">
-						<%= LanguageUtil.get(resourceBundle, "specifications") %>
-					</a>
-				</li>
-			</c:if>
-
-			<c:if test="<%= !cpAttachmentFileEntries.isEmpty() %>">
-				<li class="nav-item" role="presentation">
-					<a aria-controls="<portlet:namespace />attachments" aria-expanded="false" class="nav-link" data-toggle="tab" href="#<portlet:namespace />attachments" role="tab">
-						<%= LanguageUtil.get(resourceBundle, "attachments") %>
-					</a>
-				</li>
-			</c:if>
-		</ul>
+<div class="row">
+	<div class="col">
 
 		<div class="tab-content">
+
+			<div class="minium-card">
+				<div class="minium-card__title">Specifications</div>
+
+				<div class="minium-card__content">
+					<dl class="specification-list">
+						<dt class="specification-term">Quantity</dt>
+						<dd class="specification-desc">1</dd>
+						<dt class="specification-term">Fit</dt>
+						<dd class="specification-desc">2008 Audi A4, 2015 Ford Expedition, 2010 Dodge Charger</dd>
+						<dt class="specification-term">Material</dt>
+						<dd class="specification-desc">Steel</dd>
+						<dt class="specification-term">Warranty</dt>
+						<dd class="specification-desc">Limited Lifetime</dd>
+						<dt class="specification-term">Weight</dt>
+						<dd class="specification-desc">1.30 lbs</dd>
+						<dt class="specification-term">Height</dt>
+						<dd class="specification-desc">5.6</dd>
+						<dt class="specification-term">Length</dt>
+						<dd class="specification-desc">2</dd>
+						<dt class="specification-term">Width</dt>
+						<dd class="specification-desc">7</dd>
+					</dl>
+				</div>
+			</div>
 
 
 			<c:if test="<%= cpContentHelper.hasCPDefinitionSpecificationOptionValues(cpDefinitionId) %>">
@@ -172,10 +199,10 @@ List<CPAttachmentFileEntry> cpAttachmentFileEntries = cpContentHelper.getCPAttac
 									CPSpecificationOption cpSpecificationOption = cpDefinitionSpecificationOptionValue.getCPSpecificationOption();
 							%>
 
-							<dt class="autofit-col specification-term">
+							<dt class="specification-term">
 								<%= cpSpecificationOption.getTitle(languageId) %>
 							</dt>
-							<dd class="autofit-col specification-desc">
+							<dd class="specification-desc">
 								<%= cpDefinitionSpecificationOptionValue.getValue(languageId) %>
 							</dd>
 
@@ -199,10 +226,10 @@ List<CPAttachmentFileEntry> cpAttachmentFileEntries = cpContentHelper.getCPAttac
 									CPSpecificationOption cpSpecificationOption = cpDefinitionSpecificationOptionValue.getCPSpecificationOption();
 							%>
 
-							<dt class="autofit-col specification-term">
+							<dt class="specification-term">
 								<%= cpSpecificationOption.getTitle(languageId) %>
 							</dt>
-							<dd class="autofit-col specification-desc">
+							<dd class="specification-desc">
 								<%= cpDefinitionSpecificationOptionValue.getValue(languageId) %>
 							</dd>
 
@@ -231,10 +258,10 @@ List<CPAttachmentFileEntry> cpAttachmentFileEntries = cpContentHelper.getCPAttac
 								FileEntry fileEntry = curCPAttachmentFileEntry.getFileEntry();
 						%>
 
-						<dt class="autofit-col specification-term">
+						<dt class="specification-term">
 							<%= curCPAttachmentFileEntry.getTitle(themeDisplay.getLanguageId()) %>
 						</dt>
-						<dd class="autofit-col specification-desc">
+						<dd class="specification-desc">
 							<aui:icon cssClass="icon-monospaced" image="download" markupView="lexicon" url="<%= cpContentHelper.getDownloadFileEntryURL(fileEntry, themeDisplay) %>" />
 						</dd>
 
@@ -244,8 +271,8 @@ List<CPAttachmentFileEntry> cpAttachmentFileEntries = cpContentHelper.getCPAttac
 							if (attachmentsCount >= 2) {
 						%>
 
-						<dt class="autofit-col specification-empty specification-term"></dt>
-						<dd class="autofit-col specification-desc specification-empty"></dd>
+						<dt class="specification-empty specification-term"></dt>
+						<dd class="specification-desc specification-empty"></dd>
 
 						<%
 								attachmentsCount = 0;
@@ -262,3 +289,4 @@ List<CPAttachmentFileEntry> cpAttachmentFileEntries = cpContentHelper.getCPAttac
 		</div>
 	</div>
 </div>
+

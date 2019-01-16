@@ -35,5 +35,19 @@ margin-bottom: $minium-big-gutter;
 background-color: $color-bg;
 border-radius: 8px;
 height: $frame-size;
+
+  .nav {
+    height: 100%;
+  }
+}
+
+.specification-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 0 20px;
+
+  .specification-desc {
+    margin-bottom: 0;
+  }
 }
 }
