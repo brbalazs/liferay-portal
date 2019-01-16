@@ -46,8 +46,8 @@
 		height: $frame-size;
 		position: relative;
 		transition:
-			box-shadow $transition,
-			transform $transition;
+		box-shadow $transition,
+		transform $transition;
 		width: 100%;
 
 		.minium-frame:not(.is-scrolled) &,
@@ -82,7 +82,7 @@
 	}
 
 	&__cta {
-		bottom: 10px;
+		bottom: 0;
 		display: flex;
 		filter: drop-shadow($color-shadow);
 		justify-content: center;
@@ -91,16 +91,15 @@
 		pointer-events: none;
 		position: fixed;
 		right: 0;
-		transition: transform ease 200ms;
-		transition: left ease 500ms;
+		transition: transform ease 200ms, left ease 500ms;
 		z-index: 100;
+
+		& > * {
+			pointer-events: auto;
+		}
 
 		body.open & {
 			left: calc(320px + #{$frame-size});
-		}
-
-		.minium-button {
-			pointer-events: auto;
 		}
 	}
 

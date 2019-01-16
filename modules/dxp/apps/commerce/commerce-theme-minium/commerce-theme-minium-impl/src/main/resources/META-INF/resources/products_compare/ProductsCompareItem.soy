@@ -1,0 +1,42 @@
+{namespace ProductsCompareItem}
+
+{template .render}
+
+	{@param? id: string|number}
+	{@param? thumbnail: string}
+	{@param? visibility: string}
+	{@param? _handleRemoveProduct: any}
+
+	{let $productThumbnailClasses kind="text"}
+		products-compare__thumbnail
+		{if isNonnull($visibility)}
+			{sp}products-compare__thumbnail--{$visibility}
+		{else}
+			{sp}products-compare__thumbnail--hidden
+		{/if}
+	{/let}
+
+	{let $productDeleteClasses kind="text"}
+		products-compare__delete
+		{if isNonnull($visibility)}
+			{sp}products-compare__delete--{$visibility}
+		{else}
+			{sp}products-compare__delete--hidden
+		{/if}
+	{/let}
+
+	<div class="products-compare__item">
+		{if isNonnull($id)}
+			<div 
+				class="{$productThumbnailClasses}" 
+				style="background-image: url('{$thumbnail}')"
+			>
+			</div>
+			<span 
+				class="{$productDeleteClasses}" 
+				data-onclick={$_handleRemoveProduct}
+			></span>
+		{/if}
+	</div>
+
+{/template}

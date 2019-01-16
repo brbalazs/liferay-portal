@@ -1,0 +1,54 @@
+.products-compare {
+    display: flex;
+    background: white;
+    border-radius: 20px 20px 0 0;
+    padding: 20px;
+
+    &__item {
+        margin-right: 20px;
+        height: 54px;
+        width: 54px;
+        border: 2px dotted #D8D8D8;
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+        transition: border .2s ease-in;
+
+        &--showing,
+        &--visible {
+            border: 0px dotted #D8D8D8;
+        }
+        
+        &--hiding,
+        &--hidden {
+            border: 2px dotted #D8D8D8;
+        }
+    }
+
+    &__thumbnail {
+        background-size: cover;
+        background-position: 50%;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform: scale(.6);
+        opacity: 0;
+        transition: all .1s ease-in;
+
+        &--showing,
+        &--visible {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        &--hiding,
+        &--hidden {
+            transform: scale(.6);
+            opacity: 0;
+        }
+    }
+}
+

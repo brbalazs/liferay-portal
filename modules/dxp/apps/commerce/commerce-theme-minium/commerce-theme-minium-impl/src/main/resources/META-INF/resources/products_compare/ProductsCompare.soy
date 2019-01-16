@@ -1,0 +1,51 @@
+{namespace ProductsCompare}
+
+{template .render}
+
+	{@param? products: list<[
+		id: string|number,
+		thumbnail: string,
+		visibility: string
+	]>}
+	{@param? _removeProduct: any}
+	{@param? _updateProductVisibility: any}
+	{@param? _submitCompare: any}
+
+	{let $ctaClasses kind="text"}
+		minium-frame__cta p-0
+		{if isNonnull($products) and length($products) > 0}
+			{sp}is-visible
+		{/if}
+	{/let}
+
+	<div class="{$ctaClasses}">
+		<div class="products-compare">
+			{if isNonnull($products)}
+				{foreach $product in $products}
+					{if index($product) < 4}
+						{call ProductsCompareItem.render}
+							{param events: ['removeProduct': $_removeProduct, 'updateProductVisibility': $_updateProductVisibility] /}
+							{param id: $product.id /}
+							{param thumbnail: $product.thumbnail /}
+							{param visibility: $product.visibility /}
+							{param productIndex: index($product) /}
+						{/call}
+					{/if}
+				{/foreach}
+				{let $missingElements : 4 - length($products) /}
+				{if $missingElements > 0}
+					{for $i in range($missingElements)}
+							{call ProductsCompareItem.render /}
+					{/for}
+				{/if}
+			{/if}
+			<button 
+				class="minium-button products-compare__button"
+				data-onclick="{$_submitCompare}"
+			>
+				Compare
+			</button>
+		</div>
+	</div>
+
+{/template}

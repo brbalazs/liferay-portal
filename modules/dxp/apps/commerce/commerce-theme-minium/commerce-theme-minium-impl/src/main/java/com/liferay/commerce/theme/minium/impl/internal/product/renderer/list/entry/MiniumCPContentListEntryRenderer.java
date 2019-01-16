@@ -124,6 +124,21 @@ public class MiniumCPContentListEntryRenderer
 		_soyComponentRenderer.renderSoyComponent(
 			httpServletRequest, httpServletResponse, componentDescriptor,
 			context);
+
+		ComponentDescriptor testDescriptor = new ComponentDescriptor(
+			"ProductsCompare.render", 
+			"commerce-theme-minium-impl@1.0.0/products_compare/ProductsCompare.es", 
+			null, 
+			null
+		);
+
+		// _soyComponentRenderer.renderSoyComponent(
+		// 	httpServletRequest, httpServletResponse, componentDescriptor,
+		// 	context);
+
+		_soyComponentRenderer.renderSoyComponent(
+			httpServletRequest, httpServletResponse, testDescriptor,
+			context);
 	}
 
 	@Reference

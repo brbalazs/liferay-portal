@@ -4,7 +4,14 @@ import template from './ProductCard.soy';
 import Component from 'metal-component';
 import Soy, {Config} from 'metal-soy';
 
-class ProductCard extends Component {};
+class ProductCard extends Component {
+	_handleCompareCheckbox(evt){
+		Liferay.fire('toggleProductToCompare', {
+			id: this.sku,
+			thumbnail: this.pictureUrl
+		})
+	}
+};
 
 Soy.register(ProductCard, template);
 
