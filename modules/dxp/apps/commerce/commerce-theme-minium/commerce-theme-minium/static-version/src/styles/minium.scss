@@ -356,3 +356,24 @@ svg {
 	&__item {
 	}
 }
+
+.table .image-name-cell {
+	a {
+		text-decoration: none;
+	}
+}
+
+.image-name-cell-label {
+	align-items: center;
+	color: #5C5E5E;
+	display: flex;
+	font-weight: normal;
+
+	img {
+		margin-right: $minium-small-gutter;
+	}
+
+	span {
+		text-decoration: none;
+	}
+}
