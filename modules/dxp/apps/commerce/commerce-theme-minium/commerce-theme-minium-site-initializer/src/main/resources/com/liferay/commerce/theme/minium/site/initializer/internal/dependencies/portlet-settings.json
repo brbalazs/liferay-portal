@@ -9,5 +9,41 @@
 			"simple--cpTypeListEntryRendererKey": "list-entry-minium",
 			"virtual--cpTypeListEntryRendererKey": "list-entry-minium"
 		}
+	},
+	{
+		"instanceId": "minium",
+		"layoutFriendlyURL": "/orders",
+		"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet",
+		"portletPreferences": {
+			"exclude": true,
+			"orderStatus": 2
+		}
+	},
+	{
+		"instanceId": "pending",
+		"layoutFriendlyURL": "/pending",
+		"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet",
+		"portletPreferences": {
+			"exclude": false,
+			"orderStatus": 1
+		}
+	},
+	{
+		"instanceId": "open",
+		"layoutFriendlyURL": "/open",
+		"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet",
+		"portletPreferences": {
+			"exclude": false,
+			"orderStatus": 2
+		}
+	},
+	{
+		"instanceId": "completed",
+		"layoutFriendlyURL": "/completed",
+		"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet",
+		"portletPreferences": {
+			"exclude": false,
+			"orderStatus": 0
+		}
 	}
 ]

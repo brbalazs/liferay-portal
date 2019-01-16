@@ -108,7 +108,7 @@
 			{
 				"layoutColumnId": "column-1",
 				"layoutColumnPos": 0,
-				"portletName": "com_liferay_commerce_organization_order_web_internal_portlet_CommerceOrganizationOrderPortlet"
+				"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet_INSTANCE_minium"
 			}
 		],
 		"privateLayout": true,
@@ -123,7 +123,7 @@
 					{
 						"layoutColumnId": "column-1",
 						"layoutColumnPos": 0,
-						"portletName": "com_liferay_commerce_organization_order_web_internal_portlet_CommerceOrganizationOrderPortlet"
+						"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet_INSTANCE_pending"
 					}
 				],
 				"privateLayout": true
@@ -138,7 +138,7 @@
 					{
 						"layoutColumnId": "column-1",
 						"layoutColumnPos": 0,
-						"portletName": "com_liferay_commerce_organization_order_web_internal_portlet_CommerceOrganizationOrderPortlet"
+						"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet_INSTANCE_open"
 					}
 				],
 				"privateLayout": true
@@ -153,7 +153,7 @@
 					{
 						"layoutColumnId": "column-1",
 						"layoutColumnPos": 0,
-						"portletName": "com_liferay_commerce_organization_order_web_internal_portlet_CommerceOrganizationOrderPortlet"
+						"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet_INSTANCE_completed"
 					}
 				],
 				"privateLayout": true
