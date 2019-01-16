@@ -46,8 +46,8 @@ public class CommerceAccountUserDisplayContext
 			commerceAccountHelper, commerceAccountService, httpServletRequest,
 			modelResourcePermission, portal);
 
-		_userLocalService = userLocalService;
 		_userFileUploadsConfiguration = userFileUploadsConfiguration;
+		_userLocalService = userLocalService;
 	}
 
 	public User getSelectedUser() throws PortalException {

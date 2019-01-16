@@ -1,19 +1,19 @@
 .commerce-checkbox {
-    display: flex;
+display: flex;
 
-    &__input {
-        margin-right: 10px;
-    }
+&__input {
+	margin-right: 10px;
+}
 
-    &__label {
-        color: $color-fg-alt;
-        margin-bottom: 0;
-        font-weight: normal;
-    }
+&__label {
+	color: $color-fg-alt;
+	font-weight: normal;
+	margin-bottom: 0;
+}
 
-    &--checked {
-        .commerce-checkbox__label {
-            color: $color-fg
-        }
-    }
+&--checked {
+	.commerce-checkbox__label {
+	 color: $color-fg
+	}
+}
 }

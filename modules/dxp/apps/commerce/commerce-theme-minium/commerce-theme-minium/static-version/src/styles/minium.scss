@@ -41,8 +41,8 @@ $micro-transition: ease 100ms;
 @import "./components/add-to-cart-button.scss";
 @import "./components/add-to-tick.scss";
 @import "./components/commerce-colors.scss";
-@import "./components/commerce-modal.scss";
 @import "./components/commerce-input.scss";
+@import "./components/commerce-modal.scss";
 @import "./components/details-header.scss";
 @import "./components/loaders.scss";
 @import "./components/main-link.scss";
@@ -354,6 +354,5 @@ svg {
 	margin-bottom: $minium-gutter;
 
 	&__item {
-		
 	}
 }
