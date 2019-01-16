@@ -17,6 +17,8 @@ package com.liferay.commerce.account.web.internal.frontend;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.web.internal.model.Account;
+import com.liferay.commerce.constants.CommerceWebKeys;
+import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.frontend.ClayTable;
 import com.liferay.commerce.frontend.ClayTableAction;
 import com.liferay.commerce.frontend.ClayTableActionProvider;
@@ -107,8 +109,12 @@ public class CommerceAccountClayTable
 
 		AccountFilterImpl accountFilter = (AccountFilterImpl)filter;
 
+		CommerceContext commerceContext =
+			(CommerceContext)httpServletRequest.getAttribute(
+				CommerceWebKeys.COMMERCE_CONTEXT);
+
 		return _commerceAccountService.getUserCommerceAccountsCount(
-			accountFilter.getAccountId(), accountFilter.getCommerceSiteType(),
+			accountFilter.getAccountId(), commerceContext.getCommerceSiteType(),
 			accountFilter.getKeywords());
 	}
 
@@ -148,10 +154,14 @@ public class CommerceAccountClayTable
 
 		AccountFilterImpl accountFilter = (AccountFilterImpl)filter;
 
+		CommerceContext commerceContext =
+			(CommerceContext)httpServletRequest.getAttribute(
+				CommerceWebKeys.COMMERCE_CONTEXT);
+
 		List<CommerceAccount> commerceAccounts =
 			_commerceAccountService.getUserCommerceAccounts(
 				accountFilter.getAccountId(),
-				accountFilter.getCommerceSiteType(),
+				commerceContext.getCommerceSiteType(),
 				accountFilter.getKeywords(), pagination.getStartPosition(),
 				pagination.getEndPosition());
 

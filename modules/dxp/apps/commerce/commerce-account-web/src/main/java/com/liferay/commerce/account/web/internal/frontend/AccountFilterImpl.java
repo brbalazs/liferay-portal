@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.account.web.internal.frontend;
 
-import com.liferay.commerce.account.util.CommerceSiteType;
 import com.liferay.commerce.frontend.DefaultFilterImpl;
 
 /**
@@ -27,19 +26,10 @@ public class AccountFilterImpl extends DefaultFilterImpl {
 		return _accountId;
 	}
 
-	public CommerceSiteType getCommerceSiteType() {
-		return _commerceSiteType;
-	}
-
 	public void setAccountId(long accountId) {
 		_accountId = accountId;
 	}
 
-	public void setCommerceSiteType(CommerceSiteType commerceSiteType) {
-		_commerceSiteType = commerceSiteType;
-	}
-
 	private long _accountId;
-	private CommerceSiteType _commerceSiteType;
 
 }
