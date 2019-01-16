@@ -37,6 +37,21 @@ page import="com.liferay.commerce.product.data.source.CPDataSourceResult" %>
 
 <%@ page import="java.util.List" %>
 <%@ page import="com.liferay.portal.kernel.language.LanguageUtil" %>
+<%@ page import="com.liferay.commerce.product.content.util.CPContentHelper" %>
+<%@ page import="com.liferay.commerce.product.catalog.CPCatalogEntry" %>
+<%@ page import="com.liferay.commerce.product.catalog.CPSku" %>
+<%@ page
+		import="com.liferay.commerce.product.content.constants.CPContentWebKeys" %>
+<%@ page import="com.liferay.portal.kernel.language.LanguageUtil" %>
+<%@ page import="com.liferay.petra.string.StringPool" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page
+		import="com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue" %>
+<%@ page import="com.liferay.commerce.product.model.CPOptionCategory" %>
+<%@ page import="com.liferay.commerce.product.model.CPAttachmentFileEntry" %>
+<%@ page import="com.liferay.commerce.product.model.CPSpecificationOption" %>
+<%@ page import="com.liferay.portal.kernel.repository.model.FileEntry" %>
 
 <liferay-frontend:defineObjects />
 
