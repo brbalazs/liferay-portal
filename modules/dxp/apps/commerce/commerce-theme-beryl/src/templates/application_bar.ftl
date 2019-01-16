@@ -39,6 +39,7 @@
 			<a aria-expanded="false" aria-haspopup="true" class="animate dropdown-toggle nav-link" data-toggle="dropdown" href="/" role="button">
 				<span class="b2b-cart-notification sticker">
 					<svg aria-hidden="true" class="lexicon-icon lexicon-icon-archive" focusable="false"><use xlink:href="${images_folder}/lexicon/icons.svg#archive" /></svg>
+
 					<span class="rounded-circle sticker sticker-light sticker-outside sticker-sm sticker-top-right" id="b2b-mini-cart-items-count">
 						${orderItemsQuantity}
 					</span>
