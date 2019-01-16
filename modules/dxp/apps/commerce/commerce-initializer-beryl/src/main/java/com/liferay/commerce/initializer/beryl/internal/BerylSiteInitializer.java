@@ -698,9 +698,6 @@ public class BerylSiteInitializer implements SiteInitializer {
 	@Reference
 	private ThemeLocalService _themeLocalService;
 
-	@Reference(target = "(osgi.web.symbolicname=commerce-beryl-theme)")
-	private ServletContext _themeServletContext;
-
 	@Reference
 	private UserLocalService _userLocalService;
 
