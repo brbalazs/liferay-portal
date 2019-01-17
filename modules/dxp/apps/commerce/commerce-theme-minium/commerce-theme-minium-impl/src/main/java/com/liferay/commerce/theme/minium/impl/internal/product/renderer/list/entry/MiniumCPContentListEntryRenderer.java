@@ -142,9 +142,6 @@ public class MiniumCPContentListEntryRenderer
 	}
 
 	@Reference
-	private NPMResolver _npmResolver;
-
-	@Reference
 	private SoyComponentRenderer _soyComponentRenderer;
 
 }
