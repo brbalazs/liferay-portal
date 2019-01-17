@@ -53,9 +53,12 @@ import com.liferay.portal.kernel.lock.Lock;
 import com.liferay.portal.kernel.lock.NoSuchLockException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
@@ -818,6 +821,10 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 			long groupId = webDAVRequest.getGroupId();
 			long parentFolderId = getParentFolderId(
 				webDAVRequest.getCompanyId(), pathArray);
+
+			Role defaultGroupRole =
+				RoleLocalServiceUtil.getDefaultGroupRole(groupId);
+
 			String title = getTitle(pathArray);
 			String description = StringPool.BLANK;
 			String changeLog = StringPool.BLANK;
@@ -828,8 +835,11 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 			serviceContext.setAddGroupPermissions(
 				isAddGroupPermissions(groupId));
 
-			serviceContext.setAddGuestPermissions(
-				isAddGuestPermissions(groupId));
+			if (defaultGroupRole.equals(RoleConstants.GUEST)) {
+				serviceContext.setAddGuestPermissions(true);
+			} else {
+				serviceContext.setAddGuestPermissions(false);
+			}
 
 			String extension = FileUtil.getExtension(title);
 
