@@ -18,6 +18,9 @@ import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.account.web.internal.display.context.CommerceAccountDisplayContext;
+import com.liferay.commerce.service.CommerceAddressService;
+import com.liferay.commerce.service.CommerceCountryService;
+import com.liferay.commerce.service.CommerceRegionService;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
@@ -91,7 +94,9 @@ public class CommerceAccountMembersScreenNavigationEntry
 		CommerceAccountDisplayContext commerceAccountDisplayContext =
 			new CommerceAccountDisplayContext(
 				_commerceAccountHelper, _commerceAccountService,
-				httpServletRequest, _modelResourcePermission, _portal, null);
+				_commerceAddressService, _commerceCountryService,
+				_commerceRegionService, httpServletRequest,
+				_modelResourcePermission, _portal, null);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, commerceAccountDisplayContext);
@@ -106,6 +111,15 @@ public class CommerceAccountMembersScreenNavigationEntry
 
 	@Reference
 	private CommerceAccountService _commerceAccountService;
+
+	@Reference
+	private CommerceAddressService _commerceAddressService;
+
+	@Reference
+	private CommerceCountryService _commerceCountryService;
+
+	@Reference
+	private CommerceRegionService _commerceRegionService;
 
 	@Reference
 	private JSPRenderer _jspRenderer;

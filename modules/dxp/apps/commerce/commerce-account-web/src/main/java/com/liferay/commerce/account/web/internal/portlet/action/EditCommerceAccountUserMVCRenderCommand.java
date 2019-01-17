@@ -19,6 +19,8 @@ import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.account.web.internal.display.context.CommerceAccountUserDisplayContext;
+import com.liferay.commerce.service.CommerceCountryService;
+import com.liferay.commerce.service.CommerceRegionService;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
@@ -66,6 +68,7 @@ public class EditCommerceAccountUserMVCRenderCommand
 		CommerceAccountUserDisplayContext commerceAccountUserDisplayContext =
 			new CommerceAccountUserDisplayContext(
 				_commerceAccountHelper, _commerceAccountService,
+				_commerceCountryService, _commerceRegionService,
 				httpServletRequest, _modelResourcePermission, _portal,
 				_userFileUploadsConfiguration, _userLocalService);
 
@@ -87,6 +90,12 @@ public class EditCommerceAccountUserMVCRenderCommand
 
 	@Reference
 	private CommerceAccountService _commerceAccountService;
+
+	@Reference
+	private CommerceCountryService _commerceCountryService;
+
+	@Reference
+	private CommerceRegionService _commerceRegionService;
 
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.account.model.CommerceAccount)"

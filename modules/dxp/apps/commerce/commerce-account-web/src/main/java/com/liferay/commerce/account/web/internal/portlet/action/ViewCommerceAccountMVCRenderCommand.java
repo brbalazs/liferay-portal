@@ -19,6 +19,9 @@ import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.account.web.internal.display.context.CommerceAccountDisplayContext;
+import com.liferay.commerce.service.CommerceAddressService;
+import com.liferay.commerce.service.CommerceCountryService;
+import com.liferay.commerce.service.CommerceRegionService;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.Portal;
@@ -57,7 +60,9 @@ public class ViewCommerceAccountMVCRenderCommand implements MVCRenderCommand {
 		CommerceAccountDisplayContext commerceAccountDisplayContext =
 			new CommerceAccountDisplayContext(
 				_commerceAccountHelper, _commerceAccountService,
-				httpServletRequest, _modelResourcePermission, _portal, null);
+				_commerceAddressService, _commerceCountryService,
+				_commerceRegionService, httpServletRequest,
+				_modelResourcePermission, _portal, null);
 
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, commerceAccountDisplayContext);
@@ -70,6 +75,15 @@ public class ViewCommerceAccountMVCRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private CommerceAccountService _commerceAccountService;
+
+	@Reference
+	private CommerceAddressService _commerceAddressService;
+
+	@Reference
+	private CommerceCountryService _commerceCountryService;
+
+	@Reference
+	private CommerceRegionService _commerceRegionService;
 
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.account.model.CommerceAccount)"
