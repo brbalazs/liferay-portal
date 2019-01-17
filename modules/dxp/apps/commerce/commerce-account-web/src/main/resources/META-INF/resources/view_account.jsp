@@ -20,6 +20,7 @@
 CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommerceAccount commerceAccount = commerceAccountDisplayContext.getCurrentCommerceAccount();
+CommerceAddress commerceAddress = commerceAccountDisplayContext.getDefaultBillingCommerceAddress();
 
 PortletURL portletURL = commerceAccountDisplayContext.getPortletURL();
 
@@ -36,7 +37,7 @@ portletURL.setParameter("mvcRenderCommandName", "viewCommerceAccount");
 	<section class="details-header__section details-header__primary">
 		<div class="details-header__main-data">
 			<div class="details-header__avatar">
-				<img alt="avatar" src="https://via.placeholder.com/120" />
+				<img alt="avatar" src="<%= commerceAccountDisplayContext.getLogo(commerceAccount) %>" />
 			</div>
 
 			<div class="details-header__name">
@@ -48,16 +49,18 @@ portletURL.setParameter("mvcRenderCommandName", "viewCommerceAccount");
 			</div>
 		</div>
 
-		<div class="details-header__info-wrapper">
-			<div class="details-header__label">
-				Address
-			</div>
+		<c:if test="<%= commerceAddress != null %>">
+			<div class="details-header__info-wrapper">
+				<div class="details-header__label">
+					<liferay-ui:message key="address" />
+				</div>
 
-			<div class="details-header__value">
-				PO Box 467<br />
-				New York (NY) 10002
+				<div class="details-header__value">
+					<%= commerceAddress.getStreet1() %><br />
+					<%= commerceAddress.getCity() + StringPool.SPACE + commerceAddress.getZip() %>
+				</div>
 			</div>
-		</div>
+		</c:if>
 
 		<c:if test="<%= commerceAccountDisplayContext.hasEditCommerceAccountPermissions(commerceAccount.getCommerceAccountId()) %>">
 			<div class="details-header__action">
@@ -69,21 +72,21 @@ portletURL.setParameter("mvcRenderCommandName", "viewCommerceAccount");
 	<section class="details-header__section details-header__secondary">
 		<div class="details-header__info-wrapper">
 			<div class="details-header__label">
-				Vat Number
+				<liferay-ui:message key="vat-number" />
 			</div>
 
 			<div class="details-header__value">
-				123456789123456
+				<%= commerceAccount.getTaxId() %>
 			</div>
 		</div>
 
 		<div class="details-header__info-wrapper">
 			<div class="details-header__label">
-				Custmer Id
+				<liferay-ui:message key="customer-id" />
 			</div>
 
 			<div class="details-header__value">
-				65479123
+				<%= commerceAccount.getCommerceAccountId() %>
 			</div>
 		</div>
 	</section>

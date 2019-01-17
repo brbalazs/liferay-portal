@@ -20,6 +20,15 @@
 CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommerceAccount commerceAccount = commerceAccountDisplayContext.getCurrentCommerceAccount();
+CommerceAddress commerceAddress = commerceAccountDisplayContext.getDefaultBillingCommerceAddress();
+
+long commerceCountryId = 0;
+long commerceRegionId = 0;
+
+if (commerceAddress != null) {
+	commerceCountryId = commerceAddress.getCommerceCountryId();
+	commerceRegionId = commerceAddress.getCommerceRegionId();
+}
 
 String redirect = ParamUtil.getString(request, "redirect");
 
@@ -32,6 +41,7 @@ String backURL = ParamUtil.getString(request, "backURL", redirect);
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commerceAccount == null) ? Constants.ADD : Constants.UPDATE %>" />
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="commerceAccountId" type="hidden" value="<%= (commerceAccount == null) ? 0 : commerceAccount.getCommerceAccountId() %>" />
+	<aui:input name="commerceAddressId" type="hidden" value="<%= (commerceAddress == null) ? 0 : commerceAddress.getCommerceAddressId() %>" />
 
 	<liferay-ui:error-marker
 		key="<%= WebKeys.ERROR_SECTION %>"
@@ -66,45 +76,110 @@ String backURL = ParamUtil.getString(request, "backURL", redirect);
 
 			<div class="col-lg-4 mt-4 mt-lg-0 u-vac">
 				<aui:input inlineLabel="true" name="name" />
+
 				<aui:input inlineLabel="true" name="email" wrapperCssClass="mb-0" />
 			</div>
 		</div>
 	</section>
 
 	<section class="details-header__section pb-0">
+		<aui:model-context bean="<%= commerceAddress %>" model="<%= CommerceAddress.class %>" />
+
 		<div class="row">
 			<div class="col-lg-4">
 				<aui:select inlineLabel="true" label="country" name="commerceCountryId" showEmptyOption="<%= true %>">
-					<aui:option label="Test" value="1" />
 
-					<aui:option label="Test 2" value="2" />
+					<%
+					List<CommerceCountry> commerceCountries = commerceAccountDisplayContext.getCommerceCountries();
+
+					for (CommerceCountry commerceCountry : commerceCountries) {
+					%>
+
+						<aui:option label="<%= commerceCountry.getName(locale) %>" selected="<%= (commerceAddress != null) && (commerceAddress.getCommerceCountryId() == commerceCountry.getCommerceCountryId()) %>" value="<%= commerceCountry.getCommerceCountryId() %>" />
+
+					<%
+					}
+					%>
+
 				</aui:select>
+
 			</div>
 
 			<div class="col-lg-4">
 				<aui:select inlineLabel="true" label="region" name="commerceRegionId" showEmptyOption="<%= true %>">
-					<aui:option label="Test" value="1" />
 
-					<aui:option label="Test 2" value="2" />
+					<%
+					List<CommerceRegion> commerceRegions = commerceAccountDisplayContext.getCommerceRegions(commerceCountryId);
+
+					for (CommerceRegion commerceRegion : commerceRegions) {
+					%>
+
+						<aui:option label="<%= commerceRegion.getName() %>" selected="<%= (commerceAddress != null) && (commerceAddress.getCommerceRegionId() == commerceRegion.getCommerceRegionId()) %>" value="<%= commerceRegion.getCommerceRegionId() %>" />
+
+					<%
+					}
+					%>
+
 				</aui:select>
 			</div>
 
 			<div class="col-lg-4">
-				<aui:input inlineLabel="true" name="address" type="text" />
+				<aui:input inlineLabel="true" label="address" name="street1" />
 			</div>
 
 			<div class="col-lg-4">
-				<aui:input inlineLabel="true" label="zip" name="zipCode" type="text" />
+				<aui:input inlineLabel="true" name="zip" />
 			</div>
 
 			<div class="col-lg-4">
-				<aui:input inlineLabel="true" name="city" type="text" />
+				<aui:input inlineLabel="true" name="city" />
 			</div>
 		</div>
 	</section>
 
 	<div class="minium-frame__cta is-visible">
 		<aui:button cssClass="minium-button minium-button--big minium-button--outline" href="<%= backURL %>" value="cancel" />
+
 		<aui:button cssClass="minium-button minium-button--big" type="submit" />
 	</div>
 </aui:form>
+
+<aui:script use="liferay-dynamic-select">
+	new Liferay.DynamicSelect(
+		[
+			{
+				select: '<portlet:namespace />commerceCountryId',
+				selectData: function(callback) {
+					Liferay.Service(
+						'/commerce.commercecountry/get-commerce-countries',
+						{
+							groupId: <%= scopeGroupId %>,
+							active: true
+						},
+						callback
+					);
+				},
+				selectDesc: 'nameCurrentValue',
+				selectId: 'commerceCountryId',
+				selectSort: '<%= true %>',
+				selectVal: '<%= commerceCountryId %>'
+			},
+			{
+				select: '<portlet:namespace />commerceRegionId',
+				selectData: function(callback, selectKey) {
+					Liferay.Service(
+						'/commerce.commerceregion/get-commerce-regions',
+						{
+							commerceCountryId: Number(selectKey),
+							active: true
+						},
+						callback
+					);
+				},
+				selectDesc: 'name',
+				selectId: 'commerceRegionId',
+				selectVal: '<%= commerceRegionId %>'
+			}
+		]
+	);
+</aui:script>

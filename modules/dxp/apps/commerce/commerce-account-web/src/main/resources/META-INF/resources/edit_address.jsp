@@ -81,7 +81,7 @@ String languageId = LanguageUtil.getLanguageId(locale);
 					<aui:select label="region" name="commerceRegionId" showEmptyOption="<%= true %>">
 
 						<%
-						List<CommerceRegion> commerceRegions = commerceAccountAddressesDisplayContext.getCommerceRegions();
+						List<CommerceRegion> commerceRegions = commerceAccountAddressesDisplayContext.getCommerceRegions(commerceCountryId);
 
 						for (CommerceRegion commerceRegion : commerceRegions) {
 						%>
