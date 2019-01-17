@@ -9,7 +9,7 @@
 	]>}
 	{@param spritemap: string}
 
-	{@param? _removeProduct: any}
+	{@param? _handleRemoveProduct: any}
 	{@param? _updateProductVisibility: any}
 	{@param? _submitCompare: any}
 
@@ -26,7 +26,7 @@
 				{foreach $product in $products}
 					{if index($product) < 4}
 						{call ProductsCompareItem.render}
-							{param events: ['removeProduct': $_removeProduct, 'updateProductVisibility': $_updateProductVisibility] /}
+							{param events: ['removeProduct': $_handleRemoveProduct, 'updateProductVisibility': $_updateProductVisibility] /}
 							{param id: $product.id /}
 							{param thumbnail: $product.thumbnail /}
 							{param visibility: $product.visibility /}
@@ -44,8 +44,14 @@
 					{/for}
 				{/if}
 			{/if}
-			<button
-				class="minium-button products-compare__button"
+			{let $compareButtonClasses kind="text"}
+				minium-button products-compare__button
+				{if isNonnull($products) and length($products) < 2}
+					{sp}minium-button--disabled
+				{/if}
+			{/let}
+			<button 
+				class="{$compareButtonClasses}"
 				data-onclick="{$_submitCompare}"
 			>
 				Compare

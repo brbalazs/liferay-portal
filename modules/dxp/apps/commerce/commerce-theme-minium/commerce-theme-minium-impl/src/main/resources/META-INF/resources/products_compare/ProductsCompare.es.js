@@ -29,8 +29,13 @@ class ProductsCompare extends Component {
 					return this._removeProduct(toggledProduct);
 				}
 
+<<<<<<< HEAD
 				return this._addProduct(toggledProduct);
 
+=======
+				return this._handleAddProduct(toggledProduct);
+				
+>>>>>>> COMMERCE-686 compare table started
 			}
 		);
 	}
@@ -43,11 +48,16 @@ class ProductsCompare extends Component {
 				visibility: 'hidden'
 			}
 		);
+<<<<<<< HEAD
+=======
+		
+>>>>>>> COMMERCE-686 compare table started
 		return this._updateProductVisibility(product.id, 'visible');
 	}
 
 	_removeProduct(product) {
 		this._updateProductVisibility(product.id, 'hidden');
+<<<<<<< HEAD
 		return setTimeout(
 			() => {
 				this.products = this.products.filter(
@@ -92,6 +102,78 @@ class ProductsCompare extends Component {
 			},
 			400
 		);
+=======
+		return new Promise((resolve) => {
+			setTimeout(
+				() => {
+					this.products = this.products.filter(
+						(el) => el.id !== product.id
+					);
+					Liferay.fire('productRemovedFromCompare', product.id);
+					resolve(this.products);
+				},
+				500
+			)
+		})
+	}
+
+	_handleAddProduct(product){
+		return this._addProduct(product)
+			.then(() => {
+				return this._updateCompareGlobalState();
+			})
+	}
+
+	_handleRemoveProduct(product){
+		return this._removeProduct(product)
+			.then(() => {
+				return this._updateCompareGlobalState();
+			})
+	}
+
+	_updateCompareGlobalState(){
+		if(this.products.length < 4){
+			return Liferay.fire('compareIsAvailable');
+		}
+		return Liferay.fire('compareIsUnavailable');
+	}
+
+	_updateProductVisibility(id, toState = 'visible') {
+		return new Promise((resolve) => {
+			setTimeout(
+				() => {
+					return this.products = this.products.map(
+						(el) => {
+							return el.id === id
+								? {
+									id: el.id,
+									thumbnail: el.thumbnail,
+									visibility: toState === 'visible' ? 'showing' : 'hiding'
+								}
+								: el
+						}
+					)
+				},
+				100
+			);
+			return setTimeout(
+				() => {
+					this.products = this.products.map((el) => {
+						return el.id === id
+							? {
+								id: el.id,
+								thumbnail: el.thumbnail,
+								visibility: toState
+							}
+							: el
+						}
+					)
+					return resolve(this.products)
+				}, 
+				400
+			);
+		})
+>>>>>>> COMMERCE-686 compare table started
 	}
 
 	_submitCompare() {

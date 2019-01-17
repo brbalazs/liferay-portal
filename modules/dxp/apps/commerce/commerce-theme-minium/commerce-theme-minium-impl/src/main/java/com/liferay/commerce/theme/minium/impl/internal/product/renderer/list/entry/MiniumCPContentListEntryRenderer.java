@@ -48,6 +48,7 @@ import org.osgi.service.component.annotations.Reference;
 		"commerce.product.content.list.entry.renderer.key=" + MiniumCPContentListEntryRenderer.KEY,
 		"commerce.product.content.list.entry.renderer.portlet.name=" + CPPortletKeys.CP_PUBLISHER_WEB,
 		"commerce.product.content.list.entry.renderer.portlet.name=" + CPPortletKeys.CP_SEARCH_RESULTS,
+		"commerce.product.content.list.entry.renderer.portlet.name=" + CPPortletKeys.CP_COMPARE_CONTENT_WEB,
 		"commerce.product.content.list.entry.renderer.type=grouped",
 		"commerce.product.content.list.entry.renderer.type=simple",
 		"commerce.product.content.list.entry.renderer.type=virtual"
@@ -100,7 +101,8 @@ public class MiniumCPContentListEntryRenderer
 		context.put("minQuantity", null);
 		context.put("name", cpCatalogEntry.getName());
 		context.put("pictureUrl", cpCatalogEntry.getDefaultImageFileUrl());
-		context.put("sku", "AR351184");
+		context.put("productId", cpCatalogEntry.getCPDefinitionId());
+		context.put("sku", "ASK1234");
 
 		context.put(
 			"spritemap",

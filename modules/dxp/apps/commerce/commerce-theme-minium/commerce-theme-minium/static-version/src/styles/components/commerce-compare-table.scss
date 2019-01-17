@@ -1,0 +1,38 @@
+.commerce-compare-table {
+	tbody td, 
+	&__card,
+	&__card-row {
+		background: transparent;
+	}
+
+	.commerce-compare-table__title {
+		width: 150px;
+	}
+
+	&.entry {
+		&--4 td {
+			width: 20%;
+			&:first-of-type {
+				width: 10%;
+			}
+		}
+		&--3 td {
+			width: 20%;
+			&:first-of-type {
+				width: 10%;
+			}
+		}
+		&--2 td {
+			width: 20%;
+			&:first-of-type {
+				width: 10%;
+			}
+		}
+		&--1 td {
+			width: 20%;
+			&:first-of-type {
+				width: 10%;
+			}
+		}
+	}
+}
