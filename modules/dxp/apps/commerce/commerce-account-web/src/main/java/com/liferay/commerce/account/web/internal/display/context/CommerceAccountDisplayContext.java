@@ -18,6 +18,10 @@ import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.account.web.internal.frontend.AccountFilterImpl;
+import com.liferay.commerce.model.CommerceAddress;
+import com.liferay.commerce.service.CommerceAddressService;
+import com.liferay.commerce.service.CommerceCountryService;
+import com.liferay.commerce.service.CommerceRegionService;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -29,6 +33,8 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.webserver.WebServerServletTokenUtil;
 import com.liferay.users.admin.configuration.UserFileUploadsConfiguration;
+
+import java.util.List;
 
 import javax.portlet.PortletURL;
 import javax.portlet.WindowStateException;
@@ -45,15 +51,20 @@ public class CommerceAccountDisplayContext
 	public CommerceAccountDisplayContext(
 		CommerceAccountHelper commerceAccountHelper,
 		CommerceAccountService commerceAccountService,
+		CommerceAddressService commerceAddressService,
+		CommerceCountryService commerceCountryService,
+		CommerceRegionService commerceRegionService,
 		HttpServletRequest httpServletRequest,
 		ModelResourcePermission<CommerceAccount> modelResourcePermission,
 		Portal portal,
 		UserFileUploadsConfiguration userFileUploadsConfiguration) {
 
 		super(
-			commerceAccountHelper, commerceAccountService, httpServletRequest,
+			commerceAccountHelper, commerceAccountService,
+			commerceCountryService, commerceRegionService, httpServletRequest,
 			modelResourcePermission, portal);
 
+		_commerceAddressService = commerceAddressService;
 		_userFileUploadsConfiguration = userFileUploadsConfiguration;
 	}
 
@@ -107,6 +118,30 @@ public class CommerceAccountDisplayContext
 		return sb.toString();
 	}
 
+	public CommerceAddress getDefaultBillingCommerceAddress()
+		throws PortalException {
+
+		CommerceAccount commerceAccount = getCurrentCommerceAccount();
+
+		if (commerceAccount == null) {
+			return null;
+		}
+
+		List<CommerceAddress> commerceAddresses =
+			_commerceAddressService.getCommerceAddresses(
+				commerceAccount.getCommerceAccountGroupId(),
+				CommerceAccount.class.getName(),
+				commerceAccount.getCommerceAccountId());
+
+		for (CommerceAddress commerceAddress : commerceAddresses) {
+			if (commerceAddress.isDefaultBilling()) {
+				return commerceAddress;
+			}
+		}
+
+		return null;
+	}
+
 	public String getLogo(CommerceAccount commerceAccount) {
 		ThemeDisplay themeDisplay =
 			commerceAccountRequestHelper.getThemeDisplay();
@@ -127,6 +162,7 @@ public class CommerceAccountDisplayContext
 		return _userFileUploadsConfiguration;
 	}
 
+	private final CommerceAddressService _commerceAddressService;
 	private final UserFileUploadsConfiguration _userFileUploadsConfiguration;
 
 }

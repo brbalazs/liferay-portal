@@ -21,8 +21,6 @@ import com.liferay.commerce.account.web.internal.servlet.taglib.ui.CommerceAccou
 import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.model.CommerceAddress;
-import com.liferay.commerce.model.CommerceCountry;
-import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceRegionService;
@@ -38,8 +36,6 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.WebKeys;
-
-import java.util.List;
 
 import javax.portlet.PortletURL;
 import javax.portlet.WindowStateException;
@@ -63,12 +59,11 @@ public class CommerceAccountAddressesDisplayContext
 		Portal portal, PortletResourcePermission portletResourcePermission) {
 
 		super(
-			commerceAccountHelper, commerceAccountService, httpServletRequest,
+			commerceAccountHelper, commerceAccountService,
+			commerceCountryService, commerceRegionService, httpServletRequest,
 			modelResourcePermission, portal);
 
 		_commerceAddressService = commerceAddressService;
-		_commerceCountryService = commerceCountryService;
-		_commerceRegionService = commerceRegionService;
 		_portletResourcePermission = portletResourcePermission;
 	}
 
@@ -114,18 +109,6 @@ public class CommerceAccountAddressesDisplayContext
 		return commerceAddress.getCommerceAddressId();
 	}
 
-	public List<CommerceCountry> getCommerceCountries() {
-		HttpServletRequest httpServletRequest =
-			commerceAccountRequestHelper.getRequest();
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
-		return _commerceCountryService.getCommerceCountries(
-			themeDisplay.getScopeGroupId(), true);
-	}
-
 	public long getCommerceCountryId() throws PortalException {
 		long commerceCountryId = 0;
 
@@ -148,11 +131,6 @@ public class CommerceAccountAddressesDisplayContext
 		}
 
 		return commerceRegionId;
-	}
-
-	public List<CommerceRegion> getCommerceRegions() throws PortalException {
-		return _commerceRegionService.getCommerceRegions(
-			getCommerceCountryId(), true);
 	}
 
 	public String getEditCommerceAddressHref(long commerceAddressId)
@@ -235,8 +213,6 @@ public class CommerceAccountAddressesDisplayContext
 	}
 
 	private final CommerceAddressService _commerceAddressService;
-	private final CommerceCountryService _commerceCountryService;
-	private final CommerceRegionService _commerceRegionService;
 	private String _keywords;
 	private final PortletResourcePermission _portletResourcePermission;
 

@@ -20,6 +20,10 @@ import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.account.web.internal.display.context.util.CommerceAccountRequestHelper;
 import com.liferay.commerce.account.web.internal.util.CommerceAccountPortletUtil;
+import com.liferay.commerce.model.CommerceCountry;
+import com.liferay.commerce.model.CommerceRegion;
+import com.liferay.commerce.service.CommerceCountryService;
+import com.liferay.commerce.service.CommerceRegionService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
@@ -52,6 +56,8 @@ public abstract class BaseCommerceAccountDisplayContext {
 	public BaseCommerceAccountDisplayContext(
 		CommerceAccountHelper commerceAccountHelper,
 		CommerceAccountService commerceAccountService,
+		CommerceCountryService commerceCountryService,
+		CommerceRegionService commerceRegionService,
 		HttpServletRequest httpServletRequest,
 		ModelResourcePermission<CommerceAccount> modelResourcePermission,
 		Portal portal) {
@@ -59,6 +65,8 @@ public abstract class BaseCommerceAccountDisplayContext {
 		_commerceAccountHelper = commerceAccountHelper;
 
 		this.commerceAccountService = commerceAccountService;
+		this.commerceCountryService = commerceCountryService;
+		this.commerceRegionService = commerceRegionService;
 		this.modelResourcePermission = modelResourcePermission;
 		this.portal = portal;
 
@@ -67,6 +75,18 @@ public abstract class BaseCommerceAccountDisplayContext {
 
 		_defaultOrderByCol = "create-date";
 		_defaultOrderByType = "desc";
+	}
+
+	public List<CommerceCountry> getCommerceCountries() {
+		return commerceCountryService.getCommerceCountries(
+			commerceAccountRequestHelper.getScopeGroupId(), true);
+	}
+
+	public List<CommerceRegion> getCommerceRegions(long commerceCountryId)
+		throws PortalException {
+
+		return commerceRegionService.getCommerceRegions(
+			commerceCountryId, true);
 	}
 
 	public CommerceAccount getCurrentCommerceAccount() throws PortalException {
@@ -279,6 +299,8 @@ public abstract class BaseCommerceAccountDisplayContext {
 
 	protected final CommerceAccountRequestHelper commerceAccountRequestHelper;
 	protected final CommerceAccountService commerceAccountService;
+	protected final CommerceCountryService commerceCountryService;
+	protected final CommerceRegionService commerceRegionService;
 	protected final ModelResourcePermission<CommerceAccount>
 		modelResourcePermission;
 	protected final Portal portal;
