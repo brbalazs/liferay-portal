@@ -136,9 +136,15 @@ public class MiniumCPContentListEntryRenderer
 		// 	httpServletRequest, httpServletResponse, componentDescriptor,
 		// 	context);
 
+		Map<String, Object> testContext = new HashMap<>();
+
+		testContext.put(
+			"spritemap",
+			themeDisplay.getPathThemeImages() + "/commerce-icons.svg");
+
 		_soyComponentRenderer.renderSoyComponent(
 			httpServletRequest, httpServletResponse, testDescriptor,
-			context);
+			testContext);
 	}
 
 	@Reference

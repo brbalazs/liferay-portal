@@ -5,8 +5,23 @@ import Component from 'metal-component';
 import Soy, {Config} from 'metal-soy';
 
 class ProductCard extends Component {
+
+	attached(){
+		return Liferay.on(
+			'productRemovedFromCompare',
+			(data) => {
+				if (data.id === data.sku) { //TODO: sku to be changed in productId
+					this.isInCompare = false
+				}
+			}
+		)
+	}
+
 	_handleCompareCheckbox(evt){
-		Liferay.fire('toggleProductToCompare', {
+		evt.preventDefault()
+		this.isInCompare = !this.isInCompare;
+
+		return Liferay.fire('toggleProductToCompare', {
 			id: this.sku,
 			thumbnail: this.pictureUrl
 		})
@@ -17,24 +32,33 @@ Soy.register(ProductCard, template);
 
 ProductCard.STATE = {
 	productId: Config.string(),
-	availability: Config.string().oneOf([
-		'inStock',
-		'available',
-		'notAvailable'
-	]).value('inStock'),
+	availability: Config.string()
+		.oneOf(
+			[
+				'inStock',
+				'available',
+				'notAvailable'
+			]
+		)
+		.value('inStock'),
 	sku: Config.string().required(),
 	pictureUrl: Config.string(),
 	name: Config.string().required(),
+	isInCompare: Config.bool(),
 	categories: Config.array(
-		Config.shapeOf({
-			name: Config.string().required(),
-			link: Config.string().required()
-		})
+		Config.shapeOf(
+			{
+				name: Config.string().required(),
+				link: Config.string().required()
+			}
+		)
 	),
-	price: Config.shapeOf({
-		formattedPrice: Config.string().required(),
-		formattedPromoPrice: Config.string()
-	}),
+	price: Config.shapeOf(
+		{
+			formattedPrice: Config.string().required(),
+			formattedPromoPrice: Config.string()
+		}
+	),
 	description: Config.string(),
 	spritemap: Config.string(),
 	detailsLink: Config.string(),

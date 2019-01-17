@@ -16,7 +16,7 @@ class ProductsCompare extends Component {
 				const toggledProduct = {
 					id: data.id,
 					thumbnail: data.thumbnail
-				}
+				};
 
 				const isIncluded = this.products.reduce(
 					(acc, el) => {
@@ -42,17 +42,21 @@ class ProductsCompare extends Component {
 				thumbnail: product.thumbnail,
 				visibility: 'hidden'
 			}
-		)
-		return this._updateProductVisibility(product.id, 'visible')
+		);
+		return this._updateProductVisibility(product.id, 'visible');
 	}
 
 	_removeProduct(product){
 		this._updateProductVisibility(product.id, 'hidden');
-		return setTimeout(() => {
-			return this.products = this.products.filter(
-				(el) => el.id !== product.id
-			)
-		}, 500)
+		return setTimeout(
+			() => {
+				this.products = this.products.filter(
+					(el) => el.id !== product.id
+				);
+				return Liferay.fire('productRemovedFromCompare', product.id);
+			},
+			500
+		)
 	}
 
 	_updateProductVisibility(id, toState = 'visible') {
@@ -89,12 +93,6 @@ class ProductsCompare extends Component {
 		);
 	}
 
-	_removeProduct(id) {
-		return this.products = this.products.filter(
-			product => product.id !== id
-		)
-	}
-
 	_submitCompare() {
 		const idList = this.products.map(el => el.id);
 		this.emit('submitCompare', idList);
@@ -107,13 +105,16 @@ ProductsCompare.STATE = {
 	products: Config.array(
 		Config.shapeOf({
 			thumbnail: Config.string().required(),
-			id: Config.oneOfType([
-				Config.string(),
-				Config.number()
-			]).required(),
+			id: Config.oneOfType(
+				[
+					Config.string(),
+					Config.number()
+				]
+			).required(),
 			visibility: Config.string(),
 		})
-	).value([])
+	).value([]),
+	spritemap: Config.string()
 };
 
 export {ProductsCompare};

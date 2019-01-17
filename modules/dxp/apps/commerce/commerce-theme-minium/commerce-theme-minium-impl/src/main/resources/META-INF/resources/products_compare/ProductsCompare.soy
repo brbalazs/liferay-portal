@@ -7,6 +7,8 @@
 		thumbnail: string,
 		visibility: string
 	]>}
+	{@param spritemap: string}
+
 	{@param? _removeProduct: any}
 	{@param? _updateProductVisibility: any}
 	{@param? _submitCompare: any}
@@ -28,6 +30,7 @@
 							{param id: $product.id /}
 							{param thumbnail: $product.thumbnail /}
 							{param visibility: $product.visibility /}
+							{param spritemap: $spritemap /}
 							{param productIndex: index($product) /}
 						{/call}
 					{/if}
@@ -35,7 +38,9 @@
 				{let $missingElements : 4 - length($products) /}
 				{if $missingElements > 0}
 					{for $i in range($missingElements)}
-							{call ProductsCompareItem.render /}
+							{call ProductsCompareItem.render}
+								{param spritemap: $spritemap /}
+							{/call}
 					{/for}
 				{/if}
 			{/if}
