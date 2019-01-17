@@ -47,7 +47,7 @@
 	componentId="addAccountModal"
 />
 
-<aui:script>
+<script>
 
 	Liferay.provide(
 		window,
@@ -95,4 +95,4 @@
 		}
 	);
 
-</aui:script>
+</script>

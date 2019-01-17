@@ -72,8 +72,8 @@ public class CommerceAccountOrganizationClayTable
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		clayTableSchemaBuilder.addField("name");
-		clayTableSchemaBuilder.addField("path");
+		clayTableSchemaBuilder.addField("name", "name");
+		clayTableSchemaBuilder.addField("path", "path");
 
 		return clayTableSchemaBuilder.build();
 	}
@@ -125,12 +125,12 @@ public class CommerceAccountOrganizationClayTable
 
 		StringBundler sb = new StringBundler(organizationIds.length * 2);
 
-		for (String organizationId : organizationIds) {
+		for (int i = 1; i < organizationIds.length; i++) {
 			sb.append(CharPool.FORWARD_SLASH);
 
 			com.liferay.portal.kernel.model.Organization organization =
 				_organizationLocalService.getOrganization(
-					GetterUtil.getLong(organizationId));
+					GetterUtil.getLong(organizationIds[i]));
 
 			sb.append(organization.getName());
 		}
