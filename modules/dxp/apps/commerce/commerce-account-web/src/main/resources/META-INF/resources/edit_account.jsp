@@ -79,6 +79,10 @@ String backURL = ParamUtil.getString(request, "backURL", redirect);
 
 				<aui:input inlineLabel="true" name="email" wrapperCssClass="mb-0" />
 			</div>
+
+			<div class="col-lg-4 mt-4 mt-lg-0">
+				<aui:input inlineLabel="true" label="vat-number" name="taxId" wrapperCssClass="mb-0" />
+			</div>
 		</div>
 	</section>
 
