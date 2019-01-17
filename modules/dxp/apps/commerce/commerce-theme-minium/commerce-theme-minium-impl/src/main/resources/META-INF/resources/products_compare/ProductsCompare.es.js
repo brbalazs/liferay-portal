@@ -8,9 +8,9 @@ import './ProductsCompareItem.es';
 
 class ProductsCompare extends Component {
 
-	attached(){
+	attached() {
 		return Liferay.on(
-			'toggleProductToCompare', 
+			'toggleProductToCompare',
 			(data) => {
 
 				const toggledProduct = {
@@ -20,22 +20,22 @@ class ProductsCompare extends Component {
 
 				const isIncluded = this.products.reduce(
 					(acc, el) => {
-						return acc || el.id === toggledProduct.id 
-					}, 
+
+					},
 					false
 				);
 
 				if (isIncluded) {
 					return this._removeProduct(toggledProduct);
-				} 
+				}
 
 				return this._addProduct(toggledProduct);
-				
+
 			}
-		)
+		);
 	}
 
-	_addProduct(product){
+	_addProduct(product) {
 		this.products = this.products.concat(
 			{
 				id: product.id,
@@ -46,7 +46,7 @@ class ProductsCompare extends Component {
 		return this._updateProductVisibility(product.id, 'visible');
 	}
 
-	_removeProduct(product){
+	_removeProduct(product) {
 		this._updateProductVisibility(product.id, 'hidden');
 		return setTimeout(
 			() => {
@@ -56,7 +56,7 @@ class ProductsCompare extends Component {
 				return Liferay.fire('productRemovedFromCompare', product.id);
 			},
 			500
-		)
+		);
 	}
 
 	_updateProductVisibility(id, toState = 'visible') {
@@ -64,31 +64,31 @@ class ProductsCompare extends Component {
 			() => {
 				return this.products = this.products.map(
 					(el) => {
-						return el.id === id
-							? {
+						return el.id === id ?
+							{
 								id: el.id,
 								thumbnail: el.thumbnail,
 								visibility: toState === 'visible' ? 'showing' : 'hiding'
-							}
-							: el
+							} :
+							el;
 					}
-				)
+				);
 			},
 			100
 		);
 		return setTimeout(
 			() => {
 				return this.products = this.products.map((el) => {
-					return el.id === id
-						? {
+					return el.id === id ?
+						{
 							id: el.id,
 							thumbnail: el.thumbnail,
 							visibility: toState
-						}
-						: el
-					}
-				) 
-			}, 
+						} :
+						el;
+				}
+
+			},
 			400
 		);
 	}
@@ -111,7 +111,7 @@ ProductsCompare.STATE = {
 					Config.number()
 				]
 			).required(),
-			visibility: Config.string(),
+			visibility: Config.string()
 		})
 	).value([]),
 	spritemap: Config.string()

@@ -29,21 +29,21 @@
 		{/let}
 
 		{let $compareAttributes kind="attributes"}
-			class="product-card__compare-checkbox" 
+			class="product-card__compare-checkbox"
 			type="checkbox"
 			{if isNonnull($isInCompare) and $isInCompare == true}
 				checked
 			{/if}
 		{/let}
 
-		<input 
+		<input
 			{$compareAttributes}
 			data-onchange="{$_handleCompareCheckbox}"
 		/>
 
 		{if isNonnull($pictureUrl)}
-			<div 
-				class="product-card__picture" 
+			<div
+				class="product-card__picture"
 				style="background-image: url({$pictureUrl})"
 			></div>
 		{/if}
@@ -53,7 +53,7 @@
 				<div class="{$availabilityDotClasses}"></div>
 			</div>
 		{/if}
-		
+
 		<p class="product-card__sku">{$sku}</p>
 
 		<a class="product-card__name" href="{$detailsLink}">{$name}</a>

@@ -21,7 +21,6 @@ import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.content.constants.CPContentWebKeys;
 import com.liferay.commerce.product.content.render.list.entry.CPContentListEntryRenderer;
 import com.liferay.commerce.product.content.util.CPContentHelper;
-import com.liferay.frontend.js.loader.modules.extender.npm.NPMResolver;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
@@ -126,11 +125,9 @@ public class MiniumCPContentListEntryRenderer
 			context);
 
 		ComponentDescriptor testDescriptor = new ComponentDescriptor(
-			"ProductsCompare.render", 
-			"commerce-theme-minium-impl@1.0.0/products_compare/ProductsCompare.es", 
-			null, 
-			null
-		);
+			"ProductsCompare.render",
+			"commerce-theme-minium-impl@1.0.0/products_compare/ProductsCompare.es",
+			null, null);
 
 		// _soyComponentRenderer.renderSoyComponent(
 		// 	httpServletRequest, httpServletResponse, componentDescriptor,

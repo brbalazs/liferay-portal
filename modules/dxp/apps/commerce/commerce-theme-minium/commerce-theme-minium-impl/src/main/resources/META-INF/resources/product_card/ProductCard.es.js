@@ -6,25 +6,25 @@ import Soy, {Config} from 'metal-soy';
 
 class ProductCard extends Component {
 
-	attached(){
+	attached() {
 		return Liferay.on(
 			'productRemovedFromCompare',
 			(data) => {
-				if (data.id === data.sku) { //TODO: sku to be changed in productId
-					this.isInCompare = false
+				if (data.id === data.sku) { // TODO: sku to be changed in productId
+					this.isInCompare = false;
 				}
 			}
-		)
+		);
 	}
 
-	_handleCompareCheckbox(evt){
-		evt.preventDefault()
+	_handleCompareCheckbox(evt) {
+		evt.preventDefault();
 		this.isInCompare = !this.isInCompare;
 
 		return Liferay.fire('toggleProductToCompare', {
 			id: this.sku,
 			thumbnail: this.pictureUrl
-		})
+		});
 	}
 };
 

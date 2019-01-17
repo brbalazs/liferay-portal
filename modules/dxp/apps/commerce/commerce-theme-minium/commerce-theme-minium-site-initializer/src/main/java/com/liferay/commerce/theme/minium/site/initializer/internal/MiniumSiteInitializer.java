@@ -679,12 +679,12 @@ public class MiniumSiteInitializer implements SiteInitializer {
 	private ServletContext _servletContext;
 
 	@Reference
+	private SettingsFactory _settingsFactory;
+
+	@Reference
 	private ThemeLocalService _themeLocalService;
 
 	@Reference
 	private UserLocalService _userLocalService;
-
-	@Reference
-	private SettingsFactory _settingsFactory;
 
 }

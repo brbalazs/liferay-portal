@@ -1,5 +1,5 @@
-import template from "./MiniumProductGallery.soy";
-import Component from "metal-component";
+import template from './MiniumProductGallery.soy';
+import Component from 'metal-component';
 import Soy, {Config} from 'metal-soy';
 
 function fetchImage(url) {
@@ -15,7 +15,8 @@ class MiniumProductGallery extends Component {
 		return new Promise(resolve => {
 			if (this.loaded.has(imageUrl)) {
 				resolve(imageUrl);
-			} else {
+			}
+ else {
 				this.loading = true;
 				fetchImage(imageUrl).then(() => {
 					this.loading = false;
@@ -78,5 +79,5 @@ MiniumProductGallery.STATE = {
 	}
 };
 
-export { MiniumProductGallery };
+export {MiniumProductGallery};
 export default MiniumProductGallery;

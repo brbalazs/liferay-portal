@@ -36,18 +36,18 @@ background-color: $color-bg;
 border-radius: 8px;
 height: $frame-size;
 
-  .nav {
-    height: 100%;
-  }
+.nav {
+height: 100%;
+}
 }
 
 .specification-list {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-gap: 0 20px;
+display: grid;
+grid-gap: 0 20px;
+grid-template-columns: auto 1fr;
 
-  .specification-desc {
-    margin-bottom: 0;
-  }
+.specification-desc {
+margin-bottom: 0;
+}
 }
 }
