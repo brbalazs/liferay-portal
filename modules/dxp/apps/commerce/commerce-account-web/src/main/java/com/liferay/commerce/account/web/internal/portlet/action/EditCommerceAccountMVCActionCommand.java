@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.account.web.internal.portlet.action;
 
+import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.account.constants.CommerceAccountPortletKeys;
 import com.liferay.commerce.account.exception.CommerceAccountNameException;
 import com.liferay.commerce.account.exception.DuplicateCommerceAccountException;
@@ -143,8 +144,6 @@ public class EditCommerceAccountMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, "commerceAccountId");
 
 		String name = ParamUtil.getString(actionRequest, "name");
-		long parentCommerceAccountId = ParamUtil.getLong(
-			actionRequest, "parentCommerceAccountId");
 		boolean deleteLogo = ParamUtil.getBoolean(actionRequest, "deleteLogo");
 		String email = ParamUtil.getString(actionRequest, "email");
 		String taxId = ParamUtil.getString(actionRequest, "taxId");
@@ -171,9 +170,7 @@ public class EditCommerceAccountMVCActionCommand extends BaseMVCActionCommand {
 
 		CommerceAccount commerceAccount;
 
-		if ((commerceAccountId > 0) &&
-			(commerceAccountId != parentCommerceAccountId)) {
-
+		if ((commerceAccountId > 0)) {
 			commerceAccount = _commerceAccountService.updateCommerceAccount(
 				commerceAccountId, name, !deleteLogo, logoBytes, email, taxId,
 				active, serviceContext);
@@ -185,9 +182,9 @@ public class EditCommerceAccountMVCActionCommand extends BaseMVCActionCommand {
 		else {
 			commerceAccount =
 				_commerceAccountService.addBusinessCommerceAccount(
-					name, parentCommerceAccountId, email, taxId, active,
-					externalReferenceCode, userIds, emailAddresses,
-					serviceContext);
+					name, CommerceAccountConstants.DEFAULT_PARENT_ACCOUNT_ID,
+					email, taxId, active, externalReferenceCode, userIds,
+					emailAddresses, serviceContext);
 		}
 
 		return commerceAccount;
