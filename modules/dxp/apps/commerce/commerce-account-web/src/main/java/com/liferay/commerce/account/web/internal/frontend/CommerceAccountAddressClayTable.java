@@ -42,7 +42,6 @@ import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
@@ -150,9 +149,13 @@ public class CommerceAccountAddressClayTable
 		AccountAddressFilterImpl accountFilter =
 			(AccountAddressFilterImpl)filter;
 
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
 		return _commerceAddressService.getCommerceAddressesCount(
-			_portal.getScopeGroupId(httpServletRequest),
-			accountFilter.getClassName(), accountFilter.getClassPK());
+			themeDisplay.getScopeGroupId(), accountFilter.getClassName(),
+			accountFilter.getClassPK());
 	}
 
 	@Override
@@ -181,14 +184,17 @@ public class CommerceAccountAddressClayTable
 		AccountAddressFilterImpl accountFilter =
 			(AccountAddressFilterImpl)filter;
 
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
 		List<Address> addresses = new ArrayList<>();
 
 		List<CommerceAddress> commerceAddresses =
 			_commerceAddressService.getCommerceAddresses(
-				_portal.getScopeGroupId(httpServletRequest),
-				accountFilter.getClassName(), accountFilter.getClassPK(),
-				pagination.getStartPosition(), pagination.getEndPosition(),
-				null);
+				themeDisplay.getScopeGroupId(), accountFilter.getClassName(),
+				accountFilter.getClassPK(), pagination.getStartPosition(),
+				pagination.getEndPosition(), null);
 
 		for (CommerceAddress commerceAddress : commerceAddresses) {
 			addresses.add(
@@ -236,9 +242,6 @@ public class CommerceAccountAddressClayTable
 
 	@Reference
 	private CommerceAddressService _commerceAddressService;
-
-	@Reference
-	private Portal _portal;
 
 	@Reference(
 		target = "(resource.name=" + CommerceConstants.RESOURCE_NAME + ")"

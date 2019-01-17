@@ -29,6 +29,8 @@ import com.liferay.commerce.frontend.ClayTableSchemaField;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.model.CommerceAddress;
+import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -186,8 +188,10 @@ public class CommerceAccountClayTable
 			accounts.add(
 				new Account(
 					commerceAccount.getCommerceAccountId(),
-					commerceAccount.getName(), StringPool.BLANK,
-					StringPool.BLANK, thumbnailSB.toString(),
+					commerceAccount.getName(), commerceAccount.getEmail(),
+					_getDefaultBillingCommerceAddress(
+						commerceAccount, themeDisplay.getScopeGroupId()),
+					thumbnailSB.toString(),
 					_getAccountViewDetailURL(
 						commerceAccount.getCommerceAccountId(),
 						httpServletRequest)));
@@ -219,11 +223,40 @@ public class CommerceAccountClayTable
 		return viewURL.toString();
 	}
 
+	private String _getDefaultBillingCommerceAddress(
+			CommerceAccount commerceAccount, long groupId)
+		throws PortalException {
+
+		List<CommerceAddress> commerceAddresses =
+			_commerceAddressService.getCommerceAddresses(
+				groupId, commerceAccount.getModelClassName(),
+				commerceAccount.getCommerceAccountId());
+
+		for (CommerceAddress commerceAddress : commerceAddresses) {
+			if (commerceAddress.isDefaultBilling()) {
+				StringBundler sb = new StringBundler(5);
+
+				sb.append(commerceAddress.getStreet1());
+				sb.append(StringPool.SPACE);
+				sb.append(commerceAddress.getCity());
+				sb.append(StringPool.SPACE);
+				sb.append(commerceAddress.getZip());
+
+				return sb.toString();
+			}
+		}
+
+		return null;
+	}
+
 	@Reference
 	private ClayTableSchemaBuilderFactory _clayTableSchemaBuilderFactory;
 
 	@Reference
 	private CommerceAccountService _commerceAccountService;
+
+	@Reference
+	private CommerceAddressService _commerceAddressService;
 
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.account.model.CommerceAccount)"
