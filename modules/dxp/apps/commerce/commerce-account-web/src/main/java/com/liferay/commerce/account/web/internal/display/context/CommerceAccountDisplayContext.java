@@ -129,7 +129,7 @@ public class CommerceAccountDisplayContext
 
 		List<CommerceAddress> commerceAddresses =
 			_commerceAddressService.getCommerceAddresses(
-				commerceAccount.getCommerceAccountGroupId(),
+				commerceAccountRequestHelper.getScopeGroupId(),
 				CommerceAccount.class.getName(),
 				commerceAccount.getCommerceAccountId());
 
