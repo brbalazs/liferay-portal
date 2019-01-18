@@ -145,12 +145,8 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 			String name = WebDAVUtil.getResourceName(destinationArray);
 			String description = folder.getDescription();
 
-			ServiceContext serviceContext = new ServiceContext();
-
-			serviceContext.setAddGroupPermissions(
-				isAddGroupPermissions(groupId));
-			serviceContext.setAddGuestPermissions(
-				isAddGuestPermissions(groupId));
+			ServiceContext serviceContext = _getServiceContext(
+				DLFolder.class.getName(), webDAVRequest);
 
 			int status = HttpServletResponse.SC_CREATED;
 
@@ -232,12 +228,8 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 
 			file = FileUtil.createTempFile(is);
 
-			ServiceContext serviceContext = new ServiceContext();
-
-			serviceContext.setAddGroupPermissions(
-				isAddGroupPermissions(groupId));
-			serviceContext.setAddGuestPermissions(
-				isAddGuestPermissions(groupId));
+			ServiceContext serviceContext = _getServiceContext(
+				DLFileEntry.class.getName(), webDAVRequest);
 
 			int status = HttpServletResponse.SC_CREATED;
 
@@ -492,12 +484,8 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 
 				file.createNewFile();
 
-				ServiceContext serviceContext = new ServiceContext();
-
-				serviceContext.setAddGroupPermissions(
-					isAddGroupPermissions(groupId));
-				serviceContext.setAddGuestPermissions(
-					isAddGuestPermissions(groupId));
+				ServiceContext serviceContext = _getServiceContext(
+					DLFileEntry.class.getName(), webDAVRequest);
 
 				FileEntry fileEntry = _dlAppService.addFileEntry(
 					groupId, parentFolderId, title, contentType, title,
@@ -509,7 +497,8 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 			if (resource instanceof DLFileEntryResourceImpl) {
 				FileEntry fileEntry = (FileEntry)resource.getModel();
 
-				ServiceContext serviceContext = new ServiceContext();
+				ServiceContext serviceContext = _getServiceContext(
+					DLFileEntry.class.getName(), webDAVRequest);
 
 				serviceContext.setAttribute(
 					DL.MANUAL_CHECK_IN_REQUIRED,
@@ -573,12 +562,8 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 			String name = WebDAVUtil.getResourceName(pathArray);
 			String description = StringPool.BLANK;
 
-			ServiceContext serviceContext = new ServiceContext();
-
-			serviceContext.setAddGroupPermissions(
-				isAddGroupPermissions(groupId));
-			serviceContext.setAddGuestPermissions(
-				isAddGuestPermissions(groupId));
+			ServiceContext serviceContext = _getServiceContext(
+				DLFolder.class.getName(), webDAVRequest);
 
 			_dlAppService.addFolder(
 				groupId, parentFolderId, name, description, serviceContext);
@@ -640,7 +625,8 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 				webDAVRequest.getCompanyId(), destinationArray);
 			String name = WebDAVUtil.getResourceName(destinationArray);
 
-			ServiceContext serviceContext = new ServiceContext();
+			ServiceContext serviceContext = _getServiceContext(
+				DLFolder.class.getName(), webDAVRequest);
 
 			serviceContext.setUserId(webDAVRequest.getUserId());
 
@@ -714,7 +700,8 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 			String description = fileEntry.getDescription();
 			String changeLog = StringPool.BLANK;
 
-			ServiceContext serviceContext = new ServiceContext();
+			ServiceContext serviceContext = _getServiceContext(
+				DLFileEntry.class.getName(), webDAVRequest);
 
 			populateServiceContext(serviceContext, fileEntry);
 
@@ -821,25 +808,12 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 			long groupId = webDAVRequest.getGroupId();
 			long parentFolderId = getParentFolderId(
 				webDAVRequest.getCompanyId(), pathArray);
-
-			Role defaultGroupRole =
-				RoleLocalServiceUtil.getDefaultGroupRole(groupId);
-
 			String title = getTitle(pathArray);
 			String description = StringPool.BLANK;
 			String changeLog = StringPool.BLANK;
 
-			ServiceContext serviceContext = ServiceContextFactory.getInstance(
-				request);
-
-			serviceContext.setAddGroupPermissions(
-				isAddGroupPermissions(groupId));
-
-			if (defaultGroupRole.equals(RoleConstants.GUEST)) {
-				serviceContext.setAddGuestPermissions(true);
-			} else {
-				serviceContext.setAddGuestPermissions(false);
-			}
+			ServiceContext serviceContext = _getServiceContext(
+				DLFileEntry.class.getName(), webDAVRequest);
 
 			String extension = FileUtil.getExtension(title);
 
@@ -991,7 +965,8 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 					return false;
 				}
 
-				ServiceContext serviceContext = new ServiceContext();
+				ServiceContext serviceContext = _getServiceContext(
+					DLFileEntry.class.getName(), webDAVRequest);
 
 				serviceContext.setAttribute(
 					DL.WEBDAV_CHECK_IN_MODE, Boolean.TRUE);
@@ -1356,6 +1331,21 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 		resource.setPrimaryKey(folder.getPrimaryKey());
 
 		return resource;
+	}
+
+	private ServiceContext _getServiceContext(
+			String className, WebDAVRequest webDAVRequest)
+		throws PortalException {
+
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			className, webDAVRequest.getHttpServletRequest());
+
+		serviceContext.setModelPermissions(null);
+
+		serviceContext.deriveDefaultPermissions(
+			webDAVRequest.getGroupId(), className);
+
+		return serviceContext;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
