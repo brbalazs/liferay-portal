@@ -471,7 +471,7 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 				resource = toResource(webDAVRequest, fileEntry, false);
 			}
 
-			if (resource instanceof DLFileEntryResourceImpl) {
+			if (!resource.isCollection()) {
 				FileEntry fileEntry = (FileEntry)resource.getModel();
 
 				ServiceContext serviceContext = _getServiceContext(
@@ -869,7 +869,7 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 		try {
 			Resource resource = getResource(webDAVRequest);
 
-			if (resource instanceof DLFileEntryResourceImpl) {
+			if (!resource.isCollection()) {
 				return _dlAppService.refreshFileEntryLock(
 					uuid, webDAVRequest.getCompanyId(), timeout);
 			}
@@ -889,7 +889,7 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 		Resource resource = getResource(webDAVRequest);
 
 		try {
-			if (resource instanceof DLFileEntryResourceImpl) {
+			if (!resource.isCollection()) {
 				FileEntry fileEntry = (FileEntry)resource.getModel();
 
 				// Do not allow WebDAV to check in a file entry if it requires a
