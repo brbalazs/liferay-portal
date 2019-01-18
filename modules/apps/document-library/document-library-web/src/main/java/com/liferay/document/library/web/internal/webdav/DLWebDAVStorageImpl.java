@@ -442,9 +442,6 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 			if (resource == null) {
 				status = HttpServletResponse.SC_CREATED;
 
-				HttpServletRequest request =
-					webDAVRequest.getHttpServletRequest();
-
 				String[] pathArray = webDAVRequest.getPathArray();
 
 				long groupId = webDAVRequest.getGroupId();
@@ -453,7 +450,8 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 
 				String title = getTitle(pathArray);
 
-				String contentType = getContentType(request, null, title);
+				String contentType = getContentType(
+					webDAVRequest.getHttpServletRequest(), null, title);
 
 				String description = StringPool.BLANK;
 				String changeLog = StringPool.BLANK;
