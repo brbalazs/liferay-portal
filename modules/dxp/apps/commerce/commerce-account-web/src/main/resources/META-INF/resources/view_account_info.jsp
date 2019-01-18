@@ -1,5 +1,4 @@
-<%@ page
-		import="com.liferay.commerce.account.web.internal.frontend.CommerceAccountOrganizationClayTable" %><%--
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -65,8 +64,6 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 			addOrganizationsModal.on(
 				'addOrganization',
 				function(event) {
-					console.log(event);
-
 					let orgIds = event.map(
 						function(org) {
 							return org.id

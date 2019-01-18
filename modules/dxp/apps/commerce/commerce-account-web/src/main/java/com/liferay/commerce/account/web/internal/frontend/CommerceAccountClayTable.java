@@ -18,7 +18,6 @@ import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.web.internal.model.Account;
-import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.frontend.ClayTable;
@@ -68,8 +67,8 @@ import org.osgi.service.component.annotations.Reference;
 		"commerce.table.name=" + CommerceAccountClayTable.NAME
 	},
 	service = {
-		CommerceDataSetDataProvider.class, ClayTable.class,
-		ClayTableActionProvider.class
+		ClayTable.class, ClayTableActionProvider.class,
+		CommerceDataSetDataProvider.class
 	}
 )
 public class CommerceAccountClayTable
@@ -264,6 +263,9 @@ public class CommerceAccountClayTable
 	@Reference
 	private CommerceAddressService _commerceAddressService;
 
+	@Reference
+	private CommerceContextFactory _commerceContextFactory;
+
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.account.model.CommerceAccount)"
 	)
@@ -271,8 +273,5 @@ public class CommerceAccountClayTable
 
 	@Reference
 	private Portal _portal;
-
-	@Reference
-	private CommerceContextFactory _commerceContextFactory;
 
 }

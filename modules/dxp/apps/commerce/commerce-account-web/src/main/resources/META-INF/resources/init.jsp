@@ -21,7 +21,6 @@
 <%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %><%@
 taglib uri="http://liferay.com/tld/commerce-ui" prefix="commerce-ui" %><%@
 taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %><%@
-taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %><%@
 taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
@@ -30,6 +29,8 @@ page import="com.liferay.commerce.account.model.CommerceAccount" %><%@
 page import="com.liferay.commerce.account.web.internal.display.context.CommerceAccountAddressesDisplayContext" %><%@
 page import="com.liferay.commerce.account.web.internal.display.context.CommerceAccountDisplayContext" %><%@
 page import="com.liferay.commerce.account.web.internal.display.context.CommerceAccountUserDisplayContext" %><%@
+page import="com.liferay.commerce.account.web.internal.frontend.CommerceAccountAddressClayTable" %><%@
+page import="com.liferay.commerce.account.web.internal.frontend.CommerceAccountOrganizationClayTable" %><%@
 page import="com.liferay.commerce.account.web.internal.servlet.taglib.ui.CommerceAccountScreenNavigationConstants" %><%@
 page import="com.liferay.commerce.exception.CommerceAddressCityException" %><%@
 page import="com.liferay.commerce.exception.CommerceAddressCountryException" %><%@

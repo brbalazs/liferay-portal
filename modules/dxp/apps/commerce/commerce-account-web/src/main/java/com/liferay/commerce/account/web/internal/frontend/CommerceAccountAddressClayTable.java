@@ -15,7 +15,6 @@
 package com.liferay.commerce.account.web.internal.frontend;
 
 import com.liferay.commerce.account.model.CommerceAccount;
-import com.liferay.commerce.account.web.internal.model.Account;
 import com.liferay.commerce.account.web.internal.model.Address;
 import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommerceConstants;
@@ -67,8 +66,8 @@ import org.osgi.service.component.annotations.Reference;
 		"commerce.table.name=" + CommerceAccountAddressClayTable.NAME
 	},
 	service = {
-		CommerceDataSetDataProvider.class, ClayTable.class,
-		ClayTableActionProvider.class
+		ClayTable.class, ClayTableActionProvider.class,
+		CommerceDataSetDataProvider.class
 	}
 )
 public class CommerceAccountAddressClayTable

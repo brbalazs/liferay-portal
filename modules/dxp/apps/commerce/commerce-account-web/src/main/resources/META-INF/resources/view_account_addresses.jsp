@@ -1,5 +1,4 @@
-<%@ page
-		import="com.liferay.commerce.account.web.internal.frontend.CommerceAccountAddressClayTable" %><%--
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -33,7 +32,7 @@ CommerceAccountAddressesDisplayContext commerceAccountAddressesDisplayContext = 
 />
 
 <div class="minium-frame__cta is-visible">
-	<aui:button cssClass="js-invite-user minium-button minium-button--big" onClick='<%= commerceAccountAddressesDisplayContext.getAddCommerceAddressHref() %>' value="add-address" />
+	<aui:button cssClass="js-invite-user minium-button minium-button--big" onClick="<%= commerceAccountAddressesDisplayContext.getAddCommerceAddressHref() %>" value="add-address" />
 </div>
 
 <aui:script>
