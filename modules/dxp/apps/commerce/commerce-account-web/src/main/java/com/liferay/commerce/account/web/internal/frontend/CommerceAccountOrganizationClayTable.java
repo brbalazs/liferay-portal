@@ -54,7 +54,7 @@ import org.osgi.service.component.annotations.Reference;
 public class CommerceAccountOrganizationClayTable
 	implements CommerceDataSetDataProvider<Organization>, ClayTable {
 
-	public static final String NAME = "commerce-account-organizations";
+	public static final String NAME = "commerceAccountOrganizations";
 
 	@Override
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)

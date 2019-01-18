@@ -78,16 +78,17 @@ class ProductsCompare extends Component {
 		);
 		return setTimeout(
 			() => {
-				return this.products = this.products.map((el) => {
-					return el.id === id ?
-						{
-							id: el.id,
-							thumbnail: el.thumbnail,
-							visibility: toState
-						} :
-						el;
-				}
-
+				return this.products = this.products.map(
+					(el) => {
+						return el.id === id ?
+							{
+								id: el.id,
+								thumbnail: el.thumbnail,
+								visibility: toState
+							} :
+							el;
+					}
+				);
 			},
 			400
 		);

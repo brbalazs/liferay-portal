@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.account.web.internal.frontend;
 
+import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.web.internal.model.Account;
 import com.liferay.commerce.account.web.internal.model.Address;
 import com.liferay.commerce.constants.CommerceActionKeys;
@@ -74,7 +75,7 @@ public class CommerceAccountAddressClayTable
 	implements CommerceDataSetDataProvider<Address>, ClayTable,
 			   ClayTableActionProvider {
 
-	public static final String NAME = "commerce-account-addresses";
+	public static final String NAME = "commerceAccountAddresses";
 
 	@Override
 	public List<ClayTableAction> clayTableActions(
@@ -100,8 +101,8 @@ public class CommerceAccountAddressClayTable
 		String title = LanguageUtil.get(httpServletRequest, "add-address");
 
 		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, Account.class.getName(),
-			PortletProvider.Action.EDIT);
+			httpServletRequest, CommerceAccount.class.getName(),
+			PortletProvider.Action.VIEW);
 
 		portletURL.setParameter("mvcRenderCommandName", "editCommerceAddress");
 
@@ -163,9 +164,9 @@ public class CommerceAccountAddressClayTable
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		clayTableSchemaBuilder.addField("address");
-		clayTableSchemaBuilder.addField("referent");
-		clayTableSchemaBuilder.addField("phone-number");
+		clayTableSchemaBuilder.addField("address", "address");
+		clayTableSchemaBuilder.addField("referent", "referent");
+		clayTableSchemaBuilder.addField("phone-number", "phone-number");
 
 		return clayTableSchemaBuilder.build();
 	}

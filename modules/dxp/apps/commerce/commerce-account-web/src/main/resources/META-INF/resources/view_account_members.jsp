@@ -79,21 +79,21 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 				function(users) {
 					let existingUsersIds = users.filter(
 						function(el) {
-							el.userId
+							return el.userId
 						}
 					).map(
 						function(usr) {
-							usr.userId
+							return usr.userId
 						}
 					).join(',');
 
 					let newUsersEmails = users.filter(
 						function(el) {
-							!el.userId
+							return !el.userId
 						}
 					).map(
 						function(usr) {
-							usr.email
+							return usr.email
 						}
 					).join(',');
 

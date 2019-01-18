@@ -79,10 +79,6 @@ String backURL = ParamUtil.getString(request, "backURL", redirect);
 
 				<aui:input inlineLabel="true" name="email" wrapperCssClass="mb-0" />
 			</div>
-
-			<div class="col-lg-4 mt-4 mt-lg-0">
-				<aui:input inlineLabel="true" label="vat-number" name="taxId" wrapperCssClass="mb-0" />
-			</div>
 		</div>
 	</section>
 
@@ -137,6 +133,16 @@ String backURL = ParamUtil.getString(request, "backURL", redirect);
 
 			<div class="col-lg-4">
 				<aui:input inlineLabel="true" name="city" />
+			</div>
+		</div>
+	</section>
+
+	<section class="details-header__section pb-0">
+		<aui:model-context bean="<%= commerceAccount %>" model="<%= CommerceAccount.class %>" />
+
+		<div class="row">
+			<div class="col-lg-4">
+				<aui:input inlineLabel="true" label="vat-number" name="taxId" />
 			</div>
 		</div>
 	</section>

@@ -36,7 +36,9 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"commerce.table.name=commerceAccounts",
-		"commerce.table.name=commerceAccountUsers"
+		"commerce.table.name=commerceAccountUsers",
+		"commerce.table.name=commerceAccountOrganizations",
+		"commerce.table.name=commerceAccountAddresses"
 	},
 	service = ClayTableContextContributor.class
 )

@@ -14,11 +14,13 @@
 
 package com.liferay.commerce.account.web.internal.frontend;
 
+import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.web.internal.model.Account;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.frontend.ClayTable;
 import com.liferay.commerce.frontend.ClayTableAction;
 import com.liferay.commerce.frontend.ClayTableActionProvider;
@@ -110,15 +112,19 @@ public class CommerceAccountClayTable
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
 		AccountFilterImpl accountFilter = (AccountFilterImpl)filter;
 
-		CommerceContext commerceContext =
-			(CommerceContext)httpServletRequest.getAttribute(
-				CommerceWebKeys.COMMERCE_CONTEXT);
+		CommerceContext commerceContext = _commerceContextFactory.create(
+			themeDisplay.getScopeGroupId(),
+			_portal.getUserId(httpServletRequest), 0, 0, StringPool.BLANK);
 
 		return _commerceAccountService.getUserCommerceAccountsCount(
-			accountFilter.getAccountId(), commerceContext.getCommerceSiteType(),
-			accountFilter.getKeywords());
+			CommerceAccountConstants.DEFAULT_PARENT_ACCOUNT_ID,
+			commerceContext.getCommerceSiteType(), accountFilter.getKeywords());
 	}
 
 	@Override
@@ -157,13 +163,13 @@ public class CommerceAccountClayTable
 
 		AccountFilterImpl accountFilter = (AccountFilterImpl)filter;
 
-		CommerceContext commerceContext =
-			(CommerceContext)httpServletRequest.getAttribute(
-				CommerceWebKeys.COMMERCE_CONTEXT);
+		CommerceContext commerceContext = _commerceContextFactory.create(
+			themeDisplay.getScopeGroupId(),
+			_portal.getUserId(httpServletRequest), 0, 0, StringPool.BLANK);
 
 		List<CommerceAccount> commerceAccounts =
 			_commerceAccountService.getUserCommerceAccounts(
-				accountFilter.getAccountId(),
+				CommerceAccountConstants.DEFAULT_PARENT_ACCOUNT_ID,
 				commerceContext.getCommerceSiteType(),
 				accountFilter.getKeywords(), pagination.getStartPosition(),
 				pagination.getEndPosition());
@@ -265,5 +271,8 @@ public class CommerceAccountClayTable
 
 	@Reference
 	private Portal _portal;
+
+	@Reference
+	private CommerceContextFactory _commerceContextFactory;
 
 }

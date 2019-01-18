@@ -1,4 +1,5 @@
-<%--
+<%@ page
+		import="com.liferay.commerce.account.web.internal.frontend.CommerceAccountOrganizationClayTable" %><%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -30,12 +31,12 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 
 <div class="container-fluid-1280">
 	<commerce-ui:table
-		dataProviderKey="commerce-account-organizations"
+		dataProviderKey="<%= CommerceAccountOrganizationClayTable.NAME %>"
 		itemPerPage="<%= 5 %>"
 		namespace="<%= renderResponse.getNamespace() %>"
 		pageNumber="1"
 		portletURL="<%= commerceAccountDisplayContext.getPortletURL() %>"
-		tableName="commerce-account-organizations"
+		tableName="<%= CommerceAccountOrganizationClayTable.NAME %>"
 	/>
 </div>
 
