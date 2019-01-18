@@ -160,6 +160,8 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 			_miniumLayoutsInitializer.initialize(serviceContext);
 
+			_importAssetCategories(serviceContext);
+
 			_importCPOptionCategories(serviceContext);
 
 			_importCPSpecificationOptions(serviceContext);
@@ -450,6 +452,26 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		return _jsonFactory.createJSONObject(json);
 	}
 
+	private void _importAssetCategories(ServiceContext serviceContext)
+		throws Exception {
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Importing asset categories...");
+		}
+
+		ClassLoader classLoader = MiniumSiteInitializer.class.getClassLoader();
+
+		JSONArray jsonArray = _getJSONArray("categories.json");
+
+		_miniumAssetCategoriesInitializer.importAssetCategories(
+			jsonArray, _COMMERCE_VOCABULARY, classLoader,
+			_DEPENDENCIES_PATH + "images/", serviceContext);
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Asset categories successfully imported");
+		}
+	}
+
 	private List<CommerceWarehouse> _importCommerceWarehouses(
 			ServiceContext serviceContext)
 		throws Exception {
@@ -595,6 +617,9 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 	private static final String _COMMERCE_VOCABULARY = "Commerce";
 
+	private static final String _DEPENDENCIES_PATH =
+		"com/liferay/commerce/theme/minium/site/initializer/internal/dependencies/";
+
 	private static final String _MINIUM_THEME_ID = "minium_WAR_miniumtheme";
 
 	private static final Log _log = LogFactoryUtil.getLog(
@@ -657,6 +682,9 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 	@Reference
 	private MiniumLayoutsInitializer _miniumLayoutsInitializer;
+
+	@Reference
+	private MiniumAssetCategoriesInitializer _miniumAssetCategoriesInitializer;
 
 	@Reference
 	private OrganizationLocalService _organizationLocalService;
