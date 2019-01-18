@@ -681,10 +681,10 @@ public class MiniumSiteInitializer implements SiteInitializer {
 	private JSONFactory _jsonFactory;
 
 	@Reference
-	private MiniumLayoutsInitializer _miniumLayoutsInitializer;
+	private MiniumAssetCategoriesInitializer _miniumAssetCategoriesInitializer;
 
 	@Reference
-	private MiniumAssetCategoriesInitializer _miniumAssetCategoriesInitializer;
+	private MiniumLayoutsInitializer _miniumLayoutsInitializer;
 
 	@Reference
 	private OrganizationLocalService _organizationLocalService;
