@@ -36,7 +36,6 @@ $micro-transition: ease 100ms;
 @import "./components/minium-typo.scss"; // first beacause of mixins in it
 
 @import "./components/account-list.scss";
-@import "./components/account-selector.scss";
 @import "./components/account-switcher.scss";
 @import "./components/add-to-cart-button.scss";
 @import "./components/add-to-tick.scss";
@@ -82,6 +81,8 @@ $micro-transition: ease 100ms;
 @import "./overrides/input.scss";
 @import "./overrides/modal.scss";
 @import "./overrides/nav.scss";
+@import "./components/account-selector.scss";
+
 
 #minium {
 	font-family: 'Roboto', sans-serif;
