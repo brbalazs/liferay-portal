@@ -5,32 +5,6 @@ import Component from 'metal-component';
 import Soy, {Config} from 'metal-soy';
 
 class ProductCard extends Component {
-<<<<<<< HEAD
-
-	attached() {
-		return Liferay.on(
-			'productRemovedFromCompare',
-			(data) => {
-				if (data.id === data.sku) { // TODO: sku to be changed in productId
-					this.isInCompare = false;
-				}
-			}
-		);
-	}
-
-	_handleCompareCheckbox(evt) {
-		evt.preventDefault();
-		this.isInCompare = !this.isInCompare;
-
-		return Liferay.fire('toggleProductToCompare', {
-=======
-<<<<<<< Updated upstream
-	_handleCompareCheckbox(evt){
-		Liferay.fire('toggleProductToCompare', {
->>>>>>> COMMERCE-686 compare table started
-			id: this.sku,
-=======
-
 	attached(){
 		Liferay.on(
 			'productRemovedFromCompare',
@@ -60,7 +34,6 @@ class ProductCard extends Component {
 
 		return Liferay.fire('toggleProductToCompare', {
 			id: this.productId,
->>>>>>> Stashed changes
 			thumbnail: this.pictureUrl
 		});
 	}
@@ -69,23 +42,17 @@ class ProductCard extends Component {
 Soy.register(ProductCard, template);
 
 ProductCard.STATE = {
-<<<<<<< Updated upstream
-	productId: Config.string(),
-<<<<<<< HEAD
-=======
 	availability: Config.string().oneOf([
 		'inStock',
 		'available',
 		'notAvailable'
 	]).value('inStock'),
-=======
 	productId: Config.oneOfType(
 		[
 			Config.string(),
 			Config.number()
 		]
 	).required(),
->>>>>>> COMMERCE-686 compare table started
 	availability: Config.string()
 		.oneOf(
 			[
@@ -95,10 +62,6 @@ ProductCard.STATE = {
 			]
 		)
 		.value('inStock'),
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
->>>>>>> COMMERCE-686 compare table started
 	sku: Config.string().required(),
 	pictureUrl: Config.string(),
 	name: Config.string().required(),

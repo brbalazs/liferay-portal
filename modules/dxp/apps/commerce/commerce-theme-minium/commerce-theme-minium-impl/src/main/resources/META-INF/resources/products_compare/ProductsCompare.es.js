@@ -29,13 +29,8 @@ class ProductsCompare extends Component {
 					return this._removeProduct(toggledProduct);
 				}
 
-<<<<<<< HEAD
-				return this._addProduct(toggledProduct);
-
-=======
 				return this._handleAddProduct(toggledProduct);
 				
->>>>>>> COMMERCE-686 compare table started
 			}
 		);
 	}
@@ -48,61 +43,12 @@ class ProductsCompare extends Component {
 				visibility: 'hidden'
 			}
 		);
-<<<<<<< HEAD
-=======
 		
->>>>>>> COMMERCE-686 compare table started
 		return this._updateProductVisibility(product.id, 'visible');
 	}
 
 	_removeProduct(product) {
 		this._updateProductVisibility(product.id, 'hidden');
-<<<<<<< HEAD
-		return setTimeout(
-			() => {
-				this.products = this.products.filter(
-					(el) => el.id !== product.id
-				);
-				return Liferay.fire('productRemovedFromCompare', product.id);
-			},
-			500
-		);
-	}
-
-	_updateProductVisibility(id, toState = 'visible') {
-		setTimeout(
-			() => {
-				return this.products = this.products.map(
-					(el) => {
-						return el.id === id ?
-							{
-								id: el.id,
-								thumbnail: el.thumbnail,
-								visibility: toState === 'visible' ? 'showing' : 'hiding'
-							} :
-							el;
-					}
-				);
-			},
-			100
-		);
-		return setTimeout(
-			() => {
-				return this.products = this.products.map(
-					(el) => {
-						return el.id === id ?
-							{
-								id: el.id,
-								thumbnail: el.thumbnail,
-								visibility: toState
-							} :
-							el;
-					}
-				);
-			},
-			400
-		);
-=======
 		return new Promise((resolve) => {
 			setTimeout(
 				() => {
@@ -173,7 +119,6 @@ class ProductsCompare extends Component {
 				400
 			);
 		})
->>>>>>> COMMERCE-686 compare table started
 	}
 
 	_submitCompare() {
