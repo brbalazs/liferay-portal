@@ -1,12 +1,48 @@
 .commerce-compare-table {
-	tbody td, 
-	&__card,
-	&__card-row {
-		background: transparent;
+	width: 100%;
+	line-height: 1.1;
+	color: $color-fg;
+    border-collapse: collapse;
+
+	tbody td {
+		padding: 15px;
+		vertical-align: baseline;
+		border-right: 2px solid #f8f8f9;
+
+		&:last-child {
+			border-right: none
+		}
+	}
+
+	tbody tr {
+		height: auto;
 	}
 
 	.commerce-compare-table__title {
 		width: 150px;
+	}
+
+	tbody tr:not(.commerce-compare-table__separator) {
+		overflow: hidden;
+		background: white;
+	}
+
+	&__separator {
+		font-weight: 800;
+	}
+
+	&__title {
+		font-size: 12px;
+		letter-spacing: 1.2px;
+		line-height: 16px;
+		text-transform: uppercase;
+	}
+
+	&__value {
+		text-align: center;
+		font-size: 14px;
+		line-height: 32px;
+		color: $color-fg-alt;
 	}
 
 	&.entry {
