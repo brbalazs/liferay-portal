@@ -16,7 +16,7 @@ class MiniumProductGallery extends Component {
 			if (this.loaded.has(imageUrl)) {
 				resolve(imageUrl);
 			}
- else {
+			else {
 				this.loading = true;
 				fetchImage(imageUrl).then(() => {
 					this.loading = false;

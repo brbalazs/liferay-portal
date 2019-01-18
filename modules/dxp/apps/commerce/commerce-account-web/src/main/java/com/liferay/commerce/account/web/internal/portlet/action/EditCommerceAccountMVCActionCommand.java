@@ -170,7 +170,7 @@ public class EditCommerceAccountMVCActionCommand extends BaseMVCActionCommand {
 
 		CommerceAccount commerceAccount;
 
-		if ((commerceAccountId > 0)) {
+		if (commerceAccountId > 0) {
 			commerceAccount = _commerceAccountService.updateCommerceAccount(
 				commerceAccountId, name, !deleteLogo, logoBytes, email, taxId,
 				active, serviceContext);

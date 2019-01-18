@@ -126,7 +126,8 @@ public class MiniumCPContentListEntryRenderer
 
 		ComponentDescriptor testDescriptor = new ComponentDescriptor(
 			"ProductsCompare.render",
-			"commerce-theme-minium-impl@1.0.0/products_compare/ProductsCompare.es",
+			"commerce-theme-minium-impl@1.0.0/products_compare" +
+				"/ProductsCompare.es",
 			null, null);
 
 		// _soyComponentRenderer.renderSoyComponent(
