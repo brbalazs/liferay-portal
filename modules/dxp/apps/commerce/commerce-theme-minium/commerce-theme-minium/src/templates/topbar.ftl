@@ -28,7 +28,7 @@
 			</div>
 
 			<div class="minium-topbar__cart-wrapper">
-				<@liferay_commerce_cart["mini-cart"] />
+				<@liferay_commerce_ui["mini-cart"] />
 			</div>
 		</div>
 
