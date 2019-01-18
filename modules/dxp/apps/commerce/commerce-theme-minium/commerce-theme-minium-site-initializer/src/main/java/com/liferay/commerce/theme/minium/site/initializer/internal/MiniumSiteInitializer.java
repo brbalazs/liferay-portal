@@ -17,6 +17,7 @@ package com.liferay.commerce.theme.minium.site.initializer.internal;
 import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.account.util.CommerceAccountRoleHelper;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
+import com.liferay.commerce.initializer.util.AssetCategoriesImporter;
 import com.liferay.commerce.initializer.util.CPDefinitionsImporter;
 import com.liferay.commerce.initializer.util.CPOptionCategoriesImporter;
 import com.liferay.commerce.initializer.util.CPSpecificationOptionsImporter;
@@ -463,7 +464,7 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 		JSONArray jsonArray = _getJSONArray("categories.json");
 
-		_miniumAssetCategoriesInitializer.importAssetCategories(
+		_assetCategoriesImporter.importAssetCategories(
 			jsonArray, _COMMERCE_VOCABULARY, classLoader,
 			_DEPENDENCIES_PATH + "images/", serviceContext);
 
@@ -626,6 +627,9 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		MiniumSiteInitializer.class);
 
 	@Reference
+	private AssetCategoriesImporter _assetCategoriesImporter;
+
+	@Reference
 	private CommerceAccountRoleHelper _commerceAccountRoleHelper;
 
 	@Reference
@@ -679,9 +683,6 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 	@Reference
 	private JSONFactory _jsonFactory;
-
-	@Reference
-	private MiniumAssetCategoriesInitializer _miniumAssetCategoriesInitializer;
 
 	@Reference
 	private MiniumLayoutsInitializer _miniumLayoutsInitializer;
