@@ -120,19 +120,8 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 			String[] destinationArray = WebDAVUtil.getPathArray(
 				destination, true);
 
-			long parentFolderId = DLFolderConstants.DEFAULT_PARENT_FOLDER_ID;
-
-			try {
-				parentFolderId = getParentFolderId(
-					webDAVRequest.getCompanyId(), destinationArray);
-			}
-			catch (NoSuchFolderException nsfe) {
-				if (_log.isDebugEnabled()) {
-					_log.debug(nsfe, nsfe);
-				}
-
-				return HttpServletResponse.SC_CONFLICT;
-			}
+			long parentFolderId = getParentFolderId(
+				webDAVRequest.getCompanyId(), destinationArray);
 
 			Folder folder = (Folder)resource.getModel();
 
@@ -173,6 +162,13 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 
 			return HttpServletResponse.SC_PRECONDITION_FAILED;
 		}
+		catch (NoSuchFolderException nsfe) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(nsfe, nsfe);
+			}
+
+			return HttpServletResponse.SC_CONFLICT;
+		}
 		catch (PrincipalException pe) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(pe, pe);
@@ -197,19 +193,8 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 			String[] destinationArray = WebDAVUtil.getPathArray(
 				destination, true);
 
-			long parentFolderId = DLFolderConstants.DEFAULT_PARENT_FOLDER_ID;
-
-			try {
-				parentFolderId = getParentFolderId(
-					webDAVRequest.getCompanyId(), destinationArray);
-			}
-			catch (NoSuchFolderException nsfe) {
-				if (_log.isDebugEnabled()) {
-					_log.debug(nsfe, nsfe);
-				}
-
-				return HttpServletResponse.SC_CONFLICT;
-			}
+			long parentFolderId = getParentFolderId(
+				webDAVRequest.getCompanyId(), destinationArray);
 
 			FileEntry fileEntry = (FileEntry)resource.getModel();
 
@@ -256,6 +241,13 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 			}
 
 			return WebDAVUtil.SC_LOCKED;
+		}
+		catch (NoSuchFolderException nsfe) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(nsfe, nsfe);
+			}
+
+			return HttpServletResponse.SC_CONFLICT;
 		}
 		catch (PrincipalException pe) {
 			if (_log.isDebugEnabled()) {
