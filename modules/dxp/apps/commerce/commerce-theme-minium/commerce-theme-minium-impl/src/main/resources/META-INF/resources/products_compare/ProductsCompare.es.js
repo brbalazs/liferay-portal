@@ -20,7 +20,7 @@ class ProductsCompare extends Component {
 
 				const isIncluded = this.products.reduce(
 					(acc, el) => {
-
+						return acc || el.id === data.id
 					},
 					false
 				);
@@ -50,13 +50,13 @@ class ProductsCompare extends Component {
 	_removeProduct(product) {
 		this._updateProductVisibility(product.id, 'hidden');
 		return new Promise((resolve) => {
-			setTimeout(
+			return setTimeout(
 				() => {
 					this.products = this.products.filter(
 						(el) => el.id !== product.id
 					);
-					Liferay.fire('productRemovedFromCompare', product.id);
-					resolve(this.products);
+					Liferay.fire('productRemovedFromCompare', product);
+					return resolve(this.products);
 				},
 				500
 			)

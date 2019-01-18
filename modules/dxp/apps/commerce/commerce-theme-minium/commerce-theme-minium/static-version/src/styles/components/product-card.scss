@@ -36,6 +36,32 @@ transition: box-shadow .2s ease-in-out;
 	}
 }
 
+&__delete {
+	position: absolute;
+    z-index: 100;
+    top: 20px;
+    right: 20px;
+    width: 18px;
+    height: 18px;
+    background: #F1676A;
+    color: white;
+    border-radius: 50%;
+    font-size: 11px;
+	cursor: pointer;
+	
+	svg {
+		width: 22px;
+		height: 22px;
+		position: relative;
+		top: 0;
+		left: -3px;
+	}
+
+	path {
+		fill: rgba(255,255,255, 0.9);
+	}
+}
+
 &__picture {
 	background-position: 50%;
 	background-repeat: no-repeat;
@@ -77,16 +103,11 @@ transition: box-shadow .2s ease-in-out;
 }
 
 &__compare-checkbox {
-
-	// background-color: #FFF;
-
-	border-radius: 4px;
-	height: 30px;
+	top: 20px;
 	left: 20px;
 	position: absolute;
-	top: 20px;
-	width: 30px;
 	z-index: 100;
+	border-radius: 4px;
 }
 
 &__description {

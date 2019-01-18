@@ -9,7 +9,7 @@ class ProductCard extends Component {
 		Liferay.on(
 			'productRemovedFromCompare',
 			(data) => {
-				if (data.id === data.productId) {
+				if (data.id === this.productId) {
 					this.isInCompare = false
 				}
 			}
@@ -28,6 +28,15 @@ class ProductCard extends Component {
 		)
 	}
 
+	_handleRemoveProduct(){
+		return this.emit(
+			'removeProduct',
+			{
+				id: this.productId
+			}
+		)
+	}
+
 	_handleCompareCheckbox(evt){
 		evt.preventDefault()
 		this.isInCompare = !this.isInCompare;
@@ -42,11 +51,6 @@ class ProductCard extends Component {
 Soy.register(ProductCard, template);
 
 ProductCard.STATE = {
-	availability: Config.string().oneOf([
-		'inStock',
-		'available',
-		'notAvailable'
-	]).value('inStock'),
 	productId: Config.oneOfType(
 		[
 			Config.string(),
@@ -65,7 +69,6 @@ ProductCard.STATE = {
 	sku: Config.string().required(),
 	pictureUrl: Config.string(),
 	name: Config.string().required(),
-	isInCompare: Config.bool(),
 	categories: Config.array(
 		Config.shapeOf(
 			{
@@ -92,7 +95,11 @@ ProductCard.STATE = {
 			multipleQuantities: Config.number()
 		}
 	).value({}),
-	isCompareAvailable: Config.bool().value(true)
+	isCompareCheckboxVisible: Config.bool(),
+	isInCompare: Config.bool(),
+	isCompareAvailable: Config.bool().value(true),
+	isDeleteButtonVisible: Config.bool(),
+
 };
 
 export {ProductCard};

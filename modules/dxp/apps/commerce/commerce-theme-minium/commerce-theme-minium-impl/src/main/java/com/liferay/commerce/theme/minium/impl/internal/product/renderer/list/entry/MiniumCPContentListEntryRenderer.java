@@ -100,6 +100,8 @@ public class MiniumCPContentListEntryRenderer
 			cpContentHelper.getFriendlyURL(cpCatalogEntry, themeDisplay));
 		context.put("minQuantity", null);
 		context.put("name", cpCatalogEntry.getName());
+		context.put("isCompareCheckboxVisible", true);
+		context.put("isDeleteButtonVisible", true);
 		context.put("pictureUrl", cpCatalogEntry.getDefaultImageFileUrl());
 		context.put("productId", cpCatalogEntry.getCPDefinitionId());
 		context.put("sku", "ASK1234");
