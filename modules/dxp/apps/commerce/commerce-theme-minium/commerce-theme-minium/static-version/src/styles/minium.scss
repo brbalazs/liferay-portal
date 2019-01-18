@@ -378,3 +378,23 @@ svg {
 		text-decoration: none;
 	}
 }
+
+.order-notes-submit-actions {
+	align-items: center;
+	display: flex;
+	justify-content: flex-end;
+
+	.form-inline.form-group {
+		margin-bottom: 0;
+		grid-auto-columns: 1fr;
+		grid-template-areas: initial;
+
+		.field {
+			margin-right: 5px;
+		}
+	}
+
+	.button-holder {
+		margin: 0 0 0 20px;
+	}
+}
