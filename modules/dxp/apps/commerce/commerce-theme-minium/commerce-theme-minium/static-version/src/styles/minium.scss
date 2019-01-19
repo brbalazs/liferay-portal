@@ -36,13 +36,14 @@ $micro-transition: ease 100ms;
 @import "./components/minium-typo.scss"; // first beacause of mixins in it
 
 @import "./components/account-list.scss";
+@import "./components/account-selector.scss";
 @import "./components/account-switcher.scss";
 @import "./components/add-to-cart-button.scss";
 @import "./components/add-to-tick.scss";
 @import "./components/commerce-colors.scss";
+@import "./components/commerce-compare-table.scss";
 @import "./components/commerce-input.scss";
 @import "./components/commerce-modal.scss";
-@import "./components/commerce-compare-table.scss";
 @import "./components/details-header.scss";
 @import "./components/loaders.scss";
 @import "./components/main-link.scss";
@@ -81,8 +82,6 @@ $micro-transition: ease 100ms;
 @import "./overrides/input.scss";
 @import "./overrides/modal.scss";
 @import "./overrides/nav.scss";
-@import "./components/account-selector.scss";
-
 
 #minium {
 	font-family: 'Roboto', sans-serif;
@@ -387,9 +386,9 @@ svg {
 	justify-content: flex-end;
 
 	.form-inline.form-group {
-		margin-bottom: 0;
 		grid-auto-columns: 1fr;
 		grid-template-areas: initial;
+		margin-bottom: 0;
 
 		.field {
 			margin-right: 5px;

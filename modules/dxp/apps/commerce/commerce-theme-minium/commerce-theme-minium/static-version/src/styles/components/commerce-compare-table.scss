@@ -1,13 +1,13 @@
 .commerce-compare-table {
-	width: 100%;
-	line-height: 1.1;
-	color: $color-fg;
-    border-collapse: collapse;
+border-collapse: collapse;
+color: $color-fg;
+line-height: 1.1;
+width: 100%;
 
 	tbody td {
+		border-right: 2px solid #F8F8F9;
 		padding: 15px;
 		vertical-align: baseline;
-		border-right: 2px solid #f8f8f9;
 
 		&:last-child {
 			border-right: none
@@ -23,8 +23,8 @@
 	}
 
 	tbody tr:not(.commerce-compare-table__separator) {
-		overflow: hidden;
 		background: white;
+		overflow: hidden;
 	}
 
 	&__separator {
@@ -39,10 +39,10 @@
 	}
 
 	&__value {
-		text-align: center;
+		color: $color-fg-alt;
 		font-size: 14px;
 		line-height: 32px;
-		color: $color-fg-alt;
+		text-align: center;
 	}
 
 	&.entry {

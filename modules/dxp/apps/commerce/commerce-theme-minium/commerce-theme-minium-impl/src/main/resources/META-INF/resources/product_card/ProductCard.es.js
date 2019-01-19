@@ -5,40 +5,40 @@ import Component from 'metal-component';
 import Soy, {Config} from 'metal-soy';
 
 class ProductCard extends Component {
-	attached(){
+	attached() {
 		Liferay.on(
 			'productRemovedFromCompare',
 			(data) => {
 				if (data.id === this.productId) {
-					this.isInCompare = false
+					this.isInCompare = false;
 				}
 			}
-		)
+		);
 		Liferay.on(
 			'compareIsAvailable',
 			() => {
 				return this.isCompareAvailable = true;
 			}
-		)
+		);
 		Liferay.on(
 			'compareIsUnavailable',
 			() => {
 				return this.isCompareAvailable = false;
 			}
-		)
+		);
 	}
 
-	_handleRemoveProduct(){
+	_handleRemoveProduct() {
 		return this.emit(
 			'removeProduct',
 			{
 				id: this.productId
 			}
-		)
+		);
 	}
 
-	_handleCompareCheckbox(evt){
-		evt.preventDefault()
+	_handleCompareCheckbox(evt) {
+		evt.preventDefault();
 		this.isInCompare = !this.isInCompare;
 
 		return Liferay.fire('toggleProductToCompare', {
@@ -98,7 +98,7 @@ ProductCard.STATE = {
 	isCompareCheckboxVisible: Config.bool(),
 	isInCompare: Config.bool(),
 	isCompareAvailable: Config.bool().value(true),
-	isDeleteButtonVisible: Config.bool(),
+	isDeleteButtonVisible: Config.bool()
 
 };
 

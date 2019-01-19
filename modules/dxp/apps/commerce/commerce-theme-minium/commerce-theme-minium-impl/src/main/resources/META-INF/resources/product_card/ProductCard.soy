@@ -46,7 +46,7 @@
 		{/let}
 
 		{if isNonnull($isCompareCheckboxVisible) and $isCompareCheckboxVisible == true }
-			<input 
+			<input
 				{$compareAttributes}
 				data-onchange="{$_handleCompareCheckbox}"
 			/>
@@ -65,13 +65,13 @@
 		{/if}
 
 		{if isNonnull($pictureUrl)}
-			<div 
-				class="product-card__picture" 
+			<div
+				class="product-card__picture"
 				style="background-image: url({$pictureUrl})"
 			></div>
 		{else}
 			<div
-				class="product-card__picture" 
+				class="product-card__picture"
 			></div>
 		{/if}
 
