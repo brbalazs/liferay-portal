@@ -16,12 +16,16 @@ package com.liferay.commerce.theme.minium.impl.internal.product.renderer.list.en
 
 import com.liferay.commerce.frontend.template.soy.renderer.ComponentDescriptor;
 import com.liferay.commerce.frontend.template.soy.renderer.SoyComponentRenderer;
+import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.content.constants.CPContentWebKeys;
 import com.liferay.commerce.product.content.render.list.entry.CPContentListEntryRenderer;
 import com.liferay.commerce.product.content.util.CPContentHelper;
+import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -92,16 +96,26 @@ public class MiniumCPContentListEntryRenderer
 
 		Map<String, Object> context = new HashMap<>();
 
-		context.put("availability", "inStock");
+		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
+
+		String portletName = portletDisplay.getPortletName();
+
+		if (portletName.equals(CPPortletKeys.CP_COMPARE_CONTENT_WEB)) {
+			context.put("isDeleteButtonVisible", true);
+		}
+		else {
+			context.put("isDeleteButtonVisible", false);
+		}
+
+		context.put("availability", "available");
 		context.put("categories", null);
 		context.put("description", null);
 		context.put(
 			"detailsLink",
 			cpContentHelper.getFriendlyURL(cpCatalogEntry, themeDisplay));
+		context.put("isCompareCheckboxVisible", true);
 		context.put("minQuantity", null);
 		context.put("name", cpCatalogEntry.getName());
-		context.put("isCompareCheckboxVisible", true);
-		context.put("isDeleteButtonVisible", true);
 		context.put("pictureUrl", cpCatalogEntry.getDefaultImageFileUrl());
 		context.put("productId", cpCatalogEntry.getCPDefinitionId());
 		context.put("sku", "ASK1234");
@@ -115,9 +129,6 @@ public class MiniumCPContentListEntryRenderer
 
 		Set<String> dependencies = new HashSet<>();
 
-		// System.out.println(_npmResolver.resolveModuleName(
-		// 	"commerce-frontend-taglib/add_to_cart/AddToCartButton.es"));
-
 		dependencies.add(
 			"commerce-frontend-taglib@1.0.0/add_to_cart/AddToCartButton.es");
 
@@ -127,27 +138,39 @@ public class MiniumCPContentListEntryRenderer
 		_soyComponentRenderer.renderSoyComponent(
 			httpServletRequest, httpServletResponse, componentDescriptor,
 			context);
-
-		ComponentDescriptor testDescriptor = new ComponentDescriptor(
-			"ProductsCompare.render",
-			"commerce-theme-minium-impl@1.0.0/products_compare" +
-				"/ProductsCompare.es",
-			null, null);
-
-		// _soyComponentRenderer.renderSoyComponent(
-		// 	httpServletRequest, httpServletResponse, componentDescriptor,
-		// 	context);
-
-		Map<String, Object> testContext = new HashMap<>();
-
-		testContext.put(
-			"spritemap",
-			themeDisplay.getPathThemeImages() + "/commerce-icons.svg");
-
-		_soyComponentRenderer.renderSoyComponent(
-			httpServletRequest, httpServletResponse, testDescriptor,
-			testContext);
 	}
+
+	/*private String _getAvaiability(CPCatalogEntry cpCatalogEntry) {
+
+		CPDefinitionInventory cpDefinitionInventory =
+			_cpDefinitionInventoryLocalService.
+				fetchCPDefinitionInventoryByCPDefinitionId(
+					cpCatalogEntry.getCPDefinitionId());
+
+		CPDefinitionInventoryEngine cpDefinitionInventoryEngine =
+			_cpDefinitionInventoryEngineRegistry.getCPDefinitionInventoryEngine(
+				cpDefinitionInventory);
+
+		List<CPSku> cpSkus = cpCatalogEntry.getCPSkus();
+
+		for (CPSku cpSku : cpSkus) {
+			int availableQuantity =
+				cpDefinitionInventoryEngine.getStockQuantity(
+					cpSku.getCPInstanceId());
+		}
+
+	}*/
+
+	@Reference
+	private CPDefinitionInventoryEngineRegistry
+		_cpDefinitionInventoryEngineRegistry;
+
+	@Reference
+	private CPDefinitionInventoryLocalService
+		_cpDefinitionInventoryLocalService;
+
+	@Reference
+	private CPInstanceLocalService _cpInstanceLocalService;
 
 	@Reference
 	private SoyComponentRenderer _soyComponentRenderer;

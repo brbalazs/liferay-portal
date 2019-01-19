@@ -8,32 +8,34 @@ import './ProductsCompareItem.es';
 
 class ProductsCompare extends Component {
 
-	attached() {
-		return Liferay.on(
-			'toggleProductToCompare',
-			(data) => {
-
-				const toggledProduct = {
-					id: data.id,
-					thumbnail: data.thumbnail
-				};
-
-				const isIncluded = this.products.reduce(
-					(acc, el) => {
-						return acc || el.id === data.id
-					},
-					false
-				);
-
-				if (isIncluded) {
-					return this._removeProduct(toggledProduct);
-				}
-
-				return this._handleAddProduct(toggledProduct);
-				
-			}
-		);
+	created() {
+		window.Liferay.on('toggleProductToCompare', this._handleToggleProductToCompare, this);
 	}
+
+	detached() {
+		window.Liferay.detach('toggleProductToCompare', this._handleToggleProductToCompare, this);
+	}
+
+	_handleToggleProductToCompare(data) {
+		const toggledProduct = {
+			id: data.id,
+			thumbnail: data.thumbnail
+		};
+
+		const isIncluded = this.products.reduce(
+			(acc, el) => {
+				return acc || el.id === data.id;
+			},
+			false
+		);
+
+		if (isIncluded) {
+			return this._removeProduct(toggledProduct);
+		}
+
+		return this._handleAddProduct(toggledProduct);
+	}
+
 
 	_addProduct(product) {
 		this.products = this.products.concat(
@@ -43,12 +45,13 @@ class ProductsCompare extends Component {
 				visibility: 'hidden'
 			}
 		);
-		
+
 		return this._updateProductVisibility(product.id, 'visible');
 	}
 
 	_removeProduct(product) {
 		this._updateProductVisibility(product.id, 'hidden');
+		this._toogleRemoteStatus(product.id, false);
 		return new Promise((resolve) => {
 			return setTimeout(
 				() => {
@@ -59,26 +62,45 @@ class ProductsCompare extends Component {
 					return resolve(this.products);
 				},
 				500
-			)
-		})
+			);
+		});
 	}
 
-	_handleAddProduct(product){
+	_toogleRemoteStatus(id, toogle) {
+		const formData = new FormData();
+
+		formData.append(this.portletNamespace + 'cpDefinitionId', id);
+		formData.append(this.portletNamespace + id + 'Compare', toogle);
+
+		return fetch(
+			this.editCompareProductActionURL,
+			{
+				body: formData,
+				credentials: 'include',
+				method: 'post'
+			}
+		);
+	}
+
+	_handleAddProduct(product) {
 		return this._addProduct(product)
 			.then(() => {
-				return this._updateCompareGlobalState();
+				return this._toogleRemoteStatus(product.id, true);
 			})
+			.then(() => {
+				return this._updateCompareGlobalState();
+			});
 	}
 
-	_handleRemoveProduct(product){
+	_handleRemoveProduct(product) {
 		return this._removeProduct(product)
 			.then(() => {
 				return this._updateCompareGlobalState();
-			})
+			});
 	}
 
-	_updateCompareGlobalState(){
-		if(this.products.length < 4){
+	_updateCompareGlobalState() {
+		if (this.products.length < this.limit) {
 			return Liferay.fire('compareIsAvailable');
 		}
 		return Liferay.fire('compareIsUnavailable');
@@ -90,57 +112,56 @@ class ProductsCompare extends Component {
 				() => {
 					return this.products = this.products.map(
 						(el) => {
-							return el.id === id
-								? {
+							return el.id === id ?
+								{
 									id: el.id,
 									thumbnail: el.thumbnail,
 									visibility: toState === 'visible' ? 'showing' : 'hiding'
-								}
-								: el
+								} :
+								el;
 						}
-					)
+					);
 				},
 				100
 			);
 			return setTimeout(
 				() => {
 					this.products = this.products.map((el) => {
-						return el.id === id
-							? {
+						return el.id === id ?
+							{
 								id: el.id,
 								thumbnail: el.thumbnail,
 								visibility: toState
-							}
-							: el
-						}
-					)
-					return resolve(this.products)
-				}, 
+							} :
+							el;
+					}
+					);
+					return resolve(this.products);
+				},
 				400
 			);
-		})
+		});
 	}
 
 	_submitCompare() {
-		const idList = this.products.map(el => el.id);
-		this.emit('submitCompare', idList);
+		if (Liferay.SPA) {
+			Liferay.SPA.app.navigate(this.compareProductsURL);
+		}
+		else {
+			window.location.href = this.compareProductsURL;
+		}
 	}
 };
 
 Soy.register(ProductsCompare, template);
 
 ProductsCompare.STATE = {
+	portletNamespace: Config.string().required(),
+	compareProductsURL: Config.string().required(),
+	editCompareProductActionURL: Config.string(),
+	limit: Config.number().required(),
 	products: Config.array(
-		Config.shapeOf({
-			thumbnail: Config.string().required(),
-			id: Config.oneOfType(
-				[
-					Config.string(),
-					Config.number()
-				]
-			).required(),
-			visibility: Config.string()
-		})
+		Config.object()
 	).value([]),
 	spritemap: Config.string()
 };

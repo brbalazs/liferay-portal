@@ -8,7 +8,7 @@
 		visibility: string
 	]>}
 	{@param spritemap: string}
-
+	{@param limit: int}
 	{@param? _handleRemoveProduct: any}
 	{@param? _updateProductVisibility: any}
 	{@param? _submitCompare: any}
@@ -24,7 +24,7 @@
 		<div class="products-compare">
 			{if isNonnull($products)}
 				{foreach $product in $products}
-					{if index($product) < 4}
+					{if index($product) < $limit}
 						{call ProductsCompareItem.render}
 							{param events: ['removeProduct': $_handleRemoveProduct, 'updateProductVisibility': $_updateProductVisibility] /}
 							{param id: $product.id /}
@@ -35,7 +35,7 @@
 						{/call}
 					{/if}
 				{/foreach}
-				{let $missingElements : 4 - length($products) /}
+				{let $missingElements : $limit - length($products) /}
 				{if $missingElements > 0}
 					{for $i in range($missingElements)}
 							{call ProductsCompareItem.render}
@@ -50,7 +50,7 @@
 					{sp}minium-button--disabled
 				{/if}
 			{/let}
-			<button 
+			<button
 				class="{$compareButtonClasses}"
 				data-onclick="{$_submitCompare}"
 			>
