@@ -74,7 +74,7 @@
 			{
 				"layoutColumnId": "column-3",
 				"layoutColumnPos": 2,
-				"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPCompareContentMiniPortlet"
+				"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPCompareContentMiniPortlet_INSTANCE_catalog"
 			}
 		],
 		"privateLayout": true
@@ -92,7 +92,7 @@
 			{
 				"layoutColumnId": "column-1",
 				"layoutColumnPos": 1,
-				"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPCompareContentMiniPortlet"
+				"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPCompareContentMiniPortlet_INSTANCE_product_detail"
 			}
 		],
 		"privateLayout": true
@@ -118,7 +118,7 @@
 				"lookAndFeel": {
 					"lfr-theme:regular:show-top-menu": true
 				},
-				"name": "Pending",
+				"name": "Pending Orders",
 				"portlets": [
 					{
 						"layoutColumnId": "column-1",
@@ -133,27 +133,12 @@
 				"lookAndFeel": {
 					"lfr-theme:regular:show-top-menu": true
 				},
-				"name": "Open",
+				"name": "Placed Orders",
 				"portlets": [
 					{
 						"layoutColumnId": "column-1",
 						"layoutColumnPos": 0,
-						"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet_INSTANCE_open"
-					}
-				],
-				"privateLayout": true
-			},
-			{
-				"layoutTemplateId": "1_column",
-				"lookAndFeel": {
-					"lfr-theme:regular:show-top-menu": true
-				},
-				"name": "Completed",
-				"portlets": [
-					{
-						"layoutColumnId": "column-1",
-						"layoutColumnPos": 0,
-						"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet_INSTANCE_completed"
+						"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet_INSTANCE_placed"
 					}
 				],
 				"privateLayout": true
@@ -235,7 +220,7 @@
 			{
 				"layoutColumnId": "column-1",
 				"layoutColumnPos": 0,
-				"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPCompareContentPortlet"
+				"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPCompareContentPortlet_INSTANCE_minium"
 			}
 		],
 		"privateLayout": true

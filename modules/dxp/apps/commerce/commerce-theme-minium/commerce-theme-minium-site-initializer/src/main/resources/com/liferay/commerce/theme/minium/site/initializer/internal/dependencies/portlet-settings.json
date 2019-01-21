@@ -11,39 +11,67 @@
 		}
 	},
 	{
+		"instanceId": "catalog",
+		"layoutFriendlyURL": "/catalog",
+		"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPCompareContentMiniPortlet",
+		"portletPreferences": {
+			"cpContentListRendererKey": "compare-list-minium"
+		}
+	},
+	{
+		"instanceId": "minium",
+		"layoutFriendlyURL": "/compare",
+		"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPCompareContentPortlet",
+		"portletPreferences": {
+			"grouped--cpTypeListEntryRendererKey": "list-entry-minium",
+			"simple--cpTypeListEntryRendererKey": "list-entry-minium",
+			"virtual--cpTypeListEntryRendererKey": "list-entry-minium"
+		}
+	},
+	{
+		"instanceId": "minium",
+		"layoutFriendlyURL": "/product-detail",
+		"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPContentPortlet",
+		"portletPreferences": {
+			"cpType": "simple",
+			"grouped--cpTypeRendererKey": "minium",
+			"simple--cpTypeRendererKey": "minium",
+			"virtual--cpTypeRendererKey": "minium"
+		}
+	},
+	{
+		"instanceId": "product_detail",
+		"layoutFriendlyURL": "/product-detail",
+		"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPCompareContentMiniPortlet",
+		"portletPreferences": {
+			"cpContentListRendererKey": "compare-list-minium"
+		}
+	},
+	{
 		"instanceId": "minium",
 		"layoutFriendlyURL": "/orders",
 		"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet",
 		"portletPreferences": {
 			"exclude": false,
-			"orderStatus": -1
+			"orderStatuses": -1
 		}
 	},
 	{
 		"instanceId": "pending",
-		"layoutFriendlyURL": "/pending",
+		"layoutFriendlyURL": "/pending-orders",
 		"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet",
 		"portletPreferences": {
 			"exclude": false,
-			"orderStatus": 1
+			"orderStatuses": 1
 		}
 	},
 	{
-		"instanceId": "open",
-		"layoutFriendlyURL": "/open",
+		"instanceId": "placed",
+		"layoutFriendlyURL": "/placed-orders",
 		"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet",
 		"portletPreferences": {
 			"exclude": false,
-			"orderStatus": 2
-		}
-	},
-	{
-		"instanceId": "completed",
-		"layoutFriendlyURL": "/completed",
-		"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet",
-		"portletPreferences": {
-			"exclude": false,
-			"orderStatus": 0
+			"orderStatuses": 2
 		}
 	}
 ]
