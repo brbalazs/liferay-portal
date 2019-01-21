@@ -34,7 +34,6 @@ import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -63,9 +62,9 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"commerce.product.content.list.entry.renderer.key=" + MiniumCPContentListEntryRenderer.KEY,
+		"commerce.product.content.list.entry.renderer.portlet.name=" + CPPortletKeys.CP_COMPARE_CONTENT_WEB,
 		"commerce.product.content.list.entry.renderer.portlet.name=" + CPPortletKeys.CP_PUBLISHER_WEB,
 		"commerce.product.content.list.entry.renderer.portlet.name=" + CPPortletKeys.CP_SEARCH_RESULTS,
-		"commerce.product.content.list.entry.renderer.portlet.name=" + CPPortletKeys.CP_COMPARE_CONTENT_WEB,
 		"commerce.product.content.list.entry.renderer.type=grouped",
 		"commerce.product.content.list.entry.renderer.type=simple",
 		"commerce.product.content.list.entry.renderer.type=virtual"
@@ -129,7 +128,7 @@ public class MiniumCPContentListEntryRenderer
 			PortletURL editCompareProductActionURL =
 				PortletURLFactoryUtil.create(
 					httpServletRequest, CPPortletKeys.CP_COMPARE_CONTENT_WEB,
-				PortletRequest.ACTION_PHASE);
+					PortletRequest.ACTION_PHASE);
 
 			editCompareProductActionURL.setParameter(
 				ActionRequest.ACTION_NAME, "editCompareProduct");
@@ -164,7 +163,7 @@ public class MiniumCPContentListEntryRenderer
 		context.put("availability", "available");
 		context.put(
 			"cartAPI",
-			PortalUtil.getPortalURL(httpServletRequest) +
+			_portal.getPortalURL(httpServletRequest) +
 				"/o/commerce-ui/cart-item");
 		context.put("categories", null);
 		context.put("description", null);
