@@ -37,12 +37,16 @@
 
 	&__input {
 		border: 2px solid $color-shadow;
-		border-radius: 10px 14px;
+		border-radius: 8px;
 		color: $color-fg;
 		margin-bottom: 15px;
 		outline: none;
 		padding: 10px;
 		width: 100%;
+
+		&--with-margin {
+			margin-bottom: 30px;
+		}
 	}
 
 	&__actions {

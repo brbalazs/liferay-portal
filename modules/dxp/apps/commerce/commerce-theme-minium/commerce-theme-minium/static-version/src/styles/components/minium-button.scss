@@ -79,6 +79,11 @@
 		min-width: 170px;
 	}
 
+	&--icon {
+		min-width: auto;
+		border-radius: 50%;
+	}
+
 	&--inline {
 		background: transparent;
 		border: none;

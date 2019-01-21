@@ -32,38 +32,24 @@ CommerceAccountAddressesDisplayContext commerceAccountAddressesDisplayContext = 
 />
 
 <div class="minium-frame__cta is-visible">
-	<aui:button cssClass="js-invite-user minium-button minium-button--big" onClick="<%= commerceAccountAddressesDisplayContext.getAddCommerceAddressHref() %>" value="add-address" />
+	<aui:button 
+		cssClass="js-add-address minium-button minium-button--big" 
+		onClick='<%= renderResponse.getNamespace() + "openAddAddressModal();" %>'  
+		value="add-address" 
+	/>
 </div>
 
-<aui:script>
-	function editCommerceAddress(title, uri) {
-		Liferay.Util.openWindow(
-			{
-				dialog: {
-					centered: true,
-					destroyOnClose: true,
-					height: 800,
-					modal: true,
-					width: 900
-				},
-				dialogIframe: {
-					bodyCssClass: 'dialog-with-footer'
-				},
-				id: 'editCommerceAddressDialog',
-				title: title,
-				uri: uri
-			}
-		);
-	}
+<commerce-ui:add-address-modal
+	componentId="addAddressModal"
+/>
 
+<aui:script>
 	Liferay.provide(
 		window,
-		'<portlet:namespace />closePopup',
-		function(dialogId) {
-			var dialog = Liferay.Util.Window.getById(dialogId);
-
-			dialog.destroy();
-		},
-		['liferay-util-window']
+		'<portlet:namespace />openAddAddressModal',
+		function(evt) {
+			const addAddressModal = Liferay.component('addAddressModal');
+			addAddressModal.open();
+		}
 	);
 </aui:script>
