@@ -2,10 +2,14 @@
 
 {template .render}
 
+	{@param? accountId: number|string}
+	{@param? orderId: number|string}
 	{@param? availability: string}
-	{@param sku: string}
+	{@param? sku: string}
+	{@param? skuId: number|string}
 	{@param? pictureUrl: string}
 	{@param name: string}
+	{@param? cartAPI: string}
 	{@param detailsLink: string}
 	{@param? categories: list<[
 		name: string
@@ -81,7 +85,11 @@
 			</div>
 		{/if}
 
-		<p class="product-card__sku">{$sku}</p>
+		{if isNonnull($sku)}
+			<p class="product-card__sku">{$sku}</p>
+		{else}
+			<p class="product-card__empty_sku"></p>
+		{/if}
 
 		<a class="product-card__name" href="{$detailsLink}">{$name}</a>
 		{if isNonnull($categories) and length($categories) > 0}
@@ -112,14 +120,25 @@
 			</span>
 		</div>
 
-		<div>
-			{call AddToCartButton.render}
-				{param quantity: 0 /}
-				{param editMode: false /}
-				{param settings: $settings /}
-				{param productId: '234' /}
-			{/call}
-		</div>
+		{if isNonnull($sku) and  isNonnull($skuId)}
+			<div>
+				{call AddToCartButton.render}
+					{param accountId: $accountId /}
+					{param orderId: $orderId /}
+					{param cartAPI: $cartAPI /}
+					{param quantity: 0 /}
+					{param editMode: false /}
+					{param settings: $settings /}
+					{param productId: $skuId /}
+				{/call}
+			</div>
+		{else}
+			<div>
+				<a class="minium-button minium-button--outline" href="{$detailsLink}" target="_self">
+				{msg desc=""}view-all-variants{/msg}
+				</a>
+			</div>
+		{/if}
 	</div>
 
 {/template}

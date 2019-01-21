@@ -49,6 +49,10 @@
 		&.minium-button--neutral {
 			color: $color-mood-neutral;
 		}
+
+		&.minium-button--disabled {
+			opacity: 0.5;
+		}
 	}
 
 	&--block {

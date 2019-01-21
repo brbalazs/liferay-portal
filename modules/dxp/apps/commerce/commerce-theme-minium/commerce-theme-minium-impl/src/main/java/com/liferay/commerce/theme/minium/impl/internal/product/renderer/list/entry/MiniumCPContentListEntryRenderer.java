@@ -14,10 +14,15 @@
 
 package com.liferay.commerce.theme.minium.impl.internal.product.renderer.list.entry;
 
+import com.liferay.commerce.account.model.CommerceAccount;
+import com.liferay.commerce.constants.CommerceWebKeys;
+import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.frontend.template.soy.renderer.ComponentDescriptor;
 import com.liferay.commerce.frontend.template.soy.renderer.SoyComponentRenderer;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
+import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
+import com.liferay.commerce.product.catalog.CPSku;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.content.constants.CPContentWebKeys;
 import com.liferay.commerce.product.content.render.list.entry.CPContentListEntryRenderer;
@@ -25,17 +30,25 @@ import com.liferay.commerce.product.content.util.CPContentHelper;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -83,12 +96,24 @@ public class MiniumCPContentListEntryRenderer
 			HttpServletResponse httpServletResponse)
 		throws Exception {
 
+		CommerceContext commerceContext =
+			(CommerceContext)httpServletRequest.getAttribute(
+				CommerceWebKeys.COMMERCE_CONTEXT);
+
 		CPContentHelper cpContentHelper =
 			(CPContentHelper)httpServletRequest.getAttribute(
 				CPContentWebKeys.CP_CONTENT_HELPER);
 
 		CPCatalogEntry cpCatalogEntry = cpContentHelper.getCPCatalogEntry(
 			httpServletRequest);
+
+		List<CPSku> cpSkus = cpCatalogEntry.getCPSkus();
+
+		CPSku cpSku = null;
+
+		if (cpSkus.size() == 1) {
+			cpSku = cpSkus.get(0);
+		}
 
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
@@ -101,24 +126,60 @@ public class MiniumCPContentListEntryRenderer
 		String portletName = portletDisplay.getPortletName();
 
 		if (portletName.equals(CPPortletKeys.CP_COMPARE_CONTENT_WEB)) {
+			PortletURL editCompareProductActionURL =
+				PortletURLFactoryUtil.create(
+					httpServletRequest, CPPortletKeys.CP_COMPARE_CONTENT_WEB,
+				PortletRequest.ACTION_PHASE);
+
+			editCompareProductActionURL.setParameter(
+				ActionRequest.ACTION_NAME, "editCompareProduct");
+
+			context.put(
+				"compareContentNamespace",
+				_portal.getPortletNamespace(
+					CPPortletKeys.CP_COMPARE_CONTENT_WEB));
+			context.put(
+				"editCompareProductActionURL",
+				editCompareProductActionURL.toString());
+			context.put("isCompareCheckboxVisible", false);
 			context.put("isDeleteButtonVisible", true);
 		}
 		else {
+			context.put("isCompareCheckboxVisible", true);
 			context.put("isDeleteButtonVisible", false);
 		}
 
+		CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
+
+		if (commerceAccount != null) {
+			context.put("accountId", commerceAccount.getCommerceAccountId());
+		}
+
+		CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
+
+		if (commerceOrder != null) {
+			context.put("orderId", commerceOrder.getCommerceOrderId());
+		}
+
 		context.put("availability", "available");
+		context.put(
+			"cartAPI",
+			PortalUtil.getPortalURL(httpServletRequest) +
+				"/o/commerce-ui/cart-item");
 		context.put("categories", null);
 		context.put("description", null);
 		context.put(
 			"detailsLink",
 			cpContentHelper.getFriendlyURL(cpCatalogEntry, themeDisplay));
-		context.put("isCompareCheckboxVisible", true);
 		context.put("minQuantity", null);
 		context.put("name", cpCatalogEntry.getName());
 		context.put("pictureUrl", cpCatalogEntry.getDefaultImageFileUrl());
 		context.put("productId", cpCatalogEntry.getCPDefinitionId());
-		context.put("sku", "ASK1234");
+
+		if (cpSku != null) {
+			context.put("sku", cpSku.getSku());
+			context.put("skuId", cpSku.getCPInstanceId());
+		}
 
 		context.put(
 			"spritemap",
@@ -171,6 +232,9 @@ public class MiniumCPContentListEntryRenderer
 
 	@Reference
 	private CPInstanceLocalService _cpInstanceLocalService;
+
+	@Reference
+	private Portal _portal;
 
 	@Reference
 	private SoyComponentRenderer _soyComponentRenderer;

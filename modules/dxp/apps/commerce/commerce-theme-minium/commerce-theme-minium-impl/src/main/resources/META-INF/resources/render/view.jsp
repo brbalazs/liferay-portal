@@ -55,6 +55,23 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 				<h4 class="minium-product-header__subtitle <%= (cpSku == null) ? "hide" : StringPool.BLANK %>" data-text-cp-instance-manufacturer-part-number-show>
 					<span data-text-cp-instance-manufacturer-part-number><%= (cpSku == null) ? StringPool.BLANK : cpSku.getManufacturerPartNumber() %></span>
 				</h4>
+
+				<c:choose>
+					<c:when test="<%= cpSku != null %>">
+						<div class="availability"><%= cpContentHelper.getAvailabilityLabel(request) %></div>
+
+						<div class="availabilityEstimate"><%= cpContentHelper.getAvailabilityEstimateLabel(request) %></div>
+
+						<div class="stockQuantity"><%= cpContentHelper.getStockQuantityLabel(request) %></div>
+					</c:when>
+					<c:otherwise>
+						<div class="availability" data-text-cp-instance-availability=""></div>
+
+						<div class="availabilityEstimate" data-text-cp-instance-availability-estimate=""></div>
+
+						<div class="stockQuantity" data-text-cp-instance-stock-quantity=""></div>
+					</c:otherwise>
+				</c:choose>
 			</header>
 
 			<p><%= cpCatalogEntry.getDescription() %></p>
