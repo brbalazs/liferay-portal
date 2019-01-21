@@ -15,8 +15,8 @@ text-transform: uppercase;
 
 background-color: $color-bg;
 border-radius: 8px;
-min-height: 70px;
-padding: 30px 30px calc(30px - 1rem);
+// min-height: 70px;
+padding: 10px 25px;
 }
 
 .minium-card {
@@ -29,6 +29,10 @@ margin-bottom: $minium-big-gutter;
 
 &__content {
 @include card-content;
+
+& + & {
+  margin-top: 5px;
+}
 }
 
 &__tabs {

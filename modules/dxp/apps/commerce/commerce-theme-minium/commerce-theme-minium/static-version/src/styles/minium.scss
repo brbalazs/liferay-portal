@@ -58,6 +58,7 @@ $micro-transition: ease 100ms;
 @import "./components/minium-icon.scss";
 @import "./components/minium-item.scss";
 @import "./components/minium-link.scss";
+@import "./components/minium-list.scss";
 @import "./components/minium-logo.scss";
 @import "./components/minium-product-gallery.scss";
 @import "./components/minium-product-header.scss";
@@ -398,4 +399,37 @@ svg {
 	.button-holder {
 		margin: 0 0 0 20px;
 	}
+}
+
+.minium-order-title {
+	font-size: 22px;
+	font-weight: 500;
+	line-height: 22px;
+}
+
+.minium-thumb-menu {
+	align-items: center;
+	background-color: $color-theme;
+	border-radius: 50%;
+	bottom: $minium-gutter;
+	display: flex;
+	justify-content: center;
+	min-height: 60px;
+	position: fixed;
+	right: $minium-gutter;
+	width: 60px;
+
+	a {
+		color: white;
+	}
+}
+
+.minium-input {
+	border: 2px solid rgba(92, 94, 94, 0.14);
+	border-radius: 10px;
+	color: #5C5E5E;
+	height: 44px;
+	outline: none;
+	padding: 10px;
+	width: 100%;
 }
