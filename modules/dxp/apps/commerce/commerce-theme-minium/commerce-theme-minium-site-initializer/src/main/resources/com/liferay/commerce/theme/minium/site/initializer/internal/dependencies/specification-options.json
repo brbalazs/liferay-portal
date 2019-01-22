@@ -15,6 +15,10 @@
 	},
 	{
 		"CategoryKey": "dimensions",
+		"Key": "dimensions"
+	},
+	{
+		"CategoryKey": "dimensions",
 		"Key": "weight"
 	},
 	{
@@ -23,6 +27,7 @@
 	},
 	{
 		"CategoryKey": "warranty",
+		"Facetable": true,
 		"Key": "warranty"
 	},
 	{
