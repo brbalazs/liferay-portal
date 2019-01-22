@@ -20,6 +20,7 @@ import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.initializer.util.AssetCategoriesImporter;
 import com.liferay.commerce.initializer.util.CPDefinitionsImporter;
 import com.liferay.commerce.initializer.util.CPOptionCategoriesImporter;
+import com.liferay.commerce.initializer.util.CPOptionsImporter;
 import com.liferay.commerce.initializer.util.CPSpecificationOptionsImporter;
 import com.liferay.commerce.initializer.util.CommerceWarehousesImporter;
 import com.liferay.commerce.initializer.util.PortletSettingsImporter;
@@ -27,6 +28,7 @@ import com.liferay.commerce.model.CommerceWarehouse;
 import com.liferay.commerce.product.constants.CPRuleConstants;
 import com.liferay.commerce.product.importer.CPFileImporter;
 import com.liferay.commerce.product.model.CPDefinition;
+import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.model.CPRule;
 import com.liferay.commerce.product.service.CPDefinitionLinkLocalService;
 import com.liferay.commerce.product.service.CPMeasurementUnitLocalService;
@@ -169,6 +171,8 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 			List<CommerceWarehouse> commerceWarehouses =
 				_importCommerceWarehouses(serviceContext);
+
+			_importCPOptions(serviceContext);
 
 			List<CPDefinition> cpDefinitions = _importCPDefinitions(
 				commerceWarehouses, serviceContext);
@@ -483,6 +487,14 @@ public class MiniumSiteInitializer implements SiteInitializer {
 			jsonArray, serviceContext);
 	}
 
+	private List<CPOption> _importCPOptions(ServiceContext serviceContext)
+		throws Exception {
+
+		JSONArray jsonArray = _getJSONArray("options.json");
+
+		return _cpOptionsImporter.importCPOptions(jsonArray, serviceContext);
+	}
+
 	private List<CPDefinition> _importCPDefinitions(
 			List<CommerceWarehouse> commerceWarehouses,
 			ServiceContext serviceContext)
@@ -656,6 +668,9 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 	@Reference
 	private CPDefinitionsImporter _cpDefinitionsImporter;
+
+	@Reference
+	private CPOptionsImporter _cpOptionsImporter;
 
 	@Reference
 	private CPFileImporter _cpFileImporter;
