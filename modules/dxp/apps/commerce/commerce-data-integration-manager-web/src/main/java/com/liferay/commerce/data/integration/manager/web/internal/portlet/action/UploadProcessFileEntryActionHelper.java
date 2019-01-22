@@ -113,13 +113,8 @@ public class UploadProcessFileEntryActionHelper {
 
 		long folderId = folder.getFolderId();
 
-		String uniqueFileName = _uniqueFileNameProvider.provide(
-			fileName,
-			curFileName -> _exists(themeDisplay, curFileName, folderId));
-
 		return _addOrUpdateFile(
-			folderId, 0L, uniqueFileName, inputStream, contentType,
-			serviceContext);
+			folderId, fileName, inputStream, contentType, serviceContext);
 	}
 
 	@Reference
@@ -129,15 +124,17 @@ public class UploadProcessFileEntryActionHelper {
 	protected DLFileEntryLocalService dlFileEntryLocalService;
 
 	private DLFileEntry _addOrUpdateFile(
-			long folderId, long fileEntryId, String fileName,
-			InputStream inStream, String mimeType,
-			ServiceContext serviceContext)
+			long folderId, String fileName, InputStream inStream,
+			String mimeType, ServiceContext serviceContext)
 		throws PortalException {
 
 		long groupId = serviceContext.getScopeGroupId();
 		DLFileEntry fileEntry = null;
 
-		if (fileEntryId == 0) {
+		DLFileEntry dlFileEntry = dlFileEntryLocalService.fetchFileEntry(
+			groupId, folderId, fileName);
+
+		if (dlFileEntry == null) {
 			fileEntry = dlFileEntryLocalService.addFileEntry(
 				serviceContext.getUserId(), groupId, groupId, folderId,
 				fileName, mimeType, fileName, fileName, null, 0, null, null,
@@ -145,9 +142,9 @@ public class UploadProcessFileEntryActionHelper {
 		}
 		else {
 			fileEntry = dlFileEntryLocalService.updateFileEntry(
-				serviceContext.getUserId(), fileEntryId, fileName, mimeType,
-				fileName, fileName, "", true, 0L, null, null, inStream, 0L,
-				serviceContext);
+				serviceContext.getUserId(), dlFileEntry.getFileEntryId(),
+				fileName, mimeType, fileName, fileName, "", true, 0L, null,
+				null, inStream, 0L, serviceContext);
 		}
 
 		return fileEntry;
