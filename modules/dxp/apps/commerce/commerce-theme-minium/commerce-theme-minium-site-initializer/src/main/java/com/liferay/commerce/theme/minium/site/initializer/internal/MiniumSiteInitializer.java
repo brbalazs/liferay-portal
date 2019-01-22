@@ -487,14 +487,6 @@ public class MiniumSiteInitializer implements SiteInitializer {
 			jsonArray, serviceContext);
 	}
 
-	private List<CPOption> _importCPOptions(ServiceContext serviceContext)
-		throws Exception {
-
-		JSONArray jsonArray = _getJSONArray("options.json");
-
-		return _cpOptionsImporter.importCPOptions(jsonArray, serviceContext);
-	}
-
 	private List<CPDefinition> _importCPDefinitions(
 			List<CommerceWarehouse> commerceWarehouses,
 			ServiceContext serviceContext)
@@ -528,6 +520,14 @@ public class MiniumSiteInitializer implements SiteInitializer {
 			_log.info(
 				"Commerce product option categories successfully imported");
 		}
+	}
+
+	private List<CPOption> _importCPOptions(ServiceContext serviceContext)
+		throws Exception {
+
+		JSONArray jsonArray = _getJSONArray("options.json");
+
+		return _cpOptionsImporter.importCPOptions(jsonArray, serviceContext);
 	}
 
 	private void _importCPSpecificationOptions(ServiceContext serviceContext)
@@ -670,9 +670,6 @@ public class MiniumSiteInitializer implements SiteInitializer {
 	private CPDefinitionsImporter _cpDefinitionsImporter;
 
 	@Reference
-	private CPOptionsImporter _cpOptionsImporter;
-
-	@Reference
 	private CPFileImporter _cpFileImporter;
 
 	@Reference
@@ -680,6 +677,9 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 	@Reference
 	private CPOptionCategoriesImporter _cpOptionCategoriesImporter;
+
+	@Reference
+	private CPOptionsImporter _cpOptionsImporter;
 
 	@Reference
 	private CPRuleLocalService _cpRuleLocalService;
