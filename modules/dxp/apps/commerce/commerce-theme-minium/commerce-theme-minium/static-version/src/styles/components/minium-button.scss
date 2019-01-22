@@ -97,4 +97,8 @@
 			color: inherit;
 		}
 	}
+
+	&--spaced {
+		margin-left: $minium-gutter;
+	}
 }

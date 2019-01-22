@@ -288,7 +288,8 @@ svg {
 	max-width: 100%;
 }
 
-.portlet-decorate {
+.portlet-decorate,
+.portlet-minium-card {
 	.portlet-content {
 		background: transparent;
 	}
@@ -406,6 +407,7 @@ svg {
 	font-size: 22px;
 	font-weight: 500;
 	line-height: 22px;
+	margin: 20px 0;
 }
 
 .minium-thumb-menu {
@@ -433,4 +435,45 @@ svg {
 	outline: none;
 	padding: 10px;
 	width: 100%;
+}
+
+.commerce-multi-step-nav {
+	margin: 40px 20px;
+}
+
+.portlet-commerce-checkout {
+	.input-container > .form-group-autofit,
+	.input-container > .address-fields,
+	.commerce-checkout-summary-footer,
+	.shipping-address {
+		@include card-content;
+	}
+
+	.input-container > .form-group-autofit,
+	.input-container > .address-fields {
+		padding-top: 30px;
+	}
+
+	.input-container > .form-group-autofit > .form-group {
+		margin-bottom: 1rem;
+		margin-right: 0;
+	}
+
+.commerce-checkout-summary-header {
+		display: none;
+	}
+
+	.btn {
+		@extend .minium-button
+	}
+
+	.btn:not(.btn-primary) {
+		@extend .minium-button--outline
+	}
+}
+
+body .multi-step-item.active .multi-step-divider,
+body .multi-step-item.success-page.complete .multi-step-divider,
+.multi-step-item.active .multi-step-icon {
+	background-color: $color-theme;
 }
