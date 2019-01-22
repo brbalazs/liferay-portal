@@ -16,6 +16,7 @@ package com.liferay.commerce.data.integration.manager.web.internal.portlet.actio
 
 import com.liferay.commerce.data.integration.manager.web.configuration.DataIntegrationConfiguration;
 import com.liferay.document.library.kernel.model.DLFileEntry;
+import com.liferay.document.library.kernel.model.DLFileVersion;
 import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.document.library.kernel.service.DLFileEntryLocalService;
 import com.liferay.petra.string.StringPool;
@@ -31,11 +32,13 @@ import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.upload.UniqueFileNameProvider;
 
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.util.Collections;
 import java.util.Map;
 
 import org.osgi.service.component.annotations.Activate;
@@ -146,6 +149,13 @@ public class UploadProcessFileEntryActionHelper {
 				fileName, mimeType, fileName, fileName, "", true, 0L, null,
 				null, inStream, 0L, serviceContext);
 		}
+
+		DLFileVersion dlFileVersion = fileEntry.getLatestFileVersion(false);
+
+		dlFileEntryLocalService.updateStatus(
+			serviceContext.getUserId(), dlFileVersion.getFileVersionId(),
+			WorkflowConstants.STATUS_APPROVED, serviceContext,
+			Collections.emptyMap());
 
 		return fileEntry;
 	}
