@@ -15,12 +15,18 @@
 package com.liferay.commerce.theme.minium.impl.internal.product.renderer.list.entry;
 
 import com.liferay.commerce.account.model.CommerceAccount;
+import com.liferay.commerce.constants.CPDefinitionInventoryConstants;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.frontend.template.soy.renderer.ComponentDescriptor;
 import com.liferay.commerce.frontend.template.soy.renderer.SoyComponentRenderer;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
+import com.liferay.commerce.model.CPDefinitionInventory;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.price.CommerceProductPrice;
+import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.catalog.CPSku;
 import com.liferay.commerce.product.constants.CPPortletKeys;
@@ -29,6 +35,8 @@ import com.liferay.commerce.product.content.render.list.entry.CPContentListEntry
 import com.liferay.commerce.product.content.util.CPContentHelper;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
+import com.liferay.commerce.theme.minium.impl.internal.product.model.PriceModel;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.theme.PortletDisplay;
@@ -36,6 +44,8 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
+
+import java.math.BigDecimal;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -178,6 +188,13 @@ public class MiniumCPContentListEntryRenderer
 		if (cpSku != null) {
 			context.put("sku", cpSku.getSku());
 			context.put("skuId", cpSku.getCPInstanceId());
+
+			PriceModel priceModel = _getPrice(
+				cpSku.getCPInstanceId(),
+				_getMinQuantity(cpCatalogEntry.getCPDefinitionId()),
+				commerceContext, themeDisplay.getLocale());
+
+			context.put("prices", priceModel);
 		}
 
 		context.put(
@@ -191,6 +208,7 @@ public class MiniumCPContentListEntryRenderer
 
 		dependencies.add(
 			"commerce-frontend-taglib@1.0.0/add_to_cart/AddToCartButton.es");
+		dependencies.add("commerce-frontend-taglib@1.0.0/price/Price.es");
 
 		ComponentDescriptor componentDescriptor = new ComponentDescriptor(
 			"ProductCard.render", module, null, dependencies);
@@ -198,6 +216,58 @@ public class MiniumCPContentListEntryRenderer
 		_soyComponentRenderer.renderSoyComponent(
 			httpServletRequest, httpServletResponse, componentDescriptor,
 			context);
+	}
+
+	private int _getMinQuantity(long cpDefinitionId) {
+		CPDefinitionInventory cpDefinitionInventory =
+			_cpDefinitionInventoryLocalService.
+				fetchCPDefinitionInventoryByCPDefinitionId(cpDefinitionId);
+
+		if (cpDefinitionInventory != null) {
+			return cpDefinitionInventory.getMinOrderQuantity();
+		}
+		else {
+			return CPDefinitionInventoryConstants.DEFAULT_MIN_ORDER_QUANTITY;
+		}
+	}
+
+	private PriceModel _getPrice(
+			long cpInstanceId, int quantity, CommerceContext commerceContext,
+			Locale locale)
+		throws PortalException {
+
+		CommerceProductPrice commerceProductPrice =
+			_commerceProductPriceCalculation.getCommerceProductPrice(
+				cpInstanceId, quantity, true, commerceContext);
+
+		if (commerceProductPrice == null) {
+			return null;
+		}
+
+		CommerceMoney unitPrice = commerceProductPrice.getUnitPrice();
+
+		PriceModel priceModel = new PriceModel(unitPrice.format(locale));
+
+		CommerceMoney unitPromoPrice = commerceProductPrice.getUnitPromoPrice();
+
+		BigDecimal promoPrice = unitPromoPrice.getPrice();
+
+		if ((promoPrice.compareTo(BigDecimal.ZERO) >= 0) &&
+			(promoPrice.compareTo(unitPrice.getPrice()) <= 0)) {
+
+			priceModel.setPromoPrice(unitPromoPrice.format(locale));
+		}
+
+		CommerceDiscountValue discountValue =
+			commerceProductPrice.getDiscountValue();
+
+		if (discountValue != null) {
+			CommerceMoney discountAmount = discountValue.getDiscountAmount();
+
+			priceModel.setDiscount(discountAmount.format(locale));
+		}
+
+		return priceModel;
 	}
 
 	/*private String _getAvaiability(CPCatalogEntry cpCatalogEntry) {
@@ -220,6 +290,9 @@ public class MiniumCPContentListEntryRenderer
 		}
 
 	}*/
+
+	@Reference
+	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
 
 	@Reference
 	private CPDefinitionInventoryEngineRegistry

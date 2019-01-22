@@ -90,11 +90,10 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 
 			<h2 class="commerce-price" data-text-cp-instance-price>
 				<c:if test="<%= cpSku != null %>">
-					<liferay-commerce:price
-						CPDefinitionId="<%= cpDefinitionId %>"
+					<commerce-ui:price
 						CPInstanceId="<%= cpSku.getCPInstanceId() %>"
-						discountLabel="<%= LanguageUtil.get(request, "you-save") %>"
-						promoPriceLabel="<%= LanguageUtil.get(request, "was") %>"
+						additionalPriceClasses="price--big"
+						additionalDiscountedClasses="price--big"
 					/>
 				</c:if>
 			</h2>

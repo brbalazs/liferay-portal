@@ -21,6 +21,7 @@
 	{@param? isDeleteButtonVisible: bool}
 	{@param settings: ? }
 	{@param spritemap: string}
+	{@param prices: ? }
 	{@param? _handleCompareCheckbox: any}
 	{@param? _handleRemoveProduct: any}
 
@@ -110,14 +111,13 @@
 		{/if}
 
 		<div class="product-card__price">
-			<span>
-				<span class="price price--big price--discounted">
-					$ 127.00
-				</span>
-				<span class="price price--old">
-					$ 160.00
-				</span>
-			</span>
+			{if isNonnull($prices) and isNonnull($prices)}
+				{call Price.render}
+					{param prices: $prices /}
+					{param additionalPriceClasses: 'price--big' /}
+					{param additionalDiscountedClasses: 'price--big' /}
+				{/call}
+			{/if}
 		</div>
 
 		{if isNonnull($sku) and  isNonnull($skuId)}
