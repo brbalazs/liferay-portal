@@ -136,7 +136,7 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 <%
 List<CPDefinitionSpecificationOptionValue> cpDefinitionSpecificationOptionValues = cpContentHelper.getCPDefinitionSpecificationOptionValues(cpDefinitionId);
 List<CPOptionCategory> cpOptionCategories = cpContentHelper.getCPOptionCategories(scopeGroupId);
-List<CPAttachmentFileEntry> cpAttachmentFileEntries = cpContentHelper.getCPAttachmentFileEntries(cpDefinitionId);
+List<CPMedia> cpAttachmentFileEntries = cpContentHelper.getCPAttachmentFileEntries(cpDefinitionId, themeDisplay);
 %>
 
 <c:if test="<%= cpContentHelper.hasCPDefinitionSpecificationOptionValues(cpDefinitionId) %>">
@@ -213,15 +213,14 @@ List<CPAttachmentFileEntry> cpAttachmentFileEntries = cpContentHelper.getCPAttac
 						<%
 						int attachmentsCount = 0;
 
-						for (CPAttachmentFileEntry curCPAttachmentFileEntry : cpAttachmentFileEntries) {
-							FileEntry fileEntry = curCPAttachmentFileEntry.getFileEntry();
+						for (CPMedia curCPAttachmentFileEntry : cpAttachmentFileEntries) {
 						%>
 
 							<dt class="specification-term">
-								<%= curCPAttachmentFileEntry.getTitle(themeDisplay.getLanguageId()) %>
+								<%= curCPAttachmentFileEntry.getTitle() %>
 							</dt>
 							<dd class="specification-desc">
-								<aui:icon cssClass="icon-monospaced" image="download" markupView="lexicon" url="<%= cpContentHelper.getDownloadFileEntryURL(fileEntry, themeDisplay) %>" />
+								<aui:icon cssClass="icon-monospaced" image="download" markupView="lexicon" url="<%= curCPAttachmentFileEntry.getUrl() %>" />
 							</dd>
 
 							<%
