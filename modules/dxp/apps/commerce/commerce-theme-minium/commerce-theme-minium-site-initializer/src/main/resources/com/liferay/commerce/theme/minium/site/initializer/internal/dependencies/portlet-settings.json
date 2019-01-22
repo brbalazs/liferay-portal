@@ -46,32 +46,5 @@
 		"portletPreferences": {
 			"cpContentListRendererKey": "compare-list-minium"
 		}
-	},
-	{
-		"instanceId": "minium",
-		"layoutFriendlyURL": "/orders",
-		"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet",
-		"portletPreferences": {
-			"exclude": false,
-			"orderStatuses": -1
-		}
-	},
-	{
-		"instanceId": "pending",
-		"layoutFriendlyURL": "/pending-orders",
-		"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet",
-		"portletPreferences": {
-			"exclude": false,
-			"orderStatuses": 1
-		}
-	},
-	{
-		"instanceId": "placed",
-		"layoutFriendlyURL": "/placed-orders",
-		"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet",
-		"portletPreferences": {
-			"exclude": false,
-			"orderStatuses": 2
-		}
 	}
 ]

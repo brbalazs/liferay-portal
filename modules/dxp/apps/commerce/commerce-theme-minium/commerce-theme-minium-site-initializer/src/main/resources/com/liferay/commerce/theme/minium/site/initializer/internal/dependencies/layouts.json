@@ -108,7 +108,7 @@
 			{
 				"layoutColumnId": "column-1",
 				"layoutColumnPos": 0,
-				"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet_INSTANCE_minium"
+				"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet"
 			}
 		],
 		"privateLayout": true,
@@ -123,7 +123,7 @@
 					{
 						"layoutColumnId": "column-1",
 						"layoutColumnPos": 0,
-						"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet_INSTANCE_pending"
+						"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet"
 					}
 				],
 				"privateLayout": true
@@ -138,7 +138,7 @@
 					{
 						"layoutColumnId": "column-1",
 						"layoutColumnPos": 0,
-						"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet_INSTANCE_placed"
+						"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet"
 					}
 				],
 				"privateLayout": true
