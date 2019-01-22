@@ -33,7 +33,7 @@
 			"portletSetupCss": "",
 			"portletSetupPortletDecoratorId": "barebone",
 			"portletSetupUseCustomTitle": "false",
-			"rootMenuItemLevel": "0",
+			"rootMenuItemLevel": "1",
 			"rootMenuItemType": "relative"
 		}
 	}
