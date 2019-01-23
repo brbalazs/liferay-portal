@@ -84,19 +84,18 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 		".List1";
 	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
 		".List2";
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
+	private final FinderPath _finderPathWithPaginationFindAll = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			SPIDefinitionModelImpl.FINDER_CACHE_ENABLED,
 			SPIDefinitionImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
 			"findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
+	private final FinderPath _finderPathWithoutPaginationFindAll = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			SPIDefinitionModelImpl.FINDER_CACHE_ENABLED,
 			SPIDefinitionImpl.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
 			"findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
+	private final FinderPath _finderPathCountAll = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			SPIDefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANYID =
-		new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
+	private final FinderPath _finderPathWithPaginationFindByCompanyId = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			SPIDefinitionModelImpl.FINDER_CACHE_ENABLED,
 			SPIDefinitionImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
 			"findByCompanyId",
@@ -106,13 +105,12 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 			Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID =
-		new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
+	private final FinderPath _finderPathWithoutPaginationFindByCompanyId = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			SPIDefinitionModelImpl.FINDER_CACHE_ENABLED,
 			SPIDefinitionImpl.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
 			"findByCompanyId", new String[] { Long.class.getName() },
 			SPIDefinitionModelImpl.COMPANYID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_COMPANYID = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
+	private final FinderPath _finderPathCountByCompanyId = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			SPIDefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompanyId",
 			new String[] { Long.class.getName() });
@@ -191,11 +189,11 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 				(orderByComparator == null)) {
 			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID;
+			finderPath = _finderPathWithoutPaginationFindByCompanyId;
 			finderArgs = new Object[] { companyId };
 		}
 		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANYID;
+			finderPath = _finderPathWithPaginationFindByCompanyId;
 			finderArgs = new Object[] { companyId, start, end, orderByComparator };
 		}
 
@@ -868,7 +866,7 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 	 */
 	@Override
 	public int countByCompanyId(long companyId) {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_COMPANYID;
+		FinderPath finderPath = _finderPathCountByCompanyId;
 
 		Object[] finderArgs = new Object[] { companyId };
 
@@ -961,13 +959,13 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 	}
 
 	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 = "spiDefinition.companyId = ?";
-	public static final FinderPath FINDER_PATH_FETCH_BY_C_N = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
+	private final FinderPath _finderPathFetchByC_N = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			SPIDefinitionModelImpl.FINDER_CACHE_ENABLED,
 			SPIDefinitionImpl.class, FINDER_CLASS_NAME_ENTITY, "fetchByC_N",
 			new String[] { Long.class.getName(), String.class.getName() },
 			SPIDefinitionModelImpl.COMPANYID_COLUMN_BITMASK |
 			SPIDefinitionModelImpl.NAME_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_C_N = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
+	private final FinderPath _finderPathCountByC_N = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			SPIDefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_N",
 			new String[] { Long.class.getName(), String.class.getName() });
@@ -1038,7 +1036,7 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_C_N,
+			result = FinderCacheUtil.getResult(_finderPathFetchByC_N,
 					finderArgs, this);
 		}
 
@@ -1089,7 +1087,7 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 				List<SPIDefinition> list = q.list();
 
 				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_N,
+					FinderCacheUtil.putResult(_finderPathFetchByC_N,
 						finderArgs, list);
 				}
 				else {
@@ -1112,8 +1110,7 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 				}
 			}
 			catch (Exception e) {
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_N,
-					finderArgs);
+				FinderCacheUtil.removeResult(_finderPathFetchByC_N, finderArgs);
 
 				throw processException(e);
 			}
@@ -1156,7 +1153,7 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 	public int countByC_N(long companyId, String name) {
 		name = Objects.toString(name, "");
 
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_N;
+		FinderPath finderPath = _finderPathCountByC_N;
 
 		Object[] finderArgs = new Object[] { companyId, name };
 
@@ -1218,7 +1215,7 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 	private static final String _FINDER_COLUMN_C_N_COMPANYID_2 = "spiDefinition.companyId = ? AND ";
 	private static final String _FINDER_COLUMN_C_N_NAME_2 = "spiDefinition.name = ?";
 	private static final String _FINDER_COLUMN_C_N_NAME_3 = "(spiDefinition.name IS NULL OR spiDefinition.name = '')";
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_C_S = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
+	private final FinderPath _finderPathWithPaginationFindByC_S = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			SPIDefinitionModelImpl.FINDER_CACHE_ENABLED,
 			SPIDefinitionImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
 			"findByC_S",
@@ -1228,18 +1225,18 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 			Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_S = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
+	private final FinderPath _finderPathWithoutPaginationFindByC_S = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			SPIDefinitionModelImpl.FINDER_CACHE_ENABLED,
 			SPIDefinitionImpl.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
 			"findByC_S",
 			new String[] { Long.class.getName(), Integer.class.getName() },
 			SPIDefinitionModelImpl.COMPANYID_COLUMN_BITMASK |
 			SPIDefinitionModelImpl.STATUS_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_C_S = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
+	private final FinderPath _finderPathCountByC_S = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			SPIDefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_S",
 			new String[] { Long.class.getName(), Integer.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_COUNT_BY_C_S = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
+	private final FinderPath _finderPathWithPaginationCountByC_S = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			SPIDefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByC_S",
 			new String[] { Long.class.getName(), Integer.class.getName() });
@@ -1322,11 +1319,11 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 				(orderByComparator == null)) {
 			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_S;
+			finderPath = _finderPathWithoutPaginationFindByC_S;
 			finderArgs = new Object[] { companyId, status };
 		}
 		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_C_S;
+			finderPath = _finderPathWithPaginationFindByC_S;
 			finderArgs = new Object[] {
 					companyId, status,
 					
@@ -2268,7 +2265,7 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 		List<SPIDefinition> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<SPIDefinition>)FinderCacheUtil.getResult(FINDER_PATH_WITH_PAGINATION_FIND_BY_C_S,
+			list = (List<SPIDefinition>)FinderCacheUtil.getResult(_finderPathWithPaginationFindByC_S,
 					finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
@@ -2343,11 +2340,11 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 
 				cacheResult(list);
 
-				FinderCacheUtil.putResult(FINDER_PATH_WITH_PAGINATION_FIND_BY_C_S,
+				FinderCacheUtil.putResult(_finderPathWithPaginationFindByC_S,
 					finderArgs, list);
 			}
 			catch (Exception e) {
-				FinderCacheUtil.removeResult(FINDER_PATH_WITH_PAGINATION_FIND_BY_C_S,
+				FinderCacheUtil.removeResult(_finderPathWithPaginationFindByC_S,
 					finderArgs);
 
 				throw processException(e);
@@ -2383,7 +2380,7 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 	 */
 	@Override
 	public int countByC_S(long companyId, int status) {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_S;
+		FinderPath finderPath = _finderPathCountByC_S;
 
 		Object[] finderArgs = new Object[] { companyId, status };
 
@@ -2451,7 +2448,7 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 
 		Object[] finderArgs = new Object[] { companyId, StringUtil.merge(statuses) };
 
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_C_S,
+		Long count = (Long)FinderCacheUtil.getResult(_finderPathWithPaginationCountByC_S,
 				finderArgs, this);
 
 		if (count == null) {
@@ -2491,11 +2488,11 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 
 				count = (Long)q.uniqueResult();
 
-				FinderCacheUtil.putResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_C_S,
+				FinderCacheUtil.putResult(_finderPathWithPaginationCountByC_S,
 					finderArgs, count);
 			}
 			catch (Exception e) {
-				FinderCacheUtil.removeResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_C_S,
+				FinderCacheUtil.removeResult(_finderPathWithPaginationCountByC_S,
 					finderArgs);
 
 				throw processException(e);
@@ -2637,13 +2634,13 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 	private static final String _FINDER_COLUMN_C_S_COMPANYID_2 = "spiDefinition.companyId = ? AND ";
 	private static final String _FINDER_COLUMN_C_S_STATUS_2 = "spiDefinition.status = ?";
 	private static final String _FINDER_COLUMN_C_S_STATUS_7 = "spiDefinition.status IN (";
-	public static final FinderPath FINDER_PATH_FETCH_BY_CA_CP = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
+	private final FinderPath _finderPathFetchByCA_CP = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			SPIDefinitionModelImpl.FINDER_CACHE_ENABLED,
 			SPIDefinitionImpl.class, FINDER_CLASS_NAME_ENTITY, "fetchByCA_CP",
 			new String[] { String.class.getName(), Integer.class.getName() },
 			SPIDefinitionModelImpl.CONNECTORADDRESS_COLUMN_BITMASK |
 			SPIDefinitionModelImpl.CONNECTORPORT_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_CA_CP = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
+	private final FinderPath _finderPathCountByCA_CP = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			SPIDefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCA_CP",
 			new String[] { String.class.getName(), Integer.class.getName() });
@@ -2715,7 +2712,7 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_CA_CP,
+			result = FinderCacheUtil.getResult(_finderPathFetchByCA_CP,
 					finderArgs, this);
 		}
 
@@ -2767,7 +2764,7 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 				List<SPIDefinition> list = q.list();
 
 				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CA_CP,
+					FinderCacheUtil.putResult(_finderPathFetchByCA_CP,
 						finderArgs, list);
 				}
 				else {
@@ -2790,8 +2787,7 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 				}
 			}
 			catch (Exception e) {
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CA_CP,
-					finderArgs);
+				FinderCacheUtil.removeResult(_finderPathFetchByCA_CP, finderArgs);
 
 				throw processException(e);
 			}
@@ -2835,7 +2831,7 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 	public int countByCA_CP(String connectorAddress, int connectorPort) {
 		connectorAddress = Objects.toString(connectorAddress, "");
 
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_CA_CP;
+		FinderPath finderPath = _finderPathCountByCA_CP;
 
 		Object[] finderArgs = new Object[] { connectorAddress, connectorPort };
 
@@ -2913,11 +2909,11 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 			SPIDefinitionImpl.class, spiDefinition.getPrimaryKey(),
 			spiDefinition);
 
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_N,
+		FinderCacheUtil.putResult(_finderPathFetchByC_N,
 			new Object[] { spiDefinition.getCompanyId(), spiDefinition.getName() },
 			spiDefinition);
 
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CA_CP,
+		FinderCacheUtil.putResult(_finderPathFetchByCA_CP,
 			new Object[] {
 				spiDefinition.getConnectorAddress(),
 				spiDefinition.getConnectorPort()
@@ -2999,9 +2995,9 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 				spiDefinitionModelImpl.getName()
 			};
 
-		FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_N, args,
-			Long.valueOf(1), false);
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_N, args,
+		FinderCacheUtil.putResult(_finderPathCountByC_N, args, Long.valueOf(1),
+			false);
+		FinderCacheUtil.putResult(_finderPathFetchByC_N, args,
 			spiDefinitionModelImpl, false);
 
 		args = new Object[] {
@@ -3009,9 +3005,9 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 				spiDefinitionModelImpl.getConnectorPort()
 			};
 
-		FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CA_CP, args,
+		FinderCacheUtil.putResult(_finderPathCountByCA_CP, args,
 			Long.valueOf(1), false);
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CA_CP, args,
+		FinderCacheUtil.putResult(_finderPathFetchByCA_CP, args,
 			spiDefinitionModelImpl, false);
 	}
 
@@ -3023,19 +3019,19 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 					spiDefinitionModelImpl.getName()
 				};
 
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_N, args);
-			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_N, args);
+			FinderCacheUtil.removeResult(_finderPathCountByC_N, args);
+			FinderCacheUtil.removeResult(_finderPathFetchByC_N, args);
 		}
 
 		if ((spiDefinitionModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_C_N.getColumnBitmask()) != 0) {
+				_finderPathFetchByC_N.getColumnBitmask()) != 0) {
 			Object[] args = new Object[] {
 					spiDefinitionModelImpl.getOriginalCompanyId(),
 					spiDefinitionModelImpl.getOriginalName()
 				};
 
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_N, args);
-			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_N, args);
+			FinderCacheUtil.removeResult(_finderPathCountByC_N, args);
+			FinderCacheUtil.removeResult(_finderPathFetchByC_N, args);
 		}
 
 		if (clearCurrent) {
@@ -3044,19 +3040,19 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 					spiDefinitionModelImpl.getConnectorPort()
 				};
 
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CA_CP, args);
-			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CA_CP, args);
+			FinderCacheUtil.removeResult(_finderPathCountByCA_CP, args);
+			FinderCacheUtil.removeResult(_finderPathFetchByCA_CP, args);
 		}
 
 		if ((spiDefinitionModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_CA_CP.getColumnBitmask()) != 0) {
+				_finderPathFetchByCA_CP.getColumnBitmask()) != 0) {
 			Object[] args = new Object[] {
 					spiDefinitionModelImpl.getOriginalConnectorAddress(),
 					spiDefinitionModelImpl.getOriginalConnectorPort()
 				};
 
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CA_CP, args);
-			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CA_CP, args);
+			FinderCacheUtil.removeResult(_finderPathCountByCA_CP, args);
+			FinderCacheUtil.removeResult(_finderPathFetchByCA_CP, args);
 		}
 	}
 
@@ -3236,8 +3232,8 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 		 if (isNew) {
 			Object[] args = new Object[] { spiDefinitionModelImpl.getCompanyId() };
 
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID, args);
-			FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
+			FinderCacheUtil.removeResult(_finderPathCountByCompanyId, args);
+			FinderCacheUtil.removeResult(_finderPathWithoutPaginationFindByCompanyId,
 				args);
 
 			args = new Object[] {
@@ -3245,45 +3241,42 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 					spiDefinitionModelImpl.getStatus()
 				};
 
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_S, args);
-			FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_S,
+			FinderCacheUtil.removeResult(_finderPathCountByC_S, args);
+			FinderCacheUtil.removeResult(_finderPathWithoutPaginationFindByC_S,
 				args);
 
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_ALL,
-				FINDER_ARGS_EMPTY);
-			FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL,
+			FinderCacheUtil.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
+			FinderCacheUtil.removeResult(_finderPathWithoutPaginationFindAll,
 				FINDER_ARGS_EMPTY);
 		}
 
 		else {
 			if ((spiDefinitionModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID.getColumnBitmask()) != 0) {
+					_finderPathWithoutPaginationFindByCompanyId.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
 						spiDefinitionModelImpl.getOriginalCompanyId()
 					};
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
+				FinderCacheUtil.removeResult(_finderPathCountByCompanyId, args);
+				FinderCacheUtil.removeResult(_finderPathWithoutPaginationFindByCompanyId,
 					args);
 
 				args = new Object[] { spiDefinitionModelImpl.getCompanyId() };
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
+				FinderCacheUtil.removeResult(_finderPathCountByCompanyId, args);
+				FinderCacheUtil.removeResult(_finderPathWithoutPaginationFindByCompanyId,
 					args);
 			}
 
 			if ((spiDefinitionModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_S.getColumnBitmask()) != 0) {
+					_finderPathWithoutPaginationFindByC_S.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
 						spiDefinitionModelImpl.getOriginalCompanyId(),
 						spiDefinitionModelImpl.getOriginalStatus()
 					};
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_S, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_S,
+				FinderCacheUtil.removeResult(_finderPathCountByC_S, args);
+				FinderCacheUtil.removeResult(_finderPathWithoutPaginationFindByC_S,
 					args);
 
 				args = new Object[] {
@@ -3291,8 +3284,8 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 						spiDefinitionModelImpl.getStatus()
 					};
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_S, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_S,
+				FinderCacheUtil.removeResult(_finderPathCountByC_S, args);
+				FinderCacheUtil.removeResult(_finderPathWithoutPaginationFindByC_S,
 					args);
 			}
 		}
@@ -3567,11 +3560,11 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 				(orderByComparator == null)) {
 			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL;
+			finderPath = _finderPathWithoutPaginationFindAll;
 			finderArgs = FINDER_ARGS_EMPTY;
 		}
 		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_ALL;
+			finderPath = _finderPathWithPaginationFindAll;
 			finderArgs = new Object[] { start, end, orderByComparator };
 		}
 
@@ -3660,7 +3653,7 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 	 */
 	@Override
 	public int countAll() {
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
+		Long count = (Long)FinderCacheUtil.getResult(_finderPathCountAll,
 				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
@@ -3673,11 +3666,11 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 
 				count = (Long)q.uniqueResult();
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+				FinderCacheUtil.putResult(_finderPathCountAll,
 					FINDER_ARGS_EMPTY, count);
 			}
 			catch (Exception e) {
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_ALL,
+				FinderCacheUtil.removeResult(_finderPathCountAll,
 					FINDER_ARGS_EMPTY);
 
 				throw processException(e);
