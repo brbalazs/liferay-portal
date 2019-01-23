@@ -5,10 +5,10 @@
 				"ASSIGN_MEMBERS",
 				"ASSIGN_USER_ROLES",
 				"MANAGE_USERS",
-				"EDIT",
+				"UPDATE",
 				"VIEW_MEMBERS"
 			],
-			"resource": "com.liferay.portal.kernel.model.Organization"
+			"resource": "com.liferay.commerce.account.model.CommerceAccount"
 		},
 		"name": "Account Manager",
 		"scope": 3,
