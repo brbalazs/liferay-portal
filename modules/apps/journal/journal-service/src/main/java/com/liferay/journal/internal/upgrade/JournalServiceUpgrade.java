@@ -71,7 +71,6 @@ import com.liferay.portal.kernel.service.SystemEventLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.upgrade.DummyUpgradeStep;
-import com.liferay.portal.kernel.upgrade.UpgradeException;
 import com.liferay.portal.kernel.upgrade.UpgradeStep;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
 import com.liferay.subscription.service.SubscriptionLocalService;
@@ -122,9 +121,7 @@ public class JournalServiceUpgrade implements UpgradeStepRegistrator {
 			new UpgradeStep() {
 
 				@Override
-				public void upgrade(DBProcessContext dbProcessContext)
-					throws UpgradeException {
-
+				public void upgrade(DBProcessContext dbProcessContext) {
 					try {
 						deleteTempImages();
 					}
