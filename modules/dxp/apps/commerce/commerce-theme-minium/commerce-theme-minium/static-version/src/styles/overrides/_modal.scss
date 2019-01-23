@@ -37,3 +37,10 @@ body.open & {
 	position: relative;
 }
 }
+
+.modal-backdrop{
+	z-index: 1120;
+}
+.modal {
+	z-index: 1160;
+}

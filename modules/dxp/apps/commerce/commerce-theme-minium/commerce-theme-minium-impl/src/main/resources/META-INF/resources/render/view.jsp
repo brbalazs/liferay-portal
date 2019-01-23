@@ -44,6 +44,10 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 
 		<div class="col-6">
 			<header class="minium-product-header">
+				<commerce-ui:compare-checkbox
+					componentId="compareCheckbox"
+				/>
+
 				<div class="minium-dot minium-dot--good">In Stock</div>
 
 				<h3 class="minium-product-header__tagline <%= (cpSku == null) ? "hide" : StringPool.BLANK %>" data-text-cp-instance-sku-show>
@@ -117,16 +121,13 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 					<liferay-commerce-cart:add-to-cart
 						CPDefinitionId="<%= cpDefinitionId %>"
 						CPInstanceId="<%= (cpSku == null) ? 0 : cpSku.getCPInstanceId() %>"
-						elementClasses="btn-primary text-truncate"
+						elementClasses="minium-button minium-button--big"
 						productContentId='<%= renderResponse.getNamespace() + cpDefinitionId + "ProductContent" %>'
 						taglibQuantityInputId='<%= renderResponse.getNamespace() + cpDefinitionId + "Quantity" %>'
 					/>
 				</div>
 			</div>
 
-			<div class="autofit-float autofit-row">
-				<liferay-commerce:compare-product CPDefinitionId="<%= cpDefinitionId %>" />
-			</div>
 		</div>
 	</div>
 </div>

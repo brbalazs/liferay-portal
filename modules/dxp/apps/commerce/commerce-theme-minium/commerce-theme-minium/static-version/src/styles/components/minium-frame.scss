@@ -32,6 +32,7 @@
 		overflow: auto;
 		padding-bottom: 10%;
 		position: relative;
+		z-index: 100;
 
 		.minium-frame:not(.has-search) & {
 			display: none;

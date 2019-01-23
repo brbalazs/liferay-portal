@@ -73,6 +73,7 @@ $micro-transition: ease 100ms;
 @import "./components/notification-badge.scss";
 @import "./components/price.scss";
 @import "./components/product-card.scss";
+@import "./components/product-compare-checkbox.scss";
 @import "./components/product-detail.scss";
 @import "./components/product-details-modal.scss";
 @import "./components/product-gallery.scss";
@@ -133,6 +134,10 @@ svg {
 
 .u-tac {
 	text-align: center;
+}
+
+.u-wauto {
+	width: auto !important;
 }
 
 .u-hoverable {
