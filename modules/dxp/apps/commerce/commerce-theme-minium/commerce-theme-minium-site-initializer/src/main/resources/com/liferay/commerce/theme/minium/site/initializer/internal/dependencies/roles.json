@@ -6,7 +6,7 @@
 				"ASSIGN_USER_ROLES",
 				"MANAGE_USERS",
 				"UPDATE",
-				"VIEW_MEMBERS"
+				"MANAGE_ACCOUNTS"
 			],
 			"resource": "com.liferay.commerce.account.model.CommerceAccount"
 		},
