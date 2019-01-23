@@ -127,7 +127,6 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 					/>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </div>
