@@ -2,13 +2,9 @@
 	{
 		"actions": {
 			"actionIds": [
-				"ASSIGN_MEMBERS",
-				"ASSIGN_USER_ROLES",
-				"MANAGE_USERS",
-				"UPDATE",
 				"MANAGE_ACCOUNTS"
 			],
-			"resource": "com.liferay.commerce.account.model.CommerceAccount"
+			"resource": "com.liferay.commerce.account"
 		},
 		"name": "Account Manager",
 		"scope": 3,
