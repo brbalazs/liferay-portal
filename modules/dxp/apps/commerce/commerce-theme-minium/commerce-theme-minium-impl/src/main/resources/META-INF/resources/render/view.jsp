@@ -218,7 +218,7 @@ List<CPMedia> cpAttachmentFileEntries = cpContentHelper.getCPAttachmentFileEntri
 								<%= curCPAttachmentFileEntry.getTitle() %>
 							</dt>
 							<dd class="specification-desc">
-								<aui:icon cssClass="icon-monospaced" image="download" target="_blank" markupView="lexicon" url="<%= curCPAttachmentFileEntry.getDownloadUrl() %>" />
+								<aui:icon cssClass="icon-monospaced" image="download" markupView="lexicon" target="_blank" url="<%= curCPAttachmentFileEntry.getDownloadUrl() %>" />
 							</dd>
 
 							<%
