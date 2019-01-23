@@ -39,7 +39,6 @@ import com.liferay.commerce.service.CommerceCountryLocalService;
 import com.liferay.commerce.user.segment.model.CommerceUserSegmentEntry;
 import com.liferay.commerce.user.segment.model.CommerceUserSegmentEntryConstants;
 import com.liferay.commerce.user.segment.service.CommerceUserSegmentEntryLocalService;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
@@ -72,7 +71,6 @@ import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.site.exception.InitializationException;
 import com.liferay.site.initializer.SiteInitializer;
@@ -82,9 +80,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -93,7 +89,6 @@ import java.util.ResourceBundle;
 
 import javax.servlet.ServletContext;
 
-import org.osgi.service.cm.Configuration;
 import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -254,16 +249,6 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		modifiableSettings.store();
 	}
 
-	protected void createCommerceRoles(JSONArray jsonArray) throws Exception {
-		for (int i = 0; i < jsonArray.length(); i++) {
-			JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-			String name = jsonObject.getString("name");
-
-			_createCommerceRole(name);
-		}
-	}
-
 	protected void createCPRule(ServiceContext serviceContext)
 		throws PortalException {
 
@@ -285,8 +270,6 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		JSONArray jsonArray = _getJSONArray("roles.json");
 
 		_cpFileImporter.createRoles(jsonArray, serviceContext);
-
-		createCommerceRoles(jsonArray);
 
 		updateUserRole(serviceContext);
 	}
@@ -380,50 +363,6 @@ public class MiniumSiteInitializer implements SiteInitializer {
 			ResourceConstants.SCOPE_GROUP_TEMPLATE,
 			String.valueOf(GroupConstants.DEFAULT_PARENT_GROUP_ID),
 			role.getRoleId(), "VIEW_PRICE");
-	}
-
-	private void _createCommerceRole(String name) throws Exception {
-		Configuration[] configurations = _configurationAdmin.listConfigurations(
-			_getConfigurationFilter(_COMMERCE_ROLE_CONFIGURATION_PID));
-
-		if (configurations != null) {
-			for (Configuration configuration : configurations) {
-				Dictionary<String, Object> properties =
-					configuration.getProperties();
-
-				String roleName = (String)properties.get("roleName");
-
-				if (name.equals(roleName)) {
-					return;
-				}
-			}
-		}
-
-		Configuration configuration =
-			_configurationAdmin.createFactoryConfiguration(
-				_COMMERCE_ROLE_CONFIGURATION_PID, StringPool.QUESTION);
-
-		Dictionary<String, Object> properties = configuration.getProperties();
-
-		if (properties == null) {
-			properties = new Hashtable<>();
-		}
-
-		properties.put("roleName", name);
-
-		configuration.update(properties);
-	}
-
-	private String _getConfigurationFilter(String configurationPid) {
-		StringBundler sb = new StringBundler(5);
-
-		sb.append(StringPool.OPEN_PARENTHESIS);
-		sb.append(ConfigurationAdmin.SERVICE_FACTORYPID);
-		sb.append(StringPool.EQUAL);
-		sb.append(configurationPid);
-		sb.append(StringPool.CLOSE_PARENTHESIS);
-
-		return sb.toString();
 	}
 
 	private long[] _getCPDefinitionEntryIds(JSONArray jsonArray) {
@@ -623,10 +562,6 @@ public class MiniumSiteInitializer implements SiteInitializer {
 			jsonArray, MiniumSiteInitializer.class.getClassLoader(),
 			DEPENDENCIES_PATH + "display_templates/", serviceContext);
 	}
-
-	private static final String _COMMERCE_ROLE_CONFIGURATION_PID =
-		"com.liferay.commerce.user.web.internal.configuration." +
-			"CommerceRoleGroupServiceConfiguration";
 
 	private static final String _COMMERCE_VOCABULARY = "Commerce";
 

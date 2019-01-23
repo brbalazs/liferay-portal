@@ -5,13 +5,14 @@
 				"ASSIGN_MEMBERS",
 				"ASSIGN_USER_ROLES",
 				"MANAGE_USERS",
+				"EDIT",
 				"VIEW_MEMBERS"
 			],
 			"resource": "com.liferay.portal.kernel.model.Organization"
 		},
 		"name": "Account Manager",
 		"scope": 3,
-		"type": 3
+		"type": 100
 	},
 	{
 		"actions": {
@@ -28,7 +29,7 @@
 		},
 		"name": "Order Manager",
 		"scope": 3,
-		"type": 3
+		"type": 100
 	},
 	{
 		"actions": {
@@ -42,6 +43,6 @@
 		},
 		"name": "Buyer",
 		"scope": 3,
-		"type": 3
+		"type": 100
 	}
 ]
