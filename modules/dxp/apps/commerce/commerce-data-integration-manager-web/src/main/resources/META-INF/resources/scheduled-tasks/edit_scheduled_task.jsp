@@ -94,6 +94,7 @@ List<Process> processList = scheduledTasksDataIntegrationDisplayContext.getProce
 					/>
 
 					<aui:select name="startHour">
+						<aui:option value="0">12 AM</aui:option>
 						<aui:option value="1">1 AM</aui:option>
 						<aui:option value="2">2 AM</aui:option>
 						<aui:option value="3">3 AM</aui:option>
@@ -105,7 +106,7 @@ List<Process> processList = scheduledTasksDataIntegrationDisplayContext.getProce
 						<aui:option value="9">9 AM</aui:option>
 						<aui:option value="10">10 AM</aui:option>
 						<aui:option value="11">11 AM</aui:option>
-						<aui:option value="12">12 AM</aui:option>
+						<aui:option value="12">12 PM</aui:option>
 						<aui:option value="13">1 PM</aui:option>
 						<aui:option value="14">2 PM</aui:option>
 						<aui:option value="15">3 PM</aui:option>
@@ -117,7 +118,6 @@ List<Process> processList = scheduledTasksDataIntegrationDisplayContext.getProce
 						<aui:option value="21">9 PM</aui:option>
 						<aui:option value="22">10 PM</aui:option>
 						<aui:option value="23">11 PM</aui:option>
-						<aui:option value="0">12 PM</aui:option>
 					</aui:select>
 				</aui:fieldset>
 

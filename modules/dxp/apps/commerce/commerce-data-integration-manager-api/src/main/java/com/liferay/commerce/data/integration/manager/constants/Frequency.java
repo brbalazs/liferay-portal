@@ -20,7 +20,7 @@ package com.liferay.commerce.data.integration.manager.constants;
 public enum Frequency {
 
 	EXECUTE_ONCE("execute-once", "0 2 2 11 *"), HOURLY("hourly", "0 * * * *"),
-	MONTHLY("monthly", "0 0 * 1-12 *");
+	DAILY("daily", "0 0 * * *"), MONTHLY("monthly", "0 0 * 1-12 *");
 
 	public static Frequency getByName(String name) {
 		for (Frequency frequency : Frequency.values()) {

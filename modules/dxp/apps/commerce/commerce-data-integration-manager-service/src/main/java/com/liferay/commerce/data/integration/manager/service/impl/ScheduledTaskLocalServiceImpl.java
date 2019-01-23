@@ -433,7 +433,14 @@ public class ScheduledTaskLocalServiceImpl
 			cronExpressionSB.append(year);
 		}
 		else if (frequency.equals(Frequency.HOURLY)) {
-			cronExpressionSB.append("0 0 */2 ? * *");
+			cronExpressionSB.append("0 0 ");
+			cronExpressionSB.append(startHour);
+			cronExpressionSB.append("/1 ? * *");
+		}
+		else if (frequency.equals(Frequency.DAILY)) {
+			cronExpressionSB.append("0 0 ");
+			cronExpressionSB.append(startHour);
+			cronExpressionSB.append(" ? * *");
 		}
 		else if (frequency.equals(Frequency.MONTHLY)) {
 			cronExpressionSB.append("0 0 ");
