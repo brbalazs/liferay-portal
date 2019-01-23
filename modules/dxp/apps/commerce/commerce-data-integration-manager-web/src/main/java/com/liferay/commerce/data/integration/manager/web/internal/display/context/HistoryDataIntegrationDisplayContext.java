@@ -43,7 +43,6 @@ import java.text.SimpleDateFormat;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletURL;
@@ -85,7 +84,9 @@ public class HistoryDataIntegrationDisplayContext {
 		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		_locale = themeDisplay.getLocale();
+		_dateFormat = DateFormat.getDateTimeInstance(
+			SimpleDateFormat.SHORT, SimpleDateFormat.LONG,
+			themeDisplay.getLocale());
 	}
 
 	public String getDeleteHistoryURL(long historyId) throws PortalException {
@@ -116,10 +117,7 @@ public class HistoryDataIntegrationDisplayContext {
 
 	public String getFormattedDate(Date date) {
 		if (date != null) {
-			DateFormat dateFormat = DateFormat.getDateTimeInstance(
-				SimpleDateFormat.SHORT, SimpleDateFormat.LONG, _locale);
-
-			return dateFormat.format(date);
+			return _dateFormat.format(date);
 		}
 
 		return "";
@@ -297,12 +295,12 @@ public class HistoryDataIntegrationDisplayContext {
 
 	private final ActionHelper _actionHelper;
 	private final DataIntegrationRequestHelper _dataIntegrationRequestHelper;
+	private final DateFormat _dateFormat;
 	private final String _defaultOrderByCol;
 	private final String _defaultOrderByType;
 	private final DLFileEntryService _dlFileEntryService;
 	private final HistoryLocalService _historyLocalService;
 	private String _keywords;
-	private final Locale _locale;
 	private final Portal _portal;
 	private final PortletResourcePermission _portletResourcePermission;
 	private RowChecker _rowChecker;

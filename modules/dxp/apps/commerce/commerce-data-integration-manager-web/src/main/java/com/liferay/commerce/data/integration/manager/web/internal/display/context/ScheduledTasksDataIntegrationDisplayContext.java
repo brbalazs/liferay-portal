@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
@@ -85,7 +86,13 @@ public class ScheduledTasksDataIntegrationDisplayContext {
 		httpServletRequest = _portal.getHttpServletRequest(renderRequest);
 		_defaultOrderByCol = "modified-date";
 		_defaultOrderByType = "desc";
-		_simpleDateFormat = new SimpleDateFormat(_datePattern);
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		_dateFormat = DateFormat.getDateTimeInstance(
+			SimpleDateFormat.SHORT, SimpleDateFormat.LONG,
+			themeDisplay.getLocale());
 	}
 
 	public PortletURL getAddScheduledTaskURL(long scheduledTaskId)
@@ -172,7 +179,7 @@ public class ScheduledTasksDataIntegrationDisplayContext {
 					schedulerResponse);
 
 				if (lastFireTime != null) {
-					lastExecutionDate = _simpleDateFormat.format(lastFireTime);
+					lastExecutionDate = _dateFormat.format(lastFireTime);
 				}
 			}
 		}
@@ -204,7 +211,7 @@ public class ScheduledTasksDataIntegrationDisplayContext {
 					schedulerResponse);
 
 				if (nextFireTime != null) {
-					nextDate = _simpleDateFormat.format(nextFireTime);
+					nextDate = _dateFormat.format(nextFireTime);
 				}
 			}
 		}
@@ -347,7 +354,7 @@ public class ScheduledTasksDataIntegrationDisplayContext {
 
 	private final ActionHelper _actionHelper;
 	private final DataIntegrationRequestHelper _dataIntegrationRequestHelper;
-	private String _datePattern = "yyyy-dd-MM HH:mm";
+	private final DateFormat _dateFormat;
 	private final String _defaultOrderByCol;
 	private final String _defaultOrderByType;
 	private String _keywords;
@@ -358,6 +365,5 @@ public class ScheduledTasksDataIntegrationDisplayContext {
 	private final ScheduledTaskLocalService _scheduledTaskLocalService;
 	private final SchedulerEngineHelper _schedulerEngineHelper;
 	private SearchContainer<ScheduledTask> _searchContainer;
-	private final SimpleDateFormat _simpleDateFormat;
 
 }
