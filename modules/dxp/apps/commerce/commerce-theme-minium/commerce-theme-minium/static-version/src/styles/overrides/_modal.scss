@@ -2,45 +2,43 @@ $searchHeight: 70px;
 $topBarHeight: 70px;
 
 .modal {
-left: $frame-size;
-top: 140px;
+	left: $frame-size;
+	top: 140px;
+	z-index: 1160;
 
-.has-search & {
-	top: $topBarHeight + $searchHeight;
-}
+	.has-search & {
+		top: $topBarHeight + $searchHeight;
+	}
 
 	body.signed-in & {
 		top: $liferay-topbar-size + $topBarHeight;
-}
+	}
 
-body.signed-in .has-search & {
-	top: $liferay-topbar-size + $topBarHeight + $searchHeight;
-}
+	body.signed-in .has-search & {
+		top: $liferay-topbar-size + $topBarHeight + $searchHeight;
+	}
 
-body.open & {
-	left: 320px + $frame-size;
-}
+	body.open & {
+		left: 320px + $frame-size;
+	}
 }
 
 .commerce-modal-wrapper {
-.lexicon-icon {
-	height: 22px;
-	width: 24px;
+	.lexicon-icon {
+		height: 22px;
+		width: 24px;
+	}
+
+	.modal {
+		display: none;
+	}
+
+	.modal-dialog {
+		max-width: 540px;
+		position: relative;
+	}
 }
 
-.modal {
-	display: none;
-}
-
-.modal-dialog {
-	max-width: 540px;
-	position: relative;
-}
-}
-
-.modal-backdrop{
+.modal-backdrop {
 	z-index: 1120;
-}
-.modal {
-	z-index: 1160;
 }
