@@ -45,8 +45,8 @@ import org.opensaml.saml2.metadata.SingleSignOnService;
  */
 public interface SAMLCommands {
 
-	public static
-		Resolver.SAMLCommand<Map<String, List<Serializable>>, UserResolver>
+	public static Resolver.SAMLCommand
+		<Map<String, List<Serializable>>, UserResolver>
 			bearerAssertionAttributesWithMapping(
 				Properties userAttributeMappingsProperties) {
 

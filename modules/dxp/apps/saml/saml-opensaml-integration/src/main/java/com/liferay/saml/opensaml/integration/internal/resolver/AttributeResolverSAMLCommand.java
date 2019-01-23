@@ -26,7 +26,7 @@ import org.opensaml.saml2.core.Response;
 /**
  * @author Tomas Polesovsky
  */
-public class AttributeResolverSAMLCommand <T, R extends AttributeResolver>
+public class AttributeResolverSAMLCommand<T, R extends AttributeResolver>
 	extends SAMLCommandImpl<AuthnRequest, Response, T, R> {
 
 	public AttributeResolverSAMLCommand(
