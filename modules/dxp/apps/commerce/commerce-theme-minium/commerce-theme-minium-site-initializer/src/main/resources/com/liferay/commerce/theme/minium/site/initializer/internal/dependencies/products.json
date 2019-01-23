@@ -15,6 +15,7 @@
 		],
 		"Length": 7,
 		"ManufacturerPartNumber": "BB98318",
+		"MinStockQuantity": 5,
 		"Name": "ABS Sensor",
 		"Price": 50.00,
 		"PromoPrice": 0,
@@ -36,18 +37,6 @@
 			{
 				"Key": "weight",
 				"Value": "1.00 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "2"
-			},
-			{
-				"Key": "length",
-				"Value": "7"
-			},
-			{
-				"Key": "width",
-				"Value": "5.6"
 			},
 			{
 				"Key": "dimensions",
@@ -76,6 +65,7 @@
 			"Minium_ProductImage_24.png"
 		],
 		"Length": 4,
+		"MinStockQuantity": 5,
 		"Name": "Brake Fluid",
 		"Options": [
 			{
@@ -141,28 +131,12 @@
 				"Value": "12, 48 or 112"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
 				"Key": "warranty",
 				"Value": "1 Year Unlimited Mileage Warranty"
 			},
 			{
 				"Key": "weight",
 				"Value": "1.75 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "2.5"
-			},
-			{
-				"Key": "length",
-				"Value": "4"
-			},
-			{
-				"Key": "width",
-				"Value": "9.5"
 			},
 			{
 				"Key": "dimensions",
@@ -189,6 +163,7 @@
 		],
 		"Length": 4,
 		"ManufacturerPartNumber": "BB98322",
+		"MinStockQuantity": 5,
 		"Name": "Premium Brake Fluid",
 		"Price": 100.00,
 		"PromoPrice": 90.00,
@@ -200,28 +175,12 @@
 				"Value": "6"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
 				"Key": "warranty",
 				"Value": "1 Year Unlimited Mileage Warranty"
 			},
 			{
 				"Key": "weight",
 				"Value": "0.875 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "2.5"
-			},
-			{
-				"Key": "length",
-				"Value": "4"
-			},
-			{
-				"Key": "width",
-				"Value": "9.5"
 			},
 			{
 				"Key": "dimensions",
@@ -251,6 +210,7 @@
 		],
 		"Length": 6.2,
 		"ManufacturerPartNumber": "BB98323",
+		"MinStockQuantity": 5,
 		"Name": "Brake Pads",
 		"Price": 21.00,
 		"PromoPrice": 18.90,
@@ -272,18 +232,6 @@
 			{
 				"Key": "weight",
 				"Value": "3.96 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "8.7"
-			},
-			{
-				"Key": "length",
-				"Value": "6.2"
-			},
-			{
-				"Key": "width",
-				"Value": "2.1"
 			},
 			{
 				"Key": "dimensions",
@@ -313,6 +261,7 @@
 		],
 		"Length": 6.2,
 		"ManufacturerPartNumber": "BB98324",
+		"MinStockQuantity": 5,
 		"Name": "Premium Brake Pads",
 		"Price": 29.00,
 		"PromoPrice": 26.10,
@@ -334,18 +283,6 @@
 			{
 				"Key": "weight",
 				"Value": "4.01 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "8.7"
-			},
-			{
-				"Key": "length",
-				"Value": "6.2"
-			},
-			{
-				"Key": "width",
-				"Value": "2.1"
 			},
 			{
 				"Key": "dimensions",
@@ -375,6 +312,7 @@
 		],
 		"Length": 10.2,
 		"ManufacturerPartNumber": "BB98325",
+		"MinStockQuantity": 5,
 		"Name": "Brake Rotors",
 		"Price": 40.00,
 		"PromoPrice": 0,
@@ -396,18 +334,6 @@
 			{
 				"Key": "weight",
 				"Value": "12.45 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "1.7"
-			},
-			{
-				"Key": "length",
-				"Value": "10.2"
-			},
-			{
-				"Key": "width",
-				"Value": "10.2"
 			},
 			{
 				"Key": "dimensions",
@@ -437,6 +363,7 @@
 		],
 		"Length": 9.4,
 		"ManufacturerPartNumber": "BB98326",
+		"MinStockQuantity": 5,
 		"Name": "Calipers",
 		"Price": 90.00,
 		"PromoPrice": 0,
@@ -458,18 +385,6 @@
 			{
 				"Key": "weight",
 				"Value": "7.34 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "5.3"
-			},
-			{
-				"Key": "length",
-				"Value": "9.4"
-			},
-			{
-				"Key": "width",
-				"Value": "7.3"
 			},
 			{
 				"Key": "dimensions",
@@ -498,6 +413,7 @@
 			"Minium_ProductImage_93.png"
 		],
 		"Length": 12,
+		"MinStockQuantity": 5,
 		"Name": "Hoses",
 		"Options": [
 			{
@@ -575,18 +491,6 @@
 				"Value": "11.7 oz"
 			},
 			{
-				"Key": "height",
-				"Value": "18"
-			},
-			{
-				"Key": "length",
-				"Value": "12"
-			},
-			{
-				"Key": "width",
-				"Value": "2"
-			},
-			{
 				"Key": "dimensions",
 				"Value": "12\" x 2\" x 18\""
 			}
@@ -611,6 +515,7 @@
 		],
 		"Length": 12,
 		"ManufacturerPartNumber": "BB98330",
+		"MinStockQuantity": 5,
 		"Name": "Timing Belt",
 		"Price": 600.00,
 		"PromoPrice": 0,
@@ -632,18 +537,6 @@
 			{
 				"Key": "weight",
 				"Value": "1 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "18"
-			},
-			{
-				"Key": "length",
-				"Value": "12"
-			},
-			{
-				"Key": "width",
-				"Value": "2"
 			},
 			{
 				"Key": "dimensions",
@@ -674,6 +567,7 @@
 		],
 		"Length": 2.5,
 		"ManufacturerPartNumber": "BB98331",
+		"MinStockQuantity": 5,
 		"Name": "Master Cylinder",
 		"Price": 78.00,
 		"PromoPrice": 0,
@@ -695,18 +589,6 @@
 			{
 				"Key": "weight",
 				"Value": "1.456 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "3.8"
-			},
-			{
-				"Key": "length",
-				"Value": "2.5"
-			},
-			{
-				"Key": "width",
-				"Value": "4.1"
 			},
 			{
 				"Key": "dimensions",
@@ -737,6 +619,7 @@
 		],
 		"Length": 2.5,
 		"ManufacturerPartNumber": "BB98332",
+		"MinStockQuantity": 5,
 		"Name": "Master Cylinder",
 		"Price": 34.00,
 		"PromoPrice": 0,
@@ -758,18 +641,6 @@
 			{
 				"Key": "weight",
 				"Value": "1 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "3.8"
-			},
-			{
-				"Key": "length",
-				"Value": "2.5"
-			},
-			{
-				"Key": "width",
-				"Value": "4.1"
 			},
 			{
 				"Key": "dimensions",
@@ -800,6 +671,7 @@
 		],
 		"Length": 2.5,
 		"ManufacturerPartNumber": "BB98333",
+		"MinStockQuantity": 5,
 		"Name": "Master Cylinder",
 		"Price": 39.00,
 		"PromoPrice": 0,
@@ -821,18 +693,6 @@
 			{
 				"Key": "weight",
 				"Value": "1 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "3.8"
-			},
-			{
-				"Key": "length",
-				"Value": "2.5"
-			},
-			{
-				"Key": "width",
-				"Value": "4.1"
 			},
 			{
 				"Key": "dimensions",
@@ -862,6 +722,7 @@
 		],
 		"Length": 6.2,
 		"ManufacturerPartNumber": "BB98334",
+		"MinStockQuantity": 5,
 		"Name": "Wear Sensors",
 		"Price": 60.00,
 		"PromoPrice": 0,
@@ -873,28 +734,12 @@
 				"Value": "1"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
 				"Key": "warranty",
 				"Value": "1 Year Unlimited Mileage Warranty"
 			},
 			{
 				"Key": "weight",
 				"Value": "1 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "8.7"
-			},
-			{
-				"Key": "length",
-				"Value": "6.2"
-			},
-			{
-				"Key": "width",
-				"Value": "2.1"
 			},
 			{
 				"Key": "dimensions",
@@ -924,6 +769,7 @@
 		],
 		"Length": 10.2,
 		"ManufacturerPartNumber": "EX938051",
+		"MinStockQuantity": 5,
 		"Name": "Bearings",
 		"Price": 70.00,
 		"PromoPrice": 0,
@@ -945,18 +791,6 @@
 			{
 				"Key": "weight",
 				"Value": "2 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "1.7"
-			},
-			{
-				"Key": "length",
-				"Value": "10.2"
-			},
-			{
-				"Key": "width",
-				"Value": "10.2"
 			},
 			{
 				"Key": "dimensions",
@@ -986,6 +820,7 @@
 		],
 		"Length": 9.4,
 		"ManufacturerPartNumber": "EX938052",
+		"MinStockQuantity": 5,
 		"Name": "Cams",
 		"Price": 695.00,
 		"PromoPrice": 0,
@@ -1007,18 +842,6 @@
 			{
 				"Key": "weight",
 				"Value": "2.81 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "5.3"
-			},
-			{
-				"Key": "length",
-				"Value": "9.4"
-			},
-			{
-				"Key": "width",
-				"Value": "7.3"
 			},
 			{
 				"Key": "dimensions",
@@ -1048,6 +871,7 @@
 		],
 		"Length": 12,
 		"ManufacturerPartNumber": "EX938053",
+		"MinStockQuantity": 5,
 		"Name": "Engine Mount",
 		"Price": 120.00,
 		"PromoPrice": 0,
@@ -1069,18 +893,6 @@
 			{
 				"Key": "weight",
 				"Value": "1.9 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "18"
-			},
-			{
-				"Key": "length",
-				"Value": "12"
-			},
-			{
-				"Key": "width",
-				"Value": "2"
 			},
 			{
 				"Key": "dimensions",
@@ -1110,6 +922,7 @@
 		],
 		"Length": 4,
 		"ManufacturerPartNumber": "EX938054",
+		"MinStockQuantity": 5,
 		"Name": "Oil Filter",
 		"Price": 450.00,
 		"PromoPrice": 0,
@@ -1121,28 +934,12 @@
 				"Value": "24"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
 				"Key": "warranty",
 				"Value": "1 Year Unlimited Mileage Warranty"
 			},
 			{
 				"Key": "weight",
 				"Value": "9 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "2.5"
-			},
-			{
-				"Key": "length",
-				"Value": "4"
-			},
-			{
-				"Key": "width",
-				"Value": "9.5"
 			},
 			{
 				"Key": "dimensions",
@@ -1172,6 +969,7 @@
 		],
 		"Length": 7,
 		"ManufacturerPartNumber": "EX938055",
+		"MinStockQuantity": 5,
 		"Name": "Oil Pump",
 		"Price": 79.00,
 		"PromoPrice": 0,
@@ -1193,18 +991,6 @@
 			{
 				"Key": "weight",
 				"Value": "2.05 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "2"
-			},
-			{
-				"Key": "length",
-				"Value": "7"
-			},
-			{
-				"Key": "width",
-				"Value": "5.6"
 			},
 			{
 				"Key": "dimensions",
@@ -1234,6 +1020,7 @@
 		],
 		"Length": 4,
 		"ManufacturerPartNumber": "EX938056",
+		"MinStockQuantity": 5,
 		"Name": "Piston",
 		"Price": 14.00,
 		"PromoPrice": 0,
@@ -1255,18 +1042,6 @@
 			{
 				"Key": "weight",
 				"Value": "1.72 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "2.5"
-			},
-			{
-				"Key": "length",
-				"Value": "4"
-			},
-			{
-				"Key": "width",
-				"Value": "9.5"
 			},
 			{
 				"Key": "dimensions",
@@ -1296,6 +1071,7 @@
 		],
 		"Length": 6.2,
 		"ManufacturerPartNumber": "EX938057",
+		"MinStockQuantity": 5,
 		"Name": "Pulley Kit",
 		"Price": 201.00,
 		"PromoPrice": 0,
@@ -1317,18 +1093,6 @@
 			{
 				"Key": "weight",
 				"Value": "1.93 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "8.7"
-			},
-			{
-				"Key": "length",
-				"Value": "6.2"
-			},
-			{
-				"Key": "width",
-				"Value": "2.1"
 			},
 			{
 				"Key": "dimensions",
@@ -1358,6 +1122,7 @@
 		],
 		"Length": 10.2,
 		"ManufacturerPartNumber": "EX938058",
+		"MinStockQuantity": 5,
 		"Name": "Seal",
 		"Price": 30.00,
 		"PromoPrice": 0,
@@ -1379,18 +1144,6 @@
 			{
 				"Key": "weight",
 				"Value": "0.19 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "1.7"
-			},
-			{
-				"Key": "length",
-				"Value": "10.2"
-			},
-			{
-				"Key": "width",
-				"Value": "10.2"
 			},
 			{
 				"Key": "dimensions",
@@ -1420,6 +1173,7 @@
 		],
 		"Length": 9.4,
 		"ManufacturerPartNumber": "EX938059",
+		"MinStockQuantity": 5,
 		"Name": "Timing Chain Tensioner",
 		"Price": 30.00,
 		"PromoPrice": 0,
@@ -1441,18 +1195,6 @@
 			{
 				"Key": "weight",
 				"Value": "0.45 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "5.3"
-			},
-			{
-				"Key": "length",
-				"Value": "9.4"
-			},
-			{
-				"Key": "width",
-				"Value": "7.3"
 			},
 			{
 				"Key": "dimensions",
@@ -1482,6 +1224,7 @@
 		],
 		"Length": 12,
 		"ManufacturerPartNumber": "EX938060",
+		"MinStockQuantity": 5,
 		"Name": "Timing Chain",
 		"Price": 23.00,
 		"PromoPrice": 0,
@@ -1503,18 +1246,6 @@
 			{
 				"Key": "weight",
 				"Value": "1.3 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "18"
-			},
-			{
-				"Key": "length",
-				"Value": "12"
-			},
-			{
-				"Key": "width",
-				"Value": "2"
 			},
 			{
 				"Key": "dimensions",
@@ -1544,6 +1275,7 @@
 		],
 		"Length": 10.2,
 		"ManufacturerPartNumber": "EX938061",
+		"MinStockQuantity": 5,
 		"Name": "Valve Cover Grommets",
 		"Price": 6.00,
 		"PromoPrice": 0,
@@ -1565,18 +1297,6 @@
 			{
 				"Key": "weight",
 				"Value": "0.1 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "1.7"
-			},
-			{
-				"Key": "length",
-				"Value": "10.2"
-			},
-			{
-				"Key": "width",
-				"Value": "10.2"
 			},
 			{
 				"Key": "dimensions",
@@ -1606,6 +1326,7 @@
 		],
 		"Length": 12,
 		"ManufacturerPartNumber": "ES98206",
+		"MinStockQuantity": 5,
 		"Name": "Exhaust Clamps",
 		"Price": 9.00,
 		"PromoPrice": 0,
@@ -1627,18 +1348,6 @@
 			{
 				"Key": "weight",
 				"Value": "0.62 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "18"
-			},
-			{
-				"Key": "length",
-				"Value": "12"
-			},
-			{
-				"Key": "width",
-				"Value": "2"
 			},
 			{
 				"Key": "dimensions",
@@ -1668,6 +1377,7 @@
 		],
 		"Length": 4,
 		"ManufacturerPartNumber": "ES98207",
+		"MinStockQuantity": 5,
 		"Name": "Muffler/Resonators",
 		"Price": 32.00,
 		"PromoPrice": 0,
@@ -1689,18 +1399,6 @@
 			{
 				"Key": "weight",
 				"Value": "11.75 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "2.5"
-			},
-			{
-				"Key": "length",
-				"Value": "4"
-			},
-			{
-				"Key": "width",
-				"Value": "9.5"
 			},
 			{
 				"Key": "dimensions",
@@ -1730,6 +1428,7 @@
 		],
 		"Length": 7,
 		"ManufacturerPartNumber": "ES98208",
+		"MinStockQuantity": 5,
 		"Name": "Lift Support",
 		"Price": 20.00,
 		"PromoPrice": 0,
@@ -1751,18 +1450,6 @@
 			{
 				"Key": "weight",
 				"Value": "0.6 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "2"
-			},
-			{
-				"Key": "length",
-				"Value": "7"
-			},
-			{
-				"Key": "width",
-				"Value": "5.6"
 			},
 			{
 				"Key": "dimensions",
@@ -1794,6 +1481,7 @@
 		],
 		"Length": 15.3,
 		"ManufacturerPartNumber": "TC90432",
+		"MinStockQuantity": 5,
 		"Name": "Turbocharger",
 		"Price": 665.00,
 		"PromoPrice": 0,
@@ -1815,18 +1503,6 @@
 			{
 				"Key": "weight",
 				"Value": "19 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "14.4"
-			},
-			{
-				"Key": "length",
-				"Value": "15.3"
-			},
-			{
-				"Key": "width",
-				"Value": "12.9"
 			},
 			{
 				"Key": "dimensions",
@@ -1856,6 +1532,7 @@
 		],
 		"Length": 10.2,
 		"ManufacturerPartNumber": "HM88893",
+		"MinStockQuantity": 5,
 		"Name": "Ball Joints",
 		"Price": 152.00,
 		"PromoPrice": 0,
@@ -1877,18 +1554,6 @@
 			{
 				"Key": "weight",
 				"Value": "20.51 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "1.7"
-			},
-			{
-				"Key": "length",
-				"Value": "10.2"
-			},
-			{
-				"Key": "width",
-				"Value": "10.2"
 			},
 			{
 				"Key": "dimensions",
@@ -1918,6 +1583,7 @@
 		],
 		"Length": 9.4,
 		"ManufacturerPartNumber": "HM88894",
+		"MinStockQuantity": 5,
 		"Name": "Bushings",
 		"Price": 18.00,
 		"PromoPrice": 0,
@@ -1939,18 +1605,6 @@
 			{
 				"Key": "weight",
 				"Value": "0.5 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "5.3"
-			},
-			{
-				"Key": "length",
-				"Value": "9.4"
-			},
-			{
-				"Key": "width",
-				"Value": "7.3"
 			},
 			{
 				"Key": "dimensions",
@@ -1980,6 +1634,7 @@
 		],
 		"Length": 12,
 		"ManufacturerPartNumber": "HM88895",
+		"MinStockQuantity": 5,
 		"Name": "CV Axles",
 		"Price": 89.00,
 		"PromoPrice": 0,
@@ -1991,28 +1646,12 @@
 				"Value": "1"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
 				"Key": "warranty",
 				"Value": "Limited Lifetime"
 			},
 			{
 				"Key": "weight",
 				"Value": "19.39 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "18"
-			},
-			{
-				"Key": "length",
-				"Value": "12"
-			},
-			{
-				"Key": "width",
-				"Value": "2"
 			},
 			{
 				"Key": "dimensions",
@@ -2042,6 +1681,7 @@
 		],
 		"Length": 4,
 		"ManufacturerPartNumber": "HM88896",
+		"MinStockQuantity": 5,
 		"Name": "Universal CV Boot",
 		"Price": 185.00,
 		"PromoPrice": 0,
@@ -2057,24 +1697,8 @@
 				"Value": "Neoprene"
 			},
 			{
-				"Key": "warranty",
-				"Value": ""
-			},
-			{
 				"Key": "weight",
 				"Value": "6.35 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "2.5"
-			},
-			{
-				"Key": "length",
-				"Value": "4"
-			},
-			{
-				"Key": "width",
-				"Value": "9.5"
 			},
 			{
 				"Key": "dimensions",
@@ -2104,6 +1728,7 @@
 		],
 		"Length": 7,
 		"ManufacturerPartNumber": "HM88897",
+		"MinStockQuantity": 5,
 		"Name": "Hub Bearing Assembly - Rear",
 		"Price": 175.00,
 		"PromoPrice": 0,
@@ -2115,28 +1740,12 @@
 				"Value": "1"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
 				"Key": "warranty",
 				"Value": "3 Year Unlimited Mileage Warranty"
 			},
 			{
 				"Key": "weight",
 				"Value": "13.10 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "2"
-			},
-			{
-				"Key": "length",
-				"Value": "7"
-			},
-			{
-				"Key": "width",
-				"Value": "5.6"
 			},
 			{
 				"Key": "dimensions",
@@ -2167,6 +1776,7 @@
 		],
 		"Length": 4,
 		"ManufacturerPartNumber": "HM88898",
+		"MinStockQuantity": 5,
 		"Name": "Coil Spring - Rear",
 		"Price": 104.00,
 		"PromoPrice": 0,
@@ -2178,28 +1788,12 @@
 				"Value": "2"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
 				"Key": "warranty",
 				"Value": "Limited Lifetime"
 			},
 			{
 				"Key": "weight",
 				"Value": "19.81 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "2.5"
-			},
-			{
-				"Key": "length",
-				"Value": "4"
-			},
-			{
-				"Key": "width",
-				"Value": "9.5"
 			},
 			{
 				"Key": "dimensions",
@@ -2229,6 +1823,7 @@
 		],
 		"Length": 6.2,
 		"ManufacturerPartNumber": "HM88899",
+		"MinStockQuantity": 5,
 		"Name": "Power Steering Pump",
 		"Price": 160.00,
 		"PromoPrice": 0,
@@ -2250,18 +1845,6 @@
 			{
 				"Key": "weight",
 				"Value": "4.76 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "8.7"
-			},
-			{
-				"Key": "length",
-				"Value": "6.2"
-			},
-			{
-				"Key": "width",
-				"Value": "2.1"
 			},
 			{
 				"Key": "dimensions",
@@ -2291,6 +1874,7 @@
 		],
 		"Length": 10.2,
 		"ManufacturerPartNumber": "HM88900",
+		"MinStockQuantity": 5,
 		"Name": "Differential Ring and Pinion - Universal",
 		"Price": 211.00,
 		"PromoPrice": 0,
@@ -2302,28 +1886,12 @@
 				"Value": "1"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
 				"Key": "warranty",
 				"Value": "1 Year Unlimited Mileage Warranty"
 			},
 			{
 				"Key": "weight",
 				"Value": "17.88 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "1.7"
-			},
-			{
-				"Key": "length",
-				"Value": "10.2"
-			},
-			{
-				"Key": "width",
-				"Value": "10.2"
 			},
 			{
 				"Key": "dimensions",
@@ -2353,6 +1921,7 @@
 		],
 		"Length": 9.4,
 		"ManufacturerPartNumber": "HM88901",
+		"MinStockQuantity": 5,
 		"Name": "Shock Absorber",
 		"Price": 75.00,
 		"PromoPrice": 0,
@@ -2364,28 +1933,12 @@
 				"Value": "1"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
 				"Key": "warranty",
 				"Value": "1 Year Unlimited Mileage Warranty"
 			},
 			{
 				"Key": "weight",
 				"Value": "12 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "5.3"
-			},
-			{
-				"Key": "length",
-				"Value": "9.4"
-			},
-			{
-				"Key": "width",
-				"Value": "7.3"
 			},
 			{
 				"Key": "dimensions",
@@ -2415,6 +1968,7 @@
 		],
 		"Length": 12,
 		"ManufacturerPartNumber": "HM88902",
+		"MinStockQuantity": 5,
 		"Name": "Shock Strut - Front",
 		"Price": 129.00,
 		"PromoPrice": 0,
@@ -2436,18 +1990,6 @@
 			{
 				"Key": "weight",
 				"Value": "23.48 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "18"
-			},
-			{
-				"Key": "length",
-				"Value": "12"
-			},
-			{
-				"Key": "width",
-				"Value": "2"
 			},
 			{
 				"Key": "dimensions",
@@ -2477,6 +2019,7 @@
 		],
 		"Length": 10.2,
 		"ManufacturerPartNumber": "HM88903",
+		"MinStockQuantity": 5,
 		"Name": "Tie Rod End Tool",
 		"Price": 35.00,
 		"PromoPrice": 0,
@@ -2498,18 +2041,6 @@
 			{
 				"Key": "weight",
 				"Value": "2 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "1.7"
-			},
-			{
-				"Key": "length",
-				"Value": "10.2"
-			},
-			{
-				"Key": "width",
-				"Value": "10.2"
 			},
 			{
 				"Key": "dimensions",
@@ -2539,6 +2070,7 @@
 		],
 		"Length": 9.4,
 		"ManufacturerPartNumber": "HM88904",
+		"MinStockQuantity": 5,
 		"Name": "Wheel Bearing Grease",
 		"Price": 54.00,
 		"PromoPrice": 0,
@@ -2550,28 +2082,8 @@
 				"Value": "6"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
-				"Key": "warranty",
-				"Value": ""
-			},
-			{
 				"Key": "weight",
 				"Value": "0.75 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "5.3"
-			},
-			{
-				"Key": "length",
-				"Value": "9.4"
-			},
-			{
-				"Key": "width",
-				"Value": "7.3"
 			},
 			{
 				"Key": "dimensions",
@@ -2601,6 +2113,7 @@
 		],
 		"Length": 12,
 		"ManufacturerPartNumber": "TT00024",
+		"MinStockQuantity": 5,
 		"Name": "CV Axles",
 		"Price": 89.00,
 		"PromoPrice": 0,
@@ -2612,28 +2125,12 @@
 				"Value": "1"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
 				"Key": "warranty",
 				"Value": "Limited Lifetime"
 			},
 			{
 				"Key": "weight",
 				"Value": "19.39 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "18"
-			},
-			{
-				"Key": "length",
-				"Value": "12"
-			},
-			{
-				"Key": "width",
-				"Value": "2"
 			},
 			{
 				"Key": "dimensions",
@@ -2663,6 +2160,7 @@
 		],
 		"Length": 4,
 		"ManufacturerPartNumber": "TT00025",
+		"MinStockQuantity": 5,
 		"Name": "Universal CV Boot",
 		"Price": 185.00,
 		"PromoPrice": 0,
@@ -2678,24 +2176,8 @@
 				"Value": "Neoprene"
 			},
 			{
-				"Key": "warranty",
-				"Value": ""
-			},
-			{
 				"Key": "weight",
 				"Value": "6.35 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "2.5"
-			},
-			{
-				"Key": "length",
-				"Value": "4"
-			},
-			{
-				"Key": "width",
-				"Value": "9.5"
 			},
 			{
 				"Key": "dimensions",
@@ -2725,6 +2207,7 @@
 		],
 		"Length": 7,
 		"ManufacturerPartNumber": "TT00026",
+		"MinStockQuantity": 5,
 		"Name": "Drive Shafts",
 		"Price": 396.00,
 		"PromoPrice": 0,
@@ -2736,28 +2219,8 @@
 				"Value": "1"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
-				"Key": "warranty",
-				"Value": ""
-			},
-			{
 				"Key": "weight",
 				"Value": "1.75 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "2"
-			},
-			{
-				"Key": "length",
-				"Value": "7"
-			},
-			{
-				"Key": "width",
-				"Value": "5.6"
 			},
 			{
 				"Key": "dimensions",
@@ -2787,6 +2250,7 @@
 		],
 		"Length": 4,
 		"ManufacturerPartNumber": "TT00027",
+		"MinStockQuantity": 5,
 		"Name": "Transmission Fluid",
 		"Price": 42.00,
 		"PromoPrice": 0,
@@ -2798,28 +2262,8 @@
 				"Value": "6"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
-				"Key": "warranty",
-				"Value": ""
-			},
-			{
 				"Key": "weight",
 				"Value": "11.72 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "2.5"
-			},
-			{
-				"Key": "length",
-				"Value": "4"
-			},
-			{
-				"Key": "width",
-				"Value": "9.5"
 			},
 			{
 				"Key": "dimensions",
@@ -2849,6 +2293,7 @@
 		],
 		"Length": 10.2,
 		"ManufacturerPartNumber": "TT00028",
+		"MinStockQuantity": 5,
 		"Name": "Mount",
 		"Price": 3.00,
 		"PromoPrice": 0,
@@ -2870,18 +2315,6 @@
 			{
 				"Key": "weight",
 				"Value": "2.26 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "1.7"
-			},
-			{
-				"Key": "length",
-				"Value": "10.2"
-			},
-			{
-				"Key": "width",
-				"Value": "10.2"
 			},
 			{
 				"Key": "dimensions",
@@ -2911,6 +2344,7 @@
 		],
 		"Length": 9.4,
 		"ManufacturerPartNumber": "TT00029",
+		"MinStockQuantity": 5,
 		"Name": "Wheel Seal - Front",
 		"Price": 4.00,
 		"PromoPrice": 0,
@@ -2922,28 +2356,8 @@
 				"Value": "1"
 			},
 			{
-				"Key": "material",
-				"Value": ""
-			},
-			{
-				"Key": "warranty",
-				"Value": ""
-			},
-			{
 				"Key": "weight",
 				"Value": "0.04 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "5.3"
-			},
-			{
-				"Key": "length",
-				"Value": "9.4"
-			},
-			{
-				"Key": "width",
-				"Value": "7.3"
 			},
 			{
 				"Key": "dimensions",
@@ -2973,6 +2387,7 @@
 		],
 		"Length": 12,
 		"ManufacturerPartNumber": "TT00030",
+		"MinStockQuantity": 5,
 		"Name": "Torque Converters",
 		"Price": 34.00,
 		"PromoPrice": 0,
@@ -2994,18 +2409,6 @@
 			{
 				"Key": "weight",
 				"Value": "0.22 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "18"
-			},
-			{
-				"Key": "length",
-				"Value": "12"
-			},
-			{
-				"Key": "width",
-				"Value": "2"
 			},
 			{
 				"Key": "dimensions",
@@ -3035,6 +2438,7 @@
 		],
 		"Length": 4,
 		"ManufacturerPartNumber": "TT00031",
+		"MinStockQuantity": 5,
 		"Name": "Transmission Cooler Line Assembly",
 		"Price": 15.00,
 		"PromoPrice": 0,
@@ -3056,18 +2460,6 @@
 			{
 				"Key": "weight",
 				"Value": "0.71 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "2.5"
-			},
-			{
-				"Key": "length",
-				"Value": "4"
-			},
-			{
-				"Key": "width",
-				"Value": "9.5"
 			},
 			{
 				"Key": "dimensions",
@@ -3097,6 +2489,7 @@
 		],
 		"Length": 7,
 		"ManufacturerPartNumber": "TT00032",
+		"MinStockQuantity": 5,
 		"Name": "U-Joint",
 		"Price": 24.00,
 		"PromoPrice": 0,
@@ -3118,18 +2511,6 @@
 			{
 				"Key": "weight",
 				"Value": "1.30 lbs"
-			},
-			{
-				"Key": "height",
-				"Value": "2"
-			},
-			{
-				"Key": "length",
-				"Value": "7"
-			},
-			{
-				"Key": "width",
-				"Value": "5.6"
 			},
 			{
 				"Key": "dimensions",
