@@ -125,7 +125,9 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 		return KEY;
 	}
 
-	public boolean init(long contextFileEntryId, long archiveProcessFileEntryId)
+	public boolean init(
+			long contextFileEntryId, long archiveProcessFileEntryId,
+			Date lastRunStartDate)
 		throws Exception {
 
 		FileEntry propsFileEntry = null;
@@ -180,7 +182,7 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 
 			_jarCommandArgs = _buildJarCommandArgs();
 
-			_buildCommand();
+			_buildCommand(lastRunStartDate);
 		}
 		catch (Exception ex) {
 			_log.error(ex, ex);
@@ -217,7 +219,8 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 
 			boolean init = init(
 				process.getContextPropertiesFileEntryId(),
-				process.getSrcArchiveFileEntryId());
+				process.getSrcArchiveFileEntryId(),
+				scheduledTask.getRunStartDate());
 
 			if (init) {
 				execute(
@@ -273,7 +276,7 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 	@Reference
 	protected ScheduledTaskLocalService scheduledTaskLocalService;
 
-	private void _buildCommand() {
+	private void _buildCommand(Date lastRunStartDate) {
 		_command = new ArrayList<>();
 
 		_command.add(_JAVA);
@@ -284,6 +287,10 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 		_command.add(_className);
 		_command.add(_configuration.endCommandChar());
 		_command.add(_CONTEXT_ARG + _configuration.context());
+
+		_command.add(
+			"--context_param lastRunStartDate=" +
+				String.valueOf(lastRunStartDate.getTime()));
 
 		if (_props != null) {
 			StringBundler sb = new StringBundler();
