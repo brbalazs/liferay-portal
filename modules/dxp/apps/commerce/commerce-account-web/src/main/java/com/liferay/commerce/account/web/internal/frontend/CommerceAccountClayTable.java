@@ -122,6 +122,7 @@ public class CommerceAccountClayTable
 			_portal.getUserId(httpServletRequest), 0, 0, StringPool.BLANK);
 
 		return _commerceAccountService.getUserCommerceAccountsCount(
+			_portal.getUserId(httpServletRequest),
 			CommerceAccountConstants.DEFAULT_PARENT_ACCOUNT_ID,
 			commerceContext.getCommerceSiteType(), accountFilter.getKeywords());
 	}
@@ -168,6 +169,7 @@ public class CommerceAccountClayTable
 
 		List<CommerceAccount> commerceAccounts =
 			_commerceAccountService.getUserCommerceAccounts(
+				_portal.getUserId(httpServletRequest),
 				CommerceAccountConstants.DEFAULT_PARENT_ACCOUNT_ID,
 				commerceContext.getCommerceSiteType(),
 				accountFilter.getKeywords(), pagination.getStartPosition(),

@@ -1,7 +1,7 @@
 [
 	{
 		"icon" : "icon-dashboard.png",
-		"layoutTemplateId": "1_3_2_columns",
+		"layoutTemplateId": "1_column",
 		"name": "Dashboard",
 		"portlets": [
 			{
@@ -15,18 +15,18 @@
 				"portletName": "com_liferay_commerce_dashboard_web_internal_portlet_CommerceDashboardKPIPortlet"
 			},
 			{
-				"layoutColumnId": "column-3",
-				"layoutColumnPos": 0,
+				"layoutColumnId": "column-1",
+				"layoutColumnPos": 1,
 				"portletName": "com_liferay_commerce_dashboard_web_internal_portlet_CommerceDashboardPeriodSelectorPortlet"
 			},
 			{
-				"layoutColumnId": "column-4",
-				"layoutColumnPos": 0,
+				"layoutColumnId": "column-1",
+				"layoutColumnPos": 2,
 				"portletName": "com_liferay_commerce_dashboard_web_internal_portlet_CommerceDashboardDateRangeSelectorPortlet"
 			},
 			{
-				"layoutColumnId": "column-5",
-				"layoutColumnPos": 0,
+				"layoutColumnId": "column-1",
+				"layoutColumnPos": 3,
 				"lookAndFeel": {
 					"portletSetupPortletDecoratorId": "borderless",
 					"portletSetupTitle": "products",
@@ -35,8 +35,8 @@
 				"portletName": "com_liferay_commerce_dashboard_web_internal_portlet_CommerceDashboardInstanceSelectorPortlet"
 			},
 			{
-				"layoutColumnId": "column-6",
-				"layoutColumnPos": 0,
+				"layoutColumnId": "column-1",
+				"layoutColumnPos": 4,
 				"portletName": "com_liferay_commerce_dashboard_web_internal_portlet_CommerceDashboardForecastsChartPortlet",
 				"portletPreferences": {
 					"filterBySKU": true,
@@ -48,31 +48,36 @@
 	},
 	{
 		"icon" : "icon-catalog.png",
-		"layoutTemplateId": "1_2_columns_i",
+		"layoutTemplateId": "2_columns_ii",
 		"name": "Catalog",
 		"portlets": [
 			{
-				"layoutColumnId": "column-2",
+				"layoutColumnId": "column-1",
 				"layoutColumnPos": 0,
+				"portletName": "com_liferay_commerce_product_content_search_web_internal_portlet_CPOptionFacetsPortlet"
+			},
+			{
+				"layoutColumnId": "column-1",
+				"layoutColumnPos": 1,
 				"portletName": "com_liferay_commerce_product_content_search_web_internal_portlet_CPSpecificationOptionFacetsPortlet"
 			},
 			{
-				"layoutColumnId": "column-2",
-				"layoutColumnPos": 1,
+				"layoutColumnId": "column-1",
+				"layoutColumnPos": 2,
 				"portletName": "com_liferay_portal_search_web_category_facet_portlet_CategoryFacetPortlet"
 			},
 			{
-				"layoutColumnId": "column-3",
+				"layoutColumnId": "column-2",
 				"layoutColumnPos": 0,
 				"portletName": "com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_minium"
 			},
 			{
-				"layoutColumnId": "column-3",
+				"layoutColumnId": "column-2",
 				"layoutColumnPos": 1,
 				"portletName": "com_liferay_commerce_product_content_search_web_internal_portlet_CPSearchResultsPortlet_INSTANCE_minium"
 			},
 			{
-				"layoutColumnId": "column-3",
+				"layoutColumnId": "column-2",
 				"layoutColumnPos": 2,
 				"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPCompareContentMiniPortlet_INSTANCE_catalog"
 			}
@@ -92,6 +97,20 @@
 			{
 				"layoutColumnId": "column-1",
 				"layoutColumnPos": 1,
+				"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPPublisherPortlet_INSTANCE_product_detail",
+				"portletPreferences": {
+					"cpContentListRendererKey": "list-minium",
+					"dataSource": "related",
+					"groupe--cpTypeListEntryRendererKey": "list-entry-minium",
+					"renderSelection": "custom",
+					"selectionStyle": "dataSource",
+					"simple--cpTypeListEntryRendererKey": "list-entry-minium",
+					"virtual--cpTypeListEntryRendererKey": "list-entry-minium"
+				}
+			},
+			{
+				"layoutColumnId": "column-1",
+				"layoutColumnPos": 2,
 				"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPCompareContentMiniPortlet_INSTANCE_product_detail"
 			}
 		],
@@ -105,11 +124,6 @@
 		},
 		"name": "Orders",
 		"portlets": [
-			{
-				"layoutColumnId": "column-1",
-				"layoutColumnPos": 0,
-				"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet"
-			}
 		],
 		"privateLayout": true,
 		"subLayouts": [

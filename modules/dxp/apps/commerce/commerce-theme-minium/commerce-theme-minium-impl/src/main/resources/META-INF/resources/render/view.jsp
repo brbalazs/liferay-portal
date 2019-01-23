@@ -92,8 +92,6 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 				<c:if test="<%= cpSku != null %>">
 					<commerce-ui:price
 						CPInstanceId="<%= cpSku.getCPInstanceId() %>"
-						additionalPriceClasses="price--big"
-						additionalDiscountedClasses="price--big"
 					/>
 				</c:if>
 			</h2>

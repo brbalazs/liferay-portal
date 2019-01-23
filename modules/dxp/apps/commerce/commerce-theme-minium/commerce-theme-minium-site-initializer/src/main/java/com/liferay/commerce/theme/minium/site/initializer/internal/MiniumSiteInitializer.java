@@ -220,7 +220,7 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		Group group = _groupLocalService.getGroup(groupId);
 
 		group.setType(GroupConstants.TYPE_SITE_PRIVATE);
-		group.setManualMembership(false);
+		group.setManualMembership(true);
 		group.setMembershipRestriction(
 			GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION);
 
