@@ -15,7 +15,9 @@ text-transform: uppercase;
 
 background-color: $color-bg;
 border-radius: 8px;
+
 // min-height: 70px;
+
 padding: 10px 25px;
 }
 
@@ -31,7 +33,7 @@ margin-bottom: $minium-big-gutter;
 @include card-content;
 
 & + & {
-  margin-top: 5px;
+margin-top: 5px;
 }
 }
 

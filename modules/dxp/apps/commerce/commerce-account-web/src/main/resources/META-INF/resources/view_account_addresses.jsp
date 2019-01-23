@@ -32,11 +32,7 @@ CommerceAccountAddressesDisplayContext commerceAccountAddressesDisplayContext = 
 />
 
 <div class="minium-frame__cta is-visible">
-	<aui:button 
-		cssClass="js-add-address minium-button minium-button--big" 
-		onClick='<%= renderResponse.getNamespace() + "openAddAddressModal();" %>'  
-		value="add-address" 
-	/>
+	<aui:button cssClass="js-add-address minium-button minium-button--big" onClick='<%= renderResponse.getNamespace() + "openAddAddressModal();" %>' value="add-address" />
 </div>
 
 <commerce-ui:add-address-modal

@@ -38,8 +38,8 @@ import org.osgi.service.component.annotations.Reference;
 	property = {
 		"commerce.product.content.list.renderer.key=" + MiniumCPContentListRenderer.KEY,
 		"commerce.product.content.list.renderer.order=1000",
-		"commerce.product.content.list.renderer.portlet.name=" + CPPortletKeys.CP_SEARCH_RESULTS,
-		"commerce.product.content.list.renderer.portlet.name=" + CPPortletKeys.CP_PUBLISHER_WEB
+		"commerce.product.content.list.renderer.portlet.name=" + CPPortletKeys.CP_PUBLISHER_WEB,
+		"commerce.product.content.list.renderer.portlet.name=" + CPPortletKeys.CP_SEARCH_RESULTS
 	},
 	service = CPContentListRenderer.class
 )

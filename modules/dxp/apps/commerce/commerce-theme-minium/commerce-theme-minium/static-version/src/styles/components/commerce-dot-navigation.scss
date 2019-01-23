@@ -1,40 +1,40 @@
 .commerce-dot-navigation {
-    display: flex;
-    justify-content: center;
-    margin-top: 25px;
-    
-    &__dot {
-        display: block;
-        width: 15px;
-        height: 15px;
-        padding: 0;
-        border: 2px solid $color-theme;
-        background: transparent;
-        transition: all .1s ease-in;
-        margin-right: 16px;
-        border-radius: 50%;
-        cursor: pointer;
+display: flex;
+justify-content: center;
+margin-top: 25px;
 
-        &:last-child {
-            margin-right: 0;
-        }
+&__dot {
+	background: transparent;
+	border: 2px solid $color-theme;
+	border-radius: 50%;
+	cursor: pointer;
+	display: block;
+	height: 15px;
+	margin-right: 16px;
+	padding: 0;
+	transition: all .1s ease-in;
+	width: 15px;
 
-        &:hover {
-            background: $color-theme;
-        }
-        
-        &--disabled {
-            border: 2px solid #9D9E9E;
+	&:last-child {
+	 margin-right: 0;
+	}
 
-            &:hover {
-                background: transparent
-            }
-        }
+	&:hover {
+	 background: $color-theme;
+	}
 
-        &--active {
-            transform: scale(1.4);
-            background: $color-theme;
-            cursor: inherit;
-        }
-    }
+	&--disabled {
+	 border: 2px solid #9D9E9E;
+
+	 &:hover {
+		background: transparent
+	 }
+	}
+
+	&--active {
+	 transform: scale(1.4);
+	 background: $color-theme;
+	 cursor: inherit;
+	}
+}
 }

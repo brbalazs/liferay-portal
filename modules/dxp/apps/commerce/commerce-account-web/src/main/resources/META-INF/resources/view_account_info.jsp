@@ -21,11 +21,7 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 %>
 
 <div class="minium-frame__cta is-visible">
-	<aui:button 
-		cssClass="js-invite-user minium-button minium-button--big" 
-		onClick='<%= renderResponse.getNamespace() + "openAddOrganizationsModal();" %>' 
-		value="add-organizations" 
-	/>
+	<aui:button cssClass="js-invite-user minium-button minium-button--big" onClick='<%= renderResponse.getNamespace() + "openAddOrganizationsModal();" %>' value="add-organizations" />
 </div>
 
 <commerce-ui:add-organizations-modal

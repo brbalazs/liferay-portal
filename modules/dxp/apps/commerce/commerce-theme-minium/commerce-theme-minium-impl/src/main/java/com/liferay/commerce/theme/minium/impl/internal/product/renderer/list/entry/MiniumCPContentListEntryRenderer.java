@@ -226,9 +226,8 @@ public class MiniumCPContentListEntryRenderer
 		if (cpDefinitionInventory != null) {
 			return cpDefinitionInventory.getMinOrderQuantity();
 		}
-		else {
-			return CPDefinitionInventoryConstants.DEFAULT_MIN_ORDER_QUANTITY;
-		}
+
+		return CPDefinitionInventoryConstants.DEFAULT_MIN_ORDER_QUANTITY;
 	}
 
 	private PriceModel _getPrice(
