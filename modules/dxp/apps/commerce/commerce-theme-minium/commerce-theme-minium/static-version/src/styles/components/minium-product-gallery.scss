@@ -79,7 +79,7 @@
 
 	&__thumbs {
 		display: flex;
-		overflow: scroll;
+		overflow-x: auto;
 	}
 
 	&__thumb {
