@@ -69,6 +69,13 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 
 								<liferay-ui:search-container-column-text
 									cssClass="table-cell-content"
+									name="runtime"
+								>
+									<%= String.valueOf(history.getEndDate().getTime() - history.getStartDate().getTime()) + " ms" %>
+								</liferay-ui:search-container-column-text>
+
+								<liferay-ui:search-container-column-text
+									cssClass="table-cell-content"
 									name="process"
 									property="scheduledTaskName"
 								/>
@@ -77,13 +84,16 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 									cssClass="table-cell-content"
 									name="launch-type"
 									property="launchType"
+									translate="true"
 								/>
 
-								<liferay-ui:search-container-column-status
-									cssClass="table-cell-content"
+								<liferay-ui:search-container-column-text
 									name="status"
-									property="status"
-								/>
+								>
+									<h6 class="background-task-status-row background-task-status-<%= BackgroundTaskConstants.getStatusLabel(history.getStatus()) %> <%= BackgroundTaskConstants.getStatusCssClass(history.getStatus()) %>">
+										<liferay-ui:message key="<%= BackgroundTaskConstants.getStatusLabel(history.getStatus()) %>" />
+									</h6>
+								</liferay-ui:search-container-column-text>
 
 								<liferay-ui:search-container-column-jsp
 									cssClass="entry-action-column"

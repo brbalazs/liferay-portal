@@ -61,7 +61,7 @@ String title = startDate;
 				<aui:fieldset>
 					<aui:input disabled="<%= true %>" label="start-date" name="startDate" value="<%= startDate %>" />
 
-					<aui:input disabled="<%= true %>" name="status" value='<%= (history.getStatus() == WorkflowConstants.STATUS_APPROVED) ? "Success" : "Error" %>' />
+					<aui:input disabled="<%= true %>" name="status" value="<%= LanguageUtil.get(request, BackgroundTaskConstants.getStatusLabel(history.getStatus())) %>" />
 
 					<aui:input disabled="<%= true %>" label="runtime" name="runTime" value='<%= String.valueOf(timeMillis) + " ms" %>' />
 				</aui:fieldset>

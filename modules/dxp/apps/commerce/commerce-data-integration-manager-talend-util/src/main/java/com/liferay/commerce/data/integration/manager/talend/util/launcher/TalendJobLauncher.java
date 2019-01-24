@@ -26,6 +26,7 @@ import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+import com.liferay.portal.kernel.backgroundtask.BackgroundTaskConstants;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -34,7 +35,6 @@ import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -111,7 +111,7 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 
 		historyLocalService.addHistory(
 			userId, scheduledTask.getScheduledTaskId(), executionType,
-			startDate, endDate, WorkflowConstants.STATUS_APPROVED,
+			startDate, endDate, BackgroundTaskConstants.STATUS_SUCCESSFUL,
 			errorLogFileEntry.getFileEntryId(),
 			runtimeLogFileEntry.getFileEntryId());
 
@@ -255,7 +255,7 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 
 			historyLocalService.addHistory(
 				userId, scheduledTaskId, executionType, startDate, endDate,
-				WorkflowConstants.STATUS_DENIED,
+				BackgroundTaskConstants.STATUS_FAILED,
 				errorLogFileEntry.getFileEntryId(), 0L);
 		}
 	}
