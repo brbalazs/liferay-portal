@@ -119,45 +119,28 @@
 	{
 		"icon" : "icon-orders.png",
 		"layoutTemplateId": "1_column",
-		"lookAndFeel": {
-			"lfr-theme:regular:show-top-menu": true
-		},
-		"name": "Orders",
+		"name": "Pending Orders",
 		"portlets": [
-		],
-		"privateLayout": true,
-		"subLayouts": [
 			{
-				"layoutTemplateId": "1_column",
-				"lookAndFeel": {
-					"lfr-theme:regular:show-top-menu": true
-				},
-				"name": "Pending Orders",
-				"portlets": [
-					{
-						"layoutColumnId": "column-1",
-						"layoutColumnPos": 0,
-						"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet"
-					}
-				],
-				"privateLayout": true
-			},
-			{
-				"layoutTemplateId": "1_column",
-				"lookAndFeel": {
-					"lfr-theme:regular:show-top-menu": true
-				},
-				"name": "Placed Orders",
-				"portlets": [
-					{
-						"layoutColumnId": "column-1",
-						"layoutColumnPos": 0,
-						"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet"
-					}
-				],
-				"privateLayout": true
+				"layoutColumnId": "column-1",
+				"layoutColumnPos": 0,
+				"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet"
 			}
-		]
+		],
+		"privateLayout": true
+	},
+	{
+		"icon" : "icon-orders.png",
+		"layoutTemplateId": "1_column",
+		"name": "Placed Orders",
+		"portlets": [
+			{
+				"layoutColumnId": "column-1",
+				"layoutColumnPos": 0,
+				"portletName": "com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet"
+			}
+		],
+		"privateLayout": true
 	},
 	{
 		"hidden": true,
