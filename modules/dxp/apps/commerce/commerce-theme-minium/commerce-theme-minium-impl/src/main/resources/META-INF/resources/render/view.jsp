@@ -37,7 +37,7 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 
 			<soy:template-renderer
 				context="<%= context %>"
-				module="commerce-theme-minium-impl@1.0.4/product_gallery/MiniumProductGallery.es"
+				module="commerce-theme-minium-impl@1.0.5/product_gallery/MiniumProductGallery.es"
 				templateNamespace="MiniumProductGallery.render"
 			/>
 		</div>
