@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.data.integration.manager.talend.util.launcher;
 
+import com.liferay.commerce.data.integration.manager.model.History;
 import com.liferay.commerce.data.integration.manager.model.Process;
 import com.liferay.commerce.data.integration.manager.model.ScheduledTask;
 import com.liferay.commerce.data.integration.manager.service.HistoryLocalService;
@@ -75,8 +76,6 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 			Date startDate, File error, File log)
 		throws InterruptedException, IOException, PortalException {
 
-		Date endDate = new Date();
-
 		long scheduledTaskId = scheduledTask.getScheduledTaskId();
 
 		ProcessBuilder pb = new ProcessBuilder(_command);
@@ -87,9 +86,16 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 		pb.redirectOutput(log);
 		pb.directory(new File(jarNameFile.getParent()));
 
+		History history = historyLocalService.addHistory(
+			userId, scheduledTask.getScheduledTaskId(), executionType,
+			startDate, null, BackgroundTaskConstants.STATUS_IN_PROGRESS, 0L,
+			0L);
+
 		java.lang.Process pr = pb.start();
 
 		pr.waitFor();
+
+		Date endDate = new Date();
 
 		String startTime = _fileNameDateFormat.format(startDate);
 
@@ -109,11 +115,12 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 			scheduledTask.getName(), runtimeFileName,
 			ContentTypes.APPLICATION_TEXT, log);
 
-		historyLocalService.addHistory(
-			userId, scheduledTask.getScheduledTaskId(), executionType,
-			startDate, endDate, BackgroundTaskConstants.STATUS_SUCCESSFUL,
-			errorLogFileEntry.getFileEntryId(),
-			runtimeLogFileEntry.getFileEntryId());
+		history.setEndDate(endDate);
+		history.setErrorLogFileEntryId(errorLogFileEntry.getFileEntryId());
+		history.setRuntimeLogFileEntryId(runtimeLogFileEntry.getFileEntryId());
+		history.setStatus(BackgroundTaskConstants.STATUS_SUCCESSFUL);
+
+		historyLocalService.updateHistory(history);
 
 		scheduledTaskLocalService.stopScheduledTask(userId, scheduledTaskId);
 

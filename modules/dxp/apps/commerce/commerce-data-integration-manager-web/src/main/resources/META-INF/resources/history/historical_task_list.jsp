@@ -71,7 +71,7 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 									cssClass="table-cell-content"
 									name="runtime"
 								>
-									<%= String.valueOf(history.getEndDate().getTime() - history.getStartDate().getTime()) + " ms" %>
+									<%= (history.getEndDate() == null) ? StringPool.DASH : String.valueOf(history.getEndDate().getTime() - history.getStartDate().getTime()) + " ms" %>
 								</liferay-ui:search-container-column-text>
 
 								<liferay-ui:search-container-column-text
