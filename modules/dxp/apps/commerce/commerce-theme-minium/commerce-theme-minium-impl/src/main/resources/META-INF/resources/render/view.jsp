@@ -37,7 +37,7 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 
 			<soy:template-renderer
 				context="<%= context %>"
-				module="commerce-theme-minium-impl@1.0.0/product_gallery/MiniumProductGallery.es"
+				module="commerce-theme-minium-impl@1.0.4/product_gallery/MiniumProductGallery.es"
 				templateNamespace="MiniumProductGallery.render"
 			/>
 		</div>
@@ -47,8 +47,6 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 				<commerce-ui:compare-checkbox
 					componentId="compareCheckbox"
 				/>
-
-				<div class="minium-dot minium-dot--good">In Stock</div>
 
 				<h3 class="minium-product-header__tagline <%= (cpSku == null) ? "hide" : StringPool.BLANK %>" data-text-cp-instance-sku-show>
 					<span data-text-cp-instance-sku><%= (cpSku == null) ? StringPool.BLANK : cpSku.getSku() %></span>
