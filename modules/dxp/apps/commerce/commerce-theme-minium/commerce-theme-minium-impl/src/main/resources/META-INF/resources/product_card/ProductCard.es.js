@@ -25,13 +25,13 @@ class ProductCard extends Component {
 		Liferay.on(
 			'compareIsAvailable',
 			() => {
-				return this.isCompareAvailable = true;
+				this.isCompareAvailable = true;
 			}
 		);
 		Liferay.on(
 			'compareIsUnavailable',
 			() => {
-				return this.isCompareAvailable = false;
+				this.isCompareAvailable = false;
 			}
 		);
 	}
@@ -51,31 +51,37 @@ class ProductCard extends Component {
 		formData.append(this.compareContentNamespace + 'cpDefinitionId', this.productId);
 		formData.append(this.compareContentNamespace + this.productId + 'Compare', false);
 
-		fetch(
+		return fetch(
 			this.editCompareProductActionURL,
 			{
 				body: formData,
 				credentials: 'include',
 				method: 'post'
 			}
-		).then(() => {
-			if (Liferay.SPA) {
-				Liferay.SPA.app.navigate(window.location.href);
+		)
+		.then(
+			() => {
+				if (Liferay.SPA) {
+					Liferay.SPA.app.navigate(window.location.href);
+				} else {
+					window.location.href = window.location.href;
+				}
+				return Liferay.SPA
 			}
-			else {
-				window.location.href = window.location.href;
-			}
-		});
+		);
 	}
 
 	_handleCompareCheckbox(evt) {
 		evt.preventDefault();
 		this.isInCompare = !this.isInCompare;
 
-		return Liferay.fire('toggleProductToCompare', {
-			id: this.productId,
-			thumbnail: this.pictureUrl
-		});
+		return Liferay.fire(
+			'toggleProductToCompare',
+			{
+				id: this.productId,
+				thumbnail: this.pictureUrl
+			}
+		);
 	}
 };
 
@@ -88,21 +94,6 @@ ProductCard.STATE = {
 			Config.number()
 		]
 	),
-	orderId: Config.oneOfType(
-		[
-			Config.string(),
-			Config.number()
-		]
-	),
-	cartAPI: Config.string(),
-	compareContentNamespace: Config.string(),
-	editCompareProductActionURL: Config.string(),
-	productId: Config.oneOfType(
-		[
-			Config.string(),
-			Config.number()
-		]
-	).required(),
 	availability: Config.string()
 		.oneOf(
 			[
@@ -112,13 +103,7 @@ ProductCard.STATE = {
 			]
 		)
 		.value('inStock'),
-	sku: Config.string(),
-	skuId: Config.oneOfType([
-		Config.string(),
-		Config.number()
-	]),
-	pictureUrl: Config.string(),
-	name: Config.string().required(),
+	cartAPI: Config.string(),
 	categories: Config.array(
 		Config.shapeOf(
 			{
@@ -127,16 +112,35 @@ ProductCard.STATE = {
 			}
 		)
 	),
+	compareContentNamespace: Config.string(),
+	description: Config.string(),
+	detailsLink: Config.string(),
+	editCompareProductActionURL: Config.string(),
+	isInCompare: Config.bool(),
+	isCompareAvailable: Config.bool().value(true),
+	isCompareCheckboxVisible: Config.bool(),
+	isDeleteButtonVisible: Config.bool(),
+	minQuantity: Config.number(),
+	name: Config.string().required(),
+	orderId: Config.oneOfType(
+		[
+			Config.string(),
+			Config.number()
+		]
+	),
+	pictureUrl: Config.string(),
 	price: Config.shapeOf(
 		{
 			formattedPrice: Config.string().required(),
 			formattedPromoPrice: Config.string()
 		}
 	),
-	description: Config.string(),
-	spritemap: Config.string(),
-	detailsLink: Config.string(),
-	minQuantity: Config.number(),
+	productId: Config.oneOfType(
+		[
+			Config.string(),
+			Config.number()
+		]
+	).required(),
 	settings: Config.shapeOf(
 		{
 			allowedOptions: Config.array(Config.number()),
@@ -145,10 +149,14 @@ ProductCard.STATE = {
 			multipleQuantities: Config.number()
 		}
 	).value({}),
-	isCompareCheckboxVisible: Config.bool(),
-	isInCompare: Config.bool(),
-	isCompareAvailable: Config.bool().value(true),
-	isDeleteButtonVisible: Config.bool()
+	sku: Config.string(),
+	skuId: Config.oneOfType(
+		[
+			Config.string(),
+			Config.number()
+		]
+	),
+	spritemap: Config.string()
 
 };
 

@@ -30,10 +30,13 @@ class ProductsCompare extends Component {
 		);
 
 		if (isIncluded) {
-			return this._removeProduct(toggledProduct);
+			this._removeProduct(toggledProduct);
+		}
+ else {
+			this._handleAddProduct(toggledProduct);
 		}
 
-		return this._handleAddProduct(toggledProduct);
+		return isIncluded;
 	}
 
 
@@ -84,19 +87,25 @@ class ProductsCompare extends Component {
 
 	_handleAddProduct(product) {
 		return this._addProduct(product)
-			.then(() => {
-				return this._toogleRemoteStatus(product.id, true);
-			})
-			.then(() => {
-				return this._updateCompareGlobalState();
-			});
+			.then(
+				() => {
+					return this._toogleRemoteStatus(product.id, true);
+				}
+			)
+			.then(
+				() => {
+					return this._updateCompareGlobalState();
+				}
+			);
 	}
 
 	_handleRemoveProduct(product) {
 		return this._removeProduct(product)
-			.then(() => {
-				return this._updateCompareGlobalState();
-			});
+			.then(
+				() => {
+					return this._updateCompareGlobalState();
+				}
+			);
 	}
 
 	_updateCompareGlobalState() {
