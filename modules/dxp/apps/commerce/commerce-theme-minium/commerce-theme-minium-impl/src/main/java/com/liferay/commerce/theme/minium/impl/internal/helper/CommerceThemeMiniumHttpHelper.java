@@ -18,6 +18,7 @@ import com.liferay.application.list.PanelAppRegistry;
 import com.liferay.application.list.PanelCategoryRegistry;
 import com.liferay.application.list.constants.PanelCategoryKeys;
 import com.liferay.application.list.display.context.logic.PanelCategoryHelper;
+import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.UserNotificationEvent;
 import com.liferay.portal.kernel.portlet.PortletProvider;
@@ -37,6 +38,14 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = CommerceThemeMiniumHttpHelper.class)
 public class CommerceThemeMiniumHttpHelper {
 
+	public String getAccountManagementPortletURL(
+			HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		return _commerceAccountHelper.getAccountManagementPortletURL(
+			httpServletRequest);
+	}
+
 	public int getNotificationsCount(ThemeDisplay themeDisplay) {
 		PanelCategoryHelper panelCategoryHelper = new PanelCategoryHelper(
 			_panelAppRegistry, _panelCategoryRegistry);
@@ -55,6 +64,9 @@ public class CommerceThemeMiniumHttpHelper {
 
 		return portletURL.toString();
 	}
+
+	@Reference
+	private CommerceAccountHelper _commerceAccountHelper;
 
 	@Reference
 	private PanelAppRegistry _panelAppRegistry;
