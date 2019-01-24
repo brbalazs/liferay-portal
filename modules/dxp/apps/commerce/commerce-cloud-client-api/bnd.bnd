@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Commerce Cloud Client API
 Bundle-SymbolicName: com.liferay.commerce.cloud.client.api
-Bundle-Version: 1.0.3
+Bundle-Version: 1.0.4
 Export-Package:\
 	com.liferay.commerce.cloud.client.configuration,\
 	com.liferay.commerce.cloud.client.constants,\
