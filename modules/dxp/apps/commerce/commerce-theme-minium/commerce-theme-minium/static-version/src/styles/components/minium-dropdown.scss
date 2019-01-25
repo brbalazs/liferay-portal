@@ -1,32 +1,58 @@
 .minium-dropdown {
 	position: relative;
 
-	&.is-open::before {
-		border: 10px solid transparent;
-		border-bottom-color: $color-bg;
-		border-top-width: 0;
-		content: '';
-		position: absolute;
-		right: 24px;
-		top: 100%;
-		transition: max-height .2s ease-in, opacity .2s ease-in;
-		z-index: 1160;
-	}
-
 	&__curtain {
-		background-color: $color-bg;
 		border-radius: 8px;
 		box-shadow: $minium-shadow;
 		display: none;
-		overflow: hidden;
 		position: absolute;
 		right: 0;
 		top: calc(100% + 10px);
 		width: 450px;
+		height: 530px;
 		z-index: 1160;
+		transform-origin: 100% 0%;
+		transform: scale(.4);
+		opacity: 0;
+		display: none;
+		transition: all .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+		background: white;
+	
+		&::before {
+			border: 10px solid transparent;
+			border-bottom-color: $color-bg;
+			border-top-width: 0;
+			content: '';
+			position: absolute;
+			right: 24px;
+			bottom: 100%;
+			transition: max-height .2s ease-in, opacity .2s ease-in;
+			z-index: 1160;
+		}
 
-		&.is-open {
+		&.is-opening {
 			display: block;
 		}
+		
+		&.is-open {
+			display: block;
+			opacity: 1;
+			transform: scale(1);
+		}
+
+		&.is-closing {
+			transition: all .1s ease-in;
+			display: block;
+		}
+	}
+
+	&__absolute-content {
+		overflow: hidden;
+		display: block;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
 	}
 }
