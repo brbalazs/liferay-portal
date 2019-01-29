@@ -41,10 +41,14 @@ import java.io.Serializable;
 import java.sql.Types;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 /**
  * The base model implementation for the Entry service. Represents a row in the &quot;Reports_Entry&quot; database table, with each column mapped to a property of this class.
@@ -230,27 +234,15 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		attributes.put("entryId", getEntryId());
-		attributes.put("groupId", getGroupId());
-		attributes.put("companyId", getCompanyId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
-		attributes.put("createDate", getCreateDate());
-		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("definitionId", getDefinitionId());
-		attributes.put("format", getFormat());
-		attributes.put("scheduleRequest", isScheduleRequest());
-		attributes.put("startDate", getStartDate());
-		attributes.put("endDate", getEndDate());
-		attributes.put("repeating", isRepeating());
-		attributes.put("recurrence", getRecurrence());
-		attributes.put("emailNotifications", getEmailNotifications());
-		attributes.put("emailDelivery", getEmailDelivery());
-		attributes.put("portletId", getPortletId());
-		attributes.put("pageURL", getPageURL());
-		attributes.put("reportParameters", getReportParameters());
-		attributes.put("status", getStatus());
-		attributes.put("errorMessage", getErrorMessage());
+		Map<String, Function<Entry, Object>> attributeGetterFunctions = getAttributeGetterFunctions();
+
+		for (Map.Entry<String, Function<Entry, Object>> entry : attributeGetterFunctions.entrySet()) {
+			String attributeName = entry.getKey();
+			Function<Entry, Object> attributeGetterFunction = entry.getValue();
+
+			attributes.put(attributeName,
+				attributeGetterFunction.apply((Entry)this));
+		}
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -260,131 +252,459 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Long entryId = (Long)attributes.get("entryId");
+		Map<String, BiConsumer<Entry, Object>> attributeSetterBiConsumers = getAttributeSetterBiConsumers();
 
-		if (entryId != null) {
-			setEntryId(entryId);
+		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
+			String attributeName = entry.getKey();
+
+			BiConsumer<Entry, Object> attributeSetterBiConsumer = attributeSetterBiConsumers.get(attributeName);
+
+			if (attributeSetterBiConsumer != null) {
+				attributeSetterBiConsumer.accept((Entry)this, entry.getValue());
+			}
 		}
+	}
 
-		Long groupId = (Long)attributes.get("groupId");
+	public Map<String, Function<Entry, Object>> getAttributeGetterFunctions() {
+		return _attributeGetterFunctions;
+	}
 
-		if (groupId != null) {
-			setGroupId(groupId);
-		}
+	public Map<String, BiConsumer<Entry, Object>> getAttributeSetterBiConsumers() {
+		return _attributeSetterBiConsumers;
+	}
 
-		Long companyId = (Long)attributes.get("companyId");
+	private static final Map<String, Function<Entry, Object>> _attributeGetterFunctions;
+	private static final Map<String, BiConsumer<Entry, Object>> _attributeSetterBiConsumers;
 
-		if (companyId != null) {
-			setCompanyId(companyId);
-		}
+	static {
+		Map<String, Function<Entry, Object>> attributeGetterFunctions = new LinkedHashMap<String, Function<Entry, Object>>();
+		Map<String, BiConsumer<Entry, ?>> attributeSetterBiConsumers = new LinkedHashMap<String, BiConsumer<Entry, ?>>();
 
-		Long userId = (Long)attributes.get("userId");
 
-		if (userId != null) {
-			setUserId(userId);
-		}
+		attributeGetterFunctions.put(
+			"entryId",
+			new Function<Entry, Object>() {
 
-		String userName = (String)attributes.get("userName");
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getEntryId();
+				}
 
-		if (userName != null) {
-			setUserName(userName);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"entryId",
+			new BiConsumer<Entry, Object>() {
 
-		Date createDate = (Date)attributes.get("createDate");
+				@Override
+				public void accept(Entry entry, Object entryId) {
+					entry.setEntryId((Long)entryId);
+				}
 
-		if (createDate != null) {
-			setCreateDate(createDate);
-		}
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<Entry, Object>() {
 
-		Date modifiedDate = (Date)attributes.get("modifiedDate");
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getGroupId();
+				}
 
-		if (modifiedDate != null) {
-			setModifiedDate(modifiedDate);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"groupId",
+			new BiConsumer<Entry, Object>() {
 
-		Long definitionId = (Long)attributes.get("definitionId");
+				@Override
+				public void accept(Entry entry, Object groupId) {
+					entry.setGroupId((Long)groupId);
+				}
 
-		if (definitionId != null) {
-			setDefinitionId(definitionId);
-		}
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<Entry, Object>() {
 
-		String format = (String)attributes.get("format");
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getCompanyId();
+				}
 
-		if (format != null) {
-			setFormat(format);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Entry, Object>() {
 
-		Boolean scheduleRequest = (Boolean)attributes.get("scheduleRequest");
+				@Override
+				public void accept(Entry entry, Object companyId) {
+					entry.setCompanyId((Long)companyId);
+				}
 
-		if (scheduleRequest != null) {
-			setScheduleRequest(scheduleRequest);
-		}
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<Entry, Object>() {
 
-		Date startDate = (Date)attributes.get("startDate");
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getUserId();
+				}
 
-		if (startDate != null) {
-			setStartDate(startDate);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<Entry, Object>() {
 
-		Date endDate = (Date)attributes.get("endDate");
+				@Override
+				public void accept(Entry entry, Object userId) {
+					entry.setUserId((Long)userId);
+				}
 
-		if (endDate != null) {
-			setEndDate(endDate);
-		}
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<Entry, Object>() {
 
-		Boolean repeating = (Boolean)attributes.get("repeating");
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getUserName();
+				}
 
-		if (repeating != null) {
-			setRepeating(repeating);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<Entry, Object>() {
 
-		String recurrence = (String)attributes.get("recurrence");
+				@Override
+				public void accept(Entry entry, Object userName) {
+					entry.setUserName((String)userName);
+				}
 
-		if (recurrence != null) {
-			setRecurrence(recurrence);
-		}
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<Entry, Object>() {
 
-		String emailNotifications = (String)attributes.get("emailNotifications");
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getCreateDate();
+				}
 
-		if (emailNotifications != null) {
-			setEmailNotifications(emailNotifications);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<Entry, Object>() {
 
-		String emailDelivery = (String)attributes.get("emailDelivery");
+				@Override
+				public void accept(Entry entry, Object createDate) {
+					entry.setCreateDate((Date)createDate);
+				}
 
-		if (emailDelivery != null) {
-			setEmailDelivery(emailDelivery);
-		}
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<Entry, Object>() {
 
-		String portletId = (String)attributes.get("portletId");
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getModifiedDate();
+				}
 
-		if (portletId != null) {
-			setPortletId(portletId);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<Entry, Object>() {
 
-		String pageURL = (String)attributes.get("pageURL");
+				@Override
+				public void accept(Entry entry, Object modifiedDate) {
+					entry.setModifiedDate((Date)modifiedDate);
+				}
 
-		if (pageURL != null) {
-			setPageURL(pageURL);
-		}
+			});
+		attributeGetterFunctions.put(
+			"definitionId",
+			new Function<Entry, Object>() {
 
-		String reportParameters = (String)attributes.get("reportParameters");
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getDefinitionId();
+				}
 
-		if (reportParameters != null) {
-			setReportParameters(reportParameters);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"definitionId",
+			new BiConsumer<Entry, Object>() {
 
-		String status = (String)attributes.get("status");
+				@Override
+				public void accept(Entry entry, Object definitionId) {
+					entry.setDefinitionId((Long)definitionId);
+				}
 
-		if (status != null) {
-			setStatus(status);
-		}
+			});
+		attributeGetterFunctions.put(
+			"format",
+			new Function<Entry, Object>() {
 
-		String errorMessage = (String)attributes.get("errorMessage");
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getFormat();
+				}
 
-		if (errorMessage != null) {
-			setErrorMessage(errorMessage);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"format",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object format) {
+					entry.setFormat((String)format);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"scheduleRequest",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getScheduleRequest();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"scheduleRequest",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object scheduleRequest) {
+					entry.setScheduleRequest((Boolean)scheduleRequest);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"startDate",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getStartDate();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"startDate",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object startDate) {
+					entry.setStartDate((Date)startDate);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"endDate",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getEndDate();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"endDate",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object endDate) {
+					entry.setEndDate((Date)endDate);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"repeating",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getRepeating();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"repeating",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object repeating) {
+					entry.setRepeating((Boolean)repeating);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"recurrence",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getRecurrence();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"recurrence",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object recurrence) {
+					entry.setRecurrence((String)recurrence);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"emailNotifications",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getEmailNotifications();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"emailNotifications",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object emailNotifications) {
+					entry.setEmailNotifications((String)emailNotifications);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"emailDelivery",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getEmailDelivery();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"emailDelivery",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object emailDelivery) {
+					entry.setEmailDelivery((String)emailDelivery);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"portletId",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getPortletId();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"portletId",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object portletId) {
+					entry.setPortletId((String)portletId);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"pageURL",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getPageURL();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"pageURL",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object pageURL) {
+					entry.setPageURL((String)pageURL);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"reportParameters",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getReportParameters();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"reportParameters",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object reportParameters) {
+					entry.setReportParameters((String)reportParameters);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getStatus();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"status",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object status) {
+					entry.setStatus((String)status);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"errorMessage",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getErrorMessage();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"errorMessage",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object errorMessage) {
+					entry.setErrorMessage((String)errorMessage);
+				}
+
+			});
+
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(attributeGetterFunctions);
+		_attributeSetterBiConsumers = Collections.unmodifiableMap((Map)attributeSetterBiConsumers);
 	}
 
 	@JSON
@@ -952,50 +1272,27 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(43);
+		Map<String, Function<Entry, Object>> attributeGetterFunctions = getAttributeGetterFunctions();
 
-		sb.append("{entryId=");
-		sb.append(getEntryId());
-		sb.append(", groupId=");
-		sb.append(getGroupId());
-		sb.append(", companyId=");
-		sb.append(getCompanyId());
-		sb.append(", userId=");
-		sb.append(getUserId());
-		sb.append(", userName=");
-		sb.append(getUserName());
-		sb.append(", createDate=");
-		sb.append(getCreateDate());
-		sb.append(", modifiedDate=");
-		sb.append(getModifiedDate());
-		sb.append(", definitionId=");
-		sb.append(getDefinitionId());
-		sb.append(", format=");
-		sb.append(getFormat());
-		sb.append(", scheduleRequest=");
-		sb.append(isScheduleRequest());
-		sb.append(", startDate=");
-		sb.append(getStartDate());
-		sb.append(", endDate=");
-		sb.append(getEndDate());
-		sb.append(", repeating=");
-		sb.append(isRepeating());
-		sb.append(", recurrence=");
-		sb.append(getRecurrence());
-		sb.append(", emailNotifications=");
-		sb.append(getEmailNotifications());
-		sb.append(", emailDelivery=");
-		sb.append(getEmailDelivery());
-		sb.append(", portletId=");
-		sb.append(getPortletId());
-		sb.append(", pageURL=");
-		sb.append(getPageURL());
-		sb.append(", reportParameters=");
-		sb.append(getReportParameters());
-		sb.append(", status=");
-		sb.append(getStatus());
-		sb.append(", errorMessage=");
-		sb.append(getErrorMessage());
+		StringBundler sb = new StringBundler((4 * attributeGetterFunctions.size()) +
+				2);
+
+		sb.append("{");
+
+		for (Map.Entry<String, Function<Entry, Object>> entry : attributeGetterFunctions.entrySet()) {
+			String attributeName = entry.getKey();
+			Function<Entry, Object> attributeGetterFunction = entry.getValue();
+
+			sb.append(attributeName);
+			sb.append("=");
+			sb.append(attributeGetterFunction.apply((Entry)this));
+			sb.append(", ");
+		}
+
+		if (sb.index() > 1) {
+			sb.setIndex(sb.index() - 1);
+		}
+
 		sb.append("}");
 
 		return sb.toString();
@@ -1003,96 +1300,25 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(67);
+		Map<String, Function<Entry, Object>> attributeGetterFunctions = getAttributeGetterFunctions();
+
+		StringBundler sb = new StringBundler((5 * attributeGetterFunctions.size()) +
+				4);
 
 		sb.append("<model><model-name>");
-		sb.append("com.liferay.portal.reports.engine.console.model.Entry");
+		sb.append(getModelClassName());
 		sb.append("</model-name>");
 
-		sb.append(
-			"<column><column-name>entryId</column-name><column-value><![CDATA[");
-		sb.append(getEntryId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>groupId</column-name><column-value><![CDATA[");
-		sb.append(getGroupId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>companyId</column-name><column-value><![CDATA[");
-		sb.append(getCompanyId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userId</column-name><column-value><![CDATA[");
-		sb.append(getUserId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userName</column-name><column-value><![CDATA[");
-		sb.append(getUserName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>createDate</column-name><column-value><![CDATA[");
-		sb.append(getCreateDate());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
-		sb.append(getModifiedDate());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>definitionId</column-name><column-value><![CDATA[");
-		sb.append(getDefinitionId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>format</column-name><column-value><![CDATA[");
-		sb.append(getFormat());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>scheduleRequest</column-name><column-value><![CDATA[");
-		sb.append(isScheduleRequest());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>startDate</column-name><column-value><![CDATA[");
-		sb.append(getStartDate());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>endDate</column-name><column-value><![CDATA[");
-		sb.append(getEndDate());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>repeating</column-name><column-value><![CDATA[");
-		sb.append(isRepeating());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>recurrence</column-name><column-value><![CDATA[");
-		sb.append(getRecurrence());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>emailNotifications</column-name><column-value><![CDATA[");
-		sb.append(getEmailNotifications());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>emailDelivery</column-name><column-value><![CDATA[");
-		sb.append(getEmailDelivery());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>portletId</column-name><column-value><![CDATA[");
-		sb.append(getPortletId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>pageURL</column-name><column-value><![CDATA[");
-		sb.append(getPageURL());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>reportParameters</column-name><column-value><![CDATA[");
-		sb.append(getReportParameters());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>status</column-name><column-value><![CDATA[");
-		sb.append(getStatus());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>errorMessage</column-name><column-value><![CDATA[");
-		sb.append(getErrorMessage());
-		sb.append("]]></column-value></column>");
+		for (Map.Entry<String, Function<Entry, Object>> entry : attributeGetterFunctions.entrySet()) {
+			String attributeName = entry.getKey();
+			Function<Entry, Object> attributeGetterFunction = entry.getValue();
+
+			sb.append("<column><column-name>");
+			sb.append(attributeName);
+			sb.append("</column-name><column-value><![CDATA[");
+			sb.append(attributeGetterFunction.apply((Entry)this));
+			sb.append("]]></column-value></column>");
+		}
 
 		sb.append("</model>");
 

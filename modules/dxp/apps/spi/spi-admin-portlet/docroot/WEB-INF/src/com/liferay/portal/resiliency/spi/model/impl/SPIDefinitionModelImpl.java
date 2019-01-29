@@ -40,10 +40,14 @@ import java.io.Serializable;
 import java.sql.Types;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 /**
  * The base model implementation for the SPIDefinition service. Represents a row in the &quot;SPIDefinition&quot; database table, with each column mapped to a property of this class.
@@ -223,22 +227,15 @@ public class SPIDefinitionModelImpl extends BaseModelImpl<SPIDefinition>
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		attributes.put("spiDefinitionId", getSpiDefinitionId());
-		attributes.put("companyId", getCompanyId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
-		attributes.put("createDate", getCreateDate());
-		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("name", getName());
-		attributes.put("connectorAddress", getConnectorAddress());
-		attributes.put("connectorPort", getConnectorPort());
-		attributes.put("description", getDescription());
-		attributes.put("jvmArguments", getJvmArguments());
-		attributes.put("portletIds", getPortletIds());
-		attributes.put("servletContextNames", getServletContextNames());
-		attributes.put("typeSettings", getTypeSettings());
-		attributes.put("status", getStatus());
-		attributes.put("statusMessage", getStatusMessage());
+		Map<String, Function<SPIDefinition, Object>> attributeGetterFunctions = getAttributeGetterFunctions();
+
+		for (Map.Entry<String, Function<SPIDefinition, Object>> entry : attributeGetterFunctions.entrySet()) {
+			String attributeName = entry.getKey();
+			Function<SPIDefinition, Object> attributeGetterFunction = entry.getValue();
+
+			attributes.put(attributeName,
+				attributeGetterFunction.apply((SPIDefinition)this));
+		}
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -248,102 +245,361 @@ public class SPIDefinitionModelImpl extends BaseModelImpl<SPIDefinition>
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Long spiDefinitionId = (Long)attributes.get("spiDefinitionId");
+		Map<String, BiConsumer<SPIDefinition, Object>> attributeSetterBiConsumers =
+			getAttributeSetterBiConsumers();
 
-		if (spiDefinitionId != null) {
-			setSpiDefinitionId(spiDefinitionId);
+		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
+			String attributeName = entry.getKey();
+
+			BiConsumer<SPIDefinition, Object> attributeSetterBiConsumer = attributeSetterBiConsumers.get(attributeName);
+
+			if (attributeSetterBiConsumer != null) {
+				attributeSetterBiConsumer.accept((SPIDefinition)this,
+					entry.getValue());
+			}
 		}
+	}
 
-		Long companyId = (Long)attributes.get("companyId");
+	public Map<String, Function<SPIDefinition, Object>> getAttributeGetterFunctions() {
+		return _attributeGetterFunctions;
+	}
 
-		if (companyId != null) {
-			setCompanyId(companyId);
-		}
+	public Map<String, BiConsumer<SPIDefinition, Object>> getAttributeSetterBiConsumers() {
+		return _attributeSetterBiConsumers;
+	}
 
-		Long userId = (Long)attributes.get("userId");
+	private static final Map<String, Function<SPIDefinition, Object>> _attributeGetterFunctions;
+	private static final Map<String, BiConsumer<SPIDefinition, Object>> _attributeSetterBiConsumers;
 
-		if (userId != null) {
-			setUserId(userId);
-		}
+	static {
+		Map<String, Function<SPIDefinition, Object>> attributeGetterFunctions = new LinkedHashMap<String, Function<SPIDefinition, Object>>();
+		Map<String, BiConsumer<SPIDefinition, ?>> attributeSetterBiConsumers = new LinkedHashMap<String, BiConsumer<SPIDefinition, ?>>();
 
-		String userName = (String)attributes.get("userName");
 
-		if (userName != null) {
-			setUserName(userName);
-		}
+		attributeGetterFunctions.put(
+			"spiDefinitionId",
+			new Function<SPIDefinition, Object>() {
 
-		Date createDate = (Date)attributes.get("createDate");
+				@Override
+				public Object apply(SPIDefinition spiDefinition) {
+					return spiDefinition.getSpiDefinitionId();
+				}
 
-		if (createDate != null) {
-			setCreateDate(createDate);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"spiDefinitionId",
+			new BiConsumer<SPIDefinition, Object>() {
 
-		Date modifiedDate = (Date)attributes.get("modifiedDate");
+				@Override
+				public void accept(SPIDefinition spiDefinition, Object spiDefinitionId) {
+					spiDefinition.setSpiDefinitionId((Long)spiDefinitionId);
+				}
 
-		if (modifiedDate != null) {
-			setModifiedDate(modifiedDate);
-		}
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<SPIDefinition, Object>() {
 
-		String name = (String)attributes.get("name");
+				@Override
+				public Object apply(SPIDefinition spiDefinition) {
+					return spiDefinition.getCompanyId();
+				}
 
-		if (name != null) {
-			setName(name);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<SPIDefinition, Object>() {
 
-		String connectorAddress = (String)attributes.get("connectorAddress");
+				@Override
+				public void accept(SPIDefinition spiDefinition, Object companyId) {
+					spiDefinition.setCompanyId((Long)companyId);
+				}
 
-		if (connectorAddress != null) {
-			setConnectorAddress(connectorAddress);
-		}
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<SPIDefinition, Object>() {
 
-		Integer connectorPort = (Integer)attributes.get("connectorPort");
+				@Override
+				public Object apply(SPIDefinition spiDefinition) {
+					return spiDefinition.getUserId();
+				}
 
-		if (connectorPort != null) {
-			setConnectorPort(connectorPort);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<SPIDefinition, Object>() {
 
-		String description = (String)attributes.get("description");
+				@Override
+				public void accept(SPIDefinition spiDefinition, Object userId) {
+					spiDefinition.setUserId((Long)userId);
+				}
 
-		if (description != null) {
-			setDescription(description);
-		}
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<SPIDefinition, Object>() {
 
-		String jvmArguments = (String)attributes.get("jvmArguments");
+				@Override
+				public Object apply(SPIDefinition spiDefinition) {
+					return spiDefinition.getUserName();
+				}
 
-		if (jvmArguments != null) {
-			setJvmArguments(jvmArguments);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<SPIDefinition, Object>() {
 
-		String portletIds = (String)attributes.get("portletIds");
+				@Override
+				public void accept(SPIDefinition spiDefinition, Object userName) {
+					spiDefinition.setUserName((String)userName);
+				}
 
-		if (portletIds != null) {
-			setPortletIds(portletIds);
-		}
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<SPIDefinition, Object>() {
 
-		String servletContextNames = (String)attributes.get(
-				"servletContextNames");
+				@Override
+				public Object apply(SPIDefinition spiDefinition) {
+					return spiDefinition.getCreateDate();
+				}
 
-		if (servletContextNames != null) {
-			setServletContextNames(servletContextNames);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<SPIDefinition, Object>() {
 
-		String typeSettings = (String)attributes.get("typeSettings");
+				@Override
+				public void accept(SPIDefinition spiDefinition, Object createDate) {
+					spiDefinition.setCreateDate((Date)createDate);
+				}
 
-		if (typeSettings != null) {
-			setTypeSettings(typeSettings);
-		}
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<SPIDefinition, Object>() {
 
-		Integer status = (Integer)attributes.get("status");
+				@Override
+				public Object apply(SPIDefinition spiDefinition) {
+					return spiDefinition.getModifiedDate();
+				}
 
-		if (status != null) {
-			setStatus(status);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<SPIDefinition, Object>() {
 
-		String statusMessage = (String)attributes.get("statusMessage");
+				@Override
+				public void accept(SPIDefinition spiDefinition, Object modifiedDate) {
+					spiDefinition.setModifiedDate((Date)modifiedDate);
+				}
 
-		if (statusMessage != null) {
-			setStatusMessage(statusMessage);
-		}
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<SPIDefinition, Object>() {
+
+				@Override
+				public Object apply(SPIDefinition spiDefinition) {
+					return spiDefinition.getName();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"name",
+			new BiConsumer<SPIDefinition, Object>() {
+
+				@Override
+				public void accept(SPIDefinition spiDefinition, Object name) {
+					spiDefinition.setName((String)name);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"connectorAddress",
+			new Function<SPIDefinition, Object>() {
+
+				@Override
+				public Object apply(SPIDefinition spiDefinition) {
+					return spiDefinition.getConnectorAddress();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"connectorAddress",
+			new BiConsumer<SPIDefinition, Object>() {
+
+				@Override
+				public void accept(SPIDefinition spiDefinition, Object connectorAddress) {
+					spiDefinition.setConnectorAddress((String)connectorAddress);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"connectorPort",
+			new Function<SPIDefinition, Object>() {
+
+				@Override
+				public Object apply(SPIDefinition spiDefinition) {
+					return spiDefinition.getConnectorPort();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"connectorPort",
+			new BiConsumer<SPIDefinition, Object>() {
+
+				@Override
+				public void accept(SPIDefinition spiDefinition, Object connectorPort) {
+					spiDefinition.setConnectorPort((Integer)connectorPort);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<SPIDefinition, Object>() {
+
+				@Override
+				public Object apply(SPIDefinition spiDefinition) {
+					return spiDefinition.getDescription();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"description",
+			new BiConsumer<SPIDefinition, Object>() {
+
+				@Override
+				public void accept(SPIDefinition spiDefinition, Object description) {
+					spiDefinition.setDescription((String)description);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"jvmArguments",
+			new Function<SPIDefinition, Object>() {
+
+				@Override
+				public Object apply(SPIDefinition spiDefinition) {
+					return spiDefinition.getJvmArguments();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"jvmArguments",
+			new BiConsumer<SPIDefinition, Object>() {
+
+				@Override
+				public void accept(SPIDefinition spiDefinition, Object jvmArguments) {
+					spiDefinition.setJvmArguments((String)jvmArguments);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"portletIds",
+			new Function<SPIDefinition, Object>() {
+
+				@Override
+				public Object apply(SPIDefinition spiDefinition) {
+					return spiDefinition.getPortletIds();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"portletIds",
+			new BiConsumer<SPIDefinition, Object>() {
+
+				@Override
+				public void accept(SPIDefinition spiDefinition, Object portletIds) {
+					spiDefinition.setPortletIds((String)portletIds);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"servletContextNames",
+			new Function<SPIDefinition, Object>() {
+
+				@Override
+				public Object apply(SPIDefinition spiDefinition) {
+					return spiDefinition.getServletContextNames();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"servletContextNames",
+			new BiConsumer<SPIDefinition, Object>() {
+
+				@Override
+				public void accept(SPIDefinition spiDefinition, Object servletContextNames) {
+					spiDefinition.setServletContextNames((String)servletContextNames);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"typeSettings",
+			new Function<SPIDefinition, Object>() {
+
+				@Override
+				public Object apply(SPIDefinition spiDefinition) {
+					return spiDefinition.getTypeSettings();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"typeSettings",
+			new BiConsumer<SPIDefinition, Object>() {
+
+				@Override
+				public void accept(SPIDefinition spiDefinition, Object typeSettings) {
+					spiDefinition.setTypeSettings((String)typeSettings);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<SPIDefinition, Object>() {
+
+				@Override
+				public Object apply(SPIDefinition spiDefinition) {
+					return spiDefinition.getStatus();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"status",
+			new BiConsumer<SPIDefinition, Object>() {
+
+				@Override
+				public void accept(SPIDefinition spiDefinition, Object status) {
+					spiDefinition.setStatus((Integer)status);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusMessage",
+			new Function<SPIDefinition, Object>() {
+
+				@Override
+				public Object apply(SPIDefinition spiDefinition) {
+					return spiDefinition.getStatusMessage();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"statusMessage",
+			new BiConsumer<SPIDefinition, Object>() {
+
+				@Override
+				public void accept(SPIDefinition spiDefinition, Object statusMessage) {
+					spiDefinition.setStatusMessage((String)statusMessage);
+				}
+
+			});
+
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(attributeGetterFunctions);
+		_attributeSetterBiConsumers = Collections.unmodifiableMap((Map)attributeSetterBiConsumers);
 	}
 
 	@JSON
@@ -893,40 +1149,27 @@ public class SPIDefinitionModelImpl extends BaseModelImpl<SPIDefinition>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(33);
+		Map<String, Function<SPIDefinition, Object>> attributeGetterFunctions = getAttributeGetterFunctions();
 
-		sb.append("{spiDefinitionId=");
-		sb.append(getSpiDefinitionId());
-		sb.append(", companyId=");
-		sb.append(getCompanyId());
-		sb.append(", userId=");
-		sb.append(getUserId());
-		sb.append(", userName=");
-		sb.append(getUserName());
-		sb.append(", createDate=");
-		sb.append(getCreateDate());
-		sb.append(", modifiedDate=");
-		sb.append(getModifiedDate());
-		sb.append(", name=");
-		sb.append(getName());
-		sb.append(", connectorAddress=");
-		sb.append(getConnectorAddress());
-		sb.append(", connectorPort=");
-		sb.append(getConnectorPort());
-		sb.append(", description=");
-		sb.append(getDescription());
-		sb.append(", jvmArguments=");
-		sb.append(getJvmArguments());
-		sb.append(", portletIds=");
-		sb.append(getPortletIds());
-		sb.append(", servletContextNames=");
-		sb.append(getServletContextNames());
-		sb.append(", typeSettings=");
-		sb.append(getTypeSettings());
-		sb.append(", status=");
-		sb.append(getStatus());
-		sb.append(", statusMessage=");
-		sb.append(getStatusMessage());
+		StringBundler sb = new StringBundler((4 * attributeGetterFunctions.size()) +
+				2);
+
+		sb.append("{");
+
+		for (Map.Entry<String, Function<SPIDefinition, Object>> entry : attributeGetterFunctions.entrySet()) {
+			String attributeName = entry.getKey();
+			Function<SPIDefinition, Object> attributeGetterFunction = entry.getValue();
+
+			sb.append(attributeName);
+			sb.append("=");
+			sb.append(attributeGetterFunction.apply((SPIDefinition)this));
+			sb.append(", ");
+		}
+
+		if (sb.index() > 1) {
+			sb.setIndex(sb.index() - 1);
+		}
+
 		sb.append("}");
 
 		return sb.toString();
@@ -934,76 +1177,25 @@ public class SPIDefinitionModelImpl extends BaseModelImpl<SPIDefinition>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(52);
+		Map<String, Function<SPIDefinition, Object>> attributeGetterFunctions = getAttributeGetterFunctions();
+
+		StringBundler sb = new StringBundler((5 * attributeGetterFunctions.size()) +
+				4);
 
 		sb.append("<model><model-name>");
-		sb.append("com.liferay.portal.resiliency.spi.model.SPIDefinition");
+		sb.append(getModelClassName());
 		sb.append("</model-name>");
 
-		sb.append(
-			"<column><column-name>spiDefinitionId</column-name><column-value><![CDATA[");
-		sb.append(getSpiDefinitionId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>companyId</column-name><column-value><![CDATA[");
-		sb.append(getCompanyId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userId</column-name><column-value><![CDATA[");
-		sb.append(getUserId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userName</column-name><column-value><![CDATA[");
-		sb.append(getUserName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>createDate</column-name><column-value><![CDATA[");
-		sb.append(getCreateDate());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
-		sb.append(getModifiedDate());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>name</column-name><column-value><![CDATA[");
-		sb.append(getName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>connectorAddress</column-name><column-value><![CDATA[");
-		sb.append(getConnectorAddress());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>connectorPort</column-name><column-value><![CDATA[");
-		sb.append(getConnectorPort());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>description</column-name><column-value><![CDATA[");
-		sb.append(getDescription());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>jvmArguments</column-name><column-value><![CDATA[");
-		sb.append(getJvmArguments());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>portletIds</column-name><column-value><![CDATA[");
-		sb.append(getPortletIds());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>servletContextNames</column-name><column-value><![CDATA[");
-		sb.append(getServletContextNames());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>typeSettings</column-name><column-value><![CDATA[");
-		sb.append(getTypeSettings());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>status</column-name><column-value><![CDATA[");
-		sb.append(getStatus());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>statusMessage</column-name><column-value><![CDATA[");
-		sb.append(getStatusMessage());
-		sb.append("]]></column-value></column>");
+		for (Map.Entry<String, Function<SPIDefinition, Object>> entry : attributeGetterFunctions.entrySet()) {
+			String attributeName = entry.getKey();
+			Function<SPIDefinition, Object> attributeGetterFunction = entry.getValue();
+
+			sb.append("<column><column-name>");
+			sb.append(attributeName);
+			sb.append("</column-name><column-value><![CDATA[");
+			sb.append(attributeGetterFunction.apply((SPIDefinition)this));
+			sb.append("]]></column-value></column>");
+		}
 
 		sb.append("</model>");
 

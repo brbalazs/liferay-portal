@@ -38,9 +38,13 @@ import java.io.Serializable;
 
 import java.sql.Types;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 /**
  * The base model implementation for the SamlIdpSsoSession service. Represents a row in the &quot;SamlIdpSsoSession&quot; database table, with each column mapped to a property of this class.
@@ -144,13 +148,16 @@ public class SamlIdpSsoSessionModelImpl extends BaseModelImpl<SamlIdpSsoSession>
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		attributes.put("samlIdpSsoSessionId", getSamlIdpSsoSessionId());
-		attributes.put("companyId", getCompanyId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
-		attributes.put("createDate", getCreateDate());
-		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("samlIdpSsoSessionKey", getSamlIdpSsoSessionKey());
+		Map<String, Function<SamlIdpSsoSession, Object>> attributeGetterFunctions =
+			getAttributeGetterFunctions();
+
+		for (Map.Entry<String, Function<SamlIdpSsoSession, Object>> entry : attributeGetterFunctions.entrySet()) {
+			String attributeName = entry.getKey();
+			Function<SamlIdpSsoSession, Object> attributeGetterFunction = entry.getValue();
+
+			attributes.put(attributeName,
+				attributeGetterFunction.apply((SamlIdpSsoSession)this));
+		}
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -160,48 +167,183 @@ public class SamlIdpSsoSessionModelImpl extends BaseModelImpl<SamlIdpSsoSession>
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Long samlIdpSsoSessionId = (Long)attributes.get("samlIdpSsoSessionId");
+		Map<String, BiConsumer<SamlIdpSsoSession, Object>> attributeSetterBiConsumers =
+			getAttributeSetterBiConsumers();
 
-		if (samlIdpSsoSessionId != null) {
-			setSamlIdpSsoSessionId(samlIdpSsoSessionId);
+		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
+			String attributeName = entry.getKey();
+
+			BiConsumer<SamlIdpSsoSession, Object> attributeSetterBiConsumer = attributeSetterBiConsumers.get(attributeName);
+
+			if (attributeSetterBiConsumer != null) {
+				attributeSetterBiConsumer.accept((SamlIdpSsoSession)this,
+					entry.getValue());
+			}
 		}
+	}
 
-		Long companyId = (Long)attributes.get("companyId");
+	public Map<String, Function<SamlIdpSsoSession, Object>> getAttributeGetterFunctions() {
+		return _attributeGetterFunctions;
+	}
 
-		if (companyId != null) {
-			setCompanyId(companyId);
-		}
+	public Map<String, BiConsumer<SamlIdpSsoSession, Object>> getAttributeSetterBiConsumers() {
+		return _attributeSetterBiConsumers;
+	}
 
-		Long userId = (Long)attributes.get("userId");
+	private static final Map<String, Function<SamlIdpSsoSession, Object>> _attributeGetterFunctions;
+	private static final Map<String, BiConsumer<SamlIdpSsoSession, Object>> _attributeSetterBiConsumers;
 
-		if (userId != null) {
-			setUserId(userId);
-		}
+	static {
+		Map<String, Function<SamlIdpSsoSession, Object>> attributeGetterFunctions =
+			new LinkedHashMap<String, Function<SamlIdpSsoSession, Object>>();
+		Map<String, BiConsumer<SamlIdpSsoSession, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<SamlIdpSsoSession, ?>>();
 
-		String userName = (String)attributes.get("userName");
 
-		if (userName != null) {
-			setUserName(userName);
-		}
+		attributeGetterFunctions.put(
+			"samlIdpSsoSessionId",
+			new Function<SamlIdpSsoSession, Object>() {
 
-		Date createDate = (Date)attributes.get("createDate");
+				@Override
+				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
+					return samlIdpSsoSession.getSamlIdpSsoSessionId();
+				}
 
-		if (createDate != null) {
-			setCreateDate(createDate);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"samlIdpSsoSessionId",
+			new BiConsumer<SamlIdpSsoSession, Object>() {
 
-		Date modifiedDate = (Date)attributes.get("modifiedDate");
+				@Override
+				public void accept(SamlIdpSsoSession samlIdpSsoSession, Object samlIdpSsoSessionId) {
+					samlIdpSsoSession.setSamlIdpSsoSessionId((Long)samlIdpSsoSessionId);
+				}
 
-		if (modifiedDate != null) {
-			setModifiedDate(modifiedDate);
-		}
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<SamlIdpSsoSession, Object>() {
 
-		String samlIdpSsoSessionKey = (String)attributes.get(
-				"samlIdpSsoSessionKey");
+				@Override
+				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
+					return samlIdpSsoSession.getCompanyId();
+				}
 
-		if (samlIdpSsoSessionKey != null) {
-			setSamlIdpSsoSessionKey(samlIdpSsoSessionKey);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<SamlIdpSsoSession, Object>() {
+
+				@Override
+				public void accept(SamlIdpSsoSession samlIdpSsoSession, Object companyId) {
+					samlIdpSsoSession.setCompanyId((Long)companyId);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<SamlIdpSsoSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
+					return samlIdpSsoSession.getUserId();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<SamlIdpSsoSession, Object>() {
+
+				@Override
+				public void accept(SamlIdpSsoSession samlIdpSsoSession, Object userId) {
+					samlIdpSsoSession.setUserId((Long)userId);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<SamlIdpSsoSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
+					return samlIdpSsoSession.getUserName();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<SamlIdpSsoSession, Object>() {
+
+				@Override
+				public void accept(SamlIdpSsoSession samlIdpSsoSession, Object userName) {
+					samlIdpSsoSession.setUserName((String)userName);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<SamlIdpSsoSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
+					return samlIdpSsoSession.getCreateDate();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<SamlIdpSsoSession, Object>() {
+
+				@Override
+				public void accept(SamlIdpSsoSession samlIdpSsoSession, Object createDate) {
+					samlIdpSsoSession.setCreateDate((Date)createDate);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<SamlIdpSsoSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
+					return samlIdpSsoSession.getModifiedDate();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<SamlIdpSsoSession, Object>() {
+
+				@Override
+				public void accept(SamlIdpSsoSession samlIdpSsoSession, Object modifiedDate) {
+					samlIdpSsoSession.setModifiedDate((Date)modifiedDate);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"samlIdpSsoSessionKey",
+			new Function<SamlIdpSsoSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
+					return samlIdpSsoSession.getSamlIdpSsoSessionKey();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"samlIdpSsoSessionKey",
+			new BiConsumer<SamlIdpSsoSession, Object>() {
+
+				@Override
+				public void accept(SamlIdpSsoSession samlIdpSsoSession, Object samlIdpSsoSessionKey) {
+					samlIdpSsoSession.setSamlIdpSsoSessionKey((String)samlIdpSsoSessionKey);
+				}
+
+			});
+
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(attributeGetterFunctions);
+		_attributeSetterBiConsumers = Collections.unmodifiableMap((Map)attributeSetterBiConsumers);
 	}
 
 	@Override
@@ -485,22 +627,28 @@ public class SamlIdpSsoSessionModelImpl extends BaseModelImpl<SamlIdpSsoSession>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(15);
+		Map<String, Function<SamlIdpSsoSession, Object>> attributeGetterFunctions =
+			getAttributeGetterFunctions();
 
-		sb.append("{samlIdpSsoSessionId=");
-		sb.append(getSamlIdpSsoSessionId());
-		sb.append(", companyId=");
-		sb.append(getCompanyId());
-		sb.append(", userId=");
-		sb.append(getUserId());
-		sb.append(", userName=");
-		sb.append(getUserName());
-		sb.append(", createDate=");
-		sb.append(getCreateDate());
-		sb.append(", modifiedDate=");
-		sb.append(getModifiedDate());
-		sb.append(", samlIdpSsoSessionKey=");
-		sb.append(getSamlIdpSsoSessionKey());
+		StringBundler sb = new StringBundler((4 * attributeGetterFunctions.size()) +
+				2);
+
+		sb.append("{");
+
+		for (Map.Entry<String, Function<SamlIdpSsoSession, Object>> entry : attributeGetterFunctions.entrySet()) {
+			String attributeName = entry.getKey();
+			Function<SamlIdpSsoSession, Object> attributeGetterFunction = entry.getValue();
+
+			sb.append(attributeName);
+			sb.append("=");
+			sb.append(attributeGetterFunction.apply((SamlIdpSsoSession)this));
+			sb.append(", ");
+		}
+
+		if (sb.index() > 1) {
+			sb.setIndex(sb.index() - 1);
+		}
+
 		sb.append("}");
 
 		return sb.toString();
@@ -508,40 +656,26 @@ public class SamlIdpSsoSessionModelImpl extends BaseModelImpl<SamlIdpSsoSession>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(25);
+		Map<String, Function<SamlIdpSsoSession, Object>> attributeGetterFunctions =
+			getAttributeGetterFunctions();
+
+		StringBundler sb = new StringBundler((5 * attributeGetterFunctions.size()) +
+				4);
 
 		sb.append("<model><model-name>");
-		sb.append("com.liferay.saml.persistence.model.SamlIdpSsoSession");
+		sb.append(getModelClassName());
 		sb.append("</model-name>");
 
-		sb.append(
-			"<column><column-name>samlIdpSsoSessionId</column-name><column-value><![CDATA[");
-		sb.append(getSamlIdpSsoSessionId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>companyId</column-name><column-value><![CDATA[");
-		sb.append(getCompanyId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userId</column-name><column-value><![CDATA[");
-		sb.append(getUserId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userName</column-name><column-value><![CDATA[");
-		sb.append(getUserName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>createDate</column-name><column-value><![CDATA[");
-		sb.append(getCreateDate());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
-		sb.append(getModifiedDate());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>samlIdpSsoSessionKey</column-name><column-value><![CDATA[");
-		sb.append(getSamlIdpSsoSessionKey());
-		sb.append("]]></column-value></column>");
+		for (Map.Entry<String, Function<SamlIdpSsoSession, Object>> entry : attributeGetterFunctions.entrySet()) {
+			String attributeName = entry.getKey();
+			Function<SamlIdpSsoSession, Object> attributeGetterFunction = entry.getValue();
+
+			sb.append("<column><column-name>");
+			sb.append(attributeName);
+			sb.append("</column-name><column-value><![CDATA[");
+			sb.append(attributeGetterFunction.apply((SamlIdpSsoSession)this));
+			sb.append("]]></column-value></column>");
+		}
 
 		sb.append("</model>");
 

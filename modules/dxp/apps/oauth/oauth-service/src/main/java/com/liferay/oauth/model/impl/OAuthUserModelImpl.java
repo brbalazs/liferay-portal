@@ -41,10 +41,14 @@ import java.io.Serializable;
 import java.sql.Types;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 /**
  * The base model implementation for the OAuthUser service. Represents a row in the &quot;OAuth_OAuthUser&quot; database table, with each column mapped to a property of this class.
@@ -201,15 +205,15 @@ public class OAuthUserModelImpl extends BaseModelImpl<OAuthUser>
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		attributes.put("oAuthUserId", getOAuthUserId());
-		attributes.put("companyId", getCompanyId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
-		attributes.put("createDate", getCreateDate());
-		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("oAuthApplicationId", getOAuthApplicationId());
-		attributes.put("accessToken", getAccessToken());
-		attributes.put("accessSecret", getAccessSecret());
+		Map<String, Function<OAuthUser, Object>> attributeGetterFunctions = getAttributeGetterFunctions();
+
+		for (Map.Entry<String, Function<OAuthUser, Object>> entry : attributeGetterFunctions.entrySet()) {
+			String attributeName = entry.getKey();
+			Function<OAuthUser, Object> attributeGetterFunction = entry.getValue();
+
+			attributes.put(attributeName,
+				attributeGetterFunction.apply((OAuthUser)this));
+		}
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -219,59 +223,220 @@ public class OAuthUserModelImpl extends BaseModelImpl<OAuthUser>
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Long oAuthUserId = (Long)attributes.get("oAuthUserId");
+		Map<String, BiConsumer<OAuthUser, Object>> attributeSetterBiConsumers = getAttributeSetterBiConsumers();
 
-		if (oAuthUserId != null) {
-			setOAuthUserId(oAuthUserId);
+		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
+			String attributeName = entry.getKey();
+
+			BiConsumer<OAuthUser, Object> attributeSetterBiConsumer = attributeSetterBiConsumers.get(attributeName);
+
+			if (attributeSetterBiConsumer != null) {
+				attributeSetterBiConsumer.accept((OAuthUser)this,
+					entry.getValue());
+			}
 		}
+	}
 
-		Long companyId = (Long)attributes.get("companyId");
+	public Map<String, Function<OAuthUser, Object>> getAttributeGetterFunctions() {
+		return _attributeGetterFunctions;
+	}
 
-		if (companyId != null) {
-			setCompanyId(companyId);
-		}
+	public Map<String, BiConsumer<OAuthUser, Object>> getAttributeSetterBiConsumers() {
+		return _attributeSetterBiConsumers;
+	}
 
-		Long userId = (Long)attributes.get("userId");
+	private static final Map<String, Function<OAuthUser, Object>> _attributeGetterFunctions;
+	private static final Map<String, BiConsumer<OAuthUser, Object>> _attributeSetterBiConsumers;
 
-		if (userId != null) {
-			setUserId(userId);
-		}
+	static {
+		Map<String, Function<OAuthUser, Object>> attributeGetterFunctions = new LinkedHashMap<String, Function<OAuthUser, Object>>();
+		Map<String, BiConsumer<OAuthUser, ?>> attributeSetterBiConsumers = new LinkedHashMap<String, BiConsumer<OAuthUser, ?>>();
 
-		String userName = (String)attributes.get("userName");
 
-		if (userName != null) {
-			setUserName(userName);
-		}
+		attributeGetterFunctions.put(
+			"oAuthUserId",
+			new Function<OAuthUser, Object>() {
 
-		Date createDate = (Date)attributes.get("createDate");
+				@Override
+				public Object apply(OAuthUser oAuthUser) {
+					return oAuthUser.getOAuthUserId();
+				}
 
-		if (createDate != null) {
-			setCreateDate(createDate);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"oAuthUserId",
+			new BiConsumer<OAuthUser, Object>() {
 
-		Date modifiedDate = (Date)attributes.get("modifiedDate");
+				@Override
+				public void accept(OAuthUser oAuthUser, Object oAuthUserId) {
+					oAuthUser.setOAuthUserId((Long)oAuthUserId);
+				}
 
-		if (modifiedDate != null) {
-			setModifiedDate(modifiedDate);
-		}
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<OAuthUser, Object>() {
 
-		Long oAuthApplicationId = (Long)attributes.get("oAuthApplicationId");
+				@Override
+				public Object apply(OAuthUser oAuthUser) {
+					return oAuthUser.getCompanyId();
+				}
 
-		if (oAuthApplicationId != null) {
-			setOAuthApplicationId(oAuthApplicationId);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<OAuthUser, Object>() {
 
-		String accessToken = (String)attributes.get("accessToken");
+				@Override
+				public void accept(OAuthUser oAuthUser, Object companyId) {
+					oAuthUser.setCompanyId((Long)companyId);
+				}
 
-		if (accessToken != null) {
-			setAccessToken(accessToken);
-		}
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<OAuthUser, Object>() {
 
-		String accessSecret = (String)attributes.get("accessSecret");
+				@Override
+				public Object apply(OAuthUser oAuthUser) {
+					return oAuthUser.getUserId();
+				}
 
-		if (accessSecret != null) {
-			setAccessSecret(accessSecret);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<OAuthUser, Object>() {
+
+				@Override
+				public void accept(OAuthUser oAuthUser, Object userId) {
+					oAuthUser.setUserId((Long)userId);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<OAuthUser, Object>() {
+
+				@Override
+				public Object apply(OAuthUser oAuthUser) {
+					return oAuthUser.getUserName();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<OAuthUser, Object>() {
+
+				@Override
+				public void accept(OAuthUser oAuthUser, Object userName) {
+					oAuthUser.setUserName((String)userName);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<OAuthUser, Object>() {
+
+				@Override
+				public Object apply(OAuthUser oAuthUser) {
+					return oAuthUser.getCreateDate();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<OAuthUser, Object>() {
+
+				@Override
+				public void accept(OAuthUser oAuthUser, Object createDate) {
+					oAuthUser.setCreateDate((Date)createDate);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<OAuthUser, Object>() {
+
+				@Override
+				public Object apply(OAuthUser oAuthUser) {
+					return oAuthUser.getModifiedDate();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<OAuthUser, Object>() {
+
+				@Override
+				public void accept(OAuthUser oAuthUser, Object modifiedDate) {
+					oAuthUser.setModifiedDate((Date)modifiedDate);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"oAuthApplicationId",
+			new Function<OAuthUser, Object>() {
+
+				@Override
+				public Object apply(OAuthUser oAuthUser) {
+					return oAuthUser.getOAuthApplicationId();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"oAuthApplicationId",
+			new BiConsumer<OAuthUser, Object>() {
+
+				@Override
+				public void accept(OAuthUser oAuthUser, Object oAuthApplicationId) {
+					oAuthUser.setOAuthApplicationId((Long)oAuthApplicationId);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"accessToken",
+			new Function<OAuthUser, Object>() {
+
+				@Override
+				public Object apply(OAuthUser oAuthUser) {
+					return oAuthUser.getAccessToken();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"accessToken",
+			new BiConsumer<OAuthUser, Object>() {
+
+				@Override
+				public void accept(OAuthUser oAuthUser, Object accessToken) {
+					oAuthUser.setAccessToken((String)accessToken);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"accessSecret",
+			new Function<OAuthUser, Object>() {
+
+				@Override
+				public Object apply(OAuthUser oAuthUser) {
+					return oAuthUser.getAccessSecret();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"accessSecret",
+			new BiConsumer<OAuthUser, Object>() {
+
+				@Override
+				public void accept(OAuthUser oAuthUser, Object accessSecret) {
+					oAuthUser.setAccessSecret((String)accessSecret);
+				}
+
+			});
+
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(attributeGetterFunctions);
+		_attributeSetterBiConsumers = Collections.unmodifiableMap((Map)attributeSetterBiConsumers);
 	}
 
 	@JSON
@@ -636,26 +801,27 @@ public class OAuthUserModelImpl extends BaseModelImpl<OAuthUser>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		Map<String, Function<OAuthUser, Object>> attributeGetterFunctions = getAttributeGetterFunctions();
 
-		sb.append("{oAuthUserId=");
-		sb.append(getOAuthUserId());
-		sb.append(", companyId=");
-		sb.append(getCompanyId());
-		sb.append(", userId=");
-		sb.append(getUserId());
-		sb.append(", userName=");
-		sb.append(getUserName());
-		sb.append(", createDate=");
-		sb.append(getCreateDate());
-		sb.append(", modifiedDate=");
-		sb.append(getModifiedDate());
-		sb.append(", oAuthApplicationId=");
-		sb.append(getOAuthApplicationId());
-		sb.append(", accessToken=");
-		sb.append(getAccessToken());
-		sb.append(", accessSecret=");
-		sb.append(getAccessSecret());
+		StringBundler sb = new StringBundler((4 * attributeGetterFunctions.size()) +
+				2);
+
+		sb.append("{");
+
+		for (Map.Entry<String, Function<OAuthUser, Object>> entry : attributeGetterFunctions.entrySet()) {
+			String attributeName = entry.getKey();
+			Function<OAuthUser, Object> attributeGetterFunction = entry.getValue();
+
+			sb.append(attributeName);
+			sb.append("=");
+			sb.append(attributeGetterFunction.apply((OAuthUser)this));
+			sb.append(", ");
+		}
+
+		if (sb.index() > 1) {
+			sb.setIndex(sb.index() - 1);
+		}
+
 		sb.append("}");
 
 		return sb.toString();
@@ -663,48 +829,25 @@ public class OAuthUserModelImpl extends BaseModelImpl<OAuthUser>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(31);
+		Map<String, Function<OAuthUser, Object>> attributeGetterFunctions = getAttributeGetterFunctions();
+
+		StringBundler sb = new StringBundler((5 * attributeGetterFunctions.size()) +
+				4);
 
 		sb.append("<model><model-name>");
-		sb.append("com.liferay.oauth.model.OAuthUser");
+		sb.append(getModelClassName());
 		sb.append("</model-name>");
 
-		sb.append(
-			"<column><column-name>oAuthUserId</column-name><column-value><![CDATA[");
-		sb.append(getOAuthUserId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>companyId</column-name><column-value><![CDATA[");
-		sb.append(getCompanyId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userId</column-name><column-value><![CDATA[");
-		sb.append(getUserId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userName</column-name><column-value><![CDATA[");
-		sb.append(getUserName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>createDate</column-name><column-value><![CDATA[");
-		sb.append(getCreateDate());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
-		sb.append(getModifiedDate());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>oAuthApplicationId</column-name><column-value><![CDATA[");
-		sb.append(getOAuthApplicationId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>accessToken</column-name><column-value><![CDATA[");
-		sb.append(getAccessToken());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>accessSecret</column-name><column-value><![CDATA[");
-		sb.append(getAccessSecret());
-		sb.append("]]></column-value></column>");
+		for (Map.Entry<String, Function<OAuthUser, Object>> entry : attributeGetterFunctions.entrySet()) {
+			String attributeName = entry.getKey();
+			Function<OAuthUser, Object> attributeGetterFunction = entry.getValue();
+
+			sb.append("<column><column-name>");
+			sb.append(attributeName);
+			sb.append("</column-name><column-value><![CDATA[");
+			sb.append(attributeGetterFunction.apply((OAuthUser)this));
+			sb.append("]]></column-value></column>");
+		}
 
 		sb.append("</model>");
 

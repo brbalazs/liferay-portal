@@ -38,9 +38,13 @@ import java.io.Serializable;
 
 import java.sql.Types;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 /**
  * The base model implementation for the SamlSpSession service. Represents a row in the &quot;SamlSpSession&quot; database table, with each column mapped to a property of this class.
@@ -162,21 +166,15 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		attributes.put("samlSpSessionId", getSamlSpSessionId());
-		attributes.put("companyId", getCompanyId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
-		attributes.put("createDate", getCreateDate());
-		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("samlSpSessionKey", getSamlSpSessionKey());
-		attributes.put("assertionXml", getAssertionXml());
-		attributes.put("jSessionId", getJSessionId());
-		attributes.put("nameIdFormat", getNameIdFormat());
-		attributes.put("nameIdNameQualifier", getNameIdNameQualifier());
-		attributes.put("nameIdSPNameQualifier", getNameIdSPNameQualifier());
-		attributes.put("nameIdValue", getNameIdValue());
-		attributes.put("sessionIndex", getSessionIndex());
-		attributes.put("terminated", isTerminated());
+		Map<String, Function<SamlSpSession, Object>> attributeGetterFunctions = getAttributeGetterFunctions();
+
+		for (Map.Entry<String, Function<SamlSpSession, Object>> entry : attributeGetterFunctions.entrySet()) {
+			String attributeName = entry.getKey();
+			Function<SamlSpSession, Object> attributeGetterFunction = entry.getValue();
+
+			attributes.put(attributeName,
+				attributeGetterFunction.apply((SamlSpSession)this));
+		}
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -186,97 +184,341 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Long samlSpSessionId = (Long)attributes.get("samlSpSessionId");
+		Map<String, BiConsumer<SamlSpSession, Object>> attributeSetterBiConsumers =
+			getAttributeSetterBiConsumers();
 
-		if (samlSpSessionId != null) {
-			setSamlSpSessionId(samlSpSessionId);
+		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
+			String attributeName = entry.getKey();
+
+			BiConsumer<SamlSpSession, Object> attributeSetterBiConsumer = attributeSetterBiConsumers.get(attributeName);
+
+			if (attributeSetterBiConsumer != null) {
+				attributeSetterBiConsumer.accept((SamlSpSession)this,
+					entry.getValue());
+			}
 		}
+	}
 
-		Long companyId = (Long)attributes.get("companyId");
+	public Map<String, Function<SamlSpSession, Object>> getAttributeGetterFunctions() {
+		return _attributeGetterFunctions;
+	}
 
-		if (companyId != null) {
-			setCompanyId(companyId);
-		}
+	public Map<String, BiConsumer<SamlSpSession, Object>> getAttributeSetterBiConsumers() {
+		return _attributeSetterBiConsumers;
+	}
 
-		Long userId = (Long)attributes.get("userId");
+	private static final Map<String, Function<SamlSpSession, Object>> _attributeGetterFunctions;
+	private static final Map<String, BiConsumer<SamlSpSession, Object>> _attributeSetterBiConsumers;
 
-		if (userId != null) {
-			setUserId(userId);
-		}
+	static {
+		Map<String, Function<SamlSpSession, Object>> attributeGetterFunctions = new LinkedHashMap<String, Function<SamlSpSession, Object>>();
+		Map<String, BiConsumer<SamlSpSession, ?>> attributeSetterBiConsumers = new LinkedHashMap<String, BiConsumer<SamlSpSession, ?>>();
 
-		String userName = (String)attributes.get("userName");
 
-		if (userName != null) {
-			setUserName(userName);
-		}
+		attributeGetterFunctions.put(
+			"samlSpSessionId",
+			new Function<SamlSpSession, Object>() {
 
-		Date createDate = (Date)attributes.get("createDate");
+				@Override
+				public Object apply(SamlSpSession samlSpSession) {
+					return samlSpSession.getSamlSpSessionId();
+				}
 
-		if (createDate != null) {
-			setCreateDate(createDate);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"samlSpSessionId",
+			new BiConsumer<SamlSpSession, Object>() {
 
-		Date modifiedDate = (Date)attributes.get("modifiedDate");
+				@Override
+				public void accept(SamlSpSession samlSpSession, Object samlSpSessionId) {
+					samlSpSession.setSamlSpSessionId((Long)samlSpSessionId);
+				}
 
-		if (modifiedDate != null) {
-			setModifiedDate(modifiedDate);
-		}
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<SamlSpSession, Object>() {
 
-		String samlSpSessionKey = (String)attributes.get("samlSpSessionKey");
+				@Override
+				public Object apply(SamlSpSession samlSpSession) {
+					return samlSpSession.getCompanyId();
+				}
 
-		if (samlSpSessionKey != null) {
-			setSamlSpSessionKey(samlSpSessionKey);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<SamlSpSession, Object>() {
 
-		String assertionXml = (String)attributes.get("assertionXml");
+				@Override
+				public void accept(SamlSpSession samlSpSession, Object companyId) {
+					samlSpSession.setCompanyId((Long)companyId);
+				}
 
-		if (assertionXml != null) {
-			setAssertionXml(assertionXml);
-		}
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<SamlSpSession, Object>() {
 
-		String jSessionId = (String)attributes.get("jSessionId");
+				@Override
+				public Object apply(SamlSpSession samlSpSession) {
+					return samlSpSession.getUserId();
+				}
 
-		if (jSessionId != null) {
-			setJSessionId(jSessionId);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<SamlSpSession, Object>() {
 
-		String nameIdFormat = (String)attributes.get("nameIdFormat");
+				@Override
+				public void accept(SamlSpSession samlSpSession, Object userId) {
+					samlSpSession.setUserId((Long)userId);
+				}
 
-		if (nameIdFormat != null) {
-			setNameIdFormat(nameIdFormat);
-		}
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<SamlSpSession, Object>() {
 
-		String nameIdNameQualifier = (String)attributes.get(
-				"nameIdNameQualifier");
+				@Override
+				public Object apply(SamlSpSession samlSpSession) {
+					return samlSpSession.getUserName();
+				}
 
-		if (nameIdNameQualifier != null) {
-			setNameIdNameQualifier(nameIdNameQualifier);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<SamlSpSession, Object>() {
 
-		String nameIdSPNameQualifier = (String)attributes.get(
-				"nameIdSPNameQualifier");
+				@Override
+				public void accept(SamlSpSession samlSpSession, Object userName) {
+					samlSpSession.setUserName((String)userName);
+				}
 
-		if (nameIdSPNameQualifier != null) {
-			setNameIdSPNameQualifier(nameIdSPNameQualifier);
-		}
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<SamlSpSession, Object>() {
 
-		String nameIdValue = (String)attributes.get("nameIdValue");
+				@Override
+				public Object apply(SamlSpSession samlSpSession) {
+					return samlSpSession.getCreateDate();
+				}
 
-		if (nameIdValue != null) {
-			setNameIdValue(nameIdValue);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<SamlSpSession, Object>() {
 
-		String sessionIndex = (String)attributes.get("sessionIndex");
+				@Override
+				public void accept(SamlSpSession samlSpSession, Object createDate) {
+					samlSpSession.setCreateDate((Date)createDate);
+				}
 
-		if (sessionIndex != null) {
-			setSessionIndex(sessionIndex);
-		}
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<SamlSpSession, Object>() {
 
-		Boolean terminated = (Boolean)attributes.get("terminated");
+				@Override
+				public Object apply(SamlSpSession samlSpSession) {
+					return samlSpSession.getModifiedDate();
+				}
 
-		if (terminated != null) {
-			setTerminated(terminated);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<SamlSpSession, Object>() {
+
+				@Override
+				public void accept(SamlSpSession samlSpSession, Object modifiedDate) {
+					samlSpSession.setModifiedDate((Date)modifiedDate);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"samlSpSessionKey",
+			new Function<SamlSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlSpSession samlSpSession) {
+					return samlSpSession.getSamlSpSessionKey();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"samlSpSessionKey",
+			new BiConsumer<SamlSpSession, Object>() {
+
+				@Override
+				public void accept(SamlSpSession samlSpSession, Object samlSpSessionKey) {
+					samlSpSession.setSamlSpSessionKey((String)samlSpSessionKey);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"assertionXml",
+			new Function<SamlSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlSpSession samlSpSession) {
+					return samlSpSession.getAssertionXml();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"assertionXml",
+			new BiConsumer<SamlSpSession, Object>() {
+
+				@Override
+				public void accept(SamlSpSession samlSpSession, Object assertionXml) {
+					samlSpSession.setAssertionXml((String)assertionXml);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"jSessionId",
+			new Function<SamlSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlSpSession samlSpSession) {
+					return samlSpSession.getJSessionId();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"jSessionId",
+			new BiConsumer<SamlSpSession, Object>() {
+
+				@Override
+				public void accept(SamlSpSession samlSpSession, Object jSessionId) {
+					samlSpSession.setJSessionId((String)jSessionId);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"nameIdFormat",
+			new Function<SamlSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlSpSession samlSpSession) {
+					return samlSpSession.getNameIdFormat();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"nameIdFormat",
+			new BiConsumer<SamlSpSession, Object>() {
+
+				@Override
+				public void accept(SamlSpSession samlSpSession, Object nameIdFormat) {
+					samlSpSession.setNameIdFormat((String)nameIdFormat);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"nameIdNameQualifier",
+			new Function<SamlSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlSpSession samlSpSession) {
+					return samlSpSession.getNameIdNameQualifier();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"nameIdNameQualifier",
+			new BiConsumer<SamlSpSession, Object>() {
+
+				@Override
+				public void accept(SamlSpSession samlSpSession, Object nameIdNameQualifier) {
+					samlSpSession.setNameIdNameQualifier((String)nameIdNameQualifier);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"nameIdSPNameQualifier",
+			new Function<SamlSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlSpSession samlSpSession) {
+					return samlSpSession.getNameIdSPNameQualifier();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"nameIdSPNameQualifier",
+			new BiConsumer<SamlSpSession, Object>() {
+
+				@Override
+				public void accept(SamlSpSession samlSpSession, Object nameIdSPNameQualifier) {
+					samlSpSession.setNameIdSPNameQualifier((String)nameIdSPNameQualifier);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"nameIdValue",
+			new Function<SamlSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlSpSession samlSpSession) {
+					return samlSpSession.getNameIdValue();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"nameIdValue",
+			new BiConsumer<SamlSpSession, Object>() {
+
+				@Override
+				public void accept(SamlSpSession samlSpSession, Object nameIdValue) {
+					samlSpSession.setNameIdValue((String)nameIdValue);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"sessionIndex",
+			new Function<SamlSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlSpSession samlSpSession) {
+					return samlSpSession.getSessionIndex();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"sessionIndex",
+			new BiConsumer<SamlSpSession, Object>() {
+
+				@Override
+				public void accept(SamlSpSession samlSpSession, Object sessionIndex) {
+					samlSpSession.setSessionIndex((String)sessionIndex);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"terminated",
+			new Function<SamlSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlSpSession samlSpSession) {
+					return samlSpSession.getTerminated();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"terminated",
+			new BiConsumer<SamlSpSession, Object>() {
+
+				@Override
+				public void accept(SamlSpSession samlSpSession, Object terminated) {
+					samlSpSession.setTerminated((Boolean)terminated);
+				}
+
+			});
+
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(attributeGetterFunctions);
+		_attributeSetterBiConsumers = Collections.unmodifiableMap((Map)attributeSetterBiConsumers);
 	}
 
 	@Override
@@ -771,38 +1013,27 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(31);
+		Map<String, Function<SamlSpSession, Object>> attributeGetterFunctions = getAttributeGetterFunctions();
 
-		sb.append("{samlSpSessionId=");
-		sb.append(getSamlSpSessionId());
-		sb.append(", companyId=");
-		sb.append(getCompanyId());
-		sb.append(", userId=");
-		sb.append(getUserId());
-		sb.append(", userName=");
-		sb.append(getUserName());
-		sb.append(", createDate=");
-		sb.append(getCreateDate());
-		sb.append(", modifiedDate=");
-		sb.append(getModifiedDate());
-		sb.append(", samlSpSessionKey=");
-		sb.append(getSamlSpSessionKey());
-		sb.append(", assertionXml=");
-		sb.append(getAssertionXml());
-		sb.append(", jSessionId=");
-		sb.append(getJSessionId());
-		sb.append(", nameIdFormat=");
-		sb.append(getNameIdFormat());
-		sb.append(", nameIdNameQualifier=");
-		sb.append(getNameIdNameQualifier());
-		sb.append(", nameIdSPNameQualifier=");
-		sb.append(getNameIdSPNameQualifier());
-		sb.append(", nameIdValue=");
-		sb.append(getNameIdValue());
-		sb.append(", sessionIndex=");
-		sb.append(getSessionIndex());
-		sb.append(", terminated=");
-		sb.append(isTerminated());
+		StringBundler sb = new StringBundler((4 * attributeGetterFunctions.size()) +
+				2);
+
+		sb.append("{");
+
+		for (Map.Entry<String, Function<SamlSpSession, Object>> entry : attributeGetterFunctions.entrySet()) {
+			String attributeName = entry.getKey();
+			Function<SamlSpSession, Object> attributeGetterFunction = entry.getValue();
+
+			sb.append(attributeName);
+			sb.append("=");
+			sb.append(attributeGetterFunction.apply((SamlSpSession)this));
+			sb.append(", ");
+		}
+
+		if (sb.index() > 1) {
+			sb.setIndex(sb.index() - 1);
+		}
+
 		sb.append("}");
 
 		return sb.toString();
@@ -810,72 +1041,25 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(49);
+		Map<String, Function<SamlSpSession, Object>> attributeGetterFunctions = getAttributeGetterFunctions();
+
+		StringBundler sb = new StringBundler((5 * attributeGetterFunctions.size()) +
+				4);
 
 		sb.append("<model><model-name>");
-		sb.append("com.liferay.saml.persistence.model.SamlSpSession");
+		sb.append(getModelClassName());
 		sb.append("</model-name>");
 
-		sb.append(
-			"<column><column-name>samlSpSessionId</column-name><column-value><![CDATA[");
-		sb.append(getSamlSpSessionId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>companyId</column-name><column-value><![CDATA[");
-		sb.append(getCompanyId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userId</column-name><column-value><![CDATA[");
-		sb.append(getUserId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userName</column-name><column-value><![CDATA[");
-		sb.append(getUserName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>createDate</column-name><column-value><![CDATA[");
-		sb.append(getCreateDate());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
-		sb.append(getModifiedDate());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>samlSpSessionKey</column-name><column-value><![CDATA[");
-		sb.append(getSamlSpSessionKey());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>assertionXml</column-name><column-value><![CDATA[");
-		sb.append(getAssertionXml());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>jSessionId</column-name><column-value><![CDATA[");
-		sb.append(getJSessionId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>nameIdFormat</column-name><column-value><![CDATA[");
-		sb.append(getNameIdFormat());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>nameIdNameQualifier</column-name><column-value><![CDATA[");
-		sb.append(getNameIdNameQualifier());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>nameIdSPNameQualifier</column-name><column-value><![CDATA[");
-		sb.append(getNameIdSPNameQualifier());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>nameIdValue</column-name><column-value><![CDATA[");
-		sb.append(getNameIdValue());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>sessionIndex</column-name><column-value><![CDATA[");
-		sb.append(getSessionIndex());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>terminated</column-name><column-value><![CDATA[");
-		sb.append(isTerminated());
-		sb.append("]]></column-value></column>");
+		for (Map.Entry<String, Function<SamlSpSession, Object>> entry : attributeGetterFunctions.entrySet()) {
+			String attributeName = entry.getKey();
+			Function<SamlSpSession, Object> attributeGetterFunction = entry.getValue();
+
+			sb.append("<column><column-name>");
+			sb.append(attributeName);
+			sb.append("</column-name><column-value><![CDATA[");
+			sb.append(attributeGetterFunction.apply((SamlSpSession)this));
+			sb.append("]]></column-value></column>");
+		}
 
 		sb.append("</model>");
 

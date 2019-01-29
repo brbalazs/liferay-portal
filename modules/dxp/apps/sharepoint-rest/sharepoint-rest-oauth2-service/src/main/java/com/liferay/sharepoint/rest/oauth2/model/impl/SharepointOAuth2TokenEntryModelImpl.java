@@ -38,9 +38,13 @@ import java.io.Serializable;
 
 import java.sql.Types;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 /**
  * The base model implementation for the SharepointOAuth2TokenEntry service. Represents a row in the &quot;SharepointOAuth2TokenEntry&quot; database table, with each column mapped to a property of this class.
@@ -146,15 +150,17 @@ public class SharepointOAuth2TokenEntryModelImpl extends BaseModelImpl<Sharepoin
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		attributes.put("sharepointOAuth2TokenEntryId",
-			getSharepointOAuth2TokenEntryId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
-		attributes.put("createDate", getCreateDate());
-		attributes.put("accessToken", getAccessToken());
-		attributes.put("configurationPid", getConfigurationPid());
-		attributes.put("expirationDate", getExpirationDate());
-		attributes.put("refreshToken", getRefreshToken());
+		Map<String, Function<SharepointOAuth2TokenEntry, Object>> attributeGetterFunctions =
+			getAttributeGetterFunctions();
+
+		for (Map.Entry<String, Function<SharepointOAuth2TokenEntry, Object>> entry : attributeGetterFunctions.entrySet()) {
+			String attributeName = entry.getKey();
+			Function<SharepointOAuth2TokenEntry, Object> attributeGetterFunction =
+				entry.getValue();
+
+			attributes.put(attributeName,
+				attributeGetterFunction.apply((SharepointOAuth2TokenEntry)this));
+		}
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -164,54 +170,204 @@ public class SharepointOAuth2TokenEntryModelImpl extends BaseModelImpl<Sharepoin
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Long sharepointOAuth2TokenEntryId = (Long)attributes.get(
-				"sharepointOAuth2TokenEntryId");
+		Map<String, BiConsumer<SharepointOAuth2TokenEntry, Object>> attributeSetterBiConsumers =
+			getAttributeSetterBiConsumers();
 
-		if (sharepointOAuth2TokenEntryId != null) {
-			setSharepointOAuth2TokenEntryId(sharepointOAuth2TokenEntryId);
+		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
+			String attributeName = entry.getKey();
+
+			BiConsumer<SharepointOAuth2TokenEntry, Object> attributeSetterBiConsumer =
+				attributeSetterBiConsumers.get(attributeName);
+
+			if (attributeSetterBiConsumer != null) {
+				attributeSetterBiConsumer.accept((SharepointOAuth2TokenEntry)this,
+					entry.getValue());
+			}
 		}
+	}
 
-		Long userId = (Long)attributes.get("userId");
+	public Map<String, Function<SharepointOAuth2TokenEntry, Object>> getAttributeGetterFunctions() {
+		return _attributeGetterFunctions;
+	}
 
-		if (userId != null) {
-			setUserId(userId);
-		}
+	public Map<String, BiConsumer<SharepointOAuth2TokenEntry, Object>> getAttributeSetterBiConsumers() {
+		return _attributeSetterBiConsumers;
+	}
 
-		String userName = (String)attributes.get("userName");
+	private static final Map<String, Function<SharepointOAuth2TokenEntry, Object>> _attributeGetterFunctions;
+	private static final Map<String, BiConsumer<SharepointOAuth2TokenEntry, Object>> _attributeSetterBiConsumers;
 
-		if (userName != null) {
-			setUserName(userName);
-		}
+	static {
+		Map<String, Function<SharepointOAuth2TokenEntry, Object>> attributeGetterFunctions =
+			new LinkedHashMap<String, Function<SharepointOAuth2TokenEntry, Object>>();
+		Map<String, BiConsumer<SharepointOAuth2TokenEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<SharepointOAuth2TokenEntry, ?>>();
 
-		Date createDate = (Date)attributes.get("createDate");
 
-		if (createDate != null) {
-			setCreateDate(createDate);
-		}
+		attributeGetterFunctions.put(
+			"sharepointOAuth2TokenEntryId",
+			new Function<SharepointOAuth2TokenEntry, Object>() {
 
-		String accessToken = (String)attributes.get("accessToken");
+				@Override
+				public Object apply(SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
+					return sharepointOAuth2TokenEntry.getSharepointOAuth2TokenEntryId();
+				}
 
-		if (accessToken != null) {
-			setAccessToken(accessToken);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"sharepointOAuth2TokenEntryId",
+			new BiConsumer<SharepointOAuth2TokenEntry, Object>() {
 
-		String configurationPid = (String)attributes.get("configurationPid");
+				@Override
+				public void accept(SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry, Object sharepointOAuth2TokenEntryId) {
+					sharepointOAuth2TokenEntry.setSharepointOAuth2TokenEntryId((Long)sharepointOAuth2TokenEntryId);
+				}
 
-		if (configurationPid != null) {
-			setConfigurationPid(configurationPid);
-		}
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<SharepointOAuth2TokenEntry, Object>() {
 
-		Date expirationDate = (Date)attributes.get("expirationDate");
+				@Override
+				public Object apply(SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
+					return sharepointOAuth2TokenEntry.getUserId();
+				}
 
-		if (expirationDate != null) {
-			setExpirationDate(expirationDate);
-		}
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<SharepointOAuth2TokenEntry, Object>() {
 
-		String refreshToken = (String)attributes.get("refreshToken");
+				@Override
+				public void accept(SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry, Object userId) {
+					sharepointOAuth2TokenEntry.setUserId((Long)userId);
+				}
 
-		if (refreshToken != null) {
-			setRefreshToken(refreshToken);
-		}
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public Object apply(SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
+					return sharepointOAuth2TokenEntry.getUserName();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public void accept(SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry, Object userName) {
+					sharepointOAuth2TokenEntry.setUserName((String)userName);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public Object apply(SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
+					return sharepointOAuth2TokenEntry.getCreateDate();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public void accept(SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry, Object createDate) {
+					sharepointOAuth2TokenEntry.setCreateDate((Date)createDate);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"accessToken",
+			new Function<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public Object apply(SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
+					return sharepointOAuth2TokenEntry.getAccessToken();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"accessToken",
+			new BiConsumer<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public void accept(SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry, Object accessToken) {
+					sharepointOAuth2TokenEntry.setAccessToken((String)accessToken);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"configurationPid",
+			new Function<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public Object apply(SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
+					return sharepointOAuth2TokenEntry.getConfigurationPid();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"configurationPid",
+			new BiConsumer<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public void accept(SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry, Object configurationPid) {
+					sharepointOAuth2TokenEntry.setConfigurationPid((String)configurationPid);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"expirationDate",
+			new Function<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public Object apply(SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
+					return sharepointOAuth2TokenEntry.getExpirationDate();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"expirationDate",
+			new BiConsumer<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public void accept(SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry, Object expirationDate) {
+					sharepointOAuth2TokenEntry.setExpirationDate((Date)expirationDate);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"refreshToken",
+			new Function<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public Object apply(SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
+					return sharepointOAuth2TokenEntry.getRefreshToken();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"refreshToken",
+			new BiConsumer<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public void accept(SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry, Object refreshToken) {
+					sharepointOAuth2TokenEntry.setRefreshToken((String)refreshToken);
+				}
+
+			});
+
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(attributeGetterFunctions);
+		_attributeSetterBiConsumers = Collections.unmodifiableMap((Map)attributeSetterBiConsumers);
 	}
 
 	@Override
@@ -527,24 +683,30 @@ public class SharepointOAuth2TokenEntryModelImpl extends BaseModelImpl<Sharepoin
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		Map<String, Function<SharepointOAuth2TokenEntry, Object>> attributeGetterFunctions =
+			getAttributeGetterFunctions();
 
-		sb.append("{sharepointOAuth2TokenEntryId=");
-		sb.append(getSharepointOAuth2TokenEntryId());
-		sb.append(", userId=");
-		sb.append(getUserId());
-		sb.append(", userName=");
-		sb.append(getUserName());
-		sb.append(", createDate=");
-		sb.append(getCreateDate());
-		sb.append(", accessToken=");
-		sb.append(getAccessToken());
-		sb.append(", configurationPid=");
-		sb.append(getConfigurationPid());
-		sb.append(", expirationDate=");
-		sb.append(getExpirationDate());
-		sb.append(", refreshToken=");
-		sb.append(getRefreshToken());
+		StringBundler sb = new StringBundler((4 * attributeGetterFunctions.size()) +
+				2);
+
+		sb.append("{");
+
+		for (Map.Entry<String, Function<SharepointOAuth2TokenEntry, Object>> entry : attributeGetterFunctions.entrySet()) {
+			String attributeName = entry.getKey();
+			Function<SharepointOAuth2TokenEntry, Object> attributeGetterFunction =
+				entry.getValue();
+
+			sb.append(attributeName);
+			sb.append("=");
+			sb.append(attributeGetterFunction.apply(
+					(SharepointOAuth2TokenEntry)this));
+			sb.append(", ");
+		}
+
+		if (sb.index() > 1) {
+			sb.setIndex(sb.index() - 1);
+		}
+
 		sb.append("}");
 
 		return sb.toString();
@@ -552,45 +714,28 @@ public class SharepointOAuth2TokenEntryModelImpl extends BaseModelImpl<Sharepoin
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(28);
+		Map<String, Function<SharepointOAuth2TokenEntry, Object>> attributeGetterFunctions =
+			getAttributeGetterFunctions();
+
+		StringBundler sb = new StringBundler((5 * attributeGetterFunctions.size()) +
+				4);
 
 		sb.append("<model><model-name>");
-		sb.append(
-			"com.liferay.sharepoint.rest.oauth2.model.SharepointOAuth2TokenEntry");
+		sb.append(getModelClassName());
 		sb.append("</model-name>");
 
-		sb.append(
-			"<column><column-name>sharepointOAuth2TokenEntryId</column-name><column-value><![CDATA[");
-		sb.append(getSharepointOAuth2TokenEntryId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userId</column-name><column-value><![CDATA[");
-		sb.append(getUserId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userName</column-name><column-value><![CDATA[");
-		sb.append(getUserName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>createDate</column-name><column-value><![CDATA[");
-		sb.append(getCreateDate());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>accessToken</column-name><column-value><![CDATA[");
-		sb.append(getAccessToken());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>configurationPid</column-name><column-value><![CDATA[");
-		sb.append(getConfigurationPid());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>expirationDate</column-name><column-value><![CDATA[");
-		sb.append(getExpirationDate());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>refreshToken</column-name><column-value><![CDATA[");
-		sb.append(getRefreshToken());
-		sb.append("]]></column-value></column>");
+		for (Map.Entry<String, Function<SharepointOAuth2TokenEntry, Object>> entry : attributeGetterFunctions.entrySet()) {
+			String attributeName = entry.getKey();
+			Function<SharepointOAuth2TokenEntry, Object> attributeGetterFunction =
+				entry.getValue();
+
+			sb.append("<column><column-name>");
+			sb.append(attributeName);
+			sb.append("</column-name><column-value><![CDATA[");
+			sb.append(attributeGetterFunction.apply(
+					(SharepointOAuth2TokenEntry)this));
+			sb.append("]]></column-value></column>");
+		}
 
 		sb.append("</model>");
 
