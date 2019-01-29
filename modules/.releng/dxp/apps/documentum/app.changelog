@@ -1,0 +1,10 @@
+#
+# Liferay App Version 4.0.0
+#
+
+app.artifacts-4.0.0=\
+	documentum-hook-7.1.10.6.war
+
+app.change.log-4.0.0=LPS-84119
+
+app.git.id-4.0.0=d55570a946fe55d4bc2966725cc94ded234963bc
