@@ -426,6 +426,7 @@ svg {
 	position: fixed;
 	right: $minium-gutter;
 	width: 60px;
+	z-index: 1;
 
 	a {
 		color: white;

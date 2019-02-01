@@ -30,7 +30,7 @@ class ProductsCompare extends Component {
 		);
 
 		return isIncluded ?
-			this._removeProduct(toggledProduct) : 
+			this._handleRemoveProduct(toggledProduct) : 
 			this._handleAddProduct(toggledProduct)
 	}
 
