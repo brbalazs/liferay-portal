@@ -26,7 +26,10 @@
 				{foreach $product in $products}
 					{if index($product) < $limit}
 						{call ProductsCompareItem.render}
-							{param events: ['removeProduct': $_handleRemoveProduct, 'updateProductVisibility': $_updateProductVisibility] /}
+							{param events: [
+								'removeProduct': $_handleRemoveProduct,
+								'updateProductVisibility': $_updateProductVisibility] 
+							/}
 							{param id: $product.id /}
 							{param thumbnail: $product.thumbnail /}
 							{param visibility: $product.visibility /}
@@ -38,9 +41,9 @@
 				{let $missingElements : $limit - length($products) /}
 				{if $missingElements > 0}
 					{for $i in range($missingElements)}
-							{call ProductsCompareItem.render}
-								{param spritemap: $spritemap /}
-							{/call}
+						{call ProductsCompareItem.render}
+							{param spritemap: $spritemap /}
+						{/call}
 					{/for}
 				{/if}
 			{/if}
@@ -54,7 +57,7 @@
 				class="{$compareButtonClasses}"
 				data-onclick="{$_submitCompare}"
 			>
-				Compare
+				{msg desc="Compare"}compare{/msg}
 			</button>
 		</div>
 	</div>

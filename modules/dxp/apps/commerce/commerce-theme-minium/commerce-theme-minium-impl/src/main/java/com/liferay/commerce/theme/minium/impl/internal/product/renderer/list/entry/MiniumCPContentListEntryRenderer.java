@@ -151,11 +151,11 @@ public class MiniumCPContentListEntryRenderer
 				"editCompareProductActionURL",
 				editCompareProductActionURL.toString());
 			context.put("isCompareCheckboxVisible", false);
-			context.put("isDeleteButtonVisible", true);
+			context.put("deleteButtonVisible", true);
 		}
 		else {
 			context.put("isCompareCheckboxVisible", true);
-			context.put("isDeleteButtonVisible", false);
+			context.put("deleteButtonVisible", false);
 		}
 
 		CommerceAccount commerceAccount = commerceContext.getCommerceAccount();

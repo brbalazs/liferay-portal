@@ -29,14 +29,9 @@ class ProductsCompare extends Component {
 			false
 		);
 
-		if (isIncluded) {
-			this._removeProduct(toggledProduct);
-		}
- else {
-			this._handleAddProduct(toggledProduct);
-		}
-
-		return isIncluded;
+		return isIncluded ?
+			this._removeProduct(toggledProduct) : 
+			this._handleAddProduct(toggledProduct)
 	}
 
 
@@ -55,18 +50,20 @@ class ProductsCompare extends Component {
 	_removeProduct(product) {
 		this._updateProductVisibility(product.id, 'hidden');
 		this._toogleRemoteStatus(product.id, false);
-		return new Promise((resolve) => {
-			return setTimeout(
-				() => {
-					this.products = this.products.filter(
-						(el) => el.id !== product.id
-					);
-					Liferay.fire('productRemovedFromCompare', product);
-					return resolve(this.products);
-				},
-				500
-			);
-		});
+		return new Promise(
+			(resolve) => {
+				return setTimeout(
+					() => {
+						this.products = this.products.filter(
+							(el) => el.id !== product.id
+						);
+						Liferay.fire('productRemovedFromCompare', product);
+						return resolve(this.products);
+					},
+					500
+				);
+			}
+		);
 	}
 
 	_toogleRemoteStatus(id, toogle) {
@@ -88,68 +85,64 @@ class ProductsCompare extends Component {
 	_handleAddProduct(product) {
 		return this._addProduct(product)
 			.then(
-				() => {
-					return this._toogleRemoteStatus(product.id, true);
-				}
+				() => this._toogleRemoteStatus(product.id, true)
 			)
 			.then(
-				() => {
-					return this._updateCompareGlobalState();
-				}
+				() => this._updateCompareGlobalState()
 			);
 	}
 
 	_handleRemoveProduct(product) {
 		return this._removeProduct(product)
 			.then(
-				() => {
-					return this._updateCompareGlobalState();
-				}
+				() => this._updateCompareGlobalState()
 			);
 	}
 
 	_updateCompareGlobalState() {
-		if (this.products.length < this.limit) {
-			return Liferay.fire('compareIsAvailable');
-		}
-		return Liferay.fire('compareIsUnavailable');
+		return this.products.length < this.limit ?
+			Liferay.fire('compareIsAvailable') :
+			Liferay.fire('compareIsUnavailable')
 	}
 
 	_updateProductVisibility(id, toState = 'visible') {
-		return new Promise((resolve) => {
-			setTimeout(
-				() => {
-					return this.products = this.products.map(
-						(el) => {
-							return el.id === id ?
-								{
-									id: el.id,
-									thumbnail: el.thumbnail,
-									visibility: toState === 'visible' ? 'showing' : 'hiding'
-								} :
-								el;
-						}
-					);
-				},
-				100
-			);
-			return setTimeout(
-				() => {
-					this.products = this.products.map((el) => {
-						return el.id === id ?
-							{
-								id: el.id,
-								thumbnail: el.thumbnail,
-								visibility: toState
-							} :
-							el;
-					}
-					);
-					return resolve(this.products);
-				},
-				400
-			);
-		});
+		return new Promise(
+			(resolve) => {
+				setTimeout(
+					() => {
+						return this.products = this.products.map(
+							(el) => {
+								return el.id === id ?
+									{
+										id: el.id,
+										thumbnail: el.thumbnail,
+										visibility: toState === 'visible' ? 'showing' : 'hiding'
+									} :
+									el;
+							}
+						);
+					},
+					100
+				);
+				return setTimeout(
+					() => {
+						this.products = this.products.map(
+							(el) => {
+								return el.id === id ?
+									{
+										id: el.id,
+										thumbnail: el.thumbnail,
+										visibility: toState
+									} :
+									el;
+							}
+						);
+						return resolve(this.products);
+					},
+					400
+				);
+			}
+		);
 	}
 
 	_submitCompare() {
@@ -165,10 +158,10 @@ class ProductsCompare extends Component {
 Soy.register(ProductsCompare, template);
 
 ProductsCompare.STATE = {
-	portletNamespace: Config.string().required(),
 	compareProductsURL: Config.string().required(),
 	editCompareProductActionURL: Config.string(),
 	limit: Config.number().required(),
+	portletNamespace: Config.string().required(),
 	products: Config.array(
 		Config.object()
 	).value([]),

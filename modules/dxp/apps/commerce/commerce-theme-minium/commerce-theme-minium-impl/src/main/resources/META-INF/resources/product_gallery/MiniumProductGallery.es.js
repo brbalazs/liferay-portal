@@ -29,9 +29,11 @@ class MiniumProductGallery extends Component {
 
 	selectImage(selected) {
 		if (selected !== this.selected && !this.loading) {
-			this.loadImage(this.images[selected].thumbnailUrl).then(() => {
-				this.selected = selected;
-			});
+			this.loadImage(this.images[selected].thumbnailUrl).then(
+				() => {
+					this.selected = selected;
+				}
+			);
 		}
 	}
 
@@ -41,9 +43,11 @@ class MiniumProductGallery extends Component {
 
 	openFullscreen() {
 		if (!this.loading) {
-			this.loadImage(this.images[this.selected].url).then(() => {
-				this.fullscreen = true;
-			});
+			this.loadImage(this.images[this.selected].url).then(
+				() => {
+					this.fullscreen = true;
+				}
+			);
 		}
 	}
 

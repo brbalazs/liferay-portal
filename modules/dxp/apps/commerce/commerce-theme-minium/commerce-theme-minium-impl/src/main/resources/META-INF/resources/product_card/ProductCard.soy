@@ -3,6 +3,7 @@
 {template .render}
 
 	{@param? accountId: number|string}
+	{@param? productId: number|string}
 	{@param? orderId: number|string}
 	{@param? availability: string}
 	{@param? sku: string}
@@ -15,15 +16,16 @@
 		name: string
 	]>}
 	{@param? description: string}
-	{@param? isCompareCheckboxVisible: bool}
-	{@param? isInCompare: bool}
-	{@param? isCompareAvailable: bool}
-	{@param? isDeleteButtonVisible: bool}
+	{@param? compareState: [
+		compareAvailable: bool,
+		inCompare: bool
+	]}
+	{@param? deleteButtonVisible: bool}
 	{@param settings: ? }
 	{@param spritemap: string}
 	{@param prices: ? }
-	{@param? _handleCompareCheckbox: any}
 	{@param? _handleRemoveProduct: any}
+	{@param? _handleCheckboxCompareUpdate: any}
 
 	<div class="product-card">
 		{let $availabilityDotClasses kind="text"}
@@ -38,26 +40,21 @@
 			{/switch}
 		{/let}
 
-		{let $compareAttributes kind="attributes"}
-			class="product-card__compare-checkbox"
-			type="checkbox"
-			{if isNonnull($isInCompare) and $isInCompare == true}
-				{sp}checked
-			{else}
-				{if isNonnull($isCompareAvailable) and $isCompareAvailable == false}
-					{sp}disabled
-				{/if}
-			{/if}
-		{/let}
-
-		{if isNonnull($isCompareCheckboxVisible) and $isCompareCheckboxVisible == true }
-			<input
-				{$compareAttributes}
-				data-onchange="{$_handleCompareCheckbox}"
-			/>
+		{if isNonnull($compareState) and isNonnull($productId) and isNonnull($pictureUrl)}
+			{call CompareCheckbox.render}
+				{param events: [
+					'checkboxCompareUpdated': $_handleCheckboxCompareUpdate
+				]/}
+				{param productId: $productId /}
+				{param checkboxVisible: true /}
+				{param compareAvailable: $compareState.compareAvailable /}
+				{param inCompare: $compareState.inCompare /}
+				{param labelVisible: false /}
+				{param pictureUrl: $pictureUrl /}
+			{/call}
 		{/if}
 
-		{if isNonnull($isDeleteButtonVisible) and $isDeleteButtonVisible == true and isNonnull($spritemap)}
+		{if isNonnull($deleteButtonVisible) and $deleteButtonVisible == true and isNonnull($spritemap)}
 			<span
 				class="product-card__delete"
 				data-onclick={$_handleRemoveProduct}
@@ -135,7 +132,7 @@
 		{else}
 			<div>
 				<a class="minium-button minium-button--outline" href="{$detailsLink}" target="_self">
-					{msg desc=""}view-all{/msg}
+				{msg desc="View all variants"}view-all-variants{/msg}
 				</a>
 			</div>
 		{/if}

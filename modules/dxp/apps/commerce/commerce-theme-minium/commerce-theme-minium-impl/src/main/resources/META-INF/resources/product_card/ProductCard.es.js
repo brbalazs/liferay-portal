@@ -6,43 +6,9 @@ import Soy, {Config} from 'metal-soy';
 
 class ProductCard extends Component {
 
-	attached() {
-		Liferay.on(
-			'accountSelected',
-			(data) => {
-				this.accountId = data.accountId;
-			}
-		);
-
-		Liferay.on(
-			'productRemovedFromCompare',
-			(data) => {
-				if (data.id === this.productId) {
-					this.isInCompare = false;
-				}
-			}
-		);
-		Liferay.on(
-			'compareIsAvailable',
-			() => {
-				this.isCompareAvailable = true;
-			}
-		);
-		Liferay.on(
-			'compareIsUnavailable',
-			() => {
-				this.isCompareAvailable = false;
-			}
-		);
-	}
-
-	_handleRemoveProduct() {
-		return this.emit(
-			'removeProduct',
-			{
-				id: this.productId
-			}
-		);
+	_handleCheckboxCompareUpdate(newCompareState) {
+		this.compareState = newCompareState;
+		return this.compareState;
 	}
 
 	_handleRemoveProduct() {
@@ -59,31 +25,19 @@ class ProductCard extends Component {
 				method: 'post'
 			}
 		)
-		.then(
-			() => {
-				if (Liferay.SPA) {
-					Liferay.SPA.app.navigate(window.location.href);
-				} else {
-					window.location.href = window.location.href;
+			.then(
+				() => {
+					if (Liferay.SPA) {
+						Liferay.SPA.app.navigate(window.location.href);
+					}
+ 					else {
+						window.location.href = window.location.href;
+					}
+					return Liferay.SPA;
 				}
-				return Liferay.SPA
-			}
-		);
+			);
 	}
-
-	_handleCompareCheckbox(evt) {
-		evt.preventDefault();
-		this.isInCompare = !this.isInCompare;
-
-		return Liferay.fire(
-			'toggleProductToCompare',
-			{
-				id: this.productId,
-				thumbnail: this.pictureUrl
-			}
-		);
-	}
-};
+}
 
 Soy.register(ProductCard, template);
 
@@ -113,13 +67,23 @@ ProductCard.STATE = {
 		)
 	),
 	compareContentNamespace: Config.string(),
+	compareState: Config.shapeOf(
+		{
+			compareAvailable: Config.bool(),
+			inCompare: Config.bool()
+		}
+	).value(
+		{
+			checkboxVisible: true,
+			compareAvailable: true,
+			inCompare: false
+		}
+	),
 	description: Config.string(),
 	detailsLink: Config.string(),
 	editCompareProductActionURL: Config.string(),
-	isInCompare: Config.bool(),
-	isCompareAvailable: Config.bool().value(true),
-	isCompareCheckboxVisible: Config.bool(),
-	isDeleteButtonVisible: Config.bool(),
+
+	deleteButtonVisible: Config.bool(),
 	minQuantity: Config.number(),
 	name: Config.string().required(),
 	orderId: Config.oneOfType(
