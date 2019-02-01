@@ -84,7 +84,7 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 									cssClass="table-cell-content"
 									name="launch-type"
 									property="launchType"
-									translate="true"
+									translate="<%= true %>"
 								/>
 
 								<liferay-ui:search-container-column-text

@@ -160,28 +160,6 @@ public class UploadProcessFileEntryActionHelper {
 		return fileEntry;
 	}
 
-	private boolean _exists(
-		ThemeDisplay themeDisplay, String curFileName, long folderId) {
-
-		try {
-			if (dlAppLocalService.getFileEntry(
-					themeDisplay.getScopeGroupId(), folderId,
-					curFileName) != null) {
-
-				return true;
-			}
-
-			return false;
-		}
-		catch (PortalException pe) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(pe, pe);
-			}
-
-			return false;
-		}
-	}
-
 	private Folder _getOrCreateFolder(
 			long repositoryId, long parentFolderId, String folderName,
 			ServiceContext serviceContext)
