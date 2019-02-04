@@ -143,6 +143,7 @@ public class MiniumCPContentListEntryRenderer
 			editCompareProductActionURL.setParameter(
 				ActionRequest.ACTION_NAME, "editCompareProduct");
 
+			context.put("compareCheckboxVisible", false);
 			context.put(
 				"compareContentNamespace",
 				_portal.getPortletNamespace(
@@ -151,11 +152,10 @@ public class MiniumCPContentListEntryRenderer
 			context.put(
 				"editCompareProductActionURL",
 				editCompareProductActionURL.toString());
-			context.put("isCompareCheckboxVisible", false);
 		}
 		else {
+			context.put("compareCheckboxVisible", true);
 			context.put("deleteButtonVisible", false);
-			context.put("isCompareCheckboxVisible", true);
 		}
 
 		CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
@@ -209,7 +209,8 @@ public class MiniumCPContentListEntryRenderer
 		dependencies.add(
 			"commerce-frontend-taglib@1.0.3/add_to_cart/AddToCartButton.es");
 		dependencies.add(
-			"commerce-frontend-taglib@1.0.3/compare_checkbox/CompareCheckbox.es");
+			"commerce-frontend-taglib@1.0.3/compare_checkbox" +
+				"/CompareCheckbox.es");
 		dependencies.add("commerce-frontend-taglib@1.0.3/price/Price.es");
 
 		ComponentDescriptor componentDescriptor = new ComponentDescriptor(
@@ -270,27 +271,6 @@ public class MiniumCPContentListEntryRenderer
 
 		return priceModel;
 	}
-
-	/*private String _getAvaiability(CPCatalogEntry cpCatalogEntry) {
-
-		CPDefinitionInventory cpDefinitionInventory =
-			_cpDefinitionInventoryLocalService.
-				fetchCPDefinitionInventoryByCPDefinitionId(
-					cpCatalogEntry.getCPDefinitionId());
-
-		CPDefinitionInventoryEngine cpDefinitionInventoryEngine =
-			_cpDefinitionInventoryEngineRegistry.getCPDefinitionInventoryEngine(
-				cpDefinitionInventory);
-
-		List<CPSku> cpSkus = cpCatalogEntry.getCPSkus();
-
-		for (CPSku cpSku : cpSkus) {
-			int availableQuantity =
-				cpDefinitionInventoryEngine.getStockQuantity(
-					cpSku.getCPInstanceId());
-		}
-
-	}*/
 
 	@Reference
 	private CommerceProductPriceCalculation _commerceProductPriceCalculation;

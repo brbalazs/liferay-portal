@@ -69,8 +69,16 @@
 			}
 		}
 
-		&::before,
 		&::after {
+			transform: translate(-50%, -50%) rotate(-45deg);
+		}
+
+		&::before {
+			transform: translate(-50%, -50%) rotate(45deg);
+		}
+
+		&::after,
+		&::before {
 			background-color: currentColor;
 			content: '';
 			display: block;
@@ -78,12 +86,7 @@
 			left: 50%;
 			position: absolute;
 			top: 50%;
-			transform: translate(-50%, -50%) rotate(45deg);
 			width: 2px;
-		}
-
-		&::after {
-			transform: translate(-50%, -50%) rotate(-45deg);
 		}
 
 		&.is-disabled{

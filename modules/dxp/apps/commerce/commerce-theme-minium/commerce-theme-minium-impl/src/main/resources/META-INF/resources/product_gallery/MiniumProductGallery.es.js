@@ -3,28 +3,34 @@ import Component from 'metal-component';
 import Soy, {Config} from 'metal-soy';
 
 function fetchImage(url) {
-	return new Promise(resolve => {
-		const img = new Image();
-		img.src = url;
-		img.onload = () => resolve(url);
-	});
+	return new Promise(
+		resolve => {
+			const img = new Image();
+			img.src = url;
+			img.onload = () => resolve(url);
+		}
+	);
 }
 
 class MiniumProductGallery extends Component {
 	loadImage(imageUrl) {
-		return new Promise(resolve => {
-			if (this.loaded.has(imageUrl)) {
-				resolve(imageUrl);
-			}
-			else {
-				this.loading = true;
-				fetchImage(imageUrl).then(() => {
-					this.loading = false;
-					this.loaded.add(imageUrl);
+		return new Promise(
+			resolve => {
+				if (this.loaded.has(imageUrl)) {
 					resolve(imageUrl);
-				});
+				}
+				else {
+					this.loading = true;
+					fetchImage(imageUrl).then(
+						() => {
+							this.loading = false;
+							this.loaded.add(imageUrl);
+							resolve(imageUrl);
+						}
+					);
+				}
 			}
-		});
+		);
 	}
 
 	selectImage(selected) {
@@ -69,6 +75,9 @@ class MiniumProductGallery extends Component {
 Soy.register(MiniumProductGallery, template);
 
 MiniumProductGallery.STATE = {
+	fullscreen: {
+		value: false
+	},
 	images: {
 		value: []
 	},
@@ -77,9 +86,6 @@ MiniumProductGallery.STATE = {
 	},
 	selected: {
 		value: 0
-	},
-	fullscreen: {
-		value: false
 	}
 };
 

@@ -22,18 +22,17 @@ class ProductsCompare extends Component {
 			thumbnail: data.thumbnail
 		};
 
-		const isIncluded = this.products.reduce(
+		const included = this.products.reduce(
 			(acc, el) => {
 				return acc || el.id === data.id;
 			},
 			false
 		);
 
-		return isIncluded ?
+		return included ?
 			this._handleRemoveProduct(toggledProduct) :
 			this._handleAddProduct(toggledProduct);
 	}
-
 
 	_addProduct(product) {
 		this.products = this.products.concat(
@@ -110,7 +109,7 @@ class ProductsCompare extends Component {
 			(resolve) => {
 				setTimeout(
 					() => {
-						return this.products = this.products.map(
+						this.products = this.products.map(
 							(el) => {
 								return el.id === id ?
 									{
@@ -121,6 +120,8 @@ class ProductsCompare extends Component {
 									el;
 							}
 						);
+
+						return this.products;
 					},
 					100
 				);
@@ -153,7 +154,8 @@ class ProductsCompare extends Component {
 			window.location.href = this.compareProductsURL;
 		}
 	}
-};
+
+}
 
 Soy.register(ProductsCompare, template);
 

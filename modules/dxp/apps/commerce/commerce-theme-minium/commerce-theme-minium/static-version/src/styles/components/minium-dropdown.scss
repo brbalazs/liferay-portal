@@ -30,8 +30,9 @@
 			z-index: 1160;
 		}
 
-		&.is-opening {
+		&.is-closing {
 			display: block;
+			transition: all .1s ease-in;
 		}
 
 		&.is-open {
@@ -40,9 +41,8 @@
 			transform: scale(1);
 		}
 
-		&.is-closing {
+		&.is-opening {
 			display: block;
-			transition: all .1s ease-in;
 		}
 	}
 

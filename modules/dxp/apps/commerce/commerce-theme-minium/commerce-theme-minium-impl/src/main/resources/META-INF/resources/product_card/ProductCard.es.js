@@ -61,8 +61,8 @@ ProductCard.STATE = {
 	categories: Config.array(
 		Config.shapeOf(
 			{
-				name: Config.string().required(),
-				link: Config.string().required()
+				link: Config.string().required(),
+				name: Config.string().required()
 			}
 		)
 	),
@@ -79,11 +79,10 @@ ProductCard.STATE = {
 			inCompare: false
 		}
 	),
+	deleteButtonVisible: Config.bool(),
 	description: Config.string(),
 	detailsLink: Config.string(),
 	editCompareProductActionURL: Config.string(),
-
-	deleteButtonVisible: Config.bool(),
 	minQuantity: Config.number(),
 	name: Config.string().required(),
 	orderId: Config.oneOfType(

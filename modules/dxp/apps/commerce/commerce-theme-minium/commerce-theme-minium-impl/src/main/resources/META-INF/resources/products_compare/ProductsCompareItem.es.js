@@ -5,6 +5,7 @@ import Component from 'metal-component';
 import Soy, {Config} from 'metal-soy';
 
 class ProductsCompareItem extends Component {
+
 	_hideItem() {
 		this.emit('updateProductVisibility', this.id, 'hidden');
 		return setTimeout(
@@ -23,6 +24,7 @@ class ProductsCompareItem extends Component {
 	_handleRemoveProduct() {
 		return this._hideItem();
 	}
+
 }
 
 Soy.register(ProductsCompareItem, template);
