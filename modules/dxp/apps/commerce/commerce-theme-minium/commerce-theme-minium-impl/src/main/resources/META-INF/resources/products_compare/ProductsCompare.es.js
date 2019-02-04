@@ -30,8 +30,8 @@ class ProductsCompare extends Component {
 		);
 
 		return isIncluded ?
-			this._handleRemoveProduct(toggledProduct) : 
-			this._handleAddProduct(toggledProduct)
+			this._handleRemoveProduct(toggledProduct) :
+			this._handleAddProduct(toggledProduct);
 	}
 
 
@@ -102,7 +102,7 @@ class ProductsCompare extends Component {
 	_updateCompareGlobalState() {
 		return this.products.length < this.limit ?
 			Liferay.fire('compareIsAvailable') :
-			Liferay.fire('compareIsUnavailable')
+			Liferay.fire('compareIsUnavailable');
 	}
 
 	_updateProductVisibility(id, toState = 'visible') {

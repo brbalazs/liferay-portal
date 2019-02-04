@@ -30,7 +30,7 @@ class ProductCard extends Component {
 					if (Liferay.SPA) {
 						Liferay.SPA.app.navigate(window.location.href);
 					}
- 					else {
+					else {
 						window.location.href = window.location.href;
 					}
 					return Liferay.SPA;

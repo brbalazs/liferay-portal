@@ -50,14 +50,14 @@
 		border: 2px solid currentColor;
 		border-radius: 50%;
 		color: $color-mood-bad;
+		cursor: pointer;
 		display: flex;
 		height: 16px;
 		justify-content: center;
 		margin: 10px auto 0;
+		padding: 0;
 		position: relative;
 		width: 16px;
-		padding: 0;
-		cursor: pointer;
 
 		&:hover {
 			color: $color-mood-bad;

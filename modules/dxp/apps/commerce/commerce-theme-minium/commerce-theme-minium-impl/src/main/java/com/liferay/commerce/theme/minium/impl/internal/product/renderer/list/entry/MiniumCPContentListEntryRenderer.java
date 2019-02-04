@@ -147,15 +147,15 @@ public class MiniumCPContentListEntryRenderer
 				"compareContentNamespace",
 				_portal.getPortletNamespace(
 					CPPortletKeys.CP_COMPARE_CONTENT_WEB));
+			context.put("deleteButtonVisible", true);
 			context.put(
 				"editCompareProductActionURL",
 				editCompareProductActionURL.toString());
 			context.put("isCompareCheckboxVisible", false);
-			context.put("deleteButtonVisible", true);
 		}
 		else {
-			context.put("isCompareCheckboxVisible", true);
 			context.put("deleteButtonVisible", false);
+			context.put("isCompareCheckboxVisible", true);
 		}
 
 		CommerceAccount commerceAccount = commerceContext.getCommerceAccount();

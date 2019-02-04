@@ -5,11 +5,11 @@
 	color: $color-fg-alt;
 	display: flex;
 	flex-direction: column;
+	height: 100%;
 	overflow: hidden;
 	padding: 20px;
 	position: relative;
 	text-align: center;
-    height: 100%;
 	transition: box-shadow .2s ease-in-out;
 
 	&:hover {
@@ -128,10 +128,10 @@
 	&__price {
 		margin: 8px 0;
 	}
-	
+
 	.product-compare-checkbox {
+		line-height: 1;
 		position: absolute;
 		z-index: 1;
-		line-height: 1;
 	}
 }

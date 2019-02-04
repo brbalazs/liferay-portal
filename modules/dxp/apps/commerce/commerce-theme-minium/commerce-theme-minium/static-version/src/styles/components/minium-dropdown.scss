@@ -2,30 +2,30 @@
 	position: relative;
 
 	&__curtain {
+		background: white;
 		border-radius: 8px;
 		box-shadow: $minium-shadow;
 		display: none;
+		display: none;
+		height: 530px;
+		opacity: 0;
 		position: absolute;
 		right: 0;
 		top: calc(100% + 10px);
-		width: 450px;
-		height: 530px;
-		z-index: 1160;
-		transform-origin: 100% 0%;
 		transform: scale(.4);
-		opacity: 0;
-		display: none;
+		transform-origin: 100% 0%;
 		transition: all .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-		background: white;
-	
+		width: 450px;
+		z-index: 1160;
+
 		&::before {
 			border: 10px solid transparent;
 			border-bottom-color: $color-bg;
 			border-top-width: 0;
+			bottom: 100%;
 			content: '';
 			position: absolute;
 			right: 24px;
-			bottom: 100%;
 			transition: max-height .2s ease-in, opacity .2s ease-in;
 			z-index: 1160;
 		}
@@ -33,7 +33,7 @@
 		&.is-opening {
 			display: block;
 		}
-		
+
 		&.is-open {
 			display: block;
 			opacity: 1;
@@ -41,18 +41,18 @@
 		}
 
 		&.is-closing {
-			transition: all .1s ease-in;
 			display: block;
+			transition: all .1s ease-in;
 		}
 	}
 
 	&__absolute-content {
-		overflow: hidden;
-		display: block;
-		position: absolute;
-		top: 0;
 		bottom: 0;
-		right: 0;
+		display: block;
 		left: 0;
+		overflow: hidden;
+		position: absolute;
+		right: 0;
+		top: 0;
 	}
 }
