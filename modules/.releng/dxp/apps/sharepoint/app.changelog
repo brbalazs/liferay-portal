@@ -1,0 +1,10 @@
+#
+# Liferay App Version 4.0.1
+#
+
+app.artifacts-4.0.1=\
+	sharepoint-hook-7.1.10.8.war
+
+app.change.log-4.0.1=LPS-84119
+
+app.git.id-4.0.1=d34e308bb3062cd3bc3721fc6fd0025638625415
