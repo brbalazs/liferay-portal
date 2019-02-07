@@ -2,13 +2,13 @@
 	{
 		"actions": {
 			"actionIds": [
-				"MANAGE_ACCOUNTS"
+				"MANAGE_AVAILABLE_ACCOUNTS"
 			],
-			"resource": "com.liferay.commerce.account"
+			"resource": "90"
 		},
-		"name": "Account Manager",
-		"scope": 3,
-		"type": 100
+		"name": "Sales Rep",
+		"scope": 1,
+		"type": 1
 	},
 	{
 		"actions": {
@@ -25,7 +25,7 @@
 		},
 		"name": "Order Manager",
 		"scope": 3,
-		"type": 100
+		"type": 2
 	},
 	{
 		"actions": {
@@ -39,6 +39,6 @@
 		},
 		"name": "Buyer",
 		"scope": 3,
-		"type": 100
+		"type": 2
 	}
 ]
