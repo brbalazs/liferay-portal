@@ -2,17 +2,6 @@
 	{
 		"actions": {
 			"actionIds": [
-				"MANAGE_AVAILABLE_ACCOUNTS"
-			],
-			"resource": "90"
-		},
-		"name": "Sales Rep",
-		"scope": 1,
-		"type": 1
-	},
-	{
-		"actions": {
-			"actionIds": [
 				"ADD_COMMERCE_ORDER",
 				"APPROVE_OPEN_COMMERCE_ORDERS",
 				"CHECKOUT_OPEN_COMMERCE_ORDERS",
