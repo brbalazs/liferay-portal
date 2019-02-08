@@ -68,7 +68,7 @@ public class CommerceAccountClayTableContextContributor
 		Set<String> dependencies = new HashSet<>();
 
 		dependencies.add(
-			"commerce-theme-minium-impl@1.0.6/action_menus" +
+			"commerce-theme-minium-impl@1.0.7/action_menus" +
 				"/MiniumExtensions.es");
 
 		return dependencies;
