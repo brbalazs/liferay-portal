@@ -102,7 +102,7 @@ public class NodeLayoutTypeController extends BaseLayoutTypeControllerImpl {
 
 	private static final String _URL = StringBundler.concat(
 		"${liferay:mainPath}/portal/layout?p_v_l_s_g_id=${liferay:pvlsgid}&",
-		"groupId=${liferay:groupId}&layoutId=${liferay:layoutId}&privateLayout=${liferay:privateLayout}");
+		"groupId=${liferay:groupId}&privateLayout=${liferay:privateLayout}&layoutId=${liferay:layoutId}");
 
 	private static final String _VIEW_PAGE = "/layout/view/node.jsp";
 
