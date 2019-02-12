@@ -57,3 +57,15 @@ app.artifacts-1.0.4=\
 app.change.log-1.0.4=LPS-86408
 
 app.git.id-1.0.4=6dcb28dd795d0ed8917a38ca2a280e529bc4f632
+
+#
+# Liferay App Version 1.0.5
+#
+
+app.artifacts-1.0.5=\
+	com.liferay.portal.relationship.api-1.0.4.jar,\
+	com.liferay.portal.relationship.impl-1.0.3.jar
+
+app.change.log-1.0.5=LPS-84119 LPS-86408
+
+app.git.id-1.0.5=789f1288049697c219e948a2cb7f0b3b1029b329
