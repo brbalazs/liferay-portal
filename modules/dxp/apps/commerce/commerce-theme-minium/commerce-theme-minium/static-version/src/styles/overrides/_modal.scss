@@ -1,21 +1,10 @@
-$searchHeight: 70px;
-$topBarHeight: 70px;
-
 .modal {
 	left: $frame-size;
-	top: 140px;
+	top: 0;
 	z-index: 1160;
 
-	.has-search & {
-		top: $topBarHeight + $searchHeight;
-	}
-
 	body.signed-in & {
-		top: $liferay-topbar-size + $topBarHeight;
-	}
-
-	body.signed-in .has-search & {
-		top: $liferay-topbar-size + $topBarHeight + $searchHeight;
+		top: $liferay-topbar-size;
 	}
 
 	body.open & {
@@ -31,11 +20,21 @@ $topBarHeight: 70px;
 
 	.modal {
 		display: none;
-	}
 
+		&.show .modal-dialog {
+			transform: translate(0, -50%);
+			top: 50%;
+		}
+	}
+	
 	.modal-dialog {
 		max-width: 540px;
 		position: relative;
+		max-height: calc(100% - 50px);
+		border-radius: 8px;
+		overflow: auto;
+		pointer-events: unset;
+		margin: auto;
 	}
 }
 
