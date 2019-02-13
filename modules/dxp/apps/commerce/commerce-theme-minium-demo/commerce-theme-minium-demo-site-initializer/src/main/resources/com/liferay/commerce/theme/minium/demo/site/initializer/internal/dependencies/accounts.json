@@ -1,0 +1,83 @@
+[
+	{
+		"City": "Los Angeles",
+		"CompanyLogo": "minium-logos-10.png",
+		"Country": "US",
+		"Name": "Speedy Auto Service, Southern California",
+		"Region": "CA",
+		"RelatedOrganization": "United States",
+		"Street1": "3200 Front Avenue",
+		"Zip": "90023"
+	},
+	{
+		"City": "Richmond",
+		"CompanyLogo": "minium-logos-10.png",
+		"Country": "US",
+		"Name": "Speedy Auto Service, N. America HQ",
+		"Region": "VA",
+		"RelatedOrganization": "United States",
+		"Street1": "200 N Boulevard",
+		"Zip": "23173"
+	},
+	{
+		"City": "Davis",
+		"CompanyLogo": "minium-logos-10.png",
+		"Country": "US",
+		"Name": "Speedy Auto Service, Northern California",
+		"Region": "CA",
+		"RelatedOrganization": "United States",
+		"Street1": "210 Arthur Street",
+		"Zip": "95618"
+	},
+	{
+		"City": "Milan",
+		"CompanyLogo": "minium-logos-9.png",
+		"Country": "IT",
+		"Name": "Leo Auto Parts Distributor",
+		"Region": "MI",
+		"RelatedOrganization": "Italy",
+		"Street1": "6 Via Varesina",
+		"TaxId": "12345678901",
+		"Zip": "20156"
+	},
+	{
+		"City": "Oxnard",
+		"CompanyLogo": "minium-logos-4.png",
+		"Country": "US",
+		"Name": "CC West",
+		"Region": "CA",
+		"RelatedOrganization": "United States",
+		"Street1": "1300 W 256th Street",
+		"Zip": "93030"
+	},
+	{
+		"City": "Chicago",
+		"CompanyLogo": "minium-logos-8.png",
+		"Country": "US",
+		"Name": "Connolly Repair",
+		"Region": "IL",
+		"RelatedOrganization": "United States",
+		"Street1": "205 W Wacker Drive",
+		"Zip": "60606"
+	},
+	{
+		"City": "Toronto",
+		"CompanyLogo": "minium-logos-7.png",
+		"Country": "CA",
+		"Name": "Joe's Complete Auto Care",
+		"Region": "ON",
+		"RelatedOrganization": "Canada",
+		"Street1": "1 Richmond Street",
+		"Zip": "M4C 1M5"
+	},
+	{
+		"City": "Edmonton",
+		"CompanyLogo": "minium-logos-3.png",
+		"Country": "CA",
+		"Name": "Honest Auto Repair Centre",
+		"Region": "AB",
+		"RelatedOrganization": "Canada",
+		"Street1": "163 Spadina Avenue",
+		"Zip": "T5A 0A1"
+	}
+]

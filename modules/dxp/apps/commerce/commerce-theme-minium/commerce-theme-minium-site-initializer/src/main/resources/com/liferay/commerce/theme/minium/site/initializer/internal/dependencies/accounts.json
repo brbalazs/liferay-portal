@@ -1,0 +1,123 @@
+[
+	{
+		"AccountLogo": "minium-logos-10.png",
+		"Address": "3200 Front Avenue",
+		"City": "Los Angeles",
+		"Country": "US",
+		"Name": "Speedy Auto Service, Southern California",
+		"Region": "CA",
+		"RelatedOrganizations": "West",
+		"RelatedSegments": [
+			"Pricing - Speedy Auto Service",
+			"Geography - United States",
+			"Tier - Gold Accounts"
+		],
+		"Zip": 90023
+	},
+	{
+		"AccountLogo": "minium-logos-10.png",
+		"Address": "200 N Boulevard",
+		"City": "Richmond",
+		"Country": "US",
+		"Name": "Speedy Auto Service, N. America HQ",
+		"Region": "VA",
+		"RelatedOrganizations": "East",
+		"RelatedSegments": [
+			"Pricing - Speedy Auto Service",
+			"Geography - United States",
+			"Tier - Gold Accounts"
+		],
+		"Zip": 23173
+	},
+	{
+		"AccountLogo": "minium-logos-10.png",
+		"Address": "210 Arthur Street",
+		"City": "Davis",
+		"Country": "US",
+		"Name": "Speedy Auto Service, Northern California",
+		"Region": "CA",
+		"RelatedOrganizations": "West",
+		"RelatedSegments": [
+			"Pricing - Speedy Auto Service",
+			"Geography - United States",
+			"Tier - Gold Accounts"
+		],
+		"Zip": 95618
+	},
+	{
+		"AccountLogo": "minium-logos-9.png",
+		"Address": "6 Via Varesina",
+		"City": "Milan",
+		"Country": "Italy",
+		"Name": "Leo Auto Parts Distributor",
+		"Region": "MI",
+		"RelatedOrganizations": "Italy",
+		"RelatedSegments": [
+			"Pricing - Leo Auto Parts Distributor",
+			"Geography - Italy",
+			"Tier - Standard Accounts"
+		],
+		"Zip": 20156,
+		"taxId": "12345678901"
+	},
+	{
+		"AccountLogo": "minium-logos-4.png",
+		"Address": "1300 W 256th Street",
+		"City": "Oxnard",
+		"Country": "US",
+		"Name": "CC West",
+		"Region": "CA",
+		"RelatedOrganizations": "West",
+		"RelatedSegments": [
+			"Pricing - General Customers",
+			"Geography - United States",
+			"Tier - Standard Accounts"
+		],
+		"Zip": 93030
+	},
+	{
+		"AccountLogo": "minium-logos-8.png",
+		"Address": "205 W Wacker Drive",
+		"City": "Chicago",
+		"Country": "US",
+		"Name": "Connolly Repair",
+		"Region": "IL",
+		"RelatedOrganizations": "Midwest",
+		"RelatedSegments": [
+			"Pricing - General Customers",
+			"Geography - United States",
+			"Tier - Standard Accounts"
+		],
+		"Zip": 60606
+	},
+	{
+		"AccountLogo": "minium-logos-7.png",
+		"Address": "1 Richmond Street",
+		"City": "Toronto",
+		"Country": "CA",
+		"Name": "Joe's Complete Auto Care",
+		"Region": "ON",
+		"RelatedOrganizations": "Canada",
+		"RelatedSegments": [
+			"Pricing - General Customers",
+			"Geography - Canada",
+			"Tier - Standard Accounts"
+		],
+		"Zip": "M4C 1 M5"
+	},
+	{
+		"AccountLogo": "minium-logo-3.png",
+		"Address": "163 Spadina Avenue",
+		"City": "Edmonton",
+		"Country": "CA",
+		"Name": "Honest Auto Repair Centre",
+		"Region": "AB",
+		"RelatedOrganizations": "Canada",
+		"RelatedSegments": [
+			"Pricing - General Customers",
+			"Geography - Canada",
+			"Tier - Standard Accounts"
+		],
+		"Zip": "T5A 0 A1"
+	}
+]

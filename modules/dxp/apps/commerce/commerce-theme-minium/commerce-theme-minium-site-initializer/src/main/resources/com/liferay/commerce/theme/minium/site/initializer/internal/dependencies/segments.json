@@ -1,0 +1,37 @@
+[
+	{
+		"Name": "Tier - Gold Accounts",
+		"RelatedCPRule": "All Products"
+	},
+	{
+		"Name": "Tier - Standard Accounts",
+		"RelatedCPRule": "Standard Catalog"
+	},
+	{
+		"AssociatedPriceList": "Leo Auto Parts Distributor",
+		"Name": "Pricing - Leo Auto Parts Distributor"
+	},
+	{
+		"AssociatedPriceList": "Speedy Auto Service",
+		"Name": "Pricing - Speedy Auto Service"
+	},
+	{
+		"Name": "Geography - United States",
+		"RelatedCPRule": "All Products"
+	},
+	{
+		"Name": "Geography - Canada",
+		"RelatedCPRule": "No Turbochargers"
+	},
+	{
+		"Name": "Geography - Italy",
+		"RelatedCPRule": "No Turbochargers"
+	},
+	{
+		"Name": "Guest",
+		"RelatedCPRule": "Standard Catalog"
+	},
+	{
+		"Name": "Users"
+	}
+]
