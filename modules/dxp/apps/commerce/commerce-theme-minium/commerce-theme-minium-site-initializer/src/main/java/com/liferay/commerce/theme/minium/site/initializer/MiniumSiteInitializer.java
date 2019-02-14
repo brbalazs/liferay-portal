@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.commerce.theme.minium.site.initializer.internal;
+package com.liferay.commerce.theme.minium.site.initializer;
 
 import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.account.util.CommerceAccountRoleHelper;
@@ -36,6 +36,7 @@ import com.liferay.commerce.product.service.CPRuleLocalService;
 import com.liferay.commerce.product.service.CPRuleUserSegmentRelLocalService;
 import com.liferay.commerce.product.service.CPSpecificationOptionLocalService;
 import com.liferay.commerce.service.CommerceCountryLocalService;
+import com.liferay.commerce.theme.minium.site.initializer.internal.MiniumLayoutsInitializer;
 import com.liferay.commerce.user.segment.model.CommerceUserSegmentEntry;
 import com.liferay.commerce.user.segment.model.CommerceUserSegmentEntryConstants;
 import com.liferay.commerce.user.segment.service.CommerceUserSegmentEntryLocalService;
