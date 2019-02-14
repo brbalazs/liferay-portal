@@ -47,38 +47,38 @@
 		"privateLayout": true
 	},
 	{
-		"icon" : "icon-catalog.png",
-		"layoutTemplateId": "2_columns_ii",
+		"icon": "icon-catalog.png",
+		"layoutTemplateId": "minium_sidebar",
 		"name": "Catalog",
 		"portlets": [
 			{
 				"layoutColumnId": "column-1",
 				"layoutColumnPos": 0,
-				"portletName": "com_liferay_commerce_product_content_search_web_internal_portlet_CPOptionFacetsPortlet"
+				"portletName": "com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_minium"
 			},
 			{
 				"layoutColumnId": "column-1",
 				"layoutColumnPos": 1,
-				"portletName": "com_liferay_commerce_product_content_search_web_internal_portlet_CPSpecificationOptionFacetsPortlet"
+				"portletName": "com_liferay_commerce_product_content_search_web_internal_portlet_CPOptionFacetsPortlet"
 			},
 			{
 				"layoutColumnId": "column-1",
 				"layoutColumnPos": 2,
+				"portletName": "com_liferay_commerce_product_content_search_web_internal_portlet_CPSpecificationOptionFacetsPortlet"
+			},
+			{
+				"layoutColumnId": "column-1",
+				"layoutColumnPos": 3,
 				"portletName": "com_liferay_portal_search_web_category_facet_portlet_CategoryFacetPortlet"
 			},
 			{
 				"layoutColumnId": "column-2",
 				"layoutColumnPos": 0,
-				"portletName": "com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_minium"
-			},
-			{
-				"layoutColumnId": "column-2",
-				"layoutColumnPos": 1,
 				"portletName": "com_liferay_commerce_product_content_search_web_internal_portlet_CPSearchResultsPortlet_INSTANCE_minium"
 			},
 			{
 				"layoutColumnId": "column-2",
-				"layoutColumnPos": 2,
+				"layoutColumnPos": 1,
 				"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPCompareContentMiniPortlet_INSTANCE_catalog"
 			}
 		],
