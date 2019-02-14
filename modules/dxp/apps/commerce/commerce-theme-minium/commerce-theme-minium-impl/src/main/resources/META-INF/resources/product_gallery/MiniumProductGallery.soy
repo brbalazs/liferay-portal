@@ -26,28 +26,33 @@
 						src="{$images[$selected].url}"
 						alt="{$images[$selected].title}"
 					>
-					<div
-						class="minium-product-gallery__prev minium-product-gallery__prev--big"
-						data-onclick="goToPrev"
-					></div>
-					<div
-						class="minium-product-gallery__next minium-product-gallery__next--big"
-						data-onclick="goToNext"
-					></div>
+
+					{if length($images) > 1}
+						<div
+							class="minium-product-gallery__prev minium-product-gallery__prev--big"
+							data-onclick="goToPrev"
+						></div>
+						<div
+							class="minium-product-gallery__next minium-product-gallery__next--big"
+							data-onclick="goToNext"
+						></div>
+					{/if}
 				</div>
 			{/if}
 
-			<div class="minium-product-gallery__thumbs">
-				{foreach $image in $images}
-					<div
-						class="minium-product-gallery__thumb {if index($image) == $selected}is-active{/if}"
-						data-index="{index($image)}"
-						data-onclick="handleThumbClick"
-					>
-						<img alt="{$image.title}" src="{$image.thumbnailUrl}">
-					</div>
-				{/foreach}
-			</div>
+			{if length($images) > 1}
+				<div class="minium-product-gallery__thumbs">
+					{foreach $image in $images}
+						<div
+							class="minium-product-gallery__thumb {if index($image) == $selected}is-active{/if}"
+							data-index="{index($image)}"
+							data-onclick="handleThumbClick"
+						>
+							<img alt="{$image.title}" src="{$image.thumbnailUrl}">
+						</div>
+					{/foreach}
+				</div>
+			{/if}
 		{/if}
 	</div>
 {/template}

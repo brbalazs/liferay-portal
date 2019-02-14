@@ -7,15 +7,12 @@
 
 	&__main {
 		animation-duration: 300ms;
-
-		// animation-name: minium-gallery-image-enter;
-
 		background-color: #FFF;
 		border-radius: 8px;
 		cursor: zoom-in;
 		height: 0;
 		overflow: hidden;
-		padding-bottom: 75%;
+		padding-bottom: 77%;
 		position: relative;
 		width: 100%;
 
@@ -84,21 +81,20 @@
 
 	&__thumb {
 		background: #FFF;
-		border: 2px solid transparent;
 		border-radius: 4px;
 		flex-shrink: 0;
-		height: 0;
-		height: 60px;
+		height: 58px;
+		margin: 2px;
 		overflow: hidden;
 		position: relative;
-		width: 80px;
+		width: 75px;
 
 		& + & {
 			margin-left: $minium-small-gutter;
 		}
 
 		&.is-active {
-			border-color: $color-theme;
+			box-shadow: 0 0 0px 2px $color-theme;
 		}
 
 		img {
