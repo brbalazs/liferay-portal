@@ -55,6 +55,27 @@
 		}
 	}
 
+	&--link {
+		background-color: $color-bg;
+		color: $color-theme;
+
+		&.minium-button--good {
+			color: $color-mood-good;
+		}
+
+		&.minium-button--bad {
+			color: $color-mood-bad;
+		}
+
+		&.minium-button--neutral {
+			color: $color-mood-neutral;
+		}
+
+		&.minium-button--disabled {
+			opacity: 0.5;
+		}
+	}
+
 	&--block {
 		border-radius: 0;
 		display: flex;
