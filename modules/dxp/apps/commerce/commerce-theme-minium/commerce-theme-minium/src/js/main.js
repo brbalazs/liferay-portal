@@ -55,16 +55,14 @@ Liferay.on(
 			if (jsScrollArea && miniumTop) {
 				new IntersectionObserver(
 					entries => {
-						document.getElementById("minium").classList.toggle("is-scrolled", !entries[0].isIntersecting);
+						if (document.getElementById("minium")) {
+							document.getElementById("minium").classList.toggle("is-scrolled", !entries[0].isIntersecting);
+						}
 					},
 					{
 						root: jsScrollArea,
-							rootMargin
-					:
-						"10px",
-							threshold
-					:
-						1.0
+						rootMargin: "10px",
+						threshold: 1.0
 					}
 				).observe(miniumTop);
 			}
