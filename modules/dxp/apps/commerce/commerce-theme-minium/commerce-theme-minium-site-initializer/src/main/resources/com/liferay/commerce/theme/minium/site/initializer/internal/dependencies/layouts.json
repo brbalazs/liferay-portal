@@ -1,6 +1,6 @@
 [
 	{
-		"icon" : "icon-dashboard.png",
+		"icon": "icon-dashboard.png",
 		"layoutTemplateId": "1_column",
 		"name": "Dashboard",
 		"portlets": [
@@ -117,7 +117,7 @@
 		"privateLayout": true
 	},
 	{
-		"icon" : "icon-orders.png",
+		"icon": "icon-orders.png",
 		"layoutTemplateId": "1_column",
 		"name": "Pending Orders",
 		"portlets": [
@@ -130,7 +130,7 @@
 		"privateLayout": true
 	},
 	{
-		"icon" : "icon-orders.png",
+		"icon": "icon-orders.png",
 		"layoutTemplateId": "1_column",
 		"name": "Placed Orders",
 		"portlets": [
@@ -163,7 +163,7 @@
 		"privateLayout": true
 	},
 	{
-		"icon" : "icon-account-management.png",
+		"icon": "icon-account-management.png",
 		"layoutTemplateId": "1_column",
 		"name": "Account Management",
 		"portlets": [
