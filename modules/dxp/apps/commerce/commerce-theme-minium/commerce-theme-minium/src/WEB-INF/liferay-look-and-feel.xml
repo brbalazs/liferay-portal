@@ -11,6 +11,14 @@
 			<setting configurable="true" key="copyright" type="textarea" />
 			<setting configurable="true" key="show-top-menu" type="checkbox" value="false" />
 		</settings>
+		<layout-templates>
+			<custom>
+				<layout-template id="minium_sidebar" name="Minium sidebar">
+					<template-path>/layouttpl/commerce/minium_sidebar.tpl</template-path>
+					<thumbnail-path>/layouttpl/commerce/minium_sidebar.png</thumbnail-path>
+				</layout-template>
+			</custom>
+		</layout-templates>
 		<portlet-decorator id="barebone" name="Barebone">
 			<default-portlet-decorator>true</default-portlet-decorator>
 			<portlet-decorator-css-class>portlet-barebone</portlet-decorator-css-class>
