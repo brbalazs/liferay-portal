@@ -33,7 +33,6 @@ import java.util.Date;
  * The cache model class for representing SamlSpAuthRequest in entity cache.
  *
  * @author Mika Koivisto
- * @see SamlSpAuthRequest
  * @generated
  */
 @ProviderType

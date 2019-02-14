@@ -33,7 +33,6 @@ import java.util.Date;
  * The cache model class for representing SamlSpMessage in entity cache.
  *
  * @author Mika Koivisto
- * @see SamlSpMessage
  * @generated
  */
 @ProviderType

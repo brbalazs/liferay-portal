@@ -32,7 +32,6 @@ import java.util.Date;
  * The cache model class for representing Definition in entity cache.
  *
  * @author Brian Wing Shun Chan
- * @see Definition
  * @generated
  */
 @ProviderType

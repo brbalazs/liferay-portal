@@ -33,7 +33,6 @@ import java.util.Date;
  * The cache model class for representing SharepointOAuth2TokenEntry in entity cache.
  *
  * @author Adolfo Pérez
- * @see SharepointOAuth2TokenEntry
  * @generated
  */
 @ProviderType

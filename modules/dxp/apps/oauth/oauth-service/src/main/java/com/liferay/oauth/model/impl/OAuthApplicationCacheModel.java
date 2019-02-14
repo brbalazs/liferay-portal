@@ -33,7 +33,6 @@ import java.util.Date;
  * The cache model class for representing OAuthApplication in entity cache.
  *
  * @author Ivica Cardic
- * @see OAuthApplication
  * @generated
  */
 @ProviderType

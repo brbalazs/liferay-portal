@@ -30,7 +30,6 @@ import java.io.ObjectOutput;
  * The cache model class for representing KaleoProcessLink in entity cache.
  *
  * @author Marcellus Tavares
- * @see KaleoProcessLink
  * @generated
  */
 @ProviderType

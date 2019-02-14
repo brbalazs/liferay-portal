@@ -33,7 +33,6 @@ import java.util.Date;
  * The cache model class for representing SamlIdpSpConnection in entity cache.
  *
  * @author Mika Koivisto
- * @see SamlIdpSpConnection
  * @generated
  */
 @ProviderType
