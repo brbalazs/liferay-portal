@@ -15,28 +15,20 @@
 package com.liferay.commerce.theme.minium.impl.internal.product.renderer.list.entry;
 
 import com.liferay.commerce.account.model.CommerceAccount;
-import com.liferay.commerce.constants.CPDefinitionInventoryConstants;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
-import com.liferay.commerce.currency.model.CommerceMoney;
-import com.liferay.commerce.discount.CommerceDiscountValue;
+import com.liferay.commerce.frontend.model.PriceModel;
+import com.liferay.commerce.frontend.model.ProductSettingsModel;
 import com.liferay.commerce.frontend.template.soy.renderer.ComponentDescriptor;
 import com.liferay.commerce.frontend.template.soy.renderer.SoyComponentRenderer;
-import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
-import com.liferay.commerce.model.CPDefinitionInventory;
+import com.liferay.commerce.frontend.util.ProductHelper;
 import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.price.CommerceProductPrice;
-import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.catalog.CPSku;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.content.constants.CPContentWebKeys;
 import com.liferay.commerce.product.content.render.list.entry.CPContentListEntryRenderer;
 import com.liferay.commerce.product.content.util.CPContentHelper;
-import com.liferay.commerce.product.service.CPInstanceLocalService;
-import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
-import com.liferay.commerce.theme.minium.impl.internal.product.model.PriceModel;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.theme.PortletDisplay;
@@ -44,8 +36,6 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
-
-import java.math.BigDecimal;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -176,11 +166,10 @@ public class MiniumCPContentListEntryRenderer
 			_portal.getPortalURL(httpServletRequest) +
 				"/o/commerce-ui/cart-item");
 		context.put("categories", null);
-		context.put("description", null);
+		context.put("description", cpCatalogEntry.getShortDescription());
 		context.put(
 			"detailsLink",
 			cpContentHelper.getFriendlyURL(cpCatalogEntry, themeDisplay));
-		context.put("minQuantity", null);
 		context.put("name", cpCatalogEntry.getName());
 		context.put("pictureUrl", cpCatalogEntry.getDefaultImageFileUrl());
 		context.put("productId", cpCatalogEntry.getCPDefinitionId());
@@ -189,12 +178,16 @@ public class MiniumCPContentListEntryRenderer
 			context.put("sku", cpSku.getSku());
 			context.put("skuId", cpSku.getCPInstanceId());
 
-			PriceModel priceModel = _getPrice(
-				cpSku.getCPInstanceId(),
-				_getMinQuantity(cpCatalogEntry.getCPDefinitionId()),
+			ProductSettingsModel productSettingsModel =
+				_productHelper.getProductSettingsModel(cpSku.getCPInstanceId());
+
+			PriceModel priceModel = _productHelper.getPrice(
+				cpSku.getCPInstanceId(), productSettingsModel.getMinQuantity(),
 				commerceContext, themeDisplay.getLocale());
 
 			context.put("prices", priceModel);
+
+			context.put("settings", productSettingsModel);
 		}
 
 		context.put(
@@ -221,73 +214,11 @@ public class MiniumCPContentListEntryRenderer
 			context);
 	}
 
-	private int _getMinQuantity(long cpDefinitionId) {
-		CPDefinitionInventory cpDefinitionInventory =
-			_cpDefinitionInventoryLocalService.
-				fetchCPDefinitionInventoryByCPDefinitionId(cpDefinitionId);
-
-		if (cpDefinitionInventory != null) {
-			return cpDefinitionInventory.getMinOrderQuantity();
-		}
-
-		return CPDefinitionInventoryConstants.DEFAULT_MIN_ORDER_QUANTITY;
-	}
-
-	private PriceModel _getPrice(
-			long cpInstanceId, int quantity, CommerceContext commerceContext,
-			Locale locale)
-		throws PortalException {
-
-		CommerceProductPrice commerceProductPrice =
-			_commerceProductPriceCalculation.getCommerceProductPrice(
-				cpInstanceId, quantity, true, commerceContext);
-
-		if (commerceProductPrice == null) {
-			return null;
-		}
-
-		CommerceMoney unitPrice = commerceProductPrice.getUnitPrice();
-
-		PriceModel priceModel = new PriceModel(unitPrice.format(locale));
-
-		CommerceMoney unitPromoPrice = commerceProductPrice.getUnitPromoPrice();
-
-		BigDecimal promoPrice = unitPromoPrice.getPrice();
-
-		if ((promoPrice.compareTo(BigDecimal.ZERO) > 0) &&
-			(promoPrice.compareTo(unitPrice.getPrice()) < 0)) {
-
-			priceModel.setPromoPrice(unitPromoPrice.format(locale));
-		}
-
-		CommerceDiscountValue discountValue =
-			commerceProductPrice.getDiscountValue();
-
-		if (discountValue != null) {
-			CommerceMoney discountAmount = discountValue.getDiscountAmount();
-
-			priceModel.setDiscount(discountAmount.format(locale));
-		}
-
-		return priceModel;
-	}
-
-	@Reference
-	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
-
-	@Reference
-	private CPDefinitionInventoryEngineRegistry
-		_cpDefinitionInventoryEngineRegistry;
-
-	@Reference
-	private CPDefinitionInventoryLocalService
-		_cpDefinitionInventoryLocalService;
-
-	@Reference
-	private CPInstanceLocalService _cpInstanceLocalService;
-
 	@Reference
 	private Portal _portal;
+
+	@Reference
+	private ProductHelper _productHelper;
 
 	@Reference
 	private SoyComponentRenderer _soyComponentRenderer;
