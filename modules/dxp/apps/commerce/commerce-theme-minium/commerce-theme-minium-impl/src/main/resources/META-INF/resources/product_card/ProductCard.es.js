@@ -47,7 +47,7 @@ ProductCard.STATE = {
 			Config.string(),
 			Config.number()
 		]
-	),
+	).value(null),
 	availability: Config.string()
 		.oneOf(
 			[
