@@ -2,10 +2,10 @@
   <a
     href="#"
     :class="[
-      'minium-button',
-      big && 'minium-button--big',
-      small && 'minium-button--small',
-      outline && 'minium-button--outline'
+      'commerce-button',
+      big && 'commerce-button--big',
+      small && 'commerce-button--small',
+      outline && 'commerce-button--outline'
     ]"
   >
     <slot />

@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="details-header__action">
-                <a href="#" class="minium-button minium-button--big minium-button--outline">
+                <a href="#" class="commerce-button commerce-button--big commerce-button--outline">
                     Edit
                 </a>
             </div>

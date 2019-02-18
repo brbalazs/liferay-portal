@@ -33,7 +33,7 @@
               <div id="test-table-mini"></div>
               <a class="minium-link" href="#">View More</a>
               <div class="product-detail__actions">
-                <button class="minium-button">Add to order</button>
+                <button class="commerce-button">Add to order</button>
               </div>
             </article>
           </div>
@@ -114,13 +114,13 @@
     <div class="minium-frame__toolbar (is-visible)"></div>
 
     <div class="minium-frame__cta is-visible">
-      <minium-button big outline>Cancel</minium-button>
-      <minium-button big>Done</minium-button>
+      <commerce-button big outline>Cancel</commerce-button>
+      <commerce-button big>Done</commerce-button>
     </div>
 
     <div class="minium-frame__dock (is-visible)">
       Products
-      <a href="#" class="minium-button">Compare</a>
+      <a href="#" class="commerce-button">Compare</a>
     </div>
 
     <div class="minium-frame__overlay (is-visible)" id="minium-search-results">

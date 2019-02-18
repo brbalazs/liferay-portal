@@ -41,8 +41,8 @@ var $render = function(opt_data, opt_ijData, opt_ijData_deprecated) {
   /** @type {?} */
   var updateQuantity = opt_data.updateQuantity;
   var btnClass__soy13 = '';
-  btnClass__soy13 += 'minium-button add-to-cart-button';
-  btnClass__soy13 += quantity > 0 && editMode == false ? ' minium-button--good' : '';
+  btnClass__soy13 += 'commerce-button add-to-cart-button';
+  btnClass__soy13 += quantity > 0 && editMode == false ? ' commerce-button--good' : '';
   incrementalDom.elementOpenStart('div');
       incrementalDom.attr('class', btnClass__soy13);
       incrementalDom.attr('data-onclick', 'handleBtnClick');

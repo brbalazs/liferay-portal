@@ -49,7 +49,7 @@ $micro-transition: ease 100ms;
 @import "./components/loaders.scss";
 @import "./components/main-link.scss";
 @import "./components/main-navigation.scss";
-@import "./components/minium-button.scss";
+@import "./components/commerce-button.scss";
 @import "./components/minium-card.scss";
 @import "./components/minium-cart.scss";
 @import "./components/minium-content.scss";
@@ -470,11 +470,11 @@ svg {
 	}
 
 	.btn {
-		@extend .minium-button
+		@extend .commerce-button
 	}
 
 	.btn:not(.btn-primary) {
-		@extend .minium-button--outline
+		@extend .commerce-button--outline
 	}
 }
 

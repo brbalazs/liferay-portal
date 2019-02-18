@@ -178,7 +178,7 @@ function $render(opt_data, opt_ijData, opt_ijData_deprecated) {
       incrementalDom.elementOpenEnd();
         incrementalDom.elementOpenStart('a');
             incrementalDom.attr('href', createNewOrderLink);
-            incrementalDom.attr('class', 'minium-button minium-button--block minium-button--outline');
+            incrementalDom.attr('class', 'commerce-button commerce-button--block commerce-button--outline');
         incrementalDom.elementOpenEnd();
           incrementalDom.text('Create new order');
         incrementalDom.elementClose('a');
@@ -190,7 +190,7 @@ function $render(opt_data, opt_ijData, opt_ijData_deprecated) {
       incrementalDom.elementOpenEnd();
         incrementalDom.elementOpenStart('a');
             incrementalDom.attr('href', viewAllOrdersLink);
-            incrementalDom.attr('class', 'minium-button minium-button--block');
+            incrementalDom.attr('class', 'commerce-button commerce-button--block');
         incrementalDom.elementOpenEnd();
           incrementalDom.text('View all orders');
         incrementalDom.elementClose('a');

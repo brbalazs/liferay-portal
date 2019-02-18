@@ -116,8 +116,8 @@ var $render = function(opt_data, opt_ijData, opt_ijData_deprecated) {
   }
   incrementalDom.elementClose('div');
   var inviteButtonClasses__soy86 = '';
-  inviteButtonClasses__soy86 += 'minium-button minium-button--big';
-  inviteButtonClasses__soy86 += (addedUsers.length) == 0 ? ' minium-button--disabled' : '';
+  inviteButtonClasses__soy86 += 'commerce-button commerce-button--big';
+  inviteButtonClasses__soy86 += (addedUsers.length) == 0 ? ' commerce-button--disabled' : '';
   incrementalDom.elementOpenStart('div');
       incrementalDom.attr('class', 'user-invitation__invite');
   incrementalDom.elementOpenEnd();

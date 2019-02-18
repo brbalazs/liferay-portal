@@ -292,7 +292,7 @@ var __deltemplate__ClayTable_Cell_miniumActions = function(opt_data, opt_ijData,
     var actionItem64Data = actionItem64List[actionItem64Index];
     incrementalDom.elementOpenStart('a');
         var $tmp = actionItem64Data.type;
-        incrementalDom.attr('class', 'minium-button minium-button--small minium-button--' + ($tmp != null ? $tmp : 'outline'));
+        incrementalDom.attr('class', 'commerce-button commerce-button--small commerce-button--' + ($tmp != null ? $tmp : 'outline'));
         incrementalDom.attr('href', actionItem64Data.href);
     incrementalDom.elementOpenEnd();
     soyIdom.print(actionItem64Data.label);
