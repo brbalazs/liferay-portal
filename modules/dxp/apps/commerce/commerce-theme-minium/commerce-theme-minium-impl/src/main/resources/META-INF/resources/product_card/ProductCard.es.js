@@ -109,7 +109,7 @@ ProductCard.STATE = {
 			allowedOptions: Config.array(Config.number()),
 			maxQuantity: Config.number(),
 			minQuantity: Config.number(),
-			multipleQuantities: Config.number()
+			multipleQuantity: Config.number()
 		}
 	).value({}),
 	sku: Config.string(),
