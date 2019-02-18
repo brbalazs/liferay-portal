@@ -29,5 +29,27 @@
 		"name": "Buyer",
 		"scope": 3,
 		"type": 2
+	},
+	{
+		"actions": {
+			"actionIds": [
+				"MANAGE_AVAILABLE_ACCOUNTS"
+			],
+			"resource": "90"
+		},
+		"name": "Sales Agent",
+		"scope": 3,
+		"type": 1
+	},
+	{
+		"actions": {
+			"actionIds": [
+				"MANAGE_ORGANIZATIONS"
+			],
+			"resource": "com.liferay.commerce.account.model.CommerceAccount"
+		},
+		"name": "Sales Agent",
+		"scope": 3,
+		"type": 1
 	}
 ]
