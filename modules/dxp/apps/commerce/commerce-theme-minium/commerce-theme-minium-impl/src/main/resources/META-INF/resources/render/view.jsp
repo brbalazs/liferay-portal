@@ -175,7 +175,7 @@ String galleryId = PortalUtil.generateRandomKey(request, "gallery");
 															url: image.url,
 															title: ''
 														};
-													}
+													});
 											})
 
 									});
