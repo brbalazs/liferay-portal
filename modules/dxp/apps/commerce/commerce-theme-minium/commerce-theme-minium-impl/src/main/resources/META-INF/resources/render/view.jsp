@@ -99,7 +99,6 @@ String galleryId = PortalUtil.generateRandomKey(request, "gallery");
 				<%= cpContentHelper.renderOptions(renderRequest, renderResponse) %>
 
 				<script>
-
 					AUI().use(
 						'liferay-portlet-url', function(A) {
 						Liferay.on(
@@ -134,52 +133,54 @@ String galleryId = PortalUtil.generateRandomKey(request, "gallery");
 										}
 									).then(
 										function(response) {
-										AddToCartButton.productId = response.cpInstanceId;
-										AddToCartButton.options = JSON.stringify(getFormValues());
-										AddToCartButton.quantity = 0;
-										AddToCartButton.settings = {
-											maxQuantity: 1000,
-											minQuantity: 1,
-											multipleQuantities: 1
-										};
-										AddToCartButton.disabled = false;
+											AddToCartButton.productId = response.cpInstanceId;
+											AddToCartButton.options = JSON.stringify(getFormValues());
+											AddToCartButton.quantity = 0;
+											AddToCartButton.settings = {
+												maxQuantity: 1000,
+												minQuantity: 1,
+												multipleQuantities: 1
+											};
+											AddToCartButton.disabled = false;
 
-										document.querySelector('[data-text-cp-instance-sku]').innerHTML = response.sku || '';
-										document.querySelector('[data-text-cp-instance-manufacturer-part-number]').innerHTML = response.manufacturerPartNumber || '';
-										document.querySelector('[data-text-cp-instance-gtin]').innerHTML = response.gtin || '';
-										document.querySelector('[data-text-cp-instance-availability]').innerHTML = response.availability || '';
-										document.querySelector('[data-text-cp-instance-availability-estimate]').innerHTML = response.availabilityEstimate || '';
-										document.querySelector('[data-text-cp-instance-stock-quantity]').innerHTML = response.stockQuantity || '';
-										document.querySelector('[data-text-cp-instance-subscription-info]').innerHTML = response.subscriptionInfo || '';
-										document.querySelector('[data-text-cp-instance-price]').innerHTML = response.price || '';
+											document.querySelector('[data-text-cp-instance-sku]').innerHTML = response.sku || '';
+											document.querySelector('[data-text-cp-instance-manufacturer-part-number]').innerHTML = response.manufacturerPartNumber || '';
+											document.querySelector('[data-text-cp-instance-gtin]').innerHTML = response.gtin || '';
+											document.querySelector('[data-text-cp-instance-availability]').innerHTML = response.availability || '';
+											document.querySelector('[data-text-cp-instance-availability-estimate]').innerHTML = response.availabilityEstimate || '';
+											document.querySelector('[data-text-cp-instance-stock-quantity]').innerHTML = response.stockQuantity || '';
+											document.querySelector('[data-text-cp-instance-subscription-info]').innerHTML = response.subscriptionInfo || '';
+											document.querySelector('[data-text-cp-instance-price]').innerHTML = response.price || '';
 
-										const formData = new FormData();
-										formData.append('<portlet:namespace />ddmFormValues', JSON.stringify(getFormValues()));
-										fetch(
-											'<%= String.valueOf(cpContentHelper.getViewAttachmentURL(liferayPortletRequest, liferayPortletResponse)) %>',
-											{
-												body: formData,
-												credentials: 'include',
-												method: 'post'
-											}
-										)
-											.then(
+											const formData = new FormData();
+											formData.append('<portlet:namespace />ddmFormValues', JSON.stringify(getFormValues()));
+											fetch(
+												'<%= String.valueOf(cpContentHelper.getViewAttachmentURL(liferayPortletRequest, liferayPortletResponse)) %>',
+												{
+													body: formData,
+													credentials: 'include',
+													method: 'post'
+												}
+											).then(
 												function(response) {
 													return response.json();
 												}
-											).then(function(response) {
-												ProductGallery.selected = 0
-												ProductGallery.images = response.map(
-													function(image) {
-														return {
-															thumbnailUrl: image.url,
-															url: image.url,
-															title: ''
-														};
-													});
-											})
-
-									});
+											).then(
+												function(response) {
+													ProductGallery.selected = 0
+													ProductGallery.images = response.map(
+														function(image) {
+															return {
+																thumbnailUrl: image.url,
+																url: image.url,
+																title: ''
+															};
+														}
+													);
+												}
+											)
+										}
+									);
 								}
 
 								function getFormValues() {
