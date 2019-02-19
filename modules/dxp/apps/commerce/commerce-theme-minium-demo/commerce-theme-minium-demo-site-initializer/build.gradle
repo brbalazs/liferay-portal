@@ -13,6 +13,7 @@ dependencies {
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.cart.taglib", version: "1.0.0"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.currency.api", version: "1.0.0"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.initializer.util", version: "2.0.0"
+	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.media.api", version: "1.1.0"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.price.list.api", version: "1.0.0"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.product.api", version: "4.0.0-20190206.230558-1"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.product.content.api", version: "1.0.0"

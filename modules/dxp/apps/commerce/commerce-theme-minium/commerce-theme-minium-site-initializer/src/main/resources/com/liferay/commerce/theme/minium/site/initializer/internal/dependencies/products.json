@@ -10,9 +10,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 2,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 7,
 		"ManufacturerPartNumber": "BB98318",
 		"MinStockQuantity": 5,
@@ -358,9 +355,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 5.3,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 9.4,
 		"ManufacturerPartNumber": "BB98326",
 		"MinStockQuantity": 5,
@@ -409,9 +403,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 18,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 12,
 		"MinStockQuantity": 5,
 		"Name": "Hoses",
@@ -717,9 +708,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 8.7,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 6.2,
 		"ManufacturerPartNumber": "BB98334",
 		"MinStockQuantity": 5,
@@ -764,9 +752,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 1.7,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 10.2,
 		"ManufacturerPartNumber": "EX938051",
 		"MinStockQuantity": 5,
@@ -815,9 +800,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 5.3,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 9.4,
 		"ManufacturerPartNumber": "EX938052",
 		"MinStockQuantity": 5,
@@ -866,9 +848,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 18,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 12,
 		"ManufacturerPartNumber": "EX938053",
 		"MinStockQuantity": 5,
@@ -917,9 +896,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 2.5,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 4,
 		"ManufacturerPartNumber": "EX938054",
 		"MinStockQuantity": 5,
@@ -1015,9 +991,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 2.5,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 4,
 		"ManufacturerPartNumber": "EX938056",
 		"MinStockQuantity": 5,
@@ -1066,9 +1039,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 8.7,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 6.2,
 		"ManufacturerPartNumber": "EX938057",
 		"MinStockQuantity": 5,
@@ -1117,9 +1087,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 1.7,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 10.2,
 		"ManufacturerPartNumber": "EX938058",
 		"MinStockQuantity": 5,
@@ -1219,9 +1186,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 18,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 12,
 		"ManufacturerPartNumber": "EX938060",
 		"MinStockQuantity": 5,
@@ -1270,9 +1234,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 1.7,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 10.2,
 		"ManufacturerPartNumber": "EX938061",
 		"MinStockQuantity": 5,
@@ -1321,9 +1282,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 18,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 12,
 		"ManufacturerPartNumber": "ES98206",
 		"MinStockQuantity": 5,
@@ -1372,9 +1330,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 2.5,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 4,
 		"ManufacturerPartNumber": "ES98207",
 		"MinStockQuantity": 5,
@@ -1423,9 +1378,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 2,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 7,
 		"ManufacturerPartNumber": "ES98208",
 		"MinStockQuantity": 5,
@@ -1527,9 +1479,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 1.7,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 10.2,
 		"ManufacturerPartNumber": "HM88893",
 		"MinStockQuantity": 5,
@@ -1578,9 +1527,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 5.3,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 9.4,
 		"ManufacturerPartNumber": "HM88894",
 		"MinStockQuantity": 5,
@@ -1629,9 +1575,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 18,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 12,
 		"ManufacturerPartNumber": "HM88895",
 		"MinStockQuantity": 5,
@@ -1723,9 +1666,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 2,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 7,
 		"ManufacturerPartNumber": "HM88897",
 		"MinStockQuantity": 5,
@@ -1818,9 +1758,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 8.7,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 6.2,
 		"ManufacturerPartNumber": "HM88899",
 		"MinStockQuantity": 5,
@@ -1869,9 +1806,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 1.7,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 10.2,
 		"ManufacturerPartNumber": "HM88900",
 		"MinStockQuantity": 5,
@@ -1916,9 +1850,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 5.3,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 9.4,
 		"ManufacturerPartNumber": "HM88901",
 		"MinStockQuantity": 5,
@@ -1963,9 +1894,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 18,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 12,
 		"ManufacturerPartNumber": "HM88902",
 		"MinStockQuantity": 5,
@@ -2014,9 +1942,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 1.7,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 10.2,
 		"ManufacturerPartNumber": "HM88903",
 		"MinStockQuantity": 5,
@@ -2108,9 +2033,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 18,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 12,
 		"ManufacturerPartNumber": "TT00024",
 		"MinStockQuantity": 5,
@@ -2202,9 +2124,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 2,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 7,
 		"ManufacturerPartNumber": "TT00026",
 		"MinStockQuantity": 5,
@@ -2288,9 +2207,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 1.7,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 10.2,
 		"ManufacturerPartNumber": "TT00028",
 		"MinStockQuantity": 5,
@@ -2339,9 +2255,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 5.3,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 9.4,
 		"ManufacturerPartNumber": "TT00029",
 		"MinStockQuantity": 5,
@@ -2382,9 +2295,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 18,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 12,
 		"ManufacturerPartNumber": "TT00030",
 		"MinStockQuantity": 5,
@@ -2433,9 +2343,6 @@
 		"DisplayAvailability": true,
 		"DisplayStockQuantity": true,
 		"Height": 2.5,
-		"Images": [
-			"Minium_ProductImage_Default.png"
-		],
 		"Length": 4,
 		"ManufacturerPartNumber": "TT00031",
 		"MinStockQuantity": 5,

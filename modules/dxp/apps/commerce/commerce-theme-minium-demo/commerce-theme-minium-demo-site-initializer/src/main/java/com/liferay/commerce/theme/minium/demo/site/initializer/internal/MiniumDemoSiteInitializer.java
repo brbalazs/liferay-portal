@@ -20,6 +20,7 @@ import com.liferay.commerce.initializer.util.CommerceAccountsImporter;
 import com.liferay.commerce.initializer.util.CommerceUserSegmentsImporter;
 import com.liferay.commerce.initializer.util.CommerceUsersImporter;
 import com.liferay.commerce.initializer.util.OrganizationImporter;
+import com.liferay.commerce.media.CommerceCatalogDefaultImage;
 import com.liferay.commerce.product.model.CPAttachmentFileEntryConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
@@ -46,10 +47,6 @@ import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
-import com.liferay.portal.kernel.settings.ModifiableSettings;
-import com.liferay.portal.kernel.settings.Settings;
-import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
@@ -57,7 +54,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.site.exception.InitializationException;
 import com.liferay.site.initializer.SiteInitializer;
-import com.liferay.site.initializer.SiteInitializerRegistry;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,6 +63,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.servlet.ServletContext;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -91,7 +89,7 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 
 	@Override
 	public String getDescription(Locale locale) {
-		return siteInitializer.getDescription(locale);
+		return _siteInitializer.getDescription(locale);
 	}
 
 	@Override
@@ -106,7 +104,7 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 
 	@Override
 	public String getThumbnailSrc() {
-		return siteInitializer.getThumbnailSrc();
+		return _servletContext.getContextPath() + "/images/thumbnail.png";
 	}
 
 	@Override
@@ -114,7 +112,7 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 		try {
 			ServiceContext serviceContext = getServiceContext(groupId);
 
-			siteInitializer.initialize(groupId);
+			_siteInitializer.initialize(groupId);
 
 			_importCommerceUserSegments(serviceContext);
 
@@ -142,7 +140,7 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 
 	@Override
 	public boolean isActive(long companyId) {
-		return siteInitializer.isActive(companyId);
+		return _siteInitializer.isActive(companyId);
 	}
 
 	@Activate
@@ -153,7 +151,7 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 	@Deactivate
 	protected void deactivate() {
 		_commerceAccounts = null;
-		siteInitializer = null;
+		_siteInitializer = null;
 	}
 
 	protected CPInstance getCPInstanceBySku(String sku) {
@@ -194,9 +192,6 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 		_commerceAccounts = new HashMap<>();
 
 		_organizations = new HashMap<>();
-
-		siteInitializer = _siteInitializerRegistry.getSiteInitializer(
-			"minium-initializer");
 	}
 
 	protected void setDefaultCatalogImage(ServiceContext serviceContext)
@@ -217,23 +212,14 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 
 		FileEntry fileEntry = _dlAppLocalService.addFileEntry(
 			serviceContext.getUserId(), serviceContext.getScopeGroupId(),
-			DLFolderConstants.DEFAULT_PARENT_FOLDER_ID, "DefaultCatalogImage",
-			mimeType, "DefaultCatalogImage", null, null, byteArray,
-			serviceContext);
+			DLFolderConstants.DEFAULT_PARENT_FOLDER_ID,
+			"MiniumDefaultCatalogImage-" + serviceContext.getScopeGroupId(),
+			mimeType,
+			"MiniumDefaultCatalogImage-" + serviceContext.getScopeGroupId(),
+			null, null, byteArray, serviceContext);
 
-		Settings settings = _settingsFactory.getSettings(
-			new GroupServiceSettingsLocator(
-				serviceContext.getScopeGroupId(),
-				"com.liferay.commerce.media.impl.configuration." +
-					"CommerceMediaDefaultImageConfiguration"));
-
-		ModifiableSettings modifiableSettings =
-			settings.getModifiableSettings();
-
-		modifiableSettings.setValue(
-			"defaultFileEntryId", String.valueOf(fileEntry.getFileEntryId()));
-
-		modifiableSettings.store();
+		_commerceCatalogDefaultImage.updateDefaultCatalogFileEntryId(
+			serviceContext.getScopeGroupId(), fileEntry.getFileEntryId());
 	}
 
 	protected void switchImagesToDemo(ServiceContext serviceContext)
@@ -286,14 +272,27 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 						serviceContext);
 				}
 			}
+
+			// Re-add Attachments
+
+			JSONArray attachmentsJSONArray = jsonObject.getJSONArray("Attachments");
+
+			if (attachmentsJSONArray != null) {
+				for (int i = 0; i < attachmentsJSONArray.length(); i++) {
+					_cpAttachmentFileEntryCreator.addCPAttachmentFileEntry(
+						cpDefinition, classLoader, imageDependenciesPath,
+						imagesJSONArray.getString(i), i,
+						CPAttachmentFileEntryConstants.TYPE_OTHER,
+						serviceContext.getScopeGroupId(),
+						serviceContext.getUserId());
+				}
+			}
 		}
 	}
 
 	protected static final String MINIUM_DEPENDENCIES_PATH =
 		"com/liferay/commerce/theme/minium/site/initializer/internal" +
 			"/dependencies/";
-
-	protected SiteInitializer siteInitializer;
 
 	private String _getJSON(String name) throws IOException {
 		return StringUtil.read(
@@ -314,7 +313,7 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 	}
 
 	private String _getJSONFromMinium(String name) throws IOException {
-		Class<?> clazz = siteInitializer.getClass();
+		Class<?> clazz = _siteInitializer.getClass();
 
 		return StringUtil.read(
 			clazz.getClassLoader(), MINIUM_DEPENDENCIES_PATH + name);
@@ -425,6 +424,9 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 	private CommerceAccountsImporter _commerceAccountsImporter;
 
 	@Reference
+	private CommerceCatalogDefaultImage _commerceCatalogDefaultImage;
+
+	@Reference
 	private CommerceUserSegmentsImporter _commerceUserSegmentsImporter;
 
 	@Reference
@@ -457,11 +459,13 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 
 	private Map<String, Organization> _organizations;
 
-	@Reference
-	private SettingsFactory _settingsFactory;
+	@Reference(
+		target = "(osgi.web.symbolicname=com.liferay.commerce.theme.minium.demo.site.initializer)"
+	)
+	private ServletContext _servletContext;
 
-	@Reference
-	private SiteInitializerRegistry _siteInitializerRegistry;
+	@Reference(target = "(site.initializer.key=minium-initializer)")
+	private SiteInitializer _siteInitializer;
 
 	@Reference
 	private UserLocalService _userLocalService;

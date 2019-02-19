@@ -24,6 +24,7 @@ import com.liferay.commerce.initializer.util.CPOptionsImporter;
 import com.liferay.commerce.initializer.util.CPSpecificationOptionsImporter;
 import com.liferay.commerce.initializer.util.CommerceWarehousesImporter;
 import com.liferay.commerce.initializer.util.PortletSettingsImporter;
+import com.liferay.commerce.media.CommerceCatalogDefaultImage;
 import com.liferay.commerce.model.CommerceWarehouse;
 import com.liferay.commerce.product.constants.CPRuleConstants;
 import com.liferay.commerce.product.importer.CPFileImporter;
@@ -40,6 +41,8 @@ import com.liferay.commerce.theme.minium.site.initializer.internal.MiniumLayouts
 import com.liferay.commerce.user.segment.model.CommerceUserSegmentEntry;
 import com.liferay.commerce.user.segment.model.CommerceUserSegmentEntryConstants;
 import com.liferay.commerce.user.segment.service.CommerceUserSegmentEntryLocalService;
+import com.liferay.document.library.kernel.model.DLFolderConstants;
+import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
@@ -54,6 +57,7 @@ import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.Theme;
 import com.liferay.portal.kernel.model.ThemeSetting;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.OrganizationLocalService;
@@ -70,6 +74,7 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -180,6 +185,8 @@ public class MiniumSiteInitializer implements SiteInitializer {
 			_importThemePortletSettings(serviceContext);
 
 			_importPortletSettings(serviceContext);
+
+			setDefaultCatalogImage(serviceContext);
 
 			setThemeSettings(serviceContext);
 		}
@@ -303,6 +310,33 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		serviceContext.setUserId(user.getUserId());
 
 		return serviceContext;
+	}
+
+	protected void setDefaultCatalogImage(ServiceContext serviceContext)
+		throws Exception {
+
+		Class<?> clazz = getClass();
+
+		ClassLoader classLoader = clazz.getClassLoader();
+
+		InputStream inputStream = classLoader.getResourceAsStream(
+			DEPENDENCIES_PATH + "images/Minium_ProductImage_Default.png");
+
+		File file = FileUtil.createTempFile(inputStream);
+
+		String mimeType = MimeTypesUtil.getContentType(file);
+
+		byte[] byteArray = FileUtil.getBytes(file);
+
+		FileEntry fileEntry = _dlAppLocalService.addFileEntry(
+			serviceContext.getUserId(), serviceContext.getScopeGroupId(),
+			DLFolderConstants.DEFAULT_PARENT_FOLDER_ID,
+			"DefaultCatalogImage-" + serviceContext.getScopeGroupId(), mimeType,
+			"DefaultCatalogImage-" + serviceContext.getScopeGroupId(), null,
+			null, byteArray, serviceContext);
+
+		_commerceCatalogDefaultImage.updateDefaultCatalogFileEntryId(
+			serviceContext.getScopeGroupId(), fileEntry.getFileEntryId());
 	}
 
 	protected void setThemeSettings(ServiceContext serviceContext)
@@ -582,6 +616,9 @@ public class MiniumSiteInitializer implements SiteInitializer {
 	private CommerceAccountRoleHelper _commerceAccountRoleHelper;
 
 	@Reference
+	private CommerceCatalogDefaultImage _commerceCatalogDefaultImage;
+
+	@Reference
 	private CommerceCountryLocalService _commerceCountryLocalService;
 
 	@Reference
@@ -629,6 +666,9 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 	@Reference
 	private CPSpecificationOptionsImporter _cpSpecificationOptionsImporter;
+
+	@Reference
+	private DLAppLocalService _dlAppLocalService;
 
 	@Reference
 	private GroupLocalService _groupLocalService;
