@@ -195,8 +195,7 @@ public class CommerceDashboardKPIDisplayContext
 			RestrictionsFactoryUtil.eq("orderStatus", _ORDER_STATUS));
 		dynamicQuery.add(
 			RestrictionsFactoryUtil.eq(
-				"siteGroupId",
-				commerceDashboardRequestHelper.getSiteGroupId()));
+				"groupId", commerceDashboardRequestHelper.getSiteGroupId()));
 
 		return dynamicQuery;
 	}
