@@ -50,6 +50,7 @@ String galleryId = PortalUtil.generateRandomKey(request, "gallery");
 			<header class="minium-product-header">
 				<commerce-ui:compare-checkbox
 					componentId="compareCheckbox"
+					CPDefinitionId="<%= cpDefinitionId %>"
 				/>
 
 				<h3 class="minium-product-header__tagline" data-text-cp-instance-sku>
