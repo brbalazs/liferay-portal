@@ -249,9 +249,9 @@ List<CPMedia> cpAttachmentFileEntries = cpContentHelper.getCPAttachmentFileEntri
 <c:if test="<%= cpContentHelper.hasCPDefinitionSpecificationOptionValues(cpDefinitionId) %>">
 	<div class="row">
 		<div class="col">
-			<div class="minium-card">
-				<div class="minium-card__title"><%= LanguageUtil.get(resourceBundle, "specifications") %></div>
-				<div class="minium-card__content">
+			<div class="commerce-panel">
+				<div class="commerce-panel__title"><%= LanguageUtil.get(resourceBundle, "specifications") %></div>
+				<div class="commerce-panel__content">
 					<dl class="specification-list">
 
 						<%
@@ -312,9 +312,9 @@ List<CPMedia> cpAttachmentFileEntries = cpContentHelper.getCPAttachmentFileEntri
 <c:if test="<%= !cpAttachmentFileEntries.isEmpty() %>">
 	<div class="row">
 		<div class="col">
-			<div class="minium-card">
-				<div class="minium-card__title"><%= LanguageUtil.get(resourceBundle, "attachments") %></div>
-				<div class="minium-card__content">
+			<div class="commerce-panel">
+				<div class="commerce-panel__title"><%= LanguageUtil.get(resourceBundle, "attachments") %></div>
+				<div class="commerce-panel__content">
 					<dl class="specification-list">
 
 						<%

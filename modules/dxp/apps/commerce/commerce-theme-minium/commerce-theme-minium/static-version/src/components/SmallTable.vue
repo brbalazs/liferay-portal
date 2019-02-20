@@ -11,7 +11,7 @@
       <tr v-for="n in 10" :key="n">
         <td>FA987563</td>
         <td class="u-tac">
-          <div class="minium-dot minium-dot--good"></div>
+          <div class="commerce-dot commerce-dot--good"></div>
         </td>
         <td class="u-tar">09.01.18</td>
       </tr>

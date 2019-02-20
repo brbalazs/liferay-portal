@@ -1,4 +1,4 @@
-.minium-item {
+.commerce-item {
 	$item-image-size: 60px;
 	$item-image-size-sm: 50px;
 
@@ -16,7 +16,7 @@
 		grid-template-columns: $item-image-size-sm 1fr 100px;
 	}
 
-	.minium-item.is-not-valid & {
+	.commerce-item.is-not-valid & {
 		opacity: .3;
 	}
 
@@ -64,7 +64,7 @@
 		}
 
 		@media (hover: hover) {
-			.minium-cart__item:not(:hover) &:not(:focus) {
+			.commerce-cart__item:not(:hover) &:not(:focus) {
 				opacity: 0;
 			}
 		}
@@ -110,7 +110,7 @@
 		transition: transform .2s ease-in;
 		z-index: 1102;
 
-		.minium-item.is-deleting & {
+		.commerce-item.is-deleting & {
 			transform: translateX(0%);
 		}
 	}

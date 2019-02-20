@@ -1,4 +1,4 @@
-.minium-topbar {
+.commerce-topbar {
 	background-color: $color-bg;
 	color: $color-fg-alt;
 	display: grid;
@@ -75,7 +75,7 @@
 		overflow: hidden;
 		transition: max-height $transition;
 
-		.minium-frame:not(.has-search) & {
+		.commerce-frame:not(.has-search) & {
 			max-height: 0;
 		}
 	}

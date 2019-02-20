@@ -7,6 +7,6 @@ import MiniumSuggestions from "../components/MiniumSuggestions.vue";
 storiesOf("Suggestions", module).add("default", () => ({
 	components: { MiniumSuggestions },
 	render() {
-		return <minium-suggestions />;
+		return <commerce-suggestions />;
 	}
 }));

@@ -1,6 +1,6 @@
 <template>
   <div class="minium-toast (minium-toast--success) (minium-toast--fail)">
-    <div class="minium-toast__icon"><minium-icon /></div>
+    <div class="minium-toast__icon"><commerce-icon /></div>
     <div class="minium-toast__content">
       <slot />
     </div>

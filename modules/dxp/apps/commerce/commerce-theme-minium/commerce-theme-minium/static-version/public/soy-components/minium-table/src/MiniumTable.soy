@@ -45,7 +45,7 @@
 	{@param? spritemap: string}
 
 	<td class="cell">
-		<div class="minium-dot minium-dot--{$value.badge}">{$value.label}</div>
+		<div class="commerce-dot commerce-dot--{$value.badge}">{$value.label}</div>
 	</td>
 {/deltemplate}
 
@@ -59,13 +59,13 @@
 	<td class="cell">
 		<div class="toggle-wrapper">
 			<div class="toggle" data-onclick="handleToggle">
-				<svg viewBox="0 0 4 16" xmlns="http://www.w3.org/2000/svg" class="minium-icon toggle__open"><path d="M0 2a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm0 6a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm0 6a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" fill="currentColor" fill-rule="evenodd"/></svg>
-				<svg viewBox="0 0 13 8" xmlns="http://www.w3.org/2000/svg" class="minium-icon toggle__close"><path d="M8.002 3V.986A.986.986 0 0 1 9.685.289l3.027 3.015a.986.986 0 0 1 0 1.394L9.685 7.711a.984.984 0 0 1-1.683-.697V5H1a1 1 0 0 1 0-2h7.002z" fill="currentColor" fill-rule="evenodd"/></svg>
+				<svg viewBox="0 0 4 16" xmlns="http://www.w3.org/2000/svg" class="commerce-icon toggle__open"><path d="M0 2a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm0 6a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm0 6a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" fill="currentColor" fill-rule="evenodd"/></svg>
+				<svg viewBox="0 0 13 8" xmlns="http://www.w3.org/2000/svg" class="commerce-icon toggle__close"><path d="M8.002 3V.986A.986.986 0 0 1 9.685.289l3.027 3.015a.986.986 0 0 1 0 1.394L9.685 7.711a.984.984 0 0 1-1.683-.697V5H1a1 1 0 0 1 0-2h7.002z" fill="currentColor" fill-rule="evenodd"/></svg>
 			</div>
 
 			<div class="actions">
 				<div class="close actions__close" data-onclick="handleToggle">
-					<svg viewBox="0 0 13 8" xmlns="http://www.w3.org/2000/svg" class="minium-icon"><path d="M8.002 3V.986A.986.986 0 0 1 9.685.289l3.027 3.015a.986.986 0 0 1 0 1.394L9.685 7.711a.984.984 0 0 1-1.683-.697V5H1a1 1 0 0 1 0-2h7.002z" fill="currentColor" fill-rule="evenodd"/></svg>
+					<svg viewBox="0 0 13 8" xmlns="http://www.w3.org/2000/svg" class="commerce-icon"><path d="M8.002 3V.986A.986.986 0 0 1 9.685.289l3.027 3.015a.986.986 0 0 1 0 1.394L9.685 7.711a.984.984 0 0 1-1.683-.697V5H1a1 1 0 0 1 0-2h7.002z" fill="currentColor" fill-rule="evenodd"/></svg>
 				</div>
 
 				<a href="{$item[$fieldSchema.linkField]}" class="actions__link">{$item[$fieldSchema.linkLabelField]}</a>

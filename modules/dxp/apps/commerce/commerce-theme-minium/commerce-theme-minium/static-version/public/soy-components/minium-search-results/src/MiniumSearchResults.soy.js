@@ -42,10 +42,10 @@ var $render = function(opt_data, opt_ijData, opt_ijData_deprecated) {
   var visible = soy.asserts.assertType(goog.isBoolean(opt_data.visible) || opt_data.visible === 1 || opt_data.visible === 0, 'visible', opt_data.visible, 'boolean');
   if (visible) {
     incrementalDom.elementOpenStart('div');
-        incrementalDom.attr('class', 'minium-suggestions');
+        incrementalDom.attr('class', 'commerce-suggestions');
     incrementalDom.elementOpenEnd();
     incrementalDom.elementOpenStart('div');
-        incrementalDom.attr('class', 'minium-suggestions__wrapper');
+        incrementalDom.attr('class', 'commerce-suggestions__wrapper');
     incrementalDom.elementOpenEnd();
     var item10List = results;
     var item10ListLen = item10List.length;
@@ -55,10 +55,10 @@ var $render = function(opt_data, opt_ijData, opt_ijData_deprecated) {
     }
     incrementalDom.elementClose('div');
     incrementalDom.elementOpenStart('div');
-        incrementalDom.attr('class', 'minium-suggestions__hints');
+        incrementalDom.attr('class', 'commerce-suggestions__hints');
     incrementalDom.elementOpenEnd();
     incrementalDom.elementOpenStart('svg');
-        incrementalDom.attr('class', 'minium-icon');
+        incrementalDom.attr('class', 'commerce-icon');
         incrementalDom.attr('xmlns', 'http://www.w3.org/2000/svg');
         incrementalDom.attr('viewBox', '0 0 100 100');
     incrementalDom.elementOpenEnd();
@@ -75,7 +75,7 @@ var $render = function(opt_data, opt_ijData, opt_ijData_deprecated) {
     incrementalDom.elementClose('svg');
     incrementalDom.text(' to navigate');
     incrementalDom.elementOpenStart('svg');
-        incrementalDom.attr('class', 'minium-icon');
+        incrementalDom.attr('class', 'commerce-icon');
         incrementalDom.attr('xmlns', 'http://www.w3.org/2000/svg');
         incrementalDom.attr('viewBox', '0 0 100 100');
     incrementalDom.elementOpenEnd();
@@ -92,7 +92,7 @@ var $render = function(opt_data, opt_ijData, opt_ijData_deprecated) {
     incrementalDom.elementClose('svg');
     incrementalDom.text(' to select');
     incrementalDom.elementOpenStart('svg');
-        incrementalDom.attr('class', 'minium-icon');
+        incrementalDom.attr('class', 'commerce-icon');
         incrementalDom.attr('xmlns', 'http://www.w3.org/2000/svg');
         incrementalDom.attr('viewBox', '0 0 100 100');
     incrementalDom.elementOpenEnd();
@@ -140,22 +140,22 @@ var __deltemplate__MiniumSearchResults_Item_ = function(opt_data, opt_ijData, op
   /** @type {?} */
   var item = opt_data.item;
   incrementalDom.elementOpenStart('div');
-      incrementalDom.attr('class', 'minium-suggestions__item ' + (item.selected ? 'is-selected' : ''));
+      incrementalDom.attr('class', 'commerce-suggestions__item ' + (item.selected ? 'is-selected' : ''));
       incrementalDom.attr('data-onmouseenter', 'handleMouseEnter');
       incrementalDom.attr('data-onmouseleave', 'handleMouseLeave');
       incrementalDom.attr('data-pos', item.pos);
   incrementalDom.elementOpenEnd();
   incrementalDom.elementOpenStart('div');
-      incrementalDom.attr('class', 'minium-item minium-item--search');
+      incrementalDom.attr('class', 'commerce-item commerce-item--search');
   incrementalDom.elementOpenEnd();
   incrementalDom.elementOpenStart('img');
-      incrementalDom.attr('class', 'minium-item__image');
+      incrementalDom.attr('class', 'commerce-item__image');
       incrementalDom.attr('src', item.image);
       incrementalDom.attr('alt', '');
   incrementalDom.elementOpenEnd();
   incrementalDom.elementClose('img');
   incrementalDom.elementOpenStart('div');
-      incrementalDom.attr('class', 'minium-item__content');
+      incrementalDom.attr('class', 'commerce-item__content');
   incrementalDom.elementOpenEnd();
   soyIdom.print(item.title);
   incrementalDom.elementOpen('br');
@@ -193,7 +193,7 @@ var __deltemplate__MiniumSearchResults_Item_category = function(opt_data, opt_ij
   /** @type {?} */
   var item = opt_data.item;
   incrementalDom.elementOpenStart('div');
-      incrementalDom.attr('class', 'minium-suggestions__item ' + (item.selected ? 'is-selected' : ''));
+      incrementalDom.attr('class', 'commerce-suggestions__item ' + (item.selected ? 'is-selected' : ''));
       incrementalDom.attr('data-onmouseenter', 'handleMouseEnter');
       incrementalDom.attr('data-onmouseleave', 'handleMouseLeave');
       incrementalDom.attr('data-pos', item.pos);
@@ -232,7 +232,7 @@ var __deltemplate__MiniumSearchResults_Item_label = function(opt_data, opt_ijDat
   /** @type {?} */
   var item = opt_data.item;
   incrementalDom.elementOpenStart('div');
-      incrementalDom.attr('class', 'minium-suggestions__label');
+      incrementalDom.attr('class', 'commerce-suggestions__label');
   incrementalDom.elementOpenEnd();
   soyIdom.print(item.value);
   incrementalDom.elementClose('div');

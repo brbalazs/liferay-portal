@@ -1,20 +1,20 @@
 <template>
-  <div id="minium" class="minium minium-frame (has-search)">
-    <div class="minium-frame__sidebar">
+  <div id="minium" class="minium commerce-frame (has-search)">
+    <div class="commerce-frame__sidebar">
       <minium-sidebar/>
     </div>
 
-    <div class="minium-frame__topbar">
-      <minium-topbar/>
+    <div class="commerce-frame__topbar">
+      <commerce-topbar/>
     </div>
 
-    <div class="minium-frame__content js-scroll-area">
+    <div class="commerce-frame__content js-scroll-area">
       <a name="minium-top"></a>
       <div class="minium-content">
         <div class="container-fluid product-detail">
           <div class="row">
             <div class="col">
-              <span class="minium-typo minium-typo__section-title">Selected vehicle:</span>
+              <span class="commerce-typo commerce-typo__section-title">Selected vehicle:</span>
               <strong>BMW X3 sDrive 18i - 125KW/170HP - froam 2014</strong>
             </div>
           </div>
@@ -22,7 +22,7 @@
             <div class="col-6" id="minium-product-gallery"></div>
             <article class="col-6">
               <header class="minium-product-header">
-                <div class="minium-dot minium-dot--good">In Stock</div>
+                <div class="commerce-dot commerce-dot--good">In Stock</div>
                 <h3 class="minium-product-header__tagline">AR385672</h3>
                 <h2
                   class="minium-product-header__title"
@@ -31,7 +31,7 @@
               </header>
               <p>Nam vestibulum ex eget purus posuere suscipit. Donec interdum egestas felis rutrum condimentum. Phasellus varius suscipit ornare. Nam vestibulum ex eget purus posuere suscipit. Donec interdum egestas felis rutrum condimentum. Phasellus varius suscipit ornare.</p>
               <div id="test-table-mini"></div>
-              <a class="minium-link" href="#">View More</a>
+              <a class="commerce-link" href="#">View More</a>
               <div class="product-detail__actions">
                 <button class="commerce-button">Add to order</button>
               </div>
@@ -39,8 +39,8 @@
           </div>
           <div class="row">
             <div class="col">
-              <div class="minium-card">
-                <div class="minium-card__tabs">
+              <div class="commerce-panel">
+                <div class="commerce-panel__tabs">
                   <minium-tabs></minium-tabs>
                 </div>
               </div>
@@ -48,9 +48,9 @@
           </div>
           <div class="row">
             <div class="col">
-              <div class="minium-card">
-                <div class="minium-card__title">Technical Information</div>
-                <div class="minium-card__content">
+              <div class="commerce-panel">
+                <div class="commerce-panel__title">Technical Information</div>
+                <div class="commerce-panel__content">
                   <ul>
                     <li>Ø: 64 mm</li>
                     <li>Operating Mode: EL</li>
@@ -63,9 +63,9 @@
           </div>
           <div class="row">
             <div class="col">
-              <div class="minium-card">
-                <div class="minium-card__title">Technical Information</div>
-                <div class="minium-card__content">
+              <div class="commerce-panel">
+                <div class="commerce-panel__title">Technical Information</div>
+                <div class="commerce-panel__content">
                   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque excepturi sapiente totam, voluptatem reprehenderit vitae illum, porro est, distinctio numquam quas voluptas modi consequatur obcaecati molestias expedita vel odit impedit magnam tempora cumque. Repudiandae non similique porro, mollitia molestias adipisci, ullam, modi eligendi quae quo sed laboriosam saepe sequi cumque repellat autem corporis. Ab ipsa officiis, corporis qui doloremque earum consequuntur dicta, nam cupiditate necessitatibus repellat, quibusdam quaerat quae consequatur ullam. Vero, tempora animi? Sed temporibus esse qui accusantium explicabo. Tempora eum blanditiis deserunt perspiciatis provident fugiat deleniti nesciunt earum iste impedit quasi architecto fugit, dolorum sed aperiam? Dicta, qui.</p>
                 </div>
               </div>
@@ -78,7 +78,7 @@
           </div>
           <div class="row">
             <div class="col">
-              <div class="minium-typo minium-typo__section-title">Related products</div>
+              <div class="commerce-typo commerce-typo__section-title">Related products</div>
             </div>
           </div>
           <div class="row">
@@ -111,33 +111,33 @@
 
     </div>
 
-    <div class="minium-frame__toolbar (is-visible)"></div>
+    <div class="commerce-frame__toolbar (is-visible)"></div>
 
-    <div class="minium-frame__cta is-visible">
+    <div class="commerce-frame__cta is-visible">
       <commerce-button big outline>Cancel</commerce-button>
       <commerce-button big>Done</commerce-button>
     </div>
 
-    <div class="minium-frame__dock (is-visible)">
+    <div class="commerce-frame__dock (is-visible)">
       Products
       <a href="#" class="commerce-button">Compare</a>
     </div>
 
-    <div class="minium-frame__overlay (is-visible)" id="minium-search-results">
-      <!-- <minium-suggestions/> -->
+    <div class="commerce-frame__overlay (is-visible)" id="commerce-search-results">
+      <!-- <commerce-suggestions/> -->
     </div>
 
-    <div class="minium-frame__tray">
+    <div class="commerce-frame__tray">
       <minium-toast>Toast message message
         <br>
-        <a href="#" class="minium-link">Go to link</a>
+        <a href="#" class="commerce-link">Go to link</a>
       </minium-toast>
     </div>
 
-    <div class="minium-frame__modal (is-visible)">
+    <div class="commerce-frame__modal (is-visible)">
       <div class="minium-modal">
         <a href="#" class="minium-modal__close">
-          <minium-icon/>
+          <commerce-icon/>
         </a>
         <div class="minium-modal__content">
           <div class="minium-modal__title">Modal title</div>

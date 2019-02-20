@@ -1,11 +1,11 @@
-.minium-loader {
+.commerce-loader {
 	display: inline-block;
 	min-height: 8px;
 	position: relative;
 
 	&__dots-wrapper {
 		&--inverted {
-			.minium-loader__dot {
+			.commerce-loader__dot {
 				background: var(--light);
 			}
 		}

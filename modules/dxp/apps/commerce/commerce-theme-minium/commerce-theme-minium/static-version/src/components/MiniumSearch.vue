@@ -1,10 +1,10 @@
 <template>
-  <div class="minium-search">
-    <div class="minium-search__input">
+  <div class="commerce-search">
+    <div class="commerce-search__input">
       <input type="text" :placeholder="placeholder" :id="id">
     </div>
-    <a href="#" class="minium-search__button">
-      <minium-icon/>
+    <a href="#" class="commerce-search__button">
+      <commerce-icon/>
     </a>
   </div>
 </template>

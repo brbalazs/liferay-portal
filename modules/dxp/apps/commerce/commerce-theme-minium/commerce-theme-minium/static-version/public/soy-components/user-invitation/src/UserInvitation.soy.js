@@ -60,7 +60,7 @@ var $render = function(opt_data, opt_ijData, opt_ijData_deprecated) {
   incrementalDom.elementOpenStart('svg');
       incrementalDom.attr('xmlns', 'http://www.w3.org/2000/svg');
       incrementalDom.attr('viewBox', '0 0 100 100');
-      incrementalDom.attr('class', 'minium-icon');
+      incrementalDom.attr('class', 'commerce-icon');
   incrementalDom.elementOpenEnd();
   incrementalDom.elementOpenStart('rect');
       incrementalDom.attr('fill', 'currentColor');

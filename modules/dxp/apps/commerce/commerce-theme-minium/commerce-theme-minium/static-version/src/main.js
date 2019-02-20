@@ -10,8 +10,8 @@ window.Liferay.fire = window.Liferay.emit;
 // import UserInvitation from "../public/soy-components/user-invitation/src/UserInvitation";
 import AddToCartButton from "../public/soy-components/add-to-cart/src/AddToCartButton";
 import MiniumProductGallery from "../public/soy-components/minium-product-gallery/src/MiniumProductGallery";
-import MiniumSearchBar from "../public/soy-components/minium-search-bar/src/MiniumSearchBar";
-import MiniumSearchResults from "../public/soy-components/minium-search-results/src/MiniumSearchResults";
+import MiniumSearchBar from "../public/soy-components/commerce-search-bar/src/MiniumSearchBar";
+import MiniumSearchResults from "../public/soy-components/commerce-search-results/src/MiniumSearchResults";
 import MiniumTable from "../public/soy-components/minium-table/src/MiniumTable";
 
 import "intersection-observer";
@@ -282,7 +282,7 @@ new MiniumTable(
 // 				viewAllOrdersLink: '/view-all-orders',
 // 				createNewOrderLink: '/create-new-order'
 // 			},
-// 			'.minium-topbar__account-selector-wrapper'
+// 			'.commerce-topbar__account-selector-wrapper'
 // 		);
 // 	})
 
@@ -330,9 +330,9 @@ new MiniumTable(
 // new MiniumSearchBar(
 // 	{
 // 		placeholder: "Search Product Name, SKU, Client…",
-// 		id: "minium-search-input"
+// 		id: "commerce-search-input"
 // 	},
-// 	"#minium-search"
+// 	"#commerce-search"
 // );
 
 function getItems(category) {
@@ -369,7 +369,7 @@ new MiniumSearchResults(
 			...getItems("Catalog")
 		]
 	},
-	"#minium-search-results"
+	"#commerce-search-results"
 );
 
 function handleKeyDownForSearch(e) {

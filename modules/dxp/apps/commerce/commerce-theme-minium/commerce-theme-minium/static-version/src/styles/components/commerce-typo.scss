@@ -1,4 +1,4 @@
-@mixin base-title {
+@mixin commerce-typo-base-title {
 color: $color-fg;
 font-size: 14px;
 font-weight: 500;
@@ -8,13 +8,13 @@ margin: $minium-big-gutter 0;
 text-transform: uppercase;
 }
 
-@mixin content-text {
+@mixin commerce-typo-content-text {
 font-size: 14px;
 line-height: 32px;
 }
 
-.minium-typo {
+.commerce-typo {
 &__section-title {
-@include base-title;
+@include commerce-typo-base-title;
 }
 }

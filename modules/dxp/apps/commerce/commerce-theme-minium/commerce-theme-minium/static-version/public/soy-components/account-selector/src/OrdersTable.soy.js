@@ -65,7 +65,7 @@ function $render(opt_data, opt_ijData, opt_ijData_deprecated) {
       incrementalDom.elementOpenStart('svg');
           incrementalDom.attr('xmlns', 'http://www.w3.org/2000/svg');
           incrementalDom.attr('viewBox', '0 0 100 100');
-          incrementalDom.attr('class', 'minium-icon');
+          incrementalDom.attr('class', 'commerce-icon');
       incrementalDom.elementOpenEnd();
         incrementalDom.elementOpenStart('rect');
             incrementalDom.attr('fill', 'currentColor');
@@ -93,11 +93,11 @@ function $render(opt_data, opt_ijData, opt_ijData_deprecated) {
         incrementalDom.attr('class', 'account-switcher__section');
     incrementalDom.elementOpenEnd();
       incrementalDom.elementOpenStart('form');
-          incrementalDom.attr('class', 'minium-search');
+          incrementalDom.attr('class', 'commerce-search');
           incrementalDom.attr('data-onsubmit', '_handleSubmitFilter');
       incrementalDom.elementOpenEnd();
         incrementalDom.elementOpenStart('div');
-            incrementalDom.attr('class', 'minium-search__input');
+            incrementalDom.attr('class', 'commerce-search__input');
         incrementalDom.elementOpenEnd();
           incrementalDom.elementOpenStart('input');
               incrementalDom.attr('type', 'text');
@@ -107,13 +107,13 @@ function $render(opt_data, opt_ijData, opt_ijData_deprecated) {
           incrementalDom.elementClose('input');
         incrementalDom.elementClose('div');
         incrementalDom.elementOpenStart('button');
-            incrementalDom.attr('class', 'minium-search__button');
+            incrementalDom.attr('class', 'commerce-search__button');
             incrementalDom.attr('type', 'submit');
         incrementalDom.elementOpenEnd();
           incrementalDom.elementOpenStart('svg');
               incrementalDom.attr('xmlns', 'http://www.w3.org/2000/svg');
               incrementalDom.attr('viewBox', '0 0 100 100');
-              incrementalDom.attr('class', 'minium-icon');
+              incrementalDom.attr('class', 'commerce-icon');
           incrementalDom.elementOpenEnd();
             incrementalDom.elementOpenStart('rect');
                 incrementalDom.attr('fill', 'currentColor');
@@ -242,7 +242,7 @@ function $order(opt_data, opt_ijData, opt_ijData_deprecated) {
   /** @type {!goog.soy.data.SanitizedContent|null|string|undefined} */
   var query = soy.asserts.assertType(opt_data.query == null || (goog.isString(opt_data.query) || opt_data.query instanceof goog.soy.data.SanitizedContent), 'query', opt_data.query, '!goog.soy.data.SanitizedContent|null|string|undefined');
   var statusClasses__soy563 = '';
-  statusClasses__soy563 += 'd-inline-block minium-dot minium-dot--';
+  statusClasses__soy563 += 'd-inline-block commerce-dot commerce-dot--';
   var $tmp = status;
   switch (goog.isObject($tmp) ? $tmp.toString() : $tmp) {
     case 'approved':

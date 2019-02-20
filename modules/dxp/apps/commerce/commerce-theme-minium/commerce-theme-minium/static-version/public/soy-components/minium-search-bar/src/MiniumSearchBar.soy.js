@@ -36,11 +36,11 @@ var $render = function(opt_data, opt_ijData, opt_ijData_deprecated) {
   /** @type {!goog.soy.data.SanitizedContent|string} */
   var id = soy.asserts.assertType(goog.isString(opt_data.id) || opt_data.id instanceof goog.soy.data.SanitizedContent, 'id', opt_data.id, '!goog.soy.data.SanitizedContent|string');
   incrementalDom.elementOpenStart('form');
-      incrementalDom.attr('class', 'minium-search');
+      incrementalDom.attr('class', 'commerce-search');
       incrementalDom.attr('data-onsubmit', 'handleSubmit');
   incrementalDom.elementOpenEnd();
   incrementalDom.elementOpenStart('div');
-      incrementalDom.attr('class', 'minium-search__input');
+      incrementalDom.attr('class', 'commerce-search__input');
   incrementalDom.elementOpenEnd();
   incrementalDom.elementOpenStart('input');
       incrementalDom.attr('type', 'text');
@@ -53,10 +53,10 @@ var $render = function(opt_data, opt_ijData, opt_ijData_deprecated) {
   incrementalDom.elementClose('div');
   incrementalDom.elementOpenStart('button');
       incrementalDom.attr('type', 'submit');
-      incrementalDom.attr('class', 'minium-search__button');
+      incrementalDom.attr('class', 'commerce-search__button');
   incrementalDom.elementOpenEnd();
   incrementalDom.elementOpenStart('svg');
-      incrementalDom.attr('class', 'minium-icon');
+      incrementalDom.attr('class', 'commerce-icon');
       incrementalDom.attr('xmlns', 'http://www.w3.org/2000/svg');
       incrementalDom.attr('viewBox', '0 0 100 100');
   incrementalDom.elementOpenEnd();

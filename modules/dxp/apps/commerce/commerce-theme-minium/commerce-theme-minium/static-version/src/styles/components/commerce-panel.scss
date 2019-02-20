@@ -1,4 +1,4 @@
-@mixin card-title {
+@mixin commerce-panel-title {
 background-color: $color-bg;
 border-radius: 8px;
 font-size: 12px;
@@ -10,8 +10,8 @@ padding: 12px 30px;
 text-transform: uppercase;
 }
 
-@mixin card-content {
-@include content-text;
+@mixin commerce-panel-content {
+@include commerce-typo-content-text;
 
 background-color: $color-bg;
 border-radius: 8px;
@@ -21,16 +21,16 @@ border-radius: 8px;
 padding: 10px 25px;
 }
 
-.minium-card {
+.commerce-panel {
 color: $color-fg;
 margin-bottom: $minium-big-gutter;
 
 &__title {
-@include card-title;
+@include commerce-panel-title;
 }
 
 &__content {
-@include card-content;
+@include commerce-panel-content;
 
 & + & {
 margin-top: 5px;

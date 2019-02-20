@@ -8,12 +8,12 @@ storiesOf("Search", module)
 .add("default", () => ({
 	components: { MiniumSearch },
 	render() {
-	  return <minium-search />;
+	  return <commerce-search />;
 	}
 }))
 .add("with placeholder", () => ({
 	components: { MiniumSearch },
 	render() {
-	  return <minium-search placeholder="Placeholder" />;
+	  return <commerce-search placeholder="Placeholder" />;
 	}
 }));

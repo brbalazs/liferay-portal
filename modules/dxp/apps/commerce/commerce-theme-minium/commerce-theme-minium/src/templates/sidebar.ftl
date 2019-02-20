@@ -1,4 +1,4 @@
-<div class="minium-frame__sidebar">
+<div class="commerce-frame__sidebar">
 	<div class="minium-sidebar">
 		<div class="minium-sidebar__start">
 			<div class="minium-logo">

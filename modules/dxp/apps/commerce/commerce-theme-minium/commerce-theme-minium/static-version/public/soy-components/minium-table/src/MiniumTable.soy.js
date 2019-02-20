@@ -180,7 +180,7 @@ var __deltemplate__ClayTable_Cell_miniumStatus = function(opt_data, opt_ijData, 
       incrementalDom.attr('class', 'cell');
   incrementalDom.elementOpenEnd();
   incrementalDom.elementOpenStart('div');
-      incrementalDom.attr('class', 'minium-dot minium-dot--' + value.badge);
+      incrementalDom.attr('class', 'commerce-dot commerce-dot--' + value.badge);
   incrementalDom.elementOpenEnd();
   soyIdom.print(value.label);
   incrementalDom.elementClose('div');
@@ -235,7 +235,7 @@ var __deltemplate__ClayTable_Cell_miniumActions = function(opt_data, opt_ijData,
   incrementalDom.elementOpenStart('svg');
       incrementalDom.attr('viewBox', '0 0 4 16');
       incrementalDom.attr('xmlns', 'http://www.w3.org/2000/svg');
-      incrementalDom.attr('class', 'minium-icon toggle__open');
+      incrementalDom.attr('class', 'commerce-icon toggle__open');
   incrementalDom.elementOpenEnd();
   incrementalDom.elementOpenStart('path');
       incrementalDom.attr('d', 'M0 2a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm0 6a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm0 6a2 2 0 1 1 4 0 2 2 0 0 1-4 0z');
@@ -247,7 +247,7 @@ var __deltemplate__ClayTable_Cell_miniumActions = function(opt_data, opt_ijData,
   incrementalDom.elementOpenStart('svg');
       incrementalDom.attr('viewBox', '0 0 13 8');
       incrementalDom.attr('xmlns', 'http://www.w3.org/2000/svg');
-      incrementalDom.attr('class', 'minium-icon toggle__close');
+      incrementalDom.attr('class', 'commerce-icon toggle__close');
   incrementalDom.elementOpenEnd();
   incrementalDom.elementOpenStart('path');
       incrementalDom.attr('d', 'M8.002 3V.986A.986.986 0 0 1 9.685.289l3.027 3.015a.986.986 0 0 1 0 1.394L9.685 7.711a.984.984 0 0 1-1.683-.697V5H1a1 1 0 0 1 0-2h7.002z');
@@ -267,7 +267,7 @@ var __deltemplate__ClayTable_Cell_miniumActions = function(opt_data, opt_ijData,
   incrementalDom.elementOpenStart('svg');
       incrementalDom.attr('viewBox', '0 0 13 8');
       incrementalDom.attr('xmlns', 'http://www.w3.org/2000/svg');
-      incrementalDom.attr('class', 'minium-icon');
+      incrementalDom.attr('class', 'commerce-icon');
   incrementalDom.elementOpenEnd();
   incrementalDom.elementOpenStart('path');
       incrementalDom.attr('d', 'M8.002 3V.986A.986.986 0 0 1 9.685.289l3.027 3.015a.986.986 0 0 1 0 1.394L9.685 7.711a.984.984 0 0 1-1.683-.697V5H1a1 1 0 0 1 0-2h7.002z');

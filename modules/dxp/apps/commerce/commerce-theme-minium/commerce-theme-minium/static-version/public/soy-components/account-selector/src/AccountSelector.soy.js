@@ -85,17 +85,17 @@ function $render(opt_data, opt_ijData, opt_ijData_deprecated) {
   curtainClasses__soy19 += openingState == 'open' ? ' is-open' : '';
   curtainClasses__soy19 += openingState == 'closing' ? ' is-closing' : '';
   incrementalDom.elementOpenStart('div');
-      incrementalDom.attr('class', 'minium-dropdown');
+      incrementalDom.attr('class', 'commerce-dropdown');
   incrementalDom.elementOpenEnd();
     incrementalDom.elementOpenStart('button');
-        incrementalDom.attr('class', 'minium-topbar__button');
+        incrementalDom.attr('class', 'commerce-topbar__button');
         incrementalDom.attr('data-onclick', 'toggleAccountSelector');
     incrementalDom.elementOpenEnd();
       $currentState(opt_data, null, opt_ijData);
       incrementalDom.elementOpenStart('svg');
           incrementalDom.attr('xmlns', 'http://www.w3.org/2000/svg');
           incrementalDom.attr('viewBox', '0 0 100 100');
-          incrementalDom.attr('class', 'minium-icon');
+          incrementalDom.attr('class', 'commerce-icon');
       incrementalDom.elementOpenEnd();
         incrementalDom.elementOpenStart('rect');
             incrementalDom.attr('fill', 'currentColor');
@@ -110,7 +110,7 @@ function $render(opt_data, opt_ijData, opt_ijData_deprecated) {
       incrementalDom.elementClose('svg');
     incrementalDom.elementClose('button');
     incrementalDom.elementOpenStart('div');
-        incrementalDom.attr('class', 'minium-dropdown__curtain' + curtainClasses__soy19);
+        incrementalDom.attr('class', 'commerce-dropdown__curtain' + curtainClasses__soy19);
     incrementalDom.elementOpenEnd();
       if ((currentAccount != null)) {
         var isOrdersTableVisible__soy39 = currentView == 'orders';
