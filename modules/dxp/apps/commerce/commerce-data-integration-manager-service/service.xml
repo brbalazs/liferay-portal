@@ -79,6 +79,7 @@
 		<column name="processType" type="String" />
 		<column name="contextPropertiesFileEntryId" type="long" />
 		<column name="srcArchiveFileEntryId" type="long" />
+		<column name="contextProperties" type="String" />
 
 		<!-- Order -->
 
