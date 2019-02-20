@@ -34,6 +34,9 @@
 		<field name="processType" type="String" />
 		<field name="contextPropertiesFileEntryId" type="long" />
 		<field name="srcArchiveFileEntryId" type="long" />
+		<field name="contextProperties" type="String">
+			<hint-collection name="CLOB" />
+		</field>
 	</model>
 	<model name="com.liferay.commerce.data.integration.manager.model.ScheduledTask">
 		<field name="uuid" type="String" />
