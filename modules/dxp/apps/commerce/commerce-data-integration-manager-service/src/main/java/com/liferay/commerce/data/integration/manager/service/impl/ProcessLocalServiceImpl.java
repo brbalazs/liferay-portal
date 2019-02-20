@@ -46,6 +46,26 @@ import java.util.List;
  */
 public class ProcessLocalServiceImpl extends ProcessLocalServiceBaseImpl {
 
+	@Indexable(type = IndexableType.REINDEX)
+	public Process addProcess(Process process, ServiceContext serviceContext)
+		throws PortalException {
+
+		User user = userLocalService.getUser(serviceContext.getUserId());
+
+		Date now = new Date();
+
+		process.setCompanyId(serviceContext.getCompanyId());
+		process.setCreateDate(now);
+		process.setGroupId(serviceContext.getScopeGroupId());
+		process.setModifiedDate(now);
+		process.setUserId(serviceContext.getUserId());
+		process.setUserName(user.getFullName());
+
+		resourceLocalService.addModelResources(process, serviceContext);
+
+		return processPersistence.update(process);
+	}
+
 	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -54,11 +74,9 @@ public class ProcessLocalServiceImpl extends ProcessLocalServiceBaseImpl {
 	@Indexable(type = IndexableType.REINDEX)
 	public Process addProcess(
 			String name, String className, String processType, String version,
-			long contextPropertiesFileEntryId, long srcArchiveFileEntryId,
-			ServiceContext serviceContext)
+			String contextProperties, long contextPropertiesFileEntryId,
+			long srcArchiveFileEntryId, ServiceContext serviceContext)
 		throws PortalException {
-
-		_validateProcess(contextPropertiesFileEntryId, srcArchiveFileEntryId);
 
 		long processId = counterLocalService.increment(Process.class.getName());
 
@@ -77,6 +95,7 @@ public class ProcessLocalServiceImpl extends ProcessLocalServiceBaseImpl {
 		process.setProcessType(processType);
 		process.setUserId(serviceContext.getUserId());
 		process.setUserName(user.getFullName());
+		process.setContextProperties(contextProperties);
 		process.setContextPropertiesFileEntryId(contextPropertiesFileEntryId);
 		process.setSrcArchiveFileEntryId(srcArchiveFileEntryId);
 		process.setVersion(version);
@@ -97,8 +116,10 @@ public class ProcessLocalServiceImpl extends ProcessLocalServiceBaseImpl {
 				process.getContextPropertiesFileEntryId());
 		}
 
-		_dlFileEntryLocalService.deleteDLFileEntry(
-			process.getSrcArchiveFileEntryId());
+		if (process.getSrcArchiveFileEntryId() > 0) {
+			_dlFileEntryLocalService.deleteDLFileEntry(
+				process.getSrcArchiveFileEntryId());
+		}
 
 		resourceLocalService.deleteResource(
 			process, ResourceConstants.SCOPE_INDIVIDUAL);
@@ -123,11 +144,10 @@ public class ProcessLocalServiceImpl extends ProcessLocalServiceBaseImpl {
 	@Indexable(type = IndexableType.REINDEX)
 	public Process updateProcess(
 			long processId, String name, String className, String processType,
-			String version, long contextPropertiesFileEntryId,
-			long srcArchiveFileEntryId, ServiceContext serviceContext)
+			String version, String contextProperties,
+			long contextPropertiesFileEntryId, long srcArchiveFileEntryId,
+			ServiceContext serviceContext)
 		throws PortalException {
-
-		_validateProcess(contextPropertiesFileEntryId, srcArchiveFileEntryId);
 
 		User user = userLocalService.getUser(serviceContext.getUserId());
 
@@ -142,32 +162,26 @@ public class ProcessLocalServiceImpl extends ProcessLocalServiceBaseImpl {
 		process.setVersion(version);
 		process.setClassName(className);
 		process.setProcessType(processType);
+		process.setContextProperties(contextProperties);
 		process.setContextPropertiesFileEntryId(contextPropertiesFileEntryId);
 		process.setSrcArchiveFileEntryId(srcArchiveFileEntryId);
 
 		return processPersistence.update(process);
 	}
 
-	private boolean _validateProcess(
-			long contextPropertiesFileEntryId, long srcArchiveFileEntryId)
+	@Indexable(type = IndexableType.REINDEX)
+	public Process updateProcess(Process process, ServiceContext serviceContext)
 		throws PortalException {
 
-		if ((contextPropertiesFileEntryId == 0) &&
-			(srcArchiveFileEntryId == 0)) {
+		User user = userLocalService.getUser(serviceContext.getUserId());
 
-			throw new PortalException("source file is mandatory");
-		}
+		Date now = new Date();
 
-		if (contextPropertiesFileEntryId > 0) {
-			_dlFileEntryLocalService.fetchDLFileEntry(
-				contextPropertiesFileEntryId);
-		}
+		process.setUserId(serviceContext.getUserId());
+		process.setUserName(user.getFullName());
+		process.setModifiedDate(now);
 
-		if (srcArchiveFileEntryId > 0) {
-			_dlFileEntryLocalService.getDLFileEntry(srcArchiveFileEntryId);
-		}
-
-		return true;
+		return processPersistence.update(process);
 	}
 
 	@ServiceReference(type = DLFileEntryLocalService.class)

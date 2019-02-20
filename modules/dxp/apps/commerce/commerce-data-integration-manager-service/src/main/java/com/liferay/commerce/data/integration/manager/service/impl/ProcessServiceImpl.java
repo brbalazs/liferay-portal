@@ -41,6 +41,16 @@ import java.util.List;
  */
 public class ProcessServiceImpl extends ProcessServiceBaseImpl {
 
+	public Process addProcess(Process process, ServiceContext serviceContext)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), serviceContext.getScopeGroupId(),
+			ProcessActionKeys.MANAGE_PROCESS);
+
+		return processLocalService.addProcess(process, serviceContext);
+	}
+
 	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -49,8 +59,8 @@ public class ProcessServiceImpl extends ProcessServiceBaseImpl {
 	 */
 	public Process addProcess(
 			String name, String className, String processType, String version,
-			long contextPropertiesFileEntryId, long srcArchiveFileEntryId,
-			ServiceContext serviceContext)
+			String contextProperties, long contextPropertiesFileEntryId,
+			long srcArchiveFileEntryId, ServiceContext serviceContext)
 		throws PortalException {
 
 		_portletResourcePermission.check(
@@ -58,8 +68,15 @@ public class ProcessServiceImpl extends ProcessServiceBaseImpl {
 			ProcessActionKeys.MANAGE_PROCESS);
 
 		return processLocalService.addProcess(
-			name, className, processType, version, contextPropertiesFileEntryId,
-			srcArchiveFileEntryId, serviceContext);
+			name, className, processType, version, contextProperties,
+			contextPropertiesFileEntryId, srcArchiveFileEntryId,
+			serviceContext);
+	}
+
+	public Process create() {
+		long processId = counterLocalService.increment(Process.class.getName());
+
+		return processLocalService.createProcess(processId);
 	}
 
 	public Process deleteProcess(
@@ -100,8 +117,9 @@ public class ProcessServiceImpl extends ProcessServiceBaseImpl {
 
 	public Process updateProcess(
 			long processId, String name, String className, String processType,
-			String version, long contextPropertiesFileEntryId,
-			long srcArchiveFileEntryId, ServiceContext serviceContext)
+			String version, String contextProperties,
+			long contextPropertiesFileEntryId, long srcArchiveFileEntryId,
+			ServiceContext serviceContext)
 		throws PortalException {
 
 		_portletResourcePermission.check(
@@ -109,9 +127,19 @@ public class ProcessServiceImpl extends ProcessServiceBaseImpl {
 			ProcessActionKeys.MANAGE_PROCESS);
 
 		return processLocalService.updateProcess(
-			processId, name, className, processType, version,
+			processId, name, className, processType, version, contextProperties,
 			contextPropertiesFileEntryId, srcArchiveFileEntryId,
 			serviceContext);
+	}
+
+	public Process updateProcess(Process process, ServiceContext serviceContext)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), serviceContext.getScopeGroupId(),
+			ProcessActionKeys.MANAGE_PROCESS);
+
+		return processLocalService.updateProcess(process);
 	}
 
 	private static volatile PortletResourcePermission
