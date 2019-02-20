@@ -47,23 +47,23 @@ transform: translateX(-5px);
 &__input {
 background: transparent;
 border: 0;
-border-radius: 0;
+border-radius: 6px;
 color: inherit;
 width: 40px;
 
 &:focus {
-	background-color: rgba(255, 255, 255, 0.2);
+	background-color: rgba(0, 0, 0, 0.2);
 }
 }
 
 &__select {
-background: transparent;
-border: 0;
-border-radius: 0;
-color: inherit;
-
-&:focus {
-	background-color: rgba(255, 255, 255, 0.2);
+	background: transparent;
+	border: 0;
+	border-radius: 6px;
+	color: inherit;
+	
+	&:focus {
+	background-color: rgba(0, 0, 0, 0.2);
 }
 }
 
