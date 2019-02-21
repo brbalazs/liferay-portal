@@ -1,4 +1,4 @@
-.commerce-frame {
+.minium-frame {
 	background-color: $color-bg-alt;
 	display: grid;
 	grid-template-areas:
@@ -34,7 +34,7 @@
 		position: relative;
 		z-index: 100;
 
-		.commerce-frame:not(.has-search) & {
+		.minium-frame:not(.has-search) & {
 			display: none;
 		}
 	}
@@ -51,13 +51,13 @@
 		transform $transition;
 		width: 100%;
 
-		.commerce-frame:not(.is-scrolled) &,
+		.minium-frame:not(.is-scrolled) &,
 		&:not(.is-visible) {
 			transform: translateY(-100%);
 		}
 
-		.commerce-frame.is-scrolled &,
-		.commerce-frame.has-search & {
+		.minium-frame.is-scrolled &,
+		.minium-frame.has-search & {
 			box-shadow: $minium-shadow;
 		}
 	}

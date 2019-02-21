@@ -75,7 +75,7 @@
 		overflow: hidden;
 		transition: max-height $transition;
 
-		.commerce-frame:not(.has-search) & {
+		.minium-frame:not(.has-search) & {
 			max-height: 0;
 		}
 	}

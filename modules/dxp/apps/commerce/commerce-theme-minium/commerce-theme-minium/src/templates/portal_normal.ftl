@@ -9,15 +9,22 @@
 </head>
 
 <body class="${css_class}">
-	<@liferay_ui["quick-access"] contentId="#main-content" />
-	<@liferay_util["include"] page=body_top_include />
-	<@liferay.control_menu />
+	<div class="liferay-top">
+		<@liferay_ui["quick-access"] contentId="#main-content" />
+		<@liferay_util["include"] page=body_top_include />
+		<@liferay.control_menu />
+	</div>
 
-	<div class="minium commerce-frame (has-search)" id="minium">
-		<#include "${full_templates_path}/sidebar.ftl" />
-		<#include "${full_templates_path}/topbar.ftl" />
+	<main class="minium minium-frame" id="minium">
+		<div class="minium-frame__sidebar">
+			<#include "${full_templates_path}/sidebar.ftl" />
+		</div>
 
-		<div class="commerce-frame__content js-scroll-area">
+		<div class="minium-frame__topbar">
+			<#include "${full_templates_path}/topbar.ftl" />
+		</div>
+
+		<div class="minium-frame__content js-scroll-area">
 			<a name="minium-top"></a>
 
 			<div class="minium-content">
@@ -35,15 +42,16 @@
 		</div>
 
 		<#--  The toolbar is needed to create the shadow when scrolling  -->
+		<div class="minium-frame__toolbar"></div>
 
-		<div class="commerce-frame__toolbar (is-visible)"></div>
-
-		<div class="commerce-frame__overlay (is-visible)" id="commerce-search-results">
+		<div class="minium-frame__overlay">
 			<@liferay_commerce_ui["search-results"] />
 		</div>
-	</div>
+	</main>
 
-	<@liferay_util["include"] page=body_bottom_include />
-	<@liferay_util["include"] page=bottom_include />
+	<div class="liferay-bottom">
+		<@liferay_util["include"] page=body_bottom_include />
+		<@liferay_util["include"] page=bottom_include />
+	</div>
 </body>
 </html>

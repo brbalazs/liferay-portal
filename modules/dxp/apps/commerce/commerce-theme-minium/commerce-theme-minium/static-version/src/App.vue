@@ -1,14 +1,14 @@
 <template>
-  <div id="minium" class="minium commerce-frame (has-search)">
-    <div class="commerce-frame__sidebar">
+  <div id="minium" class="minium minium-frame (has-search)">
+    <div class="minium-frame__sidebar">
       <minium-sidebar/>
     </div>
 
-    <div class="commerce-frame__topbar">
+    <div class="minium-frame__topbar">
       <commerce-topbar/>
     </div>
 
-    <div class="commerce-frame__content js-scroll-area">
+    <div class="minium-frame__content js-scroll-area">
       <a name="minium-top"></a>
       <div class="minium-content">
         <div class="container-fluid product-detail">
@@ -111,30 +111,30 @@
 
     </div>
 
-    <div class="commerce-frame__toolbar (is-visible)"></div>
+    <div class="minium-frame__toolbar (is-visible)"></div>
 
-    <div class="commerce-frame__cta is-visible">
+    <div class="minium-frame__cta is-visible">
       <commerce-button big outline>Cancel</commerce-button>
       <commerce-button big>Done</commerce-button>
     </div>
 
-    <div class="commerce-frame__dock (is-visible)">
+    <div class="minium-frame__dock (is-visible)">
       Products
       <a href="#" class="commerce-button">Compare</a>
     </div>
 
-    <div class="commerce-frame__overlay (is-visible)" id="commerce-search-results">
+    <div class="minium-frame__overlay (is-visible)" id="commerce-search-results">
       <!-- <commerce-suggestions/> -->
     </div>
 
-    <div class="commerce-frame__tray">
+    <div class="minium-frame__tray">
       <minium-toast>Toast message message
         <br>
         <a href="#" class="commerce-link">Go to link</a>
       </minium-toast>
     </div>
 
-    <div class="commerce-frame__modal (is-visible)">
+    <div class="minium-frame__modal (is-visible)">
       <div class="minium-modal">
         <a href="#" class="minium-modal__close">
           <commerce-icon/>
