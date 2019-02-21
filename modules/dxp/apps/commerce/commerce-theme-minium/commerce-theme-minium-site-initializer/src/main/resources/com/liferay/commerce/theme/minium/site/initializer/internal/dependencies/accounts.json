@@ -1,6 +1,7 @@
 [
 	{
 		"AccountLogo": "minium-logos-10.png",
+		"AccountType": "Business",
 		"Address": "3200 Front Avenue",
 		"City": "Los Angeles",
 		"Country": "US",
@@ -16,6 +17,7 @@
 	},
 	{
 		"AccountLogo": "minium-logos-10.png",
+		"AccountType": "Business",
 		"Address": "200 N Boulevard",
 		"City": "Richmond",
 		"Country": "US",
@@ -31,6 +33,7 @@
 	},
 	{
 		"AccountLogo": "minium-logos-10.png",
+		"AccountType": "Business",
 		"Address": "210 Arthur Street",
 		"City": "Davis",
 		"Country": "US",
@@ -46,6 +49,7 @@
 	},
 	{
 		"AccountLogo": "minium-logos-9.png",
+		"AccountType": "Business",
 		"Address": "6 Via Varesina",
 		"City": "Milan",
 		"Country": "Italy",
@@ -57,11 +61,12 @@
 			"Geography - Italy",
 			"Tier - Standard Accounts"
 		],
-		"Zip": 20156,
-		"taxId": "12345678901"
+		"TaxId": "12345678901",
+		"Zip": 20156
 	},
 	{
 		"AccountLogo": "minium-logos-4.png",
+		"AccountType": "Business",
 		"Address": "1300 W 256th Street",
 		"City": "Oxnard",
 		"Country": "US",
@@ -77,6 +82,7 @@
 	},
 	{
 		"AccountLogo": "minium-logos-8.png",
+		"AccountType": "Business",
 		"Address": "205 W Wacker Drive",
 		"City": "Chicago",
 		"Country": "US",
@@ -92,6 +98,7 @@
 	},
 	{
 		"AccountLogo": "minium-logos-7.png",
+		"AccountType": "Business",
 		"Address": "1 Richmond Street",
 		"City": "Toronto",
 		"Country": "CA",
@@ -107,6 +114,7 @@
 	},
 	{
 		"AccountLogo": "minium-logo-3.png",
+		"AccountType": "Business",
 		"Address": "163 Spadina Avenue",
 		"City": "Edmonton",
 		"Country": "CA",

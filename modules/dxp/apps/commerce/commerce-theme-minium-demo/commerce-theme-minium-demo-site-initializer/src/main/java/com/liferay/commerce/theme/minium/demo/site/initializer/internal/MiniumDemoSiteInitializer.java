@@ -14,9 +14,10 @@
 
 package com.liferay.commerce.theme.minium.demo.site.initializer.internal;
 
-import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.initializer.util.CPAttachmentFileEntryCreator;
 import com.liferay.commerce.initializer.util.CommerceAccountsImporter;
+import com.liferay.commerce.initializer.util.CommercePriceEntriesImporter;
+import com.liferay.commerce.initializer.util.CommercePriceListsImporter;
 import com.liferay.commerce.initializer.util.CommerceUserSegmentsImporter;
 import com.liferay.commerce.initializer.util.CommerceUsersImporter;
 import com.liferay.commerce.initializer.util.OrganizationImporter;
@@ -40,7 +41,6 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
-import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
@@ -59,10 +59,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -114,15 +112,17 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 
 			_siteInitializer.initialize(groupId);
 
+			_importCommercePriceLists(serviceContext);
+
+			_importCommercePriceEntries(serviceContext);
+
+			_importCommerceOrganizations(serviceContext);
+
+			_importCommerceAccounts(serviceContext);
+
+			_importCommerceUsers(serviceContext);
+
 			_importCommerceUserSegments(serviceContext);
-
-			List<Organization> organizations = _importCommerceOrganizations(
-				serviceContext);
-
-			List<CommerceAccount> commerceAccounts = _importCommerceAccounts(
-				organizations, serviceContext);
-
-			_importCommerceUsers(commerceAccounts, serviceContext);
 
 			switchImagesToDemo(serviceContext);
 
@@ -145,12 +145,10 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 
 	@Activate
 	protected void activate() {
-		init();
 	}
 
 	@Deactivate
 	protected void deactivate() {
-		_commerceAccounts = null;
 		_siteInitializer = null;
 	}
 
@@ -186,12 +184,6 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 		serviceContext.setUserId(user.getUserId());
 
 		return serviceContext;
-	}
-
-	protected void init() {
-		_commerceAccounts = new HashMap<>();
-
-		_organizations = new HashMap<>();
 	}
 
 	protected void setDefaultCatalogImage(ServiceContext serviceContext)
@@ -319,8 +311,7 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 			clazz.getClassLoader(), MINIUM_DEPENDENCIES_PATH + name);
 	}
 
-	private List<CommerceAccount> _importCommerceAccounts(
-			List<Organization> organizations, ServiceContext serviceContext)
+	private void _importCommerceAccounts(ServiceContext serviceContext)
 		throws Exception {
 
 		if (_log.isInfoEnabled()) {
@@ -333,24 +324,15 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 
 		ClassLoader classLoader = clazz.getClassLoader();
 
-		for (Organization organization : organizations) {
-			_organizations.put(organization.getName(), organization);
-		}
-
-		List<CommerceAccount> commerceAccounts =
-			_commerceAccountsImporter.importCommerceAccounts(
-				jsonArray, classLoader, _organizations, DEPENDENCIES_PATH,
-				serviceContext);
+		_commerceAccountsImporter.importCommerceAccounts(
+			jsonArray, classLoader, DEPENDENCIES_PATH, serviceContext);
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Commerce Accounts successfully imported");
 		}
-
-		return commerceAccounts;
 	}
 
-	private List<Organization> _importCommerceOrganizations(
-			ServiceContext serviceContext)
+	private void _importCommerceOrganizations(ServiceContext serviceContext)
 		throws Exception {
 
 		if (_log.isInfoEnabled()) {
@@ -359,28 +341,52 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 
 		JSONArray jsonArray = _getJSONArray("organizations.json");
 
-		List<Organization> organizations =
-			_organizationImporter.importOrganizations(
-				jsonArray, serviceContext);
+		_organizationImporter.importOrganizations(jsonArray, serviceContext);
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Organizations successfully imported");
 		}
-
-		return organizations;
 	}
 
-	private void _importCommerceUsers(
-			List<CommerceAccount> commerceAccounts,
-			ServiceContext serviceContext)
+	private void _importCommercePriceEntries(ServiceContext serviceContext)
+		throws Exception {
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Importing commerce price entries...");
+		}
+
+		JSONArray jsonArray = _getJSONArray("price-entries.json");
+
+		_commercePriceEntriesImporter.importCommercePriceEntries(
+			jsonArray, serviceContext);
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Commerce price entries successfully imported");
+		}
+	}
+
+	private void _importCommercePriceLists(ServiceContext serviceContext)
+		throws Exception {
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Importing commerce price lists...");
+		}
+
+		JSONArray jsonArray = _getJSONArray("price-lists.json");
+
+		_commercePriceListsImporter.importCommercePriceLists(
+			jsonArray, serviceContext);
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Commerce price lists successfully imported");
+		}
+	}
+
+	private void _importCommerceUsers(ServiceContext serviceContext)
 		throws Exception {
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Importing Commerce Users...");
-		}
-
-		for (CommerceAccount commerceAccount : commerceAccounts) {
-			_commerceAccounts.put(commerceAccount.getName(), commerceAccount);
 		}
 
 		JSONArray jsonArray = _getJSONArray("users.json");
@@ -390,8 +396,7 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 		ClassLoader classLoader = clazz.getClassLoader();
 
 		_commerceUsersImporter.importCommerceUsers(
-			jsonArray, classLoader, _commerceAccounts, DEPENDENCIES_PATH,
-			serviceContext);
+			jsonArray, classLoader, DEPENDENCIES_PATH, serviceContext);
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Commerce Users successfully imported");
@@ -418,13 +423,17 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 	private static final Log _log = LogFactoryUtil.getLog(
 		MiniumDemoSiteInitializer.class);
 
-	private Map<String, CommerceAccount> _commerceAccounts;
-
 	@Reference
 	private CommerceAccountsImporter _commerceAccountsImporter;
 
 	@Reference
 	private CommerceCatalogDefaultImage _commerceCatalogDefaultImage;
+
+	@Reference
+	private CommercePriceEntriesImporter _commercePriceEntriesImporter;
+
+	@Reference
+	private CommercePriceListsImporter _commercePriceListsImporter;
 
 	@Reference
 	private CommerceUserSegmentsImporter _commerceUserSegmentsImporter;
@@ -456,8 +465,6 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 
 	@Reference
 	private OrganizationImporter _organizationImporter;
-
-	private Map<String, Organization> _organizations;
 
 	@Reference(
 		target = "(osgi.web.symbolicname=com.liferay.commerce.theme.minium.demo.site.initializer)"
