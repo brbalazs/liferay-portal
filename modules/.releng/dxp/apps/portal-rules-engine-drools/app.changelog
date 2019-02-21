@@ -1,0 +1,10 @@
+#
+# Liferay App Version 4.0.0
+#
+
+app.artifacts-4.0.0=\
+	com.liferay.portal.rules.engine.drools.impl-1.0.2.jar
+
+app.change.log-4.0.0=LPS-81660
+
+app.git.id-4.0.0=204f75c8713855c9f1198062cb918187f5868c76
