@@ -30,12 +30,12 @@
 
 	&__btn {
 		color: $color-fg-alt;
+		cursor: pointer;
 		font-size: 14px;
 		font-weight: bold;
 		line-height: 30px;
 		text-align: center;
 		width: 24px;
-		cursor: pointer;
 
 		&:hover {
 			color: currentColor;
@@ -47,8 +47,8 @@
 		}
 
 		&.is-disabled {
-			opacity: .5;
 			cursor: default;
+			opacity: .5;
 		}
 	}
 }
