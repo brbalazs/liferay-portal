@@ -211,7 +211,7 @@
 		"Name": "Brake Pads",
 		"Price": 21.00,
 		"PromoPrice": 18.90,
-		"RelatedProducts": "13",
+		"RelatedProducts": "Wear Sensor",
 		"Sku": "MIN93018",
 		"SpecificationOptions": [
 			{
@@ -262,7 +262,7 @@
 		"Name": "Premium Brake Pads",
 		"Price": 29.00,
 		"PromoPrice": 26.10,
-		"RelatedProducts": "13",
+		"RelatedProducts": "Wear Sensor",
 		"Sku": "MIN93019",
 		"SpecificationOptions": [
 			{
@@ -562,7 +562,7 @@
 		"Name": "Master Cylinder",
 		"Price": 78.00,
 		"PromoPrice": 0,
-		"RelatedProducts": "13",
+		"RelatedProducts": "Wear Sensor",
 		"Sku": "MIN93024",
 		"SpecificationOptions": [
 			{
@@ -614,7 +614,7 @@
 		"Name": "Master Cylinder",
 		"Price": 34.00,
 		"PromoPrice": 0,
-		"RelatedProducts": "13",
+		"RelatedProducts": "Wear Sensor",
 		"Sku": "MIN93025",
 		"SpecificationOptions": [
 			{
@@ -666,7 +666,7 @@
 		"Name": "Master Cylinder",
 		"Price": 39.00,
 		"PromoPrice": 0,
-		"RelatedProducts": "13",
+		"RelatedProducts": "Wear Sensor",
 		"Sku": "MIN93026",
 		"SpecificationOptions": [
 			{
@@ -714,7 +714,7 @@
 		"Name": "Wear Sensors",
 		"Price": 60.00,
 		"PromoPrice": 0,
-		"RelatedProducts": "13, 5",
+		"RelatedProducts": "Premium Brake Pads",
 		"Sku": "MIN93027",
 		"SpecificationOptions": [
 			{
@@ -1270,6 +1270,54 @@
 		"Warehouse3": 40,
 		"Weight": 0.1,
 		"Width": 10.2
+	},
+	{
+		"Attachment": "",
+		"AvailabilityEstimate": "3-5 days",
+		"BackOrders": true,
+		"Categories": [
+			"Exhaust System"
+		],
+		"Description": "Product designed and manufactured to accommodate OEM applications. All products are tested and inspected in an ISO-9000 compliant environment",
+		"DisplayAvailability": true,
+		"DisplayStockQuantity": true,
+		"Height": 5.3,
+		"Length": 9.4,
+		"ManufacturerPartNumber": "ES98205",
+		"MinStockQuantity": 5,
+		"Name": "Catalytic Converters",
+		"Price": 106.00,
+		"PromoPrice": 0,
+		"RelatedProducts": "",
+		"Sku": "MIN77822",
+		"SpecificationOptions": [
+			{
+				"Key": "quantity",
+				"Value": "1"
+			},
+			{
+				"Key": "material",
+				"Value": "Steel"
+			},
+			{
+				"Key": "warranty",
+				"Value": "1 Year Unlimited Mileage Warranty"
+			},
+			{
+				"Key": "weight",
+				"Value": "4.7 lbs"
+			},
+			{
+				"Key": "dimensions",
+				"Value": "9.4\" x 7.3\" x 5.3\""
+			}
+		],
+		"TaxCategory": "Normal Product",
+		"Warehouse1": 0,
+		"Warehouse2": 0,
+		"Warehouse3": 0,
+		"Weight": 4.7,
+		"Width": 7.3
 	},
 	{
 		"Attachment": "",

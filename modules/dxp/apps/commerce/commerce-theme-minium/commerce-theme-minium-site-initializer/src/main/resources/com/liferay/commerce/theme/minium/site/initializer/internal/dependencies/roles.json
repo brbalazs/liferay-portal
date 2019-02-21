@@ -38,7 +38,7 @@
 			"resource": "90"
 		},
 		"name": "Sales Agent",
-		"scope": 3,
+		"scope": 1,
 		"type": 1
 	},
 	{
@@ -49,7 +49,7 @@
 			"resource": "com.liferay.commerce.account.model.CommerceAccount"
 		},
 		"name": "Sales Agent",
-		"scope": 3,
+		"scope": 1,
 		"type": 1
 	}
 ]

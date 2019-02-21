@@ -1,35 +1,48 @@
 [
 	{
+		"AccountType": "Business",
 		"City": "Los Angeles",
 		"CompanyLogo": "minium-logos-10.png",
 		"Country": "US",
 		"Name": "Speedy Auto Service, Southern California",
+		"PriceLists": [
+			"Gold Accounts Pricing"
+		],
 		"Region": "CA",
 		"RelatedOrganization": "United States",
 		"Street1": "3200 Front Avenue",
 		"Zip": "90023"
 	},
 	{
+		"AccountType": "Business",
 		"City": "Richmond",
 		"CompanyLogo": "minium-logos-10.png",
 		"Country": "US",
 		"Name": "Speedy Auto Service, N. America HQ",
+		"PriceLists": [
+			"Gold Accounts Pricing"
+		],
 		"Region": "VA",
 		"RelatedOrganization": "United States",
 		"Street1": "200 N Boulevard",
 		"Zip": "23173"
 	},
 	{
+		"AccountType": "Business",
 		"City": "Davis",
 		"CompanyLogo": "minium-logos-10.png",
 		"Country": "US",
 		"Name": "Speedy Auto Service, Northern California",
+		"PriceLists": [
+			"Gold Accounts Pricing"
+		],
 		"Region": "CA",
 		"RelatedOrganization": "United States",
 		"Street1": "210 Arthur Street",
 		"Zip": "95618"
 	},
 	{
+		"AccountType": "Business",
 		"City": "Milan",
 		"CompanyLogo": "minium-logos-9.png",
 		"Country": "IT",
@@ -41,6 +54,7 @@
 		"Zip": "20156"
 	},
 	{
+		"AccountType": "Business",
 		"City": "Oxnard",
 		"CompanyLogo": "minium-logos-4.png",
 		"Country": "US",
@@ -51,6 +65,7 @@
 		"Zip": "93030"
 	},
 	{
+		"AccountType": "Business",
 		"City": "Chicago",
 		"CompanyLogo": "minium-logos-8.png",
 		"Country": "US",
@@ -61,21 +76,21 @@
 		"Zip": "60606"
 	},
 	{
+		"AccountType": "Business",
 		"City": "Toronto",
 		"CompanyLogo": "minium-logos-7.png",
 		"Country": "CA",
 		"Name": "Joe's Complete Auto Care",
-		"Region": "ON",
 		"RelatedOrganization": "Canada",
 		"Street1": "1 Richmond Street",
 		"Zip": "M4C 1M5"
 	},
 	{
+		"AccountType": "Business",
 		"City": "Edmonton",
 		"CompanyLogo": "minium-logos-3.png",
 		"Country": "CA",
 		"Name": "Honest Auto Repair Centre",
-		"Region": "AB",
 		"RelatedOrganization": "Canada",
 		"Street1": "163 Spadina Avenue",
 		"Zip": "T5A 0A1"
