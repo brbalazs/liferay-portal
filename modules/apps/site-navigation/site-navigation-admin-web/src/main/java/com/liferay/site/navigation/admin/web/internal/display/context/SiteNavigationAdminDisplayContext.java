@@ -46,6 +46,7 @@ import com.liferay.site.navigation.type.SiteNavigationMenuItemTypeRegistry;
 import com.liferay.staging.StagingGroupHelper;
 import com.liferay.staging.StagingGroupHelperUtil;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -103,6 +104,8 @@ public class SiteNavigationAdminDisplayContext {
 
 					add(
 						dropdownItem -> {
+							dropdownItem.setData(
+								Collections.singletonMap("type", "add-button"));
 							dropdownItem.setHref(
 								_getAddURL(siteNavigationMenuItemType));
 							dropdownItem.setLabel(
