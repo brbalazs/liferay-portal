@@ -17,6 +17,12 @@
 	text-transform: uppercase;
 	white-space: nowrap;
 
+	&:focus,
+	&:focus-within {
+		box-shadow: $minium-shadow-focus;
+		outline: none;
+	}
+
 	& + & {
 		margin-left: $minium-gutter;
 	}

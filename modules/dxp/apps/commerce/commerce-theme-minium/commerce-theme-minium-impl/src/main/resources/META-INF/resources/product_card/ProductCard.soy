@@ -27,7 +27,7 @@
 	{@param? _handleRemoveProduct: any}
 	{@param? _handleCheckboxCompareUpdate: any}
 
-	<div class="product-card">
+	<div class="minium-card" tabindex="0">
 		{let $availabilityDotClasses kind="text"}
 			d-inline-block commerce-dot commerce-dot--
 			{switch $availability}
@@ -56,7 +56,7 @@
 
 		{if isNonnull($deleteButtonVisible) and $deleteButtonVisible == true and isNonnull($spritemap)}
 			<span
-				class="product-card__delete"
+				class="minium-card__delete"
 				data-onclick={$_handleRemoveProduct}
 			>
 				{call ClayIcon.render}
@@ -67,31 +67,36 @@
 		{/if}
 
 		{if isNonnull($pictureUrl)}
-			<div
-				class="product-card__picture"
+			<a
+				class="minium-card__picture"
+				href="{$detailsLink}"
 				style="background-image: url({$pictureUrl})"
-			></div>
+				tabindex="-1"
+			></a>
 		{else}
 			<div
-				class="product-card__picture"
+				class="minium-card__picture"
 			></div>
 		{/if}
 
 		{if isNonnull($availability)}
-			<div class="product-card__availability">
+			<div class="minium-card__availability">
 
 			</div>
 		{/if}
 
 		{if isNonnull($sku)}
-			<p class="product-card__sku">{$sku}</p>
+			<p class="minium-card__sku">{$sku}</p>
 		{else}
-			<p class="product-card__empty_sku"></p>
+			<p class="minium-card__empty_sku"></p>
 		{/if}
 
-		<a class="product-card__name" href="{$detailsLink}">{$name}</a>
+		<a class="minium-card__name" href="{$detailsLink}" tabindex="-1">
+			{$name}
+		</a>
+
 		{if isNonnull($categories) and length($categories) > 0}
-			<p class="product-card__categories">
+			<p class="minium-card__categories">
 				{foreach $category in $categories}
 					{if index($category) != 0}
 						,{sp}
@@ -101,13 +106,13 @@
 			</p>
 		{/if}
 
-		{if isNonnull($description)}
-			<p class="product-card__description">
+		<p class="minium-card__description">
+			{if isNonnull($description)}
 				{$description}
-			</p>
-		{/if}
+			{/if}
+		</p>
 
-		<div class="product-card__price">
+		<div class="minium-card__price">
 			{if isNonnull($prices) and isNonnull($prices)}
 				{call Price.render}
 					{param prices: $prices /}
@@ -117,8 +122,8 @@
 			{/if}
 		</div>
 
-		{if isNonnull($sku) and  isNonnull($skuId)}
-			<div>
+		<div class="minium-card__actions">
+			{if isNonnull($sku) and  isNonnull($skuId)}
 				{call AddToCartButton.render}
 					{param accountId: $accountId /}
 					{param orderId: $orderId /}
@@ -128,14 +133,12 @@
 					{param settings: $settings /}
 					{param productId: $skuId /}
 				{/call}
-			</div>
-		{else}
-			<div>
-				<a class="commerce-button commerce-button--outline" href="{$detailsLink}" target="_self">
-				{msg desc="View all variants"}view-all-variants{/msg}
+			{else}
+				<a class="commerce-button commerce-button--outline" href="{$detailsLink}">
+					{msg desc="View all variants"}view-all-variants{/msg}
 				</a>
-			</div>
-		{/if}
+			{/if}
+		</div>
 	</div>
 
 {/template}

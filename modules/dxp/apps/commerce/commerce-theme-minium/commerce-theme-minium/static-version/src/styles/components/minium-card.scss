@@ -1,4 +1,5 @@
-.product-card {
+.minium-card {
+	align-items: center;
 	background: white;
 	border-radius: 5px;
 	box-shadow: 0 17px 56px 0 rgba(52, 55, 62, 0);
@@ -14,6 +15,11 @@
 
 	&:hover {
 		box-shadow: 0 17px 56px 0 rgba(52, 55, 62, 0.08);
+	}
+
+	&:focus {
+		box-shadow: $minium-shadow-focus;
+		outline: none;
 	}
 
 	&__close {
@@ -65,15 +71,30 @@
 	}
 
 	&__picture {
+		background-color: #EBEBEB;
 		background-position: 50%;
 		background-repeat: no-repeat;
 		background-size: cover;
 		height: 200px;
-		margin-left: -20px;
 		margin-top: -20px;
 		overflow: hidden;
 		position: relative;
 		width: calc(100% + 40px);
+
+		&::before { 
+			background: inherit;
+			bottom: 0;
+			content: "";
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+			transition: all ease 200ms;
+
+			.minium-card:hover & {
+				transform: scale(1.1);
+			}
+		}
 	}
 
 	&__sku {
@@ -102,7 +123,7 @@
 
 		&:hover {
 		 color: inherit;
-		 text-decoration: none
+		 text-decoration: underline;
 		}
 	}
 

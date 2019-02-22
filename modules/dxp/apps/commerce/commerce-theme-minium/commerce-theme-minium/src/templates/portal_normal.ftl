@@ -42,6 +42,7 @@
 		</div>
 
 		<#--  The toolbar is needed to create the shadow when scrolling  -->
+
 		<div class="minium-frame__toolbar"></div>
 
 		<div class="minium-frame__overlay">
