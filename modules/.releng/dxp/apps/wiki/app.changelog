@@ -181,3 +181,26 @@ app.artifacts-1.0.7=\
 app.change.log-1.0.7=LPS-69035 LPS-77699 LPS-79653 LPS-80332 LPS-81704 LPS-81931 LPS-82343 LPS-83494 LPS-84119 LPS-85296 LPS-86806 LPS-86807 LPS-88170 LPS-88181 LPS-88665 LPS-88872 LPS-89445 LPS-89567
 
 app.git.id-1.0.7=789f1288049697c219e948a2cb7f0b3b1029b329
+
+#
+# Liferay App Version 1.0.8
+#
+
+app.artifacts-1.0.8=\
+	com.liferay.wiki.api-3.0.8.jar,\
+	com.liferay.wiki.editor.configuration-2.0.4.jar,\
+	com.liferay.wiki.editor.link.browse.web-1.0.2.jar,\
+	com.liferay.wiki.engine.creole-3.0.9.jar,\
+	com.liferay.wiki.engine.html-3.0.0.jar,\
+	com.liferay.wiki.engine.input.editor.common-4.0.4.jar,\
+	com.liferay.wiki.engine.lang-2.0.0.jar,\
+	com.liferay.wiki.engine.text-3.0.1.jar,\
+	com.liferay.wiki.layout.prototype-2.0.0.jar,\
+	com.liferay.wiki.navigation.web-3.0.5.jar,\
+	com.liferay.wiki.service-2.0.31.jar,\
+	com.liferay.wiki.uad-3.0.1.jar,\
+	com.liferay.wiki.web-4.0.37.jar
+
+app.change.log-1.0.8=LPS-69035 LPS-72021 LPS-74544 LPS-77699 LPS-78329 LPS-78716 LPS-79653 LPS-79679 LPS-79830 LPS-79838 LPS-80082 LPS-80316 LPS-80332 LPS-80505 LPS-80517 LPS-80566 LPS-80580 LPS-80779 LPS-80967 LPS-80968 LPS-80969 LPS-81017 LPS-81304 LPS-81399 LPS-81508 LPS-81704 LPS-81904 LPS-81931 LPS-82021/LPS-82022 LPS-82022 LPS-82023 LPS-82119 LPS-82195 LPS-82343 LPS-82462 LPS-82468 LPS-82668 LPS-82795 LPS-82827 LPS-82828 LPS-83025 LPS-83241 LPS-83373 LPS-83494 LPS-83705 LPS-83813 LPS-84093 LPS-84119 LPS-84370 LPS-84683 LPS-85049 LPS-85296 LPS-85733 LPS-86408 LPS-86806 LPS-86809 LPS-88181 LPS-88665 LPS-88872 LPS-89445 LPS-89456 LPS-89567 LRDOCS-6300
+
+app.git.id-1.0.8=204f75c8713855c9f1198062cb918187f5868c76
