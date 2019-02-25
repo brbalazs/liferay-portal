@@ -4,6 +4,7 @@ Bundle-Version: 2.0.0
 Export-Package:\
 	com.liferay.commerce.data.integration.manager.constants,\
 	com.liferay.commerce.data.integration.manager.exception,\
+	com.liferay.commerce.data.integration.manager.helper,\
 	com.liferay.commerce.data.integration.manager.model,\
 	com.liferay.commerce.data.integration.manager.process.type,\
 	com.liferay.commerce.data.integration.manager.service,\
