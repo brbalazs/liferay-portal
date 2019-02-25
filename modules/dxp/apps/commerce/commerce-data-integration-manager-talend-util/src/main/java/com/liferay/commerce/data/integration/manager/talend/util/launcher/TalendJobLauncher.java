@@ -39,11 +39,13 @@ import com.liferay.portal.kernel.util.StringUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
@@ -97,7 +99,9 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 
 		Date endDate = new Date();
 
-		String startTime = _fileNameDateFormat.format(startDate);
+		DateFormat dateFormat = new SimpleDateFormat(_DATE_FORMAT);
+
+		String startTime = dateFormat.format(startDate);
 
 		String errorFileName = StringBundler.concat(
 			scheduledTask.getName(), _ERROR, StringPool.UNDERLINE, startTime);
@@ -137,42 +141,34 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 			long companyId, Date lastRunStartDate, File jobWorkDirectory)
 		throws Exception {
 
-		FileEntry propsFileEntry = null;
+		FileEntry propsFileEntry;
+
+		InputStream archiveInputStream = null;
 
 		try {
 			if (contextFileEntryId > 0) {
 				propsFileEntry = _dlAppLocalService.getFileEntry(
 					contextFileEntryId);
+
 				_props = new Properties();
 
-				InputStream inputStream = propsFileEntry.getContentStream();
+				try (InputStream inputStream =
+						propsFileEntry.getContentStream()) {
 
-				_props.load(inputStream);
-
-				inputStream.close();
+					_props.load(inputStream);
+				}
 			}
 
 			FileEntry archiveFileEntry = _dlAppLocalService.getFileEntry(
 				archiveProcessFileEntryId);
 
-			InputStream archiveInputStream =
-				archiveFileEntry.getContentStream();
-
-			byte[] buffer = new byte[8 * 1024];
+			archiveInputStream = archiveFileEntry.getContentStream();
 
 			File tempArchiveFile = FileUtil.createTempFile();
 
-			OutputStream outStream = new FileOutputStream(tempArchiveFile);
-
-			int bytesRead;
-
-			while ((bytesRead = archiveInputStream.read(buffer)) != -1) {
-				outStream.write(buffer, 0, bytesRead);
-			}
-
-			archiveInputStream.close();
-
-			outStream.close();
+			Files.copy(
+				archiveInputStream, tempArchiveFile.toPath(),
+				StandardCopyOption.REPLACE_EXISTING);
 
 			String rootDirectoryName = _dlManagementUtil.unzipFile(
 				tempArchiveFile);
@@ -195,6 +191,11 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 			_log.error(ex, ex);
 
 			return false;
+		}
+		finally {
+			if (archiveInputStream != null) {
+				archiveInputStream.close();
+			}
 		}
 
 		return true;
@@ -257,7 +258,13 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 			scheduledTaskLocalService.stopScheduledTask(
 				userId, scheduledTaskId);
 
-			String startTime = _fileNameDateFormat.format(startDate);
+			DateFormat dateFormat = new SimpleDateFormat(_DATE_FORMAT);
+
+			String startTime = dateFormat.format(startDate);
+
+			if (scheduledTask == null) {
+				return;
+			}
 
 			String errorFileName = StringBundler.concat(
 				scheduledTask.getName(), _ERROR, StringPool.UNDERLINE,
@@ -318,11 +325,11 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 		if (_props != null) {
 			StringBundler sb = new StringBundler();
 
-			for (Object key : _props.keySet()) {
+			for (Map.Entry propEntry : _props.entrySet()) {
 				sb.append(_CONTEXT_PARAM_ARG);
-				sb.append(key);
+				sb.append(propEntry.getKey());
 				sb.append(StringPool.EQUAL);
-				sb.append(_props.get(key));
+				sb.append(propEntry.getValue());
 
 				_command.add(sb.toString());
 
@@ -341,11 +348,15 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 			File rootPathAsFileObject = new File(_libDirectoryName);
 
 			if (rootPathAsFileObject.isDirectory()) {
-				for (String file : rootPathAsFileObject.list()) {
-					commandSB.append(_libDirectoryName);
-					commandSB.append(StringPool.SLASH);
-					commandSB.append(file);
-					commandSB.append(StringPool.COLON);
+				String[] libFolderList = rootPathAsFileObject.list();
+
+				if (libFolderList != null) {
+					for (String file : libFolderList) {
+						commandSB.append(_libDirectoryName);
+						commandSB.append(StringPool.SLASH);
+						commandSB.append(file);
+						commandSB.append(StringPool.COLON);
+					}
 				}
 			}
 		}
@@ -358,7 +369,7 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 
 	private void _buildJarNameAndClassName(
 			String rootDirectoryName, String fileName)
-		throws IOException {
+		throws Exception {
 
 		int lastIndexOfDot = fileName.lastIndexOf(StringPool.PERIOD);
 
@@ -383,24 +394,35 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 		_jarName = sb.toString();
 
 		if (_className.isEmpty()) {
-			Properties prop = new Properties();
+			FileInputStream fileInputStream = null;
 
-			prop.load(
-				new FileInputStream(
-					new File(rootDirectoryName + _JOBINFO_FILE)));
+			try {
+				File file = new File(rootDirectoryName + _JOBINFO_FILE);
 
-			String projectName = StringUtil.toLowerCase(
-				prop.getProperty(_PROJECT_PROPERTY));
+				fileInputStream = new FileInputStream(file);
 
-			sb = new StringBuilder();
+				Properties prop = new Properties();
 
-			sb.append(projectName);
-			sb.append(StringPool.PERIOD);
-			sb.append(jarName);
-			sb.append(StringPool.PERIOD);
-			sb.append(projectFolder);
+				prop.load(fileInputStream);
 
-			_className = sb.toString();
+				String projectName = StringUtil.toLowerCase(
+					prop.getProperty(_PROJECT_PROPERTY));
+
+				sb = new StringBuilder();
+
+				sb.append(projectName);
+				sb.append(StringPool.PERIOD);
+				sb.append(jarName);
+				sb.append(StringPool.PERIOD);
+				sb.append(projectFolder);
+
+				_className = sb.toString();
+			}
+			finally {
+				if (fileInputStream != null) {
+					fileInputStream.close();
+				}
+			}
 		}
 	}
 
@@ -420,6 +442,8 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 	private static final String _CONTEXT_PARAM_ARG = "--context_param ";
 
 	private static final String _CP = "-cp";
+
+	private static final String _DATE_FORMAT = "yyyyMMddHHmmss";
 
 	private static final String _ERROR = "_error";
 
@@ -442,9 +466,6 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		TalendJobLauncher.class);
-
-	private static final SimpleDateFormat _fileNameDateFormat =
-		new SimpleDateFormat("yyyyMMddHHmmss");
 
 	private String _className;
 	private List<String> _command;

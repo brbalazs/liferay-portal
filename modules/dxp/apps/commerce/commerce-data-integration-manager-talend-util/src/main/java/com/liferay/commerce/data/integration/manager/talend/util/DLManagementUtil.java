@@ -25,6 +25,8 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.upload.UniqueFileNameProvider;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -62,10 +64,15 @@ public class DLManagementUtil {
 			userId, folderId, fileName, file, contentType, serviceContext);
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_BAD_PRACTICE")
 	public String unzipFile(File archive) throws IOException, PortalException {
 		String uncompressedDirectory = "";
 
-		FileInputStream fis;
+		FileInputStream fis = null;
+
+		ZipInputStream zis = null;
+
+		FileOutputStream fos = null;
 
 		File uncompressedFolder = FileUtil.createTempFolder();
 
@@ -74,7 +81,7 @@ public class DLManagementUtil {
 		try {
 			fis = new FileInputStream(archive);
 
-			ZipInputStream zis = new ZipInputStream(fis);
+			zis = new ZipInputStream(fis);
 
 			ZipEntry ze = zis.getNextEntry();
 
@@ -86,18 +93,18 @@ public class DLManagementUtil {
 				File newFile = new File(
 					uncompressedDirectory + File.separator + fileName);
 
-				new File(newFile.getParent()).mkdirs();
+				File parentFolder = new File(newFile.getParent());
+
+				parentFolder.mkdirs();
 
 				if (!ze.isDirectory()) {
-					FileOutputStream fos = new FileOutputStream(newFile);
+					fos = new FileOutputStream(newFile);
 
 					int len;
 
 					while ((len = zis.read(buffer)) > 0) {
 						fos.write(buffer, 0, len);
 					}
-
-					fos.close();
 				}
 
 				zis.closeEntry();
@@ -105,12 +112,23 @@ public class DLManagementUtil {
 				ze = zis.getNextEntry();
 			}
 
-			zis.closeEntry();
-			zis.close();
-			fis.close();
 		}
 		catch (IOException ioe) {
 			_log.error(ioe, ioe);
+		}
+		finally {
+			if (zis != null) {
+				zis.closeEntry();
+				zis.close();
+			}
+
+			if (fis != null) {
+				fis.close();
+			}
+
+			if (fos != null) {
+				fos.close();
+			}
 		}
 
 		return uncompressedDirectory;
