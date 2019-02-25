@@ -31,7 +31,8 @@ create table Process (
 	className VARCHAR(75) null,
 	processType VARCHAR(75) null,
 	contextPropertiesFileEntryId LONG,
-	srcArchiveFileEntryId LONG
+	srcArchiveFileEntryId LONG,
+	contextProperties TEXT null
 );
 
 create table ScheduledTask (

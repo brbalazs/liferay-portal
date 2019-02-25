@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.commerce.data.integration.manager.service.http;
@@ -56,17 +56,51 @@ import com.liferay.portal.kernel.util.MethodKey;
 @ProviderType
 public class ProcessServiceHttp {
 	public static com.liferay.commerce.data.integration.manager.model.Process addProcess(
-		HttpPrincipal httpPrincipal, String name, String className,
-		String processType, String version, long contextPropertiesFileEntryId,
-		long srcArchiveFileEntryId,
+		HttpPrincipal httpPrincipal,
+		com.liferay.commerce.data.integration.manager.model.Process process,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(ProcessServiceUtil.class,
 					"addProcess", _addProcessParameterTypes0);
 
+			MethodHandler methodHandler = new MethodHandler(methodKey, process,
+					serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (com.liferay.commerce.data.integration.manager.model.Process)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static com.liferay.commerce.data.integration.manager.model.Process addProcess(
+		HttpPrincipal httpPrincipal, String name, String className,
+		String processType, String version, String contextProperties,
+		long contextPropertiesFileEntryId, long srcArchiveFileEntryId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		try {
+			MethodKey methodKey = new MethodKey(ProcessServiceUtil.class,
+					"addProcess", _addProcessParameterTypes1);
+
 			MethodHandler methodHandler = new MethodHandler(methodKey, name,
-					className, processType, version,
+					className, processType, version, contextProperties,
 					contextPropertiesFileEntryId, srcArchiveFileEntryId,
 					serviceContext);
 
@@ -92,13 +126,39 @@ public class ProcessServiceHttp {
 		}
 	}
 
+	public static com.liferay.commerce.data.integration.manager.model.Process create(
+		HttpPrincipal httpPrincipal) {
+		try {
+			MethodKey methodKey = new MethodKey(ProcessServiceUtil.class,
+					"create", _createParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (com.liferay.commerce.data.integration.manager.model.Process)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static com.liferay.commerce.data.integration.manager.model.Process deleteProcess(
 		HttpPrincipal httpPrincipal, long userId, long processId,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(ProcessServiceUtil.class,
-					"deleteProcess", _deleteProcessParameterTypes1);
+					"deleteProcess", _deleteProcessParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, userId,
 					processId, serviceContext);
@@ -130,7 +190,7 @@ public class ProcessServiceHttp {
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(ProcessServiceUtil.class,
-					"getProcess", _getProcessParameterTypes2);
+					"getProcess", _getProcessParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, userId,
 					processId);
@@ -163,7 +223,7 @@ public class ProcessServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(ProcessServiceUtil.class,
 					"getProcessesByGroupId",
-					_getProcessesByGroupIdParameterTypes3);
+					_getProcessesByGroupIdParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, userId,
 					groupId, start, end);
@@ -196,7 +256,7 @@ public class ProcessServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(ProcessServiceUtil.class,
 					"getProcessesByGroupIdCount",
-					_getProcessesByGroupIdCountParameterTypes4);
+					_getProcessesByGroupIdCountParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, userId,
 					groupId);
@@ -226,16 +286,51 @@ public class ProcessServiceHttp {
 	public static com.liferay.commerce.data.integration.manager.model.Process updateProcess(
 		HttpPrincipal httpPrincipal, long processId, String name,
 		String className, String processType, String version,
-		long contextPropertiesFileEntryId, long srcArchiveFileEntryId,
+		String contextProperties, long contextPropertiesFileEntryId,
+		long srcArchiveFileEntryId,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(ProcessServiceUtil.class,
-					"updateProcess", _updateProcessParameterTypes5);
+					"updateProcess", _updateProcessParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					processId, name, className, processType, version,
-					contextPropertiesFileEntryId, srcArchiveFileEntryId,
+					contextProperties, contextPropertiesFileEntryId,
+					srcArchiveFileEntryId, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (com.liferay.commerce.data.integration.manager.model.Process)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static com.liferay.commerce.data.integration.manager.model.Process updateProcess(
+		HttpPrincipal httpPrincipal,
+		com.liferay.commerce.data.integration.manager.model.Process process,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		try {
+			MethodKey methodKey = new MethodKey(ProcessServiceUtil.class,
+					"updateProcess", _updateProcessParameterTypes8);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, process,
 					serviceContext);
 
 			Object returnObj = null;
@@ -262,25 +357,35 @@ public class ProcessServiceHttp {
 
 	private static Log _log = LogFactoryUtil.getLog(ProcessServiceHttp.class);
 	private static final Class<?>[] _addProcessParameterTypes0 = new Class[] {
-			String.class, String.class, String.class, String.class, long.class,
-			long.class, com.liferay.portal.kernel.service.ServiceContext.class
+			com.liferay.commerce.data.integration.manager.model.Process.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _deleteProcessParameterTypes1 = new Class[] {
+	private static final Class<?>[] _addProcessParameterTypes1 = new Class[] {
+			String.class, String.class, String.class, String.class, String.class,
 			long.class, long.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _getProcessParameterTypes2 = new Class[] {
+	private static final Class<?>[] _createParameterTypes2 = new Class[] {  };
+	private static final Class<?>[] _deleteProcessParameterTypes3 = new Class[] {
+			long.class, long.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _getProcessParameterTypes4 = new Class[] {
 			long.class, long.class
 		};
-	private static final Class<?>[] _getProcessesByGroupIdParameterTypes3 = new Class[] {
+	private static final Class<?>[] _getProcessesByGroupIdParameterTypes5 = new Class[] {
 			long.class, long.class, int.class, int.class
 		};
-	private static final Class<?>[] _getProcessesByGroupIdCountParameterTypes4 = new Class[] {
+	private static final Class<?>[] _getProcessesByGroupIdCountParameterTypes6 = new Class[] {
 			long.class, long.class
 		};
-	private static final Class<?>[] _updateProcessParameterTypes5 = new Class[] {
+	private static final Class<?>[] _updateProcessParameterTypes7 = new Class[] {
 			long.class, String.class, String.class, String.class, String.class,
-			long.class, long.class,
+			String.class, long.class, long.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _updateProcessParameterTypes8 = new Class[] {
+			com.liferay.commerce.data.integration.manager.model.Process.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 }

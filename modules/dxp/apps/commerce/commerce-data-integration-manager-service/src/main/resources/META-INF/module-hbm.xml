@@ -42,6 +42,7 @@
 		<property name="processType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="contextPropertiesFileEntryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="srcArchiveFileEntryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="contextProperties" type="com.liferay.portal.dao.orm.hibernate.StringClobType" />
 	</class>
 	<class name="com.liferay.commerce.data.integration.manager.model.impl.ScheduledTaskImpl" table="ScheduledTask">
 		<id name="scheduledTaskId" type="long">

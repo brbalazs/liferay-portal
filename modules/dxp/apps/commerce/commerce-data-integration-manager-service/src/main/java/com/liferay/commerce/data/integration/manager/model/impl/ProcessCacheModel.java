@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.commerce.data.integration.manager.model.impl;
@@ -64,7 +64,7 @@ public class ProcessCacheModel implements CacheModel<Process>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -94,6 +94,8 @@ public class ProcessCacheModel implements CacheModel<Process>, Externalizable {
 		sb.append(contextPropertiesFileEntryId);
 		sb.append(", srcArchiveFileEntryId=");
 		sb.append(srcArchiveFileEntryId);
+		sb.append(", contextProperties=");
+		sb.append(contextProperties);
 		sb.append("}");
 
 		return sb.toString();
@@ -167,6 +169,13 @@ public class ProcessCacheModel implements CacheModel<Process>, Externalizable {
 		processImpl.setContextPropertiesFileEntryId(contextPropertiesFileEntryId);
 		processImpl.setSrcArchiveFileEntryId(srcArchiveFileEntryId);
 
+		if (contextProperties == null) {
+			processImpl.setContextProperties("");
+		}
+		else {
+			processImpl.setContextProperties(contextProperties);
+		}
+
 		processImpl.resetOriginalValues();
 
 		return processImpl;
@@ -194,6 +203,7 @@ public class ProcessCacheModel implements CacheModel<Process>, Externalizable {
 		contextPropertiesFileEntryId = objectInput.readLong();
 
 		srcArchiveFileEntryId = objectInput.readLong();
+		contextProperties = objectInput.readUTF();
 	}
 
 	@Override
@@ -255,6 +265,13 @@ public class ProcessCacheModel implements CacheModel<Process>, Externalizable {
 		objectOutput.writeLong(contextPropertiesFileEntryId);
 
 		objectOutput.writeLong(srcArchiveFileEntryId);
+
+		if (contextProperties == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(contextProperties);
+		}
 	}
 
 	public String uuid;
@@ -271,4 +288,5 @@ public class ProcessCacheModel implements CacheModel<Process>, Externalizable {
 	public String processType;
 	public long contextPropertiesFileEntryId;
 	public long srcArchiveFileEntryId;
+	public String contextProperties;
 }

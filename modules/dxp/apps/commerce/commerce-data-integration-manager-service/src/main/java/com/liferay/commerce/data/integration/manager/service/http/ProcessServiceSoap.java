@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.commerce.data.integration.manager.service.http;
@@ -65,6 +65,24 @@ import java.rmi.RemoteException;
  */
 @ProviderType
 public class ProcessServiceSoap {
+	public static com.liferay.commerce.data.integration.manager.model.ProcessSoap addProcess(
+		com.liferay.commerce.data.integration.manager.model.ProcessSoap process,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.liferay.commerce.data.integration.manager.model.Process returnValue =
+				ProcessServiceUtil.addProcess(com.liferay.commerce.data.integration.manager.model.impl.ProcessModelImpl.toModel(
+						process), serviceContext);
+
+			return com.liferay.commerce.data.integration.manager.model.ProcessSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	/**
 	* NOTE FOR DEVELOPERS:
 	*
@@ -74,14 +92,30 @@ public class ProcessServiceSoap {
 	*/
 	public static com.liferay.commerce.data.integration.manager.model.ProcessSoap addProcess(
 		String name, String className, String processType, String version,
-		long contextPropertiesFileEntryId, long srcArchiveFileEntryId,
+		String contextProperties, long contextPropertiesFileEntryId,
+		long srcArchiveFileEntryId,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.commerce.data.integration.manager.model.Process returnValue =
 				ProcessServiceUtil.addProcess(name, className, processType,
-					version, contextPropertiesFileEntryId,
+					version, contextProperties, contextPropertiesFileEntryId,
 					srcArchiveFileEntryId, serviceContext);
+
+			return com.liferay.commerce.data.integration.manager.model.ProcessSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.data.integration.manager.model.ProcessSoap create()
+		throws RemoteException {
+		try {
+			com.liferay.commerce.data.integration.manager.model.Process returnValue =
+				ProcessServiceUtil.create();
 
 			return com.liferay.commerce.data.integration.manager.model.ProcessSoap.toSoapModel(returnValue);
 		}
@@ -159,15 +193,34 @@ public class ProcessServiceSoap {
 
 	public static com.liferay.commerce.data.integration.manager.model.ProcessSoap updateProcess(
 		long processId, String name, String className, String processType,
-		String version, long contextPropertiesFileEntryId,
-		long srcArchiveFileEntryId,
+		String version, String contextProperties,
+		long contextPropertiesFileEntryId, long srcArchiveFileEntryId,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.commerce.data.integration.manager.model.Process returnValue =
 				ProcessServiceUtil.updateProcess(processId, name, className,
-					processType, version, contextPropertiesFileEntryId,
-					srcArchiveFileEntryId, serviceContext);
+					processType, version, contextProperties,
+					contextPropertiesFileEntryId, srcArchiveFileEntryId,
+					serviceContext);
+
+			return com.liferay.commerce.data.integration.manager.model.ProcessSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.data.integration.manager.model.ProcessSoap updateProcess(
+		com.liferay.commerce.data.integration.manager.model.ProcessSoap process,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.liferay.commerce.data.integration.manager.model.Process returnValue =
+				ProcessServiceUtil.updateProcess(com.liferay.commerce.data.integration.manager.model.impl.ProcessModelImpl.toModel(
+						process), serviceContext);
 
 			return com.liferay.commerce.data.integration.manager.model.ProcessSoap.toSoapModel(returnValue);
 		}

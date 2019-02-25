@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.commerce.data.integration.manager.model.impl;
@@ -87,7 +87,8 @@ public class ProcessModelImpl extends BaseModelImpl<Process>
 			{ "className", Types.VARCHAR },
 			{ "processType", Types.VARCHAR },
 			{ "contextPropertiesFileEntryId", Types.BIGINT },
-			{ "srcArchiveFileEntryId", Types.BIGINT }
+			{ "srcArchiveFileEntryId", Types.BIGINT },
+			{ "contextProperties", Types.CLOB }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
 
@@ -106,9 +107,10 @@ public class ProcessModelImpl extends BaseModelImpl<Process>
 		TABLE_COLUMNS_MAP.put("processType", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("contextPropertiesFileEntryId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("srcArchiveFileEntryId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("contextProperties", Types.CLOB);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table Process (uuid_ VARCHAR(75) null,processId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,version VARCHAR(75) null,className VARCHAR(75) null,processType VARCHAR(75) null,contextPropertiesFileEntryId LONG,srcArchiveFileEntryId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table Process (uuid_ VARCHAR(75) null,processId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,version VARCHAR(75) null,className VARCHAR(75) null,processType VARCHAR(75) null,contextPropertiesFileEntryId LONG,srcArchiveFileEntryId LONG,contextProperties TEXT null)";
 	public static final String TABLE_SQL_DROP = "drop table Process";
 	public static final String ORDER_BY_JPQL = " ORDER BY process.modifiedDate DESC";
 	public static final String ORDER_BY_SQL = " ORDER BY Process.modifiedDate DESC";
@@ -158,6 +160,7 @@ public class ProcessModelImpl extends BaseModelImpl<Process>
 		model.setProcessType(soapModel.getProcessType());
 		model.setContextPropertiesFileEntryId(soapModel.getContextPropertiesFileEntryId());
 		model.setSrcArchiveFileEntryId(soapModel.getSrcArchiveFileEntryId());
+		model.setContextProperties(soapModel.getContextProperties());
 
 		return model;
 	}
@@ -237,6 +240,7 @@ public class ProcessModelImpl extends BaseModelImpl<Process>
 		attributes.put("contextPropertiesFileEntryId",
 			getContextPropertiesFileEntryId());
 		attributes.put("srcArchiveFileEntryId", getSrcArchiveFileEntryId());
+		attributes.put("contextProperties", getContextProperties());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -330,6 +334,12 @@ public class ProcessModelImpl extends BaseModelImpl<Process>
 
 		if (srcArchiveFileEntryId != null) {
 			setSrcArchiveFileEntryId(srcArchiveFileEntryId);
+		}
+
+		String contextProperties = (String)attributes.get("contextProperties");
+
+		if (contextProperties != null) {
+			setContextProperties(contextProperties);
 		}
 	}
 
@@ -594,6 +604,22 @@ public class ProcessModelImpl extends BaseModelImpl<Process>
 		_srcArchiveFileEntryId = srcArchiveFileEntryId;
 	}
 
+	@JSON
+	@Override
+	public String getContextProperties() {
+		if (_contextProperties == null) {
+			return "";
+		}
+		else {
+			return _contextProperties;
+		}
+	}
+
+	@Override
+	public void setContextProperties(String contextProperties) {
+		_contextProperties = contextProperties;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(PortalUtil.getClassNameId(
@@ -645,6 +671,7 @@ public class ProcessModelImpl extends BaseModelImpl<Process>
 		processImpl.setProcessType(getProcessType());
 		processImpl.setContextPropertiesFileEntryId(getContextPropertiesFileEntryId());
 		processImpl.setSrcArchiveFileEntryId(getSrcArchiveFileEntryId());
+		processImpl.setContextProperties(getContextProperties());
 
 		processImpl.resetOriginalValues();
 
@@ -808,12 +835,20 @@ public class ProcessModelImpl extends BaseModelImpl<Process>
 
 		processCacheModel.srcArchiveFileEntryId = getSrcArchiveFileEntryId();
 
+		processCacheModel.contextProperties = getContextProperties();
+
+		String contextProperties = processCacheModel.contextProperties;
+
+		if ((contextProperties != null) && (contextProperties.length() == 0)) {
+			processCacheModel.contextProperties = null;
+		}
+
 		return processCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("{uuid=");
 		sb.append(getUuid());
@@ -843,6 +878,8 @@ public class ProcessModelImpl extends BaseModelImpl<Process>
 		sb.append(getContextPropertiesFileEntryId());
 		sb.append(", srcArchiveFileEntryId=");
 		sb.append(getSrcArchiveFileEntryId());
+		sb.append(", contextProperties=");
+		sb.append(getContextProperties());
 		sb.append("}");
 
 		return sb.toString();
@@ -850,7 +887,7 @@ public class ProcessModelImpl extends BaseModelImpl<Process>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(46);
+		StringBundler sb = new StringBundler(49);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.commerce.data.integration.manager.model.Process");
@@ -912,6 +949,10 @@ public class ProcessModelImpl extends BaseModelImpl<Process>
 			"<column><column-name>srcArchiveFileEntryId</column-name><column-value><![CDATA[");
 		sb.append(getSrcArchiveFileEntryId());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>contextProperties</column-name><column-value><![CDATA[");
+		sb.append(getContextProperties());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -944,6 +985,7 @@ public class ProcessModelImpl extends BaseModelImpl<Process>
 	private String _originalProcessType;
 	private long _contextPropertiesFileEntryId;
 	private long _srcArchiveFileEntryId;
+	private String _contextProperties;
 	private long _columnBitmask;
 	private Process _escapedModel;
 }
