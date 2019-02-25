@@ -238,7 +238,7 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		_commerceUserSegmentEntryLocalService.
 			importSystemCommerceUserSegmentEntries(serviceContext);
 		_commerceWarehousesImporter.importDefaultCommerceWarehouse(
-			serviceContext);
+			serviceContext.getScopeGroupId(), serviceContext.getUserId());
 		_cpMeasurementUnitLocalService.importDefaultValues(serviceContext);
 
 		_commerceAccountRoleHelper.checkCommerceAccountRoles(serviceContext);
@@ -444,7 +444,8 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 		_assetCategoriesImporter.importAssetCategories(
 			jsonArray, _COMMERCE_VOCABULARY, classLoader,
-			_DEPENDENCIES_PATH + "images/", serviceContext);
+			_DEPENDENCIES_PATH + "images/", serviceContext.getScopeGroupId(),
+			serviceContext.getUserId());
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Asset categories successfully imported");
@@ -458,7 +459,8 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		JSONArray jsonArray = _getJSONArray("warehouses.json");
 
 		return _commerceWarehousesImporter.importCommerceWarehouses(
-			jsonArray, serviceContext);
+			jsonArray, serviceContext.getScopeGroupId(),
+			serviceContext.getUserId());
 	}
 
 	private List<CPDefinition> _importCPDefinitions(
@@ -475,7 +477,8 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		return _cpDefinitionsImporter.importCPDefinitions(
 			jsonArray, _COMMERCE_VOCABULARY, commerceWarehouseIds,
 			MiniumSiteInitializer.class.getClassLoader(),
-			DEPENDENCIES_PATH + "images/", serviceContext);
+			DEPENDENCIES_PATH + "images/", serviceContext.getScopeGroupId(),
+			serviceContext.getUserId());
 	}
 
 	private void _importCPOptionCategories(ServiceContext serviceContext)
@@ -488,7 +491,8 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		JSONArray jsonArray = _getJSONArray("option-categories.json");
 
 		_cpOptionCategoriesImporter.importCPOptionCategories(
-			jsonArray, serviceContext);
+			jsonArray, serviceContext.getScopeGroupId(),
+			serviceContext.getUserId());
 
 		if (_log.isInfoEnabled()) {
 			_log.info(
@@ -501,7 +505,9 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 		JSONArray jsonArray = _getJSONArray("options.json");
 
-		return _cpOptionsImporter.importCPOptions(jsonArray, serviceContext);
+		return _cpOptionsImporter.importCPOptions(
+			jsonArray, serviceContext.getScopeGroupId(),
+			serviceContext.getUserId());
 	}
 
 	private void _importCPSpecificationOptions(ServiceContext serviceContext)
@@ -514,7 +520,8 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		JSONArray jsonArray = _getJSONArray("specification-options.json");
 
 		_cpSpecificationOptionsImporter.importCPSpecificationOptions(
-			jsonArray, serviceContext);
+			jsonArray, serviceContext.getScopeGroupId(),
+			serviceContext.getUserId());
 
 		if (_log.isInfoEnabled()) {
 			_log.info(
@@ -533,7 +540,8 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 		_portletSettingsImporter.importPortletSettings(
 			jsonArray, MiniumSiteInitializer.class.getClassLoader(),
-			DEPENDENCIES_PATH + "display_templates/", serviceContext);
+			DEPENDENCIES_PATH + "display_templates/",
+			serviceContext.getScopeGroupId(), serviceContext.getUserId());
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Portlet settings successfully imported");
@@ -595,7 +603,8 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 		_portletSettingsImporter.importPortletSettings(
 			jsonArray, MiniumSiteInitializer.class.getClassLoader(),
-			DEPENDENCIES_PATH + "display_templates/", serviceContext);
+			DEPENDENCIES_PATH + "display_templates/",
+			serviceContext.getScopeGroupId(), serviceContext.getUserId());
 	}
 
 	private static final String _COMMERCE_VOCABULARY = "Commerce";

@@ -261,7 +261,8 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 						cpDefinition, classLoader,
 						DEPENDENCIES_PATH + "images/", image, j,
 						CPAttachmentFileEntryConstants.TYPE_IMAGE,
-						serviceContext);
+						serviceContext.getScopeGroupId(),
+						serviceContext.getUserId());
 				}
 			}
 
@@ -325,7 +326,8 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 		ClassLoader classLoader = clazz.getClassLoader();
 
 		_commerceAccountsImporter.importCommerceAccounts(
-			jsonArray, classLoader, DEPENDENCIES_PATH, serviceContext);
+			jsonArray, classLoader, DEPENDENCIES_PATH,
+			serviceContext.getScopeGroupId(), serviceContext.getUserId());
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Commerce Accounts successfully imported");
@@ -341,7 +343,8 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 
 		JSONArray jsonArray = _getJSONArray("organizations.json");
 
-		_organizationImporter.importOrganizations(jsonArray, serviceContext);
+		_organizationImporter.importOrganizations(jsonArray,
+			serviceContext.getScopeGroupId(), serviceContext.getUserId());
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Organizations successfully imported");
@@ -358,7 +361,8 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 		JSONArray jsonArray = _getJSONArray("price-entries.json");
 
 		_commercePriceEntriesImporter.importCommercePriceEntries(
-			jsonArray, serviceContext);
+			jsonArray, serviceContext.getScopeGroupId(),
+			serviceContext.getUserId());
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Commerce price entries successfully imported");
@@ -375,7 +379,8 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 		JSONArray jsonArray = _getJSONArray("price-lists.json");
 
 		_commercePriceListsImporter.importCommercePriceLists(
-			jsonArray, serviceContext);
+			jsonArray, serviceContext.getScopeGroupId(),
+			serviceContext.getUserId());
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Commerce price lists successfully imported");
@@ -396,7 +401,8 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 		ClassLoader classLoader = clazz.getClassLoader();
 
 		_commerceUsersImporter.importCommerceUsers(
-			jsonArray, classLoader, DEPENDENCIES_PATH, serviceContext);
+			jsonArray, classLoader, DEPENDENCIES_PATH,
+			serviceContext.getScopeGroupId(), serviceContext.getUserId());
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Commerce Users successfully imported");
@@ -413,7 +419,8 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 		JSONArray jsonArray = _getJSONArray("segments.json");
 
 		_commerceUserSegmentsImporter.importCommerceUserSegments(
-			jsonArray, serviceContext);
+			jsonArray, serviceContext.getScopeGroupId(),
+			serviceContext.getUserId());
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Commerce User Segments successfully imported");
