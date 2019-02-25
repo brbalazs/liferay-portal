@@ -26,6 +26,12 @@
 		position: absolute;
 	}
 
+	&__compare {
+		position: absolute;
+		top: $minium-gutter;
+		left: $minium-gutter;
+	}
+
 	&__availability {
 		position: relative;
 

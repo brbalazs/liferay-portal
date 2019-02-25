@@ -41,17 +41,19 @@
 		{/let}
 
 		{if isNonnull($compareState) and isNonnull($productId) and isNonnull($pictureUrl)}
-			{call CompareCheckbox.render}
-				{param events: [
-					'checkboxCompareUpdated': $_handleCheckboxCompareUpdate
-				]/}
-				{param productId: $productId /}
-				{param checkboxVisible: true /}
-				{param compareAvailable: $compareState.compareAvailable /}
-				{param inCompare: $compareState.inCompare /}
-				{param labelVisible: false /}
-				{param pictureUrl: $pictureUrl /}
-			{/call}
+			<div class="minium-card__compare">
+				{call CompareCheckbox.render}
+					{param events: [
+						'checkboxCompareUpdated': $_handleCheckboxCompareUpdate
+					]/}
+					{param productId: $productId /}
+					{param checkboxVisible: true /}
+					{param compareAvailable: $compareState.compareAvailable /}
+					{param inCompare: $compareState.inCompare /}
+					{param labelVisible: false /}
+					{param pictureUrl: $pictureUrl /}
+				{/call}
+			</div>
 		{/if}
 
 		{if isNonnull($deleteButtonVisible) and $deleteButtonVisible == true and isNonnull($spritemap)}
