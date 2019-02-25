@@ -15,10 +15,8 @@
 package com.liferay.commerce.data.integration.manager.web.internal.portlet.action;
 
 import com.liferay.commerce.data.integration.manager.model.History;
-import com.liferay.commerce.data.integration.manager.model.Process;
 import com.liferay.commerce.data.integration.manager.model.ScheduledTask;
 import com.liferay.commerce.data.integration.manager.service.HistoryLocalService;
-import com.liferay.commerce.data.integration.manager.service.ProcessLocalService;
 import com.liferay.commerce.data.integration.manager.service.ScheduledTaskLocalService;
 import com.liferay.commerce.data.integration.manager.web.internal.portlet.constants.DIWebKeys;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -58,29 +56,6 @@ public class ActionHelper {
 		return history;
 	}
 
-	public Process getProcess(PortletRequest portletRequest)
-		throws PortalException {
-
-		Process process = (Process)portletRequest.getAttribute(
-			DIWebKeys.DI_PROCESS);
-
-		if (process != null) {
-			return process;
-		}
-
-		long processId = ParamUtil.getLong(portletRequest, "processId");
-
-		if (processId > 0) {
-			process = _processLocalService.fetchProcess(processId);
-		}
-
-		if (process != null) {
-			portletRequest.setAttribute(DIWebKeys.DI_PROCESS, process);
-		}
-
-		return process;
-	}
-
 	public ScheduledTask getScheduledTask(PortletRequest portletRequest)
 		throws PortalException {
 
@@ -110,9 +85,6 @@ public class ActionHelper {
 
 	@Reference
 	private HistoryLocalService _historyLocalService;
-
-	@Reference
-	private ProcessLocalService _processLocalService;
 
 	@Reference
 	private ScheduledTaskLocalService _scheduledTaskLocalService;

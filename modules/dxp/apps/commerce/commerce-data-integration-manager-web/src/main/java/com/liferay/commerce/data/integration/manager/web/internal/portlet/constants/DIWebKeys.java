@@ -21,8 +21,6 @@ public class DIWebKeys {
 
 	public static final String DI_HISTORY = "DI_HISTORY";
 
-	public static final String DI_PROCESS = "DI_PROCESS";
-
 	public static final String DI_SCHEDULED_TASK = "DI_SCHEDULED_TASK";
 
 }
