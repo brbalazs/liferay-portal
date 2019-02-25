@@ -19,3 +19,7 @@ dependencies {
 	compileOnly group: "org.osgi", name: "org.osgi.core", version: "5.0.0"
 	compileOnly project(":private:apps:commerce:commerce-data-integration-manager-api")
 }
+
+tasks.withType(FindBugs) {
+	excludeFilter = file("fb-exclude.xml")
+}

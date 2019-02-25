@@ -359,8 +359,6 @@ public class ScheduledTaskLocalServiceImpl
 			scheduledTask.getName(), group.getNameCurrentValue(), null, null,
 			cronExpression);
 
-		schedulerEntry = new SchedulerEntryImpl(className, trigger);
-
 		_schedulerEngineHelper.schedule(
 			trigger, StorageType.PERSISTED, scheduledTask.getName(),
 			DataIntegrationConstants.DESTINATION_NAME, message, 1000);
