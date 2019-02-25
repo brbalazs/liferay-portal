@@ -15,11 +15,13 @@
 package com.liferay.commerce.data.integration.manager.web.internal.display.context;
 
 import com.liferay.commerce.data.integration.manager.constants.ProcessActionKeys;
+import com.liferay.commerce.data.integration.manager.helper.DataIntegrationProcessActionHelper;
 import com.liferay.commerce.data.integration.manager.model.Process;
+import com.liferay.commerce.data.integration.manager.process.type.ProcessTypeJSPContributor;
+import com.liferay.commerce.data.integration.manager.process.type.ProcessTypeJSPContributorRegistry;
 import com.liferay.commerce.data.integration.manager.service.ProcessService;
 import com.liferay.commerce.data.integration.manager.web.internal.admin.ProcessListAdminModule;
 import com.liferay.commerce.data.integration.manager.web.internal.display.context.util.DataIntegrationRequestHelper;
-import com.liferay.commerce.data.integration.manager.web.internal.portlet.action.ActionHelper;
 import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
 import com.liferay.portal.kernel.dao.search.RowChecker;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
@@ -49,15 +51,19 @@ public class DataIntegrationProcessListDisplayContext {
 
 	public DataIntegrationProcessListDisplayContext(
 		PortletResourcePermission portletResourcePermission,
-		ProcessService processService, Portal portal, ActionHelper actionHelper,
+		ProcessService processService,
+		ProcessTypeJSPContributorRegistry processTypeJSPContributorRegistry,
+		Portal portal,
+		DataIntegrationProcessActionHelper dataIntegrationProcessActionHelper,
 		RenderRequest renderRequest) {
 
 		_portletResourcePermission = portletResourcePermission;
 		_processService = processService;
+		_processTypeJSPContributorRegistry = processTypeJSPContributorRegistry;
 		_dataIntegrationRequestHelper = new DataIntegrationRequestHelper(
 			renderRequest);
 		_portal = portal;
-		_actionHelper = actionHelper;
+		_dataIntegrationActionHelper = dataIntegrationProcessActionHelper;
 
 		DataIntegrationRequestHelper dataIntegrationRequestHelper =
 			new DataIntegrationRequestHelper(renderRequest);
@@ -161,7 +167,8 @@ public class DataIntegrationProcessListDisplayContext {
 	}
 
 	public Process getProcess() throws PortalException {
-		return _actionHelper.getProcess(liferayPortletRequest);
+		return _dataIntegrationActionHelper.getProcess(
+			liferayPortletRequest.getHttpServletRequest());
 	}
 
 	public long getProcessId() throws PortalException {
@@ -172,6 +179,13 @@ public class DataIntegrationProcessListDisplayContext {
 		}
 
 		return 0L;
+	}
+
+	public ProcessTypeJSPContributor getProcessTypeJSPContributor(
+		String processType) {
+
+		return _processTypeJSPContributorRegistry.getProcessTypeJSPContributor(
+			processType);
 	}
 
 	public RowChecker getRowChecker() {
@@ -227,7 +241,8 @@ public class DataIntegrationProcessListDisplayContext {
 	protected LiferayPortletRequest liferayPortletRequest;
 	protected LiferayPortletResponse liferayPortletResponse;
 
-	private final ActionHelper _actionHelper;
+	private final DataIntegrationProcessActionHelper
+		_dataIntegrationActionHelper;
 	private final DataIntegrationRequestHelper _dataIntegrationRequestHelper;
 	private final String _defaultOrderByCol;
 	private final String _defaultOrderByType;
@@ -235,6 +250,8 @@ public class DataIntegrationProcessListDisplayContext {
 	private final Portal _portal;
 	private final PortletResourcePermission _portletResourcePermission;
 	private final ProcessService _processService;
+	private final ProcessTypeJSPContributorRegistry
+		_processTypeJSPContributorRegistry;
 	private RowChecker _rowChecker;
 	private SearchContainer<Process> _searchContainer;
 

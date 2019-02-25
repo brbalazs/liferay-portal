@@ -14,7 +14,9 @@
 
 package com.liferay.commerce.data.integration.manager.web.internal.portlet.action;
 
+import com.liferay.commerce.data.integration.manager.helper.DataIntegrationProcessActionHelper;
 import com.liferay.commerce.data.integration.manager.model.ProcessConstants;
+import com.liferay.commerce.data.integration.manager.process.type.ProcessTypeJSPContributorRegistry;
 import com.liferay.commerce.data.integration.manager.service.ProcessService;
 import com.liferay.commerce.data.integration.manager.service.ScheduledTaskExectutorService;
 import com.liferay.commerce.data.integration.manager.web.internal.display.context.DataIntegrationProcessListDisplayContext;
@@ -37,6 +39,7 @@ import javax.portlet.RenderResponse;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 
@@ -60,13 +63,14 @@ public class EditProcessRenderCommand implements MVCRenderCommand {
 		DataIntegrationProcessListDisplayContext
 			lrDataIntegrationDisplayContext =
 				new DataIntegrationProcessListDisplayContext(
-					_portletResourcePermission, _processService, _portal,
-					_actionHelper, renderRequest);
+					_portletResourcePermission, _processService,
+					_processTypeJSPContributorRegistry, _portal,
+					_dataIntegrationProcessActionHelper, renderRequest);
 
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, lrDataIntegrationDisplayContext);
 
-		renderRequest.setAttribute("processTypes", processTypes);
+		renderRequest.setAttribute("processTypes", getProcessTypes());
 
 		renderRequest.setAttribute(
 			DataIntegrationWebPortletKeys.
@@ -78,13 +82,20 @@ public class EditProcessRenderCommand implements MVCRenderCommand {
 
 	@Activate
 	@Modified
-	protected void init(BundleContext bundleContext) {
-		processTypes = new HashMap<>();
-
+	protected void activate(BundleContext bundleContext) {
 		_scheduledTaskExectutorServiceTrackerMap =
 			ServiceTrackerMapFactory.openSingleValueMap(
 				bundleContext, ScheduledTaskExectutorService.class,
 				"data.integration.service.executor.key");
+	}
+
+	@Deactivate
+	protected void deactivate() {
+		_scheduledTaskExectutorServiceTrackerMap.close();
+	}
+
+	protected Map<String, String> getProcessTypes() {
+		Map<String, String> processTypes = new HashMap<>();
 
 		Class<?> serviceClass;
 
@@ -102,12 +113,13 @@ public class EditProcessRenderCommand implements MVCRenderCommand {
 					serviceClass.getName());
 			}
 		}
+
+		return processTypes;
 	}
 
-	protected Map<String, String> processTypes;
-
 	@Reference
-	private ActionHelper _actionHelper;
+	private DataIntegrationProcessActionHelper
+		_dataIntegrationProcessActionHelper;
 
 	@Reference
 	private DataIntegrationAdminModuleRegistry
@@ -124,6 +136,10 @@ public class EditProcessRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private ProcessService _processService;
+
+	@Reference
+	private ProcessTypeJSPContributorRegistry
+		_processTypeJSPContributorRegistry;
 
 	private ServiceTrackerMap<String, ScheduledTaskExectutorService>
 		_scheduledTaskExectutorServiceTrackerMap;

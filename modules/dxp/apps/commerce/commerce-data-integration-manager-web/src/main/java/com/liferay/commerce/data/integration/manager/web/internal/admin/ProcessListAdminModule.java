@@ -14,11 +14,12 @@
 
 package com.liferay.commerce.data.integration.manager.web.internal.admin;
 
+import com.liferay.commerce.data.integration.manager.helper.DataIntegrationProcessActionHelper;
 import com.liferay.commerce.data.integration.manager.model.ProcessConstants;
+import com.liferay.commerce.data.integration.manager.process.type.ProcessTypeJSPContributorRegistry;
 import com.liferay.commerce.data.integration.manager.service.ProcessService;
 import com.liferay.commerce.data.integration.manager.web.internal.admin.api.DataIntegrationAdminModule;
 import com.liferay.commerce.data.integration.manager.web.internal.display.context.DataIntegrationProcessListDisplayContext;
-import com.liferay.commerce.data.integration.manager.web.internal.portlet.action.ActionHelper;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -83,8 +84,9 @@ public class ProcessListAdminModule implements DataIntegrationAdminModule {
 		DataIntegrationProcessListDisplayContext
 			lrDataIntegrationProcessListDisplayContext =
 				new DataIntegrationProcessListDisplayContext(
-					_portletResourcePermission, _processService, _portal,
-					_actionHelper, renderRequest);
+					_portletResourcePermission, _processService,
+					_processTypeJSPContributorRegistry, _portal,
+					_dataIntegrationProcessActionHelper, renderRequest);
 
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -101,7 +103,8 @@ public class ProcessListAdminModule implements DataIntegrationAdminModule {
 	}
 
 	@Reference
-	private ActionHelper _actionHelper;
+	private DataIntegrationProcessActionHelper
+		_dataIntegrationProcessActionHelper;
 
 	@Reference
 	private JSPRenderer _jspRenderer;
@@ -117,6 +120,10 @@ public class ProcessListAdminModule implements DataIntegrationAdminModule {
 
 	@Reference
 	private ProcessService _processService;
+
+	@Reference
+	private ProcessTypeJSPContributorRegistry
+		_processTypeJSPContributorRegistry;
 
 	@Reference(
 		target = "(osgi.web.symbolicname=com.liferay.commerce.data.integration.manager.web)"

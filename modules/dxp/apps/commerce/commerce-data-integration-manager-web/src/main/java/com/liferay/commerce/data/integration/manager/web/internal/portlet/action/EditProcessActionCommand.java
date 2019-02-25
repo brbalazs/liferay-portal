@@ -14,20 +14,22 @@
 
 package com.liferay.commerce.data.integration.manager.web.internal.portlet.action;
 
+import com.liferay.commerce.data.integration.manager.model.Process;
+import com.liferay.commerce.data.integration.manager.process.type.ProcessTypeJSPContributor;
+import com.liferay.commerce.data.integration.manager.process.type.ProcessTypeJSPContributorRegistry;
 import com.liferay.commerce.data.integration.manager.service.ProcessService;
 import com.liferay.commerce.data.integration.manager.web.internal.portlet.constants.DataIntegrationWebPortletKeys;
-import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.ActionRequest;
@@ -73,7 +75,7 @@ public class EditProcessActionCommand extends BaseMVCActionCommand {
 			}
 		}
 		catch (PortalException pe) {
-			pe.printStackTrace();
+			_log.error(pe, pe);
 
 			SessionErrors.add(actionRequest, "errorDeletingProcess");
 		}
@@ -95,59 +97,60 @@ public class EditProcessActionCommand extends BaseMVCActionCommand {
 	}
 
 	protected void editProcess(ActionRequest actionRequest) {
-		String className = ParamUtil.getString(actionRequest, "className");
 		String name = ParamUtil.getString(actionRequest, "name");
 		long processId = ParamUtil.getLong(actionRequest, "processId", 0L);
 		String processType = ParamUtil.getString(actionRequest, "processType");
 		String version = ParamUtil.getString(actionRequest, "version");
 
-		DLFileEntry archiveFileEntry = null;
-		DLFileEntry contextFileEntry = null;
+		ProcessTypeJSPContributor processTypeJSPContributor =
+			_processTypeJSPContributorRegistry.getProcessTypeJSPContributor(
+				processType);
 
 		try {
-			UploadPortletRequest uploadPortletRequest =
-				_portal.getUploadPortletRequest(actionRequest);
-
-			contextFileEntry = _uploadProcessFileEntryActionHelper.upload(
-				uploadPortletRequest, "contextProperties");
-
-			long contextFileEntryId = 0L;
-
-			if (contextFileEntry != null) {
-				contextFileEntryId = contextFileEntry.getFileEntryId();
-			}
-
-			archiveFileEntry = _uploadProcessFileEntryActionHelper.upload(
-				uploadPortletRequest, "srcArchive");
-
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(
 				actionRequest);
 
+			Process process = null;
+
 			if (processId > 0) {
-				_processService.updateProcess(
-					processId, name, className, processType, version,
-					contextFileEntryId, archiveFileEntry.getFileEntryId(),
-					serviceContext);
+				process = _processService.getProcess(
+					serviceContext.getUserId(), processId);
 			}
 			else {
-				_processService.addProcess(
-					name, className, processType, version, contextFileEntryId,
-					archiveFileEntry.getFileEntryId(), serviceContext);
+				process = _processService.create();
+			}
+
+			process.setName(name);
+
+			process.setProcessType(processType);
+
+			process.setVersion(version);
+
+			process = processTypeJSPContributor.processAction(
+				actionRequest, process);
+
+			if (processId > 0) {
+				_processService.updateProcess(process, serviceContext);
+			}
+			else {
+				_processService.addProcess(process, serviceContext);
 			}
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			_log.error(e, e);
+
+			SessionErrors.add(actionRequest, "errorAddingProcess");
 		}
 	}
 
-	@Reference
-	private Portal _portal;
+	private static final Log _log = LogFactoryUtil.getLog(
+		EditProcessActionCommand.class);
 
 	@Reference
 	private ProcessService _processService;
 
 	@Reference
-	private UploadProcessFileEntryActionHelper
-		_uploadProcessFileEntryActionHelper;
+	private ProcessTypeJSPContributorRegistry
+		_processTypeJSPContributorRegistry;
 
 }

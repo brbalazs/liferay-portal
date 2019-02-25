@@ -14,10 +14,11 @@
 
 package com.liferay.commerce.data.integration.manager.web.internal.portlet;
 
+import com.liferay.commerce.data.integration.manager.helper.DataIntegrationProcessActionHelper;
+import com.liferay.commerce.data.integration.manager.process.type.ProcessTypeJSPContributorRegistry;
 import com.liferay.commerce.data.integration.manager.service.ProcessService;
 import com.liferay.commerce.data.integration.manager.service.ScheduledTaskExectutorService;
 import com.liferay.commerce.data.integration.manager.web.internal.display.context.DataIntegrationProcessListDisplayContext;
-import com.liferay.commerce.data.integration.manager.web.internal.portlet.action.ActionHelper;
 import com.liferay.commerce.data.integration.manager.web.internal.portlet.constants.DataIntegrationWebPortletKeys;
 import com.liferay.commerce.data.integration.manager.web.internal.util.DataIntegrationAdminModuleRegistry;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
@@ -42,6 +43,7 @@ import javax.portlet.RenderResponse;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 
@@ -89,13 +91,14 @@ public class DataIntegrationWebPortlet extends MVCPortlet {
 					dataIntegrationDisplayContext =
 						new DataIntegrationProcessListDisplayContext(
 							_portletResourcePermission, _processService,
-							_portal, _actionHelper, renderRequest);
+							_processTypeJSPContributorRegistry, _portal,
+							_dataIntegrationProcessActionHelper, renderRequest);
 
 				renderRequest.setAttribute(
 					WebKeys.PORTLET_DISPLAY_CONTEXT,
 					dataIntegrationDisplayContext);
 
-				renderRequest.setAttribute("processTypes", processTypes);
+				renderRequest.setAttribute("processTypes", getProcessTypes());
 				renderRequest.setAttribute(
 					DataIntegrationWebPortletKeys.
 						DATA_INTEGRATION_ADMIN_MODULE_REGISTRY,
@@ -110,13 +113,20 @@ public class DataIntegrationWebPortlet extends MVCPortlet {
 
 	@Activate
 	@Modified
-	protected void init(BundleContext bundleContext) {
-		processTypes = new HashMap<>();
-
+	protected void activate(BundleContext bundleContext) {
 		_scheduledTaskExectutorServiceTrackerMap =
 			ServiceTrackerMapFactory.openSingleValueMap(
 				bundleContext, ScheduledTaskExectutorService.class,
 				"data.integration.service.executor.key");
+	}
+
+	@Deactivate
+	protected void deactivate() {
+		_scheduledTaskExectutorServiceTrackerMap.close();
+	}
+
+	protected Map<String, String> getProcessTypes() {
+		Map<String, String> processTypes = new HashMap<>();
 
 		Class<?> serviceClass;
 
@@ -134,16 +144,17 @@ public class DataIntegrationWebPortlet extends MVCPortlet {
 					serviceClass.getName());
 			}
 		}
+
+		return processTypes;
 	}
-
-	protected Map<String, String> processTypes;
-
-	@Reference
-	private ActionHelper _actionHelper;
 
 	@Reference
 	private DataIntegrationAdminModuleRegistry
 		_dataIntegrationAdminModuleRegistry;
+
+	@Reference
+	private DataIntegrationProcessActionHelper
+		_dataIntegrationProcessActionHelper;
 
 	@Reference
 	private Portal _portal;
@@ -153,6 +164,10 @@ public class DataIntegrationWebPortlet extends MVCPortlet {
 
 	@Reference
 	private ProcessService _processService;
+
+	@Reference
+	private ProcessTypeJSPContributorRegistry
+		_processTypeJSPContributorRegistry;
 
 	private ServiceTrackerMap<String, ScheduledTaskExectutorService>
 		_scheduledTaskExectutorServiceTrackerMap;
