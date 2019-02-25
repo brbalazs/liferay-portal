@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.commerce.data.integration.manager.service;
@@ -32,6 +32,14 @@ public class ProcessServiceWrapper implements ProcessService,
 		_processService = processService;
 	}
 
+	@Override
+	public com.liferay.commerce.data.integration.manager.model.Process addProcess(
+		com.liferay.commerce.data.integration.manager.model.Process process,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _processService.addProcess(process, serviceContext);
+	}
+
 	/**
 	* NOTE FOR DEVELOPERS:
 	*
@@ -42,12 +50,18 @@ public class ProcessServiceWrapper implements ProcessService,
 	@Override
 	public com.liferay.commerce.data.integration.manager.model.Process addProcess(
 		String name, String className, String processType, String version,
-		long contextPropertiesFileEntryId, long srcArchiveFileEntryId,
+		String contextProperties, long contextPropertiesFileEntryId,
+		long srcArchiveFileEntryId,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _processService.addProcess(name, className, processType,
-			version, contextPropertiesFileEntryId, srcArchiveFileEntryId,
-			serviceContext);
+			version, contextProperties, contextPropertiesFileEntryId,
+			srcArchiveFileEntryId, serviceContext);
+	}
+
+	@Override
+	public com.liferay.commerce.data.integration.manager.model.Process create() {
+		return _processService.create();
 	}
 
 	@Override
@@ -91,13 +105,21 @@ public class ProcessServiceWrapper implements ProcessService,
 	@Override
 	public com.liferay.commerce.data.integration.manager.model.Process updateProcess(
 		long processId, String name, String className, String processType,
-		String version, long contextPropertiesFileEntryId,
-		long srcArchiveFileEntryId,
+		String version, String contextProperties,
+		long contextPropertiesFileEntryId, long srcArchiveFileEntryId,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _processService.updateProcess(processId, name, className,
-			processType, version, contextPropertiesFileEntryId,
-			srcArchiveFileEntryId, serviceContext);
+			processType, version, contextProperties,
+			contextPropertiesFileEntryId, srcArchiveFileEntryId, serviceContext);
+	}
+
+	@Override
+	public com.liferay.commerce.data.integration.manager.model.Process updateProcess(
+		com.liferay.commerce.data.integration.manager.model.Process process,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _processService.updateProcess(process, serviceContext);
 	}
 
 	@Override
