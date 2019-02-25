@@ -30,6 +30,7 @@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 page import="com.liferay.commerce.data.integration.manager.model.History" %><%@
 page import="com.liferay.commerce.data.integration.manager.model.Process" %><%@
 page import="com.liferay.commerce.data.integration.manager.model.ScheduledTask" %><%@
+page import="com.liferay.commerce.data.integration.manager.process.type.ProcessTypeJSPContributor" %><%@
 page import="com.liferay.commerce.data.integration.manager.web.internal.admin.ProcessListAdminModule" %><%@
 page import="com.liferay.commerce.data.integration.manager.web.internal.admin.ScheduledTasksAdminModule" %><%@
 page import="com.liferay.commerce.data.integration.manager.web.internal.admin.api.DataIntegrationAdminModule" %><%@

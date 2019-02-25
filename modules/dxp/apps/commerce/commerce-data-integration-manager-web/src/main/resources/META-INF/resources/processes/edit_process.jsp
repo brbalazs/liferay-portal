@@ -27,13 +27,23 @@ Process process = dataIntegrationProcessListDisplayContext.getProcess();
 
 long processId = dataIntegrationProcessListDisplayContext.getProcessId();
 
+String processType = ParamUtil.getString(request, "processType");
+
 String title = LanguageUtil.get(request, "add-process");
 
 if (process != null) {
+	processType = process.getProcessType();
+
 	title = process.getName();
 }
 
 Map<String, String> processTypes = (HashMap)request.getAttribute("processTypes");
+
+List<String> processTypeKeys = new ArrayList(processTypes.keySet());
+
+if ((processTypeKeys.size() > 0) && (processType == "")) {
+	processType = ParamUtil.getString(request, "processType", processTypeKeys.get(0));
+}
 %>
 
 <liferay-util:include page="/navbar.jsp" servletContext="<%= application %>" />
@@ -59,16 +69,33 @@ Map<String, String> processTypes = (HashMap)request.getAttribute("processTypes")
 					<aui:input name="version" />
 
 					<c:if test="<%= processTypes != null %>">
-						<aui:select label="process-type" name="processType">
-							<%for(String processTypeKey : processTypes.keySet()){ %>
-							<aui:option value="<%= processTypeKey %>"><%= processTypeKey %></aui:option>
-							<%} %>
-						</aui:select>
-					</c:if>
+						<aui:select label="process-type" name="processType" onChange='<%= renderResponse.getNamespace() + "selectProcessType();" %>'>
 
-					<aui:input name="className" />
-					<aui:input name="contextProperties" type="file" />
-					<aui:input name="srcArchive" required="<%= true %>" type="file" />
+							<%
+							for (String processTypeKey : processTypes.keySet()) {
+							%>
+
+								<aui:option label="<%= processTypeKey %>" selected="<%= (process != null) && (process.getProcessType() == processTypeKey) %>" value="<%= processTypeKey %>" />
+
+							<%
+							}
+							%>
+
+						</aui:select>
+
+						<%
+						ProcessTypeJSPContributor processTypeJSPContributor = dataIntegrationProcessListDisplayContext.getProcessTypeJSPContributor(processType);
+						%>
+
+						<c:if test="<%= processTypeJSPContributor != null %>">
+
+							<%
+							processTypeJSPContributor.render(request, response);
+							%>
+
+						</c:if>
+
+					</c:if>
 				</aui:fieldset>
 
 				<aui:button-row>
@@ -80,3 +107,22 @@ Map<String, String> processTypes = (HashMap)request.getAttribute("processTypes")
 		</aui:form>
 	</div>
 </div>
+
+<aui:script>
+	Liferay.provide(
+		window,
+		'<portlet:namespace />selectProcessType',
+		function() {
+			var A = AUI();
+
+			var processType = A.one('#<portlet:namespace />processType').val();
+
+			var portletURL = new Liferay.PortletURL.createURL('<%= currentURLObj %>');
+
+			portletURL.setParameter('processType', processType);
+
+			window.location.replace(portletURL.toString());
+		},
+		['liferay-portlet-url']
+	);
+</aui:script>
