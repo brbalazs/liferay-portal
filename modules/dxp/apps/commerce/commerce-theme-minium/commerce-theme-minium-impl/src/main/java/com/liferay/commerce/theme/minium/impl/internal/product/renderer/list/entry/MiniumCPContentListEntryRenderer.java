@@ -195,16 +195,16 @@ public class MiniumCPContentListEntryRenderer
 			themeDisplay.getPathThemeImages() + "/commerce-icons.svg");
 
 		String module =
-			"commerce-theme-minium-impl@1.0.7/product_card/ProductCard.es";
+			"commerce-theme-minium-impl@1.0.8/product_card/ProductCard.es";
 
 		Set<String> dependencies = new HashSet<>();
 
 		dependencies.add(
-			"commerce-frontend-taglib@1.1.0/add_to_cart/AddToCartButton.es");
+			"commerce-frontend-taglib@1.1.1/add_to_cart/AddToCartButton.es");
 		dependencies.add(
-			"commerce-frontend-taglib@1.1.0/compare_checkbox" +
+			"commerce-frontend-taglib@1.1.1/compare_checkbox" +
 				"/CompareCheckbox.es");
-		dependencies.add("commerce-frontend-taglib@1.1.0/price/Price.es");
+		dependencies.add("commerce-frontend-taglib@1.1.1/price/Price.es");
 
 		ComponentDescriptor componentDescriptor = new ComponentDescriptor(
 			"ProductCard.render", module, null, dependencies);
