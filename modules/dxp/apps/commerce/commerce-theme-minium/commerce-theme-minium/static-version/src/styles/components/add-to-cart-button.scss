@@ -1,20 +1,22 @@
 .add-to-cart-button {
-	min-width: 130px;
+	min-width: 200px;
 	position: relative;
-	transition: all ease 200ms;
+	transition: all ease 100ms;
 
 	&--edit {
-		min-width: 200px;
+		min-width: 160px;
+		cursor: default !important;
 	}
 
 	&__fwd {
 		align-items: center;
+		cursor: pointer;
 		display: flex;
-		height: 30px;
+		height: 40px;
 		justify-content: center;
 		position: absolute;
 		right: 0;
-		width: 24px;
+		width: 30px;
 
 		&::before {
 			border: solid currentColor;
@@ -66,6 +68,8 @@
 
 		&__btn {
 			color: inherit;
+			height: 40px;
+			width: 30px;
 		}
 	}
 }
