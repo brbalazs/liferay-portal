@@ -27,9 +27,9 @@
 	{@param? _handleRemoveProduct: any}
 	{@param? _handleCheckboxCompareUpdate: any}
 
-	<div class="minium-card" tabindex="0">
+	<div class="minium-card" tabindex="0" data-href="{$detailsLink}" data-onkeypress="_handleCardKeypress">
 		{let $availabilityDotClasses kind="text"}
-			d-inline-block commerce-dot commerce-dot--
+			
 			{switch $availability}
 				{case 'inStock'}
 					good
@@ -76,14 +76,13 @@
 				tabindex="-1"
 			></a>
 		{else}
-			<div
-				class="minium-card__picture"
-			></div>
+			<div class="minium-card__picture"></div>
 		{/if}
 
 		{if isNonnull($availability)}
 			<div class="minium-card__availability">
-
+				<div class="commerce-dot commerce-dot--big commerce-dot--{$availabilityDotClasses}">
+				</div>
 			</div>
 		{/if}
 

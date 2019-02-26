@@ -4,7 +4,33 @@ import template from './ProductCard.soy';
 import Component from 'metal-component';
 import Soy, {Config} from 'metal-soy';
 
+function liferayNavigation(url) {
+	if (Liferay.SPA) {
+		Liferay.SPA.app.navigate(url);
+	}
+	else {
+		window.location.href = url;
+	}
+}
+
 class ProductCard extends Component {
+
+	_handleCardKeypress(e) {
+		if (e.key === "Enter" && e.target === this.element) {
+			liferayNavigation(this.element.dataset.href);
+		}
+
+		if (["A", "a"].includes(e.key)) {
+			e.preventDefault();
+			let next = this.element.closest('.minium-product-tiles__item');
+			if (e.target !== this.element) {
+				next = e.shiftKey ? next.previousElementSibling : next.nextElementSibling;
+			}
+			if (next) {
+				setTimeout(() => next.querySelector('.commerce-button').focus(), 100);
+			}
+		}
+	}
 
 	_handleCheckboxCompareUpdate(newCompareState) {
 		this.compareState = newCompareState;
@@ -27,12 +53,7 @@ class ProductCard extends Component {
 		)
 			.then(
 				() => {
-					if (Liferay.SPA) {
-						Liferay.SPA.app.navigate(window.location.href);
-					}
-					else {
-						window.location.href = window.location.href;
-					}
+					liferayNavigation(window.location.href);
 					return Liferay.SPA;
 				}
 			);

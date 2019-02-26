@@ -1,4 +1,6 @@
 .minium-card {
+	$cover-image-height: 200px;
+
 	align-items: center;
 	background: white;
 	border-radius: 5px;
@@ -34,7 +36,9 @@
 	}
 
 	&__availability {
-		position: relative;
+		left: $minium-gutter;
+		position: absolute;
+		top: $cover-image-height;
 
 		.commerce-dot {
 		 position: absolute;
@@ -82,7 +86,7 @@
 		background-position: 50%;
 		background-repeat: no-repeat;
 		background-size: cover;
-		height: 200px;
+		height: $cover-image-height;
 		margin-top: -20px;
 		overflow: hidden;
 		position: relative;
