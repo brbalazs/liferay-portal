@@ -34,7 +34,6 @@ import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.service.CommerceShippingMethodLocalService;
 import com.liferay.commerce.shipping.engine.fixed.service.CommerceShippingFixedOptionLocalService;
 import com.liferay.commerce.util.CommerceShippingEngineRegistry;
-import com.liferay.document.library.kernel.model.DLFolderConstants;
 import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
@@ -50,14 +49,11 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
-import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -65,9 +61,7 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.site.exception.InitializationException;
 import com.liferay.site.initializer.SiteInitializer;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 import java.math.BigDecimal;
 
@@ -139,8 +133,6 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 			_importCommerceUserSegments(serviceContext);
 
 			switchImagesToDemo(serviceContext);
-
-			setDefaultCatalogImage(serviceContext);
 
 			setCommerceShippingMethod("fixed", serviceContext);
 		}
@@ -251,34 +243,6 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 			commerceShippingMethodId, nameMap, descriptionMap, price, 0,
 			serviceContext);
 
-	}
-
-	protected void setDefaultCatalogImage(ServiceContext serviceContext)
-		throws Exception {
-
-		Class<?> clazz = getClass();
-
-		ClassLoader classLoader = clazz.getClassLoader();
-
-		InputStream inputStream = classLoader.getResourceAsStream(
-			DEPENDENCIES_PATH + "images/Minium_Demo_ProductImage_Default.png");
-
-		File file = FileUtil.createTempFile(inputStream);
-
-		String mimeType = MimeTypesUtil.getContentType(file);
-
-		byte[] byteArray = FileUtil.getBytes(file);
-
-		FileEntry fileEntry = _dlAppLocalService.addFileEntry(
-			serviceContext.getUserId(), serviceContext.getScopeGroupId(),
-			DLFolderConstants.DEFAULT_PARENT_FOLDER_ID,
-			"MiniumDefaultCatalogImage-" + serviceContext.getScopeGroupId(),
-			mimeType,
-			"MiniumDefaultCatalogImage-" + serviceContext.getScopeGroupId(),
-			null, null, byteArray, serviceContext);
-
-		_commerceCatalogDefaultImage.updateDefaultCatalogFileEntryId(
-			serviceContext.getScopeGroupId(), fileEntry.getFileEntryId());
 	}
 
 	protected void switchImagesToDemo(ServiceContext serviceContext)

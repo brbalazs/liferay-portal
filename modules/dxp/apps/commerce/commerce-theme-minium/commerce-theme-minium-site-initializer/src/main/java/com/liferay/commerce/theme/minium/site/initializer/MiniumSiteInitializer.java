@@ -41,7 +41,6 @@ import com.liferay.commerce.theme.minium.site.initializer.internal.MiniumLayouts
 import com.liferay.commerce.user.segment.model.CommerceUserSegmentEntry;
 import com.liferay.commerce.user.segment.model.CommerceUserSegmentEntryConstants;
 import com.liferay.commerce.user.segment.service.CommerceUserSegmentEntryLocalService;
-import com.liferay.document.library.kernel.model.DLFolderConstants;
 import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -78,6 +77,7 @@ import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.TempFileEntryUtil;
 import com.liferay.site.exception.InitializationException;
 import com.liferay.site.initializer.SiteInitializer;
 
@@ -322,21 +322,26 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		InputStream inputStream = classLoader.getResourceAsStream(
 			DEPENDENCIES_PATH + "images/Minium_ProductImage_Default.png");
 
-		File file = FileUtil.createTempFile(inputStream);
+		File file = null;
 
-		String mimeType = MimeTypesUtil.getContentType(file);
+		try {
+			file = FileUtil.createTempFile(inputStream);
 
-		byte[] byteArray = FileUtil.getBytes(file);
+			String mimeType = MimeTypesUtil.getContentType(file);
 
-		FileEntry fileEntry = _dlAppLocalService.addFileEntry(
-			serviceContext.getUserId(), serviceContext.getScopeGroupId(),
-			DLFolderConstants.DEFAULT_PARENT_FOLDER_ID,
-			"DefaultCatalogImage-" + serviceContext.getScopeGroupId(), mimeType,
-			"DefaultCatalogImage-" + serviceContext.getScopeGroupId(), null,
-			null, byteArray, serviceContext);
+			FileEntry fileEntry = TempFileEntryUtil.addTempFileEntry(
+				serviceContext.getScopeGroupId(), serviceContext.getUserId(),
+				MiniumSiteInitializer.class.getName(), file.getName(), file,
+				mimeType);
 
-		_commerceCatalogDefaultImage.updateDefaultCatalogFileEntryId(
-			serviceContext.getScopeGroupId(), fileEntry.getFileEntryId());
+			_commerceCatalogDefaultImage.updateDefaultCatalogFileEntryId(
+				serviceContext.getScopeGroupId(), fileEntry.getFileEntryId());
+		}
+		finally {
+			if (file != null) {
+				FileUtil.delete(file);
+			}
+		}
 	}
 
 	protected void setThemeSettings(ServiceContext serviceContext)
@@ -411,6 +416,19 @@ public class MiniumSiteInitializer implements SiteInitializer {
 		}
 
 		return ArrayUtil.toLongArray(cpDefinitionIdsList);
+	}
+
+	private long[] _getCProductIds(JSONArray jsonArray) {
+		List<Long> cProductIdsList = new ArrayList<>();
+
+		for (int i = 0; i < jsonArray.length(); i++) {
+			CPDefinition cpDefinitionEntry = getCPDefinitionByName(
+				jsonArray.getString(i));
+
+			cProductIdsList.add(cpDefinitionEntry.getCProductId());
+		}
+
+		return ArrayUtil.toLongArray(cProductIdsList);
 	}
 
 	private String _getJSON(String name) throws IOException {
@@ -566,10 +584,9 @@ public class MiniumSiteInitializer implements SiteInitializer {
 				continue;
 			}
 
-			_cpDefinitionLinkLocalService.updateCPDefinitionLinks(
+			_cpDefinitionLinkLocalService.updateCPDefinitionLinkCProductIds(
 				cpDefinition.getCPDefinitionId(),
-				_getCPDefinitionEntryIds(relatedProducts), "related",
-				serviceContext);
+				_getCProductIds(relatedProducts), "related", serviceContext);
 		}
 	}
 
