@@ -22,17 +22,25 @@ import com.liferay.commerce.initializer.util.CommerceUserSegmentsImporter;
 import com.liferay.commerce.initializer.util.CommerceUsersImporter;
 import com.liferay.commerce.initializer.util.OrganizationImporter;
 import com.liferay.commerce.media.CommerceCatalogDefaultImage;
+import com.liferay.commerce.model.CommerceShippingEngine;
+import com.liferay.commerce.model.CommerceShippingMethod;
+import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.commerce.product.model.CPAttachmentFileEntryConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPAttachmentFileEntryLocalService;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.service.CommerceShippingMethodLocalService;
+import com.liferay.commerce.shipping.engine.fixed.service.CommerceShippingFixedOptionLocalService;
+import com.liferay.commerce.util.CommerceShippingEngineRegistry;
 import com.liferay.document.library.kernel.model.DLFolderConstants;
 import com.liferay.document.library.kernel.service.DLAppLocalService;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Property;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
@@ -50,8 +58,10 @@ import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.site.exception.InitializationException;
 import com.liferay.site.initializer.SiteInitializer;
 
@@ -59,8 +69,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.math.BigDecimal;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -127,6 +141,8 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 			switchImagesToDemo(serviceContext);
 
 			setDefaultCatalogImage(serviceContext);
+
+			setCommerceShippingMethod("fixed", serviceContext);
 		}
 		catch (InitializationException ie) {
 			throw ie;
@@ -184,6 +200,57 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 		serviceContext.setUserId(user.getUserId());
 
 		return serviceContext;
+	}
+
+	protected void setCommerceShippingMethod(
+			String shippingMethod, ServiceContext serviceContext)
+		throws PortalException {
+
+		Locale locale = serviceContext.getLocale();
+
+		CommerceShippingEngine commerceShippingEngine =
+			_commerceShippingEngineRegistry.getCommerceShippingEngine(
+				shippingMethod);
+
+		Map<Locale, String> nameMap = new HashMap<>();
+		Map<Locale, String> descriptionMap = new HashMap<>();
+
+		nameMap.put(locale, commerceShippingEngine.getName(locale));
+		descriptionMap.put(
+			locale, commerceShippingEngine.getDescription(locale));
+
+		CommerceShippingMethod commerceShippingMethod =
+			_commerceShippingMethodLocalService.addCommerceShippingMethod(
+				nameMap, descriptionMap, null, shippingMethod, 0, true,
+				serviceContext);
+
+		setCommerceShippingOption(
+			commerceShippingMethod.getCommerceShippingMethodId(),
+			"Standard Delivery", StringPool.BLANK, BigDecimal.valueOf(15),
+			serviceContext);
+
+		setCommerceShippingOption(
+			commerceShippingMethod.getCommerceShippingMethodId(),
+			"Expedited Delivery", StringPool.BLANK, BigDecimal.valueOf(25),
+			serviceContext);
+
+	}
+
+	protected void setCommerceShippingOption(
+			long commerceShippingMethodId, String name, String description,
+			BigDecimal price, ServiceContext serviceContext)
+		throws PortalException {
+
+		Map<Locale, String> nameMap = new HashMap<>();
+		Map<Locale, String> descriptionMap = new HashMap<>();
+
+		nameMap.put(serviceContext.getLocale(), name);
+		descriptionMap.put(serviceContext.getLocale(), description);
+
+		_commerceShippingFixedOptionLocalService.addCommerceShippingFixedOption(
+			commerceShippingMethodId, nameMap, descriptionMap, price, 0,
+			serviceContext);
+
 	}
 
 	protected void setDefaultCatalogImage(ServiceContext serviceContext)
@@ -246,8 +313,19 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 				_cpDefinitionLocalService.getCPDefinition(
 					cpInstance.getCPDefinitionId());
 
-			_cpAttachmentFileEntryLocalService.deleteCPAttachmentFileEntries(
-				CPDefinition.class.getName(), cpDefinition.getCPDefinitionId());
+			long classNameId = _portal.getClassNameId(CPDefinition.class);
+
+			List<CPAttachmentFileEntry> images =
+				_cpAttachmentFileEntryLocalService.getCPAttachmentFileEntries(
+					classNameId, cpDefinition.getCPDefinitionId(),
+					CPAttachmentFileEntryConstants.TYPE_IMAGE,
+					WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
+					QueryUtil.ALL_POS);
+
+			for (CPAttachmentFileEntry image : images) {
+				_cpAttachmentFileEntryLocalService.deleteCPAttachmentFileEntry(
+					image);
+			}
 
 			JSONArray imagesJSONArray = jsonObject.getJSONArray("Images");
 
@@ -261,21 +339,6 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 						cpDefinition, classLoader,
 						DEPENDENCIES_PATH + "images/", image, j,
 						CPAttachmentFileEntryConstants.TYPE_IMAGE,
-						serviceContext.getScopeGroupId(),
-						serviceContext.getUserId());
-				}
-			}
-
-			// Re-add Attachments
-
-			JSONArray attachmentsJSONArray = jsonObject.getJSONArray("Attachments");
-
-			if (attachmentsJSONArray != null) {
-				for (int i = 0; i < attachmentsJSONArray.length(); i++) {
-					_cpAttachmentFileEntryCreator.addCPAttachmentFileEntry(
-						cpDefinition, classLoader, imageDependenciesPath,
-						imagesJSONArray.getString(i), i,
-						CPAttachmentFileEntryConstants.TYPE_OTHER,
 						serviceContext.getScopeGroupId(),
 						serviceContext.getUserId());
 				}
@@ -343,8 +406,9 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 
 		JSONArray jsonArray = _getJSONArray("organizations.json");
 
-		_organizationImporter.importOrganizations(jsonArray,
-			serviceContext.getScopeGroupId(), serviceContext.getUserId());
+		_organizationImporter.importOrganizations(
+			jsonArray, serviceContext.getScopeGroupId(),
+			serviceContext.getUserId());
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Organizations successfully imported");
@@ -443,6 +507,17 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 	private CommercePriceListsImporter _commercePriceListsImporter;
 
 	@Reference
+	private CommerceShippingEngineRegistry _commerceShippingEngineRegistry;
+
+	@Reference
+	private CommerceShippingFixedOptionLocalService
+		_commerceShippingFixedOptionLocalService;
+
+	@Reference
+	private CommerceShippingMethodLocalService
+		_commerceShippingMethodLocalService;
+
+	@Reference
 	private CommerceUserSegmentsImporter _commerceUserSegmentsImporter;
 
 	@Reference
@@ -472,6 +547,9 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 
 	@Reference
 	private OrganizationImporter _organizationImporter;
+
+	@Reference
+	private Portal _portal;
 
 	@Reference(
 		target = "(osgi.web.symbolicname=com.liferay.commerce.theme.minium.demo.site.initializer)"
