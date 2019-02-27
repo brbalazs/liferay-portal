@@ -30,9 +30,9 @@
 	}
 
 	&__compare {
+		left: $minium-gutter;
 		position: absolute;
 		top: $minium-gutter;
-		left: $minium-gutter;
 	}
 
 	&__availability {
@@ -92,7 +92,7 @@
 		position: relative;
 		width: calc(100% + 40px);
 
-		&::before { 
+		&::before {
 			background: inherit;
 			bottom: 0;
 			content: "";
@@ -153,8 +153,8 @@
 	}
 
 	&__description {
-		line-height: 28px;
 		flex: 1;
+		line-height: 28px;
 		margin: 0;
 	}
 

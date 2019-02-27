@@ -27,9 +27,9 @@
 	{@param? _handleRemoveProduct: any}
 	{@param? _handleCheckboxCompareUpdate: any}
 
-	<div class="minium-card" tabindex="0" data-href="{$detailsLink}" data-onkeypress="_handleCardKeypress">
+	<div class="minium-card" data-href="{$detailsLink}" data-onkeypress="_handleCardKeypress" tabindex="0">
 		{let $availabilityDotClasses kind="text"}
-			
+
 			{switch $availability}
 				{case 'inStock'}
 					good

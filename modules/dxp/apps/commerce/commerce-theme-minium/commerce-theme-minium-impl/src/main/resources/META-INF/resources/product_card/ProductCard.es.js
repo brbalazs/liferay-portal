@@ -16,11 +16,11 @@ function liferayNavigation(url) {
 class ProductCard extends Component {
 
 	_handleCardKeypress(e) {
-		if (e.key === "Enter" && e.target === this.element) {
+		if (e.key === 'Enter' && e.target === this.element) {
 			liferayNavigation(this.element.dataset.href);
 		}
 
-		if (["A", "a"].includes(e.key)) {
+		if (['A', 'a'].includes(e.key)) {
 			e.preventDefault();
 			let next = this.element.closest('.minium-product-tiles__item');
 			if (e.target !== this.element) {
