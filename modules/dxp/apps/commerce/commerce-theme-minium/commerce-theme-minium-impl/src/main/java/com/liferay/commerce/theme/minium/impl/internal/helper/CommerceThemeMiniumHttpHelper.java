@@ -20,10 +20,15 @@ import com.liferay.application.list.constants.PanelCategoryKeys;
 import com.liferay.application.list.display.context.logic.PanelCategoryHelper;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.UserNotificationEvent;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.ResourceBundleUtil;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.portlet.PortletURL;
 
@@ -44,6 +49,13 @@ public class CommerceThemeMiniumHttpHelper {
 
 		return _commerceAccountHelper.getAccountManagementPortletURL(
 			httpServletRequest);
+	}
+
+	public String getMyListsLabel(Locale locale) {
+		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
+			"content.Language", locale, getClass());
+
+		return LanguageUtil.get(resourceBundle, "my-lists");
 	}
 
 	public int getNotificationsCount(ThemeDisplay themeDisplay) {

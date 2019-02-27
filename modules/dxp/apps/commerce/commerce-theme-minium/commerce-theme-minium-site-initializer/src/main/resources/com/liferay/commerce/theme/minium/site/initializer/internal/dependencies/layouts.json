@@ -204,7 +204,7 @@
 	{
 		"hidden": true,
 		"layoutTemplateId": "2_columns_ii",
-		"name": "Wish List",
+		"name": "Lists",
 		"portlets": [
 			{
 				"layoutColumnId": "column-1",
