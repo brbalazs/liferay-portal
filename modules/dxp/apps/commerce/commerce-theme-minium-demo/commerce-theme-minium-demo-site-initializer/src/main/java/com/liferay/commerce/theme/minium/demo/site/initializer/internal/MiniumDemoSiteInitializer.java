@@ -36,9 +36,6 @@ import com.liferay.commerce.shipping.engine.fixed.service.CommerceShippingFixedO
 import com.liferay.commerce.util.CommerceShippingEngineRegistry;
 import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.dao.orm.DynamicQuery;
-import com.liferay.portal.kernel.dao.orm.Property;
-import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -55,6 +52,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -160,19 +158,6 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 		_siteInitializer = null;
 	}
 
-	protected CPInstance getCPInstanceBySku(String sku) {
-		DynamicQuery dynamicQuery = _cpInstanceLocalService.dynamicQuery();
-
-		Property nameProperty = PropertyFactoryUtil.forName("sku");
-
-		dynamicQuery.add(nameProperty.eq(sku));
-
-		List<CPInstance> cpInstances = _cpInstanceLocalService.dynamicQuery(
-			dynamicQuery);
-
-		return cpInstances.get(0);
-	}
-
 	protected ServiceContext getServiceContext(long groupId)
 		throws PortalException {
 
@@ -271,7 +256,11 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 				sku = firstSkuJSONObject.getString("Sku");
 			}
 
-			CPInstance cpInstance = getCPInstanceBySku(sku);
+			CPInstance cpInstance =
+				_cpInstanceLocalService.fetchByExternalReferenceCode(
+					serviceContext.getCompanyId(), StringBundler.concat(
+						String.valueOf(serviceContext.getScopeGroupId()), "_",
+						sku));
 
 			CPDefinition cpDefinition =
 				_cpDefinitionLocalService.getCPDefinition(
