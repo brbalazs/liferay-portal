@@ -218,5 +218,71 @@
 			}
 		],
 		"privateLayout": true
+	},
+	{
+		"hidden": true,
+		"layoutTemplateId": "1_2_columns_i",
+		"name": "Search",
+		"portlets": [
+			{
+				"layoutColumnId": "column-1",
+				"layoutColumnPos": 0,
+				"portletName": "com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet,"
+			},
+			{
+				"layoutColumnId": "column-1",
+				"layoutColumnPos": 1,
+				"portletName": "com_liferay_portal_search_web_suggestions_portlet_SuggestionsPortlet"
+			},
+			{
+				"layoutColumnId": "column-2",
+				"layoutColumnPos": 0,
+				"portletName": "com_liferay_portal_search_web_site_facet_portlet_SiteFacetPortlet"
+			},
+			{
+				"layoutColumnId": "column-2",
+				"layoutColumnPos": 1,
+				"portletName": "com_liferay_portal_search_web_type_facet_portlet_TypeFacetPortlet"
+			},
+			{
+				"layoutColumnId": "column-2",
+				"layoutColumnPos": 2,
+				"portletName": "com_liferay_portal_search_web_tag_facet_portlet_TagFacetPortlet"
+			},
+			{
+				"layoutColumnId": "column-2",
+				"layoutColumnPos": 3,
+				"portletName": "com_liferay_portal_search_web_category_facet_portlet_CategoryFacetPortlet"
+			},
+			{
+				"layoutColumnId": "column-2",
+				"layoutColumnPos": 4,
+				"portletName": "com_liferay_portal_search_web_folder_facet_portlet_FolderFacetPortlet"
+			},
+			{
+				"layoutColumnId": "column-2",
+				"layoutColumnPos": 5,
+				"portletName": "com_liferay_portal_search_web_user_facet_portlet_UserFacetPortlet"
+			},
+			{
+				"layoutColumnId": "column-2",
+				"layoutColumnPos": 6,
+				"portletName": "com_liferay_portal_search_web_modified_facet_portlet_ModifiedFacetPortlet"
+			},
+			{
+				"layoutColumnId": "column-3",
+				"layoutColumnPos": 0,
+				"portletName": "com_liferay_portal_search_web_search_results_portlet_SearchResultsPortlet"
+			},
+			{
+				"layoutColumnId": "column-3",
+				"layoutColumnPos": 1,
+				"portletName": "com_liferay_portal_search_web_search_options_portlet_SearchOptionsPortlet",
+				"portletPreferences": {
+					"allowEmptySearches": "true"
+				}
+			}
+		],
+		"privateLayout": true
 	}
 ]
