@@ -15,15 +15,16 @@
 package com.liferay.commerce.theme.minium.demo.site.initializer.internal;
 
 import com.liferay.commerce.initializer.util.CPAttachmentFileEntryCreator;
+import com.liferay.commerce.initializer.util.CPRulesImporter;
 import com.liferay.commerce.initializer.util.CommerceAccountsImporter;
 import com.liferay.commerce.initializer.util.CommercePriceEntriesImporter;
 import com.liferay.commerce.initializer.util.CommercePriceListsImporter;
 import com.liferay.commerce.initializer.util.CommerceUserSegmentsImporter;
 import com.liferay.commerce.initializer.util.CommerceUsersImporter;
 import com.liferay.commerce.initializer.util.OrganizationImporter;
-import com.liferay.commerce.media.CommerceCatalogDefaultImage;
 import com.liferay.commerce.model.CommerceShippingEngine;
 import com.liferay.commerce.model.CommerceShippingMethod;
+import com.liferay.commerce.model.CommerceWarehouse;
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.commerce.product.model.CPAttachmentFileEntryConstants;
 import com.liferay.commerce.product.model.CPDefinition;
@@ -31,10 +32,11 @@ import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPAttachmentFileEntryLocalService;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.service.CPRuleLocalService;
 import com.liferay.commerce.service.CommerceShippingMethodLocalService;
+import com.liferay.commerce.service.CommerceWarehouseLocalService;
 import com.liferay.commerce.shipping.engine.fixed.service.CommerceShippingFixedOptionLocalService;
 import com.liferay.commerce.util.CommerceShippingEngineRegistry;
-import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -130,6 +132,10 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 
 			_importCommerceUserSegments(serviceContext);
 
+			cleanUnwantedData(serviceContext);
+
+			_importCPRules(serviceContext);
+
 			switchImagesToDemo(serviceContext);
 
 			setCommerceShippingMethod("fixed", serviceContext);
@@ -151,6 +157,23 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 
 	@Activate
 	protected void activate() {
+	}
+
+	protected void cleanUnwantedData(ServiceContext serviceContext)
+		throws PortalException {
+
+		//Delete 'Default' Warehouse
+
+		CommerceWarehouse defaultCommerceWarehouse =
+			_commerceWarehouseLocalService.fetchDefaultCommerceWarehouse(
+				serviceContext.getScopeGroupId());
+
+		_commerceWarehouseLocalService.deleteCommerceWarehouse(
+			defaultCommerceWarehouse);
+
+		//Delete 'All' CPRule
+
+		_cpRuleLocalService.deleteCPRules(serviceContext.getScopeGroupId());
 	}
 
 	@Deactivate
@@ -258,7 +281,8 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 
 			CPInstance cpInstance =
 				_cpInstanceLocalService.fetchByExternalReferenceCode(
-					serviceContext.getCompanyId(), StringBundler.concat(
+					serviceContext.getCompanyId(),
+					StringBundler.concat(
 						String.valueOf(serviceContext.getScopeGroupId()), "_",
 						sku));
 
@@ -444,14 +468,29 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 		}
 	}
 
+	private void _importCPRules(ServiceContext serviceContext)
+		throws Exception {
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Importing CPRules...");
+		}
+
+		JSONArray jsonArray = _getJSONArray("catalog-rules.json");
+
+		_cpRulesImporter.importCPRules(
+			jsonArray, serviceContext.getScopeGroupId(),
+			serviceContext.getUserId());
+
+		if (_log.isInfoEnabled()) {
+			_log.info("CPRules imported");
+		}
+	}
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		MiniumDemoSiteInitializer.class);
 
 	@Reference
 	private CommerceAccountsImporter _commerceAccountsImporter;
-
-	@Reference
-	private CommerceCatalogDefaultImage _commerceCatalogDefaultImage;
 
 	@Reference
 	private CommercePriceEntriesImporter _commercePriceEntriesImporter;
@@ -477,6 +516,9 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 	private CommerceUsersImporter _commerceUsersImporter;
 
 	@Reference
+	private CommerceWarehouseLocalService _commerceWarehouseLocalService;
+
+	@Reference
 	private CPAttachmentFileEntryCreator _cpAttachmentFileEntryCreator;
 
 	@Reference
@@ -490,7 +532,10 @@ public class MiniumDemoSiteInitializer implements SiteInitializer {
 	private CPInstanceLocalService _cpInstanceLocalService;
 
 	@Reference
-	private DLAppLocalService _dlAppLocalService;
+	private CPRuleLocalService _cpRuleLocalService;
+
+	@Reference
+	private CPRulesImporter _cpRulesImporter;
 
 	@Reference
 	private GroupLocalService _groupLocalService;
