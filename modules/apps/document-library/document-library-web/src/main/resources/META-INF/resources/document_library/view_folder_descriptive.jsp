@@ -34,7 +34,7 @@ rowURL.setParameter("redirect", currentURL);
 rowURL.setParameter("folderId", String.valueOf(folder.getFolderId()));
 %>
 
-<h5 class="text-default">
+<span class="text-default">
 	<c:choose>
 		<c:when test="<%= Validator.isNull(folder.getUserName()) %>">
 			<liferay-ui:message arguments="<%= modifiedDateDescription %>" key="modified-x-ago" />
@@ -43,13 +43,13 @@ rowURL.setParameter("folderId", String.valueOf(folder.getFolderId()));
 			<liferay-ui:message arguments="<%= new String[] {folder.getUserName(), modifiedDateDescription} %>" key="x-modified-x-ago" />
 		</c:otherwise>
 	</c:choose>
-</h5>
+</span>
 
-<h4>
+<h2 class="h5">
 	<aui:a href="<%= rowURL.toString() %>">
 		<%= folder.getName() %>
 	</aui:a>
-</h4>
+</h2>
 
 <span>
 	<%= DLUtil.getAbsolutePath(liferayPortletRequest, folder.getParentFolderId()).replace(StringPool.RAQUO_CHAR, StringPool.GREATER_THAN) %>
