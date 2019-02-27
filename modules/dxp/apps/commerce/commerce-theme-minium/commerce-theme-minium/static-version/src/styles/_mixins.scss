@@ -1,0 +1,14 @@
+@mixin commerce-typo-base-title {
+	color: $color-fg;
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: 3px;
+	line-height: 19px;
+	margin: $minium-big-gutter 0;
+	text-transform: uppercase;
+}
+
+@mixin commerce-typo-content-text {
+	font-size: 14px;
+	line-height: 32px;
+}

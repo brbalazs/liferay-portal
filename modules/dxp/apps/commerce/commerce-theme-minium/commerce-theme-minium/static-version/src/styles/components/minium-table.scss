@@ -170,3 +170,47 @@ padding-top: 10px;
 .table-responsive {
 margin-bottom: 20px;
 }
+
+.table .image-name-cell {
+	a {
+		text-decoration: none;
+	}
+}
+
+.image-name-cell-label {
+	align-items: center;
+	color: #5C5E5E;
+	display: flex;
+	font-weight: normal;
+
+	img {
+		margin-right: $minium-small-gutter;
+	}
+
+	span {
+		text-decoration: none;
+	}
+}
+
+.d-table-head-group {
+	display: table-header-group;
+	vertical-align: middle;
+	border-color: inherit
+}
+
+.d-table-row-group {
+	display: table-row-group;
+	vertical-align: middle;
+	border-color: inherit
+}
+
+.empty-table-message {
+	align-items: center;
+	display: flex;
+	font-size: 32px;
+	font-weight: 500;
+	justify-content: center;
+	line-height: 42px;
+	min-height: 300px;
+	text-align: center;
+}

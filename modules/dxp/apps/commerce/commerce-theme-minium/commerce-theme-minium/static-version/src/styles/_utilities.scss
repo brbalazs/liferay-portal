@@ -1,0 +1,40 @@
+.u-vac {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.u-tar {
+	text-align: right;
+}
+
+.u-tac {
+	text-align: center;
+}
+
+.u-wauto {
+	width: auto !important;
+}
+
+.u-hoverable {
+	@media (hover: hover) {
+		&::before {
+			background-color: $color-theme;
+			content: '';
+			height: 100%;
+			left: 0;
+			position: absolute;
+			top: 0;
+			transition: opacity $micro-transition;
+			width: 2px;
+		}
+
+		&.is-not-valid::before {
+			background-color: $color-mood-bad;
+		}
+
+		&:not(:hover)::before {
+			opacity: 0;
+		}
+	}
+}

@@ -16,7 +16,12 @@
 		justify-content: center;
 		position: absolute;
 		right: 0;
+		transition: transform ease 50ms;
 		width: 30px;
+
+		&:hover {
+			transform: scale(1.5);
+		}
 
 		&::before {
 			border: solid currentColor;
@@ -69,7 +74,12 @@
 		&__btn {
 			color: inherit;
 			height: 40px;
+			transition: transform ease 50ms;
 			width: 30px;
+
+			&:hover {
+				transform: scale(1.5);
+			}
 		}
 	}
 }

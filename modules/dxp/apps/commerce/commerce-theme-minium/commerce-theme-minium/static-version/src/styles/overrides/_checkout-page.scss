@@ -1,0 +1,50 @@
+.commerce-input {
+	border: 2px solid rgba(92, 94, 94, 0.14);
+	border-radius: 10px;
+	color: #5C5E5E;
+	height: 44px;
+	outline: none;
+	padding: 10px;
+	width: 100%;
+}
+
+.commerce-multi-step-nav {
+	margin: 40px 20px;
+}
+
+.portlet-commerce-checkout {
+	.input-container > .form-group-autofit,
+	.input-container > .address-fields,
+	.commerce-checkout-summary-footer,
+	.shipping-address {
+		@include commerce-panel-content;
+	}
+
+	.input-container > .form-group-autofit,
+	.input-container > .address-fields {
+		padding-top: 30px;
+	}
+
+	.input-container > .form-group-autofit > .form-group {
+		margin-bottom: 1rem;
+		margin-right: 0;
+	}
+
+	.commerce-checkout-summary-header {
+		display: none;
+	}
+
+	.btn {
+		@extend .commerce-button
+	}
+
+	.btn:not(.btn-primary) {
+		@extend .commerce-button--outline
+	}
+}
+
+body .multi-step-item.active .multi-step-divider,
+body .multi-step-item.success-page.complete .multi-step-divider,
+.multi-step-item.active .multi-step-icon {
+	background-color: $color-theme;
+}
