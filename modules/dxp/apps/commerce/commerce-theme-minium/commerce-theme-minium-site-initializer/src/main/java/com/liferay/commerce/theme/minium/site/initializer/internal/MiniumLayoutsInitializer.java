@@ -15,11 +15,11 @@
 package com.liferay.commerce.theme.minium.site.initializer.internal;
 
 import com.liferay.commerce.product.importer.CPFileImporter;
-import com.liferay.commerce.theme.minium.site.initializer.MiniumSiteInitializer;
+import com.liferay.commerce.theme.minium.api.SiteInitializerDependencyResolver;
+import com.liferay.commerce.theme.minium.api.SiteInitializerDependencyResolverThreadLocal;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.util.StringUtil;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -31,6 +31,15 @@ import org.osgi.service.component.annotations.Reference;
 public class MiniumLayoutsInitializer {
 
 	public void initialize(ServiceContext serviceContext) throws Exception {
+		SiteInitializerDependencyResolver siteInitializerDependencyResolver =
+			SiteInitializerDependencyResolverThreadLocal.
+				getSiteInitializerDependencyResolver();
+
+		if (siteInitializerDependencyResolver != null) {
+			_siteInitializerDependencyResolver =
+				siteInitializerDependencyResolver;
+		}
+
 		_cpFileImporter.cleanLayouts(serviceContext);
 
 		_createLayouts(serviceContext);
@@ -39,17 +48,14 @@ public class MiniumLayoutsInitializer {
 	private void _createLayouts(ServiceContext serviceContext)
 		throws Exception {
 
-		ClassLoader classLoader =
-			MiniumLayoutsInitializer.class.getClassLoader();
-
-		String json = StringUtil.read(
-			classLoader,
-			MiniumSiteInitializer.DEPENDENCIES_PATH + "layouts.json", false);
+		String json = _siteInitializerDependencyResolver.getJSON(
+			"layouts.json");
 
 		JSONArray jsonArray = _jsonFactory.createJSONArray(json);
 
 		_cpFileImporter.createLayouts(
-			jsonArray, classLoader, MiniumSiteInitializer.DEPENDENCIES_PATH,
+			jsonArray, _siteInitializerDependencyResolver.getImageClassLoader(),
+			_siteInitializerDependencyResolver.getImageDependencyPath(),
 			serviceContext);
 	}
 
@@ -58,5 +64,11 @@ public class MiniumLayoutsInitializer {
 
 	@Reference
 	private JSONFactory _jsonFactory;
+
+	@Reference(
+		target = "(site.initializer.key=" + MiniumSiteInitializer.KEY + ")"
+	)
+	private SiteInitializerDependencyResolver
+		_siteInitializerDependencyResolver;
 
 }

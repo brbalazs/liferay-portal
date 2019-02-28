@@ -1,7 +1,0 @@
-Bundle-Name: Liferay Commerce Theme Minium Demo Site Initializer
-Bundle-SymbolicName: com.liferay.commerce.theme.minium.demo.site.initializer
-Bundle-Version: 1.0.0
-Require-Capability:\
-	soy;\
-		filter:="(type=commerce-cart-taglib)"
-Web-ContextPath: /commerce-theme-minium-demo-site-initializer
