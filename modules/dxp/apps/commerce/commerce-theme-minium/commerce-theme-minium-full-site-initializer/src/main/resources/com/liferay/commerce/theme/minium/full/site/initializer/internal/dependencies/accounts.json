@@ -2,7 +2,7 @@
 	{
 		"AccountType": "Business",
 		"City": "Los Angeles",
-		"CompanyLogo": "minium-logos-10.png",
+		"CompanyLogo": "minium-logos-9.png",
 		"Country": "US",
 		"Name": "Speedy Auto Service, Southern California",
 		"PriceLists": [
@@ -16,7 +16,7 @@
 	{
 		"AccountType": "Business",
 		"City": "Richmond",
-		"CompanyLogo": "minium-logos-10.png",
+		"CompanyLogo": "minium-logos-9.png",
 		"Country": "US",
 		"Name": "Speedy Auto Service, N. America HQ",
 		"PriceLists": [
@@ -30,7 +30,7 @@
 	{
 		"AccountType": "Business",
 		"City": "Davis",
-		"CompanyLogo": "minium-logos-10.png",
+		"CompanyLogo": "minium-logos-9.png",
 		"Country": "US",
 		"Name": "Speedy Auto Service, Northern California",
 		"PriceLists": [
@@ -44,7 +44,7 @@
 	{
 		"AccountType": "Business",
 		"City": "Milan",
-		"CompanyLogo": "minium-logos-9.png",
+		"CompanyLogo": "minium-logos-10.png",
 		"Country": "IT",
 		"Name": "Leo Auto Parts Distributor",
 		"Region": "MI",

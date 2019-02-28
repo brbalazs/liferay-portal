@@ -3,7 +3,7 @@
 	show_top_menu = getterUtil.getBoolean(themeDisplay.getThemeSetting("show-top-menu"))
 	userManagementUrl = commerceThemeMiniumHttpHelper.getAccountManagementPortletURL(request)
 	wishlistUrl = commerceWishListHttpHelper.getCommerceWishListPortletURL(request)
-	wish_lists_text = "aaaa"
+	wish_lists_text = commerceThemeMiniumHttpHelper.getMyListsLabel(locale)
 	my_profile_text = languageUtil.get(locale, "my-profile")
 	notifications_text = languageUtil.get(locale, "notifications")
 	notification_url = commerceThemeMiniumHttpHelper.getNotificationsURL(request)
