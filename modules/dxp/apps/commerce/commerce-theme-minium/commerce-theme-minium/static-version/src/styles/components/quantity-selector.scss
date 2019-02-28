@@ -3,9 +3,12 @@
 	display: flex;
 	justify-content: center;
 
+	&__input {
+		-moz-appearance: textfield;
+	}
+
 	&__input,
 	&__select {
-		-moz-appearance: textfield;
 		background: white;
 		border: 2px solid rgba(180,187,201,0.25);
 		border-radius: 8px;

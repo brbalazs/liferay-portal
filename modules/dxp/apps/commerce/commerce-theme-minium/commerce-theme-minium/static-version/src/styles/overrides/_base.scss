@@ -2,9 +2,6 @@
 	font-family: 'Roboto', sans-serif;
 
 	button{
-		background: none;
-		border: none;
-
 		&:focus {
 			outline: none;
 		}
@@ -13,4 +10,9 @@
 	svg {
 		vertical-align: middle
 	}
+}
+
+button{
+  background: none;
+  border: none;
 }
