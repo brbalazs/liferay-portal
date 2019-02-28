@@ -17,7 +17,6 @@ package com.liferay.saml.persistence.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.CacheModel;
@@ -40,8 +39,9 @@ import java.util.Date;
  * @generated
  */
 @ProviderType
-public interface SamlSpMessageModel extends BaseModel<SamlSpMessage>,
-	ShardedModel {
+public interface SamlSpMessageModel
+	extends BaseModel<SamlSpMessage>, ShardedModel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -206,4 +206,5 @@ public interface SamlSpMessageModel extends BaseModel<SamlSpMessage>,
 
 	@Override
 	public String toXmlString();
+
 }

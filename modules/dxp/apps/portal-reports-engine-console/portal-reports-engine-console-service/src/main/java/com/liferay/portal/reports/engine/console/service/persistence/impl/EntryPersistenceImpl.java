@@ -63,18 +63,23 @@ import java.util.Set;
  * @generated
  */
 @ProviderType
-public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
-	implements EntryPersistence {
+public class EntryPersistenceImpl
+	extends BasePersistenceImpl<Entry> implements EntryPersistence {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>EntryUtil</code> to access the entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static final String FINDER_CLASS_NAME_ENTITY = EntryImpl.class.getName();
-	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List1";
-	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List2";
+	public static final String FINDER_CLASS_NAME_ENTITY =
+		EntryImpl.class.getName();
+
+	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List1";
+
+	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List2";
+
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
@@ -90,8 +95,9 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 */
 	@Override
 	public void cacheResult(Entry entry) {
-		entityCache.putResult(EntryModelImpl.ENTITY_CACHE_ENABLED,
-			EntryImpl.class, entry.getPrimaryKey(), entry);
+		entityCache.putResult(
+			EntryModelImpl.ENTITY_CACHE_ENABLED, EntryImpl.class,
+			entry.getPrimaryKey(), entry);
 
 		entry.resetOriginalValues();
 	}
@@ -104,8 +110,10 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	@Override
 	public void cacheResult(List<Entry> entries) {
 		for (Entry entry : entries) {
-			if (entityCache.getResult(EntryModelImpl.ENTITY_CACHE_ENABLED,
-						EntryImpl.class, entry.getPrimaryKey()) == null) {
+			if (entityCache.getResult(
+					EntryModelImpl.ENTITY_CACHE_ENABLED, EntryImpl.class,
+					entry.getPrimaryKey()) == null) {
+
 				cacheResult(entry);
 			}
 			else {
@@ -139,8 +147,9 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 */
 	@Override
 	public void clearCache(Entry entry) {
-		entityCache.removeResult(EntryModelImpl.ENTITY_CACHE_ENABLED,
-			EntryImpl.class, entry.getPrimaryKey());
+		entityCache.removeResult(
+			EntryModelImpl.ENTITY_CACHE_ENABLED, EntryImpl.class,
+			entry.getPrimaryKey());
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -152,8 +161,9 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
 		for (Entry entry : entries) {
-			entityCache.removeResult(EntryModelImpl.ENTITY_CACHE_ENABLED,
-				EntryImpl.class, entry.getPrimaryKey());
+			entityCache.removeResult(
+				EntryModelImpl.ENTITY_CACHE_ENABLED, EntryImpl.class,
+				entry.getPrimaryKey());
 		}
 	}
 
@@ -208,8 +218,8 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
-				throw new NoSuchEntryException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					primaryKey);
+				throw new NoSuchEntryException(
+					_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			return remove(entry);
@@ -233,8 +243,8 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 			session = openSession();
 
 			if (!session.contains(entry)) {
-				entry = (Entry)session.get(EntryImpl.class,
-						entry.getPrimaryKeyObj());
+				entry = (Entry)session.get(
+					EntryImpl.class, entry.getPrimaryKeyObj());
 			}
 
 			if (entry != null) {
@@ -267,17 +277,18 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 
 				throw new IllegalArgumentException(
 					"Implement ModelWrapper in entry proxy " +
-					invocationHandler.getClass());
+						invocationHandler.getClass());
 			}
 
 			throw new IllegalArgumentException(
 				"Implement ModelWrapper in custom Entry implementation " +
-				entry.getClass());
+					entry.getClass());
 		}
 
 		EntryModelImpl entryModelImpl = (EntryModelImpl)entry;
 
-		ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
 
 		Date now = new Date();
 
@@ -324,12 +335,13 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 
 		if (isNew) {
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
-			finderCache.removeResult(_finderPathWithoutPaginationFindAll,
-				FINDER_ARGS_EMPTY);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
 		}
 
-		entityCache.putResult(EntryModelImpl.ENTITY_CACHE_ENABLED,
-			EntryImpl.class, entry.getPrimaryKey(), entry, false);
+		entityCache.putResult(
+			EntryModelImpl.ENTITY_CACHE_ENABLED, EntryImpl.class,
+			entry.getPrimaryKey(), entry, false);
 
 		entry.resetOriginalValues();
 
@@ -346,6 +358,7 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	@Override
 	public Entry findByPrimaryKey(Serializable primaryKey)
 		throws NoSuchEntryException {
+
 		Entry entry = fetchByPrimaryKey(primaryKey);
 
 		if (entry == null) {
@@ -353,8 +366,8 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
-			throw new NoSuchEntryException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				primaryKey);
+			throw new NoSuchEntryException(
+				_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 		}
 
 		return entry;
@@ -380,8 +393,8 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 */
 	@Override
 	public Entry fetchByPrimaryKey(Serializable primaryKey) {
-		Serializable serializable = entityCache.getResult(EntryModelImpl.ENTITY_CACHE_ENABLED,
-				EntryImpl.class, primaryKey);
+		Serializable serializable = entityCache.getResult(
+			EntryModelImpl.ENTITY_CACHE_ENABLED, EntryImpl.class, primaryKey);
 
 		if (serializable == nullModel) {
 			return null;
@@ -401,13 +414,15 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 					cacheResult(entry);
 				}
 				else {
-					entityCache.putResult(EntryModelImpl.ENTITY_CACHE_ENABLED,
-						EntryImpl.class, primaryKey, nullModel);
+					entityCache.putResult(
+						EntryModelImpl.ENTITY_CACHE_ENABLED, EntryImpl.class,
+						primaryKey, nullModel);
 				}
 			}
 			catch (Exception e) {
-				entityCache.removeResult(EntryModelImpl.ENTITY_CACHE_ENABLED,
-					EntryImpl.class, primaryKey);
+				entityCache.removeResult(
+					EntryModelImpl.ENTITY_CACHE_ENABLED, EntryImpl.class,
+					primaryKey);
 
 				throw processException(e);
 			}
@@ -433,6 +448,7 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	@Override
 	public Map<Serializable, Entry> fetchByPrimaryKeys(
 		Set<Serializable> primaryKeys) {
+
 		if (primaryKeys.isEmpty()) {
 			return Collections.emptyMap();
 		}
@@ -456,8 +472,9 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 		Set<Serializable> uncachedPrimaryKeys = null;
 
 		for (Serializable primaryKey : primaryKeys) {
-			Serializable serializable = entityCache.getResult(EntryModelImpl.ENTITY_CACHE_ENABLED,
-					EntryImpl.class, primaryKey);
+			Serializable serializable = entityCache.getResult(
+				EntryModelImpl.ENTITY_CACHE_ENABLED, EntryImpl.class,
+				primaryKey);
 
 			if (serializable != nullModel) {
 				if (serializable == null) {
@@ -477,8 +494,8 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 			return map;
 		}
 
-		StringBundler query = new StringBundler((uncachedPrimaryKeys.size() * 2) +
-				1);
+		StringBundler query = new StringBundler(
+			uncachedPrimaryKeys.size() * 2 + 1);
 
 		query.append(_SQL_SELECT_ENTRY_WHERE_PKS_IN);
 
@@ -510,8 +527,9 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 			}
 
 			for (Serializable primaryKey : uncachedPrimaryKeys) {
-				entityCache.putResult(EntryModelImpl.ENTITY_CACHE_ENABLED,
-					EntryImpl.class, primaryKey, nullModel);
+				entityCache.putResult(
+					EntryModelImpl.ENTITY_CACHE_ENABLED, EntryImpl.class,
+					primaryKey, nullModel);
 			}
 		}
 		catch (Exception e) {
@@ -563,8 +581,9 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 * @return the ordered range of entries
 	 */
 	@Override
-	public List<Entry> findAll(int start, int end,
-		OrderByComparator<Entry> orderByComparator) {
+	public List<Entry> findAll(
+		int start, int end, OrderByComparator<Entry> orderByComparator) {
+
 		return findAll(start, end, orderByComparator, true);
 	}
 
@@ -582,28 +601,31 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 * @return the ordered range of entries
 	 */
 	@Override
-	public List<Entry> findAll(int start, int end,
-		OrderByComparator<Entry> orderByComparator, boolean retrieveFromCache) {
+	public List<Entry> findAll(
+		int start, int end, OrderByComparator<Entry> orderByComparator,
+		boolean retrieveFromCache) {
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
+			(orderByComparator == null)) {
+
 			pagination = false;
 			finderPath = _finderPathWithoutPaginationFindAll;
 			finderArgs = FINDER_ARGS_EMPTY;
 		}
 		else {
 			finderPath = _finderPathWithPaginationFindAll;
-			finderArgs = new Object[] { start, end, orderByComparator };
+			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<Entry> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<Entry>)finderCache.getResult(finderPath, finderArgs,
-					this);
+			list = (List<Entry>)finderCache.getResult(
+				finderPath, finderArgs, this);
 		}
 
 		if (list == null) {
@@ -611,13 +633,13 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 			String sql = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(2 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					2 + (orderByComparator.getOrderByFields().length * 2));
 
 				query.append(_SQL_SELECT_ENTRY);
 
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
 				sql = query.toString();
 			}
@@ -637,16 +659,16 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 				Query q = session.createQuery(sql);
 
 				if (!pagination) {
-					list = (List<Entry>)QueryUtil.list(q, getDialect(), start,
-							end, false);
+					list = (List<Entry>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<Entry>)QueryUtil.list(q, getDialect(), start,
-							end);
+					list = (List<Entry>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -684,8 +706,8 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 */
 	@Override
 	public int countAll() {
-		Long count = (Long)finderCache.getResult(_finderPathCountAll,
-				FINDER_ARGS_EMPTY, this);
+		Long count = (Long)finderCache.getResult(
+			_finderPathCountAll, FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -697,11 +719,12 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 
 				count = (Long)q.uniqueResult();
 
-				finderCache.putResult(_finderPathCountAll, FINDER_ARGS_EMPTY,
-					count);
+				finderCache.putResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
+				finderCache.removeResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY);
 
 				throw processException(e);
 			}
@@ -722,19 +745,22 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 * Initializes the entry persistence.
 	 */
 	public void afterPropertiesSet() {
-		_finderPathWithPaginationFindAll = new FinderPath(EntryModelImpl.ENTITY_CACHE_ENABLED,
-				EntryModelImpl.FINDER_CACHE_ENABLED, EntryImpl.class,
-				FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
+		_finderPathWithPaginationFindAll = new FinderPath(
+			EntryModelImpl.ENTITY_CACHE_ENABLED,
+			EntryModelImpl.FINDER_CACHE_ENABLED, EntryImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
 
-		_finderPathWithoutPaginationFindAll = new FinderPath(EntryModelImpl.ENTITY_CACHE_ENABLED,
-				EntryModelImpl.FINDER_CACHE_ENABLED, EntryImpl.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
-				new String[0]);
+		_finderPathWithoutPaginationFindAll = new FinderPath(
+			EntryModelImpl.ENTITY_CACHE_ENABLED,
+			EntryModelImpl.FINDER_CACHE_ENABLED, EntryImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
+			new String[0]);
 
-		_finderPathCountAll = new FinderPath(EntryModelImpl.ENTITY_CACHE_ENABLED,
-				EntryModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
-				new String[0]);
+		_finderPathCountAll = new FinderPath(
+			EntryModelImpl.ENTITY_CACHE_ENABLED,
+			EntryModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
+			new String[0]);
 	}
 
 	public void destroy() {
@@ -746,14 +772,28 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 
 	@ServiceReference(type = CompanyProviderWrapper.class)
 	protected CompanyProvider companyProvider;
+
 	@ServiceReference(type = EntityCache.class)
 	protected EntityCache entityCache;
+
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
-	private static final String _SQL_SELECT_ENTRY = "SELECT entry FROM Entry entry";
-	private static final String _SQL_SELECT_ENTRY_WHERE_PKS_IN = "SELECT entry FROM Entry entry WHERE entryId IN (";
-	private static final String _SQL_COUNT_ENTRY = "SELECT COUNT(entry) FROM Entry entry";
+
+	private static final String _SQL_SELECT_ENTRY =
+		"SELECT entry FROM Entry entry";
+
+	private static final String _SQL_SELECT_ENTRY_WHERE_PKS_IN =
+		"SELECT entry FROM Entry entry WHERE entryId IN (";
+
+	private static final String _SQL_COUNT_ENTRY =
+		"SELECT COUNT(entry) FROM Entry entry";
+
 	private static final String _ORDER_BY_ENTITY_ALIAS = "entry.";
-	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No Entry exists with the primary key ";
-	private static final Log _log = LogFactoryUtil.getLog(EntryPersistenceImpl.class);
+
+	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY =
+		"No Entry exists with the primary key ";
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		EntryPersistenceImpl.class);
+
 }

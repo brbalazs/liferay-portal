@@ -17,7 +17,6 @@ package com.liferay.saml.persistence.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -38,8 +37,9 @@ import java.util.Objects;
  * @generated
  */
 @ProviderType
-public class SamlSpSessionWrapper implements SamlSpSession,
-	ModelWrapper<SamlSpSession> {
+public class SamlSpSessionWrapper
+	implements SamlSpSession, ModelWrapper<SamlSpSession> {
+
 	public SamlSpSessionWrapper(SamlSpSession samlSpSession) {
 		_samlSpSession = samlSpSession;
 	}
@@ -140,14 +140,14 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 		}
 
 		String nameIdNameQualifier = (String)attributes.get(
-				"nameIdNameQualifier");
+			"nameIdNameQualifier");
 
 		if (nameIdNameQualifier != null) {
 			setNameIdNameQualifier(nameIdNameQualifier);
 		}
 
 		String nameIdSPNameQualifier = (String)attributes.get(
-				"nameIdSPNameQualifier");
+			"nameIdSPNameQualifier");
 
 		if (nameIdSPNameQualifier != null) {
 			setNameIdSPNameQualifier(nameIdSPNameQualifier);
@@ -183,30 +183,30 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	}
 
 	/**
-	* Returns the assertion xml of this saml sp session.
-	*
-	* @return the assertion xml of this saml sp session
-	*/
+	 * Returns the assertion xml of this saml sp session.
+	 *
+	 * @return the assertion xml of this saml sp session
+	 */
 	@Override
 	public String getAssertionXml() {
 		return _samlSpSession.getAssertionXml();
 	}
 
 	/**
-	* Returns the company ID of this saml sp session.
-	*
-	* @return the company ID of this saml sp session
-	*/
+	 * Returns the company ID of this saml sp session.
+	 *
+	 * @return the company ID of this saml sp session
+	 */
 	@Override
 	public long getCompanyId() {
 		return _samlSpSession.getCompanyId();
 	}
 
 	/**
-	* Returns the create date of this saml sp session.
-	*
-	* @return the create date of this saml sp session
-	*/
+	 * Returns the create date of this saml sp session.
+	 *
+	 * @return the create date of this saml sp session
+	 */
 	@Override
 	public Date getCreateDate() {
 		return _samlSpSession.getCreateDate();
@@ -218,70 +218,70 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	}
 
 	/**
-	* Returns the j session ID of this saml sp session.
-	*
-	* @return the j session ID of this saml sp session
-	*/
+	 * Returns the j session ID of this saml sp session.
+	 *
+	 * @return the j session ID of this saml sp session
+	 */
 	@Override
 	public String getJSessionId() {
 		return _samlSpSession.getJSessionId();
 	}
 
 	/**
-	* Returns the modified date of this saml sp session.
-	*
-	* @return the modified date of this saml sp session
-	*/
+	 * Returns the modified date of this saml sp session.
+	 *
+	 * @return the modified date of this saml sp session
+	 */
 	@Override
 	public Date getModifiedDate() {
 		return _samlSpSession.getModifiedDate();
 	}
 
 	/**
-	* Returns the name ID format of this saml sp session.
-	*
-	* @return the name ID format of this saml sp session
-	*/
+	 * Returns the name ID format of this saml sp session.
+	 *
+	 * @return the name ID format of this saml sp session
+	 */
 	@Override
 	public String getNameIdFormat() {
 		return _samlSpSession.getNameIdFormat();
 	}
 
 	/**
-	* Returns the name ID name qualifier of this saml sp session.
-	*
-	* @return the name ID name qualifier of this saml sp session
-	*/
+	 * Returns the name ID name qualifier of this saml sp session.
+	 *
+	 * @return the name ID name qualifier of this saml sp session
+	 */
 	@Override
 	public String getNameIdNameQualifier() {
 		return _samlSpSession.getNameIdNameQualifier();
 	}
 
 	/**
-	* Returns the name ID sp name qualifier of this saml sp session.
-	*
-	* @return the name ID sp name qualifier of this saml sp session
-	*/
+	 * Returns the name ID sp name qualifier of this saml sp session.
+	 *
+	 * @return the name ID sp name qualifier of this saml sp session
+	 */
 	@Override
 	public String getNameIdSPNameQualifier() {
 		return _samlSpSession.getNameIdSPNameQualifier();
 	}
 
 	/**
-	* Returns the name ID value of this saml sp session.
-	*
-	* @return the name ID value of this saml sp session
-	*/
+	 * Returns the name ID value of this saml sp session.
+	 *
+	 * @return the name ID value of this saml sp session
+	 */
 	@Override
 	public String getNameIdValue() {
 		return _samlSpSession.getNameIdValue();
 	}
 
 	/**
-	* Returns the primary key of this saml sp session.
-	*
-	* @return the primary key of this saml sp session
-	*/
+	 * Returns the primary key of this saml sp session.
+	 *
+	 * @return the primary key of this saml sp session
+	 */
 	@Override
 	public long getPrimaryKey() {
 		return _samlSpSession.getPrimaryKey();
@@ -293,70 +293,70 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	}
 
 	/**
-	* Returns the saml sp session ID of this saml sp session.
-	*
-	* @return the saml sp session ID of this saml sp session
-	*/
+	 * Returns the saml sp session ID of this saml sp session.
+	 *
+	 * @return the saml sp session ID of this saml sp session
+	 */
 	@Override
 	public long getSamlSpSessionId() {
 		return _samlSpSession.getSamlSpSessionId();
 	}
 
 	/**
-	* Returns the saml sp session key of this saml sp session.
-	*
-	* @return the saml sp session key of this saml sp session
-	*/
+	 * Returns the saml sp session key of this saml sp session.
+	 *
+	 * @return the saml sp session key of this saml sp session
+	 */
 	@Override
 	public String getSamlSpSessionKey() {
 		return _samlSpSession.getSamlSpSessionKey();
 	}
 
 	/**
-	* Returns the session index of this saml sp session.
-	*
-	* @return the session index of this saml sp session
-	*/
+	 * Returns the session index of this saml sp session.
+	 *
+	 * @return the session index of this saml sp session
+	 */
 	@Override
 	public String getSessionIndex() {
 		return _samlSpSession.getSessionIndex();
 	}
 
 	/**
-	* Returns the terminated of this saml sp session.
-	*
-	* @return the terminated of this saml sp session
-	*/
+	 * Returns the terminated of this saml sp session.
+	 *
+	 * @return the terminated of this saml sp session
+	 */
 	@Override
 	public boolean getTerminated() {
 		return _samlSpSession.getTerminated();
 	}
 
 	/**
-	* Returns the user ID of this saml sp session.
-	*
-	* @return the user ID of this saml sp session
-	*/
+	 * Returns the user ID of this saml sp session.
+	 *
+	 * @return the user ID of this saml sp session
+	 */
 	@Override
 	public long getUserId() {
 		return _samlSpSession.getUserId();
 	}
 
 	/**
-	* Returns the user name of this saml sp session.
-	*
-	* @return the user name of this saml sp session
-	*/
+	 * Returns the user name of this saml sp session.
+	 *
+	 * @return the user name of this saml sp session
+	 */
 	@Override
 	public String getUserName() {
 		return _samlSpSession.getUserName();
 	}
 
 	/**
-	* Returns the user uuid of this saml sp session.
-	*
-	* @return the user uuid of this saml sp session
-	*/
+	 * Returns the user uuid of this saml sp session.
+	 *
+	 * @return the user uuid of this saml sp session
+	 */
 	@Override
 	public String getUserUuid() {
 		return _samlSpSession.getUserUuid();
@@ -383,10 +383,10 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	}
 
 	/**
-	* Returns <code>true</code> if this saml sp session is terminated.
-	*
-	* @return <code>true</code> if this saml sp session is terminated; <code>false</code> otherwise
-	*/
+	 * Returns <code>true</code> if this saml sp session is terminated.
+	 *
+	 * @return <code>true</code> if this saml sp session is terminated; <code>false</code> otherwise
+	 */
 	@Override
 	public boolean isTerminated() {
 		return _samlSpSession.isTerminated();
@@ -398,10 +398,10 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	}
 
 	/**
-	* Sets the assertion xml of this saml sp session.
-	*
-	* @param assertionXml the assertion xml of this saml sp session
-	*/
+	 * Sets the assertion xml of this saml sp session.
+	 *
+	 * @param assertionXml the assertion xml of this saml sp session
+	 */
 	@Override
 	public void setAssertionXml(String assertionXml) {
 		_samlSpSession.setAssertionXml(assertionXml);
@@ -413,20 +413,20 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	}
 
 	/**
-	* Sets the company ID of this saml sp session.
-	*
-	* @param companyId the company ID of this saml sp session
-	*/
+	 * Sets the company ID of this saml sp session.
+	 *
+	 * @param companyId the company ID of this saml sp session
+	 */
 	@Override
 	public void setCompanyId(long companyId) {
 		_samlSpSession.setCompanyId(companyId);
 	}
 
 	/**
-	* Sets the create date of this saml sp session.
-	*
-	* @param createDate the create date of this saml sp session
-	*/
+	 * Sets the create date of this saml sp session.
+	 *
+	 * @param createDate the create date of this saml sp session
+	 */
 	@Override
 	public void setCreateDate(Date createDate) {
 		_samlSpSession.setCreateDate(createDate);
@@ -435,6 +435,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
 		_samlSpSession.setExpandoBridgeAttributes(baseModel);
 	}
 
@@ -449,60 +450,60 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	}
 
 	/**
-	* Sets the j session ID of this saml sp session.
-	*
-	* @param jSessionId the j session ID of this saml sp session
-	*/
+	 * Sets the j session ID of this saml sp session.
+	 *
+	 * @param jSessionId the j session ID of this saml sp session
+	 */
 	@Override
 	public void setJSessionId(String jSessionId) {
 		_samlSpSession.setJSessionId(jSessionId);
 	}
 
 	/**
-	* Sets the modified date of this saml sp session.
-	*
-	* @param modifiedDate the modified date of this saml sp session
-	*/
+	 * Sets the modified date of this saml sp session.
+	 *
+	 * @param modifiedDate the modified date of this saml sp session
+	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_samlSpSession.setModifiedDate(modifiedDate);
 	}
 
 	/**
-	* Sets the name ID format of this saml sp session.
-	*
-	* @param nameIdFormat the name ID format of this saml sp session
-	*/
+	 * Sets the name ID format of this saml sp session.
+	 *
+	 * @param nameIdFormat the name ID format of this saml sp session
+	 */
 	@Override
 	public void setNameIdFormat(String nameIdFormat) {
 		_samlSpSession.setNameIdFormat(nameIdFormat);
 	}
 
 	/**
-	* Sets the name ID name qualifier of this saml sp session.
-	*
-	* @param nameIdNameQualifier the name ID name qualifier of this saml sp session
-	*/
+	 * Sets the name ID name qualifier of this saml sp session.
+	 *
+	 * @param nameIdNameQualifier the name ID name qualifier of this saml sp session
+	 */
 	@Override
 	public void setNameIdNameQualifier(String nameIdNameQualifier) {
 		_samlSpSession.setNameIdNameQualifier(nameIdNameQualifier);
 	}
 
 	/**
-	* Sets the name ID sp name qualifier of this saml sp session.
-	*
-	* @param nameIdSPNameQualifier the name ID sp name qualifier of this saml sp session
-	*/
+	 * Sets the name ID sp name qualifier of this saml sp session.
+	 *
+	 * @param nameIdSPNameQualifier the name ID sp name qualifier of this saml sp session
+	 */
 	@Override
 	public void setNameIdSPNameQualifier(String nameIdSPNameQualifier) {
 		_samlSpSession.setNameIdSPNameQualifier(nameIdSPNameQualifier);
 	}
 
 	/**
-	* Sets the name ID value of this saml sp session.
-	*
-	* @param nameIdValue the name ID value of this saml sp session
-	*/
+	 * Sets the name ID value of this saml sp session.
+	 *
+	 * @param nameIdValue the name ID value of this saml sp session
+	 */
 	@Override
 	public void setNameIdValue(String nameIdValue) {
 		_samlSpSession.setNameIdValue(nameIdValue);
@@ -514,10 +515,10 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	}
 
 	/**
-	* Sets the primary key of this saml sp session.
-	*
-	* @param primaryKey the primary key of this saml sp session
-	*/
+	 * Sets the primary key of this saml sp session.
+	 *
+	 * @param primaryKey the primary key of this saml sp session
+	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_samlSpSession.setPrimaryKey(primaryKey);
@@ -529,77 +530,79 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	}
 
 	/**
-	* Sets the saml sp session ID of this saml sp session.
-	*
-	* @param samlSpSessionId the saml sp session ID of this saml sp session
-	*/
+	 * Sets the saml sp session ID of this saml sp session.
+	 *
+	 * @param samlSpSessionId the saml sp session ID of this saml sp session
+	 */
 	@Override
 	public void setSamlSpSessionId(long samlSpSessionId) {
 		_samlSpSession.setSamlSpSessionId(samlSpSessionId);
 	}
 
 	/**
-	* Sets the saml sp session key of this saml sp session.
-	*
-	* @param samlSpSessionKey the saml sp session key of this saml sp session
-	*/
+	 * Sets the saml sp session key of this saml sp session.
+	 *
+	 * @param samlSpSessionKey the saml sp session key of this saml sp session
+	 */
 	@Override
 	public void setSamlSpSessionKey(String samlSpSessionKey) {
 		_samlSpSession.setSamlSpSessionKey(samlSpSessionKey);
 	}
 
 	/**
-	* Sets the session index of this saml sp session.
-	*
-	* @param sessionIndex the session index of this saml sp session
-	*/
+	 * Sets the session index of this saml sp session.
+	 *
+	 * @param sessionIndex the session index of this saml sp session
+	 */
 	@Override
 	public void setSessionIndex(String sessionIndex) {
 		_samlSpSession.setSessionIndex(sessionIndex);
 	}
 
 	/**
-	* Sets whether this saml sp session is terminated.
-	*
-	* @param terminated the terminated of this saml sp session
-	*/
+	 * Sets whether this saml sp session is terminated.
+	 *
+	 * @param terminated the terminated of this saml sp session
+	 */
 	@Override
 	public void setTerminated(boolean terminated) {
 		_samlSpSession.setTerminated(terminated);
 	}
 
 	/**
-	* Sets the user ID of this saml sp session.
-	*
-	* @param userId the user ID of this saml sp session
-	*/
+	 * Sets the user ID of this saml sp session.
+	 *
+	 * @param userId the user ID of this saml sp session
+	 */
 	@Override
 	public void setUserId(long userId) {
 		_samlSpSession.setUserId(userId);
 	}
 
 	/**
-	* Sets the user name of this saml sp session.
-	*
-	* @param userName the user name of this saml sp session
-	*/
+	 * Sets the user name of this saml sp session.
+	 *
+	 * @param userName the user name of this saml sp session
+	 */
 	@Override
 	public void setUserName(String userName) {
 		_samlSpSession.setUserName(userName);
 	}
 
 	/**
-	* Sets the user uuid of this saml sp session.
-	*
-	* @param userUuid the user uuid of this saml sp session
-	*/
+	 * Sets the user uuid of this saml sp session.
+	 *
+	 * @param userUuid the user uuid of this saml sp session
+	 */
 	@Override
 	public void setUserUuid(String userUuid) {
 		_samlSpSession.setUserUuid(userUuid);
 	}
 
 	@Override
-	public com.liferay.portal.kernel.model.CacheModel<SamlSpSession> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<SamlSpSession>
+		toCacheModel() {
+
 		return _samlSpSession.toCacheModel();
 	}
 
@@ -635,7 +638,9 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 
 		SamlSpSessionWrapper samlSpSessionWrapper = (SamlSpSessionWrapper)obj;
 
-		if (Objects.equals(_samlSpSession, samlSpSessionWrapper._samlSpSession)) {
+		if (Objects.equals(
+				_samlSpSession, samlSpSessionWrapper._samlSpSession)) {
+
 			return true;
 		}
 
@@ -663,4 +668,5 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	}
 
 	private final SamlSpSession _samlSpSession;
+
 }

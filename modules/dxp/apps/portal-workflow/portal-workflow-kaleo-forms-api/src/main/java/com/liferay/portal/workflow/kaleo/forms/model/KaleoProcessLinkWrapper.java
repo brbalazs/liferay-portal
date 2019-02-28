@@ -17,7 +17,6 @@ package com.liferay.portal.workflow.kaleo.forms.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -37,8 +36,9 @@ import java.util.Objects;
  * @generated
  */
 @ProviderType
-public class KaleoProcessLinkWrapper implements KaleoProcessLink,
-	ModelWrapper<KaleoProcessLink> {
+public class KaleoProcessLinkWrapper
+	implements KaleoProcessLink, ModelWrapper<KaleoProcessLink> {
+
 	public KaleoProcessLinkWrapper(KaleoProcessLink kaleoProcessLink) {
 		_kaleoProcessLink = kaleoProcessLink;
 	}
@@ -94,7 +94,8 @@ public class KaleoProcessLinkWrapper implements KaleoProcessLink,
 
 	@Override
 	public Object clone() {
-		return new KaleoProcessLinkWrapper((KaleoProcessLink)_kaleoProcessLink.clone());
+		return new KaleoProcessLinkWrapper(
+			(KaleoProcessLink)_kaleoProcessLink.clone());
 	}
 
 	@Override
@@ -103,10 +104,10 @@ public class KaleoProcessLinkWrapper implements KaleoProcessLink,
 	}
 
 	/**
-	* Returns the ddm template ID of this kaleo process link.
-	*
-	* @return the ddm template ID of this kaleo process link
-	*/
+	 * Returns the ddm template ID of this kaleo process link.
+	 *
+	 * @return the ddm template ID of this kaleo process link
+	 */
 	@Override
 	public long getDDMTemplateId() {
 		return _kaleoProcessLink.getDDMTemplateId();
@@ -120,34 +121,35 @@ public class KaleoProcessLinkWrapper implements KaleoProcessLink,
 	@Override
 	public KaleoProcess getKaleoProcess()
 		throws com.liferay.portal.kernel.exception.PortalException {
+
 		return _kaleoProcessLink.getKaleoProcess();
 	}
 
 	/**
-	* Returns the kaleo process ID of this kaleo process link.
-	*
-	* @return the kaleo process ID of this kaleo process link
-	*/
+	 * Returns the kaleo process ID of this kaleo process link.
+	 *
+	 * @return the kaleo process ID of this kaleo process link
+	 */
 	@Override
 	public long getKaleoProcessId() {
 		return _kaleoProcessLink.getKaleoProcessId();
 	}
 
 	/**
-	* Returns the kaleo process link ID of this kaleo process link.
-	*
-	* @return the kaleo process link ID of this kaleo process link
-	*/
+	 * Returns the kaleo process link ID of this kaleo process link.
+	 *
+	 * @return the kaleo process link ID of this kaleo process link
+	 */
 	@Override
 	public long getKaleoProcessLinkId() {
 		return _kaleoProcessLink.getKaleoProcessLinkId();
 	}
 
 	/**
-	* Returns the primary key of this kaleo process link.
-	*
-	* @return the primary key of this kaleo process link
-	*/
+	 * Returns the primary key of this kaleo process link.
+	 *
+	 * @return the primary key of this kaleo process link
+	 */
 	@Override
 	public long getPrimaryKey() {
 		return _kaleoProcessLink.getPrimaryKey();
@@ -159,10 +161,10 @@ public class KaleoProcessLinkWrapper implements KaleoProcessLink,
 	}
 
 	/**
-	* Returns the workflow task name of this kaleo process link.
-	*
-	* @return the workflow task name of this kaleo process link
-	*/
+	 * Returns the workflow task name of this kaleo process link.
+	 *
+	 * @return the workflow task name of this kaleo process link
+	 */
 	@Override
 	public String getWorkflowTaskName() {
 		return _kaleoProcessLink.getWorkflowTaskName();
@@ -199,10 +201,10 @@ public class KaleoProcessLinkWrapper implements KaleoProcessLink,
 	}
 
 	/**
-	* Sets the ddm template ID of this kaleo process link.
-	*
-	* @param DDMTemplateId the ddm template ID of this kaleo process link
-	*/
+	 * Sets the ddm template ID of this kaleo process link.
+	 *
+	 * @param DDMTemplateId the ddm template ID of this kaleo process link
+	 */
 	@Override
 	public void setDDMTemplateId(long DDMTemplateId) {
 		_kaleoProcessLink.setDDMTemplateId(DDMTemplateId);
@@ -211,6 +213,7 @@ public class KaleoProcessLinkWrapper implements KaleoProcessLink,
 	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
 		_kaleoProcessLink.setExpandoBridgeAttributes(baseModel);
 	}
 
@@ -225,20 +228,20 @@ public class KaleoProcessLinkWrapper implements KaleoProcessLink,
 	}
 
 	/**
-	* Sets the kaleo process ID of this kaleo process link.
-	*
-	* @param kaleoProcessId the kaleo process ID of this kaleo process link
-	*/
+	 * Sets the kaleo process ID of this kaleo process link.
+	 *
+	 * @param kaleoProcessId the kaleo process ID of this kaleo process link
+	 */
 	@Override
 	public void setKaleoProcessId(long kaleoProcessId) {
 		_kaleoProcessLink.setKaleoProcessId(kaleoProcessId);
 	}
 
 	/**
-	* Sets the kaleo process link ID of this kaleo process link.
-	*
-	* @param kaleoProcessLinkId the kaleo process link ID of this kaleo process link
-	*/
+	 * Sets the kaleo process link ID of this kaleo process link.
+	 *
+	 * @param kaleoProcessLinkId the kaleo process link ID of this kaleo process link
+	 */
 	@Override
 	public void setKaleoProcessLinkId(long kaleoProcessLinkId) {
 		_kaleoProcessLink.setKaleoProcessLinkId(kaleoProcessLinkId);
@@ -250,10 +253,10 @@ public class KaleoProcessLinkWrapper implements KaleoProcessLink,
 	}
 
 	/**
-	* Sets the primary key of this kaleo process link.
-	*
-	* @param primaryKey the primary key of this kaleo process link
-	*/
+	 * Sets the primary key of this kaleo process link.
+	 *
+	 * @param primaryKey the primary key of this kaleo process link
+	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_kaleoProcessLink.setPrimaryKey(primaryKey);
@@ -265,17 +268,19 @@ public class KaleoProcessLinkWrapper implements KaleoProcessLink,
 	}
 
 	/**
-	* Sets the workflow task name of this kaleo process link.
-	*
-	* @param workflowTaskName the workflow task name of this kaleo process link
-	*/
+	 * Sets the workflow task name of this kaleo process link.
+	 *
+	 * @param workflowTaskName the workflow task name of this kaleo process link
+	 */
 	@Override
 	public void setWorkflowTaskName(String workflowTaskName) {
 		_kaleoProcessLink.setWorkflowTaskName(workflowTaskName);
 	}
 
 	@Override
-	public com.liferay.portal.kernel.model.CacheModel<KaleoProcessLink> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<KaleoProcessLink>
+		toCacheModel() {
+
 		return _kaleoProcessLink.toCacheModel();
 	}
 
@@ -291,7 +296,8 @@ public class KaleoProcessLinkWrapper implements KaleoProcessLink,
 
 	@Override
 	public KaleoProcessLink toUnescapedModel() {
-		return new KaleoProcessLinkWrapper(_kaleoProcessLink.toUnescapedModel());
+		return new KaleoProcessLinkWrapper(
+			_kaleoProcessLink.toUnescapedModel());
 	}
 
 	@Override
@@ -309,10 +315,12 @@ public class KaleoProcessLinkWrapper implements KaleoProcessLink,
 			return false;
 		}
 
-		KaleoProcessLinkWrapper kaleoProcessLinkWrapper = (KaleoProcessLinkWrapper)obj;
+		KaleoProcessLinkWrapper kaleoProcessLinkWrapper =
+			(KaleoProcessLinkWrapper)obj;
 
-		if (Objects.equals(_kaleoProcessLink,
-					kaleoProcessLinkWrapper._kaleoProcessLink)) {
+		if (Objects.equals(
+				_kaleoProcessLink, kaleoProcessLinkWrapper._kaleoProcessLink)) {
+
 			return true;
 		}
 
@@ -340,4 +348,5 @@ public class KaleoProcessLinkWrapper implements KaleoProcessLink,
 	}
 
 	private final KaleoProcessLink _kaleoProcessLink;
+
 }

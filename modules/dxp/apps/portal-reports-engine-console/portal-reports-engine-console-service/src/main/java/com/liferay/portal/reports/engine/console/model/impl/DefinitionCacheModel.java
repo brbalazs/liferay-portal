@@ -35,8 +35,9 @@ import java.util.Date;
  * @generated
  */
 @ProviderType
-public class DefinitionCacheModel implements CacheModel<Definition>,
-	Externalizable {
+public class DefinitionCacheModel
+	implements CacheModel<Definition>, Externalizable {
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -201,8 +202,7 @@ public class DefinitionCacheModel implements CacheModel<Definition>,
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput objectOutput)
-		throws IOException {
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		if (uuid == null) {
 			objectOutput.writeUTF("");
 		}
@@ -275,4 +275,5 @@ public class DefinitionCacheModel implements CacheModel<Definition>,
 	public String reportName;
 	public String reportParameters;
 	public long lastPublishDate;
+
 }

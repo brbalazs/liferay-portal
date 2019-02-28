@@ -19,7 +19,6 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
-
 import com.liferay.saml.persistence.model.SamlSpSession;
 
 import java.io.Externalizable;
@@ -36,8 +35,9 @@ import java.util.Date;
  * @generated
  */
 @ProviderType
-public class SamlSpSessionCacheModel implements CacheModel<SamlSpSession>,
-	Externalizable {
+public class SamlSpSessionCacheModel
+	implements CacheModel<SamlSpSession>, Externalizable {
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -48,7 +48,8 @@ public class SamlSpSessionCacheModel implements CacheModel<SamlSpSession>,
 			return false;
 		}
 
-		SamlSpSessionCacheModel samlSpSessionCacheModel = (SamlSpSessionCacheModel)obj;
+		SamlSpSessionCacheModel samlSpSessionCacheModel =
+			(SamlSpSessionCacheModel)obj;
 
 		if (samlSpSessionId == samlSpSessionCacheModel.samlSpSessionId) {
 			return true;
@@ -216,8 +217,7 @@ public class SamlSpSessionCacheModel implements CacheModel<SamlSpSession>,
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput objectOutput)
-		throws IOException {
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(samlSpSessionId);
 
 		objectOutput.writeLong(companyId);
@@ -308,4 +308,5 @@ public class SamlSpSessionCacheModel implements CacheModel<SamlSpSession>,
 	public String nameIdValue;
 	public String sessionIndex;
 	public boolean terminated;
+
 }

@@ -17,7 +17,6 @@ package com.liferay.sharepoint.rest.oauth2.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.CacheModel;
@@ -39,7 +38,9 @@ import java.util.Date;
  * @generated
  */
 @ProviderType
-public interface SharepointOAuth2TokenEntryModel extends BaseModel<SharepointOAuth2TokenEntry> {
+public interface SharepointOAuth2TokenEntryModel
+	extends BaseModel<SharepointOAuth2TokenEntry> {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -247,4 +248,5 @@ public interface SharepointOAuth2TokenEntryModel extends BaseModel<SharepointOAu
 
 	@Override
 	public String toXmlString();
+
 }

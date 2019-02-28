@@ -17,7 +17,6 @@ package com.liferay.portal.reports.engine.console.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.exception.LocaleException;
 import com.liferay.portal.kernel.model.BaseModel;
@@ -45,8 +44,10 @@ import java.util.Map;
  * @generated
  */
 @ProviderType
-public interface SourceModel extends BaseModel<Source>, LocalizedModel,
-	ShardedModel, StagedGroupedModel {
+public interface SourceModel
+	extends BaseModel<Source>, LocalizedModel, ShardedModel,
+			StagedGroupedModel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -455,4 +456,5 @@ public interface SourceModel extends BaseModel<Source>, LocalizedModel,
 
 	@Override
 	public String toXmlString();
+
 }

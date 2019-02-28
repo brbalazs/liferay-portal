@@ -21,7 +21,6 @@ import com.liferay.oauth.model.OAuthUser;
 import com.liferay.oauth.model.impl.OAuthUserImpl;
 import com.liferay.oauth.model.impl.OAuthUserModelImpl;
 import com.liferay.oauth.service.persistence.OAuthUserPersistence;
-
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -66,18 +65,23 @@ import java.util.Set;
  * @generated
  */
 @ProviderType
-public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
-	implements OAuthUserPersistence {
+public class OAuthUserPersistenceImpl
+	extends BasePersistenceImpl<OAuthUser> implements OAuthUserPersistence {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>OAuthUserUtil</code> to access the o auth user persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static final String FINDER_CLASS_NAME_ENTITY = OAuthUserImpl.class.getName();
-	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List1";
-	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List2";
+	public static final String FINDER_CLASS_NAME_ENTITY =
+		OAuthUserImpl.class.getName();
+
+	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List1";
+
+	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List2";
+
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
@@ -127,8 +131,10 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the ordered range of matching o auth users
 	 */
 	@Override
-	public List<OAuthUser> findByUserId(long userId, int start, int end,
+	public List<OAuthUser> findByUserId(
+		long userId, int start, int end,
 		OrderByComparator<OAuthUser> orderByComparator) {
+
 		return findByUserId(userId, start, end, orderByComparator, true);
 	}
 
@@ -147,29 +153,32 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the ordered range of matching o auth users
 	 */
 	@Override
-	public List<OAuthUser> findByUserId(long userId, int start, int end,
+	public List<OAuthUser> findByUserId(
+		long userId, int start, int end,
 		OrderByComparator<OAuthUser> orderByComparator,
 		boolean retrieveFromCache) {
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
+			(orderByComparator == null)) {
+
 			pagination = false;
 			finderPath = _finderPathWithoutPaginationFindByUserId;
-			finderArgs = new Object[] { userId };
+			finderArgs = new Object[] {userId};
 		}
 		else {
 			finderPath = _finderPathWithPaginationFindByUserId;
-			finderArgs = new Object[] { userId, start, end, orderByComparator };
+			finderArgs = new Object[] {userId, start, end, orderByComparator};
 		}
 
 		List<OAuthUser> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<OAuthUser>)finderCache.getResult(finderPath,
-					finderArgs, this);
+			list = (List<OAuthUser>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (OAuthUser oAuthUser : list) {
@@ -186,8 +195,8 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
 				query = new StringBundler(3);
@@ -198,11 +207,10 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 			query.append(_FINDER_COLUMN_USERID_USERID_2);
 
 			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else
-			 if (pagination) {
+			else if (pagination) {
 				query.append(OAuthUserModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -220,16 +228,16 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 				qPos.add(userId);
 
 				if (!pagination) {
-					list = (List<OAuthUser>)QueryUtil.list(q, getDialect(),
-							start, end, false);
+					list = (List<OAuthUser>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<OAuthUser>)QueryUtil.list(q, getDialect(),
-							start, end);
+					list = (List<OAuthUser>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -258,9 +266,10 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @throws NoSuchUserException if a matching o auth user could not be found
 	 */
 	@Override
-	public OAuthUser findByUserId_First(long userId,
-		OrderByComparator<OAuthUser> orderByComparator)
+	public OAuthUser findByUserId_First(
+			long userId, OrderByComparator<OAuthUser> orderByComparator)
 		throws NoSuchUserException {
+
 		OAuthUser oAuthUser = fetchByUserId_First(userId, orderByComparator);
 
 		if (oAuthUser != null) {
@@ -287,8 +296,9 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the first matching o auth user, or <code>null</code> if a matching o auth user could not be found
 	 */
 	@Override
-	public OAuthUser fetchByUserId_First(long userId,
-		OrderByComparator<OAuthUser> orderByComparator) {
+	public OAuthUser fetchByUserId_First(
+		long userId, OrderByComparator<OAuthUser> orderByComparator) {
+
 		List<OAuthUser> list = findByUserId(userId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -307,9 +317,10 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @throws NoSuchUserException if a matching o auth user could not be found
 	 */
 	@Override
-	public OAuthUser findByUserId_Last(long userId,
-		OrderByComparator<OAuthUser> orderByComparator)
+	public OAuthUser findByUserId_Last(
+			long userId, OrderByComparator<OAuthUser> orderByComparator)
 		throws NoSuchUserException {
+
 		OAuthUser oAuthUser = fetchByUserId_Last(userId, orderByComparator);
 
 		if (oAuthUser != null) {
@@ -336,16 +347,17 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the last matching o auth user, or <code>null</code> if a matching o auth user could not be found
 	 */
 	@Override
-	public OAuthUser fetchByUserId_Last(long userId,
-		OrderByComparator<OAuthUser> orderByComparator) {
+	public OAuthUser fetchByUserId_Last(
+		long userId, OrderByComparator<OAuthUser> orderByComparator) {
+
 		int count = countByUserId(userId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<OAuthUser> list = findByUserId(userId, count - 1, count,
-				orderByComparator);
+		List<OAuthUser> list = findByUserId(
+			userId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -364,9 +376,11 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @throws NoSuchUserException if a o auth user with the primary key could not be found
 	 */
 	@Override
-	public OAuthUser[] findByUserId_PrevAndNext(long oAuthUserId, long userId,
-		OrderByComparator<OAuthUser> orderByComparator)
+	public OAuthUser[] findByUserId_PrevAndNext(
+			long oAuthUserId, long userId,
+			OrderByComparator<OAuthUser> orderByComparator)
 		throws NoSuchUserException {
+
 		OAuthUser oAuthUser = findByPrimaryKey(oAuthUserId);
 
 		Session session = null;
@@ -376,13 +390,13 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 
 			OAuthUser[] array = new OAuthUserImpl[3];
 
-			array[0] = getByUserId_PrevAndNext(session, oAuthUser, userId,
-					orderByComparator, true);
+			array[0] = getByUserId_PrevAndNext(
+				session, oAuthUser, userId, orderByComparator, true);
 
 			array[1] = oAuthUser;
 
-			array[2] = getByUserId_PrevAndNext(session, oAuthUser, userId,
-					orderByComparator, false);
+			array[2] = getByUserId_PrevAndNext(
+				session, oAuthUser, userId, orderByComparator, false);
 
 			return array;
 		}
@@ -394,14 +408,15 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 		}
 	}
 
-	protected OAuthUser getByUserId_PrevAndNext(Session session,
-		OAuthUser oAuthUser, long userId,
+	protected OAuthUser getByUserId_PrevAndNext(
+		Session session, OAuthUser oAuthUser, long userId,
 		OrderByComparator<OAuthUser> orderByComparator, boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(4 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -413,7 +428,8 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 		query.append(_FINDER_COLUMN_USERID_USERID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -483,8 +499,9 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 		qPos.add(userId);
 
 		if (orderByComparator != null) {
-			for (Object orderByConditionValue : orderByComparator.getOrderByConditionValues(
-					oAuthUser)) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(oAuthUser)) {
+
 				qPos.add(orderByConditionValue);
 			}
 		}
@@ -506,8 +523,10 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 */
 	@Override
 	public void removeByUserId(long userId) {
-		for (OAuthUser oAuthUser : findByUserId(userId, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null)) {
+		for (OAuthUser oAuthUser :
+				findByUserId(
+					userId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+
 			remove(oAuthUser);
 		}
 	}
@@ -522,7 +541,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	public int countByUserId(long userId) {
 		FinderPath finderPath = _finderPathCountByUserId;
 
-		Object[] finderArgs = new Object[] { userId };
+		Object[] finderArgs = new Object[] {userId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -563,7 +582,9 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_USERID_USERID_2 = "oAuthUser.userId = ?";
+	private static final String _FINDER_COLUMN_USERID_USERID_2 =
+		"oAuthUser.userId = ?";
+
 	private FinderPath _finderPathWithPaginationFindByOAuthApplicationId;
 	private FinderPath _finderPathWithoutPaginationFindByOAuthApplicationId;
 	private FinderPath _finderPathCountByOAuthApplicationId;
@@ -576,8 +597,8 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 */
 	@Override
 	public List<OAuthUser> findByOAuthApplicationId(long oAuthApplicationId) {
-		return findByOAuthApplicationId(oAuthApplicationId, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, null);
+		return findByOAuthApplicationId(
+			oAuthApplicationId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
@@ -593,8 +614,9 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the range of matching o auth users
 	 */
 	@Override
-	public List<OAuthUser> findByOAuthApplicationId(long oAuthApplicationId,
-		int start, int end) {
+	public List<OAuthUser> findByOAuthApplicationId(
+		long oAuthApplicationId, int start, int end) {
+
 		return findByOAuthApplicationId(oAuthApplicationId, start, end, null);
 	}
 
@@ -612,10 +634,12 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the ordered range of matching o auth users
 	 */
 	@Override
-	public List<OAuthUser> findByOAuthApplicationId(long oAuthApplicationId,
-		int start, int end, OrderByComparator<OAuthUser> orderByComparator) {
-		return findByOAuthApplicationId(oAuthApplicationId, start, end,
-			orderByComparator, true);
+	public List<OAuthUser> findByOAuthApplicationId(
+		long oAuthApplicationId, int start, int end,
+		OrderByComparator<OAuthUser> orderByComparator) {
+
+		return findByOAuthApplicationId(
+			oAuthApplicationId, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -633,37 +657,40 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the ordered range of matching o auth users
 	 */
 	@Override
-	public List<OAuthUser> findByOAuthApplicationId(long oAuthApplicationId,
-		int start, int end, OrderByComparator<OAuthUser> orderByComparator,
+	public List<OAuthUser> findByOAuthApplicationId(
+		long oAuthApplicationId, int start, int end,
+		OrderByComparator<OAuthUser> orderByComparator,
 		boolean retrieveFromCache) {
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
+			(orderByComparator == null)) {
+
 			pagination = false;
 			finderPath = _finderPathWithoutPaginationFindByOAuthApplicationId;
-			finderArgs = new Object[] { oAuthApplicationId };
+			finderArgs = new Object[] {oAuthApplicationId};
 		}
 		else {
 			finderPath = _finderPathWithPaginationFindByOAuthApplicationId;
 			finderArgs = new Object[] {
-					oAuthApplicationId,
-					
-					start, end, orderByComparator
-				};
+				oAuthApplicationId, start, end, orderByComparator
+			};
 		}
 
 		List<OAuthUser> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<OAuthUser>)finderCache.getResult(finderPath,
-					finderArgs, this);
+			list = (List<OAuthUser>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (OAuthUser oAuthUser : list) {
-					if ((oAuthApplicationId != oAuthUser.getOAuthApplicationId())) {
+					if ((oAuthApplicationId !=
+							oAuthUser.getOAuthApplicationId())) {
+
 						list = null;
 
 						break;
@@ -676,8 +703,8 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
 				query = new StringBundler(3);
@@ -685,14 +712,14 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 
 			query.append(_SQL_SELECT_OAUTHUSER_WHERE);
 
-			query.append(_FINDER_COLUMN_OAUTHAPPLICATIONID_OAUTHAPPLICATIONID_2);
+			query.append(
+				_FINDER_COLUMN_OAUTHAPPLICATIONID_OAUTHAPPLICATIONID_2);
 
 			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else
-			 if (pagination) {
+			else if (pagination) {
 				query.append(OAuthUserModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -710,16 +737,16 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 				qPos.add(oAuthApplicationId);
 
 				if (!pagination) {
-					list = (List<OAuthUser>)QueryUtil.list(q, getDialect(),
-							start, end, false);
+					list = (List<OAuthUser>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<OAuthUser>)QueryUtil.list(q, getDialect(),
-							start, end);
+					list = (List<OAuthUser>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -748,11 +775,13 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @throws NoSuchUserException if a matching o auth user could not be found
 	 */
 	@Override
-	public OAuthUser findByOAuthApplicationId_First(long oAuthApplicationId,
-		OrderByComparator<OAuthUser> orderByComparator)
+	public OAuthUser findByOAuthApplicationId_First(
+			long oAuthApplicationId,
+			OrderByComparator<OAuthUser> orderByComparator)
 		throws NoSuchUserException {
-		OAuthUser oAuthUser = fetchByOAuthApplicationId_First(oAuthApplicationId,
-				orderByComparator);
+
+		OAuthUser oAuthUser = fetchByOAuthApplicationId_First(
+			oAuthApplicationId, orderByComparator);
 
 		if (oAuthUser != null) {
 			return oAuthUser;
@@ -778,10 +807,12 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the first matching o auth user, or <code>null</code> if a matching o auth user could not be found
 	 */
 	@Override
-	public OAuthUser fetchByOAuthApplicationId_First(long oAuthApplicationId,
+	public OAuthUser fetchByOAuthApplicationId_First(
+		long oAuthApplicationId,
 		OrderByComparator<OAuthUser> orderByComparator) {
-		List<OAuthUser> list = findByOAuthApplicationId(oAuthApplicationId, 0,
-				1, orderByComparator);
+
+		List<OAuthUser> list = findByOAuthApplicationId(
+			oAuthApplicationId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -799,11 +830,13 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @throws NoSuchUserException if a matching o auth user could not be found
 	 */
 	@Override
-	public OAuthUser findByOAuthApplicationId_Last(long oAuthApplicationId,
-		OrderByComparator<OAuthUser> orderByComparator)
+	public OAuthUser findByOAuthApplicationId_Last(
+			long oAuthApplicationId,
+			OrderByComparator<OAuthUser> orderByComparator)
 		throws NoSuchUserException {
-		OAuthUser oAuthUser = fetchByOAuthApplicationId_Last(oAuthApplicationId,
-				orderByComparator);
+
+		OAuthUser oAuthUser = fetchByOAuthApplicationId_Last(
+			oAuthApplicationId, orderByComparator);
 
 		if (oAuthUser != null) {
 			return oAuthUser;
@@ -829,16 +862,18 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the last matching o auth user, or <code>null</code> if a matching o auth user could not be found
 	 */
 	@Override
-	public OAuthUser fetchByOAuthApplicationId_Last(long oAuthApplicationId,
+	public OAuthUser fetchByOAuthApplicationId_Last(
+		long oAuthApplicationId,
 		OrderByComparator<OAuthUser> orderByComparator) {
+
 		int count = countByOAuthApplicationId(oAuthApplicationId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<OAuthUser> list = findByOAuthApplicationId(oAuthApplicationId,
-				count - 1, count, orderByComparator);
+		List<OAuthUser> list = findByOAuthApplicationId(
+			oAuthApplicationId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -857,9 +892,11 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @throws NoSuchUserException if a o auth user with the primary key could not be found
 	 */
 	@Override
-	public OAuthUser[] findByOAuthApplicationId_PrevAndNext(long oAuthUserId,
-		long oAuthApplicationId, OrderByComparator<OAuthUser> orderByComparator)
+	public OAuthUser[] findByOAuthApplicationId_PrevAndNext(
+			long oAuthUserId, long oAuthApplicationId,
+			OrderByComparator<OAuthUser> orderByComparator)
 		throws NoSuchUserException {
+
 		OAuthUser oAuthUser = findByPrimaryKey(oAuthUserId);
 
 		Session session = null;
@@ -869,13 +906,15 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 
 			OAuthUser[] array = new OAuthUserImpl[3];
 
-			array[0] = getByOAuthApplicationId_PrevAndNext(session, oAuthUser,
-					oAuthApplicationId, orderByComparator, true);
+			array[0] = getByOAuthApplicationId_PrevAndNext(
+				session, oAuthUser, oAuthApplicationId, orderByComparator,
+				true);
 
 			array[1] = oAuthUser;
 
-			array[2] = getByOAuthApplicationId_PrevAndNext(session, oAuthUser,
-					oAuthApplicationId, orderByComparator, false);
+			array[2] = getByOAuthApplicationId_PrevAndNext(
+				session, oAuthUser, oAuthApplicationId, orderByComparator,
+				false);
 
 			return array;
 		}
@@ -887,14 +926,15 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 		}
 	}
 
-	protected OAuthUser getByOAuthApplicationId_PrevAndNext(Session session,
-		OAuthUser oAuthUser, long oAuthApplicationId,
+	protected OAuthUser getByOAuthApplicationId_PrevAndNext(
+		Session session, OAuthUser oAuthUser, long oAuthApplicationId,
 		OrderByComparator<OAuthUser> orderByComparator, boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(4 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -906,7 +946,8 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 		query.append(_FINDER_COLUMN_OAUTHAPPLICATIONID_OAUTHAPPLICATIONID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -976,8 +1017,9 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 		qPos.add(oAuthApplicationId);
 
 		if (orderByComparator != null) {
-			for (Object orderByConditionValue : orderByComparator.getOrderByConditionValues(
-					oAuthUser)) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(oAuthUser)) {
+
 				qPos.add(orderByConditionValue);
 			}
 		}
@@ -999,8 +1041,11 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 */
 	@Override
 	public void removeByOAuthApplicationId(long oAuthApplicationId) {
-		for (OAuthUser oAuthUser : findByOAuthApplicationId(
-				oAuthApplicationId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+		for (OAuthUser oAuthUser :
+				findByOAuthApplicationId(
+					oAuthApplicationId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+					null)) {
+
 			remove(oAuthUser);
 		}
 	}
@@ -1015,7 +1060,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	public int countByOAuthApplicationId(long oAuthApplicationId) {
 		FinderPath finderPath = _finderPathCountByOAuthApplicationId;
 
-		Object[] finderArgs = new Object[] { oAuthApplicationId };
+		Object[] finderArgs = new Object[] {oAuthApplicationId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -1024,7 +1069,8 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 
 			query.append(_SQL_COUNT_OAUTHUSER_WHERE);
 
-			query.append(_FINDER_COLUMN_OAUTHAPPLICATIONID_OAUTHAPPLICATIONID_2);
+			query.append(
+				_FINDER_COLUMN_OAUTHAPPLICATIONID_OAUTHAPPLICATIONID_2);
 
 			String sql = query.toString();
 
@@ -1056,8 +1102,10 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_OAUTHAPPLICATIONID_OAUTHAPPLICATIONID_2 =
-		"oAuthUser.oAuthApplicationId = ?";
+	private static final String
+		_FINDER_COLUMN_OAUTHAPPLICATIONID_OAUTHAPPLICATIONID_2 =
+			"oAuthUser.oAuthApplicationId = ?";
+
 	private FinderPath _finderPathFetchByAccessToken;
 	private FinderPath _finderPathCountByAccessToken;
 
@@ -1071,6 +1119,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	@Override
 	public OAuthUser findByAccessToken(String accessToken)
 		throws NoSuchUserException {
+
 		OAuthUser oAuthUser = fetchByAccessToken(accessToken);
 
 		if (oAuthUser == null) {
@@ -1112,17 +1161,18 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the matching o auth user, or <code>null</code> if a matching o auth user could not be found
 	 */
 	@Override
-	public OAuthUser fetchByAccessToken(String accessToken,
-		boolean retrieveFromCache) {
+	public OAuthUser fetchByAccessToken(
+		String accessToken, boolean retrieveFromCache) {
+
 		accessToken = Objects.toString(accessToken, "");
 
-		Object[] finderArgs = new Object[] { accessToken };
+		Object[] finderArgs = new Object[] {accessToken};
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = finderCache.getResult(_finderPathFetchByAccessToken,
-					finderArgs, this);
+			result = finderCache.getResult(
+				_finderPathFetchByAccessToken, finderArgs, this);
 		}
 
 		if (result instanceof OAuthUser) {
@@ -1167,8 +1217,8 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 				List<OAuthUser> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(_finderPathFetchByAccessToken,
-						finderArgs, list);
+					finderCache.putResult(
+						_finderPathFetchByAccessToken, finderArgs, list);
 				}
 				else {
 					OAuthUser oAuthUser = list.get(0);
@@ -1179,8 +1229,8 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathFetchByAccessToken,
-					finderArgs);
+				finderCache.removeResult(
+					_finderPathFetchByAccessToken, finderArgs);
 
 				throw processException(e);
 			}
@@ -1206,6 +1256,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	@Override
 	public OAuthUser removeByAccessToken(String accessToken)
 		throws NoSuchUserException {
+
 		OAuthUser oAuthUser = findByAccessToken(accessToken);
 
 		return remove(oAuthUser);
@@ -1223,7 +1274,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 
 		FinderPath finderPath = _finderPathCountByAccessToken;
 
-		Object[] finderArgs = new Object[] { accessToken };
+		Object[] finderArgs = new Object[] {accessToken};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -1275,8 +1326,12 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_2 = "oAuthUser.accessToken = ?";
-	private static final String _FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_3 = "(oAuthUser.accessToken IS NULL OR oAuthUser.accessToken = '')";
+	private static final String _FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_2 =
+		"oAuthUser.accessToken = ?";
+
+	private static final String _FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_3 =
+		"(oAuthUser.accessToken IS NULL OR oAuthUser.accessToken = '')";
+
 	private FinderPath _finderPathFetchByU_OAI;
 	private FinderPath _finderPathCountByU_OAI;
 
@@ -1291,6 +1346,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	@Override
 	public OAuthUser findByU_OAI(long userId, long oAuthApplicationId)
 		throws NoSuchUserException {
+
 		OAuthUser oAuthUser = fetchByU_OAI(userId, oAuthApplicationId);
 
 		if (oAuthUser == null) {
@@ -1337,22 +1393,24 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the matching o auth user, or <code>null</code> if a matching o auth user could not be found
 	 */
 	@Override
-	public OAuthUser fetchByU_OAI(long userId, long oAuthApplicationId,
-		boolean retrieveFromCache) {
-		Object[] finderArgs = new Object[] { userId, oAuthApplicationId };
+	public OAuthUser fetchByU_OAI(
+		long userId, long oAuthApplicationId, boolean retrieveFromCache) {
+
+		Object[] finderArgs = new Object[] {userId, oAuthApplicationId};
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = finderCache.getResult(_finderPathFetchByU_OAI, finderArgs,
-					this);
+			result = finderCache.getResult(
+				_finderPathFetchByU_OAI, finderArgs, this);
 		}
 
 		if (result instanceof OAuthUser) {
 			OAuthUser oAuthUser = (OAuthUser)result;
 
 			if ((userId != oAuthUser.getUserId()) ||
-					(oAuthApplicationId != oAuthUser.getOAuthApplicationId())) {
+				(oAuthApplicationId != oAuthUser.getOAuthApplicationId())) {
+
 				result = null;
 			}
 		}
@@ -1384,8 +1442,8 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 				List<OAuthUser> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(_finderPathFetchByU_OAI, finderArgs,
-						list);
+					finderCache.putResult(
+						_finderPathFetchByU_OAI, finderArgs, list);
 				}
 				else {
 					OAuthUser oAuthUser = list.get(0);
@@ -1423,6 +1481,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	@Override
 	public OAuthUser removeByU_OAI(long userId, long oAuthApplicationId)
 		throws NoSuchUserException {
+
 		OAuthUser oAuthUser = findByU_OAI(userId, oAuthApplicationId);
 
 		return remove(oAuthUser);
@@ -1439,7 +1498,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	public int countByU_OAI(long userId, long oAuthApplicationId) {
 		FinderPath finderPath = _finderPathCountByU_OAI;
 
-		Object[] finderArgs = new Object[] { userId, oAuthApplicationId };
+		Object[] finderArgs = new Object[] {userId, oAuthApplicationId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -1484,8 +1543,11 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_U_OAI_USERID_2 = "oAuthUser.userId = ? AND ";
-	private static final String _FINDER_COLUMN_U_OAI_OAUTHAPPLICATIONID_2 = "oAuthUser.oAuthApplicationId = ?";
+	private static final String _FINDER_COLUMN_U_OAI_USERID_2 =
+		"oAuthUser.userId = ? AND ";
+
+	private static final String _FINDER_COLUMN_U_OAI_OAUTHAPPLICATIONID_2 =
+		"oAuthUser.oAuthApplicationId = ?";
 
 	public OAuthUserPersistenceImpl() {
 		setModelClass(OAuthUser.class);
@@ -1498,16 +1560,20 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 */
 	@Override
 	public void cacheResult(OAuthUser oAuthUser) {
-		entityCache.putResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthUserImpl.class, oAuthUser.getPrimaryKey(), oAuthUser);
+		entityCache.putResult(
+			OAuthUserModelImpl.ENTITY_CACHE_ENABLED, OAuthUserImpl.class,
+			oAuthUser.getPrimaryKey(), oAuthUser);
 
-		finderCache.putResult(_finderPathFetchByAccessToken,
-			new Object[] { oAuthUser.getAccessToken() }, oAuthUser);
+		finderCache.putResult(
+			_finderPathFetchByAccessToken,
+			new Object[] {oAuthUser.getAccessToken()}, oAuthUser);
 
-		finderCache.putResult(_finderPathFetchByU_OAI,
+		finderCache.putResult(
+			_finderPathFetchByU_OAI,
 			new Object[] {
 				oAuthUser.getUserId(), oAuthUser.getOAuthApplicationId()
-			}, oAuthUser);
+			},
+			oAuthUser);
 
 		oAuthUser.resetOriginalValues();
 	}
@@ -1520,8 +1586,10 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	@Override
 	public void cacheResult(List<OAuthUser> oAuthUsers) {
 		for (OAuthUser oAuthUser : oAuthUsers) {
-			if (entityCache.getResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-						OAuthUserImpl.class, oAuthUser.getPrimaryKey()) == null) {
+			if (entityCache.getResult(
+					OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+					OAuthUserImpl.class, oAuthUser.getPrimaryKey()) == null) {
+
 				cacheResult(oAuthUser);
 			}
 			else {
@@ -1555,8 +1623,9 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 */
 	@Override
 	public void clearCache(OAuthUser oAuthUser) {
-		entityCache.removeResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthUserImpl.class, oAuthUser.getPrimaryKey());
+		entityCache.removeResult(
+			OAuthUserModelImpl.ENTITY_CACHE_ENABLED, OAuthUserImpl.class,
+			oAuthUser.getPrimaryKey());
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -1570,8 +1639,9 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
 		for (OAuthUser oAuthUser : oAuthUsers) {
-			entityCache.removeResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-				OAuthUserImpl.class, oAuthUser.getPrimaryKey());
+			entityCache.removeResult(
+				OAuthUserModelImpl.ENTITY_CACHE_ENABLED, OAuthUserImpl.class,
+				oAuthUser.getPrimaryKey());
 
 			clearUniqueFindersCache((OAuthUserModelImpl)oAuthUser, true);
 		}
@@ -1579,38 +1649,41 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 
 	protected void cacheUniqueFindersCache(
 		OAuthUserModelImpl oAuthUserModelImpl) {
-		Object[] args = new Object[] { oAuthUserModelImpl.getAccessToken() };
 
-		finderCache.putResult(_finderPathCountByAccessToken, args,
-			Long.valueOf(1), false);
-		finderCache.putResult(_finderPathFetchByAccessToken, args,
-			oAuthUserModelImpl, false);
+		Object[] args = new Object[] {oAuthUserModelImpl.getAccessToken()};
+
+		finderCache.putResult(
+			_finderPathCountByAccessToken, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByAccessToken, args, oAuthUserModelImpl, false);
 
 		args = new Object[] {
-				oAuthUserModelImpl.getUserId(),
-				oAuthUserModelImpl.getOAuthApplicationId()
-			};
+			oAuthUserModelImpl.getUserId(),
+			oAuthUserModelImpl.getOAuthApplicationId()
+		};
 
-		finderCache.putResult(_finderPathCountByU_OAI, args, Long.valueOf(1),
-			false);
-		finderCache.putResult(_finderPathFetchByU_OAI, args,
-			oAuthUserModelImpl, false);
+		finderCache.putResult(
+			_finderPathCountByU_OAI, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByU_OAI, args, oAuthUserModelImpl, false);
 	}
 
 	protected void clearUniqueFindersCache(
 		OAuthUserModelImpl oAuthUserModelImpl, boolean clearCurrent) {
+
 		if (clearCurrent) {
-			Object[] args = new Object[] { oAuthUserModelImpl.getAccessToken() };
+			Object[] args = new Object[] {oAuthUserModelImpl.getAccessToken()};
 
 			finderCache.removeResult(_finderPathCountByAccessToken, args);
 			finderCache.removeResult(_finderPathFetchByAccessToken, args);
 		}
 
 		if ((oAuthUserModelImpl.getColumnBitmask() &
-				_finderPathFetchByAccessToken.getColumnBitmask()) != 0) {
+			 _finderPathFetchByAccessToken.getColumnBitmask()) != 0) {
+
 			Object[] args = new Object[] {
-					oAuthUserModelImpl.getOriginalAccessToken()
-				};
+				oAuthUserModelImpl.getOriginalAccessToken()
+			};
 
 			finderCache.removeResult(_finderPathCountByAccessToken, args);
 			finderCache.removeResult(_finderPathFetchByAccessToken, args);
@@ -1618,20 +1691,21 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 
 		if (clearCurrent) {
 			Object[] args = new Object[] {
-					oAuthUserModelImpl.getUserId(),
-					oAuthUserModelImpl.getOAuthApplicationId()
-				};
+				oAuthUserModelImpl.getUserId(),
+				oAuthUserModelImpl.getOAuthApplicationId()
+			};
 
 			finderCache.removeResult(_finderPathCountByU_OAI, args);
 			finderCache.removeResult(_finderPathFetchByU_OAI, args);
 		}
 
 		if ((oAuthUserModelImpl.getColumnBitmask() &
-				_finderPathFetchByU_OAI.getColumnBitmask()) != 0) {
+			 _finderPathFetchByU_OAI.getColumnBitmask()) != 0) {
+
 			Object[] args = new Object[] {
-					oAuthUserModelImpl.getOriginalUserId(),
-					oAuthUserModelImpl.getOriginalOAuthApplicationId()
-				};
+				oAuthUserModelImpl.getOriginalUserId(),
+				oAuthUserModelImpl.getOriginalOAuthApplicationId()
+			};
 
 			finderCache.removeResult(_finderPathCountByU_OAI, args);
 			finderCache.removeResult(_finderPathFetchByU_OAI, args);
@@ -1676,22 +1750,24 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @throws NoSuchUserException if a o auth user with the primary key could not be found
 	 */
 	@Override
-	public OAuthUser remove(Serializable primaryKey) throws NoSuchUserException {
+	public OAuthUser remove(Serializable primaryKey)
+		throws NoSuchUserException {
+
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			OAuthUser oAuthUser = (OAuthUser)session.get(OAuthUserImpl.class,
-					primaryKey);
+			OAuthUser oAuthUser = (OAuthUser)session.get(
+				OAuthUserImpl.class, primaryKey);
 
 			if (oAuthUser == null) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
-				throw new NoSuchUserException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					primaryKey);
+				throw new NoSuchUserException(
+					_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			return remove(oAuthUser);
@@ -1715,8 +1791,8 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 			session = openSession();
 
 			if (!session.contains(oAuthUser)) {
-				oAuthUser = (OAuthUser)session.get(OAuthUserImpl.class,
-						oAuthUser.getPrimaryKeyObj());
+				oAuthUser = (OAuthUser)session.get(
+					OAuthUserImpl.class, oAuthUser.getPrimaryKeyObj());
 			}
 
 			if (oAuthUser != null) {
@@ -1749,17 +1825,18 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 
 				throw new IllegalArgumentException(
 					"Implement ModelWrapper in oAuthUser proxy " +
-					invocationHandler.getClass());
+						invocationHandler.getClass());
 			}
 
 			throw new IllegalArgumentException(
 				"Implement ModelWrapper in custom OAuthUser implementation " +
-				oAuthUser.getClass());
+					oAuthUser.getClass());
 		}
 
 		OAuthUserModelImpl oAuthUserModelImpl = (OAuthUserModelImpl)oAuthUser;
 
-		ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
 
 		Date now = new Date();
 
@@ -1807,65 +1884,71 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 		if (!OAuthUserModelImpl.COLUMN_BITMASK_ENABLED) {
 			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
-		else
-		 if (isNew) {
-			Object[] args = new Object[] { oAuthUserModelImpl.getUserId() };
+		else if (isNew) {
+			Object[] args = new Object[] {oAuthUserModelImpl.getUserId()};
 
 			finderCache.removeResult(_finderPathCountByUserId, args);
-			finderCache.removeResult(_finderPathWithoutPaginationFindByUserId,
-				args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByUserId, args);
 
-			args = new Object[] { oAuthUserModelImpl.getOAuthApplicationId() };
+			args = new Object[] {oAuthUserModelImpl.getOAuthApplicationId()};
 
-			finderCache.removeResult(_finderPathCountByOAuthApplicationId, args);
-			finderCache.removeResult(_finderPathWithoutPaginationFindByOAuthApplicationId,
-				args);
+			finderCache.removeResult(
+				_finderPathCountByOAuthApplicationId, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByOAuthApplicationId, args);
 
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
-			finderCache.removeResult(_finderPathWithoutPaginationFindAll,
-				FINDER_ARGS_EMPTY);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
 		}
-
 		else {
 			if ((oAuthUserModelImpl.getColumnBitmask() &
-					_finderPathWithoutPaginationFindByUserId.getColumnBitmask()) != 0) {
+				 _finderPathWithoutPaginationFindByUserId.getColumnBitmask()) !=
+					 0) {
+
 				Object[] args = new Object[] {
-						oAuthUserModelImpl.getOriginalUserId()
-					};
+					oAuthUserModelImpl.getOriginalUserId()
+				};
 
 				finderCache.removeResult(_finderPathCountByUserId, args);
-				finderCache.removeResult(_finderPathWithoutPaginationFindByUserId,
-					args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByUserId, args);
 
-				args = new Object[] { oAuthUserModelImpl.getUserId() };
+				args = new Object[] {oAuthUserModelImpl.getUserId()};
 
 				finderCache.removeResult(_finderPathCountByUserId, args);
-				finderCache.removeResult(_finderPathWithoutPaginationFindByUserId,
-					args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByUserId, args);
 			}
 
 			if ((oAuthUserModelImpl.getColumnBitmask() &
-					_finderPathWithoutPaginationFindByOAuthApplicationId.getColumnBitmask()) != 0) {
+				 _finderPathWithoutPaginationFindByOAuthApplicationId.
+					 getColumnBitmask()) != 0) {
+
 				Object[] args = new Object[] {
-						oAuthUserModelImpl.getOriginalOAuthApplicationId()
-					};
+					oAuthUserModelImpl.getOriginalOAuthApplicationId()
+				};
 
-				finderCache.removeResult(_finderPathCountByOAuthApplicationId,
-					args);
-				finderCache.removeResult(_finderPathWithoutPaginationFindByOAuthApplicationId,
-					args);
+				finderCache.removeResult(
+					_finderPathCountByOAuthApplicationId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByOAuthApplicationId, args);
 
-				args = new Object[] { oAuthUserModelImpl.getOAuthApplicationId() };
+				args = new Object[] {
+					oAuthUserModelImpl.getOAuthApplicationId()
+				};
 
-				finderCache.removeResult(_finderPathCountByOAuthApplicationId,
-					args);
-				finderCache.removeResult(_finderPathWithoutPaginationFindByOAuthApplicationId,
-					args);
+				finderCache.removeResult(
+					_finderPathCountByOAuthApplicationId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByOAuthApplicationId, args);
 			}
 		}
 
-		entityCache.putResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthUserImpl.class, oAuthUser.getPrimaryKey(), oAuthUser, false);
+		entityCache.putResult(
+			OAuthUserModelImpl.ENTITY_CACHE_ENABLED, OAuthUserImpl.class,
+			oAuthUser.getPrimaryKey(), oAuthUser, false);
 
 		clearUniqueFindersCache(oAuthUserModelImpl, false);
 		cacheUniqueFindersCache(oAuthUserModelImpl);
@@ -1885,6 +1968,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	@Override
 	public OAuthUser findByPrimaryKey(Serializable primaryKey)
 		throws NoSuchUserException {
+
 		OAuthUser oAuthUser = fetchByPrimaryKey(primaryKey);
 
 		if (oAuthUser == null) {
@@ -1892,8 +1976,8 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
-			throw new NoSuchUserException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				primaryKey);
+			throw new NoSuchUserException(
+				_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 		}
 
 		return oAuthUser;
@@ -1909,6 +1993,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	@Override
 	public OAuthUser findByPrimaryKey(long oAuthUserId)
 		throws NoSuchUserException {
+
 		return findByPrimaryKey((Serializable)oAuthUserId);
 	}
 
@@ -1920,8 +2005,9 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 */
 	@Override
 	public OAuthUser fetchByPrimaryKey(Serializable primaryKey) {
-		Serializable serializable = entityCache.getResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-				OAuthUserImpl.class, primaryKey);
+		Serializable serializable = entityCache.getResult(
+			OAuthUserModelImpl.ENTITY_CACHE_ENABLED, OAuthUserImpl.class,
+			primaryKey);
 
 		if (serializable == nullModel) {
 			return null;
@@ -1935,19 +2021,21 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 			try {
 				session = openSession();
 
-				oAuthUser = (OAuthUser)session.get(OAuthUserImpl.class,
-						primaryKey);
+				oAuthUser = (OAuthUser)session.get(
+					OAuthUserImpl.class, primaryKey);
 
 				if (oAuthUser != null) {
 					cacheResult(oAuthUser);
 				}
 				else {
-					entityCache.putResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+					entityCache.putResult(
+						OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
 						OAuthUserImpl.class, primaryKey, nullModel);
 				}
 			}
 			catch (Exception e) {
-				entityCache.removeResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.removeResult(
+					OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
 					OAuthUserImpl.class, primaryKey);
 
 				throw processException(e);
@@ -1974,11 +2062,13 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	@Override
 	public Map<Serializable, OAuthUser> fetchByPrimaryKeys(
 		Set<Serializable> primaryKeys) {
+
 		if (primaryKeys.isEmpty()) {
 			return Collections.emptyMap();
 		}
 
-		Map<Serializable, OAuthUser> map = new HashMap<Serializable, OAuthUser>();
+		Map<Serializable, OAuthUser> map =
+			new HashMap<Serializable, OAuthUser>();
 
 		if (primaryKeys.size() == 1) {
 			Iterator<Serializable> iterator = primaryKeys.iterator();
@@ -1997,8 +2087,9 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 		Set<Serializable> uncachedPrimaryKeys = null;
 
 		for (Serializable primaryKey : primaryKeys) {
-			Serializable serializable = entityCache.getResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-					OAuthUserImpl.class, primaryKey);
+			Serializable serializable = entityCache.getResult(
+				OAuthUserModelImpl.ENTITY_CACHE_ENABLED, OAuthUserImpl.class,
+				primaryKey);
 
 			if (serializable != nullModel) {
 				if (serializable == null) {
@@ -2018,8 +2109,8 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 			return map;
 		}
 
-		StringBundler query = new StringBundler((uncachedPrimaryKeys.size() * 2) +
-				1);
+		StringBundler query = new StringBundler(
+			uncachedPrimaryKeys.size() * 2 + 1);
 
 		query.append(_SQL_SELECT_OAUTHUSER_WHERE_PKS_IN);
 
@@ -2051,7 +2142,8 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 			}
 
 			for (Serializable primaryKey : uncachedPrimaryKeys) {
-				entityCache.putResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.putResult(
+					OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
 					OAuthUserImpl.class, primaryKey, nullModel);
 			}
 		}
@@ -2104,8 +2196,9 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the ordered range of o auth users
 	 */
 	@Override
-	public List<OAuthUser> findAll(int start, int end,
-		OrderByComparator<OAuthUser> orderByComparator) {
+	public List<OAuthUser> findAll(
+		int start, int end, OrderByComparator<OAuthUser> orderByComparator) {
+
 		return findAll(start, end, orderByComparator, true);
 	}
 
@@ -2123,29 +2216,31 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the ordered range of o auth users
 	 */
 	@Override
-	public List<OAuthUser> findAll(int start, int end,
-		OrderByComparator<OAuthUser> orderByComparator,
+	public List<OAuthUser> findAll(
+		int start, int end, OrderByComparator<OAuthUser> orderByComparator,
 		boolean retrieveFromCache) {
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
+			(orderByComparator == null)) {
+
 			pagination = false;
 			finderPath = _finderPathWithoutPaginationFindAll;
 			finderArgs = FINDER_ARGS_EMPTY;
 		}
 		else {
 			finderPath = _finderPathWithPaginationFindAll;
-			finderArgs = new Object[] { start, end, orderByComparator };
+			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<OAuthUser> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<OAuthUser>)finderCache.getResult(finderPath,
-					finderArgs, this);
+			list = (List<OAuthUser>)finderCache.getResult(
+				finderPath, finderArgs, this);
 		}
 
 		if (list == null) {
@@ -2153,13 +2248,13 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 			String sql = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(2 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					2 + (orderByComparator.getOrderByFields().length * 2));
 
 				query.append(_SQL_SELECT_OAUTHUSER);
 
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
 				sql = query.toString();
 			}
@@ -2179,16 +2274,16 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 				Query q = session.createQuery(sql);
 
 				if (!pagination) {
-					list = (List<OAuthUser>)QueryUtil.list(q, getDialect(),
-							start, end, false);
+					list = (List<OAuthUser>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<OAuthUser>)QueryUtil.list(q, getDialect(),
-							start, end);
+					list = (List<OAuthUser>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -2226,8 +2321,8 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 */
 	@Override
 	public int countAll() {
-		Long count = (Long)finderCache.getResult(_finderPathCountAll,
-				FINDER_ARGS_EMPTY, this);
+		Long count = (Long)finderCache.getResult(
+			_finderPathCountAll, FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -2239,11 +2334,12 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 
 				count = (Long)q.uniqueResult();
 
-				finderCache.putResult(_finderPathCountAll, FINDER_ARGS_EMPTY,
-					count);
+				finderCache.putResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
+				finderCache.removeResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY);
 
 				throw processException(e);
 			}
@@ -2264,87 +2360,93 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * Initializes the o auth user persistence.
 	 */
 	public void afterPropertiesSet() {
-		_finderPathWithPaginationFindAll = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-				OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
-				FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
+		_finderPathWithPaginationFindAll = new FinderPath(
+			OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
 
-		_finderPathWithoutPaginationFindAll = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-				OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
-				new String[0]);
+		_finderPathWithoutPaginationFindAll = new FinderPath(
+			OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
+			new String[0]);
 
-		_finderPathCountAll = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-				OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
-				new String[0]);
+		_finderPathCountAll = new FinderPath(
+			OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
+			new String[0]);
 
-		_finderPathWithPaginationFindByUserId = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-				OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
-				FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUserId",
-				new String[] {
-					Long.class.getName(),
-					
-				Integer.class.getName(), Integer.class.getName(),
-					OrderByComparator.class.getName()
-				});
+		_finderPathWithPaginationFindByUserId = new FinderPath(
+			OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUserId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
 
-		_finderPathWithoutPaginationFindByUserId = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-				OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUserId",
-				new String[] { Long.class.getName() },
-				OAuthUserModelImpl.USERID_COLUMN_BITMASK);
+		_finderPathWithoutPaginationFindByUserId = new FinderPath(
+			OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUserId",
+			new String[] {Long.class.getName()},
+			OAuthUserModelImpl.USERID_COLUMN_BITMASK);
 
-		_finderPathCountByUserId = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-				OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUserId",
-				new String[] { Long.class.getName() });
+		_finderPathCountByUserId = new FinderPath(
+			OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUserId",
+			new String[] {Long.class.getName()});
 
-		_finderPathWithPaginationFindByOAuthApplicationId = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-				OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
-				FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
-				"findByOAuthApplicationId",
-				new String[] {
-					Long.class.getName(),
-					
-				Integer.class.getName(), Integer.class.getName(),
-					OrderByComparator.class.getName()
-				});
+		_finderPathWithPaginationFindByOAuthApplicationId = new FinderPath(
+			OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByOAuthApplicationId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
 
-		_finderPathWithoutPaginationFindByOAuthApplicationId = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-				OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-				"findByOAuthApplicationId",
-				new String[] { Long.class.getName() },
-				OAuthUserModelImpl.OAUTHAPPLICATIONID_COLUMN_BITMASK);
+		_finderPathWithoutPaginationFindByOAuthApplicationId = new FinderPath(
+			OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"findByOAuthApplicationId", new String[] {Long.class.getName()},
+			OAuthUserModelImpl.OAUTHAPPLICATIONID_COLUMN_BITMASK);
 
-		_finderPathCountByOAuthApplicationId = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-				OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-				"countByOAuthApplicationId",
-				new String[] { Long.class.getName() });
+		_finderPathCountByOAuthApplicationId = new FinderPath(
+			OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByOAuthApplicationId", new String[] {Long.class.getName()});
 
-		_finderPathFetchByAccessToken = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-				OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
-				FINDER_CLASS_NAME_ENTITY, "fetchByAccessToken",
-				new String[] { String.class.getName() },
-				OAuthUserModelImpl.ACCESSTOKEN_COLUMN_BITMASK);
+		_finderPathFetchByAccessToken = new FinderPath(
+			OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByAccessToken",
+			new String[] {String.class.getName()},
+			OAuthUserModelImpl.ACCESSTOKEN_COLUMN_BITMASK);
 
-		_finderPathCountByAccessToken = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-				OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-				"countByAccessToken", new String[] { String.class.getName() });
+		_finderPathCountByAccessToken = new FinderPath(
+			OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByAccessToken",
+			new String[] {String.class.getName()});
 
-		_finderPathFetchByU_OAI = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-				OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
-				FINDER_CLASS_NAME_ENTITY, "fetchByU_OAI",
-				new String[] { Long.class.getName(), Long.class.getName() },
-				OAuthUserModelImpl.USERID_COLUMN_BITMASK |
-				OAuthUserModelImpl.OAUTHAPPLICATIONID_COLUMN_BITMASK);
+		_finderPathFetchByU_OAI = new FinderPath(
+			OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByU_OAI",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			OAuthUserModelImpl.USERID_COLUMN_BITMASK |
+			OAuthUserModelImpl.OAUTHAPPLICATIONID_COLUMN_BITMASK);
 
-		_finderPathCountByU_OAI = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-				OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByU_OAI",
-				new String[] { Long.class.getName(), Long.class.getName() });
+		_finderPathCountByU_OAI = new FinderPath(
+			OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByU_OAI",
+			new String[] {Long.class.getName(), Long.class.getName()});
 	}
 
 	public void destroy() {
@@ -2356,17 +2458,37 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 
 	@ServiceReference(type = CompanyProviderWrapper.class)
 	protected CompanyProvider companyProvider;
+
 	@ServiceReference(type = EntityCache.class)
 	protected EntityCache entityCache;
+
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
-	private static final String _SQL_SELECT_OAUTHUSER = "SELECT oAuthUser FROM OAuthUser oAuthUser";
-	private static final String _SQL_SELECT_OAUTHUSER_WHERE_PKS_IN = "SELECT oAuthUser FROM OAuthUser oAuthUser WHERE oAuthUserId IN (";
-	private static final String _SQL_SELECT_OAUTHUSER_WHERE = "SELECT oAuthUser FROM OAuthUser oAuthUser WHERE ";
-	private static final String _SQL_COUNT_OAUTHUSER = "SELECT COUNT(oAuthUser) FROM OAuthUser oAuthUser";
-	private static final String _SQL_COUNT_OAUTHUSER_WHERE = "SELECT COUNT(oAuthUser) FROM OAuthUser oAuthUser WHERE ";
+
+	private static final String _SQL_SELECT_OAUTHUSER =
+		"SELECT oAuthUser FROM OAuthUser oAuthUser";
+
+	private static final String _SQL_SELECT_OAUTHUSER_WHERE_PKS_IN =
+		"SELECT oAuthUser FROM OAuthUser oAuthUser WHERE oAuthUserId IN (";
+
+	private static final String _SQL_SELECT_OAUTHUSER_WHERE =
+		"SELECT oAuthUser FROM OAuthUser oAuthUser WHERE ";
+
+	private static final String _SQL_COUNT_OAUTHUSER =
+		"SELECT COUNT(oAuthUser) FROM OAuthUser oAuthUser";
+
+	private static final String _SQL_COUNT_OAUTHUSER_WHERE =
+		"SELECT COUNT(oAuthUser) FROM OAuthUser oAuthUser WHERE ";
+
 	private static final String _ORDER_BY_ENTITY_ALIAS = "oAuthUser.";
-	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No OAuthUser exists with the primary key ";
-	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No OAuthUser exists with the key {";
-	private static final Log _log = LogFactoryUtil.getLog(OAuthUserPersistenceImpl.class);
+
+	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY =
+		"No OAuthUser exists with the primary key ";
+
+	private static final String _NO_SUCH_ENTITY_WITH_KEY =
+		"No OAuthUser exists with the key {";
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		OAuthUserPersistenceImpl.class);
+
 }

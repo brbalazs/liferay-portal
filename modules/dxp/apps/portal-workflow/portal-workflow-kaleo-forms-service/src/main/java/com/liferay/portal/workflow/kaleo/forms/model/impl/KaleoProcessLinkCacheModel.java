@@ -33,8 +33,9 @@ import java.io.ObjectOutput;
  * @generated
  */
 @ProviderType
-public class KaleoProcessLinkCacheModel implements CacheModel<KaleoProcessLink>,
-	Externalizable {
+public class KaleoProcessLinkCacheModel
+	implements CacheModel<KaleoProcessLink>, Externalizable {
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -45,9 +46,12 @@ public class KaleoProcessLinkCacheModel implements CacheModel<KaleoProcessLink>,
 			return false;
 		}
 
-		KaleoProcessLinkCacheModel kaleoProcessLinkCacheModel = (KaleoProcessLinkCacheModel)obj;
+		KaleoProcessLinkCacheModel kaleoProcessLinkCacheModel =
+			(KaleoProcessLinkCacheModel)obj;
 
-		if (kaleoProcessLinkId == kaleoProcessLinkCacheModel.kaleoProcessLinkId) {
+		if (kaleoProcessLinkId ==
+				kaleoProcessLinkCacheModel.kaleoProcessLinkId) {
+
 			return true;
 		}
 
@@ -108,8 +112,7 @@ public class KaleoProcessLinkCacheModel implements CacheModel<KaleoProcessLink>,
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput objectOutput)
-		throws IOException {
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(kaleoProcessLinkId);
 
 		objectOutput.writeLong(kaleoProcessId);
@@ -128,4 +131,5 @@ public class KaleoProcessLinkCacheModel implements CacheModel<KaleoProcessLink>,
 	public long kaleoProcessId;
 	public String workflowTaskName;
 	public long DDMTemplateId;
+
 }

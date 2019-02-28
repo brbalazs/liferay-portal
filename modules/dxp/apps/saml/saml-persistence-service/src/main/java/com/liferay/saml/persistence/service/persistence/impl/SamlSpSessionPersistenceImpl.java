@@ -36,7 +36,6 @@ import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
-
 import com.liferay.saml.persistence.exception.NoSuchSpSessionException;
 import com.liferay.saml.persistence.model.SamlSpSession;
 import com.liferay.saml.persistence.model.impl.SamlSpSessionImpl;
@@ -69,18 +68,24 @@ import java.util.Set;
  * @generated
  */
 @ProviderType
-public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSession>
+public class SamlSpSessionPersistenceImpl
+	extends BasePersistenceImpl<SamlSpSession>
 	implements SamlSpSessionPersistence {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>SamlSpSessionUtil</code> to access the saml sp session persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static final String FINDER_CLASS_NAME_ENTITY = SamlSpSessionImpl.class.getName();
-	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List1";
-	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List2";
+	public static final String FINDER_CLASS_NAME_ENTITY =
+		SamlSpSessionImpl.class.getName();
+
+	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List1";
+
+	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List2";
+
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
@@ -97,6 +102,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	@Override
 	public SamlSpSession findBySamlSpSessionKey(String samlSpSessionKey)
 		throws NoSuchSpSessionException {
+
 		SamlSpSession samlSpSession = fetchBySamlSpSessionKey(samlSpSessionKey);
 
 		if (samlSpSession == null) {
@@ -138,24 +144,26 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 * @return the matching saml sp session, or <code>null</code> if a matching saml sp session could not be found
 	 */
 	@Override
-	public SamlSpSession fetchBySamlSpSessionKey(String samlSpSessionKey,
-		boolean retrieveFromCache) {
+	public SamlSpSession fetchBySamlSpSessionKey(
+		String samlSpSessionKey, boolean retrieveFromCache) {
+
 		samlSpSessionKey = Objects.toString(samlSpSessionKey, "");
 
-		Object[] finderArgs = new Object[] { samlSpSessionKey };
+		Object[] finderArgs = new Object[] {samlSpSessionKey};
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = finderCache.getResult(_finderPathFetchBySamlSpSessionKey,
-					finderArgs, this);
+			result = finderCache.getResult(
+				_finderPathFetchBySamlSpSessionKey, finderArgs, this);
 		}
 
 		if (result instanceof SamlSpSession) {
 			SamlSpSession samlSpSession = (SamlSpSession)result;
 
-			if (!Objects.equals(samlSpSessionKey,
-						samlSpSession.getSamlSpSessionKey())) {
+			if (!Objects.equals(
+					samlSpSessionKey, samlSpSession.getSamlSpSessionKey())) {
+
 				result = null;
 			}
 		}
@@ -168,12 +176,14 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 			boolean bindSamlSpSessionKey = false;
 
 			if (samlSpSessionKey.isEmpty()) {
-				query.append(_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_3);
+				query.append(
+					_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_3);
 			}
 			else {
 				bindSamlSpSessionKey = true;
 
-				query.append(_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_2);
+				query.append(
+					_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_2);
 			}
 
 			String sql = query.toString();
@@ -194,8 +204,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 				List<SamlSpSession> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(_finderPathFetchBySamlSpSessionKey,
-						finderArgs, list);
+					finderCache.putResult(
+						_finderPathFetchBySamlSpSessionKey, finderArgs, list);
 				}
 				else {
 					SamlSpSession samlSpSession = list.get(0);
@@ -206,8 +216,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathFetchBySamlSpSessionKey,
-					finderArgs);
+				finderCache.removeResult(
+					_finderPathFetchBySamlSpSessionKey, finderArgs);
 
 				throw processException(e);
 			}
@@ -233,6 +243,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	@Override
 	public SamlSpSession removeBySamlSpSessionKey(String samlSpSessionKey)
 		throws NoSuchSpSessionException {
+
 		SamlSpSession samlSpSession = findBySamlSpSessionKey(samlSpSessionKey);
 
 		return remove(samlSpSession);
@@ -250,7 +261,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 		FinderPath finderPath = _finderPathCountBySamlSpSessionKey;
 
-		Object[] finderArgs = new Object[] { samlSpSessionKey };
+		Object[] finderArgs = new Object[] {samlSpSessionKey};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -262,12 +273,14 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 			boolean bindSamlSpSessionKey = false;
 
 			if (samlSpSessionKey.isEmpty()) {
-				query.append(_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_3);
+				query.append(
+					_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_3);
 			}
 			else {
 				bindSamlSpSessionKey = true;
 
-				query.append(_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_2);
+				query.append(
+					_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_2);
 			}
 
 			String sql = query.toString();
@@ -302,10 +315,14 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_2 =
-		"samlSpSession.samlSpSessionKey = ?";
-	private static final String _FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_3 =
-		"(samlSpSession.samlSpSessionKey IS NULL OR samlSpSession.samlSpSessionKey = '')";
+	private static final String
+		_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_2 =
+			"samlSpSession.samlSpSessionKey = ?";
+
+	private static final String
+		_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_3 =
+			"(samlSpSession.samlSpSessionKey IS NULL OR samlSpSession.samlSpSessionKey = '')";
+
 	private FinderPath _finderPathFetchByJSessionId;
 	private FinderPath _finderPathCountByJSessionId;
 
@@ -319,6 +336,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	@Override
 	public SamlSpSession findByJSessionId(String jSessionId)
 		throws NoSuchSpSessionException {
+
 		SamlSpSession samlSpSession = fetchByJSessionId(jSessionId);
 
 		if (samlSpSession == null) {
@@ -360,17 +378,18 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 * @return the matching saml sp session, or <code>null</code> if a matching saml sp session could not be found
 	 */
 	@Override
-	public SamlSpSession fetchByJSessionId(String jSessionId,
-		boolean retrieveFromCache) {
+	public SamlSpSession fetchByJSessionId(
+		String jSessionId, boolean retrieveFromCache) {
+
 		jSessionId = Objects.toString(jSessionId, "");
 
-		Object[] finderArgs = new Object[] { jSessionId };
+		Object[] finderArgs = new Object[] {jSessionId};
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = finderCache.getResult(_finderPathFetchByJSessionId,
-					finderArgs, this);
+			result = finderCache.getResult(
+				_finderPathFetchByJSessionId, finderArgs, this);
 		}
 
 		if (result instanceof SamlSpSession) {
@@ -415,8 +434,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 				List<SamlSpSession> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(_finderPathFetchByJSessionId,
-						finderArgs, list);
+					finderCache.putResult(
+						_finderPathFetchByJSessionId, finderArgs, list);
 				}
 				else {
 					if (list.size() > 1) {
@@ -425,8 +444,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 						if (_log.isWarnEnabled()) {
 							_log.warn(
 								"SamlSpSessionPersistenceImpl.fetchByJSessionId(String, boolean) with parameters (" +
-								StringUtil.merge(finderArgs) +
-								") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
 						}
 					}
 
@@ -438,8 +457,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathFetchByJSessionId,
-					finderArgs);
+				finderCache.removeResult(
+					_finderPathFetchByJSessionId, finderArgs);
 
 				throw processException(e);
 			}
@@ -465,6 +484,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	@Override
 	public SamlSpSession removeByJSessionId(String jSessionId)
 		throws NoSuchSpSessionException {
+
 		SamlSpSession samlSpSession = findByJSessionId(jSessionId);
 
 		return remove(samlSpSession);
@@ -482,7 +502,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 		FinderPath finderPath = _finderPathCountByJSessionId;
 
-		Object[] finderArgs = new Object[] { jSessionId };
+		Object[] finderArgs = new Object[] {jSessionId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -534,8 +554,12 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_JSESSIONID_JSESSIONID_2 = "samlSpSession.jSessionId = ?";
-	private static final String _FINDER_COLUMN_JSESSIONID_JSESSIONID_3 = "(samlSpSession.jSessionId IS NULL OR samlSpSession.jSessionId = '')";
+	private static final String _FINDER_COLUMN_JSESSIONID_JSESSIONID_2 =
+		"samlSpSession.jSessionId = ?";
+
+	private static final String _FINDER_COLUMN_JSESSIONID_JSESSIONID_3 =
+		"(samlSpSession.jSessionId IS NULL OR samlSpSession.jSessionId = '')";
+
 	private FinderPath _finderPathWithPaginationFindByNameIdValue;
 	private FinderPath _finderPathWithoutPaginationFindByNameIdValue;
 	private FinderPath _finderPathCountByNameIdValue;
@@ -548,8 +572,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 */
 	@Override
 	public List<SamlSpSession> findByNameIdValue(String nameIdValue) {
-		return findByNameIdValue(nameIdValue, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, null);
+		return findByNameIdValue(
+			nameIdValue, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
@@ -565,8 +589,9 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 * @return the range of matching saml sp sessions
 	 */
 	@Override
-	public List<SamlSpSession> findByNameIdValue(String nameIdValue, int start,
-		int end) {
+	public List<SamlSpSession> findByNameIdValue(
+		String nameIdValue, int start, int end) {
+
 		return findByNameIdValue(nameIdValue, start, end, null);
 	}
 
@@ -584,10 +609,12 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 * @return the ordered range of matching saml sp sessions
 	 */
 	@Override
-	public List<SamlSpSession> findByNameIdValue(String nameIdValue, int start,
-		int end, OrderByComparator<SamlSpSession> orderByComparator) {
-		return findByNameIdValue(nameIdValue, start, end, orderByComparator,
-			true);
+	public List<SamlSpSession> findByNameIdValue(
+		String nameIdValue, int start, int end,
+		OrderByComparator<SamlSpSession> orderByComparator) {
+
+		return findByNameIdValue(
+			nameIdValue, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -605,9 +632,11 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 * @return the ordered range of matching saml sp sessions
 	 */
 	@Override
-	public List<SamlSpSession> findByNameIdValue(String nameIdValue, int start,
-		int end, OrderByComparator<SamlSpSession> orderByComparator,
+	public List<SamlSpSession> findByNameIdValue(
+		String nameIdValue, int start, int end,
+		OrderByComparator<SamlSpSession> orderByComparator,
 		boolean retrieveFromCache) {
+
 		nameIdValue = Objects.toString(nameIdValue, "");
 
 		boolean pagination = true;
@@ -615,21 +644,24 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
+			(orderByComparator == null)) {
+
 			pagination = false;
 			finderPath = _finderPathWithoutPaginationFindByNameIdValue;
-			finderArgs = new Object[] { nameIdValue };
+			finderArgs = new Object[] {nameIdValue};
 		}
 		else {
 			finderPath = _finderPathWithPaginationFindByNameIdValue;
-			finderArgs = new Object[] { nameIdValue, start, end, orderByComparator };
+			finderArgs = new Object[] {
+				nameIdValue, start, end, orderByComparator
+			};
 		}
 
 		List<SamlSpSession> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<SamlSpSession>)finderCache.getResult(finderPath,
-					finderArgs, this);
+			list = (List<SamlSpSession>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (SamlSpSession samlSpSession : list) {
@@ -646,8 +678,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
 				query = new StringBundler(3);
@@ -667,11 +699,10 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 			}
 
 			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else
-			 if (pagination) {
+			else if (pagination) {
 				query.append(SamlSpSessionModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -691,16 +722,16 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 				}
 
 				if (!pagination) {
-					list = (List<SamlSpSession>)QueryUtil.list(q, getDialect(),
-							start, end, false);
+					list = (List<SamlSpSession>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<SamlSpSession>)QueryUtil.list(q, getDialect(),
-							start, end);
+					list = (List<SamlSpSession>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -729,11 +760,13 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 * @throws NoSuchSpSessionException if a matching saml sp session could not be found
 	 */
 	@Override
-	public SamlSpSession findByNameIdValue_First(String nameIdValue,
-		OrderByComparator<SamlSpSession> orderByComparator)
+	public SamlSpSession findByNameIdValue_First(
+			String nameIdValue,
+			OrderByComparator<SamlSpSession> orderByComparator)
 		throws NoSuchSpSessionException {
-		SamlSpSession samlSpSession = fetchByNameIdValue_First(nameIdValue,
-				orderByComparator);
+
+		SamlSpSession samlSpSession = fetchByNameIdValue_First(
+			nameIdValue, orderByComparator);
 
 		if (samlSpSession != null) {
 			return samlSpSession;
@@ -759,10 +792,12 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 * @return the first matching saml sp session, or <code>null</code> if a matching saml sp session could not be found
 	 */
 	@Override
-	public SamlSpSession fetchByNameIdValue_First(String nameIdValue,
+	public SamlSpSession fetchByNameIdValue_First(
+		String nameIdValue,
 		OrderByComparator<SamlSpSession> orderByComparator) {
-		List<SamlSpSession> list = findByNameIdValue(nameIdValue, 0, 1,
-				orderByComparator);
+
+		List<SamlSpSession> list = findByNameIdValue(
+			nameIdValue, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -780,11 +815,13 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 * @throws NoSuchSpSessionException if a matching saml sp session could not be found
 	 */
 	@Override
-	public SamlSpSession findByNameIdValue_Last(String nameIdValue,
-		OrderByComparator<SamlSpSession> orderByComparator)
+	public SamlSpSession findByNameIdValue_Last(
+			String nameIdValue,
+			OrderByComparator<SamlSpSession> orderByComparator)
 		throws NoSuchSpSessionException {
-		SamlSpSession samlSpSession = fetchByNameIdValue_Last(nameIdValue,
-				orderByComparator);
+
+		SamlSpSession samlSpSession = fetchByNameIdValue_Last(
+			nameIdValue, orderByComparator);
 
 		if (samlSpSession != null) {
 			return samlSpSession;
@@ -810,16 +847,18 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 * @return the last matching saml sp session, or <code>null</code> if a matching saml sp session could not be found
 	 */
 	@Override
-	public SamlSpSession fetchByNameIdValue_Last(String nameIdValue,
+	public SamlSpSession fetchByNameIdValue_Last(
+		String nameIdValue,
 		OrderByComparator<SamlSpSession> orderByComparator) {
+
 		int count = countByNameIdValue(nameIdValue);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<SamlSpSession> list = findByNameIdValue(nameIdValue, count - 1,
-				count, orderByComparator);
+		List<SamlSpSession> list = findByNameIdValue(
+			nameIdValue, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -838,9 +877,11 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 * @throws NoSuchSpSessionException if a saml sp session with the primary key could not be found
 	 */
 	@Override
-	public SamlSpSession[] findByNameIdValue_PrevAndNext(long samlSpSessionId,
-		String nameIdValue, OrderByComparator<SamlSpSession> orderByComparator)
+	public SamlSpSession[] findByNameIdValue_PrevAndNext(
+			long samlSpSessionId, String nameIdValue,
+			OrderByComparator<SamlSpSession> orderByComparator)
 		throws NoSuchSpSessionException {
+
 		nameIdValue = Objects.toString(nameIdValue, "");
 
 		SamlSpSession samlSpSession = findByPrimaryKey(samlSpSessionId);
@@ -852,13 +893,13 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 			SamlSpSession[] array = new SamlSpSessionImpl[3];
 
-			array[0] = getByNameIdValue_PrevAndNext(session, samlSpSession,
-					nameIdValue, orderByComparator, true);
+			array[0] = getByNameIdValue_PrevAndNext(
+				session, samlSpSession, nameIdValue, orderByComparator, true);
 
 			array[1] = samlSpSession;
 
-			array[2] = getByNameIdValue_PrevAndNext(session, samlSpSession,
-					nameIdValue, orderByComparator, false);
+			array[2] = getByNameIdValue_PrevAndNext(
+				session, samlSpSession, nameIdValue, orderByComparator, false);
 
 			return array;
 		}
@@ -870,14 +911,15 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		}
 	}
 
-	protected SamlSpSession getByNameIdValue_PrevAndNext(Session session,
-		SamlSpSession samlSpSession, String nameIdValue,
+	protected SamlSpSession getByNameIdValue_PrevAndNext(
+		Session session, SamlSpSession samlSpSession, String nameIdValue,
 		OrderByComparator<SamlSpSession> orderByComparator, boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(4 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -898,7 +940,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -970,8 +1013,10 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		}
 
 		if (orderByComparator != null) {
-			for (Object orderByConditionValue : orderByComparator.getOrderByConditionValues(
-					samlSpSession)) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						samlSpSession)) {
+
 				qPos.add(orderByConditionValue);
 			}
 		}
@@ -993,8 +1038,10 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 */
 	@Override
 	public void removeByNameIdValue(String nameIdValue) {
-		for (SamlSpSession samlSpSession : findByNameIdValue(nameIdValue,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+		for (SamlSpSession samlSpSession :
+				findByNameIdValue(
+					nameIdValue, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+
 			remove(samlSpSession);
 		}
 	}
@@ -1011,7 +1058,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 		FinderPath finderPath = _finderPathCountByNameIdValue;
 
-		Object[] finderArgs = new Object[] { nameIdValue };
+		Object[] finderArgs = new Object[] {nameIdValue};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -1063,8 +1110,12 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_2 = "samlSpSession.nameIdValue = ?";
-	private static final String _FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_3 = "(samlSpSession.nameIdValue IS NULL OR samlSpSession.nameIdValue = '')";
+	private static final String _FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_2 =
+		"samlSpSession.nameIdValue = ?";
+
+	private static final String _FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_3 =
+		"(samlSpSession.nameIdValue IS NULL OR samlSpSession.nameIdValue = '')";
+
 	private FinderPath _finderPathFetchBySessionIndex;
 	private FinderPath _finderPathCountBySessionIndex;
 
@@ -1078,6 +1129,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	@Override
 	public SamlSpSession findBySessionIndex(String sessionIndex)
 		throws NoSuchSpSessionException {
+
 		SamlSpSession samlSpSession = fetchBySessionIndex(sessionIndex);
 
 		if (samlSpSession == null) {
@@ -1119,23 +1171,26 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 * @return the matching saml sp session, or <code>null</code> if a matching saml sp session could not be found
 	 */
 	@Override
-	public SamlSpSession fetchBySessionIndex(String sessionIndex,
-		boolean retrieveFromCache) {
+	public SamlSpSession fetchBySessionIndex(
+		String sessionIndex, boolean retrieveFromCache) {
+
 		sessionIndex = Objects.toString(sessionIndex, "");
 
-		Object[] finderArgs = new Object[] { sessionIndex };
+		Object[] finderArgs = new Object[] {sessionIndex};
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = finderCache.getResult(_finderPathFetchBySessionIndex,
-					finderArgs, this);
+			result = finderCache.getResult(
+				_finderPathFetchBySessionIndex, finderArgs, this);
 		}
 
 		if (result instanceof SamlSpSession) {
 			SamlSpSession samlSpSession = (SamlSpSession)result;
 
-			if (!Objects.equals(sessionIndex, samlSpSession.getSessionIndex())) {
+			if (!Objects.equals(
+					sessionIndex, samlSpSession.getSessionIndex())) {
+
 				result = null;
 			}
 		}
@@ -1174,8 +1229,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 				List<SamlSpSession> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(_finderPathFetchBySessionIndex,
-						finderArgs, list);
+					finderCache.putResult(
+						_finderPathFetchBySessionIndex, finderArgs, list);
 				}
 				else {
 					if (list.size() > 1) {
@@ -1184,8 +1239,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 						if (_log.isWarnEnabled()) {
 							_log.warn(
 								"SamlSpSessionPersistenceImpl.fetchBySessionIndex(String, boolean) with parameters (" +
-								StringUtil.merge(finderArgs) +
-								") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
 						}
 					}
 
@@ -1197,8 +1252,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathFetchBySessionIndex,
-					finderArgs);
+				finderCache.removeResult(
+					_finderPathFetchBySessionIndex, finderArgs);
 
 				throw processException(e);
 			}
@@ -1224,6 +1279,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	@Override
 	public SamlSpSession removeBySessionIndex(String sessionIndex)
 		throws NoSuchSpSessionException {
+
 		SamlSpSession samlSpSession = findBySessionIndex(sessionIndex);
 
 		return remove(samlSpSession);
@@ -1241,7 +1297,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 		FinderPath finderPath = _finderPathCountBySessionIndex;
 
-		Object[] finderArgs = new Object[] { sessionIndex };
+		Object[] finderArgs = new Object[] {sessionIndex};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -1293,15 +1349,18 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_2 = "samlSpSession.sessionIndex = ?";
-	private static final String _FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_3 = "(samlSpSession.sessionIndex IS NULL OR samlSpSession.sessionIndex = '')";
+	private static final String _FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_2 =
+		"samlSpSession.sessionIndex = ?";
+
+	private static final String _FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_3 =
+		"(samlSpSession.sessionIndex IS NULL OR samlSpSession.sessionIndex = '')";
 
 	public SamlSpSessionPersistenceImpl() {
 		setModelClass(SamlSpSession.class);
 
 		try {
 			Field field = BasePersistenceImpl.class.getDeclaredField(
-					"_dbColumnNames");
+				"_dbColumnNames");
 
 			field.setAccessible(true);
 
@@ -1325,18 +1384,22 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 */
 	@Override
 	public void cacheResult(SamlSpSession samlSpSession) {
-		entityCache.putResult(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.putResult(
+			SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpSessionImpl.class, samlSpSession.getPrimaryKey(),
 			samlSpSession);
 
-		finderCache.putResult(_finderPathFetchBySamlSpSessionKey,
-			new Object[] { samlSpSession.getSamlSpSessionKey() }, samlSpSession);
+		finderCache.putResult(
+			_finderPathFetchBySamlSpSessionKey,
+			new Object[] {samlSpSession.getSamlSpSessionKey()}, samlSpSession);
 
-		finderCache.putResult(_finderPathFetchByJSessionId,
-			new Object[] { samlSpSession.getJSessionId() }, samlSpSession);
+		finderCache.putResult(
+			_finderPathFetchByJSessionId,
+			new Object[] {samlSpSession.getJSessionId()}, samlSpSession);
 
-		finderCache.putResult(_finderPathFetchBySessionIndex,
-			new Object[] { samlSpSession.getSessionIndex() }, samlSpSession);
+		finderCache.putResult(
+			_finderPathFetchBySessionIndex,
+			new Object[] {samlSpSession.getSessionIndex()}, samlSpSession);
 
 		samlSpSession.resetOriginalValues();
 	}
@@ -1350,8 +1413,10 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	public void cacheResult(List<SamlSpSession> samlSpSessions) {
 		for (SamlSpSession samlSpSession : samlSpSessions) {
 			if (entityCache.getResult(
-						SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-						SamlSpSessionImpl.class, samlSpSession.getPrimaryKey()) == null) {
+					SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+					SamlSpSessionImpl.class, samlSpSession.getPrimaryKey()) ==
+						null) {
+
 				cacheResult(samlSpSession);
 			}
 			else {
@@ -1385,7 +1450,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 */
 	@Override
 	public void clearCache(SamlSpSession samlSpSession) {
-		entityCache.removeResult(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.removeResult(
+			SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpSessionImpl.class, samlSpSession.getPrimaryKey());
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
@@ -1400,72 +1466,82 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
 		for (SamlSpSession samlSpSession : samlSpSessions) {
-			entityCache.removeResult(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			entityCache.removeResult(
+				SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
 				SamlSpSessionImpl.class, samlSpSession.getPrimaryKey());
 
-			clearUniqueFindersCache((SamlSpSessionModelImpl)samlSpSession, true);
+			clearUniqueFindersCache(
+				(SamlSpSessionModelImpl)samlSpSession, true);
 		}
 	}
 
 	protected void cacheUniqueFindersCache(
 		SamlSpSessionModelImpl samlSpSessionModelImpl) {
+
 		Object[] args = new Object[] {
-				samlSpSessionModelImpl.getSamlSpSessionKey()
-			};
+			samlSpSessionModelImpl.getSamlSpSessionKey()
+		};
 
-		finderCache.putResult(_finderPathCountBySamlSpSessionKey, args,
-			Long.valueOf(1), false);
-		finderCache.putResult(_finderPathFetchBySamlSpSessionKey, args,
-			samlSpSessionModelImpl, false);
+		finderCache.putResult(
+			_finderPathCountBySamlSpSessionKey, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchBySamlSpSessionKey, args, samlSpSessionModelImpl,
+			false);
 
-		args = new Object[] { samlSpSessionModelImpl.getJSessionId() };
+		args = new Object[] {samlSpSessionModelImpl.getJSessionId()};
 
-		finderCache.putResult(_finderPathCountByJSessionId, args,
-			Long.valueOf(1), false);
-		finderCache.putResult(_finderPathFetchByJSessionId, args,
-			samlSpSessionModelImpl, false);
+		finderCache.putResult(
+			_finderPathCountByJSessionId, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByJSessionId, args, samlSpSessionModelImpl, false);
 
-		args = new Object[] { samlSpSessionModelImpl.getSessionIndex() };
+		args = new Object[] {samlSpSessionModelImpl.getSessionIndex()};
 
-		finderCache.putResult(_finderPathCountBySessionIndex, args,
-			Long.valueOf(1), false);
-		finderCache.putResult(_finderPathFetchBySessionIndex, args,
-			samlSpSessionModelImpl, false);
+		finderCache.putResult(
+			_finderPathCountBySessionIndex, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchBySessionIndex, args, samlSpSessionModelImpl,
+			false);
 	}
 
 	protected void clearUniqueFindersCache(
 		SamlSpSessionModelImpl samlSpSessionModelImpl, boolean clearCurrent) {
+
 		if (clearCurrent) {
 			Object[] args = new Object[] {
-					samlSpSessionModelImpl.getSamlSpSessionKey()
-				};
+				samlSpSessionModelImpl.getSamlSpSessionKey()
+			};
 
 			finderCache.removeResult(_finderPathCountBySamlSpSessionKey, args);
 			finderCache.removeResult(_finderPathFetchBySamlSpSessionKey, args);
 		}
 
 		if ((samlSpSessionModelImpl.getColumnBitmask() &
-				_finderPathFetchBySamlSpSessionKey.getColumnBitmask()) != 0) {
+			 _finderPathFetchBySamlSpSessionKey.getColumnBitmask()) != 0) {
+
 			Object[] args = new Object[] {
-					samlSpSessionModelImpl.getOriginalSamlSpSessionKey()
-				};
+				samlSpSessionModelImpl.getOriginalSamlSpSessionKey()
+			};
 
 			finderCache.removeResult(_finderPathCountBySamlSpSessionKey, args);
 			finderCache.removeResult(_finderPathFetchBySamlSpSessionKey, args);
 		}
 
 		if (clearCurrent) {
-			Object[] args = new Object[] { samlSpSessionModelImpl.getJSessionId() };
+			Object[] args = new Object[] {
+				samlSpSessionModelImpl.getJSessionId()
+			};
 
 			finderCache.removeResult(_finderPathCountByJSessionId, args);
 			finderCache.removeResult(_finderPathFetchByJSessionId, args);
 		}
 
 		if ((samlSpSessionModelImpl.getColumnBitmask() &
-				_finderPathFetchByJSessionId.getColumnBitmask()) != 0) {
+			 _finderPathFetchByJSessionId.getColumnBitmask()) != 0) {
+
 			Object[] args = new Object[] {
-					samlSpSessionModelImpl.getOriginalJSessionId()
-				};
+				samlSpSessionModelImpl.getOriginalJSessionId()
+			};
 
 			finderCache.removeResult(_finderPathCountByJSessionId, args);
 			finderCache.removeResult(_finderPathFetchByJSessionId, args);
@@ -1473,18 +1549,19 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 		if (clearCurrent) {
 			Object[] args = new Object[] {
-					samlSpSessionModelImpl.getSessionIndex()
-				};
+				samlSpSessionModelImpl.getSessionIndex()
+			};
 
 			finderCache.removeResult(_finderPathCountBySessionIndex, args);
 			finderCache.removeResult(_finderPathFetchBySessionIndex, args);
 		}
 
 		if ((samlSpSessionModelImpl.getColumnBitmask() &
-				_finderPathFetchBySessionIndex.getColumnBitmask()) != 0) {
+			 _finderPathFetchBySessionIndex.getColumnBitmask()) != 0) {
+
 			Object[] args = new Object[] {
-					samlSpSessionModelImpl.getOriginalSessionIndex()
-				};
+				samlSpSessionModelImpl.getOriginalSessionIndex()
+			};
 
 			finderCache.removeResult(_finderPathCountBySessionIndex, args);
 			finderCache.removeResult(_finderPathFetchBySessionIndex, args);
@@ -1519,6 +1596,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	@Override
 	public SamlSpSession remove(long samlSpSessionId)
 		throws NoSuchSpSessionException {
+
 		return remove((Serializable)samlSpSessionId);
 	}
 
@@ -1532,21 +1610,22 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	@Override
 	public SamlSpSession remove(Serializable primaryKey)
 		throws NoSuchSpSessionException {
+
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			SamlSpSession samlSpSession = (SamlSpSession)session.get(SamlSpSessionImpl.class,
-					primaryKey);
+			SamlSpSession samlSpSession = (SamlSpSession)session.get(
+				SamlSpSessionImpl.class, primaryKey);
 
 			if (samlSpSession == null) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
-				throw new NoSuchSpSessionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					primaryKey);
+				throw new NoSuchSpSessionException(
+					_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			return remove(samlSpSession);
@@ -1570,8 +1649,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 			session = openSession();
 
 			if (!session.contains(samlSpSession)) {
-				samlSpSession = (SamlSpSession)session.get(SamlSpSessionImpl.class,
-						samlSpSession.getPrimaryKeyObj());
+				samlSpSession = (SamlSpSession)session.get(
+					SamlSpSessionImpl.class, samlSpSession.getPrimaryKeyObj());
 			}
 
 			if (samlSpSession != null) {
@@ -1600,21 +1679,24 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 			InvocationHandler invocationHandler = null;
 
 			if (ProxyUtil.isProxyClass(samlSpSession.getClass())) {
-				invocationHandler = ProxyUtil.getInvocationHandler(samlSpSession);
+				invocationHandler = ProxyUtil.getInvocationHandler(
+					samlSpSession);
 
 				throw new IllegalArgumentException(
 					"Implement ModelWrapper in samlSpSession proxy " +
-					invocationHandler.getClass());
+						invocationHandler.getClass());
 			}
 
 			throw new IllegalArgumentException(
 				"Implement ModelWrapper in custom SamlSpSession implementation " +
-				samlSpSession.getClass());
+					samlSpSession.getClass());
 		}
 
-		SamlSpSessionModelImpl samlSpSessionModelImpl = (SamlSpSessionModelImpl)samlSpSession;
+		SamlSpSessionModelImpl samlSpSessionModelImpl =
+			(SamlSpSessionModelImpl)samlSpSession;
 
-		ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
 
 		Date now = new Date();
 
@@ -1632,8 +1714,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 				samlSpSession.setModifiedDate(now);
 			}
 			else {
-				samlSpSession.setModifiedDate(serviceContext.getModifiedDate(
-						now));
+				samlSpSession.setModifiedDate(
+					serviceContext.getModifiedDate(now));
 			}
 		}
 
@@ -1663,39 +1745,42 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		if (!SamlSpSessionModelImpl.COLUMN_BITMASK_ENABLED) {
 			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
-		else
-		 if (isNew) {
-			Object[] args = new Object[] { samlSpSessionModelImpl.getNameIdValue() };
+		else if (isNew) {
+			Object[] args = new Object[] {
+				samlSpSessionModelImpl.getNameIdValue()
+			};
 
 			finderCache.removeResult(_finderPathCountByNameIdValue, args);
-			finderCache.removeResult(_finderPathWithoutPaginationFindByNameIdValue,
-				args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByNameIdValue, args);
 
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
-			finderCache.removeResult(_finderPathWithoutPaginationFindAll,
-				FINDER_ARGS_EMPTY);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
 		}
-
 		else {
 			if ((samlSpSessionModelImpl.getColumnBitmask() &
-					_finderPathWithoutPaginationFindByNameIdValue.getColumnBitmask()) != 0) {
+				 _finderPathWithoutPaginationFindByNameIdValue.
+					 getColumnBitmask()) != 0) {
+
 				Object[] args = new Object[] {
-						samlSpSessionModelImpl.getOriginalNameIdValue()
-					};
+					samlSpSessionModelImpl.getOriginalNameIdValue()
+				};
 
 				finderCache.removeResult(_finderPathCountByNameIdValue, args);
-				finderCache.removeResult(_finderPathWithoutPaginationFindByNameIdValue,
-					args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByNameIdValue, args);
 
-				args = new Object[] { samlSpSessionModelImpl.getNameIdValue() };
+				args = new Object[] {samlSpSessionModelImpl.getNameIdValue()};
 
 				finderCache.removeResult(_finderPathCountByNameIdValue, args);
-				finderCache.removeResult(_finderPathWithoutPaginationFindByNameIdValue,
-					args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByNameIdValue, args);
 			}
 		}
 
-		entityCache.putResult(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.putResult(
+			SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpSessionImpl.class, samlSpSession.getPrimaryKey(),
 			samlSpSession, false);
 
@@ -1717,6 +1802,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	@Override
 	public SamlSpSession findByPrimaryKey(Serializable primaryKey)
 		throws NoSuchSpSessionException {
+
 		SamlSpSession samlSpSession = fetchByPrimaryKey(primaryKey);
 
 		if (samlSpSession == null) {
@@ -1724,8 +1810,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
-			throw new NoSuchSpSessionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				primaryKey);
+			throw new NoSuchSpSessionException(
+				_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 		}
 
 		return samlSpSession;
@@ -1741,6 +1827,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	@Override
 	public SamlSpSession findByPrimaryKey(long samlSpSessionId)
 		throws NoSuchSpSessionException {
+
 		return findByPrimaryKey((Serializable)samlSpSessionId);
 	}
 
@@ -1752,8 +1839,9 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 */
 	@Override
 	public SamlSpSession fetchByPrimaryKey(Serializable primaryKey) {
-		Serializable serializable = entityCache.getResult(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpSessionImpl.class, primaryKey);
+		Serializable serializable = entityCache.getResult(
+			SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpSessionImpl.class, primaryKey);
 
 		if (serializable == nullModel) {
 			return null;
@@ -1767,19 +1855,21 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 			try {
 				session = openSession();
 
-				samlSpSession = (SamlSpSession)session.get(SamlSpSessionImpl.class,
-						primaryKey);
+				samlSpSession = (SamlSpSession)session.get(
+					SamlSpSessionImpl.class, primaryKey);
 
 				if (samlSpSession != null) {
 					cacheResult(samlSpSession);
 				}
 				else {
-					entityCache.putResult(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+					entityCache.putResult(
+						SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
 						SamlSpSessionImpl.class, primaryKey, nullModel);
 				}
 			}
 			catch (Exception e) {
-				entityCache.removeResult(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.removeResult(
+					SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
 					SamlSpSessionImpl.class, primaryKey);
 
 				throw processException(e);
@@ -1806,11 +1896,13 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	@Override
 	public Map<Serializable, SamlSpSession> fetchByPrimaryKeys(
 		Set<Serializable> primaryKeys) {
+
 		if (primaryKeys.isEmpty()) {
 			return Collections.emptyMap();
 		}
 
-		Map<Serializable, SamlSpSession> map = new HashMap<Serializable, SamlSpSession>();
+		Map<Serializable, SamlSpSession> map =
+			new HashMap<Serializable, SamlSpSession>();
 
 		if (primaryKeys.size() == 1) {
 			Iterator<Serializable> iterator = primaryKeys.iterator();
@@ -1829,8 +1921,9 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		Set<Serializable> uncachedPrimaryKeys = null;
 
 		for (Serializable primaryKey : primaryKeys) {
-			Serializable serializable = entityCache.getResult(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-					SamlSpSessionImpl.class, primaryKey);
+			Serializable serializable = entityCache.getResult(
+				SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+				SamlSpSessionImpl.class, primaryKey);
 
 			if (serializable != nullModel) {
 				if (serializable == null) {
@@ -1850,8 +1943,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 			return map;
 		}
 
-		StringBundler query = new StringBundler((uncachedPrimaryKeys.size() * 2) +
-				1);
+		StringBundler query = new StringBundler(
+			uncachedPrimaryKeys.size() * 2 + 1);
 
 		query.append(_SQL_SELECT_SAMLSPSESSION_WHERE_PKS_IN);
 
@@ -1883,7 +1976,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 			}
 
 			for (Serializable primaryKey : uncachedPrimaryKeys) {
-				entityCache.putResult(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.putResult(
+					SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
 					SamlSpSessionImpl.class, primaryKey, nullModel);
 			}
 		}
@@ -1936,8 +2030,10 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 * @return the ordered range of saml sp sessions
 	 */
 	@Override
-	public List<SamlSpSession> findAll(int start, int end,
+	public List<SamlSpSession> findAll(
+		int start, int end,
 		OrderByComparator<SamlSpSession> orderByComparator) {
+
 		return findAll(start, end, orderByComparator, true);
 	}
 
@@ -1955,29 +2051,31 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 * @return the ordered range of saml sp sessions
 	 */
 	@Override
-	public List<SamlSpSession> findAll(int start, int end,
-		OrderByComparator<SamlSpSession> orderByComparator,
+	public List<SamlSpSession> findAll(
+		int start, int end, OrderByComparator<SamlSpSession> orderByComparator,
 		boolean retrieveFromCache) {
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
+			(orderByComparator == null)) {
+
 			pagination = false;
 			finderPath = _finderPathWithoutPaginationFindAll;
 			finderArgs = FINDER_ARGS_EMPTY;
 		}
 		else {
 			finderPath = _finderPathWithPaginationFindAll;
-			finderArgs = new Object[] { start, end, orderByComparator };
+			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<SamlSpSession> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<SamlSpSession>)finderCache.getResult(finderPath,
-					finderArgs, this);
+			list = (List<SamlSpSession>)finderCache.getResult(
+				finderPath, finderArgs, this);
 		}
 
 		if (list == null) {
@@ -1985,13 +2083,13 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 			String sql = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(2 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					2 + (orderByComparator.getOrderByFields().length * 2));
 
 				query.append(_SQL_SELECT_SAMLSPSESSION);
 
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
 				sql = query.toString();
 			}
@@ -2011,16 +2109,16 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 				Query q = session.createQuery(sql);
 
 				if (!pagination) {
-					list = (List<SamlSpSession>)QueryUtil.list(q, getDialect(),
-							start, end, false);
+					list = (List<SamlSpSession>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<SamlSpSession>)QueryUtil.list(q, getDialect(),
-							start, end);
+					list = (List<SamlSpSession>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -2058,8 +2156,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 */
 	@Override
 	public int countAll() {
-		Long count = (Long)finderCache.getResult(_finderPathCountAll,
-				FINDER_ARGS_EMPTY, this);
+		Long count = (Long)finderCache.getResult(
+			_finderPathCountAll, FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -2071,11 +2169,12 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 				count = (Long)q.uniqueResult();
 
-				finderCache.putResult(_finderPathCountAll, FINDER_ARGS_EMPTY,
-					count);
+				finderCache.putResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
+				finderCache.removeResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY);
 
 				throw processException(e);
 			}
@@ -2101,79 +2200,85 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 * Initializes the saml sp session persistence.
 	 */
 	public void afterPropertiesSet() {
-		_finderPathWithPaginationFindAll = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpSessionModelImpl.FINDER_CACHE_ENABLED,
-				SamlSpSessionImpl.class,
-				FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
+		_finderPathWithPaginationFindAll = new FinderPath(
+			SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpSessionImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+			"findAll", new String[0]);
 
-		_finderPathWithoutPaginationFindAll = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpSessionModelImpl.FINDER_CACHE_ENABLED,
-				SamlSpSessionImpl.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
-				new String[0]);
+		_finderPathWithoutPaginationFindAll = new FinderPath(
+			SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpSessionImpl.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"findAll", new String[0]);
 
-		_finderPathCountAll = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
-				new String[0]);
+		_finderPathCountAll = new FinderPath(
+			SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
+			new String[0]);
 
-		_finderPathFetchBySamlSpSessionKey = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpSessionModelImpl.FINDER_CACHE_ENABLED,
-				SamlSpSessionImpl.class, FINDER_CLASS_NAME_ENTITY,
-				"fetchBySamlSpSessionKey",
-				new String[] { String.class.getName() },
-				SamlSpSessionModelImpl.SAMLSPSESSIONKEY_COLUMN_BITMASK);
+		_finderPathFetchBySamlSpSessionKey = new FinderPath(
+			SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpSessionImpl.class, FINDER_CLASS_NAME_ENTITY,
+			"fetchBySamlSpSessionKey", new String[] {String.class.getName()},
+			SamlSpSessionModelImpl.SAMLSPSESSIONKEY_COLUMN_BITMASK);
 
-		_finderPathCountBySamlSpSessionKey = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-				"countBySamlSpSessionKey",
-				new String[] { String.class.getName() });
+		_finderPathCountBySamlSpSessionKey = new FinderPath(
+			SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countBySamlSpSessionKey", new String[] {String.class.getName()});
 
-		_finderPathFetchByJSessionId = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpSessionModelImpl.FINDER_CACHE_ENABLED,
-				SamlSpSessionImpl.class, FINDER_CLASS_NAME_ENTITY,
-				"fetchByJSessionId", new String[] { String.class.getName() },
-				SamlSpSessionModelImpl.JSESSIONID_COLUMN_BITMASK);
+		_finderPathFetchByJSessionId = new FinderPath(
+			SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpSessionImpl.class, FINDER_CLASS_NAME_ENTITY,
+			"fetchByJSessionId", new String[] {String.class.getName()},
+			SamlSpSessionModelImpl.JSESSIONID_COLUMN_BITMASK);
 
-		_finderPathCountByJSessionId = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByJSessionId",
-				new String[] { String.class.getName() });
+		_finderPathCountByJSessionId = new FinderPath(
+			SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByJSessionId",
+			new String[] {String.class.getName()});
 
-		_finderPathWithPaginationFindByNameIdValue = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpSessionModelImpl.FINDER_CACHE_ENABLED,
-				SamlSpSessionImpl.class,
-				FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByNameIdValue",
-				new String[] {
-					String.class.getName(),
-					
-				Integer.class.getName(), Integer.class.getName(),
-					OrderByComparator.class.getName()
-				});
+		_finderPathWithPaginationFindByNameIdValue = new FinderPath(
+			SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpSessionImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+			"findByNameIdValue",
+			new String[] {
+				String.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
 
-		_finderPathWithoutPaginationFindByNameIdValue = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpSessionModelImpl.FINDER_CACHE_ENABLED,
-				SamlSpSessionImpl.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByNameIdValue",
-				new String[] { String.class.getName() },
-				SamlSpSessionModelImpl.NAMEIDVALUE_COLUMN_BITMASK);
+		_finderPathWithoutPaginationFindByNameIdValue = new FinderPath(
+			SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpSessionImpl.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"findByNameIdValue", new String[] {String.class.getName()},
+			SamlSpSessionModelImpl.NAMEIDVALUE_COLUMN_BITMASK);
 
-		_finderPathCountByNameIdValue = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-				"countByNameIdValue", new String[] { String.class.getName() });
+		_finderPathCountByNameIdValue = new FinderPath(
+			SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByNameIdValue",
+			new String[] {String.class.getName()});
 
-		_finderPathFetchBySessionIndex = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpSessionModelImpl.FINDER_CACHE_ENABLED,
-				SamlSpSessionImpl.class, FINDER_CLASS_NAME_ENTITY,
-				"fetchBySessionIndex", new String[] { String.class.getName() },
-				SamlSpSessionModelImpl.SESSIONINDEX_COLUMN_BITMASK);
+		_finderPathFetchBySessionIndex = new FinderPath(
+			SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpSessionImpl.class, FINDER_CLASS_NAME_ENTITY,
+			"fetchBySessionIndex", new String[] {String.class.getName()},
+			SamlSpSessionModelImpl.SESSIONINDEX_COLUMN_BITMASK);
 
-		_finderPathCountBySessionIndex = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-				"countBySessionIndex", new String[] { String.class.getName() });
+		_finderPathCountBySessionIndex = new FinderPath(
+			SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBySessionIndex",
+			new String[] {String.class.getName()});
 	}
 
 	public void destroy() {
@@ -2185,20 +2290,40 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 	@ServiceReference(type = CompanyProviderWrapper.class)
 	protected CompanyProvider companyProvider;
+
 	@ServiceReference(type = EntityCache.class)
 	protected EntityCache entityCache;
+
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
-	private static final String _SQL_SELECT_SAMLSPSESSION = "SELECT samlSpSession FROM SamlSpSession samlSpSession";
-	private static final String _SQL_SELECT_SAMLSPSESSION_WHERE_PKS_IN = "SELECT samlSpSession FROM SamlSpSession samlSpSession WHERE samlSpSessionId IN (";
-	private static final String _SQL_SELECT_SAMLSPSESSION_WHERE = "SELECT samlSpSession FROM SamlSpSession samlSpSession WHERE ";
-	private static final String _SQL_COUNT_SAMLSPSESSION = "SELECT COUNT(samlSpSession) FROM SamlSpSession samlSpSession";
-	private static final String _SQL_COUNT_SAMLSPSESSION_WHERE = "SELECT COUNT(samlSpSession) FROM SamlSpSession samlSpSession WHERE ";
+
+	private static final String _SQL_SELECT_SAMLSPSESSION =
+		"SELECT samlSpSession FROM SamlSpSession samlSpSession";
+
+	private static final String _SQL_SELECT_SAMLSPSESSION_WHERE_PKS_IN =
+		"SELECT samlSpSession FROM SamlSpSession samlSpSession WHERE samlSpSessionId IN (";
+
+	private static final String _SQL_SELECT_SAMLSPSESSION_WHERE =
+		"SELECT samlSpSession FROM SamlSpSession samlSpSession WHERE ";
+
+	private static final String _SQL_COUNT_SAMLSPSESSION =
+		"SELECT COUNT(samlSpSession) FROM SamlSpSession samlSpSession";
+
+	private static final String _SQL_COUNT_SAMLSPSESSION_WHERE =
+		"SELECT COUNT(samlSpSession) FROM SamlSpSession samlSpSession WHERE ";
+
 	private static final String _ORDER_BY_ENTITY_ALIAS = "samlSpSession.";
-	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No SamlSpSession exists with the primary key ";
-	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No SamlSpSession exists with the key {";
-	private static final Log _log = LogFactoryUtil.getLog(SamlSpSessionPersistenceImpl.class);
-	private static final Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
-				"terminated"
-			});
+
+	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY =
+		"No SamlSpSession exists with the primary key ";
+
+	private static final String _NO_SUCH_ENTITY_WITH_KEY =
+		"No SamlSpSession exists with the key {";
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		SamlSpSessionPersistenceImpl.class);
+
+	private static final Set<String> _badColumnNames = SetUtil.fromArray(
+		new String[] {"terminated"});
+
 }

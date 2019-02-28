@@ -35,8 +35,9 @@ import java.util.Date;
  * @generated
  */
 @ProviderType
-public class SPIDefinitionCacheModel implements CacheModel<SPIDefinition>,
-	Externalizable {
+public class SPIDefinitionCacheModel
+	implements CacheModel<SPIDefinition>, Externalizable {
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -47,7 +48,8 @@ public class SPIDefinitionCacheModel implements CacheModel<SPIDefinition>,
 			return false;
 		}
 
-		SPIDefinitionCacheModel spiDefinitionCacheModel = (SPIDefinitionCacheModel)obj;
+		SPIDefinitionCacheModel spiDefinitionCacheModel =
+			(SPIDefinitionCacheModel)obj;
 
 		if (spiDefinitionId == spiDefinitionCacheModel.spiDefinitionId) {
 			return true;
@@ -221,8 +223,7 @@ public class SPIDefinitionCacheModel implements CacheModel<SPIDefinition>,
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput objectOutput)
-		throws IOException {
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(spiDefinitionId);
 
 		objectOutput.writeLong(companyId);
@@ -316,4 +317,5 @@ public class SPIDefinitionCacheModel implements CacheModel<SPIDefinition>,
 	public String typeSettings;
 	public int status;
 	public String statusMessage;
+
 }

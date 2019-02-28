@@ -32,12 +32,13 @@ import java.util.Set;
  * @generated
  */
 public class SourceFinderBaseImpl extends BasePersistenceImpl<Source> {
+
 	public SourceFinderBaseImpl() {
 		setModelClass(Source.class);
 
 		try {
 			Field field = BasePersistenceImpl.class.getDeclaredField(
-					"_dbColumnNames");
+				"_dbColumnNames");
 
 			field.setAccessible(true);
 
@@ -79,5 +80,8 @@ public class SourceFinderBaseImpl extends BasePersistenceImpl<Source> {
 
 	@BeanReference(type = SourcePersistence.class)
 	protected SourcePersistence sourcePersistence;
-	private static final Log _log = LogFactoryUtil.getLog(SourceFinderBaseImpl.class);
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		SourceFinderBaseImpl.class);
+
 }

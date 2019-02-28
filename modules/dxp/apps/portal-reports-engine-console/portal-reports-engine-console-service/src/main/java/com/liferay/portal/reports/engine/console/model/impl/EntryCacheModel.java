@@ -36,6 +36,7 @@ import java.util.Date;
  */
 @ProviderType
 public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -261,8 +262,7 @@ public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput objectOutput)
-		throws IOException {
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(entryId);
 
 		objectOutput.writeLong(groupId);
@@ -374,4 +374,5 @@ public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
 	public String reportParameters;
 	public String status;
 	public String errorMessage;
+
 }

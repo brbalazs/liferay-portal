@@ -19,7 +19,6 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
-
 import com.liferay.saml.persistence.model.SamlSpAuthRequest;
 
 import java.io.Externalizable;
@@ -36,8 +35,9 @@ import java.util.Date;
  * @generated
  */
 @ProviderType
-public class SamlSpAuthRequestCacheModel implements CacheModel<SamlSpAuthRequest>,
-	Externalizable {
+public class SamlSpAuthRequestCacheModel
+	implements CacheModel<SamlSpAuthRequest>, Externalizable {
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -48,9 +48,12 @@ public class SamlSpAuthRequestCacheModel implements CacheModel<SamlSpAuthRequest
 			return false;
 		}
 
-		SamlSpAuthRequestCacheModel samlSpAuthRequestCacheModel = (SamlSpAuthRequestCacheModel)obj;
+		SamlSpAuthRequestCacheModel samlSpAuthRequestCacheModel =
+			(SamlSpAuthRequestCacheModel)obj;
 
-		if (samlSpAuthnRequestId == samlSpAuthRequestCacheModel.samlSpAuthnRequestId) {
+		if (samlSpAuthnRequestId ==
+				samlSpAuthRequestCacheModel.samlSpAuthnRequestId) {
+
 			return true;
 		}
 
@@ -83,7 +86,8 @@ public class SamlSpAuthRequestCacheModel implements CacheModel<SamlSpAuthRequest
 
 	@Override
 	public SamlSpAuthRequest toEntityModel() {
-		SamlSpAuthRequestImpl samlSpAuthRequestImpl = new SamlSpAuthRequestImpl();
+		SamlSpAuthRequestImpl samlSpAuthRequestImpl =
+			new SamlSpAuthRequestImpl();
 
 		samlSpAuthRequestImpl.setSamlSpAuthnRequestId(samlSpAuthnRequestId);
 		samlSpAuthRequestImpl.setCompanyId(companyId);
@@ -125,8 +129,7 @@ public class SamlSpAuthRequestCacheModel implements CacheModel<SamlSpAuthRequest
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput objectOutput)
-		throws IOException {
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(samlSpAuthnRequestId);
 
 		objectOutput.writeLong(companyId);
@@ -152,4 +155,5 @@ public class SamlSpAuthRequestCacheModel implements CacheModel<SamlSpAuthRequest
 	public long createDate;
 	public String samlIdpEntityId;
 	public String samlSpAuthRequestKey;
+
 }

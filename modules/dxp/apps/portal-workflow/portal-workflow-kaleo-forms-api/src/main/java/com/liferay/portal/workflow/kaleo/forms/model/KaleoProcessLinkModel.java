@@ -17,7 +17,6 @@ package com.liferay.portal.workflow.kaleo.forms.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.CacheModel;
@@ -38,6 +37,7 @@ import java.io.Serializable;
  */
 @ProviderType
 public interface KaleoProcessLinkModel extends BaseModel<KaleoProcessLink> {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -171,4 +171,5 @@ public interface KaleoProcessLinkModel extends BaseModel<KaleoProcessLink> {
 
 	@Override
 	public String toXmlString();
+
 }

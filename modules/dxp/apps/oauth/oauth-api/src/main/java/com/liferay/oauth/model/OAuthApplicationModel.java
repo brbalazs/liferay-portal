@@ -17,7 +17,6 @@ package com.liferay.oauth.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.AuditedModel;
 import com.liferay.portal.kernel.model.BaseModel;
@@ -41,8 +40,9 @@ import java.util.Date;
  * @generated
  */
 @ProviderType
-public interface OAuthApplicationModel extends AuditedModel,
-	BaseModel<OAuthApplication>, ShardedModel {
+public interface OAuthApplicationModel
+	extends AuditedModel, BaseModel<OAuthApplication>, ShardedModel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -369,4 +369,5 @@ public interface OAuthApplicationModel extends AuditedModel,
 
 	@Override
 	public String toXmlString();
+
 }

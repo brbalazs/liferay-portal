@@ -18,7 +18,6 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
-
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.ModelWrapper;
@@ -53,21 +52,23 @@ import java.util.function.Function;
  * @generated
  */
 @ProviderType
-public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
-	implements KaleoProcessLinkModel {
+public class KaleoProcessLinkModelImpl
+	extends BaseModelImpl<KaleoProcessLink> implements KaleoProcessLinkModel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a kaleo process link model instance should use the <code>KaleoProcessLink</code> interface instead.
 	 */
 	public static final String TABLE_NAME = "KaleoProcessLink";
+
 	public static final Object[][] TABLE_COLUMNS = {
-			{ "kaleoProcessLinkId", Types.BIGINT },
-			{ "kaleoProcessId", Types.BIGINT },
-			{ "workflowTaskName", Types.VARCHAR },
-			{ "DDMTemplateId", Types.BIGINT }
-		};
-	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
+		{"kaleoProcessLinkId", Types.BIGINT}, {"kaleoProcessId", Types.BIGINT},
+		{"workflowTaskName", Types.VARCHAR}, {"DDMTemplateId", Types.BIGINT}
+	};
+
+	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
+		new HashMap<String, Integer>();
 
 	static {
 		TABLE_COLUMNS_MAP.put("kaleoProcessLinkId", Types.BIGINT);
@@ -76,27 +77,47 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 		TABLE_COLUMNS_MAP.put("DDMTemplateId", Types.BIGINT);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table KaleoProcessLink (kaleoProcessLinkId LONG not null primary key,kaleoProcessId LONG,workflowTaskName VARCHAR(75) null,DDMTemplateId LONG)";
+	public static final String TABLE_SQL_CREATE =
+		"create table KaleoProcessLink (kaleoProcessLinkId LONG not null primary key,kaleoProcessId LONG,workflowTaskName VARCHAR(75) null,DDMTemplateId LONG)";
+
 	public static final String TABLE_SQL_DROP = "drop table KaleoProcessLink";
-	public static final String ORDER_BY_JPQL = " ORDER BY kaleoProcessLink.kaleoProcessLinkId ASC";
-	public static final String ORDER_BY_SQL = " ORDER BY KaleoProcessLink.kaleoProcessLinkId ASC";
+
+	public static final String ORDER_BY_JPQL =
+		" ORDER BY kaleoProcessLink.kaleoProcessLinkId ASC";
+
+	public static final String ORDER_BY_SQL =
+		" ORDER BY KaleoProcessLink.kaleoProcessLinkId ASC";
+
 	public static final String DATA_SOURCE = "liferayDataSource";
+
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
+
 	public static final String TX_MANAGER = "liferayTransactionManager";
-	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.portal.workflow.kaleo.forms.service.util.ServiceProps.get(
-				"value.object.entity.cache.enabled.com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink"),
-			true);
-	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.portal.workflow.kaleo.forms.service.util.ServiceProps.get(
-				"value.object.finder.cache.enabled.com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink"),
-			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.portal.workflow.kaleo.forms.service.util.ServiceProps.get(
-				"value.object.column.bitmask.enabled.com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink"),
-			true);
+
+	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(
+		com.liferay.portal.workflow.kaleo.forms.service.util.ServiceProps.get(
+			"value.object.entity.cache.enabled.com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink"),
+		true);
+
+	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(
+		com.liferay.portal.workflow.kaleo.forms.service.util.ServiceProps.get(
+			"value.object.finder.cache.enabled.com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink"),
+		true);
+
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(
+		com.liferay.portal.workflow.kaleo.forms.service.util.ServiceProps.get(
+			"value.object.column.bitmask.enabled.com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink"),
+		true);
+
 	public static final long KALEOPROCESSID_COLUMN_BITMASK = 1L;
+
 	public static final long WORKFLOWTASKNAME_COLUMN_BITMASK = 2L;
+
 	public static final long KALEOPROCESSLINKID_COLUMN_BITMASK = 4L;
-	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.portal.workflow.kaleo.forms.service.util.ServiceProps.get(
-				"lock.expiration.time.com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink"));
+
+	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(
+		com.liferay.portal.workflow.kaleo.forms.service.util.ServiceProps.get(
+			"lock.expiration.time.com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink"));
 
 	public KaleoProcessLinkModelImpl() {
 	}
@@ -135,14 +156,18 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		Map<String, Function<KaleoProcessLink, Object>> attributeGetterFunctions =
-			getAttributeGetterFunctions();
+		Map<String, Function<KaleoProcessLink, Object>>
+			attributeGetterFunctions = getAttributeGetterFunctions();
 
-		for (Map.Entry<String, Function<KaleoProcessLink, Object>> entry : attributeGetterFunctions.entrySet()) {
+		for (Map.Entry<String, Function<KaleoProcessLink, Object>> entry :
+				attributeGetterFunctions.entrySet()) {
+
 			String attributeName = entry.getKey();
-			Function<KaleoProcessLink, Object> attributeGetterFunction = entry.getValue();
+			Function<KaleoProcessLink, Object> attributeGetterFunction =
+				entry.getValue();
 
-			attributes.put(attributeName,
+			attributes.put(
+				attributeName,
 				attributeGetterFunction.apply((KaleoProcessLink)this));
 		}
 
@@ -154,37 +179,46 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Map<String, BiConsumer<KaleoProcessLink, Object>> attributeSetterBiConsumers =
-			getAttributeSetterBiConsumers();
+		Map<String, BiConsumer<KaleoProcessLink, Object>>
+			attributeSetterBiConsumers = getAttributeSetterBiConsumers();
 
 		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
 			String attributeName = entry.getKey();
 
-			BiConsumer<KaleoProcessLink, Object> attributeSetterBiConsumer = attributeSetterBiConsumers.get(attributeName);
+			BiConsumer<KaleoProcessLink, Object> attributeSetterBiConsumer =
+				attributeSetterBiConsumers.get(attributeName);
 
 			if (attributeSetterBiConsumer != null) {
-				attributeSetterBiConsumer.accept((KaleoProcessLink)this,
-					entry.getValue());
+				attributeSetterBiConsumer.accept(
+					(KaleoProcessLink)this, entry.getValue());
 			}
 		}
 	}
 
-	public Map<String, Function<KaleoProcessLink, Object>> getAttributeGetterFunctions() {
+	public Map<String, Function<KaleoProcessLink, Object>>
+		getAttributeGetterFunctions() {
+
 		return _attributeGetterFunctions;
 	}
 
-	public Map<String, BiConsumer<KaleoProcessLink, Object>> getAttributeSetterBiConsumers() {
+	public Map<String, BiConsumer<KaleoProcessLink, Object>>
+		getAttributeSetterBiConsumers() {
+
 		return _attributeSetterBiConsumers;
 	}
 
-	private static final Map<String, Function<KaleoProcessLink, Object>> _attributeGetterFunctions;
-	private static final Map<String, BiConsumer<KaleoProcessLink, Object>> _attributeSetterBiConsumers;
+	private static final Map<String, Function<KaleoProcessLink, Object>>
+		_attributeGetterFunctions;
+	private static final Map<String, BiConsumer<KaleoProcessLink, Object>>
+		_attributeSetterBiConsumers;
 
 	static {
-		Map<String, Function<KaleoProcessLink, Object>> attributeGetterFunctions =
-			new LinkedHashMap<String, Function<KaleoProcessLink, Object>>();
-		Map<String, BiConsumer<KaleoProcessLink, ?>> attributeSetterBiConsumers = new LinkedHashMap<String, BiConsumer<KaleoProcessLink, ?>>();
-
+		Map<String, Function<KaleoProcessLink, Object>>
+			attributeGetterFunctions =
+				new LinkedHashMap<String, Function<KaleoProcessLink, Object>>();
+		Map<String, BiConsumer<KaleoProcessLink, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<KaleoProcessLink, ?>>();
 
 		attributeGetterFunctions.put(
 			"kaleoProcessLinkId",
@@ -201,8 +235,12 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 			new BiConsumer<KaleoProcessLink, Object>() {
 
 				@Override
-				public void accept(KaleoProcessLink kaleoProcessLink, Object kaleoProcessLinkId) {
-					kaleoProcessLink.setKaleoProcessLinkId((Long)kaleoProcessLinkId);
+				public void accept(
+					KaleoProcessLink kaleoProcessLink,
+					Object kaleoProcessLinkId) {
+
+					kaleoProcessLink.setKaleoProcessLinkId(
+						(Long)kaleoProcessLinkId);
 				}
 
 			});
@@ -221,7 +259,9 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 			new BiConsumer<KaleoProcessLink, Object>() {
 
 				@Override
-				public void accept(KaleoProcessLink kaleoProcessLink, Object kaleoProcessId) {
+				public void accept(
+					KaleoProcessLink kaleoProcessLink, Object kaleoProcessId) {
+
 					kaleoProcessLink.setKaleoProcessId((Long)kaleoProcessId);
 				}
 
@@ -241,8 +281,12 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 			new BiConsumer<KaleoProcessLink, Object>() {
 
 				@Override
-				public void accept(KaleoProcessLink kaleoProcessLink, Object workflowTaskName) {
-					kaleoProcessLink.setWorkflowTaskName((String)workflowTaskName);
+				public void accept(
+					KaleoProcessLink kaleoProcessLink,
+					Object workflowTaskName) {
+
+					kaleoProcessLink.setWorkflowTaskName(
+						(String)workflowTaskName);
 				}
 
 			});
@@ -261,15 +305,18 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 			new BiConsumer<KaleoProcessLink, Object>() {
 
 				@Override
-				public void accept(KaleoProcessLink kaleoProcessLink, Object DDMTemplateId) {
+				public void accept(
+					KaleoProcessLink kaleoProcessLink, Object DDMTemplateId) {
+
 					kaleoProcessLink.setDDMTemplateId((Long)DDMTemplateId);
 				}
 
 			});
 
-
-		_attributeGetterFunctions = Collections.unmodifiableMap(attributeGetterFunctions);
-		_attributeSetterBiConsumers = Collections.unmodifiableMap((Map)attributeSetterBiConsumers);
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+		_attributeSetterBiConsumers = Collections.unmodifiableMap(
+			(Map)attributeSetterBiConsumers);
 	}
 
 	@Override
@@ -345,8 +392,8 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 
 	@Override
 	public ExpandoBridge getExpandoBridge() {
-		return ExpandoBridgeFactoryUtil.getExpandoBridge(0,
-			KaleoProcessLink.class.getName(), getPrimaryKey());
+		return ExpandoBridgeFactoryUtil.getExpandoBridge(
+			0, KaleoProcessLink.class.getName(), getPrimaryKey());
 	}
 
 	@Override
@@ -359,8 +406,9 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 	@Override
 	public KaleoProcessLink toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = (KaleoProcessLink)ProxyUtil.newProxyInstance(_classLoader,
-					_escapedModelInterfaces, new AutoEscapeBeanHandler(this));
+			_escapedModel = (KaleoProcessLink)ProxyUtil.newProxyInstance(
+				_classLoader, _escapedModelInterfaces,
+				new AutoEscapeBeanHandler(this));
 		}
 
 		return _escapedModel;
@@ -436,18 +484,21 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 	public void resetOriginalValues() {
 		KaleoProcessLinkModelImpl kaleoProcessLinkModelImpl = this;
 
-		kaleoProcessLinkModelImpl._originalKaleoProcessId = kaleoProcessLinkModelImpl._kaleoProcessId;
+		kaleoProcessLinkModelImpl._originalKaleoProcessId =
+			kaleoProcessLinkModelImpl._kaleoProcessId;
 
 		kaleoProcessLinkModelImpl._setOriginalKaleoProcessId = false;
 
-		kaleoProcessLinkModelImpl._originalWorkflowTaskName = kaleoProcessLinkModelImpl._workflowTaskName;
+		kaleoProcessLinkModelImpl._originalWorkflowTaskName =
+			kaleoProcessLinkModelImpl._workflowTaskName;
 
 		kaleoProcessLinkModelImpl._columnBitmask = 0;
 	}
 
 	@Override
 	public CacheModel<KaleoProcessLink> toCacheModel() {
-		KaleoProcessLinkCacheModel kaleoProcessLinkCacheModel = new KaleoProcessLinkCacheModel();
+		KaleoProcessLinkCacheModel kaleoProcessLinkCacheModel =
+			new KaleoProcessLinkCacheModel();
 
 		kaleoProcessLinkCacheModel.kaleoProcessLinkId = getKaleoProcessLinkId();
 
@@ -468,17 +519,20 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 
 	@Override
 	public String toString() {
-		Map<String, Function<KaleoProcessLink, Object>> attributeGetterFunctions =
-			getAttributeGetterFunctions();
+		Map<String, Function<KaleoProcessLink, Object>>
+			attributeGetterFunctions = getAttributeGetterFunctions();
 
-		StringBundler sb = new StringBundler((4 * attributeGetterFunctions.size()) +
-				2);
+		StringBundler sb = new StringBundler(
+			4 * attributeGetterFunctions.size() + 2);
 
 		sb.append("{");
 
-		for (Map.Entry<String, Function<KaleoProcessLink, Object>> entry : attributeGetterFunctions.entrySet()) {
+		for (Map.Entry<String, Function<KaleoProcessLink, Object>> entry :
+				attributeGetterFunctions.entrySet()) {
+
 			String attributeName = entry.getKey();
-			Function<KaleoProcessLink, Object> attributeGetterFunction = entry.getValue();
+			Function<KaleoProcessLink, Object> attributeGetterFunction =
+				entry.getValue();
 
 			sb.append(attributeName);
 			sb.append("=");
@@ -497,19 +551,22 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 
 	@Override
 	public String toXmlString() {
-		Map<String, Function<KaleoProcessLink, Object>> attributeGetterFunctions =
-			getAttributeGetterFunctions();
+		Map<String, Function<KaleoProcessLink, Object>>
+			attributeGetterFunctions = getAttributeGetterFunctions();
 
-		StringBundler sb = new StringBundler((5 * attributeGetterFunctions.size()) +
-				4);
+		StringBundler sb = new StringBundler(
+			5 * attributeGetterFunctions.size() + 4);
 
 		sb.append("<model><model-name>");
 		sb.append(getModelClassName());
 		sb.append("</model-name>");
 
-		for (Map.Entry<String, Function<KaleoProcessLink, Object>> entry : attributeGetterFunctions.entrySet()) {
+		for (Map.Entry<String, Function<KaleoProcessLink, Object>> entry :
+				attributeGetterFunctions.entrySet()) {
+
 			String attributeName = entry.getKey();
-			Function<KaleoProcessLink, Object> attributeGetterFunction = entry.getValue();
+			Function<KaleoProcessLink, Object> attributeGetterFunction =
+				entry.getValue();
 
 			sb.append("<column><column-name>");
 			sb.append(attributeName);
@@ -523,10 +580,12 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 		return sb.toString();
 	}
 
-	private static final ClassLoader _classLoader = KaleoProcessLink.class.getClassLoader();
+	private static final ClassLoader _classLoader =
+		KaleoProcessLink.class.getClassLoader();
 	private static final Class<?>[] _escapedModelInterfaces = new Class[] {
-			KaleoProcessLink.class, ModelWrapper.class
-		};
+		KaleoProcessLink.class, ModelWrapper.class
+	};
+
 	private long _kaleoProcessLinkId;
 	private long _kaleoProcessId;
 	private long _originalKaleoProcessId;
@@ -536,4 +595,5 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 	private long _DDMTemplateId;
 	private long _columnBitmask;
 	private KaleoProcessLink _escapedModel;
+
 }

@@ -32,12 +32,13 @@ import java.util.Set;
  * @generated
  */
 public class DefinitionFinderBaseImpl extends BasePersistenceImpl<Definition> {
+
 	public DefinitionFinderBaseImpl() {
 		setModelClass(Definition.class);
 
 		try {
 			Field field = BasePersistenceImpl.class.getDeclaredField(
-					"_dbColumnNames");
+				"_dbColumnNames");
 
 			field.setAccessible(true);
 
@@ -75,10 +76,14 @@ public class DefinitionFinderBaseImpl extends BasePersistenceImpl<Definition> {
 	 */
 	public void setDefinitionPersistence(
 		DefinitionPersistence definitionPersistence) {
+
 		this.definitionPersistence = definitionPersistence;
 	}
 
 	@BeanReference(type = DefinitionPersistence.class)
 	protected DefinitionPersistence definitionPersistence;
-	private static final Log _log = LogFactoryUtil.getLog(DefinitionFinderBaseImpl.class);
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		DefinitionFinderBaseImpl.class);
+
 }

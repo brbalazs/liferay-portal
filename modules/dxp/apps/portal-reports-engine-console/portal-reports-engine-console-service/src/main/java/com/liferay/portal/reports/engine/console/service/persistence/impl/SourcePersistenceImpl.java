@@ -71,18 +71,23 @@ import java.util.Set;
  * @generated
  */
 @ProviderType
-public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
-	implements SourcePersistence {
+public class SourcePersistenceImpl
+	extends BasePersistenceImpl<Source> implements SourcePersistence {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>SourceUtil</code> to access the source persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static final String FINDER_CLASS_NAME_ENTITY = SourceImpl.class.getName();
-	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List1";
-	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List2";
+	public static final String FINDER_CLASS_NAME_ENTITY =
+		SourceImpl.class.getName();
+
+	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List1";
+
+	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List2";
+
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
@@ -132,8 +137,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the ordered range of matching sources
 	 */
 	@Override
-	public List<Source> findByUuid(String uuid, int start, int end,
+	public List<Source> findByUuid(
+		String uuid, int start, int end,
 		OrderByComparator<Source> orderByComparator) {
+
 		return findByUuid(uuid, start, end, orderByComparator, true);
 	}
 
@@ -152,8 +159,11 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the ordered range of matching sources
 	 */
 	@Override
-	public List<Source> findByUuid(String uuid, int start, int end,
-		OrderByComparator<Source> orderByComparator, boolean retrieveFromCache) {
+	public List<Source> findByUuid(
+		String uuid, int start, int end,
+		OrderByComparator<Source> orderByComparator,
+		boolean retrieveFromCache) {
+
 		uuid = Objects.toString(uuid, "");
 
 		boolean pagination = true;
@@ -161,21 +171,22 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
+			(orderByComparator == null)) {
+
 			pagination = false;
 			finderPath = _finderPathWithoutPaginationFindByUuid;
-			finderArgs = new Object[] { uuid };
+			finderArgs = new Object[] {uuid};
 		}
 		else {
 			finderPath = _finderPathWithPaginationFindByUuid;
-			finderArgs = new Object[] { uuid, start, end, orderByComparator };
+			finderArgs = new Object[] {uuid, start, end, orderByComparator};
 		}
 
 		List<Source> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<Source>)finderCache.getResult(finderPath, finderArgs,
-					this);
+			list = (List<Source>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (Source source : list) {
@@ -192,8 +203,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
 				query = new StringBundler(3);
@@ -213,11 +224,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			}
 
 			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else
-			 if (pagination) {
+			else if (pagination) {
 				query.append(SourceModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -237,16 +247,16 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 				}
 
 				if (!pagination) {
-					list = (List<Source>)QueryUtil.list(q, getDialect(), start,
-							end, false);
+					list = (List<Source>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<Source>)QueryUtil.list(q, getDialect(), start,
-							end);
+					list = (List<Source>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -275,9 +285,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @throws NoSuchSourceException if a matching source could not be found
 	 */
 	@Override
-	public Source findByUuid_First(String uuid,
-		OrderByComparator<Source> orderByComparator)
+	public Source findByUuid_First(
+			String uuid, OrderByComparator<Source> orderByComparator)
 		throws NoSuchSourceException {
+
 		Source source = fetchByUuid_First(uuid, orderByComparator);
 
 		if (source != null) {
@@ -304,8 +315,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the first matching source, or <code>null</code> if a matching source could not be found
 	 */
 	@Override
-	public Source fetchByUuid_First(String uuid,
-		OrderByComparator<Source> orderByComparator) {
+	public Source fetchByUuid_First(
+		String uuid, OrderByComparator<Source> orderByComparator) {
+
 		List<Source> list = findByUuid(uuid, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -324,9 +336,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @throws NoSuchSourceException if a matching source could not be found
 	 */
 	@Override
-	public Source findByUuid_Last(String uuid,
-		OrderByComparator<Source> orderByComparator)
+	public Source findByUuid_Last(
+			String uuid, OrderByComparator<Source> orderByComparator)
 		throws NoSuchSourceException {
+
 		Source source = fetchByUuid_Last(uuid, orderByComparator);
 
 		if (source != null) {
@@ -353,15 +366,17 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the last matching source, or <code>null</code> if a matching source could not be found
 	 */
 	@Override
-	public Source fetchByUuid_Last(String uuid,
-		OrderByComparator<Source> orderByComparator) {
+	public Source fetchByUuid_Last(
+		String uuid, OrderByComparator<Source> orderByComparator) {
+
 		int count = countByUuid(uuid);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<Source> list = findByUuid(uuid, count - 1, count, orderByComparator);
+		List<Source> list = findByUuid(
+			uuid, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -380,9 +395,11 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @throws NoSuchSourceException if a source with the primary key could not be found
 	 */
 	@Override
-	public Source[] findByUuid_PrevAndNext(long sourceId, String uuid,
-		OrderByComparator<Source> orderByComparator)
+	public Source[] findByUuid_PrevAndNext(
+			long sourceId, String uuid,
+			OrderByComparator<Source> orderByComparator)
 		throws NoSuchSourceException {
+
 		uuid = Objects.toString(uuid, "");
 
 		Source source = findByPrimaryKey(sourceId);
@@ -394,13 +411,13 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 			Source[] array = new SourceImpl[3];
 
-			array[0] = getByUuid_PrevAndNext(session, source, uuid,
-					orderByComparator, true);
+			array[0] = getByUuid_PrevAndNext(
+				session, source, uuid, orderByComparator, true);
 
 			array[1] = source;
 
-			array[2] = getByUuid_PrevAndNext(session, source, uuid,
-					orderByComparator, false);
+			array[2] = getByUuid_PrevAndNext(
+				session, source, uuid, orderByComparator, false);
 
 			return array;
 		}
@@ -412,14 +429,15 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		}
 	}
 
-	protected Source getByUuid_PrevAndNext(Session session, Source source,
-		String uuid, OrderByComparator<Source> orderByComparator,
-		boolean previous) {
+	protected Source getByUuid_PrevAndNext(
+		Session session, Source source, String uuid,
+		OrderByComparator<Source> orderByComparator, boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(4 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -440,7 +458,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -512,8 +531,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		}
 
 		if (orderByComparator != null) {
-			for (Object orderByConditionValue : orderByComparator.getOrderByConditionValues(
-					source)) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(source)) {
+
 				qPos.add(orderByConditionValue);
 			}
 		}
@@ -535,8 +555,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 */
 	@Override
 	public void removeByUuid(String uuid) {
-		for (Source source : findByUuid(uuid, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null)) {
+		for (Source source :
+				findByUuid(uuid, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+
 			remove(source);
 		}
 	}
@@ -553,7 +574,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 		FinderPath finderPath = _finderPathCountByUuid;
 
-		Object[] finderArgs = new Object[] { uuid };
+		Object[] finderArgs = new Object[] {uuid};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -606,7 +627,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	}
 
 	private static final String _FINDER_COLUMN_UUID_UUID_2 = "source.uuid = ?";
-	private static final String _FINDER_COLUMN_UUID_UUID_3 = "(source.uuid IS NULL OR source.uuid = '')";
+
+	private static final String _FINDER_COLUMN_UUID_UUID_3 =
+		"(source.uuid IS NULL OR source.uuid = '')";
+
 	private FinderPath _finderPathFetchByUUID_G;
 	private FinderPath _finderPathCountByUUID_G;
 
@@ -621,6 +645,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	@Override
 	public Source findByUUID_G(String uuid, long groupId)
 		throws NoSuchSourceException {
+
 		Source source = fetchByUUID_G(uuid, groupId);
 
 		if (source == null) {
@@ -667,24 +692,26 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the matching source, or <code>null</code> if a matching source could not be found
 	 */
 	@Override
-	public Source fetchByUUID_G(String uuid, long groupId,
-		boolean retrieveFromCache) {
+	public Source fetchByUUID_G(
+		String uuid, long groupId, boolean retrieveFromCache) {
+
 		uuid = Objects.toString(uuid, "");
 
-		Object[] finderArgs = new Object[] { uuid, groupId };
+		Object[] finderArgs = new Object[] {uuid, groupId};
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = finderCache.getResult(_finderPathFetchByUUID_G,
-					finderArgs, this);
+			result = finderCache.getResult(
+				_finderPathFetchByUUID_G, finderArgs, this);
 		}
 
 		if (result instanceof Source) {
 			Source source = (Source)result;
 
 			if (!Objects.equals(uuid, source.getUuid()) ||
-					(groupId != source.getGroupId())) {
+				(groupId != source.getGroupId())) {
+
 				result = null;
 			}
 		}
@@ -727,8 +754,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 				List<Source> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(_finderPathFetchByUUID_G, finderArgs,
-						list);
+					finderCache.putResult(
+						_finderPathFetchByUUID_G, finderArgs, list);
 				}
 				else {
 					Source source = list.get(0);
@@ -766,6 +793,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	@Override
 	public Source removeByUUID_G(String uuid, long groupId)
 		throws NoSuchSourceException {
+
 		Source source = findByUUID_G(uuid, groupId);
 
 		return remove(source);
@@ -784,7 +812,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 		FinderPath finderPath = _finderPathCountByUUID_G;
 
-		Object[] finderArgs = new Object[] { uuid, groupId };
+		Object[] finderArgs = new Object[] {uuid, groupId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -840,9 +868,15 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_UUID_G_UUID_2 = "source.uuid = ? AND ";
-	private static final String _FINDER_COLUMN_UUID_G_UUID_3 = "(source.uuid IS NULL OR source.uuid = '') AND ";
-	private static final String _FINDER_COLUMN_UUID_G_GROUPID_2 = "source.groupId = ?";
+	private static final String _FINDER_COLUMN_UUID_G_UUID_2 =
+		"source.uuid = ? AND ";
+
+	private static final String _FINDER_COLUMN_UUID_G_UUID_3 =
+		"(source.uuid IS NULL OR source.uuid = '') AND ";
+
+	private static final String _FINDER_COLUMN_UUID_G_GROUPID_2 =
+		"source.groupId = ?";
+
 	private FinderPath _finderPathWithPaginationFindByUuid_C;
 	private FinderPath _finderPathWithoutPaginationFindByUuid_C;
 	private FinderPath _finderPathCountByUuid_C;
@@ -856,8 +890,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 */
 	@Override
 	public List<Source> findByUuid_C(String uuid, long companyId) {
-		return findByUuid_C(uuid, companyId, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, null);
+		return findByUuid_C(
+			uuid, companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
@@ -874,8 +908,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the range of matching sources
 	 */
 	@Override
-	public List<Source> findByUuid_C(String uuid, long companyId, int start,
-		int end) {
+	public List<Source> findByUuid_C(
+		String uuid, long companyId, int start, int end) {
+
 		return findByUuid_C(uuid, companyId, start, end, null);
 	}
 
@@ -894,9 +929,12 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the ordered range of matching sources
 	 */
 	@Override
-	public List<Source> findByUuid_C(String uuid, long companyId, int start,
-		int end, OrderByComparator<Source> orderByComparator) {
-		return findByUuid_C(uuid, companyId, start, end, orderByComparator, true);
+	public List<Source> findByUuid_C(
+		String uuid, long companyId, int start, int end,
+		OrderByComparator<Source> orderByComparator) {
+
+		return findByUuid_C(
+			uuid, companyId, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -915,9 +953,11 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the ordered range of matching sources
 	 */
 	@Override
-	public List<Source> findByUuid_C(String uuid, long companyId, int start,
-		int end, OrderByComparator<Source> orderByComparator,
+	public List<Source> findByUuid_C(
+		String uuid, long companyId, int start, int end,
+		OrderByComparator<Source> orderByComparator,
 		boolean retrieveFromCache) {
+
 		uuid = Objects.toString(uuid, "");
 
 		boolean pagination = true;
@@ -925,30 +965,30 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
+			(orderByComparator == null)) {
+
 			pagination = false;
 			finderPath = _finderPathWithoutPaginationFindByUuid_C;
-			finderArgs = new Object[] { uuid, companyId };
+			finderArgs = new Object[] {uuid, companyId};
 		}
 		else {
 			finderPath = _finderPathWithPaginationFindByUuid_C;
 			finderArgs = new Object[] {
-					uuid, companyId,
-					
-					start, end, orderByComparator
-				};
+				uuid, companyId, start, end, orderByComparator
+			};
 		}
 
 		List<Source> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<Source>)finderCache.getResult(finderPath, finderArgs,
-					this);
+			list = (List<Source>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (Source source : list) {
 					if (!uuid.equals(source.getUuid()) ||
-							(companyId != source.getCompanyId())) {
+						(companyId != source.getCompanyId())) {
+
 						list = null;
 
 						break;
@@ -961,8 +1001,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(4 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					4 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
 				query = new StringBundler(4);
@@ -984,11 +1024,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			query.append(_FINDER_COLUMN_UUID_C_COMPANYID_2);
 
 			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else
-			 if (pagination) {
+			else if (pagination) {
 				query.append(SourceModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -1010,16 +1049,16 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 				qPos.add(companyId);
 
 				if (!pagination) {
-					list = (List<Source>)QueryUtil.list(q, getDialect(), start,
-							end, false);
+					list = (List<Source>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<Source>)QueryUtil.list(q, getDialect(), start,
-							end);
+					list = (List<Source>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -1049,9 +1088,11 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @throws NoSuchSourceException if a matching source could not be found
 	 */
 	@Override
-	public Source findByUuid_C_First(String uuid, long companyId,
-		OrderByComparator<Source> orderByComparator)
+	public Source findByUuid_C_First(
+			String uuid, long companyId,
+			OrderByComparator<Source> orderByComparator)
 		throws NoSuchSourceException {
+
 		Source source = fetchByUuid_C_First(uuid, companyId, orderByComparator);
 
 		if (source != null) {
@@ -1082,10 +1123,12 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the first matching source, or <code>null</code> if a matching source could not be found
 	 */
 	@Override
-	public Source fetchByUuid_C_First(String uuid, long companyId,
+	public Source fetchByUuid_C_First(
+		String uuid, long companyId,
 		OrderByComparator<Source> orderByComparator) {
-		List<Source> list = findByUuid_C(uuid, companyId, 0, 1,
-				orderByComparator);
+
+		List<Source> list = findByUuid_C(
+			uuid, companyId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -1104,9 +1147,11 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @throws NoSuchSourceException if a matching source could not be found
 	 */
 	@Override
-	public Source findByUuid_C_Last(String uuid, long companyId,
-		OrderByComparator<Source> orderByComparator)
+	public Source findByUuid_C_Last(
+			String uuid, long companyId,
+			OrderByComparator<Source> orderByComparator)
 		throws NoSuchSourceException {
+
 		Source source = fetchByUuid_C_Last(uuid, companyId, orderByComparator);
 
 		if (source != null) {
@@ -1137,16 +1182,18 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the last matching source, or <code>null</code> if a matching source could not be found
 	 */
 	@Override
-	public Source fetchByUuid_C_Last(String uuid, long companyId,
+	public Source fetchByUuid_C_Last(
+		String uuid, long companyId,
 		OrderByComparator<Source> orderByComparator) {
+
 		int count = countByUuid_C(uuid, companyId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<Source> list = findByUuid_C(uuid, companyId, count - 1, count,
-				orderByComparator);
+		List<Source> list = findByUuid_C(
+			uuid, companyId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -1166,9 +1213,11 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @throws NoSuchSourceException if a source with the primary key could not be found
 	 */
 	@Override
-	public Source[] findByUuid_C_PrevAndNext(long sourceId, String uuid,
-		long companyId, OrderByComparator<Source> orderByComparator)
+	public Source[] findByUuid_C_PrevAndNext(
+			long sourceId, String uuid, long companyId,
+			OrderByComparator<Source> orderByComparator)
 		throws NoSuchSourceException {
+
 		uuid = Objects.toString(uuid, "");
 
 		Source source = findByPrimaryKey(sourceId);
@@ -1180,13 +1229,13 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 			Source[] array = new SourceImpl[3];
 
-			array[0] = getByUuid_C_PrevAndNext(session, source, uuid,
-					companyId, orderByComparator, true);
+			array[0] = getByUuid_C_PrevAndNext(
+				session, source, uuid, companyId, orderByComparator, true);
 
 			array[1] = source;
 
-			array[2] = getByUuid_C_PrevAndNext(session, source, uuid,
-					companyId, orderByComparator, false);
+			array[2] = getByUuid_C_PrevAndNext(
+				session, source, uuid, companyId, orderByComparator, false);
 
 			return array;
 		}
@@ -1198,14 +1247,15 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		}
 	}
 
-	protected Source getByUuid_C_PrevAndNext(Session session, Source source,
-		String uuid, long companyId,
+	protected Source getByUuid_C_PrevAndNext(
+		Session session, Source source, String uuid, long companyId,
 		OrderByComparator<Source> orderByComparator, boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(5 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -1228,7 +1278,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		query.append(_FINDER_COLUMN_UUID_C_COMPANYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -1302,8 +1353,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			for (Object orderByConditionValue : orderByComparator.getOrderByConditionValues(
-					source)) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(source)) {
+
 				qPos.add(orderByConditionValue);
 			}
 		}
@@ -1326,8 +1378,11 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 */
 	@Override
 	public void removeByUuid_C(String uuid, long companyId) {
-		for (Source source : findByUuid_C(uuid, companyId, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null)) {
+		for (Source source :
+				findByUuid_C(
+					uuid, companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+					null)) {
+
 			remove(source);
 		}
 	}
@@ -1345,7 +1400,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 		FinderPath finderPath = _finderPathCountByUuid_C;
 
-		Object[] finderArgs = new Object[] { uuid, companyId };
+		Object[] finderArgs = new Object[] {uuid, companyId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -1401,9 +1456,15 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_UUID_C_UUID_2 = "source.uuid = ? AND ";
-	private static final String _FINDER_COLUMN_UUID_C_UUID_3 = "(source.uuid IS NULL OR source.uuid = '') AND ";
-	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 = "source.companyId = ?";
+	private static final String _FINDER_COLUMN_UUID_C_UUID_2 =
+		"source.uuid = ? AND ";
+
+	private static final String _FINDER_COLUMN_UUID_C_UUID_3 =
+		"(source.uuid IS NULL OR source.uuid = '') AND ";
+
+	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
+		"source.companyId = ?";
+
 	private FinderPath _finderPathWithPaginationFindByGroupId;
 	private FinderPath _finderPathWithoutPaginationFindByGroupId;
 	private FinderPath _finderPathCountByGroupId;
@@ -1416,7 +1477,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 */
 	@Override
 	public List<Source> findByGroupId(long groupId) {
-		return findByGroupId(groupId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+		return findByGroupId(
+			groupId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
@@ -1450,8 +1512,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the ordered range of matching sources
 	 */
 	@Override
-	public List<Source> findByGroupId(long groupId, int start, int end,
+	public List<Source> findByGroupId(
+		long groupId, int start, int end,
 		OrderByComparator<Source> orderByComparator) {
+
 		return findByGroupId(groupId, start, end, orderByComparator, true);
 	}
 
@@ -1470,28 +1534,32 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the ordered range of matching sources
 	 */
 	@Override
-	public List<Source> findByGroupId(long groupId, int start, int end,
-		OrderByComparator<Source> orderByComparator, boolean retrieveFromCache) {
+	public List<Source> findByGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<Source> orderByComparator,
+		boolean retrieveFromCache) {
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
+			(orderByComparator == null)) {
+
 			pagination = false;
 			finderPath = _finderPathWithoutPaginationFindByGroupId;
-			finderArgs = new Object[] { groupId };
+			finderArgs = new Object[] {groupId};
 		}
 		else {
 			finderPath = _finderPathWithPaginationFindByGroupId;
-			finderArgs = new Object[] { groupId, start, end, orderByComparator };
+			finderArgs = new Object[] {groupId, start, end, orderByComparator};
 		}
 
 		List<Source> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<Source>)finderCache.getResult(finderPath, finderArgs,
-					this);
+			list = (List<Source>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (Source source : list) {
@@ -1508,8 +1576,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
 				query = new StringBundler(3);
@@ -1520,11 +1588,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
 
 			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else
-			 if (pagination) {
+			else if (pagination) {
 				query.append(SourceModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -1542,16 +1609,16 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 				qPos.add(groupId);
 
 				if (!pagination) {
-					list = (List<Source>)QueryUtil.list(q, getDialect(), start,
-							end, false);
+					list = (List<Source>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<Source>)QueryUtil.list(q, getDialect(), start,
-							end);
+					list = (List<Source>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -1580,9 +1647,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @throws NoSuchSourceException if a matching source could not be found
 	 */
 	@Override
-	public Source findByGroupId_First(long groupId,
-		OrderByComparator<Source> orderByComparator)
+	public Source findByGroupId_First(
+			long groupId, OrderByComparator<Source> orderByComparator)
 		throws NoSuchSourceException {
+
 		Source source = fetchByGroupId_First(groupId, orderByComparator);
 
 		if (source != null) {
@@ -1609,8 +1677,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the first matching source, or <code>null</code> if a matching source could not be found
 	 */
 	@Override
-	public Source fetchByGroupId_First(long groupId,
-		OrderByComparator<Source> orderByComparator) {
+	public Source fetchByGroupId_First(
+		long groupId, OrderByComparator<Source> orderByComparator) {
+
 		List<Source> list = findByGroupId(groupId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -1629,9 +1698,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @throws NoSuchSourceException if a matching source could not be found
 	 */
 	@Override
-	public Source findByGroupId_Last(long groupId,
-		OrderByComparator<Source> orderByComparator)
+	public Source findByGroupId_Last(
+			long groupId, OrderByComparator<Source> orderByComparator)
 		throws NoSuchSourceException {
+
 		Source source = fetchByGroupId_Last(groupId, orderByComparator);
 
 		if (source != null) {
@@ -1658,16 +1728,17 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the last matching source, or <code>null</code> if a matching source could not be found
 	 */
 	@Override
-	public Source fetchByGroupId_Last(long groupId,
-		OrderByComparator<Source> orderByComparator) {
+	public Source fetchByGroupId_Last(
+		long groupId, OrderByComparator<Source> orderByComparator) {
+
 		int count = countByGroupId(groupId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<Source> list = findByGroupId(groupId, count - 1, count,
-				orderByComparator);
+		List<Source> list = findByGroupId(
+			groupId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -1686,9 +1757,11 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @throws NoSuchSourceException if a source with the primary key could not be found
 	 */
 	@Override
-	public Source[] findByGroupId_PrevAndNext(long sourceId, long groupId,
-		OrderByComparator<Source> orderByComparator)
+	public Source[] findByGroupId_PrevAndNext(
+			long sourceId, long groupId,
+			OrderByComparator<Source> orderByComparator)
 		throws NoSuchSourceException {
+
 		Source source = findByPrimaryKey(sourceId);
 
 		Session session = null;
@@ -1698,13 +1771,13 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 			Source[] array = new SourceImpl[3];
 
-			array[0] = getByGroupId_PrevAndNext(session, source, groupId,
-					orderByComparator, true);
+			array[0] = getByGroupId_PrevAndNext(
+				session, source, groupId, orderByComparator, true);
 
 			array[1] = source;
 
-			array[2] = getByGroupId_PrevAndNext(session, source, groupId,
-					orderByComparator, false);
+			array[2] = getByGroupId_PrevAndNext(
+				session, source, groupId, orderByComparator, false);
 
 			return array;
 		}
@@ -1716,14 +1789,15 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		}
 	}
 
-	protected Source getByGroupId_PrevAndNext(Session session, Source source,
-		long groupId, OrderByComparator<Source> orderByComparator,
-		boolean previous) {
+	protected Source getByGroupId_PrevAndNext(
+		Session session, Source source, long groupId,
+		OrderByComparator<Source> orderByComparator, boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(4 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -1735,7 +1809,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -1805,8 +1880,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		qPos.add(groupId);
 
 		if (orderByComparator != null) {
-			for (Object orderByConditionValue : orderByComparator.getOrderByConditionValues(
-					source)) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(source)) {
+
 				qPos.add(orderByConditionValue);
 			}
 		}
@@ -1829,8 +1905,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 */
 	@Override
 	public List<Source> filterFindByGroupId(long groupId) {
-		return filterFindByGroupId(groupId, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, null);
+		return filterFindByGroupId(
+			groupId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
@@ -1864,8 +1940,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the ordered range of matching sources that the user has permission to view
 	 */
 	@Override
-	public List<Source> filterFindByGroupId(long groupId, int start, int end,
+	public List<Source> filterFindByGroupId(
+		long groupId, int start, int end,
 		OrderByComparator<Source> orderByComparator) {
+
 		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
 			return findByGroupId(groupId, start, end, orderByComparator);
 		}
@@ -1873,8 +1951,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(3 +
-					(orderByComparator.getOrderByFields().length * 2));
+			query = new StringBundler(
+				3 + (orderByComparator.getOrderByFields().length * 2));
 		}
 		else {
 			query = new StringBundler(4);
@@ -1895,12 +1973,12 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 		if (orderByComparator != null) {
 			if (getDB().isSupportsInlineDistinct()) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator, true);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
 			}
 			else {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_TABLE,
-					orderByComparator, true);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
 			}
 		}
 		else {
@@ -1912,9 +1990,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			}
 		}
 
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				Source.class.getName(), _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN,
-				groupId);
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), Source.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN, groupId);
 
 		Session session = null;
 
@@ -1954,12 +2032,14 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @throws NoSuchSourceException if a source with the primary key could not be found
 	 */
 	@Override
-	public Source[] filterFindByGroupId_PrevAndNext(long sourceId,
-		long groupId, OrderByComparator<Source> orderByComparator)
+	public Source[] filterFindByGroupId_PrevAndNext(
+			long sourceId, long groupId,
+			OrderByComparator<Source> orderByComparator)
 		throws NoSuchSourceException {
+
 		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
-			return findByGroupId_PrevAndNext(sourceId, groupId,
-				orderByComparator);
+			return findByGroupId_PrevAndNext(
+				sourceId, groupId, orderByComparator);
 		}
 
 		Source source = findByPrimaryKey(sourceId);
@@ -1971,13 +2051,13 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 			Source[] array = new SourceImpl[3];
 
-			array[0] = filterGetByGroupId_PrevAndNext(session, source, groupId,
-					orderByComparator, true);
+			array[0] = filterGetByGroupId_PrevAndNext(
+				session, source, groupId, orderByComparator, true);
 
 			array[1] = source;
 
-			array[2] = filterGetByGroupId_PrevAndNext(session, source, groupId,
-					orderByComparator, false);
+			array[2] = filterGetByGroupId_PrevAndNext(
+				session, source, groupId, orderByComparator, false);
 
 			return array;
 		}
@@ -1989,14 +2069,15 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		}
 	}
 
-	protected Source filterGetByGroupId_PrevAndNext(Session session,
-		Source source, long groupId,
+	protected Source filterGetByGroupId_PrevAndNext(
+		Session session, Source source, long groupId,
 		OrderByComparator<Source> orderByComparator, boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(5 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -2017,7 +2098,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -2025,12 +2107,16 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
-					query.append(getColumnName(_ORDER_BY_ENTITY_ALIAS,
-							orderByConditionFields[i], true));
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_ALIAS, orderByConditionFields[i],
+							true));
 				}
 				else {
-					query.append(getColumnName(_ORDER_BY_ENTITY_TABLE,
-							orderByConditionFields[i], true));
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_TABLE, orderByConditionFields[i],
+							true));
 				}
 
 				if ((i + 1) < orderByConditionFields.length) {
@@ -2057,12 +2143,14 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
-					query.append(getColumnName(_ORDER_BY_ENTITY_ALIAS,
-							orderByFields[i], true));
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_ALIAS, orderByFields[i], true));
 				}
 				else {
-					query.append(getColumnName(_ORDER_BY_ENTITY_TABLE,
-							orderByFields[i], true));
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_TABLE, orderByFields[i], true));
 				}
 
 				if ((i + 1) < orderByFields.length) {
@@ -2092,9 +2180,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			}
 		}
 
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				Source.class.getName(), _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN,
-				groupId);
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), Source.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN, groupId);
 
 		SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
@@ -2113,8 +2201,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		qPos.add(groupId);
 
 		if (orderByComparator != null) {
-			for (Object orderByConditionValue : orderByComparator.getOrderByConditionValues(
-					source)) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(source)) {
+
 				qPos.add(orderByConditionValue);
 			}
 		}
@@ -2136,8 +2225,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 */
 	@Override
 	public void removeByGroupId(long groupId) {
-		for (Source source : findByGroupId(groupId, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null)) {
+		for (Source source :
+				findByGroupId(
+					groupId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+
 			remove(source);
 		}
 	}
@@ -2152,7 +2243,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	public int countByGroupId(long groupId) {
 		FinderPath finderPath = _finderPathCountByGroupId;
 
-		Object[] finderArgs = new Object[] { groupId };
+		Object[] finderArgs = new Object[] {groupId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -2211,9 +2302,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 		query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
 
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				Source.class.getName(), _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN,
-				groupId);
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), Source.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN, groupId);
 
 		Session session = null;
 
@@ -2222,8 +2313,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
-			q.addScalar(COUNT_COLUMN_NAME,
-				com.liferay.portal.kernel.dao.orm.Type.LONG);
+			q.addScalar(
+				COUNT_COLUMN_NAME, com.liferay.portal.kernel.dao.orm.Type.LONG);
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
@@ -2241,7 +2332,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		}
 	}
 
-	private static final String _FINDER_COLUMN_GROUPID_GROUPID_2 = "source.groupId = ?";
+	private static final String _FINDER_COLUMN_GROUPID_GROUPID_2 =
+		"source.groupId = ?";
+
 	private FinderPath _finderPathWithPaginationFindByCompanyId;
 	private FinderPath _finderPathWithoutPaginationFindByCompanyId;
 	private FinderPath _finderPathCountByCompanyId;
@@ -2254,8 +2347,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 */
 	@Override
 	public List<Source> findByCompanyId(long companyId) {
-		return findByCompanyId(companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			null);
+		return findByCompanyId(
+			companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
@@ -2289,8 +2382,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the ordered range of matching sources
 	 */
 	@Override
-	public List<Source> findByCompanyId(long companyId, int start, int end,
+	public List<Source> findByCompanyId(
+		long companyId, int start, int end,
 		OrderByComparator<Source> orderByComparator) {
+
 		return findByCompanyId(companyId, start, end, orderByComparator, true);
 	}
 
@@ -2309,28 +2404,34 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the ordered range of matching sources
 	 */
 	@Override
-	public List<Source> findByCompanyId(long companyId, int start, int end,
-		OrderByComparator<Source> orderByComparator, boolean retrieveFromCache) {
+	public List<Source> findByCompanyId(
+		long companyId, int start, int end,
+		OrderByComparator<Source> orderByComparator,
+		boolean retrieveFromCache) {
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
+			(orderByComparator == null)) {
+
 			pagination = false;
 			finderPath = _finderPathWithoutPaginationFindByCompanyId;
-			finderArgs = new Object[] { companyId };
+			finderArgs = new Object[] {companyId};
 		}
 		else {
 			finderPath = _finderPathWithPaginationFindByCompanyId;
-			finderArgs = new Object[] { companyId, start, end, orderByComparator };
+			finderArgs = new Object[] {
+				companyId, start, end, orderByComparator
+			};
 		}
 
 		List<Source> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<Source>)finderCache.getResult(finderPath, finderArgs,
-					this);
+			list = (List<Source>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (Source source : list) {
@@ -2347,8 +2448,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
 				query = new StringBundler(3);
@@ -2359,11 +2460,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else
-			 if (pagination) {
+			else if (pagination) {
 				query.append(SourceModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -2381,16 +2481,16 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 				qPos.add(companyId);
 
 				if (!pagination) {
-					list = (List<Source>)QueryUtil.list(q, getDialect(), start,
-							end, false);
+					list = (List<Source>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<Source>)QueryUtil.list(q, getDialect(), start,
-							end);
+					list = (List<Source>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -2419,9 +2519,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @throws NoSuchSourceException if a matching source could not be found
 	 */
 	@Override
-	public Source findByCompanyId_First(long companyId,
-		OrderByComparator<Source> orderByComparator)
+	public Source findByCompanyId_First(
+			long companyId, OrderByComparator<Source> orderByComparator)
 		throws NoSuchSourceException {
+
 		Source source = fetchByCompanyId_First(companyId, orderByComparator);
 
 		if (source != null) {
@@ -2448,8 +2549,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the first matching source, or <code>null</code> if a matching source could not be found
 	 */
 	@Override
-	public Source fetchByCompanyId_First(long companyId,
-		OrderByComparator<Source> orderByComparator) {
+	public Source fetchByCompanyId_First(
+		long companyId, OrderByComparator<Source> orderByComparator) {
+
 		List<Source> list = findByCompanyId(companyId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -2468,9 +2570,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @throws NoSuchSourceException if a matching source could not be found
 	 */
 	@Override
-	public Source findByCompanyId_Last(long companyId,
-		OrderByComparator<Source> orderByComparator)
+	public Source findByCompanyId_Last(
+			long companyId, OrderByComparator<Source> orderByComparator)
 		throws NoSuchSourceException {
+
 		Source source = fetchByCompanyId_Last(companyId, orderByComparator);
 
 		if (source != null) {
@@ -2497,16 +2600,17 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the last matching source, or <code>null</code> if a matching source could not be found
 	 */
 	@Override
-	public Source fetchByCompanyId_Last(long companyId,
-		OrderByComparator<Source> orderByComparator) {
+	public Source fetchByCompanyId_Last(
+		long companyId, OrderByComparator<Source> orderByComparator) {
+
 		int count = countByCompanyId(companyId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<Source> list = findByCompanyId(companyId, count - 1, count,
-				orderByComparator);
+		List<Source> list = findByCompanyId(
+			companyId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -2525,9 +2629,11 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @throws NoSuchSourceException if a source with the primary key could not be found
 	 */
 	@Override
-	public Source[] findByCompanyId_PrevAndNext(long sourceId, long companyId,
-		OrderByComparator<Source> orderByComparator)
+	public Source[] findByCompanyId_PrevAndNext(
+			long sourceId, long companyId,
+			OrderByComparator<Source> orderByComparator)
 		throws NoSuchSourceException {
+
 		Source source = findByPrimaryKey(sourceId);
 
 		Session session = null;
@@ -2537,13 +2643,13 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 			Source[] array = new SourceImpl[3];
 
-			array[0] = getByCompanyId_PrevAndNext(session, source, companyId,
-					orderByComparator, true);
+			array[0] = getByCompanyId_PrevAndNext(
+				session, source, companyId, orderByComparator, true);
 
 			array[1] = source;
 
-			array[2] = getByCompanyId_PrevAndNext(session, source, companyId,
-					orderByComparator, false);
+			array[2] = getByCompanyId_PrevAndNext(
+				session, source, companyId, orderByComparator, false);
 
 			return array;
 		}
@@ -2555,14 +2661,15 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		}
 	}
 
-	protected Source getByCompanyId_PrevAndNext(Session session, Source source,
-		long companyId, OrderByComparator<Source> orderByComparator,
-		boolean previous) {
+	protected Source getByCompanyId_PrevAndNext(
+		Session session, Source source, long companyId,
+		OrderByComparator<Source> orderByComparator, boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(4 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -2574,7 +2681,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -2644,8 +2752,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			for (Object orderByConditionValue : orderByComparator.getOrderByConditionValues(
-					source)) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(source)) {
+
 				qPos.add(orderByConditionValue);
 			}
 		}
@@ -2667,8 +2776,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 */
 	@Override
 	public void removeByCompanyId(long companyId) {
-		for (Source source : findByCompanyId(companyId, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null)) {
+		for (Source source :
+				findByCompanyId(
+					companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+
 			remove(source);
 		}
 	}
@@ -2683,7 +2794,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	public int countByCompanyId(long companyId) {
 		FinderPath finderPath = _finderPathCountByCompanyId;
 
-		Object[] finderArgs = new Object[] { companyId };
+		Object[] finderArgs = new Object[] {companyId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -2724,14 +2835,15 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 = "source.companyId = ?";
+	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 =
+		"source.companyId = ?";
 
 	public SourcePersistenceImpl() {
 		setModelClass(Source.class);
 
 		try {
 			Field field = BasePersistenceImpl.class.getDeclaredField(
-					"_dbColumnNames");
+				"_dbColumnNames");
 
 			field.setAccessible(true);
 
@@ -2755,11 +2867,13 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 */
 	@Override
 	public void cacheResult(Source source) {
-		entityCache.putResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceImpl.class, source.getPrimaryKey(), source);
+		entityCache.putResult(
+			SourceModelImpl.ENTITY_CACHE_ENABLED, SourceImpl.class,
+			source.getPrimaryKey(), source);
 
-		finderCache.putResult(_finderPathFetchByUUID_G,
-			new Object[] { source.getUuid(), source.getGroupId() }, source);
+		finderCache.putResult(
+			_finderPathFetchByUUID_G,
+			new Object[] {source.getUuid(), source.getGroupId()}, source);
 
 		source.resetOriginalValues();
 	}
@@ -2772,8 +2886,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	@Override
 	public void cacheResult(List<Source> sources) {
 		for (Source source : sources) {
-			if (entityCache.getResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-						SourceImpl.class, source.getPrimaryKey()) == null) {
+			if (entityCache.getResult(
+					SourceModelImpl.ENTITY_CACHE_ENABLED, SourceImpl.class,
+					source.getPrimaryKey()) == null) {
+
 				cacheResult(source);
 			}
 			else {
@@ -2807,8 +2923,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 */
 	@Override
 	public void clearCache(Source source) {
-		entityCache.removeResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceImpl.class, source.getPrimaryKey());
+		entityCache.removeResult(
+			SourceModelImpl.ENTITY_CACHE_ENABLED, SourceImpl.class,
+			source.getPrimaryKey());
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -2822,8 +2939,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
 		for (Source source : sources) {
-			entityCache.removeResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceImpl.class, source.getPrimaryKey());
+			entityCache.removeResult(
+				SourceModelImpl.ENTITY_CACHE_ENABLED, SourceImpl.class,
+				source.getPrimaryKey());
 
 			clearUniqueFindersCache((SourceModelImpl)source, true);
 		}
@@ -2831,32 +2949,34 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 	protected void cacheUniqueFindersCache(SourceModelImpl sourceModelImpl) {
 		Object[] args = new Object[] {
-				sourceModelImpl.getUuid(), sourceModelImpl.getGroupId()
-			};
+			sourceModelImpl.getUuid(), sourceModelImpl.getGroupId()
+		};
 
-		finderCache.putResult(_finderPathCountByUUID_G, args, Long.valueOf(1),
-			false);
-		finderCache.putResult(_finderPathFetchByUUID_G, args, sourceModelImpl,
-			false);
+		finderCache.putResult(
+			_finderPathCountByUUID_G, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByUUID_G, args, sourceModelImpl, false);
 	}
 
-	protected void clearUniqueFindersCache(SourceModelImpl sourceModelImpl,
-		boolean clearCurrent) {
+	protected void clearUniqueFindersCache(
+		SourceModelImpl sourceModelImpl, boolean clearCurrent) {
+
 		if (clearCurrent) {
 			Object[] args = new Object[] {
-					sourceModelImpl.getUuid(), sourceModelImpl.getGroupId()
-				};
+				sourceModelImpl.getUuid(), sourceModelImpl.getGroupId()
+			};
 
 			finderCache.removeResult(_finderPathCountByUUID_G, args);
 			finderCache.removeResult(_finderPathFetchByUUID_G, args);
 		}
 
 		if ((sourceModelImpl.getColumnBitmask() &
-				_finderPathFetchByUUID_G.getColumnBitmask()) != 0) {
+			 _finderPathFetchByUUID_G.getColumnBitmask()) != 0) {
+
 			Object[] args = new Object[] {
-					sourceModelImpl.getOriginalUuid(),
-					sourceModelImpl.getOriginalGroupId()
-				};
+				sourceModelImpl.getOriginalUuid(),
+				sourceModelImpl.getOriginalGroupId()
+			};
 
 			finderCache.removeResult(_finderPathCountByUUID_G, args);
 			finderCache.removeResult(_finderPathFetchByUUID_G, args);
@@ -2918,8 +3038,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
-				throw new NoSuchSourceException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					primaryKey);
+				throw new NoSuchSourceException(
+					_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			return remove(source);
@@ -2943,8 +3063,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			session = openSession();
 
 			if (!session.contains(source)) {
-				source = (Source)session.get(SourceImpl.class,
-						source.getPrimaryKeyObj());
+				source = (Source)session.get(
+					SourceImpl.class, source.getPrimaryKeyObj());
 			}
 
 			if (source != null) {
@@ -2977,12 +3097,12 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 				throw new IllegalArgumentException(
 					"Implement ModelWrapper in source proxy " +
-					invocationHandler.getClass());
+						invocationHandler.getClass());
 			}
 
 			throw new IllegalArgumentException(
 				"Implement ModelWrapper in custom Source implementation " +
-				source.getClass());
+					source.getClass());
 		}
 
 		SourceModelImpl sourceModelImpl = (SourceModelImpl)source;
@@ -2993,7 +3113,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			source.setUuid(uuid);
 		}
 
-		ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
 
 		Date now = new Date();
 
@@ -3041,113 +3162,121 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		if (!SourceModelImpl.COLUMN_BITMASK_ENABLED) {
 			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
-		else
-		 if (isNew) {
-			Object[] args = new Object[] { sourceModelImpl.getUuid() };
+		else if (isNew) {
+			Object[] args = new Object[] {sourceModelImpl.getUuid()};
 
 			finderCache.removeResult(_finderPathCountByUuid, args);
-			finderCache.removeResult(_finderPathWithoutPaginationFindByUuid,
-				args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByUuid, args);
 
 			args = new Object[] {
+				sourceModelImpl.getUuid(), sourceModelImpl.getCompanyId()
+			};
+
+			finderCache.removeResult(_finderPathCountByUuid_C, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByUuid_C, args);
+
+			args = new Object[] {sourceModelImpl.getGroupId()};
+
+			finderCache.removeResult(_finderPathCountByGroupId, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByGroupId, args);
+
+			args = new Object[] {sourceModelImpl.getCompanyId()};
+
+			finderCache.removeResult(_finderPathCountByCompanyId, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByCompanyId, args);
+
+			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
+		}
+		else {
+			if ((sourceModelImpl.getColumnBitmask() &
+				 _finderPathWithoutPaginationFindByUuid.getColumnBitmask()) !=
+					 0) {
+
+				Object[] args = new Object[] {
+					sourceModelImpl.getOriginalUuid()
+				};
+
+				finderCache.removeResult(_finderPathCountByUuid, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByUuid, args);
+
+				args = new Object[] {sourceModelImpl.getUuid()};
+
+				finderCache.removeResult(_finderPathCountByUuid, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByUuid, args);
+			}
+
+			if ((sourceModelImpl.getColumnBitmask() &
+				 _finderPathWithoutPaginationFindByUuid_C.getColumnBitmask()) !=
+					 0) {
+
+				Object[] args = new Object[] {
+					sourceModelImpl.getOriginalUuid(),
+					sourceModelImpl.getOriginalCompanyId()
+				};
+
+				finderCache.removeResult(_finderPathCountByUuid_C, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByUuid_C, args);
+
+				args = new Object[] {
 					sourceModelImpl.getUuid(), sourceModelImpl.getCompanyId()
 				};
 
-			finderCache.removeResult(_finderPathCountByUuid_C, args);
-			finderCache.removeResult(_finderPathWithoutPaginationFindByUuid_C,
-				args);
-
-			args = new Object[] { sourceModelImpl.getGroupId() };
-
-			finderCache.removeResult(_finderPathCountByGroupId, args);
-			finderCache.removeResult(_finderPathWithoutPaginationFindByGroupId,
-				args);
-
-			args = new Object[] { sourceModelImpl.getCompanyId() };
-
-			finderCache.removeResult(_finderPathCountByCompanyId, args);
-			finderCache.removeResult(_finderPathWithoutPaginationFindByCompanyId,
-				args);
-
-			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
-			finderCache.removeResult(_finderPathWithoutPaginationFindAll,
-				FINDER_ARGS_EMPTY);
-		}
-
-		else {
-			if ((sourceModelImpl.getColumnBitmask() &
-					_finderPathWithoutPaginationFindByUuid.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] { sourceModelImpl.getOriginalUuid() };
-
-				finderCache.removeResult(_finderPathCountByUuid, args);
-				finderCache.removeResult(_finderPathWithoutPaginationFindByUuid,
-					args);
-
-				args = new Object[] { sourceModelImpl.getUuid() };
-
-				finderCache.removeResult(_finderPathCountByUuid, args);
-				finderCache.removeResult(_finderPathWithoutPaginationFindByUuid,
-					args);
+				finderCache.removeResult(_finderPathCountByUuid_C, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByUuid_C, args);
 			}
 
 			if ((sourceModelImpl.getColumnBitmask() &
-					_finderPathWithoutPaginationFindByUuid_C.getColumnBitmask()) != 0) {
+				 _finderPathWithoutPaginationFindByGroupId.
+					 getColumnBitmask()) != 0) {
+
 				Object[] args = new Object[] {
-						sourceModelImpl.getOriginalUuid(),
-						sourceModelImpl.getOriginalCompanyId()
-					};
-
-				finderCache.removeResult(_finderPathCountByUuid_C, args);
-				finderCache.removeResult(_finderPathWithoutPaginationFindByUuid_C,
-					args);
-
-				args = new Object[] {
-						sourceModelImpl.getUuid(),
-						sourceModelImpl.getCompanyId()
-					};
-
-				finderCache.removeResult(_finderPathCountByUuid_C, args);
-				finderCache.removeResult(_finderPathWithoutPaginationFindByUuid_C,
-					args);
-			}
-
-			if ((sourceModelImpl.getColumnBitmask() &
-					_finderPathWithoutPaginationFindByGroupId.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						sourceModelImpl.getOriginalGroupId()
-					};
+					sourceModelImpl.getOriginalGroupId()
+				};
 
 				finderCache.removeResult(_finderPathCountByGroupId, args);
-				finderCache.removeResult(_finderPathWithoutPaginationFindByGroupId,
-					args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByGroupId, args);
 
-				args = new Object[] { sourceModelImpl.getGroupId() };
+				args = new Object[] {sourceModelImpl.getGroupId()};
 
 				finderCache.removeResult(_finderPathCountByGroupId, args);
-				finderCache.removeResult(_finderPathWithoutPaginationFindByGroupId,
-					args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByGroupId, args);
 			}
 
 			if ((sourceModelImpl.getColumnBitmask() &
-					_finderPathWithoutPaginationFindByCompanyId.getColumnBitmask()) != 0) {
+				 _finderPathWithoutPaginationFindByCompanyId.
+					 getColumnBitmask()) != 0) {
+
 				Object[] args = new Object[] {
-						sourceModelImpl.getOriginalCompanyId()
-					};
+					sourceModelImpl.getOriginalCompanyId()
+				};
 
 				finderCache.removeResult(_finderPathCountByCompanyId, args);
-				finderCache.removeResult(_finderPathWithoutPaginationFindByCompanyId,
-					args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByCompanyId, args);
 
-				args = new Object[] { sourceModelImpl.getCompanyId() };
+				args = new Object[] {sourceModelImpl.getCompanyId()};
 
 				finderCache.removeResult(_finderPathCountByCompanyId, args);
-				finderCache.removeResult(_finderPathWithoutPaginationFindByCompanyId,
-					args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByCompanyId, args);
 			}
 		}
 
-		entityCache.putResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceImpl.class, source.getPrimaryKey(), source, false);
+		entityCache.putResult(
+			SourceModelImpl.ENTITY_CACHE_ENABLED, SourceImpl.class,
+			source.getPrimaryKey(), source, false);
 
 		clearUniqueFindersCache(sourceModelImpl, false);
 		cacheUniqueFindersCache(sourceModelImpl);
@@ -3167,6 +3296,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	@Override
 	public Source findByPrimaryKey(Serializable primaryKey)
 		throws NoSuchSourceException {
+
 		Source source = fetchByPrimaryKey(primaryKey);
 
 		if (source == null) {
@@ -3174,8 +3304,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
-			throw new NoSuchSourceException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				primaryKey);
+			throw new NoSuchSourceException(
+				_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 		}
 
 		return source;
@@ -3201,8 +3331,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 */
 	@Override
 	public Source fetchByPrimaryKey(Serializable primaryKey) {
-		Serializable serializable = entityCache.getResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceImpl.class, primaryKey);
+		Serializable serializable = entityCache.getResult(
+			SourceModelImpl.ENTITY_CACHE_ENABLED, SourceImpl.class, primaryKey);
 
 		if (serializable == nullModel) {
 			return null;
@@ -3222,13 +3352,15 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 					cacheResult(source);
 				}
 				else {
-					entityCache.putResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-						SourceImpl.class, primaryKey, nullModel);
+					entityCache.putResult(
+						SourceModelImpl.ENTITY_CACHE_ENABLED, SourceImpl.class,
+						primaryKey, nullModel);
 				}
 			}
 			catch (Exception e) {
-				entityCache.removeResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-					SourceImpl.class, primaryKey);
+				entityCache.removeResult(
+					SourceModelImpl.ENTITY_CACHE_ENABLED, SourceImpl.class,
+					primaryKey);
 
 				throw processException(e);
 			}
@@ -3254,6 +3386,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	@Override
 	public Map<Serializable, Source> fetchByPrimaryKeys(
 		Set<Serializable> primaryKeys) {
+
 		if (primaryKeys.isEmpty()) {
 			return Collections.emptyMap();
 		}
@@ -3277,8 +3410,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		Set<Serializable> uncachedPrimaryKeys = null;
 
 		for (Serializable primaryKey : primaryKeys) {
-			Serializable serializable = entityCache.getResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-					SourceImpl.class, primaryKey);
+			Serializable serializable = entityCache.getResult(
+				SourceModelImpl.ENTITY_CACHE_ENABLED, SourceImpl.class,
+				primaryKey);
 
 			if (serializable != nullModel) {
 				if (serializable == null) {
@@ -3298,8 +3432,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			return map;
 		}
 
-		StringBundler query = new StringBundler((uncachedPrimaryKeys.size() * 2) +
-				1);
+		StringBundler query = new StringBundler(
+			uncachedPrimaryKeys.size() * 2 + 1);
 
 		query.append(_SQL_SELECT_SOURCE_WHERE_PKS_IN);
 
@@ -3331,8 +3465,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			}
 
 			for (Serializable primaryKey : uncachedPrimaryKeys) {
-				entityCache.putResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-					SourceImpl.class, primaryKey, nullModel);
+				entityCache.putResult(
+					SourceModelImpl.ENTITY_CACHE_ENABLED, SourceImpl.class,
+					primaryKey, nullModel);
 			}
 		}
 		catch (Exception e) {
@@ -3384,8 +3519,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the ordered range of sources
 	 */
 	@Override
-	public List<Source> findAll(int start, int end,
-		OrderByComparator<Source> orderByComparator) {
+	public List<Source> findAll(
+		int start, int end, OrderByComparator<Source> orderByComparator) {
+
 		return findAll(start, end, orderByComparator, true);
 	}
 
@@ -3403,28 +3539,31 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * @return the ordered range of sources
 	 */
 	@Override
-	public List<Source> findAll(int start, int end,
-		OrderByComparator<Source> orderByComparator, boolean retrieveFromCache) {
+	public List<Source> findAll(
+		int start, int end, OrderByComparator<Source> orderByComparator,
+		boolean retrieveFromCache) {
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
+			(orderByComparator == null)) {
+
 			pagination = false;
 			finderPath = _finderPathWithoutPaginationFindAll;
 			finderArgs = FINDER_ARGS_EMPTY;
 		}
 		else {
 			finderPath = _finderPathWithPaginationFindAll;
-			finderArgs = new Object[] { start, end, orderByComparator };
+			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<Source> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<Source>)finderCache.getResult(finderPath, finderArgs,
-					this);
+			list = (List<Source>)finderCache.getResult(
+				finderPath, finderArgs, this);
 		}
 
 		if (list == null) {
@@ -3432,13 +3571,13 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			String sql = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(2 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					2 + (orderByComparator.getOrderByFields().length * 2));
 
 				query.append(_SQL_SELECT_SOURCE);
 
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
 				sql = query.toString();
 			}
@@ -3458,16 +3597,16 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 				Query q = session.createQuery(sql);
 
 				if (!pagination) {
-					list = (List<Source>)QueryUtil.list(q, getDialect(), start,
-							end, false);
+					list = (List<Source>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<Source>)QueryUtil.list(q, getDialect(), start,
-							end);
+					list = (List<Source>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -3505,8 +3644,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 */
 	@Override
 	public int countAll() {
-		Long count = (Long)finderCache.getResult(_finderPathCountAll,
-				FINDER_ARGS_EMPTY, this);
+		Long count = (Long)finderCache.getResult(
+			_finderPathCountAll, FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -3518,11 +3657,12 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 				count = (Long)q.uniqueResult();
 
-				finderCache.putResult(_finderPathCountAll, FINDER_ARGS_EMPTY,
-					count);
+				finderCache.putResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
+				finderCache.removeResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY);
 
 				throw processException(e);
 			}
@@ -3548,116 +3688,126 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 * Initializes the source persistence.
 	 */
 	public void afterPropertiesSet() {
-		_finderPathWithPaginationFindAll = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-				FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
+		_finderPathWithPaginationFindAll = new FinderPath(
+			SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
 
-		_finderPathWithoutPaginationFindAll = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
-				new String[0]);
+		_finderPathWithoutPaginationFindAll = new FinderPath(
+			SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
+			new String[0]);
 
-		_finderPathCountAll = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
-				new String[0]);
+		_finderPathCountAll = new FinderPath(
+			SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
+			new String[0]);
 
-		_finderPathWithPaginationFindByUuid = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-				FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUuid",
-				new String[] {
-					String.class.getName(),
-					
+		_finderPathWithPaginationFindByUuid = new FinderPath(
+			SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUuid",
+			new String[] {
+				String.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
+
+		_finderPathWithoutPaginationFindByUuid = new FinderPath(
+			SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUuid",
+			new String[] {String.class.getName()},
+			SourceModelImpl.UUID_COLUMN_BITMASK);
+
+		_finderPathCountByUuid = new FinderPath(
+			SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid",
+			new String[] {String.class.getName()});
+
+		_finderPathFetchByUUID_G = new FinderPath(
+			SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByUUID_G",
+			new String[] {String.class.getName(), Long.class.getName()},
+			SourceModelImpl.UUID_COLUMN_BITMASK |
+			SourceModelImpl.GROUPID_COLUMN_BITMASK);
+
+		_finderPathCountByUUID_G = new FinderPath(
+			SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUUID_G",
+			new String[] {String.class.getName(), Long.class.getName()});
+
+		_finderPathWithPaginationFindByUuid_C = new FinderPath(
+			SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUuid_C",
+			new String[] {
+				String.class.getName(), Long.class.getName(),
 				Integer.class.getName(), Integer.class.getName(),
-					OrderByComparator.class.getName()
-				});
+				OrderByComparator.class.getName()
+			});
 
-		_finderPathWithoutPaginationFindByUuid = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUuid",
-				new String[] { String.class.getName() },
-				SourceModelImpl.UUID_COLUMN_BITMASK);
+		_finderPathWithoutPaginationFindByUuid_C = new FinderPath(
+			SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUuid_C",
+			new String[] {String.class.getName(), Long.class.getName()},
+			SourceModelImpl.UUID_COLUMN_BITMASK |
+			SourceModelImpl.COMPANYID_COLUMN_BITMASK);
 
-		_finderPathCountByUuid = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid",
-				new String[] { String.class.getName() });
+		_finderPathCountByUuid_C = new FinderPath(
+			SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
+			new String[] {String.class.getName(), Long.class.getName()});
 
-		_finderPathFetchByUUID_G = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-				FINDER_CLASS_NAME_ENTITY, "fetchByUUID_G",
-				new String[] { String.class.getName(), Long.class.getName() },
-				SourceModelImpl.UUID_COLUMN_BITMASK |
-				SourceModelImpl.GROUPID_COLUMN_BITMASK);
+		_finderPathWithPaginationFindByGroupId = new FinderPath(
+			SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByGroupId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
 
-		_finderPathCountByUUID_G = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUUID_G",
-				new String[] { String.class.getName(), Long.class.getName() });
+		_finderPathWithoutPaginationFindByGroupId = new FinderPath(
+			SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByGroupId",
+			new String[] {Long.class.getName()},
+			SourceModelImpl.GROUPID_COLUMN_BITMASK);
 
-		_finderPathWithPaginationFindByUuid_C = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-				FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUuid_C",
-				new String[] {
-					String.class.getName(), Long.class.getName(),
-					
-				Integer.class.getName(), Integer.class.getName(),
-					OrderByComparator.class.getName()
-				});
+		_finderPathCountByGroupId = new FinderPath(
+			SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByGroupId",
+			new String[] {Long.class.getName()});
 
-		_finderPathWithoutPaginationFindByUuid_C = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUuid_C",
-				new String[] { String.class.getName(), Long.class.getName() },
-				SourceModelImpl.UUID_COLUMN_BITMASK |
-				SourceModelImpl.COMPANYID_COLUMN_BITMASK);
+		_finderPathWithPaginationFindByCompanyId = new FinderPath(
+			SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCompanyId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
 
-		_finderPathCountByUuid_C = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
-				new String[] { String.class.getName(), Long.class.getName() });
+		_finderPathWithoutPaginationFindByCompanyId = new FinderPath(
+			SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCompanyId",
+			new String[] {Long.class.getName()},
+			SourceModelImpl.COMPANYID_COLUMN_BITMASK);
 
-		_finderPathWithPaginationFindByGroupId = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-				FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByGroupId",
-				new String[] {
-					Long.class.getName(),
-					
-				Integer.class.getName(), Integer.class.getName(),
-					OrderByComparator.class.getName()
-				});
-
-		_finderPathWithoutPaginationFindByGroupId = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByGroupId",
-				new String[] { Long.class.getName() },
-				SourceModelImpl.GROUPID_COLUMN_BITMASK);
-
-		_finderPathCountByGroupId = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByGroupId",
-				new String[] { Long.class.getName() });
-
-		_finderPathWithPaginationFindByCompanyId = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-				FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCompanyId",
-				new String[] {
-					Long.class.getName(),
-					
-				Integer.class.getName(), Integer.class.getName(),
-					OrderByComparator.class.getName()
-				});
-
-		_finderPathWithoutPaginationFindByCompanyId = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCompanyId",
-				new String[] { Long.class.getName() },
-				SourceModelImpl.COMPANYID_COLUMN_BITMASK);
-
-		_finderPathCountByCompanyId = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompanyId",
-				new String[] { Long.class.getName() });
+		_finderPathCountByCompanyId = new FinderPath(
+			SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompanyId",
+			new String[] {Long.class.getName()});
 	}
 
 	public void destroy() {
@@ -3669,30 +3819,63 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 	@ServiceReference(type = CompanyProviderWrapper.class)
 	protected CompanyProvider companyProvider;
+
 	@ServiceReference(type = EntityCache.class)
 	protected EntityCache entityCache;
+
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
-	private static final String _SQL_SELECT_SOURCE = "SELECT source FROM Source source";
-	private static final String _SQL_SELECT_SOURCE_WHERE_PKS_IN = "SELECT source FROM Source source WHERE sourceId IN (";
-	private static final String _SQL_SELECT_SOURCE_WHERE = "SELECT source FROM Source source WHERE ";
-	private static final String _SQL_COUNT_SOURCE = "SELECT COUNT(source) FROM Source source";
-	private static final String _SQL_COUNT_SOURCE_WHERE = "SELECT COUNT(source) FROM Source source WHERE ";
-	private static final String _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN = "source.sourceId";
-	private static final String _FILTER_SQL_SELECT_SOURCE_WHERE = "SELECT DISTINCT {source.*} FROM Reports_Source source WHERE ";
-	private static final String _FILTER_SQL_SELECT_SOURCE_NO_INLINE_DISTINCT_WHERE_1 =
-		"SELECT {Reports_Source.*} FROM (SELECT DISTINCT source.sourceId FROM Reports_Source source WHERE ";
-	private static final String _FILTER_SQL_SELECT_SOURCE_NO_INLINE_DISTINCT_WHERE_2 =
-		") TEMP_TABLE INNER JOIN Reports_Source ON TEMP_TABLE.sourceId = Reports_Source.sourceId";
-	private static final String _FILTER_SQL_COUNT_SOURCE_WHERE = "SELECT COUNT(DISTINCT source.sourceId) AS COUNT_VALUE FROM Reports_Source source WHERE ";
+
+	private static final String _SQL_SELECT_SOURCE =
+		"SELECT source FROM Source source";
+
+	private static final String _SQL_SELECT_SOURCE_WHERE_PKS_IN =
+		"SELECT source FROM Source source WHERE sourceId IN (";
+
+	private static final String _SQL_SELECT_SOURCE_WHERE =
+		"SELECT source FROM Source source WHERE ";
+
+	private static final String _SQL_COUNT_SOURCE =
+		"SELECT COUNT(source) FROM Source source";
+
+	private static final String _SQL_COUNT_SOURCE_WHERE =
+		"SELECT COUNT(source) FROM Source source WHERE ";
+
+	private static final String _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN =
+		"source.sourceId";
+
+	private static final String _FILTER_SQL_SELECT_SOURCE_WHERE =
+		"SELECT DISTINCT {source.*} FROM Reports_Source source WHERE ";
+
+	private static final String
+		_FILTER_SQL_SELECT_SOURCE_NO_INLINE_DISTINCT_WHERE_1 =
+			"SELECT {Reports_Source.*} FROM (SELECT DISTINCT source.sourceId FROM Reports_Source source WHERE ";
+
+	private static final String
+		_FILTER_SQL_SELECT_SOURCE_NO_INLINE_DISTINCT_WHERE_2 =
+			") TEMP_TABLE INNER JOIN Reports_Source ON TEMP_TABLE.sourceId = Reports_Source.sourceId";
+
+	private static final String _FILTER_SQL_COUNT_SOURCE_WHERE =
+		"SELECT COUNT(DISTINCT source.sourceId) AS COUNT_VALUE FROM Reports_Source source WHERE ";
+
 	private static final String _FILTER_ENTITY_ALIAS = "source";
+
 	private static final String _FILTER_ENTITY_TABLE = "Reports_Source";
+
 	private static final String _ORDER_BY_ENTITY_ALIAS = "source.";
+
 	private static final String _ORDER_BY_ENTITY_TABLE = "Reports_Source.";
-	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No Source exists with the primary key ";
-	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No Source exists with the key {";
-	private static final Log _log = LogFactoryUtil.getLog(SourcePersistenceImpl.class);
-	private static final Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
-				"uuid"
-			});
+
+	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY =
+		"No Source exists with the primary key ";
+
+	private static final String _NO_SUCH_ENTITY_WITH_KEY =
+		"No Source exists with the key {";
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		SourcePersistenceImpl.class);
+
+	private static final Set<String> _badColumnNames = SetUtil.fromArray(
+		new String[] {"uuid"});
+
 }

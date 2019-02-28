@@ -17,7 +17,6 @@ package com.liferay.portal.resiliency.spi.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -38,8 +37,9 @@ import java.util.Objects;
  * @generated
  */
 @ProviderType
-public class SPIDefinitionWrapper implements SPIDefinition,
-	ModelWrapper<SPIDefinition> {
+public class SPIDefinitionWrapper
+	implements SPIDefinition, ModelWrapper<SPIDefinition> {
+
 	public SPIDefinitionWrapper(SPIDefinition spiDefinition) {
 		_spiDefinition = spiDefinition;
 	}
@@ -153,7 +153,7 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 		}
 
 		String servletContextNames = (String)attributes.get(
-				"servletContextNames");
+			"servletContextNames");
 
 		if (servletContextNames != null) {
 			setServletContextNames(servletContextNames);
@@ -204,50 +204,50 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	/**
-	* Returns the company ID of this spi definition.
-	*
-	* @return the company ID of this spi definition
-	*/
+	 * Returns the company ID of this spi definition.
+	 *
+	 * @return the company ID of this spi definition
+	 */
 	@Override
 	public long getCompanyId() {
 		return _spiDefinition.getCompanyId();
 	}
 
 	/**
-	* Returns the connector address of this spi definition.
-	*
-	* @return the connector address of this spi definition
-	*/
+	 * Returns the connector address of this spi definition.
+	 *
+	 * @return the connector address of this spi definition
+	 */
 	@Override
 	public String getConnectorAddress() {
 		return _spiDefinition.getConnectorAddress();
 	}
 
 	/**
-	* Returns the connector port of this spi definition.
-	*
-	* @return the connector port of this spi definition
-	*/
+	 * Returns the connector port of this spi definition.
+	 *
+	 * @return the connector port of this spi definition
+	 */
 	@Override
 	public int getConnectorPort() {
 		return _spiDefinition.getConnectorPort();
 	}
 
 	/**
-	* Returns the create date of this spi definition.
-	*
-	* @return the create date of this spi definition
-	*/
+	 * Returns the create date of this spi definition.
+	 *
+	 * @return the create date of this spi definition
+	 */
 	@Override
 	public Date getCreateDate() {
 		return _spiDefinition.getCreateDate();
 	}
 
 	/**
-	* Returns the description of this spi definition.
-	*
-	* @return the description of this spi definition
-	*/
+	 * Returns the description of this spi definition.
+	 *
+	 * @return the description of this spi definition
+	 */
 	@Override
 	public String getDescription() {
 		return _spiDefinition.getDescription();
@@ -264,10 +264,10 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	/**
-	* Returns the jvm arguments of this spi definition.
-	*
-	* @return the jvm arguments of this spi definition
-	*/
+	 * Returns the jvm arguments of this spi definition.
+	 *
+	 * @return the jvm arguments of this spi definition
+	 */
 	@Override
 	public String getJvmArguments() {
 		return _spiDefinition.getJvmArguments();
@@ -289,20 +289,20 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	/**
-	* Returns the modified date of this spi definition.
-	*
-	* @return the modified date of this spi definition
-	*/
+	 * Returns the modified date of this spi definition.
+	 *
+	 * @return the modified date of this spi definition
+	 */
 	@Override
 	public Date getModifiedDate() {
 		return _spiDefinition.getModifiedDate();
 	}
 
 	/**
-	* Returns the name of this spi definition.
-	*
-	* @return the name of this spi definition
-	*/
+	 * Returns the name of this spi definition.
+	 *
+	 * @return the name of this spi definition
+	 */
 	@Override
 	public String getName() {
 		return _spiDefinition.getName();
@@ -324,20 +324,20 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	/**
-	* Returns the portlet IDs of this spi definition.
-	*
-	* @return the portlet IDs of this spi definition
-	*/
+	 * Returns the portlet IDs of this spi definition.
+	 *
+	 * @return the portlet IDs of this spi definition
+	 */
 	@Override
 	public String getPortletIds() {
 		return _spiDefinition.getPortletIds();
 	}
 
 	/**
-	* Returns the primary key of this spi definition.
-	*
-	* @return the primary key of this spi definition
-	*/
+	 * Returns the primary key of this spi definition.
+	 *
+	 * @return the primary key of this spi definition
+	 */
 	@Override
 	public long getPrimaryKey() {
 		return _spiDefinition.getPrimaryKey();
@@ -359,10 +359,10 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	/**
-	* Returns the servlet context names of this spi definition.
-	*
-	* @return the servlet context names of this spi definition
-	*/
+	 * Returns the servlet context names of this spi definition.
+	 *
+	 * @return the servlet context names of this spi definition
+	 */
 	@Override
 	public String getServletContextNames() {
 		return _spiDefinition.getServletContextNames();
@@ -379,20 +379,20 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	/**
-	* Returns the spi definition ID of this spi definition.
-	*
-	* @return the spi definition ID of this spi definition
-	*/
+	 * Returns the spi definition ID of this spi definition.
+	 *
+	 * @return the spi definition ID of this spi definition
+	 */
 	@Override
 	public long getSpiDefinitionId() {
 		return _spiDefinition.getSpiDefinitionId();
 	}
 
 	/**
-	* Returns the status of this spi definition.
-	*
-	* @return the status of this spi definition
-	*/
+	 * Returns the status of this spi definition.
+	 *
+	 * @return the status of this spi definition
+	 */
 	@Override
 	public int getStatus() {
 		return _spiDefinition.getStatus();
@@ -404,27 +404,29 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	/**
-	* Returns the status message of this spi definition.
-	*
-	* @return the status message of this spi definition
-	*/
+	 * Returns the status message of this spi definition.
+	 *
+	 * @return the status message of this spi definition
+	 */
 	@Override
 	public String getStatusMessage() {
 		return _spiDefinition.getStatusMessage();
 	}
 
 	/**
-	* Returns the type settings of this spi definition.
-	*
-	* @return the type settings of this spi definition
-	*/
+	 * Returns the type settings of this spi definition.
+	 *
+	 * @return the type settings of this spi definition
+	 */
 	@Override
 	public String getTypeSettings() {
 		return _spiDefinition.getTypeSettings();
 	}
 
 	@Override
-	public com.liferay.portal.kernel.util.UnicodeProperties getTypeSettingsProperties() {
+	public com.liferay.portal.kernel.util.UnicodeProperties
+		getTypeSettingsProperties() {
+
 		return _spiDefinition.getTypeSettingsProperties();
 	}
 
@@ -439,30 +441,30 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	/**
-	* Returns the user ID of this spi definition.
-	*
-	* @return the user ID of this spi definition
-	*/
+	 * Returns the user ID of this spi definition.
+	 *
+	 * @return the user ID of this spi definition
+	 */
 	@Override
 	public long getUserId() {
 		return _spiDefinition.getUserId();
 	}
 
 	/**
-	* Returns the user name of this spi definition.
-	*
-	* @return the user name of this spi definition
-	*/
+	 * Returns the user name of this spi definition.
+	 *
+	 * @return the user name of this spi definition
+	 */
 	@Override
 	public String getUserName() {
 		return _spiDefinition.getUserName();
 	}
 
 	/**
-	* Returns the user uuid of this spi definition.
-	*
-	* @return the user uuid of this spi definition
-	*/
+	 * Returns the user uuid of this spi definition.
+	 *
+	 * @return the user uuid of this spi definition
+	 */
 	@Override
 	public String getUserUuid() {
 		return _spiDefinition.getUserUuid();
@@ -504,50 +506,50 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	/**
-	* Sets the company ID of this spi definition.
-	*
-	* @param companyId the company ID of this spi definition
-	*/
+	 * Sets the company ID of this spi definition.
+	 *
+	 * @param companyId the company ID of this spi definition
+	 */
 	@Override
 	public void setCompanyId(long companyId) {
 		_spiDefinition.setCompanyId(companyId);
 	}
 
 	/**
-	* Sets the connector address of this spi definition.
-	*
-	* @param connectorAddress the connector address of this spi definition
-	*/
+	 * Sets the connector address of this spi definition.
+	 *
+	 * @param connectorAddress the connector address of this spi definition
+	 */
 	@Override
 	public void setConnectorAddress(String connectorAddress) {
 		_spiDefinition.setConnectorAddress(connectorAddress);
 	}
 
 	/**
-	* Sets the connector port of this spi definition.
-	*
-	* @param connectorPort the connector port of this spi definition
-	*/
+	 * Sets the connector port of this spi definition.
+	 *
+	 * @param connectorPort the connector port of this spi definition
+	 */
 	@Override
 	public void setConnectorPort(int connectorPort) {
 		_spiDefinition.setConnectorPort(connectorPort);
 	}
 
 	/**
-	* Sets the create date of this spi definition.
-	*
-	* @param createDate the create date of this spi definition
-	*/
+	 * Sets the create date of this spi definition.
+	 *
+	 * @param createDate the create date of this spi definition
+	 */
 	@Override
 	public void setCreateDate(Date createDate) {
 		_spiDefinition.setCreateDate(createDate);
 	}
 
 	/**
-	* Sets the description of this spi definition.
-	*
-	* @param description the description of this spi definition
-	*/
+	 * Sets the description of this spi definition.
+	 *
+	 * @param description the description of this spi definition
+	 */
 	@Override
 	public void setDescription(String description) {
 		_spiDefinition.setDescription(description);
@@ -556,6 +558,7 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
 		_spiDefinition.setExpandoBridgeAttributes(baseModel);
 	}
 
@@ -570,10 +573,10 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	/**
-	* Sets the jvm arguments of this spi definition.
-	*
-	* @param jvmArguments the jvm arguments of this spi definition
-	*/
+	 * Sets the jvm arguments of this spi definition.
+	 *
+	 * @param jvmArguments the jvm arguments of this spi definition
+	 */
 	@Override
 	public void setJvmArguments(String jvmArguments) {
 		_spiDefinition.setJvmArguments(jvmArguments);
@@ -585,20 +588,20 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	/**
-	* Sets the modified date of this spi definition.
-	*
-	* @param modifiedDate the modified date of this spi definition
-	*/
+	 * Sets the modified date of this spi definition.
+	 *
+	 * @param modifiedDate the modified date of this spi definition
+	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_spiDefinition.setModifiedDate(modifiedDate);
 	}
 
 	/**
-	* Sets the name of this spi definition.
-	*
-	* @param name the name of this spi definition
-	*/
+	 * Sets the name of this spi definition.
+	 *
+	 * @param name the name of this spi definition
+	 */
 	@Override
 	public void setName(String name) {
 		_spiDefinition.setName(name);
@@ -620,20 +623,20 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	/**
-	* Sets the portlet IDs of this spi definition.
-	*
-	* @param portletIds the portlet IDs of this spi definition
-	*/
+	 * Sets the portlet IDs of this spi definition.
+	 *
+	 * @param portletIds the portlet IDs of this spi definition
+	 */
 	@Override
 	public void setPortletIds(String portletIds) {
 		_spiDefinition.setPortletIds(portletIds);
 	}
 
 	/**
-	* Sets the primary key of this spi definition.
-	*
-	* @param primaryKey the primary key of this spi definition
-	*/
+	 * Sets the primary key of this spi definition.
+	 *
+	 * @param primaryKey the primary key of this spi definition
+	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_spiDefinition.setPrimaryKey(primaryKey);
@@ -650,50 +653,50 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	/**
-	* Sets the servlet context names of this spi definition.
-	*
-	* @param servletContextNames the servlet context names of this spi definition
-	*/
+	 * Sets the servlet context names of this spi definition.
+	 *
+	 * @param servletContextNames the servlet context names of this spi definition
+	 */
 	@Override
 	public void setServletContextNames(String servletContextNames) {
 		_spiDefinition.setServletContextNames(servletContextNames);
 	}
 
 	/**
-	* Sets the spi definition ID of this spi definition.
-	*
-	* @param spiDefinitionId the spi definition ID of this spi definition
-	*/
+	 * Sets the spi definition ID of this spi definition.
+	 *
+	 * @param spiDefinitionId the spi definition ID of this spi definition
+	 */
 	@Override
 	public void setSpiDefinitionId(long spiDefinitionId) {
 		_spiDefinition.setSpiDefinitionId(spiDefinitionId);
 	}
 
 	/**
-	* Sets the status of this spi definition.
-	*
-	* @param status the status of this spi definition
-	*/
+	 * Sets the status of this spi definition.
+	 *
+	 * @param status the status of this spi definition
+	 */
 	@Override
 	public void setStatus(int status) {
 		_spiDefinition.setStatus(status);
 	}
 
 	/**
-	* Sets the status message of this spi definition.
-	*
-	* @param statusMessage the status message of this spi definition
-	*/
+	 * Sets the status message of this spi definition.
+	 *
+	 * @param statusMessage the status message of this spi definition
+	 */
 	@Override
 	public void setStatusMessage(String statusMessage) {
 		_spiDefinition.setStatusMessage(statusMessage);
 	}
 
 	/**
-	* Sets the type settings of this spi definition.
-	*
-	* @param typeSettings the type settings of this spi definition
-	*/
+	 * Sets the type settings of this spi definition.
+	 *
+	 * @param typeSettings the type settings of this spi definition
+	 */
 	@Override
 	public void setTypeSettings(String typeSettings) {
 		_spiDefinition.setTypeSettings(typeSettings);
@@ -701,42 +704,46 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 
 	@Override
 	public void setTypeSettingsProperties(
-		com.liferay.portal.kernel.util.UnicodeProperties typeSettingsProperties) {
+		com.liferay.portal.kernel.util.UnicodeProperties
+			typeSettingsProperties) {
+
 		_spiDefinition.setTypeSettingsProperties(typeSettingsProperties);
 	}
 
 	/**
-	* Sets the user ID of this spi definition.
-	*
-	* @param userId the user ID of this spi definition
-	*/
+	 * Sets the user ID of this spi definition.
+	 *
+	 * @param userId the user ID of this spi definition
+	 */
 	@Override
 	public void setUserId(long userId) {
 		_spiDefinition.setUserId(userId);
 	}
 
 	/**
-	* Sets the user name of this spi definition.
-	*
-	* @param userName the user name of this spi definition
-	*/
+	 * Sets the user name of this spi definition.
+	 *
+	 * @param userName the user name of this spi definition
+	 */
 	@Override
 	public void setUserName(String userName) {
 		_spiDefinition.setUserName(userName);
 	}
 
 	/**
-	* Sets the user uuid of this spi definition.
-	*
-	* @param userUuid the user uuid of this spi definition
-	*/
+	 * Sets the user uuid of this spi definition.
+	 *
+	 * @param userUuid the user uuid of this spi definition
+	 */
 	@Override
 	public void setUserUuid(String userUuid) {
 		_spiDefinition.setUserUuid(userUuid);
 	}
 
 	@Override
-	public com.liferay.portal.kernel.model.CacheModel<SPIDefinition> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<SPIDefinition>
+		toCacheModel() {
+
 		return _spiDefinition.toCacheModel();
 	}
 
@@ -772,7 +779,9 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 
 		SPIDefinitionWrapper spiDefinitionWrapper = (SPIDefinitionWrapper)obj;
 
-		if (Objects.equals(_spiDefinition, spiDefinitionWrapper._spiDefinition)) {
+		if (Objects.equals(
+				_spiDefinition, spiDefinitionWrapper._spiDefinition)) {
+
 			return true;
 		}
 
@@ -800,4 +809,5 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	private final SPIDefinition _spiDefinition;
+
 }

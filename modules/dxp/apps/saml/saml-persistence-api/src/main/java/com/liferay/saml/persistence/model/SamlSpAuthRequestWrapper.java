@@ -17,7 +17,6 @@ package com.liferay.saml.persistence.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -38,8 +37,9 @@ import java.util.Objects;
  * @generated
  */
 @ProviderType
-public class SamlSpAuthRequestWrapper implements SamlSpAuthRequest,
-	ModelWrapper<SamlSpAuthRequest> {
+public class SamlSpAuthRequestWrapper
+	implements SamlSpAuthRequest, ModelWrapper<SamlSpAuthRequest> {
+
 	public SamlSpAuthRequestWrapper(SamlSpAuthRequest samlSpAuthRequest) {
 		_samlSpAuthRequest = samlSpAuthRequest;
 	}
@@ -69,7 +69,8 @@ public class SamlSpAuthRequestWrapper implements SamlSpAuthRequest,
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Long samlSpAuthnRequestId = (Long)attributes.get("samlSpAuthnRequestId");
+		Long samlSpAuthnRequestId = (Long)attributes.get(
+			"samlSpAuthnRequestId");
 
 		if (samlSpAuthnRequestId != null) {
 			setSamlSpAuthnRequestId(samlSpAuthnRequestId);
@@ -94,7 +95,7 @@ public class SamlSpAuthRequestWrapper implements SamlSpAuthRequest,
 		}
 
 		String samlSpAuthRequestKey = (String)attributes.get(
-				"samlSpAuthRequestKey");
+			"samlSpAuthRequestKey");
 
 		if (samlSpAuthRequestKey != null) {
 			setSamlSpAuthRequestKey(samlSpAuthRequestKey);
@@ -103,7 +104,8 @@ public class SamlSpAuthRequestWrapper implements SamlSpAuthRequest,
 
 	@Override
 	public Object clone() {
-		return new SamlSpAuthRequestWrapper((SamlSpAuthRequest)_samlSpAuthRequest.clone());
+		return new SamlSpAuthRequestWrapper(
+			(SamlSpAuthRequest)_samlSpAuthRequest.clone());
 	}
 
 	@Override
@@ -112,20 +114,20 @@ public class SamlSpAuthRequestWrapper implements SamlSpAuthRequest,
 	}
 
 	/**
-	* Returns the company ID of this saml sp auth request.
-	*
-	* @return the company ID of this saml sp auth request
-	*/
+	 * Returns the company ID of this saml sp auth request.
+	 *
+	 * @return the company ID of this saml sp auth request
+	 */
 	@Override
 	public long getCompanyId() {
 		return _samlSpAuthRequest.getCompanyId();
 	}
 
 	/**
-	* Returns the create date of this saml sp auth request.
-	*
-	* @return the create date of this saml sp auth request
-	*/
+	 * Returns the create date of this saml sp auth request.
+	 *
+	 * @return the create date of this saml sp auth request
+	 */
 	@Override
 	public Date getCreateDate() {
 		return _samlSpAuthRequest.getCreateDate();
@@ -137,10 +139,10 @@ public class SamlSpAuthRequestWrapper implements SamlSpAuthRequest,
 	}
 
 	/**
-	* Returns the primary key of this saml sp auth request.
-	*
-	* @return the primary key of this saml sp auth request
-	*/
+	 * Returns the primary key of this saml sp auth request.
+	 *
+	 * @return the primary key of this saml sp auth request
+	 */
 	@Override
 	public long getPrimaryKey() {
 		return _samlSpAuthRequest.getPrimaryKey();
@@ -152,30 +154,30 @@ public class SamlSpAuthRequestWrapper implements SamlSpAuthRequest,
 	}
 
 	/**
-	* Returns the saml idp entity ID of this saml sp auth request.
-	*
-	* @return the saml idp entity ID of this saml sp auth request
-	*/
+	 * Returns the saml idp entity ID of this saml sp auth request.
+	 *
+	 * @return the saml idp entity ID of this saml sp auth request
+	 */
 	@Override
 	public String getSamlIdpEntityId() {
 		return _samlSpAuthRequest.getSamlIdpEntityId();
 	}
 
 	/**
-	* Returns the saml sp authn request ID of this saml sp auth request.
-	*
-	* @return the saml sp authn request ID of this saml sp auth request
-	*/
+	 * Returns the saml sp authn request ID of this saml sp auth request.
+	 *
+	 * @return the saml sp authn request ID of this saml sp auth request
+	 */
 	@Override
 	public long getSamlSpAuthnRequestId() {
 		return _samlSpAuthRequest.getSamlSpAuthnRequestId();
 	}
 
 	/**
-	* Returns the saml sp auth request key of this saml sp auth request.
-	*
-	* @return the saml sp auth request key of this saml sp auth request
-	*/
+	 * Returns the saml sp auth request key of this saml sp auth request.
+	 *
+	 * @return the saml sp auth request key of this saml sp auth request
+	 */
 	@Override
 	public String getSamlSpAuthRequestKey() {
 		return _samlSpAuthRequest.getSamlSpAuthRequestKey();
@@ -212,20 +214,20 @@ public class SamlSpAuthRequestWrapper implements SamlSpAuthRequest,
 	}
 
 	/**
-	* Sets the company ID of this saml sp auth request.
-	*
-	* @param companyId the company ID of this saml sp auth request
-	*/
+	 * Sets the company ID of this saml sp auth request.
+	 *
+	 * @param companyId the company ID of this saml sp auth request
+	 */
 	@Override
 	public void setCompanyId(long companyId) {
 		_samlSpAuthRequest.setCompanyId(companyId);
 	}
 
 	/**
-	* Sets the create date of this saml sp auth request.
-	*
-	* @param createDate the create date of this saml sp auth request
-	*/
+	 * Sets the create date of this saml sp auth request.
+	 *
+	 * @param createDate the create date of this saml sp auth request
+	 */
 	@Override
 	public void setCreateDate(Date createDate) {
 		_samlSpAuthRequest.setCreateDate(createDate);
@@ -234,6 +236,7 @@ public class SamlSpAuthRequestWrapper implements SamlSpAuthRequest,
 	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
 		_samlSpAuthRequest.setExpandoBridgeAttributes(baseModel);
 	}
 
@@ -253,10 +256,10 @@ public class SamlSpAuthRequestWrapper implements SamlSpAuthRequest,
 	}
 
 	/**
-	* Sets the primary key of this saml sp auth request.
-	*
-	* @param primaryKey the primary key of this saml sp auth request
-	*/
+	 * Sets the primary key of this saml sp auth request.
+	 *
+	 * @param primaryKey the primary key of this saml sp auth request
+	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_samlSpAuthRequest.setPrimaryKey(primaryKey);
@@ -268,43 +271,46 @@ public class SamlSpAuthRequestWrapper implements SamlSpAuthRequest,
 	}
 
 	/**
-	* Sets the saml idp entity ID of this saml sp auth request.
-	*
-	* @param samlIdpEntityId the saml idp entity ID of this saml sp auth request
-	*/
+	 * Sets the saml idp entity ID of this saml sp auth request.
+	 *
+	 * @param samlIdpEntityId the saml idp entity ID of this saml sp auth request
+	 */
 	@Override
 	public void setSamlIdpEntityId(String samlIdpEntityId) {
 		_samlSpAuthRequest.setSamlIdpEntityId(samlIdpEntityId);
 	}
 
 	/**
-	* Sets the saml sp authn request ID of this saml sp auth request.
-	*
-	* @param samlSpAuthnRequestId the saml sp authn request ID of this saml sp auth request
-	*/
+	 * Sets the saml sp authn request ID of this saml sp auth request.
+	 *
+	 * @param samlSpAuthnRequestId the saml sp authn request ID of this saml sp auth request
+	 */
 	@Override
 	public void setSamlSpAuthnRequestId(long samlSpAuthnRequestId) {
 		_samlSpAuthRequest.setSamlSpAuthnRequestId(samlSpAuthnRequestId);
 	}
 
 	/**
-	* Sets the saml sp auth request key of this saml sp auth request.
-	*
-	* @param samlSpAuthRequestKey the saml sp auth request key of this saml sp auth request
-	*/
+	 * Sets the saml sp auth request key of this saml sp auth request.
+	 *
+	 * @param samlSpAuthRequestKey the saml sp auth request key of this saml sp auth request
+	 */
 	@Override
 	public void setSamlSpAuthRequestKey(String samlSpAuthRequestKey) {
 		_samlSpAuthRequest.setSamlSpAuthRequestKey(samlSpAuthRequestKey);
 	}
 
 	@Override
-	public com.liferay.portal.kernel.model.CacheModel<SamlSpAuthRequest> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<SamlSpAuthRequest>
+		toCacheModel() {
+
 		return _samlSpAuthRequest.toCacheModel();
 	}
 
 	@Override
 	public SamlSpAuthRequest toEscapedModel() {
-		return new SamlSpAuthRequestWrapper(_samlSpAuthRequest.toEscapedModel());
+		return new SamlSpAuthRequestWrapper(
+			_samlSpAuthRequest.toEscapedModel());
 	}
 
 	@Override
@@ -314,7 +320,8 @@ public class SamlSpAuthRequestWrapper implements SamlSpAuthRequest,
 
 	@Override
 	public SamlSpAuthRequest toUnescapedModel() {
-		return new SamlSpAuthRequestWrapper(_samlSpAuthRequest.toUnescapedModel());
+		return new SamlSpAuthRequestWrapper(
+			_samlSpAuthRequest.toUnescapedModel());
 	}
 
 	@Override
@@ -332,10 +339,13 @@ public class SamlSpAuthRequestWrapper implements SamlSpAuthRequest,
 			return false;
 		}
 
-		SamlSpAuthRequestWrapper samlSpAuthRequestWrapper = (SamlSpAuthRequestWrapper)obj;
+		SamlSpAuthRequestWrapper samlSpAuthRequestWrapper =
+			(SamlSpAuthRequestWrapper)obj;
 
-		if (Objects.equals(_samlSpAuthRequest,
-					samlSpAuthRequestWrapper._samlSpAuthRequest)) {
+		if (Objects.equals(
+				_samlSpAuthRequest,
+				samlSpAuthRequestWrapper._samlSpAuthRequest)) {
+
 			return true;
 		}
 
@@ -363,4 +373,5 @@ public class SamlSpAuthRequestWrapper implements SamlSpAuthRequest,
 	}
 
 	private final SamlSpAuthRequest _samlSpAuthRequest;
+
 }

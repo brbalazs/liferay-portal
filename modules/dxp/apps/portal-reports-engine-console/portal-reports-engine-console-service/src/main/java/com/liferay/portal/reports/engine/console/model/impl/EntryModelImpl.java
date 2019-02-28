@@ -18,7 +18,6 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
-
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSON;
@@ -64,36 +63,30 @@ import java.util.function.Function;
 @JSON(strict = true)
 @ProviderType
 public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a entry model instance should use the <code>Entry</code> interface instead.
 	 */
 	public static final String TABLE_NAME = "Reports_Entry";
+
 	public static final Object[][] TABLE_COLUMNS = {
-			{ "entryId", Types.BIGINT },
-			{ "groupId", Types.BIGINT },
-			{ "companyId", Types.BIGINT },
-			{ "userId", Types.BIGINT },
-			{ "userName", Types.VARCHAR },
-			{ "createDate", Types.TIMESTAMP },
-			{ "modifiedDate", Types.TIMESTAMP },
-			{ "definitionId", Types.BIGINT },
-			{ "format", Types.VARCHAR },
-			{ "scheduleRequest", Types.BOOLEAN },
-			{ "startDate", Types.TIMESTAMP },
-			{ "endDate", Types.TIMESTAMP },
-			{ "repeating", Types.BOOLEAN },
-			{ "recurrence", Types.VARCHAR },
-			{ "emailNotifications", Types.VARCHAR },
-			{ "emailDelivery", Types.VARCHAR },
-			{ "portletId", Types.VARCHAR },
-			{ "pageURL", Types.VARCHAR },
-			{ "reportParameters", Types.CLOB },
-			{ "status", Types.VARCHAR },
-			{ "errorMessage", Types.VARCHAR }
-		};
-	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
+		{"entryId", Types.BIGINT}, {"groupId", Types.BIGINT},
+		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
+		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
+		{"modifiedDate", Types.TIMESTAMP}, {"definitionId", Types.BIGINT},
+		{"format", Types.VARCHAR}, {"scheduleRequest", Types.BOOLEAN},
+		{"startDate", Types.TIMESTAMP}, {"endDate", Types.TIMESTAMP},
+		{"repeating", Types.BOOLEAN}, {"recurrence", Types.VARCHAR},
+		{"emailNotifications", Types.VARCHAR}, {"emailDelivery", Types.VARCHAR},
+		{"portletId", Types.VARCHAR}, {"pageURL", Types.VARCHAR},
+		{"reportParameters", Types.CLOB}, {"status", Types.VARCHAR},
+		{"errorMessage", Types.VARCHAR}
+	};
+
+	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
+		new HashMap<String, Integer>();
 
 	static {
 		TABLE_COLUMNS_MAP.put("entryId", Types.BIGINT);
@@ -119,19 +112,33 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		TABLE_COLUMNS_MAP.put("errorMessage", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table Reports_Entry (entryId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,definitionId LONG,format VARCHAR(75) null,scheduleRequest BOOLEAN,startDate DATE null,endDate DATE null,repeating BOOLEAN,recurrence VARCHAR(75) null,emailNotifications VARCHAR(200) null,emailDelivery VARCHAR(200) null,portletId VARCHAR(75) null,pageURL STRING null,reportParameters TEXT null,status VARCHAR(75) null,errorMessage STRING null)";
+	public static final String TABLE_SQL_CREATE =
+		"create table Reports_Entry (entryId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,definitionId LONG,format VARCHAR(75) null,scheduleRequest BOOLEAN,startDate DATE null,endDate DATE null,repeating BOOLEAN,recurrence VARCHAR(75) null,emailNotifications VARCHAR(200) null,emailDelivery VARCHAR(200) null,portletId VARCHAR(75) null,pageURL STRING null,reportParameters TEXT null,status VARCHAR(75) null,errorMessage STRING null)";
+
 	public static final String TABLE_SQL_DROP = "drop table Reports_Entry";
-	public static final String ORDER_BY_JPQL = " ORDER BY entry.modifiedDate ASC";
-	public static final String ORDER_BY_SQL = " ORDER BY Reports_Entry.modifiedDate ASC";
+
+	public static final String ORDER_BY_JPQL =
+		" ORDER BY entry.modifiedDate ASC";
+
+	public static final String ORDER_BY_SQL =
+		" ORDER BY Reports_Entry.modifiedDate ASC";
+
 	public static final String DATA_SOURCE = "liferayDataSource";
+
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
+
 	public static final String TX_MANAGER = "liferayTransactionManager";
-	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.portal.reports.engine.console.service.util.ServiceProps.get(
-				"value.object.entity.cache.enabled.com.liferay.portal.reports.engine.console.model.Entry"),
-			true);
-	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.portal.reports.engine.console.service.util.ServiceProps.get(
-				"value.object.finder.cache.enabled.com.liferay.portal.reports.engine.console.model.Entry"),
-			true);
+
+	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(
+		com.liferay.portal.reports.engine.console.service.util.ServiceProps.get(
+			"value.object.entity.cache.enabled.com.liferay.portal.reports.engine.console.model.Entry"),
+		true);
+
+	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(
+		com.liferay.portal.reports.engine.console.service.util.ServiceProps.get(
+			"value.object.finder.cache.enabled.com.liferay.portal.reports.engine.console.model.Entry"),
+		true);
+
 	public static final boolean COLUMN_BITMASK_ENABLED = false;
 
 	/**
@@ -192,8 +199,9 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		return models;
 	}
 
-	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.portal.reports.engine.console.service.util.ServiceProps.get(
-				"lock.expiration.time.com.liferay.portal.reports.engine.console.model.Entry"));
+	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(
+		com.liferay.portal.reports.engine.console.service.util.ServiceProps.get(
+			"lock.expiration.time.com.liferay.portal.reports.engine.console.model.Entry"));
 
 	public EntryModelImpl() {
 	}
@@ -232,14 +240,17 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		Map<String, Function<Entry, Object>> attributeGetterFunctions = getAttributeGetterFunctions();
+		Map<String, Function<Entry, Object>> attributeGetterFunctions =
+			getAttributeGetterFunctions();
 
-		for (Map.Entry<String, Function<Entry, Object>> entry : attributeGetterFunctions.entrySet()) {
+		for (Map.Entry<String, Function<Entry, Object>> entry :
+				attributeGetterFunctions.entrySet()) {
+
 			String attributeName = entry.getKey();
 			Function<Entry, Object> attributeGetterFunction = entry.getValue();
 
-			attributes.put(attributeName,
-				attributeGetterFunction.apply((Entry)this));
+			attributes.put(
+				attributeName, attributeGetterFunction.apply((Entry)this));
 		}
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
@@ -250,12 +261,14 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Map<String, BiConsumer<Entry, Object>> attributeSetterBiConsumers = getAttributeSetterBiConsumers();
+		Map<String, BiConsumer<Entry, Object>> attributeSetterBiConsumers =
+			getAttributeSetterBiConsumers();
 
 		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
 			String attributeName = entry.getKey();
 
-			BiConsumer<Entry, Object> attributeSetterBiConsumer = attributeSetterBiConsumers.get(attributeName);
+			BiConsumer<Entry, Object> attributeSetterBiConsumer =
+				attributeSetterBiConsumers.get(attributeName);
 
 			if (attributeSetterBiConsumer != null) {
 				attributeSetterBiConsumer.accept((Entry)this, entry.getValue());
@@ -267,17 +280,22 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		return _attributeGetterFunctions;
 	}
 
-	public Map<String, BiConsumer<Entry, Object>> getAttributeSetterBiConsumers() {
+	public Map<String, BiConsumer<Entry, Object>>
+		getAttributeSetterBiConsumers() {
+
 		return _attributeSetterBiConsumers;
 	}
 
-	private static final Map<String, Function<Entry, Object>> _attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Entry, Object>> _attributeSetterBiConsumers;
+	private static final Map<String, Function<Entry, Object>>
+		_attributeGetterFunctions;
+	private static final Map<String, BiConsumer<Entry, Object>>
+		_attributeSetterBiConsumers;
 
 	static {
-		Map<String, Function<Entry, Object>> attributeGetterFunctions = new LinkedHashMap<String, Function<Entry, Object>>();
-		Map<String, BiConsumer<Entry, ?>> attributeSetterBiConsumers = new LinkedHashMap<String, BiConsumer<Entry, ?>>();
-
+		Map<String, Function<Entry, Object>> attributeGetterFunctions =
+			new LinkedHashMap<String, Function<Entry, Object>>();
+		Map<String, BiConsumer<Entry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Entry, ?>>();
 
 		attributeGetterFunctions.put(
 			"entryId",
@@ -700,9 +718,10 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 			});
 
-
-		_attributeGetterFunctions = Collections.unmodifiableMap(attributeGetterFunctions);
-		_attributeSetterBiConsumers = Collections.unmodifiableMap((Map)attributeSetterBiConsumers);
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+		_attributeSetterBiConsumers = Collections.unmodifiableMap(
+			(Map)attributeSetterBiConsumers);
 	}
 
 	@JSON
@@ -1022,8 +1041,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 	@Override
 	public ExpandoBridge getExpandoBridge() {
-		return ExpandoBridgeFactoryUtil.getExpandoBridge(getCompanyId(),
-			Entry.class.getName(), getPrimaryKey());
+		return ExpandoBridgeFactoryUtil.getExpandoBridge(
+			getCompanyId(), Entry.class.getName(), getPrimaryKey());
 	}
 
 	@Override
@@ -1036,8 +1055,9 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 	@Override
 	public Entry toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = (Entry)ProxyUtil.newProxyInstance(_classLoader,
-					_escapedModelInterfaces, new AutoEscapeBeanHandler(this));
+			_escapedModel = (Entry)ProxyUtil.newProxyInstance(
+				_classLoader, _escapedModelInterfaces,
+				new AutoEscapeBeanHandler(this));
 		}
 
 		return _escapedModel;
@@ -1213,7 +1233,9 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 		String emailNotifications = entryCacheModel.emailNotifications;
 
-		if ((emailNotifications != null) && (emailNotifications.length() == 0)) {
+		if ((emailNotifications != null) &&
+			(emailNotifications.length() == 0)) {
+
 			entryCacheModel.emailNotifications = null;
 		}
 
@@ -1270,14 +1292,17 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 	@Override
 	public String toString() {
-		Map<String, Function<Entry, Object>> attributeGetterFunctions = getAttributeGetterFunctions();
+		Map<String, Function<Entry, Object>> attributeGetterFunctions =
+			getAttributeGetterFunctions();
 
-		StringBundler sb = new StringBundler((4 * attributeGetterFunctions.size()) +
-				2);
+		StringBundler sb = new StringBundler(
+			4 * attributeGetterFunctions.size() + 2);
 
 		sb.append("{");
 
-		for (Map.Entry<String, Function<Entry, Object>> entry : attributeGetterFunctions.entrySet()) {
+		for (Map.Entry<String, Function<Entry, Object>> entry :
+				attributeGetterFunctions.entrySet()) {
+
 			String attributeName = entry.getKey();
 			Function<Entry, Object> attributeGetterFunction = entry.getValue();
 
@@ -1298,16 +1323,19 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 	@Override
 	public String toXmlString() {
-		Map<String, Function<Entry, Object>> attributeGetterFunctions = getAttributeGetterFunctions();
+		Map<String, Function<Entry, Object>> attributeGetterFunctions =
+			getAttributeGetterFunctions();
 
-		StringBundler sb = new StringBundler((5 * attributeGetterFunctions.size()) +
-				4);
+		StringBundler sb = new StringBundler(
+			5 * attributeGetterFunctions.size() + 4);
 
 		sb.append("<model><model-name>");
 		sb.append(getModelClassName());
 		sb.append("</model-name>");
 
-		for (Map.Entry<String, Function<Entry, Object>> entry : attributeGetterFunctions.entrySet()) {
+		for (Map.Entry<String, Function<Entry, Object>> entry :
+				attributeGetterFunctions.entrySet()) {
+
 			String attributeName = entry.getKey();
 			Function<Entry, Object> attributeGetterFunction = entry.getValue();
 
@@ -1323,10 +1351,12 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		return sb.toString();
 	}
 
-	private static final ClassLoader _classLoader = Entry.class.getClassLoader();
+	private static final ClassLoader _classLoader =
+		Entry.class.getClassLoader();
 	private static final Class<?>[] _escapedModelInterfaces = new Class[] {
-			Entry.class, ModelWrapper.class
-		};
+		Entry.class, ModelWrapper.class
+	};
+
 	private long _entryId;
 	private long _groupId;
 	private long _companyId;
@@ -1350,4 +1380,5 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 	private String _status;
 	private String _errorMessage;
 	private Entry _escapedModel;
+
 }

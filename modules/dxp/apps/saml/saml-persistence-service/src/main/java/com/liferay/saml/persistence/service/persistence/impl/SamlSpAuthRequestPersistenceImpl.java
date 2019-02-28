@@ -33,7 +33,6 @@ import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
-
 import com.liferay.saml.persistence.exception.NoSuchSpAuthRequestException;
 import com.liferay.saml.persistence.model.SamlSpAuthRequest;
 import com.liferay.saml.persistence.model.impl.SamlSpAuthRequestImpl;
@@ -67,18 +66,24 @@ import java.util.Set;
  * @generated
  */
 @ProviderType
-public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSpAuthRequest>
+public class SamlSpAuthRequestPersistenceImpl
+	extends BasePersistenceImpl<SamlSpAuthRequest>
 	implements SamlSpAuthRequestPersistence {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>SamlSpAuthRequestUtil</code> to access the saml sp auth request persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static final String FINDER_CLASS_NAME_ENTITY = SamlSpAuthRequestImpl.class.getName();
-	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List1";
-	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List2";
+	public static final String FINDER_CLASS_NAME_ENTITY =
+		SamlSpAuthRequestImpl.class.getName();
+
+	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List1";
+
+	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List2";
+
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
@@ -93,8 +98,8 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 */
 	@Override
 	public List<SamlSpAuthRequest> findByCreateDate(Date createDate) {
-		return findByCreateDate(createDate, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, null);
+		return findByCreateDate(
+			createDate, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
@@ -110,8 +115,9 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the range of matching saml sp auth requests
 	 */
 	@Override
-	public List<SamlSpAuthRequest> findByCreateDate(Date createDate, int start,
-		int end) {
+	public List<SamlSpAuthRequest> findByCreateDate(
+		Date createDate, int start, int end) {
+
 		return findByCreateDate(createDate, start, end, null);
 	}
 
@@ -129,9 +135,12 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the ordered range of matching saml sp auth requests
 	 */
 	@Override
-	public List<SamlSpAuthRequest> findByCreateDate(Date createDate, int start,
-		int end, OrderByComparator<SamlSpAuthRequest> orderByComparator) {
-		return findByCreateDate(createDate, start, end, orderByComparator, true);
+	public List<SamlSpAuthRequest> findByCreateDate(
+		Date createDate, int start, int end,
+		OrderByComparator<SamlSpAuthRequest> orderByComparator) {
+
+		return findByCreateDate(
+			createDate, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -149,30 +158,31 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the ordered range of matching saml sp auth requests
 	 */
 	@Override
-	public List<SamlSpAuthRequest> findByCreateDate(Date createDate, int start,
-		int end, OrderByComparator<SamlSpAuthRequest> orderByComparator,
+	public List<SamlSpAuthRequest> findByCreateDate(
+		Date createDate, int start, int end,
+		OrderByComparator<SamlSpAuthRequest> orderByComparator,
 		boolean retrieveFromCache) {
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		finderPath = _finderPathWithPaginationFindByCreateDate;
 		finderArgs = new Object[] {
-				_getTime(createDate),
-				
-				start, end, orderByComparator
-			};
+			_getTime(createDate), start, end, orderByComparator
+		};
 
 		List<SamlSpAuthRequest> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<SamlSpAuthRequest>)finderCache.getResult(finderPath,
-					finderArgs, this);
+			list = (List<SamlSpAuthRequest>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (SamlSpAuthRequest samlSpAuthRequest : list) {
-					if ((createDate.getTime() <= samlSpAuthRequest.getCreateDate()
-																	  .getTime())) {
+					if ((createDate.getTime() <=
+							samlSpAuthRequest.getCreateDate().getTime())) {
+
 						list = null;
 
 						break;
@@ -185,8 +195,8 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
 				query = new StringBundler(3);
@@ -206,11 +216,10 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 			}
 
 			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else
-			 if (pagination) {
+			else if (pagination) {
 				query.append(SamlSpAuthRequestModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -230,16 +239,16 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 				}
 
 				if (!pagination) {
-					list = (List<SamlSpAuthRequest>)QueryUtil.list(q,
-							getDialect(), start, end, false);
+					list = (List<SamlSpAuthRequest>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<SamlSpAuthRequest>)QueryUtil.list(q,
-							getDialect(), start, end);
+					list = (List<SamlSpAuthRequest>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -268,11 +277,13 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @throws NoSuchSpAuthRequestException if a matching saml sp auth request could not be found
 	 */
 	@Override
-	public SamlSpAuthRequest findByCreateDate_First(Date createDate,
-		OrderByComparator<SamlSpAuthRequest> orderByComparator)
+	public SamlSpAuthRequest findByCreateDate_First(
+			Date createDate,
+			OrderByComparator<SamlSpAuthRequest> orderByComparator)
 		throws NoSuchSpAuthRequestException {
-		SamlSpAuthRequest samlSpAuthRequest = fetchByCreateDate_First(createDate,
-				orderByComparator);
+
+		SamlSpAuthRequest samlSpAuthRequest = fetchByCreateDate_First(
+			createDate, orderByComparator);
 
 		if (samlSpAuthRequest != null) {
 			return samlSpAuthRequest;
@@ -298,10 +309,12 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the first matching saml sp auth request, or <code>null</code> if a matching saml sp auth request could not be found
 	 */
 	@Override
-	public SamlSpAuthRequest fetchByCreateDate_First(Date createDate,
+	public SamlSpAuthRequest fetchByCreateDate_First(
+		Date createDate,
 		OrderByComparator<SamlSpAuthRequest> orderByComparator) {
-		List<SamlSpAuthRequest> list = findByCreateDate(createDate, 0, 1,
-				orderByComparator);
+
+		List<SamlSpAuthRequest> list = findByCreateDate(
+			createDate, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -319,11 +332,13 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @throws NoSuchSpAuthRequestException if a matching saml sp auth request could not be found
 	 */
 	@Override
-	public SamlSpAuthRequest findByCreateDate_Last(Date createDate,
-		OrderByComparator<SamlSpAuthRequest> orderByComparator)
+	public SamlSpAuthRequest findByCreateDate_Last(
+			Date createDate,
+			OrderByComparator<SamlSpAuthRequest> orderByComparator)
 		throws NoSuchSpAuthRequestException {
-		SamlSpAuthRequest samlSpAuthRequest = fetchByCreateDate_Last(createDate,
-				orderByComparator);
+
+		SamlSpAuthRequest samlSpAuthRequest = fetchByCreateDate_Last(
+			createDate, orderByComparator);
 
 		if (samlSpAuthRequest != null) {
 			return samlSpAuthRequest;
@@ -349,16 +364,18 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the last matching saml sp auth request, or <code>null</code> if a matching saml sp auth request could not be found
 	 */
 	@Override
-	public SamlSpAuthRequest fetchByCreateDate_Last(Date createDate,
+	public SamlSpAuthRequest fetchByCreateDate_Last(
+		Date createDate,
 		OrderByComparator<SamlSpAuthRequest> orderByComparator) {
+
 		int count = countByCreateDate(createDate);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<SamlSpAuthRequest> list = findByCreateDate(createDate, count - 1,
-				count, orderByComparator);
+		List<SamlSpAuthRequest> list = findByCreateDate(
+			createDate, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -378,10 +395,12 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 */
 	@Override
 	public SamlSpAuthRequest[] findByCreateDate_PrevAndNext(
-		long samlSpAuthnRequestId, Date createDate,
-		OrderByComparator<SamlSpAuthRequest> orderByComparator)
+			long samlSpAuthnRequestId, Date createDate,
+			OrderByComparator<SamlSpAuthRequest> orderByComparator)
 		throws NoSuchSpAuthRequestException {
-		SamlSpAuthRequest samlSpAuthRequest = findByPrimaryKey(samlSpAuthnRequestId);
+
+		SamlSpAuthRequest samlSpAuthRequest = findByPrimaryKey(
+			samlSpAuthnRequestId);
 
 		Session session = null;
 
@@ -390,13 +409,15 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 
 			SamlSpAuthRequest[] array = new SamlSpAuthRequestImpl[3];
 
-			array[0] = getByCreateDate_PrevAndNext(session, samlSpAuthRequest,
-					createDate, orderByComparator, true);
+			array[0] = getByCreateDate_PrevAndNext(
+				session, samlSpAuthRequest, createDate, orderByComparator,
+				true);
 
 			array[1] = samlSpAuthRequest;
 
-			array[2] = getByCreateDate_PrevAndNext(session, samlSpAuthRequest,
-					createDate, orderByComparator, false);
+			array[2] = getByCreateDate_PrevAndNext(
+				session, samlSpAuthRequest, createDate, orderByComparator,
+				false);
 
 			return array;
 		}
@@ -408,14 +429,16 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 		}
 	}
 
-	protected SamlSpAuthRequest getByCreateDate_PrevAndNext(Session session,
-		SamlSpAuthRequest samlSpAuthRequest, Date createDate,
-		OrderByComparator<SamlSpAuthRequest> orderByComparator, boolean previous) {
+	protected SamlSpAuthRequest getByCreateDate_PrevAndNext(
+		Session session, SamlSpAuthRequest samlSpAuthRequest, Date createDate,
+		OrderByComparator<SamlSpAuthRequest> orderByComparator,
+		boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(4 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -436,7 +459,8 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -508,8 +532,10 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 		}
 
 		if (orderByComparator != null) {
-			for (Object orderByConditionValue : orderByComparator.getOrderByConditionValues(
-					samlSpAuthRequest)) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						samlSpAuthRequest)) {
+
 				qPos.add(orderByConditionValue);
 			}
 		}
@@ -531,8 +557,10 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 */
 	@Override
 	public void removeByCreateDate(Date createDate) {
-		for (SamlSpAuthRequest samlSpAuthRequest : findByCreateDate(
-				createDate, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+		for (SamlSpAuthRequest samlSpAuthRequest :
+				findByCreateDate(
+					createDate, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+
 			remove(samlSpAuthRequest);
 		}
 	}
@@ -547,7 +575,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	public int countByCreateDate(Date createDate) {
 		FinderPath finderPath = _finderPathWithPaginationCountByCreateDate;
 
-		Object[] finderArgs = new Object[] { _getTime(createDate) };
+		Object[] finderArgs = new Object[] {_getTime(createDate)};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -599,8 +627,12 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_CREATEDATE_CREATEDATE_1 = "samlSpAuthRequest.createDate IS NULL";
-	private static final String _FINDER_COLUMN_CREATEDATE_CREATEDATE_2 = "samlSpAuthRequest.createDate < ?";
+	private static final String _FINDER_COLUMN_CREATEDATE_CREATEDATE_1 =
+		"samlSpAuthRequest.createDate IS NULL";
+
+	private static final String _FINDER_COLUMN_CREATEDATE_CREATEDATE_2 =
+		"samlSpAuthRequest.createDate < ?";
+
 	private FinderPath _finderPathFetchBySIEI_SSARK;
 	private FinderPath _finderPathCountBySIEI_SSARK;
 
@@ -613,10 +645,12 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @throws NoSuchSpAuthRequestException if a matching saml sp auth request could not be found
 	 */
 	@Override
-	public SamlSpAuthRequest findBySIEI_SSARK(String samlIdpEntityId,
-		String samlSpAuthRequestKey) throws NoSuchSpAuthRequestException {
-		SamlSpAuthRequest samlSpAuthRequest = fetchBySIEI_SSARK(samlIdpEntityId,
-				samlSpAuthRequestKey);
+	public SamlSpAuthRequest findBySIEI_SSARK(
+			String samlIdpEntityId, String samlSpAuthRequestKey)
+		throws NoSuchSpAuthRequestException {
+
+		SamlSpAuthRequest samlSpAuthRequest = fetchBySIEI_SSARK(
+			samlIdpEntityId, samlSpAuthRequestKey);
 
 		if (samlSpAuthRequest == null) {
 			StringBundler msg = new StringBundler(6);
@@ -649,8 +683,9 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the matching saml sp auth request, or <code>null</code> if a matching saml sp auth request could not be found
 	 */
 	@Override
-	public SamlSpAuthRequest fetchBySIEI_SSARK(String samlIdpEntityId,
-		String samlSpAuthRequestKey) {
+	public SamlSpAuthRequest fetchBySIEI_SSARK(
+		String samlIdpEntityId, String samlSpAuthRequestKey) {
+
 		return fetchBySIEI_SSARK(samlIdpEntityId, samlSpAuthRequestKey, true);
 	}
 
@@ -663,27 +698,33 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the matching saml sp auth request, or <code>null</code> if a matching saml sp auth request could not be found
 	 */
 	@Override
-	public SamlSpAuthRequest fetchBySIEI_SSARK(String samlIdpEntityId,
-		String samlSpAuthRequestKey, boolean retrieveFromCache) {
+	public SamlSpAuthRequest fetchBySIEI_SSARK(
+		String samlIdpEntityId, String samlSpAuthRequestKey,
+		boolean retrieveFromCache) {
+
 		samlIdpEntityId = Objects.toString(samlIdpEntityId, "");
 		samlSpAuthRequestKey = Objects.toString(samlSpAuthRequestKey, "");
 
-		Object[] finderArgs = new Object[] { samlIdpEntityId, samlSpAuthRequestKey };
+		Object[] finderArgs = new Object[] {
+			samlIdpEntityId, samlSpAuthRequestKey
+		};
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = finderCache.getResult(_finderPathFetchBySIEI_SSARK,
-					finderArgs, this);
+			result = finderCache.getResult(
+				_finderPathFetchBySIEI_SSARK, finderArgs, this);
 		}
 
 		if (result instanceof SamlSpAuthRequest) {
 			SamlSpAuthRequest samlSpAuthRequest = (SamlSpAuthRequest)result;
 
-			if (!Objects.equals(samlIdpEntityId,
-						samlSpAuthRequest.getSamlIdpEntityId()) ||
-					!Objects.equals(samlSpAuthRequestKey,
-						samlSpAuthRequest.getSamlSpAuthRequestKey())) {
+			if (!Objects.equals(
+					samlIdpEntityId, samlSpAuthRequest.getSamlIdpEntityId()) ||
+				!Objects.equals(
+					samlSpAuthRequestKey,
+					samlSpAuthRequest.getSamlSpAuthRequestKey())) {
+
 				result = null;
 			}
 		}
@@ -737,8 +778,8 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 				List<SamlSpAuthRequest> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(_finderPathFetchBySIEI_SSARK,
-						finderArgs, list);
+					finderCache.putResult(
+						_finderPathFetchBySIEI_SSARK, finderArgs, list);
 				}
 				else {
 					if (list.size() > 1) {
@@ -747,8 +788,8 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 						if (_log.isWarnEnabled()) {
 							_log.warn(
 								"SamlSpAuthRequestPersistenceImpl.fetchBySIEI_SSARK(String, String, boolean) with parameters (" +
-								StringUtil.merge(finderArgs) +
-								") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
 						}
 					}
 
@@ -760,8 +801,8 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathFetchBySIEI_SSARK,
-					finderArgs);
+				finderCache.removeResult(
+					_finderPathFetchBySIEI_SSARK, finderArgs);
 
 				throw processException(e);
 			}
@@ -786,10 +827,12 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the saml sp auth request that was removed
 	 */
 	@Override
-	public SamlSpAuthRequest removeBySIEI_SSARK(String samlIdpEntityId,
-		String samlSpAuthRequestKey) throws NoSuchSpAuthRequestException {
-		SamlSpAuthRequest samlSpAuthRequest = findBySIEI_SSARK(samlIdpEntityId,
-				samlSpAuthRequestKey);
+	public SamlSpAuthRequest removeBySIEI_SSARK(
+			String samlIdpEntityId, String samlSpAuthRequestKey)
+		throws NoSuchSpAuthRequestException {
+
+		SamlSpAuthRequest samlSpAuthRequest = findBySIEI_SSARK(
+			samlIdpEntityId, samlSpAuthRequestKey);
 
 		return remove(samlSpAuthRequest);
 	}
@@ -802,14 +845,17 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the number of matching saml sp auth requests
 	 */
 	@Override
-	public int countBySIEI_SSARK(String samlIdpEntityId,
-		String samlSpAuthRequestKey) {
+	public int countBySIEI_SSARK(
+		String samlIdpEntityId, String samlSpAuthRequestKey) {
+
 		samlIdpEntityId = Objects.toString(samlIdpEntityId, "");
 		samlSpAuthRequestKey = Objects.toString(samlSpAuthRequestKey, "");
 
 		FinderPath finderPath = _finderPathCountBySIEI_SSARK;
 
-		Object[] finderArgs = new Object[] { samlIdpEntityId, samlSpAuthRequestKey };
+		Object[] finderArgs = new Object[] {
+			samlIdpEntityId, samlSpAuthRequestKey
+		};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -876,12 +922,19 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_2 = "samlSpAuthRequest.samlIdpEntityId = ? AND ";
-	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_3 = "(samlSpAuthRequest.samlIdpEntityId IS NULL OR samlSpAuthRequest.samlIdpEntityId = '') AND ";
-	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_2 =
-		"samlSpAuthRequest.samlSpAuthRequestKey = ?";
-	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_3 =
-		"(samlSpAuthRequest.samlSpAuthRequestKey IS NULL OR samlSpAuthRequest.samlSpAuthRequestKey = '')";
+	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_2 =
+		"samlSpAuthRequest.samlIdpEntityId = ? AND ";
+
+	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_3 =
+		"(samlSpAuthRequest.samlIdpEntityId IS NULL OR samlSpAuthRequest.samlIdpEntityId = '') AND ";
+
+	private static final String
+		_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_2 =
+			"samlSpAuthRequest.samlSpAuthRequestKey = ?";
+
+	private static final String
+		_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_3 =
+			"(samlSpAuthRequest.samlSpAuthRequestKey IS NULL OR samlSpAuthRequest.samlSpAuthRequestKey = '')";
 
 	public SamlSpAuthRequestPersistenceImpl() {
 		setModelClass(SamlSpAuthRequest.class);
@@ -894,15 +947,18 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 */
 	@Override
 	public void cacheResult(SamlSpAuthRequest samlSpAuthRequest) {
-		entityCache.putResult(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.putResult(
+			SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpAuthRequestImpl.class, samlSpAuthRequest.getPrimaryKey(),
 			samlSpAuthRequest);
 
-		finderCache.putResult(_finderPathFetchBySIEI_SSARK,
+		finderCache.putResult(
+			_finderPathFetchBySIEI_SSARK,
 			new Object[] {
 				samlSpAuthRequest.getSamlIdpEntityId(),
 				samlSpAuthRequest.getSamlSpAuthRequestKey()
-			}, samlSpAuthRequest);
+			},
+			samlSpAuthRequest);
 
 		samlSpAuthRequest.resetOriginalValues();
 	}
@@ -916,9 +972,10 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	public void cacheResult(List<SamlSpAuthRequest> samlSpAuthRequests) {
 		for (SamlSpAuthRequest samlSpAuthRequest : samlSpAuthRequests) {
 			if (entityCache.getResult(
-						SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-						SamlSpAuthRequestImpl.class,
-						samlSpAuthRequest.getPrimaryKey()) == null) {
+					SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+					SamlSpAuthRequestImpl.class,
+					samlSpAuthRequest.getPrimaryKey()) == null) {
+
 				cacheResult(samlSpAuthRequest);
 			}
 			else {
@@ -952,14 +1009,15 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 */
 	@Override
 	public void clearCache(SamlSpAuthRequest samlSpAuthRequest) {
-		entityCache.removeResult(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.removeResult(
+			SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpAuthRequestImpl.class, samlSpAuthRequest.getPrimaryKey());
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
-		clearUniqueFindersCache((SamlSpAuthRequestModelImpl)samlSpAuthRequest,
-			true);
+		clearUniqueFindersCache(
+			(SamlSpAuthRequestModelImpl)samlSpAuthRequest, true);
 	}
 
 	@Override
@@ -968,46 +1026,51 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
 		for (SamlSpAuthRequest samlSpAuthRequest : samlSpAuthRequests) {
-			entityCache.removeResult(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+			entityCache.removeResult(
+				SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
 				SamlSpAuthRequestImpl.class, samlSpAuthRequest.getPrimaryKey());
 
-			clearUniqueFindersCache((SamlSpAuthRequestModelImpl)samlSpAuthRequest,
-				true);
+			clearUniqueFindersCache(
+				(SamlSpAuthRequestModelImpl)samlSpAuthRequest, true);
 		}
 	}
 
 	protected void cacheUniqueFindersCache(
 		SamlSpAuthRequestModelImpl samlSpAuthRequestModelImpl) {
-		Object[] args = new Object[] {
-				samlSpAuthRequestModelImpl.getSamlIdpEntityId(),
-				samlSpAuthRequestModelImpl.getSamlSpAuthRequestKey()
-			};
 
-		finderCache.putResult(_finderPathCountBySIEI_SSARK, args,
-			Long.valueOf(1), false);
-		finderCache.putResult(_finderPathFetchBySIEI_SSARK, args,
-			samlSpAuthRequestModelImpl, false);
+		Object[] args = new Object[] {
+			samlSpAuthRequestModelImpl.getSamlIdpEntityId(),
+			samlSpAuthRequestModelImpl.getSamlSpAuthRequestKey()
+		};
+
+		finderCache.putResult(
+			_finderPathCountBySIEI_SSARK, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchBySIEI_SSARK, args, samlSpAuthRequestModelImpl,
+			false);
 	}
 
 	protected void clearUniqueFindersCache(
 		SamlSpAuthRequestModelImpl samlSpAuthRequestModelImpl,
 		boolean clearCurrent) {
+
 		if (clearCurrent) {
 			Object[] args = new Object[] {
-					samlSpAuthRequestModelImpl.getSamlIdpEntityId(),
-					samlSpAuthRequestModelImpl.getSamlSpAuthRequestKey()
-				};
+				samlSpAuthRequestModelImpl.getSamlIdpEntityId(),
+				samlSpAuthRequestModelImpl.getSamlSpAuthRequestKey()
+			};
 
 			finderCache.removeResult(_finderPathCountBySIEI_SSARK, args);
 			finderCache.removeResult(_finderPathFetchBySIEI_SSARK, args);
 		}
 
 		if ((samlSpAuthRequestModelImpl.getColumnBitmask() &
-				_finderPathFetchBySIEI_SSARK.getColumnBitmask()) != 0) {
+			 _finderPathFetchBySIEI_SSARK.getColumnBitmask()) != 0) {
+
 			Object[] args = new Object[] {
-					samlSpAuthRequestModelImpl.getOriginalSamlIdpEntityId(),
-					samlSpAuthRequestModelImpl.getOriginalSamlSpAuthRequestKey()
-				};
+				samlSpAuthRequestModelImpl.getOriginalSamlIdpEntityId(),
+				samlSpAuthRequestModelImpl.getOriginalSamlSpAuthRequestKey()
+			};
 
 			finderCache.removeResult(_finderPathCountBySIEI_SSARK, args);
 			finderCache.removeResult(_finderPathFetchBySIEI_SSARK, args);
@@ -1042,6 +1105,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	@Override
 	public SamlSpAuthRequest remove(long samlSpAuthnRequestId)
 		throws NoSuchSpAuthRequestException {
+
 		return remove((Serializable)samlSpAuthnRequestId);
 	}
 
@@ -1055,21 +1119,23 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	@Override
 	public SamlSpAuthRequest remove(Serializable primaryKey)
 		throws NoSuchSpAuthRequestException {
+
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			SamlSpAuthRequest samlSpAuthRequest = (SamlSpAuthRequest)session.get(SamlSpAuthRequestImpl.class,
-					primaryKey);
+			SamlSpAuthRequest samlSpAuthRequest =
+				(SamlSpAuthRequest)session.get(
+					SamlSpAuthRequestImpl.class, primaryKey);
 
 			if (samlSpAuthRequest == null) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
-				throw new NoSuchSpAuthRequestException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					primaryKey);
+				throw new NoSuchSpAuthRequestException(
+					_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			return remove(samlSpAuthRequest);
@@ -1086,15 +1152,18 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	}
 
 	@Override
-	protected SamlSpAuthRequest removeImpl(SamlSpAuthRequest samlSpAuthRequest) {
+	protected SamlSpAuthRequest removeImpl(
+		SamlSpAuthRequest samlSpAuthRequest) {
+
 		Session session = null;
 
 		try {
 			session = openSession();
 
 			if (!session.contains(samlSpAuthRequest)) {
-				samlSpAuthRequest = (SamlSpAuthRequest)session.get(SamlSpAuthRequestImpl.class,
-						samlSpAuthRequest.getPrimaryKeyObj());
+				samlSpAuthRequest = (SamlSpAuthRequest)session.get(
+					SamlSpAuthRequestImpl.class,
+					samlSpAuthRequest.getPrimaryKeyObj());
 			}
 
 			if (samlSpAuthRequest != null) {
@@ -1123,19 +1192,21 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 			InvocationHandler invocationHandler = null;
 
 			if (ProxyUtil.isProxyClass(samlSpAuthRequest.getClass())) {
-				invocationHandler = ProxyUtil.getInvocationHandler(samlSpAuthRequest);
+				invocationHandler = ProxyUtil.getInvocationHandler(
+					samlSpAuthRequest);
 
 				throw new IllegalArgumentException(
 					"Implement ModelWrapper in samlSpAuthRequest proxy " +
-					invocationHandler.getClass());
+						invocationHandler.getClass());
 			}
 
 			throw new IllegalArgumentException(
 				"Implement ModelWrapper in custom SamlSpAuthRequest implementation " +
-				samlSpAuthRequest.getClass());
+					samlSpAuthRequest.getClass());
 		}
 
-		SamlSpAuthRequestModelImpl samlSpAuthRequestModelImpl = (SamlSpAuthRequestModelImpl)samlSpAuthRequest;
+		SamlSpAuthRequestModelImpl samlSpAuthRequestModelImpl =
+			(SamlSpAuthRequestModelImpl)samlSpAuthRequest;
 
 		Session session = null;
 
@@ -1148,7 +1219,8 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 				samlSpAuthRequest.setNew(false);
 			}
 			else {
-				samlSpAuthRequest = (SamlSpAuthRequest)session.merge(samlSpAuthRequest);
+				samlSpAuthRequest = (SamlSpAuthRequest)session.merge(
+					samlSpAuthRequest);
 			}
 		}
 		catch (Exception e) {
@@ -1163,14 +1235,14 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 		if (!SamlSpAuthRequestModelImpl.COLUMN_BITMASK_ENABLED) {
 			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
-		else
-		 if (isNew) {
+		else if (isNew) {
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
-			finderCache.removeResult(_finderPathWithoutPaginationFindAll,
-				FINDER_ARGS_EMPTY);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
 		}
 
-		entityCache.putResult(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.putResult(
+			SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpAuthRequestImpl.class, samlSpAuthRequest.getPrimaryKey(),
 			samlSpAuthRequest, false);
 
@@ -1192,6 +1264,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	@Override
 	public SamlSpAuthRequest findByPrimaryKey(Serializable primaryKey)
 		throws NoSuchSpAuthRequestException {
+
 		SamlSpAuthRequest samlSpAuthRequest = fetchByPrimaryKey(primaryKey);
 
 		if (samlSpAuthRequest == null) {
@@ -1199,8 +1272,8 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
-			throw new NoSuchSpAuthRequestException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				primaryKey);
+			throw new NoSuchSpAuthRequestException(
+				_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 		}
 
 		return samlSpAuthRequest;
@@ -1216,6 +1289,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	@Override
 	public SamlSpAuthRequest findByPrimaryKey(long samlSpAuthnRequestId)
 		throws NoSuchSpAuthRequestException {
+
 		return findByPrimaryKey((Serializable)samlSpAuthnRequestId);
 	}
 
@@ -1227,8 +1301,9 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 */
 	@Override
 	public SamlSpAuthRequest fetchByPrimaryKey(Serializable primaryKey) {
-		Serializable serializable = entityCache.getResult(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpAuthRequestImpl.class, primaryKey);
+		Serializable serializable = entityCache.getResult(
+			SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpAuthRequestImpl.class, primaryKey);
 
 		if (serializable == nullModel) {
 			return null;
@@ -1242,19 +1317,21 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 			try {
 				session = openSession();
 
-				samlSpAuthRequest = (SamlSpAuthRequest)session.get(SamlSpAuthRequestImpl.class,
-						primaryKey);
+				samlSpAuthRequest = (SamlSpAuthRequest)session.get(
+					SamlSpAuthRequestImpl.class, primaryKey);
 
 				if (samlSpAuthRequest != null) {
 					cacheResult(samlSpAuthRequest);
 				}
 				else {
-					entityCache.putResult(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+					entityCache.putResult(
+						SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
 						SamlSpAuthRequestImpl.class, primaryKey, nullModel);
 				}
 			}
 			catch (Exception e) {
-				entityCache.removeResult(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.removeResult(
+					SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
 					SamlSpAuthRequestImpl.class, primaryKey);
 
 				throw processException(e);
@@ -1281,11 +1358,13 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	@Override
 	public Map<Serializable, SamlSpAuthRequest> fetchByPrimaryKeys(
 		Set<Serializable> primaryKeys) {
+
 		if (primaryKeys.isEmpty()) {
 			return Collections.emptyMap();
 		}
 
-		Map<Serializable, SamlSpAuthRequest> map = new HashMap<Serializable, SamlSpAuthRequest>();
+		Map<Serializable, SamlSpAuthRequest> map =
+			new HashMap<Serializable, SamlSpAuthRequest>();
 
 		if (primaryKeys.size() == 1) {
 			Iterator<Serializable> iterator = primaryKeys.iterator();
@@ -1304,8 +1383,9 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 		Set<Serializable> uncachedPrimaryKeys = null;
 
 		for (Serializable primaryKey : primaryKeys) {
-			Serializable serializable = entityCache.getResult(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-					SamlSpAuthRequestImpl.class, primaryKey);
+			Serializable serializable = entityCache.getResult(
+				SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+				SamlSpAuthRequestImpl.class, primaryKey);
 
 			if (serializable != nullModel) {
 				if (serializable == null) {
@@ -1325,8 +1405,8 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 			return map;
 		}
 
-		StringBundler query = new StringBundler((uncachedPrimaryKeys.size() * 2) +
-				1);
+		StringBundler query = new StringBundler(
+			uncachedPrimaryKeys.size() * 2 + 1);
 
 		query.append(_SQL_SELECT_SAMLSPAUTHREQUEST_WHERE_PKS_IN);
 
@@ -1349,16 +1429,21 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 
 			Query q = session.createQuery(sql);
 
-			for (SamlSpAuthRequest samlSpAuthRequest : (List<SamlSpAuthRequest>)q.list()) {
-				map.put(samlSpAuthRequest.getPrimaryKeyObj(), samlSpAuthRequest);
+			for (SamlSpAuthRequest samlSpAuthRequest :
+					(List<SamlSpAuthRequest>)q.list()) {
+
+				map.put(
+					samlSpAuthRequest.getPrimaryKeyObj(), samlSpAuthRequest);
 
 				cacheResult(samlSpAuthRequest);
 
-				uncachedPrimaryKeys.remove(samlSpAuthRequest.getPrimaryKeyObj());
+				uncachedPrimaryKeys.remove(
+					samlSpAuthRequest.getPrimaryKeyObj());
 			}
 
 			for (Serializable primaryKey : uncachedPrimaryKeys) {
-				entityCache.putResult(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.putResult(
+					SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
 					SamlSpAuthRequestImpl.class, primaryKey, nullModel);
 			}
 		}
@@ -1411,8 +1496,10 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the ordered range of saml sp auth requests
 	 */
 	@Override
-	public List<SamlSpAuthRequest> findAll(int start, int end,
+	public List<SamlSpAuthRequest> findAll(
+		int start, int end,
 		OrderByComparator<SamlSpAuthRequest> orderByComparator) {
+
 		return findAll(start, end, orderByComparator, true);
 	}
 
@@ -1430,29 +1517,32 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the ordered range of saml sp auth requests
 	 */
 	@Override
-	public List<SamlSpAuthRequest> findAll(int start, int end,
+	public List<SamlSpAuthRequest> findAll(
+		int start, int end,
 		OrderByComparator<SamlSpAuthRequest> orderByComparator,
 		boolean retrieveFromCache) {
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
+			(orderByComparator == null)) {
+
 			pagination = false;
 			finderPath = _finderPathWithoutPaginationFindAll;
 			finderArgs = FINDER_ARGS_EMPTY;
 		}
 		else {
 			finderPath = _finderPathWithPaginationFindAll;
-			finderArgs = new Object[] { start, end, orderByComparator };
+			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<SamlSpAuthRequest> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<SamlSpAuthRequest>)finderCache.getResult(finderPath,
-					finderArgs, this);
+			list = (List<SamlSpAuthRequest>)finderCache.getResult(
+				finderPath, finderArgs, this);
 		}
 
 		if (list == null) {
@@ -1460,13 +1550,13 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 			String sql = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(2 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					2 + (orderByComparator.getOrderByFields().length * 2));
 
 				query.append(_SQL_SELECT_SAMLSPAUTHREQUEST);
 
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
 				sql = query.toString();
 			}
@@ -1486,16 +1576,16 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 				Query q = session.createQuery(sql);
 
 				if (!pagination) {
-					list = (List<SamlSpAuthRequest>)QueryUtil.list(q,
-							getDialect(), start, end, false);
+					list = (List<SamlSpAuthRequest>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<SamlSpAuthRequest>)QueryUtil.list(q,
-							getDialect(), start, end);
+					list = (List<SamlSpAuthRequest>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -1533,8 +1623,8 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 */
 	@Override
 	public int countAll() {
-		Long count = (Long)finderCache.getResult(_finderPathCountAll,
-				FINDER_ARGS_EMPTY, this);
+		Long count = (Long)finderCache.getResult(
+			_finderPathCountAll, FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1546,11 +1636,12 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 
 				count = (Long)q.uniqueResult();
 
-				finderCache.putResult(_finderPathCountAll, FINDER_ARGS_EMPTY,
-					count);
+				finderCache.putResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
+				finderCache.removeResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY);
 
 				throw processException(e);
 			}
@@ -1571,50 +1662,55 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * Initializes the saml sp auth request persistence.
 	 */
 	public void afterPropertiesSet() {
-		_finderPathWithPaginationFindAll = new FinderPath(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED,
-				SamlSpAuthRequestImpl.class,
-				FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
+		_finderPathWithPaginationFindAll = new FinderPath(
+			SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpAuthRequestImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+			"findAll", new String[0]);
 
-		_finderPathWithoutPaginationFindAll = new FinderPath(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED,
-				SamlSpAuthRequestImpl.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
-				new String[0]);
+		_finderPathWithoutPaginationFindAll = new FinderPath(
+			SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpAuthRequestImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
+			new String[0]);
 
-		_finderPathCountAll = new FinderPath(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
-				new String[0]);
+		_finderPathCountAll = new FinderPath(
+			SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
+			new String[0]);
 
-		_finderPathWithPaginationFindByCreateDate = new FinderPath(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED,
-				SamlSpAuthRequestImpl.class,
-				FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCreateDate",
-				new String[] {
-					Date.class.getName(),
-					
-				Integer.class.getName(), Integer.class.getName(),
-					OrderByComparator.class.getName()
-				});
+		_finderPathWithPaginationFindByCreateDate = new FinderPath(
+			SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpAuthRequestImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+			"findByCreateDate",
+			new String[] {
+				Date.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
 
-		_finderPathWithPaginationCountByCreateDate = new FinderPath(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByCreateDate",
-				new String[] { Date.class.getName() });
+		_finderPathWithPaginationCountByCreateDate = new FinderPath(
+			SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByCreateDate",
+			new String[] {Date.class.getName()});
 
-		_finderPathFetchBySIEI_SSARK = new FinderPath(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED,
-				SamlSpAuthRequestImpl.class, FINDER_CLASS_NAME_ENTITY,
-				"fetchBySIEI_SSARK",
-				new String[] { String.class.getName(), String.class.getName() },
-				SamlSpAuthRequestModelImpl.SAMLIDPENTITYID_COLUMN_BITMASK |
-				SamlSpAuthRequestModelImpl.SAMLSPAUTHREQUESTKEY_COLUMN_BITMASK);
+		_finderPathFetchBySIEI_SSARK = new FinderPath(
+			SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpAuthRequestImpl.class, FINDER_CLASS_NAME_ENTITY,
+			"fetchBySIEI_SSARK",
+			new String[] {String.class.getName(), String.class.getName()},
+			SamlSpAuthRequestModelImpl.SAMLIDPENTITYID_COLUMN_BITMASK |
+			SamlSpAuthRequestModelImpl.SAMLSPAUTHREQUESTKEY_COLUMN_BITMASK);
 
-		_finderPathCountBySIEI_SSARK = new FinderPath(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBySIEI_SSARK",
-				new String[] { String.class.getName(), String.class.getName() });
+		_finderPathCountBySIEI_SSARK = new FinderPath(
+			SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBySIEI_SSARK",
+			new String[] {String.class.getName(), String.class.getName()});
 	}
 
 	public void destroy() {
@@ -1626,8 +1722,10 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 
 	@ServiceReference(type = CompanyProviderWrapper.class)
 	protected CompanyProvider companyProvider;
+
 	@ServiceReference(type = EntityCache.class)
 	protected EntityCache entityCache;
+
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
 
@@ -1639,13 +1737,30 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 		return date.getTime();
 	}
 
-	private static final String _SQL_SELECT_SAMLSPAUTHREQUEST = "SELECT samlSpAuthRequest FROM SamlSpAuthRequest samlSpAuthRequest";
-	private static final String _SQL_SELECT_SAMLSPAUTHREQUEST_WHERE_PKS_IN = "SELECT samlSpAuthRequest FROM SamlSpAuthRequest samlSpAuthRequest WHERE samlSpAuthnRequestId IN (";
-	private static final String _SQL_SELECT_SAMLSPAUTHREQUEST_WHERE = "SELECT samlSpAuthRequest FROM SamlSpAuthRequest samlSpAuthRequest WHERE ";
-	private static final String _SQL_COUNT_SAMLSPAUTHREQUEST = "SELECT COUNT(samlSpAuthRequest) FROM SamlSpAuthRequest samlSpAuthRequest";
-	private static final String _SQL_COUNT_SAMLSPAUTHREQUEST_WHERE = "SELECT COUNT(samlSpAuthRequest) FROM SamlSpAuthRequest samlSpAuthRequest WHERE ";
+	private static final String _SQL_SELECT_SAMLSPAUTHREQUEST =
+		"SELECT samlSpAuthRequest FROM SamlSpAuthRequest samlSpAuthRequest";
+
+	private static final String _SQL_SELECT_SAMLSPAUTHREQUEST_WHERE_PKS_IN =
+		"SELECT samlSpAuthRequest FROM SamlSpAuthRequest samlSpAuthRequest WHERE samlSpAuthnRequestId IN (";
+
+	private static final String _SQL_SELECT_SAMLSPAUTHREQUEST_WHERE =
+		"SELECT samlSpAuthRequest FROM SamlSpAuthRequest samlSpAuthRequest WHERE ";
+
+	private static final String _SQL_COUNT_SAMLSPAUTHREQUEST =
+		"SELECT COUNT(samlSpAuthRequest) FROM SamlSpAuthRequest samlSpAuthRequest";
+
+	private static final String _SQL_COUNT_SAMLSPAUTHREQUEST_WHERE =
+		"SELECT COUNT(samlSpAuthRequest) FROM SamlSpAuthRequest samlSpAuthRequest WHERE ";
+
 	private static final String _ORDER_BY_ENTITY_ALIAS = "samlSpAuthRequest.";
-	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No SamlSpAuthRequest exists with the primary key ";
-	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No SamlSpAuthRequest exists with the key {";
-	private static final Log _log = LogFactoryUtil.getLog(SamlSpAuthRequestPersistenceImpl.class);
+
+	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY =
+		"No SamlSpAuthRequest exists with the primary key ";
+
+	private static final String _NO_SUCH_ENTITY_WITH_KEY =
+		"No SamlSpAuthRequest exists with the key {";
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		SamlSpAuthRequestPersistenceImpl.class);
+
 }

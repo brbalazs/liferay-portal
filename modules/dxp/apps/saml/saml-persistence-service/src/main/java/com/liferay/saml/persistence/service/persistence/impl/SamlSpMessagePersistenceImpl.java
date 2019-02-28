@@ -33,7 +33,6 @@ import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
-
 import com.liferay.saml.persistence.exception.NoSuchSpMessageException;
 import com.liferay.saml.persistence.model.SamlSpMessage;
 import com.liferay.saml.persistence.model.impl.SamlSpMessageImpl;
@@ -67,18 +66,24 @@ import java.util.Set;
  * @generated
  */
 @ProviderType
-public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMessage>
+public class SamlSpMessagePersistenceImpl
+	extends BasePersistenceImpl<SamlSpMessage>
 	implements SamlSpMessagePersistence {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>SamlSpMessageUtil</code> to access the saml sp message persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static final String FINDER_CLASS_NAME_ENTITY = SamlSpMessageImpl.class.getName();
-	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List1";
-	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List2";
+	public static final String FINDER_CLASS_NAME_ENTITY =
+		SamlSpMessageImpl.class.getName();
+
+	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List1";
+
+	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List2";
+
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
@@ -93,8 +98,8 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 */
 	@Override
 	public List<SamlSpMessage> findByExpirationDate(Date expirationDate) {
-		return findByExpirationDate(expirationDate, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, null);
+		return findByExpirationDate(
+			expirationDate, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
@@ -110,8 +115,9 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the range of matching saml sp messages
 	 */
 	@Override
-	public List<SamlSpMessage> findByExpirationDate(Date expirationDate,
-		int start, int end) {
+	public List<SamlSpMessage> findByExpirationDate(
+		Date expirationDate, int start, int end) {
+
 		return findByExpirationDate(expirationDate, start, end, null);
 	}
 
@@ -129,10 +135,12 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the ordered range of matching saml sp messages
 	 */
 	@Override
-	public List<SamlSpMessage> findByExpirationDate(Date expirationDate,
-		int start, int end, OrderByComparator<SamlSpMessage> orderByComparator) {
-		return findByExpirationDate(expirationDate, start, end,
-			orderByComparator, true);
+	public List<SamlSpMessage> findByExpirationDate(
+		Date expirationDate, int start, int end,
+		OrderByComparator<SamlSpMessage> orderByComparator) {
+
+		return findByExpirationDate(
+			expirationDate, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -150,30 +158,31 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the ordered range of matching saml sp messages
 	 */
 	@Override
-	public List<SamlSpMessage> findByExpirationDate(Date expirationDate,
-		int start, int end, OrderByComparator<SamlSpMessage> orderByComparator,
+	public List<SamlSpMessage> findByExpirationDate(
+		Date expirationDate, int start, int end,
+		OrderByComparator<SamlSpMessage> orderByComparator,
 		boolean retrieveFromCache) {
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		finderPath = _finderPathWithPaginationFindByExpirationDate;
 		finderArgs = new Object[] {
-				_getTime(expirationDate),
-				
-				start, end, orderByComparator
-			};
+			_getTime(expirationDate), start, end, orderByComparator
+		};
 
 		List<SamlSpMessage> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<SamlSpMessage>)finderCache.getResult(finderPath,
-					finderArgs, this);
+			list = (List<SamlSpMessage>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (SamlSpMessage samlSpMessage : list) {
-					if ((expirationDate.getTime() <= samlSpMessage.getExpirationDate()
-																	  .getTime())) {
+					if ((expirationDate.getTime() <=
+							samlSpMessage.getExpirationDate().getTime())) {
+
 						list = null;
 
 						break;
@@ -186,8 +195,8 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
 				query = new StringBundler(3);
@@ -207,11 +216,10 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 			}
 
 			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else
-			 if (pagination) {
+			else if (pagination) {
 				query.append(SamlSpMessageModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -231,16 +239,16 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 				}
 
 				if (!pagination) {
-					list = (List<SamlSpMessage>)QueryUtil.list(q, getDialect(),
-							start, end, false);
+					list = (List<SamlSpMessage>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<SamlSpMessage>)QueryUtil.list(q, getDialect(),
-							start, end);
+					list = (List<SamlSpMessage>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -269,11 +277,13 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @throws NoSuchSpMessageException if a matching saml sp message could not be found
 	 */
 	@Override
-	public SamlSpMessage findByExpirationDate_First(Date expirationDate,
-		OrderByComparator<SamlSpMessage> orderByComparator)
+	public SamlSpMessage findByExpirationDate_First(
+			Date expirationDate,
+			OrderByComparator<SamlSpMessage> orderByComparator)
 		throws NoSuchSpMessageException {
-		SamlSpMessage samlSpMessage = fetchByExpirationDate_First(expirationDate,
-				orderByComparator);
+
+		SamlSpMessage samlSpMessage = fetchByExpirationDate_First(
+			expirationDate, orderByComparator);
 
 		if (samlSpMessage != null) {
 			return samlSpMessage;
@@ -299,10 +309,12 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the first matching saml sp message, or <code>null</code> if a matching saml sp message could not be found
 	 */
 	@Override
-	public SamlSpMessage fetchByExpirationDate_First(Date expirationDate,
+	public SamlSpMessage fetchByExpirationDate_First(
+		Date expirationDate,
 		OrderByComparator<SamlSpMessage> orderByComparator) {
-		List<SamlSpMessage> list = findByExpirationDate(expirationDate, 0, 1,
-				orderByComparator);
+
+		List<SamlSpMessage> list = findByExpirationDate(
+			expirationDate, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -320,11 +332,13 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @throws NoSuchSpMessageException if a matching saml sp message could not be found
 	 */
 	@Override
-	public SamlSpMessage findByExpirationDate_Last(Date expirationDate,
-		OrderByComparator<SamlSpMessage> orderByComparator)
+	public SamlSpMessage findByExpirationDate_Last(
+			Date expirationDate,
+			OrderByComparator<SamlSpMessage> orderByComparator)
 		throws NoSuchSpMessageException {
-		SamlSpMessage samlSpMessage = fetchByExpirationDate_Last(expirationDate,
-				orderByComparator);
+
+		SamlSpMessage samlSpMessage = fetchByExpirationDate_Last(
+			expirationDate, orderByComparator);
 
 		if (samlSpMessage != null) {
 			return samlSpMessage;
@@ -350,16 +364,18 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the last matching saml sp message, or <code>null</code> if a matching saml sp message could not be found
 	 */
 	@Override
-	public SamlSpMessage fetchByExpirationDate_Last(Date expirationDate,
+	public SamlSpMessage fetchByExpirationDate_Last(
+		Date expirationDate,
 		OrderByComparator<SamlSpMessage> orderByComparator) {
+
 		int count = countByExpirationDate(expirationDate);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<SamlSpMessage> list = findByExpirationDate(expirationDate,
-				count - 1, count, orderByComparator);
+		List<SamlSpMessage> list = findByExpirationDate(
+			expirationDate, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -379,9 +395,10 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 */
 	@Override
 	public SamlSpMessage[] findByExpirationDate_PrevAndNext(
-		long samlSpMessageId, Date expirationDate,
-		OrderByComparator<SamlSpMessage> orderByComparator)
+			long samlSpMessageId, Date expirationDate,
+			OrderByComparator<SamlSpMessage> orderByComparator)
 		throws NoSuchSpMessageException {
+
 		SamlSpMessage samlSpMessage = findByPrimaryKey(samlSpMessageId);
 
 		Session session = null;
@@ -391,13 +408,15 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 
 			SamlSpMessage[] array = new SamlSpMessageImpl[3];
 
-			array[0] = getByExpirationDate_PrevAndNext(session, samlSpMessage,
-					expirationDate, orderByComparator, true);
+			array[0] = getByExpirationDate_PrevAndNext(
+				session, samlSpMessage, expirationDate, orderByComparator,
+				true);
 
 			array[1] = samlSpMessage;
 
-			array[2] = getByExpirationDate_PrevAndNext(session, samlSpMessage,
-					expirationDate, orderByComparator, false);
+			array[2] = getByExpirationDate_PrevAndNext(
+				session, samlSpMessage, expirationDate, orderByComparator,
+				false);
 
 			return array;
 		}
@@ -409,14 +428,15 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 		}
 	}
 
-	protected SamlSpMessage getByExpirationDate_PrevAndNext(Session session,
-		SamlSpMessage samlSpMessage, Date expirationDate,
+	protected SamlSpMessage getByExpirationDate_PrevAndNext(
+		Session session, SamlSpMessage samlSpMessage, Date expirationDate,
 		OrderByComparator<SamlSpMessage> orderByComparator, boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(4 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -437,7 +457,8 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -509,8 +530,10 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 		}
 
 		if (orderByComparator != null) {
-			for (Object orderByConditionValue : orderByComparator.getOrderByConditionValues(
-					samlSpMessage)) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						samlSpMessage)) {
+
 				qPos.add(orderByConditionValue);
 			}
 		}
@@ -532,8 +555,11 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 */
 	@Override
 	public void removeByExpirationDate(Date expirationDate) {
-		for (SamlSpMessage samlSpMessage : findByExpirationDate(
-				expirationDate, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+		for (SamlSpMessage samlSpMessage :
+				findByExpirationDate(
+					expirationDate, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+					null)) {
+
 			remove(samlSpMessage);
 		}
 	}
@@ -548,7 +574,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	public int countByExpirationDate(Date expirationDate) {
 		FinderPath finderPath = _finderPathWithPaginationCountByExpirationDate;
 
-		Object[] finderArgs = new Object[] { _getTime(expirationDate) };
+		Object[] finderArgs = new Object[] {_getTime(expirationDate)};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -600,8 +626,12 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_EXPIRATIONDATE_EXPIRATIONDATE_1 = "samlSpMessage.expirationDate IS NULL";
-	private static final String _FINDER_COLUMN_EXPIRATIONDATE_EXPIRATIONDATE_2 = "samlSpMessage.expirationDate < ?";
+	private static final String _FINDER_COLUMN_EXPIRATIONDATE_EXPIRATIONDATE_1 =
+		"samlSpMessage.expirationDate IS NULL";
+
+	private static final String _FINDER_COLUMN_EXPIRATIONDATE_EXPIRATIONDATE_2 =
+		"samlSpMessage.expirationDate < ?";
+
 	private FinderPath _finderPathFetchBySIEI_SIRK;
 	private FinderPath _finderPathCountBySIEI_SIRK;
 
@@ -614,10 +644,12 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @throws NoSuchSpMessageException if a matching saml sp message could not be found
 	 */
 	@Override
-	public SamlSpMessage findBySIEI_SIRK(String samlIdpEntityId,
-		String samlIdpResponseKey) throws NoSuchSpMessageException {
-		SamlSpMessage samlSpMessage = fetchBySIEI_SIRK(samlIdpEntityId,
-				samlIdpResponseKey);
+	public SamlSpMessage findBySIEI_SIRK(
+			String samlIdpEntityId, String samlIdpResponseKey)
+		throws NoSuchSpMessageException {
+
+		SamlSpMessage samlSpMessage = fetchBySIEI_SIRK(
+			samlIdpEntityId, samlIdpResponseKey);
 
 		if (samlSpMessage == null) {
 			StringBundler msg = new StringBundler(6);
@@ -650,8 +682,9 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the matching saml sp message, or <code>null</code> if a matching saml sp message could not be found
 	 */
 	@Override
-	public SamlSpMessage fetchBySIEI_SIRK(String samlIdpEntityId,
-		String samlIdpResponseKey) {
+	public SamlSpMessage fetchBySIEI_SIRK(
+		String samlIdpEntityId, String samlIdpResponseKey) {
+
 		return fetchBySIEI_SIRK(samlIdpEntityId, samlIdpResponseKey, true);
 	}
 
@@ -664,27 +697,33 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the matching saml sp message, or <code>null</code> if a matching saml sp message could not be found
 	 */
 	@Override
-	public SamlSpMessage fetchBySIEI_SIRK(String samlIdpEntityId,
-		String samlIdpResponseKey, boolean retrieveFromCache) {
+	public SamlSpMessage fetchBySIEI_SIRK(
+		String samlIdpEntityId, String samlIdpResponseKey,
+		boolean retrieveFromCache) {
+
 		samlIdpEntityId = Objects.toString(samlIdpEntityId, "");
 		samlIdpResponseKey = Objects.toString(samlIdpResponseKey, "");
 
-		Object[] finderArgs = new Object[] { samlIdpEntityId, samlIdpResponseKey };
+		Object[] finderArgs = new Object[] {
+			samlIdpEntityId, samlIdpResponseKey
+		};
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = finderCache.getResult(_finderPathFetchBySIEI_SIRK,
-					finderArgs, this);
+			result = finderCache.getResult(
+				_finderPathFetchBySIEI_SIRK, finderArgs, this);
 		}
 
 		if (result instanceof SamlSpMessage) {
 			SamlSpMessage samlSpMessage = (SamlSpMessage)result;
 
-			if (!Objects.equals(samlIdpEntityId,
-						samlSpMessage.getSamlIdpEntityId()) ||
-					!Objects.equals(samlIdpResponseKey,
-						samlSpMessage.getSamlIdpResponseKey())) {
+			if (!Objects.equals(
+					samlIdpEntityId, samlSpMessage.getSamlIdpEntityId()) ||
+				!Objects.equals(
+					samlIdpResponseKey,
+					samlSpMessage.getSamlIdpResponseKey())) {
+
 				result = null;
 			}
 		}
@@ -738,8 +777,8 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 				List<SamlSpMessage> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(_finderPathFetchBySIEI_SIRK,
-						finderArgs, list);
+					finderCache.putResult(
+						_finderPathFetchBySIEI_SIRK, finderArgs, list);
 				}
 				else {
 					if (list.size() > 1) {
@@ -748,8 +787,8 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 						if (_log.isWarnEnabled()) {
 							_log.warn(
 								"SamlSpMessagePersistenceImpl.fetchBySIEI_SIRK(String, String, boolean) with parameters (" +
-								StringUtil.merge(finderArgs) +
-								") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
 						}
 					}
 
@@ -761,7 +800,8 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathFetchBySIEI_SIRK, finderArgs);
+				finderCache.removeResult(
+					_finderPathFetchBySIEI_SIRK, finderArgs);
 
 				throw processException(e);
 			}
@@ -786,10 +826,12 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the saml sp message that was removed
 	 */
 	@Override
-	public SamlSpMessage removeBySIEI_SIRK(String samlIdpEntityId,
-		String samlIdpResponseKey) throws NoSuchSpMessageException {
-		SamlSpMessage samlSpMessage = findBySIEI_SIRK(samlIdpEntityId,
-				samlIdpResponseKey);
+	public SamlSpMessage removeBySIEI_SIRK(
+			String samlIdpEntityId, String samlIdpResponseKey)
+		throws NoSuchSpMessageException {
+
+		SamlSpMessage samlSpMessage = findBySIEI_SIRK(
+			samlIdpEntityId, samlIdpResponseKey);
 
 		return remove(samlSpMessage);
 	}
@@ -802,14 +844,17 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the number of matching saml sp messages
 	 */
 	@Override
-	public int countBySIEI_SIRK(String samlIdpEntityId,
-		String samlIdpResponseKey) {
+	public int countBySIEI_SIRK(
+		String samlIdpEntityId, String samlIdpResponseKey) {
+
 		samlIdpEntityId = Objects.toString(samlIdpEntityId, "");
 		samlIdpResponseKey = Objects.toString(samlIdpResponseKey, "");
 
 		FinderPath finderPath = _finderPathCountBySIEI_SIRK;
 
-		Object[] finderArgs = new Object[] { samlIdpEntityId, samlIdpResponseKey };
+		Object[] finderArgs = new Object[] {
+			samlIdpEntityId, samlIdpResponseKey
+		};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -876,10 +921,17 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_2 = "samlSpMessage.samlIdpEntityId = ? AND ";
-	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_3 = "(samlSpMessage.samlIdpEntityId IS NULL OR samlSpMessage.samlIdpEntityId = '') AND ";
-	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_2 = "samlSpMessage.samlIdpResponseKey = ?";
-	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_3 = "(samlSpMessage.samlIdpResponseKey IS NULL OR samlSpMessage.samlIdpResponseKey = '')";
+	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_2 =
+		"samlSpMessage.samlIdpEntityId = ? AND ";
+
+	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_3 =
+		"(samlSpMessage.samlIdpEntityId IS NULL OR samlSpMessage.samlIdpEntityId = '') AND ";
+
+	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_2 =
+		"samlSpMessage.samlIdpResponseKey = ?";
+
+	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_3 =
+		"(samlSpMessage.samlIdpResponseKey IS NULL OR samlSpMessage.samlIdpResponseKey = '')";
 
 	public SamlSpMessagePersistenceImpl() {
 		setModelClass(SamlSpMessage.class);
@@ -892,15 +944,18 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 */
 	@Override
 	public void cacheResult(SamlSpMessage samlSpMessage) {
-		entityCache.putResult(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.putResult(
+			SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpMessageImpl.class, samlSpMessage.getPrimaryKey(),
 			samlSpMessage);
 
-		finderCache.putResult(_finderPathFetchBySIEI_SIRK,
+		finderCache.putResult(
+			_finderPathFetchBySIEI_SIRK,
 			new Object[] {
 				samlSpMessage.getSamlIdpEntityId(),
 				samlSpMessage.getSamlIdpResponseKey()
-			}, samlSpMessage);
+			},
+			samlSpMessage);
 
 		samlSpMessage.resetOriginalValues();
 	}
@@ -914,8 +969,10 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	public void cacheResult(List<SamlSpMessage> samlSpMessages) {
 		for (SamlSpMessage samlSpMessage : samlSpMessages) {
 			if (entityCache.getResult(
-						SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
-						SamlSpMessageImpl.class, samlSpMessage.getPrimaryKey()) == null) {
+					SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+					SamlSpMessageImpl.class, samlSpMessage.getPrimaryKey()) ==
+						null) {
+
 				cacheResult(samlSpMessage);
 			}
 			else {
@@ -949,7 +1006,8 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 */
 	@Override
 	public void clearCache(SamlSpMessage samlSpMessage) {
-		entityCache.removeResult(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.removeResult(
+			SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpMessageImpl.class, samlSpMessage.getPrimaryKey());
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
@@ -964,44 +1022,49 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
 		for (SamlSpMessage samlSpMessage : samlSpMessages) {
-			entityCache.removeResult(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+			entityCache.removeResult(
+				SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
 				SamlSpMessageImpl.class, samlSpMessage.getPrimaryKey());
 
-			clearUniqueFindersCache((SamlSpMessageModelImpl)samlSpMessage, true);
+			clearUniqueFindersCache(
+				(SamlSpMessageModelImpl)samlSpMessage, true);
 		}
 	}
 
 	protected void cacheUniqueFindersCache(
 		SamlSpMessageModelImpl samlSpMessageModelImpl) {
-		Object[] args = new Object[] {
-				samlSpMessageModelImpl.getSamlIdpEntityId(),
-				samlSpMessageModelImpl.getSamlIdpResponseKey()
-			};
 
-		finderCache.putResult(_finderPathCountBySIEI_SIRK, args,
-			Long.valueOf(1), false);
-		finderCache.putResult(_finderPathFetchBySIEI_SIRK, args,
-			samlSpMessageModelImpl, false);
+		Object[] args = new Object[] {
+			samlSpMessageModelImpl.getSamlIdpEntityId(),
+			samlSpMessageModelImpl.getSamlIdpResponseKey()
+		};
+
+		finderCache.putResult(
+			_finderPathCountBySIEI_SIRK, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchBySIEI_SIRK, args, samlSpMessageModelImpl, false);
 	}
 
 	protected void clearUniqueFindersCache(
 		SamlSpMessageModelImpl samlSpMessageModelImpl, boolean clearCurrent) {
+
 		if (clearCurrent) {
 			Object[] args = new Object[] {
-					samlSpMessageModelImpl.getSamlIdpEntityId(),
-					samlSpMessageModelImpl.getSamlIdpResponseKey()
-				};
+				samlSpMessageModelImpl.getSamlIdpEntityId(),
+				samlSpMessageModelImpl.getSamlIdpResponseKey()
+			};
 
 			finderCache.removeResult(_finderPathCountBySIEI_SIRK, args);
 			finderCache.removeResult(_finderPathFetchBySIEI_SIRK, args);
 		}
 
 		if ((samlSpMessageModelImpl.getColumnBitmask() &
-				_finderPathFetchBySIEI_SIRK.getColumnBitmask()) != 0) {
+			 _finderPathFetchBySIEI_SIRK.getColumnBitmask()) != 0) {
+
 			Object[] args = new Object[] {
-					samlSpMessageModelImpl.getOriginalSamlIdpEntityId(),
-					samlSpMessageModelImpl.getOriginalSamlIdpResponseKey()
-				};
+				samlSpMessageModelImpl.getOriginalSamlIdpEntityId(),
+				samlSpMessageModelImpl.getOriginalSamlIdpResponseKey()
+			};
 
 			finderCache.removeResult(_finderPathCountBySIEI_SIRK, args);
 			finderCache.removeResult(_finderPathFetchBySIEI_SIRK, args);
@@ -1036,6 +1099,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	@Override
 	public SamlSpMessage remove(long samlSpMessageId)
 		throws NoSuchSpMessageException {
+
 		return remove((Serializable)samlSpMessageId);
 	}
 
@@ -1049,21 +1113,22 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	@Override
 	public SamlSpMessage remove(Serializable primaryKey)
 		throws NoSuchSpMessageException {
+
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			SamlSpMessage samlSpMessage = (SamlSpMessage)session.get(SamlSpMessageImpl.class,
-					primaryKey);
+			SamlSpMessage samlSpMessage = (SamlSpMessage)session.get(
+				SamlSpMessageImpl.class, primaryKey);
 
 			if (samlSpMessage == null) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
-				throw new NoSuchSpMessageException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					primaryKey);
+				throw new NoSuchSpMessageException(
+					_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			return remove(samlSpMessage);
@@ -1087,8 +1152,8 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 			session = openSession();
 
 			if (!session.contains(samlSpMessage)) {
-				samlSpMessage = (SamlSpMessage)session.get(SamlSpMessageImpl.class,
-						samlSpMessage.getPrimaryKeyObj());
+				samlSpMessage = (SamlSpMessage)session.get(
+					SamlSpMessageImpl.class, samlSpMessage.getPrimaryKeyObj());
 			}
 
 			if (samlSpMessage != null) {
@@ -1117,19 +1182,21 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 			InvocationHandler invocationHandler = null;
 
 			if (ProxyUtil.isProxyClass(samlSpMessage.getClass())) {
-				invocationHandler = ProxyUtil.getInvocationHandler(samlSpMessage);
+				invocationHandler = ProxyUtil.getInvocationHandler(
+					samlSpMessage);
 
 				throw new IllegalArgumentException(
 					"Implement ModelWrapper in samlSpMessage proxy " +
-					invocationHandler.getClass());
+						invocationHandler.getClass());
 			}
 
 			throw new IllegalArgumentException(
 				"Implement ModelWrapper in custom SamlSpMessage implementation " +
-				samlSpMessage.getClass());
+					samlSpMessage.getClass());
 		}
 
-		SamlSpMessageModelImpl samlSpMessageModelImpl = (SamlSpMessageModelImpl)samlSpMessage;
+		SamlSpMessageModelImpl samlSpMessageModelImpl =
+			(SamlSpMessageModelImpl)samlSpMessage;
 
 		Session session = null;
 
@@ -1157,14 +1224,14 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 		if (!SamlSpMessageModelImpl.COLUMN_BITMASK_ENABLED) {
 			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
-		else
-		 if (isNew) {
+		else if (isNew) {
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
-			finderCache.removeResult(_finderPathWithoutPaginationFindAll,
-				FINDER_ARGS_EMPTY);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
 		}
 
-		entityCache.putResult(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.putResult(
+			SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpMessageImpl.class, samlSpMessage.getPrimaryKey(),
 			samlSpMessage, false);
 
@@ -1186,6 +1253,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	@Override
 	public SamlSpMessage findByPrimaryKey(Serializable primaryKey)
 		throws NoSuchSpMessageException {
+
 		SamlSpMessage samlSpMessage = fetchByPrimaryKey(primaryKey);
 
 		if (samlSpMessage == null) {
@@ -1193,8 +1261,8 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
-			throw new NoSuchSpMessageException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				primaryKey);
+			throw new NoSuchSpMessageException(
+				_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 		}
 
 		return samlSpMessage;
@@ -1210,6 +1278,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	@Override
 	public SamlSpMessage findByPrimaryKey(long samlSpMessageId)
 		throws NoSuchSpMessageException {
+
 		return findByPrimaryKey((Serializable)samlSpMessageId);
 	}
 
@@ -1221,8 +1290,9 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 */
 	@Override
 	public SamlSpMessage fetchByPrimaryKey(Serializable primaryKey) {
-		Serializable serializable = entityCache.getResult(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpMessageImpl.class, primaryKey);
+		Serializable serializable = entityCache.getResult(
+			SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpMessageImpl.class, primaryKey);
 
 		if (serializable == nullModel) {
 			return null;
@@ -1236,19 +1306,21 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 			try {
 				session = openSession();
 
-				samlSpMessage = (SamlSpMessage)session.get(SamlSpMessageImpl.class,
-						primaryKey);
+				samlSpMessage = (SamlSpMessage)session.get(
+					SamlSpMessageImpl.class, primaryKey);
 
 				if (samlSpMessage != null) {
 					cacheResult(samlSpMessage);
 				}
 				else {
-					entityCache.putResult(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+					entityCache.putResult(
+						SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
 						SamlSpMessageImpl.class, primaryKey, nullModel);
 				}
 			}
 			catch (Exception e) {
-				entityCache.removeResult(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.removeResult(
+					SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
 					SamlSpMessageImpl.class, primaryKey);
 
 				throw processException(e);
@@ -1275,11 +1347,13 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	@Override
 	public Map<Serializable, SamlSpMessage> fetchByPrimaryKeys(
 		Set<Serializable> primaryKeys) {
+
 		if (primaryKeys.isEmpty()) {
 			return Collections.emptyMap();
 		}
 
-		Map<Serializable, SamlSpMessage> map = new HashMap<Serializable, SamlSpMessage>();
+		Map<Serializable, SamlSpMessage> map =
+			new HashMap<Serializable, SamlSpMessage>();
 
 		if (primaryKeys.size() == 1) {
 			Iterator<Serializable> iterator = primaryKeys.iterator();
@@ -1298,8 +1372,9 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 		Set<Serializable> uncachedPrimaryKeys = null;
 
 		for (Serializable primaryKey : primaryKeys) {
-			Serializable serializable = entityCache.getResult(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
-					SamlSpMessageImpl.class, primaryKey);
+			Serializable serializable = entityCache.getResult(
+				SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+				SamlSpMessageImpl.class, primaryKey);
 
 			if (serializable != nullModel) {
 				if (serializable == null) {
@@ -1319,8 +1394,8 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 			return map;
 		}
 
-		StringBundler query = new StringBundler((uncachedPrimaryKeys.size() * 2) +
-				1);
+		StringBundler query = new StringBundler(
+			uncachedPrimaryKeys.size() * 2 + 1);
 
 		query.append(_SQL_SELECT_SAMLSPMESSAGE_WHERE_PKS_IN);
 
@@ -1352,7 +1427,8 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 			}
 
 			for (Serializable primaryKey : uncachedPrimaryKeys) {
-				entityCache.putResult(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.putResult(
+					SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
 					SamlSpMessageImpl.class, primaryKey, nullModel);
 			}
 		}
@@ -1405,8 +1481,10 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the ordered range of saml sp messages
 	 */
 	@Override
-	public List<SamlSpMessage> findAll(int start, int end,
+	public List<SamlSpMessage> findAll(
+		int start, int end,
 		OrderByComparator<SamlSpMessage> orderByComparator) {
+
 		return findAll(start, end, orderByComparator, true);
 	}
 
@@ -1424,29 +1502,31 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the ordered range of saml sp messages
 	 */
 	@Override
-	public List<SamlSpMessage> findAll(int start, int end,
-		OrderByComparator<SamlSpMessage> orderByComparator,
+	public List<SamlSpMessage> findAll(
+		int start, int end, OrderByComparator<SamlSpMessage> orderByComparator,
 		boolean retrieveFromCache) {
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
+			(orderByComparator == null)) {
+
 			pagination = false;
 			finderPath = _finderPathWithoutPaginationFindAll;
 			finderArgs = FINDER_ARGS_EMPTY;
 		}
 		else {
 			finderPath = _finderPathWithPaginationFindAll;
-			finderArgs = new Object[] { start, end, orderByComparator };
+			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<SamlSpMessage> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<SamlSpMessage>)finderCache.getResult(finderPath,
-					finderArgs, this);
+			list = (List<SamlSpMessage>)finderCache.getResult(
+				finderPath, finderArgs, this);
 		}
 
 		if (list == null) {
@@ -1454,13 +1534,13 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 			String sql = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(2 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					2 + (orderByComparator.getOrderByFields().length * 2));
 
 				query.append(_SQL_SELECT_SAMLSPMESSAGE);
 
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
 				sql = query.toString();
 			}
@@ -1480,16 +1560,16 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 				Query q = session.createQuery(sql);
 
 				if (!pagination) {
-					list = (List<SamlSpMessage>)QueryUtil.list(q, getDialect(),
-							start, end, false);
+					list = (List<SamlSpMessage>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<SamlSpMessage>)QueryUtil.list(q, getDialect(),
-							start, end);
+					list = (List<SamlSpMessage>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -1527,8 +1607,8 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 */
 	@Override
 	public int countAll() {
-		Long count = (Long)finderCache.getResult(_finderPathCountAll,
-				FINDER_ARGS_EMPTY, this);
+		Long count = (Long)finderCache.getResult(
+			_finderPathCountAll, FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1540,11 +1620,12 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 
 				count = (Long)q.uniqueResult();
 
-				finderCache.putResult(_finderPathCountAll, FINDER_ARGS_EMPTY,
-					count);
+				finderCache.putResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
+				finderCache.removeResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY);
 
 				throw processException(e);
 			}
@@ -1565,50 +1646,54 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * Initializes the saml sp message persistence.
 	 */
 	public void afterPropertiesSet() {
-		_finderPathWithPaginationFindAll = new FinderPath(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpMessageModelImpl.FINDER_CACHE_ENABLED,
-				SamlSpMessageImpl.class,
-				FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
+		_finderPathWithPaginationFindAll = new FinderPath(
+			SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpMessageModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpMessageImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+			"findAll", new String[0]);
 
-		_finderPathWithoutPaginationFindAll = new FinderPath(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpMessageModelImpl.FINDER_CACHE_ENABLED,
-				SamlSpMessageImpl.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
-				new String[0]);
+		_finderPathWithoutPaginationFindAll = new FinderPath(
+			SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpMessageModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpMessageImpl.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"findAll", new String[0]);
 
-		_finderPathCountAll = new FinderPath(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpMessageModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
-				new String[0]);
+		_finderPathCountAll = new FinderPath(
+			SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpMessageModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
+			new String[0]);
 
-		_finderPathWithPaginationFindByExpirationDate = new FinderPath(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpMessageModelImpl.FINDER_CACHE_ENABLED,
-				SamlSpMessageImpl.class,
-				FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByExpirationDate",
-				new String[] {
-					Date.class.getName(),
-					
-				Integer.class.getName(), Integer.class.getName(),
-					OrderByComparator.class.getName()
-				});
+		_finderPathWithPaginationFindByExpirationDate = new FinderPath(
+			SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpMessageModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpMessageImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+			"findByExpirationDate",
+			new String[] {
+				Date.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
 
-		_finderPathWithPaginationCountByExpirationDate = new FinderPath(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpMessageModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
-				"countByExpirationDate", new String[] { Date.class.getName() });
+		_finderPathWithPaginationCountByExpirationDate = new FinderPath(
+			SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpMessageModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByExpirationDate",
+			new String[] {Date.class.getName()});
 
-		_finderPathFetchBySIEI_SIRK = new FinderPath(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpMessageModelImpl.FINDER_CACHE_ENABLED,
-				SamlSpMessageImpl.class, FINDER_CLASS_NAME_ENTITY,
-				"fetchBySIEI_SIRK",
-				new String[] { String.class.getName(), String.class.getName() },
-				SamlSpMessageModelImpl.SAMLIDPENTITYID_COLUMN_BITMASK |
-				SamlSpMessageModelImpl.SAMLIDPRESPONSEKEY_COLUMN_BITMASK);
+		_finderPathFetchBySIEI_SIRK = new FinderPath(
+			SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpMessageModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpMessageImpl.class, FINDER_CLASS_NAME_ENTITY,
+			"fetchBySIEI_SIRK",
+			new String[] {String.class.getName(), String.class.getName()},
+			SamlSpMessageModelImpl.SAMLIDPENTITYID_COLUMN_BITMASK |
+			SamlSpMessageModelImpl.SAMLIDPRESPONSEKEY_COLUMN_BITMASK);
 
-		_finderPathCountBySIEI_SIRK = new FinderPath(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpMessageModelImpl.FINDER_CACHE_ENABLED, Long.class,
-				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBySIEI_SIRK",
-				new String[] { String.class.getName(), String.class.getName() });
+		_finderPathCountBySIEI_SIRK = new FinderPath(
+			SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpMessageModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBySIEI_SIRK",
+			new String[] {String.class.getName(), String.class.getName()});
 	}
 
 	public void destroy() {
@@ -1620,8 +1705,10 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 
 	@ServiceReference(type = CompanyProviderWrapper.class)
 	protected CompanyProvider companyProvider;
+
 	@ServiceReference(type = EntityCache.class)
 	protected EntityCache entityCache;
+
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
 
@@ -1633,13 +1720,30 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 		return date.getTime();
 	}
 
-	private static final String _SQL_SELECT_SAMLSPMESSAGE = "SELECT samlSpMessage FROM SamlSpMessage samlSpMessage";
-	private static final String _SQL_SELECT_SAMLSPMESSAGE_WHERE_PKS_IN = "SELECT samlSpMessage FROM SamlSpMessage samlSpMessage WHERE samlSpMessageId IN (";
-	private static final String _SQL_SELECT_SAMLSPMESSAGE_WHERE = "SELECT samlSpMessage FROM SamlSpMessage samlSpMessage WHERE ";
-	private static final String _SQL_COUNT_SAMLSPMESSAGE = "SELECT COUNT(samlSpMessage) FROM SamlSpMessage samlSpMessage";
-	private static final String _SQL_COUNT_SAMLSPMESSAGE_WHERE = "SELECT COUNT(samlSpMessage) FROM SamlSpMessage samlSpMessage WHERE ";
+	private static final String _SQL_SELECT_SAMLSPMESSAGE =
+		"SELECT samlSpMessage FROM SamlSpMessage samlSpMessage";
+
+	private static final String _SQL_SELECT_SAMLSPMESSAGE_WHERE_PKS_IN =
+		"SELECT samlSpMessage FROM SamlSpMessage samlSpMessage WHERE samlSpMessageId IN (";
+
+	private static final String _SQL_SELECT_SAMLSPMESSAGE_WHERE =
+		"SELECT samlSpMessage FROM SamlSpMessage samlSpMessage WHERE ";
+
+	private static final String _SQL_COUNT_SAMLSPMESSAGE =
+		"SELECT COUNT(samlSpMessage) FROM SamlSpMessage samlSpMessage";
+
+	private static final String _SQL_COUNT_SAMLSPMESSAGE_WHERE =
+		"SELECT COUNT(samlSpMessage) FROM SamlSpMessage samlSpMessage WHERE ";
+
 	private static final String _ORDER_BY_ENTITY_ALIAS = "samlSpMessage.";
-	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No SamlSpMessage exists with the primary key ";
-	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No SamlSpMessage exists with the key {";
-	private static final Log _log = LogFactoryUtil.getLog(SamlSpMessagePersistenceImpl.class);
+
+	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY =
+		"No SamlSpMessage exists with the primary key ";
+
+	private static final String _NO_SUCH_ENTITY_WITH_KEY =
+		"No SamlSpMessage exists with the key {";
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		SamlSpMessagePersistenceImpl.class);
+
 }

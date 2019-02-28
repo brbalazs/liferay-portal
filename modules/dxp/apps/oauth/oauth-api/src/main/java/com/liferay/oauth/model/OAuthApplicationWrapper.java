@@ -17,7 +17,6 @@ package com.liferay.oauth.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -38,8 +37,9 @@ import java.util.Objects;
  * @generated
  */
 @ProviderType
-public class OAuthApplicationWrapper implements OAuthApplication,
-	ModelWrapper<OAuthApplication> {
+public class OAuthApplicationWrapper
+	implements OAuthApplication, ModelWrapper<OAuthApplication> {
+
 	public OAuthApplicationWrapper(OAuthApplication oAuthApplication) {
 		_oAuthApplication = oAuthApplication;
 	}
@@ -152,7 +152,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 		}
 
 		Boolean shareableAccessToken = (Boolean)attributes.get(
-				"shareableAccessToken");
+			"shareableAccessToken");
 
 		if (shareableAccessToken != null) {
 			setShareableAccessToken(shareableAccessToken);
@@ -173,7 +173,8 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 
 	@Override
 	public Object clone() {
-		return new OAuthApplicationWrapper((OAuthApplication)_oAuthApplication.clone());
+		return new OAuthApplicationWrapper(
+			(OAuthApplication)_oAuthApplication.clone());
 	}
 
 	@Override
@@ -182,10 +183,10 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	}
 
 	/**
-	* Returns the access level of this o auth application.
-	*
-	* @return the access level of this o auth application
-	*/
+	 * Returns the access level of this o auth application.
+	 *
+	 * @return the access level of this o auth application
+	 */
 	@Override
 	public int getAccessLevel() {
 		return _oAuthApplication.getAccessLevel();
@@ -197,60 +198,60 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	}
 
 	/**
-	* Returns the callback uri of this o auth application.
-	*
-	* @return the callback uri of this o auth application
-	*/
+	 * Returns the callback uri of this o auth application.
+	 *
+	 * @return the callback uri of this o auth application
+	 */
 	@Override
 	public String getCallbackURI() {
 		return _oAuthApplication.getCallbackURI();
 	}
 
 	/**
-	* Returns the company ID of this o auth application.
-	*
-	* @return the company ID of this o auth application
-	*/
+	 * Returns the company ID of this o auth application.
+	 *
+	 * @return the company ID of this o auth application
+	 */
 	@Override
 	public long getCompanyId() {
 		return _oAuthApplication.getCompanyId();
 	}
 
 	/**
-	* Returns the consumer key of this o auth application.
-	*
-	* @return the consumer key of this o auth application
-	*/
+	 * Returns the consumer key of this o auth application.
+	 *
+	 * @return the consumer key of this o auth application
+	 */
 	@Override
 	public String getConsumerKey() {
 		return _oAuthApplication.getConsumerKey();
 	}
 
 	/**
-	* Returns the consumer secret of this o auth application.
-	*
-	* @return the consumer secret of this o auth application
-	*/
+	 * Returns the consumer secret of this o auth application.
+	 *
+	 * @return the consumer secret of this o auth application
+	 */
 	@Override
 	public String getConsumerSecret() {
 		return _oAuthApplication.getConsumerSecret();
 	}
 
 	/**
-	* Returns the create date of this o auth application.
-	*
-	* @return the create date of this o auth application
-	*/
+	 * Returns the create date of this o auth application.
+	 *
+	 * @return the create date of this o auth application
+	 */
 	@Override
 	public Date getCreateDate() {
 		return _oAuthApplication.getCreateDate();
 	}
 
 	/**
-	* Returns the description of this o auth application.
-	*
-	* @return the description of this o auth application
-	*/
+	 * Returns the description of this o auth application.
+	 *
+	 * @return the description of this o auth application
+	 */
 	@Override
 	public String getDescription() {
 		return _oAuthApplication.getDescription();
@@ -262,50 +263,50 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	}
 
 	/**
-	* Returns the logo ID of this o auth application.
-	*
-	* @return the logo ID of this o auth application
-	*/
+	 * Returns the logo ID of this o auth application.
+	 *
+	 * @return the logo ID of this o auth application
+	 */
 	@Override
 	public long getLogoId() {
 		return _oAuthApplication.getLogoId();
 	}
 
 	/**
-	* Returns the modified date of this o auth application.
-	*
-	* @return the modified date of this o auth application
-	*/
+	 * Returns the modified date of this o auth application.
+	 *
+	 * @return the modified date of this o auth application
+	 */
 	@Override
 	public Date getModifiedDate() {
 		return _oAuthApplication.getModifiedDate();
 	}
 
 	/**
-	* Returns the name of this o auth application.
-	*
-	* @return the name of this o auth application
-	*/
+	 * Returns the name of this o auth application.
+	 *
+	 * @return the name of this o auth application
+	 */
 	@Override
 	public String getName() {
 		return _oAuthApplication.getName();
 	}
 
 	/**
-	* Returns the o auth application ID of this o auth application.
-	*
-	* @return the o auth application ID of this o auth application
-	*/
+	 * Returns the o auth application ID of this o auth application.
+	 *
+	 * @return the o auth application ID of this o auth application
+	 */
 	@Override
 	public long getOAuthApplicationId() {
 		return _oAuthApplication.getOAuthApplicationId();
 	}
 
 	/**
-	* Returns the primary key of this o auth application.
-	*
-	* @return the primary key of this o auth application
-	*/
+	 * Returns the primary key of this o auth application.
+	 *
+	 * @return the primary key of this o auth application
+	 */
 	@Override
 	public long getPrimaryKey() {
 		return _oAuthApplication.getPrimaryKey();
@@ -317,50 +318,50 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	}
 
 	/**
-	* Returns the shareable access token of this o auth application.
-	*
-	* @return the shareable access token of this o auth application
-	*/
+	 * Returns the shareable access token of this o auth application.
+	 *
+	 * @return the shareable access token of this o auth application
+	 */
 	@Override
 	public boolean getShareableAccessToken() {
 		return _oAuthApplication.getShareableAccessToken();
 	}
 
 	/**
-	* Returns the user ID of this o auth application.
-	*
-	* @return the user ID of this o auth application
-	*/
+	 * Returns the user ID of this o auth application.
+	 *
+	 * @return the user ID of this o auth application
+	 */
 	@Override
 	public long getUserId() {
 		return _oAuthApplication.getUserId();
 	}
 
 	/**
-	* Returns the user name of this o auth application.
-	*
-	* @return the user name of this o auth application
-	*/
+	 * Returns the user name of this o auth application.
+	 *
+	 * @return the user name of this o auth application
+	 */
 	@Override
 	public String getUserName() {
 		return _oAuthApplication.getUserName();
 	}
 
 	/**
-	* Returns the user uuid of this o auth application.
-	*
-	* @return the user uuid of this o auth application
-	*/
+	 * Returns the user uuid of this o auth application.
+	 *
+	 * @return the user uuid of this o auth application
+	 */
 	@Override
 	public String getUserUuid() {
 		return _oAuthApplication.getUserUuid();
 	}
 
 	/**
-	* Returns the website url of this o auth application.
-	*
-	* @return the website url of this o auth application
-	*/
+	 * Returns the website url of this o auth application.
+	 *
+	 * @return the website url of this o auth application
+	 */
 	@Override
 	public String getWebsiteURL() {
 		return _oAuthApplication.getWebsiteURL();
@@ -387,10 +388,10 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	}
 
 	/**
-	* Returns <code>true</code> if this o auth application is shareable access token.
-	*
-	* @return <code>true</code> if this o auth application is shareable access token; <code>false</code> otherwise
-	*/
+	 * Returns <code>true</code> if this o auth application is shareable access token.
+	 *
+	 * @return <code>true</code> if this o auth application is shareable access token; <code>false</code> otherwise
+	 */
 	@Override
 	public boolean isShareableAccessToken() {
 		return _oAuthApplication.isShareableAccessToken();
@@ -402,10 +403,10 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	}
 
 	/**
-	* Sets the access level of this o auth application.
-	*
-	* @param accessLevel the access level of this o auth application
-	*/
+	 * Sets the access level of this o auth application.
+	 *
+	 * @param accessLevel the access level of this o auth application
+	 */
 	@Override
 	public void setAccessLevel(int accessLevel) {
 		_oAuthApplication.setAccessLevel(accessLevel);
@@ -417,60 +418,60 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	}
 
 	/**
-	* Sets the callback uri of this o auth application.
-	*
-	* @param callbackURI the callback uri of this o auth application
-	*/
+	 * Sets the callback uri of this o auth application.
+	 *
+	 * @param callbackURI the callback uri of this o auth application
+	 */
 	@Override
 	public void setCallbackURI(String callbackURI) {
 		_oAuthApplication.setCallbackURI(callbackURI);
 	}
 
 	/**
-	* Sets the company ID of this o auth application.
-	*
-	* @param companyId the company ID of this o auth application
-	*/
+	 * Sets the company ID of this o auth application.
+	 *
+	 * @param companyId the company ID of this o auth application
+	 */
 	@Override
 	public void setCompanyId(long companyId) {
 		_oAuthApplication.setCompanyId(companyId);
 	}
 
 	/**
-	* Sets the consumer key of this o auth application.
-	*
-	* @param consumerKey the consumer key of this o auth application
-	*/
+	 * Sets the consumer key of this o auth application.
+	 *
+	 * @param consumerKey the consumer key of this o auth application
+	 */
 	@Override
 	public void setConsumerKey(String consumerKey) {
 		_oAuthApplication.setConsumerKey(consumerKey);
 	}
 
 	/**
-	* Sets the consumer secret of this o auth application.
-	*
-	* @param consumerSecret the consumer secret of this o auth application
-	*/
+	 * Sets the consumer secret of this o auth application.
+	 *
+	 * @param consumerSecret the consumer secret of this o auth application
+	 */
 	@Override
 	public void setConsumerSecret(String consumerSecret) {
 		_oAuthApplication.setConsumerSecret(consumerSecret);
 	}
 
 	/**
-	* Sets the create date of this o auth application.
-	*
-	* @param createDate the create date of this o auth application
-	*/
+	 * Sets the create date of this o auth application.
+	 *
+	 * @param createDate the create date of this o auth application
+	 */
 	@Override
 	public void setCreateDate(Date createDate) {
 		_oAuthApplication.setCreateDate(createDate);
 	}
 
 	/**
-	* Sets the description of this o auth application.
-	*
-	* @param description the description of this o auth application
-	*/
+	 * Sets the description of this o auth application.
+	 *
+	 * @param description the description of this o auth application
+	 */
 	@Override
 	public void setDescription(String description) {
 		_oAuthApplication.setDescription(description);
@@ -479,6 +480,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
 		_oAuthApplication.setExpandoBridgeAttributes(baseModel);
 	}
 
@@ -493,30 +495,30 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	}
 
 	/**
-	* Sets the logo ID of this o auth application.
-	*
-	* @param logoId the logo ID of this o auth application
-	*/
+	 * Sets the logo ID of this o auth application.
+	 *
+	 * @param logoId the logo ID of this o auth application
+	 */
 	@Override
 	public void setLogoId(long logoId) {
 		_oAuthApplication.setLogoId(logoId);
 	}
 
 	/**
-	* Sets the modified date of this o auth application.
-	*
-	* @param modifiedDate the modified date of this o auth application
-	*/
+	 * Sets the modified date of this o auth application.
+	 *
+	 * @param modifiedDate the modified date of this o auth application
+	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_oAuthApplication.setModifiedDate(modifiedDate);
 	}
 
 	/**
-	* Sets the name of this o auth application.
-	*
-	* @param name the name of this o auth application
-	*/
+	 * Sets the name of this o auth application.
+	 *
+	 * @param name the name of this o auth application
+	 */
 	@Override
 	public void setName(String name) {
 		_oAuthApplication.setName(name);
@@ -528,20 +530,20 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	}
 
 	/**
-	* Sets the o auth application ID of this o auth application.
-	*
-	* @param oAuthApplicationId the o auth application ID of this o auth application
-	*/
+	 * Sets the o auth application ID of this o auth application.
+	 *
+	 * @param oAuthApplicationId the o auth application ID of this o auth application
+	 */
 	@Override
 	public void setOAuthApplicationId(long oAuthApplicationId) {
 		_oAuthApplication.setOAuthApplicationId(oAuthApplicationId);
 	}
 
 	/**
-	* Sets the primary key of this o auth application.
-	*
-	* @param primaryKey the primary key of this o auth application
-	*/
+	 * Sets the primary key of this o auth application.
+	 *
+	 * @param primaryKey the primary key of this o auth application
+	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_oAuthApplication.setPrimaryKey(primaryKey);
@@ -553,57 +555,59 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	}
 
 	/**
-	* Sets whether this o auth application is shareable access token.
-	*
-	* @param shareableAccessToken the shareable access token of this o auth application
-	*/
+	 * Sets whether this o auth application is shareable access token.
+	 *
+	 * @param shareableAccessToken the shareable access token of this o auth application
+	 */
 	@Override
 	public void setShareableAccessToken(boolean shareableAccessToken) {
 		_oAuthApplication.setShareableAccessToken(shareableAccessToken);
 	}
 
 	/**
-	* Sets the user ID of this o auth application.
-	*
-	* @param userId the user ID of this o auth application
-	*/
+	 * Sets the user ID of this o auth application.
+	 *
+	 * @param userId the user ID of this o auth application
+	 */
 	@Override
 	public void setUserId(long userId) {
 		_oAuthApplication.setUserId(userId);
 	}
 
 	/**
-	* Sets the user name of this o auth application.
-	*
-	* @param userName the user name of this o auth application
-	*/
+	 * Sets the user name of this o auth application.
+	 *
+	 * @param userName the user name of this o auth application
+	 */
 	@Override
 	public void setUserName(String userName) {
 		_oAuthApplication.setUserName(userName);
 	}
 
 	/**
-	* Sets the user uuid of this o auth application.
-	*
-	* @param userUuid the user uuid of this o auth application
-	*/
+	 * Sets the user uuid of this o auth application.
+	 *
+	 * @param userUuid the user uuid of this o auth application
+	 */
 	@Override
 	public void setUserUuid(String userUuid) {
 		_oAuthApplication.setUserUuid(userUuid);
 	}
 
 	/**
-	* Sets the website url of this o auth application.
-	*
-	* @param websiteURL the website url of this o auth application
-	*/
+	 * Sets the website url of this o auth application.
+	 *
+	 * @param websiteURL the website url of this o auth application
+	 */
 	@Override
 	public void setWebsiteURL(String websiteURL) {
 		_oAuthApplication.setWebsiteURL(websiteURL);
 	}
 
 	@Override
-	public com.liferay.portal.kernel.model.CacheModel<OAuthApplication> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<OAuthApplication>
+		toCacheModel() {
+
 		return _oAuthApplication.toCacheModel();
 	}
 
@@ -619,7 +623,8 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 
 	@Override
 	public OAuthApplication toUnescapedModel() {
-		return new OAuthApplicationWrapper(_oAuthApplication.toUnescapedModel());
+		return new OAuthApplicationWrapper(
+			_oAuthApplication.toUnescapedModel());
 	}
 
 	@Override
@@ -637,10 +642,12 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 			return false;
 		}
 
-		OAuthApplicationWrapper oAuthApplicationWrapper = (OAuthApplicationWrapper)obj;
+		OAuthApplicationWrapper oAuthApplicationWrapper =
+			(OAuthApplicationWrapper)obj;
 
-		if (Objects.equals(_oAuthApplication,
-					oAuthApplicationWrapper._oAuthApplication)) {
+		if (Objects.equals(
+				_oAuthApplication, oAuthApplicationWrapper._oAuthApplication)) {
+
 			return true;
 		}
 
@@ -668,4 +675,5 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	}
 
 	private final OAuthApplication _oAuthApplication;
+
 }

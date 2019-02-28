@@ -18,11 +18,9 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
-
 import com.liferay.oauth.model.OAuthApplication;
 import com.liferay.oauth.model.OAuthApplicationModel;
 import com.liferay.oauth.model.OAuthApplicationSoap;
-
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSON;
@@ -63,32 +61,29 @@ import java.util.function.Function;
  */
 @JSON(strict = true)
 @ProviderType
-public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
-	implements OAuthApplicationModel {
+public class OAuthApplicationModelImpl
+	extends BaseModelImpl<OAuthApplication> implements OAuthApplicationModel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a o auth application model instance should use the <code>OAuthApplication</code> interface instead.
 	 */
 	public static final String TABLE_NAME = "OAuth_OAuthApplication";
+
 	public static final Object[][] TABLE_COLUMNS = {
-			{ "oAuthApplicationId", Types.BIGINT },
-			{ "companyId", Types.BIGINT },
-			{ "userId", Types.BIGINT },
-			{ "userName", Types.VARCHAR },
-			{ "createDate", Types.TIMESTAMP },
-			{ "modifiedDate", Types.TIMESTAMP },
-			{ "name", Types.VARCHAR },
-			{ "description", Types.VARCHAR },
-			{ "consumerKey", Types.VARCHAR },
-			{ "consumerSecret", Types.VARCHAR },
-			{ "accessLevel", Types.INTEGER },
-			{ "logoId", Types.BIGINT },
-			{ "shareableAccessToken", Types.BOOLEAN },
-			{ "callbackURI", Types.VARCHAR },
-			{ "websiteURL", Types.VARCHAR }
-		};
-	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
+		{"oAuthApplicationId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
+		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+		{"name", Types.VARCHAR}, {"description", Types.VARCHAR},
+		{"consumerKey", Types.VARCHAR}, {"consumerSecret", Types.VARCHAR},
+		{"accessLevel", Types.INTEGER}, {"logoId", Types.BIGINT},
+		{"shareableAccessToken", Types.BOOLEAN}, {"callbackURI", Types.VARCHAR},
+		{"websiteURL", Types.VARCHAR}
+	};
+
+	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
+		new HashMap<String, Integer>();
 
 	static {
 		TABLE_COLUMNS_MAP.put("oAuthApplicationId", Types.BIGINT);
@@ -108,26 +103,47 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		TABLE_COLUMNS_MAP.put("websiteURL", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table OAuth_OAuthApplication (oAuthApplicationId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,description STRING null,consumerKey VARCHAR(75) null,consumerSecret VARCHAR(75) null,accessLevel INTEGER,logoId LONG,shareableAccessToken BOOLEAN,callbackURI STRING null,websiteURL STRING null)";
-	public static final String TABLE_SQL_DROP = "drop table OAuth_OAuthApplication";
-	public static final String ORDER_BY_JPQL = " ORDER BY oAuthApplication.oAuthApplicationId ASC";
-	public static final String ORDER_BY_SQL = " ORDER BY OAuth_OAuthApplication.oAuthApplicationId ASC";
+	public static final String TABLE_SQL_CREATE =
+		"create table OAuth_OAuthApplication (oAuthApplicationId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,description STRING null,consumerKey VARCHAR(75) null,consumerSecret VARCHAR(75) null,accessLevel INTEGER,logoId LONG,shareableAccessToken BOOLEAN,callbackURI STRING null,websiteURL STRING null)";
+
+	public static final String TABLE_SQL_DROP =
+		"drop table OAuth_OAuthApplication";
+
+	public static final String ORDER_BY_JPQL =
+		" ORDER BY oAuthApplication.oAuthApplicationId ASC";
+
+	public static final String ORDER_BY_SQL =
+		" ORDER BY OAuth_OAuthApplication.oAuthApplicationId ASC";
+
 	public static final String DATA_SOURCE = "liferayDataSource";
+
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
+
 	public static final String TX_MANAGER = "liferayTransactionManager";
-	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.oauth.service.util.ServiceProps.get(
-				"value.object.entity.cache.enabled.com.liferay.oauth.model.OAuthApplication"),
-			true);
-	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.oauth.service.util.ServiceProps.get(
-				"value.object.finder.cache.enabled.com.liferay.oauth.model.OAuthApplication"),
-			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.oauth.service.util.ServiceProps.get(
-				"value.object.column.bitmask.enabled.com.liferay.oauth.model.OAuthApplication"),
-			true);
+
+	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(
+		com.liferay.oauth.service.util.ServiceProps.get(
+			"value.object.entity.cache.enabled.com.liferay.oauth.model.OAuthApplication"),
+		true);
+
+	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(
+		com.liferay.oauth.service.util.ServiceProps.get(
+			"value.object.finder.cache.enabled.com.liferay.oauth.model.OAuthApplication"),
+		true);
+
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(
+		com.liferay.oauth.service.util.ServiceProps.get(
+			"value.object.column.bitmask.enabled.com.liferay.oauth.model.OAuthApplication"),
+		true);
+
 	public static final long COMPANYID_COLUMN_BITMASK = 1L;
+
 	public static final long CONSUMERKEY_COLUMN_BITMASK = 2L;
+
 	public static final long NAME_COLUMN_BITMASK = 4L;
+
 	public static final long USERID_COLUMN_BITMASK = 8L;
+
 	public static final long OAUTHAPPLICATIONID_COLUMN_BITMASK = 16L;
 
 	/**
@@ -170,11 +186,13 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	 */
 	public static List<OAuthApplication> toModels(
 		OAuthApplicationSoap[] soapModels) {
+
 		if (soapModels == null) {
 			return null;
 		}
 
-		List<OAuthApplication> models = new ArrayList<OAuthApplication>(soapModels.length);
+		List<OAuthApplication> models = new ArrayList<OAuthApplication>(
+			soapModels.length);
 
 		for (OAuthApplicationSoap soapModel : soapModels) {
 			models.add(toModel(soapModel));
@@ -183,8 +201,9 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		return models;
 	}
 
-	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.oauth.service.util.ServiceProps.get(
-				"lock.expiration.time.com.liferay.oauth.model.OAuthApplication"));
+	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(
+		com.liferay.oauth.service.util.ServiceProps.get(
+			"lock.expiration.time.com.liferay.oauth.model.OAuthApplication"));
 
 	public OAuthApplicationModelImpl() {
 	}
@@ -223,14 +242,18 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		Map<String, Function<OAuthApplication, Object>> attributeGetterFunctions =
-			getAttributeGetterFunctions();
+		Map<String, Function<OAuthApplication, Object>>
+			attributeGetterFunctions = getAttributeGetterFunctions();
 
-		for (Map.Entry<String, Function<OAuthApplication, Object>> entry : attributeGetterFunctions.entrySet()) {
+		for (Map.Entry<String, Function<OAuthApplication, Object>> entry :
+				attributeGetterFunctions.entrySet()) {
+
 			String attributeName = entry.getKey();
-			Function<OAuthApplication, Object> attributeGetterFunction = entry.getValue();
+			Function<OAuthApplication, Object> attributeGetterFunction =
+				entry.getValue();
 
-			attributes.put(attributeName,
+			attributes.put(
+				attributeName,
 				attributeGetterFunction.apply((OAuthApplication)this));
 		}
 
@@ -242,37 +265,46 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Map<String, BiConsumer<OAuthApplication, Object>> attributeSetterBiConsumers =
-			getAttributeSetterBiConsumers();
+		Map<String, BiConsumer<OAuthApplication, Object>>
+			attributeSetterBiConsumers = getAttributeSetterBiConsumers();
 
 		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
 			String attributeName = entry.getKey();
 
-			BiConsumer<OAuthApplication, Object> attributeSetterBiConsumer = attributeSetterBiConsumers.get(attributeName);
+			BiConsumer<OAuthApplication, Object> attributeSetterBiConsumer =
+				attributeSetterBiConsumers.get(attributeName);
 
 			if (attributeSetterBiConsumer != null) {
-				attributeSetterBiConsumer.accept((OAuthApplication)this,
-					entry.getValue());
+				attributeSetterBiConsumer.accept(
+					(OAuthApplication)this, entry.getValue());
 			}
 		}
 	}
 
-	public Map<String, Function<OAuthApplication, Object>> getAttributeGetterFunctions() {
+	public Map<String, Function<OAuthApplication, Object>>
+		getAttributeGetterFunctions() {
+
 		return _attributeGetterFunctions;
 	}
 
-	public Map<String, BiConsumer<OAuthApplication, Object>> getAttributeSetterBiConsumers() {
+	public Map<String, BiConsumer<OAuthApplication, Object>>
+		getAttributeSetterBiConsumers() {
+
 		return _attributeSetterBiConsumers;
 	}
 
-	private static final Map<String, Function<OAuthApplication, Object>> _attributeGetterFunctions;
-	private static final Map<String, BiConsumer<OAuthApplication, Object>> _attributeSetterBiConsumers;
+	private static final Map<String, Function<OAuthApplication, Object>>
+		_attributeGetterFunctions;
+	private static final Map<String, BiConsumer<OAuthApplication, Object>>
+		_attributeSetterBiConsumers;
 
 	static {
-		Map<String, Function<OAuthApplication, Object>> attributeGetterFunctions =
-			new LinkedHashMap<String, Function<OAuthApplication, Object>>();
-		Map<String, BiConsumer<OAuthApplication, ?>> attributeSetterBiConsumers = new LinkedHashMap<String, BiConsumer<OAuthApplication, ?>>();
-
+		Map<String, Function<OAuthApplication, Object>>
+			attributeGetterFunctions =
+				new LinkedHashMap<String, Function<OAuthApplication, Object>>();
+		Map<String, BiConsumer<OAuthApplication, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<OAuthApplication, ?>>();
 
 		attributeGetterFunctions.put(
 			"oAuthApplicationId",
@@ -289,8 +321,12 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			new BiConsumer<OAuthApplication, Object>() {
 
 				@Override
-				public void accept(OAuthApplication oAuthApplication, Object oAuthApplicationId) {
-					oAuthApplication.setOAuthApplicationId((Long)oAuthApplicationId);
+				public void accept(
+					OAuthApplication oAuthApplication,
+					Object oAuthApplicationId) {
+
+					oAuthApplication.setOAuthApplicationId(
+						(Long)oAuthApplicationId);
 				}
 
 			});
@@ -309,7 +345,9 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			new BiConsumer<OAuthApplication, Object>() {
 
 				@Override
-				public void accept(OAuthApplication oAuthApplication, Object companyId) {
+				public void accept(
+					OAuthApplication oAuthApplication, Object companyId) {
+
 					oAuthApplication.setCompanyId((Long)companyId);
 				}
 
@@ -329,7 +367,9 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			new BiConsumer<OAuthApplication, Object>() {
 
 				@Override
-				public void accept(OAuthApplication oAuthApplication, Object userId) {
+				public void accept(
+					OAuthApplication oAuthApplication, Object userId) {
+
 					oAuthApplication.setUserId((Long)userId);
 				}
 
@@ -349,7 +389,9 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			new BiConsumer<OAuthApplication, Object>() {
 
 				@Override
-				public void accept(OAuthApplication oAuthApplication, Object userName) {
+				public void accept(
+					OAuthApplication oAuthApplication, Object userName) {
+
 					oAuthApplication.setUserName((String)userName);
 				}
 
@@ -369,7 +411,9 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			new BiConsumer<OAuthApplication, Object>() {
 
 				@Override
-				public void accept(OAuthApplication oAuthApplication, Object createDate) {
+				public void accept(
+					OAuthApplication oAuthApplication, Object createDate) {
+
 					oAuthApplication.setCreateDate((Date)createDate);
 				}
 
@@ -389,7 +433,9 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			new BiConsumer<OAuthApplication, Object>() {
 
 				@Override
-				public void accept(OAuthApplication oAuthApplication, Object modifiedDate) {
+				public void accept(
+					OAuthApplication oAuthApplication, Object modifiedDate) {
+
 					oAuthApplication.setModifiedDate((Date)modifiedDate);
 				}
 
@@ -409,7 +455,9 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			new BiConsumer<OAuthApplication, Object>() {
 
 				@Override
-				public void accept(OAuthApplication oAuthApplication, Object name) {
+				public void accept(
+					OAuthApplication oAuthApplication, Object name) {
+
 					oAuthApplication.setName((String)name);
 				}
 
@@ -429,7 +477,9 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			new BiConsumer<OAuthApplication, Object>() {
 
 				@Override
-				public void accept(OAuthApplication oAuthApplication, Object description) {
+				public void accept(
+					OAuthApplication oAuthApplication, Object description) {
+
 					oAuthApplication.setDescription((String)description);
 				}
 
@@ -449,7 +499,9 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			new BiConsumer<OAuthApplication, Object>() {
 
 				@Override
-				public void accept(OAuthApplication oAuthApplication, Object consumerKey) {
+				public void accept(
+					OAuthApplication oAuthApplication, Object consumerKey) {
+
 					oAuthApplication.setConsumerKey((String)consumerKey);
 				}
 
@@ -469,7 +521,9 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			new BiConsumer<OAuthApplication, Object>() {
 
 				@Override
-				public void accept(OAuthApplication oAuthApplication, Object consumerSecret) {
+				public void accept(
+					OAuthApplication oAuthApplication, Object consumerSecret) {
+
 					oAuthApplication.setConsumerSecret((String)consumerSecret);
 				}
 
@@ -489,7 +543,9 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			new BiConsumer<OAuthApplication, Object>() {
 
 				@Override
-				public void accept(OAuthApplication oAuthApplication, Object accessLevel) {
+				public void accept(
+					OAuthApplication oAuthApplication, Object accessLevel) {
+
 					oAuthApplication.setAccessLevel((Integer)accessLevel);
 				}
 
@@ -509,7 +565,9 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			new BiConsumer<OAuthApplication, Object>() {
 
 				@Override
-				public void accept(OAuthApplication oAuthApplication, Object logoId) {
+				public void accept(
+					OAuthApplication oAuthApplication, Object logoId) {
+
 					oAuthApplication.setLogoId((Long)logoId);
 				}
 
@@ -529,8 +587,12 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			new BiConsumer<OAuthApplication, Object>() {
 
 				@Override
-				public void accept(OAuthApplication oAuthApplication, Object shareableAccessToken) {
-					oAuthApplication.setShareableAccessToken((Boolean)shareableAccessToken);
+				public void accept(
+					OAuthApplication oAuthApplication,
+					Object shareableAccessToken) {
+
+					oAuthApplication.setShareableAccessToken(
+						(Boolean)shareableAccessToken);
 				}
 
 			});
@@ -549,7 +611,9 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			new BiConsumer<OAuthApplication, Object>() {
 
 				@Override
-				public void accept(OAuthApplication oAuthApplication, Object callbackURI) {
+				public void accept(
+					OAuthApplication oAuthApplication, Object callbackURI) {
+
 					oAuthApplication.setCallbackURI((String)callbackURI);
 				}
 
@@ -569,15 +633,18 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			new BiConsumer<OAuthApplication, Object>() {
 
 				@Override
-				public void accept(OAuthApplication oAuthApplication, Object websiteURL) {
+				public void accept(
+					OAuthApplication oAuthApplication, Object websiteURL) {
+
 					oAuthApplication.setWebsiteURL((String)websiteURL);
 				}
 
 			});
 
-
-		_attributeGetterFunctions = Collections.unmodifiableMap(attributeGetterFunctions);
-		_attributeSetterBiConsumers = Collections.unmodifiableMap((Map)attributeSetterBiConsumers);
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+		_attributeSetterBiConsumers = Collections.unmodifiableMap(
+			(Map)attributeSetterBiConsumers);
 	}
 
 	@JSON
@@ -858,8 +925,8 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 
 	@Override
 	public ExpandoBridge getExpandoBridge() {
-		return ExpandoBridgeFactoryUtil.getExpandoBridge(getCompanyId(),
-			OAuthApplication.class.getName(), getPrimaryKey());
+		return ExpandoBridgeFactoryUtil.getExpandoBridge(
+			getCompanyId(), OAuthApplication.class.getName(), getPrimaryKey());
 	}
 
 	@Override
@@ -872,8 +939,9 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	@Override
 	public OAuthApplication toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = (OAuthApplication)ProxyUtil.newProxyInstance(_classLoader,
-					_escapedModelInterfaces, new AutoEscapeBeanHandler(this));
+			_escapedModel = (OAuthApplication)ProxyUtil.newProxyInstance(
+				_classLoader, _escapedModelInterfaces,
+				new AutoEscapeBeanHandler(this));
 		}
 
 		return _escapedModel;
@@ -960,26 +1028,31 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	public void resetOriginalValues() {
 		OAuthApplicationModelImpl oAuthApplicationModelImpl = this;
 
-		oAuthApplicationModelImpl._originalCompanyId = oAuthApplicationModelImpl._companyId;
+		oAuthApplicationModelImpl._originalCompanyId =
+			oAuthApplicationModelImpl._companyId;
 
 		oAuthApplicationModelImpl._setOriginalCompanyId = false;
 
-		oAuthApplicationModelImpl._originalUserId = oAuthApplicationModelImpl._userId;
+		oAuthApplicationModelImpl._originalUserId =
+			oAuthApplicationModelImpl._userId;
 
 		oAuthApplicationModelImpl._setOriginalUserId = false;
 
 		oAuthApplicationModelImpl._setModifiedDate = false;
 
-		oAuthApplicationModelImpl._originalName = oAuthApplicationModelImpl._name;
+		oAuthApplicationModelImpl._originalName =
+			oAuthApplicationModelImpl._name;
 
-		oAuthApplicationModelImpl._originalConsumerKey = oAuthApplicationModelImpl._consumerKey;
+		oAuthApplicationModelImpl._originalConsumerKey =
+			oAuthApplicationModelImpl._consumerKey;
 
 		oAuthApplicationModelImpl._columnBitmask = 0;
 	}
 
 	@Override
 	public CacheModel<OAuthApplication> toCacheModel() {
-		OAuthApplicationCacheModel oAuthApplicationCacheModel = new OAuthApplicationCacheModel();
+		OAuthApplicationCacheModel oAuthApplicationCacheModel =
+			new OAuthApplicationCacheModel();
 
 		oAuthApplicationCacheModel.oAuthApplicationId = getOAuthApplicationId();
 
@@ -1049,7 +1122,8 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 
 		oAuthApplicationCacheModel.logoId = getLogoId();
 
-		oAuthApplicationCacheModel.shareableAccessToken = isShareableAccessToken();
+		oAuthApplicationCacheModel.shareableAccessToken =
+			isShareableAccessToken();
 
 		oAuthApplicationCacheModel.callbackURI = getCallbackURI();
 
@@ -1072,17 +1146,20 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 
 	@Override
 	public String toString() {
-		Map<String, Function<OAuthApplication, Object>> attributeGetterFunctions =
-			getAttributeGetterFunctions();
+		Map<String, Function<OAuthApplication, Object>>
+			attributeGetterFunctions = getAttributeGetterFunctions();
 
-		StringBundler sb = new StringBundler((4 * attributeGetterFunctions.size()) +
-				2);
+		StringBundler sb = new StringBundler(
+			4 * attributeGetterFunctions.size() + 2);
 
 		sb.append("{");
 
-		for (Map.Entry<String, Function<OAuthApplication, Object>> entry : attributeGetterFunctions.entrySet()) {
+		for (Map.Entry<String, Function<OAuthApplication, Object>> entry :
+				attributeGetterFunctions.entrySet()) {
+
 			String attributeName = entry.getKey();
-			Function<OAuthApplication, Object> attributeGetterFunction = entry.getValue();
+			Function<OAuthApplication, Object> attributeGetterFunction =
+				entry.getValue();
 
 			sb.append(attributeName);
 			sb.append("=");
@@ -1101,19 +1178,22 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 
 	@Override
 	public String toXmlString() {
-		Map<String, Function<OAuthApplication, Object>> attributeGetterFunctions =
-			getAttributeGetterFunctions();
+		Map<String, Function<OAuthApplication, Object>>
+			attributeGetterFunctions = getAttributeGetterFunctions();
 
-		StringBundler sb = new StringBundler((5 * attributeGetterFunctions.size()) +
-				4);
+		StringBundler sb = new StringBundler(
+			5 * attributeGetterFunctions.size() + 4);
 
 		sb.append("<model><model-name>");
 		sb.append(getModelClassName());
 		sb.append("</model-name>");
 
-		for (Map.Entry<String, Function<OAuthApplication, Object>> entry : attributeGetterFunctions.entrySet()) {
+		for (Map.Entry<String, Function<OAuthApplication, Object>> entry :
+				attributeGetterFunctions.entrySet()) {
+
 			String attributeName = entry.getKey();
-			Function<OAuthApplication, Object> attributeGetterFunction = entry.getValue();
+			Function<OAuthApplication, Object> attributeGetterFunction =
+				entry.getValue();
 
 			sb.append("<column><column-name>");
 			sb.append(attributeName);
@@ -1127,10 +1207,12 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		return sb.toString();
 	}
 
-	private static final ClassLoader _classLoader = OAuthApplication.class.getClassLoader();
+	private static final ClassLoader _classLoader =
+		OAuthApplication.class.getClassLoader();
 	private static final Class<?>[] _escapedModelInterfaces = new Class[] {
-			OAuthApplication.class, ModelWrapper.class
-		};
+		OAuthApplication.class, ModelWrapper.class
+	};
+
 	private long _oAuthApplicationId;
 	private long _companyId;
 	private long _originalCompanyId;
@@ -1155,4 +1237,5 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	private String _websiteURL;
 	private long _columnBitmask;
 	private OAuthApplication _escapedModel;
+
 }

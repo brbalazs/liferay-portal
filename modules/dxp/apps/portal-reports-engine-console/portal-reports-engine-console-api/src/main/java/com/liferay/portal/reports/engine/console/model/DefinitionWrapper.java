@@ -17,9 +17,7 @@ package com.liferay.portal.reports.engine.console.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.exportimport.kernel.lar.StagedModelType;
-
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -41,6 +39,7 @@ import java.util.Objects;
  */
 @ProviderType
 public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
+
 	public DefinitionWrapper(Definition definition) {
 		_definition = definition;
 	}
@@ -182,6 +181,7 @@ public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
 	@Override
 	public String[] getAttachmentsFiles()
 		throws com.liferay.portal.kernel.exception.PortalException {
+
 		return _definition.getAttachmentsFiles();
 	}
 
@@ -191,20 +191,20 @@ public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
 	}
 
 	/**
-	* Returns the company ID of this definition.
-	*
-	* @return the company ID of this definition
-	*/
+	 * Returns the company ID of this definition.
+	 *
+	 * @return the company ID of this definition
+	 */
 	@Override
 	public long getCompanyId() {
 		return _definition.getCompanyId();
 	}
 
 	/**
-	* Returns the create date of this definition.
-	*
-	* @return the create date of this definition
-	*/
+	 * Returns the create date of this definition.
+	 *
+	 * @return the create date of this definition
+	 */
 	@Override
 	public Date getCreateDate() {
 		return _definition.getCreateDate();
@@ -216,66 +216,66 @@ public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
 	}
 
 	/**
-	* Returns the definition ID of this definition.
-	*
-	* @return the definition ID of this definition
-	*/
+	 * Returns the definition ID of this definition.
+	 *
+	 * @return the definition ID of this definition
+	 */
 	@Override
 	public long getDefinitionId() {
 		return _definition.getDefinitionId();
 	}
 
 	/**
-	* Returns the description of this definition.
-	*
-	* @return the description of this definition
-	*/
+	 * Returns the description of this definition.
+	 *
+	 * @return the description of this definition
+	 */
 	@Override
 	public String getDescription() {
 		return _definition.getDescription();
 	}
 
 	/**
-	* Returns the localized description of this definition in the language. Uses the default language if no localization exists for the requested language.
-	*
-	* @param locale the locale of the language
-	* @return the localized description of this definition
-	*/
+	 * Returns the localized description of this definition in the language. Uses the default language if no localization exists for the requested language.
+	 *
+	 * @param locale the locale of the language
+	 * @return the localized description of this definition
+	 */
 	@Override
 	public String getDescription(java.util.Locale locale) {
 		return _definition.getDescription(locale);
 	}
 
 	/**
-	* Returns the localized description of this definition in the language, optionally using the default language if no localization exists for the requested language.
-	*
-	* @param locale the local of the language
-	* @param useDefault whether to use the default language if no localization exists for the requested language
-	* @return the localized description of this definition. If <code>useDefault</code> is <code>false</code> and no localization exists for the requested language, an empty string will be returned.
-	*/
+	 * Returns the localized description of this definition in the language, optionally using the default language if no localization exists for the requested language.
+	 *
+	 * @param locale the local of the language
+	 * @param useDefault whether to use the default language if no localization exists for the requested language
+	 * @return the localized description of this definition. If <code>useDefault</code> is <code>false</code> and no localization exists for the requested language, an empty string will be returned.
+	 */
 	@Override
 	public String getDescription(java.util.Locale locale, boolean useDefault) {
 		return _definition.getDescription(locale, useDefault);
 	}
 
 	/**
-	* Returns the localized description of this definition in the language. Uses the default language if no localization exists for the requested language.
-	*
-	* @param languageId the ID of the language
-	* @return the localized description of this definition
-	*/
+	 * Returns the localized description of this definition in the language. Uses the default language if no localization exists for the requested language.
+	 *
+	 * @param languageId the ID of the language
+	 * @return the localized description of this definition
+	 */
 	@Override
 	public String getDescription(String languageId) {
 		return _definition.getDescription(languageId);
 	}
 
 	/**
-	* Returns the localized description of this definition in the language, optionally using the default language if no localization exists for the requested language.
-	*
-	* @param languageId the ID of the language
-	* @param useDefault whether to use the default language if no localization exists for the requested language
-	* @return the localized description of this definition
-	*/
+	 * Returns the localized description of this definition in the language, optionally using the default language if no localization exists for the requested language.
+	 *
+	 * @param languageId the ID of the language
+	 * @param useDefault whether to use the default language if no localization exists for the requested language
+	 * @return the localized description of this definition
+	 */
 	@Override
 	public String getDescription(String languageId, boolean useDefault) {
 		return _definition.getDescription(languageId, useDefault);
@@ -292,10 +292,10 @@ public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
 	}
 
 	/**
-	* Returns a map of the locales and localized descriptions of this definition.
-	*
-	* @return the locales and localized descriptions of this definition
-	*/
+	 * Returns a map of the locales and localized descriptions of this definition.
+	 *
+	 * @return the locales and localized descriptions of this definition
+	 */
 	@Override
 	public Map<java.util.Locale, String> getDescriptionMap() {
 		return _definition.getDescriptionMap();
@@ -307,86 +307,86 @@ public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
 	}
 
 	/**
-	* Returns the group ID of this definition.
-	*
-	* @return the group ID of this definition
-	*/
+	 * Returns the group ID of this definition.
+	 *
+	 * @return the group ID of this definition
+	 */
 	@Override
 	public long getGroupId() {
 		return _definition.getGroupId();
 	}
 
 	/**
-	* Returns the last publish date of this definition.
-	*
-	* @return the last publish date of this definition
-	*/
+	 * Returns the last publish date of this definition.
+	 *
+	 * @return the last publish date of this definition
+	 */
 	@Override
 	public Date getLastPublishDate() {
 		return _definition.getLastPublishDate();
 	}
 
 	/**
-	* Returns the modified date of this definition.
-	*
-	* @return the modified date of this definition
-	*/
+	 * Returns the modified date of this definition.
+	 *
+	 * @return the modified date of this definition
+	 */
 	@Override
 	public Date getModifiedDate() {
 		return _definition.getModifiedDate();
 	}
 
 	/**
-	* Returns the name of this definition.
-	*
-	* @return the name of this definition
-	*/
+	 * Returns the name of this definition.
+	 *
+	 * @return the name of this definition
+	 */
 	@Override
 	public String getName() {
 		return _definition.getName();
 	}
 
 	/**
-	* Returns the localized name of this definition in the language. Uses the default language if no localization exists for the requested language.
-	*
-	* @param locale the locale of the language
-	* @return the localized name of this definition
-	*/
+	 * Returns the localized name of this definition in the language. Uses the default language if no localization exists for the requested language.
+	 *
+	 * @param locale the locale of the language
+	 * @return the localized name of this definition
+	 */
 	@Override
 	public String getName(java.util.Locale locale) {
 		return _definition.getName(locale);
 	}
 
 	/**
-	* Returns the localized name of this definition in the language, optionally using the default language if no localization exists for the requested language.
-	*
-	* @param locale the local of the language
-	* @param useDefault whether to use the default language if no localization exists for the requested language
-	* @return the localized name of this definition. If <code>useDefault</code> is <code>false</code> and no localization exists for the requested language, an empty string will be returned.
-	*/
+	 * Returns the localized name of this definition in the language, optionally using the default language if no localization exists for the requested language.
+	 *
+	 * @param locale the local of the language
+	 * @param useDefault whether to use the default language if no localization exists for the requested language
+	 * @return the localized name of this definition. If <code>useDefault</code> is <code>false</code> and no localization exists for the requested language, an empty string will be returned.
+	 */
 	@Override
 	public String getName(java.util.Locale locale, boolean useDefault) {
 		return _definition.getName(locale, useDefault);
 	}
 
 	/**
-	* Returns the localized name of this definition in the language. Uses the default language if no localization exists for the requested language.
-	*
-	* @param languageId the ID of the language
-	* @return the localized name of this definition
-	*/
+	 * Returns the localized name of this definition in the language. Uses the default language if no localization exists for the requested language.
+	 *
+	 * @param languageId the ID of the language
+	 * @return the localized name of this definition
+	 */
 	@Override
 	public String getName(String languageId) {
 		return _definition.getName(languageId);
 	}
 
 	/**
-	* Returns the localized name of this definition in the language, optionally using the default language if no localization exists for the requested language.
-	*
-	* @param languageId the ID of the language
-	* @param useDefault whether to use the default language if no localization exists for the requested language
-	* @return the localized name of this definition
-	*/
+	 * Returns the localized name of this definition in the language, optionally using the default language if no localization exists for the requested language.
+	 *
+	 * @param languageId the ID of the language
+	 * @param useDefault whether to use the default language if no localization exists for the requested language
+	 * @return the localized name of this definition
+	 */
 	@Override
 	public String getName(String languageId, boolean useDefault) {
 		return _definition.getName(languageId, useDefault);
@@ -403,20 +403,20 @@ public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
 	}
 
 	/**
-	* Returns a map of the locales and localized names of this definition.
-	*
-	* @return the locales and localized names of this definition
-	*/
+	 * Returns a map of the locales and localized names of this definition.
+	 *
+	 * @return the locales and localized names of this definition
+	 */
 	@Override
 	public Map<java.util.Locale, String> getNameMap() {
 		return _definition.getNameMap();
 	}
 
 	/**
-	* Returns the primary key of this definition.
-	*
-	* @return the primary key of this definition
-	*/
+	 * Returns the primary key of this definition.
+	 *
+	 * @return the primary key of this definition
+	 */
 	@Override
 	public long getPrimaryKey() {
 		return _definition.getPrimaryKey();
@@ -428,70 +428,70 @@ public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
 	}
 
 	/**
-	* Returns the report name of this definition.
-	*
-	* @return the report name of this definition
-	*/
+	 * Returns the report name of this definition.
+	 *
+	 * @return the report name of this definition
+	 */
 	@Override
 	public String getReportName() {
 		return _definition.getReportName();
 	}
 
 	/**
-	* Returns the report parameters of this definition.
-	*
-	* @return the report parameters of this definition
-	*/
+	 * Returns the report parameters of this definition.
+	 *
+	 * @return the report parameters of this definition
+	 */
 	@Override
 	public String getReportParameters() {
 		return _definition.getReportParameters();
 	}
 
 	/**
-	* Returns the source ID of this definition.
-	*
-	* @return the source ID of this definition
-	*/
+	 * Returns the source ID of this definition.
+	 *
+	 * @return the source ID of this definition
+	 */
 	@Override
 	public long getSourceId() {
 		return _definition.getSourceId();
 	}
 
 	/**
-	* Returns the user ID of this definition.
-	*
-	* @return the user ID of this definition
-	*/
+	 * Returns the user ID of this definition.
+	 *
+	 * @return the user ID of this definition
+	 */
 	@Override
 	public long getUserId() {
 		return _definition.getUserId();
 	}
 
 	/**
-	* Returns the user name of this definition.
-	*
-	* @return the user name of this definition
-	*/
+	 * Returns the user name of this definition.
+	 *
+	 * @return the user name of this definition
+	 */
 	@Override
 	public String getUserName() {
 		return _definition.getUserName();
 	}
 
 	/**
-	* Returns the user uuid of this definition.
-	*
-	* @return the user uuid of this definition
-	*/
+	 * Returns the user uuid of this definition.
+	 *
+	 * @return the user uuid of this definition
+	 */
 	@Override
 	public String getUserUuid() {
 		return _definition.getUserUuid();
 	}
 
 	/**
-	* Returns the uuid of this definition.
-	*
-	* @return the uuid of this definition
-	*/
+	 * Returns the uuid of this definition.
+	 *
+	 * @return the uuid of this definition
+	 */
 	@Override
 	public String getUuid() {
 		return _definition.getUuid();
@@ -525,13 +525,15 @@ public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
 	@Override
 	public void prepareLocalizedFieldsForImport()
 		throws com.liferay.portal.kernel.exception.LocaleException {
+
 		_definition.prepareLocalizedFieldsForImport();
 	}
 
 	@Override
 	public void prepareLocalizedFieldsForImport(
-		java.util.Locale defaultImportLocale)
+			java.util.Locale defaultImportLocale)
 		throws com.liferay.portal.kernel.exception.LocaleException {
+
 		_definition.prepareLocalizedFieldsForImport(defaultImportLocale);
 	}
 
@@ -541,66 +543,68 @@ public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
 	}
 
 	/**
-	* Sets the company ID of this definition.
-	*
-	* @param companyId the company ID of this definition
-	*/
+	 * Sets the company ID of this definition.
+	 *
+	 * @param companyId the company ID of this definition
+	 */
 	@Override
 	public void setCompanyId(long companyId) {
 		_definition.setCompanyId(companyId);
 	}
 
 	/**
-	* Sets the create date of this definition.
-	*
-	* @param createDate the create date of this definition
-	*/
+	 * Sets the create date of this definition.
+	 *
+	 * @param createDate the create date of this definition
+	 */
 	@Override
 	public void setCreateDate(Date createDate) {
 		_definition.setCreateDate(createDate);
 	}
 
 	/**
-	* Sets the definition ID of this definition.
-	*
-	* @param definitionId the definition ID of this definition
-	*/
+	 * Sets the definition ID of this definition.
+	 *
+	 * @param definitionId the definition ID of this definition
+	 */
 	@Override
 	public void setDefinitionId(long definitionId) {
 		_definition.setDefinitionId(definitionId);
 	}
 
 	/**
-	* Sets the description of this definition.
-	*
-	* @param description the description of this definition
-	*/
+	 * Sets the description of this definition.
+	 *
+	 * @param description the description of this definition
+	 */
 	@Override
 	public void setDescription(String description) {
 		_definition.setDescription(description);
 	}
 
 	/**
-	* Sets the localized description of this definition in the language.
-	*
-	* @param description the localized description of this definition
-	* @param locale the locale of the language
-	*/
+	 * Sets the localized description of this definition in the language.
+	 *
+	 * @param description the localized description of this definition
+	 * @param locale the locale of the language
+	 */
 	@Override
 	public void setDescription(String description, java.util.Locale locale) {
 		_definition.setDescription(description, locale);
 	}
 
 	/**
-	* Sets the localized description of this definition in the language, and sets the default locale.
-	*
-	* @param description the localized description of this definition
-	* @param locale the locale of the language
-	* @param defaultLocale the default locale
-	*/
+	 * Sets the localized description of this definition in the language, and sets the default locale.
+	 *
+	 * @param description the localized description of this definition
+	 * @param locale the locale of the language
+	 * @param defaultLocale the default locale
+	 */
 	@Override
-	public void setDescription(String description, java.util.Locale locale,
+	public void setDescription(
+		String description, java.util.Locale locale,
 		java.util.Locale defaultLocale) {
+
 		_definition.setDescription(description, locale, defaultLocale);
 	}
 
@@ -610,31 +614,35 @@ public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
 	}
 
 	/**
-	* Sets the localized descriptions of this definition from the map of locales and localized descriptions.
-	*
-	* @param descriptionMap the locales and localized descriptions of this definition
-	*/
+	 * Sets the localized descriptions of this definition from the map of locales and localized descriptions.
+	 *
+	 * @param descriptionMap the locales and localized descriptions of this definition
+	 */
 	@Override
-	public void setDescriptionMap(Map<java.util.Locale, String> descriptionMap) {
+	public void setDescriptionMap(
+		Map<java.util.Locale, String> descriptionMap) {
+
 		_definition.setDescriptionMap(descriptionMap);
 	}
 
 	/**
-	* Sets the localized descriptions of this definition from the map of locales and localized descriptions, and sets the default locale.
-	*
-	* @param descriptionMap the locales and localized descriptions of this definition
-	* @param defaultLocale the default locale
-	*/
+	 * Sets the localized descriptions of this definition from the map of locales and localized descriptions, and sets the default locale.
+	 *
+	 * @param descriptionMap the locales and localized descriptions of this definition
+	 * @param defaultLocale the default locale
+	 */
 	@Override
 	public void setDescriptionMap(
 		Map<java.util.Locale, String> descriptionMap,
 		java.util.Locale defaultLocale) {
+
 		_definition.setDescriptionMap(descriptionMap, defaultLocale);
 	}
 
 	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
 		_definition.setExpandoBridgeAttributes(baseModel);
 	}
 
@@ -649,66 +657,67 @@ public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
 	}
 
 	/**
-	* Sets the group ID of this definition.
-	*
-	* @param groupId the group ID of this definition
-	*/
+	 * Sets the group ID of this definition.
+	 *
+	 * @param groupId the group ID of this definition
+	 */
 	@Override
 	public void setGroupId(long groupId) {
 		_definition.setGroupId(groupId);
 	}
 
 	/**
-	* Sets the last publish date of this definition.
-	*
-	* @param lastPublishDate the last publish date of this definition
-	*/
+	 * Sets the last publish date of this definition.
+	 *
+	 * @param lastPublishDate the last publish date of this definition
+	 */
 	@Override
 	public void setLastPublishDate(Date lastPublishDate) {
 		_definition.setLastPublishDate(lastPublishDate);
 	}
 
 	/**
-	* Sets the modified date of this definition.
-	*
-	* @param modifiedDate the modified date of this definition
-	*/
+	 * Sets the modified date of this definition.
+	 *
+	 * @param modifiedDate the modified date of this definition
+	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_definition.setModifiedDate(modifiedDate);
 	}
 
 	/**
-	* Sets the name of this definition.
-	*
-	* @param name the name of this definition
-	*/
+	 * Sets the name of this definition.
+	 *
+	 * @param name the name of this definition
+	 */
 	@Override
 	public void setName(String name) {
 		_definition.setName(name);
 	}
 
 	/**
-	* Sets the localized name of this definition in the language.
-	*
-	* @param name the localized name of this definition
-	* @param locale the locale of the language
-	*/
+	 * Sets the localized name of this definition in the language.
+	 *
+	 * @param name the localized name of this definition
+	 * @param locale the locale of the language
+	 */
 	@Override
 	public void setName(String name, java.util.Locale locale) {
 		_definition.setName(name, locale);
 	}
 
 	/**
-	* Sets the localized name of this definition in the language, and sets the default locale.
-	*
-	* @param name the localized name of this definition
-	* @param locale the locale of the language
-	* @param defaultLocale the default locale
-	*/
+	 * Sets the localized name of this definition in the language, and sets the default locale.
+	 *
+	 * @param name the localized name of this definition
+	 * @param locale the locale of the language
+	 * @param defaultLocale the default locale
+	 */
 	@Override
-	public void setName(String name, java.util.Locale locale,
-		java.util.Locale defaultLocale) {
+	public void setName(
+		String name, java.util.Locale locale, java.util.Locale defaultLocale) {
+
 		_definition.setName(name, locale, defaultLocale);
 	}
 
@@ -718,24 +727,25 @@ public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
 	}
 
 	/**
-	* Sets the localized names of this definition from the map of locales and localized names.
-	*
-	* @param nameMap the locales and localized names of this definition
-	*/
+	 * Sets the localized names of this definition from the map of locales and localized names.
+	 *
+	 * @param nameMap the locales and localized names of this definition
+	 */
 	@Override
 	public void setNameMap(Map<java.util.Locale, String> nameMap) {
 		_definition.setNameMap(nameMap);
 	}
 
 	/**
-	* Sets the localized names of this definition from the map of locales and localized names, and sets the default locale.
-	*
-	* @param nameMap the locales and localized names of this definition
-	* @param defaultLocale the default locale
-	*/
+	 * Sets the localized names of this definition from the map of locales and localized names, and sets the default locale.
+	 *
+	 * @param nameMap the locales and localized names of this definition
+	 * @param defaultLocale the default locale
+	 */
 	@Override
-	public void setNameMap(Map<java.util.Locale, String> nameMap,
-		java.util.Locale defaultLocale) {
+	public void setNameMap(
+		Map<java.util.Locale, String> nameMap, java.util.Locale defaultLocale) {
+
 		_definition.setNameMap(nameMap, defaultLocale);
 	}
 
@@ -745,10 +755,10 @@ public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
 	}
 
 	/**
-	* Sets the primary key of this definition.
-	*
-	* @param primaryKey the primary key of this definition
-	*/
+	 * Sets the primary key of this definition.
+	 *
+	 * @param primaryKey the primary key of this definition
+	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_definition.setPrimaryKey(primaryKey);
@@ -760,77 +770,79 @@ public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
 	}
 
 	/**
-	* Sets the report name of this definition.
-	*
-	* @param reportName the report name of this definition
-	*/
+	 * Sets the report name of this definition.
+	 *
+	 * @param reportName the report name of this definition
+	 */
 	@Override
 	public void setReportName(String reportName) {
 		_definition.setReportName(reportName);
 	}
 
 	/**
-	* Sets the report parameters of this definition.
-	*
-	* @param reportParameters the report parameters of this definition
-	*/
+	 * Sets the report parameters of this definition.
+	 *
+	 * @param reportParameters the report parameters of this definition
+	 */
 	@Override
 	public void setReportParameters(String reportParameters) {
 		_definition.setReportParameters(reportParameters);
 	}
 
 	/**
-	* Sets the source ID of this definition.
-	*
-	* @param sourceId the source ID of this definition
-	*/
+	 * Sets the source ID of this definition.
+	 *
+	 * @param sourceId the source ID of this definition
+	 */
 	@Override
 	public void setSourceId(long sourceId) {
 		_definition.setSourceId(sourceId);
 	}
 
 	/**
-	* Sets the user ID of this definition.
-	*
-	* @param userId the user ID of this definition
-	*/
+	 * Sets the user ID of this definition.
+	 *
+	 * @param userId the user ID of this definition
+	 */
 	@Override
 	public void setUserId(long userId) {
 		_definition.setUserId(userId);
 	}
 
 	/**
-	* Sets the user name of this definition.
-	*
-	* @param userName the user name of this definition
-	*/
+	 * Sets the user name of this definition.
+	 *
+	 * @param userName the user name of this definition
+	 */
 	@Override
 	public void setUserName(String userName) {
 		_definition.setUserName(userName);
 	}
 
 	/**
-	* Sets the user uuid of this definition.
-	*
-	* @param userUuid the user uuid of this definition
-	*/
+	 * Sets the user uuid of this definition.
+	 *
+	 * @param userUuid the user uuid of this definition
+	 */
 	@Override
 	public void setUserUuid(String userUuid) {
 		_definition.setUserUuid(userUuid);
 	}
 
 	/**
-	* Sets the uuid of this definition.
-	*
-	* @param uuid the uuid of this definition
-	*/
+	 * Sets the uuid of this definition.
+	 *
+	 * @param uuid the uuid of this definition
+	 */
 	@Override
 	public void setUuid(String uuid) {
 		_definition.setUuid(uuid);
 	}
 
 	@Override
-	public com.liferay.portal.kernel.model.CacheModel<Definition> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<Definition>
+		toCacheModel() {
+
 		return _definition.toCacheModel();
 	}
 
@@ -899,4 +911,5 @@ public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
 	}
 
 	private final Definition _definition;
+
 }

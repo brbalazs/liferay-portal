@@ -17,7 +17,6 @@ package com.liferay.portal.reports.engine.console.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -39,6 +38,7 @@ import java.util.Objects;
  */
 @ProviderType
 public class EntryWrapper implements Entry, ModelWrapper<Entry> {
+
 	public EntryWrapper(Entry entry) {
 		_entry = entry;
 	}
@@ -168,7 +168,8 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 			setRecurrence(recurrence);
 		}
 
-		String emailNotifications = (String)attributes.get("emailNotifications");
+		String emailNotifications = (String)attributes.get(
+			"emailNotifications");
 
 		if (emailNotifications != null) {
 			setEmailNotifications(emailNotifications);
@@ -229,84 +230,85 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	@Override
 	public String[] getAttachmentsFiles()
 		throws com.liferay.portal.kernel.exception.PortalException {
+
 		return _entry.getAttachmentsFiles();
 	}
 
 	/**
-	* Returns the company ID of this entry.
-	*
-	* @return the company ID of this entry
-	*/
+	 * Returns the company ID of this entry.
+	 *
+	 * @return the company ID of this entry
+	 */
 	@Override
 	public long getCompanyId() {
 		return _entry.getCompanyId();
 	}
 
 	/**
-	* Returns the create date of this entry.
-	*
-	* @return the create date of this entry
-	*/
+	 * Returns the create date of this entry.
+	 *
+	 * @return the create date of this entry
+	 */
 	@Override
 	public Date getCreateDate() {
 		return _entry.getCreateDate();
 	}
 
 	/**
-	* Returns the definition ID of this entry.
-	*
-	* @return the definition ID of this entry
-	*/
+	 * Returns the definition ID of this entry.
+	 *
+	 * @return the definition ID of this entry
+	 */
 	@Override
 	public long getDefinitionId() {
 		return _entry.getDefinitionId();
 	}
 
 	/**
-	* Returns the email delivery of this entry.
-	*
-	* @return the email delivery of this entry
-	*/
+	 * Returns the email delivery of this entry.
+	 *
+	 * @return the email delivery of this entry
+	 */
 	@Override
 	public String getEmailDelivery() {
 		return _entry.getEmailDelivery();
 	}
 
 	/**
-	* Returns the email notifications of this entry.
-	*
-	* @return the email notifications of this entry
-	*/
+	 * Returns the email notifications of this entry.
+	 *
+	 * @return the email notifications of this entry
+	 */
 	@Override
 	public String getEmailNotifications() {
 		return _entry.getEmailNotifications();
 	}
 
 	/**
-	* Returns the end date of this entry.
-	*
-	* @return the end date of this entry
-	*/
+	 * Returns the end date of this entry.
+	 *
+	 * @return the end date of this entry
+	 */
 	@Override
 	public Date getEndDate() {
 		return _entry.getEndDate();
 	}
 
 	/**
-	* Returns the entry ID of this entry.
-	*
-	* @return the entry ID of this entry
-	*/
+	 * Returns the entry ID of this entry.
+	 *
+	 * @return the entry ID of this entry
+	 */
 	@Override
 	public long getEntryId() {
 		return _entry.getEntryId();
 	}
 
 	/**
-	* Returns the error message of this entry.
-	*
-	* @return the error message of this entry
-	*/
+	 * Returns the error message of this entry.
+	 *
+	 * @return the error message of this entry
+	 */
 	@Override
 	public String getErrorMessage() {
 		return _entry.getErrorMessage();
@@ -318,20 +320,20 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	}
 
 	/**
-	* Returns the format of this entry.
-	*
-	* @return the format of this entry
-	*/
+	 * Returns the format of this entry.
+	 *
+	 * @return the format of this entry
+	 */
 	@Override
 	public String getFormat() {
 		return _entry.getFormat();
 	}
 
 	/**
-	* Returns the group ID of this entry.
-	*
-	* @return the group ID of this entry
-	*/
+	 * Returns the group ID of this entry.
+	 *
+	 * @return the group ID of this entry
+	 */
 	@Override
 	public long getGroupId() {
 		return _entry.getGroupId();
@@ -343,40 +345,40 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	}
 
 	/**
-	* Returns the modified date of this entry.
-	*
-	* @return the modified date of this entry
-	*/
+	 * Returns the modified date of this entry.
+	 *
+	 * @return the modified date of this entry
+	 */
 	@Override
 	public Date getModifiedDate() {
 		return _entry.getModifiedDate();
 	}
 
 	/**
-	* Returns the page url of this entry.
-	*
-	* @return the page url of this entry
-	*/
+	 * Returns the page url of this entry.
+	 *
+	 * @return the page url of this entry
+	 */
 	@Override
 	public String getPageURL() {
 		return _entry.getPageURL();
 	}
 
 	/**
-	* Returns the portlet ID of this entry.
-	*
-	* @return the portlet ID of this entry
-	*/
+	 * Returns the portlet ID of this entry.
+	 *
+	 * @return the portlet ID of this entry
+	 */
 	@Override
 	public String getPortletId() {
 		return _entry.getPortletId();
 	}
 
 	/**
-	* Returns the primary key of this entry.
-	*
-	* @return the primary key of this entry
-	*/
+	 * Returns the primary key of this entry.
+	 *
+	 * @return the primary key of this entry
+	 */
 	@Override
 	public long getPrimaryKey() {
 		return _entry.getPrimaryKey();
@@ -388,10 +390,10 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	}
 
 	/**
-	* Returns the recurrence of this entry.
-	*
-	* @return the recurrence of this entry
-	*/
+	 * Returns the recurrence of this entry.
+	 *
+	 * @return the recurrence of this entry
+	 */
 	@Override
 	public String getRecurrence() {
 		return _entry.getRecurrence();
@@ -403,30 +405,30 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	}
 
 	/**
-	* Returns the repeating of this entry.
-	*
-	* @return the repeating of this entry
-	*/
+	 * Returns the repeating of this entry.
+	 *
+	 * @return the repeating of this entry
+	 */
 	@Override
 	public boolean getRepeating() {
 		return _entry.getRepeating();
 	}
 
 	/**
-	* Returns the report parameters of this entry.
-	*
-	* @return the report parameters of this entry
-	*/
+	 * Returns the report parameters of this entry.
+	 *
+	 * @return the report parameters of this entry
+	 */
 	@Override
 	public String getReportParameters() {
 		return _entry.getReportParameters();
 	}
 
 	/**
-	* Returns the schedule request of this entry.
-	*
-	* @return the schedule request of this entry
-	*/
+	 * Returns the schedule request of this entry.
+	 *
+	 * @return the schedule request of this entry
+	 */
 	@Override
 	public boolean getScheduleRequest() {
 		return _entry.getScheduleRequest();
@@ -438,50 +440,50 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	}
 
 	/**
-	* Returns the start date of this entry.
-	*
-	* @return the start date of this entry
-	*/
+	 * Returns the start date of this entry.
+	 *
+	 * @return the start date of this entry
+	 */
 	@Override
 	public Date getStartDate() {
 		return _entry.getStartDate();
 	}
 
 	/**
-	* Returns the status of this entry.
-	*
-	* @return the status of this entry
-	*/
+	 * Returns the status of this entry.
+	 *
+	 * @return the status of this entry
+	 */
 	@Override
 	public String getStatus() {
 		return _entry.getStatus();
 	}
 
 	/**
-	* Returns the user ID of this entry.
-	*
-	* @return the user ID of this entry
-	*/
+	 * Returns the user ID of this entry.
+	 *
+	 * @return the user ID of this entry
+	 */
 	@Override
 	public long getUserId() {
 		return _entry.getUserId();
 	}
 
 	/**
-	* Returns the user name of this entry.
-	*
-	* @return the user name of this entry
-	*/
+	 * Returns the user name of this entry.
+	 *
+	 * @return the user name of this entry
+	 */
 	@Override
 	public String getUserName() {
 		return _entry.getUserName();
 	}
 
 	/**
-	* Returns the user uuid of this entry.
-	*
-	* @return the user uuid of this entry
-	*/
+	 * Returns the user uuid of this entry.
+	 *
+	 * @return the user uuid of this entry
+	 */
 	@Override
 	public String getUserUuid() {
 		return _entry.getUserUuid();
@@ -508,20 +510,20 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	}
 
 	/**
-	* Returns <code>true</code> if this entry is repeating.
-	*
-	* @return <code>true</code> if this entry is repeating; <code>false</code> otherwise
-	*/
+	 * Returns <code>true</code> if this entry is repeating.
+	 *
+	 * @return <code>true</code> if this entry is repeating; <code>false</code> otherwise
+	 */
 	@Override
 	public boolean isRepeating() {
 		return _entry.isRepeating();
 	}
 
 	/**
-	* Returns <code>true</code> if this entry is schedule request.
-	*
-	* @return <code>true</code> if this entry is schedule request; <code>false</code> otherwise
-	*/
+	 * Returns <code>true</code> if this entry is schedule request.
+	 *
+	 * @return <code>true</code> if this entry is schedule request; <code>false</code> otherwise
+	 */
 	@Override
 	public boolean isScheduleRequest() {
 		return _entry.isScheduleRequest();
@@ -538,80 +540,80 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	}
 
 	/**
-	* Sets the company ID of this entry.
-	*
-	* @param companyId the company ID of this entry
-	*/
+	 * Sets the company ID of this entry.
+	 *
+	 * @param companyId the company ID of this entry
+	 */
 	@Override
 	public void setCompanyId(long companyId) {
 		_entry.setCompanyId(companyId);
 	}
 
 	/**
-	* Sets the create date of this entry.
-	*
-	* @param createDate the create date of this entry
-	*/
+	 * Sets the create date of this entry.
+	 *
+	 * @param createDate the create date of this entry
+	 */
 	@Override
 	public void setCreateDate(Date createDate) {
 		_entry.setCreateDate(createDate);
 	}
 
 	/**
-	* Sets the definition ID of this entry.
-	*
-	* @param definitionId the definition ID of this entry
-	*/
+	 * Sets the definition ID of this entry.
+	 *
+	 * @param definitionId the definition ID of this entry
+	 */
 	@Override
 	public void setDefinitionId(long definitionId) {
 		_entry.setDefinitionId(definitionId);
 	}
 
 	/**
-	* Sets the email delivery of this entry.
-	*
-	* @param emailDelivery the email delivery of this entry
-	*/
+	 * Sets the email delivery of this entry.
+	 *
+	 * @param emailDelivery the email delivery of this entry
+	 */
 	@Override
 	public void setEmailDelivery(String emailDelivery) {
 		_entry.setEmailDelivery(emailDelivery);
 	}
 
 	/**
-	* Sets the email notifications of this entry.
-	*
-	* @param emailNotifications the email notifications of this entry
-	*/
+	 * Sets the email notifications of this entry.
+	 *
+	 * @param emailNotifications the email notifications of this entry
+	 */
 	@Override
 	public void setEmailNotifications(String emailNotifications) {
 		_entry.setEmailNotifications(emailNotifications);
 	}
 
 	/**
-	* Sets the end date of this entry.
-	*
-	* @param endDate the end date of this entry
-	*/
+	 * Sets the end date of this entry.
+	 *
+	 * @param endDate the end date of this entry
+	 */
 	@Override
 	public void setEndDate(Date endDate) {
 		_entry.setEndDate(endDate);
 	}
 
 	/**
-	* Sets the entry ID of this entry.
-	*
-	* @param entryId the entry ID of this entry
-	*/
+	 * Sets the entry ID of this entry.
+	 *
+	 * @param entryId the entry ID of this entry
+	 */
 	@Override
 	public void setEntryId(long entryId) {
 		_entry.setEntryId(entryId);
 	}
 
 	/**
-	* Sets the error message of this entry.
-	*
-	* @param errorMessage the error message of this entry
-	*/
+	 * Sets the error message of this entry.
+	 *
+	 * @param errorMessage the error message of this entry
+	 */
 	@Override
 	public void setErrorMessage(String errorMessage) {
 		_entry.setErrorMessage(errorMessage);
@@ -620,6 +622,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
 		_entry.setExpandoBridgeAttributes(baseModel);
 	}
 
@@ -634,30 +637,30 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	}
 
 	/**
-	* Sets the format of this entry.
-	*
-	* @param format the format of this entry
-	*/
+	 * Sets the format of this entry.
+	 *
+	 * @param format the format of this entry
+	 */
 	@Override
 	public void setFormat(String format) {
 		_entry.setFormat(format);
 	}
 
 	/**
-	* Sets the group ID of this entry.
-	*
-	* @param groupId the group ID of this entry
-	*/
+	 * Sets the group ID of this entry.
+	 *
+	 * @param groupId the group ID of this entry
+	 */
 	@Override
 	public void setGroupId(long groupId) {
 		_entry.setGroupId(groupId);
 	}
 
 	/**
-	* Sets the modified date of this entry.
-	*
-	* @param modifiedDate the modified date of this entry
-	*/
+	 * Sets the modified date of this entry.
+	 *
+	 * @param modifiedDate the modified date of this entry
+	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_entry.setModifiedDate(modifiedDate);
@@ -669,30 +672,30 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	}
 
 	/**
-	* Sets the page url of this entry.
-	*
-	* @param pageURL the page url of this entry
-	*/
+	 * Sets the page url of this entry.
+	 *
+	 * @param pageURL the page url of this entry
+	 */
 	@Override
 	public void setPageURL(String pageURL) {
 		_entry.setPageURL(pageURL);
 	}
 
 	/**
-	* Sets the portlet ID of this entry.
-	*
-	* @param portletId the portlet ID of this entry
-	*/
+	 * Sets the portlet ID of this entry.
+	 *
+	 * @param portletId the portlet ID of this entry
+	 */
 	@Override
 	public void setPortletId(String portletId) {
 		_entry.setPortletId(portletId);
 	}
 
 	/**
-	* Sets the primary key of this entry.
-	*
-	* @param primaryKey the primary key of this entry
-	*/
+	 * Sets the primary key of this entry.
+	 *
+	 * @param primaryKey the primary key of this entry
+	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_entry.setPrimaryKey(primaryKey);
@@ -704,90 +707,90 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	}
 
 	/**
-	* Sets the recurrence of this entry.
-	*
-	* @param recurrence the recurrence of this entry
-	*/
+	 * Sets the recurrence of this entry.
+	 *
+	 * @param recurrence the recurrence of this entry
+	 */
 	@Override
 	public void setRecurrence(String recurrence) {
 		_entry.setRecurrence(recurrence);
 	}
 
 	/**
-	* Sets whether this entry is repeating.
-	*
-	* @param repeating the repeating of this entry
-	*/
+	 * Sets whether this entry is repeating.
+	 *
+	 * @param repeating the repeating of this entry
+	 */
 	@Override
 	public void setRepeating(boolean repeating) {
 		_entry.setRepeating(repeating);
 	}
 
 	/**
-	* Sets the report parameters of this entry.
-	*
-	* @param reportParameters the report parameters of this entry
-	*/
+	 * Sets the report parameters of this entry.
+	 *
+	 * @param reportParameters the report parameters of this entry
+	 */
 	@Override
 	public void setReportParameters(String reportParameters) {
 		_entry.setReportParameters(reportParameters);
 	}
 
 	/**
-	* Sets whether this entry is schedule request.
-	*
-	* @param scheduleRequest the schedule request of this entry
-	*/
+	 * Sets whether this entry is schedule request.
+	 *
+	 * @param scheduleRequest the schedule request of this entry
+	 */
 	@Override
 	public void setScheduleRequest(boolean scheduleRequest) {
 		_entry.setScheduleRequest(scheduleRequest);
 	}
 
 	/**
-	* Sets the start date of this entry.
-	*
-	* @param startDate the start date of this entry
-	*/
+	 * Sets the start date of this entry.
+	 *
+	 * @param startDate the start date of this entry
+	 */
 	@Override
 	public void setStartDate(Date startDate) {
 		_entry.setStartDate(startDate);
 	}
 
 	/**
-	* Sets the status of this entry.
-	*
-	* @param status the status of this entry
-	*/
+	 * Sets the status of this entry.
+	 *
+	 * @param status the status of this entry
+	 */
 	@Override
 	public void setStatus(String status) {
 		_entry.setStatus(status);
 	}
 
 	/**
-	* Sets the user ID of this entry.
-	*
-	* @param userId the user ID of this entry
-	*/
+	 * Sets the user ID of this entry.
+	 *
+	 * @param userId the user ID of this entry
+	 */
 	@Override
 	public void setUserId(long userId) {
 		_entry.setUserId(userId);
 	}
 
 	/**
-	* Sets the user name of this entry.
-	*
-	* @param userName the user name of this entry
-	*/
+	 * Sets the user name of this entry.
+	 *
+	 * @param userName the user name of this entry
+	 */
 	@Override
 	public void setUserName(String userName) {
 		_entry.setUserName(userName);
 	}
 
 	/**
-	* Sets the user uuid of this entry.
-	*
-	* @param userUuid the user uuid of this entry
-	*/
+	 * Sets the user uuid of this entry.
+	 *
+	 * @param userUuid the user uuid of this entry
+	 */
 	@Override
 	public void setUserUuid(String userUuid) {
 		_entry.setUserUuid(userUuid);
@@ -858,4 +861,5 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	}
 
 	private final Entry _entry;
+
 }

@@ -17,7 +17,6 @@ package com.liferay.oauth.model.impl;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.oauth.model.OAuthApplication;
-
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -36,8 +35,9 @@ import java.util.Date;
  * @generated
  */
 @ProviderType
-public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
-	Externalizable {
+public class OAuthApplicationCacheModel
+	implements CacheModel<OAuthApplication>, Externalizable {
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -48,9 +48,12 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 			return false;
 		}
 
-		OAuthApplicationCacheModel oAuthApplicationCacheModel = (OAuthApplicationCacheModel)obj;
+		OAuthApplicationCacheModel oAuthApplicationCacheModel =
+			(OAuthApplicationCacheModel)obj;
 
-		if (oAuthApplicationId == oAuthApplicationCacheModel.oAuthApplicationId) {
+		if (oAuthApplicationId ==
+				oAuthApplicationCacheModel.oAuthApplicationId) {
+
 			return true;
 		}
 
@@ -206,8 +209,7 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput objectOutput)
-		throws IOException {
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(oAuthApplicationId);
 
 		objectOutput.writeLong(companyId);
@@ -288,4 +290,5 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 	public boolean shareableAccessToken;
 	public String callbackURI;
 	public String websiteURL;
+
 }
