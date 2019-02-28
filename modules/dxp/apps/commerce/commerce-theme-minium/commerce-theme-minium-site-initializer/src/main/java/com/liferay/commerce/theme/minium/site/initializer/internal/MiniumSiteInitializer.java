@@ -469,19 +469,6 @@ public class MiniumSiteInitializer implements SiteInitializer {
 			role.getRoleId(), "VIEW_PRICE");
 	}
 
-	private long[] _getCPDefinitionEntryIds(JSONArray jsonArray) {
-		List<Long> cpDefinitionIdsList = new ArrayList<>();
-
-		for (int i = 0; i < jsonArray.length(); i++) {
-			CPDefinition cpDefinitionEntry = getCPDefinitionByName(
-				jsonArray.getString(i));
-
-			cpDefinitionIdsList.add(cpDefinitionEntry.getCPDefinitionId());
-		}
-
-		return ArrayUtil.toLongArray(cpDefinitionIdsList);
-	}
-
 	private long[] _getCProductIds(JSONArray jsonArray) {
 		List<Long> cProductIdsList = new ArrayList<>();
 
