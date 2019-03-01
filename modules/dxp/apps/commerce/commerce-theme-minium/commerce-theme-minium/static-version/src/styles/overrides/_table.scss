@@ -18,12 +18,12 @@
 	tbody tr {
 		height: 80px;
 	}
-	
+
 	tr {
 		--translate-space: 340px;
-	
+
 		transition: all ease 400ms;
-	
+
 		html:not(.ie):not(.edge) &.is-active {
 			transform: translateX(calc(-1 * var(--translate-space)));
 		}
@@ -32,15 +32,15 @@
 	th,
 	td {
 		box-shadow: none !important;
-	
+
 		&:first-child {
 			border-radius: 8px 0 0 8px;
 		}
-	
+
 		&:last-child {
 			border-radius: 0 8px 8px 0;
 		}
-	
+
 		small {
 			color: #9D9E9E;
 			display: block;

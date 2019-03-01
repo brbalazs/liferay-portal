@@ -32,9 +32,9 @@
 		}
 
 		&--active {
-			transform: scale(1.4);
 			background: $color-theme;
 			cursor: inherit;
+			transform: scale(1.4);
 		}
 	}
 }

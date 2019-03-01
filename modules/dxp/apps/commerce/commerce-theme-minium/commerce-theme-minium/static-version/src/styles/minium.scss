@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
 
-@import "./variables.scss";
 @import "./mixins.scss";
 @import "./utilities.scss";
+@import "./variables.scss";
 
 @import "./components/commerce-account-list.scss";
 @import "./components/commerce-account-selector.scss";
@@ -61,8 +61,8 @@
 @import "./components/price.scss";
 @import "./components/product-compare-checkbox.scss";
 @import "./components/product-detail.scss";
-@import "./components/user-item.scss";
 @import "./components/user-invitation.scss";
+@import "./components/user-item.scss";
 
 @import "./overrides/base.scss";
 @import "./overrides/checkout-page.scss";

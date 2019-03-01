@@ -41,14 +41,14 @@
 
 		&--showing,
 		&--visible {
-			transform: scale(1);
 			opacity: 1;
+			transform: scale(1);
 		}
 
 		&--hiding,
 		&--hidden {
-			transform: scale(.6);
 			opacity: 0;
+			transform: scale(.6);
 		}
 	}
 
@@ -76,16 +76,16 @@
 
 		&--hiding,
 		&--hidden {
-			transition-delay: 0s;
 			transform: scale(0);
+			transition-delay: 0s;
 		}
 
 		svg {
-			width: 22px;
 			height: 22px;
+			left: -3px;
 			position: relative;
 			top: 0;
-			left: -3px;
+			width: 22px;
 		}
 
 		path {

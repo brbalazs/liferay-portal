@@ -41,11 +41,11 @@
 		top: $cover-image-height;
 
 		.commerce-dot {
-			position: absolute;
 			left: 0;
+			line-height: 0;
+			position: absolute;
 			top: 0;
 			transform: translateY(-50%);
-			line-height: 0;
 
 			&::before {
 				height: 20px;

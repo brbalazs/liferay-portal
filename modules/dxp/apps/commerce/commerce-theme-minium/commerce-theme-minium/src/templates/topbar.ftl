@@ -1,4 +1,4 @@
-<div class="minium-topbar commerce-topbar">
+<div class="commerce-topbar minium-topbar">
 	<div class="minium-topbar__start">
 		<#if back_url?has_content>
 			<a class="commerce-topbar-button" href="${back_url}">
