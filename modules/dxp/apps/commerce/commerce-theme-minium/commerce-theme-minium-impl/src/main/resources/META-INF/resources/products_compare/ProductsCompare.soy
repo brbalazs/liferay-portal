@@ -21,7 +21,7 @@
 	{/let}
 
 	<div class="{$ctaClasses}">
-		<div class="products-compare">
+		<div class="minium-products-compare">
 			{if isNonnull($products)}
 				{foreach $product in $products}
 					{if index($product) < $limit}
@@ -48,7 +48,7 @@
 				{/if}
 			{/if}
 			{let $compareButtonClasses kind="text"}
-				commerce-button products-compare__button
+				commerce-button minium-products-compare__button
 				{if isNonnull($products) and length($products) < 2}
 					{sp}commerce-button--disabled
 				{/if}

@@ -7,6 +7,6 @@ import MainNavigation from "../components/MainNavigation.vue";
 storiesOf("Main Navigation", module).add("default", () => ({
 	components: { MainNavigation },
 	render() {
-		return <main-navigation />;
+		return <minium-main-navigation />;
 	}
 }));

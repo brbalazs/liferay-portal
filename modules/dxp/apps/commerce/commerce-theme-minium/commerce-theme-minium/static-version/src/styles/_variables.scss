@@ -9,20 +9,32 @@ $color-shadow: rgba(92, 94, 94, 0.14);
 $color-disabled: #C9DAFF;
 
 $color-theme: #4C84FF;
-$color-theme-transparent: rgba(76, 132, 255, 0.067);
+$color-theme-transparent: rgba($color-theme, 0.067);
 
 $color-modal-mask: rgba(52,55,62,0.6);
 
 $color-mood-good: #4BC286;
 $color-mood-neutral: #FEE4B8;
 $color-mood-bad: #EC676A;
-$color-bg-mood-bad: #FEF7F7;
+$color-mood-bad-bg: #FEF7F7;
+
+$placeholder-colors: (
+	#9BE2BD,
+	#B3EFF5,
+	#FEE4B8,
+	#FFB78C,
+	#FF83A3,
+	#F5B3EF,
+	#B48FF7,
+	#639DFF
+);
 
 $minium-shadow: 0 10px 20px $color-shadow;
 $minium-shadow-focus: 0 3px 20px 0 rgba($color-theme, .5);
-$minium-small-gutter: 10px;
+
 $minium-gutter: 20px;
-$minium-big-gutter: 40px;
+$minium-small-gutter: $minium-gutter / 2;
+$minium-big-gutter: $minium-gutter * 2;
 
 $liferay-topbar-size: 56px;
 $frame-size: 70px;

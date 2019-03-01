@@ -43,14 +43,14 @@ var $render = function(opt_data, opt_ijData, opt_ijData_deprecated) {
   var nextClass__soy91 = '';
   nextClass__soy91 += isNextAvailable == false ? ' is-disabled' : '';
   incrementalDom.elementOpenStart('div');
-      incrementalDom.attr('class', 'quantity-selector');
+      incrementalDom.attr('class', 'commerce-quantity-selector');
   incrementalDom.elementOpenEnd();
   if ((allowedOptions != null)) {
     incrementalDom.elementOpenStart('form');
         incrementalDom.attr('data-onsubmit', 'handleFormSubmit');
     incrementalDom.elementOpenEnd();
     incrementalDom.elementOpenStart('select');
-        incrementalDom.attr('class', 'quantity-selector__select');
+        incrementalDom.attr('class', 'commerce-quantity-selector__select');
         incrementalDom.attr('data-onchange', 'handleSelectOption');
     incrementalDom.elementOpenEnd();
     var option96List = allowedOptions;
@@ -74,7 +74,7 @@ var $render = function(opt_data, opt_ijData, opt_ijData_deprecated) {
   } else {
     incrementalDom.elementOpenStart('a');
         incrementalDom.attr('href', '#');
-        incrementalDom.attr('class', 'quantity-selector__btn' + prevClass__soy84);
+        incrementalDom.attr('class', 'commerce-quantity-selector__btn' + prevClass__soy84);
         incrementalDom.attr('data-onclick', 'handlePrevQuantity');
     incrementalDom.elementOpenEnd();
     incrementalDom.text('-');
@@ -85,7 +85,7 @@ var $render = function(opt_data, opt_ijData, opt_ijData_deprecated) {
     incrementalDom.elementOpenStart('input');
         incrementalDom.attr('name', 'quantity');
         incrementalDom.attr('type', 'number');
-        incrementalDom.attr('class', 'quantity-selector__input');
+        incrementalDom.attr('class', 'commerce-quantity-selector__input');
         incrementalDom.attr('data-onkeyup', 'handleInputKeyUp');
         incrementalDom.attr('value', quantity);
     incrementalDom.elementOpenEnd();
@@ -93,7 +93,7 @@ var $render = function(opt_data, opt_ijData, opt_ijData_deprecated) {
     incrementalDom.elementClose('form');
     incrementalDom.elementOpenStart('a');
         incrementalDom.attr('href', '#');
-        incrementalDom.attr('class', 'quantity-selector__btn' + nextClass__soy91);
+        incrementalDom.attr('class', 'commerce-quantity-selector__btn' + nextClass__soy91);
         incrementalDom.attr('data-onclick', 'handleNextQuantity');
     incrementalDom.elementOpenEnd();
     incrementalDom.text('+');

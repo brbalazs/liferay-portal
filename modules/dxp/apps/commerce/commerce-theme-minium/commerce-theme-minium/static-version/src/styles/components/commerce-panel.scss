@@ -1,62 +1,40 @@
-@mixin commerce-panel-title {
-background-color: $color-bg;
-border-radius: 8px;
-font-size: 12px;
-font-weight: 500;
-letter-spacing: 1.2px;
-line-height: 16px;
-margin-bottom: 5px;
-padding: 12px 30px;
-text-transform: uppercase;
-}
-
-@mixin commerce-panel-content {
-@include commerce-typo-content-text;
-
-background-color: $color-bg;
-border-radius: 8px;
-
-// min-height: 70px;
-
-padding: 10px 25px;
-}
-
 .commerce-panel {
-color: $color-fg;
-margin-bottom: $minium-big-gutter;
+	color: $color-fg;
+	margin-bottom: $minium-big-gutter;
 
-&__title {
-@include commerce-panel-title;
-}
+	&__title {
+		@include minium-panel-title;
+	}
 
-&__content {
-@include commerce-panel-content;
+	&__content {
+		@include minium-panel-body;
 
-& + & {
-margin-top: 5px;
-}
-}
+		& + & {
+			margin-top: 5px;
+		}
+	}
 
-&__tabs {
-background-color: $color-bg;
-border-radius: 8px;
-height: $frame-size;
+	&__tabs {
+		background-color: $color-bg;
+		border-radius: 8px;
+		height: $frame-size;
 
-.nav {
-height: 100%;
-}
-}
+		.nav {
+			height: 100%;
+		}
+	}
 
-.specification-list {
-display: grid;
-grid-gap: 0 20px;
-grid-template-columns: auto 1fr;
+	.specification-list {
+		display: grid;
+		grid-gap: 0 20px;
+		grid-template-columns: auto 1fr;
 
-.specification-desc {
-margin-bottom: 0;
-.lexicon-icon-shortcut {
-display: none;
-}
-}
-}
+		.specification-desc {
+			margin-bottom: 0;
+
+			.lexicon-icon-shortcut {
+				display: none;
+			}
+		}
+	}
 }

@@ -1,8 +1,8 @@
 .commerce-compare-table {
-border-collapse: collapse;
-color: $color-fg;
-line-height: 1.1;
-width: 100%;
+	border-collapse: collapse;
+	color: $color-fg;
+	line-height: 1.1;
+	width: 100%;
 
 	tbody td {
 		border-right: 2px solid #F8F8F9;
@@ -45,30 +45,11 @@ width: 100%;
 		text-align: center;
 	}
 
-	&.entry {
-		&--4 td {
-			width: 20%;
-			&:first-of-type {
-				width: 10%;
-			}
-		}
-		&--3 td {
-			width: 20%;
-			&:first-of-type {
-				width: 10%;
-			}
-		}
-		&--2 td {
-			width: 20%;
-			&:first-of-type {
-				width: 10%;
-			}
-		}
-		&--1 td {
-			width: 20%;
-			&:first-of-type {
-				width: 10%;
-			}
+	td {
+		width: 20%;
+
+		&:first-of-type {
+			width: 10%;
 		}
 	}
 }

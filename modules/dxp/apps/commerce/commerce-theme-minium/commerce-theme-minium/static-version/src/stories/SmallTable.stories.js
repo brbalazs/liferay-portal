@@ -7,6 +7,6 @@ import SmallTable from "../components/SmallTable.vue";
 storiesOf("Small Table", module).add("default", () => ({
 	components: { SmallTable },
 	render() {
-		return <small-table />;
+		return <commerce-small-table />;
 	}
 }));

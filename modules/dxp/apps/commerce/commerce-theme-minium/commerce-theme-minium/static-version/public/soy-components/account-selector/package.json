@@ -42,7 +42,7 @@
 	],
 	"license": "BSD",
 	"main": "lib/AccountSelector.js",
-	"name": "account-selector",
+	"name": "commerce-account-selector",
 	"scripts": {
 		"build": "npm run soy && webpack",
 		"compile": "babel -d lib/ src/ -s --ignore src/__tests__",

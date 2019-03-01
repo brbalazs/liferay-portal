@@ -89,7 +89,7 @@
 			width: 2px;
 		}
 
-		&.is-disabled{
+		&.is-disabled {
 			cursor: wait;
 			opacity: .5;
 		}
@@ -122,6 +122,6 @@
 	}
 
 	&.is-not-valid {
-		background-color:	$color-bg-mood-bad;
+		background-color:	$color-mood-bad-bg;
 	}
 }

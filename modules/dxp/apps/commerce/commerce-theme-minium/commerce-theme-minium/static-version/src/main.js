@@ -282,7 +282,7 @@ new MiniumTable(
 // 				viewAllOrdersLink: '/view-all-orders',
 // 				createNewOrderLink: '/create-new-order'
 // 			},
-// 			'.commerce-topbar__account-selector-wrapper'
+// 			'.minium-topbar__account-selector-wrapper'
 // 		);
 // 	})
 

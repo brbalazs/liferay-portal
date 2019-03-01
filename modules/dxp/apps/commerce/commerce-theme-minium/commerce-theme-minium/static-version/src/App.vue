@@ -5,7 +5,7 @@
     </div>
 
     <div class="minium-frame__topbar">
-      <commerce-topbar/>
+      <minium-topbar/>
     </div>
 
     <div class="minium-frame__content js-scroll-area">

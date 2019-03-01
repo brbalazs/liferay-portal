@@ -13,7 +13,7 @@
 	}
 
 	.panel-heading .panel-title {
-		@include commerce-panel-title;
+		@include minium-panel-title;
 
 		.collapse-icon {
 			padding: 0;
@@ -21,7 +21,7 @@
 	}
 
 	.panel-body {
-		@include commerce-panel-content;
+		@include minium-panel-body;
 	}
 
 	.facet-checkbox-label {

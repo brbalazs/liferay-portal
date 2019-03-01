@@ -18,17 +18,17 @@
 	{/let}
 
 	<div
-		class="products-compare__item products-compare__item--{$visibilityClass}"
+		class="minium-products-compare__item minium-products-compare__item--{$visibilityClass}"
 	>
 		{if isNonnull($id)}
 			<div
-				class="products-compare__thumbnail products-compare__thumbnail--{$visibilityClass}"
+				class="minium-products-compare__thumbnail minium-products-compare__thumbnail--{$visibilityClass}"
 				style="background-image: url('{$thumbnail}')"
 			>
 			</div>
 			{if isNonnull($spritemap)}
 				<span
-					class="products-compare__delete products-compare__delete--{$visibilityClass}"
+					class="minium-products-compare__delete minium-products-compare__delete--{$visibilityClass}"
 					data-onclick={$_handleRemoveProduct}
 				>
 					{call ClayIcon.render}

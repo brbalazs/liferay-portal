@@ -20,11 +20,11 @@
 		{/if}
 	{/let}
 
-	<div class="quantity-selector">
+	<div class="commerce-quantity-selector">
 		{if isNonnull($allowedOptions)}
 			<form data-onsubmit="handleFormSubmit">
 				<select
-					class="quantity-selector__select"
+					class="commerce-quantity-selector__select"
 					data-onchange="handleSelectOption"
 				>
 					{foreach $option in $allowedOptions}
@@ -41,7 +41,7 @@
 		{else}
 			<a
 				href="#"
-				class="quantity-selector__btn{$prevClass}"
+				class="commerce-quantity-selector__btn{$prevClass}"
 				data-onclick="handlePrevQuantity"
 			>
 				-
@@ -51,7 +51,7 @@
 				<input
 					name="quantity"
 					type="number"
-					class="quantity-selector__input"
+					class="commerce-quantity-selector__input"
 					data-onkeyup="handleInputKeyUp"
 					value="{$quantity}"
 				>
@@ -59,7 +59,7 @@
 
 			<a
 				href="#"
-				class="quantity-selector__btn{$nextClass}"
+				class="commerce-quantity-selector__btn{$nextClass}"
 				data-onclick="handleNextQuantity"
 			>
 				+

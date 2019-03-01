@@ -38,3 +38,33 @@
 		}
 	}
 }
+
+.d-table-head-group {
+	display: table-header-group;
+	vertical-align: middle;
+	border-color: inherit
+}
+
+.d-table-row-group {
+	display: table-row-group;
+	vertical-align: middle;
+	border-color: inherit
+}
+
+.commerce {
+	@each $color in $placeholder-colors {
+		$index: index($placeholder-colors, $color);
+
+		&-c-#{$index} {
+			color: $color;
+		}
+		
+		&-bc-#{$index} {
+			background-color: $color;
+		}
+
+		&-bdc-#{$index} {
+			border-color: $color;
+		}
+	}
+}

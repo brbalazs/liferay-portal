@@ -11,11 +11,11 @@
       </div>
     </div>
     <div class="minium-sidebar__middle">
-      <main-navigation />
+      <minium-main-navigation />
     </div>
     <div class="minium-sidebar__end">
-      <div class="user-nav">
-        <div class="user-nav__menu">
+      <div class="minium-user-nav">
+        <div class="minium-user-nav__menu">
           <a href="#" class="main-link main-link--sub is-active">
             <div class="main-link__label">My Profile</div>
           </a>
@@ -25,17 +25,17 @@
           <a href="#" class="main-link main-link--sub">
             <div class="main-link__label">
               Notification
-              <div class="notification-badge">6</div>
+              <div class="minium-notification-badge">6</div>
             </div>
           </a>
           <a href="#" class="main-link main-link--sub">
             <div class="main-link__label">Logout</div>
           </a>
         </div>
-        <div class="user-nav__avatar has-notification">
+        <div class="minium-user-nav__avatar has-notification">
           <img src="/avatar.jpg" alt="">
         </div>
-        <div class="user-nav__name">John Doe</div>
+        <div class="minium-user-nav__name">John Doe</div>
       </div>
     </div>
   </div>

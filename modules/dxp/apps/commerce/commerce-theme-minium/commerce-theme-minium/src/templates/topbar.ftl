@@ -1,37 +1,37 @@
-<div class="commerce-topbar">
-	<div class="commerce-topbar__start">
+<div class="minium-topbar commerce-topbar">
+	<div class="minium-topbar__start">
 		<#if back_url?has_content>
-			<a class="commerce-topbar__button" href="${back_url}">
+			<a class="commerce-topbar-button" href="${back_url}">
 				<svg class="commerce-icon">
 					<use href="${themeDisplay.getPathThemeImages()}/commerce-icons.svg#back" />
 				</svg>
 				${languageUtil.get(locale, "back")}
 			</a>
 		</#if>
-		<label class="commerce-topbar__button (is-active) js-toggle-search" for="commerce-search-input">
+		<label class="commerce-topbar-button (is-active) js-toggle-search" for="commerce-search-input">
 			<svg class="commerce-icon">
 				<use href="${themeDisplay.getPathThemeImages()}/commerce-icons.svg#search" />
 			</svg>
 		</label>
 	</div>
 
-	<div class="commerce-topbar__middle">
+	<div class="minium-topbar__middle">
 		<#if show_top_menu>
 			<@site_navigation_menu_sub_navigation default_preferences=freeMarkerPortletPreferences.getPreferences("portletSetupPortletDecoratorId", "barebone") />
 		</#if>
 	</div>
 
-	<div class="commerce-topbar__end">
-		<div class="commerce-topbar__account-selector-wrapper">
+	<div class="minium-topbar__end">
+		<div class="minium-topbar__account-selector-wrapper">
 			<@liferay_commerce_ui["account-selector"] />
 		</div>
 
-		<div class="commerce-topbar__cart-wrapper">
+		<div class="minium-topbar__cart-wrapper">
 			<@liferay_commerce_ui["mini-cart"] />
 		</div>
 	</div>
 
-	<div class="commerce-topbar__search">
+	<div class="minium-topbar__search">
 		<@liferay_commerce_ui["search-bar"] id="search-bar" />
 	</div>
 </div>

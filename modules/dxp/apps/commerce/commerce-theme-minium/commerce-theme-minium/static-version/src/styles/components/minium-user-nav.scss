@@ -1,4 +1,4 @@
-.user-nav {
+.minium-user-nav {
 	align-items: center;
 	background-color: $color-bg-alt;
 	border-radius: 25px 8px 8px 25px;
@@ -70,7 +70,7 @@
 			transform $transition;
 		width: 100%;
 
-		.user-nav:not(:hover) & {
+		.minium-user-nav:not(:hover) & {
 			opacity: 0;
 			pointer-events: none;
 			transform: translateY(20px);

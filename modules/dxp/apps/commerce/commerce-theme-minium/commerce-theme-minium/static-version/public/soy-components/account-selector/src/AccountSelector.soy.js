@@ -88,7 +88,7 @@ function $render(opt_data, opt_ijData, opt_ijData_deprecated) {
       incrementalDom.attr('class', 'commerce-dropdown');
   incrementalDom.elementOpenEnd();
     incrementalDom.elementOpenStart('button');
-        incrementalDom.attr('class', 'commerce-topbar__button');
+        incrementalDom.attr('class', 'commerce-topbar-button');
         incrementalDom.attr('data-onclick', 'toggleAccountSelector');
     incrementalDom.elementOpenEnd();
       $currentState(opt_data, null, opt_ijData);
@@ -165,10 +165,10 @@ function $currentState(opt_data, opt_ijData, opt_ijData_deprecated) {
   var currentOrder = opt_data.currentOrder;
   if ((currentAccount != null)) {
     incrementalDom.elementOpenStart('div');
-        incrementalDom.attr('class', 'account-selector');
+        incrementalDom.attr('class', 'commerce-account-selector');
     incrementalDom.elementOpenEnd();
       incrementalDom.elementOpenStart('div');
-          incrementalDom.attr('class', 'account-selector__image');
+          incrementalDom.attr('class', 'commerce-account-selector__image');
       incrementalDom.elementOpenEnd();
         incrementalDom.elementOpenStart('img');
             incrementalDom.attr('src', currentAccount.thumbnail);
@@ -177,12 +177,12 @@ function $currentState(opt_data, opt_ijData, opt_ijData_deprecated) {
         incrementalDom.elementClose('img');
       incrementalDom.elementClose('div');
       incrementalDom.elementOpenStart('div');
-          incrementalDom.attr('class', 'account-selector__title');
+          incrementalDom.attr('class', 'commerce-account-selector__title');
       incrementalDom.elementOpenEnd();
         soyIdom.print(currentAccount.name);
       incrementalDom.elementClose('div');
       incrementalDom.elementOpenStart('div');
-          incrementalDom.attr('class', 'account-selector__info');
+          incrementalDom.attr('class', 'commerce-account-selector__info');
       incrementalDom.elementOpenEnd();
         if ((currentOrder != null)) {
           soyIdom.print(currentOrder.id);
@@ -195,10 +195,10 @@ function $currentState(opt_data, opt_ijData, opt_ijData_deprecated) {
     incrementalDom.elementClose('div');
   } else {
     incrementalDom.elementOpenStart('div');
-        incrementalDom.attr('class', 'account-selector');
+        incrementalDom.attr('class', 'commerce-account-selector');
     incrementalDom.elementOpenEnd();
       incrementalDom.elementOpenStart('div');
-          incrementalDom.attr('class', 'account-selector__title');
+          incrementalDom.attr('class', 'commerce-account-selector__title');
       incrementalDom.elementOpenEnd();
         incrementalDom.text('Select Account & Order');
       incrementalDom.elementClose('div');

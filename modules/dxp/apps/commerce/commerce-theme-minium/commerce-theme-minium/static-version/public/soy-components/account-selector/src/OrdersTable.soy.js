@@ -133,7 +133,7 @@ function $render(opt_data, opt_ijData, opt_ijData_deprecated) {
         incrementalDom.attr('class', 'account-switcher__section account-switcher__section--fill account-switcher__section--padded');
     incrementalDom.elementOpenEnd();
       incrementalDom.elementOpenStart('div');
-          incrementalDom.attr('class', 'd-table small-table');
+          incrementalDom.attr('class', 'd-table commerce-small-table');
       incrementalDom.elementOpenEnd();
         incrementalDom.elementOpenStart('div');
             incrementalDom.attr('class', 'd-table-head-group');

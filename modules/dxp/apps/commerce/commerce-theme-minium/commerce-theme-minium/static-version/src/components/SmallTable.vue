@@ -1,5 +1,5 @@
 <template>
-  <table class="small-table">
+  <table class="commerce-small-table">
     <thead>
       <tr>
         <th>Select Order</th>

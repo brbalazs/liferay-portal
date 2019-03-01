@@ -1,21 +1,21 @@
 <template>
-  <div class="commerce-topbar">
-    <div class="commerce-topbar__start">
-      <a href="#" class="commerce-topbar__button">
+  <div class="minium-topbar">
+    <div class="minium-topbar__start">
+      <a href="#" class="commerce-topbar-button">
         <commerce-icon/>Back
       </a>
-      <label class="commerce-topbar__button (is-active) js-toggle-search" for="commerce-search-input">
+      <label class="commerce-topbar-button (is-active) js-toggle-search" for="commerce-search-input">
         <commerce-icon/>
       </label>
     </div>
-    <div class="commerce-topbar__middle">
+    <div class="minium-topbar__middle">
       <minium-tabs></minium-tabs>
     </div>
-    <div class="commerce-topbar__end">
-      <div class="commerce-topbar__account-selector-wrapper"></div>
-      <div class="commerce-topbar__cart-wrapper"></div>
+    <div class="minium-topbar__end">
+      <div class="minium-topbar__account-selector-wrapper"></div>
+      <div class="minium-topbar__cart-wrapper"></div>
     </div>
-    <div class="commerce-topbar__search" id="commerce-search">
+    <div class="minium-topbar__search" id="commerce-search">
       <!-- <commerce-search placeholder="Search Product Name, SKU, Client…" id="commerce-search-input"/> -->
     </div>
   </div>

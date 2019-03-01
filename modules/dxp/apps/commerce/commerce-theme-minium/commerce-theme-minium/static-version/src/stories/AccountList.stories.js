@@ -7,6 +7,6 @@ import AccountList from "../components/AccountList.vue";
 storiesOf("Account List", module).add("default", () => ({
 	components: { AccountList },
 	render() {
-		return <account-list />;
+		return <commerce-account-list />;
 	}
 }));

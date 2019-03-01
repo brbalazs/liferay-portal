@@ -1,9 +1,11 @@
 .price {
 	font-weight: 600;
+
 	&--big {
-			font-size: 18px;
-			font-weight: bold;
+		font-size: 18px;
+		font-weight: bold;
 	}
+
 	&--old {
 		color: $color-fg-alt;
 		font-weight: normal;

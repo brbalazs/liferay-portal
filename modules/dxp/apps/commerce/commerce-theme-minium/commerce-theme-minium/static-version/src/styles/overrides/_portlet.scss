@@ -107,11 +107,12 @@
 }
 
 .portlet-content-container {
-	@include commerce-typo-content-text;
+	@include minium-typo-text;
 }
 
 .portlet-borderless .portlet-title-text {
-	@include commerce-typo-base-title;
+	@include minium-typo-title;
+
 	display: block;
 	max-width: 100%;
 }
@@ -123,13 +124,14 @@
 	}
 
 	.portlet-title-text {
-		@include commerce-panel-title;
+		@include minium-panel-title;
+
 		display: block;
 		max-width: 100%;
 	}
 
 	.portlet-content-container {
-		@include commerce-panel-content;
+		@include minium-panel-body;
 	}
 }
 

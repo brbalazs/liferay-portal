@@ -103,10 +103,10 @@ function $render(opt_data, opt_ijData, opt_ijData_deprecated) {
         incrementalDom.attr('class', 'account-switcher__section account-switcher__section--fill');
     incrementalDom.elementOpenEnd();
       incrementalDom.elementOpenStart('div');
-          incrementalDom.attr('class', 'account-list');
+          incrementalDom.attr('class', 'commerce-account-list');
       incrementalDom.elementOpenEnd();
         incrementalDom.elementOpenStart('div');
-            incrementalDom.attr('class', 'account-list__title');
+            incrementalDom.attr('class', 'commerce-account-list__title');
         incrementalDom.elementOpenEnd();
           incrementalDom.text('Select Account...');
         incrementalDom.elementClose('div');

@@ -44,7 +44,7 @@ function $render(opt_data, opt_ijData, opt_ijData_deprecated) {
   /** @type {!goog.soy.data.SanitizedContent|null|string|undefined} */
   var query = soy.asserts.assertType(opt_data.query == null || (goog.isString(opt_data.query) || opt_data.query instanceof goog.soy.data.SanitizedContent), 'query', opt_data.query, '!goog.soy.data.SanitizedContent|null|string|undefined');
   incrementalDom.elementOpenStart('span');
-      incrementalDom.attr('class', 'account-list__item u-hoverable');
+      incrementalDom.attr('class', 'commerce-account-list__item u-hoverable');
       incrementalDom.attr('data-onclick', '_handleItemClick');
   incrementalDom.elementOpenEnd();
     incrementalDom.elementOpenStart('img');

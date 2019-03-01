@@ -1,6 +1,6 @@
-<div class="user-nav">
+<div class="minium-user-nav">
 	<#if is_signed_in>
-		<div class="user-nav__menu">
+		<div class="minium-user-nav__menu">
 			<a class="main-link main-link--sub" href="${userManagementUrl}">
 				<div class="main-link__label">${my_profile_text}</div>
 			</a>
@@ -12,7 +12,7 @@
 			<a class="main-link main-link--sub" href="${notification_url}">
 				<div class="main-link__label">
 					${notifications_text}
-					<div class="notification-badge">${notification_count}</div>
+					<div class="minium-notification-badge">${notification_count}</div>
 				</div>
 			</a>
 
@@ -33,11 +33,11 @@
 			/>
 		</#if>
 
-		<div class="user-nav__avatar ${userImageCssClass}">
+		<div class="minium-user-nav__avatar ${userImageCssClass}">
 			<@liferay_ui["user-portrait"] user=user />
 		</div>
 
-		<div class="user-nav__name">${user_name}</div>
+		<div class="minium-user-nav__name">${user_name}</div>
 	<#else>
 		<a class="main-link" href="${sign_in_url}">
 			<div class="main-link__label">${sign_in_text}</div>
