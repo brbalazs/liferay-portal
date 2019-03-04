@@ -384,7 +384,7 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 		InputStream inputStream = classLoader.getResourceAsStream(
 			_siteInitializerDependencyResolver.getImageDependencyPath() +
-				"Minium_ProductImage_Default.jpg");
+				"Minium_ProductImage_Default.png");
 
 		File file = null;
 
