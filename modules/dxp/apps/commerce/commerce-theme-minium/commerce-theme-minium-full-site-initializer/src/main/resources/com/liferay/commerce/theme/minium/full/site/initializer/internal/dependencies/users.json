@@ -2,7 +2,7 @@
 	{
 		"accounts": [
 			{
-				"name": "Speedy Auto Service, Southern California",
+				"name": "S Auto Service, Southern California",
 				"roles": [
 					"Buyer"
 				]
@@ -21,7 +21,7 @@
 	{
 		"accounts": [
 			{
-				"name": "Speedy Auto Service, Southern California",
+				"name": "S Auto Service, Southern California",
 				"roles": [
 					"Account Administrator",
 					"Order Manager",
@@ -29,7 +29,7 @@
 				]
 			},
 			{
-				"name": "Speedy Auto Service, N. America HQ",
+				"name": "S Auto Service, N. America HQ",
 				"roles": [
 					"Account Administrator",
 					"Order Manager",
@@ -37,7 +37,7 @@
 				]
 			},
 			{
-				"name": "Speedy Auto Service, Northern California",
+				"name": "S Auto Service, Northern California",
 				"roles": [
 					"Account Administrator",
 					"Order Manager",
