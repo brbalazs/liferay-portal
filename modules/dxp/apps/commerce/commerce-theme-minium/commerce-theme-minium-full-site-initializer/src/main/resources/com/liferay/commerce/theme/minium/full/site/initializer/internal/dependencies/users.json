@@ -9,7 +9,7 @@
 			}
 		],
 		"comments": "Mike is an employee of one of Speedy’s service centers. He is responsible for consulting Speedy’s clients on parts replacements and services for their vehicles.",
-		"emailAddress": "mike.smith@sauto.demo",
+		"emailAddress": "mike@sauto.demo",
 		"firstName": "Mike",
 		"jobTitle": "Parts Consultant",
 		"lastName": "Smith",
@@ -46,7 +46,7 @@
 			}
 		],
 		"comments": "Brenda is an employee at Speedy’s head office. Her main responsibility is purchasing and managing suppliers like Minium.",
-		"emailAddress": "brenda.collins@sauto.demo",
+		"emailAddress": "brenda@sauto.demo",
 		"firstName": "Brenda",
 		"jobTitle": "Purchasing Manager",
 		"lastName": "Collins",
@@ -67,7 +67,7 @@
 			}
 		],
 		"comments": "Roberto is an employee at Leo Auto Parts. His main responsibility is purchasing and managing suppliers like Minium.",
-		"emailAddress": "roberto.moretti@leoauto.demo",
+		"emailAddress": "roberto@leoauto.demo",
 		"firstName": "Roberto",
 		"jobTitle": "Purchasing Manager",
 		"lastName": "Moretti",
@@ -78,7 +78,7 @@
 	},
 	{
 		"comments": "Gloria is a member of the Minium sales team who manages accounts like Speedy Auto Service.",
-		"emailAddress": "gloria.davis@minium.demo",
+		"emailAddress": "gloria@minium.demo",
 		"firstName": "Gloria",
 		"jobTitle": "Account Manager",
 		"lastName": "Davis",
@@ -97,7 +97,7 @@
 	},
 	{
 		"comments": "Jason is responsible for managing Minium’s B2B commerce site content. He works with a team of designers and content writers to build engaging site pages and content using the content and asset management features of the commerce platform.",
-		"emailAddress": "jason.lee@minium.demo",
+		"emailAddress": "jason@minium.demo",
 		"firstName": "Jason",
 		"groupRoles": [
 			"Site Administrator"
@@ -114,7 +114,7 @@
 	},
 	{
 		"comments": "Chris is a member of Minium’s IS Operations team. His role is to keep the B2B commerce site updated with the latest product offerings and finding solutions to business requirement as Minium grows and request more capabilities from the platform.",
-		"emailAddress": "chris.robbins@minium.demo",
+		"emailAddress": "chris@minium.demo",
 		"firstName": "Chris",
 		"jobTitle": "Operations Manager",
 		"lastName": "Robbins",
