@@ -17,11 +17,9 @@
 <%@ include file="/init.jsp" %>
 
 <%
-SiteNavigationMenuItem siteNavigationMenuItem = (SiteNavigationMenuItem)request.getAttribute(SiteNavigationWebKeys.SITE_NAVIGATION_MENU_ITEM);
-
 Layout selLayout = (Layout)request.getAttribute(WebKeys.SEL_LAYOUT);
-
 boolean setCustomName = GetterUtil.getBoolean(request.getAttribute(SiteNavigationMenuItemTypeLayoutWebKeys.SET_CUSTOM_NAME));
+SiteNavigationMenuItem siteNavigationMenuItem = (SiteNavigationMenuItem)request.getAttribute(SiteNavigationWebKeys.SITE_NAVIGATION_MENU_ITEM);
 
 String taglibOnChange = "Liferay.Util.toggleDisabled('#" + renderResponse.getNamespace() + "nameBoundingBox input, [for=" + renderResponse.getNamespace() + "name]', !event.target.checked)";
 %>
