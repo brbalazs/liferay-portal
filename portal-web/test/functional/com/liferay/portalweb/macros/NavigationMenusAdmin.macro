@@ -29,7 +29,7 @@ definition {
 	}
 
 	macro _editItemPage {
-		Uncheck.uncheckToggleSwitch(locator1 = "SiteNavigationMenu#PAGE_TRANSLATIONS_CHECKBOX");
+		Check.checkToggleSwitch(locator1 = "SiteNavigationMenu#SET_CUSTOM_NAME_CHECKBOX");
 
 		if (isSet(name)) {
 			Type(
