@@ -8,7 +8,7 @@
 				]
 			}
 		],
-		"comments": "Mike is an employee of one of Speedy’s service centers. He is responsible for consulting Speedy’s clients on parts replacements and services for their vehicles.",
+		"comments": "Mike is an employee of one of S Auto Service's service centers. He is responsible for consulting S Auto Service's clients on parts replacements and services for their vehicles.",
 		"emailAddress": "mike@sauto.demo",
 		"firstName": "Mike",
 		"jobTitle": "Parts Consultant",
@@ -45,7 +45,7 @@
 				]
 			}
 		],
-		"comments": "Brenda is an employee at Speedy’s head office. Her main responsibility is purchasing and managing suppliers like Minium.",
+		"comments": "Brenda is an employee at S Auto Service's head office. Her main responsibility is purchasing and managing suppliers like Minium.",
 		"emailAddress": "brenda@sauto.demo",
 		"firstName": "Brenda",
 		"jobTitle": "Purchasing Manager",
