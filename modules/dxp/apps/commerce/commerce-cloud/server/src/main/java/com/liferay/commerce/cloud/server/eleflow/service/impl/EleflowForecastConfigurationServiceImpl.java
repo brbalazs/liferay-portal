@@ -91,8 +91,8 @@ public class EleflowForecastConfigurationServiceImpl
 				asyncResult, handler));
 	}
 
-	private static final
-		BiFunction<ForecastConfiguration, String, EleflowForecastScheduler>
+	private static final BiFunction
+		<ForecastConfiguration, String, EleflowForecastScheduler>
 			_eleflowForecastSchedulerEncoder =
 				new EleflowForecastSchedulerEncoder();
 	private static final BodyCodec<ForecastConfiguration>

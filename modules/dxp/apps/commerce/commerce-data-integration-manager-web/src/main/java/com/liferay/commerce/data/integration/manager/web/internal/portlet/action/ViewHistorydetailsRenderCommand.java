@@ -97,8 +97,8 @@ public class ViewHistorydetailsRenderCommand implements MVCRenderCommand {
 		if (references != null) {
 			for (ServiceReference<?> reference : references) {
 				ScheduledTaskExectutorService scheduledTaskExectutorService =
-					(ScheduledTaskExectutorService)
-						bundleContext.getService(reference);
+					(ScheduledTaskExectutorService)bundleContext.getService(
+						reference);
 
 				Class<?> scheduledTaskExectutorServiceClass =
 					scheduledTaskExectutorService.getClass();

@@ -27,11 +27,13 @@ public class CommerceCloudClientConstants {
 		"com.liferay.commerce.cloud.client.configuration." +
 			"CommerceCloudClientConfiguration";
 
-	public static final String[] ORDER_FORECAST_FREQUENCIES =
-		{"DAILY", "WEEKLY", "MONTHLY"};
+	public static final String[] ORDER_FORECAST_FREQUENCIES = {
+		"DAILY", "WEEKLY", "MONTHLY"
+	};
 
-	public static final String[] ORDER_FORECAST_LEVELS =
-		{"COMPANY", "CUSTOMER", "CUSTOMER_SKU", "SKU"};
+	public static final String[] ORDER_FORECAST_LEVELS = {
+		"COMPANY", "CUSTOMER", "CUSTOMER_SKU", "SKU"
+	};
 
 	public static final String ORDER_FORECAST_PERIOD_MONTHLY =
 		StringUtil.toUpperCase(

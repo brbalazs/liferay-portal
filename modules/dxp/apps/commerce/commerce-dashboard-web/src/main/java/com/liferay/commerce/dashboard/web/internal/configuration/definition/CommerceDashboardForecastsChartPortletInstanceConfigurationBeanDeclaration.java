@@ -29,8 +29,8 @@ public class
 
 	@Override
 	public Class<?> getConfigurationBeanClass() {
-		return
-			CommerceDashboardForecastsChartPortletInstanceConfiguration.class;
+		return CommerceDashboardForecastsChartPortletInstanceConfiguration.
+			class;
 	}
 
 }

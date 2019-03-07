@@ -29,9 +29,8 @@ import org.osgi.service.component.annotations.Component;
 	property = "screen.navigation.category.order:Integer=30",
 	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
 )
-public class
-	CommerceCloudClientConfigurationForecastingScreenNavigationCategory
-		extends BaseCommerceCloudClientConfigurationScreenNavigationCategory {
+public class CommerceCloudClientConfigurationForecastingScreenNavigationCategory
+	extends BaseCommerceCloudClientConfigurationScreenNavigationCategory {
 
 	@Override
 	public String getCategoryKey() {

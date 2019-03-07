@@ -48,8 +48,8 @@ public class EleflowForecastSchedulerDecoder
 		return forecastScheduler;
 	}
 
-	private static final
-		Function<EleflowForecastSchedulerForecasts, ForecastItemConfiguration>
+	private static final Function
+		<EleflowForecastSchedulerForecasts, ForecastItemConfiguration>
 			_eleflowForecastSchedulerForecastsDecoder =
 				new EleflowForecastSchedulerForecastsDecoder();
 

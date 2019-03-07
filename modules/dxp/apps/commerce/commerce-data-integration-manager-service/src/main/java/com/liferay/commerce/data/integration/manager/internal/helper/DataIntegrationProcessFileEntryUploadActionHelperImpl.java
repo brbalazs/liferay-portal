@@ -95,8 +95,8 @@ public class DataIntegrationProcessFileEntryUploadActionHelperImpl
 			String contentType = uploadPortletRequest.getContentType(
 				fileNameParameter);
 
-			try (InputStream inputStream =
-					uploadPortletRequest.getFileAsStream(fileNameParameter)) {
+			try (InputStream inputStream = uploadPortletRequest.getFileAsStream(
+					fileNameParameter)) {
 
 				dlFileEntry = addFileEntry(
 					fileName, contentType, inputStream, themeDisplay,

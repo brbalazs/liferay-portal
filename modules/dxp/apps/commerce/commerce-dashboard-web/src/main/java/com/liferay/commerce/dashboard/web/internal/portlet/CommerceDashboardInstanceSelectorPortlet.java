@@ -56,8 +56,7 @@ import org.osgi.service.component.annotations.Reference;
 		"javax.portlet.security-role-ref=power-user,user",
 		"javax.portlet.supports.mime-type=text/html"
 	},
-	service =
-		{CommerceDashboardInstanceSelectorPortlet.class, Portlet.class}
+	service = {CommerceDashboardInstanceSelectorPortlet.class, Portlet.class}
 )
 public class CommerceDashboardInstanceSelectorPortlet extends MVCPortlet {
 

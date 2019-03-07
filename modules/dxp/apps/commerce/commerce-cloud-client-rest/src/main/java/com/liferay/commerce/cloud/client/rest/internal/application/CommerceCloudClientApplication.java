@@ -104,9 +104,7 @@ public class CommerceCloudClientApplication extends Application {
 			Response.ResponseBuilder responseBuilder = null;
 
 			if (t instanceof CommerceCloudClientException) {
-				responseBuilder = Response.status(
-					Response.Status.BAD_REQUEST
-				);
+				responseBuilder = Response.status(Response.Status.BAD_REQUEST);
 			}
 			else {
 				responseBuilder = Response.serverError();

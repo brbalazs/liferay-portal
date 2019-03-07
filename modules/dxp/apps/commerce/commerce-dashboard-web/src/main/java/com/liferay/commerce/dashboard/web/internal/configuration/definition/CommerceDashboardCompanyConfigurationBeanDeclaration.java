@@ -23,9 +23,8 @@ import org.osgi.service.component.annotations.Component;
  * @author Andrea Di Giorgi
  */
 @Component(service = ConfigurationBeanDeclaration.class)
-public class
-	CommerceDashboardCompanyConfigurationBeanDeclaration
-		implements ConfigurationBeanDeclaration {
+public class CommerceDashboardCompanyConfigurationBeanDeclaration
+	implements ConfigurationBeanDeclaration {
 
 	@Override
 	public Class<?> getConfigurationBeanClass() {

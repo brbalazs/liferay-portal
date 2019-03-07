@@ -26,8 +26,8 @@ import java.util.function.Function;
  * @author Andrea Di Giorgi
  */
 public class EleflowForecastSchedulerEncoder
-	implements
-		BiFunction<ForecastConfiguration, String, EleflowForecastScheduler> {
+	implements BiFunction
+		<ForecastConfiguration, String, EleflowForecastScheduler> {
 
 	@Override
 	public EleflowForecastScheduler apply(
@@ -51,8 +51,8 @@ public class EleflowForecastSchedulerEncoder
 		return eleflowForecastScheduler;
 	}
 
-	private static final
-		Function<ForecastItemConfiguration, EleflowForecastSchedulerForecasts>
+	private static final Function
+		<ForecastItemConfiguration, EleflowForecastSchedulerForecasts>
 			_eleflowForecastSchedulerForecastsEncoder =
 				new EleflowForecastSchedulerForecastsEncoder();
 

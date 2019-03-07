@@ -40,7 +40,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author guywandji
  */
 @Component(
-	immediate = true, service = DataIntegrationMessagingConfigurator .class
+	immediate = true, service = DataIntegrationMessagingConfigurator.class
 )
 public class DataIntegrationMessagingConfigurator {
 

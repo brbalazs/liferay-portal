@@ -51,8 +51,8 @@ import org.osgi.service.component.annotations.Reference;
 public class EditProcessActionCommand extends BaseMVCActionCommand {
 
 	protected void deleteProcess(ActionRequest actionRequest) {
-		ThemeDisplay themeDisplay = (ThemeDisplay)
-			actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
 
 		long[] deleteProcessIds = ParamUtil.getLongValues(
 			actionRequest, "deleteProcessIds");

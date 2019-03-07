@@ -39,9 +39,10 @@ import org.osgi.service.component.annotations.Reference;
  * @author Andrea Di Giorgi
  */
 public abstract class
-	BaseCommerceCloudClientConfigurationScreenNavigationCategory implements
-		ScreenNavigationCategory,
-		ScreenNavigationEntry<CommerceCloudClientConfigurationDisplayContext> {
+	BaseCommerceCloudClientConfigurationScreenNavigationCategory
+		implements ScreenNavigationCategory,
+				   ScreenNavigationEntry
+					   <CommerceCloudClientConfigurationDisplayContext> {
 
 	@Override
 	public String getEntryKey() {

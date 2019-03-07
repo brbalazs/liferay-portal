@@ -66,8 +66,8 @@ public class FullSiteInitializerDependencyResolverImpl
 		ClassLoader classLoader =
 			FullSiteInitializerDependencyResolverImpl.class.getClassLoader();
 
-		try (InputStream is =
-				classLoader.getResourceAsStream(_DEPENDENCIES_PATH + name)) {
+		try (InputStream is = classLoader.getResourceAsStream(
+				_DEPENDENCIES_PATH + name)) {
 
 			if (is != null) {
 				return StringUtil.read(is);

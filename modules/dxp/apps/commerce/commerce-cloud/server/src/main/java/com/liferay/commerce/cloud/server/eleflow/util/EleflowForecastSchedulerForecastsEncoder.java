@@ -25,8 +25,8 @@ import java.util.function.Function;
  * @author Andrea Di Giorgi
  */
 public class EleflowForecastSchedulerForecastsEncoder
-	implements
-		Function<ForecastItemConfiguration, EleflowForecastSchedulerForecasts> {
+	implements Function
+		<ForecastItemConfiguration, EleflowForecastSchedulerForecasts> {
 
 	@Override
 	public EleflowForecastSchedulerForecasts apply(

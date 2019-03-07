@@ -111,7 +111,6 @@ public class DLManagementUtil {
 
 				ze = zis.getNextEntry();
 			}
-
 		}
 		catch (IOException ioe) {
 			_log.error(ioe, ioe);
