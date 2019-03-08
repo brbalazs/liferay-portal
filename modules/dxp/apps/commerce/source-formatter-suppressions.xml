@@ -6,9 +6,4 @@
 		<suppress checks="MissingEmptyLineCheck" files="commerce-cloud/server/src/main/java/com/liferay/commerce/cloud/server/HttpServerVerticle\.java" />
 		<suppress checks="VariableDeclarationAsUsedCheck" files=".*" />
 	</checkstyle>
-	<source-check>
-		<suppress checks="JavaAPISignatureCheck" files="commerce-theme-minium/commerce-theme-minium-site-initializer/src/main/java/com/liferay/commerce/theme/minium/site/initializer/internal/MiniumLayoutsInitializer\.java" />
-		<suppress checks="PropertiesLiferayPluginPackageLiferayVersionsCheck" files="commerce-theme-minium/commerce-theme-minium/src/WEB-INF/liferay-plugin-package\.properties" />
-		<suppress checks="XMLLookAndFeelCompatibilityVersionCheck" files="commerce-theme-minium/commerce-theme-minium/src/WEB-INF/liferay-look-and-feel\.xml" />
-	</source-check>
 </suppressions>
