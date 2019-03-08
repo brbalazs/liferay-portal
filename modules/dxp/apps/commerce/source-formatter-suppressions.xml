@@ -8,5 +8,6 @@
 	</checkstyle>
 	<source-check>
 		<suppress checks="YMLDefinitionOrderCheck" files="commerce-cloud/server/swagger/.*\.yaml" />
+		<suppress checks="YMLWhitespaceCheck" files="commerce-cloud/server/swagger/.*\.yaml" />
 	</source-check>
 </suppressions>
