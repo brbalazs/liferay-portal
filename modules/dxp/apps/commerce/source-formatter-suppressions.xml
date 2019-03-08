@@ -6,4 +6,7 @@
 		<suppress checks="MissingEmptyLineCheck" files="commerce-cloud/server/src/main/java/com/liferay/commerce/cloud/server/HttpServerVerticle\.java" />
 		<suppress checks="VariableDeclarationAsUsedCheck" files=".*" />
 	</checkstyle>
+	<source-check>
+		<suppress checks="YMLDefinitionOrderCheck" files="commerce-cloud/server/swagger/.*\.yaml" />
+	</source-check>
 </suppressions>
