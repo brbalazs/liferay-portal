@@ -159,3 +159,21 @@ app.artifacts-1.0.8=\
 app.change.log-1.0.8=LPS-84119 LPS-85726 LPS-86806 LPS-88298 LPS-88408 LPS-89918
 
 app.git.id-1.0.8=204f75c8713855c9f1198062cb918187f5868c76
+
+#
+# Liferay App Version 1.0.9
+#
+
+app.artifacts-1.0.9=\
+	com.liferay.exportimport.api-3.0.10.jar,\
+	com.liferay.exportimport.changeset.api-1.0.5.jar,\
+	com.liferay.exportimport.changeset.service-1.0.4.jar,\
+	com.liferay.exportimport.changeset.taglib-1.0.13.jar,\
+	com.liferay.exportimport.changeset.web-1.0.17.jar,\
+	com.liferay.exportimport.resources.importer-3.0.7.jar,\
+	com.liferay.exportimport.service-5.0.54.jar,\
+	com.liferay.exportimport.web-2.0.32.jar
+
+app.change.log-1.0.9=LPS-84119 LPS-86806 LPS-88408 LPS-89918 LPS-90112
+
+app.git.id-1.0.9=b7d6b477ee682778c329d2d593a116df41a26a55

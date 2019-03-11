@@ -69,3 +69,15 @@ app.artifacts-1.0.5=\
 app.change.log-1.0.5=LPS-69035 LPS-81336 LRDOCS-6300
 
 app.git.id-1.0.5=204f75c8713855c9f1198062cb918187f5868c76
+
+#
+# Liferay App Version 1.0.6
+#
+
+app.artifacts-1.0.6=\
+	com.liferay.external.reference.api-1.0.3.jar,\
+	com.liferay.external.reference.service-1.0.5.jar
+
+app.change.log-1.0.6=LPS-91343 LRDOCS-6300
+
+app.git.id-1.0.6=b7d6b477ee682778c329d2d593a116df41a26a55
