@@ -14,8 +14,8 @@
 
 package com.liferay.commerce.theme.minium.full.site.initializer.internal;
 
-import com.liferay.commerce.theme.minium.api.SiteInitializerDependencyResolver;
-import com.liferay.commerce.theme.minium.api.SiteInitializerDependencyResolverThreadLocal;
+import com.liferay.commerce.theme.minium.SiteInitializerDependencyResolver;
+import com.liferay.commerce.theme.minium.SiteInitializerDependencyResolverThreadLocal;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.site.exception.InitializationException;
