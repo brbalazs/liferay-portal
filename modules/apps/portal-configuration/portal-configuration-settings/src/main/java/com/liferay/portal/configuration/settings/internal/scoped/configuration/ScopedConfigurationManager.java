@@ -227,7 +227,7 @@ public class ScopedConfigurationManager implements ManagedServiceFactory {
 			ScopeKey scopeKey = (ScopeKey)obj;
 
 			if (Objects.equals(_scope, scopeKey.getScope()) &&
-				Objects.equals(_scopePK, scopeKey.getScopePk())) {
+				Objects.equals(_scopePK, scopeKey.getScopePK())) {
 
 				return true;
 			}
@@ -239,7 +239,7 @@ public class ScopedConfigurationManager implements ManagedServiceFactory {
 			return _scope;
 		}
 
-		public Serializable getScopePk() {
+		public Serializable getScopePK() {
 			return _scopePK;
 		}
 
