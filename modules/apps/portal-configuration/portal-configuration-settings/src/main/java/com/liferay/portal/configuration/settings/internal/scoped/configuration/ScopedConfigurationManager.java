@@ -245,9 +245,7 @@ public class ScopedConfigurationManager implements ManagedServiceFactory {
 
 		@Override
 		public int hashCode() {
-			Serializable s = _scope.getValue() + _scopePK;
-
-			return s.hashCode();
+			return Objects.hash(_scope.getValue(), _scopePK);
 		}
 
 		private ScopeKey(
