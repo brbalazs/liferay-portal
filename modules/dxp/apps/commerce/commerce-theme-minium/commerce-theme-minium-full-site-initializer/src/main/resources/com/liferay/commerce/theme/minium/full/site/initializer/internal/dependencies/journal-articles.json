@@ -1,0 +1,10 @@
+[
+	{
+		"content": "<?xml version=\"1.0\"?><root available-locales=\"en_US\" default-locale=\"en_US\"><dynamic-element name=\"content\" type=\"text_area\" index-type=\"text\" instance-id=\"xtcy\"><dynamic-content language-id=\"en_US\"><![CDATA[<p>20% off all brake fluid when you purchase 12 or more</p>]]></dynamic-content></dynamic-element></root>",
+		"title": "20% off"
+	},
+	{
+		"content": "<?xml version=\"1.0\"?><root available-locales=\"en_US\" default-locale=\"en_US\"><dynamic-element name=\"content\" type=\"text_area\" index-type=\"text\" instance-id=\"xtcy\"><dynamic-content language-id=\"en_US\"><![CDATA[<p>Price Books have been updated for all Sales Reps in Documents &amp; Media</p>]]></dynamic-content></dynamic-element></root>",
+		"title": "Updated Price Books"
+	}
+]
