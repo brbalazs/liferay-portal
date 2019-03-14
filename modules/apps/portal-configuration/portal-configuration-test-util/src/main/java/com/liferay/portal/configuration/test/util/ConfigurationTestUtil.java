@@ -106,20 +106,15 @@ public class ConfigurationTestUtil {
 			String pid, String factoryPid)
 		throws Exception {
 
-		String filterString;
-
-		String pidFilterString = "(service.pid=" + pid + ")";
+		String tempFilterString = "(service.pid=" + pid + ")";
 
 		if (Validator.isNotNull(factoryPid)) {
-			String factoryPidFilterString =
-				"(service.factoryPid=" + factoryPid + ")";
+			tempFilterString =
+				"(&" + tempFilterString + "(service.factoryPid=" + factoryPid +
+					"))";
+		}
 
-			filterString =
-				"(&" + pidFilterString + factoryPidFilterString + ")";
-		}
-		else {
-			filterString = pidFilterString;
-		}
+		String filterString = tempFilterString;
 
 		return OSGiServiceUtil.callService(
 			_bundleContext, ConfigurationAdmin.class,
