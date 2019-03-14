@@ -1358,15 +1358,15 @@ public class SamlSpSessionPersistenceImpl
 	public SamlSpSessionPersistenceImpl() {
 		setModelClass(SamlSpSession.class);
 
+		Map<String, String> dbColumnNames = new HashMap<String, String>();
+
+		dbColumnNames.put("terminated", "terminated_");
+
 		try {
 			Field field = BasePersistenceImpl.class.getDeclaredField(
 				"_dbColumnNames");
 
 			field.setAccessible(true);
-
-			Map<String, String> dbColumnNames = new HashMap<String, String>();
-
-			dbColumnNames.put("terminated", "terminated_");
 
 			field.set(this, dbColumnNames);
 		}
