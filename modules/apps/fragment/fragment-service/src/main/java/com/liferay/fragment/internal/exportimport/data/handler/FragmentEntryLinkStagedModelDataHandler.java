@@ -34,6 +34,8 @@ import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.component.annotations.ReferencePolicyOption;
 
 /**
  * @author Pavel Savinov
@@ -82,6 +84,14 @@ public class FragmentEntryLinkStagedModelDataHandler
 
 		Element fragmentEntryLinkElement =
 			portletDataContext.getExportDataElement(fragmentEntryLink);
+
+		String editableValues =
+			_fragmentEntryLinkExportImportContentProcessor.
+				replaceExportContentReferences(
+					portletDataContext, fragmentEntryLink,
+					fragmentEntryLink.getEditableValues(), true, false);
+
+		fragmentEntryLink.setEditableValues(editableValues);
 
 		String html =
 			_dlReferencesExportImportContentProcessor.
@@ -187,6 +197,14 @@ public class FragmentEntryLinkStagedModelDataHandler
 					portletDataContext, importedFragmentEntryLink);
 		}
 
+		String editableValues =
+			_fragmentEntryLinkExportImportContentProcessor.
+				replaceImportContentReferences(
+					portletDataContext, fragmentEntryLink,
+					fragmentEntryLink.getEditableValues());
+
+		importedFragmentEntryLink.setEditableValues(editableValues);
+
 		portletDataContext.importClassedModel(
 			fragmentEntryLink, importedFragmentEntryLink);
 	}
@@ -201,6 +219,14 @@ public class FragmentEntryLinkStagedModelDataHandler
 	@Reference(target = "(content.processor.type=DLReferences)")
 	private ExportImportContentProcessor<String>
 		_dlReferencesExportImportContentProcessor;
+
+	@Reference(
+		policy = ReferencePolicy.DYNAMIC,
+		policyOption = ReferencePolicyOption.GREEDY,
+		target = "(model.class.name=com.liferay.fragment.model.FragmentEntryLink)"
+	)
+	private volatile ExportImportContentProcessor<String>
+		_fragmentEntryLinkExportImportContentProcessor;
 
 	@Reference
 	private FragmentEntryLinkLocalService _fragmentEntryLinkLocalService;
