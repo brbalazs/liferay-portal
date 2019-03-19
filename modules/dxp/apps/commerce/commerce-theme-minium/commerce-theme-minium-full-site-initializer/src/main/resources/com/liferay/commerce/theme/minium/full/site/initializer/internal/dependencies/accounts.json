@@ -4,7 +4,7 @@
 		"City": "Los Angeles",
 		"CompanyLogo": "minium-logos-9.png",
 		"Country": "US",
-		"Name": "S Auto Service, Southern California",
+		"Name": "S Auto Service",
 		"PriceLists": [
 			"Gold Accounts Pricing"
 		],
@@ -12,34 +12,6 @@
 		"RelatedOrganization": "United States",
 		"Street1": "3200 Front Avenue",
 		"Zip": "90023"
-	},
-	{
-		"AccountType": "Business",
-		"City": "Richmond",
-		"CompanyLogo": "minium-logos-9.png",
-		"Country": "US",
-		"Name": "S Auto Service, N. America HQ",
-		"PriceLists": [
-			"Gold Accounts Pricing"
-		],
-		"Region": "VA",
-		"RelatedOrganization": "United States",
-		"Street1": "200 N Boulevard",
-		"Zip": "23173"
-	},
-	{
-		"AccountType": "Business",
-		"City": "Davis",
-		"CompanyLogo": "minium-logos-9.png",
-		"Country": "US",
-		"Name": "S Auto Service, Northern California",
-		"PriceLists": [
-			"Gold Accounts Pricing"
-		],
-		"Region": "CA",
-		"RelatedOrganization": "United States",
-		"Street1": "210 Arthur Street",
-		"Zip": "95618"
 	},
 	{
 		"AccountType": "Business",

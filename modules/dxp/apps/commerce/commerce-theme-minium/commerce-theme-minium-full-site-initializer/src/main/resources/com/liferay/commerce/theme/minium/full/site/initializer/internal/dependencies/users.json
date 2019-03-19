@@ -2,7 +2,7 @@
 	{
 		"accounts": [
 			{
-				"name": "S Auto Service, Southern California",
+				"name": "S Auto Service",
 				"roles": [
 					"Buyer"
 				]
@@ -21,23 +21,7 @@
 	{
 		"accounts": [
 			{
-				"name": "S Auto Service, Southern California",
-				"roles": [
-					"Account Administrator",
-					"Order Manager",
-					"Buyer"
-				]
-			},
-			{
-				"name": "S Auto Service, N. America HQ",
-				"roles": [
-					"Account Administrator",
-					"Order Manager",
-					"Buyer"
-				]
-			},
-			{
-				"name": "S Auto Service, Northern California",
+				"name": "S Auto Service",
 				"roles": [
 					"Account Administrator",
 					"Order Manager",
