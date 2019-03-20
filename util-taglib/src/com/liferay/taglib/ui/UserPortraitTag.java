@@ -91,12 +91,12 @@ public class UserPortraitTag extends IncludeTag {
 		return sb.toString();
 	}
 
-	public long getUserId() {
-		if (_user != null) {
-			return _user.getUserId();
-		}
+	public String getCssClass() {
+		return _cssClass;
+	}
 
-		return 0;
+	public User getUser() {
+		return _user;
 	}
 
 	public long getUserId() {
@@ -179,10 +179,6 @@ public class UserPortraitTag extends IncludeTag {
 		}
 
 		return portraitURL;
-	}
-
-	protected User getUser() {
-		return _user;
 	}
 
 	protected String getUserInitials(User user) {
