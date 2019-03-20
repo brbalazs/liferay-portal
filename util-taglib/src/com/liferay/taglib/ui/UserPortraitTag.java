@@ -100,11 +100,11 @@ public class UserPortraitTag extends IncludeTag {
 	}
 
 	public long getUserId() {
-		if (_user != null) {
-			return _user.getUserId();
+		if (_user == null) {
+			return 0;
 		}
 
-		return 0;
+		return _user.getUserId();
 	}
 
 	@Override
