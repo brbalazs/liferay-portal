@@ -116,14 +116,14 @@ public class JournalContentSearchLocalServiceImpl
 
 				String portletId = portletPreferences.getPortletId();
 
-				javax.portlet.PortletPreferences preferences =
+				javax.portlet.PortletPreferences jxPortletPreferences =
 					PortletPreferencesFactoryUtil.fromXML(
 						companyId, PortletKeys.PREFS_OWNER_ID_DEFAULT,
 						PortletKeys.PREFS_OWNER_TYPE_LAYOUT, plid, portletId,
 						portletPreferences.getPreferences());
 
 				String articleId = displayInformationProvider.getClassPK(
-					preferences);
+					jxPortletPreferences);
 
 				JournalContentSearchKey journalContentSearchKey =
 					new JournalContentSearchKey(
