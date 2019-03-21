@@ -52,6 +52,16 @@ public class FullSiteInitializerDependencyResolverImpl
 	}
 
 	@Override
+	public ClassLoader getDocumentsClassLoader() {
+		return FullSiteInitializerDependencyResolverImpl.class.getClassLoader();
+	}
+
+	@Override
+	public String getDocumentsDependencyPath() {
+		return _DEPENDENCIES_PATH + "documents/";
+	}
+
+	@Override
 	public ClassLoader getImageClassLoader() {
 		return FullSiteInitializerDependencyResolverImpl.class.getClassLoader();
 	}
