@@ -127,8 +127,8 @@ public class JournalContentSearchLocalServiceImpl
 
 				JournalContentSearchKey journalContentSearchKey =
 					new JournalContentSearchKey(
-						layout.getGroupId(), articleId, layout.getLayoutId(),
-						layout.isPrivateLayout(), portletId);
+						layout.getGroupId(), layout.isPrivateLayout(),
+						layout.getLayoutId(), portletId, articleId);
 
 				JournalContentSearch existingJournalContentSearch =
 					orphanedJournalContentSearches.remove(
@@ -347,13 +347,13 @@ public class JournalContentSearchLocalServiceImpl
 			JournalContentSearchKey journalContentSearchKey =
 				(JournalContentSearchKey)obj;
 
-			if ((journalContentSearchKey._groupId == _groupId) &&
-				Objects.equals(
+			if (Objects.equals(
 					journalContentSearchKey._articleId, _articleId) &&
+				(journalContentSearchKey._groupId == _groupId) &&
 				Objects.equals(journalContentSearchKey._layoutId, _layoutId) &&
-				(journalContentSearchKey._privateLayout == _privateLayout) &&
 				Objects.equals(
-					journalContentSearchKey._portletId, _portletId)) {
+					journalContentSearchKey._portletId, _portletId) &&
+				(journalContentSearchKey._privateLayout == _privateLayout)) {
 
 				return true;
 			}
@@ -375,22 +375,22 @@ public class JournalContentSearchLocalServiceImpl
 		private JournalContentSearchKey(
 			JournalContentSearch journalContentSearch) {
 
-			_groupId = journalContentSearch.getGroupId();
 			_articleId = journalContentSearch.getArticleId();
+			_groupId = journalContentSearch.getGroupId();
 			_layoutId = journalContentSearch.getLayoutId();
-			_privateLayout = journalContentSearch.getPrivateLayout();
 			_portletId = journalContentSearch.getPortletId();
+			_privateLayout = journalContentSearch.getPrivateLayout();
 		}
 
 		private JournalContentSearchKey(
-			long groupId, String articleId, long layoutId,
-			boolean privateLayout, String portletId) {
+			long groupId, boolean privateLayout, long layoutId,
+			String portletId, String articleId) {
 
 			_groupId = groupId;
-			_articleId = articleId;
-			_layoutId = layoutId;
 			_privateLayout = privateLayout;
+			_layoutId = layoutId;
 			_portletId = portletId;
+			_articleId = articleId;
 		}
 
 		private static final long serialVersionUID = 1L;
