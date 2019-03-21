@@ -69,11 +69,11 @@ public class JournalContentSearchLocalServiceImpl
 			_log.info("Checking journal content search for " + companyId);
 		}
 
-		List<JournalContentSearch> journalContentSearches =
-			journalContentSearchPersistence.findByCompanyId(companyId);
-
 		Map<JournalContentSearchKey, JournalContentSearch>
 			orphanedJournalContentSearches = new HashMap<>();
+
+		List<JournalContentSearch> journalContentSearches =
+			journalContentSearchPersistence.findByCompanyId(companyId);
 
 		for (JournalContentSearch journalContentSearch :
 				journalContentSearches) {
@@ -97,7 +97,6 @@ public class JournalContentSearchLocalServiceImpl
 				portletPreferencesLocalService.getPortletPreferences(
 					companyId, PortletKeys.PREFS_OWNER_ID_DEFAULT,
 					PortletKeys.PREFS_OWNER_TYPE_LAYOUT, rootPortletId));
-
 			portletPreferencesList.addAll(
 				portletPreferencesLocalService.getPortletPreferences(
 					companyId, PortletKeys.PREFS_OWNER_ID_DEFAULT,
@@ -123,15 +122,13 @@ public class JournalContentSearchLocalServiceImpl
 						PortletKeys.PREFS_OWNER_TYPE_LAYOUT, plid, portletId,
 						portletPreferences.getPreferences());
 
-				long groupId = layout.getGroupId();
-				boolean privateLayout = layout.isPrivateLayout();
-				long layoutId = layout.getLayoutId();
 				String articleId = displayInformationProvider.getClassPK(
 					preferences);
 
 				JournalContentSearchKey journalContentSearchKey =
 					new JournalContentSearchKey(
-						groupId, articleId, layoutId, privateLayout, portletId);
+						layout.getGroupId(), articleId, layout.getLayoutId(),
+						layout.isPrivateLayout(), portletId);
 
 				JournalContentSearch existingJournalContentSearch =
 					orphanedJournalContentSearches.remove(
