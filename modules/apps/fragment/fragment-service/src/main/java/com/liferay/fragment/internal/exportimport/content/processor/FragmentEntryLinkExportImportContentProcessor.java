@@ -203,6 +203,10 @@ public class FragmentEntryLinkExportImportContentProcessor
 				String className = GetterUtil.getString(
 					editableJSONObject.remove("className"));
 
+				if (Validator.isNull(className)) {
+					continue;
+				}
+
 				AssetRendererFactory assetRendererFactory =
 					AssetRendererFactoryRegistryUtil.
 						getAssetRendererFactoryByClassName(className);
@@ -219,7 +223,7 @@ public class FragmentEntryLinkExportImportContentProcessor
 
 				long classPK = editableJSONObject.getLong("classPK");
 
-				if (Validator.isNull(className) || (classPK == 0)) {
+				if (classPK == 0) {
 					continue;
 				}
 
