@@ -50,6 +50,7 @@ import org.opensaml.saml2.binding.security.SAML2HTTPPostSimpleSignRule;
 import org.opensaml.saml2.binding.security.SAML2HTTPRedirectDeflateSignatureRule;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
+import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
 import org.opensaml.security.MetadataCredentialResolver;
@@ -449,11 +450,15 @@ public class MetadataManagerImpl
 		try {
 			MetadataProvider metadataProvider = getMetadataProvider();
 
-			if (Validator.isNull(defaultIdpEntityId) ||
-				(metadataProvider.getRole(
-					defaultIdpEntityId, IDPSSODescriptor.DEFAULT_ELEMENT_NAME,
-					SAMLConstants.SAML20P_NS) == null)) {
+			if (Validator.isNull(defaultIdpEntityId)) {
+				return false;
+			}
 
+			RoleDescriptor roleDescriptor = metadataProvider.getRole(
+				defaultIdpEntityId, IDPSSODescriptor.DEFAULT_ELEMENT_NAME,
+				SAMLConstants.SAML20P_NS);
+
+			if (roleDescriptor == null) {
 				return false;
 			}
 
