@@ -16,7 +16,6 @@ package com.liferay.portal.template.velocity.internal;
 
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
-import com.liferay.portal.kernel.cache.PortalCacheManagerNames;
 import com.liferay.portal.kernel.cache.SingleVMPool;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.template.Template;
@@ -185,6 +184,13 @@ public class VelocityManager extends BaseSingleTemplateManager {
 				LiferayResourceLoader.class.getName());
 
 			extendedProperties.setProperty(
+				"liferay." + VelocityEngine.RESOURCE_LOADER + "portal.cache",
+				_singleVMPool.getPortalCache(
+					StringBundler.concat(
+						TemplateResource.class.getName(), StringPool.POUND,
+						TemplateConstants.LANG_TYPE_VM)));
+
+			extendedProperties.setProperty(
 				"liferay." + VelocityEngine.RESOURCE_LOADER +
 					".resourceModificationCheckInterval",
 				_velocityEngineConfiguration.
@@ -228,9 +234,6 @@ public class VelocityManager extends BaseSingleTemplateManager {
 			extendedProperties.setProperty(
 				VelocityEngine.VM_PERM_ALLOW_INLINE_REPLACE_GLOBAL,
 				String.valueOf(!cacheEnabled));
-
-			extendedProperties.setProperty(
-				PortalCacheManagerNames.SINGLE_VM, _singleVMPool);
 
 			_velocityEngine.setExtendedProperties(extendedProperties);
 
