@@ -17,8 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-DataIntegrationAdminModuleRegistry dataIntegrationAdminModuleRegistry =
-(DataIntegrationAdminModuleRegistry)request.getAttribute(DataIntegrationWebPortletKeys.DATA_INTEGRATION_ADMIN_MODULE_REGISTRY);
+DataIntegrationAdminModuleRegistry dataIntegrationAdminModuleRegistry = (DataIntegrationAdminModuleRegistry)request.getAttribute(DataIntegrationWebPortletKeys.DATA_INTEGRATION_ADMIN_MODULE_REGISTRY);
 
 NavigableMap<String, DataIntegrationAdminModule> dataIntegrationAdminModules = dataIntegrationAdminModuleRegistry.getDataIntegrationAdminModules(scopeGroupId);
 
