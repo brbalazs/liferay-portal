@@ -122,6 +122,12 @@ public class DefaultTemplateResourceLoader implements TemplateResourceLoader {
 		TemplateResource templateResource =
 			_templateResourceCache.getTemplateResource(templateId);
 
+		if (templateResource ==
+				BaseTemplateResourceCache.DUMMY_TEMPLATE_RESOURCE) {
+
+			return null;
+		}
+
 		if (templateResource == null) {
 			templateResource = _loadFromParser(templateId);
 
