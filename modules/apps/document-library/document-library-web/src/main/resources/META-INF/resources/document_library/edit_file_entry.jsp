@@ -431,23 +431,28 @@ if (portletTitleBasedNavigation) {
 					</c:if>
 				</aui:fieldset>
 
-				<c:if test="<%= (fileEntry != null) && !checkedOut %>">
-					<aui:fieldset collapsed="<%= true %>" collapsible="<%= true %>" label="versioning">
-						<aui:input label="customize-the-version-number-increment-and-describe-my-changes" name="updateVersionDetails" type="toggle-switch" value="<%= updateVersionDetails %>" />
+				<c:choose>
+					<c:when test="<%= (fileEntry != null) && !checkedOut %>">
+						<aui:fieldset collapsed="<%= true %>" collapsible="<%= true %>" label="versioning">
+							<aui:input label="customize-the-version-number-increment-and-describe-my-changes" name="updateVersionDetails" type="toggle-switch" value="<%= updateVersionDetails %>" />
 
-						<div id="<portlet:namespace />versionDetails" style="<%= updateVersionDetails ? StringPool.BLANK : "display: none" %>">
-							<aui:input checked="<%= majorVersion %>" label="major-version" name="majorVersion" type="radio" value="<%= true %>" />
+							<div id="<portlet:namespace />versionDetails" style="<%= updateVersionDetails ? StringPool.BLANK : "display: none" %>">
+								<aui:input checked="<%= majorVersion %>" label="major-version" name="majorVersion" type="radio" value="<%= true %>" />
 
-							<aui:input checked="<%= !majorVersion %>" label="minor-version" name="majorVersion" type="radio" value="<%= false %>" />
+								<aui:input checked="<%= !majorVersion %>" label="minor-version" name="majorVersion" type="radio" value="<%= false %>" />
 
-							<aui:model-context />
+								<aui:model-context />
 
-							<aui:input label="version-notes" maxLength="75" name="changeLog" />
+								<aui:input label="version-notes" maxLength="75" name="changeLog" />
 
-							<aui:model-context bean="<%= fileVersion %>" model="<%= DLFileVersion.class %>" />
-						</div>
-					</aui:fieldset>
-				</c:if>
+								<aui:model-context bean="<%= fileVersion %>" model="<%= DLFileVersion.class %>" />
+							</div>
+						</aui:fieldset>
+					</c:when>
+					<c:otherwise>
+						<aui:input name="updateVersionDetails" type="hidden" value="<%= false %>" />
+					</c:otherwise>
+				</c:choose>
 
 				<c:if test="<%= (folder == null) || folder.isSupportsMetadata() %>">
 					<liferay-expando:custom-attributes-available
