@@ -599,6 +599,8 @@ if (portletTitleBasedNavigation) {
 					callback: function(event) {
 						var $ = AUI.$;
 
+						form.fm('updateVersionDetails').val(true);
+
 						var majorVersionNode = $('input:radio[name="<portlet:namespace />versionDetailsMajorVersion"]:checked');
 
 						form.fm('majorVersion').val(majorVersionNode.val());

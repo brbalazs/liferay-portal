@@ -20,6 +20,8 @@ Liferay.provide(
 
 					portletURL += '&${namespace}changeLog=' + encodeURIComponent(changeLogNode.val());
 
+					portletURL += '&${namespace}updateVersionDetails=true'
+
 					window.location.href = portletURL;
 				}
 			},
