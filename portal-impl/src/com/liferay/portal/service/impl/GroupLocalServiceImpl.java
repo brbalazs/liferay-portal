@@ -3763,9 +3763,12 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		}
 
 		if ((nameMap != null) &&
-			Validator.isNotNull(nameMap.get(LocaleUtil.getDefault()))) {
+			Validator.isNotNull(
+				nameMap.get(
+					LocaleUtil.fromLanguageId(group.getDefaultLanguageId())))) {
 
-			groupKey = nameMap.get(LocaleUtil.getDefault());
+			groupKey = nameMap.get(
+				LocaleUtil.fromLanguageId(group.getDefaultLanguageId()));
 		}
 
 		friendlyURL = getFriendlyURL(
