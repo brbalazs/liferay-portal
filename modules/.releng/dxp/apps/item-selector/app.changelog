@@ -187,3 +187,22 @@ app.artifacts-1.0.9=\
 app.change.log-1.0.9=LPS-77699 LPS-79653 LPS-80332 LPS-81249 LPS-82343 LPS-82828 LPS-84119 LPS-86806
 
 app.git.id-1.0.9=b7d6b477ee682778c329d2d593a116df41a26a55
+
+#
+# Liferay App Version 1.0.10
+#
+
+app.artifacts-1.0.10=\
+	com.liferay.item.selector.api-3.0.6.jar,\
+	com.liferay.item.selector.criteria.api-3.0.2.jar,\
+	com.liferay.item.selector.criteria.impl-1.0.1.jar,\
+	com.liferay.item.selector.editor.configuration-3.0.1.jar,\
+	com.liferay.item.selector.impl-1.0.3.jar,\
+	com.liferay.item.selector.taglib-2.0.11.jar,\
+	com.liferay.item.selector.upload.web-3.0.0.jar,\
+	com.liferay.item.selector.url.web-3.0.0.jar,\
+	com.liferay.item.selector.web-4.0.14.jar
+
+app.change.log-1.0.10=LPS-77699 LPS-79653 LPS-80332 LPS-81249 LPS-82343 LPS-82828 LPS-84119 LPS-86806
+
+app.git.id-1.0.10=461a28362eda5b05ef19fcbbd6458742b85e805d
