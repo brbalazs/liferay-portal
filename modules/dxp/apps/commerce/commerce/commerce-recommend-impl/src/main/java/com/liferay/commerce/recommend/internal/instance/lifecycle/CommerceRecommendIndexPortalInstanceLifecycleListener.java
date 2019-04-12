@@ -20,9 +20,13 @@ import com.liferay.portal.instance.lifecycle.PortalInstanceLifecycleListener;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.module.framework.ModuleServiceLifecycle;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.osgi.service.component.annotations.Component;
@@ -82,7 +86,31 @@ public class CommerceRecommendIndexPortalInstanceLifecycleListener
 
 		_commerceRecommendIndexers.add(commerceRecommendIndexer);
 
+		if (_companyLocalService == null) {
+			_queuedIndexers.add(commerceRecommendIndexer);
+
+			return;
+		}
+
 		verifyCompanies(commerceRecommendIndexer);
+	}
+
+	@Reference(unbind = "-")
+	protected void setCompanyLocalService(
+		CompanyLocalService companyLocalService) {
+
+		_companyLocalService = companyLocalService;
+
+		for (CommerceRecommendIndexer queuedIndexer : _queuedIndexers) {
+			verifyCompanies(queuedIndexer);
+		}
+
+		_queuedIndexers.clear();
+	}
+
+	@Reference(target = ModuleServiceLifecycle.PORTAL_INITIALIZED, unbind = "-")
+	protected void setModuleServiceLifecycle(
+		ModuleServiceLifecycle moduleServiceLifecycle) {
 	}
 
 	protected void unsetCommerceRecommendIndexer(
@@ -104,8 +132,8 @@ public class CommerceRecommendIndexPortalInstanceLifecycleListener
 
 	private final List<CommerceRecommendIndexer> _commerceRecommendIndexers =
 		new CopyOnWriteArrayList<>();
-
-	@Reference
 	private CompanyLocalService _companyLocalService;
+	private final Set<CommerceRecommendIndexer> _queuedIndexers =
+		Collections.newSetFromMap(new ConcurrentHashMap<>());
 
 }
