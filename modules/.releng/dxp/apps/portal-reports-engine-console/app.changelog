@@ -1,0 +1,13 @@
+#
+# Liferay App Version 4.0.0
+#
+
+app.artifacts-4.0.0=\
+	com.liferay.portal.reports.engine.console.api-3.0.7.jar,\
+	com.liferay.portal.reports.engine.console.jasper-1.0.1.jar,\
+	com.liferay.portal.reports.engine.console.service-2.0.17.jar,\
+	com.liferay.portal.reports.engine.console.web-2.0.23.jar
+
+app.change.log-4.0.0=LPS-74544 LPS-77699 LPS-78938 LPS-79679 LPS-81704 LPS-81706 LPS-82261 LPS-83736 LPS-83973 LPS-84119 LPS-85849 LPS-86806 LPS-88170 LPS-88181 LPS-88665 LPS-89445 LPS-89456 LPS-89567 LPS-91342 LPS-91343 LPS-91764 LPS-91970 LRDOCS-6300 LRQA-47460 
+
+app.git.id-4.0.0=8e2f6cf88ecaeda697a59097998d6ac1fed730ca
