@@ -29,9 +29,13 @@ import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.portlet.PortletLayoutFinder;
+import com.liferay.portal.kernel.portlet.PortletLayoutFinderRegistryUtil;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
@@ -354,7 +358,7 @@ public class DLFileEntryAssetRenderer
 
 		long groupId = _fileEntry.getGroupId();
 
-		if (!DLUtil.hasViewInContextGroupLayout(groupId, themeDisplay)) {
+		if (!_hasViewInContextGroupLayout(themeDisplay, groupId)) {
 			return null;
 		}
 
@@ -456,6 +460,35 @@ public class DLFileEntryAssetRenderer
 	public boolean isPrintable() {
 		return false;
 	}
+
+	private boolean _hasViewInContextGroupLayout(
+		ThemeDisplay themeDisplay, long groupId) {
+
+		try {
+			PortletLayoutFinder portletLayoutFinder =
+				PortletLayoutFinderRegistryUtil.getPortletLayoutFinder(
+					DLFileEntryConstants.getClassName());
+
+			PortletLayoutFinder.Result result = portletLayoutFinder.find(
+				themeDisplay, groupId);
+
+			if (result == null) {
+				return false;
+			}
+
+			return true;
+		}
+		catch (PortalException pe) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(pe, pe);
+			}
+
+			return false;
+		}
+	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		DLFileEntryAssetRenderer.class);
 
 	private final DLFileEntryLocalService _dlFileEntryLocalService;
 	private final FileEntry _fileEntry;
