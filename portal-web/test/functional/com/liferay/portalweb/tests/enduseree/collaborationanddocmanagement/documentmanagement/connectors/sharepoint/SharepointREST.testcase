@@ -294,7 +294,7 @@ definition {
 		DMNavigator.gotoDocumentCP(dmDocumentTitle = "Document_3.doc");
 
 		DMDocument.viewCP(
-			dmDocumentSize = "34KB",
+			dmDocumentSize = "34 KB",
 			dmDocumentTitle = "Document_3.doc");
 
 		ProductMenu.gotoPortlet(
@@ -320,7 +320,7 @@ definition {
 		DMNavigator.gotoDocumentCP(dmDocumentTitle = "Document_3.doc");
 
 		DMDocument.viewCP(
-			dmDocumentSize = "30KB",
+			dmDocumentSize = "30 KB",
 			dmDocumentTitle = "Document_3.doc");
 
 		DMDocument.viewDocumentMetadataCP(

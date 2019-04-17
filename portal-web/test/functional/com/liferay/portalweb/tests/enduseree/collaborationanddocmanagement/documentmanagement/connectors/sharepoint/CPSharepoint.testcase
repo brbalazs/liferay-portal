@@ -263,7 +263,7 @@ definition {
 		DMNavigator.gotoDocumentCP(dmDocumentTitle = "Document_3.doc");
 
 		DMDocument.viewCP(
-			dmDocumentSize = "32KB",
+			dmDocumentSize = "32 KB",
 			dmDocumentTitle = "Document_3.doc");
 
 		Navigator.openURL();
@@ -291,7 +291,7 @@ definition {
 		DMNavigator.gotoDocumentCP(dmDocumentTitle = "Document_3.doc");
 
 		DMDocument.viewCP(
-			dmDocumentSize = "30KB",
+			dmDocumentSize = "30 KB",
 			dmDocumentTitle = "Document_3.doc");
 
 		DMDocument.viewDocumentMetadataCP(

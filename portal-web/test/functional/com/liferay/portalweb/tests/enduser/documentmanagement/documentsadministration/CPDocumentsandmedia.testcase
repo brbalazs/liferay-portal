@@ -114,7 +114,7 @@ definition {
 		DMNavigator.gotoDocumentCP(dmDocumentTitle = "DM Document Title");
 
 		DMDocument.viewCP(
-			dmDocumentSize = "259B",
+			dmDocumentSize = "259 B",
 			dmDocumentTitle = "DM Document Title");
 	}
 
@@ -326,12 +326,12 @@ definition {
 
 		if (("${browserType}" == "edge") || ("${browserType}" == "internetexplorer")) {
 			DMDocument.viewCP(
-				dmDocumentSize = "268B",
+				dmDocumentSize = "268 B",
 				dmDocumentTitle = "DM Document Title");
 		}
 		else {
 			DMDocument.viewCP(
-				dmDocumentSize = "259B",
+				dmDocumentSize = "259 B",
 				dmDocumentTitle = "DM Document Title");
 		}
 
@@ -404,7 +404,7 @@ definition {
 		DMNavigator.gotoDocumentCP(dmDocumentTitle = "DM Document Title");
 
 		DMDocument.viewCP(
-			dmDocumentSize = "259B",
+			dmDocumentSize = "259 B",
 			dmDocumentTitle = "DM Document Title");
 
 		Navigator.openURL();
