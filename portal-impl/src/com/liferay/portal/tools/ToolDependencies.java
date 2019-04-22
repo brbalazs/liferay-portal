@@ -334,6 +334,14 @@ public class ToolDependencies {
 			return _portalCacheName;
 		}
 
+		public boolean isBlocking() {
+			return false;
+		}
+
+		public boolean isMVCC() {
+			return false;
+		}
+
 		@Override
 		public void put(K key, V value) {
 			put(key, value, DEFAULT_TIME_TO_LIVE);
