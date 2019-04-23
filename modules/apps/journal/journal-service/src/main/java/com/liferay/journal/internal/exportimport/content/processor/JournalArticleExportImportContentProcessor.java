@@ -459,7 +459,10 @@ public class JournalArticleExportImportContentProcessor
 
 					JSONObject jsonObject = _jsonFactory.createJSONObject(json);
 
-					if (jsonObject.isNull("classPK")) {
+					long classPK = GetterUtil.getLong(
+						jsonObject.get("classPK"));
+
+					if (classPK <= 0) {
 						if (_log.isDebugEnabled()) {
 							_log.debug(
 								"No journal article reference is specified");
@@ -467,9 +470,6 @@ public class JournalArticleExportImportContentProcessor
 
 						continue;
 					}
-
-					long classPK = GetterUtil.getLong(
-						jsonObject.get("classPK"));
 
 					JournalArticle journalArticle =
 						_journalArticleLocalService.fetchLatestArticle(classPK);
