@@ -21,10 +21,8 @@ import com.liferay.saml.runtime.credential.KeyStoreManager;
 import java.security.KeyStore;
 import java.security.cert.X509Certificate;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import org.opensaml.xml.security.CriteriaSet;
 import org.opensaml.xml.security.SecurityException;
@@ -135,11 +133,8 @@ public class KeyStoreCredentialResolver
 
 		basicX509Credential.setEntityCertificate(x509Certificate);
 
-		List<X509Certificate> x509Certificates = new ArrayList<>();
-
-		x509Certificates.add(x509Certificate);
-
-		basicX509Credential.setEntityCertificateChain(x509Certificates);
+		basicX509Credential.setEntityCertificateChain(
+			Arrays.asList(x509Certificate));
 
 		basicX509Credential.setEntityId(entityId);
 		basicX509Credential.setUsageType(usageType);
