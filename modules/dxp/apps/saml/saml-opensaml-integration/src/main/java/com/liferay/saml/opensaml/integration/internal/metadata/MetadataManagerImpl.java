@@ -448,11 +448,11 @@ public class MetadataManagerImpl
 		String defaultIdpEntityId = getDefaultIdpEntityId();
 
 		try {
-			MetadataProvider metadataProvider = getMetadataProvider();
-
 			if (Validator.isNull(defaultIdpEntityId)) {
 				return false;
 			}
+
+			MetadataProvider metadataProvider = getMetadataProvider();
 
 			RoleDescriptor roleDescriptor = metadataProvider.getRole(
 				defaultIdpEntityId, IDPSSODescriptor.DEFAULT_ELEMENT_NAME,
