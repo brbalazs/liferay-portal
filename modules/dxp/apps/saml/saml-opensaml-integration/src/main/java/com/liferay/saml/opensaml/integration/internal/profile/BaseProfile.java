@@ -268,11 +268,8 @@ public abstract class BaseProfile {
 
 		HttpSession session = request.getSession();
 
-		SamlSpSession samlSpSession =
-			samlSpSessionLocalService.fetchSamlSpSessionByJSessionId(
-				session.getId());
-
-		return samlSpSession;
+		return samlSpSessionLocalService.fetchSamlSpSessionByJSessionId(
+			session.getId());
 	}
 
 	public String getSamlSpSessionKey(HttpServletRequest request) {

@@ -364,10 +364,7 @@ public class MetadataManagerImpl
 
 		securityPolicyRules.add(mandatoryIssuerRule);
 
-		StaticSecurityPolicyResolver securityPolicyResolver =
-			new StaticSecurityPolicyResolver(securityPolicy);
-
-		return securityPolicyResolver;
+		return new StaticSecurityPolicyResolver(securityPolicy);
 	}
 
 	@Override

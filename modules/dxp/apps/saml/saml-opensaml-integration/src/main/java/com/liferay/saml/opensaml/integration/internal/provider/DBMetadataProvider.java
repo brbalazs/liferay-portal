@@ -82,10 +82,8 @@ public class DBMetadataProvider extends BaseMetadataProvider {
 			XMLObject metadataXmlObject = XMLObjectHelper.unmarshallFromReader(
 				_parserPool, new StringReader(metadataXml));
 
-			EntityDescriptor entityDescriptor =
-				SamlUtil.getEntityDescriptorById(entityId, metadataXmlObject);
-
-			return entityDescriptor;
+			return SamlUtil.getEntityDescriptorById(
+				entityId, metadataXmlObject);
 		}
 		catch (Exception e) {
 			throw new MetadataProviderException(e);
