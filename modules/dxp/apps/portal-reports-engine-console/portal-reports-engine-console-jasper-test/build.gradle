@@ -6,7 +6,7 @@ File jasperFile = file("jasperreports-${jasperVersion}-project.zip")
 FileTree jasperZipTree = zipTree(jasperFile)
 
 dependencies {
-	testIntegrationCompile group: "com.liferay", name: "com.liferay.arquillian.extension.junit.bridge", version: "1.0.13"
+	testIntegrationCompile group: "com.liferay", name: "com.liferay.arquillian.extension.junit.bridge", version: "1.0.14"
 	testIntegrationCompile group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"
 	testIntegrationCompile project(":apps:portal-reports-engine:portal-reports-engine-api")
 	testIntegrationCompile project(":private:apps:portal-reports-engine-console:portal-reports-engine-console-jasper")
