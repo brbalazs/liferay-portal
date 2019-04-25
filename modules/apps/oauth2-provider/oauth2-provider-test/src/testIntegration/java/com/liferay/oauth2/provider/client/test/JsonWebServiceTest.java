@@ -16,12 +16,12 @@ package com.liferay.oauth2.provider.client.test;
 
 import com.liferay.oauth2.provider.test.internal.activator.BaseTestPreparatorBundleActivator;
 import com.liferay.oauth2.provider.test.util.OAuth2ProviderTestUtil;
+import com.liferay.portal.json.JSONObjectImpl;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 import javax.ws.rs.client.Entity;
@@ -30,10 +30,6 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
-
-import org.apache.log4j.Level;
-
-import org.codehaus.jettison.json.JSONObject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -83,7 +79,7 @@ public class JsonWebServiceTest extends BaseClientTestCase {
 
 		Response response = invocationBuilder.post(Entity.form(formData));
 
-		JSONObject jsonObject = new JSONObject(
+		JSONObject jsonObject = new JSONObjectImpl(
 			response.readEntity(String.class));
 
 		Assert.assertEquals("testcompany", jsonObject.getString("webId"));
@@ -103,33 +99,18 @@ public class JsonWebServiceTest extends BaseClientTestCase {
 
 		Assert.assertEquals(403, response.getStatus());
 
-		String token = getToken(
-			"oauthTestApplicationRW", null,
-			getResourceOwnerPasswordBiFunction(
-				"test@liferay.com", "test", "everything.write"),
-			this::parseTokenString);
-
-		invocationBuilder = authorize(webTarget.request(), token);
+		invocationBuilder = authorize(
+			webTarget.request(),
+			getToken(
+				"oauthTestApplicationRW", null,
+				getResourceOwnerPasswordBiFunction("test@liferay.com", "test"),
+				this::parseTokenString));
 
 		response = invocationBuilder.post(Entity.form(formData));
 
 		String responseString = response.readEntity(String.class);
 
 		Assert.assertTrue(responseString.contains("No Country exists with"));
-
-		webTarget = getJsonWebTarget("company", "get-company-by-virtual-host");
-
-		invocationBuilder = authorize(webTarget.request(), token);
-
-		formData = new MultivaluedHashMap<>();
-
-		formData.putSingle("virtualHost", "testcompany.xyz");
-
-		Assert.assertEquals(
-			403,
-			invocationBuilder.post(
-				Entity.form(formData)
-			).getStatus());
 	}
 
 	public static class JsonWebServiceTestPreparatorBundleActivator
@@ -149,11 +130,7 @@ public class JsonWebServiceTest extends BaseClientTestCase {
 
 			createOAuth2Application(
 				defaultCompanyId, user, "oauthTestApplicationRW",
-				Arrays.asList("everything.read", "everything.write"));
-
-			autoCloseables.add(
-				Log4JLoggerTestUtil.configureLog4JLogger(
-					"portal_web.docroot.errors.code_jsp", Level.WARN));
+				Collections.singletonList("everything"));
 		}
 
 	}
