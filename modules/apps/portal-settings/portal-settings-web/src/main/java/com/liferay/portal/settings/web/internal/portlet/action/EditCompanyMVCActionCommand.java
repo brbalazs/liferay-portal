@@ -124,6 +124,7 @@ public class EditCompanyMVCActionCommand extends BaseFormMVCActionCommand {
 					 e instanceof NoSuchRegionException ||
 					 e instanceof PhoneNumberException ||
 					 e instanceof PhoneNumberExtensionException ||
+					 e instanceof RequiredLocaleException ||
 					 e instanceof WebsiteURLException) {
 
 				if (e instanceof NoSuchListTypeException) {
@@ -258,9 +259,7 @@ public class EditCompanyMVCActionCommand extends BaseFormMVCActionCommand {
 		List<Group> groups = _groupLocalService.dynamicQuery(dynamicQuery);
 
 		if (!groups.isEmpty()) {
-			SessionErrors.add(
-				actionRequest, RequiredLocaleException.class,
-				new RequiredLocaleException(groups));
+			throw new RequiredLocaleException(groups);
 		}
 	}
 
@@ -270,12 +269,8 @@ public class EditCompanyMVCActionCommand extends BaseFormMVCActionCommand {
 		String languageId = ParamUtil.getString(actionRequest, "languageId");
 
 		if (Validator.isNull(languageId)) {
-			SessionErrors.add(
-				actionRequest, RequiredLocaleException.class,
-				new RequiredLocaleException(
-					"you-must-choose-a-default-language"));
-
-			return;
+			throw new RequiredLocaleException(
+				"you-must-choose-a-default-language");
 		}
 
 		UnicodeProperties properties = PropertiesParamUtil.getProperties(
@@ -287,11 +282,9 @@ public class EditCompanyMVCActionCommand extends BaseFormMVCActionCommand {
 			!StringUtil.contains(
 				newLanguageIds, languageId, StringPool.COMMA)) {
 
-			SessionErrors.add(
-				actionRequest, RequiredLocaleException.class,
-				new RequiredLocaleException(
-					"you-cannot-remove-a-language-that-is-the-current-" +
-						"default-language"));
+			throw new RequiredLocaleException(
+				"you-cannot-remove-a-language-that-is-the-current-default-" +
+					"language");
 		}
 	}
 
