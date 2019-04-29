@@ -36,10 +36,10 @@ public interface CommerceDashboardForecastsChartPortletInstanceConfiguration {
 	@Meta.AD(name = "filter-by-sku", required = false)
 	public boolean filterBySKU();
 
-	@Meta.AD(required = false)
+	@Meta.AD(name = "period", required = false)
 	public int period();
 
-	@Meta.AD(deflt = "1", required = false)
+	@Meta.AD(deflt = "1", name = "target", required = false)
 	public int target();
 
 }
