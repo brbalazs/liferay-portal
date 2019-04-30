@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
+import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.SortFactoryUtil;
 import com.liferay.portal.kernel.search.TermQuery;
@@ -43,7 +44,8 @@ import org.osgi.service.component.annotations.Reference;
 public class ContentCommerceRecommendHelper implements CommerceRecommendHelper {
 
 	@Override
-	public Hits getRecommendations(long companyId, long entryClassPK)
+	public Hits getRecommendations(
+			long companyId, long entryClassPK, Query query)
 		throws Exception {
 
 		SearchSearchRequest searchRequest = new SearchSearchRequest();
@@ -64,6 +66,10 @@ public class ContentCommerceRecommendHelper implements CommerceRecommendHelper {
 		booleanQuery.add(companyTermQuery, BooleanClauseOccur.MUST);
 
 		booleanQuery.add(entryClassPKTermQuery, BooleanClauseOccur.MUST);
+
+		if (query != null) {
+			booleanQuery.add(query, BooleanClauseOccur.MUST);
+		}
 
 		searchRequest.setQuery(booleanQuery);
 

@@ -15,13 +15,15 @@
 package com.liferay.commerce.recommend.internal.api;
 
 import com.liferay.portal.kernel.search.Hits;
+import com.liferay.portal.kernel.search.Query;
 
 /**
  * @author Riccardo Ferrari
  */
 public interface CommerceRecommendHelper {
 
-	public Hits getRecommendations(long companyId, long entryClassPK)
+	public Hits getRecommendations(
+			long companyId, long entryClassPK, Query query)
 		throws Exception;
 
 }
