@@ -14,36 +14,19 @@
 
 package com.liferay.commerce.recommend.internal.data.integration.manager;
 
-import com.liferay.commerce.data.integration.manager.model.History;
-import com.liferay.commerce.data.integration.manager.model.Process;
 import com.liferay.commerce.data.integration.manager.model.ScheduledTask;
-import com.liferay.commerce.data.integration.manager.service.HistoryLocalService;
-import com.liferay.commerce.data.integration.manager.service.ProcessService;
 import com.liferay.commerce.data.integration.manager.service.ScheduledTaskExectutorService;
 import com.liferay.commerce.data.integration.manager.service.ScheduledTaskLocalService;
 import com.liferay.commerce.recommend.internal.api.CommerceRecommendIndexer;
-import com.liferay.petra.json.web.service.client.JSONWebServiceClient;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
-import com.liferay.portal.kernel.backgroundtask.BackgroundTaskConstants;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration;
 
 import java.io.IOException;
 
-import java.util.Date;
-import java.util.Dictionary;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Stream;
 
-import org.osgi.service.component.ComponentFactory;
-import org.osgi.service.component.ComponentInstance;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ConfigurationPolicy;
@@ -74,37 +57,11 @@ public class CommerceContentRecommendScheduledTaskExecutorService
 		throws IOException, PortalException {
 
 		ScheduledTask scheduledTask =
-			_scheduledTaskLocalService.startScheduledTask(
-				userId, scheduledTaskId);
+			_scheduledTaskLocalService.getScheduledTask(scheduledTaskId);
 
-		History history = _historyLocalService.addHistory(
+		_commerceRecommendScheduledTaskExecutorService.executeScheduledTask(
 			userId, scheduledTaskId, executionType,
-			scheduledTask.getStartDate(), null,
-			BackgroundTaskConstants.STATUS_IN_PROGRESS, 0L, 0L);
-
-		try {
-			Process process = _processService.getProcess(
-				userId, scheduledTask.getProcessId());
-
-			triggerJob(process);
-
-			history.setEndDate(new Date());
-
-			history.setStatus(BackgroundTaskConstants.STATUS_SUCCESSFUL);
-
-			_historyLocalService.updateHistory(history);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			history.setEndDate(new Date());
-
-			history.setStatus(BackgroundTaskConstants.STATUS_FAILED);
-
-			_historyLocalService.updateHistory(history);
-		}
-
-		_scheduledTaskLocalService.stopScheduledTask(userId, scheduledTaskId);
+			getContextProperties(scheduledTask.getCompanyId()));
 	}
 
 	@Activate
@@ -113,93 +70,45 @@ public class CommerceContentRecommendScheduledTaskExecutorService
 			ElasticsearchConfiguration.class, properties);
 	}
 
-	protected JSONObject getContextPropertiesJSONObject(
-		long companyId, Map<String, String> contextProperties) {
+	protected Map<String, String> getContextProperties(long companyId) {
+		Map<String, String> contextProperties = new HashMap<>();
 
-		Set<Map.Entry<String, String>> contextPropertiesEntrySet =
-			contextProperties.entrySet();
+		// Company ID
 
-		Stream<Map.Entry<String, String>> contextPropertiesStream =
-			contextPropertiesEntrySet.stream();
+		contextProperties.put("LIFERAY_COMPANY_ID", String.valueOf(companyId));
 
-		JSONObject contextPropertiesJSONObject =
-			JSONFactoryUtil.createJSONObject();
+		// Recommend Application
 
-		contextPropertiesStream.forEach(
-			s -> {
-				contextPropertiesJSONObject.put(s.getKey(), s.getValue());
-			});
+		contextProperties.put("LIFERAY_RECOMMEND_APPLICATION", getName());
 
 		// Source index name
 
-		String indexName =
+		String sourceIndexName =
 			_elasticsearchConfiguration.indexNamePrefix() + companyId;
 
-		contextPropertiesJSONObject.put("LIFERAY_INDEX_NAME", indexName);
+		contextProperties.put("LIFERAY_INDEX_NAME", sourceIndexName);
 
 		// Destination index name
 
-		String targetIndexName = _contentCommerceRecommendIndexer.getIndexName(
+		String destinationIndexName = _commerceRecommendIndexer.getIndexName(
 			companyId);
 
-		contextPropertiesJSONObject.put(
-			"LIFERAY_RECOMMEND_INDEX_NAME", targetIndexName);
+		contextProperties.put(
+			"LIFERAY_RECOMMEND_INDEX_NAME", destinationIndexName);
 
-		return contextPropertiesJSONObject;
+		return contextProperties;
 	}
-
-	protected JSONWebServiceClient getJSONWebServiceClient(
-		Map<String, String> contextProperties) {
-
-		Dictionary<String, String> properties = new Hashtable<>();
-
-		properties.put("hostName", contextProperties.get("host.name"));
-		properties.put("hostPort", contextProperties.get("host.port"));
-		properties.put("protocol", contextProperties.get("protocol"));
-
-		ComponentInstance componentInstance =
-			_jsonWebServiceClientComponentFactory.newInstance(properties);
-
-		return (JSONWebServiceClient)componentInstance.getInstance();
-	}
-
-	protected void triggerJob(Process process) throws Exception {
-		String contextPropertiesString = process.getContextProperties();
-
-		UnicodeProperties contextProperties = new UnicodeProperties(true);
-
-		contextProperties.fastLoad(contextPropertiesString);
-
-		JSONObject contextPropertiesJSONObject = getContextPropertiesJSONObject(
-			process.getCompanyId(), contextProperties);
-
-		JSONWebServiceClient jsonWebServiceClient = getJSONWebServiceClient(
-			contextProperties);
-
-		jsonWebServiceClient.doPostAsJSON(
-			_UPDATE_MODEL_URL, contextPropertiesJSONObject.toString());
-	}
-
-	private static final String _UPDATE_MODEL_URL = "/recommend/update-model";
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceContentRecommendScheduledTaskExecutorService.class);
 
 	@Reference(
 		target = "(component.name=com.liferay.commerce.recommend.internal.search.index.ContentCommerceRecommendIndexer)"
 	)
-	private CommerceRecommendIndexer _contentCommerceRecommendIndexer;
+	private CommerceRecommendIndexer _commerceRecommendIndexer;
+
+	@Reference
+	private CommerceRecommendScheduledTaskExecutorService
+		_commerceRecommendScheduledTaskExecutorService;
 
 	private ElasticsearchConfiguration _elasticsearchConfiguration;
-
-	@Reference
-	private HistoryLocalService _historyLocalService;
-
-	@Reference(target = "(component.factory=JSONWebServiceClient)")
-	private ComponentFactory _jsonWebServiceClientComponentFactory;
-
-	@Reference
-	private ProcessService _processService;
 
 	@Reference
 	private ScheduledTaskLocalService _scheduledTaskLocalService;
