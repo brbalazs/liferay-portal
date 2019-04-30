@@ -34,7 +34,6 @@ import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.io.Serializable;
@@ -44,7 +43,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -59,7 +57,8 @@ import org.osgi.service.component.annotations.Reference;
 	property = "commerce.product.data.source.name=" + ContentRecommenderCPDataSourceImpl.NAME,
 	service = CPDataSource.class
 )
-public class ContentRecommenderCPDataSourceImpl implements CPDataSource {
+public class ContentRecommenderCPDataSourceImpl
+	extends BaseRecommendCPDataSource {
 
 	public static final String NAME = "contentRecommenderDataSource";
 
@@ -92,7 +91,7 @@ public class ContentRecommenderCPDataSourceImpl implements CPDataSource {
 		}
 
 		Hits recommendations = _commerceRecommendHelper.getRecommendations(
-			companyId, cpCatalogEntry.getCPDefinitionId());
+			companyId, cpCatalogEntry.getCPDefinitionId(), null);
 
 		if (recommendations.getLength() == 0) {
 			return new CPDataSourceResult(new ArrayList<>(), 0);
@@ -151,21 +150,6 @@ public class ContentRecommenderCPDataSourceImpl implements CPDataSource {
 			groupId, searchContext, new CPQuery(), start, end);
 	}
 
-	protected ResourceBundle getResourceBundle(Locale locale) {
-		return ResourceBundleUtil.getBundle(
-			"content.Language", locale, getClass());
-	}
-
-	@Reference(unbind = "-")
-	private void _setCPDefinitionHelper(CPDefinitionHelper cpDefinitionHelper) {
-		_cpDefinitionHelper = cpDefinitionHelper;
-	}
-
-	@Reference(unbind = "-")
-	private void _setPortal(Portal portal) {
-		_portal = portal;
-	}
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		ContentRecommenderCPDataSourceImpl.class);
 
@@ -174,7 +158,10 @@ public class ContentRecommenderCPDataSourceImpl implements CPDataSource {
 	)
 	private CommerceRecommendHelper _commerceRecommendHelper;
 
+	@Reference(unbind = "-")
 	private CPDefinitionHelper _cpDefinitionHelper;
+
+	@Reference(unbind = "-")
 	private Portal _portal;
 
 }
