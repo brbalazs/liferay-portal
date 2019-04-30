@@ -15,18 +15,6 @@
 package com.liferay.commerce.recommend.internal.search.index;
 
 import com.liferay.commerce.recommend.internal.api.CommerceRecommendIndexer;
-import com.liferay.portal.kernel.json.JSONException;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.json.JSONUtil;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.search.engine.adapter.SearchEngineAdapter;
-import com.liferay.portal.search.engine.adapter.index.CreateIndexRequest;
-import com.liferay.portal.search.engine.adapter.index.DeleteIndexRequest;
-import com.liferay.portal.search.engine.adapter.index.IndicesExistsIndexRequest;
-import com.liferay.portal.search.engine.adapter.index.IndicesExistsIndexResponse;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -38,64 +26,16 @@ import org.osgi.service.component.annotations.Reference;
 public class ContentCommerceRecommendIndexer
 	implements CommerceRecommendIndexer {
 
+	@Override
 	public void createIndex(long companyId) {
-		String indexName = getIndexName(companyId);
-
-		if (_indicesExists(indexName)) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(String.format("Index %s already exist", indexName));
-			}
-
-			return;
-		}
-
-		CreateIndexRequest createIndexRequest = new CreateIndexRequest(
-			indexName);
-
-		try {
-			JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-				StringUtil.read(
-					getClass(),
-					"/META-INF/search" +
-						"/commerce-content-recommend-document-type.json"));
-
-			createIndexRequest.setSource(
-				JSONUtil.put(
-					"mappings", jsonObject
-				).toString());
-		}
-		catch (JSONException jsone) {
-			_log.error(jsone, jsone);
-		}
-
-		_searchEngineAdapter.execute(createIndexRequest);
-
-		if (_log.isDebugEnabled()) {
-			_log.debug(
-				String.format("Index %s created successfully", indexName));
-		}
+		_commerceRecommendSearchEngineAdapter.createIndex(
+			getIndexName(companyId), _INDEX_MAPPING_FILE_NAME);
 	}
 
+	@Override
 	public void dropIndex(long companyId) {
-		String indexName = getIndexName(companyId);
-
-		if (!_indicesExists(indexName)) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(String.format("Index %s does not exist", indexName));
-			}
-
-			return;
-		}
-
-		DeleteIndexRequest deleteIndexRequest = new DeleteIndexRequest(
-			indexName);
-
-		_searchEngineAdapter.execute(deleteIndexRequest);
-
-		if (_log.isDebugEnabled()) {
-			_log.debug(
-				String.format("Index %s dropped successfully", indexName));
-		}
+		_commerceRecommendSearchEngineAdapter.dropIndex(
+			getIndexName(companyId));
 	}
 
 	@Override
@@ -103,23 +43,14 @@ public class ContentCommerceRecommendIndexer
 		return String.format(_INDEX_NAME_PREFIX, companyId);
 	}
 
-	private boolean _indicesExists(String indexName) {
-		IndicesExistsIndexRequest indicesExistsIndexRequest =
-			new IndicesExistsIndexRequest(indexName);
-
-		IndicesExistsIndexResponse indicesExistsIndexResponse =
-			_searchEngineAdapter.execute(indicesExistsIndexRequest);
-
-		return indicesExistsIndexResponse.isExists();
-	}
+	private static final String _INDEX_MAPPING_FILE_NAME =
+		"/META-INF/search/commerce-content-recommend-document-type.json";
 
 	private static final String _INDEX_NAME_PREFIX =
 		"commerce-content-recommend-%s";
 
-	private static final Log _log = LogFactoryUtil.getLog(
-		ContentCommerceRecommendIndexer.class);
-
 	@Reference
-	private SearchEngineAdapter _searchEngineAdapter;
+	private CommerceRecommendSearchEngineAdapter
+		_commerceRecommendSearchEngineAdapter;
 
 }
