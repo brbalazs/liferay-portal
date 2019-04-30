@@ -19,19 +19,11 @@
 <%
 String recommendServiceEndpoint = (String)request.getAttribute("recommendServiceEndpoint");
 
-String esNodes = (String)request.getAttribute("esNodes");
-
-String sparkMaster = (String)request.getAttribute("sparkMaster");
-
 String customOptions = (String)request.getAttribute("customOptions");
 %>
 
 <aui:input name="recommendServiceEndpoint" required="<%= true %>" value="<%= recommendServiceEndpoint %>">
 	<aui:validator name="url" />
 </aui:input>
-
-<aui:input name="esNodes" required="<%= true %>" value="<%= esNodes %>" />
-
-<aui:input name="sparkMaster" required="<%= true %>" value="<%= sparkMaster %>" />
 
 <aui:input name="customOptions" type="textarea" value="<%= customOptions %>" />
