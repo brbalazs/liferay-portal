@@ -25,6 +25,7 @@ import com.liferay.commerce.product.data.source.CPDataSource;
 import com.liferay.commerce.product.data.source.CPDataSourceResult;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
+import com.liferay.commerce.recommend.internal.api.CommerceRecommendField;
 import com.liferay.commerce.recommend.internal.api.CommerceRecommendHelper;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -143,9 +144,9 @@ public class UserRecommenderCPDataSourceImpl extends BaseRecommendCPDataSource {
 
 		for (Document document : recommendations.getDocs()) {
 			String recommendedEntryClassPK = document.get(
-				"recommendedEntryClassPK");
+				CommerceRecommendField.RECOMMENDED_ENTRY_CLASS_PK);
 
-			String score = document.get("score");
+			String score = document.get(CommerceRecommendField.SCORE);
 
 			if (_log.isTraceEnabled()) {
 				StringBuilder sb = new StringBuilder();

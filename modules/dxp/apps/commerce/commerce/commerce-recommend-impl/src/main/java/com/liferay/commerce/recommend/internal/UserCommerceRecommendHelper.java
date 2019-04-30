@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.recommend.internal;
 
+import com.liferay.commerce.recommend.internal.api.CommerceRecommendField;
 import com.liferay.commerce.recommend.internal.api.CommerceRecommendHelper;
 import com.liferay.commerce.recommend.internal.api.CommerceRecommendIndexer;
 import com.liferay.portal.kernel.log.Log;
@@ -74,7 +75,7 @@ public class UserCommerceRecommendHelper implements CommerceRecommendHelper {
 		searchRequest.setQuery(booleanQuery);
 
 		Sort scoreSort = SortFactoryUtil.create(
-			"score", Sort.FLOAT_TYPE, false);
+			CommerceRecommendField.SCORE, Sort.FLOAT_TYPE, false);
 
 		searchRequest.setSorts(new Sort[] {scoreSort});
 
