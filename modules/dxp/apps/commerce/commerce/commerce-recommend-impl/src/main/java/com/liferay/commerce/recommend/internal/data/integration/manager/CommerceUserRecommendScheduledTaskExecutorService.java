@@ -88,21 +88,24 @@ public class CommerceUserRecommendScheduledTaskExecutorService
 
 		contextProperties.put("LIFERAY_INDEX_NAME", sourceIndexName);
 
-		// Destination index name
+		// User recommendations destination index name
 
-		String destinationIndexName = _commerceRecommendIndexer.getIndexName(
-			companyId);
+		String userDestinationIndexName =
+			_userCommerceRecommendIndexer.getIndexName(companyId);
 
 		contextProperties.put(
-			"LIFERAY_RECOMMEND_INDEX_NAME", destinationIndexName);
+			"LIFERAY_RECOMMEND_USER_INDEX_NAME", userDestinationIndexName);
+
+		// User recommendations destination index name
+
+		String itemDestinationIndexName =
+			_itemCommerceRecommendIndexer.getIndexName(companyId);
+
+		contextProperties.put(
+			"LIFERAY_RECOMMEND_ITEM_INDEX_NAME", itemDestinationIndexName);
 
 		return contextProperties;
 	}
-
-	@Reference(
-		target = "(component.name=com.liferay.commerce.recommend.internal.search.index.UserCommerceRecommendIndexer)"
-	)
-	private CommerceRecommendIndexer _commerceRecommendIndexer;
 
 	@Reference
 	private CommerceRecommendScheduledTaskExecutorService
@@ -110,7 +113,17 @@ public class CommerceUserRecommendScheduledTaskExecutorService
 
 	private ElasticsearchConfiguration _elasticsearchConfiguration;
 
+	@Reference(
+		target = "(component.name=com.liferay.commerce.recommend.internal.search.index.ItemCommerceRecommendIndexer)"
+	)
+	private CommerceRecommendIndexer _itemCommerceRecommendIndexer;
+
 	@Reference
 	private ScheduledTaskLocalService _scheduledTaskLocalService;
+
+	@Reference(
+		target = "(component.name=com.liferay.commerce.recommend.internal.search.index.UserCommerceRecommendIndexer)"
+	)
+	private CommerceRecommendIndexer _userCommerceRecommendIndexer;
 
 }
