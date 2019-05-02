@@ -344,3 +344,33 @@ app.artifacts-1.0.10=\
 app.change.log-1.0.10=LPS-66882 LPS-75815 LPS-77699 LPS-79653 LPS-80332 LPS-80756 LPS-82418 LPS-82453 LPS-82494 LPS-82653 LPS-83748 LPS-83936 LPS-84119 LPS-85296 LPS-85464 LPS-85793 LPS-85877 LPS-85976 LPS-86327 LPS-86408 LPS-86806 LPS-88139 LPS-88242 LPS-88707 LPS-88764 LPS-88911 LPS-88995 LPS-89203 LPS-89362 LPS-89375 LPS-89377 LPS-89465 LPS-89534 LPS-89585 LPS-89935 LPS-90362 LPS-90392 LPS-90505 LPS-90515 LPS-90521 LPS-90528 LPS-90696 LPS-90724 LPS-90832 LPS-91023 LPS-91029 LPS-91149 LPS-91159 LPS-91239 LPS-91343 LPS-91420 LPS-91970 LPS-91985 LPS-92000 LPS-92017 LPS-92046 LPS-92109 LPS-92334 LPS-92613 LPS-92890
 
 app.git.id-1.0.10=461a28362eda5b05ef19fcbbd6458742b85e805d
+
+#
+# Liferay App Version 1.0.11
+#
+
+app.artifacts-1.0.11=\
+	com.liferay.dynamic.data.mapping.api-4.8.11.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.impl-2.0.20.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.instance-1.0.4.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.web-2.0.16.jar,\
+	com.liferay.dynamic.data.mapping.expression-3.0.12.jar,\
+	com.liferay.dynamic.data.mapping.form.analytics-2.0.4.jar,\
+	com.liferay.dynamic.data.mapping.form.builder-1.0.45.jar,\
+	com.liferay.dynamic.data.mapping.form.evaluator.impl-1.0.12.jar,\
+	com.liferay.dynamic.data.mapping.form.field.type-3.0.33.jar,\
+	com.liferay.dynamic.data.mapping.form.renderer-3.0.32.jar,\
+	com.liferay.dynamic.data.mapping.form.taglib-1.0.10.jar,\
+	com.liferay.dynamic.data.mapping.form.values.factory-3.0.6.jar,\
+	com.liferay.dynamic.data.mapping.form.values.query-3.0.2.jar,\
+	com.liferay.dynamic.data.mapping.form.web-1.0.59.jar,\
+	com.liferay.dynamic.data.mapping.io-3.0.17.jar,\
+	com.liferay.dynamic.data.mapping.lang-3.0.16.jar,\
+	com.liferay.dynamic.data.mapping.service-3.0.63.jar,\
+	com.liferay.dynamic.data.mapping.taglib-3.4.4.jar,\
+	com.liferay.dynamic.data.mapping.validator-3.0.8.jar,\
+	com.liferay.dynamic.data.mapping.web-2.0.47.jar
+
+app.change.log-1.0.11=LPS-75815 LPS-77699 LPS-79653 LPS-80332 LPS-80756 LPS-82418 LPS-82453 LPS-82653 LPS-83949 LPS-84119 LPS-85296 LPS-85464 LPS-85877 LPS-85976 LPS-86327 LPS-86408 LPS-86806 LPS-87331 LPS-87629 LPS-88139 LPS-88707 LPS-88889 LPS-88911 LPS-88995 LPS-89375 LPS-89377 LPS-89465 LPS-89534 LPS-89585 LPS-89861 LPS-90047 LPS-91149 LPS-91159 LPS-91239 LPS-91241 LPS-91406 LPS-91420 LPS-91735 LPS-91985 LPS-92000 LPS-92039 LPS-92046 LPS-92109 LPS-92478 LPS-92613 LPS-92890 LPS-93204 LPS-93268 LPS-93842 LPS-93853 LPS-94032 LPS-94207 LPS-94512 LPS-94733
+
+app.git.id-1.0.11=7a25b5e4efd450c0607198cca51fa5d53f44ae84
