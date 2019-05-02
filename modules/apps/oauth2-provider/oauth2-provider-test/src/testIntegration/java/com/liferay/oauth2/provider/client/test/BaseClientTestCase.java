@@ -50,6 +50,11 @@ import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
+import javax.ws.rs.ext.RuntimeDelegate;
+
+import org.apache.cxf.jaxrs.client.spec.ClientBuilderImpl;
+import org.apache.cxf.jaxrs.impl.RuntimeDelegateImpl;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -119,10 +124,6 @@ public abstract class BaseClientTestCase {
 
 			_bundleActivator.stop(bundleContext);
 		}
-	}
-
-	protected static Client getClient() {
-		return ClientBuilder.newClient();
 	}
 
 	protected Invocation.Builder authorize(
@@ -421,9 +422,7 @@ public abstract class BaseClientTestCase {
 	}
 
 	protected WebTarget getJsonWebTarget(String... paths) {
-		Client client = getClient();
-
-		WebTarget webTarget = client.target("http://localhost:8080");
+		WebTarget webTarget = getWebTarget();
 
 		webTarget = webTarget.path("api");
 		webTarget = webTarget.path("jsonws");
@@ -436,9 +435,7 @@ public abstract class BaseClientTestCase {
 	}
 
 	protected WebTarget getLoginWebTarget() {
-		Client client = getClient();
-
-		WebTarget webTarget = client.target("http://localhost:8080");
+		WebTarget webTarget = getWebTarget();
 
 		webTarget = webTarget.path("c");
 		webTarget = webTarget.path("portal");
@@ -448,9 +445,7 @@ public abstract class BaseClientTestCase {
 	}
 
 	protected WebTarget getOAuth2WebTarget() {
-		Client client = getClient();
-
-		WebTarget webTarget = client.target("http://localhost:8080");
+		WebTarget webTarget = getWebTarget();
 
 		webTarget = webTarget.path("o");
 		webTarget = webTarget.path("oauth2");
@@ -459,9 +454,7 @@ public abstract class BaseClientTestCase {
 	}
 
 	protected WebTarget getPortalWebTarget() {
-		Client client = getClient();
-
-		WebTarget webTarget = client.target("http://localhost:8080");
+		WebTarget webTarget = getWebTarget();
 
 		webTarget = webTarget.path("web");
 		webTarget = webTarget.path("guest");
@@ -535,10 +528,20 @@ public abstract class BaseClientTestCase {
 		return webTarget.path("token");
 	}
 
-	protected WebTarget getWebTarget(String... paths) {
-		Client client = getClient();
+	protected WebTarget getWebTarget() {
+		ClientBuilder clientBuilder = new ClientBuilderImpl();
 
-		WebTarget target = client.target("http://localhost:8080");
+		Client client = clientBuilder.build();
+
+		RuntimeDelegate runtimeDelegate = new RuntimeDelegateImpl();
+
+		UriBuilder uriBuilder = runtimeDelegate.createUriBuilder();
+
+		return client.target(uriBuilder.uri("http://localhost:8080"));
+	}
+
+	protected WebTarget getWebTarget(String... paths) {
+		WebTarget target = getWebTarget();
 
 		target = target.path("o");
 		target = target.path("oauth2-test");
