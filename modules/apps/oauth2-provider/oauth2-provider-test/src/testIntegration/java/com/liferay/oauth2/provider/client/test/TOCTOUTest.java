@@ -27,6 +27,8 @@ import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.HashMapDictionary;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.test.log.CaptureAppender;
+import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
 import java.util.Collections;
@@ -37,6 +39,8 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Response;
+
+import org.apache.log4j.Level;
 
 import org.junit.Assert;
 import org.junit.ClassRule;
@@ -92,8 +96,12 @@ public class TOCTOUTest extends BaseClientTestCase {
 		Invocation.Builder webTarget2InvocationBuilder = authorize(
 			webTarget2.request(), token);
 
-		try {
+		try (CaptureAppender captureAppender =
+				Log4JLoggerTestUtil.configureLog4JLogger(
+					"portal_web.docroot.errors.code_jsp", Level.WARN)) {
+
 			webTarget2InvocationBuilder.get(String.class);
+
 			Assert.fail(
 				"Expected request GET /annotated2 to fail through admin & " +
 					"end-user TOCTOU protection");
@@ -115,8 +123,12 @@ public class TOCTOUTest extends BaseClientTestCase {
 
 		webTarget2InvocationBuilder = authorize(webTarget2.request(), token);
 
-		try {
+		try (CaptureAppender captureAppender =
+				Log4JLoggerTestUtil.configureLog4JLogger(
+					"portal_web.docroot.errors.code_jsp", Level.WARN)) {
+
 			webTarget2InvocationBuilder.get(String.class);
+
 			Assert.fail(
 				"Expected request GET /annotated2 to fail through admin " +
 					"TOCTOU protection");
@@ -134,8 +146,12 @@ public class TOCTOUTest extends BaseClientTestCase {
 		// Fail to use the token from [4] on JAX-RS app 2 (end-user TOCTOU
 		// protection when OAuth2 app scope assignment grows)
 
-		try {
+		try (CaptureAppender captureAppender =
+				Log4JLoggerTestUtil.configureLog4JLogger(
+					"portal_web.docroot.errors.code_jsp", Level.WARN)) {
+
 			webTarget2InvocationBuilder.get(String.class);
+
 			Assert.fail(
 				"Expected request GET /annotated2 to fail through end-user " +
 					"TOCTOU protection");
