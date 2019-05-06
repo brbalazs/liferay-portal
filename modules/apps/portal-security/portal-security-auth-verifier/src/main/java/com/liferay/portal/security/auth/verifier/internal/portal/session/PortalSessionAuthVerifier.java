@@ -53,9 +53,10 @@ public class PortalSessionAuthVerifier implements AuthVerifier {
 		try {
 			AuthVerifierResult authVerifierResult = new AuthVerifierResult();
 
-			HttpServletRequest request = accessControlContext.getRequest();
+			HttpServletRequest httpServletRequest =
+				accessControlContext.getRequest();
 
-			User user = PortalUtil.getUser(request);
+			User user = PortalUtil.getUser(httpServletRequest);
 
 			if ((user == null) || user.isDefaultUser()) {
 				return authVerifierResult;
@@ -65,14 +66,14 @@ public class PortalSessionAuthVerifier implements AuthVerifier {
 				properties.get("check.csrf.token"), true);
 
 			if (checkCSRFToken) {
-				HttpServletRequest originalServletRequest =
-					PortalUtil.getOriginalServletRequest(request);
+				HttpServletRequest originalHttpServletRequest =
+					PortalUtil.getOriginalServletRequest(httpServletRequest);
 
-				String requestURI = originalServletRequest.getRequestURI();
+				String requestURI = originalHttpServletRequest.getRequestURI();
 
 				try {
 					AuthTokenUtil.checkCSRFToken(
-						originalServletRequest, requestURI);
+						originalHttpServletRequest, requestURI);
 				}
 				catch (PrincipalException pe) {
 					if (_log.isDebugEnabled()) {
