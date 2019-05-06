@@ -23,11 +23,7 @@
 		<div class="input-group-item input-group-item-shrink input-localized-content <%= hideClass %>" role="menu" style="justify-content: flex-end;">
 
 			<%
-			List<String> languageIds = new ArrayList<String>();
-
 			String defaultLanguageId = LocaleUtil.toLanguageId(defaultEditLocale);
-
-			languageIds.add(defaultLanguageId);
 
 			Set<Locale> availableLocales = LanguageUtil.getAvailableLocales(groupId);
 
