@@ -351,7 +351,7 @@ public class DLFileEntryLocalServiceImpl
 
 		// File
 
-		DLStoreUtil.updateFileVersion(
+		DLStoreUtil.copyFileVersion(
 			user.getCompanyId(), dlFileEntry.getDataRepositoryId(),
 			dlFileEntry.getName(),
 			DLFileEntryConstants.PRIVATE_WORKING_COPY_VERSION, version);
