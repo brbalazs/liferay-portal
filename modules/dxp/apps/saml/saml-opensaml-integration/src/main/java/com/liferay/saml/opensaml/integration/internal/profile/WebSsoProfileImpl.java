@@ -488,9 +488,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 
 			boolean forceAuthn = false;
 
-			if (sessionExpired ||
-				((authnRequest != null) && authnRequest.isForceAuthn())) {
-
+			if ((authnRequest != null) && authnRequest.isForceAuthn()) {
 				forceAuthn = true;
 			}
 
