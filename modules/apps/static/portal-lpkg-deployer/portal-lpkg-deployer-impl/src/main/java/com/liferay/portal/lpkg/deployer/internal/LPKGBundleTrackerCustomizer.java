@@ -640,7 +640,8 @@ public class LPKGBundleTrackerCustomizer
 		Properties properties = new Properties();
 
 		properties.setProperty(
-			_PROPERTY_KEY_INSTALLED_BUNDLES, StringUtil.merge(innerBundleLocations));
+			_PROPERTY_KEY_INSTALLED_BUNDLES,
+			StringUtil.merge(innerBundleLocations));
 
 		File dataFile = bundle.getDataFile(_FILE_NAME_LPKG_DATA);
 
@@ -862,11 +863,12 @@ public class LPKGBundleTrackerCustomizer
 		jarOutputStream.closeEntry();
 	}
 
-	private static final String _PROPERTY_KEY_INSTALLED_BUNDLES = "installed.bundles";
+	private static final String _FILE_NAME_LFR_OUTDATED = ".lfr-outdated";
 
 	private static final String _FILE_NAME_LPKG_DATA = "lpkg.data.file";
 
-	private static final String _FILE_NAME_LFR_OUTDATED = ".lfr-outdated";
+	private static final String _PROPERTY_KEY_INSTALLED_BUNDLES =
+		"installed.bundles";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		LPKGBundleTrackerCustomizer.class);
