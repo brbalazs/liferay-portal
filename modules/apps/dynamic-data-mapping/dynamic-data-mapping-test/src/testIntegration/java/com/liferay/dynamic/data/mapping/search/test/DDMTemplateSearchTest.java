@@ -184,7 +184,6 @@ public class DDMTemplateSearchTest {
 			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
 		Assert.assertEquals(results.toString(), 1, results.size());
-
 		Assert.assertEquals(results.get(0), _ddmTemplate);
 	}
 
