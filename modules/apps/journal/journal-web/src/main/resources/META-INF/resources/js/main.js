@@ -1,6 +1,7 @@
 AUI.add(
 	'liferay-portlet-journal',
 	function(A) {
+		var Do = A.Do;
 		var Lang = A.Lang;
 		var Util = Liferay.Util;
 
@@ -345,6 +346,13 @@ AUI.add(
 							if (inputSelectedValue === '') {
 								var inputDefaultValue = inputComponent.getValue(defaultLanguageId);
 
+								// LPS-92493
+
+								var eventHandle = Do.before(
+									function() {
+										return new Do.Prevent('Update input language has to be called only when we update a translation');
+									},
+									inputComponent, 'updateInputLanguage', inputComponent);
 
 								inputComponent.selectFlag(selectedLanguageId);
 
