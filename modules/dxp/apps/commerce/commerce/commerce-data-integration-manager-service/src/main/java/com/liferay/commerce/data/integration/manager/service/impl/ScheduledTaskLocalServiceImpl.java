@@ -332,7 +332,7 @@ public class ScheduledTaskLocalServiceImpl
 		payLoad.put("scheduledTaskId", scheduledTask.getScheduledTaskId());
 		payLoad.put("userId", scheduledTask.getUserId());
 
-		message.setPayload(payLoad);
+		message.setPayload(payLoad.toString());
 
 		String cronExpression = _getCronExpression(scheduledTask);
 

@@ -23,6 +23,8 @@ import com.liferay.commerce.data.integration.manager.service.ScheduledTaskLocalS
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONException;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -50,7 +52,18 @@ public class DataIntegrationMessageListener implements MessageListener {
 
 	@Override
 	public void receive(Message message) throws MessageListenerException {
-		JSONObject payLoad = (JSONObject)message.getPayload();
+		String payLoadString = (String)message.getPayload();
+
+		JSONObject payLoad = null;
+
+		try {
+			payLoad = JSONFactoryUtil.createJSONObject(payLoadString);
+		}
+		catch (JSONException jsone) {
+			_log.error(jsone, jsone);
+
+			throw new MessageListenerException(jsone);
+		}
 
 		long scheduledTaskId = payLoad.getLong("scheduledTaskId");
 
