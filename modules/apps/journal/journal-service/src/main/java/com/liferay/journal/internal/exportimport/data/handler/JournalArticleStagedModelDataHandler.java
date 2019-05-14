@@ -542,6 +542,10 @@ public class JournalArticleStagedModelDataHandler
 				preloaded);
 		}
 
+		if (existingArticle == null) {
+			return;
+		}
+
 		Map<String, String> articleArticleIds =
 			(Map<String, String>)portletDataContext.getNewPrimaryKeysMap(
 				JournalArticle.class + ".articleId");
