@@ -169,7 +169,7 @@ public class EditScheduledTaskActionCommand extends BaseMVCActionCommand {
 		payLoad.put("scheduledTaskId", scheduledTaskId);
 		payLoad.put("userId", userId);
 
-		message.setPayload(payLoad);
+		message.setPayload(payLoad.toString());
 
 		SingleDestinationMessageSender messageSender =
 			_messageSenderFactory.createSingleDestinationMessageSender(
