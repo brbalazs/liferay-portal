@@ -21,8 +21,8 @@ import com.liferay.commerce.product.data.source.CPDataSource;
 import com.liferay.commerce.product.data.source.CPDataSourceResult;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
+import com.liferay.commerce.recommend.internal.api.CommerceRecommend;
 import com.liferay.commerce.recommend.internal.api.CommerceRecommendField;
-import com.liferay.commerce.recommend.internal.api.CommerceRecommendHelper;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -92,7 +92,7 @@ public class ContentRecommenderCPDataSourceImpl
 		}
 
 		Hits recommendations = _commerceRecommendHelper.getRecommendations(
-			companyId, cpCatalogEntry.getCPDefinitionId(), null);
+			companyId, cpCatalogEntry.getCPDefinitionId());
 
 		if (recommendations.getLength() == 0) {
 			return new CPDataSourceResult(new ArrayList<>(), 0);
@@ -157,7 +157,7 @@ public class ContentRecommenderCPDataSourceImpl
 	@Reference(
 		target = "(component.name=com.liferay.commerce.recommend.internal.ContentCommerceRecommendHelper)"
 	)
-	private CommerceRecommendHelper _commerceRecommendHelper;
+	private CommerceRecommend _commerceRecommendHelper;
 
 	@Reference(unbind = "-")
 	private CPDefinitionHelper _cpDefinitionHelper;

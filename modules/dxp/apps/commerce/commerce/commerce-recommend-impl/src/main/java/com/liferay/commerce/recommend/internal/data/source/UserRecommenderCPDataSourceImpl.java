@@ -26,7 +26,7 @@ import com.liferay.commerce.product.data.source.CPDataSourceResult;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.commerce.recommend.internal.api.CommerceRecommendField;
-import com.liferay.commerce.recommend.internal.api.CommerceRecommendHelper;
+import com.liferay.commerce.recommend.internal.api.ContextualizedCommerceRecommend;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -38,9 +38,6 @@ import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.SearchContext;
-import com.liferay.portal.kernel.search.TermQuery;
-import com.liferay.portal.kernel.search.generic.BooleanQueryImpl;
-import com.liferay.portal.kernel.search.generic.TermQueryImpl;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
@@ -97,29 +94,19 @@ public class UserRecommenderCPDataSourceImpl extends BaseRecommendCPDataSource {
 			(CPCatalogEntry)httpServletRequest.getAttribute(
 				CPWebKeys.CP_CATALOG_ENTRY);
 
-		Query assetCategoryQuery = null;
+		long[] categoryIds = null;
 
 		if (cpCatalogEntry != null) {
 			AssetEntry assetEntry = _assetEntryLocalService.getEntry(
 				CPDefinition.class.getName(),
 				cpCatalogEntry.getCPDefinitionId());
 
-			assetCategoryQuery = new BooleanQueryImpl();
-
-			long[] categoryIds = assetEntry.getCategoryIds();
-
-			for (long categoryId : categoryIds) {
-				TermQuery categoryIdTermQuery = new TermQueryImpl(
-					Field.ASSET_CATEGORY_IDS, String.valueOf(categoryId));
-
-				((BooleanQueryImpl)assetCategoryQuery).add(
-					categoryIdTermQuery, BooleanClauseOccur.MUST);
-			}
+			categoryIds = assetEntry.getCategoryIds();
 		}
 
-		Hits recommendations = _commerceRecommendHelper.getRecommendations(
-			companyId, commerceAccount.getCommerceAccountId(),
-			assetCategoryQuery);
+		Hits recommendations =
+			_contextualizedCommerceRecommend.getRecommendations(
+				companyId, commerceAccount.getCommerceAccountId(), categoryIds);
 
 		if (recommendations.getLength() == 0) {
 			return new CPDataSourceResult(new ArrayList<>(), 0);
@@ -183,10 +170,8 @@ public class UserRecommenderCPDataSourceImpl extends BaseRecommendCPDataSource {
 	@Reference(unbind = "-")
 	private CommerceAccountHelper _commerceAccountHelper;
 
-	@Reference(
-		target = "(component.name=com.liferay.commerce.recommend.internal.UserCommerceRecommendHelper)"
-	)
-	private CommerceRecommendHelper _commerceRecommendHelper;
+	@Reference
+	private ContextualizedCommerceRecommend _contextualizedCommerceRecommend;
 
 	@Reference(unbind = "-")
 	private CPDefinitionHelper _cpDefinitionHelper;

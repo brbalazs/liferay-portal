@@ -34,9 +34,9 @@ import org.osgi.service.component.annotations.Reference;
  * @author Riccardo Ferrari
  */
 @Component(
-	immediate = true, service = CommerceRecommendSearchEngineAdapter.class
+	immediate = true, service = CommerceRecommendSearchEngineHelper.class
 )
-public class CommerceRecommendSearchEngineAdapter {
+public class CommerceRecommendSearchEngineHelper {
 
 	public void createIndex(String indexName, String indexMappingFileName) {
 		if (indicesExists(indexName)) {
@@ -105,6 +105,6 @@ public class CommerceRecommendSearchEngineAdapter {
 	protected SearchEngineAdapter searchEngineAdapter;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceRecommendSearchEngineAdapter.class);
+		CommerceRecommendSearchEngineHelper.class);
 
 }

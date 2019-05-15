@@ -27,14 +27,13 @@ public class ItemCommerceRecommendIndexer implements CommerceRecommendIndexer {
 
 	@Override
 	public void createIndex(long companyId) {
-		_commerceRecommendSearchEngineAdapter.createIndex(
+		_commerceRecommendSearchEngineHelper.createIndex(
 			getIndexName(companyId), _INDEX_MAPPING_FILE_NAME);
 	}
 
 	@Override
 	public void dropIndex(long companyId) {
-		_commerceRecommendSearchEngineAdapter.dropIndex(
-			getIndexName(companyId));
+		_commerceRecommendSearchEngineHelper.dropIndex(getIndexName(companyId));
 	}
 
 	@Override
@@ -49,7 +48,7 @@ public class ItemCommerceRecommendIndexer implements CommerceRecommendIndexer {
 		"commerce-item-recommend-%s";
 
 	@Reference
-	private CommerceRecommendSearchEngineAdapter
-		_commerceRecommendSearchEngineAdapter;
+	private CommerceRecommendSearchEngineHelper
+		_commerceRecommendSearchEngineHelper;
 
 }

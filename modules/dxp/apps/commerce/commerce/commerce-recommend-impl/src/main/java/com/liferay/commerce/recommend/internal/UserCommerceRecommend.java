@@ -15,15 +15,14 @@
 package com.liferay.commerce.recommend.internal;
 
 import com.liferay.commerce.recommend.internal.api.CommerceRecommendField;
-import com.liferay.commerce.recommend.internal.api.CommerceRecommendHelper;
 import com.liferay.commerce.recommend.internal.api.CommerceRecommendIndexer;
+import com.liferay.commerce.recommend.internal.api.ContextualizedCommerceRecommend;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
-import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.SortFactoryUtil;
 import com.liferay.portal.kernel.search.TermQuery;
@@ -41,12 +40,12 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Riccardo Ferrari
  */
-@Component(immediate = true, service = CommerceRecommendHelper.class)
-public class ContentCommerceRecommendHelper implements CommerceRecommendHelper {
+@Component(immediate = true, service = ContextualizedCommerceRecommend.class)
+public class UserCommerceRecommend implements ContextualizedCommerceRecommend {
 
 	@Override
 	public Hits getRecommendations(
-			long companyId, long entryClassPK, Query query)
+			long companyId, long commerceAccountId, long[] categoryIds)
 		throws Exception {
 
 		SearchSearchRequest searchRequest = new SearchSearchRequest();
@@ -60,7 +59,7 @@ public class ContentCommerceRecommendHelper implements CommerceRecommendHelper {
 			Field.COMPANY_ID, String.valueOf(companyId));
 
 		TermQuery entryClassPKTermQuery = new TermQueryImpl(
-			Field.ENTRY_CLASS_PK, String.valueOf(entryClassPK));
+			Field.ENTRY_CLASS_PK, String.valueOf(commerceAccountId));
 
 		BooleanQuery booleanQuery = new BooleanQueryImpl();
 
@@ -68,16 +67,21 @@ public class ContentCommerceRecommendHelper implements CommerceRecommendHelper {
 
 		booleanQuery.add(entryClassPKTermQuery, BooleanClauseOccur.MUST);
 
-		if (query != null) {
-			booleanQuery.add(query, BooleanClauseOccur.MUST);
+		if (categoryIds != null) {
+			for (long categoryId : categoryIds) {
+				TermQuery categoryIdTermQuery = new TermQueryImpl(
+					Field.ASSET_CATEGORY_IDS, String.valueOf(categoryId));
+
+				booleanQuery.add(categoryIdTermQuery, BooleanClauseOccur.MUST);
+			}
 		}
 
 		searchRequest.setQuery(booleanQuery);
 
-		Sort rankSort = SortFactoryUtil.create(
-			CommerceRecommendField.RANK, Sort.INT_TYPE, false);
+		Sort scoreSort = SortFactoryUtil.create(
+			CommerceRecommendField.SCORE, Sort.FLOAT_TYPE, false);
 
-		searchRequest.setSorts(new Sort[] {rankSort});
+		searchRequest.setSorts(new Sort[] {scoreSort});
 
 		searchRequest.setStats(Collections.emptyMap());
 
@@ -94,10 +98,10 @@ public class ContentCommerceRecommendHelper implements CommerceRecommendHelper {
 	private static final int _DEFAULT_FETCH_SIZE = 10;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		ContentCommerceRecommendHelper.class);
+		UserCommerceRecommend.class);
 
 	@Reference(
-		target = "(component.name=com.liferay.commerce.recommend.internal.search.index.ContentCommerceRecommendIndexer)"
+		target = "(component.name=com.liferay.commerce.recommend.internal.search.index.UserCommerceRecommendIndexer)"
 	)
 	private CommerceRecommendIndexer _commerceRecommendIndexer;
 
