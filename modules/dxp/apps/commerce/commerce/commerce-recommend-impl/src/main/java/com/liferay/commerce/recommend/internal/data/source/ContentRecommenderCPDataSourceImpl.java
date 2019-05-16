@@ -145,8 +145,7 @@ public class ContentRecommenderCPDataSourceImpl implements CPDataSource {
 		}
 
 		searchContext.setBooleanClauses(
-			booleanClauseList.toArray(
-				new BooleanClause[booleanClauseList.size()]));
+			booleanClauseList.toArray(new BooleanClause[0]));
 
 		return _cpDefinitionHelper.search(
 			groupId, searchContext, new CPQuery(), start, end);

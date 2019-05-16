@@ -87,7 +87,7 @@ public class CommerceRecommendIndexPortalInstanceLifecycleListener
 		_commerceRecommendIndexers.add(commerceRecommendIndexer);
 
 		if (_companyLocalService == null) {
-			_queuedIndexers.add(commerceRecommendIndexer);
+			_queuedCommerceRecommendIndexers.add(commerceRecommendIndexer);
 
 			return;
 		}
@@ -101,11 +101,13 @@ public class CommerceRecommendIndexPortalInstanceLifecycleListener
 
 		_companyLocalService = companyLocalService;
 
-		for (CommerceRecommendIndexer queuedIndexer : _queuedIndexers) {
-			verifyCompanies(queuedIndexer);
+		for (CommerceRecommendIndexer queuedCommerceRecommendIndexer :
+				_queuedCommerceRecommendIndexers) {
+
+			verifyCompanies(queuedCommerceRecommendIndexer);
 		}
 
-		_queuedIndexers.clear();
+		_queuedCommerceRecommendIndexers.clear();
 	}
 
 	@Reference(target = ModuleServiceLifecycle.PORTAL_INITIALIZED, unbind = "-")
@@ -133,7 +135,8 @@ public class CommerceRecommendIndexPortalInstanceLifecycleListener
 	private final List<CommerceRecommendIndexer> _commerceRecommendIndexers =
 		new CopyOnWriteArrayList<>();
 	private CompanyLocalService _companyLocalService;
-	private final Set<CommerceRecommendIndexer> _queuedIndexers =
-		Collections.newSetFromMap(new ConcurrentHashMap<>());
+	private final Set<CommerceRecommendIndexer>
+		_queuedCommerceRecommendIndexers = Collections.newSetFromMap(
+			new ConcurrentHashMap<>());
 
 }
