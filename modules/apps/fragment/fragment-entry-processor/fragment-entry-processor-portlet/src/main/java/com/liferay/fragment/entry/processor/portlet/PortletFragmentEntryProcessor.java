@@ -431,10 +431,10 @@ public class PortletFragmentEntryProcessor implements FragmentEntryProcessor {
 		for (com.liferay.portal.kernel.model.PortletPreferences
 				portletPreferences : portletPreferencesList) {
 
-			if (Objects.equals(
+			if ((plid != portletPreferences.getPlid()) ||
+				Objects.equals(
 					portletPreferences.getPreferences(),
-					portletPreferencesXml) ||
-				(plid != portletPreferences.getPlid())) {
+					portletPreferencesXml)) {
 
 				continue;
 			}
