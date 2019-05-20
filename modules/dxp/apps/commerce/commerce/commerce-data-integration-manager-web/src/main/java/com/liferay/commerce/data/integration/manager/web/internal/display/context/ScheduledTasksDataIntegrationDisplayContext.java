@@ -27,6 +27,8 @@ import com.liferay.portal.kernel.dao.search.RowChecker;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
@@ -184,7 +186,7 @@ public class ScheduledTasksDataIntegrationDisplayContext {
 			}
 		}
 		catch (SchedulerException se) {
-			se.printStackTrace();
+			_log.error(se, se);
 		}
 
 		return lastExecutionDate;
@@ -216,7 +218,7 @@ public class ScheduledTasksDataIntegrationDisplayContext {
 			}
 		}
 		catch (SchedulerException se) {
-			se.printStackTrace();
+			_log.error(se, se);
 		}
 
 		return nextDate;
@@ -351,6 +353,9 @@ public class ScheduledTasksDataIntegrationDisplayContext {
 	protected HttpServletRequest httpServletRequest;
 	protected LiferayPortletRequest liferayPortletRequest;
 	protected LiferayPortletResponse liferayPortletResponse;
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		ScheduledTasksDataIntegrationDisplayContext.class);
 
 	private final ActionHelper _actionHelper;
 	private final DataIntegrationRequestHelper _dataIntegrationRequestHelper;

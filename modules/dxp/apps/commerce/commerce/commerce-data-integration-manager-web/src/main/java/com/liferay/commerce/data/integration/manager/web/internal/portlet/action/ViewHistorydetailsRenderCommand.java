@@ -20,6 +20,8 @@ import com.liferay.commerce.data.integration.manager.web.internal.display.contex
 import com.liferay.commerce.data.integration.manager.web.internal.portlet.constants.DataIntegrationWebPortletKeys;
 import com.liferay.commerce.data.integration.manager.web.internal.util.DataIntegrationAdminModuleRegistry;
 import com.liferay.document.library.kernel.service.DLFileEntryService;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.util.Portal;
@@ -91,7 +93,7 @@ public class ViewHistorydetailsRenderCommand implements MVCRenderCommand {
 				scheduledTaskExectutorService.getName(), null);
 		}
 		catch (InvalidSyntaxException ise) {
-			ise.printStackTrace();
+			_log.error(ise, ise);
 		}
 
 		if (references != null) {
@@ -111,6 +113,9 @@ public class ViewHistorydetailsRenderCommand implements MVCRenderCommand {
 	}
 
 	protected Map<String, String> processTypes;
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		ViewHistorydetailsRenderCommand.class);
 
 	@Reference
 	private ActionHelper _actionHelper;

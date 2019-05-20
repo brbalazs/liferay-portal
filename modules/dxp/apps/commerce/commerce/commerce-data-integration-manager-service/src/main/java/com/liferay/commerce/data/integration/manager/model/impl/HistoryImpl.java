@@ -18,7 +18,10 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.data.integration.manager.model.ScheduledTask;
 import com.liferay.commerce.data.integration.manager.service.ScheduledTaskLocalServiceUtil;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 /**
  * The extended model implementation for the History service. Represents a row in the &quot;History&quot; database table, with each column mapped to a property of this class.
@@ -47,7 +50,7 @@ public class HistoryImpl extends HistoryBaseImpl {
 					getScheduledTaskId());
 			}
 			catch (PortalException pe) {
-				pe.printStackTrace();
+				_log.error(pe, pe);
 			}
 		}
 
@@ -61,8 +64,10 @@ public class HistoryImpl extends HistoryBaseImpl {
 			return scheduledTask.getName();
 		}
 
-		return "";
+		return StringPool.BLANK;
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(HistoryImpl.class);
 
 	private ScheduledTask _scheduledTask;
 

@@ -17,6 +17,8 @@ package com.liferay.commerce.data.integration.manager.web.internal.portlet.actio
 import com.liferay.commerce.data.integration.manager.service.HistoryLocalService;
 import com.liferay.commerce.data.integration.manager.web.internal.portlet.constants.DataIntegrationWebPortletKeys;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
@@ -59,7 +61,8 @@ public class EditHistoryActionCommand extends BaseMVCActionCommand {
 			}
 		}
 		catch (PortalException pe) {
-			pe.printStackTrace();
+			_log.error(pe, pe);
+
 			SessionErrors.add(actionRequest, "errorDeletingHistory");
 		}
 	}
@@ -75,6 +78,9 @@ public class EditHistoryActionCommand extends BaseMVCActionCommand {
 			deleteHistory(actionRequest);
 		}
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		EditHistoryActionCommand.class);
 
 	@Reference
 	private HistoryLocalService _historyLocalService;
