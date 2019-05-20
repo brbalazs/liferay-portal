@@ -638,8 +638,7 @@ public class JournalConverterImpl implements JournalConverter {
 				serializable = jsonObject.toString();
 			}
 			catch (JSONException jsone) {
-				serializable = FieldConstants.getSerializable(
-					dataType, dynamicContentElement.getText());
+				serializable = StringPool.BLANK;
 			}
 		}
 		else if (Objects.equals(DDMFormFieldType.LINK_TO_PAGE, type)) {
