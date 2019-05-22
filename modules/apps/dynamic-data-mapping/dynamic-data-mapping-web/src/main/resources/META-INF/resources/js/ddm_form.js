@@ -744,11 +744,10 @@ AUI.add(
 					syncLabel: function(locale) {
 						var instance = this;
 
-						var defaultLocale = instance.getDefaultLocale();
 						var fieldDefinition = instance.getFieldDefinition();
 
 						if (Lang.isUndefined(fieldDefinition.label[locale])) {
-							instance.setLabel(fieldDefinition.label[defaultLocale]);
+							instance.setLabel(fieldDefinition.label[instance.getDefaultLocale()]);
 						}
 						else {
 							instance.setLabel(fieldDefinition.label[locale]);
