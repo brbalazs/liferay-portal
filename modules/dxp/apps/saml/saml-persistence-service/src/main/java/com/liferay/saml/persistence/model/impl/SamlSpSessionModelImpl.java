@@ -34,6 +34,9 @@ import com.liferay.saml.persistence.model.SamlSpSessionModel;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
+
 import java.sql.Types;
 
 import java.util.Collections;
@@ -231,6 +234,32 @@ public class SamlSpSessionModelImpl
 		getAttributeSetterBiConsumers() {
 
 		return _attributeSetterBiConsumers;
+	}
+
+	private static Function<InvocationHandler, SamlSpSession>
+		_getProxyProviderFunction() {
+
+		Class<?> proxyClass = ProxyUtil.getProxyClass(
+			SamlSpSession.class.getClassLoader(), SamlSpSession.class,
+			ModelWrapper.class);
+
+		try {
+			Constructor<SamlSpSession> constructor =
+				(Constructor<SamlSpSession>)proxyClass.getConstructor(
+					InvocationHandler.class);
+
+			return invocationHandler -> {
+				try {
+					return constructor.newInstance(invocationHandler);
+				}
+				catch (ReflectiveOperationException roe) {
+					throw new InternalError(roe);
+				}
+			};
+		}
+		catch (NoSuchMethodException nsme) {
+			throw new InternalError(nsme);
+		}
 	}
 
 	private static final Map<String, Function<SamlSpSession, Object>>
@@ -863,8 +892,7 @@ public class SamlSpSessionModelImpl
 	@Override
 	public SamlSpSession toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = (SamlSpSession)ProxyUtil.newProxyInstance(
-				_classLoader, _escapedModelInterfaces,
+			_escapedModel = _escapedModelProxyProviderFunction.apply(
 				new AutoEscapeBeanHandler(this));
 		}
 
@@ -1145,11 +1173,8 @@ public class SamlSpSessionModelImpl
 		return sb.toString();
 	}
 
-	private static final ClassLoader _classLoader =
-		SamlSpSession.class.getClassLoader();
-	private static final Class<?>[] _escapedModelInterfaces = new Class[] {
-		SamlSpSession.class, ModelWrapper.class
-	};
+	private static final Function<InvocationHandler, SamlSpSession>
+		_escapedModelProxyProviderFunction = _getProxyProviderFunction();
 
 	private long _samlSpSessionId;
 	private long _companyId;
