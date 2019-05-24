@@ -232,7 +232,9 @@ public class DLFileEntryMetadataLocalServiceTest {
 	@Inject
 	private static DDMFormXSDDeserializer _ddmFormXSDDeserializer;
 
+	@DeleteAfterTestRun
 	private Company _company;
+
 	private DDMStructure _ddmStructure;
 	private DLFileEntry _dlFileEntry;
 	private DLFileEntryType _dlFileEntryType;

@@ -501,6 +501,7 @@ public class DLServiceVerifyProcessTest extends BaseVerifyProcessTestCase {
 	)
 	private static VerifyProcess _verifyProcess;
 
+	@DeleteAfterTestRun
 	private Company _company;
 
 	@DeleteAfterTestRun
