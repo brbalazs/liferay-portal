@@ -1,4 +1,5 @@
 import escape from 'lodash.escape';
+import fetch from './util/fetch.es';
 import formatXML from './util/format_xml.es';
 import groupBy from 'lodash.groupby';
 import isEqual from 'lodash.isequal';
@@ -10,6 +11,7 @@ import toCharCode from './util/to_char_code.es';
 import unescape from 'lodash.unescape';
 
 Liferay.Util.escape = escape;
+Liferay.Util.fetch = fetch;
 Liferay.Util.formatXML = formatXML;
 Liferay.Util.groupBy = groupBy;
 Liferay.Util.isEqual = isEqual;
