@@ -22,6 +22,9 @@ import aQute.bnd.annotation.ProviderType;
  */
 @ProviderType
 public interface CommerceForecastValueFinder {
-	public java.util.List<com.liferay.commerce.forecast.model.CommerceForecastValue> findByC_T(
-		long commerceForecastEntryId, long startTime, long endTime);
+
+	public java.util.List
+		<com.liferay.commerce.forecast.model.CommerceForecastValue> findByC_T(
+			long commerceForecastEntryId, long startTime, long endTime);
+
 }

@@ -17,7 +17,6 @@ package com.liferay.commerce.data.integration.manager.service;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.data.integration.manager.model.ScheduledTask;
-
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
@@ -38,51 +37,62 @@ import java.util.List;
  * service are expected to have security checks based on the propagated JAAS
  * credentials because this service can be accessed remotely.
  *
- * @author Brian Wing Shun Chan
+ * @author Marco Leo
  * @see ScheduledTaskServiceUtil
- * @see com.liferay.commerce.data.integration.manager.service.base.ScheduledTaskServiceBaseImpl
- * @see com.liferay.commerce.data.integration.manager.service.impl.ScheduledTaskServiceImpl
  * @generated
  */
 @AccessControlled
 @JSONWebService
-@OSGiBeanProperties(property =  {
-	"json.web.service.context.name=data_integration", "json.web.service.context.path=ScheduledTask"}, service = ScheduledTaskService.class)
+@OSGiBeanProperties(
+	property = {
+		"json.web.service.context.name=data_integration",
+		"json.web.service.context.path=ScheduledTask"
+	},
+	service = ScheduledTaskService.class
+)
 @ProviderType
-@Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
-	PortalException.class, SystemException.class})
+@Transactional(
+	isolation = Isolation.PORTAL,
+	rollbackFor = {PortalException.class, SystemException.class}
+)
 public interface ScheduledTaskService extends BaseService {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link ScheduledTaskServiceUtil} to access the scheduled task remote service. Add custom service methods to {@link com.liferay.commerce.data.integration.manager.service.impl.ScheduledTaskServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify or reference this interface directly. Always use {@link ScheduledTaskServiceUtil} to access the scheduled task remote service. Add custom service methods to <code>com.liferay.commerce.data.integration.manager.service.impl.ScheduledTaskServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 
 	/**
-	* NOTE FOR DEVELOPERS:
-	*
-	* Never reference this class directly. Always use {@link ScheduledTaskServiceUtil} to access the scheduled task remote service.
-	*/
-	public ScheduledTask addScheduledTask(long processId, String frequency,
-		Date startDate, String startHour, String name,
-		ServiceContext serviceContext) throws PortalException;
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never reference this class directly. Always use {@link ScheduledTaskServiceUtil} to access the scheduled task remote service.
+	 */
+	public ScheduledTask addScheduledTask(
+			long processId, String frequency, Date startDate, String startHour,
+			String name, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
-	*/
+	 * Returns the OSGi service identifier.
+	 *
+	 * @return the OSGi service identifier
+	 */
 	public String getOSGiServiceIdentifier();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ScheduledTask> getScheduledTaskByGroupId(long groupId,
-		int start, int end) throws PrincipalException;
+	public List<ScheduledTask> getScheduledTaskByGroupId(
+			long groupId, int start, int end)
+		throws PrincipalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getScheduledTaskByGroupIdCount(long groupId)
 		throws PrincipalException;
 
-	public ScheduledTask updateScheduledTask(long scheduledTaskId,
-		long processId, String frequency, Date startDate, String startHour,
-		String name, ServiceContext serviceContext) throws PortalException;
+	public ScheduledTask updateScheduledTask(
+			long scheduledTaskId, long processId, String frequency,
+			Date startDate, String startHour, String name,
+			ServiceContext serviceContext)
+		throws PortalException;
+
 }

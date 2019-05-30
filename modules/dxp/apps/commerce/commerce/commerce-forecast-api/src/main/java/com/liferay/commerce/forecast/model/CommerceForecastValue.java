@@ -25,36 +25,41 @@ import com.liferay.portal.kernel.util.Accessor;
  *
  * @author Andrea Di Giorgi
  * @see CommerceForecastValueModel
- * @see com.liferay.commerce.forecast.model.impl.CommerceForecastValueImpl
- * @see com.liferay.commerce.forecast.model.impl.CommerceForecastValueModelImpl
  * @generated
  */
-@ImplementationClassName("com.liferay.commerce.forecast.model.impl.CommerceForecastValueImpl")
+@ImplementationClassName(
+	"com.liferay.commerce.forecast.model.impl.CommerceForecastValueImpl"
+)
 @ProviderType
-public interface CommerceForecastValue extends CommerceForecastValueModel,
-	PersistedModel {
+public interface CommerceForecastValue
+	extends CommerceForecastValueModel, PersistedModel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this interface directly. Add methods to {@link com.liferay.commerce.forecast.model.impl.CommerceForecastValueImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add methods to <code>com.liferay.commerce.forecast.model.impl.CommerceForecastValueImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public static final Accessor<CommerceForecastValue, Long> COMMERCE_FORECAST_VALUE_ID_ACCESSOR =
-		new Accessor<CommerceForecastValue, Long>() {
-			@Override
-			public Long get(CommerceForecastValue commerceForecastValue) {
-				return commerceForecastValue.getCommerceForecastValueId();
-			}
+	public static final Accessor<CommerceForecastValue, Long>
+		COMMERCE_FORECAST_VALUE_ID_ACCESSOR =
+			new Accessor<CommerceForecastValue, Long>() {
 
-			@Override
-			public Class<Long> getAttributeClass() {
-				return Long.class;
-			}
+				@Override
+				public Long get(CommerceForecastValue commerceForecastValue) {
+					return commerceForecastValue.getCommerceForecastValueId();
+				}
 
-			@Override
-			public Class<CommerceForecastValue> getTypeClass() {
-				return CommerceForecastValue.class;
-			}
-		};
+				@Override
+				public Class<Long> getAttributeClass() {
+					return Long.class;
+				}
+
+				@Override
+				public Class<CommerceForecastValue> getTypeClass() {
+					return CommerceForecastValue.class;
+				}
+
+			};
 
 	public boolean isForecast();
+
 }

@@ -21,7 +21,6 @@ import com.liferay.commerce.cloud.client.model.CommerceCloudForecastOrder;
 import com.liferay.commerce.cloud.client.model.impl.CommerceCloudForecastOrderImpl;
 import com.liferay.commerce.cloud.client.model.impl.CommerceCloudForecastOrderModelImpl;
 import com.liferay.commerce.cloud.client.service.persistence.CommerceCloudForecastOrderPersistence;
-
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -63,48 +62,35 @@ import java.util.Set;
  * </p>
  *
  * @author Andrea Di Giorgi
- * @see CommerceCloudForecastOrderPersistence
- * @see com.liferay.commerce.cloud.client.service.persistence.CommerceCloudForecastOrderUtil
  * @generated
  */
 @ProviderType
 public class CommerceCloudForecastOrderPersistenceImpl
 	extends BasePersistenceImpl<CommerceCloudForecastOrder>
 	implements CommerceCloudForecastOrderPersistence {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Always use {@link CommerceCloudForecastOrderUtil} to access the commerce cloud forecast order persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
+	 * Never modify or reference this class directly. Always use <code>CommerceCloudForecastOrderUtil</code> to access the commerce cloud forecast order persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static final String FINDER_CLASS_NAME_ENTITY = CommerceCloudForecastOrderImpl.class.getName();
-	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List1";
-	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List2";
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceCloudForecastOrderModelImpl.FINDER_CACHE_ENABLED,
-			CommerceCloudForecastOrderImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL = new FinderPath(CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceCloudForecastOrderModelImpl.FINDER_CACHE_ENABLED,
-			CommerceCloudForecastOrderImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceCloudForecastOrderModelImpl.FINDER_CACHE_ENABLED,
-			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
-			new String[0]);
-	public static final FinderPath FINDER_PATH_FETCH_BY_COMMERCEORDERID = new FinderPath(CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceCloudForecastOrderModelImpl.FINDER_CACHE_ENABLED,
-			CommerceCloudForecastOrderImpl.class, FINDER_CLASS_NAME_ENTITY,
-			"fetchByCommerceOrderId", new String[] { Long.class.getName() },
-			CommerceCloudForecastOrderModelImpl.COMMERCEORDERID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_COMMERCEORDERID = new FinderPath(CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceCloudForecastOrderModelImpl.FINDER_CACHE_ENABLED,
-			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"countByCommerceOrderId", new String[] { Long.class.getName() });
+	public static final String FINDER_CLASS_NAME_ENTITY =
+		CommerceCloudForecastOrderImpl.class.getName();
+
+	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List1";
+
+	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List2";
+
+	private FinderPath _finderPathWithPaginationFindAll;
+	private FinderPath _finderPathWithoutPaginationFindAll;
+	private FinderPath _finderPathCountAll;
+	private FinderPath _finderPathFetchByCommerceOrderId;
+	private FinderPath _finderPathCountByCommerceOrderId;
 
 	/**
-	 * Returns the commerce cloud forecast order where commerceOrderId = &#63; or throws a {@link NoSuchCloudForecastOrderException} if it could not be found.
+	 * Returns the commerce cloud forecast order where commerceOrderId = &#63; or throws a <code>NoSuchCloudForecastOrderException</code> if it could not be found.
 	 *
 	 * @param commerceOrderId the commerce order ID
 	 * @return the matching commerce cloud forecast order
@@ -112,8 +98,11 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 */
 	@Override
 	public CommerceCloudForecastOrder findByCommerceOrderId(
-		long commerceOrderId) throws NoSuchCloudForecastOrderException {
-		CommerceCloudForecastOrder commerceCloudForecastOrder = fetchByCommerceOrderId(commerceOrderId);
+			long commerceOrderId)
+		throws NoSuchCloudForecastOrderException {
+
+		CommerceCloudForecastOrder commerceCloudForecastOrder =
+			fetchByCommerceOrderId(commerceOrderId);
 
 		if (commerceCloudForecastOrder == null) {
 			StringBundler msg = new StringBundler(4);
@@ -144,6 +133,7 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	@Override
 	public CommerceCloudForecastOrder fetchByCommerceOrderId(
 		long commerceOrderId) {
+
 		return fetchByCommerceOrderId(commerceOrderId, true);
 	}
 
@@ -157,19 +147,23 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	@Override
 	public CommerceCloudForecastOrder fetchByCommerceOrderId(
 		long commerceOrderId, boolean retrieveFromCache) {
-		Object[] finderArgs = new Object[] { commerceOrderId };
+
+		Object[] finderArgs = new Object[] {commerceOrderId};
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = finderCache.getResult(FINDER_PATH_FETCH_BY_COMMERCEORDERID,
-					finderArgs, this);
+			result = finderCache.getResult(
+				_finderPathFetchByCommerceOrderId, finderArgs, this);
 		}
 
 		if (result instanceof CommerceCloudForecastOrder) {
-			CommerceCloudForecastOrder commerceCloudForecastOrder = (CommerceCloudForecastOrder)result;
+			CommerceCloudForecastOrder commerceCloudForecastOrder =
+				(CommerceCloudForecastOrder)result;
 
-			if ((commerceOrderId != commerceCloudForecastOrder.getCommerceOrderId())) {
+			if ((commerceOrderId !=
+					commerceCloudForecastOrder.getCommerceOrderId())) {
+
 				result = null;
 			}
 		}
@@ -197,11 +191,12 @@ public class CommerceCloudForecastOrderPersistenceImpl
 				List<CommerceCloudForecastOrder> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(FINDER_PATH_FETCH_BY_COMMERCEORDERID,
-						finderArgs, list);
+					finderCache.putResult(
+						_finderPathFetchByCommerceOrderId, finderArgs, list);
 				}
 				else {
-					CommerceCloudForecastOrder commerceCloudForecastOrder = list.get(0);
+					CommerceCloudForecastOrder commerceCloudForecastOrder =
+						list.get(0);
 
 					result = commerceCloudForecastOrder;
 
@@ -209,8 +204,8 @@ public class CommerceCloudForecastOrderPersistenceImpl
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(FINDER_PATH_FETCH_BY_COMMERCEORDERID,
-					finderArgs);
+				finderCache.removeResult(
+					_finderPathFetchByCommerceOrderId, finderArgs);
 
 				throw processException(e);
 			}
@@ -235,8 +230,11 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 */
 	@Override
 	public CommerceCloudForecastOrder removeByCommerceOrderId(
-		long commerceOrderId) throws NoSuchCloudForecastOrderException {
-		CommerceCloudForecastOrder commerceCloudForecastOrder = findByCommerceOrderId(commerceOrderId);
+			long commerceOrderId)
+		throws NoSuchCloudForecastOrderException {
+
+		CommerceCloudForecastOrder commerceCloudForecastOrder =
+			findByCommerceOrderId(commerceOrderId);
 
 		return remove(commerceCloudForecastOrder);
 	}
@@ -249,9 +247,9 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 */
 	@Override
 	public int countByCommerceOrderId(long commerceOrderId) {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_COMMERCEORDERID;
+		FinderPath finderPath = _finderPathCountByCommerceOrderId;
 
-		Object[] finderArgs = new Object[] { commerceOrderId };
+		Object[] finderArgs = new Object[] {commerceOrderId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -292,30 +290,13 @@ public class CommerceCloudForecastOrderPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_COMMERCEORDERID_COMMERCEORDERID_2 =
-		"commerceCloudForecastOrder.commerceOrderId = ?";
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_SYNCDATE = new FinderPath(CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceCloudForecastOrderModelImpl.FINDER_CACHE_ENABLED,
-			CommerceCloudForecastOrderImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findBySyncDate",
-			new String[] {
-				Date.class.getName(),
-				
-			Integer.class.getName(), Integer.class.getName(),
-				OrderByComparator.class.getName()
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_SYNCDATE =
-		new FinderPath(CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceCloudForecastOrderModelImpl.FINDER_CACHE_ENABLED,
-			CommerceCloudForecastOrderImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findBySyncDate",
-			new String[] { Date.class.getName() },
-			CommerceCloudForecastOrderModelImpl.SYNCDATE_COLUMN_BITMASK |
-			CommerceCloudForecastOrderModelImpl.CREATEDATE_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_SYNCDATE = new FinderPath(CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceCloudForecastOrderModelImpl.FINDER_CACHE_ENABLED,
-			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"countBySyncDate", new String[] { Date.class.getName() });
+	private static final String
+		_FINDER_COLUMN_COMMERCEORDERID_COMMERCEORDERID_2 =
+			"commerceCloudForecastOrder.commerceOrderId = ?";
+
+	private FinderPath _finderPathWithPaginationFindBySyncDate;
+	private FinderPath _finderPathWithoutPaginationFindBySyncDate;
+	private FinderPath _finderPathCountBySyncDate;
 
 	/**
 	 * Returns all the commerce cloud forecast orders where syncDate = &#63;.
@@ -325,15 +306,15 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 */
 	@Override
 	public List<CommerceCloudForecastOrder> findBySyncDate(Date syncDate) {
-		return findBySyncDate(syncDate, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			null);
+		return findBySyncDate(
+			syncDate, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
 	 * Returns a range of all the commerce cloud forecast orders where syncDate = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceCloudForecastOrderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>CommerceCloudForecastOrderModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param syncDate the sync date
@@ -342,8 +323,9 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * @return the range of matching commerce cloud forecast orders
 	 */
 	@Override
-	public List<CommerceCloudForecastOrder> findBySyncDate(Date syncDate,
-		int start, int end) {
+	public List<CommerceCloudForecastOrder> findBySyncDate(
+		Date syncDate, int start, int end) {
+
 		return findBySyncDate(syncDate, start, end, null);
 	}
 
@@ -351,7 +333,7 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * Returns an ordered range of all the commerce cloud forecast orders where syncDate = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceCloudForecastOrderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>CommerceCloudForecastOrderModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param syncDate the sync date
@@ -361,9 +343,10 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * @return the ordered range of matching commerce cloud forecast orders
 	 */
 	@Override
-	public List<CommerceCloudForecastOrder> findBySyncDate(Date syncDate,
-		int start, int end,
+	public List<CommerceCloudForecastOrder> findBySyncDate(
+		Date syncDate, int start, int end,
 		OrderByComparator<CommerceCloudForecastOrder> orderByComparator) {
+
 		return findBySyncDate(syncDate, start, end, orderByComparator, true);
 	}
 
@@ -371,7 +354,7 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * Returns an ordered range of all the commerce cloud forecast orders where syncDate = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceCloudForecastOrderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>CommerceCloudForecastOrderModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param syncDate the sync date
@@ -382,39 +365,43 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * @return the ordered range of matching commerce cloud forecast orders
 	 */
 	@Override
-	public List<CommerceCloudForecastOrder> findBySyncDate(Date syncDate,
-		int start, int end,
+	public List<CommerceCloudForecastOrder> findBySyncDate(
+		Date syncDate, int start, int end,
 		OrderByComparator<CommerceCloudForecastOrder> orderByComparator,
 		boolean retrieveFromCache) {
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
+			(orderByComparator == null)) {
+
 			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_SYNCDATE;
-			finderArgs = new Object[] { _getTime(syncDate) };
+			finderPath = _finderPathWithoutPaginationFindBySyncDate;
+			finderArgs = new Object[] {_getTime(syncDate)};
 		}
 		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_SYNCDATE;
+			finderPath = _finderPathWithPaginationFindBySyncDate;
 			finderArgs = new Object[] {
-					_getTime(syncDate),
-					
-					start, end, orderByComparator
-				};
+				_getTime(syncDate), start, end, orderByComparator
+			};
 		}
 
 		List<CommerceCloudForecastOrder> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<CommerceCloudForecastOrder>)finderCache.getResult(finderPath,
-					finderArgs, this);
+			list = (List<CommerceCloudForecastOrder>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
-				for (CommerceCloudForecastOrder commerceCloudForecastOrder : list) {
-					if (!Objects.equals(syncDate,
-								commerceCloudForecastOrder.getSyncDate())) {
+				for (CommerceCloudForecastOrder commerceCloudForecastOrder :
+						list) {
+
+					if (!Objects.equals(
+							syncDate,
+							commerceCloudForecastOrder.getSyncDate())) {
+
 						list = null;
 
 						break;
@@ -427,8 +414,8 @@ public class CommerceCloudForecastOrderPersistenceImpl
 			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
 				query = new StringBundler(3);
@@ -448,11 +435,10 @@ public class CommerceCloudForecastOrderPersistenceImpl
 			}
 
 			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else
-			 if (pagination) {
+			else if (pagination) {
 				query.append(CommerceCloudForecastOrderModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -472,16 +458,16 @@ public class CommerceCloudForecastOrderPersistenceImpl
 				}
 
 				if (!pagination) {
-					list = (List<CommerceCloudForecastOrder>)QueryUtil.list(q,
-							getDialect(), start, end, false);
+					list = (List<CommerceCloudForecastOrder>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<CommerceCloudForecastOrder>)QueryUtil.list(q,
-							getDialect(), start, end);
+					list = (List<CommerceCloudForecastOrder>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -510,11 +496,13 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * @throws NoSuchCloudForecastOrderException if a matching commerce cloud forecast order could not be found
 	 */
 	@Override
-	public CommerceCloudForecastOrder findBySyncDate_First(Date syncDate,
-		OrderByComparator<CommerceCloudForecastOrder> orderByComparator)
+	public CommerceCloudForecastOrder findBySyncDate_First(
+			Date syncDate,
+			OrderByComparator<CommerceCloudForecastOrder> orderByComparator)
 		throws NoSuchCloudForecastOrderException {
-		CommerceCloudForecastOrder commerceCloudForecastOrder = fetchBySyncDate_First(syncDate,
-				orderByComparator);
+
+		CommerceCloudForecastOrder commerceCloudForecastOrder =
+			fetchBySyncDate_First(syncDate, orderByComparator);
 
 		if (commerceCloudForecastOrder != null) {
 			return commerceCloudForecastOrder;
@@ -540,10 +528,12 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * @return the first matching commerce cloud forecast order, or <code>null</code> if a matching commerce cloud forecast order could not be found
 	 */
 	@Override
-	public CommerceCloudForecastOrder fetchBySyncDate_First(Date syncDate,
+	public CommerceCloudForecastOrder fetchBySyncDate_First(
+		Date syncDate,
 		OrderByComparator<CommerceCloudForecastOrder> orderByComparator) {
-		List<CommerceCloudForecastOrder> list = findBySyncDate(syncDate, 0, 1,
-				orderByComparator);
+
+		List<CommerceCloudForecastOrder> list = findBySyncDate(
+			syncDate, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -561,11 +551,13 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * @throws NoSuchCloudForecastOrderException if a matching commerce cloud forecast order could not be found
 	 */
 	@Override
-	public CommerceCloudForecastOrder findBySyncDate_Last(Date syncDate,
-		OrderByComparator<CommerceCloudForecastOrder> orderByComparator)
+	public CommerceCloudForecastOrder findBySyncDate_Last(
+			Date syncDate,
+			OrderByComparator<CommerceCloudForecastOrder> orderByComparator)
 		throws NoSuchCloudForecastOrderException {
-		CommerceCloudForecastOrder commerceCloudForecastOrder = fetchBySyncDate_Last(syncDate,
-				orderByComparator);
+
+		CommerceCloudForecastOrder commerceCloudForecastOrder =
+			fetchBySyncDate_Last(syncDate, orderByComparator);
 
 		if (commerceCloudForecastOrder != null) {
 			return commerceCloudForecastOrder;
@@ -591,16 +583,18 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * @return the last matching commerce cloud forecast order, or <code>null</code> if a matching commerce cloud forecast order could not be found
 	 */
 	@Override
-	public CommerceCloudForecastOrder fetchBySyncDate_Last(Date syncDate,
+	public CommerceCloudForecastOrder fetchBySyncDate_Last(
+		Date syncDate,
 		OrderByComparator<CommerceCloudForecastOrder> orderByComparator) {
+
 		int count = countBySyncDate(syncDate);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<CommerceCloudForecastOrder> list = findBySyncDate(syncDate,
-				count - 1, count, orderByComparator);
+		List<CommerceCloudForecastOrder> list = findBySyncDate(
+			syncDate, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -620,27 +614,30 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 */
 	@Override
 	public CommerceCloudForecastOrder[] findBySyncDate_PrevAndNext(
-		long commerceCloudForecastOrderId, Date syncDate,
-		OrderByComparator<CommerceCloudForecastOrder> orderByComparator)
+			long commerceCloudForecastOrderId, Date syncDate,
+			OrderByComparator<CommerceCloudForecastOrder> orderByComparator)
 		throws NoSuchCloudForecastOrderException {
-		CommerceCloudForecastOrder commerceCloudForecastOrder = findByPrimaryKey(commerceCloudForecastOrderId);
+
+		CommerceCloudForecastOrder commerceCloudForecastOrder =
+			findByPrimaryKey(commerceCloudForecastOrderId);
 
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			CommerceCloudForecastOrder[] array = new CommerceCloudForecastOrderImpl[3];
+			CommerceCloudForecastOrder[] array =
+				new CommerceCloudForecastOrderImpl[3];
 
-			array[0] = getBySyncDate_PrevAndNext(session,
-					commerceCloudForecastOrder, syncDate, orderByComparator,
-					true);
+			array[0] = getBySyncDate_PrevAndNext(
+				session, commerceCloudForecastOrder, syncDate,
+				orderByComparator, true);
 
 			array[1] = commerceCloudForecastOrder;
 
-			array[2] = getBySyncDate_PrevAndNext(session,
-					commerceCloudForecastOrder, syncDate, orderByComparator,
-					false);
+			array[2] = getBySyncDate_PrevAndNext(
+				session, commerceCloudForecastOrder, syncDate,
+				orderByComparator, false);
 
 			return array;
 		}
@@ -657,11 +654,12 @@ public class CommerceCloudForecastOrderPersistenceImpl
 		Date syncDate,
 		OrderByComparator<CommerceCloudForecastOrder> orderByComparator,
 		boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(4 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -682,7 +680,8 @@ public class CommerceCloudForecastOrderPersistenceImpl
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -754,10 +753,11 @@ public class CommerceCloudForecastOrderPersistenceImpl
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(commerceCloudForecastOrder);
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						commerceCloudForecastOrder)) {
 
-			for (Object value : values) {
-				qPos.add(value);
+				qPos.add(orderByConditionValue);
 			}
 		}
 
@@ -778,8 +778,10 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 */
 	@Override
 	public void removeBySyncDate(Date syncDate) {
-		for (CommerceCloudForecastOrder commerceCloudForecastOrder : findBySyncDate(
-				syncDate, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+		for (CommerceCloudForecastOrder commerceCloudForecastOrder :
+				findBySyncDate(
+					syncDate, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+
 			remove(commerceCloudForecastOrder);
 		}
 	}
@@ -792,9 +794,9 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 */
 	@Override
 	public int countBySyncDate(Date syncDate) {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_SYNCDATE;
+		FinderPath finderPath = _finderPathCountBySyncDate;
 
-		Object[] finderArgs = new Object[] { _getTime(syncDate) };
+		Object[] finderArgs = new Object[] {_getTime(syncDate)};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -846,8 +848,11 @@ public class CommerceCloudForecastOrderPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_SYNCDATE_SYNCDATE_1 = "commerceCloudForecastOrder.syncDate IS NULL";
-	private static final String _FINDER_COLUMN_SYNCDATE_SYNCDATE_2 = "commerceCloudForecastOrder.syncDate = ?";
+	private static final String _FINDER_COLUMN_SYNCDATE_SYNCDATE_1 =
+		"commerceCloudForecastOrder.syncDate IS NULL";
+
+	private static final String _FINDER_COLUMN_SYNCDATE_SYNCDATE_2 =
+		"commerceCloudForecastOrder.syncDate = ?";
 
 	public CommerceCloudForecastOrderPersistenceImpl() {
 		setModelClass(CommerceCloudForecastOrder.class);
@@ -861,13 +866,16 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	@Override
 	public void cacheResult(
 		CommerceCloudForecastOrder commerceCloudForecastOrder) {
-		entityCache.putResult(CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
+
+		entityCache.putResult(
+			CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceCloudForecastOrderImpl.class,
 			commerceCloudForecastOrder.getPrimaryKey(),
 			commerceCloudForecastOrder);
 
-		finderCache.putResult(FINDER_PATH_FETCH_BY_COMMERCEORDERID,
-			new Object[] { commerceCloudForecastOrder.getCommerceOrderId() },
+		finderCache.putResult(
+			_finderPathFetchByCommerceOrderId,
+			new Object[] {commerceCloudForecastOrder.getCommerceOrderId()},
 			commerceCloudForecastOrder);
 
 		commerceCloudForecastOrder.resetOriginalValues();
@@ -881,11 +889,15 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	@Override
 	public void cacheResult(
 		List<CommerceCloudForecastOrder> commerceCloudForecastOrders) {
-		for (CommerceCloudForecastOrder commerceCloudForecastOrder : commerceCloudForecastOrders) {
+
+		for (CommerceCloudForecastOrder commerceCloudForecastOrder :
+				commerceCloudForecastOrders) {
+
 			if (entityCache.getResult(
-						CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
-						CommerceCloudForecastOrderImpl.class,
-						commerceCloudForecastOrder.getPrimaryKey()) == null) {
+					CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
+					CommerceCloudForecastOrderImpl.class,
+					commerceCloudForecastOrder.getPrimaryKey()) == null) {
+
 				cacheResult(commerceCloudForecastOrder);
 			}
 			else {
@@ -898,7 +910,7 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * Clears the cache for all commerce cloud forecast orders.
 	 *
 	 * <p>
-	 * The {@link EntityCache} and {@link FinderCache} are both cleared by this method.
+	 * The <code>EntityCache</code> and <code>FinderCache</code> are both cleared by this method.
 	 * </p>
 	 */
 	@Override
@@ -914,71 +926,84 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * Clears the cache for the commerce cloud forecast order.
 	 *
 	 * <p>
-	 * The {@link EntityCache} and {@link FinderCache} are both cleared by this method.
+	 * The <code>EntityCache</code> and <code>FinderCache</code> are both cleared by this method.
 	 * </p>
 	 */
 	@Override
 	public void clearCache(
 		CommerceCloudForecastOrder commerceCloudForecastOrder) {
-		entityCache.removeResult(CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
+
+		entityCache.removeResult(
+			CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceCloudForecastOrderImpl.class,
 			commerceCloudForecastOrder.getPrimaryKey());
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
-		clearUniqueFindersCache((CommerceCloudForecastOrderModelImpl)commerceCloudForecastOrder,
+		clearUniqueFindersCache(
+			(CommerceCloudForecastOrderModelImpl)commerceCloudForecastOrder,
 			true);
 	}
 
 	@Override
 	public void clearCache(
 		List<CommerceCloudForecastOrder> commerceCloudForecastOrders) {
+
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
-		for (CommerceCloudForecastOrder commerceCloudForecastOrder : commerceCloudForecastOrders) {
-			entityCache.removeResult(CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
+		for (CommerceCloudForecastOrder commerceCloudForecastOrder :
+				commerceCloudForecastOrders) {
+
+			entityCache.removeResult(
+				CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
 				CommerceCloudForecastOrderImpl.class,
 				commerceCloudForecastOrder.getPrimaryKey());
 
-			clearUniqueFindersCache((CommerceCloudForecastOrderModelImpl)commerceCloudForecastOrder,
+			clearUniqueFindersCache(
+				(CommerceCloudForecastOrderModelImpl)commerceCloudForecastOrder,
 				true);
 		}
 	}
 
 	protected void cacheUniqueFindersCache(
-		CommerceCloudForecastOrderModelImpl commerceCloudForecastOrderModelImpl) {
-		Object[] args = new Object[] {
-				commerceCloudForecastOrderModelImpl.getCommerceOrderId()
-			};
+		CommerceCloudForecastOrderModelImpl
+			commerceCloudForecastOrderModelImpl) {
 
-		finderCache.putResult(FINDER_PATH_COUNT_BY_COMMERCEORDERID, args,
-			Long.valueOf(1), false);
-		finderCache.putResult(FINDER_PATH_FETCH_BY_COMMERCEORDERID, args,
+		Object[] args = new Object[] {
+			commerceCloudForecastOrderModelImpl.getCommerceOrderId()
+		};
+
+		finderCache.putResult(
+			_finderPathCountByCommerceOrderId, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByCommerceOrderId, args,
 			commerceCloudForecastOrderModelImpl, false);
 	}
 
 	protected void clearUniqueFindersCache(
 		CommerceCloudForecastOrderModelImpl commerceCloudForecastOrderModelImpl,
 		boolean clearCurrent) {
+
 		if (clearCurrent) {
 			Object[] args = new Object[] {
-					commerceCloudForecastOrderModelImpl.getCommerceOrderId()
-				};
+				commerceCloudForecastOrderModelImpl.getCommerceOrderId()
+			};
 
-			finderCache.removeResult(FINDER_PATH_COUNT_BY_COMMERCEORDERID, args);
-			finderCache.removeResult(FINDER_PATH_FETCH_BY_COMMERCEORDERID, args);
+			finderCache.removeResult(_finderPathCountByCommerceOrderId, args);
+			finderCache.removeResult(_finderPathFetchByCommerceOrderId, args);
 		}
 
 		if ((commerceCloudForecastOrderModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_COMMERCEORDERID.getColumnBitmask()) != 0) {
-			Object[] args = new Object[] {
-					commerceCloudForecastOrderModelImpl.getOriginalCommerceOrderId()
-				};
+			 _finderPathFetchByCommerceOrderId.getColumnBitmask()) != 0) {
 
-			finderCache.removeResult(FINDER_PATH_COUNT_BY_COMMERCEORDERID, args);
-			finderCache.removeResult(FINDER_PATH_FETCH_BY_COMMERCEORDERID, args);
+			Object[] args = new Object[] {
+				commerceCloudForecastOrderModelImpl.getOriginalCommerceOrderId()
+			};
+
+			finderCache.removeResult(_finderPathCountByCommerceOrderId, args);
+			finderCache.removeResult(_finderPathFetchByCommerceOrderId, args);
 		}
 	}
 
@@ -989,8 +1014,11 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * @return the new commerce cloud forecast order
 	 */
 	@Override
-	public CommerceCloudForecastOrder create(long commerceCloudForecastOrderId) {
-		CommerceCloudForecastOrder commerceCloudForecastOrder = new CommerceCloudForecastOrderImpl();
+	public CommerceCloudForecastOrder create(
+		long commerceCloudForecastOrderId) {
+
+		CommerceCloudForecastOrder commerceCloudForecastOrder =
+			new CommerceCloudForecastOrderImpl();
 
 		commerceCloudForecastOrder.setNew(true);
 		commerceCloudForecastOrder.setPrimaryKey(commerceCloudForecastOrderId);
@@ -1010,6 +1038,7 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	@Override
 	public CommerceCloudForecastOrder remove(long commerceCloudForecastOrderId)
 		throws NoSuchCloudForecastOrderException {
+
 		return remove((Serializable)commerceCloudForecastOrderId);
 	}
 
@@ -1023,21 +1052,23 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	@Override
 	public CommerceCloudForecastOrder remove(Serializable primaryKey)
 		throws NoSuchCloudForecastOrderException {
+
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			CommerceCloudForecastOrder commerceCloudForecastOrder = (CommerceCloudForecastOrder)session.get(CommerceCloudForecastOrderImpl.class,
-					primaryKey);
+			CommerceCloudForecastOrder commerceCloudForecastOrder =
+				(CommerceCloudForecastOrder)session.get(
+					CommerceCloudForecastOrderImpl.class, primaryKey);
 
 			if (commerceCloudForecastOrder == null) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
-				throw new NoSuchCloudForecastOrderException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					primaryKey);
+				throw new NoSuchCloudForecastOrderException(
+					_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			return remove(commerceCloudForecastOrder);
@@ -1056,13 +1087,16 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	@Override
 	protected CommerceCloudForecastOrder removeImpl(
 		CommerceCloudForecastOrder commerceCloudForecastOrder) {
+
 		Session session = null;
 
 		try {
 			session = openSession();
 
 			if (!session.contains(commerceCloudForecastOrder)) {
-				commerceCloudForecastOrder = (CommerceCloudForecastOrder)session.get(CommerceCloudForecastOrderImpl.class,
+				commerceCloudForecastOrder =
+					(CommerceCloudForecastOrder)session.get(
+						CommerceCloudForecastOrderImpl.class,
 						commerceCloudForecastOrder.getPrimaryKeyObj());
 			}
 
@@ -1087,25 +1121,31 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	@Override
 	public CommerceCloudForecastOrder updateImpl(
 		CommerceCloudForecastOrder commerceCloudForecastOrder) {
+
 		boolean isNew = commerceCloudForecastOrder.isNew();
 
-		if (!(commerceCloudForecastOrder instanceof CommerceCloudForecastOrderModelImpl)) {
+		if (!(commerceCloudForecastOrder instanceof
+				CommerceCloudForecastOrderModelImpl)) {
+
 			InvocationHandler invocationHandler = null;
 
 			if (ProxyUtil.isProxyClass(commerceCloudForecastOrder.getClass())) {
-				invocationHandler = ProxyUtil.getInvocationHandler(commerceCloudForecastOrder);
+				invocationHandler = ProxyUtil.getInvocationHandler(
+					commerceCloudForecastOrder);
 
 				throw new IllegalArgumentException(
 					"Implement ModelWrapper in commerceCloudForecastOrder proxy " +
-					invocationHandler.getClass());
+						invocationHandler.getClass());
 			}
 
 			throw new IllegalArgumentException(
 				"Implement ModelWrapper in custom CommerceCloudForecastOrder implementation " +
-				commerceCloudForecastOrder.getClass());
+					commerceCloudForecastOrder.getClass());
 		}
 
-		CommerceCloudForecastOrderModelImpl commerceCloudForecastOrderModelImpl = (CommerceCloudForecastOrderModelImpl)commerceCloudForecastOrder;
+		CommerceCloudForecastOrderModelImpl
+			commerceCloudForecastOrderModelImpl =
+				(CommerceCloudForecastOrderModelImpl)commerceCloudForecastOrder;
 
 		Session session = null;
 
@@ -1118,7 +1158,9 @@ public class CommerceCloudForecastOrderPersistenceImpl
 				commerceCloudForecastOrder.setNew(false);
 			}
 			else {
-				commerceCloudForecastOrder = (CommerceCloudForecastOrder)session.merge(commerceCloudForecastOrder);
+				commerceCloudForecastOrder =
+					(CommerceCloudForecastOrder)session.merge(
+						commerceCloudForecastOrder);
 			}
 		}
 		catch (Exception e) {
@@ -1133,43 +1175,44 @@ public class CommerceCloudForecastOrderPersistenceImpl
 		if (!CommerceCloudForecastOrderModelImpl.COLUMN_BITMASK_ENABLED) {
 			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
-		else
-		 if (isNew) {
+		else if (isNew) {
 			Object[] args = new Object[] {
+				commerceCloudForecastOrderModelImpl.getSyncDate()
+			};
+
+			finderCache.removeResult(_finderPathCountBySyncDate, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindBySyncDate, args);
+
+			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
+		}
+		else {
+			if ((commerceCloudForecastOrderModelImpl.getColumnBitmask() &
+				 _finderPathWithoutPaginationFindBySyncDate.
+					 getColumnBitmask()) != 0) {
+
+				Object[] args = new Object[] {
+					commerceCloudForecastOrderModelImpl.getOriginalSyncDate()
+				};
+
+				finderCache.removeResult(_finderPathCountBySyncDate, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindBySyncDate, args);
+
+				args = new Object[] {
 					commerceCloudForecastOrderModelImpl.getSyncDate()
 				};
 
-			finderCache.removeResult(FINDER_PATH_COUNT_BY_SYNCDATE, args);
-			finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_SYNCDATE,
-				args);
-
-			finderCache.removeResult(FINDER_PATH_COUNT_ALL, FINDER_ARGS_EMPTY);
-			finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL,
-				FINDER_ARGS_EMPTY);
-		}
-
-		else {
-			if ((commerceCloudForecastOrderModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_SYNCDATE.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						commerceCloudForecastOrderModelImpl.getOriginalSyncDate()
-					};
-
-				finderCache.removeResult(FINDER_PATH_COUNT_BY_SYNCDATE, args);
-				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_SYNCDATE,
-					args);
-
-				args = new Object[] {
-						commerceCloudForecastOrderModelImpl.getSyncDate()
-					};
-
-				finderCache.removeResult(FINDER_PATH_COUNT_BY_SYNCDATE, args);
-				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_SYNCDATE,
-					args);
+				finderCache.removeResult(_finderPathCountBySyncDate, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindBySyncDate, args);
 			}
 		}
 
-		entityCache.putResult(CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.putResult(
+			CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceCloudForecastOrderImpl.class,
 			commerceCloudForecastOrder.getPrimaryKey(),
 			commerceCloudForecastOrder, false);
@@ -1183,7 +1226,7 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	}
 
 	/**
-	 * Returns the commerce cloud forecast order with the primary key or throws a {@link com.liferay.portal.kernel.exception.NoSuchModelException} if it could not be found.
+	 * Returns the commerce cloud forecast order with the primary key or throws a <code>com.liferay.portal.kernel.exception.NoSuchModelException</code> if it could not be found.
 	 *
 	 * @param primaryKey the primary key of the commerce cloud forecast order
 	 * @return the commerce cloud forecast order
@@ -1192,22 +1235,24 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	@Override
 	public CommerceCloudForecastOrder findByPrimaryKey(Serializable primaryKey)
 		throws NoSuchCloudForecastOrderException {
-		CommerceCloudForecastOrder commerceCloudForecastOrder = fetchByPrimaryKey(primaryKey);
+
+		CommerceCloudForecastOrder commerceCloudForecastOrder =
+			fetchByPrimaryKey(primaryKey);
 
 		if (commerceCloudForecastOrder == null) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
-			throw new NoSuchCloudForecastOrderException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				primaryKey);
+			throw new NoSuchCloudForecastOrderException(
+				_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 		}
 
 		return commerceCloudForecastOrder;
 	}
 
 	/**
-	 * Returns the commerce cloud forecast order with the primary key or throws a {@link NoSuchCloudForecastOrderException} if it could not be found.
+	 * Returns the commerce cloud forecast order with the primary key or throws a <code>NoSuchCloudForecastOrderException</code> if it could not be found.
 	 *
 	 * @param commerceCloudForecastOrderId the primary key of the commerce cloud forecast order
 	 * @return the commerce cloud forecast order
@@ -1215,8 +1260,9 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 */
 	@Override
 	public CommerceCloudForecastOrder findByPrimaryKey(
-		long commerceCloudForecastOrderId)
+			long commerceCloudForecastOrderId)
 		throws NoSuchCloudForecastOrderException {
+
 		return findByPrimaryKey((Serializable)commerceCloudForecastOrderId);
 	}
 
@@ -1227,15 +1273,19 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * @return the commerce cloud forecast order, or <code>null</code> if a commerce cloud forecast order with the primary key could not be found
 	 */
 	@Override
-	public CommerceCloudForecastOrder fetchByPrimaryKey(Serializable primaryKey) {
-		Serializable serializable = entityCache.getResult(CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
-				CommerceCloudForecastOrderImpl.class, primaryKey);
+	public CommerceCloudForecastOrder fetchByPrimaryKey(
+		Serializable primaryKey) {
+
+		Serializable serializable = entityCache.getResult(
+			CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceCloudForecastOrderImpl.class, primaryKey);
 
 		if (serializable == nullModel) {
 			return null;
 		}
 
-		CommerceCloudForecastOrder commerceCloudForecastOrder = (CommerceCloudForecastOrder)serializable;
+		CommerceCloudForecastOrder commerceCloudForecastOrder =
+			(CommerceCloudForecastOrder)serializable;
 
 		if (commerceCloudForecastOrder == null) {
 			Session session = null;
@@ -1243,20 +1293,24 @@ public class CommerceCloudForecastOrderPersistenceImpl
 			try {
 				session = openSession();
 
-				commerceCloudForecastOrder = (CommerceCloudForecastOrder)session.get(CommerceCloudForecastOrderImpl.class,
-						primaryKey);
+				commerceCloudForecastOrder =
+					(CommerceCloudForecastOrder)session.get(
+						CommerceCloudForecastOrderImpl.class, primaryKey);
 
 				if (commerceCloudForecastOrder != null) {
 					cacheResult(commerceCloudForecastOrder);
 				}
 				else {
-					entityCache.putResult(CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
+					entityCache.putResult(
+						CommerceCloudForecastOrderModelImpl.
+							ENTITY_CACHE_ENABLED,
 						CommerceCloudForecastOrderImpl.class, primaryKey,
 						nullModel);
 				}
 			}
 			catch (Exception e) {
-				entityCache.removeResult(CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.removeResult(
+					CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
 					CommerceCloudForecastOrderImpl.class, primaryKey);
 
 				throw processException(e);
@@ -1278,24 +1332,28 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	@Override
 	public CommerceCloudForecastOrder fetchByPrimaryKey(
 		long commerceCloudForecastOrderId) {
+
 		return fetchByPrimaryKey((Serializable)commerceCloudForecastOrderId);
 	}
 
 	@Override
 	public Map<Serializable, CommerceCloudForecastOrder> fetchByPrimaryKeys(
 		Set<Serializable> primaryKeys) {
+
 		if (primaryKeys.isEmpty()) {
 			return Collections.emptyMap();
 		}
 
-		Map<Serializable, CommerceCloudForecastOrder> map = new HashMap<Serializable, CommerceCloudForecastOrder>();
+		Map<Serializable, CommerceCloudForecastOrder> map =
+			new HashMap<Serializable, CommerceCloudForecastOrder>();
 
 		if (primaryKeys.size() == 1) {
 			Iterator<Serializable> iterator = primaryKeys.iterator();
 
 			Serializable primaryKey = iterator.next();
 
-			CommerceCloudForecastOrder commerceCloudForecastOrder = fetchByPrimaryKey(primaryKey);
+			CommerceCloudForecastOrder commerceCloudForecastOrder =
+				fetchByPrimaryKey(primaryKey);
 
 			if (commerceCloudForecastOrder != null) {
 				map.put(primaryKey, commerceCloudForecastOrder);
@@ -1307,8 +1365,9 @@ public class CommerceCloudForecastOrderPersistenceImpl
 		Set<Serializable> uncachedPrimaryKeys = null;
 
 		for (Serializable primaryKey : primaryKeys) {
-			Serializable serializable = entityCache.getResult(CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
-					CommerceCloudForecastOrderImpl.class, primaryKey);
+			Serializable serializable = entityCache.getResult(
+				CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
+				CommerceCloudForecastOrderImpl.class, primaryKey);
 
 			if (serializable != nullModel) {
 				if (serializable == null) {
@@ -1319,7 +1378,8 @@ public class CommerceCloudForecastOrderPersistenceImpl
 					uncachedPrimaryKeys.add(primaryKey);
 				}
 				else {
-					map.put(primaryKey, (CommerceCloudForecastOrder)serializable);
+					map.put(
+						primaryKey, (CommerceCloudForecastOrder)serializable);
 				}
 			}
 		}
@@ -1328,8 +1388,8 @@ public class CommerceCloudForecastOrderPersistenceImpl
 			return map;
 		}
 
-		StringBundler query = new StringBundler((uncachedPrimaryKeys.size() * 2) +
-				1);
+		StringBundler query = new StringBundler(
+			uncachedPrimaryKeys.size() * 2 + 1);
 
 		query.append(_SQL_SELECT_COMMERCECLOUDFORECASTORDER_WHERE_PKS_IN);
 
@@ -1352,18 +1412,24 @@ public class CommerceCloudForecastOrderPersistenceImpl
 
 			Query q = session.createQuery(sql);
 
-			for (CommerceCloudForecastOrder commerceCloudForecastOrder : (List<CommerceCloudForecastOrder>)q.list()) {
-				map.put(commerceCloudForecastOrder.getPrimaryKeyObj(),
+			for (CommerceCloudForecastOrder commerceCloudForecastOrder :
+					(List<CommerceCloudForecastOrder>)q.list()) {
+
+				map.put(
+					commerceCloudForecastOrder.getPrimaryKeyObj(),
 					commerceCloudForecastOrder);
 
 				cacheResult(commerceCloudForecastOrder);
 
-				uncachedPrimaryKeys.remove(commerceCloudForecastOrder.getPrimaryKeyObj());
+				uncachedPrimaryKeys.remove(
+					commerceCloudForecastOrder.getPrimaryKeyObj());
 			}
 
 			for (Serializable primaryKey : uncachedPrimaryKeys) {
-				entityCache.putResult(CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
-					CommerceCloudForecastOrderImpl.class, primaryKey, nullModel);
+				entityCache.putResult(
+					CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
+					CommerceCloudForecastOrderImpl.class, primaryKey,
+					nullModel);
 			}
 		}
 		catch (Exception e) {
@@ -1390,7 +1456,7 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * Returns a range of all the commerce cloud forecast orders.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceCloudForecastOrderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>CommerceCloudForecastOrderModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce cloud forecast orders
@@ -1406,7 +1472,7 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * Returns an ordered range of all the commerce cloud forecast orders.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceCloudForecastOrderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>CommerceCloudForecastOrderModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce cloud forecast orders
@@ -1415,8 +1481,10 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * @return the ordered range of commerce cloud forecast orders
 	 */
 	@Override
-	public List<CommerceCloudForecastOrder> findAll(int start, int end,
+	public List<CommerceCloudForecastOrder> findAll(
+		int start, int end,
 		OrderByComparator<CommerceCloudForecastOrder> orderByComparator) {
+
 		return findAll(start, end, orderByComparator, true);
 	}
 
@@ -1424,7 +1492,7 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * Returns an ordered range of all the commerce cloud forecast orders.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceCloudForecastOrderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>CommerceCloudForecastOrderModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce cloud forecast orders
@@ -1434,29 +1502,32 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * @return the ordered range of commerce cloud forecast orders
 	 */
 	@Override
-	public List<CommerceCloudForecastOrder> findAll(int start, int end,
+	public List<CommerceCloudForecastOrder> findAll(
+		int start, int end,
 		OrderByComparator<CommerceCloudForecastOrder> orderByComparator,
 		boolean retrieveFromCache) {
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
+			(orderByComparator == null)) {
+
 			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL;
+			finderPath = _finderPathWithoutPaginationFindAll;
 			finderArgs = FINDER_ARGS_EMPTY;
 		}
 		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_ALL;
-			finderArgs = new Object[] { start, end, orderByComparator };
+			finderPath = _finderPathWithPaginationFindAll;
+			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<CommerceCloudForecastOrder> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<CommerceCloudForecastOrder>)finderCache.getResult(finderPath,
-					finderArgs, this);
+			list = (List<CommerceCloudForecastOrder>)finderCache.getResult(
+				finderPath, finderArgs, this);
 		}
 
 		if (list == null) {
@@ -1464,13 +1535,13 @@ public class CommerceCloudForecastOrderPersistenceImpl
 			String sql = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(2 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					2 + (orderByComparator.getOrderByFields().length * 2));
 
 				query.append(_SQL_SELECT_COMMERCECLOUDFORECASTORDER);
 
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
 				sql = query.toString();
 			}
@@ -1478,7 +1549,8 @@ public class CommerceCloudForecastOrderPersistenceImpl
 				sql = _SQL_SELECT_COMMERCECLOUDFORECASTORDER;
 
 				if (pagination) {
-					sql = sql.concat(CommerceCloudForecastOrderModelImpl.ORDER_BY_JPQL);
+					sql = sql.concat(
+						CommerceCloudForecastOrderModelImpl.ORDER_BY_JPQL);
 				}
 			}
 
@@ -1490,16 +1562,16 @@ public class CommerceCloudForecastOrderPersistenceImpl
 				Query q = session.createQuery(sql);
 
 				if (!pagination) {
-					list = (List<CommerceCloudForecastOrder>)QueryUtil.list(q,
-							getDialect(), start, end, false);
+					list = (List<CommerceCloudForecastOrder>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<CommerceCloudForecastOrder>)QueryUtil.list(q,
-							getDialect(), start, end);
+					list = (List<CommerceCloudForecastOrder>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -1525,7 +1597,9 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 */
 	@Override
 	public void removeAll() {
-		for (CommerceCloudForecastOrder commerceCloudForecastOrder : findAll()) {
+		for (CommerceCloudForecastOrder commerceCloudForecastOrder :
+				findAll()) {
+
 			remove(commerceCloudForecastOrder);
 		}
 	}
@@ -1537,8 +1611,8 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 */
 	@Override
 	public int countAll() {
-		Long count = (Long)finderCache.getResult(FINDER_PATH_COUNT_ALL,
-				FINDER_ARGS_EMPTY, this);
+		Long count = (Long)finderCache.getResult(
+			_finderPathCountAll, FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1546,16 +1620,17 @@ public class CommerceCloudForecastOrderPersistenceImpl
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(_SQL_COUNT_COMMERCECLOUDFORECASTORDER);
+				Query q = session.createQuery(
+					_SQL_COUNT_COMMERCECLOUDFORECASTORDER);
 
 				count = (Long)q.uniqueResult();
 
-				finderCache.putResult(FINDER_PATH_COUNT_ALL, FINDER_ARGS_EMPTY,
-					count);
+				finderCache.putResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
 			catch (Exception e) {
-				finderCache.removeResult(FINDER_PATH_COUNT_ALL,
-					FINDER_ARGS_EMPTY);
+				finderCache.removeResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY);
 
 				throw processException(e);
 			}
@@ -1576,6 +1651,62 @@ public class CommerceCloudForecastOrderPersistenceImpl
 	 * Initializes the commerce cloud forecast order persistence.
 	 */
 	public void afterPropertiesSet() {
+		_finderPathWithPaginationFindAll = new FinderPath(
+			CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceCloudForecastOrderModelImpl.FINDER_CACHE_ENABLED,
+			CommerceCloudForecastOrderImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
+
+		_finderPathWithoutPaginationFindAll = new FinderPath(
+			CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceCloudForecastOrderModelImpl.FINDER_CACHE_ENABLED,
+			CommerceCloudForecastOrderImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
+			new String[0]);
+
+		_finderPathCountAll = new FinderPath(
+			CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceCloudForecastOrderModelImpl.FINDER_CACHE_ENABLED,
+			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
+			new String[0]);
+
+		_finderPathFetchByCommerceOrderId = new FinderPath(
+			CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceCloudForecastOrderModelImpl.FINDER_CACHE_ENABLED,
+			CommerceCloudForecastOrderImpl.class, FINDER_CLASS_NAME_ENTITY,
+			"fetchByCommerceOrderId", new String[] {Long.class.getName()},
+			CommerceCloudForecastOrderModelImpl.COMMERCEORDERID_COLUMN_BITMASK);
+
+		_finderPathCountByCommerceOrderId = new FinderPath(
+			CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceCloudForecastOrderModelImpl.FINDER_CACHE_ENABLED,
+			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByCommerceOrderId", new String[] {Long.class.getName()});
+
+		_finderPathWithPaginationFindBySyncDate = new FinderPath(
+			CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceCloudForecastOrderModelImpl.FINDER_CACHE_ENABLED,
+			CommerceCloudForecastOrderImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findBySyncDate",
+			new String[] {
+				Date.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
+
+		_finderPathWithoutPaginationFindBySyncDate = new FinderPath(
+			CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceCloudForecastOrderModelImpl.FINDER_CACHE_ENABLED,
+			CommerceCloudForecastOrderImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findBySyncDate",
+			new String[] {Date.class.getName()},
+			CommerceCloudForecastOrderModelImpl.SYNCDATE_COLUMN_BITMASK |
+			CommerceCloudForecastOrderModelImpl.CREATEDATE_COLUMN_BITMASK);
+
+		_finderPathCountBySyncDate = new FinderPath(
+			CommerceCloudForecastOrderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceCloudForecastOrderModelImpl.FINDER_CACHE_ENABLED,
+			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countBySyncDate", new String[] {Date.class.getName()});
 	}
 
 	public void destroy() {
@@ -1587,8 +1718,10 @@ public class CommerceCloudForecastOrderPersistenceImpl
 
 	@ServiceReference(type = CompanyProviderWrapper.class)
 	protected CompanyProvider companyProvider;
+
 	@ServiceReference(type = EntityCache.class)
 	protected EntityCache entityCache;
+
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
 
@@ -1600,14 +1733,32 @@ public class CommerceCloudForecastOrderPersistenceImpl
 		return date.getTime();
 	}
 
-	private static final String _SQL_SELECT_COMMERCECLOUDFORECASTORDER = "SELECT commerceCloudForecastOrder FROM CommerceCloudForecastOrder commerceCloudForecastOrder";
-	private static final String _SQL_SELECT_COMMERCECLOUDFORECASTORDER_WHERE_PKS_IN =
-		"SELECT commerceCloudForecastOrder FROM CommerceCloudForecastOrder commerceCloudForecastOrder WHERE commerceCloudForecastOrderId IN (";
-	private static final String _SQL_SELECT_COMMERCECLOUDFORECASTORDER_WHERE = "SELECT commerceCloudForecastOrder FROM CommerceCloudForecastOrder commerceCloudForecastOrder WHERE ";
-	private static final String _SQL_COUNT_COMMERCECLOUDFORECASTORDER = "SELECT COUNT(commerceCloudForecastOrder) FROM CommerceCloudForecastOrder commerceCloudForecastOrder";
-	private static final String _SQL_COUNT_COMMERCECLOUDFORECASTORDER_WHERE = "SELECT COUNT(commerceCloudForecastOrder) FROM CommerceCloudForecastOrder commerceCloudForecastOrder WHERE ";
-	private static final String _ORDER_BY_ENTITY_ALIAS = "commerceCloudForecastOrder.";
-	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No CommerceCloudForecastOrder exists with the primary key ";
-	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No CommerceCloudForecastOrder exists with the key {";
-	private static final Log _log = LogFactoryUtil.getLog(CommerceCloudForecastOrderPersistenceImpl.class);
+	private static final String _SQL_SELECT_COMMERCECLOUDFORECASTORDER =
+		"SELECT commerceCloudForecastOrder FROM CommerceCloudForecastOrder commerceCloudForecastOrder";
+
+	private static final String
+		_SQL_SELECT_COMMERCECLOUDFORECASTORDER_WHERE_PKS_IN =
+			"SELECT commerceCloudForecastOrder FROM CommerceCloudForecastOrder commerceCloudForecastOrder WHERE commerceCloudForecastOrderId IN (";
+
+	private static final String _SQL_SELECT_COMMERCECLOUDFORECASTORDER_WHERE =
+		"SELECT commerceCloudForecastOrder FROM CommerceCloudForecastOrder commerceCloudForecastOrder WHERE ";
+
+	private static final String _SQL_COUNT_COMMERCECLOUDFORECASTORDER =
+		"SELECT COUNT(commerceCloudForecastOrder) FROM CommerceCloudForecastOrder commerceCloudForecastOrder";
+
+	private static final String _SQL_COUNT_COMMERCECLOUDFORECASTORDER_WHERE =
+		"SELECT COUNT(commerceCloudForecastOrder) FROM CommerceCloudForecastOrder commerceCloudForecastOrder WHERE ";
+
+	private static final String _ORDER_BY_ENTITY_ALIAS =
+		"commerceCloudForecastOrder.";
+
+	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY =
+		"No CommerceCloudForecastOrder exists with the primary key ";
+
+	private static final String _NO_SUCH_ENTITY_WITH_KEY =
+		"No CommerceCloudForecastOrder exists with the key {";
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceCloudForecastOrderPersistenceImpl.class);
+
 }

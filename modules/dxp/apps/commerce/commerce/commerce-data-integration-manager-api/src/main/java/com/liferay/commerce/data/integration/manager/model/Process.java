@@ -23,21 +23,24 @@ import com.liferay.portal.kernel.util.Accessor;
 /**
  * The extended model interface for the Process service. Represents a row in the &quot;Process&quot; database table, with each column mapped to a property of this class.
  *
- * @author Brian Wing Shun Chan
+ * @author Marco Leo
  * @see ProcessModel
- * @see com.liferay.commerce.data.integration.manager.model.impl.ProcessImpl
- * @see com.liferay.commerce.data.integration.manager.model.impl.ProcessModelImpl
  * @generated
  */
-@ImplementationClassName("com.liferay.commerce.data.integration.manager.model.impl.ProcessImpl")
+@ImplementationClassName(
+	"com.liferay.commerce.data.integration.manager.model.impl.ProcessImpl"
+)
 @ProviderType
-public interface Process extends ProcessModel, PersistedModel {
+public interface Process extends PersistedModel, ProcessModel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this interface directly. Add methods to {@link com.liferay.commerce.data.integration.manager.model.impl.ProcessImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add methods to <code>com.liferay.commerce.data.integration.manager.model.impl.ProcessImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public static final Accessor<Process, Long> PROCESS_ID_ACCESSOR = new Accessor<Process, Long>() {
+	public static final Accessor<Process, Long> PROCESS_ID_ACCESSOR =
+		new Accessor<Process, Long>() {
+
 			@Override
 			public Long get(Process process) {
 				return process.getProcessId();
@@ -52,5 +55,7 @@ public interface Process extends ProcessModel, PersistedModel {
 			public Class<Process> getTypeClass() {
 				return Process.class;
 			}
+
 		};
+
 }

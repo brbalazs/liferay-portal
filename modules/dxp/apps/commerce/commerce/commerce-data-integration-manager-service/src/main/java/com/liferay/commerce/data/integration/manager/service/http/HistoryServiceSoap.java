@@ -18,19 +18,20 @@ import aQute.bnd.annotation.ProviderType;
 
 /**
  * Provides the SOAP utility for the
- * {@link com.liferay.commerce.data.integration.manager.service.HistoryServiceUtil} service utility. The
- * static methods of this class calls the same methods of the service utility.
- * However, the signatures are different because it is difficult for SOAP to
- * support certain types.
+ * <code>com.liferay.commerce.data.integration.manager.service.HistoryServiceUtil</code> service
+ * utility. The static methods of this class call the same methods of the
+ * service utility. However, the signatures are different because it is
+ * difficult for SOAP to support certain types.
  *
  * <p>
  * ServiceBuilder follows certain rules in translating the methods. For example,
- * if the method in the service utility returns a {@link java.util.List}, that
- * is translated to an array of {@link com.liferay.commerce.data.integration.manager.model.HistorySoap}.
- * If the method in the service utility returns a
- * {@link com.liferay.commerce.data.integration.manager.model.History}, that is translated to a
- * {@link com.liferay.commerce.data.integration.manager.model.HistorySoap}. Methods that SOAP cannot
- * safely wire are skipped.
+ * if the method in the service utility returns a <code>java.util.List</code>,
+ * that is translated to an array of
+ * <code>com.liferay.commerce.data.integration.manager.model.HistorySoap</code>. If the method in the
+ * service utility returns a
+ * <code>com.liferay.commerce.data.integration.manager.model.History</code>, that is translated to a
+ * <code>com.liferay.commerce.data.integration.manager.model.HistorySoap</code>. Methods that SOAP
+ * cannot safely wire are skipped.
  * </p>
  *
  * <p>
@@ -50,10 +51,8 @@ import aQute.bnd.annotation.ProviderType;
  * The SOAP utility is only generated for remote services.
  * </p>
  *
- * @author Brian Wing Shun Chan
+ * @author Marco Leo
  * @see HistoryServiceHttp
- * @see com.liferay.commerce.data.integration.manager.model.HistorySoap
- * @see com.liferay.commerce.data.integration.manager.service.HistoryServiceUtil
  * @generated
  */
 @ProviderType

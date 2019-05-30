@@ -17,9 +17,7 @@ package com.liferay.commerce.data.integration.manager.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.exportimport.kernel.lar.StagedModelType;
-
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -35,12 +33,13 @@ import java.util.Objects;
  * This class is a wrapper for {@link Process}.
  * </p>
  *
- * @author Brian Wing Shun Chan
+ * @author Marco Leo
  * @see Process
  * @generated
  */
 @ProviderType
 public class ProcessWrapper implements Process, ModelWrapper<Process> {
+
 	public ProcessWrapper(Process process) {
 		_process = process;
 	}
@@ -71,8 +70,8 @@ public class ProcessWrapper implements Process, ModelWrapper<Process> {
 		attributes.put("version", getVersion());
 		attributes.put("className", getClassName());
 		attributes.put("processType", getProcessType());
-		attributes.put("contextPropertiesFileEntryId",
-			getContextPropertiesFileEntryId());
+		attributes.put(
+			"contextPropertiesFileEntryId", getContextPropertiesFileEntryId());
 		attributes.put("srcArchiveFileEntryId", getSrcArchiveFileEntryId());
 		attributes.put("contextProperties", getContextProperties());
 
@@ -154,14 +153,14 @@ public class ProcessWrapper implements Process, ModelWrapper<Process> {
 		}
 
 		Long contextPropertiesFileEntryId = (Long)attributes.get(
-				"contextPropertiesFileEntryId");
+			"contextPropertiesFileEntryId");
 
 		if (contextPropertiesFileEntryId != null) {
 			setContextPropertiesFileEntryId(contextPropertiesFileEntryId);
 		}
 
 		Long srcArchiveFileEntryId = (Long)attributes.get(
-				"srcArchiveFileEntryId");
+			"srcArchiveFileEntryId");
 
 		if (srcArchiveFileEntryId != null) {
 			setSrcArchiveFileEntryId(srcArchiveFileEntryId);
@@ -185,50 +184,50 @@ public class ProcessWrapper implements Process, ModelWrapper<Process> {
 	}
 
 	/**
-	* Returns the class name of this process.
-	*
-	* @return the class name of this process
-	*/
+	 * Returns the class name of this process.
+	 *
+	 * @return the class name of this process
+	 */
 	@Override
 	public String getClassName() {
 		return _process.getClassName();
 	}
 
 	/**
-	* Returns the company ID of this process.
-	*
-	* @return the company ID of this process
-	*/
+	 * Returns the company ID of this process.
+	 *
+	 * @return the company ID of this process
+	 */
 	@Override
 	public long getCompanyId() {
 		return _process.getCompanyId();
 	}
 
 	/**
-	* Returns the context properties of this process.
-	*
-	* @return the context properties of this process
-	*/
+	 * Returns the context properties of this process.
+	 *
+	 * @return the context properties of this process
+	 */
 	@Override
 	public String getContextProperties() {
 		return _process.getContextProperties();
 	}
 
 	/**
-	* Returns the context properties file entry ID of this process.
-	*
-	* @return the context properties file entry ID of this process
-	*/
+	 * Returns the context properties file entry ID of this process.
+	 *
+	 * @return the context properties file entry ID of this process
+	 */
 	@Override
 	public long getContextPropertiesFileEntryId() {
 		return _process.getContextPropertiesFileEntryId();
 	}
 
 	/**
-	* Returns the create date of this process.
-	*
-	* @return the create date of this process
-	*/
+	 * Returns the create date of this process.
+	 *
+	 * @return the create date of this process
+	 */
 	@Override
 	public Date getCreateDate() {
 		return _process.getCreateDate();
@@ -240,40 +239,40 @@ public class ProcessWrapper implements Process, ModelWrapper<Process> {
 	}
 
 	/**
-	* Returns the group ID of this process.
-	*
-	* @return the group ID of this process
-	*/
+	 * Returns the group ID of this process.
+	 *
+	 * @return the group ID of this process
+	 */
 	@Override
 	public long getGroupId() {
 		return _process.getGroupId();
 	}
 
 	/**
-	* Returns the modified date of this process.
-	*
-	* @return the modified date of this process
-	*/
+	 * Returns the modified date of this process.
+	 *
+	 * @return the modified date of this process
+	 */
 	@Override
 	public Date getModifiedDate() {
 		return _process.getModifiedDate();
 	}
 
 	/**
-	* Returns the name of this process.
-	*
-	* @return the name of this process
-	*/
+	 * Returns the name of this process.
+	 *
+	 * @return the name of this process
+	 */
 	@Override
 	public String getName() {
 		return _process.getName();
 	}
 
 	/**
-	* Returns the primary key of this process.
-	*
-	* @return the primary key of this process
-	*/
+	 * Returns the primary key of this process.
+	 *
+	 * @return the primary key of this process
+	 */
 	@Override
 	public long getPrimaryKey() {
 		return _process.getPrimaryKey();
@@ -285,80 +284,80 @@ public class ProcessWrapper implements Process, ModelWrapper<Process> {
 	}
 
 	/**
-	* Returns the process ID of this process.
-	*
-	* @return the process ID of this process
-	*/
+	 * Returns the process ID of this process.
+	 *
+	 * @return the process ID of this process
+	 */
 	@Override
 	public long getProcessId() {
 		return _process.getProcessId();
 	}
 
 	/**
-	* Returns the process type of this process.
-	*
-	* @return the process type of this process
-	*/
+	 * Returns the process type of this process.
+	 *
+	 * @return the process type of this process
+	 */
 	@Override
 	public String getProcessType() {
 		return _process.getProcessType();
 	}
 
 	/**
-	* Returns the src archive file entry ID of this process.
-	*
-	* @return the src archive file entry ID of this process
-	*/
+	 * Returns the src archive file entry ID of this process.
+	 *
+	 * @return the src archive file entry ID of this process
+	 */
 	@Override
 	public long getSrcArchiveFileEntryId() {
 		return _process.getSrcArchiveFileEntryId();
 	}
 
 	/**
-	* Returns the user ID of this process.
-	*
-	* @return the user ID of this process
-	*/
+	 * Returns the user ID of this process.
+	 *
+	 * @return the user ID of this process
+	 */
 	@Override
 	public long getUserId() {
 		return _process.getUserId();
 	}
 
 	/**
-	* Returns the user name of this process.
-	*
-	* @return the user name of this process
-	*/
+	 * Returns the user name of this process.
+	 *
+	 * @return the user name of this process
+	 */
 	@Override
 	public String getUserName() {
 		return _process.getUserName();
 	}
 
 	/**
-	* Returns the user uuid of this process.
-	*
-	* @return the user uuid of this process
-	*/
+	 * Returns the user uuid of this process.
+	 *
+	 * @return the user uuid of this process
+	 */
 	@Override
 	public String getUserUuid() {
 		return _process.getUserUuid();
 	}
 
 	/**
-	* Returns the uuid of this process.
-	*
-	* @return the uuid of this process
-	*/
+	 * Returns the uuid of this process.
+	 *
+	 * @return the uuid of this process
+	 */
 	@Override
 	public String getUuid() {
 		return _process.getUuid();
 	}
 
 	/**
-	* Returns the version of this process.
-	*
-	* @return the version of this process
-	*/
+	 * Returns the version of this process.
+	 *
+	 * @return the version of this process
+	 */
 	@Override
 	public String getVersion() {
 		return _process.getVersion();
@@ -395,51 +394,52 @@ public class ProcessWrapper implements Process, ModelWrapper<Process> {
 	}
 
 	/**
-	* Sets the class name of this process.
-	*
-	* @param className the class name of this process
-	*/
+	 * Sets the class name of this process.
+	 *
+	 * @param className the class name of this process
+	 */
 	@Override
 	public void setClassName(String className) {
 		_process.setClassName(className);
 	}
 
 	/**
-	* Sets the company ID of this process.
-	*
-	* @param companyId the company ID of this process
-	*/
+	 * Sets the company ID of this process.
+	 *
+	 * @param companyId the company ID of this process
+	 */
 	@Override
 	public void setCompanyId(long companyId) {
 		_process.setCompanyId(companyId);
 	}
 
 	/**
-	* Sets the context properties of this process.
-	*
-	* @param contextProperties the context properties of this process
-	*/
+	 * Sets the context properties of this process.
+	 *
+	 * @param contextProperties the context properties of this process
+	 */
 	@Override
 	public void setContextProperties(String contextProperties) {
 		_process.setContextProperties(contextProperties);
 	}
 
 	/**
-	* Sets the context properties file entry ID of this process.
-	*
-	* @param contextPropertiesFileEntryId the context properties file entry ID of this process
-	*/
+	 * Sets the context properties file entry ID of this process.
+	 *
+	 * @param contextPropertiesFileEntryId the context properties file entry ID of this process
+	 */
 	@Override
 	public void setContextPropertiesFileEntryId(
 		long contextPropertiesFileEntryId) {
+
 		_process.setContextPropertiesFileEntryId(contextPropertiesFileEntryId);
 	}
 
 	/**
-	* Sets the create date of this process.
-	*
-	* @param createDate the create date of this process
-	*/
+	 * Sets the create date of this process.
+	 *
+	 * @param createDate the create date of this process
+	 */
 	@Override
 	public void setCreateDate(Date createDate) {
 		_process.setCreateDate(createDate);
@@ -448,6 +448,7 @@ public class ProcessWrapper implements Process, ModelWrapper<Process> {
 	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
 		_process.setExpandoBridgeAttributes(baseModel);
 	}
 
@@ -462,30 +463,30 @@ public class ProcessWrapper implements Process, ModelWrapper<Process> {
 	}
 
 	/**
-	* Sets the group ID of this process.
-	*
-	* @param groupId the group ID of this process
-	*/
+	 * Sets the group ID of this process.
+	 *
+	 * @param groupId the group ID of this process
+	 */
 	@Override
 	public void setGroupId(long groupId) {
 		_process.setGroupId(groupId);
 	}
 
 	/**
-	* Sets the modified date of this process.
-	*
-	* @param modifiedDate the modified date of this process
-	*/
+	 * Sets the modified date of this process.
+	 *
+	 * @param modifiedDate the modified date of this process
+	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_process.setModifiedDate(modifiedDate);
 	}
 
 	/**
-	* Sets the name of this process.
-	*
-	* @param name the name of this process
-	*/
+	 * Sets the name of this process.
+	 *
+	 * @param name the name of this process
+	 */
 	@Override
 	public void setName(String name) {
 		_process.setName(name);
@@ -497,10 +498,10 @@ public class ProcessWrapper implements Process, ModelWrapper<Process> {
 	}
 
 	/**
-	* Sets the primary key of this process.
-	*
-	* @param primaryKey the primary key of this process
-	*/
+	 * Sets the primary key of this process.
+	 *
+	 * @param primaryKey the primary key of this process
+	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_process.setPrimaryKey(primaryKey);
@@ -512,80 +513,80 @@ public class ProcessWrapper implements Process, ModelWrapper<Process> {
 	}
 
 	/**
-	* Sets the process ID of this process.
-	*
-	* @param processId the process ID of this process
-	*/
+	 * Sets the process ID of this process.
+	 *
+	 * @param processId the process ID of this process
+	 */
 	@Override
 	public void setProcessId(long processId) {
 		_process.setProcessId(processId);
 	}
 
 	/**
-	* Sets the process type of this process.
-	*
-	* @param processType the process type of this process
-	*/
+	 * Sets the process type of this process.
+	 *
+	 * @param processType the process type of this process
+	 */
 	@Override
 	public void setProcessType(String processType) {
 		_process.setProcessType(processType);
 	}
 
 	/**
-	* Sets the src archive file entry ID of this process.
-	*
-	* @param srcArchiveFileEntryId the src archive file entry ID of this process
-	*/
+	 * Sets the src archive file entry ID of this process.
+	 *
+	 * @param srcArchiveFileEntryId the src archive file entry ID of this process
+	 */
 	@Override
 	public void setSrcArchiveFileEntryId(long srcArchiveFileEntryId) {
 		_process.setSrcArchiveFileEntryId(srcArchiveFileEntryId);
 	}
 
 	/**
-	* Sets the user ID of this process.
-	*
-	* @param userId the user ID of this process
-	*/
+	 * Sets the user ID of this process.
+	 *
+	 * @param userId the user ID of this process
+	 */
 	@Override
 	public void setUserId(long userId) {
 		_process.setUserId(userId);
 	}
 
 	/**
-	* Sets the user name of this process.
-	*
-	* @param userName the user name of this process
-	*/
+	 * Sets the user name of this process.
+	 *
+	 * @param userName the user name of this process
+	 */
 	@Override
 	public void setUserName(String userName) {
 		_process.setUserName(userName);
 	}
 
 	/**
-	* Sets the user uuid of this process.
-	*
-	* @param userUuid the user uuid of this process
-	*/
+	 * Sets the user uuid of this process.
+	 *
+	 * @param userUuid the user uuid of this process
+	 */
 	@Override
 	public void setUserUuid(String userUuid) {
 		_process.setUserUuid(userUuid);
 	}
 
 	/**
-	* Sets the uuid of this process.
-	*
-	* @param uuid the uuid of this process
-	*/
+	 * Sets the uuid of this process.
+	 *
+	 * @param uuid the uuid of this process
+	 */
 	@Override
 	public void setUuid(String uuid) {
 		_process.setUuid(uuid);
 	}
 
 	/**
-	* Sets the version of this process.
-	*
-	* @param version the version of this process
-	*/
+	 * Sets the version of this process.
+	 *
+	 * @param version the version of this process
+	 */
 	@Override
 	public void setVersion(String version) {
 		_process.setVersion(version);
@@ -661,4 +662,5 @@ public class ProcessWrapper implements Process, ModelWrapper<Process> {
 	}
 
 	private final Process _process;
+
 }

@@ -17,7 +17,6 @@ package com.liferay.commerce.data.integration.manager.model.impl;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.data.integration.manager.model.ScheduledTask;
-
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -32,13 +31,13 @@ import java.util.Date;
 /**
  * The cache model class for representing ScheduledTask in entity cache.
  *
- * @author Brian Wing Shun Chan
- * @see ScheduledTask
+ * @author Marco Leo
  * @generated
  */
 @ProviderType
-public class ScheduledTaskCacheModel implements CacheModel<ScheduledTask>,
-	Externalizable {
+public class ScheduledTaskCacheModel
+	implements CacheModel<ScheduledTask>, Externalizable {
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -49,7 +48,8 @@ public class ScheduledTaskCacheModel implements CacheModel<ScheduledTask>,
 			return false;
 		}
 
-		ScheduledTaskCacheModel scheduledTaskCacheModel = (ScheduledTaskCacheModel)obj;
+		ScheduledTaskCacheModel scheduledTaskCacheModel =
+			(ScheduledTaskCacheModel)obj;
 
 		if (scheduledTaskId == scheduledTaskCacheModel.scheduledTaskId) {
 			return true;
@@ -229,8 +229,7 @@ public class ScheduledTaskCacheModel implements CacheModel<ScheduledTask>,
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput objectOutput)
-		throws IOException {
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		if (uuid == null) {
 			objectOutput.writeUTF("");
 		}
@@ -307,4 +306,5 @@ public class ScheduledTaskCacheModel implements CacheModel<ScheduledTask>,
 	public long startDate;
 	public String startHour;
 	public boolean enabled;
+
 }

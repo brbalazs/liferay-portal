@@ -17,7 +17,6 @@ package com.liferay.commerce.cloud.client.model.impl;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.cloud.client.model.CommerceCloudForecastOrder;
-
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -33,12 +32,12 @@ import java.util.Date;
  * The cache model class for representing CommerceCloudForecastOrder in entity cache.
  *
  * @author Andrea Di Giorgi
- * @see CommerceCloudForecastOrder
  * @generated
  */
 @ProviderType
-public class CommerceCloudForecastOrderCacheModel implements CacheModel<CommerceCloudForecastOrder>,
-	Externalizable {
+public class CommerceCloudForecastOrderCacheModel
+	implements CacheModel<CommerceCloudForecastOrder>, Externalizable {
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -49,10 +48,14 @@ public class CommerceCloudForecastOrderCacheModel implements CacheModel<Commerce
 			return false;
 		}
 
-		CommerceCloudForecastOrderCacheModel commerceCloudForecastOrderCacheModel =
-			(CommerceCloudForecastOrderCacheModel)obj;
+		CommerceCloudForecastOrderCacheModel
+			commerceCloudForecastOrderCacheModel =
+				(CommerceCloudForecastOrderCacheModel)obj;
 
-		if (commerceCloudForecastOrderId == commerceCloudForecastOrderCacheModel.commerceCloudForecastOrderId) {
+		if (commerceCloudForecastOrderId ==
+				commerceCloudForecastOrderCacheModel.
+					commerceCloudForecastOrderId) {
+
 			return true;
 		}
 
@@ -87,9 +90,11 @@ public class CommerceCloudForecastOrderCacheModel implements CacheModel<Commerce
 
 	@Override
 	public CommerceCloudForecastOrder toEntityModel() {
-		CommerceCloudForecastOrderImpl commerceCloudForecastOrderImpl = new CommerceCloudForecastOrderImpl();
+		CommerceCloudForecastOrderImpl commerceCloudForecastOrderImpl =
+			new CommerceCloudForecastOrderImpl();
 
-		commerceCloudForecastOrderImpl.setCommerceCloudForecastOrderId(commerceCloudForecastOrderId);
+		commerceCloudForecastOrderImpl.setCommerceCloudForecastOrderId(
+			commerceCloudForecastOrderId);
 		commerceCloudForecastOrderImpl.setGroupId(groupId);
 		commerceCloudForecastOrderImpl.setCompanyId(companyId);
 
@@ -128,8 +133,7 @@ public class CommerceCloudForecastOrderCacheModel implements CacheModel<Commerce
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput objectOutput)
-		throws IOException {
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(commerceCloudForecastOrderId);
 
 		objectOutput.writeLong(groupId);
@@ -147,4 +151,5 @@ public class CommerceCloudForecastOrderCacheModel implements CacheModel<Commerce
 	public long createDate;
 	public long commerceOrderId;
 	public long syncDate;
+
 }

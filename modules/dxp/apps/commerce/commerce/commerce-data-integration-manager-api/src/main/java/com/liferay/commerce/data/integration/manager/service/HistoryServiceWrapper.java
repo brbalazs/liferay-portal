@@ -21,22 +21,23 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link HistoryService}.
  *
- * @author Brian Wing Shun Chan
+ * @author Marco Leo
  * @see HistoryService
  * @generated
  */
 @ProviderType
-public class HistoryServiceWrapper implements HistoryService,
-	ServiceWrapper<HistoryService> {
+public class HistoryServiceWrapper
+	implements HistoryService, ServiceWrapper<HistoryService> {
+
 	public HistoryServiceWrapper(HistoryService historyService) {
 		_historyService = historyService;
 	}
 
 	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
-	*/
+	 * Returns the OSGi service identifier.
+	 *
+	 * @return the OSGi service identifier
+	 */
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _historyService.getOSGiServiceIdentifier();
@@ -53,4 +54,5 @@ public class HistoryServiceWrapper implements HistoryService,
 	}
 
 	private HistoryService _historyService;
+
 }

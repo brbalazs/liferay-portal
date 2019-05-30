@@ -17,7 +17,6 @@ package com.liferay.commerce.data.integration.manager.service.http;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.data.integration.manager.service.ScheduledTaskServiceUtil;
-
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.HttpPrincipal;
@@ -27,10 +26,11 @@ import com.liferay.portal.kernel.util.MethodKey;
 
 /**
  * Provides the HTTP utility for the
- * {@link ScheduledTaskServiceUtil} service utility. The
+ * <code>ScheduledTaskServiceUtil</code> service
+ * utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it requires an additional
- * {@link HttpPrincipal} parameter.
+ * <code>HttpPrincipal</code> parameter.
  *
  * <p>
  * The benefits of using the HTTP utility is that it is fast and allows for
@@ -47,26 +47,31 @@ import com.liferay.portal.kernel.util.MethodKey;
  * The HTTP utility is only generated for remote services.
  * </p>
  *
- * @author Brian Wing Shun Chan
+ * @author Marco Leo
  * @see ScheduledTaskServiceSoap
- * @see HttpPrincipal
- * @see ScheduledTaskServiceUtil
  * @generated
  */
 @ProviderType
 public class ScheduledTaskServiceHttp {
-	public static com.liferay.commerce.data.integration.manager.model.ScheduledTask addScheduledTask(
-		HttpPrincipal httpPrincipal, long processId, String frequency,
-		java.util.Date startDate, String startHour, String name,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(ScheduledTaskServiceUtil.class,
-					"addScheduledTask", _addScheduledTaskParameterTypes0);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					processId, frequency, startDate, startHour, name,
-					serviceContext);
+	public static
+		com.liferay.commerce.data.integration.manager.model.ScheduledTask
+				addScheduledTask(
+					HttpPrincipal httpPrincipal, long processId,
+					String frequency, java.util.Date startDate,
+					String startHour, String name,
+					com.liferay.portal.kernel.service.ServiceContext
+						serviceContext)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				ScheduledTaskServiceUtil.class, "addScheduledTask",
+				_addScheduledTaskParameterTypes0);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, processId, frequency, startDate, startHour, name,
+				serviceContext);
 
 			Object returnObj = null;
 
@@ -74,14 +79,19 @@ public class ScheduledTaskServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
 				}
 
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 
-			return (com.liferay.commerce.data.integration.manager.model.ScheduledTask)returnObj;
+			return (com.liferay.commerce.data.integration.manager.model.
+				ScheduledTask)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -90,16 +100,20 @@ public class ScheduledTaskServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.commerce.data.integration.manager.model.ScheduledTask> getScheduledTaskByGroupId(
-		HttpPrincipal httpPrincipal, long groupId, int start, int end)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
-		try {
-			MethodKey methodKey = new MethodKey(ScheduledTaskServiceUtil.class,
-					"getScheduledTaskByGroupId",
-					_getScheduledTaskByGroupIdParameterTypes1);
+	public static java.util.List
+		<com.liferay.commerce.data.integration.manager.model.ScheduledTask>
+				getScheduledTaskByGroupId(
+					HttpPrincipal httpPrincipal, long groupId, int start,
+					int end)
+			throws com.liferay.portal.kernel.security.auth.PrincipalException {
 
-			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
-					start, end);
+		try {
+			MethodKey methodKey = new MethodKey(
+				ScheduledTaskServiceUtil.class, "getScheduledTaskByGroupId",
+				_getScheduledTaskByGroupIdParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, start, end);
 
 			Object returnObj = null;
 
@@ -107,14 +121,21 @@ public class ScheduledTaskServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.security.auth.PrincipalException) {
-					throw (com.liferay.portal.kernel.security.auth.PrincipalException)e;
+				if (e instanceof
+						com.liferay.portal.kernel.security.auth.
+							PrincipalException) {
+
+					throw (com.liferay.portal.kernel.security.auth.
+						PrincipalException)e;
 				}
 
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 
-			return (java.util.List<com.liferay.commerce.data.integration.manager.model.ScheduledTask>)returnObj;
+			return (java.util.List
+				<com.liferay.commerce.data.integration.manager.model.
+					ScheduledTask>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -124,12 +145,14 @@ public class ScheduledTaskServiceHttp {
 	}
 
 	public static int getScheduledTaskByGroupIdCount(
-		HttpPrincipal httpPrincipal, long groupId)
+			HttpPrincipal httpPrincipal, long groupId)
 		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
 		try {
-			MethodKey methodKey = new MethodKey(ScheduledTaskServiceUtil.class,
-					"getScheduledTaskByGroupIdCount",
-					_getScheduledTaskByGroupIdCountParameterTypes2);
+			MethodKey methodKey = new MethodKey(
+				ScheduledTaskServiceUtil.class,
+				"getScheduledTaskByGroupIdCount",
+				_getScheduledTaskByGroupIdCountParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId);
 
@@ -139,11 +162,16 @@ public class ScheduledTaskServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.security.auth.PrincipalException) {
-					throw (com.liferay.portal.kernel.security.auth.PrincipalException)e;
+				if (e instanceof
+						com.liferay.portal.kernel.security.auth.
+							PrincipalException) {
+
+					throw (com.liferay.portal.kernel.security.auth.
+						PrincipalException)e;
 				}
 
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 
 			return ((Integer)returnObj).intValue();
@@ -155,19 +183,24 @@ public class ScheduledTaskServiceHttp {
 		}
 	}
 
-	public static com.liferay.commerce.data.integration.manager.model.ScheduledTask updateScheduledTask(
-		HttpPrincipal httpPrincipal, long scheduledTaskId, long processId,
-		String frequency, java.util.Date startDate, String startHour,
-		String name,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(ScheduledTaskServiceUtil.class,
-					"updateScheduledTask", _updateScheduledTaskParameterTypes3);
+	public static
+		com.liferay.commerce.data.integration.manager.model.ScheduledTask
+				updateScheduledTask(
+					HttpPrincipal httpPrincipal, long scheduledTaskId,
+					long processId, String frequency, java.util.Date startDate,
+					String startHour, String name,
+					com.liferay.portal.kernel.service.ServiceContext
+						serviceContext)
+			throws com.liferay.portal.kernel.exception.PortalException {
 
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					scheduledTaskId, processId, frequency, startDate,
-					startHour, name, serviceContext);
+		try {
+			MethodKey methodKey = new MethodKey(
+				ScheduledTaskServiceUtil.class, "updateScheduledTask",
+				_updateScheduledTaskParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, scheduledTaskId, processId, frequency, startDate,
+				startHour, name, serviceContext);
 
 			Object returnObj = null;
 
@@ -175,14 +208,19 @@ public class ScheduledTaskServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
 				}
 
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 
-			return (com.liferay.commerce.data.integration.manager.model.ScheduledTask)returnObj;
+			return (com.liferay.commerce.data.integration.manager.model.
+				ScheduledTask)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -191,19 +229,25 @@ public class ScheduledTaskServiceHttp {
 		}
 	}
 
-	private static Log _log = LogFactoryUtil.getLog(ScheduledTaskServiceHttp.class);
-	private static final Class<?>[] _addScheduledTaskParameterTypes0 = new Class[] {
+	private static Log _log = LogFactoryUtil.getLog(
+		ScheduledTaskServiceHttp.class);
+
+	private static final Class<?>[] _addScheduledTaskParameterTypes0 =
+		new Class[] {
 			long.class, String.class, java.util.Date.class, String.class,
 			String.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _getScheduledTaskByGroupIdParameterTypes1 = new Class[] {
-			long.class, int.class, int.class
+	private static final Class<?>[] _getScheduledTaskByGroupIdParameterTypes1 =
+		new Class[] {long.class, int.class, int.class};
+	private static final Class<?>[]
+		_getScheduledTaskByGroupIdCountParameterTypes2 = new Class[] {
+			long.class
 		};
-	private static final Class<?>[] _getScheduledTaskByGroupIdCountParameterTypes2 =
-		new Class[] { long.class };
-	private static final Class<?>[] _updateScheduledTaskParameterTypes3 = new Class[] {
+	private static final Class<?>[] _updateScheduledTaskParameterTypes3 =
+		new Class[] {
 			long.class, long.class, String.class, java.util.Date.class,
 			String.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
+
 }

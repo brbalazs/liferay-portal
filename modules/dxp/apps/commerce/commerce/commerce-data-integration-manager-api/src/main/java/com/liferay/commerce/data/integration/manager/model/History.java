@@ -23,21 +23,24 @@ import com.liferay.portal.kernel.util.Accessor;
 /**
  * The extended model interface for the History service. Represents a row in the &quot;History&quot; database table, with each column mapped to a property of this class.
  *
- * @author Brian Wing Shun Chan
+ * @author Marco Leo
  * @see HistoryModel
- * @see com.liferay.commerce.data.integration.manager.model.impl.HistoryImpl
- * @see com.liferay.commerce.data.integration.manager.model.impl.HistoryModelImpl
  * @generated
  */
-@ImplementationClassName("com.liferay.commerce.data.integration.manager.model.impl.HistoryImpl")
+@ImplementationClassName(
+	"com.liferay.commerce.data.integration.manager.model.impl.HistoryImpl"
+)
 @ProviderType
 public interface History extends HistoryModel, PersistedModel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this interface directly. Add methods to {@link com.liferay.commerce.data.integration.manager.model.impl.HistoryImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add methods to <code>com.liferay.commerce.data.integration.manager.model.impl.HistoryImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public static final Accessor<History, Long> HISTORY_ID_ACCESSOR = new Accessor<History, Long>() {
+	public static final Accessor<History, Long> HISTORY_ID_ACCESSOR =
+		new Accessor<History, Long>() {
+
 			@Override
 			public Long get(History history) {
 				return history.getHistoryId();
@@ -52,9 +55,11 @@ public interface History extends HistoryModel, PersistedModel {
 			public Class<History> getTypeClass() {
 				return History.class;
 			}
+
 		};
 
 	public ScheduledTask getScheduledTask();
 
 	public String getScheduledTaskName();
+
 }

@@ -16,7 +16,6 @@ package com.liferay.commerce.forecast.service.persistence.impl;
 
 import com.liferay.commerce.forecast.model.CommerceForecastValue;
 import com.liferay.commerce.forecast.service.persistence.CommerceForecastValuePersistence;
-
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -32,19 +31,21 @@ import java.util.Set;
  * @author Andrea Di Giorgi
  * @generated
  */
-public class CommerceForecastValueFinderBaseImpl extends BasePersistenceImpl<CommerceForecastValue> {
+public class CommerceForecastValueFinderBaseImpl
+	extends BasePersistenceImpl<CommerceForecastValue> {
+
 	public CommerceForecastValueFinderBaseImpl() {
 		setModelClass(CommerceForecastValue.class);
 
+		Map<String, String> dbColumnNames = new HashMap<String, String>();
+
+		dbColumnNames.put("time", "time_");
+
 		try {
 			Field field = BasePersistenceImpl.class.getDeclaredField(
-					"_dbColumnNames");
+				"_dbColumnNames");
 
 			field.setAccessible(true);
-
-			Map<String, String> dbColumnNames = new HashMap<String, String>();
-
-			dbColumnNames.put("time", "time_");
 
 			field.set(this, dbColumnNames);
 		}
@@ -65,7 +66,9 @@ public class CommerceForecastValueFinderBaseImpl extends BasePersistenceImpl<Com
 	 *
 	 * @return the commerce forecast value persistence
 	 */
-	public CommerceForecastValuePersistence getCommerceForecastValuePersistence() {
+	public CommerceForecastValuePersistence
+		getCommerceForecastValuePersistence() {
+
 		return commerceForecastValuePersistence;
 	}
 
@@ -76,10 +79,15 @@ public class CommerceForecastValueFinderBaseImpl extends BasePersistenceImpl<Com
 	 */
 	public void setCommerceForecastValuePersistence(
 		CommerceForecastValuePersistence commerceForecastValuePersistence) {
-		this.commerceForecastValuePersistence = commerceForecastValuePersistence;
+
+		this.commerceForecastValuePersistence =
+			commerceForecastValuePersistence;
 	}
 
 	@BeanReference(type = CommerceForecastValuePersistence.class)
 	protected CommerceForecastValuePersistence commerceForecastValuePersistence;
-	private static final Log _log = LogFactoryUtil.getLog(CommerceForecastValueFinderBaseImpl.class);
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceForecastValueFinderBaseImpl.class);
+
 }

@@ -35,18 +35,22 @@ import com.liferay.commerce.cloud.client.service.CommerceCloudForecastOrderLocal
 public abstract class CommerceCloudForecastOrderBaseImpl
 	extends CommerceCloudForecastOrderModelImpl
 	implements CommerceCloudForecastOrder {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce cloud forecast order model instance should use the {@link CommerceCloudForecastOrder} interface instead.
+	 * Never modify or reference this class directly. All methods that expect a commerce cloud forecast order model instance should use the <code>CommerceCloudForecastOrder</code> interface instead.
 	 */
 	@Override
 	public void persist() {
 		if (this.isNew()) {
-			CommerceCloudForecastOrderLocalServiceUtil.addCommerceCloudForecastOrder(this);
+			CommerceCloudForecastOrderLocalServiceUtil.
+				addCommerceCloudForecastOrder(this);
 		}
 		else {
-			CommerceCloudForecastOrderLocalServiceUtil.updateCommerceCloudForecastOrder(this);
+			CommerceCloudForecastOrderLocalServiceUtil.
+				updateCommerceCloudForecastOrder(this);
 		}
 	}
+
 }

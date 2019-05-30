@@ -17,7 +17,6 @@ package com.liferay.commerce.data.integration.manager.model.impl;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.data.integration.manager.model.History;
-
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -32,12 +31,12 @@ import java.util.Date;
 /**
  * The cache model class for representing History in entity cache.
  *
- * @author Brian Wing Shun Chan
- * @see History
+ * @author Marco Leo
  * @generated
  */
 @ProviderType
 public class HistoryCacheModel implements CacheModel<History>, Externalizable {
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -208,8 +207,7 @@ public class HistoryCacheModel implements CacheModel<History>, Externalizable {
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput objectOutput)
-		throws IOException {
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		if (uuid == null) {
 			objectOutput.writeUTF("");
 		}
@@ -276,4 +274,5 @@ public class HistoryCacheModel implements CacheModel<History>, Externalizable {
 	public String executionType;
 	public long errorLogFileEntryId;
 	public long runtimeLogFileEntryId;
+
 }

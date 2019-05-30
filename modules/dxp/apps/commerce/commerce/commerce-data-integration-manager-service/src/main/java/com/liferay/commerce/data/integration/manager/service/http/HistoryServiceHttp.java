@@ -18,10 +18,11 @@ import aQute.bnd.annotation.ProviderType;
 
 /**
  * Provides the HTTP utility for the
- * {@link com.liferay.commerce.data.integration.manager.service.HistoryServiceUtil} service utility. The
+ * <code>com.liferay.commerce.data.integration.manager.service.HistoryServiceUtil</code> service
+ * utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it requires an additional
- * {@link com.liferay.portal.kernel.security.auth.HttpPrincipal} parameter.
+ * <code>com.liferay.portal.kernel.security.auth.HttpPrincipal</code> parameter.
  *
  * <p>
  * The benefits of using the HTTP utility is that it is fast and allows for
@@ -38,10 +39,8 @@ import aQute.bnd.annotation.ProviderType;
  * The HTTP utility is only generated for remote services.
  * </p>
  *
- * @author Brian Wing Shun Chan
+ * @author Marco Leo
  * @see HistoryServiceSoap
- * @see com.liferay.portal.kernel.security.auth.HttpPrincipal
- * @see com.liferay.commerce.data.integration.manager.service.HistoryServiceUtil
  * @generated
  */
 @ProviderType

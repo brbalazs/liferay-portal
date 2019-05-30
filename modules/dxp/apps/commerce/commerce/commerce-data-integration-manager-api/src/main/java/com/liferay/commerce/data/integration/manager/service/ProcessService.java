@@ -17,7 +17,6 @@ package com.liferay.commerce.data.integration.manager.service;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.data.integration.manager.model.Process;
-
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
@@ -36,50 +35,58 @@ import java.util.List;
  * service are expected to have security checks based on the propagated JAAS
  * credentials because this service can be accessed remotely.
  *
- * @author Brian Wing Shun Chan
+ * @author Marco Leo
  * @see ProcessServiceUtil
- * @see com.liferay.commerce.data.integration.manager.service.base.ProcessServiceBaseImpl
- * @see com.liferay.commerce.data.integration.manager.service.impl.ProcessServiceImpl
  * @generated
  */
 @AccessControlled
 @JSONWebService
-@OSGiBeanProperties(property =  {
-	"json.web.service.context.name=data_integration", "json.web.service.context.path=Process"}, service = ProcessService.class)
+@OSGiBeanProperties(
+	property = {
+		"json.web.service.context.name=data_integration",
+		"json.web.service.context.path=Process"
+	},
+	service = ProcessService.class
+)
 @ProviderType
-@Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
-	PortalException.class, SystemException.class})
+@Transactional(
+	isolation = Isolation.PORTAL,
+	rollbackFor = {PortalException.class, SystemException.class}
+)
 public interface ProcessService extends BaseService {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link ProcessServiceUtil} to access the process remote service. Add custom service methods to {@link com.liferay.commerce.data.integration.manager.service.impl.ProcessServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify or reference this interface directly. Always use {@link ProcessServiceUtil} to access the process remote service. Add custom service methods to <code>com.liferay.commerce.data.integration.manager.service.impl.ProcessServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public Process addProcess(Process process, ServiceContext serviceContext)
 		throws PortalException;
 
 	/**
-	* NOTE FOR DEVELOPERS:
-	*
-	* Never reference this class directly. Always use {@link ProcessServiceUtil} to access the process remote service.
-	*
-	* @throws PortalException
-	*/
-	public Process addProcess(String name, String className,
-		String processType, String version, String contextProperties,
-		long contextPropertiesFileEntryId, long srcArchiveFileEntryId,
-		ServiceContext serviceContext) throws PortalException;
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never reference this class directly. Always use {@link ProcessServiceUtil} to access the process remote service.
+	 *
+	 * @throws PortalException
+	 */
+	public Process addProcess(
+			String name, String className, String processType, String version,
+			String contextProperties, long contextPropertiesFileEntryId,
+			long srcArchiveFileEntryId, ServiceContext serviceContext)
+		throws PortalException;
 
 	public Process create();
 
-	public Process deleteProcess(long userId, long processId,
-		ServiceContext serviceContext) throws PortalException;
+	public Process deleteProcess(
+			long userId, long processId, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
-	*/
+	 * Returns the OSGi service identifier.
+	 *
+	 * @return the OSGi service identifier
+	 */
 	public String getOSGiServiceIdentifier();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -87,18 +94,22 @@ public interface ProcessService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Process> getProcessesByGroupId(long userId, long groupId,
-		int start, int end) throws PortalException;
+	public List<Process> getProcessesByGroupId(
+			long userId, long groupId, int start, int end)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getProcessesByGroupIdCount(long userId, long groupId)
 		throws PortalException;
 
-	public Process updateProcess(long processId, String name, String className,
-		String processType, String version, String contextProperties,
-		long contextPropertiesFileEntryId, long srcArchiveFileEntryId,
-		ServiceContext serviceContext) throws PortalException;
+	public Process updateProcess(
+			long processId, String name, String className, String processType,
+			String version, String contextProperties,
+			long contextPropertiesFileEntryId, long srcArchiveFileEntryId,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 	public Process updateProcess(Process process, ServiceContext serviceContext)
 		throws PortalException;
+
 }

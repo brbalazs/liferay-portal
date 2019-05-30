@@ -25,12 +25,12 @@ import java.util.List;
 /**
  * This class is used by SOAP remote services, specifically {@link com.liferay.commerce.data.integration.manager.service.http.ProcessServiceSoap}.
  *
- * @author Brian Wing Shun Chan
- * @see com.liferay.commerce.data.integration.manager.service.http.ProcessServiceSoap
+ * @author Marco Leo
  * @generated
  */
 @ProviderType
 public class ProcessSoap implements Serializable {
+
 	public static ProcessSoap toSoapModel(Process model) {
 		ProcessSoap soapModel = new ProcessSoap();
 
@@ -46,7 +46,8 @@ public class ProcessSoap implements Serializable {
 		soapModel.setVersion(model.getVersion());
 		soapModel.setClassName(model.getClassName());
 		soapModel.setProcessType(model.getProcessType());
-		soapModel.setContextPropertiesFileEntryId(model.getContextPropertiesFileEntryId());
+		soapModel.setContextPropertiesFileEntryId(
+			model.getContextPropertiesFileEntryId());
 		soapModel.setSrcArchiveFileEntryId(model.getSrcArchiveFileEntryId());
 		soapModel.setContextProperties(model.getContextProperties());
 
@@ -81,7 +82,8 @@ public class ProcessSoap implements Serializable {
 	}
 
 	public static ProcessSoap[] toSoapModels(List<Process> models) {
-		List<ProcessSoap> soapModels = new ArrayList<ProcessSoap>(models.size());
+		List<ProcessSoap> soapModels = new ArrayList<ProcessSoap>(
+			models.size());
 
 		for (Process model : models) {
 			soapModels.add(toSoapModel(model));
@@ -203,6 +205,7 @@ public class ProcessSoap implements Serializable {
 
 	public void setContextPropertiesFileEntryId(
 		long contextPropertiesFileEntryId) {
+
 		_contextPropertiesFileEntryId = contextPropertiesFileEntryId;
 	}
 
@@ -237,4 +240,5 @@ public class ProcessSoap implements Serializable {
 	private long _contextPropertiesFileEntryId;
 	private long _srcArchiveFileEntryId;
 	private String _contextProperties;
+
 }

@@ -23,22 +23,24 @@ import com.liferay.portal.kernel.util.Accessor;
 /**
  * The extended model interface for the ScheduledTask service. Represents a row in the &quot;ScheduledTask&quot; database table, with each column mapped to a property of this class.
  *
- * @author Brian Wing Shun Chan
+ * @author Marco Leo
  * @see ScheduledTaskModel
- * @see com.liferay.commerce.data.integration.manager.model.impl.ScheduledTaskImpl
- * @see com.liferay.commerce.data.integration.manager.model.impl.ScheduledTaskModelImpl
  * @generated
  */
-@ImplementationClassName("com.liferay.commerce.data.integration.manager.model.impl.ScheduledTaskImpl")
+@ImplementationClassName(
+	"com.liferay.commerce.data.integration.manager.model.impl.ScheduledTaskImpl"
+)
 @ProviderType
-public interface ScheduledTask extends ScheduledTaskModel, PersistedModel {
+public interface ScheduledTask extends PersistedModel, ScheduledTaskModel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this interface directly. Add methods to {@link com.liferay.commerce.data.integration.manager.model.impl.ScheduledTaskImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add methods to <code>com.liferay.commerce.data.integration.manager.model.impl.ScheduledTaskImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public static final Accessor<ScheduledTask, Long> SCHEDULED_TASK_ID_ACCESSOR =
-		new Accessor<ScheduledTask, Long>() {
+	public static final Accessor<ScheduledTask, Long>
+		SCHEDULED_TASK_ID_ACCESSOR = new Accessor<ScheduledTask, Long>() {
+
 			@Override
 			public Long get(ScheduledTask scheduledTask) {
 				return scheduledTask.getScheduledTaskId();
@@ -53,5 +55,7 @@ public interface ScheduledTask extends ScheduledTaskModel, PersistedModel {
 			public Class<ScheduledTask> getTypeClass() {
 				return ScheduledTask.class;
 			}
+
 		};
+
 }

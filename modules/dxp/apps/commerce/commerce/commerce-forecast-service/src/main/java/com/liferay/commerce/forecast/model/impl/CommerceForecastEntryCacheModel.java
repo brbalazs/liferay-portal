@@ -17,7 +17,6 @@ package com.liferay.commerce.forecast.model.impl;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.forecast.model.CommerceForecastEntry;
-
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -35,12 +34,12 @@ import java.util.Date;
  * The cache model class for representing CommerceForecastEntry in entity cache.
  *
  * @author Andrea Di Giorgi
- * @see CommerceForecastEntry
  * @generated
  */
 @ProviderType
-public class CommerceForecastEntryCacheModel implements CacheModel<CommerceForecastEntry>,
-	Externalizable {
+public class CommerceForecastEntryCacheModel
+	implements CacheModel<CommerceForecastEntry>, Externalizable {
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -51,9 +50,12 @@ public class CommerceForecastEntryCacheModel implements CacheModel<CommerceForec
 			return false;
 		}
 
-		CommerceForecastEntryCacheModel commerceForecastEntryCacheModel = (CommerceForecastEntryCacheModel)obj;
+		CommerceForecastEntryCacheModel commerceForecastEntryCacheModel =
+			(CommerceForecastEntryCacheModel)obj;
 
-		if (commerceForecastEntryId == commerceForecastEntryCacheModel.commerceForecastEntryId) {
+		if (commerceForecastEntryId ==
+				commerceForecastEntryCacheModel.commerceForecastEntryId) {
+
 			return true;
 		}
 
@@ -100,9 +102,11 @@ public class CommerceForecastEntryCacheModel implements CacheModel<CommerceForec
 
 	@Override
 	public CommerceForecastEntry toEntityModel() {
-		CommerceForecastEntryImpl commerceForecastEntryImpl = new CommerceForecastEntryImpl();
+		CommerceForecastEntryImpl commerceForecastEntryImpl =
+			new CommerceForecastEntryImpl();
 
-		commerceForecastEntryImpl.setCommerceForecastEntryId(commerceForecastEntryId);
+		commerceForecastEntryImpl.setCommerceForecastEntryId(
+			commerceForecastEntryId);
 		commerceForecastEntryImpl.setCompanyId(companyId);
 		commerceForecastEntryImpl.setUserId(userId);
 
@@ -142,6 +146,7 @@ public class CommerceForecastEntryCacheModel implements CacheModel<CommerceForec
 	@Override
 	public void readExternal(ObjectInput objectInput)
 		throws ClassNotFoundException, IOException {
+
 		commerceForecastEntryId = objectInput.readLong();
 
 		companyId = objectInput.readLong();
@@ -164,8 +169,7 @@ public class CommerceForecastEntryCacheModel implements CacheModel<CommerceForec
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput objectOutput)
-		throws IOException {
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(commerceForecastEntryId);
 
 		objectOutput.writeLong(companyId);
@@ -206,4 +210,5 @@ public class CommerceForecastEntryCacheModel implements CacheModel<CommerceForec
 	public long customerId;
 	public long CPInstanceId;
 	public BigDecimal assertivity;
+
 }

@@ -21,7 +21,6 @@ import com.liferay.commerce.forecast.model.CommerceForecastEntry;
 import com.liferay.commerce.forecast.model.impl.CommerceForecastEntryImpl;
 import com.liferay.commerce.forecast.model.impl.CommerceForecastEntryModelImpl;
 import com.liferay.commerce.forecast.service.persistence.CommerceForecastEntryPersistence;
-
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -64,57 +63,33 @@ import java.util.Set;
  * </p>
  *
  * @author Andrea Di Giorgi
- * @see CommerceForecastEntryPersistence
- * @see com.liferay.commerce.forecast.service.persistence.CommerceForecastEntryUtil
  * @generated
  */
 @ProviderType
-public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<CommerceForecastEntry>
+public class CommerceForecastEntryPersistenceImpl
+	extends BasePersistenceImpl<CommerceForecastEntry>
 	implements CommerceForecastEntryPersistence {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Always use {@link CommerceForecastEntryUtil} to access the commerce forecast entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
+	 * Never modify or reference this class directly. Always use <code>CommerceForecastEntryUtil</code> to access the commerce forecast entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static final String FINDER_CLASS_NAME_ENTITY = CommerceForecastEntryImpl.class.getName();
-	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List1";
-	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List2";
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceForecastEntryModelImpl.FINDER_CACHE_ENABLED,
-			CommerceForecastEntryImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL = new FinderPath(CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceForecastEntryModelImpl.FINDER_CACHE_ENABLED,
-			CommerceForecastEntryImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceForecastEntryModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANYID =
-		new FinderPath(CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceForecastEntryModelImpl.FINDER_CACHE_ENABLED,
-			CommerceForecastEntryImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCompanyId",
-			new String[] {
-				Long.class.getName(),
-				
-			Integer.class.getName(), Integer.class.getName(),
-				OrderByComparator.class.getName()
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID =
-		new FinderPath(CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceForecastEntryModelImpl.FINDER_CACHE_ENABLED,
-			CommerceForecastEntryImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCompanyId",
-			new String[] { Long.class.getName() },
-			CommerceForecastEntryModelImpl.COMPANYID_COLUMN_BITMASK |
-			CommerceForecastEntryModelImpl.TIME_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_COMPANYID = new FinderPath(CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceForecastEntryModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompanyId",
-			new String[] { Long.class.getName() });
+	public static final String FINDER_CLASS_NAME_ENTITY =
+		CommerceForecastEntryImpl.class.getName();
+
+	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List1";
+
+	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List2";
+
+	private FinderPath _finderPathWithPaginationFindAll;
+	private FinderPath _finderPathWithoutPaginationFindAll;
+	private FinderPath _finderPathCountAll;
+	private FinderPath _finderPathWithPaginationFindByCompanyId;
+	private FinderPath _finderPathWithoutPaginationFindByCompanyId;
+	private FinderPath _finderPathCountByCompanyId;
 
 	/**
 	 * Returns all the commerce forecast entries where companyId = &#63;.
@@ -124,15 +99,15 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 */
 	@Override
 	public List<CommerceForecastEntry> findByCompanyId(long companyId) {
-		return findByCompanyId(companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			null);
+		return findByCompanyId(
+			companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
 	 * Returns a range of all the commerce forecast entries where companyId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceForecastEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>CommerceForecastEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param companyId the company ID
@@ -141,8 +116,9 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the range of matching commerce forecast entries
 	 */
 	@Override
-	public List<CommerceForecastEntry> findByCompanyId(long companyId,
-		int start, int end) {
+	public List<CommerceForecastEntry> findByCompanyId(
+		long companyId, int start, int end) {
+
 		return findByCompanyId(companyId, start, end, null);
 	}
 
@@ -150,7 +126,7 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * Returns an ordered range of all the commerce forecast entries where companyId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceForecastEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>CommerceForecastEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param companyId the company ID
@@ -160,9 +136,10 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the ordered range of matching commerce forecast entries
 	 */
 	@Override
-	public List<CommerceForecastEntry> findByCompanyId(long companyId,
-		int start, int end,
+	public List<CommerceForecastEntry> findByCompanyId(
+		long companyId, int start, int end,
 		OrderByComparator<CommerceForecastEntry> orderByComparator) {
+
 		return findByCompanyId(companyId, start, end, orderByComparator, true);
 	}
 
@@ -170,7 +147,7 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * Returns an ordered range of all the commerce forecast entries where companyId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceForecastEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>CommerceForecastEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param companyId the company ID
@@ -181,30 +158,34 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the ordered range of matching commerce forecast entries
 	 */
 	@Override
-	public List<CommerceForecastEntry> findByCompanyId(long companyId,
-		int start, int end,
+	public List<CommerceForecastEntry> findByCompanyId(
+		long companyId, int start, int end,
 		OrderByComparator<CommerceForecastEntry> orderByComparator,
 		boolean retrieveFromCache) {
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
+			(orderByComparator == null)) {
+
 			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID;
-			finderArgs = new Object[] { companyId };
+			finderPath = _finderPathWithoutPaginationFindByCompanyId;
+			finderArgs = new Object[] {companyId};
 		}
 		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANYID;
-			finderArgs = new Object[] { companyId, start, end, orderByComparator };
+			finderPath = _finderPathWithPaginationFindByCompanyId;
+			finderArgs = new Object[] {
+				companyId, start, end, orderByComparator
+			};
 		}
 
 		List<CommerceForecastEntry> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<CommerceForecastEntry>)finderCache.getResult(finderPath,
-					finderArgs, this);
+			list = (List<CommerceForecastEntry>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (CommerceForecastEntry commerceForecastEntry : list) {
@@ -221,8 +202,8 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
 				query = new StringBundler(3);
@@ -233,11 +214,10 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else
-			 if (pagination) {
+			else if (pagination) {
 				query.append(CommerceForecastEntryModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -255,16 +235,16 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 				qPos.add(companyId);
 
 				if (!pagination) {
-					list = (List<CommerceForecastEntry>)QueryUtil.list(q,
-							getDialect(), start, end, false);
+					list = (List<CommerceForecastEntry>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<CommerceForecastEntry>)QueryUtil.list(q,
-							getDialect(), start, end);
+					list = (List<CommerceForecastEntry>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -293,11 +273,13 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * @throws NoSuchForecastEntryException if a matching commerce forecast entry could not be found
 	 */
 	@Override
-	public CommerceForecastEntry findByCompanyId_First(long companyId,
-		OrderByComparator<CommerceForecastEntry> orderByComparator)
+	public CommerceForecastEntry findByCompanyId_First(
+			long companyId,
+			OrderByComparator<CommerceForecastEntry> orderByComparator)
 		throws NoSuchForecastEntryException {
-		CommerceForecastEntry commerceForecastEntry = fetchByCompanyId_First(companyId,
-				orderByComparator);
+
+		CommerceForecastEntry commerceForecastEntry = fetchByCompanyId_First(
+			companyId, orderByComparator);
 
 		if (commerceForecastEntry != null) {
 			return commerceForecastEntry;
@@ -323,10 +305,12 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the first matching commerce forecast entry, or <code>null</code> if a matching commerce forecast entry could not be found
 	 */
 	@Override
-	public CommerceForecastEntry fetchByCompanyId_First(long companyId,
+	public CommerceForecastEntry fetchByCompanyId_First(
+		long companyId,
 		OrderByComparator<CommerceForecastEntry> orderByComparator) {
-		List<CommerceForecastEntry> list = findByCompanyId(companyId, 0, 1,
-				orderByComparator);
+
+		List<CommerceForecastEntry> list = findByCompanyId(
+			companyId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -344,11 +328,13 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * @throws NoSuchForecastEntryException if a matching commerce forecast entry could not be found
 	 */
 	@Override
-	public CommerceForecastEntry findByCompanyId_Last(long companyId,
-		OrderByComparator<CommerceForecastEntry> orderByComparator)
+	public CommerceForecastEntry findByCompanyId_Last(
+			long companyId,
+			OrderByComparator<CommerceForecastEntry> orderByComparator)
 		throws NoSuchForecastEntryException {
-		CommerceForecastEntry commerceForecastEntry = fetchByCompanyId_Last(companyId,
-				orderByComparator);
+
+		CommerceForecastEntry commerceForecastEntry = fetchByCompanyId_Last(
+			companyId, orderByComparator);
 
 		if (commerceForecastEntry != null) {
 			return commerceForecastEntry;
@@ -374,16 +360,18 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the last matching commerce forecast entry, or <code>null</code> if a matching commerce forecast entry could not be found
 	 */
 	@Override
-	public CommerceForecastEntry fetchByCompanyId_Last(long companyId,
+	public CommerceForecastEntry fetchByCompanyId_Last(
+		long companyId,
 		OrderByComparator<CommerceForecastEntry> orderByComparator) {
+
 		int count = countByCompanyId(companyId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<CommerceForecastEntry> list = findByCompanyId(companyId,
-				count - 1, count, orderByComparator);
+		List<CommerceForecastEntry> list = findByCompanyId(
+			companyId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -403,10 +391,12 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 */
 	@Override
 	public CommerceForecastEntry[] findByCompanyId_PrevAndNext(
-		long commerceForecastEntryId, long companyId,
-		OrderByComparator<CommerceForecastEntry> orderByComparator)
+			long commerceForecastEntryId, long companyId,
+			OrderByComparator<CommerceForecastEntry> orderByComparator)
 		throws NoSuchForecastEntryException {
-		CommerceForecastEntry commerceForecastEntry = findByPrimaryKey(commerceForecastEntryId);
+
+		CommerceForecastEntry commerceForecastEntry = findByPrimaryKey(
+			commerceForecastEntryId);
 
 		Session session = null;
 
@@ -415,13 +405,15 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 
 			CommerceForecastEntry[] array = new CommerceForecastEntryImpl[3];
 
-			array[0] = getByCompanyId_PrevAndNext(session,
-					commerceForecastEntry, companyId, orderByComparator, true);
+			array[0] = getByCompanyId_PrevAndNext(
+				session, commerceForecastEntry, companyId, orderByComparator,
+				true);
 
 			array[1] = commerceForecastEntry;
 
-			array[2] = getByCompanyId_PrevAndNext(session,
-					commerceForecastEntry, companyId, orderByComparator, false);
+			array[2] = getByCompanyId_PrevAndNext(
+				session, commerceForecastEntry, companyId, orderByComparator,
+				false);
 
 			return array;
 		}
@@ -438,11 +430,12 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 		long companyId,
 		OrderByComparator<CommerceForecastEntry> orderByComparator,
 		boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(4 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -454,7 +447,8 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -524,10 +518,11 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(commerceForecastEntry);
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						commerceForecastEntry)) {
 
-			for (Object value : values) {
-				qPos.add(value);
+				qPos.add(orderByConditionValue);
 			}
 		}
 
@@ -548,8 +543,10 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 */
 	@Override
 	public void removeByCompanyId(long companyId) {
-		for (CommerceForecastEntry commerceForecastEntry : findByCompanyId(
-				companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+		for (CommerceForecastEntry commerceForecastEntry :
+				findByCompanyId(
+					companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+
 			remove(commerceForecastEntry);
 		}
 	}
@@ -562,9 +559,9 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 */
 	@Override
 	public int countByCompanyId(long companyId) {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_COMPANYID;
+		FinderPath finderPath = _finderPathCountByCompanyId;
 
-		Object[] finderArgs = new Object[] { companyId };
+		Object[] finderArgs = new Object[] {companyId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -605,32 +602,14 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 = "commerceForecastEntry.companyId = ?";
-	public static final FinderPath FINDER_PATH_FETCH_BY_C_P_T_C_C = new FinderPath(CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceForecastEntryModelImpl.FINDER_CACHE_ENABLED,
-			CommerceForecastEntryImpl.class, FINDER_CLASS_NAME_ENTITY,
-			"fetchByC_P_T_C_C",
-			new String[] {
-				Long.class.getName(), Integer.class.getName(),
-				Integer.class.getName(), Long.class.getName(),
-				Long.class.getName()
-			},
-			CommerceForecastEntryModelImpl.COMPANYID_COLUMN_BITMASK |
-			CommerceForecastEntryModelImpl.PERIOD_COLUMN_BITMASK |
-			CommerceForecastEntryModelImpl.TARGET_COLUMN_BITMASK |
-			CommerceForecastEntryModelImpl.CUSTOMERID_COLUMN_BITMASK |
-			CommerceForecastEntryModelImpl.CPINSTANCEID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_C_P_T_C_C = new FinderPath(CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceForecastEntryModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_P_T_C_C",
-			new String[] {
-				Long.class.getName(), Integer.class.getName(),
-				Integer.class.getName(), Long.class.getName(),
-				Long.class.getName()
-			});
+	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 =
+		"commerceForecastEntry.companyId = ?";
+
+	private FinderPath _finderPathFetchByC_P_T_C_C;
+	private FinderPath _finderPathCountByC_P_T_C_C;
 
 	/**
-	 * Returns the commerce forecast entry where companyId = &#63; and period = &#63; and target = &#63; and customerId = &#63; and CPInstanceId = &#63; or throws a {@link NoSuchForecastEntryException} if it could not be found.
+	 * Returns the commerce forecast entry where companyId = &#63; and period = &#63; and target = &#63; and customerId = &#63; and CPInstanceId = &#63; or throws a <code>NoSuchForecastEntryException</code> if it could not be found.
 	 *
 	 * @param companyId the company ID
 	 * @param period the period
@@ -641,11 +620,13 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * @throws NoSuchForecastEntryException if a matching commerce forecast entry could not be found
 	 */
 	@Override
-	public CommerceForecastEntry findByC_P_T_C_C(long companyId, int period,
-		int target, long customerId, long CPInstanceId)
+	public CommerceForecastEntry findByC_P_T_C_C(
+			long companyId, int period, int target, long customerId,
+			long CPInstanceId)
 		throws NoSuchForecastEntryException {
-		CommerceForecastEntry commerceForecastEntry = fetchByC_P_T_C_C(companyId,
-				period, target, customerId, CPInstanceId);
+
+		CommerceForecastEntry commerceForecastEntry = fetchByC_P_T_C_C(
+			companyId, period, target, customerId, CPInstanceId);
 
 		if (commerceForecastEntry == null) {
 			StringBundler msg = new StringBundler(12);
@@ -690,10 +671,12 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the matching commerce forecast entry, or <code>null</code> if a matching commerce forecast entry could not be found
 	 */
 	@Override
-	public CommerceForecastEntry fetchByC_P_T_C_C(long companyId, int period,
-		int target, long customerId, long CPInstanceId) {
-		return fetchByC_P_T_C_C(companyId, period, target, customerId,
-			CPInstanceId, true);
+	public CommerceForecastEntry fetchByC_P_T_C_C(
+		long companyId, int period, int target, long customerId,
+		long CPInstanceId) {
+
+		return fetchByC_P_T_C_C(
+			companyId, period, target, customerId, CPInstanceId, true);
 	}
 
 	/**
@@ -708,28 +691,31 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the matching commerce forecast entry, or <code>null</code> if a matching commerce forecast entry could not be found
 	 */
 	@Override
-	public CommerceForecastEntry fetchByC_P_T_C_C(long companyId, int period,
-		int target, long customerId, long CPInstanceId,
-		boolean retrieveFromCache) {
+	public CommerceForecastEntry fetchByC_P_T_C_C(
+		long companyId, int period, int target, long customerId,
+		long CPInstanceId, boolean retrieveFromCache) {
+
 		Object[] finderArgs = new Object[] {
-				companyId, period, target, customerId, CPInstanceId
-			};
+			companyId, period, target, customerId, CPInstanceId
+		};
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = finderCache.getResult(FINDER_PATH_FETCH_BY_C_P_T_C_C,
-					finderArgs, this);
+			result = finderCache.getResult(
+				_finderPathFetchByC_P_T_C_C, finderArgs, this);
 		}
 
 		if (result instanceof CommerceForecastEntry) {
-			CommerceForecastEntry commerceForecastEntry = (CommerceForecastEntry)result;
+			CommerceForecastEntry commerceForecastEntry =
+				(CommerceForecastEntry)result;
 
 			if ((companyId != commerceForecastEntry.getCompanyId()) ||
-					(period != commerceForecastEntry.getPeriod()) ||
-					(target != commerceForecastEntry.getTarget()) ||
-					(customerId != commerceForecastEntry.getCustomerId()) ||
-					(CPInstanceId != commerceForecastEntry.getCPInstanceId())) {
+				(period != commerceForecastEntry.getPeriod()) ||
+				(target != commerceForecastEntry.getTarget()) ||
+				(customerId != commerceForecastEntry.getCustomerId()) ||
+				(CPInstanceId != commerceForecastEntry.getCPInstanceId())) {
+
 				result = null;
 			}
 		}
@@ -773,8 +759,8 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 				List<CommerceForecastEntry> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(FINDER_PATH_FETCH_BY_C_P_T_C_C,
-						finderArgs, list);
+					finderCache.putResult(
+						_finderPathFetchByC_P_T_C_C, finderArgs, list);
 				}
 				else {
 					CommerceForecastEntry commerceForecastEntry = list.get(0);
@@ -785,8 +771,8 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(FINDER_PATH_FETCH_BY_C_P_T_C_C,
-					finderArgs);
+				finderCache.removeResult(
+					_finderPathFetchByC_P_T_C_C, finderArgs);
 
 				throw processException(e);
 			}
@@ -814,11 +800,13 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the commerce forecast entry that was removed
 	 */
 	@Override
-	public CommerceForecastEntry removeByC_P_T_C_C(long companyId, int period,
-		int target, long customerId, long CPInstanceId)
+	public CommerceForecastEntry removeByC_P_T_C_C(
+			long companyId, int period, int target, long customerId,
+			long CPInstanceId)
 		throws NoSuchForecastEntryException {
-		CommerceForecastEntry commerceForecastEntry = findByC_P_T_C_C(companyId,
-				period, target, customerId, CPInstanceId);
+
+		CommerceForecastEntry commerceForecastEntry = findByC_P_T_C_C(
+			companyId, period, target, customerId, CPInstanceId);
 
 		return remove(commerceForecastEntry);
 	}
@@ -834,13 +822,15 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the number of matching commerce forecast entries
 	 */
 	@Override
-	public int countByC_P_T_C_C(long companyId, int period, int target,
-		long customerId, long CPInstanceId) {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_P_T_C_C;
+	public int countByC_P_T_C_C(
+		long companyId, int period, int target, long customerId,
+		long CPInstanceId) {
+
+		FinderPath finderPath = _finderPathCountByC_P_T_C_C;
 
 		Object[] finderArgs = new Object[] {
-				companyId, period, target, customerId, CPInstanceId
-			};
+			companyId, period, target, customerId, CPInstanceId
+		};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -897,24 +887,33 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_C_P_T_C_C_COMPANYID_2 = "commerceForecastEntry.companyId = ? AND ";
-	private static final String _FINDER_COLUMN_C_P_T_C_C_PERIOD_2 = "commerceForecastEntry.period = ? AND ";
-	private static final String _FINDER_COLUMN_C_P_T_C_C_TARGET_2 = "commerceForecastEntry.target = ? AND ";
-	private static final String _FINDER_COLUMN_C_P_T_C_C_CUSTOMERID_2 = "commerceForecastEntry.customerId = ? AND ";
-	private static final String _FINDER_COLUMN_C_P_T_C_C_CPINSTANCEID_2 = "commerceForecastEntry.CPInstanceId = ?";
+	private static final String _FINDER_COLUMN_C_P_T_C_C_COMPANYID_2 =
+		"commerceForecastEntry.companyId = ? AND ";
+
+	private static final String _FINDER_COLUMN_C_P_T_C_C_PERIOD_2 =
+		"commerceForecastEntry.period = ? AND ";
+
+	private static final String _FINDER_COLUMN_C_P_T_C_C_TARGET_2 =
+		"commerceForecastEntry.target = ? AND ";
+
+	private static final String _FINDER_COLUMN_C_P_T_C_C_CUSTOMERID_2 =
+		"commerceForecastEntry.customerId = ? AND ";
+
+	private static final String _FINDER_COLUMN_C_P_T_C_C_CPINSTANCEID_2 =
+		"commerceForecastEntry.CPInstanceId = ?";
 
 	public CommerceForecastEntryPersistenceImpl() {
 		setModelClass(CommerceForecastEntry.class);
 
+		Map<String, String> dbColumnNames = new HashMap<String, String>();
+
+		dbColumnNames.put("time", "time_");
+
 		try {
 			Field field = BasePersistenceImpl.class.getDeclaredField(
-					"_dbColumnNames");
+				"_dbColumnNames");
 
 			field.setAccessible(true);
-
-			Map<String, String> dbColumnNames = new HashMap<String, String>();
-
-			dbColumnNames.put("time", "time_");
 
 			field.set(this, dbColumnNames);
 		}
@@ -932,18 +931,21 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 */
 	@Override
 	public void cacheResult(CommerceForecastEntry commerceForecastEntry) {
-		entityCache.putResult(CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.putResult(
+			CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceForecastEntryImpl.class,
 			commerceForecastEntry.getPrimaryKey(), commerceForecastEntry);
 
-		finderCache.putResult(FINDER_PATH_FETCH_BY_C_P_T_C_C,
+		finderCache.putResult(
+			_finderPathFetchByC_P_T_C_C,
 			new Object[] {
 				commerceForecastEntry.getCompanyId(),
 				commerceForecastEntry.getPeriod(),
 				commerceForecastEntry.getTarget(),
 				commerceForecastEntry.getCustomerId(),
 				commerceForecastEntry.getCPInstanceId()
-			}, commerceForecastEntry);
+			},
+			commerceForecastEntry);
 
 		commerceForecastEntry.resetOriginalValues();
 	}
@@ -954,12 +956,17 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * @param commerceForecastEntries the commerce forecast entries
 	 */
 	@Override
-	public void cacheResult(List<CommerceForecastEntry> commerceForecastEntries) {
-		for (CommerceForecastEntry commerceForecastEntry : commerceForecastEntries) {
+	public void cacheResult(
+		List<CommerceForecastEntry> commerceForecastEntries) {
+
+		for (CommerceForecastEntry commerceForecastEntry :
+				commerceForecastEntries) {
+
 			if (entityCache.getResult(
-						CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
-						CommerceForecastEntryImpl.class,
-						commerceForecastEntry.getPrimaryKey()) == null) {
+					CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
+					CommerceForecastEntryImpl.class,
+					commerceForecastEntry.getPrimaryKey()) == null) {
+
 				cacheResult(commerceForecastEntry);
 			}
 			else {
@@ -972,7 +979,7 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * Clears the cache for all commerce forecast entries.
 	 *
 	 * <p>
-	 * The {@link EntityCache} and {@link FinderCache} are both cleared by this method.
+	 * The <code>EntityCache</code> and <code>FinderCache</code> are both cleared by this method.
 	 * </p>
 	 */
 	@Override
@@ -988,40 +995,67 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * Clears the cache for the commerce forecast entry.
 	 *
 	 * <p>
-	 * The {@link EntityCache} and {@link FinderCache} are both cleared by this method.
+	 * The <code>EntityCache</code> and <code>FinderCache</code> are both cleared by this method.
 	 * </p>
 	 */
 	@Override
 	public void clearCache(CommerceForecastEntry commerceForecastEntry) {
-		entityCache.removeResult(CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.removeResult(
+			CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceForecastEntryImpl.class,
 			commerceForecastEntry.getPrimaryKey());
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
-		clearUniqueFindersCache((CommerceForecastEntryModelImpl)commerceForecastEntry,
-			true);
+		clearUniqueFindersCache(
+			(CommerceForecastEntryModelImpl)commerceForecastEntry, true);
 	}
 
 	@Override
-	public void clearCache(List<CommerceForecastEntry> commerceForecastEntries) {
+	public void clearCache(
+		List<CommerceForecastEntry> commerceForecastEntries) {
+
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
-		for (CommerceForecastEntry commerceForecastEntry : commerceForecastEntries) {
-			entityCache.removeResult(CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
+		for (CommerceForecastEntry commerceForecastEntry :
+				commerceForecastEntries) {
+
+			entityCache.removeResult(
+				CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
 				CommerceForecastEntryImpl.class,
 				commerceForecastEntry.getPrimaryKey());
 
-			clearUniqueFindersCache((CommerceForecastEntryModelImpl)commerceForecastEntry,
-				true);
+			clearUniqueFindersCache(
+				(CommerceForecastEntryModelImpl)commerceForecastEntry, true);
 		}
 	}
 
 	protected void cacheUniqueFindersCache(
 		CommerceForecastEntryModelImpl commerceForecastEntryModelImpl) {
+
 		Object[] args = new Object[] {
+			commerceForecastEntryModelImpl.getCompanyId(),
+			commerceForecastEntryModelImpl.getPeriod(),
+			commerceForecastEntryModelImpl.getTarget(),
+			commerceForecastEntryModelImpl.getCustomerId(),
+			commerceForecastEntryModelImpl.getCPInstanceId()
+		};
+
+		finderCache.putResult(
+			_finderPathCountByC_P_T_C_C, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByC_P_T_C_C, args, commerceForecastEntryModelImpl,
+			false);
+	}
+
+	protected void clearUniqueFindersCache(
+		CommerceForecastEntryModelImpl commerceForecastEntryModelImpl,
+		boolean clearCurrent) {
+
+		if (clearCurrent) {
+			Object[] args = new Object[] {
 				commerceForecastEntryModelImpl.getCompanyId(),
 				commerceForecastEntryModelImpl.getPeriod(),
 				commerceForecastEntryModelImpl.getTarget(),
@@ -1029,40 +1063,23 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 				commerceForecastEntryModelImpl.getCPInstanceId()
 			};
 
-		finderCache.putResult(FINDER_PATH_COUNT_BY_C_P_T_C_C, args,
-			Long.valueOf(1), false);
-		finderCache.putResult(FINDER_PATH_FETCH_BY_C_P_T_C_C, args,
-			commerceForecastEntryModelImpl, false);
-	}
-
-	protected void clearUniqueFindersCache(
-		CommerceForecastEntryModelImpl commerceForecastEntryModelImpl,
-		boolean clearCurrent) {
-		if (clearCurrent) {
-			Object[] args = new Object[] {
-					commerceForecastEntryModelImpl.getCompanyId(),
-					commerceForecastEntryModelImpl.getPeriod(),
-					commerceForecastEntryModelImpl.getTarget(),
-					commerceForecastEntryModelImpl.getCustomerId(),
-					commerceForecastEntryModelImpl.getCPInstanceId()
-				};
-
-			finderCache.removeResult(FINDER_PATH_COUNT_BY_C_P_T_C_C, args);
-			finderCache.removeResult(FINDER_PATH_FETCH_BY_C_P_T_C_C, args);
+			finderCache.removeResult(_finderPathCountByC_P_T_C_C, args);
+			finderCache.removeResult(_finderPathFetchByC_P_T_C_C, args);
 		}
 
 		if ((commerceForecastEntryModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_C_P_T_C_C.getColumnBitmask()) != 0) {
-			Object[] args = new Object[] {
-					commerceForecastEntryModelImpl.getOriginalCompanyId(),
-					commerceForecastEntryModelImpl.getOriginalPeriod(),
-					commerceForecastEntryModelImpl.getOriginalTarget(),
-					commerceForecastEntryModelImpl.getOriginalCustomerId(),
-					commerceForecastEntryModelImpl.getOriginalCPInstanceId()
-				};
+			 _finderPathFetchByC_P_T_C_C.getColumnBitmask()) != 0) {
 
-			finderCache.removeResult(FINDER_PATH_COUNT_BY_C_P_T_C_C, args);
-			finderCache.removeResult(FINDER_PATH_FETCH_BY_C_P_T_C_C, args);
+			Object[] args = new Object[] {
+				commerceForecastEntryModelImpl.getOriginalCompanyId(),
+				commerceForecastEntryModelImpl.getOriginalPeriod(),
+				commerceForecastEntryModelImpl.getOriginalTarget(),
+				commerceForecastEntryModelImpl.getOriginalCustomerId(),
+				commerceForecastEntryModelImpl.getOriginalCPInstanceId()
+			};
+
+			finderCache.removeResult(_finderPathCountByC_P_T_C_C, args);
+			finderCache.removeResult(_finderPathFetchByC_P_T_C_C, args);
 		}
 	}
 
@@ -1074,7 +1091,8 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 */
 	@Override
 	public CommerceForecastEntry create(long commerceForecastEntryId) {
-		CommerceForecastEntry commerceForecastEntry = new CommerceForecastEntryImpl();
+		CommerceForecastEntry commerceForecastEntry =
+			new CommerceForecastEntryImpl();
 
 		commerceForecastEntry.setNew(true);
 		commerceForecastEntry.setPrimaryKey(commerceForecastEntryId);
@@ -1094,6 +1112,7 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	@Override
 	public CommerceForecastEntry remove(long commerceForecastEntryId)
 		throws NoSuchForecastEntryException {
+
 		return remove((Serializable)commerceForecastEntryId);
 	}
 
@@ -1107,21 +1126,23 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	@Override
 	public CommerceForecastEntry remove(Serializable primaryKey)
 		throws NoSuchForecastEntryException {
+
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			CommerceForecastEntry commerceForecastEntry = (CommerceForecastEntry)session.get(CommerceForecastEntryImpl.class,
-					primaryKey);
+			CommerceForecastEntry commerceForecastEntry =
+				(CommerceForecastEntry)session.get(
+					CommerceForecastEntryImpl.class, primaryKey);
 
 			if (commerceForecastEntry == null) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
-				throw new NoSuchForecastEntryException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					primaryKey);
+				throw new NoSuchForecastEntryException(
+					_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			return remove(commerceForecastEntry);
@@ -1140,14 +1161,16 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	@Override
 	protected CommerceForecastEntry removeImpl(
 		CommerceForecastEntry commerceForecastEntry) {
+
 		Session session = null;
 
 		try {
 			session = openSession();
 
 			if (!session.contains(commerceForecastEntry)) {
-				commerceForecastEntry = (CommerceForecastEntry)session.get(CommerceForecastEntryImpl.class,
-						commerceForecastEntry.getPrimaryKeyObj());
+				commerceForecastEntry = (CommerceForecastEntry)session.get(
+					CommerceForecastEntryImpl.class,
+					commerceForecastEntry.getPrimaryKeyObj());
 			}
 
 			if (commerceForecastEntry != null) {
@@ -1171,27 +1194,33 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	@Override
 	public CommerceForecastEntry updateImpl(
 		CommerceForecastEntry commerceForecastEntry) {
+
 		boolean isNew = commerceForecastEntry.isNew();
 
-		if (!(commerceForecastEntry instanceof CommerceForecastEntryModelImpl)) {
+		if (!(commerceForecastEntry instanceof
+				CommerceForecastEntryModelImpl)) {
+
 			InvocationHandler invocationHandler = null;
 
 			if (ProxyUtil.isProxyClass(commerceForecastEntry.getClass())) {
-				invocationHandler = ProxyUtil.getInvocationHandler(commerceForecastEntry);
+				invocationHandler = ProxyUtil.getInvocationHandler(
+					commerceForecastEntry);
 
 				throw new IllegalArgumentException(
 					"Implement ModelWrapper in commerceForecastEntry proxy " +
-					invocationHandler.getClass());
+						invocationHandler.getClass());
 			}
 
 			throw new IllegalArgumentException(
 				"Implement ModelWrapper in custom CommerceForecastEntry implementation " +
-				commerceForecastEntry.getClass());
+					commerceForecastEntry.getClass());
 		}
 
-		CommerceForecastEntryModelImpl commerceForecastEntryModelImpl = (CommerceForecastEntryModelImpl)commerceForecastEntry;
+		CommerceForecastEntryModelImpl commerceForecastEntryModelImpl =
+			(CommerceForecastEntryModelImpl)commerceForecastEntry;
 
-		ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
 
 		Date now = new Date();
 
@@ -1200,8 +1229,8 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 				commerceForecastEntry.setCreateDate(now);
 			}
 			else {
-				commerceForecastEntry.setCreateDate(serviceContext.getCreateDate(
-						now));
+				commerceForecastEntry.setCreateDate(
+					serviceContext.getCreateDate(now));
 			}
 		}
 
@@ -1210,8 +1239,8 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 				commerceForecastEntry.setModifiedDate(now);
 			}
 			else {
-				commerceForecastEntry.setModifiedDate(serviceContext.getModifiedDate(
-						now));
+				commerceForecastEntry.setModifiedDate(
+					serviceContext.getModifiedDate(now));
 			}
 		}
 
@@ -1226,7 +1255,8 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 				commerceForecastEntry.setNew(false);
 			}
 			else {
-				commerceForecastEntry = (CommerceForecastEntry)session.merge(commerceForecastEntry);
+				commerceForecastEntry = (CommerceForecastEntry)session.merge(
+					commerceForecastEntry);
 			}
 		}
 		catch (Exception e) {
@@ -1241,45 +1271,47 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 		if (!CommerceForecastEntryModelImpl.COLUMN_BITMASK_ENABLED) {
 			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
-		else
-		 if (isNew) {
+		else if (isNew) {
 			Object[] args = new Object[] {
+				commerceForecastEntryModelImpl.getCompanyId()
+			};
+
+			finderCache.removeResult(_finderPathCountByCompanyId, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByCompanyId, args);
+
+			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
+		}
+		else {
+			if ((commerceForecastEntryModelImpl.getColumnBitmask() &
+				 _finderPathWithoutPaginationFindByCompanyId.
+					 getColumnBitmask()) != 0) {
+
+				Object[] args = new Object[] {
+					commerceForecastEntryModelImpl.getOriginalCompanyId()
+				};
+
+				finderCache.removeResult(_finderPathCountByCompanyId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByCompanyId, args);
+
+				args = new Object[] {
 					commerceForecastEntryModelImpl.getCompanyId()
 				};
 
-			finderCache.removeResult(FINDER_PATH_COUNT_BY_COMPANYID, args);
-			finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
-				args);
-
-			finderCache.removeResult(FINDER_PATH_COUNT_ALL, FINDER_ARGS_EMPTY);
-			finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL,
-				FINDER_ARGS_EMPTY);
-		}
-
-		else {
-			if ((commerceForecastEntryModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						commerceForecastEntryModelImpl.getOriginalCompanyId()
-					};
-
-				finderCache.removeResult(FINDER_PATH_COUNT_BY_COMPANYID, args);
-				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
-					args);
-
-				args = new Object[] {
-						commerceForecastEntryModelImpl.getCompanyId()
-					};
-
-				finderCache.removeResult(FINDER_PATH_COUNT_BY_COMPANYID, args);
-				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
-					args);
+				finderCache.removeResult(_finderPathCountByCompanyId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByCompanyId, args);
 			}
 		}
 
-		entityCache.putResult(CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.putResult(
+			CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceForecastEntryImpl.class,
-			commerceForecastEntry.getPrimaryKey(), commerceForecastEntry, false);
+			commerceForecastEntry.getPrimaryKey(), commerceForecastEntry,
+			false);
 
 		clearUniqueFindersCache(commerceForecastEntryModelImpl, false);
 		cacheUniqueFindersCache(commerceForecastEntryModelImpl);
@@ -1290,7 +1322,7 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	}
 
 	/**
-	 * Returns the commerce forecast entry with the primary key or throws a {@link com.liferay.portal.kernel.exception.NoSuchModelException} if it could not be found.
+	 * Returns the commerce forecast entry with the primary key or throws a <code>com.liferay.portal.kernel.exception.NoSuchModelException</code> if it could not be found.
 	 *
 	 * @param primaryKey the primary key of the commerce forecast entry
 	 * @return the commerce forecast entry
@@ -1299,22 +1331,24 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	@Override
 	public CommerceForecastEntry findByPrimaryKey(Serializable primaryKey)
 		throws NoSuchForecastEntryException {
-		CommerceForecastEntry commerceForecastEntry = fetchByPrimaryKey(primaryKey);
+
+		CommerceForecastEntry commerceForecastEntry = fetchByPrimaryKey(
+			primaryKey);
 
 		if (commerceForecastEntry == null) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
-			throw new NoSuchForecastEntryException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				primaryKey);
+			throw new NoSuchForecastEntryException(
+				_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 		}
 
 		return commerceForecastEntry;
 	}
 
 	/**
-	 * Returns the commerce forecast entry with the primary key or throws a {@link NoSuchForecastEntryException} if it could not be found.
+	 * Returns the commerce forecast entry with the primary key or throws a <code>NoSuchForecastEntryException</code> if it could not be found.
 	 *
 	 * @param commerceForecastEntryId the primary key of the commerce forecast entry
 	 * @return the commerce forecast entry
@@ -1323,6 +1357,7 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	@Override
 	public CommerceForecastEntry findByPrimaryKey(long commerceForecastEntryId)
 		throws NoSuchForecastEntryException {
+
 		return findByPrimaryKey((Serializable)commerceForecastEntryId);
 	}
 
@@ -1334,14 +1369,16 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 */
 	@Override
 	public CommerceForecastEntry fetchByPrimaryKey(Serializable primaryKey) {
-		Serializable serializable = entityCache.getResult(CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
-				CommerceForecastEntryImpl.class, primaryKey);
+		Serializable serializable = entityCache.getResult(
+			CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceForecastEntryImpl.class, primaryKey);
 
 		if (serializable == nullModel) {
 			return null;
 		}
 
-		CommerceForecastEntry commerceForecastEntry = (CommerceForecastEntry)serializable;
+		CommerceForecastEntry commerceForecastEntry =
+			(CommerceForecastEntry)serializable;
 
 		if (commerceForecastEntry == null) {
 			Session session = null;
@@ -1349,19 +1386,21 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 			try {
 				session = openSession();
 
-				commerceForecastEntry = (CommerceForecastEntry)session.get(CommerceForecastEntryImpl.class,
-						primaryKey);
+				commerceForecastEntry = (CommerceForecastEntry)session.get(
+					CommerceForecastEntryImpl.class, primaryKey);
 
 				if (commerceForecastEntry != null) {
 					cacheResult(commerceForecastEntry);
 				}
 				else {
-					entityCache.putResult(CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
+					entityCache.putResult(
+						CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
 						CommerceForecastEntryImpl.class, primaryKey, nullModel);
 				}
 			}
 			catch (Exception e) {
-				entityCache.removeResult(CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.removeResult(
+					CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
 					CommerceForecastEntryImpl.class, primaryKey);
 
 				throw processException(e);
@@ -1381,25 +1420,30 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the commerce forecast entry, or <code>null</code> if a commerce forecast entry with the primary key could not be found
 	 */
 	@Override
-	public CommerceForecastEntry fetchByPrimaryKey(long commerceForecastEntryId) {
+	public CommerceForecastEntry fetchByPrimaryKey(
+		long commerceForecastEntryId) {
+
 		return fetchByPrimaryKey((Serializable)commerceForecastEntryId);
 	}
 
 	@Override
 	public Map<Serializable, CommerceForecastEntry> fetchByPrimaryKeys(
 		Set<Serializable> primaryKeys) {
+
 		if (primaryKeys.isEmpty()) {
 			return Collections.emptyMap();
 		}
 
-		Map<Serializable, CommerceForecastEntry> map = new HashMap<Serializable, CommerceForecastEntry>();
+		Map<Serializable, CommerceForecastEntry> map =
+			new HashMap<Serializable, CommerceForecastEntry>();
 
 		if (primaryKeys.size() == 1) {
 			Iterator<Serializable> iterator = primaryKeys.iterator();
 
 			Serializable primaryKey = iterator.next();
 
-			CommerceForecastEntry commerceForecastEntry = fetchByPrimaryKey(primaryKey);
+			CommerceForecastEntry commerceForecastEntry = fetchByPrimaryKey(
+				primaryKey);
 
 			if (commerceForecastEntry != null) {
 				map.put(primaryKey, commerceForecastEntry);
@@ -1411,8 +1455,9 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 		Set<Serializable> uncachedPrimaryKeys = null;
 
 		for (Serializable primaryKey : primaryKeys) {
-			Serializable serializable = entityCache.getResult(CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
-					CommerceForecastEntryImpl.class, primaryKey);
+			Serializable serializable = entityCache.getResult(
+				CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
+				CommerceForecastEntryImpl.class, primaryKey);
 
 			if (serializable != nullModel) {
 				if (serializable == null) {
@@ -1432,8 +1477,8 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 			return map;
 		}
 
-		StringBundler query = new StringBundler((uncachedPrimaryKeys.size() * 2) +
-				1);
+		StringBundler query = new StringBundler(
+			uncachedPrimaryKeys.size() * 2 + 1);
 
 		query.append(_SQL_SELECT_COMMERCEFORECASTENTRY_WHERE_PKS_IN);
 
@@ -1456,17 +1501,22 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 
 			Query q = session.createQuery(sql);
 
-			for (CommerceForecastEntry commerceForecastEntry : (List<CommerceForecastEntry>)q.list()) {
-				map.put(commerceForecastEntry.getPrimaryKeyObj(),
+			for (CommerceForecastEntry commerceForecastEntry :
+					(List<CommerceForecastEntry>)q.list()) {
+
+				map.put(
+					commerceForecastEntry.getPrimaryKeyObj(),
 					commerceForecastEntry);
 
 				cacheResult(commerceForecastEntry);
 
-				uncachedPrimaryKeys.remove(commerceForecastEntry.getPrimaryKeyObj());
+				uncachedPrimaryKeys.remove(
+					commerceForecastEntry.getPrimaryKeyObj());
 			}
 
 			for (Serializable primaryKey : uncachedPrimaryKeys) {
-				entityCache.putResult(CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.putResult(
+					CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
 					CommerceForecastEntryImpl.class, primaryKey, nullModel);
 			}
 		}
@@ -1494,7 +1544,7 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * Returns a range of all the commerce forecast entries.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceForecastEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>CommerceForecastEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce forecast entries
@@ -1510,7 +1560,7 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * Returns an ordered range of all the commerce forecast entries.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceForecastEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>CommerceForecastEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce forecast entries
@@ -1519,8 +1569,10 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the ordered range of commerce forecast entries
 	 */
 	@Override
-	public List<CommerceForecastEntry> findAll(int start, int end,
+	public List<CommerceForecastEntry> findAll(
+		int start, int end,
 		OrderByComparator<CommerceForecastEntry> orderByComparator) {
+
 		return findAll(start, end, orderByComparator, true);
 	}
 
@@ -1528,7 +1580,7 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * Returns an ordered range of all the commerce forecast entries.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceForecastEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>CommerceForecastEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce forecast entries
@@ -1538,29 +1590,32 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the ordered range of commerce forecast entries
 	 */
 	@Override
-	public List<CommerceForecastEntry> findAll(int start, int end,
+	public List<CommerceForecastEntry> findAll(
+		int start, int end,
 		OrderByComparator<CommerceForecastEntry> orderByComparator,
 		boolean retrieveFromCache) {
+
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
+			(orderByComparator == null)) {
+
 			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL;
+			finderPath = _finderPathWithoutPaginationFindAll;
 			finderArgs = FINDER_ARGS_EMPTY;
 		}
 		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_ALL;
-			finderArgs = new Object[] { start, end, orderByComparator };
+			finderPath = _finderPathWithPaginationFindAll;
+			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<CommerceForecastEntry> list = null;
 
 		if (retrieveFromCache) {
-			list = (List<CommerceForecastEntry>)finderCache.getResult(finderPath,
-					finderArgs, this);
+			list = (List<CommerceForecastEntry>)finderCache.getResult(
+				finderPath, finderArgs, this);
 		}
 
 		if (list == null) {
@@ -1568,13 +1623,13 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 			String sql = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(2 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					2 + (orderByComparator.getOrderByFields().length * 2));
 
 				query.append(_SQL_SELECT_COMMERCEFORECASTENTRY);
 
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
 				sql = query.toString();
 			}
@@ -1582,7 +1637,8 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 				sql = _SQL_SELECT_COMMERCEFORECASTENTRY;
 
 				if (pagination) {
-					sql = sql.concat(CommerceForecastEntryModelImpl.ORDER_BY_JPQL);
+					sql = sql.concat(
+						CommerceForecastEntryModelImpl.ORDER_BY_JPQL);
 				}
 			}
 
@@ -1594,16 +1650,16 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 				Query q = session.createQuery(sql);
 
 				if (!pagination) {
-					list = (List<CommerceForecastEntry>)QueryUtil.list(q,
-							getDialect(), start, end, false);
+					list = (List<CommerceForecastEntry>)QueryUtil.list(
+						q, getDialect(), start, end, false);
 
 					Collections.sort(list);
 
 					list = Collections.unmodifiableList(list);
 				}
 				else {
-					list = (List<CommerceForecastEntry>)QueryUtil.list(q,
-							getDialect(), start, end);
+					list = (List<CommerceForecastEntry>)QueryUtil.list(
+						q, getDialect(), start, end);
 				}
 
 				cacheResult(list);
@@ -1641,8 +1697,8 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 */
 	@Override
 	public int countAll() {
-		Long count = (Long)finderCache.getResult(FINDER_PATH_COUNT_ALL,
-				FINDER_ARGS_EMPTY, this);
+		Long count = (Long)finderCache.getResult(
+			_finderPathCountAll, FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1654,12 +1710,12 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 
 				count = (Long)q.uniqueResult();
 
-				finderCache.putResult(FINDER_PATH_COUNT_ALL, FINDER_ARGS_EMPTY,
-					count);
+				finderCache.putResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
 			catch (Exception e) {
-				finderCache.removeResult(FINDER_PATH_COUNT_ALL,
-					FINDER_ARGS_EMPTY);
+				finderCache.removeResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY);
 
 				throw processException(e);
 			}
@@ -1685,6 +1741,75 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 	 * Initializes the commerce forecast entry persistence.
 	 */
 	public void afterPropertiesSet() {
+		_finderPathWithPaginationFindAll = new FinderPath(
+			CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceForecastEntryModelImpl.FINDER_CACHE_ENABLED,
+			CommerceForecastEntryImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
+
+		_finderPathWithoutPaginationFindAll = new FinderPath(
+			CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceForecastEntryModelImpl.FINDER_CACHE_ENABLED,
+			CommerceForecastEntryImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
+			new String[0]);
+
+		_finderPathCountAll = new FinderPath(
+			CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceForecastEntryModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
+			new String[0]);
+
+		_finderPathWithPaginationFindByCompanyId = new FinderPath(
+			CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceForecastEntryModelImpl.FINDER_CACHE_ENABLED,
+			CommerceForecastEntryImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCompanyId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
+
+		_finderPathWithoutPaginationFindByCompanyId = new FinderPath(
+			CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceForecastEntryModelImpl.FINDER_CACHE_ENABLED,
+			CommerceForecastEntryImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCompanyId",
+			new String[] {Long.class.getName()},
+			CommerceForecastEntryModelImpl.COMPANYID_COLUMN_BITMASK |
+			CommerceForecastEntryModelImpl.TIME_COLUMN_BITMASK);
+
+		_finderPathCountByCompanyId = new FinderPath(
+			CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceForecastEntryModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompanyId",
+			new String[] {Long.class.getName()});
+
+		_finderPathFetchByC_P_T_C_C = new FinderPath(
+			CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceForecastEntryModelImpl.FINDER_CACHE_ENABLED,
+			CommerceForecastEntryImpl.class, FINDER_CLASS_NAME_ENTITY,
+			"fetchByC_P_T_C_C",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), Long.class.getName(),
+				Long.class.getName()
+			},
+			CommerceForecastEntryModelImpl.COMPANYID_COLUMN_BITMASK |
+			CommerceForecastEntryModelImpl.PERIOD_COLUMN_BITMASK |
+			CommerceForecastEntryModelImpl.TARGET_COLUMN_BITMASK |
+			CommerceForecastEntryModelImpl.CUSTOMERID_COLUMN_BITMASK |
+			CommerceForecastEntryModelImpl.CPINSTANCEID_COLUMN_BITMASK);
+
+		_finderPathCountByC_P_T_C_C = new FinderPath(
+			CommerceForecastEntryModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceForecastEntryModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_P_T_C_C",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), Long.class.getName(),
+				Long.class.getName()
+			});
 	}
 
 	public void destroy() {
@@ -1696,20 +1821,41 @@ public class CommerceForecastEntryPersistenceImpl extends BasePersistenceImpl<Co
 
 	@ServiceReference(type = CompanyProviderWrapper.class)
 	protected CompanyProvider companyProvider;
+
 	@ServiceReference(type = EntityCache.class)
 	protected EntityCache entityCache;
+
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
-	private static final String _SQL_SELECT_COMMERCEFORECASTENTRY = "SELECT commerceForecastEntry FROM CommerceForecastEntry commerceForecastEntry";
-	private static final String _SQL_SELECT_COMMERCEFORECASTENTRY_WHERE_PKS_IN = "SELECT commerceForecastEntry FROM CommerceForecastEntry commerceForecastEntry WHERE commerceForecastEntryId IN (";
-	private static final String _SQL_SELECT_COMMERCEFORECASTENTRY_WHERE = "SELECT commerceForecastEntry FROM CommerceForecastEntry commerceForecastEntry WHERE ";
-	private static final String _SQL_COUNT_COMMERCEFORECASTENTRY = "SELECT COUNT(commerceForecastEntry) FROM CommerceForecastEntry commerceForecastEntry";
-	private static final String _SQL_COUNT_COMMERCEFORECASTENTRY_WHERE = "SELECT COUNT(commerceForecastEntry) FROM CommerceForecastEntry commerceForecastEntry WHERE ";
-	private static final String _ORDER_BY_ENTITY_ALIAS = "commerceForecastEntry.";
-	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No CommerceForecastEntry exists with the primary key ";
-	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No CommerceForecastEntry exists with the key {";
-	private static final Log _log = LogFactoryUtil.getLog(CommerceForecastEntryPersistenceImpl.class);
-	private static final Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
-				"time"
-			});
+
+	private static final String _SQL_SELECT_COMMERCEFORECASTENTRY =
+		"SELECT commerceForecastEntry FROM CommerceForecastEntry commerceForecastEntry";
+
+	private static final String _SQL_SELECT_COMMERCEFORECASTENTRY_WHERE_PKS_IN =
+		"SELECT commerceForecastEntry FROM CommerceForecastEntry commerceForecastEntry WHERE commerceForecastEntryId IN (";
+
+	private static final String _SQL_SELECT_COMMERCEFORECASTENTRY_WHERE =
+		"SELECT commerceForecastEntry FROM CommerceForecastEntry commerceForecastEntry WHERE ";
+
+	private static final String _SQL_COUNT_COMMERCEFORECASTENTRY =
+		"SELECT COUNT(commerceForecastEntry) FROM CommerceForecastEntry commerceForecastEntry";
+
+	private static final String _SQL_COUNT_COMMERCEFORECASTENTRY_WHERE =
+		"SELECT COUNT(commerceForecastEntry) FROM CommerceForecastEntry commerceForecastEntry WHERE ";
+
+	private static final String _ORDER_BY_ENTITY_ALIAS =
+		"commerceForecastEntry.";
+
+	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY =
+		"No CommerceForecastEntry exists with the primary key ";
+
+	private static final String _NO_SUCH_ENTITY_WITH_KEY =
+		"No CommerceForecastEntry exists with the key {";
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceForecastEntryPersistenceImpl.class);
+
+	private static final Set<String> _badColumnNames = SetUtil.fromArray(
+		new String[] {"time"});
+
 }

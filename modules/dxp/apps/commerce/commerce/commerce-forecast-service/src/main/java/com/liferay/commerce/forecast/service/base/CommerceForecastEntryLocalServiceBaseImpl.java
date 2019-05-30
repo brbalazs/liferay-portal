@@ -21,7 +21,6 @@ import com.liferay.commerce.forecast.service.CommerceForecastEntryLocalService;
 import com.liferay.commerce.forecast.service.persistence.CommerceForecastEntryPersistence;
 import com.liferay.commerce.forecast.service.persistence.CommerceForecastValueFinder;
 import com.liferay.commerce.forecast.service.persistence.CommerceForecastValuePersistence;
-
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
@@ -63,17 +62,17 @@ import javax.sql.DataSource;
  *
  * @author Andrea Di Giorgi
  * @see com.liferay.commerce.forecast.service.impl.CommerceForecastEntryLocalServiceImpl
- * @see com.liferay.commerce.forecast.service.CommerceForecastEntryLocalServiceUtil
  * @generated
  */
 @ProviderType
 public abstract class CommerceForecastEntryLocalServiceBaseImpl
-	extends BaseLocalServiceImpl implements CommerceForecastEntryLocalService,
-		IdentifiableOSGiService {
+	extends BaseLocalServiceImpl
+	implements CommerceForecastEntryLocalService, IdentifiableOSGiService {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Always use {@link com.liferay.commerce.forecast.service.CommerceForecastEntryLocalServiceUtil} to access the commerce forecast entry local service.
+	 * Never modify or reference this class directly. Use <code>CommerceForecastEntryLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.forecast.service.CommerceForecastEntryLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -86,6 +85,7 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	@Override
 	public CommerceForecastEntry addCommerceForecastEntry(
 		CommerceForecastEntry commerceForecastEntry) {
+
 		commerceForecastEntry.setNew(true);
 
 		return commerceForecastEntryPersistence.update(commerceForecastEntry);
@@ -101,6 +101,7 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	@Transactional(enabled = false)
 	public CommerceForecastEntry createCommerceForecastEntry(
 		long commerceForecastEntryId) {
+
 		return commerceForecastEntryPersistence.create(commerceForecastEntryId);
 	}
 
@@ -114,7 +115,9 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public CommerceForecastEntry deleteCommerceForecastEntry(
-		long commerceForecastEntryId) throws PortalException {
+			long commerceForecastEntryId)
+		throws PortalException {
+
 		return commerceForecastEntryPersistence.remove(commerceForecastEntryId);
 	}
 
@@ -128,6 +131,7 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	@Override
 	public CommerceForecastEntry deleteCommerceForecastEntry(
 		CommerceForecastEntry commerceForecastEntry) {
+
 		return commerceForecastEntryPersistence.remove(commerceForecastEntry);
 	}
 
@@ -135,8 +139,8 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
-		return DynamicQueryFactoryUtil.forClass(CommerceForecastEntry.class,
-			clazz.getClassLoader());
+		return DynamicQueryFactoryUtil.forClass(
+			CommerceForecastEntry.class, clazz.getClassLoader());
 	}
 
 	/**
@@ -147,14 +151,15 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 */
 	@Override
 	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
-		return commerceForecastEntryPersistence.findWithDynamicQuery(dynamicQuery);
+		return commerceForecastEntryPersistence.findWithDynamicQuery(
+			dynamicQuery);
 	}
 
 	/**
 	 * Performs a dynamic query on the database and returns a range of the matching rows.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.commerce.forecast.model.impl.CommerceForecastEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>com.liferay.commerce.forecast.model.impl.CommerceForecastEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param dynamicQuery the dynamic query
@@ -163,17 +168,18 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 */
 	@Override
-	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
-		int end) {
-		return commerceForecastEntryPersistence.findWithDynamicQuery(dynamicQuery,
-			start, end);
+	public <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
+
+		return commerceForecastEntryPersistence.findWithDynamicQuery(
+			dynamicQuery, start, end);
 	}
 
 	/**
 	 * Performs a dynamic query on the database and returns an ordered range of the matching rows.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.commerce.forecast.model.impl.CommerceForecastEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>com.liferay.commerce.forecast.model.impl.CommerceForecastEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param dynamicQuery the dynamic query
@@ -183,10 +189,12 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 */
 	@Override
-	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
-		int end, OrderByComparator<T> orderByComparator) {
-		return commerceForecastEntryPersistence.findWithDynamicQuery(dynamicQuery,
-			start, end, orderByComparator);
+	public <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
+
+		return commerceForecastEntryPersistence.findWithDynamicQuery(
+			dynamicQuery, start, end, orderByComparator);
 	}
 
 	/**
@@ -197,7 +205,8 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 */
 	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery) {
-		return commerceForecastEntryPersistence.countWithDynamicQuery(dynamicQuery);
+		return commerceForecastEntryPersistence.countWithDynamicQuery(
+			dynamicQuery);
 	}
 
 	/**
@@ -208,16 +217,19 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 * @return the number of rows matching the dynamic query
 	 */
 	@Override
-	public long dynamicQueryCount(DynamicQuery dynamicQuery,
-		Projection projection) {
-		return commerceForecastEntryPersistence.countWithDynamicQuery(dynamicQuery,
-			projection);
+	public long dynamicQueryCount(
+		DynamicQuery dynamicQuery, Projection projection) {
+
+		return commerceForecastEntryPersistence.countWithDynamicQuery(
+			dynamicQuery, projection);
 	}
 
 	@Override
 	public CommerceForecastEntry fetchCommerceForecastEntry(
 		long commerceForecastEntryId) {
-		return commerceForecastEntryPersistence.fetchByPrimaryKey(commerceForecastEntryId);
+
+		return commerceForecastEntryPersistence.fetchByPrimaryKey(
+			commerceForecastEntryId);
 	}
 
 	/**
@@ -229,15 +241,20 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 */
 	@Override
 	public CommerceForecastEntry getCommerceForecastEntry(
-		long commerceForecastEntryId) throws PortalException {
-		return commerceForecastEntryPersistence.findByPrimaryKey(commerceForecastEntryId);
+			long commerceForecastEntryId)
+		throws PortalException {
+
+		return commerceForecastEntryPersistence.findByPrimaryKey(
+			commerceForecastEntryId);
 	}
 
 	@Override
 	public ActionableDynamicQuery getActionableDynamicQuery() {
-		ActionableDynamicQuery actionableDynamicQuery = new DefaultActionableDynamicQuery();
+		ActionableDynamicQuery actionableDynamicQuery =
+			new DefaultActionableDynamicQuery();
 
-		actionableDynamicQuery.setBaseLocalService(commerceForecastEntryLocalService);
+		actionableDynamicQuery.setBaseLocalService(
+			commerceForecastEntryLocalService);
 		actionableDynamicQuery.setClassLoader(getClassLoader());
 		actionableDynamicQuery.setModelClass(CommerceForecastEntry.class);
 
@@ -248,12 +265,17 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	}
 
 	@Override
-	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
-		IndexableActionableDynamicQuery indexableActionableDynamicQuery = new IndexableActionableDynamicQuery();
+	public IndexableActionableDynamicQuery
+		getIndexableActionableDynamicQuery() {
 
-		indexableActionableDynamicQuery.setBaseLocalService(commerceForecastEntryLocalService);
+		IndexableActionableDynamicQuery indexableActionableDynamicQuery =
+			new IndexableActionableDynamicQuery();
+
+		indexableActionableDynamicQuery.setBaseLocalService(
+			commerceForecastEntryLocalService);
 		indexableActionableDynamicQuery.setClassLoader(getClassLoader());
-		indexableActionableDynamicQuery.setModelClass(CommerceForecastEntry.class);
+		indexableActionableDynamicQuery.setModelClass(
+			CommerceForecastEntry.class);
 
 		indexableActionableDynamicQuery.setPrimaryKeyPropertyName(
 			"commerceForecastEntryId");
@@ -263,7 +285,9 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 
 	protected void initActionableDynamicQuery(
 		ActionableDynamicQuery actionableDynamicQuery) {
-		actionableDynamicQuery.setBaseLocalService(commerceForecastEntryLocalService);
+
+		actionableDynamicQuery.setBaseLocalService(
+			commerceForecastEntryLocalService);
 		actionableDynamicQuery.setClassLoader(getClassLoader());
 		actionableDynamicQuery.setModelClass(CommerceForecastEntry.class);
 
@@ -277,12 +301,15 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	@Override
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException {
-		return commerceForecastEntryLocalService.deleteCommerceForecastEntry((CommerceForecastEntry)persistedModel);
+
+		return commerceForecastEntryLocalService.deleteCommerceForecastEntry(
+			(CommerceForecastEntry)persistedModel);
 	}
 
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {
+
 		return commerceForecastEntryPersistence.findByPrimaryKey(primaryKeyObj);
 	}
 
@@ -290,7 +317,7 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 * Returns a range of all the commerce forecast entries.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.commerce.forecast.model.impl.CommerceForecastEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>com.liferay.commerce.forecast.model.impl.CommerceForecastEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce forecast entries
@@ -298,8 +325,9 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 * @return the range of commerce forecast entries
 	 */
 	@Override
-	public List<CommerceForecastEntry> getCommerceForecastEntries(int start,
-		int end) {
+	public List<CommerceForecastEntry> getCommerceForecastEntries(
+		int start, int end) {
+
 		return commerceForecastEntryPersistence.findAll(start, end);
 	}
 
@@ -323,6 +351,7 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	@Override
 	public CommerceForecastEntry updateCommerceForecastEntry(
 		CommerceForecastEntry commerceForecastEntry) {
+
 		return commerceForecastEntryPersistence.update(commerceForecastEntry);
 	}
 
@@ -331,7 +360,9 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 *
 	 * @return the commerce forecast entry local service
 	 */
-	public CommerceForecastEntryLocalService getCommerceForecastEntryLocalService() {
+	public CommerceForecastEntryLocalService
+		getCommerceForecastEntryLocalService() {
+
 		return commerceForecastEntryLocalService;
 	}
 
@@ -342,7 +373,9 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 */
 	public void setCommerceForecastEntryLocalService(
 		CommerceForecastEntryLocalService commerceForecastEntryLocalService) {
-		this.commerceForecastEntryLocalService = commerceForecastEntryLocalService;
+
+		this.commerceForecastEntryLocalService =
+			commerceForecastEntryLocalService;
 	}
 
 	/**
@@ -350,7 +383,9 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 *
 	 * @return the commerce forecast entry persistence
 	 */
-	public CommerceForecastEntryPersistence getCommerceForecastEntryPersistence() {
+	public CommerceForecastEntryPersistence
+		getCommerceForecastEntryPersistence() {
+
 		return commerceForecastEntryPersistence;
 	}
 
@@ -361,7 +396,9 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 */
 	public void setCommerceForecastEntryPersistence(
 		CommerceForecastEntryPersistence commerceForecastEntryPersistence) {
-		this.commerceForecastEntryPersistence = commerceForecastEntryPersistence;
+
+		this.commerceForecastEntryPersistence =
+			commerceForecastEntryPersistence;
 	}
 
 	/**
@@ -369,7 +406,10 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 *
 	 * @return the commerce forecast value local service
 	 */
-	public com.liferay.commerce.forecast.service.CommerceForecastValueLocalService getCommerceForecastValueLocalService() {
+	public
+		com.liferay.commerce.forecast.service.CommerceForecastValueLocalService
+			getCommerceForecastValueLocalService() {
+
 		return commerceForecastValueLocalService;
 	}
 
@@ -379,8 +419,11 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 * @param commerceForecastValueLocalService the commerce forecast value local service
 	 */
 	public void setCommerceForecastValueLocalService(
-		com.liferay.commerce.forecast.service.CommerceForecastValueLocalService commerceForecastValueLocalService) {
-		this.commerceForecastValueLocalService = commerceForecastValueLocalService;
+		com.liferay.commerce.forecast.service.CommerceForecastValueLocalService
+			commerceForecastValueLocalService) {
+
+		this.commerceForecastValueLocalService =
+			commerceForecastValueLocalService;
 	}
 
 	/**
@@ -388,7 +431,9 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 *
 	 * @return the commerce forecast value persistence
 	 */
-	public CommerceForecastValuePersistence getCommerceForecastValuePersistence() {
+	public CommerceForecastValuePersistence
+		getCommerceForecastValuePersistence() {
+
 		return commerceForecastValuePersistence;
 	}
 
@@ -399,7 +444,9 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 */
 	public void setCommerceForecastValuePersistence(
 		CommerceForecastValuePersistence commerceForecastValuePersistence) {
-		this.commerceForecastValuePersistence = commerceForecastValuePersistence;
+
+		this.commerceForecastValuePersistence =
+			commerceForecastValuePersistence;
 	}
 
 	/**
@@ -418,6 +465,7 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 */
 	public void setCommerceForecastValueFinder(
 		CommerceForecastValueFinder commerceForecastValueFinder) {
+
 		this.commerceForecastValueFinder = commerceForecastValueFinder;
 	}
 
@@ -426,7 +474,9 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 *
 	 * @return the counter local service
 	 */
-	public com.liferay.counter.kernel.service.CounterLocalService getCounterLocalService() {
+	public com.liferay.counter.kernel.service.CounterLocalService
+		getCounterLocalService() {
+
 		return counterLocalService;
 	}
 
@@ -436,7 +486,9 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 * @param counterLocalService the counter local service
 	 */
 	public void setCounterLocalService(
-		com.liferay.counter.kernel.service.CounterLocalService counterLocalService) {
+		com.liferay.counter.kernel.service.CounterLocalService
+			counterLocalService) {
+
 		this.counterLocalService = counterLocalService;
 	}
 
@@ -445,7 +497,9 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 *
 	 * @return the class name local service
 	 */
-	public com.liferay.portal.kernel.service.ClassNameLocalService getClassNameLocalService() {
+	public com.liferay.portal.kernel.service.ClassNameLocalService
+		getClassNameLocalService() {
+
 		return classNameLocalService;
 	}
 
@@ -455,7 +509,9 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 * @param classNameLocalService the class name local service
 	 */
 	public void setClassNameLocalService(
-		com.liferay.portal.kernel.service.ClassNameLocalService classNameLocalService) {
+		com.liferay.portal.kernel.service.ClassNameLocalService
+			classNameLocalService) {
+
 		this.classNameLocalService = classNameLocalService;
 	}
 
@@ -475,6 +531,7 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 */
 	public void setClassNamePersistence(
 		ClassNamePersistence classNamePersistence) {
+
 		this.classNamePersistence = classNamePersistence;
 	}
 
@@ -483,7 +540,9 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 *
 	 * @return the resource local service
 	 */
-	public com.liferay.portal.kernel.service.ResourceLocalService getResourceLocalService() {
+	public com.liferay.portal.kernel.service.ResourceLocalService
+		getResourceLocalService() {
+
 		return resourceLocalService;
 	}
 
@@ -493,7 +552,9 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 * @param resourceLocalService the resource local service
 	 */
 	public void setResourceLocalService(
-		com.liferay.portal.kernel.service.ResourceLocalService resourceLocalService) {
+		com.liferay.portal.kernel.service.ResourceLocalService
+			resourceLocalService) {
+
 		this.resourceLocalService = resourceLocalService;
 	}
 
@@ -502,7 +563,9 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 *
 	 * @return the user local service
 	 */
-	public com.liferay.portal.kernel.service.UserLocalService getUserLocalService() {
+	public com.liferay.portal.kernel.service.UserLocalService
+		getUserLocalService() {
+
 		return userLocalService;
 	}
 
@@ -513,6 +576,7 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 */
 	public void setUserLocalService(
 		com.liferay.portal.kernel.service.UserLocalService userLocalService) {
+
 		this.userLocalService = userLocalService;
 	}
 
@@ -535,7 +599,8 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		persistedModelLocalServiceRegistry.register("com.liferay.commerce.forecast.model.CommerceForecastEntry",
+		persistedModelLocalServiceRegistry.register(
+			"com.liferay.commerce.forecast.model.CommerceForecastEntry",
 			commerceForecastEntryLocalService);
 	}
 
@@ -569,15 +634,16 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	 */
 	protected void runSQL(String sql) {
 		try {
-			DataSource dataSource = commerceForecastEntryPersistence.getDataSource();
+			DataSource dataSource =
+				commerceForecastEntryPersistence.getDataSource();
 
 			DB db = DBManagerUtil.getDB();
 
 			sql = db.buildSQL(sql);
 			sql = PortalUtil.transformSQL(sql);
 
-			SqlUpdate sqlUpdate = SqlUpdateFactoryUtil.getSqlUpdate(dataSource,
-					sql);
+			SqlUpdate sqlUpdate = SqlUpdateFactoryUtil.getSqlUpdate(
+				dataSource, sql);
 
 			sqlUpdate.update();
 		}
@@ -587,27 +653,57 @@ public abstract class CommerceForecastEntryLocalServiceBaseImpl
 	}
 
 	@BeanReference(type = CommerceForecastEntryLocalService.class)
-	protected CommerceForecastEntryLocalService commerceForecastEntryLocalService;
+	protected CommerceForecastEntryLocalService
+		commerceForecastEntryLocalService;
+
 	@BeanReference(type = CommerceForecastEntryPersistence.class)
 	protected CommerceForecastEntryPersistence commerceForecastEntryPersistence;
-	@BeanReference(type = com.liferay.commerce.forecast.service.CommerceForecastValueLocalService.class)
-	protected com.liferay.commerce.forecast.service.CommerceForecastValueLocalService commerceForecastValueLocalService;
+
+	@BeanReference(
+		type = com.liferay.commerce.forecast.service.CommerceForecastValueLocalService.class
+	)
+	protected
+		com.liferay.commerce.forecast.service.CommerceForecastValueLocalService
+			commerceForecastValueLocalService;
+
 	@BeanReference(type = CommerceForecastValuePersistence.class)
 	protected CommerceForecastValuePersistence commerceForecastValuePersistence;
+
 	@BeanReference(type = CommerceForecastValueFinder.class)
 	protected CommerceForecastValueFinder commerceForecastValueFinder;
-	@ServiceReference(type = com.liferay.counter.kernel.service.CounterLocalService.class)
-	protected com.liferay.counter.kernel.service.CounterLocalService counterLocalService;
-	@ServiceReference(type = com.liferay.portal.kernel.service.ClassNameLocalService.class)
-	protected com.liferay.portal.kernel.service.ClassNameLocalService classNameLocalService;
+
+	@ServiceReference(
+		type = com.liferay.counter.kernel.service.CounterLocalService.class
+	)
+	protected com.liferay.counter.kernel.service.CounterLocalService
+		counterLocalService;
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.ClassNameLocalService.class
+	)
+	protected com.liferay.portal.kernel.service.ClassNameLocalService
+		classNameLocalService;
+
 	@ServiceReference(type = ClassNamePersistence.class)
 	protected ClassNamePersistence classNamePersistence;
-	@ServiceReference(type = com.liferay.portal.kernel.service.ResourceLocalService.class)
-	protected com.liferay.portal.kernel.service.ResourceLocalService resourceLocalService;
-	@ServiceReference(type = com.liferay.portal.kernel.service.UserLocalService.class)
-	protected com.liferay.portal.kernel.service.UserLocalService userLocalService;
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.ResourceLocalService.class
+	)
+	protected com.liferay.portal.kernel.service.ResourceLocalService
+		resourceLocalService;
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.UserLocalService.class
+	)
+	protected com.liferay.portal.kernel.service.UserLocalService
+		userLocalService;
+
 	@ServiceReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
+
 	@ServiceReference(type = PersistedModelLocalServiceRegistry.class)
-	protected PersistedModelLocalServiceRegistry persistedModelLocalServiceRegistry;
+	protected PersistedModelLocalServiceRegistry
+		persistedModelLocalServiceRegistry;
+
 }

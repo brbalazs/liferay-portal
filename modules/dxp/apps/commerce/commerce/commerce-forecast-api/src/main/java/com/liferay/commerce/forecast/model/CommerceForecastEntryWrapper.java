@@ -17,7 +17,6 @@ package com.liferay.commerce.forecast.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -40,10 +39,12 @@ import java.util.Objects;
  * @generated
  */
 @ProviderType
-public class CommerceForecastEntryWrapper implements CommerceForecastEntry,
-	ModelWrapper<CommerceForecastEntry> {
+public class CommerceForecastEntryWrapper
+	implements CommerceForecastEntry, ModelWrapper<CommerceForecastEntry> {
+
 	public CommerceForecastEntryWrapper(
 		CommerceForecastEntry commerceForecastEntry) {
+
 		_commerceForecastEntry = commerceForecastEntry;
 	}
 
@@ -80,7 +81,7 @@ public class CommerceForecastEntryWrapper implements CommerceForecastEntry,
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		Long commerceForecastEntryId = (Long)attributes.get(
-				"commerceForecastEntryId");
+			"commerceForecastEntryId");
 
 		if (commerceForecastEntryId != null) {
 			setCommerceForecastEntryId(commerceForecastEntryId);
@@ -155,7 +156,8 @@ public class CommerceForecastEntryWrapper implements CommerceForecastEntry,
 
 	@Override
 	public Object clone() {
-		return new CommerceForecastEntryWrapper((CommerceForecastEntry)_commerceForecastEntry.clone());
+		return new CommerceForecastEntryWrapper(
+			(CommerceForecastEntry)_commerceForecastEntry.clone());
 	}
 
 	@Override
@@ -164,60 +166,60 @@ public class CommerceForecastEntryWrapper implements CommerceForecastEntry,
 	}
 
 	/**
-	* Returns the assertivity of this commerce forecast entry.
-	*
-	* @return the assertivity of this commerce forecast entry
-	*/
+	 * Returns the assertivity of this commerce forecast entry.
+	 *
+	 * @return the assertivity of this commerce forecast entry
+	 */
 	@Override
 	public BigDecimal getAssertivity() {
 		return _commerceForecastEntry.getAssertivity();
 	}
 
 	/**
-	* Returns the commerce forecast entry ID of this commerce forecast entry.
-	*
-	* @return the commerce forecast entry ID of this commerce forecast entry
-	*/
+	 * Returns the commerce forecast entry ID of this commerce forecast entry.
+	 *
+	 * @return the commerce forecast entry ID of this commerce forecast entry
+	 */
 	@Override
 	public long getCommerceForecastEntryId() {
 		return _commerceForecastEntry.getCommerceForecastEntryId();
 	}
 
 	/**
-	* Returns the company ID of this commerce forecast entry.
-	*
-	* @return the company ID of this commerce forecast entry
-	*/
+	 * Returns the company ID of this commerce forecast entry.
+	 *
+	 * @return the company ID of this commerce forecast entry
+	 */
 	@Override
 	public long getCompanyId() {
 		return _commerceForecastEntry.getCompanyId();
 	}
 
 	/**
-	* Returns the cp instance ID of this commerce forecast entry.
-	*
-	* @return the cp instance ID of this commerce forecast entry
-	*/
+	 * Returns the cp instance ID of this commerce forecast entry.
+	 *
+	 * @return the cp instance ID of this commerce forecast entry
+	 */
 	@Override
 	public long getCPInstanceId() {
 		return _commerceForecastEntry.getCPInstanceId();
 	}
 
 	/**
-	* Returns the create date of this commerce forecast entry.
-	*
-	* @return the create date of this commerce forecast entry
-	*/
+	 * Returns the create date of this commerce forecast entry.
+	 *
+	 * @return the create date of this commerce forecast entry
+	 */
 	@Override
 	public Date getCreateDate() {
 		return _commerceForecastEntry.getCreateDate();
 	}
 
 	/**
-	* Returns the customer ID of this commerce forecast entry.
-	*
-	* @return the customer ID of this commerce forecast entry
-	*/
+	 * Returns the customer ID of this commerce forecast entry.
+	 *
+	 * @return the customer ID of this commerce forecast entry
+	 */
 	@Override
 	public long getCustomerId() {
 		return _commerceForecastEntry.getCustomerId();
@@ -229,30 +231,30 @@ public class CommerceForecastEntryWrapper implements CommerceForecastEntry,
 	}
 
 	/**
-	* Returns the modified date of this commerce forecast entry.
-	*
-	* @return the modified date of this commerce forecast entry
-	*/
+	 * Returns the modified date of this commerce forecast entry.
+	 *
+	 * @return the modified date of this commerce forecast entry
+	 */
 	@Override
 	public Date getModifiedDate() {
 		return _commerceForecastEntry.getModifiedDate();
 	}
 
 	/**
-	* Returns the period of this commerce forecast entry.
-	*
-	* @return the period of this commerce forecast entry
-	*/
+	 * Returns the period of this commerce forecast entry.
+	 *
+	 * @return the period of this commerce forecast entry
+	 */
 	@Override
 	public int getPeriod() {
 		return _commerceForecastEntry.getPeriod();
 	}
 
 	/**
-	* Returns the primary key of this commerce forecast entry.
-	*
-	* @return the primary key of this commerce forecast entry
-	*/
+	 * Returns the primary key of this commerce forecast entry.
+	 *
+	 * @return the primary key of this commerce forecast entry
+	 */
 	@Override
 	public long getPrimaryKey() {
 		return _commerceForecastEntry.getPrimaryKey();
@@ -264,50 +266,50 @@ public class CommerceForecastEntryWrapper implements CommerceForecastEntry,
 	}
 
 	/**
-	* Returns the target of this commerce forecast entry.
-	*
-	* @return the target of this commerce forecast entry
-	*/
+	 * Returns the target of this commerce forecast entry.
+	 *
+	 * @return the target of this commerce forecast entry
+	 */
 	@Override
 	public int getTarget() {
 		return _commerceForecastEntry.getTarget();
 	}
 
 	/**
-	* Returns the time of this commerce forecast entry.
-	*
-	* @return the time of this commerce forecast entry
-	*/
+	 * Returns the time of this commerce forecast entry.
+	 *
+	 * @return the time of this commerce forecast entry
+	 */
 	@Override
 	public long getTime() {
 		return _commerceForecastEntry.getTime();
 	}
 
 	/**
-	* Returns the user ID of this commerce forecast entry.
-	*
-	* @return the user ID of this commerce forecast entry
-	*/
+	 * Returns the user ID of this commerce forecast entry.
+	 *
+	 * @return the user ID of this commerce forecast entry
+	 */
 	@Override
 	public long getUserId() {
 		return _commerceForecastEntry.getUserId();
 	}
 
 	/**
-	* Returns the user name of this commerce forecast entry.
-	*
-	* @return the user name of this commerce forecast entry
-	*/
+	 * Returns the user name of this commerce forecast entry.
+	 *
+	 * @return the user name of this commerce forecast entry
+	 */
 	@Override
 	public String getUserName() {
 		return _commerceForecastEntry.getUserName();
 	}
 
 	/**
-	* Returns the user uuid of this commerce forecast entry.
-	*
-	* @return the user uuid of this commerce forecast entry
-	*/
+	 * Returns the user uuid of this commerce forecast entry.
+	 *
+	 * @return the user uuid of this commerce forecast entry
+	 */
 	@Override
 	public String getUserUuid() {
 		return _commerceForecastEntry.getUserUuid();
@@ -339,10 +341,10 @@ public class CommerceForecastEntryWrapper implements CommerceForecastEntry,
 	}
 
 	/**
-	* Sets the assertivity of this commerce forecast entry.
-	*
-	* @param assertivity the assertivity of this commerce forecast entry
-	*/
+	 * Sets the assertivity of this commerce forecast entry.
+	 *
+	 * @param assertivity the assertivity of this commerce forecast entry
+	 */
 	@Override
 	public void setAssertivity(BigDecimal assertivity) {
 		_commerceForecastEntry.setAssertivity(assertivity);
@@ -354,50 +356,51 @@ public class CommerceForecastEntryWrapper implements CommerceForecastEntry,
 	}
 
 	/**
-	* Sets the commerce forecast entry ID of this commerce forecast entry.
-	*
-	* @param commerceForecastEntryId the commerce forecast entry ID of this commerce forecast entry
-	*/
+	 * Sets the commerce forecast entry ID of this commerce forecast entry.
+	 *
+	 * @param commerceForecastEntryId the commerce forecast entry ID of this commerce forecast entry
+	 */
 	@Override
 	public void setCommerceForecastEntryId(long commerceForecastEntryId) {
-		_commerceForecastEntry.setCommerceForecastEntryId(commerceForecastEntryId);
+		_commerceForecastEntry.setCommerceForecastEntryId(
+			commerceForecastEntryId);
 	}
 
 	/**
-	* Sets the company ID of this commerce forecast entry.
-	*
-	* @param companyId the company ID of this commerce forecast entry
-	*/
+	 * Sets the company ID of this commerce forecast entry.
+	 *
+	 * @param companyId the company ID of this commerce forecast entry
+	 */
 	@Override
 	public void setCompanyId(long companyId) {
 		_commerceForecastEntry.setCompanyId(companyId);
 	}
 
 	/**
-	* Sets the cp instance ID of this commerce forecast entry.
-	*
-	* @param CPInstanceId the cp instance ID of this commerce forecast entry
-	*/
+	 * Sets the cp instance ID of this commerce forecast entry.
+	 *
+	 * @param CPInstanceId the cp instance ID of this commerce forecast entry
+	 */
 	@Override
 	public void setCPInstanceId(long CPInstanceId) {
 		_commerceForecastEntry.setCPInstanceId(CPInstanceId);
 	}
 
 	/**
-	* Sets the create date of this commerce forecast entry.
-	*
-	* @param createDate the create date of this commerce forecast entry
-	*/
+	 * Sets the create date of this commerce forecast entry.
+	 *
+	 * @param createDate the create date of this commerce forecast entry
+	 */
 	@Override
 	public void setCreateDate(Date createDate) {
 		_commerceForecastEntry.setCreateDate(createDate);
 	}
 
 	/**
-	* Sets the customer ID of this commerce forecast entry.
-	*
-	* @param customerId the customer ID of this commerce forecast entry
-	*/
+	 * Sets the customer ID of this commerce forecast entry.
+	 *
+	 * @param customerId the customer ID of this commerce forecast entry
+	 */
 	@Override
 	public void setCustomerId(long customerId) {
 		_commerceForecastEntry.setCustomerId(customerId);
@@ -406,6 +409,7 @@ public class CommerceForecastEntryWrapper implements CommerceForecastEntry,
 	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
 		_commerceForecastEntry.setExpandoBridgeAttributes(baseModel);
 	}
 
@@ -420,10 +424,10 @@ public class CommerceForecastEntryWrapper implements CommerceForecastEntry,
 	}
 
 	/**
-	* Sets the modified date of this commerce forecast entry.
-	*
-	* @param modifiedDate the modified date of this commerce forecast entry
-	*/
+	 * Sets the modified date of this commerce forecast entry.
+	 *
+	 * @param modifiedDate the modified date of this commerce forecast entry
+	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_commerceForecastEntry.setModifiedDate(modifiedDate);
@@ -435,20 +439,20 @@ public class CommerceForecastEntryWrapper implements CommerceForecastEntry,
 	}
 
 	/**
-	* Sets the period of this commerce forecast entry.
-	*
-	* @param period the period of this commerce forecast entry
-	*/
+	 * Sets the period of this commerce forecast entry.
+	 *
+	 * @param period the period of this commerce forecast entry
+	 */
 	@Override
 	public void setPeriod(int period) {
 		_commerceForecastEntry.setPeriod(period);
 	}
 
 	/**
-	* Sets the primary key of this commerce forecast entry.
-	*
-	* @param primaryKey the primary key of this commerce forecast entry
-	*/
+	 * Sets the primary key of this commerce forecast entry.
+	 *
+	 * @param primaryKey the primary key of this commerce forecast entry
+	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_commerceForecastEntry.setPrimaryKey(primaryKey);
@@ -460,63 +464,66 @@ public class CommerceForecastEntryWrapper implements CommerceForecastEntry,
 	}
 
 	/**
-	* Sets the target of this commerce forecast entry.
-	*
-	* @param target the target of this commerce forecast entry
-	*/
+	 * Sets the target of this commerce forecast entry.
+	 *
+	 * @param target the target of this commerce forecast entry
+	 */
 	@Override
 	public void setTarget(int target) {
 		_commerceForecastEntry.setTarget(target);
 	}
 
 	/**
-	* Sets the time of this commerce forecast entry.
-	*
-	* @param time the time of this commerce forecast entry
-	*/
+	 * Sets the time of this commerce forecast entry.
+	 *
+	 * @param time the time of this commerce forecast entry
+	 */
 	@Override
 	public void setTime(long time) {
 		_commerceForecastEntry.setTime(time);
 	}
 
 	/**
-	* Sets the user ID of this commerce forecast entry.
-	*
-	* @param userId the user ID of this commerce forecast entry
-	*/
+	 * Sets the user ID of this commerce forecast entry.
+	 *
+	 * @param userId the user ID of this commerce forecast entry
+	 */
 	@Override
 	public void setUserId(long userId) {
 		_commerceForecastEntry.setUserId(userId);
 	}
 
 	/**
-	* Sets the user name of this commerce forecast entry.
-	*
-	* @param userName the user name of this commerce forecast entry
-	*/
+	 * Sets the user name of this commerce forecast entry.
+	 *
+	 * @param userName the user name of this commerce forecast entry
+	 */
 	@Override
 	public void setUserName(String userName) {
 		_commerceForecastEntry.setUserName(userName);
 	}
 
 	/**
-	* Sets the user uuid of this commerce forecast entry.
-	*
-	* @param userUuid the user uuid of this commerce forecast entry
-	*/
+	 * Sets the user uuid of this commerce forecast entry.
+	 *
+	 * @param userUuid the user uuid of this commerce forecast entry
+	 */
 	@Override
 	public void setUserUuid(String userUuid) {
 		_commerceForecastEntry.setUserUuid(userUuid);
 	}
 
 	@Override
-	public com.liferay.portal.kernel.model.CacheModel<CommerceForecastEntry> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<CommerceForecastEntry>
+		toCacheModel() {
+
 		return _commerceForecastEntry.toCacheModel();
 	}
 
 	@Override
 	public CommerceForecastEntry toEscapedModel() {
-		return new CommerceForecastEntryWrapper(_commerceForecastEntry.toEscapedModel());
+		return new CommerceForecastEntryWrapper(
+			_commerceForecastEntry.toEscapedModel());
 	}
 
 	@Override
@@ -526,7 +533,8 @@ public class CommerceForecastEntryWrapper implements CommerceForecastEntry,
 
 	@Override
 	public CommerceForecastEntry toUnescapedModel() {
-		return new CommerceForecastEntryWrapper(_commerceForecastEntry.toUnescapedModel());
+		return new CommerceForecastEntryWrapper(
+			_commerceForecastEntry.toUnescapedModel());
 	}
 
 	@Override
@@ -544,10 +552,13 @@ public class CommerceForecastEntryWrapper implements CommerceForecastEntry,
 			return false;
 		}
 
-		CommerceForecastEntryWrapper commerceForecastEntryWrapper = (CommerceForecastEntryWrapper)obj;
+		CommerceForecastEntryWrapper commerceForecastEntryWrapper =
+			(CommerceForecastEntryWrapper)obj;
 
-		if (Objects.equals(_commerceForecastEntry,
-					commerceForecastEntryWrapper._commerceForecastEntry)) {
+		if (Objects.equals(
+				_commerceForecastEntry,
+				commerceForecastEntryWrapper._commerceForecastEntry)) {
+
 			return true;
 		}
 
@@ -575,4 +586,5 @@ public class CommerceForecastEntryWrapper implements CommerceForecastEntry,
 	}
 
 	private final CommerceForecastEntry _commerceForecastEntry;
+
 }

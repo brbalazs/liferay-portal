@@ -17,7 +17,6 @@ package com.liferay.commerce.cloud.client.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -40,9 +39,11 @@ import java.util.Objects;
 @ProviderType
 public class CommerceCloudForecastOrderWrapper
 	implements CommerceCloudForecastOrder,
-		ModelWrapper<CommerceCloudForecastOrder> {
+			   ModelWrapper<CommerceCloudForecastOrder> {
+
 	public CommerceCloudForecastOrderWrapper(
 		CommerceCloudForecastOrder commerceCloudForecastOrder) {
+
 		_commerceCloudForecastOrder = commerceCloudForecastOrder;
 	}
 
@@ -60,8 +61,8 @@ public class CommerceCloudForecastOrderWrapper
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		attributes.put("commerceCloudForecastOrderId",
-			getCommerceCloudForecastOrderId());
+		attributes.put(
+			"commerceCloudForecastOrderId", getCommerceCloudForecastOrderId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("createDate", getCreateDate());
@@ -74,7 +75,7 @@ public class CommerceCloudForecastOrderWrapper
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		Long commerceCloudForecastOrderId = (Long)attributes.get(
-				"commerceCloudForecastOrderId");
+			"commerceCloudForecastOrderId");
 
 		if (commerceCloudForecastOrderId != null) {
 			setCommerceCloudForecastOrderId(commerceCloudForecastOrderId);
@@ -113,49 +114,53 @@ public class CommerceCloudForecastOrderWrapper
 
 	@Override
 	public Object clone() {
-		return new CommerceCloudForecastOrderWrapper((CommerceCloudForecastOrder)_commerceCloudForecastOrder.clone());
+		return new CommerceCloudForecastOrderWrapper(
+			(CommerceCloudForecastOrder)_commerceCloudForecastOrder.clone());
 	}
 
 	@Override
-	public int compareTo(CommerceCloudForecastOrder commerceCloudForecastOrder) {
-		return _commerceCloudForecastOrder.compareTo(commerceCloudForecastOrder);
+	public int compareTo(
+		CommerceCloudForecastOrder commerceCloudForecastOrder) {
+
+		return _commerceCloudForecastOrder.compareTo(
+			commerceCloudForecastOrder);
 	}
 
 	/**
-	* Returns the commerce cloud forecast order ID of this commerce cloud forecast order.
-	*
-	* @return the commerce cloud forecast order ID of this commerce cloud forecast order
-	*/
+	 * Returns the commerce cloud forecast order ID of this commerce cloud forecast order.
+	 *
+	 * @return the commerce cloud forecast order ID of this commerce cloud forecast order
+	 */
 	@Override
 	public long getCommerceCloudForecastOrderId() {
 		return _commerceCloudForecastOrder.getCommerceCloudForecastOrderId();
 	}
 
 	/**
-	* Returns the commerce order ID of this commerce cloud forecast order.
-	*
-	* @return the commerce order ID of this commerce cloud forecast order
-	*/
+	 * Returns the commerce order ID of this commerce cloud forecast order.
+	 *
+	 * @return the commerce order ID of this commerce cloud forecast order
+	 */
 	@Override
 	public long getCommerceOrderId() {
 		return _commerceCloudForecastOrder.getCommerceOrderId();
 	}
 
 	/**
-	* Returns the company ID of this commerce cloud forecast order.
-	*
-	* @return the company ID of this commerce cloud forecast order
-	*/
+	 * Returns the company ID of this commerce cloud forecast order.
+	 *
+	 * @return the company ID of this commerce cloud forecast order
+	 */
 	@Override
 	public long getCompanyId() {
 		return _commerceCloudForecastOrder.getCompanyId();
 	}
 
 	/**
-	* Returns the create date of this commerce cloud forecast order.
-	*
-	* @return the create date of this commerce cloud forecast order
-	*/
+	 * Returns the create date of this commerce cloud forecast order.
+	 *
+	 * @return the create date of this commerce cloud forecast order
+	 */
 	@Override
 	public Date getCreateDate() {
 		return _commerceCloudForecastOrder.getCreateDate();
@@ -167,20 +172,20 @@ public class CommerceCloudForecastOrderWrapper
 	}
 
 	/**
-	* Returns the group ID of this commerce cloud forecast order.
-	*
-	* @return the group ID of this commerce cloud forecast order
-	*/
+	 * Returns the group ID of this commerce cloud forecast order.
+	 *
+	 * @return the group ID of this commerce cloud forecast order
+	 */
 	@Override
 	public long getGroupId() {
 		return _commerceCloudForecastOrder.getGroupId();
 	}
 
 	/**
-	* Returns the primary key of this commerce cloud forecast order.
-	*
-	* @return the primary key of this commerce cloud forecast order
-	*/
+	 * Returns the primary key of this commerce cloud forecast order.
+	 *
+	 * @return the primary key of this commerce cloud forecast order
+	 */
 	@Override
 	public long getPrimaryKey() {
 		return _commerceCloudForecastOrder.getPrimaryKey();
@@ -192,10 +197,10 @@ public class CommerceCloudForecastOrderWrapper
 	}
 
 	/**
-	* Returns the sync date of this commerce cloud forecast order.
-	*
-	* @return the sync date of this commerce cloud forecast order
-	*/
+	 * Returns the sync date of this commerce cloud forecast order.
+	 *
+	 * @return the sync date of this commerce cloud forecast order
+	 */
 	@Override
 	public Date getSyncDate() {
 		return _commerceCloudForecastOrder.getSyncDate();
@@ -232,41 +237,43 @@ public class CommerceCloudForecastOrderWrapper
 	}
 
 	/**
-	* Sets the commerce cloud forecast order ID of this commerce cloud forecast order.
-	*
-	* @param commerceCloudForecastOrderId the commerce cloud forecast order ID of this commerce cloud forecast order
-	*/
+	 * Sets the commerce cloud forecast order ID of this commerce cloud forecast order.
+	 *
+	 * @param commerceCloudForecastOrderId the commerce cloud forecast order ID of this commerce cloud forecast order
+	 */
 	@Override
 	public void setCommerceCloudForecastOrderId(
 		long commerceCloudForecastOrderId) {
-		_commerceCloudForecastOrder.setCommerceCloudForecastOrderId(commerceCloudForecastOrderId);
+
+		_commerceCloudForecastOrder.setCommerceCloudForecastOrderId(
+			commerceCloudForecastOrderId);
 	}
 
 	/**
-	* Sets the commerce order ID of this commerce cloud forecast order.
-	*
-	* @param commerceOrderId the commerce order ID of this commerce cloud forecast order
-	*/
+	 * Sets the commerce order ID of this commerce cloud forecast order.
+	 *
+	 * @param commerceOrderId the commerce order ID of this commerce cloud forecast order
+	 */
 	@Override
 	public void setCommerceOrderId(long commerceOrderId) {
 		_commerceCloudForecastOrder.setCommerceOrderId(commerceOrderId);
 	}
 
 	/**
-	* Sets the company ID of this commerce cloud forecast order.
-	*
-	* @param companyId the company ID of this commerce cloud forecast order
-	*/
+	 * Sets the company ID of this commerce cloud forecast order.
+	 *
+	 * @param companyId the company ID of this commerce cloud forecast order
+	 */
 	@Override
 	public void setCompanyId(long companyId) {
 		_commerceCloudForecastOrder.setCompanyId(companyId);
 	}
 
 	/**
-	* Sets the create date of this commerce cloud forecast order.
-	*
-	* @param createDate the create date of this commerce cloud forecast order
-	*/
+	 * Sets the create date of this commerce cloud forecast order.
+	 *
+	 * @param createDate the create date of this commerce cloud forecast order
+	 */
 	@Override
 	public void setCreateDate(Date createDate) {
 		_commerceCloudForecastOrder.setCreateDate(createDate);
@@ -275,6 +282,7 @@ public class CommerceCloudForecastOrderWrapper
 	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
 		_commerceCloudForecastOrder.setExpandoBridgeAttributes(baseModel);
 	}
 
@@ -289,10 +297,10 @@ public class CommerceCloudForecastOrderWrapper
 	}
 
 	/**
-	* Sets the group ID of this commerce cloud forecast order.
-	*
-	* @param groupId the group ID of this commerce cloud forecast order
-	*/
+	 * Sets the group ID of this commerce cloud forecast order.
+	 *
+	 * @param groupId the group ID of this commerce cloud forecast order
+	 */
 	@Override
 	public void setGroupId(long groupId) {
 		_commerceCloudForecastOrder.setGroupId(groupId);
@@ -304,10 +312,10 @@ public class CommerceCloudForecastOrderWrapper
 	}
 
 	/**
-	* Sets the primary key of this commerce cloud forecast order.
-	*
-	* @param primaryKey the primary key of this commerce cloud forecast order
-	*/
+	 * Sets the primary key of this commerce cloud forecast order.
+	 *
+	 * @param primaryKey the primary key of this commerce cloud forecast order
+	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_commerceCloudForecastOrder.setPrimaryKey(primaryKey);
@@ -319,23 +327,26 @@ public class CommerceCloudForecastOrderWrapper
 	}
 
 	/**
-	* Sets the sync date of this commerce cloud forecast order.
-	*
-	* @param syncDate the sync date of this commerce cloud forecast order
-	*/
+	 * Sets the sync date of this commerce cloud forecast order.
+	 *
+	 * @param syncDate the sync date of this commerce cloud forecast order
+	 */
 	@Override
 	public void setSyncDate(Date syncDate) {
 		_commerceCloudForecastOrder.setSyncDate(syncDate);
 	}
 
 	@Override
-	public com.liferay.portal.kernel.model.CacheModel<CommerceCloudForecastOrder> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel
+		<CommerceCloudForecastOrder> toCacheModel() {
+
 		return _commerceCloudForecastOrder.toCacheModel();
 	}
 
 	@Override
 	public CommerceCloudForecastOrder toEscapedModel() {
-		return new CommerceCloudForecastOrderWrapper(_commerceCloudForecastOrder.toEscapedModel());
+		return new CommerceCloudForecastOrderWrapper(
+			_commerceCloudForecastOrder.toEscapedModel());
 	}
 
 	@Override
@@ -345,7 +356,8 @@ public class CommerceCloudForecastOrderWrapper
 
 	@Override
 	public CommerceCloudForecastOrder toUnescapedModel() {
-		return new CommerceCloudForecastOrderWrapper(_commerceCloudForecastOrder.toUnescapedModel());
+		return new CommerceCloudForecastOrderWrapper(
+			_commerceCloudForecastOrder.toUnescapedModel());
 	}
 
 	@Override
@@ -363,10 +375,14 @@ public class CommerceCloudForecastOrderWrapper
 			return false;
 		}
 
-		CommerceCloudForecastOrderWrapper commerceCloudForecastOrderWrapper = (CommerceCloudForecastOrderWrapper)obj;
+		CommerceCloudForecastOrderWrapper commerceCloudForecastOrderWrapper =
+			(CommerceCloudForecastOrderWrapper)obj;
 
-		if (Objects.equals(_commerceCloudForecastOrder,
-					commerceCloudForecastOrderWrapper._commerceCloudForecastOrder)) {
+		if (Objects.equals(
+				_commerceCloudForecastOrder,
+				commerceCloudForecastOrderWrapper.
+					_commerceCloudForecastOrder)) {
+
 			return true;
 		}
 
@@ -394,4 +410,5 @@ public class CommerceCloudForecastOrderWrapper
 	}
 
 	private final CommerceCloudForecastOrder _commerceCloudForecastOrder;
+
 }

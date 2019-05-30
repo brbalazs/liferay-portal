@@ -32,11 +32,14 @@ import java.util.List;
  */
 @ProviderType
 public class CommerceForecastEntrySoap implements Serializable {
+
 	public static CommerceForecastEntrySoap toSoapModel(
 		CommerceForecastEntry model) {
+
 		CommerceForecastEntrySoap soapModel = new CommerceForecastEntrySoap();
 
-		soapModel.setCommerceForecastEntryId(model.getCommerceForecastEntryId());
+		soapModel.setCommerceForecastEntryId(
+			model.getCommerceForecastEntryId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
 		soapModel.setUserName(model.getUserName());
@@ -54,7 +57,9 @@ public class CommerceForecastEntrySoap implements Serializable {
 
 	public static CommerceForecastEntrySoap[] toSoapModels(
 		CommerceForecastEntry[] models) {
-		CommerceForecastEntrySoap[] soapModels = new CommerceForecastEntrySoap[models.length];
+
+		CommerceForecastEntrySoap[] soapModels =
+			new CommerceForecastEntrySoap[models.length];
 
 		for (int i = 0; i < models.length; i++) {
 			soapModels[i] = toSoapModel(models[i]);
@@ -65,10 +70,12 @@ public class CommerceForecastEntrySoap implements Serializable {
 
 	public static CommerceForecastEntrySoap[][] toSoapModels(
 		CommerceForecastEntry[][] models) {
+
 		CommerceForecastEntrySoap[][] soapModels = null;
 
 		if (models.length > 0) {
-			soapModels = new CommerceForecastEntrySoap[models.length][models[0].length];
+			soapModels =
+				new CommerceForecastEntrySoap[models.length][models[0].length];
 		}
 		else {
 			soapModels = new CommerceForecastEntrySoap[0][0];
@@ -83,13 +90,16 @@ public class CommerceForecastEntrySoap implements Serializable {
 
 	public static CommerceForecastEntrySoap[] toSoapModels(
 		List<CommerceForecastEntry> models) {
-		List<CommerceForecastEntrySoap> soapModels = new ArrayList<CommerceForecastEntrySoap>(models.size());
+
+		List<CommerceForecastEntrySoap> soapModels =
+			new ArrayList<CommerceForecastEntrySoap>(models.size());
 
 		for (CommerceForecastEntry model : models) {
 			soapModels.add(toSoapModel(model));
 		}
 
-		return soapModels.toArray(new CommerceForecastEntrySoap[soapModels.size()]);
+		return soapModels.toArray(
+			new CommerceForecastEntrySoap[soapModels.size()]);
 	}
 
 	public CommerceForecastEntrySoap() {
@@ -211,4 +221,5 @@ public class CommerceForecastEntrySoap implements Serializable {
 	private long _customerId;
 	private long _CPInstanceId;
 	private BigDecimal _assertivity;
+
 }

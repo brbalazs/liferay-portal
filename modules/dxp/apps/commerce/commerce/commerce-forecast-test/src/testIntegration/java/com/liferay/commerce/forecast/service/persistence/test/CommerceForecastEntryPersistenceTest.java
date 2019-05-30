@@ -15,13 +15,11 @@
 package com.liferay.commerce.forecast.service.persistence.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
-
 import com.liferay.commerce.forecast.exception.NoSuchForecastEntryException;
 import com.liferay.commerce.forecast.model.CommerceForecastEntry;
 import com.liferay.commerce.forecast.service.CommerceForecastEntryLocalServiceUtil;
 import com.liferay.commerce.forecast.service.persistence.CommerceForecastEntryPersistence;
 import com.liferay.commerce.forecast.service.persistence.CommerceForecastEntryUtil;
-
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
@@ -40,15 +38,6 @@ import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PersistenceTestRule;
 import com.liferay.portal.test.rule.TransactionalTestRule;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-
-import org.junit.runner.RunWith;
-
 import java.io.Serializable;
 
 import java.math.BigDecimal;
@@ -60,17 +49,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.ClassRule;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 /**
  * @generated
  */
 @RunWith(Arquillian.class)
 public class CommerceForecastEntryPersistenceTest {
+
 	@ClassRule
 	@Rule
-	public static final AggregateTestRule aggregateTestRule = new AggregateTestRule(new LiferayIntegrationTestRule(),
-			PersistenceTestRule.INSTANCE,
-			new TransactionalTestRule(Propagation.REQUIRED,
-				"com.liferay.commerce.forecast.service"));
+	public static final AggregateTestRule aggregateTestRule =
+		new AggregateTestRule(
+			new LiferayIntegrationTestRule(), PersistenceTestRule.INSTANCE,
+			new TransactionalTestRule(
+				Propagation.REQUIRED, "com.liferay.commerce.forecast.service"));
 
 	@Before
 	public void setUp() {
@@ -83,7 +82,8 @@ public class CommerceForecastEntryPersistenceTest {
 
 	@After
 	public void tearDown() throws Exception {
-		Iterator<CommerceForecastEntry> iterator = _commerceForecastEntries.iterator();
+		Iterator<CommerceForecastEntry> iterator =
+			_commerceForecastEntries.iterator();
 
 		while (iterator.hasNext()) {
 			_persistence.remove(iterator.next());
@@ -105,11 +105,14 @@ public class CommerceForecastEntryPersistenceTest {
 
 	@Test
 	public void testRemove() throws Exception {
-		CommerceForecastEntry newCommerceForecastEntry = addCommerceForecastEntry();
+		CommerceForecastEntry newCommerceForecastEntry =
+			addCommerceForecastEntry();
 
 		_persistence.remove(newCommerceForecastEntry);
 
-		CommerceForecastEntry existingCommerceForecastEntry = _persistence.fetchByPrimaryKey(newCommerceForecastEntry.getPrimaryKey());
+		CommerceForecastEntry existingCommerceForecastEntry =
+			_persistence.fetchByPrimaryKey(
+				newCommerceForecastEntry.getPrimaryKey());
 
 		Assert.assertNull(existingCommerceForecastEntry);
 	}
@@ -123,7 +126,8 @@ public class CommerceForecastEntryPersistenceTest {
 	public void testUpdateExisting() throws Exception {
 		long pk = RandomTestUtil.nextLong();
 
-		CommerceForecastEntry newCommerceForecastEntry = _persistence.create(pk);
+		CommerceForecastEntry newCommerceForecastEntry = _persistence.create(
+			pk);
 
 		newCommerceForecastEntry.setCompanyId(RandomTestUtil.nextLong());
 
@@ -145,39 +149,53 @@ public class CommerceForecastEntryPersistenceTest {
 
 		newCommerceForecastEntry.setCPInstanceId(RandomTestUtil.nextLong());
 
-		newCommerceForecastEntry.setAssertivity(new BigDecimal(
-				RandomTestUtil.nextDouble()));
+		newCommerceForecastEntry.setAssertivity(
+			new BigDecimal(RandomTestUtil.nextDouble()));
 
-		_commerceForecastEntries.add(_persistence.update(
-				newCommerceForecastEntry));
+		_commerceForecastEntries.add(
+			_persistence.update(newCommerceForecastEntry));
 
-		CommerceForecastEntry existingCommerceForecastEntry = _persistence.findByPrimaryKey(newCommerceForecastEntry.getPrimaryKey());
+		CommerceForecastEntry existingCommerceForecastEntry =
+			_persistence.findByPrimaryKey(
+				newCommerceForecastEntry.getPrimaryKey());
 
-		Assert.assertEquals(existingCommerceForecastEntry.getCommerceForecastEntryId(),
+		Assert.assertEquals(
+			existingCommerceForecastEntry.getCommerceForecastEntryId(),
 			newCommerceForecastEntry.getCommerceForecastEntryId());
-		Assert.assertEquals(existingCommerceForecastEntry.getCompanyId(),
+		Assert.assertEquals(
+			existingCommerceForecastEntry.getCompanyId(),
 			newCommerceForecastEntry.getCompanyId());
-		Assert.assertEquals(existingCommerceForecastEntry.getUserId(),
+		Assert.assertEquals(
+			existingCommerceForecastEntry.getUserId(),
 			newCommerceForecastEntry.getUserId());
-		Assert.assertEquals(existingCommerceForecastEntry.getUserName(),
+		Assert.assertEquals(
+			existingCommerceForecastEntry.getUserName(),
 			newCommerceForecastEntry.getUserName());
-		Assert.assertEquals(Time.getShortTimestamp(
+		Assert.assertEquals(
+			Time.getShortTimestamp(
 				existingCommerceForecastEntry.getCreateDate()),
 			Time.getShortTimestamp(newCommerceForecastEntry.getCreateDate()));
-		Assert.assertEquals(Time.getShortTimestamp(
+		Assert.assertEquals(
+			Time.getShortTimestamp(
 				existingCommerceForecastEntry.getModifiedDate()),
 			Time.getShortTimestamp(newCommerceForecastEntry.getModifiedDate()));
-		Assert.assertEquals(existingCommerceForecastEntry.getTime(),
+		Assert.assertEquals(
+			existingCommerceForecastEntry.getTime(),
 			newCommerceForecastEntry.getTime());
-		Assert.assertEquals(existingCommerceForecastEntry.getPeriod(),
+		Assert.assertEquals(
+			existingCommerceForecastEntry.getPeriod(),
 			newCommerceForecastEntry.getPeriod());
-		Assert.assertEquals(existingCommerceForecastEntry.getTarget(),
+		Assert.assertEquals(
+			existingCommerceForecastEntry.getTarget(),
 			newCommerceForecastEntry.getTarget());
-		Assert.assertEquals(existingCommerceForecastEntry.getCustomerId(),
+		Assert.assertEquals(
+			existingCommerceForecastEntry.getCustomerId(),
 			newCommerceForecastEntry.getCustomerId());
-		Assert.assertEquals(existingCommerceForecastEntry.getCPInstanceId(),
+		Assert.assertEquals(
+			existingCommerceForecastEntry.getCPInstanceId(),
 			newCommerceForecastEntry.getCPInstanceId());
-		Assert.assertEquals(existingCommerceForecastEntry.getAssertivity(),
+		Assert.assertEquals(
+			existingCommerceForecastEntry.getAssertivity(),
 			newCommerceForecastEntry.getAssertivity());
 	}
 
@@ -190,21 +208,25 @@ public class CommerceForecastEntryPersistenceTest {
 
 	@Test
 	public void testCountByC_P_T_C_C() throws Exception {
-		_persistence.countByC_P_T_C_C(RandomTestUtil.nextLong(),
-			RandomTestUtil.nextInt(), RandomTestUtil.nextInt(),
-			RandomTestUtil.nextLong(), RandomTestUtil.nextLong());
+		_persistence.countByC_P_T_C_C(
+			RandomTestUtil.nextLong(), RandomTestUtil.nextInt(),
+			RandomTestUtil.nextInt(), RandomTestUtil.nextLong(),
+			RandomTestUtil.nextLong());
 
 		_persistence.countByC_P_T_C_C(0L, 0, 0, 0L, 0L);
 	}
 
 	@Test
 	public void testFindByPrimaryKeyExisting() throws Exception {
-		CommerceForecastEntry newCommerceForecastEntry = addCommerceForecastEntry();
+		CommerceForecastEntry newCommerceForecastEntry =
+			addCommerceForecastEntry();
 
-		CommerceForecastEntry existingCommerceForecastEntry = _persistence.findByPrimaryKey(newCommerceForecastEntry.getPrimaryKey());
+		CommerceForecastEntry existingCommerceForecastEntry =
+			_persistence.findByPrimaryKey(
+				newCommerceForecastEntry.getPrimaryKey());
 
-		Assert.assertEquals(existingCommerceForecastEntry,
-			newCommerceForecastEntry);
+		Assert.assertEquals(
+			existingCommerceForecastEntry, newCommerceForecastEntry);
 	}
 
 	@Test(expected = NoSuchForecastEntryException.class)
@@ -216,33 +238,38 @@ public class CommerceForecastEntryPersistenceTest {
 
 	@Test
 	public void testFindAll() throws Exception {
-		_persistence.findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			getOrderByComparator());
+		_persistence.findAll(
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS, getOrderByComparator());
 	}
 
 	protected OrderByComparator<CommerceForecastEntry> getOrderByComparator() {
-		return OrderByComparatorFactoryUtil.create("CommerceForecastEntry",
-			"commerceForecastEntryId", true, "companyId", true, "userId", true,
-			"userName", true, "createDate", true, "modifiedDate", true, "time",
-			true, "period", true, "target", true, "customerId", true,
-			"CPInstanceId", true, "assertivity", true);
+		return OrderByComparatorFactoryUtil.create(
+			"CommerceForecastEntry", "commerceForecastEntryId", true,
+			"companyId", true, "userId", true, "userName", true, "createDate",
+			true, "modifiedDate", true, "time", true, "period", true, "target",
+			true, "customerId", true, "CPInstanceId", true, "assertivity",
+			true);
 	}
 
 	@Test
 	public void testFetchByPrimaryKeyExisting() throws Exception {
-		CommerceForecastEntry newCommerceForecastEntry = addCommerceForecastEntry();
+		CommerceForecastEntry newCommerceForecastEntry =
+			addCommerceForecastEntry();
 
-		CommerceForecastEntry existingCommerceForecastEntry = _persistence.fetchByPrimaryKey(newCommerceForecastEntry.getPrimaryKey());
+		CommerceForecastEntry existingCommerceForecastEntry =
+			_persistence.fetchByPrimaryKey(
+				newCommerceForecastEntry.getPrimaryKey());
 
-		Assert.assertEquals(existingCommerceForecastEntry,
-			newCommerceForecastEntry);
+		Assert.assertEquals(
+			existingCommerceForecastEntry, newCommerceForecastEntry);
 	}
 
 	@Test
 	public void testFetchByPrimaryKeyMissing() throws Exception {
 		long pk = RandomTestUtil.nextLong();
 
-		CommerceForecastEntry missingCommerceForecastEntry = _persistence.fetchByPrimaryKey(pk);
+		CommerceForecastEntry missingCommerceForecastEntry =
+			_persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingCommerceForecastEntry);
 	}
@@ -250,21 +277,27 @@ public class CommerceForecastEntryPersistenceTest {
 	@Test
 	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
 		throws Exception {
-		CommerceForecastEntry newCommerceForecastEntry1 = addCommerceForecastEntry();
-		CommerceForecastEntry newCommerceForecastEntry2 = addCommerceForecastEntry();
+
+		CommerceForecastEntry newCommerceForecastEntry1 =
+			addCommerceForecastEntry();
+		CommerceForecastEntry newCommerceForecastEntry2 =
+			addCommerceForecastEntry();
 
 		Set<Serializable> primaryKeys = new HashSet<Serializable>();
 
 		primaryKeys.add(newCommerceForecastEntry1.getPrimaryKey());
 		primaryKeys.add(newCommerceForecastEntry2.getPrimaryKey());
 
-		Map<Serializable, CommerceForecastEntry> commerceForecastEntries = _persistence.fetchByPrimaryKeys(primaryKeys);
+		Map<Serializable, CommerceForecastEntry> commerceForecastEntries =
+			_persistence.fetchByPrimaryKeys(primaryKeys);
 
 		Assert.assertEquals(2, commerceForecastEntries.size());
-		Assert.assertEquals(newCommerceForecastEntry1,
+		Assert.assertEquals(
+			newCommerceForecastEntry1,
 			commerceForecastEntries.get(
 				newCommerceForecastEntry1.getPrimaryKey()));
-		Assert.assertEquals(newCommerceForecastEntry2,
+		Assert.assertEquals(
+			newCommerceForecastEntry2,
 			commerceForecastEntries.get(
 				newCommerceForecastEntry2.getPrimaryKey()));
 	}
@@ -272,6 +305,7 @@ public class CommerceForecastEntryPersistenceTest {
 	@Test
 	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
 		throws Exception {
+
 		long pk1 = RandomTestUtil.nextLong();
 
 		long pk2 = RandomTestUtil.nextLong();
@@ -281,7 +315,8 @@ public class CommerceForecastEntryPersistenceTest {
 		primaryKeys.add(pk1);
 		primaryKeys.add(pk2);
 
-		Map<Serializable, CommerceForecastEntry> commerceForecastEntries = _persistence.fetchByPrimaryKeys(primaryKeys);
+		Map<Serializable, CommerceForecastEntry> commerceForecastEntries =
+			_persistence.fetchByPrimaryKeys(primaryKeys);
 
 		Assert.assertTrue(commerceForecastEntries.isEmpty());
 	}
@@ -289,7 +324,9 @@ public class CommerceForecastEntryPersistenceTest {
 	@Test
 	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
 		throws Exception {
-		CommerceForecastEntry newCommerceForecastEntry = addCommerceForecastEntry();
+
+		CommerceForecastEntry newCommerceForecastEntry =
+			addCommerceForecastEntry();
 
 		long pk = RandomTestUtil.nextLong();
 
@@ -298,37 +335,41 @@ public class CommerceForecastEntryPersistenceTest {
 		primaryKeys.add(newCommerceForecastEntry.getPrimaryKey());
 		primaryKeys.add(pk);
 
-		Map<Serializable, CommerceForecastEntry> commerceForecastEntries = _persistence.fetchByPrimaryKeys(primaryKeys);
+		Map<Serializable, CommerceForecastEntry> commerceForecastEntries =
+			_persistence.fetchByPrimaryKeys(primaryKeys);
 
 		Assert.assertEquals(1, commerceForecastEntries.size());
-		Assert.assertEquals(newCommerceForecastEntry,
+		Assert.assertEquals(
+			newCommerceForecastEntry,
 			commerceForecastEntries.get(
 				newCommerceForecastEntry.getPrimaryKey()));
 	}
 
 	@Test
-	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
-		throws Exception {
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys() throws Exception {
 		Set<Serializable> primaryKeys = new HashSet<Serializable>();
 
-		Map<Serializable, CommerceForecastEntry> commerceForecastEntries = _persistence.fetchByPrimaryKeys(primaryKeys);
+		Map<Serializable, CommerceForecastEntry> commerceForecastEntries =
+			_persistence.fetchByPrimaryKeys(primaryKeys);
 
 		Assert.assertTrue(commerceForecastEntries.isEmpty());
 	}
 
 	@Test
-	public void testFetchByPrimaryKeysWithOnePrimaryKey()
-		throws Exception {
-		CommerceForecastEntry newCommerceForecastEntry = addCommerceForecastEntry();
+	public void testFetchByPrimaryKeysWithOnePrimaryKey() throws Exception {
+		CommerceForecastEntry newCommerceForecastEntry =
+			addCommerceForecastEntry();
 
 		Set<Serializable> primaryKeys = new HashSet<Serializable>();
 
 		primaryKeys.add(newCommerceForecastEntry.getPrimaryKey());
 
-		Map<Serializable, CommerceForecastEntry> commerceForecastEntries = _persistence.fetchByPrimaryKeys(primaryKeys);
+		Map<Serializable, CommerceForecastEntry> commerceForecastEntries =
+			_persistence.fetchByPrimaryKeys(primaryKeys);
 
 		Assert.assertEquals(1, commerceForecastEntries.size());
-		Assert.assertEquals(newCommerceForecastEntry,
+		Assert.assertEquals(
+			newCommerceForecastEntry,
 			commerceForecastEntries.get(
 				newCommerceForecastEntry.getPrimaryKey()));
 	}
@@ -337,16 +378,22 @@ public class CommerceForecastEntryPersistenceTest {
 	public void testActionableDynamicQuery() throws Exception {
 		final IntegerWrapper count = new IntegerWrapper();
 
-		ActionableDynamicQuery actionableDynamicQuery = CommerceForecastEntryLocalServiceUtil.getActionableDynamicQuery();
+		ActionableDynamicQuery actionableDynamicQuery =
+			CommerceForecastEntryLocalServiceUtil.getActionableDynamicQuery();
 
-		actionableDynamicQuery.setPerformActionMethod(new ActionableDynamicQuery.PerformActionMethod<CommerceForecastEntry>() {
+		actionableDynamicQuery.setPerformActionMethod(
+			new ActionableDynamicQuery.PerformActionMethod
+				<CommerceForecastEntry>() {
+
 				@Override
 				public void performAction(
 					CommerceForecastEntry commerceForecastEntry) {
+
 					Assert.assertNotNull(commerceForecastEntry);
 
 					count.increment();
 				}
+
 			});
 
 		actionableDynamicQuery.performActions();
@@ -355,54 +402,62 @@ public class CommerceForecastEntryPersistenceTest {
 	}
 
 	@Test
-	public void testDynamicQueryByPrimaryKeyExisting()
-		throws Exception {
-		CommerceForecastEntry newCommerceForecastEntry = addCommerceForecastEntry();
+	public void testDynamicQueryByPrimaryKeyExisting() throws Exception {
+		CommerceForecastEntry newCommerceForecastEntry =
+			addCommerceForecastEntry();
 
-		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(CommerceForecastEntry.class,
-				_dynamicQueryClassLoader);
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+			CommerceForecastEntry.class, _dynamicQueryClassLoader);
 
-		dynamicQuery.add(RestrictionsFactoryUtil.eq("commerceForecastEntryId",
+		dynamicQuery.add(
+			RestrictionsFactoryUtil.eq(
+				"commerceForecastEntryId",
 				newCommerceForecastEntry.getCommerceForecastEntryId()));
 
-		List<CommerceForecastEntry> result = _persistence.findWithDynamicQuery(dynamicQuery);
+		List<CommerceForecastEntry> result = _persistence.findWithDynamicQuery(
+			dynamicQuery);
 
 		Assert.assertEquals(1, result.size());
 
 		CommerceForecastEntry existingCommerceForecastEntry = result.get(0);
 
-		Assert.assertEquals(existingCommerceForecastEntry,
-			newCommerceForecastEntry);
+		Assert.assertEquals(
+			existingCommerceForecastEntry, newCommerceForecastEntry);
 	}
 
 	@Test
 	public void testDynamicQueryByPrimaryKeyMissing() throws Exception {
-		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(CommerceForecastEntry.class,
-				_dynamicQueryClassLoader);
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+			CommerceForecastEntry.class, _dynamicQueryClassLoader);
 
-		dynamicQuery.add(RestrictionsFactoryUtil.eq("commerceForecastEntryId",
-				RandomTestUtil.nextLong()));
+		dynamicQuery.add(
+			RestrictionsFactoryUtil.eq(
+				"commerceForecastEntryId", RandomTestUtil.nextLong()));
 
-		List<CommerceForecastEntry> result = _persistence.findWithDynamicQuery(dynamicQuery);
+		List<CommerceForecastEntry> result = _persistence.findWithDynamicQuery(
+			dynamicQuery);
 
 		Assert.assertEquals(0, result.size());
 	}
 
 	@Test
-	public void testDynamicQueryByProjectionExisting()
-		throws Exception {
-		CommerceForecastEntry newCommerceForecastEntry = addCommerceForecastEntry();
+	public void testDynamicQueryByProjectionExisting() throws Exception {
+		CommerceForecastEntry newCommerceForecastEntry =
+			addCommerceForecastEntry();
 
-		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(CommerceForecastEntry.class,
-				_dynamicQueryClassLoader);
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+			CommerceForecastEntry.class, _dynamicQueryClassLoader);
 
-		dynamicQuery.setProjection(ProjectionFactoryUtil.property(
-				"commerceForecastEntryId"));
+		dynamicQuery.setProjection(
+			ProjectionFactoryUtil.property("commerceForecastEntryId"));
 
-		Object newCommerceForecastEntryId = newCommerceForecastEntry.getCommerceForecastEntryId();
+		Object newCommerceForecastEntryId =
+			newCommerceForecastEntry.getCommerceForecastEntryId();
 
-		dynamicQuery.add(RestrictionsFactoryUtil.in("commerceForecastEntryId",
-				new Object[] { newCommerceForecastEntryId }));
+		dynamicQuery.add(
+			RestrictionsFactoryUtil.in(
+				"commerceForecastEntryId",
+				new Object[] {newCommerceForecastEntryId}));
 
 		List<Object> result = _persistence.findWithDynamicQuery(dynamicQuery);
 
@@ -410,20 +465,22 @@ public class CommerceForecastEntryPersistenceTest {
 
 		Object existingCommerceForecastEntryId = result.get(0);
 
-		Assert.assertEquals(existingCommerceForecastEntryId,
-			newCommerceForecastEntryId);
+		Assert.assertEquals(
+			existingCommerceForecastEntryId, newCommerceForecastEntryId);
 	}
 
 	@Test
 	public void testDynamicQueryByProjectionMissing() throws Exception {
-		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(CommerceForecastEntry.class,
-				_dynamicQueryClassLoader);
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+			CommerceForecastEntry.class, _dynamicQueryClassLoader);
 
-		dynamicQuery.setProjection(ProjectionFactoryUtil.property(
-				"commerceForecastEntryId"));
+		dynamicQuery.setProjection(
+			ProjectionFactoryUtil.property("commerceForecastEntryId"));
 
-		dynamicQuery.add(RestrictionsFactoryUtil.in("commerceForecastEntryId",
-				new Object[] { RandomTestUtil.nextLong() }));
+		dynamicQuery.add(
+			RestrictionsFactoryUtil.in(
+				"commerceForecastEntryId",
+				new Object[] {RandomTestUtil.nextLong()}));
 
 		List<Object> result = _persistence.findWithDynamicQuery(dynamicQuery);
 
@@ -432,36 +489,45 @@ public class CommerceForecastEntryPersistenceTest {
 
 	@Test
 	public void testResetOriginalValues() throws Exception {
-		CommerceForecastEntry newCommerceForecastEntry = addCommerceForecastEntry();
+		CommerceForecastEntry newCommerceForecastEntry =
+			addCommerceForecastEntry();
 
 		_persistence.clearCache();
 
-		CommerceForecastEntry existingCommerceForecastEntry = _persistence.findByPrimaryKey(newCommerceForecastEntry.getPrimaryKey());
+		CommerceForecastEntry existingCommerceForecastEntry =
+			_persistence.findByPrimaryKey(
+				newCommerceForecastEntry.getPrimaryKey());
 
-		Assert.assertEquals(Long.valueOf(
-				existingCommerceForecastEntry.getCompanyId()),
-			ReflectionTestUtil.<Long>invoke(existingCommerceForecastEntry,
-				"getOriginalCompanyId", new Class<?>[0]));
-		Assert.assertEquals(Integer.valueOf(
-				existingCommerceForecastEntry.getPeriod()),
-			ReflectionTestUtil.<Integer>invoke(existingCommerceForecastEntry,
-				"getOriginalPeriod", new Class<?>[0]));
-		Assert.assertEquals(Integer.valueOf(
-				existingCommerceForecastEntry.getTarget()),
-			ReflectionTestUtil.<Integer>invoke(existingCommerceForecastEntry,
-				"getOriginalTarget", new Class<?>[0]));
-		Assert.assertEquals(Long.valueOf(
-				existingCommerceForecastEntry.getCustomerId()),
-			ReflectionTestUtil.<Long>invoke(existingCommerceForecastEntry,
-				"getOriginalCustomerId", new Class<?>[0]));
-		Assert.assertEquals(Long.valueOf(
-				existingCommerceForecastEntry.getCPInstanceId()),
-			ReflectionTestUtil.<Long>invoke(existingCommerceForecastEntry,
-				"getOriginalCPInstanceId", new Class<?>[0]));
+		Assert.assertEquals(
+			Long.valueOf(existingCommerceForecastEntry.getCompanyId()),
+			ReflectionTestUtil.<Long>invoke(
+				existingCommerceForecastEntry, "getOriginalCompanyId",
+				new Class<?>[0]));
+		Assert.assertEquals(
+			Integer.valueOf(existingCommerceForecastEntry.getPeriod()),
+			ReflectionTestUtil.<Integer>invoke(
+				existingCommerceForecastEntry, "getOriginalPeriod",
+				new Class<?>[0]));
+		Assert.assertEquals(
+			Integer.valueOf(existingCommerceForecastEntry.getTarget()),
+			ReflectionTestUtil.<Integer>invoke(
+				existingCommerceForecastEntry, "getOriginalTarget",
+				new Class<?>[0]));
+		Assert.assertEquals(
+			Long.valueOf(existingCommerceForecastEntry.getCustomerId()),
+			ReflectionTestUtil.<Long>invoke(
+				existingCommerceForecastEntry, "getOriginalCustomerId",
+				new Class<?>[0]));
+		Assert.assertEquals(
+			Long.valueOf(existingCommerceForecastEntry.getCPInstanceId()),
+			ReflectionTestUtil.<Long>invoke(
+				existingCommerceForecastEntry, "getOriginalCPInstanceId",
+				new Class<?>[0]));
 	}
 
 	protected CommerceForecastEntry addCommerceForecastEntry()
 		throws Exception {
+
 		long pk = RandomTestUtil.nextLong();
 
 		CommerceForecastEntry commerceForecastEntry = _persistence.create(pk);
@@ -486,15 +552,18 @@ public class CommerceForecastEntryPersistenceTest {
 
 		commerceForecastEntry.setCPInstanceId(RandomTestUtil.nextLong());
 
-		commerceForecastEntry.setAssertivity(new BigDecimal(
-				RandomTestUtil.nextDouble()));
+		commerceForecastEntry.setAssertivity(
+			new BigDecimal(RandomTestUtil.nextDouble()));
 
-		_commerceForecastEntries.add(_persistence.update(commerceForecastEntry));
+		_commerceForecastEntries.add(
+			_persistence.update(commerceForecastEntry));
 
 		return commerceForecastEntry;
 	}
 
-	private List<CommerceForecastEntry> _commerceForecastEntries = new ArrayList<CommerceForecastEntry>();
+	private List<CommerceForecastEntry> _commerceForecastEntries =
+		new ArrayList<CommerceForecastEntry>();
 	private CommerceForecastEntryPersistence _persistence;
 	private ClassLoader _dynamicQueryClassLoader;
+
 }

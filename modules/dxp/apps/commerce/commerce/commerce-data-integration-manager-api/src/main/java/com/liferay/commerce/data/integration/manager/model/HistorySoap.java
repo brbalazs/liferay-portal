@@ -25,12 +25,12 @@ import java.util.List;
 /**
  * This class is used by SOAP remote services, specifically {@link com.liferay.commerce.data.integration.manager.service.http.HistoryServiceSoap}.
  *
- * @author Brian Wing Shun Chan
- * @see com.liferay.commerce.data.integration.manager.service.http.HistoryServiceSoap
+ * @author Marco Leo
  * @generated
  */
 @ProviderType
 public class HistorySoap implements Serializable {
+
 	public static HistorySoap toSoapModel(History model) {
 		HistorySoap soapModel = new HistorySoap();
 
@@ -82,7 +82,8 @@ public class HistorySoap implements Serializable {
 	}
 
 	public static HistorySoap[] toSoapModels(List<History> models) {
-		List<HistorySoap> soapModels = new ArrayList<HistorySoap>(models.size());
+		List<HistorySoap> soapModels = new ArrayList<HistorySoap>(
+			models.size());
 
 		for (History model : models) {
 			soapModels.add(toSoapModel(model));
@@ -246,4 +247,5 @@ public class HistorySoap implements Serializable {
 	private String _executionType;
 	private long _errorLogFileEntryId;
 	private long _runtimeLogFileEntryId;
+
 }

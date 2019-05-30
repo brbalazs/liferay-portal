@@ -34,18 +34,22 @@ import com.liferay.commerce.forecast.service.CommerceForecastEntryLocalServiceUt
 @ProviderType
 public abstract class CommerceForecastEntryBaseImpl
 	extends CommerceForecastEntryModelImpl implements CommerceForecastEntry {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce forecast entry model instance should use the {@link CommerceForecastEntry} interface instead.
+	 * Never modify or reference this class directly. All methods that expect a commerce forecast entry model instance should use the <code>CommerceForecastEntry</code> interface instead.
 	 */
 	@Override
 	public void persist() {
 		if (this.isNew()) {
-			CommerceForecastEntryLocalServiceUtil.addCommerceForecastEntry(this);
+			CommerceForecastEntryLocalServiceUtil.addCommerceForecastEntry(
+				this);
 		}
 		else {
-			CommerceForecastEntryLocalServiceUtil.updateCommerceForecastEntry(this);
+			CommerceForecastEntryLocalServiceUtil.updateCommerceForecastEntry(
+				this);
 		}
 	}
+
 }

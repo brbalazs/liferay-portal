@@ -15,13 +15,11 @@
 package com.liferay.commerce.cloud.client.service.persistence.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
-
 import com.liferay.commerce.cloud.client.exception.NoSuchCloudForecastOrderException;
 import com.liferay.commerce.cloud.client.model.CommerceCloudForecastOrder;
 import com.liferay.commerce.cloud.client.service.CommerceCloudForecastOrderLocalServiceUtil;
 import com.liferay.commerce.cloud.client.service.persistence.CommerceCloudForecastOrderPersistence;
 import com.liferay.commerce.cloud.client.service.persistence.CommerceCloudForecastOrderUtil;
-
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
@@ -40,15 +38,6 @@ import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PersistenceTestRule;
 import com.liferay.portal.test.rule.TransactionalTestRule;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-
-import org.junit.runner.RunWith;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -58,16 +47,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.ClassRule;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 /**
  * @generated
  */
 @RunWith(Arquillian.class)
 public class CommerceCloudForecastOrderPersistenceTest {
+
 	@ClassRule
 	@Rule
-	public static final AggregateTestRule aggregateTestRule = new AggregateTestRule(new LiferayIntegrationTestRule(),
-			PersistenceTestRule.INSTANCE,
-			new TransactionalTestRule(Propagation.REQUIRED,
+	public static final AggregateTestRule aggregateTestRule =
+		new AggregateTestRule(
+			new LiferayIntegrationTestRule(), PersistenceTestRule.INSTANCE,
+			new TransactionalTestRule(
+				Propagation.REQUIRED,
 				"com.liferay.commerce.cloud.client.service"));
 
 	@Before
@@ -81,7 +81,8 @@ public class CommerceCloudForecastOrderPersistenceTest {
 
 	@After
 	public void tearDown() throws Exception {
-		Iterator<CommerceCloudForecastOrder> iterator = _commerceCloudForecastOrders.iterator();
+		Iterator<CommerceCloudForecastOrder> iterator =
+			_commerceCloudForecastOrders.iterator();
 
 		while (iterator.hasNext()) {
 			_persistence.remove(iterator.next());
@@ -94,7 +95,8 @@ public class CommerceCloudForecastOrderPersistenceTest {
 	public void testCreate() throws Exception {
 		long pk = RandomTestUtil.nextLong();
 
-		CommerceCloudForecastOrder commerceCloudForecastOrder = _persistence.create(pk);
+		CommerceCloudForecastOrder commerceCloudForecastOrder =
+			_persistence.create(pk);
 
 		Assert.assertNotNull(commerceCloudForecastOrder);
 
@@ -103,11 +105,14 @@ public class CommerceCloudForecastOrderPersistenceTest {
 
 	@Test
 	public void testRemove() throws Exception {
-		CommerceCloudForecastOrder newCommerceCloudForecastOrder = addCommerceCloudForecastOrder();
+		CommerceCloudForecastOrder newCommerceCloudForecastOrder =
+			addCommerceCloudForecastOrder();
 
 		_persistence.remove(newCommerceCloudForecastOrder);
 
-		CommerceCloudForecastOrder existingCommerceCloudForecastOrder = _persistence.fetchByPrimaryKey(newCommerceCloudForecastOrder.getPrimaryKey());
+		CommerceCloudForecastOrder existingCommerceCloudForecastOrder =
+			_persistence.fetchByPrimaryKey(
+				newCommerceCloudForecastOrder.getPrimaryKey());
 
 		Assert.assertNull(existingCommerceCloudForecastOrder);
 	}
@@ -121,7 +126,8 @@ public class CommerceCloudForecastOrderPersistenceTest {
 	public void testUpdateExisting() throws Exception {
 		long pk = RandomTestUtil.nextLong();
 
-		CommerceCloudForecastOrder newCommerceCloudForecastOrder = _persistence.create(pk);
+		CommerceCloudForecastOrder newCommerceCloudForecastOrder =
+			_persistence.create(pk);
 
 		newCommerceCloudForecastOrder.setGroupId(RandomTestUtil.nextLong());
 
@@ -129,30 +135,41 @@ public class CommerceCloudForecastOrderPersistenceTest {
 
 		newCommerceCloudForecastOrder.setCreateDate(RandomTestUtil.nextDate());
 
-		newCommerceCloudForecastOrder.setCommerceOrderId(RandomTestUtil.nextLong());
+		newCommerceCloudForecastOrder.setCommerceOrderId(
+			RandomTestUtil.nextLong());
 
 		newCommerceCloudForecastOrder.setSyncDate(RandomTestUtil.nextDate());
 
-		_commerceCloudForecastOrders.add(_persistence.update(
-				newCommerceCloudForecastOrder));
+		_commerceCloudForecastOrders.add(
+			_persistence.update(newCommerceCloudForecastOrder));
 
-		CommerceCloudForecastOrder existingCommerceCloudForecastOrder = _persistence.findByPrimaryKey(newCommerceCloudForecastOrder.getPrimaryKey());
+		CommerceCloudForecastOrder existingCommerceCloudForecastOrder =
+			_persistence.findByPrimaryKey(
+				newCommerceCloudForecastOrder.getPrimaryKey());
 
-		Assert.assertEquals(existingCommerceCloudForecastOrder.getCommerceCloudForecastOrderId(),
+		Assert.assertEquals(
+			existingCommerceCloudForecastOrder.
+				getCommerceCloudForecastOrderId(),
 			newCommerceCloudForecastOrder.getCommerceCloudForecastOrderId());
-		Assert.assertEquals(existingCommerceCloudForecastOrder.getGroupId(),
+		Assert.assertEquals(
+			existingCommerceCloudForecastOrder.getGroupId(),
 			newCommerceCloudForecastOrder.getGroupId());
-		Assert.assertEquals(existingCommerceCloudForecastOrder.getCompanyId(),
+		Assert.assertEquals(
+			existingCommerceCloudForecastOrder.getCompanyId(),
 			newCommerceCloudForecastOrder.getCompanyId());
-		Assert.assertEquals(Time.getShortTimestamp(
+		Assert.assertEquals(
+			Time.getShortTimestamp(
 				existingCommerceCloudForecastOrder.getCreateDate()),
 			Time.getShortTimestamp(
 				newCommerceCloudForecastOrder.getCreateDate()));
-		Assert.assertEquals(existingCommerceCloudForecastOrder.getCommerceOrderId(),
+		Assert.assertEquals(
+			existingCommerceCloudForecastOrder.getCommerceOrderId(),
 			newCommerceCloudForecastOrder.getCommerceOrderId());
-		Assert.assertEquals(Time.getShortTimestamp(
+		Assert.assertEquals(
+			Time.getShortTimestamp(
 				existingCommerceCloudForecastOrder.getSyncDate()),
-			Time.getShortTimestamp(newCommerceCloudForecastOrder.getSyncDate()));
+			Time.getShortTimestamp(
+				newCommerceCloudForecastOrder.getSyncDate()));
 	}
 
 	@Test
@@ -171,12 +188,15 @@ public class CommerceCloudForecastOrderPersistenceTest {
 
 	@Test
 	public void testFindByPrimaryKeyExisting() throws Exception {
-		CommerceCloudForecastOrder newCommerceCloudForecastOrder = addCommerceCloudForecastOrder();
+		CommerceCloudForecastOrder newCommerceCloudForecastOrder =
+			addCommerceCloudForecastOrder();
 
-		CommerceCloudForecastOrder existingCommerceCloudForecastOrder = _persistence.findByPrimaryKey(newCommerceCloudForecastOrder.getPrimaryKey());
+		CommerceCloudForecastOrder existingCommerceCloudForecastOrder =
+			_persistence.findByPrimaryKey(
+				newCommerceCloudForecastOrder.getPrimaryKey());
 
-		Assert.assertEquals(existingCommerceCloudForecastOrder,
-			newCommerceCloudForecastOrder);
+		Assert.assertEquals(
+			existingCommerceCloudForecastOrder, newCommerceCloudForecastOrder);
 	}
 
 	@Test(expected = NoSuchCloudForecastOrderException.class)
@@ -188,31 +208,38 @@ public class CommerceCloudForecastOrderPersistenceTest {
 
 	@Test
 	public void testFindAll() throws Exception {
-		_persistence.findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			getOrderByComparator());
+		_persistence.findAll(
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS, getOrderByComparator());
 	}
 
-	protected OrderByComparator<CommerceCloudForecastOrder> getOrderByComparator() {
-		return OrderByComparatorFactoryUtil.create("CommerceCloudForecastOrder",
-			"commerceCloudForecastOrderId", true, "groupId", true, "companyId",
-			true, "createDate", true, "commerceOrderId", true, "syncDate", true);
+	protected OrderByComparator<CommerceCloudForecastOrder>
+		getOrderByComparator() {
+
+		return OrderByComparatorFactoryUtil.create(
+			"CommerceCloudForecastOrder", "commerceCloudForecastOrderId", true,
+			"groupId", true, "companyId", true, "createDate", true,
+			"commerceOrderId", true, "syncDate", true);
 	}
 
 	@Test
 	public void testFetchByPrimaryKeyExisting() throws Exception {
-		CommerceCloudForecastOrder newCommerceCloudForecastOrder = addCommerceCloudForecastOrder();
+		CommerceCloudForecastOrder newCommerceCloudForecastOrder =
+			addCommerceCloudForecastOrder();
 
-		CommerceCloudForecastOrder existingCommerceCloudForecastOrder = _persistence.fetchByPrimaryKey(newCommerceCloudForecastOrder.getPrimaryKey());
+		CommerceCloudForecastOrder existingCommerceCloudForecastOrder =
+			_persistence.fetchByPrimaryKey(
+				newCommerceCloudForecastOrder.getPrimaryKey());
 
-		Assert.assertEquals(existingCommerceCloudForecastOrder,
-			newCommerceCloudForecastOrder);
+		Assert.assertEquals(
+			existingCommerceCloudForecastOrder, newCommerceCloudForecastOrder);
 	}
 
 	@Test
 	public void testFetchByPrimaryKeyMissing() throws Exception {
 		long pk = RandomTestUtil.nextLong();
 
-		CommerceCloudForecastOrder missingCommerceCloudForecastOrder = _persistence.fetchByPrimaryKey(pk);
+		CommerceCloudForecastOrder missingCommerceCloudForecastOrder =
+			_persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingCommerceCloudForecastOrder);
 	}
@@ -220,22 +247,28 @@ public class CommerceCloudForecastOrderPersistenceTest {
 	@Test
 	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
 		throws Exception {
-		CommerceCloudForecastOrder newCommerceCloudForecastOrder1 = addCommerceCloudForecastOrder();
-		CommerceCloudForecastOrder newCommerceCloudForecastOrder2 = addCommerceCloudForecastOrder();
+
+		CommerceCloudForecastOrder newCommerceCloudForecastOrder1 =
+			addCommerceCloudForecastOrder();
+		CommerceCloudForecastOrder newCommerceCloudForecastOrder2 =
+			addCommerceCloudForecastOrder();
 
 		Set<Serializable> primaryKeys = new HashSet<Serializable>();
 
 		primaryKeys.add(newCommerceCloudForecastOrder1.getPrimaryKey());
 		primaryKeys.add(newCommerceCloudForecastOrder2.getPrimaryKey());
 
-		Map<Serializable, CommerceCloudForecastOrder> commerceCloudForecastOrders =
-			_persistence.fetchByPrimaryKeys(primaryKeys);
+		Map<Serializable, CommerceCloudForecastOrder>
+			commerceCloudForecastOrders = _persistence.fetchByPrimaryKeys(
+				primaryKeys);
 
 		Assert.assertEquals(2, commerceCloudForecastOrders.size());
-		Assert.assertEquals(newCommerceCloudForecastOrder1,
+		Assert.assertEquals(
+			newCommerceCloudForecastOrder1,
 			commerceCloudForecastOrders.get(
 				newCommerceCloudForecastOrder1.getPrimaryKey()));
-		Assert.assertEquals(newCommerceCloudForecastOrder2,
+		Assert.assertEquals(
+			newCommerceCloudForecastOrder2,
 			commerceCloudForecastOrders.get(
 				newCommerceCloudForecastOrder2.getPrimaryKey()));
 	}
@@ -243,6 +276,7 @@ public class CommerceCloudForecastOrderPersistenceTest {
 	@Test
 	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
 		throws Exception {
+
 		long pk1 = RandomTestUtil.nextLong();
 
 		long pk2 = RandomTestUtil.nextLong();
@@ -252,8 +286,9 @@ public class CommerceCloudForecastOrderPersistenceTest {
 		primaryKeys.add(pk1);
 		primaryKeys.add(pk2);
 
-		Map<Serializable, CommerceCloudForecastOrder> commerceCloudForecastOrders =
-			_persistence.fetchByPrimaryKeys(primaryKeys);
+		Map<Serializable, CommerceCloudForecastOrder>
+			commerceCloudForecastOrders = _persistence.fetchByPrimaryKeys(
+				primaryKeys);
 
 		Assert.assertTrue(commerceCloudForecastOrders.isEmpty());
 	}
@@ -261,7 +296,9 @@ public class CommerceCloudForecastOrderPersistenceTest {
 	@Test
 	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
 		throws Exception {
-		CommerceCloudForecastOrder newCommerceCloudForecastOrder = addCommerceCloudForecastOrder();
+
+		CommerceCloudForecastOrder newCommerceCloudForecastOrder =
+			addCommerceCloudForecastOrder();
 
 		long pk = RandomTestUtil.nextLong();
 
@@ -270,40 +307,44 @@ public class CommerceCloudForecastOrderPersistenceTest {
 		primaryKeys.add(newCommerceCloudForecastOrder.getPrimaryKey());
 		primaryKeys.add(pk);
 
-		Map<Serializable, CommerceCloudForecastOrder> commerceCloudForecastOrders =
-			_persistence.fetchByPrimaryKeys(primaryKeys);
+		Map<Serializable, CommerceCloudForecastOrder>
+			commerceCloudForecastOrders = _persistence.fetchByPrimaryKeys(
+				primaryKeys);
 
 		Assert.assertEquals(1, commerceCloudForecastOrders.size());
-		Assert.assertEquals(newCommerceCloudForecastOrder,
+		Assert.assertEquals(
+			newCommerceCloudForecastOrder,
 			commerceCloudForecastOrders.get(
 				newCommerceCloudForecastOrder.getPrimaryKey()));
 	}
 
 	@Test
-	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
-		throws Exception {
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys() throws Exception {
 		Set<Serializable> primaryKeys = new HashSet<Serializable>();
 
-		Map<Serializable, CommerceCloudForecastOrder> commerceCloudForecastOrders =
-			_persistence.fetchByPrimaryKeys(primaryKeys);
+		Map<Serializable, CommerceCloudForecastOrder>
+			commerceCloudForecastOrders = _persistence.fetchByPrimaryKeys(
+				primaryKeys);
 
 		Assert.assertTrue(commerceCloudForecastOrders.isEmpty());
 	}
 
 	@Test
-	public void testFetchByPrimaryKeysWithOnePrimaryKey()
-		throws Exception {
-		CommerceCloudForecastOrder newCommerceCloudForecastOrder = addCommerceCloudForecastOrder();
+	public void testFetchByPrimaryKeysWithOnePrimaryKey() throws Exception {
+		CommerceCloudForecastOrder newCommerceCloudForecastOrder =
+			addCommerceCloudForecastOrder();
 
 		Set<Serializable> primaryKeys = new HashSet<Serializable>();
 
 		primaryKeys.add(newCommerceCloudForecastOrder.getPrimaryKey());
 
-		Map<Serializable, CommerceCloudForecastOrder> commerceCloudForecastOrders =
-			_persistence.fetchByPrimaryKeys(primaryKeys);
+		Map<Serializable, CommerceCloudForecastOrder>
+			commerceCloudForecastOrders = _persistence.fetchByPrimaryKeys(
+				primaryKeys);
 
 		Assert.assertEquals(1, commerceCloudForecastOrders.size());
-		Assert.assertEquals(newCommerceCloudForecastOrder,
+		Assert.assertEquals(
+			newCommerceCloudForecastOrder,
 			commerceCloudForecastOrders.get(
 				newCommerceCloudForecastOrder.getPrimaryKey()));
 	}
@@ -312,16 +353,23 @@ public class CommerceCloudForecastOrderPersistenceTest {
 	public void testActionableDynamicQuery() throws Exception {
 		final IntegerWrapper count = new IntegerWrapper();
 
-		ActionableDynamicQuery actionableDynamicQuery = CommerceCloudForecastOrderLocalServiceUtil.getActionableDynamicQuery();
+		ActionableDynamicQuery actionableDynamicQuery =
+			CommerceCloudForecastOrderLocalServiceUtil.
+				getActionableDynamicQuery();
 
-		actionableDynamicQuery.setPerformActionMethod(new ActionableDynamicQuery.PerformActionMethod<CommerceCloudForecastOrder>() {
+		actionableDynamicQuery.setPerformActionMethod(
+			new ActionableDynamicQuery.PerformActionMethod
+				<CommerceCloudForecastOrder>() {
+
 				@Override
 				public void performAction(
 					CommerceCloudForecastOrder commerceCloudForecastOrder) {
+
 					Assert.assertNotNull(commerceCloudForecastOrder);
 
 					count.increment();
 				}
+
 			});
 
 		actionableDynamicQuery.performActions();
@@ -330,56 +378,64 @@ public class CommerceCloudForecastOrderPersistenceTest {
 	}
 
 	@Test
-	public void testDynamicQueryByPrimaryKeyExisting()
-		throws Exception {
-		CommerceCloudForecastOrder newCommerceCloudForecastOrder = addCommerceCloudForecastOrder();
+	public void testDynamicQueryByPrimaryKeyExisting() throws Exception {
+		CommerceCloudForecastOrder newCommerceCloudForecastOrder =
+			addCommerceCloudForecastOrder();
 
-		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(CommerceCloudForecastOrder.class,
-				_dynamicQueryClassLoader);
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+			CommerceCloudForecastOrder.class, _dynamicQueryClassLoader);
 
-		dynamicQuery.add(RestrictionsFactoryUtil.eq(
+		dynamicQuery.add(
+			RestrictionsFactoryUtil.eq(
 				"commerceCloudForecastOrderId",
-				newCommerceCloudForecastOrder.getCommerceCloudForecastOrderId()));
+				newCommerceCloudForecastOrder.
+					getCommerceCloudForecastOrderId()));
 
-		List<CommerceCloudForecastOrder> result = _persistence.findWithDynamicQuery(dynamicQuery);
+		List<CommerceCloudForecastOrder> result =
+			_persistence.findWithDynamicQuery(dynamicQuery);
 
 		Assert.assertEquals(1, result.size());
 
-		CommerceCloudForecastOrder existingCommerceCloudForecastOrder = result.get(0);
+		CommerceCloudForecastOrder existingCommerceCloudForecastOrder =
+			result.get(0);
 
-		Assert.assertEquals(existingCommerceCloudForecastOrder,
-			newCommerceCloudForecastOrder);
+		Assert.assertEquals(
+			existingCommerceCloudForecastOrder, newCommerceCloudForecastOrder);
 	}
 
 	@Test
 	public void testDynamicQueryByPrimaryKeyMissing() throws Exception {
-		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(CommerceCloudForecastOrder.class,
-				_dynamicQueryClassLoader);
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+			CommerceCloudForecastOrder.class, _dynamicQueryClassLoader);
 
-		dynamicQuery.add(RestrictionsFactoryUtil.eq(
+		dynamicQuery.add(
+			RestrictionsFactoryUtil.eq(
 				"commerceCloudForecastOrderId", RandomTestUtil.nextLong()));
 
-		List<CommerceCloudForecastOrder> result = _persistence.findWithDynamicQuery(dynamicQuery);
+		List<CommerceCloudForecastOrder> result =
+			_persistence.findWithDynamicQuery(dynamicQuery);
 
 		Assert.assertEquals(0, result.size());
 	}
 
 	@Test
-	public void testDynamicQueryByProjectionExisting()
-		throws Exception {
-		CommerceCloudForecastOrder newCommerceCloudForecastOrder = addCommerceCloudForecastOrder();
+	public void testDynamicQueryByProjectionExisting() throws Exception {
+		CommerceCloudForecastOrder newCommerceCloudForecastOrder =
+			addCommerceCloudForecastOrder();
 
-		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(CommerceCloudForecastOrder.class,
-				_dynamicQueryClassLoader);
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+			CommerceCloudForecastOrder.class, _dynamicQueryClassLoader);
 
-		dynamicQuery.setProjection(ProjectionFactoryUtil.property(
-				"commerceCloudForecastOrderId"));
+		dynamicQuery.setProjection(
+			ProjectionFactoryUtil.property("commerceCloudForecastOrderId"));
 
-		Object newCommerceCloudForecastOrderId = newCommerceCloudForecastOrder.getCommerceCloudForecastOrderId();
+		Object newCommerceCloudForecastOrderId =
+			newCommerceCloudForecastOrder.getCommerceCloudForecastOrderId();
 
-		dynamicQuery.add(RestrictionsFactoryUtil.in(
+		dynamicQuery.add(
+			RestrictionsFactoryUtil.in(
 				"commerceCloudForecastOrderId",
-				new Object[] { newCommerceCloudForecastOrderId }));
+				new Object[] {newCommerceCloudForecastOrderId}));
 
 		List<Object> result = _persistence.findWithDynamicQuery(dynamicQuery);
 
@@ -387,21 +443,23 @@ public class CommerceCloudForecastOrderPersistenceTest {
 
 		Object existingCommerceCloudForecastOrderId = result.get(0);
 
-		Assert.assertEquals(existingCommerceCloudForecastOrderId,
+		Assert.assertEquals(
+			existingCommerceCloudForecastOrderId,
 			newCommerceCloudForecastOrderId);
 	}
 
 	@Test
 	public void testDynamicQueryByProjectionMissing() throws Exception {
-		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(CommerceCloudForecastOrder.class,
-				_dynamicQueryClassLoader);
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+			CommerceCloudForecastOrder.class, _dynamicQueryClassLoader);
 
-		dynamicQuery.setProjection(ProjectionFactoryUtil.property(
-				"commerceCloudForecastOrderId"));
+		dynamicQuery.setProjection(
+			ProjectionFactoryUtil.property("commerceCloudForecastOrderId"));
 
-		dynamicQuery.add(RestrictionsFactoryUtil.in(
+		dynamicQuery.add(
+			RestrictionsFactoryUtil.in(
 				"commerceCloudForecastOrderId",
-				new Object[] { RandomTestUtil.nextLong() }));
+				new Object[] {RandomTestUtil.nextLong()}));
 
 		List<Object> result = _persistence.findWithDynamicQuery(dynamicQuery);
 
@@ -410,13 +468,17 @@ public class CommerceCloudForecastOrderPersistenceTest {
 
 	@Test
 	public void testResetOriginalValues() throws Exception {
-		CommerceCloudForecastOrder newCommerceCloudForecastOrder = addCommerceCloudForecastOrder();
+		CommerceCloudForecastOrder newCommerceCloudForecastOrder =
+			addCommerceCloudForecastOrder();
 
 		_persistence.clearCache();
 
-		CommerceCloudForecastOrder existingCommerceCloudForecastOrder = _persistence.findByPrimaryKey(newCommerceCloudForecastOrder.getPrimaryKey());
+		CommerceCloudForecastOrder existingCommerceCloudForecastOrder =
+			_persistence.findByPrimaryKey(
+				newCommerceCloudForecastOrder.getPrimaryKey());
 
-		Assert.assertEquals(Long.valueOf(
+		Assert.assertEquals(
+			Long.valueOf(
 				existingCommerceCloudForecastOrder.getCommerceOrderId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingCommerceCloudForecastOrder,
@@ -425,9 +487,11 @@ public class CommerceCloudForecastOrderPersistenceTest {
 
 	protected CommerceCloudForecastOrder addCommerceCloudForecastOrder()
 		throws Exception {
+
 		long pk = RandomTestUtil.nextLong();
 
-		CommerceCloudForecastOrder commerceCloudForecastOrder = _persistence.create(pk);
+		CommerceCloudForecastOrder commerceCloudForecastOrder =
+			_persistence.create(pk);
 
 		commerceCloudForecastOrder.setGroupId(RandomTestUtil.nextLong());
 
@@ -435,17 +499,20 @@ public class CommerceCloudForecastOrderPersistenceTest {
 
 		commerceCloudForecastOrder.setCreateDate(RandomTestUtil.nextDate());
 
-		commerceCloudForecastOrder.setCommerceOrderId(RandomTestUtil.nextLong());
+		commerceCloudForecastOrder.setCommerceOrderId(
+			RandomTestUtil.nextLong());
 
 		commerceCloudForecastOrder.setSyncDate(RandomTestUtil.nextDate());
 
-		_commerceCloudForecastOrders.add(_persistence.update(
-				commerceCloudForecastOrder));
+		_commerceCloudForecastOrders.add(
+			_persistence.update(commerceCloudForecastOrder));
 
 		return commerceCloudForecastOrder;
 	}
 
-	private List<CommerceCloudForecastOrder> _commerceCloudForecastOrders = new ArrayList<CommerceCloudForecastOrder>();
+	private List<CommerceCloudForecastOrder> _commerceCloudForecastOrders =
+		new ArrayList<CommerceCloudForecastOrder>();
 	private CommerceCloudForecastOrderPersistence _persistence;
 	private ClassLoader _dynamicQueryClassLoader;
+
 }

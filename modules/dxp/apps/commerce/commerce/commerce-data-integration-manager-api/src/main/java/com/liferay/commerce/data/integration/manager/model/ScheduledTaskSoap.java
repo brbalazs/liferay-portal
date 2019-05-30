@@ -25,12 +25,12 @@ import java.util.List;
 /**
  * This class is used by SOAP remote services, specifically {@link com.liferay.commerce.data.integration.manager.service.http.ScheduledTaskServiceSoap}.
  *
- * @author Brian Wing Shun Chan
- * @see com.liferay.commerce.data.integration.manager.service.http.ScheduledTaskServiceSoap
+ * @author Marco Leo
  * @generated
  */
 @ProviderType
 public class ScheduledTaskSoap implements Serializable {
+
 	public static ScheduledTaskSoap toSoapModel(ScheduledTask model) {
 		ScheduledTaskSoap soapModel = new ScheduledTaskSoap();
 
@@ -84,7 +84,8 @@ public class ScheduledTaskSoap implements Serializable {
 	}
 
 	public static ScheduledTaskSoap[] toSoapModels(List<ScheduledTask> models) {
-		List<ScheduledTaskSoap> soapModels = new ArrayList<ScheduledTaskSoap>(models.size());
+		List<ScheduledTaskSoap> soapModels = new ArrayList<ScheduledTaskSoap>(
+			models.size());
 
 		for (ScheduledTask model : models) {
 			soapModels.add(toSoapModel(model));
@@ -274,4 +275,5 @@ public class ScheduledTaskSoap implements Serializable {
 	private Date _startDate;
 	private String _startHour;
 	private boolean _enabled;
+
 }

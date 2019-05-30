@@ -17,9 +17,7 @@ package com.liferay.commerce.data.integration.manager.service;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.data.integration.manager.model.ScheduledTask;
-
 import com.liferay.exportimport.kernel.lar.PortletDataContext;
-
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery;
@@ -51,41 +49,43 @@ import java.util.List;
  * credentials because this service can only be accessed from within the same
  * VM.
  *
- * @author Brian Wing Shun Chan
+ * @author Marco Leo
  * @see ScheduledTaskLocalServiceUtil
- * @see com.liferay.commerce.data.integration.manager.service.base.ScheduledTaskLocalServiceBaseImpl
- * @see com.liferay.commerce.data.integration.manager.service.impl.ScheduledTaskLocalServiceImpl
  * @generated
  */
 @ProviderType
-@Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
-	PortalException.class, SystemException.class})
-public interface ScheduledTaskLocalService extends BaseLocalService,
-	PersistedModelLocalService {
+@Transactional(
+	isolation = Isolation.PORTAL,
+	rollbackFor = {PortalException.class, SystemException.class}
+)
+public interface ScheduledTaskLocalService
+	extends BaseLocalService, PersistedModelLocalService {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link ScheduledTaskLocalServiceUtil} to access the scheduled task local service. Add custom service methods to {@link com.liferay.commerce.data.integration.manager.service.impl.ScheduledTaskLocalServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify or reference this interface directly. Always use {@link ScheduledTaskLocalServiceUtil} to access the scheduled task local service. Add custom service methods to <code>com.liferay.commerce.data.integration.manager.service.impl.ScheduledTaskLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 
 	/**
-	* NOTE FOR DEVELOPERS:
-	*
-	* Never reference this class directly. Always use {@link ScheduledTaskLocalServiceUtil} to access the scheduled task local service.
-	*
-	* @throws PortalException
-	*/
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never reference this class directly. Always use {@link ScheduledTaskLocalServiceUtil} to access the scheduled task local service.
+	 *
+	 * @throws PortalException
+	 */
 	@Indexable(type = IndexableType.REINDEX)
-	public ScheduledTask addScheduledTask(long processId, String frequency,
-		Date startDate, String startHour, String name,
-		ServiceContext serviceContext) throws PortalException;
+	public ScheduledTask addScheduledTask(
+			long processId, String frequency, Date startDate, String startHour,
+			String name, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
-	* Adds the scheduled task to the database. Also notifies the appropriate model listeners.
-	*
-	* @param scheduledTask the scheduled task
-	* @return the scheduled task that was added
-	*/
+	 * Adds the scheduled task to the database. Also notifies the appropriate model listeners.
+	 *
+	 * @param scheduledTask the scheduled task
+	 * @return the scheduled task that was added
+	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public ScheduledTask addScheduledTask(ScheduledTask scheduledTask);
 
@@ -95,43 +95,43 @@ public interface ScheduledTaskLocalService extends BaseLocalService,
 
 	public int countScheduledTasksByEnabled(boolean enabled);
 
-	public int countScheduledTasksByGroupId_Enabled(long groupId,
-		boolean enabled);
+	public int countScheduledTasksByGroupId_Enabled(
+		long groupId, boolean enabled);
 
 	/**
-	* Creates a new scheduled task with the primary key. Does not add the scheduled task to the database.
-	*
-	* @param scheduledTaskId the primary key for the new scheduled task
-	* @return the new scheduled task
-	*/
+	 * Creates a new scheduled task with the primary key. Does not add the scheduled task to the database.
+	 *
+	 * @param scheduledTaskId the primary key for the new scheduled task
+	 * @return the new scheduled task
+	 */
 	@Transactional(enabled = false)
 	public ScheduledTask createScheduledTask(long scheduledTaskId);
 
 	/**
-	* @throws PortalException
-	*/
+	 * @throws PortalException
+	 */
 	@Override
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException;
 
 	/**
-	* Deletes the scheduled task with the primary key from the database. Also notifies the appropriate model listeners.
-	*
-	* @param scheduledTaskId the primary key of the scheduled task
-	* @return the scheduled task that was removed
-	* @throws PortalException if a scheduled task with the primary key could not be found
-	*/
+	 * Deletes the scheduled task with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * @param scheduledTaskId the primary key of the scheduled task
+	 * @return the scheduled task that was removed
+	 * @throws PortalException if a scheduled task with the primary key could not be found
+	 */
 	@Indexable(type = IndexableType.DELETE)
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
 	public ScheduledTask deleteScheduledTask(long scheduledTaskId)
 		throws PortalException;
 
 	/**
-	* Deletes the scheduled task from the database. Also notifies the appropriate model listeners.
-	*
-	* @param scheduledTask the scheduled task
-	* @return the scheduled task that was removed
-	*/
+	 * Deletes the scheduled task from the database. Also notifies the appropriate model listeners.
+	 *
+	 * @param scheduledTask the scheduled task
+	 * @return the scheduled task that was removed
+	 */
 	@Indexable(type = IndexableType.DELETE)
 	public ScheduledTask deleteScheduledTask(ScheduledTask scheduledTask);
 
@@ -143,66 +143,67 @@ public interface ScheduledTaskLocalService extends BaseLocalService,
 	public DynamicQuery dynamicQuery();
 
 	/**
-	* Performs a dynamic query on the database and returns the matching rows.
-	*
-	* @param dynamicQuery the dynamic query
-	* @return the matching rows
-	*/
+	 * Performs a dynamic query on the database and returns the matching rows.
+	 *
+	 * @param dynamicQuery the dynamic query
+	 * @return the matching rows
+	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery);
 
 	/**
-	* Performs a dynamic query on the database and returns a range of the matching rows.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.commerce.data.integration.manager.model.impl.ScheduledTaskModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	* </p>
-	*
-	* @param dynamicQuery the dynamic query
-	* @param start the lower bound of the range of model instances
-	* @param end the upper bound of the range of model instances (not inclusive)
-	* @return the range of matching rows
-	*/
+	 * Performs a dynamic query on the database and returns a range of the matching rows.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>com.liferay.commerce.data.integration.manager.model.impl.ScheduledTaskModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param dynamicQuery the dynamic query
+	 * @param start the lower bound of the range of model instances
+	 * @param end the upper bound of the range of model instances (not inclusive)
+	 * @return the range of matching rows
+	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
-		int end);
+	public <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end);
 
 	/**
-	* Performs a dynamic query on the database and returns an ordered range of the matching rows.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.commerce.data.integration.manager.model.impl.ScheduledTaskModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	* </p>
-	*
-	* @param dynamicQuery the dynamic query
-	* @param start the lower bound of the range of model instances
-	* @param end the upper bound of the range of model instances (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	* @return the ordered range of matching rows
-	*/
+	 * Performs a dynamic query on the database and returns an ordered range of the matching rows.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>com.liferay.commerce.data.integration.manager.model.impl.ScheduledTaskModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param dynamicQuery the dynamic query
+	 * @param start the lower bound of the range of model instances
+	 * @param end the upper bound of the range of model instances (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching rows
+	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
-		int end, OrderByComparator<T> orderByComparator);
+	public <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator);
 
 	/**
-	* Returns the number of rows matching the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @return the number of rows matching the dynamic query
-	*/
+	 * Returns the number of rows matching the dynamic query.
+	 *
+	 * @param dynamicQuery the dynamic query
+	 * @return the number of rows matching the dynamic query
+	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long dynamicQueryCount(DynamicQuery dynamicQuery);
 
 	/**
-	* Returns the number of rows matching the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @param projection the projection to apply to the query
-	* @return the number of rows matching the dynamic query
-	*/
+	 * Returns the number of rows matching the dynamic query.
+	 *
+	 * @param dynamicQuery the dynamic query
+	 * @param projection the projection to apply to the query
+	 * @return the number of rows matching the dynamic query
+	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public long dynamicQueryCount(DynamicQuery dynamicQuery,
-		Projection projection);
+	public long dynamicQueryCount(
+		DynamicQuery dynamicQuery, Projection projection);
 
 	@Indexable(type = IndexableType.REINDEX)
 	public ScheduledTask enableScheduledTask(long scheduledTaskId, long userId)
@@ -212,15 +213,15 @@ public interface ScheduledTaskLocalService extends BaseLocalService,
 	public ScheduledTask fetchScheduledTask(long scheduledTaskId);
 
 	/**
-	* Returns the scheduled task matching the UUID and group.
-	*
-	* @param uuid the scheduled task's UUID
-	* @param groupId the primary key of the group
-	* @return the matching scheduled task, or <code>null</code> if a matching scheduled task could not be found
-	*/
+	 * Returns the scheduled task matching the UUID and group.
+	 *
+	 * @param uuid the scheduled task's UUID
+	 * @param groupId the primary key of the group
+	 * @return the matching scheduled task, or <code>null</code> if a matching scheduled task could not be found
+	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public ScheduledTask fetchScheduledTaskByUuidAndGroupId(String uuid,
-		long groupId);
+	public ScheduledTask fetchScheduledTaskByUuidAndGroupId(
+		String uuid, long groupId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
@@ -233,10 +234,10 @@ public interface ScheduledTaskLocalService extends BaseLocalService,
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
-	*/
+	 * Returns the OSGi service identifier.
+	 *
+	 * @return the OSGi service identifier
+	 */
 	public String getOSGiServiceIdentifier();
 
 	@Override
@@ -245,96 +246,97 @@ public interface ScheduledTaskLocalService extends BaseLocalService,
 		throws PortalException;
 
 	/**
-	* Returns the scheduled task with the primary key.
-	*
-	* @param scheduledTaskId the primary key of the scheduled task
-	* @return the scheduled task
-	* @throws PortalException if a scheduled task with the primary key could not be found
-	*/
+	 * Returns the scheduled task with the primary key.
+	 *
+	 * @param scheduledTaskId the primary key of the scheduled task
+	 * @return the scheduled task
+	 * @throws PortalException if a scheduled task with the primary key could not be found
+	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ScheduledTask getScheduledTask(long scheduledTaskId)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ScheduledTask> getScheduledTaskByGroupId(long groupId,
-		int start, int end);
+	public List<ScheduledTask> getScheduledTaskByGroupId(
+		long groupId, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getScheduledTaskByGroupIdCount(long groupId);
 
 	/**
-	* Returns the scheduled task matching the UUID and group.
-	*
-	* @param uuid the scheduled task's UUID
-	* @param groupId the primary key of the group
-	* @return the matching scheduled task
-	* @throws PortalException if a matching scheduled task could not be found
-	*/
+	 * Returns the scheduled task matching the UUID and group.
+	 *
+	 * @param uuid the scheduled task's UUID
+	 * @param groupId the primary key of the group
+	 * @return the matching scheduled task
+	 * @throws PortalException if a matching scheduled task could not be found
+	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public ScheduledTask getScheduledTaskByUuidAndGroupId(String uuid,
-		long groupId) throws PortalException;
+	public ScheduledTask getScheduledTaskByUuidAndGroupId(
+			String uuid, long groupId)
+		throws PortalException;
 
 	/**
-	* Returns a range of all the scheduled tasks.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.commerce.data.integration.manager.model.impl.ScheduledTaskModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	* </p>
-	*
-	* @param start the lower bound of the range of scheduled tasks
-	* @param end the upper bound of the range of scheduled tasks (not inclusive)
-	* @return the range of scheduled tasks
-	*/
+	 * Returns a range of all the scheduled tasks.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>com.liferay.commerce.data.integration.manager.model.impl.ScheduledTaskModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param start the lower bound of the range of scheduled tasks
+	 * @param end the upper bound of the range of scheduled tasks (not inclusive)
+	 * @return the range of scheduled tasks
+	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ScheduledTask> getScheduledTasks(int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ScheduledTask> getScheduledTasksByActive(boolean active,
-		int start, int end);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ScheduledTask> getScheduledTasksByEnabled(boolean enabled,
-		int start, int end);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ScheduledTask> getScheduledTasksByGroupId_Active(long groupId,
+	public List<ScheduledTask> getScheduledTasksByActive(
 		boolean active, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ScheduledTask> getScheduledTasksByEnabled(
+		boolean enabled, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ScheduledTask> getScheduledTasksByGroupId_Active(
+		long groupId, boolean active, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ScheduledTask> getScheduledTasksByGroupId_Enabled(
 		long groupId, boolean enabled, int start, int end);
 
 	/**
-	* Returns all the scheduled tasks matching the UUID and company.
-	*
-	* @param uuid the UUID of the scheduled tasks
-	* @param companyId the primary key of the company
-	* @return the matching scheduled tasks, or an empty list if no matches were found
-	*/
+	 * Returns all the scheduled tasks matching the UUID and company.
+	 *
+	 * @param uuid the UUID of the scheduled tasks
+	 * @param companyId the primary key of the company
+	 * @return the matching scheduled tasks, or an empty list if no matches were found
+	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ScheduledTask> getScheduledTasksByUuidAndCompanyId(
 		String uuid, long companyId);
 
 	/**
-	* Returns a range of scheduled tasks matching the UUID and company.
-	*
-	* @param uuid the UUID of the scheduled tasks
-	* @param companyId the primary key of the company
-	* @param start the lower bound of the range of scheduled tasks
-	* @param end the upper bound of the range of scheduled tasks (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	* @return the range of matching scheduled tasks, or an empty list if no matches were found
-	*/
+	 * Returns a range of scheduled tasks matching the UUID and company.
+	 *
+	 * @param uuid the UUID of the scheduled tasks
+	 * @param companyId the primary key of the company
+	 * @param start the lower bound of the range of scheduled tasks
+	 * @param end the upper bound of the range of scheduled tasks (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the range of matching scheduled tasks, or an empty list if no matches were found
+	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ScheduledTask> getScheduledTasksByUuidAndCompanyId(
 		String uuid, long companyId, int start, int end,
 		OrderByComparator<ScheduledTask> orderByComparator);
 
 	/**
-	* Returns the number of scheduled tasks.
-	*
-	* @return the number of scheduled tasks
-	*/
+	 * Returns the number of scheduled tasks.
+	 *
+	 * @return the number of scheduled tasks
+	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getScheduledTasksCount();
 
@@ -347,16 +349,19 @@ public interface ScheduledTaskLocalService extends BaseLocalService,
 		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
-	public ScheduledTask updateScheduledTask(long scheduledTaskId,
-		long processId, String frequency, Date startDate, String startHour,
-		String name, ServiceContext serviceContext) throws PortalException;
+	public ScheduledTask updateScheduledTask(
+			long scheduledTaskId, long processId, String frequency,
+			Date startDate, String startHour, String name,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
-	* Updates the scheduled task in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param scheduledTask the scheduled task
-	* @return the scheduled task that was updated
-	*/
+	 * Updates the scheduled task in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * @param scheduledTask the scheduled task
+	 * @return the scheduled task that was updated
+	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public ScheduledTask updateScheduledTask(ScheduledTask scheduledTask);
+
 }

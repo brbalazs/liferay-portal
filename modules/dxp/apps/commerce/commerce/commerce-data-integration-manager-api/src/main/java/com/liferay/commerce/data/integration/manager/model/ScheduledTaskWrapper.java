@@ -17,9 +17,7 @@ package com.liferay.commerce.data.integration.manager.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.exportimport.kernel.lar.StagedModelType;
-
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -35,13 +33,14 @@ import java.util.Objects;
  * This class is a wrapper for {@link ScheduledTask}.
  * </p>
  *
- * @author Brian Wing Shun Chan
+ * @author Marco Leo
  * @see ScheduledTask
  * @generated
  */
 @ProviderType
-public class ScheduledTaskWrapper implements ScheduledTask,
-	ModelWrapper<ScheduledTask> {
+public class ScheduledTaskWrapper
+	implements ScheduledTask, ModelWrapper<ScheduledTask> {
+
 	public ScheduledTaskWrapper(ScheduledTask scheduledTask) {
 		_scheduledTask = scheduledTask;
 	}
@@ -204,40 +203,40 @@ public class ScheduledTaskWrapper implements ScheduledTask,
 	}
 
 	/**
-	* Returns the active of this scheduled task.
-	*
-	* @return the active of this scheduled task
-	*/
+	 * Returns the active of this scheduled task.
+	 *
+	 * @return the active of this scheduled task
+	 */
 	@Override
 	public boolean getActive() {
 		return _scheduledTask.getActive();
 	}
 
 	/**
-	* Returns the company ID of this scheduled task.
-	*
-	* @return the company ID of this scheduled task
-	*/
+	 * Returns the company ID of this scheduled task.
+	 *
+	 * @return the company ID of this scheduled task
+	 */
 	@Override
 	public long getCompanyId() {
 		return _scheduledTask.getCompanyId();
 	}
 
 	/**
-	* Returns the create date of this scheduled task.
-	*
-	* @return the create date of this scheduled task
-	*/
+	 * Returns the create date of this scheduled task.
+	 *
+	 * @return the create date of this scheduled task
+	 */
 	@Override
 	public Date getCreateDate() {
 		return _scheduledTask.getCreateDate();
 	}
 
 	/**
-	* Returns the enabled of this scheduled task.
-	*
-	* @return the enabled of this scheduled task
-	*/
+	 * Returns the enabled of this scheduled task.
+	 *
+	 * @return the enabled of this scheduled task
+	 */
 	@Override
 	public boolean getEnabled() {
 		return _scheduledTask.getEnabled();
@@ -249,50 +248,50 @@ public class ScheduledTaskWrapper implements ScheduledTask,
 	}
 
 	/**
-	* Returns the frequency of this scheduled task.
-	*
-	* @return the frequency of this scheduled task
-	*/
+	 * Returns the frequency of this scheduled task.
+	 *
+	 * @return the frequency of this scheduled task
+	 */
 	@Override
 	public String getFrequency() {
 		return _scheduledTask.getFrequency();
 	}
 
 	/**
-	* Returns the group ID of this scheduled task.
-	*
-	* @return the group ID of this scheduled task
-	*/
+	 * Returns the group ID of this scheduled task.
+	 *
+	 * @return the group ID of this scheduled task
+	 */
 	@Override
 	public long getGroupId() {
 		return _scheduledTask.getGroupId();
 	}
 
 	/**
-	* Returns the modified date of this scheduled task.
-	*
-	* @return the modified date of this scheduled task
-	*/
+	 * Returns the modified date of this scheduled task.
+	 *
+	 * @return the modified date of this scheduled task
+	 */
 	@Override
 	public Date getModifiedDate() {
 		return _scheduledTask.getModifiedDate();
 	}
 
 	/**
-	* Returns the name of this scheduled task.
-	*
-	* @return the name of this scheduled task
-	*/
+	 * Returns the name of this scheduled task.
+	 *
+	 * @return the name of this scheduled task
+	 */
 	@Override
 	public String getName() {
 		return _scheduledTask.getName();
 	}
 
 	/**
-	* Returns the primary key of this scheduled task.
-	*
-	* @return the primary key of this scheduled task
-	*/
+	 * Returns the primary key of this scheduled task.
+	 *
+	 * @return the primary key of this scheduled task
+	 */
 	@Override
 	public long getPrimaryKey() {
 		return _scheduledTask.getPrimaryKey();
@@ -304,110 +303,110 @@ public class ScheduledTaskWrapper implements ScheduledTask,
 	}
 
 	/**
-	* Returns the process ID of this scheduled task.
-	*
-	* @return the process ID of this scheduled task
-	*/
+	 * Returns the process ID of this scheduled task.
+	 *
+	 * @return the process ID of this scheduled task
+	 */
 	@Override
 	public long getProcessId() {
 		return _scheduledTask.getProcessId();
 	}
 
 	/**
-	* Returns the run end date of this scheduled task.
-	*
-	* @return the run end date of this scheduled task
-	*/
+	 * Returns the run end date of this scheduled task.
+	 *
+	 * @return the run end date of this scheduled task
+	 */
 	@Override
 	public Date getRunEndDate() {
 		return _scheduledTask.getRunEndDate();
 	}
 
 	/**
-	* Returns the run start date of this scheduled task.
-	*
-	* @return the run start date of this scheduled task
-	*/
+	 * Returns the run start date of this scheduled task.
+	 *
+	 * @return the run start date of this scheduled task
+	 */
 	@Override
 	public Date getRunStartDate() {
 		return _scheduledTask.getRunStartDate();
 	}
 
 	/**
-	* Returns the scheduled task ID of this scheduled task.
-	*
-	* @return the scheduled task ID of this scheduled task
-	*/
+	 * Returns the scheduled task ID of this scheduled task.
+	 *
+	 * @return the scheduled task ID of this scheduled task
+	 */
 	@Override
 	public long getScheduledTaskId() {
 		return _scheduledTask.getScheduledTaskId();
 	}
 
 	/**
-	* Returns the start date of this scheduled task.
-	*
-	* @return the start date of this scheduled task
-	*/
+	 * Returns the start date of this scheduled task.
+	 *
+	 * @return the start date of this scheduled task
+	 */
 	@Override
 	public Date getStartDate() {
 		return _scheduledTask.getStartDate();
 	}
 
 	/**
-	* Returns the start hour of this scheduled task.
-	*
-	* @return the start hour of this scheduled task
-	*/
+	 * Returns the start hour of this scheduled task.
+	 *
+	 * @return the start hour of this scheduled task
+	 */
 	@Override
 	public String getStartHour() {
 		return _scheduledTask.getStartHour();
 	}
 
 	/**
-	* Returns the status of this scheduled task.
-	*
-	* @return the status of this scheduled task
-	*/
+	 * Returns the status of this scheduled task.
+	 *
+	 * @return the status of this scheduled task
+	 */
 	@Override
 	public int getStatus() {
 		return _scheduledTask.getStatus();
 	}
 
 	/**
-	* Returns the user ID of this scheduled task.
-	*
-	* @return the user ID of this scheduled task
-	*/
+	 * Returns the user ID of this scheduled task.
+	 *
+	 * @return the user ID of this scheduled task
+	 */
 	@Override
 	public long getUserId() {
 		return _scheduledTask.getUserId();
 	}
 
 	/**
-	* Returns the user name of this scheduled task.
-	*
-	* @return the user name of this scheduled task
-	*/
+	 * Returns the user name of this scheduled task.
+	 *
+	 * @return the user name of this scheduled task
+	 */
 	@Override
 	public String getUserName() {
 		return _scheduledTask.getUserName();
 	}
 
 	/**
-	* Returns the user uuid of this scheduled task.
-	*
-	* @return the user uuid of this scheduled task
-	*/
+	 * Returns the user uuid of this scheduled task.
+	 *
+	 * @return the user uuid of this scheduled task
+	 */
 	@Override
 	public String getUserUuid() {
 		return _scheduledTask.getUserUuid();
 	}
 
 	/**
-	* Returns the uuid of this scheduled task.
-	*
-	* @return the uuid of this scheduled task
-	*/
+	 * Returns the uuid of this scheduled task.
+	 *
+	 * @return the uuid of this scheduled task
+	 */
 	@Override
 	public String getUuid() {
 		return _scheduledTask.getUuid();
@@ -419,10 +418,10 @@ public class ScheduledTaskWrapper implements ScheduledTask,
 	}
 
 	/**
-	* Returns <code>true</code> if this scheduled task is active.
-	*
-	* @return <code>true</code> if this scheduled task is active; <code>false</code> otherwise
-	*/
+	 * Returns <code>true</code> if this scheduled task is active.
+	 *
+	 * @return <code>true</code> if this scheduled task is active; <code>false</code> otherwise
+	 */
 	@Override
 	public boolean isActive() {
 		return _scheduledTask.isActive();
@@ -434,10 +433,10 @@ public class ScheduledTaskWrapper implements ScheduledTask,
 	}
 
 	/**
-	* Returns <code>true</code> if this scheduled task is enabled.
-	*
-	* @return <code>true</code> if this scheduled task is enabled; <code>false</code> otherwise
-	*/
+	 * Returns <code>true</code> if this scheduled task is enabled.
+	 *
+	 * @return <code>true</code> if this scheduled task is enabled; <code>false</code> otherwise
+	 */
 	@Override
 	public boolean isEnabled() {
 		return _scheduledTask.isEnabled();
@@ -459,10 +458,10 @@ public class ScheduledTaskWrapper implements ScheduledTask,
 	}
 
 	/**
-	* Sets whether this scheduled task is active.
-	*
-	* @param active the active of this scheduled task
-	*/
+	 * Sets whether this scheduled task is active.
+	 *
+	 * @param active the active of this scheduled task
+	 */
 	@Override
 	public void setActive(boolean active) {
 		_scheduledTask.setActive(active);
@@ -474,30 +473,30 @@ public class ScheduledTaskWrapper implements ScheduledTask,
 	}
 
 	/**
-	* Sets the company ID of this scheduled task.
-	*
-	* @param companyId the company ID of this scheduled task
-	*/
+	 * Sets the company ID of this scheduled task.
+	 *
+	 * @param companyId the company ID of this scheduled task
+	 */
 	@Override
 	public void setCompanyId(long companyId) {
 		_scheduledTask.setCompanyId(companyId);
 	}
 
 	/**
-	* Sets the create date of this scheduled task.
-	*
-	* @param createDate the create date of this scheduled task
-	*/
+	 * Sets the create date of this scheduled task.
+	 *
+	 * @param createDate the create date of this scheduled task
+	 */
 	@Override
 	public void setCreateDate(Date createDate) {
 		_scheduledTask.setCreateDate(createDate);
 	}
 
 	/**
-	* Sets whether this scheduled task is enabled.
-	*
-	* @param enabled the enabled of this scheduled task
-	*/
+	 * Sets whether this scheduled task is enabled.
+	 *
+	 * @param enabled the enabled of this scheduled task
+	 */
 	@Override
 	public void setEnabled(boolean enabled) {
 		_scheduledTask.setEnabled(enabled);
@@ -506,6 +505,7 @@ public class ScheduledTaskWrapper implements ScheduledTask,
 	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
 		_scheduledTask.setExpandoBridgeAttributes(baseModel);
 	}
 
@@ -520,40 +520,40 @@ public class ScheduledTaskWrapper implements ScheduledTask,
 	}
 
 	/**
-	* Sets the frequency of this scheduled task.
-	*
-	* @param frequency the frequency of this scheduled task
-	*/
+	 * Sets the frequency of this scheduled task.
+	 *
+	 * @param frequency the frequency of this scheduled task
+	 */
 	@Override
 	public void setFrequency(String frequency) {
 		_scheduledTask.setFrequency(frequency);
 	}
 
 	/**
-	* Sets the group ID of this scheduled task.
-	*
-	* @param groupId the group ID of this scheduled task
-	*/
+	 * Sets the group ID of this scheduled task.
+	 *
+	 * @param groupId the group ID of this scheduled task
+	 */
 	@Override
 	public void setGroupId(long groupId) {
 		_scheduledTask.setGroupId(groupId);
 	}
 
 	/**
-	* Sets the modified date of this scheduled task.
-	*
-	* @param modifiedDate the modified date of this scheduled task
-	*/
+	 * Sets the modified date of this scheduled task.
+	 *
+	 * @param modifiedDate the modified date of this scheduled task
+	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_scheduledTask.setModifiedDate(modifiedDate);
 	}
 
 	/**
-	* Sets the name of this scheduled task.
-	*
-	* @param name the name of this scheduled task
-	*/
+	 * Sets the name of this scheduled task.
+	 *
+	 * @param name the name of this scheduled task
+	 */
 	@Override
 	public void setName(String name) {
 		_scheduledTask.setName(name);
@@ -565,10 +565,10 @@ public class ScheduledTaskWrapper implements ScheduledTask,
 	}
 
 	/**
-	* Sets the primary key of this scheduled task.
-	*
-	* @param primaryKey the primary key of this scheduled task
-	*/
+	 * Sets the primary key of this scheduled task.
+	 *
+	 * @param primaryKey the primary key of this scheduled task
+	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_scheduledTask.setPrimaryKey(primaryKey);
@@ -580,117 +580,119 @@ public class ScheduledTaskWrapper implements ScheduledTask,
 	}
 
 	/**
-	* Sets the process ID of this scheduled task.
-	*
-	* @param processId the process ID of this scheduled task
-	*/
+	 * Sets the process ID of this scheduled task.
+	 *
+	 * @param processId the process ID of this scheduled task
+	 */
 	@Override
 	public void setProcessId(long processId) {
 		_scheduledTask.setProcessId(processId);
 	}
 
 	/**
-	* Sets the run end date of this scheduled task.
-	*
-	* @param runEndDate the run end date of this scheduled task
-	*/
+	 * Sets the run end date of this scheduled task.
+	 *
+	 * @param runEndDate the run end date of this scheduled task
+	 */
 	@Override
 	public void setRunEndDate(Date runEndDate) {
 		_scheduledTask.setRunEndDate(runEndDate);
 	}
 
 	/**
-	* Sets the run start date of this scheduled task.
-	*
-	* @param runStartDate the run start date of this scheduled task
-	*/
+	 * Sets the run start date of this scheduled task.
+	 *
+	 * @param runStartDate the run start date of this scheduled task
+	 */
 	@Override
 	public void setRunStartDate(Date runStartDate) {
 		_scheduledTask.setRunStartDate(runStartDate);
 	}
 
 	/**
-	* Sets the scheduled task ID of this scheduled task.
-	*
-	* @param scheduledTaskId the scheduled task ID of this scheduled task
-	*/
+	 * Sets the scheduled task ID of this scheduled task.
+	 *
+	 * @param scheduledTaskId the scheduled task ID of this scheduled task
+	 */
 	@Override
 	public void setScheduledTaskId(long scheduledTaskId) {
 		_scheduledTask.setScheduledTaskId(scheduledTaskId);
 	}
 
 	/**
-	* Sets the start date of this scheduled task.
-	*
-	* @param startDate the start date of this scheduled task
-	*/
+	 * Sets the start date of this scheduled task.
+	 *
+	 * @param startDate the start date of this scheduled task
+	 */
 	@Override
 	public void setStartDate(Date startDate) {
 		_scheduledTask.setStartDate(startDate);
 	}
 
 	/**
-	* Sets the start hour of this scheduled task.
-	*
-	* @param startHour the start hour of this scheduled task
-	*/
+	 * Sets the start hour of this scheduled task.
+	 *
+	 * @param startHour the start hour of this scheduled task
+	 */
 	@Override
 	public void setStartHour(String startHour) {
 		_scheduledTask.setStartHour(startHour);
 	}
 
 	/**
-	* Sets the status of this scheduled task.
-	*
-	* @param status the status of this scheduled task
-	*/
+	 * Sets the status of this scheduled task.
+	 *
+	 * @param status the status of this scheduled task
+	 */
 	@Override
 	public void setStatus(int status) {
 		_scheduledTask.setStatus(status);
 	}
 
 	/**
-	* Sets the user ID of this scheduled task.
-	*
-	* @param userId the user ID of this scheduled task
-	*/
+	 * Sets the user ID of this scheduled task.
+	 *
+	 * @param userId the user ID of this scheduled task
+	 */
 	@Override
 	public void setUserId(long userId) {
 		_scheduledTask.setUserId(userId);
 	}
 
 	/**
-	* Sets the user name of this scheduled task.
-	*
-	* @param userName the user name of this scheduled task
-	*/
+	 * Sets the user name of this scheduled task.
+	 *
+	 * @param userName the user name of this scheduled task
+	 */
 	@Override
 	public void setUserName(String userName) {
 		_scheduledTask.setUserName(userName);
 	}
 
 	/**
-	* Sets the user uuid of this scheduled task.
-	*
-	* @param userUuid the user uuid of this scheduled task
-	*/
+	 * Sets the user uuid of this scheduled task.
+	 *
+	 * @param userUuid the user uuid of this scheduled task
+	 */
 	@Override
 	public void setUserUuid(String userUuid) {
 		_scheduledTask.setUserUuid(userUuid);
 	}
 
 	/**
-	* Sets the uuid of this scheduled task.
-	*
-	* @param uuid the uuid of this scheduled task
-	*/
+	 * Sets the uuid of this scheduled task.
+	 *
+	 * @param uuid the uuid of this scheduled task
+	 */
 	@Override
 	public void setUuid(String uuid) {
 		_scheduledTask.setUuid(uuid);
 	}
 
 	@Override
-	public com.liferay.portal.kernel.model.CacheModel<ScheduledTask> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<ScheduledTask>
+		toCacheModel() {
+
 		return _scheduledTask.toCacheModel();
 	}
 
@@ -726,7 +728,9 @@ public class ScheduledTaskWrapper implements ScheduledTask,
 
 		ScheduledTaskWrapper scheduledTaskWrapper = (ScheduledTaskWrapper)obj;
 
-		if (Objects.equals(_scheduledTask, scheduledTaskWrapper._scheduledTask)) {
+		if (Objects.equals(
+				_scheduledTask, scheduledTaskWrapper._scheduledTask)) {
+
 			return true;
 		}
 
@@ -759,4 +763,5 @@ public class ScheduledTaskWrapper implements ScheduledTask,
 	}
 
 	private final ScheduledTask _scheduledTask;
+
 }

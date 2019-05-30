@@ -17,7 +17,6 @@ package com.liferay.commerce.forecast.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -40,10 +39,12 @@ import java.util.Objects;
  * @generated
  */
 @ProviderType
-public class CommerceForecastValueWrapper implements CommerceForecastValue,
-	ModelWrapper<CommerceForecastValue> {
+public class CommerceForecastValueWrapper
+	implements CommerceForecastValue, ModelWrapper<CommerceForecastValue> {
+
 	public CommerceForecastValueWrapper(
 		CommerceForecastValue commerceForecastValue) {
+
 		_commerceForecastValue = commerceForecastValue;
 	}
 
@@ -79,7 +80,7 @@ public class CommerceForecastValueWrapper implements CommerceForecastValue,
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		Long commerceForecastValueId = (Long)attributes.get(
-				"commerceForecastValueId");
+			"commerceForecastValueId");
 
 		if (commerceForecastValueId != null) {
 			setCommerceForecastValueId(commerceForecastValueId);
@@ -116,7 +117,7 @@ public class CommerceForecastValueWrapper implements CommerceForecastValue,
 		}
 
 		Long commerceForecastEntryId = (Long)attributes.get(
-				"commerceForecastEntryId");
+			"commerceForecastEntryId");
 
 		if (commerceForecastEntryId != null) {
 			setCommerceForecastEntryId(commerceForecastEntryId);
@@ -149,7 +150,8 @@ public class CommerceForecastValueWrapper implements CommerceForecastValue,
 
 	@Override
 	public Object clone() {
-		return new CommerceForecastValueWrapper((CommerceForecastValue)_commerceForecastValue.clone());
+		return new CommerceForecastValueWrapper(
+			(CommerceForecastValue)_commerceForecastValue.clone());
 	}
 
 	@Override
@@ -158,40 +160,40 @@ public class CommerceForecastValueWrapper implements CommerceForecastValue,
 	}
 
 	/**
-	* Returns the commerce forecast entry ID of this commerce forecast value.
-	*
-	* @return the commerce forecast entry ID of this commerce forecast value
-	*/
+	 * Returns the commerce forecast entry ID of this commerce forecast value.
+	 *
+	 * @return the commerce forecast entry ID of this commerce forecast value
+	 */
 	@Override
 	public long getCommerceForecastEntryId() {
 		return _commerceForecastValue.getCommerceForecastEntryId();
 	}
 
 	/**
-	* Returns the commerce forecast value ID of this commerce forecast value.
-	*
-	* @return the commerce forecast value ID of this commerce forecast value
-	*/
+	 * Returns the commerce forecast value ID of this commerce forecast value.
+	 *
+	 * @return the commerce forecast value ID of this commerce forecast value
+	 */
 	@Override
 	public long getCommerceForecastValueId() {
 		return _commerceForecastValue.getCommerceForecastValueId();
 	}
 
 	/**
-	* Returns the company ID of this commerce forecast value.
-	*
-	* @return the company ID of this commerce forecast value
-	*/
+	 * Returns the company ID of this commerce forecast value.
+	 *
+	 * @return the company ID of this commerce forecast value
+	 */
 	@Override
 	public long getCompanyId() {
 		return _commerceForecastValue.getCompanyId();
 	}
 
 	/**
-	* Returns the create date of this commerce forecast value.
-	*
-	* @return the create date of this commerce forecast value
-	*/
+	 * Returns the create date of this commerce forecast value.
+	 *
+	 * @return the create date of this commerce forecast value
+	 */
 	@Override
 	public Date getCreateDate() {
 		return _commerceForecastValue.getCreateDate();
@@ -203,30 +205,30 @@ public class CommerceForecastValueWrapper implements CommerceForecastValue,
 	}
 
 	/**
-	* Returns the lower value of this commerce forecast value.
-	*
-	* @return the lower value of this commerce forecast value
-	*/
+	 * Returns the lower value of this commerce forecast value.
+	 *
+	 * @return the lower value of this commerce forecast value
+	 */
 	@Override
 	public BigDecimal getLowerValue() {
 		return _commerceForecastValue.getLowerValue();
 	}
 
 	/**
-	* Returns the modified date of this commerce forecast value.
-	*
-	* @return the modified date of this commerce forecast value
-	*/
+	 * Returns the modified date of this commerce forecast value.
+	 *
+	 * @return the modified date of this commerce forecast value
+	 */
 	@Override
 	public Date getModifiedDate() {
 		return _commerceForecastValue.getModifiedDate();
 	}
 
 	/**
-	* Returns the primary key of this commerce forecast value.
-	*
-	* @return the primary key of this commerce forecast value
-	*/
+	 * Returns the primary key of this commerce forecast value.
+	 *
+	 * @return the primary key of this commerce forecast value
+	 */
 	@Override
 	public long getPrimaryKey() {
 		return _commerceForecastValue.getPrimaryKey();
@@ -238,60 +240,60 @@ public class CommerceForecastValueWrapper implements CommerceForecastValue,
 	}
 
 	/**
-	* Returns the time of this commerce forecast value.
-	*
-	* @return the time of this commerce forecast value
-	*/
+	 * Returns the time of this commerce forecast value.
+	 *
+	 * @return the time of this commerce forecast value
+	 */
 	@Override
 	public long getTime() {
 		return _commerceForecastValue.getTime();
 	}
 
 	/**
-	* Returns the upper value of this commerce forecast value.
-	*
-	* @return the upper value of this commerce forecast value
-	*/
+	 * Returns the upper value of this commerce forecast value.
+	 *
+	 * @return the upper value of this commerce forecast value
+	 */
 	@Override
 	public BigDecimal getUpperValue() {
 		return _commerceForecastValue.getUpperValue();
 	}
 
 	/**
-	* Returns the user ID of this commerce forecast value.
-	*
-	* @return the user ID of this commerce forecast value
-	*/
+	 * Returns the user ID of this commerce forecast value.
+	 *
+	 * @return the user ID of this commerce forecast value
+	 */
 	@Override
 	public long getUserId() {
 		return _commerceForecastValue.getUserId();
 	}
 
 	/**
-	* Returns the user name of this commerce forecast value.
-	*
-	* @return the user name of this commerce forecast value
-	*/
+	 * Returns the user name of this commerce forecast value.
+	 *
+	 * @return the user name of this commerce forecast value
+	 */
 	@Override
 	public String getUserName() {
 		return _commerceForecastValue.getUserName();
 	}
 
 	/**
-	* Returns the user uuid of this commerce forecast value.
-	*
-	* @return the user uuid of this commerce forecast value
-	*/
+	 * Returns the user uuid of this commerce forecast value.
+	 *
+	 * @return the user uuid of this commerce forecast value
+	 */
 	@Override
 	public String getUserUuid() {
 		return _commerceForecastValue.getUserUuid();
 	}
 
 	/**
-	* Returns the value of this commerce forecast value.
-	*
-	* @return the value of this commerce forecast value
-	*/
+	 * Returns the value of this commerce forecast value.
+	 *
+	 * @return the value of this commerce forecast value
+	 */
 	@Override
 	public BigDecimal getValue() {
 		return _commerceForecastValue.getValue();
@@ -333,40 +335,42 @@ public class CommerceForecastValueWrapper implements CommerceForecastValue,
 	}
 
 	/**
-	* Sets the commerce forecast entry ID of this commerce forecast value.
-	*
-	* @param commerceForecastEntryId the commerce forecast entry ID of this commerce forecast value
-	*/
+	 * Sets the commerce forecast entry ID of this commerce forecast value.
+	 *
+	 * @param commerceForecastEntryId the commerce forecast entry ID of this commerce forecast value
+	 */
 	@Override
 	public void setCommerceForecastEntryId(long commerceForecastEntryId) {
-		_commerceForecastValue.setCommerceForecastEntryId(commerceForecastEntryId);
+		_commerceForecastValue.setCommerceForecastEntryId(
+			commerceForecastEntryId);
 	}
 
 	/**
-	* Sets the commerce forecast value ID of this commerce forecast value.
-	*
-	* @param commerceForecastValueId the commerce forecast value ID of this commerce forecast value
-	*/
+	 * Sets the commerce forecast value ID of this commerce forecast value.
+	 *
+	 * @param commerceForecastValueId the commerce forecast value ID of this commerce forecast value
+	 */
 	@Override
 	public void setCommerceForecastValueId(long commerceForecastValueId) {
-		_commerceForecastValue.setCommerceForecastValueId(commerceForecastValueId);
+		_commerceForecastValue.setCommerceForecastValueId(
+			commerceForecastValueId);
 	}
 
 	/**
-	* Sets the company ID of this commerce forecast value.
-	*
-	* @param companyId the company ID of this commerce forecast value
-	*/
+	 * Sets the company ID of this commerce forecast value.
+	 *
+	 * @param companyId the company ID of this commerce forecast value
+	 */
 	@Override
 	public void setCompanyId(long companyId) {
 		_commerceForecastValue.setCompanyId(companyId);
 	}
 
 	/**
-	* Sets the create date of this commerce forecast value.
-	*
-	* @param createDate the create date of this commerce forecast value
-	*/
+	 * Sets the create date of this commerce forecast value.
+	 *
+	 * @param createDate the create date of this commerce forecast value
+	 */
 	@Override
 	public void setCreateDate(Date createDate) {
 		_commerceForecastValue.setCreateDate(createDate);
@@ -375,6 +379,7 @@ public class CommerceForecastValueWrapper implements CommerceForecastValue,
 	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
 		_commerceForecastValue.setExpandoBridgeAttributes(baseModel);
 	}
 
@@ -389,20 +394,20 @@ public class CommerceForecastValueWrapper implements CommerceForecastValue,
 	}
 
 	/**
-	* Sets the lower value of this commerce forecast value.
-	*
-	* @param lowerValue the lower value of this commerce forecast value
-	*/
+	 * Sets the lower value of this commerce forecast value.
+	 *
+	 * @param lowerValue the lower value of this commerce forecast value
+	 */
 	@Override
 	public void setLowerValue(BigDecimal lowerValue) {
 		_commerceForecastValue.setLowerValue(lowerValue);
 	}
 
 	/**
-	* Sets the modified date of this commerce forecast value.
-	*
-	* @param modifiedDate the modified date of this commerce forecast value
-	*/
+	 * Sets the modified date of this commerce forecast value.
+	 *
+	 * @param modifiedDate the modified date of this commerce forecast value
+	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_commerceForecastValue.setModifiedDate(modifiedDate);
@@ -414,10 +419,10 @@ public class CommerceForecastValueWrapper implements CommerceForecastValue,
 	}
 
 	/**
-	* Sets the primary key of this commerce forecast value.
-	*
-	* @param primaryKey the primary key of this commerce forecast value
-	*/
+	 * Sets the primary key of this commerce forecast value.
+	 *
+	 * @param primaryKey the primary key of this commerce forecast value
+	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_commerceForecastValue.setPrimaryKey(primaryKey);
@@ -429,73 +434,76 @@ public class CommerceForecastValueWrapper implements CommerceForecastValue,
 	}
 
 	/**
-	* Sets the time of this commerce forecast value.
-	*
-	* @param time the time of this commerce forecast value
-	*/
+	 * Sets the time of this commerce forecast value.
+	 *
+	 * @param time the time of this commerce forecast value
+	 */
 	@Override
 	public void setTime(long time) {
 		_commerceForecastValue.setTime(time);
 	}
 
 	/**
-	* Sets the upper value of this commerce forecast value.
-	*
-	* @param upperValue the upper value of this commerce forecast value
-	*/
+	 * Sets the upper value of this commerce forecast value.
+	 *
+	 * @param upperValue the upper value of this commerce forecast value
+	 */
 	@Override
 	public void setUpperValue(BigDecimal upperValue) {
 		_commerceForecastValue.setUpperValue(upperValue);
 	}
 
 	/**
-	* Sets the user ID of this commerce forecast value.
-	*
-	* @param userId the user ID of this commerce forecast value
-	*/
+	 * Sets the user ID of this commerce forecast value.
+	 *
+	 * @param userId the user ID of this commerce forecast value
+	 */
 	@Override
 	public void setUserId(long userId) {
 		_commerceForecastValue.setUserId(userId);
 	}
 
 	/**
-	* Sets the user name of this commerce forecast value.
-	*
-	* @param userName the user name of this commerce forecast value
-	*/
+	 * Sets the user name of this commerce forecast value.
+	 *
+	 * @param userName the user name of this commerce forecast value
+	 */
 	@Override
 	public void setUserName(String userName) {
 		_commerceForecastValue.setUserName(userName);
 	}
 
 	/**
-	* Sets the user uuid of this commerce forecast value.
-	*
-	* @param userUuid the user uuid of this commerce forecast value
-	*/
+	 * Sets the user uuid of this commerce forecast value.
+	 *
+	 * @param userUuid the user uuid of this commerce forecast value
+	 */
 	@Override
 	public void setUserUuid(String userUuid) {
 		_commerceForecastValue.setUserUuid(userUuid);
 	}
 
 	/**
-	* Sets the value of this commerce forecast value.
-	*
-	* @param value the value of this commerce forecast value
-	*/
+	 * Sets the value of this commerce forecast value.
+	 *
+	 * @param value the value of this commerce forecast value
+	 */
 	@Override
 	public void setValue(BigDecimal value) {
 		_commerceForecastValue.setValue(value);
 	}
 
 	@Override
-	public com.liferay.portal.kernel.model.CacheModel<CommerceForecastValue> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<CommerceForecastValue>
+		toCacheModel() {
+
 		return _commerceForecastValue.toCacheModel();
 	}
 
 	@Override
 	public CommerceForecastValue toEscapedModel() {
-		return new CommerceForecastValueWrapper(_commerceForecastValue.toEscapedModel());
+		return new CommerceForecastValueWrapper(
+			_commerceForecastValue.toEscapedModel());
 	}
 
 	@Override
@@ -505,7 +513,8 @@ public class CommerceForecastValueWrapper implements CommerceForecastValue,
 
 	@Override
 	public CommerceForecastValue toUnescapedModel() {
-		return new CommerceForecastValueWrapper(_commerceForecastValue.toUnescapedModel());
+		return new CommerceForecastValueWrapper(
+			_commerceForecastValue.toUnescapedModel());
 	}
 
 	@Override
@@ -523,10 +532,13 @@ public class CommerceForecastValueWrapper implements CommerceForecastValue,
 			return false;
 		}
 
-		CommerceForecastValueWrapper commerceForecastValueWrapper = (CommerceForecastValueWrapper)obj;
+		CommerceForecastValueWrapper commerceForecastValueWrapper =
+			(CommerceForecastValueWrapper)obj;
 
-		if (Objects.equals(_commerceForecastValue,
-					commerceForecastValueWrapper._commerceForecastValue)) {
+		if (Objects.equals(
+				_commerceForecastValue,
+				commerceForecastValueWrapper._commerceForecastValue)) {
+
 			return true;
 		}
 
@@ -554,4 +566,5 @@ public class CommerceForecastValueWrapper implements CommerceForecastValue,
 	}
 
 	private final CommerceForecastValue _commerceForecastValue;
+
 }

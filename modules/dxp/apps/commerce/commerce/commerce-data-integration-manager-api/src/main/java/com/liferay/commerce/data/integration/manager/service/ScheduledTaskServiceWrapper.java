@@ -21,65 +21,75 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link ScheduledTaskService}.
  *
- * @author Brian Wing Shun Chan
+ * @author Marco Leo
  * @see ScheduledTaskService
  * @generated
  */
 @ProviderType
-public class ScheduledTaskServiceWrapper implements ScheduledTaskService,
-	ServiceWrapper<ScheduledTaskService> {
+public class ScheduledTaskServiceWrapper
+	implements ScheduledTaskService, ServiceWrapper<ScheduledTaskService> {
+
 	public ScheduledTaskServiceWrapper(
 		ScheduledTaskService scheduledTaskService) {
+
 		_scheduledTaskService = scheduledTaskService;
 	}
 
 	/**
-	* NOTE FOR DEVELOPERS:
-	*
-	* Never reference this class directly. Always use {@link ScheduledTaskServiceUtil} to access the scheduled task remote service.
-	*/
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never reference this class directly. Always use {@link ScheduledTaskServiceUtil} to access the scheduled task remote service.
+	 */
 	@Override
-	public com.liferay.commerce.data.integration.manager.model.ScheduledTask addScheduledTask(
-		long processId, String frequency, java.util.Date startDate,
-		String startHour, String name,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+	public com.liferay.commerce.data.integration.manager.model.ScheduledTask
+			addScheduledTask(
+				long processId, String frequency, java.util.Date startDate,
+				String startHour, String name,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _scheduledTaskService.addScheduledTask(processId, frequency,
-			startDate, startHour, name, serviceContext);
+
+		return _scheduledTaskService.addScheduledTask(
+			processId, frequency, startDate, startHour, name, serviceContext);
 	}
 
 	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
-	*/
+	 * Returns the OSGi service identifier.
+	 *
+	 * @return the OSGi service identifier
+	 */
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _scheduledTaskService.getOSGiServiceIdentifier();
 	}
 
 	@Override
-	public java.util.List<com.liferay.commerce.data.integration.manager.model.ScheduledTask> getScheduledTaskByGroupId(
-		long groupId, int start, int end)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
-		return _scheduledTaskService.getScheduledTaskByGroupId(groupId, start,
-			end);
+	public java.util.List
+		<com.liferay.commerce.data.integration.manager.model.ScheduledTask>
+				getScheduledTaskByGroupId(long groupId, int start, int end)
+			throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return _scheduledTaskService.getScheduledTaskByGroupId(
+			groupId, start, end);
 	}
 
 	@Override
 	public int getScheduledTaskByGroupIdCount(long groupId)
 		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
 		return _scheduledTaskService.getScheduledTaskByGroupIdCount(groupId);
 	}
 
 	@Override
-	public com.liferay.commerce.data.integration.manager.model.ScheduledTask updateScheduledTask(
-		long scheduledTaskId, long processId, String frequency,
-		java.util.Date startDate, String startHour, String name,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+	public com.liferay.commerce.data.integration.manager.model.ScheduledTask
+			updateScheduledTask(
+				long scheduledTaskId, long processId, String frequency,
+				java.util.Date startDate, String startHour, String name,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _scheduledTaskService.updateScheduledTask(scheduledTaskId,
-			processId, frequency, startDate, startHour, name, serviceContext);
+
+		return _scheduledTaskService.updateScheduledTask(
+			scheduledTaskId, processId, frequency, startDate, startHour, name,
+			serviceContext);
 	}
 
 	@Override
@@ -93,4 +103,5 @@ public class ScheduledTaskServiceWrapper implements ScheduledTaskService,
 	}
 
 	private ScheduledTaskService _scheduledTaskService;
+
 }

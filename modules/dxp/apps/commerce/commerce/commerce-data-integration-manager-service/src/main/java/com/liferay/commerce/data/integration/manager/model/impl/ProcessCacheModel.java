@@ -17,7 +17,6 @@ package com.liferay.commerce.data.integration.manager.model.impl;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.data.integration.manager.model.Process;
-
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -32,12 +31,12 @@ import java.util.Date;
 /**
  * The cache model class for representing Process in entity cache.
  *
- * @author Brian Wing Shun Chan
- * @see Process
+ * @author Marco Leo
  * @generated
  */
 @ProviderType
 public class ProcessCacheModel implements CacheModel<Process>, Externalizable {
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -166,7 +165,8 @@ public class ProcessCacheModel implements CacheModel<Process>, Externalizable {
 			processImpl.setProcessType(processType);
 		}
 
-		processImpl.setContextPropertiesFileEntryId(contextPropertiesFileEntryId);
+		processImpl.setContextPropertiesFileEntryId(
+			contextPropertiesFileEntryId);
 		processImpl.setSrcArchiveFileEntryId(srcArchiveFileEntryId);
 
 		if (contextProperties == null) {
@@ -207,8 +207,7 @@ public class ProcessCacheModel implements CacheModel<Process>, Externalizable {
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput objectOutput)
-		throws IOException {
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		if (uuid == null) {
 			objectOutput.writeUTF("");
 		}
@@ -289,4 +288,5 @@ public class ProcessCacheModel implements CacheModel<Process>, Externalizable {
 	public long contextPropertiesFileEntryId;
 	public long srcArchiveFileEntryId;
 	public String contextProperties;
+
 }

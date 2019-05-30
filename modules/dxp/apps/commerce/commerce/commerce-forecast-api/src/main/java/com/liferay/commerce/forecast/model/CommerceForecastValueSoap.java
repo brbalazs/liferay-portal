@@ -32,17 +32,21 @@ import java.util.List;
  */
 @ProviderType
 public class CommerceForecastValueSoap implements Serializable {
+
 	public static CommerceForecastValueSoap toSoapModel(
 		CommerceForecastValue model) {
+
 		CommerceForecastValueSoap soapModel = new CommerceForecastValueSoap();
 
-		soapModel.setCommerceForecastValueId(model.getCommerceForecastValueId());
+		soapModel.setCommerceForecastValueId(
+			model.getCommerceForecastValueId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
-		soapModel.setCommerceForecastEntryId(model.getCommerceForecastEntryId());
+		soapModel.setCommerceForecastEntryId(
+			model.getCommerceForecastEntryId());
 		soapModel.setTime(model.getTime());
 		soapModel.setLowerValue(model.getLowerValue());
 		soapModel.setValue(model.getValue());
@@ -53,7 +57,9 @@ public class CommerceForecastValueSoap implements Serializable {
 
 	public static CommerceForecastValueSoap[] toSoapModels(
 		CommerceForecastValue[] models) {
-		CommerceForecastValueSoap[] soapModels = new CommerceForecastValueSoap[models.length];
+
+		CommerceForecastValueSoap[] soapModels =
+			new CommerceForecastValueSoap[models.length];
 
 		for (int i = 0; i < models.length; i++) {
 			soapModels[i] = toSoapModel(models[i]);
@@ -64,10 +70,12 @@ public class CommerceForecastValueSoap implements Serializable {
 
 	public static CommerceForecastValueSoap[][] toSoapModels(
 		CommerceForecastValue[][] models) {
+
 		CommerceForecastValueSoap[][] soapModels = null;
 
 		if (models.length > 0) {
-			soapModels = new CommerceForecastValueSoap[models.length][models[0].length];
+			soapModels =
+				new CommerceForecastValueSoap[models.length][models[0].length];
 		}
 		else {
 			soapModels = new CommerceForecastValueSoap[0][0];
@@ -82,13 +90,16 @@ public class CommerceForecastValueSoap implements Serializable {
 
 	public static CommerceForecastValueSoap[] toSoapModels(
 		List<CommerceForecastValue> models) {
-		List<CommerceForecastValueSoap> soapModels = new ArrayList<CommerceForecastValueSoap>(models.size());
+
+		List<CommerceForecastValueSoap> soapModels =
+			new ArrayList<CommerceForecastValueSoap>(models.size());
 
 		for (CommerceForecastValue model : models) {
 			soapModels.add(toSoapModel(model));
 		}
 
-		return soapModels.toArray(new CommerceForecastValueSoap[soapModels.size()]);
+		return soapModels.toArray(
+			new CommerceForecastValueSoap[soapModels.size()]);
 	}
 
 	public CommerceForecastValueSoap() {
@@ -201,4 +212,5 @@ public class CommerceForecastValueSoap implements Serializable {
 	private BigDecimal _lowerValue;
 	private BigDecimal _value;
 	private BigDecimal _upperValue;
+
 }
