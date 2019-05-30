@@ -50,7 +50,6 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutConstants;
-import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
@@ -115,11 +114,10 @@ public class AssetPublisherDisplayContext {
 	};
 
 	public AssetPublisherDisplayContext(
-			AssetPublisherCustomizer assetPublisherCustomizer,
-            AssetPublisherHelper assetPublisherHelper,
-			PortletRequest portletRequest, PortletResponse portletResponse,
-			PortletPreferences portletPreferences)
-		throws ConfigurationException {
+        AssetPublisherCustomizer assetPublisherCustomizer,
+        AssetPublisherHelper assetPublisherHelper,
+        PortletRequest portletRequest, PortletResponse portletResponse,
+        PortletPreferences portletPreferences) {
 
 		_assetPublisherCustomizer = assetPublisherCustomizer;
 		_assetPublisherHelper = assetPublisherHelper;
@@ -199,7 +197,7 @@ public class AssetPublisherDisplayContext {
 		return _allAssetCategoryIds;
 	}
 
-	public String[] getAllAssetTagNames() throws Exception {
+	public String[] getAllAssetTagNames() {
 		if (_allAssetTagNames != null) {
 			return _allAssetTagNames;
 		}
@@ -275,12 +273,6 @@ public class AssetPublisherDisplayContext {
 				"assetLinkBehavior", "showFullContent"));
 
 		return _assetLinkBehavior;
-	}
-
-	public AssetPublisherPortletInstanceConfiguration
-		getAssetPublisherPortletInstanceConfiguration() {
-
-		return _assetPublisherPortletInstanceConfiguration;
 	}
 
 	public Map<String, Serializable> getAttributes() {
@@ -1104,7 +1096,7 @@ public class AssetPublisherDisplayContext {
 		return _enableComments;
 	}
 
-	public Boolean isEnableConversions() throws Exception {
+	public Boolean isEnableConversions() {
 		if (_enableConversions != null) {
 			return _enableConversions;
 		}
@@ -1246,10 +1238,6 @@ public class AssetPublisherDisplayContext {
 		return DocumentConversionUtil.isEnabled();
 	}
 
-	public boolean isOrderingAndGroupingEnabled() {
-		return _assetPublisherCustomizer.isOrderingAndGroupingEnabled(_request);
-	}
-
 	public boolean isOrderingByTitleEnabled() {
 		return _assetPublisherCustomizer.isOrderingByTitleEnabled(_request);
 	}
@@ -1257,7 +1245,11 @@ public class AssetPublisherDisplayContext {
 	public boolean isPaginationTypeNone() {
 		String paginationType = getPaginationType();
 
-		return paginationType.equals(PAGINATION_TYPE_NONE);
+		if (Objects.equals(paginationType, PAGINATION_TYPE_NONE)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	public boolean isPaginationTypeSelected(String paginationType) {
@@ -1270,10 +1262,6 @@ public class AssetPublisherDisplayContext {
 		String selectionStyle = getSelectionStyle();
 
 		return selectionStyle.equals("dynamic");
-	}
-
-	public boolean isSelectionStyleEnabled() {
-		return _assetPublisherCustomizer.isSelectionStyleEnabled(_request);
 	}
 
 	public boolean isSelectionStyleManual() {
@@ -1394,16 +1382,6 @@ public class AssetPublisherDisplayContext {
 		return _showOnlyLayoutAssets;
 	}
 
-	public boolean isShowScopeSelector() {
-		String rootPortletId = getRootPortletId();
-
-		if (rootPortletId.equals(AssetPublisherPortletKeys.RELATED_ASSETS)) {
-			return false;
-		}
-
-		return true;
-	}
-
 	public boolean isShowSubtypeFieldsFilter() {
 		return _assetPublisherCustomizer.isShowSubtypeFieldsFilter(_request);
 	}
@@ -1446,10 +1424,6 @@ public class AssetPublisherDisplayContext {
 
 	public void setSelectionStyle(String selectionStyle) {
 		_selectionStyle = selectionStyle;
-	}
-
-	public void setShowContextLink(Boolean showContextLink) {
-		_showContextLink = showContextLink;
 	}
 
 	protected void configureSubtypeFieldFilter(
@@ -1589,7 +1563,7 @@ public class AssetPublisherDisplayContext {
 	private Boolean _anyAssetType;
 	private final AssetEntryActionRegistry _assetEntryActionRegistry;
 	private AssetEntryQuery _assetEntryQuery;
-	private AssetHelper _assetHelper;
+	private final AssetHelper _assetHelper;
 	private String _assetLinkBehavior;
 	private final AssetPublisherCustomizer _assetPublisherCustomizer;
 	private final AssetPublisherHelper _assetPublisherHelper;
