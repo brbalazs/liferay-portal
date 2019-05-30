@@ -113,7 +113,6 @@ public class FragmentEntryLinkLocalServiceImpl
 		fragmentEntryLink.setPosition(position);
 		fragmentEntryLink.setLastPropagationDate(
 			serviceContext.getCreateDate(new Date()));
-		fragmentEntryLink.setNamespace(StringUtil.randomId());
 
 		_updateClassModel(classNameId, classPK);
 
