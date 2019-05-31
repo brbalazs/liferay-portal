@@ -131,7 +131,7 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
  *             com.liferay.asset.publisher.util.AssetPublisherHelper}
  */
 @Component(
-	configurationPid = "com.liferay.asset.publisher.web.configuration.AssetPublisherWebConfiguration",
+	configurationPid = "com.liferay.asset.publisher.web.internal.configuration.AssetPublisherWebConfiguration",
 	immediate = true, service = AssetPublisherUtil.class
 )
 @Deprecated
