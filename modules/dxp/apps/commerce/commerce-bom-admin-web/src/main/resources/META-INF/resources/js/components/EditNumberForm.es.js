@@ -1,0 +1,321 @@
+import React, {
+    useState,
+    useContext,
+    useMemo
+} from 'react';
+
+import { StoreContext } from './StoreContext.es';
+import LocalizedText from './utilities/LocalizedText.es';
+import Icon from './utilities/Icon.es';
+import HighlightedText from './utilities/HighlightedText.es';
+
+function DropdownItem(props) {
+    return (
+        <li>
+            <a 
+                className="dropdown-item"
+                href={`#${props.value}`}
+                onClick={(e) => props.handleClickFn(e, props.value)}
+            >
+                <HighlightedText 
+                    text={props.label}
+                    query={props.query}
+                    inverted={false}
+                />
+            </a>
+        </li>
+    )
+}
+
+function DropdownInput(props) {
+
+    return (
+        <div className="dropdown-full input-group-item">
+            <input 
+                id={props.inputId || null}
+                className="form-control input-group-inset input-group-inset-after" 
+                placeholder={props.inputPlaceholder} 
+                type="text" 
+                value={props.query || ''}
+                autoComplete="off"
+                onChange={props.handleChangeFn}
+                disabled={props.disabled}
+            />
+            {!props.disabled &&
+                <span className="input-group-inset-item input-group-inset-item-after">
+                    {!props.query 
+                        ? (
+                            <span 
+                                className={`btn btn-unstyled${props.searchAdditionalCssClasses ? ` ${props.searchAdditionalCssClasses}` : ''}`}
+                            >
+                                {props.searchIcon}
+                            </span>
+                        )
+                        : (
+                            <button 
+                                className={`btn btn-unstyled${props.resetAdditionalCssClasses ? ` ${props.resetAdditionalCssClasses}` : ''}`}
+                                type="button"
+                                onClick={props.handleResetFn}
+                            >
+                                {props.resetIcon}
+                            </button>
+                        )
+                    }
+                </span>
+            }
+            {(props.elements && props.elements.length) 
+                ? (
+                    <ul className="dropdown-menu show">
+                        {props.elements.map(
+                            (el, i) => (
+                                <DropdownItem 
+                                    key={i}
+                                    query={props.query}
+                                    label={el.label}
+                                    value={el.value}
+                                    handleClickFn={props.handleClickOnItem}
+                                />
+                            )
+                        )}
+                    </ul>
+                )
+                : null
+            }
+        </div>
+    )
+}
+
+const EditNumberForm = React.memo(() => {
+    const { state, actions } = useContext(StoreContext);
+
+    const formData = state.area.spotFormData || {};
+    const position = formData.position || {};
+
+    const [ dropdownDisabled, disableDropdown ] = useState(false);
+
+    const inputPlaceholder = 'Search for product name or SKU...';
+
+    function isNumberAlreadyAdded(number) {
+        return state.area.spots.reduce((acc, el) => acc || (el.number === number), false);
+    }
+    
+    const orientationClasses = useMemo(() => [
+        position.top > 50 ? 'edit-number-form--top' : 'edit-number-form--bottom',
+        position.left > 50 ? 'edit-number-form--left' : 'edit-number-form--right'
+    ].join(' '), [
+        position.left,
+        position.top
+    ])
+
+    function getProductByNumber(number) {
+        return number && state.area.spots.reduce(
+            (acc, spot) => {
+                if(acc) {
+                    return acc
+                }
+                if(spot.number === number) {
+                    return state.area.mappedProducts.reduce(
+                        (acc, product) => (
+                            acc || ((spot.rel === product.id) && product)
+                        ),
+                        null
+                    )
+                }
+                return null
+            },
+            null
+        );
+    }
+
+    function handleNumberChange(e) {
+        e.preventDefault();
+        const number = e.target.value ? parseInt(e.target.value, 10) : null;
+
+        actions.updateFormValue('number', number);
+
+        const numberAdded = isNumberAlreadyAdded(number);
+
+        if(numberAdded) {
+            const productToBeMapped = getProductByNumber(number);
+            selectProduct(productToBeMapped);
+            disableDropdown(true);
+        } else {
+            disableDropdown(false);
+        }
+    }
+
+    function handleProductInputChange(e) {
+        const query = e.target.value || null;
+        actions.updateFormValue('query', query)
+
+        if(query) {
+            actions.getProducts(query);
+        } else {
+            actions.resetProducts();
+        }
+    }
+
+    function resetProducts() {
+        actions.updateFormValue('product', null);
+        actions.updateFormValue('query', null);
+        actions.resetProducts();
+    }
+
+    function selectProduct(selectedProduct) {
+        actions.updateFormValue('product', selectedProduct.id);
+        actions.updateFormValue('query', selectedProduct.name);
+        actions.resetProducts();
+    }
+
+    function handleClickOnDropdownItem(e, value) {
+        e.preventDefault();
+        const productToBeMapped = state.area.availableProducts.reduce(
+            (acc, el) => acc || (el.id === value && el),
+            null
+        );
+        selectProduct(productToBeMapped);
+    }
+
+    function closeEditForm() {
+        actions.unselectSpot()
+    }
+
+    function submitForm() {
+        if(!formData.changed) {
+            return null
+        }
+        return formData.state === 'create' 
+            ? actions.submitNewSpot()
+            : actions.submitSpotChanges()
+    }
+
+    function handleClickOnDelete(){
+        actions.deleteSpot()
+    }
+
+    return (
+        <div 
+            className="edit-number-form-wrapper"
+            style={ 
+                position 
+                ? {
+                    left: position.left + '%', 
+                    top: position.top + '%'
+                }
+                : null
+            }
+        >
+            {
+                position.left && 
+                position.top && 
+                <span 
+                    className={`spot-number spot-number--placeholder${position ? ` spot-number--placeholder--visible` : ''}`}
+                >
+                    {formData.number}
+                </span>
+            }
+            {
+                formData.state && (
+                    <div className={`edit-number-form panel panel-secondary ${orientationClasses}`}>
+                        <button 
+                            className="edit-number-form__close btn btn-outline-borderless"
+                            type="button"
+                            onClick={closeEditForm}
+                        >
+                            <Icon spritemap={state.app.spritemap} symbol={'close'}/>
+                        </button>
+                        <div className="panel-body">
+                            <div className="form-group">
+                                <label htmlFor="edit-number-form__input-number">
+                                    <LocalizedText desc="Number">number</LocalizedText>
+                                </label>
+                                <input 
+                                    className="form-control"
+                                    id="edit-number-form__input-number"
+                                    placeholder="select number"
+                                    type="number"
+                                    autoComplete="off"
+                                    min="1"
+                                    value={(formData.number) || ''}
+                                    onChange={handleNumberChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="edit-number-form__input-number">
+                                    <LocalizedText desc="Number">product</LocalizedText>
+                                </label>
+                                <div className="input-group">
+                                    <DropdownInput 
+                                        inputClassName={"edit-number-form__input-number"}
+                                        inputId={"edit-number-form__input-number"}
+                                        query={formData.query}
+                                        selectedElement={
+                                            formData.product 
+                                            ? { 
+                                                value: formData.product,
+                                                label: formData.query
+                                            } 
+                                            : null
+                                        }
+                                        disabled={dropdownDisabled}
+                                        elements={state.area.availableProducts.map(
+                                            el => ({ label: el.name, value: el.id })
+                                        )}
+                                        inputPlaceholder={inputPlaceholder}
+                                        resetIcon={<Icon spritemap={state.app.spritemap} symbol={'reset'}/>}
+                                        searchIcon={<Icon spritemap={state.app.spritemap} symbol={'search'}/>}
+                                        resetAdditionalCssClasses="edit-number-form__reset"
+                                        searchAdditionalCssClasses="edit-number-form__search"
+                                        handleResetFn={resetProducts}
+                                        handleChangeFn={handleProductInputChange}
+                                        handleClickOnItem={handleClickOnDropdownItem}
+                                    />
+                                </div>
+                            </div>
+                            <div className="btn-group d-block">
+                                <div className="row">
+                                    {state.area.spotFormData.state === 'edit' && (
+                                        <div className="col-auto">
+                                            <div className="btn-group-item">
+                                                <button 
+                                                    className="btn btn-outline-primary btn-outline-borderless"
+                                                    type="button"
+                                                    onClick={handleClickOnDelete}
+                                                >
+                                                    <LocalizedText desc="Delete">delete</LocalizedText>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
+                                    <div className="col text-right">
+                                        <div className="btn-group-item">
+                                            <button 
+                                                className="btn btn-secondary" 
+                                                type="button"
+                                                onClick={closeEditForm}
+                                            >
+                                                <LocalizedText desc="Cancel">cancel</LocalizedText>
+                                            </button>
+                                        </div>
+                                        <div className="btn-group-item">
+                                            <button
+                                                className="btn btn-primary"
+                                                type="submit"
+                                                onClick={submitForm}
+                                                disabled={!(formData.product && formData.number && formData.changed)}
+                                            >
+                                                <LocalizedText desc="Save">save</LocalizedText>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+        </div>
+    );
+});
+
+export default EditNumberForm;
