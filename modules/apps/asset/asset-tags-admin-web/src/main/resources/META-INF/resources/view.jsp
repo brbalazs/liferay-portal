@@ -37,10 +37,15 @@
 	<portlet:param name="redirect" value="<%= currentURL %>" />
 </portlet:actionURL>
 
+<%
+SearchContainer assetTagsSearchContainer = assetTagsDisplayContext.getTagsSearchContainer();
+Map<Long, Long> tagCountMap = assetTagsDisplayContext.getTagCountMap();
+%>
+
 <aui:form action="<%= deleteTagURL %>" cssClass="container-fluid container-fluid-max-xl" name="fm">
 	<liferay-ui:search-container
 		id="assetTags"
-		searchContainer="<%= assetTagsDisplayContext.getTagsSearchContainer() %>"
+		searchContainer="<%= assetTagsSearchContainer %>"
 	>
 		<liferay-ui:search-container-row
 			className="com.liferay.asset.kernel.model.AssetTag"
@@ -49,7 +54,7 @@
 		>
 
 			<%
-			long fullTagsCount = assetTagsDisplayContext.getFullTagsCount(tag);
+			long fullTagsCount = tagCountMap.get(tag.getTagId());
 			%>
 
 			<c:choose>

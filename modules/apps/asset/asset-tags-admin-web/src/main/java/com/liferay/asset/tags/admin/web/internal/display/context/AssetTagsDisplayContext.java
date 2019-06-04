@@ -34,6 +34,7 @@ import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.SortFactoryUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
@@ -50,7 +51,9 @@ import com.liferay.portlet.asset.util.comparator.AssetTagAssetCountComparator;
 import com.liferay.portlet.asset.util.comparator.AssetTagNameComparator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.portlet.ActionRequest;
@@ -178,10 +181,13 @@ public class AssetTagsDisplayContext {
 		ThemeDisplay themeDisplay = (ThemeDisplay)_request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		return AssetEntryLocalServiceUtil.searchCount(
+		Hits hits = AssetEntryLocalServiceUtil.search(
 			tag.getCompanyId(), new long[] {themeDisplay.getScopeGroupId()},
-			themeDisplay.getUserId(), null, 0, null, null, null, null,
-			tag.getName(), true, true, statuses, false);
+			themeDisplay.getUserId(), "", 0L, "", "", "", "", tag.getName(),
+			true, statuses, false, _tagsSearchContainer.getStart(),
+			_tagsSearchContainer.getEnd());
+
+		return hits.getLength();
 	}
 
 	public String getKeywords() {
@@ -276,6 +282,24 @@ public class AssetTagsDisplayContext {
 		_tag = tag;
 
 		return _tag;
+	}
+
+	public Map<Long, Long> getTagCountMap() throws PortalException {
+		if (_tagsSearchContainer == null) {
+			getTagsSearchContainer();
+		}
+
+		Map<Long, Long> result = new HashMap<>();
+
+		List<AssetTag> tags = _tagsSearchContainer.getResults();
+
+		for (AssetTag tag : tags) {
+			long count = getFullTagsCount(tag);
+
+			result.put(tag.getTagId(), count);
+		}
+
+		return result;
 	}
 
 	public Long getTagId() {
