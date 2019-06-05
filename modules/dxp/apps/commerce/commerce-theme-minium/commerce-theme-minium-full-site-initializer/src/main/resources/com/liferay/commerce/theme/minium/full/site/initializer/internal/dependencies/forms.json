@@ -7,50 +7,62 @@
 			"defaultLanguageId": "en_US",
 			"fieldValues": [
 				{
+					"instanceId": "",
 					"name": "requireAuthentication",
 					"value": "false"
 				},
 				{
+					"instanceId": "",
 					"name": "requireCaptcha",
 					"value": "false"
 				},
 				{
+					"instanceId": "",
 					"name": "autosaveEnabled",
 					"value": "true"
 				},
 				{
+					"instanceId": "",
 					"name": "redirectURL",
 					"value": ""
 				},
 				{
+					"instanceId": "",
 					"name": "storageType",
 					"value": "[\"json\"]"
 				},
 				{
+					"instanceId": "",
 					"name": "workflowDefinition",
 					"value": "[\"no-workflow\"]"
 				},
 				{
+					"instanceId": "",
 					"name": "sendEmailNotification",
 					"value": "false"
 				},
 				{
+					"instanceId": "",
 					"name": "emailFromName",
 					"value": ""
 				},
 				{
+					"instanceId": "",
 					"name": "emailFromAddress",
 					"value": ""
 				},
 				{
+					"instanceId": "",
 					"name": "emailToAddress",
 					"value": ""
 				},
 				{
+					"instanceId": "",
 					"name": "emailSubject",
 					"value": ""
 				},
 				{
+					"instanceId": "",
 					"name": "published",
 					"value": "true"
 				}
@@ -355,38 +367,6 @@
 					"fieldNamespace": "",
 					"indexType": "keyword",
 					"label": {
-						"en_US": "Total Number Of Units"
-					},
-					"localizable": true,
-					"name": "TotalNumberOfUnits",
-					"placeholder": {
-						"en_US": ""
-					},
-					"predefinedValue": {
-						"en_US": ""
-					},
-					"readOnly": false,
-					"repeatable": false,
-					"required": false,
-					"showLabel": true,
-					"tip": {
-						"en_US": ""
-					},
-					"tooltip": {
-						"en_US": ""
-					},
-					"type": "numeric",
-					"validation": {
-						"errorMessage": "",
-						"expression": ""
-					},
-					"visibilityExpression": ""
-				},
-				{
-					"dataType": "integer",
-					"fieldNamespace": "",
-					"indexType": "keyword",
-					"label": {
 						"en_US": "Number of Faulty Units"
 					},
 					"localizable": true,
@@ -415,27 +395,14 @@
 					"visibilityExpression": ""
 				},
 				{
-					"autocomplete": false,
-					"dataSourceType": "",
-					"dataType": "string",
-					"ddmDataProviderInstanceId": "[]",
-					"ddmDataProviderInstanceOutput": "[]",
-					"displayStyle": "singleline",
+					"dataType": "integer",
 					"fieldNamespace": "",
 					"indexType": "keyword",
 					"label": {
-						"en_US": "Details of the defect observed"
+						"en_US": "Total Number Of Units"
 					},
 					"localizable": true,
-					"name": "DetailsOfTheDefectObserved",
-					"options": [
-						{
-							"label": {
-								"en_US": "Option"
-							},
-							"value": "Option"
-						}
-					],
+					"name": "TotalNumberOfUnits",
 					"placeholder": {
 						"en_US": ""
 					},
@@ -447,12 +414,12 @@
 					"required": false,
 					"showLabel": true,
 					"tip": {
-						"en_US": "Please provide as much information as possible"
+						"en_US": ""
 					},
 					"tooltip": {
 						"en_US": ""
 					},
-					"type": "text",
+					"type": "numeric",
 					"validation": {
 						"errorMessage": "",
 						"expression": ""
@@ -464,10 +431,10 @@
 					"fieldNamespace": "",
 					"indexType": "keyword",
 					"label": {
-						"en_US": "Please insert any phots of the product that you think may be partially or totally defective"
+						"en_US": "Please insert any photos of the product that you think may be partially or totally defective"
 					},
 					"localizable": true,
-					"name": "PleaseInsertAnyPhotsOfTheProductThatYouThinkMayBePartiallyOrTotallyDefective",
+					"name": "PleaseInsertAnyPhotosOfTheProductThatYouThinkMayBePartiallyOrTotallyDefective",
 					"predefinedValue": {
 						"en_US": ""
 					},
@@ -491,7 +458,52 @@
 					"dataType": "string",
 					"ddmDataProviderInstanceId": "[]",
 					"ddmDataProviderInstanceOutput": "[]",
-					"displayStyle": "singleline",
+					"displayStyle": "multiline",
+					"fieldNamespace": "",
+					"indexType": "keyword",
+					"label": {
+						"en_US": "Details of the defect observed"
+					},
+					"localizable": true,
+					"name": "DetailsOfTheDefectObserved",
+					"options": [
+						{
+							"label": {
+								"en_US": "Option"
+							},
+							"value": "Option"
+						}
+					],
+					"placeholder": {
+						"en_US": "Please be as descriptive as possible."
+					},
+					"predefinedValue": {
+						"en_US": ""
+					},
+					"readOnly": false,
+					"repeatable": false,
+					"required": false,
+					"showLabel": true,
+					"tip": {
+						"en_US": ""
+					},
+					"tooltip": {
+						"en_US": ""
+					},
+					"type": "text",
+					"validation": {
+						"errorMessage": "",
+						"expression": ""
+					},
+					"visibilityExpression": ""
+				},
+				{
+					"autocomplete": false,
+					"dataSourceType": "",
+					"dataType": "string",
+					"ddmDataProviderInstanceId": "[]",
+					"ddmDataProviderInstanceOutput": "[]",
+					"displayStyle": "multiline",
 					"fieldNamespace": "",
 					"indexType": "keyword",
 					"label": {
@@ -508,7 +520,7 @@
 						}
 					],
 					"placeholder": {
-						"en_US": ""
+						"en_US": "Please be as descriptive as possible."
 					},
 					"predefinedValue": {
 						"en_US": ""
@@ -555,17 +567,13 @@
 									"fieldNames": [
 										"Name"
 									],
-									"size": 12
-								}
-							]
-						},
-						{
-							"columns": [
+									"size": 6
+								},
 								{
 									"fieldNames": [
 										"Company"
 									],
-									"size": 12
+									"size": 6
 								}
 							]
 						},
@@ -575,17 +583,13 @@
 									"fieldNames": [
 										"PhoneNumber"
 									],
-									"size": 12
-								}
-							]
-						},
-						{
-							"columns": [
+									"size": 6
+								},
 								{
 									"fieldNames": [
 										"Email"
 									],
-									"size": 12
+									"size": 6
 								}
 							]
 						}
@@ -605,17 +609,13 @@
 									"fieldNames": [
 										"ProductName"
 									],
-									"size": 12
-								}
-							]
-						},
-						{
-							"columns": [
+									"size": 6
+								},
 								{
 									"fieldNames": [
 										"BatchNo"
 									],
-									"size": 12
+									"size": 6
 								}
 							]
 						},
@@ -625,7 +625,13 @@
 									"fieldNames": [
 										"DatePurchased"
 									],
-									"size": 12
+									"size": 6
+								},
+								{
+									"fieldNames": [
+										"NumberOfFaultyUnits"
+									],
+									"size": 6
 								}
 							]
 						},
@@ -635,17 +641,13 @@
 									"fieldNames": [
 										"TotalNumberOfUnits"
 									],
-									"size": 12
-								}
-							]
-						},
-						{
-							"columns": [
+									"size": 6
+								},
 								{
 									"fieldNames": [
-										"NumberOfFaultyUnits"
+										"PleaseInsertAnyPhotosOfTheProductThatYouThinkMayBePartiallyOrTotallyDefective"
 									],
-									"size": 12
+									"size": 6
 								}
 							]
 						},
@@ -654,16 +656,6 @@
 								{
 									"fieldNames": [
 										"DetailsOfTheDefectObserved"
-									],
-									"size": 12
-								}
-							]
-						},
-						{
-							"columns": [
-								{
-									"fieldNames": [
-										"PleaseInsertAnyPhotsOfTheProductThatYouThinkMayBePartiallyOrTotallyDefective"
 									],
 									"size": 12
 								}
@@ -687,7 +679,7 @@
 			],
 			"paginationMode": "wizard"
 		},
-		"description": "Product Defect Report",
+		"description": "To report a product defect, please provide the following information.",
 		"name": "Product Defect Report"
 	}
 ]
