@@ -528,8 +528,7 @@ public class MetadataManagerImpl
 
 	@Reference(
 		cardinality = ReferenceCardinality.AT_LEAST_ONE,
-		policyOption = ReferencePolicyOption.GREEDY,
-		unbind = "unsetMetadataProvider"
+		policyOption = ReferencePolicyOption.GREEDY
 	)
 	public void setMetadataProvider(MetadataProvider metadataProvider) {
 		if (_log.isDebugEnabled()) {

@@ -1245,7 +1245,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 
 	@Reference(
 		cardinality = ReferenceCardinality.AT_LEAST_ONE,
-		policyOption = ReferencePolicyOption.GREEDY, unbind = "unsetSamlBinding"
+		policyOption = ReferencePolicyOption.GREEDY
 	)
 	protected void setSamlBinding(SamlBinding samlBinding) {
 		addSamlBinding(samlBinding);
