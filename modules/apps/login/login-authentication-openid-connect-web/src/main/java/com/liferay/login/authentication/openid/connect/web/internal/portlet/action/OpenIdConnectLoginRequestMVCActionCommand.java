@@ -188,7 +188,9 @@ public class OpenIdConnectLoginRequestMVCActionCommand
 			}
 			else {
 				_log.error(
-					"Unable to process the OpenID Connect login: " + e.getMessage(), e);
+					"Unable to process the OpenID Connect login: " +
+						e.getMessage(),
+					e);
 
 				_portal.sendError(e, actionRequest, actionResponse);
 			}
