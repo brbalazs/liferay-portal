@@ -1913,8 +1913,9 @@ ${poshi.runner.testsuite.testcase.name}</echo>
 								<param name="database.type" value="@{database.type}" />
 							</antcall>
 
-							<echo file="${app.server.classes.portal.dir}/system-ext.properties">com.liferay.portal.kernel.util.ServiceProxyFactory.timeout=600000
-log.sanitizer.enabled=false</echo>
+							<echo file="${app.server.classes.portal.dir}/system-ext.properties">log.sanitizer.enabled=false
+
+com.liferay.portal.kernel.util.ServiceProxyFactory.timeout=600000</echo>
 
 							<gradle-execute dir="modules/apps/static/portal-lpkg-deployer/portal-lpkg-deployer-test" task="test">
 								<arg value="test" />
