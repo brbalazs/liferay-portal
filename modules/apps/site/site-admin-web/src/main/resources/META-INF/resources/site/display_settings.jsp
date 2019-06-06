@@ -192,6 +192,8 @@ if ((publicLayoutSet.isLayoutSetPrototypeLinkEnabled() || privateLayoutSet.isLay
 	var languageSelectInput = A.one('#<portlet:namespace />languageId');
 
 	if (languageSelectInput) {
+		const nameInput = Liferay.component('<portlet:namespace />name');
+
 		languageSelectInput.on(
 			'change',
 			function(event) {
@@ -232,6 +234,10 @@ if ((publicLayoutSet.isLayoutSetPrototypeLinkEnabled() || privateLayoutSet.isLay
 							render: true
 						}
 					);
+
+					nameInput.updateInput('<liferay-ui:message key="unnamed-site" />');
+				}
+
 			}
 		);
 	}
