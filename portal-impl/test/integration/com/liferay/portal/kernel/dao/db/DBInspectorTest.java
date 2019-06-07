@@ -42,7 +42,7 @@ public class DBInspectorTest {
 
 		db.runSQL(
 			StringBundler.concat(
-				"create table DBInspectorTest (typeBlob BLOB, typeSBlob SBLOB, typeBoolean ",
+				"create table ", _TABLE_NAME, " (typeBlob BLOB, typeSBlob SBLOB, typeBoolean ",
 				"BOOLEAN, typeDate DATE null, typeDouble DOUBLE, typeInteger INTEGER, ",
 				"typeLong LONG not null primary key, typeString STRING null, typeText ",
 				"TEXT null, typeVarchar VARCHAR(75) null);"));
@@ -52,7 +52,7 @@ public class DBInspectorTest {
 	public static void tearDownClass() throws Exception {
 		DB db = DBManagerUtil.getDB();
 
-		db.runSQL("drop table DBInspectorTest");
+		db.runSQL("drop table " + _TABLE_NAME);
 	}
 
 	@Before
