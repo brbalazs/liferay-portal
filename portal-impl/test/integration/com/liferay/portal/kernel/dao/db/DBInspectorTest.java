@@ -43,9 +43,10 @@ public class DBInspectorTest {
 		db.runSQL(
 			StringBundler.concat(
 				"create table ", _TABLE_NAME, " (typeBlob BLOB, typeBoolean ",
-				"BOOLEAN, typeDate DATE null, typeDouble DOUBLE, typeInteger INTEGER, ",
-				"typeLong LONG not null primary key, typeSBlob SBLOB, typeString STRING null, typeText ",
-				"TEXT null, typeVarchar VARCHAR(75) null);"));
+				"BOOLEAN, typeDate DATE null, typeDouble DOUBLE, typeInteger ",
+				"INTEGER, typeLong LONG not null primary key, typeSBlob ",
+				"SBLOB, typeString STRING null, typeText TEXT null, ",
+				"typeVarchar VARCHAR(75) null);"));
 	}
 
 	@AfterClass
