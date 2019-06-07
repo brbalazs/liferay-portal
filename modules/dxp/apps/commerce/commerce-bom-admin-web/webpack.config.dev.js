@@ -44,9 +44,6 @@ module.exports = {
 		compress: false,
 		contentBase: path.join(__dirname, './src/main/resources/META-INF/resources/dev-build'),
 		open: true,
-		port: 9000,
-		// proxy: {
-		// 	'**': 'http://0.0.0.0:8080'
-		// }
+		port: 9000
 	},
 };

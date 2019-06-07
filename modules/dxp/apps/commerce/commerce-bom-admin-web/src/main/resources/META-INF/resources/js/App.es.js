@@ -35,7 +35,7 @@ function App(props) {
 	});
 
 	return (
-		<div className="container pt-3">
+		<div className="bom-admin-container container pt-3">
 			<div className="row">
 				<div className="col">
 					<PictureBox />

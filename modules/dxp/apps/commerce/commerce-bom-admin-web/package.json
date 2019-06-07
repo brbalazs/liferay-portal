@@ -66,8 +66,8 @@
 		"sass-loader": "^7.1.0",
 		"style-loader": "^0.23.1"
 	},
-	"main": "dynamic_panel/js/index.es.js",
-	"name": "commerce-order-content-web",
+	"main": "js/index.es.js",
+	"name": "commerce-bom-admin-web",
 	"private": true,
 	"scripts": {
 		"build": "liferay-npm-scripts build",

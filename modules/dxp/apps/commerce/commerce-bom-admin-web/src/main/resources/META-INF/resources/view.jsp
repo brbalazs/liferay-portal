@@ -21,19 +21,18 @@
 <%@ include file="/init.jsp" %>
 
 <%
-    String segmentEditRootElementId = renderResponse.getNamespace() + "-org-chart-root";
+    String carPartsFinderRootElementId = renderResponse.getNamespace() + "-car-parts-finder";
 %>
 
-<div class="orgchart-module" id="<%= segmentEditRootElementId %>">
+<div class="car-parts-finder-module" id="<%= carPartsFinderRootElementId %>">
     <div class="inline-item my-5 p-5 w-100">
         <span aria-hidden="true" class="loading-animation"></span>
     </div>
 </div>
 
-<aui:script require="commerce-bom-admin-web@1.0.0/js/index.es as CarPartsFinder">
-
+<aui:script require="commerce-bom-web@1.0.0/js/index.es as CarPartsFinder">
     CarPartsFinder.default(
-        '<%= segmentEditRootElementId %>',
+        '<%= carPartsFinderRootElementId %>',
         {
             assetsPath: '<%= PortalUtil.getPathContext(request) + "/assets" %>',
             namespace: '<portlet:namespace/>',
