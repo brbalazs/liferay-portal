@@ -31,8 +31,6 @@ import org.junit.Test;
  */
 public class DBInspectorTest {
 
-	public static final String TABLE_NAME = "DBInspectorTest";
-
 	@ClassRule
 	@Rule
 	public static final LiferayIntegrationTestRule liferayIntegrationTestRule =
@@ -67,67 +65,69 @@ public class DBInspectorTest {
 	@Test
 	public void testHasColumnTypeBlob() throws Exception {
 		Assert.assertTrue(
-			_dbInspector.hasColumnType(TABLE_NAME, "typeBlob", "BLOB null"));
+			_dbInspector.hasColumnType(_TABLE_NAME, "typeBlob", "BLOB null"));
 	}
 
 	@Test
 	public void testHasColumnTypeBoolean() throws Exception {
 		Assert.assertTrue(
 			_dbInspector.hasColumnType(
-				TABLE_NAME, "typeBoolean", "BOOLEAN null"));
+				_TABLE_NAME, "typeBoolean", "BOOLEAN null"));
 	}
 
 	@Test
 	public void testHasColumnTypeDate() throws Exception {
 		Assert.assertTrue(
-			_dbInspector.hasColumnType(TABLE_NAME, "typeDate", "DATE null"));
+			_dbInspector.hasColumnType(_TABLE_NAME, "typeDate", "DATE null"));
 	}
 
 	@Test
 	public void testHasColumnTypeDouble() throws Exception {
 		Assert.assertTrue(
 			_dbInspector.hasColumnType(
-				TABLE_NAME, "typeDouble", "DOUBLE null"));
+				_TABLE_NAME, "typeDouble", "DOUBLE null"));
 	}
 
 	@Test
 	public void testHasColumnTypeInteger() throws Exception {
 		Assert.assertTrue(
 			_dbInspector.hasColumnType(
-				TABLE_NAME, "typeInteger", "INTEGER null"));
+				_TABLE_NAME, "typeInteger", "INTEGER null"));
 	}
 
 	@Test
 	public void testHasColumnTypeLong() throws Exception {
 		Assert.assertTrue(
-			_dbInspector.hasColumnType(TABLE_NAME, "typeLong", "LONG"));
+			_dbInspector.hasColumnType(_TABLE_NAME, "typeLong", "LONG"));
 	}
 
 	@Test
 	public void testHasColumnTypeSBlob() throws Exception {
 		Assert.assertTrue(
-			_dbInspector.hasColumnType(TABLE_NAME, "typeSBlob", "SBLOB null"));
+			_dbInspector.hasColumnType(_TABLE_NAME, "typeSBlob", "SBLOB null"));
 	}
 
 	@Test
 	public void testHasColumnTypeString() throws Exception {
 		Assert.assertTrue(
 			_dbInspector.hasColumnType(
-				TABLE_NAME, "typeString", "STRING null"));
+				_TABLE_NAME, "typeString", "STRING null"));
 	}
 
 	@Test
 	public void testHasColumnTypeText() throws Exception {
 		Assert.assertTrue(
-			_dbInspector.hasColumnType(TABLE_NAME, "typeText", "TEXT null"));
+			_dbInspector.hasColumnType(_TABLE_NAME, "typeText", "TEXT null"));
 	}
 
 	@Test
 	public void testHasColumnTypeVarchar() throws Exception {
 		Assert.assertTrue(
 			_dbInspector.hasColumnType(
-				TABLE_NAME, "typeVarchar", "VARCHAR(75) null"));
+				_TABLE_NAME, "typeVarchar", "VARCHAR(75) null"));
 	}
+
+	private static final String _TABLE_NAME = "DBInspectorTest";
 
 	private static DBInspector _dbInspector;
 
