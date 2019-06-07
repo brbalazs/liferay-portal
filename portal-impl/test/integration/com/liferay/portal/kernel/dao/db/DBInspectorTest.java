@@ -42,14 +42,19 @@ public class DBInspectorTest {
 	public static void setUpClass() throws Exception {
 		DB db = DBManagerUtil.getDB();
 
-		db.runSQL(_CREATE_TABLE);
+		db.runSQL(
+			StringBundler.concat(
+				"create table FieldTypes (typeBlob BLOB, typeSBlob SBLOB, typeBoolean ",
+				"BOOLEAN, typeDate DATE null, typeDouble DOUBLE, typeInteger INTEGER, ",
+				"typeLong LONG not null primary key, typeString STRING null, typeText ",
+				"TEXT null, typeVarchar VARCHAR(75) null);"));
 	}
 
 	@AfterClass
 	public static void tearDownClass() throws Exception {
 		DB db = DBManagerUtil.getDB();
 
-		db.runSQL(_DROP_TABLE);
+		db.runSQL("drop table FieldTypes");
 	}
 
 	@Before
@@ -123,14 +128,6 @@ public class DBInspectorTest {
 			_dbInspector.hasColumnType(
 				TABLE_NAME, "typeVarchar", "VARCHAR(75) null"));
 	}
-
-	private static final String _CREATE_TABLE = StringBundler.concat(
-		"create table FieldTypes (typeBlob BLOB, typeSBlob SBLOB, typeBoolean ",
-		"BOOLEAN, typeDate DATE null, typeDouble DOUBLE, typeInteger INTEGER, ",
-		"typeLong LONG not null primary key, typeString STRING null, typeText ",
-		"TEXT null, typeVarchar VARCHAR(75) null);");
-
-	private static final String _DROP_TABLE = "drop table FieldTypes";
 
 	private static DBInspector _dbInspector;
 
