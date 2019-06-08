@@ -177,3 +177,18 @@ app.artifacts-1.0.11=\
 app.change.log-1.0.11=LPS-77699 LPS-79672 LPS-80332 LPS-84119 LPS-86408 LPS-91342
 
 app.git.id-1.0.11=7a25b5e4efd450c0607198cca51fa5d53f44ae84
+
+#
+# Liferay App Version 1.0.12
+#
+
+app.artifacts-1.0.12=\
+	com.liferay.reading.time.api-1.0.9.jar,\
+	com.liferay.reading.time.editor.plugin-1.0.1.jar,\
+	com.liferay.reading.time.service-1.0.18.jar,\
+	com.liferay.reading.time.taglib-1.0.5.jar,\
+	com.liferay.reading.time.web-1.0.8.jar
+
+app.change.log-1.0.12=LPS-77699 LPS-79672 LPS-80332 LPS-84119 LPS-86408 LPS-91342 LPS-96018
+
+app.git.id-1.0.12=d34ebc7c8b8df916c5c5a3237caf9a6d043d704f

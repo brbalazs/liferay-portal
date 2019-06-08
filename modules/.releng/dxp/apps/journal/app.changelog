@@ -333,3 +333,31 @@ app.artifacts-1.0.11=\
 app.change.log-1.0.11=LPS-77699 LPS-79653 LPS-80332 LPS-83226 LPS-84039 LPS-84119 LPS-85296 LPS-86806 LPS-89352 LPS-90127 LPS-90504 LPS-91334 LPS-91343 LPS-91408 LPS-91578 LPS-91844 LPS-92135 LPS-92186 LPS-92422 LPS-92709 LPS-92794 LPS-92839 LPS-93306 LPS-93308 LPS-93529 LPS-93699 LPS-94196 LPS-94632
 
 app.git.id-1.0.11=7a25b5e4efd450c0607198cca51fa5d53f44ae84
+
+#
+# Liferay App Version 1.0.12
+#
+
+app.artifacts-1.0.12=\
+	com.liferay.journal.api-3.5.8.jar,\
+	com.liferay.journal.content.asset.addon.entry.api-1.0.1.jar,\
+	com.liferay.journal.content.asset.addon.entry.comments-2.0.1.jar,\
+	com.liferay.journal.content.asset.addon.entry.conversions-3.0.3.jar,\
+	com.liferay.journal.content.asset.addon.entry.locales-2.0.1.jar,\
+	com.liferay.journal.content.asset.addon.entry.print-3.0.0.jar,\
+	com.liferay.journal.content.asset.addon.entry.ratings-3.0.1.jar,\
+	com.liferay.journal.content.asset.addon.entry.related.assets-3.0.1.jar,\
+	com.liferay.journal.content.web-3.0.30.jar,\
+	com.liferay.journal.editor.configuration-2.0.0.jar,\
+	com.liferay.journal.item.selector.api-2.1.2.jar,\
+	com.liferay.journal.item.selector.web-2.0.4.jar,\
+	com.liferay.journal.lang-3.0.28.jar,\
+	com.liferay.journal.ratings.definition-3.0.2.jar,\
+	com.liferay.journal.service-4.0.71.jar,\
+	com.liferay.journal.taglib-2.0.4.jar,\
+	com.liferay.journal.terms.of.use-3.0.2.jar,\
+	com.liferay.journal.web-2.0.55.jar
+
+app.change.log-1.0.12=[[trimmed]]PS-82015 LPS-82018 LPS-82128 LPS-82228 LPS-82261 LPS-82289 LPS-82298 LPS-82444 LPS-82446 LPS-82494 LPS-82572 LPS-82646 LPS-82647 LPS-82688 LPS-82746 LPS-82752 LPS-82757 LPS-82828 LPS-82853 LPS-83160 LPS-83226 LPS-83326 LPS-83382 LPS-83505 LPS-83849 LPS-83868 LPS-84000 LPS-84009 LPS-84039 LPS-84092 LPS-84119 LPS-84249 LPS-84262 LPS-84380 LPS-84446 LPS-84620 LPS-84807 LPS-84861 LPS-84916 LPS-85099 LPS-85275 LPS-85296 LPS-85445 LPS-86315 LPS-86408 LPS-86413 LPS-86429 LPS-86608 LPS-86806 LPS-87198 LPS-87280 LPS-87577 LPS-87950 LPS-88059 LPS-88170 LPS-88305 LPS-88331 LPS-88424 LPS-88437 LPS-88516 LPS-88571 LPS-88627 LPS-88665 LPS-88730 LPS-88747 LPS-88764 LPS-88766 LPS-88890 LPS-89005 LPS-89252 LPS-89445 LPS-89456 LPS-89567 LPS-89869 LPS-90417 LPS-90698 LPS-91017 LPS-91343 LPS-91363 LPS-91432 LPS-91536 LPS-91566 LPS-91578 LPS-91844 LPS-91970 LPS-92186 LPS-92422 LPS-92661 LPS-92794 LPS-93306 LPS-93529 LPS-93807 LPS-94500 LPS-94632 LPS-95092 LPS-95582 LPS-96018 LPS-96020 LPS-96091 LRDOCS-6300
+
+app.git.id-1.0.12=d34ebc7c8b8df916c5c5a3237caf9a6d043d704f

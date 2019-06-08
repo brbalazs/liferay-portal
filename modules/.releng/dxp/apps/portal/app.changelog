@@ -446,3 +446,40 @@ app.artifacts-1.0.11=\
 app.change.log-1.0.11=LPS-74544 LPS-77699 LPS-80332 LPS-80517 LPS-80843 LPS-82828 LPS-83244 LPS-84093 LPS-84119 LPS-84409 LPS-85296 LPS-86090 LPS-86408 LPS-86509 LPS-86754 LPS-86806 LPS-87522 LPS-88444 LPS-88877 LPS-88911 LPS-91343 LPS-92877 LPS-93032 LPS-93457
 
 app.git.id-1.0.11=7a25b5e4efd450c0607198cca51fa5d53f44ae84
+
+#
+# Liferay App Version 1.0.12
+#
+
+app.artifacts-1.0.12=\
+	com.liferay.portal.cluster.multiple-2.0.25.jar,\
+	com.liferay.portal.compound.session.id-3.0.2.jar,\
+	com.liferay.portal.custom.jsp.bag.api-2.0.1.jar,\
+	com.liferay.portal.dao.orm.custom.sql.api-1.0.1.jar,\
+	com.liferay.portal.dao.orm.custom.sql.impl-1.0.10.jar,\
+	com.liferay.portal.executor-3.0.2.jar,\
+	com.liferay.portal.inactive.request.handler-1.0.9.jar,\
+	com.liferay.portal.init.servlet.filter-3.0.2.jar,\
+	com.liferay.portal.instance.lifecycle.api-1.0.2.jar,\
+	com.liferay.portal.instance.lifecycle.impl-1.0.5.jar,\
+	com.liferay.portal.jmx-5.0.3.jar,\
+	com.liferay.portal.jmx.api-2.0.0.jar,\
+	com.liferay.portal.license.deployer-2.0.8.jar,\
+	com.liferay.portal.messaging-5.0.15.jar,\
+	com.liferay.portal.monitoring-6.0.13.jar,\
+	com.liferay.portal.output.stream.container-4.0.2.jar,\
+	com.liferay.portal.output.stream.container.api-2.0.0.jar,\
+	com.liferay.portal.pop.notifications-3.0.2.jar,\
+	com.liferay.portal.properties.swapper-2.0.8.jar,\
+	com.liferay.portal.spring.extender.api-3.0.0.jar,\
+	com.liferay.portal.spring.extender.impl-1.0.18.jar,\
+	com.liferay.portal.uad-3.0.2.jar,\
+	com.liferay.portal.upgrade.api-2.0.3.jar,\
+	com.liferay.portal.upgrade.impl-2.0.17.jar,\
+	com.liferay.portal.upload-1.0.6.jar,\
+	com.liferay.portal.verify.extender-4.0.7.jar,\
+	com.liferay.portal.weblogic.support-3.0.2.jar
+
+app.change.log-1.0.12=LPS-74544 LPS-77699 LPS-80332 LPS-80517 LPS-80843 LPS-82828 LPS-83244 LPS-84093 LPS-84119 LPS-84409 LPS-85296 LPS-86090 LPS-86408 LPS-86509 LPS-86806 LPS-88444 LPS-88911 LPS-91343 LPS-93032 LPS-93457
+
+app.git.id-1.0.12=d34ebc7c8b8df916c5c5a3237caf9a6d043d704f

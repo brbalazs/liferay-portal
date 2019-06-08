@@ -53,3 +53,24 @@ app.artifacts-1.0.0=\
 app.change.log-1.0.0=LPS-74270 LPS-75049 LPS-78486 LPS-82880 LPS-82881 LPS-83044 LPS-83417 LPS-85232 LPS-85300 LPS-85828 LPS-85829 LPS-86408 LPS-86806 LPS-87116 LPS-87342 LPS-87525 LPS-87553 LRDOCS-5689 LRDOCS-5714 LRDOCS-5857
 
 app.git.id-1.0.0=ba5b66b5a616ac9bfabda6fc5d99dbd5b0474556
+
+#
+# Liferay App Version 1.0.1
+#
+
+app.artifacts-1.0.1=\
+	com.liferay.headless.admin.taxonomy.api-2.0.0.jar,\
+	com.liferay.headless.admin.taxonomy.impl-2.0.2.jar,\
+	com.liferay.headless.admin.user.api-4.0.0.jar,\
+	com.liferay.headless.admin.user.impl-2.0.2.jar,\
+	com.liferay.headless.admin.workflow.api-2.0.0.jar,\
+	com.liferay.headless.admin.workflow.impl-2.0.1.jar,\
+	com.liferay.headless.common.spi-4.0.0.jar,\
+	com.liferay.headless.delivery.api-4.0.0.jar,\
+	com.liferay.headless.delivery.impl-2.0.2.jar,\
+	com.liferay.headless.form.api-6.0.0.jar,\
+	com.liferay.headless.form.impl-2.0.3.jar
+
+app.change.log-1.0.1=LPS-77699 LPS-84119 LPS-94274 LPS-94587 LPS-94857 LPS-95092 LPS-95133
+
+app.git.id-1.0.1=d34ebc7c8b8df916c5c5a3237caf9a6d043d704f

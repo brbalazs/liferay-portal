@@ -140,3 +140,16 @@ app.artifacts-1.0.10=\
 app.change.log-1.0.10=LPS-84119
 
 app.git.id-1.0.10=7a25b5e4efd450c0607198cca51fa5d53f44ae84
+
+#
+# Liferay App Version 1.0.11
+#
+
+app.artifacts-1.0.11=\
+	com.liferay.portlet.display.template.api-1.0.5.jar,\
+	com.liferay.portlet.display.template.impl-1.0.11.jar,\
+	com.liferay.portlet.display.template.web-3.0.9.jar
+
+app.change.log-1.0.11=LPS-79653 LPS-80332 LPS-82228 LPS-82446 LPS-82572 LPS-84119 LPS-85296 LPS-86413 LPS-93807
+
+app.git.id-1.0.11=d34ebc7c8b8df916c5c5a3237caf9a6d043d704f

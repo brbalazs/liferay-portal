@@ -345,3 +345,32 @@ app.artifacts-1.0.11=\
 app.change.log-1.0.11=LPS-77699 LPS-84119 LPS-84602 LPS-85306 LPS-86262 LPS-86408 LPS-86806 LPS-87396 LPS-87939 LPS-90033 LPS-91343 LPS-91420 LPS-91970 LPS-93031
 
 app.git.id-1.0.11=7a25b5e4efd450c0607198cca51fa5d53f44ae84
+
+#
+# Liferay App Version 1.0.12
+#
+
+app.artifacts-1.0.12=\
+	com.liferay.document.library.analytics-2.0.4.jar,\
+	com.liferay.document.library.api-4.1.7.jar,\
+	com.liferay.document.library.content.api-1.0.7.jar,\
+	com.liferay.document.library.content.service-1.0.13.jar,\
+	com.liferay.document.library.document.conversion-1.0.18.jar,\
+	com.liferay.document.library.file.rank.api-1.0.7.jar,\
+	com.liferay.document.library.file.rank.service-1.0.19.jar,\
+	com.liferay.document.library.item.selector.web-2.0.7.jar,\
+	com.liferay.document.library.layout.set.prototype-3.0.2.jar,\
+	com.liferay.document.library.repository.authorization.api-2.0.4.jar,\
+	com.liferay.document.library.repository.cmis.api-2.0.10.jar,\
+	com.liferay.document.library.repository.cmis.impl-3.0.22.jar,\
+	com.liferay.document.library.repository.external.api-2.0.9.jar,\
+	com.liferay.document.library.repository.search-4.0.4.jar,\
+	com.liferay.document.library.service-3.0.38.jar,\
+	com.liferay.document.library.sync.api-1.0.6.jar,\
+	com.liferay.document.library.sync.service-1.0.10.jar,\
+	com.liferay.document.library.uad-3.0.2.jar,\
+	com.liferay.document.library.web-3.0.52.jar
+
+app.change.log-1.0.12=LPS-54392 LPS-59041 LPS-74544 LPS-77699 LPS-78419 LPS-78938 LPS-79312 LPS-79653 LPS-79679 LPS-79789 LPS-79925 LPS-80295 LPS-80332 LPS-80469 LPS-80470 LPS-80543 LPS-80609 LPS-81201 LPS-81446 LPS-81695 LPS-81743 LPS-81816 LPS-82015 LPS-82079 LPS-82101 LPS-82647 LPS-83368 LPS-84009 LPS-84039 LPS-84090 LPS-84118 LPS-84119 LPS-84377 LPS-85217 LPS-85296 LPS-85347 LPS-85994 LPS-86262 LPS-86368 LPS-86408 LPS-86413 LPS-86473 LPS-86714 LPS-86806 LPS-87396 LPS-87939 LPS-88571 LPS-90033 LPS-91343 LPS-91420 LPS-91970 LPS-93031 LPS-93807 LPS-93868 LPS-95633 LPS-96018
+
+app.git.id-1.0.12=d34ebc7c8b8df916c5c5a3237caf9a6d043d704f

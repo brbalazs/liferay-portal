@@ -213,3 +213,21 @@ app.artifacts-1.0.11=\
 app.change.log-1.0.11=LPS-74544 LPS-77699 LPS-79350 LPS-79653 LPS-79679 LPS-79837 LPS-80133 LPS-80332 LPS-80490 LPS-81197 LPS-81579 LPS-81721 LPS-81936 LPS-82401 LPS-82613 LPS-82828 LPS-82869 LPS-83928 LPS-84119 LPS-84459 LPS-84907 LPS-85151 LPS-85183 LPS-85296 LPS-85312 LPS-85969 LPS-86019 LPS-86408 LPS-86795 LPS-86806 LPS-88323 LPS-88471 LPS-89278 LPS-90387 LPS-91420 LPS-92120 
 
 app.git.id-1.0.11=7a25b5e4efd450c0607198cca51fa5d53f44ae84
+
+#
+# Liferay App Version 1.0.12
+#
+
+app.artifacts-1.0.12=\
+	com.liferay.frontend.taglib-3.2.4.jar,\
+	com.liferay.frontend.taglib.chart-1.0.16.jar,\
+	com.liferay.frontend.taglib.clay-1.4.0.jar,\
+	com.liferay.frontend.taglib.dynamic.section-1.0.6.jar,\
+	com.liferay.frontend.taglib.form.navigator-2.0.11.jar,\
+	com.liferay.frontend.taglib.soy-2.1.4.jar,\
+	com.liferay.frontend.taglib.util-1.0.5.jar,\
+	com.liferay.frontend.taglib.util.freemarker.contributor-2.0.0.jar
+
+app.change.log-1.0.12=LPS-74544 LPS-77699 LPS-79350 LPS-79653 LPS-79679 LPS-79837 LPS-80133 LPS-80332 LPS-80490 LPS-81197 LPS-81579 LPS-81721 LPS-81936 LPS-82401 LPS-82613 LPS-82828 LPS-82869 LPS-83928 LPS-84119 LPS-84459 LPS-84907 LPS-85151 LPS-85183 LPS-85296 LPS-85312 LPS-85969 LPS-86019 LPS-86408 LPS-86795 LPS-86806 LPS-88323 LPS-88471 LPS-89278 LPS-90387 LPS-91420 LPS-92120 
+
+app.git.id-1.0.12=d34ebc7c8b8df916c5c5a3237caf9a6d043d704f
