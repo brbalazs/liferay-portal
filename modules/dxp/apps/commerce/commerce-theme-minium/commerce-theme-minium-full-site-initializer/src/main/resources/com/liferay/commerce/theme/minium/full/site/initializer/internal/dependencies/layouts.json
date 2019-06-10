@@ -7,6 +7,11 @@
 			{
 				"layoutColumnId": "column-1",
 				"layoutColumnPos": 0,
+				"portletName": "com_liferay_journal_content_web_portlet_JournalContentPortlet_INSTANCE_minium"
+			},
+			{
+				"layoutColumnId": "column-1",
+				"layoutColumnPos": 1,
 				"portletName": "com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_minium"
 			}
 		],

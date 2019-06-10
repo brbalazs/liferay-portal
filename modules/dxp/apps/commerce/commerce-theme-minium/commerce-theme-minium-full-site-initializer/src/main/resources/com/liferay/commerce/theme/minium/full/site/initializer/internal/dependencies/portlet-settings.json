@@ -52,8 +52,27 @@
 		"layoutFriendlyURL": "/dashboard",
 		"portletName": "com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet",
 		"portletPreferences": {
-			"classNameId": "com.liferay.blogs.model.BlogsEntry",
-			"displayStyleGroupId": "0"
+			"abstractLength": "100",
+			"anyAssetType": "com.liferay.blogs.model.BlogsEntry",
+			"classNameIds": "com.liferay.blogs.model.BlogsEntry",
+			"delta": "4",
+			"displayStyleGroupId": "0",
+			"paginationType": "simple",
+			"portletSetupCss": "{\"textData\":{\"fontFamily\":\"Roboto, sans-serif\",\",\"color\":\"\",\"textAlign\":\"\",\"wordSpacing\":\"\",\"letterSpacing\":\"\",\"fontSize\":\"\",\"lineHeight\":\"\",\"textDecoration\":\"\",\"fontStyle\":\"\",\"fontWeight\":\"\"},\"spacingData\":{\"padding\":{\"top\":{\"unit\":\"%\",\"value\":\"\"},\"left\":{\"unit\":\"%\",\"value\":\"\"},\"bottom\":{\"unit\":\"%\",\"value\":\"\"},\"right\":{\"unit\":\"%\",\"value\":\"\"},\"sameForAll\":false},\"margin\":{\"top\":{\"unit\":\"%\",\"value\":\"\"},\"left\":{\"unit\":\"%\",\"value\":\"\"},\"bottom\":{\"unit\":\"%\",\"value\":\"\"},\"right\":{\"unit\":\"%\",\"value\":\"\"},\"sameForAll\":false}},\"borderData\":{\"borderColor\":{\"top\":\"\",\"left\":\"\",\"bottom\":\"\",\"right\":\"\",\"sameForAll\":false},\"borderWidth\":{\"top\":{\"unit\":\"%\",\"value\":\"\"},\"left\":{\"unit\":\"%\",\"value\":\"\"},\"bottom\":{\"unit\":\"%\",\"value\":\"\"},\"right\":{\"unit\":\"%\",\"value\":\"\"},\"sameForAll\":false},\"borderStyle\":{\"top\":\"\",\"left\":\"\",\"bottom\":\"\",\"right\":\"\",\"sameForAll\":false}},\"bgData\":{\"backgroundColor\":\"\",\"useBgImage\":false,\"backgroundImage\":\"\",\"backgroundPosition\":{\"top\":{\"unit\":\"\",\"value\":\"\"},\"left\":{\"unit\":\"\",\"value\":\"\"}},\"backgroundRepeat\":\"\"},\"advancedData\":{\"customCSSClassName\":\"\",\"customCSS\":\"#portlet_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_minium .user-icon {\\n\\tdisplay: none;\\n}\\n\\n#portlet_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_minium .widget-content p {\\n\\tdisplay: none;\\n}\\n\\n#portlet_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_minium .asset-content {\\n\\tmargin-left: 10%;\\n\\tmargin-right: 10%;\\n}\\n\\n#portlet_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_minium .subscribe-action {\\n\\tdisplay: none;\\n}\\n\\n#portlet_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_minium .portlet-body {\\n\\tdisplay: flex;\\n\\tjustify-content: space-between;\\n}\\n\\n#portlet_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_minium .asset-abstract a {\\n\\tcolor: black;\\n\\ttext-decoration: none;\\n}\\n\\n#portlet_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_minium .asset-abstract {\\n\\tdisplay: flex;\\n\\tflex-direction: row-reverse;\\n}\\n\\n#portlet_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_minium .asset-title {\\n\\tfont-size: 16px;\\n\\tline-height: 19px;\\n\\tcolor: #5C5E5E;\\n\\tmax-width: 250px;\\n\\tmargin-top: 10%;\\n\\toverflow: hidden;\\n\\ttext-overflow: ellipsis;\\n\\tfont-weight: normal;\\n}\\n\\n#portlet_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_minium .widget-mode-simple .widget-content .cover-image {\\n\\tmargin-bottom: 0;\\n\\tborder-radius: 4px;\\n\\tmin-height: 50px;\\n\\tmin-width: 50px;\\n}\\n\\n#portlet_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_minium .text-truncate-inline .text-truncate.username {\\n\\tdisplay: none;\\n}\\n\\n#portlet_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_minium .widget-mode-simple-entry {\\n\\tdisplay: flex;\\n\\tflex-direction: column-reverse;\\n\\tpadding-top: 50%;\\n}\\n\\n#portlet_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_minium .portlet-content-container {\\n\\tbackground: #FFFFFF;\\n\\tborder-radius: 8px;\\n\\tmax-height: 150px;\\n}\\n\\n#portlet_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_minium .tbar-item-expand,\\n.autofit-col-expand,\\n.flex-col-expand {\\n\\tflex-shrink: 0;\\n}\\n\\n#portlet_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_minium .inline-item-before {\\n\\tmargin-right: 0;\\n}\"}}",
+			"portletSetupPortletDecoratorId": "borderless",
+			"portletSetupTitle": "LATEST NEWS",
+			"portletSetupUseCustomTitle": "true",
+			"showAddContentButton": "false"
+		}
+	},
+	{
+		"instanceId": "minium",
+		"layoutFriendlyURL": "/dashboard",
+		"portletName": "com_liferay_journal_content_web_portlet_JournalContentPortlet",
+		"portletPreferences": {
+			"articleId": "SUMMER_SALES",
+			"assetEntryId": "0",
+			"groupId": "0"
 		}
 	},
 	{
