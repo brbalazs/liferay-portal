@@ -53,7 +53,11 @@ public abstract class BaseAddLayoutMVCActionCommand
 
 		PortletURL redirectURL = liferayPortletResponse.createRenderURL();
 
-		editLayoutURL.setParameter("redirect", redirectURL.toString());
+		editLayoutURL.setParameter(
+			"redirect",
+			HttpUtil.setParameter(
+				redirectURL.toString(), "p_p_state",
+				WindowState.MAXIMIZED.toString()));
 
 		editLayoutURL.setParameter(
 			"groupId", String.valueOf(layout.getGroupId()));
