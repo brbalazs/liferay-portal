@@ -75,6 +75,9 @@ public class AssetTagsDisplayContext {
 		_renderRequest = renderRequest;
 		_renderResponse = renderResponse;
 		_request = request;
+
+		_themeDisplay = (ThemeDisplay)_request.getAttribute(
+			WebKeys.THEME_DISPLAY);
 	}
 
 	public List<DropdownItem> getActionDropdownItems() {
@@ -182,8 +185,8 @@ public class AssetTagsDisplayContext {
 			WebKeys.THEME_DISPLAY);
 
 		Hits hits = AssetEntryLocalServiceUtil.search(
-			tag.getCompanyId(), new long[] {themeDisplay.getScopeGroupId()},
-			themeDisplay.getUserId(), null, 0, null, null, null, null,
+			tag.getCompanyId(), new long[] {_themeDisplay.getScopeGroupId()},
+			_themeDisplay.getUserId(), null, 0, null, null, null, null,
 			tag.getName(), true, statuses, false, 0, 1);
 
 		return hits.getLength();
@@ -346,7 +349,7 @@ public class AssetTagsDisplayContext {
 
 			BaseModelSearchResult<AssetTag> baseModelSearchResult =
 				AssetTagLocalServiceUtil.searchTags(
-					new long[] {themeDisplay.getScopeGroupId()}, keywords,
+					new long[] {_themeDisplay.getScopeGroupId()}, keywords,
 					tagsSearchContainer.getStart(),
 					tagsSearchContainer.getEnd(), sort);
 
@@ -381,7 +384,7 @@ public class AssetTagsDisplayContext {
 
 			tagsSearchContainer.setOrderByType(orderByType);
 
-			long scopeGroupId = themeDisplay.getScopeGroupId();
+			long scopeGroupId = _themeDisplay.getScopeGroupId();
 
 			int tagsCount = AssetTagServiceUtil.getTagsCount(
 				scopeGroupId, keywords);
@@ -526,5 +529,6 @@ public class AssetTagsDisplayContext {
 	private AssetTag _tag;
 	private Long _tagId;
 	private SearchContainer _tagsSearchContainer;
+	private final ThemeDisplay _themeDisplay;
 
 }
