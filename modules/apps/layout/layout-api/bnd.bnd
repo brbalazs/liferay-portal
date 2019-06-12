@@ -3,4 +3,5 @@ Bundle-SymbolicName: com.liferay.layout.api
 Bundle-Version: 4.0.1
 Export-Package:\
 	com.liferay.layout.set.model.adapter,\
+	com.liferay.layout.util,\
 	com.liferay.layout.util.comparator
