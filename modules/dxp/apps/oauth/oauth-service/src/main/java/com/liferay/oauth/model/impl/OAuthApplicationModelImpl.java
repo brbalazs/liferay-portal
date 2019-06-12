@@ -968,7 +968,12 @@ public class OAuthApplicationModelImpl
 	@Override
 	public OAuthApplication toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = _escapedModelProxyProviderFunction.apply(
+			Function<InvocationHandler, OAuthApplication>
+				escapedModelProxyProviderFunction =
+					EscapedModelProxyProviderFunctionHolder.
+						_escapedModelProxyProviderFunction;
+
+			_escapedModel = escapedModelProxyProviderFunction.apply(
 				new AutoEscapeBeanHandler(this));
 		}
 
@@ -1235,8 +1240,12 @@ public class OAuthApplicationModelImpl
 		return sb.toString();
 	}
 
-	private static final Function<InvocationHandler, OAuthApplication>
-		_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+	private static class EscapedModelProxyProviderFunctionHolder {
+
+		private static final Function<InvocationHandler, OAuthApplication>
+			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+
+	}
 
 	private long _oAuthApplicationId;
 	private long _companyId;

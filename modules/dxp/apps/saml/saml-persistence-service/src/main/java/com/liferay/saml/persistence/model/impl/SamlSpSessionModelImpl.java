@@ -892,7 +892,12 @@ public class SamlSpSessionModelImpl
 	@Override
 	public SamlSpSession toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = _escapedModelProxyProviderFunction.apply(
+			Function<InvocationHandler, SamlSpSession>
+				escapedModelProxyProviderFunction =
+					EscapedModelProxyProviderFunctionHolder.
+						_escapedModelProxyProviderFunction;
+
+			_escapedModel = escapedModelProxyProviderFunction.apply(
 				new AutoEscapeBeanHandler(this));
 		}
 
@@ -1173,8 +1178,12 @@ public class SamlSpSessionModelImpl
 		return sb.toString();
 	}
 
-	private static final Function<InvocationHandler, SamlSpSession>
-		_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+	private static class EscapedModelProxyProviderFunctionHolder {
+
+		private static final Function<InvocationHandler, SamlSpSession>
+			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+
+	}
 
 	private long _samlSpSessionId;
 	private long _companyId;

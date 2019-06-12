@@ -488,7 +488,12 @@ public class SamlSpAuthRequestModelImpl
 	@Override
 	public SamlSpAuthRequest toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = _escapedModelProxyProviderFunction.apply(
+			Function<InvocationHandler, SamlSpAuthRequest>
+				escapedModelProxyProviderFunction =
+					EscapedModelProxyProviderFunctionHolder.
+						_escapedModelProxyProviderFunction;
+
+			_escapedModel = escapedModelProxyProviderFunction.apply(
 				new AutoEscapeBeanHandler(this));
 		}
 
@@ -686,8 +691,12 @@ public class SamlSpAuthRequestModelImpl
 		return sb.toString();
 	}
 
-	private static final Function<InvocationHandler, SamlSpAuthRequest>
-		_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+	private static class EscapedModelProxyProviderFunctionHolder {
+
+		private static final Function<InvocationHandler, SamlSpAuthRequest>
+			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+
+	}
 
 	private long _samlSpAuthnRequestId;
 	private long _companyId;
