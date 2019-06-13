@@ -18,7 +18,6 @@ import com.liferay.commerce.organization.web.internal.display.context.util.Comme
 import com.liferay.commerce.organization.web.internal.frontend.OrganizationFilterImpl;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.OrganizationConstants;
@@ -36,8 +35,6 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.webserver.WebServerServletTokenUtil;
 import com.liferay.users.admin.configuration.UserFileUploadsConfiguration;
-
-import java.util.List;
 
 import javax.portlet.PortletURL;
 
@@ -130,12 +127,6 @@ public class CommerceOrganizationDisplayContext {
 		return OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID;
 	}
 
-	public List<Organization> getOrganizations() throws PortalException {
-		return _organizationService.getOrganizations(
-			_commerceOrganizationRequestHelper.getCompanyId(),
-			getOrganizationId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-	}
-
 	public PortletURL getPortletURL() throws PortalException {
 		LiferayPortletResponse liferayPortletResponse =
 			_commerceOrganizationRequestHelper.getLiferayPortletResponse();
@@ -198,7 +189,7 @@ public class CommerceOrganizationDisplayContext {
 		return _userLocalService.getUser(getSelectedUserId());
 	}
 
-	public long getSelectedUserId() throws PortalException {
+	public long getSelectedUserId() {
 		long userId = ParamUtil.getLong(
 			_commerceOrganizationRequestHelper.getRequest(), "userId");
 
