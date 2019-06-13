@@ -1,0 +1,9 @@
+const apiEndpointDefinitions = {
+	MAKER: '/api/model-selector/maker',
+	MODEL: '/api/model-selector/model',
+	YEAR: '/api/model-selector/year',
+	AREAS: '/api/car-parts/area',
+	FOLDERS: '/api/car-parts/folder'
+};
+
+module.exports = apiEndpointDefinitions

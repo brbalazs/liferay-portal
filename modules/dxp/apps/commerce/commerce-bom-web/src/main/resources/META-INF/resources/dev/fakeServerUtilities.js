@@ -1,0 +1,185 @@
+/* eslint-disable require-jsdoc */
+const faker = require('faker');
+const apiEndpointDefinitions = require('./apiEndpointDefinitions');
+
+function generateRandomInt(min, max) {
+	return Math.floor(Math.random() * max) + min;
+}
+
+function generateArray(max, min = 1) {
+	const length = generateRandomInt(min, max);
+	return Array(length).fill('');
+}
+
+function generateFolderShape() {
+	const productName = faker.commerce.productName();
+	const type = ['folder', 'area'][Math.round(Math.random())];
+	return {
+		name: productName,
+		slug: faker.helpers.slugify(productName).toLowerCase(),
+		id: faker.random.uuid(),
+		thumbnail: '/schema_1.jpg',
+		type,
+		url: type === 'folder' ? '/folder/first/second' : '/area/view-slug'
+	};
+}
+
+function generateBreadcrumbs(type = 'folder') {
+	const array = generateArray(4, 2);
+	return array.map((_, i) => {
+		return i === (array.length - 1)
+			? {
+				label: type === 'folder' 
+					? `Folder ${i}`
+					: `Area ${i}`
+			}
+			: {
+				label: `Folder ${i}`,
+				url: `/folder/folder-${i}`
+			};
+	});
+}
+
+function generateCompatibilities() {
+	return generateArray(4, 2).map(() => ({
+		name: faker.commerce.productName(),
+		models: generateArray(10).map(() => {
+			const productionYear = generateRandomInt(2000, 60);
+
+			return {
+				name: faker.commerce.productName(),
+				power: generateRandomInt(50, 60) + 'kw',
+				productionYears: [productionYear, productionYear + 2]
+			};
+		})
+	}));
+}
+
+function generateFolders() {
+	return generateArray(40, 10).map(generateFolderShape);
+}
+
+function getFakeArea() {
+	return {
+		imageUrl: '/schema_1.jpg',
+		name: 'frozen metal chair',
+		id: 'areaIdTest',
+		spots: [
+			{
+				number: 3,
+				id: 'zxc',
+				position: {
+					left: 73.34,
+					top: 33.43
+				},
+				rel: 'IS01'
+			},
+			{
+				number: 3,
+				id: 'cvb',
+				position: {
+					top: 66.43,
+					left: 56.34
+				},
+				rel: 'IS01'
+			},
+			{
+				number: 7,
+				id: 'dfg',
+				position: {
+					top: 63.43,
+					left: 20.14
+				},
+				rel: 'IS02'
+			},
+			{
+				number: 12,
+				id: 'bnm',
+				position: {
+					left: 37.94,
+					top: 3.93
+				},
+				rel: 'IS03'
+			}
+		],
+		products: [
+			{
+				id: 'IS01',
+				sku: 'SKU01',
+				name: 'Vite',
+				thumbnailUrl: '/product-thumbnail.png',
+				url: '/productUrl',
+				price: '$ 12.99'
+			},
+			{
+				id: 'IS03',
+				sku: 'SKU02',
+				name: 'Bullone',
+				thumbnailUrl: '/product-thumbnail.png',
+				url: '/productUrl',
+				price: '$ 345.99'
+			},
+			{
+				id: 'IS02',
+				sku: 'SKU03',
+				name: 'Sbirulino',
+				thumbnailUrl: '/product-thumbnail.png',
+				url: '/productUrl',
+				price: '$ 345.99'
+			}
+		]
+	};
+}
+
+/**
+ *
+ * @param {*} app
+ */
+function defineServerResponses(app) {
+	app.get(apiEndpointDefinitions.MAKER, (_, res) => {
+		res.json({
+			data: generateArray(20, 4).map(() => ({
+				id: faker.random.uuid(),
+				name: faker.company.companyName()
+			}))
+		});
+	});
+
+	app.get(apiEndpointDefinitions.YEAR, (_, res) => {
+		res.json({
+			data: generateArray(15, 5).map(() => ({
+				year: generateRandomInt(2000, 2019)
+			}))
+		});
+	});
+
+	app.get(apiEndpointDefinitions.MODEL, (_, res) => {
+		res.json({
+			data: generateArray(15, 5).map(() => ({
+				id: faker.random.uuid(),
+				name: faker.commerce.product()
+			}))
+		});
+	});
+
+	app.get(apiEndpointDefinitions.AREAS + '/(:areaId)', (_, res) => {
+		res.json({
+			data: getFakeArea(),
+			breadcrumbs: generateBreadcrumbs('area')
+		});
+	});
+
+	app.get(apiEndpointDefinitions.FOLDERS + '/*', (_, res) => {
+		res.json({
+			data: {
+				content: generateFolders(),
+				compatibilities: generateCompatibilities()
+			},
+			breadcrumbs: generateBreadcrumbs()
+		});
+	});
+}
+
+module.exports = {
+    defineServerResponses
+}
