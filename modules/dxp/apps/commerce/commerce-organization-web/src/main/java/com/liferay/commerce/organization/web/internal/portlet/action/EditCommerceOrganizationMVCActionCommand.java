@@ -19,14 +19,11 @@ import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.portal.kernel.exception.DuplicateOrganizationException;
 import com.liferay.portal.kernel.exception.NoSuchOrganizationException;
 import com.liferay.portal.kernel.exception.OrganizationNameException;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.ListTypeConstants;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.OrganizationConstants;
-import com.liferay.portal.kernel.portlet.PortletProvider;
-import com.liferay.portal.kernel.portlet.PortletProviderUtil;
-import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.repository.model.FileEntry;
@@ -46,7 +43,6 @@ import java.util.concurrent.Callable;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import javax.portlet.PortletURL;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -65,6 +61,17 @@ import org.osgi.service.component.annotations.Reference;
 public class EditCommerceOrganizationMVCActionCommand
 	extends BaseMVCActionCommand {
 
+	protected void deleteOrganization(ActionRequest actionRequest)
+		throws Exception {
+
+		long organizationId = ParamUtil.getLong(
+			actionRequest, "organizationId");
+
+		if (organizationId > 0) {
+			_organizationService.deleteOrganization(organizationId);
+		}
+	}
+
 	@Override
 	protected void doProcessAction(
 			ActionRequest actionRequest, ActionResponse actionResponse)
@@ -73,17 +80,18 @@ public class EditCommerceOrganizationMVCActionCommand
 		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
 		try {
-			if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
+			if (cmd.equals(Constants.ADD)) {
 				Callable<Organization> organizationCallable =
 					new OrganizationCallable(actionRequest);
 
-				Organization organization = TransactionInvokerUtil.invoke(
+				TransactionInvokerUtil.invoke(
 					_transactionConfig, organizationCallable);
-
-				String redirect = getSaveAndContinueRedirect(
-					actionRequest, organization);
-
-				sendRedirect(actionRequest, actionResponse, redirect);
+			}
+			else if (cmd.equals(Constants.DELETE)) {
+				deleteOrganization(actionRequest);
+			}
+			else if (cmd.equals(Constants.UPDATE)) {
+				deleteOrganization(actionRequest);
 			}
 		}
 		catch (Throwable t) {
@@ -109,30 +117,10 @@ public class EditCommerceOrganizationMVCActionCommand
 		hideDefaultSuccessMessage(actionRequest);
 	}
 
-	protected String getSaveAndContinueRedirect(
-			ActionRequest actionRequest, Organization organization)
-		throws PortalException {
-
-		PortletURL managePortletURL = PortletProviderUtil.getPortletURL(
-			actionRequest, Organization.class.getName(),
-			PortletProvider.Action.MANAGE);
-
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			actionRequest, Organization.class.getName(),
-			PortletProvider.Action.VIEW);
-
-		portletURL.setParameter(
-			"organizationId", String.valueOf(organization.getOrganizationId()));
-
-		portletURL.setParameter(
-			PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL",
-			managePortletURL.toString());
-
-		return portletURL.toString();
-	}
-
 	protected Organization updateOrganization(ActionRequest actionRequest)
 		throws Exception {
+
+		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
 		long organizationId = ParamUtil.getLong(
 			actionRequest, "organizationId");
@@ -153,9 +141,9 @@ public class EditCommerceOrganizationMVCActionCommand
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			Organization.class.getName(), actionRequest);
 
-		Organization organization;
+		Organization organization = null;
 
-		if (organizationId > 0) {
+		if (cmd.equals(Constants.UPDATE) && (organizationId > 0)) {
 			Organization oldOrganization = _organizationService.getOrganization(
 				organizationId);
 
@@ -167,10 +155,11 @@ public class EditCommerceOrganizationMVCActionCommand
 				oldOrganization.getAddresses(), null, null, null, null,
 				serviceContext);
 		}
-		else {
+		else if (cmd.equals(Constants.ADD)) {
 			organization = _organizationService.addOrganization(
 				organizationId, name, OrganizationConstants.TYPE_ORGANIZATION,
-				0L, 0L, 0L, null, false, serviceContext);
+				0L, 0L, ListTypeConstants.ORGANIZATION_STATUS_DEFAULT, null,
+				false, serviceContext);
 		}
 
 		return organization;

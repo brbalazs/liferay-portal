@@ -52,3 +52,9 @@ portletURL.setParameter("mvcRenderCommandName", "viewCommerceOrganization");
 		</c:if>
 	</div>
 </div>
+
+<liferay-frontend:screen-navigation
+	context="<%= organization %>"
+	key="<%= CommerceOrganizationScreenNavigationConstants.SCREEN_NAVIGATION_KEY %>"
+	portletURL="<%= portletURL %>"
+/>

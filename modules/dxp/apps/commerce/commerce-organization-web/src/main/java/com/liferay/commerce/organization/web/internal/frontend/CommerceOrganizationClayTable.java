@@ -29,18 +29,22 @@ import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.portlet.PortletProvider;
+import com.liferay.portal.kernel.portlet.PortletProviderUtil;
+import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.service.OrganizationService;
 import com.liferay.portal.kernel.service.permission.OrganizationPermissionUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -80,12 +84,37 @@ public class CommerceOrganizationClayTable
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		long organizationId = ParamUtil.getLong(
-			httpServletRequest, "organizationId");
+		if (OrganizationPermissionUtil.contains(
+				themeDisplay.getPermissionChecker(),
+				organization.getOrganizationId(), ActionKeys.VIEW)) {
+
+			String viewURL = _getViewOrganizationDetailURL(
+				organization.getOrganizationId(), httpServletRequest);
+
+			ClayTableAction viewClayTableAction = new ClayTableAction(
+				viewURL, StringPool.BLANK,
+				LanguageUtil.get(httpServletRequest, "view-detail"), false,
+				false);
+
+			clayTableActions.add(viewClayTableAction);
+
+			String viewSubOrganizationsURL =
+				_getOrganizationViewSuborganizationsURL(
+					organization.getOrganizationId(), httpServletRequest);
+
+			ClayTableAction viewSubOrganizationsClayTableAction =
+				new ClayTableAction(
+					viewSubOrganizationsURL, StringPool.BLANK,
+					LanguageUtil.get(
+						httpServletRequest, "view-sub-organizations"),
+					false, false);
+
+			clayTableActions.add(viewSubOrganizationsClayTableAction);
+		}
 
 		if (OrganizationPermissionUtil.contains(
-				themeDisplay.getPermissionChecker(), organizationId,
-				ActionKeys.DELETE)) {
+				themeDisplay.getPermissionChecker(),
+				organization.getOrganizationId(), ActionKeys.DELETE)) {
 
 			StringBundler sb = new StringBundler(7);
 
@@ -194,6 +223,55 @@ public class CommerceOrganizationClayTable
 		}
 
 		return sb.toString();
+	}
+
+	private String _getOrganizationViewSuborganizationsURL(
+			long organizationId, HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		PortletURL portletURL = PortletProviderUtil.getPortletURL(
+			httpServletRequest,
+			com.liferay.portal.kernel.model.Organization.class.getName(),
+			PortletProvider.Action.MANAGE);
+
+		portletURL.setParameter(
+			"organizationId", String.valueOf(organizationId));
+
+		PortletURL backURL = PortletProviderUtil.getPortletURL(
+			httpServletRequest,
+			com.liferay.portal.kernel.model.Organization.class.getName(),
+			PortletProvider.Action.MANAGE);
+
+		portletURL.setParameter(
+			PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL",
+			backURL.toString());
+
+		return portletURL.toString();
+	}
+
+	private String _getViewOrganizationDetailURL(
+			long organizationId, HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		PortletURL viewURL = PortletProviderUtil.getPortletURL(
+			httpServletRequest,
+			com.liferay.portal.kernel.model.Organization.class.getName(),
+			PortletProvider.Action.MANAGE);
+
+		viewURL.setParameter(
+			"mvcRenderCommandName", "viewCommerceOrganization");
+		viewURL.setParameter("organizationId", String.valueOf(organizationId));
+
+		PortletURL backURL = PortletProviderUtil.getPortletURL(
+			httpServletRequest,
+			com.liferay.portal.kernel.model.Organization.class.getName(),
+			PortletProvider.Action.MANAGE);
+
+		viewURL.setParameter(
+			PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL",
+			backURL.toString());
+
+		return viewURL.toString();
 	}
 
 	@Reference
