@@ -1,0 +1,1 @@
+create index IX_585FB5E0 on CommerceBOMDefinition (commerceBOMFolderId);
