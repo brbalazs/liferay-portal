@@ -33,19 +33,51 @@ export default class Datasource {
         )
     }
 
-    setFilter(field, value, operations) {
-        if(this.filters && value) {
-            this.filters = this.filters.reduce(
-                (acc, filter) => [
+    getFilters(type = 'object') {
+        if(type === 'object') {
+            return this.filters.reduce(
+                (acc, filter) => ({
                     ...acc,
-                    // if field already exists, it should update the existing filter
-                    // otherwise it should add it to filters array
-                    filter.field === field 
-                        ? createFilterObj(field, value, operations)
-                        : filter
-                ],
-                []
+                    [filter.field] : {
+                        value: filter.value,
+                        operations: filter.operations
+                    }
+                }),
+                {}
             )
+        }
+        this.filters;
+    }
+
+    setFilter(field, value, operations = 'eq') {
+        if(this.filters && value) {
+
+            const filterFound = this.filters.reduce(
+                (found, filter) => found || filter.field === field,
+                false
+            )
+
+            if(filterFound) {
+                this.filters = this.filters.reduce(
+                    (acc, filter) => [
+                        ...acc,
+                        // if field already exists, it should update the existing filter
+                        // otherwise it should add it to filters array
+                        filter.field === field 
+                            ? createFilterObj(field, value, operations)
+                            : filter
+                    ],
+                    []
+                )
+            } else {
+                this.filters = this.filters.concat(
+                    createFilterObj(
+                        field,
+                        value,
+                        operations
+                    )
+                )
+            }
         }
 
         if(this.filters && !value) {
@@ -82,14 +114,6 @@ export default class Datasource {
                 }
             }
         )
-    }
-
-    setFilters(filters = []) {
-        filters.forEach(
-            filter => {
-                this.setFilter(filter)
-            }
-        );
     }
 
     initializeProperties() {

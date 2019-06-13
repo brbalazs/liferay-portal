@@ -8,34 +8,37 @@ function generateRandomInt(min, max) {
 
 function generateArray(max, min = 1) {
 	const length = generateRandomInt(min, max);
+
 	return Array(length).fill('');
 }
 
 function generateFolderShape() {
 	const productName = faker.commerce.productName();
 	const type = ['folder', 'area'][Math.round(Math.random())];
+
 	return {
 		name: productName,
 		slug: faker.helpers.slugify(productName).toLowerCase(),
 		id: faker.random.uuid(),
 		thumbnail: '/schema_1.jpg',
 		type,
-		url: type === 'folder' ? '/folder/first/second' : '/area/view-slug'
+		url: type === 'folder' ? '/folder/first/second' : '/area/view-slug',
 	};
 }
 
 function generateBreadcrumbs(type = 'folder') {
 	const array = generateArray(4, 2);
+
 	return array.map((_, i) => {
 		return i === (array.length - 1)
 			? {
-				label: type === 'folder' 
+				label: type === 'folder'
 					? `Folder ${i}`
-					: `Area ${i}`
+					: `Area ${i}`,
 			}
 			: {
 				label: `Folder ${i}`,
-				url: `/folder/folder-${i}`
+				url: `/folder/folder-${i}`,
 			};
 	});
 }
@@ -49,9 +52,9 @@ function generateCompatibilities() {
 			return {
 				name: faker.commerce.productName(),
 				power: generateRandomInt(50, 60) + 'kw',
-				productionYears: [productionYear, productionYear + 2]
+				productionYears: [productionYear, productionYear + 2],
 			};
-		})
+		}),
 	}));
 }
 
@@ -70,37 +73,37 @@ function getFakeArea() {
 				id: 'zxc',
 				position: {
 					left: 73.34,
-					top: 33.43
+					top: 33.43,
 				},
-				rel: 'IS01'
+				rel: 'IS01',
 			},
 			{
 				number: 3,
 				id: 'cvb',
 				position: {
 					top: 66.43,
-					left: 56.34
+					left: 56.34,
 				},
-				rel: 'IS01'
+				rel: 'IS01',
 			},
 			{
 				number: 7,
 				id: 'dfg',
 				position: {
 					top: 63.43,
-					left: 20.14
+					left: 20.14,
 				},
-				rel: 'IS02'
+				rel: 'IS02',
 			},
 			{
 				number: 12,
 				id: 'bnm',
 				position: {
 					left: 37.94,
-					top: 3.93
+					top: 3.93,
 				},
-				rel: 'IS03'
-			}
+				rel: 'IS03',
+			},
 		],
 		products: [
 			{
@@ -109,7 +112,7 @@ function getFakeArea() {
 				name: 'Vite',
 				thumbnailUrl: '/product-thumbnail.png',
 				url: '/productUrl',
-				price: '$ 12.99'
+				price: '$ 12.99',
 			},
 			{
 				id: 'IS03',
@@ -117,7 +120,7 @@ function getFakeArea() {
 				name: 'Bullone',
 				thumbnailUrl: '/product-thumbnail.png',
 				url: '/productUrl',
-				price: '$ 345.99'
+				price: '$ 345.99',
 			},
 			{
 				id: 'IS02',
@@ -125,9 +128,9 @@ function getFakeArea() {
 				name: 'Sbirulino',
 				thumbnailUrl: '/product-thumbnail.png',
 				url: '/productUrl',
-				price: '$ 345.99'
-			}
-		]
+				price: '$ 345.99',
+			},
+		],
 	};
 }
 
@@ -136,50 +139,60 @@ function getFakeArea() {
  * @param {*} app
  */
 function defineServerResponses(app) {
-	app.get(apiEndpointDefinitions.MAKER, (_, res) => {
+	app.get([
+		apiEndpointDefinitions.MAKER,
+		apiEndpointDefinitions.MAKER + '/:params',
+	], (_, res) => {
 		res.json({
 			data: generateArray(20, 4).map(() => ({
 				id: faker.random.uuid(),
-				name: faker.company.companyName()
-			}))
+				name: faker.company.companyName(),
+			})),
 		});
 	});
 
-	app.get(apiEndpointDefinitions.YEAR, (_, res) => {
+	app.get([
+		apiEndpointDefinitions.YEAR,
+		apiEndpointDefinitions.YEAR + '/:params',
+	], (_, res) => {
 		res.json({
 			data: generateArray(15, 5).map(() => ({
-				year: generateRandomInt(2000, 2019)
-			}))
+				year: generateRandomInt(2000, 2019),
+			})),
 		});
 	});
 
-	app.get(apiEndpointDefinitions.MODEL, (_, res) => {
+	app.get([
+		apiEndpointDefinitions.MODEL,
+		apiEndpointDefinitions.MODEL + '/:params',
+	], (_, res) => {
 		res.json({
 			data: generateArray(15, 5).map(() => ({
 				id: faker.random.uuid(),
-				name: faker.commerce.product()
-			}))
+				name: faker.commerce.product(),
+			})),
 		});
 	});
 
-	app.get(apiEndpointDefinitions.AREAS + '/(:areaId)', (_, res) => {
+	app.get(apiEndpointDefinitions.AREAS + '/:areaId', (_, res) => {
 		res.json({
 			data: getFakeArea(),
-			breadcrumbs: generateBreadcrumbs('area')
+			breadcrumbs: generateBreadcrumbs('area'),
 		});
 	});
 
-	app.get(apiEndpointDefinitions.FOLDERS + '/*', (_, res) => {
+	app.get(apiEndpointDefinitions.FOLDERS + '/:folderId', (_, res) => {
 		res.json({
 			data: {
 				content: generateFolders(),
-				compatibilities: generateCompatibilities()
+				compatibilities: generateCompatibilities(),
 			},
-			breadcrumbs: generateBreadcrumbs()
+			breadcrumbs: generateBreadcrumbs(),
 		});
 	});
 }
 
+// eslint-disable-next-line no-undef
 module.exports = {
-    defineServerResponses
-}
+	defineServerResponses,
+};

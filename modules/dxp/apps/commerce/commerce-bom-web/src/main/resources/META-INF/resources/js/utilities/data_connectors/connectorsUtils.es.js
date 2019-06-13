@@ -17,11 +17,12 @@ export function getEmittersValues(id) {
         }, []
     )
     
-    return connectedEmittersIds.map(
-        id => ({
-            id,
-            value: connectors.get(id).getValue()
-        })
+    return connectedEmittersIds.reduce(
+        (acc, id) => ({
+            ...acc,
+            [id]: connectors.get(id).getValue() || null
+        }),
+        {}
     )
 }
 

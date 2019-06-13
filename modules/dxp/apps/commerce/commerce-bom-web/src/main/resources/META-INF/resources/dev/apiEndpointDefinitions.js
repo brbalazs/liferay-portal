@@ -3,7 +3,8 @@ const apiEndpointDefinitions = {
 	MODEL: '/api/model-selector/model',
 	YEAR: '/api/model-selector/year',
 	AREAS: '/api/car-parts/area',
-	FOLDERS: '/api/car-parts/folder'
+	FOLDERS: '/api/car-parts/folder',
 };
 
-module.exports = apiEndpointDefinitions
+// eslint-disable-next-line no-undef
+module.exports = apiEndpointDefinitions;

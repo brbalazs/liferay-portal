@@ -12,7 +12,8 @@ class Datalist extends Component {
 		this.state = {
 			datasource: this.initializeDatasource(datasourceSettings),
 			connector: this.initializeConnector(connectorSettings),
-			data: null
+            data: null,
+            selected: null
 		};
 	}
 
@@ -47,25 +48,25 @@ class Datalist extends Component {
 	}
 
 	initializeConnector(generalSettings) {
-		const { on, ...settings } = generalSettings;
+        const { on, ...settings } = generalSettings;
+
+        const { notified, ...actions } = on || {};
+
 		return new Connector({
 			...settings,
 			on: Object.assign(
 				{},
 				{
-					getValue: () => this.state.value,
+                    getValue: () => this.state.selected 
+                        ? this.state.selected.map(selected => selected.value) 
+                        : null,
 					notified: values => {
-						const allEmitterHadBeenSelected = values.reduce(
-							(acc, el) => acc && !!el.value,
-							true
-						);
-
-						this.setState({
-							disabled: !allEmitterHadBeenSelected
-						});
+                        if(notified) {
+                            notified(values, this.setState.bind(this), this.state.datasource)
+                        }
 					}
 				},
-				on || null
+				actions || null
 			)
 		});
 	}
@@ -75,7 +76,7 @@ class Datalist extends Component {
 			case 'selectedValuesChanged':
 				this.setState(
 					{
-						value: payload.length ? payload : null
+						selected: payload.length ? payload : null
 					},
 					() => {
 						this.state.connector.notify();
@@ -92,24 +93,35 @@ class Datalist extends Component {
 			default:
 				break;
 		}
-	}
+    }
+    
+    getDisabledState() {
+        let disabled;
+        switch (true) {
+            case typeof this.state.disabled === 'boolean':
+                    disabled = this.state.disabled
+                break;
+            case typeof this.props.disabled === 'boolean':
+                    disabled = this.props.disabled
+                break;
+            default:
+                disabled = false
+                break;
+        }
+        return disabled;
+    }
 
 	render() {
-		const disabled =
-			typeof this.state.disabled === 'boolean'
-				? this.state.disabled
-				: typeof this.props.disabled === 'boolean'
-				? this.props.disabled
-				: false;
+        const disabledState = this.getDisabledState();
 
-        const { connectorSettings, datasourceSettings, ...baseProps } = this.props;
-
+        const { connectorSettings, datasourceSettings, disabled, ...baseProps } = this.props;
 
 		return (
 			<BaseDatalist
 				emit={(e, payload) => this.emit(e, payload)}
 				data={this.state.data || this.props.data || null}
-                disabled={disabled}
+                disabled={disabledState}
+                value={this.state.selected}
                 {...baseProps}
 			/>
 		);

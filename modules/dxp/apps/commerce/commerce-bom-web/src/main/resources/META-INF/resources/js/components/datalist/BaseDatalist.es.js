@@ -52,7 +52,7 @@ export function BaseDatalist(props) {
     const [dropdownState, setDropdownState] = useState('collapsed')
     const [selectedData, updateSelectedData] = useState([])
     const [selectedValues, updateSelectedValues] = useState([])
-    const [query, setQuery] = useState(null)
+    const [query, setQuery] = useState(props.value || null)
 
     const containerClasses = `commerce-datalist${props.additionalClasses ? ` ${props.additionalClasses}`: ''}${props.disabled ? ` is-disabled`: ''}`
     const inputWrapperClasses = `commerce-datalist__input-wrapper${dropdownState ? ` is-${dropdownState}` : ''}`
@@ -62,7 +62,7 @@ export function BaseDatalist(props) {
     const dropdownRef = useRef();
     const addedDataContainer = useRef();
 
-    const updateSelectedDataAndNotify = pipe(handleValueChange, updateSelectedData);
+    const handleChangeAndUpdateData = pipe(handleValueChange, updateSelectedData);
 
     function handleValueChange(newValues) {
         props.emit('selectedValuesChanged', newValues);
@@ -80,7 +80,7 @@ export function BaseDatalist(props) {
 
     function updateElementState(e, listElement, toBeAdded = true) {
         if(props.multiselect) {
-            updateSelectedDataAndNotify(
+            handleChangeAndUpdateData(
                 toBeAdded 
                 ? [
                     ...selectedData,
@@ -91,7 +91,7 @@ export function BaseDatalist(props) {
                 )
             )
         } else {
-            updateSelectedDataAndNotify(listElement.value ? [listElement] : [])
+            handleChangeAndUpdateData(listElement.value ? [listElement] : [])
             setQuery(listElement.label);
         }
         collapseDropdown();
@@ -108,7 +108,7 @@ export function BaseDatalist(props) {
 
     function resetState() {
         updateQuery();
-        updateSelectedDataAndNotify([]);
+        handleChangeAndUpdateData([]);
         collapseDropdown();
     }
     
@@ -209,7 +209,7 @@ export function BaseDatalist(props) {
                             id={props.inputId}
                             onFocus={(e) => dropdownState === 'collapsed' && expandDropdown(e)}
                             autoComplete="off" 
-                            placeholder="search..."
+                            placeholder={props.placeholder}
                             type="text"
                             value={query || ''}
                         />
@@ -244,6 +244,7 @@ export function BaseDatalist(props) {
                         updateElementState={ updateElementState }
                         selectedData={ selectedData }
                         resetState={ resetState }
+                        disabled
                         { ...props } 
                     />
                 </div>
