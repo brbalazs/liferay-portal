@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_1_0.dtd">
+
+<service-builder auto-namespace-tables="false" package-path="com.liferay.commerce.bom">
+	<author>Luca Pellizzon</author>
+	<namespace>Commerce</namespace>
+	<entity local-service="true" name="CommerceBOMDefinition" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="commerceBOMDefinitionId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="name" type="String" />
+		<column name="imageId" type="long" />
+		<column name="friendlyUrl" type="String" />
+		<column name="commerceBOMFolderId" type="long" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="name" />
+		</order>
+
+		<!-- Finders -->
+
+		<finder name="commerceBOMFolderId" return-type="Collection">
+			<finder-column name="commerceBOMFolderId" />
+		</finder>
+	</entity>
+	<entity local-service="true" name="CommerceBOMEntry" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="commerceBOMEntryId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="number" type="int" />
+		<column name="CPInstanceUuid" type="String" />
+		<column name="CProductId" type="long" />
+		<column name="commerceBOMDefinitionId" type="long" />
+		<column name="positionX" type="double" />
+		<column name="positionY" type="double" />
+		<column name="radius" type="double" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="number" />
+		</order>
+	</entity>
+	<entity local-service="true" name="CommerceBOMFolder" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="commerceBOMFolderId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="name" type="String" />
+		<column name="imageId" type="long" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="name" />
+		</order>
+	</entity>
+	<entity local-service="true" name="CommerceBOMFolderApplicationRel" remote-service="true" table="CBOMFolderApplicationRel">
+
+		<!-- PK fields -->
+
+		<column db-name="CBOMFolderApplicationRelId" name="commerceBOMFolderApplicationRelId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="commerceBOMFolderId" type="long" />
+		<column name="commerceApplicationModelId" type="long" />
+	</entity>
+</service-builder>
