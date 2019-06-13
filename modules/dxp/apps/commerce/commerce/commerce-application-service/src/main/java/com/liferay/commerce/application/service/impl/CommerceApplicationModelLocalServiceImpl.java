@@ -1,0 +1,92 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
+ *
+ *
+ *
+ */
+
+package com.liferay.commerce.application.service.impl;
+
+import com.liferay.commerce.application.model.CommerceApplicationModel;
+import com.liferay.commerce.application.service.base.CommerceApplicationModelLocalServiceBaseImpl;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
+
+/**
+ * @author Luca Pellizzon
+ */
+public class CommerceApplicationModelLocalServiceImpl
+	extends CommerceApplicationModelLocalServiceBaseImpl {
+
+	@Override
+	public CommerceApplicationModel addCommerceApplicationModel(
+			long userId, long commerceApplicationBrandId, long cProductId,
+			String name, String year)
+		throws PortalException {
+
+		CommerceApplicationModel commerceApplicationModel =
+			commerceApplicationModelLocalService.addCommerceApplicationModel(
+				userId, commerceApplicationBrandId, name, year);
+
+		commerceApplicationModelCProductRelLocalService.
+			addCommerceApplicationModelCProductRel(
+				userId,
+				commerceApplicationModel.getCommerceApplicationModelId(),
+				cProductId);
+
+		return commerceApplicationModel;
+	}
+
+	@Override
+	public CommerceApplicationModel addCommerceApplicationModel(
+			long userId, long commerceApplicationBrandId, String name,
+			String year)
+		throws PortalException {
+
+		User user = userLocalService.getUser(userId);
+
+		long commerceApplicationModelId = counterLocalService.increment();
+
+		CommerceApplicationModel commerceApplicationModel =
+			commerceApplicationModelPersistence.create(
+				commerceApplicationModelId);
+
+		commerceApplicationModel.setCompanyId(user.getCompanyId());
+		commerceApplicationModel.setUserId(user.getUserId());
+		commerceApplicationModel.setUserName(user.getFullName());
+		commerceApplicationModel.setCommerceApplicationBrandId(
+			commerceApplicationBrandId);
+		commerceApplicationModel.setName(name);
+		commerceApplicationModel.setYear(year);
+
+		return commerceApplicationModelPersistence.update(
+			commerceApplicationModel);
+	}
+
+	@Override
+	public CommerceApplicationModel updateCommerceApplicationModel(
+			long commerceApplicationModelId, long commerceApplicationBrandId,
+			String name, String year)
+		throws PortalException {
+
+		CommerceApplicationModel commerceApplicationModel =
+			commerceApplicationModelLocalService.getCommerceApplicationModel(
+				commerceApplicationModelId);
+
+		commerceApplicationModel.setCommerceApplicationBrandId(
+			commerceApplicationBrandId);
+		commerceApplicationModel.setName(name);
+		commerceApplicationModel.setYear(year);
+
+		return commerceApplicationModelPersistence.update(
+			commerceApplicationModel);
+	}
+
+}
