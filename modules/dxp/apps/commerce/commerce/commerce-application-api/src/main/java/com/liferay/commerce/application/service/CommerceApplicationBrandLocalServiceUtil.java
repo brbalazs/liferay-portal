@@ -77,9 +77,11 @@ public class CommerceApplicationBrandLocalServiceUtil {
 	*
 	* @param commerceApplicationBrand the commerce application brand
 	* @return the commerce application brand that was removed
+	* @throws PortalException
 	*/
 	public static com.liferay.commerce.application.model.CommerceApplicationBrand deleteCommerceApplicationBrand(
-		com.liferay.commerce.application.model.CommerceApplicationBrand commerceApplicationBrand) {
+		com.liferay.commerce.application.model.CommerceApplicationBrand commerceApplicationBrand)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .deleteCommerceApplicationBrand(commerceApplicationBrand);
 	}

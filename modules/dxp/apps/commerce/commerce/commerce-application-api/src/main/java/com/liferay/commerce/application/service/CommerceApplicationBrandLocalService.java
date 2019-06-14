@@ -89,10 +89,12 @@ public interface CommerceApplicationBrandLocalService extends BaseLocalService,
 	*
 	* @param commerceApplicationBrand the commerce application brand
 	* @return the commerce application brand that was removed
+	* @throws PortalException
 	*/
 	@Indexable(type = IndexableType.DELETE)
 	public CommerceApplicationBrand deleteCommerceApplicationBrand(
-		CommerceApplicationBrand commerceApplicationBrand);
+		CommerceApplicationBrand commerceApplicationBrand)
+		throws PortalException;
 
 	/**
 	* Deletes the commerce application brand with the primary key from the database. Also notifies the appropriate model listeners.

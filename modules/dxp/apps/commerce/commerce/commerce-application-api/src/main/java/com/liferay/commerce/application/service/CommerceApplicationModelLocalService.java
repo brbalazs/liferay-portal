@@ -94,10 +94,12 @@ public interface CommerceApplicationModelLocalService extends BaseLocalService,
 	*
 	* @param commerceApplicationModel the commerce application model
 	* @return the commerce application model that was removed
+	* @throws PortalException
 	*/
 	@Indexable(type = IndexableType.DELETE)
 	public CommerceApplicationModel deleteCommerceApplicationModel(
-		CommerceApplicationModel commerceApplicationModel);
+		CommerceApplicationModel commerceApplicationModel)
+		throws PortalException;
 
 	/**
 	* Deletes the commerce application model with the primary key from the database. Also notifies the appropriate model listeners.

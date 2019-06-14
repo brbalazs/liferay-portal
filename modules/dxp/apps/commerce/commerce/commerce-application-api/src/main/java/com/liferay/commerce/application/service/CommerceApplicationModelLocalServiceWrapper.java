@@ -80,10 +80,12 @@ public class CommerceApplicationModelLocalServiceWrapper
 	*
 	* @param commerceApplicationModel the commerce application model
 	* @return the commerce application model that was removed
+	* @throws PortalException
 	*/
 	@Override
 	public com.liferay.commerce.application.model.CommerceApplicationModel deleteCommerceApplicationModel(
-		com.liferay.commerce.application.model.CommerceApplicationModel commerceApplicationModel) {
+		com.liferay.commerce.application.model.CommerceApplicationModel commerceApplicationModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceApplicationModelLocalService.deleteCommerceApplicationModel(commerceApplicationModel);
 	}
 

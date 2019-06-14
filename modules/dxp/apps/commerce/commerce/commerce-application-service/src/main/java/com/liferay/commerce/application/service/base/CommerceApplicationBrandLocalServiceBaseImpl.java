@@ -123,11 +123,13 @@ public abstract class CommerceApplicationBrandLocalServiceBaseImpl
 	 *
 	 * @param commerceApplicationBrand the commerce application brand
 	 * @return the commerce application brand that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public CommerceApplicationBrand deleteCommerceApplicationBrand(
-		CommerceApplicationBrand commerceApplicationBrand) {
+		CommerceApplicationBrand commerceApplicationBrand)
+		throws PortalException {
 		return commerceApplicationBrandPersistence.remove(commerceApplicationBrand);
 	}
 

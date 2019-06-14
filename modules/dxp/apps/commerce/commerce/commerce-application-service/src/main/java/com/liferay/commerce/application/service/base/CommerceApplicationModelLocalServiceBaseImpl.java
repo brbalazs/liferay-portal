@@ -123,11 +123,13 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 *
 	 * @param commerceApplicationModel the commerce application model
 	 * @return the commerce application model that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public CommerceApplicationModel deleteCommerceApplicationModel(
-		CommerceApplicationModel commerceApplicationModel) {
+		CommerceApplicationModel commerceApplicationModel)
+		throws PortalException {
 		return commerceApplicationModelPersistence.remove(commerceApplicationModel);
 	}
 

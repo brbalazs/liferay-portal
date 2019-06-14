@@ -71,10 +71,12 @@ public class CommerceApplicationBrandLocalServiceWrapper
 	*
 	* @param commerceApplicationBrand the commerce application brand
 	* @return the commerce application brand that was removed
+	* @throws PortalException
 	*/
 	@Override
 	public com.liferay.commerce.application.model.CommerceApplicationBrand deleteCommerceApplicationBrand(
-		com.liferay.commerce.application.model.CommerceApplicationBrand commerceApplicationBrand) {
+		com.liferay.commerce.application.model.CommerceApplicationBrand commerceApplicationBrand)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceApplicationBrandLocalService.deleteCommerceApplicationBrand(commerceApplicationBrand);
 	}
 
