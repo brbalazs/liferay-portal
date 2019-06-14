@@ -17,6 +17,8 @@ package com.liferay.commerce.application.service.impl;
 import com.liferay.commerce.application.model.CommerceApplicationBrand;
 import com.liferay.commerce.application.service.base.CommerceApplicationBrandLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.GroupConstants;
+import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 
 /**
@@ -43,8 +45,47 @@ public class CommerceApplicationBrandLocalServiceImpl
 		commerceApplicationBrand.setName(name);
 		commerceApplicationBrand.setLogoId(logoId);
 
-		return commerceApplicationBrandPersistence.update(
+		commerceApplicationBrand = commerceApplicationBrandPersistence.update(
 			commerceApplicationBrand);
+
+		// Resources
+
+		resourceLocalService.addResources(
+			user.getCompanyId(), GroupConstants.DEFAULT_LIVE_GROUP_ID,
+			user.getUserId(), CommerceApplicationBrand.class.getName(),
+			commerceApplicationBrand.getCommerceApplicationBrandId(), false,
+			false, false);
+
+		return commerceApplicationBrand;
+	}
+
+	@Override
+	public CommerceApplicationBrand deleteCommerceApplicationBrand(
+			CommerceApplicationBrand commerceApplicationBrand)
+		throws PortalException {
+
+		// Resources
+
+		resourceLocalService.deleteResource(
+			commerceApplicationBrand, ResourceConstants.SCOPE_INDIVIDUAL);
+
+		// CommerceApplicationBrand
+
+		return commerceApplicationBrandPersistence.remove(
+			commerceApplicationBrand);
+	}
+
+	@Override
+	public CommerceApplicationBrand deleteCommerceApplicationBrand(
+			long commerceApplicationBrandId)
+		throws PortalException {
+
+		CommerceApplicationBrand commerceApplicationBrand =
+			commerceApplicationBrandPersistence.findByPrimaryKey(
+				commerceApplicationBrandId);
+
+		return commerceApplicationBrandLocalService.
+			deleteCommerceApplicationBrand(commerceApplicationBrand);
 	}
 
 	@Override

@@ -17,6 +17,8 @@ package com.liferay.commerce.application.service.impl;
 import com.liferay.commerce.application.model.CommerceApplicationModel;
 import com.liferay.commerce.application.service.base.CommerceApplicationModelLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.GroupConstants;
+import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 
 /**
@@ -66,8 +68,47 @@ public class CommerceApplicationModelLocalServiceImpl
 		commerceApplicationModel.setName(name);
 		commerceApplicationModel.setYear(year);
 
-		return commerceApplicationModelPersistence.update(
+		commerceApplicationModel = commerceApplicationModelPersistence.update(
 			commerceApplicationModel);
+
+		// Resources
+
+		resourceLocalService.addResources(
+			user.getCompanyId(), GroupConstants.DEFAULT_LIVE_GROUP_ID,
+			user.getUserId(), CommerceApplicationModel.class.getName(),
+			commerceApplicationModel.getCommerceApplicationModelId(), false,
+			false, false);
+
+		return commerceApplicationModel;
+	}
+
+	@Override
+	public CommerceApplicationModel deleteCommerceApplicationModel(
+			CommerceApplicationModel commerceApplicationModel)
+		throws PortalException {
+
+		// Resources
+
+		resourceLocalService.deleteResource(
+			commerceApplicationModel, ResourceConstants.SCOPE_INDIVIDUAL);
+
+		// CommerceApplicationBrand
+
+		return commerceApplicationModelPersistence.remove(
+			commerceApplicationModel);
+	}
+
+	@Override
+	public CommerceApplicationModel deleteCommerceApplicationModel(
+			long commerceApplicationModelId)
+		throws PortalException {
+
+		CommerceApplicationModel commerceApplicationModel =
+			commerceApplicationModelPersistence.findByPrimaryKey(
+				commerceApplicationModelId);
+
+		return commerceApplicationModelLocalService.
+			deleteCommerceApplicationModel(commerceApplicationModel);
 	}
 
 	@Override
