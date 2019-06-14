@@ -17,6 +17,8 @@ package com.liferay.commerce.bom.service.impl;
 import com.liferay.commerce.bom.model.CommerceBOMDefinition;
 import com.liferay.commerce.bom.service.base.CommerceBOMDefinitionLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.GroupConstants;
+import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 
 import java.util.List;
@@ -48,7 +50,46 @@ public class CommerceBOMDefinitionLocalServiceImpl
 		commerceBOMDefinition.setFriendlyUrl(friendlyUrl);
 		commerceBOMDefinition.setCommerceBOMFolderId(commerceBOMFolderId);
 
-		return commerceBOMDefinitionPersistence.update(commerceBOMDefinition);
+		commerceBOMDefinition = commerceBOMDefinitionPersistence.update(
+			commerceBOMDefinition);
+
+		// Resources
+
+		resourceLocalService.addResources(
+			user.getCompanyId(), GroupConstants.DEFAULT_LIVE_GROUP_ID,
+			user.getUserId(), CommerceBOMDefinition.class.getName(),
+			commerceBOMDefinition.getCommerceBOMDefinitionId(), false, false,
+			false);
+
+		return commerceBOMDefinition;
+	}
+
+	@Override
+	public CommerceBOMDefinition deleteCommerceBOMDefinition(
+			CommerceBOMDefinition commerceBOMDefinition)
+		throws PortalException {
+
+		// Resources
+
+		resourceLocalService.deleteResource(
+			commerceBOMDefinition, ResourceConstants.SCOPE_INDIVIDUAL);
+
+		// CommerceApplicationBrand
+
+		return commerceBOMDefinitionPersistence.remove(commerceBOMDefinition);
+	}
+
+	@Override
+	public CommerceBOMDefinition deleteCommerceBOMDefinition(
+			long commerceBOMDefinitionId)
+		throws PortalException {
+
+		CommerceBOMDefinition commerceBOMDefinition =
+			commerceBOMDefinitionPersistence.findByPrimaryKey(
+				commerceBOMDefinitionId);
+
+		return commerceBOMDefinitionLocalService.deleteCommerceBOMDefinition(
+			commerceBOMDefinition);
 	}
 
 	@Override

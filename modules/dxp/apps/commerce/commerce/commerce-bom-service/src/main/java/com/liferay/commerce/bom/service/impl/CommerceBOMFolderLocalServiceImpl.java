@@ -17,6 +17,8 @@ package com.liferay.commerce.bom.service.impl;
 import com.liferay.commerce.bom.model.CommerceBOMFolder;
 import com.liferay.commerce.bom.service.base.CommerceBOMFolderLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.GroupConstants;
+import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 
 /**
@@ -61,7 +63,43 @@ public class CommerceBOMFolderLocalServiceImpl
 		commerceBOMFolder.setName(name);
 		commerceBOMFolder.setImageId(imageId);
 
-		return commerceBOMFolderPersistence.update(commerceBOMFolder);
+		commerceBOMFolder = commerceBOMFolderPersistence.update(
+			commerceBOMFolder);
+
+		// Resources
+
+		resourceLocalService.addResources(
+			user.getCompanyId(), GroupConstants.DEFAULT_LIVE_GROUP_ID,
+			user.getUserId(), CommerceBOMFolder.class.getName(),
+			commerceBOMFolder.getCommerceBOMFolderId(), false, false, false);
+
+		return commerceBOMFolder;
+	}
+
+	@Override
+	public CommerceBOMFolder deleteCommerceBOMFolder(
+			CommerceBOMFolder commerceBOMFolder)
+		throws PortalException {
+
+		// Resources
+
+		resourceLocalService.deleteResource(
+			commerceBOMFolder, ResourceConstants.SCOPE_INDIVIDUAL);
+
+		// CommerceApplicationBrand
+
+		return commerceBOMFolderPersistence.remove(commerceBOMFolder);
+	}
+
+	@Override
+	public CommerceBOMFolder deleteCommerceBOMFolder(long commerceBOMFolderId)
+		throws PortalException {
+
+		CommerceBOMFolder commerceBOMFolder =
+			commerceBOMFolderPersistence.findByPrimaryKey(commerceBOMFolderId);
+
+		return commerceBOMFolderLocalService.deleteCommerceBOMFolder(
+			commerceBOMFolder);
 	}
 
 	@Override
