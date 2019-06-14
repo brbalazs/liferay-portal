@@ -17,8 +17,8 @@ class Datalist extends Component {
 		};
 	}
 
-	initializeDatasource(generalSettings) {
-		const { on, ...settings } = generalSettings;
+	initializeDatasource(datasourceSettings) {
+		const { on, ...settings } = datasourceSettings;
 		return new Datasource({
 			...settings,
 			on: Object.assign(
@@ -47,9 +47,8 @@ class Datalist extends Component {
 		});
 	}
 
-	initializeConnector(generalSettings) {
-        const { on, ...settings } = generalSettings;
-
+	initializeConnector(connectorSettings) {
+        const { on, ...settings } = connectorSettings;
         const { notified, ...actions } = on || {};
 
 		return new Connector({
@@ -114,7 +113,12 @@ class Datalist extends Component {
 	render() {
         const disabledState = this.getDisabledState();
 
-        const { connectorSettings, datasourceSettings, disabled, ...baseProps } = this.props;
+        const { 
+            connectorSettings,
+            datasourceSettings,
+            disabled,
+            ...baseProps
+        } = this.props;
 
 		return (
 			<BaseDatalist

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useMemo, useState, useEffect, useContext } from 'react';
 
 import { Router, Route, Switch } from 'react-router-dom';
 
@@ -10,11 +10,14 @@ import Breadcrumbs from './Breadcrumbs.es';
 import ErrorMessage from './ErrorMessage.es';
 import BaseContainer from './BaseContainer.es';
 import AreaViewer from './areas/AreaViewer.es';
+import Connector from '../utilities/data_connectors/Connector.es';
 
 export function PartFinder(props) {
 
 	const [initialized, setInitialized] = useState(false);
 	const { state, actions } = useContext(StoreContext);
+
+	const connector  = useMemo(() => new Connector(props.connectorSettings), props.connectorSettings)
 
 	function initializeUrlListener() {
 		return history.listen(e => {
@@ -57,16 +60,16 @@ export function PartFinder(props) {
 		<div className="content">
 			<Router history={history}>
 				<Breadcrumbs data={state.app.breadcrumbs} />
-				{state.app.loading ? (
-					<Loading />
-				) : (
-					<Switch>
-						<Route exact path="/" component={BaseContainer} />
-						<Route exact path="/error" component={ErrorMessage} />
-						<Route path="/folder" component={FolderViewer} />
-						<Route path="/area" component={AreaViewer} />
-					</Switch>
-				)}
+					{state.app.loading ? (
+						<Loading />
+					) : (
+						<Switch>
+							<Route exact path="/" component={BaseContainer} />
+							<Route exact path="/error" component={ErrorMessage} />
+							<Route path="/folder" component={FolderViewer} />
+							<Route path="/area" component={AreaViewer} />
+						</Switch>
+					)}
 			</Router>
 		</div>
 	);

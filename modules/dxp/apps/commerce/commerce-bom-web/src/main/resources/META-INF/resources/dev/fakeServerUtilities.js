@@ -20,9 +20,9 @@ function generateFolderShape() {
 		name: productName,
 		slug: faker.helpers.slugify(productName).toLowerCase(),
 		id: faker.random.uuid(),
-		thumbnail: '/schema_1.jpg',
+		thumbnail: '/schema.jpg',
 		type,
-		url: type === 'folder' ? '/folder/first/second' : '/area/view-slug',
+		url: (type === 'folder' ? '/folder/' : '/area/') + faker.random.uuid(),
 	};
 }
 
@@ -64,7 +64,7 @@ function generateFolders() {
 
 function getFakeArea() {
 	return {
-		imageUrl: '/schema_1.jpg',
+		imageUrl: '/schema.jpg',
 		name: 'frozen metal chair',
 		id: 'areaIdTest',
 		spots: [

@@ -163,21 +163,30 @@ function App(props) {
 							}
 						}
 					}}
-					onchange={values => {
-						if (values) {
-							const id = values[0].value;
-							history.push('/folder/' + id);
-						} else {
-							history.push('/');
-						}
-					}}
 				/>
 			</div>
 
 			<PartFinder
 				spritemap={props.spritemap}
 				areaApiEndpoint={props.areasEndpoint}
-				foldersApiEndpoint={props.foldersEndpoint}
+        foldersApiEndpoint={props.foldersEndpoint}
+        connectorSettings={{
+          emitters: ['carMakerDatalist', 'modelDatalist', 'yearDatalist'],
+          on: {
+            notified: (values) => {
+              const emittersHaveValuesSelected = Object.values(values).reduce(
+                (acc, el) => acc && !!el,
+                true
+              );
+              if (emittersHaveValuesSelected) {
+                const query = Object.entries(values).map(el => `${el[0]}=${el[1]}`).join('&')
+                history.push('/folder/' + query);
+              } else {
+                history.push('/');
+              }
+            }
+          }
+        }}
 			/>
 		</div>
 	);
