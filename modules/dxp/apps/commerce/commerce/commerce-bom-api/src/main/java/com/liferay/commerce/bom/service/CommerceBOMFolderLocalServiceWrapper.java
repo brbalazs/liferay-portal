@@ -48,18 +48,10 @@ public class CommerceBOMFolderLocalServiceWrapper
 
 	@Override
 	public com.liferay.commerce.bom.model.CommerceBOMFolder addCommerceBOMFolder(
-		long userId, long commerceApplicationModelId, String name, long imageId)
+		long userId, long parentCommerceBOMFolderId, String name, long imageId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceBOMFolderLocalService.addCommerceBOMFolder(userId,
-			commerceApplicationModelId, name, imageId);
-	}
-
-	@Override
-	public com.liferay.commerce.bom.model.CommerceBOMFolder addCommerceBOMFolder(
-		long userId, String name, long imageId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _commerceBOMFolderLocalService.addCommerceBOMFolder(userId,
-			name, imageId);
+			parentCommerceBOMFolderId, name, imageId);
 	}
 
 	/**
@@ -100,6 +92,12 @@ public class CommerceBOMFolderLocalServiceWrapper
 		long commerceBOMFolderId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceBOMFolderLocalService.deleteCommerceBOMFolder(commerceBOMFolderId);
+	}
+
+	@Override
+	public void deleteCommerceBOMFolders(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		_commerceBOMFolderLocalService.deleteCommerceBOMFolders(companyId);
 	}
 
 	/**
@@ -240,6 +238,13 @@ public class CommerceBOMFolderLocalServiceWrapper
 		return _commerceBOMFolderLocalService.getCommerceBOMFolders(start, end);
 	}
 
+	@Override
+	public java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolder> getCommerceBOMFolders(
+		long companyId, long parentCommerceBOMFolderId, int start, int end) {
+		return _commerceBOMFolderLocalService.getCommerceBOMFolders(companyId,
+			parentCommerceBOMFolderId, start, end);
+	}
+
 	/**
 	* Returns the number of commerce bom folders.
 	*
@@ -248,6 +253,13 @@ public class CommerceBOMFolderLocalServiceWrapper
 	@Override
 	public int getCommerceBOMFoldersCount() {
 		return _commerceBOMFolderLocalService.getCommerceBOMFoldersCount();
+	}
+
+	@Override
+	public int getCommerceBOMFoldersCount(long companyId,
+		long parentCommerceBOMFolderId) {
+		return _commerceBOMFolderLocalService.getCommerceBOMFoldersCount(companyId,
+			parentCommerceBOMFolderId);
 	}
 
 	@Override

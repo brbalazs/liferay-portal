@@ -83,6 +83,7 @@
 
 		<!-- Other fields -->
 
+		<column name="parentCommerceBOMFolderId" type="long" />
 		<column name="name" type="String" />
 		<column name="imageId" type="long" />
 
@@ -91,6 +92,16 @@
 		<order by="asc">
 			<order-column name="name" />
 		</order>
+
+		<!-- Finders -->
+
+		<finder name="Company" return-type="Collection">
+			<finder-column name="companyId" />
+		</finder>
+		<finder name="C_P" return-type="Collection">
+			<finder-column name="companyId" />
+			<finder-column name="parentCommerceBOMFolderId" />
+		</finder>
 	</entity>
 	<entity local-service="true" name="CommerceBOMFolderApplicationRel" remote-service="true" table="CBOMFolderApplicationRel">
 

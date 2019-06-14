@@ -25,7 +25,10 @@ import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+
+import java.util.List;
 
 /**
  * Provides the remote service interface for CommerceBOMFolder. Methods of this
@@ -52,8 +55,21 @@ public interface CommerceBOMFolderService extends BaseService {
 	 * Never modify or reference this interface directly. Always use {@link CommerceBOMFolderServiceUtil} to access the commerce bom folder remote service. Add custom service methods to {@link com.liferay.commerce.bom.service.impl.CommerceBOMFolderServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public CommerceBOMFolder addCommerceBOMFolder(long userId,
-		long commerceApplicationModelId, String name, long imageId)
+		long parentCommerceBOMFolderId, String name, long imageId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceBOMFolder getCommerceBOMFolder(long commerceBOMFolderId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceBOMFolder> getCommerceBOMFolders(long companyId,
+		long parentCommerceBOMFolderId, int start, int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceBOMFoldersCount(long companyId,
+		long parentCommerceBOMFolderId) throws PortalException;
 
 	/**
 	* Returns the OSGi service identifier.

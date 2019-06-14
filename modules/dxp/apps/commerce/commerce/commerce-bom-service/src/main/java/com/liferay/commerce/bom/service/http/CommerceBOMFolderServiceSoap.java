@@ -66,13 +66,59 @@ import java.rmi.RemoteException;
 @ProviderType
 public class CommerceBOMFolderServiceSoap {
 	public static com.liferay.commerce.bom.model.CommerceBOMFolderSoap addCommerceBOMFolder(
-		long userId, long commerceApplicationModelId, String name, long imageId)
+		long userId, long parentCommerceBOMFolderId, String name, long imageId)
 		throws RemoteException {
 		try {
 			com.liferay.commerce.bom.model.CommerceBOMFolder returnValue = CommerceBOMFolderServiceUtil.addCommerceBOMFolder(userId,
-					commerceApplicationModelId, name, imageId);
+					parentCommerceBOMFolderId, name, imageId);
 
 			return com.liferay.commerce.bom.model.CommerceBOMFolderSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.bom.model.CommerceBOMFolderSoap getCommerceBOMFolder(
+		long commerceBOMFolderId) throws RemoteException {
+		try {
+			com.liferay.commerce.bom.model.CommerceBOMFolder returnValue = CommerceBOMFolderServiceUtil.getCommerceBOMFolder(commerceBOMFolderId);
+
+			return com.liferay.commerce.bom.model.CommerceBOMFolderSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.bom.model.CommerceBOMFolderSoap[] getCommerceBOMFolders(
+		long companyId, long parentCommerceBOMFolderId, int start, int end)
+		throws RemoteException {
+		try {
+			java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolder> returnValue =
+				CommerceBOMFolderServiceUtil.getCommerceBOMFolders(companyId,
+					parentCommerceBOMFolderId, start, end);
+
+			return com.liferay.commerce.bom.model.CommerceBOMFolderSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getCommerceBOMFoldersCount(long companyId,
+		long parentCommerceBOMFolderId) throws RemoteException {
+		try {
+			int returnValue = CommerceBOMFolderServiceUtil.getCommerceBOMFoldersCount(companyId,
+					parentCommerceBOMFolderId);
+
+			return returnValue;
 		}
 		catch (Exception e) {
 			_log.error(e, e);

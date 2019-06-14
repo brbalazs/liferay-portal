@@ -64,6 +64,8 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("parentCommerceBOMFolderId",
+			getParentCommerceBOMFolderId());
 		attributes.put("name", getName());
 		attributes.put("imageId", getImageId());
 
@@ -108,6 +110,13 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 			setModifiedDate(modifiedDate);
 		}
 
+		Long parentCommerceBOMFolderId = (Long)attributes.get(
+				"parentCommerceBOMFolderId");
+
+		if (parentCommerceBOMFolderId != null) {
+			setParentCommerceBOMFolderId(parentCommerceBOMFolderId);
+		}
+
 		String name = (String)attributes.get("name");
 
 		if (name != null) {
@@ -129,6 +138,18 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	@Override
 	public int compareTo(CommerceBOMFolder commerceBOMFolder) {
 		return _commerceBOMFolder.compareTo(commerceBOMFolder);
+	}
+
+	@Override
+	public java.util.List<Long> getAncestorCommerceBOMFolderIds()
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceBOMFolder.getAncestorCommerceBOMFolderIds();
+	}
+
+	@Override
+	public java.util.List<CommerceBOMFolder> getAncestors()
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceBOMFolder.getAncestors();
 	}
 
 	/**
@@ -196,6 +217,22 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 		return _commerceBOMFolder.getName();
 	}
 
+	@Override
+	public CommerceBOMFolder getParentCommerceBOMFolder()
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceBOMFolder.getParentCommerceBOMFolder();
+	}
+
+	/**
+	* Returns the parent commerce bom folder ID of this commerce bom folder.
+	*
+	* @return the parent commerce bom folder ID of this commerce bom folder
+	*/
+	@Override
+	public long getParentCommerceBOMFolderId() {
+		return _commerceBOMFolder.getParentCommerceBOMFolderId();
+	}
+
 	/**
 	* Returns the primary key of this commerce bom folder.
 	*
@@ -259,6 +296,11 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	@Override
 	public boolean isNew() {
 		return _commerceBOMFolder.isNew();
+	}
+
+	@Override
+	public boolean isRoot() {
+		return _commerceBOMFolder.isRoot();
 	}
 
 	@Override
@@ -350,6 +392,16 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	@Override
 	public void setNew(boolean n) {
 		_commerceBOMFolder.setNew(n);
+	}
+
+	/**
+	* Sets the parent commerce bom folder ID of this commerce bom folder.
+	*
+	* @param parentCommerceBOMFolderId the parent commerce bom folder ID of this commerce bom folder
+	*/
+	@Override
+	public void setParentCommerceBOMFolderId(long parentCommerceBOMFolderId) {
+		_commerceBOMFolder.setParentCommerceBOMFolderId(parentCommerceBOMFolderId);
 	}
 
 	/**

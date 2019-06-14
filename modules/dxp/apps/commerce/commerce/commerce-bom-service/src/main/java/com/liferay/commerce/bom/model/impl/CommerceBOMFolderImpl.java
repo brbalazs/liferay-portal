@@ -16,24 +16,76 @@ package com.liferay.commerce.bom.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.commerce.bom.model.CommerceBOMFolder;
+import com.liferay.commerce.bom.model.CommerceBOMFolderConstants;
+import com.liferay.commerce.bom.service.CommerceBOMFolderLocalServiceUtil;
+import com.liferay.portal.kernel.exception.PortalException;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * The extended model implementation for the CommerceBOMFolder service. Represents a row in the &quot;CommerceBOMFolder&quot; database table, with each column mapped to a property of this class.
- *
- * <p>
- * Helper methods and all application logic should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.commerce.bom.model.CommerceBOMFolder} interface.
- * </p>
- *
- * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 @ProviderType
 public class CommerceBOMFolderImpl extends CommerceBOMFolderBaseImpl {
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. All methods that expect a commerce bom folder model instance should use the {@link com.liferay.commerce.bom.model.CommerceBOMFolder} interface instead.
-	 */
 	public CommerceBOMFolderImpl() {
+	}
+
+	@Override
+	public List<Long> getAncestorCommerceBOMFolderIds() throws PortalException {
+		List<Long> ancestorFolderIds = new ArrayList<>();
+
+		CommerceBOMFolder commerceBOMFolder = this;
+
+		while (!commerceBOMFolder.isRoot()) {
+			commerceBOMFolder = commerceBOMFolder.getParentCommerceBOMFolder();
+
+			ancestorFolderIds.add(commerceBOMFolder.getCommerceBOMFolderId());
+		}
+
+		return ancestorFolderIds;
+	}
+
+	@Override
+	public List<CommerceBOMFolder> getAncestors() throws PortalException {
+		List<CommerceBOMFolder> ancestors = new ArrayList<>();
+
+		CommerceBOMFolder commerceBOMFolder = this;
+
+		while (!commerceBOMFolder.isRoot()) {
+			commerceBOMFolder = commerceBOMFolder.getParentCommerceBOMFolder();
+
+			ancestors.add(commerceBOMFolder);
+		}
+
+		return ancestors;
+	}
+
+	@Override
+	public CommerceBOMFolder getParentCommerceBOMFolder()
+		throws PortalException {
+
+		if (getParentCommerceBOMFolderId() ==
+				CommerceBOMFolderConstants.DEFAULT_COMMERCE_BOM_FOLDER_ID) {
+
+			return null;
+		}
+
+		return CommerceBOMFolderLocalServiceUtil.getCommerceBOMFolder(
+			getParentCommerceBOMFolderId());
+	}
+
+	@Override
+	public boolean isRoot() {
+		if (getParentCommerceBOMFolderId() ==
+				CommerceBOMFolderConstants.DEFAULT_COMMERCE_BOM_FOLDER_ID) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 }

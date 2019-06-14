@@ -54,4 +54,15 @@ public interface CommerceBOMFolder extends CommerceBOMFolderModel, PersistedMode
 				return CommerceBOMFolder.class;
 			}
 		};
+
+	public java.util.List<Long> getAncestorCommerceBOMFolderIds()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	public java.util.List<CommerceBOMFolder> getAncestors()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	public CommerceBOMFolder getParentCommerceBOMFolder()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	public boolean isRoot();
 }

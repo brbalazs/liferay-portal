@@ -113,6 +113,516 @@ public class CommerceBOMFolderUtil {
 	}
 
 	/**
+	* Returns all the commerce bom folders where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @return the matching commerce bom folders
+	*/
+	public static List<CommerceBOMFolder> findByCompany(long companyId) {
+		return getPersistence().findByCompany(companyId);
+	}
+
+	/**
+	* Returns a range of all the commerce bom folders where companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param start the lower bound of the range of commerce bom folders
+	* @param end the upper bound of the range of commerce bom folders (not inclusive)
+	* @return the range of matching commerce bom folders
+	*/
+	public static List<CommerceBOMFolder> findByCompany(long companyId,
+		int start, int end) {
+		return getPersistence().findByCompany(companyId, start, end);
+	}
+
+	/**
+	* Returns an ordered range of all the commerce bom folders where companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param start the lower bound of the range of commerce bom folders
+	* @param end the upper bound of the range of commerce bom folders (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching commerce bom folders
+	*/
+	public static List<CommerceBOMFolder> findByCompany(long companyId,
+		int start, int end,
+		OrderByComparator<CommerceBOMFolder> orderByComparator) {
+		return getPersistence()
+				   .findByCompany(companyId, start, end, orderByComparator);
+	}
+
+	/**
+	* Returns an ordered range of all the commerce bom folders where companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param start the lower bound of the range of commerce bom folders
+	* @param end the upper bound of the range of commerce bom folders (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching commerce bom folders
+	*/
+	public static List<CommerceBOMFolder> findByCompany(long companyId,
+		int start, int end,
+		OrderByComparator<CommerceBOMFolder> orderByComparator,
+		boolean retrieveFromCache) {
+		return getPersistence()
+				   .findByCompany(companyId, start, end, orderByComparator,
+			retrieveFromCache);
+	}
+
+	/**
+	* Returns the first commerce bom folder in the ordered set where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching commerce bom folder
+	* @throws NoSuchBOMFolderException if a matching commerce bom folder could not be found
+	*/
+	public static CommerceBOMFolder findByCompany_First(long companyId,
+		OrderByComparator<CommerceBOMFolder> orderByComparator)
+		throws com.liferay.commerce.bom.exception.NoSuchBOMFolderException {
+		return getPersistence().findByCompany_First(companyId, orderByComparator);
+	}
+
+	/**
+	* Returns the first commerce bom folder in the ordered set where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching commerce bom folder, or <code>null</code> if a matching commerce bom folder could not be found
+	*/
+	public static CommerceBOMFolder fetchByCompany_First(long companyId,
+		OrderByComparator<CommerceBOMFolder> orderByComparator) {
+		return getPersistence()
+				   .fetchByCompany_First(companyId, orderByComparator);
+	}
+
+	/**
+	* Returns the last commerce bom folder in the ordered set where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching commerce bom folder
+	* @throws NoSuchBOMFolderException if a matching commerce bom folder could not be found
+	*/
+	public static CommerceBOMFolder findByCompany_Last(long companyId,
+		OrderByComparator<CommerceBOMFolder> orderByComparator)
+		throws com.liferay.commerce.bom.exception.NoSuchBOMFolderException {
+		return getPersistence().findByCompany_Last(companyId, orderByComparator);
+	}
+
+	/**
+	* Returns the last commerce bom folder in the ordered set where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching commerce bom folder, or <code>null</code> if a matching commerce bom folder could not be found
+	*/
+	public static CommerceBOMFolder fetchByCompany_Last(long companyId,
+		OrderByComparator<CommerceBOMFolder> orderByComparator) {
+		return getPersistence().fetchByCompany_Last(companyId, orderByComparator);
+	}
+
+	/**
+	* Returns the commerce bom folders before and after the current commerce bom folder in the ordered set where companyId = &#63;.
+	*
+	* @param commerceBOMFolderId the primary key of the current commerce bom folder
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next commerce bom folder
+	* @throws NoSuchBOMFolderException if a commerce bom folder with the primary key could not be found
+	*/
+	public static CommerceBOMFolder[] findByCompany_PrevAndNext(
+		long commerceBOMFolderId, long companyId,
+		OrderByComparator<CommerceBOMFolder> orderByComparator)
+		throws com.liferay.commerce.bom.exception.NoSuchBOMFolderException {
+		return getPersistence()
+				   .findByCompany_PrevAndNext(commerceBOMFolderId, companyId,
+			orderByComparator);
+	}
+
+	/**
+	* Returns all the commerce bom folders that the user has permission to view where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @return the matching commerce bom folders that the user has permission to view
+	*/
+	public static List<CommerceBOMFolder> filterFindByCompany(long companyId) {
+		return getPersistence().filterFindByCompany(companyId);
+	}
+
+	/**
+	* Returns a range of all the commerce bom folders that the user has permission to view where companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param start the lower bound of the range of commerce bom folders
+	* @param end the upper bound of the range of commerce bom folders (not inclusive)
+	* @return the range of matching commerce bom folders that the user has permission to view
+	*/
+	public static List<CommerceBOMFolder> filterFindByCompany(long companyId,
+		int start, int end) {
+		return getPersistence().filterFindByCompany(companyId, start, end);
+	}
+
+	/**
+	* Returns an ordered range of all the commerce bom folders that the user has permissions to view where companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param start the lower bound of the range of commerce bom folders
+	* @param end the upper bound of the range of commerce bom folders (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching commerce bom folders that the user has permission to view
+	*/
+	public static List<CommerceBOMFolder> filterFindByCompany(long companyId,
+		int start, int end,
+		OrderByComparator<CommerceBOMFolder> orderByComparator) {
+		return getPersistence()
+				   .filterFindByCompany(companyId, start, end, orderByComparator);
+	}
+
+	/**
+	* Returns the commerce bom folders before and after the current commerce bom folder in the ordered set of commerce bom folders that the user has permission to view where companyId = &#63;.
+	*
+	* @param commerceBOMFolderId the primary key of the current commerce bom folder
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next commerce bom folder
+	* @throws NoSuchBOMFolderException if a commerce bom folder with the primary key could not be found
+	*/
+	public static CommerceBOMFolder[] filterFindByCompany_PrevAndNext(
+		long commerceBOMFolderId, long companyId,
+		OrderByComparator<CommerceBOMFolder> orderByComparator)
+		throws com.liferay.commerce.bom.exception.NoSuchBOMFolderException {
+		return getPersistence()
+				   .filterFindByCompany_PrevAndNext(commerceBOMFolderId,
+			companyId, orderByComparator);
+	}
+
+	/**
+	* Removes all the commerce bom folders where companyId = &#63; from the database.
+	*
+	* @param companyId the company ID
+	*/
+	public static void removeByCompany(long companyId) {
+		getPersistence().removeByCompany(companyId);
+	}
+
+	/**
+	* Returns the number of commerce bom folders where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @return the number of matching commerce bom folders
+	*/
+	public static int countByCompany(long companyId) {
+		return getPersistence().countByCompany(companyId);
+	}
+
+	/**
+	* Returns the number of commerce bom folders that the user has permission to view where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @return the number of matching commerce bom folders that the user has permission to view
+	*/
+	public static int filterCountByCompany(long companyId) {
+		return getPersistence().filterCountByCompany(companyId);
+	}
+
+	/**
+	* Returns all the commerce bom folders where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param parentCommerceBOMFolderId the parent commerce bom folder ID
+	* @return the matching commerce bom folders
+	*/
+	public static List<CommerceBOMFolder> findByC_P(long companyId,
+		long parentCommerceBOMFolderId) {
+		return getPersistence().findByC_P(companyId, parentCommerceBOMFolderId);
+	}
+
+	/**
+	* Returns a range of all the commerce bom folders where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param parentCommerceBOMFolderId the parent commerce bom folder ID
+	* @param start the lower bound of the range of commerce bom folders
+	* @param end the upper bound of the range of commerce bom folders (not inclusive)
+	* @return the range of matching commerce bom folders
+	*/
+	public static List<CommerceBOMFolder> findByC_P(long companyId,
+		long parentCommerceBOMFolderId, int start, int end) {
+		return getPersistence()
+				   .findByC_P(companyId, parentCommerceBOMFolderId, start, end);
+	}
+
+	/**
+	* Returns an ordered range of all the commerce bom folders where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param parentCommerceBOMFolderId the parent commerce bom folder ID
+	* @param start the lower bound of the range of commerce bom folders
+	* @param end the upper bound of the range of commerce bom folders (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching commerce bom folders
+	*/
+	public static List<CommerceBOMFolder> findByC_P(long companyId,
+		long parentCommerceBOMFolderId, int start, int end,
+		OrderByComparator<CommerceBOMFolder> orderByComparator) {
+		return getPersistence()
+				   .findByC_P(companyId, parentCommerceBOMFolderId, start, end,
+			orderByComparator);
+	}
+
+	/**
+	* Returns an ordered range of all the commerce bom folders where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param parentCommerceBOMFolderId the parent commerce bom folder ID
+	* @param start the lower bound of the range of commerce bom folders
+	* @param end the upper bound of the range of commerce bom folders (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching commerce bom folders
+	*/
+	public static List<CommerceBOMFolder> findByC_P(long companyId,
+		long parentCommerceBOMFolderId, int start, int end,
+		OrderByComparator<CommerceBOMFolder> orderByComparator,
+		boolean retrieveFromCache) {
+		return getPersistence()
+				   .findByC_P(companyId, parentCommerceBOMFolderId, start, end,
+			orderByComparator, retrieveFromCache);
+	}
+
+	/**
+	* Returns the first commerce bom folder in the ordered set where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param parentCommerceBOMFolderId the parent commerce bom folder ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching commerce bom folder
+	* @throws NoSuchBOMFolderException if a matching commerce bom folder could not be found
+	*/
+	public static CommerceBOMFolder findByC_P_First(long companyId,
+		long parentCommerceBOMFolderId,
+		OrderByComparator<CommerceBOMFolder> orderByComparator)
+		throws com.liferay.commerce.bom.exception.NoSuchBOMFolderException {
+		return getPersistence()
+				   .findByC_P_First(companyId, parentCommerceBOMFolderId,
+			orderByComparator);
+	}
+
+	/**
+	* Returns the first commerce bom folder in the ordered set where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param parentCommerceBOMFolderId the parent commerce bom folder ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching commerce bom folder, or <code>null</code> if a matching commerce bom folder could not be found
+	*/
+	public static CommerceBOMFolder fetchByC_P_First(long companyId,
+		long parentCommerceBOMFolderId,
+		OrderByComparator<CommerceBOMFolder> orderByComparator) {
+		return getPersistence()
+				   .fetchByC_P_First(companyId, parentCommerceBOMFolderId,
+			orderByComparator);
+	}
+
+	/**
+	* Returns the last commerce bom folder in the ordered set where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param parentCommerceBOMFolderId the parent commerce bom folder ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching commerce bom folder
+	* @throws NoSuchBOMFolderException if a matching commerce bom folder could not be found
+	*/
+	public static CommerceBOMFolder findByC_P_Last(long companyId,
+		long parentCommerceBOMFolderId,
+		OrderByComparator<CommerceBOMFolder> orderByComparator)
+		throws com.liferay.commerce.bom.exception.NoSuchBOMFolderException {
+		return getPersistence()
+				   .findByC_P_Last(companyId, parentCommerceBOMFolderId,
+			orderByComparator);
+	}
+
+	/**
+	* Returns the last commerce bom folder in the ordered set where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param parentCommerceBOMFolderId the parent commerce bom folder ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching commerce bom folder, or <code>null</code> if a matching commerce bom folder could not be found
+	*/
+	public static CommerceBOMFolder fetchByC_P_Last(long companyId,
+		long parentCommerceBOMFolderId,
+		OrderByComparator<CommerceBOMFolder> orderByComparator) {
+		return getPersistence()
+				   .fetchByC_P_Last(companyId, parentCommerceBOMFolderId,
+			orderByComparator);
+	}
+
+	/**
+	* Returns the commerce bom folders before and after the current commerce bom folder in the ordered set where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
+	*
+	* @param commerceBOMFolderId the primary key of the current commerce bom folder
+	* @param companyId the company ID
+	* @param parentCommerceBOMFolderId the parent commerce bom folder ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next commerce bom folder
+	* @throws NoSuchBOMFolderException if a commerce bom folder with the primary key could not be found
+	*/
+	public static CommerceBOMFolder[] findByC_P_PrevAndNext(
+		long commerceBOMFolderId, long companyId,
+		long parentCommerceBOMFolderId,
+		OrderByComparator<CommerceBOMFolder> orderByComparator)
+		throws com.liferay.commerce.bom.exception.NoSuchBOMFolderException {
+		return getPersistence()
+				   .findByC_P_PrevAndNext(commerceBOMFolderId, companyId,
+			parentCommerceBOMFolderId, orderByComparator);
+	}
+
+	/**
+	* Returns all the commerce bom folders that the user has permission to view where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param parentCommerceBOMFolderId the parent commerce bom folder ID
+	* @return the matching commerce bom folders that the user has permission to view
+	*/
+	public static List<CommerceBOMFolder> filterFindByC_P(long companyId,
+		long parentCommerceBOMFolderId) {
+		return getPersistence()
+				   .filterFindByC_P(companyId, parentCommerceBOMFolderId);
+	}
+
+	/**
+	* Returns a range of all the commerce bom folders that the user has permission to view where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param parentCommerceBOMFolderId the parent commerce bom folder ID
+	* @param start the lower bound of the range of commerce bom folders
+	* @param end the upper bound of the range of commerce bom folders (not inclusive)
+	* @return the range of matching commerce bom folders that the user has permission to view
+	*/
+	public static List<CommerceBOMFolder> filterFindByC_P(long companyId,
+		long parentCommerceBOMFolderId, int start, int end) {
+		return getPersistence()
+				   .filterFindByC_P(companyId, parentCommerceBOMFolderId,
+			start, end);
+	}
+
+	/**
+	* Returns an ordered range of all the commerce bom folders that the user has permissions to view where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param parentCommerceBOMFolderId the parent commerce bom folder ID
+	* @param start the lower bound of the range of commerce bom folders
+	* @param end the upper bound of the range of commerce bom folders (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching commerce bom folders that the user has permission to view
+	*/
+	public static List<CommerceBOMFolder> filterFindByC_P(long companyId,
+		long parentCommerceBOMFolderId, int start, int end,
+		OrderByComparator<CommerceBOMFolder> orderByComparator) {
+		return getPersistence()
+				   .filterFindByC_P(companyId, parentCommerceBOMFolderId,
+			start, end, orderByComparator);
+	}
+
+	/**
+	* Returns the commerce bom folders before and after the current commerce bom folder in the ordered set of commerce bom folders that the user has permission to view where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
+	*
+	* @param commerceBOMFolderId the primary key of the current commerce bom folder
+	* @param companyId the company ID
+	* @param parentCommerceBOMFolderId the parent commerce bom folder ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next commerce bom folder
+	* @throws NoSuchBOMFolderException if a commerce bom folder with the primary key could not be found
+	*/
+	public static CommerceBOMFolder[] filterFindByC_P_PrevAndNext(
+		long commerceBOMFolderId, long companyId,
+		long parentCommerceBOMFolderId,
+		OrderByComparator<CommerceBOMFolder> orderByComparator)
+		throws com.liferay.commerce.bom.exception.NoSuchBOMFolderException {
+		return getPersistence()
+				   .filterFindByC_P_PrevAndNext(commerceBOMFolderId, companyId,
+			parentCommerceBOMFolderId, orderByComparator);
+	}
+
+	/**
+	* Removes all the commerce bom folders where companyId = &#63; and parentCommerceBOMFolderId = &#63; from the database.
+	*
+	* @param companyId the company ID
+	* @param parentCommerceBOMFolderId the parent commerce bom folder ID
+	*/
+	public static void removeByC_P(long companyId,
+		long parentCommerceBOMFolderId) {
+		getPersistence().removeByC_P(companyId, parentCommerceBOMFolderId);
+	}
+
+	/**
+	* Returns the number of commerce bom folders where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param parentCommerceBOMFolderId the parent commerce bom folder ID
+	* @return the number of matching commerce bom folders
+	*/
+	public static int countByC_P(long companyId, long parentCommerceBOMFolderId) {
+		return getPersistence().countByC_P(companyId, parentCommerceBOMFolderId);
+	}
+
+	/**
+	* Returns the number of commerce bom folders that the user has permission to view where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param parentCommerceBOMFolderId the parent commerce bom folder ID
+	* @return the number of matching commerce bom folders that the user has permission to view
+	*/
+	public static int filterCountByC_P(long companyId,
+		long parentCommerceBOMFolderId) {
+		return getPersistence()
+				   .filterCountByC_P(companyId, parentCommerceBOMFolderId);
+	}
+
+	/**
 	* Caches the commerce bom folder in the entity cache if it is enabled.
 	*
 	* @param commerceBOMFolder the commerce bom folder

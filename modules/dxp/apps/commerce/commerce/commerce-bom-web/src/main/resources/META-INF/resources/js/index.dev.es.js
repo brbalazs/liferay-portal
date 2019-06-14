@@ -1,0 +1,27 @@
+import App from './App.es';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import { StoreProvider } from './components/StoreContext.es';
+
+import apiEndpointDefinitions from '../dev/apiEndpointDefinitions';
+
+import 'clay-css/src/scss/atlas.scss';
+
+import '../css/index.scss';
+
+const props = {
+    spritemap: '/test-icons.svg',
+    modelSelectorMakerEndpoint: apiEndpointDefinitions.MAKER,
+    modelSelectorYearEndpoint: apiEndpointDefinitions.YEAR,
+    modelSelectorModelEndpoint: apiEndpointDefinitions.MODEL,
+    areasEndpoint: apiEndpointDefinitions.AREAS,
+    foldersEndpoint: apiEndpointDefinitions.FOLDERS
+};
+
+ReactDOM.render(
+    <StoreProvider>
+        <App {...props} />
+    </StoreProvider>,
+	document.getElementById('root')
+);

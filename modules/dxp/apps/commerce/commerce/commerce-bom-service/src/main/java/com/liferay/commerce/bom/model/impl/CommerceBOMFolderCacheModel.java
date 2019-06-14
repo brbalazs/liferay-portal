@@ -65,7 +65,7 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{commerceBOMFolderId=");
 		sb.append(commerceBOMFolderId);
@@ -79,6 +79,8 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", parentCommerceBOMFolderId=");
+		sb.append(parentCommerceBOMFolderId);
 		sb.append(", name=");
 		sb.append(name);
 		sb.append(", imageId=");
@@ -117,6 +119,8 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 			commerceBOMFolderImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+		commerceBOMFolderImpl.setParentCommerceBOMFolderId(parentCommerceBOMFolderId);
+
 		if (name == null) {
 			commerceBOMFolderImpl.setName("");
 		}
@@ -141,6 +145,8 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+
+		parentCommerceBOMFolderId = objectInput.readLong();
 		name = objectInput.readUTF();
 
 		imageId = objectInput.readLong();
@@ -165,6 +171,8 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
+		objectOutput.writeLong(parentCommerceBOMFolderId);
+
 		if (name == null) {
 			objectOutput.writeUTF("");
 		}
@@ -181,6 +189,7 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
+	public long parentCommerceBOMFolderId;
 	public String name;
 	public long imageId;
 }

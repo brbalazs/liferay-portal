@@ -45,6 +45,7 @@ create table CommerceBOMFolder (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
+	parentCommerceBOMFolderId LONG,
 	name VARCHAR(75) null,
 	imageId LONG
 );

@@ -35,6 +35,7 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
+		<field name="parentCommerceBOMFolderId" type="long" />
 		<field name="name" type="String" />
 		<field name="imageId" type="long" />
 	</model>

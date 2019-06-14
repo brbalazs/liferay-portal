@@ -69,7 +69,7 @@ public class CommerceApplicationBrandLocalServiceImpl
 		resourceLocalService.deleteResource(
 			commerceApplicationBrand, ResourceConstants.SCOPE_INDIVIDUAL);
 
-		// CommerceApplicationBrand
+		// Commerce application brand
 
 		return commerceApplicationBrandPersistence.remove(
 			commerceApplicationBrand);

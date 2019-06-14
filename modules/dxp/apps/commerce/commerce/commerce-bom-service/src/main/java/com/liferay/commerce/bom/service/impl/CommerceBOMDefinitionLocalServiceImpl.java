@@ -74,7 +74,7 @@ public class CommerceBOMDefinitionLocalServiceImpl
 		resourceLocalService.deleteResource(
 			commerceBOMDefinition, ResourceConstants.SCOPE_INDIVIDUAL);
 
-		// CommerceApplicationBrand
+		// Commerce BOM definition
 
 		return commerceBOMDefinitionPersistence.remove(commerceBOMDefinition);
 	}

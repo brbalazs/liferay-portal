@@ -43,11 +43,33 @@ public class CommerceBOMFolderServiceUtil {
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.commerce.bom.service.impl.CommerceBOMFolderServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static com.liferay.commerce.bom.model.CommerceBOMFolder addCommerceBOMFolder(
-		long userId, long commerceApplicationModelId, String name, long imageId)
+		long userId, long parentCommerceBOMFolderId, String name, long imageId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
-				   .addCommerceBOMFolder(userId, commerceApplicationModelId,
+				   .addCommerceBOMFolder(userId, parentCommerceBOMFolderId,
 			name, imageId);
+	}
+
+	public static com.liferay.commerce.bom.model.CommerceBOMFolder getCommerceBOMFolder(
+		long commerceBOMFolderId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getCommerceBOMFolder(commerceBOMFolderId);
+	}
+
+	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolder> getCommerceBOMFolders(
+		long companyId, long parentCommerceBOMFolderId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .getCommerceBOMFolders(companyId, parentCommerceBOMFolderId,
+			start, end);
+	}
+
+	public static int getCommerceBOMFoldersCount(long companyId,
+		long parentCommerceBOMFolderId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .getCommerceBOMFoldersCount(companyId,
+			parentCommerceBOMFolderId);
 	}
 
 	/**

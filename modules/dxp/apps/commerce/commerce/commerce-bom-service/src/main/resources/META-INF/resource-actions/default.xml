@@ -8,12 +8,16 @@
 			<supports>
 				<action-key>ADD_COMMERCE_BOM_DEFINITION</action-key>
 				<action-key>ADD_COMMERCE_BOM_FOLDER</action-key>
+				<action-key>VIEW_COMMERCE_BOM_DEFINITIONS</action-key>
+				<action-key>VIEW_COMMERCE_BOM_FOLDERS</action-key>
 			</supports>
 			<site-member-defaults />
 			<guest-defaults />
 			<guest-unsupported>
 				<action-key>ADD_COMMERCE_BOM_DEFINITION</action-key>
 				<action-key>ADD_COMMERCE_BOM_FOLDER</action-key>
+				<action-key>VIEW_COMMERCE_BOM_DEFINITIONS</action-key>
+				<action-key>VIEW_COMMERCE_BOM_FOLDERS</action-key>
 			</guest-unsupported>
 		</permissions>
 	</portlet-resource>

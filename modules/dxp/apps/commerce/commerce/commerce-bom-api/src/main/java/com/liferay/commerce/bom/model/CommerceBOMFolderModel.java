@@ -177,6 +177,20 @@ public interface CommerceBOMFolderModel extends AuditedModel,
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
+	 * Returns the parent commerce bom folder ID of this commerce bom folder.
+	 *
+	 * @return the parent commerce bom folder ID of this commerce bom folder
+	 */
+	public long getParentCommerceBOMFolderId();
+
+	/**
+	 * Sets the parent commerce bom folder ID of this commerce bom folder.
+	 *
+	 * @param parentCommerceBOMFolderId the parent commerce bom folder ID of this commerce bom folder
+	 */
+	public void setParentCommerceBOMFolderId(long parentCommerceBOMFolderId);
+
+	/**
 	 * Returns the name of this commerce bom folder.
 	 *
 	 * @return the name of this commerce bom folder

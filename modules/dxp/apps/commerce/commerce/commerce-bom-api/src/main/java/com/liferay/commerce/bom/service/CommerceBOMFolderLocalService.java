@@ -72,11 +72,8 @@ public interface CommerceBOMFolderLocalService extends BaseLocalService,
 		CommerceBOMFolder commerceBOMFolder);
 
 	public CommerceBOMFolder addCommerceBOMFolder(long userId,
-		long commerceApplicationModelId, String name, long imageId)
+		long parentCommerceBOMFolderId, String name, long imageId)
 		throws PortalException;
-
-	public CommerceBOMFolder addCommerceBOMFolder(long userId, String name,
-		long imageId) throws PortalException;
 
 	/**
 	* Creates a new commerce bom folder with the primary key. Does not add the commerce bom folder to the database.
@@ -107,6 +104,9 @@ public interface CommerceBOMFolderLocalService extends BaseLocalService,
 	*/
 	@Indexable(type = IndexableType.DELETE)
 	public CommerceBOMFolder deleteCommerceBOMFolder(long commerceBOMFolderId)
+		throws PortalException;
+
+	public void deleteCommerceBOMFolders(long companyId)
 		throws PortalException;
 
 	/**
@@ -212,6 +212,10 @@ public interface CommerceBOMFolderLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceBOMFolder> getCommerceBOMFolders(int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceBOMFolder> getCommerceBOMFolders(long companyId,
+		long parentCommerceBOMFolderId, int start, int end);
+
 	/**
 	* Returns the number of commerce bom folders.
 	*
@@ -219,6 +223,10 @@ public interface CommerceBOMFolderLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceBOMFoldersCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceBOMFoldersCount(long companyId,
+		long parentCommerceBOMFolderId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();

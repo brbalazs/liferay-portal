@@ -55,17 +55,11 @@ public class CommerceBOMFolderLocalServiceUtil {
 	}
 
 	public static com.liferay.commerce.bom.model.CommerceBOMFolder addCommerceBOMFolder(
-		long userId, long commerceApplicationModelId, String name, long imageId)
+		long userId, long parentCommerceBOMFolderId, String name, long imageId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
-				   .addCommerceBOMFolder(userId, commerceApplicationModelId,
+				   .addCommerceBOMFolder(userId, parentCommerceBOMFolderId,
 			name, imageId);
-	}
-
-	public static com.liferay.commerce.bom.model.CommerceBOMFolder addCommerceBOMFolder(
-		long userId, String name, long imageId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().addCommerceBOMFolder(userId, name, imageId);
 	}
 
 	/**
@@ -103,6 +97,11 @@ public class CommerceBOMFolderLocalServiceUtil {
 		long commerceBOMFolderId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().deleteCommerceBOMFolder(commerceBOMFolderId);
+	}
+
+	public static void deleteCommerceBOMFolders(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		getService().deleteCommerceBOMFolders(companyId);
 	}
 
 	/**
@@ -230,6 +229,13 @@ public class CommerceBOMFolderLocalServiceUtil {
 		return getService().getCommerceBOMFolders(start, end);
 	}
 
+	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolder> getCommerceBOMFolders(
+		long companyId, long parentCommerceBOMFolderId, int start, int end) {
+		return getService()
+				   .getCommerceBOMFolders(companyId, parentCommerceBOMFolderId,
+			start, end);
+	}
+
 	/**
 	* Returns the number of commerce bom folders.
 	*
@@ -237,6 +243,13 @@ public class CommerceBOMFolderLocalServiceUtil {
 	*/
 	public static int getCommerceBOMFoldersCount() {
 		return getService().getCommerceBOMFoldersCount();
+	}
+
+	public static int getCommerceBOMFoldersCount(long companyId,
+		long parentCommerceBOMFolderId) {
+		return getService()
+				   .getCommerceBOMFoldersCount(companyId,
+			parentCommerceBOMFolderId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {

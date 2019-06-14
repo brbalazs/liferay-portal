@@ -23,15 +23,18 @@ import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermi
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 
+import java.util.List;
+
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class CommerceBOMFolderServiceImpl
 	extends CommerceBOMFolderServiceBaseImpl {
 
 	@Override
 	public CommerceBOMFolder addCommerceBOMFolder(
-			long userId, long commerceApplicationModelId, String name,
+			long userId, long parentCommerceBOMFolderId, String name,
 			long imageId)
 		throws PortalException {
 
@@ -40,7 +43,44 @@ public class CommerceBOMFolderServiceImpl
 			CommerceBOMActionKeys.ADD_COMMERCE_BOM_FOLDER);
 
 		return commerceBOMFolderLocalService.addCommerceBOMFolder(
-			userId, commerceApplicationModelId, name, imageId);
+			userId, parentCommerceBOMFolderId, name, imageId);
+	}
+
+	@Override
+	public CommerceBOMFolder getCommerceBOMFolder(long commerceBOMFolderId)
+		throws PortalException {
+
+		_commerceBOMFolderModelResourcePermission.check(
+			getPermissionChecker(), commerceBOMFolderId, ActionKeys.VIEW);
+
+		return commerceBOMFolderLocalService.getCommerceBOMFolder(
+			commerceBOMFolderId);
+	}
+
+	@Override
+	public List<CommerceBOMFolder> getCommerceBOMFolders(
+			long companyId, long parentCommerceBOMFolderId, int start, int end)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceBOMActionKeys.VIEW_COMMERCE_BOM_FOLDERS);
+
+		return commerceBOMFolderLocalService.getCommerceBOMFolders(
+			companyId, parentCommerceBOMFolderId, start, end);
+	}
+
+	@Override
+	public int getCommerceBOMFoldersCount(
+			long companyId, long parentCommerceBOMFolderId)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceBOMActionKeys.VIEW_COMMERCE_BOM_FOLDERS);
+
+		return commerceBOMFolderLocalService.getCommerceBOMFoldersCount(
+			companyId, parentCommerceBOMFolderId);
 	}
 
 	@Override

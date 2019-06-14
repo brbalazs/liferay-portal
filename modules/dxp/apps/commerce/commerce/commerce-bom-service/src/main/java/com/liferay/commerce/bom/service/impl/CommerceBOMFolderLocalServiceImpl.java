@@ -21,33 +21,19 @@ import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 
+import java.util.List;
+
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class CommerceBOMFolderLocalServiceImpl
 	extends CommerceBOMFolderLocalServiceBaseImpl {
 
 	@Override
 	public CommerceBOMFolder addCommerceBOMFolder(
-			long userId, long commerceApplicationModelId, String name,
+			long userId, long parentCommerceBOMFolderId, String name,
 			long imageId)
-		throws PortalException {
-
-		CommerceBOMFolder commerceBOMFolder =
-			commerceBOMFolderLocalService.addCommerceBOMFolder(
-				userId, name, imageId);
-
-		commerceBOMFolderApplicationRelLocalService.
-			addCommerceBOMFolderApplicationRel(
-				userId, commerceBOMFolder.getCommerceBOMFolderId(),
-				commerceApplicationModelId);
-
-		return commerceBOMFolder;
-	}
-
-	@Override
-	public CommerceBOMFolder addCommerceBOMFolder(
-			long userId, String name, long imageId)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -60,6 +46,8 @@ public class CommerceBOMFolderLocalServiceImpl
 		commerceBOMFolder.setCompanyId(user.getCompanyId());
 		commerceBOMFolder.setUserId(user.getUserId());
 		commerceBOMFolder.setUserName(user.getFullName());
+		commerceBOMFolder.setParentCommerceBOMFolderId(
+			parentCommerceBOMFolderId);
 		commerceBOMFolder.setName(name);
 		commerceBOMFolder.setImageId(imageId);
 
@@ -86,7 +74,7 @@ public class CommerceBOMFolderLocalServiceImpl
 		resourceLocalService.deleteResource(
 			commerceBOMFolder, ResourceConstants.SCOPE_INDIVIDUAL);
 
-		// CommerceApplicationBrand
+		// Commerce BOM folder
 
 		return commerceBOMFolderPersistence.remove(commerceBOMFolder);
 	}
@@ -100,6 +88,35 @@ public class CommerceBOMFolderLocalServiceImpl
 
 		return commerceBOMFolderLocalService.deleteCommerceBOMFolder(
 			commerceBOMFolder);
+	}
+
+	@Override
+	public void deleteCommerceBOMFolders(long companyId)
+		throws PortalException {
+
+		List<CommerceBOMFolder> commerceBOMFolders =
+			commerceBOMFolderPersistence.findByCompany(companyId);
+
+		for (CommerceBOMFolder commerceBOMFolder : commerceBOMFolders) {
+			commerceBOMFolderLocalService.deleteCommerceBOMFolder(
+				commerceBOMFolder);
+		}
+	}
+
+	@Override
+	public List<CommerceBOMFolder> getCommerceBOMFolders(
+		long companyId, long parentCommerceBOMFolderId, int start, int end) {
+
+		return commerceBOMFolderPersistence.findByC_P(
+			companyId, parentCommerceBOMFolderId, start, end);
+	}
+
+	@Override
+	public int getCommerceBOMFoldersCount(
+		long companyId, long parentCommerceBOMFolderId) {
+
+		return commerceBOMFolderPersistence.countByC_P(
+			companyId, parentCommerceBOMFolderId);
 	}
 
 	@Override
