@@ -123,11 +123,12 @@ public abstract class CommerceBOMFolderLocalServiceBaseImpl
 	 *
 	 * @param commerceBOMFolder the commerce bom folder
 	 * @return the commerce bom folder that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public CommerceBOMFolder deleteCommerceBOMFolder(
-		CommerceBOMFolder commerceBOMFolder) {
+		CommerceBOMFolder commerceBOMFolder) throws PortalException {
 		return commerceBOMFolderPersistence.remove(commerceBOMFolder);
 	}
 

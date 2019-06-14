@@ -79,10 +79,12 @@ public class CommerceBOMFolderLocalServiceWrapper
 	*
 	* @param commerceBOMFolder the commerce bom folder
 	* @return the commerce bom folder that was removed
+	* @throws PortalException
 	*/
 	@Override
 	public com.liferay.commerce.bom.model.CommerceBOMFolder deleteCommerceBOMFolder(
-		com.liferay.commerce.bom.model.CommerceBOMFolder commerceBOMFolder) {
+		com.liferay.commerce.bom.model.CommerceBOMFolder commerceBOMFolder)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceBOMFolderLocalService.deleteCommerceBOMFolder(commerceBOMFolder);
 	}
 

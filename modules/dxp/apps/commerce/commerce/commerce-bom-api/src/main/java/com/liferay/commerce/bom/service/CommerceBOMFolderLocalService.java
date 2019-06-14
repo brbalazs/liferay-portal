@@ -92,10 +92,11 @@ public interface CommerceBOMFolderLocalService extends BaseLocalService,
 	*
 	* @param commerceBOMFolder the commerce bom folder
 	* @return the commerce bom folder that was removed
+	* @throws PortalException
 	*/
 	@Indexable(type = IndexableType.DELETE)
 	public CommerceBOMFolder deleteCommerceBOMFolder(
-		CommerceBOMFolder commerceBOMFolder);
+		CommerceBOMFolder commerceBOMFolder) throws PortalException;
 
 	/**
 	* Deletes the commerce bom folder with the primary key from the database. Also notifies the appropriate model listeners.

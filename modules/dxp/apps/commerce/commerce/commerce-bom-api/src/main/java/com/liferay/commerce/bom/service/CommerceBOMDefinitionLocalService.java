@@ -90,10 +90,11 @@ public interface CommerceBOMDefinitionLocalService extends BaseLocalService,
 	*
 	* @param commerceBOMDefinition the commerce bom definition
 	* @return the commerce bom definition that was removed
+	* @throws PortalException
 	*/
 	@Indexable(type = IndexableType.DELETE)
 	public CommerceBOMDefinition deleteCommerceBOMDefinition(
-		CommerceBOMDefinition commerceBOMDefinition);
+		CommerceBOMDefinition commerceBOMDefinition) throws PortalException;
 
 	/**
 	* Deletes the commerce bom definition with the primary key from the database. Also notifies the appropriate model listeners.

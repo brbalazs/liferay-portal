@@ -124,11 +124,12 @@ public abstract class CommerceBOMDefinitionLocalServiceBaseImpl
 	 *
 	 * @param commerceBOMDefinition the commerce bom definition
 	 * @return the commerce bom definition that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public CommerceBOMDefinition deleteCommerceBOMDefinition(
-		CommerceBOMDefinition commerceBOMDefinition) {
+		CommerceBOMDefinition commerceBOMDefinition) throws PortalException {
 		return commerceBOMDefinitionPersistence.remove(commerceBOMDefinition);
 	}
 

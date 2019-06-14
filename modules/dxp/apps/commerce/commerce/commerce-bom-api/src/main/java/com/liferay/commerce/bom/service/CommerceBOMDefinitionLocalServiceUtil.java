@@ -79,9 +79,11 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 	*
 	* @param commerceBOMDefinition the commerce bom definition
 	* @return the commerce bom definition that was removed
+	* @throws PortalException
 	*/
 	public static com.liferay.commerce.bom.model.CommerceBOMDefinition deleteCommerceBOMDefinition(
-		com.liferay.commerce.bom.model.CommerceBOMDefinition commerceBOMDefinition) {
+		com.liferay.commerce.bom.model.CommerceBOMDefinition commerceBOMDefinition)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().deleteCommerceBOMDefinition(commerceBOMDefinition);
 	}
 
