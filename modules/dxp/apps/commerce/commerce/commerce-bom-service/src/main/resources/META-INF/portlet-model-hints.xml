@@ -8,10 +8,12 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="name" type="String" />
-		<field name="imageId" type="long" />
-		<field name="friendlyUrl" type="String" />
 		<field name="commerceBOMFolderId" type="long" />
+		<field name="CPAttachmentFileEntryId" type="long" />
+		<field name="name" type="String">
+			<validator name="required" />
+		</field>
+		<field name="friendlyUrl" type="String" />
 	</model>
 	<model name="com.liferay.commerce.bom.model.CommerceBOMEntry">
 		<field name="commerceBOMEntryId" type="long" />
@@ -36,8 +38,10 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="parentCommerceBOMFolderId" type="long" />
-		<field name="name" type="String" />
-		<field name="imageId" type="long" />
+		<field name="name" type="String">
+			<validator name="required" />
+		</field>
+		<field name="logoId" type="long" />
 	</model>
 	<model name="com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel">
 		<field name="commerceBOMFolderApplicationRelId" type="long" />
