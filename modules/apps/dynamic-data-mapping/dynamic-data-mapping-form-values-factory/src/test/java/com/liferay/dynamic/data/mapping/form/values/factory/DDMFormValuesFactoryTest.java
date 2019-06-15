@@ -97,6 +97,12 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 
 	@Test
 	public void testCreateDefaultWithEmptyRequest() throws Exception {
+		MockHttpServletRequest mockHttpServletRequest =
+			new MockHttpServletRequest();
+
+		mockHttpServletRequest.setAttribute(
+			WebKeys.THEME_DISPLAY, mockThemeDisplay());
+
 		DDMForm ddmForm = DDMFormTestUtil.createDDMForm();
 
 		DDMFormField nameDDMFormField = DDMFormTestUtil.createTextDDMFormField(
@@ -129,12 +135,6 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 			createDDMFormFieldValue("waht", "Phone", phonePredefinedValue));
 
 		expectedDDMFormValues.addDDMFormFieldValue(nameDDMFormFieldValue);
-
-		MockHttpServletRequest mockHttpServletRequest =
-			new MockHttpServletRequest();
-
-		mockHttpServletRequest.setAttribute(
-			WebKeys.THEME_DISPLAY, mockThemeDisplay());
 
 		DDMFormValues actualDDMFormValues = _ddmFormValuesFactory.create(
 			mockHttpServletRequest, ddmForm);
@@ -589,6 +589,14 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 	public void testCreateWithRepeatableFieldSetAndNestedCheckbox()
 		throws Exception {
 
+		MockHttpServletRequest mockHttpServletRequest =
+			new MockHttpServletRequest();
+
+		mockHttpServletRequest.addParameter(
+			"languageId", LocaleUtil.toLanguageId(LocaleUtil.US));
+		mockHttpServletRequest.setAttribute(
+			WebKeys.THEME_DISPLAY, mockThemeDisplay());
+
 		DDMForm ddmForm = DDMFormTestUtil.createDDMForm();
 
 		DDMFormField fieldSetDDMFormField = DDMFormTestUtil.createDDMFormField(
@@ -609,15 +617,6 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 		fieldSetDDMFormField.addNestedDDMFormField(checkboxDDMFormField);
 
 		ddmForm.addDDMFormField(fieldSetDDMFormField);
-
-		MockHttpServletRequest mockHttpServletRequest =
-			new MockHttpServletRequest();
-
-		mockHttpServletRequest.setAttribute(
-			WebKeys.THEME_DISPLAY, mockThemeDisplay());
-
-		mockHttpServletRequest.addParameter(
-			"languageId", LocaleUtil.toLanguageId(LocaleUtil.US));
 
 		// Parameters
 
@@ -743,6 +742,14 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 
 	@Test
 	public void testCreateWithTextAndUncheckedCheckboxField() throws Exception {
+		MockHttpServletRequest mockHttpServletRequest =
+			new MockHttpServletRequest();
+
+		mockHttpServletRequest.addParameter(
+			"languageId", LocaleUtil.toLanguageId(LocaleUtil.US));
+		mockHttpServletRequest.setAttribute(
+			WebKeys.THEME_DISPLAY, mockThemeDisplay());
+
 		DDMForm ddmForm = DDMFormTestUtil.createDDMForm();
 
 		ddmForm.addDDMFormField(
@@ -769,15 +776,6 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 		expectedDDMFormValues.addDDMFormFieldValue(
 			createDDMFormFieldValue(
 				"wqer", "Boolean", new UnlocalizedValue("false")));
-
-		MockHttpServletRequest mockHttpServletRequest =
-			new MockHttpServletRequest();
-
-		mockHttpServletRequest.setAttribute(
-			WebKeys.THEME_DISPLAY, mockThemeDisplay());
-
-		mockHttpServletRequest.addParameter(
-			"languageId", LocaleUtil.toLanguageId(LocaleUtil.US));
 
 		// Name
 
@@ -827,6 +825,14 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 	public void testCreateWithUncheckedCheckboxAndTextFieldWithSimilarNames()
 		throws Exception {
 
+		MockHttpServletRequest mockHttpServletRequest =
+			new MockHttpServletRequest();
+
+		mockHttpServletRequest.addParameter(
+			"languageId", LocaleUtil.toLanguageId(LocaleUtil.US));
+		mockHttpServletRequest.setAttribute(
+			WebKeys.THEME_DISPLAY, mockThemeDisplay());
+
 		DDMForm ddmForm = DDMFormTestUtil.createDDMForm();
 
 		DDMFormField checkboxDDMFormField = DDMFormTestUtil.createDDMFormField(
@@ -853,15 +859,6 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 		expectedDDMFormValues.addDDMFormFieldValue(
 			createDDMFormFieldValue(
 				"wqer", "fooBar", new UnlocalizedValue("Baz")));
-
-		MockHttpServletRequest mockHttpServletRequest =
-			new MockHttpServletRequest();
-
-		mockHttpServletRequest.setAttribute(
-			WebKeys.THEME_DISPLAY, mockThemeDisplay());
-
-		mockHttpServletRequest.addParameter(
-			"languageId", LocaleUtil.toLanguageId(LocaleUtil.US));
 
 		// FooBar
 
