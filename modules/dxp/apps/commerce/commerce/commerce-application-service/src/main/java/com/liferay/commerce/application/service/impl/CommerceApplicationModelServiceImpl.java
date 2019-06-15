@@ -25,14 +25,15 @@ import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class CommerceApplicationModelServiceImpl
 	extends CommerceApplicationModelServiceBaseImpl {
 
 	@Override
 	public CommerceApplicationModel addCommerceApplicationModel(
-			long userId, long commerceApplicationBrandId, long cProductId,
-			String name, String year)
+			long userId, long commerceApplicationBrandId, String name,
+			String year)
 		throws PortalException {
 
 		PortalPermissionUtil.check(
@@ -40,7 +41,20 @@ public class CommerceApplicationModelServiceImpl
 			CommerceApplicationActionKeys.ADD_COMMERCE_MODEL);
 
 		return commerceApplicationModelLocalService.addCommerceApplicationModel(
-			userId, commerceApplicationBrandId, cProductId, name, year);
+			userId, commerceApplicationBrandId, name, year);
+	}
+
+	@Override
+	public void deleteCommerceApplicationModel(
+			long commerceApplicationModelId)
+		throws PortalException {
+
+		_commerceApplicationModelModelResourcePermission.check(
+			getPermissionChecker(), commerceApplicationModelId,
+			ActionKeys.DELETE);
+
+		commerceApplicationModelLocalService.deleteCommerceApplicationModel(
+			commerceApplicationModelId);
 	}
 
 	@Override

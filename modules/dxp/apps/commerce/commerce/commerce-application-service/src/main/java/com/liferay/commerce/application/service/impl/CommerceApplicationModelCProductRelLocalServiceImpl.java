@@ -19,8 +19,11 @@ import com.liferay.commerce.application.service.base.CommerceApplicationModelCPr
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 
+import java.util.List;
+
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class CommerceApplicationModelCProductRelLocalServiceImpl
 	extends CommerceApplicationModelCProductRelLocalServiceBaseImpl {
@@ -51,22 +54,37 @@ public class CommerceApplicationModelCProductRelLocalServiceImpl
 	}
 
 	@Override
-	public CommerceApplicationModelCProductRel
-			updateCommerceApplicationModelCProductRel(
-				long caModelCProductRelId, long commerceApplicationModelId,
-				long cProductId)
-		throws PortalException {
+	public void deleteCommerceApplicationModelCProductRels(
+		long commerceApplicationModelId) {
 
-		CommerceApplicationModelCProductRel caModelCProductRel =
-			commerceApplicationModelCProductRelLocalService.
-				getCommerceApplicationModelCProductRel(caModelCProductRelId);
+		commerceApplicationModelCProductRelPersistence.
+			removeByCommerceApplicationModelId(commerceApplicationModelId);
+	}
 
-		caModelCProductRel.setCommerceApplicationModelId(
-			commerceApplicationModelId);
-		caModelCProductRel.setCProductId(cProductId);
+	@Override
+	public void deleteCommerceApplicationModelCProductRelsByCProductId(
+		long cProductId) {
 
-		return commerceApplicationModelCProductRelPersistence.update(
-			caModelCProductRel);
+		commerceApplicationModelCProductRelPersistence.removeByCProductId(
+			cProductId);
+	}
+
+	@Override
+	public List<CommerceApplicationModelCProductRel>
+		getCommerceApplicationModelCProductRels(
+			long commerceApplicationModelId, int start, int end) {
+
+		return commerceApplicationModelCProductRelPersistence.
+			findByCommerceApplicationModelId(
+				commerceApplicationModelId, start, end);
+	}
+
+	@Override
+	public int getCommerceApplicationModelCProductRelsCount(
+		long commerceApplicationModelId) {
+
+		return commerceApplicationModelCProductRelPersistence.
+			countByCommerceApplicationModelId(commerceApplicationModelId);
 	}
 
 }

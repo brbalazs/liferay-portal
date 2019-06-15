@@ -19,7 +19,15 @@ import com.liferay.commerce.bom.service.base.CommerceBOMFolderLocalServiceBaseIm
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.ResourceConstants;
+import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.search.Indexable;
+import com.liferay.portal.kernel.search.IndexableType;
+import com.liferay.portal.kernel.systemevent.SystemEvent;
+import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.ServiceProxyFactory;
+import com.liferay.portal.spring.extender.service.ServiceReference;
+import com.liferay.users.admin.kernel.file.uploads.UserFileUploadsSettings;
 
 import java.util.List;
 
@@ -30,10 +38,11 @@ import java.util.List;
 public class CommerceBOMFolderLocalServiceImpl
 	extends CommerceBOMFolderLocalServiceBaseImpl {
 
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommerceBOMFolder addCommerceBOMFolder(
 			long userId, long parentCommerceBOMFolderId, String name,
-			long imageId)
+			boolean logo, byte[] logoBytes)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -49,7 +58,12 @@ public class CommerceBOMFolderLocalServiceImpl
 		commerceBOMFolder.setParentCommerceBOMFolderId(
 			parentCommerceBOMFolderId);
 		commerceBOMFolder.setName(name);
-		commerceBOMFolder.setImageId(imageId);
+
+		_portal.updateImageId(
+			commerceBOMFolder, logo, logoBytes, "logoId",
+			_userFileUploadsSettings.getImageMaxSize(),
+			_userFileUploadsSettings.getImageMaxHeight(),
+			_userFileUploadsSettings.getImageMaxWidth());
 
 		commerceBOMFolder = commerceBOMFolderPersistence.update(
 			commerceBOMFolder);
@@ -64,10 +78,17 @@ public class CommerceBOMFolderLocalServiceImpl
 		return commerceBOMFolder;
 	}
 
+	@Indexable(type = IndexableType.DELETE)
 	@Override
+	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
 	public CommerceBOMFolder deleteCommerceBOMFolder(
 			CommerceBOMFolder commerceBOMFolder)
 		throws PortalException {
+
+		// Commerce BOM definitions
+
+		commerceBOMDefinitionLocalService.deleteCommerceBOMDefinitions(
+			commerceBOMFolder.getCommerceBOMFolderId());
 
 		// Resources
 
@@ -103,25 +124,11 @@ public class CommerceBOMFolderLocalServiceImpl
 		}
 	}
 
-	@Override
-	public List<CommerceBOMFolder> getCommerceBOMFolders(
-		long companyId, long parentCommerceBOMFolderId, int start, int end) {
-
-		return commerceBOMFolderPersistence.findByC_P(
-			companyId, parentCommerceBOMFolderId, start, end);
-	}
-
-	@Override
-	public int getCommerceBOMFoldersCount(
-		long companyId, long parentCommerceBOMFolderId) {
-
-		return commerceBOMFolderPersistence.countByC_P(
-			companyId, parentCommerceBOMFolderId);
-	}
-
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommerceBOMFolder updateCommerceBOMFolder(
-			long commerceBOMFolderId, String name, long imageId)
+			long commerceBOMFolderId, String name, boolean logo,
+			byte[] logoBytes)
 		throws PortalException {
 
 		CommerceBOMFolder commerceBOMFolder =
@@ -129,9 +136,23 @@ public class CommerceBOMFolderLocalServiceImpl
 				commerceBOMFolderId);
 
 		commerceBOMFolder.setName(name);
-		commerceBOMFolder.setImageId(imageId);
+
+		_portal.updateImageId(
+			commerceBOMFolder, logo, logoBytes, "logoId",
+			_userFileUploadsSettings.getImageMaxSize(),
+			_userFileUploadsSettings.getImageMaxHeight(),
+			_userFileUploadsSettings.getImageMaxWidth());
 
 		return commerceBOMFolderPersistence.update(commerceBOMFolder);
 	}
+
+	private static volatile UserFileUploadsSettings _userFileUploadsSettings =
+		ServiceProxyFactory.newServiceTrackedInstance(
+			UserFileUploadsSettings.class,
+			CommerceBOMFolderLocalServiceImpl.class, "_userFileUploadsSettings",
+			false);
+
+	@ServiceReference(type = Portal.class)
+	private Portal _portal;
 
 }

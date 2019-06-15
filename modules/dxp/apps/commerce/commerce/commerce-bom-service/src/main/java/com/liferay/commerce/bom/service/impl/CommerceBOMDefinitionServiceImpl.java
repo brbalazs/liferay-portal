@@ -16,6 +16,7 @@ package com.liferay.commerce.bom.service.impl;
 
 import com.liferay.commerce.bom.constants.CommerceBOMActionKeys;
 import com.liferay.commerce.bom.model.CommerceBOMDefinition;
+import com.liferay.commerce.bom.model.CommerceBOMFolder;
 import com.liferay.commerce.bom.service.base.CommerceBOMDefinitionServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
@@ -23,16 +24,19 @@ import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermi
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 
+import java.util.List;
+
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class CommerceBOMDefinitionServiceImpl
 	extends CommerceBOMDefinitionServiceBaseImpl {
 
 	@Override
 	public CommerceBOMDefinition addCommerceBOMDefinition(
-			long userId, String name, long imageId, String friendlyUrl,
-			long commerceBOMFolderId)
+			long userId, long commerceBOMFolderId, long cpAttachmentFileEntryId,
+			String name, String friendlyUrl)
 		throws PortalException {
 
 		PortalPermissionUtil.check(
@@ -40,21 +44,58 @@ public class CommerceBOMDefinitionServiceImpl
 			CommerceBOMActionKeys.ADD_COMMERCE_BOM_DEFINITION);
 
 		return commerceBOMDefinitionLocalService.addCommerceBOMDefinition(
-			userId, name, imageId, friendlyUrl, commerceBOMFolderId);
+			userId, commerceBOMFolderId, cpAttachmentFileEntryId, name, friendlyUrl);
+	}
+
+	@Override
+	public void deleteCommerceBOMDefinition(long commerceBOMDefinitionId)
+		throws PortalException {
+
+		_commerceBOMDefinitionModelResourcePermission.check(
+			getPermissionChecker(), commerceBOMDefinitionId, ActionKeys.DELETE);
+
+		commerceBOMDefinitionLocalService.deleteCommerceBOMDefinition(
+			commerceBOMDefinitionId);
+	}
+
+	@Override
+	public CommerceBOMDefinition getCommerceBOMDefinition(
+			long commerceBOMDefinitionId)
+		throws PortalException {
+
+		_commerceBOMDefinitionModelResourcePermission.check(
+			getPermissionChecker(), commerceBOMDefinitionId, ActionKeys.VIEW);
+
+		return commerceBOMDefinitionLocalService.getCommerceBOMDefinition(
+			commerceBOMDefinitionId);
+	}
+
+	@Override
+	public List<CommerceBOMDefinition> getCommerceBOMDefinitions(
+		long commerceBOMFolderId, int start, int end) {
+
+		return commerceBOMDefinitionPersistence.filterFindByCommerceBOMFolderId(
+			commerceBOMFolderId, start, end);
+	}
+
+	@Override
+	public int getCommerceBOMDefinitionsCount(long commerceBOMFolderId) {
+		return
+			commerceBOMDefinitionPersistence.filterCountByCommerceBOMFolderId(
+				commerceBOMFolderId);
 	}
 
 	@Override
 	public CommerceBOMDefinition updateCommerceBOMDefinition(
-			long commerceBOMDefinitionId, String name, long imageId,
-			String friendlyUrl, long commerceBOMFolderId)
+			long commerceBOMDefinitionId, long cpAttachmentFileEntryId,
+			String name)
 		throws PortalException {
 
 		_commerceBOMDefinitionModelResourcePermission.check(
 			getPermissionChecker(), commerceBOMDefinitionId, ActionKeys.UPDATE);
 
 		return commerceBOMDefinitionLocalService.updateCommerceBOMDefinition(
-			commerceBOMDefinitionId, name, imageId, friendlyUrl,
-			commerceBOMFolderId);
+			commerceBOMDefinitionId, cpAttachmentFileEntryId, name);
 	}
 
 	private static volatile ModelResourcePermission<CommerceBOMDefinition>

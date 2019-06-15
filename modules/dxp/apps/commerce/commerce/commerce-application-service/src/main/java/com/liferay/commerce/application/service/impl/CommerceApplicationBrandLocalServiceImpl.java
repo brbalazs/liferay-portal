@@ -19,17 +19,35 @@ import com.liferay.commerce.application.service.base.CommerceApplicationBrandLoc
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.ResourceConstants;
+import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.systemevent.SystemEvent;
+import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.ServiceProxyFactory;
+import com.liferay.portal.spring.extender.service.ServiceReference;
+import com.liferay.users.admin.kernel.file.uploads.UserFileUploadsSettings;
+
+import java.util.List;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class CommerceApplicationBrandLocalServiceImpl
 	extends CommerceApplicationBrandLocalServiceBaseImpl {
 
+	private static volatile UserFileUploadsSettings _userFileUploadsSettings =
+		ServiceProxyFactory.newServiceTrackedInstance(
+			UserFileUploadsSettings.class,
+			CommerceApplicationBrandLocalServiceImpl.class,
+			"_userFileUploadsSettings", false);
+
+	@ServiceReference(type = Portal.class)
+	private Portal _portal;
+
 	@Override
 	public CommerceApplicationBrand addCommerceApplicationBrand(
-			long userId, String name, long logoId)
+			long userId, String name, boolean logo, byte[] logoBytes)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -43,7 +61,12 @@ public class CommerceApplicationBrandLocalServiceImpl
 		commerceApplicationBrand.setUserId(user.getUserId());
 		commerceApplicationBrand.setUserName(user.getFullName());
 		commerceApplicationBrand.setName(name);
-		commerceApplicationBrand.setLogoId(logoId);
+
+		_portal.updateImageId(
+			commerceApplicationBrand, logo, logoBytes, "logoId",
+			_userFileUploadsSettings.getImageMaxSize(),
+			_userFileUploadsSettings.getImageMaxHeight(),
+			_userFileUploadsSettings.getImageMaxWidth());
 
 		commerceApplicationBrand = commerceApplicationBrandPersistence.update(
 			commerceApplicationBrand);
@@ -60,9 +83,15 @@ public class CommerceApplicationBrandLocalServiceImpl
 	}
 
 	@Override
+	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
 	public CommerceApplicationBrand deleteCommerceApplicationBrand(
 			CommerceApplicationBrand commerceApplicationBrand)
 		throws PortalException {
+
+		// Commerce application model
+
+		commerceApplicationModelLocalService.deleteCommerceApplicationModels(
+			commerceApplicationBrand.getCommerceApplicationBrandId());
 
 		// Resources
 
@@ -89,8 +118,24 @@ public class CommerceApplicationBrandLocalServiceImpl
 	}
 
 	@Override
+	public void deleteCommerceApplicationBrands(long companyId)
+		throws PortalException {
+
+		List<CommerceApplicationBrand> commerceApplicationBrands =
+			commerceApplicationBrandPersistence.findByCompany(companyId);
+
+		for (CommerceApplicationBrand commerceApplicationBrand :
+				commerceApplicationBrands) {
+
+			commerceApplicationBrandLocalService.deleteCommerceApplicationBrand(
+				commerceApplicationBrand);
+		}
+	}
+
+	@Override
 	public CommerceApplicationBrand updateCommerceApplicationBrand(
-			long commerceApplicationBrandId, String name, long logoId)
+			long commerceApplicationBrandId, String name, boolean logo,
+			byte[] logoBytes)
 		throws PortalException {
 
 		CommerceApplicationBrand commerceApplicationBrand =
@@ -98,7 +143,12 @@ public class CommerceApplicationBrandLocalServiceImpl
 				commerceApplicationBrandId);
 
 		commerceApplicationBrand.setName(name);
-		commerceApplicationBrand.setLogoId(logoId);
+
+		_portal.updateImageId(
+			commerceApplicationBrand, logo, logoBytes, "logoId",
+			_userFileUploadsSettings.getImageMaxSize(),
+			_userFileUploadsSettings.getImageMaxHeight(),
+			_userFileUploadsSettings.getImageMaxWidth());
 
 		return commerceApplicationBrandPersistence.update(
 			commerceApplicationBrand);

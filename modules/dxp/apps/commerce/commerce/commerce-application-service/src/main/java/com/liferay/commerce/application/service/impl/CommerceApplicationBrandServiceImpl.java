@@ -23,15 +23,18 @@ import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermi
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 
+import java.util.List;
+
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class CommerceApplicationBrandServiceImpl
 	extends CommerceApplicationBrandServiceBaseImpl {
 
 	@Override
 	public CommerceApplicationBrand addCommerceApplicationBrand(
-			long userId, String name, long logoId)
+			long userId, String name, boolean logo, byte[] logoBytes)
 		throws PortalException {
 
 		PortalPermissionUtil.check(
@@ -39,12 +42,39 @@ public class CommerceApplicationBrandServiceImpl
 			CommerceApplicationActionKeys.ADD_COMMERCE_BRAND);
 
 		return commerceApplicationBrandLocalService.addCommerceApplicationBrand(
-			userId, name, logoId);
+			userId, name, logo, logoBytes);
+	}
+
+	@Override
+	public void deleteCommerceApplicationBrand(long commerceApplicationBrandId)
+		throws PortalException {
+
+		_commerceApplicationBrandModelResourcePermission.check(
+			getPermissionChecker(), commerceApplicationBrandId,
+			ActionKeys.DELETE);
+
+		commerceApplicationBrandLocalService.deleteCommerceApplicationBrand(
+			commerceApplicationBrandId);
+	}
+
+	@Override
+	public List<CommerceApplicationBrand> getCommerceApplicationBrands(
+		long companyId, int start, int end) {
+
+		return commerceApplicationBrandPersistence.filterFindByCompany(
+			companyId, start, end);
+	}
+
+	@Override
+	public int getCommerceApplicationBrandsCount(long companyId) {
+		return commerceApplicationBrandPersistence.filterCountByCompany(
+			companyId);
 	}
 
 	@Override
 	public CommerceApplicationBrand updateCommerceApplicationBrand(
-			long commerceApplicationBrandId, String name, long logoId)
+			long commerceApplicationBrandId, String name, boolean logo,
+			byte[] logoBytes)
 		throws PortalException {
 
 		_commerceApplicationBrandModelResourcePermission.check(
@@ -53,7 +83,7 @@ public class CommerceApplicationBrandServiceImpl
 
 		return commerceApplicationBrandLocalService.
 			updateCommerceApplicationBrand(
-				commerceApplicationBrandId, name, logoId);
+				commerceApplicationBrandId, name, logo, logoBytes);
 	}
 
 	private static volatile ModelResourcePermission<CommerceApplicationBrand>

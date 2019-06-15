@@ -19,20 +19,31 @@ import com.liferay.commerce.bom.service.base.CommerceBOMDefinitionLocalServiceBa
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.ResourceConstants;
+import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.search.Indexable;
+import com.liferay.portal.kernel.search.IndexableType;
+import com.liferay.portal.kernel.systemevent.SystemEvent;
+import com.liferay.portal.kernel.util.FriendlyURLNormalizerUtil;
+import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.ServiceProxyFactory;
+import com.liferay.portal.spring.extender.service.ServiceReference;
+import com.liferay.users.admin.kernel.file.uploads.UserFileUploadsSettings;
 
 import java.util.List;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class CommerceBOMDefinitionLocalServiceImpl
 	extends CommerceBOMDefinitionLocalServiceBaseImpl {
 
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommerceBOMDefinition addCommerceBOMDefinition(
-			long userId, String name, long imageId, String friendlyUrl,
-			long commerceBOMFolderId)
+			long userId, long commerceBOMFolderId, long cpAttachmentFileEntryId,
+			String name, String friendlyUrl)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -45,10 +56,12 @@ public class CommerceBOMDefinitionLocalServiceImpl
 		commerceBOMDefinition.setCompanyId(user.getCompanyId());
 		commerceBOMDefinition.setUserId(user.getUserId());
 		commerceBOMDefinition.setUserName(user.getFullName());
-		commerceBOMDefinition.setName(name);
-		commerceBOMDefinition.setImageId(imageId);
-		commerceBOMDefinition.setFriendlyUrl(friendlyUrl);
 		commerceBOMDefinition.setCommerceBOMFolderId(commerceBOMFolderId);
+		commerceBOMDefinition.setCPAttachmentFileEntryId(
+			cpAttachmentFileEntryId);
+		commerceBOMDefinition.setName(
+			FriendlyURLNormalizerUtil.normalizeWithPeriodsAndSlashes(name));
+		commerceBOMDefinition.setFriendlyUrl(friendlyUrl);
 
 		commerceBOMDefinition = commerceBOMDefinitionPersistence.update(
 			commerceBOMDefinition);
@@ -64,7 +77,9 @@ public class CommerceBOMDefinitionLocalServiceImpl
 		return commerceBOMDefinition;
 	}
 
+	@Indexable(type = IndexableType.DELETE)
 	@Override
+	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
 	public CommerceBOMDefinition deleteCommerceBOMDefinition(
 			CommerceBOMDefinition commerceBOMDefinition)
 		throws PortalException {
@@ -93,27 +108,35 @@ public class CommerceBOMDefinitionLocalServiceImpl
 	}
 
 	@Override
-	public List<CommerceBOMDefinition> getCommerceBOMDefinitions(
-		long commerceBOMFolderId) {
+	public void deleteCommerceBOMDefinitions(long commerceBOMFolderId)
+		throws PortalException {
 
-		return commerceBOMDefinitionPersistence.findBycommerceBOMFolderId(
-			commerceBOMFolderId);
+		List<CommerceBOMDefinition> commerceBOMDefinitions =
+			commerceBOMDefinitionPersistence.findByCommerceBOMFolderId(
+				commerceBOMFolderId);
+
+		for (CommerceBOMDefinition commerceBOMDefinition :
+				commerceBOMDefinitions) {
+
+			commerceBOMDefinitionLocalService.deleteCommerceBOMDefinition(
+				commerceBOMDefinition);
+		}
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommerceBOMDefinition updateCommerceBOMDefinition(
-			long commerceBOMDefinitionId, String name, long imageId,
-			String friendlyUrl, long commerceBOMFolderId)
+			long commerceBOMDefinitionId, long cpAttachmentFileEntryId,
+			String name)
 		throws PortalException {
 
 		CommerceBOMDefinition commerceBOMDefinition =
 			commerceBOMDefinitionLocalService.getCommerceBOMDefinition(
 				commerceBOMDefinitionId);
 
+		commerceBOMDefinition.setCPAttachmentFileEntryId(
+			cpAttachmentFileEntryId);
 		commerceBOMDefinition.setName(name);
-		commerceBOMDefinition.setImageId(imageId);
-		commerceBOMDefinition.setFriendlyUrl(friendlyUrl);
-		commerceBOMDefinition.setCommerceBOMFolderId(commerceBOMFolderId);
 
 		return commerceBOMDefinitionPersistence.update(commerceBOMDefinition);
 	}

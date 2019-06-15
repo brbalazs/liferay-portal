@@ -35,7 +35,7 @@ public class CommerceBOMFolderServiceImpl
 	@Override
 	public CommerceBOMFolder addCommerceBOMFolder(
 			long userId, long parentCommerceBOMFolderId, String name,
-			long imageId)
+			boolean logo, byte[] logoBytes)
 		throws PortalException {
 
 		PortalPermissionUtil.check(
@@ -43,7 +43,18 @@ public class CommerceBOMFolderServiceImpl
 			CommerceBOMActionKeys.ADD_COMMERCE_BOM_FOLDER);
 
 		return commerceBOMFolderLocalService.addCommerceBOMFolder(
-			userId, parentCommerceBOMFolderId, name, imageId);
+			userId, parentCommerceBOMFolderId, name, logo, logoBytes);
+	}
+
+	@Override
+	public void deleteCommerceBOMFolder(long commerceBOMFolderId)
+		throws PortalException {
+
+		_commerceBOMFolderModelResourcePermission.check(
+			getPermissionChecker(), commerceBOMFolderId, ActionKeys.DELETE);
+
+		commerceBOMFolderLocalService.deleteCommerceBOMFolder(
+			commerceBOMFolderId);
 	}
 
 	@Override
@@ -59,40 +70,31 @@ public class CommerceBOMFolderServiceImpl
 
 	@Override
 	public List<CommerceBOMFolder> getCommerceBOMFolders(
-			long companyId, long parentCommerceBOMFolderId, int start, int end)
-		throws PortalException {
+		long companyId, long parentCommerceBOMFolderId, int start, int end) {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommerceBOMActionKeys.VIEW_COMMERCE_BOM_FOLDERS);
-
-		return commerceBOMFolderLocalService.getCommerceBOMFolders(
+		return commerceBOMFolderPersistence.filterFindByC_P(
 			companyId, parentCommerceBOMFolderId, start, end);
 	}
 
 	@Override
 	public int getCommerceBOMFoldersCount(
-			long companyId, long parentCommerceBOMFolderId)
-		throws PortalException {
+		long companyId, long parentCommerceBOMFolderId) {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommerceBOMActionKeys.VIEW_COMMERCE_BOM_FOLDERS);
-
-		return commerceBOMFolderLocalService.getCommerceBOMFoldersCount(
+		return commerceBOMFolderPersistence.filterCountByC_P(
 			companyId, parentCommerceBOMFolderId);
 	}
 
 	@Override
 	public CommerceBOMFolder updateCommerceBOMFolder(
-			long commerceBOMFolderId, String name, long imageId)
+			long commerceBOMFolderId, String name, boolean logo,
+			byte[] logoBytes)
 		throws PortalException {
 
 		_commerceBOMFolderModelResourcePermission.check(
 			getPermissionChecker(), commerceBOMFolderId, ActionKeys.UPDATE);
 
 		return commerceBOMFolderLocalService.updateCommerceBOMFolder(
-			commerceBOMFolderId, name, imageId);
+			commerceBOMFolderId, name, logo, logoBytes);
 	}
 
 	private static volatile ModelResourcePermission<CommerceBOMFolder>

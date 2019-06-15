@@ -19,32 +19,18 @@ import com.liferay.commerce.application.service.base.CommerceApplicationModelLoc
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.ResourceConstants;
+import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.systemevent.SystemEvent;
+
+import java.util.List;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class CommerceApplicationModelLocalServiceImpl
 	extends CommerceApplicationModelLocalServiceBaseImpl {
-
-	@Override
-	public CommerceApplicationModel addCommerceApplicationModel(
-			long userId, long commerceApplicationBrandId, long cProductId,
-			String name, String year)
-		throws PortalException {
-
-		CommerceApplicationModel commerceApplicationModel =
-			commerceApplicationModelLocalService.addCommerceApplicationModel(
-				userId, commerceApplicationBrandId, name, year);
-
-		commerceApplicationModelCProductRelLocalService.
-			addCommerceApplicationModelCProductRel(
-				userId,
-				commerceApplicationModel.getCommerceApplicationModelId(),
-				cProductId);
-
-		return commerceApplicationModel;
-	}
 
 	@Override
 	public CommerceApplicationModel addCommerceApplicationModel(
@@ -83,9 +69,16 @@ public class CommerceApplicationModelLocalServiceImpl
 	}
 
 	@Override
+	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
 	public CommerceApplicationModel deleteCommerceApplicationModel(
 			CommerceApplicationModel commerceApplicationModel)
 		throws PortalException {
+
+		// Commerce application model product rels
+
+		commerceApplicationModelCProductRelLocalService.
+			deleteCommerceApplicationModelCProductRels(
+				commerceApplicationModel.getCommerceApplicationModelId());
 
 		// Resources
 
@@ -109,6 +102,23 @@ public class CommerceApplicationModelLocalServiceImpl
 
 		return commerceApplicationModelLocalService.
 			deleteCommerceApplicationModel(commerceApplicationModel);
+	}
+
+	@Override
+	public void deleteCommerceApplicationModels(
+			long commerceApplicationBrandId)
+		throws PortalException {
+
+		List<CommerceApplicationModel> commerceApplicationModels =
+			commerceApplicationModelPersistence.
+				findByCommerceApplicationBrandId(commerceApplicationBrandId);
+
+		for (CommerceApplicationModel commerceApplicationModel :
+				commerceApplicationModels) {
+
+			commerceApplicationModelLocalService.deleteCommerceApplicationModel(
+				commerceApplicationModel);
+		}
 	}
 
 	@Override
