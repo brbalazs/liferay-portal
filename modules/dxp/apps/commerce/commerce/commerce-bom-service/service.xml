@@ -20,10 +20,10 @@
 
 		<!-- Other fields -->
 
-		<column name="name" type="String" />
-		<column name="imageId" type="long" />
-		<column name="friendlyUrl" type="String" />
 		<column name="commerceBOMFolderId" type="long" />
+		<column name="CPAttachmentFileEntryId" type="long" />
+		<column name="name" type="String" />
+		<column name="friendlyUrl" type="String" />
 
 		<!-- Order -->
 
@@ -33,7 +33,7 @@
 
 		<!-- Finders -->
 
-		<finder name="commerceBOMFolderId" return-type="Collection">
+		<finder name="CommerceBOMFolderId" return-type="Collection">
 			<finder-column name="commerceBOMFolderId" />
 		</finder>
 	</entity>
@@ -85,7 +85,7 @@
 
 		<column name="parentCommerceBOMFolderId" type="long" />
 		<column name="name" type="String" />
-		<column name="imageId" type="long" />
+		<column name="logoId" type="long" />
 
 		<!-- Order -->
 
