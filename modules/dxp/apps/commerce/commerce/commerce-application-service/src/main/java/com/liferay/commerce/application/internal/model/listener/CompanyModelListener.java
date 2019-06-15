@@ -12,18 +12,15 @@
  *
  */
 
-package com.liferay.commerce.bom.internal.model.listener;
+package com.liferay.commerce.application.internal.model.listener;
 
-import com.liferay.commerce.bom.model.CommerceBOMFolderConstants;
-import com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalService;
-import com.liferay.commerce.bom.service.CommerceBOMFolderLocalService;
+import com.liferay.commerce.application.service.CommerceApplicationBrandLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.BaseModelListener;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.ModelListener;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -36,11 +33,8 @@ public class CompanyModelListener extends BaseModelListener<Company> {
 	@Override
 	public void onBeforeRemove(Company company) {
 		try {
-			_commerceBOMDefinitionLocalService.deleteCommerceBOMDefinitions(
-				CommerceBOMFolderConstants.DEFAULT_COMMERCE_BOM_FOLDER_ID);
-
-			_commerceBOMFolderLocalService.deleteCommerceBOMFolders(
-				company.getCompanyId());
+			_commerceApplicationBrandLocalService.
+				deleteCommerceApplicationBrands(company.getCompanyId());
 		}
 		catch (PortalException pe) {
 			if (_log.isWarnEnabled()) {
@@ -53,10 +47,7 @@ public class CompanyModelListener extends BaseModelListener<Company> {
 		CompanyModelListener.class);
 
 	@Reference
-	private CommerceBOMDefinitionLocalService
-		_commerceBOMDefinitionLocalService;
-
-	@Reference
-	private CommerceBOMFolderLocalService _commerceBOMFolderLocalService;
+	private CommerceApplicationBrandLocalService
+		_commerceApplicationBrandLocalService;
 
 }
