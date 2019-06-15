@@ -12,17 +12,15 @@
  *
  */
 
-package com.liferay.commerce.bom.constants;
+package com.liferay.commerce.application.constants;
 
 /**
- * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
-public class CommerceBOMActionKeys {
+public class CommerceApplicationPortletKeys {
 
-	public static final String ADD_COMMERCE_BOM_DEFINITION =
-		"ADD_COMMERCE_BOM_DEFINITION";
-
-	public static final String ADD_COMMERCE_BOM_FOLDER =
-		"ADD_COMMERCE_BOM_FOLDER";
+	public static final String COMMERCE_APPLICATION_ADMIN =
+		"com_liferay_commerce_application_admin_web_internal_portlet_" +
+			"CommerceBOMAdminPortlet";
 
 }
