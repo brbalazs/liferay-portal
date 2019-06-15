@@ -15,6 +15,7 @@
 package com.liferay.commerce.bom.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.commerce.product.service.CPAttachmentFileEntryLocalServiceUtil;
 

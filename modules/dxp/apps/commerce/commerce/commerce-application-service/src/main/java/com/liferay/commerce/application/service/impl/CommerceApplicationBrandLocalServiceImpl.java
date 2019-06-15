@@ -36,15 +36,6 @@ import java.util.List;
 public class CommerceApplicationBrandLocalServiceImpl
 	extends CommerceApplicationBrandLocalServiceBaseImpl {
 
-	private static volatile UserFileUploadsSettings _userFileUploadsSettings =
-		ServiceProxyFactory.newServiceTrackedInstance(
-			UserFileUploadsSettings.class,
-			CommerceApplicationBrandLocalServiceImpl.class,
-			"_userFileUploadsSettings", false);
-
-	@ServiceReference(type = Portal.class)
-	private Portal _portal;
-
 	@Override
 	public CommerceApplicationBrand addCommerceApplicationBrand(
 			long userId, String name, boolean logo, byte[] logoBytes)
@@ -153,5 +144,14 @@ public class CommerceApplicationBrandLocalServiceImpl
 		return commerceApplicationBrandPersistence.update(
 			commerceApplicationBrand);
 	}
+
+	private static volatile UserFileUploadsSettings _userFileUploadsSettings =
+		ServiceProxyFactory.newServiceTrackedInstance(
+			UserFileUploadsSettings.class,
+			CommerceApplicationBrandLocalServiceImpl.class,
+			"_userFileUploadsSettings", false);
+
+	@ServiceReference(type = Portal.class)
+	private Portal _portal;
 
 }

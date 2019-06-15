@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.util.ArrayUtil;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -40,17 +41,20 @@ public class CommerceApplicationBrandPermissionImpl
 		if (!contains(permissionChecker, commerceApplicationBrand, actionId)) {
 			throw new PrincipalException.MustHavePermission(
 				permissionChecker, CommerceApplicationBrand.class.getName(),
-				commerceApplicationBrand.getCommerceApplicationBrandId(), actionId);
+				commerceApplicationBrand.getCommerceApplicationBrandId(),
+				actionId);
 		}
 	}
 
 	@Override
 	public void check(
-			PermissionChecker permissionChecker, long commerceApplicationBrandId,
-			String actionId)
+			PermissionChecker permissionChecker,
+			long commerceApplicationBrandId, String actionId)
 		throws PortalException {
 
-		if (!contains(permissionChecker, commerceApplicationBrandId, actionId)) {
+		if (!contains(
+				permissionChecker, commerceApplicationBrandId, actionId)) {
+
 			throw new PrincipalException.MustHavePermission(
 				permissionChecker, CommerceApplicationBrand.class.getName(),
 				commerceApplicationBrandId, actionId);
@@ -102,7 +106,7 @@ public class CommerceApplicationBrandPermissionImpl
 		for (long commerceApplicationBrandId : commerceApplicationBrandIds) {
 			if (!contains(
 					permissionChecker, commerceApplicationBrandId, actionId)) {
-				
+
 				return false;
 			}
 		}

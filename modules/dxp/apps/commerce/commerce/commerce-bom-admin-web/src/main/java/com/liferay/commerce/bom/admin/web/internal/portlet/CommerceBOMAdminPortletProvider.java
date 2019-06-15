@@ -17,6 +17,7 @@ package com.liferay.commerce.bom.admin.web.internal.portlet;
 import com.liferay.commerce.bom.constants.CommerceBOMPortletKeys;
 import com.liferay.portal.kernel.portlet.BasePortletProvider;
 import com.liferay.portal.kernel.portlet.ManagePortletProvider;
+
 import org.osgi.service.component.annotations.Component;
 
 /**

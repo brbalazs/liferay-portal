@@ -16,7 +16,6 @@ package com.liferay.commerce.bom.service.impl;
 
 import com.liferay.commerce.bom.constants.CommerceBOMActionKeys;
 import com.liferay.commerce.bom.model.CommerceBOMDefinition;
-import com.liferay.commerce.bom.model.CommerceBOMFolder;
 import com.liferay.commerce.bom.service.base.CommerceBOMDefinitionServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
@@ -44,7 +43,8 @@ public class CommerceBOMDefinitionServiceImpl
 			CommerceBOMActionKeys.ADD_COMMERCE_BOM_DEFINITION);
 
 		return commerceBOMDefinitionLocalService.addCommerceBOMDefinition(
-			userId, commerceBOMFolderId, cpAttachmentFileEntryId, name, friendlyUrl);
+			userId, commerceBOMFolderId, cpAttachmentFileEntryId, name,
+			friendlyUrl);
 	}
 
 	@Override
@@ -80,9 +80,8 @@ public class CommerceBOMDefinitionServiceImpl
 
 	@Override
 	public int getCommerceBOMDefinitionsCount(long commerceBOMFolderId) {
-		return
-			commerceBOMDefinitionPersistence.filterCountByCommerceBOMFolderId(
-				commerceBOMFolderId);
+		return commerceBOMDefinitionPersistence.
+			filterCountByCommerceBOMFolderId(commerceBOMFolderId);
 	}
 
 	@Override

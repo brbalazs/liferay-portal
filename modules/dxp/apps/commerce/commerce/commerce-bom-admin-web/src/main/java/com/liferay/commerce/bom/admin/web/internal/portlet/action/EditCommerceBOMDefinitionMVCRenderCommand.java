@@ -16,11 +16,12 @@ package com.liferay.commerce.bom.admin.web.internal.portlet.action;
 
 import com.liferay.commerce.bom.constants.CommerceBOMPortletKeys;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
-import org.osgi.service.component.annotations.Component;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Alessio Antonio Rendina
@@ -33,7 +34,8 @@ import javax.portlet.RenderResponse;
 	},
 	service = MVCRenderCommand.class
 )
-public class EditCommerceBOMDefinitionMVCRenderCommand implements MVCRenderCommand {
+public class EditCommerceBOMDefinitionMVCRenderCommand
+	implements MVCRenderCommand {
 
 	@Override
 	public String render(

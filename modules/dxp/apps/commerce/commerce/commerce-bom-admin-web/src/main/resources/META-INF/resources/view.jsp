@@ -161,7 +161,6 @@ CommerceBOMAdminDisplayContext commerceBOMAdminDisplayContext = (CommerceBOMAdmi
 						cssClass="entry-action-column"
 						path="/bom_folder_action.jsp"
 					/>
-
 				</c:when>
 			</c:choose>
 		</liferay-ui:search-container-row>

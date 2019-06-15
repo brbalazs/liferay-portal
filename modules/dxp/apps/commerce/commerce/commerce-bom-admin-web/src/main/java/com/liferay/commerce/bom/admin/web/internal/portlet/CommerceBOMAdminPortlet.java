@@ -103,26 +103,26 @@ public class CommerceBOMAdminPortlet extends MVCPortlet {
 			UserFileUploadsConfiguration.class, properties);
 	}
 
-	@Reference
-	private ItemSelector _itemSelector;
-
-	@Reference
-	private CommerceBOMDefinitionService _commerceBOMDefinitionService;
-
-	@Reference
-	private CommerceBOMFolderService _commerceBOMFolderService;
-
 	@Reference(
-			target = "(model.class.name=com.liferay.commerce.bom.model.CommerceBOMDefinition)"
+		target = "(model.class.name=com.liferay.commerce.bom.model.CommerceBOMDefinition)"
 	)
 	private ModelResourcePermission<CommerceBOMDefinition>
 		_commerceBOMDefinitionModelResourcePermission;
 
+	@Reference
+	private CommerceBOMDefinitionService _commerceBOMDefinitionService;
+
 	@Reference(
-			target = "(model.class.name=com.liferay.commerce.bom.model.CommerceBOMFolder)"
+		target = "(model.class.name=com.liferay.commerce.bom.model.CommerceBOMFolder)"
 	)
 	private ModelResourcePermission<CommerceBOMFolder>
 		_commerceBOMFolderModelResourcePermission;
+
+	@Reference
+	private CommerceBOMFolderService _commerceBOMFolderService;
+
+	@Reference
+	private ItemSelector _itemSelector;
 
 	@Reference
 	private Portal _portal;

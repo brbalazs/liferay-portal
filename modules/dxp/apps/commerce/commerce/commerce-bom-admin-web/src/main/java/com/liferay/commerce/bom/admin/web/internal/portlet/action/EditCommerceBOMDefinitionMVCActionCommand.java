@@ -23,7 +23,6 @@ import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.commerce.product.model.CPAttachmentFileEntryConstants;
 import com.liferay.commerce.product.service.CPAttachmentFileEntryService;
 import com.liferay.document.library.kernel.exception.NoSuchFileEntryException;
-import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -40,16 +39,17 @@ import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.StringUtil;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.concurrent.Callable;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Alessio Antonio Rendina
@@ -103,7 +103,7 @@ public class EditCommerceBOMDefinitionMVCActionCommand
 				actionResponse.setRenderParameter("mvcPath", "/error.jsp");
 			}
 			else if (t instanceof DuplicateCPAttachmentFileEntryException ||
-					t instanceof NoSuchFileEntryException) {
+					 t instanceof NoSuchFileEntryException) {
 
 				hideDefaultErrorMessage(actionRequest);
 
@@ -212,7 +212,6 @@ public class EditCommerceBOMDefinitionMVCActionCommand
 					cpAttachmentFileEntry.getCPAttachmentFileEntryId(), name);
 		}
 
-
 		return commerceBOMDefinition;
 	}
 
@@ -222,6 +221,15 @@ public class EditCommerceBOMDefinitionMVCActionCommand
 	private static final TransactionConfig _transactionConfig =
 		TransactionConfig.Factory.create(
 			Propagation.REQUIRED, new Class<?>[] {Exception.class});
+
+	@Reference
+	private ClassNameLocalService _classNameLocalService;
+
+	@Reference
+	private CommerceBOMDefinitionService _commerceBOMDefinitionService;
+
+	@Reference
+	private CPAttachmentFileEntryService _cpAttachmentFileEntryService;
 
 	private class CommerceBOMDefinitionCallable
 		implements Callable<CommerceBOMDefinition> {
@@ -238,14 +246,5 @@ public class EditCommerceBOMDefinitionMVCActionCommand
 		private final ActionRequest _actionRequest;
 
 	}
-
-	@Reference
-	private ClassNameLocalService _classNameLocalService;
-
-	@Reference
-	private CPAttachmentFileEntryService _cpAttachmentFileEntryService;
-
-	@Reference
-	private CommerceBOMDefinitionService _commerceBOMDefinitionService;
 
 }

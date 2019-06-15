@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -46,8 +47,8 @@ public class CommerceApplicationBrandModelResourcePermission
 
 	@Override
 	public void check(
-			PermissionChecker permissionChecker, long commerceApplicationBrandId,
-			String actionId)
+			PermissionChecker permissionChecker,
+			long commerceApplicationBrandId, String actionId)
 		throws PortalException {
 
 		commerceApplicationBrandPermission.check(
@@ -66,8 +67,8 @@ public class CommerceApplicationBrandModelResourcePermission
 
 	@Override
 	public boolean contains(
-			PermissionChecker permissionChecker, long commerceApplicationBrandId,
-			String actionId)
+			PermissionChecker permissionChecker,
+			long commerceApplicationBrandId, String actionId)
 		throws PortalException {
 
 		return commerceApplicationBrandPermission.contains(

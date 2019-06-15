@@ -90,4 +90,5 @@ public class CommerceApplicationModelCProductRelServiceImpl
 				CommerceApplicationModelCProductRelServiceImpl.class,
 				"_commerceApplicationModelModelResourcePermission",
 				CommerceApplicationModel.class);
+
 }

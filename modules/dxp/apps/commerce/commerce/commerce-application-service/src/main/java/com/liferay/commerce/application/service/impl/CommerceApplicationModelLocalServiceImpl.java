@@ -105,8 +105,7 @@ public class CommerceApplicationModelLocalServiceImpl
 	}
 
 	@Override
-	public void deleteCommerceApplicationModels(
-			long commerceApplicationBrandId)
+	public void deleteCommerceApplicationModels(long commerceApplicationBrandId)
 		throws PortalException {
 
 		List<CommerceApplicationModel> commerceApplicationModels =

@@ -26,8 +26,6 @@ import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorReturnType;
 import com.liferay.item.selector.criteria.FileEntryItemSelectorReturnType;
 import com.liferay.item.selector.criteria.image.criterion.ImageItemSelectorCriterion;
-import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
-import com.liferay.portal.kernel.dao.search.RowChecker;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
@@ -51,6 +49,7 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.users.admin.configuration.UserFileUploadsConfiguration;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -93,11 +92,138 @@ public class CommerceBOMAdminDisplayContext {
 			httpServletRequest);
 	}
 
-	private final ItemSelector _itemSelector;
-	private final AttachmentsConfiguration _attachmentsConfiguration;
+	public void addPortletBreadcrumbEntries() throws Exception {
+		ThemeDisplay themeDisplay =
+			_commerceBOMAdminRequestHelper.getThemeDisplay();
+
+		PortletURL portletURL = getPortletURL();
+
+		portletURL.setParameter(
+			"commerceBOMFolderId",
+			String.valueOf(
+				CommerceBOMFolderConstants.DEFAULT_COMMERCE_BOM_FOLDER_ID));
+
+		Map<String, Object> homeData = new HashMap<>();
+
+		homeData.put(
+			"commerce-bom-folder-id",
+			CommerceBOMFolderConstants.DEFAULT_COMMERCE_BOM_FOLDER_ID);
+		homeData.put("direction-right", Boolean.TRUE.toString());
+
+		PortalUtil.addPortletBreadcrumbEntry(
+			_commerceBOMAdminRequestHelper.getRequest(),
+			themeDisplay.translate("home"), portletURL.toString(), homeData);
+
+		CommerceBOMFolder commerceBOMFolder = getCommerceBOMFolder();
+
+		if (commerceBOMFolder == null) {
+			return;
+		}
+
+		List<CommerceBOMFolder> ancestorCommerceBOMFolders =
+			commerceBOMFolder.getAncestors();
+
+		Collections.reverse(ancestorCommerceBOMFolders);
+
+		for (CommerceBOMFolder ancestorCommerceBOMFolder :
+				ancestorCommerceBOMFolders) {
+
+			portletURL.setParameter(
+				"commerceBOMFolderId",
+				String.valueOf(
+					ancestorCommerceBOMFolder.getCommerceBOMFolderId()));
+
+			Map<String, Object> data = new HashMap<>();
+
+			data.put(
+				"commerce-bom-folder-id",
+				ancestorCommerceBOMFolder.getCommerceBOMFolderId());
+			data.put("direction-right", Boolean.TRUE.toString());
+
+			PortalUtil.addPortletBreadcrumbEntry(
+				_commerceBOMAdminRequestHelper.getRequest(),
+				ancestorCommerceBOMFolder.getName(), portletURL.toString(),
+				data);
+		}
+
+		portletURL.setParameter(
+			"commerceBOMFolderId",
+			String.valueOf(commerceBOMFolder.getCommerceBOMFolderId()));
+
+		if (commerceBOMFolder.getCommerceBOMFolderId() !=
+				CommerceBOMFolderConstants.DEFAULT_COMMERCE_BOM_FOLDER_ID) {
+
+			CommerceBOMFolder unescapedCommerceBOMFolder =
+				commerceBOMFolder.toUnescapedModel();
+
+			Map<String, Object> data = new HashMap<>();
+
+			data.put(
+				"commerce-bom-folder-id",
+				commerceBOMFolder.getCommerceBOMFolderId());
+			data.put("direction-right", Boolean.TRUE.toString());
+
+			PortalUtil.addPortletBreadcrumbEntry(
+				_commerceBOMAdminRequestHelper.getRequest(),
+				unescapedCommerceBOMFolder.getName(), portletURL.toString(),
+				data);
+		}
+	}
+
+	public CommerceBOMDefinition getCommerceBOMDefinition()
+		throws PortalException {
+
+		long commerceBOMDefinitionId = ParamUtil.getLong(
+			_commerceBOMAdminRequestHelper.getRequest(),
+			"commerceBOMDefinitionId");
+
+		if (commerceBOMDefinitionId > 0) {
+			return _commerceBOMDefinitionService.getCommerceBOMDefinition(
+				commerceBOMDefinitionId);
+		}
+
+		return null;
+	}
+
+	public long getCommerceBOMDefinitionId() throws PortalException {
+		CommerceBOMDefinition commerceBOMDefinition =
+			getCommerceBOMDefinition();
+
+		if (commerceBOMDefinition == null) {
+			return 0;
+		}
+
+		return commerceBOMDefinition.getCommerceBOMDefinitionId();
+	}
+
+	public CommerceBOMFolder getCommerceBOMFolder() throws PortalException {
+		long commerceBOMFolderId = ParamUtil.getLong(
+			_commerceBOMAdminRequestHelper.getRequest(), "commerceBOMFolderId");
+
+		if (commerceBOMFolderId > 0) {
+			return _commerceBOMFolderService.getCommerceBOMFolder(
+				commerceBOMFolderId);
+		}
+
+		return null;
+	}
+
+	public long getCommerceBOMFolderId() throws PortalException {
+		CommerceBOMFolder commerceBOMFolder = getCommerceBOMFolder();
+
+		if (commerceBOMFolder == null) {
+			return CommerceBOMFolderConstants.DEFAULT_COMMERCE_BOM_FOLDER_ID;
+		}
+
+		return commerceBOMFolder.getCommerceBOMFolderId();
+	}
 
 	public String[] getImageExtensions() {
 		return _attachmentsConfiguration.imageExtensions();
+	}
+
+	public long getImageMaxSize() {
+		return _attachmentsConfiguration.imageMaxSize();
 	}
 
 	public String getItemSelectorUrl() {
@@ -117,58 +243,6 @@ public class CommerceBOMAdminDisplayContext {
 			imageItemSelectorCriterion);
 
 		return itemSelectorURL.toString();
-	}
-
-	public long getImageMaxSize() {
-		return _attachmentsConfiguration.imageMaxSize();
-	}
-
-	public CommerceBOMDefinition getCommerceBOMDefinition()
-		throws PortalException {
-
-		long commerceBOMDefinitionId = ParamUtil.getLong(
-			_commerceBOMAdminRequestHelper.getRequest(),
-			"commerceBOMDefinitionId");
-
-		if (commerceBOMDefinitionId > 0) {
-			return _commerceBOMDefinitionService.getCommerceBOMDefinition(
-				commerceBOMDefinitionId);
-		}
-
-		return null;
-	}
-
-	public CommerceBOMFolder getCommerceBOMFolder() throws PortalException {
-		long commerceBOMFolderId = ParamUtil.getLong(
-			_commerceBOMAdminRequestHelper.getRequest(), "commerceBOMFolderId");
-
-		if (commerceBOMFolderId > 0) {
-			return _commerceBOMFolderService.getCommerceBOMFolder(
-				commerceBOMFolderId);
-		}
-
-		return null;
-	}
-
-	public long getCommerceBOMDefinitionId() throws PortalException {
-		CommerceBOMDefinition commerceBOMDefinition =
-			getCommerceBOMDefinition();
-
-		if (commerceBOMDefinition == null) {
-			return 0;
-		}
-
-		return commerceBOMDefinition.getCommerceBOMDefinitionId();
-	}
-
-	public long getCommerceBOMFolderId() throws PortalException {
-		CommerceBOMFolder commerceBOMFolder = getCommerceBOMFolder();
-
-		if (commerceBOMFolder == null) {
-			return CommerceBOMFolderConstants.DEFAULT_COMMERCE_BOM_FOLDER_ID;
-		}
-
-		return commerceBOMFolder.getCommerceBOMFolderId();
 	}
 
 	public String getKeywords() {
@@ -192,85 +266,6 @@ public class CommerceBOMAdminDisplayContext {
 		return ParamUtil.getString(
 			_commerceBOMAdminRequestHelper.getRequest(),
 			SearchContainer.DEFAULT_ORDER_BY_TYPE_PARAM, "asc");
-	}
-
-	public void addPortletBreadcrumbEntries() throws Exception {
-		ThemeDisplay themeDisplay =
-			_commerceBOMAdminRequestHelper.getThemeDisplay();
-
-		PortletURL portletURL = getPortletURL();
-
-		portletURL.setParameter(
-			"commerceBOMFolderId",
-			String.valueOf(
-				CommerceBOMFolderConstants.DEFAULT_COMMERCE_BOM_FOLDER_ID));
-
-		Map<String, Object> homeData = new HashMap<>();
-
-		homeData.put("direction-right", Boolean.TRUE.toString());
-		homeData.put(
-			"commerce-bom-folder-id",
-			CommerceBOMFolderConstants.DEFAULT_COMMERCE_BOM_FOLDER_ID);
-
-		PortalUtil.addPortletBreadcrumbEntry(
-			_commerceBOMAdminRequestHelper.getRequest(),
-			themeDisplay.translate("home"), portletURL.toString(),
-			homeData);
-
-		CommerceBOMFolder commerceBOMFolder = getCommerceBOMFolder();
-
-		if (commerceBOMFolder == null) {
-			return;
-		}
-
-		List<CommerceBOMFolder> ancestorCommerceBOMFolders =
-			commerceBOMFolder.getAncestors();
-
-		Collections.reverse(ancestorCommerceBOMFolders);
-
-		for (CommerceBOMFolder ancestorCommerceBOMFolder :
-				ancestorCommerceBOMFolders) {
-
-			portletURL.setParameter(
-				"commerceBOMFolderId",
-				String.valueOf(
-					ancestorCommerceBOMFolder.getCommerceBOMFolderId()));
-
-			Map<String, Object> data = new HashMap<>();
-
-			data.put("direction-right", Boolean.TRUE.toString());
-			data.put(
-				"commerce-bom-folder-id",
-				ancestorCommerceBOMFolder.getCommerceBOMFolderId());
-
-			PortalUtil.addPortletBreadcrumbEntry(
-				_commerceBOMAdminRequestHelper.getRequest(),
-				ancestorCommerceBOMFolder.getName(), portletURL.toString(),
-				data);
-		}
-
-		portletURL.setParameter(
-			"commerceBOMFolderId",
-				String.valueOf(commerceBOMFolder.getCommerceBOMFolderId()));
-
-		if (commerceBOMFolder.getCommerceBOMFolderId() !=
-				CommerceBOMFolderConstants.DEFAULT_COMMERCE_BOM_FOLDER_ID) {
-
-			CommerceBOMFolder unescapedCommerceBOMFolder =
-				commerceBOMFolder.toUnescapedModel();
-
-			Map<String, Object> data = new HashMap<>();
-
-			data.put("direction-right", Boolean.TRUE.toString());
-			data.put(
-				"commerce-bom-folder-id",
-				commerceBOMFolder.getCommerceBOMFolderId());
-
-			PortalUtil.addPortletBreadcrumbEntry(
-				_commerceBOMAdminRequestHelper.getRequest(),
-				unescapedCommerceBOMFolder.getName(), portletURL.toString(),
-				data);
-		}
 	}
 
 	public PortletURL getPortletURL() throws PortalException {
@@ -385,6 +380,47 @@ public class CommerceBOMAdminDisplayContext {
 		return _searchContainer;
 	}
 
+	public int getTotalItems() throws PortalException {
+		SearchContainer searchContainer = getSearchContainer();
+
+		return searchContainer.getTotal();
+	}
+
+	public UserFileUploadsConfiguration getUserFileUploadsConfiguration() {
+		return _userFileUploadsConfiguration;
+	}
+
+	public boolean hasCommerceBOMDefinitionPermissions(
+			long commerceBOMDefinitionId, String actionId)
+		throws PortalException {
+
+		return _commerceBOMDefinitionModelResourcePermission.contains(
+			_commerceBOMAdminRequestHelper.getPermissionChecker(),
+			commerceBOMDefinitionId, actionId);
+	}
+
+	public boolean hasCommerceBOMFolderPermissions(
+			long commerceBOMFolderId, String actionId)
+		throws PortalException {
+
+		return _commerceBOMFolderModelResourcePermission.contains(
+			_commerceBOMAdminRequestHelper.getPermissionChecker(),
+			commerceBOMFolderId, actionId);
+	}
+
+	public boolean hasPermissions(String actionId) {
+		return PortalPermissionUtil.contains(
+			_commerceBOMAdminRequestHelper.getPermissionChecker(), actionId);
+	}
+
+	public boolean hasResults() throws PortalException {
+		if (getTotalItems() > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
 	protected SearchContext buildSearchContext(
 		long companyId, String keywords, int start, int end, Sort sort) {
 
@@ -421,54 +457,15 @@ public class CommerceBOMAdminDisplayContext {
 		return searchContext;
 	}
 
-	public UserFileUploadsConfiguration getUserFileUploadsConfiguration() {
-		return _userFileUploadsConfiguration;
-	}
-
-	public int getTotalItems() throws PortalException {
-		SearchContainer searchContainer = getSearchContainer();
-
-		return searchContainer.getTotal();
-	}
-
-	public boolean hasResults() throws PortalException {
-		if (getTotalItems() > 0) {
-			return true;
-		}
-
-		return false;
-	}
-
-	public boolean hasCommerceBOMDefinitionPermissions(
-			long commerceBOMDefinitionId, String actionId)
-		throws PortalException {
-
-		return _commerceBOMDefinitionModelResourcePermission.contains(
-			_commerceBOMAdminRequestHelper.getPermissionChecker(),
-			commerceBOMDefinitionId, actionId);
-	}
-
-	public boolean hasCommerceBOMFolderPermissions(
-			long commerceBOMFolderId, String actionId)
-		throws PortalException {
-
-		return _commerceBOMFolderModelResourcePermission.contains(
-			_commerceBOMAdminRequestHelper.getPermissionChecker(),
-			commerceBOMFolderId, actionId);
-	}
-
-	public boolean hasPermissions(String actionId) {
-		return PortalPermissionUtil.contains(
-			_commerceBOMAdminRequestHelper.getPermissionChecker(), actionId);
-	}
-
+	private final AttachmentsConfiguration _attachmentsConfiguration;
 	private final CommerceBOMAdminRequestHelper _commerceBOMAdminRequestHelper;
 	private final ModelResourcePermission<CommerceBOMDefinition>
 		_commerceBOMDefinitionModelResourcePermission;
+	private final CommerceBOMDefinitionService _commerceBOMDefinitionService;
 	private final ModelResourcePermission<CommerceBOMFolder>
 		_commerceBOMFolderModelResourcePermission;
-	private final CommerceBOMDefinitionService _commerceBOMDefinitionService;
 	private final CommerceBOMFolderService _commerceBOMFolderService;
+	private final ItemSelector _itemSelector;
 	private String _keywords;
 	private SearchContainer _searchContainer;
 	private final UserFileUploadsConfiguration _userFileUploadsConfiguration;

@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.commerce.bom.admin.web.internal.servlet.taglib.ui;
@@ -37,16 +37,19 @@ import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.WebKeys;
+
+import java.io.IOException;
+
+import java.util.Locale;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Locale;
-import java.util.Map;
 
 /**
  * @author Alessio Antonio Rendina
@@ -65,8 +68,8 @@ public class CommerceBOMDefinitionDetailsScreenNavigationEntry
 
 	@Override
 	public String getCategoryKey() {
-		return
-			CommerceBOMDefinitionScreenNavigationConstants.CATEGORY_KEY_DETAILS;
+		return CommerceBOMDefinitionScreenNavigationConstants.
+			CATEGORY_KEY_DETAILS;
 	}
 
 	@Override
@@ -98,11 +101,9 @@ public class CommerceBOMDefinitionDetailsScreenNavigationEntry
 					permissionChecker,
 					CommerceBOMActionKeys.ADD_COMMERCE_BOM_DEFINITION);
 			}
-			else {
-				return _commerceBOMDefinitionModelResourcePermission.contains(
-					permissionChecker, commerceBOMDefinition,
-					ActionKeys.UPDATE);
-			}
+
+			return _commerceBOMDefinitionModelResourcePermission.contains(
+				permissionChecker, commerceBOMDefinition, ActionKeys.UPDATE);
 		}
 		catch (PortalException pe) {
 			_log.error(pe, pe);
@@ -145,26 +146,26 @@ public class CommerceBOMDefinitionDetailsScreenNavigationEntry
 
 	private volatile AttachmentsConfiguration _attachmentsConfiguration;
 
-	@Reference
-	private ItemSelector _itemSelector;
-
-	@Reference
-	private CommerceBOMDefinitionService _commerceBOMDefinitionService;
-
-	@Reference
-	private CommerceBOMFolderService _commerceBOMFolderService;
-
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.bom.model.CommerceBOMDefinition)"
 	)
 	private ModelResourcePermission<CommerceBOMDefinition>
 		_commerceBOMDefinitionModelResourcePermission;
 
+	@Reference
+	private CommerceBOMDefinitionService _commerceBOMDefinitionService;
+
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.bom.model.CommerceBOMFolder)"
 	)
 	private ModelResourcePermission<CommerceBOMFolder>
 		_commerceBOMFolderModelResourcePermission;
+
+	@Reference
+	private CommerceBOMFolderService _commerceBOMFolderService;
+
+	@Reference
+	private ItemSelector _itemSelector;
 
 	@Reference
 	private JSPRenderer _jspRenderer;

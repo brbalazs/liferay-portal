@@ -29,44 +29,44 @@ long fileEntryId = BeanParamUtil.getLong(cpAttachmentFileEntry, request, "fileEn
 <portlet:actionURL name="editCommerceBOMDefinition" var="editCommerceBOMDefinitionActionURL" />
 
 <div class="container-fluid-1280 entry-body">
-    <aui:form action="<%= editCommerceBOMDefinitionActionURL %>" method="post" name="fm">
-        <aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commerceBOMDefinition == null) ? Constants.ADD : Constants.UPDATE %>" />
-        <aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-        <aui:input name="commerceBOMDefinitionId" type="hidden" value="<%= commerceBOMAdminDisplayContext.getCommerceBOMDefinitionId() %>" />
-        <aui:input name="commerceBOMFolderId" type="hidden" value="<%= commerceBOMAdminDisplayContext.getCommerceBOMFolderId() %>" />
+	<aui:form action="<%= editCommerceBOMDefinitionActionURL %>" method="post" name="fm">
+		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commerceBOMDefinition == null) ? Constants.ADD : Constants.UPDATE %>" />
+		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+		<aui:input name="commerceBOMDefinitionId" type="hidden" value="<%= commerceBOMAdminDisplayContext.getCommerceBOMDefinitionId() %>" />
+		<aui:input name="commerceBOMFolderId" type="hidden" value="<%= commerceBOMAdminDisplayContext.getCommerceBOMFolderId() %>" />
 
-        <aui:model-context bean="<%= commerceBOMDefinition %>" model="<%= CommerceBOMDefinition.class %>" />
+		<aui:model-context bean="<%= commerceBOMDefinition %>" model="<%= CommerceBOMDefinition.class %>" />
 
-        <liferay-ui:error exception="<%= DuplicateCPAttachmentFileEntryException.class %>" message="that-attachment-is-already-in-use-on-this-product" />
-        <liferay-ui:error exception="<%= NoSuchFileEntryException.class %>" message="please-select-an-existing-file" />
+		<liferay-ui:error exception="<%= DuplicateCPAttachmentFileEntryException.class %>" message="that-attachment-is-already-in-use-on-this-product" />
+		<liferay-ui:error exception="<%= NoSuchFileEntryException.class %>" message="please-select-an-existing-file" />
 
-        <aui:fieldset-group markupView="lexicon">
-            <aui:fieldset>
-                <portlet:actionURL name="uploadTempAttachment" var="uploadCoverImageURL" />
+		<aui:fieldset-group markupView="lexicon">
+			<aui:fieldset>
+				<portlet:actionURL name="uploadTempAttachment" var="uploadCoverImageURL" />
 
-                <div class="lfr-attachment-cover-image-selector">
-                    <liferay-item-selector:image-selector
-                        draggableImage="vertical"
-                        fileEntryId="<%= fileEntryId %>"
-                        itemSelectorEventName='<%= "addCPAttachmentFileEntry" %>'
-                        itemSelectorURL="<%= commerceBOMAdminDisplayContext.getItemSelectorUrl() %>"
-                        maxFileSize="<%= commerceBOMAdminDisplayContext.getImageMaxSize() %>"
-                        paramName="fileEntry"
-                        uploadURL="<%= uploadCoverImageURL %>"
-                        validExtensions='<%= StringUtil.merge(commerceBOMAdminDisplayContext.getImageExtensions(), ", ") %>'
-                    />
-                </div>
+				<div class="lfr-attachment-cover-image-selector">
+					<liferay-item-selector:image-selector
+						draggableImage="vertical"
+						fileEntryId="<%= fileEntryId %>"
+						itemSelectorEventName='<%= "addCPAttachmentFileEntry" %>'
+						itemSelectorURL="<%= commerceBOMAdminDisplayContext.getItemSelectorUrl() %>"
+						maxFileSize="<%= commerceBOMAdminDisplayContext.getImageMaxSize() %>"
+						paramName="fileEntry"
+						uploadURL="<%= uploadCoverImageURL %>"
+						validExtensions='<%= StringUtil.merge(commerceBOMAdminDisplayContext.getImageExtensions(), ", ") %>'
+					/>
+				</div>
 
-                <aui:input name="name" />
-            </aui:fieldset>
+				<aui:input name="name" />
+			</aui:fieldset>
 
-            <aui:fieldset>
-                <aui:button-row>
-                    <aui:button cssClass="btn-lg" type="submit" value="save" />
+			<aui:fieldset>
+				<aui:button-row>
+					<aui:button cssClass="btn-lg" type="submit" value="save" />
 
-                    <aui:button cssClass="btn-lg" href="<%= backURL %>" type="cancel" />
-                </aui:button-row>
-            </aui:fieldset>
-        </aui:fieldset-group>
-    </aui:form>
+					<aui:button cssClass="btn-lg" href="<%= backURL %>" type="cancel" />
+				</aui:button-row>
+			</aui:fieldset>
+		</aui:fieldset-group>
+	</aui:form>
 </div>

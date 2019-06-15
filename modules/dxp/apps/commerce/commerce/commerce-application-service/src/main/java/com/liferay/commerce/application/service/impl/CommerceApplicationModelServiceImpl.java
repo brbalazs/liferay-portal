@@ -45,8 +45,7 @@ public class CommerceApplicationModelServiceImpl
 	}
 
 	@Override
-	public void deleteCommerceApplicationModel(
-			long commerceApplicationModelId)
+	public void deleteCommerceApplicationModel(long commerceApplicationModelId)
 		throws PortalException {
 
 		_commerceApplicationModelModelResourcePermission.check(

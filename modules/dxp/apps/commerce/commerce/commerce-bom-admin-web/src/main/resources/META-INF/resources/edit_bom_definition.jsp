@@ -23,9 +23,9 @@ CommerceBOMDefinition commerceBOMDefinition = commerceBOMAdminDisplayContext.get
 %>
 
 <liferay-frontend:screen-navigation
-    containerCssClass="col-md-10"
-    key="<%= CommerceBOMDefinitionScreenNavigationConstants.SCREEN_NAVIGATION_KEY %>"
-    modelBean="<%= commerceBOMDefinition %>"
-    navCssClass="col-md-2"
-    portletURL="<%= currentURLObj %>"
+	containerCssClass="col-md-10"
+	key="<%= CommerceBOMDefinitionScreenNavigationConstants.SCREEN_NAVIGATION_KEY %>"
+	modelBean="<%= commerceBOMDefinition %>"
+	navCssClass="col-md-2"
+	portletURL="<%= currentURLObj %>"
 />

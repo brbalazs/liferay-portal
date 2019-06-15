@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.util.ArrayUtil;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -78,8 +79,8 @@ public class CommerceApplicationModelPermissionImpl
 
 	@Override
 	public boolean contains(
-		PermissionChecker permissionChecker,
-		long commerceApplicationModelId, String actionId) {
+		PermissionChecker permissionChecker, long commerceApplicationModelId,
+		String actionId) {
 
 		CommerceApplicationModel commerceApplicationModel =
 			_commerceApplicationModelLocalService.fetchCommerceApplicationModel(
@@ -105,7 +106,7 @@ public class CommerceApplicationModelPermissionImpl
 		for (long commerceApplicationModelId : commerceApplicationModelIds) {
 			if (!contains(
 					permissionChecker, commerceApplicationModelId, actionId)) {
-				
+
 				return false;
 			}
 		}

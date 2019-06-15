@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.commerce.bom.internal.search;
@@ -30,22 +30,27 @@ import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Summary;
 import com.liferay.portal.kernel.search.filter.BooleanFilter;
 import com.liferay.portal.kernel.util.GetterUtil;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
+
+import java.util.Locale;
 
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
-import java.util.Locale;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Alessio Antonio Rendina
  */
 @Component(immediate = true, service = Indexer.class)
-public class CommerceBOMDefinitionIndexer extends BaseIndexer<CommerceBOMDefinition> {
+public class CommerceBOMDefinitionIndexer
+	extends BaseIndexer<CommerceBOMDefinition> {
 
-	public static final String CLASS_NAME = CommerceBOMDefinition.class.getName();
+	public static final String CLASS_NAME =
+		CommerceBOMDefinition.class.getName();
 
-	public static final String FIELD_COMMERCE_BOM_FOLDER_ID = "commerceBOMFolderId";
+	public static final String FIELD_COMMERCE_BOM_FOLDER_ID =
+		"commerceBOMFolderId";
 
 	@Override
 	public String getClassName() {
@@ -72,14 +77,17 @@ public class CommerceBOMDefinitionIndexer extends BaseIndexer<CommerceBOMDefinit
 	}
 
 	@Override
-	protected Document doGetDocument(CommerceBOMDefinition commerceBOMDefinition)
+	protected Document doGetDocument(
+			CommerceBOMDefinition commerceBOMDefinition)
 		throws Exception {
 
 		if (_log.isDebugEnabled()) {
-			_log.debug("Indexing commerce BOM definition " + commerceBOMDefinition);
+			_log.debug(
+				"Indexing commerce BOM definition " + commerceBOMDefinition);
 		}
 
-		Document document = getBaseModelDocument(CLASS_NAME, commerceBOMDefinition);
+		Document document = getBaseModelDocument(
+			CLASS_NAME, commerceBOMDefinition);
 
 		document.addText(Field.NAME, commerceBOMDefinition.getName());
 		document.addNumber(
@@ -87,7 +95,8 @@ public class CommerceBOMDefinitionIndexer extends BaseIndexer<CommerceBOMDefinit
 			commerceBOMDefinition.getCommerceBOMFolderId());
 
 		if (_log.isDebugEnabled()) {
-			_log.debug("Document " + commerceBOMDefinition + " indexed successfully");
+			_log.debug(
+				"Document " + commerceBOMDefinition + " indexed successfully");
 		}
 
 		return document;
@@ -109,7 +118,7 @@ public class CommerceBOMDefinitionIndexer extends BaseIndexer<CommerceBOMDefinit
 	@Override
 	protected void doReindex(CommerceBOMDefinition commerceBOMDefinition)
 		throws Exception {
-		
+
 		Document document = getDocument(commerceBOMDefinition);
 
 		_indexWriterHelper.updateDocument(
@@ -120,7 +129,8 @@ public class CommerceBOMDefinitionIndexer extends BaseIndexer<CommerceBOMDefinit
 	@Override
 	protected void doReindex(String className, long classPK) throws Exception {
 		CommerceBOMDefinition commerceBOMDefinition =
-			_commerceBOMDefinitionLocalService.getCommerceBOMDefinition(classPK);
+			_commerceBOMDefinitionLocalService.getCommerceBOMDefinition(
+				classPK);
 
 		doReindex(commerceBOMDefinition);
 	}
@@ -136,7 +146,8 @@ public class CommerceBOMDefinitionIndexer extends BaseIndexer<CommerceBOMDefinit
 		throws PortalException {
 
 		final IndexableActionableDynamicQuery indexableActionableDynamicQuery =
-			_commerceBOMDefinitionLocalService.getIndexableActionableDynamicQuery();
+			_commerceBOMDefinitionLocalService.
+				getIndexableActionableDynamicQuery();
 
 		indexableActionableDynamicQuery.setCompanyId(companyId);
 		indexableActionableDynamicQuery.setPerformActionMethod(
@@ -150,7 +161,8 @@ public class CommerceBOMDefinitionIndexer extends BaseIndexer<CommerceBOMDefinit
 					if (_log.isWarnEnabled()) {
 						_log.warn(
 							"Unable to index commerce BOM definition " +
-								commerceBOMDefinition.getCommerceBOMDefinitionId(),
+								commerceBOMDefinition.
+									getCommerceBOMDefinitionId(),
 							pe);
 					}
 				}
@@ -164,7 +176,8 @@ public class CommerceBOMDefinitionIndexer extends BaseIndexer<CommerceBOMDefinit
 		CommerceBOMDefinitionIndexer.class);
 
 	@Reference
-	private CommerceBOMDefinitionLocalService _commerceBOMDefinitionLocalService;
+	private CommerceBOMDefinitionLocalService
+		_commerceBOMDefinitionLocalService;
 
 	@Reference
 	private IndexWriterHelper _indexWriterHelper;

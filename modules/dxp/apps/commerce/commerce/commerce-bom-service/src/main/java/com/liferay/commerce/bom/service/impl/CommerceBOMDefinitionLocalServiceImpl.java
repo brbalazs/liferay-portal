@@ -25,10 +25,6 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.FriendlyURLNormalizerUtil;
-import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.ServiceProxyFactory;
-import com.liferay.portal.spring.extender.service.ServiceReference;
-import com.liferay.users.admin.kernel.file.uploads.UserFileUploadsSettings;
 
 import java.util.List;
 
