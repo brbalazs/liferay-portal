@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-import BaseDatalist from './BaseDatalist.es';
-import Connector from '../../utilities/data_connectors/Connector.es';
 import Datasource from '../../utilities/data_connectors/Datasource.es';
+import Connector from '../../utilities/data_connectors/Connector.es';
+import BaseDatalist from './BaseDatalist.es';
 
 class Datalist extends Component {
 	constructor(props) {
 		super(props);
-		const {connectorSettings, datasourceSettings} = props;
+		const { connectorSettings, datasourceSettings } = props;
 
 		this.state = {
 			datasource: this.initializeDatasource(datasourceSettings),
@@ -18,7 +18,7 @@ class Datalist extends Component {
 	}
 
 	initializeDatasource(datasourceSettings) {
-		const {on, ...settings} = datasourceSettings;
+		const { on, ...settings } = datasourceSettings;
 		return new Datasource({
 			...settings,
 			on: Object.assign(
@@ -48,21 +48,21 @@ class Datalist extends Component {
 	}
 
 	initializeConnector(connectorSettings) {
-        const {on, ...settings} = connectorSettings;
-        const {notified, ...actions} = on || {};
+        const { on, ...settings } = connectorSettings;
+        const { notified, ...actions } = on || {};
 
 		return new Connector({
 			...settings,
 			on: Object.assign(
 				{},
 				{
-                    getValue: () => this.state.selected
-						? this.state.selected.map(selected => selected.value)
-						: null,
+                    getValue: () => this.state.selected 
+                        ? this.state.selected.map(selected => selected.value) 
+                        : null,
 					notified: values => {
-                        if (notified) {
-                            notified(values, this.setState.bind(this), this.state.datasource);
-						}
+                        if(notified) {
+                            notified(values, this.setState.bind(this), this.state.datasource)
+                        }
 					}
 				},
 				actions || null
@@ -93,19 +93,19 @@ class Datalist extends Component {
 				break;
 		}
     }
-
+    
     getDisabledState() {
         let disabled;
         switch (true) {
             case typeof this.state.disabled === 'boolean':
-                    disabled = this.state.disabled;
-			break;
+                    disabled = this.state.disabled
+                break;
             case typeof this.props.disabled === 'boolean':
-                    disabled = this.props.disabled;
-			break;
+                    disabled = this.props.disabled
+                break;
             default:
-                disabled = false;
-			break;
+                disabled = false
+                break;
         }
         return disabled;
     }
@@ -113,8 +113,8 @@ class Datalist extends Component {
 	render() {
         const disabledState = this.getDisabledState();
 
-		const {
-			connectorSettings,
+        const { 
+            connectorSettings,
             datasourceSettings,
             disabled,
             ...baseProps
@@ -122,11 +122,11 @@ class Datalist extends Component {
 
 		return (
 			<BaseDatalist
+				emit={(e, payload) => this.emit(e, payload)}
 				data={this.state.data || this.props.data || null}
-				disabled={disabledState}
-                emit={(e, payload) => this.emit(e, payload)}
+                disabled={disabledState}
                 value={this.state.selected}
-				{...baseProps}
+                {...baseProps}
 			/>
 		);
 	}

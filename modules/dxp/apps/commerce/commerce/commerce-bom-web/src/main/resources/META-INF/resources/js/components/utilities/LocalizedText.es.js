@@ -1,16 +1,16 @@
 import React,
 {
     Fragment
-} from 'react';
+} from 'react'
 
 import {
     convertString
 } from '../../utilities/localization.es';
 
 function LocalizedText(props) {
-    return (
+    return(
         <Fragment>{convertString(props.children)}</Fragment>
-    );
+    )
 }
 
-export default LocalizedText;
+export default LocalizedText

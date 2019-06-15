@@ -1,81 +1,81 @@
 import React, {
-    useEffect,
+    useState,
     useRef,
-    useState
+    useEffect
 } from 'react';
 
 export default function Dropdown(props) {
 
-	const [collapseState, setCollapseState] = useState('collapse');
-    const [initialized, setInitialized] = useState(false);
+    const [ collapseState, setCollapseState ] = useState('collapse');
+    const [ initialized, setInitialized ] = useState(false);
     const bodyRef = useRef(null);
 
 
     function toggle() {
         switch (collapseState) {
             case 'collapse':
-                return open();
-		case 'show':
-                return close();
-		default:
+                return open()
+            case 'show':
+                return close()
+            default:
                 break;
         }
     }
 
-	function open() {
+    function open() {
         setCollapseState('showing');
     }
-
+    
     function close() {
         setCollapseState('collapsing');
     }
 
-	function finaliseTransition() {
-        if (collapseState === 'collapsing') {
-            setCollapseState('collapse');
-		}
-
-        if (collapseState === 'showing') {
-            setCollapseState('show');
-		}
-
-	}
-
-	useEffect(() => {
-        if (props.open && !initialized && bodyRef.current) {
-            open();
-
+    function finaliseTransition() {
+        if(collapseState === 'collapsing') {
+            setCollapseState('collapse')
+        }
+        
+        if(collapseState === 'showing') {
+            setCollapseState('show')
         }
 
-		if (collapseState === 'showing') {
+    }
+
+    useEffect(() => {
+        if(props.open && !initialized && bodyRef.current) {
+            open()
+            setInitialized(true)        
+        }
+
+        if(collapseState === 'showing') {
             bodyRef.current.addEventListener('transitionend', finaliseTransition, {once: true});
-            bodyRef.current.style.height = `${bodyRef.current.scrollHeight  }px`;
+            bodyRef.current.style.height = bodyRef.current.scrollHeight + 'px';
         }
 
-		if (collapseState === 'collapsing') {
+        if(collapseState === 'collapsing') {
             bodyRef.current.addEventListener('transitionend', finaliseTransition, {once: true});
             bodyRef.current.style.height = '0px';
         }
-    });
+    })
 
     const simplifiedTitleStateMap = {
-        collapsing: 'collapsed',
-		collapse: 'collapsed',
-		showing: '',
-
-    };
+        collapsing: 'collapsed', 
+        collapse: 'collapsed', 
+        showing: '', 
+        show: '', 
+    }
 
     const simplifiedBodyStateMap = {
-        collapsing: 'collapsing',
-		collapse: 'collapse',
-		showing: 'collapsing',
-
-    };
+        collapsing: 'collapsing', 
+        collapse: 'collapse', 
+        showing: 'collapsing', 
+        show: 'collapse show', 
+    }
 
     return (
-        <div className={`commerce-collapse${props.additionalWrapperClasses ? ` ${props.additionalWrapperClasses}` : ``}`}>
-            <span
-	aria-expanded={props.open}
+        <div className={`commerce-collapse${props.additionalWrapperClasses ? ` ${props.additionalWrapperClasses}` :``}`}>
+            <span 
+                aria-expanded={props.open}
                 className={`collapse-icon sheet-subtitle ${simplifiedTitleStateMap[collapseState]}`}
                 role="tab"
                 onClick={toggle}
@@ -88,13 +88,13 @@ export default function Dropdown(props) {
                     {props.openIcon}
                 </span>
             </span>
-            <div
-				className={`panel-collapse ${simplifiedBodyStateMap[collapseState]}`}
-				role="tabpanel"
+            <div 
+                className={`panel-collapse ${simplifiedBodyStateMap[collapseState]}`} 
+                role="tabpanel"
                 ref={bodyRef}
             >
                 {props.content}
             </div>
         </div>
-    );
+    )
 }

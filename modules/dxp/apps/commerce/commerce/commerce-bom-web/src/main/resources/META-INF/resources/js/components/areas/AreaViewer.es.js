@@ -1,7 +1,7 @@
 import React from 'react';
 
-import DetailsBox from './DetailsBox.es';
 import PictureBox from './PictureBox.es';
+import DetailsBox from './DetailsBox.es';
 
 
 function AreaViewer() {

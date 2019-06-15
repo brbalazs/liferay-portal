@@ -2,42 +2,42 @@ export const connectors = new Map();
 export const connections = new Map();
 
 export function getConnectorById(connectorId) {
-    return connectors.get(connectorId);
+    return connectors.get(connectorId)
 }
 
 export function getEmittersValues(id) {
 
-	const emitters = Array.from(connections.keys());
+    const emitters = Array.from(connections.keys())
 
     const connectedEmittersIds = emitters.reduce(
         (connectedEmitters, emitterId) => {
             return connections.get(emitterId).includes(id)
                 ? connectedEmitters.concat(emitterId)
-                : connectedEmitters;
-		}, []
-    );
-
-	return connectedEmittersIds.reduce(
+                : connectedEmitters
+        }, []
+    )
+    
+    return connectedEmittersIds.reduce(
         (acc, id) => ({
             ...acc,
             [id]: connectors.get(id).getValue() || null
         }),
         {}
-    );
+    )
 }
 
 export function emit(id) {
     const listenersId = connections.get(id);
 
-	if (!listenersId) {
+    if(!listenersId) {
         return null;
     }
 
-	const listeners = listenersId.map(
-        listenerId => connectors.get(listenerId)
-    );
+    const listeners = listenersId.map(
+        (listenerId) => connectors.get(listenerId)
+    )
 
-    return listeners.map(listener => listener.notified ? listener.notified() : null);
+    return listeners.map(listener => listener.notified ? listener.notified() :  null)
 }
 
 function addConnection(listenerId, emitterId) {
@@ -45,13 +45,13 @@ function addConnection(listenerId, emitterId) {
     connections.set(
         emitterId,
         addedListeners.concat(listenerId)
-    );
+    )
 }
 
-function addConnections(listenerId, connectorsId) {
+function addConnections(listenerId, connectorsId){
     return connectorsId.map(
         emitterId => addConnection(listenerId, emitterId)
-    );
+    )
 }
 
 export function subscribe(
@@ -60,20 +60,20 @@ export function subscribe(
     getValue,
     notified
 ) {
-    if (emittersIds) {
-        addConnections(id, emittersIds);
-	}
+    if(emittersIds) {
+        addConnections(id, emittersIds)
+    }
 
-	return connectors.set(
+    return connectors.set(
         id,
         {
             getValue,
             notified
         }
-    );
+    )
 }
 
-export function getStore() {
+export function getStore(){
     return connectors;
 }
 
@@ -82,6 +82,6 @@ const dataConnectorOrchestrator = {
     getConnectorById,
     subscribe,
     getStore
-};
+}
 
-window.dataConnectorOrchestrator = dataConnectorOrchestrator;
+window.dataConnectorOrchestrator = dataConnectorOrchestrator

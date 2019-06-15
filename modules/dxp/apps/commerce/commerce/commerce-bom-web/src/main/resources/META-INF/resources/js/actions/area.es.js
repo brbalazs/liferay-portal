@@ -3,7 +3,7 @@ export const actionDefinition = {
 	SELECT_DETAIL: 'selectDetail',
 	GET_AREA_FULFILLED: 'getAreaFulfilled',
 	GET_AREA_REJECTED: 'getAreaRejected',
-	GET_AREA_PENDING: 'getAreaPending'
+	GET_AREA_PENDING: 'getAreaPending',
 };
 
 const highlightDetail = dispatch => (number, showFirstResume = false) =>
@@ -11,19 +11,19 @@ const highlightDetail = dispatch => (number, showFirstResume = false) =>
 		type: actionDefinition.HIGHLIGHT_DETAIL,
 		payload: {
 			number,
-			showFirstResume
-		}
+			showFirstResume,
+		},
 	});
 
 const select = dispatch => id =>
 	dispatch({
 		type: actionDefinition.SELECT_DETAIL,
-		payload: id
+		payload: id,
 	});
 
 const getArea = dispatch => url => {
 	dispatch({
-		type: actionDefinition.GET_AREA_PENDING
+		type: actionDefinition.GET_AREA_PENDING,
 	});
 
 	return fetch(url)
@@ -31,13 +31,13 @@ const getArea = dispatch => url => {
 		.then(data =>
 			dispatch({
 				type: actionDefinition.GET_AREA_FULFILLED,
-				payload: data
+				payload: data,
 			})
 		)
 		.catch(err =>
 			dispatch({
 				type: actionDefinition.GET_AREA_REJECTED,
-				payload: err
+				payload: err,
 			})
 		);
 };
@@ -45,5 +45,5 @@ const getArea = dispatch => url => {
 export const actions = {
 	getArea,
 	highlightDetail,
-	select
+	select,
 };

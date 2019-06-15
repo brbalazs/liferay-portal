@@ -1,12 +1,12 @@
 import {
     actionDefinition
-} from '../actions/folder.es';
+} from '../actions/folder.es'
 
 export const initialState = {
     content: null,
     compatibilities: null,
     loading: null
-};
+}
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
@@ -16,13 +16,13 @@ export default function reducer(state = initialState, action) {
                 content: action.payload.data.content,
                 compatibilities: action.payload.data.compatibilities,
                 loading: false
-            };
-	case actionDefinition.GET_FOLDER_PENDING:
+            }
+        case actionDefinition.GET_FOLDER_PENDING:
             return {
                 ...state,
                 loading: true
-            };
-	default:
-            return state;
-	}
+            }
+        default:
+            return state
+    }
 };

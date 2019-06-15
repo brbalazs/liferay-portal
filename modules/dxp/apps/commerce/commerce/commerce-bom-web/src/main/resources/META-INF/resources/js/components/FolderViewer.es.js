@@ -1,13 +1,13 @@
-
+import React, 
 {
-    useContext,
-    useState
+    useState,
+    useContext
 } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import Collapse from './collapse/Collapse.es';
 import Icon from './utilities/Icon.es';
+import Collapse from './collapse/Collapse.es';
 import LocalizedText from './utilities/LocalizedText.es';
 import { StoreContext } from './StoreContext.es';
 
@@ -23,9 +23,9 @@ function ModelsList(props) {
                     },
                     i
                 ) => (
-                    <li
-						className="list-group-item"
-	key={i}
+                    <li 
+                        className="list-group-item" 
+                        key={i}
                     >
                         <div className="row">
                             <div className="col">{name}</div>
@@ -36,20 +36,20 @@ function ModelsList(props) {
                 )
             )}
         </ul>
-    );
+    )
 }
 
 function Compatibilities(props) {
     const [selectedBrand, setSelectedBrand] = useState(0);
 
-	const {state} = useContext(StoreContext);
+    const { state } = useContext(StoreContext);
 
-	return (
+    return (
         <div className="suitable-veichles panel panel-secondary sticky-panel">
             <div className="panel-heading">
                 <h2 className="panel-title">
-                    <LocalizedText
-						desc="Suitable Veichles"
+                    <LocalizedText 
+                        desc="Suitable Veichles"
                     >
                         suitable-veichles
                     </LocalizedText>
@@ -58,7 +58,7 @@ function Compatibilities(props) {
             <div className="panel-body">
                 {
                     props.data.map(
-
+                        (el, i) => <Collapse 
                             key={i}
                             title={el.name}
                             additionalWrapperClasses={i !== 0 && 'mt-3'}
@@ -68,20 +68,20 @@ function Compatibilities(props) {
                             handleClose={() => setSelectedBrand(null)}
                             openIcon={<Icon spritemap={state.app.spritemap} symbol={'minus'}/>}
                             closedIcon={<Icon spritemap={state.app.spritemap} symbol={'plus'}/>}
-                        />)
-					)
+                        />
+                    )
                 }
             </div>
         </div>
-    );
+    )
 }
 
 function Card(props) {
     const contentCard = (
         <div className="area-card card image-card">
             <div className="aspect-ratio aspect-ratio-4-to-3 card-item-first bg-checkered">
-                <img
-	alt={props.title}
+                <img 
+                    alt={props.title}
                     src={props.thumbnail}
                     className="aspect-ratio-item-center-middle"
                 />
@@ -89,9 +89,9 @@ function Card(props) {
             <div className="card-body">
                 <div className="card-row">
                     <div className="autofit-col autofit-col-expand">
-                        <div
-							className="card-title text-truncate"
-							data-title={props.title}
+                        <div 
+                            className="card-title text-truncate" 
+                            data-title={props.title}
                             title={props.title}
                         >
                             {props.title}
@@ -100,63 +100,63 @@ function Card(props) {
                 </div>
             </div>
         </div>
-    );
-	return props.url
+    )
+    return props.url
         ? (
-            <Link
-				className="card-link"
+            <Link 
+                className="card-link"
                 to={props.url}
             >
                 {contentCard}
             </Link>
         )
-        : contentCard;
+        : contentCard
 }
 
 function CardContainer(props) {
     return (
         <div className="area-list row">
             {props.content.map((el, i) => (
-                <div
-	key={i}
+                <div 
+                    key={i}
                     className={props.cardsWrapperAdditionalClasses}
-                >
-					<Card
-						title={el.name}
+                >   
+                    <Card 
+                        title={el.name}
                         thumbnail={el.thumbnail}
                         url={el.url}
                     />
                 </div>
             ))}
         </div>
-    );
+    )
 }
 
 export default function FolderViewer() {
 
-	const {state} = useContext(StoreContext);
+    const { state } = useContext(StoreContext);
 
-	return state.folder.content
-		? (
+    return state.folder.content 
+        ? (
             <div className="row">
                 <div className="col">
-                    <CardContainer
-						content={state.folder.content}
+                    <CardContainer 
+                        content={state.folder.content}
                         cardsWrapperAdditionalClasses={
-                            state.folder.compatibilities
-								? 'col-3'
-								: 'col-2'
+                            state.folder.compatibilities 
+                                ? 'col-3' 
+                                : 'col-2'
                         }
                     />
                 </div>
                 {state.folder.compatibilities && (
                     <div className="col-sm-4 position-relative">
-                        <Compatibilities
-	data={state.folder.compatibilities}
+                        <Compatibilities 
+                            data={state.folder.compatibilities}
                         />
                     </div>
                 )}
             </div>
         )
-        : null;
+        : null
 }

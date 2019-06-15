@@ -1,21 +1,21 @@
 import {
     actionDefinition
-} from '../actions/area.es';
+} from '../actions/area.es'
 
 export const initialState = {
     highlightedDetail: null,
     imageUrl: null,
     name: null,
     products: [],
-    spots: []
+    spots: [],
 };
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case actionDefinition.HIGHLIGHT_DETAIL:
-            return {
-			...state,
-			highlightedDetail: action.payload
+            return { 
+                ...state, 
+                highlightedDetail: action.payload
             };
         case actionDefinition.GET_AREA_FULFILLED:
             return {
@@ -24,8 +24,8 @@ export default function reducer(state = initialState, action) {
                 name: action.payload.data.name,
                 products: action.payload.data.products,
                 spots: action.payload.data.spots
-            };
-	default:
-            return state;
-	}
+            }
+        default:
+            return state
+    }
 };

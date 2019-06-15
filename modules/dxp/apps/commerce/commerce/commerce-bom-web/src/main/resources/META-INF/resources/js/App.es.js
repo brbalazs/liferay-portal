@@ -1,22 +1,23 @@
 import React from 'react';
 
 import Datalist from './components/datalist/Datalist.es';
+import PartFinder from './components/PartFinder.es';
 import history from './utilities/history.es';
 import LocalizedText from './components/utilities/LocalizedText.es';
-import PartFinder from './components/PartFinder.es';
 
 import { convertString } from './utilities/localization.es';
 
 function convertFiltersToQueryString(filters) {
   return filters.reduce((queryParams, current, i) => {
 
-		const value = Array.isArray(current.value)
-			? current.value.join(',')
-			: current.value;
+    const value = Array.isArray(current.value) 
+      ? current.value.join(',') 
+      : current.value
 
-
-      }${current.field  }=${  value  }${i !== (filters.length - 1) ? '&' : ''}`
-	}, '');
+    return queryParams + (
+      current.field + '=' + value + ((i !== (filters.length - 1) ? '&' : ''))
+    )
+  }, '')
 }
 
 function App(props) {
@@ -24,10 +25,15 @@ function App(props) {
 		<div className="bom-wrapper container pt-3">
 			<div className="mb-3">
 				<Datalist
+					label={
+						<LocalizedText desc="Car Maker">
+							car-maker
+						</LocalizedText>
+					}
 					additionalClasses="mr-3"
-					connectorSettings={{
-						id: 'carMakerDatalist'
-					}}
+					multiselect={false}
+					placeholder={convertString('search-input')}
+					spritemap={props.spritemap}
 					datasourceSettings={{
 						remote: {
 							read: props.modelSelectorMakerEndpoint
@@ -45,47 +51,18 @@ function App(props) {
 							}
 						}
 					}}
-					label={
-						<LocalizedText desc="Car Maker">
-							car-maker
-						</LocalizedText>
-					}
-					multiselect={false}
-					placeholder={convertString('search-input')}
-					spritemap={props.spritemap}
+					connectorSettings={{
+						id: 'carMakerDatalist'
+					}}
 				/>
 
 				<Datalist
+					label={<LocalizedText desc="Model">model</LocalizedText>}
 					additionalClasses="mr-3"
-					connectorSettings={{
-						id: 'modelDatalist',
-						emitters: ['carMakerDatalist'],
-						on: {
-              notified: (values, setState, datasource) => {
-                const emittersHaveValuesSelected = Object.values(values).reduce(
-									(acc, el) => acc && !!el,
-									true
-                );
-
-								if (emittersHaveValuesSelected) {
-									setState({
-										disabled: false
-                  });
-                  datasource.setFilter('car-maker', values['carMakerDatalist'])
-									datasource.read();
-								}
-								else {
-                  datasource.setFilter('car-maker', null)
-                  datasource.setFilter('keyword', null)
-									setState({
-										disabled: true,
-										data: null,
-										selected: null
-									});
-								}
-							}
-						}
-					}}
+					multiselect={false}
+					placeholder={convertString('search-input')}
+					spritemap={props.spritemap}
+					disabled={true}
 					datasourceSettings={{
 						remote: {
 							read: props.modelSelectorModelEndpoint
@@ -103,18 +80,10 @@ function App(props) {
 							}
 						}
 					}}
-					disabled={true}
-					label={<LocalizedText desc="Model">model</LocalizedText>}
-					multiselect={false}
-					placeholder={convertString('search-input')}
-					spritemap={props.spritemap}
-				/>
-
-				<Datalist
 					connectorSettings={{
-						id: 'yearDatalist',
-            emitters: ['carMakerDatalist', 'modelDatalist'],
-            on: {
+						id: 'modelDatalist',
+						emitters: ['carMakerDatalist'],
+						on: {
               notified: (values, setState, datasource) => {
                 const emittersHaveValuesSelected = Object.values(values).reduce(
 									(acc, el) => acc && !!el,
@@ -126,11 +95,8 @@ function App(props) {
 										disabled: false
                   });
                   datasource.setFilter('car-maker', values['carMakerDatalist'])
-                  datasource.setFilter('model', values['modelDatalist'])
 									datasource.read();
-								}
-								else {
-                  datasource.setFilter('model', null)
+								} else {
                   datasource.setFilter('car-maker', null)
                   datasource.setFilter('keyword', null)
 									setState({
@@ -142,6 +108,14 @@ function App(props) {
 							}
 						}
 					}}
+				/>
+
+				<Datalist
+					label={<LocalizedText desc="Year">year</LocalizedText>}
+					multiselect={false}
+					placeholder={convertString('search-input')}
+					spritemap={props.spritemap}
+					disabled={true}
 					datasourceSettings={{
 						remote: {
 							read: props.modelSelectorYearEndpoint
@@ -159,17 +133,44 @@ function App(props) {
 							}
 						}
 					}}
-					disabled={true}
-					label={<LocalizedText desc="Year">year</LocalizedText>}
-					multiselect={false}
-					placeholder={convertString('search-input')}
-					spritemap={props.spritemap}
+					connectorSettings={{
+						id: 'yearDatalist',
+            emitters: ['carMakerDatalist', 'modelDatalist'],
+            on: {
+              notified: (values, setState, datasource) => {
+                const emittersHaveValuesSelected = Object.values(values).reduce(
+									(acc, el) => acc && !!el,
+									true
+                );
+
+								if (emittersHaveValuesSelected) {
+									setState({
+										disabled: false
+                  });
+                  datasource.setFilter('car-maker', values['carMakerDatalist'])
+                  datasource.setFilter('model', values['modelDatalist'])
+									datasource.read();
+								} else {
+                  datasource.setFilter('model', null)
+                  datasource.setFilter('car-maker', null)
+                  datasource.setFilter('keyword', null)
+									setState({
+										disabled: true,
+										data: null,
+										selected: null
+									});
+								}
+							}
+						}
+					}}
 				/>
 			</div>
 
 			<PartFinder
+				spritemap={props.spritemap}
 				areaApiEndpoint={props.areasEndpoint}
-				connectorSettings={{
+        foldersApiEndpoint={props.foldersEndpoint}
+        connectorSettings={{
           emitters: ['carMakerDatalist', 'modelDatalist', 'yearDatalist'],
           on: {
             notified: (values) => {
@@ -180,15 +181,12 @@ function App(props) {
               if (emittersHaveValuesSelected) {
                 const query = Object.entries(values).map(el => `${el[0]}=${el[1]}`).join('&')
                 history.push('/folder/' + query);
-              }
-              else {
+              } else {
                 history.push('/');
               }
             }
           }
         }}
-        foldersApiEndpoint={props.foldersEndpoint}
-        spritemap={props.spritemap}
 			/>
 		</div>
 	);

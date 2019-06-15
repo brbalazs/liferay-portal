@@ -6,7 +6,7 @@ import { StoreProvider } from './components/StoreContext.es';
 
 import 'clay-css/src/scss/atlas.scss';
 
-import '../css/index.scss';
+import '../css/main.scss';
 
 const fakeData = {
     id: 'adminPartFinder',

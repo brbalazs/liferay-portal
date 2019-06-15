@@ -7,119 +7,116 @@ import {
 
 export default class Datasource {
 
-	constructor(settings = null) {
+    constructor(settings = null) {
         this.initializeProperties();
-
+        
         if (settings) {
             this.applySettings(settings);
         }
 
-		if (this.readAtCreation) {
+        if(this.readAtCreation) {
             this.read();
         }
 
-		return this;
+        return this;
     }
 
-	applySettings(settings) {
+    applySettings(settings) {
         Object.entries(settings).forEach(
-            ([key, value]) => {
-				switch (key) {
+            ([key, value]) => { 
+                switch (key) {
                     default:
                         this[key] = value;
                         break;
                 }
             }
-        );
-	}
+        )
+    }
 
-	getFilters(type = 'object') {
-        if (type === 'object') {
+    getFilters(type = 'object') {
+        if(type === 'object') {
             return this.filters.reduce(
                 (acc, filter) => ({
                     ...acc,
-                    [filter.field]: {
+                    [filter.field] : {
                         value: filter.value,
                         operations: filter.operations
                     }
                 }),
                 {}
-            );
-		}
+            )
+        }
         this.filters;
     }
 
-	setFilter(field, value, operations = 'eq') {
-        if (this.filters && value) {
+    setFilter(field, value, operations = 'eq') {
+        if(this.filters && value) {
 
-			const filterFound = this.filters.reduce(
+            const filterFound = this.filters.reduce(
                 (found, filter) => found || filter.field === field,
                 false
-            );
+            )
 
-            if (filterFound) {
+            if(filterFound) {
                 this.filters = this.filters.reduce(
                     (acc, filter) => [
                         ...acc,
                         // if field already exists, it should update the existing filter
                         // otherwise it should add it to filters array
-
-						filter.field === field
-							? createFilterObj(field, value, operations)
+                        filter.field === field 
+                            ? createFilterObj(field, value, operations)
                             : filter
                     ],
                     []
-                );
-			}
- else {
+                )
+            } else {
                 this.filters = this.filters.concat(
                     createFilterObj(
                         field,
                         value,
                         operations
                     )
-                );
-			}
+                )
+            }
         }
 
-		if (this.filters && !value) {
-            this.filters = this.filters.filter(el => el.field !== field);
-		}
+        if(this.filters && !value) {
+            this.filters = this.filters.filter((el) => el.field !== field)
+        }
 
-		if (!this.filters && value) {
-            this.filters = [
-				createFilterObj(
+        if(!this.filters && value) {
+            this.filters = [ 
+                createFilterObj(
                     field,
                     value,
                     operations
                 )
-            ];
-		}
+            ]
+        }
 
-		return this.filters;
-	}
+        return this.filters
+    }
 
-	updateSettings(newSettings) {
+    updateSettings(newSettings) {
         Object.keys(newSettings).forEach(
-            key => {
-                if (
+            (key) => {
+                if(
                     this[key] instanceof Object &&
                     newSettings[key] instanceof Object
-                ) {
+                ){
                     this[key] = Object.assign(
                         {},
                         this[key],
                         newSettings[key]
-                    );
-				}
- else {
-                    this[key] = newSettings[key];
-				}
+                    )
+                } else {
+                    this[key] = newSettings[key]
+                }
             }
-        );
-	}
+        )
+    }
 
-	initializeProperties() {
+    initializeProperties() {
         this.pagination = {
             pageSize: 20,
             page: 1
@@ -162,84 +159,84 @@ export default class Datasource {
                 order: oneOf(
                     'asc',
                     'desc'
-                )
+                ) 
             }
         */
     }
 
-	getFetchDataObj() {
+    getFetchDataObj() {
         return Object.assign(
             {},
-            this.filters ? {filters: this.filters} : null,
-            this.pagination ? {pagination: this.pagination} : null,
-            this.sorting ? {filters: this.filters} : null,
+            this.filters ? { filters: this.filters } : null,
+            this.pagination ? { pagination: this.pagination } : null,
+            this.sorting ? { filters: this.filters } : null,
         );
     }
 
-	getRemoteSettings(crudOperation) {
+    getRemoteSettings(crudOperation) {
         const settings = this.remote[crudOperation];
-        if (!settings) {
+        if(!settings){
             throw new Error(`Behaviour unkown for '${crudOperation}' operations`);
         }
         return settings;
     }
 
-	performRequest(crudOperation) {
+    performRequest(crudOperation) {
         const data = this.getFetchDataObj();
 
-		const mappedData =
-            !!this.on.mapParameters &&
+        const mappedData = 
+            !!this.on.mapParameters && 
             this.on.mapParameters(data, crudOperation);
 
-		const serializedData = typeof mappedData === 'string'
-			? mappedData
+        const serializedData = typeof mappedData === 'string' 
+            ? mappedData
             : serializeParams(mappedData || data);
 
+        
+        const remoteSettings = this.getRemoteSettings(crudOperation);
 
-		const remoteSettings = this.getRemoteSettings(crudOperation);
-
-		const fetchSettings = getFetchParams(
+        const fetchSettings = getFetchParams(
             crudOperation,
             remoteSettings,
             serializedData
         );
 
-		return fetch(...fetchSettings)
-			.then(response => response.json())
-            .then(response => this.on.parseResponse
-				? this.on.parseResponse(response)
+        return fetch.apply(null, fetchSettings)
+            .then(response => response.json())
+            .then(response => this.on.parseResponse 
+                ? this.on.parseResponse(response)
                 : response
             )
             .then(jsonResponse => {
                 const func = this.on[crudOperation];
                 if (func) {
-                    return func(jsonResponse, this.component);
-				}
-                return jsonResponse;
-			})
+                    return func(jsonResponse, this.component)
+                }
+                return jsonResponse
+            })
             .catch(
-                err => {
+                (err) => {
                     if (this.on.error) {
-                        return this.on.error(err, crudOperation, serializedData);
-					}
-                    throw new Error(err);
-				}
-            );
-	}
-
+                        return this.on.error(err, crudOperation, serializedData)
+                    }
+                    throw new Error(err)
+                }
+            )
+    }
+    
     read() {
-        return this.performRequest('read').catch(console.error);
-	}
-
+        return this.performRequest('read').catch(console.error)
+    }
+    
     update() {
-        return this.performRequest('update').catch(console.error);
-	}
-
+        return this.performRequest('update').catch(console.error)
+    }
+    
     create() {
-        return this.performRequest('create').catch(console.error);
-	}
-
+        return this.performRequest('create').catch(console.error)
+    }
+    
     delete() {
-        return this.performRequest('delete').catch(console.error);
-	}
+        return this.performRequest('delete').catch(console.error)
+    }
 }

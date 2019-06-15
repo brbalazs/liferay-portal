@@ -1,4 +1,4 @@
-import { emit, getEmittersValues, subscribe } from './connectorsUtils.es';
+import { subscribe, emit, getEmittersValues } from './connectorsUtils.es';
 
 export default class Connector {
 	constructor(data) {

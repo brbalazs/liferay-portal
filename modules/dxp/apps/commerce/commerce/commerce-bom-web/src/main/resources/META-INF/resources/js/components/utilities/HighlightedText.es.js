@@ -1,21 +1,21 @@
-import React from 'react';
+import React from "react";
 
-function processQuery(query, text = '') {
+function processQuery( query, text = '' ) {
     const regex = new RegExp(`(.*?)(${query || ''})(.*)`, 'gmi');
     const results = regex.exec(text);
 
-	return results
-		? Array(3).fill('').map((_, i) => results[i + 1].toString())
-        : [text, '', ''];
+    return results 
+        ? Array(3).fill('').map((_, i) => results[i + 1].toString())
+        : [text, '', '']
 }
 
 export default function HighlightedText(props) {
 
-	const [
+    const [
         firstPart,
         highlightedPart,
         thirdPart
-    ] = processQuery(props.query, props.text);
+    ] = processQuery(props.query, props.text)
 
     return (
         <span className="autocomplete-item">
@@ -23,6 +23,6 @@ export default function HighlightedText(props) {
             {highlightedPart && <strong>{highlightedPart}</strong>}
             {thirdPart}
         </span>
-    );
+    )
 }
 

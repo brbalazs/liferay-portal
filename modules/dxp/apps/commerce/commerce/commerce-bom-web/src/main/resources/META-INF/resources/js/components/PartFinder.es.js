@@ -1,23 +1,23 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect, useContext } from 'react';
 
-import { Route, Router, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 
-import AreaViewer from './areas/AreaViewer.es';
-import BaseContainer from './BaseContainer.es';
-import Breadcrumbs from './Breadcrumbs.es';
-import Connector from '../utilities/data_connectors/Connector.es';
-import ErrorMessage from './ErrorMessage.es';
-import FolderViewer from './FolderViewer.es';
 import history from '../utilities/history.es';
-import Loading from './Loading.es';
 import { StoreContext } from './StoreContext.es';
+import FolderViewer from './FolderViewer.es';
+import Loading from './Loading.es';
+import Breadcrumbs from './Breadcrumbs.es';
+import ErrorMessage from './ErrorMessage.es';
+import BaseContainer from './BaseContainer.es';
+import AreaViewer from './areas/AreaViewer.es';
+import Connector from '../utilities/data_connectors/Connector.es';
 
 export function PartFinder(props) {
 
 	const [initialized, setInitialized] = useState(false);
-	const {state, actions} = useContext(StoreContext);
+	const { state, actions } = useContext(StoreContext);
 
-	const connector = useMemo(() => new Connector(props.connectorSettings), props.connectorSettings);
+	const connector  = useMemo(() => new Connector(props.connectorSettings), props.connectorSettings)
 
 	function initializeUrlListener() {
 		return history.listen(e => {
@@ -64,10 +64,10 @@ export function PartFinder(props) {
 						<Loading />
 					) : (
 						<Switch>
-							<Route component={BaseContainer} exact path="/" />
-							<Route component={ErrorMessage} exact path="/error" />
-							<Route component={FolderViewer} path="/folder" />
-							<Route component={AreaViewer} path="/area" />
+							<Route exact path="/" component={BaseContainer} />
+							<Route exact path="/error" component={ErrorMessage} />
+							<Route path="/folder" component={FolderViewer} />
+							<Route path="/area" component={AreaViewer} />
 						</Switch>
 					)}
 			</Router>

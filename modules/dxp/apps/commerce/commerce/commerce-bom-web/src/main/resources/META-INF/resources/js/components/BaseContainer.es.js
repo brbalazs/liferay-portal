@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LocalizedText from './utilities/LocalizedText.es';
+import LocalizedText from './utilities/LocalizedText.es'
 
 function BaseContainer() {
     return (
@@ -18,7 +18,7 @@ function BaseContainer() {
                 </h4>
             </div>
         </div>
-    );
+    )
 }
 
 export default BaseContainer;

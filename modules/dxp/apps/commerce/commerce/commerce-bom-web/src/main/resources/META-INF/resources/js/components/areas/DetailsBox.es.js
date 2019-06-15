@@ -1,27 +1,27 @@
 import React, { useContext } from 'react';
 
-import LocalizedText from '../utilities/LocalizedText.es';
 import { StoreContext } from '../StoreContext.es';
+import LocalizedText from '../utilities/LocalizedText.es';
 
 function DetailsListElement(props) {
-    const {state, actions} = useContext(StoreContext);
+    const { state, actions } = useContext(StoreContext);
 
-	const highlightedModifierClass =
+    const highlightedModifierClass = 
         (
-            state.area.highlightedDetail &&
-            state.area.highlightedDetail.number === props.number
+            state.area.highlightedDetail && 
+            state.area.highlightedDetail.number === props.number 
         )
-        ? ' detail-row--highlighted'
-       	: '';
+        ? ' detail-row--highlighted' 
+        : '';
 
-	return (
+    return (
         <a
-
+            className={`detail-row d-table-row${highlightedModifierClass}`} 
             href={props.url}
             onFocus={() => actions.highlightDetail(props.number, true)}
-            onMouseOut={() => actions.highlightDetail(null)}
             onMouseOver={() => actions.highlightDetail(props.number, true)}
-		>
+            onMouseOut={() => actions.highlightDetail(null)}
+        >
             <div className="d-table-cell">
                 <span className="autocomplete-item">{props.number}</span>
             </div>
@@ -30,21 +30,21 @@ function DetailsListElement(props) {
             </div>
             <div className="d-table-cell u-tar">{props.sku}</div>
         </a>
-    );
+    )
 }
 
 function DetailsBox() {
-    const {state} = useContext(StoreContext);
+    const { state } = useContext(StoreContext);
 
-	const list = state.area.products.map(product => {
+    const list = state.area.products.map(product => {
         return {
             ...product,
             number: state.area.spots.reduce(
                 (number, spot) => number || (spot.rel === product.id && spot.number),
                 null
             )
-        };
-	});
+        }
+    })
 
     return (
         <div className="panel panel-secondary grid-panel">
