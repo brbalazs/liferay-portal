@@ -42,6 +42,35 @@ public class CommerceApplicationModelCProductRelServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.commerce.application.service.impl.CommerceApplicationModelCProductRelServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.liferay.commerce.application.model.CommerceApplicationModelCProductRel addCommerceApplicationModelCProductRel(
+		long userId, long commerceApplicationModelId, long cProductId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .addCommerceApplicationModelCProductRel(userId,
+			commerceApplicationModelId, cProductId);
+	}
+
+	public static void deleteCommerceApplicationModelCProductRel(
+		long commerceApplicationModelCProductRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		getService()
+			.deleteCommerceApplicationModelCProductRel(commerceApplicationModelCProductRelId);
+	}
+
+	public static java.util.List<com.liferay.commerce.application.model.CommerceApplicationModelCProductRel> getCommerceApplicationModelCProductRels(
+		long commerceApplicationModelId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .getCommerceApplicationModelCProductRels(commerceApplicationModelId,
+			start, end);
+	}
+
+	public static int getCommerceApplicationModelCProductRelsCount(
+		long commerceApplicationModelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .getCommerceApplicationModelCProductRelsCount(commerceApplicationModelId);
+	}
 
 	/**
 	* Returns the OSGi service identifier.

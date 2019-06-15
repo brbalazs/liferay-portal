@@ -43,12 +43,17 @@ public class CommerceApplicationModelServiceUtil {
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.commerce.application.service.impl.CommerceApplicationModelServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static com.liferay.commerce.application.model.CommerceApplicationModel addCommerceApplicationModel(
-		long userId, long commerceApplicationBrandId, long cProductId,
-		String name, String year)
+		long userId, long commerceApplicationBrandId, String name, String year)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .addCommerceApplicationModel(userId,
-			commerceApplicationBrandId, cProductId, name, year);
+			commerceApplicationBrandId, name, year);
+	}
+
+	public static void deleteCommerceApplicationModel(
+		long commerceApplicationModelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		getService().deleteCommerceApplicationModel(commerceApplicationModelId);
 	}
 
 	/**

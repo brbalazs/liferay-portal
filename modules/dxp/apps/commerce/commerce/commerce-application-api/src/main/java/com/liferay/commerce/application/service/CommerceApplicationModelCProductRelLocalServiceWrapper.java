@@ -92,6 +92,18 @@ public class CommerceApplicationModelCProductRelLocalServiceWrapper
 		return _commerceApplicationModelCProductRelLocalService.deleteCommerceApplicationModelCProductRel(commerceApplicationModelCProductRelId);
 	}
 
+	@Override
+	public void deleteCommerceApplicationModelCProductRels(
+		long commerceApplicationModelId) {
+		_commerceApplicationModelCProductRelLocalService.deleteCommerceApplicationModelCProductRels(commerceApplicationModelId);
+	}
+
+	@Override
+	public void deleteCommerceApplicationModelCProductRelsByCProductId(
+		long cProductId) {
+		_commerceApplicationModelCProductRelLocalService.deleteCommerceApplicationModelCProductRelsByCProductId(cProductId);
+	}
+
 	/**
 	* @throws PortalException
 	*/
@@ -231,6 +243,13 @@ public class CommerceApplicationModelCProductRelLocalServiceWrapper
 			end);
 	}
 
+	@Override
+	public java.util.List<com.liferay.commerce.application.model.CommerceApplicationModelCProductRel> getCommerceApplicationModelCProductRels(
+		long commerceApplicationModelId, int start, int end) {
+		return _commerceApplicationModelCProductRelLocalService.getCommerceApplicationModelCProductRels(commerceApplicationModelId,
+			start, end);
+	}
+
 	/**
 	* Returns the number of commerce application model c product rels.
 	*
@@ -239,6 +258,12 @@ public class CommerceApplicationModelCProductRelLocalServiceWrapper
 	@Override
 	public int getCommerceApplicationModelCProductRelsCount() {
 		return _commerceApplicationModelCProductRelLocalService.getCommerceApplicationModelCProductRelsCount();
+	}
+
+	@Override
+	public int getCommerceApplicationModelCProductRelsCount(
+		long commerceApplicationModelId) {
+		return _commerceApplicationModelCProductRelLocalService.getCommerceApplicationModelCProductRelsCount(commerceApplicationModelId);
 	}
 
 	@Override
@@ -273,15 +298,6 @@ public class CommerceApplicationModelCProductRelLocalServiceWrapper
 	public com.liferay.commerce.application.model.CommerceApplicationModelCProductRel updateCommerceApplicationModelCProductRel(
 		com.liferay.commerce.application.model.CommerceApplicationModelCProductRel commerceApplicationModelCProductRel) {
 		return _commerceApplicationModelCProductRelLocalService.updateCommerceApplicationModelCProductRel(commerceApplicationModelCProductRel);
-	}
-
-	@Override
-	public com.liferay.commerce.application.model.CommerceApplicationModelCProductRel updateCommerceApplicationModelCProductRel(
-		long caModelCProductRelId, long commerceApplicationModelId,
-		long cProductId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _commerceApplicationModelCProductRelLocalService.updateCommerceApplicationModelCProductRel(caModelCProductRelId,
-			commerceApplicationModelId, cProductId);
 	}
 
 	@Override

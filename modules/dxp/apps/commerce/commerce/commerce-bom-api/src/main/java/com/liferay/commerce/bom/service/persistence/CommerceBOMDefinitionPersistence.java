@@ -47,7 +47,7 @@ public interface CommerceBOMDefinitionPersistence extends BasePersistence<Commer
 	* @param commerceBOMFolderId the commerce bom folder ID
 	* @return the matching commerce bom definitions
 	*/
-	public java.util.List<CommerceBOMDefinition> findBycommerceBOMFolderId(
+	public java.util.List<CommerceBOMDefinition> findByCommerceBOMFolderId(
 		long commerceBOMFolderId);
 
 	/**
@@ -62,7 +62,7 @@ public interface CommerceBOMDefinitionPersistence extends BasePersistence<Commer
 	* @param end the upper bound of the range of commerce bom definitions (not inclusive)
 	* @return the range of matching commerce bom definitions
 	*/
-	public java.util.List<CommerceBOMDefinition> findBycommerceBOMFolderId(
+	public java.util.List<CommerceBOMDefinition> findByCommerceBOMFolderId(
 		long commerceBOMFolderId, int start, int end);
 
 	/**
@@ -78,7 +78,7 @@ public interface CommerceBOMDefinitionPersistence extends BasePersistence<Commer
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching commerce bom definitions
 	*/
-	public java.util.List<CommerceBOMDefinition> findBycommerceBOMFolderId(
+	public java.util.List<CommerceBOMDefinition> findByCommerceBOMFolderId(
 		long commerceBOMFolderId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMDefinition> orderByComparator);
 
@@ -96,7 +96,7 @@ public interface CommerceBOMDefinitionPersistence extends BasePersistence<Commer
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the ordered range of matching commerce bom definitions
 	*/
-	public java.util.List<CommerceBOMDefinition> findBycommerceBOMFolderId(
+	public java.util.List<CommerceBOMDefinition> findByCommerceBOMFolderId(
 		long commerceBOMFolderId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMDefinition> orderByComparator,
 		boolean retrieveFromCache);
@@ -109,7 +109,7 @@ public interface CommerceBOMDefinitionPersistence extends BasePersistence<Commer
 	* @return the first matching commerce bom definition
 	* @throws NoSuchBOMDefinitionException if a matching commerce bom definition could not be found
 	*/
-	public CommerceBOMDefinition findBycommerceBOMFolderId_First(
+	public CommerceBOMDefinition findByCommerceBOMFolderId_First(
 		long commerceBOMFolderId,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMDefinition> orderByComparator)
 		throws NoSuchBOMDefinitionException;
@@ -121,7 +121,7 @@ public interface CommerceBOMDefinitionPersistence extends BasePersistence<Commer
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching commerce bom definition, or <code>null</code> if a matching commerce bom definition could not be found
 	*/
-	public CommerceBOMDefinition fetchBycommerceBOMFolderId_First(
+	public CommerceBOMDefinition fetchByCommerceBOMFolderId_First(
 		long commerceBOMFolderId,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMDefinition> orderByComparator);
 
@@ -133,7 +133,7 @@ public interface CommerceBOMDefinitionPersistence extends BasePersistence<Commer
 	* @return the last matching commerce bom definition
 	* @throws NoSuchBOMDefinitionException if a matching commerce bom definition could not be found
 	*/
-	public CommerceBOMDefinition findBycommerceBOMFolderId_Last(
+	public CommerceBOMDefinition findByCommerceBOMFolderId_Last(
 		long commerceBOMFolderId,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMDefinition> orderByComparator)
 		throws NoSuchBOMDefinitionException;
@@ -145,7 +145,7 @@ public interface CommerceBOMDefinitionPersistence extends BasePersistence<Commer
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching commerce bom definition, or <code>null</code> if a matching commerce bom definition could not be found
 	*/
-	public CommerceBOMDefinition fetchBycommerceBOMFolderId_Last(
+	public CommerceBOMDefinition fetchByCommerceBOMFolderId_Last(
 		long commerceBOMFolderId,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMDefinition> orderByComparator);
 
@@ -158,7 +158,7 @@ public interface CommerceBOMDefinitionPersistence extends BasePersistence<Commer
 	* @return the previous, current, and next commerce bom definition
 	* @throws NoSuchBOMDefinitionException if a commerce bom definition with the primary key could not be found
 	*/
-	public CommerceBOMDefinition[] findBycommerceBOMFolderId_PrevAndNext(
+	public CommerceBOMDefinition[] findByCommerceBOMFolderId_PrevAndNext(
 		long commerceBOMDefinitionId, long commerceBOMFolderId,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMDefinition> orderByComparator)
 		throws NoSuchBOMDefinitionException;
@@ -169,7 +169,7 @@ public interface CommerceBOMDefinitionPersistence extends BasePersistence<Commer
 	* @param commerceBOMFolderId the commerce bom folder ID
 	* @return the matching commerce bom definitions that the user has permission to view
 	*/
-	public java.util.List<CommerceBOMDefinition> filterFindBycommerceBOMFolderId(
+	public java.util.List<CommerceBOMDefinition> filterFindByCommerceBOMFolderId(
 		long commerceBOMFolderId);
 
 	/**
@@ -184,7 +184,7 @@ public interface CommerceBOMDefinitionPersistence extends BasePersistence<Commer
 	* @param end the upper bound of the range of commerce bom definitions (not inclusive)
 	* @return the range of matching commerce bom definitions that the user has permission to view
 	*/
-	public java.util.List<CommerceBOMDefinition> filterFindBycommerceBOMFolderId(
+	public java.util.List<CommerceBOMDefinition> filterFindByCommerceBOMFolderId(
 		long commerceBOMFolderId, int start, int end);
 
 	/**
@@ -200,7 +200,7 @@ public interface CommerceBOMDefinitionPersistence extends BasePersistence<Commer
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching commerce bom definitions that the user has permission to view
 	*/
-	public java.util.List<CommerceBOMDefinition> filterFindBycommerceBOMFolderId(
+	public java.util.List<CommerceBOMDefinition> filterFindByCommerceBOMFolderId(
 		long commerceBOMFolderId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMDefinition> orderByComparator);
 
@@ -213,7 +213,7 @@ public interface CommerceBOMDefinitionPersistence extends BasePersistence<Commer
 	* @return the previous, current, and next commerce bom definition
 	* @throws NoSuchBOMDefinitionException if a commerce bom definition with the primary key could not be found
 	*/
-	public CommerceBOMDefinition[] filterFindBycommerceBOMFolderId_PrevAndNext(
+	public CommerceBOMDefinition[] filterFindByCommerceBOMFolderId_PrevAndNext(
 		long commerceBOMDefinitionId, long commerceBOMFolderId,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMDefinition> orderByComparator)
 		throws NoSuchBOMDefinitionException;
@@ -223,7 +223,7 @@ public interface CommerceBOMDefinitionPersistence extends BasePersistence<Commer
 	*
 	* @param commerceBOMFolderId the commerce bom folder ID
 	*/
-	public void removeBycommerceBOMFolderId(long commerceBOMFolderId);
+	public void removeByCommerceBOMFolderId(long commerceBOMFolderId);
 
 	/**
 	* Returns the number of commerce bom definitions where commerceBOMFolderId = &#63;.
@@ -231,7 +231,7 @@ public interface CommerceBOMDefinitionPersistence extends BasePersistence<Commer
 	* @param commerceBOMFolderId the commerce bom folder ID
 	* @return the number of matching commerce bom definitions
 	*/
-	public int countBycommerceBOMFolderId(long commerceBOMFolderId);
+	public int countByCommerceBOMFolderId(long commerceBOMFolderId);
 
 	/**
 	* Returns the number of commerce bom definitions that the user has permission to view where commerceBOMFolderId = &#63;.
@@ -239,7 +239,7 @@ public interface CommerceBOMDefinitionPersistence extends BasePersistence<Commer
 	* @param commerceBOMFolderId the commerce bom folder ID
 	* @return the number of matching commerce bom definitions that the user has permission to view
 	*/
-	public int filterCountBycommerceBOMFolderId(long commerceBOMFolderId);
+	public int filterCountByCommerceBOMFolderId(long commerceBOMFolderId);
 
 	/**
 	* Caches the commerce bom definition in the entity cache if it is enabled.

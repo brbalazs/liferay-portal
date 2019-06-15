@@ -26,10 +26,13 @@ import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
 import com.liferay.portal.kernel.dao.orm.Query;
+import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.CompanyProvider;
@@ -89,6 +92,912 @@ public class CommerceApplicationModelPersistenceImpl extends BasePersistenceImpl
 	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(CommerceApplicationModelModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceApplicationModelModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_COMMERCEAPPLICATIONBRANDID =
+		new FinderPath(CommerceApplicationModelModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceApplicationModelModelImpl.FINDER_CACHE_ENABLED,
+			CommerceApplicationModelImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+			"findByCommerceApplicationBrandId",
+			new String[] {
+				Long.class.getName(),
+				
+			Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMMERCEAPPLICATIONBRANDID =
+		new FinderPath(CommerceApplicationModelModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceApplicationModelModelImpl.FINDER_CACHE_ENABLED,
+			CommerceApplicationModelImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"findByCommerceApplicationBrandId",
+			new String[] { Long.class.getName() },
+			CommerceApplicationModelModelImpl.COMMERCEAPPLICATIONBRANDID_COLUMN_BITMASK |
+			CommerceApplicationModelModelImpl.NAME_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_COMMERCEAPPLICATIONBRANDID =
+		new FinderPath(CommerceApplicationModelModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceApplicationModelModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByCommerceApplicationBrandId",
+			new String[] { Long.class.getName() });
+
+	/**
+	 * Returns all the commerce application models where commerceApplicationBrandId = &#63;.
+	 *
+	 * @param commerceApplicationBrandId the commerce application brand ID
+	 * @return the matching commerce application models
+	 */
+	@Override
+	public List<CommerceApplicationModel> findByCommerceApplicationBrandId(
+		long commerceApplicationBrandId) {
+		return findByCommerceApplicationBrandId(commerceApplicationBrandId,
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the commerce application models where commerceApplicationBrandId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationModelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param commerceApplicationBrandId the commerce application brand ID
+	 * @param start the lower bound of the range of commerce application models
+	 * @param end the upper bound of the range of commerce application models (not inclusive)
+	 * @return the range of matching commerce application models
+	 */
+	@Override
+	public List<CommerceApplicationModel> findByCommerceApplicationBrandId(
+		long commerceApplicationBrandId, int start, int end) {
+		return findByCommerceApplicationBrandId(commerceApplicationBrandId,
+			start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the commerce application models where commerceApplicationBrandId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationModelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param commerceApplicationBrandId the commerce application brand ID
+	 * @param start the lower bound of the range of commerce application models
+	 * @param end the upper bound of the range of commerce application models (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching commerce application models
+	 */
+	@Override
+	public List<CommerceApplicationModel> findByCommerceApplicationBrandId(
+		long commerceApplicationBrandId, int start, int end,
+		OrderByComparator<CommerceApplicationModel> orderByComparator) {
+		return findByCommerceApplicationBrandId(commerceApplicationBrandId,
+			start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the commerce application models where commerceApplicationBrandId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationModelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param commerceApplicationBrandId the commerce application brand ID
+	 * @param start the lower bound of the range of commerce application models
+	 * @param end the upper bound of the range of commerce application models (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the ordered range of matching commerce application models
+	 */
+	@Override
+	public List<CommerceApplicationModel> findByCommerceApplicationBrandId(
+		long commerceApplicationBrandId, int start, int end,
+		OrderByComparator<CommerceApplicationModel> orderByComparator,
+		boolean retrieveFromCache) {
+		boolean pagination = true;
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+				(orderByComparator == null)) {
+			pagination = false;
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMMERCEAPPLICATIONBRANDID;
+			finderArgs = new Object[] { commerceApplicationBrandId };
+		}
+		else {
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_COMMERCEAPPLICATIONBRANDID;
+			finderArgs = new Object[] {
+					commerceApplicationBrandId,
+					
+					start, end, orderByComparator
+				};
+		}
+
+		List<CommerceApplicationModel> list = null;
+
+		if (retrieveFromCache) {
+			list = (List<CommerceApplicationModel>)finderCache.getResult(finderPath,
+					finderArgs, this);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (CommerceApplicationModel commerceApplicationModel : list) {
+					if ((commerceApplicationBrandId != commerceApplicationModel.getCommerceApplicationBrandId())) {
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(3 +
+						(orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				query = new StringBundler(3);
+			}
+
+			query.append(_SQL_SELECT_COMMERCEAPPLICATIONMODEL_WHERE);
+
+			query.append(_FINDER_COLUMN_COMMERCEAPPLICATIONBRANDID_COMMERCEAPPLICATIONBRANDID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+			}
+			else
+			 if (pagination) {
+				query.append(CommerceApplicationModelModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(commerceApplicationBrandId);
+
+				if (!pagination) {
+					list = (List<CommerceApplicationModel>)QueryUtil.list(q,
+							getDialect(), start, end, false);
+
+					Collections.sort(list);
+
+					list = Collections.unmodifiableList(list);
+				}
+				else {
+					list = (List<CommerceApplicationModel>)QueryUtil.list(q,
+							getDialect(), start, end);
+				}
+
+				cacheResult(list);
+
+				finderCache.putResult(finderPath, finderArgs, list);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first commerce application model in the ordered set where commerceApplicationBrandId = &#63;.
+	 *
+	 * @param commerceApplicationBrandId the commerce application brand ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching commerce application model
+	 * @throws NoSuchApplicationModelException if a matching commerce application model could not be found
+	 */
+	@Override
+	public CommerceApplicationModel findByCommerceApplicationBrandId_First(
+		long commerceApplicationBrandId,
+		OrderByComparator<CommerceApplicationModel> orderByComparator)
+		throws NoSuchApplicationModelException {
+		CommerceApplicationModel commerceApplicationModel = fetchByCommerceApplicationBrandId_First(commerceApplicationBrandId,
+				orderByComparator);
+
+		if (commerceApplicationModel != null) {
+			return commerceApplicationModel;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("commerceApplicationBrandId=");
+		msg.append(commerceApplicationBrandId);
+
+		msg.append("}");
+
+		throw new NoSuchApplicationModelException(msg.toString());
+	}
+
+	/**
+	 * Returns the first commerce application model in the ordered set where commerceApplicationBrandId = &#63;.
+	 *
+	 * @param commerceApplicationBrandId the commerce application brand ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching commerce application model, or <code>null</code> if a matching commerce application model could not be found
+	 */
+	@Override
+	public CommerceApplicationModel fetchByCommerceApplicationBrandId_First(
+		long commerceApplicationBrandId,
+		OrderByComparator<CommerceApplicationModel> orderByComparator) {
+		List<CommerceApplicationModel> list = findByCommerceApplicationBrandId(commerceApplicationBrandId,
+				0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last commerce application model in the ordered set where commerceApplicationBrandId = &#63;.
+	 *
+	 * @param commerceApplicationBrandId the commerce application brand ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching commerce application model
+	 * @throws NoSuchApplicationModelException if a matching commerce application model could not be found
+	 */
+	@Override
+	public CommerceApplicationModel findByCommerceApplicationBrandId_Last(
+		long commerceApplicationBrandId,
+		OrderByComparator<CommerceApplicationModel> orderByComparator)
+		throws NoSuchApplicationModelException {
+		CommerceApplicationModel commerceApplicationModel = fetchByCommerceApplicationBrandId_Last(commerceApplicationBrandId,
+				orderByComparator);
+
+		if (commerceApplicationModel != null) {
+			return commerceApplicationModel;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("commerceApplicationBrandId=");
+		msg.append(commerceApplicationBrandId);
+
+		msg.append("}");
+
+		throw new NoSuchApplicationModelException(msg.toString());
+	}
+
+	/**
+	 * Returns the last commerce application model in the ordered set where commerceApplicationBrandId = &#63;.
+	 *
+	 * @param commerceApplicationBrandId the commerce application brand ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching commerce application model, or <code>null</code> if a matching commerce application model could not be found
+	 */
+	@Override
+	public CommerceApplicationModel fetchByCommerceApplicationBrandId_Last(
+		long commerceApplicationBrandId,
+		OrderByComparator<CommerceApplicationModel> orderByComparator) {
+		int count = countByCommerceApplicationBrandId(commerceApplicationBrandId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<CommerceApplicationModel> list = findByCommerceApplicationBrandId(commerceApplicationBrandId,
+				count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the commerce application models before and after the current commerce application model in the ordered set where commerceApplicationBrandId = &#63;.
+	 *
+	 * @param commerceApplicationModelId the primary key of the current commerce application model
+	 * @param commerceApplicationBrandId the commerce application brand ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next commerce application model
+	 * @throws NoSuchApplicationModelException if a commerce application model with the primary key could not be found
+	 */
+	@Override
+	public CommerceApplicationModel[] findByCommerceApplicationBrandId_PrevAndNext(
+		long commerceApplicationModelId, long commerceApplicationBrandId,
+		OrderByComparator<CommerceApplicationModel> orderByComparator)
+		throws NoSuchApplicationModelException {
+		CommerceApplicationModel commerceApplicationModel = findByPrimaryKey(commerceApplicationModelId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			CommerceApplicationModel[] array = new CommerceApplicationModelImpl[3];
+
+			array[0] = getByCommerceApplicationBrandId_PrevAndNext(session,
+					commerceApplicationModel, commerceApplicationBrandId,
+					orderByComparator, true);
+
+			array[1] = commerceApplicationModel;
+
+			array[2] = getByCommerceApplicationBrandId_PrevAndNext(session,
+					commerceApplicationModel, commerceApplicationBrandId,
+					orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected CommerceApplicationModel getByCommerceApplicationBrandId_PrevAndNext(
+		Session session, CommerceApplicationModel commerceApplicationModel,
+		long commerceApplicationBrandId,
+		OrderByComparator<CommerceApplicationModel> orderByComparator,
+		boolean previous) {
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(4 +
+					(orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		query.append(_SQL_SELECT_COMMERCEAPPLICATIONMODEL_WHERE);
+
+		query.append(_FINDER_COLUMN_COMMERCEAPPLICATIONBRANDID_COMMERCEAPPLICATIONBRANDID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			query.append(CommerceApplicationModelModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(commerceApplicationBrandId);
+
+		if (orderByComparator != null) {
+			Object[] values = orderByComparator.getOrderByConditionValues(commerceApplicationModel);
+
+			for (Object value : values) {
+				qPos.add(value);
+			}
+		}
+
+		List<CommerceApplicationModel> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Returns all the commerce application models that the user has permission to view where commerceApplicationBrandId = &#63;.
+	 *
+	 * @param commerceApplicationBrandId the commerce application brand ID
+	 * @return the matching commerce application models that the user has permission to view
+	 */
+	@Override
+	public List<CommerceApplicationModel> filterFindByCommerceApplicationBrandId(
+		long commerceApplicationBrandId) {
+		return filterFindByCommerceApplicationBrandId(commerceApplicationBrandId,
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the commerce application models that the user has permission to view where commerceApplicationBrandId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationModelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param commerceApplicationBrandId the commerce application brand ID
+	 * @param start the lower bound of the range of commerce application models
+	 * @param end the upper bound of the range of commerce application models (not inclusive)
+	 * @return the range of matching commerce application models that the user has permission to view
+	 */
+	@Override
+	public List<CommerceApplicationModel> filterFindByCommerceApplicationBrandId(
+		long commerceApplicationBrandId, int start, int end) {
+		return filterFindByCommerceApplicationBrandId(commerceApplicationBrandId,
+			start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the commerce application models that the user has permissions to view where commerceApplicationBrandId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationModelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param commerceApplicationBrandId the commerce application brand ID
+	 * @param start the lower bound of the range of commerce application models
+	 * @param end the upper bound of the range of commerce application models (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching commerce application models that the user has permission to view
+	 */
+	@Override
+	public List<CommerceApplicationModel> filterFindByCommerceApplicationBrandId(
+		long commerceApplicationBrandId, int start, int end,
+		OrderByComparator<CommerceApplicationModel> orderByComparator) {
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return findByCommerceApplicationBrandId(commerceApplicationBrandId,
+				start, end, orderByComparator);
+		}
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(3 +
+					(orderByComparator.getOrderByFields().length * 2));
+		}
+		else {
+			query = new StringBundler(4);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_COMMERCEAPPLICATIONMODEL_WHERE);
+		}
+		else {
+			query.append(_FILTER_SQL_SELECT_COMMERCEAPPLICATIONMODEL_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		query.append(_FINDER_COLUMN_COMMERCEAPPLICATIONBRANDID_COMMERCEAPPLICATIONBRANDID_2);
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_COMMERCEAPPLICATIONMODEL_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			if (getDB().isSupportsInlineDistinct()) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator, true);
+			}
+			else {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_TABLE,
+					orderByComparator, true);
+			}
+		}
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(CommerceApplicationModelModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(CommerceApplicationModelModelImpl.ORDER_BY_SQL);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				CommerceApplicationModel.class.getName(),
+				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			if (getDB().isSupportsInlineDistinct()) {
+				q.addEntity(_FILTER_ENTITY_ALIAS,
+					CommerceApplicationModelImpl.class);
+			}
+			else {
+				q.addEntity(_FILTER_ENTITY_TABLE,
+					CommerceApplicationModelImpl.class);
+			}
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(commerceApplicationBrandId);
+
+			return (List<CommerceApplicationModel>)QueryUtil.list(q,
+				getDialect(), start, end);
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	/**
+	 * Returns the commerce application models before and after the current commerce application model in the ordered set of commerce application models that the user has permission to view where commerceApplicationBrandId = &#63;.
+	 *
+	 * @param commerceApplicationModelId the primary key of the current commerce application model
+	 * @param commerceApplicationBrandId the commerce application brand ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next commerce application model
+	 * @throws NoSuchApplicationModelException if a commerce application model with the primary key could not be found
+	 */
+	@Override
+	public CommerceApplicationModel[] filterFindByCommerceApplicationBrandId_PrevAndNext(
+		long commerceApplicationModelId, long commerceApplicationBrandId,
+		OrderByComparator<CommerceApplicationModel> orderByComparator)
+		throws NoSuchApplicationModelException {
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return findByCommerceApplicationBrandId_PrevAndNext(commerceApplicationModelId,
+				commerceApplicationBrandId, orderByComparator);
+		}
+
+		CommerceApplicationModel commerceApplicationModel = findByPrimaryKey(commerceApplicationModelId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			CommerceApplicationModel[] array = new CommerceApplicationModelImpl[3];
+
+			array[0] = filterGetByCommerceApplicationBrandId_PrevAndNext(session,
+					commerceApplicationModel, commerceApplicationBrandId,
+					orderByComparator, true);
+
+			array[1] = commerceApplicationModel;
+
+			array[2] = filterGetByCommerceApplicationBrandId_PrevAndNext(session,
+					commerceApplicationModel, commerceApplicationBrandId,
+					orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected CommerceApplicationModel filterGetByCommerceApplicationBrandId_PrevAndNext(
+		Session session, CommerceApplicationModel commerceApplicationModel,
+		long commerceApplicationBrandId,
+		OrderByComparator<CommerceApplicationModel> orderByComparator,
+		boolean previous) {
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(5 +
+					(orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(4);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_COMMERCEAPPLICATIONMODEL_WHERE);
+		}
+		else {
+			query.append(_FILTER_SQL_SELECT_COMMERCEAPPLICATIONMODEL_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		query.append(_FINDER_COLUMN_COMMERCEAPPLICATIONBRANDID_COMMERCEAPPLICATIONBRANDID_2);
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_COMMERCEAPPLICATIONMODEL_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				if (getDB().isSupportsInlineDistinct()) {
+					query.append(_ORDER_BY_ENTITY_ALIAS);
+				}
+				else {
+					query.append(_ORDER_BY_ENTITY_TABLE);
+				}
+
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				if (getDB().isSupportsInlineDistinct()) {
+					query.append(_ORDER_BY_ENTITY_ALIAS);
+				}
+				else {
+					query.append(_ORDER_BY_ENTITY_TABLE);
+				}
+
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(CommerceApplicationModelModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(CommerceApplicationModelModelImpl.ORDER_BY_SQL);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				CommerceApplicationModel.class.getName(),
+				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		if (getDB().isSupportsInlineDistinct()) {
+			q.addEntity(_FILTER_ENTITY_ALIAS, CommerceApplicationModelImpl.class);
+		}
+		else {
+			q.addEntity(_FILTER_ENTITY_TABLE, CommerceApplicationModelImpl.class);
+		}
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(commerceApplicationBrandId);
+
+		if (orderByComparator != null) {
+			Object[] values = orderByComparator.getOrderByConditionValues(commerceApplicationModel);
+
+			for (Object value : values) {
+				qPos.add(value);
+			}
+		}
+
+		List<CommerceApplicationModel> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the commerce application models where commerceApplicationBrandId = &#63; from the database.
+	 *
+	 * @param commerceApplicationBrandId the commerce application brand ID
+	 */
+	@Override
+	public void removeByCommerceApplicationBrandId(
+		long commerceApplicationBrandId) {
+		for (CommerceApplicationModel commerceApplicationModel : findByCommerceApplicationBrandId(
+				commerceApplicationBrandId, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null)) {
+			remove(commerceApplicationModel);
+		}
+	}
+
+	/**
+	 * Returns the number of commerce application models where commerceApplicationBrandId = &#63;.
+	 *
+	 * @param commerceApplicationBrandId the commerce application brand ID
+	 * @return the number of matching commerce application models
+	 */
+	@Override
+	public int countByCommerceApplicationBrandId(
+		long commerceApplicationBrandId) {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_COMMERCEAPPLICATIONBRANDID;
+
+		Object[] finderArgs = new Object[] { commerceApplicationBrandId };
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_COMMERCEAPPLICATIONMODEL_WHERE);
+
+			query.append(_FINDER_COLUMN_COMMERCEAPPLICATIONBRANDID_COMMERCEAPPLICATIONBRANDID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(commerceApplicationBrandId);
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	/**
+	 * Returns the number of commerce application models that the user has permission to view where commerceApplicationBrandId = &#63;.
+	 *
+	 * @param commerceApplicationBrandId the commerce application brand ID
+	 * @return the number of matching commerce application models that the user has permission to view
+	 */
+	@Override
+	public int filterCountByCommerceApplicationBrandId(
+		long commerceApplicationBrandId) {
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return countByCommerceApplicationBrandId(commerceApplicationBrandId);
+		}
+
+		StringBundler query = new StringBundler(2);
+
+		query.append(_FILTER_SQL_COUNT_COMMERCEAPPLICATIONMODEL_WHERE);
+
+		query.append(_FINDER_COLUMN_COMMERCEAPPLICATIONBRANDID_COMMERCEAPPLICATIONBRANDID_2);
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				CommerceApplicationModel.class.getName(),
+				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addScalar(COUNT_COLUMN_NAME,
+				com.liferay.portal.kernel.dao.orm.Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(commerceApplicationBrandId);
+
+			Long count = (Long)q.uniqueResult();
+
+			return count.intValue();
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	private static final String _FINDER_COLUMN_COMMERCEAPPLICATIONBRANDID_COMMERCEAPPLICATIONBRANDID_2 =
+		"commerceApplicationModel.commerceApplicationBrandId = ?";
 
 	public CommerceApplicationModelPersistenceImpl() {
 		setModelClass(CommerceApplicationModel.class);
@@ -347,10 +1256,46 @@ public class CommerceApplicationModelPersistenceImpl extends BasePersistenceImpl
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 
-		if (isNew) {
+		if (!CommerceApplicationModelModelImpl.COLUMN_BITMASK_ENABLED) {
+			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+		}
+		else
+		 if (isNew) {
+			Object[] args = new Object[] {
+					commerceApplicationModelModelImpl.getCommerceApplicationBrandId()
+				};
+
+			finderCache.removeResult(FINDER_PATH_COUNT_BY_COMMERCEAPPLICATIONBRANDID,
+				args);
+			finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMMERCEAPPLICATIONBRANDID,
+				args);
+
 			finderCache.removeResult(FINDER_PATH_COUNT_ALL, FINDER_ARGS_EMPTY);
 			finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL,
 				FINDER_ARGS_EMPTY);
+		}
+
+		else {
+			if ((commerceApplicationModelModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMMERCEAPPLICATIONBRANDID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						commerceApplicationModelModelImpl.getOriginalCommerceApplicationBrandId()
+					};
+
+				finderCache.removeResult(FINDER_PATH_COUNT_BY_COMMERCEAPPLICATIONBRANDID,
+					args);
+				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMMERCEAPPLICATIONBRANDID,
+					args);
+
+				args = new Object[] {
+						commerceApplicationModelModelImpl.getCommerceApplicationBrandId()
+					};
+
+				finderCache.removeResult(FINDER_PATH_COUNT_BY_COMMERCEAPPLICATIONBRANDID,
+					args);
+				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMMERCEAPPLICATIONBRANDID,
+					args);
+			}
 		}
 
 		entityCache.putResult(CommerceApplicationModelModelImpl.ENTITY_CACHE_ENABLED,
@@ -774,8 +1719,23 @@ public class CommerceApplicationModelPersistenceImpl extends BasePersistenceImpl
 	private static final String _SQL_SELECT_COMMERCEAPPLICATIONMODEL = "SELECT commerceApplicationModel FROM CommerceApplicationModel commerceApplicationModel";
 	private static final String _SQL_SELECT_COMMERCEAPPLICATIONMODEL_WHERE_PKS_IN =
 		"SELECT commerceApplicationModel FROM CommerceApplicationModel commerceApplicationModel WHERE commerceApplicationModelId IN (";
+	private static final String _SQL_SELECT_COMMERCEAPPLICATIONMODEL_WHERE = "SELECT commerceApplicationModel FROM CommerceApplicationModel commerceApplicationModel WHERE ";
 	private static final String _SQL_COUNT_COMMERCEAPPLICATIONMODEL = "SELECT COUNT(commerceApplicationModel) FROM CommerceApplicationModel commerceApplicationModel";
+	private static final String _SQL_COUNT_COMMERCEAPPLICATIONMODEL_WHERE = "SELECT COUNT(commerceApplicationModel) FROM CommerceApplicationModel commerceApplicationModel WHERE ";
+	private static final String _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN = "commerceApplicationModel.commerceApplicationModelId";
+	private static final String _FILTER_SQL_SELECT_COMMERCEAPPLICATIONMODEL_WHERE =
+		"SELECT DISTINCT {commerceApplicationModel.*} FROM CommerceApplicationModel commerceApplicationModel WHERE ";
+	private static final String _FILTER_SQL_SELECT_COMMERCEAPPLICATIONMODEL_NO_INLINE_DISTINCT_WHERE_1 =
+		"SELECT {CommerceApplicationModel.*} FROM (SELECT DISTINCT commerceApplicationModel.commerceApplicationModelId FROM CommerceApplicationModel commerceApplicationModel WHERE ";
+	private static final String _FILTER_SQL_SELECT_COMMERCEAPPLICATIONMODEL_NO_INLINE_DISTINCT_WHERE_2 =
+		") TEMP_TABLE INNER JOIN CommerceApplicationModel ON TEMP_TABLE.commerceApplicationModelId = CommerceApplicationModel.commerceApplicationModelId";
+	private static final String _FILTER_SQL_COUNT_COMMERCEAPPLICATIONMODEL_WHERE =
+		"SELECT COUNT(DISTINCT commerceApplicationModel.commerceApplicationModelId) AS COUNT_VALUE FROM CommerceApplicationModel commerceApplicationModel WHERE ";
+	private static final String _FILTER_ENTITY_ALIAS = "commerceApplicationModel";
+	private static final String _FILTER_ENTITY_TABLE = "CommerceApplicationModel";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "commerceApplicationModel.";
+	private static final String _ORDER_BY_ENTITY_TABLE = "CommerceApplicationModel.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No CommerceApplicationModel exists with the primary key ";
+	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No CommerceApplicationModel exists with the key {";
 	private static final Log _log = LogFactoryUtil.getLog(CommerceApplicationModelPersistenceImpl.class);
 }

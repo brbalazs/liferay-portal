@@ -43,11 +43,17 @@ public class CommerceBOMFolderServiceUtil {
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.commerce.bom.service.impl.CommerceBOMFolderServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static com.liferay.commerce.bom.model.CommerceBOMFolder addCommerceBOMFolder(
-		long userId, long parentCommerceBOMFolderId, String name, long imageId)
+		long userId, long parentCommerceBOMFolderId, String name, boolean logo,
+		byte[] logoBytes)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .addCommerceBOMFolder(userId, parentCommerceBOMFolderId,
-			name, imageId);
+			name, logo, logoBytes);
+	}
+
+	public static void deleteCommerceBOMFolder(long commerceBOMFolderId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		getService().deleteCommerceBOMFolder(commerceBOMFolderId);
 	}
 
 	public static com.liferay.commerce.bom.model.CommerceBOMFolder getCommerceBOMFolder(
@@ -57,16 +63,14 @@ public class CommerceBOMFolderServiceUtil {
 	}
 
 	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolder> getCommerceBOMFolders(
-		long companyId, long parentCommerceBOMFolderId, int start, int end)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		long companyId, long parentCommerceBOMFolderId, int start, int end) {
 		return getService()
 				   .getCommerceBOMFolders(companyId, parentCommerceBOMFolderId,
 			start, end);
 	}
 
 	public static int getCommerceBOMFoldersCount(long companyId,
-		long parentCommerceBOMFolderId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		long parentCommerceBOMFolderId) {
 		return getService()
 				   .getCommerceBOMFoldersCount(companyId,
 			parentCommerceBOMFolderId);
@@ -82,10 +86,11 @@ public class CommerceBOMFolderServiceUtil {
 	}
 
 	public static com.liferay.commerce.bom.model.CommerceBOMFolder updateCommerceBOMFolder(
-		long commerceBOMFolderId, String name, long imageId)
+		long commerceBOMFolderId, String name, boolean logo, byte[] logoBytes)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
-				   .updateCommerceBOMFolder(commerceBOMFolderId, name, imageId);
+				   .updateCommerceBOMFolder(commerceBOMFolderId, name, logo,
+			logoBytes);
 	}
 
 	public static CommerceBOMFolderService getService() {

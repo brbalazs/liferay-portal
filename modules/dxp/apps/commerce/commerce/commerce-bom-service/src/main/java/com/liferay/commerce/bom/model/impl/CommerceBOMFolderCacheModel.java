@@ -83,8 +83,8 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 		sb.append(parentCommerceBOMFolderId);
 		sb.append(", name=");
 		sb.append(name);
-		sb.append(", imageId=");
-		sb.append(imageId);
+		sb.append(", logoId=");
+		sb.append(logoId);
 		sb.append("}");
 
 		return sb.toString();
@@ -128,7 +128,7 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 			commerceBOMFolderImpl.setName(name);
 		}
 
-		commerceBOMFolderImpl.setImageId(imageId);
+		commerceBOMFolderImpl.setLogoId(logoId);
 
 		commerceBOMFolderImpl.resetOriginalValues();
 
@@ -149,7 +149,7 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 		parentCommerceBOMFolderId = objectInput.readLong();
 		name = objectInput.readUTF();
 
-		imageId = objectInput.readLong();
+		logoId = objectInput.readLong();
 	}
 
 	@Override
@@ -180,7 +180,7 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 			objectOutput.writeUTF(name);
 		}
 
-		objectOutput.writeLong(imageId);
+		objectOutput.writeLong(logoId);
 	}
 
 	public long commerceBOMFolderId;
@@ -191,5 +191,5 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 	public long modifiedDate;
 	public long parentCommerceBOMFolderId;
 	public String name;
-	public long imageId;
+	public long logoId;
 }

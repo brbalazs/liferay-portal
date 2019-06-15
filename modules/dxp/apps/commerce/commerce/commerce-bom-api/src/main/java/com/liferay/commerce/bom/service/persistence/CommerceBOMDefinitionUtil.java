@@ -120,9 +120,9 @@ public class CommerceBOMDefinitionUtil {
 	* @param commerceBOMFolderId the commerce bom folder ID
 	* @return the matching commerce bom definitions
 	*/
-	public static List<CommerceBOMDefinition> findBycommerceBOMFolderId(
+	public static List<CommerceBOMDefinition> findByCommerceBOMFolderId(
 		long commerceBOMFolderId) {
-		return getPersistence().findBycommerceBOMFolderId(commerceBOMFolderId);
+		return getPersistence().findByCommerceBOMFolderId(commerceBOMFolderId);
 	}
 
 	/**
@@ -137,10 +137,10 @@ public class CommerceBOMDefinitionUtil {
 	* @param end the upper bound of the range of commerce bom definitions (not inclusive)
 	* @return the range of matching commerce bom definitions
 	*/
-	public static List<CommerceBOMDefinition> findBycommerceBOMFolderId(
+	public static List<CommerceBOMDefinition> findByCommerceBOMFolderId(
 		long commerceBOMFolderId, int start, int end) {
 		return getPersistence()
-				   .findBycommerceBOMFolderId(commerceBOMFolderId, start, end);
+				   .findByCommerceBOMFolderId(commerceBOMFolderId, start, end);
 	}
 
 	/**
@@ -156,11 +156,11 @@ public class CommerceBOMDefinitionUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching commerce bom definitions
 	*/
-	public static List<CommerceBOMDefinition> findBycommerceBOMFolderId(
+	public static List<CommerceBOMDefinition> findByCommerceBOMFolderId(
 		long commerceBOMFolderId, int start, int end,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator) {
 		return getPersistence()
-				   .findBycommerceBOMFolderId(commerceBOMFolderId, start, end,
+				   .findByCommerceBOMFolderId(commerceBOMFolderId, start, end,
 			orderByComparator);
 	}
 
@@ -178,12 +178,12 @@ public class CommerceBOMDefinitionUtil {
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the ordered range of matching commerce bom definitions
 	*/
-	public static List<CommerceBOMDefinition> findBycommerceBOMFolderId(
+	public static List<CommerceBOMDefinition> findByCommerceBOMFolderId(
 		long commerceBOMFolderId, int start, int end,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator,
 		boolean retrieveFromCache) {
 		return getPersistence()
-				   .findBycommerceBOMFolderId(commerceBOMFolderId, start, end,
+				   .findByCommerceBOMFolderId(commerceBOMFolderId, start, end,
 			orderByComparator, retrieveFromCache);
 	}
 
@@ -195,12 +195,12 @@ public class CommerceBOMDefinitionUtil {
 	* @return the first matching commerce bom definition
 	* @throws NoSuchBOMDefinitionException if a matching commerce bom definition could not be found
 	*/
-	public static CommerceBOMDefinition findBycommerceBOMFolderId_First(
+	public static CommerceBOMDefinition findByCommerceBOMFolderId_First(
 		long commerceBOMFolderId,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator)
 		throws com.liferay.commerce.bom.exception.NoSuchBOMDefinitionException {
 		return getPersistence()
-				   .findBycommerceBOMFolderId_First(commerceBOMFolderId,
+				   .findByCommerceBOMFolderId_First(commerceBOMFolderId,
 			orderByComparator);
 	}
 
@@ -211,11 +211,11 @@ public class CommerceBOMDefinitionUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching commerce bom definition, or <code>null</code> if a matching commerce bom definition could not be found
 	*/
-	public static CommerceBOMDefinition fetchBycommerceBOMFolderId_First(
+	public static CommerceBOMDefinition fetchByCommerceBOMFolderId_First(
 		long commerceBOMFolderId,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator) {
 		return getPersistence()
-				   .fetchBycommerceBOMFolderId_First(commerceBOMFolderId,
+				   .fetchByCommerceBOMFolderId_First(commerceBOMFolderId,
 			orderByComparator);
 	}
 
@@ -227,12 +227,12 @@ public class CommerceBOMDefinitionUtil {
 	* @return the last matching commerce bom definition
 	* @throws NoSuchBOMDefinitionException if a matching commerce bom definition could not be found
 	*/
-	public static CommerceBOMDefinition findBycommerceBOMFolderId_Last(
+	public static CommerceBOMDefinition findByCommerceBOMFolderId_Last(
 		long commerceBOMFolderId,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator)
 		throws com.liferay.commerce.bom.exception.NoSuchBOMDefinitionException {
 		return getPersistence()
-				   .findBycommerceBOMFolderId_Last(commerceBOMFolderId,
+				   .findByCommerceBOMFolderId_Last(commerceBOMFolderId,
 			orderByComparator);
 	}
 
@@ -243,11 +243,11 @@ public class CommerceBOMDefinitionUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching commerce bom definition, or <code>null</code> if a matching commerce bom definition could not be found
 	*/
-	public static CommerceBOMDefinition fetchBycommerceBOMFolderId_Last(
+	public static CommerceBOMDefinition fetchByCommerceBOMFolderId_Last(
 		long commerceBOMFolderId,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator) {
 		return getPersistence()
-				   .fetchBycommerceBOMFolderId_Last(commerceBOMFolderId,
+				   .fetchByCommerceBOMFolderId_Last(commerceBOMFolderId,
 			orderByComparator);
 	}
 
@@ -260,12 +260,12 @@ public class CommerceBOMDefinitionUtil {
 	* @return the previous, current, and next commerce bom definition
 	* @throws NoSuchBOMDefinitionException if a commerce bom definition with the primary key could not be found
 	*/
-	public static CommerceBOMDefinition[] findBycommerceBOMFolderId_PrevAndNext(
+	public static CommerceBOMDefinition[] findByCommerceBOMFolderId_PrevAndNext(
 		long commerceBOMDefinitionId, long commerceBOMFolderId,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator)
 		throws com.liferay.commerce.bom.exception.NoSuchBOMDefinitionException {
 		return getPersistence()
-				   .findBycommerceBOMFolderId_PrevAndNext(commerceBOMDefinitionId,
+				   .findByCommerceBOMFolderId_PrevAndNext(commerceBOMDefinitionId,
 			commerceBOMFolderId, orderByComparator);
 	}
 
@@ -275,10 +275,10 @@ public class CommerceBOMDefinitionUtil {
 	* @param commerceBOMFolderId the commerce bom folder ID
 	* @return the matching commerce bom definitions that the user has permission to view
 	*/
-	public static List<CommerceBOMDefinition> filterFindBycommerceBOMFolderId(
+	public static List<CommerceBOMDefinition> filterFindByCommerceBOMFolderId(
 		long commerceBOMFolderId) {
 		return getPersistence()
-				   .filterFindBycommerceBOMFolderId(commerceBOMFolderId);
+				   .filterFindByCommerceBOMFolderId(commerceBOMFolderId);
 	}
 
 	/**
@@ -293,10 +293,10 @@ public class CommerceBOMDefinitionUtil {
 	* @param end the upper bound of the range of commerce bom definitions (not inclusive)
 	* @return the range of matching commerce bom definitions that the user has permission to view
 	*/
-	public static List<CommerceBOMDefinition> filterFindBycommerceBOMFolderId(
+	public static List<CommerceBOMDefinition> filterFindByCommerceBOMFolderId(
 		long commerceBOMFolderId, int start, int end) {
 		return getPersistence()
-				   .filterFindBycommerceBOMFolderId(commerceBOMFolderId, start,
+				   .filterFindByCommerceBOMFolderId(commerceBOMFolderId, start,
 			end);
 	}
 
@@ -313,11 +313,11 @@ public class CommerceBOMDefinitionUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching commerce bom definitions that the user has permission to view
 	*/
-	public static List<CommerceBOMDefinition> filterFindBycommerceBOMFolderId(
+	public static List<CommerceBOMDefinition> filterFindByCommerceBOMFolderId(
 		long commerceBOMFolderId, int start, int end,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator) {
 		return getPersistence()
-				   .filterFindBycommerceBOMFolderId(commerceBOMFolderId, start,
+				   .filterFindByCommerceBOMFolderId(commerceBOMFolderId, start,
 			end, orderByComparator);
 	}
 
@@ -330,12 +330,12 @@ public class CommerceBOMDefinitionUtil {
 	* @return the previous, current, and next commerce bom definition
 	* @throws NoSuchBOMDefinitionException if a commerce bom definition with the primary key could not be found
 	*/
-	public static CommerceBOMDefinition[] filterFindBycommerceBOMFolderId_PrevAndNext(
+	public static CommerceBOMDefinition[] filterFindByCommerceBOMFolderId_PrevAndNext(
 		long commerceBOMDefinitionId, long commerceBOMFolderId,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator)
 		throws com.liferay.commerce.bom.exception.NoSuchBOMDefinitionException {
 		return getPersistence()
-				   .filterFindBycommerceBOMFolderId_PrevAndNext(commerceBOMDefinitionId,
+				   .filterFindByCommerceBOMFolderId_PrevAndNext(commerceBOMDefinitionId,
 			commerceBOMFolderId, orderByComparator);
 	}
 
@@ -344,8 +344,8 @@ public class CommerceBOMDefinitionUtil {
 	*
 	* @param commerceBOMFolderId the commerce bom folder ID
 	*/
-	public static void removeBycommerceBOMFolderId(long commerceBOMFolderId) {
-		getPersistence().removeBycommerceBOMFolderId(commerceBOMFolderId);
+	public static void removeByCommerceBOMFolderId(long commerceBOMFolderId) {
+		getPersistence().removeByCommerceBOMFolderId(commerceBOMFolderId);
 	}
 
 	/**
@@ -354,8 +354,8 @@ public class CommerceBOMDefinitionUtil {
 	* @param commerceBOMFolderId the commerce bom folder ID
 	* @return the number of matching commerce bom definitions
 	*/
-	public static int countBycommerceBOMFolderId(long commerceBOMFolderId) {
-		return getPersistence().countBycommerceBOMFolderId(commerceBOMFolderId);
+	public static int countByCommerceBOMFolderId(long commerceBOMFolderId) {
+		return getPersistence().countByCommerceBOMFolderId(commerceBOMFolderId);
 	}
 
 	/**
@@ -364,9 +364,9 @@ public class CommerceBOMDefinitionUtil {
 	* @param commerceBOMFolderId the commerce bom folder ID
 	* @return the number of matching commerce bom definitions that the user has permission to view
 	*/
-	public static int filterCountBycommerceBOMFolderId(long commerceBOMFolderId) {
+	public static int filterCountByCommerceBOMFolderId(long commerceBOMFolderId) {
 		return getPersistence()
-				   .filterCountBycommerceBOMFolderId(commerceBOMFolderId);
+				   .filterCountByCommerceBOMFolderId(commerceBOMFolderId);
 	}
 
 	/**

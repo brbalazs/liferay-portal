@@ -66,11 +66,12 @@ import java.rmi.RemoteException;
 @ProviderType
 public class CommerceApplicationBrandServiceSoap {
 	public static com.liferay.commerce.application.model.CommerceApplicationBrandSoap addCommerceApplicationBrand(
-		long userId, String name, long logoId) throws RemoteException {
+		long userId, String name, boolean logo, byte[] logoBytes)
+		throws RemoteException {
 		try {
 			com.liferay.commerce.application.model.CommerceApplicationBrand returnValue =
 				CommerceApplicationBrandServiceUtil.addCommerceApplicationBrand(userId,
-					name, logoId);
+					name, logo, logoBytes);
 
 			return com.liferay.commerce.application.model.CommerceApplicationBrandSoap.toSoapModel(returnValue);
 		}
@@ -81,13 +82,55 @@ public class CommerceApplicationBrandServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.application.model.CommerceApplicationBrandSoap updateCommerceApplicationBrand(
-		long commerceApplicationBrandId, String name, long logoId)
+	public static void deleteCommerceApplicationBrand(
+		long commerceApplicationBrandId) throws RemoteException {
+		try {
+			CommerceApplicationBrandServiceUtil.deleteCommerceApplicationBrand(commerceApplicationBrandId);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.application.model.CommerceApplicationBrandSoap[] getCommerceApplicationBrands(
+		long companyId, int start, int end) throws RemoteException {
+		try {
+			java.util.List<com.liferay.commerce.application.model.CommerceApplicationBrand> returnValue =
+				CommerceApplicationBrandServiceUtil.getCommerceApplicationBrands(companyId,
+					start, end);
+
+			return com.liferay.commerce.application.model.CommerceApplicationBrandSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getCommerceApplicationBrandsCount(long companyId)
 		throws RemoteException {
+		try {
+			int returnValue = CommerceApplicationBrandServiceUtil.getCommerceApplicationBrandsCount(companyId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.application.model.CommerceApplicationBrandSoap updateCommerceApplicationBrand(
+		long commerceApplicationBrandId, String name, boolean logo,
+		byte[] logoBytes) throws RemoteException {
 		try {
 			com.liferay.commerce.application.model.CommerceApplicationBrand returnValue =
 				CommerceApplicationBrandServiceUtil.updateCommerceApplicationBrand(commerceApplicationBrandId,
-					name, logoId);
+					name, logo, logoBytes);
 
 			return com.liferay.commerce.application.model.CommerceApplicationBrandSoap.toSoapModel(returnValue);
 		}

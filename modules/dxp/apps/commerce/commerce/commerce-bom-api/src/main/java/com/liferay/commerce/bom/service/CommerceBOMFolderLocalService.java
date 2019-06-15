@@ -25,10 +25,12 @@ import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -71,9 +73,10 @@ public interface CommerceBOMFolderLocalService extends BaseLocalService,
 	public CommerceBOMFolder addCommerceBOMFolder(
 		CommerceBOMFolder commerceBOMFolder);
 
+	@Indexable(type = IndexableType.REINDEX)
 	public CommerceBOMFolder addCommerceBOMFolder(long userId,
-		long parentCommerceBOMFolderId, String name, long imageId)
-		throws PortalException;
+		long parentCommerceBOMFolderId, String name, boolean logo,
+		byte[] logoBytes) throws PortalException;
 
 	/**
 	* Creates a new commerce bom folder with the primary key. Does not add the commerce bom folder to the database.
@@ -92,6 +95,7 @@ public interface CommerceBOMFolderLocalService extends BaseLocalService,
 	* @throws PortalException
 	*/
 	@Indexable(type = IndexableType.DELETE)
+	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
 	public CommerceBOMFolder deleteCommerceBOMFolder(
 		CommerceBOMFolder commerceBOMFolder) throws PortalException;
 
@@ -212,10 +216,6 @@ public interface CommerceBOMFolderLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceBOMFolder> getCommerceBOMFolders(int start, int end);
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommerceBOMFolder> getCommerceBOMFolders(long companyId,
-		long parentCommerceBOMFolderId, int start, int end);
-
 	/**
 	* Returns the number of commerce bom folders.
 	*
@@ -223,10 +223,6 @@ public interface CommerceBOMFolderLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceBOMFoldersCount();
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommerceBOMFoldersCount(long companyId,
-		long parentCommerceBOMFolderId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
@@ -253,6 +249,7 @@ public interface CommerceBOMFolderLocalService extends BaseLocalService,
 	public CommerceBOMFolder updateCommerceBOMFolder(
 		CommerceBOMFolder commerceBOMFolder);
 
+	@Indexable(type = IndexableType.REINDEX)
 	public CommerceBOMFolder updateCommerceBOMFolder(long commerceBOMFolderId,
-		String name, long imageId) throws PortalException;
+		String name, boolean logo, byte[] logoBytes) throws PortalException;
 }

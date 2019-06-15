@@ -26,10 +26,13 @@ import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
 import com.liferay.portal.kernel.dao.orm.Query;
+import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.CompanyProvider;
@@ -89,6 +92,886 @@ public class CommerceApplicationBrandPersistenceImpl extends BasePersistenceImpl
 	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(CommerceApplicationBrandModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceApplicationBrandModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANY = new FinderPath(CommerceApplicationBrandModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceApplicationBrandModelImpl.FINDER_CACHE_ENABLED,
+			CommerceApplicationBrandImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCompany",
+			new String[] {
+				Long.class.getName(),
+				
+			Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANY =
+		new FinderPath(CommerceApplicationBrandModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceApplicationBrandModelImpl.FINDER_CACHE_ENABLED,
+			CommerceApplicationBrandImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCompany",
+			new String[] { Long.class.getName() },
+			CommerceApplicationBrandModelImpl.COMPANYID_COLUMN_BITMASK |
+			CommerceApplicationBrandModelImpl.NAME_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_COMPANY = new FinderPath(CommerceApplicationBrandModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceApplicationBrandModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompany",
+			new String[] { Long.class.getName() });
+
+	/**
+	 * Returns all the commerce application brands where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @return the matching commerce application brands
+	 */
+	@Override
+	public List<CommerceApplicationBrand> findByCompany(long companyId) {
+		return findByCompany(companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			null);
+	}
+
+	/**
+	 * Returns a range of all the commerce application brands where companyId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationBrandModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param companyId the company ID
+	 * @param start the lower bound of the range of commerce application brands
+	 * @param end the upper bound of the range of commerce application brands (not inclusive)
+	 * @return the range of matching commerce application brands
+	 */
+	@Override
+	public List<CommerceApplicationBrand> findByCompany(long companyId,
+		int start, int end) {
+		return findByCompany(companyId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the commerce application brands where companyId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationBrandModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param companyId the company ID
+	 * @param start the lower bound of the range of commerce application brands
+	 * @param end the upper bound of the range of commerce application brands (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching commerce application brands
+	 */
+	@Override
+	public List<CommerceApplicationBrand> findByCompany(long companyId,
+		int start, int end,
+		OrderByComparator<CommerceApplicationBrand> orderByComparator) {
+		return findByCompany(companyId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the commerce application brands where companyId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationBrandModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param companyId the company ID
+	 * @param start the lower bound of the range of commerce application brands
+	 * @param end the upper bound of the range of commerce application brands (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the ordered range of matching commerce application brands
+	 */
+	@Override
+	public List<CommerceApplicationBrand> findByCompany(long companyId,
+		int start, int end,
+		OrderByComparator<CommerceApplicationBrand> orderByComparator,
+		boolean retrieveFromCache) {
+		boolean pagination = true;
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+				(orderByComparator == null)) {
+			pagination = false;
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANY;
+			finderArgs = new Object[] { companyId };
+		}
+		else {
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANY;
+			finderArgs = new Object[] { companyId, start, end, orderByComparator };
+		}
+
+		List<CommerceApplicationBrand> list = null;
+
+		if (retrieveFromCache) {
+			list = (List<CommerceApplicationBrand>)finderCache.getResult(finderPath,
+					finderArgs, this);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (CommerceApplicationBrand commerceApplicationBrand : list) {
+					if ((companyId != commerceApplicationBrand.getCompanyId())) {
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(3 +
+						(orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				query = new StringBundler(3);
+			}
+
+			query.append(_SQL_SELECT_COMMERCEAPPLICATIONBRAND_WHERE);
+
+			query.append(_FINDER_COLUMN_COMPANY_COMPANYID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+			}
+			else
+			 if (pagination) {
+				query.append(CommerceApplicationBrandModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(companyId);
+
+				if (!pagination) {
+					list = (List<CommerceApplicationBrand>)QueryUtil.list(q,
+							getDialect(), start, end, false);
+
+					Collections.sort(list);
+
+					list = Collections.unmodifiableList(list);
+				}
+				else {
+					list = (List<CommerceApplicationBrand>)QueryUtil.list(q,
+							getDialect(), start, end);
+				}
+
+				cacheResult(list);
+
+				finderCache.putResult(finderPath, finderArgs, list);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first commerce application brand in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching commerce application brand
+	 * @throws NoSuchApplicationBrandException if a matching commerce application brand could not be found
+	 */
+	@Override
+	public CommerceApplicationBrand findByCompany_First(long companyId,
+		OrderByComparator<CommerceApplicationBrand> orderByComparator)
+		throws NoSuchApplicationBrandException {
+		CommerceApplicationBrand commerceApplicationBrand = fetchByCompany_First(companyId,
+				orderByComparator);
+
+		if (commerceApplicationBrand != null) {
+			return commerceApplicationBrand;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append("}");
+
+		throw new NoSuchApplicationBrandException(msg.toString());
+	}
+
+	/**
+	 * Returns the first commerce application brand in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching commerce application brand, or <code>null</code> if a matching commerce application brand could not be found
+	 */
+	@Override
+	public CommerceApplicationBrand fetchByCompany_First(long companyId,
+		OrderByComparator<CommerceApplicationBrand> orderByComparator) {
+		List<CommerceApplicationBrand> list = findByCompany(companyId, 0, 1,
+				orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last commerce application brand in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching commerce application brand
+	 * @throws NoSuchApplicationBrandException if a matching commerce application brand could not be found
+	 */
+	@Override
+	public CommerceApplicationBrand findByCompany_Last(long companyId,
+		OrderByComparator<CommerceApplicationBrand> orderByComparator)
+		throws NoSuchApplicationBrandException {
+		CommerceApplicationBrand commerceApplicationBrand = fetchByCompany_Last(companyId,
+				orderByComparator);
+
+		if (commerceApplicationBrand != null) {
+			return commerceApplicationBrand;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append("}");
+
+		throw new NoSuchApplicationBrandException(msg.toString());
+	}
+
+	/**
+	 * Returns the last commerce application brand in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching commerce application brand, or <code>null</code> if a matching commerce application brand could not be found
+	 */
+	@Override
+	public CommerceApplicationBrand fetchByCompany_Last(long companyId,
+		OrderByComparator<CommerceApplicationBrand> orderByComparator) {
+		int count = countByCompany(companyId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<CommerceApplicationBrand> list = findByCompany(companyId,
+				count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the commerce application brands before and after the current commerce application brand in the ordered set where companyId = &#63;.
+	 *
+	 * @param commerceApplicationBrandId the primary key of the current commerce application brand
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next commerce application brand
+	 * @throws NoSuchApplicationBrandException if a commerce application brand with the primary key could not be found
+	 */
+	@Override
+	public CommerceApplicationBrand[] findByCompany_PrevAndNext(
+		long commerceApplicationBrandId, long companyId,
+		OrderByComparator<CommerceApplicationBrand> orderByComparator)
+		throws NoSuchApplicationBrandException {
+		CommerceApplicationBrand commerceApplicationBrand = findByPrimaryKey(commerceApplicationBrandId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			CommerceApplicationBrand[] array = new CommerceApplicationBrandImpl[3];
+
+			array[0] = getByCompany_PrevAndNext(session,
+					commerceApplicationBrand, companyId, orderByComparator, true);
+
+			array[1] = commerceApplicationBrand;
+
+			array[2] = getByCompany_PrevAndNext(session,
+					commerceApplicationBrand, companyId, orderByComparator,
+					false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected CommerceApplicationBrand getByCompany_PrevAndNext(
+		Session session, CommerceApplicationBrand commerceApplicationBrand,
+		long companyId,
+		OrderByComparator<CommerceApplicationBrand> orderByComparator,
+		boolean previous) {
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(4 +
+					(orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		query.append(_SQL_SELECT_COMMERCEAPPLICATIONBRAND_WHERE);
+
+		query.append(_FINDER_COLUMN_COMPANY_COMPANYID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			query.append(CommerceApplicationBrandModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(companyId);
+
+		if (orderByComparator != null) {
+			Object[] values = orderByComparator.getOrderByConditionValues(commerceApplicationBrand);
+
+			for (Object value : values) {
+				qPos.add(value);
+			}
+		}
+
+		List<CommerceApplicationBrand> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Returns all the commerce application brands that the user has permission to view where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @return the matching commerce application brands that the user has permission to view
+	 */
+	@Override
+	public List<CommerceApplicationBrand> filterFindByCompany(long companyId) {
+		return filterFindByCompany(companyId, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the commerce application brands that the user has permission to view where companyId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationBrandModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param companyId the company ID
+	 * @param start the lower bound of the range of commerce application brands
+	 * @param end the upper bound of the range of commerce application brands (not inclusive)
+	 * @return the range of matching commerce application brands that the user has permission to view
+	 */
+	@Override
+	public List<CommerceApplicationBrand> filterFindByCompany(long companyId,
+		int start, int end) {
+		return filterFindByCompany(companyId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the commerce application brands that the user has permissions to view where companyId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationBrandModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param companyId the company ID
+	 * @param start the lower bound of the range of commerce application brands
+	 * @param end the upper bound of the range of commerce application brands (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching commerce application brands that the user has permission to view
+	 */
+	@Override
+	public List<CommerceApplicationBrand> filterFindByCompany(long companyId,
+		int start, int end,
+		OrderByComparator<CommerceApplicationBrand> orderByComparator) {
+		if (!InlineSQLHelperUtil.isEnabled(companyId, 0)) {
+			return findByCompany(companyId, start, end, orderByComparator);
+		}
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(3 +
+					(orderByComparator.getOrderByFields().length * 2));
+		}
+		else {
+			query = new StringBundler(4);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_COMMERCEAPPLICATIONBRAND_WHERE);
+		}
+		else {
+			query.append(_FILTER_SQL_SELECT_COMMERCEAPPLICATIONBRAND_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		query.append(_FINDER_COLUMN_COMPANY_COMPANYID_2);
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_COMMERCEAPPLICATIONBRAND_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			if (getDB().isSupportsInlineDistinct()) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator, true);
+			}
+			else {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_TABLE,
+					orderByComparator, true);
+			}
+		}
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(CommerceApplicationBrandModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(CommerceApplicationBrandModelImpl.ORDER_BY_SQL);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				CommerceApplicationBrand.class.getName(),
+				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			if (getDB().isSupportsInlineDistinct()) {
+				q.addEntity(_FILTER_ENTITY_ALIAS,
+					CommerceApplicationBrandImpl.class);
+			}
+			else {
+				q.addEntity(_FILTER_ENTITY_TABLE,
+					CommerceApplicationBrandImpl.class);
+			}
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(companyId);
+
+			return (List<CommerceApplicationBrand>)QueryUtil.list(q,
+				getDialect(), start, end);
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	/**
+	 * Returns the commerce application brands before and after the current commerce application brand in the ordered set of commerce application brands that the user has permission to view where companyId = &#63;.
+	 *
+	 * @param commerceApplicationBrandId the primary key of the current commerce application brand
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next commerce application brand
+	 * @throws NoSuchApplicationBrandException if a commerce application brand with the primary key could not be found
+	 */
+	@Override
+	public CommerceApplicationBrand[] filterFindByCompany_PrevAndNext(
+		long commerceApplicationBrandId, long companyId,
+		OrderByComparator<CommerceApplicationBrand> orderByComparator)
+		throws NoSuchApplicationBrandException {
+		if (!InlineSQLHelperUtil.isEnabled(companyId, 0)) {
+			return findByCompany_PrevAndNext(commerceApplicationBrandId,
+				companyId, orderByComparator);
+		}
+
+		CommerceApplicationBrand commerceApplicationBrand = findByPrimaryKey(commerceApplicationBrandId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			CommerceApplicationBrand[] array = new CommerceApplicationBrandImpl[3];
+
+			array[0] = filterGetByCompany_PrevAndNext(session,
+					commerceApplicationBrand, companyId, orderByComparator, true);
+
+			array[1] = commerceApplicationBrand;
+
+			array[2] = filterGetByCompany_PrevAndNext(session,
+					commerceApplicationBrand, companyId, orderByComparator,
+					false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected CommerceApplicationBrand filterGetByCompany_PrevAndNext(
+		Session session, CommerceApplicationBrand commerceApplicationBrand,
+		long companyId,
+		OrderByComparator<CommerceApplicationBrand> orderByComparator,
+		boolean previous) {
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(5 +
+					(orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(4);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_COMMERCEAPPLICATIONBRAND_WHERE);
+		}
+		else {
+			query.append(_FILTER_SQL_SELECT_COMMERCEAPPLICATIONBRAND_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		query.append(_FINDER_COLUMN_COMPANY_COMPANYID_2);
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_COMMERCEAPPLICATIONBRAND_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				if (getDB().isSupportsInlineDistinct()) {
+					query.append(_ORDER_BY_ENTITY_ALIAS);
+				}
+				else {
+					query.append(_ORDER_BY_ENTITY_TABLE);
+				}
+
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				if (getDB().isSupportsInlineDistinct()) {
+					query.append(_ORDER_BY_ENTITY_ALIAS);
+				}
+				else {
+					query.append(_ORDER_BY_ENTITY_TABLE);
+				}
+
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(CommerceApplicationBrandModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(CommerceApplicationBrandModelImpl.ORDER_BY_SQL);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				CommerceApplicationBrand.class.getName(),
+				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		if (getDB().isSupportsInlineDistinct()) {
+			q.addEntity(_FILTER_ENTITY_ALIAS, CommerceApplicationBrandImpl.class);
+		}
+		else {
+			q.addEntity(_FILTER_ENTITY_TABLE, CommerceApplicationBrandImpl.class);
+		}
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(companyId);
+
+		if (orderByComparator != null) {
+			Object[] values = orderByComparator.getOrderByConditionValues(commerceApplicationBrand);
+
+			for (Object value : values) {
+				qPos.add(value);
+			}
+		}
+
+		List<CommerceApplicationBrand> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the commerce application brands where companyId = &#63; from the database.
+	 *
+	 * @param companyId the company ID
+	 */
+	@Override
+	public void removeByCompany(long companyId) {
+		for (CommerceApplicationBrand commerceApplicationBrand : findByCompany(
+				companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+			remove(commerceApplicationBrand);
+		}
+	}
+
+	/**
+	 * Returns the number of commerce application brands where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @return the number of matching commerce application brands
+	 */
+	@Override
+	public int countByCompany(long companyId) {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_COMPANY;
+
+		Object[] finderArgs = new Object[] { companyId };
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_COMMERCEAPPLICATIONBRAND_WHERE);
+
+			query.append(_FINDER_COLUMN_COMPANY_COMPANYID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(companyId);
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	/**
+	 * Returns the number of commerce application brands that the user has permission to view where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @return the number of matching commerce application brands that the user has permission to view
+	 */
+	@Override
+	public int filterCountByCompany(long companyId) {
+		if (!InlineSQLHelperUtil.isEnabled(companyId, 0)) {
+			return countByCompany(companyId);
+		}
+
+		StringBundler query = new StringBundler(2);
+
+		query.append(_FILTER_SQL_COUNT_COMMERCEAPPLICATIONBRAND_WHERE);
+
+		query.append(_FINDER_COLUMN_COMPANY_COMPANYID_2);
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				CommerceApplicationBrand.class.getName(),
+				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addScalar(COUNT_COLUMN_NAME,
+				com.liferay.portal.kernel.dao.orm.Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(companyId);
+
+			Long count = (Long)q.uniqueResult();
+
+			return count.intValue();
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	private static final String _FINDER_COLUMN_COMPANY_COMPANYID_2 = "commerceApplicationBrand.companyId = ?";
 
 	public CommerceApplicationBrandPersistenceImpl() {
 		setModelClass(CommerceApplicationBrand.class);
@@ -347,10 +1230,43 @@ public class CommerceApplicationBrandPersistenceImpl extends BasePersistenceImpl
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 
-		if (isNew) {
+		if (!CommerceApplicationBrandModelImpl.COLUMN_BITMASK_ENABLED) {
+			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+		}
+		else
+		 if (isNew) {
+			Object[] args = new Object[] {
+					commerceApplicationBrandModelImpl.getCompanyId()
+				};
+
+			finderCache.removeResult(FINDER_PATH_COUNT_BY_COMPANY, args);
+			finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANY,
+				args);
+
 			finderCache.removeResult(FINDER_PATH_COUNT_ALL, FINDER_ARGS_EMPTY);
 			finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL,
 				FINDER_ARGS_EMPTY);
+		}
+
+		else {
+			if ((commerceApplicationBrandModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANY.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						commerceApplicationBrandModelImpl.getOriginalCompanyId()
+					};
+
+				finderCache.removeResult(FINDER_PATH_COUNT_BY_COMPANY, args);
+				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANY,
+					args);
+
+				args = new Object[] {
+						commerceApplicationBrandModelImpl.getCompanyId()
+					};
+
+				finderCache.removeResult(FINDER_PATH_COUNT_BY_COMPANY, args);
+				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANY,
+					args);
+			}
 		}
 
 		entityCache.putResult(CommerceApplicationBrandModelImpl.ENTITY_CACHE_ENABLED,
@@ -774,8 +1690,23 @@ public class CommerceApplicationBrandPersistenceImpl extends BasePersistenceImpl
 	private static final String _SQL_SELECT_COMMERCEAPPLICATIONBRAND = "SELECT commerceApplicationBrand FROM CommerceApplicationBrand commerceApplicationBrand";
 	private static final String _SQL_SELECT_COMMERCEAPPLICATIONBRAND_WHERE_PKS_IN =
 		"SELECT commerceApplicationBrand FROM CommerceApplicationBrand commerceApplicationBrand WHERE commerceApplicationBrandId IN (";
+	private static final String _SQL_SELECT_COMMERCEAPPLICATIONBRAND_WHERE = "SELECT commerceApplicationBrand FROM CommerceApplicationBrand commerceApplicationBrand WHERE ";
 	private static final String _SQL_COUNT_COMMERCEAPPLICATIONBRAND = "SELECT COUNT(commerceApplicationBrand) FROM CommerceApplicationBrand commerceApplicationBrand";
+	private static final String _SQL_COUNT_COMMERCEAPPLICATIONBRAND_WHERE = "SELECT COUNT(commerceApplicationBrand) FROM CommerceApplicationBrand commerceApplicationBrand WHERE ";
+	private static final String _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN = "commerceApplicationBrand.commerceApplicationBrandId";
+	private static final String _FILTER_SQL_SELECT_COMMERCEAPPLICATIONBRAND_WHERE =
+		"SELECT DISTINCT {commerceApplicationBrand.*} FROM CommerceApplicationBrand commerceApplicationBrand WHERE ";
+	private static final String _FILTER_SQL_SELECT_COMMERCEAPPLICATIONBRAND_NO_INLINE_DISTINCT_WHERE_1 =
+		"SELECT {CommerceApplicationBrand.*} FROM (SELECT DISTINCT commerceApplicationBrand.commerceApplicationBrandId FROM CommerceApplicationBrand commerceApplicationBrand WHERE ";
+	private static final String _FILTER_SQL_SELECT_COMMERCEAPPLICATIONBRAND_NO_INLINE_DISTINCT_WHERE_2 =
+		") TEMP_TABLE INNER JOIN CommerceApplicationBrand ON TEMP_TABLE.commerceApplicationBrandId = CommerceApplicationBrand.commerceApplicationBrandId";
+	private static final String _FILTER_SQL_COUNT_COMMERCEAPPLICATIONBRAND_WHERE =
+		"SELECT COUNT(DISTINCT commerceApplicationBrand.commerceApplicationBrandId) AS COUNT_VALUE FROM CommerceApplicationBrand commerceApplicationBrand WHERE ";
+	private static final String _FILTER_ENTITY_ALIAS = "commerceApplicationBrand";
+	private static final String _FILTER_ENTITY_TABLE = "CommerceApplicationBrand";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "commerceApplicationBrand.";
+	private static final String _ORDER_BY_ENTITY_TABLE = "CommerceApplicationBrand.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No CommerceApplicationBrand exists with the primary key ";
+	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No CommerceApplicationBrand exists with the key {";
 	private static final Log _log = LogFactoryUtil.getLog(CommerceApplicationBrandPersistenceImpl.class);
 }

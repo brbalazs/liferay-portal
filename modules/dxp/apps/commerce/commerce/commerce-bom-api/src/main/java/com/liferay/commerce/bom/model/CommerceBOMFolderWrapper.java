@@ -67,7 +67,7 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 		attributes.put("parentCommerceBOMFolderId",
 			getParentCommerceBOMFolderId());
 		attributes.put("name", getName());
-		attributes.put("imageId", getImageId());
+		attributes.put("logoId", getLogoId());
 
 		return attributes;
 	}
@@ -123,10 +123,10 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 			setName(name);
 		}
 
-		Long imageId = (Long)attributes.get("imageId");
+		Long logoId = (Long)attributes.get("logoId");
 
-		if (imageId != null) {
-			setImageId(imageId);
+		if (logoId != null) {
+			setLogoId(logoId);
 		}
 	}
 
@@ -188,13 +188,13 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	}
 
 	/**
-	* Returns the image ID of this commerce bom folder.
+	* Returns the logo ID of this commerce bom folder.
 	*
-	* @return the image ID of this commerce bom folder
+	* @return the logo ID of this commerce bom folder
 	*/
 	@Override
-	public long getImageId() {
-		return _commerceBOMFolder.getImageId();
+	public long getLogoId() {
+		return _commerceBOMFolder.getLogoId();
 	}
 
 	/**
@@ -360,13 +360,13 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	}
 
 	/**
-	* Sets the image ID of this commerce bom folder.
+	* Sets the logo ID of this commerce bom folder.
 	*
-	* @param imageId the image ID of this commerce bom folder
+	* @param logoId the logo ID of this commerce bom folder
 	*/
 	@Override
-	public void setImageId(long imageId) {
-		_commerceBOMFolder.setImageId(imageId);
+	public void setLogoId(long logoId) {
+		_commerceBOMFolder.setLogoId(logoId);
 	}
 
 	/**

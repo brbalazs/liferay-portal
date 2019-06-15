@@ -42,7 +42,7 @@ public class CommerceBOMFolderSoap implements Serializable {
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setParentCommerceBOMFolderId(model.getParentCommerceBOMFolderId());
 		soapModel.setName(model.getName());
-		soapModel.setImageId(model.getImageId());
+		soapModel.setLogoId(model.getLogoId());
 
 		return soapModel;
 	}
@@ -162,12 +162,12 @@ public class CommerceBOMFolderSoap implements Serializable {
 		_name = name;
 	}
 
-	public long getImageId() {
-		return _imageId;
+	public long getLogoId() {
+		return _logoId;
 	}
 
-	public void setImageId(long imageId) {
-		_imageId = imageId;
+	public void setLogoId(long logoId) {
+		_logoId = logoId;
 	}
 
 	private long _commerceBOMFolderId;
@@ -178,5 +178,5 @@ public class CommerceBOMFolderSoap implements Serializable {
 	private Date _modifiedDate;
 	private long _parentCommerceBOMFolderId;
 	private String _name;
-	private long _imageId;
+	private long _logoId;
 }

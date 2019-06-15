@@ -25,10 +25,12 @@ import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -72,7 +74,7 @@ public interface CommerceApplicationBrandLocalService extends BaseLocalService,
 		CommerceApplicationBrand commerceApplicationBrand);
 
 	public CommerceApplicationBrand addCommerceApplicationBrand(long userId,
-		String name, long logoId) throws PortalException;
+		String name, boolean logo, byte[] logoBytes) throws PortalException;
 
 	/**
 	* Creates a new commerce application brand with the primary key. Does not add the commerce application brand to the database.
@@ -92,6 +94,7 @@ public interface CommerceApplicationBrandLocalService extends BaseLocalService,
 	* @throws PortalException
 	*/
 	@Indexable(type = IndexableType.DELETE)
+	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
 	public CommerceApplicationBrand deleteCommerceApplicationBrand(
 		CommerceApplicationBrand commerceApplicationBrand)
 		throws PortalException;
@@ -106,6 +109,9 @@ public interface CommerceApplicationBrandLocalService extends BaseLocalService,
 	@Indexable(type = IndexableType.DELETE)
 	public CommerceApplicationBrand deleteCommerceApplicationBrand(
 		long commerceApplicationBrandId) throws PortalException;
+
+	public void deleteCommerceApplicationBrands(long companyId)
+		throws PortalException;
 
 	/**
 	* @throws PortalException
@@ -246,6 +252,6 @@ public interface CommerceApplicationBrandLocalService extends BaseLocalService,
 		CommerceApplicationBrand commerceApplicationBrand);
 
 	public CommerceApplicationBrand updateCommerceApplicationBrand(
-		long commerceApplicationBrandId, String name, long logoId)
-		throws PortalException;
+		long commerceApplicationBrandId, String name, boolean logo,
+		byte[] logoBytes) throws PortalException;
 }

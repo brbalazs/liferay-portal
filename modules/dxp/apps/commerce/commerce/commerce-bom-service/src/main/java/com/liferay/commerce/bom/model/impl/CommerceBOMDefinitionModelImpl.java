@@ -76,10 +76,10 @@ public class CommerceBOMDefinitionModelImpl extends BaseModelImpl<CommerceBOMDef
 			{ "userName", Types.VARCHAR },
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
+			{ "commerceBOMFolderId", Types.BIGINT },
+			{ "CPAttachmentFileEntryId", Types.BIGINT },
 			{ "name", Types.VARCHAR },
-			{ "imageId", Types.BIGINT },
-			{ "friendlyUrl", Types.VARCHAR },
-			{ "commerceBOMFolderId", Types.BIGINT }
+			{ "friendlyUrl", Types.VARCHAR }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
 
@@ -90,13 +90,13 @@ public class CommerceBOMDefinitionModelImpl extends BaseModelImpl<CommerceBOMDef
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
-		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("imageId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("friendlyUrl", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("commerceBOMFolderId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("CPAttachmentFileEntryId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("friendlyUrl", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table CommerceBOMDefinition (commerceBOMDefinitionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,imageId LONG,friendlyUrl VARCHAR(75) null,commerceBOMFolderId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table CommerceBOMDefinition (commerceBOMDefinitionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commerceBOMFolderId LONG,CPAttachmentFileEntryId LONG,name VARCHAR(75) null,friendlyUrl VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table CommerceBOMDefinition";
 	public static final String ORDER_BY_JPQL = " ORDER BY commerceBOMDefinition.name ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY CommerceBOMDefinition.name ASC";
@@ -135,10 +135,10 @@ public class CommerceBOMDefinitionModelImpl extends BaseModelImpl<CommerceBOMDef
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
-		model.setName(soapModel.getName());
-		model.setImageId(soapModel.getImageId());
-		model.setFriendlyUrl(soapModel.getFriendlyUrl());
 		model.setCommerceBOMFolderId(soapModel.getCommerceBOMFolderId());
+		model.setCPAttachmentFileEntryId(soapModel.getCPAttachmentFileEntryId());
+		model.setName(soapModel.getName());
+		model.setFriendlyUrl(soapModel.getFriendlyUrl());
 
 		return model;
 	}
@@ -210,10 +210,10 @@ public class CommerceBOMDefinitionModelImpl extends BaseModelImpl<CommerceBOMDef
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("name", getName());
-		attributes.put("imageId", getImageId());
-		attributes.put("friendlyUrl", getFriendlyUrl());
 		attributes.put("commerceBOMFolderId", getCommerceBOMFolderId());
+		attributes.put("CPAttachmentFileEntryId", getCPAttachmentFileEntryId());
+		attributes.put("name", getName());
+		attributes.put("friendlyUrl", getFriendlyUrl());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -260,28 +260,29 @@ public class CommerceBOMDefinitionModelImpl extends BaseModelImpl<CommerceBOMDef
 			setModifiedDate(modifiedDate);
 		}
 
+		Long commerceBOMFolderId = (Long)attributes.get("commerceBOMFolderId");
+
+		if (commerceBOMFolderId != null) {
+			setCommerceBOMFolderId(commerceBOMFolderId);
+		}
+
+		Long CPAttachmentFileEntryId = (Long)attributes.get(
+				"CPAttachmentFileEntryId");
+
+		if (CPAttachmentFileEntryId != null) {
+			setCPAttachmentFileEntryId(CPAttachmentFileEntryId);
+		}
+
 		String name = (String)attributes.get("name");
 
 		if (name != null) {
 			setName(name);
 		}
 
-		Long imageId = (Long)attributes.get("imageId");
-
-		if (imageId != null) {
-			setImageId(imageId);
-		}
-
 		String friendlyUrl = (String)attributes.get("friendlyUrl");
 
 		if (friendlyUrl != null) {
 			setFriendlyUrl(friendlyUrl);
-		}
-
-		Long commerceBOMFolderId = (Long)attributes.get("commerceBOMFolderId");
-
-		if (commerceBOMFolderId != null) {
-			setCommerceBOMFolderId(commerceBOMFolderId);
 		}
 	}
 
@@ -380,51 +381,6 @@ public class CommerceBOMDefinitionModelImpl extends BaseModelImpl<CommerceBOMDef
 
 	@JSON
 	@Override
-	public String getName() {
-		if (_name == null) {
-			return "";
-		}
-		else {
-			return _name;
-		}
-	}
-
-	@Override
-	public void setName(String name) {
-		_columnBitmask = -1L;
-
-		_name = name;
-	}
-
-	@JSON
-	@Override
-	public long getImageId() {
-		return _imageId;
-	}
-
-	@Override
-	public void setImageId(long imageId) {
-		_imageId = imageId;
-	}
-
-	@JSON
-	@Override
-	public String getFriendlyUrl() {
-		if (_friendlyUrl == null) {
-			return "";
-		}
-		else {
-			return _friendlyUrl;
-		}
-	}
-
-	@Override
-	public void setFriendlyUrl(String friendlyUrl) {
-		_friendlyUrl = friendlyUrl;
-	}
-
-	@JSON
-	@Override
 	public long getCommerceBOMFolderId() {
 		return _commerceBOMFolderId;
 	}
@@ -444,6 +400,51 @@ public class CommerceBOMDefinitionModelImpl extends BaseModelImpl<CommerceBOMDef
 
 	public long getOriginalCommerceBOMFolderId() {
 		return _originalCommerceBOMFolderId;
+	}
+
+	@JSON
+	@Override
+	public long getCPAttachmentFileEntryId() {
+		return _CPAttachmentFileEntryId;
+	}
+
+	@Override
+	public void setCPAttachmentFileEntryId(long CPAttachmentFileEntryId) {
+		_CPAttachmentFileEntryId = CPAttachmentFileEntryId;
+	}
+
+	@JSON
+	@Override
+	public String getName() {
+		if (_name == null) {
+			return "";
+		}
+		else {
+			return _name;
+		}
+	}
+
+	@Override
+	public void setName(String name) {
+		_columnBitmask = -1L;
+
+		_name = name;
+	}
+
+	@JSON
+	@Override
+	public String getFriendlyUrl() {
+		if (_friendlyUrl == null) {
+			return "";
+		}
+		else {
+			return _friendlyUrl;
+		}
+	}
+
+	@Override
+	public void setFriendlyUrl(String friendlyUrl) {
+		_friendlyUrl = friendlyUrl;
 	}
 
 	public long getColumnBitmask() {
@@ -483,10 +484,10 @@ public class CommerceBOMDefinitionModelImpl extends BaseModelImpl<CommerceBOMDef
 		commerceBOMDefinitionImpl.setUserName(getUserName());
 		commerceBOMDefinitionImpl.setCreateDate(getCreateDate());
 		commerceBOMDefinitionImpl.setModifiedDate(getModifiedDate());
-		commerceBOMDefinitionImpl.setName(getName());
-		commerceBOMDefinitionImpl.setImageId(getImageId());
-		commerceBOMDefinitionImpl.setFriendlyUrl(getFriendlyUrl());
 		commerceBOMDefinitionImpl.setCommerceBOMFolderId(getCommerceBOMFolderId());
+		commerceBOMDefinitionImpl.setCPAttachmentFileEntryId(getCPAttachmentFileEntryId());
+		commerceBOMDefinitionImpl.setName(getName());
+		commerceBOMDefinitionImpl.setFriendlyUrl(getFriendlyUrl());
 
 		commerceBOMDefinitionImpl.resetOriginalValues();
 
@@ -592,6 +593,10 @@ public class CommerceBOMDefinitionModelImpl extends BaseModelImpl<CommerceBOMDef
 			commerceBOMDefinitionCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
+		commerceBOMDefinitionCacheModel.commerceBOMFolderId = getCommerceBOMFolderId();
+
+		commerceBOMDefinitionCacheModel.CPAttachmentFileEntryId = getCPAttachmentFileEntryId();
+
 		commerceBOMDefinitionCacheModel.name = getName();
 
 		String name = commerceBOMDefinitionCacheModel.name;
@@ -600,8 +605,6 @@ public class CommerceBOMDefinitionModelImpl extends BaseModelImpl<CommerceBOMDef
 			commerceBOMDefinitionCacheModel.name = null;
 		}
 
-		commerceBOMDefinitionCacheModel.imageId = getImageId();
-
 		commerceBOMDefinitionCacheModel.friendlyUrl = getFriendlyUrl();
 
 		String friendlyUrl = commerceBOMDefinitionCacheModel.friendlyUrl;
@@ -609,8 +612,6 @@ public class CommerceBOMDefinitionModelImpl extends BaseModelImpl<CommerceBOMDef
 		if ((friendlyUrl != null) && (friendlyUrl.length() == 0)) {
 			commerceBOMDefinitionCacheModel.friendlyUrl = null;
 		}
-
-		commerceBOMDefinitionCacheModel.commerceBOMFolderId = getCommerceBOMFolderId();
 
 		return commerceBOMDefinitionCacheModel;
 	}
@@ -631,14 +632,14 @@ public class CommerceBOMDefinitionModelImpl extends BaseModelImpl<CommerceBOMDef
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
-		sb.append(", name=");
-		sb.append(getName());
-		sb.append(", imageId=");
-		sb.append(getImageId());
-		sb.append(", friendlyUrl=");
-		sb.append(getFriendlyUrl());
 		sb.append(", commerceBOMFolderId=");
 		sb.append(getCommerceBOMFolderId());
+		sb.append(", CPAttachmentFileEntryId=");
+		sb.append(getCPAttachmentFileEntryId());
+		sb.append(", name=");
+		sb.append(getName());
+		sb.append(", friendlyUrl=");
+		sb.append(getFriendlyUrl());
 		sb.append("}");
 
 		return sb.toString();
@@ -677,20 +678,20 @@ public class CommerceBOMDefinitionModelImpl extends BaseModelImpl<CommerceBOMDef
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>commerceBOMFolderId</column-name><column-value><![CDATA[");
+		sb.append(getCommerceBOMFolderId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>CPAttachmentFileEntryId</column-name><column-value><![CDATA[");
+		sb.append(getCPAttachmentFileEntryId());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>name</column-name><column-value><![CDATA[");
 		sb.append(getName());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>imageId</column-name><column-value><![CDATA[");
-		sb.append(getImageId());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>friendlyUrl</column-name><column-value><![CDATA[");
 		sb.append(getFriendlyUrl());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>commerceBOMFolderId</column-name><column-value><![CDATA[");
-		sb.append(getCommerceBOMFolderId());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -709,12 +710,12 @@ public class CommerceBOMDefinitionModelImpl extends BaseModelImpl<CommerceBOMDef
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
-	private String _name;
-	private long _imageId;
-	private String _friendlyUrl;
 	private long _commerceBOMFolderId;
 	private long _originalCommerceBOMFolderId;
 	private boolean _setOriginalCommerceBOMFolderId;
+	private long _CPAttachmentFileEntryId;
+	private String _name;
+	private String _friendlyUrl;
 	private long _columnBitmask;
 	private CommerceBOMDefinition _escapedModel;
 }

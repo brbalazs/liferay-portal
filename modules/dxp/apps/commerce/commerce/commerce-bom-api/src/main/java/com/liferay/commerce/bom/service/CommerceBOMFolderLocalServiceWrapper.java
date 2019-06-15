@@ -48,10 +48,11 @@ public class CommerceBOMFolderLocalServiceWrapper
 
 	@Override
 	public com.liferay.commerce.bom.model.CommerceBOMFolder addCommerceBOMFolder(
-		long userId, long parentCommerceBOMFolderId, String name, long imageId)
+		long userId, long parentCommerceBOMFolderId, String name, boolean logo,
+		byte[] logoBytes)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceBOMFolderLocalService.addCommerceBOMFolder(userId,
-			parentCommerceBOMFolderId, name, imageId);
+			parentCommerceBOMFolderId, name, logo, logoBytes);
 	}
 
 	/**
@@ -238,13 +239,6 @@ public class CommerceBOMFolderLocalServiceWrapper
 		return _commerceBOMFolderLocalService.getCommerceBOMFolders(start, end);
 	}
 
-	@Override
-	public java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolder> getCommerceBOMFolders(
-		long companyId, long parentCommerceBOMFolderId, int start, int end) {
-		return _commerceBOMFolderLocalService.getCommerceBOMFolders(companyId,
-			parentCommerceBOMFolderId, start, end);
-	}
-
 	/**
 	* Returns the number of commerce bom folders.
 	*
@@ -253,13 +247,6 @@ public class CommerceBOMFolderLocalServiceWrapper
 	@Override
 	public int getCommerceBOMFoldersCount() {
 		return _commerceBOMFolderLocalService.getCommerceBOMFoldersCount();
-	}
-
-	@Override
-	public int getCommerceBOMFoldersCount(long companyId,
-		long parentCommerceBOMFolderId) {
-		return _commerceBOMFolderLocalService.getCommerceBOMFoldersCount(companyId,
-			parentCommerceBOMFolderId);
 	}
 
 	@Override
@@ -298,10 +285,10 @@ public class CommerceBOMFolderLocalServiceWrapper
 
 	@Override
 	public com.liferay.commerce.bom.model.CommerceBOMFolder updateCommerceBOMFolder(
-		long commerceBOMFolderId, String name, long imageId)
+		long commerceBOMFolderId, String name, boolean logo, byte[] logoBytes)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceBOMFolderLocalService.updateCommerceBOMFolder(commerceBOMFolderId,
-			name, imageId);
+			name, logo, logoBytes);
 	}
 
 	@Override

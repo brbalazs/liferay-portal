@@ -36,11 +36,16 @@ public class CommerceApplicationModelServiceWrapper
 
 	@Override
 	public com.liferay.commerce.application.model.CommerceApplicationModel addCommerceApplicationModel(
-		long userId, long commerceApplicationBrandId, long cProductId,
-		String name, String year)
+		long userId, long commerceApplicationBrandId, String name, String year)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceApplicationModelService.addCommerceApplicationModel(userId,
-			commerceApplicationBrandId, cProductId, name, year);
+			commerceApplicationBrandId, name, year);
+	}
+
+	@Override
+	public void deleteCommerceApplicationModel(long commerceApplicationModelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		_commerceApplicationModelService.deleteCommerceApplicationModel(commerceApplicationModelId);
 	}
 
 	/**

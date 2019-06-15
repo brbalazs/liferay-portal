@@ -97,7 +97,7 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 			CommerceBOMDefinitionModelImpl.FINDER_CACHE_ENABLED,
 			CommerceBOMDefinitionImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
-			"findBycommerceBOMFolderId",
+			"findByCommerceBOMFolderId",
 			new String[] {
 				Long.class.getName(),
 				
@@ -109,13 +109,13 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 			CommerceBOMDefinitionModelImpl.FINDER_CACHE_ENABLED,
 			CommerceBOMDefinitionImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"findBycommerceBOMFolderId", new String[] { Long.class.getName() },
+			"findByCommerceBOMFolderId", new String[] { Long.class.getName() },
 			CommerceBOMDefinitionModelImpl.COMMERCEBOMFOLDERID_COLUMN_BITMASK |
 			CommerceBOMDefinitionModelImpl.NAME_COLUMN_BITMASK);
 	public static final FinderPath FINDER_PATH_COUNT_BY_COMMERCEBOMFOLDERID = new FinderPath(CommerceBOMDefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceBOMDefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"countBycommerceBOMFolderId", new String[] { Long.class.getName() });
+			"countByCommerceBOMFolderId", new String[] { Long.class.getName() });
 
 	/**
 	 * Returns all the commerce bom definitions where commerceBOMFolderId = &#63;.
@@ -124,9 +124,9 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the matching commerce bom definitions
 	 */
 	@Override
-	public List<CommerceBOMDefinition> findBycommerceBOMFolderId(
+	public List<CommerceBOMDefinition> findByCommerceBOMFolderId(
 		long commerceBOMFolderId) {
-		return findBycommerceBOMFolderId(commerceBOMFolderId,
+		return findByCommerceBOMFolderId(commerceBOMFolderId,
 			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
@@ -143,9 +143,9 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the range of matching commerce bom definitions
 	 */
 	@Override
-	public List<CommerceBOMDefinition> findBycommerceBOMFolderId(
+	public List<CommerceBOMDefinition> findByCommerceBOMFolderId(
 		long commerceBOMFolderId, int start, int end) {
-		return findBycommerceBOMFolderId(commerceBOMFolderId, start, end, null);
+		return findByCommerceBOMFolderId(commerceBOMFolderId, start, end, null);
 	}
 
 	/**
@@ -162,10 +162,10 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the ordered range of matching commerce bom definitions
 	 */
 	@Override
-	public List<CommerceBOMDefinition> findBycommerceBOMFolderId(
+	public List<CommerceBOMDefinition> findByCommerceBOMFolderId(
 		long commerceBOMFolderId, int start, int end,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator) {
-		return findBycommerceBOMFolderId(commerceBOMFolderId, start, end,
+		return findByCommerceBOMFolderId(commerceBOMFolderId, start, end,
 			orderByComparator, true);
 	}
 
@@ -184,7 +184,7 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the ordered range of matching commerce bom definitions
 	 */
 	@Override
-	public List<CommerceBOMDefinition> findBycommerceBOMFolderId(
+	public List<CommerceBOMDefinition> findByCommerceBOMFolderId(
 		long commerceBOMFolderId, int start, int end,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator,
 		boolean retrieveFromCache) {
@@ -300,11 +300,11 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 	 * @throws NoSuchBOMDefinitionException if a matching commerce bom definition could not be found
 	 */
 	@Override
-	public CommerceBOMDefinition findBycommerceBOMFolderId_First(
+	public CommerceBOMDefinition findByCommerceBOMFolderId_First(
 		long commerceBOMFolderId,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator)
 		throws NoSuchBOMDefinitionException {
-		CommerceBOMDefinition commerceBOMDefinition = fetchBycommerceBOMFolderId_First(commerceBOMFolderId,
+		CommerceBOMDefinition commerceBOMDefinition = fetchByCommerceBOMFolderId_First(commerceBOMFolderId,
 				orderByComparator);
 
 		if (commerceBOMDefinition != null) {
@@ -331,10 +331,10 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the first matching commerce bom definition, or <code>null</code> if a matching commerce bom definition could not be found
 	 */
 	@Override
-	public CommerceBOMDefinition fetchBycommerceBOMFolderId_First(
+	public CommerceBOMDefinition fetchByCommerceBOMFolderId_First(
 		long commerceBOMFolderId,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator) {
-		List<CommerceBOMDefinition> list = findBycommerceBOMFolderId(commerceBOMFolderId,
+		List<CommerceBOMDefinition> list = findByCommerceBOMFolderId(commerceBOMFolderId,
 				0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -353,11 +353,11 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 	 * @throws NoSuchBOMDefinitionException if a matching commerce bom definition could not be found
 	 */
 	@Override
-	public CommerceBOMDefinition findBycommerceBOMFolderId_Last(
+	public CommerceBOMDefinition findByCommerceBOMFolderId_Last(
 		long commerceBOMFolderId,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator)
 		throws NoSuchBOMDefinitionException {
-		CommerceBOMDefinition commerceBOMDefinition = fetchBycommerceBOMFolderId_Last(commerceBOMFolderId,
+		CommerceBOMDefinition commerceBOMDefinition = fetchByCommerceBOMFolderId_Last(commerceBOMFolderId,
 				orderByComparator);
 
 		if (commerceBOMDefinition != null) {
@@ -384,16 +384,16 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the last matching commerce bom definition, or <code>null</code> if a matching commerce bom definition could not be found
 	 */
 	@Override
-	public CommerceBOMDefinition fetchBycommerceBOMFolderId_Last(
+	public CommerceBOMDefinition fetchByCommerceBOMFolderId_Last(
 		long commerceBOMFolderId,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator) {
-		int count = countBycommerceBOMFolderId(commerceBOMFolderId);
+		int count = countByCommerceBOMFolderId(commerceBOMFolderId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<CommerceBOMDefinition> list = findBycommerceBOMFolderId(commerceBOMFolderId,
+		List<CommerceBOMDefinition> list = findByCommerceBOMFolderId(commerceBOMFolderId,
 				count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -413,7 +413,7 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 	 * @throws NoSuchBOMDefinitionException if a commerce bom definition with the primary key could not be found
 	 */
 	@Override
-	public CommerceBOMDefinition[] findBycommerceBOMFolderId_PrevAndNext(
+	public CommerceBOMDefinition[] findByCommerceBOMFolderId_PrevAndNext(
 		long commerceBOMDefinitionId, long commerceBOMFolderId,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator)
 		throws NoSuchBOMDefinitionException {
@@ -426,13 +426,13 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 
 			CommerceBOMDefinition[] array = new CommerceBOMDefinitionImpl[3];
 
-			array[0] = getBycommerceBOMFolderId_PrevAndNext(session,
+			array[0] = getByCommerceBOMFolderId_PrevAndNext(session,
 					commerceBOMDefinition, commerceBOMFolderId,
 					orderByComparator, true);
 
 			array[1] = commerceBOMDefinition;
 
-			array[2] = getBycommerceBOMFolderId_PrevAndNext(session,
+			array[2] = getByCommerceBOMFolderId_PrevAndNext(session,
 					commerceBOMDefinition, commerceBOMFolderId,
 					orderByComparator, false);
 
@@ -446,7 +446,7 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 		}
 	}
 
-	protected CommerceBOMDefinition getBycommerceBOMFolderId_PrevAndNext(
+	protected CommerceBOMDefinition getByCommerceBOMFolderId_PrevAndNext(
 		Session session, CommerceBOMDefinition commerceBOMDefinition,
 		long commerceBOMFolderId,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator,
@@ -561,9 +561,9 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the matching commerce bom definitions that the user has permission to view
 	 */
 	@Override
-	public List<CommerceBOMDefinition> filterFindBycommerceBOMFolderId(
+	public List<CommerceBOMDefinition> filterFindByCommerceBOMFolderId(
 		long commerceBOMFolderId) {
-		return filterFindBycommerceBOMFolderId(commerceBOMFolderId,
+		return filterFindByCommerceBOMFolderId(commerceBOMFolderId,
 			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
@@ -580,9 +580,9 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the range of matching commerce bom definitions that the user has permission to view
 	 */
 	@Override
-	public List<CommerceBOMDefinition> filterFindBycommerceBOMFolderId(
+	public List<CommerceBOMDefinition> filterFindByCommerceBOMFolderId(
 		long commerceBOMFolderId, int start, int end) {
-		return filterFindBycommerceBOMFolderId(commerceBOMFolderId, start, end,
+		return filterFindByCommerceBOMFolderId(commerceBOMFolderId, start, end,
 			null);
 	}
 
@@ -600,11 +600,11 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the ordered range of matching commerce bom definitions that the user has permission to view
 	 */
 	@Override
-	public List<CommerceBOMDefinition> filterFindBycommerceBOMFolderId(
+	public List<CommerceBOMDefinition> filterFindByCommerceBOMFolderId(
 		long commerceBOMFolderId, int start, int end,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator) {
 		if (!InlineSQLHelperUtil.isEnabled()) {
-			return findBycommerceBOMFolderId(commerceBOMFolderId, start, end,
+			return findByCommerceBOMFolderId(commerceBOMFolderId, start, end,
 				orderByComparator);
 		}
 
@@ -695,12 +695,12 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 	 * @throws NoSuchBOMDefinitionException if a commerce bom definition with the primary key could not be found
 	 */
 	@Override
-	public CommerceBOMDefinition[] filterFindBycommerceBOMFolderId_PrevAndNext(
+	public CommerceBOMDefinition[] filterFindByCommerceBOMFolderId_PrevAndNext(
 		long commerceBOMDefinitionId, long commerceBOMFolderId,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator)
 		throws NoSuchBOMDefinitionException {
 		if (!InlineSQLHelperUtil.isEnabled()) {
-			return findBycommerceBOMFolderId_PrevAndNext(commerceBOMDefinitionId,
+			return findByCommerceBOMFolderId_PrevAndNext(commerceBOMDefinitionId,
 				commerceBOMFolderId, orderByComparator);
 		}
 
@@ -713,13 +713,13 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 
 			CommerceBOMDefinition[] array = new CommerceBOMDefinitionImpl[3];
 
-			array[0] = filterGetBycommerceBOMFolderId_PrevAndNext(session,
+			array[0] = filterGetByCommerceBOMFolderId_PrevAndNext(session,
 					commerceBOMDefinition, commerceBOMFolderId,
 					orderByComparator, true);
 
 			array[1] = commerceBOMDefinition;
 
-			array[2] = filterGetBycommerceBOMFolderId_PrevAndNext(session,
+			array[2] = filterGetByCommerceBOMFolderId_PrevAndNext(session,
 					commerceBOMDefinition, commerceBOMFolderId,
 					orderByComparator, false);
 
@@ -733,7 +733,7 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 		}
 	}
 
-	protected CommerceBOMDefinition filterGetBycommerceBOMFolderId_PrevAndNext(
+	protected CommerceBOMDefinition filterGetByCommerceBOMFolderId_PrevAndNext(
 		Session session, CommerceBOMDefinition commerceBOMDefinition,
 		long commerceBOMFolderId,
 		OrderByComparator<CommerceBOMDefinition> orderByComparator,
@@ -882,8 +882,8 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 	 * @param commerceBOMFolderId the commerce bom folder ID
 	 */
 	@Override
-	public void removeBycommerceBOMFolderId(long commerceBOMFolderId) {
-		for (CommerceBOMDefinition commerceBOMDefinition : findBycommerceBOMFolderId(
+	public void removeByCommerceBOMFolderId(long commerceBOMFolderId) {
+		for (CommerceBOMDefinition commerceBOMDefinition : findByCommerceBOMFolderId(
 				commerceBOMFolderId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
 			remove(commerceBOMDefinition);
 		}
@@ -896,7 +896,7 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the number of matching commerce bom definitions
 	 */
 	@Override
-	public int countBycommerceBOMFolderId(long commerceBOMFolderId) {
+	public int countByCommerceBOMFolderId(long commerceBOMFolderId) {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_COMMERCEBOMFOLDERID;
 
 		Object[] finderArgs = new Object[] { commerceBOMFolderId };
@@ -947,9 +947,9 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 	 * @return the number of matching commerce bom definitions that the user has permission to view
 	 */
 	@Override
-	public int filterCountBycommerceBOMFolderId(long commerceBOMFolderId) {
+	public int filterCountByCommerceBOMFolderId(long commerceBOMFolderId) {
 		if (!InlineSQLHelperUtil.isEnabled()) {
-			return countBycommerceBOMFolderId(commerceBOMFolderId);
+			return countByCommerceBOMFolderId(commerceBOMFolderId);
 		}
 
 		StringBundler query = new StringBundler(2);

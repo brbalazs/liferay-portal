@@ -56,8 +56,8 @@ import com.liferay.portal.kernel.util.MethodKey;
 @ProviderType
 public class CommerceBOMDefinitionServiceHttp {
 	public static com.liferay.commerce.bom.model.CommerceBOMDefinition addCommerceBOMDefinition(
-		HttpPrincipal httpPrincipal, long userId, String name, long imageId,
-		String friendlyUrl, long commerceBOMFolderId)
+		HttpPrincipal httpPrincipal, long userId, long commerceBOMFolderId,
+		long cpAttachmentFileEntryId, String name, String friendlyUrl)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceBOMDefinitionServiceUtil.class,
@@ -65,7 +65,8 @@ public class CommerceBOMDefinitionServiceHttp {
 					_addCommerceBOMDefinitionParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, userId,
-					name, imageId, friendlyUrl, commerceBOMFolderId);
+					commerceBOMFolderId, cpAttachmentFileEntryId, name,
+					friendlyUrl);
 
 			Object returnObj = null;
 
@@ -89,18 +90,136 @@ public class CommerceBOMDefinitionServiceHttp {
 		}
 	}
 
+	public static void deleteCommerceBOMDefinition(
+		HttpPrincipal httpPrincipal, long commerceBOMDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		try {
+			MethodKey methodKey = new MethodKey(CommerceBOMDefinitionServiceUtil.class,
+					"deleteCommerceBOMDefinition",
+					_deleteCommerceBOMDefinitionParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey,
+					commerceBOMDefinitionId);
+
+			try {
+				TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static com.liferay.commerce.bom.model.CommerceBOMDefinition getCommerceBOMDefinition(
+		HttpPrincipal httpPrincipal, long commerceBOMDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		try {
+			MethodKey methodKey = new MethodKey(CommerceBOMDefinitionServiceUtil.class,
+					"getCommerceBOMDefinition",
+					_getCommerceBOMDefinitionParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey,
+					commerceBOMDefinitionId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (com.liferay.commerce.bom.model.CommerceBOMDefinition)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMDefinition> getCommerceBOMDefinitions(
+		HttpPrincipal httpPrincipal, long commerceBOMFolderId, int start,
+		int end) {
+		try {
+			MethodKey methodKey = new MethodKey(CommerceBOMDefinitionServiceUtil.class,
+					"getCommerceBOMDefinitions",
+					_getCommerceBOMDefinitionsParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey,
+					commerceBOMFolderId, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (java.util.List<com.liferay.commerce.bom.model.CommerceBOMDefinition>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static int getCommerceBOMDefinitionsCount(
+		HttpPrincipal httpPrincipal, long commerceBOMFolderId) {
+		try {
+			MethodKey methodKey = new MethodKey(CommerceBOMDefinitionServiceUtil.class,
+					"getCommerceBOMDefinitionsCount",
+					_getCommerceBOMDefinitionsCountParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey,
+					commerceBOMFolderId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static com.liferay.commerce.bom.model.CommerceBOMDefinition updateCommerceBOMDefinition(
-		HttpPrincipal httpPrincipal, long commerceBOMDefinitionId, String name,
-		long imageId, String friendlyUrl, long commerceBOMFolderId)
+		HttpPrincipal httpPrincipal, long commerceBOMDefinitionId,
+		long cpAttachmentFileEntryId, String name)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceBOMDefinitionServiceUtil.class,
 					"updateCommerceBOMDefinition",
-					_updateCommerceBOMDefinitionParameterTypes1);
+					_updateCommerceBOMDefinitionParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
-					commerceBOMDefinitionId, name, imageId, friendlyUrl,
-					commerceBOMFolderId);
+					commerceBOMDefinitionId, cpAttachmentFileEntryId, name);
 
 			Object returnObj = null;
 
@@ -126,9 +245,20 @@ public class CommerceBOMDefinitionServiceHttp {
 
 	private static Log _log = LogFactoryUtil.getLog(CommerceBOMDefinitionServiceHttp.class);
 	private static final Class<?>[] _addCommerceBOMDefinitionParameterTypes0 = new Class[] {
-			long.class, String.class, long.class, String.class, long.class
+			long.class, long.class, long.class, String.class, String.class
 		};
-	private static final Class<?>[] _updateCommerceBOMDefinitionParameterTypes1 = new Class[] {
-			long.class, String.class, long.class, String.class, long.class
+	private static final Class<?>[] _deleteCommerceBOMDefinitionParameterTypes1 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[] _getCommerceBOMDefinitionParameterTypes2 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[] _getCommerceBOMDefinitionsParameterTypes3 = new Class[] {
+			long.class, int.class, int.class
+		};
+	private static final Class<?>[] _getCommerceBOMDefinitionsCountParameterTypes4 =
+		new Class[] { long.class };
+	private static final Class<?>[] _updateCommerceBOMDefinitionParameterTypes5 = new Class[] {
+			long.class, long.class, String.class
 		};
 }

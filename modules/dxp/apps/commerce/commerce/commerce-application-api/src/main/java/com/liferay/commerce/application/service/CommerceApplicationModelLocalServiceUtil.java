@@ -55,15 +55,6 @@ public class CommerceApplicationModelLocalServiceUtil {
 	}
 
 	public static com.liferay.commerce.application.model.CommerceApplicationModel addCommerceApplicationModel(
-		long userId, long commerceApplicationBrandId, long cProductId,
-		String name, String year)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService()
-				   .addCommerceApplicationModel(userId,
-			commerceApplicationBrandId, cProductId, name, year);
-	}
-
-	public static com.liferay.commerce.application.model.CommerceApplicationModel addCommerceApplicationModel(
 		long userId, long commerceApplicationBrandId, String name, String year)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
@@ -109,6 +100,12 @@ public class CommerceApplicationModelLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .deleteCommerceApplicationModel(commerceApplicationModelId);
+	}
+
+	public static void deleteCommerceApplicationModels(
+		long commerceApplicationBrandId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		getService().deleteCommerceApplicationModels(commerceApplicationBrandId);
 	}
 
 	/**

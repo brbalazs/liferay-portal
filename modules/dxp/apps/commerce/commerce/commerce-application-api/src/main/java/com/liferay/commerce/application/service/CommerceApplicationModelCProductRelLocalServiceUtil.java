@@ -101,6 +101,18 @@ public class CommerceApplicationModelCProductRelLocalServiceUtil {
 				   .deleteCommerceApplicationModelCProductRel(commerceApplicationModelCProductRelId);
 	}
 
+	public static void deleteCommerceApplicationModelCProductRels(
+		long commerceApplicationModelId) {
+		getService()
+			.deleteCommerceApplicationModelCProductRels(commerceApplicationModelId);
+	}
+
+	public static void deleteCommerceApplicationModelCProductRelsByCProductId(
+		long cProductId) {
+		getService()
+			.deleteCommerceApplicationModelCProductRelsByCProductId(cProductId);
+	}
+
 	/**
 	* @throws PortalException
 	*/
@@ -228,6 +240,13 @@ public class CommerceApplicationModelCProductRelLocalServiceUtil {
 		return getService().getCommerceApplicationModelCProductRels(start, end);
 	}
 
+	public static java.util.List<com.liferay.commerce.application.model.CommerceApplicationModelCProductRel> getCommerceApplicationModelCProductRels(
+		long commerceApplicationModelId, int start, int end) {
+		return getService()
+				   .getCommerceApplicationModelCProductRels(commerceApplicationModelId,
+			start, end);
+	}
+
 	/**
 	* Returns the number of commerce application model c product rels.
 	*
@@ -235,6 +254,12 @@ public class CommerceApplicationModelCProductRelLocalServiceUtil {
 	*/
 	public static int getCommerceApplicationModelCProductRelsCount() {
 		return getService().getCommerceApplicationModelCProductRelsCount();
+	}
+
+	public static int getCommerceApplicationModelCProductRelsCount(
+		long commerceApplicationModelId) {
+		return getService()
+				   .getCommerceApplicationModelCProductRelsCount(commerceApplicationModelId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
@@ -266,15 +291,6 @@ public class CommerceApplicationModelCProductRelLocalServiceUtil {
 		com.liferay.commerce.application.model.CommerceApplicationModelCProductRel commerceApplicationModelCProductRel) {
 		return getService()
 				   .updateCommerceApplicationModelCProductRel(commerceApplicationModelCProductRel);
-	}
-
-	public static com.liferay.commerce.application.model.CommerceApplicationModelCProductRel updateCommerceApplicationModelCProductRel(
-		long caModelCProductRelId, long commerceApplicationModelId,
-		long cProductId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService()
-				   .updateCommerceApplicationModelCProductRel(caModelCProductRelId,
-			commerceApplicationModelId, cProductId);
 	}
 
 	public static CommerceApplicationModelCProductRelLocalService getService() {

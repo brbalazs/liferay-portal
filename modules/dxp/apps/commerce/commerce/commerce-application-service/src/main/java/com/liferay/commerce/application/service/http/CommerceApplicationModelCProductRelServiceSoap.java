@@ -16,9 +16,16 @@ package com.liferay.commerce.application.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.commerce.application.service.CommerceApplicationModelCProductRelServiceUtil;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * {@link com.liferay.commerce.application.service.CommerceApplicationModelCProductRelServiceUtil} service utility. The
+ * {@link CommerceApplicationModelCProductRelServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -53,9 +60,70 @@ import aQute.bnd.annotation.ProviderType;
  * @author Luca Pellizzon
  * @see CommerceApplicationModelCProductRelServiceHttp
  * @see com.liferay.commerce.application.model.CommerceApplicationModelCProductRelSoap
- * @see com.liferay.commerce.application.service.CommerceApplicationModelCProductRelServiceUtil
+ * @see CommerceApplicationModelCProductRelServiceUtil
  * @generated
  */
 @ProviderType
 public class CommerceApplicationModelCProductRelServiceSoap {
+	public static com.liferay.commerce.application.model.CommerceApplicationModelCProductRelSoap addCommerceApplicationModelCProductRel(
+		long userId, long commerceApplicationModelId, long cProductId)
+		throws RemoteException {
+		try {
+			com.liferay.commerce.application.model.CommerceApplicationModelCProductRel returnValue =
+				CommerceApplicationModelCProductRelServiceUtil.addCommerceApplicationModelCProductRel(userId,
+					commerceApplicationModelId, cProductId);
+
+			return com.liferay.commerce.application.model.CommerceApplicationModelCProductRelSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static void deleteCommerceApplicationModelCProductRel(
+		long commerceApplicationModelCProductRelId) throws RemoteException {
+		try {
+			CommerceApplicationModelCProductRelServiceUtil.deleteCommerceApplicationModelCProductRel(commerceApplicationModelCProductRelId);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.application.model.CommerceApplicationModelCProductRelSoap[] getCommerceApplicationModelCProductRels(
+		long commerceApplicationModelId, int start, int end)
+		throws RemoteException {
+		try {
+			java.util.List<com.liferay.commerce.application.model.CommerceApplicationModelCProductRel> returnValue =
+				CommerceApplicationModelCProductRelServiceUtil.getCommerceApplicationModelCProductRels(commerceApplicationModelId,
+					start, end);
+
+			return com.liferay.commerce.application.model.CommerceApplicationModelCProductRelSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getCommerceApplicationModelCProductRelsCount(
+		long commerceApplicationModelId) throws RemoteException {
+		try {
+			int returnValue = CommerceApplicationModelCProductRelServiceUtil.getCommerceApplicationModelCProductRelsCount(commerceApplicationModelId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(CommerceApplicationModelCProductRelServiceSoap.class);
 }

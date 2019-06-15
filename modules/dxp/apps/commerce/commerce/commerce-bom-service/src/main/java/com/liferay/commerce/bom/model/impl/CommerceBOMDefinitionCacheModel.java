@@ -79,14 +79,14 @@ public class CommerceBOMDefinitionCacheModel implements CacheModel<CommerceBOMDe
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", name=");
-		sb.append(name);
-		sb.append(", imageId=");
-		sb.append(imageId);
-		sb.append(", friendlyUrl=");
-		sb.append(friendlyUrl);
 		sb.append(", commerceBOMFolderId=");
 		sb.append(commerceBOMFolderId);
+		sb.append(", CPAttachmentFileEntryId=");
+		sb.append(CPAttachmentFileEntryId);
+		sb.append(", name=");
+		sb.append(name);
+		sb.append(", friendlyUrl=");
+		sb.append(friendlyUrl);
 		sb.append("}");
 
 		return sb.toString();
@@ -121,6 +121,9 @@ public class CommerceBOMDefinitionCacheModel implements CacheModel<CommerceBOMDe
 			commerceBOMDefinitionImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+		commerceBOMDefinitionImpl.setCommerceBOMFolderId(commerceBOMFolderId);
+		commerceBOMDefinitionImpl.setCPAttachmentFileEntryId(CPAttachmentFileEntryId);
+
 		if (name == null) {
 			commerceBOMDefinitionImpl.setName("");
 		}
@@ -128,16 +131,12 @@ public class CommerceBOMDefinitionCacheModel implements CacheModel<CommerceBOMDe
 			commerceBOMDefinitionImpl.setName(name);
 		}
 
-		commerceBOMDefinitionImpl.setImageId(imageId);
-
 		if (friendlyUrl == null) {
 			commerceBOMDefinitionImpl.setFriendlyUrl("");
 		}
 		else {
 			commerceBOMDefinitionImpl.setFriendlyUrl(friendlyUrl);
 		}
-
-		commerceBOMDefinitionImpl.setCommerceBOMFolderId(commerceBOMFolderId);
 
 		commerceBOMDefinitionImpl.resetOriginalValues();
 
@@ -154,12 +153,12 @@ public class CommerceBOMDefinitionCacheModel implements CacheModel<CommerceBOMDe
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
-		name = objectInput.readUTF();
-
-		imageId = objectInput.readLong();
-		friendlyUrl = objectInput.readUTF();
 
 		commerceBOMFolderId = objectInput.readLong();
+
+		CPAttachmentFileEntryId = objectInput.readLong();
+		name = objectInput.readUTF();
+		friendlyUrl = objectInput.readUTF();
 	}
 
 	@Override
@@ -181,6 +180,10 @@ public class CommerceBOMDefinitionCacheModel implements CacheModel<CommerceBOMDe
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
+		objectOutput.writeLong(commerceBOMFolderId);
+
+		objectOutput.writeLong(CPAttachmentFileEntryId);
+
 		if (name == null) {
 			objectOutput.writeUTF("");
 		}
@@ -188,16 +191,12 @@ public class CommerceBOMDefinitionCacheModel implements CacheModel<CommerceBOMDe
 			objectOutput.writeUTF(name);
 		}
 
-		objectOutput.writeLong(imageId);
-
 		if (friendlyUrl == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
 			objectOutput.writeUTF(friendlyUrl);
 		}
-
-		objectOutput.writeLong(commerceBOMFolderId);
 	}
 
 	public long commerceBOMDefinitionId;
@@ -206,8 +205,8 @@ public class CommerceBOMDefinitionCacheModel implements CacheModel<CommerceBOMDe
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
-	public String name;
-	public long imageId;
-	public String friendlyUrl;
 	public long commerceBOMFolderId;
+	public long CPAttachmentFileEntryId;
+	public String name;
+	public String friendlyUrl;
 }

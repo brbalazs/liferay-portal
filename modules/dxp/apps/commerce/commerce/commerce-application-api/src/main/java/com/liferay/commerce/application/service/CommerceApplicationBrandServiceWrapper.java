@@ -36,10 +36,28 @@ public class CommerceApplicationBrandServiceWrapper
 
 	@Override
 	public com.liferay.commerce.application.model.CommerceApplicationBrand addCommerceApplicationBrand(
-		long userId, String name, long logoId)
+		long userId, String name, boolean logo, byte[] logoBytes)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceApplicationBrandService.addCommerceApplicationBrand(userId,
-			name, logoId);
+			name, logo, logoBytes);
+	}
+
+	@Override
+	public void deleteCommerceApplicationBrand(long commerceApplicationBrandId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		_commerceApplicationBrandService.deleteCommerceApplicationBrand(commerceApplicationBrandId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.commerce.application.model.CommerceApplicationBrand> getCommerceApplicationBrands(
+		long companyId, int start, int end) {
+		return _commerceApplicationBrandService.getCommerceApplicationBrands(companyId,
+			start, end);
+	}
+
+	@Override
+	public int getCommerceApplicationBrandsCount(long companyId) {
+		return _commerceApplicationBrandService.getCommerceApplicationBrandsCount(companyId);
 	}
 
 	/**
@@ -54,10 +72,11 @@ public class CommerceApplicationBrandServiceWrapper
 
 	@Override
 	public com.liferay.commerce.application.model.CommerceApplicationBrand updateCommerceApplicationBrand(
-		long commerceApplicationBrandId, String name, long logoId)
+		long commerceApplicationBrandId, String name, boolean logo,
+		byte[] logoBytes)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceApplicationBrandService.updateCommerceApplicationBrand(commerceApplicationBrandId,
-			name, logoId);
+			name, logo, logoBytes);
 	}
 
 	@Override

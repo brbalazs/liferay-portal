@@ -43,9 +43,25 @@ public class CommerceApplicationBrandServiceUtil {
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.commerce.application.service.impl.CommerceApplicationBrandServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static com.liferay.commerce.application.model.CommerceApplicationBrand addCommerceApplicationBrand(
-		long userId, String name, long logoId)
+		long userId, String name, boolean logo, byte[] logoBytes)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().addCommerceApplicationBrand(userId, name, logoId);
+		return getService()
+				   .addCommerceApplicationBrand(userId, name, logo, logoBytes);
+	}
+
+	public static void deleteCommerceApplicationBrand(
+		long commerceApplicationBrandId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		getService().deleteCommerceApplicationBrand(commerceApplicationBrandId);
+	}
+
+	public static java.util.List<com.liferay.commerce.application.model.CommerceApplicationBrand> getCommerceApplicationBrands(
+		long companyId, int start, int end) {
+		return getService().getCommerceApplicationBrands(companyId, start, end);
+	}
+
+	public static int getCommerceApplicationBrandsCount(long companyId) {
+		return getService().getCommerceApplicationBrandsCount(companyId);
 	}
 
 	/**
@@ -58,11 +74,12 @@ public class CommerceApplicationBrandServiceUtil {
 	}
 
 	public static com.liferay.commerce.application.model.CommerceApplicationBrand updateCommerceApplicationBrand(
-		long commerceApplicationBrandId, String name, long logoId)
+		long commerceApplicationBrandId, String name, boolean logo,
+		byte[] logoBytes)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .updateCommerceApplicationBrand(commerceApplicationBrandId,
-			name, logoId);
+			name, logo, logoBytes);
 	}
 
 	public static CommerceApplicationBrandService getService() {

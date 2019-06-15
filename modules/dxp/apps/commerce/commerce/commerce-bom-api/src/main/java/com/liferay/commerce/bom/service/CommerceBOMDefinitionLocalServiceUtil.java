@@ -55,12 +55,12 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 	}
 
 	public static com.liferay.commerce.bom.model.CommerceBOMDefinition addCommerceBOMDefinition(
-		long userId, String name, long imageId, String friendlyUrl,
-		long commerceBOMFolderId)
+		long userId, long commerceBOMFolderId, long cpAttachmentFileEntryId,
+		String name, String friendlyUrl)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
-				   .addCommerceBOMDefinition(userId, name, imageId,
-			friendlyUrl, commerceBOMFolderId);
+				   .addCommerceBOMDefinition(userId, commerceBOMFolderId,
+			cpAttachmentFileEntryId, name, friendlyUrl);
 	}
 
 	/**
@@ -98,6 +98,11 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 		long commerceBOMDefinitionId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().deleteCommerceBOMDefinition(commerceBOMDefinitionId);
+	}
+
+	public static void deleteCommerceBOMDefinitions(long commerceBOMFolderId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		getService().deleteCommerceBOMDefinitions(commerceBOMFolderId);
 	}
 
 	/**
@@ -225,11 +230,6 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 		return getService().getCommerceBOMDefinitions(start, end);
 	}
 
-	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMDefinition> getCommerceBOMDefinitions(
-		long commerceBOMFolderId) {
-		return getService().getCommerceBOMDefinitions(commerceBOMFolderId);
-	}
-
 	/**
 	* Returns the number of commerce bom definitions.
 	*
@@ -270,12 +270,11 @@ public class CommerceBOMDefinitionLocalServiceUtil {
 	}
 
 	public static com.liferay.commerce.bom.model.CommerceBOMDefinition updateCommerceBOMDefinition(
-		long commerceBOMDefinitionId, String name, long imageId,
-		String friendlyUrl, long commerceBOMFolderId)
+		long commerceBOMDefinitionId, long cpAttachmentFileEntryId, String name)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
-				   .updateCommerceBOMDefinition(commerceBOMDefinitionId, name,
-			imageId, friendlyUrl, commerceBOMFolderId);
+				   .updateCommerceBOMDefinition(commerceBOMDefinitionId,
+			cpAttachmentFileEntryId, name);
 	}
 
 	public static CommerceBOMDefinitionLocalService getService() {

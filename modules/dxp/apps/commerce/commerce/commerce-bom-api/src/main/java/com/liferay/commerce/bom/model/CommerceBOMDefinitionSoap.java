@@ -41,10 +41,10 @@ public class CommerceBOMDefinitionSoap implements Serializable {
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
-		soapModel.setName(model.getName());
-		soapModel.setImageId(model.getImageId());
-		soapModel.setFriendlyUrl(model.getFriendlyUrl());
 		soapModel.setCommerceBOMFolderId(model.getCommerceBOMFolderId());
+		soapModel.setCPAttachmentFileEntryId(model.getCPAttachmentFileEntryId());
+		soapModel.setName(model.getName());
+		soapModel.setFriendlyUrl(model.getFriendlyUrl());
 
 		return soapModel;
 	}
@@ -148,20 +148,28 @@ public class CommerceBOMDefinitionSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
+	public long getCommerceBOMFolderId() {
+		return _commerceBOMFolderId;
+	}
+
+	public void setCommerceBOMFolderId(long commerceBOMFolderId) {
+		_commerceBOMFolderId = commerceBOMFolderId;
+	}
+
+	public long getCPAttachmentFileEntryId() {
+		return _CPAttachmentFileEntryId;
+	}
+
+	public void setCPAttachmentFileEntryId(long CPAttachmentFileEntryId) {
+		_CPAttachmentFileEntryId = CPAttachmentFileEntryId;
+	}
+
 	public String getName() {
 		return _name;
 	}
 
 	public void setName(String name) {
 		_name = name;
-	}
-
-	public long getImageId() {
-		return _imageId;
-	}
-
-	public void setImageId(long imageId) {
-		_imageId = imageId;
 	}
 
 	public String getFriendlyUrl() {
@@ -172,22 +180,14 @@ public class CommerceBOMDefinitionSoap implements Serializable {
 		_friendlyUrl = friendlyUrl;
 	}
 
-	public long getCommerceBOMFolderId() {
-		return _commerceBOMFolderId;
-	}
-
-	public void setCommerceBOMFolderId(long commerceBOMFolderId) {
-		_commerceBOMFolderId = commerceBOMFolderId;
-	}
-
 	private long _commerceBOMDefinitionId;
 	private long _companyId;
 	private long _userId;
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private String _name;
-	private long _imageId;
-	private String _friendlyUrl;
 	private long _commerceBOMFolderId;
+	private long _CPAttachmentFileEntryId;
+	private String _name;
+	private String _friendlyUrl;
 }

@@ -48,11 +48,11 @@ public class CommerceBOMDefinitionLocalServiceWrapper
 
 	@Override
 	public com.liferay.commerce.bom.model.CommerceBOMDefinition addCommerceBOMDefinition(
-		long userId, String name, long imageId, String friendlyUrl,
-		long commerceBOMFolderId)
+		long userId, long commerceBOMFolderId, long cpAttachmentFileEntryId,
+		String name, String friendlyUrl)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceBOMDefinitionLocalService.addCommerceBOMDefinition(userId,
-			name, imageId, friendlyUrl, commerceBOMFolderId);
+			commerceBOMFolderId, cpAttachmentFileEntryId, name, friendlyUrl);
 	}
 
 	/**
@@ -93,6 +93,12 @@ public class CommerceBOMDefinitionLocalServiceWrapper
 		long commerceBOMDefinitionId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceBOMDefinitionLocalService.deleteCommerceBOMDefinition(commerceBOMDefinitionId);
+	}
+
+	@Override
+	public void deleteCommerceBOMDefinitions(long commerceBOMFolderId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		_commerceBOMDefinitionLocalService.deleteCommerceBOMDefinitions(commerceBOMFolderId);
 	}
 
 	/**
@@ -234,12 +240,6 @@ public class CommerceBOMDefinitionLocalServiceWrapper
 			end);
 	}
 
-	@Override
-	public java.util.List<com.liferay.commerce.bom.model.CommerceBOMDefinition> getCommerceBOMDefinitions(
-		long commerceBOMFolderId) {
-		return _commerceBOMDefinitionLocalService.getCommerceBOMDefinitions(commerceBOMFolderId);
-	}
-
 	/**
 	* Returns the number of commerce bom definitions.
 	*
@@ -286,11 +286,10 @@ public class CommerceBOMDefinitionLocalServiceWrapper
 
 	@Override
 	public com.liferay.commerce.bom.model.CommerceBOMDefinition updateCommerceBOMDefinition(
-		long commerceBOMDefinitionId, String name, long imageId,
-		String friendlyUrl, long commerceBOMFolderId)
+		long commerceBOMDefinitionId, long cpAttachmentFileEntryId, String name)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceBOMDefinitionLocalService.updateCommerceBOMDefinition(commerceBOMDefinitionId,
-			name, imageId, friendlyUrl, commerceBOMFolderId);
+			cpAttachmentFileEntryId, name);
 	}
 
 	@Override

@@ -25,7 +25,10 @@ import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+
+import java.util.List;
 
 /**
  * Provides the remote service interface for CommerceBOMDefinition. Methods of this
@@ -52,8 +55,22 @@ public interface CommerceBOMDefinitionService extends BaseService {
 	 * Never modify or reference this interface directly. Always use {@link CommerceBOMDefinitionServiceUtil} to access the commerce bom definition remote service. Add custom service methods to {@link com.liferay.commerce.bom.service.impl.CommerceBOMDefinitionServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public CommerceBOMDefinition addCommerceBOMDefinition(long userId,
-		String name, long imageId, String friendlyUrl, long commerceBOMFolderId)
+		long commerceBOMFolderId, long cpAttachmentFileEntryId, String name,
+		String friendlyUrl) throws PortalException;
+
+	public void deleteCommerceBOMDefinition(long commerceBOMDefinitionId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceBOMDefinition getCommerceBOMDefinition(
+		long commerceBOMDefinitionId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceBOMDefinition> getCommerceBOMDefinitions(
+		long commerceBOMFolderId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceBOMDefinitionsCount(long commerceBOMFolderId);
 
 	/**
 	* Returns the OSGi service identifier.
@@ -63,6 +80,6 @@ public interface CommerceBOMDefinitionService extends BaseService {
 	public String getOSGiServiceIdentifier();
 
 	public CommerceBOMDefinition updateCommerceBOMDefinition(
-		long commerceBOMDefinitionId, String name, long imageId,
-		String friendlyUrl, long commerceBOMFolderId) throws PortalException;
+		long commerceBOMDefinitionId, long cpAttachmentFileEntryId, String name)
+		throws PortalException;
 }

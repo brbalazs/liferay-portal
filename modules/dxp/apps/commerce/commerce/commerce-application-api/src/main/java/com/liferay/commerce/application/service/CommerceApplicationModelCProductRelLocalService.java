@@ -106,6 +106,12 @@ public interface CommerceApplicationModelCProductRelLocalService
 	public CommerceApplicationModelCProductRel deleteCommerceApplicationModelCProductRel(
 		long commerceApplicationModelCProductRelId) throws PortalException;
 
+	public void deleteCommerceApplicationModelCProductRels(
+		long commerceApplicationModelId);
+
+	public void deleteCommerceApplicationModelCProductRelsByCProductId(
+		long cProductId);
+
 	/**
 	* @throws PortalException
 	*/
@@ -211,6 +217,10 @@ public interface CommerceApplicationModelCProductRelLocalService
 	public List<CommerceApplicationModelCProductRel> getCommerceApplicationModelCProductRels(
 		int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceApplicationModelCProductRel> getCommerceApplicationModelCProductRels(
+		long commerceApplicationModelId, int start, int end);
+
 	/**
 	* Returns the number of commerce application model c product rels.
 	*
@@ -218,6 +228,10 @@ public interface CommerceApplicationModelCProductRelLocalService
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceApplicationModelCProductRelsCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceApplicationModelCProductRelsCount(
+		long commerceApplicationModelId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
@@ -243,8 +257,4 @@ public interface CommerceApplicationModelCProductRelLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public CommerceApplicationModelCProductRel updateCommerceApplicationModelCProductRel(
 		CommerceApplicationModelCProductRel commerceApplicationModelCProductRel);
-
-	public CommerceApplicationModelCProductRel updateCommerceApplicationModelCProductRel(
-		long caModelCProductRelId, long commerceApplicationModelId,
-		long cProductId) throws PortalException;
 }

@@ -177,6 +177,34 @@ public interface CommerceBOMDefinitionModel extends AuditedModel,
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
+	 * Returns the commerce bom folder ID of this commerce bom definition.
+	 *
+	 * @return the commerce bom folder ID of this commerce bom definition
+	 */
+	public long getCommerceBOMFolderId();
+
+	/**
+	 * Sets the commerce bom folder ID of this commerce bom definition.
+	 *
+	 * @param commerceBOMFolderId the commerce bom folder ID of this commerce bom definition
+	 */
+	public void setCommerceBOMFolderId(long commerceBOMFolderId);
+
+	/**
+	 * Returns the cp attachment file entry ID of this commerce bom definition.
+	 *
+	 * @return the cp attachment file entry ID of this commerce bom definition
+	 */
+	public long getCPAttachmentFileEntryId();
+
+	/**
+	 * Sets the cp attachment file entry ID of this commerce bom definition.
+	 *
+	 * @param CPAttachmentFileEntryId the cp attachment file entry ID of this commerce bom definition
+	 */
+	public void setCPAttachmentFileEntryId(long CPAttachmentFileEntryId);
+
+	/**
 	 * Returns the name of this commerce bom definition.
 	 *
 	 * @return the name of this commerce bom definition
@@ -192,20 +220,6 @@ public interface CommerceBOMDefinitionModel extends AuditedModel,
 	public void setName(String name);
 
 	/**
-	 * Returns the image ID of this commerce bom definition.
-	 *
-	 * @return the image ID of this commerce bom definition
-	 */
-	public long getImageId();
-
-	/**
-	 * Sets the image ID of this commerce bom definition.
-	 *
-	 * @param imageId the image ID of this commerce bom definition
-	 */
-	public void setImageId(long imageId);
-
-	/**
 	 * Returns the friendly url of this commerce bom definition.
 	 *
 	 * @return the friendly url of this commerce bom definition
@@ -219,20 +233,6 @@ public interface CommerceBOMDefinitionModel extends AuditedModel,
 	 * @param friendlyUrl the friendly url of this commerce bom definition
 	 */
 	public void setFriendlyUrl(String friendlyUrl);
-
-	/**
-	 * Returns the commerce bom folder ID of this commerce bom definition.
-	 *
-	 * @return the commerce bom folder ID of this commerce bom definition
-	 */
-	public long getCommerceBOMFolderId();
-
-	/**
-	 * Sets the commerce bom folder ID of this commerce bom definition.
-	 *
-	 * @param commerceBOMFolderId the commerce bom folder ID of this commerce bom definition
-	 */
-	public void setCommerceBOMFolderId(long commerceBOMFolderId);
 
 	@Override
 	public boolean isNew();

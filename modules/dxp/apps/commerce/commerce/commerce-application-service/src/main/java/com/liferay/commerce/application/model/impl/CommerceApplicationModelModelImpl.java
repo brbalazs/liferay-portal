@@ -107,7 +107,11 @@ public class CommerceApplicationModelModelImpl extends BaseModelImpl<CommerceApp
 	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.commerce.application.service.util.ServiceProps.get(
 				"value.object.finder.cache.enabled.com.liferay.commerce.application.model.CommerceApplicationModel"),
 			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = false;
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.commerce.application.service.util.ServiceProps.get(
+				"value.object.column.bitmask.enabled.com.liferay.commerce.application.model.CommerceApplicationModel"),
+			true);
+	public static final long COMMERCEAPPLICATIONBRANDID_COLUMN_BITMASK = 1L;
+	public static final long NAME_COLUMN_BITMASK = 2L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -375,7 +379,19 @@ public class CommerceApplicationModelModelImpl extends BaseModelImpl<CommerceApp
 
 	@Override
 	public void setCommerceApplicationBrandId(long commerceApplicationBrandId) {
+		_columnBitmask |= COMMERCEAPPLICATIONBRANDID_COLUMN_BITMASK;
+
+		if (!_setOriginalCommerceApplicationBrandId) {
+			_setOriginalCommerceApplicationBrandId = true;
+
+			_originalCommerceApplicationBrandId = _commerceApplicationBrandId;
+		}
+
 		_commerceApplicationBrandId = commerceApplicationBrandId;
+	}
+
+	public long getOriginalCommerceApplicationBrandId() {
+		return _originalCommerceApplicationBrandId;
 	}
 
 	@JSON
@@ -391,6 +407,8 @@ public class CommerceApplicationModelModelImpl extends BaseModelImpl<CommerceApp
 
 	@Override
 	public void setName(String name) {
+		_columnBitmask = -1L;
+
 		_name = name;
 	}
 
@@ -408,6 +426,10 @@ public class CommerceApplicationModelModelImpl extends BaseModelImpl<CommerceApp
 	@Override
 	public void setYear(String year) {
 		_year = year;
+	}
+
+	public long getColumnBitmask() {
+		return _columnBitmask;
 	}
 
 	@Override
@@ -507,6 +529,12 @@ public class CommerceApplicationModelModelImpl extends BaseModelImpl<CommerceApp
 		CommerceApplicationModelModelImpl commerceApplicationModelModelImpl = this;
 
 		commerceApplicationModelModelImpl._setModifiedDate = false;
+
+		commerceApplicationModelModelImpl._originalCommerceApplicationBrandId = commerceApplicationModelModelImpl._commerceApplicationBrandId;
+
+		commerceApplicationModelModelImpl._setOriginalCommerceApplicationBrandId = false;
+
+		commerceApplicationModelModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -656,7 +684,10 @@ public class CommerceApplicationModelModelImpl extends BaseModelImpl<CommerceApp
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
 	private long _commerceApplicationBrandId;
+	private long _originalCommerceApplicationBrandId;
+	private boolean _setOriginalCommerceApplicationBrandId;
 	private String _name;
 	private String _year;
+	private long _columnBitmask;
 	private CommerceApplicationModel _escapedModel;
 }

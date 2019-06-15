@@ -105,7 +105,13 @@ public class CommerceApplicationModelCProductRelModelImpl extends BaseModelImpl<
 	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.commerce.application.service.util.ServiceProps.get(
 				"value.object.finder.cache.enabled.com.liferay.commerce.application.model.CommerceApplicationModelCProductRel"),
 			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = false;
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.commerce.application.service.util.ServiceProps.get(
+				"value.object.column.bitmask.enabled.com.liferay.commerce.application.model.CommerceApplicationModelCProductRel"),
+			true);
+	public static final long CPRODUCTID_COLUMN_BITMASK = 1L;
+	public static final long COMMERCEAPPLICATIONMODELID_COLUMN_BITMASK = 2L;
+	public static final long COMMERCEAPPLICATIONMODELCPRODUCTRELID_COLUMN_BITMASK =
+		4L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -366,7 +372,19 @@ public class CommerceApplicationModelCProductRelModelImpl extends BaseModelImpl<
 
 	@Override
 	public void setCommerceApplicationModelId(long commerceApplicationModelId) {
+		_columnBitmask |= COMMERCEAPPLICATIONMODELID_COLUMN_BITMASK;
+
+		if (!_setOriginalCommerceApplicationModelId) {
+			_setOriginalCommerceApplicationModelId = true;
+
+			_originalCommerceApplicationModelId = _commerceApplicationModelId;
+		}
+
 		_commerceApplicationModelId = commerceApplicationModelId;
+	}
+
+	public long getOriginalCommerceApplicationModelId() {
+		return _originalCommerceApplicationModelId;
 	}
 
 	@JSON
@@ -377,7 +395,23 @@ public class CommerceApplicationModelCProductRelModelImpl extends BaseModelImpl<
 
 	@Override
 	public void setCProductId(long CProductId) {
+		_columnBitmask |= CPRODUCTID_COLUMN_BITMASK;
+
+		if (!_setOriginalCProductId) {
+			_setOriginalCProductId = true;
+
+			_originalCProductId = _CProductId;
+		}
+
 		_CProductId = CProductId;
+	}
+
+	public long getOriginalCProductId() {
+		return _originalCProductId;
+	}
+
+	public long getColumnBitmask() {
+		return _columnBitmask;
 	}
 
 	@Override
@@ -481,6 +515,16 @@ public class CommerceApplicationModelCProductRelModelImpl extends BaseModelImpl<
 			this;
 
 		commerceApplicationModelCProductRelModelImpl._setModifiedDate = false;
+
+		commerceApplicationModelCProductRelModelImpl._originalCommerceApplicationModelId = commerceApplicationModelCProductRelModelImpl._commerceApplicationModelId;
+
+		commerceApplicationModelCProductRelModelImpl._setOriginalCommerceApplicationModelId = false;
+
+		commerceApplicationModelCProductRelModelImpl._originalCProductId = commerceApplicationModelCProductRelModelImpl._CProductId;
+
+		commerceApplicationModelCProductRelModelImpl._setOriginalCProductId = false;
+
+		commerceApplicationModelCProductRelModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -611,6 +655,11 @@ public class CommerceApplicationModelCProductRelModelImpl extends BaseModelImpl<
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
 	private long _commerceApplicationModelId;
+	private long _originalCommerceApplicationModelId;
+	private boolean _setOriginalCommerceApplicationModelId;
 	private long _CProductId;
+	private long _originalCProductId;
+	private boolean _setOriginalCProductId;
+	private long _columnBitmask;
 	private CommerceApplicationModelCProductRel _escapedModel;
 }

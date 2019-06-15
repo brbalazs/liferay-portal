@@ -42,6 +42,202 @@ public interface CommerceApplicationBrandPersistence extends BasePersistence<Com
 	 */
 
 	/**
+	* Returns all the commerce application brands where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @return the matching commerce application brands
+	*/
+	public java.util.List<CommerceApplicationBrand> findByCompany(
+		long companyId);
+
+	/**
+	* Returns a range of all the commerce application brands where companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationBrandModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param start the lower bound of the range of commerce application brands
+	* @param end the upper bound of the range of commerce application brands (not inclusive)
+	* @return the range of matching commerce application brands
+	*/
+	public java.util.List<CommerceApplicationBrand> findByCompany(
+		long companyId, int start, int end);
+
+	/**
+	* Returns an ordered range of all the commerce application brands where companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationBrandModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param start the lower bound of the range of commerce application brands
+	* @param end the upper bound of the range of commerce application brands (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching commerce application brands
+	*/
+	public java.util.List<CommerceApplicationBrand> findByCompany(
+		long companyId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceApplicationBrand> orderByComparator);
+
+	/**
+	* Returns an ordered range of all the commerce application brands where companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationBrandModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param start the lower bound of the range of commerce application brands
+	* @param end the upper bound of the range of commerce application brands (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching commerce application brands
+	*/
+	public java.util.List<CommerceApplicationBrand> findByCompany(
+		long companyId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceApplicationBrand> orderByComparator,
+		boolean retrieveFromCache);
+
+	/**
+	* Returns the first commerce application brand in the ordered set where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching commerce application brand
+	* @throws NoSuchApplicationBrandException if a matching commerce application brand could not be found
+	*/
+	public CommerceApplicationBrand findByCompany_First(long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceApplicationBrand> orderByComparator)
+		throws NoSuchApplicationBrandException;
+
+	/**
+	* Returns the first commerce application brand in the ordered set where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching commerce application brand, or <code>null</code> if a matching commerce application brand could not be found
+	*/
+	public CommerceApplicationBrand fetchByCompany_First(long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceApplicationBrand> orderByComparator);
+
+	/**
+	* Returns the last commerce application brand in the ordered set where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching commerce application brand
+	* @throws NoSuchApplicationBrandException if a matching commerce application brand could not be found
+	*/
+	public CommerceApplicationBrand findByCompany_Last(long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceApplicationBrand> orderByComparator)
+		throws NoSuchApplicationBrandException;
+
+	/**
+	* Returns the last commerce application brand in the ordered set where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching commerce application brand, or <code>null</code> if a matching commerce application brand could not be found
+	*/
+	public CommerceApplicationBrand fetchByCompany_Last(long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceApplicationBrand> orderByComparator);
+
+	/**
+	* Returns the commerce application brands before and after the current commerce application brand in the ordered set where companyId = &#63;.
+	*
+	* @param commerceApplicationBrandId the primary key of the current commerce application brand
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next commerce application brand
+	* @throws NoSuchApplicationBrandException if a commerce application brand with the primary key could not be found
+	*/
+	public CommerceApplicationBrand[] findByCompany_PrevAndNext(
+		long commerceApplicationBrandId, long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceApplicationBrand> orderByComparator)
+		throws NoSuchApplicationBrandException;
+
+	/**
+	* Returns all the commerce application brands that the user has permission to view where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @return the matching commerce application brands that the user has permission to view
+	*/
+	public java.util.List<CommerceApplicationBrand> filterFindByCompany(
+		long companyId);
+
+	/**
+	* Returns a range of all the commerce application brands that the user has permission to view where companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationBrandModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param start the lower bound of the range of commerce application brands
+	* @param end the upper bound of the range of commerce application brands (not inclusive)
+	* @return the range of matching commerce application brands that the user has permission to view
+	*/
+	public java.util.List<CommerceApplicationBrand> filterFindByCompany(
+		long companyId, int start, int end);
+
+	/**
+	* Returns an ordered range of all the commerce application brands that the user has permissions to view where companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationBrandModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param start the lower bound of the range of commerce application brands
+	* @param end the upper bound of the range of commerce application brands (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching commerce application brands that the user has permission to view
+	*/
+	public java.util.List<CommerceApplicationBrand> filterFindByCompany(
+		long companyId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceApplicationBrand> orderByComparator);
+
+	/**
+	* Returns the commerce application brands before and after the current commerce application brand in the ordered set of commerce application brands that the user has permission to view where companyId = &#63;.
+	*
+	* @param commerceApplicationBrandId the primary key of the current commerce application brand
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next commerce application brand
+	* @throws NoSuchApplicationBrandException if a commerce application brand with the primary key could not be found
+	*/
+	public CommerceApplicationBrand[] filterFindByCompany_PrevAndNext(
+		long commerceApplicationBrandId, long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceApplicationBrand> orderByComparator)
+		throws NoSuchApplicationBrandException;
+
+	/**
+	* Removes all the commerce application brands where companyId = &#63; from the database.
+	*
+	* @param companyId the company ID
+	*/
+	public void removeByCompany(long companyId);
+
+	/**
+	* Returns the number of commerce application brands where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @return the number of matching commerce application brands
+	*/
+	public int countByCompany(long companyId);
+
+	/**
+	* Returns the number of commerce application brands that the user has permission to view where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @return the number of matching commerce application brands that the user has permission to view
+	*/
+	public int filterCountByCompany(long companyId);
+
+	/**
 	* Caches the commerce application brand in the entity cache if it is enabled.
 	*
 	* @param commerceApplicationBrand the commerce application brand

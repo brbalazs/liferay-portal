@@ -52,8 +52,11 @@ public interface CommerceApplicationModelService extends BaseService {
 	 * Never modify or reference this interface directly. Always use {@link CommerceApplicationModelServiceUtil} to access the commerce application model remote service. Add custom service methods to {@link com.liferay.commerce.application.service.impl.CommerceApplicationModelServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public CommerceApplicationModel addCommerceApplicationModel(long userId,
-		long commerceApplicationBrandId, long cProductId, String name,
-		String year) throws PortalException;
+		long commerceApplicationBrandId, String name, String year)
+		throws PortalException;
+
+	public void deleteCommerceApplicationModel(long commerceApplicationModelId)
+		throws PortalException;
 
 	/**
 	* Returns the OSGi service identifier.

@@ -66,13 +66,25 @@ import java.rmi.RemoteException;
 @ProviderType
 public class CommerceBOMFolderServiceSoap {
 	public static com.liferay.commerce.bom.model.CommerceBOMFolderSoap addCommerceBOMFolder(
-		long userId, long parentCommerceBOMFolderId, String name, long imageId)
-		throws RemoteException {
+		long userId, long parentCommerceBOMFolderId, String name, boolean logo,
+		byte[] logoBytes) throws RemoteException {
 		try {
 			com.liferay.commerce.bom.model.CommerceBOMFolder returnValue = CommerceBOMFolderServiceUtil.addCommerceBOMFolder(userId,
-					parentCommerceBOMFolderId, name, imageId);
+					parentCommerceBOMFolderId, name, logo, logoBytes);
 
 			return com.liferay.commerce.bom.model.CommerceBOMFolderSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static void deleteCommerceBOMFolder(long commerceBOMFolderId)
+		throws RemoteException {
+		try {
+			CommerceBOMFolderServiceUtil.deleteCommerceBOMFolder(commerceBOMFolderId);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -128,11 +140,11 @@ public class CommerceBOMFolderServiceSoap {
 	}
 
 	public static com.liferay.commerce.bom.model.CommerceBOMFolderSoap updateCommerceBOMFolder(
-		long commerceBOMFolderId, String name, long imageId)
+		long commerceBOMFolderId, String name, boolean logo, byte[] logoBytes)
 		throws RemoteException {
 		try {
 			com.liferay.commerce.bom.model.CommerceBOMFolder returnValue = CommerceBOMFolderServiceUtil.updateCommerceBOMFolder(commerceBOMFolderId,
-					name, imageId);
+					name, logo, logoBytes);
 
 			return com.liferay.commerce.bom.model.CommerceBOMFolderSoap.toSoapModel(returnValue);
 		}

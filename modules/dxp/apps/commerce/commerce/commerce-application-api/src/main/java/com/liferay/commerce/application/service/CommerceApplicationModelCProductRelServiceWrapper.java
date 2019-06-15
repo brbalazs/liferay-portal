@@ -34,6 +34,36 @@ public class CommerceApplicationModelCProductRelServiceWrapper
 		_commerceApplicationModelCProductRelService = commerceApplicationModelCProductRelService;
 	}
 
+	@Override
+	public com.liferay.commerce.application.model.CommerceApplicationModelCProductRel addCommerceApplicationModelCProductRel(
+		long userId, long commerceApplicationModelId, long cProductId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceApplicationModelCProductRelService.addCommerceApplicationModelCProductRel(userId,
+			commerceApplicationModelId, cProductId);
+	}
+
+	@Override
+	public void deleteCommerceApplicationModelCProductRel(
+		long commerceApplicationModelCProductRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		_commerceApplicationModelCProductRelService.deleteCommerceApplicationModelCProductRel(commerceApplicationModelCProductRelId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.commerce.application.model.CommerceApplicationModelCProductRel> getCommerceApplicationModelCProductRels(
+		long commerceApplicationModelId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceApplicationModelCProductRelService.getCommerceApplicationModelCProductRels(commerceApplicationModelId,
+			start, end);
+	}
+
+	@Override
+	public int getCommerceApplicationModelCProductRelsCount(
+		long commerceApplicationModelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceApplicationModelCProductRelService.getCommerceApplicationModelCProductRelsCount(commerceApplicationModelId);
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*

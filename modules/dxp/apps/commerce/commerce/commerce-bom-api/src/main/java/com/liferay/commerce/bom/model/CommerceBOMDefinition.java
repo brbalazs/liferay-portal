@@ -55,4 +55,6 @@ public interface CommerceBOMDefinition extends CommerceBOMDefinitionModel,
 				return CommerceBOMDefinition.class;
 			}
 		};
+
+	public com.liferay.commerce.product.model.CPAttachmentFileEntry fetchCPAttachmentFileEntry();
 }

@@ -36,11 +36,36 @@ public class CommerceBOMDefinitionServiceWrapper
 
 	@Override
 	public com.liferay.commerce.bom.model.CommerceBOMDefinition addCommerceBOMDefinition(
-		long userId, String name, long imageId, String friendlyUrl,
-		long commerceBOMFolderId)
+		long userId, long commerceBOMFolderId, long cpAttachmentFileEntryId,
+		String name, String friendlyUrl)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceBOMDefinitionService.addCommerceBOMDefinition(userId,
-			name, imageId, friendlyUrl, commerceBOMFolderId);
+			commerceBOMFolderId, cpAttachmentFileEntryId, name, friendlyUrl);
+	}
+
+	@Override
+	public void deleteCommerceBOMDefinition(long commerceBOMDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		_commerceBOMDefinitionService.deleteCommerceBOMDefinition(commerceBOMDefinitionId);
+	}
+
+	@Override
+	public com.liferay.commerce.bom.model.CommerceBOMDefinition getCommerceBOMDefinition(
+		long commerceBOMDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceBOMDefinitionService.getCommerceBOMDefinition(commerceBOMDefinitionId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.commerce.bom.model.CommerceBOMDefinition> getCommerceBOMDefinitions(
+		long commerceBOMFolderId, int start, int end) {
+		return _commerceBOMDefinitionService.getCommerceBOMDefinitions(commerceBOMFolderId,
+			start, end);
+	}
+
+	@Override
+	public int getCommerceBOMDefinitionsCount(long commerceBOMFolderId) {
+		return _commerceBOMDefinitionService.getCommerceBOMDefinitionsCount(commerceBOMFolderId);
 	}
 
 	/**
@@ -55,11 +80,10 @@ public class CommerceBOMDefinitionServiceWrapper
 
 	@Override
 	public com.liferay.commerce.bom.model.CommerceBOMDefinition updateCommerceBOMDefinition(
-		long commerceBOMDefinitionId, String name, long imageId,
-		String friendlyUrl, long commerceBOMFolderId)
+		long commerceBOMDefinitionId, long cpAttachmentFileEntryId, String name)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceBOMDefinitionService.updateCommerceBOMDefinition(commerceBOMDefinitionId,
-			name, imageId, friendlyUrl, commerceBOMFolderId);
+			cpAttachmentFileEntryId, name);
 	}
 
 	@Override

@@ -66,14 +66,26 @@ import java.rmi.RemoteException;
 @ProviderType
 public class CommerceApplicationModelServiceSoap {
 	public static com.liferay.commerce.application.model.CommerceApplicationModelSoap addCommerceApplicationModel(
-		long userId, long commerceApplicationBrandId, long cProductId,
-		String name, String year) throws RemoteException {
+		long userId, long commerceApplicationBrandId, String name, String year)
+		throws RemoteException {
 		try {
 			com.liferay.commerce.application.model.CommerceApplicationModel returnValue =
 				CommerceApplicationModelServiceUtil.addCommerceApplicationModel(userId,
-					commerceApplicationBrandId, cProductId, name, year);
+					commerceApplicationBrandId, name, year);
 
 			return com.liferay.commerce.application.model.CommerceApplicationModelSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static void deleteCommerceApplicationModel(
+		long commerceApplicationModelId) throws RemoteException {
+		try {
+			CommerceApplicationModelServiceUtil.deleteCommerceApplicationModel(commerceApplicationModelId);
 		}
 		catch (Exception e) {
 			_log.error(e, e);

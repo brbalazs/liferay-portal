@@ -43,12 +43,33 @@ public class CommerceBOMDefinitionServiceUtil {
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.commerce.bom.service.impl.CommerceBOMDefinitionServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static com.liferay.commerce.bom.model.CommerceBOMDefinition addCommerceBOMDefinition(
-		long userId, String name, long imageId, String friendlyUrl,
-		long commerceBOMFolderId)
+		long userId, long commerceBOMFolderId, long cpAttachmentFileEntryId,
+		String name, String friendlyUrl)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
-				   .addCommerceBOMDefinition(userId, name, imageId,
-			friendlyUrl, commerceBOMFolderId);
+				   .addCommerceBOMDefinition(userId, commerceBOMFolderId,
+			cpAttachmentFileEntryId, name, friendlyUrl);
+	}
+
+	public static void deleteCommerceBOMDefinition(long commerceBOMDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		getService().deleteCommerceBOMDefinition(commerceBOMDefinitionId);
+	}
+
+	public static com.liferay.commerce.bom.model.CommerceBOMDefinition getCommerceBOMDefinition(
+		long commerceBOMDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getCommerceBOMDefinition(commerceBOMDefinitionId);
+	}
+
+	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMDefinition> getCommerceBOMDefinitions(
+		long commerceBOMFolderId, int start, int end) {
+		return getService()
+				   .getCommerceBOMDefinitions(commerceBOMFolderId, start, end);
+	}
+
+	public static int getCommerceBOMDefinitionsCount(long commerceBOMFolderId) {
+		return getService().getCommerceBOMDefinitionsCount(commerceBOMFolderId);
 	}
 
 	/**
@@ -61,12 +82,11 @@ public class CommerceBOMDefinitionServiceUtil {
 	}
 
 	public static com.liferay.commerce.bom.model.CommerceBOMDefinition updateCommerceBOMDefinition(
-		long commerceBOMDefinitionId, String name, long imageId,
-		String friendlyUrl, long commerceBOMFolderId)
+		long commerceBOMDefinitionId, long cpAttachmentFileEntryId, String name)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
-				   .updateCommerceBOMDefinition(commerceBOMDefinitionId, name,
-			imageId, friendlyUrl, commerceBOMFolderId);
+				   .updateCommerceBOMDefinition(commerceBOMDefinitionId,
+			cpAttachmentFileEntryId, name);
 	}
 
 	public static CommerceBOMDefinitionService getService() {

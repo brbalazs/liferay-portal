@@ -16,10 +16,10 @@ create table CommerceBOMDefinition (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
+	commerceBOMFolderId LONG,
+	CPAttachmentFileEntryId LONG,
 	name VARCHAR(75) null,
-	imageId LONG,
-	friendlyUrl VARCHAR(75) null,
-	commerceBOMFolderId LONG
+	friendlyUrl VARCHAR(75) null
 );
 
 create table CommerceBOMEntry (
@@ -47,5 +47,5 @@ create table CommerceBOMFolder (
 	modifiedDate DATE null,
 	parentCommerceBOMFolderId LONG,
 	name VARCHAR(75) null,
-	imageId LONG
+	logoId LONG
 );

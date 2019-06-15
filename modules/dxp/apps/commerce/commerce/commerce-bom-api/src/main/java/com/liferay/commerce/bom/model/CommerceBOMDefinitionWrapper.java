@@ -65,10 +65,10 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("name", getName());
-		attributes.put("imageId", getImageId());
-		attributes.put("friendlyUrl", getFriendlyUrl());
 		attributes.put("commerceBOMFolderId", getCommerceBOMFolderId());
+		attributes.put("CPAttachmentFileEntryId", getCPAttachmentFileEntryId());
+		attributes.put("name", getName());
+		attributes.put("friendlyUrl", getFriendlyUrl());
 
 		return attributes;
 	}
@@ -112,28 +112,29 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 			setModifiedDate(modifiedDate);
 		}
 
+		Long commerceBOMFolderId = (Long)attributes.get("commerceBOMFolderId");
+
+		if (commerceBOMFolderId != null) {
+			setCommerceBOMFolderId(commerceBOMFolderId);
+		}
+
+		Long CPAttachmentFileEntryId = (Long)attributes.get(
+				"CPAttachmentFileEntryId");
+
+		if (CPAttachmentFileEntryId != null) {
+			setCPAttachmentFileEntryId(CPAttachmentFileEntryId);
+		}
+
 		String name = (String)attributes.get("name");
 
 		if (name != null) {
 			setName(name);
 		}
 
-		Long imageId = (Long)attributes.get("imageId");
-
-		if (imageId != null) {
-			setImageId(imageId);
-		}
-
 		String friendlyUrl = (String)attributes.get("friendlyUrl");
 
 		if (friendlyUrl != null) {
 			setFriendlyUrl(friendlyUrl);
-		}
-
-		Long commerceBOMFolderId = (Long)attributes.get("commerceBOMFolderId");
-
-		if (commerceBOMFolderId != null) {
-			setCommerceBOMFolderId(commerceBOMFolderId);
 		}
 	}
 
@@ -145,6 +146,11 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 	@Override
 	public int compareTo(CommerceBOMDefinition commerceBOMDefinition) {
 		return _commerceBOMDefinition.compareTo(commerceBOMDefinition);
+	}
+
+	@Override
+	public com.liferay.commerce.product.model.CPAttachmentFileEntry fetchCPAttachmentFileEntry() {
+		return _commerceBOMDefinition.fetchCPAttachmentFileEntry();
 	}
 
 	/**
@@ -178,6 +184,16 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 	}
 
 	/**
+	* Returns the cp attachment file entry ID of this commerce bom definition.
+	*
+	* @return the cp attachment file entry ID of this commerce bom definition
+	*/
+	@Override
+	public long getCPAttachmentFileEntryId() {
+		return _commerceBOMDefinition.getCPAttachmentFileEntryId();
+	}
+
+	/**
 	* Returns the create date of this commerce bom definition.
 	*
 	* @return the create date of this commerce bom definition
@@ -200,16 +216,6 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 	@Override
 	public String getFriendlyUrl() {
 		return _commerceBOMDefinition.getFriendlyUrl();
-	}
-
-	/**
-	* Returns the image ID of this commerce bom definition.
-	*
-	* @return the image ID of this commerce bom definition
-	*/
-	@Override
-	public long getImageId() {
-		return _commerceBOMDefinition.getImageId();
 	}
 
 	/**
@@ -338,6 +344,16 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 	}
 
 	/**
+	* Sets the cp attachment file entry ID of this commerce bom definition.
+	*
+	* @param CPAttachmentFileEntryId the cp attachment file entry ID of this commerce bom definition
+	*/
+	@Override
+	public void setCPAttachmentFileEntryId(long CPAttachmentFileEntryId) {
+		_commerceBOMDefinition.setCPAttachmentFileEntryId(CPAttachmentFileEntryId);
+	}
+
+	/**
 	* Sets the create date of this commerce bom definition.
 	*
 	* @param createDate the create date of this commerce bom definition
@@ -371,16 +387,6 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 	@Override
 	public void setFriendlyUrl(String friendlyUrl) {
 		_commerceBOMDefinition.setFriendlyUrl(friendlyUrl);
-	}
-
-	/**
-	* Sets the image ID of this commerce bom definition.
-	*
-	* @param imageId the image ID of this commerce bom definition
-	*/
-	@Override
-	public void setImageId(long imageId) {
-		_commerceBOMDefinition.setImageId(imageId);
 	}
 
 	/**

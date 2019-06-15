@@ -66,11 +66,12 @@ import java.rmi.RemoteException;
 @ProviderType
 public class CommerceBOMDefinitionServiceSoap {
 	public static com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap addCommerceBOMDefinition(
-		long userId, String name, long imageId, String friendlyUrl,
-		long commerceBOMFolderId) throws RemoteException {
+		long userId, long commerceBOMFolderId, long cpAttachmentFileEntryId,
+		String name, String friendlyUrl) throws RemoteException {
 		try {
 			com.liferay.commerce.bom.model.CommerceBOMDefinition returnValue = CommerceBOMDefinitionServiceUtil.addCommerceBOMDefinition(userId,
-					name, imageId, friendlyUrl, commerceBOMFolderId);
+					commerceBOMFolderId, cpAttachmentFileEntryId, name,
+					friendlyUrl);
 
 			return com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap.toSoapModel(returnValue);
 		}
@@ -81,12 +82,68 @@ public class CommerceBOMDefinitionServiceSoap {
 		}
 	}
 
+	public static void deleteCommerceBOMDefinition(long commerceBOMDefinitionId)
+		throws RemoteException {
+		try {
+			CommerceBOMDefinitionServiceUtil.deleteCommerceBOMDefinition(commerceBOMDefinitionId);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap getCommerceBOMDefinition(
+		long commerceBOMDefinitionId) throws RemoteException {
+		try {
+			com.liferay.commerce.bom.model.CommerceBOMDefinition returnValue = CommerceBOMDefinitionServiceUtil.getCommerceBOMDefinition(commerceBOMDefinitionId);
+
+			return com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap[] getCommerceBOMDefinitions(
+		long commerceBOMFolderId, int start, int end) throws RemoteException {
+		try {
+			java.util.List<com.liferay.commerce.bom.model.CommerceBOMDefinition> returnValue =
+				CommerceBOMDefinitionServiceUtil.getCommerceBOMDefinitions(commerceBOMFolderId,
+					start, end);
+
+			return com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getCommerceBOMDefinitionsCount(long commerceBOMFolderId)
+		throws RemoteException {
+		try {
+			int returnValue = CommerceBOMDefinitionServiceUtil.getCommerceBOMDefinitionsCount(commerceBOMFolderId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap updateCommerceBOMDefinition(
-		long commerceBOMDefinitionId, String name, long imageId,
-		String friendlyUrl, long commerceBOMFolderId) throws RemoteException {
+		long commerceBOMDefinitionId, long cpAttachmentFileEntryId, String name)
+		throws RemoteException {
 		try {
 			com.liferay.commerce.bom.model.CommerceBOMDefinition returnValue = CommerceBOMDefinitionServiceUtil.updateCommerceBOMDefinition(commerceBOMDefinitionId,
-					name, imageId, friendlyUrl, commerceBOMFolderId);
+					cpAttachmentFileEntryId, name);
 
 			return com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap.toSoapModel(returnValue);
 		}

@@ -57,14 +57,15 @@ import com.liferay.portal.kernel.util.MethodKey;
 public class CommerceBOMFolderServiceHttp {
 	public static com.liferay.commerce.bom.model.CommerceBOMFolder addCommerceBOMFolder(
 		HttpPrincipal httpPrincipal, long userId,
-		long parentCommerceBOMFolderId, String name, long imageId)
+		long parentCommerceBOMFolderId, String name, boolean logo,
+		byte[] logoBytes)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceBOMFolderServiceUtil.class,
 					"addCommerceBOMFolder", _addCommerceBOMFolderParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, userId,
-					parentCommerceBOMFolderId, name, imageId);
+					parentCommerceBOMFolderId, name, logo, logoBytes);
 
 			Object returnObj = null;
 
@@ -88,12 +89,41 @@ public class CommerceBOMFolderServiceHttp {
 		}
 	}
 
+	public static void deleteCommerceBOMFolder(HttpPrincipal httpPrincipal,
+		long commerceBOMFolderId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		try {
+			MethodKey methodKey = new MethodKey(CommerceBOMFolderServiceUtil.class,
+					"deleteCommerceBOMFolder",
+					_deleteCommerceBOMFolderParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey,
+					commerceBOMFolderId);
+
+			try {
+				TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static com.liferay.commerce.bom.model.CommerceBOMFolder getCommerceBOMFolder(
 		HttpPrincipal httpPrincipal, long commerceBOMFolderId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceBOMFolderServiceUtil.class,
-					"getCommerceBOMFolder", _getCommerceBOMFolderParameterTypes1);
+					"getCommerceBOMFolder", _getCommerceBOMFolderParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					commerceBOMFolderId);
@@ -122,12 +152,11 @@ public class CommerceBOMFolderServiceHttp {
 
 	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolder> getCommerceBOMFolders(
 		HttpPrincipal httpPrincipal, long companyId,
-		long parentCommerceBOMFolderId, int start, int end)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		long parentCommerceBOMFolderId, int start, int end) {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceBOMFolderServiceUtil.class,
 					"getCommerceBOMFolders",
-					_getCommerceBOMFoldersParameterTypes2);
+					_getCommerceBOMFoldersParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					companyId, parentCommerceBOMFolderId, start, end);
@@ -138,10 +167,6 @@ public class CommerceBOMFolderServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
-				}
-
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -155,12 +180,11 @@ public class CommerceBOMFolderServiceHttp {
 	}
 
 	public static int getCommerceBOMFoldersCount(HttpPrincipal httpPrincipal,
-		long companyId, long parentCommerceBOMFolderId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		long companyId, long parentCommerceBOMFolderId) {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceBOMFolderServiceUtil.class,
 					"getCommerceBOMFoldersCount",
-					_getCommerceBOMFoldersCountParameterTypes3);
+					_getCommerceBOMFoldersCountParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					companyId, parentCommerceBOMFolderId);
@@ -171,10 +195,6 @@ public class CommerceBOMFolderServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
-				}
-
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -189,15 +209,15 @@ public class CommerceBOMFolderServiceHttp {
 
 	public static com.liferay.commerce.bom.model.CommerceBOMFolder updateCommerceBOMFolder(
 		HttpPrincipal httpPrincipal, long commerceBOMFolderId, String name,
-		long imageId)
+		boolean logo, byte[] logoBytes)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceBOMFolderServiceUtil.class,
 					"updateCommerceBOMFolder",
-					_updateCommerceBOMFolderParameterTypes4);
+					_updateCommerceBOMFolderParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
-					commerceBOMFolderId, name, imageId);
+					commerceBOMFolderId, name, logo, logoBytes);
 
 			Object returnObj = null;
 
@@ -223,18 +243,21 @@ public class CommerceBOMFolderServiceHttp {
 
 	private static Log _log = LogFactoryUtil.getLog(CommerceBOMFolderServiceHttp.class);
 	private static final Class<?>[] _addCommerceBOMFolderParameterTypes0 = new Class[] {
-			long.class, long.class, String.class, long.class
+			long.class, long.class, String.class, boolean.class, byte[].class
 		};
-	private static final Class<?>[] _getCommerceBOMFolderParameterTypes1 = new Class[] {
+	private static final Class<?>[] _deleteCommerceBOMFolderParameterTypes1 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _getCommerceBOMFoldersParameterTypes2 = new Class[] {
+	private static final Class<?>[] _getCommerceBOMFolderParameterTypes2 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[] _getCommerceBOMFoldersParameterTypes3 = new Class[] {
 			long.class, long.class, int.class, int.class
 		};
-	private static final Class<?>[] _getCommerceBOMFoldersCountParameterTypes3 = new Class[] {
+	private static final Class<?>[] _getCommerceBOMFoldersCountParameterTypes4 = new Class[] {
 			long.class, long.class
 		};
-	private static final Class<?>[] _updateCommerceBOMFolderParameterTypes4 = new Class[] {
-			long.class, String.class, long.class
+	private static final Class<?>[] _updateCommerceBOMFolderParameterTypes5 = new Class[] {
+			long.class, String.class, boolean.class, byte[].class
 		};
 }

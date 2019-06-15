@@ -206,18 +206,18 @@ public interface CommerceBOMFolderModel extends AuditedModel,
 	public void setName(String name);
 
 	/**
-	 * Returns the image ID of this commerce bom folder.
+	 * Returns the logo ID of this commerce bom folder.
 	 *
-	 * @return the image ID of this commerce bom folder
+	 * @return the logo ID of this commerce bom folder
 	 */
-	public long getImageId();
+	public long getLogoId();
 
 	/**
-	 * Sets the image ID of this commerce bom folder.
+	 * Sets the logo ID of this commerce bom folder.
 	 *
-	 * @param imageId the image ID of this commerce bom folder
+	 * @param logoId the logo ID of this commerce bom folder
 	 */
-	public void setImageId(long imageId);
+	public void setLogoId(long logoId);
 
 	@Override
 	public boolean isNew();

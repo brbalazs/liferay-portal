@@ -15,10 +15,10 @@
 		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="imageId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="friendlyUrl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="commerceBOMFolderId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="CPAttachmentFileEntryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="friendlyUrl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.liferay.commerce.bom.model.impl.CommerceBOMEntryImpl" table="CommerceBOMEntry">
 		<id name="commerceBOMEntryId" type="long">
@@ -48,7 +48,7 @@
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="parentCommerceBOMFolderId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="imageId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="logoId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 	<class name="com.liferay.commerce.bom.model.impl.CommerceBOMFolderApplicationRelImpl" table="CBOMFolderApplicationRel">
 		<id column="CBOMFolderApplicationRelId" name="commerceBOMFolderApplicationRelId" type="long">
