@@ -16,14 +16,21 @@ package com.liferay.commerce.bom.admin.web.internal.portlet;
 
 import com.liferay.commerce.bom.admin.web.internal.display.context.CommerceBOMAdminDisplayContext;
 import com.liferay.commerce.bom.constants.CommerceBOMPortletKeys;
+import com.liferay.commerce.bom.model.CommerceBOMDefinition;
 import com.liferay.commerce.bom.model.CommerceBOMFolder;
+import com.liferay.commerce.bom.service.CommerceBOMDefinitionService;
 import com.liferay.commerce.bom.service.CommerceBOMFolderService;
+import com.liferay.item.selector.ItemSelector;
+import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.users.admin.configuration.UserFileUploadsConfiguration;
 
 import java.io.IOException;
+
+import java.util.Map;
 
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
@@ -32,18 +39,22 @@ import javax.portlet.RenderResponse;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Alessio Antonio Rendina
  */
 @Component(
+	configurationPid = "com.liferay.user.admin.configuration.UserFileUploadsConfiguration",
 	immediate = true,
 	property = {
 		"com.liferay.portlet.add-default-resource=true",
 		"com.liferay.portlet.css-class-wrapper=portlet-commerce-bom-admin",
 		"com.liferay.portlet.display-category=commerce",
+		"com.liferay.portlet.header-portlet-css=/css/main.css",
 		"com.liferay.portlet.layout-cacheable=false",
 		"com.liferay.portlet.preferences-owned-by-group=true",
 		"com.liferay.portlet.preferences-unique-per-layout=false",
@@ -73,8 +84,11 @@ public class CommerceBOMAdminPortlet extends MVCPortlet {
 
 		CommerceBOMAdminDisplayContext commerceBOMAdminDisplayContext =
 			new CommerceBOMAdminDisplayContext(
+				null, _commerceBOMDefinitionModelResourcePermission,
+				_commerceBOMDefinitionService,
 				_commerceBOMFolderModelResourcePermission,
-				_commerceBOMFolderService, httpServletRequest);
+				_commerceBOMFolderService, httpServletRequest, _itemSelector,
+				_userFileUploadsConfiguration);
 
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, commerceBOMAdminDisplayContext);
@@ -82,16 +96,37 @@ public class CommerceBOMAdminPortlet extends MVCPortlet {
 		super.render(renderRequest, renderResponse);
 	}
 
+	@Activate
+	@Modified
+	protected void activate(Map<String, Object> properties) {
+		_userFileUploadsConfiguration = ConfigurableUtil.createConfigurable(
+			UserFileUploadsConfiguration.class, properties);
+	}
+
+	@Reference
+	private ItemSelector _itemSelector;
+
+	@Reference
+	private CommerceBOMDefinitionService _commerceBOMDefinitionService;
+
+	@Reference
+	private CommerceBOMFolderService _commerceBOMFolderService;
+
 	@Reference(
-		target = "(model.class.name=com.liferay.commerce.bom.model.CommerceBOMFolder)"
+			target = "(model.class.name=com.liferay.commerce.bom.model.CommerceBOMDefinition)"
+	)
+	private ModelResourcePermission<CommerceBOMDefinition>
+		_commerceBOMDefinitionModelResourcePermission;
+
+	@Reference(
+			target = "(model.class.name=com.liferay.commerce.bom.model.CommerceBOMFolder)"
 	)
 	private ModelResourcePermission<CommerceBOMFolder>
 		_commerceBOMFolderModelResourcePermission;
 
 	@Reference
-	private CommerceBOMFolderService _commerceBOMFolderService;
-
-	@Reference
 	private Portal _portal;
+
+	private volatile UserFileUploadsConfiguration _userFileUploadsConfiguration;
 
 }

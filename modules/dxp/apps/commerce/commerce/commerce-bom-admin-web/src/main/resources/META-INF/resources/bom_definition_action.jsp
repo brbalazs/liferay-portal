@@ -21,7 +21,7 @@ CommerceBOMAdminDisplayContext commerceBOMAdminDisplayContext = (CommerceBOMAdmi
 
 ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 
-CommerceBOMFolder commerceBOMFolder = (CommerceBOMFolder)row.getObject();
+CommerceBOMDefinition commerceBOMDefinition = (CommerceBOMDefinition)row.getObject();
 %>
 
 <liferay-ui:icon-menu
@@ -31,11 +31,12 @@ CommerceBOMFolder commerceBOMFolder = (CommerceBOMFolder)row.getObject();
 	message="<%= StringPool.BLANK %>"
 	showWhenSingleIcon="<%= true %>"
 >
-	<c:if test="<%= commerceBOMAdminDisplayContext.hasCommerceBOMFolderPermissions(commerceBOMFolder.getCommerceBOMFolderId(), ActionKeys.UPDATE) %>">
+	<c:if test="<%= commerceBOMAdminDisplayContext.hasCommerceBOMDefinitionPermissions(commerceBOMDefinition.getCommerceBOMDefinitionId(), ActionKeys.UPDATE) %>">
 		<portlet:renderURL var="editURL">
 			<portlet:param name="mvcRenderCommandName" value="editCommerceBOMFolder" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
-			<portlet:param name="commerceBOMFolderId" value="<%= String.valueOf(commerceBOMFolder.getCommerceBOMFolderId()) %>" />
+			<portlet:param name="commerceBOMDefinitionId" value="<%= String.valueOf(commerceBOMDefinition.getCommerceBOMDefinitionId()) %>" />
+			<portlet:param name="commerceBOMFolderId" value="<%= String.valueOf(commerceBOMDefinition.getCommerceBOMFolderId()) %>" />
 		</portlet:renderURL>
 
 		<liferay-ui:icon
@@ -44,11 +45,12 @@ CommerceBOMFolder commerceBOMFolder = (CommerceBOMFolder)row.getObject();
 		/>
 	</c:if>
 
-	<c:if test="<%= commerceBOMAdminDisplayContext.hasCommerceBOMFolderPermissions(commerceBOMFolder.getCommerceBOMFolderId(), ActionKeys.UPDATE) %>">
+	<c:if test="<%= commerceBOMAdminDisplayContext.hasCommerceBOMDefinitionPermissions(commerceBOMDefinition.getCommerceBOMDefinitionId(), ActionKeys.DELETE) %>">
 		<portlet:actionURL name="editCommerceBOMFolder" var="deleteURL">
 			<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
-			<portlet:param name="commerceBOMFolderId" value="<%= String.valueOf(commerceBOMFolder.getCommerceBOMFolderId()) %>" />
+			<portlet:param name="commerceBOMDefinitionId" value="<%= String.valueOf(commerceBOMDefinition.getCommerceBOMDefinitionId()) %>" />
+			<portlet:param name="commerceBOMFolderId" value="<%= String.valueOf(commerceBOMDefinition.getCommerceBOMFolderId()) %>" />
 		</portlet:actionURL>
 
 		<liferay-ui:icon-delete

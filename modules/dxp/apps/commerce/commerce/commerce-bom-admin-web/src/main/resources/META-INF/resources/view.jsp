@@ -20,51 +20,193 @@
 CommerceBOMAdminDisplayContext commerceBOMAdminDisplayContext = (CommerceBOMAdminDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 %>
 
-<liferay-site-navigation:breadcrumb
-	breadcrumbEntries="<%= commerceBOMAdminDisplayContext.getPortletBreadcrumbEntries(commerceBOMAdminDisplayContext.getCommerceBOMFolder()) %>"
+<clay:navigation-bar
+	inverted="<%= true %>"
+	navigationItems="<%= CPNavigationItemRegistryUtil.getNavigationItems(renderRequest) %>"
 />
 
-<portlet:actionURL name="editCommerceBOMFolder" var="editCommerceBOMFolderActionURL" />
+<liferay-frontend:management-bar
+	searchContainerId="commerceBOMAdminSearchContainer"
+>
+	<liferay-frontend:management-bar-filters>
+		<liferay-frontend:management-bar-navigation
+			navigationKeys='<%= new String[] {"all"} %>'
+			portletURL="<%= commerceBOMAdminDisplayContext.getPortletURL() %>"
+		/>
 
-<div class="container-fluid-1280" id="<portlet:namespace />commerceBOMFolderContainer">
-	<aui:form action="<%= editCommerceBOMFolderActionURL %>" method="post" name="fm">
-		<aui:input name="<%= Constants.CMD %>" type="hidden" />
-		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-		<aui:input name="deleteCommerceBOMFolderIds" type="hidden" />
+		<liferay-frontend:management-bar-sort
+			orderByCol="<%= commerceBOMAdminDisplayContext.getOrderByCol() %>"
+			orderByType="<%= commerceBOMAdminDisplayContext.getOrderByType() %>"
+			orderColumns='<%= new String[] {"name"} %>'
+			portletURL="<%= commerceBOMAdminDisplayContext.getPortletURL() %>"
+		/>
 
-		<liferay-ui:search-container
-			id="commerceBOMFolders"
-			searchContainer="<%= commerceBOMAdminDisplayContext.getSearchContainer() %>"
+		<li>
+			<aui:form action="<%= String.valueOf(commerceBOMAdminDisplayContext.getPortletURL()) %>" name="searchFm">
+				<liferay-ui:input-search
+					markupView="lexicon"
+				/>
+			</aui:form>
+		</li>
+	</liferay-frontend:management-bar-filters>
+
+	<liferay-frontend:management-bar-buttons>
+		<liferay-frontend:management-bar-display-buttons
+			displayViews='<%= new String[] {"list"} %>'
+			portletURL="<%= commerceBOMAdminDisplayContext.getPortletURL() %>"
+			selectedDisplayStyle="list"
+		/>
+
+		<liferay-frontend:add-menu
+			inline="<%= true %>"
 		>
-			<liferay-ui:search-container-row
-				className="com.liferay.commerce.bom.model.CommerceBOMFolder"
-				cssClass="entry-display-style"
-				keyProperty="commerceBOMFolderId"
-				modelVar="commerceBOMFolder"
-			>
-
-				<%
-				PortletURL rowURL = commerceBOMAdminDisplayContext.getPortletURL();
-
-				rowURL.setParameter("commerceBOMFolderId", String.valueOf(commerceBOMFolder.getCommerceBOMFolderId()));
-				%>
-
-				<liferay-ui:search-container-column-text
-					cssClass="important table-cell-content"
-					href="<%= rowURL %>"
-					property="name"
+			<c:if test="<%= commerceBOMAdminDisplayContext.hasPermissions(CommerceBOMActionKeys.ADD_COMMERCE_BOM_FOLDER) %>">
+				<liferay-frontend:add-menu-item
+					id="addBOMFolderButton"
+					title='<%= LanguageUtil.get(request, "add-folder") %>'
+					url="javascript:;"
 				/>
+			</c:if>
 
-				<liferay-ui:search-container-column-jsp
-					cssClass="entry-action-column"
-					path="bom_folder_action.jsp"
+			<c:if test="<%= commerceBOMAdminDisplayContext.hasPermissions(CommerceBOMActionKeys.ADD_COMMERCE_BOM_DEFINITION) %>">
+				<liferay-frontend:add-menu-item
+					id="addBOMDefinitionButton"
+					title='<%= LanguageUtil.get(request, "add-definition") %>'
+					url="javascript:;"
 				/>
-			</liferay-ui:search-container-row>
+			</c:if>
+		</liferay-frontend:add-menu>
+	</liferay-frontend:management-bar-buttons>
+</liferay-frontend:management-bar>
 
-			<liferay-ui:search-iterator
-				displayStyle="list"
-				markupView="lexicon"
-			/>
-		</liferay-ui:search-container>
-	</aui:form>
+<portlet:actionURL name="editCommerceBOMDefintion" var="editCommerceBOMDefintionActionURL" />
+
+<div class="container-fluid-1280" id="<portlet:namespace />commerceBOMDefinitionContainer">
+
+	<%
+	commerceBOMAdminDisplayContext.addPortletBreadcrumbEntries();
+	%>
+
+	<liferay-ui:breadcrumb
+		showCurrentGroup="<%= false %>"
+		showGuestGroup="<%= false %>"
+		showLayout="<%= false %>"
+		showPortletBreadcrumb="<%= true %>"
+	/>
+
+	<liferay-ui:search-container
+		id="commerceBOMAdminSearchContainer"
+		searchContainer="<%= commerceBOMAdminDisplayContext.getSearchContainer() %>"
+	>
+		<liferay-ui:search-container-row
+			className="Object"
+			cssClass="entry-display-style"
+			modelVar="object"
+		>
+
+			<%
+			CommerceBOMDefinition commerceBOMDefinition = null;
+			CommerceBOMFolder commerceBOMFolder = null;
+
+			Object result = row.getObject();
+
+			if (result instanceof CommerceBOMDefinition) {
+				commerceBOMDefinition = (CommerceBOMDefinition)result;
+			}
+			else {
+				commerceBOMFolder = (CommerceBOMFolder)result;
+			}
+			%>
+
+			<c:choose>
+				<c:when test="<%= commerceBOMDefinition != null %>">
+
+					<%
+					PortletURL rowURL = renderResponse.createRenderURL();
+
+					rowURL.setParameter("mvcRenderCommandName", "editCommerceBOMDefinition");
+					rowURL.setParameter("redirect", currentURL);
+					rowURL.setParameter("commerceBOMDefinitionId", String.valueOf(commerceBOMDefinition.getCommerceBOMDefinitionId()));
+					rowURL.setParameter("commerceBOMFolderId", String.valueOf(commerceBOMAdminDisplayContext.getCommerceBOMFolderId()));
+					%>
+
+					<liferay-ui:search-container-column-text
+						cssClass="important table-cell-content"
+						href="<%= rowURL %>"
+						name="name"
+						value="<%= commerceBOMFolder.getName() %>"
+					/>
+
+					<liferay-ui:search-container-column-jsp
+						cssClass="entry-action-column"
+						path="/bom_definition_action.jsp"
+					/>
+				</c:when>
+				<c:when test="<%= commerceBOMFolder != null %>">
+
+					<%
+					PortletURL rowURL = commerceBOMAdminDisplayContext.getPortletURL();
+
+					rowURL.setParameter("commerceBOMFolderId", String.valueOf(commerceBOMFolder.getCommerceBOMFolderId()));
+					%>
+
+					<liferay-ui:search-container-column-text
+						cssClass="important table-cell-content"
+						href="<%= rowURL %>"
+						name="name"
+						value="<%= commerceBOMFolder.getName() %>"
+					/>
+
+					<liferay-ui:search-container-column-jsp
+						cssClass="entry-action-column"
+						path="/bom_folder_action.jsp"
+					/>
+
+				</c:when>
+			</c:choose>
+		</liferay-ui:search-container-row>
+
+		<liferay-ui:search-iterator
+			displayStyle="list"
+			markupView="lexicon"
+		/>
+	</liferay-ui:search-container>
 </div>
+
+<c:if test="<%= commerceBOMAdminDisplayContext.hasPermissions(CommerceBOMActionKeys.ADD_COMMERCE_BOM_FOLDER) %>">
+	<portlet:actionURL name="editCommerceBOMFolder" var="editCommerceBOMFolderActionURL">
+		<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.ADD %>" />
+		<portlet:param name="redirect" value="<%= currentURL %>" />
+		<portlet:param name="parentCommerceBOMFolderId" value="<%= String.valueOf(commerceBOMAdminDisplayContext.getCommerceBOMFolderId()) %>" />
+	</portlet:actionURL>
+
+	<aui:script require="metal-dom/src/all/dom as dom,frontend-js-web/liferay/modal/commands/OpenSimpleInputModal.es as modalCommands">
+		function handleAddBOMFolderButtonClick(event) {
+			event.preventDefault();
+
+			modalCommands.openSimpleInputModal(
+				{
+					dialogTitle: '<liferay-ui:message key="add-folder" />',
+					formSubmitURL: '<%= editCommerceBOMFolderActionURL %>',
+					mainFieldLabel: '<liferay-ui:message key="name" />',
+					mainFieldName: 'name',
+					mainFieldPlaceholder: '<liferay-ui:message key="name" />',
+					namespace: '<portlet:namespace />',
+					spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg'
+				}
+			);
+		}
+
+		function handleDestroyPortlet () {
+			addBOMFolderButton.removeEventListener('click', handleAddBOMFolderButtonClick);
+
+			Liferay.detach('destroyPortlet', handleDestroyPortlet);
+		}
+
+		var addBOMFolderButton = document.getElementById('<portlet:namespace />addBOMFolderButton');
+
+		addBOMFolderButton.addEventListener('click', handleAddBOMFolderButtonClick);
+
+		Liferay.on('destroyPortlet', handleDestroyPortlet);
+	</aui:script>
+</c:if>
