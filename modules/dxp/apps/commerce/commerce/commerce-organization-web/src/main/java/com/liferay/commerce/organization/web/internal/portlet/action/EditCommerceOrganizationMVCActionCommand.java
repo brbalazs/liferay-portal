@@ -80,7 +80,7 @@ public class EditCommerceOrganizationMVCActionCommand
 		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
 		try {
-			if (cmd.equals(Constants.ADD)) {
+			if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
 				Callable<Organization> organizationCallable =
 					new OrganizationCallable(actionRequest);
 
@@ -88,9 +88,6 @@ public class EditCommerceOrganizationMVCActionCommand
 					_transactionConfig, organizationCallable);
 			}
 			else if (cmd.equals(Constants.DELETE)) {
-				deleteOrganization(actionRequest);
-			}
-			else if (cmd.equals(Constants.UPDATE)) {
 				deleteOrganization(actionRequest);
 			}
 		}

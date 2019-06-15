@@ -14,12 +14,6 @@
  */
 --%>
 
-<%@ page import="com.liferay.portal.kernel.util.PortalUtil" %>
-
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
-
-<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
-
 <%@ include file="/init.jsp" %>
 
 <%
