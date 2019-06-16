@@ -56,6 +56,18 @@ public class CommerceBOMFolderIndexer extends BaseIndexer<CommerceBOMFolder> {
 	}
 
 	@Override
+	public void postProcessContextBooleanFilter(
+			BooleanFilter contextBooleanFilter, SearchContext searchContext)
+		throws Exception {
+
+		long parentCommerceBOMFolderId = GetterUtil.getLong(
+			searchContext.getAttribute(FIELD_PARENT_COMMERCE_BOM_FOLDER_ID));
+
+		contextBooleanFilter.addRequiredTerm(
+			FIELD_PARENT_COMMERCE_BOM_FOLDER_ID, parentCommerceBOMFolderId);
+	}
+
+	@Override
 	public void postProcessSearchQuery(
 			BooleanQuery searchQuery, BooleanFilter fullQueryBooleanFilter,
 			SearchContext searchContext)

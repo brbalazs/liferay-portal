@@ -58,6 +58,18 @@ public class CommerceBOMDefinitionIndexer
 	}
 
 	@Override
+	public void postProcessContextBooleanFilter(
+			BooleanFilter contextBooleanFilter, SearchContext searchContext)
+		throws Exception {
+
+		long commerceBOMFolderId = GetterUtil.getLong(
+			searchContext.getAttribute(FIELD_COMMERCE_BOM_FOLDER_ID));
+
+		contextBooleanFilter.addRequiredTerm(
+			FIELD_COMMERCE_BOM_FOLDER_ID, commerceBOMFolderId);
+	}
+
+	@Override
 	public void postProcessSearchQuery(
 			BooleanQuery searchQuery, BooleanFilter fullQueryBooleanFilter,
 			SearchContext searchContext)
