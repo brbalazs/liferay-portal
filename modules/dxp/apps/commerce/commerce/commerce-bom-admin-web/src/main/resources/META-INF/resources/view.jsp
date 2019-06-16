@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.liferay.commerce.bom.admin.web.internal.dao.search.CommerceBOMAdminResultRowSplitter" %><%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -69,10 +69,15 @@ CommerceBOMAdminDisplayContext commerceBOMAdminDisplayContext = (CommerceBOMAdmi
 			</c:if>
 
 			<c:if test="<%= commerceBOMAdminDisplayContext.hasPermissions(CommerceBOMActionKeys.ADD_COMMERCE_BOM_DEFINITION) %>">
+				<portlet:renderURL var="addCommerceBOMDefinitionURL">
+					<portlet:param name="mvcRenderCommandName" value="editCommerceBOMDefinition" />
+					<portlet:param name="redirect" value="<%= currentURL %>" />
+					<portlet:param name="commerceBOMFolderId" value="<%= String.valueOf(commerceBOMAdminDisplayContext.getCommerceBOMFolderId()) %>" />
+				</portlet:renderURL>
+
 				<liferay-frontend:add-menu-item
-					id="addBOMDefinitionButton"
 					title='<%= LanguageUtil.get(request, "add-definition") %>'
-					url="javascript:;"
+					url="<%= addCommerceBOMDefinitionURL.toString() %>"
 				/>
 			</c:if>
 		</liferay-frontend:add-menu>
@@ -134,7 +139,7 @@ CommerceBOMAdminDisplayContext commerceBOMAdminDisplayContext = (CommerceBOMAdmi
 						cssClass="important table-cell-content"
 						href="<%= rowURL %>"
 						name="name"
-						value="<%= commerceBOMFolder.getName() %>"
+						value="<%= commerceBOMDefinition.getName() %>"
 					/>
 
 					<liferay-ui:search-container-column-jsp
@@ -168,6 +173,7 @@ CommerceBOMAdminDisplayContext commerceBOMAdminDisplayContext = (CommerceBOMAdmi
 		<liferay-ui:search-iterator
 			displayStyle="list"
 			markupView="lexicon"
+			resultRowSplitter="<%= new CommerceBOMAdminResultRowSplitter() %>"
 		/>
 	</liferay-ui:search-container>
 </div>

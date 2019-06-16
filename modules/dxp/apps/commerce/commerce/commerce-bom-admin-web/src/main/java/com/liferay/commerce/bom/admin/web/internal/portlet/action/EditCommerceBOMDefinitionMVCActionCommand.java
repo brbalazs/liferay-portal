@@ -17,14 +17,18 @@ package com.liferay.commerce.bom.admin.web.internal.portlet.action;
 import com.liferay.commerce.bom.constants.CommerceBOMPortletKeys;
 import com.liferay.commerce.bom.exception.NoSuchBOMDefinitionException;
 import com.liferay.commerce.bom.model.CommerceBOMDefinition;
+import com.liferay.commerce.bom.model.CommerceBOMFolder;
 import com.liferay.commerce.bom.service.CommerceBOMDefinitionService;
 import com.liferay.commerce.product.exception.DuplicateCPAttachmentFileEntryException;
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.commerce.product.model.CPAttachmentFileEntryConstants;
 import com.liferay.commerce.product.service.CPAttachmentFileEntryService;
 import com.liferay.document.library.kernel.exception.NoSuchFileEntryException;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.portlet.PortletProvider;
+import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.repository.model.FileEntry;
@@ -47,6 +51,7 @@ import java.util.concurrent.Callable;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletURL;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -87,8 +92,14 @@ public class EditCommerceBOMDefinitionMVCActionCommand
 				Callable<CommerceBOMDefinition> commerceBOMDefinitionCallable =
 					new CommerceBOMDefinitionCallable(actionRequest);
 
-				TransactionInvokerUtil.invoke(
-					_transactionConfig, commerceBOMDefinitionCallable);
+				CommerceBOMDefinition commerceBOMDefinition =
+					TransactionInvokerUtil.invoke(
+						_transactionConfig, commerceBOMDefinitionCallable);
+
+				String redirect = getSaveAndContinueRedirect(
+					actionRequest, commerceBOMDefinition);
+
+				sendRedirect(actionRequest, actionResponse, redirect);
 			}
 			else if (cmd.equals(Constants.DELETE)) {
 				deleteCommerceBOMDefinition(actionRequest);
@@ -129,14 +140,13 @@ public class EditCommerceBOMDefinitionMVCActionCommand
 		long fileEntryId = ParamUtil.getLong(actionRequest, "fileEntryId");
 		String name = ParamUtil.getString(actionRequest, "name");
 
+		long classNameId = _classNameLocalService.getClassNameId(
+			CommerceBOMDefinition.class.getName());
+
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			CPAttachmentFileEntry.class.getName(), actionRequest);
 
-		Calendar calendar = CalendarFactoryUtil.getCalendar(
-			serviceContext.getTimeZone(), serviceContext.getLocale());
-
-		long classNameId = _classNameLocalService.getClassNameId(
-			CommerceBOMDefinition.class.getName());
+		Calendar calendar = CalendarFactoryUtil.getCalendar();
 
 		calendar.setTime(new Date());
 
@@ -154,21 +164,6 @@ public class EditCommerceBOMDefinitionMVCActionCommand
 		CommerceBOMDefinition commerceBOMDefinition = null;
 
 		if (commerceBOMDefinitionId > 0) {
-			CPAttachmentFileEntry cpAttachmentFileEntry =
-				_cpAttachmentFileEntryService.addCPAttachmentFileEntry(
-					classNameId, commerceBOMDefinitionId, fileEntryId, month,
-					dayOfMonth, year, hour, minute, 0, 0, 0, 0, 0, true,
-					Collections.singletonMap(serviceContext.getLocale(), name),
-					null, 0D, CPAttachmentFileEntryConstants.TYPE_IMAGE,
-					serviceContext);
-
-			commerceBOMDefinition =
-				_commerceBOMDefinitionService.addCommerceBOMDefinition(
-					serviceContext.getUserId(), commerceBOMFolderId,
-					cpAttachmentFileEntry.getCPAttachmentFileEntryId(), name,
-					name);
-		}
-		else {
 			CommerceBOMDefinition oldCommerceBOMDefinition =
 				_commerceBOMDefinitionService.getCommerceBOMDefinition(
 					commerceBOMDefinitionId);
@@ -211,8 +206,49 @@ public class EditCommerceBOMDefinitionMVCActionCommand
 					commerceBOMDefinitionId,
 					cpAttachmentFileEntry.getCPAttachmentFileEntryId(), name);
 		}
+		else {
+			CPAttachmentFileEntry cpAttachmentFileEntry =
+				_cpAttachmentFileEntryService.addCPAttachmentFileEntry(
+					classNameId, commerceBOMDefinitionId, fileEntryId, month,
+					dayOfMonth, year, hour, minute, 0, 0, 0, 0, 0, true,
+					Collections.singletonMap(serviceContext.getLocale(), name),
+					null, 0D, CPAttachmentFileEntryConstants.TYPE_IMAGE,
+					serviceContext);
+
+			commerceBOMDefinition =
+				_commerceBOMDefinitionService.addCommerceBOMDefinition(
+					serviceContext.getUserId(), commerceBOMFolderId,
+					cpAttachmentFileEntry.getCPAttachmentFileEntryId(), name,
+					name);
+		}
 
 		return commerceBOMDefinition;
+	}
+
+	protected String getSaveAndContinueRedirect(
+			ActionRequest actionRequest, CommerceBOMDefinition commerceBOMDefinition)
+		throws PortalException {
+
+		PortletURL portletURL = PortletProviderUtil.getPortletURL(
+			actionRequest, CommerceBOMFolder.class.getName(),
+			PortletProvider.Action.MANAGE);
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "editCommerceBOMDefinition");
+
+		portletURL.setParameter(
+			"commerceBOMFolderId",
+			String.valueOf(commerceBOMDefinition.getCommerceBOMFolderId()));
+
+		portletURL.setParameter(
+			"commerceBOMDefinitionId",
+			String.valueOf(commerceBOMDefinition.getCommerceBOMDefinitionId()));
+
+		String backURL = ParamUtil.getString(actionRequest, "backURL");
+
+		portletURL.setParameter("backURL", backURL);
+
+		return portletURL.toString();
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

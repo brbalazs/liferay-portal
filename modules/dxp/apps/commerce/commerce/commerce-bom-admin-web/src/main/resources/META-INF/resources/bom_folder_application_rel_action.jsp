@@ -21,7 +21,7 @@ CommerceBOMAdminDisplayContext commerceBOMAdminDisplayContext = (CommerceBOMAdmi
 
 ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 
-CommerceBOMFolder commerceBOMFolder = (CommerceBOMFolder)row.getObject();
+CommerceBOMFolderApplicationRel commerceBOMFolderApplicationRel = (CommerceBOMFolderApplicationRel)row.getObject();
 %>
 
 <liferay-ui:icon-menu
@@ -31,24 +31,12 @@ CommerceBOMFolder commerceBOMFolder = (CommerceBOMFolder)row.getObject();
 	message="<%= StringPool.BLANK %>"
 	showWhenSingleIcon="<%= true %>"
 >
-	<c:if test="<%= commerceBOMAdminDisplayContext.hasCommerceBOMFolderPermissions(commerceBOMFolder.getCommerceBOMFolderId(), ActionKeys.UPDATE) %>">
-		<portlet:renderURL var="editURL">
-			<portlet:param name="mvcRenderCommandName" value="editCommerceBOMFolder" />
-			<portlet:param name="redirect" value="<%= currentURL %>" />
-			<portlet:param name="commerceBOMFolderId" value="<%= String.valueOf(commerceBOMFolder.getCommerceBOMFolderId()) %>" />
-		</portlet:renderURL>
-
-		<liferay-ui:icon
-			message="edit"
-			url="<%= editURL %>"
-		/>
-	</c:if>
-
-	<c:if test="<%= commerceBOMAdminDisplayContext.hasCommerceBOMFolderPermissions(commerceBOMFolder.getCommerceBOMFolderId(), ActionKeys.DELETE) %>">
-		<portlet:actionURL name="editCommerceBOMFolder" var="deleteURL">
+	<c:if test="<%= commerceBOMAdminDisplayContext.hasCommerceBOMFolderPermissions(commerceBOMFolderApplicationRel.getCommerceBOMFolderId(), ActionKeys.UPDATE) %>">
+		<portlet:actionURL name="editCommerceBOMFolderApplicationRel" var="deleteURL">
 			<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
-			<portlet:param name="commerceBOMFolderId" value="<%= String.valueOf(commerceBOMFolder.getCommerceBOMFolderId()) %>" />
+			<portlet:param name="commerceBOMFolderApplicationRelId" value="<%= String.valueOf(commerceBOMFolderApplicationRel.getCommerceBOMFolderApplicationRelId()) %>" />
+			<portlet:param name="commerceBOMFolderId" value="<%= String.valueOf(commerceBOMFolderApplicationRel.getCommerceBOMFolderId()) %>" />
 		</portlet:actionURL>
 
 		<liferay-ui:icon-delete

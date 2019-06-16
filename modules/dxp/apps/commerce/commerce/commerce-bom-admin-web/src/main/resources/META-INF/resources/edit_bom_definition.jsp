@@ -22,6 +22,11 @@ CommerceBOMAdminDisplayContext commerceBOMAdminDisplayContext = (CommerceBOMAdmi
 CommerceBOMDefinition commerceBOMDefinition = commerceBOMAdminDisplayContext.getCommerceBOMDefinition();
 %>
 
+<clay:navigation-bar
+	inverted="<%= true %>"
+	navigationItems="<%= CPNavigationItemRegistryUtil.getNavigationItems(renderRequest) %>"
+/>
+
 <liferay-frontend:screen-navigation
 	containerCssClass="col-md-10"
 	key="<%= CommerceBOMDefinitionScreenNavigationConstants.SCREEN_NAVIGATION_KEY %>"

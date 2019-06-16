@@ -30,7 +30,7 @@ import org.osgi.service.component.annotations.Component;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + CommerceBOMPortletKeys.COMMERCE_BOM_ADMIN,
-		"mvc.command.name=editCommerceBOMFolder"
+		"mvc.command.name=editCommerceBOMDefinition"
 	},
 	service = MVCRenderCommand.class
 )

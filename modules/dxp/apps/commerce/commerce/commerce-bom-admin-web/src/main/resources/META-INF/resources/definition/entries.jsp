@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String carPartsFinderRootElementId = renderResponse.getNamespace() + "-car-parts-finder";
+String carPartsFinderRootElementId = renderResponse.getNamespace() + "-car-parts-admin";
 %>
 
 <div class="car-parts-finder-module" id="<%= carPartsFinderRootElementId %>">
@@ -26,12 +26,14 @@ String carPartsFinderRootElementId = renderResponse.getNamespace() + "-car-parts
 	</div>
 </div>
 
-<aui:script require="commerce-bom-web@1.0.0/js/index.es as CarPartsFinder">
-	CarPartsFinder.default(
+<aui:script require="commerce-bom-admin-web@1.0.0/js/index.es as CarPartsAdmin">
+	CarPartsAdmin.default(
+        'carPartsAdmin',
 		'<%= carPartsFinderRootElementId %>',
 		{
-			assetsPath: '<%= PortalUtil.getPathContext(request) + "/assets" %>',
-			namespace: '<portlet:namespace/>',
+			areaId: 'asd',
+			areaApiUrl: 'http://localhost:4000/api/car-parts/area',
+			productApiUrl: 'http://localhost:4000/api/products',
 			spritemap: '<%= themeDisplay.getPathThemeImages() + "/lexicon/icons.svg" %>'
 		}
 	);

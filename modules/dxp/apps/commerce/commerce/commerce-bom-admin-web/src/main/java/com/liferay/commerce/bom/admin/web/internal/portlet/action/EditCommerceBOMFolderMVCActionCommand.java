@@ -19,8 +19,14 @@ import com.liferay.commerce.bom.exception.NoSuchBOMFolderException;
 import com.liferay.commerce.bom.model.CommerceBOMFolder;
 import com.liferay.commerce.bom.service.CommerceBOMFolderService;
 import com.liferay.document.library.kernel.service.DLAppLocalService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
+import com.liferay.portal.kernel.portlet.PortletProvider;
+import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.repository.model.FileEntry;
@@ -34,6 +40,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletURL;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -98,7 +105,16 @@ public class EditCommerceBOMFolderMVCActionCommand
 
 		try {
 			if (cmd.equals(Constants.ADD)) {
-				addCommerceBOMFolder(actionRequest);
+				CommerceBOMFolder commerceBOMFolder = addCommerceBOMFolder(
+					actionRequest);
+
+				String redirect = getSaveAndContinueRedirect(
+					actionRequest, commerceBOMFolder);
+
+				JSONObject jsonObject = JSONUtil.put("redirectURL", redirect);
+
+				JSONPortletResponseUtil.writeJSON(
+					actionRequest, actionResponse, jsonObject);
 			}
 			else if (cmd.equals(Constants.DELETE)) {
 				deleteCommerceBOMFolder(actionRequest);
@@ -123,12 +139,34 @@ public class EditCommerceBOMFolderMVCActionCommand
 		hideDefaultSuccessMessage(actionRequest);
 	}
 
+	protected String getSaveAndContinueRedirect(
+			ActionRequest actionRequest, CommerceBOMFolder commerceBOMFolder)
+		throws PortalException {
+
+		PortletURL portletURL = PortletProviderUtil.getPortletURL(
+			actionRequest, CommerceBOMFolder.class.getName(),
+			PortletProvider.Action.MANAGE);
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "editCommerceBOMFolder");
+
+		portletURL.setParameter(
+			"commerceBOMFolderId",
+			String.valueOf(commerceBOMFolder.getCommerceBOMFolderId()));
+
+		String redirect = ParamUtil.getString(actionRequest, "redirect");
+
+		portletURL.setParameter("redirect", redirect);
+
+		return portletURL.toString();
+	}
+
 	protected CommerceBOMFolder updateCommerceBOMFolder(
 			ActionRequest actionRequest)
 		throws Exception {
 
 		long commerceBOMFolderId = ParamUtil.getLong(
-			actionRequest, "parentCommerceBOMFolderId");
+			actionRequest, "commerceBOMFolderId");
 
 		String name = ParamUtil.getString(actionRequest, "name");
 		boolean deleteLogo = ParamUtil.getBoolean(actionRequest, "deleteLogo");

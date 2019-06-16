@@ -14,22 +14,27 @@
 
 package com.liferay.commerce.bom.admin.web.internal.display.context;
 
+import com.liferay.commerce.application.item.selector.criterion.CommerceApplicationModelItemSelectorCriterion;
 import com.liferay.commerce.bom.admin.web.internal.display.context.util.CommerceBOMAdminRequestHelper;
 import com.liferay.commerce.bom.model.CommerceBOMDefinition;
 import com.liferay.commerce.bom.model.CommerceBOMFolder;
+import com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel;
 import com.liferay.commerce.bom.model.CommerceBOMFolderConstants;
 import com.liferay.commerce.bom.search.CommerceBOMSearcher;
 import com.liferay.commerce.bom.service.CommerceBOMDefinitionService;
+import com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelService;
 import com.liferay.commerce.bom.service.CommerceBOMFolderService;
 import com.liferay.commerce.product.configuration.AttachmentsConfiguration;
+import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorReturnType;
 import com.liferay.item.selector.criteria.FileEntryItemSelectorReturnType;
+import com.liferay.item.selector.criteria.UUIDItemSelectorReturnType;
 import com.liferay.item.selector.criteria.image.criterion.ImageItemSelectorCriterion;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
-import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
 import com.liferay.portal.kernel.search.Document;
@@ -45,6 +50,7 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.users.admin.configuration.UserFileUploadsConfiguration;
 
@@ -57,6 +63,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 import javax.portlet.PortletURL;
 
@@ -72,6 +80,8 @@ public class CommerceBOMAdminDisplayContext {
 		ModelResourcePermission<CommerceBOMDefinition>
 			commerceBOMDefinitionModelResourcePermission,
 		CommerceBOMDefinitionService commerceBOMDefinitionService,
+		CommerceBOMFolderApplicationRelService
+			commerceBOMFolderApplicationRelService,
 		ModelResourcePermission<CommerceBOMFolder>
 			commerceBOMFolderModelResourcePermission,
 		CommerceBOMFolderService commerceBOMFolderService,
@@ -82,6 +92,8 @@ public class CommerceBOMAdminDisplayContext {
 		_commerceBOMDefinitionModelResourcePermission =
 			commerceBOMDefinitionModelResourcePermission;
 		_commerceBOMDefinitionService = commerceBOMDefinitionService;
+		_commerceBOMFolderApplicationRelService =
+			commerceBOMFolderApplicationRelService;
 		_commerceBOMFolderModelResourcePermission =
 			commerceBOMFolderModelResourcePermission;
 		_commerceBOMFolderService = commerceBOMFolderService;
@@ -170,6 +182,37 @@ public class CommerceBOMAdminDisplayContext {
 		}
 	}
 
+	public String getCommerceApplicationModelItemSelectorUrl()
+		throws PortalException {
+
+		RequestBackedPortletURLFactory requestBackedPortletURLFactory =
+			RequestBackedPortletURLFactoryUtil.create(
+				_commerceBOMAdminRequestHelper.getRequest());
+
+		CommerceApplicationModelItemSelectorCriterion
+			commerceApplicationModelItemSelectorCriterion =
+				new CommerceApplicationModelItemSelectorCriterion();
+
+		commerceApplicationModelItemSelectorCriterion.
+			setDesiredItemSelectorReturnTypes(
+				Collections.<ItemSelectorReturnType>singletonList(
+					new UUIDItemSelectorReturnType()));
+
+		PortletURL itemSelectorURL = _itemSelector.getItemSelectorURL(
+			requestBackedPortletURLFactory,
+			"commerceApplicationModelsSelectItem",
+			commerceApplicationModelItemSelectorCriterion);
+
+		String checkedCommerceApplicationModelIds = StringUtil.merge(
+			getCheckedCommerceApplicationModelIds());
+
+		itemSelectorURL.setParameter(
+			"checkedCommerceApplicationModelIds",
+			checkedCommerceApplicationModelIds);
+
+		return itemSelectorURL.toString();
+	}
+
 	public CommerceBOMDefinition getCommerceBOMDefinition()
 		throws PortalException {
 
@@ -208,6 +251,56 @@ public class CommerceBOMAdminDisplayContext {
 		return null;
 	}
 
+	public List<CommerceBOMFolderApplicationRel>
+			getCommerceBOMFolderApplicationRels(int start, int end)
+		throws PortalException {
+
+		if (getCommerceBOMFolderId() > 0) {
+			return _commerceBOMFolderApplicationRelService.
+				getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
+					getCommerceBOMFolderId(), start, end);
+		}
+
+		return Collections.emptyList();
+	}
+
+	public SearchContainer<CommerceBOMFolderApplicationRel>
+			getCommerceBOMFolderApplicationRelSearchContainer()
+		throws PortalException {
+
+		if (_commerceBOMFolderApplicationRelSearchContainer != null) {
+			return _commerceBOMFolderApplicationRelSearchContainer;
+		}
+
+		_commerceBOMFolderApplicationRelSearchContainer = new SearchContainer<>(
+			_commerceBOMAdminRequestHelper.getLiferayPortletRequest(),
+			getPortletURL(), null, null);
+
+		_commerceBOMFolderApplicationRelSearchContainer.setEmptyResultsMessage(
+			"no-models-were-found");
+
+		_commerceBOMFolderApplicationRelSearchContainer.setOrderByCol(
+			getOrderByCol());
+		_commerceBOMFolderApplicationRelSearchContainer.setOrderByType(
+			getOrderByType());
+
+		int total =
+			_commerceBOMFolderApplicationRelService.
+				getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(
+					getCommerceBOMFolderId());
+
+		_commerceBOMFolderApplicationRelSearchContainer.setTotal(total);
+
+		List<CommerceBOMFolderApplicationRel> results =
+			getCommerceBOMFolderApplicationRels(
+				_commerceBOMFolderApplicationRelSearchContainer.getStart(),
+				_commerceBOMFolderApplicationRelSearchContainer.getEnd());
+
+		_commerceBOMFolderApplicationRelSearchContainer.setResults(results);
+
+		return _commerceBOMFolderApplicationRelSearchContainer;
+	}
+
 	public long getCommerceBOMFolderId() throws PortalException {
 		CommerceBOMFolder commerceBOMFolder = getCommerceBOMFolder();
 
@@ -216,6 +309,19 @@ public class CommerceBOMAdminDisplayContext {
 		}
 
 		return commerceBOMFolder.getCommerceBOMFolderId();
+	}
+
+	public CPAttachmentFileEntry getCPAttachmentFileEntry()
+		throws PortalException {
+
+		CommerceBOMDefinition commerceBOMDefinition =
+			getCommerceBOMDefinition();
+
+		if (commerceBOMDefinition == null) {
+			return null;
+		}
+
+		return commerceBOMDefinition.fetchCPAttachmentFileEntry();
 	}
 
 	public String[] getImageExtensions() {
@@ -278,14 +384,10 @@ public class CommerceBOMAdminDisplayContext {
 			PortalUtil.getOriginalServletRequest(
 				_commerceBOMAdminRequestHelper.getRequest());
 
-		String backURL = ParamUtil.getString(
-			httpServletRequest,
-			PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL");
+		String backURL = ParamUtil.getString(httpServletRequest, "backURL");
 
 		if (Validator.isNotNull(backURL)) {
-			portletURL.setParameter(
-				PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL",
-				backURL);
+			portletURL.setParameter("backURL", backURL);
 		}
 
 		String redirect = ParamUtil.getString(
@@ -380,12 +482,6 @@ public class CommerceBOMAdminDisplayContext {
 		return _searchContainer;
 	}
 
-	public int getTotalItems() throws PortalException {
-		SearchContainer searchContainer = getSearchContainer();
-
-		return searchContainer.getTotal();
-	}
-
 	public UserFileUploadsConfiguration getUserFileUploadsConfiguration() {
 		return _userFileUploadsConfiguration;
 	}
@@ -413,16 +509,9 @@ public class CommerceBOMAdminDisplayContext {
 			_commerceBOMAdminRequestHelper.getPermissionChecker(), actionId);
 	}
 
-	public boolean hasResults() throws PortalException {
-		if (getTotalItems() > 0) {
-			return true;
-		}
-
-		return false;
-	}
-
 	protected SearchContext buildSearchContext(
-		long companyId, String keywords, int start, int end, Sort sort) {
+			long companyId, String keywords, int start, int end, Sort sort)
+		throws PortalException {
 
 		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
@@ -435,6 +524,8 @@ public class CommerceBOMAdminDisplayContext {
 		Map<String, Serializable> attributes = new HashMap<>();
 
 		attributes.put(Field.NAME, keywords);
+		attributes.put("commerceBOMFolderId", getCommerceBOMFolderId());
+		attributes.put("parentCommerceBOMFolderId", getCommerceBOMFolderId());
 		attributes.put("params", params);
 
 		searchContext.setAttributes(attributes);
@@ -457,11 +548,43 @@ public class CommerceBOMAdminDisplayContext {
 		return searchContext;
 	}
 
+	protected long[] getCheckedCommerceApplicationModelIds()
+		throws PortalException {
+
+		List<Long> commerceApplicationModelIdsList = new ArrayList<>();
+
+		List<CommerceBOMFolderApplicationRel> commerceBOMFolderApplicationRels =
+			getCommerceBOMFolderApplicationRels(
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+		for (CommerceBOMFolderApplicationRel commerceBOMFolderApplicationRel :
+				commerceBOMFolderApplicationRels) {
+
+			commerceApplicationModelIdsList.add(
+				commerceBOMFolderApplicationRel.
+					getCommerceApplicationModelId());
+		}
+
+		if (commerceApplicationModelIdsList.isEmpty()) {
+			return new long[0];
+		}
+
+		Stream<Long> stream = commerceApplicationModelIdsList.stream();
+
+		LongStream longStream = stream.mapToLong(l -> l);
+
+		return longStream.toArray();
+	}
+
 	private final AttachmentsConfiguration _attachmentsConfiguration;
 	private final CommerceBOMAdminRequestHelper _commerceBOMAdminRequestHelper;
 	private final ModelResourcePermission<CommerceBOMDefinition>
 		_commerceBOMDefinitionModelResourcePermission;
 	private final CommerceBOMDefinitionService _commerceBOMDefinitionService;
+	private SearchContainer<CommerceBOMFolderApplicationRel>
+		_commerceBOMFolderApplicationRelSearchContainer;
+	private final CommerceBOMFolderApplicationRelService
+		_commerceBOMFolderApplicationRelService;
 	private final ModelResourcePermission<CommerceBOMFolder>
 		_commerceBOMFolderModelResourcePermission;
 	private final CommerceBOMFolderService _commerceBOMFolderService;

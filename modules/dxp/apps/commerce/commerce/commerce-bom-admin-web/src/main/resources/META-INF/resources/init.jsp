@@ -25,13 +25,17 @@ taglib uri="http://liferay.com/tld/item-selector" prefix="liferay-item-selector"
 taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
-<%@ page import="com.liferay.commerce.bom.admin.web.internal.display.context.CommerceBOMAdminDisplayContext" %><%@
+<%@ page import="com.liferay.commerce.application.model.CommerceApplicationModel" %><%@
+page import="com.liferay.commerce.bom.admin.web.internal.display.context.CommerceBOMAdminDisplayContext" %><%@
 page import="com.liferay.commerce.bom.admin.web.internal.servlet.taglib.ui.CommerceBOMDefinitionScreenNavigationConstants" %><%@
+page import="com.liferay.commerce.bom.admin.web.internal.servlet.taglib.ui.CommerceBOMFolderScreenNavigationConstants" %><%@
 page import="com.liferay.commerce.bom.constants.CommerceBOMActionKeys" %><%@
 page import="com.liferay.commerce.bom.exception.NoSuchBOMDefinitionException" %><%@
+page import="com.liferay.commerce.bom.exception.NoSuchBOMFolderApplicationRelException" %><%@
 page import="com.liferay.commerce.bom.exception.NoSuchBOMFolderException" %><%@
 page import="com.liferay.commerce.bom.model.CommerceBOMDefinition" %><%@
 page import="com.liferay.commerce.bom.model.CommerceBOMFolder" %><%@
+page import="com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel" %><%@
 page import="com.liferay.commerce.product.exception.DuplicateCPAttachmentFileEntryException" %><%@
 page import="com.liferay.commerce.product.model.CPAttachmentFileEntry" %><%@
 page import="com.liferay.commerce.product.util.CPNavigationItemRegistryUtil" %><%@
@@ -41,6 +45,7 @@ page import="com.liferay.portal.kernel.bean.BeanParamUtil" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.security.permission.ActionKeys" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
+page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
 page import="com.liferay.portal.kernel.util.StringUtil" %><%@

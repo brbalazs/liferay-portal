@@ -19,6 +19,7 @@ import com.liferay.commerce.bom.constants.CommerceBOMPortletKeys;
 import com.liferay.commerce.bom.model.CommerceBOMDefinition;
 import com.liferay.commerce.bom.model.CommerceBOMFolder;
 import com.liferay.commerce.bom.service.CommerceBOMDefinitionService;
+import com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelService;
 import com.liferay.commerce.bom.service.CommerceBOMFolderService;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
@@ -53,7 +54,7 @@ import org.osgi.service.component.annotations.Reference;
 	property = {
 		"com.liferay.portlet.add-default-resource=true",
 		"com.liferay.portlet.css-class-wrapper=portlet-commerce-bom-admin",
-		"com.liferay.portlet.display-category=commerce",
+		"com.liferay.portlet.display-category=hidden",
 		"com.liferay.portlet.header-portlet-css=/css/main.css",
 		"com.liferay.portlet.layout-cacheable=false",
 		"com.liferay.portlet.preferences-owned-by-group=true",
@@ -86,6 +87,7 @@ public class CommerceBOMAdminPortlet extends MVCPortlet {
 			new CommerceBOMAdminDisplayContext(
 				null, _commerceBOMDefinitionModelResourcePermission,
 				_commerceBOMDefinitionService,
+				_commerceBOMFolderApplicationRelService,
 				_commerceBOMFolderModelResourcePermission,
 				_commerceBOMFolderService, httpServletRequest, _itemSelector,
 				_userFileUploadsConfiguration);
@@ -111,6 +113,10 @@ public class CommerceBOMAdminPortlet extends MVCPortlet {
 
 	@Reference
 	private CommerceBOMDefinitionService _commerceBOMDefinitionService;
+
+	@Reference
+	private CommerceBOMFolderApplicationRelService
+		_commerceBOMFolderApplicationRelService;
 
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.bom.model.CommerceBOMFolder)"

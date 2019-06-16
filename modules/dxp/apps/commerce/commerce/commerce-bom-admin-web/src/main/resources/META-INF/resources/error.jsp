@@ -19,6 +19,7 @@
 <liferay-ui:error-header />
 
 <liferay-ui:error exception="<%= NoSuchBOMDefinitionException.class %>" message="the-definition-could-not-be-found" />
+<liferay-ui:error exception="<%= NoSuchBOMFolderApplicationRelException.class %>" message="the-model-could-not-be-found" />
 <liferay-ui:error exception="<%= NoSuchBOMFolderException.class %>" message="the-folder-could-not-be-found" />
 
 <liferay-ui:error-principal />

@@ -21,7 +21,7 @@ CommerceBOMAdminDisplayContext commerceBOMAdminDisplayContext = (CommerceBOMAdmi
 
 CommerceBOMDefinition commerceBOMDefinition = commerceBOMAdminDisplayContext.getCommerceBOMDefinition();
 
-CPAttachmentFileEntry cpAttachmentFileEntry = commerceBOMDefinition.fetchCPAttachmentFileEntry();
+CPAttachmentFileEntry cpAttachmentFileEntry = commerceBOMAdminDisplayContext.getCPAttachmentFileEntry();
 
 long fileEntryId = BeanParamUtil.getLong(cpAttachmentFileEntry, request, "fileEntryId");
 %>
@@ -32,12 +32,13 @@ long fileEntryId = BeanParamUtil.getLong(cpAttachmentFileEntry, request, "fileEn
 	<aui:form action="<%= editCommerceBOMDefinitionActionURL %>" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commerceBOMDefinition == null) ? Constants.ADD : Constants.UPDATE %>" />
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+		<aui:input name="backURL" type="hidden" value="<%= backURL %>" />
 		<aui:input name="commerceBOMDefinitionId" type="hidden" value="<%= commerceBOMAdminDisplayContext.getCommerceBOMDefinitionId() %>" />
 		<aui:input name="commerceBOMFolderId" type="hidden" value="<%= commerceBOMAdminDisplayContext.getCommerceBOMFolderId() %>" />
 
 		<aui:model-context bean="<%= commerceBOMDefinition %>" model="<%= CommerceBOMDefinition.class %>" />
 
-		<liferay-ui:error exception="<%= DuplicateCPAttachmentFileEntryException.class %>" message="that-attachment-is-already-in-use-on-this-product" />
+		<liferay-ui:error exception="<%= DuplicateCPAttachmentFileEntryException.class %>" message="that-attachment-is-already-in-use" />
 		<liferay-ui:error exception="<%= NoSuchFileEntryException.class %>" message="please-select-an-existing-file" />
 
 		<aui:fieldset-group markupView="lexicon">

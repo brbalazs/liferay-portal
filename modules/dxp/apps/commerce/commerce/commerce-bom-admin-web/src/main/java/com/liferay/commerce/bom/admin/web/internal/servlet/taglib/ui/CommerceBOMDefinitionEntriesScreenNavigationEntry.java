@@ -18,6 +18,7 @@ import com.liferay.commerce.bom.admin.web.internal.display.context.CommerceBOMAd
 import com.liferay.commerce.bom.model.CommerceBOMDefinition;
 import com.liferay.commerce.bom.model.CommerceBOMFolder;
 import com.liferay.commerce.bom.service.CommerceBOMDefinitionService;
+import com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelService;
 import com.liferay.commerce.bom.service.CommerceBOMFolderService;
 import com.liferay.commerce.product.configuration.AttachmentsConfiguration;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
@@ -56,7 +57,7 @@ import org.osgi.service.component.annotations.Reference;
 	configurationPid = "com.liferay.commerce.product.configuration.AttachmentsConfiguration",
 	property = {
 		"screen.navigation.category.order:Integer=20",
-		"screen.navigation.entry.order:Integer=20"
+		"screen.navigation.entry.order:Integer=10"
 	},
 	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
 )
@@ -119,6 +120,7 @@ public class CommerceBOMDefinitionEntriesScreenNavigationEntry
 				_attachmentsConfiguration,
 				_commerceBOMDefinitionModelResourcePermission,
 				_commerceBOMDefinitionService,
+				_commerceBOMFolderApplicationRelService,
 				_commerceBOMFolderModelResourcePermission,
 				_commerceBOMFolderService, httpServletRequest, _itemSelector,
 				null);
@@ -150,6 +152,10 @@ public class CommerceBOMDefinitionEntriesScreenNavigationEntry
 
 	@Reference
 	private CommerceBOMDefinitionService _commerceBOMDefinitionService;
+
+	@Reference
+	private CommerceBOMFolderApplicationRelService
+		_commerceBOMFolderApplicationRelService;
 
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.bom.model.CommerceBOMFolder)"
