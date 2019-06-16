@@ -19,11 +19,17 @@ import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.portal.kernel.exception.DuplicateOrganizationException;
 import com.liferay.portal.kernel.exception.NoSuchOrganizationException;
 import com.liferay.portal.kernel.exception.OrganizationNameException;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.ListTypeConstants;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.OrganizationConstants;
+import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
+import com.liferay.portal.kernel.portlet.PortletProvider;
+import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.repository.model.FileEntry;
@@ -43,6 +49,7 @@ import java.util.concurrent.Callable;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletURL;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -84,8 +91,19 @@ public class EditCommerceOrganizationMVCActionCommand
 				Callable<Organization> organizationCallable =
 					new OrganizationCallable(actionRequest);
 
-				TransactionInvokerUtil.invoke(
+				Organization organization = TransactionInvokerUtil.invoke(
 					_transactionConfig, organizationCallable);
+
+				if (cmd.equals(Constants.ADD)) {
+					String redirect = getSaveAndContinueRedirect(
+						actionRequest, organization);
+
+					JSONObject jsonObject = JSONUtil.put(
+						"redirectURL", redirect);
+
+					JSONPortletResponseUtil.writeJSON(
+						actionRequest, actionResponse, jsonObject);
+				}
 			}
 			else if (cmd.equals(Constants.DELETE)) {
 				deleteOrganization(actionRequest);
@@ -112,6 +130,27 @@ public class EditCommerceOrganizationMVCActionCommand
 		}
 
 		hideDefaultSuccessMessage(actionRequest);
+	}
+
+	protected String getSaveAndContinueRedirect(
+			ActionRequest actionRequest, Organization organization)
+		throws PortalException {
+
+		PortletURL portletURL = PortletProviderUtil.getPortletURL(
+			actionRequest, Organization.class.getName(),
+			PortletProvider.Action.MANAGE);
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "editCommerceOrganization");
+
+		portletURL.setParameter(
+			"organizationId", String.valueOf(organization.getOrganizationId()));
+
+		String redirect = ParamUtil.getString(actionRequest, "redirect");
+
+		portletURL.setParameter("redirect", redirect);
+
+		return portletURL.toString();
 	}
 
 	protected Organization updateOrganization(ActionRequest actionRequest)
