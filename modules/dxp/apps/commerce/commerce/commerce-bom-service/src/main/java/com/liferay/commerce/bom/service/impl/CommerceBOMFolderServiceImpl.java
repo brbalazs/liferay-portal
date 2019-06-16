@@ -70,10 +70,23 @@ public class CommerceBOMFolderServiceImpl
 
 	@Override
 	public List<CommerceBOMFolder> getCommerceBOMFolders(
+		long companyId, int start, int end) {
+
+		return commerceBOMFolderPersistence.filterFindByCompanyId(
+			companyId, start, end);
+	}
+
+	@Override
+	public List<CommerceBOMFolder> getCommerceBOMFolders(
 		long companyId, long parentCommerceBOMFolderId, int start, int end) {
 
 		return commerceBOMFolderPersistence.filterFindByC_P(
 			companyId, parentCommerceBOMFolderId, start, end);
+	}
+
+	@Override
+	public int getCommerceBOMFoldersCount(long companyId) {
+		return commerceBOMFolderPersistence.filterCountByCompanyId(companyId);
 	}
 
 	@Override

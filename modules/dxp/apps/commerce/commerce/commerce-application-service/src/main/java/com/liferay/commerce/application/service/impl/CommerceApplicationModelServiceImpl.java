@@ -23,6 +23,8 @@ import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermi
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 
+import java.util.List;
+
 /**
  * @author Luca Pellizzon
  * @author Alessio Antonio Rendina
@@ -57,9 +59,53 @@ public class CommerceApplicationModelServiceImpl
 	}
 
 	@Override
+	public CommerceApplicationModel getCommerceApplicationModel(
+			long commerceApplicationModelId)
+		throws PortalException {
+
+		_commerceApplicationModelModelResourcePermission.check(
+			getPermissionChecker(), commerceApplicationModelId,
+			ActionKeys.VIEW);
+
+		return commerceApplicationModelLocalService.getCommerceApplicationModel(
+			commerceApplicationModelId);
+	}
+
+	@Override
+	public List<CommerceApplicationModel>
+		getCommerceApplicationModelsByCompanyId(
+			long companyId, int start, int end) {
+
+		return commerceApplicationModelPersistence.filterFindByCompanyId(
+			companyId, start, end);
+	}
+
+	@Override
+	public List<CommerceApplicationModel> getCommerceApplicationModels(
+		long commerceApplicationBrandId, int start, int end) {
+
+		return commerceApplicationModelPersistence.
+			filterFindByCommerceApplicationBrandId(
+				commerceApplicationBrandId, start, end);
+	}
+
+	@Override
+	public int getCommerceApplicationModelsCountByCompanyId(long companyId) {
+		return commerceApplicationModelPersistence.filterCountByCompanyId(
+			companyId);
+	}
+
+	@Override
+	public int getCommerceApplicationModelsCount(
+		long commerceApplicationBrandId) {
+
+		return commerceApplicationModelPersistence.
+			filterCountByCommerceApplicationBrandId(commerceApplicationBrandId);
+	}
+
+	@Override
 	public CommerceApplicationModel updateCommerceApplicationModel(
-			long commerceApplicationModelId, long commerceApplicationBrandId,
-			String name, String year)
+			long commerceApplicationModelId, String name, String year)
 		throws PortalException {
 
 		_commerceApplicationModelModelResourcePermission.check(
@@ -68,8 +114,7 @@ public class CommerceApplicationModelServiceImpl
 
 		return commerceApplicationModelLocalService.
 			updateCommerceApplicationModel(
-				commerceApplicationModelId, commerceApplicationBrandId, name,
-				year);
+				commerceApplicationModelId, name, year);
 	}
 
 	private static volatile ModelResourcePermission<CommerceApplicationModel>

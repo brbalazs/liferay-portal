@@ -122,16 +122,13 @@ public class CommerceApplicationModelLocalServiceImpl
 
 	@Override
 	public CommerceApplicationModel updateCommerceApplicationModel(
-			long commerceApplicationModelId, long commerceApplicationBrandId,
-			String name, String year)
+			long commerceApplicationModelId, String name, String year)
 		throws PortalException {
 
 		CommerceApplicationModel commerceApplicationModel =
 			commerceApplicationModelLocalService.getCommerceApplicationModel(
 				commerceApplicationModelId);
 
-		commerceApplicationModel.setCommerceApplicationBrandId(
-			commerceApplicationBrandId);
 		commerceApplicationModel.setName(name);
 		commerceApplicationModel.setYear(year);
 

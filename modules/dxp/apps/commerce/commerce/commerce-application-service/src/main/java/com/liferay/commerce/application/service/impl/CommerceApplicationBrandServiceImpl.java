@@ -58,16 +58,29 @@ public class CommerceApplicationBrandServiceImpl
 	}
 
 	@Override
+	public CommerceApplicationBrand getCommerceApplicationBrand(
+			long commerceApplicationBrandId)
+		throws PortalException {
+
+		_commerceApplicationBrandModelResourcePermission.check(
+			getPermissionChecker(), commerceApplicationBrandId,
+			ActionKeys.VIEW);
+
+		return commerceApplicationBrandLocalService.getCommerceApplicationBrand(
+			commerceApplicationBrandId);
+	}
+
+	@Override
 	public List<CommerceApplicationBrand> getCommerceApplicationBrands(
 		long companyId, int start, int end) {
 
-		return commerceApplicationBrandPersistence.filterFindByCompany(
+		return commerceApplicationBrandPersistence.filterFindByCompanyId(
 			companyId, start, end);
 	}
 
 	@Override
 	public int getCommerceApplicationBrandsCount(long companyId) {
-		return commerceApplicationBrandPersistence.filterCountByCompany(
+		return commerceApplicationBrandPersistence.filterCountByCompanyId(
 			companyId);
 	}
 

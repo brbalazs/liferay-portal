@@ -65,6 +65,8 @@ public class CommerceBOMFolderLocalServiceImpl
 			_userFileUploadsSettings.getImageMaxHeight(),
 			_userFileUploadsSettings.getImageMaxWidth());
 
+		commerceBOMFolder.setTreePath(commerceBOMFolder.buildTreePath());
+
 		commerceBOMFolder = commerceBOMFolderPersistence.update(
 			commerceBOMFolder);
 
@@ -84,6 +86,12 @@ public class CommerceBOMFolderLocalServiceImpl
 	public CommerceBOMFolder deleteCommerceBOMFolder(
 			CommerceBOMFolder commerceBOMFolder)
 		throws PortalException {
+
+		// Commerce BOM folder application rels
+
+		commerceBOMFolderApplicationRelLocalService.
+			deleteCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
+				commerceBOMFolder.getCommerceBOMFolderId());
 
 		// Commerce BOM definitions
 
@@ -116,7 +124,7 @@ public class CommerceBOMFolderLocalServiceImpl
 		throws PortalException {
 
 		List<CommerceBOMFolder> commerceBOMFolders =
-			commerceBOMFolderPersistence.findByCompany(companyId);
+			commerceBOMFolderPersistence.findByCompanyId(companyId);
 
 		for (CommerceBOMFolder commerceBOMFolder : commerceBOMFolders) {
 			commerceBOMFolderLocalService.deleteCommerceBOMFolder(

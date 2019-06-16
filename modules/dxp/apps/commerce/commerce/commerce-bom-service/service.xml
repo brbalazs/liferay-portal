@@ -86,6 +86,7 @@
 		<column name="parentCommerceBOMFolderId" type="long" />
 		<column name="name" type="String" />
 		<column name="logoId" type="long" />
+		<column name="treePath" type="String" />
 
 		<!-- Order -->
 
@@ -95,7 +96,7 @@
 
 		<!-- Finders -->
 
-		<finder name="Company" return-type="Collection">
+		<finder name="CompanyId" return-type="Collection">
 			<finder-column name="companyId" />
 		</finder>
 		<finder name="C_P" return-type="Collection">
@@ -121,5 +122,14 @@
 
 		<column name="commerceBOMFolderId" type="long" />
 		<column name="commerceApplicationModelId" type="long" />
+
+		<!-- Finders -->
+
+		<finder name="CommerceBOMFolderId" return-type="Collection">
+			<finder-column name="commerceBOMFolderId" />
+		</finder>
+		<finder name="CommerceApplicationModelId" return-type="Collection">
+			<finder-column name="commerceApplicationModelId" />
+		</finder>
 	</entity>
 </service-builder>

@@ -19,8 +19,11 @@ import com.liferay.commerce.bom.service.base.CommerceBOMFolderApplicationRelLoca
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 
+import java.util.List;
+
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class CommerceBOMFolderApplicationRelLocalServiceImpl
 	extends CommerceBOMFolderApplicationRelLocalServiceBaseImpl {
@@ -53,24 +56,54 @@ public class CommerceBOMFolderApplicationRelLocalServiceImpl
 	}
 
 	@Override
-	public CommerceBOMFolderApplicationRel
-			updateCommerceBOMFolderApplicationRel(
-				long commerceBOMFolderApplicationRelId,
-				long commerceBOMFolderId, long commerceApplicationModelId)
-		throws PortalException {
+	public void deleteCommerceBOMFolderApplicationRelsByCAMId(
+		long commerceApplicationModelId) {
 
-		CommerceBOMFolderApplicationRel commerceBOMFolderApplicationRel =
-			commerceBOMFolderApplicationRelLocalService.
-				getCommerceBOMFolderApplicationRel(
-					commerceBOMFolderApplicationRelId);
+		commerceBOMFolderApplicationRelPersistence.
+			removeByCommerceApplicationModelId(commerceApplicationModelId);
+	}
 
-		commerceBOMFolderApplicationRel.setCommerceBOMFolderId(
+	@Override
+	public void deleteCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
+		long commerceBOMFolderId) {
+
+		commerceBOMFolderApplicationRelPersistence.removeByCommerceBOMFolderId(
 			commerceBOMFolderId);
-		commerceBOMFolderApplicationRel.setCommerceApplicationModelId(
-			commerceApplicationModelId);
+	}
 
-		return commerceBOMFolderApplicationRelPersistence.update(
-			commerceBOMFolderApplicationRel);
+	@Override
+	public List<CommerceBOMFolderApplicationRel>
+		getCommerceBOMFolderApplicationRelsByCAMId(
+			long commerceApplicationModelId, int start, int end) {
+
+		return commerceBOMFolderApplicationRelPersistence.
+			findByCommerceApplicationModelId(
+				commerceApplicationModelId, start, end);
+	}
+
+	@Override
+	public List<CommerceBOMFolderApplicationRel>
+		getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
+			long commerceBOMFolderId, int start, int end) {
+
+		return commerceBOMFolderApplicationRelPersistence.
+			findByCommerceBOMFolderId(commerceBOMFolderId, start, end);
+	}
+
+	@Override
+	public int getCommerceBOMFolderApplicationRelsCountByCAMId(
+		long commerceApplicationModelId) {
+
+		return commerceBOMFolderApplicationRelPersistence.
+			countByCommerceApplicationModelId(commerceApplicationModelId);
+	}
+
+	@Override
+	public int getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(
+		long commerceBOMFolderId) {
+
+		return commerceBOMFolderApplicationRelPersistence.
+			countByCommerceBOMFolderId(commerceBOMFolderId);
 	}
 
 }

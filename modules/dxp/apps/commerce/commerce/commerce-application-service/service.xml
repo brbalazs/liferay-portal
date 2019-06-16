@@ -31,7 +31,7 @@
 
 		<!-- Finders -->
 
-		<finder name="Company" return-type="Collection">
+		<finder name="CompanyId" return-type="Collection">
 			<finder-column name="companyId" />
 		</finder>
 	</entity>
@@ -66,6 +66,9 @@
 
 		<!-- Finders -->
 
+		<finder name="CompanyId" return-type="Collection">
+			<finder-column name="companyId" />
+		</finder>
 		<finder name="CommerceApplicationBrandId" return-type="Collection">
 			<finder-column name="commerceApplicationBrandId" />
 		</finder>

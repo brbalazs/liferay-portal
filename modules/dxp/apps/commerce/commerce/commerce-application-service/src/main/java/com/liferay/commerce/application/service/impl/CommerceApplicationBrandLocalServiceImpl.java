@@ -113,7 +113,7 @@ public class CommerceApplicationBrandLocalServiceImpl
 		throws PortalException {
 
 		List<CommerceApplicationBrand> commerceApplicationBrands =
-			commerceApplicationBrandPersistence.findByCompany(companyId);
+			commerceApplicationBrandPersistence.findByCompanyId(companyId);
 
 		for (CommerceApplicationBrand commerceApplicationBrand :
 				commerceApplicationBrands) {
