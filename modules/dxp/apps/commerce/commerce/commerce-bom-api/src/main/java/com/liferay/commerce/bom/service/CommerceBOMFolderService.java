@@ -67,7 +67,14 @@ public interface CommerceBOMFolderService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceBOMFolder> getCommerceBOMFolders(long companyId,
+		int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceBOMFolder> getCommerceBOMFolders(long companyId,
 		long parentCommerceBOMFolderId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceBOMFoldersCount(long companyId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceBOMFoldersCount(long companyId,

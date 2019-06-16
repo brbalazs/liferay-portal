@@ -68,6 +68,7 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 			getParentCommerceBOMFolderId());
 		attributes.put("name", getName());
 		attributes.put("logoId", getLogoId());
+		attributes.put("treePath", getTreePath());
 
 		return attributes;
 	}
@@ -128,6 +129,18 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 		if (logoId != null) {
 			setLogoId(logoId);
 		}
+
+		String treePath = (String)attributes.get("treePath");
+
+		if (treePath != null) {
+			setTreePath(treePath);
+		}
+	}
+
+	@Override
+	public String buildTreePath()
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceBOMFolder.buildTreePath();
 	}
 
 	@Override
@@ -246,6 +259,16 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _commerceBOMFolder.getPrimaryKeyObj();
+	}
+
+	/**
+	* Returns the tree path of this commerce bom folder.
+	*
+	* @return the tree path of this commerce bom folder
+	*/
+	@Override
+	public String getTreePath() {
+		return _commerceBOMFolder.getTreePath();
 	}
 
 	/**
@@ -420,6 +443,16 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	}
 
 	/**
+	* Sets the tree path of this commerce bom folder.
+	*
+	* @param treePath the tree path of this commerce bom folder
+	*/
+	@Override
+	public void setTreePath(String treePath) {
+		_commerceBOMFolder.setTreePath(treePath);
+	}
+
+	/**
 	* Sets the user ID of this commerce bom folder.
 	*
 	* @param userId the user ID of this commerce bom folder
@@ -472,6 +505,11 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	@Override
 	public String toXmlString() {
 		return _commerceBOMFolder.toXmlString();
+	}
+
+	@Override
+	public void updateTreePath(String treePath) {
+		_commerceBOMFolder.updateTreePath(treePath);
 	}
 
 	@Override

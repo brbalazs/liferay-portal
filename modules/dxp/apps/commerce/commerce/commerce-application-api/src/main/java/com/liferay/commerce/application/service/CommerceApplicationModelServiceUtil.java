@@ -56,6 +56,39 @@ public class CommerceApplicationModelServiceUtil {
 		getService().deleteCommerceApplicationModel(commerceApplicationModelId);
 	}
 
+	public static com.liferay.commerce.application.model.CommerceApplicationModel getCommerceApplicationModel(
+		long commerceApplicationModelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .getCommerceApplicationModel(commerceApplicationModelId);
+	}
+
+	public static java.util.List<com.liferay.commerce.application.model.CommerceApplicationModel> getCommerceApplicationModels(
+		long commerceApplicationBrandId, int start, int end) {
+		return getService()
+				   .getCommerceApplicationModels(commerceApplicationBrandId,
+			start, end);
+	}
+
+	public static java.util.List<com.liferay.commerce.application.model.CommerceApplicationModel> getCommerceApplicationModelsByCompanyId(
+		long companyId, int start, int end) {
+		return getService()
+				   .getCommerceApplicationModelsByCompanyId(companyId, start,
+			end);
+	}
+
+	public static int getCommerceApplicationModelsCount(
+		long commerceApplicationBrandId) {
+		return getService()
+				   .getCommerceApplicationModelsCount(commerceApplicationBrandId);
+	}
+
+	public static int getCommerceApplicationModelsCountByCompanyId(
+		long companyId) {
+		return getService()
+				   .getCommerceApplicationModelsCountByCompanyId(companyId);
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*
@@ -66,12 +99,11 @@ public class CommerceApplicationModelServiceUtil {
 	}
 
 	public static com.liferay.commerce.application.model.CommerceApplicationModel updateCommerceApplicationModel(
-		long commerceApplicationModelId, long commerceApplicationBrandId,
-		String name, String year)
+		long commerceApplicationModelId, String name, String year)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .updateCommerceApplicationModel(commerceApplicationModelId,
-			commerceApplicationBrandId, name, year);
+			name, year);
 	}
 
 	public static CommerceApplicationModelService getService() {

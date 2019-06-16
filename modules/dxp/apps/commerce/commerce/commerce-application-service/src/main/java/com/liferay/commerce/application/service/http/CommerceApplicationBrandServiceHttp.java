@@ -118,12 +118,45 @@ public class CommerceApplicationBrandServiceHttp {
 		}
 	}
 
+	public static com.liferay.commerce.application.model.CommerceApplicationBrand getCommerceApplicationBrand(
+		HttpPrincipal httpPrincipal, long commerceApplicationBrandId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		try {
+			MethodKey methodKey = new MethodKey(CommerceApplicationBrandServiceUtil.class,
+					"getCommerceApplicationBrand",
+					_getCommerceApplicationBrandParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey,
+					commerceApplicationBrandId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (com.liferay.commerce.application.model.CommerceApplicationBrand)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static java.util.List<com.liferay.commerce.application.model.CommerceApplicationBrand> getCommerceApplicationBrands(
 		HttpPrincipal httpPrincipal, long companyId, int start, int end) {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceApplicationBrandServiceUtil.class,
 					"getCommerceApplicationBrands",
-					_getCommerceApplicationBrandsParameterTypes2);
+					_getCommerceApplicationBrandsParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					companyId, start, end);
@@ -151,7 +184,7 @@ public class CommerceApplicationBrandServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceApplicationBrandServiceUtil.class,
 					"getCommerceApplicationBrandsCount",
-					_getCommerceApplicationBrandsCountParameterTypes3);
+					_getCommerceApplicationBrandsCountParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, companyId);
 
@@ -180,7 +213,7 @@ public class CommerceApplicationBrandServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceApplicationBrandServiceUtil.class,
 					"updateCommerceApplicationBrand",
-					_updateCommerceApplicationBrandParameterTypes4);
+					_updateCommerceApplicationBrandParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					commerceApplicationBrandId, name, logo, logoBytes);
@@ -213,10 +246,13 @@ public class CommerceApplicationBrandServiceHttp {
 		};
 	private static final Class<?>[] _deleteCommerceApplicationBrandParameterTypes1 =
 		new Class[] { long.class };
-	private static final Class<?>[] _getCommerceApplicationBrandsParameterTypes2 =
+	private static final Class<?>[] _getCommerceApplicationBrandParameterTypes2 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[] _getCommerceApplicationBrandsParameterTypes3 =
 		new Class[] { long.class, int.class, int.class };
-	private static final Class<?>[] _getCommerceApplicationBrandsCountParameterTypes3 =
+	private static final Class<?>[] _getCommerceApplicationBrandsCountParameterTypes4 =
 		new Class[] { long.class };
-	private static final Class<?>[] _updateCommerceApplicationBrandParameterTypes4 =
+	private static final Class<?>[] _updateCommerceApplicationBrandParameterTypes5 =
 		new Class[] { long.class, String.class, boolean.class, byte[].class };
 }

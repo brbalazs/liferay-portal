@@ -138,6 +138,12 @@ public class CommerceBOMFolderApplicationRelWrapper
 		return _commerceBOMFolderApplicationRel.compareTo(commerceBOMFolderApplicationRel);
 	}
 
+	@Override
+	public com.liferay.commerce.application.model.CommerceApplicationModel getCommerceApplicationModel()
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceBOMFolderApplicationRel.getCommerceApplicationModel();
+	}
+
 	/**
 	* Returns the commerce application model ID of this commerce bom folder application rel.
 	*
@@ -146,6 +152,12 @@ public class CommerceBOMFolderApplicationRelWrapper
 	@Override
 	public long getCommerceApplicationModelId() {
 		return _commerceBOMFolderApplicationRel.getCommerceApplicationModelId();
+	}
+
+	@Override
+	public CommerceBOMFolder getCommerceBOMFolder()
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceBOMFolderApplicationRel.getCommerceBOMFolder();
 	}
 
 	/**

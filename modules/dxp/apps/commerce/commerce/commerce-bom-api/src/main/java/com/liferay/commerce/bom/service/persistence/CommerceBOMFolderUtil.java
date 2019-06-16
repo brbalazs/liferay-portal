@@ -118,8 +118,8 @@ public class CommerceBOMFolderUtil {
 	* @param companyId the company ID
 	* @return the matching commerce bom folders
 	*/
-	public static List<CommerceBOMFolder> findByCompany(long companyId) {
-		return getPersistence().findByCompany(companyId);
+	public static List<CommerceBOMFolder> findByCompanyId(long companyId) {
+		return getPersistence().findByCompanyId(companyId);
 	}
 
 	/**
@@ -134,9 +134,9 @@ public class CommerceBOMFolderUtil {
 	* @param end the upper bound of the range of commerce bom folders (not inclusive)
 	* @return the range of matching commerce bom folders
 	*/
-	public static List<CommerceBOMFolder> findByCompany(long companyId,
+	public static List<CommerceBOMFolder> findByCompanyId(long companyId,
 		int start, int end) {
-		return getPersistence().findByCompany(companyId, start, end);
+		return getPersistence().findByCompanyId(companyId, start, end);
 	}
 
 	/**
@@ -152,11 +152,11 @@ public class CommerceBOMFolderUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching commerce bom folders
 	*/
-	public static List<CommerceBOMFolder> findByCompany(long companyId,
+	public static List<CommerceBOMFolder> findByCompanyId(long companyId,
 		int start, int end,
 		OrderByComparator<CommerceBOMFolder> orderByComparator) {
 		return getPersistence()
-				   .findByCompany(companyId, start, end, orderByComparator);
+				   .findByCompanyId(companyId, start, end, orderByComparator);
 	}
 
 	/**
@@ -173,12 +173,12 @@ public class CommerceBOMFolderUtil {
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the ordered range of matching commerce bom folders
 	*/
-	public static List<CommerceBOMFolder> findByCompany(long companyId,
+	public static List<CommerceBOMFolder> findByCompanyId(long companyId,
 		int start, int end,
 		OrderByComparator<CommerceBOMFolder> orderByComparator,
 		boolean retrieveFromCache) {
 		return getPersistence()
-				   .findByCompany(companyId, start, end, orderByComparator,
+				   .findByCompanyId(companyId, start, end, orderByComparator,
 			retrieveFromCache);
 	}
 
@@ -190,10 +190,11 @@ public class CommerceBOMFolderUtil {
 	* @return the first matching commerce bom folder
 	* @throws NoSuchBOMFolderException if a matching commerce bom folder could not be found
 	*/
-	public static CommerceBOMFolder findByCompany_First(long companyId,
+	public static CommerceBOMFolder findByCompanyId_First(long companyId,
 		OrderByComparator<CommerceBOMFolder> orderByComparator)
 		throws com.liferay.commerce.bom.exception.NoSuchBOMFolderException {
-		return getPersistence().findByCompany_First(companyId, orderByComparator);
+		return getPersistence()
+				   .findByCompanyId_First(companyId, orderByComparator);
 	}
 
 	/**
@@ -203,10 +204,10 @@ public class CommerceBOMFolderUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching commerce bom folder, or <code>null</code> if a matching commerce bom folder could not be found
 	*/
-	public static CommerceBOMFolder fetchByCompany_First(long companyId,
+	public static CommerceBOMFolder fetchByCompanyId_First(long companyId,
 		OrderByComparator<CommerceBOMFolder> orderByComparator) {
 		return getPersistence()
-				   .fetchByCompany_First(companyId, orderByComparator);
+				   .fetchByCompanyId_First(companyId, orderByComparator);
 	}
 
 	/**
@@ -217,10 +218,11 @@ public class CommerceBOMFolderUtil {
 	* @return the last matching commerce bom folder
 	* @throws NoSuchBOMFolderException if a matching commerce bom folder could not be found
 	*/
-	public static CommerceBOMFolder findByCompany_Last(long companyId,
+	public static CommerceBOMFolder findByCompanyId_Last(long companyId,
 		OrderByComparator<CommerceBOMFolder> orderByComparator)
 		throws com.liferay.commerce.bom.exception.NoSuchBOMFolderException {
-		return getPersistence().findByCompany_Last(companyId, orderByComparator);
+		return getPersistence()
+				   .findByCompanyId_Last(companyId, orderByComparator);
 	}
 
 	/**
@@ -230,9 +232,10 @@ public class CommerceBOMFolderUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching commerce bom folder, or <code>null</code> if a matching commerce bom folder could not be found
 	*/
-	public static CommerceBOMFolder fetchByCompany_Last(long companyId,
+	public static CommerceBOMFolder fetchByCompanyId_Last(long companyId,
 		OrderByComparator<CommerceBOMFolder> orderByComparator) {
-		return getPersistence().fetchByCompany_Last(companyId, orderByComparator);
+		return getPersistence()
+				   .fetchByCompanyId_Last(companyId, orderByComparator);
 	}
 
 	/**
@@ -244,12 +247,12 @@ public class CommerceBOMFolderUtil {
 	* @return the previous, current, and next commerce bom folder
 	* @throws NoSuchBOMFolderException if a commerce bom folder with the primary key could not be found
 	*/
-	public static CommerceBOMFolder[] findByCompany_PrevAndNext(
+	public static CommerceBOMFolder[] findByCompanyId_PrevAndNext(
 		long commerceBOMFolderId, long companyId,
 		OrderByComparator<CommerceBOMFolder> orderByComparator)
 		throws com.liferay.commerce.bom.exception.NoSuchBOMFolderException {
 		return getPersistence()
-				   .findByCompany_PrevAndNext(commerceBOMFolderId, companyId,
+				   .findByCompanyId_PrevAndNext(commerceBOMFolderId, companyId,
 			orderByComparator);
 	}
 
@@ -259,8 +262,8 @@ public class CommerceBOMFolderUtil {
 	* @param companyId the company ID
 	* @return the matching commerce bom folders that the user has permission to view
 	*/
-	public static List<CommerceBOMFolder> filterFindByCompany(long companyId) {
-		return getPersistence().filterFindByCompany(companyId);
+	public static List<CommerceBOMFolder> filterFindByCompanyId(long companyId) {
+		return getPersistence().filterFindByCompanyId(companyId);
 	}
 
 	/**
@@ -275,9 +278,9 @@ public class CommerceBOMFolderUtil {
 	* @param end the upper bound of the range of commerce bom folders (not inclusive)
 	* @return the range of matching commerce bom folders that the user has permission to view
 	*/
-	public static List<CommerceBOMFolder> filterFindByCompany(long companyId,
-		int start, int end) {
-		return getPersistence().filterFindByCompany(companyId, start, end);
+	public static List<CommerceBOMFolder> filterFindByCompanyId(
+		long companyId, int start, int end) {
+		return getPersistence().filterFindByCompanyId(companyId, start, end);
 	}
 
 	/**
@@ -293,11 +296,12 @@ public class CommerceBOMFolderUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching commerce bom folders that the user has permission to view
 	*/
-	public static List<CommerceBOMFolder> filterFindByCompany(long companyId,
-		int start, int end,
+	public static List<CommerceBOMFolder> filterFindByCompanyId(
+		long companyId, int start, int end,
 		OrderByComparator<CommerceBOMFolder> orderByComparator) {
 		return getPersistence()
-				   .filterFindByCompany(companyId, start, end, orderByComparator);
+				   .filterFindByCompanyId(companyId, start, end,
+			orderByComparator);
 	}
 
 	/**
@@ -309,12 +313,12 @@ public class CommerceBOMFolderUtil {
 	* @return the previous, current, and next commerce bom folder
 	* @throws NoSuchBOMFolderException if a commerce bom folder with the primary key could not be found
 	*/
-	public static CommerceBOMFolder[] filterFindByCompany_PrevAndNext(
+	public static CommerceBOMFolder[] filterFindByCompanyId_PrevAndNext(
 		long commerceBOMFolderId, long companyId,
 		OrderByComparator<CommerceBOMFolder> orderByComparator)
 		throws com.liferay.commerce.bom.exception.NoSuchBOMFolderException {
 		return getPersistence()
-				   .filterFindByCompany_PrevAndNext(commerceBOMFolderId,
+				   .filterFindByCompanyId_PrevAndNext(commerceBOMFolderId,
 			companyId, orderByComparator);
 	}
 
@@ -323,8 +327,8 @@ public class CommerceBOMFolderUtil {
 	*
 	* @param companyId the company ID
 	*/
-	public static void removeByCompany(long companyId) {
-		getPersistence().removeByCompany(companyId);
+	public static void removeByCompanyId(long companyId) {
+		getPersistence().removeByCompanyId(companyId);
 	}
 
 	/**
@@ -333,8 +337,8 @@ public class CommerceBOMFolderUtil {
 	* @param companyId the company ID
 	* @return the number of matching commerce bom folders
 	*/
-	public static int countByCompany(long companyId) {
-		return getPersistence().countByCompany(companyId);
+	public static int countByCompanyId(long companyId) {
+		return getPersistence().countByCompanyId(companyId);
 	}
 
 	/**
@@ -343,8 +347,8 @@ public class CommerceBOMFolderUtil {
 	* @param companyId the company ID
 	* @return the number of matching commerce bom folders that the user has permission to view
 	*/
-	public static int filterCountByCompany(long companyId) {
-		return getPersistence().filterCountByCompany(companyId);
+	public static int filterCountByCompanyId(long companyId) {
+		return getPersistence().filterCountByCompanyId(companyId);
 	}
 
 	/**

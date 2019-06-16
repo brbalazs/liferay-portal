@@ -43,6 +43,7 @@ public class CommerceBOMFolderSoap implements Serializable {
 		soapModel.setParentCommerceBOMFolderId(model.getParentCommerceBOMFolderId());
 		soapModel.setName(model.getName());
 		soapModel.setLogoId(model.getLogoId());
+		soapModel.setTreePath(model.getTreePath());
 
 		return soapModel;
 	}
@@ -170,6 +171,14 @@ public class CommerceBOMFolderSoap implements Serializable {
 		_logoId = logoId;
 	}
 
+	public String getTreePath() {
+		return _treePath;
+	}
+
+	public void setTreePath(String treePath) {
+		_treePath = treePath;
+	}
+
 	private long _commerceBOMFolderId;
 	private long _companyId;
 	private long _userId;
@@ -179,4 +188,5 @@ public class CommerceBOMFolderSoap implements Serializable {
 	private long _parentCommerceBOMFolderId;
 	private String _name;
 	private long _logoId;
+	private String _treePath;
 }

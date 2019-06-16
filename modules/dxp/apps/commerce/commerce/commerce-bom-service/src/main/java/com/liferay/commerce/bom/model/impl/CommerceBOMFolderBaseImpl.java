@@ -19,6 +19,12 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.commerce.bom.model.CommerceBOMFolder;
 import com.liferay.commerce.bom.service.CommerceBOMFolderLocalServiceUtil;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.util.StringBundler;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The extended model base implementation for the CommerceBOMFolder service. Represents a row in the &quot;CommerceBOMFolder&quot; database table, with each column mapped to a property of this class.
  *
@@ -47,5 +53,42 @@ public abstract class CommerceBOMFolderBaseImpl
 		else {
 			CommerceBOMFolderLocalServiceUtil.updateCommerceBOMFolder(this);
 		}
+	}
+
+	@Override
+	@SuppressWarnings("unused")
+	public String buildTreePath() throws PortalException {
+		List<CommerceBOMFolder> commerceBOMFolders = new ArrayList<CommerceBOMFolder>();
+
+		CommerceBOMFolder commerceBOMFolder = this;
+
+		while (commerceBOMFolder != null) {
+			commerceBOMFolders.add(commerceBOMFolder);
+
+			commerceBOMFolder = CommerceBOMFolderLocalServiceUtil.fetchCommerceBOMFolder(commerceBOMFolder.getParentCommerceBOMFolderId());
+		}
+
+		StringBundler sb = new StringBundler((commerceBOMFolders.size() * 2) +
+				1);
+
+		sb.append("/");
+
+		for (int i = commerceBOMFolders.size() - 1; i >= 0; i--) {
+			commerceBOMFolder = commerceBOMFolders.get(i);
+
+			sb.append(commerceBOMFolder.getCommerceBOMFolderId());
+			sb.append("/");
+		}
+
+		return sb.toString();
+	}
+
+	@Override
+	public void updateTreePath(String treePath) {
+		CommerceBOMFolder commerceBOMFolder = this;
+
+		commerceBOMFolder.setTreePath(treePath);
+
+		CommerceBOMFolderLocalServiceUtil.updateCommerceBOMFolder(commerceBOMFolder);
 	}
 }

@@ -94,13 +94,89 @@ public class CommerceApplicationModelServiceSoap {
 		}
 	}
 
+	public static com.liferay.commerce.application.model.CommerceApplicationModelSoap getCommerceApplicationModel(
+		long commerceApplicationModelId) throws RemoteException {
+		try {
+			com.liferay.commerce.application.model.CommerceApplicationModel returnValue =
+				CommerceApplicationModelServiceUtil.getCommerceApplicationModel(commerceApplicationModelId);
+
+			return com.liferay.commerce.application.model.CommerceApplicationModelSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.application.model.CommerceApplicationModelSoap[] getCommerceApplicationModelsByCompanyId(
+		long companyId, int start, int end) throws RemoteException {
+		try {
+			java.util.List<com.liferay.commerce.application.model.CommerceApplicationModel> returnValue =
+				CommerceApplicationModelServiceUtil.getCommerceApplicationModelsByCompanyId(companyId,
+					start, end);
+
+			return com.liferay.commerce.application.model.CommerceApplicationModelSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.application.model.CommerceApplicationModelSoap[] getCommerceApplicationModels(
+		long commerceApplicationBrandId, int start, int end)
+		throws RemoteException {
+		try {
+			java.util.List<com.liferay.commerce.application.model.CommerceApplicationModel> returnValue =
+				CommerceApplicationModelServiceUtil.getCommerceApplicationModels(commerceApplicationBrandId,
+					start, end);
+
+			return com.liferay.commerce.application.model.CommerceApplicationModelSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getCommerceApplicationModelsCountByCompanyId(
+		long companyId) throws RemoteException {
+		try {
+			int returnValue = CommerceApplicationModelServiceUtil.getCommerceApplicationModelsCountByCompanyId(companyId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getCommerceApplicationModelsCount(
+		long commerceApplicationBrandId) throws RemoteException {
+		try {
+			int returnValue = CommerceApplicationModelServiceUtil.getCommerceApplicationModelsCount(commerceApplicationBrandId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.commerce.application.model.CommerceApplicationModelSoap updateCommerceApplicationModel(
-		long commerceApplicationModelId, long commerceApplicationBrandId,
-		String name, String year) throws RemoteException {
+		long commerceApplicationModelId, String name, String year)
+		throws RemoteException {
 		try {
 			com.liferay.commerce.application.model.CommerceApplicationModel returnValue =
 				CommerceApplicationModelServiceUtil.updateCommerceApplicationModel(commerceApplicationModelId,
-					commerceApplicationBrandId, name, year);
+					name, year);
 
 			return com.liferay.commerce.application.model.CommerceApplicationModelSoap.toSoapModel(returnValue);
 		}

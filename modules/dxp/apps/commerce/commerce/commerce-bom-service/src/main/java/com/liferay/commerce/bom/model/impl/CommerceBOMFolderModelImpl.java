@@ -78,7 +78,8 @@ public class CommerceBOMFolderModelImpl extends BaseModelImpl<CommerceBOMFolder>
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "parentCommerceBOMFolderId", Types.BIGINT },
 			{ "name", Types.VARCHAR },
-			{ "logoId", Types.BIGINT }
+			{ "logoId", Types.BIGINT },
+			{ "treePath", Types.VARCHAR }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
 
@@ -92,9 +93,10 @@ public class CommerceBOMFolderModelImpl extends BaseModelImpl<CommerceBOMFolder>
 		TABLE_COLUMNS_MAP.put("parentCommerceBOMFolderId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("logoId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("treePath", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table CommerceBOMFolder (commerceBOMFolderId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,parentCommerceBOMFolderId LONG,name VARCHAR(75) null,logoId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table CommerceBOMFolder (commerceBOMFolderId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,parentCommerceBOMFolderId LONG,name VARCHAR(75) null,logoId LONG,treePath VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table CommerceBOMFolder";
 	public static final String ORDER_BY_JPQL = " ORDER BY commerceBOMFolder.name ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY CommerceBOMFolder.name ASC";
@@ -136,6 +138,7 @@ public class CommerceBOMFolderModelImpl extends BaseModelImpl<CommerceBOMFolder>
 		model.setParentCommerceBOMFolderId(soapModel.getParentCommerceBOMFolderId());
 		model.setName(soapModel.getName());
 		model.setLogoId(soapModel.getLogoId());
+		model.setTreePath(soapModel.getTreePath());
 
 		return model;
 	}
@@ -211,6 +214,7 @@ public class CommerceBOMFolderModelImpl extends BaseModelImpl<CommerceBOMFolder>
 			getParentCommerceBOMFolderId());
 		attributes.put("name", getName());
 		attributes.put("logoId", getLogoId());
+		attributes.put("treePath", getTreePath());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -273,6 +277,12 @@ public class CommerceBOMFolderModelImpl extends BaseModelImpl<CommerceBOMFolder>
 
 		if (logoId != null) {
 			setLogoId(logoId);
+		}
+
+		String treePath = (String)attributes.get("treePath");
+
+		if (treePath != null) {
+			setTreePath(treePath);
 		}
 	}
 
@@ -433,6 +443,22 @@ public class CommerceBOMFolderModelImpl extends BaseModelImpl<CommerceBOMFolder>
 		_logoId = logoId;
 	}
 
+	@JSON
+	@Override
+	public String getTreePath() {
+		if (_treePath == null) {
+			return "";
+		}
+		else {
+			return _treePath;
+		}
+	}
+
+	@Override
+	public void setTreePath(String treePath) {
+		_treePath = treePath;
+	}
+
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -473,6 +499,7 @@ public class CommerceBOMFolderModelImpl extends BaseModelImpl<CommerceBOMFolder>
 		commerceBOMFolderImpl.setParentCommerceBOMFolderId(getParentCommerceBOMFolderId());
 		commerceBOMFolderImpl.setName(getName());
 		commerceBOMFolderImpl.setLogoId(getLogoId());
+		commerceBOMFolderImpl.setTreePath(getTreePath());
 
 		commerceBOMFolderImpl.resetOriginalValues();
 
@@ -594,12 +621,20 @@ public class CommerceBOMFolderModelImpl extends BaseModelImpl<CommerceBOMFolder>
 
 		commerceBOMFolderCacheModel.logoId = getLogoId();
 
+		commerceBOMFolderCacheModel.treePath = getTreePath();
+
+		String treePath = commerceBOMFolderCacheModel.treePath;
+
+		if ((treePath != null) && (treePath.length() == 0)) {
+			commerceBOMFolderCacheModel.treePath = null;
+		}
+
 		return commerceBOMFolderCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{commerceBOMFolderId=");
 		sb.append(getCommerceBOMFolderId());
@@ -619,6 +654,8 @@ public class CommerceBOMFolderModelImpl extends BaseModelImpl<CommerceBOMFolder>
 		sb.append(getName());
 		sb.append(", logoId=");
 		sb.append(getLogoId());
+		sb.append(", treePath=");
+		sb.append(getTreePath());
 		sb.append("}");
 
 		return sb.toString();
@@ -626,7 +663,7 @@ public class CommerceBOMFolderModelImpl extends BaseModelImpl<CommerceBOMFolder>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(34);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.commerce.bom.model.CommerceBOMFolder");
@@ -668,6 +705,10 @@ public class CommerceBOMFolderModelImpl extends BaseModelImpl<CommerceBOMFolder>
 			"<column><column-name>logoId</column-name><column-value><![CDATA[");
 		sb.append(getLogoId());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>treePath</column-name><column-value><![CDATA[");
+		sb.append(getTreePath());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -692,6 +733,7 @@ public class CommerceBOMFolderModelImpl extends BaseModelImpl<CommerceBOMFolder>
 	private boolean _setOriginalParentCommerceBOMFolderId;
 	private String _name;
 	private long _logoId;
+	private String _treePath;
 	private long _columnBitmask;
 	private CommerceBOMFolder _escapedModel;
 }

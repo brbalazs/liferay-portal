@@ -42,6 +42,50 @@ public class CommerceBOMFolderApplicationRelServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.commerce.bom.service.impl.CommerceBOMFolderApplicationRelServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel addCommerceBOMFolderApplicationRel(
+		long userId, long commerceBOMFolderId, long commerceApplicationModelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .addCommerceBOMFolderApplicationRel(userId,
+			commerceBOMFolderId, commerceApplicationModelId);
+	}
+
+	public static void deleteCommerceBOMFolderApplicationRel(
+		long commerceBOMFolderApplicationRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		getService()
+			.deleteCommerceBOMFolderApplicationRel(commerceBOMFolderApplicationRelId);
+	}
+
+	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel> getCommerceBOMFolderApplicationRelsByCAMId(
+		long commerceApplicationModelId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .getCommerceBOMFolderApplicationRelsByCAMId(commerceApplicationModelId,
+			start, end);
+	}
+
+	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel> getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
+		long commerceBOMFolderId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(commerceBOMFolderId,
+			start, end);
+	}
+
+	public static int getCommerceBOMFolderApplicationRelsCountByCAMId(
+		long commerceApplicationModelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .getCommerceBOMFolderApplicationRelsCountByCAMId(commerceApplicationModelId);
+	}
+
+	public static int getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(
+		long commerceBOMFolderId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(commerceBOMFolderId);
+	}
 
 	/**
 	* Returns the OSGi service identifier.

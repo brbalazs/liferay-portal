@@ -16,9 +16,16 @@ package com.liferay.commerce.bom.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelServiceUtil;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * {@link com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelServiceUtil} service utility. The
+ * {@link CommerceBOMFolderApplicationRelServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -53,9 +60,100 @@ import aQute.bnd.annotation.ProviderType;
  * @author Luca Pellizzon
  * @see CommerceBOMFolderApplicationRelServiceHttp
  * @see com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRelSoap
- * @see com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelServiceUtil
+ * @see CommerceBOMFolderApplicationRelServiceUtil
  * @generated
  */
 @ProviderType
 public class CommerceBOMFolderApplicationRelServiceSoap {
+	public static com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRelSoap addCommerceBOMFolderApplicationRel(
+		long userId, long commerceBOMFolderId, long commerceApplicationModelId)
+		throws RemoteException {
+		try {
+			com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel returnValue =
+				CommerceBOMFolderApplicationRelServiceUtil.addCommerceBOMFolderApplicationRel(userId,
+					commerceBOMFolderId, commerceApplicationModelId);
+
+			return com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRelSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static void deleteCommerceBOMFolderApplicationRel(
+		long commerceBOMFolderApplicationRelId) throws RemoteException {
+		try {
+			CommerceBOMFolderApplicationRelServiceUtil.deleteCommerceBOMFolderApplicationRel(commerceBOMFolderApplicationRelId);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRelSoap[] getCommerceBOMFolderApplicationRelsByCAMId(
+		long commerceApplicationModelId, int start, int end)
+		throws RemoteException {
+		try {
+			java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel> returnValue =
+				CommerceBOMFolderApplicationRelServiceUtil.getCommerceBOMFolderApplicationRelsByCAMId(commerceApplicationModelId,
+					start, end);
+
+			return com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRelSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRelSoap[] getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
+		long commerceBOMFolderId, int start, int end) throws RemoteException {
+		try {
+			java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel> returnValue =
+				CommerceBOMFolderApplicationRelServiceUtil.getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(commerceBOMFolderId,
+					start, end);
+
+			return com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRelSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getCommerceBOMFolderApplicationRelsCountByCAMId(
+		long commerceApplicationModelId) throws RemoteException {
+		try {
+			int returnValue = CommerceBOMFolderApplicationRelServiceUtil.getCommerceBOMFolderApplicationRelsCountByCAMId(commerceApplicationModelId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(
+		long commerceBOMFolderId) throws RemoteException {
+		try {
+			int returnValue = CommerceBOMFolderApplicationRelServiceUtil.getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(commerceBOMFolderId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(CommerceBOMFolderApplicationRelServiceSoap.class);
 }

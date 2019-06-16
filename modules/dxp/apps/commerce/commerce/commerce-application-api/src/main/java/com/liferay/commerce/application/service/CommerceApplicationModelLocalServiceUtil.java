@@ -276,12 +276,11 @@ public class CommerceApplicationModelLocalServiceUtil {
 	}
 
 	public static com.liferay.commerce.application.model.CommerceApplicationModel updateCommerceApplicationModel(
-		long commerceApplicationModelId, long commerceApplicationBrandId,
-		String name, String year)
+		long commerceApplicationModelId, String name, String year)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .updateCommerceApplicationModel(commerceApplicationModelId,
-			commerceApplicationBrandId, name, year);
+			name, year);
 	}
 
 	public static CommerceApplicationModelLocalService getService() {

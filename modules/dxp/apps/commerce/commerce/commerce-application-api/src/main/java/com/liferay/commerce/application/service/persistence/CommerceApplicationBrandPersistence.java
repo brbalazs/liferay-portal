@@ -47,7 +47,7 @@ public interface CommerceApplicationBrandPersistence extends BasePersistence<Com
 	* @param companyId the company ID
 	* @return the matching commerce application brands
 	*/
-	public java.util.List<CommerceApplicationBrand> findByCompany(
+	public java.util.List<CommerceApplicationBrand> findByCompanyId(
 		long companyId);
 
 	/**
@@ -62,7 +62,7 @@ public interface CommerceApplicationBrandPersistence extends BasePersistence<Com
 	* @param end the upper bound of the range of commerce application brands (not inclusive)
 	* @return the range of matching commerce application brands
 	*/
-	public java.util.List<CommerceApplicationBrand> findByCompany(
+	public java.util.List<CommerceApplicationBrand> findByCompanyId(
 		long companyId, int start, int end);
 
 	/**
@@ -78,7 +78,7 @@ public interface CommerceApplicationBrandPersistence extends BasePersistence<Com
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching commerce application brands
 	*/
-	public java.util.List<CommerceApplicationBrand> findByCompany(
+	public java.util.List<CommerceApplicationBrand> findByCompanyId(
 		long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceApplicationBrand> orderByComparator);
 
@@ -96,7 +96,7 @@ public interface CommerceApplicationBrandPersistence extends BasePersistence<Com
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the ordered range of matching commerce application brands
 	*/
-	public java.util.List<CommerceApplicationBrand> findByCompany(
+	public java.util.List<CommerceApplicationBrand> findByCompanyId(
 		long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceApplicationBrand> orderByComparator,
 		boolean retrieveFromCache);
@@ -109,7 +109,7 @@ public interface CommerceApplicationBrandPersistence extends BasePersistence<Com
 	* @return the first matching commerce application brand
 	* @throws NoSuchApplicationBrandException if a matching commerce application brand could not be found
 	*/
-	public CommerceApplicationBrand findByCompany_First(long companyId,
+	public CommerceApplicationBrand findByCompanyId_First(long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceApplicationBrand> orderByComparator)
 		throws NoSuchApplicationBrandException;
 
@@ -120,7 +120,7 @@ public interface CommerceApplicationBrandPersistence extends BasePersistence<Com
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching commerce application brand, or <code>null</code> if a matching commerce application brand could not be found
 	*/
-	public CommerceApplicationBrand fetchByCompany_First(long companyId,
+	public CommerceApplicationBrand fetchByCompanyId_First(long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceApplicationBrand> orderByComparator);
 
 	/**
@@ -131,7 +131,7 @@ public interface CommerceApplicationBrandPersistence extends BasePersistence<Com
 	* @return the last matching commerce application brand
 	* @throws NoSuchApplicationBrandException if a matching commerce application brand could not be found
 	*/
-	public CommerceApplicationBrand findByCompany_Last(long companyId,
+	public CommerceApplicationBrand findByCompanyId_Last(long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceApplicationBrand> orderByComparator)
 		throws NoSuchApplicationBrandException;
 
@@ -142,7 +142,7 @@ public interface CommerceApplicationBrandPersistence extends BasePersistence<Com
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching commerce application brand, or <code>null</code> if a matching commerce application brand could not be found
 	*/
-	public CommerceApplicationBrand fetchByCompany_Last(long companyId,
+	public CommerceApplicationBrand fetchByCompanyId_Last(long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceApplicationBrand> orderByComparator);
 
 	/**
@@ -154,7 +154,7 @@ public interface CommerceApplicationBrandPersistence extends BasePersistence<Com
 	* @return the previous, current, and next commerce application brand
 	* @throws NoSuchApplicationBrandException if a commerce application brand with the primary key could not be found
 	*/
-	public CommerceApplicationBrand[] findByCompany_PrevAndNext(
+	public CommerceApplicationBrand[] findByCompanyId_PrevAndNext(
 		long commerceApplicationBrandId, long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceApplicationBrand> orderByComparator)
 		throws NoSuchApplicationBrandException;
@@ -165,7 +165,7 @@ public interface CommerceApplicationBrandPersistence extends BasePersistence<Com
 	* @param companyId the company ID
 	* @return the matching commerce application brands that the user has permission to view
 	*/
-	public java.util.List<CommerceApplicationBrand> filterFindByCompany(
+	public java.util.List<CommerceApplicationBrand> filterFindByCompanyId(
 		long companyId);
 
 	/**
@@ -180,7 +180,7 @@ public interface CommerceApplicationBrandPersistence extends BasePersistence<Com
 	* @param end the upper bound of the range of commerce application brands (not inclusive)
 	* @return the range of matching commerce application brands that the user has permission to view
 	*/
-	public java.util.List<CommerceApplicationBrand> filterFindByCompany(
+	public java.util.List<CommerceApplicationBrand> filterFindByCompanyId(
 		long companyId, int start, int end);
 
 	/**
@@ -196,7 +196,7 @@ public interface CommerceApplicationBrandPersistence extends BasePersistence<Com
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching commerce application brands that the user has permission to view
 	*/
-	public java.util.List<CommerceApplicationBrand> filterFindByCompany(
+	public java.util.List<CommerceApplicationBrand> filterFindByCompanyId(
 		long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceApplicationBrand> orderByComparator);
 
@@ -209,7 +209,7 @@ public interface CommerceApplicationBrandPersistence extends BasePersistence<Com
 	* @return the previous, current, and next commerce application brand
 	* @throws NoSuchApplicationBrandException if a commerce application brand with the primary key could not be found
 	*/
-	public CommerceApplicationBrand[] filterFindByCompany_PrevAndNext(
+	public CommerceApplicationBrand[] filterFindByCompanyId_PrevAndNext(
 		long commerceApplicationBrandId, long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceApplicationBrand> orderByComparator)
 		throws NoSuchApplicationBrandException;
@@ -219,7 +219,7 @@ public interface CommerceApplicationBrandPersistence extends BasePersistence<Com
 	*
 	* @param companyId the company ID
 	*/
-	public void removeByCompany(long companyId);
+	public void removeByCompanyId(long companyId);
 
 	/**
 	* Returns the number of commerce application brands where companyId = &#63;.
@@ -227,7 +227,7 @@ public interface CommerceApplicationBrandPersistence extends BasePersistence<Com
 	* @param companyId the company ID
 	* @return the number of matching commerce application brands
 	*/
-	public int countByCompany(long companyId);
+	public int countByCompanyId(long companyId);
 
 	/**
 	* Returns the number of commerce application brands that the user has permission to view where companyId = &#63;.
@@ -235,7 +235,7 @@ public interface CommerceApplicationBrandPersistence extends BasePersistence<Com
 	* @param companyId the company ID
 	* @return the number of matching commerce application brands that the user has permission to view
 	*/
-	public int filterCountByCompany(long companyId);
+	public int filterCountByCompanyId(long companyId);
 
 	/**
 	* Caches the commerce application brand in the entity cache if it is enabled.

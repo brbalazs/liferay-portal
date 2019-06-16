@@ -219,6 +219,21 @@ public interface CommerceBOMFolderModel extends AuditedModel,
 	 */
 	public void setLogoId(long logoId);
 
+	/**
+	 * Returns the tree path of this commerce bom folder.
+	 *
+	 * @return the tree path of this commerce bom folder
+	 */
+	@AutoEscape
+	public String getTreePath();
+
+	/**
+	 * Sets the tree path of this commerce bom folder.
+	 *
+	 * @param treePath the tree path of this commerce bom folder
+	 */
+	public void setTreePath(String treePath);
+
 	@Override
 	public boolean isNew();
 

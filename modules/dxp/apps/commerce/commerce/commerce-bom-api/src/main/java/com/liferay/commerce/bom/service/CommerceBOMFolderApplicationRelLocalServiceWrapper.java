@@ -92,6 +92,18 @@ public class CommerceBOMFolderApplicationRelLocalServiceWrapper
 		return _commerceBOMFolderApplicationRelLocalService.deleteCommerceBOMFolderApplicationRel(commerceBOMFolderApplicationRelId);
 	}
 
+	@Override
+	public void deleteCommerceBOMFolderApplicationRelsByCAMId(
+		long commerceApplicationModelId) {
+		_commerceBOMFolderApplicationRelLocalService.deleteCommerceBOMFolderApplicationRelsByCAMId(commerceApplicationModelId);
+	}
+
+	@Override
+	public void deleteCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
+		long commerceBOMFolderId) {
+		_commerceBOMFolderApplicationRelLocalService.deleteCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(commerceBOMFolderId);
+	}
+
 	/**
 	* @throws PortalException
 	*/
@@ -231,6 +243,20 @@ public class CommerceBOMFolderApplicationRelLocalServiceWrapper
 			end);
 	}
 
+	@Override
+	public java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel> getCommerceBOMFolderApplicationRelsByCAMId(
+		long commerceApplicationModelId, int start, int end) {
+		return _commerceBOMFolderApplicationRelLocalService.getCommerceBOMFolderApplicationRelsByCAMId(commerceApplicationModelId,
+			start, end);
+	}
+
+	@Override
+	public java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel> getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
+		long commerceBOMFolderId, int start, int end) {
+		return _commerceBOMFolderApplicationRelLocalService.getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(commerceBOMFolderId,
+			start, end);
+	}
+
 	/**
 	* Returns the number of commerce bom folder application rels.
 	*
@@ -239,6 +265,18 @@ public class CommerceBOMFolderApplicationRelLocalServiceWrapper
 	@Override
 	public int getCommerceBOMFolderApplicationRelsCount() {
 		return _commerceBOMFolderApplicationRelLocalService.getCommerceBOMFolderApplicationRelsCount();
+	}
+
+	@Override
+	public int getCommerceBOMFolderApplicationRelsCountByCAMId(
+		long commerceApplicationModelId) {
+		return _commerceBOMFolderApplicationRelLocalService.getCommerceBOMFolderApplicationRelsCountByCAMId(commerceApplicationModelId);
+	}
+
+	@Override
+	public int getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(
+		long commerceBOMFolderId) {
+		return _commerceBOMFolderApplicationRelLocalService.getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(commerceBOMFolderId);
 	}
 
 	@Override
@@ -273,15 +311,6 @@ public class CommerceBOMFolderApplicationRelLocalServiceWrapper
 	public com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel updateCommerceBOMFolderApplicationRel(
 		com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel commerceBOMFolderApplicationRel) {
 		return _commerceBOMFolderApplicationRelLocalService.updateCommerceBOMFolderApplicationRel(commerceBOMFolderApplicationRel);
-	}
-
-	@Override
-	public com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel updateCommerceBOMFolderApplicationRel(
-		long commerceBOMFolderApplicationRelId, long commerceBOMFolderId,
-		long commerceApplicationModelId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _commerceBOMFolderApplicationRelLocalService.updateCommerceBOMFolderApplicationRel(commerceBOMFolderApplicationRelId,
-			commerceBOMFolderId, commerceApplicationModelId);
 	}
 
 	@Override

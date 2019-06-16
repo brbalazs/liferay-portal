@@ -34,6 +34,51 @@ public class CommerceBOMFolderApplicationRelServiceWrapper
 		_commerceBOMFolderApplicationRelService = commerceBOMFolderApplicationRelService;
 	}
 
+	@Override
+	public com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel addCommerceBOMFolderApplicationRel(
+		long userId, long commerceBOMFolderId, long commerceApplicationModelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceBOMFolderApplicationRelService.addCommerceBOMFolderApplicationRel(userId,
+			commerceBOMFolderId, commerceApplicationModelId);
+	}
+
+	@Override
+	public void deleteCommerceBOMFolderApplicationRel(
+		long commerceBOMFolderApplicationRelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		_commerceBOMFolderApplicationRelService.deleteCommerceBOMFolderApplicationRel(commerceBOMFolderApplicationRelId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel> getCommerceBOMFolderApplicationRelsByCAMId(
+		long commerceApplicationModelId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceBOMFolderApplicationRelService.getCommerceBOMFolderApplicationRelsByCAMId(commerceApplicationModelId,
+			start, end);
+	}
+
+	@Override
+	public java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel> getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
+		long commerceBOMFolderId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceBOMFolderApplicationRelService.getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(commerceBOMFolderId,
+			start, end);
+	}
+
+	@Override
+	public int getCommerceBOMFolderApplicationRelsCountByCAMId(
+		long commerceApplicationModelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceBOMFolderApplicationRelService.getCommerceBOMFolderApplicationRelsCountByCAMId(commerceApplicationModelId);
+	}
+
+	@Override
+	public int getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(
+		long commerceBOMFolderId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceBOMFolderApplicationRelService.getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(commerceBOMFolderId);
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*

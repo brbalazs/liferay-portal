@@ -47,5 +47,6 @@ create table CommerceBOMFolder (
 	modifiedDate DATE null,
 	parentCommerceBOMFolderId LONG,
 	name VARCHAR(75) null,
-	logoId LONG
+	logoId LONG,
+	treePath VARCHAR(75) null
 );

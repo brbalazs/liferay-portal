@@ -94,6 +94,21 @@ public class CommerceApplicationBrandServiceSoap {
 		}
 	}
 
+	public static com.liferay.commerce.application.model.CommerceApplicationBrandSoap getCommerceApplicationBrand(
+		long commerceApplicationBrandId) throws RemoteException {
+		try {
+			com.liferay.commerce.application.model.CommerceApplicationBrand returnValue =
+				CommerceApplicationBrandServiceUtil.getCommerceApplicationBrand(commerceApplicationBrandId);
+
+			return com.liferay.commerce.application.model.CommerceApplicationBrandSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.commerce.application.model.CommerceApplicationBrandSoap[] getCommerceApplicationBrands(
 		long companyId, int start, int end) throws RemoteException {
 		try {

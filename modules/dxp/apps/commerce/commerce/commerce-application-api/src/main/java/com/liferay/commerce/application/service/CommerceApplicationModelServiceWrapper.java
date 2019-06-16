@@ -48,6 +48,38 @@ public class CommerceApplicationModelServiceWrapper
 		_commerceApplicationModelService.deleteCommerceApplicationModel(commerceApplicationModelId);
 	}
 
+	@Override
+	public com.liferay.commerce.application.model.CommerceApplicationModel getCommerceApplicationModel(
+		long commerceApplicationModelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceApplicationModelService.getCommerceApplicationModel(commerceApplicationModelId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.commerce.application.model.CommerceApplicationModel> getCommerceApplicationModels(
+		long commerceApplicationBrandId, int start, int end) {
+		return _commerceApplicationModelService.getCommerceApplicationModels(commerceApplicationBrandId,
+			start, end);
+	}
+
+	@Override
+	public java.util.List<com.liferay.commerce.application.model.CommerceApplicationModel> getCommerceApplicationModelsByCompanyId(
+		long companyId, int start, int end) {
+		return _commerceApplicationModelService.getCommerceApplicationModelsByCompanyId(companyId,
+			start, end);
+	}
+
+	@Override
+	public int getCommerceApplicationModelsCount(
+		long commerceApplicationBrandId) {
+		return _commerceApplicationModelService.getCommerceApplicationModelsCount(commerceApplicationBrandId);
+	}
+
+	@Override
+	public int getCommerceApplicationModelsCountByCompanyId(long companyId) {
+		return _commerceApplicationModelService.getCommerceApplicationModelsCountByCompanyId(companyId);
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*
@@ -60,11 +92,10 @@ public class CommerceApplicationModelServiceWrapper
 
 	@Override
 	public com.liferay.commerce.application.model.CommerceApplicationModel updateCommerceApplicationModel(
-		long commerceApplicationModelId, long commerceApplicationBrandId,
-		String name, String year)
+		long commerceApplicationModelId, String name, String year)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceApplicationModelService.updateCommerceApplicationModel(commerceApplicationModelId,
-			commerceApplicationBrandId, name, year);
+			name, year);
 	}
 
 	@Override

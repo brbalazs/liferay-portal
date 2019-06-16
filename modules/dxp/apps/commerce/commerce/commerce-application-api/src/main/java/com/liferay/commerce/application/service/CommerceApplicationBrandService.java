@@ -61,6 +61,10 @@ public interface CommerceApplicationBrandService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceApplicationBrand getCommerceApplicationBrand(
+		long commerceApplicationBrandId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceApplicationBrand> getCommerceApplicationBrands(
 		long companyId, int start, int end);
 

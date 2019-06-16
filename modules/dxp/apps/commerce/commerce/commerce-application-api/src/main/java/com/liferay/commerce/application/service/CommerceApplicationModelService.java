@@ -25,7 +25,10 @@ import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+
+import java.util.List;
 
 /**
  * Provides the remote service interface for CommerceApplicationModel. Methods of this
@@ -58,6 +61,25 @@ public interface CommerceApplicationModelService extends BaseService {
 	public void deleteCommerceApplicationModel(long commerceApplicationModelId)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceApplicationModel getCommerceApplicationModel(
+		long commerceApplicationModelId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceApplicationModel> getCommerceApplicationModels(
+		long commerceApplicationBrandId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceApplicationModel> getCommerceApplicationModelsByCompanyId(
+		long companyId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceApplicationModelsCount(
+		long commerceApplicationBrandId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceApplicationModelsCountByCompanyId(long companyId);
+
 	/**
 	* Returns the OSGi service identifier.
 	*
@@ -66,6 +88,6 @@ public interface CommerceApplicationModelService extends BaseService {
 	public String getOSGiServiceIdentifier();
 
 	public CommerceApplicationModel updateCommerceApplicationModel(
-		long commerceApplicationModelId, long commerceApplicationBrandId,
-		String name, String year) throws PortalException;
+		long commerceApplicationModelId, String name, String year)
+		throws PortalException;
 }

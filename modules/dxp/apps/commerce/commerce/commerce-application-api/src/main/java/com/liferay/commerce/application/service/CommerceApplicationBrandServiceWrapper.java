@@ -49,6 +49,13 @@ public class CommerceApplicationBrandServiceWrapper
 	}
 
 	@Override
+	public com.liferay.commerce.application.model.CommerceApplicationBrand getCommerceApplicationBrand(
+		long commerceApplicationBrandId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _commerceApplicationBrandService.getCommerceApplicationBrand(commerceApplicationBrandId);
+	}
+
+	@Override
 	public java.util.List<com.liferay.commerce.application.model.CommerceApplicationBrand> getCommerceApplicationBrands(
 		long companyId, int start, int end) {
 		return _commerceApplicationBrandService.getCommerceApplicationBrands(companyId,

@@ -42,6 +42,7 @@
 			<validator name="required" />
 		</field>
 		<field name="logoId" type="long" />
+		<field name="treePath" type="String" />
 	</model>
 	<model name="com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel">
 		<field name="commerceBOMFolderApplicationRelId" type="long" />

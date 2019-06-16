@@ -18,6 +18,7 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.annotation.ImplementationClassName;
 import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.model.TreeModel;
 import com.liferay.portal.kernel.util.Accessor;
 
 /**
@@ -31,7 +32,8 @@ import com.liferay.portal.kernel.util.Accessor;
  */
 @ImplementationClassName("com.liferay.commerce.bom.model.impl.CommerceBOMFolderImpl")
 @ProviderType
-public interface CommerceBOMFolder extends CommerceBOMFolderModel, PersistedModel {
+public interface CommerceBOMFolder extends CommerceBOMFolderModel, PersistedModel,
+	TreeModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *

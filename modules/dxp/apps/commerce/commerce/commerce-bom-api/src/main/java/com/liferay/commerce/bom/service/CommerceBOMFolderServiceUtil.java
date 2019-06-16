@@ -63,10 +63,19 @@ public class CommerceBOMFolderServiceUtil {
 	}
 
 	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolder> getCommerceBOMFolders(
+		long companyId, int start, int end) {
+		return getService().getCommerceBOMFolders(companyId, start, end);
+	}
+
+	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolder> getCommerceBOMFolders(
 		long companyId, long parentCommerceBOMFolderId, int start, int end) {
 		return getService()
 				   .getCommerceBOMFolders(companyId, parentCommerceBOMFolderId,
 			start, end);
+	}
+
+	public static int getCommerceBOMFoldersCount(long companyId) {
+		return getService().getCommerceBOMFoldersCount(companyId);
 	}
 
 	public static int getCommerceBOMFoldersCount(long companyId,

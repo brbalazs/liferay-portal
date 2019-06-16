@@ -55,6 +55,13 @@ public class CommerceApplicationBrandServiceUtil {
 		getService().deleteCommerceApplicationBrand(commerceApplicationBrandId);
 	}
 
+	public static com.liferay.commerce.application.model.CommerceApplicationBrand getCommerceApplicationBrand(
+		long commerceApplicationBrandId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .getCommerceApplicationBrand(commerceApplicationBrandId);
+	}
+
 	public static java.util.List<com.liferay.commerce.application.model.CommerceApplicationBrand> getCommerceApplicationBrands(
 		long companyId, int start, int end) {
 		return getService().getCommerceApplicationBrands(companyId, start, end);

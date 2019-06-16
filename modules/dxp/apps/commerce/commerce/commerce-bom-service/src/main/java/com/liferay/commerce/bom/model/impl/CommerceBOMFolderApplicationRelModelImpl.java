@@ -105,7 +105,12 @@ public class CommerceBOMFolderApplicationRelModelImpl extends BaseModelImpl<Comm
 	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.commerce.bom.service.util.ServiceProps.get(
 				"value.object.finder.cache.enabled.com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel"),
 			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = false;
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.commerce.bom.service.util.ServiceProps.get(
+				"value.object.column.bitmask.enabled.com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel"),
+			true);
+	public static final long COMMERCEAPPLICATIONMODELID_COLUMN_BITMASK = 1L;
+	public static final long COMMERCEBOMFOLDERID_COLUMN_BITMASK = 2L;
+	public static final long COMMERCEBOMFOLDERAPPLICATIONRELID_COLUMN_BITMASK = 4L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -366,7 +371,19 @@ public class CommerceBOMFolderApplicationRelModelImpl extends BaseModelImpl<Comm
 
 	@Override
 	public void setCommerceBOMFolderId(long commerceBOMFolderId) {
+		_columnBitmask |= COMMERCEBOMFOLDERID_COLUMN_BITMASK;
+
+		if (!_setOriginalCommerceBOMFolderId) {
+			_setOriginalCommerceBOMFolderId = true;
+
+			_originalCommerceBOMFolderId = _commerceBOMFolderId;
+		}
+
 		_commerceBOMFolderId = commerceBOMFolderId;
+	}
+
+	public long getOriginalCommerceBOMFolderId() {
+		return _originalCommerceBOMFolderId;
 	}
 
 	@JSON
@@ -377,7 +394,23 @@ public class CommerceBOMFolderApplicationRelModelImpl extends BaseModelImpl<Comm
 
 	@Override
 	public void setCommerceApplicationModelId(long commerceApplicationModelId) {
+		_columnBitmask |= COMMERCEAPPLICATIONMODELID_COLUMN_BITMASK;
+
+		if (!_setOriginalCommerceApplicationModelId) {
+			_setOriginalCommerceApplicationModelId = true;
+
+			_originalCommerceApplicationModelId = _commerceApplicationModelId;
+		}
+
 		_commerceApplicationModelId = commerceApplicationModelId;
+	}
+
+	public long getOriginalCommerceApplicationModelId() {
+		return _originalCommerceApplicationModelId;
+	}
+
+	public long getColumnBitmask() {
+		return _columnBitmask;
 	}
 
 	@Override
@@ -480,6 +513,16 @@ public class CommerceBOMFolderApplicationRelModelImpl extends BaseModelImpl<Comm
 			this;
 
 		commerceBOMFolderApplicationRelModelImpl._setModifiedDate = false;
+
+		commerceBOMFolderApplicationRelModelImpl._originalCommerceBOMFolderId = commerceBOMFolderApplicationRelModelImpl._commerceBOMFolderId;
+
+		commerceBOMFolderApplicationRelModelImpl._setOriginalCommerceBOMFolderId = false;
+
+		commerceBOMFolderApplicationRelModelImpl._originalCommerceApplicationModelId = commerceBOMFolderApplicationRelModelImpl._commerceApplicationModelId;
+
+		commerceBOMFolderApplicationRelModelImpl._setOriginalCommerceApplicationModelId = false;
+
+		commerceBOMFolderApplicationRelModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -610,6 +653,11 @@ public class CommerceBOMFolderApplicationRelModelImpl extends BaseModelImpl<Comm
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
 	private long _commerceBOMFolderId;
+	private long _originalCommerceBOMFolderId;
+	private boolean _setOriginalCommerceBOMFolderId;
 	private long _commerceApplicationModelId;
+	private long _originalCommerceApplicationModelId;
+	private boolean _setOriginalCommerceApplicationModelId;
+	private long _columnBitmask;
 	private CommerceBOMFolderApplicationRel _escapedModel;
 }

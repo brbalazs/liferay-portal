@@ -101,6 +101,18 @@ public class CommerceBOMFolderApplicationRelLocalServiceUtil {
 				   .deleteCommerceBOMFolderApplicationRel(commerceBOMFolderApplicationRelId);
 	}
 
+	public static void deleteCommerceBOMFolderApplicationRelsByCAMId(
+		long commerceApplicationModelId) {
+		getService()
+			.deleteCommerceBOMFolderApplicationRelsByCAMId(commerceApplicationModelId);
+	}
+
+	public static void deleteCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
+		long commerceBOMFolderId) {
+		getService()
+			.deleteCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(commerceBOMFolderId);
+	}
+
 	/**
 	* @throws PortalException
 	*/
@@ -228,6 +240,20 @@ public class CommerceBOMFolderApplicationRelLocalServiceUtil {
 		return getService().getCommerceBOMFolderApplicationRels(start, end);
 	}
 
+	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel> getCommerceBOMFolderApplicationRelsByCAMId(
+		long commerceApplicationModelId, int start, int end) {
+		return getService()
+				   .getCommerceBOMFolderApplicationRelsByCAMId(commerceApplicationModelId,
+			start, end);
+	}
+
+	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel> getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
+		long commerceBOMFolderId, int start, int end) {
+		return getService()
+				   .getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(commerceBOMFolderId,
+			start, end);
+	}
+
 	/**
 	* Returns the number of commerce bom folder application rels.
 	*
@@ -235,6 +261,18 @@ public class CommerceBOMFolderApplicationRelLocalServiceUtil {
 	*/
 	public static int getCommerceBOMFolderApplicationRelsCount() {
 		return getService().getCommerceBOMFolderApplicationRelsCount();
+	}
+
+	public static int getCommerceBOMFolderApplicationRelsCountByCAMId(
+		long commerceApplicationModelId) {
+		return getService()
+				   .getCommerceBOMFolderApplicationRelsCountByCAMId(commerceApplicationModelId);
+	}
+
+	public static int getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(
+		long commerceBOMFolderId) {
+		return getService()
+				   .getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(commerceBOMFolderId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
@@ -266,15 +304,6 @@ public class CommerceBOMFolderApplicationRelLocalServiceUtil {
 		com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel commerceBOMFolderApplicationRel) {
 		return getService()
 				   .updateCommerceBOMFolderApplicationRel(commerceBOMFolderApplicationRel);
-	}
-
-	public static com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel updateCommerceBOMFolderApplicationRel(
-		long commerceBOMFolderApplicationRelId, long commerceBOMFolderId,
-		long commerceApplicationModelId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService()
-				   .updateCommerceBOMFolderApplicationRel(commerceBOMFolderApplicationRelId,
-			commerceBOMFolderId, commerceApplicationModelId);
 	}
 
 	public static CommerceBOMFolderApplicationRelLocalService getService() {

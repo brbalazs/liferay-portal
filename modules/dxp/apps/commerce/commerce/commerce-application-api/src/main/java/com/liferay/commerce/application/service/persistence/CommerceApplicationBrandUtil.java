@@ -121,8 +121,8 @@ public class CommerceApplicationBrandUtil {
 	* @param companyId the company ID
 	* @return the matching commerce application brands
 	*/
-	public static List<CommerceApplicationBrand> findByCompany(long companyId) {
-		return getPersistence().findByCompany(companyId);
+	public static List<CommerceApplicationBrand> findByCompanyId(long companyId) {
+		return getPersistence().findByCompanyId(companyId);
 	}
 
 	/**
@@ -137,9 +137,9 @@ public class CommerceApplicationBrandUtil {
 	* @param end the upper bound of the range of commerce application brands (not inclusive)
 	* @return the range of matching commerce application brands
 	*/
-	public static List<CommerceApplicationBrand> findByCompany(long companyId,
-		int start, int end) {
-		return getPersistence().findByCompany(companyId, start, end);
+	public static List<CommerceApplicationBrand> findByCompanyId(
+		long companyId, int start, int end) {
+		return getPersistence().findByCompanyId(companyId, start, end);
 	}
 
 	/**
@@ -155,11 +155,11 @@ public class CommerceApplicationBrandUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching commerce application brands
 	*/
-	public static List<CommerceApplicationBrand> findByCompany(long companyId,
-		int start, int end,
+	public static List<CommerceApplicationBrand> findByCompanyId(
+		long companyId, int start, int end,
 		OrderByComparator<CommerceApplicationBrand> orderByComparator) {
 		return getPersistence()
-				   .findByCompany(companyId, start, end, orderByComparator);
+				   .findByCompanyId(companyId, start, end, orderByComparator);
 	}
 
 	/**
@@ -176,12 +176,12 @@ public class CommerceApplicationBrandUtil {
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the ordered range of matching commerce application brands
 	*/
-	public static List<CommerceApplicationBrand> findByCompany(long companyId,
-		int start, int end,
+	public static List<CommerceApplicationBrand> findByCompanyId(
+		long companyId, int start, int end,
 		OrderByComparator<CommerceApplicationBrand> orderByComparator,
 		boolean retrieveFromCache) {
 		return getPersistence()
-				   .findByCompany(companyId, start, end, orderByComparator,
+				   .findByCompanyId(companyId, start, end, orderByComparator,
 			retrieveFromCache);
 	}
 
@@ -193,10 +193,12 @@ public class CommerceApplicationBrandUtil {
 	* @return the first matching commerce application brand
 	* @throws NoSuchApplicationBrandException if a matching commerce application brand could not be found
 	*/
-	public static CommerceApplicationBrand findByCompany_First(long companyId,
+	public static CommerceApplicationBrand findByCompanyId_First(
+		long companyId,
 		OrderByComparator<CommerceApplicationBrand> orderByComparator)
 		throws com.liferay.commerce.application.exception.NoSuchApplicationBrandException {
-		return getPersistence().findByCompany_First(companyId, orderByComparator);
+		return getPersistence()
+				   .findByCompanyId_First(companyId, orderByComparator);
 	}
 
 	/**
@@ -206,11 +208,11 @@ public class CommerceApplicationBrandUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching commerce application brand, or <code>null</code> if a matching commerce application brand could not be found
 	*/
-	public static CommerceApplicationBrand fetchByCompany_First(
+	public static CommerceApplicationBrand fetchByCompanyId_First(
 		long companyId,
 		OrderByComparator<CommerceApplicationBrand> orderByComparator) {
 		return getPersistence()
-				   .fetchByCompany_First(companyId, orderByComparator);
+				   .fetchByCompanyId_First(companyId, orderByComparator);
 	}
 
 	/**
@@ -221,10 +223,12 @@ public class CommerceApplicationBrandUtil {
 	* @return the last matching commerce application brand
 	* @throws NoSuchApplicationBrandException if a matching commerce application brand could not be found
 	*/
-	public static CommerceApplicationBrand findByCompany_Last(long companyId,
+	public static CommerceApplicationBrand findByCompanyId_Last(
+		long companyId,
 		OrderByComparator<CommerceApplicationBrand> orderByComparator)
 		throws com.liferay.commerce.application.exception.NoSuchApplicationBrandException {
-		return getPersistence().findByCompany_Last(companyId, orderByComparator);
+		return getPersistence()
+				   .findByCompanyId_Last(companyId, orderByComparator);
 	}
 
 	/**
@@ -234,9 +238,11 @@ public class CommerceApplicationBrandUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching commerce application brand, or <code>null</code> if a matching commerce application brand could not be found
 	*/
-	public static CommerceApplicationBrand fetchByCompany_Last(long companyId,
+	public static CommerceApplicationBrand fetchByCompanyId_Last(
+		long companyId,
 		OrderByComparator<CommerceApplicationBrand> orderByComparator) {
-		return getPersistence().fetchByCompany_Last(companyId, orderByComparator);
+		return getPersistence()
+				   .fetchByCompanyId_Last(companyId, orderByComparator);
 	}
 
 	/**
@@ -248,12 +254,12 @@ public class CommerceApplicationBrandUtil {
 	* @return the previous, current, and next commerce application brand
 	* @throws NoSuchApplicationBrandException if a commerce application brand with the primary key could not be found
 	*/
-	public static CommerceApplicationBrand[] findByCompany_PrevAndNext(
+	public static CommerceApplicationBrand[] findByCompanyId_PrevAndNext(
 		long commerceApplicationBrandId, long companyId,
 		OrderByComparator<CommerceApplicationBrand> orderByComparator)
 		throws com.liferay.commerce.application.exception.NoSuchApplicationBrandException {
 		return getPersistence()
-				   .findByCompany_PrevAndNext(commerceApplicationBrandId,
+				   .findByCompanyId_PrevAndNext(commerceApplicationBrandId,
 			companyId, orderByComparator);
 	}
 
@@ -263,9 +269,9 @@ public class CommerceApplicationBrandUtil {
 	* @param companyId the company ID
 	* @return the matching commerce application brands that the user has permission to view
 	*/
-	public static List<CommerceApplicationBrand> filterFindByCompany(
+	public static List<CommerceApplicationBrand> filterFindByCompanyId(
 		long companyId) {
-		return getPersistence().filterFindByCompany(companyId);
+		return getPersistence().filterFindByCompanyId(companyId);
 	}
 
 	/**
@@ -280,9 +286,9 @@ public class CommerceApplicationBrandUtil {
 	* @param end the upper bound of the range of commerce application brands (not inclusive)
 	* @return the range of matching commerce application brands that the user has permission to view
 	*/
-	public static List<CommerceApplicationBrand> filterFindByCompany(
+	public static List<CommerceApplicationBrand> filterFindByCompanyId(
 		long companyId, int start, int end) {
-		return getPersistence().filterFindByCompany(companyId, start, end);
+		return getPersistence().filterFindByCompanyId(companyId, start, end);
 	}
 
 	/**
@@ -298,11 +304,12 @@ public class CommerceApplicationBrandUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching commerce application brands that the user has permission to view
 	*/
-	public static List<CommerceApplicationBrand> filterFindByCompany(
+	public static List<CommerceApplicationBrand> filterFindByCompanyId(
 		long companyId, int start, int end,
 		OrderByComparator<CommerceApplicationBrand> orderByComparator) {
 		return getPersistence()
-				   .filterFindByCompany(companyId, start, end, orderByComparator);
+				   .filterFindByCompanyId(companyId, start, end,
+			orderByComparator);
 	}
 
 	/**
@@ -314,12 +321,12 @@ public class CommerceApplicationBrandUtil {
 	* @return the previous, current, and next commerce application brand
 	* @throws NoSuchApplicationBrandException if a commerce application brand with the primary key could not be found
 	*/
-	public static CommerceApplicationBrand[] filterFindByCompany_PrevAndNext(
+	public static CommerceApplicationBrand[] filterFindByCompanyId_PrevAndNext(
 		long commerceApplicationBrandId, long companyId,
 		OrderByComparator<CommerceApplicationBrand> orderByComparator)
 		throws com.liferay.commerce.application.exception.NoSuchApplicationBrandException {
 		return getPersistence()
-				   .filterFindByCompany_PrevAndNext(commerceApplicationBrandId,
+				   .filterFindByCompanyId_PrevAndNext(commerceApplicationBrandId,
 			companyId, orderByComparator);
 	}
 
@@ -328,8 +335,8 @@ public class CommerceApplicationBrandUtil {
 	*
 	* @param companyId the company ID
 	*/
-	public static void removeByCompany(long companyId) {
-		getPersistence().removeByCompany(companyId);
+	public static void removeByCompanyId(long companyId) {
+		getPersistence().removeByCompanyId(companyId);
 	}
 
 	/**
@@ -338,8 +345,8 @@ public class CommerceApplicationBrandUtil {
 	* @param companyId the company ID
 	* @return the number of matching commerce application brands
 	*/
-	public static int countByCompany(long companyId) {
-		return getPersistence().countByCompany(companyId);
+	public static int countByCompanyId(long companyId) {
+		return getPersistence().countByCompanyId(companyId);
 	}
 
 	/**
@@ -348,8 +355,8 @@ public class CommerceApplicationBrandUtil {
 	* @param companyId the company ID
 	* @return the number of matching commerce application brands that the user has permission to view
 	*/
-	public static int filterCountByCompany(long companyId) {
-		return getPersistence().filterCountByCompany(companyId);
+	public static int filterCountByCompanyId(long companyId) {
+		return getPersistence().filterCountByCompanyId(companyId);
 	}
 
 	/**

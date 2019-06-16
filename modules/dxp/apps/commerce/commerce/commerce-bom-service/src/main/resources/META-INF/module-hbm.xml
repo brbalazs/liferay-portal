@@ -49,6 +49,7 @@
 		<property name="parentCommerceBOMFolderId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="logoId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="treePath" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.liferay.commerce.bom.model.impl.CommerceBOMFolderApplicationRelImpl" table="CBOMFolderApplicationRel">
 		<id column="CBOMFolderApplicationRelId" name="commerceBOMFolderApplicationRelId" type="long">

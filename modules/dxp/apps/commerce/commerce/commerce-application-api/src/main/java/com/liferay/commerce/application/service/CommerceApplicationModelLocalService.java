@@ -253,6 +253,6 @@ public interface CommerceApplicationModelLocalService extends BaseLocalService,
 		CommerceApplicationModel commerceApplicationModel);
 
 	public CommerceApplicationModel updateCommerceApplicationModel(
-		long commerceApplicationModelId, long commerceApplicationBrandId,
-		String name, String year) throws PortalException;
+		long commerceApplicationModelId, String name, String year)
+		throws PortalException;
 }

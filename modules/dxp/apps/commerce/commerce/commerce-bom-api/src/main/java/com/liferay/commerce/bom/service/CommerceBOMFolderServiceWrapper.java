@@ -57,9 +57,21 @@ public class CommerceBOMFolderServiceWrapper implements CommerceBOMFolderService
 
 	@Override
 	public java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolder> getCommerceBOMFolders(
+		long companyId, int start, int end) {
+		return _commerceBOMFolderService.getCommerceBOMFolders(companyId,
+			start, end);
+	}
+
+	@Override
+	public java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolder> getCommerceBOMFolders(
 		long companyId, long parentCommerceBOMFolderId, int start, int end) {
 		return _commerceBOMFolderService.getCommerceBOMFolders(companyId,
 			parentCommerceBOMFolderId, start, end);
+	}
+
+	@Override
+	public int getCommerceBOMFoldersCount(long companyId) {
+		return _commerceBOMFolderService.getCommerceBOMFoldersCount(companyId);
 	}
 
 	@Override

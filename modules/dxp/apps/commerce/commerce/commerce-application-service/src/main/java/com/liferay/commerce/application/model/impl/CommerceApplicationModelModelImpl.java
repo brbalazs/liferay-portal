@@ -111,7 +111,8 @@ public class CommerceApplicationModelModelImpl extends BaseModelImpl<CommerceApp
 				"value.object.column.bitmask.enabled.com.liferay.commerce.application.model.CommerceApplicationModel"),
 			true);
 	public static final long COMMERCEAPPLICATIONBRANDID_COLUMN_BITMASK = 1L;
-	public static final long NAME_COLUMN_BITMASK = 2L;
+	public static final long COMPANYID_COLUMN_BITMASK = 2L;
+	public static final long NAME_COLUMN_BITMASK = 4L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -297,7 +298,19 @@ public class CommerceApplicationModelModelImpl extends BaseModelImpl<CommerceApp
 
 	@Override
 	public void setCompanyId(long companyId) {
+		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCompanyId) {
+			_setOriginalCompanyId = true;
+
+			_originalCompanyId = _companyId;
+		}
+
 		_companyId = companyId;
+	}
+
+	public long getOriginalCompanyId() {
+		return _originalCompanyId;
 	}
 
 	@JSON
@@ -528,6 +541,10 @@ public class CommerceApplicationModelModelImpl extends BaseModelImpl<CommerceApp
 	public void resetOriginalValues() {
 		CommerceApplicationModelModelImpl commerceApplicationModelModelImpl = this;
 
+		commerceApplicationModelModelImpl._originalCompanyId = commerceApplicationModelModelImpl._companyId;
+
+		commerceApplicationModelModelImpl._setOriginalCompanyId = false;
+
 		commerceApplicationModelModelImpl._setModifiedDate = false;
 
 		commerceApplicationModelModelImpl._originalCommerceApplicationBrandId = commerceApplicationModelModelImpl._commerceApplicationBrandId;
@@ -678,6 +695,8 @@ public class CommerceApplicationModelModelImpl extends BaseModelImpl<CommerceApp
 		};
 	private long _commerceApplicationModelId;
 	private long _companyId;
+	private long _originalCompanyId;
+	private boolean _setOriginalCompanyId;
 	private long _userId;
 	private String _userName;
 	private Date _createDate;

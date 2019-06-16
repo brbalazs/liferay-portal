@@ -43,6 +43,283 @@ public interface CommerceBOMFolderApplicationRelPersistence
 	 */
 
 	/**
+	* Returns all the commerce bom folder application rels where commerceBOMFolderId = &#63;.
+	*
+	* @param commerceBOMFolderId the commerce bom folder ID
+	* @return the matching commerce bom folder application rels
+	*/
+	public java.util.List<CommerceBOMFolderApplicationRel> findByCommerceBOMFolderId(
+		long commerceBOMFolderId);
+
+	/**
+	* Returns a range of all the commerce bom folder application rels where commerceBOMFolderId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderApplicationRelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param commerceBOMFolderId the commerce bom folder ID
+	* @param start the lower bound of the range of commerce bom folder application rels
+	* @param end the upper bound of the range of commerce bom folder application rels (not inclusive)
+	* @return the range of matching commerce bom folder application rels
+	*/
+	public java.util.List<CommerceBOMFolderApplicationRel> findByCommerceBOMFolderId(
+		long commerceBOMFolderId, int start, int end);
+
+	/**
+	* Returns an ordered range of all the commerce bom folder application rels where commerceBOMFolderId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderApplicationRelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param commerceBOMFolderId the commerce bom folder ID
+	* @param start the lower bound of the range of commerce bom folder application rels
+	* @param end the upper bound of the range of commerce bom folder application rels (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching commerce bom folder application rels
+	*/
+	public java.util.List<CommerceBOMFolderApplicationRel> findByCommerceBOMFolderId(
+		long commerceBOMFolderId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolderApplicationRel> orderByComparator);
+
+	/**
+	* Returns an ordered range of all the commerce bom folder application rels where commerceBOMFolderId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderApplicationRelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param commerceBOMFolderId the commerce bom folder ID
+	* @param start the lower bound of the range of commerce bom folder application rels
+	* @param end the upper bound of the range of commerce bom folder application rels (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching commerce bom folder application rels
+	*/
+	public java.util.List<CommerceBOMFolderApplicationRel> findByCommerceBOMFolderId(
+		long commerceBOMFolderId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolderApplicationRel> orderByComparator,
+		boolean retrieveFromCache);
+
+	/**
+	* Returns the first commerce bom folder application rel in the ordered set where commerceBOMFolderId = &#63;.
+	*
+	* @param commerceBOMFolderId the commerce bom folder ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching commerce bom folder application rel
+	* @throws NoSuchBOMFolderApplicationRelException if a matching commerce bom folder application rel could not be found
+	*/
+	public CommerceBOMFolderApplicationRel findByCommerceBOMFolderId_First(
+		long commerceBOMFolderId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolderApplicationRel> orderByComparator)
+		throws NoSuchBOMFolderApplicationRelException;
+
+	/**
+	* Returns the first commerce bom folder application rel in the ordered set where commerceBOMFolderId = &#63;.
+	*
+	* @param commerceBOMFolderId the commerce bom folder ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching commerce bom folder application rel, or <code>null</code> if a matching commerce bom folder application rel could not be found
+	*/
+	public CommerceBOMFolderApplicationRel fetchByCommerceBOMFolderId_First(
+		long commerceBOMFolderId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolderApplicationRel> orderByComparator);
+
+	/**
+	* Returns the last commerce bom folder application rel in the ordered set where commerceBOMFolderId = &#63;.
+	*
+	* @param commerceBOMFolderId the commerce bom folder ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching commerce bom folder application rel
+	* @throws NoSuchBOMFolderApplicationRelException if a matching commerce bom folder application rel could not be found
+	*/
+	public CommerceBOMFolderApplicationRel findByCommerceBOMFolderId_Last(
+		long commerceBOMFolderId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolderApplicationRel> orderByComparator)
+		throws NoSuchBOMFolderApplicationRelException;
+
+	/**
+	* Returns the last commerce bom folder application rel in the ordered set where commerceBOMFolderId = &#63;.
+	*
+	* @param commerceBOMFolderId the commerce bom folder ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching commerce bom folder application rel, or <code>null</code> if a matching commerce bom folder application rel could not be found
+	*/
+	public CommerceBOMFolderApplicationRel fetchByCommerceBOMFolderId_Last(
+		long commerceBOMFolderId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolderApplicationRel> orderByComparator);
+
+	/**
+	* Returns the commerce bom folder application rels before and after the current commerce bom folder application rel in the ordered set where commerceBOMFolderId = &#63;.
+	*
+	* @param commerceBOMFolderApplicationRelId the primary key of the current commerce bom folder application rel
+	* @param commerceBOMFolderId the commerce bom folder ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next commerce bom folder application rel
+	* @throws NoSuchBOMFolderApplicationRelException if a commerce bom folder application rel with the primary key could not be found
+	*/
+	public CommerceBOMFolderApplicationRel[] findByCommerceBOMFolderId_PrevAndNext(
+		long commerceBOMFolderApplicationRelId, long commerceBOMFolderId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolderApplicationRel> orderByComparator)
+		throws NoSuchBOMFolderApplicationRelException;
+
+	/**
+	* Removes all the commerce bom folder application rels where commerceBOMFolderId = &#63; from the database.
+	*
+	* @param commerceBOMFolderId the commerce bom folder ID
+	*/
+	public void removeByCommerceBOMFolderId(long commerceBOMFolderId);
+
+	/**
+	* Returns the number of commerce bom folder application rels where commerceBOMFolderId = &#63;.
+	*
+	* @param commerceBOMFolderId the commerce bom folder ID
+	* @return the number of matching commerce bom folder application rels
+	*/
+	public int countByCommerceBOMFolderId(long commerceBOMFolderId);
+
+	/**
+	* Returns all the commerce bom folder application rels where commerceApplicationModelId = &#63;.
+	*
+	* @param commerceApplicationModelId the commerce application model ID
+	* @return the matching commerce bom folder application rels
+	*/
+	public java.util.List<CommerceBOMFolderApplicationRel> findByCommerceApplicationModelId(
+		long commerceApplicationModelId);
+
+	/**
+	* Returns a range of all the commerce bom folder application rels where commerceApplicationModelId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderApplicationRelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param commerceApplicationModelId the commerce application model ID
+	* @param start the lower bound of the range of commerce bom folder application rels
+	* @param end the upper bound of the range of commerce bom folder application rels (not inclusive)
+	* @return the range of matching commerce bom folder application rels
+	*/
+	public java.util.List<CommerceBOMFolderApplicationRel> findByCommerceApplicationModelId(
+		long commerceApplicationModelId, int start, int end);
+
+	/**
+	* Returns an ordered range of all the commerce bom folder application rels where commerceApplicationModelId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderApplicationRelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param commerceApplicationModelId the commerce application model ID
+	* @param start the lower bound of the range of commerce bom folder application rels
+	* @param end the upper bound of the range of commerce bom folder application rels (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching commerce bom folder application rels
+	*/
+	public java.util.List<CommerceBOMFolderApplicationRel> findByCommerceApplicationModelId(
+		long commerceApplicationModelId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolderApplicationRel> orderByComparator);
+
+	/**
+	* Returns an ordered range of all the commerce bom folder application rels where commerceApplicationModelId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderApplicationRelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param commerceApplicationModelId the commerce application model ID
+	* @param start the lower bound of the range of commerce bom folder application rels
+	* @param end the upper bound of the range of commerce bom folder application rels (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching commerce bom folder application rels
+	*/
+	public java.util.List<CommerceBOMFolderApplicationRel> findByCommerceApplicationModelId(
+		long commerceApplicationModelId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolderApplicationRel> orderByComparator,
+		boolean retrieveFromCache);
+
+	/**
+	* Returns the first commerce bom folder application rel in the ordered set where commerceApplicationModelId = &#63;.
+	*
+	* @param commerceApplicationModelId the commerce application model ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching commerce bom folder application rel
+	* @throws NoSuchBOMFolderApplicationRelException if a matching commerce bom folder application rel could not be found
+	*/
+	public CommerceBOMFolderApplicationRel findByCommerceApplicationModelId_First(
+		long commerceApplicationModelId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolderApplicationRel> orderByComparator)
+		throws NoSuchBOMFolderApplicationRelException;
+
+	/**
+	* Returns the first commerce bom folder application rel in the ordered set where commerceApplicationModelId = &#63;.
+	*
+	* @param commerceApplicationModelId the commerce application model ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching commerce bom folder application rel, or <code>null</code> if a matching commerce bom folder application rel could not be found
+	*/
+	public CommerceBOMFolderApplicationRel fetchByCommerceApplicationModelId_First(
+		long commerceApplicationModelId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolderApplicationRel> orderByComparator);
+
+	/**
+	* Returns the last commerce bom folder application rel in the ordered set where commerceApplicationModelId = &#63;.
+	*
+	* @param commerceApplicationModelId the commerce application model ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching commerce bom folder application rel
+	* @throws NoSuchBOMFolderApplicationRelException if a matching commerce bom folder application rel could not be found
+	*/
+	public CommerceBOMFolderApplicationRel findByCommerceApplicationModelId_Last(
+		long commerceApplicationModelId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolderApplicationRel> orderByComparator)
+		throws NoSuchBOMFolderApplicationRelException;
+
+	/**
+	* Returns the last commerce bom folder application rel in the ordered set where commerceApplicationModelId = &#63;.
+	*
+	* @param commerceApplicationModelId the commerce application model ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching commerce bom folder application rel, or <code>null</code> if a matching commerce bom folder application rel could not be found
+	*/
+	public CommerceBOMFolderApplicationRel fetchByCommerceApplicationModelId_Last(
+		long commerceApplicationModelId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolderApplicationRel> orderByComparator);
+
+	/**
+	* Returns the commerce bom folder application rels before and after the current commerce bom folder application rel in the ordered set where commerceApplicationModelId = &#63;.
+	*
+	* @param commerceBOMFolderApplicationRelId the primary key of the current commerce bom folder application rel
+	* @param commerceApplicationModelId the commerce application model ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next commerce bom folder application rel
+	* @throws NoSuchBOMFolderApplicationRelException if a commerce bom folder application rel with the primary key could not be found
+	*/
+	public CommerceBOMFolderApplicationRel[] findByCommerceApplicationModelId_PrevAndNext(
+		long commerceBOMFolderApplicationRelId,
+		long commerceApplicationModelId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolderApplicationRel> orderByComparator)
+		throws NoSuchBOMFolderApplicationRelException;
+
+	/**
+	* Removes all the commerce bom folder application rels where commerceApplicationModelId = &#63; from the database.
+	*
+	* @param commerceApplicationModelId the commerce application model ID
+	*/
+	public void removeByCommerceApplicationModelId(
+		long commerceApplicationModelId);
+
+	/**
+	* Returns the number of commerce bom folder application rels where commerceApplicationModelId = &#63;.
+	*
+	* @param commerceApplicationModelId the commerce application model ID
+	* @return the number of matching commerce bom folder application rels
+	*/
+	public int countByCommerceApplicationModelId(
+		long commerceApplicationModelId);
+
+	/**
 	* Caches the commerce bom folder application rel in the entity cache if it is enabled.
 	*
 	* @param commerceBOMFolderApplicationRel the commerce bom folder application rel

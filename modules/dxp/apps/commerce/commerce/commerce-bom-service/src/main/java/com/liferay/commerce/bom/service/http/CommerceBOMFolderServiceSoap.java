@@ -108,6 +108,22 @@ public class CommerceBOMFolderServiceSoap {
 	}
 
 	public static com.liferay.commerce.bom.model.CommerceBOMFolderSoap[] getCommerceBOMFolders(
+		long companyId, int start, int end) throws RemoteException {
+		try {
+			java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolder> returnValue =
+				CommerceBOMFolderServiceUtil.getCommerceBOMFolders(companyId,
+					start, end);
+
+			return com.liferay.commerce.bom.model.CommerceBOMFolderSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.bom.model.CommerceBOMFolderSoap[] getCommerceBOMFolders(
 		long companyId, long parentCommerceBOMFolderId, int start, int end)
 		throws RemoteException {
 		try {
@@ -116,6 +132,20 @@ public class CommerceBOMFolderServiceSoap {
 					parentCommerceBOMFolderId, start, end);
 
 			return com.liferay.commerce.bom.model.CommerceBOMFolderSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getCommerceBOMFoldersCount(long companyId)
+		throws RemoteException {
+		try {
+			int returnValue = CommerceBOMFolderServiceUtil.getCommerceBOMFoldersCount(companyId);
+
+			return returnValue;
 		}
 		catch (Exception e) {
 			_log.error(e, e);

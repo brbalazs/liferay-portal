@@ -106,6 +106,12 @@ public interface CommerceBOMFolderApplicationRelLocalService
 	public CommerceBOMFolderApplicationRel deleteCommerceBOMFolderApplicationRel(
 		long commerceBOMFolderApplicationRelId) throws PortalException;
 
+	public void deleteCommerceBOMFolderApplicationRelsByCAMId(
+		long commerceApplicationModelId);
+
+	public void deleteCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
+		long commerceBOMFolderId);
+
 	/**
 	* @throws PortalException
 	*/
@@ -211,6 +217,14 @@ public interface CommerceBOMFolderApplicationRelLocalService
 	public List<CommerceBOMFolderApplicationRel> getCommerceBOMFolderApplicationRels(
 		int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceBOMFolderApplicationRel> getCommerceBOMFolderApplicationRelsByCAMId(
+		long commerceApplicationModelId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceBOMFolderApplicationRel> getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
+		long commerceBOMFolderId, int start, int end);
+
 	/**
 	* Returns the number of commerce bom folder application rels.
 	*
@@ -218,6 +232,14 @@ public interface CommerceBOMFolderApplicationRelLocalService
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceBOMFolderApplicationRelsCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceBOMFolderApplicationRelsCountByCAMId(
+		long commerceApplicationModelId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(
+		long commerceBOMFolderId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
@@ -243,8 +265,4 @@ public interface CommerceBOMFolderApplicationRelLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public CommerceBOMFolderApplicationRel updateCommerceBOMFolderApplicationRel(
 		CommerceBOMFolderApplicationRel commerceBOMFolderApplicationRel);
-
-	public CommerceBOMFolderApplicationRel updateCommerceBOMFolderApplicationRel(
-		long commerceBOMFolderApplicationRelId, long commerceBOMFolderId,
-		long commerceApplicationModelId) throws PortalException;
 }

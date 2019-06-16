@@ -47,7 +47,7 @@ public interface CommerceBOMFolderPersistence extends BasePersistence<CommerceBO
 	* @param companyId the company ID
 	* @return the matching commerce bom folders
 	*/
-	public java.util.List<CommerceBOMFolder> findByCompany(long companyId);
+	public java.util.List<CommerceBOMFolder> findByCompanyId(long companyId);
 
 	/**
 	* Returns a range of all the commerce bom folders where companyId = &#63;.
@@ -61,7 +61,7 @@ public interface CommerceBOMFolderPersistence extends BasePersistence<CommerceBO
 	* @param end the upper bound of the range of commerce bom folders (not inclusive)
 	* @return the range of matching commerce bom folders
 	*/
-	public java.util.List<CommerceBOMFolder> findByCompany(long companyId,
+	public java.util.List<CommerceBOMFolder> findByCompanyId(long companyId,
 		int start, int end);
 
 	/**
@@ -77,7 +77,7 @@ public interface CommerceBOMFolderPersistence extends BasePersistence<CommerceBO
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching commerce bom folders
 	*/
-	public java.util.List<CommerceBOMFolder> findByCompany(long companyId,
+	public java.util.List<CommerceBOMFolder> findByCompanyId(long companyId,
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolder> orderByComparator);
 
@@ -95,7 +95,7 @@ public interface CommerceBOMFolderPersistence extends BasePersistence<CommerceBO
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the ordered range of matching commerce bom folders
 	*/
-	public java.util.List<CommerceBOMFolder> findByCompany(long companyId,
+	public java.util.List<CommerceBOMFolder> findByCompanyId(long companyId,
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolder> orderByComparator,
 		boolean retrieveFromCache);
@@ -108,7 +108,7 @@ public interface CommerceBOMFolderPersistence extends BasePersistence<CommerceBO
 	* @return the first matching commerce bom folder
 	* @throws NoSuchBOMFolderException if a matching commerce bom folder could not be found
 	*/
-	public CommerceBOMFolder findByCompany_First(long companyId,
+	public CommerceBOMFolder findByCompanyId_First(long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolder> orderByComparator)
 		throws NoSuchBOMFolderException;
 
@@ -119,7 +119,7 @@ public interface CommerceBOMFolderPersistence extends BasePersistence<CommerceBO
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching commerce bom folder, or <code>null</code> if a matching commerce bom folder could not be found
 	*/
-	public CommerceBOMFolder fetchByCompany_First(long companyId,
+	public CommerceBOMFolder fetchByCompanyId_First(long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolder> orderByComparator);
 
 	/**
@@ -130,7 +130,7 @@ public interface CommerceBOMFolderPersistence extends BasePersistence<CommerceBO
 	* @return the last matching commerce bom folder
 	* @throws NoSuchBOMFolderException if a matching commerce bom folder could not be found
 	*/
-	public CommerceBOMFolder findByCompany_Last(long companyId,
+	public CommerceBOMFolder findByCompanyId_Last(long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolder> orderByComparator)
 		throws NoSuchBOMFolderException;
 
@@ -141,7 +141,7 @@ public interface CommerceBOMFolderPersistence extends BasePersistence<CommerceBO
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching commerce bom folder, or <code>null</code> if a matching commerce bom folder could not be found
 	*/
-	public CommerceBOMFolder fetchByCompany_Last(long companyId,
+	public CommerceBOMFolder fetchByCompanyId_Last(long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolder> orderByComparator);
 
 	/**
@@ -153,7 +153,7 @@ public interface CommerceBOMFolderPersistence extends BasePersistence<CommerceBO
 	* @return the previous, current, and next commerce bom folder
 	* @throws NoSuchBOMFolderException if a commerce bom folder with the primary key could not be found
 	*/
-	public CommerceBOMFolder[] findByCompany_PrevAndNext(
+	public CommerceBOMFolder[] findByCompanyId_PrevAndNext(
 		long commerceBOMFolderId, long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolder> orderByComparator)
 		throws NoSuchBOMFolderException;
@@ -164,7 +164,8 @@ public interface CommerceBOMFolderPersistence extends BasePersistence<CommerceBO
 	* @param companyId the company ID
 	* @return the matching commerce bom folders that the user has permission to view
 	*/
-	public java.util.List<CommerceBOMFolder> filterFindByCompany(long companyId);
+	public java.util.List<CommerceBOMFolder> filterFindByCompanyId(
+		long companyId);
 
 	/**
 	* Returns a range of all the commerce bom folders that the user has permission to view where companyId = &#63;.
@@ -178,7 +179,7 @@ public interface CommerceBOMFolderPersistence extends BasePersistence<CommerceBO
 	* @param end the upper bound of the range of commerce bom folders (not inclusive)
 	* @return the range of matching commerce bom folders that the user has permission to view
 	*/
-	public java.util.List<CommerceBOMFolder> filterFindByCompany(
+	public java.util.List<CommerceBOMFolder> filterFindByCompanyId(
 		long companyId, int start, int end);
 
 	/**
@@ -194,7 +195,7 @@ public interface CommerceBOMFolderPersistence extends BasePersistence<CommerceBO
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching commerce bom folders that the user has permission to view
 	*/
-	public java.util.List<CommerceBOMFolder> filterFindByCompany(
+	public java.util.List<CommerceBOMFolder> filterFindByCompanyId(
 		long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolder> orderByComparator);
 
@@ -207,7 +208,7 @@ public interface CommerceBOMFolderPersistence extends BasePersistence<CommerceBO
 	* @return the previous, current, and next commerce bom folder
 	* @throws NoSuchBOMFolderException if a commerce bom folder with the primary key could not be found
 	*/
-	public CommerceBOMFolder[] filterFindByCompany_PrevAndNext(
+	public CommerceBOMFolder[] filterFindByCompanyId_PrevAndNext(
 		long commerceBOMFolderId, long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMFolder> orderByComparator)
 		throws NoSuchBOMFolderException;
@@ -217,7 +218,7 @@ public interface CommerceBOMFolderPersistence extends BasePersistence<CommerceBO
 	*
 	* @param companyId the company ID
 	*/
-	public void removeByCompany(long companyId);
+	public void removeByCompanyId(long companyId);
 
 	/**
 	* Returns the number of commerce bom folders where companyId = &#63;.
@@ -225,7 +226,7 @@ public interface CommerceBOMFolderPersistence extends BasePersistence<CommerceBO
 	* @param companyId the company ID
 	* @return the number of matching commerce bom folders
 	*/
-	public int countByCompany(long companyId);
+	public int countByCompanyId(long companyId);
 
 	/**
 	* Returns the number of commerce bom folders that the user has permission to view where companyId = &#63;.
@@ -233,7 +234,7 @@ public interface CommerceBOMFolderPersistence extends BasePersistence<CommerceBO
 	* @param companyId the company ID
 	* @return the number of matching commerce bom folders that the user has permission to view
 	*/
-	public int filterCountByCompany(long companyId);
+	public int filterCountByCompanyId(long companyId);
 
 	/**
 	* Returns all the commerce bom folders where companyId = &#63; and parentCommerceBOMFolderId = &#63;.

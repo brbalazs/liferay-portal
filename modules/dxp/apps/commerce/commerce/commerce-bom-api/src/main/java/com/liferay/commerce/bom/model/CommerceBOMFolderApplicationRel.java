@@ -56,4 +56,10 @@ public interface CommerceBOMFolderApplicationRel
 				return CommerceBOMFolderApplicationRel.class;
 			}
 		};
+
+	public com.liferay.commerce.application.model.CommerceApplicationModel getCommerceApplicationModel()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	public CommerceBOMFolder getCommerceBOMFolder()
+		throws com.liferay.portal.kernel.exception.PortalException;
 }

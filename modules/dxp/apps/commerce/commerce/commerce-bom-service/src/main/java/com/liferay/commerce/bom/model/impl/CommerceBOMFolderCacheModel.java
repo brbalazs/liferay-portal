@@ -65,7 +65,7 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{commerceBOMFolderId=");
 		sb.append(commerceBOMFolderId);
@@ -85,6 +85,8 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 		sb.append(name);
 		sb.append(", logoId=");
 		sb.append(logoId);
+		sb.append(", treePath=");
+		sb.append(treePath);
 		sb.append("}");
 
 		return sb.toString();
@@ -130,6 +132,13 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 
 		commerceBOMFolderImpl.setLogoId(logoId);
 
+		if (treePath == null) {
+			commerceBOMFolderImpl.setTreePath("");
+		}
+		else {
+			commerceBOMFolderImpl.setTreePath(treePath);
+		}
+
 		commerceBOMFolderImpl.resetOriginalValues();
 
 		return commerceBOMFolderImpl;
@@ -150,6 +159,7 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 		name = objectInput.readUTF();
 
 		logoId = objectInput.readLong();
+		treePath = objectInput.readUTF();
 	}
 
 	@Override
@@ -181,6 +191,13 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 		}
 
 		objectOutput.writeLong(logoId);
+
+		if (treePath == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(treePath);
+		}
 	}
 
 	public long commerceBOMFolderId;
@@ -192,4 +209,5 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 	public long parentCommerceBOMFolderId;
 	public String name;
 	public long logoId;
+	public String treePath;
 }
