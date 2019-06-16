@@ -21,6 +21,6 @@ public class CommerceApplicationPortletKeys {
 
 	public static final String COMMERCE_APPLICATION_ADMIN =
 		"com_liferay_commerce_application_admin_web_internal_portlet_" +
-			"CommerceBOMAdminPortlet";
+			"CommerceApplicationAdminPortlet";
 
 }
