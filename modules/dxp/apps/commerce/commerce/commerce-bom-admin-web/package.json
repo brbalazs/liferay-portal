@@ -72,7 +72,6 @@
 	"scripts": {
 		"build": "liferay-npm-scripts build",
 		"csf": "csf {src,test}/**/*.es.js src/**/*.scss",
-		"format": "npm run csf -- -i",
 		"start": "webpack-dev-server --config webpack.config.dev.js",
 		"test": "env TZ=utc liferay-npm-scripts test -e",
 		"test:watch": "env TZ=utc liferay-npm-scripts test --watch",
