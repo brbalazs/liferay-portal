@@ -14,25 +14,24 @@
 
 package com.liferay.commerce.organization.web.internal.organization.model;
 
-import java.util.List;
-
 /**
  * @author Alessio Antonio Rendina
  */
 public class Organization {
 
 	public Organization(
-		long organizationId, long parentOrganizationId,
-		List<Organization> suborganizations, AccountList accountList,
+		long organizationId, long parentOrganizationId, String name,
+		OrganizationList suborganizations, AccountList accountList,
 		UserList userList) {
 
 		_organizationId = organizationId;
 		_parentOrganizationId = parentOrganizationId;
+		_name = name;
 		_suborganizations = suborganizations;
 		_accountList = accountList;
 		_userList = userList;
 
-		if ((_suborganizations != null) && (_suborganizations.size() > 0)) {
+		if ((_suborganizations != null) && (_suborganizations.getTotal() > 0)) {
 			_lastLevel = false;
 		}
 		else {
@@ -48,6 +47,10 @@ public class Organization {
 		return _lastLevel;
 	}
 
+	public String getName() {
+		return _name;
+	}
+
 	public long getOrganizationId() {
 		return _organizationId;
 	}
@@ -56,7 +59,7 @@ public class Organization {
 		return _parentOrganizationId;
 	}
 
-	public List<Organization> getSuborganizations() {
+	public OrganizationList getSuborganizations() {
 		return _suborganizations;
 	}
 
@@ -66,9 +69,10 @@ public class Organization {
 
 	private final AccountList _accountList;
 	private final boolean _lastLevel;
+	private final String _name;
 	private final long _organizationId;
 	private final long _parentOrganizationId;
-	private final List<Organization> _suborganizations;
+	private final OrganizationList _suborganizations;
 	private final UserList _userList;
 
 }
