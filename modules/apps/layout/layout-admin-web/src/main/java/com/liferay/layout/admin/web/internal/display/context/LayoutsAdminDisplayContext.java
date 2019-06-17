@@ -27,6 +27,7 @@ import com.liferay.layout.page.template.model.LayoutPageTemplateCollection;
 import com.liferay.layout.page.template.service.LayoutPageTemplateCollectionLocalServiceUtil;
 import com.liferay.layout.page.template.service.LayoutPageTemplateEntryServiceUtil;
 import com.liferay.layout.page.template.util.comparator.LayoutPageTemplateCollectionNameComparator;
+import com.liferay.layout.util.GroupControlPanelLayoutUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -336,12 +337,17 @@ public class LayoutsAdminDisplayContext {
 		return deleteLayoutURL.toString();
 	}
 
-	public String getEditLayoutURL(Layout layout) {
+	public String getEditLayoutURL(Layout layout) throws PortalException {
 		if (!Objects.equals(layout.getType(), "content")) {
 			return StringPool.BLANK;
 		}
 
-		PortletURL editLayoutURL = _liferayPortletResponse.createRenderURL();
+		long groupControlPanelPlid =
+			GroupControlPanelLayoutUtil.getGroupControlPanelPlid(
+				layout.getGroup());
+
+		PortletURL editLayoutURL = _liferayPortletResponse.createRenderURL(
+			groupControlPanelPlid);
 
 		editLayoutURL.setParameter("mvcPath", "/edit_content_layout.jsp");
 		editLayoutURL.setParameter("redirect", _themeDisplay.getURLCurrent());

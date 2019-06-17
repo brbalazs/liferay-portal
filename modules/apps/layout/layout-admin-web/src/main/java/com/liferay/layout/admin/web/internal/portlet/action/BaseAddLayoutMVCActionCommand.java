@@ -14,6 +14,8 @@
 
 package com.liferay.layout.admin.web.internal.portlet.action;
 
+import com.liferay.layout.util.GroupControlPanelLayoutUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -34,12 +36,18 @@ public abstract class BaseAddLayoutMVCActionCommand
 	extends BaseMVCActionCommand {
 
 	protected String getContentRedirectURL(
-		ActionResponse actionResponse, Layout layout) {
+			ActionResponse actionResponse, Layout layout)
+		throws PortalException {
 
 		LiferayPortletResponse liferayPortletResponse =
 			PortalUtil.getLiferayPortletResponse(actionResponse);
 
-		PortletURL editLayoutURL = liferayPortletResponse.createRenderURL();
+		long groupControlPanelPlid =
+			GroupControlPanelLayoutUtil.getGroupControlPanelPlid(
+				layout.getGroup());
+
+		PortletURL editLayoutURL = liferayPortletResponse.createRenderURL(
+			groupControlPanelPlid);
 
 		editLayoutURL.setParameter("mvcPath", "/edit_content_layout.jsp");
 
