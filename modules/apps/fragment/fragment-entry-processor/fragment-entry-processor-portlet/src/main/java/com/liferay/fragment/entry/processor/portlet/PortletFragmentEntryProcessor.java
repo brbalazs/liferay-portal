@@ -20,6 +20,7 @@ import com.liferay.fragment.model.FragmentEntryLink;
 import com.liferay.fragment.processor.FragmentEntryProcessor;
 import com.liferay.fragment.processor.PortletRegistry;
 import com.liferay.fragment.service.FragmentEntryLinkLocalService;
+import com.liferay.layout.util.GroupControlPanelLayoutUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -389,11 +390,13 @@ public class PortletFragmentEntryProcessor implements FragmentEntryProcessor {
 					PortletKeys.PREFS_OWNER_TYPE_LAYOUT, portletId);
 
 		if (ListUtil.isNotEmpty(portletPreferencesList)) {
+			long groupControlPanelPlid =
+				GroupControlPanelLayoutUtil.getGroupControlPanelPlid(group);
+
 			jxPortletPreferences =
 				PortletPreferencesFactoryUtil.getLayoutPortletSetup(
 					group.getCompanyId(), PortletKeys.PREFS_OWNER_ID_DEFAULT,
-					PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
-					_portal.getControlPanelPlid(group.getCompanyId()),
+					PortletKeys.PREFS_OWNER_TYPE_LAYOUT, groupControlPanelPlid,
 					portletId, defaultPreferences);
 
 			_updateLayoutPortletSetup(
