@@ -122,8 +122,6 @@ public class UserRecommenderCPDataSourceImpl extends BaseRecommendCPDataSource {
 
 		searchContext.setCompanyId(companyId);
 
-		searchContext.setGroupIds(new long[] {groupId});
-
 		searchContext.setEntryClassNames(
 			new String[] {CPDefinition.class.getName()});
 

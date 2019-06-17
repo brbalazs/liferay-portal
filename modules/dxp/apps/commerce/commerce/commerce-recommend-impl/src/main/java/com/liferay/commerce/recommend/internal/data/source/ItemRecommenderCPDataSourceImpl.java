@@ -107,8 +107,6 @@ public class ItemRecommenderCPDataSourceImpl extends BaseRecommendCPDataSource {
 
 		searchContext.setCompanyId(companyId);
 
-		searchContext.setGroupIds(new long[] {groupId});
-
 		searchContext.setEntryClassNames(
 			new String[] {CPDefinition.class.getName()});
 
@@ -154,7 +152,7 @@ public class ItemRecommenderCPDataSourceImpl extends BaseRecommendCPDataSource {
 		ItemRecommenderCPDataSourceImpl.class);
 
 	@Reference(
-		target = "(component.name=com.liferay.commerce.recommend.internal.ItemCommerceRecommendHelper)"
+		target = "(component.name=com.liferay.commerce.recommend.internal.ItemCommerceRecommend)"
 	)
 	private CommerceRecommend _commerceRecommendHelper;
 

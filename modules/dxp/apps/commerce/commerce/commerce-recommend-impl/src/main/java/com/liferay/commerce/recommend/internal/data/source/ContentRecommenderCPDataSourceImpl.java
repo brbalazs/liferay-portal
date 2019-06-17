@@ -108,8 +108,6 @@ public class ContentRecommenderCPDataSourceImpl
 
 		searchContext.setCompanyId(companyId);
 
-		searchContext.setGroupIds(new long[] {groupId});
-
 		searchContext.setEntryClassNames(
 			new String[] {CPDefinition.class.getName()});
 
@@ -155,7 +153,7 @@ public class ContentRecommenderCPDataSourceImpl
 		ContentRecommenderCPDataSourceImpl.class);
 
 	@Reference(
-		target = "(component.name=com.liferay.commerce.recommend.internal.ContentCommerceRecommendHelper)"
+		target = "(component.name=com.liferay.commerce.recommend.internal.ContentCommerceRecommend)"
 	)
 	private CommerceRecommend _commerceRecommendHelper;
 
