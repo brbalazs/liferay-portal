@@ -14,7 +14,6 @@
 
 package com.liferay.portal.servlet;
 
-import com.liferay.portal.kernel.util.ServerDetector;
 import com.liferay.portal.resiliency.spi.agent.SPIAgentRequest;
 
 import javax.servlet.http.HttpServletRequest;
@@ -79,10 +78,6 @@ public class SharedSessionServletRequest extends HttpServletRequestWrapper {
 
 	protected HttpSession getSharedSessionWrapper(
 		HttpSession portalSession, HttpSession portletSession) {
-
-		if (ServerDetector.isJetty()) {
-			return new JettySharedSessionWrapper(portalSession, portletSession);
-		}
 
 		return new SharedSessionWrapper(portalSession, portletSession);
 	}
