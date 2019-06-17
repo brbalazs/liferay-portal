@@ -45,30 +45,11 @@ public class CommerceOrganizationResourceUtil {
 			long companyId, long parentOrganizationId, Pagination pagination)
 		throws Exception {
 
-		List<Organization> organizationList = new ArrayList<>();
-
-		List<com.liferay.portal.kernel.model.Organization> organizations =
-			_organizationService.getOrganizations(
-				companyId, parentOrganizationId);
-
-		for (com.liferay.portal.kernel.model.Organization organization :
-				organizations) {
-
-			organizationList.add(
-				new Organization(
-					organization.getOrganizationId(),
-					organization.getParentOrganizationId(),
-					organization.getName(),
-					getOrganizationList(
-						organization.getCompanyId(),
-						organization.getParentOrganizationId(), pagination),
-					getAccountList(
-						organization.getOrganizationId(), pagination),
-					getUserList(organization.getOrganizationId(), pagination)));
-		}
-
 		return new OrganizationList(
-			organizationList,
+			_toOrganizationList(
+				_organizationService.getOrganizations(
+					companyId, parentOrganizationId),
+				pagination),
 			_organizationService.getOrganizationsCount(
 				companyId, parentOrganizationId));
 	}
@@ -125,6 +106,35 @@ public class CommerceOrganizationResourceUtil {
 			organizationId, WorkflowConstants.STATUS_APPROVED);
 
 		return new UserList(users, total);
+	}
+
+	private List<Organization> _toOrganizationList(
+			List<com.liferay.portal.kernel.model.Organization> organizations,
+			Pagination pagination)
+		throws Exception {
+
+		List<Organization> organizationList = new ArrayList<>();
+
+		for (com.liferay.portal.kernel.model.Organization organization :
+				organizations) {
+
+			organizationList.add(
+				new Organization(
+					organization.getOrganizationId(),
+					organization.getParentOrganizationId(),
+					organization.getName(),
+					new OrganizationList(
+						_toOrganizationList(
+							organization.getSuborganizations(), pagination),
+						_organizationService.getOrganizationsCount(
+							organization.getCompanyId(),
+							organization.getParentOrganizationId())),
+					getAccountList(
+						organization.getOrganizationId(), pagination),
+					getUserList(organization.getOrganizationId(), pagination)));
+		}
+
+		return organizationList;
 	}
 
 	@Reference

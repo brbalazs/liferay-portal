@@ -21,17 +21,17 @@ public class Organization {
 
 	public Organization(
 		long organizationId, long parentOrganizationId, String name,
-		OrganizationList suborganizations, AccountList accountList,
+		OrganizationList organizations, AccountList accountList,
 		UserList userList) {
 
 		_organizationId = organizationId;
 		_parentOrganizationId = parentOrganizationId;
 		_name = name;
-		_suborganizations = suborganizations;
+		_organizations = organizations;
 		_accountList = accountList;
 		_userList = userList;
 
-		if ((_suborganizations != null) && (_suborganizations.getTotal() > 0)) {
+		if ((_organizations != null) && (_organizations.getTotal() > 0)) {
 			_lastLevel = false;
 		}
 		else {
@@ -59,8 +59,8 @@ public class Organization {
 		return _parentOrganizationId;
 	}
 
-	public OrganizationList getSuborganizations() {
-		return _suborganizations;
+	public OrganizationList getOrganizations() {
+		return _organizations;
 	}
 
 	public UserList getUserList() {
@@ -72,7 +72,7 @@ public class Organization {
 	private final String _name;
 	private final long _organizationId;
 	private final long _parentOrganizationId;
-	private final OrganizationList _suborganizations;
+	private final OrganizationList _organizations;
 	private final UserList _userList;
 
 }
