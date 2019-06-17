@@ -26,9 +26,8 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.OrganizationConstants;
 import com.liferay.portal.kernel.service.OrganizationService;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -56,9 +55,7 @@ public class CommerceOrganizationResource {
 	@Path("/organization/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteOrganization(
-		@PathParam("id") long organizationId,
-		@Context HttpServletRequest httpServletRequest,
-		@Context Pagination pagination) {
+		@PathParam("id") long organizationId, @Context Pagination pagination) {
 
 		OrganizationList organizationList = null;
 
@@ -102,11 +99,7 @@ public class CommerceOrganizationResource {
 		OrganizationList organizationList = null;
 
 		try {
-			ThemeDisplay themeDisplay =
-				(ThemeDisplay)httpServletRequest.getAttribute(
-					WebKeys.THEME_DISPLAY);
-
-			long companyId = themeDisplay.getCompanyId();
+			long companyId = _portal.getCompanyId(httpServletRequest);
 
 			if (parentOrganizationId >
 					OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID) {
@@ -169,5 +162,8 @@ public class CommerceOrganizationResource {
 
 	@Reference
 	private OrganizationService _organizationService;
+
+	@Reference
+	private Portal _portal;
 
 }
