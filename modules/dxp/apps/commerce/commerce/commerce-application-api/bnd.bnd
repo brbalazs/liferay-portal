@@ -1,4 +1,4 @@
-Bundle-Name: Liferay Commerce Application Api
+Bundle-Name: Liferay Commerce Application API
 Bundle-SymbolicName: com.liferay.commerce.application.api
 Bundle-Version: 1.0.0
 Export-Package:\
@@ -8,5 +8,3 @@ Export-Package:\
 	com.liferay.commerce.application.permission,\
 	com.liferay.commerce.application.service,\
 	com.liferay.commerce.application.service.persistence
--check: EXPORTS
--includeresource: META-INF/service.xml=../commerce-application-service/service.xml
