@@ -19,11 +19,11 @@ package com.liferay.commerce.bom.constants;
  */
 public class CommerceBOMPortletKeys {
 
+	public static final String COMMERCE_BOM =
+		"com_liferay_commerce_bom__web_internal_portlet_CommerceBOMPortlet";
+
 	public static final String COMMERCE_BOM_ADMIN =
 		"com_liferay_commerce_bom_admin_web_internal_portlet_" +
 			"CommerceBOMAdminPortlet";
-
-	public static final String COMMERCE_BOM =
-		"com_liferay_commerce_bom__web_internal_portlet_CommerceBOMPortlet";
 
 }

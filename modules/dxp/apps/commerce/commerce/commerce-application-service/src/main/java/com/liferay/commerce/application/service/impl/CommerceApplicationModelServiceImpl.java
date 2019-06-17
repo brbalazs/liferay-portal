@@ -72,15 +72,6 @@ public class CommerceApplicationModelServiceImpl
 	}
 
 	@Override
-	public List<CommerceApplicationModel>
-		getCommerceApplicationModelsByCompanyId(
-			long companyId, int start, int end) {
-
-		return commerceApplicationModelPersistence.filterFindByCompanyId(
-			companyId, start, end);
-	}
-
-	@Override
 	public List<CommerceApplicationModel> getCommerceApplicationModels(
 		long commerceApplicationBrandId, int start, int end) {
 
@@ -90,9 +81,12 @@ public class CommerceApplicationModelServiceImpl
 	}
 
 	@Override
-	public int getCommerceApplicationModelsCountByCompanyId(long companyId) {
-		return commerceApplicationModelPersistence.filterCountByCompanyId(
-			companyId);
+	public List<CommerceApplicationModel>
+		getCommerceApplicationModelsByCompanyId(
+			long companyId, int start, int end) {
+
+		return commerceApplicationModelPersistence.filterFindByCompanyId(
+			companyId, start, end);
 	}
 
 	@Override
@@ -101,6 +95,12 @@ public class CommerceApplicationModelServiceImpl
 
 		return commerceApplicationModelPersistence.
 			filterCountByCommerceApplicationBrandId(commerceApplicationBrandId);
+	}
+
+	@Override
+	public int getCommerceApplicationModelsCountByCompanyId(long companyId) {
+		return commerceApplicationModelPersistence.filterCountByCompanyId(
+			companyId);
 	}
 
 	@Override

@@ -28,7 +28,7 @@ String carPartsFinderRootElementId = renderResponse.getNamespace() + "-car-parts
 
 <aui:script require="commerce-bom-admin-web@1.0.0/js/index.es as CarPartsAdmin">
 	CarPartsAdmin.default(
-        'carPartsAdmin',
+		'carPartsAdmin',
 		'<%= carPartsFinderRootElementId %>',
 		{
 			areaId: 'asd',

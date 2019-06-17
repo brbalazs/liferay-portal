@@ -1,4 +1,6 @@
-<%@ page import="com.liferay.commerce.bom.admin.web.internal.dao.search.CommerceBOMAdminResultRowSplitter" %><%--
+<%@ page import="com.liferay.commerce.bom.admin.web.internal.dao.search.CommerceBOMAdminResultRowSplitter" %>
+
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *

@@ -525,8 +525,8 @@ public class CommerceBOMAdminDisplayContext {
 
 		attributes.put(Field.NAME, keywords);
 		attributes.put("commerceBOMFolderId", getCommerceBOMFolderId());
-		attributes.put("parentCommerceBOMFolderId", getCommerceBOMFolderId());
 		attributes.put("params", params);
+		attributes.put("parentCommerceBOMFolderId", getCommerceBOMFolderId());
 
 		searchContext.setAttributes(attributes);
 

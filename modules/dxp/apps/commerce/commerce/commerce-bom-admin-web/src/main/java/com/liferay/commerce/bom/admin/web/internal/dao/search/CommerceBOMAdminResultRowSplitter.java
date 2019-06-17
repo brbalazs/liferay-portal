@@ -29,7 +29,8 @@ public class CommerceBOMAdminResultRowSplitter implements ResultRowSplitter {
 
 	@Override
 	public List<ResultRowSplitterEntry> split(List<ResultRow> resultRows) {
-		List<ResultRowSplitterEntry> resultRowSplitterEntries = new ArrayList<>();
+		List<ResultRowSplitterEntry> resultRowSplitterEntries =
+			new ArrayList<>();
 
 		List<ResultRow> commerceBOMDefinitionResultRows = new ArrayList<>();
 		List<ResultRow> commerceBOMFolderResultRows = new ArrayList<>();
@@ -39,7 +40,8 @@ public class CommerceBOMAdminResultRowSplitter implements ResultRowSplitter {
 
 			if (object instanceof CommerceBOMFolder) {
 				commerceBOMFolderResultRows.add(resultRow);
-			} else {
+			}
+			else {
 				commerceBOMDefinitionResultRows.add(resultRow);
 			}
 		}
@@ -47,7 +49,7 @@ public class CommerceBOMAdminResultRowSplitter implements ResultRowSplitter {
 		if (!commerceBOMFolderResultRows.isEmpty()) {
 			resultRowSplitterEntries.add(
 				new ResultRowSplitterEntry(
-					"folders",commerceBOMFolderResultRows));
+					"folders", commerceBOMFolderResultRows));
 		}
 
 		if (!commerceBOMDefinitionResultRows.isEmpty()) {
@@ -58,4 +60,5 @@ public class CommerceBOMAdminResultRowSplitter implements ResultRowSplitter {
 
 		return resultRowSplitterEntries;
 	}
+
 }

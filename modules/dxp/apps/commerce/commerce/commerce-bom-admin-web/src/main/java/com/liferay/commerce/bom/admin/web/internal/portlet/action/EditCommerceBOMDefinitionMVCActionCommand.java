@@ -128,6 +128,33 @@ public class EditCommerceBOMDefinitionMVCActionCommand
 		hideDefaultSuccessMessage(actionRequest);
 	}
 
+	protected String getSaveAndContinueRedirect(
+			ActionRequest actionRequest,
+			CommerceBOMDefinition commerceBOMDefinition)
+		throws PortalException {
+
+		PortletURL portletURL = PortletProviderUtil.getPortletURL(
+			actionRequest, CommerceBOMFolder.class.getName(),
+			PortletProvider.Action.MANAGE);
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "editCommerceBOMDefinition");
+
+		portletURL.setParameter(
+			"commerceBOMFolderId",
+			String.valueOf(commerceBOMDefinition.getCommerceBOMFolderId()));
+
+		portletURL.setParameter(
+			"commerceBOMDefinitionId",
+			String.valueOf(commerceBOMDefinition.getCommerceBOMDefinitionId()));
+
+		String backURL = ParamUtil.getString(actionRequest, "backURL");
+
+		portletURL.setParameter("backURL", backURL);
+
+		return portletURL.toString();
+	}
+
 	protected CommerceBOMDefinition updateCommerceBOMDefinition(
 			ActionRequest actionRequest)
 		throws Exception {
@@ -223,32 +250,6 @@ public class EditCommerceBOMDefinitionMVCActionCommand
 		}
 
 		return commerceBOMDefinition;
-	}
-
-	protected String getSaveAndContinueRedirect(
-			ActionRequest actionRequest, CommerceBOMDefinition commerceBOMDefinition)
-		throws PortalException {
-
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			actionRequest, CommerceBOMFolder.class.getName(),
-			PortletProvider.Action.MANAGE);
-
-		portletURL.setParameter(
-			"mvcRenderCommandName", "editCommerceBOMDefinition");
-
-		portletURL.setParameter(
-			"commerceBOMFolderId",
-			String.valueOf(commerceBOMDefinition.getCommerceBOMFolderId()));
-
-		portletURL.setParameter(
-			"commerceBOMDefinitionId",
-			String.valueOf(commerceBOMDefinition.getCommerceBOMDefinitionId()));
-
-		String backURL = ParamUtil.getString(actionRequest, "backURL");
-
-		portletURL.setParameter("backURL", backURL);
-
-		return portletURL.toString();
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
