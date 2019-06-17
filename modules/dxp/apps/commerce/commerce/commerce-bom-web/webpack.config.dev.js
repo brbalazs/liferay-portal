@@ -1,9 +1,9 @@
-const {defineServerResponses} = require('./src/main/resources/META-INF/resources/dev/fakeServerUtilities');
+const {defineServerResponses} = require('./dev/fakeServerUtilities');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-const outputPath = path.resolve(__dirname, './src/main/resources/META-INF/resources/dev/build');
+const outputPath = path.resolve(__dirname, './dev/public');
 
 module.exports = {
 	entry: path.join(__dirname, './src/main/resources/META-INF/resources/js/index.dev.es.js'),
@@ -35,7 +35,7 @@ module.exports = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			template: path.resolve(__dirname, './src/main/resources/META-INF/resources/dev/build/index.html'),
+			template: path.resolve(__dirname, './dev/public/index.html'),
 			inject: false
 		})
 	],
@@ -45,7 +45,7 @@ module.exports = {
 	devServer: {
 		compress: false,
 		publicPath: '/',
-		contentBase: './src/main/resources/META-INF/resources/dev/build',
+		contentBase: './dev/public',
 		filename: path.join(outputPath, '/bundle.js'),
 		open: true,
 		port: 9000,

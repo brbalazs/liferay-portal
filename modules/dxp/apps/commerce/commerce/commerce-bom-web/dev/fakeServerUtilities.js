@@ -109,7 +109,7 @@ function getFakeArea() {
 			{
 				id: 'IS01',
 				sku: 'SKU01',
-				name: 'Vite',
+				name: 'Product 1',
 				thumbnailUrl: '/product-thumbnail.png',
 				url: '/productUrl',
 				price: '$ 12.99',
@@ -117,7 +117,7 @@ function getFakeArea() {
 			{
 				id: 'IS03',
 				sku: 'SKU02',
-				name: 'Bullone',
+				name: 'Product 2',
 				thumbnailUrl: '/product-thumbnail.png',
 				url: '/productUrl',
 				price: '$ 345.99',
@@ -125,7 +125,7 @@ function getFakeArea() {
 			{
 				id: 'IS02',
 				sku: 'SKU03',
-				name: 'Sbirulino',
+				name: 'Product 3',
 				thumbnailUrl: '/product-thumbnail.png',
 				url: '/productUrl',
 				price: '$ 345.99',

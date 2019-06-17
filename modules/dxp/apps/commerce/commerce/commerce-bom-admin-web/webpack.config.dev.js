@@ -1,6 +1,10 @@
+const {defineServerResponses} = require('./dev/fakeServerUtilities');
+
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+const outputPath = path.resolve(__dirname, './dev/public');
 
 module.exports = {
 	entry: path.join(__dirname, './src/main/resources/META-INF/resources/js/index.dev.es.js'),
@@ -27,23 +31,29 @@ module.exports = {
 		]
 	},
 	output: {
-		filename: `[name].js`,
-		path: path.resolve(__dirname, './src/main/resources/META-INF/resources/dev-build')
+		filename: `bundle.js`,
+		path: outputPath
 	},
 	plugins: [
-		// new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
-			template: path.resolve(__dirname, './src/main/resources/META-INF/resources/dev-build/index.html')
+			template: path.resolve(__dirname, './dev/public/index.html'),
+			inject: false
 		})
 	],
 	resolve: {
-		extensions: ['.js', '.jsx', '.svg']
+		extensions: ['.js', '.jsx']
 	},
-
 	devServer: {
 		compress: false,
-		contentBase: path.join(__dirname, './src/main/resources/META-INF/resources/dev-build'),
+		publicPath: '/',
+		contentBase: './dev/public',
+		filename: path.join(outputPath, '/bundle.js'),
 		open: true,
-		port: 9000
+		port: 9000,
+		hot: true,
+		historyApiFallback: true,
+		before: function(app) {
+			defineServerResponses(app);
+		}
 	},
 };

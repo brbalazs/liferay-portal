@@ -2,7 +2,6 @@ import React, { useMemo, useState, useEffect, useContext } from 'react';
 
 import { Router, Route, Switch } from 'react-router-dom';
 
-import history from '../utilities/history.es';
 import { StoreContext } from './StoreContext.es';
 import FolderViewer from './FolderViewer.es';
 import Loading from './Loading.es';
@@ -20,12 +19,16 @@ export function PartFinder(props) {
 	const connector  = useMemo(() => new Connector(props.connectorSettings), props.connectorSettings)
 
 	function initializeUrlListener() {
-		return history.listen(e => {
-			if (e.pathname.indexOf('/folder') > -1) {
-				actions.getFolder(props.foldersApiEndpoint + e.pathname.replace(/\/folder/, ''));
-			}
-			if (e.pathname.indexOf('/area') > -1) {
-				actions.getArea(props.areaApiEndpoint + e.pathname.replace(/\/area/, ''));
+		return props.history.listen(e => {
+			switch (true) {
+				case e.pathname.includes('/folder'):
+					actions.getFolder(props.foldersApiEndpoint, e.pathname.replace('/folder', ''));
+					break;
+				case e.pathname.includes('/area'):
+					actions.getArea(props.areaApiEndpoint, e.pathname.replace('/area', ''));
+					break;
+				default:
+					break;
 			}
 		});
 	}
@@ -36,10 +39,11 @@ export function PartFinder(props) {
 			window.location.pathname.indexOf('/folder') > -1 ||
 			window.location.pathname.indexOf('/area') > -1
 		) {
-			history.push(window.location.pathname);
+			props.history.push(window.location.pathname.replace(props.basename, ''));
 		}
 		if (props.spritemap) {
 			actions.setSpritemap(props.spritemap);
+			actions.setBasename(props.basename || '/')
 		}
 		setInitialized(true);
 	}
@@ -52,13 +56,13 @@ export function PartFinder(props) {
 			state.app.error &&
 			!(window.location.pathname.indexOf('/error') > -1)
 		) {
-			history.push('/error');
+			props.history.push('/error');
 		}
 	});
 
 	return (
 		<div className="content">
-			<Router history={history}>
+			<Router history={props.history}>
 				<Breadcrumbs data={state.app.breadcrumbs} />
 					{state.app.loading ? (
 						<Loading />

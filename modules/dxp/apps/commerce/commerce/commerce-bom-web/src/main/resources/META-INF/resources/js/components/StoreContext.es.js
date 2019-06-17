@@ -14,6 +14,8 @@ import { actions as folderActions } from '../actions/folder.es';
 
 export const StoreContext = createContext();
 
+export let store = null;
+
 export function initializeActions(actions, dispatch) {
     return Object.keys(actions).reduce(
         (curriedActions, actionName) => ({
@@ -33,14 +35,11 @@ const reducers = combineReducers({
 export function StoreProvider(props) {
     const [ state, dispatch ] = useReducer(
         reducers,
-        Object.assign(
-            {},
-            {
-                app: initialAppState,
-                area: initialAreaState,
-                folder: initialFolderState
-            }
-        )
+        {
+            app: initialAppState,
+            area: initialAreaState,
+            folder: initialFolderState
+        }
     );
 
     const actions = initializeActions(
@@ -53,13 +52,10 @@ export function StoreProvider(props) {
         applyMiddleware(dispatch)
     );
    
-    const value = {
-        state,
-        actions
-    };
+	store = state;
 
     return (
-        <StoreContext.Provider value={value}>
+        <StoreContext.Provider value={{ state, actions }}>
             {props.children}
         </StoreContext.Provider>
     );

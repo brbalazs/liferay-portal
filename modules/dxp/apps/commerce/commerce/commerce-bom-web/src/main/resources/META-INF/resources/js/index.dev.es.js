@@ -4,7 +4,7 @@ import App from './App.es';
 
 import { StoreProvider } from './components/StoreContext.es';
 
-import apiEndpointDefinitions from '../dev/apiEndpointDefinitions';
+import apiEndpointDefinitions from '../../../../../../dev/apiEndpointDefinitions';
 
 import 'clay-css/src/scss/atlas.scss';
 
@@ -12,6 +12,7 @@ import '../css/main.scss';
 
 const props = {
     spritemap: '/test-icons.svg',
+    basename: '/test',
     modelSelectorMakerEndpoint: apiEndpointDefinitions.MAKER,
     modelSelectorYearEndpoint: apiEndpointDefinitions.YEAR,
     modelSelectorModelEndpoint: apiEndpointDefinitions.MODEL,

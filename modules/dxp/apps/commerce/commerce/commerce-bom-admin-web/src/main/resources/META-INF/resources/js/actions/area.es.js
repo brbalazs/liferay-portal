@@ -145,7 +145,7 @@ const submitNewSpot = dispatch => (formData = store.area.spotFormData) => {
     )
 
     return fetch(
-        store.app.productApiUrl + '/' + store.area.id,
+        store.app.areaApiUrl + '/' + store.area.id,
         {
             method: 'POST',
             body: JSON.stringify(data),
@@ -158,10 +158,13 @@ const submitNewSpot = dispatch => (formData = store.area.spotFormData) => {
             response => response.json()
         )
         .then(
-            (data) => dispatch({ 
-                type: actionDefinition.SUBMIT_NEW_SPOT_FULFILLED,
-                payload: data 
-            })
+            (data) => {
+                dispatch({ 
+                    type: actionDefinition.SUBMIT_NEW_SPOT_FULFILLED,
+                    payload: data 
+                })
+                return getArea(dispatch)()
+            }
         )
         .catch(
             (err) => dispatch({ 
@@ -181,8 +184,9 @@ const deleteSpot = dispatch => (
             type: actionDefinition.DELETE_SPOT_PENDING 
         }
     )
+
     return fetch(
-        store.app.productApiUrl + '/' + areaId + '/' + spotId,
+        store.app.areaApiUrl + '/' + areaId + '/' + spotId,
         {
             method: 'DELETE'
         }
@@ -191,10 +195,13 @@ const deleteSpot = dispatch => (
             response => response.json()
         )
         .then(
-            (data) => dispatch({ 
-                type: actionDefinition.DELETE_SPOT_FULFILLED,
-                payload: data 
-            })
+            (data) => {
+                dispatch({ 
+                    type: actionDefinition.DELETE_SPOT_FULFILLED,
+                    payload: data 
+                })
+                return getArea(dispatch)()
+            }
         )
         .catch(
             (err) => dispatch({ 
@@ -221,7 +228,7 @@ const submitSpotChanges = dispatch => (formData = store.area.spotFormData) => {
     )
 
     return fetch(
-        store.app.productApiUrl + '/' + store.area.id + '/' + id,
+        store.app.areaApiUrl + '/' + store.area.id + '/' + id,
         {
             method: 'PUT',
             body: JSON.stringify(data),
@@ -235,11 +242,11 @@ const submitSpotChanges = dispatch => (formData = store.area.spotFormData) => {
         )
         .then(
             (data) => {
-                getArea(dispatch)()
                 dispatch({ 
                     type: actionDefinition.SUBMIT_SPOT_CHANGES_FULFILLED,
                     payload: data 
                 })
+                return getArea(dispatch)()
             }
         )
         .catch(

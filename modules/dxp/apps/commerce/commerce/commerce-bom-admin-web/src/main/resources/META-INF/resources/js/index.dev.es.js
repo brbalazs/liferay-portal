@@ -4,6 +4,8 @@ import App from './App.es';
 
 import { StoreProvider } from './components/StoreContext.es';
 
+import apiEndpointDefinitions from '../../../../../../dev/apiEndpointDefinitions';
+
 import 'clay-css/src/scss/atlas.scss';
 
 import '../css/main.scss';
@@ -12,8 +14,8 @@ const fakeData = {
     id: 'adminPartFinder',
     spritemap: '/test-icons.svg',
     areaId: 'asd',
-    areaApiUrl: 'http://localhost:4000/api/car-parts/area',
-    productApiUrl: 'http://localhost:4000/api/products',
+    areaApiUrl: apiEndpointDefinitions.AREA,
+    productApiUrl: apiEndpointDefinitions.PRODUCTS
 }
 
 ReactDOM.render(

@@ -113,12 +113,16 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 availableProducts: []
             }
-        case actionDefinition.DELETE_SPOT_FULFILLED:
-        case actionDefinition.SUBMIT_NEW_SPOT_FULFILLED:
-        case actionDefinition.SUBMIT_SPOT_CHANGES_FULFILLED:
         case actionDefinition.DELETE_SPOT_REJECTED:
         case actionDefinition.SUBMIT_NEW_SPOT_REJECTED:
         case actionDefinition.SUBMIT_SPOT_CHANGES_REJECTED:
+            return {
+                ...state,
+                spotFormData: null
+            }
+        case actionDefinition.DELETE_SPOT_FULFILLED:
+        case actionDefinition.SUBMIT_NEW_SPOT_FULFILLED:
+        case actionDefinition.SUBMIT_SPOT_CHANGES_FULFILLED:
             return {
                 ...state,
                 spotFormData: null

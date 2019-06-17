@@ -1,26 +1,41 @@
-import React from 'react';
+import React, {
+	useMemo
+} from 'react';
 
 import Datalist from './components/datalist/Datalist.es';
-import PartFinder from './components/PartFinder.es';
-import history from './utilities/history.es';
-import LocalizedText from './components/utilities/LocalizedText.es';
-
+import { createBrowserHistory } from 'history';
 import { convertString } from './utilities/localization.es';
 
+import LocalizedText from './components/utilities/LocalizedText.es'
+import PartFinder from './components/PartFinder.es';
+
 function convertFiltersToQueryString(filters) {
-  return filters.reduce((queryParams, current, i) => {
+	return filters.reduce((queryParams, current, i) => {
+		const value = Array.isArray(current.value)
+			? current.value.join(',')
+			: current.value;
 
-    const value = Array.isArray(current.value) 
-      ? current.value.join(',') 
-      : current.value
-
-    return queryParams + (
-      current.field + '=' + value + ((i !== (filters.length - 1) ? '&' : ''))
-    )
-  }, '')
+		return (
+			queryParams +
+			(current.field +
+				'=' +
+				value +
+				(i !== filters.length - 1 ? '&' : ''))
+		);
+	}, '');
 }
 
 function App(props) {
+
+	const history = useMemo(
+		() => createBrowserHistory(
+			{ basename: props.basename }
+		),
+		[
+			props.basename
+		]
+	)
+
 	return (
 		<div className="bom-wrapper container pt-3">
 			<div className="mb-3">
@@ -45,7 +60,9 @@ function App(props) {
 							mapParameters: data => {
 								return `/${
 									data.filters && data.filters.length
-										? convertFiltersToQueryString(data.filters)
+										? convertFiltersToQueryString(
+												data.filters
+										  )
 										: ''
 								}`;
 							}
@@ -74,7 +91,9 @@ function App(props) {
 							mapParameters: data => {
 								return `/${
 									data.filters && data.filters.length
-										? convertFiltersToQueryString(data.filters)
+										? convertFiltersToQueryString(
+												data.filters
+										  )
 										: ''
 								}`;
 							}
@@ -84,21 +103,23 @@ function App(props) {
 						id: 'modelDatalist',
 						emitters: ['carMakerDatalist'],
 						on: {
-              notified: (values, setState, datasource) => {
-                const emittersHaveValuesSelected = Object.values(values).reduce(
-									(acc, el) => acc && !!el,
-									true
-                );
+							notified: (values, setState, datasource) => {
+								const emittersHaveValuesSelected = Object.values(
+									values
+								).reduce((acc, el) => acc && !!el, true);
 
 								if (emittersHaveValuesSelected) {
 									setState({
 										disabled: false
-                  });
-                  datasource.setFilter('car-maker', values['carMakerDatalist'])
+									});
+									datasource.setFilter(
+										'car-maker',
+										values['carMakerDatalist']
+									);
 									datasource.read();
 								} else {
-                  datasource.setFilter('car-maker', null)
-                  datasource.setFilter('keyword', null)
+									datasource.setFilter('car-maker', null);
+									datasource.setFilter('keyword', null);
 									setState({
 										disabled: true,
 										data: null,
@@ -127,7 +148,9 @@ function App(props) {
 							mapParameters: data => {
 								return `/${
 									data.filters && data.filters.length
-										? convertFiltersToQueryString(data.filters)
+										? convertFiltersToQueryString(
+												data.filters
+										  )
 										: ''
 								}`;
 							}
@@ -135,25 +158,30 @@ function App(props) {
 					}}
 					connectorSettings={{
 						id: 'yearDatalist',
-            emitters: ['carMakerDatalist', 'modelDatalist'],
-            on: {
-              notified: (values, setState, datasource) => {
-                const emittersHaveValuesSelected = Object.values(values).reduce(
-									(acc, el) => acc && !!el,
-									true
-                );
+						emitters: ['carMakerDatalist', 'modelDatalist'],
+						on: {
+							notified: (values, setState, datasource) => {
+								const emittersHaveValuesSelected = Object.values(
+									values
+								).reduce((acc, el) => acc && !!el, true);
 
 								if (emittersHaveValuesSelected) {
 									setState({
 										disabled: false
-                  });
-                  datasource.setFilter('car-maker', values['carMakerDatalist'])
-                  datasource.setFilter('model', values['modelDatalist'])
+									});
+									datasource.setFilter(
+										'car-maker',
+										values['carMakerDatalist']
+									);
+									datasource.setFilter(
+										'model',
+										values['modelDatalist']
+									);
 									datasource.read();
 								} else {
-                  datasource.setFilter('model', null)
-                  datasource.setFilter('car-maker', null)
-                  datasource.setFilter('keyword', null)
+									datasource.setFilter('model', null);
+									datasource.setFilter('car-maker', null);
+									datasource.setFilter('keyword', null);
 									setState({
 										disabled: true,
 										data: null,
@@ -167,26 +195,33 @@ function App(props) {
 			</div>
 
 			<PartFinder
+				history={history}
 				spritemap={props.spritemap}
 				areaApiEndpoint={props.areasEndpoint}
-        foldersApiEndpoint={props.foldersEndpoint}
-        connectorSettings={{
-          emitters: ['carMakerDatalist', 'modelDatalist', 'yearDatalist'],
-          on: {
-            notified: (values) => {
-              const emittersHaveValuesSelected = Object.values(values).reduce(
-                (acc, el) => acc && !!el,
-                true
-              );
-              if (emittersHaveValuesSelected) {
-                const query = Object.entries(values).map(el => `${el[0]}=${el[1]}`).join('&')
-                history.push('/folder/' + query);
-              } else {
-                history.push('/');
-              }
-            }
-          }
-        }}
+				foldersApiEndpoint={props.foldersEndpoint}
+				basename={props.basename}
+				connectorSettings={{
+					emitters: [
+						'carMakerDatalist',
+						'modelDatalist',
+						'yearDatalist'
+					],
+					on: {
+						notified: values => {
+							const emittersHaveValuesSelected = Object.values(
+								values
+							).reduce((acc, el) => acc && !!el, true);
+							if (emittersHaveValuesSelected) {
+								const query = Object.entries(values)
+									.map(el => `${el[0]}=${el[1]}`)
+									.join('&');
+								history.push('/folder/' + query);
+							} else {
+								history.push('/');
+							}
+						}
+					}
+				}}
 			/>
 		</div>
 	);

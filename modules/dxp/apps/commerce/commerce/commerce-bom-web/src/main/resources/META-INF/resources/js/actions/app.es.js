@@ -3,14 +3,13 @@ export const actionDefinition = {
 	SET_ERROR: 'setError',
 	SET_LOADING: 'setLoading',
 	SET_SPRITEMAP: 'setSpritemap',
+	SET_BASENAME: 'setBasename',
 };
 
-const updateBreadcrumbs = dispatch => breadcrumbs => {
-	return dispatch({
-		type: actionDefinition.UPDATE_BREADCRUMBS,
-		payload: breadcrumbs,
-	});
-};
+const updateBreadcrumbs = dispatch => breadcrumbs => dispatch({
+	type: actionDefinition.UPDATE_BREADCRUMBS,
+	payload: breadcrumbs,
+});
 
 const setError = dispatch => error =>
 	dispatch({
@@ -30,9 +29,16 @@ const setSpritemap = dispatch => spritemap =>
 		payload: spritemap,
 	});
 
+const setBasename = dispatch => basename =>
+	dispatch({
+		type: actionDefinition.SET_BASENAME,
+		payload: basename,
+	});
+
 export const actions = {
 	updateBreadcrumbs,
 	setError,
 	setLoading,
 	setSpritemap,
+	setBasename,
 };
