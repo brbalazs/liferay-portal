@@ -29,7 +29,7 @@ function App(props) {
 			state.app.initialized && 
 			!dataFetched	
 		) {
-			actions.getArea();
+			actions.getArea(state.app.areaApiUrl, state.area.id);
 			updateDataFetchedStatus(true)
         }
 	});

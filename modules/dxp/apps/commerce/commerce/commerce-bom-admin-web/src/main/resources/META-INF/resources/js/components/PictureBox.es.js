@@ -104,7 +104,6 @@ function CustomCursor(props) {
 
 function PictureBox() {
     const containerRef = useRef(null);
-    const imgRef = useRef(null);
     const { actions } = useContext(StoreContext);
 
     const [ cursor, updateCursor ] = useState({
@@ -162,13 +161,6 @@ function PictureBox() {
         )
         ? ' picture-box--hovered-detail' 
         : '';
-
-    
-    function loaded() {
-        if(imgRef.current) {
-            imgRef.current.classList.add('picture-box__image--loaded')
-        }
-    }
 
     return (
         <Fragment>

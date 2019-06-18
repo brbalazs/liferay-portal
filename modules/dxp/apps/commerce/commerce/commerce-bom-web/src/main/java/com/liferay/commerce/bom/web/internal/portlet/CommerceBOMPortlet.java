@@ -38,7 +38,7 @@ import org.osgi.service.component.annotations.Component;
 		"com.liferay.portlet.private-session-attributes=false",
 		"com.liferay.portlet.render-weight=50",
 		"com.liferay.portlet.scopeable=true",
-		"javax.portlet.display-name=Commerce BOM Admin",
+		"javax.portlet.display-name=Commerce BOM",
 		"javax.portlet.expiration-cache=0",
 		"javax.portlet.init-param.view-template=/view.jsp",
 		"javax.portlet.name=" + CommerceBOMPortletKeys.COMMERCE_BOM,

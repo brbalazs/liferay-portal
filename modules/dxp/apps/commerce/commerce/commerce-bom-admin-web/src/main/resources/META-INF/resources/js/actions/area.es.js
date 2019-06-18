@@ -1,5 +1,3 @@
-import { store } from '../components/StoreContext.es'
-
 export const actionDefinition = {
     HIGHLIGHT_DETAIL: 'highlightDetail',
     SELECT_DETAIL: 'selectDetail',
@@ -24,7 +22,6 @@ export const actionDefinition = {
     DELETE_SPOT_PENDING: 'deleteSpotPending',
     DELETE_SPOT_FULFILLED: 'deleteSpotFulfilled',
     DELETE_SPOT_REJECTED: 'deleteSpotRejected',
-
 }
 
 const highlightDetail = dispatch => (number, showFirstResume = false) => dispatch(
@@ -44,13 +41,13 @@ const select = dispatch => id => dispatch(
     }
 )
 
-const getArea = dispatch => (id = store.area.id) => {
+const getArea = dispatch => (endpoint, id) => {
     dispatch(
         {
             type: actionDefinition.GET_AREA_PENDING 
         }
     )
-    return fetch(store.app.areaApiUrl + '/' + id)
+    return fetch(endpoint + '/' + id)
         .then(
             response => response.json()
         )
@@ -68,13 +65,13 @@ const getArea = dispatch => (id = store.area.id) => {
         )
 }
 
-const getProducts = dispatch => (query = '') => {
+const getProducts = dispatch => (endpoint, query) => {
     dispatch(
         {
             type: actionDefinition.GET_PRODUCTS_PENDING 
         }
     )
-    return fetch(store.app.productApiUrl + '/' + query)
+    return fetch(endpoint + (query ? `/${query}` : '' ))
         .then(
             response => response.json()
         )
@@ -129,7 +126,11 @@ const updateFormValue = dispatch => (key, value) => dispatch(
     }
 )
 
-const submitNewSpot = dispatch => (formData = store.area.spotFormData) => {
+const submitNewSpot = dispatch => (
+    endpoint,
+    areaId,
+    formData
+) => {
     const {
         query, 
         originalData,
@@ -145,7 +146,7 @@ const submitNewSpot = dispatch => (formData = store.area.spotFormData) => {
     )
 
     return fetch(
-        store.app.areaApiUrl + '/' + store.area.id,
+        endpoint + '/' + areaId,
         {
             method: 'POST',
             body: JSON.stringify(data),
@@ -163,7 +164,7 @@ const submitNewSpot = dispatch => (formData = store.area.spotFormData) => {
                     type: actionDefinition.SUBMIT_NEW_SPOT_FULFILLED,
                     payload: data 
                 })
-                return getArea(dispatch)()
+                return getArea(dispatch)(endpoint, areaId)
             }
         )
         .catch(
@@ -175,8 +176,9 @@ const submitNewSpot = dispatch => (formData = store.area.spotFormData) => {
 }
 
 const deleteSpot = dispatch => (
-        areaId = store.area.id,
-        spotId = store.area.spotFormData.id
+        endpoint,
+        areaId,
+        spotId
     ) => {
 
     dispatch(
@@ -186,7 +188,7 @@ const deleteSpot = dispatch => (
     )
 
     return fetch(
-        store.app.areaApiUrl + '/' + areaId + '/' + spotId,
+        endpoint + '/' + areaId + '/' + spotId,
         {
             method: 'DELETE'
         }
@@ -200,7 +202,7 @@ const deleteSpot = dispatch => (
                     type: actionDefinition.DELETE_SPOT_FULFILLED,
                     payload: data 
                 })
-                return getArea(dispatch)()
+                return getArea(dispatch)(endpoint, areaId)
             }
         )
         .catch(
@@ -211,7 +213,11 @@ const deleteSpot = dispatch => (
         )
 }
 
-const submitSpotChanges = dispatch => (formData = store.area.spotFormData) => {
+const submitSpotChanges = dispatch => (
+        endpoint,
+        areaId,
+        formData
+) => {
     const { 
         query, 
         originalData,
@@ -228,7 +234,7 @@ const submitSpotChanges = dispatch => (formData = store.area.spotFormData) => {
     )
 
     return fetch(
-        store.app.areaApiUrl + '/' + store.area.id + '/' + id,
+        endpoint + '/' + areaId + '/' + id,
         {
             method: 'PUT',
             body: JSON.stringify(data),
@@ -246,7 +252,7 @@ const submitSpotChanges = dispatch => (formData = store.area.spotFormData) => {
                     type: actionDefinition.SUBMIT_SPOT_CHANGES_FULFILLED,
                     payload: data 
                 })
-                return getArea(dispatch)()
+                return getArea(dispatch)(endpoint, areaId)
             }
         )
         .catch(
