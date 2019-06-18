@@ -22,7 +22,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Image;
-import com.liferay.portal.kernel.portletfilerepository.PortletFileRepositoryUtil;
+import com.liferay.portal.kernel.portletfilerepository.PortletFileRepository;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.service.ImageLocalService;
 import com.liferay.portal.kernel.upgrade.UpgradeException;
@@ -49,10 +49,12 @@ public class UpgradeImageTypeContent extends UpgradeProcess {
 
 	public UpgradeImageTypeContent(
 		ImageLocalService imageLocalService,
-		JournalArticleImageUpgradeUtil journalArticleImageUpgradeUtil) {
+		JournalArticleImageUpgradeUtil journalArticleImageUpgradeUtil,
+		PortletFileRepository portletFileRepository) {
 
 		_imageLocalService = imageLocalService;
 		_journalArticleImageUpgradeUtil = journalArticleImageUpgradeUtil;
+		_portletFileRepository = portletFileRepository;
 	}
 
 	protected void copyJournalArticleImagesToJournalRepository()
@@ -126,6 +128,7 @@ public class UpgradeImageTypeContent extends UpgradeProcess {
 	private final ImageLocalService _imageLocalService;
 	private final JournalArticleImageUpgradeUtil
 		_journalArticleImageUpgradeUtil;
+	private final PortletFileRepository _portletFileRepository;
 
 	private class SaveImageFileEntryCallable implements Callable<Boolean> {
 
@@ -145,7 +148,7 @@ public class UpgradeImageTypeContent extends UpgradeProcess {
 			String fileName = String.valueOf(_articleImageId);
 
 			FileEntry fileEntry =
-				PortletFileRepositoryUtil.fetchPortletFileEntry(
+				_portletFileRepository.fetchPortletFileEntry(
 					_groupId, _folderId, fileName);
 
 			if (fileEntry != null) {
@@ -162,7 +165,7 @@ public class UpgradeImageTypeContent extends UpgradeProcess {
 				String mimeType = MimeTypesUtil.getContentType(
 					fileName + StringPool.PERIOD + image.getType());
 
-				PortletFileRepositoryUtil.addPortletFileEntry(
+				_portletFileRepository.addPortletFileEntry(
 					_groupId, _userId, JournalArticle.class.getName(),
 					_resourcePrimaryKey, JournalConstants.SERVICE_NAME,
 					_folderId, image.getTextObj(), fileName, mimeType, false);
