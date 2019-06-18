@@ -181,7 +181,10 @@ function defineServerResponses(app) {
 		});
 	});
 
-	app.get(apiEndpointDefinitions.FOLDERS + '/:folderId', (_, res) => {
+	app.get([
+		apiEndpointDefinitions.FOLDERS,
+		apiEndpointDefinitions.FOLDERS + '/:folderId'
+	], (_, res) => {
 		res.json({
 			data: {
 				content: generateFolders(),

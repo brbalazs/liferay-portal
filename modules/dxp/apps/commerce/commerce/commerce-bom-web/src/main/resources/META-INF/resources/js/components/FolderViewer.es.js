@@ -106,6 +106,7 @@ function Card(props) {
             <Link 
                 className="card-link"
                 to={props.url}
+                data-senna-off
             >
                 {contentCard}
             </Link>

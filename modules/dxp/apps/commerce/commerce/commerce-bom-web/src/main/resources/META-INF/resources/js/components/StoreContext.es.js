@@ -14,9 +14,7 @@ import { actions as folderActions } from '../actions/folder.es';
 
 export const StoreContext = createContext();
 
-export let store = null;
-
-export function initializeActions(actions, dispatch) {
+function initializeActions(actions, dispatch) {
     return Object.keys(actions).reduce(
         (curriedActions, actionName) => ({
             ...curriedActions,
@@ -51,8 +49,6 @@ export function StoreProvider(props) {
         ), 
         applyMiddleware(dispatch)
     );
-   
-	store = state;
 
     return (
         <StoreContext.Provider value={{ state, actions }}>

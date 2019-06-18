@@ -29,16 +29,18 @@ function App(props) {
 
 	const history = useMemo(
 		() => createBrowserHistory(
-			{ basename: props.basename }
+			{ basename: props.basename || '/' }
 		),
 		[
 			props.basename
 		]
 	)
 
+	history.push('/folder');
+
 	return (
 		<div className="bom-wrapper container pt-3">
-			<div className="mb-3">
+			{/* <div className="mb-3">
 				<Datalist
 					label={
 						<LocalizedText desc="Car Maker">
@@ -192,7 +194,7 @@ function App(props) {
 						}
 					}}
 				/>
-			</div>
+			</div> */}
 
 			<PartFinder
 				history={history}
@@ -201,11 +203,11 @@ function App(props) {
 				foldersApiEndpoint={props.foldersEndpoint}
 				basename={props.basename}
 				connectorSettings={{
-					emitters: [
-						'carMakerDatalist',
-						'modelDatalist',
-						'yearDatalist'
-					],
+					// emitters: [
+					// 	'carMakerDatalist',
+					// 	'modelDatalist',
+					// 	'yearDatalist'
+					// ],
 					on: {
 						notified: values => {
 							const emittersHaveValuesSelected = Object.values(

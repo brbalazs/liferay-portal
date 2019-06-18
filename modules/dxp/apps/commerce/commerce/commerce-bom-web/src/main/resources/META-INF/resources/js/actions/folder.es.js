@@ -5,7 +5,7 @@ export const actionDefinition = {
 };
 
 const getFolder = dispatch => (endpoint, id) => {
-	const url = endpoint + id;
+	const url = endpoint + (id ? `/${id}` : '');
 
 	dispatch({
 		type: actionDefinition.GET_FOLDER_PENDING,

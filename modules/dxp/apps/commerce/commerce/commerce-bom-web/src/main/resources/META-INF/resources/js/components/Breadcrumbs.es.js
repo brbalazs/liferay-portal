@@ -12,7 +12,7 @@ function Breadcrumbs(props) {
                         <li className="breadcrumb-item" key={i}>
                             {
                                 el.url 
-                                    ? <Link to={el.url} key={i}>{content}</Link>
+                                    ? <Link to={el.url} key={i} data-senna-off>{content}</Link>
                                     : content
                             }
                         </li>

@@ -1,5 +1,3 @@
-import { store } from '../components/StoreContext.es';
-
 export const actionDefinition = {
 	HIGHLIGHT_DETAIL: 'highlightDetail',
 	SELECT_DETAIL: 'selectDetail',
@@ -24,7 +22,7 @@ const select = dispatch => id =>
 	});
 
 const getArea = dispatch => (endpoint, id) => {
-	const url = endpoint + id;
+	const url = endpoint + (id ? `/${id}` : '');
 
 	dispatch({
 		type: actionDefinition.GET_AREA_PENDING,

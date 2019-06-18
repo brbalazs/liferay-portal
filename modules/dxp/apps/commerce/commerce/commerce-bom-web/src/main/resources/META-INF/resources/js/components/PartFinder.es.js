@@ -22,10 +22,10 @@ export function PartFinder(props) {
 		return props.history.listen(e => {
 			switch (true) {
 				case e.pathname.includes('/folder'):
-					actions.getFolder(props.foldersApiEndpoint, e.pathname.replace('/folder', ''));
+					actions.getFolder(props.foldersApiEndpoint, e.pathname.replace(/\/folder\/?/, ''));
 					break;
 				case e.pathname.includes('/area'):
-					actions.getArea(props.areaApiEndpoint, e.pathname.replace('/area', ''));
+					actions.getArea(props.areaApiEndpoint, e.pathname.replace(/\/area\/?/, ''));
 					break;
 				default:
 					break;

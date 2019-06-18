@@ -12,7 +12,7 @@ import '../css/main.scss';
 
 const props = {
     spritemap: '/test-icons.svg',
-    basename: '/test',
+    basename: '/',
     modelSelectorMakerEndpoint: apiEndpointDefinitions.MAKER,
     modelSelectorYearEndpoint: apiEndpointDefinitions.YEAR,
     modelSelectorModelEndpoint: apiEndpointDefinitions.MODEL,

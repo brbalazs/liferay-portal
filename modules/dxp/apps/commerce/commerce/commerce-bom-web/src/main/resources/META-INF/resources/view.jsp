@@ -28,8 +28,15 @@ String carPartsFinderRootElementId = renderResponse.getNamespace() + "-car-parts
 
 <aui:script require="commerce-bom-web@1.0.0/js/index.es as CarPartsFinder">
 	CarPartsFinder.default(
+		'partFinder',
 		'<%= carPartsFinderRootElementId %>',
 		{
+
+			spritemap: '/test-icons.svg',
+			basename: '/test',
+			areasEndpoint: 'http://localhost:4000/api/car-parts/area',
+			foldersEndpoint: 'http://localhost:4000/api/car-parts/folder',
+
 			assetsPath: '<%= PortalUtil.getPathContext(request) + "/assets" %>',
 			namespace: '<portlet:namespace/>',
 			spritemap: '<%= themeDisplay.getPathThemeImages() + "/lexicon/icons.svg" %>'
