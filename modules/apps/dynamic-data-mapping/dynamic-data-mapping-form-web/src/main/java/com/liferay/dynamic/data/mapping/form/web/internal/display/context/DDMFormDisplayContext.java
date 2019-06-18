@@ -139,6 +139,8 @@ public class DDMFormDisplayContext {
 			_ddmFormInstanceLocalService.fetchDDMFormInstance(
 				getFormInstanceId());
 
+		checkFormIsNotRestricted();
+
 		if ((ddmFormInstance == null) || !hasViewPermission()) {
 			renderRequest.setAttribute(
 				WebKeys.PORTLET_CONFIGURATOR_VISIBILITY, Boolean.TRUE);
@@ -421,6 +423,10 @@ public class DDMFormDisplayContext {
 		return false;
 	}
 
+	public Boolean isRequireAuthentication() {
+		return _requireAuthentication;
+	}
+
 	public boolean isShowConfigurationIcon() throws PortalException {
 		if (_showConfigurationIcon != null) {
 			return _showConfigurationIcon;
@@ -452,6 +458,30 @@ public class DDMFormDisplayContext {
 			getDDMFormSuccessPageSettings();
 
 		return ddmFormSuccessPageSettings.isEnabled();
+	}
+
+	protected void checkFormIsNotRestricted() throws PortalException {
+		_requireAuthentication = false;
+
+		DDMFormInstance ddmFormInstance = getFormInstance();
+
+		if (ddmFormInstance == null) {
+			return;
+		}
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)_renderRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		DDMFormInstanceSettings ddmFormInstanceSettings =
+			ddmFormInstance.getSettingsModel();
+
+		Layout layout = themeDisplay.getLayout();
+
+		if (ddmFormInstanceSettings.requireAuthentication() &&
+			!layout.isPrivateLayout() && !themeDisplay.isSignedIn()) {
+
+			_requireAuthentication = true;
+		}
 	}
 
 	protected String createCaptchaResourceURL() {
@@ -788,6 +818,7 @@ public class DDMFormDisplayContext {
 	private final Portal _portal;
 	private final RenderRequest _renderRequest;
 	private final RenderResponse _renderResponse;
+	private Boolean _requireAuthentication;
 	private Boolean _showConfigurationIcon;
 	private final WorkflowDefinitionLinkLocalService
 		_workflowDefinitionLinkLocalService;
