@@ -28,7 +28,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 @Meta.OCD(
 	id = "com.liferay.commerce.data.integration.manager.configuration.DataIntegrationProcessConfiguration",
 	localization = "content/Language",
-	name = "data-integration-configuration-name"
+	name = "data-integration-process-configuration-name"
 )
 public interface DataIntegrationProcessConfiguration {
 
