@@ -14,7 +14,7 @@ function PartDetail(props) {
 
     const numberRef = useRef(null);
 
-    const { state, actions } = useContext(StoreContext);
+    const { actions } = useContext(StoreContext);
 
     const containerClasses = 
         'spot-number' + 
@@ -28,8 +28,8 @@ function PartDetail(props) {
             onMouseOut={() => actions.highlightDetail(null)}
             onClick={() => actions.selectSpot(props.id)}
             style={{
-                top: props.position.top + '%', 
-                left: props.position.left + '%'
+                bottom: props.position.y + '%', 
+                left: props.position.x + '%'
             }}
         >
             {props.number}
@@ -61,8 +61,8 @@ function SpotsList(props) {
                 <PartDetail 
                     key={i} 
                     containerRef={props.containerRef}
-                    highlightedNumber={ highlightedNumber }
-                    resumeVisible={ resumeVisible }
+                    highlightedNumber={highlightedNumber}
+                    resumeVisible={resumeVisible}
                     {...detail} 
                 /> 
             )
@@ -141,13 +141,13 @@ function PictureBox() {
             const containerRect = containerRef.current.getBoundingClientRect()
             const pxLeft = e.pageX - containerRect.left;
             const pxTop = e.pageY - containerRect.top;
-            const left = Math.round((100 / containerRect.width * pxLeft) * 1000) / 1000;
-            const top = Math.round((100 / containerRect.height * pxTop) * 1000) / 1000;
+            const x = Math.round((100 / containerRect.width * pxLeft) * 1000) / 1000;
+            const y = 100 - Math.round((100 / containerRect.height * pxTop) * 1000) / 1000;
 
             actions.createSpot(
                 {
-                    left,
-                    top
+                    x,
+                    y
                 }
             );
         }

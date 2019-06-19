@@ -3,7 +3,7 @@ import React,
     Fragment
 } from 'react'
 
-function convertString(string) {
+export function convertString(string) {
     try {
         return window.Liferay.Language.get(string)
     } catch (error) {

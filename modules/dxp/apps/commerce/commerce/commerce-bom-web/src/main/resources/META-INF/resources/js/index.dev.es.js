@@ -12,12 +12,12 @@ import '../css/main.scss';
 
 const props = {
     spritemap: '/test-icons.svg',
-    basename: '/',
     modelSelectorMakerEndpoint: apiEndpointDefinitions.MAKER,
     modelSelectorYearEndpoint: apiEndpointDefinitions.YEAR,
     modelSelectorModelEndpoint: apiEndpointDefinitions.MODEL,
     areasEndpoint: apiEndpointDefinitions.AREAS,
-    foldersEndpoint: apiEndpointDefinitions.FOLDERS
+    foldersEndpoint: apiEndpointDefinitions.FOLDERS,
+    showFilters: false
 }
 
 ReactDOM.render(

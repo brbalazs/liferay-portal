@@ -78,14 +78,14 @@ function PartDetail(props) {
     const product = state.area.products.reduce(
         (acc, product)=> acc || (product.id === props.rel && product),
         null
-    )
+    );
 
     return (
         <a 
             className={containerClasses} 
             style={{
-                top: props.position.top + '%', 
-                left: props.position.left + '%'
+                bottom: props.position.y + '%', 
+                left: props.position.x + '%'
             }}
             href={props.url}
         >

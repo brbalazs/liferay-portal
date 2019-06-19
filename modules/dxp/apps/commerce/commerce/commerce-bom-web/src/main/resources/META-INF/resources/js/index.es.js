@@ -13,6 +13,7 @@ export default function(componentId, id, props) {
 				ref={component => {
 					instance = component;
 				}}
+				showFilters={false}
 				{...props}
 			/>
 		</StoreProvider>,

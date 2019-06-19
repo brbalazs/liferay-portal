@@ -22,8 +22,8 @@ function getFakeArea() {
 				number: 3,
 				id: 'zxc',
 				position: {
-					left: 73.34,
-					top: 33.43,
+					y: 0,
+					x: 0,
 				},
 				rel: 'IS01',
 			},
@@ -31,8 +31,8 @@ function getFakeArea() {
 				number: 3,
 				id: 'cvb',
 				position: {
-					top: 66.43,
-					left: 56.34,
+					y: 66.43,
+					x: 56.34,
 				},
 				rel: 'IS01',
 			},
@@ -40,8 +40,8 @@ function getFakeArea() {
 				number: 7,
 				id: 'dfg',
 				position: {
-					top: 63.43,
-					left: 20.14,
+					y: 63.43,
+					x: 20.14,
 				},
 				rel: 'IS02',
 			},
@@ -49,8 +49,8 @@ function getFakeArea() {
 				number: 12,
 				id: 'bnm',
 				position: {
-					left: 37.94,
-					top: 3.93,
+					y: 3.93,
+					x: 37.94,
 				},
 				rel: 'IS03',
 			},
@@ -103,8 +103,6 @@ function generateProducts() {
  * @param {*} app
  */
 function defineServerResponses(app) {
-
-	console.log(app)
 
 	app.get(apiEndpointDefinitions.AREA + '/:areaId', (_, res) => {
 		res.json({

@@ -16,7 +16,12 @@ export function PartFinder(props) {
 	const [initialized, setInitialized] = useState(false);
 	const { state, actions } = useContext(StoreContext);
 
-	const connector  = useMemo(() => new Connector(props.connectorSettings), props.connectorSettings)
+	const connector  = useMemo(() => {
+		if(props.connectorSettings) {
+			return new Connector(props.connectorSettings)
+		}
+		return null
+	}, props.connectorSettings)
 
 	function initializeUrlListener() {
 		return props.history.listen(e => {

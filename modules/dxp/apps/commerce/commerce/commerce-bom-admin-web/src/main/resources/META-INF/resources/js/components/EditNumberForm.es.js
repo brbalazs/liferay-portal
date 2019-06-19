@@ -1,7 +1,7 @@
 import React, { useState, useContext, useMemo } from 'react';
 
 import { StoreContext } from './StoreContext.es';
-import LocalizedText from './utilities/LocalizedText.es';
+import LocalizedText, {convertString} from './utilities/LocalizedText.es';
 import Icon from './utilities/Icon.es';
 import HighlightedText from './utilities/HighlightedText.es';
 
@@ -82,13 +82,10 @@ function DropdownInput(props) {
 
 const EditNumberForm = React.memo(() => {
 	const { state, actions } = useContext(StoreContext);
-
 	const formData = state.area.spotFormData || {};
 	const position = formData.position || {};
-
 	const [dropdownDisabled, disableDropdown] = useState(false);
-
-	const inputPlaceholder = 'Search for product name or SKU...';
+	const inputPlaceholder = convertString('search-for-product-name-or-sku');
 
 	function isNumberAlreadyAdded(number) {
 		return state.area.spots.reduce(
@@ -100,14 +97,14 @@ const EditNumberForm = React.memo(() => {
 	const orientationClasses = useMemo(
 		() =>
 			[
-				position.top > 50
-					? 'edit-number-form--top'
-					: 'edit-number-form--bottom',
-				position.left > 50
+				position.y > 50
+					? 'edit-number-form--bottom'
+					: 'edit-number-form--top',
+				position.x > 50
 					? 'edit-number-form--left'
 					: 'edit-number-form--right'
 			].join(' '),
-		[position.left, position.top]
+		[position.x, position.y]
 	);
 
 	function getProductByNumber(number) {
@@ -210,13 +207,15 @@ const EditNumberForm = React.memo(() => {
 			style={
 				position
 					? {
-							left: position.left + '%',
-							top: position.top + '%'
+							left: position.x + '%',
+							bottom: position.y + '%'
 					  }
 					: null
 			}
 		>
-			{position.left && position.top && (
+			{
+				typeof position.x === 'number' && 
+				typeof position.y === 'number' && (
 				<span
 					className={`spot-number spot-number--placeholder${
 						position ? ` spot-number--placeholder--visible` : ''

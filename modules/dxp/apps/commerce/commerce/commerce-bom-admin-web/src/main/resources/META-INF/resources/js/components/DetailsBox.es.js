@@ -56,26 +56,40 @@ function DetailsBox() {
                 </span>
             </div>
             <div className="panel-body">
-                <div className="table-responsive-sm">
-                    <table className="show-quick-actions-on-hover table table-autofit table-list">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <LocalizedText desc="N*">n.</LocalizedText>
-                                </th>
-                                <th className="table-cell-expand">
-                                    <LocalizedText desc="Name">name</LocalizedText>
-                                </th>
-                                <th>
-                                    <LocalizedText desc="Sku">sku</LocalizedText>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            { list && list.map((detail, i) => <DetailsListElement key={i} {...detail} />) }
-                        </tbody>
-                    </table>
-                </div>
+                {
+                    list && list.length 
+                    ? (
+                        <div className="table-responsive-sm">
+                            <table className="show-quick-actions-on-hover table table-autofit table-list">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <LocalizedText desc="N*">n.</LocalizedText>
+                                        </th>
+                                        <th className="table-cell-expand">
+                                            <LocalizedText desc="Name">name</LocalizedText>
+                                        </th>
+                                        <th>
+                                            <LocalizedText desc="Sku">sku</LocalizedText>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    { list && list.map((detail, i) => <DetailsListElement key={i} {...detail} />) }
+                                </tbody>
+                            </table>
+                        </div>
+                    ) : (
+                        <div className="text-center my-5 p-5 w-100">
+                            <h3>
+                                <LocalizedText desc="No products mapped yet!">no-products-mapped-yet</LocalizedText>
+                            </h3>
+                            <p>
+                                <LocalizedText desc="Click on the picture to start mapping products!">click-on-the-picture-to-start-mapping-products</LocalizedText>
+                            </p>
+                        </div>
+                    ) 
+                }
             </div>
         </div>
     );

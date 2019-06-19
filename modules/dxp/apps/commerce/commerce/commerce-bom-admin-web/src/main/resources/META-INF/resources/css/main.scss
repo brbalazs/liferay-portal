@@ -45,11 +45,11 @@
 	.picture-box {
 		border: 1px solid transparent;
 		display: block;
-		flex-basis: content;
 		flex-grow: 0;
 		flex-shrink: 0;
 		justify-self: center;
 		max-height: 100%;
+		max-width: 100%;
 		position: relative;
 
 		&__image {
@@ -88,11 +88,11 @@
 		height: 24px;
 		justify-content: center;
 		line-height: 0;
-		margin-top: -12px;
 		min-width: 24px;
 		padding: 0 5px;
 		position: absolute;
-		transform: translateX(-50%);
+		bottom: 0;
+		transform: translate3d(-50%, 50%, 0);
 		transform-origin: 50%;
 		z-index: 1;
 		transition: 
@@ -109,12 +109,10 @@
 
 		&--placeholder {
 			opacity: 0;
-			transform: translateX(-50%) scale(0);
 			z-index: 2;
 
 			&--visible {
 				opacity: 1;
-				transform: translateX(-50%) scale(1);
 			}
 		}
 	}

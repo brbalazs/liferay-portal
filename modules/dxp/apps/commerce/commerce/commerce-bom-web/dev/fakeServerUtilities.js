@@ -72,8 +72,8 @@ function getFakeArea() {
 				number: 3,
 				id: 'zxc',
 				position: {
-					left: 73.34,
-					top: 33.43,
+					x: 73.34,
+					y: 33.43,
 				},
 				rel: 'IS01',
 			},
@@ -81,8 +81,8 @@ function getFakeArea() {
 				number: 3,
 				id: 'cvb',
 				position: {
-					top: 66.43,
-					left: 56.34,
+					y: 66.43,
+					x: 56.34,
 				},
 				rel: 'IS01',
 			},
@@ -90,8 +90,8 @@ function getFakeArea() {
 				number: 7,
 				id: 'dfg',
 				position: {
-					top: 63.43,
-					left: 20.14,
+					y: 100,
+					x: 100,
 				},
 				rel: 'IS02',
 			},
@@ -99,8 +99,8 @@ function getFakeArea() {
 				number: 12,
 				id: 'bnm',
 				position: {
-					left: 37.94,
-					top: 3.93,
+					x: 0,
+					y: 0,
 				},
 				rel: 'IS03',
 			},
