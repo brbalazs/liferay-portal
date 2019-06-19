@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.bom.service.impl;
 
-import com.liferay.commerce.bom.constants.CommerceBOMActionKeys;
 import com.liferay.commerce.bom.model.CommerceBOMDefinition;
 import com.liferay.commerce.bom.model.CommerceBOMEntry;
 import com.liferay.commerce.bom.service.base.CommerceBOMEntryServiceBaseImpl;
@@ -22,10 +21,12 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
-import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
+
+import java.util.List;
 
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class CommerceBOMEntryServiceImpl
 	extends CommerceBOMEntryServiceBaseImpl {
@@ -37,9 +38,8 @@ public class CommerceBOMEntryServiceImpl
 			double radius)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommerceBOMActionKeys.ADD_COMMERCE_BOM_DEFINITION);
+		_commerceBOMDefinitionModelResourcePermission.check(
+			getPermissionChecker(), commerceBOMDefinitionId, ActionKeys.UPDATE);
 
 		return commerceBOMEntryLocalService.addCommerceBOMEntry(
 			userId, number, cpInstanceUuid, cProductId, commerceBOMDefinitionId,
@@ -47,18 +47,75 @@ public class CommerceBOMEntryServiceImpl
 	}
 
 	@Override
-	public CommerceBOMEntry updateCommerceBOMEntry(
-			long commerceBOMEntryId, int number, String cpInstanceUuid,
-			long cProductId, long commerceBOMDefinitionId, double positionX,
-			double positionY, double radius)
+	public void deleteCommerceBOMEntry(long commerceBOMEntryId)
+		throws PortalException {
+
+		CommerceBOMEntry commerceBOMEntry =
+			commerceBOMEntryLocalService.getCommerceBOMEntry(
+				commerceBOMEntryId);
+
+		_commerceBOMDefinitionModelResourcePermission.check(
+			getPermissionChecker(),
+			commerceBOMEntry.getCommerceBOMDefinitionId(), ActionKeys.UPDATE);
+
+		commerceBOMEntryLocalService.deleteCommerceBOMEntry(commerceBOMEntry);
+	}
+
+	@Override
+	public CommerceBOMEntry getCommerceBOMEntry(long commerceBOMEntryId)
+		throws PortalException {
+
+		CommerceBOMEntry commerceBOMEntry =
+			commerceBOMEntryLocalService.getCommerceBOMEntry(
+				commerceBOMEntryId);
+
+		_commerceBOMDefinitionModelResourcePermission.check(
+			getPermissionChecker(),
+			commerceBOMEntry.getCommerceBOMDefinitionId(), ActionKeys.VIEW);
+
+		return commerceBOMEntry;
+	}
+
+	@Override
+	public List<CommerceBOMEntry> getCommerceBOMEntries(
+			long commerceBOMDefinitionId, int start, int end)
 		throws PortalException {
 
 		_commerceBOMDefinitionModelResourcePermission.check(
-			getPermissionChecker(), commerceBOMDefinitionId, ActionKeys.UPDATE);
+			getPermissionChecker(), commerceBOMDefinitionId, ActionKeys.VIEW);
+
+		return commerceBOMEntryLocalService.getCommerceBOMEntries(
+			commerceBOMDefinitionId, start, end);
+	}
+
+	@Override
+	public int getCommerceBOMEntriesCount(long commerceBOMDefinitionId)
+		throws PortalException {
+
+		_commerceBOMDefinitionModelResourcePermission.check(
+			getPermissionChecker(), commerceBOMDefinitionId, ActionKeys.VIEW);
+
+		return commerceBOMEntryLocalService.getCommerceBOMEntriesCount(
+			commerceBOMDefinitionId);
+	}
+
+	@Override
+	public CommerceBOMEntry updateCommerceBOMEntry(
+			long commerceBOMEntryId, int number, String cpInstanceUuid,
+			long cProductId, double positionX, double positionY, double radius)
+		throws PortalException {
+
+		CommerceBOMEntry commerceBOMEntry =
+			commerceBOMEntryLocalService.getCommerceBOMEntry(
+				commerceBOMEntryId);
+
+		_commerceBOMDefinitionModelResourcePermission.check(
+			getPermissionChecker(),
+			commerceBOMEntry.getCommerceBOMDefinitionId(), ActionKeys.UPDATE);
 
 		return commerceBOMEntryLocalService.updateCommerceBOMEntry(
-			commerceBOMEntryId, number, cpInstanceUuid, cProductId,
-			commerceBOMDefinitionId, positionX, positionY, radius);
+			commerceBOMEntryId, number, cpInstanceUuid, cProductId, positionX,
+			positionY, radius);
 	}
 
 	private static volatile ModelResourcePermission<CommerceBOMDefinition>

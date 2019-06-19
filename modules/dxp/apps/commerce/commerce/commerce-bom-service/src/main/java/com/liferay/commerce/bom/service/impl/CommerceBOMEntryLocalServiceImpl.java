@@ -19,8 +19,11 @@ import com.liferay.commerce.bom.service.base.CommerceBOMEntryLocalServiceBaseImp
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 
+import java.util.List;
+
 /**
  * @author Luca Pellizzon
+ * @author Alessio Antonio Rendina
  */
 public class CommerceBOMEntryLocalServiceImpl
 	extends CommerceBOMEntryLocalServiceBaseImpl {
@@ -54,10 +57,23 @@ public class CommerceBOMEntryLocalServiceImpl
 	}
 
 	@Override
+	public List<CommerceBOMEntry> getCommerceBOMEntries(
+		long commerceBOMDefinitionId, int start, int end) {
+
+		return commerceBOMEntryPersistence.findByCommerceBOMDefinitionId(
+			commerceBOMDefinitionId, start, end);
+	}
+
+	@Override
+	public int getCommerceBOMEntriesCount(long commerceBOMDefinitionId) {
+		return commerceBOMEntryPersistence.countByCommerceBOMDefinitionId(
+			commerceBOMDefinitionId);
+	}
+
+	@Override
 	public CommerceBOMEntry updateCommerceBOMEntry(
 			long commerceBOMEntryId, int number, String cpInstanceUuid,
-			long cProductId, long commerceBOMDefinitionId, double positionX,
-			double positionY, double radius)
+			long cProductId, double positionX, double positionY, double radius)
 		throws PortalException {
 
 		CommerceBOMEntry commerceBOMEntry =
@@ -67,7 +83,6 @@ public class CommerceBOMEntryLocalServiceImpl
 		commerceBOMEntry.setNumber(number);
 		commerceBOMEntry.setCPInstanceUuid(cpInstanceUuid);
 		commerceBOMEntry.setCProductId(cProductId);
-		commerceBOMEntry.setCommerceBOMDefinitionId(commerceBOMDefinitionId);
 		commerceBOMEntry.setPositionX(positionX);
 		commerceBOMEntry.setPositionY(positionY);
 		commerceBOMEntry.setRadius(radius);
