@@ -117,7 +117,7 @@ const EditNumberForm = React.memo(() => {
 				if (spot.number === number) {
 					return state.area.mappedProducts.reduce(
 						(acc, product) =>
-							acc || (spot.rel === product.id && product),
+							acc || (spot.productId === product.id && product),
 						null
 					);
 				}

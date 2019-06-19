@@ -76,7 +76,7 @@ function PartDetail(props) {
         (props.resumeVisible ? ' part-detail--resume-visible' : '');
 
     const product = state.area.products.reduce(
-        (acc, product)=> acc || (product.id === props.rel && product),
+        (acc, product)=> acc || (product.id === props.productId && product),
         null
     );
 

@@ -75,7 +75,7 @@ function getFakeArea() {
 					x: 73.34,
 					y: 33.43,
 				},
-				rel: 'IS01',
+				productId: 'IS01',
 			},
 			{
 				number: 3,
@@ -84,7 +84,7 @@ function getFakeArea() {
 					y: 66.43,
 					x: 56.34,
 				},
-				rel: 'IS01',
+				productId: 'IS01',
 			},
 			{
 				number: 7,
@@ -93,7 +93,7 @@ function getFakeArea() {
 					y: 100,
 					x: 100,
 				},
-				rel: 'IS02',
+				productId: 'IS02',
 			},
 			{
 				number: 12,
@@ -102,7 +102,7 @@ function getFakeArea() {
 					x: 0,
 					y: 0,
 				},
-				rel: 'IS03',
+				productId: 'IS03',
 			},
 		],
 		products: [

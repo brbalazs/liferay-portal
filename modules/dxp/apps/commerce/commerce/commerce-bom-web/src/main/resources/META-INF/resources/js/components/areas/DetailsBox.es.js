@@ -40,7 +40,7 @@ function DetailsBox() {
         return {
             ...product,
             number: state.area.spots.reduce(
-                (number, spot) => number || (spot.rel === product.id && spot.number),
+                (number, spot) => number || (spot.productId === product.id && spot.number),
                 null
             )
         }
