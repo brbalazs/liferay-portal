@@ -115,7 +115,11 @@ public class CommerceBOMEntryModelImpl extends BaseModelImpl<CommerceBOMEntry>
 	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.commerce.bom.service.util.ServiceProps.get(
 				"value.object.finder.cache.enabled.com.liferay.commerce.bom.model.CommerceBOMEntry"),
 			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = false;
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.commerce.bom.service.util.ServiceProps.get(
+				"value.object.column.bitmask.enabled.com.liferay.commerce.bom.model.CommerceBOMEntry"),
+			true);
+	public static final long COMMERCEBOMDEFINITIONID_COLUMN_BITMASK = 1L;
+	public static final long NUMBER_COLUMN_BITMASK = 2L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -411,6 +415,8 @@ public class CommerceBOMEntryModelImpl extends BaseModelImpl<CommerceBOMEntry>
 
 	@Override
 	public void setNumber(int number) {
+		_columnBitmask = -1L;
+
 		_number = number;
 	}
 
@@ -449,7 +455,19 @@ public class CommerceBOMEntryModelImpl extends BaseModelImpl<CommerceBOMEntry>
 
 	@Override
 	public void setCommerceBOMDefinitionId(long commerceBOMDefinitionId) {
+		_columnBitmask |= COMMERCEBOMDEFINITIONID_COLUMN_BITMASK;
+
+		if (!_setOriginalCommerceBOMDefinitionId) {
+			_setOriginalCommerceBOMDefinitionId = true;
+
+			_originalCommerceBOMDefinitionId = _commerceBOMDefinitionId;
+		}
+
 		_commerceBOMDefinitionId = commerceBOMDefinitionId;
+	}
+
+	public long getOriginalCommerceBOMDefinitionId() {
+		return _originalCommerceBOMDefinitionId;
 	}
 
 	@JSON
@@ -483,6 +501,10 @@ public class CommerceBOMEntryModelImpl extends BaseModelImpl<CommerceBOMEntry>
 	@Override
 	public void setRadius(double radius) {
 		_radius = radius;
+	}
+
+	public long getColumnBitmask() {
+		return _columnBitmask;
 	}
 
 	@Override
@@ -594,6 +616,12 @@ public class CommerceBOMEntryModelImpl extends BaseModelImpl<CommerceBOMEntry>
 		CommerceBOMEntryModelImpl commerceBOMEntryModelImpl = this;
 
 		commerceBOMEntryModelImpl._setModifiedDate = false;
+
+		commerceBOMEntryModelImpl._originalCommerceBOMDefinitionId = commerceBOMEntryModelImpl._commerceBOMDefinitionId;
+
+		commerceBOMEntryModelImpl._setOriginalCommerceBOMDefinitionId = false;
+
+		commerceBOMEntryModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -771,8 +799,11 @@ public class CommerceBOMEntryModelImpl extends BaseModelImpl<CommerceBOMEntry>
 	private String _CPInstanceUuid;
 	private long _CProductId;
 	private long _commerceBOMDefinitionId;
+	private long _originalCommerceBOMDefinitionId;
+	private boolean _setOriginalCommerceBOMDefinitionId;
 	private double _positionX;
 	private double _positionY;
 	private double _radius;
+	private long _columnBitmask;
 	private CommerceBOMEntry _escapedModel;
 }

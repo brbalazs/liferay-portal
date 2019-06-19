@@ -25,7 +25,10 @@ import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+
+import java.util.List;
 
 /**
  * Provides the remote service interface for CommerceBOMEntry. Methods of this
@@ -56,6 +59,22 @@ public interface CommerceBOMEntryService extends BaseService {
 		double positionX, double positionY, double radius)
 		throws PortalException;
 
+	public void deleteCommerceBOMEntry(long commerceBOMEntryId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceBOMEntry> getCommerceBOMEntries(
+		long commerceBOMDefinitionId, int start, int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceBOMEntriesCount(long commerceBOMDefinitionId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceBOMEntry getCommerceBOMEntry(long commerceBOMEntryId)
+		throws PortalException;
+
 	/**
 	* Returns the OSGi service identifier.
 	*
@@ -64,7 +83,6 @@ public interface CommerceBOMEntryService extends BaseService {
 	public String getOSGiServiceIdentifier();
 
 	public CommerceBOMEntry updateCommerceBOMEntry(long commerceBOMEntryId,
-		int number, String cpInstanceUuid, long cProductId,
-		long commerceBOMDefinitionId, double positionX, double positionY,
-		double radius) throws PortalException;
+		int number, String cpInstanceUuid, long cProductId, double positionX,
+		double positionY, double radius) throws PortalException;
 }

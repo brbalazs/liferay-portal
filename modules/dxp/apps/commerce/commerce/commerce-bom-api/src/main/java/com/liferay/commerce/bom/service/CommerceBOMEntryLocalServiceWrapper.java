@@ -219,6 +219,13 @@ public class CommerceBOMEntryLocalServiceWrapper
 		return _commerceBOMEntryLocalService.getCommerceBOMEntries(start, end);
 	}
 
+	@Override
+	public java.util.List<com.liferay.commerce.bom.model.CommerceBOMEntry> getCommerceBOMEntries(
+		long commerceBOMDefinitionId, int start, int end) {
+		return _commerceBOMEntryLocalService.getCommerceBOMEntries(commerceBOMDefinitionId,
+			start, end);
+	}
+
 	/**
 	* Returns the number of commerce bom entries.
 	*
@@ -227,6 +234,11 @@ public class CommerceBOMEntryLocalServiceWrapper
 	@Override
 	public int getCommerceBOMEntriesCount() {
 		return _commerceBOMEntryLocalService.getCommerceBOMEntriesCount();
+	}
+
+	@Override
+	public int getCommerceBOMEntriesCount(long commerceBOMDefinitionId) {
+		return _commerceBOMEntryLocalService.getCommerceBOMEntriesCount(commerceBOMDefinitionId);
 	}
 
 	/**
@@ -280,12 +292,10 @@ public class CommerceBOMEntryLocalServiceWrapper
 	@Override
 	public com.liferay.commerce.bom.model.CommerceBOMEntry updateCommerceBOMEntry(
 		long commerceBOMEntryId, int number, String cpInstanceUuid,
-		long cProductId, long commerceBOMDefinitionId, double positionX,
-		double positionY, double radius)
+		long cProductId, double positionX, double positionY, double radius)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _commerceBOMEntryLocalService.updateCommerceBOMEntry(commerceBOMEntryId,
-			number, cpInstanceUuid, cProductId, commerceBOMDefinitionId,
-			positionX, positionY, radius);
+			number, cpInstanceUuid, cProductId, positionX, positionY, radius);
 	}
 
 	@Override

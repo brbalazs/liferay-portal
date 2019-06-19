@@ -198,6 +198,10 @@ public interface CommerceBOMEntryLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceBOMEntry> getCommerceBOMEntries(int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceBOMEntry> getCommerceBOMEntries(
+		long commerceBOMDefinitionId, int start, int end);
+
 	/**
 	* Returns the number of commerce bom entries.
 	*
@@ -205,6 +209,9 @@ public interface CommerceBOMEntryLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceBOMEntriesCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceBOMEntriesCount(long commerceBOMDefinitionId);
 
 	/**
 	* Returns the commerce bom entry with the primary key.
@@ -243,7 +250,6 @@ public interface CommerceBOMEntryLocalService extends BaseLocalService,
 		CommerceBOMEntry commerceBOMEntry);
 
 	public CommerceBOMEntry updateCommerceBOMEntry(long commerceBOMEntryId,
-		int number, String cpInstanceUuid, long cProductId,
-		long commerceBOMDefinitionId, double positionX, double positionY,
-		double radius) throws PortalException;
+		int number, String cpInstanceUuid, long cProductId, double positionX,
+		double positionY, double radius) throws PortalException;
 }

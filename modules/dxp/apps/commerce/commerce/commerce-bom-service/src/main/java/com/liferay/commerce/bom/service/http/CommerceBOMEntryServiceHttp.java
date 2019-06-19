@@ -90,19 +90,146 @@ public class CommerceBOMEntryServiceHttp {
 		}
 	}
 
+	public static void deleteCommerceBOMEntry(HttpPrincipal httpPrincipal,
+		long commerceBOMEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		try {
+			MethodKey methodKey = new MethodKey(CommerceBOMEntryServiceUtil.class,
+					"deleteCommerceBOMEntry",
+					_deleteCommerceBOMEntryParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey,
+					commerceBOMEntryId);
+
+			try {
+				TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static com.liferay.commerce.bom.model.CommerceBOMEntry getCommerceBOMEntry(
+		HttpPrincipal httpPrincipal, long commerceBOMEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		try {
+			MethodKey methodKey = new MethodKey(CommerceBOMEntryServiceUtil.class,
+					"getCommerceBOMEntry", _getCommerceBOMEntryParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey,
+					commerceBOMEntryId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (com.liferay.commerce.bom.model.CommerceBOMEntry)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMEntry> getCommerceBOMEntries(
+		HttpPrincipal httpPrincipal, long commerceBOMDefinitionId, int start,
+		int end) throws com.liferay.portal.kernel.exception.PortalException {
+		try {
+			MethodKey methodKey = new MethodKey(CommerceBOMEntryServiceUtil.class,
+					"getCommerceBOMEntries",
+					_getCommerceBOMEntriesParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey,
+					commerceBOMDefinitionId, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (java.util.List<com.liferay.commerce.bom.model.CommerceBOMEntry>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static int getCommerceBOMEntriesCount(HttpPrincipal httpPrincipal,
+		long commerceBOMDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		try {
+			MethodKey methodKey = new MethodKey(CommerceBOMEntryServiceUtil.class,
+					"getCommerceBOMEntriesCount",
+					_getCommerceBOMEntriesCountParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey,
+					commerceBOMDefinitionId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static com.liferay.commerce.bom.model.CommerceBOMEntry updateCommerceBOMEntry(
 		HttpPrincipal httpPrincipal, long commerceBOMEntryId, int number,
-		String cpInstanceUuid, long cProductId, long commerceBOMDefinitionId,
-		double positionX, double positionY, double radius)
+		String cpInstanceUuid, long cProductId, double positionX,
+		double positionY, double radius)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(CommerceBOMEntryServiceUtil.class,
 					"updateCommerceBOMEntry",
-					_updateCommerceBOMEntryParameterTypes1);
+					_updateCommerceBOMEntryParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					commerceBOMEntryId, number, cpInstanceUuid, cProductId,
-					commerceBOMDefinitionId, positionX, positionY, radius);
+					positionX, positionY, radius);
 
 			Object returnObj = null;
 
@@ -131,8 +258,20 @@ public class CommerceBOMEntryServiceHttp {
 			long.class, int.class, String.class, long.class, long.class,
 			double.class, double.class, double.class
 		};
-	private static final Class<?>[] _updateCommerceBOMEntryParameterTypes1 = new Class[] {
-			long.class, int.class, String.class, long.class, long.class,
-			double.class, double.class, double.class
+	private static final Class<?>[] _deleteCommerceBOMEntryParameterTypes1 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[] _getCommerceBOMEntryParameterTypes2 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[] _getCommerceBOMEntriesParameterTypes3 = new Class[] {
+			long.class, int.class, int.class
+		};
+	private static final Class<?>[] _getCommerceBOMEntriesCountParameterTypes4 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[] _updateCommerceBOMEntryParameterTypes5 = new Class[] {
+			long.class, int.class, String.class, long.class, double.class,
+			double.class, double.class
 		};
 }

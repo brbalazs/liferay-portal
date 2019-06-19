@@ -42,6 +42,143 @@ public interface CommerceBOMEntryPersistence extends BasePersistence<CommerceBOM
 	 */
 
 	/**
+	* Returns all the commerce bom entries where commerceBOMDefinitionId = &#63;.
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @return the matching commerce bom entries
+	*/
+	public java.util.List<CommerceBOMEntry> findByCommerceBOMDefinitionId(
+		long commerceBOMDefinitionId);
+
+	/**
+	* Returns a range of all the commerce bom entries where commerceBOMDefinitionId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @param start the lower bound of the range of commerce bom entries
+	* @param end the upper bound of the range of commerce bom entries (not inclusive)
+	* @return the range of matching commerce bom entries
+	*/
+	public java.util.List<CommerceBOMEntry> findByCommerceBOMDefinitionId(
+		long commerceBOMDefinitionId, int start, int end);
+
+	/**
+	* Returns an ordered range of all the commerce bom entries where commerceBOMDefinitionId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @param start the lower bound of the range of commerce bom entries
+	* @param end the upper bound of the range of commerce bom entries (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching commerce bom entries
+	*/
+	public java.util.List<CommerceBOMEntry> findByCommerceBOMDefinitionId(
+		long commerceBOMDefinitionId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMEntry> orderByComparator);
+
+	/**
+	* Returns an ordered range of all the commerce bom entries where commerceBOMDefinitionId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @param start the lower bound of the range of commerce bom entries
+	* @param end the upper bound of the range of commerce bom entries (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching commerce bom entries
+	*/
+	public java.util.List<CommerceBOMEntry> findByCommerceBOMDefinitionId(
+		long commerceBOMDefinitionId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMEntry> orderByComparator,
+		boolean retrieveFromCache);
+
+	/**
+	* Returns the first commerce bom entry in the ordered set where commerceBOMDefinitionId = &#63;.
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching commerce bom entry
+	* @throws NoSuchBOMEntryException if a matching commerce bom entry could not be found
+	*/
+	public CommerceBOMEntry findByCommerceBOMDefinitionId_First(
+		long commerceBOMDefinitionId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMEntry> orderByComparator)
+		throws NoSuchBOMEntryException;
+
+	/**
+	* Returns the first commerce bom entry in the ordered set where commerceBOMDefinitionId = &#63;.
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching commerce bom entry, or <code>null</code> if a matching commerce bom entry could not be found
+	*/
+	public CommerceBOMEntry fetchByCommerceBOMDefinitionId_First(
+		long commerceBOMDefinitionId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMEntry> orderByComparator);
+
+	/**
+	* Returns the last commerce bom entry in the ordered set where commerceBOMDefinitionId = &#63;.
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching commerce bom entry
+	* @throws NoSuchBOMEntryException if a matching commerce bom entry could not be found
+	*/
+	public CommerceBOMEntry findByCommerceBOMDefinitionId_Last(
+		long commerceBOMDefinitionId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMEntry> orderByComparator)
+		throws NoSuchBOMEntryException;
+
+	/**
+	* Returns the last commerce bom entry in the ordered set where commerceBOMDefinitionId = &#63;.
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching commerce bom entry, or <code>null</code> if a matching commerce bom entry could not be found
+	*/
+	public CommerceBOMEntry fetchByCommerceBOMDefinitionId_Last(
+		long commerceBOMDefinitionId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMEntry> orderByComparator);
+
+	/**
+	* Returns the commerce bom entries before and after the current commerce bom entry in the ordered set where commerceBOMDefinitionId = &#63;.
+	*
+	* @param commerceBOMEntryId the primary key of the current commerce bom entry
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next commerce bom entry
+	* @throws NoSuchBOMEntryException if a commerce bom entry with the primary key could not be found
+	*/
+	public CommerceBOMEntry[] findByCommerceBOMDefinitionId_PrevAndNext(
+		long commerceBOMEntryId, long commerceBOMDefinitionId,
+		com.liferay.portal.kernel.util.OrderByComparator<CommerceBOMEntry> orderByComparator)
+		throws NoSuchBOMEntryException;
+
+	/**
+	* Removes all the commerce bom entries where commerceBOMDefinitionId = &#63; from the database.
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	*/
+	public void removeByCommerceBOMDefinitionId(long commerceBOMDefinitionId);
+
+	/**
+	* Returns the number of commerce bom entries where commerceBOMDefinitionId = &#63;.
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @return the number of matching commerce bom entries
+	*/
+	public int countByCommerceBOMDefinitionId(long commerceBOMDefinitionId);
+
+	/**
 	* Caches the commerce bom entry in the entity cache if it is enabled.
 	*
 	* @param commerceBOMEntry the commerce bom entry

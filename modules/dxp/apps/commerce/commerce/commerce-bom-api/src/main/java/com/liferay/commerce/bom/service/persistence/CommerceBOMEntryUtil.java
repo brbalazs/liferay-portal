@@ -113,6 +113,185 @@ public class CommerceBOMEntryUtil {
 	}
 
 	/**
+	* Returns all the commerce bom entries where commerceBOMDefinitionId = &#63;.
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @return the matching commerce bom entries
+	*/
+	public static List<CommerceBOMEntry> findByCommerceBOMDefinitionId(
+		long commerceBOMDefinitionId) {
+		return getPersistence()
+				   .findByCommerceBOMDefinitionId(commerceBOMDefinitionId);
+	}
+
+	/**
+	* Returns a range of all the commerce bom entries where commerceBOMDefinitionId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @param start the lower bound of the range of commerce bom entries
+	* @param end the upper bound of the range of commerce bom entries (not inclusive)
+	* @return the range of matching commerce bom entries
+	*/
+	public static List<CommerceBOMEntry> findByCommerceBOMDefinitionId(
+		long commerceBOMDefinitionId, int start, int end) {
+		return getPersistence()
+				   .findByCommerceBOMDefinitionId(commerceBOMDefinitionId,
+			start, end);
+	}
+
+	/**
+	* Returns an ordered range of all the commerce bom entries where commerceBOMDefinitionId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @param start the lower bound of the range of commerce bom entries
+	* @param end the upper bound of the range of commerce bom entries (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching commerce bom entries
+	*/
+	public static List<CommerceBOMEntry> findByCommerceBOMDefinitionId(
+		long commerceBOMDefinitionId, int start, int end,
+		OrderByComparator<CommerceBOMEntry> orderByComparator) {
+		return getPersistence()
+				   .findByCommerceBOMDefinitionId(commerceBOMDefinitionId,
+			start, end, orderByComparator);
+	}
+
+	/**
+	* Returns an ordered range of all the commerce bom entries where commerceBOMDefinitionId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @param start the lower bound of the range of commerce bom entries
+	* @param end the upper bound of the range of commerce bom entries (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching commerce bom entries
+	*/
+	public static List<CommerceBOMEntry> findByCommerceBOMDefinitionId(
+		long commerceBOMDefinitionId, int start, int end,
+		OrderByComparator<CommerceBOMEntry> orderByComparator,
+		boolean retrieveFromCache) {
+		return getPersistence()
+				   .findByCommerceBOMDefinitionId(commerceBOMDefinitionId,
+			start, end, orderByComparator, retrieveFromCache);
+	}
+
+	/**
+	* Returns the first commerce bom entry in the ordered set where commerceBOMDefinitionId = &#63;.
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching commerce bom entry
+	* @throws NoSuchBOMEntryException if a matching commerce bom entry could not be found
+	*/
+	public static CommerceBOMEntry findByCommerceBOMDefinitionId_First(
+		long commerceBOMDefinitionId,
+		OrderByComparator<CommerceBOMEntry> orderByComparator)
+		throws com.liferay.commerce.bom.exception.NoSuchBOMEntryException {
+		return getPersistence()
+				   .findByCommerceBOMDefinitionId_First(commerceBOMDefinitionId,
+			orderByComparator);
+	}
+
+	/**
+	* Returns the first commerce bom entry in the ordered set where commerceBOMDefinitionId = &#63;.
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching commerce bom entry, or <code>null</code> if a matching commerce bom entry could not be found
+	*/
+	public static CommerceBOMEntry fetchByCommerceBOMDefinitionId_First(
+		long commerceBOMDefinitionId,
+		OrderByComparator<CommerceBOMEntry> orderByComparator) {
+		return getPersistence()
+				   .fetchByCommerceBOMDefinitionId_First(commerceBOMDefinitionId,
+			orderByComparator);
+	}
+
+	/**
+	* Returns the last commerce bom entry in the ordered set where commerceBOMDefinitionId = &#63;.
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching commerce bom entry
+	* @throws NoSuchBOMEntryException if a matching commerce bom entry could not be found
+	*/
+	public static CommerceBOMEntry findByCommerceBOMDefinitionId_Last(
+		long commerceBOMDefinitionId,
+		OrderByComparator<CommerceBOMEntry> orderByComparator)
+		throws com.liferay.commerce.bom.exception.NoSuchBOMEntryException {
+		return getPersistence()
+				   .findByCommerceBOMDefinitionId_Last(commerceBOMDefinitionId,
+			orderByComparator);
+	}
+
+	/**
+	* Returns the last commerce bom entry in the ordered set where commerceBOMDefinitionId = &#63;.
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching commerce bom entry, or <code>null</code> if a matching commerce bom entry could not be found
+	*/
+	public static CommerceBOMEntry fetchByCommerceBOMDefinitionId_Last(
+		long commerceBOMDefinitionId,
+		OrderByComparator<CommerceBOMEntry> orderByComparator) {
+		return getPersistence()
+				   .fetchByCommerceBOMDefinitionId_Last(commerceBOMDefinitionId,
+			orderByComparator);
+	}
+
+	/**
+	* Returns the commerce bom entries before and after the current commerce bom entry in the ordered set where commerceBOMDefinitionId = &#63;.
+	*
+	* @param commerceBOMEntryId the primary key of the current commerce bom entry
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next commerce bom entry
+	* @throws NoSuchBOMEntryException if a commerce bom entry with the primary key could not be found
+	*/
+	public static CommerceBOMEntry[] findByCommerceBOMDefinitionId_PrevAndNext(
+		long commerceBOMEntryId, long commerceBOMDefinitionId,
+		OrderByComparator<CommerceBOMEntry> orderByComparator)
+		throws com.liferay.commerce.bom.exception.NoSuchBOMEntryException {
+		return getPersistence()
+				   .findByCommerceBOMDefinitionId_PrevAndNext(commerceBOMEntryId,
+			commerceBOMDefinitionId, orderByComparator);
+	}
+
+	/**
+	* Removes all the commerce bom entries where commerceBOMDefinitionId = &#63; from the database.
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	*/
+	public static void removeByCommerceBOMDefinitionId(
+		long commerceBOMDefinitionId) {
+		getPersistence().removeByCommerceBOMDefinitionId(commerceBOMDefinitionId);
+	}
+
+	/**
+	* Returns the number of commerce bom entries where commerceBOMDefinitionId = &#63;.
+	*
+	* @param commerceBOMDefinitionId the commerce bom definition ID
+	* @return the number of matching commerce bom entries
+	*/
+	public static int countByCommerceBOMDefinitionId(
+		long commerceBOMDefinitionId) {
+		return getPersistence()
+				   .countByCommerceBOMDefinitionId(commerceBOMDefinitionId);
+	}
+
+	/**
 	* Caches the commerce bom entry in the entity cache if it is enabled.
 	*
 	* @param commerceBOMEntry the commerce bom entry

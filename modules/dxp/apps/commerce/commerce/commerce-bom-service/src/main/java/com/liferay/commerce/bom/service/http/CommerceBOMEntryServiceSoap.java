@@ -83,14 +83,71 @@ public class CommerceBOMEntryServiceSoap {
 		}
 	}
 
+	public static void deleteCommerceBOMEntry(long commerceBOMEntryId)
+		throws RemoteException {
+		try {
+			CommerceBOMEntryServiceUtil.deleteCommerceBOMEntry(commerceBOMEntryId);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.bom.model.CommerceBOMEntrySoap getCommerceBOMEntry(
+		long commerceBOMEntryId) throws RemoteException {
+		try {
+			com.liferay.commerce.bom.model.CommerceBOMEntry returnValue = CommerceBOMEntryServiceUtil.getCommerceBOMEntry(commerceBOMEntryId);
+
+			return com.liferay.commerce.bom.model.CommerceBOMEntrySoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.bom.model.CommerceBOMEntrySoap[] getCommerceBOMEntries(
+		long commerceBOMDefinitionId, int start, int end)
+		throws RemoteException {
+		try {
+			java.util.List<com.liferay.commerce.bom.model.CommerceBOMEntry> returnValue =
+				CommerceBOMEntryServiceUtil.getCommerceBOMEntries(commerceBOMDefinitionId,
+					start, end);
+
+			return com.liferay.commerce.bom.model.CommerceBOMEntrySoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getCommerceBOMEntriesCount(long commerceBOMDefinitionId)
+		throws RemoteException {
+		try {
+			int returnValue = CommerceBOMEntryServiceUtil.getCommerceBOMEntriesCount(commerceBOMDefinitionId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.commerce.bom.model.CommerceBOMEntrySoap updateCommerceBOMEntry(
 		long commerceBOMEntryId, int number, String cpInstanceUuid,
-		long cProductId, long commerceBOMDefinitionId, double positionX,
-		double positionY, double radius) throws RemoteException {
+		long cProductId, double positionX, double positionY, double radius)
+		throws RemoteException {
 		try {
 			com.liferay.commerce.bom.model.CommerceBOMEntry returnValue = CommerceBOMEntryServiceUtil.updateCommerceBOMEntry(commerceBOMEntryId,
-					number, cpInstanceUuid, cProductId,
-					commerceBOMDefinitionId, positionX, positionY, radius);
+					number, cpInstanceUuid, cProductId, positionX, positionY,
+					radius);
 
 			return com.liferay.commerce.bom.model.CommerceBOMEntrySoap.toSoapModel(returnValue);
 		}

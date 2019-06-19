@@ -52,6 +52,29 @@ public class CommerceBOMEntryServiceUtil {
 			cProductId, commerceBOMDefinitionId, positionX, positionY, radius);
 	}
 
+	public static void deleteCommerceBOMEntry(long commerceBOMEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		getService().deleteCommerceBOMEntry(commerceBOMEntryId);
+	}
+
+	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMEntry> getCommerceBOMEntries(
+		long commerceBOMDefinitionId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .getCommerceBOMEntries(commerceBOMDefinitionId, start, end);
+	}
+
+	public static int getCommerceBOMEntriesCount(long commerceBOMDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getCommerceBOMEntriesCount(commerceBOMDefinitionId);
+	}
+
+	public static com.liferay.commerce.bom.model.CommerceBOMEntry getCommerceBOMEntry(
+		long commerceBOMEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getCommerceBOMEntry(commerceBOMEntryId);
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*
@@ -63,13 +86,11 @@ public class CommerceBOMEntryServiceUtil {
 
 	public static com.liferay.commerce.bom.model.CommerceBOMEntry updateCommerceBOMEntry(
 		long commerceBOMEntryId, int number, String cpInstanceUuid,
-		long cProductId, long commerceBOMDefinitionId, double positionX,
-		double positionY, double radius)
+		long cProductId, double positionX, double positionY, double radius)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .updateCommerceBOMEntry(commerceBOMEntryId, number,
-			cpInstanceUuid, cProductId, commerceBOMDefinitionId, positionX,
-			positionY, radius);
+			cpInstanceUuid, cProductId, positionX, positionY, radius);
 	}
 
 	public static CommerceBOMEntryService getService() {
