@@ -128,17 +128,17 @@ public class Spot {
 	protected Position position;
 
 	@Schema
-	public String getProductId() {
+	public Long getProductId() {
 		return productId;
 	}
 
-	public void setProductId(String productId) {
+	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
 
 	@JsonIgnore
 	public void setProductId(
-		UnsafeSupplier<String, Exception> productIdUnsafeSupplier) {
+		UnsafeSupplier<Long, Exception> productIdUnsafeSupplier) {
 
 		try {
 			productId = productIdUnsafeSupplier.get();
@@ -153,7 +153,33 @@ public class Spot {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String productId;
+	protected Long productId;
+
+	@Schema
+	public String getSku() {
+		return sku;
+	}
+
+	public void setSku(String sku) {
+		this.sku = sku;
+	}
+
+	@JsonIgnore
+	public void setSku(UnsafeSupplier<String, Exception> skuUnsafeSupplier) {
+		try {
+			sku = skuUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String sku;
 
 	@Override
 	public boolean equals(Object object) {
@@ -219,9 +245,19 @@ public class Spot {
 
 			sb.append("\"productId\": ");
 
+			sb.append(productId);
+		}
+
+		if (sku != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"sku\": ");
+
 			sb.append("\"");
 
-			sb.append(_escape(productId));
+			sb.append(_escape(sku));
 
 			sb.append("\"");
 		}

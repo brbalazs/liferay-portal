@@ -16,7 +16,6 @@ package com.liferay.commerce.bom.rest.resource.v1_0;
 
 import com.liferay.commerce.bom.rest.dto.v1_0.Area;
 import com.liferay.portal.kernel.model.Company;
-import com.liferay.portal.vulcan.pagination.Pagination;
 
 import javax.annotation.Generated;
 
@@ -31,7 +30,7 @@ import javax.annotation.Generated;
 @Generated("")
 public interface AreaResource {
 
-	public Area getArea(Long id, Pagination pagination) throws Exception;
+	public Area getArea(Long id) throws Exception;
 
 	public void setContextCompany(Company contextCompany);
 

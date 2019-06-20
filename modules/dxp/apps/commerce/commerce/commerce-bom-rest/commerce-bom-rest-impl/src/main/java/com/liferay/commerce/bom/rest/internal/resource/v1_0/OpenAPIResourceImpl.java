@@ -80,6 +80,8 @@ public class OpenAPIResourceImpl {
 
 			add(FolderResourceImpl.class);
 
+			add(ProductResourceImpl.class);
+
 			add(SpotResourceImpl.class);
 
 			add(OpenAPIResourceImpl.class);

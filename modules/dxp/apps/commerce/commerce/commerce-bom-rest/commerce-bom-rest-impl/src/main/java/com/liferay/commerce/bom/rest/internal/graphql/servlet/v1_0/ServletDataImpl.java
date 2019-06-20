@@ -18,6 +18,7 @@ import com.liferay.commerce.bom.rest.internal.graphql.mutation.v1_0.Mutation;
 import com.liferay.commerce.bom.rest.internal.graphql.query.v1_0.Query;
 import com.liferay.commerce.bom.rest.resource.v1_0.AreaResource;
 import com.liferay.commerce.bom.rest.resource.v1_0.FolderResource;
+import com.liferay.commerce.bom.rest.resource.v1_0.ProductResource;
 import com.liferay.commerce.bom.rest.resource.v1_0.SpotResource;
 import com.liferay.portal.vulcan.graphql.servlet.ServletData;
 
@@ -47,6 +48,8 @@ public class ServletDataImpl implements ServletData {
 			_areaResourceComponentServiceObjects);
 		Query.setFolderResourceComponentServiceObjects(
 			_folderResourceComponentServiceObjects);
+		Query.setProductResourceComponentServiceObjects(
+			_productResourceComponentServiceObjects);
 	}
 
 	@Override
@@ -75,5 +78,9 @@ public class ServletDataImpl implements ServletData {
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<FolderResource>
 		_folderResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<ProductResource>
+		_productResourceComponentServiceObjects;
 
 }

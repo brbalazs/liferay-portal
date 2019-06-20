@@ -14,8 +14,9 @@
 
 package com.liferay.commerce.bom.rest.resource.v1_0;
 
-import com.liferay.commerce.bom.rest.dto.v1_0.Folder;
+import com.liferay.commerce.bom.rest.dto.v1_0.Product;
 import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.vulcan.pagination.Page;
 
 import javax.annotation.Generated;
 
@@ -28,9 +29,9 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public interface FolderResource {
+public interface ProductResource {
 
-	public Folder getFolder(Long id) throws Exception;
+	public Page<Product> getProductsPage() throws Exception;
 
 	public void setContextCompany(Company contextCompany);
 

@@ -57,7 +57,7 @@ public abstract class BaseSpotResourceImpl implements SpotResource {
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/area/{id}/spot/")
+	@Path("/areas/{id}/spot/")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Spot")})
 	public Spot postAreaIdSpot(
@@ -76,7 +76,7 @@ public abstract class BaseSpotResourceImpl implements SpotResource {
 			@Parameter(in = ParameterIn.PATH, name = "spotId")
 		}
 	)
-	@Path("/area/{id}/spot/{spotId}")
+	@Path("/areas/{id}/spot/{spotId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Spot")})
 	public Response deleteAreaIdSpot(
@@ -98,7 +98,7 @@ public abstract class BaseSpotResourceImpl implements SpotResource {
 			@Parameter(in = ParameterIn.PATH, name = "spotId")
 		}
 	)
-	@Path("/area/{id}/spot/{spotId}")
+	@Path("/areas/{id}/spot/{spotId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Spot")})
 	public Response putAreaIdSpot(
