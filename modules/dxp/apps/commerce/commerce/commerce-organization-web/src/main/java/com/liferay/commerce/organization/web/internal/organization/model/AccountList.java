@@ -26,6 +26,11 @@ public class AccountList {
 		_total = total;
 	}
 
+	public AccountList(String[] errorMessages) {
+		_errorMessages = errorMessages;
+		_success = false;
+	}
+
 	public List<Account> getAccounts() {
 		return _accounts;
 	}
@@ -34,7 +39,17 @@ public class AccountList {
 		return _total;
 	}
 
-	private final List<Account> _accounts;
-	private final int _total;
+	public void setErrorMessages(String[] errorMessages) {
+		_errorMessages = errorMessages;
+	}
+
+	public void setSuccess(boolean success) {
+		_success = success;
+	}
+
+	private List<Account> _accounts;
+	private String[] _errorMessages;
+	private boolean _success;
+	private int _total;
 
 }

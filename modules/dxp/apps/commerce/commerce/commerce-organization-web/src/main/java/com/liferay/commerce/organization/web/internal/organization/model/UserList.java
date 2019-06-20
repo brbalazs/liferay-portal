@@ -26,6 +26,11 @@ public class UserList {
 		_total = total;
 	}
 
+	public UserList(String[] errorMessages) {
+		_errorMessages = errorMessages;
+		_success = false;
+	}
+
 	public int getTotal() {
 		return _total;
 	}
@@ -34,7 +39,17 @@ public class UserList {
 		return _users;
 	}
 
-	private final int _total;
-	private final List<User> _users;
+	public void setErrorMessages(String[] errorMessages) {
+		_errorMessages = errorMessages;
+	}
+
+	public void setSuccess(boolean success) {
+		_success = success;
+	}
+
+	private String[] _errorMessages;
+	private boolean _success;
+	private int _total;
+	private List<User> _users;
 
 }

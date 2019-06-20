@@ -21,15 +21,12 @@ public class Organization {
 
 	public Organization(
 		long organizationId, long parentOrganizationId, String name,
-		OrganizationList organizations, AccountList accountList,
-		UserList userList) {
+		OrganizationList organizations) {
 
 		_organizationId = organizationId;
 		_parentOrganizationId = parentOrganizationId;
 		_name = name;
 		_organizations = organizations;
-		_accountList = accountList;
-		_userList = userList;
 
 		if ((_organizations != null) && (_organizations.getTotal() > 0)) {
 			_lastLevel = false;
@@ -37,10 +34,6 @@ public class Organization {
 		else {
 			_lastLevel = true;
 		}
-	}
-
-	public AccountList getAccountList() {
-		return _accountList;
 	}
 
 	public boolean getLastLevel() {
@@ -67,12 +60,11 @@ public class Organization {
 		return _userList;
 	}
 
-	private final AccountList _accountList;
 	private final boolean _lastLevel;
 	private final String _name;
 	private final long _organizationId;
 	private final OrganizationList _organizations;
 	private final long _parentOrganizationId;
-	private final UserList _userList;
+	private UserList _userList;
 
 }

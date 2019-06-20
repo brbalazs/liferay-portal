@@ -128,10 +128,7 @@ public class CommerceOrganizationResourceUtil {
 							organization.getSuborganizations(), pagination),
 						_organizationService.getOrganizationsCount(
 							organization.getCompanyId(),
-							organization.getParentOrganizationId())),
-					getAccountList(
-						organization.getOrganizationId(), pagination),
-					getUserList(organization.getOrganizationId(), pagination)));
+							organization.getParentOrganizationId()))));
 		}
 
 		return organizationList;

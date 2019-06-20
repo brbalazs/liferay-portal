@@ -20,7 +20,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.organization.web.internal.organization.model.AccountList;
 import com.liferay.commerce.organization.web.internal.organization.model.OrganizationList;
+import com.liferay.commerce.organization.web.internal.organization.model.UserList;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Organization;
@@ -31,8 +33,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 
 import javax.servlet.http.HttpServletRequest;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -50,42 +50,28 @@ import org.osgi.service.component.annotations.Reference;
 @Component(service = CommerceOrganizationResource.class)
 public class CommerceOrganizationResource {
 
-	@Consumes(MediaType.APPLICATION_JSON)
-	@DELETE
-	@Path("/organization/{id}")
+	@GET
+	@Path("/organizations/{id}/accounts")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteOrganization(
-		@PathParam("id") long organizationId, @Context Pagination pagination) {
+	public Response getOrganizationAccounts(
+		@PathParam("id") long organizationId,
+		@Context HttpServletRequest httpServletRequest,
+		@Context Pagination pagination) {
 
-		OrganizationList organizationList = null;
+		AccountList accountList = null;
 
 		try {
-			long parentOrganizationId =
-				OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID;
-
-			Organization curOrganization = _organizationService.getOrganization(
-				organizationId);
-
-			Organization parentOrganization =
-				curOrganization.getParentOrganization();
-
-			if (parentOrganization != null) {
-				parentOrganizationId = parentOrganization.getOrganizationId();
-			}
-
-			_organizationService.deleteOrganization(organizationId);
-
-			organizationList =
-				_commerceOrganizationResourceUtil.getOrganizationList(
-					curOrganization.getCompanyId(), parentOrganizationId,
-					pagination);
+			accountList = _commerceOrganizationResourceUtil.getAccountList(
+				organizationId, pagination);
 		}
 		catch (Exception e) {
-			organizationList = new OrganizationList(
+			_log.error(e, e);
+
+			accountList = new AccountList(
 				StringUtil.split(e.getLocalizedMessage()));
 		}
 
-		return getResponse(organizationList);
+		return getResponse(accountList);
 	}
 
 	@GET
@@ -122,6 +108,29 @@ public class CommerceOrganizationResource {
 		}
 
 		return getResponse(organizationList);
+	}
+
+	@GET
+	@Path("/organizations/{id}/users")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getOrganizationUsers(
+		@PathParam("id") long organizationId,
+		@Context HttpServletRequest httpServletRequest,
+		@Context Pagination pagination) {
+
+		UserList userList = null;
+
+		try {
+			userList = _commerceOrganizationResourceUtil.getUserList(
+				organizationId, pagination);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			userList = new UserList(StringUtil.split(e.getLocalizedMessage()));
+		}
+
+		return getResponse(userList);
 	}
 
 	protected Response getResponse(Object object) {
