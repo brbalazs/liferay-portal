@@ -59,12 +59,7 @@ public class CommerceOrganizationResourceUtil {
 				_organizationService.getOrganizationsCount(
 					companyId,
 					OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID),
-				_commerceAccountOrganizationRelService.
-					getCommerceAccountOrganizationRelsByOrganizationIdCount(
-						OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID),
-				_userService.getOrganizationUsersCount(
-					OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID,
-					WorkflowConstants.STATUS_APPROVED));
+				0, 0);
 		}
 
 		return new Organization(
