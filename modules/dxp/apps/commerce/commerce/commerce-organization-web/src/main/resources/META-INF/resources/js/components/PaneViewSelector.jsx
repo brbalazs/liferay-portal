@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { LIST_BY } from 'constants';
+import { LIST_BY } from '../utils/constants.es';
 
 const {
 	USERS,

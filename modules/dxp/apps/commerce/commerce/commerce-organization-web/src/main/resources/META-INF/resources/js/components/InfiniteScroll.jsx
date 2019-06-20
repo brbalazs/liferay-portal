@@ -1,14 +1,13 @@
-import w from 'window';
+import w from '../utils/window.es';
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {bindAll, debounce} from 'lodash';
 
 class InfiniteScroll extends Component {
 	constructor(props) {
 		super(props);
 
-		bindAll(
+		_.bindAll(
 			this,
 			'handleScroll_',
 			'shouldScroll_'
@@ -16,7 +15,7 @@ class InfiniteScroll extends Component {
 
 		const {leading, maxWait, wait} = this.props;
 
-		this.debouncedScrollHandler_ = debounce(this.handleScroll_, wait, {leading, maxWait});
+		this.debouncedScrollHandler_ = _.debounce(this.handleScroll_, wait, {leading, maxWait});
 	}
 
 	componentDidMount() {

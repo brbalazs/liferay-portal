@@ -62,21 +62,6 @@ public class CommerceBOMEntryServiceImpl
 	}
 
 	@Override
-	public CommerceBOMEntry getCommerceBOMEntry(long commerceBOMEntryId)
-		throws PortalException {
-
-		CommerceBOMEntry commerceBOMEntry =
-			commerceBOMEntryLocalService.getCommerceBOMEntry(
-				commerceBOMEntryId);
-
-		_commerceBOMDefinitionModelResourcePermission.check(
-			getPermissionChecker(),
-			commerceBOMEntry.getCommerceBOMDefinitionId(), ActionKeys.VIEW);
-
-		return commerceBOMEntry;
-	}
-
-	@Override
 	public List<CommerceBOMEntry> getCommerceBOMEntries(
 			long commerceBOMDefinitionId, int start, int end)
 		throws PortalException {
@@ -97,6 +82,21 @@ public class CommerceBOMEntryServiceImpl
 
 		return commerceBOMEntryLocalService.getCommerceBOMEntriesCount(
 			commerceBOMDefinitionId);
+	}
+
+	@Override
+	public CommerceBOMEntry getCommerceBOMEntry(long commerceBOMEntryId)
+		throws PortalException {
+
+		CommerceBOMEntry commerceBOMEntry =
+			commerceBOMEntryLocalService.getCommerceBOMEntry(
+				commerceBOMEntryId);
+
+		_commerceBOMDefinitionModelResourcePermission.check(
+			getPermissionChecker(),
+			commerceBOMEntry.getCommerceBOMDefinitionId(), ActionKeys.VIEW);
+
+		return commerceBOMEntry;
 	}
 
 	@Override

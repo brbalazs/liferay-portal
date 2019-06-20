@@ -55,12 +55,12 @@ public class Organization {
 		return _organizationId;
 	}
 
-	public long getParentOrganizationId() {
-		return _parentOrganizationId;
-	}
-
 	public OrganizationList getOrganizations() {
 		return _organizations;
+	}
+
+	public long getParentOrganizationId() {
+		return _parentOrganizationId;
 	}
 
 	public UserList getUserList() {
@@ -71,8 +71,8 @@ public class Organization {
 	private final boolean _lastLevel;
 	private final String _name;
 	private final long _organizationId;
-	private final long _parentOrganizationId;
 	private final OrganizationList _organizations;
+	private final long _parentOrganizationId;
 	private final UserList _userList;
 
 }
