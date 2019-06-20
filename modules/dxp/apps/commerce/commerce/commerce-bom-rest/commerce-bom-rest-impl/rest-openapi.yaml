@@ -12,6 +12,15 @@ components:
                 minimum: 0
                 type: integer
             style: simple
+        keywordsQueryParam:
+            explode: true
+            in: query
+            name: q
+            required: false
+            schema:
+                example: Product1
+                type: string
+            style: form
     responses:
         NotFound:
             content:
@@ -602,6 +611,15 @@ paths:
     /products/:
         get:
             operationId: getProductsPage
+            parameters:
+                - explode: true
+                  in: query
+                  name: q
+                  required: false
+                  schema:
+                      example: Product1
+                      type: string
+                  style: form
             responses:
                 200:
                     content:
