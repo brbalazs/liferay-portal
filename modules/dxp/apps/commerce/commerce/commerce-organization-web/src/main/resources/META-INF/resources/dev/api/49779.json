@@ -1,0 +1,19 @@
+{
+	"id": 49779,
+	"total": 0,
+	"name": "Org 3 - 2",
+	"lastLevel": true,
+	"userList": {
+		"total": 1,
+		"users": [
+			{
+				"name": "Another Org 3 User",
+				"userId": 49812
+			}
+		]
+	},
+	"accountList": {
+		"total": 0,
+		"accounts": []
+	}
+}
