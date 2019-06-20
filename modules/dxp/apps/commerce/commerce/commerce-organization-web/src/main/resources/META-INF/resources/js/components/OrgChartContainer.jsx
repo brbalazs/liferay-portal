@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {bindAll} from 'lodash';
-import {fetchData} from 'utils';
+import {fetchData} from '../utils/utils.es';
 
 import OrgChart from 'components/OrgChart';
 import MembersPane from 'components/MembersPane';
@@ -10,7 +9,7 @@ class OrgChartContainer extends Component {
 	constructor(props) {
 		super(props);
 
-		bindAll(
+		_.bindAll(
 			this,
 			'handleNodeClick',
 			'setSelection',

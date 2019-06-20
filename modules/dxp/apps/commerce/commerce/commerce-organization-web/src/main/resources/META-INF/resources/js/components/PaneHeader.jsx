@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import ContextualOptions from 'components/ContextualOptions';
 import PropTypes from 'prop-types';
 
-import {bindAll} from 'lodash';
-
 import PaneOrgInfo from 'components/PaneOrgInfo';
 import PaneViewSelector from 'components/PaneViewSelector';
 import PaneSearchBar from 'components/PaneSearchBar';
@@ -16,7 +14,7 @@ class PaneHeader extends Component {
 			showMenu: false
 		};
 
-		bindAll(
+		_.bindAll(
 			this,
 			'hideMenu',
 			'showMenu'

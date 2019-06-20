@@ -8,15 +8,13 @@ import {
 	isNumber,
 	isArray,
 	truncateTextNode
-} from 'utils';
-
-import {bindAll} from 'lodash';
+} from '../utils/utils.es';
 
 class OrgChart extends Component {
 	constructor(props) {
 		super(props);
 
-		bindAll(
+		_.bindAll(
 			this,
 			'collapse',
 			'handleNodeClick',

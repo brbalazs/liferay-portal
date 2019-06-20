@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import {bindAll} from 'lodash';
-
 import PaneHeader from 'components/PaneHeader';
 import MembersList from 'components/MembersList';
-import {LIST_BY} from 'constants';
-import {fetchData} from 'utils';
+import {LIST_BY} from '../utils/constants.es';
+import {fetchData} from '../utils/utils.es';
 
 const {USERS, ACCOUNTS} = LIST_BY;
 
@@ -66,7 +64,7 @@ class MembersPane extends Component {
 			isLoading: true
 		};
 
-		bindAll(
+		_.bindAll(
 			this,
 			'handleListBy',
 			'handleLookUp',
