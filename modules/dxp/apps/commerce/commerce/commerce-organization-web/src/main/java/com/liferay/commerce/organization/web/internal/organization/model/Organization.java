@@ -14,26 +14,45 @@
 
 package com.liferay.commerce.organization.web.internal.organization.model;
 
+import java.util.List;
+
 /**
  * @author Alessio Antonio Rendina
  */
 public class Organization {
 
 	public Organization(
-		long organizationId, long parentOrganizationId, String name,
-		OrganizationList organizations) {
+		long organizationId, String name, List<Organization> organizations,
+		int organizationsTotal, int accountsTotal, int usersTotal) {
 
 		_organizationId = organizationId;
-		_parentOrganizationId = parentOrganizationId;
 		_name = name;
 		_organizations = organizations;
+		_organizationsTotal = organizationsTotal;
+		_accountsTotal = accountsTotal;
+		_usersTotal = usersTotal;
 
-		if ((_organizations != null) && (_organizations.getTotal() > 0)) {
+		if (_organizationsTotal > 0) {
 			_lastLevel = false;
 		}
 		else {
 			_lastLevel = true;
 		}
+
+		_success = true;
+	}
+
+	public Organization(String[] errorMessages) {
+		_errorMessages = errorMessages;
+		_success = false;
+	}
+
+	public int getAccountsTotal() {
+		return _accountsTotal;
+	}
+
+	public String[] getErrorMessages() {
+		return _errorMessages;
 	}
 
 	public boolean getLastLevel() {
@@ -48,23 +67,43 @@ public class Organization {
 		return _organizationId;
 	}
 
-	public OrganizationList getOrganizations() {
+	public List<Organization> getOrganizations() {
 		return _organizations;
 	}
 
-	public long getParentOrganizationId() {
-		return _parentOrganizationId;
+	public int getOrganizationsTotal() {
+		return _organizationsTotal;
 	}
 
-	public UserList getUserList() {
-		return _userList;
+	public boolean getSuccess() {
+		return _success;
 	}
 
-	private final boolean _lastLevel;
-	private final String _name;
-	private final long _organizationId;
-	private final OrganizationList _organizations;
-	private final long _parentOrganizationId;
-	private UserList _userList;
+	public int getTotal() {
+		return _total;
+	}
+
+	public int getUsersTotal() {
+		return _usersTotal;
+	}
+
+	public void setErrorMessages(String[] errorMessages) {
+		_errorMessages = errorMessages;
+	}
+
+	public void setSuccess(boolean success) {
+		_success = success;
+	}
+
+	private int _accountsTotal;
+	private String[] _errorMessages;
+	private boolean _lastLevel;
+	private String _name;
+	private long _organizationId;
+	private List<Organization> _organizations;
+	private int _organizationsTotal;
+	private boolean _success;
+	private int _total;
+	private int _usersTotal;
 
 }
