@@ -31,7 +31,7 @@ import javax.annotation.Generated;
 @Generated("")
 public interface ProductResource {
 
-	public Page<Product> getProductsPage() throws Exception;
+	public Page<Product> getProductsPage(String q) throws Exception;
 
 	public void setContextCompany(Company contextCompany);
 

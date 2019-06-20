@@ -87,12 +87,14 @@ public class Query {
 
 	@GraphQLField
 	@GraphQLInvokeDetached
-	public Collection<Product> getProductsPage() throws Exception {
+	public Collection<Product> getProductsPage(@GraphQLName("q") String q)
+		throws Exception {
+
 		return _applyComponentServiceObjects(
 			_productResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			productResource -> {
-				Page paginationPage = productResource.getProductsPage();
+				Page paginationPage = productResource.getProductsPage(q);
 
 				return paginationPage.getItems();
 			});

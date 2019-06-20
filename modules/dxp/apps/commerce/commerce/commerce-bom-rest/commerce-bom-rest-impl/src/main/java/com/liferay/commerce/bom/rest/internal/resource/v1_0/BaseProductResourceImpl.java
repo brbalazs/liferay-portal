@@ -22,6 +22,9 @@ import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 
@@ -34,6 +37,7 @@ import javax.annotation.Generated;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
@@ -47,10 +51,14 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 
 	@Override
 	@GET
+	@Parameters(value = {@Parameter(in = ParameterIn.QUERY, name = "q")})
 	@Path("/products/")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
-	public Page<Product> getProductsPage() throws Exception {
+	public Page<Product> getProductsPage(
+			@Parameter(hidden = true) @QueryParam("q") String q)
+		throws Exception {
+
 		return Page.of(Collections.emptyList());
 	}
 
