@@ -14,11 +14,32 @@
 
 package com.liferay.commerce.bom.rest.internal.resource.v1_0;
 
+import com.liferay.commerce.bom.model.CommerceBOMDefinition;
+import com.liferay.commerce.bom.model.CommerceBOMEntry;
 import com.liferay.commerce.bom.rest.dto.v1_0.Area;
+import com.liferay.commerce.bom.rest.dto.v1_0.Brand;
+import com.liferay.commerce.bom.rest.dto.v1_0.Item;
+import com.liferay.commerce.bom.rest.dto.v1_0.ItemData;
+import com.liferay.commerce.bom.rest.dto.v1_0.Product;
+import com.liferay.commerce.bom.rest.dto.v1_0.Spot;
+import com.liferay.commerce.bom.rest.internal.dto.v1_0.converter.util.BreadcrumbDTOConverterUtil;
 import com.liferay.commerce.bom.rest.resource.v1_0.AreaResource;
-import com.liferay.portal.vulcan.pagination.Pagination;
+import com.liferay.commerce.bom.service.CommerceBOMDefinitionService;
+import com.liferay.commerce.bom.service.CommerceBOMEntryService;
+import com.liferay.commerce.product.model.CPDefinition;
+import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.service.CPDefinitionService;
+import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
+import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
+import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 /**
@@ -31,8 +52,99 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class AreaResourceImpl extends BaseAreaResourceImpl {
 
 	@Override
-	public Area getArea(Long id, Pagination pagination) throws Exception {
-		return super.getArea(id, pagination);
+	public Area getArea(Long id) throws Exception {
+		CommerceBOMDefinition commerceBOMDefinition =
+			_commerceBOMDefinitionService.getCommerceBOMDefinition(id);
+
+		DTOConverter breadcrumbDTOConverter =
+			_dtoConverterRegistry.getDTOConverter("breadcrumb");
+
+		Area area = new Area();
+
+		area.setBreadcrumbs(
+			BreadcrumbDTOConverterUtil.getBreadcrumbs(
+				breadcrumbDTOConverter,
+				commerceBOMDefinition.fetchCommerceBOMFolder(),
+				contextAcceptLanguage.getPreferredLocale()));
+
+		ItemData itemData = new ItemData();
+
+		itemData.setCompatibilities(new Brand[0]);
+		itemData.setContent(new Item[0]);
+
+		Spot[] spots = _getSpots(
+			commerceBOMDefinition.getCommerceBOMDefinitionId());
+
+		itemData.setProducts(_getProducts(spots));
+		itemData.setSpots(spots);
+
+		area.setData(itemData);
+
+		return area;
 	}
+
+	private Product[] _getProducts(Spot[] spots) throws Exception {
+		List<Product> productList = new ArrayList<>();
+
+		DTOConverter productDTOConverter =
+			_dtoConverterRegistry.getDTOConverter("commerceProductInstance");
+
+		for (Spot spot : spots) {
+			CPDefinition cpDefinition =
+				_cpDefinitionService.fetchCPDefinitionByCProductId(
+					spot.getProductId());
+
+			CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
+				cpDefinition.getCPDefinitionId(), spot.getSku());
+
+			productList.add(
+				(Product)productDTOConverter.toDTO(
+					new DefaultDTOConverterContext(
+						contextAcceptLanguage.getPreferredLocale(),
+						cpInstance.getCPInstanceId())));
+		}
+
+		Product[] products = new Product[productList.size()];
+
+		return productList.toArray(products);
+	}
+
+	private Spot[] _getSpots(long areaId) throws Exception {
+		List<Spot> spotList = new ArrayList<>();
+
+		DTOConverter spotDTOConverter = _dtoConverterRegistry.getDTOConverter(
+			CommerceBOMEntry.class.getName());
+
+		List<CommerceBOMEntry> commerceBOMEntries =
+			_commerceBOMEntryService.getCommerceBOMEntries(
+				areaId, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+		for (CommerceBOMEntry commerceBOMEntry : commerceBOMEntries) {
+			spotList.add(
+				(Spot)spotDTOConverter.toDTO(
+					new DefaultDTOConverterContext(
+						contextAcceptLanguage.getPreferredLocale(),
+						commerceBOMEntry.getCommerceBOMEntryId())));
+		}
+
+		Spot[] spots = new Spot[spotList.size()];
+
+		return spotList.toArray(spots);
+	}
+
+	@Reference
+	private CommerceBOMDefinitionService _commerceBOMDefinitionService;
+
+	@Reference
+	private CommerceBOMEntryService _commerceBOMEntryService;
+
+	@Reference
+	private CPDefinitionService _cpDefinitionService;
+
+	@Reference
+	private CPInstanceLocalService _cpInstanceLocalService;
+
+	@Reference
+	private DTOConverterRegistry _dtoConverterRegistry;
 
 }

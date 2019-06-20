@@ -18,9 +18,12 @@ import com.liferay.commerce.bom.model.CommerceBOMEntry;
 import com.liferay.commerce.bom.rest.dto.v1_0.Position;
 import com.liferay.commerce.bom.rest.dto.v1_0.Spot;
 import com.liferay.commerce.bom.service.CommerceBOMEntryService;
+import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
+import com.liferay.petra.string.StringPool;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -49,19 +52,29 @@ public class SpotDTOConverter implements DTOConverter {
 		DTOConverter positionDTOConverter =
 			_dtoConverterRegistry.getDTOConverter("commerceBOMEntryPosition");
 
+		CPInstance cpInstance = _cpInstanceService.fetchCProductInstance(
+			commerceBOMEntry.getCProductId(),
+			commerceBOMEntry.getCPInstanceUuid());
+
 		return new Spot() {
 			{
 				id = commerceBOMEntry.getCommerceBOMEntryId();
 				number = commerceBOMEntry.getNumber();
 				position = (Position)positionDTOConverter.toDTO(
 					dtoConverterContext);
-				productId = commerceBOMEntry.getCPInstanceUuid();
+				productId = commerceBOMEntry.getCProductId();
+				sku =
+					(cpInstance == null) ? StringPool.BLANK :
+					cpInstance.getSku();
 			}
 		};
 	}
 
 	@Reference
 	private CommerceBOMEntryService _commerceBOMEntryService;
+
+	@Reference
+	private CPInstanceService _cpInstanceService;
 
 	@Reference
 	private DTOConverterRegistry _dtoConverterRegistry;

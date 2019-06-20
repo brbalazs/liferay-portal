@@ -30,7 +30,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Alessio Antonio Rendina
  */
 @Component(
-	property = "model.class.name=commerceProductInstanceAdmin",
+	property = "model.class.name=commerceProductInstance",
 	service = {DTOConverter.class, ProductDTOConverter.class}
 )
 public class ProductDTOConverter implements DTOConverter {
