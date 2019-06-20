@@ -166,7 +166,7 @@ function PictureBox() {
         <Fragment>
             {
                 state.area.name 
-                ? (
+                && (
                     <div className="panel panel-secondary picture-box-wrapper">
                         <div 
                             className={`picture-box${highlightedModifierClass}`}
@@ -192,7 +192,6 @@ function PictureBox() {
                         </div>
                     </div>
                 )
-                : <EmptyBoxMessage /> 
             }
         </Fragment>
     );

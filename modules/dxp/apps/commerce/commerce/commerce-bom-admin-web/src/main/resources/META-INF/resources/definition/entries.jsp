@@ -18,6 +18,8 @@
 
 <%
 String carPartsFinderRootElementId = renderResponse.getNamespace() + "-car-parts-admin";
+CommerceBOMAdminDisplayContext commerceBOMAdminDisplayContext = (CommerceBOMAdminDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+CommerceBOMDefinition commerceBOMDefinition = commerceBOMAdminDisplayContext.getCommerceBOMDefinition();
 %>
 
 <div class="car-parts-finder-module" id="<%= carPartsFinderRootElementId %>">
@@ -26,14 +28,17 @@ String carPartsFinderRootElementId = renderResponse.getNamespace() + "-car-parts
 	</div>
 </div>
 
+
+
 <aui:script require="commerce-bom-admin-web@1.0.0/js/index.es as CarPartsAdmin">
+	debugger;
 	CarPartsAdmin.default(
 		'carPartsAdmin',
 		'<%= carPartsFinderRootElementId %>',
 		{
-			areaId: 'asd',
-			areaApiUrl: 'http://localhost:4000/api/car-parts/area',
-			productApiUrl: 'http://localhost:4000/api/products',
+			areaId: '<%= commerceBOMDefinition.getCommerceBOMDefinitionId() %>',
+			areaApiUrl: '<%= PortalUtil.getPortalURL(request) + "/o/commerce-bom/areas" %>',
+			productApiUrl: '<%= PortalUtil.getPortalURL(request) + "/o/commerce-bom/products?q=" %>',
 			spritemap: '<%= themeDisplay.getPathThemeImages() + "/lexicon/icons.svg" %>'
 		}
 	);

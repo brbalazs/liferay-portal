@@ -10,7 +10,6 @@ const applyMiddleware = dispatch => action => {
         appActions.setLoading(dispatch)(true)
     }
     if(action.type.indexOf('Rejected') > -1) {
-        console.log(action.payload.message)
         appActions.setError(dispatch)(action.payload.message)
         appActions.setLoading(dispatch)(false)
     }

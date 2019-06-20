@@ -55,6 +55,7 @@ page import="com.liferay.taglib.search.ResultRow" %><%@
 page import="com.liferay.users.admin.configuration.UserFileUploadsConfiguration" %>
 
 <%@ page import="javax.portlet.PortletURL" %>
+<%@ page import="com.liferay.portal.kernel.util.PortalUtil" %>
 
 <liferay-frontend:defineObjects />
 
