@@ -40,6 +40,7 @@ import com.liferay.fragment.model.FragmentEntryLink;
 import com.liferay.fragment.processor.PortletRegistry;
 import com.liferay.fragment.service.FragmentEntryLinkLocalService;
 import com.liferay.layout.admin.constants.LayoutAdminConstants;
+import com.liferay.layout.util.GroupControlPanelLayoutUtil;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
@@ -1551,18 +1552,26 @@ public class LayoutStagedModelDataHandler
 					portletDataContext, portletPreferencesGroupId);
 			}
 
-			long defaultPlid = _portal.getControlPanelPlid(
-				layout.getCompanyId());
+			Group sourceGroup = _groupLocalService.getGroup(
+				portletDataContext.getSourceGroupId());
+
+			long sourceGroupControlPanelPlid =
+				GroupControlPanelLayoutUtil.getGroupControlPanelPlid(
+					sourceGroup);
 
 			PortletPreferences portletPreferences =
 				_portletPreferencesLocalService.fetchPortletPreferences(
 					PortletKeys.PREFS_OWNER_ID_DEFAULT,
-					PortletKeys.PREFS_OWNER_TYPE_LAYOUT, defaultPlid,
-					portletId);
+					PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
+					sourceGroupControlPanelPlid, portletId);
 
 			if (portletPreferences == null) {
 				continue;
 			}
+
+			long groupControlPanelPlid =
+				GroupControlPanelLayoutUtil.getGroupControlPanelPlid(
+					layout.getGroup());
 
 			for (FragmentEntryLink fragmentEntryLink : fragmentEntryLinks) {
 				FragmentEntryLink oldFragmentEntryLink =
@@ -1588,7 +1597,7 @@ public class LayoutStagedModelDataHandler
 
 				_portletPreferencesLocalService.addPortletPreferences(
 					layout.getCompanyId(), PortletKeys.PREFS_OWNER_ID_DEFAULT,
-					PortletKeys.PREFS_OWNER_TYPE_LAYOUT, defaultPlid,
+					PortletKeys.PREFS_OWNER_TYPE_LAYOUT, groupControlPanelPlid,
 					newPortletId, portlet, portletPreferences.getPreferences());
 			}
 		}
