@@ -1,5 +1,9 @@
 [
 	{
+		"AccountGroups": [
+			"Gold Accounts",
+			"North American Accounts"
+		],
 		"AccountType": "Business",
 		"City": "Los Angeles",
 		"CompanyLogo": "minium-logos-9.png",
@@ -14,6 +18,9 @@
 		"Zip": "90023"
 	},
 	{
+		"AccountGroups": [
+			"European Accounts"
+		],
 		"AccountType": "Business",
 		"City": "Milan",
 		"CompanyLogo": "minium-logos-10.png",
@@ -26,6 +33,10 @@
 		"Zip": "20156"
 	},
 	{
+		"AccountGroups": [
+			"Gold Accounts",
+			"North American Accounts"
+		],
 		"AccountType": "Business",
 		"City": "Oxnard",
 		"CompanyLogo": "minium-logos-4.png",
@@ -37,6 +48,9 @@
 		"Zip": "93030"
 	},
 	{
+		"AccountGroups": [
+			"North American Accounts"
+		],
 		"AccountType": "Business",
 		"City": "Chicago",
 		"CompanyLogo": "minium-logos-8.png",
@@ -48,6 +62,9 @@
 		"Zip": "60606"
 	},
 	{
+		"AccountGroups": [
+			"North American Accounts"
+		],
 		"AccountType": "Business",
 		"City": "Toronto",
 		"CompanyLogo": "minium-logos-7.png",
@@ -58,6 +75,9 @@
 		"Zip": "M4C 1M5"
 	},
 	{
+		"AccountGroups": [
+			"North American Accounts"
+		],
 		"AccountType": "Business",
 		"City": "Edmonton",
 		"CompanyLogo": "minium-logos-3.png",
