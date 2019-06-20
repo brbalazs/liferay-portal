@@ -64,9 +64,10 @@ public class FragmentEntryLinkExportImportContentProcessor
 			boolean escapeContent)
 		throws Exception {
 
-		content = _dlReferencesExportImportContentProcessor.
-			replaceExportContentReferences(
-				portletDataContext, stagedModel, content, true, false);
+		content =
+			_dlReferencesExportImportContentProcessor.
+				replaceExportContentReferences(
+					portletDataContext, stagedModel, content, true, false);
 
 		JSONObject editableValuesJSONObject = JSONFactoryUtil.createJSONObject(
 			content);
@@ -180,9 +181,10 @@ public class FragmentEntryLinkExportImportContentProcessor
 			String content)
 		throws Exception {
 
-		content = _dlReferencesExportImportContentProcessor.
-			replaceImportContentReferences(
-				portletDataContext, stagedModel, content);
+		content =
+			_dlReferencesExportImportContentProcessor.
+				replaceImportContentReferences(
+					portletDataContext, stagedModel, content);
 
 		JSONObject editableValuesJSONObject = JSONFactoryUtil.createJSONObject(
 			content);
