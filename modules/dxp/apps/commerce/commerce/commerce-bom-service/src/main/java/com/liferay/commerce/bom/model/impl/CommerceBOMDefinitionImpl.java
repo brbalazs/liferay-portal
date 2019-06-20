@@ -16,6 +16,8 @@ package com.liferay.commerce.bom.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.commerce.bom.model.CommerceBOMFolder;
+import com.liferay.commerce.bom.service.CommerceBOMFolderLocalServiceUtil;
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.commerce.product.service.CPAttachmentFileEntryLocalServiceUtil;
 
@@ -26,6 +28,12 @@ import com.liferay.commerce.product.service.CPAttachmentFileEntryLocalServiceUti
 public class CommerceBOMDefinitionImpl extends CommerceBOMDefinitionBaseImpl {
 
 	public CommerceBOMDefinitionImpl() {
+	}
+
+	@Override
+	public CommerceBOMFolder fetchCommerceBOMFolder() {
+		return CommerceBOMFolderLocalServiceUtil.fetchCommerceBOMFolder(
+			getCommerceBOMFolderId());
 	}
 
 	@Override
