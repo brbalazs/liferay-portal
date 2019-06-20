@@ -26,6 +26,7 @@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
 <%@ page import="com.liferay.commerce.application.model.CommerceApplicationModel" %><%@
+page import="com.liferay.commerce.bom.admin.web.internal.dao.search.CommerceBOMAdminResultRowSplitter" %><%@
 page import="com.liferay.commerce.bom.admin.web.internal.display.context.CommerceBOMAdminDisplayContext" %><%@
 page import="com.liferay.commerce.bom.admin.web.internal.servlet.taglib.ui.CommerceBOMDefinitionScreenNavigationConstants" %><%@
 page import="com.liferay.commerce.bom.admin.web.internal.servlet.taglib.ui.CommerceBOMFolderScreenNavigationConstants" %><%@

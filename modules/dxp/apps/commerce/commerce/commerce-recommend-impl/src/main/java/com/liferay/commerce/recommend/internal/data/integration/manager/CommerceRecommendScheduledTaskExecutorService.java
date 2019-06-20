@@ -115,9 +115,7 @@ public class CommerceRecommendScheduledTaskExecutorService {
 			contextPropertiesEntrySet.stream();
 
 		contextPropertiesStream.forEach(
-			s -> {
-				contextPropertiesJSONObject.put(s.getKey(), s.getValue());
-			});
+			s -> contextPropertiesJSONObject.put(s.getKey(), s.getValue()));
 
 		jsonWebServiceClient.doPostAsJSON(
 			_UPDATE_MODEL_URL, contextPropertiesJSONObject.toString());

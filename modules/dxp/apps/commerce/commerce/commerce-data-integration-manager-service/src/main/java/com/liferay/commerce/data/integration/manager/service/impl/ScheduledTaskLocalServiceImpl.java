@@ -20,8 +20,8 @@ import com.liferay.commerce.data.integration.manager.internal.messaging.DataInte
 import com.liferay.commerce.data.integration.manager.model.ScheduledTask;
 import com.liferay.commerce.data.integration.manager.service.base.ScheduledTaskLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.Message;
@@ -52,28 +52,11 @@ import java.util.List;
 import org.osgi.framework.InvalidSyntaxException;
 
 /**
- * The implementation of the scheduled task local service.
- *
- * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link ScheduledTaskLocalService} interface.
- *
- * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
- * </p>
- *
  * @author Brian Wing Shun Chan
- * @see ScheduledTaskLocalServiceBaseImpl
- * @see ScheduledTaskLocalServiceUtil
  */
 public class ScheduledTaskLocalServiceImpl
 	extends ScheduledTaskLocalServiceBaseImpl {
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link ScheduledTaskLocalServiceUtil} to access the scheduled task local service.
-	 * @throws PortalException
-	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public ScheduledTask addScheduledTask(
@@ -326,11 +309,13 @@ public class ScheduledTaskLocalServiceImpl
 
 		Message message = new Message();
 
-		JSONObject payLoad = JSONFactoryUtil.createJSONObject();
-
-		payLoad.put("executionType", "scheduled");
-		payLoad.put("scheduledTaskId", scheduledTask.getScheduledTaskId());
-		payLoad.put("userId", scheduledTask.getUserId());
+		JSONObject payLoad = JSONUtil.put(
+			"executionType", "scheduled"
+		).put(
+			"scheduledTaskId", scheduledTask.getScheduledTaskId()
+		).put(
+			"userId", scheduledTask.getUserId()
+		);
 
 		message.setPayload(payLoad.toString());
 

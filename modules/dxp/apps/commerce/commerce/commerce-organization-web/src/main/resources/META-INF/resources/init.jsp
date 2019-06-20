@@ -40,6 +40,7 @@ page import="com.liferay.portal.kernel.service.permission.OrganizationPermission
 page import="com.liferay.portal.kernel.util.Constants" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
+page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %><%@
 page import="com.liferay.portal.kernel.webserver.WebServerServletTokenUtil" %><%@

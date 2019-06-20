@@ -17,22 +17,11 @@ package com.liferay.commerce.data.integration.manager.model.impl;
 import aQute.bnd.annotation.ProviderType;
 
 /**
- * The extended model implementation for the ScheduledTask service. Represents a row in the &quot;ScheduledTask&quot; database table, with each column mapped to a property of this class.
- *
- * <p>
- * Helper methods and all application logic should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link ScheduledTask} interface.
- * </p>
- *
  * @author Brian Wing Shun Chan
  */
 @ProviderType
 public class ScheduledTaskImpl extends ScheduledTaskBaseImpl {
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. All methods that expect a scheduled task model instance should use the {@link ScheduledTask} interface instead.
-	 */
 	public ScheduledTaskImpl() {
 	}
 

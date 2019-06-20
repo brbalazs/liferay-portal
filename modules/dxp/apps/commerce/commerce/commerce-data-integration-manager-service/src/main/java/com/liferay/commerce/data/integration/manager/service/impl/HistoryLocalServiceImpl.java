@@ -32,27 +32,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * The implementation of the history local service.
- *
- * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link HistoryLocalService} interface.
- *
- * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
- * </p>
- *
  * @author Brian Wing Shun Chan
- * @see HistoryLocalServiceBaseImpl
- * @see HistoryLocalServiceUtil
  */
 public class HistoryLocalServiceImpl extends HistoryLocalServiceBaseImpl {
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link HistoryLocalServiceUtil} to access the history local service.
-	 * @throws PortalException
-	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public History addHistory(

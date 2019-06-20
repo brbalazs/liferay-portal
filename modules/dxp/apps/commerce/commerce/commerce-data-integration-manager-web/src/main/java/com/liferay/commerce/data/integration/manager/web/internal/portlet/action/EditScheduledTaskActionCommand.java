@@ -19,8 +19,8 @@ import com.liferay.commerce.data.integration.manager.model.ScheduledTask;
 import com.liferay.commerce.data.integration.manager.service.ScheduledTaskLocalService;
 import com.liferay.commerce.data.integration.manager.web.internal.portlet.constants.DataIntegrationWebPortletKeys;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.messaging.sender.SingleDestinationMessageSender;
 import com.liferay.portal.kernel.messaging.sender.SingleDestinationMessageSenderFactory;
@@ -162,12 +162,13 @@ public class EditScheduledTaskActionCommand extends BaseMVCActionCommand {
 	private void _sendMessage(long userId, long scheduledTaskId) {
 		Message message = new Message();
 
-		JSONObject payLoad = JSONFactoryUtil.createJSONObject();
-
-		payLoad.put(
-			"executionType", DataIntegrationWebPortletKeys.MANUAL_EXECUTION);
-		payLoad.put("scheduledTaskId", scheduledTaskId);
-		payLoad.put("userId", userId);
+		JSONObject payLoad = JSONUtil.put(
+			"executionType", DataIntegrationWebPortletKeys.MANUAL_EXECUTION
+		).put(
+			"scheduledTaskId", scheduledTaskId
+		).put(
+			"userId", userId
+		);
 
 		message.setPayload(payLoad.toString());
 
