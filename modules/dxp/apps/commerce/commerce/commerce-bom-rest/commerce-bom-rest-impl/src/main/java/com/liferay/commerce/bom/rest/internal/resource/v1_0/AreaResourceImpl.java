@@ -26,14 +26,18 @@ import com.liferay.commerce.bom.rest.internal.dto.v1_0.converter.util.Breadcrumb
 import com.liferay.commerce.bom.rest.resource.v1_0.AreaResource;
 import com.liferay.commerce.bom.service.CommerceBOMDefinitionService;
 import com.liferay.commerce.bom.service.CommerceBOMEntryService;
+import com.liferay.commerce.media.CommerceMediaResolver;
+import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.document.library.kernel.util.DLUtil;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.repository.model.FileEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +64,20 @@ public class AreaResourceImpl extends BaseAreaResourceImpl {
 			_dtoConverterRegistry.getDTOConverter("breadcrumb");
 
 		Area area = new Area();
+
+		CPAttachmentFileEntry cpAttachmentFileEntry =
+			commerceBOMDefinition.fetchCPAttachmentFileEntry();
+
+		FileEntry fileEntry = cpAttachmentFileEntry.getFileEntry();
+
+		String url = DLUtil.getDownloadURL(
+			fileEntry, fileEntry.getFileVersion(), null, null);
+
+		area.setId(
+			String.valueOf(commerceBOMDefinition.getCommerceBOMDefinitionId()));
+		area.setImageUrl(url);
+
+		area.setName(commerceBOMDefinition.getName());
 
 		area.setBreadcrumbs(
 			BreadcrumbDTOConverterUtil.getBreadcrumbs(
@@ -137,6 +155,9 @@ public class AreaResourceImpl extends BaseAreaResourceImpl {
 
 	@Reference
 	private CommerceBOMEntryService _commerceBOMEntryService;
+
+	@Reference
+	private CommerceMediaResolver _commerceMediaResolver;
 
 	@Reference
 	private CPDefinitionService _cpDefinitionService;

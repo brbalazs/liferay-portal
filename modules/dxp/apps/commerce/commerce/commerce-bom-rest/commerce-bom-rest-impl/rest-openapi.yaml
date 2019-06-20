@@ -55,6 +55,15 @@ components:
                     type: array
                 data:
                     $ref: '#/components/schemas/ItemData'
+                id:
+                    example: Name 1
+                    type: string
+                imageUrl:
+                    example: Name 1
+                    type: string
+                name:
+                    example: Name 1
+                    type: string
             type: object
         Brand:
             properties:

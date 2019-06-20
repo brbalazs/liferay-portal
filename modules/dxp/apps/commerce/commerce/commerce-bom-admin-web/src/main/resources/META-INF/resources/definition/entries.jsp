@@ -28,16 +28,13 @@ CommerceBOMDefinition commerceBOMDefinition = commerceBOMAdminDisplayContext.get
 	</div>
 </div>
 
-
-
 <aui:script require="commerce-bom-admin-web@1.0.0/js/index.es as CarPartsAdmin">
-	debugger;
 	CarPartsAdmin.default(
 		'carPartsAdmin',
 		'<%= carPartsFinderRootElementId %>',
 		{
 			areaId: '<%= commerceBOMDefinition.getCommerceBOMDefinitionId() %>',
-			areaApiUrl: '<%= PortalUtil.getPortalURL(request) + "/o/commerce-bom/areas" %>',
+			areaApiUrl: '<%= PortalUtil.getPortalURL(request) + "/o/commerce-bom/1.0/areas" %>',
 			productApiUrl: '<%= PortalUtil.getPortalURL(request) + "/o/commerce-bom/products?q=" %>',
 			spritemap: '<%= themeDisplay.getPathThemeImages() + "/lexicon/icons.svg" %>'
 		}
