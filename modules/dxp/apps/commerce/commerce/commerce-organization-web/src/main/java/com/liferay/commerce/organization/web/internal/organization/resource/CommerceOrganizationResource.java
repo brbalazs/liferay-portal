@@ -21,11 +21,10 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.organization.web.internal.organization.model.AccountList;
-import com.liferay.commerce.organization.web.internal.organization.model.OrganizationList;
+import com.liferay.commerce.organization.web.internal.organization.model.Organization;
 import com.liferay.commerce.organization.web.internal.organization.model.UserList;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.OrganizationConstants;
 import com.liferay.portal.kernel.service.OrganizationService;
 import com.liferay.portal.kernel.util.Portal;
@@ -51,6 +50,42 @@ import org.osgi.service.component.annotations.Reference;
 public class CommerceOrganizationResource {
 
 	@GET
+	@Path("/organizations/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getOrganization(
+		@PathParam("id") long organizationId,
+		@Context HttpServletRequest httpServletRequest) {
+
+		Organization organization = null;
+
+		com.liferay.portal.kernel.model.Organization curOrganization = null;
+
+		try {
+			long companyId = _portal.getCompanyId(httpServletRequest);
+
+			if (organizationId >
+					OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID) {
+
+				curOrganization = _organizationService.getOrganization(
+					organizationId);
+
+				companyId = curOrganization.getCompanyId();
+			}
+
+			organization = _commerceOrganizationResourceUtil.getOrganization(
+				companyId, curOrganization);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			organization = new Organization(
+				StringUtil.split(e.getLocalizedMessage()));
+		}
+
+		return getResponse(organization);
+	}
+
+	@GET
 	@Path("/organizations/{id}/accounts")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getOrganizationAccounts(
@@ -72,42 +107,6 @@ public class CommerceOrganizationResource {
 		}
 
 		return getResponse(accountList);
-	}
-
-	@GET
-	@Path("/organizations/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getOrganizations(
-		@PathParam("id") long parentOrganizationId,
-		@Context HttpServletRequest httpServletRequest,
-		@Context Pagination pagination) {
-
-		OrganizationList organizationList = null;
-
-		try {
-			long companyId = _portal.getCompanyId(httpServletRequest);
-
-			if (parentOrganizationId >
-					OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID) {
-
-				Organization parentOrganization =
-					_organizationService.getOrganization(parentOrganizationId);
-
-				companyId = parentOrganization.getCompanyId();
-			}
-
-			organizationList =
-				_commerceOrganizationResourceUtil.getOrganizationList(
-					companyId, parentOrganizationId, pagination);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			organizationList = new OrganizationList(
-				StringUtil.split(e.getLocalizedMessage()));
-		}
-
-		return getResponse(organizationList);
 	}
 
 	@GET

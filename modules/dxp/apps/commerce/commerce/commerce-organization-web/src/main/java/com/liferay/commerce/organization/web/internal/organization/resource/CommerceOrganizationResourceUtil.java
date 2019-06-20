@@ -22,14 +22,16 @@ import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.organization.web.internal.organization.model.Account;
 import com.liferay.commerce.organization.web.internal.organization.model.AccountList;
 import com.liferay.commerce.organization.web.internal.organization.model.Organization;
-import com.liferay.commerce.organization.web.internal.organization.model.OrganizationList;
 import com.liferay.commerce.organization.web.internal.organization.model.User;
 import com.liferay.commerce.organization.web.internal.organization.model.UserList;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.model.OrganizationConstants;
 import com.liferay.portal.kernel.service.OrganizationService;
 import com.liferay.portal.kernel.service.UserService;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -41,17 +43,41 @@ import org.osgi.service.component.annotations.Reference;
 @Component(service = CommerceOrganizationResourceUtil.class)
 public class CommerceOrganizationResourceUtil {
 
-	public OrganizationList getOrganizationList(
-			long companyId, long parentOrganizationId, Pagination pagination)
+	public Organization getOrganization(
+			long companyId,
+			com.liferay.portal.kernel.model.Organization organization)
 		throws Exception {
 
-		return new OrganizationList(
-			_toOrganizationList(
-				_organizationService.getOrganizations(
-					companyId, parentOrganizationId),
-				pagination),
+		if (organization == null) {
+			return new Organization(
+				OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID, "Root",
+				_toOrganizations(
+					_organizationService.getOrganizations(
+						companyId,
+						OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID,
+						QueryUtil.ALL_POS, QueryUtil.ALL_POS)),
+				_organizationService.getOrganizationsCount(
+					companyId,
+					OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID),
+				_commerceAccountOrganizationRelService.
+					getCommerceAccountOrganizationRelsByOrganizationIdCount(
+						OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID),
+				_userService.getOrganizationUsersCount(
+					OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID,
+					WorkflowConstants.STATUS_APPROVED));
+		}
+
+		return new Organization(
+			organization.getOrganizationId(), organization.getName(),
+			_toOrganizations(organization.getSuborganizations()),
 			_organizationService.getOrganizationsCount(
-				companyId, parentOrganizationId));
+				companyId, organization.getOrganizationId()),
+			_commerceAccountOrganizationRelService.
+				getCommerceAccountOrganizationRelsByOrganizationIdCount(
+					organization.getOrganizationId()),
+			_userService.getOrganizationUsersCount(
+				organization.getOrganizationId(),
+				WorkflowConstants.STATUS_APPROVED));
 	}
 
 	protected AccountList getAccountList(
@@ -108,9 +134,8 @@ public class CommerceOrganizationResourceUtil {
 		return new UserList(users, total);
 	}
 
-	private List<Organization> _toOrganizationList(
-			List<com.liferay.portal.kernel.model.Organization> organizations,
-			Pagination pagination)
+	private List<Organization> _toOrganizations(
+			List<com.liferay.portal.kernel.model.Organization> organizations)
 		throws Exception {
 
 		List<Organization> organizationList = new ArrayList<>();
@@ -120,15 +145,17 @@ public class CommerceOrganizationResourceUtil {
 
 			organizationList.add(
 				new Organization(
-					organization.getOrganizationId(),
-					organization.getParentOrganizationId(),
-					organization.getName(),
-					new OrganizationList(
-						_toOrganizationList(
-							organization.getSuborganizations(), pagination),
-						_organizationService.getOrganizationsCount(
-							organization.getCompanyId(),
-							organization.getParentOrganizationId()))));
+					organization.getOrganizationId(), organization.getName(),
+					Collections.emptyList(),
+					_organizationService.getOrganizationsCount(
+						organization.getCompanyId(),
+						organization.getOrganizationId()),
+					_commerceAccountOrganizationRelService.
+						getCommerceAccountOrganizationRelsByOrganizationIdCount(
+							organization.getOrganizationId()),
+					_userService.getOrganizationUsersCount(
+						organization.getOrganizationId(),
+						WorkflowConstants.STATUS_APPROVED)));
 		}
 
 		return organizationList;
