@@ -68,7 +68,7 @@ public class Query {
 		return _applyComponentServiceObjects(
 			_areaResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			areaResource -> areaResource.getArea(id, pageSize, page));
+			areaResource -> areaResource.getArea(id, Pagination.of(page, pageSize)));
 	}
 
 	@GraphQLField
@@ -99,7 +99,7 @@ public class Query {
 		return _applyComponentServiceObjects(
 			_folderResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			folderResource -> folderResource.getFolder(id, pageSize, page));
+			folderResource -> folderResource.getFolder(id, Pagination.of(page, pageSize)));
 	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
