@@ -56,5 +56,7 @@ public interface CommerceBOMDefinition extends CommerceBOMDefinitionModel,
 			}
 		};
 
+	public CommerceBOMFolder fetchCommerceBOMFolder();
+
 	public com.liferay.commerce.product.model.CPAttachmentFileEntry fetchCPAttachmentFileEntry();
 }

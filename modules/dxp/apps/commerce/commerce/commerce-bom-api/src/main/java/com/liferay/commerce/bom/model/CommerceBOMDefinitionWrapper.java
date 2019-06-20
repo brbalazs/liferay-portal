@@ -149,6 +149,11 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 	}
 
 	@Override
+	public CommerceBOMFolder fetchCommerceBOMFolder() {
+		return _commerceBOMDefinition.fetchCommerceBOMFolder();
+	}
+
+	@Override
 	public com.liferay.commerce.product.model.CPAttachmentFileEntry fetchCPAttachmentFileEntry() {
 		return _commerceBOMDefinition.fetchCPAttachmentFileEntry();
 	}
