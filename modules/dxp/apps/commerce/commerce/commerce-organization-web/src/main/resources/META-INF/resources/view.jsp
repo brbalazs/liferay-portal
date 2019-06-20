@@ -1,3 +1,5 @@
+<%@ page import="com.liferay.portal.kernel.util.PortalUtil" %>
+
 <%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
@@ -91,5 +93,28 @@ request.setAttribute("view.jsp-filterPerOrganization", false);
 				submitForm(document.<portlet:namespace />organizationFm);
 			}
 		);
+	</aui:script>
+
+	<%
+	String segmentEditRootElementId = renderResponse.getNamespace() + "-org-chart-root";
+	%>
+
+	<div class="orgchart-module" id="<%= segmentEditRootElementId %>">
+		<div class="inline-item my-5 p-5 w-100">
+			<span aria-hidden="true" class="loading-animation"></span>
+		</div>
+	</div>
+
+	<aui:script require="commerce-organization-web@1.0.0/js/index.es as OrgChart">
+
+		OrgChart.default(
+		'<%= segmentEditRootElementId %>',
+		'<%= segmentEditRootElementId %>',
+		{
+			assetsPath: '<%= PortalUtil.getPathContext(request) + "/assets" %>',
+			namespace: '<portlet:namespace/>',
+			spritemap: '<%= themeDisplay.getPathThemeImages() + "/lexicon/icons.svg" %>',
+			apiURL : '<%= PortalUtil.getPortalURL(request) + "/o/commerce-organization" %>'
+		});
 	</aui:script>
 </c:if>
