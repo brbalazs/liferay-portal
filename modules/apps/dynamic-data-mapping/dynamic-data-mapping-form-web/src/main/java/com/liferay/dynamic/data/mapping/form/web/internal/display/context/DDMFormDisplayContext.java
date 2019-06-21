@@ -15,13 +15,11 @@
 package com.liferay.dynamic.data.mapping.form.web.internal.display.context;
 
 import com.liferay.dynamic.data.mapping.constants.DDMActionKeys;
-import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldType;
 import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldTypeServicesTracker;
 import com.liferay.dynamic.data.mapping.form.renderer.DDMFormRenderer;
 import com.liferay.dynamic.data.mapping.form.renderer.DDMFormRenderingContext;
 import com.liferay.dynamic.data.mapping.form.values.factory.DDMFormValuesFactory;
 import com.liferay.dynamic.data.mapping.form.web.internal.security.permission.resource.DDMFormInstancePermission;
-import com.liferay.dynamic.data.mapping.io.DDMFormFieldTypesJSONSerializer;
 import com.liferay.dynamic.data.mapping.model.DDMForm;
 import com.liferay.dynamic.data.mapping.model.DDMFormField;
 import com.liferay.dynamic.data.mapping.model.DDMFormInstance;
@@ -43,7 +41,6 @@ import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
 import com.liferay.dynamic.data.mapping.util.DDMFormValuesMerger;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -92,27 +89,22 @@ import javax.servlet.http.HttpServletRequest;
 public class DDMFormDisplayContext {
 
 	public DDMFormDisplayContext(
-			RenderRequest renderRequest, RenderResponse renderResponse,
-			DDMFormFieldTypesJSONSerializer ddmFormFieldTypesJSONSerializer,
-			DDMFormFieldTypeServicesTracker ddmFormFieldTypeServicesTracker,
-			DDMFormInstanceLocalService ddmFormInstanceLocalService,
-			DDMFormInstanceRecordVersionLocalService
-				ddmFormInstanceRecordVersionLocalService,
-			DDMFormInstanceService ddmFormInstanceService,
-			DDMFormInstanceVersionLocalService
-				ddmFormInstanceVersionLocalService,
-			DDMFormRenderer ddmFormRenderer,
-			DDMFormValuesFactory ddmFormValuesFactory,
-			DDMFormValuesMerger ddmFormValuesMerger,
-			GroupLocalService groupLocalService, JSONFactory jsonFactory,
-			WorkflowDefinitionLinkLocalService
-				workflowDefinitionLinkLocalService,
-			Portal portal)
-		throws PortalException {
+		RenderRequest renderRequest, RenderResponse renderResponse,
+		DDMFormFieldTypeServicesTracker ddmFormFieldTypeServicesTracker,
+		DDMFormInstanceLocalService ddmFormInstanceLocalService,
+		DDMFormInstanceRecordVersionLocalService
+			ddmFormInstanceRecordVersionLocalService,
+		DDMFormInstanceService ddmFormInstanceService,
+		DDMFormInstanceVersionLocalService ddmFormInstanceVersionLocalService,
+		DDMFormRenderer ddmFormRenderer,
+		DDMFormValuesFactory ddmFormValuesFactory,
+		DDMFormValuesMerger ddmFormValuesMerger,
+		GroupLocalService groupLocalService, JSONFactory jsonFactory,
+		WorkflowDefinitionLinkLocalService workflowDefinitionLinkLocalService,
+		Portal portal) {
 
 		_renderRequest = renderRequest;
 		_renderResponse = renderResponse;
-		_ddmFormFieldTypesJSONSerializer = ddmFormFieldTypesJSONSerializer;
 		_ddmFormFieldTypeServicesTracker = ddmFormFieldTypeServicesTracker;
 		_ddmFormInstanceLocalService = ddmFormInstanceLocalService;
 		_ddmFormInstanceRecordVersionLocalService =
@@ -138,8 +130,6 @@ public class DDMFormDisplayContext {
 		DDMFormInstance ddmFormInstance =
 			_ddmFormInstanceLocalService.fetchDDMFormInstance(
 				getFormInstanceId());
-
-		checkFormIsNotRestricted();
 
 		if (ddmFormInstance == null) {
 			renderRequest.setAttribute(
@@ -170,16 +160,6 @@ public class DDMFormDisplayContext {
 
 	public String getContainerId() {
 		return _containerId;
-	}
-
-	public JSONArray getDDMFormFieldTypesJSONArray() throws PortalException {
-		List<DDMFormFieldType> formFieldTypes =
-			_ddmFormFieldTypeServicesTracker.getDDMFormFieldTypes();
-
-		String serializedFormFieldTypes =
-			_ddmFormFieldTypesJSONSerializer.serialize(formFieldTypes);
-
-		return _jsonFactory.createJSONArray(serializedFormFieldTypes);
 	}
 
 	public String getDDMFormHTML() throws PortalException {
@@ -444,8 +424,28 @@ public class DDMFormDisplayContext {
 		return false;
 	}
 
-	public Boolean isRequireAuthentication() {
-		return _requireAuthentication;
+	public Boolean isRequireAuthentication() throws PortalException {
+		DDMFormInstance ddmFormInstance = getFormInstance();
+
+		if (ddmFormInstance == null) {
+			return false;
+		}
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)_renderRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		DDMFormInstanceSettings ddmFormInstanceSettings =
+			ddmFormInstance.getSettingsModel();
+
+		Layout layout = themeDisplay.getLayout();
+
+		if (ddmFormInstanceSettings.requireAuthentication() &&
+			!layout.isPrivateLayout() && !themeDisplay.isSignedIn()) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	public boolean isShowConfigurationIcon() throws PortalException {
@@ -479,30 +479,6 @@ public class DDMFormDisplayContext {
 			getDDMFormSuccessPageSettings();
 
 		return ddmFormSuccessPageSettings.isEnabled();
-	}
-
-	protected void checkFormIsNotRestricted() throws PortalException {
-		_requireAuthentication = false;
-
-		DDMFormInstance ddmFormInstance = getFormInstance();
-
-		if (ddmFormInstance == null) {
-			return;
-		}
-
-		ThemeDisplay themeDisplay = (ThemeDisplay)_renderRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		DDMFormInstanceSettings ddmFormInstanceSettings =
-			ddmFormInstance.getSettingsModel();
-
-		Layout layout = themeDisplay.getLayout();
-
-		if (ddmFormInstanceSettings.requireAuthentication() &&
-			!layout.isPrivateLayout() && !themeDisplay.isSignedIn()) {
-
-			_requireAuthentication = true;
-		}
 	}
 
 	protected String createCaptchaResourceURL() {
@@ -799,8 +775,6 @@ public class DDMFormDisplayContext {
 	private final String _containerId;
 	private final DDMFormFieldTypeServicesTracker
 		_ddmFormFieldTypeServicesTracker;
-	private final DDMFormFieldTypesJSONSerializer
-		_ddmFormFieldTypesJSONSerializer;
 	private DDMFormInstance _ddmFormInstance;
 	private long _ddmFormInstanceId;
 	private final DDMFormInstanceLocalService _ddmFormInstanceLocalService;
@@ -819,7 +793,6 @@ public class DDMFormDisplayContext {
 	private final Portal _portal;
 	private final RenderRequest _renderRequest;
 	private final RenderResponse _renderResponse;
-	private Boolean _requireAuthentication;
 	private Boolean _showConfigurationIcon;
 	private final WorkflowDefinitionLinkLocalService
 		_workflowDefinitionLinkLocalService;

@@ -18,7 +18,6 @@ import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldTypeServices
 import com.liferay.dynamic.data.mapping.form.renderer.DDMFormRenderer;
 import com.liferay.dynamic.data.mapping.form.renderer.DDMFormRenderingContext;
 import com.liferay.dynamic.data.mapping.form.values.factory.DDMFormValuesFactory;
-import com.liferay.dynamic.data.mapping.io.DDMFormFieldTypesJSONSerializer;
 import com.liferay.dynamic.data.mapping.model.DDMForm;
 import com.liferay.dynamic.data.mapping.model.DDMFormInstance;
 import com.liferay.dynamic.data.mapping.model.DDMFormInstanceSettings;
@@ -208,7 +207,6 @@ public class DDMFormDisplayContextTest extends PowerMockito {
 
 		return new DDMFormDisplayContext(
 			renderRequest, new MockRenderResponse(),
-			mock(DDMFormFieldTypesJSONSerializer.class),
 			mock(DDMFormFieldTypeServicesTracker.class),
 			_ddmFormInstanceLocalService,
 			mock(DDMFormInstanceRecordVersionLocalService.class),
@@ -239,9 +237,9 @@ public class DDMFormDisplayContextTest extends PowerMockito {
 
 		ThemeDisplay themeDisplay = new ThemeDisplay();
 
-		themeDisplay.setLocale(LocaleUtil.SPAIN);
-
 		themeDisplay.setLayout(mock(Layout.class));
+
+		themeDisplay.setLocale(LocaleUtil.SPAIN);
 
 		mockRenderRequest.setAttribute(WebKeys.THEME_DISPLAY, themeDisplay);
 
