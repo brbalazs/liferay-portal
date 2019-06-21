@@ -177,7 +177,8 @@ class MembersPane extends Component {
                 listBy,
                 id
             } = this.state,
-            paneClasses = `pane${(shouldPaneOpen(id, orgName)) ? ' pane-open' : ''}`;
+            paneClasses = 'pane pane-open';
+            // paneClasses = `pane${(shouldPaneOpen(id, orgName)) ? ' pane-open' : ''}`;
 
         return (
             <div className={paneClasses}>

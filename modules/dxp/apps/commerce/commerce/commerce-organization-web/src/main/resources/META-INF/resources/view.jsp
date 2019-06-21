@@ -25,44 +25,40 @@ request.setAttribute("view.jsp-filterPerOrganization", false);
 %>
 
 <div class="commerce-organization-view-modes row text-right">
-	<div class="col-md-12 py-3">
+	<%
+	for (String curViewMode : CommerceOrganizationConstants.VIEW_MODES) {
+		String icon = "table2";
 
-		<%
-		for (String curViewMode : CommerceOrganizationConstants.VIEW_MODES) {
-			String icon = "table2";
-
-			if (curViewMode.equals(CommerceOrganizationConstants.CHART_VIEW_MODE)) {
-				icon = "cards2";
-			}
-
-			String cssClass = "btn btn-default lfr-portal-tooltip";
-
-			if (curViewMode.equals(viewMode)) {
-				cssClass = "active " + cssClass;
-			}
-
-			Map<String, Object> data = new HashMap<>();
-
-			data.put("title", LanguageUtil.get(request, curViewMode));
-
-			PortletURL portletURL = commerceOrganizationDisplayContext.getPortletURL();
-
-			portletURL.setParameter("viewMode", curViewMode);
-		%>
-
-			<aui:a cssClass="<%= cssClass %>" data="<%= data %>" href="<%= portletURL.toString() %>" id="<%= renderResponse.getNamespace() + curViewMode %>">
-				<c:if test="<%= Validator.isNotNull(icon) %>">
-					<aui:icon cssClass="icon-monospaced" image="<%= icon %>" markupView="lexicon" />
-				</c:if>
-
-				<span class="sr-only"><liferay-ui:message key="<%= curViewMode %>" /></span>
-			</aui:a>
-
-		<%
+		if (curViewMode.equals(CommerceOrganizationConstants.CHART_VIEW_MODE)) {
+			icon = "organizations";
 		}
-		%>
 
-	</div>
+		String cssClass = "btn btn-default lfr-portal-tooltip";
+
+		if (curViewMode.equals(viewMode)) {
+			cssClass = "active " + cssClass;
+		}
+
+		Map<String, Object> data = new HashMap<>();
+
+		data.put("title", LanguageUtil.get(request, curViewMode));
+
+		PortletURL portletURL = commerceOrganizationDisplayContext.getPortletURL();
+
+		portletURL.setParameter("viewMode", curViewMode);
+	%>
+
+		<aui:a cssClass="<%= cssClass %>" data="<%= data %>" href="<%= portletURL.toString() %>" id="<%= renderResponse.getNamespace() + curViewMode %>">
+			<c:if test="<%= Validator.isNotNull(icon) %>">
+				<aui:icon cssClass="icon-monospaced" image="<%= icon %>" markupView="lexicon" />
+			</c:if>
+
+			<span class="sr-only"><liferay-ui:message key="<%= curViewMode %>" /></span>
+		</aui:a>
+
+	<%
+	}
+	%>
 </div>
 
 <c:choose>

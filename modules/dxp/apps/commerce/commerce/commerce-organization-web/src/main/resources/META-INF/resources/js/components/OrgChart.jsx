@@ -58,6 +58,16 @@ class OrgChart extends Component {
 				);
 
 			this.updateChart(selectedNode);
+
+			setTimeout(() => {
+				debugger;
+
+				const orgNodes = document.querySelectorAll('[data-organization-id]'),
+					firstOrgNode = orgNodes[orgNodes.length - 2],
+					mouseEvent = new MouseEvent('click');
+
+				firstOrgNode.dispatchEvent(mouseEvent);
+			}, 1000);
 		}
 	}
 
@@ -130,6 +140,11 @@ class OrgChart extends Component {
 
 		gNode.attr('class', 'node');
 		gNode.attr('transform', () => this.getTranslateString(source.y0, source.x0));
+		gNode.attr('data-organization-id', ({data}) => {
+			const {organizationId} = data;
+
+			return organizationId;
+		});
 		gNode.on('click', this.handleNodeClick);
 
 		const rectNode = gNode.append('rect');

@@ -24,8 +24,7 @@ class OrgChartContainer extends Component {
             this,
             'handleNodeClick',
             'setSelection',
-            'handleInitialLoad',
-            'setVisualizationMode'
+            'handleInitialLoad'
         );
 
         const apiParameters = {
@@ -68,12 +67,6 @@ class OrgChartContainer extends Component {
         this.setState(() => {
             return {selectedId: id}
         });
-    }
-
-    setVisualizationMode(mode) {
-        this.setState(() => {
-            return {currentMode: 'chart'}
-        })
     }
 
     render() {

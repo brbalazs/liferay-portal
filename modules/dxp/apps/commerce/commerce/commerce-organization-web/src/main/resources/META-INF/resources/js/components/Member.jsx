@@ -12,7 +12,7 @@ function Member(props) {
 	return(
 		<li role="button" tabIndex="-1" className="member">
 			<span className="member-picture"
-				  style={{background: `url(${props.imagesPath}${imageUrl}) center no-repeat #CCC`}}></span>
+				  style={{background: `url(/image${imageUrl}) center no-repeat #CCC`}}></span>
 			<span className="member-data">
 				<p className="member-data-name">{name}</p>
 				<p>
@@ -24,10 +24,9 @@ function Member(props) {
 }
 
 Member.defaultProps = {
-	pictureUrl: 'https://media.licdn.com/dms/image/C4D03AQHBDF4IQuqYvw/profile-displayphoto-shrink_200_200/0?e=1563408000&v=beta&t=32AHPawqDkJVVJBr-6RTqdthR5XYO1G-nizpKhK7Nrc',
-	name: 'Beanie Pirate',
-	role: 'Real graphic designer',
-	location: 'Vimercate',
+	pictureUrl: '',
+	name: '',
+	role: '',
 	tabIndex: 5
 };
 
