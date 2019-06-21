@@ -11,7 +11,6 @@ export default function(componentId, id, props) {
 			ref={component => {
 				instance = component;
 			}}
-
 			{...props}
 		/>, portletFrame);
 
