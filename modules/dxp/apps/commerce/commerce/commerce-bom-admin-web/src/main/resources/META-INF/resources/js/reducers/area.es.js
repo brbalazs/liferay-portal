@@ -100,13 +100,13 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 imageUrl,
                 name,
-                mappedProducts: products,
-                spots
+                mappedProducts: products ? products : [],
+                spots: spots ? spots : []
             }
         case actionDefinition.GET_PRODUCTS_FULFILLED:
             return {
                 ...state,
-                availableProducts: action.payload.data
+                availableProducts: action.payload.data ? action.payload.data : []
             }
         case actionDefinition.RESET_PRODUCTS:
             return {

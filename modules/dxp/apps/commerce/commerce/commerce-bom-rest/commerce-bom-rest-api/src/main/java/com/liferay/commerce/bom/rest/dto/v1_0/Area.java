@@ -74,17 +74,17 @@ public class Area {
 	protected Breadcrumb[] breadcrumbs;
 
 	@Schema
-	public ItemData getData() {
+	public AreaData getData() {
 		return data;
 	}
 
-	public void setData(ItemData data) {
+	public void setData(AreaData data) {
 		this.data = data;
 	}
 
 	@JsonIgnore
 	public void setData(
-		UnsafeSupplier<ItemData, Exception> dataUnsafeSupplier) {
+		UnsafeSupplier<AreaData, Exception> dataUnsafeSupplier) {
 
 		try {
 			data = dataUnsafeSupplier.get();
@@ -99,87 +99,7 @@ public class Area {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected ItemData data;
-
-	@Schema
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	@JsonIgnore
-	public void setId(UnsafeSupplier<String, Exception> idUnsafeSupplier) {
-		try {
-			id = idUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String id;
-
-	@Schema
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-	@JsonIgnore
-	public void setImageUrl(
-		UnsafeSupplier<String, Exception> imageUrlUnsafeSupplier) {
-
-		try {
-			imageUrl = imageUrlUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String imageUrl;
-
-	@Schema
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@JsonIgnore
-	public void setName(UnsafeSupplier<String, Exception> nameUnsafeSupplier) {
-		try {
-			name = nameUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String name;
+	protected AreaData data;
 
 	@Override
 	public boolean equals(Object object) {
@@ -236,48 +156,6 @@ public class Area {
 			sb.append("\"data\": ");
 
 			sb.append(String.valueOf(data));
-		}
-
-		if (id != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"id\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(id));
-
-			sb.append("\"");
-		}
-
-		if (imageUrl != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"imageUrl\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(imageUrl));
-
-			sb.append("\"");
-		}
-
-		if (name != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"name\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(name));
-
-			sb.append("\"");
 		}
 
 		sb.append("}");

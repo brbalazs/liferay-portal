@@ -17,9 +17,7 @@ package com.liferay.commerce.bom.rest.internal.resource.v1_0;
 import com.liferay.commerce.bom.model.CommerceBOMDefinition;
 import com.liferay.commerce.bom.model.CommerceBOMEntry;
 import com.liferay.commerce.bom.rest.dto.v1_0.Area;
-import com.liferay.commerce.bom.rest.dto.v1_0.Brand;
-import com.liferay.commerce.bom.rest.dto.v1_0.Item;
-import com.liferay.commerce.bom.rest.dto.v1_0.ItemData;
+import com.liferay.commerce.bom.rest.dto.v1_0.AreaData;
 import com.liferay.commerce.bom.rest.dto.v1_0.Product;
 import com.liferay.commerce.bom.rest.dto.v1_0.Spot;
 import com.liferay.commerce.bom.rest.internal.dto.v1_0.converter.util.BreadcrumbDTOConverterUtil;
@@ -65,6 +63,8 @@ public class AreaResourceImpl extends BaseAreaResourceImpl {
 
 		Area area = new Area();
 
+		AreaData areaData = new AreaData();
+
 		CPAttachmentFileEntry cpAttachmentFileEntry =
 			commerceBOMDefinition.fetchCPAttachmentFileEntry();
 
@@ -73,11 +73,11 @@ public class AreaResourceImpl extends BaseAreaResourceImpl {
 		String url = DLUtil.getDownloadURL(
 			fileEntry, fileEntry.getFileVersion(), null, null);
 
-		area.setId(
+		areaData.setId(
 			String.valueOf(commerceBOMDefinition.getCommerceBOMDefinitionId()));
-		area.setImageUrl(url);
+		areaData.setImageUrl(url);
 
-		area.setName(commerceBOMDefinition.getName());
+		areaData.setName(commerceBOMDefinition.getName());
 
 		area.setBreadcrumbs(
 			BreadcrumbDTOConverterUtil.getBreadcrumbs(
@@ -85,18 +85,13 @@ public class AreaResourceImpl extends BaseAreaResourceImpl {
 				commerceBOMDefinition.fetchCommerceBOMFolder(),
 				contextAcceptLanguage.getPreferredLocale()));
 
-		ItemData itemData = new ItemData();
-
-		itemData.setCompatibilities(new Brand[0]);
-		itemData.setContent(new Item[0]);
-
 		Spot[] spots = _getSpots(
 			commerceBOMDefinition.getCommerceBOMDefinitionId());
 
-		itemData.setProducts(_getProducts(spots));
-		itemData.setSpots(spots);
+		areaData.setProducts(_getProducts(spots));
+		areaData.setSpots(spots);
 
-		area.setData(itemData);
+		area.setData(areaData);
 
 		return area;
 	}

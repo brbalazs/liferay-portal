@@ -35,7 +35,7 @@ CommerceBOMDefinition commerceBOMDefinition = commerceBOMAdminDisplayContext.get
 		{
 			areaId: '<%= commerceBOMDefinition.getCommerceBOMDefinitionId() %>',
 			areaApiUrl: '<%= PortalUtil.getPortalURL(request) + "/o/commerce-bom/1.0/areas" %>',
-			productApiUrl: '<%= PortalUtil.getPortalURL(request) + "/o/commerce-bom/products?q=" %>',
+			productApiUrl: '<%= PortalUtil.getPortalURL(request) + "/o/commerce-bom/1.0/products?q=" %>',
 			spritemap: '<%= themeDisplay.getPathThemeImages() + "/lexicon/icons.svg" %>'
 		}
 	);
