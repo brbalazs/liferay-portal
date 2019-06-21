@@ -34,12 +34,12 @@ export default function reducer(state = initialState, action) {
                 spotFormData: null
             }
         case actionDefinition.SELECT_SPOT:
-            const {rel, ...spotData} = state.spots.reduce(
+            const {productId, ...spotData} = state.spots.reduce(
                 (found, spot) => found || (spot.id === action.payload && spot),
                 null
             )
             const relatedProduct = state.mappedProducts.reduce(
-                (acc, el) => acc || (el.id === rel && el),
+                (acc, el) => acc || (el.id === productId && el),
                 null
             )
 

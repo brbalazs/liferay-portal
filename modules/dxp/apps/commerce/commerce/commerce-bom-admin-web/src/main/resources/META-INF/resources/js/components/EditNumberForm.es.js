@@ -80,7 +80,7 @@ function DropdownInput(props) {
 	);
 }
 
-const EditNumberForm = React.memo(() => {
+const EditNumberForm = React.memo((props) => {
 	const { state, actions } = useContext(StoreContext);
 	const formData = state.area.spotFormData || {};
 	const position = formData.position || {};
@@ -257,8 +257,8 @@ const EditNumberForm = React.memo(() => {
 							/>
 						</div>
 						<div className="form-group">
-							<label htmlFor="edit-number-form__input-number">
-								<LocalizedText desc="Number">
+							<label htmlFor="edit-number-form__input-product">
+								<LocalizedText desc="Product">
 									product
 								</LocalizedText>
 							</label>
@@ -283,12 +283,14 @@ const EditNumberForm = React.memo(() => {
 									)}
 									inputPlaceholder={inputPlaceholder}
 									resetIcon={
+										props.resetIcon || 
 										<Icon
 											spritemap={state.app.spritemap}
-											symbol={'reset'}
+											symbol={'times-circle'}
 										/>
 									}
 									searchIcon={
+										props.searchIcon || 
 										<Icon
 											spritemap={state.app.spritemap}
 											symbol={'search'}
@@ -340,7 +342,6 @@ const EditNumberForm = React.memo(() => {
 											onClick={submitForm}
 											disabled={
 												!(
-													formData.productId &&
 													formData.number &&
 													formData.changed
 												)

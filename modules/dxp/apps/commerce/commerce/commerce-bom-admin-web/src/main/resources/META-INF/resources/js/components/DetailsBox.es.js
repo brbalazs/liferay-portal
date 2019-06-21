@@ -38,13 +38,23 @@ function DetailsListElement(props) {
 function DetailsBox() {
     const { state } = useContext(StoreContext);
 
-    const list = state.area.mappedProducts && state.area.mappedProducts.map(product => {
+    const spotsFilteredByNumbers = state.area.spots.reduce((filtered, spot, i) => {
+        if(i && filtered[filtered.length - 1].number === spot.number) {
+            return filtered;
+        }
+        return filtered.concat(spot);
+    },[])
+
+    const list = spotsFilteredByNumbers.map(spot => {
+        const relatedProduct = state.area.mappedProducts.reduce(
+            (acc, prod) => acc || (prod.id === spot.productId ? prod : false),
+            false
+        );
         return {
-            ...product,
-            number: state.area.spots.reduce(
-                (number, spot) => number || (spot.productId === product.id && spot.number),
-                null
-            )
+            number: spot.number,
+            name: relatedProduct.name,
+            sku: relatedProduct.sku,
+            url: relatedProduct.url
         }
     })
 
@@ -64,7 +74,7 @@ function DetailsBox() {
                                 <thead>
                                     <tr>
                                         <th>
-                                            <LocalizedText desc="N*">n.</LocalizedText>
+                                            <LocalizedText desc="N*">n</LocalizedText>
                                         </th>
                                         <th className="table-cell-expand">
                                             <LocalizedText desc="Name">name</LocalizedText>

@@ -70,23 +70,6 @@ function SpotsList(props) {
     )
 }
 
-function EmptyBoxMessage() {
-    return (
-        <div className="empty-box-research">
-            <h3>
-                <LocalizedText desc="Select Car &amp; Parts">
-                    select-car-and-parts
-                </LocalizedText>
-            </h3>
-            <h5>
-                <LocalizedText desc="Please select the car maker">
-                    please-select-the-carmaker-the-model-the-type-and-the-car-parts
-                </LocalizedText>
-            </h5>
-        </div>
-    )
-}
-
 function CustomCursor(props) {
     const { state } = useContext(StoreContext);
     return (

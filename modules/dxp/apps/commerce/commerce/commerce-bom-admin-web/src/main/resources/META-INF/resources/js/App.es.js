@@ -37,10 +37,10 @@ function App(props) {
 	return (
 		<div className="bom-admin-container container pt-3">
 			<div className="row">
-				<div className="col">
+				<div className="col-12 col-xl-8">
 					<PictureBox />
 				</div>
-				<div className="col col-xl-4">
+				<div className="col-12 col-xl-4">
 					<DetailsBox />
 				</div>
 			</div>

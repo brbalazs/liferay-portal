@@ -156,13 +156,9 @@ const submitNewSpot = dispatch => (
         }
     )
         .then(
-            response => response.json()
-        )
-        .then(
-            (data) => {
+            () => {
                 dispatch({ 
                     type: actionDefinition.SUBMIT_NEW_SPOT_FULFILLED,
-                    payload: data 
                 })
                 return getArea(dispatch)(endpoint, areaId)
             }
@@ -194,13 +190,9 @@ const deleteSpot = dispatch => (
         }
     )
         .then(
-            response => response.json()
-        )
-        .then(
-            (data) => {
+            () => {
                 dispatch({ 
-                    type: actionDefinition.DELETE_SPOT_FULFILLED,
-                    payload: data 
+                    type: actionDefinition.DELETE_SPOT_FULFILLED
                 })
                 return getArea(dispatch)(endpoint, areaId)
             }
@@ -244,13 +236,9 @@ const submitSpotChanges = dispatch => (
         }
     )
         .then(
-            response => response.json()
-        )
-        .then(
-            (data) => {
+            () => {
                 dispatch({ 
-                    type: actionDefinition.SUBMIT_SPOT_CHANGES_FULFILLED,
-                    payload: data 
+                    type: actionDefinition.SUBMIT_SPOT_CHANGES_FULFILLED
                 })
                 return getArea(dispatch)(endpoint, areaId)
             }
