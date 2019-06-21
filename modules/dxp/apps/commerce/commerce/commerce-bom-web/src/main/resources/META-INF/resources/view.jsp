@@ -31,15 +31,12 @@ String carPartsFinderRootElementId = renderResponse.getNamespace() + "-car-parts
 		'partFinder',
 		'<%= carPartsFinderRootElementId %>',
 		{
-
-			spritemap: '/test-icons.svg',
-			basename: '/test',
-			areasEndpoint: 'http://localhost:4000/api/car-parts/area',
-			foldersEndpoint: 'http://localhost:4000/api/car-parts/folder',
-
-			assetsPath: '<%= PortalUtil.getPathContext(request) + "/assets" %>',
-			namespace: '<portlet:namespace/>',
+			spritemap: '<%= themeDisplay.getPathThemeImages() + "/lexicon/icons.svg" %>',
+			basename: window.location.pathname,
+			areasEndpoint: '<%= PortalUtil.getPortalURL(request) + "/o/commerce-bom/1.0/areas" %>',
+			foldersEndpoint: '<%= PortalUtil.getPortalURL(request) + "/o/commerce-bom/1.0/folders" %>',
 			spritemap: '<%= themeDisplay.getPathThemeImages() + "/lexicon/icons.svg" %>'
 		}
 	);
 </aui:script>
+

@@ -5,7 +5,7 @@ export const actionDefinition = {
 };
 
 const getFolder = dispatch => (endpoint, id) => {
-	const url = endpoint + (id ? `/${id}` : '');
+	const url = endpoint + (id ? `/${id}` : '/0') + `?p_auth=${window.Liferay.authToken}`;
 
 	dispatch({
 		type: actionDefinition.GET_FOLDER_PENDING,

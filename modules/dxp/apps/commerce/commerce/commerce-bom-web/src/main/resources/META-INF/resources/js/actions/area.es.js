@@ -22,7 +22,7 @@ const select = dispatch => id =>
 	});
 
 const getArea = dispatch => (endpoint, id) => {
-	const url = endpoint + (id ? `/${id}` : '');
+	const url = endpoint + (id ? `/${id}` : '') + `?p_auth=${window.Liferay.authToken}`;
 
 	dispatch({
 		type: actionDefinition.GET_AREA_PENDING,

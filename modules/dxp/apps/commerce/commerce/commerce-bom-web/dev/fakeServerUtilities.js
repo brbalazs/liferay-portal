@@ -22,7 +22,7 @@ function generateFolderShape() {
 		id: faker.random.uuid(),
 		thumbnail: '/schema.jpg',
 		type,
-		url: (type === 'folder' ? '/folder/' : '/area/') + faker.random.uuid(),
+		url: (type === 'folder' ? '/folders/' : '/areas/') + faker.random.uuid(),
 	};
 }
 
@@ -38,7 +38,7 @@ function generateBreadcrumbs(type = 'folder') {
 			}
 			: {
 				label: `Folder ${i}`,
-				url: `/folder/folder-${i}`,
+				url: `/folders/folder-${i}`,
 			};
 	});
 }

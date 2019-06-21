@@ -216,7 +216,7 @@ function App(props) {
 									const query = Object.entries(values)
 										.map(el => `${el[0]}=${el[1]}`)
 										.join('&');
-									history.push('/folder/' + query);
+									history.push('/folders/' + query);
 								} else {
 									history.push('/');
 								}
@@ -228,7 +228,7 @@ function App(props) {
 		);
 	}
 
-	history.push('/folder');
+	history.push('/folders');
 
 	return (
 		<div className="bom-wrapper container pt-3">

@@ -26,11 +26,11 @@ export function PartFinder(props) {
 	function initializeUrlListener() {
 		return props.history.listen(e => {
 			switch (true) {
-				case e.pathname.includes('/folder'):
-					actions.getFolder(props.foldersApiEndpoint, e.pathname.replace(/\/folder\/?/, ''));
+				case e.pathname.includes('/folders'):
+					actions.getFolder(props.foldersApiEndpoint, e.pathname.replace(/\/folders\/?/, ''));
 					break;
-				case e.pathname.includes('/area'):
-					actions.getArea(props.areaApiEndpoint, e.pathname.replace(/\/area\/?/, ''));
+				case e.pathname.includes('/areas'):
+					actions.getArea(props.areaApiEndpoint, e.pathname.replace(/\/areas\/?/, ''));
 					break;
 				default:
 					break;
@@ -41,8 +41,8 @@ export function PartFinder(props) {
 	function initialize() {
 		initializeUrlListener();
 		if (
-			window.location.pathname.indexOf('/folder') > -1 ||
-			window.location.pathname.indexOf('/area') > -1
+			window.location.pathname.indexOf('/folders') > -1 ||
+			window.location.pathname.indexOf('/areas') > -1
 		) {
 			props.history.push(window.location.pathname.replace(props.basename, ''));
 		}
@@ -75,8 +75,8 @@ export function PartFinder(props) {
 						<Switch>
 							<Route exact path="/" component={BaseContainer} />
 							<Route exact path="/error" component={ErrorMessage} />
-							<Route path="/folder" component={FolderViewer} />
-							<Route path="/area" component={AreaViewer} />
+							<Route path="/folders" component={FolderViewer} />
+							<Route path="/areas" component={AreaViewer} />
 						</Switch>
 					)}
 			</Router>
