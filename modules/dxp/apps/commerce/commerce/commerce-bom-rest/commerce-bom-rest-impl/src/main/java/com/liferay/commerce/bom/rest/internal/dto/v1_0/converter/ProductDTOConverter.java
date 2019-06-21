@@ -15,6 +15,7 @@
 package com.liferay.commerce.bom.rest.internal.dto.v1_0.converter;
 
 import com.liferay.commerce.bom.rest.dto.v1_0.Product;
+import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceService;
@@ -56,8 +57,11 @@ public class ProductDTOConverter implements DTOConverter {
 				sku = cpInstance.getSku();
 				thumbnailUrl = _cpInstanceHelper.getCPInstanceThumbnailSrc(
 					cpInstance.getCPInstanceId());
-				url = cpDefinition.getURL(
-					LocaleUtil.toLanguageId(dtoConverterContext.getLocale()));
+				url =
+					CPConstants.SEPARATOR_PRODUCT_URL +
+						cpDefinition.getURL(
+							LocaleUtil.toLanguageId(
+								dtoConverterContext.getLocale()));
 			}
 		};
 	}
