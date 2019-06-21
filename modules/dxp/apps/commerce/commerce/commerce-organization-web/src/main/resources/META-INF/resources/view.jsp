@@ -157,11 +157,11 @@ request.setAttribute("view.jsp-filterPerOrganization", false);
 			'<%= segmentEditRootElementId %>',
 			'<%= segmentEditRootElementId %>',
 			{
-				assetsPath: '<%= PortalUtil.getPathContext(request) + "/assets" %>',
-				namespace: '<portlet:namespace/>',
-				spritemap: '<%= themeDisplay.getPathThemeImages() + "/commerce-icons.svg" %>',
-				imagesPath: '<%= themeDisplay.getPathThemeImages() %>',
-				apiURL : '<%= PortalUtil.getPortalURL(request) + "/o/commerce-organization" %>'
+			assetsPath: '<%= PortalUtil.getPathContext(request) + "/assets" %>',
+			namespace: '<portlet:namespace/>',
+			spritemap: '<%= themeDisplay.getPathThemeImages() + "/commerce-icons.svg" %>',
+			imagesPath: '<%= themeDisplay.getPathThemeImages() %>',
+			apiURL : '<%= PortalUtil.getPortalURL(request) + "/o/commerce-organization" %>'
 			});
 		</aui:script>
 	</c:when>
