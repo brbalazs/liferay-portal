@@ -14,7 +14,7 @@ dependencies {
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.api", version: "8.0.0"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.currency.api", version: "2.0.0"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.forecast.api", version: "1.0.0"
-	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.organization.api", version: "1.0.0"
+	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.organization.api", version: "2.0.0"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.product.api", version: "9.0.0"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "3.5.0"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.util.taglib", version: "3.0.0"
