@@ -16,5 +16,5 @@ dependencies {
 	compileOnly group: "org.osgi", name: "org.osgi.service.component", version: "1.3.0"
 	compileOnly group: "org.osgi", name: "org.osgi.service.component.annotations", version: "1.3.0"
 	compileOnly project(":private:apps:commerce:commerce:commerce-bom-api")
-	compileOnly project(":private:apps:commerce:commerce:commerce-bom-rest:commerce-bom-rest-api")
+	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.bom.rest.api", version: "1.0.0"
 }
