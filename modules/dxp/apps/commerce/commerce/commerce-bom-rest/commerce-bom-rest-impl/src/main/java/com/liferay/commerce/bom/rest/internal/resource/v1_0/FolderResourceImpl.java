@@ -179,7 +179,7 @@ public class FolderResourceImpl extends BaseFolderResourceImpl {
 
 		FileEntry fileEntry = cpAttachmentFileEntry.getFileEntry();
 
-		String url = DLUtil.getDownloadURL(
+		String thumbnailURL = DLUtil.getDownloadURL(
 			fileEntry, fileEntry.getFileVersion(), null, null);
 
 		return new Item() {
@@ -187,7 +187,7 @@ public class FolderResourceImpl extends BaseFolderResourceImpl {
 				id = commerceBOMDefinition.getCommerceBOMDefinitionId();
 				name = commerceBOMDefinition.getName();
 				slug = commerceBOMDefinition.getFriendlyUrl();
-				thumbnail = url;
+				thumbnail = thumbnailURL;
 				type = Item.Type.create("area");
 				url = "/areas/" + id;
 			}
