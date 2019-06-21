@@ -52,7 +52,7 @@ import org.osgi.service.component.annotations.Reference;
 	property = {
 		"com.liferay.portlet.add-default-resource=true",
 		"com.liferay.portlet.css-class-wrapper=portlet-commerce-application-admin",
-		"com.liferay.portlet.display-category=hidden",
+		"com.liferay.portlet.display-category=category.hidden",
 		"com.liferay.portlet.layout-cacheable=false",
 		"com.liferay.portlet.preferences-owned-by-group=true",
 		"com.liferay.portlet.preferences-unique-per-layout=false",
