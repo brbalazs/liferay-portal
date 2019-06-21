@@ -48,7 +48,7 @@ export default function reducer(state = initialState, action) {
                 number: spotData.number,
                 position: spotData.position,
                 query: relatedProduct.name,
-                product: relatedProduct.id,
+                productId: relatedProduct.id,
             }
 
             return {
@@ -100,13 +100,13 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 imageUrl,
                 name,
-                mappedProducts: products ? products : [],
-                spots: spots ? spots : []
+                mappedProducts: products || [],
+                spots: spots || []
             }
         case actionDefinition.GET_PRODUCTS_FULFILLED:
             return {
                 ...state,
-                availableProducts: action.payload.data ? action.payload.data : []
+                availableProducts: action.payload || []
             }
         case actionDefinition.RESET_PRODUCTS:
             return {

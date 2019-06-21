@@ -1,15 +1,20 @@
 import React from "react";
 
 export default function Icon(props) {
+    const { 
+        symbol,
+        spritemap,
+        className,
+        ...otherProps
+    } = props;
+
     return (
         <svg 
-            aria-hidden="true"
-            className="lexicon-icon"
+            {...otherProps}
+            className={`lexicon-icon lexicon-icon-${symbol}${className ? ` ${className}` : ``}`}
             role="presentation"
-            viewBox="0 0 24 24"   
         >
-            <title>{props.symbol}</title>
-            <use xlinkHref={`${props.spritemap}#${props.symbol}`} />
+            <use xlinkHref={`${spritemap}#${symbol}`} />
         </svg>
     )
 }

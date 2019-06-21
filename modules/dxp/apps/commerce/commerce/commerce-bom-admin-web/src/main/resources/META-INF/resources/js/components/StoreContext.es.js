@@ -14,9 +14,6 @@ import { actions as areaActions } from '../actions/area.es';
 
 export const StoreContext = createContext();
 
-export let store = null;
-export let storeActions = null;
-
 export function initializeActions(actions, dispatch) {
 	return Object.keys(actions).reduce(
 		(curriedActions, actionName) => ({
@@ -48,9 +45,6 @@ export function StoreProvider(props) {
 		Object.assign({}, appActions, areaActions),
 		applyMiddleware(dispatch)
 	);
-
-	store = state;
-	storeActions = state;
 
 	return (
 		<StoreContext.Provider value={{ state, actions }}>

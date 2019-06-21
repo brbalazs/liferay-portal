@@ -19,14 +19,16 @@
 		}
 	}
 
+	.lexicon-icon {
+		font-size: 16px;
+	}
+
 	.custom-cursor {
 		background-color: black;
 		border-radius: 50%;
 		color: white;
 		display: block;
-		font-size: 24px;
 		height: 24px;
-		line-height: 22px;
 		margin-left: -12px;
 		margin-top: -12px;
 		pointer-events: none;
@@ -36,6 +38,8 @@
 		transition: transform 0.1s ease-in;
 		width: 24px;
 		z-index: 1;
+		font-size: 14px;
+		line-height: 24px;
 
 		&--visible {
 			transform: scale(1);
@@ -199,11 +203,11 @@
 		}
 
 		&__close {
-			font-size: 24px;
 			position: absolute;
 			right: 0;
 			top: 0;
 			z-index: 1;
+			padding: 0.9375rem 0.9375rem;
 		}
 
 		&__reset {

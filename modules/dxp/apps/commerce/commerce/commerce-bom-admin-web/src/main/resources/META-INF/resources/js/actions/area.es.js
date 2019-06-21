@@ -47,7 +47,7 @@ const getArea = dispatch => (endpoint, id) => {
             type: actionDefinition.GET_AREA_PENDING 
         }
     )
-    return fetch(endpoint + '/' + id)
+    return fetch(endpoint + '/' + id + `?p_auth=${window.Liferay.authToken}`)
         .then(
             response => response.json()
         )
@@ -71,14 +71,14 @@ const getProducts = dispatch => (endpoint, query) => {
             type: actionDefinition.GET_PRODUCTS_PENDING 
         }
     )
-    return fetch(endpoint + (query ? `/${query}` : '' ))
+    return fetch(endpoint + (query ? `?p_auth=${window.Liferay.authToken}&q=${query}` : '' ))
         .then(
             response => response.json()
         )
         .then(
             (data) => dispatch({ 
                 type: actionDefinition.GET_PRODUCTS_FULFILLED,
-                payload: data 
+                payload: data && data.items
             })
         )
         .catch(
@@ -146,7 +146,7 @@ const submitNewSpot = dispatch => (
     )
 
     return fetch(
-        endpoint + '/' + areaId,
+        endpoint + '/' + areaId + `/spot?p_auth=${window.Liferay.authToken}`,
         {
             method: 'POST',
             body: JSON.stringify(data),
@@ -188,7 +188,7 @@ const deleteSpot = dispatch => (
     )
 
     return fetch(
-        endpoint + '/' + areaId + '/' + spotId,
+        endpoint + '/' + areaId + '/spot/' + spotId  + `?p_auth=${window.Liferay.authToken}`,
         {
             method: 'DELETE'
         }
@@ -234,7 +234,7 @@ const submitSpotChanges = dispatch => (
     )
 
     return fetch(
-        endpoint + '/' + areaId + '/' + id,
+        endpoint + '/' + areaId + '/spot/' + id  + `?p_auth=${window.Liferay.authToken}`,
         {
             method: 'PUT',
             body: JSON.stringify(data),

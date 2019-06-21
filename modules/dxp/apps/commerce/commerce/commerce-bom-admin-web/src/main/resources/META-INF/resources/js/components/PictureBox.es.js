@@ -168,9 +168,7 @@ function PictureBox() {
                 state.area.name 
                 && (
                     <div className="panel panel-secondary picture-box-wrapper">
-                        <div 
-                            className={`picture-box${highlightedModifierClass}`}
-                            >
+                        <div className={`picture-box${highlightedModifierClass}`} >
                             <div 
                                 className="custom-cursor-wrapper"
                                 onClick={handleClick}

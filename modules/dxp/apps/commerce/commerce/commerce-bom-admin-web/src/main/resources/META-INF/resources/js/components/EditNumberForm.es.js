@@ -155,13 +155,13 @@ const EditNumberForm = React.memo(() => {
 	}
 
 	function resetProducts() {
-		actions.updateFormValue('product', null);
+		actions.updateFormValue('productId', null);
 		actions.updateFormValue('query', null);
 		actions.resetProducts();
 	}
 
 	function selectProduct(selectedProduct) {
-		actions.updateFormValue('product', selectedProduct.id);
+		actions.updateFormValue('productId', selectedProduct.id);
 		actions.updateFormValue('query', selectedProduct.name);
 		actions.resetProducts();
 	}
@@ -235,7 +235,7 @@ const EditNumberForm = React.memo(() => {
 					>
 						<Icon
 							spritemap={state.app.spritemap}
-							symbol={'close'}
+							symbol={'times'}
 						/>
 					</button>
 					<div className="panel-body">
@@ -270,9 +270,9 @@ const EditNumberForm = React.memo(() => {
 									inputId={'edit-number-form__input-number'}
 									query={formData.query}
 									selectedElement={
-										formData.product
+										formData.productId
 											? {
-													value: formData.product,
+													value: formData.productId,
 													label: formData.query
 											  }
 											: null
@@ -340,7 +340,7 @@ const EditNumberForm = React.memo(() => {
 											onClick={submitForm}
 											disabled={
 												!(
-													formData.product &&
+													formData.productId &&
 													formData.number &&
 													formData.changed
 												)

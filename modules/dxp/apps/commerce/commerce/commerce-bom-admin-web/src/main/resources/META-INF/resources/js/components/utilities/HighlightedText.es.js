@@ -6,7 +6,7 @@ function processQuery( query, text = '' ) {
 
     return results 
         ? Array(3).fill('').map((_, i) => results[i + 1].toString())
-        : [text, '', '']
+        : [text, '', ''];
 }
 
 export default function HighlightedText(props) {
@@ -15,7 +15,7 @@ export default function HighlightedText(props) {
         firstPart,
         highlightedPart,
         thirdPart
-    ] = processQuery(props.query, props.text)
+    ] = processQuery(props.query, props.text);
 
     return (
         <span className="autocomplete-item">
@@ -36,6 +36,6 @@ export default function HighlightedText(props) {
                 )
             }
         </span>
-    )
+    );
 }
 
