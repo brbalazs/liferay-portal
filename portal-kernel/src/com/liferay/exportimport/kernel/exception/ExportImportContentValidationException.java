@@ -74,7 +74,7 @@ public class ExportImportContentValidationException extends PortalException {
 		return _stagedModelClassName;
 	}
 
-	public long getStagedModelClassPK() {
+	public String getStagedModelClassPK() {
 		return _stagedModelClassPK;
 	}
 
@@ -110,7 +110,7 @@ public class ExportImportContentValidationException extends PortalException {
 		_stagedModelClassName = stagedModelClassName;
 	}
 
-	public void setStagedModelClassPK(long stagedModelClassPK) {
+	public void setStagedModelClassPK(String stagedModelClassPK) {
 		_stagedModelClassPK = stagedModelClassPK;
 	}
 
@@ -124,7 +124,7 @@ public class ExportImportContentValidationException extends PortalException {
 	private Map<String, String> _layoutReferenceParameters;
 	private String _layoutURL;
 	private String _stagedModelClassName;
-	private long _stagedModelClassPK;
+	private String _stagedModelClassPK;
 	private int _type = DEFAULT;
 
 }
