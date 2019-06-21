@@ -8,14 +8,14 @@ function serializeParams(params) {
 	).join('&');
 }
 
-function endpointBuilder({ baseURL, id = '0', path = '', queryParams = {} }) {
-		const root = `${baseURL}/organizations`,
+function endpointBuilder({baseURL, id = '0', path = '', queryParams = {}}) {
+	const root = `${baseURL}/organizations`,
 		organizationId = `/${id}`,
 		collection = `/${path}`;
 
 	let parameters = '';
 
-	if (!!path) {
+	if (path) {
 		parameters = `?${serializeParams(queryParams)}`;
 	}
 

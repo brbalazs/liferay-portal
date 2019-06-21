@@ -39,4 +39,3 @@ String carPartsFinderRootElementId = renderResponse.getNamespace() + "-car-parts
 		}
 	);
 </aui:script>
-

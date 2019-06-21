@@ -27,13 +27,15 @@ import com.liferay.commerce.bom.rest.resource.v1_0.FolderResource;
 import com.liferay.commerce.bom.search.CommerceBOMSearcher;
 import com.liferay.commerce.bom.service.CommerceBOMDefinitionService;
 import com.liferay.commerce.bom.service.CommerceBOMFolderService;
-import com.liferay.commerce.media.CommerceMediaResolver;
+import com.liferay.commerce.product.model.CPAttachmentFileEntry;
+import com.liferay.document.library.kernel.util.DLUtil;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
@@ -172,15 +174,22 @@ public class FolderResourceImpl extends BaseFolderResourceImpl {
 	private Item _toItem(CommerceBOMDefinition commerceBOMDefinition)
 		throws PortalException {
 
+		CPAttachmentFileEntry cpAttachmentFileEntry =
+			commerceBOMDefinition.fetchCPAttachmentFileEntry();
+
+		FileEntry fileEntry = cpAttachmentFileEntry.getFileEntry();
+
+		String url = DLUtil.getDownloadURL(
+			fileEntry, fileEntry.getFileVersion(), null, null);
+
 		return new Item() {
 			{
 				id = commerceBOMDefinition.getCommerceBOMDefinitionId();
 				name = commerceBOMDefinition.getName();
 				slug = commerceBOMDefinition.getFriendlyUrl();
-				thumbnail = _commerceMediaResolver.getThumbnailUrl(
-					commerceBOMDefinition.getCPAttachmentFileEntryId());
+				thumbnail = url;
 				type = Item.Type.create("area");
-				url = "/area/" + id;
+				url = "/areas/" + id;
 			}
 		};
 	}
@@ -210,9 +219,6 @@ public class FolderResourceImpl extends BaseFolderResourceImpl {
 
 	@Reference
 	private CommerceBOMFolderService _commerceBOMFolderService;
-
-	@Reference
-	private CommerceMediaResolver _commerceMediaResolver;
 
 	@Reference
 	private DTOConverterRegistry _dtoConverterRegistry;
