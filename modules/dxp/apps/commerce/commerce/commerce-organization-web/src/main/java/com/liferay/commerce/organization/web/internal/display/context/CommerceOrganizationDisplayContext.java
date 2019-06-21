@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.organization.web.internal.display.context;
 
+import com.liferay.commerce.organization.web.internal.constants.CommerceOrganizationConstants;
 import com.liferay.commerce.organization.web.internal.display.context.util.CommerceOrganizationRequestHelper;
 import com.liferay.commerce.organization.web.internal.frontend.OrganizationFilterImpl;
 import com.liferay.petra.string.StringBundler;
@@ -202,6 +203,12 @@ public class CommerceOrganizationDisplayContext {
 
 	public UserFileUploadsConfiguration getUserFileUploadsConfiguration() {
 		return _userFileUploadsConfiguration;
+	}
+
+	public String getViewMode() {
+		return ParamUtil.getString(
+			_commerceOrganizationRequestHelper.getRequest(), "viewMode",
+			CommerceOrganizationConstants.LIST_VIEW_MODE);
 	}
 
 	public boolean hasAddOrganizationPermissions() throws PortalException {
