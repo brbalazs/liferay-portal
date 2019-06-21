@@ -1745,18 +1745,6 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 			_log.info("Starting dynamic bundles");
 		}
 
-		Bundle fileInstallBundle = null;
-
-		for (Bundle bundle : installedBundles) {
-			if ("org.apache.felix.fileinstall".equals(
-					bundle.getSymbolicName())) {
-
-				fileInstallBundle = bundle;
-
-				break;
-			}
-		}
-
 		Map<String, Long> dynamicBundleChecksums = _installDynamicBundles();
 
 		FrameworkStartLevel frameworkStartLevel = _framework.adapt(
@@ -1825,23 +1813,28 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 			}
 		}
 
-		if (fileInstallBundle != null) {
-			final Bundle targetBundle = fileInstallBundle;
+		for (Bundle bundle : installedBundles) {
+			if (!Objects.equals(
+					bundle.getSymbolicName(), "org.apache.felix.fileinstall")) {
+
+				continue;
+			}
 
 			BundleListener bundleListener = event -> {
 				if (event.getType() != BundleEvent.STARTING) {
 					return;
 				}
 
-				Bundle bundle = event.getBundle();
+				Bundle currentBundle = event.getBundle();
 
-				if (bundle != targetBundle) {
+				if (currentBundle != bundle) {
 					return;
 				}
 
 				try {
 					_registerDynamicBundles(
-						dynamicBundleChecksums, bundle.getBundleContext());
+						dynamicBundleChecksums,
+						currentBundle.getBundleContext());
 				}
 				catch (Exception e) {
 					_log.error(
@@ -1852,7 +1845,7 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 			bundleContext.addBundleListener(bundleListener);
 
 			try {
-				fileInstallBundle.start();
+				bundle.start();
 			}
 			finally {
 				bundleContext.removeBundleListener(bundleListener);
