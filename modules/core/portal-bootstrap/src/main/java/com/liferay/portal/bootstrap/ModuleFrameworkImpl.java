@@ -1683,7 +1683,11 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 		}
 		else {
 			for (Bundle bundle : bundles.values()) {
-				if (!_isFragmentBundle(bundle)) {
+				if (!_isFragmentBundle(bundle) &&
+					!Objects.equals(
+						bundle.getSymbolicName(),
+						"org.apache.felix.fileinstall")) {
+
 					bundle.start();
 				}
 			}
