@@ -128,17 +128,17 @@ public class Spot {
 	protected Position position;
 
 	@Schema
-	public Long getProductId() {
+	public String getProductId() {
 		return productId;
 	}
 
-	public void setProductId(Long productId) {
+	public void setProductId(String productId) {
 		this.productId = productId;
 	}
 
 	@JsonIgnore
 	public void setProductId(
-		UnsafeSupplier<Long, Exception> productIdUnsafeSupplier) {
+		UnsafeSupplier<String, Exception> productIdUnsafeSupplier) {
 
 		try {
 			productId = productIdUnsafeSupplier.get();
@@ -153,7 +153,7 @@ public class Spot {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Long productId;
+	protected String productId;
 
 	@Schema
 	public String getSku() {
@@ -245,7 +245,11 @@ public class Spot {
 
 			sb.append("\"productId\": ");
 
-			sb.append(productId);
+			sb.append("\"");
+
+			sb.append(_escape(productId));
+
+			sb.append("\"");
 		}
 
 		if (sku != null) {
