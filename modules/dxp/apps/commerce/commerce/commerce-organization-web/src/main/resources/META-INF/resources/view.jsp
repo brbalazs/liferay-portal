@@ -63,7 +63,7 @@ request.setAttribute("view.jsp-filterPerOrganization", false);
 
 <c:choose>
 	<c:when test="<%= viewMode.equals(CommerceOrganizationConstants.LIST_VIEW_MODE) %>">
-		<div class="commerce-organization-container" id="<portlet:namespace />entriesContainer">
+		<div class="commerce-organization-container container container-fluid" id="<portlet:namespace />entriesContainer">
 			<commerce-ui:table
 				dataProviderKey="<%= CommerceOrganizationClayTable.NAME %>"
 				filter="<%= commerceOrganizationDisplayContext.getOrganizationFilter() %>"
