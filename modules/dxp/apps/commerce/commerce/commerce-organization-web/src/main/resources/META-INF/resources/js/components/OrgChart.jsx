@@ -60,8 +60,6 @@ class OrgChart extends Component {
 			this.updateChart(selectedNode);
 
 			setTimeout(() => {
-				debugger;
-
 				const orgNodes = document.querySelectorAll('[data-organization-id]'),
 					firstOrgNode = orgNodes[orgNodes.length - 2],
 					mouseEvent = new MouseEvent('click');
