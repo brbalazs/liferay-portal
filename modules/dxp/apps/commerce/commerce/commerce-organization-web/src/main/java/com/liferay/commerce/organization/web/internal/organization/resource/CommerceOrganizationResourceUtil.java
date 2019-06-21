@@ -31,10 +31,8 @@ import com.liferay.portal.kernel.model.OrganizationConstants;
 import com.liferay.portal.kernel.model.UserConstants;
 import com.liferay.portal.kernel.service.OrganizationService;
 import com.liferay.portal.kernel.service.UserService;
-import com.liferay.portal.kernel.util.ServiceProxyFactory;
 import com.liferay.portal.kernel.webserver.WebServerServletTokenUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.users.admin.kernel.file.uploads.UserFileUploadsSettings;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -180,12 +178,6 @@ public class CommerceOrganizationResourceUtil {
 
 		return organizationList;
 	}
-
-	private static volatile UserFileUploadsSettings _userFileUploadsSettings =
-		ServiceProxyFactory.newServiceTrackedInstance(
-			UserFileUploadsSettings.class,
-			CommerceOrganizationResourceUtil.class, "_userFileUploadsSettings",
-			false);
 
 	@Reference
 	private CommerceAccountOrganizationRelService
