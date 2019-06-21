@@ -19,10 +19,10 @@ import com.liferay.commerce.bom.rest.dto.v1_0.Position;
 import com.liferay.commerce.bom.rest.dto.v1_0.Spot;
 import com.liferay.commerce.bom.rest.resource.v1_0.SpotResource;
 import com.liferay.commerce.bom.service.CommerceBOMEntryService;
-import com.liferay.commerce.product.model.CPDefinition;
-import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.service.CProductLocalService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
@@ -56,20 +56,16 @@ public class SpotResourceImpl extends BaseSpotResourceImpl {
 
 	@Override
 	public Spot postAreaIdSpot(Long id, Spot spot) throws Exception {
-		CPDefinition cpDefinition =
-			_cpDefinitionService.fetchCPDefinitionByCProductId(
-				spot.getProductId());
-
-		CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
-			cpDefinition.getCPDefinitionId(), spot.getSku());
+		CProduct cProduct = _cProductLocalService.getCProductByCPInstanceUuid(
+			spot.getProductId());
 
 		Position position = spot.getPosition();
 
 		CommerceBOMEntry commerceBOMEntry =
 			_commerceBOMEntryService.addCommerceBOMEntry(
-				_user.getUserId(), spot.getNumber(),
-				cpInstance.getCPInstanceUuid(), spot.getProductId(), id,
-				position.getX(), position.getY(), 0D);
+				_user.getUserId(), spot.getNumber(), spot.getProductId(),
+				cProduct.getCProductId(), id, position.getX(), position.getY(),
+				0D);
 
 		DTOConverter spotDTOConverter = _dtoConverterRegistry.getDTOConverter(
 			CommerceBOMEntry.class.getName());
@@ -87,19 +83,15 @@ public class SpotResourceImpl extends BaseSpotResourceImpl {
 		CommerceBOMEntry commerceBOMEntry =
 			_commerceBOMEntryService.getCommerceBOMEntry(spotId);
 
-		CPDefinition cpDefinition =
-			_cpDefinitionService.fetchCPDefinitionByCProductId(
-				spot.getProductId());
-
-		CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
-			cpDefinition.getCPDefinitionId(), spot.getSku());
+		CProduct cProduct = _cProductLocalService.getCProductByCPInstanceUuid(
+			spot.getProductId());
 
 		Position position = spot.getPosition();
 
 		_commerceBOMEntryService.updateCommerceBOMEntry(
 			commerceBOMEntry.getCommerceBOMEntryId(),
 			GetterUtil.get(spot.getNumber(), commerceBOMEntry.getNumber()),
-			cpInstance.getCPInstanceUuid(), spot.getProductId(),
+			spot.getProductId(), cProduct.getCProductId(),
 			GetterUtil.get(position.getX(), commerceBOMEntry.getPositionX()),
 			GetterUtil.get(position.getY(), commerceBOMEntry.getPositionY()),
 			0D);
@@ -117,6 +109,9 @@ public class SpotResourceImpl extends BaseSpotResourceImpl {
 
 	@Reference
 	private CPInstanceLocalService _cpInstanceLocalService;
+
+	@Reference
+	private CProductLocalService _cProductLocalService;
 
 	@Reference
 	private DTOConverterRegistry _dtoConverterRegistry;
