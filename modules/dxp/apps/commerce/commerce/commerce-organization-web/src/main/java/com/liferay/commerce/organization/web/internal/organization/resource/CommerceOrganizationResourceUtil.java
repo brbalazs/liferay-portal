@@ -25,18 +25,15 @@ import com.liferay.commerce.organization.web.internal.organization.model.Organiz
 import com.liferay.commerce.organization.web.internal.organization.model.User;
 import com.liferay.commerce.organization.web.internal.organization.model.UserList;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.OrganizationConstants;
+import com.liferay.portal.kernel.model.UserConstants;
 import com.liferay.portal.kernel.service.OrganizationService;
 import com.liferay.portal.kernel.service.UserService;
-import com.liferay.portal.kernel.util.DigesterUtil;
-import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.ServiceProxyFactory;
-import com.liferay.portal.kernel.util.URLCodec;
 import com.liferay.portal.kernel.webserver.WebServerServletTokenUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.portal.util.PrefsPropsUtil;
 import com.liferay.users.admin.kernel.file.uploads.UserFileUploadsSettings;
 
 import java.util.ArrayList;
@@ -134,7 +131,10 @@ public class CommerceOrganizationResourceUtil {
 			users.add(
 				new User(
 					user.getUserId(), user.getFullName(),
-					_getUserImageURL(user), user.getEmailAddress()));
+					UserConstants.getPortraitURL(
+						StringPool.BLANK, user.isMale(), user.getPortraitId(),
+						user.getUserUuid()),
+					user.getEmailAddress()));
 		}
 
 		int total = _userService.getOrganizationUsersCount(
@@ -150,43 +150,6 @@ public class CommerceOrganizationResourceUtil {
 		sb.append(logoId);
 		sb.append("&t=");
 		sb.append(WebServerServletTokenUtil.getToken(logoId));
-
-		return sb.toString();
-	}
-
-	private String _getUserImageURL(com.liferay.portal.kernel.model.User user)
-		throws PortalException {
-
-		StringBundler sb = new StringBundler(7);
-
-		boolean contactMaleEnabled = PrefsPropsUtil.getBoolean(
-			user.getCompanyId(),
-			PropsKeys.
-				FIELD_ENABLE_COM_LIFERAY_PORTAL_KERNEL_MODEL_CONTACT_MALE);
-
-		if (contactMaleEnabled) {
-			if (user.isMale()) {
-				sb.append("/user_male_portrait");
-			}
-			else {
-				sb.append("/user_female_portrait");
-			}
-		}
-		else {
-			sb.append("/user_portrait");
-		}
-
-		sb.append("?img_id=");
-		sb.append(user.getPortraitId());
-
-		if (_userFileUploadsSettings.isImageCheckToken()) {
-			sb.append("&img_id_token=");
-			sb.append(
-				URLCodec.encodeURL(DigesterUtil.digest(user.getUserUuid())));
-		}
-
-		sb.append("&t=");
-		sb.append(WebServerServletTokenUtil.getToken(user.getPortraitId()));
 
 		return sb.toString();
 	}
