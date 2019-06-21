@@ -24,11 +24,20 @@ import com.liferay.commerce.organization.web.internal.organization.model.Account
 import com.liferay.commerce.organization.web.internal.organization.model.Organization;
 import com.liferay.commerce.organization.web.internal.organization.model.User;
 import com.liferay.commerce.organization.web.internal.organization.model.UserList;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.OrganizationConstants;
 import com.liferay.portal.kernel.service.OrganizationService;
 import com.liferay.portal.kernel.service.UserService;
+import com.liferay.portal.kernel.util.DigesterUtil;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.ServiceProxyFactory;
+import com.liferay.portal.kernel.util.URLCodec;
+import com.liferay.portal.kernel.webserver.WebServerServletTokenUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.util.PrefsPropsUtil;
+import com.liferay.users.admin.kernel.file.uploads.UserFileUploadsSettings;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -97,7 +106,9 @@ public class CommerceOrganizationResourceUtil {
 			accounts.add(
 				new Account(
 					commerceAccount.getCommerceAccountId(),
-					commerceAccount.getName()));
+					commerceAccount.getName(),
+					_getAccountImageURL(commerceAccount.getLogoId()),
+					commerceAccount.getEmail()));
 		}
 
 		int total =
@@ -120,13 +131,64 @@ public class CommerceOrganizationResourceUtil {
 				null);
 
 		for (com.liferay.portal.kernel.model.User user : userList) {
-			users.add(new User(user.getUserId(), user.getFullName()));
+			users.add(
+				new User(
+					user.getUserId(), user.getFullName(),
+					_getUserImageURL(user), user.getEmailAddress()));
 		}
 
 		int total = _userService.getOrganizationUsersCount(
 			organizationId, WorkflowConstants.STATUS_APPROVED);
 
 		return new UserList(users, total);
+	}
+
+	private String _getAccountImageURL(long logoId) {
+		StringBundler sb = new StringBundler(4);
+
+		sb.append("/organization_logo?img_id=");
+		sb.append(logoId);
+		sb.append("&t=");
+		sb.append(WebServerServletTokenUtil.getToken(logoId));
+
+		return sb.toString();
+	}
+
+	private String _getUserImageURL(com.liferay.portal.kernel.model.User user)
+		throws PortalException {
+
+		StringBundler sb = new StringBundler(7);
+
+		boolean contactMaleEnabled = PrefsPropsUtil.getBoolean(
+			user.getCompanyId(),
+			PropsKeys.
+				FIELD_ENABLE_COM_LIFERAY_PORTAL_KERNEL_MODEL_CONTACT_MALE);
+
+		if (contactMaleEnabled) {
+			if (user.isMale()) {
+				sb.append("/user_male_portrait");
+			}
+			else {
+				sb.append("/user_female_portrait");
+			}
+		}
+		else {
+			sb.append("/user_portrait");
+		}
+
+		sb.append("?img_id=");
+		sb.append(user.getPortraitId());
+
+		if (_userFileUploadsSettings.isImageCheckToken()) {
+			sb.append("&img_id_token=");
+			sb.append(
+				URLCodec.encodeURL(DigesterUtil.digest(user.getUserUuid())));
+		}
+
+		sb.append("&t=");
+		sb.append(WebServerServletTokenUtil.getToken(user.getPortraitId()));
+
+		return sb.toString();
 	}
 
 	private List<Organization> _toOrganizations(
@@ -155,6 +217,12 @@ public class CommerceOrganizationResourceUtil {
 
 		return organizationList;
 	}
+
+	private static volatile UserFileUploadsSettings _userFileUploadsSettings =
+		ServiceProxyFactory.newServiceTrackedInstance(
+			UserFileUploadsSettings.class,
+			CommerceOrganizationResourceUtil.class, "_userFileUploadsSettings",
+			false);
 
 	@Reference
 	private CommerceAccountOrganizationRelService

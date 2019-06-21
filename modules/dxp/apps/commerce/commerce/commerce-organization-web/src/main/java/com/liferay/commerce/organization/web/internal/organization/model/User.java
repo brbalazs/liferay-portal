@@ -19,9 +19,19 @@ package com.liferay.commerce.organization.web.internal.organization.model;
  */
 public class User {
 
-	public User(long userId, String name) {
+	public User(long userId, String name, String imageUrl, String email) {
 		_userId = userId;
 		_name = name;
+		_imageUrl = imageUrl;
+		_email = email;
+	}
+
+	public String getEmail() {
+		return _email;
+	}
+
+	public String getImageUrl() {
+		return _imageUrl;
 	}
 
 	public String getName() {
@@ -32,6 +42,8 @@ public class User {
 		return _userId;
 	}
 
+	private final String _email;
+	private final String _imageUrl;
 	private final String _name;
 	private final long _userId;
 

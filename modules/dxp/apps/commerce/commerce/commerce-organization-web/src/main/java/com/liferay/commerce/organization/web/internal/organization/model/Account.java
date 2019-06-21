@@ -19,13 +19,23 @@ package com.liferay.commerce.organization.web.internal.organization.model;
  */
 public class Account {
 
-	public Account(long accountId, String name) {
+	public Account(long accountId, String name, String imageUrl, String email) {
 		_accountId = accountId;
 		_name = name;
+		_imageUrl = imageUrl;
+		_email = email;
 	}
 
 	public long getAccountId() {
 		return _accountId;
+	}
+
+	public String getEmail() {
+		return _email;
+	}
+
+	public String getImageUrl() {
+		return _imageUrl;
 	}
 
 	public String getName() {
@@ -33,6 +43,8 @@ public class Account {
 	}
 
 	private final long _accountId;
+	private final String _email;
+	private final String _imageUrl;
 	private final String _name;
 
 }
