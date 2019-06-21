@@ -24,11 +24,9 @@ import com.liferay.commerce.bom.rest.internal.dto.v1_0.converter.util.Breadcrumb
 import com.liferay.commerce.bom.rest.resource.v1_0.AreaResource;
 import com.liferay.commerce.bom.service.CommerceBOMDefinitionService;
 import com.liferay.commerce.bom.service.CommerceBOMEntryService;
-import com.liferay.commerce.media.CommerceMediaResolver;
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CProduct;
-import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CProductLocalService;
 import com.liferay.document.library.kernel.util.DLUtil;
@@ -151,12 +149,6 @@ public class AreaResourceImpl extends BaseAreaResourceImpl {
 
 	@Reference
 	private CommerceBOMEntryService _commerceBOMEntryService;
-
-	@Reference
-	private CommerceMediaResolver _commerceMediaResolver;
-
-	@Reference
-	private CPDefinitionService _cpDefinitionService;
 
 	@Reference
 	private CPInstanceLocalService _cpInstanceLocalService;

@@ -20,8 +20,6 @@ import com.liferay.commerce.bom.rest.dto.v1_0.Spot;
 import com.liferay.commerce.bom.rest.resource.v1_0.SpotResource;
 import com.liferay.commerce.bom.service.CommerceBOMEntryService;
 import com.liferay.commerce.product.model.CProduct;
-import com.liferay.commerce.product.service.CPDefinitionService;
-import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CProductLocalService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
@@ -103,12 +101,6 @@ public class SpotResourceImpl extends BaseSpotResourceImpl {
 
 	@Reference
 	private CommerceBOMEntryService _commerceBOMEntryService;
-
-	@Reference
-	private CPDefinitionService _cpDefinitionService;
-
-	@Reference
-	private CPInstanceLocalService _cpInstanceLocalService;
 
 	@Reference
 	private CProductLocalService _cProductLocalService;
