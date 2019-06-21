@@ -46,10 +46,9 @@ export function PartFinder(props) {
 		) {
 			props.history.push(window.location.pathname.replace(props.basename, ''));
 		}
-		if (props.spritemap) {
-			actions.setSpritemap(props.spritemap);
-			actions.setBasename(props.basename || '/')
-		}
+		actions.setSpritemap(props.spritemap);
+		actions.setBasename(props.basename || '/');
+		actions.setBasePathUrl(props.basePathUrl);
 		setInitialized(true);
 	}
 
@@ -57,13 +56,11 @@ export function PartFinder(props) {
 		if (!initialized) {
 			initialize();
 		}
-		if (
-			state.app.error &&
-			!(window.location.pathname.indexOf('/error') > -1)
-		) {
-			props.history.push('/error');
-		}
 	});
+
+	if(state.app.error) {
+		return (<ErrorMessage />)
+	}
 
 	return (
 		<div className="content">
@@ -74,7 +71,6 @@ export function PartFinder(props) {
 					) : (
 						<Switch>
 							<Route exact path="/" component={BaseContainer} />
-							<Route exact path="/error" component={ErrorMessage} />
 							<Route path="/folders" component={FolderViewer} />
 							<Route path="/areas" component={AreaViewer} />
 						</Switch>

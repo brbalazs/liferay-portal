@@ -4,11 +4,17 @@ export const actionDefinition = {
 	SET_LOADING: 'setLoading',
 	SET_SPRITEMAP: 'setSpritemap',
 	SET_BASENAME: 'setBasename',
+	SET_BASE_PATH_URL: 'setBasePathUrl',
 };
 
 const updateBreadcrumbs = dispatch => breadcrumbs => dispatch({
 	type: actionDefinition.UPDATE_BREADCRUMBS,
 	payload: breadcrumbs,
+});
+
+const setBasePathUrl = dispatch => path => dispatch({
+	type: actionDefinition.SET_BASE_PATH_URL,
+	payload: path,
 });
 
 const setError = dispatch => error =>
@@ -41,4 +47,5 @@ export const actions = {
 	setLoading,
 	setSpritemap,
 	setBasename,
+	setBasePathUrl,
 };

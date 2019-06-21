@@ -31,8 +31,8 @@ String carPartsFinderRootElementId = renderResponse.getNamespace() + "-car-parts
 		'partFinder',
 		'<%= carPartsFinderRootElementId %>',
 		{
-			spritemap: '<%= themeDisplay.getPathThemeImages() + "/lexicon/icons.svg" %>',
 			basename: window.location.pathname,
+			basePathUrl: '<%= PortalUtil.getGroupFriendlyURL(layout.getLayoutSet(), themeDisplay, locale) %>',
 			areasEndpoint: '<%= PortalUtil.getPortalURL(request) + "/o/commerce-bom/1.0/areas" %>',
 			foldersEndpoint: '<%= PortalUtil.getPortalURL(request) + "/o/commerce-bom/1.0/folders" %>',
 			spritemap: '<%= themeDisplay.getPathThemeImages() + "/lexicon/icons.svg" %>'

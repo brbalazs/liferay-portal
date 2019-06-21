@@ -17,7 +17,7 @@ function DetailsListElement(props) {
     return (
         <a
             className={`detail-row d-table-row${highlightedModifierClass}`} 
-            href={props.url}
+            href={state.app.basePathUrl + props.url}
             onFocus={() => actions.highlightDetail(props.number, true)}
             onMouseOver={() => actions.highlightDetail(props.number, true)}
             onMouseOut={() => actions.highlightDetail(null)}
@@ -36,13 +36,23 @@ function DetailsListElement(props) {
 function DetailsBox() {
     const { state } = useContext(StoreContext);
 
-    const list = state.area.products.map(product => {
+    const spotsFilteredByNumbers = state.area.spots.reduce((filtered, spot, i) => {
+        if(i && filtered[filtered.length - 1].number === spot.number) {
+            return filtered;
+        }
+        return filtered.concat(spot);
+    },[])
+
+    const list = spotsFilteredByNumbers.map(spot => {
+        const relatedProduct = state.area.products.reduce(
+            (acc, prod) => acc || (prod.id === spot.productId ? prod : false),
+            false
+        );
         return {
-            ...product,
-            number: state.area.spots.reduce(
-                (number, spot) => number || (spot.productId === product.id && spot.number),
-                null
-            )
+            number: spot.number,
+            name: relatedProduct.name,
+            sku: relatedProduct.sku,
+            url: relatedProduct.url
         }
     })
 
@@ -56,7 +66,7 @@ function DetailsBox() {
                     <div className="d-table-head-group">
                         <div className="d-table-row">
                             <div className="d-table-cell">
-                                <LocalizedText desc="N*">n.</LocalizedText>
+                                <LocalizedText desc="N*">n</LocalizedText>
                             </div>
                             <div className="d-table-cell">
                                 <LocalizedText desc="Name">name</LocalizedText>

@@ -12,8 +12,8 @@ function BaseContainer() {
                     </LocalizedText>
                 </h2>
                 <h4>
-                    <LocalizedText desc="Select above: the Carmaker, Model, Type and Car Parts to start your research!">
-                        select-above
+                    <LocalizedText desc="Please fulfill the form above to start your research!">
+                        please-fill-the-form-select-above-to-start-your-research
                     </LocalizedText>
                 </h4>
             </div>

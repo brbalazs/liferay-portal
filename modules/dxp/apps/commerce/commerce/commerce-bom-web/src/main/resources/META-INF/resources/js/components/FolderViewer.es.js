@@ -82,7 +82,7 @@ function Card(props) {
             <div className="aspect-ratio aspect-ratio-4-to-3 card-item-first bg-checkered">
                 <img 
                     alt={props.title}
-                    src={props.thumbnail}
+                    src={window.themeDisplay.getPathImage() + props.thumbnail}
                     className="aspect-ratio-item-center-middle"
                 />
             </div>

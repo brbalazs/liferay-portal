@@ -7,8 +7,8 @@ function ErrorMessage() {
         <div className="panel panel-secondary">
             <div className="panel-body">
                 <h2 className="text-center">
-                    <LocalizedText desc="Ops we have some problems">
-                        error-message
+                    <LocalizedText desc="Unexpected error">
+                        unexpected-error
                     </LocalizedText>
                 </h2>
             </div>

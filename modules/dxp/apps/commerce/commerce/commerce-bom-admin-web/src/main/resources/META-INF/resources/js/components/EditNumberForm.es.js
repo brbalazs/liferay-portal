@@ -248,7 +248,7 @@ const EditNumberForm = React.memo((props) => {
 							<input
 								className="form-control"
 								id="edit-number-form__input-number"
-								placeholder="select number"
+								placeholder={convertString('select-number')}
 								type="number"
 								autoComplete="off"
 								min="1"

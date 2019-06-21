@@ -5,8 +5,11 @@ export const initialState = {
     loading: false,
     error: null,
     spritemap: null,
-    basename: '/'
+    basename: '/',
+    basePathUrl: '/'
 }
+
+
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
@@ -19,6 +22,11 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 breadcrumbs: action.payload
+            }
+        case actionDefinition.SET_BASE_PATH_URL:
+            return {
+                ...state,
+                basePathUrl: action.payload
             }
         case actionDefinition.SET_LOADING:
             return {

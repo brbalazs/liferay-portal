@@ -201,6 +201,7 @@ function App(props) {
 					areaApiEndpoint={props.areasEndpoint}
 					foldersApiEndpoint={props.foldersEndpoint}
 					basename={props.basename}
+					basePathUrl={props.basePathUrl}
 					connectorSettings={{
 						emitters: [
 							'carMakerDatalist',
@@ -238,6 +239,7 @@ function App(props) {
 				areaApiEndpoint={props.areasEndpoint}
 				foldersApiEndpoint={props.foldersEndpoint}
 				basename={props.basename}
+				basePathUrl={props.basePathUrl}
 			/>
 		</div>
 	);

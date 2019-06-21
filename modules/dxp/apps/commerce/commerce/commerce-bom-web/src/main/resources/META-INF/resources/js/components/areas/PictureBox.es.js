@@ -81,22 +81,23 @@ function PartDetail(props) {
     );
 
     return (
-        <a 
+        <div 
             className={containerClasses} 
             style={{
                 bottom: props.position.y + '%', 
                 left: props.position.x + '%'
             }}
-            href={props.url}
         >
-            <span 
+            <a 
                 ref={numberRef}
                 className="part-detail__number"
                 onMouseOver={() => actions.highlightDetail(props.number)}
                 onMouseOut={() => actions.highlightDetail(null)}
+                href={state.app.basePathUrl + product.url}
             >
                 {props.number}
-            </span>
+                
+            </a>
             <Resume 
                 containerRef={props.containerRef} 
                 numberRef={numberRef} 
@@ -106,7 +107,7 @@ function PartDetail(props) {
                 price={product.price}
                 name={product.name}
             /> 
-        </a>
+        </div>
     )
 }
 
