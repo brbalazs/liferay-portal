@@ -25,11 +25,7 @@ function DetailsListElement(props) {
             onMouseOut={() => actions.highlightDetail(null)}
         >
             <td>{props.number}</td>
-            <td>
-                <a href={props.url}>
-                    {props.name}
-                </a>
-            </td>
+            <td>{props.name}</td>
             <td>{props.sku}</td>
         </tr>
     )

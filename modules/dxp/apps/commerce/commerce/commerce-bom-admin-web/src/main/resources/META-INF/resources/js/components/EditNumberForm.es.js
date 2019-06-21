@@ -342,6 +342,7 @@ const EditNumberForm = React.memo((props) => {
 											onClick={submitForm}
 											disabled={
 												!(
+													formData.productId && 
 													formData.number &&
 													formData.changed
 												)
