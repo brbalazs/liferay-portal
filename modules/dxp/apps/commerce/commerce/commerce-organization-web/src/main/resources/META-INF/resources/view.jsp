@@ -78,66 +78,6 @@ request.setAttribute("view.jsp-filterPerOrganization", false);
 				tableName="<%= CommerceOrganizationClayTable.NAME %>"
 			/>
 		</div>
-
-		<c:if test="<%= commerceOrganizationDisplayContext.hasAddOrganizationPermissions() %>">
-			<div class="commerce-cta is-visible">
-				<aui:button cssClass="commerce-button commerce-button--big" name="addOrganizationButton" value="add-organization" />
-			</div>
-
-			<portlet:actionURL name="editCommerceOrganization" var="editCommerceOrganizationActionURL">
-				<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.ADD %>" />
-				<portlet:param name="redirect" value="<%= currentURL %>" />
-				<portlet:param name="organizationId" value="<%= String.valueOf(commerceOrganizationDisplayContext.getOrganizationId()) %>" />
-			</portlet:actionURL>
-
-			<aui:form action="<%= editCommerceOrganizationActionURL %>" method="post" name="organizationFm">
-				<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.DELETE %>" />
-				<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-				<aui:input name="organizationId" type="hidden" />
-			</aui:form>
-
-			<aui:script require="metal-dom/src/all/dom as dom,frontend-js-web/liferay/modal/commands/OpenSimpleInputModal.es as modalCommands">
-				function handleAddOrganizationButtonClick(event) {
-					event.preventDefault();
-
-					modalCommands.openSimpleInputModal(
-						{
-							dialogTitle: '<liferay-ui:message key="add-organization" />',
-							formSubmitURL: '<%= editCommerceOrganizationActionURL %>',
-							mainFieldLabel: '<liferay-ui:message key="name" />',
-							mainFieldName: 'name',
-							mainFieldPlaceholder: '<liferay-ui:message key="name" />',
-							namespace: '<portlet:namespace />',
-							spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg'
-						}
-					);
-				}
-
-				function handleDestroyPortlet () {
-					addOrganizationButton.removeEventListener('click', handleAddOrganizationButtonClick);
-
-					Liferay.detach('destroyPortlet', handleDestroyPortlet);
-				}
-
-				var addOrganizationButton = document.getElementById('<portlet:namespace />addOrganizationButton');
-
-				addOrganizationButton.addEventListener('click', handleAddOrganizationButtonClick);
-
-				Liferay.on('destroyPortlet', handleDestroyPortlet);
-			</aui:script>
-
-			<aui:script>
-				Liferay.provide(
-					window,
-					'deleteCommerceOrganization',
-					function(id) {
-						document.querySelector('#<portlet:namespace />organizationId').value = id;
-
-						submitForm(document.<portlet:namespace />organizationFm);
-					}
-				);
-			</aui:script>
-		</c:if>
 	</c:when>
 	<c:when test="<%= viewMode.equals(CommerceOrganizationConstants.CHART_VIEW_MODE) %>">
 
@@ -166,3 +106,63 @@ request.setAttribute("view.jsp-filterPerOrganization", false);
 		</aui:script>
 	</c:when>
 </c:choose>
+
+<c:if test="<%= commerceOrganizationDisplayContext.hasAddOrganizationPermissions() %>">
+	<div class="commerce-cta is-visible">
+		<aui:button cssClass="commerce-button commerce-button--big" name="addOrganizationButton" value="add-organization" />
+	</div>
+
+	<portlet:actionURL name="editCommerceOrganization" var="editCommerceOrganizationActionURL">
+		<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.ADD %>" />
+		<portlet:param name="redirect" value="<%= currentURL %>" />
+		<portlet:param name="organizationId" value="<%= String.valueOf(commerceOrganizationDisplayContext.getOrganizationId()) %>" />
+	</portlet:actionURL>
+
+	<aui:form action="<%= editCommerceOrganizationActionURL %>" method="post" name="organizationFm">
+		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.DELETE %>" />
+		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+		<aui:input name="organizationId" type="hidden" />
+	</aui:form>
+
+	<aui:script require="metal-dom/src/all/dom as dom,frontend-js-web/liferay/modal/commands/OpenSimpleInputModal.es as modalCommands">
+		function handleAddOrganizationButtonClick(event) {
+			event.preventDefault();
+
+			modalCommands.openSimpleInputModal(
+				{
+					dialogTitle: '<liferay-ui:message key="add-organization" />',
+					formSubmitURL: '<%= editCommerceOrganizationActionURL %>',
+					mainFieldLabel: '<liferay-ui:message key="name" />',
+					mainFieldName: 'name',
+					mainFieldPlaceholder: '<liferay-ui:message key="name" />',
+					namespace: '<portlet:namespace />',
+					spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg'
+				}
+			);
+		}
+
+		function handleDestroyPortlet () {
+			addOrganizationButton.removeEventListener('click', handleAddOrganizationButtonClick);
+
+			Liferay.detach('destroyPortlet', handleDestroyPortlet);
+		}
+
+		var addOrganizationButton = document.getElementById('<portlet:namespace />addOrganizationButton');
+
+		addOrganizationButton.addEventListener('click', handleAddOrganizationButtonClick);
+
+		Liferay.on('destroyPortlet', handleDestroyPortlet);
+	</aui:script>
+
+	<aui:script>
+		Liferay.provide(
+			window,
+			'deleteCommerceOrganization',
+			function(id) {
+				document.querySelector('#<portlet:namespace />organizationId').value = id;
+
+				submitForm(document.<portlet:namespace />organizationFm);
+			}
+		);
+	</aui:script>
+</c:if>
