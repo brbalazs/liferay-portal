@@ -2,3 +2,8 @@
 # Bundle Version 1.0.4
 #
 df6e213add575a2c1821b162ac7d14c779af0586^..7e61d76ca2499aaa1d1a536d3b0e6c59b43b274a=RELEASE-1385
+
+#
+# Bundle Version 1.0.5
+#
+7e61d76ca2499aaa1d1a536d3b0e6c59b43b274a^..db0eb9ec76ff5d2989db7be1e14d5bbf284a31b6=COMMERCE-1463 COMMERCE-X
