@@ -26,10 +26,11 @@ import com.liferay.commerce.bom.service.CommerceBOMDefinitionService;
 import com.liferay.commerce.bom.service.CommerceBOMEntryService;
 import com.liferay.commerce.media.CommerceMediaResolver;
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
-import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.service.CProductLocalService;
 import com.liferay.document.library.kernel.util.DLUtil;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
@@ -103,12 +104,12 @@ public class AreaResourceImpl extends BaseAreaResourceImpl {
 			_dtoConverterRegistry.getDTOConverter("commerceProductInstance");
 
 		for (Spot spot : spots) {
-			CPDefinition cpDefinition =
-				_cpDefinitionService.fetchCPDefinitionByCProductId(
+			CProduct cProduct =
+				_cProductLocalService.getCProductByCPInstanceUuid(
 					spot.getProductId());
 
-			CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
-				cpDefinition.getCPDefinitionId(), spot.getSku());
+			CPInstance cpInstance = _cpInstanceLocalService.getCProductInstance(
+				cProduct.getCProductId(), spot.getProductId());
 
 			productList.add(
 				(Product)productDTOConverter.toDTO(
@@ -159,6 +160,9 @@ public class AreaResourceImpl extends BaseAreaResourceImpl {
 
 	@Reference
 	private CPInstanceLocalService _cpInstanceLocalService;
+
+	@Reference
+	private CProductLocalService _cProductLocalService;
 
 	@Reference
 	private DTOConverterRegistry _dtoConverterRegistry;
