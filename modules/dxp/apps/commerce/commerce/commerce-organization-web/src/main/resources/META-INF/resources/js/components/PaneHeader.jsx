@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import ContextualOptions from 'components/ContextualOptions';
 import PropTypes from 'prop-types';
 
-import PaneOrgInfo from 'components/PaneOrgInfo';
-import PaneViewSelector from 'components/PaneViewSelector';
-import PaneSearchBar from 'components/PaneSearchBar';
+import PaneOrgInfo from './PaneOrgInfo';
+import PaneViewSelector from './PaneViewSelector';
+import PaneSearchBar from './PaneSearchBar';
 
 class PaneHeader extends Component {
 	constructor() {
@@ -35,7 +34,6 @@ class PaneHeader extends Component {
 
 	render() {
 		const {
-			id,
 			orgName,
 			totalSubOrg,
 			listBy,
@@ -43,6 +41,7 @@ class PaneHeader extends Component {
 			onViewSelected,
 			totalAccounts,
 			totalUsers,
+			spritemap
 		} = this.props;
 
 		return (
@@ -62,6 +61,7 @@ class PaneHeader extends Component {
 
 				<PaneSearchBar
 					onLookUp={onLookUp}
+					spritemap={spritemap}
 				/>
 			</div>
 		);

@@ -1,103 +1,68 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {LIST_BY} from '../utils/constants.es';
-import Member from 'components/Member';
+import Member from './Member';
+import NoMembers from './NoMembers';
 
 const {
-	USERS,
-	ACCOUNTS
+    USERS,
+    ACCOUNTS
 } = LIST_BY;
 
-let fakeDataChanges = 0;
-
-function generateDummyMembersList() {
-	const membersList = [];
-
-	for (let i = 0; i < 100; i++) {
-		membersList.push(
-			<Member key={i}/>
-		);
-	}
-
-	return membersList;
-}
-
 class MembersList extends Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.state = {
-			isLoading: true,
-			listBy: USERS,
-			data: null,
-			total: 0
-		};
-	}
+        this.state = {
+            isLoading: true,
+            listBy: USERS,
+            data: null,
+            total: 0
+        };
+    }
 
-	fakeFetchMembers(listBy) {
-		setTimeout(() => {
-			fakeDataChanges++;
+    shouldComponentUpdate(nextProps, nextState) {
+        return true;
+    }
 
+    render() {
+        const {
+            members,
+            listBy,
+            imagesPath,
+            spritemap,
+            isLoading
+        } = this.props;
 
-		}, 2000);
-	}
+        return (
+            <div className='pane-members-list'>
+                {isLoading &&
+                <div className='is-loading'>
+                    <span className='spinner fas fa-circle-notch'></span>
+                </div>
+                }
 
-	shouldComponentUpdate(nextProps, nextState) {
-		/* const needsUpdate = this.props.listBy !== nextProps.listBy ||
-			this.props.orgId !== nextProps.orgId;
+                {<ul>
+                    {!isLoading && !!members.length &&
+                        members.map((member, index) => {
+                            return (
+                                <Member
+                                    key={index}
+                                    member={member}
+                                    imagesPath={imagesPath}
+                                />
+                            );
+                        })
+                    }
+                </ul>
+                }
 
-		if (needsUpdate) {
-			const {
-				orgId,
-				listBy
-			} = nextProps;
-
-			this.fetchMembers(orgId, listBy)
-				.then(payload => ({
-					isLoading: true,
-					listBy,
-					payload
-				}))
-		}
-
-		return needsUpdate; */
-		return true;
-	}
-
-	render() {
-		const {
-			members,
-			listBy,
-			isLoading
-		} = this.props;
-
-
-
-		return (
-			<div className='pane-members-list'>
-				{isLoading &&
-				<div className='is-loading'>
-					<span className='spinner fas fa-circle-notch'></span>
-				</div>
-				}
-
-				{!isLoading && members.length &&
-				<ul>
-					{
-						members.map((member, index) => {
-							return (
-								<Member
-									key={index}
-									member={member}
-								/>
-							);
-						})
-					}
-				</ul>
-				}
-			</div>
-		);
-	}
+                {!isLoading && !members.length &&
+                <NoMembers spritemap={spritemap}/>
+                }
+            </div>
+        );
+    }
 }
 
 MembersList.defaultProps = {};

@@ -11,11 +11,13 @@ export default function(componentId, id, props) {
 			ref={component => {
 				instance = component;
 			}}
+
 			{...props}
 		/>, portletFrame);
 
 	if (window.Liferay) {
 		window.Liferay.component(componentId, instance);
 	}
+
 	return instance;
 }

@@ -11,7 +11,7 @@ export default function PaneOrgInfo(props) {
 				<p>{!!childrenNo ? `${childrenNo} sub-organizations` : 'Sub-organization'}</p>
 			</div>
 			<div role='button' onClick={showMenu} tabIndex='1' className='org-actions'>
-				<p>&sdot;&sdot;&sdot;</p>
+				<p style={{display: 'none'}}>&sdot;&sdot;&sdot;</p>
 			</div>
 		</div>
 	);

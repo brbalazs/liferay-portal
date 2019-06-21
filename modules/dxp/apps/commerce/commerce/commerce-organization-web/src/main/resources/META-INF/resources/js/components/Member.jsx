@@ -5,13 +5,14 @@ import PropTypes from 'prop-types';
 function Member(props) {
 	const {
 		name,
-		jobTitle: role
+		email: role,
+		imageUrl
 	} = props.member;
 
 	return(
 		<li role="button" tabIndex="-1" className="member">
 			<span className="member-picture"
-				  style={{background: `url(${'https://cdn-images-1.medium.com/max/1200/1*YFq_5JI-G69nPN4xHl--vw.jpeg'}) center no-repeat #CCC`}}></span>
+				  style={{background: `url(${props.imagesPath}${imageUrl}) center no-repeat #CCC`}}></span>
 			<span className="member-data">
 				<p className="member-data-name">{name}</p>
 				<p>
@@ -34,7 +35,6 @@ Member.propTypes = {
 	pictureUrl: PropTypes.string,
 	name: PropTypes.string,
 	role: PropTypes.string,
-	location: PropTypes.string,
 	tabIndex: PropTypes.number
 };
 

@@ -21,8 +21,8 @@ function Tab(props) {
 
 	return(
 		<span
-			className={isSelected(listBy, viewName)}
-			onClick={onViewSelected.bind(this, viewName)}
+			className={!totalMembers ? 'disabled' : isSelected(listBy, viewName)}
+			onClick={!totalMembers ? null : onViewSelected.bind(this, viewName)}
 			role='button' tabIndex='-1'>
 			{`${viewName} (${totalMembers})`}
 		</span>

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import getCN from 'classnames';
 
-import Icon from 'components/Icon';
+import Icon from './Icon';
 
 class NoResultsDisplay extends Component {
 	render() {

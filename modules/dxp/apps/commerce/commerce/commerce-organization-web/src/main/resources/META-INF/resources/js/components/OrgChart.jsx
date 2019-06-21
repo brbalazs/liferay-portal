@@ -54,7 +54,7 @@ class OrgChart extends Component {
 
 			const nodes = this._tree(this._root).descendants(),
 				selectedNode = nodes.find(
-					d => d.data.id === selectedId
+					d => d.data.organizationId === selectedId
 				);
 
 			this.updateChart(selectedNode);
@@ -182,13 +182,9 @@ class OrgChart extends Component {
 		secondaryInfoNode.text(
 			({data}) => {
 				const {total} = data;
+
 				return !!total ?
 					`${total} sub-organizations` : '';
-
-				/*	TODO: re-do logic for i18n plurals of sub-organizations
-				 *
-				 *
-				 */
 			}
 		);
 

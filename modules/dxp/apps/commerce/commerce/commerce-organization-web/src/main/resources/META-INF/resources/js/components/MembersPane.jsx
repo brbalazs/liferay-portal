@@ -1,186 +1,217 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import PaneHeader from 'components/PaneHeader';
-import MembersList from 'components/MembersList';
+import PaneHeader from './PaneHeader';
+import MembersList from './MembersList';
 import {LIST_BY} from '../utils/constants.es';
-import {fetchData} from '../utils/utils.es';
+import {callApi} from '../utils/utils.es';
 
 const {USERS, ACCOUNTS} = LIST_BY;
 
 let membersListCopy = [];
 
-function fetchMembers(orgId, listBy) {
-	// TODO logic for pagination
-	/* return fetch('/api/members/members.json')
-		.then(response => response.json()); */
+function fetchMembers(apiURL, orgId, listBy, q = '') {
+    const collectionPath = listBy + 's',
+        apiParams = {
+            baseURL: apiURL,
+            id: orgId
+        },
+        apiParamsMembers = Object.assign({},
+            apiParams,
+            {
+                path: collectionPath,
+                queryParams: {
+                    page: 1,
+                    pageSize: 100,
+                    q
+                }
+            });
 
-	return fetchData(orgId)
-		.then(response => response.json())
-		.then(data => {
-			const {
-				id,
-				name: orgName,
-				total: totalSubOrg,
-				userList,
-				accountList
-			} = data;
+    return Promise.all([
+        callApi(apiParams),
+        callApi(apiParamsMembers)
+    ])
+        .then(data => {
+            const [
+                orgData,
+                membersData
+            ] = data;
 
-			const whichMembers = listBy === USERS ?
-				'user' : 'account';
+            const {
+                name: orgName,
+                organizationsTotal: totalSubOrg,
+                accountsTotal,
+                usersTotal
+            } = orgData;
 
-			return {
-				id,
-				orgName,
-				totalSubOrg,
-				totalUsers: userList.total,
-				totalAccounts: accountList.total,
-				members: data[`${whichMembers}List`][`${whichMembers}s`]
-
-			};
-		})
+            return {
+                id: orgId,
+                orgName,
+                totalSubOrg,
+                totalUsers: usersTotal,
+                totalAccounts: accountsTotal,
+                members: membersData[collectionPath]
+            };
+        })
+        .catch(e => {
+            console.log(e);
+        });
 }
 
 function filterMembers(name, members) {
-	return members.filter(
-		member => member.name
-			.toLowerCase()
-			.includes(name.toLowerCase())
-	);
+    return members.filter(
+        member => member.name
+            .toLowerCase()
+            .includes(name.toLowerCase())
+    );
 }
 
 function shouldPaneOpen(id, members) {
-	return !!id && members && members.length;
+    return !!id && !!members;
+}
+
+function getIfPopulated(users, accounts) {
+    return !!users ? USERS : !!accounts ? ACCOUNTS : USERS;
 }
 
 class MembersPane extends Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.state = {
-			id: 0,
-			searchQuery: '',
-			listBy: USERS,
-			isLoading: true
-		};
+        const {
+            totalUsers,
+            totalAccounts
+        } = props;
 
-		_.bindAll(
-			this,
-			'handleListBy',
-			'handleLookUp',
-			'handleUpdate'
-		);
-	}
+        this.state = {
+            id: 0,
+            searchQuery: '',
+            listBy: USERS,
+            isLoading: true
+        };
 
-	componentDidMount() {
-		const {id} = this.props;
-		const {listBy} = this.state;
+        _.bindAll(
+            this,
+            'handleListBy',
+            'handleLookUp',
+            'handleUpdate'
+        );
+    }
 
-		this.handleUpdate(id, listBy);
-	}
+    componentDidMount() {
+        const {id} = this.props;
+        const {listBy} = this.state;
 
-	componentDidUpdate(prevProps, prevState) {
-		const {id} = this.props;
-		const {listBy} = this.state;
+        this.handleUpdate(id, listBy);
+    }
 
-		if (id !== prevProps.id || listBy !== prevState.listBy) {
-			this.handleUpdate(id, listBy)
-		}
-	}
+    componentDidUpdate(prevProps, prevState) {
+        const {id} = this.props;
+        const {listBy} = this.state;
 
-	handleListBy(listBy) {
-		this.setState(() => ({
-			listBy
-		}));
-	}
+        if (id !== prevProps.id || listBy !== prevState.listBy) {
+            this.setState(() => ({ isLoading: true }), () => {
+                this.handleUpdate(id, listBy)
+            });
+        }
+    }
 
-	handleLookUp(e) {
-		const name = e.target.value;
-		const {id} = this.props;
-		const fromState = !!name && name.length ?
-			filterMembers(name, this.state.members) : membersListCopy;
+    handleListBy(listBy) {
+        this.setState(() => ({
+            listBy
+        }));
+    }
 
-		if (fromState.length) {
-			this.setState(() => ({
-				members: fromState
-			}))
-		}
-		else {
-			// TODO: API's should have a search endpoint / searchable
-			fetchMembers(id)
-				.then(({results}) => {
-					this.setState(() => {
-						if (!!results && results.length) {
-							const fromFetch = filterMembers(name, results);
+    handleLookUp(e) {
+        const name = e.target.value;
+        const {id, apiURL} = this.props;
+        const {listBy} = this.state;
+        const fromState = !!name && name.length ?
+            filterMembers(name, this.state.members) : membersListCopy;
 
-							return fromFetch.length ?
-								{members: fromFetch} :
-								{members: membersListCopy}
-						}
+        if (fromState.length) {
+            this.setState(() => ({
+                members: fromState
+            }))
+        } else {
+            fetchMembers(apiURL, id, listBy, name)
+                .then(({total, users}) => {
+                    this.setState(() => {
+                        if (!!total) {
+                            const fromFetch = filterMembers(name, users);
 
-						return {members: membersListCopy};
-					});
-				})
-		}
-	}
+                            return fromFetch.length ?
+                                {members: fromFetch} :
+                                {members: membersListCopy}
+                        }
 
-	handleUpdate(id, listBy) {
-		fetchMembers(id, listBy)
-			.then((data) => {
-				this.setState(state => Object.assign(
-					state,
-					data,
-					{
-						isLoading: false
-					}), () => {
-					membersListCopy = this.state.members;
-				});
-			})
-			.catch(() => {});
-	}
+                        return {members: membersListCopy};
+                    });
+                })
+        }
+    }
 
-	render() {
-		const {
-				orgName,
-				members,
-				totalSubOrg,
-				totalUsers,
-				totalAccounts,
-				listBy,
-				id
-			} = this.state,
-			paneClasses = `pane${(shouldPaneOpen(id, members)) ? ' pane-open' : ''}`;
+    handleUpdate(id, listBy) {
+        const {apiURL} = this.props;
 
-		return (
-			<div className={paneClasses}>
-				<PaneHeader
-					orgName={orgName}
-					totalSubOrg={totalSubOrg}
-					totalUsers={totalUsers}
-					totalAccounts={totalAccounts}
-					listBy={this.state.listBy}
-					onViewSelected={this.handleListBy}
-					onLookUp={this.handleLookUp}
-				/>
+        fetchMembers(apiURL, id, listBy)
+            .then((data) => {
+                this.setState(state => Object.assign(
+                    state,
+                    data,
+                    {
+                        isLoading: false
+                    }), () => {
+                    membersListCopy = this.state.members;
+                });
+            })
+    }
 
-				{<MembersList
-					listBy={listBy}
-					members={members}
-					isLoading={this.state.isLoading}
-				/>}
-			</div>
-		);
-	}
+    render() {
+        const {
+                orgName,
+                members,
+                totalSubOrg,
+                totalUsers,
+                totalAccounts,
+                listBy,
+                id
+            } = this.state,
+            paneClasses = `pane${(shouldPaneOpen(id, orgName)) ? ' pane-open' : ''}`;
+
+        return (
+            <div className={paneClasses}>
+                <PaneHeader
+                    orgName={orgName}
+                    totalSubOrg={totalSubOrg}
+                    totalUsers={totalUsers}
+                    totalAccounts={totalAccounts}
+                    listBy={this.state.listBy}
+                    onViewSelected={this.handleListBy}
+                    onLookUp={this.handleLookUp}
+                    spritemap={this.props.spritemap}
+                />
+
+                <MembersList
+                    listBy={listBy}
+                    members={members}
+                    isLoading={this.state.isLoading}
+                    spritemap={this.props.spritemap}
+                    imagesPath={this.props.imagesPath}
+                />
+            </div>
+        );
+    }
 }
 
 PropTypes.defaultProps = {
-	data: {},
-	id: 0
+    selectedId: 0,
+    apiURL: ''
 };
 
 MembersPane.propTypes = {
-	data: PropTypes.object,
-	id: PropTypes.number
+    apiURL: PropTypes.string,
+    selectedId: PropTypes.number
 };
 
 export default MembersPane;

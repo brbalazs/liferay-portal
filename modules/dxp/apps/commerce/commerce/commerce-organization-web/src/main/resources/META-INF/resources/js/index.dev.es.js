@@ -1,6 +1,6 @@
 import '../css/main.scss';
 import 'clay-css/lib/css/atlas.css';
-import Container from 'components/Container';
+import Container from './Container';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

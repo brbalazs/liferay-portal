@@ -2,25 +2,37 @@ export function fetchData(id) {
 	return fetch(`/api/${id}.json`);
 }
 
+function serializeParams(params) {
+	return Object.keys(params).map(key =>
+		`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
+	).join('&');
+}
+
+function endpointBuilder({ baseURL, id = '0', path = '', queryParams = {} }) {
+		const root = `${baseURL}/organizations`,
+		organizationId = `/${id}`,
+		collection = `/${path}`;
+
+	let parameters = '';
+
+	if (!!path) {
+		parameters = `?${serializeParams(queryParams)}`;
+	}
+
+	return `${root}${organizationId}${collection}${parameters}`;
+}
+
+export function callApi(parameters) {
+	return fetch(endpointBuilder(parameters))
+		.then(response => response.json())
+		.catch(e => {});
+}
+
 export const noop = () => {};
 
 export const isNumber = value => typeof value === 'number';
 
 export const isArray = value => value instanceof Array;
-
-export function bindAll() {
-	const clazz = arguments[0];
-
-	Object.keys(arguments).forEach((argNo, i) => {
-		const method = arguments[argNo];
-
-		if (i !== 0 && typeof clazz[method] === 'function') {
-			clazz[method].bind(clazz);
-		}
-	});
-
-	return clazz;
-}
 
 export function truncateTextNode() {
 	let text = this.innerHTML,

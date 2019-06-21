@@ -56,6 +56,7 @@ ul, li {
 	padding: 0;
 	position: relative;
 	user-select: none;
+	background-color: #F2F2F2; // #F7F7F8;
 
 	/* ---------- BEGIN boilerplate css ---------- */
 
@@ -71,9 +72,8 @@ ul, li {
 	.org-chart-container {
 		min-height: 100%;
 
-		.org-chart {
-			background-color: #F2F2F2;
 
+		.org-chart {
 			.root-element {
 				display: none;
 			}
@@ -146,10 +146,7 @@ ul, li {
 			.zoom {
 				align-items: center;
 				background: #FFF;
-
-				border: 2px solid rgba($primary, 0.2);
 				bottom: 24px;
-
 				color: #6E6E6E;
 
 				/* ---------- generalize with button to add new sub org ---------- */
@@ -164,6 +161,7 @@ ul, li {
 
 				width: 122px;
 				@include themeRectangleProperties(true, #FFF);
+				box-shadow: 0 15px 20px -12px rgba(0, 0, 0, .15);
 
 				&-button {
 					border-radius: 50%;
@@ -342,10 +340,6 @@ ul, li {
 			height: 50px;
 			padding: 5px;
 
-			&.single-selector {
-				grid-template-columns: 100%;
-			}
-
 			span {
 				align-items: center;
 				color: rgb(90, 92, 92);
@@ -370,6 +364,21 @@ ul, li {
 					height: 48px;
 					position: absolute;
 					width: 18%;
+				}
+
+				&.disabled {
+					color: rgba(90, 92, 92, 0.51);
+
+					&:hover {
+						cursor: default;
+						font-weight: normal;
+					}
+
+					&:hover:before {
+						border: 0;
+						height: 0;
+						width: 0;
+					}
 				}
 			}
 		}
@@ -404,7 +413,7 @@ ul, li {
 			button {
 				box-sizing: border-box;
 				color: #5C5E5E;
-				font-size: 16px;
+				font-size: 20px;
 				grid-area: button;
 				height: 46px;
 				text-align: center;
@@ -447,6 +456,19 @@ ul, li {
 			@for $i from 0 through 14 {
 				.member:nth-child(#{$i}n) {
 					animation-delay: #{$i * 0.05}s;
+				}
+			}
+
+			.no-members {
+				text-align: center;
+				color: rgba(90, 92, 92, 0.51);
+				padding-top: 3em;
+				box-sizing: border-box;
+				animation: showIn 0.3s ease 1 forwards;
+
+				p:nth-child(1) {
+					font-size: 8em;
+					opacity: .5;
 				}
 			}
 
