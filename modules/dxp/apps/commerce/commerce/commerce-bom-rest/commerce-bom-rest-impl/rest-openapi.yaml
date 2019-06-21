@@ -80,11 +80,11 @@ components:
                     type: array
                 spots:
                     example:
-                        state.area- id: 34130
-                            number: 3
-                            positionX: 33.54
-                            positionY: 33.54
-                            productId: 29130
+                        - id: 34130
+                          number: 3
+                          positionX: 33.54
+                          positionY: 33.54
+                          productId: 29130
                     items:
                         $ref: '#/components/schemas/Spot'
                     type: array
@@ -288,10 +288,8 @@ components:
                 position:
                     $ref: '#/components/schemas/Position'
                 productId:
-                    example: 32130
-                    format: int64
-                    minimum: 0
-                    type: integer
+                    example: 123e4567-e89b-12d3-a456-426655440000
+                    type: string
                 sku:
                     example: SKU01
                     type: string
