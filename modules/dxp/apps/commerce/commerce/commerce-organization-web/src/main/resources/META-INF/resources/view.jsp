@@ -25,6 +25,7 @@ request.setAttribute("view.jsp-filterPerOrganization", false);
 %>
 
 <div class="commerce-organization-view-modes row text-right">
+
 	<%
 	for (String curViewMode : CommerceOrganizationConstants.VIEW_MODES) {
 		String icon = "table2";
@@ -59,6 +60,7 @@ request.setAttribute("view.jsp-filterPerOrganization", false);
 	<%
 	}
 	%>
+
 </div>
 
 <c:choose>
