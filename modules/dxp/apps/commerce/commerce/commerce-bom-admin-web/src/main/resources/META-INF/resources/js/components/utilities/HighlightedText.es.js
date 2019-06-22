@@ -21,18 +21,18 @@ export default function HighlightedText(props) {
         <span className="autocomplete-item">
             {props.inverted 
                 ? (
-                    <>
+                    <React.Fragment>
                         {firstPart}
                         {highlightedPart && <strong>{highlightedPart}</strong>}
                         {thirdPart}
-                    </>
+                    </React.Fragment>
                 )
                 : (
-                    <>
+                    <React.Fragment>
                         <strong>{firstPart}</strong>
                         {highlightedPart}
                         <strong>{thirdPart}</strong>
-                    </>
+                    </React.Fragment>
                 )
             }
         </span>
