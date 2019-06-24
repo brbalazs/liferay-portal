@@ -10,13 +10,17 @@ import 'clay-css/src/scss/atlas.scss';
 
 import '../css/main.scss';
 
+window.Liferay = {
+    authToken: 'fakeToken'
+};
+
 const fakeData = {
     id: 'adminPartFinder',
     spritemap: '/test-icons.svg',
     areaId: 'asd',
     areaApiUrl: apiEndpointDefinitions.AREA,
     productApiUrl: apiEndpointDefinitions.PRODUCTS
-}
+};
 
 ReactDOM.render(
     <StoreProvider>

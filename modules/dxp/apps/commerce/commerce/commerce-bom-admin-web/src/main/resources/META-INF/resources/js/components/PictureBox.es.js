@@ -100,11 +100,15 @@ function PictureBox() {
     function handleMouseMove(e) {
         switch (true) {
             case e.target.className === 'custom-cursor-wrapper':
+                const containerRect = containerRef.current.getBoundingClientRect()
+                const pxLeft = e.pageX - containerRect.left;
+                const pxTop = e.pageY - containerRect.top - window.scrollY;
+                
                 updateCursor(
                     {
                         visible: true,
-                        x: e.pageX,
-                        y: e.pageY
+                        x: pxLeft,
+                        y: pxTop,
                     }
                 )
                 break;
@@ -123,7 +127,7 @@ function PictureBox() {
         if(e.target.className === 'custom-cursor-wrapper') {
             const containerRect = containerRef.current.getBoundingClientRect()
             const pxLeft = e.pageX - containerRect.left;
-            const pxTop = e.pageY - containerRect.top;
+            const pxTop = e.pageY - containerRect.top - window.scrollY;
             const x = Math.round((100 / containerRect.width * pxLeft) * 1000) / 1000;
             const y = 100 - Math.round((100 / containerRect.height * pxTop) * 1000) / 1000;
 
