@@ -56,7 +56,12 @@ public class CommerceDashboardDisplayContext {
 			CommerceAccount commerceAccount =
 				commerceContext.getCommerceAccount();
 
-			_customerId = commerceAccount.getCommerceAccountId();
+			if (commerceAccount == null) {
+				_customerId = 0L;
+			}
+			else {
+				_customerId = commerceAccount.getCommerceAccountId();
+			}
 		}
 
 		Calendar calendar = CalendarFactoryUtil.getCalendar(
