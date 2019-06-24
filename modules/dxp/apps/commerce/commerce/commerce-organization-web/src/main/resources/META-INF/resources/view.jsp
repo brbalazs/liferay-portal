@@ -22,6 +22,8 @@ CommerceOrganizationDisplayContext commerceOrganizationDisplayContext = (Commerc
 String viewMode = commerceOrganizationDisplayContext.getViewMode();
 
 request.setAttribute("view.jsp-filterPerOrganization", false);
+
+NPMResolver npmResolver = NPMResolverProvider.getNPMResolver();
 %>
 
 <div class="commerce-organization-view-modes row text-right">
@@ -89,18 +91,18 @@ request.setAttribute("view.jsp-filterPerOrganization", false);
 			</div>
 		</div>
 
-		<aui:script require="commerce-organization-web@1.0.0/js/index.es as OrgChart">
-
+		<aui:script require='<%= npmResolver.resolveModuleName("commerce-organization-web/js/index.es") + " as OrgChart" %>'>
 			OrgChart.default(
-			'<%= segmentEditRootElementId %>',
-			'<%= segmentEditRootElementId %>',
-			{
-			assetsPath: '<%= PortalUtil.getPathContext(request) + "/assets" %>',
-			namespace: '<portlet:namespace/>',
-			spritemap: '<%= themeDisplay.getPathThemeImages() + "/commerce-icons.svg" %>',
-			imagesPath: '<%= themeDisplay.getPathThemeImages() %>',
-			apiURL : '<%= PortalUtil.getPortalURL(request) + "/o/commerce-organization" %>'
-			});
+				'<%= segmentEditRootElementId %>',
+				'<%= segmentEditRootElementId %>',
+				{
+					assetsPath: '<%= PortalUtil.getPathContext(request) + "/assets" %>',
+					namespace: '<portlet:namespace/>',
+					spritemap: '<%= themeDisplay.getPathThemeImages() + "/commerce-icons.svg" %>',
+					imagesPath: '<%= themeDisplay.getPathThemeImages() %>',
+					apiURL : '<%= PortalUtil.getPortalURL(request) + "/o/commerce-organization" %>'
+				}
+			);
 		</aui:script>
 	</c:when>
 </c:choose>

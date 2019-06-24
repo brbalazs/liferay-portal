@@ -20,7 +20,9 @@
 taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %><%@
 taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 
-<%@ page import="com.liferay.portal.kernel.util.PortalUtil" %>
+<%@ page import="com.liferay.commerce.bom.web.internal.js.loader.modules.extender.npm.NPMResolverProvider" %><%@
+page import="com.liferay.frontend.js.loader.modules.extender.npm.NPMResolver" %><%@
+page import="com.liferay.portal.kernel.util.PortalUtil" %>
 
 <liferay-frontend:defineObjects />
 

@@ -18,6 +18,8 @@
 
 <%
 String carPartsFinderRootElementId = renderResponse.getNamespace() + "-car-parts-finder";
+
+NPMResolver npmResolver = NPMResolverProvider.getNPMResolver();
 %>
 
 <div class="car-parts-finder-module" id="<%= carPartsFinderRootElementId %>">
@@ -26,7 +28,7 @@ String carPartsFinderRootElementId = renderResponse.getNamespace() + "-car-parts
 	</div>
 </div>
 
-<aui:script require="commerce-bom-web@1.0.0/js/index.es as CarPartsFinder">
+<aui:script require='<%= npmResolver.resolveModuleName("commerce-bom-web/js/index.es") + " as CarPartsFinder" %>'>
 	CarPartsFinder.default(
 		'partFinder',
 		'<%= carPartsFinderRootElementId %>',

@@ -20,6 +20,8 @@
 String carPartsFinderRootElementId = renderResponse.getNamespace() + "-car-parts-admin";
 CommerceBOMAdminDisplayContext commerceBOMAdminDisplayContext = (CommerceBOMAdminDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 CommerceBOMDefinition commerceBOMDefinition = commerceBOMAdminDisplayContext.getCommerceBOMDefinition();
+
+NPMResolver npmResolver = NPMResolverProvider.getNPMResolver();
 %>
 
 <div class="car-parts-finder-module" id="<%= carPartsFinderRootElementId %>">
@@ -28,7 +30,7 @@ CommerceBOMDefinition commerceBOMDefinition = commerceBOMAdminDisplayContext.get
 	</div>
 </div>
 
-<aui:script require="commerce-bom-admin-web@1.0.0/js/index.es as CarPartsAdmin">
+<aui:script require='<%= npmResolver.resolveModuleName("commerce-bom-admin-web/js/index.es") + " as CarPartsAdmin" %>'>
 	CarPartsAdmin.default(
 		'carPartsAdmin',
 		'<%= carPartsFinderRootElementId %>',
