@@ -1188,7 +1188,7 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 				if ((bundle.getState() != Bundle.INSTALLED) &&
 					(bundle.getState() != Bundle.RESOLVED)) {
 
-					// Defense for bundle blacklist auto uninstall.
+					// Defense for bundle blacklist auto uninstall
 
 					continue;
 				}
