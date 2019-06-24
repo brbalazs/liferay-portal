@@ -823,7 +823,7 @@ public class StagingImpl implements Staging {
 						new String[] {
 							MapUtil.toString(eicve.getDlReferenceParameters()),
 							eicve.getStagedModelClassName(),
-							String.valueOf(eicve.getStagedModelClassPK())
+							String.valueOf(eicve.getStagedModelPrimaryKeyObj())
 						});
 				}
 				else {
@@ -848,7 +848,7 @@ public class StagingImpl implements Staging {
 						new String[] {
 							eicve.getLayoutURL(), eicve.getGroupFriendlyURL(),
 							eicve.getStagedModelClassName(),
-							String.valueOf(eicve.getStagedModelClassPK())
+							String.valueOf(eicve.getStagedModelPrimaryKeyObj())
 						});
 				}
 				else {
@@ -875,7 +875,7 @@ public class StagingImpl implements Staging {
 							MapUtil.toString(
 								eicve.getLayoutReferenceParameters()),
 							eicve.getStagedModelClassName(),
-							String.valueOf(eicve.getStagedModelClassPK())
+							String.valueOf(eicve.getStagedModelPrimaryKeyObj())
 						});
 				}
 				else {
@@ -899,7 +899,7 @@ public class StagingImpl implements Staging {
 						new String[] {
 							eicve.getLayoutURL(),
 							eicve.getStagedModelClassName(),
-							String.valueOf(eicve.getStagedModelClassPK())
+							String.valueOf(eicve.getStagedModelPrimaryKeyObj())
 						});
 				}
 				else {
@@ -919,7 +919,7 @@ public class StagingImpl implements Staging {
 						new String[] {
 							eicve.getClassName(),
 							eicve.getStagedModelClassName(),
-							String.valueOf(eicve.getStagedModelClassPK())
+							String.valueOf(eicve.getStagedModelPrimaryKeyObj())
 						});
 				}
 				else {
