@@ -109,8 +109,6 @@ ul, li {
 				}
 
 				.node-label {
-					fill: #B3CBF5;
-					stroke: #B3CBF5;
 					stroke-width: 5;
 				}
 
@@ -128,7 +126,10 @@ ul, li {
 					&:hover {
 						* {
 							fill: #B3CBF5;
-							stroke: #FFF;
+						}
+
+						text {
+							fill: white;
 						}
 					}
 				}
@@ -157,14 +158,12 @@ ul, li {
 			width: 100%;
 
 			.zoom {
+				@include themeRectangleProperties(true, #FFF);
 				align-items: center;
 				background: #FFF;
 				bottom: 70px;
 				box-shadow: 0 15px 20px -12px rgba(0, 0, 0, 0.15);
 				color: #6E6E6E;
-
-				/* ---------- generalize with button to add new sub org ---------- */
-
 				display: flex;
 				font-size: 20px;
 				height: 56px;
@@ -172,9 +171,8 @@ ul, li {
 				padding: 0 8px;
 				position: absolute;
 				right: 60px;
-
 				width: 122px;
-				@include themeRectangleProperties(true, #FFF);
+
 
 				&-button {
 					border-radius: 50%;
@@ -265,8 +263,8 @@ ul, li {
 			grid-template-columns: 5px 92% 1fr;
 			padding: 10px;
 
-			.org-colored-identifier {
-				background-color: #B3CBF5; // Remove and parameterize thru JS
+			.org-color-identifier {
+				background-color: #B3CBF5;
 				grid-area: label;
 				height: 100%;
 				width: 100%;
@@ -477,8 +475,11 @@ ul, li {
 				animation: showIn 0.3s ease 1 forwards;
 				box-sizing: border-box;
 				color: rgba(90, 92, 92, 0.51);
-				padding-top: 3em;
 				text-align: center;
+				display: flex;
+				justify-content: center;
+				height: 60vh;
+				flex-flow: column;
 
 				p:nth-child(1) {
 					font-size: 8em;

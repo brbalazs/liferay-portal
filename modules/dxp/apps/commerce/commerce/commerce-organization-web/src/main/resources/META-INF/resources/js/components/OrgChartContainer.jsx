@@ -1,20 +1,11 @@
 import React, {Component} from 'react';
-import {callApi} from '../utils/utils.es';
+import {
+    callApi,
+    setupDataset
+} from '../utils/utils.es';
 
 import OrgChart from './OrgChart';
 import MembersPane from './MembersPane';
-
-function sanitizeAtStart(data) {
-    const sanitizedData = Object.assign({}, data);
-
-    sanitizedData.organizations.length &&
-    (sanitizedData['total'] = sanitizedData.organizations.length) &&
-    sanitizedData.organizations.forEach(orgObject => {
-        delete orgObject['organizations'];
-    });
-
-    return sanitizedData;
-}
 
 class OrgChartContainer extends Component {
     constructor(props) {
@@ -42,7 +33,7 @@ class OrgChartContainer extends Component {
 
                     this.setState(() => {
                         return {
-                            rootData: sanitizeAtStart(dataset),
+                            rootData: setupDataset(dataset),
                             selectedId: 0
                         };
                     });
@@ -63,9 +54,9 @@ class OrgChartContainer extends Component {
             );
     }
 
-    setSelection(id) {
+    setSelection(id, colorIdentifier) {
         this.setState(() => {
-            return {selectedId: id}
+            return {selectedId: id, colorIdentifier}
         });
     }
 
@@ -73,12 +64,13 @@ class OrgChartContainer extends Component {
         const {
             apiURL,
             spritemap,
-            imagesPath
+            imagesPath,
         } = this.props;
 
         const {
             selectedId,
-            rootData
+            rootData,
+            colorIdentifier
         } = this.state || {};
 
         return (
@@ -98,6 +90,7 @@ class OrgChartContainer extends Component {
                     apiURL={apiURL}
                     spritemap={spritemap}
                     imagesPath={imagesPath}
+                    colorIdentifier={colorIdentifier}
                 />
                 }
             </div>

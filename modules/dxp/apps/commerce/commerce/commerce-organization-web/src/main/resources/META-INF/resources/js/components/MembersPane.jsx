@@ -6,7 +6,7 @@ import MembersList from './MembersList';
 import {LIST_BY} from '../utils/constants.es';
 import {callApi} from '../utils/utils.es';
 
-const {USERS, ACCOUNTS} = LIST_BY;
+const {USERS} = LIST_BY;
 
 let membersListCopy = [];
 
@@ -66,22 +66,9 @@ function filterMembers(name, members) {
     );
 }
 
-function shouldPaneOpen(id, members) {
-    return !!id && !!members;
-}
-
-function getIfPopulated(users, accounts) {
-    return !!users ? USERS : !!accounts ? ACCOUNTS : USERS;
-}
-
 class MembersPane extends Component {
     constructor(props) {
         super(props);
-
-        const {
-            totalUsers,
-            totalAccounts
-        } = props;
 
         this.state = {
             id: 0,
@@ -174,11 +161,9 @@ class MembersPane extends Component {
                 totalSubOrg,
                 totalUsers,
                 totalAccounts,
-                listBy,
-                id
+                listBy
             } = this.state,
             paneClasses = 'pane pane-open';
-            // paneClasses = `pane${(shouldPaneOpen(id, orgName)) ? ' pane-open' : ''}`;
 
         return (
             <div className={paneClasses}>
@@ -191,6 +176,7 @@ class MembersPane extends Component {
                     onViewSelected={this.handleListBy}
                     onLookUp={this.handleLookUp}
                     spritemap={this.props.spritemap}
+                    colorIdentifier={this.props.colorIdentifier}
                 />
 
                 <MembersList

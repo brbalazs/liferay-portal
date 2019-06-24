@@ -1,7 +1,3 @@
-export function fetchData(id) {
-	return fetch(`/api/${id}.json`);
-}
-
 function serializeParams(params) {
 	return Object.keys(params).map(key =>
 		`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
@@ -47,44 +43,27 @@ export function truncateTextNode() {
 	}
 }
 
-/*
-export const Liferay = {
-	Language: {
-		available: {
-			'ca_ES': 'Catalan (Spain)',
-			'zh_CN': 'Chinese (China)',
-			'en_US': 'English (United States)',
-			'fi_FI': 'Finnish (Finland)',
-			'fr_FR': 'French (France)',
-			'de_DE': 'German (Germany)',
-			'iw_IL': 'Hebrew (Israel)',
-			'hu_HU': 'Hungarian (Hungary)',
-			'ja_JP': 'Japanese (Japan)',
-			'pt_BR': 'Portuguese (Brazil)',
-			'es_ES': 'Spanish (Spain)'
-		},
-		direction: {
-			'ca_ES': 'ltr',
-			'zh_CN': 'ltr',
-			'en_US': 'ltr',
-			'fi_FI': 'ltr',
-			'fr_FR': 'ltr',
-			'de_DE': 'ltr',
-			'iw_IL': 'rtl',
-			'hu_HU': 'ltr',
-			'ja_JP': 'ltr',
-			'pt_BR': 'ltr',
-			'es_ES': 'ltr'
-		},
-		get(D) {
-			const E = arguments.length > 1 ? Array.prototype.join.call(arguments, o) : String(D);
+export function getColorHue(prevHue) {
+	const hue = Math.random() * 360;
 
-			if (!(E in Liferay.Language.available)) {
-				Liferay.Language.available[E] = C.apply(C, arguments)
-			}
+	return !prevHue ?
+		hue : _.inRange(hue, (prevHue - 4), (prevHue + 5)) ?
+			hue + 4 : hue;
+}
 
-			return Liferay.Language.available[E]
-		}
-	}
-};
-*/
+export function setupDataset(data) {
+	const sanitizedData = Object.assign({}, data);
+
+	sanitizedData.organizations.length &&
+	sanitizedData.organizations.forEach((orgObject, index) => {
+		delete orgObject['organizations'];
+
+		const prevColor = !!index ?
+			sanitizedData.organizations[index - 1] : null;
+
+		orgObject['colorIdentifier'] = `hsl(${getColorHue(prevColor)},75%,85%)`;
+
+	});
+
+	return sanitizedData;
+}

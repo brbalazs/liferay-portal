@@ -109,7 +109,7 @@ NPMResolver npmResolver = NPMResolverProvider.getNPMResolver();
 
 <c:if test="<%= commerceOrganizationDisplayContext.hasAddOrganizationPermissions() %>">
 	<div class="commerce-cta is-visible">
-		<aui:button cssClass="commerce-button commerce-button--big" name="addOrganizationButton" value="add-organization" />
+		<aui:button cssClass="commerce-button commerce-button--big add-organization-button" name="addOrganizationButton" value="add-organization" />
 	</div>
 
 	<portlet:actionURL name="editCommerceOrganization" var="editCommerceOrganizationActionURL">

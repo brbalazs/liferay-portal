@@ -41,7 +41,8 @@ class PaneHeader extends Component {
 			onViewSelected,
 			totalAccounts,
 			totalUsers,
-			spritemap
+			spritemap,
+			colorIdentifier
 		} = this.props;
 
 		return (
@@ -49,6 +50,7 @@ class PaneHeader extends Component {
 				<PaneOrgInfo
 					orgName={orgName}
 					childrenNo={totalSubOrg}
+					colorIdentifier={colorIdentifier}
 					showMenu={this.showMenu}
 				/>
 
