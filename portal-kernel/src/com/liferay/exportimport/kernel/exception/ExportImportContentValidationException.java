@@ -16,6 +16,8 @@ package com.liferay.exportimport.kernel.exception;
 
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.io.Serializable;
+
 import java.util.Map;
 
 /**
@@ -74,8 +76,17 @@ public class ExportImportContentValidationException extends PortalException {
 		return _stagedModelClassName;
 	}
 
-	public String getStagedModelClassPK() {
+	/**
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link
+	 *             #getStagedModelPrimaryKeyObj()}
+	 */
+	@Deprecated
+	public long getStagedModelClassPK() {
 		return _stagedModelClassPK;
+	}
+
+	public Serializable getStagedModelPrimaryKeyObj() {
+		return _stagedModelPrimaryKeyObj;
 	}
 
 	public int getType() {
@@ -110,8 +121,19 @@ public class ExportImportContentValidationException extends PortalException {
 		_stagedModelClassName = stagedModelClassName;
 	}
 
-	public void setStagedModelClassPK(String stagedModelClassPK) {
+	/**
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link
+	 *             #setStagedModelPrimaryKeyObj(Serializable)}
+	 */
+	@Deprecated
+	public void setStagedModelClassPK(long stagedModelClassPK) {
 		_stagedModelClassPK = stagedModelClassPK;
+	}
+
+	public void setStagedModelPrimaryKeyObj(
+		Serializable stagedModelPrimaryKeyObj) {
+
+		_stagedModelPrimaryKeyObj = stagedModelPrimaryKeyObj;
 	}
 
 	public void setType(int type) {
@@ -124,7 +146,8 @@ public class ExportImportContentValidationException extends PortalException {
 	private Map<String, String> _layoutReferenceParameters;
 	private String _layoutURL;
 	private String _stagedModelClassName;
-	private String _stagedModelClassPK;
+	private long _stagedModelClassPK;
+	private Serializable _stagedModelPrimaryKeyObj;
 	private int _type = DEFAULT;
 
 }
