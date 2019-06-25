@@ -72,7 +72,7 @@ function DetailsBox() {
                                         <th>
                                             <LocalizedText desc="N*">n</LocalizedText>
                                         </th>
-                                        <th className="table-cell-expand">
+                                        <th>
                                             <LocalizedText desc="Name">name</LocalizedText>
                                         </th>
                                         <th>

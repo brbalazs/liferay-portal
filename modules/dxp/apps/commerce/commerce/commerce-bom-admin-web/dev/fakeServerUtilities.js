@@ -133,7 +133,7 @@ function defineServerResponses(app) {
 		apiEndpointDefinitions.PRODUCTS + '/:query',
 	], (_, res) => {
 		res.json({
-			data: generateProducts(),
+			items: generateProducts(),
 		});
 	});
 }
