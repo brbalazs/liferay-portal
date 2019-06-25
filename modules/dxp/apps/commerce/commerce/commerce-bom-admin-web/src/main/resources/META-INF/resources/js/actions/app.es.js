@@ -41,3 +41,5 @@ export const actions = {
 	setLoading,
 	setSpritemap,
 };
+
+export default actions;

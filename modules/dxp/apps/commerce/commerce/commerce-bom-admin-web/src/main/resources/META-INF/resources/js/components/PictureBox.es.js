@@ -6,15 +6,14 @@ import React, {
 } from 'react';
 
 import { StoreContext } from './StoreContext.es';
-import LocalizedText from './utilities/LocalizedText.es';
 import Icon from './utilities/Icon.es';
 import EditNumberForm from './EditNumberForm.es';
 
-function PartDetail(props) {
+export function PartDetail(props) {
 
     const numberRef = useRef(null);
 
-    const { actions } = useContext(StoreContext);
+    const { actions } = React.useContext(StoreContext);
 
     const containerClasses = 
         'spot-number' + 
@@ -37,8 +36,8 @@ function PartDetail(props) {
     )
 }
 
-function SpotsList(props) {
-    const { state } = useContext(StoreContext);
+export function SpotsList(props) {
+    const { state } = React.useContext(StoreContext);
 
     let resumeShown = false
 
@@ -70,14 +69,14 @@ function SpotsList(props) {
     )
 }
 
-function CustomCursor(props) {
-    const { state } = useContext(StoreContext);
+export function CustomCursor(props) {
+    const { state } = React.useContext(StoreContext);
     return (
         <div 
             className={`custom-cursor${props.visible ? ` custom-cursor--visible` : ``}`} 
             style={{
-                top: props.y,
-                left: props.x
+                top: props.y ? props.y + 'px' : 0,
+                left: props.x ? props.x + 'px' : 0
             }}
         >
             <Icon spritemap={state.app.spritemap} symbol={'plus'}/>
@@ -87,15 +86,13 @@ function CustomCursor(props) {
 
 function PictureBox() {
     const containerRef = useRef(null);
-    const { actions } = useContext(StoreContext);
+    const { state, actions } = React.useContext(StoreContext);
 
     const [ cursor, updateCursor ] = useState({
         x: 0,
         y: 0,
         visible: false
     });
-
-    const { state } = useContext(StoreContext);
 
     function handleMouseMove(e) {
         switch (true) {

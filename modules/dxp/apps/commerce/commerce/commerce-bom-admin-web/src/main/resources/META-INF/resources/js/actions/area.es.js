@@ -265,3 +265,5 @@ export const actions = {
     deleteSpot,
     submitSpotChanges
 }
+
+export default actions;

@@ -4,11 +4,11 @@ import { StoreContext } from './StoreContext.es';
 
 import LocalizedText from './utilities/LocalizedText.es';
 
-function DetailsListElement(props) {
+export function DetailsListElement(props) {
     const {
         state,
         actions
-    } = useContext(StoreContext);
+    } = React.useContext(StoreContext);
 
     const highlightedModifierClass = 
         (
@@ -24,15 +24,15 @@ function DetailsListElement(props) {
             onMouseOver={() => actions.highlightDetail(props.number)}
             onMouseOut={() => actions.highlightDetail(null)}
         >
-            <td>{props.number}</td>
-            <td>{props.name}</td>
-            <td>{props.sku}</td>
+            <td className="number">{props.number}</td>
+            <td className="name">{props.name}</td>
+            <td className="sku">{props.sku}</td>
         </tr>
     )
 }
 
-function DetailsBox() {
-    const { state } = useContext(StoreContext);
+export default function DetailsBox() {
+    const { state } = React.useContext(StoreContext);
 
     const spotsFilteredByNumbers = state.area.spots.reduce((filtered, spot, i) => {
         if(i && filtered[filtered.length - 1].number === spot.number) {
@@ -100,5 +100,3 @@ function DetailsBox() {
         </div>
     );
 }
-
-export default DetailsBox;

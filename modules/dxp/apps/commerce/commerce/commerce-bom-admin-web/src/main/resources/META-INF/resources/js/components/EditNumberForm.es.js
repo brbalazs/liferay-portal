@@ -5,7 +5,7 @@ import LocalizedText, {convertString} from './utilities/LocalizedText.es';
 import Icon from './utilities/Icon.es';
 import HighlightedText from './utilities/HighlightedText.es';
 
-function DropdownItem(props) {
+export function DropdownItem(props) {
 	return (
 		<li>
 			<a
@@ -23,7 +23,7 @@ function DropdownItem(props) {
 	);
 }
 
-function DropdownInput(props) {
+export function DropdownInput(props) {
 	return (
 		<div className="dropdown-full input-group-item">
 			<input
@@ -81,7 +81,7 @@ function DropdownInput(props) {
 }
 
 const EditNumberForm = React.memo((props) => {
-	const { state, actions } = useContext(StoreContext);
+	const { state, actions } = React.useContext(StoreContext);
 	const formData = state.area.spotFormData || {};
 	const position = formData.position || {};
 	const [dropdownDisabled, disableDropdown] = useState(false);
@@ -312,7 +312,7 @@ const EditNumberForm = React.memo((props) => {
 									<div className="col-auto">
 										<div className="btn-group-item">
 											<button
-												className="btn btn-outline-primary btn-outline-borderless"
+												className="edit-number-form__delete-btn btn btn-outline-primary btn-outline-borderless"
 												type="button"
 												onClick={handleClickOnDelete}
 											>
