@@ -221,12 +221,13 @@ public class DDMFormDisplayContextTest extends PowerMockito {
 	protected DDMFormInstance mockDDMFormInstance() throws PortalException {
 		DDMFormInstance formInstance = mock(DDMFormInstance.class);
 
-		DDMFormInstanceSettings settings = mock(DDMFormInstanceSettings.class);
+		DDMFormInstanceSettings formInstanceSettings = mock(
+			DDMFormInstanceSettings.class);
 
 		when(
 			formInstance.getSettingsModel()
 		).thenReturn(
-			settings
+			formInstanceSettings
 		);
 
 		return formInstance;
@@ -238,7 +239,6 @@ public class DDMFormDisplayContextTest extends PowerMockito {
 		ThemeDisplay themeDisplay = new ThemeDisplay();
 
 		themeDisplay.setLayout(mock(Layout.class));
-
 		themeDisplay.setLocale(LocaleUtil.SPAIN);
 
 		mockRenderRequest.setAttribute(WebKeys.THEME_DISPLAY, themeDisplay);
