@@ -15,7 +15,6 @@
 package com.liferay.journal.internal.upgrade.v1_1_5;
 
 import com.liferay.journal.internal.upgrade.util.JournalArticleImageUpgradeHelper;
-
 import com.liferay.portal.kernel.dao.jdbc.AutoBatchPreparedStatementUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONUtil;

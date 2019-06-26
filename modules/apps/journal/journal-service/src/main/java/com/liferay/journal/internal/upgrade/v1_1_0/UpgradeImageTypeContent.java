@@ -147,9 +147,8 @@ public class UpgradeImageTypeContent extends UpgradeProcess {
 		public Boolean call() throws Exception {
 			String fileName = String.valueOf(_articleImageId);
 
-			FileEntry fileEntry =
-				_portletFileRepository.fetchPortletFileEntry(
-					_groupId, _folderId, fileName);
+			FileEntry fileEntry = _portletFileRepository.fetchPortletFileEntry(
+				_groupId, _folderId, fileName);
 
 			if (fileEntry != null) {
 				return null;
