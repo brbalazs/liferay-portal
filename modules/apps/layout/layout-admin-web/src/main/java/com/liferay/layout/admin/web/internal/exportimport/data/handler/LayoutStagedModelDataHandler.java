@@ -1552,22 +1552,18 @@ public class LayoutStagedModelDataHandler
 					portletDataContext, portletPreferencesGroupId);
 			}
 
-			Group sourceGroup = _groupLocalService.getGroup(
-				portletDataContext.getSourceGroupId());
-
-			long sourceGroupControlPanelPlid =
-				GroupControlPanelLayoutUtil.getGroupControlPanelPlid(
-					sourceGroup);
-
-			PortletPreferences portletPreferences =
+			PortletPreferences importedPortletPreferences =
 				_portletPreferencesLocalService.fetchPortletPreferences(
 					PortletKeys.PREFS_OWNER_ID_DEFAULT,
-					PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
-					sourceGroupControlPanelPlid, portletId);
+					PortletKeys.PREFS_OWNER_TYPE_LAYOUT, layout.getPlid(),
+					portletId);
 
-			if (portletPreferences == null) {
+			if (importedPortletPreferences == null) {
 				continue;
 			}
+
+			String importedPortletPreferencesXml =
+				importedPortletPreferences.getPreferences();
 
 			long groupControlPanelPlid =
 				GroupControlPanelLayoutUtil.getGroupControlPanelPlid(
@@ -1595,10 +1591,27 @@ public class LayoutStagedModelDataHandler
 					portletId, oldFragmentEntryLink.getNamespace(),
 					fragmentEntryLink.getNamespace());
 
-				_portletPreferencesLocalService.addPortletPreferences(
-					layout.getCompanyId(), PortletKeys.PREFS_OWNER_ID_DEFAULT,
-					PortletKeys.PREFS_OWNER_TYPE_LAYOUT, groupControlPanelPlid,
-					newPortletId, portlet, portletPreferences.getPreferences());
+				PortletPreferences existingPortletPreferences =
+					_portletPreferencesLocalService.fetchPortletPreferences(
+						PortletKeys.PREFS_OWNER_ID_DEFAULT,
+						PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
+						groupControlPanelPlid, newPortletId);
+
+				if (existingPortletPreferences == null) {
+					_portletPreferencesLocalService.addPortletPreferences(
+						layout.getCompanyId(),
+						PortletKeys.PREFS_OWNER_ID_DEFAULT,
+						PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
+						groupControlPanelPlid, newPortletId, portlet,
+						importedPortletPreferencesXml);
+				}
+				else {
+					existingPortletPreferences.setPreferences(
+						importedPortletPreferencesXml);
+
+					_portletPreferencesLocalService.updatePortletPreferences(
+						existingPortletPreferences);
+				}
 			}
 		}
 
