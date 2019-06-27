@@ -440,6 +440,7 @@ public class WorkflowTaskDisplayContext {
 		editPortletURL.setParameter("redirect", themeDisplay.getURLCurrent());
 		editPortletURL.setParameter(
 			"refererPlid", String.valueOf(themeDisplay.getPlid()));
+
 		editPortletURL.setParameter(
 			"workflowTaskId", String.valueOf(workflowTask.getWorkflowTaskId()));
 		editPortletURL.setPortletMode(PortletMode.VIEW);
