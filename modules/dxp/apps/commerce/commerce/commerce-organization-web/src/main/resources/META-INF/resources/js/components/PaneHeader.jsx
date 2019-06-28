@@ -7,8 +7,8 @@ import PaneSearchBar from './PaneSearchBar';
 import { bindAll } from '../utils/utils.es';
 
 class PaneHeader extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			showMenu: false
@@ -70,20 +70,5 @@ class PaneHeader extends Component {
 		);
 	}
 }
-
-PaneHeader.defaultProps = {
-	data: {},
-	listBy: 'users',
-	onViewSelected: () => {},
-	totalMembers: 0
-
-};
-
-PaneHeader.propTypes = {
-	data: PropTypes.object,
-	listBy: PropTypes.string,
-	onViewSelected: PropTypes.func,
-	totalMembers: PropTypes.number
-};
 
 export default PaneHeader;

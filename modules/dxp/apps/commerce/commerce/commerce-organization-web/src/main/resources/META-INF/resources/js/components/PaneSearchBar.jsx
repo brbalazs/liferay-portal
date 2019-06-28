@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Icon from './Icon';
-import PropTypes from 'prop-types';
 
 class PaneSearchBar extends Component {
     constructor(props) {
@@ -43,9 +42,5 @@ class PaneSearchBar extends Component {
         );
     }
 }
-
-PaneSearchBar.defaultProps = {};
-
-PaneSearchBar.propTypes = {};
 
 export default PaneSearchBar;

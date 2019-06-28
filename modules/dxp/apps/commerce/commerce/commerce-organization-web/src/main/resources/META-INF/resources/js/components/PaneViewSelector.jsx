@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { LIST_BY } from '../utils/constants.es';
 
 const {
@@ -55,9 +54,5 @@ class PaneViewSelector extends Component {
 		);
 	}
 }
-
-PaneViewSelector.defaultProps = {};
-
-PaneViewSelector.propTypes = {};
 
 export default PaneViewSelector;

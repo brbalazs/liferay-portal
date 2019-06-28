@@ -1,33 +1,11 @@
 import React, {Component} from 'react';
-import {LIST_BY} from '../utils/constants.es';
 import Member from './Member';
 import NoMembers from './NoMembers';
 
-const {
-    USERS,
-    ACCOUNTS
-} = LIST_BY;
-
 class MembersList extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            isLoading: true,
-            listBy: USERS,
-            data: null,
-            total: 0
-        };
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return true;
-    }
-
     render() {
         const {
             members,
-            listBy,
             imagesPath,
             spritemap,
             isLoading
@@ -35,12 +13,6 @@ class MembersList extends Component {
 
         return (
             <div className='pane-members-list'>
-                {isLoading &&
-                <div className='is-loading'>
-                    <span className='spinner fas fa-circle-notch'></span>
-                </div>
-                }
-
                 {<ul>
                     {!isLoading && !!members.length &&
                         members.map((member, index) => {
@@ -57,7 +29,7 @@ class MembersList extends Component {
                 }
 
                 {!isLoading && !members.length &&
-                <NoMembers spritemap={spritemap}/>
+                    <NoMembers spritemap={spritemap}/>
                 }
             </div>
         );
