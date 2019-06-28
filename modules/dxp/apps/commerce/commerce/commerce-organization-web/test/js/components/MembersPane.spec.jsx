@@ -53,8 +53,8 @@ describe('MembersPane', () => {
         });
 
         it('renders all the child components correctly', () => {
-            expect(wrapper.debug().includes('PaneHeader')).toBe(true);
-            expect(wrapper.debug().includes('MembersList')).toBe(true);
+            expect(wrapper.children('PaneHeader').length).toEqual(1);
+            expect(wrapper.children('MembersList').length).toEqual(1);
         });
 
         it('calls the API on componentDidMount to fetch the list of members', () => {
