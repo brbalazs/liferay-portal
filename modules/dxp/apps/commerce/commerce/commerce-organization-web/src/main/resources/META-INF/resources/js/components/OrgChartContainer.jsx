@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {
     callApi,
-    setupDataset
+    setupDataset,
+    bindAll
 } from '../utils/utils.es';
 
 import OrgChart from './OrgChart';
@@ -11,7 +12,7 @@ class OrgChartContainer extends Component {
     constructor(props) {
         super(props);
 
-        _.bindAll(
+        bindAll(
             this,
             'handleNodeClick',
             'setSelection',
@@ -22,23 +23,19 @@ class OrgChartContainer extends Component {
             baseURL: props.apiURL
         };
 
-        callApi(apiParameters)
-            .then(data => {
-                    const dataset = Object.assign({},
-                        data,
-                        {
-                            name: 'root',
-                            organizationId: 0
-                        });
-
+        this.$didMount = new Promise(resolve =>
+            callApi(apiParameters)
+                .then(data => {
                     this.setState(() => {
                         return {
-                            rootData: setupDataset(dataset),
+                            rootData: setupDataset(data),
                             selectedId: 0
                         };
+                    }, () => {
+                        resolve(true);
                     });
-                }
-            );
+                })
+        )
     }
 
     handleInitialLoad() {
@@ -48,7 +45,7 @@ class OrgChartContainer extends Component {
     }
 
     handleNodeClick(id) {
-        return callApi({ baseURL: this.props.apiURL, id })
+        return callApi({baseURL: this.props.apiURL, id})
             .then(({organizations}) =>
                 organizations.length ? organizations : null
             );
@@ -64,7 +61,7 @@ class OrgChartContainer extends Component {
         const {
             apiURL,
             spritemap,
-            imagesPath,
+            imagesPath
         } = this.props;
 
         const {
@@ -74,7 +71,7 @@ class OrgChartContainer extends Component {
         } = this.state || {};
 
         return (
-            <div className="org-chart-modal-container">
+            <div className="organization-network">
                 {!!rootData &&
                 <OrgChart
                     data={rootData}

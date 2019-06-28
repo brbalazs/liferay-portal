@@ -7,14 +7,15 @@ import {
     noop,
     isNumber,
     isArray,
-    truncateTextNode
+    truncateTextNode,
+    bindAll
 } from '../utils/utils.es';
 
 class OrgChart extends Component {
     constructor(props) {
         super(props);
 
-        _.bindAll(
+        bindAll(
             this,
             'collapse',
             'handleNodeClick',
@@ -127,7 +128,7 @@ class OrgChart extends Component {
         const y = u.y + this._nodeWidth,
             isRoot = node.parent
                 && node.parent.data
-                && node.parent.data.name === 'root';
+                && node.parent.data.name === 'Root';
 
         return isRoot ? '' :
             `M ${s.y} ${s.x} C ${(s.y + y) / 2} ${s.x}, ${(s.y + y) / 2} ${u.x}, ${y} ${u.x}`;
@@ -178,7 +179,7 @@ class OrgChart extends Component {
             }
         );
         nameNode.text(({data}) => {
-            const isRoot = data.name === 'root';
+            const isRoot = data.name === 'Root';
 
             if (isRoot) {
                 nameNode.node().parentNode.classList.add('root-element');

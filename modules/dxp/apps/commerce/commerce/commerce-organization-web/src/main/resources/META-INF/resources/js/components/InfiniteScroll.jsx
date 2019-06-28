@@ -2,12 +2,13 @@ import w from '../utils/window.es';
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import { bindAll } from '../utils/utils.es';
 
 class InfiniteScroll extends Component {
 	constructor(props) {
 		super(props);
 
-		_.bindAll(
+		bindAll(
 			this,
 			'handleScroll_',
 			'shouldScroll_'

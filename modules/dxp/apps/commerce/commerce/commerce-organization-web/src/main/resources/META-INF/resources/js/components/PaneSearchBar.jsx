@@ -11,8 +11,6 @@ class PaneSearchBar extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-
-        alert('hai fatto INVIOOOOHHH!!11one')
     }
 
     render() {

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import PaneOrgInfo from './PaneOrgInfo';
 import PaneViewSelector from './PaneViewSelector';
 import PaneSearchBar from './PaneSearchBar';
+import { bindAll } from '../utils/utils.es';
 
 class PaneHeader extends Component {
 	constructor() {
@@ -13,7 +14,7 @@ class PaneHeader extends Component {
 			showMenu: false
 		};
 
-		_.bindAll(
+		bindAll(
 			this,
 			'hideMenu',
 			'showMenu'

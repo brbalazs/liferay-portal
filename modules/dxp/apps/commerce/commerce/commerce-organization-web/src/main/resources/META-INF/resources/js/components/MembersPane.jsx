@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import PaneHeader from './PaneHeader';
 import MembersList from './MembersList';
 import {LIST_BY} from '../utils/constants.es';
-import {callApi} from '../utils/utils.es';
+import {callApi, bindAll} from '../utils/utils.es';
 
 const {USERS} = LIST_BY;
 
@@ -54,7 +54,7 @@ function fetchMembers(apiURL, orgId, listBy, q = '') {
             };
         })
         .catch(e => {
-            console.log(e);
+
         });
 }
 
@@ -71,13 +71,12 @@ class MembersPane extends Component {
         super(props);
 
         this.state = {
-            id: 0,
             searchQuery: '',
             listBy: USERS,
             isLoading: true
         };
 
-        _.bindAll(
+        bindAll(
             this,
             'handleListBy',
             'handleLookUp',
@@ -89,7 +88,7 @@ class MembersPane extends Component {
         const {id} = this.props;
         const {listBy} = this.state;
 
-        this.handleUpdate(id, listBy);
+        this.$didUpdate = this.handleUpdate(id, listBy);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -97,8 +96,8 @@ class MembersPane extends Component {
         const {listBy} = this.state;
 
         if (id !== prevProps.id || listBy !== prevState.listBy) {
-            this.setState(() => ({ isLoading: true }), () => {
-                this.handleUpdate(id, listBy)
+            this.setState(() => ({isLoading: true}), () => {
+                this.$didUpdate = this.handleUpdate(id, listBy)
             });
         }
     }
@@ -110,18 +109,22 @@ class MembersPane extends Component {
     }
 
     handleLookUp(e) {
-        const name = e.target.value;
-        const {id, apiURL} = this.props;
-        const {listBy} = this.state;
-        const fromState = !!name && name.length ?
-            filterMembers(name, this.state.members) : membersListCopy;
+        const name = e.target.value,
+            {id, apiURL} = this.props,
+            {listBy} = this.state,
+            fromState = !!name && name.length ?
+                filterMembers(name, this.state.members) : membersListCopy;
 
         if (fromState.length) {
-            this.setState(() => ({
-                members: fromState
-            }))
+            return new Promise(resolve => {
+                this.setState(() => ({
+                    members: fromState
+                }), () => {
+                    resolve(true);
+                })
+            });
         } else {
-            fetchMembers(apiURL, id, listBy, name)
+            return fetchMembers(apiURL, id, listBy, name)
                 .then(({total, users}) => {
                     this.setState(() => {
                         if (!!total) {
@@ -141,7 +144,7 @@ class MembersPane extends Component {
     handleUpdate(id, listBy) {
         const {apiURL} = this.props;
 
-        fetchMembers(apiURL, id, listBy)
+        return fetchMembers(apiURL, id, listBy)
             .then((data) => {
                 this.setState(state => Object.assign(
                     state,

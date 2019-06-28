@@ -4,7 +4,11 @@ function serializeParams(params) {
 	).join('&');
 }
 
-function endpointBuilder({baseURL, id = '0', path = '', queryParams = {}}) {
+export function endpointBuilder({baseURL, id = '0', path = '', queryParams = {}}) {
+	if (!baseURL) {
+		throw new Error('No API baseURL provided.')
+	}
+
 	const root = `${baseURL}/organizations`,
 		organizationId = `/${id}`,
 		collection = `/${path}`;
@@ -36,19 +40,35 @@ export function truncateTextNode() {
 
 	while (textLength > 220) {
 		text = text.slice(0, -3);
-
 		this.innerHTML = `${text}...`;
-
 		textLength = this.getComputedTextLength();
 	}
+}
+
+export function bindAll() {
+	const clazz = arguments[0];
+
+	Object.keys(arguments).forEach((argNo, i) => {
+		const method = arguments[argNo];
+
+		if (i !== 0 && typeof clazz[method] === 'function') {
+			clazz[method] = clazz[method].bind(clazz);
+		}
+	});
+
+	return clazz;
+}
+
+function isInRange(value, lower, upper) {
+	return value >= lower && value < upper;
 }
 
 export function getColorHue(prevHue) {
 	const hue = Math.random() * 360;
 
 	return !prevHue ?
-		hue : _.inRange(hue, (prevHue - 4), (prevHue + 5)) ?
-			hue + 4 : hue;
+		hue : isInRange(hue, (prevHue - 2), (prevHue + 3)) ?
+			((hue + 5) > 360) ? hue - 5 : hue + 5 : hue;
 }
 
 export function setupDataset(data) {
@@ -61,8 +81,7 @@ export function setupDataset(data) {
 		const prevColor = !!index ?
 			sanitizedData.organizations[index - 1] : null;
 
-		orgObject['colorIdentifier'] = `hsl(${getColorHue(prevColor)},75%,85%)`;
-
+		orgObject['colorIdentifier'] = `hsl(${getColorHue(prevColor)},75%,75%)`;
 	});
 
 	return sanitizedData;
