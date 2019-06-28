@@ -1,6 +1,4 @@
-import React, { useMemo, useState, useEffect, useContext } from 'react';
-
-import { Router, Route, Switch } from 'react-router-dom';
+import React, { useMemo, useState, useEffect, useCallback, useContext } from 'react';
 
 import { StoreContext } from './StoreContext.es';
 import FolderViewer from './FolderViewer.es';
@@ -14,41 +12,50 @@ import Connector from '../utilities/data_connectors/Connector.es';
 export function PartFinder(props) {
 
 	const [initialized, setInitialized] = useState(false);
+	const [page, updatePage] = useState('base');
 	const { state, actions } = useContext(StoreContext);
 
-	const connector  = useMemo(() => {
+	const connector = useMemo(() => {
 		if(props.connectorSettings) {
 			return new Connector(props.connectorSettings)
 		}
 		return null
 	}, props.connectorSettings)
 
-	function initializeUrlListener() {
-		return props.history.listen(e => {
-			switch (true) {
-				case e.pathname.includes('/folders'):
-					actions.getFolder(props.foldersApiEndpoint, e.pathname.replace(/\/folders\/?/, ''));
-					break;
-				case e.pathname.includes('/areas'):
-					actions.getArea(props.areaApiEndpoint, e.pathname.replace(/\/areas\/?/, ''));
-					break;
-				default:
-					break;
-			}
-		});
-	}
+	const updateData = useCallback(() => {
+		const filteredUrl = /^.*(folderId|areaId)=([0-9a-zA-Z\-]+)/.exec(props.history.location.search)
+		const id = filteredUrl ? filteredUrl[2] : null;
+		const queryParam = filteredUrl ? filteredUrl[1] : 'folderId'
+
+		switch (queryParam) {
+			case 'folderId':
+				actions.getFolder(props.foldersEndpoint, id);
+				updatePage('folder');
+				break;
+			case 'areaId':
+				actions.getArea(props.areasEndpoint, id);
+				updatePage('area');
+				break;
+			default:
+				break;
+		}
+	})
 
 	function initialize() {
-		initializeUrlListener();
-		if (
-			window.location.pathname.indexOf('/folders') > -1 ||
-			window.location.pathname.indexOf('/areas') > -1
-		) {
-			props.history.push(window.location.pathname.replace(props.basename, ''));
-		}
-		actions.setSpritemap(props.spritemap);
-		actions.setBasename(props.basename || '/');
-		actions.setBasePathUrl(props.basePathUrl);
+		actions.initialize({
+			areasEndpoint: props.areasEndpoint,
+			foldersEndpoint: props.foldersEndpoint,
+			spritemap: props.spritemap,
+			basename: props.basename || '/',
+			basePathUrl: props.basePathUrl,
+			history: props.history,
+		});
+
+		props.history.listen(e => {
+			updateData()
+		})
+
+		updateData();
 		setInitialized(true);
 	}
 
@@ -62,20 +69,16 @@ export function PartFinder(props) {
 		return (<ErrorMessage />)
 	}
 
+	if(state.app.loading) {
+		return (<Loading />)
+	}
+
 	return (
 		<div className="content">
-			<Router history={props.history}>
-				<Breadcrumbs data={state.app.breadcrumbs} />
-					{state.app.loading ? (
-						<Loading />
-					) : (
-						<Switch>
-							<Route exact path="/" component={BaseContainer} />
-							<Route path="/folders" component={FolderViewer} />
-							<Route path="/areas" component={AreaViewer} />
-						</Switch>
-					)}
-			</Router>
+			<Breadcrumbs data={state.app.breadcrumbs} />
+			{page === 'base' && <BaseContainer />}
+			{page === 'area' && <AreaViewer />}
+			{page === 'folder' && <FolderViewer />}
 		</div>
 	);
 }

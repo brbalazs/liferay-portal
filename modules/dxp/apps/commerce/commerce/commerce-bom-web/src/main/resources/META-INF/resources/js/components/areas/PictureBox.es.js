@@ -2,19 +2,13 @@ import React, {
     useRef,
     useState,
     useEffect,
-    Fragment,
-    useContext 
+    Fragment
 } from 'react';
 
 import { StoreContext } from '../StoreContext.es';
 import LocalizedText from '../utilities/LocalizedText.es';
 
-function Resume(props) {
-
-    const containerRef = props.containerRef; 
-    const numberRef = props.numberRef; 
-    const resumeRef = useRef(null);
-    const distanceFromBorders = 50;
+export function Resume(props) {
 
     const [
         orientationModifier,
@@ -23,22 +17,10 @@ function Resume(props) {
 
     useEffect(() => {
         if(
-            !orientationModifier &&
-            numberRef.current && 
-            containerRef.current && 
-            resumeRef.current 
+            !orientationModifier
         ){
-            const numberBoundaries = numberRef.current.getBoundingClientRect();
-            const containerBoundaries = containerRef.current.getBoundingClientRect();
-
-            const requiredHeight = resumeRef.current.offsetHeight + distanceFromBorders + numberRef.current.offsetHeight;
-            const requiredWidth = resumeRef.current.offsetWidth + numberRef.current.offsetWidth;
-
-            const topSpace = numberBoundaries.top - containerBoundaries.top;
-            const leftSpace = numberBoundaries.left - containerBoundaries.left;
-
-            const verticalOrientation = topSpace > requiredHeight ? 'top' : 'bottom';
-            const horizontalOrientation = leftSpace > requiredWidth ? 'right' : 'left';
+            const verticalOrientation = props.position.y > 50  ? 'bottom' : 'top';
+            const horizontalOrientation = props.position.x > 50 ? 'right' : 'left';
 
             setOrientationModifier(` part-detail__resume--${verticalOrientation}-${horizontalOrientation}`);
         }
@@ -46,13 +28,14 @@ function Resume(props) {
 
     return (
         <div 
-            ref={resumeRef}
             className={`part-detail__resume detail-resume detail-resume--product${orientationModifier || ''}`}
         >
-            <div 
-                className="detail-resume__thumbnail" 
-                style={{backgroundImage: `url(${props.thumbnailUrl})`}}
-            />
+            {props.thumbnailUrl && (
+                <div 
+                    className="detail-resume__thumbnail" 
+                    style={{backgroundImage: `url(${props.thumbnailUrl})`}}
+                />
+            )}
             <div className="detail-resume__info">
                 <div className={`detail-resume__state detail-resume__state--${props.state}`} />
                 <p className="detail-resume__sku">{props.sku}</p>
@@ -64,11 +47,11 @@ function Resume(props) {
 }
 
 
-function PartDetail(props) {
+export function PartDetail(props) {
 
     const numberRef = useRef(null);
 
-    const { state, actions } = useContext(StoreContext);
+    const { state, actions } = React.useContext(StoreContext);
 
     const containerClasses = 
         'part-detail' + 
@@ -93,7 +76,7 @@ function PartDetail(props) {
                 className="part-detail__number"
                 onMouseOver={() => actions.highlightDetail(props.number)}
                 onMouseOut={() => actions.highlightDetail(null)}
-                href={state.app.basePathUrl + product.url}
+                href={product.url && state.app.basePathUrl + product.url}
             >
                 {props.number}
                 
@@ -103,6 +86,7 @@ function PartDetail(props) {
                 numberRef={numberRef} 
                 thumbnailUrl={product.thumbnailUrl}
                 state={product.state}
+                position={props.position}
                 sku={product.sku}
                 price={product.price}
                 name={product.name}
@@ -111,8 +95,8 @@ function PartDetail(props) {
     )
 }
 
-function SpotsList(props) {
-    const { state } = useContext(StoreContext);
+export function SpotsList(props) {
+    const { state } = React.useContext(StoreContext);
 
     let resumeShown = false
 
@@ -144,7 +128,7 @@ function SpotsList(props) {
     )
 }
 
-function EmptyBoxMessage() {
+export function EmptyBoxMessage() {
     return (
         <div className="empty-box-research">
             <h3>
@@ -163,7 +147,7 @@ function EmptyBoxMessage() {
 
 function PictureBox() {
     const containerRef = useRef(null);
-    const { state } = useContext(StoreContext);
+    const { state } = React.useContext(StoreContext);
 
     const highlightedModifierClass = 
         (

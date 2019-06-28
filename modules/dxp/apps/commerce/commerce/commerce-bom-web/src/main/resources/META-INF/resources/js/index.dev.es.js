@@ -10,6 +10,14 @@ import 'clay-css/src/scss/atlas.scss';
 
 import '../css/main.scss';
 
+window.Liferay = {
+    authToken: 'fakeToken',
+};
+
+window.themeDisplay = {
+    getPathImage: () => './testPath/'
+}
+
 const props = {
     spritemap: '/test-icons.svg',
     modelSelectorMakerEndpoint: apiEndpointDefinitions.MAKER,

@@ -4,8 +4,6 @@ import React,
     useContext
 } from 'react';
 
-import { Link } from 'react-router-dom';
-
 import Icon from './utilities/Icon.es';
 import Collapse from './collapse/Collapse.es';
 import LocalizedText from './utilities/LocalizedText.es';
@@ -42,7 +40,7 @@ function ModelsList(props) {
 function Compatibilities(props) {
     const [selectedBrand, setSelectedBrand] = useState(0);
 
-    const { state } = useContext(StoreContext);
+    const {state} = useContext(StoreContext);
 
     return (
         <div className="suitable-veichles panel panel-secondary sticky-panel">
@@ -77,6 +75,9 @@ function Compatibilities(props) {
 }
 
 function Card(props) {
+
+    const { state, actions } = useContext(StoreContext);
+
     const contentCard = (
         <div className="area-card card image-card">
             <div className="aspect-ratio aspect-ratio-4-to-3 card-item-first bg-checkered">
@@ -101,34 +102,43 @@ function Card(props) {
             </div>
         </div>
     )
-    return props.url
-        ? (
-            <Link 
-                className="card-link"
-                to={props.url}
-                data-senna-off
-            >
-                {contentCard}
-            </Link>
-        )
-        : contentCard
+
+    function handleCardLink(e) {
+        e.preventDefault();
+        const url = `?${props.type === 'folder' ? 'folderId' : 'areaId'}=${props.id}`;
+        state.app.history.push(url);
+    }
+
+    return (
+        <a 
+            className="card-link"
+            href="#"
+            onClick={handleCardLink}
+            data-senna-off
+        >
+            {contentCard}
+        </a>
+    )
 }
 
 function CardContainer(props) {
     return (
         <div className="area-list row">
-            {props.content.map((el, i) => (
-                <div 
-                    key={i}
-                    className={props.cardsWrapperAdditionalClasses}
-                >   
-                    <Card 
-                        title={el.name}
-                        thumbnail={el.thumbnail}
-                        url={el.url}
-                    />
-                </div>
-            ))}
+            {props.content.map((el, i) => {
+                return (
+                    <div 
+                        key={i}
+                        className={props.cardsWrapperAdditionalClasses}
+                    >   
+                        <Card 
+                            title={el.name}
+                            thumbnail={el.thumbnail}
+                            id={el.id}
+                            type={el.type}
+                        />
+                    </div>
+                )
+            })}
         </div>
     )
 }

@@ -229,15 +229,13 @@ function App(props) {
 		);
 	}
 
-	history.push('/folders');
-
 	return (
 		<div className="bom-wrapper container pt-3">
 			<PartFinder
 				history={history}
 				spritemap={props.spritemap}
-				areaApiEndpoint={props.areasEndpoint}
-				foldersApiEndpoint={props.foldersEndpoint}
+				areasEndpoint={props.areasEndpoint}
+				foldersEndpoint={props.foldersEndpoint}
 				basename={props.basename}
 				basePathUrl={props.basePathUrl}
 			/>

@@ -29,10 +29,8 @@
 	},
 	"dependencies": {
 		"history": "^4.9.0",
-		"metal-dom": "^2.13.2",
 		"react": "^16.8.6",
 		"react-dom": "^16.8.6",
-		"react-router-dom": "^5.0.0",
 		"redux": "^4.0.1"
 	},
 	"description": "",
@@ -65,7 +63,9 @@
 		"sass-loader": "^7.1.0",
 		"style-loader": "^0.23.1",
 		"webpack": "^4.33.0",
-		"webpack-cli": "^3.3.3"
+		"webpack-cli": "^3.3.3",
+		"enzyme": "^3.9.0",
+		"enzyme-adapter-react-16": "^1.13.2"
 	},
 	"main": "js/index.es.js",
 	"name": "commerce-bom-web",

@@ -5,6 +5,8 @@ export const actionDefinition = {
 	SET_SPRITEMAP: 'setSpritemap',
 	SET_BASENAME: 'setBasename',
 	SET_BASE_PATH_URL: 'setBasePathUrl',
+	SET_HISTORY: 'setHistory',
+	INITIALIZE: 'initalize',
 };
 
 const updateBreadcrumbs = dispatch => breadcrumbs => dispatch({
@@ -41,6 +43,18 @@ const setBasename = dispatch => basename =>
 		payload: basename,
 	});
 
+const setHistory = dispatch => basename =>
+	dispatch({
+		type: actionDefinition.SET_HISTORY,
+		payload: basename,
+	});
+
+const initialize = dispatch => settings =>
+	dispatch({
+		type: actionDefinition.INITIALIZE,
+		payload: settings,
+	});
+
 export const actions = {
 	updateBreadcrumbs,
 	setError,
@@ -48,4 +62,6 @@ export const actions = {
 	setSpritemap,
 	setBasename,
 	setBasePathUrl,
+	setHistory,
+	initialize,
 };

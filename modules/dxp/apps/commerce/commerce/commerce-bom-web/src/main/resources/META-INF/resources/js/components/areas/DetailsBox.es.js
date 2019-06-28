@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { StoreContext } from '../StoreContext.es';
 import LocalizedText from '../utilities/LocalizedText.es';
 
-function DetailsListElement(props) {
-    const { state, actions } = useContext(StoreContext);
+export function DetailsListElement(props) {
+    const { state, actions } = React.useContext(StoreContext);
 
     const highlightedModifierClass = 
         (
@@ -17,7 +17,7 @@ function DetailsListElement(props) {
     return (
         <a
             className={`detail-row d-table-row${highlightedModifierClass}`} 
-            href={state.app.basePathUrl + props.url}
+            href={props.url && (state.app.basePathUrl + props.url)}
             onFocus={() => actions.highlightDetail(props.number, true)}
             onMouseOver={() => actions.highlightDetail(props.number, true)}
             onMouseOut={() => actions.highlightDetail(null)}
@@ -34,7 +34,7 @@ function DetailsListElement(props) {
 }
 
 function DetailsBox() {
-    const { state } = useContext(StoreContext);
+    const { state } = React.useContext(StoreContext);
 
     const spotsFilteredByNumbers = state.area.spots.reduce((filtered, spot, i) => {
         if(i && filtered[filtered.length - 1].number === spot.number) {
