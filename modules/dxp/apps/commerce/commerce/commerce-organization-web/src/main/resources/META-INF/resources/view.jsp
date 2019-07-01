@@ -123,7 +123,6 @@ NPMResolver npmResolver = NPMResolverProvider.getNPMResolver();
 
 	<aui:script require="metal-dom/src/all/dom as dom,frontend-js-web/liferay/modal/commands/OpenSimpleInputModal.es as modalCommands">
 		function handleAddOrganizationButtonClick(event) {
-			debugger;
 			event.preventDefault();
 
 			var organizationId = event.detail && event.detail.organizationId ? event.detail.organizationId : 0;
