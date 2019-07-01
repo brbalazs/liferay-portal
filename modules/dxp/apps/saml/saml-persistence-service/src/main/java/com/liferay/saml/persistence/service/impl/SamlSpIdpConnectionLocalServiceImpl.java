@@ -223,13 +223,12 @@ public class SamlSpIdpConnectionLocalServiceImpl
 			samlSpIdpConnectionPersistence.findByPrimaryKey(
 				samlSpIdpConnectionId);
 
-		if (!samlIdpEntityId.equals(samlSpIdpConnection.getSamlIdpEntityId())) {
-			if (samlSpIdpConnectionPersistence.fetchByC_SIEI(
-					serviceContext.getCompanyId(), samlIdpEntityId) != null) {
+		if (!samlIdpEntityId.equals(samlSpIdpConnection.getSamlIdpEntityId()) &&
+			(samlSpIdpConnectionPersistence.fetchByC_SIEI(
+				serviceContext.getCompanyId(), samlIdpEntityId) != null)) {
 
-				throw new DuplicateSamlSpIdpConnectionSamlIdpEntityIdException(
-					"Duplicate SAML SP IDP connection for " + samlIdpEntityId);
-			}
+			throw new DuplicateSamlSpIdpConnectionSamlIdpEntityIdException(
+				"Duplicate SAML SP IDP connection for " + samlIdpEntityId);
 		}
 
 		samlSpIdpConnection.setCompanyId(serviceContext.getCompanyId());

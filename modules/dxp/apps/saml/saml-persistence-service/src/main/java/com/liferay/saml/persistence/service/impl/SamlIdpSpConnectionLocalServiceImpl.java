@@ -223,13 +223,12 @@ public class SamlIdpSpConnectionLocalServiceImpl
 			samlIdpSpConnectionPersistence.fetchByPrimaryKey(
 				samlIdpSpConnectionId);
 
-		if (!samlSpEntityId.equals(samlIdpSpConnection.getSamlSpEntityId())) {
-			if (samlIdpSpConnectionPersistence.fetchByC_SSEI(
-					serviceContext.getCompanyId(), samlSpEntityId) != null) {
+		if (!samlSpEntityId.equals(samlIdpSpConnection.getSamlSpEntityId()) &&
+			(samlIdpSpConnectionPersistence.fetchByC_SSEI(
+				serviceContext.getCompanyId(), samlSpEntityId) != null)) {
 
-				throw new DuplicateSamlIdpSpConnectionSamlSpEntityIdException(
-					"Duplicate SAML IDP SP connection for " + samlSpEntityId);
-			}
+			throw new DuplicateSamlIdpSpConnectionSamlSpEntityIdException(
+				"Duplicate SAML IDP SP connection for " + samlSpEntityId);
 		}
 
 		samlIdpSpConnection.setModifiedDate(now);
