@@ -37,7 +37,7 @@ Organization organization = commerceOrganizationDisplayContext.getOrganization()
 
 		<aui:model-context bean="<%= organization %>" model="<%= Organization.class %>" />
 
-		<div class="row container-fluid">
+		<div class="row container container-fluid">
 			<div class="col-lg-4 account-management__thumbnail-container">
 				<aui:fieldset>
 					<c:if test="<%= organization != null %>">
