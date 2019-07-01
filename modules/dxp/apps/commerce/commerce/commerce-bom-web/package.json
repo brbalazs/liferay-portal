@@ -74,8 +74,8 @@
 		"build": "liferay-npm-scripts build",
 		"csf": "csf {src,test}/**/*.es.js src/**/*.scss",
 		"start": "webpack-dev-server --config webpack.config.dev.js",
-		"test": "env TZ=utc liferay-npm-scripts test -e",
 		"test:watch": "env TZ=utc liferay-npm-scripts test --watch",
+		"test_DISABLED": "env TZ=utc liferay-npm-scripts test -e",
 		"watch": "liferay-npm-scripts webpack --watch"
 	},
 	"sideEffects": false,
