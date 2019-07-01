@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import getCN from 'classnames';
+import w from '../utils/window.es';
 
 import {
     noop,
@@ -43,7 +44,9 @@ class OrgChart extends Component {
     }
 
     componentDidMount() {
-        const {data, selectedId} = this.props;
+        const {data, namespace, selectedId} = this.props;
+
+        this._namespace = namespace.toString();
 
         if (data) {
             this._svg = this.createSVG();
@@ -139,12 +142,12 @@ class OrgChart extends Component {
 
         gNode.attr('class', 'node');
         gNode.attr('transform', () => this.getTranslateString(source.y0, source.x0));
+        gNode.attr('data-color-identifier', this.getColorIdentifier);
         gNode.attr('data-organization-id', ({data}) => {
             const {organizationId} = data;
 
             return organizationId;
         });
-        gNode.attr('data-color-identifier', this.getColorIdentifier);
         gNode.on('click', this.handleNodeClick);
 
         const rectNode = gNode.append('rect');
@@ -207,9 +210,20 @@ class OrgChart extends Component {
 
         addButtonNodeGroup
             .attr('class', 'add-button-node')
-            .on('click', () => {
+            .on('click', (d) => {
+                const {organizationId} = d.data || {};
+                const organizationIdInput = w.document.getElementById(this._namespace + 'organizationId');
+
+                organizationIdInput.value = organizationId || 0;
+
                 const addOrganizationButton = document.querySelector('.add-organization-button'),
-                    mouseEvent = new MouseEvent('click');
+                    cmd = 'add',
+                    mouseEvent = new CustomEvent('click', {
+                        detail: {
+                            organizationId,
+                            cmd
+                        }
+                    });
 
                 addOrganizationButton.dispatchEvent(mouseEvent);
             });

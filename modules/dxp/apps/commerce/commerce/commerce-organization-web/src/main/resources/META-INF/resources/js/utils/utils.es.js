@@ -1,17 +1,18 @@
 function serializeParams(params) {
-	return Object.keys(params).map(key =>
-		`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
+	return Object.keys(params).map(
+		key =>
+			`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
 	).join('&');
 }
 
 export function endpointBuilder({baseURL, id = '0', path = '', queryParams = {}}) {
 	if (!baseURL) {
-		throw new Error('No API baseURL provided.')
+		throw new Error('No API baseURL provided.');
 	}
 
-	const root = `${baseURL}/organizations`,
-		organizationId = `/${id}`,
-		collection = `/${path}`;
+	const collection = `/${path}`;
+	const organizationId = `/${id}`;
+	const root = `${baseURL}/organizations`;
 
 	let parameters = '';
 
@@ -25,18 +26,20 @@ export function endpointBuilder({baseURL, id = '0', path = '', queryParams = {}}
 export function callApi(parameters) {
 	return fetch(endpointBuilder(parameters))
 		.then(response => response.json())
-		.catch(e => {});
+		.catch(e => {
+		});
 }
 
-export const noop = () => {};
+export const noop = () => {
+};
 
 export const isNumber = value => typeof value === 'number';
 
 export const isArray = value => value instanceof Array;
 
 export function truncateTextNode() {
-	let text = this.innerHTML,
-		textLength = this.getComputedTextLength();
+	let text = this.innerHTML;
+	let textLength = this.getComputedTextLength();
 
 	while (textLength > 220) {
 		text = text.slice(0, -3);
@@ -75,14 +78,15 @@ export function setupDataset(data) {
 	const sanitizedData = Object.assign({}, data);
 
 	sanitizedData.organizations.length &&
-	sanitizedData.organizations.forEach((orgObject, index) => {
-		delete orgObject['organizations'];
+    sanitizedData.organizations.forEach(
+   	(orgObject, index) => {
+   		delete orgObject.organizations;
 
-		const prevColor = !!index ?
-			sanitizedData.organizations[index - 1] : null;
+   		const prevColor = index ?
+   			sanitizedData.organizations[index - 1] : null;
 
-		orgObject['colorIdentifier'] = `hsl(${getColorHue(prevColor)},75%,75%)`;
-	});
+   		orgObject.colorIdentifier = `hsl(${getColorHue(prevColor)},75%,75%)`;
+   	});
 
 	return sanitizedData;
 }

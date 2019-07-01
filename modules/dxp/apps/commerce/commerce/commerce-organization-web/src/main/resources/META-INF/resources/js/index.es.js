@@ -3,14 +3,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 export default function(componentId, id, props) {
-	const portletFrame = window.document.getElementById(id);
 	let instance = null;
+	const portletFrame = window.document.getElementById(id);
 
 	ReactDOM.render(
 		<OrgChartContainer
-			ref={component => {
-				instance = component;
-			}}
+			ref={
+				component => {
+					instance = component;
+				}
+			}
+
 			{...props}
 		/>, portletFrame);
 

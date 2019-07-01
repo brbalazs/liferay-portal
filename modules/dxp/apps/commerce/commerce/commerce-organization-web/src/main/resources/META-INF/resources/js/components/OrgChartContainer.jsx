@@ -61,7 +61,8 @@ class OrgChartContainer extends Component {
         const {
             apiURL,
             spritemap,
-            imagesPath
+            imagesPath,
+            namespace
         } = this.props;
 
         const {
@@ -75,6 +76,7 @@ class OrgChartContainer extends Component {
                 {!!rootData &&
                 <OrgChart
                     data={rootData}
+                    namespace={namespace}
                     onNodeClick={this.setSelection}
                     requestChildren={this.handleNodeClick}
                     selectedId={selectedId}

@@ -14,7 +14,7 @@
  */
 --%>
 
-<%@ include file="/init.jsp" %>
+<%@ taglib uri="http://java.sun.com/portlet" prefix="portlet" %>
 
 <%
 CommerceOrganizationDisplayContext commerceOrganizationDisplayContext = (CommerceOrganizationDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
@@ -109,29 +109,32 @@ NPMResolver npmResolver = NPMResolverProvider.getNPMResolver();
 
 <c:if test="<%= commerceOrganizationDisplayContext.hasAddOrganizationPermissions() %>">
 	<div class="commerce-cta is-visible">
-		<aui:button cssClass="commerce-button commerce-button--big add-organization-button" name="addOrganizationButton" value="add-organization" />
+		<aui:button cssClass="add-organization-button commerce-button commerce-button--big" name="addOrganizationButton" value="add-organization" />
 	</div>
 
 	<portlet:actionURL name="editCommerceOrganization" var="editCommerceOrganizationActionURL">
-		<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.ADD %>" />
 		<portlet:param name="redirect" value="<%= currentURL %>" />
-		<portlet:param name="organizationId" value="<%= String.valueOf(commerceOrganizationDisplayContext.getOrganizationId()) %>" />
 	</portlet:actionURL>
 
 	<aui:form action="<%= editCommerceOrganizationActionURL %>" method="post" name="organizationFm">
-		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.DELETE %>" />
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-		<aui:input name="organizationId" type="hidden" />
+		<aui:input name="organizationId" type="hidden" value="<%= String.valueOf(commerceOrganizationDisplayContext.getOrganizationId()) %>" />
 	</aui:form>
 
 	<aui:script require="metal-dom/src/all/dom as dom,frontend-js-web/liferay/modal/commands/OpenSimpleInputModal.es as modalCommands">
 		function handleAddOrganizationButtonClick(event) {
+			debugger;
 			event.preventDefault();
+
+			var organizationId = event.detail && event.detail.organizationId ? event.detail.organizationId : 0;
+			var command = event.detail && event.detail.action ? event.detail.action : 'add';
 
 			modalCommands.openSimpleInputModal(
 				{
 					dialogTitle: '<liferay-ui:message key="add-organization" />',
-					formSubmitURL: '<%= editCommerceOrganizationActionURL %>',
+					formSubmitURL: '<%= editCommerceOrganizationActionURL %>' +
+									'&<portlet:namespace />organizationId=' + organizationId +
+									'&<portlet:namespace />cmd=' + command,
 					mainFieldLabel: '<liferay-ui:message key="name" />',
 					mainFieldName: 'name',
 					mainFieldPlaceholder: '<liferay-ui:message key="name" />',
@@ -159,6 +162,7 @@ NPMResolver npmResolver = NPMResolverProvider.getNPMResolver();
 			window,
 			'deleteCommerceOrganization',
 			function(id) {
+				document.querySelector('#<portlet:namespace /><%= Constants.CMD %>').value = '<%= Constants.DELETE %>';
 				document.querySelector('#<portlet:namespace />organizationId').value = id;
 
 				submitForm(document.<portlet:namespace />organizationFm);

@@ -85,7 +85,6 @@ ul, li {
 	.org-chart-container {
 		min-height: 100%;
 
-
 		.org-chart {
 			.root-element {
 				display: none;
@@ -129,7 +128,7 @@ ul, li {
 						}
 
 						text {
-							fill: white;
+							fill: #FFF;
 						}
 					}
 				}
@@ -172,7 +171,6 @@ ul, li {
 				position: absolute;
 				right: 60px;
 				width: 122px;
-
 
 				&-button {
 					border-radius: 50%;
@@ -475,11 +473,11 @@ ul, li {
 				animation: showIn 0.3s ease 1 forwards;
 				box-sizing: border-box;
 				color: rgba(90, 92, 92, 0.51);
-				text-align: center;
 				display: flex;
-				justify-content: center;
-				height: 60vh;
 				flex-flow: column;
+				height: 60vh;
+				justify-content: center;
+				text-align: center;
 
 				p:nth-child(1) {
 					font-size: 8em;

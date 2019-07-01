@@ -37,7 +37,7 @@ Organization organization = commerceOrganizationDisplayContext.getOrganization()
 
 		<aui:model-context bean="<%= organization %>" model="<%= Organization.class %>" />
 
-		<div class="row">
+		<div class="row container-fluid">
 			<div class="col-lg-4 account-management__thumbnail-container">
 				<aui:fieldset>
 					<c:if test="<%= organization != null %>">
@@ -62,7 +62,6 @@ Organization organization = commerceOrganizationDisplayContext.getOrganization()
 
 			<div class="col-lg-4">
 				<aui:input name="name" />
-				<aui:input name="email" />
 			</div>
 		</div>
 
