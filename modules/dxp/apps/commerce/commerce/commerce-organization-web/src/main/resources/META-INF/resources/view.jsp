@@ -14,7 +14,7 @@
  */
 --%>
 
-<%@ taglib uri="http://java.sun.com/portlet" prefix="portlet" %>
+<%@ include file="/init.jsp" %>
 
 <%
 CommerceOrganizationDisplayContext commerceOrganizationDisplayContext = (CommerceOrganizationDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
