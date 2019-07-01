@@ -71,7 +71,7 @@ export function getColorHue(prevHue) {
 
 	return !prevHue ?
 		hue : isInRange(hue, (prevHue - 2), (prevHue + 3)) ?
-			((hue + 5) > 360) ? hue - 5 : hue + 5 : hue;
+			((hue + 15) > 360) ? hue - 15 : hue + 15 : hue;
 }
 
 export function setupDataset(data) {
