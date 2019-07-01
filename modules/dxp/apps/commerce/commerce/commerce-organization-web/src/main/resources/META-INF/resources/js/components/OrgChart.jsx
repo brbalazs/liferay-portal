@@ -211,12 +211,8 @@ class OrgChart extends Component {
         addButtonNodeGroup
             .attr('class', 'add-button-node')
             .on('click', (d) => {
-                const {organizationId} = d.data || {};
-                const organizationIdInput = w.document.getElementById(this._namespace + 'organizationId');
-
-                organizationIdInput.value = organizationId || 0;
-
-                const addOrganizationButton = document.querySelector('.add-organization-button'),
+                const {organizationId} = d.data || {},
+                    addOrganizationButton = document.querySelector('.add-organization-button'),
                     cmd = 'add',
                     mouseEvent = new CustomEvent('click', {
                         detail: {
