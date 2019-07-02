@@ -122,30 +122,33 @@ NPMResolver npmResolver = NPMResolverProvider.getNPMResolver();
 	</aui:form>
 
 	<aui:script require="metal-dom/src/all/dom as dom,frontend-js-web/liferay/modal/commands/OpenSimpleInputModal.es as modalCommands">
-		function handleAddOrganizationButtonClick(event) {
-			event.preventDefault();
+		Liferay.provide(
+			window,
+			'handleAddOrganizationButtonClick',
+			function(event) {
+				event.preventDefault();
 
-			var organizationId = event.detail && event.detail.organizationId ? event.detail.organizationId : 0;
-			var command = event.detail && event.detail.action ? event.detail.action : 'add';
-			var portletURL = new Liferay.PortletURL.createURL('<%= editCommerceOrganizationActionURL %>');
+				var organizationId = event.detail && event.detail.organizationId ? event.detail.organizationId : 0;
+				var command = event.detail && event.detail.action ? event.detail.action : 'add';
+				var portletURL = new Liferay.PortletURL.createURL('<%= editCommerceOrganizationActionURL %>');
 
-			portletURL.setParameter('cmd', command);
-			portletURL.setParameter('organizationId', organizationId);
+				portletURL.setParameter('cmd', command);
+				portletURL.setParameter('organizationId', organizationId);
 
-			modalCommands.openSimpleInputModal(
-				{
-					dialogTitle: '<liferay-ui:message key="add-organization" />',
-					formSubmitURL: portletURL,
-					mainFieldLabel: '<liferay-ui:message key="name" />',
-					mainFieldName: 'name',
-					mainFieldPlaceholder: '<liferay-ui:message key="name" />',
-					namespace: '<portlet:namespace />',
-					spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg'
-				}
-			);
-		}
+				modalCommands.openSimpleInputModal(
+					{
+						dialogTitle: '<liferay-ui:message key="add-organization" />',
+						formSubmitURL: portletURL.toString(),
+						mainFieldLabel: '<liferay-ui:message key="name" />',
+						mainFieldName: 'name',
+						mainFieldPlaceholder: '<liferay-ui:message key="name" />',
+						namespace: '<portlet:namespace />',
+						spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg'
+					}
+				);
+		}, ['liferay-portlet-url'])
 
-		function handleDestroyPortlet () {
+		function handleDestroyPortlet() {
 			addOrganizationButton.removeEventListener('click', handleAddOrganizationButtonClick);
 
 			Liferay.detach('destroyPortlet', handleDestroyPortlet);
