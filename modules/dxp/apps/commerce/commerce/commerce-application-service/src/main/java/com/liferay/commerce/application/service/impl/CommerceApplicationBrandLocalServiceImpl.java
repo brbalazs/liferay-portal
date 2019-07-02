@@ -23,7 +23,7 @@ import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.ServiceProxyFactory;
+import com.liferay.portal.kernel.util.ProxyFactory;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.users.admin.kernel.file.uploads.UserFileUploadsSettings;
 
@@ -146,10 +146,10 @@ public class CommerceApplicationBrandLocalServiceImpl
 	}
 
 	private static volatile UserFileUploadsSettings _userFileUploadsSettings =
-		ServiceProxyFactory.newServiceTrackedInstance(
+		ProxyFactory.newServiceTrackedInstance(
 			UserFileUploadsSettings.class,
 			CommerceApplicationBrandLocalServiceImpl.class,
-			"_userFileUploadsSettings", false);
+			"_userFileUploadsSettings");
 
 	@ServiceReference(type = Portal.class)
 	private Portal _portal;
