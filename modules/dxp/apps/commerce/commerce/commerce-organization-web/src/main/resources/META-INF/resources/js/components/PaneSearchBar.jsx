@@ -27,7 +27,7 @@ class PaneSearchBar extends Component {
                                tabIndex='4' type='text'
                                onChange={onLookUp}
                                name='search-user'
-                               placeholder={`${getLocalizedText('search-user')}...`}
+                               placeholder={`${getLocalizedText('search')}...`}
                         />
 					</span>
                     <span>
