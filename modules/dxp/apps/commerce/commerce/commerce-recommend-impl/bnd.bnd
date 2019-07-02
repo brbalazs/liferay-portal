@@ -1,4 +1,0 @@
-Bundle-Name: Liferay Commerce Recommend Implementation
-Bundle-SymbolicName: com.liferay.commerce.recommend.impl
-Bundle-Version: 1.0.8
-Web-ContextPath: /commerce-recommend-impl

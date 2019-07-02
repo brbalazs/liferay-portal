@@ -52,7 +52,7 @@ public class CommerceContentRecommendJSPContributor
 	private JSPRenderer _jspRenderer;
 
 	@Reference(
-		target = "(osgi.web.symbolicname=com.liferay.commerce.recommend.impl)"
+		target = "(osgi.web.symbolicname=com.liferay.commerce.machine.learning.impl)"
 	)
 	private ServletContext _servletContext;
 
