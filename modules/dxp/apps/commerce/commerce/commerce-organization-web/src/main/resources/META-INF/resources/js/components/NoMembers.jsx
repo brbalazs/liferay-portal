@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Icon from './Icon';
+import {getLocalizedText} from "../utils/utils.es";
 
 function NoMembers(props) {
     return(
@@ -8,7 +9,7 @@ function NoMembers(props) {
             <p>
                 <Icon symbol={'close'} spritemap={props.spritemap} />
             </p>
-            <p>No members found at this level</p>
+            <p>{ getLocalizedText('no-members-found') }</p>
         </div>
     );
 }

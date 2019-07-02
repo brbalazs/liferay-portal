@@ -1,3 +1,5 @@
+import w from "./window.es";
+
 function serializeParams(params) {
 	return Object.keys(params).map(
 		key =>
@@ -26,8 +28,7 @@ export function endpointBuilder({baseURL, id = '0', path = '', queryParams = {}}
 export function callApi(parameters) {
 	return fetch(endpointBuilder(parameters))
 		.then(response => response.json())
-		.catch(e => {
-		});
+		.catch(e => { console.log('Failed to fetch:', e); });
 }
 
 export const noop = () => {
@@ -89,4 +90,13 @@ export function setupDataset(data) {
    	});
 
 	return sanitizedData;
+}
+
+export function getLocalizedText(string) {
+	try {
+		return w.Liferay.Language.get(string);
+	} catch (error) {
+		console.log(error);
+		return string;
+	}
 }

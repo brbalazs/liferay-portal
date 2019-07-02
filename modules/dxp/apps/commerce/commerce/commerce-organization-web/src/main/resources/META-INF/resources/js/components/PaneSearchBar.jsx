@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Icon from './Icon';
+import {getLocalizedText} from "../utils/utils.es";
 
 class PaneSearchBar extends Component {
     constructor(props) {
@@ -26,7 +27,7 @@ class PaneSearchBar extends Component {
                                tabIndex='4' type='text'
                                onChange={onLookUp}
                                name='search-user'
-                               placeholder='Search user...'
+                               placeholder={`${getLocalizedText('search-user')}...`}
                         />
 					</span>
                     <span>

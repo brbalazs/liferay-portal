@@ -109,7 +109,7 @@ NPMResolver npmResolver = NPMResolverProvider.getNPMResolver();
 
 <c:if test="<%= commerceOrganizationDisplayContext.hasAddOrganizationPermissions() %>">
 	<div class="commerce-cta is-visible">
-		<aui:button cssClass="add-organization-button commerce-button commerce-button--big" name="addOrganizationButton" value="add-organization" />
+		<aui:button cssClass="commerce-button commerce-button--big" name="addOrganizationButton" value="add-organization" />
 	</div>
 
 	<portlet:actionURL name="editCommerceOrganization" var="editCommerceOrganizationActionURL">
@@ -127,13 +127,15 @@ NPMResolver npmResolver = NPMResolverProvider.getNPMResolver();
 
 			var organizationId = event.detail && event.detail.organizationId ? event.detail.organizationId : 0;
 			var command = event.detail && event.detail.action ? event.detail.action : 'add';
+			var portletURL = new Liferay.PortletURL.createURL('<%= editCommerceOrganizationActionURL %>');
+
+			portletURL.setParameter('cmd', command);
+			portletURL.setParameter('organizationId', organizationId);
 
 			modalCommands.openSimpleInputModal(
 				{
 					dialogTitle: '<liferay-ui:message key="add-organization" />',
-					formSubmitURL: '<%= editCommerceOrganizationActionURL %>' +
-									'&<portlet:namespace />organizationId=' + organizationId +
-									'&<portlet:namespace />cmd=' + command,
+					formSubmitURL: portletURL,
 					mainFieldLabel: '<liferay-ui:message key="name" />',
 					mainFieldName: 'name',
 					mainFieldPlaceholder: '<liferay-ui:message key="name" />',

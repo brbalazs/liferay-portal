@@ -1,18 +1,10 @@
 import React, { Fragment } from 'react'
-
-function convertString(string) {
-	try {
-		return window.Liferay.Language.get(string);
-	} catch (error) {
-		console.log(error);
-		return string;
-	}
-}
+import { getLocalizedText } from "../utils/utils.es";
 
 export default function LocalizedText(props) {
 	return(
 		<Fragment>
-			{ convertString(props.children) }
+			{ getLocalizedText(props.children) }
 		</Fragment>
 	)
 }

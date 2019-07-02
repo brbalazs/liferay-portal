@@ -53,9 +53,6 @@ function fetchMembers(apiURL, orgId, listBy, q = '') {
                 members: membersData[collectionPath]
             };
         })
-        .catch(e => {
-
-        });
 }
 
 function filterMembers(name, members) {

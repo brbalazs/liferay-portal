@@ -9,7 +9,8 @@ import {
     isNumber,
     isArray,
     truncateTextNode,
-    bindAll
+    bindAll,
+    getLocalizedText
 } from '../utils/utils.es';
 
 class OrgChart extends Component {
@@ -200,9 +201,10 @@ class OrgChart extends Component {
         secondaryInfoNode.text(
             ({data}) => {
                 const {organizationsTotal} = data;
+                const label = 'sub-organizations';
 
                 return !!organizationsTotal ?
-                    `${organizationsTotal} sub-organizations` : '';
+                    `${organizationsTotal} ${getLocalizedText(label)}` : '';
             }
         );
 
@@ -212,7 +214,7 @@ class OrgChart extends Component {
             .attr('class', 'add-button-node')
             .on('click', (d) => {
                 const {organizationId} = d.data || {},
-                    addOrganizationButton = document.querySelector('.add-organization-button'),
+                    addOrganizationButton = document.querySelector(`#${this._namespace}addOrganizationButton`),
                     cmd = 'add',
                     mouseEvent = new CustomEvent('click', {
                         detail: {

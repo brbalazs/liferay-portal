@@ -1,4 +1,5 @@
 import React from 'react';
+import {getLocalizedText} from "../utils/utils.es";
 
 export default function PaneOrgInfo(props) {
     const {showMenu, orgName, childrenNo, colorIdentifier} = props;
@@ -9,9 +10,9 @@ export default function PaneOrgInfo(props) {
                  style={{backgroundColor: colorIdentifier}}></div>
             <div className='org-data'>
                 <p>{orgName}</p>
-                <p>{!!childrenNo ? `${childrenNo} sub-organizations` : 'Sub-organization'}</p>
+                <p>{!!childrenNo ? `${childrenNo} ${getLocalizedText('sub-organizations')}` : `${getLocalizedText('sub-organization')}`}</p>
             </div>
-            <div role='button' onClick={showMenu} tabIndex='1' className='org-actions'>
+            <div role='button' tabIndex='1' className='org-actions'>
                 <p style={{display: 'none'}}>&sdot;&sdot;&sdot;</p>
             </div>
         </div>
