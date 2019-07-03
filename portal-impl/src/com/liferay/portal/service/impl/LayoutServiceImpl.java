@@ -1580,7 +1580,7 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 
 		Trigger trigger = TriggerFactoryUtil.createTrigger(
 			PortalUUIDUtil.generate(), groupName, schedulerStartDate,
-			schedulerEndDate, TimeZone.getTimeZone(timeZoneId), cronText);
+			schedulerEndDate, cronText, TimeZone.getTimeZone(timeZoneId));
 
 		User user = userPersistence.findByPrimaryKey(getUserId());
 
@@ -1696,7 +1696,7 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 
 		Trigger trigger = TriggerFactoryUtil.createTrigger(
 			PortalUUIDUtil.generate(), groupName, schedulerStartDate,
-			schedulerEndDate, TimeZone.getTimeZone(timeZoneId), cronText);
+			schedulerEndDate, cronText, TimeZone.getTimeZone(timeZoneId));
 
 		User user = userPersistence.findByPrimaryKey(getUserId());
 
