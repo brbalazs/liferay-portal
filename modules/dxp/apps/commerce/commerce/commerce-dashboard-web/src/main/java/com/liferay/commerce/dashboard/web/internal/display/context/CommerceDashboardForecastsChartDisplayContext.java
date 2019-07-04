@@ -35,6 +35,8 @@ import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.exception.NoSuchCompanyException;
 import com.liferay.portal.kernel.exception.NoSuchOrganizationException;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
@@ -435,6 +437,9 @@ public class CommerceDashboardForecastsChartDisplayContext
 		return calendar.getTime();
 	}
 
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceDashboardForecastsChartDisplayContext.class);
+
 	private static final Format _dateFormat =
 		FastDateFormatFactoryUtil.getSimpleDateFormat("yyyy-MM-dd");
 
@@ -492,6 +497,10 @@ public class CommerceDashboardForecastsChartDisplayContext
 					return commerceAccount.getName();
 				}
 				catch (NoSuchOrganizationException nsoe) {
+					if (_log.isDebugEnabled()) {
+						_log.debug(nsoe, nsoe);
+					}
+
 					return String.valueOf(customerId);
 				}
 			}
@@ -504,6 +513,10 @@ public class CommerceDashboardForecastsChartDisplayContext
 				return company.getName();
 			}
 			catch (NoSuchCompanyException nsce) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(nsce, nsce);
+				}
+
 				return String.valueOf(companyId);
 			}
 		}
