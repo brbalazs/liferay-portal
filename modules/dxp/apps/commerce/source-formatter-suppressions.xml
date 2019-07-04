@@ -6,7 +6,4 @@
 		<suppress checks="MissingEmptyLineCheck" files="commerce-cloud/server/src/main/java/com/liferay/commerce/cloud/server/HttpServerVerticle\.java" />
 		<suppress checks="VariableDeclarationAsUsedCheck" files=".*" />
 	</checkstyle>
-	<source-check>
-		<suppress checks="JSONDeprecatedPackagesCheck" files="commerce/commerce-dashboard-web/package\.json" />
-	</source-check>
 </suppressions>
