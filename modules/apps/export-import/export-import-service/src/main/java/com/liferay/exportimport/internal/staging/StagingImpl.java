@@ -3010,12 +3010,13 @@ public class StagingImpl implements Staging {
 				layoutIds = GetterUtil.getLongValues(
 					settingsMap.get("layoutIds"));
 
-				Map<String, String[]> requestParameterMap =
+				Map<String, String[]> portletRequestParameterMap =
 					portletRequest.getParameterMap();
 
-				if (requestParameterMap.containsKey("timeZoneId")) {
+				if (portletRequestParameterMap.containsKey("timeZoneId")) {
 					parameterMap.put(
-						"timeZoneId", requestParameterMap.get("timeZoneId"));
+						"timeZoneId",
+						portletRequestParameterMap.get("timeZoneId"));
 				}
 			}
 		}
