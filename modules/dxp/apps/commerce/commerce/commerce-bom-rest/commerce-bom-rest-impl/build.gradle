@@ -6,7 +6,7 @@ dependencies {
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.bom.api", version: "1.0.0"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.bom.rest.api", version: "1.0.0"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.media.api", version: "1.1.0"
-	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.product.api", version: "9.0.1-20190621.103657-1"
+	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.product.api", version: "10.0.0-20190704.162049-7"
 	compileOnly group: "com.liferay.commerce", name: "com.liferay.headless.commerce.core.api", version: "1.0.0"
 	compileOnly group: "com.liferay.portal", name: "release.portal.api", version: "7.1.1"
 	compileOnly group: "io.github.graphql-java", name: "graphql-java-annotations", version: "5.4"
