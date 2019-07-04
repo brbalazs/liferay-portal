@@ -102,7 +102,6 @@ public class ExportImportDateUtil {
 			portletRequest, paramPrefix + "Minute");
 		int dateAmPm = ParamUtil.getInteger(
 			portletRequest, paramPrefix + "AmPm");
-
 		TimeZone timeZone = TimeZoneUtil.getTimeZone(
 			ParamUtil.getString(portletRequest, "timeZoneId"));
 
