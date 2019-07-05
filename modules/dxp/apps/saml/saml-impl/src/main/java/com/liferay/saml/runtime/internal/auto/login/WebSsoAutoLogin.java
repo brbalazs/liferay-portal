@@ -42,7 +42,8 @@ public class WebSsoAutoLogin extends BaseAutoLogin {
 
 	@Override
 	protected String[] doLogin(
-			HttpServletRequest request, HttpServletResponse response)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse)
 		throws AutoLoginException {
 
 		try {
@@ -53,13 +54,13 @@ public class WebSsoAutoLogin extends BaseAutoLogin {
 			}
 
 			String samlSsoSessionId = CookieKeys.getCookie(
-				request, SamlWebKeys.SAML_SSO_SESSION_ID);
+				httpServletRequest, SamlWebKeys.SAML_SSO_SESSION_ID);
 
 			if (Validator.isNull(samlSsoSessionId)) {
 				return null;
 			}
 
-			HttpSession session = request.getSession(false);
+			HttpSession session = httpServletRequest.getSession(false);
 
 			if (session != null) {
 				boolean forceReauthentication = GetterUtil.getBoolean(

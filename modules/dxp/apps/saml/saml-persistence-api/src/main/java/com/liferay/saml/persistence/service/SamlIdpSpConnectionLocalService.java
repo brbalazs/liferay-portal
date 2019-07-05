@@ -14,8 +14,6 @@
 
 package com.liferay.saml.persistence.service;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
@@ -38,6 +36,8 @@ import java.io.InputStream;
 import java.io.Serializable;
 
 import java.util.List;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * Provides the local service interface for SamlIdpSpConnection. Methods of this
@@ -76,7 +76,7 @@ public interface SamlIdpSpConnectionLocalService
 	public SamlIdpSpConnection addSamlIdpSpConnection(
 			String samlSpEntityId, int assertionLifetime, String attributeNames,
 			boolean attributesEnabled, boolean attributesNamespaceEnabled,
-			boolean enabled, String metadataUrl,
+			boolean enabled, boolean encryptionForced, String metadataUrl,
 			InputStream metadataXmlInputStream, String name,
 			String nameIdAttribute, String nameIdFormat,
 			ServiceContext serviceContext)
@@ -271,7 +271,7 @@ public interface SamlIdpSpConnectionLocalService
 			long samlIdpSpConnectionId, String samlSpEntityId,
 			int assertionLifetime, String attributeNames,
 			boolean attributesEnabled, boolean attributesNamespaceEnabled,
-			boolean enabled, String metadataUrl,
+			boolean enabled, boolean encryptionForced, String metadataUrl,
 			InputStream metadataXmlInputStream, String name,
 			String nameIdAttribute, String nameIdFormat,
 			ServiceContext serviceContext)

@@ -29,16 +29,20 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.opensaml.common.binding.SAMLMessageContext;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.saml2.core.Attribute;
-import org.opensaml.saml2.core.AttributeStatement;
-import org.opensaml.saml2.core.NameID;
-import org.opensaml.saml2.core.Response;
-import org.opensaml.saml2.core.Subject;
-import org.opensaml.saml2.core.SubjectConfirmation;
-import org.opensaml.saml2.metadata.IDPSSODescriptor;
-import org.opensaml.saml2.metadata.SingleSignOnService;
+import org.opensaml.messaging.context.InOutOperationContext;
+import org.opensaml.messaging.context.MessageContext;
+import org.opensaml.saml.common.messaging.context.SAMLMetadataContext;
+import org.opensaml.saml.common.messaging.context.SAMLPeerEntityContext;
+import org.opensaml.saml.common.messaging.context.SAMLSubjectNameIdentifierContext;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.saml.saml2.core.Attribute;
+import org.opensaml.saml.saml2.core.AttributeStatement;
+import org.opensaml.saml.saml2.core.NameID;
+import org.opensaml.saml.saml2.core.Response;
+import org.opensaml.saml.saml2.core.Subject;
+import org.opensaml.saml.saml2.core.SubjectConfirmation;
+import org.opensaml.saml.saml2.metadata.IDPSSODescriptor;
+import org.opensaml.saml.saml2.metadata.SingleSignOnService;
 
 /**
  * @author Carlos Sierra Andrés
@@ -51,11 +55,27 @@ public interface SAMLCommands {
 				Properties userAttributeMappingsProperties) {
 
 		return new UserResolverSAMLCommand<>(
-			samlMessageContext -> {
-				Response response = samlMessageContext.getInboundSAMLMessage();
+			messageContext -> {
+				InOutOperationContext inOutOperationContext =
+					messageContext.getSubcontext(
+						InOutOperationContext.class, false);
+
+				if (inOutOperationContext == null) {
+					return Collections.emptyMap();
+				}
+
+				MessageContext inboundMessageContext =
+					inOutOperationContext.getInboundMessageContext();
+
+				if (inboundMessageContext == null) {
+					return Collections.emptyMap();
+				}
+
+				Response response =
+					(Response)inboundMessageContext.getMessage();
 
 				if (response == null) {
-					return Collections.<String, List<Serializable>>emptyMap();
+					return Collections.emptyMap();
 				}
 
 				List<Assertion> assertions = response.getAssertions();
@@ -115,10 +135,13 @@ public interface SAMLCommands {
 		ssoServicesLocationForBinding(String binding) {
 
 		return new AttributeResolverSAMLCommand<>(
-			samlMessageContext -> {
+			messageContext -> {
+				SAMLMetadataContext samlMetadataContext =
+					messageContext.getSubcontext(
+						SAMLMetadataContext.class, false);
+
 				IDPSSODescriptor idpSSODescriptor =
-					(IDPSSODescriptor)
-						samlMessageContext.getLocalEntityRoleMetadata();
+					(IDPSSODescriptor)samlMetadataContext.getRoleDescriptor();
 
 				if (idpSSODescriptor == null) {
 					return null;
@@ -145,12 +168,25 @@ public interface SAMLCommands {
 	}
 
 	public Resolver.SAMLCommand<String, Resolver> peerEntityId =
-		new SAMLCommandImpl<>(SAMLMessageContext::getPeerEntityId);
+		new SAMLCommandImpl<>(
+			messageContext -> {
+				SAMLPeerEntityContext samlPeerEntityContext =
+					messageContext.getSubcontext(
+						SAMLPeerEntityContext.class, false);
+
+				return samlPeerEntityContext.getEntityId();
+			});
 
 	public Resolver.SAMLCommand<String, Resolver> subjectNameFormat =
 		new SAMLCommandImpl<>(
-			samlMessageContext -> {
-				NameID nameID = samlMessageContext.getSubjectNameIdentifier();
+			messageContext -> {
+				SAMLSubjectNameIdentifierContext
+					samlSubjectNameIdentifierContext =
+						messageContext.getSubcontext(
+							SAMLSubjectNameIdentifierContext.class, false);
+
+				NameID nameID =
+					samlSubjectNameIdentifierContext.getSAML2SubjectNameID();
 
 				if (nameID == null) {
 					return null;
@@ -161,8 +197,14 @@ public interface SAMLCommands {
 
 	public Resolver.SAMLCommand<String, Resolver> subjectNameIdentifier =
 		new SAMLCommandImpl<>(
-			samlMessageContext -> {
-				NameID nameID = samlMessageContext.getSubjectNameIdentifier();
+			messageContext -> {
+				SAMLSubjectNameIdentifierContext
+					samlSubjectNameIdentifierContext =
+						messageContext.getSubcontext(
+							SAMLSubjectNameIdentifierContext.class, false);
+
+				NameID nameID =
+					samlSubjectNameIdentifierContext.getSAML2SubjectNameID();
 
 				if (nameID == null) {
 					return null;

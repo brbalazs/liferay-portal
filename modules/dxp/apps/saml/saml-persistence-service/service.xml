@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_1_0.dtd">
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_2_0.dtd">
 
 <service-builder auto-namespace-tables="false" package-path="com.liferay.saml.persistence">
 	<author>Mika Koivisto</author>
@@ -26,6 +26,7 @@
 		<column name="attributesEnabled" type="boolean" />
 		<column name="attributesNamespaceEnabled" type="boolean" />
 		<column name="enabled" type="boolean" />
+		<column name="encryptionForced" type="boolean" />
 		<column name="metadataUrl" type="String" />
 		<column name="metadataXml" type="String" />
 		<column name="metadataUpdatedDate" type="Date" />
@@ -210,6 +211,7 @@
 
 		<!-- Other fields -->
 
+		<column name="samlIdpEntityId" type="String" />
 		<column name="samlSpSessionKey" type="String" />
 		<column name="assertionXml" type="String" />
 		<column name="jSessionId" type="String" />

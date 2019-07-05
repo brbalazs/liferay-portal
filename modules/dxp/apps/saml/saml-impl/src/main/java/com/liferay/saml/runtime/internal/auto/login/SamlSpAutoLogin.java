@@ -23,7 +23,7 @@ import com.liferay.portal.kernel.security.auto.login.BaseAutoLogin;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.saml.persistence.model.SamlSpSession;
 import com.liferay.saml.runtime.configuration.SamlProviderConfigurationHelper;
-import com.liferay.saml.runtime.profile.WebSsoProfile;
+import com.liferay.saml.runtime.servlet.profile.WebSsoProfile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +39,8 @@ public class SamlSpAutoLogin extends BaseAutoLogin {
 
 	@Override
 	protected String[] doLogin(
-			HttpServletRequest request, HttpServletResponse response)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse)
 		throws AutoLoginException {
 
 		try {
@@ -50,7 +51,7 @@ public class SamlSpAutoLogin extends BaseAutoLogin {
 			}
 
 			SamlSpSession samlSpSession = _webSsoProfile.getSamlSpSession(
-				request);
+				httpServletRequest);
 
 			if (samlSpSession == null) {
 				return null;

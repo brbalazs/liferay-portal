@@ -14,8 +14,7 @@
 
 package com.liferay.saml.persistence.service.persistence.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -29,7 +28,6 @@ import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.saml.persistence.exception.NoSuchSpAuthRequestException;
@@ -46,13 +44,11 @@ import java.sql.Timestamp;
 
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The persistence implementation for the saml sp auth request service.
@@ -937,6 +933,10 @@ public class SamlSpAuthRequestPersistenceImpl
 
 	public SamlSpAuthRequestPersistenceImpl() {
 		setModelClass(SamlSpAuthRequest.class);
+
+		setModelImplClass(SamlSpAuthRequestImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**
@@ -1295,165 +1295,12 @@ public class SamlSpAuthRequestPersistenceImpl
 	/**
 	 * Returns the saml sp auth request with the primary key or returns <code>null</code> if it could not be found.
 	 *
-	 * @param primaryKey the primary key of the saml sp auth request
-	 * @return the saml sp auth request, or <code>null</code> if a saml sp auth request with the primary key could not be found
-	 */
-	@Override
-	public SamlSpAuthRequest fetchByPrimaryKey(Serializable primaryKey) {
-		Serializable serializable = entityCache.getResult(
-			SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-			SamlSpAuthRequestImpl.class, primaryKey);
-
-		if (serializable == nullModel) {
-			return null;
-		}
-
-		SamlSpAuthRequest samlSpAuthRequest = (SamlSpAuthRequest)serializable;
-
-		if (samlSpAuthRequest == null) {
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				samlSpAuthRequest = (SamlSpAuthRequest)session.get(
-					SamlSpAuthRequestImpl.class, primaryKey);
-
-				if (samlSpAuthRequest != null) {
-					cacheResult(samlSpAuthRequest);
-				}
-				else {
-					entityCache.putResult(
-						SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-						SamlSpAuthRequestImpl.class, primaryKey, nullModel);
-				}
-			}
-			catch (Exception e) {
-				entityCache.removeResult(
-					SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-					SamlSpAuthRequestImpl.class, primaryKey);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return samlSpAuthRequest;
-	}
-
-	/**
-	 * Returns the saml sp auth request with the primary key or returns <code>null</code> if it could not be found.
-	 *
 	 * @param samlSpAuthnRequestId the primary key of the saml sp auth request
 	 * @return the saml sp auth request, or <code>null</code> if a saml sp auth request with the primary key could not be found
 	 */
 	@Override
 	public SamlSpAuthRequest fetchByPrimaryKey(long samlSpAuthnRequestId) {
 		return fetchByPrimaryKey((Serializable)samlSpAuthnRequestId);
-	}
-
-	@Override
-	public Map<Serializable, SamlSpAuthRequest> fetchByPrimaryKeys(
-		Set<Serializable> primaryKeys) {
-
-		if (primaryKeys.isEmpty()) {
-			return Collections.emptyMap();
-		}
-
-		Map<Serializable, SamlSpAuthRequest> map =
-			new HashMap<Serializable, SamlSpAuthRequest>();
-
-		if (primaryKeys.size() == 1) {
-			Iterator<Serializable> iterator = primaryKeys.iterator();
-
-			Serializable primaryKey = iterator.next();
-
-			SamlSpAuthRequest samlSpAuthRequest = fetchByPrimaryKey(primaryKey);
-
-			if (samlSpAuthRequest != null) {
-				map.put(primaryKey, samlSpAuthRequest);
-			}
-
-			return map;
-		}
-
-		Set<Serializable> uncachedPrimaryKeys = null;
-
-		for (Serializable primaryKey : primaryKeys) {
-			Serializable serializable = entityCache.getResult(
-				SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpAuthRequestImpl.class, primaryKey);
-
-			if (serializable != nullModel) {
-				if (serializable == null) {
-					if (uncachedPrimaryKeys == null) {
-						uncachedPrimaryKeys = new HashSet<Serializable>();
-					}
-
-					uncachedPrimaryKeys.add(primaryKey);
-				}
-				else {
-					map.put(primaryKey, (SamlSpAuthRequest)serializable);
-				}
-			}
-		}
-
-		if (uncachedPrimaryKeys == null) {
-			return map;
-		}
-
-		StringBundler query = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
-
-		query.append(_SQL_SELECT_SAMLSPAUTHREQUEST_WHERE_PKS_IN);
-
-		for (Serializable primaryKey : uncachedPrimaryKeys) {
-			query.append((long)primaryKey);
-
-			query.append(",");
-		}
-
-		query.setIndex(query.index() - 1);
-
-		query.append(")");
-
-		String sql = query.toString();
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			Query q = session.createQuery(sql);
-
-			for (SamlSpAuthRequest samlSpAuthRequest :
-					(List<SamlSpAuthRequest>)q.list()) {
-
-				map.put(
-					samlSpAuthRequest.getPrimaryKeyObj(), samlSpAuthRequest);
-
-				cacheResult(samlSpAuthRequest);
-
-				uncachedPrimaryKeys.remove(
-					samlSpAuthRequest.getPrimaryKeyObj());
-			}
-
-			for (Serializable primaryKey : uncachedPrimaryKeys) {
-				entityCache.putResult(
-					SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-					SamlSpAuthRequestImpl.class, primaryKey, nullModel);
-			}
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-
-		return map;
 	}
 
 	/**
@@ -1653,6 +1500,21 @@ public class SamlSpAuthRequestPersistenceImpl
 	}
 
 	@Override
+	protected EntityCache getEntityCache() {
+		return entityCache;
+	}
+
+	@Override
+	protected String getPKDBName() {
+		return "samlSpAuthnRequestId";
+	}
+
+	@Override
+	protected String getSelectSQL() {
+		return _SQL_SELECT_SAMLSPAUTHREQUEST;
+	}
+
+	@Override
 	protected Map<String, Integer> getTableColumnsMap() {
 		return SamlSpAuthRequestModelImpl.TABLE_COLUMNS_MAP;
 	}
@@ -1735,9 +1597,6 @@ public class SamlSpAuthRequestPersistenceImpl
 
 	private static final String _SQL_SELECT_SAMLSPAUTHREQUEST =
 		"SELECT samlSpAuthRequest FROM SamlSpAuthRequest samlSpAuthRequest";
-
-	private static final String _SQL_SELECT_SAMLSPAUTHREQUEST_WHERE_PKS_IN =
-		"SELECT samlSpAuthRequest FROM SamlSpAuthRequest samlSpAuthRequest WHERE samlSpAuthnRequestId IN (";
 
 	private static final String _SQL_SELECT_SAMLSPAUTHREQUEST_WHERE =
 		"SELECT samlSpAuthRequest FROM SamlSpAuthRequest samlSpAuthRequest WHERE ";

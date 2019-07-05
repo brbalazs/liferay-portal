@@ -14,9 +14,9 @@
 
 package com.liferay.saml.persistence.service;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.service.ServiceWrapper;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * Provides a wrapper for {@link SamlSpSessionLocalService}.
@@ -51,17 +51,17 @@ public class SamlSpSessionLocalServiceWrapper
 
 	@Override
 	public com.liferay.saml.persistence.model.SamlSpSession addSamlSpSession(
-			String samlSpSessionKey, String assertionXml, String jSessionId,
-			String nameIdFormat, String nameIdNameQualifier,
-			String nameIdSPNameQualifier, String nameIdValue,
-			String sessionIndex,
+			String samlIdpEntityId, String samlSpSessionKey,
+			String assertionXml, String jSessionId, String nameIdFormat,
+			String nameIdNameQualifier, String nameIdSPNameQualifier,
+			String nameIdValue, String sessionIndex,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _samlSpSessionLocalService.addSamlSpSession(
-			samlSpSessionKey, assertionXml, jSessionId, nameIdFormat,
-			nameIdNameQualifier, nameIdSPNameQualifier, nameIdValue,
-			sessionIndex, serviceContext);
+			samlIdpEntityId, samlSpSessionKey, assertionXml, jSessionId,
+			nameIdFormat, nameIdNameQualifier, nameIdSPNameQualifier,
+			nameIdValue, sessionIndex, serviceContext);
 	}
 
 	/**
@@ -358,17 +358,18 @@ public class SamlSpSessionLocalServiceWrapper
 
 	@Override
 	public com.liferay.saml.persistence.model.SamlSpSession updateSamlSpSession(
-			long samlSpSessionId, String samlSpSessionKey, String assertionXml,
-			String jSessionId, String nameIdFormat, String nameIdNameQualifier,
+			long samlSpSessionId, String samlIdpEntityId,
+			String samlSpSessionKey, String assertionXml, String jSessionId,
+			String nameIdFormat, String nameIdNameQualifier,
 			String nameIdSPNameQualifier, String nameIdValue,
 			String sessionIndex,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _samlSpSessionLocalService.updateSamlSpSession(
-			samlSpSessionId, samlSpSessionKey, assertionXml, jSessionId,
-			nameIdFormat, nameIdNameQualifier, nameIdSPNameQualifier,
-			nameIdValue, sessionIndex, serviceContext);
+			samlSpSessionId, samlIdpEntityId, samlSpSessionKey, assertionXml,
+			jSessionId, nameIdFormat, nameIdNameQualifier,
+			nameIdSPNameQualifier, nameIdValue, sessionIndex, serviceContext);
 	}
 
 	/**

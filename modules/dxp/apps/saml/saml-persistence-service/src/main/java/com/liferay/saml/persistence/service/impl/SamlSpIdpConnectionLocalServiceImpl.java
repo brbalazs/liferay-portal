@@ -57,9 +57,11 @@ public class SamlSpIdpConnectionLocalServiceImpl
 				"SAML IDP entity ID is null");
 		}
 
-		if (samlSpIdpConnectionPersistence.fetchByC_SIEI(
-				serviceContext.getCompanyId(), samlIdpEntityId) != null) {
+		SamlSpIdpConnection existingSamlSpIdpConnection =
+			samlSpIdpConnectionPersistence.fetchByC_SIEI(
+				serviceContext.getCompanyId(), samlIdpEntityId);
 
+		if (existingSamlSpIdpConnection != null) {
 			throw new DuplicateSamlSpIdpConnectionSamlIdpEntityIdException(
 				"Duplicate SAML SP IDP connection for " + samlIdpEntityId);
 		}
@@ -223,12 +225,15 @@ public class SamlSpIdpConnectionLocalServiceImpl
 			samlSpIdpConnectionPersistence.findByPrimaryKey(
 				samlSpIdpConnectionId);
 
-		if (!samlIdpEntityId.equals(samlSpIdpConnection.getSamlIdpEntityId()) &&
-			(samlSpIdpConnectionPersistence.fetchByC_SIEI(
-				serviceContext.getCompanyId(), samlIdpEntityId) != null)) {
+		if (!samlIdpEntityId.equals(samlSpIdpConnection.getSamlIdpEntityId())) {
+			SamlSpIdpConnection existingSamlSpIdpConnection =
+				samlSpIdpConnectionPersistence.fetchByC_SIEI(
+					serviceContext.getCompanyId(), samlIdpEntityId);
 
-			throw new DuplicateSamlSpIdpConnectionSamlIdpEntityIdException(
-				"Duplicate SAML SP IDP connection for " + samlIdpEntityId);
+			if (existingSamlSpIdpConnection != null) {
+				throw new DuplicateSamlSpIdpConnectionSamlIdpEntityIdException(
+					"Duplicate SAML SP IDP connection for " + samlIdpEntityId);
+			}
 		}
 
 		samlSpIdpConnection.setCompanyId(serviceContext.getCompanyId());
@@ -244,7 +249,7 @@ public class SamlSpIdpConnectionLocalServiceImpl
 		samlSpIdpConnection.setLdapImportEnabled(ldapImportEnabled);
 		samlSpIdpConnection.setMetadataUpdatedDate(now);
 
-		if ((metadataXmlInputStream == null) &&
+		if (enabled && (metadataXmlInputStream == null) &&
 			Validator.isNotNull(metadataUrl)) {
 
 			samlSpIdpConnection.setMetadataUrl(metadataUrl);

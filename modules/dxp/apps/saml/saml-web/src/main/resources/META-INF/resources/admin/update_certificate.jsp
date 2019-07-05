@@ -29,6 +29,8 @@ String certificateOrganizationUnit = ParamUtil.getString(request, "certificateOr
 String certificateState = ParamUtil.getString(request, "certificateState");
 String certificateValidityDays = ParamUtil.getString(request, "certificateValidityDays", "356");
 
+LocalEntityManager.CertificateUsage certificateUsage = LocalEntityManager.CertificateUsage.valueOf(ParamUtil.getString(request, "certificateUsage"));
+
 X509Certificate x509Certificate = (X509Certificate)request.getAttribute(SamlWebKeys.SAML_X509_CERTIFICATE);
 %>
 
@@ -59,6 +61,8 @@ X509Certificate x509Certificate = (X509Certificate)request.getAttribute(SamlWebK
 
 				<aui:input name="cmd" type="hidden" value="<%= cmd %>" />
 
+				<aui:input name="certificateUsage" required="<%= true %>" type="hidden" value="<%= certificateUsage.name() %>" />
+
 				<c:choose>
 					<c:when test='<%= cmd.equals("replace") %>'>
 						<aui:input label="common-name" name="certificateCommonName" required="<%= true %>" value="<%= certificateCommonName %>" />
@@ -75,10 +79,18 @@ X509Certificate x509Certificate = (X509Certificate)request.getAttribute(SamlWebK
 
 						<aui:input label="validity-days" name="certificateValidityDays" value="<%= certificateValidityDays %>" />
 
-						<aui:select label="key-algorithm" name="certificateKeyAlgorithm" required="<%= true %>">
-							<aui:option label="rsa" selected='<%= certificateKeyAlgorithm.equals("RSA") %>' value="RSA" />
-							<aui:option label="dsa" selected='<%= certificateKeyAlgorithm.equals("DSA") %>' value="DSA" />
-						</aui:select>
+						<c:choose>
+							<c:when test="<%= certificateUsage == LocalEntityManager.CertificateUsage.SIGNING %>">
+								<aui:select label="key-algorithm" name="certificateKeyAlgorithm" required="<%= true %>">
+									<aui:option label="rsa" selected='<%= certificateKeyAlgorithm.equals("RSA") %>' value="RSA" />
+									<aui:option label="dsa" selected='<%= certificateKeyAlgorithm.equals("DSA") %>' value="DSA" />
+								</aui:select>
+							</c:when>
+							<c:when test="<%= certificateUsage == LocalEntityManager.CertificateUsage.ENCRYPTION %>">
+								<aui:input disabled="<%= true %>" label="key-algorithm" name="certificateKeyAlgorithm" value="RSA" />
+								<aui:input label="key-algorithm" name="certificateKeyAlgorithm" type="hidden" value="RSA" />
+							</c:when>
+						</c:choose>
 
 						<aui:select label="key-length-bits" name="certificateKeyLength" required="<%= true %>">
 							<aui:option label="4096" selected='<%= certificateKeyLength.equals("4096") %>' value="4096" />
@@ -89,7 +101,14 @@ X509Certificate x509Certificate = (X509Certificate)request.getAttribute(SamlWebK
 					</c:when>
 				</c:choose>
 
-				<aui:input label="key-password" name='<%= "settings--" + PortletPropsKeys.SAML_KEYSTORE_CREDENTIAL_PASSWORD + "--" %>' required="<%= true %>" type="password" value="" />
+				<c:choose>
+					<c:when test="<%= certificateUsage == LocalEntityManager.CertificateUsage.SIGNING %>">
+						<aui:input label="key-password" name='<%= "settings--" + PortletPropsKeys.SAML_KEYSTORE_CREDENTIAL_PASSWORD + "--" %>' required="<%= true %>" type="password" value="" />
+					</c:when>
+					<c:when test="<%= certificateUsage == LocalEntityManager.CertificateUsage.ENCRYPTION %>">
+						<aui:input label="key-password" name='<%= "settings--" + PortletPropsKeys.SAML_KEYSTORE_ENCRYPTION_CREDENTIAL_PASSWORD + "--" %>' required="<%= true %>" type="password" value="" />
+					</c:when>
+				</c:choose>
 			</div>
 
 			<aui:button-row>

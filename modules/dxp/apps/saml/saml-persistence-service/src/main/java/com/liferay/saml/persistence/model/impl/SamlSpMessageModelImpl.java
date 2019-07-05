@@ -14,10 +14,9 @@
 
 package com.liferay.saml.persistence.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.ModelWrapper;
@@ -25,7 +24,6 @@ import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.saml.persistence.model.SamlSpMessage;
 import com.liferay.saml.persistence.model.SamlSpMessageModel;
 
@@ -43,6 +41,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The base model implementation for the SamlSpMessage service. Represents a row in the &quot;SamlSpMessage&quot; database table, with each column mapped to a property of this class.
@@ -255,138 +255,36 @@ public class SamlSpMessageModelImpl
 			new LinkedHashMap<String, BiConsumer<SamlSpMessage, ?>>();
 
 		attributeGetterFunctions.put(
-			"samlSpMessageId",
-			new Function<SamlSpMessage, Object>() {
-
-				@Override
-				public Object apply(SamlSpMessage samlSpMessage) {
-					return samlSpMessage.getSamlSpMessageId();
-				}
-
-			});
+			"samlSpMessageId", SamlSpMessage::getSamlSpMessageId);
 		attributeSetterBiConsumers.put(
 			"samlSpMessageId",
-			new BiConsumer<SamlSpMessage, Object>() {
-
-				@Override
-				public void accept(
-					SamlSpMessage samlSpMessage, Object samlSpMessageId) {
-
-					samlSpMessage.setSamlSpMessageId((Long)samlSpMessageId);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<SamlSpMessage, Object>() {
-
-				@Override
-				public Object apply(SamlSpMessage samlSpMessage) {
-					return samlSpMessage.getCompanyId();
-				}
-
-			});
+			(BiConsumer<SamlSpMessage, Long>)SamlSpMessage::setSamlSpMessageId);
+		attributeGetterFunctions.put("companyId", SamlSpMessage::getCompanyId);
 		attributeSetterBiConsumers.put(
 			"companyId",
-			new BiConsumer<SamlSpMessage, Object>() {
-
-				@Override
-				public void accept(
-					SamlSpMessage samlSpMessage, Object companyId) {
-
-					samlSpMessage.setCompanyId((Long)companyId);
-				}
-
-			});
+			(BiConsumer<SamlSpMessage, Long>)SamlSpMessage::setCompanyId);
 		attributeGetterFunctions.put(
-			"createDate",
-			new Function<SamlSpMessage, Object>() {
-
-				@Override
-				public Object apply(SamlSpMessage samlSpMessage) {
-					return samlSpMessage.getCreateDate();
-				}
-
-			});
+			"createDate", SamlSpMessage::getCreateDate);
 		attributeSetterBiConsumers.put(
 			"createDate",
-			new BiConsumer<SamlSpMessage, Object>() {
-
-				@Override
-				public void accept(
-					SamlSpMessage samlSpMessage, Object createDate) {
-
-					samlSpMessage.setCreateDate((Date)createDate);
-				}
-
-			});
+			(BiConsumer<SamlSpMessage, Date>)SamlSpMessage::setCreateDate);
 		attributeGetterFunctions.put(
-			"samlIdpEntityId",
-			new Function<SamlSpMessage, Object>() {
-
-				@Override
-				public Object apply(SamlSpMessage samlSpMessage) {
-					return samlSpMessage.getSamlIdpEntityId();
-				}
-
-			});
+			"samlIdpEntityId", SamlSpMessage::getSamlIdpEntityId);
 		attributeSetterBiConsumers.put(
 			"samlIdpEntityId",
-			new BiConsumer<SamlSpMessage, Object>() {
-
-				@Override
-				public void accept(
-					SamlSpMessage samlSpMessage, Object samlIdpEntityId) {
-
-					samlSpMessage.setSamlIdpEntityId((String)samlIdpEntityId);
-				}
-
-			});
+			(BiConsumer<SamlSpMessage, String>)
+				SamlSpMessage::setSamlIdpEntityId);
 		attributeGetterFunctions.put(
-			"samlIdpResponseKey",
-			new Function<SamlSpMessage, Object>() {
-
-				@Override
-				public Object apply(SamlSpMessage samlSpMessage) {
-					return samlSpMessage.getSamlIdpResponseKey();
-				}
-
-			});
+			"samlIdpResponseKey", SamlSpMessage::getSamlIdpResponseKey);
 		attributeSetterBiConsumers.put(
 			"samlIdpResponseKey",
-			new BiConsumer<SamlSpMessage, Object>() {
-
-				@Override
-				public void accept(
-					SamlSpMessage samlSpMessage, Object samlIdpResponseKey) {
-
-					samlSpMessage.setSamlIdpResponseKey(
-						(String)samlIdpResponseKey);
-				}
-
-			});
+			(BiConsumer<SamlSpMessage, String>)
+				SamlSpMessage::setSamlIdpResponseKey);
 		attributeGetterFunctions.put(
-			"expirationDate",
-			new Function<SamlSpMessage, Object>() {
-
-				@Override
-				public Object apply(SamlSpMessage samlSpMessage) {
-					return samlSpMessage.getExpirationDate();
-				}
-
-			});
+			"expirationDate", SamlSpMessage::getExpirationDate);
 		attributeSetterBiConsumers.put(
 			"expirationDate",
-			new BiConsumer<SamlSpMessage, Object>() {
-
-				@Override
-				public void accept(
-					SamlSpMessage samlSpMessage, Object expirationDate) {
-
-					samlSpMessage.setExpirationDate((Date)expirationDate);
-				}
-
-			});
+			(BiConsumer<SamlSpMessage, Date>)SamlSpMessage::setExpirationDate);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);

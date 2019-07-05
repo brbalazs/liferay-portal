@@ -14,8 +14,7 @@
 
 package com.liferay.saml.persistence.service.persistence.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -31,7 +30,6 @@ import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.saml.persistence.exception.NoSuchIdpSpConnectionException;
@@ -46,13 +44,11 @@ import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The persistence implementation for the saml idp sp connection service.
@@ -871,6 +867,11 @@ public class SamlIdpSpConnectionPersistenceImpl
 
 	public SamlIdpSpConnectionPersistenceImpl() {
 		setModelClass(SamlIdpSpConnection.class);
+
+		setModelImplClass(SamlIdpSpConnectionImpl.class);
+		setModelPKClass(long.class);
+		setEntityCacheEnabled(
+			SamlIdpSpConnectionModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**
@@ -1287,168 +1288,12 @@ public class SamlIdpSpConnectionPersistenceImpl
 	/**
 	 * Returns the saml idp sp connection with the primary key or returns <code>null</code> if it could not be found.
 	 *
-	 * @param primaryKey the primary key of the saml idp sp connection
-	 * @return the saml idp sp connection, or <code>null</code> if a saml idp sp connection with the primary key could not be found
-	 */
-	@Override
-	public SamlIdpSpConnection fetchByPrimaryKey(Serializable primaryKey) {
-		Serializable serializable = entityCache.getResult(
-			SamlIdpSpConnectionModelImpl.ENTITY_CACHE_ENABLED,
-			SamlIdpSpConnectionImpl.class, primaryKey);
-
-		if (serializable == nullModel) {
-			return null;
-		}
-
-		SamlIdpSpConnection samlIdpSpConnection =
-			(SamlIdpSpConnection)serializable;
-
-		if (samlIdpSpConnection == null) {
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				samlIdpSpConnection = (SamlIdpSpConnection)session.get(
-					SamlIdpSpConnectionImpl.class, primaryKey);
-
-				if (samlIdpSpConnection != null) {
-					cacheResult(samlIdpSpConnection);
-				}
-				else {
-					entityCache.putResult(
-						SamlIdpSpConnectionModelImpl.ENTITY_CACHE_ENABLED,
-						SamlIdpSpConnectionImpl.class, primaryKey, nullModel);
-				}
-			}
-			catch (Exception e) {
-				entityCache.removeResult(
-					SamlIdpSpConnectionModelImpl.ENTITY_CACHE_ENABLED,
-					SamlIdpSpConnectionImpl.class, primaryKey);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return samlIdpSpConnection;
-	}
-
-	/**
-	 * Returns the saml idp sp connection with the primary key or returns <code>null</code> if it could not be found.
-	 *
 	 * @param samlIdpSpConnectionId the primary key of the saml idp sp connection
 	 * @return the saml idp sp connection, or <code>null</code> if a saml idp sp connection with the primary key could not be found
 	 */
 	@Override
 	public SamlIdpSpConnection fetchByPrimaryKey(long samlIdpSpConnectionId) {
 		return fetchByPrimaryKey((Serializable)samlIdpSpConnectionId);
-	}
-
-	@Override
-	public Map<Serializable, SamlIdpSpConnection> fetchByPrimaryKeys(
-		Set<Serializable> primaryKeys) {
-
-		if (primaryKeys.isEmpty()) {
-			return Collections.emptyMap();
-		}
-
-		Map<Serializable, SamlIdpSpConnection> map =
-			new HashMap<Serializable, SamlIdpSpConnection>();
-
-		if (primaryKeys.size() == 1) {
-			Iterator<Serializable> iterator = primaryKeys.iterator();
-
-			Serializable primaryKey = iterator.next();
-
-			SamlIdpSpConnection samlIdpSpConnection = fetchByPrimaryKey(
-				primaryKey);
-
-			if (samlIdpSpConnection != null) {
-				map.put(primaryKey, samlIdpSpConnection);
-			}
-
-			return map;
-		}
-
-		Set<Serializable> uncachedPrimaryKeys = null;
-
-		for (Serializable primaryKey : primaryKeys) {
-			Serializable serializable = entityCache.getResult(
-				SamlIdpSpConnectionModelImpl.ENTITY_CACHE_ENABLED,
-				SamlIdpSpConnectionImpl.class, primaryKey);
-
-			if (serializable != nullModel) {
-				if (serializable == null) {
-					if (uncachedPrimaryKeys == null) {
-						uncachedPrimaryKeys = new HashSet<Serializable>();
-					}
-
-					uncachedPrimaryKeys.add(primaryKey);
-				}
-				else {
-					map.put(primaryKey, (SamlIdpSpConnection)serializable);
-				}
-			}
-		}
-
-		if (uncachedPrimaryKeys == null) {
-			return map;
-		}
-
-		StringBundler query = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
-
-		query.append(_SQL_SELECT_SAMLIDPSPCONNECTION_WHERE_PKS_IN);
-
-		for (Serializable primaryKey : uncachedPrimaryKeys) {
-			query.append((long)primaryKey);
-
-			query.append(",");
-		}
-
-		query.setIndex(query.index() - 1);
-
-		query.append(")");
-
-		String sql = query.toString();
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			Query q = session.createQuery(sql);
-
-			for (SamlIdpSpConnection samlIdpSpConnection :
-					(List<SamlIdpSpConnection>)q.list()) {
-
-				map.put(
-					samlIdpSpConnection.getPrimaryKeyObj(),
-					samlIdpSpConnection);
-
-				cacheResult(samlIdpSpConnection);
-
-				uncachedPrimaryKeys.remove(
-					samlIdpSpConnection.getPrimaryKeyObj());
-			}
-
-			for (Serializable primaryKey : uncachedPrimaryKeys) {
-				entityCache.putResult(
-					SamlIdpSpConnectionModelImpl.ENTITY_CACHE_ENABLED,
-					SamlIdpSpConnectionImpl.class, primaryKey, nullModel);
-			}
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-
-		return map;
 	}
 
 	/**
@@ -1649,6 +1494,21 @@ public class SamlIdpSpConnectionPersistenceImpl
 	}
 
 	@Override
+	protected EntityCache getEntityCache() {
+		return entityCache;
+	}
+
+	@Override
+	protected String getPKDBName() {
+		return "samlIdpSpConnectionId";
+	}
+
+	@Override
+	protected String getSelectSQL() {
+		return _SQL_SELECT_SAMLIDPSPCONNECTION;
+	}
+
+	@Override
 	protected Map<String, Integer> getTableColumnsMap() {
 		return SamlIdpSpConnectionModelImpl.TABLE_COLUMNS_MAP;
 	}
@@ -1731,9 +1591,6 @@ public class SamlIdpSpConnectionPersistenceImpl
 
 	private static final String _SQL_SELECT_SAMLIDPSPCONNECTION =
 		"SELECT samlIdpSpConnection FROM SamlIdpSpConnection samlIdpSpConnection";
-
-	private static final String _SQL_SELECT_SAMLIDPSPCONNECTION_WHERE_PKS_IN =
-		"SELECT samlIdpSpConnection FROM SamlIdpSpConnection samlIdpSpConnection WHERE samlIdpSpConnectionId IN (";
 
 	private static final String _SQL_SELECT_SAMLIDPSPCONNECTION_WHERE =
 		"SELECT samlIdpSpConnection FROM SamlIdpSpConnection samlIdpSpConnection WHERE ";

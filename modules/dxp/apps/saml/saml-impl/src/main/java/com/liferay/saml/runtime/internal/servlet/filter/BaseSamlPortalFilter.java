@@ -26,14 +26,14 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class BaseSamlPortalFilter extends BaseFilter {
 
 	protected abstract void doProcessFilter(
-			HttpServletRequest request, HttpServletResponse response,
-			FilterChain filterChain)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse, FilterChain filterChain)
 		throws Exception;
 
 	@Override
 	protected void processFilter(
-			HttpServletRequest request, HttpServletResponse response,
-			FilterChain filterChain)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse, FilterChain filterChain)
 		throws Exception {
 
 		Thread currentThread = Thread.currentThread();
@@ -44,7 +44,8 @@ public abstract class BaseSamlPortalFilter extends BaseFilter {
 			currentThread.setContextClassLoader(
 				BaseSamlPortalFilter.class.getClassLoader());
 
-			doProcessFilter(request, response, filterChain);
+			doProcessFilter(
+				httpServletRequest, httpServletResponse, filterChain);
 		}
 		finally {
 			currentThread.setContextClassLoader(contextClassLoader);

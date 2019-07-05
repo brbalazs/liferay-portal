@@ -14,13 +14,13 @@
 
 package com.liferay.saml.persistence.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * This class is used by SOAP remote services.
@@ -40,6 +40,7 @@ public class SamlSpSessionSoap implements Serializable {
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
+		soapModel.setSamlIdpEntityId(model.getSamlIdpEntityId());
 		soapModel.setSamlSpSessionKey(model.getSamlSpSessionKey());
 		soapModel.setAssertionXml(model.getAssertionXml());
 		soapModel.setJSessionId(model.getJSessionId());
@@ -150,6 +151,14 @@ public class SamlSpSessionSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
+	public String getSamlIdpEntityId() {
+		return _samlIdpEntityId;
+	}
+
+	public void setSamlIdpEntityId(String samlIdpEntityId) {
+		_samlIdpEntityId = samlIdpEntityId;
+	}
+
 	public String getSamlSpSessionKey() {
 		return _samlSpSessionKey;
 	}
@@ -232,6 +241,7 @@ public class SamlSpSessionSoap implements Serializable {
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private String _samlIdpEntityId;
 	private String _samlSpSessionKey;
 	private String _assertionXml;
 	private String _jSessionId;

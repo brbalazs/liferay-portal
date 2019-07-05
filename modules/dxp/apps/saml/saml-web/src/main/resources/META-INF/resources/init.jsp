@@ -25,7 +25,7 @@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
 <%@ page import="com.liferay.portal.kernel.language.UnicodeLanguageUtil" %><%@
 page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %><%@
-page import="com.liferay.portal.kernel.util.ClassUtil" %><%@
+page import="com.liferay.portal.kernel.util.Constants" %><%@
 page import="com.liferay.portal.kernel.util.GetterUtil" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
@@ -51,8 +51,10 @@ page import="com.liferay.saml.runtime.certificate.CertificateTool" %><%@
 page import="com.liferay.saml.runtime.configuration.SamlProviderConfiguration" %><%@
 page import="com.liferay.saml.runtime.configuration.SamlProviderConfigurationHelper" %><%@
 page import="com.liferay.saml.runtime.exception.CertificateKeyPasswordException" %><%@
+page import="com.liferay.saml.runtime.metadata.LocalEntityManager" %><%@
 page import="com.liferay.saml.util.NameIdTypeValues" %><%@
 page import="com.liferay.saml.util.PortletPropsKeys" %><%@
+page import="com.liferay.saml.web.internal.display.context.GeneralTabDefaultViewDisplayContext" %><%@
 page import="com.liferay.saml.web.internal.util.NameIdTypeValuesUtilHelper" %><%@
 page import="com.liferay.taglib.search.ResultRow" %>
 
@@ -72,9 +74,10 @@ page import="java.util.List" %>
 <%
 String currentURL = PortalUtil.getCurrentURL(request);
 
+LocalEntityManager localEntityManager = (LocalEntityManager)request.getAttribute(LocalEntityManager.class.getName());
 NameIdTypeValues nameIdTypeValues = NameIdTypeValuesUtilHelper.getNameIdTypeValues();
-
-SamlProviderConfigurationHelper samlProviderConfigurationHelper = (SamlProviderConfigurationHelper)request.getAttribute(ClassUtil.getClassName(SamlProviderConfigurationHelper.class));
+GeneralTabDefaultViewDisplayContext generalTabDefaultViewDisplayContext = (GeneralTabDefaultViewDisplayContext)renderRequest.getAttribute(GeneralTabDefaultViewDisplayContext.class.getName());
+SamlProviderConfigurationHelper samlProviderConfigurationHelper = (SamlProviderConfigurationHelper)request.getAttribute(SamlProviderConfigurationHelper.class.getName());
 
 SamlProviderConfiguration samlProviderConfiguration = null;
 

@@ -14,6 +14,7 @@
 
 package com.liferay.saml.opensaml.integration.internal;
 
+import com.liferay.petra.lang.ClassLoaderPool;
 import com.liferay.portal.kernel.bean.BeanLocator;
 import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
@@ -29,7 +30,6 @@ import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.LayoutLocalServiceUtil;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
-import com.liferay.portal.kernel.util.ClassLoaderPool;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.Portal;
@@ -47,13 +47,14 @@ import com.liferay.saml.opensaml.integration.internal.binding.HttpSoap11Binding;
 import com.liferay.saml.opensaml.integration.internal.bootstrap.OpenSamlBootstrap;
 import com.liferay.saml.opensaml.integration.internal.credential.FileSystemKeyStoreManagerImpl;
 import com.liferay.saml.opensaml.integration.internal.credential.KeyStoreCredentialResolver;
-import com.liferay.saml.opensaml.integration.internal.identifier.SamlIdentifierGenerator;
+import com.liferay.saml.opensaml.integration.internal.identifier.SamlIdentifierGeneratorStrategyFactory;
 import com.liferay.saml.opensaml.integration.internal.metadata.MetadataGeneratorUtil;
 import com.liferay.saml.opensaml.integration.internal.metadata.MetadataManagerImpl;
-import com.liferay.saml.opensaml.integration.internal.provider.DBMetadataProvider;
+import com.liferay.saml.opensaml.integration.internal.servlet.profile.IdentifierGenerationStrategyFactory;
 import com.liferay.saml.opensaml.integration.internal.velocity.VelocityEngineFactory;
 import com.liferay.saml.runtime.configuration.SamlProviderConfiguration;
 import com.liferay.saml.runtime.configuration.SamlProviderConfigurationHelper;
+import com.liferay.saml.runtime.metadata.LocalEntityManager;
 import com.liferay.saml.util.PortletPropsKeys;
 
 import java.io.UnsupportedEncodingException;
@@ -63,11 +64,17 @@ import java.lang.reflect.Field;
 import java.net.URLDecoder;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import net.shibboleth.utilities.java.support.resolver.CriteriaSet;
+import net.shibboleth.utilities.java.support.resolver.ResolverException;
+import net.shibboleth.utilities.java.support.security.IdentifierGenerationStrategy;
+import net.shibboleth.utilities.java.support.xml.ParserPool;
 
 import org.apache.http.client.HttpClient;
 import org.apache.velocity.app.VelocityEngine;
@@ -80,17 +87,16 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import org.opensaml.common.IdentifierGenerator;
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.metadata.EntityDescriptor;
-import org.opensaml.saml2.metadata.IDPSSODescriptor;
-import org.opensaml.saml2.metadata.SingleLogoutService;
-import org.opensaml.saml2.metadata.SingleSignOnService;
-import org.opensaml.saml2.metadata.provider.MetadataProviderException;
-import org.opensaml.xml.parse.ParserPool;
-import org.opensaml.xml.security.CriteriaSet;
-import org.opensaml.xml.security.credential.Credential;
-import org.opensaml.xml.security.criteria.EntityIDCriteria;
+import org.opensaml.core.config.ConfigurationService;
+import org.opensaml.core.criterion.EntityIdCriterion;
+import org.opensaml.core.xml.config.XMLObjectProviderRegistry;
+import org.opensaml.saml.common.xml.SAMLConstants;
+import org.opensaml.saml.metadata.resolver.impl.AbstractMetadataResolver;
+import org.opensaml.saml.saml2.metadata.EntityDescriptor;
+import org.opensaml.saml.saml2.metadata.IDPSSODescriptor;
+import org.opensaml.saml.saml2.metadata.SingleLogoutService;
+import org.opensaml.saml.saml2.metadata.SingleSignOnService;
+import org.opensaml.security.credential.Credential;
 
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -111,9 +117,11 @@ public abstract class BaseSamlTestCase extends PowerMockito {
 
 		setupConfiguration();
 		setupIdentifiers();
-		setupMetadata();
 		setupParserPool();
+
 		setupPortal();
+
+		setupMetadata();
 
 		setupSamlBindings();
 	}
@@ -142,11 +150,11 @@ public abstract class BaseSamlTestCase extends PowerMockito {
 	}
 
 	protected Credential getCredential(String entityId) throws Exception {
-		EntityIDCriteria entityIDCriteria = new EntityIDCriteria(entityId);
+		EntityIdCriterion entityIdCriterion = new EntityIdCriterion(entityId);
 
 		CriteriaSet criteriaSet = new CriteriaSet();
 
-		criteriaSet.add(entityIDCriteria);
+		criteriaSet.add(entityIdCriterion);
 
 		if (entityId.equals(samlProviderConfiguration.entityId())) {
 			return credentialResolver.resolveSingle(criteriaSet);
@@ -324,12 +332,6 @@ public abstract class BaseSamlTestCase extends PowerMockito {
 		);
 
 		when(
-			samlProviderConfiguration.defaultIdPEntityId()
-		).thenReturn(
-			IDP_ENTITY_ID
-		);
-
-		when(
 			samlProviderConfiguration.role()
 		).thenReturn(
 			"sp"
@@ -414,10 +416,27 @@ public abstract class BaseSamlTestCase extends PowerMockito {
 	}
 
 	protected void setupIdentifiers() {
-		identifierGenerator = mock(IdentifierGenerator.class);
+		SamlIdentifierGeneratorStrategyFactory
+			samlIdentifierGeneratorStrategyFactory =
+				new SamlIdentifierGeneratorStrategyFactory();
+
+		samlIdentifierGenerator = samlIdentifierGeneratorStrategyFactory.create(
+			16);
+
+		IdentifierGenerationStrategy identifierGenerationStrategy = mock(
+			IdentifierGenerationStrategy.class);
+
+		identifierGenerationStrategyFactory = mock(
+			IdentifierGenerationStrategyFactory.class);
 
 		when(
-			identifierGenerator.generateIdentifier(Mockito.anyInt())
+			identifierGenerationStrategyFactory.create(Mockito.anyInt())
+		).thenReturn(
+			identifierGenerationStrategy
+		);
+
+		when(
+			identifierGenerationStrategy.generateIdentifier()
 		).thenAnswer(
 			new Answer<String>() {
 
@@ -425,11 +444,32 @@ public abstract class BaseSamlTestCase extends PowerMockito {
 				public String answer(InvocationOnMock invocationOnMock)
 					throws Throwable {
 
-					int length = GetterUtil.getInteger(
+					String identifier =
+						samlIdentifierGenerator.generateIdentifier();
+
+					identifiers.add(identifier);
+
+					return identifier;
+				}
+
+			}
+		);
+
+		when(
+			identifierGenerationStrategy.generateIdentifier(
+				Mockito.anyBoolean())
+		).thenAnswer(
+			new Answer<String>() {
+
+				@Override
+				public String answer(InvocationOnMock invocationOnMock)
+					throws Throwable {
+
+					boolean xmlSafe = GetterUtil.getBoolean(
 						invocationOnMock.getArguments()[0]);
 
 					String identifier =
-						samlIdentifierGenerator.generateIdentifier(length);
+						samlIdentifierGenerator.generateIdentifier(xmlSafe);
 
 					identifiers.add(identifier);
 
@@ -465,16 +505,25 @@ public abstract class BaseSamlTestCase extends PowerMockito {
 
 		metadataManagerImpl.setParserPool(parserPool);
 
-		metadataManagerImpl.setMetadataProvider(new MockMetadataProvider());
+		metadataManagerImpl.setMetadataResolver(new MockMetadataResolver());
 
 		metadataManagerImpl.setSamlProviderConfigurationHelper(
 			samlProviderConfigurationHelper);
 
 		metadataManagerImpl.setHttp(HttpUtil.getHttp());
+
+		metadataManagerImpl.setPortal(portal);
+
+		metadataManagerImpl.setLocalEntityManager(credentialResolver);
+
+		metadataManagerImpl.activate();
 	}
 
-	protected void setupParserPool() throws Exception {
-		parserPool = org.opensaml.Configuration.getParserPool();
+	protected void setupParserPool() {
+		XMLObjectProviderRegistry xmlObjectProviderRegistry =
+			ConfigurationService.get(XMLObjectProviderRegistry.class);
+
+		parserPool = xmlObjectProviderRegistry.getParserPool();
 	}
 
 	protected void setupPortal() throws Exception {
@@ -627,9 +676,11 @@ public abstract class BaseSamlTestCase extends PowerMockito {
 	protected KeyStoreCredentialResolver credentialResolver;
 	protected GroupLocalService groupLocalService;
 	protected HttpClient httpClient;
-	protected IdentifierGenerator identifierGenerator;
+	protected IdentifierGenerationStrategyFactory
+		identifierGenerationStrategyFactory;
 	protected List<String> identifiers = new ArrayList<>();
 	protected FileSystemKeyStoreManagerImpl keyStoreManager;
+	protected LocalEntityManager localEntityManager;
 	protected MetadataManagerImpl metadataManagerImpl;
 	protected ParserPool parserPool;
 	protected Portal portal;
@@ -637,45 +688,47 @@ public abstract class BaseSamlTestCase extends PowerMockito {
 	protected BeanLocator portletBeanLocator;
 	protected Props props;
 	protected List<SamlBinding> samlBindings;
-	protected IdentifierGenerator samlIdentifierGenerator =
-		new SamlIdentifierGenerator();
+	protected IdentifierGenerationStrategy samlIdentifierGenerator;
 	protected SamlProviderConfiguration samlProviderConfiguration;
 	protected SamlProviderConfigurationHelper samlProviderConfigurationHelper;
 	protected List<Class<?>> serviceUtilClasses = new ArrayList<>();
 	protected UserLocalService userLocalService;
 
-	private class MockMetadataProvider extends DBMetadataProvider {
+	protected class MockMetadataResolver extends AbstractMetadataResolver {
 
-		public MockMetadataProvider() {
+		public MockMetadataResolver() {
+		}
+
+		public MockMetadataResolver(boolean idpNeedsSignature) {
+			_idpNeedsSignature = idpNeedsSignature;
 		}
 
 		@Override
-		public EntityDescriptor getEntityDescriptor(String entityId)
-			throws MetadataProviderException {
+		public Iterable<EntityDescriptor> resolve(CriteriaSet criteriaSet)
+			throws ResolverException {
 
 			try {
-				return doGetEntityDecriptor(entityId);
+				return Collections.singleton(doResolve(criteriaSet));
 			}
 			catch (Exception e) {
-				throw new MetadataProviderException(e);
+				throw new ResolverException(e);
 			}
 		}
 
-		protected EntityDescriptor doGetEntityDecriptor(String entityId)
+		protected EntityDescriptor doResolve(CriteriaSet criteriaSet)
 			throws Exception {
 
-			MockHttpServletRequest mockHttpServletRequest =
-				getMockHttpServletRequest(
-					"http://localhost:8080/c/portal/saml/metadata");
+			EntityIdCriterion entityIdCriterion = criteriaSet.get(
+				EntityIdCriterion.class);
+
+			if (entityIdCriterion == null) {
+				throw new ResolverException("Entity ID criterion is null");
+			}
+
+			String entityId = entityIdCriterion.getEntityId();
 
 			KeyStoreCredentialResolver keyStoreCredentialResolver =
 				getKeyStoreCredentialResolver(entityId);
-
-			CriteriaSet criteriaSet = new CriteriaSet();
-
-			EntityIDCriteria entityIDCriteria = new EntityIDCriteria(entityId);
-
-			criteriaSet.add(entityIDCriteria);
 
 			Credential credential = keyStoreCredentialResolver.resolveSingle(
 				criteriaSet);
@@ -683,8 +736,8 @@ public abstract class BaseSamlTestCase extends PowerMockito {
 			if (entityId.equals(IDP_ENTITY_ID)) {
 				EntityDescriptor entityDescriptor =
 					MetadataGeneratorUtil.buildIdpEntityDescriptor(
-						mockHttpServletRequest, entityId, true, true, false,
-						credential);
+						PORTAL_URL, entityId, _idpNeedsSignature, true,
+						credential, null);
 
 				IDPSSODescriptor idpSSODescriptor =
 					entityDescriptor.getIDPSSODescriptor(
@@ -724,12 +777,13 @@ public abstract class BaseSamlTestCase extends PowerMockito {
 			}
 			else if (entityId.equals(SP_ENTITY_ID)) {
 				return MetadataGeneratorUtil.buildSpEntityDescriptor(
-					mockHttpServletRequest, entityId, true, true, false, false,
-					credential);
+					PORTAL_URL, entityId, true, true, false, credential, null);
 			}
 
 			return null;
 		}
+
+		private boolean _idpNeedsSignature = true;
 
 	}
 

@@ -52,6 +52,10 @@ JSONArray samlSloRequestInfosJSONArray = samlSloContextJSONObject.getJSONArray("
 	<liferay-ui:message key="signing-out-from-services" />
 </h3>
 
+<h4>
+	<liferay-ui:icon image="activate" /> <liferay-ui:message key="please-do-not-leave-this-page-to-avoid-inconsistencies" />
+</h4>
+
 <div id="samlSloResults"></div>
 
 <div class="hide" id="samlSloCompleteSignOut">
@@ -104,7 +108,7 @@ JSONArray samlSloRequestInfosJSONArray = samlSloContextJSONObject.getJSONArray("
 	};
 
 	eventHandlers.push(
-		A.on(
+		A.getWin().on(
 			'beforeunload',
 			function(event) {
 				event.preventDefault('<liferay-ui:message key="leaving-this-window-might-leave-logout-unfinished" />');

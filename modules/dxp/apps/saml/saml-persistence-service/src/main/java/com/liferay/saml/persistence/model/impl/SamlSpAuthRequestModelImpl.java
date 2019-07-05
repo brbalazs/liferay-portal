@@ -14,10 +14,9 @@
 
 package com.liferay.saml.persistence.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.ModelWrapper;
@@ -25,7 +24,6 @@ import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.saml.persistence.model.SamlSpAuthRequest;
 import com.liferay.saml.persistence.model.SamlSpAuthRequestModel;
 
@@ -43,6 +41,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The base model implementation for the SamlSpAuthRequest service. Represents a row in the &quot;SamlSpAuthRequest&quot; database table, with each column mapped to a property of this class.
@@ -256,121 +256,35 @@ public class SamlSpAuthRequestModelImpl
 				new LinkedHashMap<String, BiConsumer<SamlSpAuthRequest, ?>>();
 
 		attributeGetterFunctions.put(
-			"samlSpAuthnRequestId",
-			new Function<SamlSpAuthRequest, Object>() {
-
-				@Override
-				public Object apply(SamlSpAuthRequest samlSpAuthRequest) {
-					return samlSpAuthRequest.getSamlSpAuthnRequestId();
-				}
-
-			});
+			"samlSpAuthnRequestId", SamlSpAuthRequest::getSamlSpAuthnRequestId);
 		attributeSetterBiConsumers.put(
 			"samlSpAuthnRequestId",
-			new BiConsumer<SamlSpAuthRequest, Object>() {
-
-				@Override
-				public void accept(
-					SamlSpAuthRequest samlSpAuthRequest,
-					Object samlSpAuthnRequestId) {
-
-					samlSpAuthRequest.setSamlSpAuthnRequestId(
-						(Long)samlSpAuthnRequestId);
-				}
-
-			});
+			(BiConsumer<SamlSpAuthRequest, Long>)
+				SamlSpAuthRequest::setSamlSpAuthnRequestId);
 		attributeGetterFunctions.put(
-			"companyId",
-			new Function<SamlSpAuthRequest, Object>() {
-
-				@Override
-				public Object apply(SamlSpAuthRequest samlSpAuthRequest) {
-					return samlSpAuthRequest.getCompanyId();
-				}
-
-			});
+			"companyId", SamlSpAuthRequest::getCompanyId);
 		attributeSetterBiConsumers.put(
 			"companyId",
-			new BiConsumer<SamlSpAuthRequest, Object>() {
-
-				@Override
-				public void accept(
-					SamlSpAuthRequest samlSpAuthRequest, Object companyId) {
-
-					samlSpAuthRequest.setCompanyId((Long)companyId);
-				}
-
-			});
+			(BiConsumer<SamlSpAuthRequest, Long>)
+				SamlSpAuthRequest::setCompanyId);
 		attributeGetterFunctions.put(
-			"createDate",
-			new Function<SamlSpAuthRequest, Object>() {
-
-				@Override
-				public Object apply(SamlSpAuthRequest samlSpAuthRequest) {
-					return samlSpAuthRequest.getCreateDate();
-				}
-
-			});
+			"createDate", SamlSpAuthRequest::getCreateDate);
 		attributeSetterBiConsumers.put(
 			"createDate",
-			new BiConsumer<SamlSpAuthRequest, Object>() {
-
-				@Override
-				public void accept(
-					SamlSpAuthRequest samlSpAuthRequest, Object createDate) {
-
-					samlSpAuthRequest.setCreateDate((Date)createDate);
-				}
-
-			});
+			(BiConsumer<SamlSpAuthRequest, Date>)
+				SamlSpAuthRequest::setCreateDate);
 		attributeGetterFunctions.put(
-			"samlIdpEntityId",
-			new Function<SamlSpAuthRequest, Object>() {
-
-				@Override
-				public Object apply(SamlSpAuthRequest samlSpAuthRequest) {
-					return samlSpAuthRequest.getSamlIdpEntityId();
-				}
-
-			});
+			"samlIdpEntityId", SamlSpAuthRequest::getSamlIdpEntityId);
 		attributeSetterBiConsumers.put(
 			"samlIdpEntityId",
-			new BiConsumer<SamlSpAuthRequest, Object>() {
-
-				@Override
-				public void accept(
-					SamlSpAuthRequest samlSpAuthRequest,
-					Object samlIdpEntityId) {
-
-					samlSpAuthRequest.setSamlIdpEntityId(
-						(String)samlIdpEntityId);
-				}
-
-			});
+			(BiConsumer<SamlSpAuthRequest, String>)
+				SamlSpAuthRequest::setSamlIdpEntityId);
 		attributeGetterFunctions.put(
-			"samlSpAuthRequestKey",
-			new Function<SamlSpAuthRequest, Object>() {
-
-				@Override
-				public Object apply(SamlSpAuthRequest samlSpAuthRequest) {
-					return samlSpAuthRequest.getSamlSpAuthRequestKey();
-				}
-
-			});
+			"samlSpAuthRequestKey", SamlSpAuthRequest::getSamlSpAuthRequestKey);
 		attributeSetterBiConsumers.put(
 			"samlSpAuthRequestKey",
-			new BiConsumer<SamlSpAuthRequest, Object>() {
-
-				@Override
-				public void accept(
-					SamlSpAuthRequest samlSpAuthRequest,
-					Object samlSpAuthRequestKey) {
-
-					samlSpAuthRequest.setSamlSpAuthRequestKey(
-						(String)samlSpAuthRequestKey);
-				}
-
-			});
+			(BiConsumer<SamlSpAuthRequest, String>)
+				SamlSpAuthRequest::setSamlSpAuthRequestKey);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);

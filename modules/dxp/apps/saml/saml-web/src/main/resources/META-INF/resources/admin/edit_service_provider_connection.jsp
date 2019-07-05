@@ -32,7 +32,8 @@ long assertionLifetime = GetterUtil.getLong(request.getAttribute(SamlWebKeys.SAM
 </div>
 
 <portlet:actionURL name="/admin/updateServiceProviderConnection" var="updateServiceProviderConnectionURL">
-	<portlet:param name="mvcPath" value="/admin/edit_service_provider_connection.jsp" />
+	<portlet:param name="mvcRenderCommandName" value="/admin/edit_service_provider_connection" />
+	<portlet:param name="samlIdpSpConnectionId" value='<%= (samlIdpSpConnection != null) ? String.valueOf(samlIdpSpConnection.getSamlIdpSpConnectionId()) : "" %>' />
 </portlet:actionURL>
 
 <aui:form action="<%= updateServiceProviderConnectionURL %>" cssClass="container-fluid-1280" enctype="multipart/form-data">
@@ -46,8 +47,6 @@ long assertionLifetime = GetterUtil.getLong(request.getAttribute(SamlWebKeys.SAM
 
 	<aui:model-context bean="<%= samlIdpSpConnection %>" model="<%= SamlIdpSpConnection.class %>" />
 
-	<aui:input name="samlIdpSpConnectionId" type="hidden" />
-
 	<liferay-util:dynamic-include key="com.liferay.saml.web#/admin/edit_service_provider_connection.jsp#pre" />
 
 	<aui:fieldset label="general">
@@ -58,6 +57,10 @@ long assertionLifetime = GetterUtil.getLong(request.getAttribute(SamlWebKeys.SAM
 		<aui:input name="enabled" />
 
 		<aui:input helpMessage="assertion-lifetime-help" name="assertionLifetime" required="<%= true %>" value="<%= String.valueOf(assertionLifetime) %>" />
+	</aui:fieldset>
+
+	<aui:fieldset label="encryption">
+		<aui:input name="encryptionForced" />
 	</aui:fieldset>
 
 	<aui:fieldset helpMessage="service-provider-metadata-help" label="metadata">

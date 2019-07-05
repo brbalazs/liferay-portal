@@ -21,11 +21,8 @@ import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.saml.persistence.model.SamlSpIdpConnection;
 import com.liferay.saml.persistence.service.SamlSpIdpConnectionLocalService;
-import com.liferay.saml.runtime.configuration.SamlProviderConfigurationHelper;
-import com.liferay.saml.util.PortletPropsKeys;
 import com.liferay.saml.web.internal.constants.SamlAdminPortletKeys;
 
 import java.io.InputStream;
@@ -66,8 +63,7 @@ public class UpdateIdentityProviderConnectionMVCActionCommand
 		boolean assertionSignatureRequired = ParamUtil.getBoolean(
 			uploadPortletRequest, "assertionSignatureRequired");
 		long clockSkew = ParamUtil.getLong(uploadPortletRequest, "clockSkew");
-
-		boolean enabled = true;
+		boolean enabled = ParamUtil.getBoolean(uploadPortletRequest, "enabled");
 		boolean forceAuthn = ParamUtil.getBoolean(
 			uploadPortletRequest, "forceAuthn");
 		boolean ldapImportEnabled = ParamUtil.getBoolean(
@@ -102,24 +98,10 @@ public class UpdateIdentityProviderConnectionMVCActionCommand
 				nameIdFormat, signAuthnRequest, userAttributeMappings,
 				serviceContext);
 		}
-
-		UnicodeProperties properties = new UnicodeProperties();
-
-		properties.setProperty(
-			PortletPropsKeys.SAML_SP_DEFAULT_IDP_ENTITY_ID, samlIdpEntityId);
-
-		_samlProviderConfigurationHelper.updateProperties(properties);
-
-		actionResponse.setRenderParameter("mvcRenderCommandName", "/admin");
-		actionResponse.setRenderParameter(
-			"tabs1", "identity-provider-connection");
 	}
 
 	@Reference
 	private Portal _portal;
-
-	@Reference
-	private SamlProviderConfigurationHelper _samlProviderConfigurationHelper;
 
 	@Reference
 	private SamlSpIdpConnectionLocalService _samlSpIdpConnectionLocalService;

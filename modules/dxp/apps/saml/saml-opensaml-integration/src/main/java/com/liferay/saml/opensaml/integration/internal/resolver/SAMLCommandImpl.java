@@ -18,36 +18,27 @@ import com.liferay.saml.opensaml.integration.resolver.Resolver;
 
 import java.util.function.Function;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.binding.SAMLMessageContext;
-import org.opensaml.saml2.core.NameID;
+import org.opensaml.messaging.context.MessageContext;
 
 /**
  * @author Tomas Polesovsky
  */
-public class SAMLCommandImpl
-	<InboundMessageType extends SAMLObject,
-	 OutboundMessageType extends SAMLObject, T, R extends Resolver>
-		implements Resolver.SAMLCommand<T, R> {
+public class SAMLCommandImpl<MessageType, T, R extends Resolver>
+	implements Resolver.SAMLCommand<T, R> {
 
 	public SAMLCommandImpl(
-		Function
-			<SAMLMessageContext
-				<InboundMessageType, OutboundMessageType, NameID>,
-			 T> samlMessageContextFunction) {
+		Function<MessageContext<MessageType>, T> messageContextFunction) {
 
-		_samlMessageContextFunction = samlMessageContextFunction;
+		_messageContextFunction = messageContextFunction;
 	}
 
-	protected Function
-		<SAMLMessageContext<InboundMessageType, OutboundMessageType, NameID>, T>
-			getSamlMessageContextFunction() {
+	protected Function<MessageContext<MessageType>, T>
+		getMessageContextFunction() {
 
-		return _samlMessageContextFunction;
+		return _messageContextFunction;
 	}
 
-	private final Function
-		<SAMLMessageContext<InboundMessageType, OutboundMessageType, NameID>, T>
-			_samlMessageContextFunction;
+	private final Function<MessageContext<MessageType>, T>
+		_messageContextFunction;
 
 }

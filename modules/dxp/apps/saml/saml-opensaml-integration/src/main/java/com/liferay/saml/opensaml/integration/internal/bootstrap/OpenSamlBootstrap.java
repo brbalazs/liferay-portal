@@ -14,15 +14,23 @@
 
 package com.liferay.saml.opensaml.integration.internal.bootstrap;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import org.opensaml.Configuration;
-import org.opensaml.DefaultBootstrap;
-import org.opensaml.xml.ConfigurationException;
-import org.opensaml.xml.parse.BasicParserPool;
-import org.opensaml.xml.parse.ParserPool;
-import org.opensaml.xml.parse.XMLParserException;
+import net.shibboleth.utilities.java.support.xml.BasicParserPool;
+import net.shibboleth.utilities.java.support.xml.ParserPool;
+
+import org.apache.xml.security.stax.ext.XMLSecurityConstants;
+
+import org.opensaml.core.config.ConfigurationService;
+import org.opensaml.core.config.InitializationException;
+import org.opensaml.core.config.InitializationService;
+import org.opensaml.core.xml.config.XMLObjectProviderRegistry;
+import org.opensaml.xmlsec.signature.support.SignatureValidator;
+import org.opensaml.xmlsec.signature.support.Signer;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -36,25 +44,38 @@ import org.osgi.service.component.annotations.Deactivate;
  * @author Mika Koivisto
  */
 @Component(immediate = true, service = OpenSamlBootstrap.class)
-public class OpenSamlBootstrap extends DefaultBootstrap {
+public class OpenSamlBootstrap {
 
-	public static synchronized void bootstrap() throws ConfigurationException {
-		initializeXMLSecurity();
+	public static synchronized void bootstrap()
+		throws IllegalAccessException, InitializationException,
+			   InvocationTargetException, NoSuchMethodException {
 
-		initializeXMLTooling(_XML_TOOLING_CONFIGS);
-
-		initializeArtifactBuilderFactories();
-
-		initializeGlobalSecurityConfiguration();
+		InitializationService.initialize();
 
 		initializeParserPool();
 
-		initializeESAPI();
+		Method method = Signer.class.getDeclaredMethod("getSignerProvider");
+
+		method.setAccessible(true);
+
+		method.invoke(null);
+
+		method = SignatureValidator.class.getDeclaredMethod(
+			"getSignatureValidationProvider");
+
+		method.setAccessible(true);
+
+		method.invoke(null);
+
+		if (XMLSecurityConstants.xmlOutputFactory == null) {
+			throw new IllegalStateException();
+		}
 	}
 
 	@Activate
 	public synchronized void activate(BundleContext bundleContext)
-		throws ConfigurationException {
+		throws IllegalAccessException, InitializationException,
+			   InvocationTargetException, NoSuchMethodException {
 
 		Thread currentThread = Thread.currentThread();
 
@@ -69,15 +90,21 @@ public class OpenSamlBootstrap extends DefaultBootstrap {
 
 			bootstrap();
 
+			XMLObjectProviderRegistry xmlObjectProviderRegistry =
+				ConfigurationService.get(XMLObjectProviderRegistry.class);
+
 			_parserPoolServiceRegistration = bundleContext.registerService(
-				ParserPool.class, Configuration.getParserPool(), null);
+				ParserPool.class, xmlObjectProviderRegistry.getParserPool(),
+				null);
 		}
 		finally {
 			currentThread.setContextClassLoader(classLoader);
 		}
 	}
 
-	protected static void initializeParserPool() throws ConfigurationException {
+	protected static void initializeParserPool()
+		throws InitializationException {
+
 		BasicParserPool parserPool = new BasicParserPool();
 
 		Map<String, Boolean> builderFeatures = new HashMap<>();
@@ -85,6 +112,9 @@ public class OpenSamlBootstrap extends DefaultBootstrap {
 		builderFeatures.put(
 			"http://apache.org/xml/features/disallow-doctype-decl",
 			Boolean.TRUE);
+		builderFeatures.put(
+			"http://apache.org/xml/features/dom/defer-node-expansion",
+			Boolean.FALSE);
 		builderFeatures.put(
 			"http://javax.xml.XMLConstants/feature/secure-processing",
 			Boolean.TRUE);
@@ -100,17 +130,23 @@ public class OpenSamlBootstrap extends DefaultBootstrap {
 		parserPool.setDTDValidating(false);
 		parserPool.setExpandEntityReferences(false);
 		parserPool.setMaxPoolSize(50);
+		parserPool.setNamespaceAware(true);
 
 		try {
+			parserPool.initialize();
+
 			parserPool.getBuilder();
+
+			XMLObjectProviderRegistry xmlObjectProviderRegistry =
+				ConfigurationService.get(XMLObjectProviderRegistry.class);
+
+			xmlObjectProviderRegistry.setParserPool(parserPool);
 		}
-		catch (XMLParserException xmlpe) {
-			throw new ConfigurationException(
+		catch (Exception xmlpe) {
+			throw new InitializationException(
 				"Unable to initialize parser pool: " + xmlpe.getMessage(),
 				xmlpe);
 		}
-
-		Configuration.setParserPool(parserPool);
 	}
 
 	@Deactivate
@@ -119,20 +155,6 @@ public class OpenSamlBootstrap extends DefaultBootstrap {
 			_parserPoolServiceRegistration.unregister();
 		}
 	}
-
-	private static final String[] _XML_TOOLING_CONFIGS = {
-		"/default-config.xml", "/encryption-config.xml",
-		"/encryption-validation-config.xml", "/saml1-metadata-config.xml",
-		"/saml2-assertion-config.xml",
-		"/saml2-assertion-delegation-restriction-config.xml",
-		"/saml2-core-validation-config.xml", "/saml2-metadata-config.xml",
-		"/saml2-metadata-idp-discovery-config.xml",
-		"/saml2-metadata-query-config.xml",
-		"/saml2-metadata-validation-config.xml", "/saml2-protocol-config.xml",
-		"/saml2-protocol-thirdparty-config.xml", "/schema-config.xml",
-		"/signature-config.xml", "/signature-validation-config.xml",
-		"/soap11-config.xml"
-	};
 
 	private ServiceRegistration<ParserPool> _parserPoolServiceRegistration;
 

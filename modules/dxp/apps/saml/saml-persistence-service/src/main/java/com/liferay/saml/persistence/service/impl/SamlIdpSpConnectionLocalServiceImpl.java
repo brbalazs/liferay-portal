@@ -45,7 +45,7 @@ public class SamlIdpSpConnectionLocalServiceImpl
 	public SamlIdpSpConnection addSamlIdpSpConnection(
 			String samlSpEntityId, int assertionLifetime, String attributeNames,
 			boolean attributesEnabled, boolean attributesNamespaceEnabled,
-			boolean enabled, String metadataUrl,
+			boolean enabled, boolean encryptionForced, String metadataUrl,
 			InputStream metadataXmlInputStream, String name,
 			String nameIdAttribute, String nameIdFormat,
 			ServiceContext serviceContext)
@@ -62,9 +62,11 @@ public class SamlIdpSpConnectionLocalServiceImpl
 			throw new SamlIdpSpConnectionNameException("Name is null");
 		}
 
-		if (samlIdpSpConnectionPersistence.fetchByC_SSEI(
-				serviceContext.getCompanyId(), samlSpEntityId) != null) {
+		SamlIdpSpConnection existingSamlIdpSpConnection =
+			samlIdpSpConnectionPersistence.fetchByC_SSEI(
+				serviceContext.getCompanyId(), samlSpEntityId);
 
+		if (existingSamlIdpSpConnection != null) {
 			throw new DuplicateSamlIdpSpConnectionSamlSpEntityIdException();
 		}
 
@@ -84,6 +86,7 @@ public class SamlIdpSpConnectionLocalServiceImpl
 		samlIdpSpConnection.setAttributesNamespaceEnabled(
 			attributesNamespaceEnabled);
 		samlIdpSpConnection.setEnabled(enabled);
+		samlIdpSpConnection.setEncryptionForced(encryptionForced);
 		samlIdpSpConnection.setExpandoBridgeAttributes(serviceContext);
 		samlIdpSpConnection.setMetadataUpdatedDate(now);
 
@@ -206,7 +209,7 @@ public class SamlIdpSpConnectionLocalServiceImpl
 			long samlIdpSpConnectionId, String samlSpEntityId,
 			int assertionLifetime, String attributeNames,
 			boolean attributesEnabled, boolean attributesNamespaceEnabled,
-			boolean enabled, String metadataUrl,
+			boolean enabled, boolean encryptionForced, String metadataUrl,
 			InputStream metadataXmlInputStream, String name,
 			String nameIdAttribute, String nameIdFormat,
 			ServiceContext serviceContext)
@@ -223,12 +226,15 @@ public class SamlIdpSpConnectionLocalServiceImpl
 			samlIdpSpConnectionPersistence.fetchByPrimaryKey(
 				samlIdpSpConnectionId);
 
-		if (!samlSpEntityId.equals(samlIdpSpConnection.getSamlSpEntityId()) &&
-			(samlIdpSpConnectionPersistence.fetchByC_SSEI(
-				serviceContext.getCompanyId(), samlSpEntityId) != null)) {
+		if (!samlSpEntityId.equals(samlIdpSpConnection.getSamlSpEntityId())) {
+			SamlIdpSpConnection existingSamlIdpSpConnection =
+				samlIdpSpConnectionPersistence.fetchByC_SSEI(
+					serviceContext.getCompanyId(), samlSpEntityId);
 
-			throw new DuplicateSamlIdpSpConnectionSamlSpEntityIdException(
-				"Duplicate SAML IDP SP connection for " + samlSpEntityId);
+			if (existingSamlIdpSpConnection != null) {
+				throw new DuplicateSamlIdpSpConnectionSamlSpEntityIdException(
+					"Duplicate SAML IDP SP connection for " + samlSpEntityId);
+			}
 		}
 
 		samlIdpSpConnection.setModifiedDate(now);
@@ -239,6 +245,7 @@ public class SamlIdpSpConnectionLocalServiceImpl
 		samlIdpSpConnection.setAttributesNamespaceEnabled(
 			attributesNamespaceEnabled);
 		samlIdpSpConnection.setEnabled(enabled);
+		samlIdpSpConnection.setEncryptionForced(encryptionForced);
 		samlIdpSpConnection.setExpandoBridgeAttributes(serviceContext);
 
 		if ((metadataXmlInputStream == null) &&

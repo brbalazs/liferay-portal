@@ -68,6 +68,9 @@ public interface PortletPropsKeys {
 	public static final String SAML_KEYSTORE_CREDENTIAL_PASSWORD =
 		"saml.keystore.credential.password";
 
+	public static final String SAML_KEYSTORE_ENCRYPTION_CREDENTIAL_PASSWORD =
+		"saml.keystore.encryption.credential.password";
+
 	public static final String SAML_KEYSTORE_MANAGER_IMPL =
 		"saml.keystore.manager.impl";
 
@@ -87,6 +90,9 @@ public interface PortletPropsKeys {
 	public static final String SAML_ROLE = "saml.role";
 
 	public static final String SAML_SIGN_METADATA = "saml.sign.metadata";
+
+	public static final String SAML_SP_ALLOW_SHOWING_THE_LOGIN_PORTLET =
+		"saml.sp.allow.showing.the.login.portlet";
 
 	public static final String SAML_SP_ASSERTION_SIGNATURE_REQUIRED =
 		"saml.sp.assertion.signature.required";

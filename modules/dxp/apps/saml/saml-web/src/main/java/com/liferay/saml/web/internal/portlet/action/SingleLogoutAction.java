@@ -16,7 +16,7 @@ package com.liferay.saml.web.internal.portlet.action;
 
 import com.liferay.portal.kernel.struts.StrutsAction;
 import com.liferay.saml.runtime.configuration.SamlProviderConfigurationHelper;
-import com.liferay.saml.runtime.profile.SingleLogoutProfile;
+import com.liferay.saml.runtime.servlet.profile.SingleLogoutProfile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,18 +48,21 @@ public class SingleLogoutAction extends BaseSamlStrutsAction {
 
 	@Override
 	protected String doExecute(
-			HttpServletRequest request, HttpServletResponse response)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse)
 		throws Exception {
 
-		String requestURI = request.getRequestURI();
+		String requestURI = httpServletRequest.getRequestURI();
 
 		if (samlProviderConfigurationHelper.isRoleIdp() &&
 			requestURI.endsWith("/slo_logout")) {
 
-			_singleLogoutProfile.processIdpLogout(request, response);
+			_singleLogoutProfile.processIdpLogout(
+				httpServletRequest, httpServletResponse);
 		}
 		else {
-			_singleLogoutProfile.processSingleLogout(request, response);
+			_singleLogoutProfile.processSingleLogout(
+				httpServletRequest, httpServletResponse);
 		}
 
 		return null;

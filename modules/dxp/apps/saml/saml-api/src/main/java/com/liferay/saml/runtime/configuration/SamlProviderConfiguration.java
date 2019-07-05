@@ -44,6 +44,14 @@ public interface SamlProviderConfiguration {
 	public String keyStoreCredentialPassword();
 
 	@Meta.AD(
+		deflt = "liferay",
+		description = "saml-keystore-encryption-credential-password-description",
+		id = "saml.keystore.encryption.credential.password",
+		name = "saml-keystore-encryption-credential-password", required = false
+	)
+	public String keyStoreEncryptionCredentialPassword();
+
+	@Meta.AD(
 		description = "saml-sp-assertion-signature-required-description",
 		id = "saml.sp.assertion.signature.required",
 		name = "saml-sp-assertion-signature-required", required = false
@@ -70,13 +78,6 @@ public interface SamlProviderConfiguration {
 		name = "saml-idp-assertion-lifetime", required = false
 	)
 	public int defaultAssertionLifetime();
-
-	@Meta.AD(
-		description = "saml-sp-default-idp-entity-id-description",
-		id = "saml.sp.default.idp.entity.id",
-		name = "saml-sp-default-idp-entity-id", required = false
-	)
-	public String defaultIdPEntityId();
 
 	@Meta.AD(id = "saml.enabled", name = "saml-enabled", required = false)
 	public boolean enabled();
@@ -133,5 +134,16 @@ public interface SamlProviderConfiguration {
 		name = "saml-ssl-required", required = false
 	)
 	public boolean sslRequired();
+
+	/**
+	 * If no SAML IdP is matched then show the login portlet
+	 */
+	@Meta.AD(
+		deflt = "true",
+		description = "saml-sp-allow-showing-the-login-portlet-description",
+		id = "saml.sp.allow.showing.the.login.portlet",
+		name = "saml-sp-allow-showing-the-login-portlet", required = false
+	)
+	public boolean allowShowingTheLoginPortlet();
 
 }

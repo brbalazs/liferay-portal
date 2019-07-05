@@ -14,19 +14,14 @@
 
 package com.liferay.saml.persistence.model;
 
-import aQute.bnd.annotation.ProviderType;
-
-import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.AuditedModel;
 import com.liferay.portal.kernel.model.BaseModel;
-import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.ShardedModel;
-import com.liferay.portal.kernel.service.ServiceContext;
-
-import java.io.Serializable;
 
 import java.util.Date;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The base model interface for the SamlSpSession service. Represents a row in the &quot;SamlSpSession&quot; database table, with each column mapped to a property of this class.
@@ -175,6 +170,21 @@ public interface SamlSpSessionModel
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
+	 * Returns the saml idp entity ID of this saml sp session.
+	 *
+	 * @return the saml idp entity ID of this saml sp session
+	 */
+	@AutoEscape
+	public String getSamlIdpEntityId();
+
+	/**
+	 * Sets the saml idp entity ID of this saml sp session.
+	 *
+	 * @param samlIdpEntityId the saml idp entity ID of this saml sp session
+	 */
+	public void setSamlIdpEntityId(String samlIdpEntityId);
+
+	/**
 	 * Returns the saml sp session key of this saml sp session.
 	 *
 	 * @return the saml sp session key of this saml sp session
@@ -314,62 +324,5 @@ public interface SamlSpSessionModel
 	 * @param terminated the terminated of this saml sp session
 	 */
 	public void setTerminated(boolean terminated);
-
-	@Override
-	public boolean isNew();
-
-	@Override
-	public void setNew(boolean n);
-
-	@Override
-	public boolean isCachedModel();
-
-	@Override
-	public void setCachedModel(boolean cachedModel);
-
-	@Override
-	public boolean isEscapedModel();
-
-	@Override
-	public Serializable getPrimaryKeyObj();
-
-	@Override
-	public void setPrimaryKeyObj(Serializable primaryKeyObj);
-
-	@Override
-	public ExpandoBridge getExpandoBridge();
-
-	@Override
-	public void setExpandoBridgeAttributes(BaseModel<?> baseModel);
-
-	@Override
-	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge);
-
-	@Override
-	public void setExpandoBridgeAttributes(ServiceContext serviceContext);
-
-	@Override
-	public Object clone();
-
-	@Override
-	public int compareTo(SamlSpSession samlSpSession);
-
-	@Override
-	public int hashCode();
-
-	@Override
-	public CacheModel<SamlSpSession> toCacheModel();
-
-	@Override
-	public SamlSpSession toEscapedModel();
-
-	@Override
-	public SamlSpSession toUnescapedModel();
-
-	@Override
-	public String toString();
-
-	@Override
-	public String toXmlString();
 
 }

@@ -14,7 +14,7 @@
 
 package com.liferay.saml.constants;
 
-import aQute.bnd.annotation.ProviderType;
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * @author Mika Koivisto
@@ -47,12 +47,6 @@ public interface SamlWebKeys {
 
 	public static final String SAML_KEEP_ALIVE_URLS = "SAML_KEEP_ALIVE_URLS";
 
-	public static final String SAML_KEYSTORE_EXCEPTION =
-		"SAML_KEYSTORE_EXCEPTION";
-
-	public static final String SAML_KEYSTORE_PASSWORD_INCORRECT =
-		"SAML_KEYSTORE_PASSWORD_INCORRECT";
-
 	public static final String SAML_SLO_CONTEXT = "SAML_SLO_CONTEXT";
 
 	public static final String SAML_SLO_REQUEST_INFO = "SAML_SLO_REQUEST_INFO";
@@ -62,6 +56,12 @@ public interface SamlWebKeys {
 	public static final String SAML_SP_IDP_CONNECTION =
 		"SAML_SP_IDP_CONNECTION";
 
+	public static final String SAML_SP_IDP_CONNECTIONS =
+		"SAML_SP_IDP_CONNECTIONS";
+
+	public static final String SAML_SP_IDP_CONNECTIONS_COUNT =
+		"SAML_SP_IDP_CONNECTIONS_COUNT";
+
 	public static final String SAML_SP_NAME_ID_FORMAT =
 		"SAML_SP_NAME_ID_FORMAT";
 
@@ -69,14 +69,14 @@ public interface SamlWebKeys {
 
 	public static final String SAML_SP_SESSION_KEY = "SAML_SP_SESSION_KEY";
 
+	public static final String SAML_SSO_LOGIN_CONTEXT =
+		"SAML_SSO_LOGIN_CONTEXT";
+
 	public static final String SAML_SSO_REQUEST_CONTEXT =
 		"SAML_SSO_REQUEST_CONTEXT";
 
 	public static final String SAML_SSO_SESSION_ID = "SAML_SSO_SESSION_ID";
 
 	public static final String SAML_X509_CERTIFICATE = "SAML_X509_CERTIFICATE";
-
-	public static final String SAML_X509_CERTIFICATE_AUTH_NEEDED =
-		"SAML_X509_CERTIFICATE_AUTH_NEEDED";
 
 }

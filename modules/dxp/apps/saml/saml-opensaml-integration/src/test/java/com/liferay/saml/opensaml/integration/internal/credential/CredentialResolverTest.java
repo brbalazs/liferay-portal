@@ -16,13 +16,14 @@ package com.liferay.saml.opensaml.integration.internal.credential;
 
 import com.liferay.saml.opensaml.integration.internal.BaseSamlTestCase;
 
+import net.shibboleth.utilities.java.support.resolver.CriteriaSet;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import org.opensaml.xml.security.CriteriaSet;
-import org.opensaml.xml.security.credential.Credential;
-import org.opensaml.xml.security.criteria.EntityIDCriteria;
+import org.opensaml.core.criterion.EntityIdCriterion;
+import org.opensaml.security.credential.Credential;
 
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -40,11 +41,11 @@ public class CredentialResolverTest extends BaseSamlTestCase {
 
 	@Test
 	public void testResolveNonexistingCredential() throws Exception {
-		EntityIDCriteria entityIDCriteria = new EntityIDCriteria("na");
+		EntityIdCriterion entityIDCriterion = new EntityIdCriterion("na");
 
 		CriteriaSet criteriaSet = new CriteriaSet();
 
-		criteriaSet.add(entityIDCriteria);
+		criteriaSet.add(entityIDCriterion);
 
 		Credential credential = credentialResolver.resolveSingle(criteriaSet);
 
@@ -58,11 +59,11 @@ public class CredentialResolverTest extends BaseSamlTestCase {
 	}
 
 	protected void testResolveCredential(String spEntityId) throws Exception {
-		EntityIDCriteria entityIDCriteria = new EntityIDCriteria(spEntityId);
+		EntityIdCriterion entityIDCriterion = new EntityIdCriterion(spEntityId);
 
 		CriteriaSet criteriaSet = new CriteriaSet();
 
-		criteriaSet.add(entityIDCriteria);
+		criteriaSet.add(entityIDCriterion);
 
 		Credential credential = credentialResolver.resolveSingle(criteriaSet);
 

@@ -14,87 +14,102 @@
 
 package com.liferay.saml.opensaml.integration.internal.util;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
-import java.io.StringWriter;
 
 import java.net.URI;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import net.shibboleth.utilities.java.support.resolver.CriteriaSet;
+import net.shibboleth.utilities.java.support.resolver.ResolverException;
+import net.shibboleth.utilities.java.support.xml.ParserPool;
+import net.shibboleth.utilities.java.support.xml.XMLParserException;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
-import org.opensaml.Configuration;
-import org.opensaml.common.SAMLObjectBuilder;
-import org.opensaml.common.SAMLVersion;
-import org.opensaml.common.SignableSAMLObject;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.saml2.core.Attribute;
-import org.opensaml.saml2.core.AttributeStatement;
-import org.opensaml.saml2.core.AttributeValue;
-import org.opensaml.saml2.core.Audience;
-import org.opensaml.saml2.core.AudienceRestriction;
-import org.opensaml.saml2.core.AuthnContext;
-import org.opensaml.saml2.core.AuthnContextClassRef;
-import org.opensaml.saml2.core.AuthnRequest;
-import org.opensaml.saml2.core.AuthnStatement;
-import org.opensaml.saml2.core.Conditions;
-import org.opensaml.saml2.core.Issuer;
-import org.opensaml.saml2.core.LogoutRequest;
-import org.opensaml.saml2.core.LogoutResponse;
-import org.opensaml.saml2.core.NameID;
-import org.opensaml.saml2.core.NameIDPolicy;
-import org.opensaml.saml2.core.Response;
-import org.opensaml.saml2.core.SessionIndex;
-import org.opensaml.saml2.core.Status;
-import org.opensaml.saml2.core.StatusCode;
-import org.opensaml.saml2.core.Subject;
-import org.opensaml.saml2.core.SubjectConfirmation;
-import org.opensaml.saml2.core.SubjectConfirmationData;
-import org.opensaml.saml2.metadata.AssertionConsumerService;
-import org.opensaml.saml2.metadata.EntityDescriptor;
-import org.opensaml.saml2.metadata.IDPSSODescriptor;
-import org.opensaml.saml2.metadata.KeyDescriptor;
-import org.opensaml.saml2.metadata.SPSSODescriptor;
-import org.opensaml.saml2.metadata.SingleLogoutService;
-import org.opensaml.saml2.metadata.SingleSignOnService;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.opensaml.xml.XMLObjectBuilderFactory;
-import org.opensaml.xml.io.Marshaller;
-import org.opensaml.xml.io.MarshallerFactory;
-import org.opensaml.xml.io.MarshallingException;
-import org.opensaml.xml.io.UnmarshallingException;
-import org.opensaml.xml.parse.ParserPool;
-import org.opensaml.xml.parse.XMLParserException;
-import org.opensaml.xml.schema.XSBase64Binary;
-import org.opensaml.xml.schema.XSBoolean;
-import org.opensaml.xml.schema.XSBooleanValue;
-import org.opensaml.xml.schema.XSDateTime;
-import org.opensaml.xml.schema.XSInteger;
-import org.opensaml.xml.schema.XSString;
-import org.opensaml.xml.schema.XSURI;
-import org.opensaml.xml.security.SecurityConfiguration;
-import org.opensaml.xml.security.SecurityException;
-import org.opensaml.xml.security.SecurityHelper;
-import org.opensaml.xml.security.credential.Credential;
-import org.opensaml.xml.security.credential.UsageType;
-import org.opensaml.xml.security.keyinfo.KeyInfoGenerator;
-import org.opensaml.xml.security.keyinfo.KeyInfoGeneratorFactory;
-import org.opensaml.xml.security.keyinfo.KeyInfoGeneratorManager;
-import org.opensaml.xml.security.keyinfo.NamedKeyInfoGeneratorManager;
-import org.opensaml.xml.signature.KeyInfo;
-import org.opensaml.xml.signature.Signature;
-import org.opensaml.xml.signature.SignatureException;
-import org.opensaml.xml.signature.Signer;
-import org.opensaml.xml.util.XMLObjectHelper;
+import org.opensaml.core.config.ConfigurationService;
+import org.opensaml.core.xml.XMLObject;
+import org.opensaml.core.xml.XMLObjectBuilder;
+import org.opensaml.core.xml.XMLObjectBuilderFactory;
+import org.opensaml.core.xml.config.XMLObjectProviderRegistry;
+import org.opensaml.core.xml.io.Marshaller;
+import org.opensaml.core.xml.io.MarshallerFactory;
+import org.opensaml.core.xml.io.MarshallingException;
+import org.opensaml.core.xml.io.UnmarshallingException;
+import org.opensaml.core.xml.schema.XSBase64Binary;
+import org.opensaml.core.xml.schema.XSBoolean;
+import org.opensaml.core.xml.schema.XSBooleanValue;
+import org.opensaml.core.xml.schema.XSDateTime;
+import org.opensaml.core.xml.schema.XSInteger;
+import org.opensaml.core.xml.schema.XSString;
+import org.opensaml.core.xml.schema.XSURI;
+import org.opensaml.core.xml.util.XMLObjectSupport;
+import org.opensaml.saml.common.SAMLObjectBuilder;
+import org.opensaml.saml.common.SAMLVersion;
+import org.opensaml.saml.common.SignableSAMLObject;
+import org.opensaml.saml.criterion.RoleDescriptorCriterion;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.saml.saml2.core.Attribute;
+import org.opensaml.saml.saml2.core.AttributeStatement;
+import org.opensaml.saml.saml2.core.AttributeValue;
+import org.opensaml.saml.saml2.core.Audience;
+import org.opensaml.saml.saml2.core.AudienceRestriction;
+import org.opensaml.saml.saml2.core.AuthnContext;
+import org.opensaml.saml.saml2.core.AuthnContextClassRef;
+import org.opensaml.saml.saml2.core.AuthnRequest;
+import org.opensaml.saml.saml2.core.AuthnStatement;
+import org.opensaml.saml.saml2.core.Conditions;
+import org.opensaml.saml.saml2.core.Issuer;
+import org.opensaml.saml.saml2.core.LogoutRequest;
+import org.opensaml.saml.saml2.core.LogoutResponse;
+import org.opensaml.saml.saml2.core.NameID;
+import org.opensaml.saml.saml2.core.NameIDPolicy;
+import org.opensaml.saml.saml2.core.Response;
+import org.opensaml.saml.saml2.core.SessionIndex;
+import org.opensaml.saml.saml2.core.Status;
+import org.opensaml.saml.saml2.core.StatusCode;
+import org.opensaml.saml.saml2.core.Subject;
+import org.opensaml.saml.saml2.core.SubjectConfirmation;
+import org.opensaml.saml.saml2.core.SubjectConfirmationData;
+import org.opensaml.saml.saml2.metadata.AssertionConsumerService;
+import org.opensaml.saml.saml2.metadata.EntityDescriptor;
+import org.opensaml.saml.saml2.metadata.IDPSSODescriptor;
+import org.opensaml.saml.saml2.metadata.KeyDescriptor;
+import org.opensaml.saml.saml2.metadata.RoleDescriptor;
+import org.opensaml.saml.saml2.metadata.SPSSODescriptor;
+import org.opensaml.saml.saml2.metadata.SingleLogoutService;
+import org.opensaml.saml.saml2.metadata.SingleSignOnService;
+import org.opensaml.saml.security.impl.SAMLMetadataSignatureSigningParametersResolver;
+import org.opensaml.security.SecurityException;
+import org.opensaml.security.credential.Credential;
+import org.opensaml.security.credential.UsageType;
+import org.opensaml.xmlsec.EncryptionConfiguration;
+import org.opensaml.xmlsec.SecurityConfigurationSupport;
+import org.opensaml.xmlsec.SignatureSigningConfiguration;
+import org.opensaml.xmlsec.SignatureSigningParameters;
+import org.opensaml.xmlsec.context.SecurityParametersContext;
+import org.opensaml.xmlsec.criterion.SignatureSigningConfigurationCriterion;
+import org.opensaml.xmlsec.impl.BasicSignatureSigningConfiguration;
+import org.opensaml.xmlsec.keyinfo.KeyInfoGenerator;
+import org.opensaml.xmlsec.keyinfo.KeyInfoGeneratorFactory;
+import org.opensaml.xmlsec.keyinfo.KeyInfoGeneratorManager;
+import org.opensaml.xmlsec.keyinfo.NamedKeyInfoGeneratorManager;
+import org.opensaml.xmlsec.signature.KeyInfo;
+import org.opensaml.xmlsec.signature.Signature;
+import org.opensaml.xmlsec.signature.support.SignatureException;
+import org.opensaml.xmlsec.signature.support.SignatureSupport;
+import org.opensaml.xmlsec.signature.support.Signer;
 
 /**
  * @author Mika Koivisto
@@ -609,11 +624,11 @@ public class OpenSamlUtil {
 	public static KeyInfo buildKeyInfo(Credential credential)
 		throws SecurityException {
 
-		SecurityConfiguration securityConfiguration =
-			Configuration.getGlobalSecurityConfiguration();
+		EncryptionConfiguration globalEncryptionConfiguration =
+			SecurityConfigurationSupport.getGlobalEncryptionConfiguration();
 
 		NamedKeyInfoGeneratorManager namedKeyInfoGeneratorManager =
-			securityConfiguration.getKeyInfoGeneratorManager();
+			globalEncryptionConfiguration.getDataKeyInfoGeneratorManager();
 
 		KeyInfoGeneratorManager keyInfoGeneratorManager =
 			namedKeyInfoGeneratorManager.getDefaultManager();
@@ -808,40 +823,78 @@ public class OpenSamlUtil {
 	public static String marshall(XMLObject xmlObject)
 		throws MarshallingException {
 
-		StringWriter stringWriter = new StringWriter();
+		ByteArrayOutputStream byteArrayOutputStream =
+			new ByteArrayOutputStream();
 
-		XMLObjectHelper.marshallToWriter(xmlObject, stringWriter);
+		XMLObjectSupport.marshallToOutputStream(
+			xmlObject, byteArrayOutputStream);
 
-		return stringWriter.toString();
+		return byteArrayOutputStream.toString();
+	}
+
+	public static void prepareSecurityParametersContext(
+			Credential credential,
+			SecurityParametersContext securityParametersContext,
+			RoleDescriptor peerRoleDescriptor)
+		throws PortalException {
+
+		try {
+			SignatureSigningParameters signatureSigningParameters =
+				_getSignatureSigningParameters(credential, peerRoleDescriptor);
+
+			securityParametersContext.setSignatureSigningParameters(
+				signatureSigningParameters);
+
+			signatureSigningParameters.setSigningCredential(credential);
+		}
+		catch (ResolverException re) {
+			throw new PortalException(re);
+		}
 	}
 
 	public static void signObject(
-			SignableSAMLObject signableObject, Credential credential)
+			SignableSAMLObject signableObject, Credential credential,
+			RoleDescriptor peerRoleDescriptor)
 		throws MarshallingException, SecurityException, SignatureException {
 
 		Signature signature = buildSignature(credential);
 
-		SecurityHelper.prepareSignatureParams(
-			signature, credential, null, null);
+		try {
+			SignatureSigningParameters signatureSigningParameters =
+				_getSignatureSigningParameters(credential, peerRoleDescriptor);
 
-		signableObject.setSignature(signature);
+			SignatureSupport.prepareSignatureParams(
+				signature, signatureSigningParameters);
 
-		MarshallerFactory marshallerFactory =
-			Configuration.getMarshallerFactory();
+			signableObject.setSignature(signature);
 
-		Marshaller marshaller = marshallerFactory.getMarshaller(signableObject);
+			XMLObjectProviderRegistry xmlObjectProviderRegistry =
+				ConfigurationService.get(XMLObjectProviderRegistry.class);
 
-		marshaller.marshall(signableObject);
+			MarshallerFactory marshallerFactory =
+				xmlObjectProviderRegistry.getMarshallerFactory();
 
-		Signer.signObject(signature);
+			Marshaller marshaller = marshallerFactory.getMarshaller(
+				signableObject);
+
+			marshaller.marshall(signableObject);
+
+			Signer.signObject(signature);
+		}
+		catch (ResolverException re) {
+			throw new SignatureException(re);
+		}
 	}
 
 	public static XMLObject unmarshall(String xml)
 		throws UnmarshallingException, XMLParserException {
 
-		ParserPool parserPool = Configuration.getParserPool();
+		XMLObjectProviderRegistry xmlObjectProviderRegistry =
+			ConfigurationService.get(XMLObjectProviderRegistry.class);
 
-		return XMLObjectHelper.unmarshallFromInputStream(
+		ParserPool parserPool = xmlObjectProviderRegistry.getParserPool();
+
+		return XMLObjectSupport.unmarshallFromInputStream(
 			parserPool, new ByteArrayInputStream(xml.getBytes()));
 	}
 
@@ -850,7 +903,53 @@ public class OpenSamlUtil {
 		return _xmlObjectBuilderFactory.getBuilder(qName);
 	}
 
-	private static final XMLObjectBuilderFactory _xmlObjectBuilderFactory =
-		Configuration.getBuilderFactory();
+	private static SignatureSigningParameters _getSignatureSigningParameters(
+			Credential credential, RoleDescriptor peerRoleDescriptor)
+		throws ResolverException {
+
+		SAMLMetadataSignatureSigningParametersResolver
+			samlMetadataSignatureSigningParametersResolver =
+				new SAMLMetadataSignatureSigningParametersResolver();
+
+		SignatureSigningConfiguration globalSignatureSigningConfiguration =
+			SecurityConfigurationSupport.
+				getGlobalSignatureSigningConfiguration();
+
+		if (globalSignatureSigningConfiguration instanceof
+				BasicSignatureSigningConfiguration) {
+
+			BasicSignatureSigningConfiguration signatureSigningConfiguration =
+				(BasicSignatureSigningConfiguration)
+					globalSignatureSigningConfiguration;
+
+			signatureSigningConfiguration.setSigningCredentials(
+				Collections.singletonList(credential));
+		}
+
+		SignatureSigningConfigurationCriterion
+			signatureSigningConfigurationCriterion =
+				new SignatureSigningConfigurationCriterion(
+					globalSignatureSigningConfiguration);
+
+		CriteriaSet criteriaSet = new CriteriaSet(
+			signatureSigningConfigurationCriterion);
+
+		if (peerRoleDescriptor != null) {
+			criteriaSet.add(new RoleDescriptorCriterion(peerRoleDescriptor));
+		}
+
+		return samlMetadataSignatureSigningParametersResolver.resolveSingle(
+			criteriaSet);
+	}
+
+	private static final XMLObjectBuilderFactory _xmlObjectBuilderFactory;
+
+	static {
+		XMLObjectProviderRegistry xmlObjectProviderRegistry =
+			ConfigurationService.get(XMLObjectProviderRegistry.class);
+
+		_xmlObjectBuilderFactory =
+			xmlObjectProviderRegistry.getBuilderFactory();
+	}
 
 }

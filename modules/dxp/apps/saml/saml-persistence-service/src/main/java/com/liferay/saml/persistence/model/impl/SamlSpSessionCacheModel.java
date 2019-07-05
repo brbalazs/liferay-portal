@@ -14,11 +14,9 @@
 
 package com.liferay.saml.persistence.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
+import com.liferay.petra.lang.HashUtil;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
-import com.liferay.portal.kernel.util.HashUtil;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.saml.persistence.model.SamlSpSession;
 
 import java.io.Externalizable;
@@ -27,6 +25,8 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import java.util.Date;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The cache model class for representing SamlSpSession in entity cache.
@@ -65,7 +65,7 @@ public class SamlSpSessionCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(33);
 
 		sb.append("{samlSpSessionId=");
 		sb.append(samlSpSessionId);
@@ -79,6 +79,8 @@ public class SamlSpSessionCacheModel
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", samlIdpEntityId=");
+		sb.append(samlIdpEntityId);
 		sb.append(", samlSpSessionKey=");
 		sb.append(samlSpSessionKey);
 		sb.append(", assertionXml=");
@@ -129,6 +131,13 @@ public class SamlSpSessionCacheModel
 		}
 		else {
 			samlSpSessionImpl.setModifiedDate(new Date(modifiedDate));
+		}
+
+		if (samlIdpEntityId == null) {
+			samlSpSessionImpl.setSamlIdpEntityId("");
+		}
+		else {
+			samlSpSessionImpl.setSamlIdpEntityId(samlIdpEntityId);
 		}
 
 		if (samlSpSessionKey == null) {
@@ -204,6 +213,7 @@ public class SamlSpSessionCacheModel
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+		samlIdpEntityId = objectInput.readUTF();
 		samlSpSessionKey = objectInput.readUTF();
 		assertionXml = objectInput.readUTF();
 		jSessionId = objectInput.readUTF();
@@ -233,6 +243,13 @@ public class SamlSpSessionCacheModel
 
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
+
+		if (samlIdpEntityId == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(samlIdpEntityId);
+		}
 
 		if (samlSpSessionKey == null) {
 			objectOutput.writeUTF("");
@@ -299,6 +316,7 @@ public class SamlSpSessionCacheModel
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
+	public String samlIdpEntityId;
 	public String samlSpSessionKey;
 	public String assertionXml;
 	public String jSessionId;

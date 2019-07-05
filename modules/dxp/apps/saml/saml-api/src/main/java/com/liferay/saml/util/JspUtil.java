@@ -39,16 +39,17 @@ public class JspUtil {
 		"/portal/saml/slo_sp_status.jsp";
 
 	public static void dispatch(
-			HttpServletRequest request, HttpServletResponse response,
-			String path, String title)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse, String path, String title)
 		throws Exception {
 
-		dispatch(request, response, path, title, false);
+		dispatch(httpServletRequest, httpServletResponse, path, title, false);
 	}
 
 	public static void dispatch(
-			HttpServletRequest request, HttpServletResponse response,
-			String path, String title, boolean popUp)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse, String path, String title,
+			boolean popUp)
 		throws Exception {
 
 		Map<String, String> attributes = new HashMap<>();
@@ -57,13 +58,14 @@ public class JspUtil {
 		attributes.put("pop_up", String.valueOf(popUp));
 		attributes.put("title", title);
 
-		request.setAttribute(
+		httpServletRequest.setAttribute(
 			TilesUtil.DEFINITION, new Definition(StringPool.BLANK, attributes));
 
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(
-			_PATH_HTML_COMMON_THEMES_PORTAL);
+		RequestDispatcher requestDispatcher =
+			httpServletRequest.getRequestDispatcher(
+				_PATH_HTML_COMMON_THEMES_PORTAL);
 
-		requestDispatcher.include(request, response);
+		requestDispatcher.include(httpServletRequest, httpServletResponse);
 	}
 
 	private static final String _PATH_HTML_COMMON_THEMES_PORTAL =

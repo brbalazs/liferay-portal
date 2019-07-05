@@ -14,18 +14,14 @@
 
 package com.liferay.saml.persistence.model;
 
-import aQute.bnd.annotation.ProviderType;
-
-import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.portal.kernel.model.ModelWrapper;
-import com.liferay.portal.kernel.service.ServiceContext;
-
-import java.io.Serializable;
+import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * <p>
@@ -38,20 +34,11 @@ import java.util.Objects;
  */
 @ProviderType
 public class SamlIdpSsoSessionWrapper
+	extends BaseModelWrapper<SamlIdpSsoSession>
 	implements SamlIdpSsoSession, ModelWrapper<SamlIdpSsoSession> {
 
 	public SamlIdpSsoSessionWrapper(SamlIdpSsoSession samlIdpSsoSession) {
-		_samlIdpSsoSession = samlIdpSsoSession;
-	}
-
-	@Override
-	public Class<?> getModelClass() {
-		return SamlIdpSsoSession.class;
-	}
-
-	@Override
-	public String getModelClassName() {
-		return SamlIdpSsoSession.class.getName();
+		super(samlIdpSsoSession);
 	}
 
 	@Override
@@ -115,17 +102,6 @@ public class SamlIdpSsoSessionWrapper
 		}
 	}
 
-	@Override
-	public Object clone() {
-		return new SamlIdpSsoSessionWrapper(
-			(SamlIdpSsoSession)_samlIdpSsoSession.clone());
-	}
-
-	@Override
-	public int compareTo(SamlIdpSsoSession samlIdpSsoSession) {
-		return _samlIdpSsoSession.compareTo(samlIdpSsoSession);
-	}
-
 	/**
 	 * Returns the company ID of this saml idp sso session.
 	 *
@@ -133,7 +109,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public long getCompanyId() {
-		return _samlIdpSsoSession.getCompanyId();
+		return model.getCompanyId();
 	}
 
 	/**
@@ -143,12 +119,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public Date getCreateDate() {
-		return _samlIdpSsoSession.getCreateDate();
-	}
-
-	@Override
-	public ExpandoBridge getExpandoBridge() {
-		return _samlIdpSsoSession.getExpandoBridge();
+		return model.getCreateDate();
 	}
 
 	/**
@@ -158,7 +129,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public Date getModifiedDate() {
-		return _samlIdpSsoSession.getModifiedDate();
+		return model.getModifiedDate();
 	}
 
 	/**
@@ -168,12 +139,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public long getPrimaryKey() {
-		return _samlIdpSsoSession.getPrimaryKey();
-	}
-
-	@Override
-	public Serializable getPrimaryKeyObj() {
-		return _samlIdpSsoSession.getPrimaryKeyObj();
+		return model.getPrimaryKey();
 	}
 
 	/**
@@ -183,7 +149,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public long getSamlIdpSsoSessionId() {
-		return _samlIdpSsoSession.getSamlIdpSsoSessionId();
+		return model.getSamlIdpSsoSessionId();
 	}
 
 	/**
@@ -193,7 +159,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public String getSamlIdpSsoSessionKey() {
-		return _samlIdpSsoSession.getSamlIdpSsoSessionKey();
+		return model.getSamlIdpSsoSessionKey();
 	}
 
 	/**
@@ -203,7 +169,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public long getUserId() {
-		return _samlIdpSsoSession.getUserId();
+		return model.getUserId();
 	}
 
 	/**
@@ -213,7 +179,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public String getUserName() {
-		return _samlIdpSsoSession.getUserName();
+		return model.getUserName();
 	}
 
 	/**
@@ -223,42 +189,17 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public String getUserUuid() {
-		return _samlIdpSsoSession.getUserUuid();
-	}
-
-	@Override
-	public int hashCode() {
-		return _samlIdpSsoSession.hashCode();
-	}
-
-	@Override
-	public boolean isCachedModel() {
-		return _samlIdpSsoSession.isCachedModel();
-	}
-
-	@Override
-	public boolean isEscapedModel() {
-		return _samlIdpSsoSession.isEscapedModel();
+		return model.getUserUuid();
 	}
 
 	@Override
 	public boolean isExpired() {
-		return _samlIdpSsoSession.isExpired();
-	}
-
-	@Override
-	public boolean isNew() {
-		return _samlIdpSsoSession.isNew();
+		return model.isExpired();
 	}
 
 	@Override
 	public void persist() {
-		_samlIdpSsoSession.persist();
-	}
-
-	@Override
-	public void setCachedModel(boolean cachedModel) {
-		_samlIdpSsoSession.setCachedModel(cachedModel);
+		model.persist();
 	}
 
 	/**
@@ -268,7 +209,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public void setCompanyId(long companyId) {
-		_samlIdpSsoSession.setCompanyId(companyId);
+		model.setCompanyId(companyId);
 	}
 
 	/**
@@ -278,24 +219,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public void setCreateDate(Date createDate) {
-		_samlIdpSsoSession.setCreateDate(createDate);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
-
-		_samlIdpSsoSession.setExpandoBridgeAttributes(baseModel);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
-		_samlIdpSsoSession.setExpandoBridgeAttributes(expandoBridge);
-	}
-
-	@Override
-	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
-		_samlIdpSsoSession.setExpandoBridgeAttributes(serviceContext);
+		model.setCreateDate(createDate);
 	}
 
 	/**
@@ -305,12 +229,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
-		_samlIdpSsoSession.setModifiedDate(modifiedDate);
-	}
-
-	@Override
-	public void setNew(boolean n) {
-		_samlIdpSsoSession.setNew(n);
+		model.setModifiedDate(modifiedDate);
 	}
 
 	/**
@@ -320,12 +239,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
-		_samlIdpSsoSession.setPrimaryKey(primaryKey);
-	}
-
-	@Override
-	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
-		_samlIdpSsoSession.setPrimaryKeyObj(primaryKeyObj);
+		model.setPrimaryKey(primaryKey);
 	}
 
 	/**
@@ -335,7 +249,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public void setSamlIdpSsoSessionId(long samlIdpSsoSessionId) {
-		_samlIdpSsoSession.setSamlIdpSsoSessionId(samlIdpSsoSessionId);
+		model.setSamlIdpSsoSessionId(samlIdpSsoSessionId);
 	}
 
 	/**
@@ -345,7 +259,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public void setSamlIdpSsoSessionKey(String samlIdpSsoSessionKey) {
-		_samlIdpSsoSession.setSamlIdpSsoSessionKey(samlIdpSsoSessionKey);
+		model.setSamlIdpSsoSessionKey(samlIdpSsoSessionKey);
 	}
 
 	/**
@@ -355,7 +269,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public void setUserId(long userId) {
-		_samlIdpSsoSession.setUserId(userId);
+		model.setUserId(userId);
 	}
 
 	/**
@@ -365,7 +279,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public void setUserName(String userName) {
-		_samlIdpSsoSession.setUserName(userName);
+		model.setUserName(userName);
 	}
 
 	/**
@@ -375,81 +289,14 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public void setUserUuid(String userUuid) {
-		_samlIdpSsoSession.setUserUuid(userUuid);
+		model.setUserUuid(userUuid);
 	}
 
 	@Override
-	public com.liferay.portal.kernel.model.CacheModel<SamlIdpSsoSession>
-		toCacheModel() {
+	protected SamlIdpSsoSessionWrapper wrap(
+		SamlIdpSsoSession samlIdpSsoSession) {
 
-		return _samlIdpSsoSession.toCacheModel();
+		return new SamlIdpSsoSessionWrapper(samlIdpSsoSession);
 	}
-
-	@Override
-	public SamlIdpSsoSession toEscapedModel() {
-		return new SamlIdpSsoSessionWrapper(
-			_samlIdpSsoSession.toEscapedModel());
-	}
-
-	@Override
-	public String toString() {
-		return _samlIdpSsoSession.toString();
-	}
-
-	@Override
-	public SamlIdpSsoSession toUnescapedModel() {
-		return new SamlIdpSsoSessionWrapper(
-			_samlIdpSsoSession.toUnescapedModel());
-	}
-
-	@Override
-	public String toXmlString() {
-		return _samlIdpSsoSession.toXmlString();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-
-		if (!(obj instanceof SamlIdpSsoSessionWrapper)) {
-			return false;
-		}
-
-		SamlIdpSsoSessionWrapper samlIdpSsoSessionWrapper =
-			(SamlIdpSsoSessionWrapper)obj;
-
-		if (Objects.equals(
-				_samlIdpSsoSession,
-				samlIdpSsoSessionWrapper._samlIdpSsoSession)) {
-
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
-	public SamlIdpSsoSession getWrappedModel() {
-		return _samlIdpSsoSession;
-	}
-
-	@Override
-	public boolean isEntityCacheEnabled() {
-		return _samlIdpSsoSession.isEntityCacheEnabled();
-	}
-
-	@Override
-	public boolean isFinderCacheEnabled() {
-		return _samlIdpSsoSession.isFinderCacheEnabled();
-	}
-
-	@Override
-	public void resetOriginalValues() {
-		_samlIdpSsoSession.resetOriginalValues();
-	}
-
-	private final SamlIdpSsoSession _samlIdpSsoSession;
 
 }

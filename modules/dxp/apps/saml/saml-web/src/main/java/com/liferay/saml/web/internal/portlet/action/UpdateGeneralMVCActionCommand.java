@@ -19,12 +19,10 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropertiesParamUtil;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.saml.runtime.configuration.SamlProviderConfigurationHelper;
-import com.liferay.saml.runtime.credential.KeyStoreManager;
 import com.liferay.saml.runtime.metadata.LocalEntityManager;
 import com.liferay.saml.util.PortletPropsKeys;
 import com.liferay.saml.web.internal.constants.SamlAdminPortletKeys;
@@ -88,25 +86,11 @@ public class UpdateGeneralMVCActionCommand extends BaseMVCActionCommand {
 			return;
 		}
 
-		String samlRole = properties.getProperty(
-			PortletPropsKeys.SAML_ROLE, StringPool.BLANK);
-
-		if (enabled && samlRole.equals("sp") &&
-			!_localEntityManager.hasDefaultIdpRole()) {
-
-			SessionErrors.add(actionRequest, "identityProviderInvalid");
-
-			return;
-		}
-
 		_samlProviderConfigurationHelper.updateProperties(properties);
 
 		actionResponse.setRenderParameter("mvcRenderCommandName", "/admin");
 		actionResponse.setRenderParameter("tabs1", "general");
 	}
-
-	@Reference(name = "KeyStoreManager", target = "(default=true)")
-	private KeyStoreManager _keyStoreManager;
 
 	@Reference
 	private LocalEntityManager _localEntityManager;

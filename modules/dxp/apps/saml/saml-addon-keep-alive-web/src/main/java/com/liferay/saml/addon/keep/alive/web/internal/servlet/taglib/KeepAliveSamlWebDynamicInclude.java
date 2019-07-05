@@ -15,27 +15,17 @@
 package com.liferay.saml.addon.keep.alive.web.internal.servlet.taglib;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
-import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.taglib.BaseDynamicInclude;
 import com.liferay.portal.kernel.servlet.taglib.DynamicInclude;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.saml.addon.keep.alive.web.internal.constants.SamlKeepAliveConstants;
 import com.liferay.saml.constants.SamlWebKeys;
-import com.liferay.saml.persistence.exception.NoSuchSpIdpConnectionException;
 import com.liferay.saml.persistence.model.SamlIdpSpConnection;
 import com.liferay.saml.persistence.model.SamlSpIdpConnection;
 import com.liferay.saml.persistence.service.SamlIdpSpConnectionLocalService;
 import com.liferay.saml.persistence.service.SamlSpIdpConnectionLocalService;
-import com.liferay.saml.runtime.configuration.SamlProviderConfiguration;
-import com.liferay.saml.runtime.configuration.SamlProviderConfigurationHelper;
+import com.liferay.saml.persistence.service.SamlSpSessionLocalService;
 import com.liferay.saml.util.PortletPropsKeys;
 
 import java.io.IOException;
@@ -57,22 +47,25 @@ public class KeepAliveSamlWebDynamicInclude extends BaseDynamicInclude {
 
 	@Override
 	public void include(
-			HttpServletRequest request, HttpServletResponse response,
-			String key)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse, String key)
 		throws IOException {
 
 		String keepAliveURL = null;
 
 		if (_KEY_IDENTITY_PROVIDER.equals(key)) {
-			keepAliveURL = getSpIdpKeepAliveUrl(request);
+			keepAliveURL = getSpIdpKeepAliveUrl(httpServletRequest);
 		}
 		else {
-			keepAliveURL = getIdpSpKeepAliveUrl(request);
+			keepAliveURL = getIdpSpKeepAliveUrl(httpServletRequest);
 		}
 
-		request.setAttribute(SamlWebKeys.SAML_KEEP_ALIVE_URL, keepAliveURL);
+		httpServletRequest.setAttribute(
+			SamlWebKeys.SAML_KEEP_ALIVE_URL, keepAliveURL);
 
-		includeJSP(request, response, "/com.liferay.saml.web/keep_alive.jsp");
+		includeJSP(
+			httpServletRequest, httpServletResponse,
+			"/com.liferay.saml.web/keep_alive.jsp");
 	}
 
 	@Override
@@ -81,87 +74,41 @@ public class KeepAliveSamlWebDynamicInclude extends BaseDynamicInclude {
 		dynamicIncludeRegistry.register(_KEY_SERVICE_PROVIDER);
 	}
 
-	protected String getIdpSpKeepAliveUrl(HttpServletRequest request) {
+	protected String getIdpSpKeepAliveUrl(
+		HttpServletRequest httpServletRequest) {
+
+		SamlIdpSpConnection samlIdpSpConnection =
+			(SamlIdpSpConnection)httpServletRequest.getAttribute(
+				SamlWebKeys.SAML_IDP_SP_CONNECTION);
+
 		String keepAliveURL = StringPool.BLANK;
 
-		long samlIdpSpConnectionId = ParamUtil.getLong(
-			request, "samlIdpSpConnectionId");
+		if (samlIdpSpConnection != null) {
+			ExpandoBridge expandoBridge =
+				samlIdpSpConnection.getExpandoBridge();
 
-		if (samlIdpSpConnectionId > 0) {
-			try {
-				SamlIdpSpConnection samlIdpSpConnection =
-					_samlIdpSpConnectionLocalService.getSamlIdpSpConnection(
-						samlIdpSpConnectionId);
-
-				ExpandoBridge expandoBridge =
-					samlIdpSpConnection.getExpandoBridge();
-
-				keepAliveURL = (String)expandoBridge.getAttribute(
-					SamlKeepAliveConstants.EXPANDO_COLUMN_NAME_KEEP_ALIVE_URL);
-			}
-			catch (PortalException pe) {
-				String message =
-					"Unable to get SP keep alive URL: " + pe.getMessage();
-
-				if (_log.isDebugEnabled()) {
-					_log.debug(message, pe);
-				}
-				else if (_log.isWarnEnabled()) {
-					_log.warn(message);
-				}
-			}
+			keepAliveURL = (String)expandoBridge.getAttribute(
+				SamlKeepAliveConstants.EXPANDO_COLUMN_NAME_KEEP_ALIVE_URL);
 		}
 
 		return keepAliveURL;
 	}
 
-	protected String getSpIdpKeepAliveUrl(HttpServletRequest request) {
-		String keepAliveURL = StringPool.BLANK;
+	protected String getSpIdpKeepAliveUrl(
+		HttpServletRequest httpServletRequest) {
 
-		SamlProviderConfiguration samlProviderConfiguration =
-			_samlProviderConfigurationHelper.getSamlProviderConfiguration();
+		SamlSpIdpConnection samlSpIdpConnection =
+			(SamlSpIdpConnection)httpServletRequest.getAttribute(
+				SamlWebKeys.SAML_SP_IDP_CONNECTION);
 
-		String defaultEntityId = samlProviderConfiguration.defaultIdPEntityId();
-
-		if (!Validator.isBlank(defaultEntityId)) {
-			try {
-				ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
-					WebKeys.THEME_DISPLAY);
-
-				SamlSpIdpConnection samlSpIdpConnection =
-					_samlSpIdpConnectionLocalService.getSamlSpIdpConnection(
-						themeDisplay.getCompanyId(), defaultEntityId);
-
-				ExpandoBridge expandoBridge =
-					samlSpIdpConnection.getExpandoBridge();
-
-				keepAliveURL = (String)expandoBridge.getAttribute(
-					SamlKeepAliveConstants.EXPANDO_COLUMN_NAME_KEEP_ALIVE_URL);
-			}
-			catch (NoSuchSpIdpConnectionException nssice) {
-				String message = StringBundler.concat(
-					"No SP IdP connection for default entity ", defaultEntityId,
-					" configured: ", nssice.getMessage());
-
-				if (_log.isDebugEnabled()) {
-					_log.debug(message, nssice);
-				}
-				else if (_log.isWarnEnabled()) {
-					_log.warn(message);
-				}
-			}
-			catch (PortalException pe) {
-				String message =
-					"Unable to get IdP keep alive URL: " + pe.getMessage();
-
-				if (_log.isDebugEnabled()) {
-					_log.debug(message, pe);
-				}
-				else if (_log.isWarnEnabled()) {
-					_log.warn(message);
-				}
-			}
+		if (samlSpIdpConnection == null) {
+			return StringPool.BLANK;
 		}
+
+		ExpandoBridge expandoBridge = samlSpIdpConnection.getExpandoBridge();
+
+		String keepAliveURL = (String)expandoBridge.getAttribute(
+			SamlKeepAliveConstants.EXPANDO_COLUMN_NAME_KEEP_ALIVE_URL);
 
 		if ((keepAliveURL == null) ||
 			keepAliveURL.equals(
@@ -175,15 +122,15 @@ public class KeepAliveSamlWebDynamicInclude extends BaseDynamicInclude {
 	}
 
 	protected void includeJSP(
-			HttpServletRequest request, HttpServletResponse response,
-			String jspPath)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse, String jspPath)
 		throws IOException {
 
 		RequestDispatcher requestDispatcher =
 			_servletContext.getRequestDispatcher(jspPath);
 
 		try {
-			requestDispatcher.include(request, response);
+			requestDispatcher.include(httpServletRequest, httpServletResponse);
 		}
 		catch (ServletException se) {
 			throw new IOException("Unable to include JSP " + jspPath, se);
@@ -197,17 +144,14 @@ public class KeepAliveSamlWebDynamicInclude extends BaseDynamicInclude {
 	private static final String _KEY_SERVICE_PROVIDER =
 		"com.liferay.saml.web#/admin/edit_service_provider_connection.jsp#post";
 
-	private static final Log _log = LogFactoryUtil.getLog(
-		KeepAliveSamlWebDynamicInclude.class);
-
 	@Reference
 	private SamlIdpSpConnectionLocalService _samlIdpSpConnectionLocalService;
 
 	@Reference
-	private SamlProviderConfigurationHelper _samlProviderConfigurationHelper;
+	private SamlSpIdpConnectionLocalService _samlSpIdpConnectionLocalService;
 
 	@Reference
-	private SamlSpIdpConnectionLocalService _samlSpIdpConnectionLocalService;
+	private SamlSpSessionLocalService _samlSpSessionLocalService;
 
 	@Reference(
 		target = "(osgi.web.symbolicname=com.liferay.saml.addon.keep.alive.web)"

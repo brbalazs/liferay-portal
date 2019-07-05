@@ -22,7 +22,7 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.saml.constants.SamlWebKeys;
 import com.liferay.saml.runtime.configuration.SamlProviderConfigurationHelper;
-import com.liferay.saml.runtime.profile.SingleLogoutProfile;
+import com.liferay.saml.runtime.servlet.profile.SingleLogoutProfile;
 import com.liferay.saml.util.SamlHttpRequestUtil;
 
 import javax.servlet.Filter;
@@ -61,7 +61,8 @@ public class SamlIdpSsoFilter extends BaseSamlPortalFilter {
 
 	@Override
 	public boolean isFilterEnabled(
-		HttpServletRequest request, HttpServletResponse response) {
+		HttpServletRequest httpServletRequest,
+		HttpServletResponse httpServletResponse) {
 
 		if (!_samlProviderConfigurationHelper.isEnabled() ||
 			!_samlProviderConfigurationHelper.isRoleIdp()) {
@@ -70,7 +71,7 @@ public class SamlIdpSsoFilter extends BaseSamlPortalFilter {
 		}
 
 		try {
-			User user = _portal.getUser(request);
+			User user = _portal.getUser(httpServletRequest);
 
 			if (user != null) {
 				return true;
@@ -85,7 +86,8 @@ public class SamlIdpSsoFilter extends BaseSamlPortalFilter {
 			}
 		}
 
-		String requestPath = _samlHttpRequestUtil.getRequestPath(request);
+		String requestPath = _samlHttpRequestUtil.getRequestPath(
+			httpServletRequest);
 
 		if (requestPath.equals("/c/portal/logout")) {
 			return true;
@@ -96,25 +98,27 @@ public class SamlIdpSsoFilter extends BaseSamlPortalFilter {
 
 	@Override
 	protected void doProcessFilter(
-			HttpServletRequest request, HttpServletResponse response,
-			FilterChain filterChain)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse, FilterChain filterChain)
 		throws Exception {
 
-		String requestPath = _samlHttpRequestUtil.getRequestPath(request);
+		String requestPath = _samlHttpRequestUtil.getRequestPath(
+			httpServletRequest);
 
 		if (requestPath.equals("/c/portal/logout")) {
 			String samlSsoSessionId = CookieKeys.getCookie(
-				request, SamlWebKeys.SAML_SSO_SESSION_ID);
+				httpServletRequest, SamlWebKeys.SAML_SSO_SESSION_ID);
 
 			if (Validator.isNotNull(samlSsoSessionId)) {
-				_singleLogoutProfile.processIdpLogout(request, response);
+				_singleLogoutProfile.processIdpLogout(
+					httpServletRequest, httpServletResponse);
 			}
 			else {
-				filterChain.doFilter(request, response);
+				filterChain.doFilter(httpServletRequest, httpServletResponse);
 			}
 		}
 		else {
-			filterChain.doFilter(request, response);
+			filterChain.doFilter(httpServletRequest, httpServletResponse);
 		}
 	}
 

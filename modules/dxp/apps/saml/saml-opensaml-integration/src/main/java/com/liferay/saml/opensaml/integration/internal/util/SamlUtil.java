@@ -24,31 +24,35 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
+
+import net.shibboleth.utilities.java.support.resolver.ResolverException;
 
 import org.joda.time.DateTime;
 
-import org.opensaml.common.binding.SAMLMessageContext;
-import org.opensaml.saml2.core.Attribute;
-import org.opensaml.saml2.core.AuthnRequest;
-import org.opensaml.saml2.core.NameID;
-import org.opensaml.saml2.metadata.AssertionConsumerService;
-import org.opensaml.saml2.metadata.EntitiesDescriptor;
-import org.opensaml.saml2.metadata.EntityDescriptor;
-import org.opensaml.saml2.metadata.IDPSSODescriptor;
-import org.opensaml.saml2.metadata.SPSSODescriptor;
-import org.opensaml.saml2.metadata.SSODescriptor;
-import org.opensaml.saml2.metadata.SingleLogoutService;
-import org.opensaml.saml2.metadata.SingleSignOnService;
-import org.opensaml.saml2.metadata.provider.MetadataProviderException;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.schema.XSAny;
-import org.opensaml.xml.schema.XSBoolean;
-import org.opensaml.xml.schema.XSBooleanValue;
-import org.opensaml.xml.schema.XSDateTime;
-import org.opensaml.xml.schema.XSInteger;
-import org.opensaml.xml.schema.XSString;
-import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.core.xml.XMLObject;
+import org.opensaml.core.xml.schema.XSAny;
+import org.opensaml.core.xml.schema.XSBoolean;
+import org.opensaml.core.xml.schema.XSBooleanValue;
+import org.opensaml.core.xml.schema.XSDateTime;
+import org.opensaml.core.xml.schema.XSInteger;
+import org.opensaml.core.xml.schema.XSString;
+import org.opensaml.messaging.context.InOutOperationContext;
+import org.opensaml.messaging.context.MessageContext;
+import org.opensaml.saml.common.messaging.context.SAMLMetadataContext;
+import org.opensaml.saml.common.messaging.context.SAMLPeerEntityContext;
+import org.opensaml.saml.saml2.core.Attribute;
+import org.opensaml.saml.saml2.core.AuthnRequest;
+import org.opensaml.saml.saml2.core.NameID;
+import org.opensaml.saml.saml2.metadata.AssertionConsumerService;
+import org.opensaml.saml.saml2.metadata.EntitiesDescriptor;
+import org.opensaml.saml.saml2.metadata.EntityDescriptor;
+import org.opensaml.saml.saml2.metadata.IDPSSODescriptor;
+import org.opensaml.saml.saml2.metadata.SPSSODescriptor;
+import org.opensaml.saml.saml2.metadata.SSODescriptor;
+import org.opensaml.saml.saml2.metadata.SingleLogoutService;
+import org.opensaml.saml.saml2.metadata.SingleSignOnService;
 
 /**
  * @author Mika Koivisto
@@ -58,7 +62,7 @@ public class SamlUtil {
 	public static AssertionConsumerService
 			getAssertionConsumerServiceForBinding(
 				SPSSODescriptor spSSODescriptor, String binding)
-		throws MetadataProviderException {
+		throws ResolverException {
 
 		AssertionConsumerService assertionConsumerService =
 			spSSODescriptor.getDefaultAssertionConsumerService();
@@ -78,8 +82,7 @@ public class SamlUtil {
 			}
 		}
 
-		throw new MetadataProviderException(
-			"Binding " + binding + " is not supported");
+		throw new ResolverException("Binding " + binding + " is not supported");
 	}
 
 	public static Attribute getAttribute(
@@ -136,6 +139,22 @@ public class SamlUtil {
 		return attributesMap;
 	}
 
+	public static AuthnRequest getAuthnRequest(
+		MessageContext<?> messageContext) {
+
+		InOutOperationContext<AuthnRequest, ?> inOutOperationContext =
+			messageContext.getSubcontext(InOutOperationContext.class, false);
+
+		if (inOutOperationContext == null) {
+			return null;
+		}
+
+		MessageContext<AuthnRequest> inboundMessageContext =
+			inOutOperationContext.getInboundMessageContext();
+
+		return inboundMessageContext.getMessage();
+	}
+
 	public static EntityDescriptor getEntityDescriptorById(
 		String entityId, EntitiesDescriptor descriptor) {
 
@@ -144,9 +163,7 @@ public class SamlUtil {
 
 		if ((entityDescriptors != null) && !entityDescriptors.isEmpty()) {
 			for (EntityDescriptor entityDescriptor : entityDescriptors) {
-				if (DatatypeHelper.safeEquals(
-						entityDescriptor.getEntityID(), entityId)) {
-
+				if (Objects.equals(entityDescriptor.getEntityID(), entityId)) {
 					return entityDescriptor;
 				}
 			}
@@ -161,9 +178,7 @@ public class SamlUtil {
 		if (metadata instanceof EntityDescriptor) {
 			EntityDescriptor entityDescriptor = (EntityDescriptor)metadata;
 
-			if (DatatypeHelper.safeEquals(
-					entityDescriptor.getEntityID(), entityId)) {
-
+			if (Objects.equals(entityDescriptor.getEntityID(), entityId)) {
 				return entityDescriptor;
 			}
 		}
@@ -187,7 +202,7 @@ public class SamlUtil {
 
 	public static SingleLogoutService getSingleLogoutServiceForBinding(
 			SSODescriptor ssoDescriptor, String binding)
-		throws MetadataProviderException {
+		throws ResolverException {
 
 		List<SingleLogoutService> singleLogoutServices =
 			ssoDescriptor.getSingleLogoutServices();
@@ -198,13 +213,12 @@ public class SamlUtil {
 			}
 		}
 
-		throw new MetadataProviderException(
-			"Binding " + binding + " is not supported");
+		throw new ResolverException("Binding " + binding + " is not supported");
 	}
 
 	public static SingleSignOnService getSingleSignOnServiceForBinding(
 			IDPSSODescriptor idpSSODescriptor, String binding)
-		throws MetadataProviderException {
+		throws ResolverException {
 
 		List<SingleSignOnService> singleSignOnServices =
 			idpSSODescriptor.getSingleSignOnServices();
@@ -215,8 +229,7 @@ public class SamlUtil {
 			}
 		}
 
-		throw new MetadataProviderException(
-			"Binding " + binding + " is not supported");
+		throw new ResolverException("Binding " + binding + " is not supported");
 	}
 
 	public static Date getValueAsDate(
@@ -324,10 +337,9 @@ public class SamlUtil {
 	}
 
 	public static AssertionConsumerService resolverAssertionConsumerService(
-		SAMLMessageContext<AuthnRequest, ?, ?> samlMessageContext,
-		String binding) {
+		MessageContext<?> messageContext, String binding) {
 
-		AuthnRequest authnRequest = samlMessageContext.getInboundSAMLMessage();
+		AuthnRequest authnRequest = getAuthnRequest(messageContext);
 
 		Integer assertionConsumerServiceIndex = null;
 		String assertionConsumerServiceURL = null;
@@ -339,8 +351,14 @@ public class SamlUtil {
 				authnRequest.getAssertionConsumerServiceURL();
 		}
 
+		SAMLPeerEntityContext samlPeerEntityContext =
+			messageContext.getSubcontext(SAMLPeerEntityContext.class);
+
+		SAMLMetadataContext samlMetadataContext =
+			samlPeerEntityContext.getSubcontext(SAMLMetadataContext.class);
+
 		SPSSODescriptor spSSODescriptor =
-			(SPSSODescriptor)samlMessageContext.getPeerEntityRoleMetadata();
+			(SPSSODescriptor)samlMetadataContext.getRoleDescriptor();
 
 		for (AssertionConsumerService assertionConsumerService :
 				spSSODescriptor.getAssertionConsumerServices()) {

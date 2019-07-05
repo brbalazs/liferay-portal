@@ -14,10 +14,9 @@
 
 package com.liferay.saml.persistence.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.CacheModel;
@@ -28,7 +27,6 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.saml.persistence.model.SamlIdpSpConnection;
 import com.liferay.saml.persistence.model.SamlIdpSpConnectionModel;
 
@@ -46,6 +44,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The base model implementation for the SamlIdpSpConnection service. Represents a row in the &quot;SamlIdpSpConnection&quot; database table, with each column mapped to a property of this class.
@@ -77,10 +77,10 @@ public class SamlIdpSpConnectionModelImpl
 		{"samlSpEntityId", Types.VARCHAR}, {"assertionLifetime", Types.INTEGER},
 		{"attributeNames", Types.VARCHAR}, {"attributesEnabled", Types.BOOLEAN},
 		{"attributesNamespaceEnabled", Types.BOOLEAN},
-		{"enabled", Types.BOOLEAN}, {"metadataUrl", Types.VARCHAR},
-		{"metadataXml", Types.CLOB}, {"metadataUpdatedDate", Types.TIMESTAMP},
-		{"name", Types.VARCHAR}, {"nameIdAttribute", Types.VARCHAR},
-		{"nameIdFormat", Types.VARCHAR}
+		{"enabled", Types.BOOLEAN}, {"encryptionForced", Types.BOOLEAN},
+		{"metadataUrl", Types.VARCHAR}, {"metadataXml", Types.CLOB},
+		{"metadataUpdatedDate", Types.TIMESTAMP}, {"name", Types.VARCHAR},
+		{"nameIdAttribute", Types.VARCHAR}, {"nameIdFormat", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -99,6 +99,7 @@ public class SamlIdpSpConnectionModelImpl
 		TABLE_COLUMNS_MAP.put("attributesEnabled", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("attributesNamespaceEnabled", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("enabled", Types.BOOLEAN);
+		TABLE_COLUMNS_MAP.put("encryptionForced", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("metadataUrl", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("metadataXml", Types.CLOB);
 		TABLE_COLUMNS_MAP.put("metadataUpdatedDate", Types.TIMESTAMP);
@@ -108,7 +109,7 @@ public class SamlIdpSpConnectionModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SamlIdpSpConnection (samlIdpSpConnectionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,samlSpEntityId VARCHAR(1024) null,assertionLifetime INTEGER,attributeNames STRING null,attributesEnabled BOOLEAN,attributesNamespaceEnabled BOOLEAN,enabled BOOLEAN,metadataUrl VARCHAR(1024) null,metadataXml TEXT null,metadataUpdatedDate DATE null,name VARCHAR(75) null,nameIdAttribute VARCHAR(1024) null,nameIdFormat VARCHAR(1024) null)";
+		"create table SamlIdpSpConnection (samlIdpSpConnectionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,samlSpEntityId VARCHAR(1024) null,assertionLifetime INTEGER,attributeNames STRING null,attributesEnabled BOOLEAN,attributesNamespaceEnabled BOOLEAN,enabled BOOLEAN,encryptionForced BOOLEAN,metadataUrl VARCHAR(1024) null,metadataXml TEXT null,metadataUpdatedDate DATE null,name VARCHAR(75) null,nameIdAttribute VARCHAR(1024) null,nameIdFormat VARCHAR(1024) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table SamlIdpSpConnection";
@@ -280,421 +281,118 @@ public class SamlIdpSpConnectionModelImpl
 
 		attributeGetterFunctions.put(
 			"samlIdpSpConnectionId",
-			new Function<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSpConnection samlIdpSpConnection) {
-					return samlIdpSpConnection.getSamlIdpSpConnectionId();
-				}
-
-			});
+			SamlIdpSpConnection::getSamlIdpSpConnectionId);
 		attributeSetterBiConsumers.put(
 			"samlIdpSpConnectionId",
-			new BiConsumer<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public void accept(
-					SamlIdpSpConnection samlIdpSpConnection,
-					Object samlIdpSpConnectionId) {
-
-					samlIdpSpConnection.setSamlIdpSpConnectionId(
-						(Long)samlIdpSpConnectionId);
-				}
-
-			});
+			(BiConsumer<SamlIdpSpConnection, Long>)
+				SamlIdpSpConnection::setSamlIdpSpConnectionId);
 		attributeGetterFunctions.put(
-			"companyId",
-			new Function<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSpConnection samlIdpSpConnection) {
-					return samlIdpSpConnection.getCompanyId();
-				}
-
-			});
+			"companyId", SamlIdpSpConnection::getCompanyId);
 		attributeSetterBiConsumers.put(
 			"companyId",
-			new BiConsumer<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public void accept(
-					SamlIdpSpConnection samlIdpSpConnection, Object companyId) {
-
-					samlIdpSpConnection.setCompanyId((Long)companyId);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSpConnection samlIdpSpConnection) {
-					return samlIdpSpConnection.getUserId();
-				}
-
-			});
+			(BiConsumer<SamlIdpSpConnection, Long>)
+				SamlIdpSpConnection::setCompanyId);
+		attributeGetterFunctions.put("userId", SamlIdpSpConnection::getUserId);
 		attributeSetterBiConsumers.put(
 			"userId",
-			new BiConsumer<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public void accept(
-					SamlIdpSpConnection samlIdpSpConnection, Object userId) {
-
-					samlIdpSpConnection.setUserId((Long)userId);
-				}
-
-			});
+			(BiConsumer<SamlIdpSpConnection, Long>)
+				SamlIdpSpConnection::setUserId);
 		attributeGetterFunctions.put(
-			"userName",
-			new Function<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSpConnection samlIdpSpConnection) {
-					return samlIdpSpConnection.getUserName();
-				}
-
-			});
+			"userName", SamlIdpSpConnection::getUserName);
 		attributeSetterBiConsumers.put(
 			"userName",
-			new BiConsumer<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public void accept(
-					SamlIdpSpConnection samlIdpSpConnection, Object userName) {
-
-					samlIdpSpConnection.setUserName((String)userName);
-				}
-
-			});
+			(BiConsumer<SamlIdpSpConnection, String>)
+				SamlIdpSpConnection::setUserName);
 		attributeGetterFunctions.put(
-			"createDate",
-			new Function<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSpConnection samlIdpSpConnection) {
-					return samlIdpSpConnection.getCreateDate();
-				}
-
-			});
+			"createDate", SamlIdpSpConnection::getCreateDate);
 		attributeSetterBiConsumers.put(
 			"createDate",
-			new BiConsumer<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public void accept(
-					SamlIdpSpConnection samlIdpSpConnection,
-					Object createDate) {
-
-					samlIdpSpConnection.setCreateDate((Date)createDate);
-				}
-
-			});
+			(BiConsumer<SamlIdpSpConnection, Date>)
+				SamlIdpSpConnection::setCreateDate);
 		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSpConnection samlIdpSpConnection) {
-					return samlIdpSpConnection.getModifiedDate();
-				}
-
-			});
+			"modifiedDate", SamlIdpSpConnection::getModifiedDate);
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
-			new BiConsumer<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public void accept(
-					SamlIdpSpConnection samlIdpSpConnection,
-					Object modifiedDate) {
-
-					samlIdpSpConnection.setModifiedDate((Date)modifiedDate);
-				}
-
-			});
+			(BiConsumer<SamlIdpSpConnection, Date>)
+				SamlIdpSpConnection::setModifiedDate);
 		attributeGetterFunctions.put(
-			"samlSpEntityId",
-			new Function<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSpConnection samlIdpSpConnection) {
-					return samlIdpSpConnection.getSamlSpEntityId();
-				}
-
-			});
+			"samlSpEntityId", SamlIdpSpConnection::getSamlSpEntityId);
 		attributeSetterBiConsumers.put(
 			"samlSpEntityId",
-			new BiConsumer<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public void accept(
-					SamlIdpSpConnection samlIdpSpConnection,
-					Object samlSpEntityId) {
-
-					samlIdpSpConnection.setSamlSpEntityId(
-						(String)samlSpEntityId);
-				}
-
-			});
+			(BiConsumer<SamlIdpSpConnection, String>)
+				SamlIdpSpConnection::setSamlSpEntityId);
 		attributeGetterFunctions.put(
-			"assertionLifetime",
-			new Function<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSpConnection samlIdpSpConnection) {
-					return samlIdpSpConnection.getAssertionLifetime();
-				}
-
-			});
+			"assertionLifetime", SamlIdpSpConnection::getAssertionLifetime);
 		attributeSetterBiConsumers.put(
 			"assertionLifetime",
-			new BiConsumer<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public void accept(
-					SamlIdpSpConnection samlIdpSpConnection,
-					Object assertionLifetime) {
-
-					samlIdpSpConnection.setAssertionLifetime(
-						(Integer)assertionLifetime);
-				}
-
-			});
+			(BiConsumer<SamlIdpSpConnection, Integer>)
+				SamlIdpSpConnection::setAssertionLifetime);
 		attributeGetterFunctions.put(
-			"attributeNames",
-			new Function<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSpConnection samlIdpSpConnection) {
-					return samlIdpSpConnection.getAttributeNames();
-				}
-
-			});
+			"attributeNames", SamlIdpSpConnection::getAttributeNames);
 		attributeSetterBiConsumers.put(
 			"attributeNames",
-			new BiConsumer<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public void accept(
-					SamlIdpSpConnection samlIdpSpConnection,
-					Object attributeNames) {
-
-					samlIdpSpConnection.setAttributeNames(
-						(String)attributeNames);
-				}
-
-			});
+			(BiConsumer<SamlIdpSpConnection, String>)
+				SamlIdpSpConnection::setAttributeNames);
 		attributeGetterFunctions.put(
-			"attributesEnabled",
-			new Function<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSpConnection samlIdpSpConnection) {
-					return samlIdpSpConnection.getAttributesEnabled();
-				}
-
-			});
+			"attributesEnabled", SamlIdpSpConnection::getAttributesEnabled);
 		attributeSetterBiConsumers.put(
 			"attributesEnabled",
-			new BiConsumer<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public void accept(
-					SamlIdpSpConnection samlIdpSpConnection,
-					Object attributesEnabled) {
-
-					samlIdpSpConnection.setAttributesEnabled(
-						(Boolean)attributesEnabled);
-				}
-
-			});
+			(BiConsumer<SamlIdpSpConnection, Boolean>)
+				SamlIdpSpConnection::setAttributesEnabled);
 		attributeGetterFunctions.put(
 			"attributesNamespaceEnabled",
-			new Function<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSpConnection samlIdpSpConnection) {
-					return samlIdpSpConnection.getAttributesNamespaceEnabled();
-				}
-
-			});
+			SamlIdpSpConnection::getAttributesNamespaceEnabled);
 		attributeSetterBiConsumers.put(
 			"attributesNamespaceEnabled",
-			new BiConsumer<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public void accept(
-					SamlIdpSpConnection samlIdpSpConnection,
-					Object attributesNamespaceEnabled) {
-
-					samlIdpSpConnection.setAttributesNamespaceEnabled(
-						(Boolean)attributesNamespaceEnabled);
-				}
-
-			});
+			(BiConsumer<SamlIdpSpConnection, Boolean>)
+				SamlIdpSpConnection::setAttributesNamespaceEnabled);
 		attributeGetterFunctions.put(
-			"enabled",
-			new Function<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSpConnection samlIdpSpConnection) {
-					return samlIdpSpConnection.getEnabled();
-				}
-
-			});
+			"enabled", SamlIdpSpConnection::getEnabled);
 		attributeSetterBiConsumers.put(
 			"enabled",
-			new BiConsumer<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public void accept(
-					SamlIdpSpConnection samlIdpSpConnection, Object enabled) {
-
-					samlIdpSpConnection.setEnabled((Boolean)enabled);
-				}
-
-			});
+			(BiConsumer<SamlIdpSpConnection, Boolean>)
+				SamlIdpSpConnection::setEnabled);
 		attributeGetterFunctions.put(
-			"metadataUrl",
-			new Function<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSpConnection samlIdpSpConnection) {
-					return samlIdpSpConnection.getMetadataUrl();
-				}
-
-			});
+			"encryptionForced", SamlIdpSpConnection::getEncryptionForced);
+		attributeSetterBiConsumers.put(
+			"encryptionForced",
+			(BiConsumer<SamlIdpSpConnection, Boolean>)
+				SamlIdpSpConnection::setEncryptionForced);
+		attributeGetterFunctions.put(
+			"metadataUrl", SamlIdpSpConnection::getMetadataUrl);
 		attributeSetterBiConsumers.put(
 			"metadataUrl",
-			new BiConsumer<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public void accept(
-					SamlIdpSpConnection samlIdpSpConnection,
-					Object metadataUrl) {
-
-					samlIdpSpConnection.setMetadataUrl((String)metadataUrl);
-				}
-
-			});
+			(BiConsumer<SamlIdpSpConnection, String>)
+				SamlIdpSpConnection::setMetadataUrl);
 		attributeGetterFunctions.put(
-			"metadataXml",
-			new Function<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSpConnection samlIdpSpConnection) {
-					return samlIdpSpConnection.getMetadataXml();
-				}
-
-			});
+			"metadataXml", SamlIdpSpConnection::getMetadataXml);
 		attributeSetterBiConsumers.put(
 			"metadataXml",
-			new BiConsumer<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public void accept(
-					SamlIdpSpConnection samlIdpSpConnection,
-					Object metadataXml) {
-
-					samlIdpSpConnection.setMetadataXml((String)metadataXml);
-				}
-
-			});
+			(BiConsumer<SamlIdpSpConnection, String>)
+				SamlIdpSpConnection::setMetadataXml);
 		attributeGetterFunctions.put(
-			"metadataUpdatedDate",
-			new Function<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSpConnection samlIdpSpConnection) {
-					return samlIdpSpConnection.getMetadataUpdatedDate();
-				}
-
-			});
+			"metadataUpdatedDate", SamlIdpSpConnection::getMetadataUpdatedDate);
 		attributeSetterBiConsumers.put(
 			"metadataUpdatedDate",
-			new BiConsumer<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public void accept(
-					SamlIdpSpConnection samlIdpSpConnection,
-					Object metadataUpdatedDate) {
-
-					samlIdpSpConnection.setMetadataUpdatedDate(
-						(Date)metadataUpdatedDate);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSpConnection samlIdpSpConnection) {
-					return samlIdpSpConnection.getName();
-				}
-
-			});
+			(BiConsumer<SamlIdpSpConnection, Date>)
+				SamlIdpSpConnection::setMetadataUpdatedDate);
+		attributeGetterFunctions.put("name", SamlIdpSpConnection::getName);
 		attributeSetterBiConsumers.put(
 			"name",
-			new BiConsumer<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public void accept(
-					SamlIdpSpConnection samlIdpSpConnection, Object name) {
-
-					samlIdpSpConnection.setName((String)name);
-				}
-
-			});
+			(BiConsumer<SamlIdpSpConnection, String>)
+				SamlIdpSpConnection::setName);
 		attributeGetterFunctions.put(
-			"nameIdAttribute",
-			new Function<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSpConnection samlIdpSpConnection) {
-					return samlIdpSpConnection.getNameIdAttribute();
-				}
-
-			});
+			"nameIdAttribute", SamlIdpSpConnection::getNameIdAttribute);
 		attributeSetterBiConsumers.put(
 			"nameIdAttribute",
-			new BiConsumer<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public void accept(
-					SamlIdpSpConnection samlIdpSpConnection,
-					Object nameIdAttribute) {
-
-					samlIdpSpConnection.setNameIdAttribute(
-						(String)nameIdAttribute);
-				}
-
-			});
+			(BiConsumer<SamlIdpSpConnection, String>)
+				SamlIdpSpConnection::setNameIdAttribute);
 		attributeGetterFunctions.put(
-			"nameIdFormat",
-			new Function<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSpConnection samlIdpSpConnection) {
-					return samlIdpSpConnection.getNameIdFormat();
-				}
-
-			});
+			"nameIdFormat", SamlIdpSpConnection::getNameIdFormat);
 		attributeSetterBiConsumers.put(
 			"nameIdFormat",
-			new BiConsumer<SamlIdpSpConnection, Object>() {
-
-				@Override
-				public void accept(
-					SamlIdpSpConnection samlIdpSpConnection,
-					Object nameIdFormat) {
-
-					samlIdpSpConnection.setNameIdFormat((String)nameIdFormat);
-				}
-
-			});
+			(BiConsumer<SamlIdpSpConnection, String>)
+				SamlIdpSpConnection::setNameIdFormat);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -899,6 +597,21 @@ public class SamlIdpSpConnectionModelImpl
 	}
 
 	@Override
+	public boolean getEncryptionForced() {
+		return _encryptionForced;
+	}
+
+	@Override
+	public boolean isEncryptionForced() {
+		return _encryptionForced;
+	}
+
+	@Override
+	public void setEncryptionForced(boolean encryptionForced) {
+		_encryptionForced = encryptionForced;
+	}
+
+	@Override
 	public String getMetadataUrl() {
 		if (_metadataUrl == null) {
 			return "";
@@ -1035,6 +748,7 @@ public class SamlIdpSpConnectionModelImpl
 		samlIdpSpConnectionImpl.setAttributesNamespaceEnabled(
 			isAttributesNamespaceEnabled());
 		samlIdpSpConnectionImpl.setEnabled(isEnabled());
+		samlIdpSpConnectionImpl.setEncryptionForced(isEncryptionForced());
 		samlIdpSpConnectionImpl.setMetadataUrl(getMetadataUrl());
 		samlIdpSpConnectionImpl.setMetadataXml(getMetadataXml());
 		samlIdpSpConnectionImpl.setMetadataUpdatedDate(
@@ -1181,6 +895,8 @@ public class SamlIdpSpConnectionModelImpl
 
 		samlIdpSpConnectionCacheModel.enabled = isEnabled();
 
+		samlIdpSpConnectionCacheModel.encryptionForced = isEncryptionForced();
+
 		samlIdpSpConnectionCacheModel.metadataUrl = getMetadataUrl();
 
 		String metadataUrl = samlIdpSpConnectionCacheModel.metadataUrl;
@@ -1320,6 +1036,7 @@ public class SamlIdpSpConnectionModelImpl
 	private boolean _attributesEnabled;
 	private boolean _attributesNamespaceEnabled;
 	private boolean _enabled;
+	private boolean _encryptionForced;
 	private String _metadataUrl;
 	private String _metadataXml;
 	private Date _metadataUpdatedDate;

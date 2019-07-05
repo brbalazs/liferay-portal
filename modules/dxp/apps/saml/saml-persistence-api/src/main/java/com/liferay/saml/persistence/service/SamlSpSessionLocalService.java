@@ -14,8 +14,6 @@
 
 package com.liferay.saml.persistence.service;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
@@ -37,6 +35,8 @@ import com.liferay.saml.persistence.model.SamlSpSession;
 import java.io.Serializable;
 
 import java.util.List;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * Provides the local service interface for SamlSpSession. Methods of this
@@ -72,10 +72,11 @@ public interface SamlSpSessionLocalService
 	public SamlSpSession addSamlSpSession(SamlSpSession samlSpSession);
 
 	public SamlSpSession addSamlSpSession(
-			String samlSpSessionKey, String assertionXml, String jSessionId,
-			String nameIdFormat, String nameIdNameQualifier,
-			String nameIdSPNameQualifier, String nameIdValue,
-			String sessionIndex, ServiceContext serviceContext)
+			String samlIdpEntityId, String samlSpSessionKey,
+			String assertionXml, String jSessionId, String nameIdFormat,
+			String nameIdNameQualifier, String nameIdSPNameQualifier,
+			String nameIdValue, String sessionIndex,
+			ServiceContext serviceContext)
 		throws PortalException;
 
 	/**
@@ -265,8 +266,9 @@ public interface SamlSpSessionLocalService
 		throws PortalException;
 
 	public SamlSpSession updateSamlSpSession(
-			long samlSpSessionId, String samlSpSessionKey, String assertionXml,
-			String jSessionId, String nameIdFormat, String nameIdNameQualifier,
+			long samlSpSessionId, String samlIdpEntityId,
+			String samlSpSessionKey, String assertionXml, String jSessionId,
+			String nameIdFormat, String nameIdNameQualifier,
 			String nameIdSPNameQualifier, String nameIdValue,
 			String sessionIndex, ServiceContext serviceContext)
 		throws PortalException;

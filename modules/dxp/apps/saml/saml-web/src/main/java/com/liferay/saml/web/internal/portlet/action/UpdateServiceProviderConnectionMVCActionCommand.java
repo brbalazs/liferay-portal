@@ -14,18 +14,13 @@
 
 package com.liferay.saml.web.internal.portlet.action;
 
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
-import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.saml.persistence.model.SamlIdpSpConnection;
 import com.liferay.saml.persistence.service.SamlIdpSpConnectionLocalService;
 import com.liferay.saml.web.internal.constants.SamlAdminPortletKeys;
@@ -74,6 +69,8 @@ public class UpdateServiceProviderConnectionMVCActionCommand
 		boolean attributesNamespaceEnabled = ParamUtil.getBoolean(
 			uploadPortletRequest, "attributesNamespaceEnabled");
 		boolean enabled = ParamUtil.getBoolean(uploadPortletRequest, "enabled");
+		boolean encryptionForced = ParamUtil.getBoolean(
+			uploadPortletRequest, "encryptionForced");
 		String metadataUrl = ParamUtil.getString(
 			uploadPortletRequest, "metadataUrl");
 		InputStream metadataXmlInputStream =
@@ -87,56 +84,21 @@ public class UpdateServiceProviderConnectionMVCActionCommand
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			SamlIdpSpConnection.class.getName(), uploadPortletRequest);
 
-		SamlIdpSpConnection samlIdpSpConnection = null;
-
-		try {
-			if (samlIdpSpConnectionId <= 0) {
-				samlIdpSpConnection =
-					_samlIdpSpConnectionLocalService.addSamlIdpSpConnection(
-						samlSpEntityId, assertionLifetime, attributeNames,
-						attributesEnabled, attributesNamespaceEnabled, enabled,
-						metadataUrl, metadataXmlInputStream, name,
-						nameIdAttribute, nameIdFormat, serviceContext);
-			}
-			else {
-				samlIdpSpConnection =
-					_samlIdpSpConnectionLocalService.updateSamlIdpSpConnection(
-						samlIdpSpConnectionId, samlSpEntityId,
-						assertionLifetime, attributeNames, attributesEnabled,
-						attributesNamespaceEnabled, enabled, metadataUrl,
-						metadataXmlInputStream, name, nameIdAttribute,
-						nameIdFormat, serviceContext);
-			}
-
-			actionRequest.setAttribute(
-				"samlIdpSpConnection", samlIdpSpConnection);
-
-			String redirect = ParamUtil.getString(
-				uploadPortletRequest, "redirect");
-
-			if (Validator.isNotNull(redirect)) {
-				redirect = _portal.escapeRedirect(redirect);
-
-				actionRequest.setAttribute(WebKeys.REDIRECT, redirect);
-			}
-
-			sendRedirect(actionRequest, actionResponse);
+		if (samlIdpSpConnectionId <= 0) {
+			_samlIdpSpConnectionLocalService.addSamlIdpSpConnection(
+				samlSpEntityId, assertionLifetime, attributeNames,
+				attributesEnabled, attributesNamespaceEnabled, enabled,
+				encryptionForced, metadataUrl, metadataXmlInputStream, name,
+				nameIdAttribute, nameIdFormat, serviceContext);
 		}
-		catch (Exception e) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(e, e);
-			}
-
-			SessionErrors.add(actionRequest, e.getClass());
-
-			actionResponse.setRenderParameter(
-				"mvcRenderCommandName",
-				"/admin/edit_service_provider_connection");
+		else {
+			_samlIdpSpConnectionLocalService.updateSamlIdpSpConnection(
+				samlIdpSpConnectionId, samlSpEntityId, assertionLifetime,
+				attributeNames, attributesEnabled, attributesNamespaceEnabled,
+				enabled, encryptionForced, metadataUrl, metadataXmlInputStream,
+				name, nameIdAttribute, nameIdFormat, serviceContext);
 		}
 	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		UpdateServiceProviderConnectionMVCActionCommand.class);
 
 	@Reference
 	private Portal _portal;

@@ -16,7 +16,7 @@ package com.liferay.saml.web.internal.portlet.action;
 
 import com.liferay.portal.kernel.struts.StrutsAction;
 import com.liferay.saml.runtime.configuration.SamlProviderConfigurationHelper;
-import com.liferay.saml.runtime.profile.WebSsoProfile;
+import com.liferay.saml.runtime.servlet.profile.WebSsoProfile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,10 +53,12 @@ public class WebSsoAction extends BaseSamlStrutsAction {
 
 	@Override
 	protected String doExecute(
-			HttpServletRequest request, HttpServletResponse response)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse)
 		throws Exception {
 
-		_webSsoProfile.processAuthnRequest(request, response);
+		_webSsoProfile.processAuthnRequest(
+			httpServletRequest, httpServletResponse);
 
 		return null;
 	}

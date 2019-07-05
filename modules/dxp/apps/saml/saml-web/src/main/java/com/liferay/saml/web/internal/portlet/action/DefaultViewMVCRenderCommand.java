@@ -15,14 +15,10 @@
 package com.liferay.saml.web.internal.portlet.action;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.ClassUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.saml.constants.SamlWebKeys;
 import com.liferay.saml.persistence.model.SamlIdpSpConnection;
@@ -30,14 +26,10 @@ import com.liferay.saml.persistence.model.SamlSpIdpConnection;
 import com.liferay.saml.persistence.service.SamlIdpSpConnectionLocalService;
 import com.liferay.saml.persistence.service.SamlSpIdpConnectionLocalService;
 import com.liferay.saml.runtime.certificate.CertificateTool;
-import com.liferay.saml.runtime.configuration.SamlProviderConfiguration;
 import com.liferay.saml.runtime.configuration.SamlProviderConfigurationHelper;
 import com.liferay.saml.runtime.metadata.LocalEntityManager;
 import com.liferay.saml.web.internal.constants.SamlAdminPortletKeys;
-
-import java.security.KeyStoreException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.X509Certificate;
+import com.liferay.saml.web.internal.display.context.GeneralTabDefaultViewDisplayContext;
 
 import java.util.List;
 
@@ -68,7 +60,9 @@ public class DefaultViewMVCRenderCommand implements MVCRenderCommand {
 		RenderRequest renderRequest, RenderResponse renderResponse) {
 
 		renderRequest.setAttribute(
-			ClassUtil.getClassName(SamlProviderConfigurationHelper.class),
+			LocalEntityManager.class.getName(), _localEntityManager);
+		renderRequest.setAttribute(
+			SamlProviderConfigurationHelper.class.getName(),
 			_samlProviderConfigurationHelper);
 
 		HttpServletRequest httpServletRequest = _portal.getHttpServletRequest(
@@ -80,8 +74,8 @@ public class DefaultViewMVCRenderCommand implements MVCRenderCommand {
 		if (tabs1.equals("general")) {
 			renderGeneralTab(renderRequest, renderResponse);
 		}
-		else if (tabs1.equals("identity-provider-connection")) {
-			renderIdentityProviderConnectionTab(
+		else if (tabs1.equals("identity-provider-connections")) {
+			renderViewIdentityProviderConnections(
 				renderRequest, renderResponse, httpServletRequest);
 		}
 		else if (tabs1.equals("service-provider-connections")) {
@@ -105,126 +99,46 @@ public class DefaultViewMVCRenderCommand implements MVCRenderCommand {
 			return;
 		}
 
-		try {
-			X509Certificate x509Certificate =
-				_localEntityManager.getLocalEntityCertificate();
+		GeneralTabDefaultViewDisplayContext
+			generalTabDefaultViewDisplayContext =
+				new GeneralTabDefaultViewDisplayContext(_localEntityManager);
 
-			if (x509Certificate != null) {
-				renderRequest.setAttribute(
-					SamlWebKeys.SAML_X509_CERTIFICATE, x509Certificate);
-			}
+		renderRequest.setAttribute(
+			GeneralTabDefaultViewDisplayContext.class.getName(),
+			generalTabDefaultViewDisplayContext);
 
-			renderRequest.setAttribute(
-				SamlWebKeys.SAML_CERTIFICATE_TOOL, _certificateTool);
-		}
-		catch (Exception e) {
-			Throwable cause = _getCause(e, KeyStoreException.class);
-
-			if (cause != null) {
-				Throwable unrecoverableKeyException;
-
-				unrecoverableKeyException = _getCause(
-					cause, UnrecoverableKeyException.class);
-
-				if (unrecoverableKeyException != null) {
-					if (_log.isDebugEnabled()) {
-						_log.debug(
-							"Unable to get local entity certificate because " +
-								"of incorrect keystore password",
-							cause);
-					}
-
-					renderRequest.setAttribute(
-						SamlWebKeys.SAML_KEYSTORE_PASSWORD_INCORRECT,
-						Boolean.TRUE);
-				}
-				else {
-					if (_log.isDebugEnabled()) {
-						_log.debug(
-							"Unable to get local entity certificate because " +
-								"of keystore loading issue",
-							cause);
-					}
-
-					renderRequest.setAttribute(
-						SamlWebKeys.SAML_KEYSTORE_EXCEPTION, Boolean.TRUE);
-				}
-			}
-			else {
-				cause = _getCause(e, UnrecoverableKeyException.class);
-
-				if (cause != null) {
-					if (_log.isDebugEnabled()) {
-						_log.debug(
-							"Unable to get local entity certificate because " +
-								"of incorrect key credential password",
-							cause);
-					}
-
-					renderRequest.setAttribute(
-						SamlWebKeys.SAML_X509_CERTIFICATE_AUTH_NEEDED,
-						Boolean.TRUE);
-				}
-				else {
-					String message =
-						"Unable to get local entity certificate: " +
-							e.getMessage();
-
-					if (_log.isDebugEnabled()) {
-						_log.debug(message, e);
-					}
-					else if (_log.isWarnEnabled()) {
-						_log.warn(message);
-					}
-				}
-			}
-		}
+		renderRequest.setAttribute(
+			SamlWebKeys.SAML_CERTIFICATE_TOOL, _certificateTool);
 	}
 
-	protected void renderIdentityProviderConnectionTab(
+	protected void renderViewIdentityProviderConnections(
 		RenderRequest renderRequest, RenderResponse renderResponse,
 		HttpServletRequest httpServletRequest) {
 
-		SamlProviderConfiguration samlProviderConfiguration =
-			_samlProviderConfigurationHelper.getSamlProviderConfiguration();
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
 
-		String samlIdpEntityId = samlProviderConfiguration.defaultIdPEntityId();
+		SearchContainer searchContainer = new SearchContainer(
+			renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, 0,
+			SearchContainer.DEFAULT_DELTA, renderResponse.createRenderURL(),
+			null, null);
 
-		long clockSkew = ParamUtil.getLong(
-			httpServletRequest, "clockSkew",
-			samlProviderConfiguration.clockSkew());
+		List<SamlSpIdpConnection> samlSpIdpConnections =
+			_samlSpIdpConnectionLocalService.getSamlSpIdpConnections(
+				themeDisplay.getCompanyId(), searchContainer.getStart(),
+				searchContainer.getEnd());
 
-		if (Validator.isNotNull(samlIdpEntityId)) {
-			try {
-				ThemeDisplay themeDisplay =
-					(ThemeDisplay)httpServletRequest.getAttribute(
-						WebKeys.THEME_DISPLAY);
+		renderRequest.setAttribute(
+			SamlWebKeys.SAML_SP_IDP_CONNECTIONS, samlSpIdpConnections);
 
-				SamlSpIdpConnection samlSpIdpConnection =
-					_samlSpIdpConnectionLocalService.getSamlSpIdpConnection(
-						themeDisplay.getCompanyId(), samlIdpEntityId);
+		int samlSpIdpConnectionsCount =
+			_samlSpIdpConnectionLocalService.getSamlSpIdpConnectionsCount(
+				themeDisplay.getCompanyId());
 
-				clockSkew = ParamUtil.getLong(
-					httpServletRequest, "clockSkew",
-					samlSpIdpConnection.getClockSkew());
-
-				renderRequest.setAttribute(
-					SamlWebKeys.SAML_SP_IDP_CONNECTION, samlSpIdpConnection);
-			}
-			catch (Exception e) {
-				String message =
-					"Unable to calculate clock skew: " + e.getMessage();
-
-				if (_log.isDebugEnabled()) {
-					_log.debug(message, e);
-				}
-				else if (_log.isWarnEnabled()) {
-					_log.warn(message);
-				}
-			}
-		}
-
-		renderRequest.setAttribute(SamlWebKeys.SAML_CLOCK_SKEW, clockSkew);
+		renderRequest.setAttribute(
+			SamlWebKeys.SAML_SP_IDP_CONNECTIONS_COUNT,
+			samlSpIdpConnectionsCount);
 	}
 
 	protected void renderViewServiceProviderConnections(
@@ -257,27 +171,6 @@ public class DefaultViewMVCRenderCommand implements MVCRenderCommand {
 			SamlWebKeys.SAML_IDP_SP_CONNECTIONS_COUNT,
 			samlIdpSpConnectionsCount);
 	}
-
-	private Throwable _getCause(Throwable e, Class<?> exceptionType) {
-		if (e == null) {
-			return null;
-		}
-
-		Throwable cause = e.getCause();
-
-		while (cause != null) {
-			if (exceptionType.isInstance(cause)) {
-				return cause;
-			}
-
-			cause = cause.getCause();
-		}
-
-		return null;
-	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		DefaultViewMVCRenderCommand.class);
 
 	@Reference
 	private CertificateTool _certificateTool;

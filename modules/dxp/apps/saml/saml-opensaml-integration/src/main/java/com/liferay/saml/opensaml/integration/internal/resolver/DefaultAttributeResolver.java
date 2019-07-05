@@ -23,11 +23,11 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.Role;
-import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserGroup;
 import com.liferay.portal.kernel.model.UserGroupGroupRole;
 import com.liferay.portal.kernel.model.UserGroupRole;
+import com.liferay.portal.kernel.model.role.RoleConstants;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.UserGroupGroupRoleLocalService;
@@ -51,8 +51,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.Attribute;
+import org.opensaml.saml.common.xml.SAMLConstants;
+import org.opensaml.saml.saml2.core.Attribute;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -87,6 +87,13 @@ public class DefaultAttributeResolver implements AttributeResolver {
 			}
 			else if (attributeName.equals("groups")) {
 				addGroupsAttribute(
+					user, attributeResolverSAMLContext, attributePublisher,
+					attributeName, namespaceEnabled);
+			}
+			else if (attributeName.startsWith("map:")) {
+				attributeName = attributeName.substring(4);
+
+				addMapAttribute(
 					user, attributeResolverSAMLContext, attributePublisher,
 					attributeName, namespaceEnabled);
 			}
@@ -235,6 +242,35 @@ public class DefaultAttributeResolver implements AttributeResolver {
 			else {
 				_log.error(message);
 			}
+		}
+	}
+
+	protected void addMapAttribute(
+		User user, AttributeResolverSAMLContext attributeResolverSAMLContext,
+		AttributePublisher attributePublisher, String attributeName,
+		boolean namespaceEnabled) {
+
+		if (attributeName.indexOf(StringPool.EQUAL) <= 0) {
+			return;
+		}
+
+		String[] values = StringUtil.split(attributeName, StringPool.EQUAL);
+
+		if (values.length > 2) {
+			return;
+		}
+
+		String attributeValue = BeanPropertiesUtil.getString(user, values[1]);
+
+		if (namespaceEnabled) {
+			attributePublisher.publish(
+				values[0], Attribute.URI_REFERENCE,
+				attributePublisher.buildString(attributeValue));
+		}
+		else {
+			attributePublisher.publish(
+				values[0], Attribute.UNSPECIFIED,
+				attributePublisher.buildString(attributeValue));
 		}
 	}
 

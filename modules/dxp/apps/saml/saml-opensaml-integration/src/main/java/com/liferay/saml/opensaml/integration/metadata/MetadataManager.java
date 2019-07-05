@@ -18,11 +18,12 @@ import com.liferay.saml.runtime.SamlException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.opensaml.saml2.metadata.EntityDescriptor;
-import org.opensaml.saml2.metadata.provider.MetadataProvider;
-import org.opensaml.ws.security.SecurityPolicyResolver;
-import org.opensaml.xml.security.credential.Credential;
-import org.opensaml.xml.signature.SignatureTrustEngine;
+import org.opensaml.messaging.handler.MessageHandler;
+import org.opensaml.saml.metadata.resolver.MetadataResolver;
+import org.opensaml.saml.saml2.metadata.EntityDescriptor;
+import org.opensaml.saml.security.impl.MetadataCredentialResolver;
+import org.opensaml.security.credential.Credential;
+import org.opensaml.xmlsec.signature.support.SignatureTrustEngine;
 
 /**
  * @author Mika Koivisto
@@ -35,18 +36,22 @@ public interface MetadataManager {
 
 	public long getClockSkew();
 
-	public String getDefaultIdpEntityId();
+	public Credential getEncryptionCredential() throws SamlException;
 
-	public EntityDescriptor getEntityDescriptor(HttpServletRequest request)
+	public EntityDescriptor getEntityDescriptor(
+			HttpServletRequest httpServletRequest)
 		throws SamlException;
 
-	public MetadataProvider getMetadataProvider() throws SamlException;
+	public MetadataCredentialResolver getMetadataCredentialResolver();
+
+	public MetadataResolver getMetadataResolver();
 
 	public String getNameIdAttribute(String entityId);
 
 	public String getNameIdFormat(String entityId);
 
-	public SecurityPolicyResolver getSecurityPolicyResolver(
+	public MessageHandler<?> getSecurityMessageHandler(
+			HttpServletRequest httpServletRequest,
 			String communicationProfileId, boolean requireSignature)
 		throws SamlException;
 
