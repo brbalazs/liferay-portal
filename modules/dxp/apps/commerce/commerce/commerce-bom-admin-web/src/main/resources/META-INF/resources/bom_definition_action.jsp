@@ -33,7 +33,7 @@ CommerceBOMDefinition commerceBOMDefinition = (CommerceBOMDefinition)row.getObje
 >
 	<c:if test="<%= commerceBOMAdminDisplayContext.hasCommerceBOMDefinitionPermissions(commerceBOMDefinition.getCommerceBOMDefinitionId(), ActionKeys.UPDATE) %>">
 		<portlet:renderURL var="editURL">
-			<portlet:param name="mvcRenderCommandName" value="editCommerceBOMFolder" />
+			<portlet:param name="mvcRenderCommandName" value="editCommerceBOMDefinition" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
 			<portlet:param name="commerceBOMDefinitionId" value="<%= String.valueOf(commerceBOMDefinition.getCommerceBOMDefinitionId()) %>" />
 			<portlet:param name="commerceBOMFolderId" value="<%= String.valueOf(commerceBOMDefinition.getCommerceBOMFolderId()) %>" />
@@ -46,7 +46,7 @@ CommerceBOMDefinition commerceBOMDefinition = (CommerceBOMDefinition)row.getObje
 	</c:if>
 
 	<c:if test="<%= commerceBOMAdminDisplayContext.hasCommerceBOMDefinitionPermissions(commerceBOMDefinition.getCommerceBOMDefinitionId(), ActionKeys.DELETE) %>">
-		<portlet:actionURL name="editCommerceBOMFolder" var="deleteURL">
+		<portlet:actionURL name="editCommerceBOMDefinition" var="deleteURL">
 			<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
 			<portlet:param name="commerceBOMDefinitionId" value="<%= String.valueOf(commerceBOMDefinition.getCommerceBOMDefinitionId()) %>" />
