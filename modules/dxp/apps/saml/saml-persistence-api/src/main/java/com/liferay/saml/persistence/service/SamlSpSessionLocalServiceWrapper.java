@@ -49,6 +49,28 @@ public class SamlSpSessionLocalServiceWrapper
 		return _samlSpSessionLocalService.addSamlSpSession(samlSpSession);
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x), use {@link
+	 SamlSpSessionLocalServiceImpl#addSamlSpSession(String,
+	 String, String, String, String, String, String, String,
+	 String, ServiceContext)} instead
+	 */
+	@Deprecated
+	@Override
+	public com.liferay.saml.persistence.model.SamlSpSession addSamlSpSession(
+			String samlSpSessionKey, String assertionXml, String jSessionId,
+			String nameIdFormat, String nameIdNameQualifier,
+			String nameIdSPNameQualifier, String nameIdValue,
+			String sessionIndex,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _samlSpSessionLocalService.addSamlSpSession(
+			samlSpSessionKey, assertionXml, jSessionId, nameIdFormat,
+			nameIdNameQualifier, nameIdSPNameQualifier, nameIdValue,
+			sessionIndex, serviceContext);
+	}
+
 	@Override
 	public com.liferay.saml.persistence.model.SamlSpSession addSamlSpSession(
 			String samlIdpEntityId, String samlSpSessionKey,
@@ -354,6 +376,28 @@ public class SamlSpSessionLocalServiceWrapper
 
 		return _samlSpSessionLocalService.updateSamlSpSession(
 			samlSpSessionId, jSessionId);
+	}
+
+	/**
+	 * @deprecated As of Judson (7.1.x), use {@link
+	 SamlSpSessionLocalServiceImpl#updateSamlSpSession(long,
+	 String, String, String, String, String, String, String,
+	 String, String, ServiceContext)} instead
+	 */
+	@Deprecated
+	@Override
+	public com.liferay.saml.persistence.model.SamlSpSession updateSamlSpSession(
+			long samlSpSessionId, String samlSpSessionKey, String assertionXml,
+			String jSessionId, String nameIdFormat, String nameIdNameQualifier,
+			String nameIdSPNameQualifier, String nameIdValue,
+			String sessionIndex,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _samlSpSessionLocalService.updateSamlSpSession(
+			samlSpSessionId, samlSpSessionKey, assertionXml, jSessionId,
+			nameIdFormat, nameIdNameQualifier, nameIdSPNameQualifier,
+			nameIdValue, sessionIndex, serviceContext);
 	}
 
 	@Override

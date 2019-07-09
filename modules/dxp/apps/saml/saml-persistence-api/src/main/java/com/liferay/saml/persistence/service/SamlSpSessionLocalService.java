@@ -71,6 +71,20 @@ public interface SamlSpSessionLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public SamlSpSession addSamlSpSession(SamlSpSession samlSpSession);
 
+	/**
+	 * @deprecated As of Judson (7.1.x), use {@link
+	 SamlSpSessionLocalServiceImpl#addSamlSpSession(String,
+	 String, String, String, String, String, String, String,
+	 String, ServiceContext)} instead
+	 */
+	@Deprecated
+	public SamlSpSession addSamlSpSession(
+			String samlSpSessionKey, String assertionXml, String jSessionId,
+			String nameIdFormat, String nameIdNameQualifier,
+			String nameIdSPNameQualifier, String nameIdValue,
+			String sessionIndex, ServiceContext serviceContext)
+		throws PortalException;
+
 	public SamlSpSession addSamlSpSession(
 			String samlIdpEntityId, String samlSpSessionKey,
 			String assertionXml, String jSessionId, String nameIdFormat,
@@ -263,6 +277,20 @@ public interface SamlSpSessionLocalService
 
 	public SamlSpSession updateSamlSpSession(
 			long samlSpSessionId, String jSessionId)
+		throws PortalException;
+
+	/**
+	 * @deprecated As of Judson (7.1.x), use {@link
+	 SamlSpSessionLocalServiceImpl#updateSamlSpSession(long,
+	 String, String, String, String, String, String, String,
+	 String, String, ServiceContext)} instead
+	 */
+	@Deprecated
+	public SamlSpSession updateSamlSpSession(
+			long samlSpSessionId, String samlSpSessionKey, String assertionXml,
+			String jSessionId, String nameIdFormat, String nameIdNameQualifier,
+			String nameIdSPNameQualifier, String nameIdValue,
+			String sessionIndex, ServiceContext serviceContext)
 		throws PortalException;
 
 	public SamlSpSession updateSamlSpSession(

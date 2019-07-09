@@ -31,6 +31,24 @@ import java.util.List;
 public class SamlSpSessionLocalServiceImpl
 	extends SamlSpSessionLocalServiceBaseImpl {
 
+	/**
+	 * @deprecated As of Judson (7.1.x), use {@link
+	 *             SamlSpSessionLocalServiceImpl#addSamlSpSession(String,
+	 *             String, String, String, String, String, String, String,
+	 *             String, ServiceContext)} instead
+	 */
+	@Deprecated
+	@Override
+	public SamlSpSession addSamlSpSession(
+			String samlSpSessionKey, String assertionXml, String jSessionId,
+			String nameIdFormat, String nameIdNameQualifier,
+			String nameIdSPNameQualifier, String nameIdValue,
+			String sessionIndex, ServiceContext serviceContext)
+		throws PortalException {
+
+		throw new IllegalArgumentException("Missing samlIdpEntityId parameter");
+	}
+
 	@Override
 	public SamlSpSession addSamlSpSession(
 			String samlIdpEntityId, String samlSpSessionKey,
@@ -138,6 +156,24 @@ public class SamlSpSessionLocalServiceImpl
 		samlSpSessionPersistence.update(samlSpSession);
 
 		return samlSpSession;
+	}
+
+	/**
+	 * @deprecated As of Judson (7.1.x), use {@link
+	 *             SamlSpSessionLocalServiceImpl#updateSamlSpSession(long,
+	 *             String, String, String, String, String, String, String,
+	 *             String, String, ServiceContext)} instead
+	 */
+	@Deprecated
+	@Override
+	public SamlSpSession updateSamlSpSession(
+			long samlSpSessionId, String samlSpSessionKey, String assertionXml,
+			String jSessionId, String nameIdFormat, String nameIdNameQualifier,
+			String nameIdSPNameQualifier, String nameIdValue,
+			String sessionIndex, ServiceContext serviceContext)
+		throws PortalException {
+
+		throw new IllegalArgumentException("Missing samlIdpEntityId parameter");
 	}
 
 	@Override

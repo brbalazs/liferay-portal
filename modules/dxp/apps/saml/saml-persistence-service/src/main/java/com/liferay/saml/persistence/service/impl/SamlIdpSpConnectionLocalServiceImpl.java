@@ -123,6 +123,27 @@ public class SamlIdpSpConnectionLocalServiceImpl
 		return samlIdpSpConnection;
 	}
 
+	/**
+	 * @deprecated As of Judson (7.1.x)
+	 */
+	@Deprecated
+	@Override
+	public SamlIdpSpConnection addSamlIdpSpConnection(
+			String samlSpEntityId, int assertionLifetime, String attributeNames,
+			boolean attributesEnabled, boolean attributesNamespaceEnabled,
+			boolean enabled, String metadataUrl,
+			InputStream metadataXmlInputStream, String name,
+			String nameIdAttribute, String nameIdFormat,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return addSamlIdpSpConnection(
+			samlSpEntityId, assertionLifetime, attributeNames,
+			attributesEnabled, attributesNamespaceEnabled, enabled, false,
+			metadataUrl, metadataXmlInputStream, name, nameIdAttribute,
+			nameIdFormat, serviceContext);
+	}
+
 	@Override
 	public SamlIdpSpConnection getSamlIdpSpConnection(
 			long companyId, String samlSpEntityId)
@@ -284,6 +305,28 @@ public class SamlIdpSpConnectionLocalServiceImpl
 		samlIdpSpConnectionPersistence.update(samlIdpSpConnection);
 
 		return samlIdpSpConnection;
+	}
+
+	/**
+	 * @deprecated As of Judson (7.1.x)
+	 */
+	@Deprecated
+	@Override
+	public SamlIdpSpConnection updateSamlIdpSpConnection(
+			long samlIdpSpConnectionId, String samlSpEntityId,
+			int assertionLifetime, String attributeNames,
+			boolean attributesEnabled, boolean attributesNamespaceEnabled,
+			boolean enabled, String metadataUrl,
+			InputStream metadataXmlInputStream, String name,
+			String nameIdAttribute, String nameIdFormat,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return updateSamlIdpSpConnection(
+			samlIdpSpConnectionId, samlSpEntityId, assertionLifetime,
+			attributeNames, attributesEnabled, attributesNamespaceEnabled,
+			enabled, false, metadataUrl, metadataXmlInputStream, name,
+			nameIdAttribute, nameIdFormat, serviceContext);
 	}
 
 	protected String getMetadataXml(

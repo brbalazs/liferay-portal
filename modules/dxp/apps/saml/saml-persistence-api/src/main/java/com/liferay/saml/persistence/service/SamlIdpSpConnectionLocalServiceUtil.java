@@ -74,6 +74,27 @@ public class SamlIdpSpConnectionLocalServiceUtil {
 	}
 
 	/**
+	 * @deprecated As of Judson (7.1.x)
+	 */
+	@Deprecated
+	public static com.liferay.saml.persistence.model.SamlIdpSpConnection
+			addSamlIdpSpConnection(
+				String samlSpEntityId, int assertionLifetime,
+				String attributeNames, boolean attributesEnabled,
+				boolean attributesNamespaceEnabled, boolean enabled,
+				String metadataUrl, java.io.InputStream metadataXmlInputStream,
+				String name, String nameIdAttribute, String nameIdFormat,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addSamlIdpSpConnection(
+			samlSpEntityId, assertionLifetime, attributeNames,
+			attributesEnabled, attributesNamespaceEnabled, enabled, metadataUrl,
+			metadataXmlInputStream, name, nameIdAttribute, nameIdFormat,
+			serviceContext);
+	}
+
+	/**
 	 * Creates a new saml idp sp connection with the primary key. Does not add the saml idp sp connection to the database.
 	 *
 	 * @param samlIdpSpConnectionId the primary key for the new saml idp sp connection
@@ -343,6 +364,28 @@ public class SamlIdpSpConnectionLocalServiceUtil {
 			attributeNames, attributesEnabled, attributesNamespaceEnabled,
 			enabled, encryptionForced, metadataUrl, metadataXmlInputStream,
 			name, nameIdAttribute, nameIdFormat, serviceContext);
+	}
+
+	/**
+	 * @deprecated As of Judson (7.1.x)
+	 */
+	@Deprecated
+	public static com.liferay.saml.persistence.model.SamlIdpSpConnection
+			updateSamlIdpSpConnection(
+				long samlIdpSpConnectionId, String samlSpEntityId,
+				int assertionLifetime, String attributeNames,
+				boolean attributesEnabled, boolean attributesNamespaceEnabled,
+				boolean enabled, String metadataUrl,
+				java.io.InputStream metadataXmlInputStream, String name,
+				String nameIdAttribute, String nameIdFormat,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateSamlIdpSpConnection(
+			samlIdpSpConnectionId, samlSpEntityId, assertionLifetime,
+			attributeNames, attributesEnabled, attributesNamespaceEnabled,
+			enabled, metadataUrl, metadataXmlInputStream, name, nameIdAttribute,
+			nameIdFormat, serviceContext);
 	}
 
 	/**

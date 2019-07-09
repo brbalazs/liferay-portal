@@ -83,6 +83,19 @@ public interface SamlIdpSpConnectionLocalService
 		throws PortalException;
 
 	/**
+	 * @deprecated As of Judson (7.1.x)
+	 */
+	@Deprecated
+	public SamlIdpSpConnection addSamlIdpSpConnection(
+			String samlSpEntityId, int assertionLifetime, String attributeNames,
+			boolean attributesEnabled, boolean attributesNamespaceEnabled,
+			boolean enabled, String metadataUrl,
+			InputStream metadataXmlInputStream, String name,
+			String nameIdAttribute, String nameIdFormat,
+			ServiceContext serviceContext)
+		throws PortalException;
+
+	/**
 	 * Creates a new saml idp sp connection with the primary key. Does not add the saml idp sp connection to the database.
 	 *
 	 * @param samlIdpSpConnectionId the primary key for the new saml idp sp connection
@@ -272,6 +285,20 @@ public interface SamlIdpSpConnectionLocalService
 			int assertionLifetime, String attributeNames,
 			boolean attributesEnabled, boolean attributesNamespaceEnabled,
 			boolean enabled, boolean encryptionForced, String metadataUrl,
+			InputStream metadataXmlInputStream, String name,
+			String nameIdAttribute, String nameIdFormat,
+			ServiceContext serviceContext)
+		throws PortalException;
+
+	/**
+	 * @deprecated As of Judson (7.1.x)
+	 */
+	@Deprecated
+	public SamlIdpSpConnection updateSamlIdpSpConnection(
+			long samlIdpSpConnectionId, String samlSpEntityId,
+			int assertionLifetime, String attributeNames,
+			boolean attributesEnabled, boolean attributesNamespaceEnabled,
+			boolean enabled, String metadataUrl,
 			InputStream metadataXmlInputStream, String name,
 			String nameIdAttribute, String nameIdFormat,
 			ServiceContext serviceContext)
