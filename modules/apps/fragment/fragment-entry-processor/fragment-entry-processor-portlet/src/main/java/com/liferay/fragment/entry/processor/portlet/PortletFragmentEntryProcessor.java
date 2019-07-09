@@ -400,7 +400,7 @@ public class PortletFragmentEntryProcessor implements FragmentEntryProcessor {
 					portletId, defaultPreferences);
 
 			_updateLayoutPortletSetup(
-				portletPreferencesList, jxPortletPreferences);
+				portletPreferencesList, jxPortletPreferences, groupId);
 		}
 
 		Document preferencesDocument = _getDocument(
@@ -412,9 +412,10 @@ public class PortletFragmentEntryProcessor implements FragmentEntryProcessor {
 	}
 
 	private void _updateLayoutPortletSetup(
-		List<com.liferay.portal.kernel.model.PortletPreferences>
-			portletPreferencesList,
-		PortletPreferences jxPortletPreferences) {
+			List<com.liferay.portal.kernel.model.PortletPreferences>
+				portletPreferencesList,
+			PortletPreferences jxPortletPreferences, long groupId)
+		throws PortalException {
 
 		String portletPreferencesXml = PortletPreferencesFactoryUtil.toXML(
 			jxPortletPreferences);
@@ -431,7 +432,11 @@ public class PortletFragmentEntryProcessor implements FragmentEntryProcessor {
 		for (com.liferay.portal.kernel.model.PortletPreferences
 				portletPreferences : portletPreferencesList) {
 
-			if ((plid != portletPreferences.getPlid()) ||
+			long ppPlid = portletPreferences.getPlid();
+
+			Layout layout = _layoutLocalService.getLayout(ppPlid);
+
+			if ((groupId != layout.getGroupId()) || (plid != ppPlid) ||
 				Objects.equals(
 					portletPreferences.getPreferences(),
 					portletPreferencesXml)) {
