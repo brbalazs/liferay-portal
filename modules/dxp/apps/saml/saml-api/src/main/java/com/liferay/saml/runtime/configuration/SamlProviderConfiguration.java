@@ -18,6 +18,8 @@ import aQute.bnd.annotation.metatype.Meta;
 
 import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * @author Mika Koivisto
  */
@@ -30,6 +32,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 	id = "com.liferay.saml.runtime.configuration.SamlProviderConfiguration",
 	localization = "content/Language", name = "saml-provider-configuration-name"
 )
+@ProviderType
 public interface SamlProviderConfiguration {
 
 	@Meta.AD(deflt = "0", name = "company-id", required = false)
@@ -78,6 +81,17 @@ public interface SamlProviderConfiguration {
 		name = "saml-idp-assertion-lifetime", required = false
 	)
 	public int defaultAssertionLifetime();
+
+	/**
+	 * @deprecated As of Judson (7.1.x)
+	 */
+	@Deprecated
+	@Meta.AD(
+		description = "saml-sp-default-idp-entity-id-description",
+		id = "saml.sp.default.idp.entity.id",
+		name = "saml-sp-default-idp-entity-id", required = false
+	)
+	public String defaultIdPEntityId();
 
 	@Meta.AD(id = "saml.enabled", name = "saml-enabled", required = false)
 	public boolean enabled();

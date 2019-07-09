@@ -47,6 +47,20 @@ public interface SamlWebKeys {
 
 	public static final String SAML_KEEP_ALIVE_URLS = "SAML_KEEP_ALIVE_URLS";
 
+	/**
+	 * @deprecated As of Judson (7.1.x)
+	 */
+	@Deprecated
+	public static final String SAML_KEYSTORE_EXCEPTION =
+		"SAML_KEYSTORE_EXCEPTION";
+
+	/**
+	 * @deprecated As of Judson (7.1.x)
+	 */
+	@Deprecated
+	public static final String SAML_KEYSTORE_PASSWORD_INCORRECT =
+		"SAML_KEYSTORE_PASSWORD_INCORRECT";
+
 	public static final String SAML_SLO_CONTEXT = "SAML_SLO_CONTEXT";
 
 	public static final String SAML_SLO_REQUEST_INFO = "SAML_SLO_REQUEST_INFO";
@@ -78,5 +92,12 @@ public interface SamlWebKeys {
 	public static final String SAML_SSO_SESSION_ID = "SAML_SSO_SESSION_ID";
 
 	public static final String SAML_X509_CERTIFICATE = "SAML_X509_CERTIFICATE";
+
+	/**
+	 * @deprecated As of Judson (7.1.x)
+	 */
+	@Deprecated
+	public static final String SAML_X509_CERTIFICATE_AUTH_NEEDED =
+		"SAML_X509_CERTIFICATE_AUTH_NEEDED";
 
 }

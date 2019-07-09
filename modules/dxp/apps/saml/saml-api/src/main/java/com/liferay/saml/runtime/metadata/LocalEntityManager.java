@@ -14,6 +14,8 @@
 
 package com.liferay.saml.runtime.metadata;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.saml.runtime.SamlException;
 
 import java.security.KeyStoreException;
@@ -23,6 +25,7 @@ import java.security.cert.X509Certificate;
 /**
  * @author Michael C. Han
  */
+@ProviderType
 public interface LocalEntityManager {
 
 	public void deleteLocalEntityCertificate(CertificateUsage certificateUsage)
