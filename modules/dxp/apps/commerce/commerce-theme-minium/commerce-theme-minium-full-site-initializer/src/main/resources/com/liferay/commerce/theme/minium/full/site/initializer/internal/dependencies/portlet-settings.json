@@ -89,7 +89,24 @@
 		"portletName": "com_liferay_dynamic_data_mapping_form_web_portlet_DDMFormPortlet",
 		"portletPreferences": {
 			"formInstanceId": "0",
-			"groupId": "0"
+			"groupId": "0",
+			"portletSetupPortletDecoratorId": "decorate"
+		}
+	},
+	{
+		"instanceId": "minium",
+		"layoutFriendlyURL": "/knowledge-base",
+		"portletName": "com_liferay_knowledge_base_web_portlet_DisplayPortlet",
+		"portletPreferences": {
+			"portletSetupPortletDecoratorId": "decorate"
+		}
+	},
+	{
+		"instanceId": "minium",
+		"layoutFriendlyURL": "/sales-library",
+		"portletName": "com_liferay_document_library_web_portlet_DLPortlet",
+		"portletPreferences": {
+			"portletSetupPortletDecoratorId": "decorate"
 		}
 	}
 ]
