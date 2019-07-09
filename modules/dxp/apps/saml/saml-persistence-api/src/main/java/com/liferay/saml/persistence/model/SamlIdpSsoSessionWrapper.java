@@ -14,14 +14,18 @@
 
 package com.liferay.saml.persistence.model;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.portal.kernel.model.ModelWrapper;
-import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.osgi.annotation.versioning.ProviderType;
+import java.util.Objects;
 
 /**
  * <p>
@@ -34,11 +38,20 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public class SamlIdpSsoSessionWrapper
-	extends BaseModelWrapper<SamlIdpSsoSession>
 	implements SamlIdpSsoSession, ModelWrapper<SamlIdpSsoSession> {
 
 	public SamlIdpSsoSessionWrapper(SamlIdpSsoSession samlIdpSsoSession) {
-		super(samlIdpSsoSession);
+		_samlIdpSsoSession = samlIdpSsoSession;
+	}
+
+	@Override
+	public Class<?> getModelClass() {
+		return SamlIdpSsoSession.class;
+	}
+
+	@Override
+	public String getModelClassName() {
+		return SamlIdpSsoSession.class.getName();
 	}
 
 	@Override
@@ -102,6 +115,17 @@ public class SamlIdpSsoSessionWrapper
 		}
 	}
 
+	@Override
+	public Object clone() {
+		return new SamlIdpSsoSessionWrapper(
+			(SamlIdpSsoSession)_samlIdpSsoSession.clone());
+	}
+
+	@Override
+	public int compareTo(SamlIdpSsoSession samlIdpSsoSession) {
+		return _samlIdpSsoSession.compareTo(samlIdpSsoSession);
+	}
+
 	/**
 	 * Returns the company ID of this saml idp sso session.
 	 *
@@ -109,7 +133,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public long getCompanyId() {
-		return model.getCompanyId();
+		return _samlIdpSsoSession.getCompanyId();
 	}
 
 	/**
@@ -119,7 +143,12 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public Date getCreateDate() {
-		return model.getCreateDate();
+		return _samlIdpSsoSession.getCreateDate();
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _samlIdpSsoSession.getExpandoBridge();
 	}
 
 	/**
@@ -129,7 +158,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public Date getModifiedDate() {
-		return model.getModifiedDate();
+		return _samlIdpSsoSession.getModifiedDate();
 	}
 
 	/**
@@ -139,7 +168,12 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public long getPrimaryKey() {
-		return model.getPrimaryKey();
+		return _samlIdpSsoSession.getPrimaryKey();
+	}
+
+	@Override
+	public Serializable getPrimaryKeyObj() {
+		return _samlIdpSsoSession.getPrimaryKeyObj();
 	}
 
 	/**
@@ -149,7 +183,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public long getSamlIdpSsoSessionId() {
-		return model.getSamlIdpSsoSessionId();
+		return _samlIdpSsoSession.getSamlIdpSsoSessionId();
 	}
 
 	/**
@@ -159,7 +193,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public String getSamlIdpSsoSessionKey() {
-		return model.getSamlIdpSsoSessionKey();
+		return _samlIdpSsoSession.getSamlIdpSsoSessionKey();
 	}
 
 	/**
@@ -169,7 +203,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public long getUserId() {
-		return model.getUserId();
+		return _samlIdpSsoSession.getUserId();
 	}
 
 	/**
@@ -179,7 +213,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public String getUserName() {
-		return model.getUserName();
+		return _samlIdpSsoSession.getUserName();
 	}
 
 	/**
@@ -189,17 +223,42 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public String getUserUuid() {
-		return model.getUserUuid();
+		return _samlIdpSsoSession.getUserUuid();
+	}
+
+	@Override
+	public int hashCode() {
+		return _samlIdpSsoSession.hashCode();
+	}
+
+	@Override
+	public boolean isCachedModel() {
+		return _samlIdpSsoSession.isCachedModel();
+	}
+
+	@Override
+	public boolean isEscapedModel() {
+		return _samlIdpSsoSession.isEscapedModel();
 	}
 
 	@Override
 	public boolean isExpired() {
-		return model.isExpired();
+		return _samlIdpSsoSession.isExpired();
+	}
+
+	@Override
+	public boolean isNew() {
+		return _samlIdpSsoSession.isNew();
 	}
 
 	@Override
 	public void persist() {
-		model.persist();
+		_samlIdpSsoSession.persist();
+	}
+
+	@Override
+	public void setCachedModel(boolean cachedModel) {
+		_samlIdpSsoSession.setCachedModel(cachedModel);
 	}
 
 	/**
@@ -209,7 +268,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public void setCompanyId(long companyId) {
-		model.setCompanyId(companyId);
+		_samlIdpSsoSession.setCompanyId(companyId);
 	}
 
 	/**
@@ -219,7 +278,24 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public void setCreateDate(Date createDate) {
-		model.setCreateDate(createDate);
+		_samlIdpSsoSession.setCreateDate(createDate);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
+		_samlIdpSsoSession.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
+		_samlIdpSsoSession.setExpandoBridgeAttributes(expandoBridge);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
+		_samlIdpSsoSession.setExpandoBridgeAttributes(serviceContext);
 	}
 
 	/**
@@ -229,7 +305,12 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
-		model.setModifiedDate(modifiedDate);
+		_samlIdpSsoSession.setModifiedDate(modifiedDate);
+	}
+
+	@Override
+	public void setNew(boolean n) {
+		_samlIdpSsoSession.setNew(n);
 	}
 
 	/**
@@ -239,7 +320,12 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
-		model.setPrimaryKey(primaryKey);
+		_samlIdpSsoSession.setPrimaryKey(primaryKey);
+	}
+
+	@Override
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
+		_samlIdpSsoSession.setPrimaryKeyObj(primaryKeyObj);
 	}
 
 	/**
@@ -249,7 +335,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public void setSamlIdpSsoSessionId(long samlIdpSsoSessionId) {
-		model.setSamlIdpSsoSessionId(samlIdpSsoSessionId);
+		_samlIdpSsoSession.setSamlIdpSsoSessionId(samlIdpSsoSessionId);
 	}
 
 	/**
@@ -259,7 +345,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public void setSamlIdpSsoSessionKey(String samlIdpSsoSessionKey) {
-		model.setSamlIdpSsoSessionKey(samlIdpSsoSessionKey);
+		_samlIdpSsoSession.setSamlIdpSsoSessionKey(samlIdpSsoSessionKey);
 	}
 
 	/**
@@ -269,7 +355,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public void setUserId(long userId) {
-		model.setUserId(userId);
+		_samlIdpSsoSession.setUserId(userId);
 	}
 
 	/**
@@ -279,7 +365,7 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public void setUserName(String userName) {
-		model.setUserName(userName);
+		_samlIdpSsoSession.setUserName(userName);
 	}
 
 	/**
@@ -289,14 +375,81 @@ public class SamlIdpSsoSessionWrapper
 	 */
 	@Override
 	public void setUserUuid(String userUuid) {
-		model.setUserUuid(userUuid);
+		_samlIdpSsoSession.setUserUuid(userUuid);
 	}
 
 	@Override
-	protected SamlIdpSsoSessionWrapper wrap(
-		SamlIdpSsoSession samlIdpSsoSession) {
+	public com.liferay.portal.kernel.model.CacheModel<SamlIdpSsoSession>
+		toCacheModel() {
 
-		return new SamlIdpSsoSessionWrapper(samlIdpSsoSession);
+		return _samlIdpSsoSession.toCacheModel();
 	}
+
+	@Override
+	public SamlIdpSsoSession toEscapedModel() {
+		return new SamlIdpSsoSessionWrapper(
+			_samlIdpSsoSession.toEscapedModel());
+	}
+
+	@Override
+	public String toString() {
+		return _samlIdpSsoSession.toString();
+	}
+
+	@Override
+	public SamlIdpSsoSession toUnescapedModel() {
+		return new SamlIdpSsoSessionWrapper(
+			_samlIdpSsoSession.toUnescapedModel());
+	}
+
+	@Override
+	public String toXmlString() {
+		return _samlIdpSsoSession.toXmlString();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof SamlIdpSsoSessionWrapper)) {
+			return false;
+		}
+
+		SamlIdpSsoSessionWrapper samlIdpSsoSessionWrapper =
+			(SamlIdpSsoSessionWrapper)obj;
+
+		if (Objects.equals(
+				_samlIdpSsoSession,
+				samlIdpSsoSessionWrapper._samlIdpSsoSession)) {
+
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public SamlIdpSsoSession getWrappedModel() {
+		return _samlIdpSsoSession;
+	}
+
+	@Override
+	public boolean isEntityCacheEnabled() {
+		return _samlIdpSsoSession.isEntityCacheEnabled();
+	}
+
+	@Override
+	public boolean isFinderCacheEnabled() {
+		return _samlIdpSsoSession.isFinderCacheEnabled();
+	}
+
+	@Override
+	public void resetOriginalValues() {
+		_samlIdpSsoSession.resetOriginalValues();
+	}
+
+	private final SamlIdpSsoSession _samlIdpSsoSession;
 
 }

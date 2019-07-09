@@ -14,14 +14,18 @@
 
 package com.liferay.saml.persistence.model;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.portal.kernel.model.ModelWrapper;
-import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.osgi.annotation.versioning.ProviderType;
+import java.util.Objects;
 
 /**
  * <p>
@@ -34,11 +38,20 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public class SamlSpIdpConnectionWrapper
-	extends BaseModelWrapper<SamlSpIdpConnection>
 	implements SamlSpIdpConnection, ModelWrapper<SamlSpIdpConnection> {
 
 	public SamlSpIdpConnectionWrapper(SamlSpIdpConnection samlSpIdpConnection) {
-		super(samlSpIdpConnection);
+		_samlSpIdpConnection = samlSpIdpConnection;
+	}
+
+	@Override
+	public Class<?> getModelClass() {
+		return SamlSpIdpConnection.class;
+	}
+
+	@Override
+	public String getModelClassName() {
+		return SamlSpIdpConnection.class.getName();
 	}
 
 	@Override
@@ -190,6 +203,17 @@ public class SamlSpIdpConnectionWrapper
 		}
 	}
 
+	@Override
+	public Object clone() {
+		return new SamlSpIdpConnectionWrapper(
+			(SamlSpIdpConnection)_samlSpIdpConnection.clone());
+	}
+
+	@Override
+	public int compareTo(SamlSpIdpConnection samlSpIdpConnection) {
+		return _samlSpIdpConnection.compareTo(samlSpIdpConnection);
+	}
+
 	/**
 	 * Returns the assertion signature required of this saml sp idp connection.
 	 *
@@ -197,7 +221,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public boolean getAssertionSignatureRequired() {
-		return model.getAssertionSignatureRequired();
+		return _samlSpIdpConnection.getAssertionSignatureRequired();
 	}
 
 	/**
@@ -207,7 +231,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public long getClockSkew() {
-		return model.getClockSkew();
+		return _samlSpIdpConnection.getClockSkew();
 	}
 
 	/**
@@ -217,7 +241,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public long getCompanyId() {
-		return model.getCompanyId();
+		return _samlSpIdpConnection.getCompanyId();
 	}
 
 	/**
@@ -227,7 +251,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public Date getCreateDate() {
-		return model.getCreateDate();
+		return _samlSpIdpConnection.getCreateDate();
 	}
 
 	/**
@@ -237,7 +261,12 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public boolean getEnabled() {
-		return model.getEnabled();
+		return _samlSpIdpConnection.getEnabled();
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _samlSpIdpConnection.getExpandoBridge();
 	}
 
 	/**
@@ -247,7 +276,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public boolean getForceAuthn() {
-		return model.getForceAuthn();
+		return _samlSpIdpConnection.getForceAuthn();
 	}
 
 	/**
@@ -257,7 +286,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public boolean getLdapImportEnabled() {
-		return model.getLdapImportEnabled();
+		return _samlSpIdpConnection.getLdapImportEnabled();
 	}
 
 	/**
@@ -267,7 +296,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public Date getMetadataUpdatedDate() {
-		return model.getMetadataUpdatedDate();
+		return _samlSpIdpConnection.getMetadataUpdatedDate();
 	}
 
 	/**
@@ -277,7 +306,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public String getMetadataUrl() {
-		return model.getMetadataUrl();
+		return _samlSpIdpConnection.getMetadataUrl();
 	}
 
 	/**
@@ -287,7 +316,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public String getMetadataXml() {
-		return model.getMetadataXml();
+		return _samlSpIdpConnection.getMetadataXml();
 	}
 
 	/**
@@ -297,7 +326,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public Date getModifiedDate() {
-		return model.getModifiedDate();
+		return _samlSpIdpConnection.getModifiedDate();
 	}
 
 	/**
@@ -307,7 +336,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public String getName() {
-		return model.getName();
+		return _samlSpIdpConnection.getName();
 	}
 
 	/**
@@ -317,7 +346,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public String getNameIdFormat() {
-		return model.getNameIdFormat();
+		return _samlSpIdpConnection.getNameIdFormat();
 	}
 
 	/**
@@ -327,7 +356,12 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public long getPrimaryKey() {
-		return model.getPrimaryKey();
+		return _samlSpIdpConnection.getPrimaryKey();
+	}
+
+	@Override
+	public Serializable getPrimaryKeyObj() {
+		return _samlSpIdpConnection.getPrimaryKeyObj();
 	}
 
 	/**
@@ -337,7 +371,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public String getSamlIdpEntityId() {
-		return model.getSamlIdpEntityId();
+		return _samlSpIdpConnection.getSamlIdpEntityId();
 	}
 
 	/**
@@ -347,7 +381,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public long getSamlSpIdpConnectionId() {
-		return model.getSamlSpIdpConnectionId();
+		return _samlSpIdpConnection.getSamlSpIdpConnectionId();
 	}
 
 	/**
@@ -357,7 +391,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public boolean getSignAuthnRequest() {
-		return model.getSignAuthnRequest();
+		return _samlSpIdpConnection.getSignAuthnRequest();
 	}
 
 	/**
@@ -367,7 +401,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public String getUserAttributeMappings() {
-		return model.getUserAttributeMappings();
+		return _samlSpIdpConnection.getUserAttributeMappings();
 	}
 
 	/**
@@ -377,7 +411,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public long getUserId() {
-		return model.getUserId();
+		return _samlSpIdpConnection.getUserId();
 	}
 
 	/**
@@ -387,7 +421,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public String getUserName() {
-		return model.getUserName();
+		return _samlSpIdpConnection.getUserName();
 	}
 
 	/**
@@ -397,7 +431,12 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public String getUserUuid() {
-		return model.getUserUuid();
+		return _samlSpIdpConnection.getUserUuid();
+	}
+
+	@Override
+	public int hashCode() {
+		return _samlSpIdpConnection.hashCode();
 	}
 
 	/**
@@ -407,7 +446,12 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public boolean isAssertionSignatureRequired() {
-		return model.isAssertionSignatureRequired();
+		return _samlSpIdpConnection.isAssertionSignatureRequired();
+	}
+
+	@Override
+	public boolean isCachedModel() {
+		return _samlSpIdpConnection.isCachedModel();
 	}
 
 	/**
@@ -417,7 +461,12 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public boolean isEnabled() {
-		return model.isEnabled();
+		return _samlSpIdpConnection.isEnabled();
+	}
+
+	@Override
+	public boolean isEscapedModel() {
+		return _samlSpIdpConnection.isEscapedModel();
 	}
 
 	/**
@@ -427,7 +476,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public boolean isForceAuthn() {
-		return model.isForceAuthn();
+		return _samlSpIdpConnection.isForceAuthn();
 	}
 
 	/**
@@ -437,7 +486,12 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public boolean isLdapImportEnabled() {
-		return model.isLdapImportEnabled();
+		return _samlSpIdpConnection.isLdapImportEnabled();
+	}
+
+	@Override
+	public boolean isNew() {
+		return _samlSpIdpConnection.isNew();
 	}
 
 	/**
@@ -447,12 +501,12 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public boolean isSignAuthnRequest() {
-		return model.isSignAuthnRequest();
+		return _samlSpIdpConnection.isSignAuthnRequest();
 	}
 
 	@Override
 	public void persist() {
-		model.persist();
+		_samlSpIdpConnection.persist();
 	}
 
 	/**
@@ -464,7 +518,13 @@ public class SamlSpIdpConnectionWrapper
 	public void setAssertionSignatureRequired(
 		boolean assertionSignatureRequired) {
 
-		model.setAssertionSignatureRequired(assertionSignatureRequired);
+		_samlSpIdpConnection.setAssertionSignatureRequired(
+			assertionSignatureRequired);
+	}
+
+	@Override
+	public void setCachedModel(boolean cachedModel) {
+		_samlSpIdpConnection.setCachedModel(cachedModel);
 	}
 
 	/**
@@ -474,7 +534,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setClockSkew(long clockSkew) {
-		model.setClockSkew(clockSkew);
+		_samlSpIdpConnection.setClockSkew(clockSkew);
 	}
 
 	/**
@@ -484,7 +544,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setCompanyId(long companyId) {
-		model.setCompanyId(companyId);
+		_samlSpIdpConnection.setCompanyId(companyId);
 	}
 
 	/**
@@ -494,7 +554,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setCreateDate(Date createDate) {
-		model.setCreateDate(createDate);
+		_samlSpIdpConnection.setCreateDate(createDate);
 	}
 
 	/**
@@ -504,7 +564,24 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setEnabled(boolean enabled) {
-		model.setEnabled(enabled);
+		_samlSpIdpConnection.setEnabled(enabled);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
+		_samlSpIdpConnection.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
+		_samlSpIdpConnection.setExpandoBridgeAttributes(expandoBridge);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
+		_samlSpIdpConnection.setExpandoBridgeAttributes(serviceContext);
 	}
 
 	/**
@@ -514,7 +591,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setForceAuthn(boolean forceAuthn) {
-		model.setForceAuthn(forceAuthn);
+		_samlSpIdpConnection.setForceAuthn(forceAuthn);
 	}
 
 	/**
@@ -524,7 +601,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setLdapImportEnabled(boolean ldapImportEnabled) {
-		model.setLdapImportEnabled(ldapImportEnabled);
+		_samlSpIdpConnection.setLdapImportEnabled(ldapImportEnabled);
 	}
 
 	/**
@@ -534,7 +611,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setMetadataUpdatedDate(Date metadataUpdatedDate) {
-		model.setMetadataUpdatedDate(metadataUpdatedDate);
+		_samlSpIdpConnection.setMetadataUpdatedDate(metadataUpdatedDate);
 	}
 
 	/**
@@ -544,7 +621,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setMetadataUrl(String metadataUrl) {
-		model.setMetadataUrl(metadataUrl);
+		_samlSpIdpConnection.setMetadataUrl(metadataUrl);
 	}
 
 	/**
@@ -554,7 +631,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setMetadataXml(String metadataXml) {
-		model.setMetadataXml(metadataXml);
+		_samlSpIdpConnection.setMetadataXml(metadataXml);
 	}
 
 	/**
@@ -564,7 +641,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
-		model.setModifiedDate(modifiedDate);
+		_samlSpIdpConnection.setModifiedDate(modifiedDate);
 	}
 
 	/**
@@ -574,7 +651,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setName(String name) {
-		model.setName(name);
+		_samlSpIdpConnection.setName(name);
 	}
 
 	/**
@@ -584,7 +661,12 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setNameIdFormat(String nameIdFormat) {
-		model.setNameIdFormat(nameIdFormat);
+		_samlSpIdpConnection.setNameIdFormat(nameIdFormat);
+	}
+
+	@Override
+	public void setNew(boolean n) {
+		_samlSpIdpConnection.setNew(n);
 	}
 
 	/**
@@ -594,7 +676,12 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
-		model.setPrimaryKey(primaryKey);
+		_samlSpIdpConnection.setPrimaryKey(primaryKey);
+	}
+
+	@Override
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
+		_samlSpIdpConnection.setPrimaryKeyObj(primaryKeyObj);
 	}
 
 	/**
@@ -604,7 +691,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setSamlIdpEntityId(String samlIdpEntityId) {
-		model.setSamlIdpEntityId(samlIdpEntityId);
+		_samlSpIdpConnection.setSamlIdpEntityId(samlIdpEntityId);
 	}
 
 	/**
@@ -614,7 +701,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setSamlSpIdpConnectionId(long samlSpIdpConnectionId) {
-		model.setSamlSpIdpConnectionId(samlSpIdpConnectionId);
+		_samlSpIdpConnection.setSamlSpIdpConnectionId(samlSpIdpConnectionId);
 	}
 
 	/**
@@ -624,7 +711,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setSignAuthnRequest(boolean signAuthnRequest) {
-		model.setSignAuthnRequest(signAuthnRequest);
+		_samlSpIdpConnection.setSignAuthnRequest(signAuthnRequest);
 	}
 
 	/**
@@ -634,7 +721,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setUserAttributeMappings(String userAttributeMappings) {
-		model.setUserAttributeMappings(userAttributeMappings);
+		_samlSpIdpConnection.setUserAttributeMappings(userAttributeMappings);
 	}
 
 	/**
@@ -644,7 +731,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setUserId(long userId) {
-		model.setUserId(userId);
+		_samlSpIdpConnection.setUserId(userId);
 	}
 
 	/**
@@ -654,7 +741,7 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setUserName(String userName) {
-		model.setUserName(userName);
+		_samlSpIdpConnection.setUserName(userName);
 	}
 
 	/**
@@ -664,14 +751,81 @@ public class SamlSpIdpConnectionWrapper
 	 */
 	@Override
 	public void setUserUuid(String userUuid) {
-		model.setUserUuid(userUuid);
+		_samlSpIdpConnection.setUserUuid(userUuid);
 	}
 
 	@Override
-	protected SamlSpIdpConnectionWrapper wrap(
-		SamlSpIdpConnection samlSpIdpConnection) {
+	public com.liferay.portal.kernel.model.CacheModel<SamlSpIdpConnection>
+		toCacheModel() {
 
-		return new SamlSpIdpConnectionWrapper(samlSpIdpConnection);
+		return _samlSpIdpConnection.toCacheModel();
 	}
+
+	@Override
+	public SamlSpIdpConnection toEscapedModel() {
+		return new SamlSpIdpConnectionWrapper(
+			_samlSpIdpConnection.toEscapedModel());
+	}
+
+	@Override
+	public String toString() {
+		return _samlSpIdpConnection.toString();
+	}
+
+	@Override
+	public SamlSpIdpConnection toUnescapedModel() {
+		return new SamlSpIdpConnectionWrapper(
+			_samlSpIdpConnection.toUnescapedModel());
+	}
+
+	@Override
+	public String toXmlString() {
+		return _samlSpIdpConnection.toXmlString();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof SamlSpIdpConnectionWrapper)) {
+			return false;
+		}
+
+		SamlSpIdpConnectionWrapper samlSpIdpConnectionWrapper =
+			(SamlSpIdpConnectionWrapper)obj;
+
+		if (Objects.equals(
+				_samlSpIdpConnection,
+				samlSpIdpConnectionWrapper._samlSpIdpConnection)) {
+
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public SamlSpIdpConnection getWrappedModel() {
+		return _samlSpIdpConnection;
+	}
+
+	@Override
+	public boolean isEntityCacheEnabled() {
+		return _samlSpIdpConnection.isEntityCacheEnabled();
+	}
+
+	@Override
+	public boolean isFinderCacheEnabled() {
+		return _samlSpIdpConnection.isFinderCacheEnabled();
+	}
+
+	@Override
+	public void resetOriginalValues() {
+		_samlSpIdpConnection.resetOriginalValues();
+	}
+
+	private final SamlSpIdpConnection _samlSpIdpConnection;
 
 }

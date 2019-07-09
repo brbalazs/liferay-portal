@@ -14,9 +14,9 @@
 
 package com.liferay.saml.persistence.exception;
 
-import com.liferay.portal.kernel.exception.PortalException;
+import aQute.bnd.annotation.ProviderType;
 
-import org.osgi.annotation.versioning.ProviderType;
+import com.liferay.portal.kernel.exception.PortalException;
 
 /**
  * @author Mika Koivisto

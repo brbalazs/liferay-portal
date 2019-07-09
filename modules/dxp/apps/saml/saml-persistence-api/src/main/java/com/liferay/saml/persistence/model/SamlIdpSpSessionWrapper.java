@@ -14,14 +14,18 @@
 
 package com.liferay.saml.persistence.model;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.portal.kernel.model.ModelWrapper;
-import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.osgi.annotation.versioning.ProviderType;
+import java.util.Objects;
 
 /**
  * <p>
@@ -34,11 +38,20 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public class SamlIdpSpSessionWrapper
-	extends BaseModelWrapper<SamlIdpSpSession>
 	implements SamlIdpSpSession, ModelWrapper<SamlIdpSpSession> {
 
 	public SamlIdpSpSessionWrapper(SamlIdpSpSession samlIdpSpSession) {
-		super(samlIdpSpSession);
+		_samlIdpSpSession = samlIdpSpSession;
+	}
+
+	@Override
+	public Class<?> getModelClass() {
+		return SamlIdpSpSession.class;
+	}
+
+	@Override
+	public String getModelClassName() {
+		return SamlIdpSpSession.class.getName();
 	}
 
 	@Override
@@ -122,6 +135,17 @@ public class SamlIdpSpSessionWrapper
 		}
 	}
 
+	@Override
+	public Object clone() {
+		return new SamlIdpSpSessionWrapper(
+			(SamlIdpSpSession)_samlIdpSpSession.clone());
+	}
+
+	@Override
+	public int compareTo(SamlIdpSpSession samlIdpSpSession) {
+		return _samlIdpSpSession.compareTo(samlIdpSpSession);
+	}
+
 	/**
 	 * Returns the company ID of this saml idp sp session.
 	 *
@@ -129,7 +153,7 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public long getCompanyId() {
-		return model.getCompanyId();
+		return _samlIdpSpSession.getCompanyId();
 	}
 
 	/**
@@ -139,7 +163,12 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public Date getCreateDate() {
-		return model.getCreateDate();
+		return _samlIdpSpSession.getCreateDate();
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _samlIdpSpSession.getExpandoBridge();
 	}
 
 	/**
@@ -149,7 +178,7 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public Date getModifiedDate() {
-		return model.getModifiedDate();
+		return _samlIdpSpSession.getModifiedDate();
 	}
 
 	/**
@@ -159,7 +188,7 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public String getNameIdFormat() {
-		return model.getNameIdFormat();
+		return _samlIdpSpSession.getNameIdFormat();
 	}
 
 	/**
@@ -169,7 +198,7 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public String getNameIdValue() {
-		return model.getNameIdValue();
+		return _samlIdpSpSession.getNameIdValue();
 	}
 
 	/**
@@ -179,7 +208,12 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public long getPrimaryKey() {
-		return model.getPrimaryKey();
+		return _samlIdpSpSession.getPrimaryKey();
+	}
+
+	@Override
+	public Serializable getPrimaryKeyObj() {
+		return _samlIdpSpSession.getPrimaryKeyObj();
 	}
 
 	/**
@@ -189,7 +223,7 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public long getSamlIdpSpSessionId() {
-		return model.getSamlIdpSpSessionId();
+		return _samlIdpSpSession.getSamlIdpSpSessionId();
 	}
 
 	/**
@@ -199,7 +233,7 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public long getSamlIdpSsoSessionId() {
-		return model.getSamlIdpSsoSessionId();
+		return _samlIdpSpSession.getSamlIdpSsoSessionId();
 	}
 
 	/**
@@ -209,7 +243,7 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public String getSamlSpEntityId() {
-		return model.getSamlSpEntityId();
+		return _samlIdpSpSession.getSamlSpEntityId();
 	}
 
 	/**
@@ -219,7 +253,7 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public long getUserId() {
-		return model.getUserId();
+		return _samlIdpSpSession.getUserId();
 	}
 
 	/**
@@ -229,7 +263,7 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public String getUserName() {
-		return model.getUserName();
+		return _samlIdpSpSession.getUserName();
 	}
 
 	/**
@@ -239,12 +273,37 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public String getUserUuid() {
-		return model.getUserUuid();
+		return _samlIdpSpSession.getUserUuid();
+	}
+
+	@Override
+	public int hashCode() {
+		return _samlIdpSpSession.hashCode();
+	}
+
+	@Override
+	public boolean isCachedModel() {
+		return _samlIdpSpSession.isCachedModel();
+	}
+
+	@Override
+	public boolean isEscapedModel() {
+		return _samlIdpSpSession.isEscapedModel();
+	}
+
+	@Override
+	public boolean isNew() {
+		return _samlIdpSpSession.isNew();
 	}
 
 	@Override
 	public void persist() {
-		model.persist();
+		_samlIdpSpSession.persist();
+	}
+
+	@Override
+	public void setCachedModel(boolean cachedModel) {
+		_samlIdpSpSession.setCachedModel(cachedModel);
 	}
 
 	/**
@@ -254,7 +313,7 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public void setCompanyId(long companyId) {
-		model.setCompanyId(companyId);
+		_samlIdpSpSession.setCompanyId(companyId);
 	}
 
 	/**
@@ -264,7 +323,24 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public void setCreateDate(Date createDate) {
-		model.setCreateDate(createDate);
+		_samlIdpSpSession.setCreateDate(createDate);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
+		_samlIdpSpSession.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
+		_samlIdpSpSession.setExpandoBridgeAttributes(expandoBridge);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
+		_samlIdpSpSession.setExpandoBridgeAttributes(serviceContext);
 	}
 
 	/**
@@ -274,7 +350,7 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
-		model.setModifiedDate(modifiedDate);
+		_samlIdpSpSession.setModifiedDate(modifiedDate);
 	}
 
 	/**
@@ -284,7 +360,7 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public void setNameIdFormat(String nameIdFormat) {
-		model.setNameIdFormat(nameIdFormat);
+		_samlIdpSpSession.setNameIdFormat(nameIdFormat);
 	}
 
 	/**
@@ -294,7 +370,12 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public void setNameIdValue(String nameIdValue) {
-		model.setNameIdValue(nameIdValue);
+		_samlIdpSpSession.setNameIdValue(nameIdValue);
+	}
+
+	@Override
+	public void setNew(boolean n) {
+		_samlIdpSpSession.setNew(n);
 	}
 
 	/**
@@ -304,7 +385,12 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
-		model.setPrimaryKey(primaryKey);
+		_samlIdpSpSession.setPrimaryKey(primaryKey);
+	}
+
+	@Override
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
+		_samlIdpSpSession.setPrimaryKeyObj(primaryKeyObj);
 	}
 
 	/**
@@ -314,7 +400,7 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public void setSamlIdpSpSessionId(long samlIdpSpSessionId) {
-		model.setSamlIdpSpSessionId(samlIdpSpSessionId);
+		_samlIdpSpSession.setSamlIdpSpSessionId(samlIdpSpSessionId);
 	}
 
 	/**
@@ -324,7 +410,7 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public void setSamlIdpSsoSessionId(long samlIdpSsoSessionId) {
-		model.setSamlIdpSsoSessionId(samlIdpSsoSessionId);
+		_samlIdpSpSession.setSamlIdpSsoSessionId(samlIdpSsoSessionId);
 	}
 
 	/**
@@ -334,7 +420,7 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public void setSamlSpEntityId(String samlSpEntityId) {
-		model.setSamlSpEntityId(samlSpEntityId);
+		_samlIdpSpSession.setSamlSpEntityId(samlSpEntityId);
 	}
 
 	/**
@@ -344,7 +430,7 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public void setUserId(long userId) {
-		model.setUserId(userId);
+		_samlIdpSpSession.setUserId(userId);
 	}
 
 	/**
@@ -354,7 +440,7 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public void setUserName(String userName) {
-		model.setUserName(userName);
+		_samlIdpSpSession.setUserName(userName);
 	}
 
 	/**
@@ -364,12 +450,79 @@ public class SamlIdpSpSessionWrapper
 	 */
 	@Override
 	public void setUserUuid(String userUuid) {
-		model.setUserUuid(userUuid);
+		_samlIdpSpSession.setUserUuid(userUuid);
 	}
 
 	@Override
-	protected SamlIdpSpSessionWrapper wrap(SamlIdpSpSession samlIdpSpSession) {
-		return new SamlIdpSpSessionWrapper(samlIdpSpSession);
+	public com.liferay.portal.kernel.model.CacheModel<SamlIdpSpSession>
+		toCacheModel() {
+
+		return _samlIdpSpSession.toCacheModel();
 	}
+
+	@Override
+	public SamlIdpSpSession toEscapedModel() {
+		return new SamlIdpSpSessionWrapper(_samlIdpSpSession.toEscapedModel());
+	}
+
+	@Override
+	public String toString() {
+		return _samlIdpSpSession.toString();
+	}
+
+	@Override
+	public SamlIdpSpSession toUnescapedModel() {
+		return new SamlIdpSpSessionWrapper(
+			_samlIdpSpSession.toUnescapedModel());
+	}
+
+	@Override
+	public String toXmlString() {
+		return _samlIdpSpSession.toXmlString();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof SamlIdpSpSessionWrapper)) {
+			return false;
+		}
+
+		SamlIdpSpSessionWrapper samlIdpSpSessionWrapper =
+			(SamlIdpSpSessionWrapper)obj;
+
+		if (Objects.equals(
+				_samlIdpSpSession, samlIdpSpSessionWrapper._samlIdpSpSession)) {
+
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public SamlIdpSpSession getWrappedModel() {
+		return _samlIdpSpSession;
+	}
+
+	@Override
+	public boolean isEntityCacheEnabled() {
+		return _samlIdpSpSession.isEntityCacheEnabled();
+	}
+
+	@Override
+	public boolean isFinderCacheEnabled() {
+		return _samlIdpSpSession.isFinderCacheEnabled();
+	}
+
+	@Override
+	public void resetOriginalValues() {
+		_samlIdpSpSession.resetOriginalValues();
+	}
+
+	private final SamlIdpSpSession _samlIdpSpSession;
 
 }

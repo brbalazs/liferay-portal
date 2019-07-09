@@ -14,13 +14,17 @@
 
 package com.liferay.saml.persistence.service.persistence;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.saml.persistence.exception.NoSuchSpMessageException;
 import com.liferay.saml.persistence.model.SamlSpMessage;
 
-import java.util.Date;
+import java.io.Serializable;
 
-import org.osgi.annotation.versioning.ProviderType;
+import java.util.Date;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The persistence interface for the saml sp message service.
@@ -42,6 +46,9 @@ public interface SamlSpMessagePersistence
 	 *
 	 * Never modify or reference this interface directly. Always use {@link SamlSpMessageUtil} to access the saml sp message persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.
 	 */
+	@Override
+	public Map<Serializable, SamlSpMessage> fetchByPrimaryKeys(
+		Set<Serializable> primaryKeys);
 
 	/**
 	 * Returns all the saml sp messages where expirationDate &lt; &#63;.

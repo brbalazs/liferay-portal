@@ -14,6 +14,8 @@
 
 package com.liferay.saml.persistence.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
@@ -35,8 +37,6 @@ import com.liferay.saml.persistence.model.SamlSpSession;
 import java.io.Serializable;
 
 import java.util.List;
-
-import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * Provides the local service interface for SamlSpSession. Methods of this

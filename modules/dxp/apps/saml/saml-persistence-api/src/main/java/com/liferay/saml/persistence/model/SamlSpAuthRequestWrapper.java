@@ -14,14 +14,18 @@
 
 package com.liferay.saml.persistence.model;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.portal.kernel.model.ModelWrapper;
-import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.osgi.annotation.versioning.ProviderType;
+import java.util.Objects;
 
 /**
  * <p>
@@ -34,11 +38,20 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public class SamlSpAuthRequestWrapper
-	extends BaseModelWrapper<SamlSpAuthRequest>
 	implements SamlSpAuthRequest, ModelWrapper<SamlSpAuthRequest> {
 
 	public SamlSpAuthRequestWrapper(SamlSpAuthRequest samlSpAuthRequest) {
-		super(samlSpAuthRequest);
+		_samlSpAuthRequest = samlSpAuthRequest;
+	}
+
+	@Override
+	public Class<?> getModelClass() {
+		return SamlSpAuthRequest.class;
+	}
+
+	@Override
+	public String getModelClassName() {
+		return SamlSpAuthRequest.class.getName();
 	}
 
 	@Override
@@ -89,6 +102,17 @@ public class SamlSpAuthRequestWrapper
 		}
 	}
 
+	@Override
+	public Object clone() {
+		return new SamlSpAuthRequestWrapper(
+			(SamlSpAuthRequest)_samlSpAuthRequest.clone());
+	}
+
+	@Override
+	public int compareTo(SamlSpAuthRequest samlSpAuthRequest) {
+		return _samlSpAuthRequest.compareTo(samlSpAuthRequest);
+	}
+
 	/**
 	 * Returns the company ID of this saml sp auth request.
 	 *
@@ -96,7 +120,7 @@ public class SamlSpAuthRequestWrapper
 	 */
 	@Override
 	public long getCompanyId() {
-		return model.getCompanyId();
+		return _samlSpAuthRequest.getCompanyId();
 	}
 
 	/**
@@ -106,7 +130,12 @@ public class SamlSpAuthRequestWrapper
 	 */
 	@Override
 	public Date getCreateDate() {
-		return model.getCreateDate();
+		return _samlSpAuthRequest.getCreateDate();
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _samlSpAuthRequest.getExpandoBridge();
 	}
 
 	/**
@@ -116,7 +145,12 @@ public class SamlSpAuthRequestWrapper
 	 */
 	@Override
 	public long getPrimaryKey() {
-		return model.getPrimaryKey();
+		return _samlSpAuthRequest.getPrimaryKey();
+	}
+
+	@Override
+	public Serializable getPrimaryKeyObj() {
+		return _samlSpAuthRequest.getPrimaryKeyObj();
 	}
 
 	/**
@@ -126,7 +160,7 @@ public class SamlSpAuthRequestWrapper
 	 */
 	@Override
 	public String getSamlIdpEntityId() {
-		return model.getSamlIdpEntityId();
+		return _samlSpAuthRequest.getSamlIdpEntityId();
 	}
 
 	/**
@@ -136,7 +170,7 @@ public class SamlSpAuthRequestWrapper
 	 */
 	@Override
 	public long getSamlSpAuthnRequestId() {
-		return model.getSamlSpAuthnRequestId();
+		return _samlSpAuthRequest.getSamlSpAuthnRequestId();
 	}
 
 	/**
@@ -146,12 +180,37 @@ public class SamlSpAuthRequestWrapper
 	 */
 	@Override
 	public String getSamlSpAuthRequestKey() {
-		return model.getSamlSpAuthRequestKey();
+		return _samlSpAuthRequest.getSamlSpAuthRequestKey();
+	}
+
+	@Override
+	public int hashCode() {
+		return _samlSpAuthRequest.hashCode();
+	}
+
+	@Override
+	public boolean isCachedModel() {
+		return _samlSpAuthRequest.isCachedModel();
+	}
+
+	@Override
+	public boolean isEscapedModel() {
+		return _samlSpAuthRequest.isEscapedModel();
+	}
+
+	@Override
+	public boolean isNew() {
+		return _samlSpAuthRequest.isNew();
 	}
 
 	@Override
 	public void persist() {
-		model.persist();
+		_samlSpAuthRequest.persist();
+	}
+
+	@Override
+	public void setCachedModel(boolean cachedModel) {
+		_samlSpAuthRequest.setCachedModel(cachedModel);
 	}
 
 	/**
@@ -161,7 +220,7 @@ public class SamlSpAuthRequestWrapper
 	 */
 	@Override
 	public void setCompanyId(long companyId) {
-		model.setCompanyId(companyId);
+		_samlSpAuthRequest.setCompanyId(companyId);
 	}
 
 	/**
@@ -171,7 +230,29 @@ public class SamlSpAuthRequestWrapper
 	 */
 	@Override
 	public void setCreateDate(Date createDate) {
-		model.setCreateDate(createDate);
+		_samlSpAuthRequest.setCreateDate(createDate);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
+		_samlSpAuthRequest.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
+		_samlSpAuthRequest.setExpandoBridgeAttributes(expandoBridge);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
+		_samlSpAuthRequest.setExpandoBridgeAttributes(serviceContext);
+	}
+
+	@Override
+	public void setNew(boolean n) {
+		_samlSpAuthRequest.setNew(n);
 	}
 
 	/**
@@ -181,7 +262,12 @@ public class SamlSpAuthRequestWrapper
 	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
-		model.setPrimaryKey(primaryKey);
+		_samlSpAuthRequest.setPrimaryKey(primaryKey);
+	}
+
+	@Override
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
+		_samlSpAuthRequest.setPrimaryKeyObj(primaryKeyObj);
 	}
 
 	/**
@@ -191,7 +277,7 @@ public class SamlSpAuthRequestWrapper
 	 */
 	@Override
 	public void setSamlIdpEntityId(String samlIdpEntityId) {
-		model.setSamlIdpEntityId(samlIdpEntityId);
+		_samlSpAuthRequest.setSamlIdpEntityId(samlIdpEntityId);
 	}
 
 	/**
@@ -201,7 +287,7 @@ public class SamlSpAuthRequestWrapper
 	 */
 	@Override
 	public void setSamlSpAuthnRequestId(long samlSpAuthnRequestId) {
-		model.setSamlSpAuthnRequestId(samlSpAuthnRequestId);
+		_samlSpAuthRequest.setSamlSpAuthnRequestId(samlSpAuthnRequestId);
 	}
 
 	/**
@@ -211,14 +297,81 @@ public class SamlSpAuthRequestWrapper
 	 */
 	@Override
 	public void setSamlSpAuthRequestKey(String samlSpAuthRequestKey) {
-		model.setSamlSpAuthRequestKey(samlSpAuthRequestKey);
+		_samlSpAuthRequest.setSamlSpAuthRequestKey(samlSpAuthRequestKey);
 	}
 
 	@Override
-	protected SamlSpAuthRequestWrapper wrap(
-		SamlSpAuthRequest samlSpAuthRequest) {
+	public com.liferay.portal.kernel.model.CacheModel<SamlSpAuthRequest>
+		toCacheModel() {
 
-		return new SamlSpAuthRequestWrapper(samlSpAuthRequest);
+		return _samlSpAuthRequest.toCacheModel();
 	}
+
+	@Override
+	public SamlSpAuthRequest toEscapedModel() {
+		return new SamlSpAuthRequestWrapper(
+			_samlSpAuthRequest.toEscapedModel());
+	}
+
+	@Override
+	public String toString() {
+		return _samlSpAuthRequest.toString();
+	}
+
+	@Override
+	public SamlSpAuthRequest toUnescapedModel() {
+		return new SamlSpAuthRequestWrapper(
+			_samlSpAuthRequest.toUnescapedModel());
+	}
+
+	@Override
+	public String toXmlString() {
+		return _samlSpAuthRequest.toXmlString();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof SamlSpAuthRequestWrapper)) {
+			return false;
+		}
+
+		SamlSpAuthRequestWrapper samlSpAuthRequestWrapper =
+			(SamlSpAuthRequestWrapper)obj;
+
+		if (Objects.equals(
+				_samlSpAuthRequest,
+				samlSpAuthRequestWrapper._samlSpAuthRequest)) {
+
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public SamlSpAuthRequest getWrappedModel() {
+		return _samlSpAuthRequest;
+	}
+
+	@Override
+	public boolean isEntityCacheEnabled() {
+		return _samlSpAuthRequest.isEntityCacheEnabled();
+	}
+
+	@Override
+	public boolean isFinderCacheEnabled() {
+		return _samlSpAuthRequest.isFinderCacheEnabled();
+	}
+
+	@Override
+	public void resetOriginalValues() {
+		_samlSpAuthRequest.resetOriginalValues();
+	}
+
+	private final SamlSpAuthRequest _samlSpAuthRequest;
 
 }

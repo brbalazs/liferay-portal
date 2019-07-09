@@ -14,7 +14,8 @@
 
 package com.liferay.saml.persistence.service.persistence.impl;
 
-import com.liferay.petra.string.StringBundler;
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -30,6 +31,7 @@ import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.saml.persistence.exception.NoSuchIdpSpSessionException;
@@ -46,11 +48,13 @@ import java.sql.Timestamp;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import org.osgi.annotation.versioning.ProviderType;
+import java.util.Set;
 
 /**
  * The persistence implementation for the saml idp sp session service.
@@ -1432,10 +1436,6 @@ public class SamlIdpSpSessionPersistenceImpl
 
 	public SamlIdpSpSessionPersistenceImpl() {
 		setModelClass(SamlIdpSpSession.class);
-
-		setModelImplClass(SamlIdpSpSessionImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(SamlIdpSpSessionModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**
@@ -1851,12 +1851,163 @@ public class SamlIdpSpSessionPersistenceImpl
 	/**
 	 * Returns the saml idp sp session with the primary key or returns <code>null</code> if it could not be found.
 	 *
+	 * @param primaryKey the primary key of the saml idp sp session
+	 * @return the saml idp sp session, or <code>null</code> if a saml idp sp session with the primary key could not be found
+	 */
+	@Override
+	public SamlIdpSpSession fetchByPrimaryKey(Serializable primaryKey) {
+		Serializable serializable = entityCache.getResult(
+			SamlIdpSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlIdpSpSessionImpl.class, primaryKey);
+
+		if (serializable == nullModel) {
+			return null;
+		}
+
+		SamlIdpSpSession samlIdpSpSession = (SamlIdpSpSession)serializable;
+
+		if (samlIdpSpSession == null) {
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				samlIdpSpSession = (SamlIdpSpSession)session.get(
+					SamlIdpSpSessionImpl.class, primaryKey);
+
+				if (samlIdpSpSession != null) {
+					cacheResult(samlIdpSpSession);
+				}
+				else {
+					entityCache.putResult(
+						SamlIdpSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+						SamlIdpSpSessionImpl.class, primaryKey, nullModel);
+				}
+			}
+			catch (Exception e) {
+				entityCache.removeResult(
+					SamlIdpSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+					SamlIdpSpSessionImpl.class, primaryKey);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return samlIdpSpSession;
+	}
+
+	/**
+	 * Returns the saml idp sp session with the primary key or returns <code>null</code> if it could not be found.
+	 *
 	 * @param samlIdpSpSessionId the primary key of the saml idp sp session
 	 * @return the saml idp sp session, or <code>null</code> if a saml idp sp session with the primary key could not be found
 	 */
 	@Override
 	public SamlIdpSpSession fetchByPrimaryKey(long samlIdpSpSessionId) {
 		return fetchByPrimaryKey((Serializable)samlIdpSpSessionId);
+	}
+
+	@Override
+	public Map<Serializable, SamlIdpSpSession> fetchByPrimaryKeys(
+		Set<Serializable> primaryKeys) {
+
+		if (primaryKeys.isEmpty()) {
+			return Collections.emptyMap();
+		}
+
+		Map<Serializable, SamlIdpSpSession> map =
+			new HashMap<Serializable, SamlIdpSpSession>();
+
+		if (primaryKeys.size() == 1) {
+			Iterator<Serializable> iterator = primaryKeys.iterator();
+
+			Serializable primaryKey = iterator.next();
+
+			SamlIdpSpSession samlIdpSpSession = fetchByPrimaryKey(primaryKey);
+
+			if (samlIdpSpSession != null) {
+				map.put(primaryKey, samlIdpSpSession);
+			}
+
+			return map;
+		}
+
+		Set<Serializable> uncachedPrimaryKeys = null;
+
+		for (Serializable primaryKey : primaryKeys) {
+			Serializable serializable = entityCache.getResult(
+				SamlIdpSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+				SamlIdpSpSessionImpl.class, primaryKey);
+
+			if (serializable != nullModel) {
+				if (serializable == null) {
+					if (uncachedPrimaryKeys == null) {
+						uncachedPrimaryKeys = new HashSet<Serializable>();
+					}
+
+					uncachedPrimaryKeys.add(primaryKey);
+				}
+				else {
+					map.put(primaryKey, (SamlIdpSpSession)serializable);
+				}
+			}
+		}
+
+		if (uncachedPrimaryKeys == null) {
+			return map;
+		}
+
+		StringBundler query = new StringBundler(
+			uncachedPrimaryKeys.size() * 2 + 1);
+
+		query.append(_SQL_SELECT_SAMLIDPSPSESSION_WHERE_PKS_IN);
+
+		for (Serializable primaryKey : uncachedPrimaryKeys) {
+			query.append((long)primaryKey);
+
+			query.append(",");
+		}
+
+		query.setIndex(query.index() - 1);
+
+		query.append(")");
+
+		String sql = query.toString();
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			Query q = session.createQuery(sql);
+
+			for (SamlIdpSpSession samlIdpSpSession :
+					(List<SamlIdpSpSession>)q.list()) {
+
+				map.put(samlIdpSpSession.getPrimaryKeyObj(), samlIdpSpSession);
+
+				cacheResult(samlIdpSpSession);
+
+				uncachedPrimaryKeys.remove(samlIdpSpSession.getPrimaryKeyObj());
+			}
+
+			for (Serializable primaryKey : uncachedPrimaryKeys) {
+				entityCache.putResult(
+					SamlIdpSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+					SamlIdpSpSessionImpl.class, primaryKey, nullModel);
+			}
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		return map;
 	}
 
 	/**
@@ -2056,21 +2207,6 @@ public class SamlIdpSpSessionPersistenceImpl
 	}
 
 	@Override
-	protected EntityCache getEntityCache() {
-		return entityCache;
-	}
-
-	@Override
-	protected String getPKDBName() {
-		return "samlIdpSpSessionId";
-	}
-
-	@Override
-	protected String getSelectSQL() {
-		return _SQL_SELECT_SAMLIDPSPSESSION;
-	}
-
-	@Override
 	protected Map<String, Integer> getTableColumnsMap() {
 		return SamlIdpSpSessionModelImpl.TABLE_COLUMNS_MAP;
 	}
@@ -2177,6 +2313,9 @@ public class SamlIdpSpSessionPersistenceImpl
 
 	private static final String _SQL_SELECT_SAMLIDPSPSESSION =
 		"SELECT samlIdpSpSession FROM SamlIdpSpSession samlIdpSpSession";
+
+	private static final String _SQL_SELECT_SAMLIDPSPSESSION_WHERE_PKS_IN =
+		"SELECT samlIdpSpSession FROM SamlIdpSpSession samlIdpSpSession WHERE samlIdpSpSessionId IN (";
 
 	private static final String _SQL_SELECT_SAMLIDPSPSESSION_WHERE =
 		"SELECT samlIdpSpSession FROM SamlIdpSpSession samlIdpSpSession WHERE ";

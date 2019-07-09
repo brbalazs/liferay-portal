@@ -14,14 +14,18 @@
 
 package com.liferay.saml.persistence.model;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.portal.kernel.model.ModelWrapper;
-import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
+
+import java.io.Serializable;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.osgi.annotation.versioning.ProviderType;
+import java.util.Objects;
 
 /**
  * <p>
@@ -34,11 +38,20 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public class SamlSpSessionWrapper
-	extends BaseModelWrapper<SamlSpSession>
 	implements SamlSpSession, ModelWrapper<SamlSpSession> {
 
 	public SamlSpSessionWrapper(SamlSpSession samlSpSession) {
-		super(samlSpSession);
+		_samlSpSession = samlSpSession;
+	}
+
+	@Override
+	public Class<?> getModelClass() {
+		return SamlSpSession.class;
+	}
+
+	@Override
+	public String getModelClassName() {
+		return SamlSpSession.class.getName();
 	}
 
 	@Override
@@ -166,6 +179,16 @@ public class SamlSpSessionWrapper
 		}
 	}
 
+	@Override
+	public Object clone() {
+		return new SamlSpSessionWrapper((SamlSpSession)_samlSpSession.clone());
+	}
+
+	@Override
+	public int compareTo(SamlSpSession samlSpSession) {
+		return _samlSpSession.compareTo(samlSpSession);
+	}
+
 	/**
 	 * Returns the assertion xml of this saml sp session.
 	 *
@@ -173,7 +196,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public String getAssertionXml() {
-		return model.getAssertionXml();
+		return _samlSpSession.getAssertionXml();
 	}
 
 	/**
@@ -183,7 +206,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public long getCompanyId() {
-		return model.getCompanyId();
+		return _samlSpSession.getCompanyId();
 	}
 
 	/**
@@ -193,7 +216,12 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public Date getCreateDate() {
-		return model.getCreateDate();
+		return _samlSpSession.getCreateDate();
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _samlSpSession.getExpandoBridge();
 	}
 
 	/**
@@ -203,7 +231,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public String getJSessionId() {
-		return model.getJSessionId();
+		return _samlSpSession.getJSessionId();
 	}
 
 	/**
@@ -213,7 +241,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public Date getModifiedDate() {
-		return model.getModifiedDate();
+		return _samlSpSession.getModifiedDate();
 	}
 
 	/**
@@ -223,7 +251,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public String getNameIdFormat() {
-		return model.getNameIdFormat();
+		return _samlSpSession.getNameIdFormat();
 	}
 
 	/**
@@ -233,7 +261,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public String getNameIdNameQualifier() {
-		return model.getNameIdNameQualifier();
+		return _samlSpSession.getNameIdNameQualifier();
 	}
 
 	/**
@@ -243,7 +271,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public String getNameIdSPNameQualifier() {
-		return model.getNameIdSPNameQualifier();
+		return _samlSpSession.getNameIdSPNameQualifier();
 	}
 
 	/**
@@ -253,7 +281,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public String getNameIdValue() {
-		return model.getNameIdValue();
+		return _samlSpSession.getNameIdValue();
 	}
 
 	/**
@@ -263,7 +291,12 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public long getPrimaryKey() {
-		return model.getPrimaryKey();
+		return _samlSpSession.getPrimaryKey();
+	}
+
+	@Override
+	public Serializable getPrimaryKeyObj() {
+		return _samlSpSession.getPrimaryKeyObj();
 	}
 
 	/**
@@ -273,7 +306,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public String getSamlIdpEntityId() {
-		return model.getSamlIdpEntityId();
+		return _samlSpSession.getSamlIdpEntityId();
 	}
 
 	/**
@@ -283,7 +316,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public long getSamlSpSessionId() {
-		return model.getSamlSpSessionId();
+		return _samlSpSession.getSamlSpSessionId();
 	}
 
 	/**
@@ -293,7 +326,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public String getSamlSpSessionKey() {
-		return model.getSamlSpSessionKey();
+		return _samlSpSession.getSamlSpSessionKey();
 	}
 
 	/**
@@ -303,7 +336,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public String getSessionIndex() {
-		return model.getSessionIndex();
+		return _samlSpSession.getSessionIndex();
 	}
 
 	/**
@@ -313,7 +346,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public boolean getTerminated() {
-		return model.getTerminated();
+		return _samlSpSession.getTerminated();
 	}
 
 	/**
@@ -323,7 +356,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public long getUserId() {
-		return model.getUserId();
+		return _samlSpSession.getUserId();
 	}
 
 	/**
@@ -333,7 +366,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public String getUserName() {
-		return model.getUserName();
+		return _samlSpSession.getUserName();
 	}
 
 	/**
@@ -343,7 +376,27 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public String getUserUuid() {
-		return model.getUserUuid();
+		return _samlSpSession.getUserUuid();
+	}
+
+	@Override
+	public int hashCode() {
+		return _samlSpSession.hashCode();
+	}
+
+	@Override
+	public boolean isCachedModel() {
+		return _samlSpSession.isCachedModel();
+	}
+
+	@Override
+	public boolean isEscapedModel() {
+		return _samlSpSession.isEscapedModel();
+	}
+
+	@Override
+	public boolean isNew() {
+		return _samlSpSession.isNew();
 	}
 
 	/**
@@ -353,12 +406,12 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public boolean isTerminated() {
-		return model.isTerminated();
+		return _samlSpSession.isTerminated();
 	}
 
 	@Override
 	public void persist() {
-		model.persist();
+		_samlSpSession.persist();
 	}
 
 	/**
@@ -368,7 +421,12 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public void setAssertionXml(String assertionXml) {
-		model.setAssertionXml(assertionXml);
+		_samlSpSession.setAssertionXml(assertionXml);
+	}
+
+	@Override
+	public void setCachedModel(boolean cachedModel) {
+		_samlSpSession.setCachedModel(cachedModel);
 	}
 
 	/**
@@ -378,7 +436,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public void setCompanyId(long companyId) {
-		model.setCompanyId(companyId);
+		_samlSpSession.setCompanyId(companyId);
 	}
 
 	/**
@@ -388,7 +446,24 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public void setCreateDate(Date createDate) {
-		model.setCreateDate(createDate);
+		_samlSpSession.setCreateDate(createDate);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
+		_samlSpSession.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
+		_samlSpSession.setExpandoBridgeAttributes(expandoBridge);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
+		_samlSpSession.setExpandoBridgeAttributes(serviceContext);
 	}
 
 	/**
@@ -398,7 +473,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public void setJSessionId(String jSessionId) {
-		model.setJSessionId(jSessionId);
+		_samlSpSession.setJSessionId(jSessionId);
 	}
 
 	/**
@@ -408,7 +483,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
-		model.setModifiedDate(modifiedDate);
+		_samlSpSession.setModifiedDate(modifiedDate);
 	}
 
 	/**
@@ -418,7 +493,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public void setNameIdFormat(String nameIdFormat) {
-		model.setNameIdFormat(nameIdFormat);
+		_samlSpSession.setNameIdFormat(nameIdFormat);
 	}
 
 	/**
@@ -428,7 +503,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public void setNameIdNameQualifier(String nameIdNameQualifier) {
-		model.setNameIdNameQualifier(nameIdNameQualifier);
+		_samlSpSession.setNameIdNameQualifier(nameIdNameQualifier);
 	}
 
 	/**
@@ -438,7 +513,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public void setNameIdSPNameQualifier(String nameIdSPNameQualifier) {
-		model.setNameIdSPNameQualifier(nameIdSPNameQualifier);
+		_samlSpSession.setNameIdSPNameQualifier(nameIdSPNameQualifier);
 	}
 
 	/**
@@ -448,7 +523,12 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public void setNameIdValue(String nameIdValue) {
-		model.setNameIdValue(nameIdValue);
+		_samlSpSession.setNameIdValue(nameIdValue);
+	}
+
+	@Override
+	public void setNew(boolean n) {
+		_samlSpSession.setNew(n);
 	}
 
 	/**
@@ -458,7 +538,12 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
-		model.setPrimaryKey(primaryKey);
+		_samlSpSession.setPrimaryKey(primaryKey);
+	}
+
+	@Override
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
+		_samlSpSession.setPrimaryKeyObj(primaryKeyObj);
 	}
 
 	/**
@@ -468,7 +553,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public void setSamlIdpEntityId(String samlIdpEntityId) {
-		model.setSamlIdpEntityId(samlIdpEntityId);
+		_samlSpSession.setSamlIdpEntityId(samlIdpEntityId);
 	}
 
 	/**
@@ -478,7 +563,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public void setSamlSpSessionId(long samlSpSessionId) {
-		model.setSamlSpSessionId(samlSpSessionId);
+		_samlSpSession.setSamlSpSessionId(samlSpSessionId);
 	}
 
 	/**
@@ -488,7 +573,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public void setSamlSpSessionKey(String samlSpSessionKey) {
-		model.setSamlSpSessionKey(samlSpSessionKey);
+		_samlSpSession.setSamlSpSessionKey(samlSpSessionKey);
 	}
 
 	/**
@@ -498,7 +583,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public void setSessionIndex(String sessionIndex) {
-		model.setSessionIndex(sessionIndex);
+		_samlSpSession.setSessionIndex(sessionIndex);
 	}
 
 	/**
@@ -508,7 +593,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public void setTerminated(boolean terminated) {
-		model.setTerminated(terminated);
+		_samlSpSession.setTerminated(terminated);
 	}
 
 	/**
@@ -518,7 +603,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public void setUserId(long userId) {
-		model.setUserId(userId);
+		_samlSpSession.setUserId(userId);
 	}
 
 	/**
@@ -528,7 +613,7 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public void setUserName(String userName) {
-		model.setUserName(userName);
+		_samlSpSession.setUserName(userName);
 	}
 
 	/**
@@ -538,12 +623,77 @@ public class SamlSpSessionWrapper
 	 */
 	@Override
 	public void setUserUuid(String userUuid) {
-		model.setUserUuid(userUuid);
+		_samlSpSession.setUserUuid(userUuid);
 	}
 
 	@Override
-	protected SamlSpSessionWrapper wrap(SamlSpSession samlSpSession) {
-		return new SamlSpSessionWrapper(samlSpSession);
+	public com.liferay.portal.kernel.model.CacheModel<SamlSpSession>
+		toCacheModel() {
+
+		return _samlSpSession.toCacheModel();
 	}
+
+	@Override
+	public SamlSpSession toEscapedModel() {
+		return new SamlSpSessionWrapper(_samlSpSession.toEscapedModel());
+	}
+
+	@Override
+	public String toString() {
+		return _samlSpSession.toString();
+	}
+
+	@Override
+	public SamlSpSession toUnescapedModel() {
+		return new SamlSpSessionWrapper(_samlSpSession.toUnescapedModel());
+	}
+
+	@Override
+	public String toXmlString() {
+		return _samlSpSession.toXmlString();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof SamlSpSessionWrapper)) {
+			return false;
+		}
+
+		SamlSpSessionWrapper samlSpSessionWrapper = (SamlSpSessionWrapper)obj;
+
+		if (Objects.equals(
+				_samlSpSession, samlSpSessionWrapper._samlSpSession)) {
+
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public SamlSpSession getWrappedModel() {
+		return _samlSpSession;
+	}
+
+	@Override
+	public boolean isEntityCacheEnabled() {
+		return _samlSpSession.isEntityCacheEnabled();
+	}
+
+	@Override
+	public boolean isFinderCacheEnabled() {
+		return _samlSpSession.isFinderCacheEnabled();
+	}
+
+	@Override
+	public void resetOriginalValues() {
+		_samlSpSession.resetOriginalValues();
+	}
+
+	private final SamlSpSession _samlSpSession;
 
 }

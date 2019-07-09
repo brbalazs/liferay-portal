@@ -14,9 +14,10 @@
 
 package com.liferay.saml.persistence.model.impl;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
-import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.CacheModel;
@@ -27,6 +28,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.saml.persistence.model.SamlSpIdpConnection;
 import com.liferay.saml.persistence.model.SamlSpIdpConnectionModel;
 
@@ -44,8 +46,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-
-import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The base model implementation for the SamlSpIdpConnection service. Represents a row in the &quot;SamlSpIdpConnection&quot; database table, with each column mapped to a property of this class.
@@ -282,119 +282,442 @@ public class SamlSpIdpConnectionModelImpl
 
 		attributeGetterFunctions.put(
 			"samlSpIdpConnectionId",
-			SamlSpIdpConnection::getSamlSpIdpConnectionId);
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getSamlSpIdpConnectionId();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"samlSpIdpConnectionId",
-			(BiConsumer<SamlSpIdpConnection, Long>)
-				SamlSpIdpConnection::setSamlSpIdpConnectionId);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object samlSpIdpConnectionId) {
+
+					samlSpIdpConnection.setSamlSpIdpConnectionId(
+						(Long)samlSpIdpConnectionId);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"companyId", SamlSpIdpConnection::getCompanyId);
+			"companyId",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getCompanyId();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"companyId",
-			(BiConsumer<SamlSpIdpConnection, Long>)
-				SamlSpIdpConnection::setCompanyId);
-		attributeGetterFunctions.put("userId", SamlSpIdpConnection::getUserId);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection, Object companyId) {
+
+					samlSpIdpConnection.setCompanyId((Long)companyId);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getUserId();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"userId",
-			(BiConsumer<SamlSpIdpConnection, Long>)
-				SamlSpIdpConnection::setUserId);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection, Object userId) {
+
+					samlSpIdpConnection.setUserId((Long)userId);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"userName", SamlSpIdpConnection::getUserName);
+			"userName",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getUserName();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"userName",
-			(BiConsumer<SamlSpIdpConnection, String>)
-				SamlSpIdpConnection::setUserName);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection, Object userName) {
+
+					samlSpIdpConnection.setUserName((String)userName);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"createDate", SamlSpIdpConnection::getCreateDate);
+			"createDate",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getCreateDate();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"createDate",
-			(BiConsumer<SamlSpIdpConnection, Date>)
-				SamlSpIdpConnection::setCreateDate);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object createDate) {
+
+					samlSpIdpConnection.setCreateDate((Date)createDate);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"modifiedDate", SamlSpIdpConnection::getModifiedDate);
+			"modifiedDate",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getModifiedDate();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
-			(BiConsumer<SamlSpIdpConnection, Date>)
-				SamlSpIdpConnection::setModifiedDate);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object modifiedDate) {
+
+					samlSpIdpConnection.setModifiedDate((Date)modifiedDate);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"samlIdpEntityId", SamlSpIdpConnection::getSamlIdpEntityId);
+			"samlIdpEntityId",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getSamlIdpEntityId();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"samlIdpEntityId",
-			(BiConsumer<SamlSpIdpConnection, String>)
-				SamlSpIdpConnection::setSamlIdpEntityId);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object samlIdpEntityId) {
+
+					samlSpIdpConnection.setSamlIdpEntityId(
+						(String)samlIdpEntityId);
+				}
+
+			});
 		attributeGetterFunctions.put(
 			"assertionSignatureRequired",
-			SamlSpIdpConnection::getAssertionSignatureRequired);
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getAssertionSignatureRequired();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"assertionSignatureRequired",
-			(BiConsumer<SamlSpIdpConnection, Boolean>)
-				SamlSpIdpConnection::setAssertionSignatureRequired);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object assertionSignatureRequired) {
+
+					samlSpIdpConnection.setAssertionSignatureRequired(
+						(Boolean)assertionSignatureRequired);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"clockSkew", SamlSpIdpConnection::getClockSkew);
+			"clockSkew",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getClockSkew();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"clockSkew",
-			(BiConsumer<SamlSpIdpConnection, Long>)
-				SamlSpIdpConnection::setClockSkew);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection, Object clockSkew) {
+
+					samlSpIdpConnection.setClockSkew((Long)clockSkew);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"enabled", SamlSpIdpConnection::getEnabled);
+			"enabled",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getEnabled();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"enabled",
-			(BiConsumer<SamlSpIdpConnection, Boolean>)
-				SamlSpIdpConnection::setEnabled);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection, Object enabled) {
+
+					samlSpIdpConnection.setEnabled((Boolean)enabled);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"forceAuthn", SamlSpIdpConnection::getForceAuthn);
+			"forceAuthn",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getForceAuthn();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"forceAuthn",
-			(BiConsumer<SamlSpIdpConnection, Boolean>)
-				SamlSpIdpConnection::setForceAuthn);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object forceAuthn) {
+
+					samlSpIdpConnection.setForceAuthn((Boolean)forceAuthn);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"ldapImportEnabled", SamlSpIdpConnection::getLdapImportEnabled);
+			"ldapImportEnabled",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getLdapImportEnabled();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"ldapImportEnabled",
-			(BiConsumer<SamlSpIdpConnection, Boolean>)
-				SamlSpIdpConnection::setLdapImportEnabled);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object ldapImportEnabled) {
+
+					samlSpIdpConnection.setLdapImportEnabled(
+						(Boolean)ldapImportEnabled);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"metadataUrl", SamlSpIdpConnection::getMetadataUrl);
+			"metadataUrl",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getMetadataUrl();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"metadataUrl",
-			(BiConsumer<SamlSpIdpConnection, String>)
-				SamlSpIdpConnection::setMetadataUrl);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object metadataUrl) {
+
+					samlSpIdpConnection.setMetadataUrl((String)metadataUrl);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"metadataXml", SamlSpIdpConnection::getMetadataXml);
+			"metadataXml",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getMetadataXml();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"metadataXml",
-			(BiConsumer<SamlSpIdpConnection, String>)
-				SamlSpIdpConnection::setMetadataXml);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object metadataXml) {
+
+					samlSpIdpConnection.setMetadataXml((String)metadataXml);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"metadataUpdatedDate", SamlSpIdpConnection::getMetadataUpdatedDate);
+			"metadataUpdatedDate",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getMetadataUpdatedDate();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"metadataUpdatedDate",
-			(BiConsumer<SamlSpIdpConnection, Date>)
-				SamlSpIdpConnection::setMetadataUpdatedDate);
-		attributeGetterFunctions.put("name", SamlSpIdpConnection::getName);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object metadataUpdatedDate) {
+
+					samlSpIdpConnection.setMetadataUpdatedDate(
+						(Date)metadataUpdatedDate);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getName();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"name",
-			(BiConsumer<SamlSpIdpConnection, String>)
-				SamlSpIdpConnection::setName);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection, Object name) {
+
+					samlSpIdpConnection.setName((String)name);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"nameIdFormat", SamlSpIdpConnection::getNameIdFormat);
+			"nameIdFormat",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getNameIdFormat();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"nameIdFormat",
-			(BiConsumer<SamlSpIdpConnection, String>)
-				SamlSpIdpConnection::setNameIdFormat);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object nameIdFormat) {
+
+					samlSpIdpConnection.setNameIdFormat((String)nameIdFormat);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"signAuthnRequest", SamlSpIdpConnection::getSignAuthnRequest);
+			"signAuthnRequest",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getSignAuthnRequest();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"signAuthnRequest",
-			(BiConsumer<SamlSpIdpConnection, Boolean>)
-				SamlSpIdpConnection::setSignAuthnRequest);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object signAuthnRequest) {
+
+					samlSpIdpConnection.setSignAuthnRequest(
+						(Boolean)signAuthnRequest);
+				}
+
+			});
 		attributeGetterFunctions.put(
 			"userAttributeMappings",
-			SamlSpIdpConnection::getUserAttributeMappings);
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getUserAttributeMappings();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"userAttributeMappings",
-			(BiConsumer<SamlSpIdpConnection, String>)
-				SamlSpIdpConnection::setUserAttributeMappings);
+			new BiConsumer<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public void accept(
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object userAttributeMappings) {
+
+					samlSpIdpConnection.setUserAttributeMappings(
+						(String)userAttributeMappings);
+				}
+
+			});
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);

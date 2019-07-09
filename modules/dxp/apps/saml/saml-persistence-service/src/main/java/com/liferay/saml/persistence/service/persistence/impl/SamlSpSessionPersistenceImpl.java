@@ -14,7 +14,8 @@
 
 package com.liferay.saml.persistence.service.persistence.impl;
 
-import com.liferay.petra.string.StringBundler;
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -31,6 +32,7 @@ import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.saml.persistence.exception.NoSuchSpSessionException;
@@ -41,17 +43,18 @@ import com.liferay.saml.persistence.service.persistence.SamlSpSessionPersistence
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The persistence implementation for the saml sp session service.
@@ -1354,15 +1357,23 @@ public class SamlSpSessionPersistenceImpl
 	public SamlSpSessionPersistenceImpl() {
 		setModelClass(SamlSpSession.class);
 
-		setModelImplClass(SamlSpSessionImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("terminated", "terminated_");
 
-		setDBColumnNames(dbColumnNames);
+		try {
+			Field field = BasePersistenceImpl.class.getDeclaredField(
+				"_dbColumnNames");
+
+			field.setAccessible(true);
+
+			field.set(this, dbColumnNames);
+		}
+		catch (Exception e) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(e, e);
+			}
+		}
 	}
 
 	/**
@@ -1822,12 +1833,161 @@ public class SamlSpSessionPersistenceImpl
 	/**
 	 * Returns the saml sp session with the primary key or returns <code>null</code> if it could not be found.
 	 *
+	 * @param primaryKey the primary key of the saml sp session
+	 * @return the saml sp session, or <code>null</code> if a saml sp session with the primary key could not be found
+	 */
+	@Override
+	public SamlSpSession fetchByPrimaryKey(Serializable primaryKey) {
+		Serializable serializable = entityCache.getResult(
+			SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpSessionImpl.class, primaryKey);
+
+		if (serializable == nullModel) {
+			return null;
+		}
+
+		SamlSpSession samlSpSession = (SamlSpSession)serializable;
+
+		if (samlSpSession == null) {
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				samlSpSession = (SamlSpSession)session.get(
+					SamlSpSessionImpl.class, primaryKey);
+
+				if (samlSpSession != null) {
+					cacheResult(samlSpSession);
+				}
+				else {
+					entityCache.putResult(
+						SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+						SamlSpSessionImpl.class, primaryKey, nullModel);
+				}
+			}
+			catch (Exception e) {
+				entityCache.removeResult(
+					SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+					SamlSpSessionImpl.class, primaryKey);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return samlSpSession;
+	}
+
+	/**
+	 * Returns the saml sp session with the primary key or returns <code>null</code> if it could not be found.
+	 *
 	 * @param samlSpSessionId the primary key of the saml sp session
 	 * @return the saml sp session, or <code>null</code> if a saml sp session with the primary key could not be found
 	 */
 	@Override
 	public SamlSpSession fetchByPrimaryKey(long samlSpSessionId) {
 		return fetchByPrimaryKey((Serializable)samlSpSessionId);
+	}
+
+	@Override
+	public Map<Serializable, SamlSpSession> fetchByPrimaryKeys(
+		Set<Serializable> primaryKeys) {
+
+		if (primaryKeys.isEmpty()) {
+			return Collections.emptyMap();
+		}
+
+		Map<Serializable, SamlSpSession> map =
+			new HashMap<Serializable, SamlSpSession>();
+
+		if (primaryKeys.size() == 1) {
+			Iterator<Serializable> iterator = primaryKeys.iterator();
+
+			Serializable primaryKey = iterator.next();
+
+			SamlSpSession samlSpSession = fetchByPrimaryKey(primaryKey);
+
+			if (samlSpSession != null) {
+				map.put(primaryKey, samlSpSession);
+			}
+
+			return map;
+		}
+
+		Set<Serializable> uncachedPrimaryKeys = null;
+
+		for (Serializable primaryKey : primaryKeys) {
+			Serializable serializable = entityCache.getResult(
+				SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+				SamlSpSessionImpl.class, primaryKey);
+
+			if (serializable != nullModel) {
+				if (serializable == null) {
+					if (uncachedPrimaryKeys == null) {
+						uncachedPrimaryKeys = new HashSet<Serializable>();
+					}
+
+					uncachedPrimaryKeys.add(primaryKey);
+				}
+				else {
+					map.put(primaryKey, (SamlSpSession)serializable);
+				}
+			}
+		}
+
+		if (uncachedPrimaryKeys == null) {
+			return map;
+		}
+
+		StringBundler query = new StringBundler(
+			uncachedPrimaryKeys.size() * 2 + 1);
+
+		query.append(_SQL_SELECT_SAMLSPSESSION_WHERE_PKS_IN);
+
+		for (Serializable primaryKey : uncachedPrimaryKeys) {
+			query.append((long)primaryKey);
+
+			query.append(",");
+		}
+
+		query.setIndex(query.index() - 1);
+
+		query.append(")");
+
+		String sql = query.toString();
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			Query q = session.createQuery(sql);
+
+			for (SamlSpSession samlSpSession : (List<SamlSpSession>)q.list()) {
+				map.put(samlSpSession.getPrimaryKeyObj(), samlSpSession);
+
+				cacheResult(samlSpSession);
+
+				uncachedPrimaryKeys.remove(samlSpSession.getPrimaryKeyObj());
+			}
+
+			for (Serializable primaryKey : uncachedPrimaryKeys) {
+				entityCache.putResult(
+					SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+					SamlSpSessionImpl.class, primaryKey, nullModel);
+			}
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		return map;
 	}
 
 	/**
@@ -2031,21 +2191,6 @@ public class SamlSpSessionPersistenceImpl
 	}
 
 	@Override
-	protected EntityCache getEntityCache() {
-		return entityCache;
-	}
-
-	@Override
-	protected String getPKDBName() {
-		return "samlSpSessionId";
-	}
-
-	@Override
-	protected String getSelectSQL() {
-		return _SQL_SELECT_SAMLSPSESSION;
-	}
-
-	@Override
 	protected Map<String, Integer> getTableColumnsMap() {
 		return SamlSpSessionModelImpl.TABLE_COLUMNS_MAP;
 	}
@@ -2150,6 +2295,9 @@ public class SamlSpSessionPersistenceImpl
 
 	private static final String _SQL_SELECT_SAMLSPSESSION =
 		"SELECT samlSpSession FROM SamlSpSession samlSpSession";
+
+	private static final String _SQL_SELECT_SAMLSPSESSION_WHERE_PKS_IN =
+		"SELECT samlSpSession FROM SamlSpSession samlSpSession WHERE samlSpSessionId IN (";
 
 	private static final String _SQL_SELECT_SAMLSPSESSION_WHERE =
 		"SELECT samlSpSession FROM SamlSpSession samlSpSession WHERE ";

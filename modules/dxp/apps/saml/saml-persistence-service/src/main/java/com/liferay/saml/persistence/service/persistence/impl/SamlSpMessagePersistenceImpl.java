@@ -14,7 +14,8 @@
 
 package com.liferay.saml.persistence.service.persistence.impl;
 
-import com.liferay.petra.string.StringBundler;
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -28,6 +29,7 @@ import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.saml.persistence.exception.NoSuchSpMessageException;
@@ -44,11 +46,13 @@ import java.sql.Timestamp;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import org.osgi.annotation.versioning.ProviderType;
+import java.util.Set;
 
 /**
  * The persistence implementation for the saml sp message service.
@@ -930,10 +934,6 @@ public class SamlSpMessagePersistenceImpl
 
 	public SamlSpMessagePersistenceImpl() {
 		setModelClass(SamlSpMessage.class);
-
-		setModelImplClass(SamlSpMessageImpl.class);
-		setModelPKClass(long.class);
-		setEntityCacheEnabled(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED);
 	}
 
 	/**
@@ -1284,12 +1284,161 @@ public class SamlSpMessagePersistenceImpl
 	/**
 	 * Returns the saml sp message with the primary key or returns <code>null</code> if it could not be found.
 	 *
+	 * @param primaryKey the primary key of the saml sp message
+	 * @return the saml sp message, or <code>null</code> if a saml sp message with the primary key could not be found
+	 */
+	@Override
+	public SamlSpMessage fetchByPrimaryKey(Serializable primaryKey) {
+		Serializable serializable = entityCache.getResult(
+			SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpMessageImpl.class, primaryKey);
+
+		if (serializable == nullModel) {
+			return null;
+		}
+
+		SamlSpMessage samlSpMessage = (SamlSpMessage)serializable;
+
+		if (samlSpMessage == null) {
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				samlSpMessage = (SamlSpMessage)session.get(
+					SamlSpMessageImpl.class, primaryKey);
+
+				if (samlSpMessage != null) {
+					cacheResult(samlSpMessage);
+				}
+				else {
+					entityCache.putResult(
+						SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+						SamlSpMessageImpl.class, primaryKey, nullModel);
+				}
+			}
+			catch (Exception e) {
+				entityCache.removeResult(
+					SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+					SamlSpMessageImpl.class, primaryKey);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return samlSpMessage;
+	}
+
+	/**
+	 * Returns the saml sp message with the primary key or returns <code>null</code> if it could not be found.
+	 *
 	 * @param samlSpMessageId the primary key of the saml sp message
 	 * @return the saml sp message, or <code>null</code> if a saml sp message with the primary key could not be found
 	 */
 	@Override
 	public SamlSpMessage fetchByPrimaryKey(long samlSpMessageId) {
 		return fetchByPrimaryKey((Serializable)samlSpMessageId);
+	}
+
+	@Override
+	public Map<Serializable, SamlSpMessage> fetchByPrimaryKeys(
+		Set<Serializable> primaryKeys) {
+
+		if (primaryKeys.isEmpty()) {
+			return Collections.emptyMap();
+		}
+
+		Map<Serializable, SamlSpMessage> map =
+			new HashMap<Serializable, SamlSpMessage>();
+
+		if (primaryKeys.size() == 1) {
+			Iterator<Serializable> iterator = primaryKeys.iterator();
+
+			Serializable primaryKey = iterator.next();
+
+			SamlSpMessage samlSpMessage = fetchByPrimaryKey(primaryKey);
+
+			if (samlSpMessage != null) {
+				map.put(primaryKey, samlSpMessage);
+			}
+
+			return map;
+		}
+
+		Set<Serializable> uncachedPrimaryKeys = null;
+
+		for (Serializable primaryKey : primaryKeys) {
+			Serializable serializable = entityCache.getResult(
+				SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+				SamlSpMessageImpl.class, primaryKey);
+
+			if (serializable != nullModel) {
+				if (serializable == null) {
+					if (uncachedPrimaryKeys == null) {
+						uncachedPrimaryKeys = new HashSet<Serializable>();
+					}
+
+					uncachedPrimaryKeys.add(primaryKey);
+				}
+				else {
+					map.put(primaryKey, (SamlSpMessage)serializable);
+				}
+			}
+		}
+
+		if (uncachedPrimaryKeys == null) {
+			return map;
+		}
+
+		StringBundler query = new StringBundler(
+			uncachedPrimaryKeys.size() * 2 + 1);
+
+		query.append(_SQL_SELECT_SAMLSPMESSAGE_WHERE_PKS_IN);
+
+		for (Serializable primaryKey : uncachedPrimaryKeys) {
+			query.append((long)primaryKey);
+
+			query.append(",");
+		}
+
+		query.setIndex(query.index() - 1);
+
+		query.append(")");
+
+		String sql = query.toString();
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			Query q = session.createQuery(sql);
+
+			for (SamlSpMessage samlSpMessage : (List<SamlSpMessage>)q.list()) {
+				map.put(samlSpMessage.getPrimaryKeyObj(), samlSpMessage);
+
+				cacheResult(samlSpMessage);
+
+				uncachedPrimaryKeys.remove(samlSpMessage.getPrimaryKeyObj());
+			}
+
+			for (Serializable primaryKey : uncachedPrimaryKeys) {
+				entityCache.putResult(
+					SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+					SamlSpMessageImpl.class, primaryKey, nullModel);
+			}
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		return map;
 	}
 
 	/**
@@ -1488,21 +1637,6 @@ public class SamlSpMessagePersistenceImpl
 	}
 
 	@Override
-	protected EntityCache getEntityCache() {
-		return entityCache;
-	}
-
-	@Override
-	protected String getPKDBName() {
-		return "samlSpMessageId";
-	}
-
-	@Override
-	protected String getSelectSQL() {
-		return _SQL_SELECT_SAMLSPMESSAGE;
-	}
-
-	@Override
 	protected Map<String, Integer> getTableColumnsMap() {
 		return SamlSpMessageModelImpl.TABLE_COLUMNS_MAP;
 	}
@@ -1584,6 +1718,9 @@ public class SamlSpMessagePersistenceImpl
 
 	private static final String _SQL_SELECT_SAMLSPMESSAGE =
 		"SELECT samlSpMessage FROM SamlSpMessage samlSpMessage";
+
+	private static final String _SQL_SELECT_SAMLSPMESSAGE_WHERE_PKS_IN =
+		"SELECT samlSpMessage FROM SamlSpMessage samlSpMessage WHERE samlSpMessageId IN (";
 
 	private static final String _SQL_SELECT_SAMLSPMESSAGE_WHERE =
 		"SELECT samlSpMessage FROM SamlSpMessage samlSpMessage WHERE ";

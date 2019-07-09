@@ -14,9 +14,10 @@
 
 package com.liferay.saml.persistence.model.impl;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
-import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.CacheModel;
@@ -27,6 +28,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.saml.persistence.model.SamlIdpSpSession;
 import com.liferay.saml.persistence.model.SamlIdpSpSessionModel;
 
@@ -44,8 +46,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-
-import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The base model implementation for the SamlIdpSpSession service. Represents a row in the &quot;SamlIdpSpSession&quot; database table, with each column mapped to a property of this class.
@@ -266,61 +266,229 @@ public class SamlIdpSpSessionModelImpl
 				new LinkedHashMap<String, BiConsumer<SamlIdpSpSession, ?>>();
 
 		attributeGetterFunctions.put(
-			"samlIdpSpSessionId", SamlIdpSpSession::getSamlIdpSpSessionId);
+			"samlIdpSpSessionId",
+			new Function<SamlIdpSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSpSession samlIdpSpSession) {
+					return samlIdpSpSession.getSamlIdpSpSessionId();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"samlIdpSpSessionId",
-			(BiConsumer<SamlIdpSpSession, Long>)
-				SamlIdpSpSession::setSamlIdpSpSessionId);
+			new BiConsumer<SamlIdpSpSession, Object>() {
+
+				@Override
+				public void accept(
+					SamlIdpSpSession samlIdpSpSession,
+					Object samlIdpSpSessionId) {
+
+					samlIdpSpSession.setSamlIdpSpSessionId(
+						(Long)samlIdpSpSessionId);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"companyId", SamlIdpSpSession::getCompanyId);
+			"companyId",
+			new Function<SamlIdpSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSpSession samlIdpSpSession) {
+					return samlIdpSpSession.getCompanyId();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"companyId",
-			(BiConsumer<SamlIdpSpSession, Long>)SamlIdpSpSession::setCompanyId);
-		attributeGetterFunctions.put("userId", SamlIdpSpSession::getUserId);
+			new BiConsumer<SamlIdpSpSession, Object>() {
+
+				@Override
+				public void accept(
+					SamlIdpSpSession samlIdpSpSession, Object companyId) {
+
+					samlIdpSpSession.setCompanyId((Long)companyId);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<SamlIdpSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSpSession samlIdpSpSession) {
+					return samlIdpSpSession.getUserId();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"userId",
-			(BiConsumer<SamlIdpSpSession, Long>)SamlIdpSpSession::setUserId);
-		attributeGetterFunctions.put("userName", SamlIdpSpSession::getUserName);
+			new BiConsumer<SamlIdpSpSession, Object>() {
+
+				@Override
+				public void accept(
+					SamlIdpSpSession samlIdpSpSession, Object userId) {
+
+					samlIdpSpSession.setUserId((Long)userId);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<SamlIdpSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSpSession samlIdpSpSession) {
+					return samlIdpSpSession.getUserName();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"userName",
-			(BiConsumer<SamlIdpSpSession, String>)
-				SamlIdpSpSession::setUserName);
+			new BiConsumer<SamlIdpSpSession, Object>() {
+
+				@Override
+				public void accept(
+					SamlIdpSpSession samlIdpSpSession, Object userName) {
+
+					samlIdpSpSession.setUserName((String)userName);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"createDate", SamlIdpSpSession::getCreateDate);
+			"createDate",
+			new Function<SamlIdpSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSpSession samlIdpSpSession) {
+					return samlIdpSpSession.getCreateDate();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"createDate",
-			(BiConsumer<SamlIdpSpSession, Date>)
-				SamlIdpSpSession::setCreateDate);
+			new BiConsumer<SamlIdpSpSession, Object>() {
+
+				@Override
+				public void accept(
+					SamlIdpSpSession samlIdpSpSession, Object createDate) {
+
+					samlIdpSpSession.setCreateDate((Date)createDate);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"modifiedDate", SamlIdpSpSession::getModifiedDate);
+			"modifiedDate",
+			new Function<SamlIdpSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSpSession samlIdpSpSession) {
+					return samlIdpSpSession.getModifiedDate();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
-			(BiConsumer<SamlIdpSpSession, Date>)
-				SamlIdpSpSession::setModifiedDate);
+			new BiConsumer<SamlIdpSpSession, Object>() {
+
+				@Override
+				public void accept(
+					SamlIdpSpSession samlIdpSpSession, Object modifiedDate) {
+
+					samlIdpSpSession.setModifiedDate((Date)modifiedDate);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"samlIdpSsoSessionId", SamlIdpSpSession::getSamlIdpSsoSessionId);
+			"samlIdpSsoSessionId",
+			new Function<SamlIdpSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSpSession samlIdpSpSession) {
+					return samlIdpSpSession.getSamlIdpSsoSessionId();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"samlIdpSsoSessionId",
-			(BiConsumer<SamlIdpSpSession, Long>)
-				SamlIdpSpSession::setSamlIdpSsoSessionId);
+			new BiConsumer<SamlIdpSpSession, Object>() {
+
+				@Override
+				public void accept(
+					SamlIdpSpSession samlIdpSpSession,
+					Object samlIdpSsoSessionId) {
+
+					samlIdpSpSession.setSamlIdpSsoSessionId(
+						(Long)samlIdpSsoSessionId);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"samlSpEntityId", SamlIdpSpSession::getSamlSpEntityId);
+			"samlSpEntityId",
+			new Function<SamlIdpSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSpSession samlIdpSpSession) {
+					return samlIdpSpSession.getSamlSpEntityId();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"samlSpEntityId",
-			(BiConsumer<SamlIdpSpSession, String>)
-				SamlIdpSpSession::setSamlSpEntityId);
+			new BiConsumer<SamlIdpSpSession, Object>() {
+
+				@Override
+				public void accept(
+					SamlIdpSpSession samlIdpSpSession, Object samlSpEntityId) {
+
+					samlIdpSpSession.setSamlSpEntityId((String)samlSpEntityId);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"nameIdFormat", SamlIdpSpSession::getNameIdFormat);
+			"nameIdFormat",
+			new Function<SamlIdpSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSpSession samlIdpSpSession) {
+					return samlIdpSpSession.getNameIdFormat();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"nameIdFormat",
-			(BiConsumer<SamlIdpSpSession, String>)
-				SamlIdpSpSession::setNameIdFormat);
+			new BiConsumer<SamlIdpSpSession, Object>() {
+
+				@Override
+				public void accept(
+					SamlIdpSpSession samlIdpSpSession, Object nameIdFormat) {
+
+					samlIdpSpSession.setNameIdFormat((String)nameIdFormat);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"nameIdValue", SamlIdpSpSession::getNameIdValue);
+			"nameIdValue",
+			new Function<SamlIdpSpSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSpSession samlIdpSpSession) {
+					return samlIdpSpSession.getNameIdValue();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"nameIdValue",
-			(BiConsumer<SamlIdpSpSession, String>)
-				SamlIdpSpSession::setNameIdValue);
+			new BiConsumer<SamlIdpSpSession, Object>() {
+
+				@Override
+				public void accept(
+					SamlIdpSpSession samlIdpSpSession, Object nameIdValue) {
+
+					samlIdpSpSession.setNameIdValue((String)nameIdValue);
+				}
+
+			});
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
