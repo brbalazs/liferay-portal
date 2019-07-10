@@ -16,11 +16,24 @@ package com.liferay.commerce.theme.minium.full.site.initializer.internal;
 
 import com.liferay.commerce.theme.minium.SiteInitializerDependencyResolver;
 import com.liferay.commerce.theme.minium.SiteInitializerDependencyResolverThreadLocal;
+import com.liferay.document.library.kernel.model.DLFileEntry;
+import com.liferay.document.library.kernel.model.DLFolderConstants;
+import com.liferay.document.library.kernel.service.DLFileEntryLocalService;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.ResourceConstants;
+import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.model.RoleConstants;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.site.exception.InitializationException;
 import com.liferay.site.initializer.SiteInitializer;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.ServletContext;
@@ -68,6 +81,8 @@ public class MiniumFullSiteInitializer implements SiteInitializer {
 					_fullSiteInitializerDependencyResolver);
 
 			_siteInitializer.initialize(groupId);
+
+			fixDLFileEntryPermissions(groupId);
 		}
 		catch (InitializationException ie) {
 			throw ie;
@@ -84,12 +99,51 @@ public class MiniumFullSiteInitializer implements SiteInitializer {
 		return _siteInitializer.isActive(companyId);
 	}
 
+	protected void fixDLFileEntryPermissions(long groupId)
+		throws PortalException {
+
+		List<DLFileEntry> dlFileEntries =
+			_dlFileEntryLocalService.getFileEntries(
+				groupId, DLFolderConstants.DEFAULT_PARENT_FOLDER_ID);
+
+		if (dlFileEntries.isEmpty()) {
+			return;
+		}
+
+		Group group = _groupLocalService.getGroup(groupId);
+
+		long companyId = group.getCompanyId();
+
+		for (DLFileEntry dlFileEntry : dlFileEntries) {
+			Role role = _roleLocalService.getRole(
+				companyId, RoleConstants.SITE_MEMBER);
+
+			_resourcePermissionLocalService.setResourcePermissions(
+				companyId, dlFileEntry.getModelClassName(),
+				ResourceConstants.SCOPE_INDIVIDUAL,
+				String.valueOf(dlFileEntry.getPrimaryKey()), role.getRoleId(),
+				new String[] {ActionKeys.VIEW});
+		}
+	}
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		MiniumFullSiteInitializer.class);
+
+	@Reference
+	private DLFileEntryLocalService _dlFileEntryLocalService;
 
 	@Reference(target = "(site.initializer.key=minium-full-initializer)")
 	private SiteInitializerDependencyResolver
 		_fullSiteInitializerDependencyResolver;
+
+	@Reference
+	private GroupLocalService _groupLocalService;
+
+	@Reference
+	private ResourcePermissionLocalService _resourcePermissionLocalService;
+
+	@Reference
+	private RoleLocalService _roleLocalService;
 
 	@Reference(
 		target = "(osgi.web.symbolicname=com.liferay.commerce.theme.minium.full.site.initializer)"
