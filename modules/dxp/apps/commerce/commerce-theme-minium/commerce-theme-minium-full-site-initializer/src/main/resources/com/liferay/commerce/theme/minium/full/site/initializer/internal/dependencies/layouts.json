@@ -12,6 +12,11 @@
 			{
 				"layoutColumnId": "column-1",
 				"layoutColumnPos": 1,
+				"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPPublisherPortlet_INSTANCE_minium"
+			},
+			{
+				"layoutColumnId": "column-1",
+				"layoutColumnPos": 2,
 				"portletName": "com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_minium"
 			}
 		],
@@ -72,7 +77,7 @@
 				"portletPreferences": {
 					"cpContentListRendererKey": "list-minium",
 					"dataSource": "assetCategoriesAndTagsDataSource",
-					"groupe--cpTypeListEntryRendererKey": "list-entry-minium",
+					"grouped--cpTypeListEntryRendererKey": "list-entry-minium",
 					"renderSelection": "custom",
 					"selectionStyle": "dataSource",
 					"simple--cpTypeListEntryRendererKey": "list-entry-minium",

@@ -76,6 +76,26 @@
 	{
 		"instanceId": "minium",
 		"layoutFriendlyURL": "/dashboard",
+		"portletName": "com_liferay_commerce_product_content_web_internal_portlet_CPPublisherPortlet",
+		"portletPreferences": {
+			"cpContentListRendererKey": "list-minium",
+			"dataSource": "assetCategoriesAndTagsDataSource",
+			"grouped--cpTypeListEntryRendererKey": "list-entry-minium",
+			"paginationDelta": "5",
+			"paginationType": "more",
+			"queryAndOperator0": "true",
+			"queryContains0": "true",
+			"queryName0": "assetTags",
+			"queryValues0": "featured",
+			"renderSelection": "custom",
+			"selectionStyle": "dynamic",
+			"simple--cpTypeListEntryRendererKey": "list-entry-minium",
+			"virtual--cpTypeListEntryRendererKey": "list-entry-minium"
+		}
+	},
+	{
+		"instanceId": "minium",
+		"layoutFriendlyURL": "/dashboard",
 		"portletName": "com_liferay_journal_content_web_portlet_JournalContentPortlet",
 		"portletPreferences": {
 			"articleId": "SUMMER_SALES",
