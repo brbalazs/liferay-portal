@@ -176,6 +176,20 @@
 		"icon": "icon-sales-library.png",
 		"layoutTemplateId": "1_column",
 		"name": "Sales Library",
+		"permissions": [
+			{
+				"actionIds": [],
+				"roleName": "Site Member",
+				"scope": 4
+			},
+			{
+				"actionIds": [
+					"VIEW"
+				],
+				"roleName": "Sales Agent",
+				"scope": 4
+			}
+		],
 		"portlets": [
 			{
 				"layoutColumnId": "column-1",
