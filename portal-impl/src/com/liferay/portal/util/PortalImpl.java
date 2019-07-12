@@ -7413,14 +7413,22 @@ public class PortalImpl implements Portal {
 			return PortletMode.VIEW;
 		}
 
+		Portlet portlet = PortletLocalServiceUtil.getPortletById(
+			getCompanyId(request), portletId);
+
+		if (isCustomPortletMode(portletMode)) {
+			Set<String> allPortletModes = portlet.getAllPortletModes();
+
+			if (!allPortletModes.contains(portletMode.toString())) {
+				return PortletMode.VIEW;
+			}
+		}
+
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
 		PermissionChecker permissionChecker =
 			themeDisplay.getPermissionChecker();
-
-		Portlet portlet = PortletLocalServiceUtil.getPortletById(
-			getCompanyId(request), portletId);
 
 		boolean updateLayout = false;
 
