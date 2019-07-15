@@ -7416,12 +7416,10 @@ public class PortalImpl implements Portal {
 		Portlet portlet = PortletLocalServiceUtil.getPortletById(
 			getCompanyId(request), portletId);
 
-		if (isCustomPortletMode(portletMode)) {
-			Set<String> allPortletModes = portlet.getAllPortletModes();
+		Set<String> allPortletModes = portlet.getAllPortletModes();
 
-			if (!allPortletModes.contains(portletMode.toString())) {
-				return PortletMode.VIEW;
-			}
+		if (!allPortletModes.contains(portletMode.toString())) {
+			return PortletMode.VIEW;
 		}
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
