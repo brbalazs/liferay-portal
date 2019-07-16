@@ -12,10 +12,10 @@
  * details.
  */
 
-package com.liferay.fragment.internal.upgrade.v2_1_1;
+package com.liferay.fragment.internal.upgrade.v1_0_1;
 
-import com.liferay.fragment.model.FragmentEntry;
-import com.liferay.fragment.model.FragmentEntryLink;
+import com.liferay.fragment.internal.upgrade.v1_0_1.util.FragmentEntryLinkTable;
+import com.liferay.fragment.internal.upgrade.v1_0_1.util.FragmentEntryTable;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 
 /**
@@ -26,12 +26,12 @@ public class UpgradeFragmentEntry extends UpgradeProcess {
 	@Override
 	protected void doUpgrade() throws Exception {
 		alter(
-			FragmentEntry.class, new AlterColumnType("css", "TEXT null"),
+			FragmentEntryTable.class, new AlterColumnType("css", "TEXT null"),
 			new AlterColumnType("html", "TEXT null"),
 			new AlterColumnType("js", "TEXT null"));
 
 		alter(
-			FragmentEntryLink.class, new AlterColumnType("css", "TEXT null"),
+			FragmentEntryLinkTable.class, new AlterColumnType("css", "TEXT null"),
 			new AlterColumnType("html", "TEXT null"),
 			new AlterColumnType("js", "TEXT null"),
 			new AlterColumnType("editableValues", "TEXT null"));
