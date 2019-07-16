@@ -31,7 +31,8 @@ public class UpgradeFragmentEntry extends UpgradeProcess {
 			new AlterColumnType("js", "TEXT null"));
 
 		alter(
-			FragmentEntryLinkTable.class, new AlterColumnType("css", "TEXT null"),
+			FragmentEntryLinkTable.class,
+			new AlterColumnType("css", "TEXT null"),
 			new AlterColumnType("html", "TEXT null"),
 			new AlterColumnType("js", "TEXT null"),
 			new AlterColumnType("editableValues", "TEXT null"));
