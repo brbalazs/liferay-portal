@@ -148,16 +148,13 @@ public class FragmentEntryLinkStagedModelDataHandler
 			(Map<Long, Long>)portletDataContext.getNewPrimaryKeysMap(
 				FragmentEntry.class);
 
-		long fragmentEntryLinkFragmentEntryId =
-			fragmentEntryLink.getFragmentEntryId();
-
 		long fragmentEntryId = MapUtil.getLong(
-			fragmentEntryIds, fragmentEntryLinkFragmentEntryId);
+			fragmentEntryIds, fragmentEntryLink.getFragmentEntryId());
 
 		if (fragmentEntryId == 0) {
 			FragmentEntry fragmentEntry =
 				_fragmentEntryLocalService.fetchFragmentEntry(
-					fragmentEntryLinkFragmentEntryId);
+					fragmentEntryLink.getFragmentEntryId());
 
 			FragmentEntry targetFragmentEntry =
 				_fragmentEntryLocalService.fetchFragmentEntryByUuidAndGroupId(
@@ -167,7 +164,7 @@ public class FragmentEntryLinkStagedModelDataHandler
 				fragmentEntryId = targetFragmentEntry.getFragmentEntryId();
 			}
 			else {
-				fragmentEntryId = fragmentEntryLinkFragmentEntryId;
+				fragmentEntryId = fragmentEntryLink.getFragmentEntryId();
 			}
 		}
 
