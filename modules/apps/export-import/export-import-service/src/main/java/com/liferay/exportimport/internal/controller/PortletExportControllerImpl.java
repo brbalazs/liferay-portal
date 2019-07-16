@@ -1428,8 +1428,8 @@ public class PortletExportControllerImpl implements PortletExportController {
 
 		boolean rootPortletId = false;
 
-		if ((ownerType == PortletKeys.PREFS_OWNER_TYPE_GROUP) ||
-			(ownerType == PortletKeys.PREFS_OWNER_TYPE_COMPANY)) {
+		if ((ownerType == PortletKeys.PREFS_OWNER_TYPE_COMPANY) ||
+			(ownerType == PortletKeys.PREFS_OWNER_TYPE_GROUP)) {
 
 			rootPortletId = true;
 		}
