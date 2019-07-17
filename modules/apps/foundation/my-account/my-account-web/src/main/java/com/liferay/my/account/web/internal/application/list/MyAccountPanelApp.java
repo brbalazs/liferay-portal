@@ -5,8 +5,8 @@
 
 package com.liferay.my.account.web.internal.application.list;
 
-import com.liferay.application.list.BasePanelApp;
 import com.liferay.application.list.PanelApp;
+import com.liferay.application.list.UserMenuPanelApp;
 import com.liferay.application.list.constants.PanelCategoryKeys;
 import com.liferay.my.account.web.internal.constants.MyAccountPortletKeys;
 import com.liferay.portal.kernel.model.Portlet;
@@ -25,7 +25,7 @@ import org.osgi.service.component.annotations.Reference;
 	},
 	service = PanelApp.class
 )
-public class MyAccountPanelApp extends BasePanelApp {
+public class MyAccountPanelApp extends UserMenuPanelApp {
 
 	@Override
 	public String getPortletId() {

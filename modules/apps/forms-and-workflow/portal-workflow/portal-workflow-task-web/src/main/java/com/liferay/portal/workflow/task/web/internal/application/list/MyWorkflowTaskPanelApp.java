@@ -5,8 +5,8 @@
 
 package com.liferay.portal.workflow.task.web.internal.application.list;
 
-import com.liferay.application.list.BasePanelApp;
 import com.liferay.application.list.PanelApp;
+import com.liferay.application.list.UserMenuPanelApp;
 import com.liferay.application.list.constants.PanelCategoryKeys;
 import com.liferay.portal.kernel.model.Portlet;
 import com.liferay.portal.kernel.util.PortletKeys;
@@ -25,7 +25,7 @@ import org.osgi.service.component.annotations.Reference;
 	},
 	service = PanelApp.class
 )
-public class MyWorkflowTaskPanelApp extends BasePanelApp {
+public class MyWorkflowTaskPanelApp extends UserMenuPanelApp {
 
 	@Override
 	public String getPortletId() {
