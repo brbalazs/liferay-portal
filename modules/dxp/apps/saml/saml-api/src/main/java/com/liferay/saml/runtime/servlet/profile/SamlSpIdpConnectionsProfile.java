@@ -18,9 +18,12 @@ import com.liferay.saml.persistence.model.SamlSpIdpConnection;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * @author Stian Sigvartsen
  */
+@ProviderType
 public interface SamlSpIdpConnectionsProfile {
 
 	public boolean isEnabled(
