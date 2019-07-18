@@ -15,6 +15,7 @@
 package com.liferay.fragment.internal.upgrade;
 
 import com.liferay.fragment.internal.upgrade.v1_0_1.UpgradeFragmentEntry;
+import com.liferay.fragment.internal.upgrade.v1_0_2.UpgradePortletPreferences;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
 
 import org.osgi.service.component.annotations.Component;
@@ -28,6 +29,8 @@ public class FragmentServiceUpgrade implements UpgradeStepRegistrator {
 	@Override
 	public void register(Registry registry) {
 		registry.register("1.0.0", "1.0.1", new UpgradeFragmentEntry());
+
+		registry.register("1.0.1", "1.0.2", new UpgradePortletPreferences());
 	}
 
 }
