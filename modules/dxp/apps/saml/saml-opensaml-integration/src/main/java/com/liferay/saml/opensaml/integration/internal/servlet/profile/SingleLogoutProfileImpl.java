@@ -114,7 +114,13 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
 /**
  * @author Mika Koivisto
  */
-@Component(immediate = true, service = SingleLogoutProfile.class)
+@Component(
+	immediate = true,
+	service = {
+		com.liferay.saml.runtime.profile.SingleLogoutProfile.class,
+		SingleLogoutProfile.class
+	}
+)
 public class SingleLogoutProfileImpl
 	extends BaseProfile implements SingleLogoutProfile {
 

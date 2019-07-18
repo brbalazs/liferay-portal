@@ -168,7 +168,10 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
 @Component(
 	configurationPid = "com.liferay.saml.runtime.configuration.SamlConfiguration",
 	configurationPolicy = ConfigurationPolicy.OPTIONAL, immediate = true,
-	service = WebSsoProfile.class
+	service = {
+		com.liferay.saml.runtime.profile.WebSsoProfile.class,
+		WebSsoProfile.class
+	}
 )
 public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 
