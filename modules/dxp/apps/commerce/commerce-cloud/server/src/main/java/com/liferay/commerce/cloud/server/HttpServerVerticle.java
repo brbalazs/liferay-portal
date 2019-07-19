@@ -206,6 +206,7 @@ public class HttpServerVerticle extends AbstractVerticle {
 			ForecastConfigurationService.createProxy(vertx);
 		ForecastOrderService forecastOrderService =
 			ForecastOrderService.createProxy(vertx);
+
 		ForecastProcessorService forecastProcessorService =
 			ForecastProcessorService.createProxy(vertx);
 		ForecastService forecastService = ForecastService.createProxy(vertx);
@@ -213,6 +214,7 @@ public class HttpServerVerticle extends AbstractVerticle {
 		_addRouteEleflowForecastCallback(
 			router, projectAuthHandler, forecastProcessorService,
 			forecastService);
+
 		_addRouteGetForecastConfiguration(
 			router, projectAuthHandler, activeProjectAuthHandler,
 			forecastConfigurationService);
