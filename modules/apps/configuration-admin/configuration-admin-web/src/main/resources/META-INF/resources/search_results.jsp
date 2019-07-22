@@ -27,15 +27,15 @@ if (redirect == null) {
 	redirect = renderResponse.createRenderURL();
 }
 
-portletDisplay.setShowBackIcon(true);
-portletDisplay.setURLBack(redirect);
-
-renderResponse.setTitle(LanguageUtil.get(request, "search-results"));
-
 PortletURL searchURL = renderResponse.createRenderURL();
 
 searchURL.setParameter("mvcRenderCommandName", "/search");
 searchURL.setParameter("redirect", redirect);
+
+portletDisplay.setShowBackIcon(true);
+portletDisplay.setURLBack(redirect);
+
+renderResponse.setTitle(LanguageUtil.get(request, "search-results"));
 %>
 
 <clay:management-toolbar
