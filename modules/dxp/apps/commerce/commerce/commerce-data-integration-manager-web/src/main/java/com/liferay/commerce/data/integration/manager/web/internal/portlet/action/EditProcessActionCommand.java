@@ -40,6 +40,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author guywandji
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	property = {
@@ -120,11 +121,16 @@ public class EditProcessActionCommand extends BaseMVCActionCommand {
 				process = _processService.create();
 			}
 
-			process.setName(name);
-
-			process.setProcessType(processType);
-
-			process.setVersion(version);
+			if (process.isSystem()) {
+				process.setName(process.getName());
+				process.setProcessType(process.getProcessType());
+				process.setVersion(process.getVersion());
+			}
+			else {
+				process.setName(name);
+				process.setProcessType(processType);
+				process.setVersion(version);
+			}
 
 			process = processTypeJSPContributor.processAction(
 				actionRequest, process);
