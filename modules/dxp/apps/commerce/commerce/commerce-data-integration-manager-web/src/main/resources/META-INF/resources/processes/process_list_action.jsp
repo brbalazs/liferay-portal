@@ -36,7 +36,9 @@ Process process = (Process)row.getObject();
 		url="<%= dataIntegrationProcessListDisplayContext.getEditProcessURL(process.getProcessId()).toString() %>"
 	/>
 
-	<liferay-ui:icon-delete
-		url="<%= dataIntegrationProcessListDisplayContext.getDeleteProcessURL(process.getProcessId()) %>"
-	/>
+	<c:if test="<%= !process.isSystem() %>">
+		<liferay-ui:icon-delete
+			url="<%= dataIntegrationProcessListDisplayContext.getDeleteProcessURL(process.getProcessId()) %>"
+		/>
+	</c:if>
 </liferay-ui:icon-menu>

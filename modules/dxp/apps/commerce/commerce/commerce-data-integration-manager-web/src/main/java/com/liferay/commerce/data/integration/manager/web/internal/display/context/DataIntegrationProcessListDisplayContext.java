@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
 import com.liferay.portal.kernel.dao.search.RowChecker;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
@@ -214,15 +215,15 @@ public class DataIntegrationProcessListDisplayContext {
 		_searchContainer.setOrderByType(getOrderByType());
 		_searchContainer.setRowChecker(getRowChecker());
 
+		Company company = _dataIntegrationRequestHelper.getCompany();
+
 		int total = _processService.getProcessesByGroupIdCount(
-			_dataIntegrationRequestHelper.getUserId(),
-			_dataIntegrationRequestHelper.getScopeGroupId());
+			_dataIntegrationRequestHelper.getUserId(), company.getGroupId());
 
 		_searchContainer.setTotal(total);
 
 		List<Process> results = _processService.getProcessesByGroupId(
-			_dataIntegrationRequestHelper.getUserId(),
-			_dataIntegrationRequestHelper.getScopeGroupId(),
+			_dataIntegrationRequestHelper.getUserId(), company.getGroupId(),
 			_searchContainer.getStart(), _searchContainer.getEnd());
 
 		_searchContainer.setResults(results);

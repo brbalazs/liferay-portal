@@ -65,11 +65,12 @@ if ((processTypeKeys.size() > 0) && (processType == "")) {
 				</c:if>
 
 				<aui:fieldset>
-					<aui:input name="name" required="<%= true %>" />
-					<aui:input name="version" />
+					<aui:input disabled="<%= (process != null) && process.isSystem() %>" name="name" required="<%= true %>" />
+
+					<aui:input disabled="<%= (process != null) && process.isSystem() %>" name="version" />
 
 					<c:if test="<%= processTypes != null %>">
-						<aui:select label="process-type" name="processType" onChange='<%= renderResponse.getNamespace() + "selectProcessType();" %>'>
+						<aui:select disabled="<%= (process != null) && process.isSystem() %>" label="process-type" name="processType" onChange='<%= renderResponse.getNamespace() + "selectProcessType();" %>'>
 
 							<%
 							for (String processTypeKey : processTypes.keySet()) {
