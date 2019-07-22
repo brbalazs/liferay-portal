@@ -30,6 +30,7 @@ import java.util.List;
  */
 public class ProcessServiceImpl extends ProcessServiceBaseImpl {
 
+	@Override
 	public Process addProcess(Process process, ServiceContext serviceContext)
 		throws PortalException {
 
@@ -40,12 +41,7 @@ public class ProcessServiceImpl extends ProcessServiceBaseImpl {
 		return processLocalService.addProcess(process, serviceContext);
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link ProcessServiceUtil} to access the process remote service.
-	 * @throws PortalException
-	 */
+	@Override
 	public Process addProcess(
 			String name, String className, String processType, String version,
 			String contextProperties, long contextPropertiesFileEntryId,
@@ -62,12 +58,14 @@ public class ProcessServiceImpl extends ProcessServiceBaseImpl {
 			serviceContext);
 	}
 
+	@Override
 	public Process create() {
 		long processId = counterLocalService.increment(Process.class.getName());
 
 		return processLocalService.createProcess(processId);
 	}
 
+	@Override
 	public Process deleteProcess(
 			long userId, long processId, ServiceContext serviceContext)
 		throws PortalException {
@@ -79,12 +77,14 @@ public class ProcessServiceImpl extends ProcessServiceBaseImpl {
 		return processLocalService.deleteProcess(processId);
 	}
 
+	@Override
 	public Process getProcess(long userId, long processId)
 		throws PortalException {
 
 		return processLocalService.getProcess(processId);
 	}
 
+	@Override
 	public List<Process> getProcessesByGroupId(
 			long userId, long groupId, int start, int end)
 		throws PortalException {
@@ -95,6 +95,7 @@ public class ProcessServiceImpl extends ProcessServiceBaseImpl {
 		return processLocalService.getProcessesByGroupId(groupId, start, end);
 	}
 
+	@Override
 	public int getProcessesByGroupIdCount(long userId, long groupId)
 		throws PortalException {
 
@@ -104,6 +105,7 @@ public class ProcessServiceImpl extends ProcessServiceBaseImpl {
 		return processLocalService.getProcessesByGroupIdCount(groupId);
 	}
 
+	@Override
 	public Process updateProcess(
 			long processId, String name, String className, String processType,
 			String version, String contextProperties,
@@ -121,6 +123,7 @@ public class ProcessServiceImpl extends ProcessServiceBaseImpl {
 			serviceContext);
 	}
 
+	@Override
 	public Process updateProcess(Process process, ServiceContext serviceContext)
 		throws PortalException {
 

@@ -36,6 +36,7 @@ import java.util.List;
 public class ProcessLocalServiceImpl extends ProcessLocalServiceBaseImpl {
 
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Process addProcess(Process process, ServiceContext serviceContext)
 		throws PortalException {
 
@@ -55,16 +56,13 @@ public class ProcessLocalServiceImpl extends ProcessLocalServiceBaseImpl {
 		return processPersistence.update(process);
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link ProcessLocalServiceUtil} to access the process local service.
-	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Process addProcess(
 			String name, String className, String processType, String version,
 			String contextProperties, long contextPropertiesFileEntryId,
-			long srcArchiveFileEntryId, ServiceContext serviceContext)
+			long srcArchiveFileEntryId, boolean system,
+			ServiceContext serviceContext)
 		throws PortalException {
 
 		long processId = counterLocalService.increment(Process.class.getName());
@@ -88,10 +86,24 @@ public class ProcessLocalServiceImpl extends ProcessLocalServiceBaseImpl {
 		process.setContextPropertiesFileEntryId(contextPropertiesFileEntryId);
 		process.setSrcArchiveFileEntryId(srcArchiveFileEntryId);
 		process.setVersion(version);
+		process.setSystem(system);
 
 		resourceLocalService.addModelResources(process, serviceContext);
 
 		return processPersistence.update(process);
+	}
+
+	@Override
+	public Process addProcess(
+			String name, String className, String processType, String version,
+			String contextProperties, long contextPropertiesFileEntryId,
+			long srcArchiveFileEntryId, ServiceContext serviceContext)
+		throws PortalException {
+
+		return processLocalService.addProcess(
+			name, className, processType, version, contextProperties,
+			contextPropertiesFileEntryId, srcArchiveFileEntryId, false,
+			serviceContext);
 	}
 
 	@Indexable(type = IndexableType.DELETE)
@@ -116,21 +128,30 @@ public class ProcessLocalServiceImpl extends ProcessLocalServiceBaseImpl {
 		return processPersistence.remove(processId);
 	}
 
+	@Override
+	public Process fetchProcess(long companyId, String name) {
+		return processPersistence.fetchByCompanyId_Name(companyId, name);
+	}
+
+	@Override
 	public Process getProcess(long processId) {
 		return processPersistence.fetchByPrimaryKey(processId);
 	}
 
+	@Override
 	public List<Process> getProcessesByGroupId(
 		long groupId, int start, int end) {
 
 		return processPersistence.findByGroupId(groupId, start, end);
 	}
 
+	@Override
 	public int getProcessesByGroupIdCount(long groupId) {
 		return processPersistence.countByGroupId(groupId);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Process updateProcess(
 			long processId, String name, String className, String processType,
 			String version, String contextProperties,
@@ -159,6 +180,7 @@ public class ProcessLocalServiceImpl extends ProcessLocalServiceBaseImpl {
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Process updateProcess(Process process, ServiceContext serviceContext)
 		throws PortalException {
 
