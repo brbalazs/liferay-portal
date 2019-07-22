@@ -302,7 +302,11 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 	protected ScheduledTaskLocalService scheduledTaskLocalService;
 
 	private void _buildCommand(
-		long companyId, Date lastRunStartDate, File jobWorkDirectory) {
+			long companyId, Date lastRunStartDate, File jobWorkDirectory)
+		throws PortalException {
+
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
 		_command = new ArrayList<>();
 
@@ -318,7 +322,7 @@ public class TalendJobLauncher implements ScheduledTaskExectutorService {
 		_command.add("--context_param companyId=" + String.valueOf(companyId));
 		_command.add(
 			"--context_param lastRunStartDate=" +
-				String.valueOf(lastRunStartDate.getTime()));
+				simpleDateFormat.format(lastRunStartDate));
 		_command.add(
 			"--context_param jobWorkDirectory=" + jobWorkDirectory.getPath());
 
