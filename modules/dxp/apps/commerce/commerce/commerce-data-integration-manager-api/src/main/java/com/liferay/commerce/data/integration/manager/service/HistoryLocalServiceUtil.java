@@ -55,13 +55,6 @@ public class HistoryLocalServiceUtil {
 		return getService().addHistory(history);
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link HistoryLocalServiceUtil} to access the history local service.
-	 *
-	 * @throws PortalException
-	 */
 	public static com.liferay.commerce.data.integration.manager.model.History
 			addHistory(
 				long userId, long scheduledTaskId, String executionType,

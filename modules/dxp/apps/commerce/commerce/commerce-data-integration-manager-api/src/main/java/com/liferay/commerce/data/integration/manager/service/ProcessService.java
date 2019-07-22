@@ -63,13 +63,6 @@ public interface ProcessService extends BaseService {
 	public Process addProcess(Process process, ServiceContext serviceContext)
 		throws PortalException;
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link ProcessServiceUtil} to access the process remote service.
-	 *
-	 * @throws PortalException
-	 */
 	public Process addProcess(
 			String name, String className, String processType, String version,
 			String contextProperties, long contextPropertiesFileEntryId,

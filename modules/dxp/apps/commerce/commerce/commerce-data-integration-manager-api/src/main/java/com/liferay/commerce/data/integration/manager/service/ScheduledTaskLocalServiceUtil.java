@@ -40,14 +40,6 @@ public class ScheduledTaskLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.commerce.data.integration.manager.service.impl.ScheduledTaskLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link ScheduledTaskLocalServiceUtil} to access the scheduled task local service.
-	 *
-	 * @throws PortalException
-	 */
 	public static
 		com.liferay.commerce.data.integration.manager.model.ScheduledTask
 				addScheduledTask(

@@ -36,13 +36,6 @@ public class ScheduledTaskLocalServiceWrapper
 		_scheduledTaskLocalService = scheduledTaskLocalService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link ScheduledTaskLocalServiceUtil} to access the scheduled task local service.
-	 *
-	 * @throws PortalException
-	 */
 	@Override
 	public com.liferay.commerce.data.integration.manager.model.ScheduledTask
 			addScheduledTask(

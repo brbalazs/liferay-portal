@@ -62,12 +62,6 @@ public interface ScheduledTaskService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link ScheduledTaskServiceUtil} to access the scheduled task remote service. Add custom service methods to <code>com.liferay.commerce.data.integration.manager.service.impl.ScheduledTaskServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link ScheduledTaskServiceUtil} to access the scheduled task remote service.
-	 */
 	public ScheduledTask addScheduledTask(
 			long processId, String frequency, Date startDate, String startHour,
 			String name, ServiceContext serviceContext)

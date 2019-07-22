@@ -66,14 +66,6 @@ public interface ScheduledTaskLocalService
 	 *
 	 * Never modify or reference this interface directly. Always use {@link ScheduledTaskLocalServiceUtil} to access the scheduled task local service. Add custom service methods to <code>com.liferay.commerce.data.integration.manager.service.impl.ScheduledTaskLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link ScheduledTaskLocalServiceUtil} to access the scheduled task local service.
-	 *
-	 * @throws PortalException
-	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public ScheduledTask addScheduledTask(
 			long processId, String frequency, Date startDate, String startHour,

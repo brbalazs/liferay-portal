@@ -65,11 +65,21 @@ public class ProcessLocalServiceUtil {
 		return getService().addProcess(process, serviceContext);
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link ProcessLocalServiceUtil} to access the process local service.
-	 */
+	public static com.liferay.commerce.data.integration.manager.model.Process
+			addProcess(
+				String name, String className, String processType,
+				String version, String contextProperties,
+				long contextPropertiesFileEntryId, long srcArchiveFileEntryId,
+				boolean system,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addProcess(
+			name, className, processType, version, contextProperties,
+			contextPropertiesFileEntryId, srcArchiveFileEntryId, system,
+			serviceContext);
+	}
+
 	public static com.liferay.commerce.data.integration.manager.model.Process
 			addProcess(
 				String name, String className, String processType,
@@ -224,6 +234,12 @@ public class ProcessLocalServiceUtil {
 		fetchProcess(long processId) {
 
 		return getService().fetchProcess(processId);
+	}
+
+	public static com.liferay.commerce.data.integration.manager.model.Process
+		fetchProcess(long companyId, String name) {
+
+		return getService().fetchProcess(companyId, name);
 	}
 
 	/**

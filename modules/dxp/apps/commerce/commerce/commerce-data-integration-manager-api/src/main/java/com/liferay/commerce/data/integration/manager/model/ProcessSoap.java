@@ -50,6 +50,7 @@ public class ProcessSoap implements Serializable {
 			model.getContextPropertiesFileEntryId());
 		soapModel.setSrcArchiveFileEntryId(model.getSrcArchiveFileEntryId());
 		soapModel.setContextProperties(model.getContextProperties());
+		soapModel.setSystem(model.isSystem());
 
 		return soapModel;
 	}
@@ -225,6 +226,18 @@ public class ProcessSoap implements Serializable {
 		_contextProperties = contextProperties;
 	}
 
+	public boolean getSystem() {
+		return _system;
+	}
+
+	public boolean isSystem() {
+		return _system;
+	}
+
+	public void setSystem(boolean system) {
+		_system = system;
+	}
+
 	private String _uuid;
 	private long _processId;
 	private long _groupId;
@@ -240,5 +253,6 @@ public class ProcessSoap implements Serializable {
 	private long _contextPropertiesFileEntryId;
 	private long _srcArchiveFileEntryId;
 	private String _contextProperties;
+	private boolean _system;
 
 }

@@ -63,7 +63,7 @@ public class ProcessCacheModel implements CacheModel<Process>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(33);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -95,6 +95,8 @@ public class ProcessCacheModel implements CacheModel<Process>, Externalizable {
 		sb.append(srcArchiveFileEntryId);
 		sb.append(", contextProperties=");
 		sb.append(contextProperties);
+		sb.append(", system=");
+		sb.append(system);
 		sb.append("}");
 
 		return sb.toString();
@@ -176,6 +178,8 @@ public class ProcessCacheModel implements CacheModel<Process>, Externalizable {
 			processImpl.setContextProperties(contextProperties);
 		}
 
+		processImpl.setSystem(system);
+
 		processImpl.resetOriginalValues();
 
 		return processImpl;
@@ -204,6 +208,8 @@ public class ProcessCacheModel implements CacheModel<Process>, Externalizable {
 
 		srcArchiveFileEntryId = objectInput.readLong();
 		contextProperties = objectInput.readUTF();
+
+		system = objectInput.readBoolean();
 	}
 
 	@Override
@@ -271,6 +277,8 @@ public class ProcessCacheModel implements CacheModel<Process>, Externalizable {
 		else {
 			objectOutput.writeUTF(contextProperties);
 		}
+
+		objectOutput.writeBoolean(system);
 	}
 
 	public String uuid;
@@ -288,5 +296,6 @@ public class ProcessCacheModel implements CacheModel<Process>, Externalizable {
 	public long contextPropertiesFileEntryId;
 	public long srcArchiveFileEntryId;
 	public String contextProperties;
+	public boolean system;
 
 }

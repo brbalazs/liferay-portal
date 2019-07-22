@@ -44,13 +44,6 @@ public class ProcessServiceWrapper
 		return _processService.addProcess(process, serviceContext);
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link ProcessServiceUtil} to access the process remote service.
-	 *
-	 * @throws PortalException
-	 */
 	@Override
 	public com.liferay.commerce.data.integration.manager.model.Process
 			addProcess(

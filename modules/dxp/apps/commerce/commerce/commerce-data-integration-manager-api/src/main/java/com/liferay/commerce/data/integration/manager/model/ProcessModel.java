@@ -312,6 +312,27 @@ public interface ProcessModel
 	 */
 	public void setContextProperties(String contextProperties);
 
+	/**
+	 * Returns the system of this process.
+	 *
+	 * @return the system of this process
+	 */
+	public boolean getSystem();
+
+	/**
+	 * Returns <code>true</code> if this process is system.
+	 *
+	 * @return <code>true</code> if this process is system; <code>false</code> otherwise
+	 */
+	public boolean isSystem();
+
+	/**
+	 * Sets whether this process is system.
+	 *
+	 * @param system the system of this process
+	 */
+	public void setSystem(boolean system);
+
 	@Override
 	public boolean isNew();
 

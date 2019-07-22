@@ -48,13 +48,6 @@ public class HistoryLocalServiceWrapper
 		return _historyLocalService.addHistory(history);
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link HistoryLocalServiceUtil} to access the history local service.
-	 *
-	 * @throws PortalException
-	 */
 	@Override
 	public com.liferay.commerce.data.integration.manager.model.History
 			addHistory(

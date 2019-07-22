@@ -86,7 +86,7 @@ public class ProcessModelImpl
 		{"className", Types.VARCHAR}, {"processType", Types.VARCHAR},
 		{"contextPropertiesFileEntryId", Types.BIGINT},
 		{"srcArchiveFileEntryId", Types.BIGINT},
-		{"contextProperties", Types.CLOB}
+		{"contextProperties", Types.CLOB}, {"system", Types.BOOLEAN}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -108,10 +108,11 @@ public class ProcessModelImpl
 		TABLE_COLUMNS_MAP.put("contextPropertiesFileEntryId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("srcArchiveFileEntryId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("contextProperties", Types.CLOB);
+		TABLE_COLUMNS_MAP.put("system", Types.BOOLEAN);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Process (uuid_ VARCHAR(75) null,processId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,version VARCHAR(75) null,className VARCHAR(75) null,processType VARCHAR(75) null,contextPropertiesFileEntryId LONG,srcArchiveFileEntryId LONG,contextProperties TEXT null)";
+		"create table Process (uuid_ VARCHAR(75) null,processId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,version VARCHAR(75) null,className VARCHAR(75) null,processType VARCHAR(75) null,contextPropertiesFileEntryId LONG,srcArchiveFileEntryId LONG,contextProperties TEXT null,system BOOLEAN)";
 
 	public static final String TABLE_SQL_DROP = "drop table Process";
 
@@ -186,6 +187,7 @@ public class ProcessModelImpl
 			soapModel.getContextPropertiesFileEntryId());
 		model.setSrcArchiveFileEntryId(soapModel.getSrcArchiveFileEntryId());
 		model.setContextProperties(soapModel.getContextProperties());
+		model.setSystem(soapModel.isSystem());
 
 		return model;
 	}
@@ -644,6 +646,26 @@ public class ProcessModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"system",
+			new Function<Process, Object>() {
+
+				@Override
+				public Object apply(Process process) {
+					return process.getSystem();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"system",
+			new BiConsumer<Process, Object>() {
+
+				@Override
+				public void accept(Process process, Object system) {
+					process.setSystem((Boolean)system);
+				}
+
+			});
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -931,6 +953,23 @@ public class ProcessModelImpl
 		_contextProperties = contextProperties;
 	}
 
+	@JSON
+	@Override
+	public boolean getSystem() {
+		return _system;
+	}
+
+	@JSON
+	@Override
+	public boolean isSystem() {
+		return _system;
+	}
+
+	@Override
+	public void setSystem(boolean system) {
+		_system = system;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -957,7 +996,12 @@ public class ProcessModelImpl
 	@Override
 	public Process toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = _escapedModelProxyProviderFunction.apply(
+			Function<InvocationHandler, Process>
+				escapedModelProxyProviderFunction =
+					EscapedModelProxyProviderFunctionHolder.
+						_escapedModelProxyProviderFunction;
+
+			_escapedModel = escapedModelProxyProviderFunction.apply(
 				new AutoEscapeBeanHandler(this));
 		}
 
@@ -984,6 +1028,7 @@ public class ProcessModelImpl
 			getContextPropertiesFileEntryId());
 		processImpl.setSrcArchiveFileEntryId(getSrcArchiveFileEntryId());
 		processImpl.setContextProperties(getContextProperties());
+		processImpl.setSystem(isSystem());
 
 		processImpl.resetOriginalValues();
 
@@ -1157,6 +1202,8 @@ public class ProcessModelImpl
 			processCacheModel.contextProperties = null;
 		}
 
+		processCacheModel.system = isSystem();
+
 		return processCacheModel;
 	}
 
@@ -1223,8 +1270,12 @@ public class ProcessModelImpl
 		return sb.toString();
 	}
 
-	private static final Function<InvocationHandler, Process>
-		_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+	private static class EscapedModelProxyProviderFunctionHolder {
+
+		private static final Function<InvocationHandler, Process>
+			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+
+	}
 
 	private String _uuid;
 	private String _originalUuid;
@@ -1249,6 +1300,7 @@ public class ProcessModelImpl
 	private long _contextPropertiesFileEntryId;
 	private long _srcArchiveFileEntryId;
 	private String _contextProperties;
+	private boolean _system;
 	private long _columnBitmask;
 	private Process _escapedModel;
 

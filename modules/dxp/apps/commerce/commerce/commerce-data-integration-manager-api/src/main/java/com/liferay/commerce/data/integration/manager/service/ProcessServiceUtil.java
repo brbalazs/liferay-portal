@@ -50,13 +50,6 @@ public class ProcessServiceUtil {
 		return getService().addProcess(process, serviceContext);
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link ProcessServiceUtil} to access the process remote service.
-	 *
-	 * @throws PortalException
-	 */
 	public static com.liferay.commerce.data.integration.manager.model.Process
 			addProcess(
 				String name, String className, String processType,

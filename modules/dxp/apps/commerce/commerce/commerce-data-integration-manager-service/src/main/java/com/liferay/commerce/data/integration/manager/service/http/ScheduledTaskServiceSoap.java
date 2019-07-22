@@ -64,11 +64,6 @@ import java.rmi.RemoteException;
 @ProviderType
 public class ScheduledTaskServiceSoap {
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link ScheduledTaskServiceUtil} to access the scheduled task remote service.
-	 */
 	public static
 		com.liferay.commerce.data.integration.manager.model.ScheduledTaskSoap
 				addScheduledTask(

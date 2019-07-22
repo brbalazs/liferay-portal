@@ -74,6 +74,7 @@ public class ProcessWrapper implements Process, ModelWrapper<Process> {
 			"contextPropertiesFileEntryId", getContextPropertiesFileEntryId());
 		attributes.put("srcArchiveFileEntryId", getSrcArchiveFileEntryId());
 		attributes.put("contextProperties", getContextProperties());
+		attributes.put("system", isSystem());
 
 		return attributes;
 	}
@@ -170,6 +171,12 @@ public class ProcessWrapper implements Process, ModelWrapper<Process> {
 
 		if (contextProperties != null) {
 			setContextProperties(contextProperties);
+		}
+
+		Boolean system = (Boolean)attributes.get("system");
+
+		if (system != null) {
+			setSystem(system);
 		}
 	}
 
@@ -314,6 +321,16 @@ public class ProcessWrapper implements Process, ModelWrapper<Process> {
 	}
 
 	/**
+	 * Returns the system of this process.
+	 *
+	 * @return the system of this process
+	 */
+	@Override
+	public boolean getSystem() {
+		return _process.getSystem();
+	}
+
+	/**
 	 * Returns the user ID of this process.
 	 *
 	 * @return the user ID of this process
@@ -381,6 +398,16 @@ public class ProcessWrapper implements Process, ModelWrapper<Process> {
 	@Override
 	public boolean isNew() {
 		return _process.isNew();
+	}
+
+	/**
+	 * Returns <code>true</code> if this process is system.
+	 *
+	 * @return <code>true</code> if this process is system; <code>false</code> otherwise
+	 */
+	@Override
+	public boolean isSystem() {
+		return _process.isSystem();
 	}
 
 	@Override
@@ -540,6 +567,16 @@ public class ProcessWrapper implements Process, ModelWrapper<Process> {
 	@Override
 	public void setSrcArchiveFileEntryId(long srcArchiveFileEntryId) {
 		_process.setSrcArchiveFileEntryId(srcArchiveFileEntryId);
+	}
+
+	/**
+	 * Sets whether this process is system.
+	 *
+	 * @param system the system of this process
+	 */
+	@Override
+	public void setSystem(boolean system) {
+		_process.setSystem(system);
 	}
 
 	/**

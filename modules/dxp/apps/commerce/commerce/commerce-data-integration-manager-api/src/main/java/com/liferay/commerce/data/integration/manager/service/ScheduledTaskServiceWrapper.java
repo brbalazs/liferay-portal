@@ -35,11 +35,6 @@ public class ScheduledTaskServiceWrapper
 		_scheduledTaskService = scheduledTaskService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link ScheduledTaskServiceUtil} to access the scheduled task remote service.
-	 */
 	@Override
 	public com.liferay.commerce.data.integration.manager.model.ScheduledTask
 			addScheduledTask(

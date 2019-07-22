@@ -90,13 +90,6 @@ public class ProcessServiceSoap {
 		}
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link ProcessServiceUtil} to access the process remote service.
-	 *
-	 * @throws PortalException
-	 */
 	public static
 		com.liferay.commerce.data.integration.manager.model.ProcessSoap
 				addProcess(

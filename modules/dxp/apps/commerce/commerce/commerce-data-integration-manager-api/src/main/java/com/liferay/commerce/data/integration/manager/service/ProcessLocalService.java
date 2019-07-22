@@ -79,12 +79,14 @@ public interface ProcessLocalService
 	public Process addProcess(Process process, ServiceContext serviceContext)
 		throws PortalException;
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link ProcessLocalServiceUtil} to access the process local service.
-	 */
 	@Indexable(type = IndexableType.REINDEX)
+	public Process addProcess(
+			String name, String className, String processType, String version,
+			String contextProperties, long contextPropertiesFileEntryId,
+			long srcArchiveFileEntryId, boolean system,
+			ServiceContext serviceContext)
+		throws PortalException;
+
 	public Process addProcess(
 			String name, String className, String processType, String version,
 			String contextProperties, long contextPropertiesFileEntryId,
@@ -195,6 +197,9 @@ public interface ProcessLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Process fetchProcess(long processId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Process fetchProcess(long companyId, String name);
 
 	/**
 	 * Returns the process matching the UUID and group.

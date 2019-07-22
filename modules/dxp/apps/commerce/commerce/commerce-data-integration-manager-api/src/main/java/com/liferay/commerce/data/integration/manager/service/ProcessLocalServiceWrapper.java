@@ -59,11 +59,22 @@ public class ProcessLocalServiceWrapper
 		return _processLocalService.addProcess(process, serviceContext);
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link ProcessLocalServiceUtil} to access the process local service.
-	 */
+	@Override
+	public com.liferay.commerce.data.integration.manager.model.Process
+			addProcess(
+				String name, String className, String processType,
+				String version, String contextProperties,
+				long contextPropertiesFileEntryId, long srcArchiveFileEntryId,
+				boolean system,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _processLocalService.addProcess(
+			name, className, processType, version, contextProperties,
+			contextPropertiesFileEntryId, srcArchiveFileEntryId, system,
+			serviceContext);
+	}
+
 	@Override
 	public com.liferay.commerce.data.integration.manager.model.Process
 			addProcess(
@@ -227,6 +238,13 @@ public class ProcessLocalServiceWrapper
 		fetchProcess(long processId) {
 
 		return _processLocalService.fetchProcess(processId);
+	}
+
+	@Override
+	public com.liferay.commerce.data.integration.manager.model.Process
+		fetchProcess(long companyId, String name) {
+
+		return _processLocalService.fetchProcess(companyId, name);
 	}
 
 	/**

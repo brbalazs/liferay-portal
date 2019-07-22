@@ -76,13 +76,6 @@ public interface HistoryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public History addHistory(History history);
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link HistoryLocalServiceUtil} to access the history local service.
-	 *
-	 * @throws PortalException
-	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public History addHistory(
 			long userId, long scheduledTaskId, String executionType,
