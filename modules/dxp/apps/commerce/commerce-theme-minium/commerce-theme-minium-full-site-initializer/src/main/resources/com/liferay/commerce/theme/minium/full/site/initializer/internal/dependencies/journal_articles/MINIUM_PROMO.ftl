@@ -1,7 +1,6 @@
 <style>
 	.banner-content-preview {
 		display: flex;
-		font-family: 'Roboto, sans-serif';
 	}
 
 	.minium .banner-content-section {
@@ -10,7 +9,6 @@
 		height: 100%;
 		padding: 5% 56px 56px;
 		width: 100%;
-
 	}
 
 	.banner-content-preview .banner-content-section .minium-h1.content-preview-title {
@@ -42,7 +40,7 @@
 
 	.minium .banner-content-setion .minium-cta-button {
 		color: #FFFFFF;
-		cursor: pointer''
+		cursor: pointer;
 		font-size: 10px;
 		line-height: 10px;
 		letter-spacing: 1px;
