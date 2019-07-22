@@ -23,10 +23,8 @@ ConfigurationEntryRetriever configurationEntryRetriever = (ConfigurationEntryRet
 ConfigurationModelIterator configurationModelIterator = (ConfigurationModelIterator)request.getAttribute(ConfigurationAdminWebKeys.CONFIGURATION_MODEL_ITERATOR);
 ResourceBundleLoaderProvider resourceBundleLoaderProvider = (ResourceBundleLoaderProvider)request.getAttribute(ConfigurationAdminWebKeys.RESOURCE_BUNDLE_LOADER_PROVIDER);
 
-PortletURL portletURL = renderResponse.createRenderURL();
-
 if (redirect == null) {
-	redirect = portletURL.toString();
+	redirect = renderResponse.createRenderURL();
 }
 
 portletDisplay.setShowBackIcon(true);
