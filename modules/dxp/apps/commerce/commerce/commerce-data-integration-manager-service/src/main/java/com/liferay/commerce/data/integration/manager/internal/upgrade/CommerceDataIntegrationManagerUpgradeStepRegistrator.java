@@ -15,6 +15,7 @@
 package com.liferay.commerce.data.integration.manager.internal.upgrade;
 
 import com.liferay.commerce.data.integration.manager.internal.upgrade.v1_1_0.ProcessUpgradeProcess;
+import com.liferay.commerce.data.integration.manager.internal.upgrade.v1_2_0.ProcessSystemUpgradeProcess;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
@@ -23,6 +24,7 @@ import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Riccardo Ferrari
+ * @author Alessio Antonio Rendina
  */
 @Component(immediate = true, service = UpgradeStepRegistrator.class)
 public class CommerceDataIntegrationManagerUpgradeStepRegistrator
@@ -40,6 +42,10 @@ public class CommerceDataIntegrationManagerUpgradeStepRegistrator
 			_SCHEMA_VERSION_1_0_0, _SCHEMA_VERSION_1_1_0,
 			new ProcessUpgradeProcess());
 
+		registry.register(
+			_SCHEMA_VERSION_1_1_0, _SCHEMA_VERSION_1_2_0,
+			new ProcessSystemUpgradeProcess());
+
 		if (_log.isInfoEnabled()) {
 			_log.info(
 				"COMMERCE DATA INTEGRATION MANAGER UPGRADE STEP REGISTRATOR " +
@@ -50,6 +56,8 @@ public class CommerceDataIntegrationManagerUpgradeStepRegistrator
 	private static final String _SCHEMA_VERSION_1_0_0 = "1.0.0";
 
 	private static final String _SCHEMA_VERSION_1_1_0 = "1.1.0";
+
+	private static final String _SCHEMA_VERSION_1_2_0 = "1.2.0";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceDataIntegrationManagerUpgradeStepRegistrator.class);
