@@ -36,6 +36,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Riccardo Ferrari
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -64,13 +65,20 @@ public class TalendJobJSPContributor implements ProcessTypeJSPContributor {
 			contextFileEntryId = contextFileEntry.getFileEntryId();
 		}
 
-		archiveFileEntry =
-			_dataIntegrationProcessFileEntryUploadActionHelper.upload(
-				actionRequest, "srcArchive");
+		if (process.isSystem()) {
+			process.setClassName(process.getClassName());
+			process.setSrcArchiveFileEntryId(
+				process.getSrcArchiveFileEntryId());
+		}
+		else {
+			archiveFileEntry =
+				_dataIntegrationProcessFileEntryUploadActionHelper.upload(
+					actionRequest, "srcArchive");
 
-		process.setClassName(className);
+			process.setClassName(className);
 
-		process.setSrcArchiveFileEntryId(archiveFileEntry.getFileEntryId());
+			process.setSrcArchiveFileEntryId(archiveFileEntry.getFileEntryId());
+		}
 
 		process.setContextPropertiesFileEntryId(contextFileEntryId);
 

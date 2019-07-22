@@ -26,6 +26,10 @@ Process process = dataIntegrationProcessActionHelper.getProcess(request);
 	<aui:model-context bean="<%= process %>" model="<%= Process.class %>" />
 </c:if>
 
-<aui:input name="className" />
+<aui:input disabled="<%= (process != null) && process.isSystem() %>" name="className" />
+
 <aui:input name="contextProperties" type="file" />
-<aui:input name="srcArchive" required="<%= true %>" type="file" />
+
+<c:if test="<%= (process == null) || !process.isSystem() %>">
+	<aui:input name="srcArchive" required="<%= true %>" type="file" />
+</c:if>
