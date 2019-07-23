@@ -1800,7 +1800,7 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 		while (iterator.hasNext()) {
 			Bundle bundle = iterator.next();
 
-			if (_configurationNames.contains(bundle.getSymbolicName())) {
+			if (_configurationBundleSymbolicNames.contains(bundle.getSymbolicName())) {
 				bundle.start();
 
 				iterator.remove();
@@ -1945,8 +1945,9 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 	private static final Log _log = LogFactoryUtil.getLog(
 		ModuleFrameworkImpl.class);
 
-	private static final List<String> _configurationNames = Arrays.asList(
-		PropsValues.MODULE_FRAMEWORK_CONFIGURATION_BUNDLE_SYMBOLIC_NAMES);
+	private static final List<String> _configurationBundleSymbolicNames =
+		Arrays.asList(
+			PropsValues.MODULE_FRAMEWORK_CONFIGURATION_BUNDLE_SYMBOLIC_NAMES);
 
 	private Framework _framework;
 	private final Map<ApplicationContext, List<ServiceRegistration<?>>>
