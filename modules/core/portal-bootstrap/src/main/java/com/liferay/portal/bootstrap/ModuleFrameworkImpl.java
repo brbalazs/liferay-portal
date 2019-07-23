@@ -1947,8 +1947,7 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 		ModuleFrameworkImpl.class);
 
 	private static final List<String> _configurationNames = Arrays.asList(
-		StringUtil.split(
-			System.getProperty("configuration.bundle.symbolic.names")));
+		PropsValues.MODULE_FRAMEWORK_CONFIGURATION_BUNDLE_SYMBOLIC_NAMES);
 
 	private Framework _framework;
 	private final Map<ApplicationContext, List<ServiceRegistration<?>>>
