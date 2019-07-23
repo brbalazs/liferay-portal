@@ -328,14 +328,14 @@ public class JournalDisplayContext {
 			new SearchContainer(_liferayPortletRequest, portletURL, null, null);
 
 		articleTranslationsSearchContainer.setId("articleTranslations");
-
-		JournalArticle article = getArticle();
-
-		String[] availableLanguageIds = article.getAvailableLanguageIds();
+		articleTranslationsSearchContainer.setRowChecker(
+			new JournalArticleTranslationRowChecker(_liferayPortletResponse));
 
 		List<JournalArticleTranslation> articleTranslations = new ArrayList<>();
 
-		for (String languageId : availableLanguageIds) {
+		JournalArticle article = getArticle();
+
+		for (String languageId : article.getAvailableLanguageIds()) {
 			JournalArticleTranslation articleTranslation =
 				new JournalArticleTranslation(
 					StringUtil.equalsIgnoreCase(
@@ -375,9 +375,6 @@ public class JournalDisplayContext {
 		articleTranslationsSearchContainer.setResults(articleTranslations);
 
 		articleTranslationsSearchContainer.setTotal(totalCount);
-
-		articleTranslationsSearchContainer.setRowChecker(
-			new JournalArticleTranslationRowChecker(_liferayPortletResponse));
 
 		_articleTranslationsSearchContainer =
 			articleTranslationsSearchContainer;
