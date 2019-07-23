@@ -86,6 +86,7 @@ import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.portlet.PortletRequestModel;
 import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
+import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
@@ -131,6 +132,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
@@ -314,8 +317,17 @@ public class JournalDisplayContext {
 			return _translationsSearchContainer;
 		}
 
+		PortletURL portletURL = PortletURLUtil.clone(
+			PortletURLUtil.getCurrent(
+				_liferayPortletRequest, _liferayPortletResponse),
+			_liferayPortletResponse);
+
+		portletURL.setParameter("mvcPath", "/delete_translations.jsp");
+
 		SearchContainer translationsSearchContainer = new SearchContainer(
-			_liferayPortletRequest, getPortletURL(), null, null);
+			_liferayPortletRequest, portletURL, null, null);
+
+		translationsSearchContainer.setId("articleTranslations");
 
 		JournalArticle article = getArticle();
 
@@ -334,12 +346,41 @@ public class JournalDisplayContext {
 			journalArticleTranslations.add(journalArticleTranslation);
 		}
 
+		String keywords = getKeywords();
+
+		Stream<JournalArticleTranslation> stream =
+			journalArticleTranslations.stream();
+
+		if (Validator.isNotNull(keywords)) {
+			journalArticleTranslations = stream.filter(
+				journalArticleTranslation -> StringUtil.containsIgnoreCase(
+					LocaleUtil.getLongDisplayName(
+						journalArticleTranslation.getLocale(),
+						Collections.emptySet()),
+					keywords, StringPool.BLANK)
+			).collect(
+				Collectors.toList()
+			);
+
+			stream = journalArticleTranslations.stream();
+		}
+
+		int totalCount = journalArticleTranslations.size();
+
+		journalArticleTranslations = stream.skip(
+			translationsSearchContainer.getStart()
+		).limit(
+			translationsSearchContainer.getDelta()
+		).collect(
+			Collectors.toList()
+		);
+
 		translationsSearchContainer.setResults(journalArticleTranslations);
+
+		translationsSearchContainer.setTotal(totalCount);
 
 		translationsSearchContainer.setRowChecker(
 			new JournalArticleTranslationRowChecker(_liferayPortletResponse));
-
-		translationsSearchContainer.setTotal(availableLanguageIds.length);
 
 		_translationsSearchContainer = translationsSearchContainer;
 
