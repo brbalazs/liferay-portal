@@ -1,8 +1,8 @@
 components:
     parameters:
         idPathParam:
-            explode: false
             in: path
+            explode: false
             name: id
             required: true
             schema:
@@ -13,8 +13,8 @@ components:
                 type: integer
             style: simple
         keywordsQueryParam:
-            explode: true
             in: query
+            explode: true
             name: q
             required: false
             schema:
@@ -327,8 +327,8 @@ paths:
         post:
             operationId: postAreaIdSpot
             parameters:
-                - explode: false
-                  in: path
+                - in: path
+                  explode: false
                   name: id
                   required: true
                   schema:
@@ -398,8 +398,8 @@ paths:
         delete:
             operationId: deleteAreaIdSpot
             parameters:
-                - explode: false
-                  in: path
+                - in: path
+                  explode: false
                   name: id
                   required: true
                   schema:
@@ -409,8 +409,8 @@ paths:
                       minimum: 0
                       type: integer
                   style: simple
-                - explode: false
-                  in: path
+                - in: path
+                  explode: false
                   name: spotId
                   required: true
                   schema:
@@ -443,8 +443,8 @@ paths:
         put:
             operationId: putAreaIdSpot
             parameters:
-                - explode: false
-                  in: path
+                - in: path
+                  explode: false
                   name: id
                   required: true
                   schema:
@@ -454,8 +454,8 @@ paths:
                       minimum: 0
                       type: integer
                   style: simple
-                - explode: false
-                  in: path
+                - in: path
+                  explode: false
                   name: spotId
                   required: true
                   schema:
@@ -518,8 +518,8 @@ paths:
         get:
             operationId: getArea
             parameters:
-                - explode: false
-                  in: path
+                - in: path
+                  explode: false
                   name: id
                   required: true
                   schema:
@@ -580,8 +580,8 @@ paths:
         get:
             operationId: getFolder
             parameters:
-                - explode: false
-                  in: path
+                - in: path
+                  explode: false
                   name: id
                   required: true
                   schema:
@@ -642,8 +642,8 @@ paths:
         get:
             operationId: getProductsPage
             parameters:
-                - explode: true
-                  in: query
+                - in: query
+                  explode: true
                   name: q
                   required: false
                   schema:
