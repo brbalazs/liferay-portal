@@ -83,7 +83,9 @@ public interface SamlIdpSpConnectionLocalService
 		throws PortalException;
 
 	/**
-	 * @deprecated As of Judson (7.1.x)
+	 * @deprecated As of Judson (7.1.x), replaced by {@link
+	 #addSamlIdpSpConnection(String, int, String, boolean, boolean, boolean,
+	 boolean, String, InputStream, String, String, String, ServiceContext)}
 	 */
 	@Deprecated
 	public SamlIdpSpConnection addSamlIdpSpConnection(
@@ -291,7 +293,10 @@ public interface SamlIdpSpConnectionLocalService
 		throws PortalException;
 
 	/**
-	 * @deprecated As of Judson (7.1.x)
+	 * @deprecated As of Judson (7.1.x), replaced by {@link
+	 #updateSamlIdpSpConnection(long, String, int, String, boolean, boolean,
+	 boolean, boolean, String, InputStream, String, String, String,
+	 ServiceContext)}
 	 */
 	@Deprecated
 	public SamlIdpSpConnection updateSamlIdpSpConnection(
