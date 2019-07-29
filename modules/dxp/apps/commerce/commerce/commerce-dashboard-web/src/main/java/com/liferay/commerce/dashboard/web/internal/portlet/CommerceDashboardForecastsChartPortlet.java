@@ -14,29 +14,16 @@
 
 package com.liferay.commerce.dashboard.web.internal.portlet;
 
-import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.dashboard.web.internal.constants.CommerceDashboardPortletKeys;
-import com.liferay.commerce.dashboard.web.internal.display.context.CommerceDashboardForecastsChartDisplayContext;
-import com.liferay.commerce.forecast.service.CommerceForecastEntryLocalService;
-import com.liferay.commerce.forecast.service.CommerceForecastValueLocalService;
-import com.liferay.commerce.product.service.CPInstanceService;
-import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.portal.kernel.service.CompanyService;
-import com.liferay.portal.kernel.util.WebKeys;
-
-import java.io.IOException;
 
 import javax.portlet.Portlet;
-import javax.portlet.PortletException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Andrea Di Giorgi
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -52,7 +39,7 @@ import org.osgi.service.component.annotations.Reference;
 		"com.liferay.portlet.render-weight=50",
 		"javax.portlet.display-name=Commerce Dashboard Forecasts Chart",
 		"javax.portlet.expiration-cache=0",
-		"javax.portlet.init-param.view-template=/forecasts_chart/view.jsp",
+		"javax.portlet.init-param.view-template=/view.jsp",
 		"javax.portlet.name=" + CommerceDashboardPortletKeys.COMMERCE_DASHBOARD_FORECASTS_CHART,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user",
@@ -61,51 +48,4 @@ import org.osgi.service.component.annotations.Reference;
 	service = {CommerceDashboardForecastsChartPortlet.class, Portlet.class}
 )
 public class CommerceDashboardForecastsChartPortlet extends MVCPortlet {
-
-	@Override
-	public void render(
-			RenderRequest renderRequest, RenderResponse renderResponse)
-		throws IOException, PortletException {
-
-		try {
-			CommerceDashboardForecastsChartDisplayContext
-				commerceDashboardForecastsChartDisplayContext =
-					new CommerceDashboardForecastsChartDisplayContext(
-						_commerceForecastEntryLocalService,
-						_commerceForecastValueLocalService,
-						_commerceAccountService, _companyService,
-						_configurationProvider, _cpInstanceService,
-						renderRequest);
-
-			renderRequest.setAttribute(
-				WebKeys.PORTLET_DISPLAY_CONTEXT,
-				commerceDashboardForecastsChartDisplayContext);
-
-			super.render(renderRequest, renderResponse);
-		}
-		catch (Exception e) {
-			throw new PortletException(e);
-		}
-	}
-
-	@Reference
-	private CommerceAccountService _commerceAccountService;
-
-	@Reference
-	private CommerceForecastEntryLocalService
-		_commerceForecastEntryLocalService;
-
-	@Reference
-	private CommerceForecastValueLocalService
-		_commerceForecastValueLocalService;
-
-	@Reference
-	private CompanyService _companyService;
-
-	@Reference
-	private ConfigurationProvider _configurationProvider;
-
-	@Reference
-	private CPInstanceService _cpInstanceService;
-
 }

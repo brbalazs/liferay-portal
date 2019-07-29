@@ -1,4 +1,3 @@
-<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -12,15 +11,17 @@
  *
  *
  */
---%>
 
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
+package com.liferay.commerce.dashboard.web.internal.constants;
 
-<%@ taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %><%@
-taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
+/**
+ * @author Andrea Di Giorgi
+ * @author Alessio Antonio Rendina
+ */
+public class CommerceDashboardPortletKeys {
 
-<liferay-frontend:defineObjects />
+	public static final String COMMERCE_DASHBOARD_FORECASTS_CHART =
+		"com_liferay_commerce_dashboard_web_internal_portlet_" +
+			"CommerceDashboardForecastsChartPortlet";
 
-<liferay-theme:defineObjects />
-
-<portlet:defineObjects />
+}

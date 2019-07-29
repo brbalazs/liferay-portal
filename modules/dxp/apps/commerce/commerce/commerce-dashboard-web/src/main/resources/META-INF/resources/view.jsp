@@ -15,23 +15,3 @@
 --%>
 
 <%@ include file="/init.jsp" %>
-
-<%
-CommerceDashboardForecastsChartDisplayContext commerceDashboardForecastsChartDisplayContext = (CommerceDashboardForecastsChartDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-
-PredictiveChartConfig predictiveChartConfig = commerceDashboardForecastsChartDisplayContext.getPredictiveChartConfig();
-%>
-
-<c:choose>
-	<c:when test="<%= predictiveChartConfig != null %>">
-		<chart:predictive
-			config="<%= predictiveChartConfig %>"
-		/>
-	</c:when>
-	<c:otherwise>
-		<clay:alert
-			message='<%= LanguageUtil.get(request, "not-enough-data-is-available-to-display-this-chart") %>'
-			title="Info"
-		/>
-	</c:otherwise>
-</c:choose>
