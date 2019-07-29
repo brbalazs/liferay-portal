@@ -27,3 +27,8 @@
 # Bundle Version 1.0.6
 #
 b1ef55132b68e5c2e34ef0dc486ba11231a40101^..d19b3c1b52d4c81a924da7a0ed0dc13d11712fe9=RELEASE-1366
+
+#
+# Bundle Version 1.0.8
+#
+d19b3c1b52d4c81a924da7a0ed0dc13d11712fe9^..7aee499cfff25a292b76cba68bd702b91a12915b=COMMERCE-1659
