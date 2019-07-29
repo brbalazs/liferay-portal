@@ -1,8 +1,0 @@
-Bundle-Name: Liferay Commerce Forecast API
-Bundle-SymbolicName: com.liferay.commerce.forecast.api
-Bundle-Version: 1.0.6
-Export-Package:\
-	com.liferay.commerce.forecast.exception,\
-	com.liferay.commerce.forecast.model,\
-	com.liferay.commerce.forecast.service,\
-	com.liferay.commerce.forecast.service.persistence
