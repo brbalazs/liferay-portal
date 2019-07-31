@@ -15,7 +15,7 @@
 		"lastName": "Smith",
 		"male": true,
 		"password": "test",
-		"portrait": "purple-5.png",
+		"portrait": "purple_5.png",
 		"screenName": "mike.smith"
 	},
 	{
@@ -36,7 +36,7 @@
 		"lastName": "Collins",
 		"male": false,
 		"password": "test",
-		"portrait": "purple-6.png",
+		"portrait": "purple_6.png",
 		"screenName": "brenda.collins"
 	},
 	{
@@ -57,7 +57,7 @@
 		"lastName": "Moretti",
 		"male": true,
 		"password": "test",
-		"portrait": "green-4.png",
+		"portrait": "green_4.png",
 		"screenName": "roberto.moretti"
 	},
 	{
@@ -71,7 +71,7 @@
 			"United States"
 		],
 		"password": "test",
-		"portrait": "blue-7.png",
+		"portrait": "blue_7.png",
 		"roles": [
 			"Buyer",
 			"Sales Agent",
@@ -93,7 +93,7 @@
 			"Minium"
 		],
 		"password": "test",
-		"portrait": "blue-1.png",
+		"portrait": "blue_1.png",
 		"screenName": "jason.lee"
 	},
 	{
@@ -107,7 +107,7 @@
 			"Minium"
 		],
 		"password": "test",
-		"portrait": "blue-2.png",
+		"portrait": "blue_2.png",
 		"roles": [
 			"Administrator"
 		],

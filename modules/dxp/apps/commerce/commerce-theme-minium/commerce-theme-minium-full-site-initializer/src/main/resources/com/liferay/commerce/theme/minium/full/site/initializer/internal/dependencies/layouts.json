@@ -1,6 +1,6 @@
 [
 	{
-		"icon": "icon-dashboard.png",
+		"icon": "icon_dashboard.png",
 		"layoutTemplateId": "1_column",
 		"name": "Dashboard",
 		"portlets": [
@@ -23,7 +23,7 @@
 		"privateLayout": true
 	},
 	{
-		"icon": "icon-catalog.png",
+		"icon": "icon_catalog.png",
 		"layoutTemplateId": "minium_sidebar",
 		"name": "Catalog",
 		"portlets": [
@@ -98,7 +98,7 @@
 		"privateLayout": true
 	},
 	{
-		"icon": "icon-orders.png",
+		"icon": "icon_orders.png",
 		"layoutTemplateId": "1_column",
 		"name": "Pending Orders",
 		"portlets": [
@@ -111,7 +111,7 @@
 		"privateLayout": true
 	},
 	{
-		"icon": "icon-orders.png",
+		"icon": "icon_orders.png",
 		"layoutTemplateId": "1_column",
 		"name": "Placed Orders",
 		"portlets": [
@@ -144,7 +144,7 @@
 		"privateLayout": true
 	},
 	{
-		"icon": "icon-account-management.png",
+		"icon": "icon_account_management.png",
 		"layoutTemplateId": "1_column",
 		"name": "Account Management",
 		"portlets": [
@@ -157,7 +157,7 @@
 		"privateLayout": true
 	},
 	{
-		"icon": "icon-product-defect.png",
+		"icon": "icon_product_defect.png",
 		"layoutTemplateId": "1_column",
 		"name": "Report Product Defect",
 		"portlets": [
@@ -170,7 +170,7 @@
 		"privateLayout": true
 	},
 	{
-		"icon": "icon-kb-articles.png",
+		"icon": "icon_kb_articles.png",
 		"layoutTemplateId": "1_column",
 		"name": "Knowledge Base",
 		"portlets": [
@@ -183,7 +183,7 @@
 		"privateLayout": true
 	},
 	{
-		"icon": "icon-sales-library.png",
+		"icon": "icon_sales_library.png",
 		"layoutTemplateId": "1_column",
 		"name": "Sales Library",
 		"permissions": [

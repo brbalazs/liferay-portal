@@ -73,7 +73,7 @@ components:
                           name: Product 1
                           price: $ 12.99
                           sku: SKU01
-                          thumbnailUrl: /product-thumbnail.png
+                          thumbnailUrl: /product_thumbnail.png
                           url: /productUrl
                     items:
                         $ref: '#/components/schemas/Product'
@@ -211,7 +211,7 @@ components:
                           name: Product 1
                           price: $ 12.99
                           sku: SKU01
-                          thumbnailUrl: /product-thumbnail.png
+                          thumbnailUrl: /product_thumbnail.png
                           url: /productUrl
                     items:
                         $ref: '#/components/schemas/Product'
@@ -267,7 +267,7 @@ components:
                     example: SKU01
                     type: string
                 thumbnailUrl:
-                    example: /product-thumbnail.jpg
+                    example: /product_thumbnail.jpg
                     type: string
                 url:
                     example: /productUrl
