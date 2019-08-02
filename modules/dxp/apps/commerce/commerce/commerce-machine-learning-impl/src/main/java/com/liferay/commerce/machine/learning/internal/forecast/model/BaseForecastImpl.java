@@ -14,6 +14,8 @@
 
 package com.liferay.commerce.machine.learning.internal.forecast.model;
 
+import com.liferay.commerce.machine.learning.forecast.model.Forecast;
+
 import java.util.Date;
 
 /**

@@ -14,9 +14,9 @@
 
 package com.liferay.commerce.machine.learning.internal.forecast;
 
-import com.liferay.commerce.machine.learning.internal.forecast.api.CommerceForecastField;
-import com.liferay.commerce.machine.learning.internal.forecast.api.ForecastPeriod;
-import com.liferay.commerce.machine.learning.internal.forecast.model.Forecast;
+import com.liferay.commerce.machine.learning.forecast.constants.ForecastPeriod;
+import com.liferay.commerce.machine.learning.forecast.model.Forecast;
+import com.liferay.commerce.machine.learning.internal.forecast.constants.CommerceForecastField;
 import com.liferay.commerce.machine.learning.internal.search.api.CommerceIndexer;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;

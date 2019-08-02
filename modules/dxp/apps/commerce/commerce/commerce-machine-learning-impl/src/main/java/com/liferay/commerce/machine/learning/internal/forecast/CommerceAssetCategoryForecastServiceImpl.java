@@ -14,11 +14,11 @@
 
 package com.liferay.commerce.machine.learning.internal.forecast;
 
-import com.liferay.commerce.machine.learning.internal.forecast.api.CommerceAssetCategoryForecastService;
-import com.liferay.commerce.machine.learning.internal.forecast.api.ForecastLevel;
-import com.liferay.commerce.machine.learning.internal.forecast.api.ForecastPeriod;
-import com.liferay.commerce.machine.learning.internal.forecast.api.ForecastTarget;
-import com.liferay.commerce.machine.learning.internal.forecast.model.AssetCategoryForecast;
+import com.liferay.commerce.machine.learning.forecast.constants.ForecastLevel;
+import com.liferay.commerce.machine.learning.forecast.constants.ForecastPeriod;
+import com.liferay.commerce.machine.learning.forecast.constants.ForecastTarget;
+import com.liferay.commerce.machine.learning.forecast.model.AssetCategoryForecast;
+import com.liferay.commerce.machine.learning.forecast.service.CommerceAssetCategoryForecastService;
 import com.liferay.commerce.machine.learning.internal.forecast.model.AssetCategoryForecastImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
