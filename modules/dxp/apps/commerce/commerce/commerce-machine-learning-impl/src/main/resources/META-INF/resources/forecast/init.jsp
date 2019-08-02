@@ -16,7 +16,7 @@
 
 <%@ include file="/init.jsp" %>
 
-<%@ page import="com.liferay.commerce.machine.learning.internal.forecast.api.ForecastLevel" %><%@
-page import="com.liferay.commerce.machine.learning.internal.forecast.api.ForecastPeriod" %><%@
-page import="com.liferay.commerce.machine.learning.internal.forecast.api.ForecastTarget" %><%@
+<%@ page import="com.liferay.commerce.machine.learning.forecast.constants.ForecastLevel" %><%@
+page import="com.liferay.commerce.machine.learning.forecast.constants.ForecastPeriod" %><%@
+page import="com.liferay.commerce.machine.learning.forecast.constants.ForecastTarget" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %>
