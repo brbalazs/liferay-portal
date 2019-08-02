@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.commerce.machine.learning.internal.forecast.api;
+package com.liferay.commerce.machine.learning.forecast.constants;
 
 /**
  * @author Riccardo Ferrari

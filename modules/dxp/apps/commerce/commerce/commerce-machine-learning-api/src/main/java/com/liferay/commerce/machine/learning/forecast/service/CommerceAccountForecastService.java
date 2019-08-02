@@ -12,9 +12,9 @@
  *
  */
 
-package com.liferay.commerce.machine.learning.internal.forecast.api;
+package com.liferay.commerce.machine.learning.forecast.service;
 
-import com.liferay.commerce.machine.learning.internal.forecast.model.CommerceAccountForecast;
+import com.liferay.commerce.machine.learning.forecast.model.CommerceAccountForecast;
 import com.liferay.portal.kernel.exception.PortalException;
 
 import java.util.List;
