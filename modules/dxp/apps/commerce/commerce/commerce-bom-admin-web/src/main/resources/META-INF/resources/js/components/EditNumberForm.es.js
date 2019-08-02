@@ -1,7 +1,6 @@
 import React, { useState, useContext, useMemo } from 'react';
 
 import { StoreContext } from './StoreContext.es';
-import LocalizedText, {convertString} from './utilities/LocalizedText.es';
 import Icon from './utilities/Icon.es';
 import HighlightedText from './utilities/HighlightedText.es';
 
@@ -85,7 +84,7 @@ const EditNumberForm = React.memo((props) => {
 	const formData = state.area.spotFormData || {};
 	const position = formData.position || {};
 	const [dropdownDisabled, disableDropdown] = useState(false);
-	const inputPlaceholder = convertString('search-for-product-name-or-sku');
+	const inputPlaceholder = Liferay.Language.get('search-for-product-name-or-sku');
 
 	function isNumberAlreadyAdded(number) {
 		return state.area.spots.reduce(
@@ -241,14 +240,12 @@ const EditNumberForm = React.memo((props) => {
 					<div className="panel-body">
 						<div className="form-group">
 							<label htmlFor="edit-number-form__input-number">
-								<LocalizedText desc="Number">
-									number
-								</LocalizedText>
+								{Liferay.Language.get('number')}
 							</label>
 							<input
 								className="form-control"
 								id="edit-number-form__input-number"
-								placeholder={convertString('select-number')}
+								placeholder={Liferay.Language.get('select-number')}
 								type="number"
 								autoComplete="off"
 								min="1"
@@ -258,9 +255,7 @@ const EditNumberForm = React.memo((props) => {
 						</div>
 						<div className="form-group">
 							<label htmlFor="edit-number-form__input-product">
-								<LocalizedText desc="Product">
-									product
-								</LocalizedText>
+								{Liferay.Language.get('product')}
 							</label>
 							<div className="input-group">
 								<DropdownInput
@@ -316,9 +311,7 @@ const EditNumberForm = React.memo((props) => {
 												type="button"
 												onClick={handleClickOnDelete}
 											>
-												<LocalizedText desc="Delete">
-													delete
-												</LocalizedText>
+												{Liferay.Language.get('delete')}
 											</button>
 										</div>
 									</div>
@@ -330,9 +323,7 @@ const EditNumberForm = React.memo((props) => {
 											type="button"
 											onClick={closeEditForm}
 										>
-											<LocalizedText desc="Cancel">
-												cancel
-											</LocalizedText>
+											{Liferay.Language.get('cancel')}
 										</button>
 									</div>
 									<div className="btn-group-item">
@@ -348,9 +339,7 @@ const EditNumberForm = React.memo((props) => {
 												)
 											}
 										>
-											<LocalizedText desc="Save">
-												save
-											</LocalizedText>
+											{Liferay.Language.get('save')}
 										</button>
 									</div>
 								</div>

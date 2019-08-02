@@ -1,10 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { StoreContext } from './StoreContext.es';
 
-import LocalizedText from './utilities/LocalizedText.es';
-
-export function DetailsListElement(props) {
+function DetailsListElement(props) {
     const {
         state,
         actions
@@ -58,7 +56,7 @@ export default function DetailsBox() {
         <div className="panel panel-secondary h-100">
             <div className="panel-header panel-heading">
                 <span className="panel-title">
-                    <LocalizedText desc="Mapped products">mapped-products</LocalizedText>
+                    {Liferay.Language.get('mapped-products')}
                 </span>
             </div>
             <div className="panel-body">
@@ -70,13 +68,13 @@ export default function DetailsBox() {
                                 <thead>
                                     <tr>
                                         <th>
-                                            <LocalizedText desc="N*">n</LocalizedText>
+                                            {Liferay.Language.get('n')}
                                         </th>
                                         <th>
-                                            <LocalizedText desc="Name">name</LocalizedText>
+                                            {Liferay.Language.get('name')}
                                         </th>
                                         <th>
-                                            <LocalizedText desc="Sku">sku</LocalizedText>
+                                            {Liferay.Language.get('sku')}
                                         </th>
                                     </tr>
                                 </thead>
@@ -88,10 +86,10 @@ export default function DetailsBox() {
                     ) : (
                         <div className="text-center my-5 p-5 w-100">
                             <h3>
-                                <LocalizedText desc="No products mapped yet!">no-products-mapped-yet</LocalizedText>
+                                {Liferay.Language.get('no-products-mapped-yet')}
                             </h3>
                             <p>
-                                <LocalizedText desc="Click on the picture to start mapping products!">click-on-the-picture-to-start-mapping-products</LocalizedText>
+                                {Liferay.Language.get('click-on-the-picture-to-start-mapping-products')}
                             </p>
                         </div>
                     ) 

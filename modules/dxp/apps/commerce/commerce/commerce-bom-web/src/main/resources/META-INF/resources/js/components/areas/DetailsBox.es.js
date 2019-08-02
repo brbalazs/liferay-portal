@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { StoreContext } from '../StoreContext.es';
-import LocalizedText from '../utilities/LocalizedText.es';
 
 export function DetailsListElement(props) {
     const { state, actions } = React.useContext(StoreContext);
@@ -66,13 +65,13 @@ function DetailsBox() {
                     <div className="d-table-head-group">
                         <div className="d-table-row">
                             <div className="d-table-cell">
-                                <LocalizedText desc="N*">n</LocalizedText>
+                                {Liferay.Language.get('n')}
                             </div>
                             <div className="d-table-cell">
-                                <LocalizedText desc="Name">name</LocalizedText>
+                                {Liferay.Language.get('name')}
                             </div>
                             <div className="d-table-cell u-tar">
-                                <LocalizedText desc="Sku">sku</LocalizedText>
+                                {Liferay.Language.get('sku')}
                             </div>
                         </div>
                     </div>

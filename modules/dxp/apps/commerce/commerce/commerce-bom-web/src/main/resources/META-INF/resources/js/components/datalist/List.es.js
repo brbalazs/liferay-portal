@@ -2,13 +2,12 @@ import React, {
     Fragment
 } from 'react';
 
-import LocalizedText from '../utilities/LocalizedText.es';
 import HighlightedText from '../utilities/HighlightedText.es';
 
 export function Empty() {
     return (
         <div className="commerce-datalist__option commerce-datalist__option--empty">
-            <LocalizedText desc="No results found">no-results-found</LocalizedText>
+            {Liferay.Language.get('no-results-found')}
         </div>
     )
 }

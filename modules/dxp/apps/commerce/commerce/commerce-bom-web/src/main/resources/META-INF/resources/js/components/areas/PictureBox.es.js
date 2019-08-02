@@ -6,7 +6,6 @@ import React, {
 } from 'react';
 
 import { StoreContext } from '../StoreContext.es';
-import LocalizedText from '../utilities/LocalizedText.es';
 
 export function Resume(props) {
 
@@ -132,14 +131,10 @@ export function EmptyBoxMessage() {
     return (
         <div className="empty-box-research">
             <h3>
-                <LocalizedText desc="Select Car &amp; Parts">
-                    select-car-and-parts
-                </LocalizedText>
+                {Liferay.Language.get('select-car-and-parts')}
             </h3>
             <h5>
-                <LocalizedText desc="Please select the car maker">
-                    please-select-the-carmaker-the-model-the-type-and-the-car-parts
-                </LocalizedText>
+                {Liferay.Language.get('please-select-the-carmaker-the-model-the-type-and-the-car-parts')}
             </h5>
         </div>
     )

@@ -4,9 +4,7 @@ import React, {
 
 import Datalist from './components/datalist/Datalist.es';
 import { createBrowserHistory } from 'history';
-import { convertString } from './utilities/localization.es';
 
-import LocalizedText from './components/utilities/LocalizedText.es'
 import PartFinder from './components/PartFinder.es';
 
 function convertFiltersToQueryString(filters) {
@@ -41,14 +39,10 @@ function App(props) {
 			<div className="bom-wrapper container pt-3">
 				<div className="mb-3">
 					<Datalist
-						label={
-							<LocalizedText desc="Car Maker">
-								car-maker
-							</LocalizedText>
-						}
+						label={Liferay.Language.get('car-maker')}
 						additionalClasses="mr-3"
 						multiselect={false}
-						placeholder={convertString('search-input')}
+						placeholder={Liferay.Language.get('search-input')}
 						spritemap={props.spritemap}
 						datasourceSettings={{
 							remote: {
@@ -75,10 +69,10 @@ function App(props) {
 					/>
 	
 					<Datalist
-						label={<LocalizedText desc="Model">model</LocalizedText>}
+						label={Liferay.Language.get('model')}
 						additionalClasses="mr-3"
 						multiselect={false}
-						placeholder={convertString('search-input')}
+						placeholder={Liferay.Language.get('search-input')}
 						spritemap={props.spritemap}
 						disabled={true}
 						datasourceSettings={{
@@ -133,9 +127,9 @@ function App(props) {
 					/>
 	
 					<Datalist
-						label={<LocalizedText desc="Year">year</LocalizedText>}
+						label={Liferay.Language.get('year')}
 						multiselect={false}
-						placeholder={convertString('search-input')}
+						placeholder={Liferay.Language.get('search-input')}
 						spritemap={props.spritemap}
 						disabled={true}
 						datasourceSettings={{

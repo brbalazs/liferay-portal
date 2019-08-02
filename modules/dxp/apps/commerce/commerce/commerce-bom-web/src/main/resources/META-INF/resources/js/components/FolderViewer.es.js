@@ -6,7 +6,6 @@ import React,
 
 import Icon from './utilities/Icon.es';
 import Collapse from './collapse/Collapse.es';
-import LocalizedText from './utilities/LocalizedText.es';
 import { StoreContext } from './StoreContext.es';
 
 function ModelsList(props) {
@@ -46,11 +45,7 @@ function Compatibilities(props) {
         <div className="suitable-veichles panel panel-secondary sticky-panel">
             <div className="panel-heading">
                 <h2 className="panel-title">
-                    <LocalizedText 
-                        desc="Suitable Veichles"
-                    >
-                        suitable-veichles
-                    </LocalizedText>
+                    {Liferay.Language.get('suitable-veichles')}
                 </h2>
             </div>
             <div className="panel-body">
