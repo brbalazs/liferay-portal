@@ -142,20 +142,24 @@ public class SharepointOAuth2TokenEntryPersistenceImpl
 	 *
 	 * @param userId the user ID
 	 * @param configurationPid the configuration pid
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching sharepoint o auth2 token entry, or <code>null</code> if a matching sharepoint o auth2 token entry could not be found
 	 */
 	@Override
 	public SharepointOAuth2TokenEntry fetchByU_C(
-		long userId, String configurationPid, boolean retrieveFromCache) {
+		long userId, String configurationPid, boolean useFinderCache) {
 
 		configurationPid = Objects.toString(configurationPid, "");
 
-		Object[] finderArgs = new Object[] {userId, configurationPid};
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {userId, configurationPid};
+		}
 
 		Object result = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			result = finderCache.getResult(
 				_finderPathFetchByU_C, finderArgs, this);
 		}
@@ -211,8 +215,10 @@ public class SharepointOAuth2TokenEntryPersistenceImpl
 				List<SharepointOAuth2TokenEntry> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(
-						_finderPathFetchByU_C, finderArgs, list);
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByU_C, finderArgs, list);
+					}
 				}
 				else {
 					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry =
@@ -224,7 +230,9 @@ public class SharepointOAuth2TokenEntryPersistenceImpl
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathFetchByU_C, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(_finderPathFetchByU_C, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -956,14 +964,14 @@ public class SharepointOAuth2TokenEntryPersistenceImpl
 	 * @param start the lower bound of the range of sharepoint o auth2 token entries
 	 * @param end the upper bound of the range of sharepoint o auth2 token entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of sharepoint o auth2 token entries
 	 */
 	@Override
 	public List<SharepointOAuth2TokenEntry> findAll(
 		int start, int end,
 		OrderByComparator<SharepointOAuth2TokenEntry> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -973,17 +981,20 @@ public class SharepointOAuth2TokenEntryPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindAll;
-			finderArgs = FINDER_ARGS_EMPTY;
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindAll;
+				finderArgs = FINDER_ARGS_EMPTY;
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindAll;
 			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<SharepointOAuth2TokenEntry> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<SharepointOAuth2TokenEntry>)finderCache.getResult(
 				finderPath, finderArgs, this);
 		}
@@ -1034,10 +1045,14 @@ public class SharepointOAuth2TokenEntryPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
