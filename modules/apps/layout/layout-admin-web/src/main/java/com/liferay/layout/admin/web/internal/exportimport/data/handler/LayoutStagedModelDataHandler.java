@@ -1575,21 +1575,22 @@ public class LayoutStagedModelDataHandler
 						portletDataContext,
 						fragmentEntryLink.getFragmentEntryLinkId());
 
-				if (oldFragmentEntryLink == null) {
-					continue;
+				String newPortletId = portletId;
+
+				if (oldFragmentEntryLink != null) {
+					List<String> portletIds =
+						_portletRegistry.getFragmentEntryLinkPortletIds(
+							oldFragmentEntryLink);
+
+					if (portletIds.contains(portletId)) {
+						newPortletId = StringUtil.replace(
+							portletId, oldFragmentEntryLink.getNamespace(),
+							fragmentEntryLink.getNamespace());
+					}
+					else {
+						continue;
+					}
 				}
-
-				List<String> portletIds =
-					_portletRegistry.getFragmentEntryLinkPortletIds(
-						oldFragmentEntryLink);
-
-				if (!portletIds.contains(portletId)) {
-					continue;
-				}
-
-				String newPortletId = StringUtil.replace(
-					portletId, oldFragmentEntryLink.getNamespace(),
-					fragmentEntryLink.getNamespace());
 
 				PortletPreferences existingPortletPreferences =
 					_portletPreferencesLocalService.fetchPortletPreferences(
