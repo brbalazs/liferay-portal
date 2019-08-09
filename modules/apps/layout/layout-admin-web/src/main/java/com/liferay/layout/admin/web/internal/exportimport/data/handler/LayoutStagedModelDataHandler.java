@@ -2035,8 +2035,13 @@ public class LayoutStagedModelDataHandler
 
 		for (Map.Entry<Long, Long> entry : fragmentEntryLinkIds.entrySet()) {
 			if (newFragmentEntryLinkId == entry.getValue()) {
-				return _fragmentEntryLinkLocalService.getFragmentEntryLink(
-					entry.getKey());
+				FragmentEntryLink fragmentEntryLink =
+					_fragmentEntryLinkLocalService.fetchFragmentEntryLink(
+						entry.getKey());
+
+				if (fragmentEntryLink != null) {
+					return fragmentEntryLink;
+				}
 			}
 		}
 
