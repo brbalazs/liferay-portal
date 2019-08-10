@@ -1591,6 +1591,15 @@ public class LayoutStagedModelDataHandler
 						continue;
 					}
 				}
+				else {
+					List<String> portletIds =
+						_portletRegistry.getFragmentEntryLinkPortletIds(
+							fragmentEntryLink);
+
+					if (!portletIds.contains(portletId)) {
+						continue;
+					}
+				}
 
 				PortletPreferences existingPortletPreferences =
 					_portletPreferencesLocalService.fetchPortletPreferences(
