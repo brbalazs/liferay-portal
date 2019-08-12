@@ -14,12 +14,10 @@
 
 package com.liferay.commerce.machine.learning.internal.data.integration.manager;
 
-import com.liferay.commerce.data.integration.manager.model.History;
-import com.liferay.commerce.data.integration.manager.model.Process;
-import com.liferay.commerce.data.integration.manager.model.ScheduledTask;
-import com.liferay.commerce.data.integration.manager.service.HistoryLocalService;
-import com.liferay.commerce.data.integration.manager.service.ProcessService;
-import com.liferay.commerce.data.integration.manager.service.ScheduledTaskLocalService;
+import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
+import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcessLog;
+import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLocalService;
+import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLogLocalService;
 import com.liferay.petra.json.web.service.client.JSONWebServiceClient;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskConstants;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -51,54 +49,61 @@ import org.osgi.service.component.annotations.Reference;
 public class CommerceMachineLearningScheduledTaskExecutorService {
 
 	public void executeScheduledTask(
-			long userId, long scheduledTaskId, String executionType,
+			long userId, long commerceDataIntegrationProcessId,
 			Map<String, String> scheduledTaskContext)
 		throws PortalException {
 
-		ScheduledTask scheduledTask =
-			_scheduledTaskLocalService.startScheduledTask(
-				userId, scheduledTaskId);
+		CommerceDataIntegrationProcess commerceDataIntegrationProcess =
+			_commerceDataIntegrationProcessLocalService.
+				getCommerceDataIntegrationProcess(
+					commerceDataIntegrationProcessId);
 
-		History history = _historyLocalService.addHistory(
-			userId, scheduledTaskId, executionType,
-			scheduledTask.getStartDate(), null,
-			BackgroundTaskConstants.STATUS_IN_PROGRESS, 0L, 0L);
+		Date startDate = new Date();
+
+		CommerceDataIntegrationProcessLog commerceDataIntegrationProcessLog =
+			_commerceDataIntegrationProcessLogLocalService.
+				addCommerceDataIntegrationProcessLog(
+					userId,
+					commerceDataIntegrationProcess.
+						getCommerceDataIntegrationProcessId(),
+					null, null, BackgroundTaskConstants.STATUS_IN_PROGRESS,
+					startDate, null);
 
 		try {
-			Process process = _processService.getProcess(
-				userId, scheduledTask.getProcessId());
+			executeProcess(
+				commerceDataIntegrationProcess, scheduledTaskContext);
 
-			executeProcess(process, scheduledTaskContext);
+			commerceDataIntegrationProcessLog.setEndDate(new Date());
 
-			history.setEndDate(new Date());
+			commerceDataIntegrationProcessLog.setStatus(
+				BackgroundTaskConstants.STATUS_SUCCESSFUL);
 
-			history.setStatus(BackgroundTaskConstants.STATUS_SUCCESSFUL);
-
-			_historyLocalService.updateHistory(history);
+			_commerceDataIntegrationProcessLogLocalService.
+				updateCommerceDataIntegrationProcessLog(
+					commerceDataIntegrationProcessLog);
 		}
 		catch (Exception e) {
-			_log.error(e, e);
+			if (_log.isDebugEnabled()) {
+				_log.debug(e, e);
+			}
 
-			history.setEndDate(new Date());
-
-			history.setStatus(BackgroundTaskConstants.STATUS_FAILED);
-
-			_historyLocalService.updateHistory(history);
+			_commerceDataIntegrationProcessLogLocalService.
+				addCommerceDataIntegrationProcessLog(
+					userId,
+					commerceDataIntegrationProcess.
+						getCommerceDataIntegrationProcessId(),
+					e.getMessage(), null, BackgroundTaskConstants.STATUS_FAILED,
+					startDate, new Date());
 		}
-
-		_scheduledTaskLocalService.stopScheduledTask(userId, scheduledTaskId);
 	}
 
 	protected void executeProcess(
-			Process process,
+			CommerceDataIntegrationProcess commerceDataIntegrationProcess,
 			Map<String, String> additionalProcessContextProperties)
 		throws Exception {
 
-		String contextPropertiesString = process.getContextProperties();
-
-		UnicodeProperties contextProperties = new UnicodeProperties(true);
-
-		contextProperties.fastLoad(contextPropertiesString);
+		UnicodeProperties contextProperties =
+			commerceDataIntegrationProcess.getTypeSettingsProperties();
 
 		contextProperties.putAll(additionalProcessContextProperties);
 
@@ -142,15 +147,14 @@ public class CommerceMachineLearningScheduledTaskExecutorService {
 		CommerceMachineLearningScheduledTaskExecutorService.class);
 
 	@Reference
-	private HistoryLocalService _historyLocalService;
+	private CommerceDataIntegrationProcessLocalService
+		_commerceDataIntegrationProcessLocalService;
+
+	@Reference
+	private CommerceDataIntegrationProcessLogLocalService
+		_commerceDataIntegrationProcessLogLocalService;
 
 	@Reference(target = "(component.factory=JSONWebServiceClient)")
 	private ComponentFactory _jsonWebServiceClientComponentFactory;
-
-	@Reference
-	private ProcessService _processService;
-
-	@Reference
-	private ScheduledTaskLocalService _scheduledTaskLocalService;
 
 }

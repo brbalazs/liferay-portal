@@ -14,11 +14,9 @@
 
 package com.liferay.commerce.machine.learning.internal.forecast.data.integration.manager;
 
-import com.liferay.commerce.data.integration.manager.model.Process;
-import com.liferay.commerce.data.integration.manager.model.ScheduledTask;
-import com.liferay.commerce.data.integration.manager.service.ProcessLocalService;
-import com.liferay.commerce.data.integration.manager.service.ScheduledTaskExectutorService;
-import com.liferay.commerce.data.integration.manager.service.ScheduledTaskLocalService;
+import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
+import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLocalService;
+import com.liferay.commerce.data.integration.service.ScheduledTaskExecutorService;
 import com.liferay.commerce.machine.learning.internal.data.integration.manager.CommerceMachineLearningScheduledTaskExecutorService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
@@ -43,10 +41,10 @@ import org.osgi.service.component.annotations.Reference;
 	configurationPid = "com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration",
 	configurationPolicy = ConfigurationPolicy.OPTIONAL, immediate = true,
 	property = "data.integration.service.executor.key=" + CommerceForecastScheduledTaskExecutorService.NAME,
-	service = ScheduledTaskExectutorService.class
+	service = ScheduledTaskExecutorService.class
 )
 public class CommerceForecastScheduledTaskExecutorService
-	implements ScheduledTaskExectutorService {
+	implements ScheduledTaskExecutorService {
 
 	public static final String NAME = "forecast-service";
 
@@ -56,19 +54,23 @@ public class CommerceForecastScheduledTaskExecutorService
 	}
 
 	@Override
-	public void runProcess(
-			long userId, long scheduledTaskId, String executionType)
+	public void runProcess(long commerceDataIntegrationProcessId)
 		throws IOException, PortalException {
 
-		ScheduledTask scheduledTask =
-			_scheduledTaskLocalService.getScheduledTask(scheduledTaskId);
+		CommerceDataIntegrationProcess commerceDataIntegrationProcess =
+			_commerceDataIntegrationProcessLocalService.
+				getCommerceDataIntegrationProcess(
+					commerceDataIntegrationProcessId);
 
 		Map<String, String> contextProperties = getContextProperties(
-			scheduledTask.getCompanyId(), scheduledTask.getProcessId());
+			commerceDataIntegrationProcess);
 
 		_commerceMachineLearningScheduledTaskExecutorService.
 			executeScheduledTask(
-				userId, scheduledTaskId, executionType, contextProperties);
+				commerceDataIntegrationProcess.getUserId(),
+				commerceDataIntegrationProcess.
+					getCommerceDataIntegrationProcessId(),
+				contextProperties);
 	}
 
 	@Activate
@@ -78,7 +80,7 @@ public class CommerceForecastScheduledTaskExecutorService
 	}
 
 	protected Map<String, String> getContextProperties(
-			long companyId, long processId)
+			CommerceDataIntegrationProcess commerceDataIntegrationProcess)
 		throws PortalException {
 
 		Map<String, String> contextProperties = new HashMap<>();
@@ -90,32 +92,27 @@ public class CommerceForecastScheduledTaskExecutorService
 		// Source index name
 
 		String sourceIndexName =
-			_elasticsearchConfiguration.indexNamePrefix() + companyId;
+			_elasticsearchConfiguration.indexNamePrefix() +
+				commerceDataIntegrationProcess.getCompanyId();
 
 		contextProperties.put("LIFERAY_INDEX_NAME", sourceIndexName);
 
-		Process process = _processLocalService.getProcess(processId);
-
-		String processContextProperties = process.getContextProperties();
-
-		UnicodeProperties contextPropertiesUnicode = new UnicodeProperties(
-			true);
-
-		contextPropertiesUnicode.fastLoad(processContextProperties);
+		UnicodeProperties typeSettingsProperties =
+			commerceDataIntegrationProcess.getTypeSettingsProperties();
 
 		StringBuilder sb = new StringBuilder(11);
 
 		sb.append("--level");
 		sb.append(StringPool.SPACE);
-		sb.append(contextPropertiesUnicode.getProperty("level"));
+		sb.append(typeSettingsProperties.getProperty("level"));
 		sb.append(StringPool.SPACE);
 		sb.append("--period");
 		sb.append(StringPool.SPACE);
-		sb.append(contextPropertiesUnicode.getProperty("period"));
+		sb.append(typeSettingsProperties.getProperty("period"));
 		sb.append(StringPool.SPACE);
 		sb.append("--target");
 		sb.append(StringPool.SPACE);
-		sb.append(contextPropertiesUnicode.getProperty("target"));
+		sb.append(typeSettingsProperties.getProperty("target"));
 
 		contextProperties.put("spark.launcher.args", sb.toString());
 
@@ -123,15 +120,13 @@ public class CommerceForecastScheduledTaskExecutorService
 	}
 
 	@Reference
+	private CommerceDataIntegrationProcessLocalService
+		_commerceDataIntegrationProcessLocalService;
+
+	@Reference
 	private CommerceMachineLearningScheduledTaskExecutorService
 		_commerceMachineLearningScheduledTaskExecutorService;
 
 	private ElasticsearchConfiguration _elasticsearchConfiguration;
-
-	@Reference
-	private ProcessLocalService _processLocalService;
-
-	@Reference
-	private ScheduledTaskLocalService _scheduledTaskLocalService;
 
 }

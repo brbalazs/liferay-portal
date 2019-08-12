@@ -14,9 +14,9 @@
 
 package com.liferay.commerce.machine.learning.internal.recommend.data.integration.manager;
 
-import com.liferay.commerce.data.integration.manager.model.ScheduledTask;
-import com.liferay.commerce.data.integration.manager.service.ScheduledTaskExectutorService;
-import com.liferay.commerce.data.integration.manager.service.ScheduledTaskLocalService;
+import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
+import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLocalService;
+import com.liferay.commerce.data.integration.service.ScheduledTaskExecutorService;
 import com.liferay.commerce.machine.learning.internal.data.integration.manager.CommerceMachineLearningScheduledTaskExecutorService;
 import com.liferay.commerce.machine.learning.internal.search.api.CommerceIndexer;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
@@ -40,10 +40,10 @@ import org.osgi.service.component.annotations.Reference;
 	configurationPid = "com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration",
 	configurationPolicy = ConfigurationPolicy.OPTIONAL, immediate = true,
 	property = "data.integration.service.executor.key=" + CommerceUserRecommendScheduledTaskExecutorService.NAME,
-	service = ScheduledTaskExectutorService.class
+	service = ScheduledTaskExecutorService.class
 )
 public class CommerceUserRecommendScheduledTaskExecutorService
-	implements ScheduledTaskExectutorService {
+	implements ScheduledTaskExecutorService {
 
 	public static final String NAME = "user-recommend-service";
 
@@ -53,16 +53,19 @@ public class CommerceUserRecommendScheduledTaskExecutorService
 	}
 
 	@Override
-	public void runProcess(
-			long userId, long scheduledTaskId, String executionType)
+	public void runProcess(long commerceDataIntegrationProcessId)
 		throws IOException, PortalException {
 
-		ScheduledTask scheduledTask =
-			_scheduledTaskLocalService.getScheduledTask(scheduledTaskId);
+		CommerceDataIntegrationProcess commerceDataIntegrationProcess =
+			_commerceDataIntegrationProcessLocalService.
+				getCommerceDataIntegrationProcess(
+					commerceDataIntegrationProcessId);
 
 		_commerceRecommendScheduledTaskExecutorService.executeScheduledTask(
-			userId, scheduledTaskId, executionType,
-			getContextProperties(scheduledTask.getCompanyId()));
+			commerceDataIntegrationProcess.getUserId(),
+			commerceDataIntegrationProcessId,
+			getContextProperties(
+				commerceDataIntegrationProcess.getCompanyId()));
 	}
 
 	@Activate
@@ -109,6 +112,10 @@ public class CommerceUserRecommendScheduledTaskExecutorService
 	}
 
 	@Reference
+	private CommerceDataIntegrationProcessLocalService
+		_commerceDataIntegrationProcessLocalService;
+
+	@Reference
 	private CommerceMachineLearningScheduledTaskExecutorService
 		_commerceRecommendScheduledTaskExecutorService;
 
@@ -118,9 +125,6 @@ public class CommerceUserRecommendScheduledTaskExecutorService
 		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommend.search.index.ItemRecommendCommerceIndexer)"
 	)
 	private CommerceIndexer _itemCommerceRecommendIndexer;
-
-	@Reference
-	private ScheduledTaskLocalService _scheduledTaskLocalService;
 
 	@Reference(
 		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommend.search.index.UserRecommendCommerceIndexer)"

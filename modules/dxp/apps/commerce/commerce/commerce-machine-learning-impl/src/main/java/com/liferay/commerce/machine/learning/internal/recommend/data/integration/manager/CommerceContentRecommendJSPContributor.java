@@ -14,10 +14,15 @@
 
 package com.liferay.commerce.machine.learning.internal.recommend.data.integration.manager;
 
-import com.liferay.commerce.data.integration.manager.process.type.ProcessTypeJSPContributor;
+import com.liferay.commerce.data.integration.process.type.ProcessTypeJSPContributor;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 
 import java.io.IOException;
+
+import java.util.Map;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +41,13 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class CommerceContentRecommendJSPContributor
 	extends BaseCommerceRecommendJSPContributor {
+
+	@Override
+	public Map<String, String> processAction(
+		ActionRequest actionRequest, ActionResponse actionResponse) {
+
+		return null;
+	}
 
 	@Override
 	protected void doRenderJSP(

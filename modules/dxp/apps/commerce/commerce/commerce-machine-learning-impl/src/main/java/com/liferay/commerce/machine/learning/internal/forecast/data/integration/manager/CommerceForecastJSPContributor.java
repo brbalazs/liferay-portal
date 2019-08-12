@@ -14,17 +14,13 @@
 
 package com.liferay.commerce.machine.learning.internal.forecast.data.integration.manager;
 
-import com.liferay.commerce.data.integration.manager.helper.DataIntegrationProcessActionHelper;
-import com.liferay.commerce.data.integration.manager.model.Process;
-import com.liferay.commerce.data.integration.manager.process.type.ProcessTypeJSPContributor;
+import com.liferay.commerce.data.integration.constants.CommerceDataIntegrationWebKeys;
+import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
+import com.liferay.commerce.data.integration.process.type.ProcessTypeJSPContributor;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.net.URL;
 
@@ -33,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -53,55 +50,10 @@ public class CommerceForecastJSPContributor
 	implements ProcessTypeJSPContributor {
 
 	@Override
-	public Process processAction(ActionRequest actionRequest, Process process)
-		throws Exception {
+	public Map<String, String> processAction(
+		ActionRequest actionRequest, ActionResponse actionResponse) {
 
-		String remoteServiceEndpoint = ParamUtil.getString(
-			actionRequest, "forecastServiceEndpoint");
-
-		URL url = new URL(remoteServiceEndpoint);
-
-		String customOptions = ParamUtil.getString(
-			actionRequest, "customOptions");
-
-		String level = ParamUtil.getString(actionRequest, "level");
-
-		String period = ParamUtil.getString(actionRequest, "period");
-
-		String target = ParamUtil.getString(actionRequest, "target");
-
-		UnicodeProperties contextProperties = new UnicodeProperties(true);
-
-		contextProperties.put("level", level);
-		contextProperties.put("period", period);
-		contextProperties.put("target", target);
-		contextProperties.put("host.name", url.getHost());
-		contextProperties.put("host.port", String.valueOf(url.getPort()));
-		contextProperties.put("protocol", url.getProtocol());
-
-		for (String customOption : customOptions.split(StringPool.NEW_LINE)) {
-			if (Validator.isNull(customOption)) {
-				continue;
-			}
-
-			String[] tokens = customOption.split(StringPool.EQUAL, 2);
-
-			if (tokens.length != 2) {
-				if (_log.isWarnEnabled()) {
-					_log.warn("Skipping malformed property: " + customOption);
-				}
-
-				continue;
-			}
-
-			if (!_mainProperties.contains(tokens[0])) {
-				contextProperties.put(tokens[0], tokens[1]);
-			}
-		}
-
-		process.setContextProperties(contextProperties.toString());
-
-		return process;
+		return null;
 	}
 
 	@Override
@@ -110,38 +62,36 @@ public class CommerceForecastJSPContributor
 			HttpServletResponse httpServletResponse)
 		throws Exception {
 
-		Process process = _dataIntegrationProcessActionHelper.getProcess(
-			httpServletRequest);
+		CommerceDataIntegrationProcess commerceDataIntegrationProcess =
+			(CommerceDataIntegrationProcess)httpServletRequest.getAttribute(
+				CommerceDataIntegrationWebKeys.
+					COMMERCE_DATA_INTEGRATION_PROCESS);
 
-		if (process != null) {
-			String contextProperties = process.getContextProperties();
+		if (commerceDataIntegrationProcess != null) {
+			UnicodeProperties typeSettingsProperties =
+				commerceDataIntegrationProcess.getTypeSettingsProperties();
 
-			UnicodeProperties contextPropertiesUnicode = new UnicodeProperties(
-				true);
+			String protocol = typeSettingsProperties.get("protocol");
 
-			contextPropertiesUnicode.fastLoad(contextProperties);
-
-			String protocol = contextPropertiesUnicode.get("protocol");
-
-			String host = contextPropertiesUnicode.get("host.name");
+			String host = typeSettingsProperties.get("host.name");
 
 			int port = GetterUtil.getInteger(
-				contextPropertiesUnicode.getProperty("host.port", "80"));
+				typeSettingsProperties.getProperty("host.port", "80"));
 
 			URL url = new URL(protocol, host, port, "");
 
 			String forecastServiceEndpoint = url.toString();
 
-			String level = contextPropertiesUnicode.getProperty("level");
+			String level = typeSettingsProperties.getProperty("level");
 
-			String period = contextPropertiesUnicode.getProperty("period");
+			String period = typeSettingsProperties.getProperty("period");
 
-			String target = contextPropertiesUnicode.getProperty("target");
+			String target = typeSettingsProperties.getProperty("target");
 
 			StringBuilder sb = new StringBuilder();
 
 			for (Map.Entry<String, String> contextPropertyEntry :
-					contextPropertiesUnicode.entrySet()) {
+					typeSettingsProperties.entrySet()) {
 
 				if (!_mainProperties.contains(contextPropertyEntry.getKey())) {
 					sb.append(contextPropertyEntry.getKey());
@@ -170,15 +120,8 @@ public class CommerceForecastJSPContributor
 			"/forecast/view.jsp");
 	}
 
-	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceForecastJSPContributor.class);
-
 	private static final List<String> _mainProperties = Arrays.asList(
 		"protocol", "host.name", "host.port", "level", "period", "target");
-
-	@Reference
-	private DataIntegrationProcessActionHelper
-		_dataIntegrationProcessActionHelper;
 
 	@Reference
 	private JSPRenderer _jspRenderer;
