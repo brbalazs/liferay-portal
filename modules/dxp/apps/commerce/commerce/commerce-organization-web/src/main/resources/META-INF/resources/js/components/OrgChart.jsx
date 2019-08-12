@@ -201,7 +201,7 @@ class OrgChart extends Component {
         secondaryInfoNode.text(
             ({data}) => {
                 const {organizationsTotal} = data;
-                const label = 'sub-organizations';
+                const label = 'suborganizations';
 
                 return !!organizationsTotal ?
                     `${organizationsTotal} ${getLocalizedText(label)}` : '';

@@ -58,24 +58,24 @@ import org.osgi.service.component.annotations.Reference;
 	},
 	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
 )
-public class CommerceSubOrganizationsScreenNavigationEntry
+public class CommerceSuborganizationsScreenNavigationEntry
 	implements ScreenNavigationCategory, ScreenNavigationEntry<Organization> {
 
 	@Override
 	public String getCategoryKey() {
 		return CommerceOrganizationScreenNavigationConstants.
-			CATEGORY_SUB_ORGANIZATIONS;
+			CATEGORY_SUBORGANIZATIONS;
 	}
 
 	@Override
 	public String getEntryKey() {
 		return CommerceOrganizationScreenNavigationConstants.
-			ENTRY_KEY_SUB_ORGANIZATIONS;
+			ENTRY_KEY_SUBORGANIZATIONS;
 	}
 
 	@Override
 	public String getLabel(Locale locale) {
-		return LanguageUtil.get(locale, "sub-organizations");
+		return LanguageUtil.get(locale, "suborganizations");
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class CommerceSubOrganizationsScreenNavigationEntry
 
 		_jspRenderer.renderJSP(
 			httpServletRequest, httpServletResponse,
-			"/organization/sub_organizations.jsp");
+			"/organization/suborganizations.jsp");
 	}
 
 	@Activate
@@ -128,7 +128,7 @@ public class CommerceSubOrganizationsScreenNavigationEntry
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceSubOrganizationsScreenNavigationEntry.class);
+		CommerceSuborganizationsScreenNavigationEntry.class);
 
 	@Reference
 	private JSPRenderer _jspRenderer;

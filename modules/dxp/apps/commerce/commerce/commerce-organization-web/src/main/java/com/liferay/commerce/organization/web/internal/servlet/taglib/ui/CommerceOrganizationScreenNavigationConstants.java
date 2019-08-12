@@ -25,7 +25,7 @@ public class CommerceOrganizationScreenNavigationConstants {
 	public static final String CATEGORY_KEY_ORGANIZATION_USERS =
 		"organization-users";
 
-	public static final String CATEGORY_SUB_ORGANIZATIONS = "sub-organizations";
+	public static final String CATEGORY_SUBORGANIZATIONS = "suborganizations";
 
 	public static final String ENTRY_KEY_ORGANIZATION_ACCOUNTS =
 		"organization-accounts";
@@ -33,8 +33,8 @@ public class CommerceOrganizationScreenNavigationConstants {
 	public static final String ENTRY_KEY_ORGANIZATION_USERS =
 		"organizations-users";
 
-	public static final String ENTRY_KEY_SUB_ORGANIZATIONS =
-		"sub-organizations";
+	public static final String ENTRY_KEY_SUBORGANIZATIONS =
+		"suborganizations";
 
 	public static final String SCREEN_NAVIGATION_KEY =
 		"organization-screen-navigation";

@@ -10,7 +10,7 @@ export default function PaneOrgInfo(props) {
                  style={{backgroundColor: colorIdentifier}}></div>
             <div className='org-data'>
                 <p>{orgName}</p>
-                <p>{!!childrenNo ? `${childrenNo} ${getLocalizedText('sub-organizations')}` : `${getLocalizedText('sub-organization')}`}</p>
+                <p>{!!childrenNo ? `${childrenNo} ${getLocalizedText('suborganizations')}` : `${getLocalizedText('suborganization')}`}</p>
             </div>
             <div role='button' tabIndex='1' className='org-actions'>
                 <p style={{display: 'none'}}>&sdot;&sdot;&sdot;</p>

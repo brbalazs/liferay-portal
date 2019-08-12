@@ -106,7 +106,7 @@ public class CommerceOrganizationClayTable
 				new ClayTableAction(
 					viewSubOrganizationsURL, StringPool.BLANK,
 					LanguageUtil.get(
-						httpServletRequest, "view-sub-organizations"),
+						httpServletRequest, "view-suborganizations"),
 					false, false);
 
 			clayTableActions.add(viewSubOrganizationsClayTableAction);
