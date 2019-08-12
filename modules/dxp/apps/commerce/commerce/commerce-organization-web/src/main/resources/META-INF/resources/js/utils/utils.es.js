@@ -1,4 +1,4 @@
-import w from "./window.es";
+import w from './window.es';
 
 function serializeParams(params) {
 	return Object.keys(params).map(
@@ -28,7 +28,9 @@ export function endpointBuilder({baseURL, id = '0', path = '', queryParams = {}}
 export function callApi(parameters) {
 	return fetch(endpointBuilder(parameters))
 		.then(response => response.json())
-		.catch(e => { console.log('Failed to fetch:', e); });
+		.catch(e => {
+
+});
 }
 
 export const noop = () => {
@@ -80,14 +82,14 @@ export function setupDataset(data) {
 
 	sanitizedData.organizations.length &&
     sanitizedData.organizations.forEach(
-   	(orgObject, index) => {
-   		delete orgObject.organizations;
+  	(orgObject, index) => {
+  		delete orgObject.organizations;
 
-   		const prevColor = index ?
-   			sanitizedData.organizations[index - 1] : null;
+  		const prevColor = index ?
+  			sanitizedData.organizations[index - 1] : null;
 
-   		orgObject.colorIdentifier = `hsl(${getColorHue(prevColor)},75%,75%)`;
-   	});
+  		orgObject.colorIdentifier = `hsl(${getColorHue(prevColor)},75%,75%)`;
+  	});
 
 	return sanitizedData;
 }
@@ -95,7 +97,8 @@ export function setupDataset(data) {
 export function getLocalizedText(string) {
 	try {
 		return w.Liferay.Language.get(string);
-	} catch (error) {
+	}
+ catch (error) {
 		console.log(error);
 		return string;
 	}
