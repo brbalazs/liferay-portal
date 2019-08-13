@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.data.integration.web.internal.servlet.taglib.ui;
 
+import com.liferay.commerce.data.integration.constants.CommerceDataIntegrationConstants;
 import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLogService;
 import com.liferay.commerce.data.integration.web.internal.display.context.CommerceDataIntegrationProcessLogDisplayContext;
@@ -55,7 +56,7 @@ public class CommerceDataIntegrationLogScreenNavigationEntry
 
 	@Override
 	public String getCategoryKey() {
-		return CommerceDataIntegrationScreenNavigationConstants.
+		return CommerceDataIntegrationConstants.
 			CATEGORY_KEY_COMMERCE_DATA_INTEGRATION_LOGS;
 	}
 
@@ -74,7 +75,7 @@ public class CommerceDataIntegrationLogScreenNavigationEntry
 
 	@Override
 	public String getScreenNavigationKey() {
-		return CommerceDataIntegrationScreenNavigationConstants.
+		return CommerceDataIntegrationConstants.
 			SCREEN_NAVIGATION_KEY_COMMERCE_DATA_INTEGRATION_GENERAL;
 	}
 

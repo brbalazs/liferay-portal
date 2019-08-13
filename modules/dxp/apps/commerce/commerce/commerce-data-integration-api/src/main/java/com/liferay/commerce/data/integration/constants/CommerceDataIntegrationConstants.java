@@ -19,7 +19,21 @@ package com.liferay.commerce.data.integration.constants;
  */
 public class CommerceDataIntegrationConstants {
 
+	public static final String CATEGORY_KEY_COMMERCE_DATA_INTEGRATION_DETAILS =
+		"details";
+
+	public static final String CATEGORY_KEY_COMMERCE_DATA_INTEGRATION_LOGS =
+		"logs";
+
+	public static final String
+		CATEGORY_KEY_COMMERCE_DATA_INTEGRATION_SCHEDULED_TASK =
+			"scheduled-task";
+
 	public static final String EXECUTOR_DESTINATION_NAME =
 		"liferay/commerce/data_integration/executor";
+
+	public static final String
+		SCREEN_NAVIGATION_KEY_COMMERCE_DATA_INTEGRATION_GENERAL =
+			"commerce.data.integration.general";
 
 }

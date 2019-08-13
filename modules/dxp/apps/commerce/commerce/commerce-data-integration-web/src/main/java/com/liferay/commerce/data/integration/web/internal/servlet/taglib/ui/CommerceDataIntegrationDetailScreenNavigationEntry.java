@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.data.integration.web.internal.servlet.taglib.ui;
 
+import com.liferay.commerce.data.integration.constants.CommerceDataIntegrationConstants;
 import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
@@ -48,7 +49,7 @@ public class CommerceDataIntegrationDetailScreenNavigationEntry
 
 	@Override
 	public String getCategoryKey() {
-		return CommerceDataIntegrationScreenNavigationConstants.
+		return CommerceDataIntegrationConstants.
 			CATEGORY_KEY_COMMERCE_DATA_INTEGRATION_DETAILS;
 	}
 
@@ -67,7 +68,7 @@ public class CommerceDataIntegrationDetailScreenNavigationEntry
 
 	@Override
 	public String getScreenNavigationKey() {
-		return CommerceDataIntegrationScreenNavigationConstants.
+		return CommerceDataIntegrationConstants.
 			SCREEN_NAVIGATION_KEY_COMMERCE_DATA_INTEGRATION_GENERAL;
 	}
 
