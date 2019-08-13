@@ -229,7 +229,7 @@ public class EditCommerceDataIntegrationProcessActionCommand
 		SingleDestinationMessageSender messageSender =
 			_singleDestinationMessageSenderFactory.
 				createSingleDestinationMessageSender(
-					CommerceDataIntegrationConstants.DESTINATION_NAME);
+					CommerceDataIntegrationConstants.EXECUTOR_DESTINATION_NAME);
 
 		messageSender.send(message);
 	}
