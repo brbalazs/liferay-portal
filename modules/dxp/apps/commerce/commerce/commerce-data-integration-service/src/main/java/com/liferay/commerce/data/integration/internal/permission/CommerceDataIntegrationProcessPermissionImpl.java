@@ -18,11 +18,8 @@ import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProces
 import com.liferay.commerce.data.integration.permission.CommerceDataIntegrationProcessPermission;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
-import com.liferay.portal.kernel.service.CompanyLocalService;
-import com.liferay.portal.kernel.util.ArrayUtil;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -116,30 +113,19 @@ public class CommerceDataIntegrationProcessPermissionImpl
 			String actionId)
 		throws PortalException {
 
-		if (permissionChecker.isCompanyAdmin(
-				commerceDataIntegrationProcess.getCompanyId()) ||
-			permissionChecker.isOmniadmin()) {
-
-			return true;
-		}
-
 		if (permissionChecker.hasOwnerPermission(
-				permissionChecker.getCompanyId(),
-				CommerceDataIntegrationProcess.class.getName(),
-				commerceDataIntegrationProcess.
-					getCommerceDataIntegrationProcessId(),
-				permissionChecker.getUserId(), actionId) &&
-			(commerceDataIntegrationProcess.getUserId() ==
-				permissionChecker.getUserId())) {
+			commerceDataIntegrationProcess.getCompanyId(),
+			CommerceDataIntegrationProcess.class.getName(),
+			commerceDataIntegrationProcess.
+				getCommerceDataIntegrationProcessId(),
+			commerceDataIntegrationProcess.getUserId(), actionId)) {
 
 			return true;
 		}
 
-		Company company = _companyLocalService.getCompany(
-			commerceDataIntegrationProcess.getCompanyId());
 
 		return permissionChecker.hasPermission(
-			company.getGroup(), CommerceDataIntegrationProcess.class.getName(),
+			0, CommerceDataIntegrationProcess.class.getName(),
 			commerceDataIntegrationProcess.
 				getCommerceDataIntegrationProcessId(),
 			actionId);
@@ -148,8 +134,5 @@ public class CommerceDataIntegrationProcessPermissionImpl
 	@Reference
 	private CommerceDataIntegrationProcessLocalService
 		_commerceDataIntegrationProcessLocalService;
-
-	@Reference
-	private CompanyLocalService _companyLocalService;
 
 }

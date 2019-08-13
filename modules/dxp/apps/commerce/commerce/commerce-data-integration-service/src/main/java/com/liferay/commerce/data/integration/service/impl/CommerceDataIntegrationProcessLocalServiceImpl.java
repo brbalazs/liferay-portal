@@ -55,6 +55,8 @@ public class CommerceDataIntegrationProcessLocalServiceImpl
 			UnicodeProperties typeSettingsProperties, boolean system)
 		throws PortalException {
 
+		// Commerce data integration process
+
 		User user = userLocalService.getUser(userId);
 
 		Company company = companyLocalService.getCompany(user.getCompanyId());
@@ -75,8 +77,10 @@ public class CommerceDataIntegrationProcessLocalServiceImpl
 		commerceDataIntegrationProcessPersistence.update(
 			commerceDataIntegrationProcess);
 
+		// Resources
+
 		resourceLocalService.addResources(
-			company.getCompanyId(), company.getGroupId(), user.getUserId(),
+			company.getCompanyId(), 0, user.getUserId(),
 			CommerceDataIntegrationProcess.class.getName(),
 			commerceDataIntegrationProcess.
 				getCommerceDataIntegrationProcessId(),
