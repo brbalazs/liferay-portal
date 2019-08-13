@@ -80,10 +80,14 @@ public class TalendScreenNavigationEntry
 		User user,
 		CommerceDataIntegrationProcess commerceDataIntegrationProcess) {
 
+		if (commerceDataIntegrationProcess == null) {
+			return false;
+		}
+
 		String processType = commerceDataIntegrationProcess.getType();
 
 		if (processType.equals(TalendProcessType.KEY)) {
-			return false;
+			return true;
 		}
 
 		return false;

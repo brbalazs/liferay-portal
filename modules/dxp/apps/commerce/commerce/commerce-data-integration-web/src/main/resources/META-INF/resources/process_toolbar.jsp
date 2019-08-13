@@ -42,31 +42,27 @@ String searchContainerId = ParamUtil.getString(request, "searchContainerId", "co
 		<liferay-frontend:add-menu
 			inline="<%= true %>"
 		>
-			<liferay-frontend:add-menu
-				inline="<%= true %>"
-			>
 
-				<%
-				for (ProcessType processType : commerceDataIntegrationProcessDisplayContext.getProcessTypes()) {
-				%>
+			<%
+			for (ProcessType processType : commerceDataIntegrationProcessDisplayContext.getProcessTypes()) {
+			%>
 
-					<liferay-portlet:renderURL var="addProcessURL">
-						<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.ADD %>" />
-						<portlet:param name="mvcRenderCommandName" value="editCommerceDataIntegrationProcess" />
-						<portlet:param name="backURL" value="<%= currentURL %>" />
-						<portlet:param name="processType" value="<%= processType.getKey() %>" />
-					</liferay-portlet:renderURL>
+				<liferay-portlet:renderURL var="addProcessURL">
+					<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.ADD %>" />
+					<portlet:param name="mvcRenderCommandName" value="editCommerceDataIntegrationProcess" />
+					<portlet:param name="backURL" value="<%= currentURL %>" />
+					<portlet:param name="processType" value="<%= processType.getKey() %>" />
+				</liferay-portlet:renderURL>
 
-					<liferay-frontend:add-menu-item
-						title="<%= processType.getLabel(locale) %>"
-						url="<%= addProcessURL %>"
-					/>
+				<liferay-frontend:add-menu-item
+					title="<%= processType.getLabel(locale) %>"
+					url="<%= addProcessURL %>"
+				/>
 
-				<%
-				}
-				%>
+			<%
+			}
+			%>
 
-			</liferay-frontend:add-menu>
 		</liferay-frontend:add-menu>
 	</liferay-frontend:management-bar-buttons>
 

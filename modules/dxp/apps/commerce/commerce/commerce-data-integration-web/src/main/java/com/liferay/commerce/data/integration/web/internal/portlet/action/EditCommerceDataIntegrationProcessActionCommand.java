@@ -207,7 +207,7 @@ public class EditCommerceDataIntegrationProcessActionCommand
 				createSingleDestinationMessageSender(
 					CommerceDataIntegrationConstants.EXECUTOR_DESTINATION_NAME);
 
-		messageSender.send(payLoad);
+		messageSender.send(payLoad.toString());
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

@@ -94,9 +94,11 @@ public class TalendScheduledTaskExecutorService
 
 			File tempFile = FileUtil.createTempFile(inputStream);
 
-			FileUtil.unzip(tempFile, tempFile);
+			File tempFolder = FileUtil.createTempFolder();
 
-			rootDirectoryName = tempFile.getAbsolutePath();
+			FileUtil.unzip(tempFile, tempFolder);
+
+			rootDirectoryName = tempFolder.getAbsolutePath();
 
 			String[] strings = FileUtil.find(
 				rootDirectoryName, "**\\*.sh", null);

@@ -64,8 +64,8 @@ public class CommerceDataIntegrationProcessTriggerHelperImpl
 
 		_schedulerEngineHelper.schedule(
 			trigger, StorageType.PERSISTED, null,
-			CommerceDataIntegrationConstants.EXECUTOR_DESTINATION_NAME, payLoad,
-			1000);
+			CommerceDataIntegrationConstants.EXECUTOR_DESTINATION_NAME,
+			payLoad.toString(), 1000);
 	}
 
 	@Override

@@ -58,17 +58,13 @@ public class TalendProcessTypeHelper {
 			InputStream inputStream)
 		throws Exception {
 
-		FileEntry fileEntry = null;
-
 		_validateFile(fileName, size);
 
 		Company company = _companyLocalService.getCompany(companyId);
 
-		fileEntry = _addFileEntry(
+		return _addFileEntry(
 			company.getGroupId(), userId, commerceDataIntegrationProcessId,
 			contentType, inputStream);
-
-		return fileEntry;
 	}
 
 	public FileEntry getFileEntry(long commerceDataIntegrationProcessId)

@@ -38,8 +38,6 @@ if (commerceDataIntegrationProcess != null) {
 
 <div class="closed container-fluid-1280" id="<portlet:namespace />editCommerceDataIntegrationProcessId">
 	<div class="container main-content-body sheet">
-		<liferay-ui:error-header />
-
 		<liferay-ui:error exception="<%= NoSuchDataIntegrationProcessException.class %>" message="the-process-could-not-be-found" />
 		<liferay-ui:error exception="<%= NoSuchDataIntegrationProcessLogException.class %>" message="the-log-could-not-be-found" />
 
@@ -47,7 +45,7 @@ if (commerceDataIntegrationProcess != null) {
 
 		<aui:form action="<%= editCommerceDataIntegrationProcessActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
 			<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
-			<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+			<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 			<aui:input name="commerceDataIntegrationProcessId" type="hidden" value="<%= String.valueOf(commerceDataIntegrationProcessId) %>" />
 			<aui:input name="processType" type="hidden" value="<%= processType %>" />
 			<aui:input name="typeSettings" type="hidden" />
