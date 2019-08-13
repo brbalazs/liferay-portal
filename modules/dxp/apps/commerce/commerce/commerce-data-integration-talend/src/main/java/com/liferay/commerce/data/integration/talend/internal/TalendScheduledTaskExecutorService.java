@@ -21,6 +21,7 @@ import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProc
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLogLocalService;
 import com.liferay.commerce.data.integration.service.ScheduledTaskExecutorService;
 import com.liferay.commerce.data.integration.talend.internal.util.DLManagementUtil;
+import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessTriggerHelper;
 import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
@@ -85,13 +86,9 @@ public class TalendScheduledTaskExecutorService
 					getCommerceDataIntegrationProcess(
 						commerceDataIntegrationProcessId);
 
-			String groupName =
-				CommerceDataIntegrationConstants.JOB_NAME_PREFIX +
-					commerceDataIntegrationProcessId;
-
-			Date lastRunStateDate = _schedulerEngineHelper.getPreviousFireTime(
-				String.valueOf(commerceDataIntegrationProcessId), groupName,
-				StorageType.PERSISTED);
+			Date lastRunStateDate =
+				_commerceDataIntegrationProcessTriggerHelper.
+					getPreviousFireTime(commerceDataIntegrationProcessId);
 
 			UnicodeProperties typeSettingsProperties =
 				commerceDataIntegrationProcess.getTypeSettingsProperties();
@@ -209,6 +206,6 @@ public class TalendScheduledTaskExecutorService
 	private DLManagementUtil _dlManagementUtil;
 
 	@Reference
-	private SchedulerEngineHelper _schedulerEngineHelper;
+	private CommerceDataIntegrationProcessTriggerHelper _commerceDataIntegrationProcessTriggerHelper;
 
 }
