@@ -40,7 +40,7 @@
 		<finder name="CompanyId" return-type="Collection">
 			<finder-column name="companyId" />
 		</finder>
-		<finder name="C_N" return-type="CommerceDataIntegrationProcess">
+		<finder name="C_N" return-type="CommerceDataIntegrationProcess" unique="true">
 			<finder-column name="companyId" />
 			<finder-column name="name" />
 		</finder>
@@ -94,6 +94,8 @@
 	</entity>
 	<exceptions>
 		<exception>CommerceDataIntegrationProcessEndDate</exception>
+		<exception>CommerceDataIntegrationProcessName</exception>
 		<exception>CommerceDataIntegrationProcessStartDate</exception>
+		<exception>DuplicateCommerceDataIntegrationProcess</exception>
 	</exceptions>
 </service-builder>

@@ -15,10 +15,12 @@
 package com.liferay.commerce.data.integration.service.impl;
 
 import com.liferay.commerce.data.integration.exception.CommerceDataIntegrationProcessEndDateException;
+import com.liferay.commerce.data.integration.exception.CommerceDataIntegrationProcessNameException;
 import com.liferay.commerce.data.integration.exception.CommerceDataIntegrationProcessStartDateException;
-import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessTriggerHelper;
+import com.liferay.commerce.data.integration.exception.DuplicateCommerceDataIntegrationProcessException;
 import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
 import com.liferay.commerce.data.integration.service.base.CommerceDataIntegrationProcessLocalServiceBaseImpl;
+import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessTriggerHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.ResourceConstants;
@@ -27,6 +29,7 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.util.Date;
@@ -47,6 +50,8 @@ public class CommerceDataIntegrationProcessLocalServiceImpl
 		// Commerce data integration process
 
 		User user = userLocalService.getUser(userId);
+
+		validate(user.getCompanyId(), 0 , name);
 
 		Company company = companyLocalService.getCompany(user.getCompanyId());
 
@@ -170,6 +175,10 @@ public class CommerceDataIntegrationProcessLocalServiceImpl
 			commerceDataIntegrationProcessPersistence.findByPrimaryKey(
 				commerceDataIntegrationProcessId);
 
+		validate(
+			commerceDataIntegrationProcess.getCompanyId(),
+			commerceDataIntegrationProcessId , name);
+
 		commerceDataIntegrationProcess.setName(name);
 		commerceDataIntegrationProcess.setType(type);
 		commerceDataIntegrationProcess.setTypeSettingsProperties(
@@ -188,6 +197,8 @@ public class CommerceDataIntegrationProcessLocalServiceImpl
 				int endDateMonth, int endDateDay, int endDateYear,
 				int endDateHour, int endDateMinute, boolean neverEnd)
 		throws PortalException {
+
+		// Commerce data integration process
 
 		CommerceDataIntegrationProcess commerceDataIntegrationProcess =
 			commerceDataIntegrationProcessPersistence.fetchByPrimaryKey(
@@ -230,6 +241,37 @@ public class CommerceDataIntegrationProcessLocalServiceImpl
 		}
 
 		return commerceDataIntegrationProcess;
+	}
+
+	protected void validate(
+			long companyId, long commerceDataIntegrationProcessId, String name)
+		throws PortalException {
+
+		if (Validator.isNull(name)) {
+			throw new CommerceDataIntegrationProcessNameException(
+				"Commerce data integration process name cannot be null for" +
+					"company " + companyId);
+		}
+
+		CommerceDataIntegrationProcess commerceDataIntegrationProcess =
+			commerceDataIntegrationProcessPersistence.fetchByC_N(
+				companyId, name);
+
+		if (commerceDataIntegrationProcess == null) {
+			return;
+		}
+
+		if ((commerceDataIntegrationProcessId > 0) &&
+			(commerceDataIntegrationProcess.
+				getCommerceDataIntegrationProcessId() ==
+					commerceDataIntegrationProcessId)) {
+
+			return;
+		}
+
+		throw new DuplicateCommerceDataIntegrationProcessException(
+			"A commerce data integration process with the name " + name +
+				" already exists");
 	}
 
 	@ServiceReference(type = CommerceDataIntegrationProcessTriggerHelper.class)
