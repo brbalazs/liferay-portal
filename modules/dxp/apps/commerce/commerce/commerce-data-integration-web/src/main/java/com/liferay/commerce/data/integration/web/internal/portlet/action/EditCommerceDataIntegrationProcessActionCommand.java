@@ -157,7 +157,7 @@ public class EditCommerceDataIntegrationProcessActionCommand
 
 		String name = ParamUtil.getString(actionRequest, "name");
 
-		String type = ParamUtil.getString(actionRequest, "type");
+		String processType = ParamUtil.getString(actionRequest, "processType");
 
 		UnicodeProperties typeSettingsProperties = new UnicodeProperties(true);
 
@@ -170,14 +170,14 @@ public class EditCommerceDataIntegrationProcessActionCommand
 			commerceDataIntegrationProcess =
 				_commerceDataIntegrationProcessService.
 					updateCommerceDataIntegrationProcess(
-						commerceDataIntegrationProcessId, name, type,
+						commerceDataIntegrationProcessId, name,
 						typeSettingsProperties);
 		}
 		else {
 			commerceDataIntegrationProcess =
 				_commerceDataIntegrationProcessService.
 					addCommerceDataIntegrationProcess(
-						_portal.getUserId(actionRequest), name, type,
+						_portal.getUserId(actionRequest), name, processType,
 						typeSettingsProperties);
 		}
 

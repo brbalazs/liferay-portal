@@ -23,15 +23,13 @@ long commerceDataIntegrationProcessId = 0;
 
 CommerceDataIntegrationProcess commerceDataIntegrationProcess = commerceDataIntegrationProcessDisplayContext.getCommerceDataIntegrationProcess();
 
-String type = ParamUtil.getString(request, "type");
-
-List<ProcessType> processTypes = commerceDataIntegrationProcessDisplayContext.getProcessTypes();
+String processType = ParamUtil.getString(request, "processType");
 
 String typeSettings = StringPool.BLANK;
 
 if (commerceDataIntegrationProcess != null) {
 	commerceDataIntegrationProcessId = commerceDataIntegrationProcess.getCommerceDataIntegrationProcessId();
-	type = commerceDataIntegrationProcess.getType();
+	processType = commerceDataIntegrationProcess.getType();
 	typeSettings = commerceDataIntegrationProcess.getTypeSettings();
 }
 %>
@@ -49,8 +47,9 @@ if (commerceDataIntegrationProcess != null) {
 
 		<aui:form action="<%= editCommerceDataIntegrationProcessActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
 			<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
-			<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
+			<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 			<aui:input name="commerceDataIntegrationProcessId" type="hidden" value="<%= String.valueOf(commerceDataIntegrationProcessId) %>" />
+			<aui:input name="processType" type="hidden" value="<%= processType %>" />
 			<aui:input name="typeSettings" type="hidden" />
 
 			<div class="lfr-form-content">
@@ -58,35 +57,6 @@ if (commerceDataIntegrationProcess != null) {
 
 				<aui:fieldset>
 					<aui:input disabled="<%= (commerceDataIntegrationProcess != null) && commerceDataIntegrationProcess.isSystem() %>" name="name" required="<%= true %>" />
-
-					<c:if test="<%= processTypes != null %>">
-						<aui:select disabled="<%= (commerceDataIntegrationProcess != null) && commerceDataIntegrationProcess.isSystem() %>" name="type" onChange='<%= renderResponse.getNamespace() + "selectType();" %>'>
-
-							<%
-							for (ProcessType processType : processTypes) {
-							%>
-
-								<aui:option label="<%= processType.getLabel(locale) %>" selected="<%= (commerceDataIntegrationProcess != null) && (commerceDataIntegrationProcess.getType() == processType.getKey()) %>" value="<%= processType.getKey() %>" />
-
-							<%
-							}
-							%>
-
-						</aui:select>
-
-						<%
-						ProcessTypeJSPContributor processTypeJSPContributor = commerceDataIntegrationProcessDisplayContext.getProcessTypeJSPContributor(type);
-						%>
-
-						<c:if test="<%= processTypeJSPContributor != null %>">
-
-							<%
-							processTypeJSPContributor.render(request, response);
-							%>
-
-						</c:if>
-
-					</c:if>
 				</aui:fieldset>
 
 				<div id="<portlet:namespace />typeSettingsEditor"></div>
