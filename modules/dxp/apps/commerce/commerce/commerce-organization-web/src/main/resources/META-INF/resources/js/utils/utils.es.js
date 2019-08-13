@@ -30,7 +30,7 @@ export function callApi(parameters) {
 		.then(response => response.json())
 		.catch(e => {
 
-});
+		});
 }
 
 export const noop = () => {
@@ -82,14 +82,14 @@ export function setupDataset(data) {
 
 	sanitizedData.organizations.length &&
     sanitizedData.organizations.forEach(
-  	(orgObject, index) => {
-  		delete orgObject.organizations;
+	(orgObject, index) => {
+		delete orgObject.organizations;
 
-  		const prevColor = index ?
-  			sanitizedData.organizations[index - 1] : null;
+		const prevColor = index ?
+			sanitizedData.organizations[index - 1] : null;
 
-  		orgObject.colorIdentifier = `hsl(${getColorHue(prevColor)},75%,75%)`;
-  	});
+		orgObject.colorIdentifier = `hsl(${getColorHue(prevColor)},75%,75%)`;
+	});
 
 	return sanitizedData;
 }
@@ -98,7 +98,7 @@ export function getLocalizedText(string) {
 	try {
 		return w.Liferay.Language.get(string);
 	}
- catch (error) {
+	catch (error) {
 		console.log(error);
 		return string;
 	}
