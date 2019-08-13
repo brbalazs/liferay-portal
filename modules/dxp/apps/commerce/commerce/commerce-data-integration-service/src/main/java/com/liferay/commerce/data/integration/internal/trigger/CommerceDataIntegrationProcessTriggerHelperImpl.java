@@ -12,10 +12,10 @@
  *
  */
 
-package com.liferay.commerce.data.integration.internal.helper;
+package com.liferay.commerce.data.integration.internal.trigger;
 
 import com.liferay.commerce.data.integration.constants.CommerceDataIntegrationConstants;
-import com.liferay.commerce.data.integration.helper.CommerceDataIntegrationProcessTriggerHelper;
+import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessTriggerHelper;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -71,7 +71,7 @@ public class CommerceDataIntegrationProcessTriggerHelperImpl
 		_schedulerEngineHelper.schedule(
 			trigger, StorageType.PERSISTED,
 			String.valueOf(commerceDataIntegrationProcessId),
-			CommerceDataIntegrationConstants.DESTINATION_NAME, message, 1000);
+			CommerceDataIntegrationConstants.EXECUTOR_DESTINATION_NAME, message, 1000);
 	}
 
 	@Override
