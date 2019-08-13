@@ -62,20 +62,6 @@ public class CommerceDataIntegrationProcessLocalServiceWrapper
 			CommerceDataIntegrationProcess addCommerceDataIntegrationProcess(
 					long userId, String name, String type,
 					com.liferay.portal.kernel.util.UnicodeProperties
-						typeSettingsProperties)
-				throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceDataIntegrationProcessLocalService.
-			addCommerceDataIntegrationProcess(
-				userId, name, type, typeSettingsProperties);
-	}
-
-	@Override
-	public
-		com.liferay.commerce.data.integration.model.
-			CommerceDataIntegrationProcess addCommerceDataIntegrationProcess(
-					long userId, String name, String type,
-					com.liferay.portal.kernel.util.UnicodeProperties
 						typeSettingsProperties,
 					boolean system)
 				throws com.liferay.portal.kernel.exception.PortalException {

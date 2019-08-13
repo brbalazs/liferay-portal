@@ -76,11 +76,6 @@ public interface CommerceDataIntegrationProcessLocalService
 
 	public CommerceDataIntegrationProcess addCommerceDataIntegrationProcess(
 			long userId, String name, String type,
-			UnicodeProperties typeSettingsProperties)
-		throws PortalException;
-
-	public CommerceDataIntegrationProcess addCommerceDataIntegrationProcess(
-			long userId, String name, String type,
 			UnicodeProperties typeSettingsProperties, boolean system)
 		throws PortalException;
 

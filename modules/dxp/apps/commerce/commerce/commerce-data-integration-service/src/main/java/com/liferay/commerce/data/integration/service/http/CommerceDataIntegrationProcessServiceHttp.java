@@ -99,49 +99,6 @@ public class CommerceDataIntegrationProcessServiceHttp {
 		}
 	}
 
-	public static
-		com.liferay.commerce.data.integration.model.
-			CommerceDataIntegrationProcess fetchCommerceDataIntegrationProcess(
-					HttpPrincipal httpPrincipal,
-					long commerceDataIntegrationProcessId)
-				throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				CommerceDataIntegrationProcessServiceUtil.class,
-				"fetchCommerceDataIntegrationProcess",
-				_fetchCommerceDataIntegrationProcessParameterTypes1);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, commerceDataIntegrationProcessId);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
-			}
-
-			return (com.liferay.commerce.data.integration.model.
-				CommerceDataIntegrationProcess)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
 	public static void deleteCommerceDataIntegrationProcess(
 			HttpPrincipal httpPrincipal, long commerceDataIntegrationProcessId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -150,7 +107,7 @@ public class CommerceDataIntegrationProcessServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceDataIntegrationProcessServiceUtil.class,
 				"deleteCommerceDataIntegrationProcess",
-				_deleteCommerceDataIntegrationProcessParameterTypes2);
+				_deleteCommerceDataIntegrationProcessParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceDataIntegrationProcessId);
@@ -179,28 +136,19 @@ public class CommerceDataIntegrationProcessServiceHttp {
 
 	public static
 		com.liferay.commerce.data.integration.model.
-			CommerceDataIntegrationProcess
-					updateCommerceDataIntegrationProcessTrigger(
-						HttpPrincipal httpPrincipal,
-						long commerceDataIntegrationProcessId, boolean active,
-						String cronExpression, int startDateMonth,
-						int startDateDay, int startDateYear, int startDateHour,
-						int startDateMinute, int endDateMonth, int endDateDay,
-						int endDateYear, int endDateHour, int endDateMinute,
-						boolean neverEnd)
+			CommerceDataIntegrationProcess fetchCommerceDataIntegrationProcess(
+					HttpPrincipal httpPrincipal,
+					long commerceDataIntegrationProcessId)
 				throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceDataIntegrationProcessServiceUtil.class,
-				"updateCommerceDataIntegrationProcessTrigger",
-				_updateCommerceDataIntegrationProcessTriggerParameterTypes3);
+				"fetchCommerceDataIntegrationProcess",
+				_fetchCommerceDataIntegrationProcessParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, commerceDataIntegrationProcessId, active,
-				cronExpression, startDateMonth, startDateDay, startDateYear,
-				startDateHour, startDateMinute, endDateMonth, endDateDay,
-				endDateYear, endDateHour, endDateMinute, neverEnd);
+				methodKey, commerceDataIntegrationProcessId);
 
 			Object returnObj = null;
 
@@ -240,7 +188,7 @@ public class CommerceDataIntegrationProcessServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceDataIntegrationProcessServiceUtil.class,
 				"getCommerceDataIntegrationProcess",
-				_getCommerceDataIntegrationProcessParameterTypes4);
+				_getCommerceDataIntegrationProcessParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceDataIntegrationProcessId);
@@ -283,7 +231,7 @@ public class CommerceDataIntegrationProcessServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceDataIntegrationProcessServiceUtil.class,
 				"getCommerceDataIntegrationProcesses",
-				_getCommerceDataIntegrationProcessesParameterTypes5);
+				_getCommerceDataIntegrationProcessesParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, start, end);
@@ -324,7 +272,7 @@ public class CommerceDataIntegrationProcessServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceDataIntegrationProcessServiceUtil.class,
 				"getCommerceDataIntegrationProcessesCount",
-				_getCommerceDataIntegrationProcessesCountParameterTypes6);
+				_getCommerceDataIntegrationProcessesCountParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId);
@@ -369,11 +317,63 @@ public class CommerceDataIntegrationProcessServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceDataIntegrationProcessServiceUtil.class,
 				"updateCommerceDataIntegrationProcess",
-				_updateCommerceDataIntegrationProcessParameterTypes7);
+				_updateCommerceDataIntegrationProcessParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceDataIntegrationProcessId, name, type,
 				typeSettingsProperties);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (com.liferay.commerce.data.integration.model.
+				CommerceDataIntegrationProcess)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static
+		com.liferay.commerce.data.integration.model.
+			CommerceDataIntegrationProcess
+					updateCommerceDataIntegrationProcessTrigger(
+						HttpPrincipal httpPrincipal,
+						long commerceDataIntegrationProcessId, boolean active,
+						String cronExpression, int startDateMonth,
+						int startDateDay, int startDateYear, int startDateHour,
+						int startDateMinute, int endDateMonth, int endDateDay,
+						int endDateYear, int endDateHour, int endDateMinute,
+						boolean neverEnd)
+				throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceDataIntegrationProcessServiceUtil.class,
+				"updateCommerceDataIntegrationProcessTrigger",
+				_updateCommerceDataIntegrationProcessTriggerParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceDataIntegrationProcessId, active,
+				cronExpression, startDateMonth, startDateDay, startDateYear,
+				startDateHour, startDateMinute, endDateMonth, endDateDay,
+				endDateYear, endDateHour, endDateMinute, neverEnd);
 
 			Object returnObj = null;
 
@@ -411,36 +411,36 @@ public class CommerceDataIntegrationProcessServiceHttp {
 			com.liferay.portal.kernel.util.UnicodeProperties.class
 		};
 	private static final Class<?>[]
-		_fetchCommerceDataIntegrationProcessParameterTypes1 = new Class[] {
+		_deleteCommerceDataIntegrationProcessParameterTypes1 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_deleteCommerceDataIntegrationProcessParameterTypes2 = new Class[] {
+		_fetchCommerceDataIntegrationProcessParameterTypes2 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_updateCommerceDataIntegrationProcessTriggerParameterTypes3 =
+		_getCommerceDataIntegrationProcessParameterTypes3 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getCommerceDataIntegrationProcessesParameterTypes4 = new Class[] {
+			long.class, int.class, int.class
+		};
+	private static final Class<?>[]
+		_getCommerceDataIntegrationProcessesCountParameterTypes5 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_updateCommerceDataIntegrationProcessParameterTypes6 = new Class[] {
+			long.class, String.class, String.class,
+			com.liferay.portal.kernel.util.UnicodeProperties.class
+		};
+	private static final Class<?>[]
+		_updateCommerceDataIntegrationProcessTriggerParameterTypes7 =
 			new Class[] {
 				long.class, boolean.class, String.class, int.class, int.class,
 				int.class, int.class, int.class, int.class, int.class,
 				int.class, int.class, int.class, boolean.class
 			};
-	private static final Class<?>[]
-		_getCommerceDataIntegrationProcessParameterTypes4 = new Class[] {
-			long.class
-		};
-	private static final Class<?>[]
-		_getCommerceDataIntegrationProcessesParameterTypes5 = new Class[] {
-			long.class, int.class, int.class
-		};
-	private static final Class<?>[]
-		_getCommerceDataIntegrationProcessesCountParameterTypes6 = new Class[] {
-			long.class
-		};
-	private static final Class<?>[]
-		_updateCommerceDataIntegrationProcessParameterTypes7 = new Class[] {
-			long.class, String.class, String.class,
-			com.liferay.portal.kernel.util.UnicodeProperties.class
-		};
 
 }

@@ -64,28 +64,6 @@ import java.rmi.RemoteException;
 @ProviderType
 public class CommerceDataIntegrationProcessServiceSoap {
 
-	public static com.liferay.commerce.data.integration.model.
-		CommerceDataIntegrationProcessSoap fetchCommerceDataIntegrationProcess(
-				long commerceDataIntegrationProcessId)
-			throws RemoteException {
-
-		try {
-			com.liferay.commerce.data.integration.model.
-				CommerceDataIntegrationProcess returnValue =
-					CommerceDataIntegrationProcessServiceUtil.
-						fetchCommerceDataIntegrationProcess(
-							commerceDataIntegrationProcessId);
-
-			return com.liferay.commerce.data.integration.model.
-				CommerceDataIntegrationProcessSoap.toSoapModel(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
 	public static void deleteCommerceDataIntegrationProcess(
 			long commerceDataIntegrationProcessId)
 		throws RemoteException {
@@ -103,25 +81,16 @@ public class CommerceDataIntegrationProcessServiceSoap {
 	}
 
 	public static com.liferay.commerce.data.integration.model.
-		CommerceDataIntegrationProcessSoap
-				updateCommerceDataIntegrationProcessTrigger(
-					long commerceDataIntegrationProcessId, boolean active,
-					String cronExpression, int startDateMonth, int startDateDay,
-					int startDateYear, int startDateHour, int startDateMinute,
-					int endDateMonth, int endDateDay, int endDateYear,
-					int endDateHour, int endDateMinute, boolean neverEnd)
+		CommerceDataIntegrationProcessSoap fetchCommerceDataIntegrationProcess(
+				long commerceDataIntegrationProcessId)
 			throws RemoteException {
 
 		try {
 			com.liferay.commerce.data.integration.model.
 				CommerceDataIntegrationProcess returnValue =
 					CommerceDataIntegrationProcessServiceUtil.
-						updateCommerceDataIntegrationProcessTrigger(
-							commerceDataIntegrationProcessId, active,
-							cronExpression, startDateMonth, startDateDay,
-							startDateYear, startDateHour, startDateMinute,
-							endDateMonth, endDateDay, endDateYear, endDateHour,
-							endDateMinute, neverEnd);
+						fetchCommerceDataIntegrationProcess(
+							commerceDataIntegrationProcessId);
 
 			return com.liferay.commerce.data.integration.model.
 				CommerceDataIntegrationProcessSoap.toSoapModel(returnValue);
@@ -188,6 +157,37 @@ public class CommerceDataIntegrationProcessServiceSoap {
 					getCommerceDataIntegrationProcessesCount(companyId);
 
 			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.data.integration.model.
+		CommerceDataIntegrationProcessSoap
+				updateCommerceDataIntegrationProcessTrigger(
+					long commerceDataIntegrationProcessId, boolean active,
+					String cronExpression, int startDateMonth, int startDateDay,
+					int startDateYear, int startDateHour, int startDateMinute,
+					int endDateMonth, int endDateDay, int endDateYear,
+					int endDateHour, int endDateMinute, boolean neverEnd)
+			throws RemoteException {
+
+		try {
+			com.liferay.commerce.data.integration.model.
+				CommerceDataIntegrationProcess returnValue =
+					CommerceDataIntegrationProcessServiceUtil.
+						updateCommerceDataIntegrationProcessTrigger(
+							commerceDataIntegrationProcessId, active,
+							cronExpression, startDateMonth, startDateDay,
+							startDateYear, startDateHour, startDateMinute,
+							endDateMonth, endDateDay, endDateYear, endDateHour,
+							endDateMinute, neverEnd);
+
+			return com.liferay.commerce.data.integration.model.
+				CommerceDataIntegrationProcessSoap.toSoapModel(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
