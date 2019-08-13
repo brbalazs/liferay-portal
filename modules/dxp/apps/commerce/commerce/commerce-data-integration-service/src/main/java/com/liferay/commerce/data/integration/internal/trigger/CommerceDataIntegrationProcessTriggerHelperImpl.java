@@ -20,8 +20,6 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.messaging.Message;
-import com.liferay.portal.kernel.scheduler.SchedulerEngine;
 import com.liferay.portal.kernel.scheduler.SchedulerEngineHelper;
 import com.liferay.portal.kernel.scheduler.SchedulerException;
 import com.liferay.portal.kernel.scheduler.StorageType;
@@ -44,6 +42,14 @@ import org.osgi.service.component.annotations.Reference;
 public class CommerceDataIntegrationProcessTriggerHelperImpl
 	implements CommerceDataIntegrationProcessTriggerHelper {
 
+	public static final String JOB_NAME_PREFIX_X =
+		"COMMERCE_DATA_INTEGRATION_PROCESS_%s";
+
+	private String _getGroupName(long commerceDataIntegrationProcessId){
+		return
+			String.format(JOB_NAME_PREFIX_X, commerceDataIntegrationProcessId);
+	}
+
 	@Override
 	public void addScheduledTask(
 			long commerceDataIntegrationProcessId, String cronExpression,
@@ -52,42 +58,32 @@ public class CommerceDataIntegrationProcessTriggerHelperImpl
 
 		deleteScheduledTask(commerceDataIntegrationProcessId);
 
-		String groupName =
-			CommerceDataIntegrationConstants.JOB_NAME_PREFIX +
-				commerceDataIntegrationProcessId;
-
 		Trigger trigger = _triggerFactory.createTrigger(
-			String.valueOf(commerceDataIntegrationProcessId), groupName,
+			String.valueOf(commerceDataIntegrationProcessId),
+			_getGroupName(commerceDataIntegrationProcessId),
 			startDate, endDate, cronExpression);
-
-		Message message = new Message();
 
 		JSONObject payLoad = JSONUtil.put(
 			"commerceDataIntegrationProcessId",
 			commerceDataIntegrationProcessId);
 
-		message.setPayload(payLoad.toString());
-
 		_schedulerEngineHelper.schedule(
 			trigger, StorageType.PERSISTED,
-			String.valueOf(commerceDataIntegrationProcessId),
-			CommerceDataIntegrationConstants.EXECUTOR_DESTINATION_NAME, message, 1000);
+			null, CommerceDataIntegrationConstants.EXECUTOR_DESTINATION_NAME,
+			payLoad, 1000);
 	}
 
 	@Override
 	public void deleteScheduledTask(long commerceDataIntegrationProcessId)
 		throws SchedulerException {
 
-		String groupName =
-			CommerceDataIntegrationConstants.JOB_NAME_PREFIX +
-				commerceDataIntegrationProcessId;
-
 		SchedulerResponse scheduledJob = getScheduledJob(
 			commerceDataIntegrationProcessId);
 
 		if (scheduledJob != null) {
 			_schedulerEngineHelper.delete(
-				String.valueOf(commerceDataIntegrationProcessId), groupName,
+				String.valueOf(commerceDataIntegrationProcessId),
+				_getGroupName(commerceDataIntegrationProcessId),
 				StorageType.PERSISTED);
 		}
 	}
@@ -96,13 +92,10 @@ public class CommerceDataIntegrationProcessTriggerHelperImpl
 	public Date getNextFireTime(long commerceDataIntegrationProcessId) {
 		Date nextFireTime = null;
 
-		String groupName =
-			CommerceDataIntegrationConstants.JOB_NAME_PREFIX +
-				commerceDataIntegrationProcessId;
-
 		try {
 			nextFireTime = _schedulerEngineHelper.getNextFireTime(
-				String.valueOf(commerceDataIntegrationProcessId), groupName,
+				String.valueOf(commerceDataIntegrationProcessId),
+				_getGroupName(commerceDataIntegrationProcessId),
 				StorageType.PERSISTED);
 		}
 		catch (SchedulerException se) {
@@ -116,13 +109,10 @@ public class CommerceDataIntegrationProcessTriggerHelperImpl
 	public Date getPreviousFireTime(long commerceDataIntegrationProcessId) {
 		Date nextFireTime = null;
 
-		String groupName =
-			CommerceDataIntegrationConstants.JOB_NAME_PREFIX +
-				commerceDataIntegrationProcessId;
-
 		try {
 			nextFireTime = _schedulerEngineHelper.getPreviousFireTime(
-				String.valueOf(commerceDataIntegrationProcessId), groupName,
+				String.valueOf(commerceDataIntegrationProcessId),
+				_getGroupName(commerceDataIntegrationProcessId),
 				StorageType.PERSISTED);
 		}
 		catch (SchedulerException se) {
@@ -137,20 +127,14 @@ public class CommerceDataIntegrationProcessTriggerHelperImpl
 			long commerceDataIntegrationProcessId)
 		throws SchedulerException {
 
-		String groupName =
-			CommerceDataIntegrationConstants.JOB_NAME_PREFIX +
-				commerceDataIntegrationProcessId;
-
 		return _schedulerEngineHelper.getScheduledJob(
-			String.valueOf(commerceDataIntegrationProcessId), groupName,
+			String.valueOf(commerceDataIntegrationProcessId),
+			_getGroupName(commerceDataIntegrationProcessId),
 			StorageType.PERSISTED);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceDataIntegrationProcessTriggerHelperImpl.class);
-
-	@Reference
-	private SchedulerEngine _schedulerEngine;
 
 	@Reference
 	private SchedulerEngineHelper _schedulerEngineHelper;
