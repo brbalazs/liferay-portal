@@ -40,7 +40,7 @@ public class CommerceDataIntegrationProcessServiceImpl
 
 		PortalPermissionUtil.check(
 			getPermissionChecker(),
-			CommerceDataIntegrationActionKeys.ADD_PROCESS);
+			CommerceDataIntegrationActionKeys.ADD_COMMERCE_DATA_INTEGRATION_PROCESS);
 
 		return commerceDataIntegrationProcessLocalService.
 			addCommerceDataIntegrationProcess(
