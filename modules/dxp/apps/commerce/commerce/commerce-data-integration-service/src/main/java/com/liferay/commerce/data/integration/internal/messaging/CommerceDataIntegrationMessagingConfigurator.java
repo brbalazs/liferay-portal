@@ -53,7 +53,7 @@ public class CommerceDataIntegrationMessagingConfigurator {
 		DestinationConfiguration destinationConfiguration =
 			new DestinationConfiguration(
 				DestinationConfiguration.DESTINATION_TYPE_PARALLEL,
-				CommerceDataIntegrationConstants.DESTINATION_NAME);
+				CommerceDataIntegrationConstants.EXECUTOR_DESTINATION_NAME);
 
 		destinationConfiguration.setMaximumQueueSize(_MAXIMUM_QUEUE_SIZE);
 

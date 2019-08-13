@@ -41,7 +41,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "destination.name=" + CommerceDataIntegrationConstants.DESTINATION_NAME,
+	property = "destination.name=" + CommerceDataIntegrationConstants.EXECUTOR_DESTINATION_NAME,
 	service = MessageListener.class
 )
 public class CommerceDataIntegrationMessageListener implements MessageListener {
