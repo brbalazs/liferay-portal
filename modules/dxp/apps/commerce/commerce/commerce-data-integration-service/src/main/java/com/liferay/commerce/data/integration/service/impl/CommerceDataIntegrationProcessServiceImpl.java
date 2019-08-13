@@ -114,7 +114,7 @@ public class CommerceDataIntegrationProcessServiceImpl
 
 	@Override
 	public CommerceDataIntegrationProcess updateCommerceDataIntegrationProcess(
-			long commerceDataIntegrationProcessId, String name, String type,
+			long commerceDataIntegrationProcessId, String name,
 			UnicodeProperties typeSettingsProperties)
 		throws PortalException {
 
@@ -124,8 +124,7 @@ public class CommerceDataIntegrationProcessServiceImpl
 
 		return commerceDataIntegrationProcessLocalService.
 			updateCommerceDataIntegrationProcess(
-				commerceDataIntegrationProcessId, name, type,
-				typeSettingsProperties);
+				commerceDataIntegrationProcessId, name, typeSettingsProperties);
 	}
 
 	@Override
