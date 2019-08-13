@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.data.integration.web.internal.display.context;
 
-import com.liferay.commerce.data.integration.helper.CommerceDataIntegrationProcessTriggerHelper;
+import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessTriggerHelper;
 import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
 import com.liferay.commerce.data.integration.process.type.ProcessTypeJSPContributor;
 import com.liferay.commerce.data.integration.process.type.ProcessTypeJSPContributorRegistry;

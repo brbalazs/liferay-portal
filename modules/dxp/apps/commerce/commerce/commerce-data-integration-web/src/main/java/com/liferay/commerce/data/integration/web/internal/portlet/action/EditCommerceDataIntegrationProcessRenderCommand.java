@@ -15,7 +15,7 @@
 package com.liferay.commerce.data.integration.web.internal.portlet.action;
 
 import com.liferay.commerce.data.integration.constants.CommerceDataIntegrationPortletKeys;
-import com.liferay.commerce.data.integration.helper.CommerceDataIntegrationProcessTriggerHelper;
+import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessTriggerHelper;
 import com.liferay.commerce.data.integration.process.type.ProcessTypeJSPContributorRegistry;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessService;
 import com.liferay.commerce.data.integration.service.ScheduledTaskExecutorService;

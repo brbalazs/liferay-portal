@@ -16,7 +16,7 @@ package com.liferay.commerce.data.integration.service.impl;
 
 import com.liferay.commerce.data.integration.exception.CommerceDataIntegrationProcessEndDateException;
 import com.liferay.commerce.data.integration.exception.CommerceDataIntegrationProcessStartDateException;
-import com.liferay.commerce.data.integration.helper.CommerceDataIntegrationProcessTriggerHelper;
+import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessTriggerHelper;
 import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
 import com.liferay.commerce.data.integration.service.base.CommerceDataIntegrationProcessLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;

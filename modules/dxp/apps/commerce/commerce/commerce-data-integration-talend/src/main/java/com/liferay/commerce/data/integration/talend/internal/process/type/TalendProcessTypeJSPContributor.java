@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.data.integration.talend.internal.process.type;
 
-import com.liferay.commerce.data.integration.helper.CommerceDataIntegrationProcessFileEntryUploadActionHelper;
+import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessFileEntryUploadActionHelper;
 import com.liferay.commerce.data.integration.process.type.ProcessType;
 import com.liferay.commerce.data.integration.process.type.ProcessTypeJSPContributor;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessService;
