@@ -83,7 +83,7 @@ public class CommerceDataIntegrationProcessLogServiceImpl
 		_commerceDataIntegrationProcessModelResourcePermission.check(
 			getPermissionChecker(),
 			commerceDataIntegrationProcessLog.getCDataIntegrationProcessId(),
-			ActionKeys.UPDATE);
+			ActionKeys.VIEW);
 
 		return commerceDataIntegrationProcessLog;
 	}
@@ -96,7 +96,7 @@ public class CommerceDataIntegrationProcessLogServiceImpl
 
 		_commerceDataIntegrationProcessModelResourcePermission.check(
 			getPermissionChecker(), commerceDataIntegrationProcessId,
-			ActionKeys.UPDATE);
+			ActionKeys.VIEW);
 
 		return commerceDataIntegrationProcessLogLocalService.
 			getCommerceDataIntegrationProcessLogs(
@@ -110,7 +110,7 @@ public class CommerceDataIntegrationProcessLogServiceImpl
 
 		_commerceDataIntegrationProcessModelResourcePermission.check(
 			getPermissionChecker(), commerceDataIntegrationProcessId,
-			ActionKeys.UPDATE);
+			ActionKeys.VIEW);
 
 		return commerceDataIntegrationProcessLogLocalService.
 			getCommerceDataIntegrationProcessLogsCount(
