@@ -12,11 +12,11 @@
  *
  */
 
-package com.liferay.commerce.data.integration.internal.helper;
+package com.liferay.commerce.data.integration.talend.internal.util;
 
-import com.liferay.commerce.data.integration.configuration.CommerceDataIntegrationProcessConfiguration;
 import com.liferay.commerce.data.integration.exception.FileEntryValidationException;
-import com.liferay.commerce.data.integration.helper.CommerceDataIntegrationProcessFileEntryUploadActionHelper;
+import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessFileEntryUploadActionHelper;
+import com.liferay.commerce.data.integration.talend.internal.configuration.CommerceDataIntegrationProcessConfiguration;
 import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.document.library.kernel.model.DLFileVersion;
 import com.liferay.document.library.kernel.service.DLAppLocalService;
@@ -55,7 +55,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Alessio Antonio Rendina
  */
 @Component(
-	configurationPid = "com.liferay.commerce.data.integration.configuration.CommerceDataIntegrationProcessConfiguration",
+	configurationPid = "com.liferay.commerce.data.integration.talend.internal.configuration.CommerceDataIntegrationProcessConfiguration",
 	configurationPolicy = ConfigurationPolicy.OPTIONAL,
 	service = CommerceDataIntegrationProcessFileEntryUploadActionHelper.class
 )
