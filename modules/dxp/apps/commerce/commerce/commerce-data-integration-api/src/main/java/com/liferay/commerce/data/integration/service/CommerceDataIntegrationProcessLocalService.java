@@ -266,7 +266,7 @@ public interface CommerceDataIntegrationProcessLocalService
 		CommerceDataIntegrationProcess commerceDataIntegrationProcess);
 
 	public CommerceDataIntegrationProcess updateCommerceDataIntegrationProcess(
-			long commerceDataIntegrationProcessId, String name, String type,
+			long commerceDataIntegrationProcessId, String name,
 			UnicodeProperties typeSettingsProperties)
 		throws PortalException;
 
