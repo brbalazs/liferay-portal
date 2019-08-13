@@ -35,7 +35,7 @@ portletDisplay.setTitle(title);
 <div id="<portlet:namespace />editProcessContainer">
 	<liferay-frontend:screen-navigation
 		containerCssClass="col-md-10"
-		key="<%= CommerceDataIntegrationScreenNavigationConstants.SCREEN_NAVIGATION_KEY_COMMERCE_DATA_INTEGRATION_GENERAL %>"
+		key="<%= CommerceDataIntegrationConstants.SCREEN_NAVIGATION_KEY_COMMERCE_DATA_INTEGRATION_GENERAL %>"
 		modelBean="<%= commerceDataIntegrationProcess %>"
 		navCssClass="col-md-2"
 		portletURL="<%= currentURLObj %>"
