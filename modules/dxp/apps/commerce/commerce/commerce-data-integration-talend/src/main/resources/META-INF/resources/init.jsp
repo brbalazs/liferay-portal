@@ -16,7 +16,19 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
+<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 
-<%@ page import="com.liferay.commerce.data.integration.constants.CommerceDataIntegrationWebKeys" %><%@
+<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %><%@
+taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %><%@
+taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %><%@
+taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
+
+<%@ page import="com.liferay.commerce.data.integration.constants.CommerceDataIntegrationPortletKeys" %><%@
+page import="com.liferay.commerce.data.integration.constants.CommerceDataIntegrationWebKeys" %><%@
 page import="com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess" %>
+
+<liferay-frontend:defineObjects />
+
+<liferay-theme:defineObjects />
+
+<portlet:defineObjects />

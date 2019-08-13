@@ -20,8 +20,25 @@
 CommerceDataIntegrationProcess commerceDataIntegrationProcess = (CommerceDataIntegrationProcess)request.getAttribute(CommerceDataIntegrationWebKeys.COMMERCE_DATA_INTEGRATION_PROCESS);
 %>
 
-<aui:model-context bean="<%= commerceDataIntegrationProcess %>" model="<%= CommerceDataIntegrationProcess.class %>" />
+<liferay-portlet:actionURL name="editTalendCommerceDataIntegrationProcess" portletName="<%= CommerceDataIntegrationPortletKeys.COMMERCE_DATA_INTEGRATION %>" var="editTalendCommerceDataIntegrationProcessActionURL" />
 
-<c:if test="<%= (commerceDataIntegrationProcess == null) || !commerceDataIntegrationProcess.isSystem() %>">
-	<aui:input name="srcArchive" type="file" />
-</c:if>
+<div class="closed container-fluid-1280" id="<portlet:namespace />editCommerceDataIntegrationProcessId">
+	<div class="container main-content-body sheet">
+		<aui:form action="<%= editTalendCommerceDataIntegrationProcessActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
+			<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+			<aui:input name="commerceDataIntegrationProcessId" type="hidden" value="<%= String.valueOf(commerceDataIntegrationProcess.getCommerceDataIntegrationProcessId()) %>" />
+
+			<aui:model-context bean="<%= commerceDataIntegrationProcess %>" model="<%= CommerceDataIntegrationProcess.class %>" />
+
+			<c:if test="<%= (commerceDataIntegrationProcess == null) || !commerceDataIntegrationProcess.isSystem() %>">
+				<aui:input name="srcArchive" required="<%= true %>" type="file" />
+			</c:if>
+
+			<aui:button-row>
+				<aui:button cssClass="btn-lg" type="submit" value="save" />
+
+				<aui:button cssClass="btn-lg" href="<%= currentURL %>" type="cancel" />
+			</aui:button-row>
+		</aui:form>
+	</div>
+</div>
