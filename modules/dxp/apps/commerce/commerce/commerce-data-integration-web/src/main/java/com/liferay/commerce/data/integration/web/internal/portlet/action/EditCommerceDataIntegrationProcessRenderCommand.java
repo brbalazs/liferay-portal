@@ -93,8 +93,6 @@ public class EditCommerceDataIntegrationProcessRenderCommand
 		_commerceDataIntegrationProcessService;
 
 	@Reference
-	private ProcessTypeJSPContributorRegistry
-		_processTypeJSPContributorRegistry;
 
 	private ServiceTrackerMap<String, ScheduledTaskExecutorService>
 		_scheduledTaskExecutorServiceTrackerMap;

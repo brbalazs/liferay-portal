@@ -148,8 +148,6 @@ public class CommerceDataIntegrationPortlet extends MVCPortlet {
 	private Portal _portal;
 
 	@Reference
-	private ProcessTypeJSPContributorRegistry
-		_processTypeJSPContributorRegistry;
 
 	private ServiceTrackerMap<String, ScheduledTaskExecutorService>
 		_scheduledTaskExecutorServiceTrackerMap;

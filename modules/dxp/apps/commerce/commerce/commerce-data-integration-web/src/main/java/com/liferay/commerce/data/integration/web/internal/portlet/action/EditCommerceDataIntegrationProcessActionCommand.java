@@ -17,8 +17,6 @@ package com.liferay.commerce.data.integration.web.internal.portlet.action;
 import com.liferay.commerce.data.integration.constants.CommerceDataIntegrationConstants;
 import com.liferay.commerce.data.integration.constants.CommerceDataIntegrationPortletKeys;
 import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
-import com.liferay.commerce.data.integration.process.type.ProcessTypeJSPContributor;
-import com.liferay.commerce.data.integration.process.type.ProcessTypeJSPContributorRegistry;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactory;
@@ -51,7 +49,6 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author guywandji
  * @author Alessio Antonio Rendina
  */
 @Component(
@@ -167,18 +164,10 @@ public class EditCommerceDataIntegrationProcessActionCommand
 
 		String type = ParamUtil.getString(actionRequest, "type");
 
-		ProcessTypeJSPContributor processTypeJSPContributor =
-			_processTypeJSPContributorRegistry.getProcessTypeJSPContributor(
-				type);
-
 		UnicodeProperties typeSettingsProperties = new UnicodeProperties(true);
 
 		typeSettingsProperties.fastLoad(
 			ParamUtil.getString(actionRequest, "typeSettings"));
-
-		typeSettingsProperties.putAll(
-			processTypeJSPContributor.processAction(
-				actionRequest, actionResponse));
 
 		CommerceDataIntegrationProcess commerceDataIntegrationProcess = null;
 
@@ -246,10 +235,6 @@ public class EditCommerceDataIntegrationProcessActionCommand
 
 	@Reference
 	private Portal _portal;
-
-	@Reference
-	private ProcessTypeJSPContributorRegistry
-		_processTypeJSPContributorRegistry;
 
 	@Reference
 	private SingleDestinationMessageSenderFactory

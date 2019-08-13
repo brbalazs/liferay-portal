@@ -53,14 +53,12 @@ public class CommerceDataIntegrationProcessDisplayContext {
 			commerceDataIntegrationProcessScheduledTaskHelper,
 		CommerceDataIntegrationProcessService
 			commerceDataIntegrationProcessService,
-		ProcessTypeJSPContributorRegistry processTypeJSPContributorRegistry,
 		RenderRequest renderRequest,
 		ServiceTrackerMap<String, ScheduledTaskExecutorService>
 			scheduledTaskExecutorServiceTrackerMap) {
 
 		_commerceDataIntegrationProcessService =
 			commerceDataIntegrationProcessService;
-		_processTypeJSPContributorRegistry = processTypeJSPContributorRegistry;
 		_scheduledTaskExecutorServiceTrackerMap =
 			scheduledTaskExecutorServiceTrackerMap;
 		_commerceDataIntegrationProcessTriggerHelper =
@@ -210,8 +208,6 @@ public class CommerceDataIntegrationProcessDisplayContext {
 	private final CommerceDataIntegrationRequestHelper
 		_commerceDataIntegrationRequestHelper;
 	private final Format _dateFormatDateTime;
-	private final ProcessTypeJSPContributorRegistry
-		_processTypeJSPContributorRegistry;
 	private RowChecker _rowChecker;
 	private final ServiceTrackerMap<String, ScheduledTaskExecutorService>
 		_scheduledTaskExecutorServiceTrackerMap;
