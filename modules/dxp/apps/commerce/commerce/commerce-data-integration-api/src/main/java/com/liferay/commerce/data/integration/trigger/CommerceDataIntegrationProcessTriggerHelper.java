@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.commerce.data.integration.helper;
+package com.liferay.commerce.data.integration.trigger;
 
 import aQute.bnd.annotation.ProviderType;
 
