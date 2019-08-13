@@ -44,7 +44,7 @@ public class CommerceDataIntegrationProcessServiceImpl
 
 		return commerceDataIntegrationProcessLocalService.
 			addCommerceDataIntegrationProcess(
-				userId, name, type, typeSettingsProperties);
+				userId, name, type, typeSettingsProperties, false);
 	}
 
 	@Override

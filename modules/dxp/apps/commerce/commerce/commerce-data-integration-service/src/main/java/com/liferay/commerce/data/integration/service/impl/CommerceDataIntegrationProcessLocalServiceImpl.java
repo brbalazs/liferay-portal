@@ -41,17 +41,6 @@ public class CommerceDataIntegrationProcessLocalServiceImpl
 	@Override
 	public CommerceDataIntegrationProcess addCommerceDataIntegrationProcess(
 			long userId, String name, String type,
-			UnicodeProperties typeSettingsProperties)
-		throws PortalException {
-
-		return commerceDataIntegrationProcessLocalService.
-			addCommerceDataIntegrationProcess(
-				userId, name, type, typeSettingsProperties, false);
-	}
-
-	@Override
-	public CommerceDataIntegrationProcess addCommerceDataIntegrationProcess(
-			long userId, String name, String type,
 			UnicodeProperties typeSettingsProperties, boolean system)
 		throws PortalException {
 
