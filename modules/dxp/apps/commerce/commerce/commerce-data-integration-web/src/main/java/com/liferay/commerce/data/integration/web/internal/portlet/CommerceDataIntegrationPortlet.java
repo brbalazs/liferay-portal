@@ -16,14 +16,11 @@ package com.liferay.commerce.data.integration.web.internal.portlet;
 
 import com.liferay.commerce.data.integration.constants.CommerceDataIntegrationPortletKeys;
 import com.liferay.commerce.data.integration.constants.CommerceDataIntegrationWebKeys;
-import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessTriggerHelper;
 import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
-import com.liferay.commerce.data.integration.process.type.ProcessTypeJSPContributorRegistry;
+import com.liferay.commerce.data.integration.process.type.ProcessTypeRegistry;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessService;
-import com.liferay.commerce.data.integration.service.ScheduledTaskExecutorService;
+import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessTriggerHelper;
 import com.liferay.commerce.data.integration.web.internal.display.context.CommerceDataIntegrationProcessDisplayContext;
-import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
-import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -39,11 +36,7 @@ import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import org.osgi.framework.BundleContext;
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Deactivate;
-import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 
 /**
@@ -109,28 +102,13 @@ public class CommerceDataIntegrationPortlet extends MVCPortlet {
 				new CommerceDataIntegrationProcessDisplayContext(
 					_commerceDataIntegrationProcessScheduledTaskHelper,
 					_commerceDataIntegrationProcessService,
-					_processTypeJSPContributorRegistry, renderRequest,
-					_scheduledTaskExecutorServiceTrackerMap);
+					_processTypeRegistry, renderRequest);
 
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,
 			commerceDataIntegrationProcessDisplayContext);
 
 		super.render(renderRequest, renderResponse);
-	}
-
-	@Activate
-	@Modified
-	protected void activate(BundleContext bundleContext) {
-		_scheduledTaskExecutorServiceTrackerMap =
-			ServiceTrackerMapFactory.openSingleValueMap(
-				bundleContext, ScheduledTaskExecutorService.class,
-				"data.integration.service.executor.key");
-	}
-
-	@Deactivate
-	protected void deactivate() {
-		_scheduledTaskExecutorServiceTrackerMap.close();
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
@@ -148,8 +126,6 @@ public class CommerceDataIntegrationPortlet extends MVCPortlet {
 	private Portal _portal;
 
 	@Reference
-
-	private ServiceTrackerMap<String, ScheduledTaskExecutorService>
-		_scheduledTaskExecutorServiceTrackerMap;
+	private ProcessTypeRegistry _processTypeRegistry;
 
 }

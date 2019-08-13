@@ -14,14 +14,12 @@
 
 package com.liferay.commerce.data.integration.web.internal.display.context;
 
-import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessTriggerHelper;
 import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
-import com.liferay.commerce.data.integration.process.type.ProcessTypeJSPContributor;
-import com.liferay.commerce.data.integration.process.type.ProcessTypeJSPContributorRegistry;
+import com.liferay.commerce.data.integration.process.type.ProcessType;
+import com.liferay.commerce.data.integration.process.type.ProcessTypeRegistry;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessService;
-import com.liferay.commerce.data.integration.service.ScheduledTaskExecutorService;
+import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessTriggerHelper;
 import com.liferay.commerce.data.integration.web.internal.display.context.util.CommerceDataIntegrationRequestHelper;
-import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
 import com.liferay.portal.kernel.dao.search.RowChecker;
@@ -35,9 +33,7 @@ import com.liferay.portal.kernel.util.Validator;
 import java.text.Format;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
@@ -53,14 +49,11 @@ public class CommerceDataIntegrationProcessDisplayContext {
 			commerceDataIntegrationProcessScheduledTaskHelper,
 		CommerceDataIntegrationProcessService
 			commerceDataIntegrationProcessService,
-		RenderRequest renderRequest,
-		ServiceTrackerMap<String, ScheduledTaskExecutorService>
-			scheduledTaskExecutorServiceTrackerMap) {
+		ProcessTypeRegistry processTypeRegistry, RenderRequest renderRequest) {
 
 		_commerceDataIntegrationProcessService =
 			commerceDataIntegrationProcessService;
-		_scheduledTaskExecutorServiceTrackerMap =
-			scheduledTaskExecutorServiceTrackerMap;
+		_processTypeRegistry = processTypeRegistry;
 		_commerceDataIntegrationProcessTriggerHelper =
 			commerceDataIntegrationProcessScheduledTaskHelper;
 
@@ -111,34 +104,8 @@ public class CommerceDataIntegrationProcessDisplayContext {
 		return portletURL;
 	}
 
-	public ProcessTypeJSPContributor getProcessTypeJSPContributor(
-		String processType) {
-
-		return _processTypeJSPContributorRegistry.getProcessTypeJSPContributor(
-			processType);
-	}
-
-	public Map<String, String> getProcessTypes() {
-		Map<String, String> processTypes = new HashMap<>();
-
-		Class<?> serviceClass;
-
-		if (_scheduledTaskExecutorServiceTrackerMap != null) {
-			for (String key :
-					_scheduledTaskExecutorServiceTrackerMap.keySet()) {
-
-				ScheduledTaskExecutorService scheduledTaskExecutorService =
-					_scheduledTaskExecutorServiceTrackerMap.getService(key);
-
-				serviceClass = scheduledTaskExecutorService.getClass();
-
-				processTypes.put(
-					scheduledTaskExecutorService.getName(),
-					serviceClass.getName());
-			}
-		}
-
-		return processTypes;
+	public List<ProcessType> getProcessTypes() {
+		return _processTypeRegistry.getProcessTypes();
 	}
 
 	public RowChecker getRowChecker() {
@@ -208,9 +175,8 @@ public class CommerceDataIntegrationProcessDisplayContext {
 	private final CommerceDataIntegrationRequestHelper
 		_commerceDataIntegrationRequestHelper;
 	private final Format _dateFormatDateTime;
+	private final ProcessTypeRegistry _processTypeRegistry;
 	private RowChecker _rowChecker;
-	private final ServiceTrackerMap<String, ScheduledTaskExecutorService>
-		_scheduledTaskExecutorServiceTrackerMap;
 	private SearchContainer<CommerceDataIntegrationProcess> _searchContainer;
 
 }

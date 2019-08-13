@@ -25,13 +25,7 @@ CommerceDataIntegrationProcess commerceDataIntegrationProcess = commerceDataInte
 
 String type = ParamUtil.getString(request, "type");
 
-Map<String, String> processTypes = commerceDataIntegrationProcessDisplayContext.getProcessTypes();
-
-List<String> processTypeKeys = new ArrayList(processTypes.keySet());
-
-if ((processTypeKeys.size() > 0) && Validator.isNotNull(type)) {
-	type = ParamUtil.getString(request, "type", processTypeKeys.get(0));
-}
+List<ProcessType> processTypes = commerceDataIntegrationProcessDisplayContext.getProcessTypes();
 
 String typeSettings = StringPool.BLANK;
 
@@ -62,10 +56,10 @@ if (commerceDataIntegrationProcess != null) {
 						<aui:select disabled="<%= (commerceDataIntegrationProcess != null) && commerceDataIntegrationProcess.isSystem() %>" name="type" onChange='<%= renderResponse.getNamespace() + "selectType();" %>'>
 
 							<%
-							for (String processTypeKey : processTypes.keySet()) {
+							for (ProcessType processType : processTypes) {
 							%>
 
-								<aui:option label="<%= processTypeKey %>" selected="<%= (commerceDataIntegrationProcess != null) && (commerceDataIntegrationProcess.getType() == processTypeKey) %>" value="<%= processTypeKey %>" />
+								<aui:option label="<%= processType.getLabel(locale) %>" selected="<%= (commerceDataIntegrationProcess != null) && (commerceDataIntegrationProcess.getType() == processType.getKey()) %>" value="<%= processType.getKey() %>" />
 
 							<%
 							}

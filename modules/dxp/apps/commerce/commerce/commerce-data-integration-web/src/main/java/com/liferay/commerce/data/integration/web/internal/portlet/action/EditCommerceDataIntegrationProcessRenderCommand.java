@@ -15,13 +15,10 @@
 package com.liferay.commerce.data.integration.web.internal.portlet.action;
 
 import com.liferay.commerce.data.integration.constants.CommerceDataIntegrationPortletKeys;
-import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessTriggerHelper;
-import com.liferay.commerce.data.integration.process.type.ProcessTypeJSPContributorRegistry;
+import com.liferay.commerce.data.integration.process.type.ProcessTypeRegistry;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessService;
-import com.liferay.commerce.data.integration.service.ScheduledTaskExecutorService;
+import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessTriggerHelper;
 import com.liferay.commerce.data.integration.web.internal.display.context.CommerceDataIntegrationProcessDisplayContext;
-import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
-import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -29,15 +26,10 @@ import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import org.osgi.framework.BundleContext;
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Deactivate;
-import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author guywandji
  * @author Alessio Antonio Rendina
  */
 @Component(
@@ -60,28 +52,13 @@ public class EditCommerceDataIntegrationProcessRenderCommand
 				new CommerceDataIntegrationProcessDisplayContext(
 					_commerceDataIntegrationProcessScheduledTaskHelper,
 					_commerceDataIntegrationProcessService,
-					_processTypeJSPContributorRegistry, renderRequest,
-					_scheduledTaskExecutorServiceTrackerMap);
+					_processTypeRegistry, renderRequest);
 
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,
 			commerceDataIntegrationProcessDisplayContext);
 
 		return "/edit_process.jsp";
-	}
-
-	@Activate
-	@Modified
-	protected void activate(BundleContext bundleContext) {
-		_scheduledTaskExecutorServiceTrackerMap =
-			ServiceTrackerMapFactory.openSingleValueMap(
-				bundleContext, ScheduledTaskExecutorService.class,
-				"data.integration.service.executor.key");
-	}
-
-	@Deactivate
-	protected void deactivate() {
-		_scheduledTaskExecutorServiceTrackerMap.close();
 	}
 
 	@Reference
@@ -93,8 +70,6 @@ public class EditCommerceDataIntegrationProcessRenderCommand
 		_commerceDataIntegrationProcessService;
 
 	@Reference
-
-	private ServiceTrackerMap<String, ScheduledTaskExecutorService>
-		_scheduledTaskExecutorServiceTrackerMap;
+	private ProcessTypeRegistry _processTypeRegistry;
 
 }
