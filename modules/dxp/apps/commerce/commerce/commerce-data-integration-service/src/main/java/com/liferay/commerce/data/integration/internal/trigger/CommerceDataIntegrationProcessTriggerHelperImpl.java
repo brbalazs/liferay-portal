@@ -45,11 +45,6 @@ public class CommerceDataIntegrationProcessTriggerHelperImpl
 	public static final String JOB_NAME_PREFIX_X =
 		"COMMERCE_DATA_INTEGRATION_PROCESS_%s";
 
-	private String _getGroupName(long commerceDataIntegrationProcessId){
-		return
-			String.format(JOB_NAME_PREFIX_X, commerceDataIntegrationProcessId);
-	}
-
 	@Override
 	public void addScheduledTask(
 			long commerceDataIntegrationProcessId, String cronExpression,
@@ -60,17 +55,17 @@ public class CommerceDataIntegrationProcessTriggerHelperImpl
 
 		Trigger trigger = _triggerFactory.createTrigger(
 			String.valueOf(commerceDataIntegrationProcessId),
-			_getGroupName(commerceDataIntegrationProcessId),
-			startDate, endDate, cronExpression);
+			_getGroupName(commerceDataIntegrationProcessId), startDate, endDate,
+			cronExpression);
 
 		JSONObject payLoad = JSONUtil.put(
 			"commerceDataIntegrationProcessId",
 			commerceDataIntegrationProcessId);
 
 		_schedulerEngineHelper.schedule(
-			trigger, StorageType.PERSISTED,
-			null, CommerceDataIntegrationConstants.EXECUTOR_DESTINATION_NAME,
-			payLoad, 1000);
+			trigger, StorageType.PERSISTED, null,
+			CommerceDataIntegrationConstants.EXECUTOR_DESTINATION_NAME, payLoad,
+			1000);
 	}
 
 	@Override
@@ -131,6 +126,11 @@ public class CommerceDataIntegrationProcessTriggerHelperImpl
 			String.valueOf(commerceDataIntegrationProcessId),
 			_getGroupName(commerceDataIntegrationProcessId),
 			StorageType.PERSISTED);
+	}
+
+	private String _getGroupName(long commerceDataIntegrationProcessId) {
+		return String.format(
+			JOB_NAME_PREFIX_X, commerceDataIntegrationProcessId);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

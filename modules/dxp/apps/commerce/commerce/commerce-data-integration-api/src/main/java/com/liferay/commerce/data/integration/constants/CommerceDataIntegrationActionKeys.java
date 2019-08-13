@@ -19,6 +19,7 @@ package com.liferay.commerce.data.integration.constants;
  */
 public class CommerceDataIntegrationActionKeys {
 
-	public static final String ADD_COMMERCE_DATA_INTEGRATION_PROCESS = "ADD_COMMERCE_DATA_INTEGRATION_PROCESS";
+	public static final String ADD_COMMERCE_DATA_INTEGRATION_PROCESS =
+		"ADD_COMMERCE_DATA_INTEGRATION_PROCESS";
 
 }

@@ -114,15 +114,14 @@ public class CommerceDataIntegrationProcessPermissionImpl
 		throws PortalException {
 
 		if (permissionChecker.hasOwnerPermission(
-			commerceDataIntegrationProcess.getCompanyId(),
-			CommerceDataIntegrationProcess.class.getName(),
-			commerceDataIntegrationProcess.
-				getCommerceDataIntegrationProcessId(),
-			commerceDataIntegrationProcess.getUserId(), actionId)) {
+				commerceDataIntegrationProcess.getCompanyId(),
+				CommerceDataIntegrationProcess.class.getName(),
+				commerceDataIntegrationProcess.
+					getCommerceDataIntegrationProcessId(),
+				commerceDataIntegrationProcess.getUserId(), actionId)) {
 
 			return true;
 		}
-
 
 		return permissionChecker.hasPermission(
 			0, CommerceDataIntegrationProcess.class.getName(),

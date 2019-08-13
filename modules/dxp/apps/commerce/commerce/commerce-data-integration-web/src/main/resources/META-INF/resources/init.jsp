@@ -30,7 +30,7 @@ page import="com.liferay.commerce.data.integration.exception.NoSuchDataIntegrati
 page import="com.liferay.commerce.data.integration.exception.NoSuchDataIntegrationProcessLogException" %><%@
 page import="com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess" %><%@
 page import="com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcessLog" %><%@
-page import="com.liferay.commerce.data.integration.process.type.ProcessTypeJSPContributor" %><%@
+page import="com.liferay.commerce.data.integration.process.type.ProcessType" %><%@
 page import="com.liferay.commerce.data.integration.web.internal.display.context.CommerceDataIntegrationProcessDisplayContext" %><%@
 page import="com.liferay.commerce.data.integration.web.internal.display.context.CommerceDataIntegrationProcessLogDisplayContext" %><%@
 page import="com.liferay.commerce.data.integration.web.internal.security.permisison.resource.CommerceDataintegrationProcessPermission" %><%@
@@ -44,12 +44,9 @@ page import="com.liferay.portal.kernel.security.permission.ActionKeys" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
-page import="com.liferay.portal.kernel.util.Validator" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %>
 
-<%@ page import="java.util.ArrayList" %><%@
-page import="java.util.List" %><%@
-page import="java.util.Map" %>
+<%@ page import="java.util.List" %>
 
 <%@ page import="javax.portlet.PortletURL" %>
 

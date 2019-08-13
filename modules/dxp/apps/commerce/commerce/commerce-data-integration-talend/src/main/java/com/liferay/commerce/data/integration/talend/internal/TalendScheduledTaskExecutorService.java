@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.data.integration.talend.internal;
 
-import com.liferay.commerce.data.integration.constants.CommerceDataIntegrationConstants;
 import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
 import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcessLog;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLocalService;
@@ -30,8 +29,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.repository.model.FileEntry;
-import com.liferay.portal.kernel.scheduler.SchedulerEngineHelper;
-import com.liferay.portal.kernel.scheduler.StorageType;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
@@ -200,12 +197,13 @@ public class TalendScheduledTaskExecutorService
 		_commerceDataIntegrationProcessLogLocalService;
 
 	@Reference
+	private CommerceDataIntegrationProcessTriggerHelper
+		_commerceDataIntegrationProcessTriggerHelper;
+
+	@Reference
 	private DLAppLocalService _dlAppLocalService;
 
 	@Reference
 	private DLManagementUtil _dlManagementUtil;
-
-	@Reference
-	private CommerceDataIntegrationProcessTriggerHelper _commerceDataIntegrationProcessTriggerHelper;
 
 }

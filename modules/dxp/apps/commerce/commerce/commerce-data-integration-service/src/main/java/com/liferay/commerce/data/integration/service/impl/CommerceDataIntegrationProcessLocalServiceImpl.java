@@ -51,7 +51,7 @@ public class CommerceDataIntegrationProcessLocalServiceImpl
 
 		User user = userLocalService.getUser(userId);
 
-		validate(user.getCompanyId(), 0 , name);
+		validate(user.getCompanyId(), 0, name);
 
 		Company company = companyLocalService.getCompany(user.getCompanyId());
 
@@ -177,7 +177,7 @@ public class CommerceDataIntegrationProcessLocalServiceImpl
 
 		validate(
 			commerceDataIntegrationProcess.getCompanyId(),
-			commerceDataIntegrationProcessId , name);
+			commerceDataIntegrationProcessId, name);
 
 		commerceDataIntegrationProcess.setName(name);
 		commerceDataIntegrationProcess.setType(type);

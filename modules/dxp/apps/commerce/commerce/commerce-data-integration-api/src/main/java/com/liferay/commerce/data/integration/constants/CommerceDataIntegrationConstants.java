@@ -19,6 +19,7 @@ package com.liferay.commerce.data.integration.constants;
  */
 public class CommerceDataIntegrationConstants {
 
-	public static final String EXECUTOR_DESTINATION_NAME = "liferay/commerce/data_integration/executor";
+	public static final String EXECUTOR_DESTINATION_NAME =
+		"liferay/commerce/data_integration/executor";
 
 }

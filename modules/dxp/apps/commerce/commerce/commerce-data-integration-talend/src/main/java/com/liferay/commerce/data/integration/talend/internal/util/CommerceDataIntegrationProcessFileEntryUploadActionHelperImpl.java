@@ -15,8 +15,8 @@
 package com.liferay.commerce.data.integration.talend.internal.util;
 
 import com.liferay.commerce.data.integration.exception.FileEntryValidationException;
-import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessFileEntryUploadActionHelper;
 import com.liferay.commerce.data.integration.talend.internal.configuration.CommerceDataIntegrationProcessConfiguration;
+import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessFileEntryUploadActionHelper;
 import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.document.library.kernel.model.DLFileVersion;
 import com.liferay.document.library.kernel.service.DLAppLocalService;

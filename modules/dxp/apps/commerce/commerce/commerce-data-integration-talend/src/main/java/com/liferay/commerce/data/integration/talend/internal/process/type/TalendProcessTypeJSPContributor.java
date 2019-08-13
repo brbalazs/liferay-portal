@@ -14,11 +14,11 @@
 
 package com.liferay.commerce.data.integration.talend.internal.process.type;
 
-import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessFileEntryUploadActionHelper;
 import com.liferay.commerce.data.integration.process.type.ProcessType;
 import com.liferay.commerce.data.integration.process.type.ProcessTypeJSPContributor;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessService;
 import com.liferay.commerce.data.integration.talend.internal.TalendScheduledTaskExecutorService;
+import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessFileEntryUploadActionHelper;
 import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.language.LanguageUtil;
