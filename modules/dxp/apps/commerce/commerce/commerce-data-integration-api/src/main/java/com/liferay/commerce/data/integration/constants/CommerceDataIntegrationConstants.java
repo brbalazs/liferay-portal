@@ -15,8 +15,7 @@
 package com.liferay.commerce.data.integration.constants;
 
 /**
- * @author guywandji
- * @author Alessio Antonio Rendina
+ * @author Marco Leo
  */
 public class CommerceDataIntegrationConstants {
 
@@ -24,15 +23,5 @@ public class CommerceDataIntegrationConstants {
 
 	public static final String JOB_NAME_PREFIX =
 		"COMMERCE_DATA_INTEGRATION_PROCESS_";
-
-	public static final String SCHEDULED_TASK_EXECUTE_ONCE = "execute-once";
-
-	public static final String SCHEDULED_TASK_EXECUTION_MANUAL = "manual";
-
-	public static final String SCHEDULED_TASK_EXECUTION_SCHEDULED = "scheduled";
-
-	public static final String SCHEDULED_TASK_HOURLY = "hourly";
-
-	public static final String SCHEDULED_TASK_MONTHLY = "monthly";
 
 }
