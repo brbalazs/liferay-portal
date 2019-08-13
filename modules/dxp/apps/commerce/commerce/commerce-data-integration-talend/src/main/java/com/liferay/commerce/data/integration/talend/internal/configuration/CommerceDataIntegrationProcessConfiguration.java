@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.commerce.data.integration.configuration;
+package com.liferay.commerce.data.integration.talend.internal.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
@@ -27,7 +27,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 	scope = ExtendedObjectClassDefinition.Scope.SYSTEM
 )
 @Meta.OCD(
-	id = "com.liferay.commerce.data.integration.configuration.CommerceDataIntegrationProcessConfiguration",
+	id = "com.liferay.commerce.data.integration.talend.internal.configuration.CommerceDataIntegrationProcessConfiguration",
 	localization = "content/Language",
 	name = "commerce-data-integration-process-configuration-name"
 )
