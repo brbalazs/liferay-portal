@@ -24,7 +24,6 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.messaging.sender.SingleDestinationMessageSender;
 import com.liferay.portal.kernel.messaging.sender.SingleDestinationMessageSenderFactory;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -122,8 +121,6 @@ public class EditCommerceDataIntegrationProcessActionCommand
 			_log.error(e, e);
 
 			SessionErrors.add(actionRequest, e.getClass());
-
-			actionResponse.setRenderParameter("mvcPath", "/error.jsp");
 		}
 	}
 
@@ -134,9 +131,7 @@ public class EditCommerceDataIntegrationProcessActionCommand
 			actionRequest, "commerceDataIntegrationProcessId");
 
 		try {
-			_sendMessage(
-				_portal.getUserId(actionRequest),
-				commerceDataIntegrationProcessId);
+			_sendMessage(commerceDataIntegrationProcessId);
 		}
 		catch (Exception e) {
 			hideDefaultErrorMessage(actionRequest);
@@ -202,25 +197,17 @@ public class EditCommerceDataIntegrationProcessActionCommand
 		httpServletResponse.flushBuffer();
 	}
 
-	private void _sendMessage(
-		long userId, long commerceDataIntegrationProcessId) {
-
-		Message message = new Message();
-
+	private void _sendMessage(long commerceDataIntegrationProcessId) {
 		JSONObject payLoad = JSONUtil.put(
-			"commerceDataIntegrationProcessId", commerceDataIntegrationProcessId
-		).put(
-			"userId", userId
-		);
-
-		message.setPayload(payLoad.toString());
+			"commerceDataIntegrationProcessId",
+			commerceDataIntegrationProcessId);
 
 		SingleDestinationMessageSender messageSender =
 			_singleDestinationMessageSenderFactory.
 				createSingleDestinationMessageSender(
 					CommerceDataIntegrationConstants.EXECUTOR_DESTINATION_NAME);
 
-		messageSender.send(message);
+		messageSender.send(payLoad);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
