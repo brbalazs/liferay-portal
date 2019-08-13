@@ -110,30 +110,6 @@ public class CommerceDataIntegrationProcessPermissionImpl
 			permissionChecker, commerceDataIntegrationProcess, actionId);
 	}
 
-	@Override
-	public boolean contains(
-			PermissionChecker permissionChecker,
-			long[] commerceDataIntegrationProcessIds, String actionId)
-		throws PortalException {
-
-		if (ArrayUtil.isEmpty(commerceDataIntegrationProcessIds)) {
-			return false;
-		}
-
-		for (long commerceDataIntegrationProcessId :
-				commerceDataIntegrationProcessIds) {
-
-			if (!contains(
-					permissionChecker, commerceDataIntegrationProcessId,
-					actionId)) {
-
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	private boolean _contains(
 			PermissionChecker permissionChecker,
 			CommerceDataIntegrationProcess commerceDataIntegrationProcess,

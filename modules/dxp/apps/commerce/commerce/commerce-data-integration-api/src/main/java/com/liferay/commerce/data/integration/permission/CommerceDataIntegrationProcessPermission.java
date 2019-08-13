@@ -45,9 +45,4 @@ public interface CommerceDataIntegrationProcessPermission {
 			long commerceDataIntegrationProcessId, String actionId)
 		throws PortalException;
 
-	public boolean contains(
-			PermissionChecker permissionChecker,
-			long[] commerceDataIntegrationProcessIds, String actionId)
-		throws PortalException;
-
 }
