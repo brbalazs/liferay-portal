@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000present Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * The contents of this file are subject to the terms of the Liferay Enterprise
  * Subscription License ("License"). You may not use this file except in
@@ -12,13 +12,13 @@
  *
  */
 
-package com.liferay.commerce.data.integration.talend.internal.util;
+package com.liferay.commerce.data.integration.talend.internal.process.type;
 
 import com.liferay.commerce.data.integration.constants.CommerceDataIntegrationPortletKeys;
 import com.liferay.commerce.data.integration.exception.FileEntryValidationException;
 import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
+import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLocalService;
 import com.liferay.commerce.data.integration.talend.internal.configuration.CommerceDataIntegrationProcessConfiguration;
-import com.liferay.commerce.data.integration.talend.internal.process.type.TalendProcessType;
 import com.liferay.document.library.kernel.model.DLFolderConstants;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
@@ -28,17 +28,14 @@ import com.liferay.portal.kernel.model.Repository;
 import com.liferay.portal.kernel.portletfilerepository.PortletFileRepositoryUtil;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
+import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.FileUtil;
-import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 
 import java.io.InputStream;
 
 import java.util.Map;
-
-import javax.portlet.ActionRequest;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -51,42 +48,46 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	configurationPid = "com.liferay.commerce.data.integration.talend.internal.configuration.CommerceDataIntegrationProcessConfiguration",
 	configurationPolicy = ConfigurationPolicy.OPTIONAL,
-	service = TalendProcessTypeUploadActionHelper.class
+	service = TalendProcessTypeHelper.class
 )
-public class TalendProcessTypeUploadActionHelper {
+public class TalendProcessTypeHelper {
 
-	public FileEntry upload(
-			ActionRequest actionRequest, String fileNameParameter)
+	public FileEntry addFileEntry(
+			long companyId, long userId, long commerceDataIntegrationProcessId,
+			String fileName, long size, String contentType,
+			InputStream inputStream)
 		throws Exception {
 
 		FileEntry fileEntry = null;
 
-		UploadPortletRequest uploadPortletRequest =
-			_portal.getUploadPortletRequest(actionRequest);
-
-		long commerceDataIntegrationProcessId = ParamUtil.getLong(
-			uploadPortletRequest, "commerceDataIntegrationProcessId");
-
-		String contentType = uploadPortletRequest.getContentType(
-			fileNameParameter);
-
-		String fileName = uploadPortletRequest.getFileName(fileNameParameter);
-
-		long size = uploadPortletRequest.getSize(fileNameParameter);
-
 		_validateFile(fileName, size);
 
-		try (InputStream inputStream = uploadPortletRequest.getFileAsStream(
-				fileNameParameter)) {
+		Company company = _companyLocalService.getCompany(companyId);
 
-			Company company = _portal.getCompany(actionRequest);
-
-			fileEntry = _addFileEntry(
-				company.getGroupId(), _portal.getUserId(actionRequest),
-				commerceDataIntegrationProcessId, contentType, inputStream);
-		}
+		fileEntry = _addFileEntry(
+			company.getGroupId(), userId, commerceDataIntegrationProcessId,
+			contentType, inputStream);
 
 		return fileEntry;
+	}
+
+	public FileEntry getFileEntry(long commerceDataIntegrationProcessId)
+		throws Exception {
+
+		CommerceDataIntegrationProcess commerceDataIntegrationProcess =
+			_commerceDataIntegrationProcessLocalService.
+				getCommerceDataIntegrationProcess(
+					commerceDataIntegrationProcessId);
+
+		Company company = _companyLocalService.getCompany(
+			commerceDataIntegrationProcess.getCompanyId());
+
+		Folder folder = _getFolder(
+			company.getGroupId(), commerceDataIntegrationProcess.getUserId());
+
+		return PortletFileRepositoryUtil.fetchPortletFileEntry(
+			company.getGroupId(), folder.getFolderId(),
+			String.valueOf(commerceDataIntegrationProcessId));
 	}
 
 	@Activate
@@ -168,6 +169,13 @@ public class TalendProcessTypeUploadActionHelper {
 
 	private volatile CommerceDataIntegrationProcessConfiguration
 		_commerceDataIntegrationProcessConfiguration;
+
+	@Reference
+	private CommerceDataIntegrationProcessLocalService
+		_commerceDataIntegrationProcessLocalService;
+
+	@Reference
+	private CompanyLocalService _companyLocalService;
 
 	@Reference
 	private Portal _portal;

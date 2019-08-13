@@ -19,9 +19,9 @@ import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProces
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLocalService;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLogLocalService;
 import com.liferay.commerce.data.integration.service.ScheduledTaskExecutorService;
-import com.liferay.commerce.data.integration.talend.internal.util.DLManagementUtil;
+import com.liferay.commerce.data.integration.talend.internal.process.type.TalendProcessType;
+import com.liferay.commerce.data.integration.talend.internal.process.type.TalendProcessTypeHelper;
 import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessTriggerHelper;
-import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskConstants;
@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.util.FileUtil;
-import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 
 import java.io.File;
@@ -52,17 +51,15 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "data.integration.service.executor.key=" + TalendScheduledTaskExecutorService.KEY,
+	property = "data.integration.service.executor.key=" + TalendProcessType.KEY,
 	service = ScheduledTaskExecutorService.class
 )
 public class TalendScheduledTaskExecutorService
 	implements ScheduledTaskExecutorService {
 
-	public static final String KEY = "TALEND";
-
 	@Override
 	public String getName() {
-		return KEY;
+		return TalendProcessType.KEY;
 	}
 
 	@Override
@@ -90,16 +87,16 @@ public class TalendScheduledTaskExecutorService
 			UnicodeProperties typeSettingsProperties =
 				commerceDataIntegrationProcess.getTypeSettingsProperties();
 
-			long fileEntryId = GetterUtil.getLong(
-				typeSettingsProperties.get("fileEntryId"));
-
-			FileEntry fileEntry = _dlAppLocalService.getFileEntry(fileEntryId);
+			FileEntry fileEntry = _talendProcessTypeHelper.getFileEntry(
+				commerceDataIntegrationProcessId);
 
 			InputStream inputStream = fileEntry.getContentStream();
 
 			File tempFile = FileUtil.createTempFile(inputStream);
 
-			rootDirectoryName = _dlManagementUtil.unzipFile(tempFile);
+			FileUtil.unzip(tempFile, tempFile);
+
+			rootDirectoryName = tempFile.getAbsolutePath();
 
 			String[] strings = FileUtil.find(
 				rootDirectoryName, "**\\*.sh", null);
@@ -201,9 +198,6 @@ public class TalendScheduledTaskExecutorService
 		_commerceDataIntegrationProcessTriggerHelper;
 
 	@Reference
-	private DLAppLocalService _dlAppLocalService;
-
-	@Reference
-	private DLManagementUtil _dlManagementUtil;
+	private TalendProcessTypeHelper _talendProcessTypeHelper;
 
 }
