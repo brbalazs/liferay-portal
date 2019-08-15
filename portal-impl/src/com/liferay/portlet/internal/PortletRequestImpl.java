@@ -806,7 +806,7 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 		_processCheckbox(dynamicRequest);
 
 		if (!isPortletModeAllowed(portletMode)) {
-			portletMode = PortletModeFactory.getPortletMode(null);
+			portletMode = PortletModeFactory.getPortletMode(null, 3);
 
 			if (_log.isWarnEnabled()) {
 				_log.warn(

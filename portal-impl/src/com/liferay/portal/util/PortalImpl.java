@@ -7420,7 +7420,7 @@ public class PortalImpl implements Portal {
 		Set<String> allPortletModes = portlet.getAllPortletModes();
 
 		if (!allPortletModes.contains(portletMode.toString())) {
-			return PortletModeFactory.getPortletMode(null);
+			return PortletModeFactory.getPortletMode(null, 3);
 		}
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
