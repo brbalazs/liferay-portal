@@ -2918,7 +2918,7 @@ AUI.add(
 
 							var timerAction = [];
 
-							if (reassignments[i].assignmentType && reassignments[i].assignmentType[0] && reassignments[i].assignmentType[0] !== '') {
+							if (reassignments[i] && reassignments[i].assignmentType && reassignments[i].assignmentType[0] && reassignments[i].assignmentType[0] !== '') {
 								splitTimerActions = instance._splitTimerActions(reassignments[i]);
 
 								actionType = actionType.concat(instance._repeat('reassignment', splitTimerActions.length));
@@ -2926,7 +2926,7 @@ AUI.add(
 								timerAction = timerAction.concat(splitTimerActions);
 							}
 
-							if (notifications[i].notificationTypes) {
+							if (notifications[i] && notifications[i].notificationTypes) {
 								splitTimerActions = instance._splitTimerActions(notifications[i]);
 
 								actionType = actionType.concat(instance._repeat('notification', splitTimerActions.length));
@@ -2934,7 +2934,7 @@ AUI.add(
 								timerAction = timerAction.concat(splitTimerActions);
 							}
 
-							if (actions[i].name) {
+							if (actions[i] && actions[i].name) {
 								splitTimerActions = instance._splitTimerActions(actions[i]);
 
 								actionType = actionType.concat(instance._repeat('action', splitTimerActions.length));
