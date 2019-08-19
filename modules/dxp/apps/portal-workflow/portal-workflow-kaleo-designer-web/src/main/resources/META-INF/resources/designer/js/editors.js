@@ -2918,7 +2918,7 @@ AUI.add(
 
 							var timerAction = [];
 
-							if (reassignments[i] && reassignments[i].assignmentType && reassignments[i].assignmentType[0] && reassignments[i].assignmentType[0] !== '') {
+							if (reassignments[i]) {
 								splitTimerActions = instance._splitTimerActions(reassignments[i]);
 
 								actionType = actionType.concat(instance._repeat('reassignment', splitTimerActions.length));

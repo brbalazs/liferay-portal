@@ -392,14 +392,6 @@ AUI.add(
 							buffer.push(XMLUtil.create('blocking', String(false)));
 						}
 
-						if (
-							reassignments &&
-							reassignments[index] &&
-							reassignments[index].assignmentType[0] === STR_BLANK
-						) {
-							reassignments[index] = null;
-						}
-
 						appendXMLActions(
 							buffer,
 							timerActions[index],
