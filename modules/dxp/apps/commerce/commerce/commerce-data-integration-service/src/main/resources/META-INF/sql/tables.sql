@@ -24,7 +24,7 @@ create table CDataIntegrationProcessLog (
 	modifiedDate DATE null,
 	CDataIntegrationProcessId LONG,
 	error TEXT null,
-	output TEXT null,
+	output_ TEXT null,
 	status INTEGER,
 	startDate DATE null,
 	endDate DATE null

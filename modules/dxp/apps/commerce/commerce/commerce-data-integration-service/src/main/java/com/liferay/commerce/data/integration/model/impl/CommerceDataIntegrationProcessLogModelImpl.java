@@ -82,7 +82,7 @@ public class CommerceDataIntegrationProcessLogModelImpl
 		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP},
 		{"CDataIntegrationProcessId", Types.BIGINT}, {"error", Types.CLOB},
-		{"output", Types.CLOB}, {"status", Types.INTEGER},
+		{"output_", Types.CLOB}, {"status", Types.INTEGER},
 		{"startDate", Types.TIMESTAMP}, {"endDate", Types.TIMESTAMP}
 	};
 
@@ -98,14 +98,14 @@ public class CommerceDataIntegrationProcessLogModelImpl
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("CDataIntegrationProcessId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("error", Types.CLOB);
-		TABLE_COLUMNS_MAP.put("output", Types.CLOB);
+		TABLE_COLUMNS_MAP.put("output_", Types.CLOB);
 		TABLE_COLUMNS_MAP.put("status", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("startDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("endDate", Types.TIMESTAMP);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CDataIntegrationProcessLog (CDataIntegrationProcessLogId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,CDataIntegrationProcessId LONG,error TEXT null,output TEXT null,status INTEGER,startDate DATE null,endDate DATE null)";
+		"create table CDataIntegrationProcessLog (CDataIntegrationProcessLogId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,CDataIntegrationProcessId LONG,error TEXT null,output_ TEXT null,status INTEGER,startDate DATE null,endDate DATE null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table CDataIntegrationProcessLog";

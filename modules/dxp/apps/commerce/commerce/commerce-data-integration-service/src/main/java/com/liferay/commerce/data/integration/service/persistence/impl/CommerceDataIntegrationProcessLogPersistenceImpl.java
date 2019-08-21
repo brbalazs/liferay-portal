@@ -1259,6 +1259,7 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 		dbColumnNames.put(
 			"commerceDataIntegrationProcessLogId",
 			"CDataIntegrationProcessLogId");
+		dbColumnNames.put("output", "output_");
 
 		try {
 			Field field = BasePersistenceImpl.class.getDeclaredField(
@@ -2253,6 +2254,6 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 		CommerceDataIntegrationProcessLogPersistenceImpl.class);
 
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(
-		new String[] {"commerceDataIntegrationProcessLogId"});
+		new String[] {"commerceDataIntegrationProcessLogId", "output"});
 
 }
