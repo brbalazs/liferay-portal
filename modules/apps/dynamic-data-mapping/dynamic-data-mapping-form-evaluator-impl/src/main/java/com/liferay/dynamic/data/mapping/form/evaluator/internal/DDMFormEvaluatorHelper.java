@@ -590,15 +590,15 @@ public class DDMFormEvaluatorHelper {
 		DDMFormFieldEvaluationResult ddmFormFieldEvaluationResult,
 		DDMFormField ddmFormField, DDMFormFieldValue ddmFormFieldValue) {
 
-		boolean required = ddmFormFieldEvaluationResult.isRequired();
 		boolean emptyValue = isDDMFormFieldValueEmpty(
 			ddmFormFieldValue, ddmFormFieldEvaluationResult);
 
-		if (!required && emptyValue) {
+		boolean required = ddmFormFieldEvaluationResult.isRequired();
+		boolean visible = ddmFormFieldEvaluationResult.isVisible();
+
+		if (!visible || (!required && emptyValue)) {
 			return;
 		}
-
-		boolean visible = ddmFormFieldEvaluationResult.isVisible();
 
 		if (required && visible && emptyValue) {
 			ddmFormFieldEvaluationResult.setErrorMessage(
