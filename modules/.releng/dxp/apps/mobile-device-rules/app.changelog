@@ -166,3 +166,16 @@ app.artifacts-1.0.12=\
 app.change.log-1.0.12=LPS-77699 LPS-84119 LPS-91343 LPS-96018
 
 app.git.id-1.0.12=d34ebc7c8b8df916c5c5a3237caf9a6d043d704f
+
+#
+# Liferay App Version 1.0.13
+#
+
+app.artifacts-1.0.13=\
+	com.liferay.mobile.device.rules.api-3.0.11.jar,\
+	com.liferay.mobile.device.rules.service-2.0.23.jar,\
+	com.liferay.mobile.device.rules.web-2.0.18.jar
+
+app.change.log-1.0.13=LPS-77699 LPS-84119 LPS-96018 LPS-96830 LPS-97169 LPS-99252
+
+app.git.id-1.0.13=098940c94ee63694419199fa93adfbdb1c92285c

@@ -107,3 +107,14 @@ app.artifacts-1.0.9=\
 app.change.log-1.0.9=LPS-84119
 
 app.git.id-1.0.9=d34ebc7c8b8df916c5c5a3237caf9a6d043d704f
+
+#
+# Liferay App Version 1.0.10
+#
+
+app.artifacts-1.0.10=\
+	com.liferay.portal.reports.engine.api-4.0.2.jar
+
+app.change.log-1.0.10=LPS-84119
+
+app.git.id-1.0.10=098940c94ee63694419199fa93adfbdb1c92285c
