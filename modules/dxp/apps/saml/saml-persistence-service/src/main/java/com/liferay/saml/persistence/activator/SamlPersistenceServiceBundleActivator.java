@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.saml.activator;
+package com.liferay.saml.persistence.activator;
 
 import com.liferay.portal.kernel.module.framework.ModuleServiceLifecycle;
 import com.liferay.portal.kernel.upgrade.UpgradeException;
