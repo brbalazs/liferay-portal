@@ -18,6 +18,7 @@ import com.liferay.commerce.data.integration.constants.CommerceDataIntegrationCo
 import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLogService;
 import com.liferay.commerce.data.integration.talend.internal.process.type.TalendProcessType;
+import com.liferay.commerce.data.integration.talend.internal.process.type.TalendProcessTypeHelper;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
@@ -99,6 +100,9 @@ public class TalendScreenNavigationEntry
 			HttpServletResponse httpServletResponse)
 		throws IOException {
 
+		httpServletRequest.setAttribute(
+			"talendProcessTypeHelper", _talendProcessTypeHelper);
+
 		_jspRenderer.renderJSP(
 			_servletContext, httpServletRequest, httpServletResponse,
 			"/view.jsp");
@@ -115,5 +119,8 @@ public class TalendScreenNavigationEntry
 		target = "(osgi.web.symbolicname=com.liferay.commerce.data.integration.talend)"
 	)
 	private ServletContext _servletContext;
+
+	@Reference
+	private TalendProcessTypeHelper _talendProcessTypeHelper;
 
 }

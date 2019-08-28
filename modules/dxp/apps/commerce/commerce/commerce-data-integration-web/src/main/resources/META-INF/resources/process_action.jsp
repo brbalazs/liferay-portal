@@ -31,9 +31,9 @@ CommerceDataIntegrationProcess commerceDataIntegrationProcess = (CommerceDataInt
 >
 	<c:if test="<%= CommerceDataintegrationProcessPermission.contains(permissionChecker, commerceDataIntegrationProcess, ActionKeys.UPDATE) %>">
 		<portlet:renderURL var="editURL">
-			<portlet:param name="mvcRenderCommandName" value="viewCommerceDataIntegrationProcessLogDetails" />
+			<portlet:param name="mvcRenderCommandName" value="editCommerceDataIntegrationProcess" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
-			<portlet:param name="cDataIntegrationProcessLogId" value="<%= String.valueOf(commerceDataIntegrationProcess.getCommerceDataIntegrationProcessId()) %>" />
+			<portlet:param name="commerceDataIntegrationProcessId" value="<%= String.valueOf(commerceDataIntegrationProcess.getCommerceDataIntegrationProcessId()) %>" />
 		</portlet:renderURL>
 
 		<liferay-ui:icon

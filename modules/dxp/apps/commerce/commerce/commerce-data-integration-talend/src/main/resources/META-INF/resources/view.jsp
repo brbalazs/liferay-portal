@@ -18,6 +18,7 @@
 
 <%
 CommerceDataIntegrationProcess commerceDataIntegrationProcess = (CommerceDataIntegrationProcess)request.getAttribute(CommerceDataIntegrationWebKeys.COMMERCE_DATA_INTEGRATION_PROCESS);
+TalendProcessTypeHelper talendProcessTypeHelper = (TalendProcessTypeHelper)request.getAttribute("talendProcessTypeHelper");
 %>
 
 <liferay-portlet:actionURL name="editTalendCommerceDataIntegrationProcess" portletName="<%= CommerceDataIntegrationPortletKeys.COMMERCE_DATA_INTEGRATION %>" var="editTalendCommerceDataIntegrationProcessActionURL" />
@@ -30,8 +31,33 @@ CommerceDataIntegrationProcess commerceDataIntegrationProcess = (CommerceDataInt
 
 			<aui:model-context bean="<%= commerceDataIntegrationProcess %>" model="<%= CommerceDataIntegrationProcess.class %>" />
 
+			<%
+			boolean hidden = false;
+
+			FileEntry fileEntry = talendProcessTypeHelper.getFileEntry(commerceDataIntegrationProcess.getCommerceDataIntegrationProcessId());
+
+			if (fileEntry != null) {
+				hidden = true;
+			}
+			%>
+
+			<p class="<%= hidden ? "text-default" : "hide text-default" %>" id="<portlet:namespace />fileEntryName">
+				<span id="<portlet:namespace />fileEntryRemove">
+					<liferay-ui:icon
+						icon="times"
+						markupView="lexicon"
+						message="remove"
+					/>
+				</span>
+				<span>
+					<%= fileEntry.getFileName() %>
+				</span>
+			</p>
+
 			<c:if test="<%= (commerceDataIntegrationProcess == null) || !commerceDataIntegrationProcess.isSystem() %>">
-				<aui:input name="srcArchive" required="<%= true %>" type="file" />
+				<div class="<%= hidden ? "hide" : StringPool.BLANK %>" id="<portlet:namespace />fileEntry">
+					<aui:input name="srcArchive" required="<%= true %>" type="file" />
+				</div>
 			</c:if>
 
 			<aui:button-row>
@@ -42,3 +68,16 @@ CommerceDataIntegrationProcess commerceDataIntegrationProcess = (CommerceDataInt
 		</aui:form>
 	</div>
 </div>
+
+<aui:script>
+	$('#<portlet:namespace />fileEntryRemove').on(
+		'click',
+		function(event) {
+			event.preventDefault();
+
+			$('#<portlet:namespace />fileEntry').removeClass('hide');
+
+			$('#<portlet:namespace />fileEntryName').addClass('hide');
+		}
+	);
+</aui:script>

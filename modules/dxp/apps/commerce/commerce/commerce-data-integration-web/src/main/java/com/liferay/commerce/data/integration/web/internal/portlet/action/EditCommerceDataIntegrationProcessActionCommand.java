@@ -132,6 +132,8 @@ public class EditCommerceDataIntegrationProcessActionCommand
 
 		try {
 			_sendMessage(commerceDataIntegrationProcessId);
+
+			Thread.sleep(2000);
 		}
 		catch (Exception e) {
 			hideDefaultErrorMessage(actionRequest);
