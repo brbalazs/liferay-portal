@@ -298,7 +298,7 @@ public class SamlIdpSpSessionPersistenceImpl
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("createDate=");
+		msg.append("createDate<");
 		msg.append(createDate);
 
 		msg.append("}");
@@ -353,7 +353,7 @@ public class SamlIdpSpSessionPersistenceImpl
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("createDate=");
+		msg.append("createDate<");
 		msg.append(createDate);
 
 		msg.append("}");

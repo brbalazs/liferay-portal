@@ -1582,7 +1582,7 @@ public class OAuthApplicationPersistenceImpl
 		msg.append("companyId=");
 		msg.append(companyId);
 
-		msg.append(", name=");
+		msg.append(", nameLIKE");
 		msg.append(name);
 
 		msg.append("}");
@@ -1642,7 +1642,7 @@ public class OAuthApplicationPersistenceImpl
 		msg.append("companyId=");
 		msg.append(companyId);
 
-		msg.append(", name=");
+		msg.append(", nameLIKE");
 		msg.append(name);
 
 		msg.append("}");
@@ -2170,7 +2170,7 @@ public class OAuthApplicationPersistenceImpl
 		msg.append("userId=");
 		msg.append(userId);
 
-		msg.append(", name=");
+		msg.append(", nameLIKE");
 		msg.append(name);
 
 		msg.append("}");
@@ -2230,7 +2230,7 @@ public class OAuthApplicationPersistenceImpl
 		msg.append("userId=");
 		msg.append(userId);
 
-		msg.append(", name=");
+		msg.append(", nameLIKE");
 		msg.append(name);
 
 		msg.append("}");
