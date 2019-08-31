@@ -17,7 +17,6 @@ package com.liferay.portal.reports.engine.console.service.persistence;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
-import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.reports.engine.console.exception.NoSuchDefinitionException;
 import com.liferay.portal.reports.engine.console.model.Definition;
 
@@ -79,19 +78,16 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>DefinitionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid(String, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param start the lower bound of the range of definitions
 	 * @param end the upper bound of the range of definitions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching definitions
 	 */
-	@Deprecated
 	public java.util.List<Definition> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<Definition> orderByComparator,
-		boolean useFinderCache);
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the definitions where uuid = &#63;.
@@ -104,11 +100,14 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * @param start the lower bound of the range of definitions
 	 * @param end the upper bound of the range of definitions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching definitions
 	 */
 	public java.util.List<Definition> findByUuid(
 		String uuid, int start, int end,
-		OrderByComparator<Definition> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first definition in the ordered set where uuid = &#63;.
@@ -119,7 +118,9 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * @throws NoSuchDefinitionException if a matching definition could not be found
 	 */
 	public Definition findByUuid_First(
-			String uuid, OrderByComparator<Definition> orderByComparator)
+			String uuid,
+			com.liferay.portal.kernel.util.OrderByComparator<Definition>
+				orderByComparator)
 		throws NoSuchDefinitionException;
 
 	/**
@@ -130,7 +131,9 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * @return the first matching definition, or <code>null</code> if a matching definition could not be found
 	 */
 	public Definition fetchByUuid_First(
-		String uuid, OrderByComparator<Definition> orderByComparator);
+		String uuid,
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator);
 
 	/**
 	 * Returns the last definition in the ordered set where uuid = &#63;.
@@ -141,7 +144,9 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * @throws NoSuchDefinitionException if a matching definition could not be found
 	 */
 	public Definition findByUuid_Last(
-			String uuid, OrderByComparator<Definition> orderByComparator)
+			String uuid,
+			com.liferay.portal.kernel.util.OrderByComparator<Definition>
+				orderByComparator)
 		throws NoSuchDefinitionException;
 
 	/**
@@ -152,7 +157,9 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * @return the last matching definition, or <code>null</code> if a matching definition could not be found
 	 */
 	public Definition fetchByUuid_Last(
-		String uuid, OrderByComparator<Definition> orderByComparator);
+		String uuid,
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator);
 
 	/**
 	 * Returns the definitions before and after the current definition in the ordered set where uuid = &#63;.
@@ -165,7 +172,8 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 */
 	public Definition[] findByUuid_PrevAndNext(
 			long definitionId, String uuid,
-			OrderByComparator<Definition> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<Definition>
+				orderByComparator)
 		throws NoSuchDefinitionException;
 
 	/**
@@ -195,17 +203,13 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 		throws NoSuchDefinitionException;
 
 	/**
-	 * Returns the definition where uuid = &#63; and groupId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the definition where uuid = &#63; and groupId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByUUID_G(String,long)}
 	 * @param uuid the uuid
 	 * @param groupId the group ID
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching definition, or <code>null</code> if a matching definition could not be found
 	 */
-	@Deprecated
-	public Definition fetchByUUID_G(
-		String uuid, long groupId, boolean useFinderCache);
+	public Definition fetchByUUID_G(String uuid, long groupId);
 
 	/**
 	 * Returns the definition where uuid = &#63; and groupId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -215,7 +219,8 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching definition, or <code>null</code> if a matching definition could not be found
 	 */
-	public Definition fetchByUUID_G(String uuid, long groupId);
+	public Definition fetchByUUID_G(
+		String uuid, long groupId, boolean useFinderCache);
 
 	/**
 	 * Removes the definition where uuid = &#63; and groupId = &#63; from the database.
@@ -268,20 +273,17 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>DefinitionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUuid_C(String,long, int, int, OrderByComparator)}
 	 * @param uuid the uuid
 	 * @param companyId the company ID
 	 * @param start the lower bound of the range of definitions
 	 * @param end the upper bound of the range of definitions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching definitions
 	 */
-	@Deprecated
 	public java.util.List<Definition> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<Definition> orderByComparator,
-		boolean useFinderCache);
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the definitions where uuid = &#63; and companyId = &#63;.
@@ -295,11 +297,14 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * @param start the lower bound of the range of definitions
 	 * @param end the upper bound of the range of definitions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching definitions
 	 */
 	public java.util.List<Definition> findByUuid_C(
 		String uuid, long companyId, int start, int end,
-		OrderByComparator<Definition> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first definition in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -312,7 +317,8 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 */
 	public Definition findByUuid_C_First(
 			String uuid, long companyId,
-			OrderByComparator<Definition> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<Definition>
+				orderByComparator)
 		throws NoSuchDefinitionException;
 
 	/**
@@ -325,7 +331,8 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 */
 	public Definition fetchByUuid_C_First(
 		String uuid, long companyId,
-		OrderByComparator<Definition> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator);
 
 	/**
 	 * Returns the last definition in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -338,7 +345,8 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 */
 	public Definition findByUuid_C_Last(
 			String uuid, long companyId,
-			OrderByComparator<Definition> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<Definition>
+				orderByComparator)
 		throws NoSuchDefinitionException;
 
 	/**
@@ -351,7 +359,8 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 */
 	public Definition fetchByUuid_C_Last(
 		String uuid, long companyId,
-		OrderByComparator<Definition> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator);
 
 	/**
 	 * Returns the definitions before and after the current definition in the ordered set where uuid = &#63; and companyId = &#63;.
@@ -365,7 +374,8 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 */
 	public Definition[] findByUuid_C_PrevAndNext(
 			long definitionId, String uuid, long companyId,
-			OrderByComparator<Definition> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<Definition>
+				orderByComparator)
 		throws NoSuchDefinitionException;
 
 	/**
@@ -415,19 +425,16 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>DefinitionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByGroupId(long, int, int, OrderByComparator)}
 	 * @param groupId the group ID
 	 * @param start the lower bound of the range of definitions
 	 * @param end the upper bound of the range of definitions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching definitions
 	 */
-	@Deprecated
 	public java.util.List<Definition> findByGroupId(
 		long groupId, int start, int end,
-		OrderByComparator<Definition> orderByComparator,
-		boolean useFinderCache);
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the definitions where groupId = &#63;.
@@ -440,11 +447,14 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * @param start the lower bound of the range of definitions
 	 * @param end the upper bound of the range of definitions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching definitions
 	 */
 	public java.util.List<Definition> findByGroupId(
 		long groupId, int start, int end,
-		OrderByComparator<Definition> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first definition in the ordered set where groupId = &#63;.
@@ -455,7 +465,9 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * @throws NoSuchDefinitionException if a matching definition could not be found
 	 */
 	public Definition findByGroupId_First(
-			long groupId, OrderByComparator<Definition> orderByComparator)
+			long groupId,
+			com.liferay.portal.kernel.util.OrderByComparator<Definition>
+				orderByComparator)
 		throws NoSuchDefinitionException;
 
 	/**
@@ -466,7 +478,9 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * @return the first matching definition, or <code>null</code> if a matching definition could not be found
 	 */
 	public Definition fetchByGroupId_First(
-		long groupId, OrderByComparator<Definition> orderByComparator);
+		long groupId,
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator);
 
 	/**
 	 * Returns the last definition in the ordered set where groupId = &#63;.
@@ -477,7 +491,9 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * @throws NoSuchDefinitionException if a matching definition could not be found
 	 */
 	public Definition findByGroupId_Last(
-			long groupId, OrderByComparator<Definition> orderByComparator)
+			long groupId,
+			com.liferay.portal.kernel.util.OrderByComparator<Definition>
+				orderByComparator)
 		throws NoSuchDefinitionException;
 
 	/**
@@ -488,7 +504,9 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * @return the last matching definition, or <code>null</code> if a matching definition could not be found
 	 */
 	public Definition fetchByGroupId_Last(
-		long groupId, OrderByComparator<Definition> orderByComparator);
+		long groupId,
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator);
 
 	/**
 	 * Returns the definitions before and after the current definition in the ordered set where groupId = &#63;.
@@ -501,7 +519,8 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 */
 	public Definition[] findByGroupId_PrevAndNext(
 			long definitionId, long groupId,
-			OrderByComparator<Definition> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<Definition>
+				orderByComparator)
 		throws NoSuchDefinitionException;
 
 	/**
@@ -542,7 +561,8 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 */
 	public java.util.List<Definition> filterFindByGroupId(
 		long groupId, int start, int end,
-		OrderByComparator<Definition> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator);
 
 	/**
 	 * Returns the definitions before and after the current definition in the ordered set of definitions that the user has permission to view where groupId = &#63;.
@@ -555,7 +575,8 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 */
 	public Definition[] filterFindByGroupId_PrevAndNext(
 			long definitionId, long groupId,
-			OrderByComparator<Definition> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<Definition>
+				orderByComparator)
 		throws NoSuchDefinitionException;
 
 	/**
@@ -611,19 +632,16 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>DefinitionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByCompanyId(long, int, int, OrderByComparator)}
 	 * @param companyId the company ID
 	 * @param start the lower bound of the range of definitions
 	 * @param end the upper bound of the range of definitions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching definitions
 	 */
-	@Deprecated
 	public java.util.List<Definition> findByCompanyId(
 		long companyId, int start, int end,
-		OrderByComparator<Definition> orderByComparator,
-		boolean useFinderCache);
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the definitions where companyId = &#63;.
@@ -636,11 +654,14 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * @param start the lower bound of the range of definitions
 	 * @param end the upper bound of the range of definitions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching definitions
 	 */
 	public java.util.List<Definition> findByCompanyId(
 		long companyId, int start, int end,
-		OrderByComparator<Definition> orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first definition in the ordered set where companyId = &#63;.
@@ -651,7 +672,9 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * @throws NoSuchDefinitionException if a matching definition could not be found
 	 */
 	public Definition findByCompanyId_First(
-			long companyId, OrderByComparator<Definition> orderByComparator)
+			long companyId,
+			com.liferay.portal.kernel.util.OrderByComparator<Definition>
+				orderByComparator)
 		throws NoSuchDefinitionException;
 
 	/**
@@ -662,7 +685,9 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * @return the first matching definition, or <code>null</code> if a matching definition could not be found
 	 */
 	public Definition fetchByCompanyId_First(
-		long companyId, OrderByComparator<Definition> orderByComparator);
+		long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator);
 
 	/**
 	 * Returns the last definition in the ordered set where companyId = &#63;.
@@ -673,7 +698,9 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * @throws NoSuchDefinitionException if a matching definition could not be found
 	 */
 	public Definition findByCompanyId_Last(
-			long companyId, OrderByComparator<Definition> orderByComparator)
+			long companyId,
+			com.liferay.portal.kernel.util.OrderByComparator<Definition>
+				orderByComparator)
 		throws NoSuchDefinitionException;
 
 	/**
@@ -684,7 +711,9 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * @return the last matching definition, or <code>null</code> if a matching definition could not be found
 	 */
 	public Definition fetchByCompanyId_Last(
-		long companyId, OrderByComparator<Definition> orderByComparator);
+		long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator);
 
 	/**
 	 * Returns the definitions before and after the current definition in the ordered set where companyId = &#63;.
@@ -697,7 +726,8 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 */
 	public Definition[] findByCompanyId_PrevAndNext(
 			long definitionId, long companyId,
-			OrderByComparator<Definition> orderByComparator)
+			com.liferay.portal.kernel.util.OrderByComparator<Definition>
+				orderByComparator)
 		throws NoSuchDefinitionException;
 
 	/**
@@ -794,17 +824,15 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>DefinitionModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of definitions
 	 * @param end the upper bound of the range of definitions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of definitions
 	 */
-	@Deprecated
 	public java.util.List<Definition> findAll(
-		int start, int end, OrderByComparator<Definition> orderByComparator,
-		boolean useFinderCache);
+		int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator);
 
 	/**
 	 * Returns an ordered range of all the definitions.
@@ -816,10 +844,14 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 	 * @param start the lower bound of the range of definitions
 	 * @param end the upper bound of the range of definitions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of definitions
 	 */
 	public java.util.List<Definition> findAll(
-		int start, int end, OrderByComparator<Definition> orderByComparator);
+		int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<Definition>
+			orderByComparator,
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the definitions from the database.

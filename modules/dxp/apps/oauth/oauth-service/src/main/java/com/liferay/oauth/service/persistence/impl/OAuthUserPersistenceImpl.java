@@ -123,22 +123,18 @@ public class OAuthUserPersistenceImpl
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>OAuthUserModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByUserId(long, int, int, OrderByComparator)}
 	 * @param userId the user ID
 	 * @param start the lower bound of the range of o auth users
 	 * @param end the upper bound of the range of o auth users (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching o auth users
 	 */
-	@Deprecated
 	@Override
 	public List<OAuthUser> findByUserId(
 		long userId, int start, int end,
-		OrderByComparator<OAuthUser> orderByComparator,
-		boolean useFinderCache) {
+		OrderByComparator<OAuthUser> orderByComparator) {
 
-		return findByUserId(userId, start, end, orderByComparator);
+		return findByUserId(userId, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -152,12 +148,14 @@ public class OAuthUserPersistenceImpl
 	 * @param start the lower bound of the range of o auth users
 	 * @param end the upper bound of the range of o auth users (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching o auth users
 	 */
 	@Override
 	public List<OAuthUser> findByUserId(
 		long userId, int start, int end,
-		OrderByComparator<OAuthUser> orderByComparator) {
+		OrderByComparator<OAuthUser> orderByComparator,
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -167,23 +165,30 @@ public class OAuthUserPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByUserId;
-			finderArgs = new Object[] {userId};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByUserId;
+				finderArgs = new Object[] {userId};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByUserId;
 			finderArgs = new Object[] {userId, start, end, orderByComparator};
 		}
 
-		List<OAuthUser> list = (List<OAuthUser>)finderCache.getResult(
-			finderPath, finderArgs, this);
+		List<OAuthUser> list = null;
 
-		if ((list != null) && !list.isEmpty()) {
-			for (OAuthUser oAuthUser : list) {
-				if ((userId != oAuthUser.getUserId())) {
-					list = null;
+		if (useFinderCache) {
+			list = (List<OAuthUser>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
-					break;
+			if ((list != null) && !list.isEmpty()) {
+				for (OAuthUser oAuthUser : list) {
+					if ((userId != oAuthUser.getUserId())) {
+						list = null;
+
+						break;
+					}
 				}
 			}
 		}
@@ -239,10 +244,14 @@ public class OAuthUserPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -624,23 +633,19 @@ public class OAuthUserPersistenceImpl
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>OAuthUserModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findByOAuthApplicationId(long, int, int, OrderByComparator)}
 	 * @param oAuthApplicationId the o auth application ID
 	 * @param start the lower bound of the range of o auth users
 	 * @param end the upper bound of the range of o auth users (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching o auth users
 	 */
-	@Deprecated
 	@Override
 	public List<OAuthUser> findByOAuthApplicationId(
 		long oAuthApplicationId, int start, int end,
-		OrderByComparator<OAuthUser> orderByComparator,
-		boolean useFinderCache) {
+		OrderByComparator<OAuthUser> orderByComparator) {
 
 		return findByOAuthApplicationId(
-			oAuthApplicationId, start, end, orderByComparator);
+			oAuthApplicationId, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -654,12 +659,14 @@ public class OAuthUserPersistenceImpl
 	 * @param start the lower bound of the range of o auth users
 	 * @param end the upper bound of the range of o auth users (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching o auth users
 	 */
 	@Override
 	public List<OAuthUser> findByOAuthApplicationId(
 		long oAuthApplicationId, int start, int end,
-		OrderByComparator<OAuthUser> orderByComparator) {
+		OrderByComparator<OAuthUser> orderByComparator,
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -669,25 +676,35 @@ public class OAuthUserPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByOAuthApplicationId;
-			finderArgs = new Object[] {oAuthApplicationId};
+
+			if (useFinderCache) {
+				finderPath =
+					_finderPathWithoutPaginationFindByOAuthApplicationId;
+				finderArgs = new Object[] {oAuthApplicationId};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByOAuthApplicationId;
 			finderArgs = new Object[] {
 				oAuthApplicationId, start, end, orderByComparator
 			};
 		}
 
-		List<OAuthUser> list = (List<OAuthUser>)finderCache.getResult(
-			finderPath, finderArgs, this);
+		List<OAuthUser> list = null;
 
-		if ((list != null) && !list.isEmpty()) {
-			for (OAuthUser oAuthUser : list) {
-				if ((oAuthApplicationId != oAuthUser.getOAuthApplicationId())) {
-					list = null;
+		if (useFinderCache) {
+			list = (List<OAuthUser>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
-					break;
+			if ((list != null) && !list.isEmpty()) {
+				for (OAuthUser oAuthUser : list) {
+					if ((oAuthApplicationId !=
+							oAuthUser.getOAuthApplicationId())) {
+
+						list = null;
+
+						break;
+					}
 				}
 			}
 		}
@@ -744,10 +761,14 @@ public class OAuthUserPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1136,19 +1157,14 @@ public class OAuthUserPersistenceImpl
 	}
 
 	/**
-	 * Returns the o auth user where accessToken = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the o auth user where accessToken = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByAccessToken(String)}
 	 * @param accessToken the access token
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching o auth user, or <code>null</code> if a matching o auth user could not be found
 	 */
-	@Deprecated
 	@Override
-	public OAuthUser fetchByAccessToken(
-		String accessToken, boolean useFinderCache) {
-
-		return fetchByAccessToken(accessToken);
+	public OAuthUser fetchByAccessToken(String accessToken) {
+		return fetchByAccessToken(accessToken, true);
 	}
 
 	/**
@@ -1159,13 +1175,23 @@ public class OAuthUserPersistenceImpl
 	 * @return the matching o auth user, or <code>null</code> if a matching o auth user could not be found
 	 */
 	@Override
-	public OAuthUser fetchByAccessToken(String accessToken) {
+	public OAuthUser fetchByAccessToken(
+		String accessToken, boolean useFinderCache) {
+
 		accessToken = Objects.toString(accessToken, "");
 
-		Object[] finderArgs = new Object[] {accessToken};
+		Object[] finderArgs = null;
 
-		Object result = finderCache.getResult(
-			_finderPathFetchByAccessToken, finderArgs, this);
+		if (useFinderCache) {
+			finderArgs = new Object[] {accessToken};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByAccessToken, finderArgs, this);
+		}
 
 		if (result instanceof OAuthUser) {
 			OAuthUser oAuthUser = (OAuthUser)result;
@@ -1209,8 +1235,10 @@ public class OAuthUserPersistenceImpl
 				List<OAuthUser> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(
-						_finderPathFetchByAccessToken, finderArgs, list);
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByAccessToken, finderArgs, list);
+					}
 				}
 				else {
 					OAuthUser oAuthUser = list.get(0);
@@ -1221,8 +1249,10 @@ public class OAuthUserPersistenceImpl
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(
-					_finderPathFetchByAccessToken, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByAccessToken, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1365,20 +1395,15 @@ public class OAuthUserPersistenceImpl
 	}
 
 	/**
-	 * Returns the o auth user where userId = &#63; and oAuthApplicationId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the o auth user where userId = &#63; and oAuthApplicationId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #fetchByU_OAI(long,long)}
 	 * @param userId the user ID
 	 * @param oAuthApplicationId the o auth application ID
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching o auth user, or <code>null</code> if a matching o auth user could not be found
 	 */
-	@Deprecated
 	@Override
-	public OAuthUser fetchByU_OAI(
-		long userId, long oAuthApplicationId, boolean useFinderCache) {
-
-		return fetchByU_OAI(userId, oAuthApplicationId);
+	public OAuthUser fetchByU_OAI(long userId, long oAuthApplicationId) {
+		return fetchByU_OAI(userId, oAuthApplicationId, true);
 	}
 
 	/**
@@ -1390,11 +1415,21 @@ public class OAuthUserPersistenceImpl
 	 * @return the matching o auth user, or <code>null</code> if a matching o auth user could not be found
 	 */
 	@Override
-	public OAuthUser fetchByU_OAI(long userId, long oAuthApplicationId) {
-		Object[] finderArgs = new Object[] {userId, oAuthApplicationId};
+	public OAuthUser fetchByU_OAI(
+		long userId, long oAuthApplicationId, boolean useFinderCache) {
 
-		Object result = finderCache.getResult(
-			_finderPathFetchByU_OAI, finderArgs, this);
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {userId, oAuthApplicationId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByU_OAI, finderArgs, this);
+		}
 
 		if (result instanceof OAuthUser) {
 			OAuthUser oAuthUser = (OAuthUser)result;
@@ -1433,8 +1468,10 @@ public class OAuthUserPersistenceImpl
 				List<OAuthUser> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(
-						_finderPathFetchByU_OAI, finderArgs, list);
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByU_OAI, finderArgs, list);
+					}
 				}
 				else {
 					OAuthUser oAuthUser = list.get(0);
@@ -1445,7 +1482,10 @@ public class OAuthUserPersistenceImpl
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathFetchByU_OAI, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByU_OAI, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -2181,20 +2221,16 @@ public class OAuthUserPersistenceImpl
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>OAuthUserModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link #findAll(int, int, OrderByComparator)}
 	 * @param start the lower bound of the range of o auth users
 	 * @param end the upper bound of the range of o auth users (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of o auth users
 	 */
-	@Deprecated
 	@Override
 	public List<OAuthUser> findAll(
-		int start, int end, OrderByComparator<OAuthUser> orderByComparator,
-		boolean useFinderCache) {
+		int start, int end, OrderByComparator<OAuthUser> orderByComparator) {
 
-		return findAll(start, end, orderByComparator);
+		return findAll(start, end, orderByComparator, true);
 	}
 
 	/**
@@ -2207,11 +2243,13 @@ public class OAuthUserPersistenceImpl
 	 * @param start the lower bound of the range of o auth users
 	 * @param end the upper bound of the range of o auth users (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of o auth users
 	 */
 	@Override
 	public List<OAuthUser> findAll(
-		int start, int end, OrderByComparator<OAuthUser> orderByComparator) {
+		int start, int end, OrderByComparator<OAuthUser> orderByComparator,
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -2221,16 +2259,23 @@ public class OAuthUserPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindAll;
-			finderArgs = FINDER_ARGS_EMPTY;
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindAll;
+				finderArgs = FINDER_ARGS_EMPTY;
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindAll;
 			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
-		List<OAuthUser> list = (List<OAuthUser>)finderCache.getResult(
-			finderPath, finderArgs, this);
+		List<OAuthUser> list = null;
+
+		if (useFinderCache) {
+			list = (List<OAuthUser>)finderCache.getResult(
+				finderPath, finderArgs, this);
+		}
 
 		if (list == null) {
 			StringBundler query = null;
@@ -2277,10 +2322,14 @@ public class OAuthUserPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
