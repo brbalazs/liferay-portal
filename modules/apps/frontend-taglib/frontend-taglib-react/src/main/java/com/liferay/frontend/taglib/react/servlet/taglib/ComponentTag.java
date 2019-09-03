@@ -53,7 +53,7 @@ public class ComponentTag extends ParamAndPropertyAncestorTagImpl {
 				ReactRendererProvider.getReactRenderer();
 
 			reactRenderer.renderReact(
-				request, jspWriter, componentDescriptor, data);
+				componentDescriptor, data, request, jspWriter);
 		}
 		catch (Exception e) {
 			throw new JspException(e);
