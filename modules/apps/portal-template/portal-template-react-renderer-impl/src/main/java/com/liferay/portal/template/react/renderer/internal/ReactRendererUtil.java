@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author Chema Balsas
  */
-public class ReactRendererHelper {
+public class ReactRendererUtil {
 
 	public ReactRendererHelper(
 		HttpServletRequest httpServletRequest, ServletContext servletContext,

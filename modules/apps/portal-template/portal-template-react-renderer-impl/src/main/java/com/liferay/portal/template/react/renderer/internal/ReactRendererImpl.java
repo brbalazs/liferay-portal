@@ -42,11 +42,9 @@ public class ReactRendererImpl implements ReactRenderer {
 			ComponentDescriptor componentDescriptor, Map<String, Object> data)
 		throws IOException {
 
-		ReactRendererHelper reactRendererHelper = new ReactRendererHelper(
-			httpServletRequest, _servletContext, componentDescriptor, data,
-			_portal);
-
-		reactRendererHelper.renderReact(writer);
+		ReactRendererUtil.renderReact(
+			httpServletRequest, writer, componentDescriptor, data, _portal,
+			NPMResolvedPackageNameUtil.get(_servletContext));
 	}
 
 	@Reference
