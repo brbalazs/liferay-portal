@@ -28,7 +28,7 @@ public class DDMFormFieldTypesThreadLocal {
 		ThreadLocalCache<Boolean> threadLocalCache = _getThreadLocalCache();
 
 		return GetterUtil.getBoolean(
-			threadLocalCache.get(_FIELD_TYPES_REQUESTED));
+			threadLocalCache.get("fieldTypesRequested"));
 	}
 
 	public static void removeAll() {
@@ -40,14 +40,12 @@ public class DDMFormFieldTypesThreadLocal {
 	public static void setFieldTypesRequested(boolean fieldTypesRequested) {
 		ThreadLocalCache<Boolean> threadLocalCache = _getThreadLocalCache();
 
-		threadLocalCache.put(_FIELD_TYPES_REQUESTED, fieldTypesRequested);
+		threadLocalCache.put("fieldTypesRequested", fieldTypesRequested);
 	}
 
 	private static ThreadLocalCache<Boolean> _getThreadLocalCache() {
 		return ThreadLocalCacheManager.getThreadLocalCache(
 			Lifecycle.REQUEST, DDMFormFieldTypesThreadLocal.class.getName());
 	}
-
-	private static final String _FIELD_TYPES_REQUESTED = "fieldTypesRequested";
 
 }
