@@ -38,13 +38,13 @@ public class ReactRendererImpl implements ReactRenderer {
 
 	@Override
 	public void renderReact(
-			HttpServletRequest httpServletRequest, Writer writer,
-			ComponentDescriptor componentDescriptor, Map<String, Object> data)
+			ComponentDescriptor componentDescriptor, Map<String, Object> data,
+			HttpServletRequest httpServletRequest, Writer writer)
 		throws IOException {
 
 		ReactRendererUtil.renderReact(
-			httpServletRequest, writer, componentDescriptor, data, _portal,
-			NPMResolvedPackageNameUtil.get(_servletContext));
+			componentDescriptor, data, httpServletRequest,
+			NPMResolvedPackageNameUtil.get(_servletContext), _portal, writer);
 	}
 
 	@Reference

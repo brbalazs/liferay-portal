@@ -29,8 +29,8 @@ import javax.servlet.http.HttpServletRequest;
 public interface ReactRenderer {
 
 	public void renderReact(
-			HttpServletRequest httpServletRequest, Writer writer,
-			ComponentDescriptor componentDescriptor, Map<String, Object> data)
+			ComponentDescriptor componentDescriptor, Map<String, Object> data,
+			HttpServletRequest httpServletRequest, Writer writer)
 		throws IOException, TemplateException;
 
 }

@@ -39,10 +39,11 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class ReactRendererUtil {
 
-	public ReactRendererHelper(
-		HttpServletRequest httpServletRequest, ServletContext servletContext,
-		ComponentDescriptor componentDescriptor, Map<String, Object> data,
-		Portal portal) {
+	public static void renderReact(
+			ComponentDescriptor componentDescriptor, Map<String, Object> data,
+			HttpServletRequest httpServletRequest,
+			String npmResolvedPackageName, Portal portal, Writer writer)
+		throws IOException {
 
 		_httpServletRequest = httpServletRequest;
 		_componentDescriptor = componentDescriptor;
@@ -51,14 +52,14 @@ public class ReactRendererUtil {
 		_npmResolvedPackageName = NPMResolvedPackageNameUtil.get(
 			servletContext);
 
-		_placeholderId = StringUtil.randomId();
-		_portal = portal;
+		_renderJavaScript(
+			componentDescriptor, data, httpServletRequest,
+			npmResolvedPackageName, placeholderId, portal, writer);
 	}
 
-	public void renderReact(Writer writer) throws IOException {
-		_renderPlaceholder(writer);
-		_renderJavaScript(writer);
-	}
+	private static Map<String, Object> _prepareData(
+		ComponentDescriptor componentDescriptor, Map<String, Object> data,
+		HttpServletRequest httpServletRequest) {
 
 	private Map<String, Object> _prepareData(Map<String, Object> data) {
 		Map<String, Object> modifiedData = null;
@@ -107,7 +108,13 @@ public class ReactRendererUtil {
 		return modifiedData;
 	}
 
-	private void _renderJavaScript(Writer writer) throws IOException {
+	private static void _renderJavaScript(
+			ComponentDescriptor componentDescriptor, Map<String, Object> data,
+			HttpServletRequest httpServletRequest,
+			String npmResolvedPackageName, String placeholderId, Portal portal,
+			Writer writer)
+		throws IOException {
+
 		StringBundler dependenciesSB = new StringBundler(7);
 
 		dependenciesSB.append(_npmResolvedPackageName);
@@ -127,7 +134,9 @@ public class ReactRendererUtil {
 		javascriptSB.append(".default(renderFunction");
 		javascriptSB.append(_placeholderId);
 		javascriptSB.append(".default, ");
-		javascriptSB.append(jsonSerializer.serialize(_data));
+		javascriptSB.append(
+			jsonSerializer.serialize(
+				_prepareData(componentDescriptor, data, httpServletRequest)));
 		javascriptSB.append(", '");
 		javascriptSB.append(_placeholderId);
 		javascriptSB.append("');");
