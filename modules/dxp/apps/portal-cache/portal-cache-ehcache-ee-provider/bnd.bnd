@@ -30,5 +30,5 @@ Import-Package:\
 	\
 	*
 -includeresource:\
-	@ehcache-ee-[0-9]*.jar,\
-	@terracotta-toolkit-runtime-ee-[0-9]*.jar
+	@ehcache-ee-[0-9.]*.jar,\
+	@terracotta-toolkit-runtime-ee-[0-9.]*.jar
