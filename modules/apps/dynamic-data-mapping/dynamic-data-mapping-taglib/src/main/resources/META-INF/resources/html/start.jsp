@@ -23,7 +23,7 @@
 		<div class="input-group-item input-group-item-shrink input-localized-content <%= hideClass %>" role="menu" style="justify-content: flex-end;">
 
 			<%
-			String defaultLanguageId;
+			String defaultLanguageId = null;
 
 			if (defaultEditLocale == null) {
 				defaultLanguageId = LocaleUtil.toLanguageId(ddmForm.getDefaultLocale());
