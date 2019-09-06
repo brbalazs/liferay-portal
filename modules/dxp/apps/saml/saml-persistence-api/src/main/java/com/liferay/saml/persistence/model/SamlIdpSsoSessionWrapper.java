@@ -248,6 +248,11 @@ public class SamlIdpSsoSessionWrapper
 		return _samlIdpSsoSession.isNew();
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this class directly. All methods that expect a saml idp sso session model instance should use the <code>SamlIdpSsoSession</code> interface instead.
+	 */
 	@Override
 	public void persist() {
 		_samlIdpSsoSession.persist();

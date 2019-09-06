@@ -394,6 +394,11 @@ public class OAuthApplicationWrapper
 		return _oAuthApplication.isShareableAccessToken();
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this class directly. All methods that expect a o auth application model instance should use the <code>OAuthApplication</code> interface instead.
+	 */
 	@Override
 	public void persist() {
 		_oAuthApplication.persist();

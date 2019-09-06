@@ -267,6 +267,11 @@ public class SharepointOAuth2TokenEntryWrapper
 		return _sharepointOAuth2TokenEntry.isNew();
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this class directly. All methods that expect a sharepoint o auth2 token entry model instance should use the <code>SharepointOAuth2TokenEntry</code> interface instead.
+	 */
 	@Override
 	public void persist() {
 		_sharepointOAuth2TokenEntry.persist();

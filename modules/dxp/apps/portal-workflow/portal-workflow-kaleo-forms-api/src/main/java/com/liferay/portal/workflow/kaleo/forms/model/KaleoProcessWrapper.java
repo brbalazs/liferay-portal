@@ -382,6 +382,11 @@ public class KaleoProcessWrapper
 		return _kaleoProcess.isNew();
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this class directly. All methods that expect a kaleo process model instance should use the <code>KaleoProcess</code> interface instead.
+	 */
 	@Override
 	public void persist() {
 		_kaleoProcess.persist();

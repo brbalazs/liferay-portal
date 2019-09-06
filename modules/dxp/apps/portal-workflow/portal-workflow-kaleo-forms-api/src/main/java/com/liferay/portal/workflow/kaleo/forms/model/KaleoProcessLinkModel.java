@@ -38,7 +38,7 @@ import java.io.Serializable;
 @ProviderType
 public interface KaleoProcessLinkModel extends BaseModel<KaleoProcessLink> {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a kaleo process link model instance should use the {@link KaleoProcessLink} interface instead.

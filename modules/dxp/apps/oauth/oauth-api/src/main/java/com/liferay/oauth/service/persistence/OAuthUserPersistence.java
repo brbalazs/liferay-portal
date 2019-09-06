@@ -39,7 +39,7 @@ import java.util.Set;
 @ProviderType
 public interface OAuthUserPersistence extends BasePersistence<OAuthUser> {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link OAuthUserUtil} to access the o auth user persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

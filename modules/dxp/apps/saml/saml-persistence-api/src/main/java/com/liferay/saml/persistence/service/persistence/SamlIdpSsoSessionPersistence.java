@@ -41,7 +41,7 @@ import java.util.Set;
 public interface SamlIdpSsoSessionPersistence
 	extends BasePersistence<SamlIdpSsoSession> {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link SamlIdpSsoSessionUtil} to access the saml idp sso session persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

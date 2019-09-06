@@ -34,7 +34,7 @@ import com.liferay.portal.kernel.util.Accessor;
 public interface SharepointOAuth2TokenEntry
 	extends PersistedModel, SharepointOAuth2TokenEntryModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to <code>com.liferay.sharepoint.rest.oauth2.model.impl.SharepointOAuth2TokenEntryImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

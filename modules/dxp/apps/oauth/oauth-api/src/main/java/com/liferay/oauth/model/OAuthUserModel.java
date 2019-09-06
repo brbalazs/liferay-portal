@@ -43,7 +43,7 @@ import java.util.Date;
 public interface OAuthUserModel
 	extends AuditedModel, BaseModel<OAuthUser>, ShardedModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a o auth user model instance should use the {@link OAuthUser} interface instead.

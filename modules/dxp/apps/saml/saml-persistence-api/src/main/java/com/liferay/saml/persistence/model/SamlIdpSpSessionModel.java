@@ -43,7 +43,7 @@ import java.util.Date;
 public interface SamlIdpSpSessionModel
 	extends AuditedModel, BaseModel<SamlIdpSpSession>, ShardedModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a saml idp sp session model instance should use the {@link SamlIdpSpSession} interface instead.
