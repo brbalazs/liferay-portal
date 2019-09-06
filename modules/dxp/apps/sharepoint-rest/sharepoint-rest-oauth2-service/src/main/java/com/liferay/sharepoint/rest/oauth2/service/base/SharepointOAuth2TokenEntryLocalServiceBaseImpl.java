@@ -14,8 +14,6 @@
 
 package com.liferay.sharepoint.rest.oauth2.service.base;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
@@ -62,7 +60,6 @@ import javax.sql.DataSource;
  * @see com.liferay.sharepoint.rest.oauth2.service.impl.SharepointOAuth2TokenEntryLocalServiceImpl
  * @generated
  */
-@ProviderType
 public abstract class SharepointOAuth2TokenEntryLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements SharepointOAuth2TokenEntryLocalService, IdentifiableOSGiService {

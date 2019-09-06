@@ -14,8 +14,6 @@
 
 package com.liferay.portal.resiliency.spi.service.http;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.resiliency.spi.service.SPIDefinitionServiceUtil;
@@ -61,7 +59,6 @@ import java.rmi.RemoteException;
  * @see SPIDefinitionServiceHttp
  * @generated
  */
-@ProviderType
 public class SPIDefinitionServiceSoap {
 
 	public static com.liferay.portal.resiliency.spi.model.SPIDefinitionSoap

@@ -14,8 +14,6 @@
 
 package com.liferay.oauth.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
 import com.liferay.oauth.model.OAuthApplication;
@@ -63,7 +61,6 @@ import java.util.function.Function;
  * @generated
  */
 @JSON(strict = true)
-@ProviderType
 public class OAuthApplicationModelImpl
 	extends BaseModelImpl<OAuthApplication> implements OAuthApplicationModel {
 

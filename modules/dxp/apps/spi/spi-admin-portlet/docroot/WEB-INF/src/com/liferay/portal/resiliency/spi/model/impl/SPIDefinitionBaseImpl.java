@@ -14,8 +14,6 @@
 
 package com.liferay.portal.resiliency.spi.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.resiliency.spi.model.SPIDefinition;
 import com.liferay.portal.resiliency.spi.service.SPIDefinitionLocalServiceUtil;
 
@@ -31,7 +29,6 @@ import com.liferay.portal.resiliency.spi.service.SPIDefinitionLocalServiceUtil;
  * @see SPIDefinition
  * @generated
  */
-@ProviderType
 public abstract class SPIDefinitionBaseImpl
 	extends SPIDefinitionModelImpl implements SPIDefinition {
 

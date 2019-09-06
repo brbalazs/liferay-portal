@@ -14,8 +14,6 @@
 
 package com.liferay.portal.reports.engine.console.service.http;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.reports.engine.console.service.EntryServiceUtil;
@@ -61,7 +59,6 @@ import java.rmi.RemoteException;
  * @see EntryServiceHttp
  * @generated
  */
-@ProviderType
 public class EntryServiceSoap {
 
 	public static com.liferay.portal.reports.engine.console.model.EntrySoap

@@ -14,8 +14,6 @@
 
 package com.liferay.saml.persistence.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.saml.persistence.model.SamlSpMessage;
 import com.liferay.saml.persistence.service.SamlSpMessageLocalServiceUtil;
 
@@ -31,7 +29,6 @@ import com.liferay.saml.persistence.service.SamlSpMessageLocalServiceUtil;
  * @see SamlSpMessage
  * @generated
  */
-@ProviderType
 public abstract class SamlSpMessageBaseImpl
 	extends SamlSpMessageModelImpl implements SamlSpMessage {
 

@@ -14,8 +14,6 @@
 
 package com.liferay.saml.persistence.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
@@ -58,7 +56,6 @@ import java.util.function.Function;
  * @see SamlIdpSsoSessionImpl
  * @generated
  */
-@ProviderType
 public class SamlIdpSsoSessionModelImpl
 	extends BaseModelImpl<SamlIdpSsoSession> implements SamlIdpSsoSessionModel {
 

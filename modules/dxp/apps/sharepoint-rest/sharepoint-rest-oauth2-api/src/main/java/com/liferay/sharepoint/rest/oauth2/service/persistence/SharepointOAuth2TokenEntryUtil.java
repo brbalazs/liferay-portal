@@ -14,8 +14,6 @@
 
 package com.liferay.sharepoint.rest.oauth2.service.persistence;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -42,7 +40,6 @@ import org.osgi.util.tracker.ServiceTracker;
  * @see SharepointOAuth2TokenEntryPersistence
  * @generated
  */
-@ProviderType
 public class SharepointOAuth2TokenEntryUtil {
 
 	/*

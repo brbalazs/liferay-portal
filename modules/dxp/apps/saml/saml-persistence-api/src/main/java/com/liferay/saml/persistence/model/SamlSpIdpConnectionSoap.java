@@ -14,8 +14,6 @@
 
 package com.liferay.saml.persistence.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -28,7 +26,6 @@ import java.util.List;
  * @author Mika Koivisto
  * @generated
  */
-@ProviderType
 public class SamlSpIdpConnectionSoap implements Serializable {
 
 	public static SamlSpIdpConnectionSoap toSoapModel(

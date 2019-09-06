@@ -14,8 +14,6 @@
 
 package com.liferay.portal.workflow.kaleo.forms.service.http;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
@@ -65,7 +63,6 @@ import java.util.Map;
  * @see KaleoProcessServiceHttp
  * @generated
  */
-@ProviderType
 public class KaleoProcessServiceSoap {
 
 	/**

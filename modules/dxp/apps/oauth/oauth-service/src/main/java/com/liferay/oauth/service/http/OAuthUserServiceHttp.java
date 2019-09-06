@@ -14,8 +14,6 @@
 
 package com.liferay.oauth.service.http;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.oauth.service.OAuthUserServiceUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -51,7 +49,6 @@ import com.liferay.portal.kernel.util.MethodKey;
  * @see OAuthUserServiceSoap
  * @generated
  */
-@ProviderType
 public class OAuthUserServiceHttp {
 
 	public static com.liferay.oauth.model.OAuthUser addOAuthUser(

@@ -14,8 +14,6 @@
 
 package com.liferay.portal.reports.engine.console.service.http;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
@@ -65,7 +63,6 @@ import java.util.Map;
  * @see SourceServiceHttp
  * @generated
  */
-@ProviderType
 public class SourceServiceSoap {
 
 	public static com.liferay.portal.reports.engine.console.model.SourceSoap

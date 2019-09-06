@@ -14,8 +14,6 @@
 
 package com.liferay.oauth.service.persistence.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.oauth.exception.NoSuchUserException;
 import com.liferay.oauth.model.OAuthUser;
 import com.liferay.oauth.model.impl.OAuthUserImpl;
@@ -63,7 +61,6 @@ import java.util.Set;
  * @author Ivica Cardic
  * @generated
  */
-@ProviderType
 public class OAuthUserPersistenceImpl
 	extends BasePersistenceImpl<OAuthUser> implements OAuthUserPersistence {
 

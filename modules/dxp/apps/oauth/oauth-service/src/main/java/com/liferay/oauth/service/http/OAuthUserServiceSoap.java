@@ -14,8 +14,6 @@
 
 package com.liferay.oauth.service.http;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.oauth.service.OAuthUserServiceUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -61,7 +59,6 @@ import java.rmi.RemoteException;
  * @see OAuthUserServiceHttp
  * @generated
  */
-@ProviderType
 public class OAuthUserServiceSoap {
 
 	public static com.liferay.oauth.model.OAuthUserSoap addOAuthUser(

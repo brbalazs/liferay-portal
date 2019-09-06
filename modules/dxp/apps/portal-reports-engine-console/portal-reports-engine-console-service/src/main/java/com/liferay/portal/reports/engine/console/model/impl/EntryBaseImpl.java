@@ -14,8 +14,6 @@
 
 package com.liferay.portal.reports.engine.console.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.reports.engine.console.model.Entry;
 import com.liferay.portal.reports.engine.console.service.EntryLocalServiceUtil;
 
@@ -31,7 +29,6 @@ import com.liferay.portal.reports.engine.console.service.EntryLocalServiceUtil;
  * @see Entry
  * @generated
  */
-@ProviderType
 public abstract class EntryBaseImpl extends EntryModelImpl implements Entry {
 
 	/*

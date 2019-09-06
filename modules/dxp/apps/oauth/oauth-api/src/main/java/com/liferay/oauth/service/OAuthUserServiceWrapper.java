@@ -14,8 +14,6 @@
 
 package com.liferay.oauth.service;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
@@ -25,7 +23,6 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @see OAuthUserService
  * @generated
  */
-@ProviderType
 public class OAuthUserServiceWrapper
 	implements OAuthUserService, ServiceWrapper<OAuthUserService> {
 

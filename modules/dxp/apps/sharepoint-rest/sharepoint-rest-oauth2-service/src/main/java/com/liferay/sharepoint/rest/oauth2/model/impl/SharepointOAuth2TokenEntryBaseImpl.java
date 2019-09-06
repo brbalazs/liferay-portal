@@ -14,8 +14,6 @@
 
 package com.liferay.sharepoint.rest.oauth2.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.sharepoint.rest.oauth2.model.SharepointOAuth2TokenEntry;
 import com.liferay.sharepoint.rest.oauth2.service.SharepointOAuth2TokenEntryLocalServiceUtil;
 
@@ -31,7 +29,6 @@ import com.liferay.sharepoint.rest.oauth2.service.SharepointOAuth2TokenEntryLoca
  * @see SharepointOAuth2TokenEntry
  * @generated
  */
-@ProviderType
 public abstract class SharepointOAuth2TokenEntryBaseImpl
 	extends SharepointOAuth2TokenEntryModelImpl
 	implements SharepointOAuth2TokenEntry {

@@ -14,8 +14,6 @@
 
 package com.liferay.saml.persistence.service;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
@@ -25,7 +23,6 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @see SamlSpIdpConnectionLocalService
  * @generated
  */
-@ProviderType
 public class SamlSpIdpConnectionLocalServiceWrapper
 	implements SamlSpIdpConnectionLocalService,
 			   ServiceWrapper<SamlSpIdpConnectionLocalService> {

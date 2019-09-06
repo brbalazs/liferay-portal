@@ -14,8 +14,6 @@
 
 package com.liferay.portal.resiliency.spi.service.base;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.expando.kernel.service.persistence.ExpandoRowPersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -62,7 +60,6 @@ import javax.sql.DataSource;
  * @see com.liferay.portal.resiliency.spi.service.impl.SPIDefinitionLocalServiceImpl
  * @generated
  */
-@ProviderType
 public abstract class SPIDefinitionLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements SPIDefinitionLocalService, IdentifiableOSGiService {

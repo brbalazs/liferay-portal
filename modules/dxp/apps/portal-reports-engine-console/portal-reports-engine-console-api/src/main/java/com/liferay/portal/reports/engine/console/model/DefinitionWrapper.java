@@ -14,8 +14,6 @@
 
 package com.liferay.portal.reports.engine.console.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.exportimport.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.model.ModelWrapper;
@@ -37,7 +35,6 @@ import java.util.Objects;
  * @see Definition
  * @generated
  */
-@ProviderType
 public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
 
 	public DefinitionWrapper(Definition definition) {

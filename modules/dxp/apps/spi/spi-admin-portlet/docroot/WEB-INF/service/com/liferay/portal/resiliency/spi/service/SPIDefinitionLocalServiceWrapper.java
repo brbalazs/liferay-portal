@@ -14,8 +14,6 @@
 
 package com.liferay.portal.resiliency.spi.service;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
@@ -25,7 +23,6 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @see SPIDefinitionLocalService
  * @generated
  */
-@ProviderType
 public class SPIDefinitionLocalServiceWrapper
 	implements SPIDefinitionLocalService,
 			   ServiceWrapper<SPIDefinitionLocalService> {

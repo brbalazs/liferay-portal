@@ -14,8 +14,6 @@
 
 package com.liferay.portal.resiliency.spi.service.persistence;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -39,7 +37,6 @@ import java.util.Set;
  * @see SPIDefinitionPersistence
  * @generated
  */
-@ProviderType
 public class SPIDefinitionUtil {
 
 	/*

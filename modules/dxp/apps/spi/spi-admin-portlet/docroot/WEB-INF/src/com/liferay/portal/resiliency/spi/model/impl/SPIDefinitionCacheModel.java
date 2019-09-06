@@ -14,8 +14,6 @@
 
 package com.liferay.portal.resiliency.spi.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -34,7 +32,6 @@ import java.util.Date;
  * @author Michael C. Han
  * @generated
  */
-@ProviderType
 public class SPIDefinitionCacheModel
 	implements CacheModel<SPIDefinition>, Externalizable {
 

@@ -14,8 +14,6 @@
 
 package com.liferay.portal.workflow.kaleo.forms.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -27,7 +25,6 @@ import java.util.List;
  * @author Marcellus Tavares
  * @generated
  */
-@ProviderType
 public class KaleoProcessLinkSoap implements Serializable {
 
 	public static KaleoProcessLinkSoap toSoapModel(KaleoProcessLink model) {

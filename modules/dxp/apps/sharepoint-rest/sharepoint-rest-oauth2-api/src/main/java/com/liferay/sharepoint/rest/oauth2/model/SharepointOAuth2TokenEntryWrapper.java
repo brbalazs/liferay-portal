@@ -14,8 +14,6 @@
 
 package com.liferay.sharepoint.rest.oauth2.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -36,7 +34,6 @@ import java.util.Objects;
  * @see SharepointOAuth2TokenEntry
  * @generated
  */
-@ProviderType
 public class SharepointOAuth2TokenEntryWrapper
 	implements SharepointOAuth2TokenEntry,
 			   ModelWrapper<SharepointOAuth2TokenEntry> {

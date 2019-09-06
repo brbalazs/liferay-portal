@@ -14,8 +14,6 @@
 
 package com.liferay.saml.persistence.service;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
@@ -25,7 +23,6 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @see SamlIdpSsoSessionLocalService
  * @generated
  */
-@ProviderType
 public class SamlIdpSsoSessionLocalServiceWrapper
 	implements SamlIdpSsoSessionLocalService,
 			   ServiceWrapper<SamlIdpSsoSessionLocalService> {

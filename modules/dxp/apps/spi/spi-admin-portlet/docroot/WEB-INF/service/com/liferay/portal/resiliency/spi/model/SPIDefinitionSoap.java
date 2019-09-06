@@ -14,8 +14,6 @@
 
 package com.liferay.portal.resiliency.spi.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -28,7 +26,6 @@ import java.util.List;
  * @author Michael C. Han
  * @generated
  */
-@ProviderType
 public class SPIDefinitionSoap implements Serializable {
 
 	public static SPIDefinitionSoap toSoapModel(SPIDefinition model) {

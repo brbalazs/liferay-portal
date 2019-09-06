@@ -14,8 +14,6 @@
 
 package com.liferay.oauth.service.base;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.oauth.model.OAuthUser;
 import com.liferay.oauth.service.OAuthUserLocalService;
 import com.liferay.oauth.service.persistence.OAuthApplicationPersistence;
@@ -63,7 +61,6 @@ import javax.sql.DataSource;
  * @see com.liferay.oauth.service.impl.OAuthUserLocalServiceImpl
  * @generated
  */
-@ProviderType
 public abstract class OAuthUserLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements OAuthUserLocalService, IdentifiableOSGiService {

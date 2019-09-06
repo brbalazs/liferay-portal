@@ -14,8 +14,6 @@
 
 package com.liferay.portal.workflow.kaleo.forms.service.http;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.HttpPrincipal;
@@ -51,7 +49,6 @@ import com.liferay.portal.workflow.kaleo.forms.service.KaleoProcessServiceUtil;
  * @see KaleoProcessServiceSoap
  * @generated
  */
-@ProviderType
 public class KaleoProcessServiceHttp {
 
 	public static com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess

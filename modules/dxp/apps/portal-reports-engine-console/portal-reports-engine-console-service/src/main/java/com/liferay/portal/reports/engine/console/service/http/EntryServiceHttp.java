@@ -14,8 +14,6 @@
 
 package com.liferay.portal.reports.engine.console.service.http;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.HttpPrincipal;
@@ -51,7 +49,6 @@ import com.liferay.portal.reports.engine.console.service.EntryServiceUtil;
  * @see EntryServiceSoap
  * @generated
  */
-@ProviderType
 public class EntryServiceHttp {
 
 	public static com.liferay.portal.reports.engine.console.model.Entry

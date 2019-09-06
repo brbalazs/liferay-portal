@@ -14,8 +14,6 @@
 
 package com.liferay.portal.reports.engine.console.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.reports.engine.console.model.Definition;
 import com.liferay.portal.reports.engine.console.service.DefinitionLocalServiceUtil;
 
@@ -31,7 +29,6 @@ import com.liferay.portal.reports.engine.console.service.DefinitionLocalServiceU
  * @see Definition
  * @generated
  */
-@ProviderType
 public abstract class DefinitionBaseImpl
 	extends DefinitionModelImpl implements Definition {
 

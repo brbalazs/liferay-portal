@@ -14,8 +14,6 @@
 
 package com.liferay.sharepoint.rest.oauth2.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -34,7 +32,6 @@ import java.util.Date;
  * @author Adolfo Pérez
  * @generated
  */
-@ProviderType
 public class SharepointOAuth2TokenEntryCacheModel
 	implements CacheModel<SharepointOAuth2TokenEntry>, Externalizable {
 

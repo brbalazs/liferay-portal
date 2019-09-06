@@ -14,8 +14,6 @@
 
 package com.liferay.sharepoint.rest.oauth2.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -28,7 +26,6 @@ import java.util.List;
  * @author Adolfo Pérez
  * @generated
  */
-@ProviderType
 public class SharepointOAuth2TokenEntrySoap implements Serializable {
 
 	public static SharepointOAuth2TokenEntrySoap toSoapModel(

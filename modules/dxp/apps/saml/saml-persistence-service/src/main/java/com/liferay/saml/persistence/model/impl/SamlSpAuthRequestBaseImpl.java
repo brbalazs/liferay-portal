@@ -14,8 +14,6 @@
 
 package com.liferay.saml.persistence.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.saml.persistence.model.SamlSpAuthRequest;
 import com.liferay.saml.persistence.service.SamlSpAuthRequestLocalServiceUtil;
 
@@ -31,7 +29,6 @@ import com.liferay.saml.persistence.service.SamlSpAuthRequestLocalServiceUtil;
  * @see SamlSpAuthRequest
  * @generated
  */
-@ProviderType
 public abstract class SamlSpAuthRequestBaseImpl
 	extends SamlSpAuthRequestModelImpl implements SamlSpAuthRequest {
 

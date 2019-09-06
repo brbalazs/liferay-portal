@@ -14,8 +14,6 @@
 
 package com.liferay.oauth.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -28,7 +26,6 @@ import java.util.List;
  * @author Ivica Cardic
  * @generated
  */
-@ProviderType
 public class OAuthUserSoap implements Serializable {
 
 	public static OAuthUserSoap toSoapModel(OAuthUser model) {

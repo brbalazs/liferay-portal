@@ -14,8 +14,6 @@
 
 package com.liferay.oauth.service;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
@@ -25,7 +23,6 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @see OAuthApplicationLocalService
  * @generated
  */
-@ProviderType
 public class OAuthApplicationLocalServiceWrapper
 	implements OAuthApplicationLocalService,
 			   ServiceWrapper<OAuthApplicationLocalService> {

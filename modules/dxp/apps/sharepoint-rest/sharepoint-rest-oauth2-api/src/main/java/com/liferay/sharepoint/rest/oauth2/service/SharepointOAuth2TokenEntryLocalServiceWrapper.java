@@ -14,8 +14,6 @@
 
 package com.liferay.sharepoint.rest.oauth2.service;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
@@ -25,7 +23,6 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @see SharepointOAuth2TokenEntryLocalService
  * @generated
  */
-@ProviderType
 public class SharepointOAuth2TokenEntryLocalServiceWrapper
 	implements SharepointOAuth2TokenEntryLocalService,
 			   ServiceWrapper<SharepointOAuth2TokenEntryLocalService> {

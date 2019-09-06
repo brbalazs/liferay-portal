@@ -14,8 +14,6 @@
 
 package com.liferay.sharepoint.rest.oauth2.service.persistence.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -59,7 +57,6 @@ import java.util.Set;
  * @author Adolfo Pérez
  * @generated
  */
-@ProviderType
 public class SharepointOAuth2TokenEntryPersistenceImpl
 	extends BasePersistenceImpl<SharepointOAuth2TokenEntry>
 	implements SharepointOAuth2TokenEntryPersistence {

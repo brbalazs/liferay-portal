@@ -14,8 +14,6 @@
 
 package com.liferay.oauth.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.oauth.model.OAuthApplication;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
@@ -34,7 +32,6 @@ import java.util.Date;
  * @author Ivica Cardic
  * @generated
  */
-@ProviderType
 public class OAuthApplicationCacheModel
 	implements CacheModel<OAuthApplication>, Externalizable {
 

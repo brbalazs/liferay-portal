@@ -14,8 +14,6 @@
 
 package com.liferay.portal.reports.engine.console.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.reports.engine.console.model.Source;
 import com.liferay.portal.reports.engine.console.service.SourceLocalServiceUtil;
 
@@ -31,7 +29,6 @@ import com.liferay.portal.reports.engine.console.service.SourceLocalServiceUtil;
  * @see Source
  * @generated
  */
-@ProviderType
 public abstract class SourceBaseImpl extends SourceModelImpl implements Source {
 
 	/*

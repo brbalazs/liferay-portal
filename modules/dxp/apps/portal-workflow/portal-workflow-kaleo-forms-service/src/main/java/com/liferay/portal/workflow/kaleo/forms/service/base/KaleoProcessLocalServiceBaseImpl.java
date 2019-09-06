@@ -14,8 +14,6 @@
 
 package com.liferay.portal.workflow.kaleo.forms.service.base;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.dynamic.data.lists.service.persistence.DDLRecordPersistence;
 import com.liferay.dynamic.data.lists.service.persistence.DDLRecordSetPersistence;
 import com.liferay.exportimport.kernel.lar.ExportImportHelperUtil;
@@ -74,7 +72,6 @@ import javax.sql.DataSource;
  * @see com.liferay.portal.workflow.kaleo.forms.service.impl.KaleoProcessLocalServiceImpl
  * @generated
  */
-@ProviderType
 public abstract class KaleoProcessLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements KaleoProcessLocalService, IdentifiableOSGiService {

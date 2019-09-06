@@ -14,8 +14,6 @@
 
 package com.liferay.portal.resiliency.spi.service.http;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.HttpPrincipal;
@@ -51,7 +49,6 @@ import com.liferay.portal.resiliency.spi.service.SPIDefinitionServiceUtil;
  * @see SPIDefinitionServiceSoap
  * @generated
  */
-@ProviderType
 public class SPIDefinitionServiceHttp {
 
 	public static com.liferay.portal.resiliency.spi.model.SPIDefinition
