@@ -20,6 +20,7 @@ import com.liferay.dynamic.data.mapping.form.evaluator.DDMFormEvaluatorContext;
 import com.liferay.dynamic.data.mapping.form.evaluator.DDMFormFieldEvaluationResult;
 import com.liferay.dynamic.data.mapping.model.DDMForm;
 import com.liferay.dynamic.data.mapping.model.DDMFormField;
+import com.liferay.dynamic.data.mapping.model.DDMFormFieldValidation;
 import com.liferay.dynamic.data.mapping.model.DDMFormInstance;
 import com.liferay.dynamic.data.mapping.model.DDMFormLayout;
 import com.liferay.dynamic.data.mapping.model.DDMFormLayoutColumn;
@@ -29,6 +30,7 @@ import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.service.DDMFormInstanceService;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
@@ -82,6 +84,8 @@ public class AddFormInstanceRecordMVCCommandHelper {
 		if (invisibleFields.isEmpty()) {
 			return;
 		}
+
+		removeValidationExpression(invisibleFields, ddmForm.getDDMFormFields());
 
 		removeRequiredProperty(invisibleFields, requiredFields);
 	}
@@ -200,6 +204,26 @@ public class AddFormInstanceRecordMVCCommandHelper {
 			field -> invisibleFields.contains(field.getName()));
 
 		stream.forEach(this::removeRequiredProperty);
+	}
+
+	protected void removeValidationExpression(DDMFormField ddmFormField) {
+		DDMFormFieldValidation ddmFormFieldValidation =
+			ddmFormField.getDDMFormFieldValidation();
+
+		if (ddmFormFieldValidation != null) {
+			ddmFormFieldValidation.setExpression(StringPool.BLANK);
+		}
+	}
+
+	protected void removeValidationExpression(
+		Set<String> invisibleFields, List<DDMFormField> ddmFormFields) {
+
+		Stream<DDMFormField> stream = ddmFormFields.stream();
+
+		stream = stream.filter(
+			field -> invisibleFields.contains(field.getName()));
+
+		stream.forEach(this::removeValidationExpression);
 	}
 
 	@Reference
