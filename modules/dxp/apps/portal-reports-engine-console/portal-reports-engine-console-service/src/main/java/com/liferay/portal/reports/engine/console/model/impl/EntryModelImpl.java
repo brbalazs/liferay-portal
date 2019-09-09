@@ -81,8 +81,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		{"repeating", Types.BOOLEAN}, {"recurrence", Types.VARCHAR},
 		{"emailNotifications", Types.VARCHAR}, {"emailDelivery", Types.VARCHAR},
 		{"portletId", Types.VARCHAR}, {"pageURL", Types.VARCHAR},
-		{"reportParameters", Types.CLOB}, {"status", Types.VARCHAR},
-		{"errorMessage", Types.VARCHAR}
+		{"reportParameters", Types.CLOB}, {"errorMessage", Types.VARCHAR},
+		{"status", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -108,12 +108,12 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		TABLE_COLUMNS_MAP.put("portletId", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("pageURL", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("reportParameters", Types.CLOB);
-		TABLE_COLUMNS_MAP.put("status", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("errorMessage", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("status", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Reports_Entry (entryId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,definitionId LONG,format VARCHAR(75) null,scheduleRequest BOOLEAN,startDate DATE null,endDate DATE null,repeating BOOLEAN,recurrence VARCHAR(75) null,emailNotifications VARCHAR(200) null,emailDelivery VARCHAR(200) null,portletId VARCHAR(75) null,pageURL STRING null,reportParameters TEXT null,status VARCHAR(75) null,errorMessage STRING null)";
+		"create table Reports_Entry (entryId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,definitionId LONG,format VARCHAR(75) null,scheduleRequest BOOLEAN,startDate DATE null,endDate DATE null,repeating BOOLEAN,recurrence VARCHAR(75) null,emailNotifications VARCHAR(200) null,emailDelivery VARCHAR(200) null,portletId VARCHAR(75) null,pageURL STRING null,reportParameters TEXT null,errorMessage STRING null,status VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Reports_Entry";
 
@@ -173,8 +173,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		model.setPortletId(soapModel.getPortletId());
 		model.setPageURL(soapModel.getPageURL());
 		model.setReportParameters(soapModel.getReportParameters());
-		model.setStatus(soapModel.getStatus());
 		model.setErrorMessage(soapModel.getErrorMessage());
+		model.setStatus(soapModel.getStatus());
 
 		return model;
 	}
@@ -703,26 +703,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 			});
 		attributeGetterFunctions.put(
-			"status",
-			new Function<Entry, Object>() {
-
-				@Override
-				public Object apply(Entry entry) {
-					return entry.getStatus();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"status",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object status) {
-					entry.setStatus((String)status);
-				}
-
-			});
-		attributeGetterFunctions.put(
 			"errorMessage",
 			new Function<Entry, Object>() {
 
@@ -739,6 +719,26 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				@Override
 				public void accept(Entry entry, Object errorMessage) {
 					entry.setErrorMessage((String)errorMessage);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getStatus();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"status",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object status) {
+					entry.setStatus((String)status);
 				}
 
 			});
@@ -1034,22 +1034,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 	@JSON
 	@Override
-	public String getStatus() {
-		if (_status == null) {
-			return "";
-		}
-		else {
-			return _status;
-		}
-	}
-
-	@Override
-	public void setStatus(String status) {
-		_status = status;
-	}
-
-	@JSON
-	@Override
 	public String getErrorMessage() {
 		if (_errorMessage == null) {
 			return "";
@@ -1062,6 +1046,22 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 	@Override
 	public void setErrorMessage(String errorMessage) {
 		_errorMessage = errorMessage;
+	}
+
+	@JSON
+	@Override
+	public String getStatus() {
+		if (_status == null) {
+			return "";
+		}
+		else {
+			return _status;
+		}
+	}
+
+	@Override
+	public void setStatus(String status) {
+		_status = status;
 	}
 
 	@Override
@@ -1115,8 +1115,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		entryImpl.setPortletId(getPortletId());
 		entryImpl.setPageURL(getPageURL());
 		entryImpl.setReportParameters(getReportParameters());
-		entryImpl.setStatus(getStatus());
 		entryImpl.setErrorMessage(getErrorMessage());
+		entryImpl.setStatus(getStatus());
 
 		entryImpl.resetOriginalValues();
 
@@ -1300,20 +1300,20 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			entryCacheModel.reportParameters = null;
 		}
 
-		entryCacheModel.status = getStatus();
-
-		String status = entryCacheModel.status;
-
-		if ((status != null) && (status.length() == 0)) {
-			entryCacheModel.status = null;
-		}
-
 		entryCacheModel.errorMessage = getErrorMessage();
 
 		String errorMessage = entryCacheModel.errorMessage;
 
 		if ((errorMessage != null) && (errorMessage.length() == 0)) {
 			entryCacheModel.errorMessage = null;
+		}
+
+		entryCacheModel.status = getStatus();
+
+		String status = entryCacheModel.status;
+
+		if ((status != null) && (status.length() == 0)) {
+			entryCacheModel.status = null;
 		}
 
 		return entryCacheModel;
@@ -1407,8 +1407,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 	private String _portletId;
 	private String _pageURL;
 	private String _reportParameters;
-	private String _status;
 	private String _errorMessage;
+	private String _status;
 	private Entry _escapedModel;
 
 }
