@@ -20,7 +20,6 @@ import com.liferay.dynamic.data.mapping.form.evaluator.DDMFormEvaluatorContext;
 import com.liferay.dynamic.data.mapping.form.evaluator.DDMFormFieldEvaluationResult;
 import com.liferay.dynamic.data.mapping.model.DDMForm;
 import com.liferay.dynamic.data.mapping.model.DDMFormField;
-import com.liferay.dynamic.data.mapping.model.DDMFormFieldValidation;
 import com.liferay.dynamic.data.mapping.model.DDMFormInstance;
 import com.liferay.dynamic.data.mapping.model.DDMFormLayout;
 import com.liferay.dynamic.data.mapping.model.DDMFormLayoutColumn;
@@ -30,7 +29,6 @@ import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.service.DDMFormInstanceService;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
@@ -193,12 +191,7 @@ public class AddFormInstanceRecordMVCCommandHelper {
 	}
 
 	protected void removeDDMValidationExpression(DDMFormField ddmFormField) {
-		DDMFormFieldValidation ddmFormFieldValidation =
-			ddmFormField.getDDMFormFieldValidation();
-
-		if (ddmFormFieldValidation != null) {
-			ddmFormFieldValidation.setExpression(StringPool.BLANK);
-		}
+		ddmFormField.setDDMFormFieldValidation(null);
 	}
 
 	protected void removeDDMValidationExpression(
@@ -207,7 +200,7 @@ public class AddFormInstanceRecordMVCCommandHelper {
 		Stream<DDMFormField> stream = ddmFormFields.stream();
 
 		stream = stream.filter(
-			field -> invisibleFields.contains(field.getName()));
+			ddmFormField -> invisibleFields.contains(ddmFormField.getName()));
 
 		stream.forEach(this::removeDDMValidationExpression);
 	}
