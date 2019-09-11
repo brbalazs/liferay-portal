@@ -14,13 +14,20 @@
 
 package com.liferay.commerce.machine.learning.forecast.model;
 
+import aQute.bnd.annotation.ProviderType;
+
 /**
  * @author Riccardo Ferrari
  */
-public interface AssetCategoryForecast extends Forecast {
+@ProviderType
+public interface AssetCategoryCommerceMLForecast extends CommerceMLForecast {
 
 	public long getAssetCategoryId();
 
+	public long getCommerceAccountId();
+
 	public void setAssetCategoryId(long assetCategoryId);
+
+	public void setCommerceAccountId(long commerceAccountId);
 
 }

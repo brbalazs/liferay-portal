@@ -14,7 +14,9 @@
 
 package com.liferay.commerce.machine.learning.forecast.service;
 
-import com.liferay.commerce.machine.learning.forecast.model.CommerceAccountForecast;
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.commerce.machine.learning.forecast.model.CommerceAccountCommerceMLForecast;
 import com.liferay.portal.kernel.exception.PortalException;
 
 import java.util.List;
@@ -22,10 +24,12 @@ import java.util.List;
 /**
  * @author Riccardo Ferrari
  */
-public interface CommerceAccountForecastService {
+@ProviderType
+public interface CommerceAccountCommerceMLForecastService {
 
-	public List<CommerceAccountForecast> getMonthlyForecastByRevenue(
-			long companyId, long commerceAccountId)
+	public List<CommerceAccountCommerceMLForecast>
+			getMonthlyRevenueCommerceAccountCommerceMLForecasts(
+				long companyId, long commerceAccountId)
 		throws PortalException;
 
 }

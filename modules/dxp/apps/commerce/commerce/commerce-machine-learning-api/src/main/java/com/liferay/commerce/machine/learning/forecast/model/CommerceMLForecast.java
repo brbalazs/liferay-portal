@@ -14,12 +14,15 @@
 
 package com.liferay.commerce.machine.learning.forecast.model;
 
+import aQute.bnd.annotation.ProviderType;
+
 import java.util.Date;
 
 /**
  * @author Riccardo Ferrari
  */
-public interface Forecast {
+@ProviderType
+public interface CommerceMLForecast {
 
 	public float getActual();
 
@@ -35,9 +38,9 @@ public interface Forecast {
 
 	public String getJobId();
 
-	public String getLevel();
-
 	public String getPeriod();
+
+	public String getScope();
 
 	public String getTarget();
 
@@ -57,9 +60,9 @@ public interface Forecast {
 
 	public void setJobId(String jobId);
 
-	public void setLevel(String level);
-
 	public void setPeriod(String period);
+
+	public void setScope(String scope);
 
 	public void setTarget(String target);
 

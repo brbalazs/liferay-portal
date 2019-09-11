@@ -14,10 +14,13 @@
 
 package com.liferay.commerce.machine.learning.forecast.model;
 
+import aQute.bnd.annotation.ProviderType;
+
 /**
  * @author Riccardo Ferrari
  */
-public interface CommerceAccountForecast extends Forecast {
+@ProviderType
+public interface CommerceAccountCommerceMLForecast extends CommerceMLForecast {
 
 	public long getCommerceAccountId();
 
