@@ -20,7 +20,7 @@ import aQute.bnd.annotation.ProviderType;
  * @author Riccardo Ferrari
  */
 @ProviderType
-public class CommerceForecastField {
+public class CommerceMLForecastField {
 
 	public static final String ACTUAL = "actual";
 
@@ -36,9 +36,9 @@ public class CommerceForecastField {
 
 	public static final String JOB_ID = "jobId";
 
-	public static final String LEVEL = "level";
-
 	public static final String PERIOD = "period";
+
+	public static final String SCOPE = "scope";
 
 	public static final String SKU = "sku";
 
