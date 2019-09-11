@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.commerce.machine.learning.internal.recommend.search.index;
+package com.liferay.commerce.machine.learning.internal.recommendation.search.index;
 
 import com.liferay.commerce.machine.learning.internal.search.api.CommerceMLIndexer;
 import com.liferay.commerce.machine.learning.internal.search.index.CommerceMLSearchEngineHelper;
@@ -23,8 +23,9 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Riccardo Ferrari
  */
-@Component(service = CommerceMLIndexer.class)
-public class UserCommerceMLRecommendationIndexer implements CommerceMLIndexer {
+@Component(immediate = true, service = CommerceMLIndexer.class)
+public class ProductInteractionCommerceMLRecommendationIndexer
+	implements CommerceMLIndexer {
 
 	@Override
 	public void createIndex(long companyId) {
@@ -43,10 +44,11 @@ public class UserCommerceMLRecommendationIndexer implements CommerceMLIndexer {
 	}
 
 	private static final String _INDEX_MAPPING_FILE_NAME =
-		"/META-INF/search/user-commerce-ml-recommendation-document-type.json";
+		"/META-INF/search" +
+			"/product-commerce-ml-recommendation-document-type.json";
 
 	private static final String _INDEX_NAME_PATTERN =
-		"user-commerce-ml-recommendation-%s";
+		"product-interaction-commerce-ml-recommendation-%s";
 
 	@Reference
 	private CommerceMLSearchEngineHelper _commerceMLSearchEngineHelper;

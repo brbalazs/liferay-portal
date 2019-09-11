@@ -12,16 +12,17 @@
  *
  */
 
-package com.liferay.commerce.machine.learning.internal.recommend.api;
+package com.liferay.commerce.machine.learning.internal.recommendation.api;
 
 import com.liferay.portal.kernel.search.Hits;
 
 /**
  * @author Riccardo Ferrari
  */
-public interface ProductCommerceMLRecommendationHelper {
+public interface UserCommerceMLRecommendationHelper {
 
-	public Hits getRecommendations(long companyId, long cpDefinitionId)
+	public Hits getRecommendations(
+			long companyId, long commerceAccountId, long[] assetCategoryIds)
 		throws Exception;
 
 }

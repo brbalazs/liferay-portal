@@ -12,10 +12,10 @@
  *
  */
 
-package com.liferay.commerce.machine.learning.internal.recommend.data.source;
+package com.liferay.commerce.machine.learning.internal.recommendation.data.source;
 
-import com.liferay.commerce.machine.learning.internal.recommend.api.ProductCommerceMLRecommendationHelper;
-import com.liferay.commerce.machine.learning.internal.recommend.constants.CommerceMLRecommendationField;
+import com.liferay.commerce.machine.learning.internal.recommendation.api.ProductCommerceMLRecommendationHelper;
+import com.liferay.commerce.machine.learning.internal.recommendation.constants.CommerceMLRecommendationField;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.catalog.CPQuery;
 import com.liferay.commerce.product.constants.CPWebKeys;
@@ -56,20 +56,19 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.product.data.source.name=" + ProductInteractionCommerceMLRecommendationCPDataSourceImpl.NAME,
+	property = "commerce.product.data.source.name=" + ProductContentCommerceMLRecommendationCPDataSourceImpl.NAME,
 	service = CPDataSource.class
 )
-public class ProductInteractionCommerceMLRecommendationCPDataSourceImpl
+public class ProductContentCommerceMLRecommendationCPDataSourceImpl
 	extends BaseCommerceMLRecommendationCPDataSource {
 
 	public static final String NAME =
-		"productInteractionCommerceMLRecommendationDataSource";
+		"productContentCommerceMLRecommendationDataSource";
 
 	@Override
 	public String getLabel(Locale locale) {
 		return LanguageUtil.get(
-			getResourceBundle(locale),
-			"product-interaction-based-recommendations");
+			getResourceBundle(locale), "product-content-based-recommendations");
 	}
 
 	@Override
@@ -154,7 +153,7 @@ public class ProductInteractionCommerceMLRecommendationCPDataSourceImpl
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		ProductInteractionCommerceMLRecommendationCPDataSourceImpl.class);
+		ProductContentCommerceMLRecommendationCPDataSourceImpl.class);
 
 	@Reference(unbind = "-")
 	private CPDefinitionHelper _cpDefinitionHelper;
@@ -163,7 +162,7 @@ public class ProductInteractionCommerceMLRecommendationCPDataSourceImpl
 	private Portal _portal;
 
 	@Reference(
-		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommend.ProductInteractionCommerceMLRecommendationHelperImpl)"
+		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommendation.ProductContentCommerceMLRecommendationHelperImpl)"
 	)
 	private ProductCommerceMLRecommendationHelper
 		_productCommerceMLRecommendationHelper;

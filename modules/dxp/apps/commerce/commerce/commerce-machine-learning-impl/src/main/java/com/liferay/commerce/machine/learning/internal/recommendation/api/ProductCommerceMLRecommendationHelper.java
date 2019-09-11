@@ -12,23 +12,16 @@
  *
  */
 
-package com.liferay.commerce.machine.learning.internal.recommend.data.source;
+package com.liferay.commerce.machine.learning.internal.recommendation.api;
 
-import com.liferay.commerce.product.data.source.CPDataSource;
-import com.liferay.portal.kernel.util.ResourceBundleUtil;
-
-import java.util.Locale;
-import java.util.ResourceBundle;
+import com.liferay.portal.kernel.search.Hits;
 
 /**
  * @author Riccardo Ferrari
  */
-public abstract class BaseCommerceMLRecommendationCPDataSource
-	implements CPDataSource {
+public interface ProductCommerceMLRecommendationHelper {
 
-	protected ResourceBundle getResourceBundle(Locale locale) {
-		return ResourceBundleUtil.getBundle(
-			"content.Language", locale, getClass());
-	}
+	public Hits getRecommendations(long companyId, long cpDefinitionId)
+		throws Exception;
 
 }

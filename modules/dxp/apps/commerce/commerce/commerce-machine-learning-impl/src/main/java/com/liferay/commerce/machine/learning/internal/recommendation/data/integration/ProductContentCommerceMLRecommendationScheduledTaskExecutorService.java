@@ -12,13 +12,13 @@
  *
  */
 
-package com.liferay.commerce.machine.learning.internal.recommend.data.integration;
+package com.liferay.commerce.machine.learning.internal.recommendation.data.integration;
 
 import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLocalService;
 import com.liferay.commerce.data.integration.service.ScheduledTaskExecutorService;
 import com.liferay.commerce.machine.learning.internal.data.integration.CommerceMLScheduledTaskExecutorService;
-import com.liferay.commerce.machine.learning.internal.recommend.data.integration.process.type.UserCommerceMLRecommendationProcessType;
+import com.liferay.commerce.machine.learning.internal.recommendation.data.integration.process.type.ProductContentCommerceMLRecommendationProcessType;
 import com.liferay.commerce.machine.learning.internal.search.api.CommerceMLIndexer;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -40,15 +40,15 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	configurationPid = "com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration",
 	configurationPolicy = ConfigurationPolicy.OPTIONAL, immediate = true,
-	property = "data.integration.service.executor.key=" + UserCommerceMLRecommendationProcessType.KEY,
+	property = "data.integration.service.executor.key=" + ProductContentCommerceMLRecommendationProcessType.KEY,
 	service = ScheduledTaskExecutorService.class
 )
-public class UserCommerceMLRecommendationScheduledTaskExecutorService
+public class ProductContentCommerceMLRecommendationScheduledTaskExecutorService
 	implements ScheduledTaskExecutorService {
 
 	@Override
 	public String getName() {
-		return UserCommerceMLRecommendationProcessType.KEY;
+		return ProductContentCommerceMLRecommendationProcessType.KEY;
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class UserCommerceMLRecommendationScheduledTaskExecutorService
 				getCommerceDataIntegrationProcess(
 					commerceDataIntegrationProcessId);
 
-		_commerceRecommendScheduledTaskExecutorService.executeScheduledTask(
+		_commerceMLScheduledTaskExecutorService.executeScheduledTask(
 			commerceDataIntegrationProcess.getUserId(),
 			commerceDataIntegrationProcessId,
 			getContextProperties(
@@ -85,20 +85,13 @@ public class UserCommerceMLRecommendationScheduledTaskExecutorService
 
 		contextProperties.put("LIFERAY_INDEX_NAME", sourceIndexName);
 
-		String productInteractionCommerceMLRecommendationIndexName =
-			_productInteractionCommerceMLRecommendationIndexer.getIndexName(
+		String productContentCommerceMLRecommendationIndexName =
+			_productContentCommerceMLRecommendationIndexer.getIndexName(
 				companyId);
 
 		contextProperties.put(
-			"PRODUCT_INTERACTION_COMMERCE_ML_RECOMMENDATION_INDEX_NAME",
-			productInteractionCommerceMLRecommendationIndexName);
-
-		String userCommerceMLRecommendationIndexName =
-			_userCommerceMLRecommendationIndexer.getIndexName(companyId);
-
-		contextProperties.put(
-			"USER_COMMERCE_ML_RECOMMENDATION_INDEX_NAME",
-			userCommerceMLRecommendationIndexName);
+			"PRODUCT_CONTENT_COMMERCE_ML_RECOMMENDATION_INDEX_NAME",
+			productContentCommerceMLRecommendationIndexName);
 
 		return contextProperties;
 	}
@@ -109,19 +102,13 @@ public class UserCommerceMLRecommendationScheduledTaskExecutorService
 
 	@Reference
 	private CommerceMLScheduledTaskExecutorService
-		_commerceRecommendScheduledTaskExecutorService;
+		_commerceMLScheduledTaskExecutorService;
 
 	private ElasticsearchConfiguration _elasticsearchConfiguration;
 
 	@Reference(
-		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommend.search.index.ProductInteractionCommerceMLRecommendationIndexer)"
+		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommendation.search.index.ProductContentCommerceMLRecommendationIndexer)"
 	)
-	private CommerceMLIndexer
-		_productInteractionCommerceMLRecommendationIndexer;
-
-	@Reference(
-		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommend.search.index.UserCommerceMLRecommendationIndexer)"
-	)
-	private CommerceMLIndexer _userCommerceMLRecommendationIndexer;
+	private CommerceMLIndexer _productContentCommerceMLRecommendationIndexer;
 
 }

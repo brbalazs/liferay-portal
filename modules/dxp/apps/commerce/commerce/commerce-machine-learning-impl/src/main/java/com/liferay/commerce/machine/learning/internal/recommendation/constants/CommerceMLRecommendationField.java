@@ -12,17 +12,23 @@
  *
  */
 
-package com.liferay.commerce.machine.learning.internal.recommend.api;
+package com.liferay.commerce.machine.learning.internal.recommendation.constants;
 
-import com.liferay.portal.kernel.search.Hits;
+import aQute.bnd.annotation.ProviderType;
 
 /**
  * @author Riccardo Ferrari
  */
-public interface UserCommerceMLRecommendationHelper {
+@ProviderType
+public class CommerceMLRecommendationField {
 
-	public Hits getRecommendations(
-			long companyId, long commerceAccountId, long[] assetCategoryIds)
-		throws Exception;
+	public static final String JOB_ID = "jobId";
+
+	public static final String RANK = "rank";
+
+	public static final String RECOMMENDED_ENTRY_CLASS_PK =
+		"recommendedEntryClassPK";
+
+	public static final String SCORE = "score";
 
 }

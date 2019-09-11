@@ -12,9 +12,9 @@
  *
  */
 
-package com.liferay.commerce.machine.learning.internal.recommend;
+package com.liferay.commerce.machine.learning.internal.recommendation;
 
-import com.liferay.commerce.machine.learning.internal.recommend.api.ProductCommerceMLRecommendationHelper;
+import com.liferay.commerce.machine.learning.internal.recommendation.api.ProductCommerceMLRecommendationHelper;
 import com.liferay.commerce.machine.learning.internal.search.api.CommerceMLIndexer;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -32,7 +32,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true, service = ProductCommerceMLRecommendationHelper.class
 )
-public class ProductInteractionCommerceMLRecommendationHelperImpl
+public class ProductContentCommerceMLRecommendationHelperImpl
 	extends BaseProductCommerceMLRecommendationHelper {
 
 	@Override
@@ -54,10 +54,10 @@ public class ProductInteractionCommerceMLRecommendationHelperImpl
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		ProductInteractionCommerceMLRecommendationHelperImpl.class);
+		ProductContentCommerceMLRecommendationHelperImpl.class);
 
 	@Reference(
-		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommend.search.index.ProductInteractionCommerceMLRecommendationIndexer)"
+		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommendation.search.index.ProductContentCommerceMLRecommendationIndexer)"
 	)
 	private CommerceMLIndexer _commerceMLIndexer;
 

@@ -12,23 +12,23 @@
  *
  */
 
-package com.liferay.commerce.machine.learning.internal.recommend.constants;
+package com.liferay.commerce.machine.learning.internal.recommendation.data.source;
 
-import aQute.bnd.annotation.ProviderType;
+import com.liferay.commerce.product.data.source.CPDataSource;
+import com.liferay.portal.kernel.util.ResourceBundleUtil;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * @author Riccardo Ferrari
  */
-@ProviderType
-public class CommerceMLRecommendationField {
+public abstract class BaseCommerceMLRecommendationCPDataSource
+	implements CPDataSource {
 
-	public static final String JOB_ID = "jobId";
-
-	public static final String RANK = "rank";
-
-	public static final String RECOMMENDED_ENTRY_CLASS_PK =
-		"recommendedEntryClassPK";
-
-	public static final String SCORE = "score";
+	protected ResourceBundle getResourceBundle(Locale locale) {
+		return ResourceBundleUtil.getBundle(
+			"content.Language", locale, getClass());
+	}
 
 }

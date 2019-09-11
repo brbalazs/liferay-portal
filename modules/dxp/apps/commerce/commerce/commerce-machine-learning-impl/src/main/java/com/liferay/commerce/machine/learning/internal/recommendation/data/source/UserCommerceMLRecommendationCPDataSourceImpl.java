@@ -12,10 +12,14 @@
  *
  */
 
-package com.liferay.commerce.machine.learning.internal.recommend.data.source;
+package com.liferay.commerce.machine.learning.internal.recommendation.data.source;
 
-import com.liferay.commerce.machine.learning.internal.recommend.api.ProductCommerceMLRecommendationHelper;
-import com.liferay.commerce.machine.learning.internal.recommend.constants.CommerceMLRecommendationField;
+import com.liferay.asset.kernel.model.AssetEntry;
+import com.liferay.asset.kernel.service.AssetEntryLocalService;
+import com.liferay.commerce.account.model.CommerceAccount;
+import com.liferay.commerce.account.util.CommerceAccountHelper;
+import com.liferay.commerce.machine.learning.internal.recommendation.api.UserCommerceMLRecommendationHelper;
+import com.liferay.commerce.machine.learning.internal.recommendation.constants.CommerceMLRecommendationField;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.catalog.CPQuery;
 import com.liferay.commerce.product.constants.CPWebKeys;
@@ -56,19 +60,19 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.product.data.source.name=" + ProductContentCommerceMLRecommendationCPDataSourceImpl.NAME,
+	property = "commerce.product.data.source.name=" + UserCommerceMLRecommendationCPDataSourceImpl.NAME,
 	service = CPDataSource.class
 )
-public class ProductContentCommerceMLRecommendationCPDataSourceImpl
+public class UserCommerceMLRecommendationCPDataSourceImpl
 	extends BaseCommerceMLRecommendationCPDataSource {
 
-	public static final String NAME =
-		"productContentCommerceMLRecommendationDataSource";
+	public static final String NAME = "userCommerceMLRecommendationDataSource";
 
 	@Override
 	public String getLabel(Locale locale) {
 		return LanguageUtil.get(
-			getResourceBundle(locale), "product-content-based-recommendations");
+			getResourceBundle(locale),
+			"user-interaction-based-product-recommendations");
 	}
 
 	@Override
@@ -85,17 +89,27 @@ public class ProductContentCommerceMLRecommendationCPDataSourceImpl
 
 		long groupId = _portal.getScopeGroupId(httpServletRequest);
 
+		CommerceAccount commerceAccount =
+			_commerceAccountHelper.getCurrentCommerceAccount(
+				httpServletRequest);
+
 		CPCatalogEntry cpCatalogEntry =
 			(CPCatalogEntry)httpServletRequest.getAttribute(
 				CPWebKeys.CP_CATALOG_ENTRY);
 
-		if (cpCatalogEntry == null) {
-			return new CPDataSourceResult(Collections.emptyList(), 0);
+		long[] categoryIds = null;
+
+		if (cpCatalogEntry != null) {
+			AssetEntry assetEntry = _assetEntryLocalService.getEntry(
+				CPDefinition.class.getName(),
+				cpCatalogEntry.getCPDefinitionId());
+
+			categoryIds = assetEntry.getCategoryIds();
 		}
 
 		Hits recommendations =
-			_productCommerceMLRecommendationHelper.getRecommendations(
-				companyId, cpCatalogEntry.getCPDefinitionId());
+			_userCommerceMLRecommendationHelper.getRecommendations(
+				companyId, commerceAccount.getCommerceAccountId(), categoryIds);
 
 		if (recommendations.getLength() == 0) {
 			return new CPDataSourceResult(Collections.emptyList(), 0);
@@ -122,15 +136,11 @@ public class ProductContentCommerceMLRecommendationCPDataSourceImpl
 
 			String score = document.get(CommerceMLRecommendationField.SCORE);
 
-			String rank = document.get(CommerceMLRecommendationField.RANK);
-
 			if (_log.isTraceEnabled()) {
 				StringBuilder sb = new StringBuilder();
 
 				sb.append("Recommended item: ");
 				sb.append(recommendedEntryClassPK);
-				sb.append(" rank: ");
-				sb.append(rank);
 				sb.append(" score: ");
 				sb.append(score);
 
@@ -153,7 +163,13 @@ public class ProductContentCommerceMLRecommendationCPDataSourceImpl
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		ProductContentCommerceMLRecommendationCPDataSourceImpl.class);
+		UserCommerceMLRecommendationCPDataSourceImpl.class);
+
+	@Reference
+	private AssetEntryLocalService _assetEntryLocalService;
+
+	@Reference(unbind = "-")
+	private CommerceAccountHelper _commerceAccountHelper;
 
 	@Reference(unbind = "-")
 	private CPDefinitionHelper _cpDefinitionHelper;
@@ -161,10 +177,8 @@ public class ProductContentCommerceMLRecommendationCPDataSourceImpl
 	@Reference(unbind = "-")
 	private Portal _portal;
 
-	@Reference(
-		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommend.ProductContentCommerceMLRecommendationHelperImpl)"
-	)
-	private ProductCommerceMLRecommendationHelper
-		_productCommerceMLRecommendationHelper;
+	@Reference
+	private UserCommerceMLRecommendationHelper
+		_userCommerceMLRecommendationHelper;
 
 }

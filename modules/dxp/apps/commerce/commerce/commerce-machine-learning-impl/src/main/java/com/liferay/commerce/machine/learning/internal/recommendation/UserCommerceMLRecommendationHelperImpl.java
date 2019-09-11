@@ -12,10 +12,10 @@
  *
  */
 
-package com.liferay.commerce.machine.learning.internal.recommend;
+package com.liferay.commerce.machine.learning.internal.recommendation;
 
-import com.liferay.commerce.machine.learning.internal.recommend.api.UserCommerceMLRecommendationHelper;
-import com.liferay.commerce.machine.learning.internal.recommend.constants.CommerceMLRecommendationField;
+import com.liferay.commerce.machine.learning.internal.recommendation.api.UserCommerceMLRecommendationHelper;
+import com.liferay.commerce.machine.learning.internal.recommendation.constants.CommerceMLRecommendationField;
 import com.liferay.commerce.machine.learning.internal.search.api.CommerceMLIndexer;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -102,7 +102,7 @@ public class UserCommerceMLRecommendationHelperImpl
 		UserCommerceMLRecommendationHelperImpl.class);
 
 	@Reference(
-		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommend.search.index.UserCommerceMLRecommendationIndexer)"
+		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommendation.search.index.UserCommerceMLRecommendationIndexer)"
 	)
 	private CommerceMLIndexer _commerceMLIndexer;
 

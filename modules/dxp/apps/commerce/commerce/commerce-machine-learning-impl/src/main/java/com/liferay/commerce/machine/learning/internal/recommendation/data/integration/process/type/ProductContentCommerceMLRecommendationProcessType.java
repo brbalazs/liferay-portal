@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.commerce.machine.learning.internal.recommend.data.integration.process.type;
+package com.liferay.commerce.machine.learning.internal.recommendation.data.integration.process.type;
 
 import com.liferay.commerce.data.integration.process.type.ProcessType;
 import com.liferay.commerce.machine.learning.internal.data.integration.BaseCommerceMLProcessType;
@@ -25,15 +25,16 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	immediate = true,
 	property = {
-		"commerce.data.integration.process.type.key=" + UserCommerceMLRecommendationProcessType.KEY,
+		"commerce.data.integration.process.type.key=" + ProductContentCommerceMLRecommendationProcessType.KEY,
 		"commerce.data.integration.process.type.order=100"
 	},
 	service = ProcessType.class
 )
-public class UserCommerceMLRecommendationProcessType
+public class ProductContentCommerceMLRecommendationProcessType
 	extends BaseCommerceMLProcessType {
 
-	public static final String KEY = "user-commerce-ml-recommendation";
+	public static final String KEY =
+		"product-content-commerce-ml-recommendation";
 
 	@Override
 	public String getKey() {
