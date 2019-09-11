@@ -106,7 +106,7 @@ public class AddSchedulerMVCActionCommand extends BaseMVCActionCommand {
 
 		if (endDateType == 1) {
 			Calendar endCalendar = ReportsEngineConsoleUtil.getDate(
-				actionRequest, "schedulerEndDate", false);
+				actionRequest, "schedulerEndDate", true);
 
 			schedulerEndDate = endCalendar.getTime();
 		}
