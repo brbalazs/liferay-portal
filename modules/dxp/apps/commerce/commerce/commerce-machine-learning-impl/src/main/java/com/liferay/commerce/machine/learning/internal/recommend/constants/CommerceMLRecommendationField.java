@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.commerce.machine.learning.internal.recommend.api;
+package com.liferay.commerce.machine.learning.internal.recommend.constants;
 
 import aQute.bnd.annotation.ProviderType;
 
@@ -20,7 +20,7 @@ import aQute.bnd.annotation.ProviderType;
  * @author Riccardo Ferrari
  */
 @ProviderType
-public class CommerceRecommendField {
+public class CommerceMLRecommendationField {
 
 	public static final String JOB_ID = "jobId";
 
