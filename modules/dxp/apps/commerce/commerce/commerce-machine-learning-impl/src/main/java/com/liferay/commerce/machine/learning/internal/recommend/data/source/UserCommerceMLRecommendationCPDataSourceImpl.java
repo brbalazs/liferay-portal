@@ -18,8 +18,8 @@ import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.asset.kernel.service.AssetEntryLocalService;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
-import com.liferay.commerce.machine.learning.internal.recommend.api.CommerceRecommendField;
-import com.liferay.commerce.machine.learning.internal.recommend.api.ContextualizedCommerceRecommend;
+import com.liferay.commerce.machine.learning.internal.recommend.api.UserCommerceMLRecommendationHelper;
+import com.liferay.commerce.machine.learning.internal.recommend.constants.CommerceMLRecommendationField;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.catalog.CPQuery;
 import com.liferay.commerce.product.constants.CPWebKeys;
@@ -44,6 +44,7 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -59,17 +60,19 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.product.data.source.name=" + UserRecommenderCPDataSourceImpl.NAME,
+	property = "commerce.product.data.source.name=" + UserCommerceMLRecommendationCPDataSourceImpl.NAME,
 	service = CPDataSource.class
 )
-public class UserRecommenderCPDataSourceImpl extends BaseRecommendCPDataSource {
+public class UserCommerceMLRecommendationCPDataSourceImpl
+	extends BaseCommerceMLRecommendationCPDataSource {
 
-	public static final String NAME = "userRecommenderDataSource";
+	public static final String NAME = "userCommerceMLRecommendationDataSource";
 
 	@Override
 	public String getLabel(Locale locale) {
 		return LanguageUtil.get(
-			getResourceBundle(locale), "user-based-products-recommendation");
+			getResourceBundle(locale),
+			"user-interaction-based-product-recommendations");
 	}
 
 	@Override
@@ -105,11 +108,11 @@ public class UserRecommenderCPDataSourceImpl extends BaseRecommendCPDataSource {
 		}
 
 		Hits recommendations =
-			_contextualizedCommerceRecommend.getRecommendations(
+			_userCommerceMLRecommendationHelper.getRecommendations(
 				companyId, commerceAccount.getCommerceAccountId(), categoryIds);
 
 		if (recommendations.getLength() == 0) {
-			return new CPDataSourceResult(new ArrayList<>(), 0);
+			return new CPDataSourceResult(Collections.emptyList(), 0);
 		}
 
 		SearchContext searchContext = new SearchContext();
@@ -129,9 +132,9 @@ public class UserRecommenderCPDataSourceImpl extends BaseRecommendCPDataSource {
 
 		for (Document document : recommendations.getDocs()) {
 			String recommendedEntryClassPK = document.get(
-				CommerceRecommendField.RECOMMENDED_ENTRY_CLASS_PK);
+				CommerceMLRecommendationField.RECOMMENDED_ENTRY_CLASS_PK);
 
-			String score = document.get(CommerceRecommendField.SCORE);
+			String score = document.get(CommerceMLRecommendationField.SCORE);
 
 			if (_log.isTraceEnabled()) {
 				StringBuilder sb = new StringBuilder();
@@ -160,7 +163,7 @@ public class UserRecommenderCPDataSourceImpl extends BaseRecommendCPDataSource {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		UserRecommenderCPDataSourceImpl.class);
+		UserCommerceMLRecommendationCPDataSourceImpl.class);
 
 	@Reference
 	private AssetEntryLocalService _assetEntryLocalService;
@@ -168,13 +171,14 @@ public class UserRecommenderCPDataSourceImpl extends BaseRecommendCPDataSource {
 	@Reference(unbind = "-")
 	private CommerceAccountHelper _commerceAccountHelper;
 
-	@Reference
-	private ContextualizedCommerceRecommend _contextualizedCommerceRecommend;
-
 	@Reference(unbind = "-")
 	private CPDefinitionHelper _cpDefinitionHelper;
 
 	@Reference(unbind = "-")
 	private Portal _portal;
+
+	@Reference
+	private UserCommerceMLRecommendationHelper
+		_userCommerceMLRecommendationHelper;
 
 }

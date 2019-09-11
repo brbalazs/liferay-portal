@@ -23,7 +23,8 @@ import java.util.ResourceBundle;
 /**
  * @author Riccardo Ferrari
  */
-public abstract class BaseRecommendCPDataSource implements CPDataSource {
+public abstract class BaseCommerceMLRecommendationCPDataSource
+	implements CPDataSource {
 
 	protected ResourceBundle getResourceBundle(Locale locale) {
 		return ResourceBundleUtil.getBundle(

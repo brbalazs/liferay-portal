@@ -14,8 +14,8 @@
 
 package com.liferay.commerce.machine.learning.internal.recommend.data.source;
 
-import com.liferay.commerce.machine.learning.internal.recommend.api.CommerceRecommend;
-import com.liferay.commerce.machine.learning.internal.recommend.api.CommerceRecommendField;
+import com.liferay.commerce.machine.learning.internal.recommend.api.ProductCommerceMLRecommendationHelper;
+import com.liferay.commerce.machine.learning.internal.recommend.constants.CommerceMLRecommendationField;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.catalog.CPQuery;
 import com.liferay.commerce.product.constants.CPWebKeys;
@@ -40,6 +40,7 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -55,18 +56,20 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.product.data.source.name=" + ContentRecommenderCPDataSourceImpl.NAME,
+	property = "commerce.product.data.source.name=" + ProductInteractionCommerceMLRecommendationCPDataSourceImpl.NAME,
 	service = CPDataSource.class
 )
-public class ContentRecommenderCPDataSourceImpl
-	extends BaseRecommendCPDataSource {
+public class ProductInteractionCommerceMLRecommendationCPDataSourceImpl
+	extends BaseCommerceMLRecommendationCPDataSource {
 
-	public static final String NAME = "contentRecommenderDataSource";
+	public static final String NAME =
+		"productInteractionCommerceMLRecommendationDataSource";
 
 	@Override
 	public String getLabel(Locale locale) {
 		return LanguageUtil.get(
-			getResourceBundle(locale), "content-based-products-recommendation");
+			getResourceBundle(locale),
+			"product-interaction-based-recommendations");
 	}
 
 	@Override
@@ -88,14 +91,15 @@ public class ContentRecommenderCPDataSourceImpl
 				CPWebKeys.CP_CATALOG_ENTRY);
 
 		if (cpCatalogEntry == null) {
-			return new CPDataSourceResult(new ArrayList<>(), 0);
+			return new CPDataSourceResult(Collections.emptyList(), 0);
 		}
 
-		Hits recommendations = _commerceRecommendHelper.getRecommendations(
-			companyId, cpCatalogEntry.getCPDefinitionId());
+		Hits recommendations =
+			_productCommerceMLRecommendationHelper.getRecommendations(
+				companyId, cpCatalogEntry.getCPDefinitionId());
 
 		if (recommendations.getLength() == 0) {
-			return new CPDataSourceResult(new ArrayList<>(), 0);
+			return new CPDataSourceResult(Collections.emptyList(), 0);
 		}
 
 		SearchContext searchContext = new SearchContext();
@@ -115,11 +119,11 @@ public class ContentRecommenderCPDataSourceImpl
 
 		for (Document document : recommendations.getDocs()) {
 			String recommendedEntryClassPK = document.get(
-				CommerceRecommendField.RECOMMENDED_ENTRY_CLASS_PK);
+				CommerceMLRecommendationField.RECOMMENDED_ENTRY_CLASS_PK);
 
-			String score = document.get(CommerceRecommendField.SCORE);
+			String score = document.get(CommerceMLRecommendationField.SCORE);
 
-			String rank = document.get(CommerceRecommendField.RANK);
+			String rank = document.get(CommerceMLRecommendationField.RANK);
 
 			if (_log.isTraceEnabled()) {
 				StringBuilder sb = new StringBuilder();
@@ -150,17 +154,18 @@ public class ContentRecommenderCPDataSourceImpl
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		ContentRecommenderCPDataSourceImpl.class);
-
-	@Reference(
-		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommend.ContentCommerceRecommend)"
-	)
-	private CommerceRecommend _commerceRecommendHelper;
+		ProductInteractionCommerceMLRecommendationCPDataSourceImpl.class);
 
 	@Reference(unbind = "-")
 	private CPDefinitionHelper _cpDefinitionHelper;
 
 	@Reference(unbind = "-")
 	private Portal _portal;
+
+	@Reference(
+		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommend.ProductInteractionCommerceMLRecommendationHelperImpl)"
+	)
+	private ProductCommerceMLRecommendationHelper
+		_productCommerceMLRecommendationHelper;
 
 }
