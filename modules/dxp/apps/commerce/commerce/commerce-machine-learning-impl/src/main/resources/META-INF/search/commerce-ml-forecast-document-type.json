@@ -1,5 +1,5 @@
 {
-	"CommerceForecastDocumentType": {
+	"CommerceMLForecastDocumentType": {
 		"dynamic_templates": [
 			{
 				"template_long_sortable": {
@@ -58,12 +58,12 @@
 				"store": true,
 				"type": "keyword"
 			},
-			"level": {
+			"period": {
 				"index": true,
 				"store": true,
 				"type": "keyword"
 			},
-			"period": {
+			"scope": {
 				"index": true,
 				"store": true,
 				"type": "keyword"

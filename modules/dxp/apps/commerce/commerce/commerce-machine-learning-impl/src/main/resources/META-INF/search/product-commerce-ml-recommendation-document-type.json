@@ -1,11 +1,6 @@
 {
-	"CommerceUserRecommendationDocumentType": {
+	"ProductCommerceMLRecommendationDocumentType": {
 		"properties": {
-			"assetCategoryIds": {
-				"index": true,
-				"store": true,
-				"type": "long"
-			},
 			"companyId": {
 				"index": true,
 				"store": true,
@@ -25,6 +20,11 @@
 				"index": false,
 				"store": true,
 				"type": "keyword"
+			},
+			"rank": {
+				"index": false,
+				"store": true,
+				"type": "integer"
 			},
 			"recommendedEntryClassPK": {
 				"index": false,
