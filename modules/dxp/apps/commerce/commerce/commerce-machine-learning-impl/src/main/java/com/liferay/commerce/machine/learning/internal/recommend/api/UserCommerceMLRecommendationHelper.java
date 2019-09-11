@@ -19,9 +19,10 @@ import com.liferay.portal.kernel.search.Hits;
 /**
  * @author Riccardo Ferrari
  */
-public interface CommerceRecommend {
+public interface UserCommerceMLRecommendationHelper {
 
-	public Hits getRecommendations(long companyId, long cpDefinitionId)
+	public Hits getRecommendations(
+			long companyId, long commerceAccountId, long[] assetCategoryIds)
 		throws Exception;
 
 }

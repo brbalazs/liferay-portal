@@ -19,10 +19,9 @@ import com.liferay.portal.kernel.search.Hits;
 /**
  * @author Riccardo Ferrari
  */
-public interface ContextualizedCommerceRecommend {
+public interface ProductCommerceMLRecommendationHelper {
 
-	public Hits getRecommendations(
-			long companyId, long commerceAccountId, long[] categoryIds)
+	public Hits getRecommendations(long companyId, long cpDefinitionId)
 		throws Exception;
 
 }

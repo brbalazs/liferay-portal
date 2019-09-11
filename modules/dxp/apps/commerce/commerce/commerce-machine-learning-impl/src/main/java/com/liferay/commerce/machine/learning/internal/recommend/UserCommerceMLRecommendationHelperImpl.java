@@ -14,9 +14,9 @@
 
 package com.liferay.commerce.machine.learning.internal.recommend;
 
-import com.liferay.commerce.machine.learning.internal.recommend.api.CommerceRecommendField;
-import com.liferay.commerce.machine.learning.internal.recommend.api.ContextualizedCommerceRecommend;
-import com.liferay.commerce.machine.learning.internal.search.api.CommerceIndexer;
+import com.liferay.commerce.machine.learning.internal.recommend.api.UserCommerceMLRecommendationHelper;
+import com.liferay.commerce.machine.learning.internal.recommend.constants.CommerceMLRecommendationField;
+import com.liferay.commerce.machine.learning.internal.search.api.CommerceMLIndexer;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
@@ -40,20 +40,21 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Riccardo Ferrari
  */
-@Component(immediate = true, service = ContextualizedCommerceRecommend.class)
-public class UserCommerceRecommend implements ContextualizedCommerceRecommend {
+@Component(immediate = true, service = UserCommerceMLRecommendationHelper.class)
+public class UserCommerceMLRecommendationHelperImpl
+	implements UserCommerceMLRecommendationHelper {
 
 	@Override
 	public Hits getRecommendations(
-			long companyId, long commerceAccountId, long[] categoryIds)
+			long companyId, long commerceAccountId, long[] assetCategoryIds)
 		throws Exception {
 
-		SearchSearchRequest searchRequest = new SearchSearchRequest();
+		SearchSearchRequest searchSearchRequest = new SearchSearchRequest();
 
-		searchRequest.setIndexNames(
-			new String[] {_commerceRecommendIndexer.getIndexName(companyId)});
+		searchSearchRequest.setIndexNames(
+			new String[] {_commerceMLIndexer.getIndexName(companyId)});
 
-		searchRequest.setSize(_DEFAULT_FETCH_SIZE);
+		searchSearchRequest.setSize(_DEFAULT_FETCH_SIZE);
 
 		TermQueryImpl companyTermQuery = new TermQueryImpl(
 			Field.COMPANY_ID, String.valueOf(companyId));
@@ -67,8 +68,8 @@ public class UserCommerceRecommend implements ContextualizedCommerceRecommend {
 
 		booleanQuery.add(entryClassPKTermQuery, BooleanClauseOccur.MUST);
 
-		if (categoryIds != null) {
-			for (long categoryId : categoryIds) {
+		if (assetCategoryIds != null) {
+			for (long categoryId : assetCategoryIds) {
 				TermQuery categoryIdTermQuery = new TermQueryImpl(
 					Field.ASSET_CATEGORY_IDS, String.valueOf(categoryId));
 
@@ -76,17 +77,17 @@ public class UserCommerceRecommend implements ContextualizedCommerceRecommend {
 			}
 		}
 
-		searchRequest.setQuery(booleanQuery);
+		searchSearchRequest.setQuery(booleanQuery);
 
 		Sort scoreSort = SortFactoryUtil.create(
-			CommerceRecommendField.SCORE, Sort.FLOAT_TYPE, false);
+			CommerceMLRecommendationField.SCORE, Sort.FLOAT_TYPE, false);
 
-		searchRequest.setSorts(new Sort[] {scoreSort});
+		searchSearchRequest.setSorts(new Sort[] {scoreSort});
 
-		searchRequest.setStats(Collections.emptyMap());
+		searchSearchRequest.setStats(Collections.emptyMap());
 
 		SearchSearchResponse searchSearchResponse =
-			_searchEngineAdapter.execute(searchRequest);
+			_searchEngineAdapter.execute(searchSearchRequest);
 
 		if (_log.isTraceEnabled()) {
 			_log.trace(searchSearchResponse.getSearchRequestString());
@@ -98,12 +99,12 @@ public class UserCommerceRecommend implements ContextualizedCommerceRecommend {
 	private static final int _DEFAULT_FETCH_SIZE = 10;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		UserCommerceRecommend.class);
+		UserCommerceMLRecommendationHelperImpl.class);
 
 	@Reference(
-		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommend.search.index.UserRecommendCommerceIndexer)"
+		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommend.search.index.UserCommerceMLRecommendationIndexer)"
 	)
-	private CommerceIndexer _commerceRecommendIndexer;
+	private CommerceMLIndexer _commerceMLIndexer;
 
 	@Reference
 	private SearchEngineAdapter _searchEngineAdapter;

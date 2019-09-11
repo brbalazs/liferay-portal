@@ -14,8 +14,8 @@
 
 package com.liferay.commerce.machine.learning.internal.recommend;
 
-import com.liferay.commerce.machine.learning.internal.recommend.api.CommerceRecommend;
-import com.liferay.commerce.machine.learning.internal.recommend.api.CommerceRecommendField;
+import com.liferay.commerce.machine.learning.internal.recommend.api.ProductCommerceMLRecommendationHelper;
+import com.liferay.commerce.machine.learning.internal.recommend.constants.CommerceMLRecommendationField;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Field;
@@ -31,8 +31,8 @@ import java.util.Collections;
 /**
  * @author Riccardo Ferrari
  */
-public abstract class BaseContentCommerceRecommend
-	implements CommerceRecommend {
+public abstract class BaseProductCommerceMLRecommendationHelper
+	implements ProductCommerceMLRecommendationHelper {
 
 	public SearchSearchRequest getSearchRequest(
 			String indexName, long companyId, long entryClassPK)
@@ -59,7 +59,7 @@ public abstract class BaseContentCommerceRecommend
 		searchRequest.setQuery(booleanQuery);
 
 		Sort rankSort = SortFactoryUtil.create(
-			CommerceRecommendField.RANK, Sort.INT_TYPE, false);
+			CommerceMLRecommendationField.RANK, Sort.INT_TYPE, false);
 
 		searchRequest.setSorts(new Sort[] {rankSort});
 

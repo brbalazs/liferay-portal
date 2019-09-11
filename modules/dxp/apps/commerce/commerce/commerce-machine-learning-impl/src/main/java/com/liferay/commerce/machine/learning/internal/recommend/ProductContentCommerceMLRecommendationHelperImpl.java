@@ -14,8 +14,8 @@
 
 package com.liferay.commerce.machine.learning.internal.recommend;
 
-import com.liferay.commerce.machine.learning.internal.recommend.api.CommerceRecommend;
-import com.liferay.commerce.machine.learning.internal.search.api.CommerceIndexer;
+import com.liferay.commerce.machine.learning.internal.recommend.api.ProductCommerceMLRecommendationHelper;
+import com.liferay.commerce.machine.learning.internal.search.api.CommerceMLIndexer;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Hits;
@@ -29,15 +29,18 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Riccardo Ferrari
  */
-@Component(immediate = true, service = CommerceRecommend.class)
-public class ContentCommerceRecommend extends BaseContentCommerceRecommend {
+@Component(
+	immediate = true, service = ProductCommerceMLRecommendationHelper.class
+)
+public class ProductContentCommerceMLRecommendationHelperImpl
+	extends BaseProductCommerceMLRecommendationHelper {
 
 	@Override
 	public Hits getRecommendations(long companyId, long entryClassPK)
 		throws Exception {
 
 		SearchSearchRequest searchRequest = getSearchRequest(
-			_commerceRecommendIndexer.getIndexName(companyId), companyId,
+			_commerceMLIndexer.getIndexName(companyId), companyId,
 			entryClassPK);
 
 		SearchSearchResponse searchSearchResponse =
@@ -51,12 +54,12 @@ public class ContentCommerceRecommend extends BaseContentCommerceRecommend {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		ContentCommerceRecommend.class);
+		ProductContentCommerceMLRecommendationHelperImpl.class);
 
 	@Reference(
-		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommend.search.index.ContentRecommendCommerceIndexer)"
+		target = "(component.name=com.liferay.commerce.machine.learning.internal.recommend.search.index.ProductContentCommerceMLRecommendationIndexer)"
 	)
-	private CommerceIndexer _commerceRecommendIndexer;
+	private CommerceMLIndexer _commerceMLIndexer;
 
 	@Reference
 	private SearchEngineAdapter _searchEngineAdapter;
