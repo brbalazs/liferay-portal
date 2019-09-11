@@ -20,7 +20,7 @@ import aQute.bnd.annotation.ProviderType;
  * @author Marco Leo
  */
 @ProviderType
-public interface CommerceIndexer {
+public interface CommerceMLIndexer {
 
 	public void createIndex(long companyId);
 

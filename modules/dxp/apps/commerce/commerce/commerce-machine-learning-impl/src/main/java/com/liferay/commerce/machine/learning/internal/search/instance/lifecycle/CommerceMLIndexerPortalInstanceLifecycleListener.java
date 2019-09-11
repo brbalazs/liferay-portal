@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.machine.learning.internal.search.instance.lifecycle;
 
-import com.liferay.commerce.machine.learning.internal.search.api.CommerceIndexer;
+import com.liferay.commerce.machine.learning.internal.search.api.CommerceMLIndexer;
 import com.liferay.portal.instance.lifecycle.BasePortalInstanceLifecycleListener;
 import com.liferay.portal.instance.lifecycle.PortalInstanceLifecycleListener;
 import com.liferay.portal.kernel.log.Log;
@@ -39,14 +39,14 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
  * @author Marco Leo
  */
 @Component(immediate = true, service = PortalInstanceLifecycleListener.class)
-public class CommerceIndexPortalInstanceLifecycleListener
+public class CommerceMLIndexerPortalInstanceLifecycleListener
 	extends BasePortalInstanceLifecycleListener {
 
 	@Override
 	public void portalInstanceRegistered(Company company) throws Exception {
 		try {
-			for (CommerceIndexer commerceIndexer : _commerceIndexers) {
-				commerceIndexer.createIndex(company.getCompanyId());
+			for (CommerceMLIndexer commerceMLIndexer : _commerceMLIndexers) {
+				commerceMLIndexer.createIndex(company.getCompanyId());
 			}
 		}
 		catch (Exception e) {
@@ -59,8 +59,8 @@ public class CommerceIndexPortalInstanceLifecycleListener
 	@Override
 	public void portalInstanceUnregistered(Company company) throws Exception {
 		try {
-			for (CommerceIndexer commerceIndexer : _commerceIndexers) {
-				commerceIndexer.dropIndex(company.getCompanyId());
+			for (CommerceMLIndexer commerceMLIndexer : _commerceMLIndexers) {
+				commerceMLIndexer.dropIndex(company.getCompanyId());
 			}
 		}
 		catch (Exception e) {
@@ -75,20 +75,20 @@ public class CommerceIndexPortalInstanceLifecycleListener
 		cardinality = ReferenceCardinality.MULTIPLE,
 		policy = ReferencePolicy.DYNAMIC,
 		policyOption = ReferencePolicyOption.GREEDY,
-		service = CommerceIndexer.class
+		service = CommerceMLIndexer.class
 	)
 	protected void setCommerceMachineLearningIndexer(
-		CommerceIndexer commerceIndexer) {
+		CommerceMLIndexer commerceMLIndexer) {
 
-		_commerceIndexers.add(commerceIndexer);
+		_commerceMLIndexers.add(commerceMLIndexer);
 
 		if (_companyLocalService == null) {
-			_queuedCommerceIndexers.add(commerceIndexer);
+			_queuedCommerceMLIndexers.add(commerceMLIndexer);
 
 			return;
 		}
 
-		verifyCompanies(commerceIndexer);
+		verifyCompanies(commerceMLIndexer);
 	}
 
 	@Reference(unbind = "-")
@@ -97,11 +97,13 @@ public class CommerceIndexPortalInstanceLifecycleListener
 
 		_companyLocalService = companyLocalService;
 
-		for (CommerceIndexer queuedCommerceIndexer : _queuedCommerceIndexers) {
-			verifyCompanies(queuedCommerceIndexer);
+		for (CommerceMLIndexer queuedCommerceMLIndexer :
+				_queuedCommerceMLIndexers) {
+
+			verifyCompanies(queuedCommerceMLIndexer);
 		}
 
-		_queuedCommerceIndexers.clear();
+		_queuedCommerceMLIndexers.clear();
 	}
 
 	@Reference(target = ModuleServiceLifecycle.PORTAL_INITIALIZED, unbind = "-")
@@ -110,24 +112,24 @@ public class CommerceIndexPortalInstanceLifecycleListener
 	}
 
 	protected void unsetCommerceMachineLearningIndexer(
-		CommerceIndexer commerceIndexer) {
+		CommerceMLIndexer commerceMLIndexer) {
 
-		_commerceIndexers.remove(commerceIndexer);
+		_commerceMLIndexers.remove(commerceMLIndexer);
 	}
 
-	protected void verifyCompanies(CommerceIndexer commerceIndexer) {
+	protected void verifyCompanies(CommerceMLIndexer commerceMLIndexer) {
 		for (Company company : _companyLocalService.getCompanies()) {
-			commerceIndexer.createIndex(company.getCompanyId());
+			commerceMLIndexer.createIndex(company.getCompanyId());
 		}
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceIndexPortalInstanceLifecycleListener.class);
+		CommerceMLIndexerPortalInstanceLifecycleListener.class);
 
-	private final List<CommerceIndexer> _commerceIndexers =
+	private final List<CommerceMLIndexer> _commerceMLIndexers =
 		new CopyOnWriteArrayList<>();
 	private CompanyLocalService _companyLocalService;
-	private final Set<CommerceIndexer> _queuedCommerceIndexers =
+	private final Set<CommerceMLIndexer> _queuedCommerceMLIndexers =
 		Collections.newSetFromMap(new ConcurrentHashMap<>());
 
 }

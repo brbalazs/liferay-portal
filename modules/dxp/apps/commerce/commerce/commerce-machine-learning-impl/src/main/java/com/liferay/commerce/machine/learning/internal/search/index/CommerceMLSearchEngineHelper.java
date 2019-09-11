@@ -33,8 +33,8 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Riccardo Ferrari
  */
-@Component(immediate = true, service = CommerceSearchEngineHelper.class)
-public class CommerceSearchEngineHelper {
+@Component(immediate = true, service = CommerceMLSearchEngineHelper.class)
+public class CommerceMLSearchEngineHelper {
 
 	public void createIndex(String indexName, String indexMappingFileName) {
 		if (indicesExists(indexName)) {
@@ -103,6 +103,6 @@ public class CommerceSearchEngineHelper {
 	protected SearchEngineAdapter searchEngineAdapter;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceSearchEngineHelper.class);
+		CommerceMLSearchEngineHelper.class);
 
 }
