@@ -12,13 +12,15 @@
  *
  */
 
-package com.liferay.commerce.machine.learning.internal.data.integration.manager;
+package com.liferay.commerce.machine.learning.internal.data.integration;
 
 import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
 import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcessLog;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLocalService;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLogLocalService;
+import com.liferay.commerce.machine.learning.internal.configuration.CommerceMLConfiguration;
 import com.liferay.petra.json.web.service.client.JSONWebServiceClient;
+import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskConstants;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -26,6 +28,8 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
+
+import java.net.URL;
 
 import java.util.Date;
 import java.util.Dictionary;
@@ -36,17 +40,20 @@ import java.util.stream.Stream;
 
 import org.osgi.service.component.ComponentFactory;
 import org.osgi.service.component.ComponentInstance;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.ConfigurationPolicy;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Riccardo Ferrari
  */
 @Component(
-	immediate = true,
-	service = CommerceMachineLearningScheduledTaskExecutorService.class
+	configurationPid = "com.liferay.commerce.machine.learning.internal.configuration.CommerceMLConfiguration",
+	configurationPolicy = ConfigurationPolicy.OPTIONAL, immediate = true,
+	service = CommerceMLScheduledTaskExecutorService.class
 )
-public class CommerceMachineLearningScheduledTaskExecutorService {
+public class CommerceMLScheduledTaskExecutorService {
 
 	public void executeScheduledTask(
 			long userId, long commerceDataIntegrationProcessId,
@@ -88,13 +95,18 @@ public class CommerceMachineLearningScheduledTaskExecutorService {
 			}
 
 			_commerceDataIntegrationProcessLogLocalService.
-				addCommerceDataIntegrationProcessLog(
-					userId,
-					commerceDataIntegrationProcess.
-						getCommerceDataIntegrationProcessId(),
+				updateCommerceDataIntegrationProcessLog(
+					commerceDataIntegrationProcessLog.
+						getCommerceDataIntegrationProcessLogId(),
 					e.getMessage(), null, BackgroundTaskConstants.STATUS_FAILED,
-					startDate, new Date());
+					new Date());
 		}
+	}
+
+	@Activate
+	protected void activate(Map<String, Object> properties) {
+		_commerceMLConfiguration = ConfigurableUtil.createConfigurable(
+			CommerceMLConfiguration.class, properties);
 	}
 
 	protected void executeProcess(
@@ -123,17 +135,23 @@ public class CommerceMachineLearningScheduledTaskExecutorService {
 			s -> contextPropertiesJSONObject.put(s.getKey(), s.getValue()));
 
 		jsonWebServiceClient.doPostAsJSON(
-			_UPDATE_MODEL_URL, contextPropertiesJSONObject.toString());
+			_COMMERCE_ML_URL_PATH, contextPropertiesJSONObject.toString());
 	}
 
 	protected JSONWebServiceClient getJSONWebServiceClient(
-		Map<String, String> contextProperties) {
+			UnicodeProperties contextProperties)
+		throws Exception {
+
+		URL url = new URL(
+			contextProperties.getProperty(
+				_COMMERCE_ML_BASE_URL,
+				_commerceMLConfiguration.commerceMLBaseURL()));
 
 		Dictionary<String, String> properties = new Hashtable<>();
 
-		properties.put("hostName", contextProperties.get("host.name"));
-		properties.put("hostPort", contextProperties.get("host.port"));
-		properties.put("protocol", contextProperties.get("protocol"));
+		properties.put("hostName", url.getHost());
+		properties.put("hostPort", String.valueOf(url.getPort()));
+		properties.put("protocol", url.getProtocol());
 
 		ComponentInstance componentInstance =
 			_jsonWebServiceClientComponentFactory.newInstance(properties);
@@ -141,10 +159,12 @@ public class CommerceMachineLearningScheduledTaskExecutorService {
 		return (JSONWebServiceClient)componentInstance.getInstance();
 	}
 
-	private static final String _UPDATE_MODEL_URL = "/ml/update-model";
+	private static final String _COMMERCE_ML_BASE_URL = "commerce.ml.base.url";
+
+	private static final String _COMMERCE_ML_URL_PATH = "/ml/update-model";
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceMachineLearningScheduledTaskExecutorService.class);
+		CommerceMLScheduledTaskExecutorService.class);
 
 	@Reference
 	private CommerceDataIntegrationProcessLocalService
@@ -153,6 +173,8 @@ public class CommerceMachineLearningScheduledTaskExecutorService {
 	@Reference
 	private CommerceDataIntegrationProcessLogLocalService
 		_commerceDataIntegrationProcessLogLocalService;
+
+	private CommerceMLConfiguration _commerceMLConfiguration;
 
 	@Reference(target = "(component.factory=JSONWebServiceClient)")
 	private ComponentFactory _jsonWebServiceClientComponentFactory;
