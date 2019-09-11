@@ -14,10 +14,10 @@
 
 package com.liferay.commerce.machine.learning.internal.forecast;
 
-import com.liferay.commerce.machine.learning.forecast.constants.ForecastPeriod;
-import com.liferay.commerce.machine.learning.forecast.model.Forecast;
-import com.liferay.commerce.machine.learning.internal.forecast.constants.CommerceForecastField;
-import com.liferay.commerce.machine.learning.internal.search.api.CommerceIndexer;
+import com.liferay.commerce.machine.learning.forecast.model.CommerceMLForecast;
+import com.liferay.commerce.machine.learning.internal.forecast.constants.CommerceMLForecastField;
+import com.liferay.commerce.machine.learning.internal.forecast.constants.CommerceMLForecastPeriod;
+import com.liferay.commerce.machine.learning.internal.search.api.CommerceMLIndexer;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Document;
@@ -56,72 +56,78 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Riccardo Ferrari
  */
-public abstract class BaseCommerceForecastServiceImpl<T extends Forecast> {
+public abstract class BaseCommerceMLForecastServiceImpl
+	<T extends CommerceMLForecast> {
 
-	protected T getBaseForecastModel(T forecast, Document document) {
-		forecast.setActual(
-			GetterUtil.getFloat(document.get(CommerceForecastField.ACTUAL)));
+	protected T getBaseForecastModel(T commerceMLForecast, Document document) {
+		commerceMLForecast.setActual(
+			GetterUtil.getFloat(document.get(CommerceMLForecastField.ACTUAL)));
 
-		forecast.setCompanyId(
+		commerceMLForecast.setCompanyId(
 			GetterUtil.getLong(document.get(Field.COMPANY_ID)));
 
-		forecast.setForecast(
-			GetterUtil.getFloat(document.get(CommerceForecastField.FORECAST)));
+		commerceMLForecast.setForecast(
+			GetterUtil.getFloat(
+				document.get(CommerceMLForecastField.FORECAST)));
 
-		forecast.setForecastId(
+		commerceMLForecast.setForecastId(
 			GetterUtil.getLong(
-				document.get(CommerceForecastField.FORECAST_ID)));
+				document.get(CommerceMLForecastField.FORECAST_ID)));
 
-		forecast.setForecastLowerBound(
+		commerceMLForecast.setForecastLowerBound(
 			GetterUtil.getFloat(
-				document.get(CommerceForecastField.FORECAST_LOWER_BOUND)));
+				document.get(CommerceMLForecastField.FORECAST_LOWER_BOUND)));
 
-		forecast.setForecastUpperBound(
+		commerceMLForecast.setForecastUpperBound(
 			GetterUtil.getFloat(
-				document.get(CommerceForecastField.FORECAST_UPPER_BOUND)));
+				document.get(CommerceMLForecastField.FORECAST_UPPER_BOUND)));
 
-		forecast.setJobId(document.get(CommerceForecastField.JOB_ID));
+		commerceMLForecast.setJobId(
+			document.get(CommerceMLForecastField.JOB_ID));
 
-		forecast.setLevel(document.get(CommerceForecastField.LEVEL));
+		commerceMLForecast.setScope(
+			document.get(CommerceMLForecastField.SCOPE));
 
-		forecast.setPeriod(document.get(CommerceForecastField.PERIOD));
+		commerceMLForecast.setPeriod(
+			document.get(CommerceMLForecastField.PERIOD));
 
-		forecast.setTarget(document.get(CommerceForecastField.TARGET));
+		commerceMLForecast.setTarget(
+			document.get(CommerceMLForecastField.TARGET));
 
 		try {
-			forecast.setTimestamp(
-				document.getDate(CommerceForecastField.TIMESTAMP));
+			commerceMLForecast.setTimestamp(
+				document.getDate(CommerceMLForecastField.TIMESTAMP));
 		}
 		catch (ParseException pe) {
 		}
 
-		return forecast;
+		return commerceMLForecast;
 	}
 
 	protected BooleanQuery getBaseQuery(
-			String level, String period, String target, Date startDate,
+			String scope, String period, String target, Date startDate,
 			Date endDate)
 		throws com.liferay.portal.kernel.search.ParseException {
 
 		BooleanQuery booleanQuery = new BooleanQueryImpl();
 
-		TermQueryImpl levelTermQuery = new TermQueryImpl(
-			CommerceForecastField.LEVEL, level);
+		TermQueryImpl scopeTermQuery = new TermQueryImpl(
+			CommerceMLForecastField.SCOPE, scope);
 
-		booleanQuery.add(levelTermQuery, BooleanClauseOccur.MUST);
+		booleanQuery.add(scopeTermQuery, BooleanClauseOccur.MUST);
 
 		TermQueryImpl periodTermQuery = new TermQueryImpl(
-			CommerceForecastField.PERIOD, period);
+			CommerceMLForecastField.PERIOD, period);
 
 		booleanQuery.add(periodTermQuery, BooleanClauseOccur.MUST);
 
 		TermQueryImpl targetTermQuery = new TermQueryImpl(
-			CommerceForecastField.TARGET, target);
+			CommerceMLForecastField.TARGET, target);
 
 		booleanQuery.add(targetTermQuery, BooleanClauseOccur.MUST);
 
 		TermRangeQuery termRangeQuery = new TermRangeQueryImpl(
-			CommerceForecastField.TIMESTAMP, _formatSearchDate(startDate),
+			CommerceMLForecastField.TIMESTAMP, _formatSearchDate(startDate),
 			_formatSearchDate(endDate), true, true);
 
 		booleanQuery.add(termRangeQuery, BooleanClauseOccur.MUST);
@@ -129,10 +135,15 @@ public abstract class BaseCommerceForecastServiceImpl<T extends Forecast> {
 		return booleanQuery;
 	}
 
-	protected Date getEndDate(ForecastPeriod forecastPeriod) {
-		LocalDateTime endDate = LocalDateTime.now(ZoneOffset.UTC);
+	protected Date getEndDate(
+		Date date, CommerceMLForecastPeriod commerceMLForecastPeriod) {
 
-		if (forecastPeriod.equals(ForecastPeriod.MONTH)) {
+		Instant endDateInstant = date.toInstant();
+
+		LocalDateTime endDate = LocalDateTime.ofInstant(
+			endDateInstant, ZoneOffset.UTC);
+
+		if (commerceMLForecastPeriod.equals(CommerceMLForecastPeriod.MONTH)) {
 			endDate = endDate.minusMonths(_DEFAULT_FORECAST_POINTS);
 		}
 		else {
@@ -146,7 +157,7 @@ public abstract class BaseCommerceForecastServiceImpl<T extends Forecast> {
 		long companyId, Query query, Date startDate, Date endDate) {
 
 		SearchSearchRequest searchRequest = _getSearchRequest(
-			forecastCommerceIndexer.getIndexName(companyId), query, startDate,
+			commerceMLIndexer.getIndexName(companyId), query, startDate,
 			endDate);
 
 		SearchSearchResponse searchSearchResponse = searchEngineAdapter.execute(
@@ -155,12 +166,14 @@ public abstract class BaseCommerceForecastServiceImpl<T extends Forecast> {
 		return _getForecastList(searchSearchResponse.getHits());
 	}
 
-	protected Date getStartDate(Date startDate, ForecastPeriod forecastPeriod) {
+	protected Date getStartDate(
+		Date startDate, CommerceMLForecastPeriod commerceMLForecastPeriod) {
+
 		Instant instant = startDate.toInstant();
 
 		OffsetDateTime offsetDateTime = instant.atOffset(ZoneOffset.UTC);
 
-		if (forecastPeriod.equals(ForecastPeriod.MONTH)) {
+		if (commerceMLForecastPeriod.equals(CommerceMLForecastPeriod.MONTH)) {
 			offsetDateTime = offsetDateTime.minusMonths(
 				_DEFAULT_FORECAST_HISTORY);
 		}
@@ -175,9 +188,9 @@ public abstract class BaseCommerceForecastServiceImpl<T extends Forecast> {
 	protected abstract T toForecastModel(Document document);
 
 	@Reference(
-		target = "(component.name=com.liferay.commerce.machine.learning.internal.forecast.search.index.ForecastCommerceIndexer)"
+		target = "(component.name=com.liferay.commerce.machine.learning.internal.forecast.search.index.CommerceMLForecastIndexer)"
 	)
-	protected volatile CommerceIndexer forecastCommerceIndexer;
+	protected volatile CommerceMLIndexer commerceMLIndexer;
 
 	@Reference
 	protected volatile SearchEngineAdapter searchEngineAdapter;
@@ -213,7 +226,7 @@ public abstract class BaseCommerceForecastServiceImpl<T extends Forecast> {
 		searchRequest.setSize(_getSearchSize(startDate, endDate));
 
 		Sort sort = SortFactoryUtil.create(
-			_getSortableFieldName(CommerceForecastField.TIMESTAMP), false);
+			_getSortableFieldName(CommerceMLForecastField.TIMESTAMP), false);
 
 		searchRequest.setSorts(new Sort[] {sort});
 

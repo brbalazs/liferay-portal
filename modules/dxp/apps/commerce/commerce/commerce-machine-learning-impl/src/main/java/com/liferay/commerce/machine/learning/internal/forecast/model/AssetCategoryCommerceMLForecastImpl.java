@@ -14,13 +14,14 @@
 
 package com.liferay.commerce.machine.learning.internal.forecast.model;
 
-import com.liferay.commerce.machine.learning.forecast.model.AssetCategoryForecast;
+import com.liferay.commerce.machine.learning.forecast.model.AssetCategoryCommerceMLForecast;
 
 /**
  * @author Riccardo Ferrari
  */
-public class AssetCategoryForecastImpl
-	extends BaseForecastImpl implements AssetCategoryForecast {
+public class AssetCategoryCommerceMLForecastImpl
+	extends BaseCommerceMLForecastImpl
+	implements AssetCategoryCommerceMLForecast {
 
 	@Override
 	public long getAssetCategoryId() {
@@ -28,10 +29,21 @@ public class AssetCategoryForecastImpl
 	}
 
 	@Override
+	public long getCommerceAccountId() {
+		return _commerceAccountId;
+	}
+
+	@Override
 	public void setAssetCategoryId(long assetCategoryId) {
 		_assetCategoryId = assetCategoryId;
 	}
 
+	@Override
+	public void setCommerceAccountId(long commerceAccountId) {
+		_commerceAccountId = commerceAccountId;
+	}
+
 	private long _assetCategoryId;
+	private long _commerceAccountId;
 
 }

@@ -14,14 +14,14 @@
 
 package com.liferay.commerce.machine.learning.internal.forecast.model;
 
-import com.liferay.commerce.machine.learning.forecast.model.Forecast;
+import com.liferay.commerce.machine.learning.forecast.model.CommerceMLForecast;
 
 import java.util.Date;
 
 /**
  * @author Riccardo Ferrari
  */
-public class BaseForecastImpl implements Forecast {
+public class BaseCommerceMLForecastImpl implements CommerceMLForecast {
 
 	@Override
 	public float getActual() {
@@ -59,13 +59,13 @@ public class BaseForecastImpl implements Forecast {
 	}
 
 	@Override
-	public String getLevel() {
-		return _level;
+	public String getPeriod() {
+		return _period;
 	}
 
 	@Override
-	public String getPeriod() {
-		return _period;
+	public String getScope() {
+		return _scope;
 	}
 
 	@Override
@@ -114,13 +114,13 @@ public class BaseForecastImpl implements Forecast {
 	}
 
 	@Override
-	public void setLevel(String level) {
-		_level = level;
+	public void setPeriod(String period) {
+		_period = period;
 	}
 
 	@Override
-	public void setPeriod(String period) {
-		_period = period;
+	public void setScope(String scope) {
+		_scope = scope;
 	}
 
 	@Override
@@ -140,8 +140,8 @@ public class BaseForecastImpl implements Forecast {
 	private float _forecastLowerBound;
 	private float _forecastUpperBound;
 	private String _jobId;
-	private String _level;
 	private String _period;
+	private String _scope;
 	private String _target;
 	private Date _timestamp;
 

@@ -14,13 +14,14 @@
 
 package com.liferay.commerce.machine.learning.internal.forecast.model;
 
-import com.liferay.commerce.machine.learning.forecast.model.CommerceAccountForecast;
+import com.liferay.commerce.machine.learning.forecast.model.CommerceAccountCommerceMLForecast;
 
 /**
  * @author Riccardo Ferrari
  */
-public class CommerceAccountForecastImpl
-	extends BaseForecastImpl implements CommerceAccountForecast {
+public class CommerceAccountCommerceMLForecastImpl
+	extends BaseCommerceMLForecastImpl
+	implements CommerceAccountCommerceMLForecast {
 
 	@Override
 	public long getCommerceAccountId() {
