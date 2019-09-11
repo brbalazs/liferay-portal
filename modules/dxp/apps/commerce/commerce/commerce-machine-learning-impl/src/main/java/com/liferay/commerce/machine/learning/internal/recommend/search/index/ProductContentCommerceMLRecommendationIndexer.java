@@ -14,8 +14,8 @@
 
 package com.liferay.commerce.machine.learning.internal.recommend.search.index;
 
-import com.liferay.commerce.machine.learning.internal.search.api.CommerceIndexer;
-import com.liferay.commerce.machine.learning.internal.search.index.CommerceSearchEngineHelper;
+import com.liferay.commerce.machine.learning.internal.search.api.CommerceMLIndexer;
+import com.liferay.commerce.machine.learning.internal.search.index.CommerceMLSearchEngineHelper;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -23,32 +23,34 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Riccardo Ferrari
  */
-@Component(immediate = true, service = CommerceIndexer.class)
-public class ContentRecommendCommerceIndexer implements CommerceIndexer {
+@Component(immediate = true, service = CommerceMLIndexer.class)
+public class ProductContentCommerceMLRecommendationIndexer
+	implements CommerceMLIndexer {
 
 	@Override
 	public void createIndex(long companyId) {
-		_commerceSearchEngineHelper.createIndex(
+		_commerceMLSearchEngineHelper.createIndex(
 			getIndexName(companyId), _INDEX_MAPPING_FILE_NAME);
 	}
 
 	@Override
 	public void dropIndex(long companyId) {
-		_commerceSearchEngineHelper.dropIndex(getIndexName(companyId));
+		_commerceMLSearchEngineHelper.dropIndex(getIndexName(companyId));
 	}
 
 	@Override
 	public String getIndexName(long companyId) {
-		return String.format(_INDEX_NAME_PREFIX, companyId);
+		return String.format(_INDEX_NAME_PATTERN, companyId);
 	}
 
 	private static final String _INDEX_MAPPING_FILE_NAME =
-		"/META-INF/search/commerce-content-recommend-document-type.json";
+		"/META-INF/search" +
+			"/product-commerce-ml-recommendation-document-type.json";
 
-	private static final String _INDEX_NAME_PREFIX =
-		"commerce-content-recommend-%s";
+	private static final String _INDEX_NAME_PATTERN =
+		"product-content-commerce-ml-recommendation-%s";
 
 	@Reference
-	private CommerceSearchEngineHelper _commerceSearchEngineHelper;
+	private CommerceMLSearchEngineHelper _commerceMLSearchEngineHelper;
 
 }
