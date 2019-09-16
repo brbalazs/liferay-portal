@@ -225,7 +225,7 @@ if (dlViewFileVersionDisplayContext.isVersionInfoVisible()) {
 					<liferay-ui:message key="size" />
 				</dt>
 				<dd class="sidebar-dd">
-					<%= HtmlUtil.escape(TextFormatter.formatStorageSize(fileEntry.getSize(), locale)) %>
+					<%= HtmlUtil.escape(TextFormatter.formatStorageSize(fileVersion.getSize(), locale)) %>
 				</dd>
 				<dt class="sidebar-dt">
 					<liferay-ui:message key="modified" />
