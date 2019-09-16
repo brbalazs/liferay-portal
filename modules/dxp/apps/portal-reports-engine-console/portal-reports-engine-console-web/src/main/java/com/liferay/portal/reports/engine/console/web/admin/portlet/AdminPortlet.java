@@ -80,9 +80,9 @@ import org.osgi.service.component.annotations.Reference;
 		"javax.portlet.portlet-info.keywords=Reports Admin",
 		"javax.portlet.portlet-info.short-title=Reports Admin",
 		"javax.portlet.portlet-info.title=Reports Admin",
+		"javax.portlet.portlet-mode=text/html;config",
 		"javax.portlet.resource-bundle=content.Language",
-		"javax.portlet.security-role-ref=administrator,guest,power-user,user",
-		"javax.portlet.supports.mime-type=text/html"
+		"javax.portlet.security-role-ref=administrator,guest,power-user,user"
 	},
 	service = Portlet.class
 )
