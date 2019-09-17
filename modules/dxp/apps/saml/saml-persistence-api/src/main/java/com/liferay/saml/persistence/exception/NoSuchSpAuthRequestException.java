@@ -14,14 +14,11 @@
 
 package com.liferay.saml.persistence.exception;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.exception.NoSuchModelException;
 
 /**
  * @author Mika Koivisto
  */
-@ProviderType
 public class NoSuchSpAuthRequestException extends NoSuchModelException {
 
 	public NoSuchSpAuthRequestException() {

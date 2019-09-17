@@ -14,8 +14,6 @@
 
 package com.liferay.portal.reports.engine.console.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.document.library.kernel.store.DLStoreUtil;
 import com.liferay.portal.kernel.cal.TZSRecurrence;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -29,7 +27,6 @@ import com.liferay.portal.reports.engine.constants.ReportsEngineDestinationNames
  * @author Brian Wing Shun Chan
  * @author Gavin Wan
  */
-@ProviderType
 public class EntryImpl extends EntryBaseImpl {
 
 	public EntryImpl() {

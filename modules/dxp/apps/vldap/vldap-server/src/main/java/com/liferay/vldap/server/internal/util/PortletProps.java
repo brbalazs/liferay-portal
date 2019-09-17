@@ -14,15 +14,12 @@
 
 package com.liferay.vldap.server.internal.util;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.configuration.Configuration;
 import com.liferay.portal.kernel.configuration.ConfigurationFactoryUtil;
 
 /**
  * @author Jonathan McCann
  */
-@ProviderType
 public class PortletProps {
 
 	public static String get(String key) {

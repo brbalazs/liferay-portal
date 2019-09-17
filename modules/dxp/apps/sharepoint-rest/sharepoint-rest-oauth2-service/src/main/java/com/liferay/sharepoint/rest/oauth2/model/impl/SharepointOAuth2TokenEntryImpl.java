@@ -14,12 +14,9 @@
 
 package com.liferay.sharepoint.rest.oauth2.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 /**
  * @author Adolfo Pérez
  */
-@ProviderType
 public class SharepointOAuth2TokenEntryImpl
 	extends SharepointOAuth2TokenEntryBaseImpl {
 

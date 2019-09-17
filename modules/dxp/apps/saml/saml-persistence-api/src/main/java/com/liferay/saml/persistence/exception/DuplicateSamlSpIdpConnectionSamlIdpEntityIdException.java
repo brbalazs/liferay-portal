@@ -14,14 +14,11 @@
 
 package com.liferay.saml.persistence.exception;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.exception.PortalException;
 
 /**
  * @author Mika Koivisto
  */
-@ProviderType
 public class DuplicateSamlSpIdpConnectionSamlIdpEntityIdException
 	extends PortalException {
 

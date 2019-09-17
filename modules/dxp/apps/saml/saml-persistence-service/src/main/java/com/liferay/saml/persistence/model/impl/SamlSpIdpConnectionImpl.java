@@ -14,12 +14,9 @@
 
 package com.liferay.saml.persistence.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 /**
  * @author Mika Koivisto
  */
-@ProviderType
 public class SamlSpIdpConnectionImpl extends SamlSpIdpConnectionBaseImpl {
 
 	public SamlSpIdpConnectionImpl() {
