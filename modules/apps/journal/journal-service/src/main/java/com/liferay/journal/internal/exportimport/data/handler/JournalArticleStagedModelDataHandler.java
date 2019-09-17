@@ -1027,6 +1027,9 @@ public class JournalArticleStagedModelDataHandler
 
 				_importAssetDisplayPage(
 					portletDataContext, article, importedArticle);
+
+				_importFriendlyURLEntries(
+					portletDataContext, article, importedArticle);
 			}
 			finally {
 				ServiceContextThreadLocal.popServiceContext();
@@ -1175,6 +1178,11 @@ public class JournalArticleStagedModelDataHandler
 		return fetchExistingArticle(
 			articleUuid, articleResourceUuid, companyGroup.getGroupId(),
 			articleId, newArticleId, version, preloaded);
+	}
+
+	@Override
+	protected String[] getSkipImportReferenceStagedModelNames() {
+		return new String[] {FriendlyURLEntry.class.getName()};
 	}
 
 	protected boolean isExpireAllArticleVersions(long companyId)
@@ -1336,7 +1344,7 @@ public class JournalArticleStagedModelDataHandler
 				portletDataContext, friendlyURLEntry);
 
 			StagedModelDataHandlerUtil.exportReferenceStagedModel(
-				portletDataContext, friendlyURLEntry, article,
+				portletDataContext, article, friendlyURLEntry,
 				PortletDataContext.REFERENCE_TYPE_DEPENDENCY);
 		}
 	}
@@ -1377,6 +1385,53 @@ public class JournalArticleStagedModelDataHandler
 
 				_assetDisplayPageEntryLocalService.updateAssetDisplayPageEntry(
 					existingAssetDisplayPageEntry);
+			}
+		}
+	}
+
+	private void _importFriendlyURLEntries(
+			PortletDataContext portletDataContext, JournalArticle article,
+			JournalArticle importedArticle)
+		throws PortalException {
+
+		List<Element> friendlyURLEntryElements =
+			portletDataContext.getReferenceDataElements(
+				article, FriendlyURLEntry.class);
+
+		Map<Long, Long> articleNewPrimaryKeys =
+			(Map<Long, Long>)portletDataContext.getNewPrimaryKeysMap(
+				JournalArticle.class);
+
+		articleNewPrimaryKeys.put(
+			article.getResourcePrimKey(), importedArticle.getResourcePrimKey());
+
+		for (Element friendlyURLEntryElement : friendlyURLEntryElements) {
+			String path = friendlyURLEntryElement.attributeValue("path");
+
+			FriendlyURLEntry friendlyURLEntry =
+				(FriendlyURLEntry)portletDataContext.getZipEntryAsObject(path);
+
+			StagedModelDataHandlerUtil.importStagedModel(
+				portletDataContext, friendlyURLEntryElement);
+
+			Map<Long, Long> friendlyURLEntries =
+				(Map<Long, Long>)portletDataContext.getNewPrimaryKeysMap(
+					FriendlyURLEntry.class);
+
+			long friendlyURLEntryId = MapUtil.getLong(
+				friendlyURLEntries, friendlyURLEntry.getFriendlyURLEntryId(),
+				friendlyURLEntry.getFriendlyURLEntryId());
+
+			FriendlyURLEntry existingFriendlyURLEntry =
+				_friendlyURLEntryLocalService.fetchFriendlyURLEntry(
+					friendlyURLEntryId);
+
+			if (existingFriendlyURLEntry != null) {
+				existingFriendlyURLEntry.setClassPK(
+					importedArticle.getResourcePrimKey());
+
+				_friendlyURLEntryLocalService.updateFriendlyURLEntry(
+					existingFriendlyURLEntry);
 			}
 		}
 	}
