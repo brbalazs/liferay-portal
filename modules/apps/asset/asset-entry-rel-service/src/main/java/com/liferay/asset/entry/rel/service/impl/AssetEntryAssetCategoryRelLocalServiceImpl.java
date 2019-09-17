@@ -92,9 +92,9 @@ public class AssetEntryAssetCategoryRelLocalServiceImpl
 	}
 
 	@Override
-	public long[] getAssetCategoryPrimaryKeys(long entryId) {
+	public long[] getAssetCategoryPrimaryKeys(long assetEntryId) {
 		List<AssetEntryAssetCategoryRel> assetEntryAssetCategoryRels =
-			getAssetEntryAssetCategoryRelsByAssetEntryId(entryId);
+			getAssetEntryAssetCategoryRelsByAssetEntryId(assetEntryId);
 
 		return ListUtil.toLongArray(
 			assetEntryAssetCategoryRels,
@@ -162,9 +162,9 @@ public class AssetEntryAssetCategoryRelLocalServiceImpl
 	}
 
 	@Override
-	public long[] getAssetEntryPrimaryKeys(long categoryId) {
+	public long[] getAssetEntryPrimaryKeys(long assetCategoryId) {
 		List<AssetEntryAssetCategoryRel> assetEntryAssetCategoryRels =
-			getAssetEntryAssetCategoryRelsByAssetCategoryId(categoryId);
+			getAssetEntryAssetCategoryRelsByAssetCategoryId(assetCategoryId);
 
 		return ListUtil.toLongArray(
 			assetEntryAssetCategoryRels,
