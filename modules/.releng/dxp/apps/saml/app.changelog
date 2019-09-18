@@ -33,3 +33,21 @@ app.artifacts-4.0.1=\
 app.change.log-4.0.1=LPS-74544 LPS-74900 LPS-78938 LPS-79679 LPS-82176 LPS-82751 LPS-83403 LPS-84119 LPS-84540 LPS-85296 LPS-86072 LPS-86408 
 
 app.git.id-4.0.1=3d77bf06242105b6f90057b4ac5d4a8449873615
+
+#
+# Liferay App Version 4.1.0
+#
+
+app.artifacts-4.1.0=\
+	com.liferay.saml.addon.keep.alive.web-2.0.7.jar,\
+	com.liferay.saml.api-2.2.1.jar,\
+	com.liferay.saml.impl-2.0.12.jar,\
+	com.liferay.saml.opensaml.integration-2.0.29.jar,\
+	com.liferay.saml.persistence.api-2.1.1.jar,\
+	com.liferay.saml.persistence.service-2.0.16.jar,\
+	com.liferay.saml.web-2.0.11.jar,\
+	saml-hook-7.1.10.6.war
+
+app.change.log-4.1.0=LPS-74544 LPS-74900 LPS-77699 LPS-81704 LPS-81706 LPS-82176 LPS-83403 LPS-84119 LPS-85849 LPS-86408 LPS-86776 LPS-86806 LPS-86944 LPS-88170 LPS-88181 LPS-88302 LPS-88665 LPS-89445 LPS-89567 LPS-89909 LPS-91342 LPS-91343 LPS-91970 LPS-94445 LPS-94835 LPS-95010 LPS-95317 LPS-95428 LPS-96018 LPS-96481 LPS-96830 LPS-96982 LPS-97169 LPS-98198 LPS-98405 LPS-98814 LPS-99252 LRDOCS-6300 LRQA-44442
+
+app.git.id-4.1.0=098940c94ee63694419199fa93adfbdb1c92285c
