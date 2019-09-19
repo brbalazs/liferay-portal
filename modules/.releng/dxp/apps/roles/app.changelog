@@ -235,3 +235,20 @@ app.artifacts-1.0.13=\
 app.change.log-1.0.13=LPS-74544 LPS-77699 LPS-79653 LPS-80332 LPS-84119 LPS-86413 LPS-91343 LPS-95151 LPS-95705
 
 app.git.id-1.0.13=098940c94ee63694419199fa93adfbdb1c92285c
+
+#
+# Liferay App Version 1.0.14
+#
+
+app.artifacts-1.0.14=\
+	com.liferay.roles.admin.api-3.0.0.jar,\
+	com.liferay.roles.admin.impl-2.0.6.jar,\
+	com.liferay.roles.admin.web-2.0.41.jar,\
+	com.liferay.roles.item.selector.api-1.0.3.jar,\
+	com.liferay.roles.item.selector.web-1.0.4.jar,\
+	com.liferay.roles.selector.web-2.0.8.jar,\
+	com.liferay.roles.uad-3.0.2.jar
+
+app.change.log-1.0.14=LPS-67565 LPS-74544 LPS-79653 LPS-80332 LPS-84119 LPS-85765 LPS-86413 LPS-91343 LPS-95705
+
+app.git.id-1.0.14=40d4582b44773048b6691032451f556fa345a6ed

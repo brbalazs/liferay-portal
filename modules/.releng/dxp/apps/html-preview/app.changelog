@@ -166,3 +166,16 @@ app.artifacts-1.0.12=\
 app.change.log-1.0.12=LPS-76165 LPS-80332 LPS-84119 LPS-96018 LPS-96830 LPS-97169 LPS-99252
 
 app.git.id-1.0.12=098940c94ee63694419199fa93adfbdb1c92285c
+
+#
+# Liferay App Version 1.0.13
+#
+
+app.artifacts-1.0.13=\
+	com.liferay.html.preview.api-1.0.8.jar,\
+	com.liferay.html.preview.processor.image-1.0.2.jar,\
+	com.liferay.html.preview.service-1.0.13.jar
+
+app.change.log-1.0.13=LPS-100352 LPS-101089 LPS-101208 LPS-76165 LPS-80332 LPS-85765 LPS-99252
+
+app.git.id-1.0.13=40d4582b44773048b6691032451f556fa345a6ed

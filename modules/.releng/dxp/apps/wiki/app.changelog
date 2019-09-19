@@ -319,3 +319,26 @@ app.artifacts-1.0.13=\
 app.change.log-1.0.13=LPS-77699 LPS-79653 LPS-80332 LPS-83494 LPS-84119 LPS-85419 LPS-88891 LPS-91343 LPS-93807 LPS-94947 LPS-96018 LPS-96481 LPS-96589 LPS-96603 LPS-96830 LPS-97094 LPS-97169 LPS-97900 LPS-98442 LPS-99213 LPS-99252 LRCI-156
 
 app.git.id-1.0.13=098940c94ee63694419199fa93adfbdb1c92285c
+
+#
+# Liferay App Version 1.0.14
+#
+
+app.artifacts-1.0.14=\
+	com.liferay.wiki.api-3.0.15.jar,\
+	com.liferay.wiki.editor.configuration-2.0.7.jar,\
+	com.liferay.wiki.editor.link.browse.web-1.0.5.jar,\
+	com.liferay.wiki.engine.creole-3.0.11.jar,\
+	com.liferay.wiki.engine.html-3.0.0.jar,\
+	com.liferay.wiki.engine.input.editor.common-4.0.4.jar,\
+	com.liferay.wiki.engine.lang-2.0.1.jar,\
+	com.liferay.wiki.engine.text-3.0.1.jar,\
+	com.liferay.wiki.layout.prototype-2.0.2.jar,\
+	com.liferay.wiki.navigation.web-3.0.7.jar,\
+	com.liferay.wiki.service-2.0.42.jar,\
+	com.liferay.wiki.uad-3.0.3.jar,\
+	com.liferay.wiki.web-4.0.48.jar
+
+app.change.log-1.0.14=LPS-100352 LPS-101089 LPS-101208 LPS-67565 LPS-77699 LPS-79653 LPS-80332 LPS-83494 LPS-84119 LPS-85765 LPS-88891 LPS-90008 LPS-94947 LPS-97094 LPS-98442 LPS-99213 LPS-99252 LPS-99898 LRCI-156
+
+app.git.id-1.0.14=40d4582b44773048b6691032451f556fa345a6ed
