@@ -60,12 +60,6 @@ public class AddFormInstanceRecordMVCCommandHelper {
 			DDMFormValues ddmFormValues, Locale locale)
 		throws Exception {
 
-		List<DDMFormField> requiredFields = getRequiredFields(ddmForm);
-
-		if (requiredFields.isEmpty()) {
-			return;
-		}
-
 		DDMFormEvaluationResult ddmFormEvaluationResult = evaluate(
 			actionRequest, ddmForm, ddmFormValues, locale);
 
@@ -79,12 +73,18 @@ public class AddFormInstanceRecordMVCCommandHelper {
 
 		invisibleFields.addAll(fieldsFromDisabledPages);
 
-		if (invisibleFields.isEmpty()) {
+		removeDDMValidationExpression(
+			ddmForm.getDDMFormFields(), invisibleFields);
+
+		List<DDMFormField> requiredFields = getRequiredFields(ddmForm);
+
+		if (requiredFields.isEmpty()) {
 			return;
 		}
 
-		removeDDMValidationExpression(
-			ddmForm.getDDMFormFields(), invisibleFields);
+		if (invisibleFields.isEmpty()) {
+			return;
+		}
 
 		removeRequiredProperty(invisibleFields, requiredFields);
 	}
