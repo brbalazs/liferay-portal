@@ -16,6 +16,21 @@ AUI.add(
 
 		var booleanParse = A.DataType.Boolean.parse;
 		var camelize = Lang.String.camelize;
+		
+		var enableDDMStructureFieldIndex = function() {
+			var indexTypeNode = A.one(
+				'#_' + Liferay.Portlet.list[0] + '_indexable'
+			);
+
+			var indexable = indexTypeNode.getAttribute('value');
+
+			if (indexable === 'true') {
+				return 'keyword';
+			}
+
+			return '';
+		};
+
 		var instanceOf = A.instanceOf;
 		var isNull = Lang.isNull;
 		var isObject = Lang.isObject;
@@ -779,7 +794,7 @@ AUI.add(
 			},
 
 			indexType: {
-				value: 'keyword'
+				value: enableDDMStructureFieldIndex()
 			},
 
 			localizable: {
