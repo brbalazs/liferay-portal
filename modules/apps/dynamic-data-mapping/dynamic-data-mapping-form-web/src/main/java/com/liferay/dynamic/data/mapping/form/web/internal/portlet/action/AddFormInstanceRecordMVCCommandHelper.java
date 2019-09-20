@@ -78,11 +78,7 @@ public class AddFormInstanceRecordMVCCommandHelper {
 
 		List<DDMFormField> requiredFields = getRequiredFields(ddmForm);
 
-		if (requiredFields.isEmpty()) {
-			return;
-		}
-
-		if (invisibleFields.isEmpty()) {
+		if (requiredFields.isEmpty() || invisibleFields.isEmpty()) {
 			return;
 		}
 
