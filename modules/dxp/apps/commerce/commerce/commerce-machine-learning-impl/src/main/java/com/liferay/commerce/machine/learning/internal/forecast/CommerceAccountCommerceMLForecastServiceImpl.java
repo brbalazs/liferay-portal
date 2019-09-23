@@ -25,8 +25,13 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Document;
+import com.liferay.portal.kernel.search.GroupBy;
+import com.liferay.portal.kernel.search.filter.BooleanFilter;
+import com.liferay.portal.kernel.search.filter.TermsFilter;
 import com.liferay.portal.kernel.search.generic.TermQueryImpl;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.search.engine.adapter.search.SearchSearchRequest;
 
 import java.util.Date;
 import java.util.List;
@@ -52,20 +57,19 @@ public class CommerceAccountCommerceMLForecastServiceImpl
 		CommerceMLForecastPeriod commerceMLForecastPeriod =
 			CommerceMLForecastPeriod.MONTH;
 
-		CommerceMLForecastScope commerceMLForecastScope =
-			CommerceMLForecastScope.COMMERCE_ACCOUNT;
-
 		CommerceMLForecastTarget commerceMLForecastTarget =
 			CommerceMLForecastTarget.REVENUE;
 
 		Date now = new Date();
 
-		Date startDate = getStartDate(now, commerceMLForecastPeriod);
+		Date startDate = getStartDate(
+			now, commerceMLForecastPeriod, DEFAULT_HISTORY_LENGTH);
 
-		Date endDate = getEndDate(now, commerceMLForecastPeriod);
+		Date endDate = getEndDate(
+			now, commerceMLForecastPeriod, DEFAULT_FORECAST_LENGTH);
 
 		BooleanQuery booleanQuery = getBaseQuery(
-			commerceMLForecastScope.getLabel(),
+			_commerceMLForecastScope.getLabel(),
 			commerceMLForecastPeriod.getLabel(),
 			commerceMLForecastTarget.getLabel(), startDate, endDate);
 
@@ -75,7 +79,61 @@ public class CommerceAccountCommerceMLForecastServiceImpl
 
 		booleanQuery.add(commerceAccountIdTermQuery, BooleanClauseOccur.MUST);
 
-		return getSearchResults(companyId, booleanQuery, startDate, endDate);
+		int size = getSearchSize(startDate, endDate, commerceMLForecastPeriod);
+
+		SearchSearchRequest searchRequest = getSearchRequest(
+			commerceMLIndexer.getIndexName(companyId), booleanQuery, 0, size,
+			true);
+
+		return getSearchResults(searchRequest);
+	}
+
+	@Override
+	public List<CommerceAccountCommerceMLForecast>
+			getMonthlyRevenueCommerceAccountCommerceMLForecasts(
+				long companyId, long[] commerceAccountIds, Date actualDate,
+				int historyLength, int forecastLength)
+		throws PortalException {
+
+		CommerceMLForecastPeriod commerceMLForecastPeriod =
+			CommerceMLForecastPeriod.MONTH;
+
+		CommerceMLForecastTarget commerceMLForecastTarget =
+			CommerceMLForecastTarget.REVENUE;
+
+		Date endDate = getEndDate(
+			actualDate, commerceMLForecastPeriod, forecastLength);
+
+		Date startDate = getStartDate(
+			actualDate, commerceMLForecastPeriod, historyLength);
+
+		BooleanQuery baseQuery = getBaseQuery(
+			_commerceMLForecastScope.getLabel(),
+			commerceMLForecastPeriod.getLabel(),
+			commerceMLForecastTarget.getLabel(), startDate, endDate);
+
+		BooleanFilter preBooleanFilter = baseQuery.getPreBooleanFilter();
+
+		TermsFilter termsFilter = new TermsFilter(
+			CommerceMLForecastField.COMMERCE_ACCOUNT_ID);
+
+		termsFilter.addValues(ArrayUtil.toStringArray(commerceAccountIds));
+
+		preBooleanFilter.add(termsFilter, BooleanClauseOccur.MUST);
+
+		GroupBy groupBy = new GroupBy(
+			CommerceMLForecastField.COMMERCE_ACCOUNT_ID);
+
+		groupBy.setStart(0);
+
+		groupBy.setSize(historyLength);
+
+		SearchSearchRequest searchRequest = getSearchRequest(
+			commerceMLIndexer.getIndexName(companyId), baseQuery, 0, 0, true);
+
+		searchRequest.setGroupBy(groupBy);
+
+		return getSearchResults(searchRequest);
 	}
 
 	@Override
@@ -83,7 +141,7 @@ public class CommerceAccountCommerceMLForecastServiceImpl
 		Document document) {
 
 		CommerceAccountCommerceMLForecast commerceAccountCommerceMLForecast =
-			getBaseForecastModel(
+			getBaseCommerceMLForecastModel(
 				new CommerceAccountCommerceMLForecastImpl(), document);
 
 		commerceAccountCommerceMLForecast.setCommerceAccountId(
@@ -92,5 +150,8 @@ public class CommerceAccountCommerceMLForecastServiceImpl
 
 		return commerceAccountCommerceMLForecast;
 	}
+
+	private static final CommerceMLForecastScope _commerceMLForecastScope =
+		CommerceMLForecastScope.COMMERCE_ACCOUNT;
 
 }

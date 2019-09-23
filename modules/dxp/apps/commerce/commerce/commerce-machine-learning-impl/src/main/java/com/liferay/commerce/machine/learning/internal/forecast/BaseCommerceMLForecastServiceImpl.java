@@ -27,8 +27,9 @@ import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.SortFactoryUtil;
 import com.liferay.portal.kernel.search.TermRangeQuery;
+import com.liferay.portal.kernel.search.filter.BooleanFilter;
+import com.liferay.portal.kernel.search.filter.TermFilter;
 import com.liferay.portal.kernel.search.generic.BooleanQueryImpl;
-import com.liferay.portal.kernel.search.generic.TermQueryImpl;
 import com.liferay.portal.kernel.search.generic.TermRangeQueryImpl;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -41,13 +42,17 @@ import java.text.ParseException;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -59,16 +64,43 @@ import org.osgi.service.component.annotations.Reference;
 public abstract class BaseCommerceMLForecastServiceImpl
 	<T extends CommerceMLForecast> {
 
-	protected T getBaseForecastModel(T commerceMLForecast, Document document) {
+	protected BooleanFilter getBaseBooleanFilter(
+		String scope, String period, String target) {
+
+		BooleanFilter booleanFilter = new BooleanFilter();
+
+		TermFilter scopeTermFilter = new TermFilter(
+			CommerceMLForecastField.SCOPE, scope);
+
+		booleanFilter.add(scopeTermFilter, BooleanClauseOccur.MUST);
+
+		TermFilter periodTermFilter = new TermFilter(
+			CommerceMLForecastField.PERIOD, period);
+
+		booleanFilter.add(periodTermFilter, BooleanClauseOccur.MUST);
+
+		TermFilter targetTermFilter = new TermFilter(
+			CommerceMLForecastField.TARGET, target);
+
+		booleanFilter.add(targetTermFilter, BooleanClauseOccur.MUST);
+
+		return booleanFilter;
+	}
+
+	protected T getBaseCommerceMLForecastModel(
+		T commerceMLForecast, Document document) {
+
 		commerceMLForecast.setActual(
-			GetterUtil.getFloat(document.get(CommerceMLForecastField.ACTUAL)));
+			GetterUtil.getFloat(
+				document.get(CommerceMLForecastField.ACTUAL), Float.MIN_VALUE));
 
 		commerceMLForecast.setCompanyId(
 			GetterUtil.getLong(document.get(Field.COMPANY_ID)));
 
 		commerceMLForecast.setForecast(
 			GetterUtil.getFloat(
-				document.get(CommerceMLForecastField.FORECAST)));
+				document.get(CommerceMLForecastField.FORECAST),
+				Float.MIN_VALUE));
 
 		commerceMLForecast.setForecastId(
 			GetterUtil.getLong(
@@ -105,26 +137,24 @@ public abstract class BaseCommerceMLForecastServiceImpl
 	}
 
 	protected BooleanQuery getBaseQuery(
+		String scope, String period, String target) {
+
+		BooleanQuery booleanQuery = new BooleanQueryImpl();
+
+		BooleanFilter baseBooleanFilter = getBaseBooleanFilter(
+			scope, period, target);
+
+		booleanQuery.setPreBooleanFilter(baseBooleanFilter);
+
+		return booleanQuery;
+	}
+
+	protected BooleanQuery getBaseQuery(
 			String scope, String period, String target, Date startDate,
 			Date endDate)
 		throws com.liferay.portal.kernel.search.ParseException {
 
-		BooleanQuery booleanQuery = new BooleanQueryImpl();
-
-		TermQueryImpl scopeTermQuery = new TermQueryImpl(
-			CommerceMLForecastField.SCOPE, scope);
-
-		booleanQuery.add(scopeTermQuery, BooleanClauseOccur.MUST);
-
-		TermQueryImpl periodTermQuery = new TermQueryImpl(
-			CommerceMLForecastField.PERIOD, period);
-
-		booleanQuery.add(periodTermQuery, BooleanClauseOccur.MUST);
-
-		TermQueryImpl targetTermQuery = new TermQueryImpl(
-			CommerceMLForecastField.TARGET, target);
-
-		booleanQuery.add(targetTermQuery, BooleanClauseOccur.MUST);
+		BooleanQuery booleanQuery = getBaseQuery(scope, period, target);
 
 		TermRangeQuery termRangeQuery = new TermRangeQueryImpl(
 			CommerceMLForecastField.TIMESTAMP, _formatSearchDate(startDate),
@@ -136,56 +166,140 @@ public abstract class BaseCommerceMLForecastServiceImpl
 	}
 
 	protected Date getEndDate(
-		Date date, CommerceMLForecastPeriod commerceMLForecastPeriod) {
+		Date endDate, CommerceMLForecastPeriod commerceMLForecastPeriod,
+		int stepCount) {
 
-		Instant endDateInstant = date.toInstant();
+		Instant endDateInstant = endDate.toInstant();
 
-		LocalDateTime endDate = LocalDateTime.ofInstant(
-			endDateInstant, ZoneOffset.UTC);
+		LocalDateTime endLocalDateTime = LocalDateTime.ofInstant(
+			endDateInstant, DEFAULT_ZONE_OFFSET);
+
+		endLocalDateTime = endLocalDateTime.truncatedTo(ChronoUnit.DAYS);
 
 		if (commerceMLForecastPeriod.equals(CommerceMLForecastPeriod.MONTH)) {
-			endDate = endDate.minusMonths(_DEFAULT_FORECAST_POINTS);
+			endLocalDateTime = endLocalDateTime.with(
+				ChronoField.DAY_OF_MONTH, 1);
+
+			endLocalDateTime = endLocalDateTime.plusMonths(stepCount);
 		}
 		else {
-			endDate = endDate.minusWeeks(_DEFAULT_FORECAST_POINTS);
+			endLocalDateTime = endLocalDateTime.with(
+				ChronoField.DAY_OF_WEEK, 1);
+
+			endLocalDateTime = endLocalDateTime.plusWeeks(stepCount);
 		}
 
-		return Date.from(endDate.toInstant(ZoneOffset.UTC));
+		return _toDate(endLocalDateTime);
+	}
+
+	protected List<T> getForecastList(Hits hits) {
+		List<Document> documents = _getDocumentList(hits);
+
+		Stream<Document> documentsStream = documents.stream();
+
+		return documentsStream.map(
+			this::toForecastModel
+		).collect(
+			Collectors.toList()
+		);
+	}
+
+	protected SearchSearchRequest getSearchRequest(
+		String indexName, Query query, int start, int size, boolean reverse) {
+
+		SearchSearchRequest searchRequest = new SearchSearchRequest();
+
+		searchRequest.setIndexNames(new String[] {indexName});
+
+		searchRequest.setQuery(query);
+
+		searchRequest.setStart(start);
+
+		searchRequest.setSize(size);
+
+		Sort sort = SortFactoryUtil.create(
+			CommerceMLForecastField.TIMESTAMP.concat(SORTABLE_FIELD_SUFFIX),
+			reverse);
+
+		searchRequest.setSorts(new Sort[] {sort});
+
+		searchRequest.setStats(Collections.emptyMap());
+
+		return searchRequest;
 	}
 
 	protected List<T> getSearchResults(
-		long companyId, Query query, Date startDate, Date endDate) {
-
-		SearchSearchRequest searchRequest = _getSearchRequest(
-			commerceMLIndexer.getIndexName(companyId), query, startDate,
-			endDate);
+		SearchSearchRequest searchSearchRequest) {
 
 		SearchSearchResponse searchSearchResponse = searchEngineAdapter.execute(
-			searchRequest);
+			searchSearchRequest);
 
-		return _getForecastList(searchSearchResponse.getHits());
+		return getForecastList(searchSearchResponse.getHits());
+	}
+
+	protected int getSearchSize(
+		Date startDate, Date endDate,
+		CommerceMLForecastPeriod commerceMLForecastPeriod) {
+
+		Instant startDateInstant = startDate.toInstant();
+
+		LocalDateTime startLocalDate = LocalDateTime.ofInstant(
+			startDateInstant, DEFAULT_ZONE_OFFSET);
+
+		Instant endDateInstant = endDate.toInstant();
+
+		LocalDateTime endLocalDate = LocalDateTime.ofInstant(
+			endDateInstant, DEFAULT_ZONE_OFFSET);
+
+		int steps = 1;
+
+		if (commerceMLForecastPeriod.equals(CommerceMLForecastPeriod.MONTH)) {
+			steps += ChronoUnit.MONTHS.between(startLocalDate, endLocalDate);
+		}
+		else {
+			steps += ChronoUnit.WEEKS.between(startLocalDate, endLocalDate);
+		}
+
+		return steps;
 	}
 
 	protected Date getStartDate(
-		Date startDate, CommerceMLForecastPeriod commerceMLForecastPeriod) {
+		Date startDate, CommerceMLForecastPeriod commerceMLForecastPeriod,
+		int stepCount) {
 
-		Instant instant = startDate.toInstant();
+		Instant startDateInstant = startDate.toInstant();
 
-		OffsetDateTime offsetDateTime = instant.atOffset(ZoneOffset.UTC);
+		LocalDateTime startLocalDateTime = LocalDateTime.ofInstant(
+			startDateInstant, DEFAULT_ZONE_OFFSET);
+
+		startLocalDateTime = startLocalDateTime.truncatedTo(ChronoUnit.DAYS);
 
 		if (commerceMLForecastPeriod.equals(CommerceMLForecastPeriod.MONTH)) {
-			offsetDateTime = offsetDateTime.minusMonths(
-				_DEFAULT_FORECAST_HISTORY);
+			startLocalDateTime = startLocalDateTime.with(
+				ChronoField.DAY_OF_MONTH, 1);
+
+			startLocalDateTime = startLocalDateTime.minusMonths(stepCount);
 		}
 		else {
-			offsetDateTime = offsetDateTime.minusWeeks(
-				_DEFAULT_FORECAST_HISTORY);
+			startLocalDateTime = startLocalDateTime.with(
+				ChronoField.DAY_OF_WEEK, 1);
+
+			startLocalDateTime = startLocalDateTime.minusWeeks(stepCount);
 		}
 
-		return Date.from(offsetDateTime.toInstant());
+		return _toDate(startLocalDateTime);
 	}
 
 	protected abstract T toForecastModel(Document document);
+
+	protected static final int DEFAULT_FORECAST_LENGTH = 3;
+
+	protected static final int DEFAULT_HISTORY_LENGTH = 8;
+
+	protected static final ZoneId DEFAULT_ZONE_OFFSET =
+		ZoneOffset.systemDefault();
+
+	protected static final String SORTABLE_FIELD_SUFFIX = "_sortable";
 
 	@Reference(
 		target = "(component.name=com.liferay.commerce.machine.learning.internal.forecast.search.index.CommerceMLForecastIndexer)"
@@ -202,66 +316,26 @@ public abstract class BaseCommerceMLForecastServiceImpl
 		return dateFormat.format(searchDate);
 	}
 
-	private List<T> _getForecastList(Hits hits) {
-		List<Document> documents = hits.toList();
+	private List<Document> _getDocumentList(Hits hits) {
+		List<Document> list = new ArrayList<>(hits.toList());
 
-		Stream<Document> documentsStream = documents.stream();
+		Map<String, Hits> groupedHits = hits.getGroupedHits();
 
-		return documentsStream.map(
-			this::toForecastModel
-		).collect(
-			Collectors.toList()
-		);
+		for (Map.Entry<String, Hits> entry : groupedHits.entrySet()) {
+			Hits value = entry.getValue();
+
+			list.addAll(_getDocumentList(value));
+		}
+
+		return list;
 	}
 
-	private SearchSearchRequest _getSearchRequest(
-		String indexName, Query query, Date startDate, Date endDate) {
+	private Date _toDate(LocalDateTime localDateTime) {
+		ZonedDateTime zonedDateTime = localDateTime.atZone(DEFAULT_ZONE_OFFSET);
 
-		SearchSearchRequest searchRequest = new SearchSearchRequest();
-
-		searchRequest.setIndexNames(new String[] {indexName});
-
-		searchRequest.setQuery(query);
-
-		searchRequest.setSize(_getSearchSize(startDate, endDate));
-
-		Sort sort = SortFactoryUtil.create(
-			_getSortableFieldName(CommerceMLForecastField.TIMESTAMP), false);
-
-		searchRequest.setSorts(new Sort[] {sort});
-
-		searchRequest.setStats(Collections.emptyMap());
-
-		return searchRequest;
+		return Date.from(zonedDateTime.toInstant());
 	}
-
-	private int _getSearchSize(Date startDate, Date endDate) {
-		Instant startDateInstant = startDate.toInstant();
-
-		OffsetDateTime startOffsetDateTime = startDateInstant.atOffset(
-			ZoneOffset.UTC);
-
-		Instant endDateInstant = endDate.toInstant();
-
-		OffsetDateTime endOffsetDateTime = endDateInstant.atOffset(
-			ZoneOffset.UTC);
-
-		long weeksBetween = ChronoUnit.MONTHS.between(
-			startOffsetDateTime, endOffsetDateTime);
-
-		return (int)weeksBetween + 1;
-	}
-
-	private String _getSortableFieldName(String fieldName) {
-		return fieldName.concat(_SORTABLE_FIELD_SUFFIX);
-	}
-
-	private static final int _DEFAULT_FORECAST_HISTORY = 8;
-
-	private static final int _DEFAULT_FORECAST_POINTS = 3;
 
 	private static final String _INDEX_DATE_FORMAT_PATTERN = "yyyyMMddHHmmss";
-
-	private static final String _SORTABLE_FIELD_SUFFIX = "_sortable";
 
 }

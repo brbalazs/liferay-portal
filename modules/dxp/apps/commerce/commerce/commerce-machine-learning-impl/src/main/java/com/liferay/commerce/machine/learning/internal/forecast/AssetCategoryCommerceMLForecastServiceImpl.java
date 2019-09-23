@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.generic.TermQueryImpl;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.search.engine.adapter.search.SearchSearchRequest;
 
 import java.util.Date;
 import java.util.List;
@@ -53,20 +54,19 @@ public class AssetCategoryCommerceMLForecastServiceImpl
 		CommerceMLForecastPeriod commerceMLForecastPeriod =
 			CommerceMLForecastPeriod.MONTH;
 
-		CommerceMLForecastScope commerceMLForecastScope =
-			CommerceMLForecastScope.ASSET_CATEGORY;
-
 		CommerceMLForecastTarget commerceMLForecastTarget =
 			CommerceMLForecastTarget.REVENUE;
 
 		Date now = new Date();
 
-		Date startDate = getStartDate(now, commerceMLForecastPeriod);
+		Date startDate = getStartDate(
+			now, commerceMLForecastPeriod, DEFAULT_HISTORY_LENGTH);
 
-		Date endDate = getEndDate(now, commerceMLForecastPeriod);
+		Date endDate = getEndDate(
+			now, commerceMLForecastPeriod, DEFAULT_FORECAST_LENGTH);
 
 		BooleanQuery booleanQuery = getBaseQuery(
-			commerceMLForecastScope.getLabel(),
+			_commerceMLForecastScope.getLabel(),
 			commerceMLForecastPeriod.getLabel(),
 			commerceMLForecastTarget.getLabel(), startDate, endDate);
 
@@ -81,7 +81,13 @@ public class AssetCategoryCommerceMLForecastServiceImpl
 
 		booleanQuery.add(commerceAccountIdTermQuery, BooleanClauseOccur.MUST);
 
-		return getSearchResults(companyId, booleanQuery, startDate, endDate);
+		int size = getSearchSize(startDate, endDate, commerceMLForecastPeriod);
+
+		SearchSearchRequest searchRequest = getSearchRequest(
+			commerceMLIndexer.getIndexName(companyId), booleanQuery, 0, size,
+			true);
+
+		return getSearchResults(searchRequest);
 	}
 
 	@Override
@@ -89,7 +95,7 @@ public class AssetCategoryCommerceMLForecastServiceImpl
 		Document document) {
 
 		AssetCategoryCommerceMLForecast assetCategoryCommerceMLForecast =
-			getBaseForecastModel(
+			getBaseCommerceMLForecastModel(
 				new AssetCategoryCommerceMLForecastImpl(), document);
 
 		assetCategoryCommerceMLForecast.setAssetCategoryId(
@@ -101,5 +107,8 @@ public class AssetCategoryCommerceMLForecastServiceImpl
 
 		return assetCategoryCommerceMLForecast;
 	}
+
+	private static final CommerceMLForecastScope _commerceMLForecastScope =
+		CommerceMLForecastScope.ASSET_CATEGORY;
 
 }
