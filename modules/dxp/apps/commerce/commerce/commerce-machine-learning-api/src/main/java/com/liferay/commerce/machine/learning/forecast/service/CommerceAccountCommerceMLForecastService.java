@@ -19,6 +19,7 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.commerce.machine.learning.forecast.model.CommerceAccountCommerceMLForecast;
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,6 +31,12 @@ public interface CommerceAccountCommerceMLForecastService {
 	public List<CommerceAccountCommerceMLForecast>
 			getMonthlyRevenueCommerceAccountCommerceMLForecasts(
 				long companyId, long commerceAccountId)
+		throws PortalException;
+
+	public List<CommerceAccountCommerceMLForecast>
+			getMonthlyRevenueCommerceAccountCommerceMLForecasts(
+				long companyId, long[] commerceAccountIds, Date actualDate,
+				int historyLength, int forecastLength)
 		throws PortalException;
 
 }
