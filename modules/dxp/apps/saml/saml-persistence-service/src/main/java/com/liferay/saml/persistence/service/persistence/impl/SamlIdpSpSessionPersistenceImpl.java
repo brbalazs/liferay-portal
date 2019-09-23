@@ -178,8 +178,8 @@ public class SamlIdpSpSessionPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (SamlIdpSpSession samlIdpSpSession : list) {
-					if ((createDate.getTime() <=
-							samlIdpSpSession.getCreateDate().getTime())) {
+					if (createDate.getTime() <=
+							samlIdpSpSession.getCreateDate().getTime()) {
 
 						list = null;
 
@@ -743,8 +743,8 @@ public class SamlIdpSpSessionPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (SamlIdpSpSession samlIdpSpSession : list) {
-					if ((samlIdpSsoSessionId !=
-							samlIdpSpSession.getSamlIdpSsoSessionId())) {
+					if (samlIdpSsoSessionId !=
+							samlIdpSpSession.getSamlIdpSsoSessionId()) {
 
 						list = null;
 

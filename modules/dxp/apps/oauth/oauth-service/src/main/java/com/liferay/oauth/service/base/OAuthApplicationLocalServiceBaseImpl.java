@@ -64,7 +64,7 @@ import javax.sql.DataSource;
  */
 public abstract class OAuthApplicationLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
-	implements OAuthApplicationLocalService, IdentifiableOSGiService {
+	implements IdentifiableOSGiService, OAuthApplicationLocalService {
 
 	/**
 	 * NOTE FOR DEVELOPERS:

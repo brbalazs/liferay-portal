@@ -35,8 +35,8 @@ import java.util.Objects;
  * @generated
  */
 public class SharepointOAuth2TokenEntryWrapper
-	implements SharepointOAuth2TokenEntry,
-			   ModelWrapper<SharepointOAuth2TokenEntry> {
+	implements ModelWrapper<SharepointOAuth2TokenEntry>,
+			   SharepointOAuth2TokenEntry {
 
 	public SharepointOAuth2TokenEntryWrapper(
 		SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {

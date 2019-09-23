@@ -35,7 +35,7 @@ import java.util.Objects;
  * @generated
  */
 public class SamlSpIdpConnectionWrapper
-	implements SamlSpIdpConnection, ModelWrapper<SamlSpIdpConnection> {
+	implements ModelWrapper<SamlSpIdpConnection>, SamlSpIdpConnection {
 
 	public SamlSpIdpConnectionWrapper(SamlSpIdpConnection samlSpIdpConnection) {
 		_samlSpIdpConnection = samlSpIdpConnection;

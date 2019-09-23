@@ -181,7 +181,7 @@ public class OAuthUserPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (OAuthUser oAuthUser : list) {
-					if ((userId != oAuthUser.getUserId())) {
+					if (userId != oAuthUser.getUserId()) {
 						list = null;
 
 						break;
@@ -695,8 +695,8 @@ public class OAuthUserPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (OAuthUser oAuthUser : list) {
-					if ((oAuthApplicationId !=
-							oAuthUser.getOAuthApplicationId())) {
+					if (oAuthApplicationId !=
+							oAuthUser.getOAuthApplicationId()) {
 
 						list = null;
 

@@ -35,7 +35,7 @@ import java.util.Objects;
  * @generated
  */
 public class SPIDefinitionWrapper
-	implements SPIDefinition, ModelWrapper<SPIDefinition> {
+	implements ModelWrapper<SPIDefinition>, SPIDefinition {
 
 	public SPIDefinitionWrapper(SPIDefinition spiDefinition) {
 		_spiDefinition = spiDefinition;

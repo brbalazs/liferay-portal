@@ -35,7 +35,7 @@ import java.util.Objects;
  * @see Source
  * @generated
  */
-public class SourceWrapper implements Source, ModelWrapper<Source> {
+public class SourceWrapper implements ModelWrapper<Source>, Source {
 
 	public SourceWrapper(Source source) {
 		_source = source;

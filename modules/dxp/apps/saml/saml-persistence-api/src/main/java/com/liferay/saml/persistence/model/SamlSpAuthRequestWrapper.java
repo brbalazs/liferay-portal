@@ -35,7 +35,7 @@ import java.util.Objects;
  * @generated
  */
 public class SamlSpAuthRequestWrapper
-	implements SamlSpAuthRequest, ModelWrapper<SamlSpAuthRequest> {
+	implements ModelWrapper<SamlSpAuthRequest>, SamlSpAuthRequest {
 
 	public SamlSpAuthRequestWrapper(SamlSpAuthRequest samlSpAuthRequest) {
 		_samlSpAuthRequest = samlSpAuthRequest;

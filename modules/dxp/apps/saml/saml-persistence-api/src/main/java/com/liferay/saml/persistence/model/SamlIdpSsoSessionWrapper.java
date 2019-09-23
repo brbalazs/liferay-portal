@@ -35,7 +35,7 @@ import java.util.Objects;
  * @generated
  */
 public class SamlIdpSsoSessionWrapper
-	implements SamlIdpSsoSession, ModelWrapper<SamlIdpSsoSession> {
+	implements ModelWrapper<SamlIdpSsoSession>, SamlIdpSsoSession {
 
 	public SamlIdpSsoSessionWrapper(SamlIdpSsoSession samlIdpSsoSession) {
 		_samlIdpSsoSession = samlIdpSsoSession;

@@ -35,7 +35,7 @@ import java.util.Objects;
  * @generated
  */
 public class SamlSpMessageWrapper
-	implements SamlSpMessage, ModelWrapper<SamlSpMessage> {
+	implements ModelWrapper<SamlSpMessage>, SamlSpMessage {
 
 	public SamlSpMessageWrapper(SamlSpMessage samlSpMessage) {
 		_samlSpMessage = samlSpMessage;

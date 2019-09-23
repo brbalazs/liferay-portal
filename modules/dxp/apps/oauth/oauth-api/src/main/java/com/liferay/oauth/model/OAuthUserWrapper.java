@@ -34,7 +34,7 @@ import java.util.Objects;
  * @see OAuthUser
  * @generated
  */
-public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
+public class OAuthUserWrapper implements ModelWrapper<OAuthUser>, OAuthUser {
 
 	public OAuthUserWrapper(OAuthUser oAuthUser) {
 		_oAuthUser = oAuthUser;

@@ -176,8 +176,8 @@ public class SamlSpAuthRequestPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (SamlSpAuthRequest samlSpAuthRequest : list) {
-					if ((createDate.getTime() <=
-							samlSpAuthRequest.getCreateDate().getTime())) {
+					if (createDate.getTime() <=
+							samlSpAuthRequest.getCreateDate().getTime()) {
 
 						list = null;
 

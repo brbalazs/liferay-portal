@@ -188,7 +188,7 @@ public class OAuthApplicationPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (OAuthApplication oAuthApplication : list) {
-					if ((companyId != oAuthApplication.getCompanyId())) {
+					if (companyId != oAuthApplication.getCompanyId()) {
 						list = null;
 
 						break;
@@ -705,7 +705,7 @@ public class OAuthApplicationPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (OAuthApplication oAuthApplication : list) {
-					if ((userId != oAuthApplication.getUserId())) {
+					if (userId != oAuthApplication.getUserId()) {
 						list = null;
 
 						break;
