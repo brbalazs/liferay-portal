@@ -1043,9 +1043,11 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			user.setPasswordReset(false);
 		}
 
-		user.setDigest(user.getDigest(password1));
 		user.setScreenName(screenName);
 		user.setEmailAddress(emailAddress);
+
+		user.setDigest(user.getDigest(password1));
+
 		user.setFacebookId(facebookId);
 
 		Long ldapServerId = null;
