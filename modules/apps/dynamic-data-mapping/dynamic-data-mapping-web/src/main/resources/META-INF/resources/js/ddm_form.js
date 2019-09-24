@@ -732,6 +732,14 @@ AUI.add(
 					repeat: function() {
 						var instance = this;
 
+						var formDefinition = instance.get('definition');
+
+						formDefinition.fields.forEach(function(field) {
+							if (field.type === 'select') {
+								field.options.shift();
+							}
+						});
+
 						instance._getTemplate(
 							function(fieldTemplate) {
 								var field = instance.createField(fieldTemplate);
