@@ -429,7 +429,7 @@ public class MembershipRequestLocalServiceImpl
 
 			throw new PortalException(
 				StringBundler.concat(
-					"Pending MembershipRequest already exists for group ",
+					"Pending membership request already exists for group ",
 					groupId, " and user ", userId));
 		}
 
@@ -441,7 +441,7 @@ public class MembershipRequestLocalServiceImpl
 
 			throw new PortalException(
 				StringBundler.concat(
-					"MembershipRequest not allowed for group ", groupId,
+					"Membership request not allowed for group ", groupId,
 					" and user ", userId));
 		}
 	}
