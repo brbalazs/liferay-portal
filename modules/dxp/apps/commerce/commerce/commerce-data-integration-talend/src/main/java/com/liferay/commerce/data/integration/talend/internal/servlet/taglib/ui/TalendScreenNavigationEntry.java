@@ -17,8 +17,8 @@ package com.liferay.commerce.data.integration.talend.internal.servlet.taglib.ui;
 import com.liferay.commerce.data.integration.constants.CommerceDataIntegrationConstants;
 import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLogService;
+import com.liferay.commerce.data.integration.talend.TalendProcessTypeHelper;
 import com.liferay.commerce.data.integration.talend.internal.process.type.TalendProcessType;
-import com.liferay.commerce.data.integration.talend.internal.process.type.TalendProcessTypeHelper;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
@@ -87,7 +87,9 @@ public class TalendScreenNavigationEntry
 
 		String processType = commerceDataIntegrationProcess.getType();
 
-		if (processType.equals(TalendProcessType.KEY)) {
+		if (processType.equals(TalendProcessType.KEY) &&
+			!commerceDataIntegrationProcess.isSystem()) {
+
 			return true;
 		}
 
