@@ -18,6 +18,7 @@ import com.liferay.commerce.data.integration.constants.CommerceDataIntegrationPo
 import com.liferay.commerce.data.integration.exception.FileEntryValidationException;
 import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLocalService;
+import com.liferay.commerce.data.integration.talend.TalendProcessTypeHelper;
 import com.liferay.commerce.data.integration.talend.internal.configuration.CommerceDataIntegrationProcessConfiguration;
 import com.liferay.document.library.kernel.model.DLFolderConstants;
 import com.liferay.petra.string.StringPool;
@@ -50,8 +51,9 @@ import org.osgi.service.component.annotations.Reference;
 	configurationPolicy = ConfigurationPolicy.OPTIONAL,
 	service = TalendProcessTypeHelper.class
 )
-public class TalendProcessTypeHelper {
+public class TalendProcessTypeHelperImpl implements TalendProcessTypeHelper {
 
+	@Override
 	public FileEntry addFileEntry(
 			long companyId, long userId, long commerceDataIntegrationProcessId,
 			String fileName, long size, String contentType,
@@ -67,6 +69,7 @@ public class TalendProcessTypeHelper {
 			contentType, inputStream);
 	}
 
+	@Override
 	public FileEntry getFileEntry(long commerceDataIntegrationProcessId)
 		throws Exception {
 

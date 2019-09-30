@@ -15,7 +15,7 @@
 package com.liferay.commerce.data.integration.talend.internal.portlet.action;
 
 import com.liferay.commerce.data.integration.constants.CommerceDataIntegrationPortletKeys;
-import com.liferay.commerce.data.integration.talend.internal.process.type.TalendProcessTypeHelper;
+import com.liferay.commerce.data.integration.talend.TalendProcessTypeHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;

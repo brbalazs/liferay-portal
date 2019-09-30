@@ -19,8 +19,8 @@ import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProces
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLocalService;
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLogLocalService;
 import com.liferay.commerce.data.integration.service.ScheduledTaskExecutorService;
+import com.liferay.commerce.data.integration.talend.TalendProcessTypeHelper;
 import com.liferay.commerce.data.integration.talend.internal.process.type.TalendProcessType;
-import com.liferay.commerce.data.integration.talend.internal.process.type.TalendProcessTypeHelper;
 import com.liferay.commerce.data.integration.trigger.CommerceDataIntegrationProcessTriggerHelper;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
