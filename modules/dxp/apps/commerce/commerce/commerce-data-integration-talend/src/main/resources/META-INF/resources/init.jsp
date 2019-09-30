@@ -27,7 +27,7 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <%@ page import="com.liferay.commerce.data.integration.constants.CommerceDataIntegrationPortletKeys" %><%@
 page import="com.liferay.commerce.data.integration.constants.CommerceDataIntegrationWebKeys" %><%@
 page import="com.liferay.commerce.data.integration.model.CommerceDataIntegrationProcess" %><%@
-page import="com.liferay.commerce.data.integration.talend.internal.process.type.TalendProcessTypeHelper" %><%@
+page import="com.liferay.commerce.data.integration.talend.TalendProcessTypeHelper" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.repository.model.FileEntry" %>
 
