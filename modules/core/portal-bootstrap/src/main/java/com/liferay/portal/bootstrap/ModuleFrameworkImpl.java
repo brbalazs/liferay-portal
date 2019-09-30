@@ -1485,6 +1485,8 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 			}
 		}
 
+		bundles.removeIf(bundle -> bundle.getState() == Bundle.UNINSTALLED);
+
 		for (Bundle bundle : bundles.values()) {
 			if (!_isFragmentBundle(bundle)) {
 				bundle.stop();
