@@ -43,6 +43,17 @@ public class DDMStructureModelDocumentContributor
 	@Override
 	public void contribute(Document document, DDMStructure ddmStructure) {
 		document.addKeyword(Field.CLASS_NAME_ID, ddmStructure.getClassNameId());
+		document.addLocalizedText(
+			Field.DESCRIPTION,
+			LocalizationUtil.populateLocalizationMap(
+				ddmStructure.getDescriptionMap(),
+				ddmStructure.getDefaultLanguageId(),
+				ddmStructure.getGroupId()));
+		document.addLocalizedText(
+			Field.NAME,
+			LocalizationUtil.populateLocalizationMap(
+				ddmStructure.getNameMap(), ddmStructure.getDefaultLanguageId(),
+				ddmStructure.getGroupId()));
 
 		try {
 			DDMStructureVersion structureVersion =
@@ -73,17 +84,6 @@ public class DDMStructureModelDocumentContributor
 		document.addKeyword("structureKey", ddmStructure.getStructureKey());
 		document.addKeyword("storageType", ddmStructure.getStorageType());
 		document.addKeyword("type", ddmStructure.getType());
-		document.addLocalizedText(
-			Field.DESCRIPTION,
-			LocalizationUtil.populateLocalizationMap(
-				ddmStructure.getDescriptionMap(),
-				ddmStructure.getDefaultLanguageId(),
-				ddmStructure.getGroupId()));
-		document.addLocalizedText(
-			Field.NAME,
-			LocalizationUtil.populateLocalizationMap(
-				ddmStructure.getNameMap(), ddmStructure.getDefaultLanguageId(),
-				ddmStructure.getGroupId()));
 	}
 
 	protected String[] getLanguageIds(
