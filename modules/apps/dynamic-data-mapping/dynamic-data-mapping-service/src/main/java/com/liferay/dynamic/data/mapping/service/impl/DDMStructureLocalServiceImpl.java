@@ -1931,12 +1931,7 @@ public class DDMStructureLocalServiceImpl
 			ddmStructureIndexerTracker.getDDMStructureIndexer(
 				structure.getClassName());
 
-		Indexer<?> indexer = IndexerRegistryUtil.nullSafeGetIndexer(
-			structure.getClassName());
-
-		if ((ddmStructureIndexer == null) &&
-			!(indexer instanceof DDMStructureIndexer)) {
-
+		if (ddmStructureIndexer == null) {
 			return;
 		}
 
