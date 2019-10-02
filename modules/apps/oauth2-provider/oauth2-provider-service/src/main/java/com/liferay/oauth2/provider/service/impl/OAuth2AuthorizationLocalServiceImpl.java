@@ -70,15 +70,6 @@ public class OAuth2AuthorizationLocalServiceImpl
 			long oAuth2AuthorizationId)
 		throws PortalException {
 
-		Collection<OAuth2ScopeGrant> oAuth2ScopeGrants =
-			oAuth2AuthorizationLocalService.getOAuth2ScopeGrants(
-				oAuth2AuthorizationId);
-
-		for (OAuth2ScopeGrant oAuth2ScopeGrant : oAuth2ScopeGrants) {
-			oAuth2ScopeGrantLocalService.deleteOAuth2ScopeGrant(
-				oAuth2ScopeGrant);
-		}
-
 		return oAuth2AuthorizationPersistence.remove(oAuth2AuthorizationId);
 	}
 
