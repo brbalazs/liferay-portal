@@ -721,6 +721,10 @@ public class DDMDisplayContext {
 		return false;
 	}
 
+	public boolean isStructureFieldIndexableEnable() {
+		return _ddmWebConfiguration.structureFieldIndexableEnable();
+	}
+
 	public String[] smallImageExtensions() {
 		DDMGroupServiceConfiguration ddmGroupServiceConfiguration =
 			_ddmWebRequestHelper.getDDMGroupServiceConfiguration();

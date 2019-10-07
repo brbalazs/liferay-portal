@@ -61,4 +61,10 @@ public interface DDMWebConfiguration {
 	)
 	public boolean changeableDefaultLanguage();
 
+	@Meta.AD(
+		deflt = "true", description = "structure-field-indexable-enable-help",
+		name = "structure-field-indexable-enable", required = false
+	)
+	public boolean structureFieldIndexableEnable();
+
 }

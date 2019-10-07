@@ -100,6 +100,7 @@ if (Validator.isNotNull(requestUpdateStructureURL)) {
 		<aui:input name="definition" type="hidden" />
 		<aui:input name="status" type="hidden" />
 		<aui:input name="saveAndContinue" type="hidden" value='<%= ParamUtil.getBoolean(request, "saveAndContinue") %>' />
+		<aui:input name="indexable" type="hidden" value="<%= ddmDisplayContext.isStructureFieldIndexableEnable() %>" />
 
 		<liferay-ui:error exception="<%= DDMFormLayoutValidationException.class %>" message="please-enter-a-valid-form-layout" />
 

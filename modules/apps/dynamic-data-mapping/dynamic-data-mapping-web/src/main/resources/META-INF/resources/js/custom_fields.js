@@ -16,28 +16,27 @@ AUI.add(
 
 		var booleanParse = A.DataType.Boolean.parse;
 		var camelize = Lang.String.camelize;
-		
-		var enableDDMStructureFieldIndex = function() {
-			var indexTypeNode = A.one(
-				'#_' + Liferay.Portlet.list[0] + '_indexable'
-			);
-
-			if (indexTypeNode !== null) {
-				var indexable = indexTypeNode.getAttribute('value');
-
-				if (indexable === 'false') {
-					return '';
-				}
-			}
-
-			return 'keyword';
-		};
-
 		var instanceOf = A.instanceOf;
 		var isNull = Lang.isNull;
 		var isObject = Lang.isObject;
 		var isUndefined = Lang.isUndefined;
 		var isValue = Lang.isValue;
+
+		var structureFieldIndexEnable = function() {
+			var indexTypeNode = A.one(
+				'#_' + Liferay.Portlet.list[0] + '_indexable'
+			);
+
+			if (indexTypeNode) {
+				var indexable = indexTypeNode.getAttribute('value');
+
+				if (indexable === 'false') {
+					return false;
+				}
+			}
+
+			return true;
+		};
 
 		var DEFAULTS_FORM_VALIDATOR = A.config.FormValidator;
 
@@ -796,7 +795,9 @@ AUI.add(
 			},
 
 			indexType: {
-				value: enableDDMStructureFieldIndex()
+				valueFn: function() {
+					return structureFieldIndexEnable() ? 'keyword' : '';
+				}
 			},
 
 			localizable: {
@@ -1653,7 +1654,9 @@ AUI.add(
 					},
 
 					indexType: {
-						value: 'text'
+						valueFn: function() {
+							return structureFieldIndexEnable() ? 'text' : '';
+						}
 					}
 				},
 
@@ -1912,7 +1915,9 @@ AUI.add(
 					},
 
 					indexType: {
-						value: 'text'
+						valueFn: function() {
+							return structureFieldIndexEnable() ? 'text' : '';
+						}
 					}
 				},
 
@@ -2020,7 +2025,9 @@ AUI.add(
 			{
 				ATTRS: {
 					indexType: {
-						value: 'text'
+						valueFn: function() {
+							return structureFieldIndexEnable() ? 'text' : '';
+						}
 					}
 				},
 
