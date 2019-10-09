@@ -42,13 +42,8 @@ public class WebsiteLocalServiceImpl extends WebsiteLocalServiceBaseImpl {
 		User user = userPersistence.findByPrimaryKey(userId);
 		long classNameId = classNameLocalService.getClassNameId(className);
 
-		UrlValidator urlValidator = new UrlValidator();
-
-		if (!urlValidator.isValid(url)) {
-			throw new WebsiteURLException();
-		}
-
-		validate(0, user.getCompanyId(), classNameId, classPK, typeId, primary);
+		validate(
+			0, user.getCompanyId(), classNameId, classPK, url, typeId, primary);
 
 		long websiteId = counterLocalService.increment();
 
@@ -118,13 +113,7 @@ public class WebsiteLocalServiceImpl extends WebsiteLocalServiceBaseImpl {
 			long websiteId, String url, long typeId, boolean primary)
 		throws PortalException {
 
-		UrlValidator urlValidator = new UrlValidator();
-
-		if (!urlValidator.isValid(url)) {
-			throw new WebsiteURLException();
-		}
-
-		validate(websiteId, 0, 0, 0, typeId, primary);
+		validate(websiteId, 0, 0, 0, url, typeId, primary);
 
 		Website website = websitePersistence.findByPrimaryKey(websiteId);
 
@@ -160,8 +149,14 @@ public class WebsiteLocalServiceImpl extends WebsiteLocalServiceBaseImpl {
 
 	protected void validate(
 			long websiteId, long companyId, long classNameId, long classPK,
-			long typeId, boolean primary)
+			String url, long typeId, boolean primary)
 		throws PortalException {
+
+		UrlValidator urlValidator = new UrlValidator();
+
+		if (!urlValidator.isValid(url)) {
+			throw new WebsiteURLException();
+		}
 
 		if (websiteId > 0) {
 			Website website = websitePersistence.findByPrimaryKey(websiteId);
