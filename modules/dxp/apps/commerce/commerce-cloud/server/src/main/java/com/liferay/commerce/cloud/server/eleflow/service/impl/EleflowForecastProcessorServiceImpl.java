@@ -157,8 +157,6 @@ public class EleflowForecastProcessorServiceImpl
 			return Future.succeededFuture(forecastOrders);
 		}
 
-		Future<Void> future = Future.future();
-
 		HttpRequest<Void> httpRequest = webClient.post(
 			path + "/orders"
 		).as(
@@ -197,6 +195,8 @@ public class EleflowForecastProcessorServiceImpl
 		if (forecastOrders.isEmpty()) {
 			return Future.succeededFuture(forecastOrders);
 		}
+
+		Future<Void> future = Future.future();
 
 		httpRequest.sendJson(
 			eleflowOrders,

@@ -82,10 +82,6 @@ public class ProductInteractionCommerceMLRecommendationCPDataSourceImpl
 			HttpServletRequest httpServletRequest, int start, int end)
 		throws Exception {
 
-		long companyId = _portal.getCompanyId(httpServletRequest);
-
-		long groupId = _portal.getScopeGroupId(httpServletRequest);
-
 		CPCatalogEntry cpCatalogEntry =
 			(CPCatalogEntry)httpServletRequest.getAttribute(
 				CPWebKeys.CP_CATALOG_ENTRY);
@@ -94,6 +90,8 @@ public class ProductInteractionCommerceMLRecommendationCPDataSourceImpl
 			return new CPDataSourceResult(Collections.emptyList(), 0);
 		}
 
+		long companyId = _portal.getCompanyId(httpServletRequest);
+
 		Hits recommendations =
 			_productCommerceMLRecommendationHelper.getRecommendations(
 				companyId, cpCatalogEntry.getCPDefinitionId());
@@ -101,6 +99,8 @@ public class ProductInteractionCommerceMLRecommendationCPDataSourceImpl
 		if (recommendations.getLength() == 0) {
 			return new CPDataSourceResult(Collections.emptyList(), 0);
 		}
+
+		long groupId = _portal.getScopeGroupId(httpServletRequest);
 
 		SearchContext searchContext = new SearchContext();
 
