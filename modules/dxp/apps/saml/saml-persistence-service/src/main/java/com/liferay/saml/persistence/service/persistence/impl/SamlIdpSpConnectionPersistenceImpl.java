@@ -159,14 +159,11 @@ public class SamlIdpSpConnectionPersistenceImpl
 		OrderByComparator<SamlIdpSpConnection> orderByComparator,
 		boolean useFinderCache) {
 
-		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 			(orderByComparator == null)) {
-
-			pagination = false;
 
 			if (useFinderCache) {
 				finderPath = _finderPathWithoutPaginationFindByCompanyId;
@@ -216,7 +213,7 @@ public class SamlIdpSpConnectionPersistenceImpl
 				appendOrderByComparator(
 					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else if (pagination) {
+			else {
 				query.append(SamlIdpSpConnectionModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -233,18 +230,8 @@ public class SamlIdpSpConnectionPersistenceImpl
 
 				qPos.add(companyId);
 
-				if (!pagination) {
-					list = (List<SamlIdpSpConnection>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<SamlIdpSpConnection>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
+				list = (List<SamlIdpSpConnection>)QueryUtil.list(
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -1535,14 +1522,11 @@ public class SamlIdpSpConnectionPersistenceImpl
 		OrderByComparator<SamlIdpSpConnection> orderByComparator,
 		boolean useFinderCache) {
 
-		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 			(orderByComparator == null)) {
-
-			pagination = false;
 
 			if (useFinderCache) {
 				finderPath = _finderPathWithoutPaginationFindAll;
@@ -1579,10 +1563,7 @@ public class SamlIdpSpConnectionPersistenceImpl
 			else {
 				sql = _SQL_SELECT_SAMLIDPSPCONNECTION;
 
-				if (pagination) {
-					sql = sql.concat(
-						SamlIdpSpConnectionModelImpl.ORDER_BY_JPQL);
-				}
+				sql = sql.concat(SamlIdpSpConnectionModelImpl.ORDER_BY_JPQL);
 			}
 
 			Session session = null;
@@ -1592,18 +1573,8 @@ public class SamlIdpSpConnectionPersistenceImpl
 
 				Query q = session.createQuery(sql);
 
-				if (!pagination) {
-					list = (List<SamlIdpSpConnection>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<SamlIdpSpConnection>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
+				list = (List<SamlIdpSpConnection>)QueryUtil.list(
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 

@@ -970,14 +970,11 @@ public class SharepointOAuth2TokenEntryPersistenceImpl
 		OrderByComparator<SharepointOAuth2TokenEntry> orderByComparator,
 		boolean useFinderCache) {
 
-		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 			(orderByComparator == null)) {
-
-			pagination = false;
 
 			if (useFinderCache) {
 				finderPath = _finderPathWithoutPaginationFindAll;
@@ -1014,10 +1011,8 @@ public class SharepointOAuth2TokenEntryPersistenceImpl
 			else {
 				sql = _SQL_SELECT_SHAREPOINTOAUTH2TOKENENTRY;
 
-				if (pagination) {
-					sql = sql.concat(
-						SharepointOAuth2TokenEntryModelImpl.ORDER_BY_JPQL);
-				}
+				sql = sql.concat(
+					SharepointOAuth2TokenEntryModelImpl.ORDER_BY_JPQL);
 			}
 
 			Session session = null;
@@ -1027,18 +1022,8 @@ public class SharepointOAuth2TokenEntryPersistenceImpl
 
 				Query q = session.createQuery(sql);
 
-				if (!pagination) {
-					list = (List<SharepointOAuth2TokenEntry>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<SharepointOAuth2TokenEntry>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
+				list = (List<SharepointOAuth2TokenEntry>)QueryUtil.list(
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 

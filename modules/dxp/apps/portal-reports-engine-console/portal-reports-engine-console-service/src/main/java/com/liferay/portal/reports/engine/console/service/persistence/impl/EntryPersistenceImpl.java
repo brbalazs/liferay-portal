@@ -601,14 +601,11 @@ public class EntryPersistenceImpl
 		int start, int end, OrderByComparator<Entry> orderByComparator,
 		boolean useFinderCache) {
 
-		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 			(orderByComparator == null)) {
-
-			pagination = false;
 
 			if (useFinderCache) {
 				finderPath = _finderPathWithoutPaginationFindAll;
@@ -645,9 +642,7 @@ public class EntryPersistenceImpl
 			else {
 				sql = _SQL_SELECT_ENTRY;
 
-				if (pagination) {
-					sql = sql.concat(EntryModelImpl.ORDER_BY_JPQL);
-				}
+				sql = sql.concat(EntryModelImpl.ORDER_BY_JPQL);
 			}
 
 			Session session = null;
@@ -657,18 +652,7 @@ public class EntryPersistenceImpl
 
 				Query q = session.createQuery(sql);
 
-				if (!pagination) {
-					list = (List<Entry>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<Entry>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
+				list = (List<Entry>)QueryUtil.list(q, getDialect(), start, end);
 
 				cacheResult(list);
 
