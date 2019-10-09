@@ -1296,7 +1296,10 @@ public class LayoutsAdminDisplayContext {
 			return PortalUtil.getCurrentAndAncestorSiteGroupIds(
 				_themeDisplay.getScopeGroupId());
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(exception, exception);
+			}
 		}
 
 		return new long[0];
