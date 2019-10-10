@@ -31,7 +31,6 @@ import com.liferay.portal.settings.portlet.action.PortalSettingsFormContributor;
 import java.io.IOException;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Stream;
 
 import javax.portlet.ActionRequest;
@@ -90,9 +89,7 @@ public class SavePortalSettingsFormMVCActionCommand
 			return new String[] {getString(actionRequest, name)};
 		}
 
-		List<String> list = Arrays.asList(value.split(","));
-
-		Stream<String> stream = list.stream();
+		Stream<String> stream = Arrays.stream(value.split(","));
 
 		String[] ret = stream.map(
 			index -> getString(actionRequest, name.concat(index))
