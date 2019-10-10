@@ -67,7 +67,6 @@ public class WebsiteLocalServiceTest {
 			ServiceContextTestUtil.getServiceContext());
 
 		Assert.assertNotNull(_website);
-
 		Assert.assertNotNull(
 			_websiteLocalService.fetchWebsite(_website.getWebsiteId()));
 	}
