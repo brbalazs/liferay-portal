@@ -14,6 +14,7 @@
 
 package com.liferay.portal.service.impl;
 
+import com.liferay.exportimport.kernel.lar.ExportImportThreadLocal;
 import com.liferay.exportimport.kernel.lar.MissingReferences;
 import com.liferay.exportimport.kernel.model.ExportImportConfiguration;
 import com.liferay.exportimport.kernel.staging.MergeLayoutPrototypesThreadLocal;
@@ -105,8 +106,10 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Queue;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Provides the local service for accessing, adding, deleting, exporting,
@@ -1026,12 +1029,28 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	@Override
 	public Layout fetchDefaultLayout(long groupId, boolean privateLayout) {
 		if (groupId > 0) {
-			List<Layout> layouts = layoutPersistence.findByG_P(
-				groupId, privateLayout, 0, 1);
+			int end = _endWithGroupControlPanelLayout(
+				groupId, LayoutConstants.DEFAULT_PARENT_LAYOUT_ID,
+				privateLayout);
 
-			if (!layouts.isEmpty()) {
+			List<Layout> layouts = layoutPersistence.findByG_P(
+				groupId, privateLayout, 0, end, new LayoutPriorityComparator());
+
+			if (end > 1) {
+				return layouts.stream(
+				).filter(
+					layout -> !Objects.equals(
+						layout.getType(), LayoutConstants.TYPE_CONTROL_PANEL)
+				).findFirst(
+				).orElse(
+					null
+				);
+			}
+			else if (!layouts.isEmpty()) {
 				return layouts.get(0);
 			}
+
+			return null;
 		}
 
 		return null;
@@ -1041,9 +1060,28 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public Layout fetchFirstLayout(
 		long groupId, boolean privateLayout, long parentLayoutId) {
 
-		return layoutPersistence.fetchByG_P_P_First(
-			groupId, privateLayout, parentLayoutId,
+		int end = _endWithGroupControlPanelLayout(
+			groupId, parentLayoutId, privateLayout);
+
+		List<Layout> layouts = layoutPersistence.findByG_P_P(
+			groupId, privateLayout, parentLayoutId, 0, end,
 			new LayoutPriorityComparator());
+
+		if (end > 1) {
+			return layouts.stream(
+			).filter(
+				layout -> !Objects.equals(
+					layout.getType(), LayoutConstants.TYPE_CONTROL_PANEL)
+			).findFirst(
+			).orElse(
+				null
+			);
+		}
+		else if (!layouts.isEmpty()) {
+			return layouts.get(0);
+		}
+
+		return null;
 	}
 
 	@Override
@@ -1376,7 +1414,11 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<Layout> getLayouts(long groupId, boolean privateLayout) {
-		return layoutPersistence.findByG_P(groupId, privateLayout);
+		List<Layout> layouts = layoutPersistence.findByG_P(
+			groupId, privateLayout);
+
+		return _filterOutGroupControlPanelLayout(
+			groupId, layouts, privateLayout);
 	}
 
 	/**
@@ -1395,8 +1437,11 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		long groupId, boolean privateLayout, int start, int end,
 		OrderByComparator<Layout> obc) {
 
-		return layoutPersistence.findByG_P(
+		List<Layout> layouts = layoutPersistence.findByG_P(
 			groupId, privateLayout, start, end, obc);
+
+		return _filterOutGroupControlPanelLayout(
+			groupId, layouts, privateLayout);
 	}
 
 	/**
@@ -1477,35 +1522,32 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		long groupId, boolean privateLayout, long parentLayoutId,
 		boolean incomplete, int start, int end, OrderByComparator<Layout> obc) {
 
-		if (MergeLayoutPrototypesThreadLocal.isInProgress()) {
-			return layoutPersistence.findByG_P_P(
-				groupId, privateLayout, parentLayoutId, start, end, obc);
-		}
+		List<Layout> layouts = layoutPersistence.findByG_P_P(
+			groupId, privateLayout, parentLayoutId, start, end, obc);
 
-		try {
-			Group group = groupLocalService.getGroup(groupId);
+		if (!MergeLayoutPrototypesThreadLocal.isInProgress()) {
+			try {
+				Group group = groupLocalService.getGroup(groupId);
 
-			LayoutSet layoutSet = layoutSetLocalService.getLayoutSet(
-				groupId, privateLayout);
+				LayoutSet layoutSet = layoutSetLocalService.getLayoutSet(
+					groupId, privateLayout);
 
-			if (layoutSet.isLayoutSetPrototypeLinkActive() &&
-				!_mergeLayouts(
-					group, layoutSet, groupId, privateLayout, parentLayoutId,
-					start, end, obc)) {
+				if (!layoutSet.isLayoutSetPrototypeLinkActive() ||
+					_mergeLayouts(
+						group, layoutSet, groupId, privateLayout,
+						parentLayoutId, start, end, obc)) {
 
-				return layoutPersistence.findByG_P_P(
-					groupId, privateLayout, parentLayoutId, start, end, obc);
+					layouts = _injectVirtualLayouts(
+						group, layoutSet, layouts, parentLayoutId);
+				}
 			}
-
-			List<Layout> layouts = layoutPersistence.findByG_P_P(
-				groupId, privateLayout, parentLayoutId, start, end, obc);
-
-			return _injectVirtualLayouts(
-				group, layoutSet, layouts, parentLayoutId);
+			catch (PortalException pe) {
+				throw new SystemException(pe);
+			}
 		}
-		catch (PortalException pe) {
-			throw new SystemException(pe);
-		}
+
+		return _filterOutGroupControlPanelLayout(
+			groupId, layouts, privateLayout);
 	}
 
 	/**
@@ -1707,15 +1749,20 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 			}
 		}
 
-		return count;
+		return _discountGroupControlPanelLayout(
+			count, group, privateLayout,
+			LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
 	}
 
 	@Override
 	public int getLayoutsCount(
 		Group group, boolean privateLayout, long parentLayoutId) {
 
-		return layoutPersistence.countByG_P_P(
+		int count = layoutPersistence.countByG_P_P(
 			group.getGroupId(), privateLayout, parentLayoutId);
+
+		return _discountGroupControlPanelLayout(
+			count, group, privateLayout, parentLayoutId);
 	}
 
 	@Override
@@ -3576,6 +3623,96 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		queryConfig.setScoreEnabled(false);
 
 		return searchContext;
+	}
+
+	private int _discountGroupControlPanelLayout(
+		int count, Group group, boolean privateLayout, long parentLayoutId) {
+
+		if ((count == 0) || group.isControlPanel() ||
+			(parentLayoutId != LayoutConstants.DEFAULT_PARENT_LAYOUT_ID) ||
+			!privateLayout || ExportImportThreadLocal.isImportInProcess() ||
+			ExportImportThreadLocal.isExportInProcess() ||
+			ExportImportThreadLocal.isStagingInProcess()) {
+
+			return count;
+		}
+
+		try {
+			List<Layout> groupControlPanelLayouts =
+				layoutLocalService.getLayouts(
+					group.getGroupId(), true,
+					LayoutConstants.TYPE_CONTROL_PANEL);
+
+			count -= groupControlPanelLayouts.size();
+		}
+		catch (PortalException pe) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(pe, pe);
+			}
+		}
+
+		return count;
+	}
+
+	private int _endWithGroupControlPanelLayout(
+		long groupId, long parentLayoutId, boolean privateLayout) {
+
+		int end = 1;
+
+		if ((parentLayoutId != LayoutConstants.DEFAULT_PARENT_LAYOUT_ID) ||
+			!privateLayout || ExportImportThreadLocal.isImportInProcess() ||
+			ExportImportThreadLocal.isExportInProcess() ||
+			ExportImportThreadLocal.isStagingInProcess()) {
+
+			return end;
+		}
+
+		Group group = groupLocalService.fetchGroup(groupId);
+
+		if (group.isControlPanel()) {
+			return end;
+		}
+
+		try {
+			List<Layout> groupControlPanelLayouts =
+				layoutLocalService.getLayouts(
+					groupId, true, LayoutConstants.TYPE_CONTROL_PANEL);
+
+			end = 1 + groupControlPanelLayouts.size();
+		}
+		catch (PortalException pe) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(pe, pe);
+			}
+		}
+
+		return end;
+	}
+
+	private List<Layout> _filterOutGroupControlPanelLayout(
+		long groupId, List<Layout> layouts, boolean privateLayout) {
+
+		if (!privateLayout || layouts.isEmpty() ||
+			ExportImportThreadLocal.isImportInProcess() ||
+			ExportImportThreadLocal.isExportInProcess() ||
+			ExportImportThreadLocal.isStagingInProcess()) {
+
+			return layouts;
+		}
+
+		Group group = groupLocalService.fetchGroup(groupId);
+
+		if (group.isControlPanel()) {
+			return layouts;
+		}
+
+		return layouts.stream(
+		).filter(
+			layout -> !Objects.equals(
+				layout.getType(), LayoutConstants.TYPE_CONTROL_PANEL)
+		).collect(
+			Collectors.toList()
+		);
 	}
 
 	private List<Layout> _getChildLayouts(
