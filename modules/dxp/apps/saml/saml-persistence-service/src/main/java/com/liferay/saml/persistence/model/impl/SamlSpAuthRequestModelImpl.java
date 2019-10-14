@@ -269,10 +269,10 @@ public class SamlSpAuthRequestModelImpl
 				@Override
 				public void accept(
 					SamlSpAuthRequest samlSpAuthRequest,
-					Object samlSpAuthnRequestId) {
+					Object samlSpAuthnRequestIdObject) {
 
 					samlSpAuthRequest.setSamlSpAuthnRequestId(
-						(Long)samlSpAuthnRequestId);
+						(Long)samlSpAuthnRequestIdObject);
 				}
 
 			});
@@ -292,9 +292,10 @@ public class SamlSpAuthRequestModelImpl
 
 				@Override
 				public void accept(
-					SamlSpAuthRequest samlSpAuthRequest, Object companyId) {
+					SamlSpAuthRequest samlSpAuthRequest,
+					Object companyIdObject) {
 
-					samlSpAuthRequest.setCompanyId((Long)companyId);
+					samlSpAuthRequest.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -314,9 +315,10 @@ public class SamlSpAuthRequestModelImpl
 
 				@Override
 				public void accept(
-					SamlSpAuthRequest samlSpAuthRequest, Object createDate) {
+					SamlSpAuthRequest samlSpAuthRequest,
+					Object createDateObject) {
 
-					samlSpAuthRequest.setCreateDate((Date)createDate);
+					samlSpAuthRequest.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -337,10 +339,10 @@ public class SamlSpAuthRequestModelImpl
 				@Override
 				public void accept(
 					SamlSpAuthRequest samlSpAuthRequest,
-					Object samlIdpEntityId) {
+					Object samlIdpEntityIdObject) {
 
 					samlSpAuthRequest.setSamlIdpEntityId(
-						(String)samlIdpEntityId);
+						(String)samlIdpEntityIdObject);
 				}
 
 			});
@@ -361,10 +363,10 @@ public class SamlSpAuthRequestModelImpl
 				@Override
 				public void accept(
 					SamlSpAuthRequest samlSpAuthRequest,
-					Object samlSpAuthRequestKey) {
+					Object samlSpAuthRequestKeyObject) {
 
 					samlSpAuthRequest.setSamlSpAuthRequestKey(
-						(String)samlSpAuthRequestKey);
+						(String)samlSpAuthRequestKeyObject);
 				}
 
 			});

@@ -267,9 +267,10 @@ public class SamlSpMessageModelImpl
 
 				@Override
 				public void accept(
-					SamlSpMessage samlSpMessage, Object samlSpMessageId) {
+					SamlSpMessage samlSpMessage, Object samlSpMessageIdObject) {
 
-					samlSpMessage.setSamlSpMessageId((Long)samlSpMessageId);
+					samlSpMessage.setSamlSpMessageId(
+						(Long)samlSpMessageIdObject);
 				}
 
 			});
@@ -289,9 +290,9 @@ public class SamlSpMessageModelImpl
 
 				@Override
 				public void accept(
-					SamlSpMessage samlSpMessage, Object companyId) {
+					SamlSpMessage samlSpMessage, Object companyIdObject) {
 
-					samlSpMessage.setCompanyId((Long)companyId);
+					samlSpMessage.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -311,9 +312,9 @@ public class SamlSpMessageModelImpl
 
 				@Override
 				public void accept(
-					SamlSpMessage samlSpMessage, Object createDate) {
+					SamlSpMessage samlSpMessage, Object createDateObject) {
 
-					samlSpMessage.setCreateDate((Date)createDate);
+					samlSpMessage.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -333,9 +334,10 @@ public class SamlSpMessageModelImpl
 
 				@Override
 				public void accept(
-					SamlSpMessage samlSpMessage, Object samlIdpEntityId) {
+					SamlSpMessage samlSpMessage, Object samlIdpEntityIdObject) {
 
-					samlSpMessage.setSamlIdpEntityId((String)samlIdpEntityId);
+					samlSpMessage.setSamlIdpEntityId(
+						(String)samlIdpEntityIdObject);
 				}
 
 			});
@@ -355,10 +357,11 @@ public class SamlSpMessageModelImpl
 
 				@Override
 				public void accept(
-					SamlSpMessage samlSpMessage, Object samlIdpResponseKey) {
+					SamlSpMessage samlSpMessage,
+					Object samlIdpResponseKeyObject) {
 
 					samlSpMessage.setSamlIdpResponseKey(
-						(String)samlIdpResponseKey);
+						(String)samlIdpResponseKeyObject);
 				}
 
 			});
@@ -378,9 +381,9 @@ public class SamlSpMessageModelImpl
 
 				@Override
 				public void accept(
-					SamlSpMessage samlSpMessage, Object expirationDate) {
+					SamlSpMessage samlSpMessage, Object expirationDateObject) {
 
-					samlSpMessage.setExpirationDate((Date)expirationDate);
+					samlSpMessage.setExpirationDate((Date)expirationDateObject);
 				}
 
 			});

@@ -347,9 +347,10 @@ public class SPIDefinitionModelImpl
 
 				@Override
 				public void accept(
-					SPIDefinition spiDefinition, Object spiDefinitionId) {
+					SPIDefinition spiDefinition, Object spiDefinitionIdObject) {
 
-					spiDefinition.setSpiDefinitionId((Long)spiDefinitionId);
+					spiDefinition.setSpiDefinitionId(
+						(Long)spiDefinitionIdObject);
 				}
 
 			});
@@ -369,9 +370,9 @@ public class SPIDefinitionModelImpl
 
 				@Override
 				public void accept(
-					SPIDefinition spiDefinition, Object companyId) {
+					SPIDefinition spiDefinition, Object companyIdObject) {
 
-					spiDefinition.setCompanyId((Long)companyId);
+					spiDefinition.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -390,8 +391,10 @@ public class SPIDefinitionModelImpl
 			new BiConsumer<SPIDefinition, Object>() {
 
 				@Override
-				public void accept(SPIDefinition spiDefinition, Object userId) {
-					spiDefinition.setUserId((Long)userId);
+				public void accept(
+					SPIDefinition spiDefinition, Object userIdObject) {
+
+					spiDefinition.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -411,9 +414,9 @@ public class SPIDefinitionModelImpl
 
 				@Override
 				public void accept(
-					SPIDefinition spiDefinition, Object userName) {
+					SPIDefinition spiDefinition, Object userNameObject) {
 
-					spiDefinition.setUserName((String)userName);
+					spiDefinition.setUserName((String)userNameObject);
 				}
 
 			});
@@ -433,9 +436,9 @@ public class SPIDefinitionModelImpl
 
 				@Override
 				public void accept(
-					SPIDefinition spiDefinition, Object createDate) {
+					SPIDefinition spiDefinition, Object createDateObject) {
 
-					spiDefinition.setCreateDate((Date)createDate);
+					spiDefinition.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -455,9 +458,9 @@ public class SPIDefinitionModelImpl
 
 				@Override
 				public void accept(
-					SPIDefinition spiDefinition, Object modifiedDate) {
+					SPIDefinition spiDefinition, Object modifiedDateObject) {
 
-					spiDefinition.setModifiedDate((Date)modifiedDate);
+					spiDefinition.setModifiedDate((Date)modifiedDateObject);
 				}
 
 			});
@@ -476,8 +479,10 @@ public class SPIDefinitionModelImpl
 			new BiConsumer<SPIDefinition, Object>() {
 
 				@Override
-				public void accept(SPIDefinition spiDefinition, Object name) {
-					spiDefinition.setName((String)name);
+				public void accept(
+					SPIDefinition spiDefinition, Object nameObject) {
+
+					spiDefinition.setName((String)nameObject);
 				}
 
 			});
@@ -497,9 +502,11 @@ public class SPIDefinitionModelImpl
 
 				@Override
 				public void accept(
-					SPIDefinition spiDefinition, Object connectorAddress) {
+					SPIDefinition spiDefinition,
+					Object connectorAddressObject) {
 
-					spiDefinition.setConnectorAddress((String)connectorAddress);
+					spiDefinition.setConnectorAddress(
+						(String)connectorAddressObject);
 				}
 
 			});
@@ -519,9 +526,10 @@ public class SPIDefinitionModelImpl
 
 				@Override
 				public void accept(
-					SPIDefinition spiDefinition, Object connectorPort) {
+					SPIDefinition spiDefinition, Object connectorPortObject) {
 
-					spiDefinition.setConnectorPort((Integer)connectorPort);
+					spiDefinition.setConnectorPort(
+						(Integer)connectorPortObject);
 				}
 
 			});
@@ -541,9 +549,9 @@ public class SPIDefinitionModelImpl
 
 				@Override
 				public void accept(
-					SPIDefinition spiDefinition, Object description) {
+					SPIDefinition spiDefinition, Object descriptionObject) {
 
-					spiDefinition.setDescription((String)description);
+					spiDefinition.setDescription((String)descriptionObject);
 				}
 
 			});
@@ -563,9 +571,9 @@ public class SPIDefinitionModelImpl
 
 				@Override
 				public void accept(
-					SPIDefinition spiDefinition, Object jvmArguments) {
+					SPIDefinition spiDefinition, Object jvmArgumentsObject) {
 
-					spiDefinition.setJvmArguments((String)jvmArguments);
+					spiDefinition.setJvmArguments((String)jvmArgumentsObject);
 				}
 
 			});
@@ -585,9 +593,9 @@ public class SPIDefinitionModelImpl
 
 				@Override
 				public void accept(
-					SPIDefinition spiDefinition, Object portletIds) {
+					SPIDefinition spiDefinition, Object portletIdsObject) {
 
-					spiDefinition.setPortletIds((String)portletIds);
+					spiDefinition.setPortletIds((String)portletIdsObject);
 				}
 
 			});
@@ -607,10 +615,11 @@ public class SPIDefinitionModelImpl
 
 				@Override
 				public void accept(
-					SPIDefinition spiDefinition, Object servletContextNames) {
+					SPIDefinition spiDefinition,
+					Object servletContextNamesObject) {
 
 					spiDefinition.setServletContextNames(
-						(String)servletContextNames);
+						(String)servletContextNamesObject);
 				}
 
 			});
@@ -630,9 +639,9 @@ public class SPIDefinitionModelImpl
 
 				@Override
 				public void accept(
-					SPIDefinition spiDefinition, Object typeSettings) {
+					SPIDefinition spiDefinition, Object typeSettingsObject) {
 
-					spiDefinition.setTypeSettings((String)typeSettings);
+					spiDefinition.setTypeSettings((String)typeSettingsObject);
 				}
 
 			});
@@ -651,8 +660,10 @@ public class SPIDefinitionModelImpl
 			new BiConsumer<SPIDefinition, Object>() {
 
 				@Override
-				public void accept(SPIDefinition spiDefinition, Object status) {
-					spiDefinition.setStatus((Integer)status);
+				public void accept(
+					SPIDefinition spiDefinition, Object statusObject) {
+
+					spiDefinition.setStatus((Integer)statusObject);
 				}
 
 			});
@@ -672,9 +683,9 @@ public class SPIDefinitionModelImpl
 
 				@Override
 				public void accept(
-					SPIDefinition spiDefinition, Object statusMessage) {
+					SPIDefinition spiDefinition, Object statusMessageObject) {
 
-					spiDefinition.setStatusMessage((String)statusMessage);
+					spiDefinition.setStatusMessage((String)statusMessageObject);
 				}
 
 			});

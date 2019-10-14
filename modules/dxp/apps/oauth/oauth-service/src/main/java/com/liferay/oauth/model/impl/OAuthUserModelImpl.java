@@ -323,8 +323,10 @@ public class OAuthUserModelImpl
 			new BiConsumer<OAuthUser, Object>() {
 
 				@Override
-				public void accept(OAuthUser oAuthUser, Object oAuthUserId) {
-					oAuthUser.setOAuthUserId((Long)oAuthUserId);
+				public void accept(
+					OAuthUser oAuthUser, Object oAuthUserIdObject) {
+
+					oAuthUser.setOAuthUserId((Long)oAuthUserIdObject);
 				}
 
 			});
@@ -343,8 +345,10 @@ public class OAuthUserModelImpl
 			new BiConsumer<OAuthUser, Object>() {
 
 				@Override
-				public void accept(OAuthUser oAuthUser, Object companyId) {
-					oAuthUser.setCompanyId((Long)companyId);
+				public void accept(
+					OAuthUser oAuthUser, Object companyIdObject) {
+
+					oAuthUser.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -363,8 +367,8 @@ public class OAuthUserModelImpl
 			new BiConsumer<OAuthUser, Object>() {
 
 				@Override
-				public void accept(OAuthUser oAuthUser, Object userId) {
-					oAuthUser.setUserId((Long)userId);
+				public void accept(OAuthUser oAuthUser, Object userIdObject) {
+					oAuthUser.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -383,8 +387,8 @@ public class OAuthUserModelImpl
 			new BiConsumer<OAuthUser, Object>() {
 
 				@Override
-				public void accept(OAuthUser oAuthUser, Object userName) {
-					oAuthUser.setUserName((String)userName);
+				public void accept(OAuthUser oAuthUser, Object userNameObject) {
+					oAuthUser.setUserName((String)userNameObject);
 				}
 
 			});
@@ -403,8 +407,10 @@ public class OAuthUserModelImpl
 			new BiConsumer<OAuthUser, Object>() {
 
 				@Override
-				public void accept(OAuthUser oAuthUser, Object createDate) {
-					oAuthUser.setCreateDate((Date)createDate);
+				public void accept(
+					OAuthUser oAuthUser, Object createDateObject) {
+
+					oAuthUser.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -423,8 +429,10 @@ public class OAuthUserModelImpl
 			new BiConsumer<OAuthUser, Object>() {
 
 				@Override
-				public void accept(OAuthUser oAuthUser, Object modifiedDate) {
-					oAuthUser.setModifiedDate((Date)modifiedDate);
+				public void accept(
+					OAuthUser oAuthUser, Object modifiedDateObject) {
+
+					oAuthUser.setModifiedDate((Date)modifiedDateObject);
 				}
 
 			});
@@ -444,9 +452,10 @@ public class OAuthUserModelImpl
 
 				@Override
 				public void accept(
-					OAuthUser oAuthUser, Object oAuthApplicationId) {
+					OAuthUser oAuthUser, Object oAuthApplicationIdObject) {
 
-					oAuthUser.setOAuthApplicationId((Long)oAuthApplicationId);
+					oAuthUser.setOAuthApplicationId(
+						(Long)oAuthApplicationIdObject);
 				}
 
 			});
@@ -465,8 +474,10 @@ public class OAuthUserModelImpl
 			new BiConsumer<OAuthUser, Object>() {
 
 				@Override
-				public void accept(OAuthUser oAuthUser, Object accessToken) {
-					oAuthUser.setAccessToken((String)accessToken);
+				public void accept(
+					OAuthUser oAuthUser, Object accessTokenObject) {
+
+					oAuthUser.setAccessToken((String)accessTokenObject);
 				}
 
 			});
@@ -485,8 +496,10 @@ public class OAuthUserModelImpl
 			new BiConsumer<OAuthUser, Object>() {
 
 				@Override
-				public void accept(OAuthUser oAuthUser, Object accessSecret) {
-					oAuthUser.setAccessSecret((String)accessSecret);
+				public void accept(
+					OAuthUser oAuthUser, Object accessSecretObject) {
+
+					oAuthUser.setAccessSecret((String)accessSecretObject);
 				}
 
 			});

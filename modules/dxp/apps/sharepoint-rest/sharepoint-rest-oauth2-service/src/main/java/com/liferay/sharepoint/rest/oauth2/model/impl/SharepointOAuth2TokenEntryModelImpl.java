@@ -285,10 +285,10 @@ public class SharepointOAuth2TokenEntryModelImpl
 				@Override
 				public void accept(
 					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry,
-					Object sharepointOAuth2TokenEntryId) {
+					Object sharepointOAuth2TokenEntryIdObject) {
 
 					sharepointOAuth2TokenEntry.setSharepointOAuth2TokenEntryId(
-						(Long)sharepointOAuth2TokenEntryId);
+						(Long)sharepointOAuth2TokenEntryIdObject);
 				}
 
 			});
@@ -311,9 +311,9 @@ public class SharepointOAuth2TokenEntryModelImpl
 				@Override
 				public void accept(
 					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry,
-					Object userId) {
+					Object userIdObject) {
 
-					sharepointOAuth2TokenEntry.setUserId((Long)userId);
+					sharepointOAuth2TokenEntry.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -336,9 +336,10 @@ public class SharepointOAuth2TokenEntryModelImpl
 				@Override
 				public void accept(
 					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry,
-					Object userName) {
+					Object userNameObject) {
 
-					sharepointOAuth2TokenEntry.setUserName((String)userName);
+					sharepointOAuth2TokenEntry.setUserName(
+						(String)userNameObject);
 				}
 
 			});
@@ -361,9 +362,10 @@ public class SharepointOAuth2TokenEntryModelImpl
 				@Override
 				public void accept(
 					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry,
-					Object createDate) {
+					Object createDateObject) {
 
-					sharepointOAuth2TokenEntry.setCreateDate((Date)createDate);
+					sharepointOAuth2TokenEntry.setCreateDate(
+						(Date)createDateObject);
 				}
 
 			});
@@ -386,10 +388,10 @@ public class SharepointOAuth2TokenEntryModelImpl
 				@Override
 				public void accept(
 					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry,
-					Object accessToken) {
+					Object accessTokenObject) {
 
 					sharepointOAuth2TokenEntry.setAccessToken(
-						(String)accessToken);
+						(String)accessTokenObject);
 				}
 
 			});
@@ -412,10 +414,10 @@ public class SharepointOAuth2TokenEntryModelImpl
 				@Override
 				public void accept(
 					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry,
-					Object configurationPid) {
+					Object configurationPidObject) {
 
 					sharepointOAuth2TokenEntry.setConfigurationPid(
-						(String)configurationPid);
+						(String)configurationPidObject);
 				}
 
 			});
@@ -438,10 +440,10 @@ public class SharepointOAuth2TokenEntryModelImpl
 				@Override
 				public void accept(
 					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry,
-					Object expirationDate) {
+					Object expirationDateObject) {
 
 					sharepointOAuth2TokenEntry.setExpirationDate(
-						(Date)expirationDate);
+						(Date)expirationDateObject);
 				}
 
 			});
@@ -464,10 +466,10 @@ public class SharepointOAuth2TokenEntryModelImpl
 				@Override
 				public void accept(
 					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry,
-					Object refreshToken) {
+					Object refreshTokenObject) {
 
 					sharepointOAuth2TokenEntry.setRefreshToken(
-						(String)refreshToken);
+						(String)refreshTokenObject);
 				}
 
 			});

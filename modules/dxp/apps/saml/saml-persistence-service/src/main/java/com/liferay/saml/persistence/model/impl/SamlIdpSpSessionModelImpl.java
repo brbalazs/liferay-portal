@@ -279,10 +279,10 @@ public class SamlIdpSpSessionModelImpl
 				@Override
 				public void accept(
 					SamlIdpSpSession samlIdpSpSession,
-					Object samlIdpSpSessionId) {
+					Object samlIdpSpSessionIdObject) {
 
 					samlIdpSpSession.setSamlIdpSpSessionId(
-						(Long)samlIdpSpSessionId);
+						(Long)samlIdpSpSessionIdObject);
 				}
 
 			});
@@ -302,9 +302,9 @@ public class SamlIdpSpSessionModelImpl
 
 				@Override
 				public void accept(
-					SamlIdpSpSession samlIdpSpSession, Object companyId) {
+					SamlIdpSpSession samlIdpSpSession, Object companyIdObject) {
 
-					samlIdpSpSession.setCompanyId((Long)companyId);
+					samlIdpSpSession.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -324,9 +324,9 @@ public class SamlIdpSpSessionModelImpl
 
 				@Override
 				public void accept(
-					SamlIdpSpSession samlIdpSpSession, Object userId) {
+					SamlIdpSpSession samlIdpSpSession, Object userIdObject) {
 
-					samlIdpSpSession.setUserId((Long)userId);
+					samlIdpSpSession.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -346,9 +346,9 @@ public class SamlIdpSpSessionModelImpl
 
 				@Override
 				public void accept(
-					SamlIdpSpSession samlIdpSpSession, Object userName) {
+					SamlIdpSpSession samlIdpSpSession, Object userNameObject) {
 
-					samlIdpSpSession.setUserName((String)userName);
+					samlIdpSpSession.setUserName((String)userNameObject);
 				}
 
 			});
@@ -368,9 +368,10 @@ public class SamlIdpSpSessionModelImpl
 
 				@Override
 				public void accept(
-					SamlIdpSpSession samlIdpSpSession, Object createDate) {
+					SamlIdpSpSession samlIdpSpSession,
+					Object createDateObject) {
 
-					samlIdpSpSession.setCreateDate((Date)createDate);
+					samlIdpSpSession.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -390,9 +391,10 @@ public class SamlIdpSpSessionModelImpl
 
 				@Override
 				public void accept(
-					SamlIdpSpSession samlIdpSpSession, Object modifiedDate) {
+					SamlIdpSpSession samlIdpSpSession,
+					Object modifiedDateObject) {
 
-					samlIdpSpSession.setModifiedDate((Date)modifiedDate);
+					samlIdpSpSession.setModifiedDate((Date)modifiedDateObject);
 				}
 
 			});
@@ -413,10 +415,10 @@ public class SamlIdpSpSessionModelImpl
 				@Override
 				public void accept(
 					SamlIdpSpSession samlIdpSpSession,
-					Object samlIdpSsoSessionId) {
+					Object samlIdpSsoSessionIdObject) {
 
 					samlIdpSpSession.setSamlIdpSsoSessionId(
-						(Long)samlIdpSsoSessionId);
+						(Long)samlIdpSsoSessionIdObject);
 				}
 
 			});
@@ -436,9 +438,11 @@ public class SamlIdpSpSessionModelImpl
 
 				@Override
 				public void accept(
-					SamlIdpSpSession samlIdpSpSession, Object samlSpEntityId) {
+					SamlIdpSpSession samlIdpSpSession,
+					Object samlSpEntityIdObject) {
 
-					samlIdpSpSession.setSamlSpEntityId((String)samlSpEntityId);
+					samlIdpSpSession.setSamlSpEntityId(
+						(String)samlSpEntityIdObject);
 				}
 
 			});
@@ -458,9 +462,11 @@ public class SamlIdpSpSessionModelImpl
 
 				@Override
 				public void accept(
-					SamlIdpSpSession samlIdpSpSession, Object nameIdFormat) {
+					SamlIdpSpSession samlIdpSpSession,
+					Object nameIdFormatObject) {
 
-					samlIdpSpSession.setNameIdFormat((String)nameIdFormat);
+					samlIdpSpSession.setNameIdFormat(
+						(String)nameIdFormatObject);
 				}
 
 			});
@@ -480,9 +486,10 @@ public class SamlIdpSpSessionModelImpl
 
 				@Override
 				public void accept(
-					SamlIdpSpSession samlIdpSpSession, Object nameIdValue) {
+					SamlIdpSpSession samlIdpSpSession,
+					Object nameIdValueObject) {
 
-					samlIdpSpSession.setNameIdValue((String)nameIdValue);
+					samlIdpSpSession.setNameIdValue((String)nameIdValueObject);
 				}
 
 			});

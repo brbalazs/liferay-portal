@@ -263,10 +263,10 @@ public class KaleoProcessLinkModelImpl
 				@Override
 				public void accept(
 					KaleoProcessLink kaleoProcessLink,
-					Object kaleoProcessLinkId) {
+					Object kaleoProcessLinkIdObject) {
 
 					kaleoProcessLink.setKaleoProcessLinkId(
-						(Long)kaleoProcessLinkId);
+						(Long)kaleoProcessLinkIdObject);
 				}
 
 			});
@@ -286,9 +286,11 @@ public class KaleoProcessLinkModelImpl
 
 				@Override
 				public void accept(
-					KaleoProcessLink kaleoProcessLink, Object kaleoProcessId) {
+					KaleoProcessLink kaleoProcessLink,
+					Object kaleoProcessIdObject) {
 
-					kaleoProcessLink.setKaleoProcessId((Long)kaleoProcessId);
+					kaleoProcessLink.setKaleoProcessId(
+						(Long)kaleoProcessIdObject);
 				}
 
 			});
@@ -309,10 +311,10 @@ public class KaleoProcessLinkModelImpl
 				@Override
 				public void accept(
 					KaleoProcessLink kaleoProcessLink,
-					Object workflowTaskName) {
+					Object workflowTaskNameObject) {
 
 					kaleoProcessLink.setWorkflowTaskName(
-						(String)workflowTaskName);
+						(String)workflowTaskNameObject);
 				}
 
 			});
@@ -332,9 +334,11 @@ public class KaleoProcessLinkModelImpl
 
 				@Override
 				public void accept(
-					KaleoProcessLink kaleoProcessLink, Object DDMTemplateId) {
+					KaleoProcessLink kaleoProcessLink,
+					Object DDMTemplateIdObject) {
 
-					kaleoProcessLink.setDDMTemplateId((Long)DDMTemplateId);
+					kaleoProcessLink.setDDMTemplateId(
+						(Long)DDMTemplateIdObject);
 				}
 
 			});

@@ -345,8 +345,8 @@ public class DefinitionModelImpl
 			new BiConsumer<Definition, Object>() {
 
 				@Override
-				public void accept(Definition definition, Object uuid) {
-					definition.setUuid((String)uuid);
+				public void accept(Definition definition, Object uuidObject) {
+					definition.setUuid((String)uuidObject);
 				}
 
 			});
@@ -365,8 +365,10 @@ public class DefinitionModelImpl
 			new BiConsumer<Definition, Object>() {
 
 				@Override
-				public void accept(Definition definition, Object definitionId) {
-					definition.setDefinitionId((Long)definitionId);
+				public void accept(
+					Definition definition, Object definitionIdObject) {
+
+					definition.setDefinitionId((Long)definitionIdObject);
 				}
 
 			});
@@ -385,8 +387,10 @@ public class DefinitionModelImpl
 			new BiConsumer<Definition, Object>() {
 
 				@Override
-				public void accept(Definition definition, Object groupId) {
-					definition.setGroupId((Long)groupId);
+				public void accept(
+					Definition definition, Object groupIdObject) {
+
+					definition.setGroupId((Long)groupIdObject);
 				}
 
 			});
@@ -405,8 +409,10 @@ public class DefinitionModelImpl
 			new BiConsumer<Definition, Object>() {
 
 				@Override
-				public void accept(Definition definition, Object companyId) {
-					definition.setCompanyId((Long)companyId);
+				public void accept(
+					Definition definition, Object companyIdObject) {
+
+					definition.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -425,8 +431,8 @@ public class DefinitionModelImpl
 			new BiConsumer<Definition, Object>() {
 
 				@Override
-				public void accept(Definition definition, Object userId) {
-					definition.setUserId((Long)userId);
+				public void accept(Definition definition, Object userIdObject) {
+					definition.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -445,8 +451,10 @@ public class DefinitionModelImpl
 			new BiConsumer<Definition, Object>() {
 
 				@Override
-				public void accept(Definition definition, Object userName) {
-					definition.setUserName((String)userName);
+				public void accept(
+					Definition definition, Object userNameObject) {
+
+					definition.setUserName((String)userNameObject);
 				}
 
 			});
@@ -465,8 +473,10 @@ public class DefinitionModelImpl
 			new BiConsumer<Definition, Object>() {
 
 				@Override
-				public void accept(Definition definition, Object createDate) {
-					definition.setCreateDate((Date)createDate);
+				public void accept(
+					Definition definition, Object createDateObject) {
+
+					definition.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -485,8 +495,10 @@ public class DefinitionModelImpl
 			new BiConsumer<Definition, Object>() {
 
 				@Override
-				public void accept(Definition definition, Object modifiedDate) {
-					definition.setModifiedDate((Date)modifiedDate);
+				public void accept(
+					Definition definition, Object modifiedDateObject) {
+
+					definition.setModifiedDate((Date)modifiedDateObject);
 				}
 
 			});
@@ -505,8 +517,8 @@ public class DefinitionModelImpl
 			new BiConsumer<Definition, Object>() {
 
 				@Override
-				public void accept(Definition definition, Object name) {
-					definition.setName((String)name);
+				public void accept(Definition definition, Object nameObject) {
+					definition.setName((String)nameObject);
 				}
 
 			});
@@ -525,8 +537,10 @@ public class DefinitionModelImpl
 			new BiConsumer<Definition, Object>() {
 
 				@Override
-				public void accept(Definition definition, Object description) {
-					definition.setDescription((String)description);
+				public void accept(
+					Definition definition, Object descriptionObject) {
+
+					definition.setDescription((String)descriptionObject);
 				}
 
 			});
@@ -545,8 +559,10 @@ public class DefinitionModelImpl
 			new BiConsumer<Definition, Object>() {
 
 				@Override
-				public void accept(Definition definition, Object sourceId) {
-					definition.setSourceId((Long)sourceId);
+				public void accept(
+					Definition definition, Object sourceIdObject) {
+
+					definition.setSourceId((Long)sourceIdObject);
 				}
 
 			});
@@ -565,8 +581,10 @@ public class DefinitionModelImpl
 			new BiConsumer<Definition, Object>() {
 
 				@Override
-				public void accept(Definition definition, Object reportName) {
-					definition.setReportName((String)reportName);
+				public void accept(
+					Definition definition, Object reportNameObject) {
+
+					definition.setReportName((String)reportNameObject);
 				}
 
 			});
@@ -586,9 +604,10 @@ public class DefinitionModelImpl
 
 				@Override
 				public void accept(
-					Definition definition, Object reportParameters) {
+					Definition definition, Object reportParametersObject) {
 
-					definition.setReportParameters((String)reportParameters);
+					definition.setReportParameters(
+						(String)reportParametersObject);
 				}
 
 			});
@@ -608,9 +627,9 @@ public class DefinitionModelImpl
 
 				@Override
 				public void accept(
-					Definition definition, Object lastPublishDate) {
+					Definition definition, Object lastPublishDateObject) {
 
-					definition.setLastPublishDate((Date)lastPublishDate);
+					definition.setLastPublishDate((Date)lastPublishDateObject);
 				}
 
 			});

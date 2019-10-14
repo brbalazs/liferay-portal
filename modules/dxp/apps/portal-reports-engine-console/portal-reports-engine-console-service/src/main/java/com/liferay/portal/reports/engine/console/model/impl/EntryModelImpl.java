@@ -337,8 +337,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object entryId) {
-					entry.setEntryId((Long)entryId);
+				public void accept(Entry entry, Object entryIdObject) {
+					entry.setEntryId((Long)entryIdObject);
 				}
 
 			});
@@ -357,8 +357,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object groupId) {
-					entry.setGroupId((Long)groupId);
+				public void accept(Entry entry, Object groupIdObject) {
+					entry.setGroupId((Long)groupIdObject);
 				}
 
 			});
@@ -377,8 +377,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object companyId) {
-					entry.setCompanyId((Long)companyId);
+				public void accept(Entry entry, Object companyIdObject) {
+					entry.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -397,8 +397,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object userId) {
-					entry.setUserId((Long)userId);
+				public void accept(Entry entry, Object userIdObject) {
+					entry.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -417,8 +417,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object userName) {
-					entry.setUserName((String)userName);
+				public void accept(Entry entry, Object userNameObject) {
+					entry.setUserName((String)userNameObject);
 				}
 
 			});
@@ -437,8 +437,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object createDate) {
-					entry.setCreateDate((Date)createDate);
+				public void accept(Entry entry, Object createDateObject) {
+					entry.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -457,8 +457,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object modifiedDate) {
-					entry.setModifiedDate((Date)modifiedDate);
+				public void accept(Entry entry, Object modifiedDateObject) {
+					entry.setModifiedDate((Date)modifiedDateObject);
 				}
 
 			});
@@ -477,8 +477,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object definitionId) {
-					entry.setDefinitionId((Long)definitionId);
+				public void accept(Entry entry, Object definitionIdObject) {
+					entry.setDefinitionId((Long)definitionIdObject);
 				}
 
 			});
@@ -497,8 +497,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object format) {
-					entry.setFormat((String)format);
+				public void accept(Entry entry, Object formatObject) {
+					entry.setFormat((String)formatObject);
 				}
 
 			});
@@ -517,8 +517,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object scheduleRequest) {
-					entry.setScheduleRequest((Boolean)scheduleRequest);
+				public void accept(Entry entry, Object scheduleRequestObject) {
+					entry.setScheduleRequest((Boolean)scheduleRequestObject);
 				}
 
 			});
@@ -537,8 +537,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object startDate) {
-					entry.setStartDate((Date)startDate);
+				public void accept(Entry entry, Object startDateObject) {
+					entry.setStartDate((Date)startDateObject);
 				}
 
 			});
@@ -557,8 +557,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object endDate) {
-					entry.setEndDate((Date)endDate);
+				public void accept(Entry entry, Object endDateObject) {
+					entry.setEndDate((Date)endDateObject);
 				}
 
 			});
@@ -577,8 +577,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object repeating) {
-					entry.setRepeating((Boolean)repeating);
+				public void accept(Entry entry, Object repeatingObject) {
+					entry.setRepeating((Boolean)repeatingObject);
 				}
 
 			});
@@ -597,8 +597,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object recurrence) {
-					entry.setRecurrence((String)recurrence);
+				public void accept(Entry entry, Object recurrenceObject) {
+					entry.setRecurrence((String)recurrenceObject);
 				}
 
 			});
@@ -617,8 +617,11 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object emailNotifications) {
-					entry.setEmailNotifications((String)emailNotifications);
+				public void accept(
+					Entry entry, Object emailNotificationsObject) {
+
+					entry.setEmailNotifications(
+						(String)emailNotificationsObject);
 				}
 
 			});
@@ -637,8 +640,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object emailDelivery) {
-					entry.setEmailDelivery((String)emailDelivery);
+				public void accept(Entry entry, Object emailDeliveryObject) {
+					entry.setEmailDelivery((String)emailDeliveryObject);
 				}
 
 			});
@@ -657,8 +660,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object portletId) {
-					entry.setPortletId((String)portletId);
+				public void accept(Entry entry, Object portletIdObject) {
+					entry.setPortletId((String)portletIdObject);
 				}
 
 			});
@@ -677,8 +680,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object pageURL) {
-					entry.setPageURL((String)pageURL);
+				public void accept(Entry entry, Object pageURLObject) {
+					entry.setPageURL((String)pageURLObject);
 				}
 
 			});
@@ -697,8 +700,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object reportParameters) {
-					entry.setReportParameters((String)reportParameters);
+				public void accept(Entry entry, Object reportParametersObject) {
+					entry.setReportParameters((String)reportParametersObject);
 				}
 
 			});
@@ -717,8 +720,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object errorMessage) {
-					entry.setErrorMessage((String)errorMessage);
+				public void accept(Entry entry, Object errorMessageObject) {
+					entry.setErrorMessage((String)errorMessageObject);
 				}
 
 			});
@@ -737,8 +740,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 			new BiConsumer<Entry, Object>() {
 
 				@Override
-				public void accept(Entry entry, Object status) {
-					entry.setStatus((String)status);
+				public void accept(Entry entry, Object statusObject) {
+					entry.setStatus((String)statusObject);
 				}
 
 			});

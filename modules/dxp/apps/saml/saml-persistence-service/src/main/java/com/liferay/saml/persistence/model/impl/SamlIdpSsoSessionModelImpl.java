@@ -273,10 +273,10 @@ public class SamlIdpSsoSessionModelImpl
 				@Override
 				public void accept(
 					SamlIdpSsoSession samlIdpSsoSession,
-					Object samlIdpSsoSessionId) {
+					Object samlIdpSsoSessionIdObject) {
 
 					samlIdpSsoSession.setSamlIdpSsoSessionId(
-						(Long)samlIdpSsoSessionId);
+						(Long)samlIdpSsoSessionIdObject);
 				}
 
 			});
@@ -296,9 +296,10 @@ public class SamlIdpSsoSessionModelImpl
 
 				@Override
 				public void accept(
-					SamlIdpSsoSession samlIdpSsoSession, Object companyId) {
+					SamlIdpSsoSession samlIdpSsoSession,
+					Object companyIdObject) {
 
-					samlIdpSsoSession.setCompanyId((Long)companyId);
+					samlIdpSsoSession.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -318,9 +319,9 @@ public class SamlIdpSsoSessionModelImpl
 
 				@Override
 				public void accept(
-					SamlIdpSsoSession samlIdpSsoSession, Object userId) {
+					SamlIdpSsoSession samlIdpSsoSession, Object userIdObject) {
 
-					samlIdpSsoSession.setUserId((Long)userId);
+					samlIdpSsoSession.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -340,9 +341,10 @@ public class SamlIdpSsoSessionModelImpl
 
 				@Override
 				public void accept(
-					SamlIdpSsoSession samlIdpSsoSession, Object userName) {
+					SamlIdpSsoSession samlIdpSsoSession,
+					Object userNameObject) {
 
-					samlIdpSsoSession.setUserName((String)userName);
+					samlIdpSsoSession.setUserName((String)userNameObject);
 				}
 
 			});
@@ -362,9 +364,10 @@ public class SamlIdpSsoSessionModelImpl
 
 				@Override
 				public void accept(
-					SamlIdpSsoSession samlIdpSsoSession, Object createDate) {
+					SamlIdpSsoSession samlIdpSsoSession,
+					Object createDateObject) {
 
-					samlIdpSsoSession.setCreateDate((Date)createDate);
+					samlIdpSsoSession.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -384,9 +387,10 @@ public class SamlIdpSsoSessionModelImpl
 
 				@Override
 				public void accept(
-					SamlIdpSsoSession samlIdpSsoSession, Object modifiedDate) {
+					SamlIdpSsoSession samlIdpSsoSession,
+					Object modifiedDateObject) {
 
-					samlIdpSsoSession.setModifiedDate((Date)modifiedDate);
+					samlIdpSsoSession.setModifiedDate((Date)modifiedDateObject);
 				}
 
 			});
@@ -407,10 +411,10 @@ public class SamlIdpSsoSessionModelImpl
 				@Override
 				public void accept(
 					SamlIdpSsoSession samlIdpSsoSession,
-					Object samlIdpSsoSessionKey) {
+					Object samlIdpSsoSessionKeyObject) {
 
 					samlIdpSsoSession.setSamlIdpSsoSessionKey(
-						(String)samlIdpSsoSessionKey);
+						(String)samlIdpSsoSessionKeyObject);
 				}
 
 			});

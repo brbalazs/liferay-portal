@@ -294,10 +294,10 @@ public class SamlSpIdpConnectionModelImpl
 				@Override
 				public void accept(
 					SamlSpIdpConnection samlSpIdpConnection,
-					Object samlSpIdpConnectionId) {
+					Object samlSpIdpConnectionIdObject) {
 
 					samlSpIdpConnection.setSamlSpIdpConnectionId(
-						(Long)samlSpIdpConnectionId);
+						(Long)samlSpIdpConnectionIdObject);
 				}
 
 			});
@@ -317,9 +317,10 @@ public class SamlSpIdpConnectionModelImpl
 
 				@Override
 				public void accept(
-					SamlSpIdpConnection samlSpIdpConnection, Object companyId) {
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object companyIdObject) {
 
-					samlSpIdpConnection.setCompanyId((Long)companyId);
+					samlSpIdpConnection.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -339,9 +340,10 @@ public class SamlSpIdpConnectionModelImpl
 
 				@Override
 				public void accept(
-					SamlSpIdpConnection samlSpIdpConnection, Object userId) {
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object userIdObject) {
 
-					samlSpIdpConnection.setUserId((Long)userId);
+					samlSpIdpConnection.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -361,9 +363,10 @@ public class SamlSpIdpConnectionModelImpl
 
 				@Override
 				public void accept(
-					SamlSpIdpConnection samlSpIdpConnection, Object userName) {
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object userNameObject) {
 
-					samlSpIdpConnection.setUserName((String)userName);
+					samlSpIdpConnection.setUserName((String)userNameObject);
 				}
 
 			});
@@ -384,9 +387,9 @@ public class SamlSpIdpConnectionModelImpl
 				@Override
 				public void accept(
 					SamlSpIdpConnection samlSpIdpConnection,
-					Object createDate) {
+					Object createDateObject) {
 
-					samlSpIdpConnection.setCreateDate((Date)createDate);
+					samlSpIdpConnection.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -407,9 +410,10 @@ public class SamlSpIdpConnectionModelImpl
 				@Override
 				public void accept(
 					SamlSpIdpConnection samlSpIdpConnection,
-					Object modifiedDate) {
+					Object modifiedDateObject) {
 
-					samlSpIdpConnection.setModifiedDate((Date)modifiedDate);
+					samlSpIdpConnection.setModifiedDate(
+						(Date)modifiedDateObject);
 				}
 
 			});
@@ -430,10 +434,10 @@ public class SamlSpIdpConnectionModelImpl
 				@Override
 				public void accept(
 					SamlSpIdpConnection samlSpIdpConnection,
-					Object samlIdpEntityId) {
+					Object samlIdpEntityIdObject) {
 
 					samlSpIdpConnection.setSamlIdpEntityId(
-						(String)samlIdpEntityId);
+						(String)samlIdpEntityIdObject);
 				}
 
 			});
@@ -454,10 +458,10 @@ public class SamlSpIdpConnectionModelImpl
 				@Override
 				public void accept(
 					SamlSpIdpConnection samlSpIdpConnection,
-					Object assertionSignatureRequired) {
+					Object assertionSignatureRequiredObject) {
 
 					samlSpIdpConnection.setAssertionSignatureRequired(
-						(Boolean)assertionSignatureRequired);
+						(Boolean)assertionSignatureRequiredObject);
 				}
 
 			});
@@ -477,9 +481,10 @@ public class SamlSpIdpConnectionModelImpl
 
 				@Override
 				public void accept(
-					SamlSpIdpConnection samlSpIdpConnection, Object clockSkew) {
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object clockSkewObject) {
 
-					samlSpIdpConnection.setClockSkew((Long)clockSkew);
+					samlSpIdpConnection.setClockSkew((Long)clockSkewObject);
 				}
 
 			});
@@ -499,9 +504,10 @@ public class SamlSpIdpConnectionModelImpl
 
 				@Override
 				public void accept(
-					SamlSpIdpConnection samlSpIdpConnection, Object enabled) {
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object enabledObject) {
 
-					samlSpIdpConnection.setEnabled((Boolean)enabled);
+					samlSpIdpConnection.setEnabled((Boolean)enabledObject);
 				}
 
 			});
@@ -522,9 +528,10 @@ public class SamlSpIdpConnectionModelImpl
 				@Override
 				public void accept(
 					SamlSpIdpConnection samlSpIdpConnection,
-					Object forceAuthn) {
+					Object forceAuthnObject) {
 
-					samlSpIdpConnection.setForceAuthn((Boolean)forceAuthn);
+					samlSpIdpConnection.setForceAuthn(
+						(Boolean)forceAuthnObject);
 				}
 
 			});
@@ -545,10 +552,10 @@ public class SamlSpIdpConnectionModelImpl
 				@Override
 				public void accept(
 					SamlSpIdpConnection samlSpIdpConnection,
-					Object ldapImportEnabled) {
+					Object ldapImportEnabledObject) {
 
 					samlSpIdpConnection.setLdapImportEnabled(
-						(Boolean)ldapImportEnabled);
+						(Boolean)ldapImportEnabledObject);
 				}
 
 			});
@@ -569,9 +576,10 @@ public class SamlSpIdpConnectionModelImpl
 				@Override
 				public void accept(
 					SamlSpIdpConnection samlSpIdpConnection,
-					Object metadataUrl) {
+					Object metadataUrlObject) {
 
-					samlSpIdpConnection.setMetadataUrl((String)metadataUrl);
+					samlSpIdpConnection.setMetadataUrl(
+						(String)metadataUrlObject);
 				}
 
 			});
@@ -592,9 +600,10 @@ public class SamlSpIdpConnectionModelImpl
 				@Override
 				public void accept(
 					SamlSpIdpConnection samlSpIdpConnection,
-					Object metadataXml) {
+					Object metadataXmlObject) {
 
-					samlSpIdpConnection.setMetadataXml((String)metadataXml);
+					samlSpIdpConnection.setMetadataXml(
+						(String)metadataXmlObject);
 				}
 
 			});
@@ -615,10 +624,10 @@ public class SamlSpIdpConnectionModelImpl
 				@Override
 				public void accept(
 					SamlSpIdpConnection samlSpIdpConnection,
-					Object metadataUpdatedDate) {
+					Object metadataUpdatedDateObject) {
 
 					samlSpIdpConnection.setMetadataUpdatedDate(
-						(Date)metadataUpdatedDate);
+						(Date)metadataUpdatedDateObject);
 				}
 
 			});
@@ -638,9 +647,10 @@ public class SamlSpIdpConnectionModelImpl
 
 				@Override
 				public void accept(
-					SamlSpIdpConnection samlSpIdpConnection, Object name) {
+					SamlSpIdpConnection samlSpIdpConnection,
+					Object nameObject) {
 
-					samlSpIdpConnection.setName((String)name);
+					samlSpIdpConnection.setName((String)nameObject);
 				}
 
 			});
@@ -661,9 +671,10 @@ public class SamlSpIdpConnectionModelImpl
 				@Override
 				public void accept(
 					SamlSpIdpConnection samlSpIdpConnection,
-					Object nameIdFormat) {
+					Object nameIdFormatObject) {
 
-					samlSpIdpConnection.setNameIdFormat((String)nameIdFormat);
+					samlSpIdpConnection.setNameIdFormat(
+						(String)nameIdFormatObject);
 				}
 
 			});
@@ -684,10 +695,10 @@ public class SamlSpIdpConnectionModelImpl
 				@Override
 				public void accept(
 					SamlSpIdpConnection samlSpIdpConnection,
-					Object signAuthnRequest) {
+					Object signAuthnRequestObject) {
 
 					samlSpIdpConnection.setSignAuthnRequest(
-						(Boolean)signAuthnRequest);
+						(Boolean)signAuthnRequestObject);
 				}
 
 			});
@@ -708,10 +719,10 @@ public class SamlSpIdpConnectionModelImpl
 				@Override
 				public void accept(
 					SamlSpIdpConnection samlSpIdpConnection,
-					Object userAttributeMappings) {
+					Object userAttributeMappingsObject) {
 
 					samlSpIdpConnection.setUserAttributeMappings(
-						(String)userAttributeMappings);
+						(String)userAttributeMappingsObject);
 				}
 
 			});

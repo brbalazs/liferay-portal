@@ -349,10 +349,10 @@ public class OAuthApplicationModelImpl
 				@Override
 				public void accept(
 					OAuthApplication oAuthApplication,
-					Object oAuthApplicationId) {
+					Object oAuthApplicationIdObject) {
 
 					oAuthApplication.setOAuthApplicationId(
-						(Long)oAuthApplicationId);
+						(Long)oAuthApplicationIdObject);
 				}
 
 			});
@@ -372,9 +372,9 @@ public class OAuthApplicationModelImpl
 
 				@Override
 				public void accept(
-					OAuthApplication oAuthApplication, Object companyId) {
+					OAuthApplication oAuthApplication, Object companyIdObject) {
 
-					oAuthApplication.setCompanyId((Long)companyId);
+					oAuthApplication.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -394,9 +394,9 @@ public class OAuthApplicationModelImpl
 
 				@Override
 				public void accept(
-					OAuthApplication oAuthApplication, Object userId) {
+					OAuthApplication oAuthApplication, Object userIdObject) {
 
-					oAuthApplication.setUserId((Long)userId);
+					oAuthApplication.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -416,9 +416,9 @@ public class OAuthApplicationModelImpl
 
 				@Override
 				public void accept(
-					OAuthApplication oAuthApplication, Object userName) {
+					OAuthApplication oAuthApplication, Object userNameObject) {
 
-					oAuthApplication.setUserName((String)userName);
+					oAuthApplication.setUserName((String)userNameObject);
 				}
 
 			});
@@ -438,9 +438,10 @@ public class OAuthApplicationModelImpl
 
 				@Override
 				public void accept(
-					OAuthApplication oAuthApplication, Object createDate) {
+					OAuthApplication oAuthApplication,
+					Object createDateObject) {
 
-					oAuthApplication.setCreateDate((Date)createDate);
+					oAuthApplication.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -460,9 +461,10 @@ public class OAuthApplicationModelImpl
 
 				@Override
 				public void accept(
-					OAuthApplication oAuthApplication, Object modifiedDate) {
+					OAuthApplication oAuthApplication,
+					Object modifiedDateObject) {
 
-					oAuthApplication.setModifiedDate((Date)modifiedDate);
+					oAuthApplication.setModifiedDate((Date)modifiedDateObject);
 				}
 
 			});
@@ -482,9 +484,9 @@ public class OAuthApplicationModelImpl
 
 				@Override
 				public void accept(
-					OAuthApplication oAuthApplication, Object name) {
+					OAuthApplication oAuthApplication, Object nameObject) {
 
-					oAuthApplication.setName((String)name);
+					oAuthApplication.setName((String)nameObject);
 				}
 
 			});
@@ -504,9 +506,10 @@ public class OAuthApplicationModelImpl
 
 				@Override
 				public void accept(
-					OAuthApplication oAuthApplication, Object description) {
+					OAuthApplication oAuthApplication,
+					Object descriptionObject) {
 
-					oAuthApplication.setDescription((String)description);
+					oAuthApplication.setDescription((String)descriptionObject);
 				}
 
 			});
@@ -526,9 +529,10 @@ public class OAuthApplicationModelImpl
 
 				@Override
 				public void accept(
-					OAuthApplication oAuthApplication, Object consumerKey) {
+					OAuthApplication oAuthApplication,
+					Object consumerKeyObject) {
 
-					oAuthApplication.setConsumerKey((String)consumerKey);
+					oAuthApplication.setConsumerKey((String)consumerKeyObject);
 				}
 
 			});
@@ -548,9 +552,11 @@ public class OAuthApplicationModelImpl
 
 				@Override
 				public void accept(
-					OAuthApplication oAuthApplication, Object consumerSecret) {
+					OAuthApplication oAuthApplication,
+					Object consumerSecretObject) {
 
-					oAuthApplication.setConsumerSecret((String)consumerSecret);
+					oAuthApplication.setConsumerSecret(
+						(String)consumerSecretObject);
 				}
 
 			});
@@ -570,9 +576,10 @@ public class OAuthApplicationModelImpl
 
 				@Override
 				public void accept(
-					OAuthApplication oAuthApplication, Object accessLevel) {
+					OAuthApplication oAuthApplication,
+					Object accessLevelObject) {
 
-					oAuthApplication.setAccessLevel((Integer)accessLevel);
+					oAuthApplication.setAccessLevel((Integer)accessLevelObject);
 				}
 
 			});
@@ -592,9 +599,9 @@ public class OAuthApplicationModelImpl
 
 				@Override
 				public void accept(
-					OAuthApplication oAuthApplication, Object logoId) {
+					OAuthApplication oAuthApplication, Object logoIdObject) {
 
-					oAuthApplication.setLogoId((Long)logoId);
+					oAuthApplication.setLogoId((Long)logoIdObject);
 				}
 
 			});
@@ -615,10 +622,10 @@ public class OAuthApplicationModelImpl
 				@Override
 				public void accept(
 					OAuthApplication oAuthApplication,
-					Object shareableAccessToken) {
+					Object shareableAccessTokenObject) {
 
 					oAuthApplication.setShareableAccessToken(
-						(Boolean)shareableAccessToken);
+						(Boolean)shareableAccessTokenObject);
 				}
 
 			});
@@ -638,9 +645,10 @@ public class OAuthApplicationModelImpl
 
 				@Override
 				public void accept(
-					OAuthApplication oAuthApplication, Object callbackURI) {
+					OAuthApplication oAuthApplication,
+					Object callbackURIObject) {
 
-					oAuthApplication.setCallbackURI((String)callbackURI);
+					oAuthApplication.setCallbackURI((String)callbackURIObject);
 				}
 
 			});
@@ -660,9 +668,10 @@ public class OAuthApplicationModelImpl
 
 				@Override
 				public void accept(
-					OAuthApplication oAuthApplication, Object websiteURL) {
+					OAuthApplication oAuthApplication,
+					Object websiteURLObject) {
 
-					oAuthApplication.setWebsiteURL((String)websiteURL);
+					oAuthApplication.setWebsiteURL((String)websiteURLObject);
 				}
 
 			});

@@ -339,8 +339,8 @@ public class SourceModelImpl
 			new BiConsumer<Source, Object>() {
 
 				@Override
-				public void accept(Source source, Object uuid) {
-					source.setUuid((String)uuid);
+				public void accept(Source source, Object uuidObject) {
+					source.setUuid((String)uuidObject);
 				}
 
 			});
@@ -359,8 +359,8 @@ public class SourceModelImpl
 			new BiConsumer<Source, Object>() {
 
 				@Override
-				public void accept(Source source, Object sourceId) {
-					source.setSourceId((Long)sourceId);
+				public void accept(Source source, Object sourceIdObject) {
+					source.setSourceId((Long)sourceIdObject);
 				}
 
 			});
@@ -379,8 +379,8 @@ public class SourceModelImpl
 			new BiConsumer<Source, Object>() {
 
 				@Override
-				public void accept(Source source, Object groupId) {
-					source.setGroupId((Long)groupId);
+				public void accept(Source source, Object groupIdObject) {
+					source.setGroupId((Long)groupIdObject);
 				}
 
 			});
@@ -399,8 +399,8 @@ public class SourceModelImpl
 			new BiConsumer<Source, Object>() {
 
 				@Override
-				public void accept(Source source, Object companyId) {
-					source.setCompanyId((Long)companyId);
+				public void accept(Source source, Object companyIdObject) {
+					source.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -419,8 +419,8 @@ public class SourceModelImpl
 			new BiConsumer<Source, Object>() {
 
 				@Override
-				public void accept(Source source, Object userId) {
-					source.setUserId((Long)userId);
+				public void accept(Source source, Object userIdObject) {
+					source.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -439,8 +439,8 @@ public class SourceModelImpl
 			new BiConsumer<Source, Object>() {
 
 				@Override
-				public void accept(Source source, Object userName) {
-					source.setUserName((String)userName);
+				public void accept(Source source, Object userNameObject) {
+					source.setUserName((String)userNameObject);
 				}
 
 			});
@@ -459,8 +459,8 @@ public class SourceModelImpl
 			new BiConsumer<Source, Object>() {
 
 				@Override
-				public void accept(Source source, Object createDate) {
-					source.setCreateDate((Date)createDate);
+				public void accept(Source source, Object createDateObject) {
+					source.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -479,8 +479,8 @@ public class SourceModelImpl
 			new BiConsumer<Source, Object>() {
 
 				@Override
-				public void accept(Source source, Object modifiedDate) {
-					source.setModifiedDate((Date)modifiedDate);
+				public void accept(Source source, Object modifiedDateObject) {
+					source.setModifiedDate((Date)modifiedDateObject);
 				}
 
 			});
@@ -499,8 +499,10 @@ public class SourceModelImpl
 			new BiConsumer<Source, Object>() {
 
 				@Override
-				public void accept(Source source, Object lastPublishDate) {
-					source.setLastPublishDate((Date)lastPublishDate);
+				public void accept(
+					Source source, Object lastPublishDateObject) {
+
+					source.setLastPublishDate((Date)lastPublishDateObject);
 				}
 
 			});
@@ -519,8 +521,8 @@ public class SourceModelImpl
 			new BiConsumer<Source, Object>() {
 
 				@Override
-				public void accept(Source source, Object name) {
-					source.setName((String)name);
+				public void accept(Source source, Object nameObject) {
+					source.setName((String)nameObject);
 				}
 
 			});
@@ -539,8 +541,10 @@ public class SourceModelImpl
 			new BiConsumer<Source, Object>() {
 
 				@Override
-				public void accept(Source source, Object driverClassName) {
-					source.setDriverClassName((String)driverClassName);
+				public void accept(
+					Source source, Object driverClassNameObject) {
+
+					source.setDriverClassName((String)driverClassNameObject);
 				}
 
 			});
@@ -559,8 +563,8 @@ public class SourceModelImpl
 			new BiConsumer<Source, Object>() {
 
 				@Override
-				public void accept(Source source, Object driverUrl) {
-					source.setDriverUrl((String)driverUrl);
+				public void accept(Source source, Object driverUrlObject) {
+					source.setDriverUrl((String)driverUrlObject);
 				}
 
 			});
@@ -579,8 +583,8 @@ public class SourceModelImpl
 			new BiConsumer<Source, Object>() {
 
 				@Override
-				public void accept(Source source, Object driverUserName) {
-					source.setDriverUserName((String)driverUserName);
+				public void accept(Source source, Object driverUserNameObject) {
+					source.setDriverUserName((String)driverUserNameObject);
 				}
 
 			});
@@ -599,8 +603,8 @@ public class SourceModelImpl
 			new BiConsumer<Source, Object>() {
 
 				@Override
-				public void accept(Source source, Object driverPassword) {
-					source.setDriverPassword((String)driverPassword);
+				public void accept(Source source, Object driverPasswordObject) {
+					source.setDriverPassword((String)driverPasswordObject);
 				}
 
 			});

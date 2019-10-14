@@ -338,8 +338,10 @@ public class KaleoProcessModelImpl
 			new BiConsumer<KaleoProcess, Object>() {
 
 				@Override
-				public void accept(KaleoProcess kaleoProcess, Object uuid) {
-					kaleoProcess.setUuid((String)uuid);
+				public void accept(
+					KaleoProcess kaleoProcess, Object uuidObject) {
+
+					kaleoProcess.setUuid((String)uuidObject);
 				}
 
 			});
@@ -359,9 +361,9 @@ public class KaleoProcessModelImpl
 
 				@Override
 				public void accept(
-					KaleoProcess kaleoProcess, Object kaleoProcessId) {
+					KaleoProcess kaleoProcess, Object kaleoProcessIdObject) {
 
-					kaleoProcess.setKaleoProcessId((Long)kaleoProcessId);
+					kaleoProcess.setKaleoProcessId((Long)kaleoProcessIdObject);
 				}
 
 			});
@@ -380,8 +382,10 @@ public class KaleoProcessModelImpl
 			new BiConsumer<KaleoProcess, Object>() {
 
 				@Override
-				public void accept(KaleoProcess kaleoProcess, Object groupId) {
-					kaleoProcess.setGroupId((Long)groupId);
+				public void accept(
+					KaleoProcess kaleoProcess, Object groupIdObject) {
+
+					kaleoProcess.setGroupId((Long)groupIdObject);
 				}
 
 			});
@@ -401,9 +405,9 @@ public class KaleoProcessModelImpl
 
 				@Override
 				public void accept(
-					KaleoProcess kaleoProcess, Object companyId) {
+					KaleoProcess kaleoProcess, Object companyIdObject) {
 
-					kaleoProcess.setCompanyId((Long)companyId);
+					kaleoProcess.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -422,8 +426,10 @@ public class KaleoProcessModelImpl
 			new BiConsumer<KaleoProcess, Object>() {
 
 				@Override
-				public void accept(KaleoProcess kaleoProcess, Object userId) {
-					kaleoProcess.setUserId((Long)userId);
+				public void accept(
+					KaleoProcess kaleoProcess, Object userIdObject) {
+
+					kaleoProcess.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -442,8 +448,10 @@ public class KaleoProcessModelImpl
 			new BiConsumer<KaleoProcess, Object>() {
 
 				@Override
-				public void accept(KaleoProcess kaleoProcess, Object userName) {
-					kaleoProcess.setUserName((String)userName);
+				public void accept(
+					KaleoProcess kaleoProcess, Object userNameObject) {
+
+					kaleoProcess.setUserName((String)userNameObject);
 				}
 
 			});
@@ -463,9 +471,9 @@ public class KaleoProcessModelImpl
 
 				@Override
 				public void accept(
-					KaleoProcess kaleoProcess, Object createDate) {
+					KaleoProcess kaleoProcess, Object createDateObject) {
 
-					kaleoProcess.setCreateDate((Date)createDate);
+					kaleoProcess.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -485,9 +493,9 @@ public class KaleoProcessModelImpl
 
 				@Override
 				public void accept(
-					KaleoProcess kaleoProcess, Object modifiedDate) {
+					KaleoProcess kaleoProcess, Object modifiedDateObject) {
 
-					kaleoProcess.setModifiedDate((Date)modifiedDate);
+					kaleoProcess.setModifiedDate((Date)modifiedDateObject);
 				}
 
 			});
@@ -507,9 +515,9 @@ public class KaleoProcessModelImpl
 
 				@Override
 				public void accept(
-					KaleoProcess kaleoProcess, Object DDLRecordSetId) {
+					KaleoProcess kaleoProcess, Object DDLRecordSetIdObject) {
 
-					kaleoProcess.setDDLRecordSetId((Long)DDLRecordSetId);
+					kaleoProcess.setDDLRecordSetId((Long)DDLRecordSetIdObject);
 				}
 
 			});
@@ -529,9 +537,9 @@ public class KaleoProcessModelImpl
 
 				@Override
 				public void accept(
-					KaleoProcess kaleoProcess, Object DDMTemplateId) {
+					KaleoProcess kaleoProcess, Object DDMTemplateIdObject) {
 
-					kaleoProcess.setDDMTemplateId((Long)DDMTemplateId);
+					kaleoProcess.setDDMTemplateId((Long)DDMTemplateIdObject);
 				}
 
 			});
@@ -551,10 +559,11 @@ public class KaleoProcessModelImpl
 
 				@Override
 				public void accept(
-					KaleoProcess kaleoProcess, Object workflowDefinitionName) {
+					KaleoProcess kaleoProcess,
+					Object workflowDefinitionNameObject) {
 
 					kaleoProcess.setWorkflowDefinitionName(
-						(String)workflowDefinitionName);
+						(String)workflowDefinitionNameObject);
 				}
 
 			});
@@ -575,10 +584,10 @@ public class KaleoProcessModelImpl
 				@Override
 				public void accept(
 					KaleoProcess kaleoProcess,
-					Object workflowDefinitionVersion) {
+					Object workflowDefinitionVersionObject) {
 
 					kaleoProcess.setWorkflowDefinitionVersion(
-						(Integer)workflowDefinitionVersion);
+						(Integer)workflowDefinitionVersionObject);
 				}
 
 			});
