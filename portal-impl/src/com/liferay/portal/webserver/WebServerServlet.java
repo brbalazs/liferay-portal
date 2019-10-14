@@ -1499,6 +1499,10 @@ public class WebServerServlet extends HttpServlet {
 			PermissionChecker permissionChecker =
 				PermissionThreadLocal.getPermissionChecker();
 
+			if (permissionChecker.isGroupAdmin(fileEntry.getGroupId())) {
+				return;
+			}
+
 			if (!PortletPermissionUtil.hasControlPanelAccessPermission(
 					permissionChecker, fileEntry.getGroupId(), portletId)) {
 
