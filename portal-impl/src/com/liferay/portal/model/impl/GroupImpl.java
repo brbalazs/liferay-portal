@@ -291,13 +291,23 @@ public class GroupImpl extends GroupBaseImpl {
 		ThemeDisplay themeDisplay, boolean privateLayout) {
 
 		try {
-			LayoutSet layoutSet = LayoutSetLocalServiceUtil.getLayoutSet(
-				getGroupId(), privateLayout);
+			int layoutsCount = LayoutLocalServiceUtil.getLayoutsCount(
+				this, privateLayout, StringPool.BLANK,
+				new String[] {
+					StringPool.CONTENT, LayoutConstants.TYPE_EMBEDDED,
+					LayoutConstants.TYPE_LINK_TO_LAYOUT,
+					LayoutConstants.TYPE_FULL_PAGE_APPLICATION,
+					LayoutConstants.TYPE_PANEL, LayoutConstants.TYPE_PORTLET,
+					LayoutConstants.TYPE_URL
+				});
 
-			if ((layoutSet.getPageCount() > 0) ||
+			if ((layoutsCount > 0) ||
 				(isUser() &&
 				 (LayoutLocalServiceUtil.getLayoutsCount(this, privateLayout) >
 					 0))) {
+
+				LayoutSet layoutSet = LayoutSetLocalServiceUtil.getLayoutSet(
+					getGroupId(), privateLayout);
 
 				String groupFriendlyURL = PortalUtil.getGroupFriendlyURL(
 					layoutSet, themeDisplay);
