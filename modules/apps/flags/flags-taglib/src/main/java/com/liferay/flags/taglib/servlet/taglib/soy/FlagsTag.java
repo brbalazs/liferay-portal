@@ -153,6 +153,10 @@ public class FlagsTag extends ComponentRendererTag {
 		putValue("contentTitle", contentTitle);
 	}
 
+	public void setContentURL(String contentURL) {
+		putValue("contentURL", contentURL);
+	}
+
 	public void setElementClasses(String elementClasses) {
 		putValue("elementClasses", elementClasses);
 	}
