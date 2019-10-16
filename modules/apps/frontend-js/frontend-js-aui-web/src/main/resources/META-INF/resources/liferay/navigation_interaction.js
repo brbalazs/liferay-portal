@@ -46,7 +46,7 @@ AUI.add(
 									instance._lastShownMenu = null;
 
 									var showMenu =
-									event.type == 'showNavigationMenu' &&
+									event.type === 'showNavigationMenu' &&
 									menu.hasClass('dropdown');
 
 									if (showMenu) {
