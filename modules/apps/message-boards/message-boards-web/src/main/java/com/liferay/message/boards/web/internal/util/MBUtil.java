@@ -49,15 +49,8 @@ public class MBUtil {
 	public static String getBBCodeQuoteBody(
 		HttpServletRequest request, MBMessage parentMessage) {
 
-		String parentAuthor = null;
-
-		if (parentMessage.isAnonymous()) {
-			parentAuthor = LanguageUtil.get(request, "anonymous");
-		}
-		else {
-			parentAuthor = HtmlUtil.escape(
-				PortalUtil.getUserName(parentMessage));
-		}
+		String parentAuthor = _getParentAuthor(
+			parentMessage, httpServletRequest);
 
 		StringBundler sb = new StringBundler(5);
 
@@ -117,15 +110,8 @@ public class MBUtil {
 	public static String getHtmlQuoteBody(
 		HttpServletRequest request, MBMessage parentMessage) {
 
-		String parentAuthor = null;
-
-		if (parentMessage.isAnonymous()) {
-			parentAuthor = LanguageUtil.get(request, "anonymous");
-		}
-		else {
-			parentAuthor = HtmlUtil.escape(
-				PortalUtil.getUserName(parentMessage));
-		}
+		String parentAuthor = _getParentAuthor(
+			parentMessage, httpServletRequest);
 
 		StringBundler sb = new StringBundler(5);
 
@@ -175,25 +161,21 @@ public class MBUtil {
 	}
 
 	public static String[] getThreadPriority(
-			MBGroupServiceSettings mbGroupServiceSettings, String languageId,
-			double value)
-		throws Exception {
+		MBGroupServiceSettings mbGroupServiceSettings, String languageId,
+		double value) {
 
-		String[] priorities = mbGroupServiceSettings.getPriorities(languageId);
+		String[] priorityPair = _findThreadPriority(
+			value, mbGroupServiceSettings.getPriorities(languageId));
 
-		String[] priorityPair = _findThreadPriority(value, priorities);
-
-		if (priorityPair == null) {
-			String defaultLanguageId = LocaleUtil.toLanguageId(
-				LocaleUtil.getSiteDefault());
-
-			priorities = mbGroupServiceSettings.getPriorities(
-				defaultLanguageId);
-
-			priorityPair = _findThreadPriority(value, priorities);
+		if (priorityPair != null) {
+			return priorityPair;
 		}
 
-		return priorityPair;
+		String defaultLanguageId = LocaleUtil.toLanguageId(
+			LocaleUtil.getSiteDefault());
+
+		return _findThreadPriority(
+			value, mbGroupServiceSettings.getPriorities(defaultLanguageId));
 	}
 
 	public static boolean isViewableMessage(
@@ -257,6 +239,16 @@ public class MBUtil {
 		}
 
 		return null;
+	}
+
+	private static String _getParentAuthor(
+		MBMessage parentMessage, HttpServletRequest httpServletRequest) {
+
+		if (parentMessage.isAnonymous()) {
+			return LanguageUtil.get(httpServletRequest, "anonymous");
+		}
+
+		return HtmlUtil.escape(PortalUtil.getUserName(parentMessage));
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(MBUtil.class);
