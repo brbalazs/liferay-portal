@@ -132,8 +132,8 @@ public class LayoutServiceTest {
 			updatedLayout.getTypeSettingsProperties();
 
 		Assert.assertFalse(
-			"Updating layout prototype should not add " +
-				Sites.LAYOUT_UPDATEABLE + " property",
+			"Updating layout prototype should not add property \"" +
+				Sites.LAYOUT_UPDATEABLE + "\"",
 			typeSettingsProperties.containsKey(Sites.LAYOUT_UPDATEABLE));
 	}
 
