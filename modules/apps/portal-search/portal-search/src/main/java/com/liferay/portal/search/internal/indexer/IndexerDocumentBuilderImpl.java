@@ -21,8 +21,10 @@ import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.DocumentContributor;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.IndexerPostProcessor;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.search.indexer.BaseModelDocumentFactory;
 import com.liferay.portal.search.indexer.IndexerDocumentBuilder;
+import com.liferay.portal.search.permission.SearchPermissionDocumentContributor;
 import com.liferay.portal.search.spi.model.index.contributor.ModelDocumentContributor;
 
 import java.util.stream.Stream;
@@ -36,12 +38,16 @@ public class IndexerDocumentBuilderImpl implements IndexerDocumentBuilder {
 		BaseModelDocumentFactory baseModelDocumentFactory,
 		Iterable<ModelDocumentContributor> modelDocumentContributors,
 		Iterable<DocumentContributor> documentContributors,
-		IndexerPostProcessorsHolder indexerPostProcessorsHolder) {
+		IndexerPostProcessorsHolder indexerPostProcessorsHolder,
+		SearchPermissionDocumentContributor
+			searchPermissionDocumentContributor) {
 
 		_baseModelDocumentFactory = baseModelDocumentFactory;
 		_modelDocumentContributors = modelDocumentContributors;
 		_documentContributors = documentContributors;
 		_indexerPostProcessorsHolder = indexerPostProcessorsHolder;
+		_searchPermissionDocumentContributor =
+			searchPermissionDocumentContributor;
 	}
 
 	@Override
@@ -55,6 +61,9 @@ public class IndexerDocumentBuilderImpl implements IndexerDocumentBuilder {
 		_modelDocumentContributors.forEach(
 			(ModelDocumentContributor modelDocumentContributor) ->
 				modelDocumentContributor.contribute(document, baseModel));
+
+		_searchPermissionDocumentContributor.addPermissionFields(
+			GetterUtil.getLong(document.get(Field.COMPANY_ID)), document);
 
 		postProcessDocument(document, baseModel);
 
@@ -96,5 +105,7 @@ public class IndexerDocumentBuilderImpl implements IndexerDocumentBuilder {
 	private final Iterable<DocumentContributor> _documentContributors;
 	private final IndexerPostProcessorsHolder _indexerPostProcessorsHolder;
 	private final Iterable<ModelDocumentContributor> _modelDocumentContributors;
+	private final SearchPermissionDocumentContributor
+		_searchPermissionDocumentContributor;
 
 }
