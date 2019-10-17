@@ -105,7 +105,7 @@ public class LayoutServiceTest {
 	}
 
 	@Test
-	public void testUpdateLayoutPrototypeVerifyTypeSettings() throws Exception {
+	public void testUpdateLayoutPrototypeTypeSettings() throws Exception {
 		LayoutPrototype layoutPrototype = LayoutTestUtil.addLayoutPrototype(
 			RandomTestUtil.randomString());
 
