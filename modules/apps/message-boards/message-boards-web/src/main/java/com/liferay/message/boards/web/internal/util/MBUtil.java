@@ -49,8 +49,7 @@ public class MBUtil {
 	public static String getBBCodeQuoteBody(
 		HttpServletRequest request, MBMessage parentMessage) {
 
-		String parentAuthor = _getParentAuthor(
-			parentMessage, httpServletRequest);
+		String parentAuthor = _getParentAuthor(parentMessage, request);
 
 		StringBundler sb = new StringBundler(5);
 
@@ -110,8 +109,7 @@ public class MBUtil {
 	public static String getHtmlQuoteBody(
 		HttpServletRequest request, MBMessage parentMessage) {
 
-		String parentAuthor = _getParentAuthor(
-			parentMessage, httpServletRequest);
+		String parentAuthor = _getParentAuthor(parentMessage, request);
 
 		StringBundler sb = new StringBundler(5);
 
