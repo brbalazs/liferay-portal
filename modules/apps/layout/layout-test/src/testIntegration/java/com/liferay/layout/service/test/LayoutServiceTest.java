@@ -59,7 +59,7 @@ public class LayoutServiceTest {
 	}
 
 	@Test
-	public void testUpdateLayoutFriendlyURLMap() throws Exception {
+	public void testUpdateFriendlyURLMap() throws Exception {
 		Layout layout = LayoutTestUtil.addLayout(_group);
 
 		long userId = layout.getUserId();
@@ -88,7 +88,7 @@ public class LayoutServiceTest {
 	}
 
 	@Test
-	public void testUpdateLayoutLookAndFeel() throws Exception {
+	public void testUpdateLookAndFeel() throws Exception {
 		Layout layout = LayoutTestUtil.addLayout(_group);
 
 		layout = LayoutLocalServiceUtil.updateLookAndFeel(
@@ -105,7 +105,7 @@ public class LayoutServiceTest {
 	}
 
 	@Test
-	public void testUpdateLayoutPrototypeTypeSettings() throws Exception {
+	public void testUpdateTypeSettings() throws Exception {
 		LayoutPrototype layoutPrototype = LayoutTestUtil.addLayoutPrototype(
 			RandomTestUtil.randomString());
 
