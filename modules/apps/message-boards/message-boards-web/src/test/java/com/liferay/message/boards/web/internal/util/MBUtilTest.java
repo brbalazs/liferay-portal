@@ -56,7 +56,9 @@ public class MBUtilTest {
 			MBUtilTest::_getFirstArgument
 		);
 
-		new HtmlUtil().setHtml(html);
+		HtmlUtil htmlUtil = new HtmlUtil();
+
+		htmlUtil.setHtml(html);
 
 		Language language = Mockito.mock(Language.class);
 
@@ -67,7 +69,9 @@ public class MBUtilTest {
 			MBUtilTest::_getSecondArgument
 		);
 
-		new LanguageUtil().setLanguage(language);
+		LanguageUtil languageUtil = new LanguageUtil();
+
+		languageUtil.setLanguage(language);
 
 		Portal portal = Mockito.mock(Portal.class);
 
@@ -77,7 +81,9 @@ public class MBUtilTest {
 			"USER[]()"
 		);
 
-		new PortalUtil().setPortal(portal);
+		PortalUtil portalUtil = new PortalUtil();
+
+		portalUtil.setPortal(portal);
 
 		PropsUtil.setProps(Mockito.mock(Props.class));
 	}
