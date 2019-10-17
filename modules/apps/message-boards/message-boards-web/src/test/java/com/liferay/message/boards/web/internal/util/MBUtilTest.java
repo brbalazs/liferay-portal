@@ -53,7 +53,7 @@ public class MBUtilTest {
 		Mockito.stub(
 			html.escape(Mockito.anyString())
 		).toAnswer(
-			MBUtilTest::_firstArgument
+			MBUtilTest::_getFirstArgument
 		);
 
 		new HtmlUtil().setHtml(html);
@@ -64,7 +64,7 @@ public class MBUtilTest {
 			language.get(
 				Mockito.any(HttpServletRequest.class), Mockito.anyString())
 		).toAnswer(
-			MBUtilTest::_secondArgument
+			MBUtilTest::_getSecondArgument
 		);
 
 		new LanguageUtil().setLanguage(language);
@@ -204,13 +204,13 @@ public class MBUtilTest {
 					StringPool.POUND, namespace, "message_", messageId)));
 	}
 
-	private static <T> T _firstArgument(InvocationOnMock invocationOnMock) {
+	private static <T> T _getFirstArgument(InvocationOnMock invocationOnMock) {
 		Object[] arguments = invocationOnMock.getArguments();
 
 		return (T)arguments[0];
 	}
 
-	private static <T> T _secondArgument(InvocationOnMock invocationOnMock) {
+	private static <T> T _getSecondArgument(InvocationOnMock invocationOnMock) {
 		Object[] arguments = invocationOnMock.getArguments();
 
 		return (T)arguments[1];
