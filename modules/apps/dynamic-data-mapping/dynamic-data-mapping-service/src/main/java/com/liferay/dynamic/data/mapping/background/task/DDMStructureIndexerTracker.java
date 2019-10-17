@@ -48,8 +48,8 @@ public class DDMStructureIndexerTracker {
 			return (DDMStructureIndexer)indexer;
 		}
 
-		ServiceWrapper<Indexer> serviceWrapper = _serviceTrackerMap.getService(
-			className);
+		ServiceWrapper<DDMStructureIndexer> serviceWrapper =
+			_serviceTrackerMap.getService(className);
 
 		if (serviceWrapper == null) {
 			if (_log.isDebugEnabled()) {
@@ -61,13 +61,14 @@ public class DDMStructureIndexerTracker {
 			return null;
 		}
 
-		return (DDMStructureIndexer)serviceWrapper.getService();
+		return serviceWrapper.getService();
 	}
 
 	@Activate
 	protected void activate(BundleContext bundleContext) {
 		_serviceTrackerMap = ServiceTrackerMapFactory.openSingleValueMap(
-			bundleContext, Indexer.class, "ddm.structure.indexer.class.name",
+			bundleContext, DDMStructureIndexer.class,
+			"ddm.structure.indexer.class.name",
 			ServiceTrackerCustomizerFactory.serviceWrapper(bundleContext));
 	}
 
@@ -85,7 +86,7 @@ public class DDMStructureIndexerTracker {
 		DDMStructureIndexerTracker.class);
 
 	private IndexerRegistry _indexerRegistry;
-	private ServiceTrackerMap<String, ServiceWrapper<Indexer>>
+	private ServiceTrackerMap<String, ServiceWrapper<DDMStructureIndexer>>
 		_serviceTrackerMap;
 
 }
