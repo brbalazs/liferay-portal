@@ -119,10 +119,11 @@ public class MBMessageServiceTest {
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(_group.getGroupId());
 
-		serviceContext.setGroupPermissions(
+		ModelPermissions modelPermissions = ModelPermissionsFactory.create(
+			new String[] {ActionKeys.ADD_MESSAGE, ActionKeys.VIEW},
 			new String[] {ActionKeys.ADD_MESSAGE, ActionKeys.VIEW});
-		serviceContext.setGuestPermissions(
-			new String[] {ActionKeys.ADD_MESSAGE, ActionKeys.VIEW});
+
+		serviceContext.setModelPermissions(modelPermissions);
 
 		_category = MBCategoryServiceUtil.addCategory(
 			MBCategoryConstants.DEFAULT_PARENT_CATEGORY_ID, name, description,
