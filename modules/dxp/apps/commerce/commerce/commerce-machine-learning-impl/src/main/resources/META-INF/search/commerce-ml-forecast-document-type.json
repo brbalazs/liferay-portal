@@ -39,7 +39,7 @@
 				"type": "float"
 			},
 			"forecastId": {
-				"index": false,
+				"index": true,
 				"store": true,
 				"type": "long"
 			},
