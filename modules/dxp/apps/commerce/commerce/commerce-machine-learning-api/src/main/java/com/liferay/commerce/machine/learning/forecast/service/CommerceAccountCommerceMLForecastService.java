@@ -28,15 +28,26 @@ import java.util.List;
 @ProviderType
 public interface CommerceAccountCommerceMLForecastService {
 
-	public List<CommerceAccountCommerceMLForecast>
-			getMonthlyRevenueCommerceAccountCommerceMLForecasts(
-				long companyId, long commerceAccountId)
+	public CommerceAccountCommerceMLForecast
+			getCommerceAccountCommerceMLForecast(
+				long companyId, long forecastId)
 		throws PortalException;
 
 	public List<CommerceAccountCommerceMLForecast>
 			getMonthlyRevenueCommerceAccountCommerceMLForecasts(
 				long companyId, long[] commerceAccountIds, Date actualDate,
 				int historyLength, int forecastLength)
+		throws PortalException;
+
+	public List<CommerceAccountCommerceMLForecast>
+			getMonthlyRevenueCommerceAccountCommerceMLForecasts(
+				long companyId, long[] commerceAccountIds, Date actualDate,
+				int historyLength, int forecastLength, int start, int end)
+		throws PortalException;
+
+	public long getMonthlyRevenueCommerceAccountCommerceMLForecastsCount(
+			long companyId, long[] commerceAccountIds, Date actualDate,
+			int historyLength, int forecastLength)
 		throws PortalException;
 
 }
