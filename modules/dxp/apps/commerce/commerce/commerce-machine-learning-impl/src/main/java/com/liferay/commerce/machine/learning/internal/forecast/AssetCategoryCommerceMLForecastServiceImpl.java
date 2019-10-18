@@ -26,8 +26,13 @@ import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.generic.TermQueryImpl;
+import com.liferay.portal.kernel.search.ParseException;
+import com.liferay.portal.kernel.search.Query;
+import com.liferay.portal.kernel.search.filter.BooleanFilter;
+import com.liferay.portal.kernel.search.filter.TermsFilter;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.search.engine.adapter.search.CountSearchRequest;
 import com.liferay.portal.search.engine.adapter.search.SearchSearchRequest;
 
 import java.util.Date;
@@ -46,48 +51,65 @@ public class AssetCategoryCommerceMLForecastServiceImpl
 	implements AssetCategoryCommerceMLForecastService {
 
 	@Override
-	public List<AssetCategoryCommerceMLForecast>
-			getMonthlyRevenueAssetCategoryCommerceMLForecasts(
-				long companyId, long assetCategoryId, long commerceAccountId)
+	public AssetCategoryCommerceMLForecast getAssetCategoryCommerceMLForecast(
+			long companyId, long forecastId)
 		throws PortalException {
 
-		CommerceMLForecastPeriod commerceMLForecastPeriod =
-			CommerceMLForecastPeriod.MONTH;
+		return getCommerceMLForecast(companyId, forecastId);
+	}
 
-		CommerceMLForecastTarget commerceMLForecastTarget =
-			CommerceMLForecastTarget.REVENUE;
+	@Override
+	public List<AssetCategoryCommerceMLForecast>
+			getMonthlyRevenueAssetCategoryCommerceMLForecasts(
+				long companyId, long[] assetCategoryIds,
+				long[] commerceAccountIds, Date actualDate, int historyLength,
+				int forecastLength)
+		throws PortalException {
 
-		Date now = new Date();
+		int size =
+			assetCategoryIds.length * commerceAccountIds.length *
+				(historyLength + forecastLength);
 
-		Date startDate = getStartDate(
-			now, commerceMLForecastPeriod, DEFAULT_HISTORY_LENGTH);
+		return getMonthlyRevenueAssetCategoryCommerceMLForecasts(
+			companyId, assetCategoryIds, commerceAccountIds, actualDate,
+			historyLength, forecastLength, 0, size);
+	}
 
-		Date endDate = getEndDate(
-			now, commerceMLForecastPeriod, DEFAULT_FORECAST_LENGTH);
+	@Override
+	public List<AssetCategoryCommerceMLForecast>
+			getMonthlyRevenueAssetCategoryCommerceMLForecasts(
+				long companyId, long[] assetCategoryIds,
+				long[] commerceAccountIds, Date actualDate, int historyLength,
+				int forecastLength, int start, int end)
+		throws PortalException {
 
-		BooleanQuery booleanQuery = getBaseQuery(
-			_commerceMLForecastScope.getLabel(),
-			commerceMLForecastPeriod.getLabel(),
-			commerceMLForecastTarget.getLabel(), startDate, endDate);
+		Query query = _getMonthlyRevenueQuery(
+			actualDate, assetCategoryIds, commerceAccountIds, historyLength,
+			forecastLength);
 
-		TermQueryImpl assetCategoryIdTermQuery = new TermQueryImpl(
-			Field.ASSET_CATEGORY_ID, String.valueOf(assetCategoryId));
+		int size = end - start;
 
-		booleanQuery.add(assetCategoryIdTermQuery, BooleanClauseOccur.MUST);
+		SearchSearchRequest searchSearchRequest = getSearchSearchRequest(
+			commerceMLIndexer.getIndexName(companyId), query, start, size,
+			getDefaultSort(true));
 
-		TermQueryImpl commerceAccountIdTermQuery = new TermQueryImpl(
-			CommerceMLForecastField.COMMERCE_ACCOUNT_ID,
-			String.valueOf(commerceAccountId));
+		return getSearchResults(searchSearchRequest);
+	}
 
-		booleanQuery.add(commerceAccountIdTermQuery, BooleanClauseOccur.MUST);
+	@Override
+	public long getMonthlyRevenueAssetCategoryCommerceMLForecastsCount(
+			long companyId, long[] assetCategoryIds, long[] commerceAccountIds,
+			Date actualDate, int historyLength, int forecastLength)
+		throws PortalException {
 
-		int size = getSearchSize(startDate, endDate, commerceMLForecastPeriod);
+		Query query = _getMonthlyRevenueQuery(
+			actualDate, assetCategoryIds, commerceAccountIds, historyLength,
+			forecastLength);
 
-		SearchSearchRequest searchRequest = getSearchRequest(
-			commerceMLIndexer.getIndexName(companyId), booleanQuery, 0, size,
-			true);
+		CountSearchRequest countSearchRequest = getCountSearchRequest(
+			commerceMLIndexer.getIndexName(companyId), query);
 
-		return getSearchResults(searchRequest);
+		return getCountResult(countSearchRequest);
 	}
 
 	@Override
@@ -106,6 +128,53 @@ public class AssetCategoryCommerceMLForecastServiceImpl
 				document.get(CommerceMLForecastField.COMMERCE_ACCOUNT_ID)));
 
 		return assetCategoryCommerceMLForecast;
+	}
+
+	private Query _getMonthlyRevenueQuery(
+			Date actualDate, long[] assetCategoryIds, long[] commerceAccountIds,
+			int historyLength, int forecastLength)
+		throws ParseException {
+
+		CommerceMLForecastPeriod commerceMLForecastPeriod =
+			CommerceMLForecastPeriod.MONTH;
+
+		CommerceMLForecastTarget commerceMLForecastTarget =
+			CommerceMLForecastTarget.REVENUE;
+
+		Date endDate = getEndDate(
+			actualDate, commerceMLForecastPeriod, forecastLength);
+
+		Date startDate = getStartDate(
+			actualDate, commerceMLForecastPeriod, historyLength);
+
+		BooleanQuery booleanQuery = getBaseQuery(
+			_commerceMLForecastScope.getLabel(),
+			commerceMLForecastPeriod.getLabel(),
+			commerceMLForecastTarget.getLabel(), startDate, endDate);
+
+		BooleanFilter preBooleanFilter = booleanQuery.getPreBooleanFilter();
+
+		if (assetCategoryIds.length > 0) {
+			TermsFilter assetCategoryIdsTermsFilter = new TermsFilter(
+				Field.ASSET_CATEGORY_ID);
+
+			assetCategoryIdsTermsFilter.addValues(
+				ArrayUtil.toStringArray(assetCategoryIds));
+
+			preBooleanFilter.add(
+				assetCategoryIdsTermsFilter, BooleanClauseOccur.MUST);
+		}
+
+		TermsFilter commerceAccountIdsTermsFilter = new TermsFilter(
+			CommerceMLForecastField.COMMERCE_ACCOUNT_ID);
+
+		commerceAccountIdsTermsFilter.addValues(
+			ArrayUtil.toStringArray(commerceAccountIds));
+
+		preBooleanFilter.add(
+			commerceAccountIdsTermsFilter, BooleanClauseOccur.MUST);
+
+		return booleanQuery;
 	}
 
 	private static final CommerceMLForecastScope _commerceMLForecastScope =
