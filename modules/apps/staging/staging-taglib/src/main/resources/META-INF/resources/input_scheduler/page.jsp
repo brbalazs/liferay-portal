@@ -64,6 +64,7 @@
 
 		int[] monthIds = CalendarUtil.getMonthIds();
 		String[] months = CalendarUtil.getMonths(locale);
+		String timeZoneID = timeZone.getID();
 		%>
 
 		<table class="staging-publish-schedule">
@@ -442,6 +443,8 @@
 					);
 				});
 		</aui:script>
+
+		<aui:input cssClass="calendar-portlet-time-zone-field" label="time-zone" name="timeZoneId" type="timeZone" value="<%= timeZoneID %>" />
 
 		<%!
 		private boolean _getWeeklyDayPos(HttpServletRequest req, int day, Recurrence recurrence) {
