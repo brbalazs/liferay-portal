@@ -1869,6 +1869,7 @@ module.framework.properties.lpkg.index.validator.enabled=true</echo>
 										dir="modules"
 									>
 										<include name="apps/*" />
+										<include name="dxp/apps/*" />
 										<include name="private/apps/*" />
 										<exclude name="${build.exclude.dirs}" />
 										<exclude name="apps/static" />
@@ -4439,7 +4440,7 @@ log.sanitizer.enabled=false</echo>
 					<then>
 						<gradle-execute dir="modules" outputproperty="modules.project.paths" task="printProjectPath">
 							<arg value="--quiet" />
-							<arg value="-Dbuild.exclude.dirs=private/apps/osb-lcs,third-party" />
+							<arg value="-Dbuild.exclude.dirs=dxp/apps/osb-lcs,third-party" />
 						</gradle-execute>
 
 						<loadresource property="modules.test.class.group">
