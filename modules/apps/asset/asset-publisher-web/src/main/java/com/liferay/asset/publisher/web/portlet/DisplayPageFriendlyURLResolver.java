@@ -528,8 +528,12 @@ public class DisplayPageFriendlyURLResolver implements FriendlyURLResolver {
 		}
 
 		_portal.addPageSubtitle(journalArticle.getTitle(locale), request);
-		_portal.addPageDescription(
-			journalArticle.getDescription(locale), request);
+
+		String summary = com.liferay.portal.kernel.util.HtmlUtil.unescape(
+			com.liferay.portal.kernel.util.HtmlUtil.stripHtml(
+				journalArticle.getDescription(locale)));
+
+		_portal.addPageDescription(summary, httpServletRequest);
 
 		List<AssetTag> assetTags = _assetTagLocalService.getTags(
 			JournalArticle.class.getName(), journalArticle.getPrimaryKey());
