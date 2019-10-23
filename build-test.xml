@@ -6014,7 +6014,6 @@ go</echo>
 								>
 									<include name="apps/${osgi.app.name}" />
 									<include name="dxp/apps/${osgi.app.name}" />
-									<include name="private/apps/${osgi.app.name}" />
 								</dirset>
 							</path>
 							<sequential>
