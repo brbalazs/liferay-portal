@@ -238,7 +238,7 @@ public class CallFunction extends BaseDDMFormRuleFunction {
 			Stream<KeyValuePair> stream = options.stream();
 
 			if (!stream.anyMatch(
-					option -> Objects.equals(option.getValue(), value))) {
+					option -> Objects.equals(option.getKey(), value))) {
 
 				ddmFormFieldEvaluationResult.setValue(
 					_jsonFactory.createJSONArray());
