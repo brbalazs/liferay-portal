@@ -78,7 +78,7 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 							<liferay-ui:search-container-column-text
 								cssClass="table-cell-content"
 								name="next-fire-date"
-								value="<%= commerceDataIntegrationProcessDisplayContext.gteNextFireDate(commerceDataIntegrationProcess.getCommerceDataIntegrationProcessId()) %>"
+								value="<%= commerceDataIntegrationProcessDisplayContext.getNextFireDate(commerceDataIntegrationProcess.getCommerceDataIntegrationProcessId()) %>"
 							/>
 
 							<liferay-ui:search-container-column-jsp

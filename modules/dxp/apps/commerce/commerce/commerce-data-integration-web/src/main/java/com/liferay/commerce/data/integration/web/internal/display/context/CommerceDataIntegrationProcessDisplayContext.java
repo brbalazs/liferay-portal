@@ -154,7 +154,7 @@ public class CommerceDataIntegrationProcessDisplayContext {
 		return _searchContainer;
 	}
 
-	public String gteNextFireDate(long commerceDataIntegrationProcessId) {
+	public String getNextFireDate(long commerceDataIntegrationProcessId) {
 		Date nextRunDate =
 			_commerceDataIntegrationProcessTriggerHelper.getNextFireTime(
 				commerceDataIntegrationProcessId);
