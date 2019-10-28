@@ -80,16 +80,13 @@ public class CommerceBOMAdminPortlet extends MVCPortlet {
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws IOException, PortletException {
 
-		HttpServletRequest httpServletRequest = _portal.getHttpServletRequest(
-			renderRequest);
-
 		CommerceBOMAdminDisplayContext commerceBOMAdminDisplayContext =
 			new CommerceBOMAdminDisplayContext(
 				null, _commerceBOMDefinitionModelResourcePermission,
 				_commerceBOMDefinitionService,
 				_commerceBOMFolderApplicationRelService,
 				_commerceBOMFolderModelResourcePermission,
-				_commerceBOMFolderService, httpServletRequest, _itemSelector,
+				_commerceBOMFolderService, _portal.getHttpServletRequest(renderRequest), _itemSelector,
 				_userFileUploadsConfiguration);
 
 		renderRequest.setAttribute(

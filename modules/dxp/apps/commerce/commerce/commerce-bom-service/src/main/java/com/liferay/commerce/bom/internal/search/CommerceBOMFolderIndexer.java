@@ -126,19 +126,14 @@ public class CommerceBOMFolderIndexer extends BaseIndexer<CommerceBOMFolder> {
 	protected void doReindex(CommerceBOMFolder commerceBOMFolder)
 		throws Exception {
 
-		Document document = getDocument(commerceBOMFolder);
-
 		_indexWriterHelper.updateDocument(
-			getSearchEngineId(), commerceBOMFolder.getCompanyId(), document,
+			getSearchEngineId(), commerceBOMFolder.getCompanyId(), getDocument(commerceBOMFolder),
 			isCommitImmediately());
 	}
 
 	@Override
 	protected void doReindex(String className, long classPK) throws Exception {
-		CommerceBOMFolder commerceBOMFolder =
-			_commerceBOMFolderLocalService.getCommerceBOMFolder(classPK);
-
-		doReindex(commerceBOMFolder);
+		doReindex(_commerceBOMFolderLocalService.getCommerceBOMFolder(classPK));
 	}
 
 	@Override
@@ -158,9 +153,7 @@ public class CommerceBOMFolderIndexer extends BaseIndexer<CommerceBOMFolder> {
 		indexableActionableDynamicQuery.setPerformActionMethod(
 			(CommerceBOMFolder commerceBOMFolder) -> {
 				try {
-					Document document = getDocument(commerceBOMFolder);
-
-					indexableActionableDynamicQuery.addDocuments(document);
+					indexableActionableDynamicQuery.addDocuments(getDocument(commerceBOMFolder));
 				}
 				catch (PortalException pe) {
 					if (_log.isWarnEnabled()) {

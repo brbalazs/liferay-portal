@@ -322,9 +322,7 @@ public abstract class BaseCommerceMLForecastServiceImpl
 		Map<String, Hits> groupedHits = hits.getGroupedHits();
 
 		for (Map.Entry<String, Hits> entry : groupedHits.entrySet()) {
-			Hits value = entry.getValue();
-
-			list.addAll(_getDocumentList(value));
+			list.addAll(_getDocumentList(entry.getValue()));
 		}
 
 		return list;

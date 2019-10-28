@@ -235,9 +235,7 @@ public class HttpServerVerticle extends AbstractVerticle {
 
 		httpServer.requestHandler(router::accept);
 
-		int port = CommerceCloudUtil.getPort(configJsonObject);
-
-		httpServer.listen(port, future.completer());
+		httpServer.listen(CommerceCloudUtil.getPort(configJsonObject), future.completer());
 
 		return future;
 	}

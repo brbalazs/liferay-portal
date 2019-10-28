@@ -155,8 +155,6 @@ public class CommerceDataIntegrationProcessDisplayContext {
 	}
 
 	public String gteNextFireDate(long commerceDataIntegrationProcessId) {
-		String label = StringPool.BLANK;
-
 		Date nextRunDate =
 			_commerceDataIntegrationProcessTriggerHelper.getNextFireTime(
 				commerceDataIntegrationProcessId);
@@ -165,7 +163,7 @@ public class CommerceDataIntegrationProcessDisplayContext {
 			return _dateFormatDateTime.format(nextRunDate);
 		}
 
-		return label;
+		return StringPool.BLANK;
 	}
 
 	private final CommerceDataIntegrationProcessService

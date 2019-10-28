@@ -93,12 +93,9 @@ public class CommerceOrganizationPortlet extends MVCPortlet {
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws IOException, PortletException {
 
-		HttpServletRequest httpServletRequest = _portal.getHttpServletRequest(
-			renderRequest);
-
 		CommerceOrganizationDisplayContext commerceOrganizationDisplayContext =
 			new CommerceOrganizationDisplayContext(
-				httpServletRequest, _organizationService,
+				_portal.getHttpServletRequest(renderRequest), _organizationService,
 				_userFileUploadsConfiguration, _userLocalService);
 
 		renderRequest.setAttribute(

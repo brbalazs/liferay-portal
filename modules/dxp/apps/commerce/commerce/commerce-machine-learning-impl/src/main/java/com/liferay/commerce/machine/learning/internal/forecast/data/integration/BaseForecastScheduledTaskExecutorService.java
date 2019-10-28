@@ -44,14 +44,11 @@ public abstract class BaseForecastScheduledTaskExecutorService
 				getCommerceDataIntegrationProcess(
 					commerceDataIntegrationProcessId);
 
-		Map<String, String> contextProperties = getContextProperties(
-			commerceDataIntegrationProcess);
-
 		commerceMLScheduledTaskExecutorService.executeScheduledTask(
 			commerceDataIntegrationProcess.getUserId(),
 			commerceDataIntegrationProcess.
 				getCommerceDataIntegrationProcessId(),
-			contextProperties);
+			getContextProperties(commerceDataIntegrationProcess));
 	}
 
 	protected Map<String, String> getContextProperties(

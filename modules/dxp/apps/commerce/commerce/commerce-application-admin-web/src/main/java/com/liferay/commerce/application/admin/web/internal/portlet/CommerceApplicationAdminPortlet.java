@@ -77,16 +77,13 @@ public class CommerceApplicationAdminPortlet extends MVCPortlet {
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws IOException, PortletException {
 
-		HttpServletRequest httpServletRequest = _portal.getHttpServletRequest(
-			renderRequest);
-
 		CommerceApplicationAdminDisplayContext
 			commerceApplicationAdminDisplayContext =
 				new CommerceApplicationAdminDisplayContext(
 					_commerceApplicationBrandModelResourcePermission,
 					_commerceApplicationBrandService,
 					_commerceApplicationModelModelResourcePermission,
-					_commerceApplicationModelService, httpServletRequest,
+					_commerceApplicationModelService, _portal.getHttpServletRequest(renderRequest),
 					_userFileUploadsConfiguration);
 
 		renderRequest.setAttribute(

@@ -131,20 +131,14 @@ public class CommerceBOMDefinitionIndexer
 	protected void doReindex(CommerceBOMDefinition commerceBOMDefinition)
 		throws Exception {
 
-		Document document = getDocument(commerceBOMDefinition);
-
 		_indexWriterHelper.updateDocument(
-			getSearchEngineId(), commerceBOMDefinition.getCompanyId(), document,
+			getSearchEngineId(), commerceBOMDefinition.getCompanyId(), getDocument(commerceBOMDefinition),
 			isCommitImmediately());
 	}
 
 	@Override
 	protected void doReindex(String className, long classPK) throws Exception {
-		CommerceBOMDefinition commerceBOMDefinition =
-			_commerceBOMDefinitionLocalService.getCommerceBOMDefinition(
-				classPK);
-
-		doReindex(commerceBOMDefinition);
+		doReindex(_commerceBOMDefinitionLocalService.getCommerceBOMDefinition(classPK));
 	}
 
 	@Override
@@ -165,9 +159,7 @@ public class CommerceBOMDefinitionIndexer
 		indexableActionableDynamicQuery.setPerformActionMethod(
 			(CommerceBOMDefinition commerceBOMDefinition) -> {
 				try {
-					Document document = getDocument(commerceBOMDefinition);
-
-					indexableActionableDynamicQuery.addDocuments(document);
+					indexableActionableDynamicQuery.addDocuments(getDocument(commerceBOMDefinition));
 				}
 				catch (PortalException pe) {
 					if (_log.isWarnEnabled()) {

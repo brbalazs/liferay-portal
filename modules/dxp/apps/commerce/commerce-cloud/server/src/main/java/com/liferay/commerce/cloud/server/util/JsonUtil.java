@@ -40,9 +40,7 @@ public class JsonUtil {
 		List<T> values = new ArrayList<>(jsonArray.size());
 
 		for (int i = 0; i < jsonArray.size(); i++) {
-			JsonObject jsonObject = jsonArray.getJsonObject(i);
-
-			T value = function.apply(jsonObject);
+			T value = function.apply(jsonArray.getJsonObject(i));
 
 			values.add(value);
 		}
