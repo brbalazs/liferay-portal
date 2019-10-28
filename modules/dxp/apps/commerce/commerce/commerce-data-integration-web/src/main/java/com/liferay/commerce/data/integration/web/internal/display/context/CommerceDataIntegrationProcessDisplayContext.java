@@ -69,6 +69,18 @@ public class CommerceDataIntegrationProcessDisplayContext {
 			getCommerceDataIntegrationProcess();
 	}
 
+	public String getNextFireDate(long commerceDataIntegrationProcessId) {
+		Date nextRunDate =
+			_commerceDataIntegrationProcessTriggerHelper.getNextFireTime(
+				commerceDataIntegrationProcessId);
+
+		if (nextRunDate != null) {
+			return _dateFormatDateTime.format(nextRunDate);
+		}
+
+		return StringPool.BLANK;
+	}
+
 	public String getOrderByCol() {
 		return ParamUtil.getString(
 			_commerceDataIntegrationRequestHelper.getRequest(),
@@ -152,18 +164,6 @@ public class CommerceDataIntegrationProcessDisplayContext {
 		_searchContainer.setResults(results);
 
 		return _searchContainer;
-	}
-
-	public String getNextFireDate(long commerceDataIntegrationProcessId) {
-		Date nextRunDate =
-			_commerceDataIntegrationProcessTriggerHelper.getNextFireTime(
-				commerceDataIntegrationProcessId);
-
-		if (nextRunDate != null) {
-			return _dateFormatDateTime.format(nextRunDate);
-		}
-
-		return StringPool.BLANK;
 	}
 
 	private final CommerceDataIntegrationProcessService

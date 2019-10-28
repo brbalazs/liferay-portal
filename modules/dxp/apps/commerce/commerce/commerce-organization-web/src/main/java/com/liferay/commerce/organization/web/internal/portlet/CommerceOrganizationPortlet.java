@@ -37,8 +37,6 @@ import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
@@ -95,8 +93,9 @@ public class CommerceOrganizationPortlet extends MVCPortlet {
 
 		CommerceOrganizationDisplayContext commerceOrganizationDisplayContext =
 			new CommerceOrganizationDisplayContext(
-				_portal.getHttpServletRequest(renderRequest), _organizationService,
-				_userFileUploadsConfiguration, _userLocalService);
+				_portal.getHttpServletRequest(renderRequest),
+				_organizationService, _userFileUploadsConfiguration,
+				_userLocalService);
 
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,

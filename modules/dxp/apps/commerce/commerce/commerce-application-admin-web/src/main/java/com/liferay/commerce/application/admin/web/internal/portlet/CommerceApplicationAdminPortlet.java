@@ -36,8 +36,6 @@ import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
@@ -83,7 +81,8 @@ public class CommerceApplicationAdminPortlet extends MVCPortlet {
 					_commerceApplicationBrandModelResourcePermission,
 					_commerceApplicationBrandService,
 					_commerceApplicationModelModelResourcePermission,
-					_commerceApplicationModelService, _portal.getHttpServletRequest(renderRequest),
+					_commerceApplicationModelService,
+					_portal.getHttpServletRequest(renderRequest),
 					_userFileUploadsConfiguration);
 
 		renderRequest.setAttribute(

@@ -127,8 +127,8 @@ public class CommerceBOMFolderIndexer extends BaseIndexer<CommerceBOMFolder> {
 		throws Exception {
 
 		_indexWriterHelper.updateDocument(
-			getSearchEngineId(), commerceBOMFolder.getCompanyId(), getDocument(commerceBOMFolder),
-			isCommitImmediately());
+			getSearchEngineId(), commerceBOMFolder.getCompanyId(),
+			getDocument(commerceBOMFolder), isCommitImmediately());
 	}
 
 	@Override
@@ -153,7 +153,8 @@ public class CommerceBOMFolderIndexer extends BaseIndexer<CommerceBOMFolder> {
 		indexableActionableDynamicQuery.setPerformActionMethod(
 			(CommerceBOMFolder commerceBOMFolder) -> {
 				try {
-					indexableActionableDynamicQuery.addDocuments(getDocument(commerceBOMFolder));
+					indexableActionableDynamicQuery.addDocuments(
+						getDocument(commerceBOMFolder));
 				}
 				catch (PortalException pe) {
 					if (_log.isWarnEnabled()) {

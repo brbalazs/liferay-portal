@@ -38,8 +38,6 @@ import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
@@ -86,7 +84,8 @@ public class CommerceBOMAdminPortlet extends MVCPortlet {
 				_commerceBOMDefinitionService,
 				_commerceBOMFolderApplicationRelService,
 				_commerceBOMFolderModelResourcePermission,
-				_commerceBOMFolderService, _portal.getHttpServletRequest(renderRequest), _itemSelector,
+				_commerceBOMFolderService,
+				_portal.getHttpServletRequest(renderRequest), _itemSelector,
 				_userFileUploadsConfiguration);
 
 		renderRequest.setAttribute(
