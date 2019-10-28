@@ -530,10 +530,10 @@ public class DisplayPageFriendlyURLResolver implements FriendlyURLResolver {
 
 		_portal.addPageSubtitle(journalArticle.getTitle(locale), request);
 
-		String summary = HtmlUtil.unescape(
+		String description = HtmlUtil.unescape(
 			HtmlUtil.stripHtml(journalArticle.getDescription(locale)));
 
-		_portal.addPageDescription(summary, httpServletRequest);
+		_portal.addPageDescription(description, httpServletRequest);
 
 		List<AssetTag> assetTags = _assetTagLocalService.getTags(
 			JournalArticle.class.getName(), journalArticle.getPrimaryKey());
