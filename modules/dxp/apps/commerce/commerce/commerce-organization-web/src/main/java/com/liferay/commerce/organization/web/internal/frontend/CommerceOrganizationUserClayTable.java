@@ -101,7 +101,7 @@ public class CommerceOrganizationUserClayTable
 				user.getUserId(), httpServletRequest);
 
 			ClayTableAction viewClayTableAction = new ClayTableAction(
-				viewURL, StringPool.BLANK,
+				StringPool.BLANK, viewURL, StringPool.BLANK,
 				LanguageUtil.get(httpServletRequest, "view"), false, false);
 
 			clayTableActions.add(viewClayTableAction);
@@ -121,7 +121,7 @@ public class CommerceOrganizationUserClayTable
 			sb.append(StringPool.SEMICOLON);
 
 			ClayTableAction clayTableAction = new ClayTableAction(
-				sb.toString(), StringPool.BLANK,
+				StringPool.BLANK, sb.toString(), StringPool.BLANK,
 				LanguageUtil.get(httpServletRequest, "delete"), false, false);
 
 			clayTableActions.add(clayTableAction);

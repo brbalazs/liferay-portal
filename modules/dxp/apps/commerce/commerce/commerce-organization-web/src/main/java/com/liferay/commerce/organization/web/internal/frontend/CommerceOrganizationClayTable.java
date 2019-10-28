@@ -92,7 +92,7 @@ public class CommerceOrganizationClayTable
 				organization.getOrganizationId(), httpServletRequest);
 
 			ClayTableAction viewClayTableAction = new ClayTableAction(
-				viewURL, StringPool.BLANK,
+				StringPool.BLANK, viewURL, StringPool.BLANK,
 				LanguageUtil.get(httpServletRequest, "view-detail"), false,
 				false);
 
@@ -104,7 +104,7 @@ public class CommerceOrganizationClayTable
 
 			ClayTableAction viewSubOrganizationsClayTableAction =
 				new ClayTableAction(
-					viewSubOrganizationsURL, StringPool.BLANK,
+					StringPool.BLANK, viewSubOrganizationsURL, StringPool.BLANK,
 					LanguageUtil.get(
 						httpServletRequest, "view-suborganizations"),
 					false, false);
@@ -127,7 +127,7 @@ public class CommerceOrganizationClayTable
 			sb.append(StringPool.SEMICOLON);
 
 			ClayTableAction deleteClayTableAction = new ClayTableAction(
-				sb.toString(), StringPool.BLANK,
+				StringPool.BLANK, sb.toString(), StringPool.BLANK,
 				LanguageUtil.get(httpServletRequest, "delete"), false, false);
 
 			clayTableActions.add(deleteClayTableAction);
