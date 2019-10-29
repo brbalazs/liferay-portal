@@ -569,7 +569,10 @@ public class DisplayPageFriendlyURLResolver implements FriendlyURLResolver {
 		Locale locale = _portal.getLocale(request);
 
 		_portal.addPageSubtitle(assetEntry.getTitle(locale), request);
-		_portal.addPageDescription(assetEntry.getDescription(locale), request);
+		_portal.addPageDescription(
+			HtmlUtil.unescape(
+				HtmlUtil.stripHtml(assetEntry.getDescription(locale))),
+			request);
 
 		Layout layout = _getAssetDisplayPageEntryLayout(assetEntry);
 
