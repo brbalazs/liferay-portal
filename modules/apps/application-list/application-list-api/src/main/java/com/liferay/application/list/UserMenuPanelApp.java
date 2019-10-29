@@ -29,17 +29,12 @@ public abstract class UserMenuPanelApp extends BasePanelApp {
 	public boolean isShow(PermissionChecker permissionChecker, Group group)
 		throws PortalException {
 
-		Group controlPanelGroup;
-
-		if (group.isControlPanel()) {
-			controlPanelGroup = group;
-		}
-		else {
-			controlPanelGroup = GroupLocalServiceUtil.getGroup(
+		if (!group.isControlPanel()) {
+			group = GroupLocalServiceUtil.getGroup(
 				group.getCompanyId(), GroupConstants.CONTROL_PANEL);
 		}
 
-		return super.isShow(permissionChecker, controlPanelGroup);
+		return super.isShow(permissionChecker, group);
 	}
 
 }
