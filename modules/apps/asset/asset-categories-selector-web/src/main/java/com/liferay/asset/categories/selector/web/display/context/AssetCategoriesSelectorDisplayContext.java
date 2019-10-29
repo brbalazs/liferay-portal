@@ -246,6 +246,8 @@ public class AssetCategoriesSelectorDisplayContext {
 			jsonObject.put("icon", "page");
 			jsonObject.put("id", category.getCategoryId());
 			jsonObject.put("name", category.getTitle(themeDisplay.getLocale()));
+			jsonObject.put(
+				"nodePath", category.getPath(themeDisplay.getLocale(), true));
 
 			if (getSelectedCategories().contains(
 					String.valueOf(category.getCategoryId()))) {

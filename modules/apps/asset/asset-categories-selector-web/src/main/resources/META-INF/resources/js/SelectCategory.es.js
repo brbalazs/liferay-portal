@@ -90,6 +90,7 @@ class SelectCategory extends PortletBase {
 				(node) => {
 					this.data[node.id] = {
 						categoryId: node.vocabulary ? 0 : node.id,
+						nodePath: node.nodePath,
 						value: node.name,
 						vocabularyId: node.vocabulary ? node.id : 0
 					};
@@ -101,6 +102,7 @@ class SelectCategory extends PortletBase {
 					if (newVal.indexOf(node) === -1) {
 						this.data[node.id] = {
 							categoryId: node.vocabulary ? 0 : node.id,
+							nodePath: node.nodePath,
 							unchecked: true,
 							value: node.name,
 							vocabularyId: node.vocabulary ? node.id : 0
