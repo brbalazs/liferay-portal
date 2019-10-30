@@ -161,7 +161,7 @@ public class EditServerMVCActionCommand extends BaseMVCActionCommand {
 		else if (cmd.equals("cleanUpPermissions")) {
 			CleanUpPermissionsUtil.cleanUpAddToPagePermissions(actionRequest);
 		}
-		else if (cmd.equals("cleanUpPortletPreferences")) {
+		else if (cmd.equals("cleanUpPageRevisionPortletPreferences")) {
 			CleanUpPortletPreferencesUtil.
 				cleanUpLayoutRevisionPortletPreferences();
 		}
