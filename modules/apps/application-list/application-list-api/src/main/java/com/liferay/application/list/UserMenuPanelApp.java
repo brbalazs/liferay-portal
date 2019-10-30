@@ -18,7 +18,9 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
-import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.GroupLocalService;
+
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Istvan Sajtos
@@ -30,11 +32,14 @@ public abstract class UserMenuPanelApp extends BasePanelApp {
 		throws PortalException {
 
 		if (!group.isControlPanel()) {
-			group = GroupLocalServiceUtil.getGroup(
+			group = groupLocalService.getGroup(
 				group.getCompanyId(), GroupConstants.CONTROL_PANEL);
 		}
 
 		return super.isShow(permissionChecker, group);
 	}
+
+	@Reference
+	protected GroupLocalService groupLocalService;
 
 }
