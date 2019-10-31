@@ -126,7 +126,7 @@ public class CompositePasswordEncryptor
 		}
 
 		return StringBundler.concat(
-			StringPool.OPEN_CURLY_BRACE, getAlgorithmName(algorithm),
+			StringPool.OPEN_CURLY_BRACE, _getAlgorithmName(algorithm),
 			StringPool.CLOSE_CURLY_BRACE, newEncryptedPassword);
 	}
 
@@ -169,7 +169,7 @@ public class CompositePasswordEncryptor
 		}
 	}
 
-	protected String getAlgorithmName(String algorithm) {
+	private String _getAlgorithmName(String algorithm) {
 		int index = algorithm.indexOf(CharPool.SLASH);
 
 		if (index > 0) {
