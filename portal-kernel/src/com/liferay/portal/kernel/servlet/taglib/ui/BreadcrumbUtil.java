@@ -92,7 +92,7 @@ public class BreadcrumbUtil {
 		}
 
 		if (hasAll || ArrayUtil.contains(types, ENTRY_TYPE_CURRENT_GROUP)) {
-			long groupId = ParamUtil.getLong(httpServletRequest, "groupId");
+			long groupId = ParamUtil.getLong(request, "groupId");
 
 			if (groupId != 0) {
 				themeDisplay.setScopeGroupId(groupId);
