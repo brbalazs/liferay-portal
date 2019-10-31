@@ -21,7 +21,6 @@ import com.liferay.friendly.url.model.FriendlyURLEntryLocalization;
 import com.liferay.friendly.url.model.FriendlyURLEntryMapping;
 import com.liferay.friendly.url.service.base.FriendlyURLEntryLocalServiceBaseImpl;
 import com.liferay.friendly.url.util.comparator.FriendlyURLEntryCreateDateComparator;
-import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Property;
@@ -330,17 +329,10 @@ public class FriendlyURLEntryLocalServiceImpl
 		int maxLength = ModelHintsUtil.getMaxLength(
 			FriendlyURLEntryLocalization.class.getName(), "urlTitle");
 
-		String prefix = normalizedUrlTitle;
-		int endPos = urlTitle.length();
+		String curUrlTitle = _getURLEncodedSubstring(
+			urlTitle, normalizedUrlTitle, maxLength);
 
-		while (prefix.length() > maxLength) {
-			endPos = _getNewEndPos(urlTitle, endPos);
-
-			prefix = FriendlyURLNormalizerUtil.normalizeWithEncoding(
-				urlTitle.substring(0, endPos));
-		}
-
-		String curUrlTitle = prefix;
+		String prefix = curUrlTitle;
 
 		for (int i = 1;; i++) {
 			FriendlyURLEntryLocalization friendlyURLEntryLocalization =
@@ -355,12 +347,8 @@ public class FriendlyURLEntryLocalServiceImpl
 
 			String suffix = StringPool.DASH + i;
 
-			while ((prefix.length() + suffix.length()) > maxLength) {
-				endPos = _getNewEndPos(urlTitle, endPos);
-
-				prefix = FriendlyURLNormalizerUtil.normalizeWithEncoding(
-					urlTitle.substring(0, endPos));
-			}
+			prefix = _getURLEncodedSubstring(
+				urlTitle, prefix, maxLength - suffix.length());
 
 			curUrlTitle = prefix + suffix;
 		}
@@ -528,6 +516,21 @@ public class FriendlyURLEntryLocalServiceImpl
 		}
 
 		return endPos - 1;
+	}
+
+	private String _getURLEncodedSubstring(
+		String decodedString, String encodedString, int maxLength) {
+
+		int endPos = decodedString.length();
+
+		while (encodedString.length() > maxLength) {
+			endPos = _getNewEndPos(decodedString, endPos);
+
+			encodedString = FriendlyURLNormalizerUtil.normalizeWithEncoding(
+				decodedString.substring(0, endPos));
+		}
+
+		return encodedString;
 	}
 
 	private void _updateFriendlyURLEntryLocalizations(
