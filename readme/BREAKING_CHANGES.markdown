@@ -1094,3 +1094,57 @@ the permissions.
 This change removes old logic that is no longer used in Liferay Portal.
 
 ---------------------------------------
+
+### Liferay `AssetEntries_AssetCategories` is not longer used
+- **Date:** 2019-Sep-11
+- **JIRA Tickets:** [LPS-99973](https://issues.liferay.com/browse/LPS-99973),
+[LPS-76488](https://issues.liferay.com/browse/LPS-76488)
+
+#### What changed?
+
+Previously, Liferay used a mapping table and a corresponding interface for the
+relationship between AssetEntry and AssetCategory in `AssetEntryLocalService`
+and `AssetCategoryLocalService`. This mapping table and the corresponding
+interface have been replaced by the table `AssetEntryAssetCategoryRel` and the
+service `AssetEntryAssetCategoryRelLocalService`.
+
+#### Who is affected?
+
+This affects any content or code that relies on calling the old interfaces for
+the `AssetEntries_AssetCategories` relationship, through the
+`AssetEntryLocalService` and `AssetCategoryLocalService`.
+
+#### How should I update my code?
+
+Use the new methods in `AssetEntryAssetCategoryRelLocalService` to retrieve the
+same data as before. Note, the new method signatures are the same as before, but
+are just located in a different service.
+
+**Example**
+
+Old way:
+
+  List<AssetEntry> entryIds = AssetEntryLocalServiceUtil.getAssetCategoryAssetEntries(categoryId);
+
+  for (AssetEntry entry: entryIds) {
+    ...
+  }
+
+New way:
+
+  long[] assetEntryPKs = getAssetEntryPrimaryKeys(assetCategoryId);
+
+  for (long assetEntryPK: assetEntryPKs) {
+    AssetEntry = AssetEntryLocalServiceUtil.getEntry(assetEntryPK);
+    ...
+  }
+
+#### Why was this change made?
+
+This change was made due to changes resulting from
+[LPS-76488](https://issues.liferay.com/browse/LPS-76488), which was introduced
+so that developers would be able to specify a priority when assigning Assets to
+AssetCategory in order to make it possible to control the order of a list of
+assets with a given category.
+
+---------------------------------------
