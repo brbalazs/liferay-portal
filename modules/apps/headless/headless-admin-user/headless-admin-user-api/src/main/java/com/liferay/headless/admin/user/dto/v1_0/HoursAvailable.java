@@ -206,6 +206,12 @@ public class HoursAvailable {
 		return sb.toString();
 	}
 
+	@Schema(
+		defaultValue = "com.liferay.headless.admin.user.dto.v1_0.HoursAvailable",
+		name = "x-class-name"
+	)
+	public String xClassName;
+
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);
 

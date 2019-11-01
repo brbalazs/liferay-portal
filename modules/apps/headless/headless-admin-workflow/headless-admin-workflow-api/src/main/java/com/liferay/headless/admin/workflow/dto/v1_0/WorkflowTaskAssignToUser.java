@@ -210,6 +210,12 @@ public class WorkflowTaskAssignToUser {
 		return sb.toString();
 	}
 
+	@Schema(
+		defaultValue = "com.liferay.headless.admin.workflow.dto.v1_0.WorkflowTaskAssignToUser",
+		name = "x-class-name"
+	)
+	public String xClassName;
+
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);
 

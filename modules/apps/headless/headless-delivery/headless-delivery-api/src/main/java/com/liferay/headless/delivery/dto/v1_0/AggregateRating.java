@@ -270,6 +270,12 @@ public class AggregateRating {
 		return sb.toString();
 	}
 
+	@Schema(
+		defaultValue = "com.liferay.headless.delivery.dto.v1_0.AggregateRating",
+		name = "x-class-name"
+	)
+	public String xClassName;
+
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);
 
