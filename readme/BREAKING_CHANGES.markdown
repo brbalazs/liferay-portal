@@ -1124,20 +1124,28 @@ are just located in a different service.
 
 Old way:
 
-  List<AssetEntry> entryIds = AssetEntryLocalServiceUtil.getAssetCategoryAssetEntries(categoryId);
+  List<AssetEntry> entries = AssetEntryLocalServiceUtil.getAssetCategoryAssetEntries(categoryId);
 
-  for (AssetEntry entry: entryIds) {
+  for (AssetEntry entry: entries) {
     ...
   }
 
 New way:
 
-  long[] assetEntryPKs = getAssetEntryPrimaryKeys(assetCategoryId);
+  long[] assetEntryPKs = _assetEntryAssetCategoryRelLocalService.getAssetEntryPrimaryKeys(assetCategoryId);
 
   for (long assetEntryPK: assetEntryPKs) {
-    AssetEntry = AssetEntryLocalServiceUtil.getEntry(assetEntryPK);
+    AssetEntry = _assetEntryLocalService.getEntry(assetEntryPK);
     ...
   }
+
+  ...
+
+  @Reference
+  private AssetEntryAssetCategoryRelLocalService _assetEntryAssetCategoryRelLocalService;
+
+  @Reference
+  private AssetEntryLocalService _assetEntryLocalService;
 
 #### Why was this change made?
 
