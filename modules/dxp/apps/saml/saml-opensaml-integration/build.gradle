@@ -65,8 +65,8 @@ dependencies {
 	testCompile project(":core:petra:petra-concurrent")
 	testCompile project(":core:petra:petra-lang")
 	testCompile project(":core:petra:petra-memory")
-	testCompile project(":private:apps:saml:saml-persistence-service")
-	testCompile project(":private:apps:saml:saml-web")
+	testCompile project(":dxp:apps:saml:saml-persistence-service")
+	testCompile project(":dxp:apps:saml:saml-web")
 }
 
 liferayOSGi {

@@ -9,6 +9,6 @@ dependencies {
 	testIntegrationCompile group: "com.liferay", name: "com.liferay.arquillian.extension.junit.bridge", version: "1.0.19"
 	testIntegrationCompile group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "default"
 	testIntegrationCompile project(":core:registry-api")
-	testIntegrationCompile project(":private:apps:saml:saml-persistence-api")
-	testIntegrationCompile project(":private:apps:saml:saml-persistence-service")
+	testIntegrationCompile project(":dxp:apps:saml:saml-persistence-api")
+	testIntegrationCompile project(":dxp:apps:saml:saml-persistence-service")
 }
