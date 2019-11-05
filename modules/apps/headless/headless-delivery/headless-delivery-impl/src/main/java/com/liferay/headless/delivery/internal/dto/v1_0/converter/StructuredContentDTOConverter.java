@@ -378,6 +378,7 @@ public class StructuredContentDTOConverter implements DTOConverter {
 				{
 					structuredContentLink = new StructuredContentLink() {
 						{
+							contentType = "StructuredContent";
 							id = journalArticle.getResourcePrimKey();
 							title = journalArticle.getTitle();
 						}
