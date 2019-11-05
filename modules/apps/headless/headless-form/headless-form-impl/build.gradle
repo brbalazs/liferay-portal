@@ -1,5 +1,5 @@
 dependencies {
-	compileOnly group: "com.fasterxml.jackson.core", name: "jackson-annotations", version: "2.9.9"
+	compileOnly group: "com.fasterxml.jackson.core", name: "jackson-annotations", version: "2.9.10"
 	compileOnly group: "com.liferay", name: "com.liferay.document.library.api", version: "4.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.dynamic.data.mapping.api", version: "4.10.0"
 	compileOnly group: "com.liferay", name: "com.liferay.headless.form.api", version: "8.0.0"
