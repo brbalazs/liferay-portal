@@ -123,9 +123,7 @@ public class FlagsEntryServiceTest {
 				(HtmlEscapableObject)subscriptionSender.getContextAttribute(
 					entry.getKey());
 
-			Assert.assertTrue(
-				"Attribute " + entry.getKey() + " should be escaped.",
-				htmlEscapableObject.isEscape());
+			Assert.assertTrue(htmlEscapableObject.isEscape());
 			Assert.assertEquals(
 				HtmlUtil.escape(
 					String.valueOf(htmlEscapableObject.getOriginalValue())),
