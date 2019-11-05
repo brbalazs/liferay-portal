@@ -28,7 +28,7 @@ buildCKEditor {
 	duplicatesStrategy = "exclude"
 
 	eachFile new StripPathSegmentsAction(2)
-	from npmInstall.nodeModulesDir
+	from file("node_modules")
 	include "liferay-ckeditor/ckeditor/"
 	includeEmptyDirs = false
 	into ckEditorDestinationDir
