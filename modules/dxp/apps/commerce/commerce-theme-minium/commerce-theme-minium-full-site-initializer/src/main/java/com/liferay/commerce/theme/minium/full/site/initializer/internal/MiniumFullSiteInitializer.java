@@ -16,20 +16,26 @@ package com.liferay.commerce.theme.minium.full.site.initializer.internal;
 
 import com.liferay.commerce.theme.minium.SiteInitializerDependencyResolver;
 import com.liferay.commerce.theme.minium.SiteInitializerDependencyResolverThreadLocal;
+import com.liferay.commerce.theme.minium.full.site.initializer.internal.importer.CommerceMLForecastImporter;
 import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.document.library.kernel.model.DLFolderConstants;
 import com.liferay.document.library.kernel.service.DLFileEntryLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.RoleConstants;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.site.exception.InitializationException;
 import com.liferay.site.initializer.SiteInitializer;
 
@@ -82,6 +88,8 @@ public class MiniumFullSiteInitializer implements SiteInitializer {
 
 			_siteInitializer.initialize(groupId);
 
+			_importCommerceMLForecasts(groupId);
+
 			fixDLFileEntryPermissions(groupId);
 		}
 		catch (InitializationException ie) {
@@ -126,8 +134,25 @@ public class MiniumFullSiteInitializer implements SiteInitializer {
 		}
 	}
 
+	private JSONArray _getJSONArray(String name) throws Exception {
+		return _jsonFactory.createJSONArray(
+			_fullSiteInitializerDependencyResolver.getJSON(name));
+	}
+
+	private void _importCommerceMLForecasts(long groupId) throws Exception {
+		JSONArray jsonArray = _getJSONArray("forecasts.json");
+
+		User user = _userLocalService.getUser(PrincipalThreadLocal.getUserId());
+
+		_commerceMLForecastImporter.importCommerceMLForecasts(
+			jsonArray, groupId, user.getUserId());
+	}
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		MiniumFullSiteInitializer.class);
+
+	@Reference
+	private CommerceMLForecastImporter _commerceMLForecastImporter;
 
 	@Reference
 	private DLFileEntryLocalService _dlFileEntryLocalService;
@@ -138,6 +163,9 @@ public class MiniumFullSiteInitializer implements SiteInitializer {
 
 	@Reference
 	private GroupLocalService _groupLocalService;
+
+	@Reference
+	private JSONFactory _jsonFactory;
 
 	@Reference
 	private ResourcePermissionLocalService _resourcePermissionLocalService;
@@ -152,5 +180,8 @@ public class MiniumFullSiteInitializer implements SiteInitializer {
 
 	@Reference(target = "(site.initializer.key=minium-initializer)")
 	private SiteInitializer _siteInitializer;
+
+	@Reference
+	private UserLocalService _userLocalService;
 
 }
