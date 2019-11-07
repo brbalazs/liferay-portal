@@ -4,4 +4,7 @@
 	<checkstyle>
 		<suppress checks="JSONNamingCheck" files="commerce-cloud/server/.*" />
 	</checkstyle>
+	<source-check>
+		<suppress checks="CopyrightCheck" files="\.*" />
+	</source-check>
 </suppressions>
