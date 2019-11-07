@@ -528,7 +528,7 @@ public class DisplayPageFriendlyURLResolver implements FriendlyURLResolver {
 				layoutActualURL + StringPool.QUESTION + queryString;
 		}
 
-		_portal.addPageSubtitle(journalArticle.getTitle(locale), request);
+		_portal.addPageTitle(journalArticle.getTitle(locale), request);
 		_portal.addPageDescription(
 			HtmlUtil.unescape(
 				HtmlUtil.stripHtml(journalArticle.getDescription(locale))),
