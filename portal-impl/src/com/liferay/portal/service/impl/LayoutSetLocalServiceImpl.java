@@ -50,6 +50,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.net.IDN;
+
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -164,6 +166,13 @@ public class LayoutSetLocalServiceImpl extends LayoutSetLocalServiceBaseImpl {
 		VirtualHost virtualHost = virtualHostPersistence.fetchByHostname(
 			virtualHostname);
 
+		if ((virtualHost == null) && virtualHostname.startsWith("xn--")) {
+			String virtualHostnameUnicode = IDN.toUnicode(virtualHostname);
+
+			virtualHost = virtualHostPersistence.fetchByHostname(
+				virtualHostnameUnicode);
+		}
+
 		if ((virtualHost == null) || (virtualHost.getLayoutSetId() == 0)) {
 			return null;
 		}
@@ -193,8 +202,23 @@ public class LayoutSetLocalServiceImpl extends LayoutSetLocalServiceBaseImpl {
 		virtualHostname = StringUtil.toLowerCase(
 			StringUtil.trim(virtualHostname));
 
-		VirtualHost virtualHost = virtualHostPersistence.findByHostname(
-			virtualHostname);
+		VirtualHost virtualHost;
+
+		try {
+			virtualHost = virtualHostPersistence.findByHostname(
+				virtualHostname);
+		}
+		catch (NoSuchVirtualHostException nsvhe) {
+			if (virtualHostname.startsWith("xn--")) {
+				String virtualHostnameUnicode = IDN.toUnicode(virtualHostname);
+
+				virtualHost = virtualHostPersistence.findByHostname(
+					virtualHostnameUnicode);
+			}
+			else {
+				throw nsvhe;
+			}
+		}
 
 		if (virtualHost.getLayoutSetId() == 0) {
 			throw new LayoutSetVirtualHostException(
