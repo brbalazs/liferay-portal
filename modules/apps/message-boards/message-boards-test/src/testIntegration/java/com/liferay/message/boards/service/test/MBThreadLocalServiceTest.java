@@ -15,7 +15,6 @@
 package com.liferay.message.boards.service.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
-import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.model.ExpandoColumnConstants;
 import com.liferay.expando.kernel.model.ExpandoTable;
@@ -80,25 +79,25 @@ public class MBThreadLocalServiceTest {
 
 	@Test
 	public void testAddThreadTitleWhenAddingRootMessage() throws Exception {
-		MBMessage rootMessage = addMessage(null, true);
+		MBMessage rootMessage = _addMessage(null, true);
 
 		MBThread thread = MBThreadLocalServiceUtil.getThread(
 			rootMessage.getThreadId());
 
 		Assert.assertEquals(rootMessage.getSubject(), thread.getTitle());
 
-		MBMessage childMessage = addMessage(rootMessage, true);
+		MBMessage childMessage = _addMessage(rootMessage, true);
 
 		Assert.assertNotEquals(childMessage.getSubject(), thread.getTitle());
 	}
 
 	@Test
 	public void testAttachmentsWhenSplittingThread() throws Exception {
-		MBMessage rootMessage = addMessage(null, true);
+		MBMessage rootMessage = _addMessage(null, true);
 
-		MBMessage splitMessage = addMessage(rootMessage, true);
+		MBMessage splitMessage = _addMessage(rootMessage, true);
 
-		MBMessage childMessage = addMessage(splitMessage, true);
+		MBMessage childMessage = _addMessage(splitMessage, true);
 
 		Assert.assertEquals(
 			rootMessage.getThreadId(), splitMessage.getThreadId());
@@ -138,7 +137,7 @@ public class MBThreadLocalServiceTest {
 
 		Assert.assertEquals(0, expandoCount);
 
-		MBMessage message = addMessageWithExpando();
+		MBMessage message = _addMessageWithExpando();
 
 		ExpandoBridge expandoBridge = message.getExpandoBridge();
 
@@ -165,9 +164,9 @@ public class MBThreadLocalServiceTest {
 	public void testNotUpdateThreadTitleWhenUpdatingChildMessage()
 		throws Exception {
 
-		MBMessage rootMessage = addMessage(null, true);
+		MBMessage rootMessage = _addMessage(null, true);
 
-		MBMessage childMessage = addMessage(rootMessage, true);
+		MBMessage childMessage = _addMessage(rootMessage, true);
 
 		MBThread thread = MBThreadLocalServiceUtil.getThread(
 			rootMessage.getThreadId());
@@ -196,9 +195,9 @@ public class MBThreadLocalServiceTest {
 
 	@Test
 	public void testUpdateThreadTitleWhenSplittingMessage() throws Exception {
-		MBMessage rootMessage = addMessage(null, true);
+		MBMessage rootMessage = _addMessage(null, true);
 
-		MBMessage splitMessage = addMessage(rootMessage, true);
+		MBMessage splitMessage = _addMessage(rootMessage, true);
 
 		MBThread thread = MBThreadLocalServiceUtil.getThread(
 			rootMessage.getThreadId());
@@ -235,7 +234,7 @@ public class MBThreadLocalServiceTest {
 	public void testUpdateThreadTitleWhenUpdatingRootMessage()
 		throws Exception {
 
-		MBMessage rootMessage = addMessage(null, true);
+		MBMessage rootMessage = _addMessage(null, true);
 
 		MBThread thread = MBThreadLocalServiceUtil.getThread(
 			rootMessage.getThreadId());
@@ -261,7 +260,7 @@ public class MBThreadLocalServiceTest {
 		Assert.assertEquals(newSubject, thread.getTitle());
 	}
 
-	protected MBMessage addMessage(
+	private MBMessage _addMessage(
 			MBMessage parentMessage, boolean addAttachments)
 		throws Exception {
 
@@ -295,7 +294,7 @@ public class MBThreadLocalServiceTest {
 			false, serviceContext);
 	}
 
-	protected MBMessage addMessageWithExpando()
+	private MBMessage _addMessageWithExpando()
 		throws Exception {
 
 		ExpandoTable expandoTable =
