@@ -41,6 +41,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
 
@@ -135,14 +136,17 @@ public class MBThreadLocalServiceTest {
 
 		int expandoCount = ExpandoValueLocalServiceUtil.getExpandoValuesCount();
 
-		MBMessage message = _addMessageWithExpando();
+		String expandoName = StringUtil.randomString();
+		String expandoValue = StringUtil.randomString();
+
+		MBMessage message = _addMessageWithExpando(expandoName, expandoValue);
 
 		ExpandoBridge expandoBridge = message.getExpandoBridge();
 
 		String attributeValue = GetterUtil.getString(
-			expandoBridge.getAttribute("testExpandoName"));
+			expandoBridge.getAttribute(expandoName));
 
-		Assert.assertEquals("testExpandoValue", attributeValue);
+		Assert.assertEquals(expandoValue, attributeValue);
 
 		Assert.assertEquals(
 			expandoCount + 1,
@@ -284,7 +288,7 @@ public class MBThreadLocalServiceTest {
 			false, serviceContext);
 	}
 
-	private MBMessage _addMessageWithExpando()
+	private MBMessage _addMessageWithExpando(String name, String value)
 		throws Exception {
 
 		ExpandoTable expandoTable =
@@ -292,7 +296,7 @@ public class MBThreadLocalServiceTest {
 				PortalUtil.getDefaultCompanyId(), MBMessage.class.getName());
 
 		ExpandoColumnLocalServiceUtil.addColumn(
-			expandoTable.getTableId(), "testExpandoName",
+			expandoTable.getTableId(), name,
 			ExpandoColumnConstants.STRING, StringPool.BLANK);
 
 		ServiceContext serviceContext =
@@ -305,7 +309,7 @@ public class MBThreadLocalServiceTest {
 
 		Map<String, Serializable> expandoBridgeAttributes =
 			HashMapBuilder.<String, Serializable>put(
-				"testExpandoName", "testExpandoValue"
+				name, value
 			).build();
 
 		serviceContext.setExpandoBridgeAttributes(expandoBridgeAttributes);
