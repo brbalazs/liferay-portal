@@ -79,25 +79,25 @@ public class MBThreadLocalServiceTest {
 
 	@Test
 	public void testAddThreadTitleWhenAddingRootMessage() throws Exception {
-		MBMessage rootMessage = _addMessage(null, true);
+		MBMessage rootMessage = _addMessage(null);
 
 		MBThread thread = MBThreadLocalServiceUtil.getThread(
 			rootMessage.getThreadId());
 
 		Assert.assertEquals(rootMessage.getSubject(), thread.getTitle());
 
-		MBMessage childMessage = _addMessage(rootMessage, true);
+		MBMessage childMessage = _addMessage(rootMessage);
 
 		Assert.assertNotEquals(childMessage.getSubject(), thread.getTitle());
 	}
 
 	@Test
 	public void testAttachmentsWhenSplittingThread() throws Exception {
-		MBMessage rootMessage = _addMessage(null, true);
+		MBMessage rootMessage = _addMessage(null);
 
-		MBMessage splitMessage = _addMessage(rootMessage, true);
+		MBMessage splitMessage = _addMessage(rootMessage);
 
-		MBMessage childMessage = _addMessage(splitMessage, true);
+		MBMessage childMessage = _addMessage(splitMessage);
 
 		Assert.assertEquals(
 			rootMessage.getThreadId(), splitMessage.getThreadId());
@@ -164,9 +164,9 @@ public class MBThreadLocalServiceTest {
 	public void testNotUpdateThreadTitleWhenUpdatingChildMessage()
 		throws Exception {
 
-		MBMessage rootMessage = _addMessage(null, true);
+		MBMessage rootMessage = _addMessage(null);
 
-		MBMessage childMessage = _addMessage(rootMessage, true);
+		MBMessage childMessage = _addMessage(rootMessage);
 
 		MBThread thread = MBThreadLocalServiceUtil.getThread(
 			rootMessage.getThreadId());
@@ -195,9 +195,9 @@ public class MBThreadLocalServiceTest {
 
 	@Test
 	public void testUpdateThreadTitleWhenSplittingMessage() throws Exception {
-		MBMessage rootMessage = _addMessage(null, true);
+		MBMessage rootMessage = _addMessage(null);
 
-		MBMessage splitMessage = _addMessage(rootMessage, true);
+		MBMessage splitMessage = _addMessage(rootMessage);
 
 		MBThread thread = MBThreadLocalServiceUtil.getThread(
 			rootMessage.getThreadId());
@@ -234,7 +234,7 @@ public class MBThreadLocalServiceTest {
 	public void testUpdateThreadTitleWhenUpdatingRootMessage()
 		throws Exception {
 
-		MBMessage rootMessage = _addMessage(null, true);
+		MBMessage rootMessage = _addMessage(null);
 
 		MBThread thread = MBThreadLocalServiceUtil.getThread(
 			rootMessage.getThreadId());
@@ -260,10 +260,7 @@ public class MBThreadLocalServiceTest {
 		Assert.assertEquals(newSubject, thread.getTitle());
 	}
 
-	private MBMessage _addMessage(
-			MBMessage parentMessage, boolean addAttachments)
-		throws Exception {
-
+	private MBMessage _addMessage(MBMessage parentMessage) throws Exception {
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(
 				_group.getGroupId(), TestPropsValues.getUserId());
@@ -279,12 +276,8 @@ public class MBThreadLocalServiceTest {
 		}
 
 		List<ObjectValuePair<String, InputStream>> inputStreamOVPs =
-			Collections.emptyList();
-
-		if (addAttachments) {
-			inputStreamOVPs = MBTestUtil.getInputStreamOVPs(
+			MBTestUtil.getInputStreamOVPs(
 				"attachment.txt", getClass(), StringPool.BLANK);
-		}
 
 		return MBMessageLocalServiceUtil.addMessage(
 			TestPropsValues.getUserId(), RandomTestUtil.randomString(),
