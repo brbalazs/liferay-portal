@@ -167,10 +167,8 @@ public class LayoutSetLocalServiceImpl extends LayoutSetLocalServiceBaseImpl {
 			virtualHostname);
 
 		if ((virtualHost == null) && virtualHostname.startsWith("xn--")) {
-			String virtualHostnameUnicode = IDN.toUnicode(virtualHostname);
-
 			virtualHost = virtualHostPersistence.fetchByHostname(
-				virtualHostnameUnicode);
+				IDN.toUnicode(virtualHostname));
 		}
 
 		if ((virtualHost == null) || (virtualHost.getLayoutSetId() == 0)) {
@@ -210,10 +208,8 @@ public class LayoutSetLocalServiceImpl extends LayoutSetLocalServiceBaseImpl {
 		}
 		catch (NoSuchVirtualHostException nsvhe) {
 			if (virtualHostname.startsWith("xn--")) {
-				String virtualHostnameUnicode = IDN.toUnicode(virtualHostname);
-
 				virtualHost = virtualHostPersistence.findByHostname(
-					virtualHostnameUnicode);
+					IDN.toUnicode(virtualHostname));
 			}
 			else {
 				throw nsvhe;
