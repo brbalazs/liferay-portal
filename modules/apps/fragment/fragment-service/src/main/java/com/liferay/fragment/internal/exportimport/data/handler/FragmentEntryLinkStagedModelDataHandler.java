@@ -82,6 +82,14 @@ public class FragmentEntryLinkStagedModelDataHandler
 		Element fragmentEntryLinkElement =
 			portletDataContext.getExportDataElement(fragmentEntryLink);
 
+		String html =
+			_fragmentEntryLinkExportImportContentProcessor.
+				replaceExportContentReferences(
+					portletDataContext, fragmentEntryLink,
+					fragmentEntryLink.getHtml(), true, false);
+
+		fragmentEntryLink.setHtml(html);
+
 		portletDataContext.addClassedModel(
 			fragmentEntryLinkElement,
 			ExportImportPathUtil.getModelPath(fragmentEntryLink),
@@ -149,6 +157,14 @@ public class FragmentEntryLinkStagedModelDataHandler
 			originalFragmentEntryLinkId);
 		importedFragmentEntryLink.setFragmentEntryId(fragmentEntryId);
 		importedFragmentEntryLink.setClassPK(referenceClassPK);
+
+		String html =
+			_fragmentEntryLinkExportImportContentProcessor.
+				replaceImportContentReferences(
+					portletDataContext, fragmentEntryLink,
+					fragmentEntryLink.getHtml());
+
+		importedFragmentEntryLink.setHtml(html);
 
 		FragmentEntryLink existingFragmentEntryLink =
 			_stagedModelRepository.fetchStagedModelByUuidAndGroupId(
