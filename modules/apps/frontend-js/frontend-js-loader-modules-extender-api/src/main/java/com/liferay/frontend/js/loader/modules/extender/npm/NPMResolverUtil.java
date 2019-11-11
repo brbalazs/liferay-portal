@@ -47,6 +47,29 @@ public class NPMResolverUtil {
 			FrameworkUtil.getBundle(clazz), packageName);
 	}
 
+	public static NPMResolver getNPMResolver(Bundle bundle) {
+		BundleContext bundleContext = bundle.getBundleContext();
+
+		ServiceReference<NPMResolver> serviceReference =
+			bundleContext.getServiceReference(NPMResolver.class);
+
+		if (serviceReference == null) {
+			throw new IllegalArgumentException(
+				"Bundle " + bundle.getSymbolicName() +
+					" does not have an associated NPMResolver");
+		}
+
+		NPMResolver npmResolver = bundleContext.getService(serviceReference);
+
+		if (npmResolver == null) {
+			throw new IllegalArgumentException(
+				"Bundle " + bundle.getSymbolicName() +
+					" does not have an associated NPMResolver");
+		}
+
+		return npmResolver;
+	}
+
 	public static String resolveModuleName(Bundle bundle, String moduleName) {
 		NPMResolver npmResolver = _getNPMResolver(bundle);
 
@@ -76,29 +99,6 @@ public class NPMResolverUtil {
 
 	public JSPackage getJSPackage(Class<?> clazz) {
 		return getJSPackage(FrameworkUtil.getBundle(clazz));
-	}
-
-	public static NPMResolver getNPMResolver(Bundle bundle) {
-		BundleContext bundleContext = bundle.getBundleContext();
-
-		ServiceReference<NPMResolver> serviceReference =
-			bundleContext.getServiceReference(NPMResolver.class);
-
-		if (serviceReference == null) {
-			throw new IllegalArgumentException(
-				"Bundle " + bundle.getSymbolicName() +
-				" does not have an associated NPMResolver");
-		}
-
-		NPMResolver npmResolver = bundleContext.getService(serviceReference);
-
-		if (npmResolver == null) {
-			throw new IllegalArgumentException(
-				"Bundle " + bundle.getSymbolicName() +
-				" does not have an associated NPMResolver");
-		}
-
-		return npmResolver;
 	}
 
 	private static NPMResolver _getNPMResolver(Bundle bundle) {

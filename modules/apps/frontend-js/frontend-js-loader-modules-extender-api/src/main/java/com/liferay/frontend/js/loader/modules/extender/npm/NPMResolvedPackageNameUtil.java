@@ -25,18 +25,19 @@ import com.liferay.portal.kernel.servlet.ServletContextClassLoaderPool;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleReference;
+
+import java.net.URL;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.net.URL;
+
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleReference;
 
 /**
  * @author Iván Zaera Avellón
  */
 public class NPMResolvedPackageNameUtil {
-
 
 	/**
 	 * Get the NPM resolved package name associated to the current portlet.
@@ -137,7 +138,7 @@ public class NPMResolvedPackageNameUtil {
 		catch (Exception e) {
 			_log.error(
 				"Unable to read META-INF/resources/package.json in " +
-				bundle.getSymbolicName(),
+					bundle.getSymbolicName(),
 				e);
 		}
 
