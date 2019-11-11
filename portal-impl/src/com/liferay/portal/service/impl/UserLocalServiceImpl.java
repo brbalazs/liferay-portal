@@ -4273,7 +4273,9 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		for (Long userId : userIds) {
 			User user = userLocalService.fetchUser(userId);
 
-			users.add(user);
+			if (user != null) {
+				users.add(user);
+			}
 		}
 
 		unsetRoleUsers(roleId, users);
