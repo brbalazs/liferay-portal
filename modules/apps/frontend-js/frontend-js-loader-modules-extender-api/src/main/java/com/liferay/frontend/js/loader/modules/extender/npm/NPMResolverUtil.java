@@ -18,7 +18,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
 
 /**
  * This class provides the same functionality as NPMResolver but without the
@@ -74,6 +76,29 @@ public class NPMResolverUtil {
 
 	public JSPackage getJSPackage(Class<?> clazz) {
 		return getJSPackage(FrameworkUtil.getBundle(clazz));
+	}
+
+	public static NPMResolver getNPMResolver(Bundle bundle) {
+		BundleContext bundleContext = bundle.getBundleContext();
+
+		ServiceReference<NPMResolver> serviceReference =
+			bundleContext.getServiceReference(NPMResolver.class);
+
+		if (serviceReference == null) {
+			throw new IllegalArgumentException(
+				"Bundle " + bundle.getSymbolicName() +
+				" does not have an associated NPMResolver");
+		}
+
+		NPMResolver npmResolver = bundleContext.getService(serviceReference);
+
+		if (npmResolver == null) {
+			throw new IllegalArgumentException(
+				"Bundle " + bundle.getSymbolicName() +
+				" does not have an associated NPMResolver");
+		}
+
+		return npmResolver;
 	}
 
 	private static NPMResolver _getNPMResolver(Bundle bundle) {
