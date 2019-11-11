@@ -31,6 +31,10 @@ definition {
 			value1 = "${assetType}");
 	}
 
+	macro gotoConfigureRelatedAssets {
+		Panel.expandPanel(panel = "Related Assets");
+	}
+
 	macro removeAsset {
 		Panel.expandPanel(panel = "Related Assets");
 
