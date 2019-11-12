@@ -14,6 +14,7 @@
 
 package com.liferay.fragment.internal.exportimport.data.handler;
 
+import com.liferay.exportimport.content.processor.ExportImportContentProcessor;
 import com.liferay.exportimport.data.handler.base.BaseStagedModelDataHandler;
 import com.liferay.exportimport.kernel.lar.ExportImportPathUtil;
 import com.liferay.exportimport.kernel.lar.PortletDataContext;
@@ -83,7 +84,7 @@ public class FragmentEntryLinkStagedModelDataHandler
 			portletDataContext.getExportDataElement(fragmentEntryLink);
 
 		String html =
-			_fragmentEntryLinkExportImportContentProcessor.
+			_dlReferencesExportImportContentProcessor.
 				replaceExportContentReferences(
 					portletDataContext, fragmentEntryLink,
 					fragmentEntryLink.getHtml(), true, false);
@@ -159,7 +160,7 @@ public class FragmentEntryLinkStagedModelDataHandler
 		importedFragmentEntryLink.setClassPK(referenceClassPK);
 
 		String html =
-			_fragmentEntryLinkExportImportContentProcessor.
+			_dlReferencesExportImportContentProcessor.
 				replaceImportContentReferences(
 					portletDataContext, fragmentEntryLink,
 					fragmentEntryLink.getHtml());
@@ -196,6 +197,10 @@ public class FragmentEntryLinkStagedModelDataHandler
 
 		return _stagedModelRepository;
 	}
+
+	@Reference(target = "(content.processor.type=DLReferences)")
+	private ExportImportContentProcessor<String>
+		_dlReferencesExportImportContentProcessor;
 
 	@Reference
 	private FragmentEntryLinkLocalService _fragmentEntryLinkLocalService;
