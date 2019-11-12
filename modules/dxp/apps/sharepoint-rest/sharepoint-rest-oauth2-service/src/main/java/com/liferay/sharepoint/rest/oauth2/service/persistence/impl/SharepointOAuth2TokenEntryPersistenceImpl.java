@@ -458,6 +458,18 @@ public class SharepointOAuth2TokenEntryPersistenceImpl
 		}
 	}
 
+	public void clearCache(Set<Serializable> primaryKeys) {
+		finderCache.clearCache(FINDER_CLASS_NAME_ENTITY);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		for (Serializable primaryKey : primaryKeys) {
+			entityCache.removeResult(
+				SharepointOAuth2TokenEntryModelImpl.ENTITY_CACHE_ENABLED,
+				SharepointOAuth2TokenEntryImpl.class, primaryKey);
+		}
+	}
+
 	protected void cacheUniqueFindersCache(
 		SharepointOAuth2TokenEntryModelImpl
 			sharepointOAuth2TokenEntryModelImpl) {
