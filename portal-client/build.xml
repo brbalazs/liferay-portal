@@ -47,11 +47,9 @@
 		>
 			<fileset
 				dir="classes"
-				includes="com/liferay/client/**,org/apache/**"
 			/>
 			<fileset
 				dir="src"
-				includes="com/liferay/client/**,org/apache/**"
 			/>
 		</jar>
 
