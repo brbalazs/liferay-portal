@@ -4927,7 +4927,7 @@ paths:
     "/sites/{siteId}/blog-posting-images":
         get:
             description:
-                Retrieves the Site's blog post images. Results can be paginated, filtered, searched, and sorted.
+                Retrieves the site's blog post images. Results can be paginated, filtered, searched, and sorted.
             operationId: getSiteBlogPostingImagesPage
             parameters:
                 - in: path
@@ -5009,7 +5009,7 @@ paths:
     "/sites/{siteId}/blog-postings":
         get:
             description:
-                Retrieves the Site's blog postings. Results can be paginated, filtered, searched, and sorted.
+                Retrieves the site's blog postings. Results can be paginated, filtered, searched, and sorted.
             operationId: getSiteBlogPostingsPage
             parameters:
                 - in: path
@@ -5204,7 +5204,7 @@ paths:
     "/sites/{siteId}/content-structures":
         get:
             description:
-                Retrieves the Site's content structures. Results can be paginated, filtered, searched, and sorted.
+                Retrieves the site's content structures. Results can be paginated, filtered, searched, and sorted.
             operationId: getSiteContentStructuresPage
             parameters:
                 - in: path
@@ -5252,7 +5252,7 @@ paths:
     "/sites/{siteId}/document-folders":
         get:
             description:
-                Retrieves the Site's document folders. Results can be paginated, filtered, searched, flattened, and sorted.
+                Retrieves the site's document folders. Results can be paginated, filtered, searched, flattened, and sorted.
             operationId: getSiteDocumentFoldersPage
             parameters:
                 - in: path
@@ -5335,7 +5335,7 @@ paths:
     "/sites/{siteId}/documents":
         get:
             description:
-                Retrieves the documents in the Site's root folder. Results can be paginated, filtered, searched, flattened, and sorted.
+                Retrieves the documents in the site's root folder. Results can be paginated, filtered, searched, flattened, and sorted.
             operationId: getSiteDocumentsPage
             parameters:
                 - in: path
@@ -5421,7 +5421,7 @@ paths:
     "/sites/{siteId}/knowledge-base-articles":
         get:
             description:
-                Retrieves the Site's knowledge base articles. Results can be paginated, filtered, searched, flattened, and sorted.
+                Retrieves the site's knowledge base articles. Results can be paginated, filtered, searched, flattened, and sorted.
             operationId: getSiteKnowledgeBaseArticlesPage
             parameters:
                 - in: path
@@ -5538,7 +5538,7 @@ paths:
     "/sites/{siteId}/knowledge-base-folders":
         get:
             description:
-                Retrieves the Site's knowledge base folders. Results can be paginated.
+                Retrieves the site's knowledge base folders. Results can be paginated.
             operationId: getSiteKnowledgeBaseFoldersPage
             parameters:
                 - in: path
@@ -5605,7 +5605,7 @@ paths:
     "/sites/{siteId}/message-board-sections":
         get:
             description:
-                Retrieves the Site's message board sections. Results can be paginated, filtered, searched, flattened, and sorted.
+                Retrieves the site's message board sections. Results can be paginated, filtered, searched, flattened, and sorted.
             operationId: getSiteMessageBoardSectionsPage
             parameters:
                 - in: path
@@ -5688,7 +5688,7 @@ paths:
     "/sites/{siteId}/message-board-threads":
         get:
             description:
-                Retrieves the Site's message board threads. Results can be paginated, filtered, searched, flattened, and sorted.
+                Retrieves the site's message board threads. Results can be paginated, filtered, searched, flattened, and sorted.
             operationId: getSiteMessageBoardThreadsPage
             parameters:
                 - in: path
@@ -5771,7 +5771,7 @@ paths:
     "/sites/{siteId}/structured-content-folders":
         get:
             description:
-                Retrieves the Site's structured content folders. Results can be paginated, filtered, searched, flattened, and sorted.
+                Retrieves the site's structured content folders. Results can be paginated, filtered, searched, flattened, and sorted.
             operationId: getSiteStructuredContentFoldersPage
             parameters:
                 - in: path
@@ -5854,7 +5854,7 @@ paths:
     "/sites/{siteId}/structured-contents":
         get:
             description:
-                Retrieves the Site's structured content. Results can be paginated, filtered, searched, flattened, and sorted.
+                Retrieves the site's structured content. Results can be paginated, filtered, searched, flattened, and sorted.
             operationId: getSiteStructuredContentsPage
             parameters:
                 - in: path
