@@ -41,14 +41,12 @@ public class FullSiteInitializerDependencyResolverImpl
 
 	@Override
 	public ClassLoader getDisplayTemplatesClassLoader() {
-		return _miniumSiteInitializerDependencyResolver.
-			getDisplayTemplatesClassLoader();
+		return FullSiteInitializerDependencyResolverImpl.class.getClassLoader();
 	}
 
 	@Override
 	public String getDisplayTemplatesDependencyPath() {
-		return _miniumSiteInitializerDependencyResolver.
-			getDisplayTemplatesDependencyPath();
+		return _DEPENDENCIES_PATH + "display_templates/";
 	}
 
 	@Override
