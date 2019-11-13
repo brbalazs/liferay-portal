@@ -502,7 +502,7 @@ components:
                     type: string
             type: object
         Site:
-            #@review
+            # @review
             description:
                 Represents the site where the content is created. Properties follow the [WebSite](https://schema.org/WebSite) specification.
             properties:

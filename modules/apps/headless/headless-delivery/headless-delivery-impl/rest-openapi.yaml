@@ -22,7 +22,7 @@ components:
                     readOnly: true
                     type: integer
                 ratingValue:
-                    #@review
+                    # @review
                     description:
                         The rating value.
                     format: double
@@ -1326,7 +1326,7 @@ components:
             required:
                 - title
             type: object
-        #@review
+        # @review
         MessageBoardThread:
             description:
                 Represents a discussion thread in a message board.
