@@ -3010,14 +3010,9 @@ public class StagingImpl implements Staging {
 				layoutIds = GetterUtil.getLongValues(
 					settingsMap.get("layoutIds"));
 
-				Map<String, String[]> portletRequestParameterMap =
-					portletRequest.getParameterMap();
-
-				if (portletRequestParameterMap.containsKey("timeZoneId")) {
-					parameterMap.put(
-						"timeZoneId",
-						portletRequestParameterMap.get("timeZoneId"));
-				}
+				parameterMap.put(
+					"timeZoneId",
+					ParamUtil.getParameterValues(portletRequest, "timeZoneId"));
 			}
 		}
 
@@ -3098,6 +3093,10 @@ public class StagingImpl implements Staging {
 				remoteGroupId = MapUtil.getLong(settingsMap, "targetGroupId");
 				remotePrivateLayout = MapUtil.getBoolean(
 					settingsMap, "remotePrivateLayout");
+
+				parameterMap.put(
+					"timeZoneId",
+					ParamUtil.getParameterValues(portletRequest, "timeZoneId"));
 			}
 		}
 
