@@ -446,6 +446,42 @@ definition {
 		}
 	}
 
+	macro viewScopeMappings {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Edit",
+			rowEntry = "${applicationName}");
+
+		Navigator.gotoNavItem(navItem = "Scopes");
+
+		for (var resourcePanel : list "${resourcePanels}") {
+			OAuth2.expandResourcePanel(resourcePanel = "${resourcePanel}");
+		}
+
+		if (isSet(scopeTranslation)) {
+			AssertTextEquals(
+				key_resourcePanel = "${resourcePanel}",
+				locator1 = "OAuth2#ADMIN_RESOURCE_SCOPE_TRANSLATION",
+				value1 = "${scopeTranslation}");
+		}
+
+		if (isSet(globalScopeLinkValue)) {
+			if (contains("${scopeTranslation}", "+")) {
+				var partialScopeTranslation = StringUtil.extractFirst("${scopeTranslation}", "+");
+				partialScopeTranslation = StringUtil.trim("${partialScopeTranslation}");
+
+				key_scopeText = "${partialScopeTranslation}";
+			}
+			else {
+				key_scopeText = "${scopeTranslation}";
+			}
+
+			AssertTextEquals(
+				key_scopeText = "${key_scopeText}",
+				locator1 = "OAuth2#ADMIN_MODAL_GLOBAL_SCOPE_LINK",
+				value1 = "${globalScopeLinkValue}");
+		}
+	}
+
 	macro viewScopes {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
