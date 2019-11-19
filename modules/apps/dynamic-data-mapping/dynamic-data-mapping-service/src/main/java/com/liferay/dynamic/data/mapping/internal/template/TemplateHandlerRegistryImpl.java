@@ -15,8 +15,9 @@
 package com.liferay.dynamic.data.mapping.internal.template;
 
 import com.liferay.dynamic.data.mapping.internal.util.ResourceBundleLoaderProvider;
-import com.liferay.dynamic.data.mapping.kernel.DDMTemplate;
 import com.liferay.dynamic.data.mapping.kernel.DDMTemplateManager;
+import com.liferay.dynamic.data.mapping.model.DDMTemplate;
+import com.liferay.dynamic.data.mapping.service.DDMTemplateLocalService;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
 import com.liferay.portal.instance.lifecycle.BasePortalInstanceLifecycleListener;
@@ -132,13 +133,6 @@ public class TemplateHandlerRegistryImpl implements TemplateHandlerRegistry {
 	}
 
 	@Reference(unbind = "-")
-	protected void setDDMTemplateManager(
-		DDMTemplateManager ddmTemplateManager) {
-
-		_ddmTemplateManager = ddmTemplateManager;
-	}
-
-	@Reference(unbind = "-")
 	protected void setGroupLocalService(GroupLocalService groupLocalService) {
 		_groupLocalService = groupLocalService;
 	}
@@ -169,7 +163,10 @@ public class TemplateHandlerRegistryImpl implements TemplateHandlerRegistry {
 		_classNameIdTemplateHandlersServiceTrackerMap;
 	private ServiceTrackerMap<String, TemplateHandler>
 		_classNameTemplateHandlersServiceTrackerMap;
-	private DDMTemplateManager _ddmTemplateManager;
+
+	@Reference
+	private DDMTemplateLocalService _ddmTemplateLocalService;
+
 	private GroupLocalService _groupLocalService;
 	private Portal _portal;
 	private final Map<TemplateHandler, ServiceRegistration<?>>
@@ -205,8 +202,9 @@ public class TemplateHandlerRegistryImpl implements TemplateHandlerRegistry {
 				String templateKey = templateElement.elementText(
 					"template-key");
 
-				DDMTemplate ddmTemplate = _ddmTemplateManager.fetchTemplate(
-					group.getGroupId(), classNameId, templateKey);
+				DDMTemplate ddmTemplate =
+					_ddmTemplateLocalService.fetchTemplate(
+						group.getGroupId(), classNameId, templateKey);
 
 				if ((ddmTemplate != null) &&
 					((ddmTemplate.getUserId() != userId) ||
@@ -258,7 +256,7 @@ public class TemplateHandlerRegistryImpl implements TemplateHandlerRegistry {
 					templateElement.elementText("cacheable"));
 
 				if (ddmTemplate == null) {
-					_ddmTemplateManager.addTemplate(
+					_ddmTemplateLocalService.addTemplate(
 						userId, group.getGroupId(), classNameId, 0,
 						_portal.getClassNameId(
 							_PORTLET_DISPLAY_TEMPLATE_CLASS_NAME),
@@ -267,7 +265,7 @@ public class TemplateHandlerRegistryImpl implements TemplateHandlerRegistry {
 						serviceContext);
 				}
 				else if (!StringUtil.equals(script, ddmTemplate.getScript())) {
-					_ddmTemplateManager.updateTemplate(
+					_ddmTemplateLocalService.updateTemplate(
 						userId, ddmTemplate.getTemplateId(), 0, nameMap,
 						descriptionMap, type, null, language, script, cacheable,
 						false, null, null, serviceContext);
