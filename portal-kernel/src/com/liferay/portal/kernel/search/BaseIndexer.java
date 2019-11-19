@@ -736,8 +736,7 @@ public abstract class BaseIndexer<T> implements Indexer<T> {
 	 * @param      classPK
 	 * @deprecated As of Judson (7.1.x), no direct replacement. Logic now
 	 *             encapsulated in {@link
-	 *             com.liferay.portal.search.internal.contributor.
-	 *             document.AssetDocumentContrbutor}
+	 *             com.liferay.portal.search.internal.contributor.document.AssetDocumentContrbutor}
 	 */
 	@Deprecated
 	protected void addAssetFields(
@@ -933,8 +932,7 @@ public abstract class BaseIndexer<T> implements Indexer<T> {
 	 * @param      assetCategories
 	 * @deprecated As of Judson (7.1.x), no direct replacement. Logic not
 	 *             encapsulated in {@link
-	 *             com.liferay.portal.search.internal.contributor.
-	 *             document.AssetCategoryDocumentContrbutor}
+	 *             com.liferay.portal.search.internal.contributor.document.AssetCategoryDocumentContrbutor}
 	 */
 	@Deprecated
 	protected void addSearchAssetCategoryTitles(

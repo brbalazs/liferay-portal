@@ -2988,7 +2988,7 @@ public class PortalImpl implements Portal {
 	/**
 	 * @deprecated As of Judson (7.1.x), replaced by {@link
 	 *             #getLayoutFriendlyURLSeparatorComposite(long, boolean,
-	 *             String, Map<String, String[]>, Map<String, Object>)}
+	 *             String, Map, Map)}
 	 */
 	@Deprecated
 	@Override

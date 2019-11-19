@@ -60,7 +60,6 @@ public interface JSONWebServiceClient {
 	 * @param      url
 	 * @param      parameters
 	 * @param      headers
-	 * @return
 	 * @throws     JSONWebServiceInvocationException
 	 * @throws     JSONWebServiceTransportException
 	 * @deprecated As of Judson (7.1.x), use {@link #doDelete(String, List,
@@ -130,7 +129,6 @@ public interface JSONWebServiceClient {
 	 * @param      url
 	 * @param      parameters
 	 * @param      headers
-	 * @return
 	 * @throws     JSONWebServiceInvocationException
 	 * @throws     JSONWebServiceSerializeException
 	 * @throws     JSONWebServiceTransportException
@@ -183,7 +181,6 @@ public interface JSONWebServiceClient {
 	 * @param      url
 	 * @param      parameters
 	 * @param      headers
-	 * @return
 	 * @throws     JSONWebServiceInvocationException
 	 * @throws     JSONWebServiceTransportException
 	 * @deprecated As of Judson (7.1.x), use {@link #doPost(String, List, List)}
@@ -240,7 +237,6 @@ public interface JSONWebServiceClient {
 	 * @param      url
 	 * @param      parameters
 	 * @param      headers
-	 * @return
 	 * @throws     JSONWebServiceInvocationException
 	 * @throws     JSONWebServiceSerializeException
 	 * @throws     JSONWebServiceTransportException
@@ -337,7 +333,6 @@ public interface JSONWebServiceClient {
 	 * @param      url
 	 * @param      parameters
 	 * @param      headers
-	 * @return
 	 * @throws     JSONWebServiceInvocationException
 	 * @throws     JSONWebServiceSerializeException
 	 * @throws     JSONWebServiceTransportException

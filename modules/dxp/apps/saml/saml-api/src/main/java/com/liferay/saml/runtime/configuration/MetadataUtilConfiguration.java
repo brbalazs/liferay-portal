@@ -20,8 +20,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 
 /**
  * @deprecated As of Judson (7.1.x), replaced by {@link
- *             com.liferay.saml.opensaml.integration.internal.transport.
- *             configuration.HttpClientFactoryConfiguration}
+ *             com.liferay.saml.opensaml.integration.internal.transport.configuration.HttpClientFactoryConfiguration}
  * @author Carlos Sierra Andrés
  */
 @Deprecated
