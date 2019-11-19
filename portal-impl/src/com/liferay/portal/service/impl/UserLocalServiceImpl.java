@@ -4244,7 +4244,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		String roleName = role.getName();
 
 		if (roleName.equals(RoleConstants.ADMINISTRATOR) &&
-			(getRoleUsersCount(role.getRoleId()) <= 1)) {
+			(getRoleUsersCount(role.getRoleId()) <= users.size())) {
 
 			throw new RequiredRoleException.RequiredAdminRoleException();
 		}
