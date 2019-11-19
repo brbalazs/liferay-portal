@@ -11748,6 +11748,58 @@ module.framework.properties.blacklist.portal.profile.names=${blacklist.portal.pr
 
 		<trycatch property="shutdown.error">
 			<try>
+				<get-testcase-property property.name="solr.enabled" />
+
+				<if>
+					<not>
+						<equals arg1="${solr.enabled}" arg2="true" />
+					</not>
+					<then>
+						<get-testcase-property property.name="test.name.skip.portal.instance" />
+
+						<if>
+							<and>
+								<not>
+									<isset property="test.name.skip.portal.instance" />
+								</not>
+								<equals arg1="test.portal.instance" arg2="true" />
+							</and>
+							<then>
+								<var name="portalInstanceName" value="${env.HOSTNAME}" />
+							</then>
+							<else>
+								<var name="portalInstanceName" value="localhost" />
+							</else>
+						</if>
+
+						<exec executable="curl" outputproperty="companyId">
+							<arg value="http://localhost:8080/api/jsonws/company/get-company-by-virtual-host/virtual-host/${portalInstanceName}" />
+							<arg value="-u" />
+							<arg value="test@liferay.com:test" />
+						</exec>
+
+						<propertyregex
+							input="${companyId}"
+							override="true"
+							property="companyId"
+							regexp="(?&lt;=companyId&quot;:&quot;)(.*)(?=&quot;,&quot;home)"
+							select="\1"
+						/>
+
+						<exec executable="curl" outputproperty="curl.output.search.indices">
+							<arg line="&apos;localhost:9200/liferay-${companyId}/_search?pretty&apos; -H &apos;Content-Type: application/json&apos; -d&apos;{&quot;query&quot;: {&quot;bool&quot;: {&quot;must&quot;: [{ &quot;match&quot;: { &quot;userName&quot;: &quot;test test&quot; } }],&quot;must_not&quot;: [{ &quot;match&quot;: { &quot;hidden&quot;: &quot;true&quot; } }]}}}&apos;" />
+						</exec>
+
+						<echo></echo>
+						<echo>##</echo>
+						<echo>## Elasticsearch Indices</echo>
+						<echo>##</echo>
+						<echo></echo>
+						<echo>${curl.output.search.indices}</echo>
+						<echo></echo>
+					</then>
+				</if>
+
 				<antcall target="clean-up-logs" />
 
 				<record action="start" name="${project.dir}/console-shut-down" />
