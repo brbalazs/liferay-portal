@@ -75,3 +75,21 @@ app.artifacts-1.0.3=\
 app.change.log-1.0.3=COMMERCE-1217 LPS-100020 LPS-100333 LPS-100427 LPS-100656 LPS-100977 LPS-101025 LPS-101260 LPS-101716 LPS-77699 LPS-84119 LPS-85765 LPS-96640 LPS-96641 LPS-99357 LPS-99360 LPS-99361 LPS-99362
 
 app.git.id-1.0.3=40d4582b44773048b6691032451f556fa345a6ed
+
+#
+# Liferay App Version 1.0.4
+#
+
+app.artifacts-1.0.4=\
+	com.fasterxml.jackson.dataformat.jackson-dataformat-xml-2.9.8.jar,\
+	com.fasterxml.jackson.jaxrs.jackson-jaxrs-base-2.9.8.jar,\
+	com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider-2.9.8.jar,\
+	com.fasterxml.jackson.module.jackson-module-jaxb-annotations-2.9.6.jar,\
+	com.liferay.portal.vulcan.api-2.11.1.jar,\
+	com.liferay.portal.vulcan.impl-2.0.28.jar,\
+	io.swagger.core.v3.swagger-annotations-2.0.5.jar,\
+	javax.validation.api-2.0.1.Final.jar
+
+app.change.log-1.0.4=LPS-100333 LPS-100977 LPS-101025 LPS-101716 LPS-102255 LPS-102576 LPS-102700 LPS-102773 LPS-103302 LPS-103420 LPS-77699 LPS-84119 LPS-96640 LPS-96641
+
+app.git.id-1.0.4=b820b3660c5815e82aec0777185a5d7fa8c15ea2

@@ -672,3 +672,48 @@ app.artifacts-1.0.14=\
 app.change.log-1.0.14=LPS-100154 LPS-100159 LPS-100352 LPS-100792 LPS-101089 LPS-101208 LPS-67565 LPS-77699 LPS-78938 LPS-79653 LPS-80332 LPS-81446 LPS-81555 LPS-82015 LPS-82828 LPS-84090 LPS-84119 LPS-85765 LPS-85783 LPS-85996 LPS-86413 LPS-86806 LPS-88891 LPS-89064 LPS-96549 LPS-97329 LPS-98442 LPS-98770 LPS-99252 LPS-99627 LPS-99898 LPS-99917 LRCI-156
 
 app.git.id-1.0.14=40d4582b44773048b6691032451f556fa345a6ed
+
+#
+# Liferay App Version 1.0.15
+#
+
+app.artifacts-1.0.15=\
+	com.liferay.asset.api-1.1.5.jar,\
+	com.liferay.asset.browser.web-2.0.15.jar,\
+	com.liferay.asset.categories.admin.web-2.0.25.jar,\
+	com.liferay.asset.categories.navigation.api-2.0.0.jar,\
+	com.liferay.asset.categories.navigation.web-3.0.17.jar,\
+	com.liferay.asset.categories.selector.web-1.0.11.jar,\
+	com.liferay.asset.categories.service-2.0.14.jar,\
+	com.liferay.asset.category.property.api-1.0.11.jar,\
+	com.liferay.asset.category.property.service-1.0.20.jar,\
+	com.liferay.asset.display.api-1.2.3.jar,\
+	com.liferay.asset.display.impl-1.0.7.jar,\
+	com.liferay.asset.display.page.api-4.1.4.jar,\
+	com.liferay.asset.display.page.item.selector.api-1.0.1.jar,\
+	com.liferay.asset.display.page.item.selector.web-1.0.9.jar,\
+	com.liferay.asset.display.page.service-1.0.25.jar,\
+	com.liferay.asset.display.web-2.0.5.jar,\
+	com.liferay.asset.entry.query.processor.custom.user.attributes-3.0.5.jar,\
+	com.liferay.asset.entry.rel.api-1.1.8.jar,\
+	com.liferay.asset.entry.rel.service-1.0.18.jar,\
+	com.liferay.asset.link.service-1.0.8.jar,\
+	com.liferay.asset.publisher.api-1.0.2.jar,\
+	com.liferay.asset.publisher.layout.prototype-2.0.4.jar,\
+	com.liferay.asset.publisher.web-2.0.67.jar,\
+	com.liferay.asset.service-2.0.10.jar,\
+	com.liferay.asset.tag.stats.api-1.0.10.jar,\
+	com.liferay.asset.tag.stats.service-1.0.18.jar,\
+	com.liferay.asset.taglib-3.0.25.jar,\
+	com.liferay.asset.tags.admin.web-2.0.17.jar,\
+	com.liferay.asset.tags.api-2.0.1.jar,\
+	com.liferay.asset.tags.compiler.web-3.0.4.jar,\
+	com.liferay.asset.tags.navigation.api-2.0.0.jar,\
+	com.liferay.asset.tags.navigation.web-4.0.11.jar,\
+	com.liferay.asset.tags.selector.web-1.0.9.jar,\
+	com.liferay.asset.tags.service-3.0.9.jar,\
+	com.liferay.asset.web-3.0.5.jar
+
+app.change.log-1.0.15=LPS-100154 LPS-100159 LPS-100352 LPS-100542 LPS-101089 LPS-101208 LPS-102684 LPS-102817 LPS-103038 LPS-103068 LPS-103302 LPS-67565 LPS-77699 LPS-78938 LPS-79653 LPS-80332 LPS-81446 LPS-81555 LPS-82015 LPS-82828 LPS-84090 LPS-84119 LPS-85765 LPS-85783 LPS-85996 LPS-86413 LPS-86806 LPS-89064 LPS-96035 LPS-98549 LPS-99488 LPS-99898 LPS-99917
+
+app.git.id-1.0.15=b820b3660c5815e82aec0777185a5d7fa8c15ea2

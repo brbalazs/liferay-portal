@@ -263,3 +263,22 @@ app.artifacts-1.0.13=\
 app.change.log-1.0.13=LPS-101089 LPS-67565 LPS-69953 LPS-77699 LPS-79653 LPS-80332 LPS-81192 LPS-82015 LPS-84119 LPS-85765 LPS-88928 LPS-91233 LPS-96664 LPS-97827 LPS-98054
 
 app.git.id-1.0.13=40d4582b44773048b6691032451f556fa345a6ed
+
+#
+# Liferay App Version 1.0.14
+#
+
+app.artifacts-1.0.14=\
+	com.liferay.staging.api-3.1.4.jar,\
+	com.liferay.staging.bar.web-2.0.21.jar,\
+	com.liferay.staging.configuration.web-2.0.15.jar,\
+	com.liferay.staging.impl-1.0.12.jar,\
+	com.liferay.staging.lang-3.0.30.jar,\
+	com.liferay.staging.portlet.data.handler-4.0.2.jar,\
+	com.liferay.staging.processes.web-2.0.29.jar,\
+	com.liferay.staging.security-3.0.10.jar,\
+	com.liferay.staging.taglib-4.1.13.jar
+
+app.change.log-1.0.14=LPS-101089 LPS-103302 LPS-67565 LPS-77699 LPS-84119 LPS-85765 LPS-97827
+
+app.git.id-1.0.14=b820b3660c5815e82aec0777185a5d7fa8c15ea2

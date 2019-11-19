@@ -417,3 +417,31 @@ app.artifacts-1.0.14=\
 app.change.log-1.0.14=[[trimmed]]8 LPS-82827 LPS-82828 LPS-82963 LPS-83005 LPS-83006 LPS-83226 LPS-83227 LPS-83230 LPS-83241 LPS-83319 LPS-83494 LPS-83685 LPS-83705 LPS-83763 LPS-83868 LPS-84039 LPS-84092 LPS-84119 LPS-84227 LPS-84270 LPS-84365 LPS-84490 LPS-84507 LPS-84536 LPS-84551 LPS-84553 LPS-84583 LPS-84760 LPS-85013 LPS-85049 LPS-85165 LPS-85296 LPS-85454 LPS-85570 LPS-85765 LPS-86408 LPS-86421 LPS-86550 LPS-86554 LPS-86806 LPS-86936 LPS-87005 LPS-87100 LPS-88424 LPS-88476 LPS-88551 LPS-88766 LPS-88864 LPS-88891 LPS-89085 LPS-89352 LPS-89503 LPS-89913 LPS-90008 LPS-90127 LPS-90176 LPS-90925 LPS-91233 LPS-91279 LPS-91408 LPS-91475 LPS-91578 LPS-91844 LPS-91961 LPS-92135 LPS-92422 LPS-92661 LPS-92709 LPS-92839 LPS-93137 LPS-93699 LPS-93807 LPS-94196 LPS-94632 LPS-94698 LPS-95201 LPS-95665 LPS-96149 LPS-96388 LPS-96549 LPS-96589 LPS-96911 LPS-96939 LPS-97162 LPS-97720 LPS-98051 LPS-98442 LPS-98473 LPS-98651 LPS-98968 LPS-99045 LPS-99086 LPS-99213 LPS-99231 LPS-99252 LPS-99690 LPS-99880 LPS-99898 LPS-99967 LRCI-156
 
 app.git.id-1.0.14=40d4582b44773048b6691032451f556fa345a6ed
+
+#
+# Liferay App Version 1.0.15
+#
+
+app.artifacts-1.0.15=\
+	com.liferay.journal.api-3.9.1.jar,\
+	com.liferay.journal.content.asset.addon.entry.api-1.0.2.jar,\
+	com.liferay.journal.content.asset.addon.entry.comments-2.0.2.jar,\
+	com.liferay.journal.content.asset.addon.entry.conversions-3.0.4.jar,\
+	com.liferay.journal.content.asset.addon.entry.locales-2.0.3.jar,\
+	com.liferay.journal.content.asset.addon.entry.print-3.0.1.jar,\
+	com.liferay.journal.content.asset.addon.entry.ratings-3.0.2.jar,\
+	com.liferay.journal.content.asset.addon.entry.related.assets-3.0.2.jar,\
+	com.liferay.journal.content.web-3.0.35.jar,\
+	com.liferay.journal.editor.configuration-2.0.1.jar,\
+	com.liferay.journal.item.selector.api-2.1.3.jar,\
+	com.liferay.journal.item.selector.web-2.0.6.jar,\
+	com.liferay.journal.lang-3.0.35.jar,\
+	com.liferay.journal.ratings.definition-3.0.4.jar,\
+	com.liferay.journal.service-4.0.86.jar,\
+	com.liferay.journal.taglib-2.0.7.jar,\
+	com.liferay.journal.terms.of.use-3.0.3.jar,\
+	com.liferay.journal.web-2.0.74.jar
+
+app.change.log-1.0.15=LPS-100328 LPS-100352 LPS-100472 LPS-100758 LPS-100792 LPS-100892 LPS-100925 LPS-101089 LPS-101208 LPS-101301 LPS-101786 LPS-101822 LPS-102026 LPS-102053 LPS-102252 LPS-102634 LPS-102749 LPS-102817 LPS-103068 LPS-103268 LPS-103302 LPS-103662 LPS-77699 LPS-79653 LPS-80332 LPS-83226 LPS-84119 LPS-84771 LPS-85765 LPS-86806 LPS-89705 LPS-90008 LPS-91475 LPS-91961 LPS-92484 LPS-93137 LPS-93837 LPS-94698 LPS-98651 LPS-98968 LPS-98969 LPS-99086 LPS-99231 LPS-99415 LPS-99690 LPS-99857 LPS-99880 LPS-99967
+
+app.git.id-1.0.15=b820b3660c5815e82aec0777185a5d7fa8c15ea2
