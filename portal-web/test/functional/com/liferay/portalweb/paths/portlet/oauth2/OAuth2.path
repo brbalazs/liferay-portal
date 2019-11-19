@@ -85,6 +85,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>ADMIN_RESOURCE_SCOPE_ALIAS</td>
+	<td>//span[contains(@class,'badge-item') and contains(.,'${key_scopeAlias}')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>ADMIN_RESOURCE_SCOPE_CHECKBOX</td>
 	<td>//input[@value='${key_scopeName}']</td>
 	<td></td>

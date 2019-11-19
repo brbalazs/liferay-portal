@@ -446,6 +446,25 @@ definition {
 		}
 	}
 
+	macro viewScopeAliases {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Edit",
+			rowEntry = "${applicationName}");
+
+		Navigator.gotoNavItem(navItem = "Scopes");
+
+		for (var resourcePanel : list "${resourcePanels}") {
+			OAuth2.expandResourcePanel(resourcePanel = "${resourcePanel}");
+		}
+
+		for (var scopeAlias : list "${scopeAliasList}") {
+			OAuth2.expandResourcePanel(resourcePanel = "Sample QA app");
+			AssertElementPresent(
+				key_scopeAlias = "${scopeAlias}",
+				locator1 = "OAuth2#ADMIN_RESOURCE_SCOPE_ALIAS");
+		}
+	}
+
 	macro viewScopeMappings {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
