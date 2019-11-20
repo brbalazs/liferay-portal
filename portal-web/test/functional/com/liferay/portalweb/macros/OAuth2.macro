@@ -494,7 +494,6 @@ definition {
 		}
 
 		for (var scopeAlias : list "${scopeAliasList}") {
-			OAuth2.expandResourcePanel(resourcePanel = "Sample QA app");
 			AssertElementPresent(
 				key_scopeAlias = "${scopeAlias}",
 				locator1 = "OAuth2#ADMIN_RESOURCE_SCOPE_ALIAS");
