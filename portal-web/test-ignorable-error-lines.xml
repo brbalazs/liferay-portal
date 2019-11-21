@@ -244,6 +244,10 @@
 			<contains>The activate method has thrown an exception</contains>
 			<matches></matches>
 		</ignore-error>
+		<ignore-error description="LRQA-50690, Windows Server limitation (WARN), tests pass regardless of it throwing">
+			<contains>Thread starvation or clock leap detected</contains>
+			<matches></matches>
+		</ignore-error>
 		<ignore-error description="WCM-202">
 			<contains>No score point assigners available</contains>
 			<matches></matches>
