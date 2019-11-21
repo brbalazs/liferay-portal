@@ -63,7 +63,12 @@ public class SelectDDMFormFieldValueRenderer
 				LocalizedValue optionLabel =
 					ddmFormFieldOptions.getOptionLabels(optionValue);
 
-				sb.append(HtmlUtil.escape(optionLabel.getString(locale)));
+				if (optionLabel != null) {
+					sb.append(HtmlUtil.escape(optionLabel.getString(locale)));
+				}
+				else {
+					sb.append(optionValue);
+				}
 			}
 			else {
 				sb.append(optionValue);
