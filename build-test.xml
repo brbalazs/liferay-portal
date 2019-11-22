@@ -9944,7 +9944,7 @@ cluster.link.bind.addr["cluster-link-udp"]=127.0.0.1</echo>
 
 										<get-database-property property.name="database.host" />
 
-										<execute failonerror="false">
+										<execute>
 											<![CDATA[
 												docker cp ${create.sh.file.path} ${database.host}:/tmp/create.sh
 												docker cp ${create.sql.file.path} ${database.host}:/tmp/create.sql
@@ -10048,7 +10048,7 @@ cluster.link.bind.addr["cluster-link-udp"]=127.0.0.1</echo>
 
 									<property location="create.sql" name="create.sql.file.path" />
 
-									<execute failonerror="false">
+									<execute>
 										<![CDATA[
 											docker cp ${create.sh.file.path} ${database.host}:/tmp/create.sh
 											docker cp ${create.sql.file.path} ${database.host}:/tmp/create.sql
@@ -10082,7 +10082,7 @@ cluster.link.bind.addr["cluster-link-udp"]=127.0.0.1</echo>
 
 									<property location="create.sql" name="create.sql.file.path" />
 
-									<execute failonerror="false">
+									<execute>
 										<![CDATA[
 											docker cp ${create.sql.file.path} ${database.host}:/tmp/create.sql
 
@@ -10191,7 +10191,7 @@ cluster.link.bind.addr["cluster-link-udp"]=127.0.0.1</echo>
 
 									<property location="create.sql" name="create.sql.file.path" />
 
-									<execute failonerror="false">
+									<execute>
 										<![CDATA[
 											docker cp ${create.sql.file.path} ${database.host}:/tmp/create.sql
 
@@ -10282,7 +10282,7 @@ cluster.link.bind.addr["cluster-link-udp"]=127.0.0.1</echo>
 
 						<get-database-property property.name="database.host" />
 
-						<execute failonerror="false">
+						<execute>
 							<![CDATA[
 								docker cp ${db2.sh.file.path} ${database.host}:/tmp/db2.sh
 								docker cp ${liferay.home}/. ${database.host}:/opt/ibm/db2
@@ -10459,7 +10459,7 @@ cluster.link.bind.addr["cluster-link-udp"]=127.0.0.1</echo>
 
 							<property location="${liferay.home}/oracle.dmp" name="oracle.dump.file.path" />
 
-							<execute failonerror="false">
+							<execute>
 								<![CDATA[
 									docker exec ${database.host} mkdir -p /tmp/data_pump_dir
 
@@ -10553,7 +10553,7 @@ cluster.link.bind.addr["cluster-link-udp"]=127.0.0.1</echo>
 
 							<property location="${liferay.home}/postgresql.sql" name="postgresql.sql.file.path" />
 
-							<execute failonerror="false">
+							<execute>
 								<![CDATA[
 									docker cp ${postgresql.sh.file.path} ${database.host}:/tmp/postgresql.sh
 									docker cp ${postgresql.sql.file.path} ${database.host}:/tmp/postgresql.sql
