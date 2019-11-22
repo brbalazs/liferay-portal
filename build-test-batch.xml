@@ -1730,7 +1730,6 @@ app.server.type=@{app.server.type}]]></echo>
 										<arg value="testIntegration" />
 										<arg value="--tests" />
 										<arg value="*.LPKGDeployerCleanStartupTest" />
-										<arg value="-Dbuild.profile=${build.profile}" />
 									</gradle-execute>
 
 									<antcall inheritall="false" target="run-selenium-test">
@@ -1826,7 +1825,6 @@ log.sanitizer.enabled=false</echo>
 								<arg value="test" />
 								<arg value="--tests" />
 								<arg value="*.LPKGControllerTest" />
-								<arg value="-Dbuild.profile=${build.profile}" />
 								<arg value="-Dliferay.home=${liferay.home}" />
 							</gradle-execute>
 
@@ -1838,7 +1836,6 @@ log.sanitizer.enabled=false</echo>
 										<arg value="testIntegration" />
 										<arg value="--tests" />
 										<arg value="*.LPKGControllerVerifyTest" />
-										<arg value="-Dbuild.profile=${build.profile}" />
 									</gradle-execute>
 								</try>
 
@@ -2015,7 +2012,6 @@ module.framework.properties.lpkg.index.validator.enabled=true</echo>
 								<arg value="test" />
 								<arg value="--tests" />
 								<arg value="*.LPKGOverrideTest" />
-								<arg value="-Dbuild.profile=${build.profile}" />
 								<arg value="-Dliferay.home=${liferay.home}" />
 							</gradle-execute>
 
@@ -2027,7 +2023,6 @@ module.framework.properties.lpkg.index.validator.enabled=true</echo>
 										<arg value="testIntegration" />
 										<arg value="--tests" />
 										<arg value="*.LPKGOverrideVerifySecondStartupTest" />
-										<arg value="-Dbuild.profile=${build.profile}" />
 									</gradle-execute>
 								</try>
 
@@ -2080,7 +2075,6 @@ module.framework.properties.lpkg.index.validator.enabled=true</echo>
 										<arg value="testIntegration" />
 										<arg value="--tests" />
 										<arg value="*.LPKGRevertOverrideVerifyTest" />
-										<arg value="-Dbuild.profile=${build.profile}" />
 									</gradle-execute>
 								</try>
 
@@ -2113,7 +2107,6 @@ module.framework.properties.lpkg.index.validator.enabled=true</echo>
 								<arg value="test" />
 								<arg value="--tests" />
 								<arg value="*.LPKGPersistenceTest" />
-								<arg value="-Dbuild.profile=${build.profile}" />
 								<arg value="-Dliferay.home=${liferay.home}" />
 							</gradle-execute>
 
@@ -2125,7 +2118,6 @@ module.framework.properties.lpkg.index.validator.enabled=true</echo>
 										<arg value="testIntegration" />
 										<arg value="--tests" />
 										<arg value="*.LPKGPersistenceStopBundleTest" />
-										<arg value="-Dbuild.profile=${build.profile}" />
 									</gradle-execute>
 								</try>
 
@@ -2148,7 +2140,6 @@ module.framework.properties.lpkg.index.validator.enabled=true</echo>
 										<arg value="testIntegration" />
 										<arg value="--tests" />
 										<arg value="*.LPKGPersistenceVerifyTest" />
-										<arg value="-Dbuild.profile=${build.profile}" />
 									</gradle-execute>
 								</try>
 								<finally>
@@ -2221,7 +2212,6 @@ module.framework.properties.lpkg.index.validator.enabled=true</echo>
 										<arg value="testIntegration" />
 										<arg value="--tests" />
 										<arg value="*.LPKGDeployerCleanStartupTest" />
-										<arg value="-Dbuild.profile=${build.profile}" />
 									</gradle-execute>
 
 									<antcall inheritall="false" target="run-selenium-test">
@@ -2269,7 +2259,6 @@ module.framework.properties.lpkg.index.validator.enabled=true</echo>
 										<arg value="testIntegration" />
 										<arg value="--tests" />
 										<arg value="*.LPKGDeployerCleanStartupTest" />
-										<arg value="-Dbuild.profile=${build.profile}" />
 									</gradle-execute>
 
 									<antcall inheritall="false" target="run-selenium-test">
@@ -2294,7 +2283,6 @@ module.framework.properties.lpkg.index.validator.enabled=true</echo>
 								<arg value="test" />
 								<arg value="--tests" />
 								<arg value="*.LPKGUpgradeTest" />
-								<arg value="-Dbuild.profile=${build.profile}" />
 								<arg value="-Dliferay.home=${liferay.home}" />
 							</gradle-execute>
 
@@ -2306,14 +2294,12 @@ module.framework.properties.lpkg.index.validator.enabled=true</echo>
 										<arg value="testIntegration" />
 										<arg value="--tests" />
 										<arg value="*.LPKGDeployerUpgradeTest" />
-										<arg value="-Dbuild.profile=${build.profile}" />
 									</gradle-execute>
 
 									<gradle-execute dir="modules/apps/static/portal-lpkg-deployer/portal-lpkg-deployer-test" task="test">
 										<arg value="test" />
 										<arg value="--tests" />
 										<arg value="*.LPKGVersionChangeLogAssertorTest" />
-										<arg value="-Dbuild.profile=${build.profile}" />
 										<arg value="-Dliferay.home=${liferay.home}" />
 									</gradle-execute>
 
@@ -2339,7 +2325,6 @@ module.framework.properties.lpkg.index.validator.enabled=true</echo>
 								<arg value="test" />
 								<arg value="--tests" />
 								<arg value="*.LPKGDowngradeTest" />
-								<arg value="-Dbuild.profile=${build.profile}" />
 								<arg value="-Dliferay.home=${liferay.home}" />
 							</gradle-execute>
 
@@ -2351,14 +2336,12 @@ module.framework.properties.lpkg.index.validator.enabled=true</echo>
 										<arg value="testIntegration" />
 										<arg value="--tests" />
 										<arg value="*.LPKGDeployerDowngradeTest" />
-										<arg value="-Dbuild.profile=${build.profile}" />
 									</gradle-execute>
 
 									<gradle-execute dir="modules/apps/static/portal-lpkg-deployer/portal-lpkg-deployer-test" task="test">
 										<arg value="test" />
 										<arg value="--tests" />
 										<arg value="*.LPKGVersionChangeLogAssertorTest" />
-										<arg value="-Dbuild.profile=${build.profile}" />
 										<arg value="-Dliferay.home=${liferay.home}" />
 									</gradle-execute>
 
