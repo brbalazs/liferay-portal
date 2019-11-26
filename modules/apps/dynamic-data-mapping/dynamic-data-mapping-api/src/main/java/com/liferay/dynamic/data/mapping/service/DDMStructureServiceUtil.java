@@ -389,6 +389,25 @@ public class DDMStructureServiceUtil {
 			orderByComparator);
 	}
 
+	public static java.util.List
+		<com.liferay.dynamic.data.mapping.model.DDMStructure> getStructures(
+			long companyId, long[] groupIds, long classNameId, int start,
+			int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<com.liferay.dynamic.data.mapping.model.DDMStructure>
+					orderByComparator) {
+
+		return getService().getStructures(
+			companyId, groupIds, classNameId, start, end, orderByComparator);
+	}
+
+	public static int getStructuresCount(
+		long companyId, long[] groupIds, long classNameId) {
+
+		return getService().getStructuresCount(
+			companyId, groupIds, classNameId);
+	}
+
 	public static void revertStructure(
 			long structureId, String version,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
