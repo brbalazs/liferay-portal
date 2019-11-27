@@ -251,7 +251,7 @@ long usedMemory = totalMemory - runtime.freeMemory();
 				</div>
 
 				<div class="pull-right">
-					<aui:button cssClass="save-server-button" data-cmd="cleanUpPermissions" value="execute" />
+					<aui:button cssClass="save-server-button" data-cmd="cleanUpAddToPagePermissions" value="execute" />
 				</div>
 			</li>
 			<li class="clearfix list-group-item">
@@ -260,7 +260,7 @@ long usedMemory = totalMemory - runtime.freeMemory();
 				</div>
 
 				<div class="pull-right">
-					<aui:button cssClass="save-server-button" data-cmd="clean-up-page-revision-portlet-preferences" value="execute" />
+					<aui:button cssClass="save-server-button" data-cmd="cleanUpLayoutRevisionPortletPreferences" value="execute" />
 				</div>
 			</li>
 			<li class="clearfix list-group-item">
