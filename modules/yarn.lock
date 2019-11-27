@@ -2132,16 +2132,15 @@ alloy-ui@^3.1.0-deprecated.1, alloy-ui@^3.1.0-deprecated.40:
   resolved "https://registry.yarnpkg.com/alloy-ui/-/alloy-ui-3.1.0.tgz#95842e4c793abbfe84aa8abfc5a637cd36dda823"
   integrity sha1-lYQuTHk6u/6Eqoq/xaY3zTbdqCM=
 
-alloyeditor@2.0.9:
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/alloyeditor/-/alloyeditor-2.0.9.tgz#617c342e698cd6f992e47d66c234848c8a835fec"
-  integrity sha512-YEbf6uXe+no06M+boKAfPSIscLSGAg7FPj6bUFvnThhX+mvqeRVLMCYjfgHj7WxL9EwLbRyXirXf+lY/cxuRBA==
+alloyeditor@2.11.0:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/alloyeditor/-/alloyeditor-2.11.0.tgz#9e88d07a3934033f3599da69f88a55fd7f1f73e7"
+  integrity sha512-bVhyQs+Vg0NUQelFDb+UyDnmxxc+eAjU3INkgsvVejJ7H8BQmaK9o+TkR1lNEHmOoOIVRScQdI+IgtIhV7vYVA==
   dependencies:
     clay-css "^2.11.1"
     prop-types "^15.6.2"
     react "^16.8.3"
     react-dom "^16.8.3"
-    val-loader "1.1.1"
 
 amdefine@>=0.0.4:
   version "1.0.1"
@@ -11369,7 +11368,7 @@ loader-runner@^2.4.0:
   resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.4.0.tgz#ed47066bfe534d7e84c4c7b9998c2a75607d9357"
   integrity sha512-Jsmr89RcXGIwivFY21FcRrisYZfvLMTWx5kOLc+JTxtpBOG6xML0vzbc6SEQG2FO9/4Fc3wW4LVcB5DmGflaRw==
 
-loader-utils@1.2.3, loader-utils@^1.0.0, loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.0, loader-utils@^1.2.3:
+loader-utils@1.2.3, loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.0, loader-utils@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.2.3.tgz#1ff5dc6911c9f0a062531a4c04b609406108c2c7"
   integrity sha512-fkpz8ejdnEMG3s37wGL07iSBDg99O9D5yflE9RGNH3hRdx9SOwYfnGYdZOUIZitN8E+E2vkq3MUMYMvPYl5ZZA==
@@ -14552,17 +14551,7 @@ react-docgen@^4.1.0:
     node-dir "^0.1.10"
     recast "^0.17.3"
 
-react-dom@16.9.0:
-  version "16.9.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.9.0.tgz#5e65527a5e26f22ae3701131bcccaee9fb0d3962"
-  integrity sha512-YFT2rxO9hM70ewk9jq0y6sQk8cL02xm4+IzYBz75CQGlClQQ1Bxq0nhHF6OtSbit+AIahujJgb/CPRibFkMNJQ==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.2"
-    scheduler "^0.15.0"
-
-react-dom@^16.8.3:
+react-dom@16.8.6, react-dom@^16.8.3:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.6.tgz#71d6303f631e8b0097f56165ef608f051ff6e10f"
   integrity sha512-1nL7PIq9LTL3fthPqwkvr2zY7phIPjYrT0jp4HjyEQrEROnw4dG41VVwi/wfoCneoleqrNX7iAD+pXebJZwrwA==
@@ -14739,16 +14728,7 @@ react-transition-group@^2.2.1:
     prop-types "^15.6.2"
     react-lifecycles-compat "^3.0.4"
 
-react@16.9.0:
-  version "16.9.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.9.0.tgz#40ba2f9af13bc1a38d75dbf2f4359a5185c4f7aa"
-  integrity sha512-+7LQnFBwkiw+BobzOF6N//BdoNw0ouwmSJTEm9cglOOmsg/TMiFHZLe2sEoN5M7LgJTj9oHH0gxklfnQe66S1w==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.2"
-
-react@^16.8.3:
+react@16.8.6, react@^16.8.3:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
   integrity sha512-pC0uMkhLaHm11ZSJULfOBqV4tIZkx87ZLvbbQYunNixAAvjnC+snJCg0XQXn9VIsttVsbZP/H/ewzgsd5fxKXw==
@@ -15551,22 +15531,6 @@ scheduler@^0.13.6:
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
-
-scheduler@^0.15.0:
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.15.0.tgz#6bfcf80ff850b280fed4aeecc6513bc0b4f17f8e"
-  integrity sha512-xAefmSfN6jqAa7Kuq7LIJY0bwAPG3xlCj0HMEBQk1lxYiDKZscY2xJ5U/61ZTrYbmNQbXa+gc7czPkVo11tnCg==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-
-schema-utils@^0.4.5:
-  version "0.4.7"
-  resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-0.4.7.tgz#ba74f597d2be2ea880131746ee17d0a093c68187"
-  integrity sha512-v/iwU6wvwGK8HbU9yi3/nhGzP0yGSuhQMzL6ySiec1FSrZZDkhm4noOSWzrNFo/jEc+SJY6jRTwuwbSXJPDUnQ==
-  dependencies:
-    ajv "^6.1.0"
-    ajv-keywords "^3.1.0"
 
 schema-utils@^1.0.0:
   version "1.0.0"
@@ -17548,14 +17512,6 @@ v8flags@^2.0.2:
   integrity sha1-qrGh+jDUX4jdMhFIh1rALAtV5bQ=
   dependencies:
     user-home "^1.1.1"
-
-val-loader@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/val-loader/-/val-loader-1.1.1.tgz#32ba8ed5c3607504134977251db2966499e15ef7"
-  integrity sha512-JLqLXJWCVLXTxbUeHhLpWkgl3+X3U8Bl0vY7rTFZgFSbLJaEtAxuD2ixy/cM8w/gzC7sS3NE5IDSzClDt332sw==
-  dependencies:
-    loader-utils "^1.0.0"
-    schema-utils "^0.4.5"
 
 vali-date@^1.0.0:
   version "1.0.0"
