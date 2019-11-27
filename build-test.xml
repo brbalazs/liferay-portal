@@ -1291,9 +1291,7 @@ war.path=${app.server.portal.dir}/</echo>
 						</then>
 					</if>
 
-					<gradle-execute dir="${test.poshi.runner.src.dir}" task="deploy">
-						<arg value="-Dbuild.profile=${build.profile}" />
-					</gradle-execute>
+					<gradle-execute dir="${test.poshi.runner.src.dir}" task="deploy" />
 				</then>
 			</if>
 
@@ -1308,7 +1306,6 @@ war.path=${app.server.portal.dir}/</echo>
 
 					<gradle-execute failonerror="@{failonerror}" gradleopts="${poshi.java.jdk.opts}" task="@{task}">
 						<arg value="--build-file=portal-web/build-test.gradle" />
-						<arg value="-Dbuild.profile=${build.profile}" />
 						<arg value="-Plocal=${test.poshi.runner.local.release}" />
 						<arg value="-PposhiRunnerExtProperties=${test.ext.properties.file}" />
 						<arg value="-Ptmp.maven.repository.dir=../.m2-tmp" />
@@ -1319,7 +1316,6 @@ war.path=${app.server.portal.dir}/</echo>
 				<else>
 					<gradle-execute failonerror="@{failonerror}" task="@{task}">
 						<arg value="--build-file=portal-web/build-test.gradle" />
-						<arg value="-Dbuild.profile=${build.profile}" />
 						<arg value="-Plocal=${test.poshi.runner.local.release}" />
 						<arg value="-PposhiRunnerExtProperties=${test.ext.properties.file}" />
 						<arg value="-Ptmp.maven.repository.dir=../.m2-tmp" />
@@ -2469,12 +2465,10 @@ tell application "Safari" to quit
 							<ant dir="util-java" inheritAll="false" target="install-portal-snapshot" />
 
 							<gradle-execute dir="${project.dir}/modules/core" task="deploy">
-								<arg value="-Dbuild.profile=${build.profile}" />
 								<arg value="-Dportal.build=true" />
 							</gradle-execute>
 
 							<gradle-execute dir="${project.dir}/modules/apps/petra" task="deploy">
-								<arg value="-Dbuild.profile=${build.profile}" />
 								<arg value="-Dportal.build=true" />
 							</gradle-execute>
 						</then>
@@ -5478,7 +5472,6 @@ go</echo>
 
 		<gradle-execute dir="${portal.dir}/modules" task="cleanVersionOverride">
 			<arg value="-b" />
-			<arg value="-Dbuild.profile=${build.profile}" />
 			<arg value="releng.gradle" />
 			<arg value="-PgitRepoPath=${module.dir}" />
 		</gradle-execute>
@@ -6200,9 +6193,13 @@ go</echo>
 
 										<local name="deploy.build.profile" />
 
+										<condition else="portal" property="deploy.build.profile" value="${build.profile}">
+											<equals arg1="${build.profile}" arg2="dxp" />
+										</condition>
+
 										<gradle-execute dir="@{app.dir}" task="deploy">
 											<arg value="clean" />
-											<arg value="-Dbuild.profile=${build.profile}" />
+											<arg value="-Dbuild.profile=${deploy.build.profile}" />
 										</gradle-execute>
 
 										<for param="module.dir.path">
@@ -6232,9 +6229,7 @@ go</echo>
 											<property name="osgi.dir" value="${liferay.home}/osgi" />
 										</ant>
 
-										<gradle-execute dir="@{app.dir}" task="clean">
-											<arg value="-Dbuild.profile=${build.profile}" />
-										</gradle-execute>
+										<gradle-execute dir="@{app.dir}" task="clean" />
 
 										<move
 											failonerror="false"
@@ -6375,7 +6370,6 @@ go</echo>
 						/>
 
 						<gradle-execute dir="@{osgi.module.path}" forcedcacheenabled="false" task="deploy">
-							<arg value="-Dbuild.profile=${build.profile}" />
 							<arg value="clean" />
 						</gradle-execute>
 
@@ -11085,7 +11079,6 @@ if (ppstate.equals("normal")) {
 				<dirname file="@{osgi.module.path}" property="module.base.dir" />
 
 				<gradle-execute dir="@{osgi.module.path}" forcedcacheenabled="false" task="deploy">
-					<arg value="-Dbuild.profile=${build.profile}" />
 					<arg value="clean" />
 				</gradle-execute>
 			</sequential>
@@ -11560,7 +11553,6 @@ module.framework.properties.blacklist.portal.profile.names=${blacklist.portal.pr
 				<echo file="tools/sdk/build.${user.name}.properties">auto.deploy.dir=${liferay.home}/deploy</echo>
 
 				<gradle-execute dir="${project.dir}/modules/test/simple-socks-proxy" task="deploy">
-					<arg value="-Dbuild.profile=${build.profile}" />
 					<arg value="clean" />
 				</gradle-execute>
 
