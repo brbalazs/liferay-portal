@@ -1229,7 +1229,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 		}
 	}
 
-	@Reference
+	@ServiceReference(type = ExpandoRowLocalService.class)
 	protected ExpandoRowLocalService expandoRowLocalService;
 
 	@BeanReference(type = MBStatsUserLocalService.class)
