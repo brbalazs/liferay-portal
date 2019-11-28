@@ -167,6 +167,8 @@ definition {
 	test UpdateUserInUserPersonalSite {
 		UserBar.gotoProfile();
 
+		Portlet.addPG(portletName = "Profile");
+
 		AssertElementPresent(
 			key_portletName = "Profile",
 			locator1 = "Home#PORTLET");
