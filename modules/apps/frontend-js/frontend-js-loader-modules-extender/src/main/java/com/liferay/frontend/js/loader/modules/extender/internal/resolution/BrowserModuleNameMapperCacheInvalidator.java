@@ -26,7 +26,7 @@ import org.osgi.service.component.annotations.ReferenceCardinality;
 /**
  * @author Iván Zaera
  */
-@Component(immediate = true)
+@Component(immediate = true, service = JSBundleTracker.class)
 public class BrowserModuleNameMapperCacheInvalidator
 	implements JSBundleTracker {
 
