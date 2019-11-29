@@ -17,14 +17,15 @@ package com.liferay.frontend.js.loader.modules.extender.internal.resolution;
 import com.liferay.frontend.js.loader.modules.extender.npm.JSBundle;
 import com.liferay.frontend.js.loader.modules.extender.npm.JSBundleTracker;
 import com.liferay.frontend.js.loader.modules.extender.npm.NPMRegistry;
+
 import org.osgi.framework.Bundle;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 
 @Component(immediate = true)
-public class BrowserModuleNameMapperCacheInvalidator implements
-	JSBundleTracker {
+public class BrowserModuleNameMapperCacheInvalidator
+	implements JSBundleTracker {
 
 	@Override
 	public void addedJSBundle(

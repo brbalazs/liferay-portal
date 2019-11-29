@@ -39,6 +39,12 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = BrowserModuleNameMapper.class)
 public class BrowserModuleNameMapper {
 
+	public void clearCache() {
+		_browserModuleNameMapperCache.set(
+			new BrowserModuleNameMapperCache(
+				_getExactMatchMap(), _getPartialMatchMap()));
+	}
+
 	public String mapModuleName(String moduleName) {
 		return mapModuleName(moduleName, null);
 	}
@@ -96,12 +102,6 @@ public class BrowserModuleNameMapper {
 		sb.append(moduleName);
 
 		return sb.toString();
-	}
-
-	public void clearCache() {
-		_browserModuleNameMapperCache.set(
-			new BrowserModuleNameMapperCache(
-				_getExactMatchMap(), _getPartialMatchMap()));
 	}
 
 	private Map<String, String> _getExactMatchMap() {
