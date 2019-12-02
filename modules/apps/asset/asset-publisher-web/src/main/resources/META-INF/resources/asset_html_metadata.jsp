@@ -26,7 +26,7 @@ if (Validator.isNull(title)) {
 	title = assetRenderer.getTitle(locale);
 }
 
-if (request.getAttribute(WebKeys.PAGE_DESCRIPTION) == null) {
+if (Validator.isNull(request.getAttribute(WebKeys.PAGE_DESCRIPTION))) {
 	String summary = StringUtil.shorten(assetRenderer.getSummary(liferayPortletRequest, liferayPortletResponse), assetPublisherDisplayContext.getAbstractLength());
 
 	PortalUtil.setPageDescription(summary, request);
