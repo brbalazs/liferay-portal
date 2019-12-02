@@ -309,5 +309,41 @@
 			}
 		],
 		"privateLayout": true
+	},
+	{
+		"hidden": true,
+		"layoutTemplateId": "2_columns_ii",
+		"lookAndFeel": {
+			"CUSTOMIZABLE_LAYOUT": false,
+			"column-1-customizable": false,
+			"column-2-customizable": false,
+			"layout-template-id": "2_columns_ii",
+			"layoutUpdateable": true,
+			"lfr-theme:regular:is-login-page": true,
+			"lfr-theme:regular:show-sidebar": false,
+			"lfr-theme:regular:show-topbar": false,
+			"lfr-theme:regular:wide-layout": true,
+			"sitemap-changefreq": "daily",
+			"sitemap-include": 1
+		},
+		"name": "Login",
+		"portlets": [
+			{
+				"layoutColumnId": "column-1",
+				"layoutColumnPos": 0,
+				"portletName": "com_liferay_login_web_portlet_LoginPortlet"
+			},
+			{
+				"layoutColumnId": "column-2",
+				"layoutColumnPos": 0,
+				"portletName": "com_liferay_journal_content_web_portlet_JournalContentPortlet",
+				"portletPreferences": {
+					"articleId": "LOGIN_SPLASH",
+					"ddmStructureKey": "login-splash-structure",
+					"ddmTemplateKey": "LOGIN_SPLASH"
+				}
+			}
+		],
+		"privateLayout": false
 	}
 ]
