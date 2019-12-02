@@ -35,6 +35,7 @@ import java.util.TimeZone;
 
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
+import javax.portlet.PortletURL;
 
 /**
  * @author Eudaldo Alonso
@@ -118,6 +119,12 @@ public interface AssetPublisherHelper {
 		boolean viewInContext);
 
 	public String getAssetViewURL(
+		LiferayPortletRequest liferayPortletRequest,
+		LiferayPortletResponse liferayPortletResponse,
+		AssetRenderer<?> assetRenderer, AssetEntry assetEntry,
+		boolean viewInContext);
+
+	public PortletURL getBaseAssetViewURL(
 		LiferayPortletRequest liferayPortletRequest,
 		LiferayPortletResponse liferayPortletResponse,
 		AssetRenderer<?> assetRenderer, AssetEntry assetEntry,

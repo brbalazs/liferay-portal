@@ -511,12 +511,9 @@ public class AssetPublisherHelperImpl implements AssetPublisherHelper {
 		AssetRenderer<?> assetRenderer, AssetEntry assetEntry,
 		boolean viewInContext) {
 
-		PortletURL viewFullContentURL =
-			liferayPortletResponse.createRenderURL();
-
-		viewFullContentURL.setParameter("mvcPath", "/view_content.jsp");
-		viewFullContentURL.setParameter(
-			"assetEntryId", String.valueOf(assetEntry.getEntryId()));
+		PortletURL viewFullContentURL = getBaseAssetViewURL(
+			liferayPortletRequest, liferayPortletResponse, assetRenderer,
+			assetEntry, viewInContext);
 
 		PortletURL redirectURL = liferayPortletResponse.createRenderURL();
 
@@ -542,37 +539,6 @@ public class AssetPublisherHelperImpl implements AssetPublisherHelper {
 		viewFullContentURL.setParameter(
 			"redirect", redirectURLToOriginalLayout);
 
-		AssetRendererFactory<?> assetRendererFactory =
-			assetRenderer.getAssetRendererFactory();
-
-		viewFullContentURL.setParameter("type", assetRendererFactory.getType());
-
-		String urlTitle = assetRenderer.getUrlTitle(
-			liferayPortletRequest.getLocale());
-
-		if (Validator.isNotNull(urlTitle)) {
-			ThemeDisplay themeDisplay =
-				(ThemeDisplay)liferayPortletRequest.getAttribute(
-					WebKeys.THEME_DISPLAY);
-
-			if (assetRenderer.getGroupId() != themeDisplay.getScopeGroupId()) {
-				viewFullContentURL.setParameter(
-					"groupId", String.valueOf(assetRenderer.getGroupId()));
-			}
-
-			urlTitle = urlTitle.replaceAll(StringPool.SLASH, StringPool.DASH);
-
-			StringBundler sb = new StringBundler(3);
-
-			sb.append(StringPool.DASH);
-			sb.append(StringPool.DASH);
-			sb.append(StringPool.PLUS);
-
-			urlTitle = urlTitle.replaceAll(sb.toString(), StringPool.DASH);
-
-			viewFullContentURL.setParameter("urlTitle", urlTitle);
-		}
-
 		String viewURL = null;
 
 		if (viewInContext) {
@@ -591,7 +557,7 @@ public class AssetPublisherHelperImpl implements AssetPublisherHelper {
 						_portal.getCurrentURL(liferayPortletRequest));
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 			}
 		}
 
@@ -603,6 +569,53 @@ public class AssetPublisherHelperImpl implements AssetPublisherHelper {
 			liferayPortletRequest, viewURL);
 
 		return viewURL;
+	}
+
+	@Override
+	public PortletURL getBaseAssetViewURL(
+		LiferayPortletRequest liferayPortletRequest,
+		LiferayPortletResponse liferayPortletResponse,
+		AssetRenderer<?> assetRenderer, AssetEntry assetEntry,
+		boolean viewInContext) {
+
+		PortletURL baseAssetViewURL = liferayPortletResponse.createRenderURL();
+
+		baseAssetViewURL.setParameter("mvcPath", "/view_content.jsp");
+		baseAssetViewURL.setParameter(
+			"assetEntryId", String.valueOf(assetEntry.getEntryId()));
+
+		AssetRendererFactory<?> assetRendererFactory =
+			assetRenderer.getAssetRendererFactory();
+
+		baseAssetViewURL.setParameter("type", assetRendererFactory.getType());
+
+		String urlTitle = assetRenderer.getUrlTitle(
+			liferayPortletRequest.getLocale());
+
+		if (Validator.isNotNull(urlTitle)) {
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay)liferayPortletRequest.getAttribute(
+					WebKeys.THEME_DISPLAY);
+
+			if (assetRenderer.getGroupId() != themeDisplay.getScopeGroupId()) {
+				baseAssetViewURL.setParameter(
+					"groupId", String.valueOf(assetRenderer.getGroupId()));
+			}
+
+			urlTitle = urlTitle.replaceAll(StringPool.SLASH, StringPool.DASH);
+
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(StringPool.DASH);
+			sb.append(StringPool.DASH);
+			sb.append(StringPool.PLUS);
+
+			urlTitle = urlTitle.replaceAll(sb.toString(), StringPool.DASH);
+
+			baseAssetViewURL.setParameter("urlTitle", urlTitle);
+		}
+
+		return baseAssetViewURL;
 	}
 
 	@Override
