@@ -17,7 +17,7 @@
 			{
 				"layoutColumnId": "column-1",
 				"layoutColumnPos": 2,
-				"portletName": "com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_minium"
+				"portletName": "com_liferay_blogs_web_portlet_BlogsPortlet_INSTANCE_minium"
 			}
 		],
 		"privateLayout": true
