@@ -1044,11 +1044,18 @@ public class DDMDisplayContext {
 				getSearchRestrictionClassPK(), structureSearch.getStart(),
 				structureSearch.getEnd());
 		}
-		else {
+		else if (Validator.isNotNull(_getKeywords())) {
 			results = _ddmStructureService.search(
 				_ddmWebRequestHelper.getCompanyId(), groupIds,
 				getStructureClassNameId(), searchTerms.getKeywords(),
 				searchTerms.getStatus(), structureSearch.getStart(),
+				structureSearch.getEnd(),
+				structureSearch.getOrderByComparator());
+		}
+		else {
+			results = _ddmStructureService.getStructures(
+				_ddmWebRequestHelper.getCompanyId(), groupIds,
+				getStructureClassNameId(), structureSearch.getStart(),
 				structureSearch.getEnd(),
 				structureSearch.getOrderByComparator());
 		}
@@ -1079,11 +1086,16 @@ public class DDMDisplayContext {
 				getSearchRestrictionClassNameId(),
 				getSearchRestrictionClassPK());
 		}
-		else {
+		else if (Validator.isNotNull(_getKeywords())) {
 			total = _ddmStructureService.searchCount(
 				_ddmWebRequestHelper.getCompanyId(), groupIds,
 				getStructureClassNameId(), searchTerms.getKeywords(),
 				searchTerms.getStatus());
+		}
+		else {
+			total = _ddmStructureService.getStructuresCount(
+				_ddmWebRequestHelper.getCompanyId(), groupIds,
+				getStructureClassNameId());
 		}
 
 		structureSearch.setTotal(total);
@@ -1151,6 +1163,16 @@ public class DDMDisplayContext {
 		return null;
 	}
 
+	private String _getKeywords() {
+		if (_keywords != null) {
+			return _keywords;
+		}
+
+		_keywords = ParamUtil.getString(_renderRequest, "keywords");
+
+		return _keywords;
+	}
+
 	private final DDMDisplayRegistry _ddmDisplayRegistry;
 	private final DDMStructureLinkLocalService _ddmStructureLinkLocalService;
 	private final DDMStructureService _ddmStructureService;
@@ -1158,6 +1180,7 @@ public class DDMDisplayContext {
 	private final DDMTemplateService _ddmTemplateService;
 	private final DDMWebConfiguration _ddmWebConfiguration;
 	private final DDMWebRequestHelper _ddmWebRequestHelper;
+	private String _keywords;
 	private final RenderRequest _renderRequest;
 	private final RenderResponse _renderResponse;
 	private final StorageAdapterRegistry _storageAdapterRegistry;
