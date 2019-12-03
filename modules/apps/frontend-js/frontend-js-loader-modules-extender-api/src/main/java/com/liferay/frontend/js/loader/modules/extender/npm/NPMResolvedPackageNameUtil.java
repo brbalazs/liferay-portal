@@ -45,8 +45,7 @@ public class NPMResolvedPackageNameUtil {
 	 * The current portlet is inferred from the portletResource parameter or
 	 * the {@link ServletContext} associated to the given request.
 	 *
-	 * @param httpServletRequest
-	 * @return NPM resolved package name
+	 * @param  httpServletRequest
 	 * @review
 	 */
 	public static String get(HttpServletRequest httpServletRequest) {
