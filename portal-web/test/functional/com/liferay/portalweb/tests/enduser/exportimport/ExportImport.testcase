@@ -1059,10 +1059,9 @@ definition {
 			groupName = "Guest",
 			layoutName = "Blogs Page");
 
-		JSONLayout.addWidgetToPublicLayout(
-			groupName = "Guest",
-			layoutName = "Blogs Page",
-			widgetName = "Blogs");
+		Navigator.gotoPage(pageName = "Blogs Page");
+
+		Portlet.addPG(portletName = "Blogs");
 
 		SitePages.configurePage(
 			columnName = "1 Column",
