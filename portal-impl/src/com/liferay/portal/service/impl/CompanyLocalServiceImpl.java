@@ -577,7 +577,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 		VirtualHost virtualHost = virtualHostPersistence.fetchByHostname(
 			virtualHostname);
 
-		if ((virtualHost == null) && virtualHostname.startsWith("xn--")) {
+		if ((virtualHost == null) && virtualHostname.contains("xn--")) {
 			virtualHost = virtualHostPersistence.fetchByHostname(
 				IDN.toUnicode(virtualHostname));
 		}
@@ -678,7 +678,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 			VirtualHost virtualHost = virtualHostPersistence.findByHostname(
 				virtualHostname);
 
-			if ((virtualHost == null) && virtualHostname.startsWith("xn--")) {
+			if ((virtualHost == null) && virtualHostname.contains("xn--")) {
 				virtualHost = virtualHostPersistence.findByHostname(
 					IDN.toUnicode(virtualHostname));
 			}
