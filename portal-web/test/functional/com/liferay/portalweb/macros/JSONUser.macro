@@ -291,6 +291,8 @@ definition {
 	}
 
 	macro setFirstPassword {
+		// Using this macro will require reconfiguring Portal properties, see LRQA-54062
+
 		if (!(isSet(userEmailAddress))) {
 			fail("Please set 'userEmailAddress'.");
 		}
