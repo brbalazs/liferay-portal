@@ -1143,6 +1143,15 @@ information.
 			<local name="junit.java.gc" />
 
 			<if>
+				<not>
+					<isset property="database.host" />
+				</not>
+				<then>
+					<property name="database.host" value="localhost" />
+				</then>
+			</if>
+
+			<if>
 				<equals arg1="@{test.type}" arg2="unit" />
 				<then>
 					<if>
@@ -1215,6 +1224,7 @@ information.
 				<jvmarg value="-Dosgi.state.dir=${liferay.home}/osgi/state" />
 				<jvmarg value="-Drelease.versions.test.other.dir=${release.versions.test.other.dir}" />
 				<jvmarg value="-Drelease.versions.test.other.dir.names=${release.versions.test.other.dir.names}" />
+				<jvmarg value="-DsocksNonProxyHosts=${database.host}" />
 				<jvmarg value="-DsocksProxyHost=127.0.0.1" />
 				<jvmarg value="-DsocksProxyPort=8888" />
 				<jvmarg value="-Dsun.zip.disableMemoryMapping=true" />
