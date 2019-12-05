@@ -16,6 +16,7 @@ package com.liferay.asset.publisher.web.util;
 
 import com.liferay.asset.kernel.AssetRendererFactoryRegistryUtil;
 import com.liferay.asset.kernel.model.AssetCategory;
+import com.liferay.asset.kernel.model.AssetCategoryModel;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.asset.kernel.model.AssetRenderer;
 import com.liferay.asset.kernel.model.AssetRendererFactory;
@@ -1754,6 +1755,19 @@ public class AssetPublisherUtil {
 			if (category == null) {
 				continue;
 			}
+
+			List<AssetCategory> childAssetCategories =
+				_assetCategoryLocalService.getChildCategories(assetCategoryId);
+
+			long[] childAssetCategoryIds = ListUtil.toLongArray(
+				childAssetCategories, AssetCategoryModel::getCategoryId);
+
+			long[] filteredChildAssetCategoryIds = _filterAssetCategoryIds(
+				childAssetCategoryIds);
+
+			Collections.addAll(
+				assetCategoryIdsList,
+				ArrayUtil.toLongArray(filteredChildAssetCategoryIds));
 
 			assetCategoryIdsList.add(assetCategoryId);
 		}
