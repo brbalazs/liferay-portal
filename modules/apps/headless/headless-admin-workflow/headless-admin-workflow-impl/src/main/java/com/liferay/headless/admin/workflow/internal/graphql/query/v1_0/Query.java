@@ -209,6 +209,7 @@ public class Query {
 
 		public WorkflowLogPage(Page workflowLogPage) {
 			items = workflowLogPage.getItems();
+			lastPage = workflowLogPage.getLastPage();
 			page = workflowLogPage.getPage();
 			pageSize = workflowLogPage.getPageSize();
 			totalCount = workflowLogPage.getTotalCount();
@@ -216,6 +217,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<WorkflowLog> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -233,6 +237,7 @@ public class Query {
 
 		public WorkflowTaskPage(Page workflowTaskPage) {
 			items = workflowTaskPage.getItems();
+			lastPage = workflowTaskPage.getLastPage();
 			page = workflowTaskPage.getPage();
 			pageSize = workflowTaskPage.getPageSize();
 			totalCount = workflowTaskPage.getTotalCount();
@@ -240,6 +245,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<WorkflowTask> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;

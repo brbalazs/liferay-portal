@@ -2814,6 +2814,7 @@ public class Query {
 
 		public BlogPostingPage(Page blogPostingPage) {
 			items = blogPostingPage.getItems();
+			lastPage = blogPostingPage.getLastPage();
 			page = blogPostingPage.getPage();
 			pageSize = blogPostingPage.getPageSize();
 			totalCount = blogPostingPage.getTotalCount();
@@ -2821,6 +2822,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<BlogPosting> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -2838,6 +2842,7 @@ public class Query {
 
 		public BlogPostingImagePage(Page blogPostingImagePage) {
 			items = blogPostingImagePage.getItems();
+			lastPage = blogPostingImagePage.getLastPage();
 			page = blogPostingImagePage.getPage();
 			pageSize = blogPostingImagePage.getPageSize();
 			totalCount = blogPostingImagePage.getTotalCount();
@@ -2845,6 +2850,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<BlogPostingImage> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -2862,6 +2870,7 @@ public class Query {
 
 		public CommentPage(Page commentPage) {
 			items = commentPage.getItems();
+			lastPage = commentPage.getLastPage();
 			page = commentPage.getPage();
 			pageSize = commentPage.getPageSize();
 			totalCount = commentPage.getTotalCount();
@@ -2869,6 +2878,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<Comment> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -2886,6 +2898,7 @@ public class Query {
 
 		public ContentSetElementPage(Page contentSetElementPage) {
 			items = contentSetElementPage.getItems();
+			lastPage = contentSetElementPage.getLastPage();
 			page = contentSetElementPage.getPage();
 			pageSize = contentSetElementPage.getPageSize();
 			totalCount = contentSetElementPage.getTotalCount();
@@ -2893,6 +2906,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<ContentSetElement> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -2910,6 +2926,7 @@ public class Query {
 
 		public ContentStructurePage(Page contentStructurePage) {
 			items = contentStructurePage.getItems();
+			lastPage = contentStructurePage.getLastPage();
 			page = contentStructurePage.getPage();
 			pageSize = contentStructurePage.getPageSize();
 			totalCount = contentStructurePage.getTotalCount();
@@ -2917,6 +2934,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<ContentStructure> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -2934,6 +2954,7 @@ public class Query {
 
 		public DocumentPage(Page documentPage) {
 			items = documentPage.getItems();
+			lastPage = documentPage.getLastPage();
 			page = documentPage.getPage();
 			pageSize = documentPage.getPageSize();
 			totalCount = documentPage.getTotalCount();
@@ -2941,6 +2962,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<Document> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -2958,6 +2982,7 @@ public class Query {
 
 		public DocumentFolderPage(Page documentFolderPage) {
 			items = documentFolderPage.getItems();
+			lastPage = documentFolderPage.getLastPage();
 			page = documentFolderPage.getPage();
 			pageSize = documentFolderPage.getPageSize();
 			totalCount = documentFolderPage.getTotalCount();
@@ -2965,6 +2990,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<DocumentFolder> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -2982,6 +3010,7 @@ public class Query {
 
 		public KnowledgeBaseArticlePage(Page knowledgeBaseArticlePage) {
 			items = knowledgeBaseArticlePage.getItems();
+			lastPage = knowledgeBaseArticlePage.getLastPage();
 			page = knowledgeBaseArticlePage.getPage();
 			pageSize = knowledgeBaseArticlePage.getPageSize();
 			totalCount = knowledgeBaseArticlePage.getTotalCount();
@@ -2989,6 +3018,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<KnowledgeBaseArticle> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -3006,6 +3038,7 @@ public class Query {
 
 		public KnowledgeBaseAttachmentPage(Page knowledgeBaseAttachmentPage) {
 			items = knowledgeBaseAttachmentPage.getItems();
+			lastPage = knowledgeBaseAttachmentPage.getLastPage();
 			page = knowledgeBaseAttachmentPage.getPage();
 			pageSize = knowledgeBaseAttachmentPage.getPageSize();
 			totalCount = knowledgeBaseAttachmentPage.getTotalCount();
@@ -3013,6 +3046,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<KnowledgeBaseAttachment> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -3030,6 +3066,7 @@ public class Query {
 
 		public KnowledgeBaseFolderPage(Page knowledgeBaseFolderPage) {
 			items = knowledgeBaseFolderPage.getItems();
+			lastPage = knowledgeBaseFolderPage.getLastPage();
 			page = knowledgeBaseFolderPage.getPage();
 			pageSize = knowledgeBaseFolderPage.getPageSize();
 			totalCount = knowledgeBaseFolderPage.getTotalCount();
@@ -3037,6 +3074,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<KnowledgeBaseFolder> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -3054,6 +3094,7 @@ public class Query {
 
 		public MessageBoardAttachmentPage(Page messageBoardAttachmentPage) {
 			items = messageBoardAttachmentPage.getItems();
+			lastPage = messageBoardAttachmentPage.getLastPage();
 			page = messageBoardAttachmentPage.getPage();
 			pageSize = messageBoardAttachmentPage.getPageSize();
 			totalCount = messageBoardAttachmentPage.getTotalCount();
@@ -3061,6 +3102,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<MessageBoardAttachment> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -3078,6 +3122,7 @@ public class Query {
 
 		public MessageBoardMessagePage(Page messageBoardMessagePage) {
 			items = messageBoardMessagePage.getItems();
+			lastPage = messageBoardMessagePage.getLastPage();
 			page = messageBoardMessagePage.getPage();
 			pageSize = messageBoardMessagePage.getPageSize();
 			totalCount = messageBoardMessagePage.getTotalCount();
@@ -3085,6 +3130,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<MessageBoardMessage> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -3102,6 +3150,7 @@ public class Query {
 
 		public MessageBoardSectionPage(Page messageBoardSectionPage) {
 			items = messageBoardSectionPage.getItems();
+			lastPage = messageBoardSectionPage.getLastPage();
 			page = messageBoardSectionPage.getPage();
 			pageSize = messageBoardSectionPage.getPageSize();
 			totalCount = messageBoardSectionPage.getTotalCount();
@@ -3109,6 +3158,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<MessageBoardSection> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -3126,6 +3178,7 @@ public class Query {
 
 		public MessageBoardThreadPage(Page messageBoardThreadPage) {
 			items = messageBoardThreadPage.getItems();
+			lastPage = messageBoardThreadPage.getLastPage();
 			page = messageBoardThreadPage.getPage();
 			pageSize = messageBoardThreadPage.getPageSize();
 			totalCount = messageBoardThreadPage.getTotalCount();
@@ -3133,6 +3186,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<MessageBoardThread> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -3150,6 +3206,7 @@ public class Query {
 
 		public StructuredContentPage(Page structuredContentPage) {
 			items = structuredContentPage.getItems();
+			lastPage = structuredContentPage.getLastPage();
 			page = structuredContentPage.getPage();
 			pageSize = structuredContentPage.getPageSize();
 			totalCount = structuredContentPage.getTotalCount();
@@ -3157,6 +3214,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<StructuredContent> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -3174,6 +3234,7 @@ public class Query {
 
 		public StructuredContentFolderPage(Page structuredContentFolderPage) {
 			items = structuredContentFolderPage.getItems();
+			lastPage = structuredContentFolderPage.getLastPage();
 			page = structuredContentFolderPage.getPage();
 			pageSize = structuredContentFolderPage.getPageSize();
 			totalCount = structuredContentFolderPage.getTotalCount();
@@ -3181,6 +3242,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<StructuredContentFolder> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -3198,6 +3262,7 @@ public class Query {
 
 		public WikiNodePage(Page wikiNodePage) {
 			items = wikiNodePage.getItems();
+			lastPage = wikiNodePage.getLastPage();
 			page = wikiNodePage.getPage();
 			pageSize = wikiNodePage.getPageSize();
 			totalCount = wikiNodePage.getTotalCount();
@@ -3205,6 +3270,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<WikiNode> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -3222,6 +3290,7 @@ public class Query {
 
 		public WikiPagePage(Page wikiPagePage) {
 			items = wikiPagePage.getItems();
+			lastPage = wikiPagePage.getLastPage();
 			page = wikiPagePage.getPage();
 			pageSize = wikiPagePage.getPageSize();
 			totalCount = wikiPagePage.getTotalCount();
@@ -3229,6 +3298,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<WikiPage> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -3246,6 +3318,7 @@ public class Query {
 
 		public WikiPageAttachmentPage(Page wikiPageAttachmentPage) {
 			items = wikiPageAttachmentPage.getItems();
+			lastPage = wikiPageAttachmentPage.getLastPage();
 			page = wikiPageAttachmentPage.getPage();
 			pageSize = wikiPageAttachmentPage.getPageSize();
 			totalCount = wikiPageAttachmentPage.getTotalCount();
@@ -3253,6 +3326,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<WikiPageAttachment> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
