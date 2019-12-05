@@ -25,6 +25,8 @@ import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.service.base.CommerceShipmentLocalServiceBaseImpl;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
@@ -104,18 +106,17 @@ public class CommerceShipmentLocalServiceImpl
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
 	public CommerceShipment deleteCommerceShipment(
-		CommerceShipment commerceShipment) {
+			CommerceShipment commerceShipment, boolean restoreStockQuantity)
+		throws PortalException {
 
 		// Commerce shipment items
 
 		commerceShipmentItemLocalService.deleteCommerceShipmentItems(
-			commerceShipment.getCommerceShipmentId());
+			commerceShipment.getCommerceShipmentId(), restoreStockQuantity);
 
 		// Commerce shipment
 
-		commerceShipmentPersistence.remove(commerceShipment);
-
-		return commerceShipment;
+		return commerceShipmentPersistence.remove(commerceShipment);
 	}
 
 	@Override
@@ -562,5 +563,8 @@ public class CommerceShipmentLocalServiceImpl
 			throw new CommerceShipmentStatusException();
 		}
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceShipmentLocalServiceImpl.class);
 
 }

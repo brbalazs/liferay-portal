@@ -24,7 +24,6 @@ import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemLoca
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseLocalService;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceShipmentItem;
-import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.service.base.CommerceShipmentItemLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -100,7 +99,18 @@ public class CommerceShipmentItemLocalServiceImpl
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
 	public CommerceShipmentItem deleteCommerceShipmentItem(
-		CommerceShipmentItem commerceShipmentItem) {
+			CommerceShipmentItem commerceShipmentItem,
+			boolean restoreStockQuantity)
+		throws PortalException {
+
+		commerceShipmentItemPersistence.remove(commerceShipmentItem);
+
+		if (!restoreStockQuantity) {
+			commerceOrderItemLocalService.updateCommerceOrderItem(
+				commerceShipmentItem.getCommerceOrderItemId(), 0);
+
+			return commerceShipmentItem;
+		}
 
 		// Commerce order item
 
@@ -124,28 +134,27 @@ public class CommerceShipmentItemLocalServiceImpl
 			_log.error(pe, pe);
 		}
 
-		// Commerce shipment item
-
-		commerceShipmentItemPersistence.remove(commerceShipmentItem);
-
 		return commerceShipmentItem;
 	}
 
 	@Override
-	public CommerceShipmentItem deleteCommerceShipmentItem(
-			long commerceShipmentItemId)
+	public void deleteCommerceShipmentItem(
+			long commerceShipmentItemId, boolean restoreStockQuantity)
 		throws PortalException {
 
 		CommerceShipmentItem commerceShipmentItem =
 			commerceShipmentItemPersistence.findByPrimaryKey(
 				commerceShipmentItemId);
 
-		return commerceShipmentItemLocalService.deleteCommerceShipmentItem(
-			commerceShipmentItem);
+		commerceShipmentItemLocalService.deleteCommerceShipmentItem(
+			commerceShipmentItem, restoreStockQuantity);
 	}
 
 	@Override
-	public void deleteCommerceShipmentItems(long commerceShipmentId) {
+	public void deleteCommerceShipmentItems(
+			long commerceShipmentId, boolean restoreStockQuantity)
+		throws PortalException {
+
 		List<CommerceShipmentItem> commerceShipmentItems =
 			commerceShipmentItemPersistence.findByCommerceShipment(
 				commerceShipmentId);
@@ -154,7 +163,7 @@ public class CommerceShipmentItemLocalServiceImpl
 				commerceShipmentItems) {
 
 			commerceShipmentItemLocalService.deleteCommerceShipmentItem(
-				commerceShipmentItem);
+				commerceShipmentItem, restoreStockQuantity);
 		}
 	}
 
