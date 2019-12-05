@@ -85,6 +85,19 @@ public class CommerceShipmentServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.commerce.model.CommerceShipment>
+			getCommerceShipments(
+				long companyId, long commerceAddressId, int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<com.liferay.commerce.model.CommerceShipment>
+						orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceShipmentService.getCommerceShipments(
+			companyId, commerceAddressId, start, end, orderByComparator);
+	}
+
+	@Override
 	public int getCommerceShipmentsCount(long companyId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -97,6 +110,14 @@ public class CommerceShipmentServiceWrapper
 
 		return _commerceShipmentService.getCommerceShipmentsCount(
 			companyId, status);
+	}
+
+	@Override
+	public int getCommerceShipmentsCount(long companyId, long commerceAddressId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceShipmentService.getCommerceShipmentsCount(
+			companyId, commerceAddressId);
 	}
 
 	/**
