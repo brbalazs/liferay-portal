@@ -56,6 +56,8 @@ import javax.annotation.Generated;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javax.validation.constraints.NotEmpty;
+
 import javax.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.ComponentServiceObjects;
@@ -426,8 +428,7 @@ public class Query {
 	 */
 	@GraphQLField(description = "Gets a site's segments.")
 	public SegmentPage segments(
-			@GraphQLName("siteId") Long siteId,
-			@GraphQLName("siteKey") String siteKey,
+			Long siteId, @GraphQLName("siteKey") @NotEmpty String siteKey,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
 		throws Exception {
@@ -447,8 +448,7 @@ public class Query {
 	 */
 	@GraphQLField(description = "Gets a user's segments.")
 	public SegmentPage userAccountSegments(
-			@GraphQLName("siteId") Long siteId,
-			@GraphQLName("siteKey") String siteKey,
+			Long siteId, @GraphQLName("siteKey") @NotEmpty String siteKey,
 			@GraphQLName("userAccountId") Long userAccountId)
 		throws Exception {
 
@@ -523,8 +523,7 @@ public class Query {
 	 */
 	@GraphQLField
 	public Site site(
-			@GraphQLName("siteId") Long siteId,
-			@GraphQLName("siteKey") String siteKey)
+			Long siteId, @GraphQLName("siteKey") @NotEmpty String siteKey)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -623,8 +622,7 @@ public class Query {
 		description = "Retrieves the site members' user accounts. Results can be paginated, filtered, searched, and sorted."
 	)
 	public UserAccountPage siteUserAccounts(
-			@GraphQLName("siteId") Long siteId,
-			@GraphQLName("siteKey") String siteKey,
+			Long siteId, @GraphQLName("siteKey") @NotEmpty String siteKey,
 			@GraphQLName("search") String search,
 			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,
