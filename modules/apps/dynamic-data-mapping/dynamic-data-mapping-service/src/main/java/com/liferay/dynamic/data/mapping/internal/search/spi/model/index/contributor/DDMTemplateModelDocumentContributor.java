@@ -47,6 +47,8 @@ public class DDMTemplateModelDocumentContributor
 	public void contribute(Document document, DDMTemplate ddmTemplate) {
 		document.addKeyword(Field.CLASS_NAME_ID, ddmTemplate.getClassNameId());
 		document.addKeyword(Field.CLASS_PK, ddmTemplate.getClassPK());
+		document.addKeyword("language", ddmTemplate.getLanguage());
+		document.addKeyword("mode", ddmTemplate.getMode());
 		document.addKeyword(
 			"resourceClassNameId", ddmTemplate.getResourceClassNameId());
 
@@ -76,8 +78,6 @@ public class DDMTemplateModelDocumentContributor
 			}
 		}
 
-		document.addKeyword("language", ddmTemplate.getLanguage());
-		document.addKeyword("mode", ddmTemplate.getMode());
 		document.addKeyword("type", ddmTemplate.getType());
 
 		Locale defaultLocale = LocaleUtil.getSiteDefault();
