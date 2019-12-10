@@ -18,7 +18,7 @@ definition {
 			PortalInstances.tearDownCP();
 		}
 		else {
-			JSONUser.tearDownNonAdminUsers();
+			User.tearDownCP();
 		}
 	}
 
@@ -74,9 +74,9 @@ definition {
 			userScreenName = "usersn");
 
 		ProductMenu.gotoPortlet(
-			category = "People",
+			category = "Members",
 			panel = "Site Administration",
-			portlet = "Memberships");
+			portlet = "Site Memberships");
 
 		Site.assignSiteRoleCP(
 			resourceName = "userfn userln",
