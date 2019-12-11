@@ -60,6 +60,10 @@ AUI.add(
 
 				var copy = builder.createField(fieldType, config);
 
+				var newFieldName;
+
+				var oldFieldName;
+
 				FormBuilderUtil.visitLayout(
 					copy.get('settingsContext').pages,
 					function(settingsFormFieldContext) {
@@ -84,9 +88,9 @@ AUI.add(
 						}
 
 						if (fieldName === 'name') {
-							var oldFieldName = instance.get('fieldName');
+							oldFieldName = instance.get('fieldName');
 
-							var newFieldName = Lang.sub(
+							newFieldName = Lang.sub(
 								Liferay.Language.get('copy-of-x'),
 								[
 									oldFieldName
@@ -98,6 +102,14 @@ AUI.add(
 							newFieldName = newFieldName.replace(/\s/g, '');
 
 							settingsFormFieldContext.value = copy.generateFieldName(newFieldName);
+						}
+
+						if (fieldName === 'validation') {
+							var expression = settingsFormFieldContext.value.expression;
+
+							if (expression) {
+								settingsFormFieldContext.value.expression = expression.replace(oldFieldName, newFieldName);
+							}
 						}
 					}
 				);
