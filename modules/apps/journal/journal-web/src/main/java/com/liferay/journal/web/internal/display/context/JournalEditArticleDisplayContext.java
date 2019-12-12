@@ -116,7 +116,7 @@ public class JournalEditArticleDisplayContext {
 
 		LinkedHashSet<String> uniqueLanguageIds = new LinkedHashSet<>();
 
-		uniqueLanguageIds.add(getDefaultLanguageId());
+		uniqueLanguageIds.add(getSelectedLanguageId());
 
 		Map<String, Object> strings = new HashMap<>();
 
@@ -133,7 +133,7 @@ public class JournalEditArticleDisplayContext {
 				LanguageUtil.format(
 					_request, "default-language-x",
 					availableLocale.getDisplayName(
-						LocaleUtil.fromLanguageId(getDefaultLanguageId())),
+						LocaleUtil.fromLanguageId(getSelectedLanguageId())),
 					false));
 
 			uniqueLanguageIds.add(curLanguageId);
@@ -146,7 +146,7 @@ public class JournalEditArticleDisplayContext {
 
 			language.put(
 				"checked",
-				Objects.equals(getDefaultLanguageId(), curLanguageId));
+				Objects.equals(getSelectedLanguageId(), curLanguageId));
 			language.put(
 				"icon",
 				StringUtil.toLowerCase(
@@ -336,22 +336,6 @@ public class JournalEditArticleDisplayContext {
 			_article.getContent(), siteDefaultLocale);
 	}
 
-	public String getDefaultLanguageId() {
-		if (Validator.isNotNull(_defaultLanguageId)) {
-			return _defaultLanguageId;
-		}
-
-		_defaultLanguageId = ParamUtil.getString(_request, "languageId");
-
-		if (Validator.isNotNull(_defaultLanguageId)) {
-			return _defaultLanguageId;
-		}
-
-		_defaultLanguageId = getDefaultArticleLanguageId();
-
-		return _defaultLanguageId;
-	}
-
 	public String getEditArticleURL() {
 		PortletURL editArticleURL = _liferayPortletResponse.createRenderURL();
 
@@ -508,6 +492,22 @@ public class JournalEditArticleDisplayContext {
 		}
 
 		return "save";
+	}
+
+	public String getSelectedLanguageId() {
+		if (Validator.isNotNull(_defaultLanguageId)) {
+			return _defaultLanguageId;
+		}
+
+		_defaultLanguageId = ParamUtil.getString(_request, "languageId");
+
+		if (Validator.isNotNull(_defaultLanguageId)) {
+			return _defaultLanguageId;
+		}
+
+		_defaultLanguageId = getDefaultArticleLanguageId();
+
+		return _defaultLanguageId;
 	}
 
 	public double getVersion() {
