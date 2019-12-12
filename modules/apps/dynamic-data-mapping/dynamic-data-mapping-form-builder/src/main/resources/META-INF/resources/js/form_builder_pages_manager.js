@@ -127,7 +127,7 @@ AUI.add(
 						'</div>',
 
 					TPL_PAGE_HEADER: '<div class="' + CSS_PAGE_HEADER + ' form-inline">' +
-						'<textarea rows="1" placeholder="{untitledPage}" class="' + CSS_PAGE_HEADER_TITLE + ' ' +
+						'<textarea rows="1" placeholder="" class="' + CSS_PAGE_HEADER_TITLE + ' ' +
 						CSS_PAGE_HEADER_TITLE_HIDE_BORDER + ' form-control"></textarea>' +
 						'<textarea rows="1" placeholder="{aditionalInfo}" class="' + CSS_PAGE_HEADER_DESCRIPTION + ' ' +
 						CSS_PAGE_HEADER_DESCRIPTION_HIDE_BORDER + ' form-control"></textarea>' +
@@ -941,12 +941,6 @@ AUI.add(
 						var titles = instance.get('titles');
 
 						var title = event.newVal.trim();
-
-						if (!title) {
-							var pagesQuantity = instance.get('pagesQuantity');
-
-							title = instance._createUntitledPageLabel(activePageNumber, pagesQuantity);
-						}
 
 						titles[activePageNumber - 1] = title;
 						localizedTitles[activePageNumber - 1][editingLanguageId] = title;
