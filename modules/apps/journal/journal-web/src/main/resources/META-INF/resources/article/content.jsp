@@ -141,6 +141,7 @@ DDMTemplate ddmTemplate = journalEditArticleDisplayContext.getDDMTemplate();
 			classPK="<%= ddmStructure.getStructureId() %>"
 			ddmFormValues="<%= journalEditArticleDisplayContext.getDDMFormValues(ddmStructure) %>"
 			defaultEditLocale="<%= LocaleUtil.fromLanguageId(journalEditArticleDisplayContext.getDefaultLanguageId()) %>"
+			defaultLocale="<%= LocaleUtil.fromLanguageId(journalEditArticleDisplayContext.getDefaultArticleLanguageId()) %>"
 			documentLibrarySelectorURL="<%= String.valueOf(journalItemSelectorHelper.getDocumentLibrarySelectorURL()) %>"
 			groupId="<%= journalEditArticleDisplayContext.getGroupId() %>"
 			ignoreRequestValue="<%= journalEditArticleDisplayContext.isChangeStructure() %>"
