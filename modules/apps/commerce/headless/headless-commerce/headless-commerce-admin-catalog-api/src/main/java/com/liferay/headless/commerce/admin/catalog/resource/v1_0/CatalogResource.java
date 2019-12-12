@@ -34,6 +34,12 @@ import javax.ws.rs.core.Response;
 @Generated("")
 public interface CatalogResource {
 
+	public Response deleteCatalog(Long id) throws Exception;
+
+	public Catalog getCatalog(Long id) throws Exception;
+
+	public Response patchCatalog(Long id, Catalog catalog) throws Exception;
+
 	public Response deleteCatalogByExternalReferenceCode(
 			String externalReferenceCode)
 		throws Exception;
@@ -45,12 +51,6 @@ public interface CatalogResource {
 	public Response patchCatalogByExternalReferenceCode(
 			String externalReferenceCode, Catalog catalog)
 		throws Exception;
-
-	public Response deleteCatalog(Long id) throws Exception;
-
-	public Catalog getCatalog(Long id) throws Exception;
-
-	public Response patchCatalog(Long id, Catalog catalog) throws Exception;
 
 	public Page<Catalog> getCatalogsPage(Pagination pagination)
 		throws Exception;

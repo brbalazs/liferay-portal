@@ -120,22 +120,6 @@ public class Mutation {
 						groupId, availabilityEstimate));
 	}
 
-	@GraphQLField
-	@GraphQLInvokeDetached
-	public MeasurementUnit postCommerceAdminSiteSettingGroupMeasurementUnit(
-			@GraphQLName("groupId") Long groupId,
-			@GraphQLName("measurementUnit") MeasurementUnit measurementUnit)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_measurementUnitResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			measurementUnitResource ->
-				measurementUnitResource.
-					postCommerceAdminSiteSettingGroupMeasurementUnit(
-						groupId, measurementUnit));
-	}
-
 	@GraphQLInvokeDetached
 	public Response deleteMeasurementUnit(@GraphQLName("id") Long id)
 		throws Exception {
@@ -163,18 +147,18 @@ public class Mutation {
 
 	@GraphQLField
 	@GraphQLInvokeDetached
-	public TaxCategory postCommerceAdminSiteSettingGroupTaxCategory(
+	public MeasurementUnit postCommerceAdminSiteSettingGroupMeasurementUnit(
 			@GraphQLName("groupId") Long groupId,
-			@GraphQLName("taxCategory") TaxCategory taxCategory)
+			@GraphQLName("measurementUnit") MeasurementUnit measurementUnit)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
-			_taxCategoryResourceComponentServiceObjects,
+			_measurementUnitResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			taxCategoryResource ->
-				taxCategoryResource.
-					postCommerceAdminSiteSettingGroupTaxCategory(
-						groupId, taxCategory));
+			measurementUnitResource ->
+				measurementUnitResource.
+					postCommerceAdminSiteSettingGroupMeasurementUnit(
+						groupId, measurementUnit));
 	}
 
 	@GraphQLInvokeDetached
@@ -202,17 +186,18 @@ public class Mutation {
 
 	@GraphQLField
 	@GraphQLInvokeDetached
-	public Warehouse postCommerceAdminSiteSettingGroupWarehouse(
+	public TaxCategory postCommerceAdminSiteSettingGroupTaxCategory(
 			@GraphQLName("groupId") Long groupId,
-			@GraphQLName("warehouse") Warehouse warehouse)
+			@GraphQLName("taxCategory") TaxCategory taxCategory)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
-			_warehouseResourceComponentServiceObjects,
+			_taxCategoryResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			warehouseResource ->
-				warehouseResource.postCommerceAdminSiteSettingGroupWarehouse(
-					groupId, warehouse));
+			taxCategoryResource ->
+				taxCategoryResource.
+					postCommerceAdminSiteSettingGroupTaxCategory(
+						groupId, taxCategory));
 	}
 
 	@GraphQLInvokeDetached
@@ -235,6 +220,21 @@ public class Mutation {
 			_warehouseResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			warehouseResource -> warehouseResource.putWarehouse(id, warehouse));
+	}
+
+	@GraphQLField
+	@GraphQLInvokeDetached
+	public Warehouse postCommerceAdminSiteSettingGroupWarehouse(
+			@GraphQLName("groupId") Long groupId,
+			@GraphQLName("warehouse") Warehouse warehouse)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_warehouseResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			warehouseResource ->
+				warehouseResource.postCommerceAdminSiteSettingGroupWarehouse(
+					groupId, warehouse));
 	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R

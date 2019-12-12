@@ -60,20 +60,13 @@ public class Query {
 
 	@GraphQLField
 	@GraphQLInvokeDetached
-	public Collection<Warehouse> getWarehousesPage(
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
+	public Warehouse getWarehousId(@GraphQLName("id") Long id)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_warehouseResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			warehouseResource -> {
-				Page paginationPage = warehouseResource.getWarehousesPage(
-					Pagination.of(pageSize, page));
-
-				return paginationPage.getItems();
-			});
+			warehouseResource -> warehouseResource.getWarehousId(id));
 	}
 
 	@GraphQLField
@@ -92,25 +85,39 @@ public class Query {
 
 	@GraphQLField
 	@GraphQLInvokeDetached
-	public Warehouse getWarehousId(@GraphQLName("id") Long id)
+	public Collection<Warehouse> getWarehousesPage(
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_warehouseResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			warehouseResource -> warehouseResource.getWarehousId(id));
+			warehouseResource -> {
+				Page paginationPage = warehouseResource.getWarehousesPage(
+					Pagination.of(pageSize, page));
+
+				return paginationPage.getItems();
+			});
 	}
 
 	@GraphQLField
 	@GraphQLInvokeDetached
-	public WarehouseItem getWarehouseItem(@GraphQLName("id") Long id)
+	public Collection<WarehouseItem> getWarehousIdWarehouseItemsPage(
+			@GraphQLName("id") Long id, @GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_warehouseItemResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			warehouseItemResource -> warehouseItemResource.getWarehouseItem(
-				id));
+			warehouseItemResource -> {
+				Page paginationPage =
+					warehouseItemResource.getWarehousIdWarehouseItemsPage(
+						id, Pagination.of(pageSize, page));
+
+				return paginationPage.getItems();
+			});
 	}
 
 	@GraphQLField
@@ -139,21 +146,14 @@ public class Query {
 
 	@GraphQLField
 	@GraphQLInvokeDetached
-	public Collection<WarehouseItem> getWarehousIdWarehouseItemsPage(
-			@GraphQLName("id") Long id, @GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
+	public WarehouseItem getWarehouseItem(@GraphQLName("id") Long id)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_warehouseItemResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			warehouseItemResource -> {
-				Page paginationPage =
-					warehouseItemResource.getWarehousIdWarehouseItemsPage(
-						id, Pagination.of(pageSize, page));
-
-				return paginationPage.getItems();
-			});
+			warehouseItemResource -> warehouseItemResource.getWarehouseItem(
+				id));
 	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
