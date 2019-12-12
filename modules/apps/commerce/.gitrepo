@@ -7,5 +7,5 @@
 	commit = d28236ef4225da4fc4b517b0c8a6e5ff2333d4b3
 	mergebuttonmergecommits = false
 	mode = pull
-	parent = 8d45799acf81df08ced31e541cfc347551dc3578
+	parent = 0000000000000000000000000000000000000000
 	remote = git@github.com:liferay/com-liferay-commerce.git
