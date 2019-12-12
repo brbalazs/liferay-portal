@@ -258,6 +258,10 @@ public class JournalEditArticleDisplayContext {
 	}
 
 	public DDMTemplate getDDMTemplate() throws PortalException {
+		if (_ddmTemplate != null) {
+			return _ddmTemplate;
+		}
+
 		long ddmTemplateId = ParamUtil.getLong(_request, "ddmTemplateId");
 
 		if (ddmTemplateId > 0) {
