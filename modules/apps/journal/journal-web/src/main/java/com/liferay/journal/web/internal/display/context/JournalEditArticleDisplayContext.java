@@ -333,13 +333,19 @@ public class JournalEditArticleDisplayContext {
 	}
 
 	public String getDefaultLanguageId() {
-		String languageId = ParamUtil.getString(_request, "languageId");
-
-		if (Validator.isNotNull(languageId)) {
-			return languageId;
+		if (Validator.isNotNull(_defaultLanguageId)) {
+			return _defaultLanguageId;
 		}
 
-		return getDefaultArticleLanguageId();
+		_defaultLanguageId = ParamUtil.getString(_request, "languageId");
+
+		if (Validator.isNotNull(_defaultLanguageId)) {
+			return _defaultLanguageId;
+		}
+
+		_defaultLanguageId = getDefaultArticleLanguageId();
+
+		return _defaultLanguageId;
 	}
 
 	public String getEditArticleURL() {
@@ -737,6 +743,7 @@ public class JournalEditArticleDisplayContext {
 	private String _ddmStructureKey;
 	private DDMTemplate _ddmTemplate;
 	private String _ddmTemplateKey;
+	private String _defaultLanguageId;
 	private Long _folderId;
 	private Long _groupId;
 	private Boolean _hideDefaultSuccessMessage;
