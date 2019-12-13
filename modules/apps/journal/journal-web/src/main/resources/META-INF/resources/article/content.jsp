@@ -191,4 +191,15 @@ DDMTemplate ddmTemplate = journalEditArticleDisplayContext.getDDMTemplate();
 	);
 
 	Liferay.Util.disableToggleBoxes('<portlet:namespace />autoArticleId', '<portlet:namespace />newArticleId', true);
+
+	Liferay.after(
+		'inputLocalized:localeChanged',
+		function(event) {
+			var selectedLanguageId = event.item.getAttribute('data-value')
+
+			var languageIdInput = document.getElementById(this.ns('languageId'));
+
+			languageIdInput.value = selectedLanguageId;
+		}
+	);
 </aui:script>
