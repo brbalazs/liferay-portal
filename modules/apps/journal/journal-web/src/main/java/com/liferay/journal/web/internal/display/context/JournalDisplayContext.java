@@ -1023,6 +1023,10 @@ public class JournalDisplayContext {
 		PortletURL portletURL = _liferayPortletResponse.createRenderURL();
 
 		portletURL.setParameter("folderId", String.valueOf(getFolderId()));
+		portletURL.setParameter("navigation", getNavigation());
+		portletURL.setParameter("orderByCol", getOrderByCol());
+		portletURL.setParameter("orderByType", getOrderByType());
+		portletURL.setParameter("status", String.valueOf(getStatus()));
 		portletURL.setParameter(
 			"showEditActions", String.valueOf(isShowEditActions()));
 
