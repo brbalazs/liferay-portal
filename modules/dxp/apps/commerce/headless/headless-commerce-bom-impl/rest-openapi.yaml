@@ -6,7 +6,8 @@ components:
             name: id
             required: true
             schema:
-                description: The resource Id
+                description:
+                    The resource Id
                 example: 30130
                 format: int64
                 minimum: 0
@@ -26,20 +27,22 @@ components:
             content:
                 application/json:
                     schema:
-                        $ref: '#/components/schemas/Error'
+                        $ref: "#/components/schemas/Error"
                 application/xml:
                     schema:
-                        $ref: '#/components/schemas/Error'
-            description: The specified resource was not found
+                        $ref: "#/components/schemas/Error"
+            description:
+                The specified resource was not found
         UnauthorizedError:
             content:
                 application/json:
                     schema:
-                        $ref: '#/components/schemas/Error'
+                        $ref: "#/components/schemas/Error"
                 application/xml:
                     schema:
-                        $ref: '#/components/schemas/Error'
-            description: Authentication information is missing or invalid
+                        $ref: "#/components/schemas/Error"
+            description:
+                Authentication information is missing or invalid
     schemas:
         Area:
             properties:
@@ -51,10 +54,10 @@ components:
                           street2: /Item/31130
                           thumbnail: /schema.jpg
                     items:
-                        $ref: '#/components/schemas/Breadcrumb'
+                        $ref: "#/components/schemas/Breadcrumb"
                     type: array
                 data:
-                    $ref: '#/components/schemas/AreaData'
+                    $ref: "#/components/schemas/AreaData"
             type: object
         AreaData:
             properties:
@@ -76,7 +79,7 @@ components:
                           thumbnailUrl: /product_thumbnail.png
                           url: /productUrl
                     items:
-                        $ref: '#/components/schemas/Product'
+                        $ref: "#/components/schemas/Product"
                     type: array
                 spots:
                     example:
@@ -86,7 +89,7 @@ components:
                           positionY: 33.54
                           productId: 29130
                     items:
-                        $ref: '#/components/schemas/Spot'
+                        $ref: "#/components/schemas/Spot"
                     type: array
         Brand:
             properties:
@@ -101,7 +104,7 @@ components:
                           name: Model 1
                           year: "2019"
                     items:
-                        $ref: '#/components/schemas/Model'
+                        $ref: "#/components/schemas/Model"
                     type: array
                 name:
                     example: Brand 1
@@ -119,7 +122,8 @@ components:
         Error:
             properties:
                 errorCode:
-                    description: Internal error code mapping
+                    description:
+                        Internal error code mapping
                     example: 996
                     readOnly: true
                     type: integer
@@ -132,7 +136,8 @@ components:
                     readOnly: true
                     type: string
                 status:
-                    description: HTTP Status code
+                    description:
+                        HTTP Status code
                     example: 404
                     readOnly: true
                     type: integer
@@ -152,10 +157,10 @@ components:
                           street2: /Item/31130
                           thumbnail: /schema.jpg
                     items:
-                        $ref: '#/components/schemas/Breadcrumb'
+                        $ref: "#/components/schemas/Breadcrumb"
                     type: array
                 data:
-                    $ref: '#/components/schemas/ItemData'
+                    $ref: "#/components/schemas/ItemData"
             type: object
         Item:
             properties:
@@ -193,7 +198,7 @@ components:
                                 year: "2019"
                           name: Brand 1
                     items:
-                        $ref: '#/components/schemas/Brand'
+                        $ref: "#/components/schemas/Brand"
                     type: array
                 content:
                     example:
@@ -203,7 +208,7 @@ components:
                           street2: /Item/31130
                           thumbnail: /schema.jpg
                     items:
-                        $ref: '#/components/schemas/Item'
+                        $ref: "#/components/schemas/Item"
                     type: array
                 products:
                     example:
@@ -214,7 +219,7 @@ components:
                           thumbnailUrl: /product_thumbnail.png
                           url: /productUrl
                     items:
-                        $ref: '#/components/schemas/Product'
+                        $ref: "#/components/schemas/Product"
                     type: array
                 spots:
                     example:
@@ -224,7 +229,7 @@ components:
                           positionY: 33.54
                           productId: 29130
                     items:
-                        $ref: '#/components/schemas/Spot'
+                        $ref: "#/components/schemas/Spot"
                     type: array
             type: object
         Model:
@@ -286,7 +291,7 @@ components:
                     minimum: 0
                     type: integer
                 position:
-                    $ref: '#/components/schemas/Position'
+                    $ref: "#/components/schemas/Position"
                 productId:
                     example: 123e4567-e89b-12d3-a456-426655440000
                     type: string
@@ -315,7 +320,8 @@ info:
     contact:
         email: team-commerce@liferay.com
         name: Commerce Team
-    description: Liferay Commerce BOM API
+    description:
+        Liferay Commerce BOM API
     license:
         name: GNU Lesser General Public License 2.1
         url: https://www.gnu.org/licenses/lgpl-2.1.html
@@ -332,7 +338,8 @@ paths:
                   name: id
                   required: true
                   schema:
-                      description: The resource Id
+                      description:
+                          The resource Id
                       example: 30130
                       format: int64
                       minimum: 0
@@ -342,50 +349,55 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/Spot'
+                            $ref: "#/components/schemas/Spot"
                     application/xml:
                         schema:
-                            $ref: '#/components/schemas/Spot'
+                            $ref: "#/components/schemas/Spot"
                 required: true
             responses:
                 200:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Spot'
+                                $ref: "#/components/schemas/Spot"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Spot'
-                    description: Created
+                                $ref: "#/components/schemas/Spot"
+                    description:
+                        Created
                 400:
-                    description: Invalid input
+                    description:
+                        Invalid input
                 401:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Error'
-                    description: Authentication information is missing or invalid
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
                 404:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Error'
-                    description: The specified resource was not found
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
                 500:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Error'
-                    description: Unexpected error
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
             security:
                 - BasicAuth: []
                 - BearerAuth: []
@@ -403,7 +415,8 @@ paths:
                   name: id
                   required: true
                   schema:
-                      description: The resource Id
+                      description:
+                          The resource Id
                       example: 30130
                       format: int64
                       minimum: 0
@@ -414,7 +427,8 @@ paths:
                   name: spotId
                   required: true
                   schema:
-                      description: The spot Id
+                      description:
+                          The spot Id
                       example: 30130
                       format: int64
                       minimum: 0
@@ -422,16 +436,18 @@ paths:
                   style: simple
             responses:
                 200:
-                    description: No content
+                    description:
+                        No content
                 401:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Error'
-                    description: Authentication information is missing or invalid
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
             security:
                 - BasicAuth: []
                 - BearerAuth: []
@@ -448,7 +464,8 @@ paths:
                   name: id
                   required: true
                   schema:
-                      description: The resource Id
+                      description:
+                          The resource Id
                       example: 30130
                       format: int64
                       minimum: 0
@@ -459,7 +476,8 @@ paths:
                   name: spotId
                   required: true
                   schema:
-                      description: The spot Id
+                      description:
+                          The spot Id
                       example: 30130
                       format: int64
                       minimum: 0
@@ -469,43 +487,48 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/Spot'
+                            $ref: "#/components/schemas/Spot"
                     application/xml:
                         schema:
-                            $ref: '#/components/schemas/Spot'
+                            $ref: "#/components/schemas/Spot"
                 required: true
             responses:
                 200:
-                    description: Updated
+                    description:
+                        Updated
                 400:
-                    description: Invalid input
+                    description:
+                        Invalid input
                 401:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Error'
-                    description: Authentication information is missing or invalid
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
                 404:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Error'
-                    description: The specified resource was not found
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
                 500:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Error'
-                    description: Unexpected error
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
             security:
                 - BasicAuth: []
                 - BearerAuth: []
@@ -523,7 +546,8 @@ paths:
                   name: id
                   required: true
                   schema:
-                      description: The resource Id
+                      description:
+                          The resource Id
                       example: 30130
                       format: int64
                       minimum: 0
@@ -534,40 +558,45 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Area'
+                                $ref: "#/components/schemas/Area"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Area'
-                    description: Successful operation
+                                $ref: "#/components/schemas/Area"
+                    description:
+                        Successful operation
                 400:
-                    description: Invalid input
+                    description:
+                        Invalid input
                 401:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Error'
-                    description: Authentication information is missing or invalid
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
                 404:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Error'
-                    description: The specified resource was not found
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
                 500:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Error'
-                    description: Unexpected error
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
             security:
                 - BasicAuth: []
                 - BearerAuth: []
@@ -585,7 +614,8 @@ paths:
                   name: id
                   required: true
                   schema:
-                      description: The resource Id
+                      description:
+                          The resource Id
                       example: 30130
                       format: int64
                       minimum: 0
@@ -596,40 +626,45 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Folder'
+                                $ref: "#/components/schemas/Folder"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Folder'
-                    description: Successful operation
+                                $ref: "#/components/schemas/Folder"
+                    description:
+                        Successful operation
                 400:
-                    description: Invalid input
+                    description:
+                        Invalid input
                 401:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Error'
-                    description: Authentication information is missing or invalid
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
                 404:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Error'
-                    description: The specified resource was not found
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
                 500:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Error'
-                    description: Unexpected error
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
             security:
                 - BasicAuth: []
                 - BearerAuth: []
@@ -656,43 +691,48 @@ paths:
                         application/json:
                             schema:
                                 items:
-                                    $ref: '#/components/schemas/Product'
+                                    $ref: "#/components/schemas/Product"
                                 type: array
                         application/xml:
                             schema:
                                 items:
-                                    $ref: '#/components/schemas/Product'
+                                    $ref: "#/components/schemas/Product"
                                 type: array
-                    description: Successful operation
+                    description:
+                        Successful operation
                 400:
-                    description: Invalid input
+                    description:
+                        Invalid input
                 401:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Error'
-                    description: Authentication information is missing or invalid
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
                 404:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Error'
-                    description: The specified resource was not found
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
                 500:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Error'
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: '#/components/schemas/Error'
-                    description: Unexpected error
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
             security:
                 - BasicAuth: []
                 - BearerAuth: []
@@ -702,7 +742,8 @@ paths:
             tags:
                 - Product
 servers:
-    - description: Liferay Commerce API server
+    - description:
+          Liferay Commerce API server
       url: https://commerce.{environment}.liferay.com/commerce-bom/{basePath}
       variables:
           basePath:
@@ -713,8 +754,9 @@ servers:
                   - api
                   - api.dev
                   - api.uat
-    - description: Liferay Commerce Local Development (Hosts file)
-      url: '{protocol}://{host}:{port}/o/commerce-bom/{basePath}'
+    - description:
+          Liferay Commerce Local Development (Hosts file)
+      url: "{protocol}://{host}:{port}/o/commerce-bom/{basePath}"
       variables:
           basePath:
               default: v1.0
@@ -731,8 +773,9 @@ servers:
               enum:
                   - http
                   - https
-    - description: Liferay Commerce Local Development with Ngrok
-      url: '{protocol}://{host}.ngrok.io/o/commerce-bom/{basePath}'
+    - description:
+          Liferay Commerce Local Development with Ngrok
+      url: "{protocol}://{host}.ngrok.io/o/commerce-bom/{basePath}"
       variables:
           basePath:
               default: v1.0
@@ -743,5 +786,6 @@ servers:
               enum:
                   - http
                   - https
-    - description: SwaggerHub API Auto Mocking
+    - description:
+          SwaggerHub API Auto Mocking
       url: https://virtserver.swaggerhub.com/liferayinc/commerce-bom/1.0

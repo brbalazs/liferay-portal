@@ -14,14 +14,11 @@
 
 package com.liferay.commerce.data.integration.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.util.UnicodeProperties;
 
 /**
  * @author Alessio Antonio Rendina
  */
-@ProviderType
 public class CommerceDataIntegrationProcessImpl
 	extends CommerceDataIntegrationProcessBaseImpl {
 

@@ -99,7 +99,7 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 			"findByCommerceBOMDefinitionId",
 			new String[] {
 				Long.class.getName(),
-				
+
 			Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
@@ -204,7 +204,7 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_COMMERCEBOMDEFINITIONID;
 			finderArgs = new Object[] {
 					commerceBOMDefinitionId,
-					
+
 					start, end, orderByComparator
 				};
 		}

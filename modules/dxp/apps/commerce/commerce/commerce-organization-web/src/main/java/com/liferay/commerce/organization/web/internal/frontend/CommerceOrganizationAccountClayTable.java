@@ -109,7 +109,8 @@ public class CommerceOrganizationAccountClayTable
 
 			ClayTableAction deleteClayTableAction = new ClayTableAction(
 				StringPool.BLANK, sb.toString(), StringPool.BLANK,
-				LanguageUtil.get(httpServletRequest, "delete"), false, false);
+				LanguageUtil.get(httpServletRequest, "delete"), null, false,
+				false);
 
 			clayTableActions.add(deleteClayTableAction);
 		}
@@ -121,12 +122,12 @@ public class CommerceOrganizationAccountClayTable
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
-		OrganizationFilterImpl organizationFilter =
+		OrganizationFilterImpl organizationFilterImpl =
 			(OrganizationFilterImpl)filter;
 
 		return _commerceAccountOrganizationRelService.
 			getCommerceAccountOrganizationRelsByOrganizationIdCount(
-				organizationFilter.getOrganizationId());
+				organizationFilterImpl.getOrganizationId());
 	}
 
 	@Override
@@ -157,13 +158,13 @@ public class CommerceOrganizationAccountClayTable
 
 		List<Account> accounts = new ArrayList<>();
 
-		OrganizationFilterImpl organizationFilter =
+		OrganizationFilterImpl organizationFilterImpl =
 			(OrganizationFilterImpl)filter;
 
 		List<CommerceAccountOrganizationRel> commerceAccountOrganizationRels =
 			_commerceAccountOrganizationRelService.
 				getCommerceAccountOrganizationRelsByOrganizationId(
-					organizationFilter.getOrganizationId(),
+					organizationFilterImpl.getOrganizationId(),
 					pagination.getStartPosition(), pagination.getEndPosition());
 
 		for (CommerceAccountOrganizationRel commerceAccountOrganizationRel :
@@ -198,7 +199,7 @@ public class CommerceOrganizationAccountClayTable
 					thumbnailSB.toString(),
 					_getAccountViewDetailURL(
 						commerceAccount.getCommerceAccountId(),
-						organizationFilter.getOrganizationId(),
+						organizationFilterImpl.getOrganizationId(),
 						httpServletRequest)));
 		}
 

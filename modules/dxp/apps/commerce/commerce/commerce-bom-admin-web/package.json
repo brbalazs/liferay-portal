@@ -28,9 +28,9 @@
 		}
 	},
 	"dependencies": {
-		"metal-dom": "^2.13.2",
-		"react": "^16.8.6",
-		"react-dom": "^16.8.6",
+		"metal-dom": "2.16.8",
+		"react": "16.8.6",
+		"react-dom": "16.8.6",
 		"redux": "^4.0.1"
 	},
 	"description": "",
@@ -79,5 +79,5 @@
 		"watch": "liferay-npm-scripts webpack --watch"
 	},
 	"sideEffects": false,
-	"version": "1.0.9"
+	"version": "2.0.1"
 }

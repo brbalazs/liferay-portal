@@ -102,7 +102,7 @@ public class CommerceBOMFolderApplicationRelPersistenceImpl
 			"findByCommerceBOMFolderId",
 			new String[] {
 				Long.class.getName(),
-				
+
 			Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
@@ -203,7 +203,7 @@ public class CommerceBOMFolderApplicationRelPersistenceImpl
 			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_COMMERCEBOMFOLDERID;
 			finderArgs = new Object[] {
 					commerceBOMFolderId,
-					
+
 					start, end, orderByComparator
 				};
 		}
@@ -630,7 +630,7 @@ public class CommerceBOMFolderApplicationRelPersistenceImpl
 			"findByCommerceApplicationModelId",
 			new String[] {
 				Long.class.getName(),
-				
+
 			Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
@@ -735,7 +735,7 @@ public class CommerceBOMFolderApplicationRelPersistenceImpl
 			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_COMMERCEAPPLICATIONMODELID;
 			finderArgs = new Object[] {
 					commerceApplicationModelId,
-					
+
 					start, end, orderByComparator
 				};
 		}

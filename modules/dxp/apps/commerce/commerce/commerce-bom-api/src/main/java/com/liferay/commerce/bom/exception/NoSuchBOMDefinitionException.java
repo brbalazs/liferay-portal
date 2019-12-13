@@ -14,14 +14,11 @@
 
 package com.liferay.commerce.bom.exception;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.exception.NoSuchModelException;
 
 /**
  * @author Luca Pellizzon
  */
-@ProviderType
 public class NoSuchBOMDefinitionException extends NoSuchModelException {
 
 	public NoSuchBOMDefinitionException() {

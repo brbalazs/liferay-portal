@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.bom.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.bom.model.CommerceBOMFolder;
 import com.liferay.commerce.bom.model.CommerceBOMFolderConstants;
 import com.liferay.commerce.bom.service.CommerceBOMFolderLocalServiceUtil;
@@ -27,7 +25,6 @@ import java.util.List;
 /**
  * @author Alessio Antonio Rendina
  */
-@ProviderType
 public class CommerceBOMFolderImpl extends CommerceBOMFolderBaseImpl {
 
 	public CommerceBOMFolderImpl() {

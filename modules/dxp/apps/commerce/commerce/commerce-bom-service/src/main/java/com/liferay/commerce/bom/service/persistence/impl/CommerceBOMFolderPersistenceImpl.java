@@ -99,7 +99,7 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCompanyId",
 			new String[] {
 				Long.class.getName(),
-				
+
 			Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
@@ -969,7 +969,7 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByC_P",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
-				
+
 			Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
@@ -1075,7 +1075,7 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_C_P;
 			finderArgs = new Object[] {
 					companyId, parentCommerceBOMFolderId,
-					
+
 					start, end, orderByComparator
 				};
 		}

@@ -49,7 +49,7 @@ long fileEntryId = BeanParamUtil.getLong(cpAttachmentFileEntry, request, "fileEn
 					<liferay-item-selector:image-selector
 						draggableImage="vertical"
 						fileEntryId="<%= fileEntryId %>"
-						itemSelectorEventName='<%= "addCPAttachmentFileEntry" %>'
+						itemSelectorEventName="addCPAttachmentFileEntry"
 						itemSelectorURL="<%= commerceBOMAdminDisplayContext.getItemSelectorUrl() %>"
 						maxFileSize="<%= commerceBOMAdminDisplayContext.getImageMaxSize() %>"
 						paramName="fileEntry"

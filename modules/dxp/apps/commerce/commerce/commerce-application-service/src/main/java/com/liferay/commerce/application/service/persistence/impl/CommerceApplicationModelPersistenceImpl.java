@@ -99,7 +99,7 @@ public class CommerceApplicationModelPersistenceImpl extends BasePersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCompanyId",
 			new String[] {
 				Long.class.getName(),
-				
+
 			Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
@@ -981,7 +981,7 @@ public class CommerceApplicationModelPersistenceImpl extends BasePersistenceImpl
 			"findByCommerceApplicationBrandId",
 			new String[] {
 				Long.class.getName(),
-				
+
 			Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
@@ -1087,7 +1087,7 @@ public class CommerceApplicationModelPersistenceImpl extends BasePersistenceImpl
 			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_COMMERCEAPPLICATIONBRANDID;
 			finderArgs = new Object[] {
 					commerceApplicationBrandId,
-					
+
 					start, end, orderByComparator
 				};
 		}

@@ -14,12 +14,9 @@
 
 package com.liferay.commerce.machine.learning.internal.recommendation.constants;
 
-import aQute.bnd.annotation.ProviderType;
-
 /**
  * @author Riccardo Ferrari
  */
-@ProviderType
 public class CommerceMLRecommendationField {
 
 	public static final String JOB_ID = "jobId";

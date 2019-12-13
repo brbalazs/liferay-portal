@@ -14,12 +14,9 @@
 
 package com.liferay.commerce.machine.learning.internal.forecast.constants;
 
-import aQute.bnd.annotation.ProviderType;
-
 /**
  * @author Riccardo Ferrari
  */
-@ProviderType
 public class CommerceMLForecastField {
 
 	public static final String ACTUAL = "actual";

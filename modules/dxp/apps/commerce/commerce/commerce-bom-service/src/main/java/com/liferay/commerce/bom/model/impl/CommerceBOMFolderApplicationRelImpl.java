@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.bom.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.application.model.CommerceApplicationModel;
 import com.liferay.commerce.application.service.CommerceApplicationModelLocalServiceUtil;
 import com.liferay.commerce.bom.model.CommerceBOMFolder;
@@ -25,7 +23,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Alessio Antonio Rendina
  */
-@ProviderType
 public class CommerceBOMFolderApplicationRelImpl
 	extends CommerceBOMFolderApplicationRelBaseImpl {
 

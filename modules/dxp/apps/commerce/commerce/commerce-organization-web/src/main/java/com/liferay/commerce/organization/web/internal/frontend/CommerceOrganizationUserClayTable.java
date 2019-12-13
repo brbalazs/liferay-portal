@@ -102,7 +102,8 @@ public class CommerceOrganizationUserClayTable
 
 			ClayTableAction viewClayTableAction = new ClayTableAction(
 				StringPool.BLANK, viewURL, StringPool.BLANK,
-				LanguageUtil.get(httpServletRequest, "view"), false, false);
+				LanguageUtil.get(httpServletRequest, "view"), null, false,
+				false);
 
 			clayTableActions.add(viewClayTableAction);
 		}
@@ -122,7 +123,8 @@ public class CommerceOrganizationUserClayTable
 
 			ClayTableAction clayTableAction = new ClayTableAction(
 				StringPool.BLANK, sb.toString(), StringPool.BLANK,
-				LanguageUtil.get(httpServletRequest, "delete"), false, false);
+				LanguageUtil.get(httpServletRequest, "delete"), null, false,
+				false);
 
 			clayTableActions.add(clayTableAction);
 		}
@@ -134,11 +136,11 @@ public class CommerceOrganizationUserClayTable
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
-		OrganizationFilterImpl organizationFilter =
+		OrganizationFilterImpl organizationFilterImpl =
 			(OrganizationFilterImpl)filter;
 
 		return _userService.getOrganizationUsersCount(
-			organizationFilter.getOrganizationId(),
+			organizationFilterImpl.getOrganizationId(),
 			WorkflowConstants.STATUS_ANY);
 	}
 
@@ -171,21 +173,22 @@ public class CommerceOrganizationUserClayTable
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		OrganizationFilterImpl organizationFilter =
+		OrganizationFilterImpl organizationFilterImpl =
 			(OrganizationFilterImpl)filter;
 
 		List<User> users = new ArrayList<>();
 
 		List<com.liferay.portal.kernel.model.User> userList =
 			_userService.getOrganizationUsers(
-				organizationFilter.getOrganizationId(),
+				organizationFilterImpl.getOrganizationId(),
 				WorkflowConstants.STATUS_ANY, pagination.getStartPosition(),
 				pagination.getEndPosition(), null);
 
 		for (com.liferay.portal.kernel.model.User user : userList) {
 			users.add(
 				new User(
-					user.getUserId(), organizationFilter.getOrganizationId(),
+					user.getUserId(),
+					organizationFilterImpl.getOrganizationId(),
 					HtmlUtil.escape(user.getFullName()), user.getEmailAddress(),
 					getUserRoles(user, themeDisplay.getPermissionChecker()),
 					_getOrganizationUserViewDetailURL(

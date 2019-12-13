@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.application.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 /**
  * The extended model implementation for the CommerceApplicationBrand service. Represents a row in the &quot;CommerceApplicationBrand&quot; database table, with each column mapped to a property of this class.
  *
@@ -25,7 +23,6 @@ import aQute.bnd.annotation.ProviderType;
  *
  * @author Luca Pellizzon
  */
-@ProviderType
 public class CommerceApplicationBrandImpl
 	extends CommerceApplicationBrandBaseImpl {
 

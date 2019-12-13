@@ -93,8 +93,8 @@ public class CommerceOrganizationClayTable
 
 			ClayTableAction viewClayTableAction = new ClayTableAction(
 				StringPool.BLANK, viewURL, StringPool.BLANK,
-				LanguageUtil.get(httpServletRequest, "view-detail"), false,
-				false);
+				LanguageUtil.get(httpServletRequest, "view-detail"), null,
+				false, false);
 
 			clayTableActions.add(viewClayTableAction);
 
@@ -107,7 +107,7 @@ public class CommerceOrganizationClayTable
 					StringPool.BLANK, viewSubOrganizationsURL, StringPool.BLANK,
 					LanguageUtil.get(
 						httpServletRequest, "view-suborganizations"),
-					false, false);
+					null, false, false);
 
 			clayTableActions.add(viewSubOrganizationsClayTableAction);
 		}
@@ -128,7 +128,8 @@ public class CommerceOrganizationClayTable
 
 			ClayTableAction deleteClayTableAction = new ClayTableAction(
 				StringPool.BLANK, sb.toString(), StringPool.BLANK,
-				LanguageUtil.get(httpServletRequest, "delete"), false, false);
+				LanguageUtil.get(httpServletRequest, "delete"), null, false,
+				false);
 
 			clayTableActions.add(deleteClayTableAction);
 		}
@@ -140,7 +141,7 @@ public class CommerceOrganizationClayTable
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
-		OrganizationFilterImpl organizationFilter =
+		OrganizationFilterImpl organizationFilterImpl =
 			(OrganizationFilterImpl)filter;
 
 		ThemeDisplay themeDisplay =
@@ -149,7 +150,7 @@ public class CommerceOrganizationClayTable
 
 		return _organizationService.getOrganizationsCount(
 			themeDisplay.getCompanyId(),
-			organizationFilter.getOrganizationId());
+			organizationFilterImpl.getOrganizationId());
 	}
 
 	@Override
@@ -174,7 +175,7 @@ public class CommerceOrganizationClayTable
 			Pagination pagination, Sort sort)
 		throws PortalException {
 
-		OrganizationFilterImpl organizationFilter =
+		OrganizationFilterImpl organizationFilterImpl =
 			(OrganizationFilterImpl)filter;
 
 		List<Organization> organizations = new ArrayList<>();
@@ -186,7 +187,7 @@ public class CommerceOrganizationClayTable
 		List<com.liferay.portal.kernel.model.Organization> organizationList =
 			_organizationService.getOrganizations(
 				themeDisplay.getCompanyId(),
-				organizationFilter.getOrganizationId(),
+				organizationFilterImpl.getOrganizationId(),
 				pagination.getStartPosition(), pagination.getEndPosition());
 
 		for (com.liferay.portal.kernel.model.Organization organization :

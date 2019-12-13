@@ -14,12 +14,9 @@
 
 package com.liferay.commerce.machine.learning.internal.search.api;
 
-import aQute.bnd.annotation.ProviderType;
-
 /**
  * @author Marco Leo
  */
-@ProviderType
 public interface CommerceMLIndexer {
 
 	public void createIndex(long companyId);

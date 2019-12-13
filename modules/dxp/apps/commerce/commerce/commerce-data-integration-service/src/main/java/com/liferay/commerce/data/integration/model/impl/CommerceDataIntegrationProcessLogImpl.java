@@ -14,12 +14,9 @@
 
 package com.liferay.commerce.data.integration.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 /**
  * @author Alessio Antonio Rendina
  */
-@ProviderType
 public class CommerceDataIntegrationProcessLogImpl
 	extends CommerceDataIntegrationProcessLogBaseImpl {
 

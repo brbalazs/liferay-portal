@@ -100,7 +100,7 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 			"findByCommerceBOMFolderId",
 			new String[] {
 				Long.class.getName(),
-				
+
 			Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
@@ -202,7 +202,7 @@ public class CommerceBOMDefinitionPersistenceImpl extends BasePersistenceImpl<Co
 			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_COMMERCEBOMFOLDERID;
 			finderArgs = new Object[] {
 					commerceBOMFolderId,
-					
+
 					start, end, orderByComparator
 				};
 		}

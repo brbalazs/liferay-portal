@@ -99,7 +99,7 @@ public class CommerceApplicationBrandPersistenceImpl extends BasePersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCompanyId",
 			new String[] {
 				Long.class.getName(),
-				
+
 			Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});

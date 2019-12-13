@@ -102,7 +102,7 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 			"findByCommerceApplicationModelId",
 			new String[] {
 				Long.class.getName(),
-				
+
 			Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
@@ -207,7 +207,7 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_COMMERCEAPPLICATIONMODELID;
 			finderArgs = new Object[] {
 					commerceApplicationModelId,
-					
+
 					start, end, orderByComparator
 				};
 		}
@@ -637,7 +637,7 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCProductId",
 			new String[] {
 				Long.class.getName(),
-				
+
 			Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
