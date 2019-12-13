@@ -37,7 +37,7 @@ DDMTemplate ddmTemplate = journalEditArticleDisplayContext.getDDMTemplate();
 	value="content"
 />
 
-<aui:model-context bean="<%= article %>" defaultLanguageId="<%= journalEditArticleDisplayContext.getDefaultLanguageId() %>" model="<%= JournalArticle.class %>" />
+<aui:model-context bean="<%= article %>" defaultLanguageId="<%= journalEditArticleDisplayContext.getDefaultArticleLanguageId() %>" model="<%= JournalArticle.class %>" />
 
 <liferay-ui:error exception="<%= ArticleContentException.class %>" message="please-enter-valid-content" />
 <liferay-ui:error exception="<%= ArticleIdException.class %>" message="please-enter-a-valid-id" />
@@ -93,7 +93,7 @@ DDMTemplate ddmTemplate = journalEditArticleDisplayContext.getDDMTemplate();
 <liferay-ui:error exception="<%= StorageFieldRequiredException.class %>" message="please-fill-out-all-required-fields" />
 
 <liferay-frontend:fieldset>
-	<aui:input autoFocus="<%= true %>" label="title" localized="<%= true %>" name="titleMapAsXML" type="text" wrapperCssClass="article-content-title">
+	<aui:input autoFocus="<%= true %>" defaultLanguageId="<%= journalEditArticleDisplayContext.getDefaultArticleLanguageId() %>" label="title" localized="<%= true %>" name="titleMapAsXML" selectedLanguageId="<%= journalEditArticleDisplayContext.getSelectedLanguageId() %>" type="text" wrapperCssClass="article-content-title">
 		<c:if test="<%= classNameId == JournalArticleConstants.CLASSNAME_ID_DEFAULT %>">
 			<aui:validator name="required" />
 		</c:if>
@@ -119,12 +119,13 @@ DDMTemplate ddmTemplate = journalEditArticleDisplayContext.getDDMTemplate();
 		<liferay-ui:input-localized
 			availableLocales="<%= journalEditArticleDisplayContext.getAvailableLocales() %>"
 			cssClass="form-control"
-			defaultLanguageId="<%= journalEditArticleDisplayContext.getDefaultLanguageId() %>"
+			defaultLanguageId="<%= journalEditArticleDisplayContext.getDefaultArticleLanguageId() %>"
 			editorName="alloyeditor"
 			formName="fm"
 			ignoreRequestValue="<%= journalEditArticleDisplayContext.isChangeStructure() %>"
 			name="descriptionMapAsXML"
 			placeholder="description"
+			selectedLanguageId="<%= journalEditArticleDisplayContext.getSelectedLanguageId() %>"
 			type="editor"
 			xml="<%= (article != null) ? article.getDescriptionMapAsXML() : StringPool.BLANK %>"
 		/>
@@ -140,7 +141,7 @@ DDMTemplate ddmTemplate = journalEditArticleDisplayContext.getDDMTemplate();
 			classNameId="<%= PortalUtil.getClassNameId(DDMStructure.class) %>"
 			classPK="<%= ddmStructure.getStructureId() %>"
 			ddmFormValues="<%= journalEditArticleDisplayContext.getDDMFormValues(ddmStructure) %>"
-			defaultEditLocale="<%= LocaleUtil.fromLanguageId(journalEditArticleDisplayContext.getDefaultLanguageId()) %>"
+			defaultEditLocale="<%= LocaleUtil.fromLanguageId(journalEditArticleDisplayContext.getSelectedLanguageId()) %>"
 			defaultLocale="<%= LocaleUtil.fromLanguageId(journalEditArticleDisplayContext.getDefaultArticleLanguageId()) %>"
 			documentLibrarySelectorURL="<%= String.valueOf(journalItemSelectorHelper.getDocumentLibrarySelectorURL()) %>"
 			groupId="<%= journalEditArticleDisplayContext.getGroupId() %>"
