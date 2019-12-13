@@ -469,7 +469,7 @@ public class DDMTemplateStagedModelDataHandler
 
 			try {
 				portletDataContext.importPermissions(
-					getResourceName(template), template.getPrimaryKey(),
+					getResourceName(importedTemplate), template.getPrimaryKey(),
 					importedTemplate.getPrimaryKey());
 			}
 			catch (Exception e) {
