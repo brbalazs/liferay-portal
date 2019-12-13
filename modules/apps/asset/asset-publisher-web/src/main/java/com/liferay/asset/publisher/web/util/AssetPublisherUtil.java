@@ -358,8 +358,7 @@ public class AssetPublisherUtil {
 		if (isSearchWithIndex(portletName, assetEntryQuery)) {
 			return _assetHelper.searchAssetEntries(
 				assetEntryQuery,
-				_filterAssetCategoryIdsPresentInAssetEntryQuery(
-					assetEntryQuery, portletPreferences),
+				_filterAssetCategoryIds(assetEntryQuery, portletPreferences),
 				getAssetTagNames(portletPreferences), attributes, companyId,
 				assetEntryQuery.getKeywords(), layout, locale, scopeGroupId,
 				timeZone, userId, start, end);
@@ -1730,6 +1729,18 @@ public class AssetPublisherUtil {
 		return filteredAssetEntries;
 	}
 
+	private static long[] _filterAssetCategoryIds(
+		AssetEntryQuery assetEntryQuery,
+		PortletPreferences portletPreferences) {
+
+		long[] filteredAssetCategoryIds = ArrayUtil.filter(
+			getAssetCategoryIds(portletPreferences),
+			assetCategoryId -> !ArrayUtil.contains(
+				assetEntryQuery.getAllCategoryIds(), assetCategoryId));
+
+		return _filterAssetCategoryIds(filteredAssetCategoryIds);
+	}
+
 	private static long[] _filterAssetCategoryIds(long[] assetCategoryIds) {
 		List<Long> assetCategoryIdsList = new ArrayList<>();
 
@@ -1769,18 +1780,6 @@ public class AssetPublisherUtil {
 		}
 
 		return filteredAssetEntries;
-	}
-
-	private static long[] _filterAssetCategoryIdsPresentInAssetEntryQuery(
-		AssetEntryQuery assetEntryQuery,
-		PortletPreferences portletPreferences) {
-
-		long[] filteredAssetCategoryIds = ArrayUtil.filter(
-			getAssetCategoryIds(portletPreferences),
-			assetCategoryId -> !ArrayUtil.contains(
-				assetEntryQuery.getAllCategoryIds(), assetCategoryId));
-
-		return _filterAssetCategoryIds(filteredAssetCategoryIds);
 	}
 
 	private static String _getAssetEntryXml(
