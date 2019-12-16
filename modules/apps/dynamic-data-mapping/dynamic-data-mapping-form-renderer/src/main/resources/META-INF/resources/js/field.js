@@ -143,6 +143,10 @@ AUI.add(
 
 						instance._eventHandlers = null;
 
+						if (instance._metalComponent) {
+							instance._metalComponent.dispose();
+						}
+
 						instance.set('rendered', false);
 					},
 
@@ -301,17 +305,40 @@ AUI.add(
 							container.appendTo(target);
 						}
 
-						container.setContent(instance.getTemplate());
+						var context = instance.getTemplateContext();
 
-						instance.eachNestedField(
-							function(field) {
-								field.updateContainer();
+						if (instance._metalComponent) {
+							instance._metalComponent.setState(context, function() {
+								instance.eachNestedField(
+									function(field) {
+										field.updateContainer();
+									}
+								);
+	
+								instance.fire('render');
+							});
+						}
+						else {
+							var MetalComponent = instance.getTemplateRenderer();
+
+							var element = container.get('firstChild');
+
+							if (element) {
+								context.element = element.getDOM();
 							}
-						);
 
-						instance.fire('render');
+							instance._metalComponent = new MetalComponent(context, container.getDOM());
 
-						instance.set('rendered', true);
+							instance.eachNestedField(
+								function(field) {
+									field.updateContainer();
+								}
+							);
+
+							instance.fire('render');
+
+							instance.set('rendered', true);
+						}
 
 						return instance;
 					},
