@@ -1114,6 +1114,13 @@ public class WikiPageLocalServiceUtil {
 		return getService().updateWikiPage(wikiPage);
 	}
 
+	public static com.liferay.wiki.model.WikiPage updateWikiPage(
+		com.liferay.wiki.model.WikiPage wikiPage,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().updateWikiPage(wikiPage, serviceContext);
+	}
+
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
 	 WikiPageTitleValidator#validate(String)}

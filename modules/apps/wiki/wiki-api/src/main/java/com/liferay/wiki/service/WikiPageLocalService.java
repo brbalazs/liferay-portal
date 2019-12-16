@@ -753,6 +753,9 @@ public interface WikiPageLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public WikiPage updateWikiPage(WikiPage wikiPage);
 
+	public WikiPage updateWikiPage(
+		WikiPage wikiPage, ServiceContext serviceContext);
+
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
 	 WikiPageTitleValidator#validate(String)}

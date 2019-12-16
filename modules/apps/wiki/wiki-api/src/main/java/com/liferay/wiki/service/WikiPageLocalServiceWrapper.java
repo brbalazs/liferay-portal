@@ -1240,6 +1240,14 @@ public class WikiPageLocalServiceWrapper
 		return _wikiPageLocalService.updateWikiPage(wikiPage);
 	}
 
+	@Override
+	public com.liferay.wiki.model.WikiPage updateWikiPage(
+		com.liferay.wiki.model.WikiPage wikiPage,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _wikiPageLocalService.updateWikiPage(wikiPage, serviceContext);
+	}
+
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
 	 WikiPageTitleValidator#validate(String)}
