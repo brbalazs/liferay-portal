@@ -2282,6 +2282,13 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 		return wikiPagePersistence.update(page);
 	}
 
+	@Override
+	public WikiPage updateWikiPage(
+		WikiPage wikiPage, ServiceContext serviceContext) {
+
+		return wikiPagePersistence.update(wikiPage, serviceContext);
+	}
+
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
 	 *             WikiPageTitleValidator#validate(String)}
