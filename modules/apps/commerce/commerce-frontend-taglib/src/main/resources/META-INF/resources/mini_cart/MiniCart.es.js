@@ -491,6 +491,7 @@ Cart.STATE = {
 	detailsUrl: Config.string(),
 	valid: Config.bool(),
 	disabled: Config.bool().value(false),
+	displayDiscountLevels: Config.bool().value(false),
 	pendingOperations: Config.array().value(
 		[]
 	),

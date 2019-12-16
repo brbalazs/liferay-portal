@@ -15,6 +15,8 @@
 package com.liferay.commerce.frontend.taglib.servlet.taglib;
 
 import com.liferay.commerce.account.model.CommerceAccount;
+import com.liferay.commerce.configuration.CommercePriceConfiguration;
+import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.frontend.taglib.internal.servlet.ServletContextUtil;
@@ -26,6 +28,8 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
+import com.liferay.portal.kernel.settings.SystemSettingsLocator;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -94,6 +98,16 @@ public class MiniCartTag extends ComponentRendererTag {
 				detailsURL = String.valueOf(commerceCartPortletURL);
 			}
 
+			CommercePriceConfiguration commercePriceConfiguration =
+					_configurationProvider.getConfiguration(
+							CommercePriceConfiguration.class,
+							new SystemSettingsLocator(
+									CommerceConstants.PRICE_SERVICE_NAME));
+
+			putValue(
+					"displayDiscountLevels",
+					commercePriceConfiguration.displayDiscountLevels());
+
 			putValue("detailsUrl", detailsURL);
 
 			putValue("isDisabled", false);
@@ -134,11 +148,16 @@ public class MiniCartTag extends ComponentRendererTag {
 		_commerceOrderHttpHelper =
 			ServletContextUtil.getCommerceOrderHttpHelper();
 
+		_configurationProvider =
+				ServletContextUtil.getConfigurationProvider();
+
 		super.setPageContext(pageContext);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(MiniCartTag.class);
 
 	private CommerceOrderHttpHelper _commerceOrderHttpHelper;
+
+	private ConfigurationProvider _configurationProvider;
 
 }

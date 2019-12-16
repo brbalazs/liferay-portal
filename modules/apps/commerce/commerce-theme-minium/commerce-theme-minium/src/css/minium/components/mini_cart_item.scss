@@ -6,11 +6,11 @@
 	border-bottom: 1px solid rgba(180,187,201,0.2);
 	color: $color-fg;
 	display: grid;
-	font-size: 13px;
+	font-size: 12px;
 	grid-gap: 15px;
 	grid-template-areas: "image content actions price delete";
-	grid-template-columns: $item-image-size 1fr auto $price-size min-content;
-	height: 94px;
+	grid-template-columns: $item-image-size 1fr auto minmax(min-content, 122px) min-content;
+	max-height: 120px;
 	overflow: hidden;
 	padding: 10px;
 	position: relative;
@@ -48,6 +48,7 @@
 
 	&__sku {
 		display: block;
+		font-size: 11px;
 	}
 
 	&__price {

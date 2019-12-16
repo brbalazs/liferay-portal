@@ -43,13 +43,15 @@
 		}
 
 		&-percentages {
+			font-size: 10px;
+
 			&::after {
 				color: $color-fg;
 				content: ' | ';
 			}
 
 			&:last-child::after {
-				content: '';
+				content: ' ';
 			}
 		}
 	}

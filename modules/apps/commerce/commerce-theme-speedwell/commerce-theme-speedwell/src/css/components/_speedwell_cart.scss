@@ -1,22 +1,29 @@
 .speedwell-cart {
   .commerce-cart {
+    $minicart-width: 550px;
+
+    @function getOpeningTranslation($direction) {
+      @return translateX(if($direction == left, -1, 1) *
+		($minicart-width + $liferay-sidebars-width));
+    }
+
     top: 0;
     display: flex;
     flex-direction: column;
-    max-width: 500px;
+    max-width: $minicart-width;
     position: absolute;
     right: 0;
     transition: all ease 200ms;
-    width: 100%;
+    width: $minicart-width;
     height: calc(100vh - #{$topbar-height});
-  
+
     @media screen and (max-width: $bp-small) {
       height: calc(100vh - #{$topbar-height-small});
     }
-  
+
     .has-control-menu.signed-in & {
       height: calc(100vh - #{$liferay-topbar-height});
-  
+
       @media screen and (max-width: $bp-small) {
         height: calc(100vh - #{$liferay-topbar-height-small});
       }
@@ -38,29 +45,36 @@
     }
 
     &:not(.is-open) {
-      transform: translateX(100%);
+      transform: getOpeningTranslation(right);
+    }
+
+    .rtl & {
+      left: 0;
+    }
+
+    .rtl &:not(.is-open) {
+      transform: getOpeningTranslation(left);
     }
 
     &__container {
       background-color: $color-bg;
       box-shadow: -20px 0 40px $color-shadow;
       position: absolute;
-      top: 0;
       right: 0;
       height: calc(100vh - #{$topbar-height});
       width: 100%;
       display: flex;
       flex-direction: column;
       top: $topbar-height;
-  
+
       @media screen and (max-width: $bp-small) {
         height: calc(100vh - #{$topbar-height-small});
         top: $topbar-height-small;
       }
-  
+
       .has-control-menu.signed-in & {
         height: calc(100vh - #{$liferay-topbar-height + $topbar-height});
-    
+
         @media screen and (max-width: $bp-small) {
           height: calc(100vh - #{$liferay-topbar-height-small + $topbar-height-small});
         }

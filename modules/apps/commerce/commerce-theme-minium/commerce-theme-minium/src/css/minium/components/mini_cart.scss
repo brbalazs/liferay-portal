@@ -1,17 +1,16 @@
 .commerce-cart {
-	$minicart-width: 500px;
+	$minicart-width: 550px;
 
 	@function getOpeningTranslation($direction) {
 		@return translateX(if($direction == left, -1, 1) *
 		($minicart-width + $liferay-sidebars-width));
 	}
 
-
 	background-color: $color-bg;
 	box-shadow: -20px 0 40px $color-shadow;
 	display: flex;
 	flex-direction: column;
-	max-width: 500px;
+	max-width: $minicart-width;
 	position: absolute;
 	right: 0;
 	top: 100%;
@@ -78,7 +77,8 @@
 
 		.commerce-button--block {
 			font-size: 1em;
-			text-transform: capitalize;
+			text-transform: lowercase;
+			font-variant: small-caps;
 		}
 	}
 

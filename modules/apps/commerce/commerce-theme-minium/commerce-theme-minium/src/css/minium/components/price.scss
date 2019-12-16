@@ -15,7 +15,7 @@
     font-size: 20px;
     font-weight: 500;
 
-    &:first-letter {
+    &:not(&-discount):first-letter {
       margin-left: 4px;
       margin-right: 4px;
     }
@@ -43,13 +43,15 @@
     }
 
     &-percentages {
+      font-size: 10px;
+
       &::after {
         color: $color-fg;
         content: ' | ';
       }
 
       &:last-child::after {
-        content: '';
+        content: ' ';
       }
     }
   }
