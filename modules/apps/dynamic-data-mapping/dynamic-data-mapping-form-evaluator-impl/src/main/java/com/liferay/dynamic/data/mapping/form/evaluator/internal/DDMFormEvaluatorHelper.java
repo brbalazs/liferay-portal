@@ -709,7 +709,11 @@ public class DDMFormEvaluatorHelper {
 		Locale locale = value.getDefaultLocale();
 
 		if (value.isLocalized()) {
-			locale = _locale;
+			Set<Locale> availableLocales = _ddmForm.getAvailableLocales();
+
+			if (availableLocales.contains(_locale)) {
+				locale = _locale;
+			}
 		}
 
 		value.addString(locale, String.valueOf(newValue));
