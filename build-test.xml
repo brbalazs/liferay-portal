@@ -4215,7 +4215,7 @@ org.apache.catalina.startup.ClassLoaderFactory.level=INFO]]>
 
 					<get-database-property property.name="database.host" />
 
-					<execute failonerror="false">
+					<execute>
 						<![CDATA[
 							docker cp ${setup.sh.file} ${database.host}:/tmp/setup.sh
 
@@ -4261,7 +4261,7 @@ org.apache.catalina.startup.ClassLoaderFactory.level=INFO]]>
 
 						<get-database-property property.name="database.host" />
 
-						<execute failonerror="false">
+						<execute>
 							<![CDATA[
 								docker cp ${setup.sh.file} ${database.host}:/tmp/setup.sh
 								docker cp ${setup.sql.file} ${database.host}:/tmp/setup.sql
@@ -4295,7 +4295,7 @@ org.apache.catalina.startup.ClassLoaderFactory.level=INFO]]>
 
 						<get-database-property property.name="database.host" />
 
-						<execute failonerror="false">
+						<execute>
 							<![CDATA[
 								docker cp ${setup.sh.file} ${database.host}:/tmp/setup.sh
 
@@ -4326,7 +4326,7 @@ org.apache.catalina.startup.ClassLoaderFactory.level=INFO]]>
 
 						<get-database-property property.name="database.host" />
 
-						<execute failonerror="false">
+						<execute>
 							<![CDATA[
 								docker cp ${setup.sh.file} ${database.host}:/tmp/setup.sh
 
