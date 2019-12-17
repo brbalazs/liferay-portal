@@ -14,10 +14,15 @@
 
 package com.liferay.portal.search.admin.web.internal.portlet;
 
+import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.admin.web.internal.constants.SearchAdminPortletKeys;
+import com.liferay.portal.search.admin.web.internal.constants.SearchAdminWebKeys;
 import com.liferay.portal.search.admin.web.internal.display.context.SearchAdminDisplayBuilder;
+import com.liferay.portal.search.admin.web.internal.display.context.SearchAdminDisplayContext;
+import com.liferay.portal.search.admin.web.internal.display.context.SearchEngineDisplayBuilder;
 import com.liferay.portal.search.engine.SearchEngineInformation;
 
 import java.io.IOException;
@@ -67,13 +72,31 @@ public class SearchAdminPortlet extends MVCPortlet {
 		throws IOException, PortletException {
 
 		SearchAdminDisplayBuilder searchAdminDisplayBuilder =
-			new SearchAdminDisplayBuilder();
+			new SearchAdminDisplayBuilder(
+				_language, _portal, renderRequest, renderResponse);
 
 		searchAdminDisplayBuilder.setSearchEngineInformation(
 			searchEngineInformation);
 
+		SearchAdminDisplayContext searchAdminDisplayContext =
+			searchAdminDisplayBuilder.build();
+
 		renderRequest.setAttribute(
-			WebKeys.PORTLET_DISPLAY_CONTEXT, searchAdminDisplayBuilder.build());
+			WebKeys.PORTLET_DISPLAY_CONTEXT, searchAdminDisplayContext);
+
+		String tab = searchAdminDisplayContext.getSelectedTab();
+
+		if (tab.equals("search-engine") || tab.equals("index-actions")) {
+			SearchEngineDisplayBuilder searchEngineDisplayBuilder =
+				new SearchEngineDisplayBuilder();
+
+			searchEngineDisplayBuilder.setSearchEngineInformation(
+				searchEngineInformation);
+
+			renderRequest.setAttribute(
+				SearchAdminWebKeys.SEARCH_ENGINE_DISPLAY_CONTEXT,
+				searchEngineDisplayBuilder.build());
+		}
 
 		super.render(renderRequest, renderResponse);
 	}
@@ -84,5 +107,11 @@ public class SearchAdminPortlet extends MVCPortlet {
 		policyOption = ReferencePolicyOption.GREEDY
 	)
 	protected volatile SearchEngineInformation searchEngineInformation;
+
+	@Reference
+	private Language _language;
+
+	@Reference
+	private Portal _portal;
 
 }

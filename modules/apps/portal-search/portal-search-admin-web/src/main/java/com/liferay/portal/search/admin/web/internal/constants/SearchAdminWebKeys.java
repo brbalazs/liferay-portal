@@ -12,32 +12,14 @@
  * details.
  */
 
-package com.liferay.portal.search.admin.web.internal.display.context;
-
-import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItemList;
+package com.liferay.portal.search.admin.web.internal.constants;
 
 /**
  * @author Adam Brandizzi
  */
-public class SearchAdminDisplayContext {
+public class SearchAdminWebKeys {
 
-	public NavigationItemList getNavigationItemList() {
-		return _navigationItemList;
-	}
-
-	public String getSelectedTab() {
-		return _selectedTab;
-	}
-
-	public void setNavigationItemList(NavigationItemList navigationItemList) {
-		_navigationItemList = navigationItemList;
-	}
-
-	public void setSelectedTab(String selectedTab) {
-		_selectedTab = selectedTab;
-	}
-
-	private NavigationItemList _navigationItemList;
-	private String _selectedTab;
+	public static final String SEARCH_ENGINE_DISPLAY_CONTEXT =
+		"SEARCH_ENGINE_DISPLAY_CONTEXT";
 
 }
