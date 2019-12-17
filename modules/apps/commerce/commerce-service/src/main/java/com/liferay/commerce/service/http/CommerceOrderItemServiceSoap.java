@@ -404,6 +404,10 @@ public class CommerceOrderItemServiceSoap {
 		}
 	}
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	public static com.liferay.commerce.model.CommerceOrderItemSoap
 			updateCommerceOrderItemUnitPrice(
 				long commerceOrderItemId, java.math.BigDecimal unitPrice)
@@ -413,6 +417,27 @@ public class CommerceOrderItemServiceSoap {
 			com.liferay.commerce.model.CommerceOrderItem returnValue =
 				CommerceOrderItemServiceUtil.updateCommerceOrderItemUnitPrice(
 					commerceOrderItemId, unitPrice);
+
+			return com.liferay.commerce.model.CommerceOrderItemSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceOrderItemSoap
+			updateCommerceOrderItemUnitPrice(
+				long commerceOrderItemId, java.math.BigDecimal unitPrice,
+				int quantity)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.model.CommerceOrderItem returnValue =
+				CommerceOrderItemServiceUtil.updateCommerceOrderItemUnitPrice(
+					commerceOrderItemId, unitPrice, quantity);
 
 			return com.liferay.commerce.model.CommerceOrderItemSoap.toSoapModel(
 				returnValue);

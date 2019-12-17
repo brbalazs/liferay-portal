@@ -869,6 +869,47 @@ public class CommerceOrderItemServiceHttp {
 	}
 
 	public static com.liferay.commerce.model.CommerceOrderItem
+			updateCommerceOrderItemUnitPrice(
+				HttpPrincipal httpPrincipal, long commerceOrderItemId,
+				java.math.BigDecimal unitPrice, int quantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceOrderItemServiceUtil.class,
+				"updateCommerceOrderItemUnitPrice",
+				_updateCommerceOrderItemUnitPriceParameterTypes20);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceOrderItemId, unitPrice, quantity);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (com.liferay.commerce.model.CommerceOrderItem)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceOrderItem
 			upsertCommerceOrderItem(
 				HttpPrincipal httpPrincipal, long commerceOrderId,
 				long cpInstanceId, int quantity, int shippedQuantity,
@@ -880,7 +921,7 @@ public class CommerceOrderItemServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceOrderItemServiceUtil.class, "upsertCommerceOrderItem",
-				_upsertCommerceOrderItemParameterTypes20);
+				_upsertCommerceOrderItemParameterTypes21);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceOrderId, cpInstanceId, quantity,
@@ -992,7 +1033,11 @@ public class CommerceOrderItemServiceHttp {
 		_updateCommerceOrderItemUnitPriceParameterTypes19 = new Class[] {
 			long.class, java.math.BigDecimal.class
 		};
-	private static final Class<?>[] _upsertCommerceOrderItemParameterTypes20 =
+	private static final Class<?>[]
+		_updateCommerceOrderItemUnitPriceParameterTypes20 = new Class[] {
+			long.class, java.math.BigDecimal.class, int.class
+		};
+	private static final Class<?>[] _upsertCommerceOrderItemParameterTypes21 =
 		new Class[] {
 			long.class, long.class, int.class, int.class, String.class,
 			com.liferay.commerce.context.CommerceContext.class,

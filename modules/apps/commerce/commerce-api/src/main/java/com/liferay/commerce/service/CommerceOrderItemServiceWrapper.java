@@ -249,6 +249,10 @@ public class CommerceOrderItemServiceWrapper
 			discountPercentageLevel3, discountPercentageLevel4);
 	}
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	@Override
 	public com.liferay.commerce.model.CommerceOrderItem
 			updateCommerceOrderItemUnitPrice(
@@ -257,6 +261,17 @@ public class CommerceOrderItemServiceWrapper
 
 		return _commerceOrderItemService.updateCommerceOrderItemUnitPrice(
 			commerceOrderItemId, unitPrice);
+	}
+
+	@Override
+	public com.liferay.commerce.model.CommerceOrderItem
+			updateCommerceOrderItemUnitPrice(
+				long commerceOrderItemId, java.math.BigDecimal unitPrice,
+				int quantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderItemService.updateCommerceOrderItemUnitPrice(
+			commerceOrderItemId, unitPrice, quantity);
 	}
 
 	@Override
