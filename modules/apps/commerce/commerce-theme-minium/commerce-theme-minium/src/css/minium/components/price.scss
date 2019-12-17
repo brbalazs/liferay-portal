@@ -44,6 +44,7 @@
 
     &-percentages {
       font-size: 10px;
+      white-space: nowrap;
 
       &::after {
         color: $color-fg;
@@ -51,7 +52,7 @@
       }
 
       &:last-child::after {
-        content: ' ';
+        content: '';
       }
     }
   }

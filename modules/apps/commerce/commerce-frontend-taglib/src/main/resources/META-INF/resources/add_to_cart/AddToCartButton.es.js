@@ -6,6 +6,8 @@ import '../quantity_selector/QuantitySelector.es';
 
 let notificationDidShow = false;
 
+const ALL = 'all';
+
 function showNotification(message, type) {
 	!notificationDidShow && AUI().use(
 		'liferay-notification',
@@ -190,14 +192,16 @@ class AddToCartButton extends Component {
 		this.accountId = e.accountId;
 		this.orderId = null;
 
-		// TODO: quantity should be imported from the ouside
+		// TODO: quantity should be imported from the outside
 
 		this.quantity = 0;
 		resetInputQuantity.call(this);
 	}
 
 	_handleCartProductRemoval(e) {
-		if (e.productId === this.productId) {
+		if (e.productId === this.productId ||
+			e.productId === ALL) {
+
 			this.quantity = 0;
 			resetInputQuantity.call(this);
 		}

@@ -6,13 +6,15 @@ import Soy, {Config} from 'metal-soy';
 
 import template from './MiniCart.soy';
 
+import './CartFlusher.es';
 import './CommerceCartItem.es';
 import './Summary.es';
 
-const COMMERCE_TOPBAR_CLASS = 'commerce-topbar',
+const ALL = 'all',
+	COMMERCE_TOPBAR_CLASS = 'commerce-topbar',
 	OPEN_CART_CLASS = 'cart-open';
 
-function notifyProductRemoval(productId = '') {
+function notifyProductRemoval(productId = ALL) {
 	Liferay.fire(
 		'productRemovedFromCart',
 		{productId}
@@ -256,6 +258,20 @@ class Cart extends Component {
 		});
 	}
 
+	_handleDeleteAllItems({products, summary}) {
+		if (!!products) {
+			throw new Error('Unable to empty the cart');
+		}
+
+		this.products = products;
+		this.summary = Object.assign({},
+			this.summary,
+			summary
+		);
+
+		notifyProductRemoval();
+	}
+
 	_handleDeleteItem(productId) {
 		const deleteDisabled = this._getProductProperty(
 			productId,
@@ -420,12 +436,15 @@ class Cart extends Component {
 			0;
 	}
 
-	_sendDeleteRequest(productId) {
-		this._addPendingOperation(productId);
-
-		return fetch(
+	_sendDeleteRequest(productId = null) {
+		const endpoint = !!productId ?
 			`${this.cartAPI}/cart-item/${productId}?commerceAccountId=${this.commerceAccountId}&
-				groupId=${themeDisplay.getScopeGroupId()}&p_auth=${Liferay.authToken}`,
+				groupId=${themeDisplay.getScopeGroupId()}&p_auth=${Liferay.authToken}` :
+			``;
+
+		!!productId && this._addPendingOperation(productId);
+
+		return fetch(endpoint,
 			{
 				method: 'DELETE'
 			}
@@ -434,13 +453,16 @@ class Cart extends Component {
 			.then(
 				(jsonresponse) => {
 					if (jsonresponse.success) {
-						this._removePendingOperation(productId);
-						this._setProductProperties(
-							productId,
-							{
-								deleteDisabled: false
-							}
-						);
+
+						if (!!productId) {
+							this._removePendingOperation(productId);
+							this._setProductProperties(
+								productId,
+								{
+									deleteDisabled: false
+								}
+							);
+						}
 
 						this.summary = jsonresponse.summary;
 
@@ -452,12 +474,11 @@ class Cart extends Component {
 					}
 
 					this._handleResponseErrors(productId, jsonresponse);
-					return this._removePendingOperation(productId);
 				}
 			)
 			.catch(
 				err => {
-					this._removePendingOperation(productId);
+					!!productId && this._removePendingOperation(productId);
 				}
 			);
 	}
@@ -492,6 +513,7 @@ Cart.STATE = {
 	valid: Config.bool(),
 	disabled: Config.bool().value(false),
 	displayDiscountLevels: Config.bool().value(false),
+	flushCartUrl: Config.string().value('test'),
 	pendingOperations: Config.array().value(
 		[]
 	),
