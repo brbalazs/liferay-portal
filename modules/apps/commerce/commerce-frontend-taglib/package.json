@@ -10,17 +10,11 @@
 		"metal-soy": "^2.13.2",
 		"metal-state": "^2.13.2"
 	},
-	"devDependencies": {
-		"babel-plugin-module-resolver": "^3.2.0",
-		"check-source-formatting": "^2.0.6",
-		"liferay-npm-scripts": "7.1.0"
-	},
 	"name": "commerce-frontend-taglib",
 	"scripts": {
 		"build": "liferay-npm-scripts build",
-		"checkFormat": "npm run csf",
-		"csf": "csf src/**/*.js src/**/*.scss src/**/*.soy",
-		"format": "npm run csf -- -i"
+		"checkFormat": "liferay-npm-scripts check",
+		"format": "liferay-npm-scripts fix"
 	},
 	"version": "3.0.2"
 }
