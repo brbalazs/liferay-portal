@@ -11,6 +11,7 @@
 		"metal-state": "^2.13.2"
 	},
 	"devDependencies": {
+		"babel-plugin-module-resolver": "^3.2.0",
 		"check-source-formatting": "^2.0.6",
 		"liferay-npm-scripts": "7.1.0"
 	},
