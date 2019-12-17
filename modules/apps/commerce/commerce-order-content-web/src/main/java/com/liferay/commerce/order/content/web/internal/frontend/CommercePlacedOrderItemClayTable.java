@@ -32,7 +32,6 @@ import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.product.util.CPSubscriptionType;
 import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
 import com.liferay.commerce.service.CommerceOrderItemService;
-import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -41,6 +40,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.TextFormatter;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.math.BigDecimal;
@@ -176,12 +176,12 @@ public class CommercePlacedOrderItemClayTable
 							themeDisplay);
 				}
 
+				String formattedSubscriptionPeriod = null;
+
 				CPInstance cpInstance = commerceOrderItem.getCPInstance();
 
 				CPSubscriptionInfo cpSubscriptionInfo =
 					cpInstance.getCPSubscriptionInfo();
-
-				String formattedSubscriptionPeriod = null;
 
 				if (cpSubscriptionInfo != null) {
 					String period = StringPool.BLANK;
@@ -191,14 +191,13 @@ public class CommercePlacedOrderItemClayTable
 							cpSubscriptionInfo.getSubscriptionType());
 
 					if (cpSubscriptionType != null) {
-						period = cpSubscriptionType.getLabel(
-							themeDisplay.getLocale());
+						period = cpSubscriptionType.getLabel(locale);
 
 						if (cpSubscriptionInfo.getSubscriptionLength() > 1) {
 							period = LanguageUtil.get(
 								locale,
-								StringUtil.toLowerCase(period) +
-									CharPool.LOWER_CASE_S);
+								StringUtil.toLowerCase(
+									TextFormatter.formatPlural(period)));
 						}
 					}
 

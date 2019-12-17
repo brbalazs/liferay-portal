@@ -38,7 +38,6 @@ import com.liferay.commerce.product.util.CPSubscriptionType;
 import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderService;
-import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -53,6 +52,7 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.TextFormatter;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.math.BigDecimal;
@@ -280,14 +280,13 @@ public class CommercePendingOrderItemClayTable
 							cpSubscriptionInfo.getSubscriptionType());
 
 					if (cpSubscriptionType != null) {
-						period = cpSubscriptionType.getLabel(
-							themeDisplay.getLocale());
+						period = cpSubscriptionType.getLabel(locale);
 
 						if (cpSubscriptionInfo.getSubscriptionLength() > 1) {
 							period = LanguageUtil.get(
 								locale,
-								StringUtil.toLowerCase(period) +
-									CharPool.LOWER_CASE_S);
+								StringUtil.toLowerCase(
+									TextFormatter.formatPlural(period)));
 						}
 					}
 
