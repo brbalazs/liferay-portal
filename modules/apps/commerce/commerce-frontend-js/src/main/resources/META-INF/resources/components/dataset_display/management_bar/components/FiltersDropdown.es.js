@@ -56,7 +56,7 @@ const FiltersDropdown = () => {
 			}
 		>
 			{visibleFilters.length ? (
-				<>
+				<React.Fragment>
 					<ClayDropDown.Search
 						onChange={e => setQuery(e.target.value)}
 						value={query}
@@ -76,7 +76,7 @@ const FiltersDropdown = () => {
 							</ClayPanel>
 						))}
 					</ClayDropDown.ItemList>
-				</>
+				</React.Fragment>
 			) : (
 				<div className="px-3 py-2 text-muted">
 					{Liferay.Language.get('no-filters-available')}

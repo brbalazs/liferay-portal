@@ -44,7 +44,7 @@ const DateFilter = props => {
 	}
 
 	return (
-		<>
+		<React.Fragment>
 			<ClayDatePicker
 				dateFormat="DD.MM.YYYY"
 				onValueChange={updateDate}
@@ -65,7 +65,7 @@ const DateFilter = props => {
 						: Liferay.Language.get('add-filter')}
 				</ClayButton>
 			</div>
-		</>
+		</React.Fragment>
 	);
 };
 

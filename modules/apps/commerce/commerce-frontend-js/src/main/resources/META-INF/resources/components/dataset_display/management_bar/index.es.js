@@ -28,7 +28,7 @@ const ManagementBar = props => {
 	}, [initialized, state.inputSearch.value, state]);
 
 	return (
-		<>
+		<React.Fragment>
 			{props.selectedItemsId.length ? (
 				<BulkActions
 					bulkActions={props.bulkActions}
@@ -40,7 +40,7 @@ const ManagementBar = props => {
 				<NavBar />
 			)}
 			<ActiveFiltersBar disabled={!!props.selectedItemsId.length} />
-		</>
+		</React.Fragment>
 	);
 };
 

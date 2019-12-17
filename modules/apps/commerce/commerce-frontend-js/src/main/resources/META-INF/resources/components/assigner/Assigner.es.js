@@ -23,7 +23,7 @@ function Assigner(props) {
 						</ClayButton>
 					}
 				>
-					<>
+					<React.Fragment>
 						<form>
 							<div className="dropdown-section">
 								<div className="input-group input-group-sm">
@@ -120,7 +120,7 @@ function Assigner(props) {
 								{Liferay.Language.get('more')}
 							</button>
 						</div>
-					</>
+					</React.Fragment>
 				</ClayDropDown>
 			</div>
 		</ClayIconSpriteContext.Provider>
