@@ -342,6 +342,10 @@ public class CommerceOrderItemServiceImpl
 			discountPercentageLevel3, discountPercentageLevel4);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public CommerceOrderItem updateCommerceOrderItemUnitPrice(
 			long commerceOrderItemId, BigDecimal unitPrice)
@@ -361,6 +365,27 @@ public class CommerceOrderItemServiceImpl
 
 		return commerceOrderItemLocalService.updateCommerceOrderItemUnitPrice(
 			commerceOrderItemId, unitPrice);
+	}
+
+	@Override
+	public CommerceOrderItem updateCommerceOrderItemUnitPrice(
+			long commerceOrderItemId, BigDecimal unitPrice, int quantity)
+		throws PortalException {
+
+		CommerceOrderItem commerceOrderItem =
+			commerceOrderItemLocalService.getCommerceOrderItem(
+				commerceOrderItemId);
+
+		_commerceOrderModelResourcePermission.check(
+			getPermissionChecker(), commerceOrderItem.getCommerceOrderId(),
+			ActionKeys.UPDATE);
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceActionKeys.MANAGE_COMMERCE_ORDER_PRICES);
+
+		return commerceOrderItemLocalService.updateCommerceOrderItemUnitPrice(
+			commerceOrderItemId, unitPrice, quantity);
 	}
 
 	@Override
