@@ -918,26 +918,21 @@ public class DDMFormEvaluatorHelperTest {
 			availableLocales, LocaleUtil.US);
 
 		boolean localizable = true;
-
 		boolean repeatable = false;
-
 		boolean required = true;
 
 		ddmForm.addDDMFormField(
 			DDMFormTestUtil.createDDMFormField(
 				"field0", "field0", "numeric", FieldConstants.DOUBLE,
 				localizable, repeatable, required));
-
 		ddmForm.addDDMFormField(
 			DDMFormTestUtil.createDDMFormField(
 				"field1", "field1", "numeric", FieldConstants.DOUBLE,
 				localizable, repeatable, required));
-
 		ddmForm.addDDMFormField(
 			DDMFormTestUtil.createDDMFormField(
 				"field2", "field2", "numeric", FieldConstants.DOUBLE,
 				localizable, repeatable, required));
-
 		ddmForm.addDDMFormRule(
 			new DDMFormRule(
 				"getValue(\"field0\") > 0 && getValue(\"field1\") > 0",
