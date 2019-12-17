@@ -40,6 +40,7 @@ AUI.add(
 
 					fixedOptions: {
 						getter: '_getFixedOptions',
+						setter: '_setOptions',
 						state: true,
 						validator: Array.isArray,
 						value: []
@@ -52,6 +53,7 @@ AUI.add(
 
 					options: {
 						getter: '_getOptions',
+						setter: '_setOptions',
 						state: true,
 						validator: Array.isArray,
 						value: []
@@ -101,6 +103,8 @@ AUI.add(
 				NAME: 'liferay-ddm-form-field-select',
 
 				prototype: {
+					_selectedLabels: {},
+
 					initializer: function() {
 						var instance = this;
 
@@ -139,6 +143,8 @@ AUI.add(
 						if (instance._virtualScroller) {
 							instance._virtualScroller.destroy();
 						}
+
+						instance._selectedLabels = {};
 					},
 
 					alignPosition: function(selectInputNode, dropdownMenuNode, dropdownMenu) {
@@ -243,15 +249,8 @@ AUI.add(
 							paddingTop = scroller.getPaddingTop();
 						}
 
-						var valueLabels = {};
-
 						var predefinedValue = instance.get('predefinedValue');
 						var value = instance.getValue();		
-
-						if (instance.get('multiple')) {
-							instance._populateValueLabels(valueLabels, predefinedValue);	
-							instance._populateValueLabels(valueLabels, value);
-						}
 
 						return A.merge(
 							SelectField.superclass.getTemplateContext.apply(instance, arguments),
@@ -265,12 +264,12 @@ AUI.add(
 								paddingTop: paddingTop,
 								predefinedValue: instance.get('readOnly') ? predefinedValue : value,
 								selectCaretDoubleIcon: soyIncDom(Liferay.Util.getLexiconIconTpl('caret-double')),
+								selectedLabels: instance._selectedLabels,
 								selectSearchIcon: soyIncDom(Liferay.Util.getLexiconIconTpl('search')),
 								showPlaceholderOption: instance._showPlaceholderOption(),
 								showSearch: instance._showSearch(),
 								strings: instance.get('strings'),
-								value: value,
-								valueLabels: valueLabels
+								value: value
 							}
 						);
 					},
@@ -724,30 +723,6 @@ AUI.add(
 						return option;
 					},
 
-					_populateValueLabels: function(labels, values) {
-						var instance = this;
-
-						var populate = function(array) {
-							values.forEach(function(value) {
-								var data = array.find(function(option) {
-									return option.value === value;
-								});
-	
-								if (data) {
-									labels[value] = data.label;
-								}
-							});
-						};
-
-						var options = instance.get('options');
-
-						populate(options);
-
-						var fixedOptions = instance.get('fixedOptions');
-
-						populate(fixedOptions);
-					},
-
 					_preventFormSubmissionWhenEnterIsPressed: function(event) {
 						var instance = this;
 
@@ -806,6 +781,16 @@ AUI.add(
 						}
 
 						return keyCodes;
+					},
+
+					_setOptions: function(options) {
+						var instance = this;
+
+						for (var i = 0; i < options.length; i++) {
+							instance._selectedLabels[options[i].value] = options[i].label;
+						}
+
+						return options;
 					},
 
 					_setSelectNodeOptions: function(optionNode, value) {

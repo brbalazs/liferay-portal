@@ -144,9 +144,7 @@ AUI.add(
                         var startIndex = instance.getStartIndex();
                         var visibleItemsCount = instance.getVisibleItemsCount();
 
-						return items.filter(function(option, index) {
-							return index >= startIndex && index < (startIndex + visibleItemsCount);
-						});
+                        return items.slice(startIndex, startIndex + visibleItemsCount);
                     },
 
                     getVisibleItemsCount: function() {

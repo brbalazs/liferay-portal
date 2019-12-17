@@ -29,12 +29,12 @@
 	{@param? readOnly: bool}
 	{@param? required: bool}
 	{@param? selectCaretDoubleIcon: html}
+	{@param? selectedLabels: ?}
 	{@param? selectSearchIcon: html}
-	{@param? showSearch: bool}
-	{@param? showPlaceholderOption: bool}
 	{@param? showLabel: bool}
+	{@param? showPlaceholderOption: bool}
+	{@param? showSearch: bool}
 	{@param? tip: string}
-	{@param? valueLabels: ?}
 
 	{let $displayValues: length($value) > 0 ? $value : length($predefinedValue) > 0 ? $predefinedValue : null /}
 
@@ -73,7 +73,7 @@
 							<ul class="multiple-label-list">
 								{foreach $displayValue in $displayValues}
 									{call .label_item}
-										{param label: $valueLabels and $valueLabels[$displayValue] ? $valueLabels[$displayValue] : $displayValue /}
+										{param label: $selectedLabels and $selectedLabels[$displayValue] ? $selectedLabels[$displayValue] : $displayValue /}
 										{param labelCloseIcon: $labelCloseIcon /}
 										{param readOnly: $readOnly /}
 										{param value: $displayValue /}
