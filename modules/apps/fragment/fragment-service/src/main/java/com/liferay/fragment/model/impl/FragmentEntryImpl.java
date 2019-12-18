@@ -71,7 +71,7 @@ public class FragmentEntryImpl extends FragmentEntryBaseImpl {
 	public void populateZipWriter(ZipWriter zipWriter, String path)
 		throws Exception {
 
-		path = path + StringPool.SLASH + getFragmentEntryKey();
+		path = path + StringPool.SLASH + getFragmentEntryId();
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 

@@ -32,7 +32,7 @@ public class FragmentCollectionImpl extends FragmentCollectionBaseImpl {
 
 	@Override
 	public void populateZipWriter(ZipWriter zipWriter) throws Exception {
-		String path = StringPool.SLASH + getFragmentCollectionKey();
+		String path = StringPool.SLASH + getFragmentCollectionId();
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
