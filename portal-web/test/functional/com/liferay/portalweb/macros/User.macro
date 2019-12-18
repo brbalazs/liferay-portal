@@ -1410,9 +1410,13 @@ definition {
 		}
 
 		if (IsElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE")) {
-			User.logoutPG();
+			User.logoutPG(
+				nodePort = "${nodePort}",
+				specificURL = "${virtualHostsURL}");
 
-			User.loginPG(userEmailAddress = "${userEmailAddress}");
+			User.loginPG(
+				specificURL = "${virtualHostsURL}",
+				userEmailAddress = "${userEmailAddress}");
 		}
 		else {
 			User.loginPG(
