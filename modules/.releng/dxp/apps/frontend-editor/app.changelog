@@ -269,3 +269,20 @@ app.artifacts-1.0.15=\
 app.change.log-1.0.15=LPS-100424 LPS-103302 LPS-77699 LPS-85765 LPS-96988 LPS-98135 LPS-98752 LPS-99957
 
 app.git.id-1.0.15=b820b3660c5815e82aec0777185a5d7fa8c15ea2
+
+#
+# Liferay App Version 1.0.16
+#
+
+app.artifacts-1.0.16=\
+	com.liferay.frontend.editor.alloyeditor.web-2.0.39.jar,\
+	com.liferay.frontend.editor.api-3.0.2.jar,\
+	com.liferay.frontend.editor.ckeditor.web-2.0.38.jar,\
+	com.liferay.frontend.editor.lang-3.0.11.jar,\
+	com.liferay.frontend.editor.simple.web-2.0.9.jar,\
+	com.liferay.frontend.editor.taglib-1.0.7.jar,\
+	com.liferay.frontend.editor.tinymce.web-2.0.15.jar
+
+app.change.log-1.0.16=LPS-100424 LPS-102970 LPS-103302 LPS-79464 LPS-79653 LPS-79679 LPS-80003 LPS-80332 LPS-81738 LPS-82299 LPS-82655 LPS-82668 LPS-82725 LPS-82828 LPS-83248 LPS-83595 LPS-84090 LPS-84119 LPS-84351 LPS-84462 LPS-85296 LPS-85326 LPS-85536 LPS-85609 LPS-85765 LPS-85966 LPS-86456 LPS-86806 LPS-87348 LPS-88234 LPS-88956 LPS-88974 LPS-89414 LPS-89596 LPS-90595 LPS-91528 LPS-92237 LPS-93262 LPS-93377 LPS-93474 LPS-93893 LPS-94658 LPS-94904 LPS-95429 LPS-95472 LPS-95489 LPS-95501 LPS-96231 LPS-96988 LPS-98135
+
+app.git.id-1.0.16=b3675c680ca5ae87ffd390dfd99a7f3bc1909693

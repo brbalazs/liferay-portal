@@ -494,3 +494,33 @@ app.artifacts-1.0.15=\
 app.change.log-1.0.15=LPS-100057 LPS-100064 LPS-100348 LPS-100352 LPS-100445 LPS-100833 LPS-100862 LPS-100873 LPS-101089 LPS-101196 LPS-101208 LPS-101464 LPS-101489 LPS-101634 LPS-101813 LPS-102334 LPS-102450 LPS-102616 LPS-102621 LPS-102700 LPS-102728 LPS-102817 LPS-103068 LPS-103296 LPS-103302 LPS-103422 LPS-103440 LPS-103842 LPS-67565 LPS-77699 LPS-81915 LPS-83319 LPS-84119 LPS-85765 LPS-85785 LPS-86806 LPS-89705 LPS-91241 LPS-94207 LPS-94679 LPS-95838 LPS-96425 LPS-96793 LPS-97097 LPS-97540 LPS-98372 LPS-98527 LPS-98549 LPS-98669 LPS-99120 LPS-99216 LPS-99488 LPS-99702 LPS-99840 LPS-99898
 
 app.git.id-1.0.15=b820b3660c5815e82aec0777185a5d7fa8c15ea2
+
+#
+# Liferay App Version 1.0.16
+#
+
+app.artifacts-1.0.16=\
+	com.liferay.dynamic.data.mapping.api-4.10.1.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.impl-2.0.25.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.instance-1.0.6.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.web-2.0.20.jar,\
+	com.liferay.dynamic.data.mapping.expression-3.0.17.jar,\
+	com.liferay.dynamic.data.mapping.form.analytics-2.0.8.jar,\
+	com.liferay.dynamic.data.mapping.form.builder-1.0.57.jar,\
+	com.liferay.dynamic.data.mapping.form.evaluator.impl-1.0.22.jar,\
+	com.liferay.dynamic.data.mapping.form.field.type-3.0.48.jar,\
+	com.liferay.dynamic.data.mapping.form.renderer-3.0.46.jar,\
+	com.liferay.dynamic.data.mapping.form.taglib-1.0.12.jar,\
+	com.liferay.dynamic.data.mapping.form.values.factory-3.0.9.jar,\
+	com.liferay.dynamic.data.mapping.form.values.query-3.0.3.jar,\
+	com.liferay.dynamic.data.mapping.form.web-1.0.72.jar,\
+	com.liferay.dynamic.data.mapping.io-3.0.25.jar,\
+	com.liferay.dynamic.data.mapping.lang-3.0.23.jar,\
+	com.liferay.dynamic.data.mapping.service-3.0.79.jar,\
+	com.liferay.dynamic.data.mapping.taglib-3.5.2.jar,\
+	com.liferay.dynamic.data.mapping.validator-3.0.11.jar,\
+	com.liferay.dynamic.data.mapping.web-2.0.61.jar
+
+app.change.log-1.0.16=LPS-100515 LPS-102616 LPS-102733 LPS-102846 LPS-103302 LPS-103418 LPS-103440 LPS-103637 LPS-103833 LPS-103842 LPS-104129 LPS-104679 LPS-77699 LPS-84119 LPS-99386
+
+app.git.id-1.0.16=b3675c680ca5ae87ffd390dfd99a7f3bc1909693

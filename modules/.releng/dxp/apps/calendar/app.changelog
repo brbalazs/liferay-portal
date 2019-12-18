@@ -205,3 +205,16 @@ app.artifacts-3.0.15=\
 app.change.log-3.0.15=LPS-100352 LPS-100980 LPS-101089 LPS-101208 LPS-102817 LPS-103068 LPS-103302 LPS-84119 LPS-85765 LPS-86806 LPS-90008
 
 app.git.id-3.0.15=b820b3660c5815e82aec0777185a5d7fa8c15ea2
+
+#
+# Liferay App Version 3.0.16
+#
+
+app.artifacts-3.0.16=\
+	com.liferay.calendar.api-3.0.18.jar,\
+	com.liferay.calendar.service-3.0.49.jar,\
+	com.liferay.calendar.web-2.0.46.jar
+
+app.change.log-3.0.16=LPS-102368 LPS-102876 LPS-103302 LPS-103888 LPS-104129 LPS-104606 LPS-104679 LPS-77699 LPS-84108
+
+app.git.id-3.0.16=b3675c680ca5ae87ffd390dfd99a7f3bc1909693

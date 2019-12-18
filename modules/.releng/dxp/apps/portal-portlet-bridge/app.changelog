@@ -177,3 +177,15 @@ app.artifacts-1.0.14=\
 app.change.log-1.0.14=LPS-103302 LPS-85765 LPS-86408 LPS-99898
 
 app.git.id-1.0.14=b820b3660c5815e82aec0777185a5d7fa8c15ea2
+
+#
+# Liferay App Version 1.0.15
+#
+
+app.artifacts-1.0.15=\
+	com.liferay.portal.portlet.bridge.soy.api-1.0.2.jar,\
+	com.liferay.portal.portlet.bridge.soy.impl-1.0.17.jar
+
+app.change.log-1.0.15=LPS-103302 LPS-86408
+
+app.git.id-1.0.15=b3675c680ca5ae87ffd390dfd99a7f3bc1909693

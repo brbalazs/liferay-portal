@@ -221,3 +221,17 @@ app.artifacts-1.0.15=\
 app.change.log-1.0.15=LPS-103302 LPS-84119 LPS-85765
 
 app.git.id-1.0.15=b820b3660c5815e82aec0777185a5d7fa8c15ea2
+
+#
+# Liferay App Version 1.0.16
+#
+
+app.artifacts-1.0.16=\
+	com.liferay.application.list.api-3.0.9.jar,\
+	com.liferay.application.list.my.account.permissions-2.0.4.jar,\
+	com.liferay.application.list.taglib-3.0.7.jar,\
+	com.liferay.application.list.user.personal.site.permissions-3.0.5.jar
+
+app.change.log-1.0.16=LPS-103302
+
+app.git.id-1.0.16=b3675c680ca5ae87ffd390dfd99a7f3bc1909693

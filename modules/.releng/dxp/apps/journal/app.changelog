@@ -445,3 +445,31 @@ app.artifacts-1.0.15=\
 app.change.log-1.0.15=LPS-100328 LPS-100352 LPS-100472 LPS-100758 LPS-100792 LPS-100892 LPS-100925 LPS-101089 LPS-101208 LPS-101301 LPS-101786 LPS-101822 LPS-102026 LPS-102053 LPS-102252 LPS-102634 LPS-102749 LPS-102817 LPS-103068 LPS-103268 LPS-103302 LPS-103662 LPS-77699 LPS-79653 LPS-80332 LPS-83226 LPS-84119 LPS-84771 LPS-85765 LPS-86806 LPS-89705 LPS-90008 LPS-91475 LPS-91961 LPS-92484 LPS-93137 LPS-93837 LPS-94698 LPS-98651 LPS-98968 LPS-98969 LPS-99086 LPS-99231 LPS-99415 LPS-99690 LPS-99857 LPS-99880 LPS-99967
 
 app.git.id-1.0.15=b820b3660c5815e82aec0777185a5d7fa8c15ea2
+
+#
+# Liferay App Version 1.0.16
+#
+
+app.artifacts-1.0.16=\
+	com.liferay.journal.api-3.9.1.jar,\
+	com.liferay.journal.content.asset.addon.entry.api-1.0.2.jar,\
+	com.liferay.journal.content.asset.addon.entry.comments-2.0.2.jar,\
+	com.liferay.journal.content.asset.addon.entry.conversions-3.0.4.jar,\
+	com.liferay.journal.content.asset.addon.entry.locales-2.0.3.jar,\
+	com.liferay.journal.content.asset.addon.entry.print-3.0.1.jar,\
+	com.liferay.journal.content.asset.addon.entry.ratings-3.0.2.jar,\
+	com.liferay.journal.content.asset.addon.entry.related.assets-3.0.2.jar,\
+	com.liferay.journal.content.web-3.0.36.jar,\
+	com.liferay.journal.editor.configuration-2.0.1.jar,\
+	com.liferay.journal.item.selector.api-2.1.3.jar,\
+	com.liferay.journal.item.selector.web-2.0.6.jar,\
+	com.liferay.journal.lang-3.0.37.jar,\
+	com.liferay.journal.ratings.definition-3.0.4.jar,\
+	com.liferay.journal.service-4.0.87.jar,\
+	com.liferay.journal.taglib-2.0.7.jar,\
+	com.liferay.journal.terms.of.use-3.0.3.jar,\
+	com.liferay.journal.web-2.0.75.jar
+
+app.change.log-1.0.16=LPS-102786 LPS-103268 LPS-103302 LPS-103662 LPS-104129 LPS-104679 LPS-77699 LPS-84119 LPS-85765 LPS-98969
+
+app.git.id-1.0.16=b3675c680ca5ae87ffd390dfd99a7f3bc1909693

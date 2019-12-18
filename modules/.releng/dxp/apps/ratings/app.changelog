@@ -207,3 +207,17 @@ app.artifacts-1.0.14=\
 app.change.log-1.0.14=LPS-103302 LPS-67565 LPS-77699 LPS-78938 LPS-79653 LPS-80332 LPS-82572 LPS-84119 LPS-86413 LPS-91181
 
 app.git.id-1.0.14=b820b3660c5815e82aec0777185a5d7fa8c15ea2
+
+#
+# Liferay App Version 1.0.15
+#
+
+app.artifacts-1.0.15=\
+	com.liferay.ratings.analytics-1.0.3.jar,\
+	com.liferay.ratings.api-3.0.0.jar,\
+	com.liferay.ratings.page.ratings.web-3.0.7.jar,\
+	com.liferay.ratings.service-2.0.8.jar
+
+app.change.log-1.0.15=LPS-103302 LPS-80332
+
+app.git.id-1.0.15=b3675c680ca5ae87ffd390dfd99a7f3bc1909693

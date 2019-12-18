@@ -493,3 +493,34 @@ app.artifacts-1.0.15=\
 app.change.log-1.0.15=LPS-100186 LPS-100352 LPS-101089 LPS-101208 LPS-102623 LPS-102771 LPS-102817 LPS-103068 LPS-103302 LPS-103342 LPS-60134 LPS-67565 LPS-76825 LPS-77699 LPS-79653 LPS-80295 LPS-80332 LPS-83038 LPS-84119 LPS-85765 LPS-86629 LPS-86806 LPS-88284 LPS-89657 LPS-90008 LPS-91440 LPS-91843 LPS-92252 LPS-92463 LPS-93600 LPS-95681 LPS-96911 LPS-97094 LPS-97951 LPS-98042 LPS-98841 LPS-99067 LPS-99239 LPS-99420 LPS-99786 LPS-99898 LPS-99917
 
 app.git.id-1.0.15=b820b3660c5815e82aec0777185a5d7fa8c15ea2
+
+#
+# Liferay App Version 1.0.16
+#
+
+app.artifacts-1.0.16=\
+	com.liferay.layout.admin.api-1.1.0.jar,\
+	com.liferay.layout.admin.web-2.0.93.jar,\
+	com.liferay.layout.api-1.0.5.jar,\
+	com.liferay.layout.impl-3.0.17.jar,\
+	com.liferay.layout.item.selector.api-2.1.2.jar,\
+	com.liferay.layout.item.selector.web-2.0.8.jar,\
+	com.liferay.layout.page.template.api-1.7.0.jar,\
+	com.liferay.layout.page.template.service-1.0.39.jar,\
+	com.liferay.layout.prototype.api-2.0.0.jar,\
+	com.liferay.layout.prototype.impl-2.0.7.jar,\
+	com.liferay.layout.set.prototype.api-2.0.0.jar,\
+	com.liferay.layout.set.prototype.impl-3.0.5.jar,\
+	com.liferay.layout.set.prototype.web-2.0.12.jar,\
+	com.liferay.layout.taglib-3.1.8.jar,\
+	com.liferay.layout.type.controller.asset.display-1.0.16.jar,\
+	com.liferay.layout.type.controller.content-1.0.20.jar,\
+	com.liferay.layout.type.controller.control.panel-3.0.1.jar,\
+	com.liferay.layout.type.controller.full.page.application-3.0.3.jar,\
+	com.liferay.layout.type.controller.link.to.page-1.0.7.jar,\
+	com.liferay.layout.type.controller.node-3.0.5.jar,\
+	com.liferay.layout.uad-3.0.4.jar
+
+app.change.log-1.0.16=LPS-101762 LPS-102166 LPS-102623 LPS-102771 LPS-103302 LPS-103342 LPS-103459 LPS-104129 LPS-60134 LPS-77699 LPS-80332 LPS-83038 LPS-84119 LPS-85765 LPS-91413 LPS-93600 LPS-97542
+
+app.git.id-1.0.16=b3675c680ca5ae87ffd390dfd99a7f3bc1909693
