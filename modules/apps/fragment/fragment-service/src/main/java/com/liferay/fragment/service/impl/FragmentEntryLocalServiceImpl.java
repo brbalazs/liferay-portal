@@ -406,6 +406,11 @@ public class FragmentEntryLocalServiceImpl
 			throw new FragmentEntryNameException("Name must not be null");
 		}
 
+		if (name.contains(StringPool.PERIOD)) {
+			throw new FragmentEntryNameException(
+				"Name contains invalid characters");
+		}
+
 		int nameMaxLength = ModelHintsUtil.getMaxLength(
 			FragmentEntry.class.getName(), "name");
 
