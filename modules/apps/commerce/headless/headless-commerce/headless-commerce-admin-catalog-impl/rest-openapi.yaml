@@ -602,19 +602,6 @@ components:
                 - productType
             type: object
         ProductConfiguration:
-            inventory
-                description:
-                    The low stock action that will be performed when a product
-                lowStockAction:
-                type: string
-            is out of stock
-                format: int32
-                maxOrderQuantity:
-                minOrderQuantity:
-                minStockQuantity:
-                multipleOrderQuantity:
-                type: integer
-                type: string
             properties:
                 allowBackOrder:
                     example: true
@@ -637,7 +624,25 @@ components:
                     type: boolean
                 inventoryEngine:
                     description:
-                        The inventory engine that will be used to manage the product
+                        The inventory engine that will be used to manage the product inventory
+                    type: string
+                lowStockAction:
+                    description:
+                        The low stock action that will be performed when a product
+                        is out of stock
+                    type: string
+                maxOrderQuantity:
+                    format: int32
+                    type: integer
+                minOrderQuantity:
+                    format: int32
+                    type: integer
+                minStockQuantity:
+                    format: int32
+                    type: integer
+                multipleOrderQuantity:
+                    format: int32
+                    type: integer
             type: object
         ProductOption:
             properties:
