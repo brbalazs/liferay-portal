@@ -113,8 +113,6 @@ public class HeadlessDiscoveryApplication extends Application {
 	private Map<String, List<ResourceMethodInfoDTO>>
 		_getResourceMethodInfoDTOsMap() {
 
-		RuntimeDTO runtimeDTO = _jaxrsServiceRuntime.getRuntimeDTO();
-
 		Map<String, List<ResourceMethodInfoDTO>> resourcesMap = new TreeMap<>();
 
 		URI uri = _uriInfo.getAbsolutePath();
@@ -122,6 +120,8 @@ public class HeadlessDiscoveryApplication extends Application {
 		String absolutePath = uri.toString();
 
 		String serverURL = StringUtil.replace(absolutePath, "/api/", "");
+
+		RuntimeDTO runtimeDTO = _jaxrsServiceRuntime.getRuntimeDTO();
 
 		for (ApplicationDTO applicationDTO : runtimeDTO.applicationDTOs) {
 			for (ResourceDTO resourceDTO : applicationDTO.resourceDTOs) {
