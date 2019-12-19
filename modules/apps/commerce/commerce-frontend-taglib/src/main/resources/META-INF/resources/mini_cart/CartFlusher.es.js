@@ -34,42 +34,44 @@ function showNotification(message, type) {
 }
 
 class CartFlusher extends Component {
-    _handleAskConfirmation(e) {
-        e.preventDefault();
+	_handleAskConfirmation(e) {
+		e.preventDefault();
 
-        this.isAsking = true;
-    }
+		this.isAsking = true;
+	}
 
-    _handleCancel() {
-        this.isAsking = false;
-    }
+	_handleCancel() {
+		this.isAsking = false;
+	}
 
-    _handleConfirm() {
-        fetch(this.apiEndpoint, { method: 'DELETE'})
-            .then(response => response.json())
-            .then(({success, products, summary}) => {
-                this.isAsking = false;
+	_handleConfirm() {
+		fetch(this.apiEndpoint, {method: 'DELETE'})
+			.then(response => response.json())
+			.then(({success, products, summary}) => {
+				this.isAsking = false;
 
-                if (success && (!products.length || !products)) {
-                    this.emit('deleteAllItems', { products: null, summary });
-                } else {
-                    throw new Error('Unable to empty the cart');
-                }
-            })
-            .catch(e => {
-                this.isAsking = false;
+				if (success && (!products.length || !products)) {
+					this.emit('deleteAllItems', {products: null,
+summary});
+				}
+ else {
+					throw new Error('Unable to empty the cart');
+				}
+			})
+			.catch(e => {
+				this.isAsking = false;
 
-                showNotification(e, 'danger');
-                console.log(e);
-            });
-    }
+				showNotification(e, 'danger');
+				console.log(e);
+			});
+	}
 }
 
 Soy.register(CartFlusher, template);
 
 CartFlusher.STATE = {
-    apiEndpoint: Config.string(),
-    isAsking: Config.bool().value(false)
+	apiEndpoint: Config.string(),
+	isAsking: Config.bool().value(false)
 };
 
 export {CartFlusher};

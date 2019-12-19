@@ -4,47 +4,47 @@
  * This renders the component's whole content.
  */
 {template .render}
-    {@param? isAsking: bool}
+	{@param? isAsking: bool}
 
-    {@param? _handleAskConfirmation: any }
-    {@param? _handleCancel: any }
-    {@param? _handleConfirm: any }
+	{@param? _handleAskConfirmation: any }
+	{@param? _handleCancel: any }
+	{@param? _handleConfirm: any }
 
-    {let $confirmLineClass kind="text"}
-        cart-flusher
+	{let $confirmLineClass kind="text"}
+		cart-flusher
 
-        {if $isAsking == true}
-            {sp}is-asking
-        {/if}
-    {/let}
+		{if $isAsking == true}
+			{sp}is-asking
+		{/if}
+	{/let}
 
-    <div class="{$confirmLineClass}">
-        <a
-                class="commerce-link link-remove-items"
-                href=""
-                data-onclick="{$_handleAskConfirmation}"
-        >
-                {msg desc="Remove All Items"}remove-all-items{/msg}
-        </a>
+	<div class="{$confirmLineClass}">
+		<a
+				class="commerce-link link-remove-items"
+				href=""
+				data-onclick="{$_handleAskConfirmation}"
+		>
+				{msg desc="Remove All Items"}remove-all-items{/msg}
+		</a>
 
-        <div class="confirmation-box">
-            <span>{msg desc="Are You Sure?"}are-you-sure{/msg}</span>
+		<div class="confirmation-box">
+			<span>{msg desc="Are You Sure?"}are-you-sure{/msg}</span>
 
-            <span>
-                <button
-                        class="btn btn-confirm"
-                        data-onclick="{$_handleConfirm}"
-                >
-                    {msg desc="Yes"}yes{/msg}
-                </button>
+			<span>
+				<button
+						class="btn btn-confirm"
+						data-onclick="{$_handleConfirm}"
+				>
+					{msg desc="Yes"}yes{/msg}
+				</button>
 
-                <button
-                        class="btn btn-reject"
-                        data-onclick="{$_handleCancel}"
-                >
-                    {msg desc="No"}no{/msg}
-                </button>
-            </span>
-        </div>
-    </div>
+				<button
+						class="btn btn-reject"
+						data-onclick="{$_handleCancel}"
+				>
+					{msg desc="No"}no{/msg}
+				</button>
+			</span>
+		</div>
+	</div>
 {/template}

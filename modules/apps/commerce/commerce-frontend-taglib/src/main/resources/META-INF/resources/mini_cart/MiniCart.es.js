@@ -436,10 +436,10 @@ class Cart extends Component {
 	}
 
 	_sendDeleteRequest(productId = null) {
-		const endpoint = !!productId ?
+		const endpoint = productId ?
 			`${this.cartAPI}/cart-item/${productId}?commerceAccountId=${this.commerceAccountId}&
 				groupId=${themeDisplay.getScopeGroupId()}&p_auth=${Liferay.authToken}` :
-			``;
+			'';
 
 		!!productId && this._addPendingOperation(productId);
 
@@ -453,7 +453,7 @@ class Cart extends Component {
 				(jsonresponse) => {
 					if (jsonresponse.success) {
 
-						if (!!productId) {
+						if (productId) {
 							this._removePendingOperation(productId);
 							this._setProductProperties(
 								productId,

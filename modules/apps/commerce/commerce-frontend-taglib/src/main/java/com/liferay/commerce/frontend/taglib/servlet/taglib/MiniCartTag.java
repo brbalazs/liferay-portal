@@ -99,14 +99,14 @@ public class MiniCartTag extends ComponentRendererTag {
 			}
 
 			CommercePriceConfiguration commercePriceConfiguration =
-					_configurationProvider.getConfiguration(
-							CommercePriceConfiguration.class,
-							new SystemSettingsLocator(
-									CommerceConstants.PRICE_SERVICE_NAME));
+				_configurationProvider.getConfiguration(
+					CommercePriceConfiguration.class,
+					new SystemSettingsLocator(
+						CommerceConstants.PRICE_SERVICE_NAME));
 
 			putValue(
-					"displayDiscountLevels",
-					commercePriceConfiguration.displayDiscountLevels());
+				"displayDiscountLevels",
+				commercePriceConfiguration.displayDiscountLevels());
 
 			putValue("detailsUrl", detailsURL);
 
@@ -148,8 +148,7 @@ public class MiniCartTag extends ComponentRendererTag {
 		_commerceOrderHttpHelper =
 			ServletContextUtil.getCommerceOrderHttpHelper();
 
-		_configurationProvider =
-				ServletContextUtil.getConfigurationProvider();
+		_configurationProvider = ServletContextUtil.getConfigurationProvider();
 
 		super.setPageContext(pageContext);
 	}
@@ -157,7 +156,6 @@ public class MiniCartTag extends ComponentRendererTag {
 	private static final Log _log = LogFactoryUtil.getLog(MiniCartTag.class);
 
 	private CommerceOrderHttpHelper _commerceOrderHttpHelper;
-
 	private ConfigurationProvider _configurationProvider;
 
 }
