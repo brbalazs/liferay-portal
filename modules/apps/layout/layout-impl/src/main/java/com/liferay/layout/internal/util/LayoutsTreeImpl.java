@@ -336,13 +336,12 @@ public class LayoutsTreeImpl implements LayoutsTree {
 		int count = _layoutService.getLayoutsCount(
 			groupId, privateLayout, parentLayoutId);
 
-		int totalCount = _layoutLocalService.getLayoutsCount(
-			_groupLocalService.getGroup(groupId), privateLayout,
-			parentLayoutId);
-
 		List<Layout> layouts = _getPaginatedLayouts(
-			request, groupId, privateLayout, parentLayoutId,
-			incomplete, treeId, childLayout, count, totalCount);
+			request, groupId, privateLayout, parentLayoutId, incomplete, treeId,
+			childLayout, count,
+			_layoutLocalService.getLayoutsCount(
+				_groupLocalService.getGroup(groupId), privateLayout,
+				parentLayoutId));
 
 		for (Layout layout : layouts) {
 			LayoutTreeNode layoutTreeNode = new LayoutTreeNode(layout);
@@ -427,9 +426,9 @@ public class LayoutsTreeImpl implements LayoutsTree {
 	}
 
 	private List<Layout> _getPaginatedLayouts(
-			HttpServletRequest request, long groupId,
-			boolean privateLayout, long parentLayoutId, boolean incomplete,
-			String treeId, boolean childLayout, int count, int totalCount)
+			HttpServletRequest request, long groupId, boolean privateLayout,
+			long parentLayoutId, boolean incomplete, String treeId,
+			boolean childLayout, int count, int totalCount)
 		throws Exception {
 
 		if (!_isPaginationEnabled(request)) {
