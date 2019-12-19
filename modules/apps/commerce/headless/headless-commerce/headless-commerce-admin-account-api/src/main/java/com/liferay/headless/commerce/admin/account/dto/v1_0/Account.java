@@ -20,8 +20,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+
+import graphql.annotations.annotationTypes.GraphQLField;
+import graphql.annotations.annotationTypes.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -32,9 +33,6 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
-import javax.validation.Valid;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -51,22 +49,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Account {
 
 	@Schema
-	@Valid
-	public AccountAddress[] getAccountAddresses() {
-		return accountAddresses;
+	public AccountAddress[] getAddresses() {
+		return addresses;
 	}
 
-	public void setAccountAddresses(AccountAddress[] accountAddresses) {
-		this.accountAddresses = accountAddresses;
+	public void setAddresses(AccountAddress[] addresses) {
+		this.addresses = addresses;
 	}
 
 	@JsonIgnore
-	public void setAccountAddresses(
-		UnsafeSupplier<AccountAddress[], Exception>
-			accountAddressesUnsafeSupplier) {
+	public void setAddresses(
+		UnsafeSupplier<AccountAddress[], Exception> addressesUnsafeSupplier) {
 
 		try {
-			accountAddresses = accountAddressesUnsafeSupplier.get();
+			addresses = addressesUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -78,72 +74,9 @@ public class Account {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected AccountAddress[] accountAddresses;
+	protected AccountAddress[] addresses;
 
 	@Schema
-	@Valid
-	public AccountMember[] getAccountMembers() {
-		return accountMembers;
-	}
-
-	public void setAccountMembers(AccountMember[] accountMembers) {
-		this.accountMembers = accountMembers;
-	}
-
-	@JsonIgnore
-	public void setAccountMembers(
-		UnsafeSupplier<AccountMember[], Exception>
-			accountMembersUnsafeSupplier) {
-
-		try {
-			accountMembers = accountMembersUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected AccountMember[] accountMembers;
-
-	@Schema
-	@Valid
-	public AccountOrganization[] getAccountOrganizations() {
-		return accountOrganizations;
-	}
-
-	public void setAccountOrganizations(
-		AccountOrganization[] accountOrganizations) {
-
-		this.accountOrganizations = accountOrganizations;
-	}
-
-	@JsonIgnore
-	public void setAccountOrganizations(
-		UnsafeSupplier<AccountOrganization[], Exception>
-			accountOrganizationsUnsafeSupplier) {
-
-		try {
-			accountOrganizations = accountOrganizationsUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected AccountOrganization[] accountOrganizations;
-
-	@Schema
-	@Valid
 	public Map<String, ?> getCustomFields() {
 		return customFields;
 	}
@@ -228,7 +161,6 @@ public class Account {
 	@NotEmpty
 	protected String externalReferenceCode;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getId() {
 		return id;
@@ -255,7 +187,6 @@ public class Account {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long id;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getLogoId() {
 		return logoId;
@@ -312,6 +243,35 @@ public class Account {
 	protected String name;
 
 	@Schema
+	public AccountOrganization[] getOrganizations() {
+		return organizations;
+	}
+
+	public void setOrganizations(AccountOrganization[] organizations) {
+		this.organizations = organizations;
+	}
+
+	@JsonIgnore
+	public void setOrganizations(
+		UnsafeSupplier<AccountOrganization[], Exception>
+			organizationsUnsafeSupplier) {
+
+		try {
+			organizations = organizationsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected AccountOrganization[] organizations;
+
+	@Schema
 	public Boolean getRoot() {
 		return root;
 	}
@@ -365,8 +325,6 @@ public class Account {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String taxId;
 
-	@DecimalMax("2")
-	@DecimalMin("0")
 	@Schema
 	public Integer getType() {
 		return type;
@@ -392,6 +350,34 @@ public class Account {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Integer type;
+
+	@Schema
+	public AccountMember[] getUsers() {
+		return users;
+	}
+
+	public void setUsers(AccountMember[] users) {
+		this.users = users;
+	}
+
+	@JsonIgnore
+	public void setUsers(
+		UnsafeSupplier<AccountMember[], Exception> usersUnsafeSupplier) {
+
+		try {
+			users = usersUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected AccountMember[] users;
 
 	@Override
 	public boolean equals(Object object) {
@@ -420,59 +406,19 @@ public class Account {
 
 		sb.append("{");
 
-		if (accountAddresses != null) {
+		if (addresses != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountAddresses\": ");
+			sb.append("\"addresses\": ");
 
 			sb.append("[");
 
-			for (int i = 0; i < accountAddresses.length; i++) {
-				sb.append(String.valueOf(accountAddresses[i]));
+			for (int i = 0; i < addresses.length; i++) {
+				sb.append(String.valueOf(addresses[i]));
 
-				if ((i + 1) < accountAddresses.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
-		if (accountMembers != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"accountMembers\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < accountMembers.length; i++) {
-				sb.append(String.valueOf(accountMembers[i]));
-
-				if ((i + 1) < accountMembers.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
-		if (accountOrganizations != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"accountOrganizations\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < accountOrganizations.length; i++) {
-				sb.append(String.valueOf(accountOrganizations[i]));
-
-				if ((i + 1) < accountOrganizations.length) {
+				if ((i + 1) < addresses.length) {
 					sb.append(", ");
 				}
 			}
@@ -562,6 +508,26 @@ public class Account {
 			sb.append("\"");
 		}
 
+		if (organizations != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"organizations\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < organizations.length; i++) {
+				sb.append(String.valueOf(organizations[i]));
+
+				if ((i + 1) < organizations.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (root != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -596,16 +562,30 @@ public class Account {
 			sb.append(type);
 		}
 
+		if (users != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"users\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < users.length; i++) {
+				sb.append(String.valueOf(users[i]));
+
+				if ((i + 1) < users.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		sb.append("}");
 
 		return sb.toString();
 	}
-
-	@Schema(
-		defaultValue = "com.liferay.headless.commerce.admin.account.dto.v1_0.Account",
-		name = "x-class-name"
-	)
-	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

@@ -15,9 +15,9 @@
 package com.liferay.headless.commerce.admin.account.internal.resource.v1_0;
 
 import com.liferay.headless.commerce.admin.account.dto.v1_0.AccountAddress;
-import com.liferay.headless.commerce.admin.account.dto.v1_0.User;
 import com.liferay.headless.commerce.admin.account.resource.v1_0.AccountAddressResource;
 import com.liferay.petra.function.UnsafeFunction;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -29,13 +29,11 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Generated;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import javax.validation.constraints.NotNull;
 
@@ -60,86 +58,6 @@ import javax.ws.rs.core.UriInfo;
 public abstract class BaseAccountAddressResourceImpl
 	implements AccountAddressResource {
 
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-account/v1.0/accountAddresses/by-externalReferenceCode/{externalReferenceCode}'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@DELETE
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
-		}
-	)
-	@Path("/accountAddresses/by-externalReferenceCode/{externalReferenceCode}")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "AccountAddress")})
-	public Response deleteAccountAddressByExternalReferenceCode(
-			@NotNull @Parameter(hidden = true)
-			@PathParam("externalReferenceCode") String externalReferenceCode)
-		throws Exception {
-
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-account/v1.0/accountAddresses/by-externalReferenceCode/{externalReferenceCode}'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@GET
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
-		}
-	)
-	@Path("/accountAddresses/by-externalReferenceCode/{externalReferenceCode}")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "AccountAddress")})
-	public AccountAddress getAccountAddressByExternalReferenceCode(
-			@NotNull @Parameter(hidden = true)
-			@PathParam("externalReferenceCode") String externalReferenceCode)
-		throws Exception {
-
-		return new AccountAddress();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-account/v1.0/accountAddresses/by-externalReferenceCode/{externalReferenceCode}' -d $'{"city": ___, "countryISOCode": ___, "defaultBilling": ___, "defaultShipping": ___, "description": ___, "externalReferenceCode": ___, "id": ___, "latitude": ___, "longitude": ___, "name": ___, "phoneNumber": ___, "regionISOCode": ___, "street1": ___, "street2": ___, "street3": ___, "type": ___, "zip": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@PATCH
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
-		}
-	)
-	@Path("/accountAddresses/by-externalReferenceCode/{externalReferenceCode}")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "AccountAddress")})
-	public Response patchAccountAddressByExternalReferenceCode(
-			@NotNull @Parameter(hidden = true)
-			@PathParam("externalReferenceCode") String externalReferenceCode,
-			AccountAddress accountAddress)
-		throws Exception {
-
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-account/v1.0/accountAddresses/{id}'  -u 'test@liferay.com:test'
-	 */
 	@Override
 	@DELETE
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
@@ -155,11 +73,6 @@ public abstract class BaseAccountAddressResourceImpl
 		return responseBuilder.build();
 	}
 
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-account/v1.0/accounts/by-externalReferenceCode/{externalReferenceCode}/accountAddresses'  -u 'test@liferay.com:test'
-	 */
 	@Override
 	@GET
 	@Parameters(
@@ -170,7 +83,7 @@ public abstract class BaseAccountAddressResourceImpl
 		}
 	)
 	@Path(
-		"/accounts/by-externalReferenceCode/{externalReferenceCode}/accountAddresses"
+		"/accounts/by-externalReferenceCode/{externalReferenceCode}/accountAddresses/"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "AccountAddress")})
@@ -185,11 +98,6 @@ public abstract class BaseAccountAddressResourceImpl
 		return Page.of(Collections.emptyList());
 	}
 
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-account/v1.0/accounts/by-externalReferenceCode/{externalReferenceCode}/accountAddresses' -d $'{"city": ___, "countryISOCode": ___, "defaultBilling": ___, "defaultShipping": ___, "description": ___, "externalReferenceCode": ___, "id": ___, "latitude": ___, "longitude": ___, "name": ___, "phoneNumber": ___, "regionISOCode": ___, "street1": ___, "street2": ___, "street3": ___, "type": ___, "zip": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
@@ -199,7 +107,7 @@ public abstract class BaseAccountAddressResourceImpl
 		}
 	)
 	@Path(
-		"/accounts/by-externalReferenceCode/{externalReferenceCode}/accountAddresses"
+		"/accounts/by-externalReferenceCode/{externalReferenceCode}/accountAddresses/"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "AccountAddress")})
@@ -212,11 +120,66 @@ public abstract class BaseAccountAddressResourceImpl
 		return new AccountAddress();
 	}
 
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-account/v1.0/accounts/{id}/accountAddresses'  -u 'test@liferay.com:test'
-	 */
+	@Override
+	@DELETE
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
+		}
+	)
+	@Path("/accountAddresses/by-externalReferenceCode/{externalReferenceCode}/")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "AccountAddress")})
+	public Response deleteAccountAddressByExternalReferenceCode(
+			@NotNull @Parameter(hidden = true)
+			@PathParam("externalReferenceCode") String externalReferenceCode)
+		throws Exception {
+
+		Response.ResponseBuilder responseBuilder = Response.ok();
+
+		return responseBuilder.build();
+	}
+
+	@Override
+	@GET
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
+		}
+	)
+	@Path("/accountAddresses/by-externalReferenceCode/{externalReferenceCode}/")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "AccountAddress")})
+	public AccountAddress getAccountAddressByExternalReferenceCode(
+			@NotNull @Parameter(hidden = true)
+			@PathParam("externalReferenceCode") String externalReferenceCode)
+		throws Exception {
+
+		return new AccountAddress();
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@PATCH
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
+		}
+	)
+	@Path("/accountAddresses/by-externalReferenceCode/{externalReferenceCode}/")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "AccountAddress")})
+	public Response patchAccountAddressByExternalReferenceCode(
+			@NotNull @Parameter(hidden = true)
+			@PathParam("externalReferenceCode") String externalReferenceCode,
+			AccountAddress accountAddress)
+		throws Exception {
+
+		Response.ResponseBuilder responseBuilder = Response.ok();
+
+		return responseBuilder.build();
+	}
+
 	@Override
 	@GET
 	@Parameters(
@@ -226,7 +189,7 @@ public abstract class BaseAccountAddressResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/accounts/{id}/accountAddresses")
+	@Path("/accounts/{id}/accountAddresses/")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "AccountAddress")})
 	public Page<AccountAddress> getAccountIdAccountAddressesPage(
@@ -237,16 +200,11 @@ public abstract class BaseAccountAddressResourceImpl
 		return Page.of(Collections.emptyList());
 	}
 
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-account/v1.0/accounts/{id}/accountAddresses' -d $'{"city": ___, "countryISOCode": ___, "defaultBilling": ___, "defaultShipping": ___, "description": ___, "externalReferenceCode": ___, "id": ___, "latitude": ___, "longitude": ___, "name": ___, "phoneNumber": ___, "regionISOCode": ___, "street1": ___, "street2": ___, "street3": ___, "type": ___, "zip": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/accounts/{id}/accountAddresses")
+	@Path("/accounts/{id}/accountAddresses/")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "AccountAddress")})
 	public AccountAddress postAccountIdAccountAddress(
@@ -257,36 +215,8 @@ public abstract class BaseAccountAddressResourceImpl
 		return new AccountAddress();
 	}
 
-	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
-		this.contextAcceptLanguage = contextAcceptLanguage;
-	}
-
-	public void setContextCompany(
-		com.liferay.portal.kernel.model.Company contextCompany) {
-
+	public void setContextCompany(Company contextCompany) {
 		this.contextCompany = contextCompany;
-	}
-
-	public void setContextHttpServletRequest(
-		HttpServletRequest contextHttpServletRequest) {
-
-		this.contextHttpServletRequest = contextHttpServletRequest;
-	}
-
-	public void setContextHttpServletResponse(
-		HttpServletResponse contextHttpServletResponse) {
-
-		this.contextHttpServletResponse = contextHttpServletResponse;
-	}
-
-	public void setContextUriInfo(UriInfo contextUriInfo) {
-		this.contextUriInfo = contextUriInfo;
-	}
-
-	public void setContextUser(
-		com.liferay.portal.kernel.model.User contextUser) {
-
-		this.contextUser = contextUser;
 	}
 
 	protected void preparePatch(
@@ -294,7 +224,7 @@ public abstract class BaseAccountAddressResourceImpl
 	}
 
 	protected <T, R> List<R> transform(
-		java.util.Collection<T> collection,
+		Collection<T> collection,
 		UnsafeFunction<T, R, Exception> unsafeFunction) {
 
 		return TransformUtil.transform(collection, unsafeFunction);
@@ -308,7 +238,7 @@ public abstract class BaseAccountAddressResourceImpl
 	}
 
 	protected <T, R> R[] transformToArray(
-		java.util.Collection<T> collection,
+		Collection<T> collection,
 		UnsafeFunction<T, R, Exception> unsafeFunction, Class<?> clazz) {
 
 		return TransformUtil.transformToArray(
@@ -321,11 +251,13 @@ public abstract class BaseAccountAddressResourceImpl
 		return TransformUtil.transformToList(array, unsafeFunction);
 	}
 
+	@Context
 	protected AcceptLanguage contextAcceptLanguage;
-	protected com.liferay.portal.kernel.model.Company contextCompany;
-	protected com.liferay.portal.kernel.model.User contextUser;
-	protected HttpServletRequest contextHttpServletRequest;
-	protected HttpServletResponse contextHttpServletResponse;
+
+	@Context
+	protected Company contextCompany;
+
+	@Context
 	protected UriInfo contextUriInfo;
 
 }

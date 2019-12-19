@@ -28,18 +28,17 @@ import com.liferay.headless.commerce.admin.account.resource.v1_0.AccountResource
 import com.liferay.headless.commerce.admin.account.resource.v1_0.UserResource;
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
-import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
+import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
 import com.liferay.portal.vulcan.multipart.MultipartBody;
+
+import graphql.annotations.annotationTypes.GraphQLField;
+import graphql.annotations.annotationTypes.GraphQLInvokeDetached;
+import graphql.annotations.annotationTypes.GraphQLName;
 
 import javax.annotation.Generated;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.ComponentServiceObjects;
 
@@ -98,7 +97,7 @@ public class Mutation {
 			userResourceComponentServiceObjects;
 	}
 
-	@GraphQLField
+	@GraphQLInvokeDetached
 	public Response deleteAccountGroupByExternalReferenceCodeAccount(
 			@GraphQLName("accountExternalReferenceCode") String
 				accountExternalReferenceCode,
@@ -115,7 +114,8 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Response createAccountGroupByExternalReferenceCodeAccount(
+	@GraphQLInvokeDetached
+	public Response postAccountGroupByExternalReferenceCodeAccount(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("account") Account account)
 		throws Exception {
@@ -129,7 +129,8 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Account createAccount(@GraphQLName("account") Account account)
+	@GraphQLInvokeDetached
+	public Account postAccount(@GraphQLName("account") Account account)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -139,11 +140,11 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	@GraphQLInvokeDetached
 	@GraphQLName(
-		value = "postAccountByExternalReferenceCodeLogoExternalReferenceCodeMultipartBody",
-		description = "null"
+		"postAccountByExternalReferenceCodeLogoExternalReferenceCodeMultipartBody"
 	)
-	public Response createAccountByExternalReferenceCodeLogo(
+	public Response postAccountByExternalReferenceCodeLogo(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("multipartBody") MultipartBody multipartBody)
 		throws Exception {
@@ -156,7 +157,7 @@ public class Mutation {
 					externalReferenceCode, multipartBody));
 	}
 
-	@GraphQLField
+	@GraphQLInvokeDetached
 	public Response deleteAccountByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode)
 		throws Exception {
@@ -169,7 +170,7 @@ public class Mutation {
 					externalReferenceCode));
 	}
 
-	@GraphQLField
+	@GraphQLInvokeDetached
 	public Response patchAccountByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("account") Account account)
@@ -184,8 +185,9 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	@GraphQLName(value = "postAccountLogoIdMultipartBody", description = "null")
-	public Response createAccountLogo(
+	@GraphQLInvokeDetached
+	@GraphQLName("postAccountLogoIdMultipartBody")
+	public Response postAccountLogo(
 			@GraphQLName("id") Long id,
 			@GraphQLName("multipartBody") MultipartBody multipartBody)
 		throws Exception {
@@ -197,7 +199,7 @@ public class Mutation {
 				id, multipartBody));
 	}
 
-	@GraphQLField
+	@GraphQLInvokeDetached
 	public Response deleteAccount(@GraphQLName("id") Long id) throws Exception {
 		return _applyComponentServiceObjects(
 			_accountResourceComponentServiceObjects,
@@ -205,7 +207,7 @@ public class Mutation {
 			accountResource -> accountResource.deleteAccount(id));
 	}
 
-	@GraphQLField
+	@GraphQLInvokeDetached
 	public Response patchAccount(
 			@GraphQLName("id") Long id, @GraphQLName("account") Account account)
 		throws Exception {
@@ -216,7 +218,34 @@ public class Mutation {
 			accountResource -> accountResource.patchAccount(id, account));
 	}
 
+	@GraphQLInvokeDetached
+	public Response deleteAccountAddress(@GraphQLName("id") Long id)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_accountAddressResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountAddressResource ->
+				accountAddressResource.deleteAccountAddress(id));
+	}
+
 	@GraphQLField
+	@GraphQLInvokeDetached
+	public AccountAddress postAccountByExternalReferenceCodeAccountAddress(
+			@GraphQLName("externalReferenceCode") String externalReferenceCode,
+			@GraphQLName("accountAddress") AccountAddress accountAddress)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_accountAddressResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountAddressResource ->
+				accountAddressResource.
+					postAccountByExternalReferenceCodeAccountAddress(
+						externalReferenceCode, accountAddress));
+	}
+
+	@GraphQLInvokeDetached
 	public Response deleteAccountAddressByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode)
 		throws Exception {
@@ -230,7 +259,7 @@ public class Mutation {
 						externalReferenceCode));
 	}
 
-	@GraphQLField
+	@GraphQLInvokeDetached
 	public Response patchAccountAddressByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("accountAddress") AccountAddress accountAddress)
@@ -246,33 +275,8 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Response deleteAccountAddress(@GraphQLName("id") Long id)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_accountAddressResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			accountAddressResource ->
-				accountAddressResource.deleteAccountAddress(id));
-	}
-
-	@GraphQLField
-	public AccountAddress createAccountByExternalReferenceCodeAccountAddress(
-			@GraphQLName("externalReferenceCode") String externalReferenceCode,
-			@GraphQLName("accountAddress") AccountAddress accountAddress)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_accountAddressResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			accountAddressResource ->
-				accountAddressResource.
-					postAccountByExternalReferenceCodeAccountAddress(
-						externalReferenceCode, accountAddress));
-	}
-
-	@GraphQLField
-	public AccountAddress createAccountIdAccountAddress(
+	@GraphQLInvokeDetached
+	public AccountAddress postAccountIdAccountAddress(
 			@GraphQLName("id") Long id,
 			@GraphQLName("accountAddress") AccountAddress accountAddress)
 		throws Exception {
@@ -286,7 +290,8 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public AccountGroup createAccountGroup(
+	@GraphQLInvokeDetached
+	public AccountGroup postAccountGroup(
 			@GraphQLName("accountGroup") AccountGroup accountGroup)
 		throws Exception {
 
@@ -297,7 +302,7 @@ public class Mutation {
 				accountGroup));
 	}
 
-	@GraphQLField
+	@GraphQLInvokeDetached
 	public Response deleteAccountGroupByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode)
 		throws Exception {
@@ -310,7 +315,7 @@ public class Mutation {
 					externalReferenceCode));
 	}
 
-	@GraphQLField
+	@GraphQLInvokeDetached
 	public Response patchAccountGroupByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("accountGroup") AccountGroup accountGroup)
@@ -324,7 +329,7 @@ public class Mutation {
 					externalReferenceCode, accountGroup));
 	}
 
-	@GraphQLField
+	@GraphQLInvokeDetached
 	public Response deleteAccountGroup(@GraphQLName("id") Long id)
 		throws Exception {
 
@@ -335,7 +340,7 @@ public class Mutation {
 				id));
 	}
 
-	@GraphQLField
+	@GraphQLInvokeDetached
 	public Response patchAccountGroup(
 			@GraphQLName("id") Long id,
 			@GraphQLName("accountGroup") AccountGroup accountGroup)
@@ -349,7 +354,8 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public AccountMember createAccountByExternalReferenceCodeAccountMember(
+	@GraphQLInvokeDetached
+	public AccountMember postAccountByExternalReferenceCodeAccountMember(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("accountMember") AccountMember accountMember)
 		throws Exception {
@@ -363,7 +369,7 @@ public class Mutation {
 						externalReferenceCode, accountMember));
 	}
 
-	@GraphQLField
+	@GraphQLInvokeDetached
 	public Response deleteAccountByExternalReferenceCodeAccountMember(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("userId") Long userId)
@@ -378,7 +384,7 @@ public class Mutation {
 						externalReferenceCode, userId));
 	}
 
-	@GraphQLField
+	@GraphQLInvokeDetached
 	public Response patchAccountByExternalReferenceCodeAccountMember(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("userId") Long userId,
@@ -395,7 +401,8 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public AccountMember createAccountIdAccountMember(
+	@GraphQLInvokeDetached
+	public AccountMember postAccountIdAccountMember(
 			@GraphQLName("id") Long id,
 			@GraphQLName("accountMember") AccountMember accountMember)
 		throws Exception {
@@ -408,7 +415,7 @@ public class Mutation {
 					id, accountMember));
 	}
 
-	@GraphQLField
+	@GraphQLInvokeDetached
 	public Response deleteAccountIdAccountMember(
 			@GraphQLName("id") Long id, @GraphQLName("userId") Long userId)
 		throws Exception {
@@ -420,7 +427,7 @@ public class Mutation {
 				accountMemberResource.deleteAccountIdAccountMember(id, userId));
 	}
 
-	@GraphQLField
+	@GraphQLInvokeDetached
 	public Response patchAccountIdAccountMember(
 			@GraphQLName("id") Long id, @GraphQLName("userId") Long userId,
 			@GraphQLName("accountMember") AccountMember accountMember)
@@ -435,8 +442,9 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	@GraphQLInvokeDetached
 	public AccountOrganization
-			createAccountByExternalReferenceCodeAccountOrganization(
+			postAccountByExternalReferenceCodeAccountOrganization(
 				@GraphQLName("externalReferenceCode") String
 					externalReferenceCode,
 				@GraphQLName("accountOrganization") AccountOrganization
@@ -452,7 +460,7 @@ public class Mutation {
 						externalReferenceCode, accountOrganization));
 	}
 
-	@GraphQLField
+	@GraphQLInvokeDetached
 	public Response deleteAccountByExternalReferenceCodeAccountOrganization(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("organizationId") Long organizationId)
@@ -468,7 +476,8 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public AccountOrganization createAccountIdAccountOrganization(
+	@GraphQLInvokeDetached
+	public AccountOrganization postAccountIdAccountOrganization(
 			@GraphQLName("id") Long id,
 			@GraphQLName("accountOrganization") AccountOrganization
 				accountOrganization)
@@ -482,7 +491,7 @@ public class Mutation {
 					id, accountOrganization));
 	}
 
-	@GraphQLField
+	@GraphQLInvokeDetached
 	public Response deleteAccountIdAccountOrganization(
 			@GraphQLName("id") Long id,
 			@GraphQLName("organizationId") Long organizationId)
@@ -497,7 +506,8 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public User createAccountByExternalReferenceCodeAccountMemberCreateUser(
+	@GraphQLInvokeDetached
+	public User postAccountByExternalReferenceCodeAccountMemberCreateUser(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("user") User user)
 		throws Exception {
@@ -552,77 +562,53 @@ public class Mutation {
 	private void _populateResourceContext(AccountResource accountResource)
 		throws Exception {
 
-		accountResource.setContextAcceptLanguage(_acceptLanguage);
-		accountResource.setContextCompany(_company);
-		accountResource.setContextHttpServletRequest(_httpServletRequest);
-		accountResource.setContextHttpServletResponse(_httpServletResponse);
-		accountResource.setContextUriInfo(_uriInfo);
-		accountResource.setContextUser(_user);
+		accountResource.setContextCompany(
+			CompanyLocalServiceUtil.getCompany(
+				CompanyThreadLocal.getCompanyId()));
 	}
 
 	private void _populateResourceContext(
 			AccountAddressResource accountAddressResource)
 		throws Exception {
 
-		accountAddressResource.setContextAcceptLanguage(_acceptLanguage);
-		accountAddressResource.setContextCompany(_company);
-		accountAddressResource.setContextHttpServletRequest(
-			_httpServletRequest);
-		accountAddressResource.setContextHttpServletResponse(
-			_httpServletResponse);
-		accountAddressResource.setContextUriInfo(_uriInfo);
-		accountAddressResource.setContextUser(_user);
+		accountAddressResource.setContextCompany(
+			CompanyLocalServiceUtil.getCompany(
+				CompanyThreadLocal.getCompanyId()));
 	}
 
 	private void _populateResourceContext(
 			AccountGroupResource accountGroupResource)
 		throws Exception {
 
-		accountGroupResource.setContextAcceptLanguage(_acceptLanguage);
-		accountGroupResource.setContextCompany(_company);
-		accountGroupResource.setContextHttpServletRequest(_httpServletRequest);
-		accountGroupResource.setContextHttpServletResponse(
-			_httpServletResponse);
-		accountGroupResource.setContextUriInfo(_uriInfo);
-		accountGroupResource.setContextUser(_user);
+		accountGroupResource.setContextCompany(
+			CompanyLocalServiceUtil.getCompany(
+				CompanyThreadLocal.getCompanyId()));
 	}
 
 	private void _populateResourceContext(
 			AccountMemberResource accountMemberResource)
 		throws Exception {
 
-		accountMemberResource.setContextAcceptLanguage(_acceptLanguage);
-		accountMemberResource.setContextCompany(_company);
-		accountMemberResource.setContextHttpServletRequest(_httpServletRequest);
-		accountMemberResource.setContextHttpServletResponse(
-			_httpServletResponse);
-		accountMemberResource.setContextUriInfo(_uriInfo);
-		accountMemberResource.setContextUser(_user);
+		accountMemberResource.setContextCompany(
+			CompanyLocalServiceUtil.getCompany(
+				CompanyThreadLocal.getCompanyId()));
 	}
 
 	private void _populateResourceContext(
 			AccountOrganizationResource accountOrganizationResource)
 		throws Exception {
 
-		accountOrganizationResource.setContextAcceptLanguage(_acceptLanguage);
-		accountOrganizationResource.setContextCompany(_company);
-		accountOrganizationResource.setContextHttpServletRequest(
-			_httpServletRequest);
-		accountOrganizationResource.setContextHttpServletResponse(
-			_httpServletResponse);
-		accountOrganizationResource.setContextUriInfo(_uriInfo);
-		accountOrganizationResource.setContextUser(_user);
+		accountOrganizationResource.setContextCompany(
+			CompanyLocalServiceUtil.getCompany(
+				CompanyThreadLocal.getCompanyId()));
 	}
 
 	private void _populateResourceContext(UserResource userResource)
 		throws Exception {
 
-		userResource.setContextAcceptLanguage(_acceptLanguage);
-		userResource.setContextCompany(_company);
-		userResource.setContextHttpServletRequest(_httpServletRequest);
-		userResource.setContextHttpServletResponse(_httpServletResponse);
-		userResource.setContextUriInfo(_uriInfo);
-		userResource.setContextUser(_user);
+		userResource.setContextCompany(
+			CompanyLocalServiceUtil.getCompany(
+				CompanyThreadLocal.getCompanyId()));
 	}
 
 	private static ComponentServiceObjects<AccountResource>
@@ -637,12 +623,5 @@ public class Mutation {
 		_accountOrganizationResourceComponentServiceObjects;
 	private static ComponentServiceObjects<UserResource>
 		_userResourceComponentServiceObjects;
-
-	private AcceptLanguage _acceptLanguage;
-	private com.liferay.portal.kernel.model.Company _company;
-	private com.liferay.portal.kernel.model.User _user;
-	private HttpServletRequest _httpServletRequest;
-	private HttpServletResponse _httpServletResponse;
-	private UriInfo _uriInfo;
 
 }

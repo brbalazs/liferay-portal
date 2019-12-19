@@ -15,9 +15,9 @@
 package com.liferay.headless.commerce.admin.account.internal.resource.v1_0;
 
 import com.liferay.headless.commerce.admin.account.dto.v1_0.AccountOrganization;
-import com.liferay.headless.commerce.admin.account.dto.v1_0.User;
 import com.liferay.headless.commerce.admin.account.resource.v1_0.AccountOrganizationResource;
 import com.liferay.petra.function.UnsafeFunction;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -29,13 +29,11 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Generated;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import javax.validation.constraints.NotNull;
 
@@ -59,11 +57,6 @@ import javax.ws.rs.core.UriInfo;
 public abstract class BaseAccountOrganizationResourceImpl
 	implements AccountOrganizationResource {
 
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-account/v1.0/accounts/by-externalReferenceCode/{externalReferenceCode}/accountOrganizations'  -u 'test@liferay.com:test'
-	 */
 	@Override
 	@GET
 	@Parameters(
@@ -74,7 +67,7 @@ public abstract class BaseAccountOrganizationResourceImpl
 		}
 	)
 	@Path(
-		"/accounts/by-externalReferenceCode/{externalReferenceCode}/accountOrganizations"
+		"/accounts/by-externalReferenceCode/{externalReferenceCode}/accountOrganizations/"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "AccountOrganization")})
@@ -89,11 +82,6 @@ public abstract class BaseAccountOrganizationResourceImpl
 		return Page.of(Collections.emptyList());
 	}
 
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-account/v1.0/accounts/by-externalReferenceCode/{externalReferenceCode}/accountOrganizations' -d $'{"accountId": ___, "name": ___, "organizationExternalReferenceCode": ___, "organizationId": ___, "treePath": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
@@ -103,7 +91,7 @@ public abstract class BaseAccountOrganizationResourceImpl
 		}
 	)
 	@Path(
-		"/accounts/by-externalReferenceCode/{externalReferenceCode}/accountOrganizations"
+		"/accounts/by-externalReferenceCode/{externalReferenceCode}/accountOrganizations/"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "AccountOrganization")})
@@ -118,11 +106,6 @@ public abstract class BaseAccountOrganizationResourceImpl
 		return new AccountOrganization();
 	}
 
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-account/v1.0/accounts/by-externalReferenceCode/{externalReferenceCode}/accountOrganizations/{organizationId}'  -u 'test@liferay.com:test'
-	 */
 	@Override
 	@DELETE
 	@Parameters(
@@ -148,11 +131,6 @@ public abstract class BaseAccountOrganizationResourceImpl
 		return responseBuilder.build();
 	}
 
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-account/v1.0/accounts/by-externalReferenceCode/{externalReferenceCode}/accountOrganizations/{organizationId}'  -u 'test@liferay.com:test'
-	 */
 	@Override
 	@GET
 	@Parameters(
@@ -178,11 +156,6 @@ public abstract class BaseAccountOrganizationResourceImpl
 		return new AccountOrganization();
 	}
 
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-account/v1.0/accounts/{id}/accountOrganizations'  -u 'test@liferay.com:test'
-	 */
 	@Override
 	@GET
 	@Parameters(
@@ -192,7 +165,7 @@ public abstract class BaseAccountOrganizationResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/accounts/{id}/accountOrganizations")
+	@Path("/accounts/{id}/accountOrganizations/")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "AccountOrganization")})
 	public Page<AccountOrganization> getAccountIdAccountOrganizationsPage(
@@ -203,16 +176,11 @@ public abstract class BaseAccountOrganizationResourceImpl
 		return Page.of(Collections.emptyList());
 	}
 
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-account/v1.0/accounts/{id}/accountOrganizations' -d $'{"accountId": ___, "name": ___, "organizationExternalReferenceCode": ___, "organizationId": ___, "treePath": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/accounts/{id}/accountOrganizations")
+	@Path("/accounts/{id}/accountOrganizations/")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "AccountOrganization")})
 	public AccountOrganization postAccountIdAccountOrganization(
@@ -223,11 +191,6 @@ public abstract class BaseAccountOrganizationResourceImpl
 		return new AccountOrganization();
 	}
 
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-account/v1.0/accounts/{id}/accountOrganizations/{organizationId}'  -u 'test@liferay.com:test'
-	 */
 	@Override
 	@DELETE
 	@Parameters(
@@ -250,11 +213,6 @@ public abstract class BaseAccountOrganizationResourceImpl
 		return responseBuilder.build();
 	}
 
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-account/v1.0/accounts/{id}/accountOrganizations/{organizationId}'  -u 'test@liferay.com:test'
-	 */
 	@Override
 	@GET
 	@Parameters(
@@ -275,36 +233,8 @@ public abstract class BaseAccountOrganizationResourceImpl
 		return new AccountOrganization();
 	}
 
-	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
-		this.contextAcceptLanguage = contextAcceptLanguage;
-	}
-
-	public void setContextCompany(
-		com.liferay.portal.kernel.model.Company contextCompany) {
-
+	public void setContextCompany(Company contextCompany) {
 		this.contextCompany = contextCompany;
-	}
-
-	public void setContextHttpServletRequest(
-		HttpServletRequest contextHttpServletRequest) {
-
-		this.contextHttpServletRequest = contextHttpServletRequest;
-	}
-
-	public void setContextHttpServletResponse(
-		HttpServletResponse contextHttpServletResponse) {
-
-		this.contextHttpServletResponse = contextHttpServletResponse;
-	}
-
-	public void setContextUriInfo(UriInfo contextUriInfo) {
-		this.contextUriInfo = contextUriInfo;
-	}
-
-	public void setContextUser(
-		com.liferay.portal.kernel.model.User contextUser) {
-
-		this.contextUser = contextUser;
 	}
 
 	protected void preparePatch(
@@ -313,7 +243,7 @@ public abstract class BaseAccountOrganizationResourceImpl
 	}
 
 	protected <T, R> List<R> transform(
-		java.util.Collection<T> collection,
+		Collection<T> collection,
 		UnsafeFunction<T, R, Exception> unsafeFunction) {
 
 		return TransformUtil.transform(collection, unsafeFunction);
@@ -327,7 +257,7 @@ public abstract class BaseAccountOrganizationResourceImpl
 	}
 
 	protected <T, R> R[] transformToArray(
-		java.util.Collection<T> collection,
+		Collection<T> collection,
 		UnsafeFunction<T, R, Exception> unsafeFunction, Class<?> clazz) {
 
 		return TransformUtil.transformToArray(
@@ -340,11 +270,13 @@ public abstract class BaseAccountOrganizationResourceImpl
 		return TransformUtil.transformToList(array, unsafeFunction);
 	}
 
+	@Context
 	protected AcceptLanguage contextAcceptLanguage;
-	protected com.liferay.portal.kernel.model.Company contextCompany;
-	protected com.liferay.portal.kernel.model.User contextUser;
-	protected HttpServletRequest contextHttpServletRequest;
-	protected HttpServletResponse contextHttpServletResponse;
+
+	@Context
+	protected Company contextCompany;
+
+	@Context
 	protected UriInfo contextUriInfo;
 
 }
