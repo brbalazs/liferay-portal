@@ -116,6 +116,28 @@ public class CommerceCartResource {
 
 	@Consumes(MediaType.APPLICATION_JSON)
 	@DELETE
+	@Path("/cart/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response cleanOrder(
+		@PathParam("id") long commerceOrderId,
+		@Context HttpServletRequest httpServletRequest) {
+
+		Cart cart = null;
+
+		try {
+			_commerceOrderItemService.deleteCommerceOrderItems(commerceOrderId);
+
+			cart = _getCart(commerceOrderId, httpServletRequest);
+		}
+		catch (Exception e) {
+			cart = new Cart(StringUtil.split(e.getLocalizedMessage()));
+		}
+
+		return getResponse(cart);
+	}
+
+	@Consumes(MediaType.APPLICATION_JSON)
+	@DELETE
 	@Path("/cart/cart-item/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteOrderItem(
@@ -179,39 +201,7 @@ public class CommerceCartResource {
 		Cart cart = null;
 
 		try {
-			CommerceOrder commerceOrder =
-				_commerceOrderService.getCommerceOrder(commerceOrderId);
-
-			CommerceChannel commerceChannel =
-				_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
-					commerceOrder.getGroupId());
-
-			CommerceContext commerceContext = _commerceContextFactory.create(
-				commerceOrder.getCompanyId(), commerceChannel.getSiteGroupId(),
-				_portal.getUserId(httpServletRequest),
-				commerceOrder.getCommerceOrderId(),
-				commerceOrder.getCommerceAccountId());
-
-			httpServletRequest.setAttribute(
-				CommerceWebKeys.COMMERCE_CONTEXT, commerceContext);
-
-			ThemeDisplay themeDisplay =
-				(ThemeDisplay)httpServletRequest.getAttribute(
-					WebKeys.THEME_DISPLAY);
-
-			themeDisplay.setScopeGroupId(commerceChannel.getSiteGroupId());
-
-			PortletURL portletURL =
-				_commerceOrderHttpHelper.getCommerceCartPortletURL(
-					themeDisplay.getScopeGroupId(), httpServletRequest,
-					commerceOrder);
-
-			boolean valid = _commerceOrderValidatorRegistry.isValid(
-				themeDisplay.getLocale(), commerceOrder);
-
-			cart = _commerceCartResourceUtil.getCart(
-				commerceOrderId, portletURL.toString(),
-				themeDisplay.getLocale(), commerceContext, valid);
+			cart = _getCart(commerceOrderId, httpServletRequest);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -433,6 +423,45 @@ public class CommerceCartResource {
 		return Response.status(
 			Response.Status.NOT_FOUND
 		).build();
+	}
+
+	private Cart _getCart(
+			long commerceOrderId, HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
+			commerceOrderId);
+
+		CommerceChannel commerceChannel =
+			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
+				commerceOrder.getGroupId());
+
+		CommerceContext commerceContext = _commerceContextFactory.create(
+			commerceOrder.getCompanyId(), commerceChannel.getSiteGroupId(),
+			_portal.getUserId(httpServletRequest),
+			commerceOrder.getCommerceOrderId(),
+			commerceOrder.getCommerceAccountId());
+
+		httpServletRequest.setAttribute(
+			CommerceWebKeys.COMMERCE_CONTEXT, commerceContext);
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
+		themeDisplay.setScopeGroupId(commerceChannel.getSiteGroupId());
+
+		PortletURL portletURL =
+			_commerceOrderHttpHelper.getCommerceCartPortletURL(
+				themeDisplay.getScopeGroupId(), httpServletRequest,
+				commerceOrder);
+
+		boolean valid = _commerceOrderValidatorRegistry.isValid(
+			themeDisplay.getLocale(), commerceOrder);
+
+		return _commerceCartResourceUtil.getCart(
+			commerceOrderId, portletURL.toString(), themeDisplay.getLocale(),
+			commerceContext, valid);
 	}
 
 	private String[] _getCommerceOrderValidatorResultsMessages(
