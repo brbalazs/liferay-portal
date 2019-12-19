@@ -105,8 +105,11 @@ public class OrderTransitionsTag extends IncludeTag {
 	protected void cleanUp() {
 		super.cleanUp();
 
+		_commerceOrder = null;
 		_commerceOrderId = 0;
+		_commerceOrderTransitionOVPs = null;
 		_cssClass = null;
+		_pathThemeImages = null;
 	}
 
 	@Override

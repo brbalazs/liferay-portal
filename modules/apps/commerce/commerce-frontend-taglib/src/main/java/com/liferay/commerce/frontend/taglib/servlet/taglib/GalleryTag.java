@@ -66,7 +66,9 @@ public class GalleryTag extends IncludeTag {
 	protected void cleanUp() {
 		super.cleanUp();
 
+		_cpContentHelper = null;
 		_cpDefinitionId = 0;
+		_images = null;
 	}
 
 	@Override
