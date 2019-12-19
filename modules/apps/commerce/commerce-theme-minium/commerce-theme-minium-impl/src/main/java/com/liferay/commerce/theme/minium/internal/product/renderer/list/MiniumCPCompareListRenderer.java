@@ -154,10 +154,9 @@ public class MiniumCPCompareListRenderer implements CPContentListRenderer {
 		editCompareProductActionURL.setParameter(
 			ActionRequest.ACTION_NAME, "editCompareProduct");
 
-		ComponentDescriptor testDescriptor = new ComponentDescriptor(
+		ComponentDescriptor componentDescriptor = new ComponentDescriptor(
 			"ProductsCompare.render",
-			"commerce-frontend-taglib/products_compare/ProductsCompare.es",
-			null, null);
+			"commerce-frontend-taglib/products_compare/ProductsCompare.es");
 
 		Map<String, Object> context = new HashMap<>();
 
@@ -182,7 +181,8 @@ public class MiniumCPCompareListRenderer implements CPContentListRenderer {
 		context.put("products", products);
 
 		_soyComponentRenderer.renderSoyComponent(
-			httpServletRequest, httpServletResponse, testDescriptor, context);
+			httpServletRequest, httpServletResponse, componentDescriptor,
+			context);
 	}
 
 	@Reference
