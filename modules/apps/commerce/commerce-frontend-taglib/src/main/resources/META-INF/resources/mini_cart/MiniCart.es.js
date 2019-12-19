@@ -29,6 +29,9 @@ class Cart extends Component {
 		this._refreshCartUsingData = this._refreshCartUsingData.bind(this);
 		this.reset = this.reset.bind(this);
 		this._setAndRefreshOrder = this._setAndRefreshOrder.bind(this);
+
+		this.flushCartUrl = `${this.cartAPI}/${this.orderId}?commerceAccountId=${this.commerceAccountId}&
+			groupId=${themeDisplay.getScopeGroupId()}&p_auth=${Liferay.authToken}`;
 	}
 
 	_handleClickOutside(e) {
@@ -259,10 +262,6 @@ class Cart extends Component {
 	}
 
 	_handleDeleteAllItems({products, summary}) {
-		if (!!products) {
-			throw new Error('Unable to empty the cart');
-		}
-
 		this.products = products;
 		this.summary = Object.assign({},
 			this.summary,
@@ -513,7 +512,7 @@ Cart.STATE = {
 	valid: Config.bool(),
 	disabled: Config.bool().value(false),
 	displayDiscountLevels: Config.bool().value(false),
-	flushCartUrl: Config.string().value('test'),
+	flushCartUrl: Config.string(),
 	pendingOperations: Config.array().value(
 		[]
 	),
