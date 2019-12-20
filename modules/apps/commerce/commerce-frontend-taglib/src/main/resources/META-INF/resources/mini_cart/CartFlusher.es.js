@@ -53,7 +53,7 @@ class CartFlusher extends Component {
 				if (success && (!products.length || !products)) {
 					this.emit('deleteAllItems', {products: null, summary});
 				} else {
-					throw new Error(Liferay.Language.get('unable-to-empty-cart'));
+					throw new Error(Liferay.Language.get('unable-to-empty-the-cart'));
 				}
 			})
 			.catch(e => {
