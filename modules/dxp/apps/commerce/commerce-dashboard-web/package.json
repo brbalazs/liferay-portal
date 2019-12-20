@@ -5,8 +5,7 @@
 	"name": "commerce-dashboard-web",
 	"scripts": {
 		"build": "liferay-npm-scripts build",
-		"checkFormat": "liferay-npm-scripts check",
-		"format": "liferay-npm-scripts fix"
+		"checkFormat": "liferay-npm-scripts check"
 	},
 	"version": "1.0.18"
 }

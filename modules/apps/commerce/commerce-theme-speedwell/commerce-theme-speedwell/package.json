@@ -13,8 +13,7 @@
 	"name": "speedwell-theme",
 	"scripts": {
 		"build": "liferay-npm-scripts theme build",
-		"checkFormat": "liferay-npm-scripts check",
-		"format": "liferay-npm-scripts fix"
+		"checkFormat": "liferay-npm-scripts check"
 	},
 	"version": "1.0.13"
 }
