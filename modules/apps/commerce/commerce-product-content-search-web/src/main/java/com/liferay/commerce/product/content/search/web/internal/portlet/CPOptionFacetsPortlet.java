@@ -128,6 +128,31 @@ public class CPOptionFacetsPortlet
 				portletSharedSearchSettings.addFacet(
 					serializableMultiValueFacet);
 			}
+
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay)renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+
+			long commerceChannelGroupId =
+				_commerceChannelLocalService.
+					getCommerceChannelGroupIdBySiteGroupId(
+						themeDisplay.getScopeGroupId());
+
+			if (commerceChannelGroupId > 0) {
+				searchContext.setAttribute(
+					CPField.CHANNEL_GROUP_ID, commerceChannelGroupId);
+				searchContext.setAttribute("secure", Boolean.TRUE);
+
+				CommerceAccount commerceAccount =
+					_commerceAccountHelper.getCurrentCommerceAccount(
+						commerceChannelGroupId, themeDisplay.getRequest());
+
+				long[] commerceAccountGroupIds =
+					_commerceAccountHelper.getCommerceAccountGroupIds(
+						commerceAccount.getCommerceAccountId());
+
+				searchContext.setAttribute(
+					"commerceAccountGroupIds", commerceAccountGroupIds);
+			}
 		}
 		catch (Exception e) {
 			_log.error(e, e);
