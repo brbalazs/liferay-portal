@@ -45,6 +45,5 @@
   },
   "ignore": [
     "**\/dev-build"
-  ],
-  "preset": "liferay-npm-bundler-preset-liferay-dev"
+  ]
 }
