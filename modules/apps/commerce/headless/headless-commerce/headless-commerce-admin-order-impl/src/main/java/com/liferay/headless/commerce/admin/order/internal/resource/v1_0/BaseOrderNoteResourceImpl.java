@@ -171,9 +171,7 @@ public abstract class BaseOrderNoteResourceImpl implements OrderNoteResource {
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path(
-		"/orders/by-externalReferenceCode/{externalReferenceCode}/orderNotes/"
-	)
+	@Path("/orders/by-externalReferenceCode/{externalReferenceCode}/orderNotes")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "OrderNote")})
 	public Page<OrderNote> getOrderByExternalReferenceCodeOrderNotesPage(
@@ -193,9 +191,7 @@ public abstract class BaseOrderNoteResourceImpl implements OrderNoteResource {
 			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
 		}
 	)
-	@Path(
-		"/orders/by-externalReferenceCode/{externalReferenceCode}/orderNotes/"
-	)
+	@Path("/orders/by-externalReferenceCode/{externalReferenceCode}/orderNotes")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "OrderNote")})
 	public OrderNote postOrderByExternalReferenceCodeOrderNote(
@@ -216,7 +212,7 @@ public abstract class BaseOrderNoteResourceImpl implements OrderNoteResource {
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/orders/{id}/orderNotes/")
+	@Path("/orders/{id}/orderNotes")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "OrderNote")})
 	public Page<OrderNote> getOrderIdOrderNotesPage(
@@ -231,7 +227,7 @@ public abstract class BaseOrderNoteResourceImpl implements OrderNoteResource {
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/orders/{id}/orderNotes/")
+	@Path("/orders/{id}/orderNotes")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "OrderNote")})
 	public OrderNote postOrderIdOrderNote(

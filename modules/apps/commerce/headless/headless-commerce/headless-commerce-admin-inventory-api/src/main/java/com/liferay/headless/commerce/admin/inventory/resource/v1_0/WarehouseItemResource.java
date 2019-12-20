@@ -36,30 +36,6 @@ import javax.ws.rs.core.Response;
 @Generated("")
 public interface WarehouseItemResource {
 
-	public Page<WarehouseItem> getWarehousIdWarehouseItemsPage(
-			Long id, Pagination pagination)
-		throws Exception;
-
-	public WarehouseItem postWarehousIdWarehouseItem(
-			Long id, WarehouseItem warehouseItem)
-		throws Exception;
-
-	public Page<WarehouseItem>
-			getWarehousByExternalReferenceCodeWarehouseItemsPage(
-				String externalReferenceCode, Pagination pagination)
-		throws Exception;
-
-	public WarehouseItem postWarehousByExternalReferenceCodeWarehouseItem(
-			String externalReferenceCode, WarehouseItem warehouseItem)
-		throws Exception;
-
-	public Response deleteWarehouseItem(Long id) throws Exception;
-
-	public WarehouseItem getWarehouseItem(Long id) throws Exception;
-
-	public Response patchWarehouseItem(Long id, WarehouseItem warehouseItem)
-		throws Exception;
-
 	public Response deleteWarehouseItemByExternalReferenceCode(
 			String externalReferenceCode)
 		throws Exception;
@@ -74,6 +50,30 @@ public interface WarehouseItemResource {
 
 	public WarehouseItem postWarehouseItemByExternalReferenceCode(
 			String externalReferenceCode, WarehouseItem warehouseItem)
+		throws Exception;
+
+	public Response deleteWarehouseItem(Long id) throws Exception;
+
+	public WarehouseItem getWarehouseItem(Long id) throws Exception;
+
+	public Response patchWarehouseItem(Long id, WarehouseItem warehouseItem)
+		throws Exception;
+
+	public Page<WarehouseItem>
+			getWarehousByExternalReferenceCodeWarehouseItemsPage(
+				String externalReferenceCode, Pagination pagination)
+		throws Exception;
+
+	public WarehouseItem postWarehousByExternalReferenceCodeWarehouseItem(
+			String externalReferenceCode, WarehouseItem warehouseItem)
+		throws Exception;
+
+	public Page<WarehouseItem> getWarehousIdWarehouseItemsPage(
+			Long id, Pagination pagination)
+		throws Exception;
+
+	public WarehouseItem postWarehousIdWarehouseItem(
+			Long id, WarehouseItem warehouseItem)
 		throws Exception;
 
 	public Page<WarehouseItem> getWarehouseItemsUpdatedPage(

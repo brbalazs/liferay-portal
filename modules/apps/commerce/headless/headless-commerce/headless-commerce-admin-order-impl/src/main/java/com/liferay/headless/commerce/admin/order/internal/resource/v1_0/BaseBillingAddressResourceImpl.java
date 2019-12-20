@@ -61,7 +61,7 @@ public abstract class BaseBillingAddressResourceImpl
 		}
 	)
 	@Path(
-		"/orders/by-externalReferenceCode/{externalReferenceCode}/billingAddress/"
+		"/orders/by-externalReferenceCode/{externalReferenceCode}/billingAddress"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "BillingAddress")})
@@ -82,7 +82,7 @@ public abstract class BaseBillingAddressResourceImpl
 		}
 	)
 	@Path(
-		"/orders/by-externalReferenceCode/{externalReferenceCode}/billingAddress/"
+		"/orders/by-externalReferenceCode/{externalReferenceCode}/billingAddress"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "BillingAddress")})
@@ -100,7 +100,7 @@ public abstract class BaseBillingAddressResourceImpl
 	@Override
 	@GET
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/orders/{id}/billingAddress/")
+	@Path("/orders/{id}/billingAddress")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "BillingAddress")})
 	public BillingAddress getOrderIdBillingAddress(
@@ -114,7 +114,7 @@ public abstract class BaseBillingAddressResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@PATCH
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/orders/{id}/billingAddress/")
+	@Path("/orders/{id}/billingAddress")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "BillingAddress")})
 	public Response patchOrderIdBillingAddress(

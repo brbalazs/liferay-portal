@@ -34,15 +34,6 @@ import javax.ws.rs.core.Response;
 @Generated("")
 public interface AccountMemberResource {
 
-	public Page<AccountMember>
-			getAccountByExternalReferenceCodeAccountMembersPage(
-				String externalReferenceCode, Pagination pagination)
-		throws Exception;
-
-	public AccountMember postAccountByExternalReferenceCodeAccountMember(
-			String externalReferenceCode, AccountMember accountMember)
-		throws Exception;
-
 	public Response deleteAccountByExternalReferenceCodeAccountMember(
 			String externalReferenceCode, Long userId)
 		throws Exception;
@@ -56,12 +47,13 @@ public interface AccountMemberResource {
 			AccountMember accountMember)
 		throws Exception;
 
-	public Page<AccountMember> getAccountIdAccountMembersPage(
-			Long id, Pagination pagination)
+	public Page<AccountMember>
+			getAccountByExternalReferenceCodeAccountMembersPage(
+				String externalReferenceCode, Pagination pagination)
 		throws Exception;
 
-	public AccountMember postAccountIdAccountMember(
-			Long id, AccountMember accountMember)
+	public AccountMember postAccountByExternalReferenceCodeAccountMember(
+			String externalReferenceCode, AccountMember accountMember)
 		throws Exception;
 
 	public Response deleteAccountIdAccountMember(Long id, Long userId)
@@ -72,6 +64,14 @@ public interface AccountMemberResource {
 
 	public Response patchAccountIdAccountMember(
 			Long id, Long userId, AccountMember accountMember)
+		throws Exception;
+
+	public Page<AccountMember> getAccountIdAccountMembersPage(
+			Long id, Pagination pagination)
+		throws Exception;
+
+	public AccountMember postAccountIdAccountMember(
+			Long id, AccountMember accountMember)
 		throws Exception;
 
 	public void setContextCompany(Company contextCompany);

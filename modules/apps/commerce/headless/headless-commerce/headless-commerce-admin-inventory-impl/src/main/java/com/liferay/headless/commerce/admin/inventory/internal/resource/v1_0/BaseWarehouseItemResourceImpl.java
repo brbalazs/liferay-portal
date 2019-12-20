@@ -60,63 +60,63 @@ public abstract class BaseWarehouseItemResourceImpl
 	implements WarehouseItemResource {
 
 	@Override
-	@GET
+	@DELETE
 	@Parameters(
 		value = {
-			@Parameter(in = ParameterIn.PATH, name = "id"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
 		}
 	)
-	@Path("/warehouses/{id}/warehouseItems/")
+	@Path("/warehouseItems/by-externalReferenceCode/{externalReferenceCode}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WarehouseItem")})
-	public Page<WarehouseItem> getWarehousIdWarehouseItemsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			@Context Pagination pagination)
+	public Response deleteWarehouseItemByExternalReferenceCode(
+			@NotNull @Parameter(hidden = true)
+			@PathParam("externalReferenceCode") String externalReferenceCode)
 		throws Exception {
 
-		return Page.of(Collections.emptyList());
+		Response.ResponseBuilder responseBuilder = Response.ok();
+
+		return responseBuilder.build();
 	}
 
 	@Override
-	@Consumes({"application/json", "application/xml"})
-	@POST
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/warehouses/{id}/warehouseItems/")
+	@GET
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
+		}
+	)
+	@Path("/warehouseItems/by-externalReferenceCode/{externalReferenceCode}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WarehouseItem")})
-	public WarehouseItem postWarehousIdWarehouseItem(
-			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
-			WarehouseItem warehouseItem)
+	public WarehouseItem getWarehouseItemByExternalReferenceCode(
+			@NotNull @Parameter(hidden = true)
+			@PathParam("externalReferenceCode") String externalReferenceCode)
 		throws Exception {
 
 		return new WarehouseItem();
 	}
 
 	@Override
-	@GET
+	@Consumes({"application/json", "application/xml"})
+	@PATCH
 	@Parameters(
 		value = {
-			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
 		}
 	)
-	@Path(
-		"/warehouses/by-externalReferenceCode/{externalReferenceCode}/warehouseItems/"
-	)
+	@Path("/warehouseItems/by-externalReferenceCode/{externalReferenceCode}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WarehouseItem")})
-	public Page<WarehouseItem>
-			getWarehousByExternalReferenceCodeWarehouseItemsPage(
-				@NotNull @Parameter(hidden = true)
-				@PathParam("externalReferenceCode") String
-					externalReferenceCode,
-				@Context Pagination pagination)
+	public Response patchWarehouseItemByExternalReferenceCode(
+			@NotNull @Parameter(hidden = true)
+			@PathParam("externalReferenceCode") String externalReferenceCode,
+			WarehouseItem warehouseItem)
 		throws Exception {
 
-		return Page.of(Collections.emptyList());
+		Response.ResponseBuilder responseBuilder = Response.ok();
+
+		return responseBuilder.build();
 	}
 
 	@Override
@@ -127,12 +127,10 @@ public abstract class BaseWarehouseItemResourceImpl
 			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
 		}
 	)
-	@Path(
-		"/warehouses/by-externalReferenceCode/{externalReferenceCode}/warehouseItems/"
-	)
+	@Path("/warehouseItems/by-externalReferenceCode/{externalReferenceCode}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WarehouseItem")})
-	public WarehouseItem postWarehousByExternalReferenceCodeWarehouseItem(
+	public WarehouseItem postWarehouseItemByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode") String externalReferenceCode,
 			WarehouseItem warehouseItem)
@@ -187,63 +185,28 @@ public abstract class BaseWarehouseItemResourceImpl
 	}
 
 	@Override
-	@DELETE
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
-		}
-	)
-	@Path("/warehouseItems/by-externalReferenceCode/{externalReferenceCode}/")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "WarehouseItem")})
-	public Response deleteWarehouseItemByExternalReferenceCode(
-			@NotNull @Parameter(hidden = true)
-			@PathParam("externalReferenceCode") String externalReferenceCode)
-		throws Exception {
-
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
-	}
-
-	@Override
 	@GET
 	@Parameters(
 		value = {
-			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/warehouseItems/by-externalReferenceCode/{externalReferenceCode}/")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "WarehouseItem")})
-	public WarehouseItem getWarehouseItemByExternalReferenceCode(
-			@NotNull @Parameter(hidden = true)
-			@PathParam("externalReferenceCode") String externalReferenceCode)
-		throws Exception {
-
-		return new WarehouseItem();
-	}
-
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@PATCH
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
-		}
+	@Path(
+		"/warehouses/by-externalReferenceCode/{externalReferenceCode}/warehouseItems"
 	)
-	@Path("/warehouseItems/by-externalReferenceCode/{externalReferenceCode}/")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WarehouseItem")})
-	public Response patchWarehouseItemByExternalReferenceCode(
-			@NotNull @Parameter(hidden = true)
-			@PathParam("externalReferenceCode") String externalReferenceCode,
-			WarehouseItem warehouseItem)
+	public Page<WarehouseItem>
+			getWarehousByExternalReferenceCodeWarehouseItemsPage(
+				@NotNull @Parameter(hidden = true)
+				@PathParam("externalReferenceCode") String
+					externalReferenceCode,
+				@Context Pagination pagination)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
+		return Page.of(Collections.emptyList());
 	}
 
 	@Override
@@ -254,12 +217,49 @@ public abstract class BaseWarehouseItemResourceImpl
 			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
 		}
 	)
-	@Path("/warehouseItems/by-externalReferenceCode/{externalReferenceCode}/")
+	@Path(
+		"/warehouses/by-externalReferenceCode/{externalReferenceCode}/warehouseItems"
+	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "WarehouseItem")})
-	public WarehouseItem postWarehouseItemByExternalReferenceCode(
+	public WarehouseItem postWarehousByExternalReferenceCodeWarehouseItem(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode") String externalReferenceCode,
+			WarehouseItem warehouseItem)
+		throws Exception {
+
+		return new WarehouseItem();
+	}
+
+	@Override
+	@GET
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "id"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/warehouses/{id}/warehouseItems")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "WarehouseItem")})
+	public Page<WarehouseItem> getWarehousIdWarehouseItemsPage(
+			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
+			@Context Pagination pagination)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@POST
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
+	@Path("/warehouses/{id}/warehouseItems")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "WarehouseItem")})
+	public WarehouseItem postWarehousIdWarehouseItem(
+			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
 			WarehouseItem warehouseItem)
 		throws Exception {
 

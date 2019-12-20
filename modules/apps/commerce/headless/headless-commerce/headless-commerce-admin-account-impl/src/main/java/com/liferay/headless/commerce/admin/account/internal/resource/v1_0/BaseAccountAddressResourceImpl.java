@@ -60,6 +60,66 @@ public abstract class BaseAccountAddressResourceImpl
 
 	@Override
 	@DELETE
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
+		}
+	)
+	@Path("/accountAddresses/by-externalReferenceCode/{externalReferenceCode}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "AccountAddress")})
+	public Response deleteAccountAddressByExternalReferenceCode(
+			@NotNull @Parameter(hidden = true)
+			@PathParam("externalReferenceCode") String externalReferenceCode)
+		throws Exception {
+
+		Response.ResponseBuilder responseBuilder = Response.ok();
+
+		return responseBuilder.build();
+	}
+
+	@Override
+	@GET
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
+		}
+	)
+	@Path("/accountAddresses/by-externalReferenceCode/{externalReferenceCode}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "AccountAddress")})
+	public AccountAddress getAccountAddressByExternalReferenceCode(
+			@NotNull @Parameter(hidden = true)
+			@PathParam("externalReferenceCode") String externalReferenceCode)
+		throws Exception {
+
+		return new AccountAddress();
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@PATCH
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
+		}
+	)
+	@Path("/accountAddresses/by-externalReferenceCode/{externalReferenceCode}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "AccountAddress")})
+	public Response patchAccountAddressByExternalReferenceCode(
+			@NotNull @Parameter(hidden = true)
+			@PathParam("externalReferenceCode") String externalReferenceCode,
+			AccountAddress accountAddress)
+		throws Exception {
+
+		Response.ResponseBuilder responseBuilder = Response.ok();
+
+		return responseBuilder.build();
+	}
+
+	@Override
+	@DELETE
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
 	@Path("/accountAddresses/{id}")
 	@Produces({"application/json", "application/xml"})
@@ -83,7 +143,7 @@ public abstract class BaseAccountAddressResourceImpl
 		}
 	)
 	@Path(
-		"/accounts/by-externalReferenceCode/{externalReferenceCode}/accountAddresses/"
+		"/accounts/by-externalReferenceCode/{externalReferenceCode}/accountAddresses"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "AccountAddress")})
@@ -107,7 +167,7 @@ public abstract class BaseAccountAddressResourceImpl
 		}
 	)
 	@Path(
-		"/accounts/by-externalReferenceCode/{externalReferenceCode}/accountAddresses/"
+		"/accounts/by-externalReferenceCode/{externalReferenceCode}/accountAddresses"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "AccountAddress")})
@@ -121,66 +181,6 @@ public abstract class BaseAccountAddressResourceImpl
 	}
 
 	@Override
-	@DELETE
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
-		}
-	)
-	@Path("/accountAddresses/by-externalReferenceCode/{externalReferenceCode}/")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "AccountAddress")})
-	public Response deleteAccountAddressByExternalReferenceCode(
-			@NotNull @Parameter(hidden = true)
-			@PathParam("externalReferenceCode") String externalReferenceCode)
-		throws Exception {
-
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
-	}
-
-	@Override
-	@GET
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
-		}
-	)
-	@Path("/accountAddresses/by-externalReferenceCode/{externalReferenceCode}/")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "AccountAddress")})
-	public AccountAddress getAccountAddressByExternalReferenceCode(
-			@NotNull @Parameter(hidden = true)
-			@PathParam("externalReferenceCode") String externalReferenceCode)
-		throws Exception {
-
-		return new AccountAddress();
-	}
-
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@PATCH
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
-		}
-	)
-	@Path("/accountAddresses/by-externalReferenceCode/{externalReferenceCode}/")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "AccountAddress")})
-	public Response patchAccountAddressByExternalReferenceCode(
-			@NotNull @Parameter(hidden = true)
-			@PathParam("externalReferenceCode") String externalReferenceCode,
-			AccountAddress accountAddress)
-		throws Exception {
-
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
-	}
-
-	@Override
 	@GET
 	@Parameters(
 		value = {
@@ -189,7 +189,7 @@ public abstract class BaseAccountAddressResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/accounts/{id}/accountAddresses/")
+	@Path("/accounts/{id}/accountAddresses")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "AccountAddress")})
 	public Page<AccountAddress> getAccountIdAccountAddressesPage(
@@ -204,7 +204,7 @@ public abstract class BaseAccountAddressResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/accounts/{id}/accountAddresses/")
+	@Path("/accounts/{id}/accountAddresses")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "AccountAddress")})
 	public AccountAddress postAccountIdAccountAddress(

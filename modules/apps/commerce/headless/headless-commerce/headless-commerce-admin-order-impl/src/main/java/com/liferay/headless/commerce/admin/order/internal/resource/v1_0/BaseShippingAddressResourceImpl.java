@@ -61,7 +61,7 @@ public abstract class BaseShippingAddressResourceImpl
 		}
 	)
 	@Path(
-		"/orders/by-externalReferenceCode/{externalReferenceCode}/shippingAddress/"
+		"/orders/by-externalReferenceCode/{externalReferenceCode}/shippingAddress"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ShippingAddress")})
@@ -82,7 +82,7 @@ public abstract class BaseShippingAddressResourceImpl
 		}
 	)
 	@Path(
-		"/orders/by-externalReferenceCode/{externalReferenceCode}/shippingAddress/"
+		"/orders/by-externalReferenceCode/{externalReferenceCode}/shippingAddress"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ShippingAddress")})
@@ -100,7 +100,7 @@ public abstract class BaseShippingAddressResourceImpl
 	@Override
 	@GET
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/orders/{id}/shippingAddress/")
+	@Path("/orders/{id}/shippingAddress")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ShippingAddress")})
 	public ShippingAddress getOrderIdShippingAddress(
@@ -114,7 +114,7 @@ public abstract class BaseShippingAddressResourceImpl
 	@Consumes({"application/json", "application/xml"})
 	@PATCH
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/orders/{id}/shippingAddress/")
+	@Path("/orders/{id}/shippingAddress")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ShippingAddress")})
 	public Response patchOrderIdShippingAddress(

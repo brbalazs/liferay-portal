@@ -45,12 +45,6 @@ public interface AccountResource {
 			String externalReferenceCode, Account account)
 		throws Exception;
 
-	public Page<Account> getAccountsPage(
-			Filter filter, Pagination pagination, Sort[] sorts)
-		throws Exception;
-
-	public Account postAccount(Account account) throws Exception;
-
 	public Response postAccountByExternalReferenceCodeLogo(
 			String externalReferenceCode, MultipartBody multipartBody)
 		throws Exception;
@@ -75,6 +69,12 @@ public interface AccountResource {
 	public Account getAccount(Long id) throws Exception;
 
 	public Response patchAccount(Long id, Account account) throws Exception;
+
+	public Page<Account> getAccountsPage(
+			Filter filter, Pagination pagination, Sort[] sorts)
+		throws Exception;
+
+	public Account postAccount(Account account) throws Exception;
 
 	public void setContextCompany(Company contextCompany);
 

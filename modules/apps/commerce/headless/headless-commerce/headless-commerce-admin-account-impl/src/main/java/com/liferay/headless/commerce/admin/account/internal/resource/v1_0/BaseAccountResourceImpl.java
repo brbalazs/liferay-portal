@@ -113,37 +113,6 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	}
 
 	@Override
-	@GET
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "filter"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize"),
-			@Parameter(in = ParameterIn.QUERY, name = "sort")
-		}
-	)
-	@Path("/accounts/")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Account")})
-	public Page<Account> getAccountsPage(
-			@Context Filter filter, @Context Pagination pagination,
-			@Context Sort[] sorts)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@POST
-	@Path("/accounts/")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Account")})
-	public Account postAccount(Account account) throws Exception {
-		return new Account();
-	}
-
-	@Override
 	@Consumes("multipart/form-data")
 	@POST
 	@Parameters(
@@ -151,7 +120,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
 		}
 	)
-	@Path("/accounts/by-externalReferenceCode/{externalReferenceCode}/logo/")
+	@Path("/accounts/by-externalReferenceCode/{externalReferenceCode}/logo")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public Response postAccountByExternalReferenceCodeLogo(
@@ -229,7 +198,7 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	@Consumes("multipart/form-data")
 	@POST
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/accounts/{id}/logo/")
+	@Path("/accounts/{id}/logo")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Account")})
 	public Response postAccountLogo(
@@ -285,6 +254,37 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 		Response.ResponseBuilder responseBuilder = Response.ok();
 
 		return responseBuilder.build();
+	}
+
+	@Override
+	@GET
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "filter"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize"),
+			@Parameter(in = ParameterIn.QUERY, name = "sort")
+		}
+	)
+	@Path("/accounts")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Account")})
+	public Page<Account> getAccountsPage(
+			@Context Filter filter, @Context Pagination pagination,
+			@Context Sort[] sorts)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@POST
+	@Path("/accounts")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Account")})
+	public Account postAccount(Account account) throws Exception {
+		return new Account();
 	}
 
 	public void setContextCompany(Company contextCompany) {

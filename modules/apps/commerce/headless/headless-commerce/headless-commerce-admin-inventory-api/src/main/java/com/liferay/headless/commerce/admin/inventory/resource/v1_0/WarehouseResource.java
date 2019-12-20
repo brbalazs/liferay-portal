@@ -36,13 +36,6 @@ import javax.ws.rs.core.Response;
 @Generated("")
 public interface WarehouseResource {
 
-	public Response deleteWarehousId(Long id) throws Exception;
-
-	public Warehouse getWarehousId(Long id) throws Exception;
-
-	public Response patchWarehousId(Long id, Warehouse warehouse)
-		throws Exception;
-
 	public Response deleteWarehousByExternalReferenceCode(
 			String externalReferenceCode)
 		throws Exception;
@@ -53,6 +46,13 @@ public interface WarehouseResource {
 
 	public Response patchWarehousByExternalReferenceCode(
 			String externalReferenceCode, Warehouse warehouse)
+		throws Exception;
+
+	public Response deleteWarehousId(Long id) throws Exception;
+
+	public Warehouse getWarehousId(Long id) throws Exception;
+
+	public Response patchWarehousId(Long id, Warehouse warehouse)
 		throws Exception;
 
 	public Page<Warehouse> getWarehousesPage(

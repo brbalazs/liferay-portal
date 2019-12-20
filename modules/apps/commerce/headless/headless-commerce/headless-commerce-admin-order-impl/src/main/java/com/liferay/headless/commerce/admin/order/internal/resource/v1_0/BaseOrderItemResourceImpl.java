@@ -171,9 +171,7 @@ public abstract class BaseOrderItemResourceImpl implements OrderItemResource {
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path(
-		"/orders/by-externalReferenceCode/{externalReferenceCode}/orderItems/"
-	)
+	@Path("/orders/by-externalReferenceCode/{externalReferenceCode}/orderItems")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "OrderItem")})
 	public Page<OrderItem> getOrderByExternalReferenceCodeOrderItemsPage(
@@ -193,9 +191,7 @@ public abstract class BaseOrderItemResourceImpl implements OrderItemResource {
 			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
 		}
 	)
-	@Path(
-		"/orders/by-externalReferenceCode/{externalReferenceCode}/orderItems/"
-	)
+	@Path("/orders/by-externalReferenceCode/{externalReferenceCode}/orderItems")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "OrderItem")})
 	public OrderItem postOrderByExternalReferenceCodeOrderItem(
@@ -216,7 +212,7 @@ public abstract class BaseOrderItemResourceImpl implements OrderItemResource {
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/orders/{id}/orderItems/")
+	@Path("/orders/{id}/orderItems")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "OrderItem")})
 	public Page<OrderItem> getOrderIdOrderItemsPage(
@@ -231,7 +227,7 @@ public abstract class BaseOrderItemResourceImpl implements OrderItemResource {
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/orders/{id}/orderItems/")
+	@Path("/orders/{id}/orderItems")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "OrderItem")})
 	public OrderItem postOrderIdOrderItem(

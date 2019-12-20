@@ -34,29 +34,6 @@ import javax.annotation.Generated;
 @Generated("")
 public interface AttachmentResource {
 
-	public Attachment postProductIdAttachmentByBase64(
-			Long id, AttachmentBase64 attachmentBase64)
-		throws Exception;
-
-	public Attachment postProductIdAttachmentByUrl(
-			Long id, AttachmentUrl attachmentUrl)
-		throws Exception;
-
-	public Page<Attachment> getProductIdAttachmentsPage(
-			Long id, Pagination pagination)
-		throws Exception;
-
-	public Attachment postProductIdAttachment(Long id, Attachment attachment)
-		throws Exception;
-
-	public Attachment postProductByExternalReferenceCodeAttachmentByBase64(
-			String externalReferenceCode, AttachmentBase64 attachmentBase64)
-		throws Exception;
-
-	public Attachment postProductByExternalReferenceCodeAttachmentByUrl(
-			String externalReferenceCode, AttachmentUrl attachmentUrl)
-		throws Exception;
-
 	public Page<Attachment> getProductByExternalReferenceCodeAttachmentsPage(
 			String externalReferenceCode, Pagination pagination)
 		throws Exception;
@@ -65,19 +42,12 @@ public interface AttachmentResource {
 			String externalReferenceCode, Attachment attachment)
 		throws Exception;
 
-	public Attachment postProductIdImageByBase64(
-			Long id, AttachmentBase64 attachmentBase64)
+	public Attachment postProductByExternalReferenceCodeAttachmentByBase64(
+			String externalReferenceCode, AttachmentBase64 attachmentBase64)
 		throws Exception;
 
-	public Attachment postProductIdImageByUrl(
-			Long id, AttachmentUrl attachmentUrl)
-		throws Exception;
-
-	public Page<Attachment> getProductIdImagesPage(
-			Long id, Pagination pagination)
-		throws Exception;
-
-	public Attachment postProductIdImage(Long id, Attachment attachment)
+	public Attachment postProductByExternalReferenceCodeAttachmentByUrl(
+			String externalReferenceCode, AttachmentUrl attachmentUrl)
 		throws Exception;
 
 	public Page<Attachment> getProductByExternalReferenceCodeImagesPage(
@@ -94,6 +64,36 @@ public interface AttachmentResource {
 
 	public Attachment postProductByExternalReferenceCodeImageByUrl(
 			String externalReferenceCode, AttachmentUrl attachmentUrl)
+		throws Exception;
+
+	public Page<Attachment> getProductIdAttachmentsPage(
+			Long id, Pagination pagination)
+		throws Exception;
+
+	public Attachment postProductIdAttachment(Long id, Attachment attachment)
+		throws Exception;
+
+	public Attachment postProductIdAttachmentByBase64(
+			Long id, AttachmentBase64 attachmentBase64)
+		throws Exception;
+
+	public Attachment postProductIdAttachmentByUrl(
+			Long id, AttachmentUrl attachmentUrl)
+		throws Exception;
+
+	public Page<Attachment> getProductIdImagesPage(
+			Long id, Pagination pagination)
+		throws Exception;
+
+	public Attachment postProductIdImage(Long id, Attachment attachment)
+		throws Exception;
+
+	public Attachment postProductIdImageByBase64(
+			Long id, AttachmentBase64 attachmentBase64)
+		throws Exception;
+
+	public Attachment postProductIdImageByUrl(
+			Long id, AttachmentUrl attachmentUrl)
 		throws Exception;
 
 	public void setContextCompany(Company contextCompany);

@@ -34,17 +34,6 @@ import javax.ws.rs.core.Response;
 @Generated("")
 public interface AccountAddressResource {
 
-	public Response deleteAccountAddress(Long id) throws Exception;
-
-	public Page<AccountAddress>
-			getAccountByExternalReferenceCodeAccountAddressesPage(
-				String externalReferenceCode, Pagination pagination)
-		throws Exception;
-
-	public AccountAddress postAccountByExternalReferenceCodeAccountAddress(
-			String externalReferenceCode, AccountAddress accountAddress)
-		throws Exception;
-
 	public Response deleteAccountAddressByExternalReferenceCode(
 			String externalReferenceCode)
 		throws Exception;
@@ -54,6 +43,17 @@ public interface AccountAddressResource {
 		throws Exception;
 
 	public Response patchAccountAddressByExternalReferenceCode(
+			String externalReferenceCode, AccountAddress accountAddress)
+		throws Exception;
+
+	public Response deleteAccountAddress(Long id) throws Exception;
+
+	public Page<AccountAddress>
+			getAccountByExternalReferenceCodeAccountAddressesPage(
+				String externalReferenceCode, Pagination pagination)
+		throws Exception;
+
+	public AccountAddress postAccountByExternalReferenceCodeAccountAddress(
 			String externalReferenceCode, AccountAddress accountAddress)
 		throws Exception;
 
