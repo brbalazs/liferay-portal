@@ -16,3 +16,9 @@ dependencies {
 	compileOnly project(":apps:commerce:headless:headless-commerce-core-api")
 	compileOnly project(":apps:commerce:headless:headless-commerce:headless-commerce-admin-inventory-api")
 }
+
+configurations.all {
+	resolutionStrategy {
+		force group: "com.liferay", name: "com.liferay.portal.tools.rest.builder", version: "1.0.22"
+	}
+}
