@@ -15,7 +15,7 @@
 	{foreach $field in $fields}
 		{let $variant: $field.type /}
 
-		<div class="clearfix {if not $field.visible}hide{/if} lfr-ddm-form-field-container">
+		<div class="clearfix {if not $field.visible}hide{/if} lfr-ddm-form-field-container" ref="{$field.name}">
 			{delcall ddm.field variant="$variant" data="$field" /}
 		</div>
 	{/foreach}

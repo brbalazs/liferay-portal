@@ -109,6 +109,16 @@ AUI.add(
 				return field;
 			},
 
+			getFieldContainer: function(name) {
+				var instance = this;
+
+				if (instance._metalComponent) {
+					return instance._metalComponent.refs[name];
+				}
+
+				return null;
+			},
+
 			getImmediateFields: function() {
 				var instance = this;
 

@@ -445,13 +445,27 @@ AUI.add(
 					_valueContainer: function() {
 						var instance = this;
 
-						var container = instance.fetchContainer();
+						var container;
 
-						if (!container) {
-							container = instance._createContainer();
+						var root = instance.getRoot();
+
+						if (root) {
+						var name = instance.get('context.name');
+
+							container = root.getFieldContainer(name);
+
+						if (container) {
+							return A.one(container);
+						}
 						}
 
+						container = instance.fetchContainer();
+
+						if (container) {
 						return container;
+						}
+
+						return instance._createContainer();
 					},
 
 					_valueInstanceId: function() {
