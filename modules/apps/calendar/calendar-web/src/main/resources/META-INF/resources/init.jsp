@@ -224,8 +224,6 @@ if (calendarDisplayContext != null) {
 
 TimeZone userTimeZone = TimeZone.getTimeZone(timeZoneId);
 
-TimeZone utcTimeZone = TimeZone.getTimeZone(StringPool.UTC);
-
 Format dateFormatLongDate = FastDateFormatFactoryUtil.getDate(FastDateFormatConstants.LONG, locale, userTimeZone);
 
 Format dateFormatTime = null;
