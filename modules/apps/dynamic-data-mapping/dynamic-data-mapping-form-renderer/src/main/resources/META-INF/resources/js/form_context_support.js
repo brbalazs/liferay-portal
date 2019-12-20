@@ -27,6 +27,7 @@ AUI.add(
 			},
 
 			fields: {
+				lazyAdd: false,
 				valueFn: '_valueFields'
 			},
 
