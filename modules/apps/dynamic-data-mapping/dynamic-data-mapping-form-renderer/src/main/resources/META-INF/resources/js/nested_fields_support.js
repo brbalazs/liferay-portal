@@ -85,6 +85,24 @@ AUI.add(
 				);
 			},
 
+			findNode: function(fn) {
+				var instance = this;
+
+				var _container = instance.get('container')._node;
+
+				var nodes = _container.querySelectorAll('.lfr-ddm-form-field-container');
+
+				for (var i = 0; i < nodes.length; i++) {
+					var qualifiedName = nodes[i].querySelector('.form-group').dataset.fieldname;
+
+					if (fn.call(instance, qualifiedName, nodes[i])) {
+						return A.one(nodes[i]);
+					}
+				}
+
+				return null;
+			},
+
 			getField: function(name, instanceId) {
 				var instance = this;
 

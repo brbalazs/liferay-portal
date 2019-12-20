@@ -399,21 +399,19 @@ AUI.add(
 					_getContainerByInstanceId: function(instanceId) {
 						var instance = this;
 
-						var container;
-
 						var root = instance.getRoot();
 
 						if (root) {
-							container = root.filterNodes(
+							return root.findNode(
 								function(qualifiedName) {
 									var nodeInstanceId = Util.getInstanceIdFromQualifiedName(qualifiedName);
 
 									return instanceId === nodeInstanceId;
 								}
-							).item(0);
+							);
 						}
 
-						return container;
+						return undefined;
 					},
 
 					_getContainerByNameAndIndex: function(name, repeatedIndex) {
@@ -462,7 +460,7 @@ AUI.add(
 						container = instance.fetchContainer();
 
 						if (container) {
-						return container;
+							return container;
 						}
 
 						return instance._createContainer();
