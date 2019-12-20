@@ -263,12 +263,12 @@ public class CommercePendingOrderItemClayTable
 						commerceOrderValidatorResult.getLocalizedMessage());
 				}
 
+				String formattedSubscriptionPeriod = null;
+
 				CPInstance cpInstance = commerceOrderItem.getCPInstance();
 
 				CPSubscriptionInfo cpSubscriptionInfo =
 					cpInstance.getCPSubscriptionInfo();
-
-				String formattedSubscriptionPeriod = null;
 
 				if (cpSubscriptionInfo != null) {
 					Locale locale = themeDisplay.getLocale();
