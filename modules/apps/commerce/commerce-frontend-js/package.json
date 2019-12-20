@@ -36,5 +36,5 @@
 		"test": "liferay-npm-scripts test",
 		"watch": "liferay-npm-scripts webpack --watch --host 0.0.0.0"
 	},
-	"version": "1.0.5"
+	"version": "1.0.6"
 }
