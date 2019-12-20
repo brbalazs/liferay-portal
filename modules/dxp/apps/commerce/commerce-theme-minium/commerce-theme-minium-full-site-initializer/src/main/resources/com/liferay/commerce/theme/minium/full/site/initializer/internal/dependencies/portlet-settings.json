@@ -127,5 +127,13 @@
 		"portletPreferences": {
 			"portletSetupPortletDecoratorId": "decorate"
 		}
+	},
+	{
+		"instanceId": "minium",
+		"layoutFriendlyURL": "/search",
+		"portletName": "com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet",
+		"portletPreferences": {
+			"searchScope": "everything"
+		}
 	}
 ]
