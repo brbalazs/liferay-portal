@@ -263,10 +263,6 @@ public class CPDefinitionHelperImpl implements CPDefinitionHelper {
 		if (sortField.equals("modifiedDate")) {
 			sortField = Field.MODIFIED_DATE;
 		}
-		else if (sortField.equals("name")) {
-			sortField = Field.getSortableFieldName(
-				"localized_name_".concat(LocaleUtil.toLanguageId(locale)));
-		}
 
 		return sortField;
 	}
@@ -298,7 +294,9 @@ public class CPDefinitionHelperImpl implements CPDefinitionHelper {
 
 			sortType = Sort.LONG_TYPE;
 		}
-		else if (fieldType.equals(Field.PRIORITY)) {
+		else if (fieldType.equals(Field.PRIORITY) ||
+				 fieldType.equals("basePrice")) {
+
 			sortType = Sort.DOUBLE_TYPE;
 		}
 
