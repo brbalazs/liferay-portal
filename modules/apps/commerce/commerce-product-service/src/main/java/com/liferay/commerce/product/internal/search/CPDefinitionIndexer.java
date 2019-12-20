@@ -25,6 +25,7 @@ import com.liferay.commerce.product.model.CPDefinitionLink;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue;
+import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.model.CPSpecificationOption;
 import com.liferay.commerce.product.model.CProduct;
@@ -646,6 +647,19 @@ public class CPDefinitionIndexer extends BaseIndexer<CPDefinition> {
 
 		document.addKeyword(
 			"commerceCatalogId", commerceCatalog.getCommerceCatalogId());
+
+		int cpInstanceCount =
+			_cpInstanceLocalService.getCPDefinitionInstancesCount(
+				cpDefinition.getCPDefinitionId(),
+				WorkflowConstants.STATUS_APPROVED);
+
+		if (cpInstanceCount == 1) {
+			List<CPInstance> cpInstances = cpDefinition.getCPInstances();
+
+			CPInstance cpInstance = cpInstances.get(0);
+
+			document.addNumber("basePrice", cpInstance.getPrice());
+		}
 
 		if (_log.isDebugEnabled()) {
 			_log.debug("Document " + cpDefinition + " indexed successfully");
