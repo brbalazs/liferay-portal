@@ -19,22 +19,22 @@
       transition: all $micro-transition;
       width: 45px;
 
-      &-confirm {
-        color: $color-mood-good;
-
-        &:hover {
-          background-color: $color-mood-good;
-          border-color: $color-mood-good;
-          color: $color-bg;
-        }
-      }
-
-      &-reject {
+      &-outline-danger {
         color: $color-mood-bad;
 
         &:hover {
           background-color: $color-mood-bad;
           border: $color-mood-bad;
+          color: $color-bg;
+        }
+      }
+
+      &-outline-success {
+        color: $color-mood-good;
+
+        &:hover {
+          background-color: $color-mood-good;
+          border-color: $color-mood-good;
           color: $color-bg;
         }
       }

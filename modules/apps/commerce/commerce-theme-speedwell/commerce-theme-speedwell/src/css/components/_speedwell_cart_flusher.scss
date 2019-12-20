@@ -22,22 +22,22 @@
       transition: all $micro-transition;
       width: 40px;
 
-      &-confirm {
-        color: $color-theme;
-
-        &:hover {
-          background-color: $color-theme;
-          border-color: $color-theme;
-          color: $color-bg;
-        }
-      }
-
-      &-reject {
+      &-outline-danger {
         color: $color-mood-bad;
 
         &:hover {
           background-color: $color-mood-bad;
           border: $color-mood-bad;
+          color: $color-bg;
+        }
+      }
+
+      &-outline-success {
+        color: $color-theme;
+
+        &:hover {
+          background-color: $color-theme;
+          border-color: $color-theme;
           color: $color-bg;
         }
       }

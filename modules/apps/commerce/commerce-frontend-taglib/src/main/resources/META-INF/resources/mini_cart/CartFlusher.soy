@@ -19,27 +19,26 @@
 	{/let}
 
 	<div class="{$confirmLineClass}">
-		<a
-				class="commerce-link link-remove-items"
-				href=""
+		<button
+				class="btn-link commerce-link link-remove-items"
 				data-onclick="{$_handleAskConfirmation}"
 		>
 				{msg desc="Remove All Items"}remove-all-items{/msg}
-		</a>
+		</button>
 
 		<div class="confirmation-box">
 			<span>{msg desc="Are You Sure?"}are-you-sure{/msg}</span>
 
 			<span>
 				<button
-						class="btn btn-confirm"
+						class="btn btn-outline-success"
 						data-onclick="{$_handleConfirm}"
 				>
 					{msg desc="Yes"}yes{/msg}
 				</button>
 
 				<button
-						class="btn btn-reject"
+						class="btn btn-outline-danger"
 						data-onclick="{$_handleCancel}"
 				>
 					{msg desc="No"}no{/msg}
