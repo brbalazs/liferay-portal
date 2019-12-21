@@ -15,5 +15,5 @@
 		"build": "liferay-npm-scripts theme build",
 		"checkFormat": "liferay-npm-scripts check"
 	},
-	"version": "1.0.14"
+	"version": "1.0.15"
 }
