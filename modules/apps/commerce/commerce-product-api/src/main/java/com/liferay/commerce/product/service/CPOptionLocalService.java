@@ -226,6 +226,10 @@ public interface CPOptionLocalService
 	public CPOption fetchCPOptionByUuidAndCompanyId(
 		String uuid, long companyId);
 
+	public List<CPOption> findCPOptionByCompanyId(
+		long companyId, int start, int end,
+		OrderByComparator<CPOption> orderByComparator);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 

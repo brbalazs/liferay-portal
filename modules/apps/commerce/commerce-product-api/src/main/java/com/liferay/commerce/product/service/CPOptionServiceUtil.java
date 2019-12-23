@@ -79,6 +79,18 @@ public class CPOptionServiceUtil {
 		return getService().fetchCPOption(companyId, key);
 	}
 
+	public static java.util.List<com.liferay.commerce.product.model.CPOption>
+			findCPOptionByCompanyId(
+				long companyId, int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<com.liferay.commerce.product.model.CPOption>
+						orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().findCPOptionByCompanyId(
+			companyId, start, end, orderByComparator);
+	}
+
 	public static com.liferay.commerce.product.model.CPOption getCPOption(
 			long cpOptionId)
 		throws com.liferay.portal.kernel.exception.PortalException {

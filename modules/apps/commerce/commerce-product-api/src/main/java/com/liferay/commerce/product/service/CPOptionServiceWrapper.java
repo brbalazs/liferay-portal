@@ -78,6 +78,19 @@ public class CPOptionServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.commerce.product.model.CPOption>
+			findCPOptionByCompanyId(
+				long companyId, int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<com.liferay.commerce.product.model.CPOption>
+						orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpOptionService.findCPOptionByCompanyId(
+			companyId, start, end, orderByComparator);
+	}
+
+	@Override
 	public com.liferay.commerce.product.model.CPOption getCPOption(
 			long cpOptionId)
 		throws com.liferay.portal.kernel.exception.PortalException {

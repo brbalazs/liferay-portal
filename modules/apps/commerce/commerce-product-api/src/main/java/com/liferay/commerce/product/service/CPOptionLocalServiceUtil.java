@@ -255,6 +255,17 @@ public class CPOptionLocalServiceUtil {
 		return getService().fetchCPOptionByUuidAndCompanyId(uuid, companyId);
 	}
 
+	public static java.util.List<com.liferay.commerce.product.model.CPOption>
+		findCPOptionByCompanyId(
+			long companyId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<com.liferay.commerce.product.model.CPOption>
+					orderByComparator) {
+
+		return getService().findCPOptionByCompanyId(
+			companyId, start, end, orderByComparator);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

@@ -29,7 +29,9 @@ import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -81,6 +83,11 @@ public interface CPOptionService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CPOption fetchCPOption(long companyId, String key)
+		throws PortalException;
+
+	public List<CPOption> findCPOptionByCompanyId(
+			long companyId, int start, int end,
+			OrderByComparator<CPOption> orderByComparator)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
