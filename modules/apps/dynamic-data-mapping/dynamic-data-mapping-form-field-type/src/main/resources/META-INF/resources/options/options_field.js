@@ -656,26 +656,28 @@ AUI.add(
 
 						instance.empty();
 
-						mainOption.render(container.one('.options'));
+						mainOption.onceAfter('render', function() {
+							instance._syncOptionUI(mainOption);
 
-						instance._syncOptionUI(mainOption);
+							optionsValues.forEach(
+								function(optionValue, index) {
+									if (index === 0) {
+										instance._restoreOption(mainOption, optionValue);
+									}
+									else {
+										var newOption = instance.addOption();
 
-						optionsValues.forEach(
-							function(optionValue, index) {
-								if (index === 0) {
-									instance._restoreOption(mainOption, optionValue);
+										instance._restoreOption(newOption, optionValue);
+									}
 								}
-								else {
-									var newOption = instance.addOption();
+							);
 
-									instance._restoreOption(newOption, optionValue);
-								}
+							if (optionsValues.length && optionsValues[optionsValues.length - 1].value) {
+								instance.addOption();
 							}
-						);
+						});	
 
-						if (optionsValues.length && optionsValues[optionsValues.length - 1].value) {
-							instance.addOption();
-						}
+						mainOption.render(container.one('.options'));
 					},
 
 					_renderOptionUI: function(option) {

@@ -109,18 +109,20 @@ AUI.add(
 					render: function() {
 						var instance = this;
 
+						instance.onceAfter('render', function() {
+							var autocompleteEnabled = instance.get('autocompleteEnabled');
+
+							if (autocompleteEnabled && instance.get('visible')) {
+								instance._createAutocomplete();
+							}
+	
+							if (instance.get('displayStyle') === 'multiline') {
+								instance._setInitialHeight();
+								instance.syncInputHeight();
+							}
+						});
+
 						TextField.superclass.render.apply(instance, arguments);
-
-						var autocompleteEnabled = instance.get('autocompleteEnabled');
-
-						if (autocompleteEnabled && instance.get('visible')) {
-							instance._createAutocomplete();
-						}
-
-						if (instance.get('displayStyle') === 'multiline') {
-							instance._setInitialHeight();
-							instance.syncInputHeight();
-						}
 
 						return instance;
 					},
