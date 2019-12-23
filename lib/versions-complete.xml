@@ -1603,7 +1603,7 @@
 			<library>
 				<file-name>com.liferay.polls.web.jar!jcommon.jar</file-name>
 				<version>1.0.24</version>
-				<project-name>jcommon</project-name>
+				<project-name>JCommon</project-name>
 				<project-url>http://www.jfree.org/jcommon/</project-url>
 				<licenses>
 					<license>
@@ -1615,7 +1615,7 @@
 			<library>
 				<file-name>com.liferay.polls.web.jar!jfreechart.jar</file-name>
 				<version>1.0.19</version>
-				<project-name>jfreechart</project-name>
+				<project-name>JFreeChart</project-name>
 				<project-url>http://www.jfree.org/jfreechart/</project-url>
 				<licenses>
 					<license>
@@ -4270,7 +4270,7 @@
 			<library>
 				<file-name>com.liferay.server.admin.web.jar!jcommon.jar</file-name>
 				<version>1.0.24</version>
-				<project-name>jcommon</project-name>
+				<project-name>JCommon</project-name>
 				<project-url>http://www.jfree.org/jcommon/</project-url>
 				<licenses>
 					<license>
@@ -4282,7 +4282,7 @@
 			<library>
 				<file-name>com.liferay.server.admin.web.jar!jfreechart.jar</file-name>
 				<version>1.0.19</version>
-				<project-name>jfreechart</project-name>
+				<project-name>JFreeChart</project-name>
 				<project-url>http://www.jfree.org/jfreechart/</project-url>
 				<licenses>
 					<license>
