@@ -2818,7 +2818,15 @@ ${tomcat-gc-log}
 
 					Job job = JobFactory.newJob(project.getProperty("top.level.job.name"), project.getProperty("env.CI_TEST_SUITE"), project.getProperty("portal.branch.name"), project.getProperty("env.REPOSITORY_NAME"));
 
-					BatchTestClassGroup batchTestClassGroup = TestClassGroupFactory.newBatchTestClassGroup(project.getProperty("test.batch.name"), job);
+					BatchTestClassGroup.BuildProfile buildProfile = BatchTestClassGroup.BuildProfile.PORTAL;
+
+					String testPortalBuildProfile = project.getProperty("build.profile");
+
+					if ((testPortalBuildProfile != null) && testPortalBuildProfile.equals("dxp")) {
+						buildProfile = BatchTestClassGroup.BuildProfile.DXP;
+					}
+
+					BatchTestClassGroup batchTestClassGroup = TestClassGroupFactory.newBatchTestClassGroup(project.getProperty("test.batch.name"), buildProfile, job);
 
 					int axisCount = batchTestClassGroup.getAxisCount();
 
@@ -2894,7 +2902,15 @@ ${tomcat-gc-log}
 					try {
 						Job job = JobFactory.newJob(project.getProperty("top.level.job.name"));
 
-						BatchTestClassGroup batchTestClassGroup = TestClassGroupFactory.newBatchTestClassGroup(project.getProperty("test.batch.name"), job);
+						BatchTestClassGroup.BuildProfile buildProfile = BatchTestClassGroup.BuildProfile.PORTAL;
+
+						String testPortalBuildProfile = project.getProperty("build.profile");
+
+						if ((testPortalBuildProfile != null) && testPortalBuildProfile.equals("dxp")) {
+							buildProfile = BatchTestClassGroup.BuildProfile.DXP;
+						}
+
+						BatchTestClassGroup batchTestClassGroup = TestClassGroupFactory.newBatchTestClassGroup(project.getProperty("test.batch.name"), buildProfile, job);
 
 						if (batchTestClassGroup instanceof JUnitBatchTestClassGroup ||
 							batchTestClassGroup instanceof NPMTestBatchTestClassGroup) {
@@ -11131,7 +11147,15 @@ if (ppstate.equals("normal")) {
 
 				Job job = JobFactory.newJob(project.getProperty("top.level.job.name"), project.getProperty("env.CI_TEST_SUITE"), project.getProperty("portal.branch.name"));
 
-				BatchTestClassGroup batchTestClassGroup = TestClassGroupFactory.newBatchTestClassGroup(project.getProperty("test.batch.name"), job);
+				BatchTestClassGroup.BuildProfile buildProfile = BatchTestClassGroup.BuildProfile.PORTAL;
+
+				String testPortalBuildProfile = project.getProperty("build.profile");
+
+				if ((testPortalBuildProfile != null) && testPortalBuildProfile.equals("dxp")) {
+					buildProfile = BatchTestClassGroup.BuildProfile.DXP;
+				}
+
+				BatchTestClassGroup batchTestClassGroup = TestClassGroupFactory.newBatchTestClassGroup(project.getProperty("test.batch.name"), buildProfile, job);
 
 				int axisCount = batchTestClassGroup.getAxisCount();
 
