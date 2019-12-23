@@ -38,6 +38,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.FriendlyURLNormalizerUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.io.Serializable;
@@ -160,6 +161,15 @@ public class CPOptionLocalServiceImpl extends CPOptionLocalServiceBaseImpl {
 		throws PortalException {
 
 		return cpOptionPersistence.fetchByC_K(companyId, key);
+	}
+
+	@Override
+	public List<CPOption> findByCompanyId(
+		long companyId, int start, int end,
+		OrderByComparator<CPOption> orderByComparator) {
+
+		return cpOptionPersistence.findByCompanyId(
+			companyId, start, end, orderByComparator);
 	}
 
 	@Override

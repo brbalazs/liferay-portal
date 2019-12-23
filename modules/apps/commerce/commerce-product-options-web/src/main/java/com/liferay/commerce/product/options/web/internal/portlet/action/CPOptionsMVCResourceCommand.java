@@ -17,6 +17,8 @@ package com.liferay.commerce.product.options.web.internal.portlet.action;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.service.CPOptionService;
+import com.liferay.commerce.product.util.comparator.CPOptionModifiedDateComparator;
+import com.liferay.commerce.product.util.comparator.CPOptionNameComparator;
 import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldTypeServicesTracker;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -30,10 +32,12 @@ import com.liferay.portal.kernel.servlet.ServletResponseUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.MapUtil;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.portlet.ResourceRequest;
@@ -67,13 +71,10 @@ public class CPOptionsMVCResourceCommand extends BaseMVCResourceCommand {
 
 		JSONArray jsonArray = _jsonFactory.createJSONArray();
 
-		BaseModelSearchResult<CPOption> cpOptionBaseModelSearchResult =
-			_cpOptionService.searchCPOptions(
-				themeDisplay.getCompanyId(), null, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, SortFactoryUtil.create("name", true));
+		List<CPOption> cpOptions =
+			_cpOptionService.findByCompanyId(themeDisplay.getCompanyId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS, _getCPOptionOrderByComparator("name", "asc"));
 
-		for (CPOption cpOption :
-				cpOptionBaseModelSearchResult.getBaseModels()) {
+		for (CPOption cpOption : cpOptions) {
 
 			JSONObject jsonObject = _jsonFactory.createJSONObject();
 
@@ -104,6 +105,28 @@ public class CPOptionsMVCResourceCommand extends BaseMVCResourceCommand {
 		httpServletResponse.setContentType(ContentTypes.APPLICATION_JSON);
 
 		ServletResponseUtil.write(httpServletResponse, jsonArray.toString());
+	}
+
+	private OrderByComparator<CPOption> _getCPOptionOrderByComparator(
+		String orderByCol, String orderByType) {
+
+		boolean orderByAsc = false;
+
+		if (orderByType.equals("asc")) {
+			orderByAsc = true;
+		}
+
+		OrderByComparator<CPOption> orderByComparator = null;
+
+		if (orderByCol.equals("modified-date")) {
+			orderByComparator = new CPOptionModifiedDateComparator(orderByAsc);
+		}
+
+		if (orderByCol.equals("name")) {
+			orderByComparator = new CPOptionNameComparator(orderByAsc);
+		}
+
+		return orderByComparator;
 	}
 
 	@Reference
