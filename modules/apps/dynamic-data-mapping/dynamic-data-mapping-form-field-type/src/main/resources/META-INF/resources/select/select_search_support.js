@@ -30,13 +30,7 @@ AUI.add(
 			clearFilter: function() {
 				var instance = this;
 
-				var searchInputNode = instance._getInputSearch();
-
-				searchInputNode.val('');
-
 				instance.set('keywords', '');
-
-				instance.render();
 			},
 
 			_afterCloseList: function() {
