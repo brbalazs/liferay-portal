@@ -7,18 +7,6 @@ AUI.add(
 
 		var Util = Renderer.Util;
 
-		new A.TooltipDelegate(
-			{
-				cssClass: 'clay-tooltip',
-				opacity: 1,
-				position: 'right',
-				trigger: '.liferay-ddm-form-field-text .trigger-tooltip',
-				triggerHideEvent: ['blur', 'mouseleave'],
-				triggerShowEvent: ['focus', 'mouseover'],
-				visible: false
-			}
-		);
-
 		var TextField = A.Component.create(
 			{
 				ATTRS: {
@@ -258,6 +246,6 @@ AUI.add(
 	},
 	'',
 	{
-		requires: ['aui-autosize-deprecated', 'aui-tooltip', 'autocomplete', 'autocomplete-filters', 'autocomplete-highlighters', 'autocomplete-highlighters-accentfold', 'liferay-ddm-form-renderer-field']
+		requires: ['aui-autosize-deprecated', 'autocomplete', 'autocomplete-filters', 'autocomplete-highlighters', 'autocomplete-highlighters-accentfold', 'liferay-ddm-form-renderer-field']
 	}
 );

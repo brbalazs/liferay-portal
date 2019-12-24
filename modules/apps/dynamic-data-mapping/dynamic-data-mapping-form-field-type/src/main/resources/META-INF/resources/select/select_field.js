@@ -110,8 +110,6 @@ AUI.add(
 
 						instance._open = false;
 
-						instance._createLabelTooltip();
-						
 						instance._eventHandlers.push(
 							A.one('doc').after('click', A.bind(instance._afterClickOutside, instance)),
 							instance.bindContainerEvent('click', instance._handleContainerClick, '.' + CSS_FORM_FIELD_CONTAINER),
@@ -135,10 +133,6 @@ AUI.add(
 
 					destructor: function() {
 						var instance = this;
-
-						if (instance._tooltip) {
-							instance._tooltip.destroy();
-						}
 
 						if (instance._virtualScroller) {
 							instance._virtualScroller.destroy();
@@ -455,20 +449,6 @@ AUI.add(
 								}
 							},
 							100
-						);
-					},
-
-					_createLabelTooltip: function() {
-						var instance = this;
-
-						instance._tooltip = new A.TooltipDelegate(
-							{
-								position: 'bottom',
-								trigger: '.multiple-label-list .multiple-label',
-								triggerHideEvent: ['blur', 'mouseleave'],
-								triggerShowEvent: ['focus', 'mouseover'],
-								visible: false
-							}
 						);
 					},
 
