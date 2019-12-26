@@ -330,7 +330,8 @@ public class DDMImpl implements DDM {
 
 			String[] stringArray = ArrayUtil.toStringArray(jsonArray);
 
-			fieldValue = stringArray[0];
+			fieldValue = StringUtil.merge(
+				stringArray, StringPool.COMMA_AND_SPACE);
 		}
 
 		return fieldValue;
@@ -459,7 +460,12 @@ public class DDMImpl implements DDM {
 
 			String[] stringArray = ArrayUtil.toStringArray(jsonArray);
 
-			fieldValue = stringArray[0];
+			if (stringArray.length > 1) {
+				fieldValue = stringArray;
+			}
+			else {
+				fieldValue = stringArray[0];
+			}
 		}
 
 		return fieldValue;
