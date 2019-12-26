@@ -593,10 +593,11 @@ public class DDMFormEvaluatorHelper {
 		boolean emptyValue = isDDMFormFieldValueEmpty(
 			ddmFormFieldValue, ddmFormFieldEvaluationResult);
 
+		boolean readOnly = ddmFormFieldEvaluationResult.isReadOnly();
 		boolean required = ddmFormFieldEvaluationResult.isRequired();
 		boolean visible = ddmFormFieldEvaluationResult.isVisible();
 
-		if (!visible || (!required && emptyValue)) {
+		if (readOnly || !visible || (!required && emptyValue)) {
 			return;
 		}
 
