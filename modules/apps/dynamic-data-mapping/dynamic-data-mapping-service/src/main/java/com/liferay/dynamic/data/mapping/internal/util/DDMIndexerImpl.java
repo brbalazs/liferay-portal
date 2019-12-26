@@ -139,9 +139,24 @@ public class DDMIndexerImpl implements DDMIndexer {
 				ddmStructureFieldValue, structure.getFieldType(fieldName));
 		}
 
-		booleanQuery.addRequiredTerm(
-			ddmStructureFieldName,
-			StringPool.QUOTE + ddmStructureFieldValue + StringPool.QUOTE);
+		if (ddmStructureFieldValue instanceof String[]) {
+			String[] ddmStructureFieldValueArray =
+				(String[])ddmStructureFieldValue;
+
+			for (String ddmStructureFieldValueString :
+					ddmStructureFieldValueArray) {
+
+				booleanQuery.addRequiredTerm(
+					ddmStructureFieldName,
+					StringPool.QUOTE + ddmStructureFieldValueString +
+						StringPool.QUOTE);
+			}
+		}
+		else {
+			booleanQuery.addRequiredTerm(
+				ddmStructureFieldName,
+				StringPool.QUOTE + ddmStructureFieldValue + StringPool.QUOTE);
+		}
 
 		return new QueryFilter(booleanQuery);
 	}

@@ -144,10 +144,25 @@ public class DLFileEntryModelPreFilterContributor
 
 				BooleanQuery booleanQuery = new BooleanQueryImpl();
 
-				booleanQuery.addRequiredTerm(
-					ddmStructureFieldName,
-					StringPool.QUOTE + ddmStructureFieldValue +
-						StringPool.QUOTE);
+				if (ddmStructureFieldValue instanceof String[]) {
+					String[] ddmStructureFieldValueArray =
+						(String[])ddmStructureFieldValue;
+
+					for (String ddmStructureFieldValueString :
+							ddmStructureFieldValueArray) {
+
+						booleanQuery.addRequiredTerm(
+							ddmStructureFieldName,
+							StringPool.QUOTE + ddmStructureFieldValueString +
+								StringPool.QUOTE);
+					}
+				}
+				else {
+					booleanQuery.addRequiredTerm(
+						ddmStructureFieldName,
+						StringPool.QUOTE + ddmStructureFieldValue +
+							StringPool.QUOTE);
+				}
 
 				booleanFilter.add(
 					new QueryFilter(booleanQuery), BooleanClauseOccur.MUST);
