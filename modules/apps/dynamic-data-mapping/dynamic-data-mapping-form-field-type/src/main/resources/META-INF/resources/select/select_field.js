@@ -512,7 +512,7 @@ AUI.add(
 							}
 						}
 						else {
-							if (optionValue === '') {
+							if (optionValue === '' || optionValue === undefined) {
 								value = [];
 							}
 							else {
@@ -529,6 +529,8 @@ AUI.add(
 						});
 
 						instance.setValue(value);
+
+						instance.render();
 					},
 
 					_handleLabelItemCloseClick: function(target) {
