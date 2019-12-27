@@ -292,9 +292,11 @@ AUI.add(
 					render: function() {
 						var instance = this;
 
-						OptionsField.superclass.render.apply(instance, arguments);
+						instance.onceAfter('render', function() {
+							instance._renderOptions();
+						});
 
-						instance._renderOptions();
+						OptionsField.superclass.render.apply(instance, arguments);
 
 						return instance;
 					},
