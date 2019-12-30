@@ -277,7 +277,22 @@ AUI.add(
 					getValue: function() {
 						var instance = this;
 
-						return instance.get('value') || [];
+						var fixedOptions = instance.get('fixedOptions');
+
+						var options = instance.get('options');
+
+						var value = instance.get('value') || [];
+
+						return value.filter(function(currentValue) {
+							return (
+								options.find(function(currentOption) {
+									return currentOption.value === currentValue;
+								}) ||
+								fixedOptions.find(function(currentOption) {
+									return currentOption.value === currentValue;
+								})
+							)
+						});
 					},
 
 					hasFocus: function(node) {
