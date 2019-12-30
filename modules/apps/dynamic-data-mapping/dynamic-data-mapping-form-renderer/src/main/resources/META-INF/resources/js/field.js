@@ -448,13 +448,13 @@ AUI.add(
 						var root = instance.getRoot();
 
 						if (root) {
-						var name = instance.get('context.name');
+							var name = instance.get('context.name');
 
 							container = root.getFieldContainer(name);
 
-						if (container) {
-							return A.one(container);
-						}
+							if (container) {
+								return A.one(container);
+							}
 						}
 
 						container = instance.fetchContainer();
