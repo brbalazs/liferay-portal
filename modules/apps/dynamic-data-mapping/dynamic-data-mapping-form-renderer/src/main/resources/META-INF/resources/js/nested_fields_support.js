@@ -78,9 +78,11 @@ AUI.add(
 
 				return nodes.filter(
 					function(item) {
-						var qualifiedName = item.one('.form-group').getData('fieldname');
+						if (item.one('.form-group')) {
+							var qualifiedName = item.one('.form-group').getData('fieldname');
 
-						return fn.call(instance, qualifiedName, item);
+							return fn.call(instance, qualifiedName, item);
+						}
 					}
 				);
 			},
@@ -93,10 +95,12 @@ AUI.add(
 				var nodes = _container.querySelectorAll('.lfr-ddm-form-field-container');
 
 				for (var i = 0; i < nodes.length; i++) {
-					var qualifiedName = nodes[i].querySelector('.form-group').dataset.fieldname;
+					if (nodes[i].firstChild) {
+						var qualifiedName = nodes[i].firstChild.dataset.fieldname;
 
-					if (fn.call(instance, qualifiedName, nodes[i])) {
-						return A.one(nodes[i]);
+						if (fn.call(instance, qualifiedName, nodes[i])) {
+							return A.one(nodes[i]);
+						}
 					}
 				}
 
