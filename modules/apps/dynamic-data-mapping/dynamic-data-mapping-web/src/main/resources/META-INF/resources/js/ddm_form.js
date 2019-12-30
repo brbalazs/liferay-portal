@@ -799,6 +799,10 @@ AUI.add(
 							}
 
 							if (Lang.isUndefined(value)) {
+								value = instance.getValue();
+							}
+
+							if (Lang.isUndefined(value)) {
 								value = instance.getDefaultLocalization(
 									instance.get('displayLocale')
 								);
