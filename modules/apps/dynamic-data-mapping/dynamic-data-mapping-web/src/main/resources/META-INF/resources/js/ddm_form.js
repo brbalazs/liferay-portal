@@ -794,9 +794,6 @@ AUI.add(
 									value = localizationMap[instance.get('displayLocale')];
 								}
 							}
-							else {
-								value = instance.getValue();
-							}
 
 							if (Lang.isUndefined(value)) {
 								value = instance.getValue();
