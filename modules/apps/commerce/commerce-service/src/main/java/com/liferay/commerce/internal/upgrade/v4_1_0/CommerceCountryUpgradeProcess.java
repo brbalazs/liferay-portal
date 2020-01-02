@@ -16,6 +16,8 @@ package com.liferay.commerce.internal.upgrade.v4_1_0;
 
 import com.liferay.commerce.internal.upgrade.base.BaseCommerceServiceUpgradeProcess;
 import com.liferay.commerce.model.impl.CommerceCountryModelImpl;
+import com.liferay.portal.kernel.dao.db.DB;
+import com.liferay.portal.kernel.dao.db.DBManagerUtil;
 
 /**
  * @author Marco Leo
@@ -33,7 +35,11 @@ public class CommerceCountryUpgradeProcess
 				CommerceCountryModelImpl.TABLE_NAME, "channelFilterEnabled",
 				"BOOLEAN");
 
-			runSQL("update CommerceCountry set channelFilterEnabled = false");
+			DB db = DBManagerUtil.getDB();
+
+			runSQL(
+				"update CommerceCountry set channelFilterEnabled = " +
+					db.getTemplateFalse());
 		}
 	}
 
