@@ -8,7 +8,7 @@
 			FROM
 				CPAttachmentFileEntry
 			WHERE
-				(CPAttachmentFileEntry.expirationDate < ?)  AND
+				(CPAttachmentFileEntry.expirationDate < ?) AND
 				(CPAttachmentFileEntry.expirationDate IS NOT NULL) AND
 				([$OWNER_USER_ID$] [$OWNER_USER_ID_AND_OR_CONNECTOR$] ([$STATUS$]))
 		]]>
@@ -41,7 +41,7 @@
 			ON
 				CPDefinition.CPDefinitionId = CPDefinitionLocalization.CPDefinitionId
 			WHERE
-				(CPDefinition.expirationDate < ?)  AND
+				(CPDefinition.expirationDate < ?) AND
 				(CPDefinition.expirationDate IS NOT NULL) AND
 				([$OWNER_USER_ID$] [$OWNER_USER_ID_AND_OR_CONNECTOR$] ([$STATUS$]))
 		]]>
@@ -70,7 +70,7 @@
 			FROM
 				CPInstance
 			WHERE
-				(CPInstance.expirationDate < ?)  AND
+				(CPInstance.expirationDate < ?) AND
 				(CPInstance.expirationDate IS NOT NULL) AND
 				([$OWNER_USER_ID$] [$OWNER_USER_ID_AND_OR_CONNECTOR$] ([$STATUS$]))
 		]]>

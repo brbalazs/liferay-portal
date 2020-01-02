@@ -58,7 +58,7 @@
 				Organization_ Org1 ON
 					Org1.organizationId = Users_Orgs.organizationId
 			LEFT JOIN
-				Organization_  Org2 ON
+				Organization_ Org2 ON
 					(Org1.treePath IS NOT NULL) AND
 					(Org2.treePath LIKE CONCAT(Org1.treePath, '%'))
 			LEFT JOIN
@@ -75,7 +75,7 @@
 				[$ORDER_STATUS$]
 				[$ACCOUNT_ID$]
 				(CommerceOrder.groupId = ?) AND
-				(User_.userId  = [$USER_ID$]) AND
+				(User_.userId = [$USER_ID$]) AND
 				(LOWER(CommerceAccount.name) LIKE ? [$AND_OR_NULL_CHECK$])
 		]]>
 	</sql>
@@ -110,7 +110,7 @@
 				Organization_ Org1 ON
 					Org1.organizationId = Users_Orgs.organizationId
 			LEFT JOIN
-				Organization_  Org2 ON
+				Organization_ Org2 ON
 					(Org1.treePath IS NOT NULL) AND
 					(Org2.treePath LIKE CONCAT(Org1.treePath, '%'))
 			LEFT JOIN
@@ -127,7 +127,7 @@
 				[$ORDER_STATUS$]
 				[$ACCOUNT_ID$]
 				(CommerceOrder.groupId = ?) AND
-				(User_.userId  = [$USER_ID$]) AND
+				(User_.userId = [$USER_ID$]) AND
 				(LOWER(CommerceAccount.name) LIKE ? [$AND_OR_NULL_CHECK$])
 			ORDER BY
 				CommerceOrder.modifieddate DESC

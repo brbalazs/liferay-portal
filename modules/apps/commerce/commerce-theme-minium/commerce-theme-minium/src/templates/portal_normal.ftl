@@ -68,7 +68,7 @@
 
 		<#if show_topbar>
 
-			<#--  The toolbar is needed to create the shadow when scrolling  -->
+			<#-- The toolbar is needed to create the shadow when scrolling -->
 
 			<div class="minium-frame__toolbar"></div>
 		</#if>

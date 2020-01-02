@@ -429,7 +429,7 @@ names is below:
 - `liferay-ui:asset-add-button` &rarr; `liferay-asset:asset-add-button`
 - `liferay-ui:asset-addon-entry-display` &rarr; `liferay-asset:asset-addon-entry-display`
 - `liferay-ui:asset-addon-entry-selector` &rarr; `liferay-asset:asset-addon-entry-selector`
-- `liferay-ui:asset-categories-available`  &rarr; `liferay-asset:asset-categories-available`
+- `liferay-ui:asset-categories-available` &rarr; `liferay-asset:asset-categories-available`
 - `liferay-ui:asset-categories-error` &rarr; `liferay-asset:asset-categories-error`
 - `liferay-ui:asset-display` &rarr; `liferay-asset:asset-display`
 - `liferay-ui:asset-links` &rarr; `liferay-asset:asset-links`
