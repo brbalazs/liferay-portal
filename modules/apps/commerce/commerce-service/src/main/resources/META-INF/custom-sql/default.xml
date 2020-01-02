@@ -28,11 +28,11 @@
 			ON
 				CommerceChannelRel.classPK = CommerceCountry.commerceCountryId
 			WHERE
-				(CommerceCountry.active_ = true) AND
+				(CommerceCountry.active_ = [$TRUE$]) AND
 				(
-					(CommerceCountry.channelFilterEnabled = false) OR
+					(CommerceCountry.channelFilterEnabled = [$FALSE$]) OR
 					(
-						(CommerceCountry.channelFilterEnabled = true) AND
+						(CommerceCountry.channelFilterEnabled = [$TRUE$]) AND
 						(CommerceChannelRel.classNameId = ?) AND
 						(CommerceChannelRel.commerceChannelId = ?)
 					)
