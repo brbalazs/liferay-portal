@@ -146,9 +146,13 @@ public class CPOptionFacetsPortlet
 					_commerceAccountHelper.getCurrentCommerceAccount(
 						commerceChannelGroupId, themeDisplay.getRequest());
 
-				long[] commerceAccountGroupIds =
-					_commerceAccountHelper.getCommerceAccountGroupIds(
-						commerceAccount.getCommerceAccountId());
+				long[] commerceAccountGroupIds = null;
+
+				if (commerceAccount != null) {
+					commerceAccountGroupIds =
+						_commerceAccountHelper.getCommerceAccountGroupIds(
+							commerceAccount.getCommerceAccountId());
+				}
 
 				searchContext.setAttribute(
 					"commerceAccountGroupIds", commerceAccountGroupIds);
