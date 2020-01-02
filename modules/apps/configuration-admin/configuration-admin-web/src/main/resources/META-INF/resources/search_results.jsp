@@ -24,7 +24,7 @@ ConfigurationModelIterator configurationModelIterator = (ConfigurationModelItera
 ResourceBundleLoaderProvider resourceBundleLoaderProvider = (ResourceBundleLoaderProvider)request.getAttribute(ConfigurationAdminWebKeys.RESOURCE_BUNDLE_LOADER_PROVIDER);
 
 if (redirect == null) {
-	redirect = renderResponse.createRenderURL();
+	redirect = String.valueOf(renderResponse.createRenderURL());
 }
 
 PortletURL searchURL = renderResponse.createRenderURL();
