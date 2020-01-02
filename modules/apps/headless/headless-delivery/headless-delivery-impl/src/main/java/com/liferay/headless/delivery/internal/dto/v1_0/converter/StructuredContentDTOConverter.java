@@ -223,24 +223,23 @@ public class StructuredContentDTOConverter implements DTOConverter {
 							return null;
 						}
 
-						com.liferay.dynamic.data.mapping.model.Value value =
-							ddmFormFieldValue.getValue();
-
 						Map<String, Object> map = new HashMap<>();
 
-						Map<Locale, String> values = value.getValues();
+						com.liferay.dynamic.data.mapping.model.Value ddmValue =
+							ddmFormFieldValue.getValue();
 
-						for (Map.Entry<Locale, String> localeStringEntry :
-								values.entrySet()) {
+						Map<Locale, String> ddmValueValues =
+							ddmValue.getValues();
 
-							Value value1 = _toValue(
+						for (Map.Entry<Locale, String> entry :
+								ddmValueValues.entrySet()) {
+
+							Value value = _toValue(
 								ddmFormFieldValue, dlAppService,
 								journalArticleService, layoutLocalService,
 								dtoConverterContext.getLocale());
 
-							map.put(
-								String.valueOf(localeStringEntry.getKey()),
-								value1);
+							map.put(String.valueOf(entry.getKey()), value);
 						}
 
 						return map;
