@@ -1991,6 +1991,7 @@ definition {
 
 	@priority = "5"
 	test ImportCorruptedFile {
+		property osgi.app.includes = "bookmarks";
 		property portal.acceptance = "true";
 		property portal.release = "false";
 
