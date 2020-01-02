@@ -169,7 +169,7 @@ public class CPDefinitionHelperImpl implements CPDefinitionHelper {
 
 		queryConfig.setScoreEnabled(false);
 
-		searchContext.setSorts(_getSorts(cpQuery, searchContext.getLocale()));
+		searchContext.setSorts(_getSorts(cpQuery));
 		searchContext.setStart(start);
 
 		return cpDefinitionSearcher;
@@ -259,7 +259,7 @@ public class CPDefinitionHelperImpl implements CPDefinitionHelper {
 		return _portal.addPreservedParameters(themeDisplay, productFriendlyURL);
 	}
 
-	private String _getOrderByCol(String sortField, Locale locale) {
+	private String _getOrderByCol(String sortField) {
 		if (sortField.equals("modifiedDate")) {
 			sortField = Field.MODIFIED_DATE;
 		}
@@ -267,19 +267,19 @@ public class CPDefinitionHelperImpl implements CPDefinitionHelper {
 		return sortField;
 	}
 
-	private Sort _getSort(String orderByType, String sortField, Locale locale) {
+	private Sort _getSort(String orderByType, String sortField) {
 		int sortType = _getSortType(sortField);
 
 		return SortFactoryUtil.getSort(
-			CPDefinition.class, sortType, _getOrderByCol(sortField, locale),
+			CPDefinition.class, sortType, _getOrderByCol(sortField),
 			orderByType);
 	}
 
-	private Sort[] _getSorts(CPQuery cpQuery, Locale locale) {
+	private Sort[] _getSorts(CPQuery cpQuery) {
 		Sort sort1 = _getSort(
-			cpQuery.getOrderByType1(), cpQuery.getOrderByCol1(), locale);
+			cpQuery.getOrderByType1(), cpQuery.getOrderByCol1());
 		Sort sort2 = _getSort(
-			cpQuery.getOrderByType2(), cpQuery.getOrderByCol2(), locale);
+			cpQuery.getOrderByType2(), cpQuery.getOrderByCol2());
 
 		return new Sort[] {sort1, sort2};
 	}
