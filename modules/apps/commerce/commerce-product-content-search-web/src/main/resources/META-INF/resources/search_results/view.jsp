@@ -98,9 +98,11 @@ String orderByCol = cpSearchResultsDisplayContext.getOrderByCol();
 		window,
 		'<portlet:namespace />changeOrderBy',
 		function() {
-			var orderBy = document.getElementById('#<portlet:namespace />orderBy').val();
-
 			var portletURL = new Liferay.PortletURL.createURL('<%= currentURLObj %>');
+
+			var orderBySelect = document.getElementById('<portlet:namespace />orderBy');
+
+			var orderBy = orderBySelect.options[orderBySelect.selectedIndex].value;
 
 			portletURL.setParameter("orderByCol", orderBy);
 
