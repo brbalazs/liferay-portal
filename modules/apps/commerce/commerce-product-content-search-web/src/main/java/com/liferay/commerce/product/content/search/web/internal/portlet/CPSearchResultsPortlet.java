@@ -286,10 +286,6 @@ public class CPSearchResultsPortlet
 			searchContext.setSorts(
 				SortFactoryUtil.create("basePrice", Sort.DOUBLE_TYPE, true));
 		}
-		else if (orderByCol.equals("new-items")) {
-			searchContext.setSorts(
-				SortFactoryUtil.create(Field.CREATE_DATE, false));
-		}
 		else if (orderByCol.equals("name-ascending")) {
 			searchContext.setSorts(SortFactoryUtil.create(Field.NAME, false));
 		}
