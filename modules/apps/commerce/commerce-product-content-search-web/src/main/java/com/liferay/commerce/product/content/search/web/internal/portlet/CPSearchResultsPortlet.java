@@ -274,7 +274,7 @@ public class CPSearchResultsPortlet
 		String orderByCol = ParamUtil.getString(
 			httpServletRequest,
 			StringBundler.concat(
-				"_", portletId, "_",
+				StringPool.UNDERLINE, portletId, StringPool.UNDERLINE,
 				SearchContainer.DEFAULT_ORDER_BY_COL_PARAM),
 			StringPool.BLANK);
 
