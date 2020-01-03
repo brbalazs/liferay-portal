@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.HttpUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -204,6 +205,12 @@ public class CPSearchResultsDisplayContext {
 		}
 
 		return _displayStyleGroupId;
+	}
+
+	public String getOrderByCol() {
+		return ParamUtil.getString(
+			_httpServletRequest, SearchContainer.DEFAULT_ORDER_BY_COL_PARAM,
+			StringPool.BLANK);
 	}
 
 	public int getPaginationDelta() {
