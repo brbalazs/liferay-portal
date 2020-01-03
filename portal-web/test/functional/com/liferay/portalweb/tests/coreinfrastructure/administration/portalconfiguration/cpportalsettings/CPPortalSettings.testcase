@@ -351,8 +351,6 @@ definition {
 		AssetPublisherPortlet.viewConfigureSiteScopeContentSharingPG(
 			childSite = "true",
 			contentSharingAcrossSitesEnabled = "false",
-			globalSiteName = "Global",
-			globalSiteType = "Global",
 			liferaySiteName = "${siteName}",
 			liferaySiteType = "Site");
 
@@ -384,8 +382,6 @@ definition {
 		AssetPublisherPortlet.viewConfigureSiteScopeContentSharingPG(
 			childSite = "true",
 			contentSharingAcrossSitesEnabled = "false",
-			globalSiteName = "Global",
-			globalSiteType = "Global",
 			liferaySiteName = "${siteName}",
 			liferaySiteType = "Site");
 
@@ -435,8 +431,6 @@ definition {
 
 		AssetPublisherPortlet.viewConfigureSiteScopeContentSharingPG(
 			contentSharingAcrossSitesEnabled = "true",
-			globalSiteName = "Global",
-			globalSiteType = "Global",
 			liferaySiteName = "${siteName}",
 			liferaySiteType = "Site");
 
@@ -464,8 +458,6 @@ definition {
 		AssetPublisherPortlet.viewConfigureSiteScopeContentSharingPG(
 			contentSharingAcrossSitesEnabled = "true",
 			currentSite = "true",
-			globalSiteName = "Global",
-			globalSiteType = "Global",
 			liferaySiteName = "${siteName}",
 			liferaySiteType = "Current Site");
 
