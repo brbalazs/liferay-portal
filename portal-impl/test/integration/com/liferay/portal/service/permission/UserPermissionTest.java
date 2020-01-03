@@ -124,7 +124,8 @@ public class UserPermissionTest {
 
 	@Inject
 	private UserLocalService _userLocalService;
- 
+
 	@Inject
 	private UserPermission _userPermission;
+
 }
