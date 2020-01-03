@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.Map;
+import java.util.Objects;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -143,7 +144,7 @@ public final class DLValidatorImpl implements DLValidator {
 
 		for (String fileExtension : fileExtensions) {
 			if (StringPool.STAR.equals(fileExtension) ||
-				StringUtil.endsWith(fileName, fileExtension)) {
+				_endsWith(fileName, fileExtension)) {
 
 				validFileExtension = true;
 
@@ -310,6 +311,24 @@ public final class DLValidatorImpl implements DLValidator {
 
 	protected void setDLConfiguration(DLConfiguration dlConfiguration) {
 		_dlConfiguration = dlConfiguration;
+	}
+
+	private boolean _endsWith(String s, String end) {
+		if (s.length() < end.length()) {
+			return false;
+		}
+
+		String tail = s.substring(s.length() - end.length());
+
+		if (Objects.equals(
+				StringUtil.toLowerCase(tail), StringUtil.toLowerCase(end)) &&
+			Objects.equals(
+				StringUtil.toUpperCase(tail), StringUtil.toUpperCase(end))) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	private volatile DLConfiguration _dlConfiguration;
