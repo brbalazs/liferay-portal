@@ -228,29 +228,5 @@ definition {
 		);
 
 		Navigator.gotoPage(pageName = "Bookmarks Test Page");
-
-		// LPS-69746
-
-		/* <execute macro="ProductMenu#gotoPortlet">
-			<var name="category" value="Sites" />
-			<var name="panel" value="Control Panel" />
-			<var name="portlet" value="Sites" />
-		</execute>
-
-		<execute macro="Site#addCommunityCP">
-			<var name="siteName" value="Site Name" />
-		</execute>
-
-		<execute macro="Navigator#gotoSitePage">
-			<var name="pageName" value="Home" />
-			<var name="siteName" value="Site Name" />
-			<var name="siteURL" value="${siteURL}" />
-		</execute>
-
-		<execute macro="Navigator#gotoSitePage">
-			<var name="pageName" value="Wiki" />
-			<var name="siteName" value="Site Name" />
-			<var name="siteURL" value="${siteURL}" />
-		</execute> */
 	}
 }
