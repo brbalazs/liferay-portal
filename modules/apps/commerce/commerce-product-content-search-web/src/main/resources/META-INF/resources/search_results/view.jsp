@@ -104,8 +104,8 @@ String orderByCol = cpSearchResultsDisplayContext.getOrderByCol();
 
 			var orderBy = orderBySelect.options[orderBySelect.selectedIndex].value;
 
-			portletURL.setPortletId('<%= portletDisplay.getId() %>');
 			portletURL.setParameter("orderByCol", orderBy);
+			portletURL.setPortletId('<%= portletDisplay.getId() %>');
 
 			window.location.replace(portletURL.toString());
 		},
