@@ -14,11 +14,16 @@
 
 package com.liferay.batch.engine.service.persistence;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.batch.engine.exception.NoSuchImportTaskException;
 import com.liferay.batch.engine.model.BatchEngineImportTask;
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
 
-import org.osgi.annotation.versioning.ProviderType;
+import java.io.Serializable;
+
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The persistence interface for the batch engine import task service.
@@ -40,6 +45,9 @@ public interface BatchEngineImportTaskPersistence
 	 *
 	 * Never modify or reference this interface directly. Always use {@link BatchEngineImportTaskUtil} to access the batch engine import task persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.
 	 */
+	@Override
+	public Map<Serializable, BatchEngineImportTask> fetchByPrimaryKeys(
+		Set<Serializable> primaryKeys);
 
 	/**
 	 * Returns all the batch engine import tasks where uuid = &#63;.
@@ -605,5 +613,8 @@ public interface BatchEngineImportTaskPersistence
 	 * @return the number of batch engine import tasks
 	 */
 	public int countAll();
+
+	@Override
+	public Set<String> getBadColumnNames();
 
 }

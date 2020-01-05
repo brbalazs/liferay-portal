@@ -813,6 +813,10 @@ public class BatchEngineExportTaskUtil {
 		return getPersistence().countAll();
 	}
 
+	public static Set<String> getBadColumnNames() {
+		return getPersistence().getBadColumnNames();
+	}
+
 	public static BatchEngineExportTaskPersistence getPersistence() {
 		return _serviceTracker.getService();
 	}

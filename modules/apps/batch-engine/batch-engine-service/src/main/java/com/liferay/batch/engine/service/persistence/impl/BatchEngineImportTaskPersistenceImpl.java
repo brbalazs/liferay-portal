@@ -19,9 +19,6 @@ import com.liferay.batch.engine.model.BatchEngineImportTask;
 import com.liferay.batch.engine.model.impl.BatchEngineImportTaskImpl;
 import com.liferay.batch.engine.model.impl.BatchEngineImportTaskModelImpl;
 import com.liferay.batch.engine.service.persistence.BatchEngineImportTaskPersistence;
-import com.liferay.batch.engine.service.persistence.impl.constants.BatchEnginePersistenceConstants;
-import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.kernel.configuration.Configuration;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -29,37 +26,34 @@ import com.liferay.portal.kernel.dao.orm.Query;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
-import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
-import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
+import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.sql.DataSource;
-
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Deactivate;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * The persistence implementation for the batch engine import task service.
@@ -71,7 +65,6 @@ import org.osgi.service.component.annotations.Reference;
  * @author Shuyang Zhou
  * @generated
  */
-@Component(service = BatchEngineImportTaskPersistence.class)
 public class BatchEngineImportTaskPersistenceImpl
 	extends BasePersistenceImpl<BatchEngineImportTask>
 	implements BatchEngineImportTaskPersistence {
@@ -1795,14 +1788,23 @@ public class BatchEngineImportTaskPersistenceImpl
 	public BatchEngineImportTaskPersistenceImpl() {
 		setModelClass(BatchEngineImportTask.class);
 
-		setModelImplClass(BatchEngineImportTaskImpl.class);
-		setModelPKClass(long.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
 
-		setDBColumnNames(dbColumnNames);
+		try {
+			Field field = BasePersistenceImpl.class.getDeclaredField(
+				"_dbColumnNames");
+
+			field.setAccessible(true);
+
+			field.set(this, dbColumnNames);
+		}
+		catch (Exception e) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(e, e);
+			}
+		}
 	}
 
 	/**
@@ -1813,7 +1815,8 @@ public class BatchEngineImportTaskPersistenceImpl
 	@Override
 	public void cacheResult(BatchEngineImportTask batchEngineImportTask) {
 		entityCache.putResult(
-			entityCacheEnabled, BatchEngineImportTaskImpl.class,
+			BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+			BatchEngineImportTaskImpl.class,
 			batchEngineImportTask.getPrimaryKey(), batchEngineImportTask);
 
 		batchEngineImportTask.resetOriginalValues();
@@ -1832,7 +1835,8 @@ public class BatchEngineImportTaskPersistenceImpl
 				batchEngineImportTasks) {
 
 			if (entityCache.getResult(
-					entityCacheEnabled, BatchEngineImportTaskImpl.class,
+					BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+					BatchEngineImportTaskImpl.class,
 					batchEngineImportTask.getPrimaryKey()) == null) {
 
 				cacheResult(batchEngineImportTask);
@@ -1869,7 +1873,8 @@ public class BatchEngineImportTaskPersistenceImpl
 	@Override
 	public void clearCache(BatchEngineImportTask batchEngineImportTask) {
 		entityCache.removeResult(
-			entityCacheEnabled, BatchEngineImportTaskImpl.class,
+			BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+			BatchEngineImportTaskImpl.class,
 			batchEngineImportTask.getPrimaryKey());
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
@@ -1885,12 +1890,12 @@ public class BatchEngineImportTaskPersistenceImpl
 				batchEngineImportTasks) {
 
 			entityCache.removeResult(
-				entityCacheEnabled, BatchEngineImportTaskImpl.class,
+				BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+				BatchEngineImportTaskImpl.class,
 				batchEngineImportTask.getPrimaryKey());
 		}
 	}
 
-	@Override
 	public void clearCache(Set<Serializable> primaryKeys) {
 		finderCache.clearCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
@@ -1898,8 +1903,8 @@ public class BatchEngineImportTaskPersistenceImpl
 
 		for (Serializable primaryKey : primaryKeys) {
 			entityCache.removeResult(
-				entityCacheEnabled, BatchEngineImportTaskImpl.class,
-				primaryKey);
+				BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+				BatchEngineImportTaskImpl.class, primaryKey);
 		}
 	}
 
@@ -2101,7 +2106,7 @@ public class BatchEngineImportTaskPersistenceImpl
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 
-		if (!_columnBitmaskEnabled) {
+		if (!BatchEngineImportTaskModelImpl.COLUMN_BITMASK_ENABLED) {
 			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
 		else if (isNew) {
@@ -2200,7 +2205,8 @@ public class BatchEngineImportTaskPersistenceImpl
 		}
 
 		entityCache.putResult(
-			entityCacheEnabled, BatchEngineImportTaskImpl.class,
+			BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+			BatchEngineImportTaskImpl.class,
 			batchEngineImportTask.getPrimaryKey(), batchEngineImportTask,
 			false);
 
@@ -2252,6 +2258,58 @@ public class BatchEngineImportTaskPersistenceImpl
 	/**
 	 * Returns the batch engine import task with the primary key or returns <code>null</code> if it could not be found.
 	 *
+	 * @param primaryKey the primary key of the batch engine import task
+	 * @return the batch engine import task, or <code>null</code> if a batch engine import task with the primary key could not be found
+	 */
+	@Override
+	public BatchEngineImportTask fetchByPrimaryKey(Serializable primaryKey) {
+		Serializable serializable = entityCache.getResult(
+			BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+			BatchEngineImportTaskImpl.class, primaryKey);
+
+		if (serializable == nullModel) {
+			return null;
+		}
+
+		BatchEngineImportTask batchEngineImportTask =
+			(BatchEngineImportTask)serializable;
+
+		if (batchEngineImportTask == null) {
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				batchEngineImportTask = (BatchEngineImportTask)session.get(
+					BatchEngineImportTaskImpl.class, primaryKey);
+
+				if (batchEngineImportTask != null) {
+					cacheResult(batchEngineImportTask);
+				}
+				else {
+					entityCache.putResult(
+						BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+						BatchEngineImportTaskImpl.class, primaryKey, nullModel);
+				}
+			}
+			catch (Exception e) {
+				entityCache.removeResult(
+					BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+					BatchEngineImportTaskImpl.class, primaryKey);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return batchEngineImportTask;
+	}
+
+	/**
+	 * Returns the batch engine import task with the primary key or returns <code>null</code> if it could not be found.
+	 *
 	 * @param batchEngineImportTaskId the primary key of the batch engine import task
 	 * @return the batch engine import task, or <code>null</code> if a batch engine import task with the primary key could not be found
 	 */
@@ -2260,6 +2318,110 @@ public class BatchEngineImportTaskPersistenceImpl
 		long batchEngineImportTaskId) {
 
 		return fetchByPrimaryKey((Serializable)batchEngineImportTaskId);
+	}
+
+	@Override
+	public Map<Serializable, BatchEngineImportTask> fetchByPrimaryKeys(
+		Set<Serializable> primaryKeys) {
+
+		if (primaryKeys.isEmpty()) {
+			return Collections.emptyMap();
+		}
+
+		Map<Serializable, BatchEngineImportTask> map =
+			new HashMap<Serializable, BatchEngineImportTask>();
+
+		if (primaryKeys.size() == 1) {
+			Iterator<Serializable> iterator = primaryKeys.iterator();
+
+			Serializable primaryKey = iterator.next();
+
+			BatchEngineImportTask batchEngineImportTask = fetchByPrimaryKey(
+				primaryKey);
+
+			if (batchEngineImportTask != null) {
+				map.put(primaryKey, batchEngineImportTask);
+			}
+
+			return map;
+		}
+
+		Set<Serializable> uncachedPrimaryKeys = null;
+
+		for (Serializable primaryKey : primaryKeys) {
+			Serializable serializable = entityCache.getResult(
+				BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+				BatchEngineImportTaskImpl.class, primaryKey);
+
+			if (serializable != nullModel) {
+				if (serializable == null) {
+					if (uncachedPrimaryKeys == null) {
+						uncachedPrimaryKeys = new HashSet<Serializable>();
+					}
+
+					uncachedPrimaryKeys.add(primaryKey);
+				}
+				else {
+					map.put(primaryKey, (BatchEngineImportTask)serializable);
+				}
+			}
+		}
+
+		if (uncachedPrimaryKeys == null) {
+			return map;
+		}
+
+		StringBundler query = new StringBundler(
+			uncachedPrimaryKeys.size() * 2 + 1);
+
+		query.append(_SQL_SELECT_BATCHENGINEIMPORTTASK_WHERE_PKS_IN);
+
+		for (Serializable primaryKey : uncachedPrimaryKeys) {
+			query.append((long)primaryKey);
+
+			query.append(",");
+		}
+
+		query.setIndex(query.index() - 1);
+
+		query.append(")");
+
+		String sql = query.toString();
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			Query q = session.createQuery(sql);
+
+			for (BatchEngineImportTask batchEngineImportTask :
+					(List<BatchEngineImportTask>)q.list()) {
+
+				map.put(
+					batchEngineImportTask.getPrimaryKeyObj(),
+					batchEngineImportTask);
+
+				cacheResult(batchEngineImportTask);
+
+				uncachedPrimaryKeys.remove(
+					batchEngineImportTask.getPrimaryKeyObj());
+			}
+
+			for (Serializable primaryKey : uncachedPrimaryKeys) {
+				entityCache.putResult(
+					BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+					BatchEngineImportTaskImpl.class, primaryKey, nullModel);
+			}
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		return map;
 	}
 
 	/**
@@ -2456,21 +2618,6 @@ public class BatchEngineImportTaskPersistenceImpl
 	}
 
 	@Override
-	protected EntityCache getEntityCache() {
-		return entityCache;
-	}
-
-	@Override
-	protected String getPKDBName() {
-		return "batchEngineImportTaskId";
-	}
-
-	@Override
-	protected String getSelectSQL() {
-		return _SQL_SELECT_BATCHENGINEIMPORTTASK;
-	}
-
-	@Override
 	protected Map<String, Integer> getTableColumnsMap() {
 		return BatchEngineImportTaskModelImpl.TABLE_COLUMNS_MAP;
 	}
@@ -2478,31 +2625,29 @@ public class BatchEngineImportTaskPersistenceImpl
 	/**
 	 * Initializes the batch engine import task persistence.
 	 */
-	@Activate
-	public void activate() {
-		BatchEngineImportTaskModelImpl.setEntityCacheEnabled(
-			entityCacheEnabled);
-		BatchEngineImportTaskModelImpl.setFinderCacheEnabled(
-			finderCacheEnabled);
-
+	public void afterPropertiesSet() {
 		_finderPathWithPaginationFindAll = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled,
+			BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+			BatchEngineImportTaskModelImpl.FINDER_CACHE_ENABLED,
 			BatchEngineImportTaskImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
 
 		_finderPathWithoutPaginationFindAll = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled,
+			BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+			BatchEngineImportTaskModelImpl.FINDER_CACHE_ENABLED,
 			BatchEngineImportTaskImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
 			new String[0]);
 
 		_finderPathCountAll = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, Long.class,
+			BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+			BatchEngineImportTaskModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
 			new String[0]);
 
 		_finderPathWithPaginationFindByUuid = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled,
+			BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+			BatchEngineImportTaskModelImpl.FINDER_CACHE_ENABLED,
 			BatchEngineImportTaskImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUuid",
 			new String[] {
@@ -2511,19 +2656,22 @@ public class BatchEngineImportTaskPersistenceImpl
 			});
 
 		_finderPathWithoutPaginationFindByUuid = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled,
+			BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+			BatchEngineImportTaskModelImpl.FINDER_CACHE_ENABLED,
 			BatchEngineImportTaskImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUuid",
 			new String[] {String.class.getName()},
 			BatchEngineImportTaskModelImpl.UUID_COLUMN_BITMASK);
 
 		_finderPathCountByUuid = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, Long.class,
+			BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+			BatchEngineImportTaskModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid",
 			new String[] {String.class.getName()});
 
 		_finderPathWithPaginationFindByUuid_C = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled,
+			BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+			BatchEngineImportTaskModelImpl.FINDER_CACHE_ENABLED,
 			BatchEngineImportTaskImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUuid_C",
 			new String[] {
@@ -2533,7 +2681,8 @@ public class BatchEngineImportTaskPersistenceImpl
 			});
 
 		_finderPathWithoutPaginationFindByUuid_C = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled,
+			BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+			BatchEngineImportTaskModelImpl.FINDER_CACHE_ENABLED,
 			BatchEngineImportTaskImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUuid_C",
 			new String[] {String.class.getName(), Long.class.getName()},
@@ -2541,12 +2690,14 @@ public class BatchEngineImportTaskPersistenceImpl
 			BatchEngineImportTaskModelImpl.COMPANYID_COLUMN_BITMASK);
 
 		_finderPathCountByUuid_C = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, Long.class,
+			BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+			BatchEngineImportTaskModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
 			new String[] {String.class.getName(), Long.class.getName()});
 
 		_finderPathWithPaginationFindByExecuteStatus = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled,
+			BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+			BatchEngineImportTaskModelImpl.FINDER_CACHE_ENABLED,
 			BatchEngineImportTaskImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByExecuteStatus",
 			new String[] {
@@ -2555,68 +2706,38 @@ public class BatchEngineImportTaskPersistenceImpl
 			});
 
 		_finderPathWithoutPaginationFindByExecuteStatus = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled,
+			BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+			BatchEngineImportTaskModelImpl.FINDER_CACHE_ENABLED,
 			BatchEngineImportTaskImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByExecuteStatus",
 			new String[] {String.class.getName()},
 			BatchEngineImportTaskModelImpl.EXECUTESTATUS_COLUMN_BITMASK);
 
 		_finderPathCountByExecuteStatus = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, Long.class,
+			BatchEngineImportTaskModelImpl.ENTITY_CACHE_ENABLED,
+			BatchEngineImportTaskModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByExecuteStatus",
 			new String[] {String.class.getName()});
 	}
 
-	@Deactivate
-	public void deactivate() {
+	public void destroy() {
 		entityCache.removeCache(BatchEngineImportTaskImpl.class.getName());
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
-	@Override
-	@Reference(
-		target = BatchEnginePersistenceConstants.SERVICE_CONFIGURATION_FILTER,
-		unbind = "-"
-	)
-	public void setConfiguration(Configuration configuration) {
-		super.setConfiguration(configuration);
-
-		_columnBitmaskEnabled = GetterUtil.getBoolean(
-			configuration.get(
-				"value.object.column.bitmask.enabled.com.liferay.batch.engine.model.BatchEngineImportTask"),
-			true);
-	}
-
-	@Override
-	@Reference(
-		target = BatchEnginePersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
-		unbind = "-"
-	)
-	public void setDataSource(DataSource dataSource) {
-		super.setDataSource(dataSource);
-	}
-
-	@Override
-	@Reference(
-		target = BatchEnginePersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
-		unbind = "-"
-	)
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		super.setSessionFactory(sessionFactory);
-	}
-
-	private boolean _columnBitmaskEnabled;
-
-	@Reference
+	@ServiceReference(type = EntityCache.class)
 	protected EntityCache entityCache;
 
-	@Reference
+	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
 
 	private static final String _SQL_SELECT_BATCHENGINEIMPORTTASK =
 		"SELECT batchEngineImportTask FROM BatchEngineImportTask batchEngineImportTask";
+
+	private static final String _SQL_SELECT_BATCHENGINEIMPORTTASK_WHERE_PKS_IN =
+		"SELECT batchEngineImportTask FROM BatchEngineImportTask batchEngineImportTask WHERE batchEngineImportTaskId IN (";
 
 	private static final String _SQL_SELECT_BATCHENGINEIMPORTTASK_WHERE =
 		"SELECT batchEngineImportTask FROM BatchEngineImportTask batchEngineImportTask WHERE ";
@@ -2641,14 +2762,5 @@ public class BatchEngineImportTaskPersistenceImpl
 
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(
 		new String[] {"uuid"});
-
-	static {
-		try {
-			Class.forName(BatchEnginePersistenceConstants.class.getName());
-		}
-		catch (ClassNotFoundException cnfe) {
-			throw new ExceptionInInitializerError(cnfe);
-		}
-	}
 
 }

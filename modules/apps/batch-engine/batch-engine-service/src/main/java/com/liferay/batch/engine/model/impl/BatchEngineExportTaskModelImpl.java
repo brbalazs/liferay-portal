@@ -21,7 +21,6 @@ import com.liferay.batch.engine.service.BatchEngineExportTaskLocalServiceUtil;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
 import com.liferay.exportimport.kernel.lar.StagedModelType;
-import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.CacheModel;
@@ -33,6 +32,7 @@ import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 
 import java.io.Serializable;
 
@@ -126,6 +126,21 @@ public class BatchEngineExportTaskModelImpl
 
 	public static final String TX_MANAGER = "liferayTransactionManager";
 
+	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(
+		com.liferay.batch.engine.service.util.ServiceProps.get(
+			"value.object.entity.cache.enabled.com.liferay.batch.engine.model.BatchEngineExportTask"),
+		true);
+
+	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(
+		com.liferay.batch.engine.service.util.ServiceProps.get(
+			"value.object.finder.cache.enabled.com.liferay.batch.engine.model.BatchEngineExportTask"),
+		true);
+
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(
+		com.liferay.batch.engine.service.util.ServiceProps.get(
+			"value.object.column.bitmask.enabled.com.liferay.batch.engine.model.BatchEngineExportTask"),
+		true);
+
 	public static final long COMPANYID_COLUMN_BITMASK = 1L;
 
 	public static final long EXECUTESTATUS_COLUMN_BITMASK = 2L;
@@ -134,13 +149,9 @@ public class BatchEngineExportTaskModelImpl
 
 	public static final long BATCHENGINEEXPORTTASKID_COLUMN_BITMASK = 8L;
 
-	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
-		_entityCacheEnabled = entityCacheEnabled;
-	}
-
-	public static void setFinderCacheEnabled(boolean finderCacheEnabled) {
-		_finderCacheEnabled = finderCacheEnabled;
-	}
+	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(
+		com.liferay.batch.engine.service.util.ServiceProps.get(
+			"lock.expiration.time.com.liferay.batch.engine.model.BatchEngineExportTask"));
 
 	public BatchEngineExportTaskModelImpl() {
 	}
@@ -273,113 +284,464 @@ public class BatchEngineExportTaskModelImpl
 					<String, BiConsumer<BatchEngineExportTask, ?>>();
 
 		attributeGetterFunctions.put(
-			"mvccVersion", BatchEngineExportTask::getMvccVersion);
+			"mvccVersion",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getMvccVersion();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
-			(BiConsumer<BatchEngineExportTask, Long>)
-				BatchEngineExportTask::setMvccVersion);
-		attributeGetterFunctions.put("uuid", BatchEngineExportTask::getUuid);
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object mvccVersionObject) {
+
+					batchEngineExportTask.setMvccVersion(
+						(Long)mvccVersionObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"uuid",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getUuid();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"uuid",
-			(BiConsumer<BatchEngineExportTask, String>)
-				BatchEngineExportTask::setUuid);
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object uuidObject) {
+
+					batchEngineExportTask.setUuid((String)uuidObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
 			"batchEngineExportTaskId",
-			BatchEngineExportTask::getBatchEngineExportTaskId);
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getBatchEngineExportTaskId();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"batchEngineExportTaskId",
-			(BiConsumer<BatchEngineExportTask, Long>)
-				BatchEngineExportTask::setBatchEngineExportTaskId);
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object batchEngineExportTaskIdObject) {
+
+					batchEngineExportTask.setBatchEngineExportTaskId(
+						(Long)batchEngineExportTaskIdObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"companyId", BatchEngineExportTask::getCompanyId);
+			"companyId",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getCompanyId();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"companyId",
-			(BiConsumer<BatchEngineExportTask, Long>)
-				BatchEngineExportTask::setCompanyId);
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object companyIdObject) {
+
+					batchEngineExportTask.setCompanyId((Long)companyIdObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"userId", BatchEngineExportTask::getUserId);
+			"userId",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getUserId();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"userId",
-			(BiConsumer<BatchEngineExportTask, Long>)
-				BatchEngineExportTask::setUserId);
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object userIdObject) {
+
+					batchEngineExportTask.setUserId((Long)userIdObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"createDate", BatchEngineExportTask::getCreateDate);
+			"createDate",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getCreateDate();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"createDate",
-			(BiConsumer<BatchEngineExportTask, Date>)
-				BatchEngineExportTask::setCreateDate);
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object createDateObject) {
+
+					batchEngineExportTask.setCreateDate((Date)createDateObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"modifiedDate", BatchEngineExportTask::getModifiedDate);
+			"modifiedDate",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getModifiedDate();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
-			(BiConsumer<BatchEngineExportTask, Date>)
-				BatchEngineExportTask::setModifiedDate);
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object modifiedDateObject) {
+
+					batchEngineExportTask.setModifiedDate(
+						(Date)modifiedDateObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"callbackURL", BatchEngineExportTask::getCallbackURL);
+			"callbackURL",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getCallbackURL();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"callbackURL",
-			(BiConsumer<BatchEngineExportTask, String>)
-				BatchEngineExportTask::setCallbackURL);
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object callbackURLObject) {
+
+					batchEngineExportTask.setCallbackURL(
+						(String)callbackURLObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"className", BatchEngineExportTask::getClassName);
+			"className",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getClassName();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"className",
-			(BiConsumer<BatchEngineExportTask, String>)
-				BatchEngineExportTask::setClassName);
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object classNameObject) {
+
+					batchEngineExportTask.setClassName((String)classNameObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"content", BatchEngineExportTask::getContent);
+			"content",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getContent();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"content",
-			(BiConsumer<BatchEngineExportTask, Blob>)
-				BatchEngineExportTask::setContent);
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object contentObject) {
+
+					batchEngineExportTask.setContent((Blob)contentObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"contentType", BatchEngineExportTask::getContentType);
+			"contentType",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getContentType();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"contentType",
-			(BiConsumer<BatchEngineExportTask, String>)
-				BatchEngineExportTask::setContentType);
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object contentTypeObject) {
+
+					batchEngineExportTask.setContentType(
+						(String)contentTypeObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"endTime", BatchEngineExportTask::getEndTime);
+			"endTime",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getEndTime();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"endTime",
-			(BiConsumer<BatchEngineExportTask, Date>)
-				BatchEngineExportTask::setEndTime);
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object endTimeObject) {
+
+					batchEngineExportTask.setEndTime((Date)endTimeObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"errorMessage", BatchEngineExportTask::getErrorMessage);
+			"errorMessage",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getErrorMessage();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"errorMessage",
-			(BiConsumer<BatchEngineExportTask, String>)
-				BatchEngineExportTask::setErrorMessage);
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object errorMessageObject) {
+
+					batchEngineExportTask.setErrorMessage(
+						(String)errorMessageObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"fieldNames", BatchEngineExportTask::getFieldNames);
+			"fieldNames",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getFieldNames();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"fieldNames",
-			(BiConsumer<BatchEngineExportTask, String>)
-				BatchEngineExportTask::setFieldNames);
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object fieldNamesObject) {
+
+					batchEngineExportTask.setFieldNames(
+						(String)fieldNamesObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"executeStatus", BatchEngineExportTask::getExecuteStatus);
+			"executeStatus",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getExecuteStatus();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"executeStatus",
-			(BiConsumer<BatchEngineExportTask, String>)
-				BatchEngineExportTask::setExecuteStatus);
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object executeStatusObject) {
+
+					batchEngineExportTask.setExecuteStatus(
+						(String)executeStatusObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"parameters", BatchEngineExportTask::getParameters);
+			"parameters",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getParameters();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"parameters",
-			(BiConsumer<BatchEngineExportTask, Map<String, Serializable>>)
-				BatchEngineExportTask::setParameters);
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object parametersObject) {
+
+					batchEngineExportTask.setParameters(
+						(Map<String, Serializable>)parametersObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"startTime", BatchEngineExportTask::getStartTime);
+			"startTime",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getStartTime();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"startTime",
-			(BiConsumer<BatchEngineExportTask, Date>)
-				BatchEngineExportTask::setStartTime);
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object startTimeObject) {
+
+					batchEngineExportTask.setStartTime((Date)startTimeObject);
+				}
+
+			});
 		attributeGetterFunctions.put(
-			"version", BatchEngineExportTask::getVersion);
+			"version",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getVersion();
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"version",
-			(BiConsumer<BatchEngineExportTask, String>)
-				BatchEngineExportTask::setVersion);
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object versionObject) {
+
+					batchEngineExportTask.setVersion((String)versionObject);
+				}
+
+			});
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -796,12 +1158,12 @@ public class BatchEngineExportTaskModelImpl
 
 	@Override
 	public boolean isEntityCacheEnabled() {
-		return _entityCacheEnabled;
+		return ENTITY_CACHE_ENABLED;
 	}
 
 	@Override
 	public boolean isFinderCacheEnabled() {
-		return _finderCacheEnabled;
+		return FINDER_CACHE_ENABLED;
 	}
 
 	@Override
@@ -1077,9 +1439,6 @@ public class BatchEngineExportTaskModelImpl
 			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
 
 	}
-
-	private static boolean _entityCacheEnabled;
-	private static boolean _finderCacheEnabled;
 
 	private long _mvccVersion;
 	private String _uuid;

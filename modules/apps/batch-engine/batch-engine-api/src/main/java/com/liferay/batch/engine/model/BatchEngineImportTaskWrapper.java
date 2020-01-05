@@ -14,9 +14,10 @@
 
 package com.liferay.batch.engine.model;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.exportimport.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.model.ModelWrapper;
-import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
 
@@ -25,6 +26,7 @@ import java.sql.Blob;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * <p>
@@ -36,13 +38,22 @@ import java.util.Map;
  * @generated
  */
 public class BatchEngineImportTaskWrapper
-	extends BaseModelWrapper<BatchEngineImportTask>
 	implements BatchEngineImportTask, ModelWrapper<BatchEngineImportTask> {
 
 	public BatchEngineImportTaskWrapper(
 		BatchEngineImportTask batchEngineImportTask) {
 
-		super(batchEngineImportTask);
+		_batchEngineImportTask = batchEngineImportTask;
+	}
+
+	@Override
+	public Class<?> getModelClass() {
+		return BatchEngineImportTask.class;
+	}
+
+	@Override
+	public String getModelClassName() {
+		return BatchEngineImportTask.class.getName();
 	}
 
 	@Override
@@ -199,6 +210,17 @@ public class BatchEngineImportTaskWrapper
 		}
 	}
 
+	@Override
+	public Object clone() {
+		return new BatchEngineImportTaskWrapper(
+			(BatchEngineImportTask)_batchEngineImportTask.clone());
+	}
+
+	@Override
+	public int compareTo(BatchEngineImportTask batchEngineImportTask) {
+		return _batchEngineImportTask.compareTo(batchEngineImportTask);
+	}
+
 	/**
 	 * Returns the batch engine import task ID of this batch engine import task.
 	 *
@@ -206,7 +228,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public long getBatchEngineImportTaskId() {
-		return model.getBatchEngineImportTaskId();
+		return _batchEngineImportTask.getBatchEngineImportTaskId();
 	}
 
 	/**
@@ -216,7 +238,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public long getBatchSize() {
-		return model.getBatchSize();
+		return _batchEngineImportTask.getBatchSize();
 	}
 
 	/**
@@ -226,7 +248,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public String getCallbackURL() {
-		return model.getCallbackURL();
+		return _batchEngineImportTask.getCallbackURL();
 	}
 
 	/**
@@ -236,7 +258,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public String getClassName() {
-		return model.getClassName();
+		return _batchEngineImportTask.getClassName();
 	}
 
 	/**
@@ -246,7 +268,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public long getCompanyId() {
-		return model.getCompanyId();
+		return _batchEngineImportTask.getCompanyId();
 	}
 
 	/**
@@ -256,7 +278,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public Blob getContent() {
-		return model.getContent();
+		return _batchEngineImportTask.getContent();
 	}
 
 	/**
@@ -266,7 +288,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public String getContentType() {
-		return model.getContentType();
+		return _batchEngineImportTask.getContentType();
 	}
 
 	/**
@@ -276,7 +298,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public Date getCreateDate() {
-		return model.getCreateDate();
+		return _batchEngineImportTask.getCreateDate();
 	}
 
 	/**
@@ -286,7 +308,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public Date getEndTime() {
-		return model.getEndTime();
+		return _batchEngineImportTask.getEndTime();
 	}
 
 	/**
@@ -296,7 +318,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public String getErrorMessage() {
-		return model.getErrorMessage();
+		return _batchEngineImportTask.getErrorMessage();
 	}
 
 	/**
@@ -306,7 +328,12 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public String getExecuteStatus() {
-		return model.getExecuteStatus();
+		return _batchEngineImportTask.getExecuteStatus();
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _batchEngineImportTask.getExpandoBridge();
 	}
 
 	/**
@@ -316,7 +343,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public Map<String, Serializable> getFieldNameMapping() {
-		return model.getFieldNameMapping();
+		return _batchEngineImportTask.getFieldNameMapping();
 	}
 
 	/**
@@ -326,7 +353,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public Date getModifiedDate() {
-		return model.getModifiedDate();
+		return _batchEngineImportTask.getModifiedDate();
 	}
 
 	/**
@@ -336,7 +363,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public long getMvccVersion() {
-		return model.getMvccVersion();
+		return _batchEngineImportTask.getMvccVersion();
 	}
 
 	/**
@@ -346,7 +373,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public String getOperation() {
-		return model.getOperation();
+		return _batchEngineImportTask.getOperation();
 	}
 
 	/**
@@ -356,7 +383,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public Map<String, Serializable> getParameters() {
-		return model.getParameters();
+		return _batchEngineImportTask.getParameters();
 	}
 
 	/**
@@ -366,7 +393,12 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public long getPrimaryKey() {
-		return model.getPrimaryKey();
+		return _batchEngineImportTask.getPrimaryKey();
+	}
+
+	@Override
+	public Serializable getPrimaryKeyObj() {
+		return _batchEngineImportTask.getPrimaryKeyObj();
 	}
 
 	/**
@@ -376,7 +408,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public Date getStartTime() {
-		return model.getStartTime();
+		return _batchEngineImportTask.getStartTime();
 	}
 
 	/**
@@ -386,7 +418,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public long getUserId() {
-		return model.getUserId();
+		return _batchEngineImportTask.getUserId();
 	}
 
 	/**
@@ -396,7 +428,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public String getUserUuid() {
-		return model.getUserUuid();
+		return _batchEngineImportTask.getUserUuid();
 	}
 
 	/**
@@ -406,7 +438,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public String getUuid() {
-		return model.getUuid();
+		return _batchEngineImportTask.getUuid();
 	}
 
 	/**
@@ -416,7 +448,27 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public String getVersion() {
-		return model.getVersion();
+		return _batchEngineImportTask.getVersion();
+	}
+
+	@Override
+	public int hashCode() {
+		return _batchEngineImportTask.hashCode();
+	}
+
+	@Override
+	public boolean isCachedModel() {
+		return _batchEngineImportTask.isCachedModel();
+	}
+
+	@Override
+	public boolean isEscapedModel() {
+		return _batchEngineImportTask.isEscapedModel();
+	}
+
+	@Override
+	public boolean isNew() {
+		return _batchEngineImportTask.isNew();
 	}
 
 	/**
@@ -426,7 +478,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void persist() {
-		model.persist();
+		_batchEngineImportTask.persist();
 	}
 
 	/**
@@ -436,7 +488,8 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setBatchEngineImportTaskId(long batchEngineImportTaskId) {
-		model.setBatchEngineImportTaskId(batchEngineImportTaskId);
+		_batchEngineImportTask.setBatchEngineImportTaskId(
+			batchEngineImportTaskId);
 	}
 
 	/**
@@ -446,7 +499,12 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setBatchSize(long batchSize) {
-		model.setBatchSize(batchSize);
+		_batchEngineImportTask.setBatchSize(batchSize);
+	}
+
+	@Override
+	public void setCachedModel(boolean cachedModel) {
+		_batchEngineImportTask.setCachedModel(cachedModel);
 	}
 
 	/**
@@ -456,7 +514,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setCallbackURL(String callbackURL) {
-		model.setCallbackURL(callbackURL);
+		_batchEngineImportTask.setCallbackURL(callbackURL);
 	}
 
 	/**
@@ -466,7 +524,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setClassName(String className) {
-		model.setClassName(className);
+		_batchEngineImportTask.setClassName(className);
 	}
 
 	/**
@@ -476,7 +534,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setCompanyId(long companyId) {
-		model.setCompanyId(companyId);
+		_batchEngineImportTask.setCompanyId(companyId);
 	}
 
 	/**
@@ -486,7 +544,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setContent(Blob content) {
-		model.setContent(content);
+		_batchEngineImportTask.setContent(content);
 	}
 
 	/**
@@ -496,7 +554,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setContentType(String contentType) {
-		model.setContentType(contentType);
+		_batchEngineImportTask.setContentType(contentType);
 	}
 
 	/**
@@ -506,7 +564,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setCreateDate(Date createDate) {
-		model.setCreateDate(createDate);
+		_batchEngineImportTask.setCreateDate(createDate);
 	}
 
 	/**
@@ -516,7 +574,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setEndTime(Date endTime) {
-		model.setEndTime(endTime);
+		_batchEngineImportTask.setEndTime(endTime);
 	}
 
 	/**
@@ -526,7 +584,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setErrorMessage(String errorMessage) {
-		model.setErrorMessage(errorMessage);
+		_batchEngineImportTask.setErrorMessage(errorMessage);
 	}
 
 	/**
@@ -536,7 +594,24 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setExecuteStatus(String executeStatus) {
-		model.setExecuteStatus(executeStatus);
+		_batchEngineImportTask.setExecuteStatus(executeStatus);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
+		_batchEngineImportTask.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
+		_batchEngineImportTask.setExpandoBridgeAttributes(expandoBridge);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
+		_batchEngineImportTask.setExpandoBridgeAttributes(serviceContext);
 	}
 
 	/**
@@ -548,7 +623,7 @@ public class BatchEngineImportTaskWrapper
 	public void setFieldNameMapping(
 		Map<String, Serializable> fieldNameMapping) {
 
-		model.setFieldNameMapping(fieldNameMapping);
+		_batchEngineImportTask.setFieldNameMapping(fieldNameMapping);
 	}
 
 	/**
@@ -558,7 +633,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
-		model.setModifiedDate(modifiedDate);
+		_batchEngineImportTask.setModifiedDate(modifiedDate);
 	}
 
 	/**
@@ -568,7 +643,12 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setMvccVersion(long mvccVersion) {
-		model.setMvccVersion(mvccVersion);
+		_batchEngineImportTask.setMvccVersion(mvccVersion);
+	}
+
+	@Override
+	public void setNew(boolean n) {
+		_batchEngineImportTask.setNew(n);
 	}
 
 	/**
@@ -578,7 +658,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setOperation(String operation) {
-		model.setOperation(operation);
+		_batchEngineImportTask.setOperation(operation);
 	}
 
 	/**
@@ -588,7 +668,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setParameters(Map<String, Serializable> parameters) {
-		model.setParameters(parameters);
+		_batchEngineImportTask.setParameters(parameters);
 	}
 
 	/**
@@ -598,7 +678,12 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
-		model.setPrimaryKey(primaryKey);
+		_batchEngineImportTask.setPrimaryKey(primaryKey);
+	}
+
+	@Override
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
+		_batchEngineImportTask.setPrimaryKeyObj(primaryKeyObj);
 	}
 
 	/**
@@ -608,7 +693,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setStartTime(Date startTime) {
-		model.setStartTime(startTime);
+		_batchEngineImportTask.setStartTime(startTime);
 	}
 
 	/**
@@ -618,7 +703,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setUserId(long userId) {
-		model.setUserId(userId);
+		_batchEngineImportTask.setUserId(userId);
 	}
 
 	/**
@@ -628,7 +713,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setUserUuid(String userUuid) {
-		model.setUserUuid(userUuid);
+		_batchEngineImportTask.setUserUuid(userUuid);
 	}
 
 	/**
@@ -638,7 +723,7 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setUuid(String uuid) {
-		model.setUuid(uuid);
+		_batchEngineImportTask.setUuid(uuid);
 	}
 
 	/**
@@ -648,19 +733,86 @@ public class BatchEngineImportTaskWrapper
 	 */
 	@Override
 	public void setVersion(String version) {
-		model.setVersion(version);
+		_batchEngineImportTask.setVersion(version);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.CacheModel<BatchEngineImportTask>
+		toCacheModel() {
+
+		return _batchEngineImportTask.toCacheModel();
+	}
+
+	@Override
+	public BatchEngineImportTask toEscapedModel() {
+		return new BatchEngineImportTaskWrapper(
+			_batchEngineImportTask.toEscapedModel());
+	}
+
+	@Override
+	public String toString() {
+		return _batchEngineImportTask.toString();
+	}
+
+	@Override
+	public BatchEngineImportTask toUnescapedModel() {
+		return new BatchEngineImportTaskWrapper(
+			_batchEngineImportTask.toUnescapedModel());
+	}
+
+	@Override
+	public String toXmlString() {
+		return _batchEngineImportTask.toXmlString();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof BatchEngineImportTaskWrapper)) {
+			return false;
+		}
+
+		BatchEngineImportTaskWrapper batchEngineImportTaskWrapper =
+			(BatchEngineImportTaskWrapper)obj;
+
+		if (Objects.equals(
+				_batchEngineImportTask,
+				batchEngineImportTaskWrapper._batchEngineImportTask)) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override
 	public StagedModelType getStagedModelType() {
-		return model.getStagedModelType();
+		return _batchEngineImportTask.getStagedModelType();
 	}
 
 	@Override
-	protected BatchEngineImportTaskWrapper wrap(
-		BatchEngineImportTask batchEngineImportTask) {
-
-		return new BatchEngineImportTaskWrapper(batchEngineImportTask);
+	public BatchEngineImportTask getWrappedModel() {
+		return _batchEngineImportTask;
 	}
+
+	@Override
+	public boolean isEntityCacheEnabled() {
+		return _batchEngineImportTask.isEntityCacheEnabled();
+	}
+
+	@Override
+	public boolean isFinderCacheEnabled() {
+		return _batchEngineImportTask.isFinderCacheEnabled();
+	}
+
+	@Override
+	public void resetOriginalValues() {
+		_batchEngineImportTask.resetOriginalValues();
+	}
+
+	private final BatchEngineImportTask _batchEngineImportTask;
 
 }

@@ -14,6 +14,8 @@
 
 package com.liferay.batch.engine.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.batch.engine.model.BatchEngineExportTask;
 import com.liferay.batch.engine.model.BatchEngineExportTaskContentBlobModel;
 import com.liferay.exportimport.kernel.lar.PortletDataContext;
@@ -39,8 +41,6 @@ import java.io.Serializable;
 
 import java.util.List;
 import java.util.Map;
-
-import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * Provides the local service interface for BatchEngineExportTask. Methods of this

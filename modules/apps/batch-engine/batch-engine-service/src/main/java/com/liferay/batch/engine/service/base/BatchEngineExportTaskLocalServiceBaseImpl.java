@@ -24,7 +24,7 @@ import com.liferay.exportimport.kernel.lar.PortletDataContext;
 import com.liferay.exportimport.kernel.lar.StagedModelDataHandlerUtil;
 import com.liferay.exportimport.kernel.lar.StagedModelType;
 import com.liferay.petra.io.AutoDeleteFileInputStream;
-import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
 import com.liferay.portal.kernel.dao.db.DBType;
@@ -46,11 +46,12 @@ import com.liferay.portal.kernel.module.framework.service.IdentifiableOSGiServic
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
-import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.File;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.InputStream;
 import java.io.Serializable;
@@ -60,9 +61,6 @@ import java.sql.Blob;
 import java.util.List;
 
 import javax.sql.DataSource;
-
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * Provides the base implementation for the batch engine export task local service.
@@ -77,8 +75,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class BatchEngineExportTaskLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
-	implements AopService, BatchEngineExportTaskLocalService,
-			   IdentifiableOSGiService {
+	implements BatchEngineExportTaskLocalService, IdentifiableOSGiService {
 
 	/**
 	 * NOTE FOR DEVELOPERS:
@@ -467,6 +464,75 @@ public abstract class BatchEngineExportTaskLocalServiceBaseImpl
 		return batchEngineExportTaskPersistence.update(batchEngineExportTask);
 	}
 
+	/**
+	 * Returns the batch engine export task local service.
+	 *
+	 * @return the batch engine export task local service
+	 */
+	public BatchEngineExportTaskLocalService
+		getBatchEngineExportTaskLocalService() {
+
+		return batchEngineExportTaskLocalService;
+	}
+
+	/**
+	 * Sets the batch engine export task local service.
+	 *
+	 * @param batchEngineExportTaskLocalService the batch engine export task local service
+	 */
+	public void setBatchEngineExportTaskLocalService(
+		BatchEngineExportTaskLocalService batchEngineExportTaskLocalService) {
+
+		this.batchEngineExportTaskLocalService =
+			batchEngineExportTaskLocalService;
+	}
+
+	/**
+	 * Returns the batch engine export task persistence.
+	 *
+	 * @return the batch engine export task persistence
+	 */
+	public BatchEngineExportTaskPersistence
+		getBatchEngineExportTaskPersistence() {
+
+		return batchEngineExportTaskPersistence;
+	}
+
+	/**
+	 * Sets the batch engine export task persistence.
+	 *
+	 * @param batchEngineExportTaskPersistence the batch engine export task persistence
+	 */
+	public void setBatchEngineExportTaskPersistence(
+		BatchEngineExportTaskPersistence batchEngineExportTaskPersistence) {
+
+		this.batchEngineExportTaskPersistence =
+			batchEngineExportTaskPersistence;
+	}
+
+	/**
+	 * Returns the counter local service.
+	 *
+	 * @return the counter local service
+	 */
+	public com.liferay.counter.kernel.service.CounterLocalService
+		getCounterLocalService() {
+
+		return counterLocalService;
+	}
+
+	/**
+	 * Sets the counter local service.
+	 *
+	 * @param counterLocalService the counter local service
+	 */
+	public void setCounterLocalService(
+		com.liferay.counter.kernel.service.CounterLocalService
+			counterLocalService) {
+
+		this.counterLocalService = counterLocalService;
+	}
+
 	@Override
 	public BatchEngineExportTaskContentBlobModel getContentBlobModel(
 		Serializable primaryKey) {
@@ -515,8 +581,11 @@ public abstract class BatchEngineExportTaskLocalServiceBaseImpl
 		}
 	}
 
-	@Activate
-	protected void activate() {
+	public void afterPropertiesSet() {
+		persistedModelLocalServiceRegistry.register(
+			"com.liferay.batch.engine.model.BatchEngineExportTask",
+			batchEngineExportTaskLocalService);
+
 		DB db = DBManagerUtil.getDB();
 
 		if ((db.getDBType() != DBType.DB2) &&
@@ -528,18 +597,9 @@ public abstract class BatchEngineExportTaskLocalServiceBaseImpl
 		}
 	}
 
-	@Override
-	public Class<?>[] getAopInterfaces() {
-		return new Class<?>[] {
-			BatchEngineExportTaskLocalService.class,
-			IdentifiableOSGiService.class, PersistedModelLocalService.class
-		};
-	}
-
-	@Override
-	public void setAopProxy(Object aopProxy) {
-		batchEngineExportTaskLocalService =
-			(BatchEngineExportTaskLocalService)aopProxy;
+	public void destroy() {
+		persistedModelLocalServiceRegistry.unregister(
+			"com.liferay.batch.engine.model.BatchEngineExportTask");
 	}
 
 	/**
@@ -585,22 +645,29 @@ public abstract class BatchEngineExportTaskLocalServiceBaseImpl
 		}
 	}
 
+	@BeanReference(type = BatchEngineExportTaskLocalService.class)
 	protected BatchEngineExportTaskLocalService
 		batchEngineExportTaskLocalService;
 
-	@Reference
+	@BeanReference(type = BatchEngineExportTaskPersistence.class)
 	protected BatchEngineExportTaskPersistence batchEngineExportTaskPersistence;
 
-	@Reference
+	@ServiceReference(
+		type = com.liferay.counter.kernel.service.CounterLocalService.class
+	)
 	protected com.liferay.counter.kernel.service.CounterLocalService
 		counterLocalService;
 
-	@Reference
+	@BeanReference(type = File.class)
 	protected File _file;
 
 	private static final InputStream _EMPTY_INPUT_STREAM =
 		new UnsyncByteArrayInputStream(new byte[0]);
 
 	private boolean _useTempFile;
+
+	@ServiceReference(type = PersistedModelLocalServiceRegistry.class)
+	protected PersistedModelLocalServiceRegistry
+		persistedModelLocalServiceRegistry;
 
 }
