@@ -196,7 +196,7 @@ definition {
 			var key_itemName = "${roleUser}";
 
 			AssertTextEquals(
-				locator1 = "ListGroupItem#ITEM_NAME",
+				locator1 = "ListGroupItem#ITEM_NAME_LINK",
 				value1 = "${roleUser}");
 
 			AssertClick(
@@ -207,7 +207,7 @@ definition {
 			var key_itemName = "${roleTitle}";
 
 			AssertTextEquals(
-				locator1 = "ListGroupItem#ITEM_NAME",
+				locator1 = "ListGroupItem#ITEM_NAME_LINK",
 				value1 = "${roleTitle}");
 
 			AssertClick(
