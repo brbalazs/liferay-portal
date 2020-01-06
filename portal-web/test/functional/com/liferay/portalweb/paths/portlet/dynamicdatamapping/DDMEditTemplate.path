@@ -49,6 +49,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>STRUCTURE_FIELDS</td>
+	<td>//div[@id='fields']</td>
+	<td></td>
+</tr>
+<tr>
 	<td></td>
 	<td></td>
 	<td></td>
