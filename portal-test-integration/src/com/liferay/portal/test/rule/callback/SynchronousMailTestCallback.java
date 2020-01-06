@@ -58,7 +58,7 @@ public class SynchronousMailTestCallback
 			TestPropsValues.getCompanyId(), PropsKeys.ADMIN_EMAIL_FROM_ADDRESS);
 
 		_setCompanyAdminEmailFromAddress(
-			TestPropsValues.getCompanyId(), "integrationtest@liferay.com");
+			TestPropsValues.getCompanyId(), "integration-test@liferay.com");
 
 		return null;
 	}
