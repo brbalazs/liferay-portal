@@ -40,7 +40,7 @@ public class EmailAddressResourceImpl extends BaseEmailAddressResourceImpl {
 
 	@Override
 	public EmailAddress getEmailAddress(Long emailAddressId) throws Exception {
-		return EmailAddressUtil.toEmail(
+		return EmailAddressUtil.toEmailAddress(
 			_emailAddressService.getEmailAddress(emailAddressId));
 	}
 
