@@ -204,7 +204,8 @@ public class OrganizationResourceImpl
 							_emailAddressService.getEmailAddresses(
 								organization.getModelClassName(),
 								organization.getOrganizationId()),
-							EmailAddressUtil::toEmail, EmailAddress.class);
+							EmailAddressUtil::toEmailAddress,
+							EmailAddress.class);
 						postalAddresses = transformToArray(
 							organization.getAddresses(),
 							address -> PostalAddressUtil.toPostalAddress(

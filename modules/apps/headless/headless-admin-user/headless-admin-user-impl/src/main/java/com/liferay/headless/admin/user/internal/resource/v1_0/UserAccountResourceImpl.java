@@ -239,7 +239,8 @@ public class UserAccountResourceImpl
 				contactInformation = new ContactInformation() {
 					{
 						emailAddresses = transformToArray(
-							user.getEmailAddresses(), EmailAddressUtil::toEmail,
+							user.getEmailAddresses(),
+							EmailAddressUtil::toEmailAddress,
 							EmailAddress.class);
 						facebook = contact.getFacebookSn();
 						jabber = contact.getJabberSn();
