@@ -115,7 +115,7 @@ AUI.add(
 
 					// LPS-106470 resize modal mask
 
-					var mask = modal._getMaskNode();
+					var mask = modal.get('maskNode');
 
 					if (mask.getStyle('position') === 'absolute') {
 						mask.setStyle('width', '100%');
