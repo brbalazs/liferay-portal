@@ -126,6 +126,10 @@ components:
                 productType:
                     example: simple
                     type: string
+                relatedProducts:
+                    items:
+                        $ref: "#/components/schemas/RelatedProduct"
+                    type: array
                 shortDescription:
                     type: string
                 skus:
@@ -143,6 +147,27 @@ components:
                         type: string
                     type: array
                 urlImage:
+                    type: string
+            type: object
+        RelatedProduct:
+            properties:
+                id:
+                    example: 30130
+                    format: int64
+                    minimum: 0
+                    readOnly: true
+                    type: integer
+                priority:
+                    example: 1.2
+                    format: double
+                    type: number
+                productId:
+                    example: 30129
+                    format: int64
+                    minimum: 0
+                    type: integer
+                type:
+                    example: "cross-sell"
                     type: string
             type: object
         Sku:
@@ -360,6 +385,149 @@ paths:
                     description:
                         Unexpected error
             tags: ["Product"]
+    /products/{productId}/relatedProducts:
+        get:
+            description:
+                Gets a list of Related Products of a Product.
+            operationId: getProductRelatedProductsPage
+            parameters:
+                - in: path
+                  explode: false
+                  name: productId
+                  required: true
+                  schema:
+                      description:
+                          Product Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: query
+                  explode: true
+                  name: type
+                  required: false
+                  schema:
+                      type: string
+                  style: form
+                - in: query
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/RelatedProduct"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/RelatedProduct"
+                                type: array
+                    description:
+                        Successful operation
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            tags: ["RelatedProduct"]
+    /relatedProducts/{id}:
+        get:
+            description:
+                Gets a Related Product by ID.
+            operationId: getRelatedProduct
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/RelatedProduct"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/RelatedProduct"
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            tags:
+                - RelatedProduct
     /stores/{channelId}/products:
         get:
             description:
