@@ -17,26 +17,23 @@ package com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.convert
 import com.liferay.asset.kernel.model.AssetTag;
 import com.liferay.asset.kernel.service.AssetTagService;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
-import com.liferay.commerce.product.catalog.CPCatalogEntry;
-import com.liferay.commerce.product.catalog.CPSku;
 import com.liferay.commerce.product.content.util.CPContentHelper;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
-import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Sku;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Stream;
 
 import org.osgi.service.component.annotations.Component;
@@ -47,7 +44,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	property = "model.class.name=com.liferay.commerce.product.catalog.CPCatalogEntry",
-	service = {ProductDTOConverter.class, DTOConverter.class}
+	service = {DTOConverter.class, ProductDTOConverter.class}
 )
 public class ProductDTOConverter implements DTOConverter {
 
@@ -64,8 +61,7 @@ public class ProductDTOConverter implements DTOConverter {
 
 		CPDefinition cpDefinition = _cpDefinitionService.getCPDefinition(
 			cpCatalogEntryDTOConverterConvertContext.getResourcePrimKey());
-		CPCatalogEntry cpCatalogEntry =
-			cpCatalogEntryDTOConverterConvertContext.getCpCatalogEntry();
+
 		String languageId = LanguageUtil.getLanguageId(
 			cpCatalogEntryDTOConverterConvertContext.getLocale());
 
@@ -83,6 +79,8 @@ public class ProductDTOConverter implements DTOConverter {
 				description = cpDefinition.getDescription();
 				expando = expandoBridge.getAttributes();
 				externalReferenceCode = cProduct.getExternalReferenceCode();
+				friendlyUrl = _getFriendlyUrl(
+					cpDefinition, languageId, portalURL);
 				id = cpDefinition.getCPDefinitionId();
 				metaDescription = cpDefinition.getMetaDescription(languageId);
 				metaKeyword = cpDefinition.getMetaKeywords(languageId);
@@ -92,15 +90,30 @@ public class ProductDTOConverter implements DTOConverter {
 				productId = cpDefinition.getCProductId();
 				productType = cpDefinition.getProductTypeName();
 				shortDescription = cpDefinition.getShortDescription();
-				//				skus = _toSkus(
-				//					cpCatalogEntry.getCPSkus(),
-				//					cpCatalogEntryDTOConverterConvertContext.getLocale(),
-				//					cpDefinition.getCPDefinitionId());
 				slug = cpDefinition.getURL(languageId);
 				tags = _getTags(cpDefinition);
-				urlImage = portalURL + cpCatalogEntry.getDefaultImageFileUrl();
+				urlImage = portalURL + cpDefinition.getDefaultImageFileURL();
 			}
 		};
+	}
+
+	private String _getFriendlyUrl(
+		CPDefinition cpDefinition, String languageId, String portalURL) {
+
+		StringBundler sb = new StringBundler(portalURL);
+
+		sb.append(
+			"/group/"
+		).append(
+			cpDefinition.getCommerceCatalog(
+			).getName()
+		).append(
+			"/p/"
+		).append(
+			cpDefinition.getURL(languageId)
+		);
+
+		return sb.toString();
 	}
 
 	private String[] _getTags(CPDefinition cpDefinition) {
@@ -116,27 +129,6 @@ public class ProductDTOConverter implements DTOConverter {
 		);
 	}
 
-	private Sku[] _toSkus(
-			List<CPSku> cpSkus, Locale locale, long cpDefinitionId)
-		throws Exception {
-
-		List<Sku> skus = new ArrayList<>();
-		DTOConverter cpSkuDTOConverter = _dtoConverterRegistry.getDTOConverter(
-			CPSku.class.getName());
-
-		for (CPSku cpSku : cpSkus) {
-			skus.add(
-				(Sku)cpSkuDTOConverter.toDTO(
-					new CPSkuDTOConverterContext(
-						locale, cpSku.getCPInstanceId(), cpSku,
-						cpDefinitionId)));
-		}
-
-		Stream<Sku> stream = skus.stream();
-
-		return stream.toArray(Sku[]::new);
-	}
-
 	@Reference
 	private AssetTagService _assetTagService;
 
@@ -145,6 +137,9 @@ public class ProductDTOConverter implements DTOConverter {
 
 	@Reference
 	private CPContentHelper _cpContentHelper;
+
+	@Reference
+	private CPDefinitionHelper _cpDefinitionHelper;
 
 	@Reference
 	private CPDefinitionInventoryEngineRegistry

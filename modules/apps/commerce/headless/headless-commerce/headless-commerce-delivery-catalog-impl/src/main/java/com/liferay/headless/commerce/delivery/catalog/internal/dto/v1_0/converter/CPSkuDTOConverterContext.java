@@ -14,7 +14,7 @@
 
 package com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.converter;
 
-import com.liferay.commerce.product.catalog.CPSku;
+import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 
 import java.util.Locale;
@@ -25,24 +25,24 @@ import java.util.Locale;
 public class CPSkuDTOConverterContext extends DefaultDTOConverterContext {
 
 	public CPSkuDTOConverterContext(
-		Locale locale, long resourcePrimKey, CPSku cpSku, long cpDefinitionId) {
+		Locale locale, long resourcePrimKey, CPDefinition cpDefinition,
+		long companyId) {
 
 		super(locale, resourcePrimKey);
 
-		_cpSku = cpSku;
-		_cpDefinitionId = cpDefinitionId;
+		_cpDefinition = cpDefinition;
+		_companyId = companyId;
 	}
 
-	public long getCPDefinitionId() {
-		return _cpDefinitionId;
+	public long getCompanyId() {
+		return _companyId;
 	}
 
-	public CPSku getCPSku() {
-		return _cpSku;
+	public CPDefinition getCPDefinition() {
+		return _cpDefinition;
 	}
 
-	private CPSku _cpSku;
-
-	long _cpDefinitionId;
+	private final long _companyId;
+	private final CPDefinition _cpDefinition;
 
 }

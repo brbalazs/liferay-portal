@@ -14,14 +14,20 @@
 
 package com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.converter;
 
+import com.liferay.commerce.currency.model.CommerceCurrency;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalServiceUtil;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngine;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
 import com.liferay.commerce.model.CPDefinitionInventory;
 import com.liferay.commerce.product.catalog.CPSku;
 import com.liferay.commerce.product.content.util.CPContentHelper;
+import com.liferay.commerce.product.model.CPDefinition;
+import com.liferay.commerce.product.model.CPDefinitionOptionRel;
+import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
@@ -32,7 +38,10 @@ import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Sku;
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -55,33 +64,44 @@ public class CPSkuDTOConverter implements DTOConverter {
 		CPSkuDTOConverterContext cpSkuDTOConverterConvertContext =
 			(CPSkuDTOConverterContext)dtoConverterContext;
 
-		CPSku cpSku = cpSkuDTOConverterConvertContext.getCPSku();
-
 		CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
-			cpSku.getCPInstanceId());
+			cpSkuDTOConverterConvertContext.getResourcePrimKey());
+
+		CPDefinition cpDefinition =
+			cpSkuDTOConverterConvertContext.getCPDefinition();
 
 		CPDefinitionInventory cpDefinitionInventory =
 			_cpDefinitionInventoryLocalService.
 				fetchCPDefinitionInventoryByCPDefinitionId(
-					cpSkuDTOConverterConvertContext.getCPDefinitionId());
+					cpDefinition.getCPDefinitionId());
 
 		CPDefinitionInventoryEngine cpDefinitionInventoryEngine =
 			_cpDefinitionInventoryEngineRegistry.getCPDefinitionInventoryEngine(
 				cpDefinitionInventory);
 
+		CommerceCurrency commerceCurrency =
+			CommerceCurrencyLocalServiceUtil.getCommerceCurrency(
+				cpSkuDTOConverterConvertContext.getCompanyId(),
+				cpDefinition.getCommerceCatalog(
+				).getCommerceCurrencyCode());
+
 		return new Sku() {
 			{
-				allowedOrderQuantities =
-					cpDefinitionInventoryEngine.getAllowedOrderQuantities(
-						cpInstance);
-				availability = _getAvailability(cpSku);
-				maxOrderQuantity =
-					cpDefinitionInventoryEngine.getMinOrderQuantity(cpInstance);
-				minOrderQuantity =
-					cpDefinitionInventoryEngine.getMinOrderQuantity(cpInstance);
+				depth = cpInstance.getDepth();
+				displayDate = cpInstance.getDisplayDate();
+				expirationDate = cpInstance.getExpirationDate();
+				gtin = cpInstance.getGtin();
+				height = cpInstance.getHeight();
+				manufacturerPartNumber = cpInstance.getManufacturerPartNumber();
+				options = _getOptions(cpInstance);
 				price = _getPrice(
-					cpSku, cpSkuDTOConverterConvertContext.getLocale());
-				sku = cpSku.getSku();
+					commerceCurrency, cpInstance,
+					cpSkuDTOConverterConvertContext.getLocale());
+				published = cpInstance.isPublished();
+				purchasable = cpInstance.isPurchasable();
+				sku = cpInstance.getSku();
+				weight = cpInstance.getWeight();
+				width = cpInstance.getWidth();
 			}
 		};
 	}
@@ -98,13 +118,53 @@ public class CPSkuDTOConverter implements DTOConverter {
 		};
 	}
 
-	private Price _getPrice(CPSku cpSku, Locale locale) throws PortalException {
+	private Map<String, String> _getOptions(CPInstance cpInstance)
+		throws PortalException {
+
+		Map<String, String> options = new HashMap<>();
+
+		Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+			cpDefinitionOptionRelsMap =
+				_cpInstanceHelper.getCPDefinitionOptionRelsMap(
+					cpInstance.getCPDefinitionId(), cpInstance.getJson());
+
+		for (Map.Entry<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
+				entry : cpDefinitionOptionRelsMap.entrySet()) {
+
+			CPDefinitionOptionRel cpDefinitionOptionRel = entry.getKey();
+
+			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+				entry.getValue();
+
+			for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+					cpDefinitionOptionValueRels) {
+
+				options.put(
+					String.valueOf(
+						cpDefinitionOptionRel.getCPDefinitionOptionRelId()),
+					String.valueOf(
+						cpDefinitionOptionValueRel.
+							getCPDefinitionOptionValueRelId()));
+			}
+		}
+
+		return options;
+	}
+
+	private Price _getPrice(
+			CommerceCurrency currencyCode, CPInstance cpInstance, Locale locale)
+		throws PortalException {
+
 		return new Price() {
 			{
-				price = _commercePriceFormatter.format(
-					cpSku.getPrice(), locale);
-				promoPrice = _commercePriceFormatter.format(
-					cpSku.getPromoPrice(), locale);
+				price = cpInstance.getPrice(
+				).doubleValue();
+				priceFormatted = _commercePriceFormatter.format(
+					currencyCode, cpInstance.getPrice(), locale);
+				promoPrice = cpInstance.getPromoPrice(
+				).doubleValue();
+				promoPriceFormatted = _commercePriceFormatter.format(
+					currencyCode, cpInstance.getPromoPrice(), locale);
 			}
 		};
 	}
@@ -122,6 +182,9 @@ public class CPSkuDTOConverter implements DTOConverter {
 	@Reference
 	private CPDefinitionInventoryLocalService
 		_cpDefinitionInventoryLocalService;
+
+	@Reference
+	private CPInstanceHelper _cpInstanceHelper;
 
 	@Reference
 	private CPInstanceLocalService _cpInstanceLocalService;

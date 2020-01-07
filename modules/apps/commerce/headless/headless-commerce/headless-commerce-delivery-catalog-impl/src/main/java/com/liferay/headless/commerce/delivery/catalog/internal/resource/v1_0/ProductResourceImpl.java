@@ -17,6 +17,7 @@ package com.liferay.headless.commerce.delivery.catalog.internal.resource.v1_0;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.catalog.CPQuery;
 import com.liferay.commerce.product.data.source.CPDataSourceResult;
+import com.liferay.commerce.product.exception.NoSuchCPDefinitionException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
@@ -66,9 +67,15 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 
 	@Override
 	public Product getProduct(@NotNull Long id) throws Exception {
-		CPDefinition cpDefinition = _cpDefinitionService.getCPDefinition(id);
+		CPDefinition cpDefinition =
+			_cpDefinitionService.fetchCPDefinitionByCProductId(id);
 
-		return super.getProduct(id);
+		if (cpDefinition == null) {
+			throw new NoSuchCPDefinitionException(
+				"Unable to find Product with ID: " + id);
+		}
+
+		return _toProduct(cpDefinition);
 	}
 
 	@Override
@@ -125,6 +132,18 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 
 	@Context
 	protected Company contextCompany;
+
+	private Product _toProduct(CPDefinition cpDefinition) throws Exception {
+		List<Product> products = new ArrayList<>();
+		DTOConverter cpCatalogEntryDTOConverter =
+			_dtoConverterRegistry.getDTOConverter(
+				CPCatalogEntry.class.getName());
+
+		return (Product)cpCatalogEntryDTOConverter.toDTO(
+			new ProductDTOConverterContext(
+				contextAcceptLanguage.getPreferredLocale(),
+				cpDefinition.getCPDefinitionId(), cpDefinition));
+	}
 
 	private List<Product> _toProducts(CPDataSourceResult cpDataSourceResult)
 		throws Exception {
