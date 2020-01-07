@@ -134,7 +134,6 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 	protected Company contextCompany;
 
 	private Product _toProduct(CPDefinition cpDefinition) throws Exception {
-		List<Product> products = new ArrayList<>();
 		DTOConverter cpCatalogEntryDTOConverter =
 			_dtoConverterRegistry.getDTOConverter(
 				CPCatalogEntry.class.getName());

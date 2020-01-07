@@ -15,28 +15,27 @@
 package com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.converter;
 
 import com.liferay.commerce.currency.model.CommerceCurrency;
-import com.liferay.commerce.currency.service.CommerceCurrencyLocalServiceUtil;
+import com.liferay.commerce.currency.service.CommerceCurrencyService;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
-import com.liferay.commerce.inventory.CPDefinitionInventoryEngine;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
-import com.liferay.commerce.model.CPDefinitionInventory;
-import com.liferay.commerce.product.catalog.CPSku;
 import com.liferay.commerce.product.content.util.CPContentHelper;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
-import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Availability;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Price;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Sku;
 import com.liferay.portal.kernel.exception.PortalException;
+
+import java.math.BigDecimal;
 
 import java.util.HashMap;
 import java.util.List;
@@ -70,20 +69,12 @@ public class CPSkuDTOConverter implements DTOConverter {
 		CPDefinition cpDefinition =
 			cpSkuDTOConverterConvertContext.getCPDefinition();
 
-		CPDefinitionInventory cpDefinitionInventory =
-			_cpDefinitionInventoryLocalService.
-				fetchCPDefinitionInventoryByCPDefinitionId(
-					cpDefinition.getCPDefinitionId());
-
-		CPDefinitionInventoryEngine cpDefinitionInventoryEngine =
-			_cpDefinitionInventoryEngineRegistry.getCPDefinitionInventoryEngine(
-				cpDefinitionInventory);
+		CommerceCatalog commerceCatalog = cpDefinition.getCommerceCatalog();
 
 		CommerceCurrency commerceCurrency =
-			CommerceCurrencyLocalServiceUtil.getCommerceCurrency(
+			_commerceCurrencyService.getCommerceCurrency(
 				cpSkuDTOConverterConvertContext.getCompanyId(),
-				cpDefinition.getCommerceCatalog(
-				).getCommerceCurrencyCode());
+				commerceCatalog.getCommerceCurrencyCode());
 
 		return new Sku() {
 			{
@@ -102,18 +93,6 @@ public class CPSkuDTOConverter implements DTOConverter {
 				sku = cpInstance.getSku();
 				weight = cpInstance.getWeight();
 				width = cpInstance.getWidth();
-			}
-		};
-	}
-
-	private Availability _getAvailability(CPSku cpSku) {
-		return new Availability() {
-			{
-				availabilityLabel =
-					cpSku.isPurchasable() && cpSku.isPublished() ? "Available" :
-					"Not available";
-				availabilityNumber =
-					cpSku.isPurchasable() && cpSku.isPublished() ? 1 : 0;
 			}
 		};
 	}
@@ -155,19 +134,23 @@ public class CPSkuDTOConverter implements DTOConverter {
 			CommerceCurrency currencyCode, CPInstance cpInstance, Locale locale)
 		throws PortalException {
 
+		BigDecimal cpInstancePrice = cpInstance.getPrice();
+		BigDecimal cpInstancePromoPrice = cpInstance.getPromoPrice();
+
 		return new Price() {
 			{
-				price = cpInstance.getPrice(
-				).doubleValue();
+				price = cpInstancePrice.doubleValue();
 				priceFormatted = _commercePriceFormatter.format(
-					currencyCode, cpInstance.getPrice(), locale);
-				promoPrice = cpInstance.getPromoPrice(
-				).doubleValue();
+					currencyCode, cpInstancePrice, locale);
+				promoPrice = cpInstancePromoPrice.doubleValue();
 				promoPriceFormatted = _commercePriceFormatter.format(
-					currencyCode, cpInstance.getPromoPrice(), locale);
+					currencyCode, cpInstancePromoPrice, locale);
 			}
 		};
 	}
+
+	@Reference
+	private CommerceCurrencyService _commerceCurrencyService;
 
 	@Reference
 	private CommercePriceFormatter _commercePriceFormatter;

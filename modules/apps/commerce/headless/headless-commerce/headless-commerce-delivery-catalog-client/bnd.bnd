@@ -1,3 +1,3 @@
-Bundle-Name: Liferay Headless Delivery Catalog Client
-Bundle-SymbolicName: com.liferay.headless.delivery.catalog.client
+Bundle-Name: Liferay Headless Commerce Delivery Catalog Client
+Bundle-SymbolicName: com.liferay.headless.commerce.delivery.catalog.client
 Bundle-Version: 1.0.0

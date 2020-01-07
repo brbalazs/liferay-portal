@@ -19,7 +19,7 @@ import com.liferay.asset.kernel.service.AssetTagService;
 import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
 import com.liferay.commerce.product.content.util.CPContentHelper;
 import com.liferay.commerce.product.model.CPDefinition;
-import com.liferay.commerce.product.model.CProduct;
+import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
@@ -66,7 +66,6 @@ public class ProductDTOConverter implements DTOConverter {
 			cpCatalogEntryDTOConverterConvertContext.getLocale());
 
 		ExpandoBridge expandoBridge = cpDefinition.getExpandoBridge();
-		CProduct cProduct = cpDefinition.getCProduct();
 
 		Company company = _companyLocalService.getCompany(
 			cpDefinition.getCompanyId());
@@ -100,20 +99,11 @@ public class ProductDTOConverter implements DTOConverter {
 	private String _getFriendlyUrl(
 		CPDefinition cpDefinition, String languageId, String portalURL) {
 
-		StringBundler sb = new StringBundler(portalURL);
+		CommerceCatalog commerceCatalog = cpDefinition.getCommerceCatalog();
 
-		sb.append(
-			"/group/"
-		).append(
-			cpDefinition.getCommerceCatalog(
-			).getName()
-		).append(
-			"/p/"
-		).append(
-			cpDefinition.getURL(languageId)
-		);
-
-		return sb.toString();
+		return StringBundler.concat(
+			portalURL, "/group/", commerceCatalog.getName(), "/p/",
+			cpDefinition.getURL(languageId));
 	}
 
 	private String[] _getTags(CPDefinition cpDefinition) {
