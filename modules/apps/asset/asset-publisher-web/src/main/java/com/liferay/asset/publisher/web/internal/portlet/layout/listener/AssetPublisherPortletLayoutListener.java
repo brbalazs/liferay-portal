@@ -133,7 +133,10 @@ public class AssetPublisherPortletLayoutListener
 	private AssetPublisherWebUtil _assetPublisherWebUtil;
 
 	private JournalArticleLocalService _journalArticleLocalService;
+
+	@Reference
 	private LayoutLocalService _layoutLocalService;
+
 	private SubscriptionLocalService _subscriptionLocalService;
 
 }
