@@ -110,12 +110,12 @@ public class UpgradeJournal extends UpgradeProcess {
 
 		Class<?> clazz = getClass();
 
-		Locale oldLocale = LocaleThreadLocal.getSiteDefaultLocale();
+		Locale oldSiteDefaultLocale = LocaleThreadLocal.getSiteDefaultLocale();
 
-		Locale defaultLocale = LocaleUtil.fromLanguageId(
+		Locale siteDefaultLocale = LocaleUtil.fromLanguageId(
 			UpgradeProcessUtil.getDefaultLanguageId(companyId));
 
-		LocaleThreadLocal.setSiteDefaultLocale(defaultLocale);
+		LocaleThreadLocal.setSiteDefaultLocale(siteDefaultLocale);
 
 		try {
 			_defaultDDMStructureHelper.addDDMStructures(
@@ -127,12 +127,12 @@ public class UpgradeJournal extends UpgradeProcess {
 				new ServiceContext());
 		}
 		finally {
-			LocaleThreadLocal.setSiteDefaultLocale(oldLocale);
+			LocaleThreadLocal.setSiteDefaultLocale(oldSiteDefaultLocale);
 		}
 
 		addDefaultResourcePermissions(group.getGroupId());
 
-		List<Element> structureElements = getDDMStructures(defaultLocale);
+		List<Element> structureElements = getDDMStructures(siteDefaultLocale);
 
 		Element structureElement = structureElements.get(0);
 
