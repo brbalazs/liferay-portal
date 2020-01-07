@@ -443,6 +443,36 @@ public class Product {
 	protected String productType;
 
 	@Schema
+	@Valid
+	public RelatedProduct[] getRelatedProducts() {
+		return relatedProducts;
+	}
+
+	public void setRelatedProducts(RelatedProduct[] relatedProducts) {
+		this.relatedProducts = relatedProducts;
+	}
+
+	@JsonIgnore
+	public void setRelatedProducts(
+		UnsafeSupplier<RelatedProduct[], Exception>
+			relatedProductsUnsafeSupplier) {
+
+		try {
+			relatedProducts = relatedProductsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected RelatedProduct[] relatedProducts;
+
+	@Schema
 	public String getShortDescription() {
 		return shortDescription;
 	}
@@ -787,6 +817,26 @@ public class Product {
 			sb.append(_escape(productType));
 
 			sb.append("\"");
+		}
+
+		if (relatedProducts != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"relatedProducts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < relatedProducts.length; i++) {
+				sb.append(String.valueOf(relatedProducts[i]));
+
+				if ((i + 1) < relatedProducts.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
 		if (shortDescription != null) {

@@ -713,6 +713,14 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("relatedProducts", additionalAssertFieldName)) {
+				if (product.getRelatedProducts() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("shortDescription", additionalAssertFieldName)) {
 				if (product.getShortDescription() == null) {
 					valid = false;
@@ -945,6 +953,17 @@ public abstract class BaseProductResourceTestCase {
 			if (Objects.equals("productType", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						product1.getProductType(), product2.getProductType())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("relatedProducts", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						product1.getRelatedProducts(),
+						product2.getRelatedProducts())) {
 
 					return false;
 				}
@@ -1365,6 +1384,11 @@ public abstract class BaseProductResourceTestCase {
 			sb.append("'");
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("relatedProducts")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("shortDescription")) {

@@ -321,6 +321,28 @@ public class Product {
 
 	protected String productType;
 
+	public RelatedProduct[] getRelatedProducts() {
+		return relatedProducts;
+	}
+
+	public void setRelatedProducts(RelatedProduct[] relatedProducts) {
+		this.relatedProducts = relatedProducts;
+	}
+
+	public void setRelatedProducts(
+		UnsafeSupplier<RelatedProduct[], Exception>
+			relatedProductsUnsafeSupplier) {
+
+		try {
+			relatedProducts = relatedProductsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected RelatedProduct[] relatedProducts;
+
 	public String getShortDescription() {
 		return shortDescription;
 	}

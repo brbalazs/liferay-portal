@@ -15,6 +15,7 @@
 package com.liferay.headless.commerce.delivery.catalog.client.serdes.v1_0;
 
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Product;
+import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.RelatedProduct;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Sku;
 import com.liferay.headless.commerce.delivery.catalog.client.json.BaseJSONParser;
 
@@ -242,6 +243,26 @@ public class ProductSerDes {
 			sb.append("\"");
 		}
 
+		if (product.getRelatedProducts() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"relatedProducts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < product.getRelatedProducts().length; i++) {
+				sb.append(String.valueOf(product.getRelatedProducts()[i]));
+
+				if ((i + 1) < product.getRelatedProducts().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (product.getShortDescription() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -447,6 +468,15 @@ public class ProductSerDes {
 			map.put("productType", String.valueOf(product.getProductType()));
 		}
 
+		if (product.getRelatedProducts() == null) {
+			map.put("relatedProducts", null);
+		}
+		else {
+			map.put(
+				"relatedProducts",
+				String.valueOf(product.getRelatedProducts()));
+		}
+
 		if (product.getShortDescription() == null) {
 			map.put("shortDescription", null);
 		}
@@ -581,6 +611,18 @@ public class ProductSerDes {
 			else if (Objects.equals(jsonParserFieldName, "productType")) {
 				if (jsonParserFieldValue != null) {
 					product.setProductType((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "relatedProducts")) {
+				if (jsonParserFieldValue != null) {
+					product.setRelatedProducts(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> RelatedProductSerDes.toDTO((String)object)
+						).toArray(
+							size -> new RelatedProduct[size]
+						));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "shortDescription")) {
