@@ -64,7 +64,7 @@ import java.util.Map;
 public interface DDLRecordSetLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link DDLRecordSetLocalServiceUtil} to access the ddl record set local service. Add custom service methods to <code>com.liferay.dynamic.data.lists.service.impl.DDLRecordSetLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

@@ -627,11 +627,6 @@ public class CPDefinitionOptionRelWrapper
 		return _cpDefinitionOptionRel.isSkuContributor();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a cp definition option rel model instance should use the <code>CPDefinitionOptionRel</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_cpDefinitionOptionRel.persist();

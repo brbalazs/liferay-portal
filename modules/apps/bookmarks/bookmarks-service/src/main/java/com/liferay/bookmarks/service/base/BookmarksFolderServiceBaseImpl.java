@@ -55,7 +55,7 @@ public abstract class BookmarksFolderServiceBaseImpl
 	extends BaseServiceImpl
 	implements BookmarksFolderService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>BookmarksFolderService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.bookmarks.service.BookmarksFolderServiceUtil</code>.

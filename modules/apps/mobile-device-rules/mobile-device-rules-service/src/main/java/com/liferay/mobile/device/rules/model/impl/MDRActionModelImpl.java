@@ -73,7 +73,7 @@ import java.util.function.Function;
 public class MDRActionModelImpl
 	extends BaseModelImpl<MDRAction> implements MDRActionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a mdr action model instance should use the <code>MDRAction</code> interface instead.

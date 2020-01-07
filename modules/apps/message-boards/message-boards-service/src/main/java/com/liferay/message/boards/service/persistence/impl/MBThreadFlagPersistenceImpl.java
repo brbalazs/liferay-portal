@@ -69,7 +69,7 @@ public class MBThreadFlagPersistenceImpl
 	extends BasePersistenceImpl<MBThreadFlag>
 	implements MBThreadFlagPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>MBThreadFlagUtil</code> to access the message boards thread flag persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

@@ -89,7 +89,7 @@ public abstract class CPDefinitionInventoryLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements CPDefinitionInventoryLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>CPDefinitionInventoryLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.service.CPDefinitionInventoryLocalServiceUtil</code>.

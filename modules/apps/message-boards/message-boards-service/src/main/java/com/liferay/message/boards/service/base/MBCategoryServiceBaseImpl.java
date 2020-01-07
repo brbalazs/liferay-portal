@@ -55,7 +55,7 @@ public abstract class MBCategoryServiceBaseImpl
 	extends BaseServiceImpl
 	implements IdentifiableOSGiService, MBCategoryService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>MBCategoryService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.message.boards.service.MBCategoryServiceUtil</code>.

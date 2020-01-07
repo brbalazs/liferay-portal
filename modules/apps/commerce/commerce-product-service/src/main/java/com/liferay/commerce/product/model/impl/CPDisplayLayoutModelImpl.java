@@ -67,7 +67,7 @@ import java.util.function.Function;
 public class CPDisplayLayoutModelImpl
 	extends BaseModelImpl<CPDisplayLayout> implements CPDisplayLayoutModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a cp display layout model instance should use the <code>CPDisplayLayout</code> interface instead.

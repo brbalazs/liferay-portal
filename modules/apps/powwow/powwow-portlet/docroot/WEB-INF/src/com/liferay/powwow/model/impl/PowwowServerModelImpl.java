@@ -59,7 +59,7 @@ import java.util.function.Function;
 public class PowwowServerModelImpl
 	extends BaseModelImpl<PowwowServer> implements PowwowServerModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a powwow server model instance should use the <code>PowwowServer</code> interface instead.

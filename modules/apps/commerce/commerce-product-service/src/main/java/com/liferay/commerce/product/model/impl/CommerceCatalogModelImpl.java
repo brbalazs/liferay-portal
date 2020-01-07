@@ -65,7 +65,7 @@ import java.util.function.Function;
 public class CommerceCatalogModelImpl
 	extends BaseModelImpl<CommerceCatalog> implements CommerceCatalogModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce catalog model instance should use the <code>CommerceCatalog</code> interface instead.

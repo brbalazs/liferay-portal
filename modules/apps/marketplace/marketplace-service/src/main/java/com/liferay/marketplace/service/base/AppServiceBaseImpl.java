@@ -47,7 +47,7 @@ import javax.sql.DataSource;
 public abstract class AppServiceBaseImpl
 	extends BaseServiceImpl implements AppService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>AppService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.marketplace.service.AppServiceUtil</code>.

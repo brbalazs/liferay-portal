@@ -76,7 +76,7 @@ import java.util.Set;
 public class DLFolderPersistenceImpl
 	extends BasePersistenceImpl<DLFolder> implements DLFolderPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>DLFolderUtil</code> to access the document library folder persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

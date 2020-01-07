@@ -72,7 +72,7 @@ public class LayoutPageTemplateCollectionPersistenceImpl
 	extends BasePersistenceImpl<LayoutPageTemplateCollection>
 	implements LayoutPageTemplateCollectionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>LayoutPageTemplateCollectionUtil</code> to access the layout page template collection persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

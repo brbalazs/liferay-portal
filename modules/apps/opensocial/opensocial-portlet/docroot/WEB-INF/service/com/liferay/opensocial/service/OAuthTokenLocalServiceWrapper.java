@@ -32,11 +32,6 @@ public class OAuthTokenLocalServiceWrapper
 		_oAuthTokenLocalService = oAuthTokenLocalService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link OAuthTokenLocalServiceUtil} to access the o auth token local service. Add custom service methods to <code>com.liferay.opensocial.service.impl.OAuthTokenLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public com.liferay.opensocial.model.OAuthToken addOAuthToken(
 			long userId, String gadgetKey, String serviceName, long moduleId,

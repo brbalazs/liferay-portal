@@ -60,7 +60,7 @@ import java.util.Set;
 public class UserTrackerPersistenceImpl
 	extends BasePersistenceImpl<UserTracker> implements UserTrackerPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>UserTrackerUtil</code> to access the user tracker persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

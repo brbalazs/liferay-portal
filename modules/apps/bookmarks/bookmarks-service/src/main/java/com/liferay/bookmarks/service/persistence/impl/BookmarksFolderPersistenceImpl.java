@@ -71,7 +71,7 @@ public class BookmarksFolderPersistenceImpl
 	extends BasePersistenceImpl<BookmarksFolder>
 	implements BookmarksFolderPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>BookmarksFolderUtil</code> to access the bookmarks folder persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

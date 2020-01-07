@@ -70,7 +70,7 @@ import java.util.function.Function;
 public class CommerceOrderModelImpl
 	extends BaseModelImpl<CommerceOrder> implements CommerceOrderModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce order model instance should use the <code>CommerceOrder</code> interface instead.

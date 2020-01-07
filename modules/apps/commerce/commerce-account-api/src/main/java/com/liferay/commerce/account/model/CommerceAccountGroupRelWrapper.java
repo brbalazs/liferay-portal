@@ -291,11 +291,6 @@ public class CommerceAccountGroupRelWrapper
 		return _commerceAccountGroupRel.isNew();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce account group rel model instance should use the <code>CommerceAccountGroupRel</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_commerceAccountGroupRel.persist();

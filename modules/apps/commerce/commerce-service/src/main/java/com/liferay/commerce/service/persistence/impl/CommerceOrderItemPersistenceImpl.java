@@ -66,7 +66,7 @@ public class CommerceOrderItemPersistenceImpl
 	extends BasePersistenceImpl<CommerceOrderItem>
 	implements CommerceOrderItemPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CommerceOrderItemUtil</code> to access the commerce order item persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

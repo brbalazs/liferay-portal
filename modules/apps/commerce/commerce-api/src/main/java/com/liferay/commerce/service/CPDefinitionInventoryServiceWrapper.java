@@ -33,11 +33,6 @@ public class CPDefinitionInventoryServiceWrapper
 		_cpDefinitionInventoryService = cpDefinitionInventoryService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link CPDefinitionInventoryServiceUtil} to access the cp definition inventory remote service. Add custom service methods to <code>com.liferay.commerce.service.impl.CPDefinitionInventoryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public com.liferay.commerce.model.CPDefinitionInventory
 			addCPDefinitionInventory(

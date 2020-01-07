@@ -74,7 +74,7 @@ import java.util.function.Function;
 public class CommerceOrderItemModelImpl
 	extends BaseModelImpl<CommerceOrderItem> implements CommerceOrderItemModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce order item model instance should use the <code>CommerceOrderItem</code> interface instead.

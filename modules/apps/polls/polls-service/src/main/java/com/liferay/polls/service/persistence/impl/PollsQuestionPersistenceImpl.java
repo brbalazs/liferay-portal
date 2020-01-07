@@ -71,7 +71,7 @@ public class PollsQuestionPersistenceImpl
 	extends BasePersistenceImpl<PollsQuestion>
 	implements PollsQuestionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>PollsQuestionUtil</code> to access the polls question persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

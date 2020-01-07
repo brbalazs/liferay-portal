@@ -65,7 +65,7 @@ public abstract class EntryLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements EntryLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>EntryLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.contacts.service.EntryLocalServiceUtil</code>.

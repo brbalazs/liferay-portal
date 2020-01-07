@@ -65,7 +65,7 @@ import java.util.Set;
 public class FolderPersistenceImpl
 	extends BasePersistenceImpl<Folder> implements FolderPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>FolderUtil</code> to access the folder persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

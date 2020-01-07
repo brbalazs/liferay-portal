@@ -72,7 +72,7 @@ public class LayoutFriendlyURLPersistenceImpl
 	extends BasePersistenceImpl<LayoutFriendlyURL>
 	implements LayoutFriendlyURLPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>LayoutFriendlyURLUtil</code> to access the layout friendly url persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

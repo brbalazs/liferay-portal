@@ -74,7 +74,7 @@ public class DDMFormInstancePersistenceImpl
 	extends BasePersistenceImpl<DDMFormInstance>
 	implements DDMFormInstancePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>DDMFormInstanceUtil</code> to access the ddm form instance persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

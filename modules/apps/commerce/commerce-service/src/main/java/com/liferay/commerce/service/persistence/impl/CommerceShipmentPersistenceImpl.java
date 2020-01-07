@@ -67,7 +67,7 @@ public class CommerceShipmentPersistenceImpl
 	extends BasePersistenceImpl<CommerceShipment>
 	implements CommerceShipmentPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CommerceShipmentUtil</code> to access the commerce shipment persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

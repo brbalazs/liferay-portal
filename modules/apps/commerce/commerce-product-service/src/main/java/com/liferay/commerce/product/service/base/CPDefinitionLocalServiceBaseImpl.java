@@ -110,7 +110,7 @@ public abstract class CPDefinitionLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements CPDefinitionLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>CPDefinitionLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.product.service.CPDefinitionLocalServiceUtil</code>.

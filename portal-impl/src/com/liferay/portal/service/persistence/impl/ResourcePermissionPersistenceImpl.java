@@ -65,7 +65,7 @@ public class ResourcePermissionPersistenceImpl
 	extends BasePersistenceImpl<ResourcePermission>
 	implements ResourcePermissionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ResourcePermissionUtil</code> to access the resource permission persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

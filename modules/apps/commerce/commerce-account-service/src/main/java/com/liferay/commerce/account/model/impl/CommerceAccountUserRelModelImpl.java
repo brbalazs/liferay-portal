@@ -63,7 +63,7 @@ public class CommerceAccountUserRelModelImpl
 	extends BaseModelImpl<CommerceAccountUserRel>
 	implements CommerceAccountUserRelModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce account user rel model instance should use the <code>CommerceAccountUserRel</code> interface instead.

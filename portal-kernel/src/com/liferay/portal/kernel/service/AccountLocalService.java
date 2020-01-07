@@ -53,7 +53,7 @@ import java.util.List;
 public interface AccountLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link AccountLocalServiceUtil} to access the account local service. Add custom service methods to <code>com.liferay.portal.service.impl.AccountLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

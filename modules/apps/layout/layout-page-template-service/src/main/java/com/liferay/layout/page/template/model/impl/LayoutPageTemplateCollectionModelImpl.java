@@ -67,7 +67,7 @@ public class LayoutPageTemplateCollectionModelImpl
 	extends BaseModelImpl<LayoutPageTemplateCollection>
 	implements LayoutPageTemplateCollectionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a layout page template collection model instance should use the <code>LayoutPageTemplateCollection</code> interface instead.

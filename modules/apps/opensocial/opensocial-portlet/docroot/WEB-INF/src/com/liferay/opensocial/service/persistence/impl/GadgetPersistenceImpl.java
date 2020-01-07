@@ -69,7 +69,7 @@ import java.util.Set;
 public class GadgetPersistenceImpl
 	extends BasePersistenceImpl<Gadget> implements GadgetPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>GadgetUtil</code> to access the gadget persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

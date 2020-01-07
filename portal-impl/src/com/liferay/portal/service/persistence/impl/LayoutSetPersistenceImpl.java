@@ -66,7 +66,7 @@ import java.util.Set;
 public class LayoutSetPersistenceImpl
 	extends BasePersistenceImpl<LayoutSet> implements LayoutSetPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>LayoutSetUtil</code> to access the layout set persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

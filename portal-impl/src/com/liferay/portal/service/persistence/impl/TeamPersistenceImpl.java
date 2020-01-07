@@ -76,7 +76,7 @@ import java.util.Set;
 public class TeamPersistenceImpl
 	extends BasePersistenceImpl<Team> implements TeamPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>TeamUtil</code> to access the team persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

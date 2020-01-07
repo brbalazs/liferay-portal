@@ -70,7 +70,7 @@ public class CPFriendlyURLEntryPersistenceImpl
 	extends BasePersistenceImpl<CPFriendlyURLEntry>
 	implements CPFriendlyURLEntryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CPFriendlyURLEntryUtil</code> to access the cp friendly url entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

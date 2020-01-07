@@ -55,7 +55,7 @@ import java.util.function.Function;
 public class OAuth2ScopeGrantModelImpl
 	extends BaseModelImpl<OAuth2ScopeGrant> implements OAuth2ScopeGrantModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a o auth2 scope grant model instance should use the <code>OAuth2ScopeGrant</code> interface instead.

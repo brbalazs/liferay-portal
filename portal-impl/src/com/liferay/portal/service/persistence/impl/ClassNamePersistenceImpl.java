@@ -59,7 +59,7 @@ import java.util.Set;
 public class ClassNamePersistenceImpl
 	extends BasePersistenceImpl<ClassName> implements ClassNamePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ClassNameUtil</code> to access the class name persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

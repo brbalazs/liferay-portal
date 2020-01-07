@@ -63,7 +63,7 @@ public class SocialActivitySettingModelImpl
 	extends BaseModelImpl<SocialActivitySetting>
 	implements SocialActivitySettingModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a social activity setting model instance should use the <code>SocialActivitySetting</code> interface instead.

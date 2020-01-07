@@ -60,7 +60,7 @@ public class OrgGroupRolePersistenceImpl
 	extends BasePersistenceImpl<OrgGroupRole>
 	implements OrgGroupRolePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>OrgGroupRoleUtil</code> to access the org group role persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

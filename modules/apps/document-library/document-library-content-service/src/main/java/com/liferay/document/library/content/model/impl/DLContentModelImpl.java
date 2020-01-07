@@ -58,7 +58,7 @@ import java.util.function.Function;
 public class DLContentModelImpl
 	extends BaseModelImpl<DLContent> implements DLContentModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a document library content model instance should use the <code>DLContent</code> interface instead.

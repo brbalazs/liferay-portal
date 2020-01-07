@@ -59,7 +59,7 @@ import java.util.function.Function;
 public class KaleoConditionModelImpl
 	extends BaseModelImpl<KaleoCondition> implements KaleoConditionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a kaleo condition model instance should use the <code>KaleoCondition</code> interface instead.

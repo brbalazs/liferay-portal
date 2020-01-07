@@ -65,7 +65,7 @@ public class HtmlPreviewEntryPersistenceImpl
 	extends BasePersistenceImpl<HtmlPreviewEntry>
 	implements HtmlPreviewEntryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>HtmlPreviewEntryUtil</code> to access the html preview entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

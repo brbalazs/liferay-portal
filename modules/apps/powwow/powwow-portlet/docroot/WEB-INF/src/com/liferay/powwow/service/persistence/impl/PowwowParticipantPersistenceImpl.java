@@ -67,7 +67,7 @@ public class PowwowParticipantPersistenceImpl
 	extends BasePersistenceImpl<PowwowParticipant>
 	implements PowwowParticipantPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>PowwowParticipantUtil</code> to access the powwow participant persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

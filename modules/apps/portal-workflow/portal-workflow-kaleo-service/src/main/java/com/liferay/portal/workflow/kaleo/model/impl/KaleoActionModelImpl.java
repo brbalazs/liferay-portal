@@ -59,7 +59,7 @@ import java.util.function.Function;
 public class KaleoActionModelImpl
 	extends BaseModelImpl<KaleoAction> implements KaleoActionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a kaleo action model instance should use the <code>KaleoAction</code> interface instead.

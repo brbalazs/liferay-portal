@@ -62,7 +62,7 @@ import java.util.Map;
 public interface CalendarResourceLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link CalendarResourceLocalServiceUtil} to access the calendar resource local service. Add custom service methods to <code>com.liferay.calendar.service.impl.CalendarResourceLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

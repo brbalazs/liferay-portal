@@ -92,7 +92,7 @@ public abstract class CPOptionCategoryLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements CPOptionCategoryLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>CPOptionCategoryLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.product.service.CPOptionCategoryLocalServiceUtil</code>.

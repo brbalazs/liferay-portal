@@ -59,7 +59,7 @@ import java.util.function.Function;
 public class KaleoTimerModelImpl
 	extends BaseModelImpl<KaleoTimer> implements KaleoTimerModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a kaleo timer model instance should use the <code>KaleoTimer</code> interface instead.

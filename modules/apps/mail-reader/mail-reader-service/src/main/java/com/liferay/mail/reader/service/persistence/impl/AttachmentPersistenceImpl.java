@@ -62,7 +62,7 @@ import java.util.Set;
 public class AttachmentPersistenceImpl
 	extends BasePersistenceImpl<Attachment> implements AttachmentPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>AttachmentUtil</code> to access the attachment persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

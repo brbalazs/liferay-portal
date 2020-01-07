@@ -1300,11 +1300,6 @@ public class CPDefinitionWrapper
 		return _cpDefinition.isTelcoOrElectronics();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a cp definition model instance should use the <code>CPDefinition</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_cpDefinition.persist();

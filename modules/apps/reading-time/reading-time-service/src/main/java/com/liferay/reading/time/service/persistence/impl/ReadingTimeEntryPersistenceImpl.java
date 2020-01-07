@@ -69,7 +69,7 @@ public class ReadingTimeEntryPersistenceImpl
 	extends BasePersistenceImpl<ReadingTimeEntry>
 	implements ReadingTimeEntryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ReadingTimeEntryUtil</code> to access the reading time entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

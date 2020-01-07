@@ -74,7 +74,7 @@ public class MDRRuleGroupPersistenceImpl
 	extends BasePersistenceImpl<MDRRuleGroup>
 	implements MDRRuleGroupPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>MDRRuleGroupUtil</code> to access the mdr rule group persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

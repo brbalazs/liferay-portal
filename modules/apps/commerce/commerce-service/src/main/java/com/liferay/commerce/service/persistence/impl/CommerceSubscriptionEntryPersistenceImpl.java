@@ -69,7 +69,7 @@ public class CommerceSubscriptionEntryPersistenceImpl
 	extends BasePersistenceImpl<CommerceSubscriptionEntry>
 	implements CommerceSubscriptionEntryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CommerceSubscriptionEntryUtil</code> to access the commerce subscription entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

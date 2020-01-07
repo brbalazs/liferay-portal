@@ -65,7 +65,7 @@ import java.util.function.Function;
 public class DDLRecordVersionModelImpl
 	extends BaseModelImpl<DDLRecordVersion> implements DDLRecordVersionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ddl record version model instance should use the <code>DDLRecordVersion</code> interface instead.

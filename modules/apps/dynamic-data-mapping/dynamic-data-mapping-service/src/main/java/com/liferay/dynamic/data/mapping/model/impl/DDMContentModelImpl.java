@@ -69,7 +69,7 @@ import java.util.function.Function;
 public class DDMContentModelImpl
 	extends BaseModelImpl<DDMContent> implements DDMContentModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ddm content model instance should use the <code>DDMContent</code> interface instead.

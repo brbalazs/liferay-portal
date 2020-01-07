@@ -83,7 +83,7 @@ public abstract class CommerceOrderNoteLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements CommerceOrderNoteLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>CommerceOrderNoteLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.service.CommerceOrderNoteLocalServiceUtil</code>.

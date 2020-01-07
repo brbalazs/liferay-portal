@@ -61,7 +61,7 @@ public class AssetTagStatsPersistenceImpl
 	extends BasePersistenceImpl<AssetTagStats>
 	implements AssetTagStatsPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>AssetTagStatsUtil</code> to access the asset tag stats persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

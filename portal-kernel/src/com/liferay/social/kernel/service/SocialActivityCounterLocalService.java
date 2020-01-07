@@ -58,7 +58,7 @@ import java.util.List;
 public interface SocialActivityCounterLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link SocialActivityCounterLocalServiceUtil} to access the social activity counter local service. Add custom service methods to <code>com.liferay.portlet.social.service.impl.SocialActivityCounterLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

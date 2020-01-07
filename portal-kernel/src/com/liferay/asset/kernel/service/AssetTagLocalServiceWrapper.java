@@ -32,11 +32,6 @@ public class AssetTagLocalServiceWrapper
 		_assetTagLocalService = assetTagLocalService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link AssetTagLocalServiceUtil} to access the asset tag local service. Add custom service methods to <code>com.liferay.portlet.asset.service.impl.AssetTagLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public void addAssetEntryAssetTag(
 		long entryId, com.liferay.asset.kernel.model.AssetTag assetTag) {

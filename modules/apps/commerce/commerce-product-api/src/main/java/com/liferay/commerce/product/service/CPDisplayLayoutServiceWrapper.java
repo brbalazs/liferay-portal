@@ -32,11 +32,6 @@ public class CPDisplayLayoutServiceWrapper
 		_cpDisplayLayoutService = cpDisplayLayoutService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link CPDisplayLayoutServiceUtil} to access the cp display layout remote service. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPDisplayLayoutServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public com.liferay.commerce.product.model.CPDisplayLayout
 			addCPDisplayLayout(

@@ -77,7 +77,7 @@ import java.util.function.Function;
 public class CalendarBookingModelImpl
 	extends BaseModelImpl<CalendarBooking> implements CalendarBookingModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a calendar booking model instance should use the <code>CalendarBooking</code> interface instead.

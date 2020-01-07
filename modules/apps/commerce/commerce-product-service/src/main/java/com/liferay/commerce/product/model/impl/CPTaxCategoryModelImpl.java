@@ -72,7 +72,7 @@ import java.util.function.Function;
 public class CPTaxCategoryModelImpl
 	extends BaseModelImpl<CPTaxCategory> implements CPTaxCategoryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a cp tax category model instance should use the <code>CPTaxCategory</code> interface instead.

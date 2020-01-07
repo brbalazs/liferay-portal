@@ -60,7 +60,7 @@ public class KaleoNotificationRecipientModelImpl
 	extends BaseModelImpl<KaleoNotificationRecipient>
 	implements KaleoNotificationRecipientModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a kaleo notification recipient model instance should use the <code>KaleoNotificationRecipient</code> interface instead.

@@ -47,7 +47,7 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	extends BaseServiceImpl
 	implements IdentifiableOSGiService, PushNotificationsDeviceService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>PushNotificationsDeviceService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.push.notifications.service.PushNotificationsDeviceServiceUtil</code>.

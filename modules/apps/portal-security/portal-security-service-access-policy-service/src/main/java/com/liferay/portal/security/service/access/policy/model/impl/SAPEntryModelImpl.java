@@ -73,7 +73,7 @@ import java.util.function.Function;
 public class SAPEntryModelImpl
 	extends BaseModelImpl<SAPEntry> implements SAPEntryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a sap entry model instance should use the <code>SAPEntry</code> interface instead.

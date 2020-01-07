@@ -73,7 +73,7 @@ import java.util.function.Function;
 public class DDMTemplateModelImpl
 	extends BaseModelImpl<DDMTemplate> implements DDMTemplateModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ddm template model instance should use the <code>DDMTemplate</code> interface instead.

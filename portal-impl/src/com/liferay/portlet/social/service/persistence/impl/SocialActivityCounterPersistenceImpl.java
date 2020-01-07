@@ -63,7 +63,7 @@ public class SocialActivityCounterPersistenceImpl
 	extends BasePersistenceImpl<SocialActivityCounter>
 	implements SocialActivityCounterPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>SocialActivityCounterUtil</code> to access the social activity counter persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

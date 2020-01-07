@@ -63,7 +63,7 @@ import java.util.function.Function;
 public class SubscriptionModelImpl
 	extends BaseModelImpl<Subscription> implements SubscriptionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a subscription model instance should use the <code>Subscription</code> interface instead.

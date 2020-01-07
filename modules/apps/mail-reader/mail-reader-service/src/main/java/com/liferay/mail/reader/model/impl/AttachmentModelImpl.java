@@ -58,7 +58,7 @@ import java.util.function.Function;
 public class AttachmentModelImpl
 	extends BaseModelImpl<Attachment> implements AttachmentModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a attachment model instance should use the <code>Attachment</code> interface instead.

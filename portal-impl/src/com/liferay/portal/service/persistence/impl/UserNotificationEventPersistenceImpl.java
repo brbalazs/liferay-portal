@@ -65,7 +65,7 @@ public class UserNotificationEventPersistenceImpl
 	extends BasePersistenceImpl<UserNotificationEvent>
 	implements UserNotificationEventPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>UserNotificationEventUtil</code> to access the user notification event persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

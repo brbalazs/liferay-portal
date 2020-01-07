@@ -34,7 +34,7 @@ import com.liferay.portal.kernel.util.Accessor;
 public interface BatchEngineExportTask
 	extends BatchEngineExportTaskModel, PersistedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to <code>com.liferay.batch.engine.model.impl.BatchEngineExportTaskImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

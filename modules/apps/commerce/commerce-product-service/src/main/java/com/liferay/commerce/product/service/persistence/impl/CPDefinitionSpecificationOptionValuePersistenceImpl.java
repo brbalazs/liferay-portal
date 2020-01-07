@@ -69,7 +69,7 @@ public class CPDefinitionSpecificationOptionValuePersistenceImpl
 	extends BasePersistenceImpl<CPDefinitionSpecificationOptionValue>
 	implements CPDefinitionSpecificationOptionValuePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CPDefinitionSpecificationOptionValueUtil</code> to access the cp definition specification option value persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

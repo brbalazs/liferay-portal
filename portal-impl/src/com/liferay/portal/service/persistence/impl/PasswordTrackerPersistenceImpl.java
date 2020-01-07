@@ -62,7 +62,7 @@ public class PasswordTrackerPersistenceImpl
 	extends BasePersistenceImpl<PasswordTracker>
 	implements PasswordTrackerPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>PasswordTrackerUtil</code> to access the password tracker persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

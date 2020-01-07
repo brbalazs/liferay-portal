@@ -220,11 +220,6 @@ public class SamlSpMessageWrapper
 		return _samlSpMessage.isNew();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a saml sp message model instance should use the <code>SamlSpMessage</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_samlSpMessage.persist();

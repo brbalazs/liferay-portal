@@ -55,7 +55,7 @@ import java.util.Set;
 public class CounterPersistenceImpl
 	extends BasePersistenceImpl<Counter> implements CounterPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CounterUtil</code> to access the counter persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

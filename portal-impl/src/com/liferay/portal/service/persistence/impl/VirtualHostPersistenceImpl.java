@@ -60,7 +60,7 @@ import java.util.Set;
 public class VirtualHostPersistenceImpl
 	extends BasePersistenceImpl<VirtualHost> implements VirtualHostPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>VirtualHostUtil</code> to access the virtual host persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

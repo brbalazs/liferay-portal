@@ -64,7 +64,7 @@ public class CommerceAddressRestrictionPersistenceImpl
 	extends BasePersistenceImpl<CommerceAddressRestriction>
 	implements CommerceAddressRestrictionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CommerceAddressRestrictionUtil</code> to access the commerce address restriction persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

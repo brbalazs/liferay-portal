@@ -63,7 +63,7 @@ public class OAuth2AuthorizationModelImpl
 	extends BaseModelImpl<OAuth2Authorization>
 	implements OAuth2AuthorizationModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a o auth2 authorization model instance should use the <code>OAuth2Authorization</code> interface instead.

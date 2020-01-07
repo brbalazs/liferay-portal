@@ -72,7 +72,7 @@ import java.util.function.Function;
 public class MBMessageModelImpl
 	extends BaseModelImpl<MBMessage> implements MBMessageModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a message-boards message model instance should use the <code>MBMessage</code> interface instead.

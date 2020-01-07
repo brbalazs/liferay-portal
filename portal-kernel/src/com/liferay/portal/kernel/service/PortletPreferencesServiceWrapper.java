@@ -31,11 +31,6 @@ public class PortletPreferencesServiceWrapper
 		_portletPreferencesService = portletPreferencesService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link PortletPreferencesServiceUtil} to access the portlet preferences remote service. Add custom service methods to <code>com.liferay.portal.service.impl.PortletPreferencesServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public void deleteArchivedPreferences(long portletItemId)
 		throws com.liferay.portal.kernel.exception.PortalException {

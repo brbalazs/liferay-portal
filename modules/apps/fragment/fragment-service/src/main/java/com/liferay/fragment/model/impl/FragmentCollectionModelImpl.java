@@ -67,7 +67,7 @@ public class FragmentCollectionModelImpl
 	extends BaseModelImpl<FragmentCollection>
 	implements FragmentCollectionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a fragment collection model instance should use the <code>FragmentCollection</code> interface instead.

@@ -67,7 +67,7 @@ public class SiteNavigationMenuItemModelImpl
 	extends BaseModelImpl<SiteNavigationMenuItem>
 	implements SiteNavigationMenuItemModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a site navigation menu item model instance should use the <code>SiteNavigationMenuItem</code> interface instead.

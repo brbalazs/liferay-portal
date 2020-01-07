@@ -58,7 +58,7 @@ import java.util.function.Function;
 public class BrowserTrackerModelImpl
 	extends BaseModelImpl<BrowserTracker> implements BrowserTrackerModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a browser tracker model instance should use the <code>BrowserTracker</code> interface instead.

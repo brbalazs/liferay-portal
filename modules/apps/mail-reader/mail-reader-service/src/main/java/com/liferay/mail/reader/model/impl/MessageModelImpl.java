@@ -60,7 +60,7 @@ import java.util.function.Function;
 public class MessageModelImpl
 	extends BaseModelImpl<Message> implements MessageModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a message model instance should use the <code>Message</code> interface instead.

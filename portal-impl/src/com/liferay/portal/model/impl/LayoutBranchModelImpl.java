@@ -63,7 +63,7 @@ import java.util.function.Function;
 public class LayoutBranchModelImpl
 	extends BaseModelImpl<LayoutBranch> implements LayoutBranchModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a layout branch model instance should use the <code>LayoutBranch</code> interface instead.

@@ -63,7 +63,7 @@ public class CommerceNotificationAttachmentModelImpl
 	extends BaseModelImpl<CommerceNotificationAttachment>
 	implements CommerceNotificationAttachmentModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce notification attachment model instance should use the <code>CommerceNotificationAttachment</code> interface instead.

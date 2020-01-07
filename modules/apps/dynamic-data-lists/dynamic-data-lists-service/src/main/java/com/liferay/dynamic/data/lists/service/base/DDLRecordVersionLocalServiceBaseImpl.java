@@ -64,7 +64,7 @@ public abstract class DDLRecordVersionLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements DDLRecordVersionLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>DDLRecordVersionLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.dynamic.data.lists.service.DDLRecordVersionLocalServiceUtil</code>.

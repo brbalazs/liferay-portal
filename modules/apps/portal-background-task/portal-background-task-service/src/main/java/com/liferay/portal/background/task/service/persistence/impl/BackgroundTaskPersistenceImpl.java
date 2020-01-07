@@ -68,7 +68,7 @@ public class BackgroundTaskPersistenceImpl
 	extends BasePersistenceImpl<BackgroundTask>
 	implements BackgroundTaskPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>BackgroundTaskUtil</code> to access the background task persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

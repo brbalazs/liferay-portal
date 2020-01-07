@@ -32,7 +32,7 @@ import org.osgi.util.tracker.ServiceTracker;
  */
 public class CommerceOrderItemLocalServiceUtil {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.commerce.service.impl.CommerceOrderItemLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
@@ -520,7 +520,7 @@ public class CommerceOrderItemLocalServiceUtil {
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated As of Athanasius (7.3.x)
 	 */
 	@Deprecated
 	public static com.liferay.commerce.model.CommerceOrderItem

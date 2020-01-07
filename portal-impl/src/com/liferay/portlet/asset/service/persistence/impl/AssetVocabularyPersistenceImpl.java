@@ -73,7 +73,7 @@ public class AssetVocabularyPersistenceImpl
 	extends BasePersistenceImpl<AssetVocabulary>
 	implements AssetVocabularyPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>AssetVocabularyUtil</code> to access the asset vocabulary persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

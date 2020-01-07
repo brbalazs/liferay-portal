@@ -73,7 +73,7 @@ import java.util.function.Function;
 public class DLFileEntryTypeModelImpl
 	extends BaseModelImpl<DLFileEntryType> implements DLFileEntryTypeModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a document library file entry type model instance should use the <code>DLFileEntryType</code> interface instead.

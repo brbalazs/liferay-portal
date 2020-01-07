@@ -309,11 +309,6 @@ public class CommerceInventoryReplenishmentItemWrapper
 		return _commerceInventoryReplenishmentItem.isNew();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce inventory replenishment item model instance should use the <code>CommerceInventoryReplenishmentItem</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_commerceInventoryReplenishmentItem.persist();

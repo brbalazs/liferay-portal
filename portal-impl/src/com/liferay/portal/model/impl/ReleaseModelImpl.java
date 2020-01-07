@@ -56,7 +56,7 @@ import java.util.function.Function;
 public class ReleaseModelImpl
 	extends BaseModelImpl<Release> implements ReleaseModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a release model instance should use the <code>Release</code> interface instead.

@@ -68,7 +68,7 @@ public class DLFileVersionPersistenceImpl
 	extends BasePersistenceImpl<DLFileVersion>
 	implements DLFileVersionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>DLFileVersionUtil</code> to access the document library file version persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

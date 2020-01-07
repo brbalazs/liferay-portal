@@ -67,7 +67,7 @@ import java.util.function.Function;
 public class CommerceAddressModelImpl
 	extends BaseModelImpl<CommerceAddress> implements CommerceAddressModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce address model instance should use the <code>CommerceAddress</code> interface instead.

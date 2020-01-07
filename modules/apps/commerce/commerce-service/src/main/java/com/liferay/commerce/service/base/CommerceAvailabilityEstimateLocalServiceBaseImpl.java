@@ -90,7 +90,7 @@ public abstract class CommerceAvailabilityEstimateLocalServiceBaseImpl
 	implements CommerceAvailabilityEstimateLocalService,
 			   IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>CommerceAvailabilityEstimateLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.service.CommerceAvailabilityEstimateLocalServiceUtil</code>.

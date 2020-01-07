@@ -70,7 +70,7 @@ public class CPOptionValuePersistenceImpl
 	extends BasePersistenceImpl<CPOptionValue>
 	implements CPOptionValuePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CPOptionValueUtil</code> to access the cp option value persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

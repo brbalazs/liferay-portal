@@ -40,7 +40,7 @@ import java.util.Set;
 public interface JournalContentSearchPersistence
 	extends BasePersistence<JournalContentSearch> {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link JournalContentSearchUtil} to access the journal content search persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

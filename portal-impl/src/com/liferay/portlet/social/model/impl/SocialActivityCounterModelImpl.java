@@ -58,7 +58,7 @@ public class SocialActivityCounterModelImpl
 	extends BaseModelImpl<SocialActivityCounter>
 	implements SocialActivityCounterModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a social activity counter model instance should use the <code>SocialActivityCounter</code> interface instead.

@@ -69,7 +69,7 @@ public class CPDefinitionOptionValueRelPersistenceImpl
 	extends BasePersistenceImpl<CPDefinitionOptionValueRel>
 	implements CPDefinitionOptionValueRelPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CPDefinitionOptionValueRelUtil</code> to access the cp definition option value rel persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

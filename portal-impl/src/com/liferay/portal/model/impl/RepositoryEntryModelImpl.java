@@ -61,7 +61,7 @@ import java.util.function.Function;
 public class RepositoryEntryModelImpl
 	extends BaseModelImpl<RepositoryEntry> implements RepositoryEntryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a repository entry model instance should use the <code>RepositoryEntry</code> interface instead.

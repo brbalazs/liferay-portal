@@ -60,7 +60,7 @@ import java.util.function.Function;
 public class PasswordTrackerModelImpl
 	extends BaseModelImpl<PasswordTracker> implements PasswordTrackerModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a password tracker model instance should use the <code>PasswordTracker</code> interface instead.

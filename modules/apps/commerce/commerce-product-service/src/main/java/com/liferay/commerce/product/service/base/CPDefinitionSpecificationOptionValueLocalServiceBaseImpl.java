@@ -94,7 +94,7 @@ public abstract class CPDefinitionSpecificationOptionValueLocalServiceBaseImpl
 	implements CPDefinitionSpecificationOptionValueLocalService,
 			   IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>CPDefinitionSpecificationOptionValueLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.product.service.CPDefinitionSpecificationOptionValueLocalServiceUtil</code>.

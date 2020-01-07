@@ -66,7 +66,7 @@ public class PowwowServerPersistenceImpl
 	extends BasePersistenceImpl<PowwowServer>
 	implements PowwowServerPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>PowwowServerUtil</code> to access the powwow server persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

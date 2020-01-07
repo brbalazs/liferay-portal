@@ -58,7 +58,7 @@ import java.util.function.Function;
 public class StatusModelImpl
 	extends BaseModelImpl<Status> implements StatusModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a status model instance should use the <code>Status</code> interface instead.

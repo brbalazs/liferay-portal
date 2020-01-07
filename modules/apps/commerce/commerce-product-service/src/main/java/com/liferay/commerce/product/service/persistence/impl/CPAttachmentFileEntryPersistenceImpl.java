@@ -72,7 +72,7 @@ public class CPAttachmentFileEntryPersistenceImpl
 	extends BasePersistenceImpl<CPAttachmentFileEntry>
 	implements CPAttachmentFileEntryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CPAttachmentFileEntryUtil</code> to access the cp attachment file entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

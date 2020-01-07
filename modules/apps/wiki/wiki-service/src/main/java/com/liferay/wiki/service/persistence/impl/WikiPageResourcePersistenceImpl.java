@@ -66,7 +66,7 @@ public class WikiPageResourcePersistenceImpl
 	extends BasePersistenceImpl<WikiPageResource>
 	implements WikiPageResourcePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>WikiPageResourceUtil</code> to access the wiki page resource persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

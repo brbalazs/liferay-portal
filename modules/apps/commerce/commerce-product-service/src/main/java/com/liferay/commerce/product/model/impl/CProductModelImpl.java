@@ -62,7 +62,7 @@ import java.util.function.Function;
 public class CProductModelImpl
 	extends BaseModelImpl<CProduct> implements CProductModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a c product model instance should use the <code>CProduct</code> interface instead.

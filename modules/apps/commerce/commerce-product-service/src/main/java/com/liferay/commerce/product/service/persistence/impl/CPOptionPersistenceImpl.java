@@ -71,7 +71,7 @@ import java.util.Set;
 public class CPOptionPersistenceImpl
 	extends BasePersistenceImpl<CPOption> implements CPOptionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CPOptionUtil</code> to access the cp option persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

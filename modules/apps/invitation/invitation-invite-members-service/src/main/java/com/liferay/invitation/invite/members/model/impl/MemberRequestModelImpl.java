@@ -60,7 +60,7 @@ import java.util.function.Function;
 public class MemberRequestModelImpl
 	extends BaseModelImpl<MemberRequest> implements MemberRequestModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a member request model instance should use the <code>MemberRequest</code> interface instead.

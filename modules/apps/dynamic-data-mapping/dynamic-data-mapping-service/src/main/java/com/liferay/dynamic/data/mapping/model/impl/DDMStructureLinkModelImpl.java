@@ -57,7 +57,7 @@ import java.util.function.Function;
 public class DDMStructureLinkModelImpl
 	extends BaseModelImpl<DDMStructureLink> implements DDMStructureLinkModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ddm structure link model instance should use the <code>DDMStructureLink</code> interface instead.

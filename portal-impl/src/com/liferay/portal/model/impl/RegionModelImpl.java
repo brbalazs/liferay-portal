@@ -60,7 +60,7 @@ import java.util.function.Function;
 public class RegionModelImpl
 	extends BaseModelImpl<Region> implements RegionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a region model instance should use the <code>Region</code> interface instead.

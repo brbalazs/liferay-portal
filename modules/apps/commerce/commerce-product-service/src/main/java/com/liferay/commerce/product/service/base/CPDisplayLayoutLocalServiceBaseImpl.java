@@ -95,7 +95,7 @@ public abstract class CPDisplayLayoutLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements CPDisplayLayoutLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>CPDisplayLayoutLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.product.service.CPDisplayLayoutLocalServiceUtil</code>.

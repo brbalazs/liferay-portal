@@ -67,7 +67,7 @@ import java.util.Set;
 public class WebsitePersistenceImpl
 	extends BasePersistenceImpl<Website> implements WebsitePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>WebsiteUtil</code> to access the website persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

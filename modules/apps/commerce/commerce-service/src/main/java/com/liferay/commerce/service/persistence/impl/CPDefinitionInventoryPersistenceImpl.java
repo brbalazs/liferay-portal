@@ -69,7 +69,7 @@ public class CPDefinitionInventoryPersistenceImpl
 	extends BasePersistenceImpl<CPDefinitionInventory>
 	implements CPDefinitionInventoryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CPDefinitionInventoryUtil</code> to access the cp definition inventory persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

@@ -61,7 +61,7 @@ public class SocialActivityAchievementPersistenceImpl
 	extends BasePersistenceImpl<SocialActivityAchievement>
 	implements SocialActivityAchievementPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>SocialActivityAchievementUtil</code> to access the social activity achievement persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

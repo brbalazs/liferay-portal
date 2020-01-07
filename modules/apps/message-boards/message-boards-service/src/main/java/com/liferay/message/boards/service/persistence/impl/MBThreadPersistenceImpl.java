@@ -82,7 +82,7 @@ import java.util.Set;
 public class MBThreadPersistenceImpl
 	extends BasePersistenceImpl<MBThread> implements MBThreadPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>MBThreadUtil</code> to access the message boards thread persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

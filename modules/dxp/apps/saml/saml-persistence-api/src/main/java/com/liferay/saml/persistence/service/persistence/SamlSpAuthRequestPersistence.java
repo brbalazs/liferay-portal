@@ -41,7 +41,7 @@ import java.util.Set;
 public interface SamlSpAuthRequestPersistence
 	extends BasePersistence<SamlSpAuthRequest> {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link SamlSpAuthRequestUtil} to access the saml sp auth request persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

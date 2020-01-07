@@ -66,7 +66,7 @@ public abstract class ChangesetCollectionLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements ChangesetCollectionLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>ChangesetCollectionLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.changeset.service.ChangesetCollectionLocalServiceUtil</code>.

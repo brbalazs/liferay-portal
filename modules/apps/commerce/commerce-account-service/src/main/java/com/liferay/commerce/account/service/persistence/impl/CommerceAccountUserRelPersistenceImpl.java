@@ -64,7 +64,7 @@ public class CommerceAccountUserRelPersistenceImpl
 	extends BasePersistenceImpl<CommerceAccountUserRel>
 	implements CommerceAccountUserRelPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CommerceAccountUserRelUtil</code> to access the commerce account user rel persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

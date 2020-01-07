@@ -65,7 +65,7 @@ import java.util.function.Function;
 public class TasksEntryModelImpl
 	extends BaseModelImpl<TasksEntry> implements TasksEntryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a tasks entry model instance should use the <code>TasksEntry</code> interface instead.

@@ -33,7 +33,7 @@ import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
 @Deprecated
 public class AssetTagStatsLocalServiceUtil {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.portlet.asset.service.impl.AssetTagStatsLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.

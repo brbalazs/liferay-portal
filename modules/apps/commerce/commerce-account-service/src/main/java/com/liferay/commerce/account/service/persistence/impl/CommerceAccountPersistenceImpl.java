@@ -70,7 +70,7 @@ public class CommerceAccountPersistenceImpl
 	extends BasePersistenceImpl<CommerceAccount>
 	implements CommerceAccountPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CommerceAccountUtil</code> to access the commerce account persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

@@ -58,7 +58,7 @@ import java.util.Set;
 public class TestEntityPersistenceImpl
 	extends BasePersistenceImpl<TestEntity> implements TestEntityPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>TestEntityUtil</code> to access the test entity persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

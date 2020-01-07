@@ -83,7 +83,7 @@ public abstract class CommerceOrderPaymentLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements CommerceOrderPaymentLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>CommerceOrderPaymentLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.service.CommerceOrderPaymentLocalServiceUtil</code>.

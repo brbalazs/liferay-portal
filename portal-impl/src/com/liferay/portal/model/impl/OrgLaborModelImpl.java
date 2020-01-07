@@ -60,7 +60,7 @@ import java.util.function.Function;
 public class OrgLaborModelImpl
 	extends BaseModelImpl<OrgLabor> implements OrgLaborModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a org labor model instance should use the <code>OrgLabor</code> interface instead.

@@ -61,7 +61,7 @@ public class UserNotificationDeliveryPersistenceImpl
 	extends BasePersistenceImpl<UserNotificationDelivery>
 	implements UserNotificationDeliveryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>UserNotificationDeliveryUtil</code> to access the user notification delivery persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

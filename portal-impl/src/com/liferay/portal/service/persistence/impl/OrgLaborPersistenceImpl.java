@@ -59,7 +59,7 @@ import java.util.Set;
 public class OrgLaborPersistenceImpl
 	extends BasePersistenceImpl<OrgLabor> implements OrgLaborPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>OrgLaborUtil</code> to access the org labor persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

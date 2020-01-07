@@ -53,7 +53,7 @@ import java.util.function.Function;
 public class OrgGroupRoleModelImpl
 	extends BaseModelImpl<OrgGroupRole> implements OrgGroupRoleModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a org group role model instance should use the <code>OrgGroupRole</code> interface instead.

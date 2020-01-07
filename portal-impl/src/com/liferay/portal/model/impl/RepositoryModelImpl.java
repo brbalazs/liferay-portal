@@ -67,7 +67,7 @@ import java.util.function.Function;
 public class RepositoryModelImpl
 	extends BaseModelImpl<Repository> implements RepositoryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a repository model instance should use the <code>Repository</code> interface instead.

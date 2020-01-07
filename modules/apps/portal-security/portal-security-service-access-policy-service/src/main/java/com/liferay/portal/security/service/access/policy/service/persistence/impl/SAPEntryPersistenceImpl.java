@@ -71,7 +71,7 @@ import java.util.Set;
 public class SAPEntryPersistenceImpl
 	extends BasePersistenceImpl<SAPEntry> implements SAPEntryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>SAPEntryUtil</code> to access the sap entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

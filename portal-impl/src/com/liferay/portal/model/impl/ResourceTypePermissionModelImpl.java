@@ -58,7 +58,7 @@ public class ResourceTypePermissionModelImpl
 	extends BaseModelImpl<ResourceTypePermission>
 	implements ResourceTypePermissionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a resource type permission model instance should use the <code>ResourceTypePermission</code> interface instead.

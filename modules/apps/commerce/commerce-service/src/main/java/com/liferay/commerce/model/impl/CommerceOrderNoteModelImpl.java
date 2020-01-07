@@ -65,7 +65,7 @@ import java.util.function.Function;
 public class CommerceOrderNoteModelImpl
 	extends BaseModelImpl<CommerceOrderNote> implements CommerceOrderNoteModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce order note model instance should use the <code>CommerceOrderNote</code> interface instead.

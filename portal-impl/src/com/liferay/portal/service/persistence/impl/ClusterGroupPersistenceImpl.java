@@ -55,7 +55,7 @@ public class ClusterGroupPersistenceImpl
 	extends BasePersistenceImpl<ClusterGroup>
 	implements ClusterGroupPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ClusterGroupUtil</code> to access the cluster group persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

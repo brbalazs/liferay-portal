@@ -60,7 +60,7 @@ import java.util.List;
 public interface MDRRuleGroupInstanceLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link MDRRuleGroupInstanceLocalServiceUtil} to access the mdr rule group instance local service. Add custom service methods to <code>com.liferay.mobile.device.rules.service.impl.MDRRuleGroupInstanceLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

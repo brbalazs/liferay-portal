@@ -53,7 +53,7 @@ import java.util.function.Function;
 public class ExpandoRowModelImpl
 	extends BaseModelImpl<ExpandoRow> implements ExpandoRowModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a expando row model instance should use the <code>ExpandoRow</code> interface instead.

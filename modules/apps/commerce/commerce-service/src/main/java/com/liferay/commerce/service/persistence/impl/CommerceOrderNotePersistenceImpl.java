@@ -66,7 +66,7 @@ public class CommerceOrderNotePersistenceImpl
 	extends BasePersistenceImpl<CommerceOrderNote>
 	implements CommerceOrderNotePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CommerceOrderNoteUtil</code> to access the commerce order note persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

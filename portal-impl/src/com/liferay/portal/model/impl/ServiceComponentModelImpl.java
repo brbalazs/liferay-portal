@@ -55,7 +55,7 @@ import java.util.function.Function;
 public class ServiceComponentModelImpl
 	extends BaseModelImpl<ServiceComponent> implements ServiceComponentModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a service component model instance should use the <code>ServiceComponent</code> interface instead.

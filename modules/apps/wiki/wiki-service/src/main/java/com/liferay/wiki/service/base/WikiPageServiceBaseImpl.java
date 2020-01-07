@@ -57,7 +57,7 @@ public abstract class WikiPageServiceBaseImpl
 	extends BaseServiceImpl
 	implements IdentifiableOSGiService, WikiPageService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>WikiPageService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.wiki.service.WikiPageServiceUtil</code>.

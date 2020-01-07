@@ -66,7 +66,7 @@ import java.util.function.Function;
 public class JournalFeedModelImpl
 	extends BaseModelImpl<JournalFeed> implements JournalFeedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a journal feed model instance should use the <code>JournalFeed</code> interface instead.

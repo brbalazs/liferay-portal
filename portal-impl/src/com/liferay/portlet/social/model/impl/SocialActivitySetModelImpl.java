@@ -60,7 +60,7 @@ import java.util.function.Function;
 public class SocialActivitySetModelImpl
 	extends BaseModelImpl<SocialActivitySet> implements SocialActivitySetModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a social activity set model instance should use the <code>SocialActivitySet</code> interface instead.

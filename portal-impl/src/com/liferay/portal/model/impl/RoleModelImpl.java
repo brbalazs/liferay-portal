@@ -72,7 +72,7 @@ import java.util.function.Function;
 @JSON(strict = true)
 public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a role model instance should use the <code>Role</code> interface instead.

@@ -333,11 +333,6 @@ public class CommerceInventoryWarehouseItemWrapper
 		return _commerceInventoryWarehouseItem.isNew();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce inventory warehouse item model instance should use the <code>CommerceInventoryWarehouseItem</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_commerceInventoryWarehouseItem.persist();

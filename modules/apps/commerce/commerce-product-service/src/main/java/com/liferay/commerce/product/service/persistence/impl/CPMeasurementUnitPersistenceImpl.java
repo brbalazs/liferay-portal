@@ -70,7 +70,7 @@ public class CPMeasurementUnitPersistenceImpl
 	extends BasePersistenceImpl<CPMeasurementUnit>
 	implements CPMeasurementUnitPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CPMeasurementUnitUtil</code> to access the cp measurement unit persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

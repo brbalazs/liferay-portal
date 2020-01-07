@@ -74,7 +74,7 @@ public abstract class CommerceAccountLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements CommerceAccountLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>CommerceAccountLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.account.service.CommerceAccountLocalServiceUtil</code>.

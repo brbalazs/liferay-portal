@@ -59,7 +59,7 @@ public class RecentLayoutRevisionModelImpl
 	extends BaseModelImpl<RecentLayoutRevision>
 	implements RecentLayoutRevisionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a recent layout revision model instance should use the <code>RecentLayoutRevision</code> interface instead.

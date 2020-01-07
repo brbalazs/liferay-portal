@@ -66,7 +66,7 @@ import java.util.function.Function;
 public class SyncDeviceModelImpl
 	extends BaseModelImpl<SyncDevice> implements SyncDeviceModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a sync device model instance should use the <code>SyncDevice</code> interface instead.

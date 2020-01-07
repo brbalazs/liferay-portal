@@ -86,7 +86,7 @@ public abstract class AnnouncementsEntryLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements AnnouncementsEntryLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>AnnouncementsEntryLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.announcements.kernel.service.AnnouncementsEntryLocalServiceUtil</code>.

@@ -68,7 +68,7 @@ import java.util.function.Function;
 public class KBArticleModelImpl
 	extends BaseModelImpl<KBArticle> implements KBArticleModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a kb article model instance should use the <code>KBArticle</code> interface instead.

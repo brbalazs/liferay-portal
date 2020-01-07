@@ -60,7 +60,7 @@ public class KaleoTaskAssignmentModelImpl
 	extends BaseModelImpl<KaleoTaskAssignment>
 	implements KaleoTaskAssignmentModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a kaleo task assignment model instance should use the <code>KaleoTaskAssignment</code> interface instead.

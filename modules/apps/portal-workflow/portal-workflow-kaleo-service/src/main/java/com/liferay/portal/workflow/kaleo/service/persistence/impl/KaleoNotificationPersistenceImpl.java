@@ -65,7 +65,7 @@ public class KaleoNotificationPersistenceImpl
 	extends BasePersistenceImpl<KaleoNotification>
 	implements KaleoNotificationPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>KaleoNotificationUtil</code> to access the kaleo notification persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

@@ -61,7 +61,7 @@ import java.util.function.Function;
 public class LayoutFriendlyURLModelImpl
 	extends BaseModelImpl<LayoutFriendlyURL> implements LayoutFriendlyURLModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a layout friendly url model instance should use the <code>LayoutFriendlyURL</code> interface instead.

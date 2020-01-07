@@ -66,7 +66,7 @@ import java.util.function.Function;
 public class DDLRecordModelImpl
 	extends BaseModelImpl<DDLRecord> implements DDLRecordModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ddl record model instance should use the <code>DDLRecord</code> interface instead.

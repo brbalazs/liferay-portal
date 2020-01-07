@@ -55,7 +55,7 @@ import java.util.function.Function;
 public class DLSyncEventModelImpl
 	extends BaseModelImpl<DLSyncEvent> implements DLSyncEventModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a dl sync event model instance should use the <code>DLSyncEvent</code> interface instead.

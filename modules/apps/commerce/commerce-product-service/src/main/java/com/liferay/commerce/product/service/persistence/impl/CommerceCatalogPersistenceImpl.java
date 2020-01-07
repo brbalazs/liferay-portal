@@ -68,7 +68,7 @@ public class CommerceCatalogPersistenceImpl
 	extends BasePersistenceImpl<CommerceCatalog>
 	implements CommerceCatalogPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CommerceCatalogUtil</code> to access the commerce catalog persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

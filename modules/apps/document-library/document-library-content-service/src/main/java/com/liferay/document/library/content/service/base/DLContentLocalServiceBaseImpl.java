@@ -56,9 +56,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Reference;
-
 /**
  * Provides the base implementation for the document library content local service.
  *
@@ -74,7 +71,7 @@ public abstract class DLContentLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements DLContentLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>DLContentLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.document.library.content.service.DLContentLocalServiceUtil</code>.
@@ -439,8 +436,11 @@ public abstract class DLContentLocalServiceBaseImpl
 		}
 	}
 
-	@Activate
-	protected void activate() {
+	public void afterPropertiesSet() {
+		persistedModelLocalServiceRegistry.register(
+			"com.liferay.document.library.content.model.DLContent",
+			dlContentLocalService);
+
 		DB db = DBManagerUtil.getDB();
 
 		if ((db.getDBType() != DBType.DB2) &&
@@ -450,12 +450,6 @@ public abstract class DLContentLocalServiceBaseImpl
 
 			_useTempFile = true;
 		}
-	}
-
-	public void afterPropertiesSet() {
-		persistedModelLocalServiceRegistry.register(
-			"com.liferay.document.library.content.model.DLContent",
-			dlContentLocalService);
 	}
 
 	public void destroy() {
@@ -517,7 +511,7 @@ public abstract class DLContentLocalServiceBaseImpl
 	protected com.liferay.counter.kernel.service.CounterLocalService
 		counterLocalService;
 
-	@Reference
+	@BeanReference(type = File.class)
 	protected File _file;
 
 	private static final InputStream _EMPTY_INPUT_STREAM =

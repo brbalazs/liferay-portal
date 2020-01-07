@@ -55,7 +55,7 @@ import java.util.function.Function;
 public class VirtualHostModelImpl
 	extends BaseModelImpl<VirtualHost> implements VirtualHostModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a virtual host model instance should use the <code>VirtualHost</code> interface instead.

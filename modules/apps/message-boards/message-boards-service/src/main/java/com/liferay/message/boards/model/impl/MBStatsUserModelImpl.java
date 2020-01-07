@@ -59,7 +59,7 @@ import java.util.function.Function;
 public class MBStatsUserModelImpl
 	extends BaseModelImpl<MBStatsUser> implements MBStatsUserModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a message boards stats user model instance should use the <code>MBStatsUser</code> interface instead.

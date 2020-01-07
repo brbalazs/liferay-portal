@@ -80,7 +80,7 @@ import java.util.Set;
 public class KBArticlePersistenceImpl
 	extends BasePersistenceImpl<KBArticle> implements KBArticlePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>KBArticleUtil</code> to access the kb article persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

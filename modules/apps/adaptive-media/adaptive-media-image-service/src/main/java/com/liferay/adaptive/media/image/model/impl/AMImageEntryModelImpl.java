@@ -56,7 +56,7 @@ import java.util.function.Function;
 public class AMImageEntryModelImpl
 	extends BaseModelImpl<AMImageEntry> implements AMImageEntryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a am image entry model instance should use the <code>AMImageEntry</code> interface instead.

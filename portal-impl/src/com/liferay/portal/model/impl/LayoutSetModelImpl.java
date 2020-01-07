@@ -61,7 +61,7 @@ import java.util.function.Function;
 public class LayoutSetModelImpl
 	extends BaseModelImpl<LayoutSet> implements LayoutSetModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a layout set model instance should use the <code>LayoutSet</code> interface instead.

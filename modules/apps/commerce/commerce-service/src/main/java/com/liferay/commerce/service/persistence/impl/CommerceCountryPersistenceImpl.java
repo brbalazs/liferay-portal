@@ -69,7 +69,7 @@ public class CommerceCountryPersistenceImpl
 	extends BasePersistenceImpl<CommerceCountry>
 	implements CommerceCountryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CommerceCountryUtil</code> to access the commerce country persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

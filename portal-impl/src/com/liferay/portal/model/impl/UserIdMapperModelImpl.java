@@ -58,7 +58,7 @@ import java.util.function.Function;
 public class UserIdMapperModelImpl
 	extends BaseModelImpl<UserIdMapper> implements UserIdMapperModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a user ID mapper model instance should use the <code>UserIdMapper</code> interface instead.

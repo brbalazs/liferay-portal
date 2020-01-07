@@ -68,7 +68,7 @@ public class EmailAddressPersistenceImpl
 	extends BasePersistenceImpl<EmailAddress>
 	implements EmailAddressPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>EmailAddressUtil</code> to access the email address persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

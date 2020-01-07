@@ -74,7 +74,7 @@ import java.util.function.Function;
 public class MDRRuleGroupModelImpl
 	extends BaseModelImpl<MDRRuleGroup> implements MDRRuleGroupModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a mdr rule group model instance should use the <code>MDRRuleGroup</code> interface instead.

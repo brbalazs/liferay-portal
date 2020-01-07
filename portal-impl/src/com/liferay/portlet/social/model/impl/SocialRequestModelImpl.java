@@ -65,7 +65,7 @@ import java.util.function.Function;
 public class SocialRequestModelImpl
 	extends BaseModelImpl<SocialRequest> implements SocialRequestModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a social request model instance should use the <code>SocialRequest</code> interface instead.

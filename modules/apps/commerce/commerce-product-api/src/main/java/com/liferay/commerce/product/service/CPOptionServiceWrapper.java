@@ -30,11 +30,6 @@ public class CPOptionServiceWrapper
 		_cpOptionService = cpOptionService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link CPOptionServiceUtil} to access the cp option remote service. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPOptionServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public com.liferay.commerce.product.model.CPOption addCPOption(
 			java.util.Map<java.util.Locale, String> nameMap,

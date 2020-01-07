@@ -61,7 +61,7 @@ import java.util.Set;
 public class CountryPersistenceImpl
 	extends BasePersistenceImpl<Country> implements CountryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CountryUtil</code> to access the country persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

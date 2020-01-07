@@ -72,7 +72,7 @@ import java.util.function.Function;
 public class BlogsEntryModelImpl
 	extends BaseModelImpl<BlogsEntry> implements BlogsEntryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a blogs entry model instance should use the <code>BlogsEntry</code> interface instead.

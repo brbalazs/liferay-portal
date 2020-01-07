@@ -69,7 +69,7 @@ public class CommerceNotificationAttachmentPersistenceImpl
 	extends BasePersistenceImpl<CommerceNotificationAttachment>
 	implements CommerceNotificationAttachmentPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CommerceNotificationAttachmentUtil</code> to access the commerce notification attachment persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
@@ -2207,6 +2207,18 @@ public class CommerceNotificationAttachmentPersistenceImpl
 				(CommerceNotificationAttachmentModelImpl)
 					commerceNotificationAttachment,
 				true);
+		}
+	}
+
+	public void clearCache(Set<Serializable> primaryKeys) {
+		finderCache.clearCache(FINDER_CLASS_NAME_ENTITY);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		for (Serializable primaryKey : primaryKeys) {
+			entityCache.removeResult(
+				CommerceNotificationAttachmentModelImpl.ENTITY_CACHE_ENABLED,
+				CommerceNotificationAttachmentImpl.class, primaryKey);
 		}
 	}
 

@@ -65,7 +65,7 @@ import java.util.function.Function;
 public class AuditEventModelImpl
 	extends BaseModelImpl<AuditEvent> implements AuditEventModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a audit event model instance should use the <code>AuditEvent</code> interface instead.

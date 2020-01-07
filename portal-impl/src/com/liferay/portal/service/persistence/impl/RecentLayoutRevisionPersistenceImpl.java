@@ -60,7 +60,7 @@ public class RecentLayoutRevisionPersistenceImpl
 	extends BasePersistenceImpl<RecentLayoutRevision>
 	implements RecentLayoutRevisionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>RecentLayoutRevisionUtil</code> to access the recent layout revision persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

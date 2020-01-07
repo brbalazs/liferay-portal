@@ -63,7 +63,7 @@ public class PluginSettingPersistenceImpl
 	extends BasePersistenceImpl<PluginSetting>
 	implements PluginSettingPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>PluginSettingUtil</code> to access the plugin setting persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

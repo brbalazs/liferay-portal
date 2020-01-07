@@ -73,7 +73,7 @@ import java.util.function.Function;
 public class CalendarModelImpl
 	extends BaseModelImpl<Calendar> implements CalendarModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a calendar model instance should use the <code>Calendar</code> interface instead.

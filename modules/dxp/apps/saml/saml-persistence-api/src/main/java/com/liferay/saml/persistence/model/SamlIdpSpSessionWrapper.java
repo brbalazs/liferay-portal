@@ -293,11 +293,6 @@ public class SamlIdpSpSessionWrapper
 		return _samlIdpSpSession.isNew();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a saml idp sp session model instance should use the <code>SamlIdpSpSession</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_samlIdpSpSession.persist();

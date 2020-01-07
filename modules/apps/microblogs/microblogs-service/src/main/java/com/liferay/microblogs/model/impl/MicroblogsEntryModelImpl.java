@@ -65,7 +65,7 @@ import java.util.function.Function;
 public class MicroblogsEntryModelImpl
 	extends BaseModelImpl<MicroblogsEntry> implements MicroblogsEntryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a microblogs entry model instance should use the <code>MicroblogsEntry</code> interface instead.

@@ -65,7 +65,7 @@ import java.util.function.Function;
 public class CommerceAccountModelImpl
 	extends BaseModelImpl<CommerceAccount> implements CommerceAccountModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce account model instance should use the <code>CommerceAccount</code> interface instead.

@@ -30,11 +30,6 @@ public class CPInstanceServiceWrapper
 		_cpInstanceService = cpInstanceService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link CPInstanceServiceUtil} to access the cp instance remote service. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPInstanceServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public com.liferay.commerce.product.model.CPInstance addCPInstance(
 			long cpDefinitionId, long groupId, String sku, String gtin,

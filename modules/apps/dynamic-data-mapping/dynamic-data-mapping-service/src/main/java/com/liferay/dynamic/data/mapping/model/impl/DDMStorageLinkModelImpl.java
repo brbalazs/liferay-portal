@@ -57,7 +57,7 @@ import java.util.function.Function;
 public class DDMStorageLinkModelImpl
 	extends BaseModelImpl<DDMStorageLink> implements DDMStorageLinkModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ddm storage link model instance should use the <code>DDMStorageLink</code> interface instead.

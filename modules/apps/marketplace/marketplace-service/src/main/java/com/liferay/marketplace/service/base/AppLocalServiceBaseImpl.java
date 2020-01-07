@@ -71,7 +71,7 @@ public abstract class AppLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements AppLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>AppLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.marketplace.service.AppLocalServiceUtil</code>.

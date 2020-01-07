@@ -69,7 +69,7 @@ public class BatchEngineImportTaskPersistenceImpl
 	extends BasePersistenceImpl<BatchEngineImportTask>
 	implements BatchEngineImportTaskPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>BatchEngineImportTaskUtil</code> to access the batch engine import task persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

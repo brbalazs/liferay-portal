@@ -66,7 +66,7 @@ import java.util.function.Function;
 public class PasswordPolicyModelImpl
 	extends BaseModelImpl<PasswordPolicy> implements PasswordPolicyModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a password policy model instance should use the <code>PasswordPolicy</code> interface instead.

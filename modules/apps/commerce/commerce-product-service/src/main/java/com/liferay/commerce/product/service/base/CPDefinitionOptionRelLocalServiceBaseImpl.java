@@ -93,7 +93,7 @@ public abstract class CPDefinitionOptionRelLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements CPDefinitionOptionRelLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>CPDefinitionOptionRelLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.product.service.CPDefinitionOptionRelLocalServiceUtil</code>.

@@ -71,7 +71,7 @@ public class CPOptionCategoryPersistenceImpl
 	extends BasePersistenceImpl<CPOptionCategory>
 	implements CPOptionCategoryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CPOptionCategoryUtil</code> to access the cp option category persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

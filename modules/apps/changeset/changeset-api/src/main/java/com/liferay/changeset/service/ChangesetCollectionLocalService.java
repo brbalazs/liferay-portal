@@ -56,7 +56,7 @@ import java.util.List;
 public interface ChangesetCollectionLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link ChangesetCollectionLocalServiceUtil} to access the changeset collection local service. Add custom service methods to <code>com.liferay.changeset.service.impl.ChangesetCollectionLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

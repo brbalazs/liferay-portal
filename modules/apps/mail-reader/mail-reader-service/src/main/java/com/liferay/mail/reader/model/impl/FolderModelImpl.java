@@ -59,7 +59,7 @@ import java.util.function.Function;
 public class FolderModelImpl
 	extends BaseModelImpl<Folder> implements FolderModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a folder model instance should use the <code>Folder</code> interface instead.

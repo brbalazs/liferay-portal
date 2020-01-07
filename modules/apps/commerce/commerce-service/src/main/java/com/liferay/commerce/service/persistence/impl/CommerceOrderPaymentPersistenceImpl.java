@@ -64,7 +64,7 @@ public class CommerceOrderPaymentPersistenceImpl
 	extends BasePersistenceImpl<CommerceOrderPayment>
 	implements CommerceOrderPaymentPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CommerceOrderPaymentUtil</code> to access the commerce order payment persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

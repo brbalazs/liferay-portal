@@ -63,7 +63,7 @@ public abstract class AssetTagStatsLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements AssetTagStatsLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>AssetTagStatsLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.asset.tag.stats.service.AssetTagStatsLocalServiceUtil</code>.

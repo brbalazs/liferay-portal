@@ -63,7 +63,7 @@ public class WorkflowInstanceLinkModelImpl
 	extends BaseModelImpl<WorkflowInstanceLink>
 	implements WorkflowInstanceLinkModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a workflow instance link model instance should use the <code>WorkflowInstanceLink</code> interface instead.

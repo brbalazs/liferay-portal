@@ -64,7 +64,7 @@ import java.util.function.Function;
 public class SyncDLObjectModelImpl
 	extends BaseModelImpl<SyncDLObject> implements SyncDLObjectModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a sync dl object model instance should use the <code>SyncDLObject</code> interface instead.

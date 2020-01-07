@@ -69,7 +69,7 @@ public class CPDAvailabilityEstimatePersistenceImpl
 	extends BasePersistenceImpl<CPDAvailabilityEstimate>
 	implements CPDAvailabilityEstimatePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CPDAvailabilityEstimateUtil</code> to access the cpd availability estimate persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

@@ -69,7 +69,7 @@ public class MBMailingListPersistenceImpl
 	extends BasePersistenceImpl<MBMailingList>
 	implements MBMailingListPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>MBMailingListUtil</code> to access the message boards mailing list persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

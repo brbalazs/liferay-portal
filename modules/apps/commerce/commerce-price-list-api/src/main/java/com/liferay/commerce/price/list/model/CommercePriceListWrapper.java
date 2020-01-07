@@ -565,11 +565,6 @@ public class CommercePriceListWrapper
 		return _commercePriceList.isScheduled();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce price list model instance should use the <code>CommercePriceList</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_commercePriceList.persist();

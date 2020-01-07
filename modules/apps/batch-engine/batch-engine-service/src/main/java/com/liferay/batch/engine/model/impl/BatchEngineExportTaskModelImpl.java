@@ -65,7 +65,7 @@ public class BatchEngineExportTaskModelImpl
 	extends BaseModelImpl<BatchEngineExportTask>
 	implements BatchEngineExportTaskModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a batch engine export task model instance should use the <code>BatchEngineExportTask</code> interface instead.

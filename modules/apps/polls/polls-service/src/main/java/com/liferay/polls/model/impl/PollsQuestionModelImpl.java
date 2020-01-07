@@ -74,7 +74,7 @@ import java.util.function.Function;
 public class PollsQuestionModelImpl
 	extends BaseModelImpl<PollsQuestion> implements PollsQuestionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a polls question model instance should use the <code>PollsQuestion</code> interface instead.

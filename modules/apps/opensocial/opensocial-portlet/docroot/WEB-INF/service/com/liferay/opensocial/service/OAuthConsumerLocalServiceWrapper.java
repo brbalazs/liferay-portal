@@ -33,11 +33,6 @@ public class OAuthConsumerLocalServiceWrapper
 		_oAuthConsumerLocalService = oAuthConsumerLocalService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link OAuthConsumerLocalServiceUtil} to access the o auth consumer local service. Add custom service methods to <code>com.liferay.opensocial.service.impl.OAuthConsumerLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public com.liferay.opensocial.model.OAuthConsumer addOAuthConsumer(
 		long companyId, String gadgetKey, String serviceName,

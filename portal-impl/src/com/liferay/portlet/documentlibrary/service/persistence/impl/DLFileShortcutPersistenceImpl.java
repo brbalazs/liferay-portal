@@ -70,7 +70,7 @@ public class DLFileShortcutPersistenceImpl
 	extends BasePersistenceImpl<DLFileShortcut>
 	implements DLFileShortcutPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>DLFileShortcutUtil</code> to access the document library file shortcut persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

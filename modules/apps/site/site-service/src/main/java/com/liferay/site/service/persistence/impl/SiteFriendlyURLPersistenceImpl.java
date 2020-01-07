@@ -69,7 +69,7 @@ public class SiteFriendlyURLPersistenceImpl
 	extends BasePersistenceImpl<SiteFriendlyURL>
 	implements SiteFriendlyURLPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>SiteFriendlyURLUtil</code> to access the site friendly url persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

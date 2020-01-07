@@ -62,7 +62,7 @@ public class DDLRecordVersionPersistenceImpl
 	extends BasePersistenceImpl<DDLRecordVersion>
 	implements DDLRecordVersionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>DDLRecordVersionUtil</code> to access the ddl record version persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

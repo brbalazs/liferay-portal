@@ -65,7 +65,7 @@ public class SocialRequestPersistenceImpl
 	extends BasePersistenceImpl<SocialRequest>
 	implements SocialRequestPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>SocialRequestUtil</code> to access the social request persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

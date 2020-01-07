@@ -65,7 +65,7 @@ public class KaleoConditionPersistenceImpl
 	extends BasePersistenceImpl<KaleoCondition>
 	implements KaleoConditionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>KaleoConditionUtil</code> to access the kaleo condition persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

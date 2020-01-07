@@ -71,7 +71,7 @@ import java.util.Set;
 public class KBFolderPersistenceImpl
 	extends BasePersistenceImpl<KBFolder> implements KBFolderPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>KBFolderUtil</code> to access the kb folder persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

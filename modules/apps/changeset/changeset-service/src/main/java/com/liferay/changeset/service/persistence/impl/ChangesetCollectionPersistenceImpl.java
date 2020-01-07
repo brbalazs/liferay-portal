@@ -65,7 +65,7 @@ public class ChangesetCollectionPersistenceImpl
 	extends BasePersistenceImpl<ChangesetCollection>
 	implements ChangesetCollectionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ChangesetCollectionUtil</code> to access the changeset collection persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

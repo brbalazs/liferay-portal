@@ -61,7 +61,7 @@ import java.util.List;
 public interface MBThreadFlagLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link MBThreadFlagLocalServiceUtil} to access the message boards thread flag local service. Add custom service methods to <code>com.liferay.message.boards.service.impl.MBThreadFlagLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

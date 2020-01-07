@@ -71,7 +71,7 @@ import java.util.function.Function;
 public class WikiPageModelImpl
 	extends BaseModelImpl<WikiPage> implements WikiPageModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a wiki page model instance should use the <code>WikiPage</code> interface instead.

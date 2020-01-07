@@ -63,7 +63,7 @@ import javax.sql.DataSource;
 public abstract class RoleServiceBaseImpl
 	extends BaseServiceImpl implements IdentifiableOSGiService, RoleService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>RoleService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.portal.kernel.service.RoleServiceUtil</code>.

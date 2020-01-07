@@ -69,7 +69,7 @@ public class AnnouncementsEntryModelImpl
 	extends BaseModelImpl<AnnouncementsEntry>
 	implements AnnouncementsEntryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a announcements entry model instance should use the <code>AnnouncementsEntry</code> interface instead.

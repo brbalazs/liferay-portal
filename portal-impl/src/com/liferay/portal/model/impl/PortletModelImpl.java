@@ -60,7 +60,7 @@ import java.util.function.Function;
 public class PortletModelImpl
 	extends BaseModelImpl<Portlet> implements PortletModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a portlet model instance should use the <code>Portlet</code> interface instead.

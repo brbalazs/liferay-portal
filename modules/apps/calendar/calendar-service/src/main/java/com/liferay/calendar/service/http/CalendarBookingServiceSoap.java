@@ -1134,7 +1134,7 @@ public class CalendarBookingServiceSoap {
 	 * @deprecated As of Judson (7.1.x), replaced by {@link
 	 #updateRecurringCalendarBooking(long, long, long[], Map, Map,
 	 String, long, long, boolean, long, String, long, String,
-	 ServiceContext)
+	 ServiceContext)}
 	 */
 	@Deprecated
 	public static com.liferay.calendar.model.CalendarBookingSoap

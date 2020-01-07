@@ -75,7 +75,7 @@ public class CPAttachmentFileEntryModelImpl
 	extends BaseModelImpl<CPAttachmentFileEntry>
 	implements CPAttachmentFileEntryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a cp attachment file entry model instance should use the <code>CPAttachmentFileEntry</code> interface instead.

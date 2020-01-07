@@ -68,7 +68,7 @@ public class LayoutSetBranchPersistenceImpl
 	extends BasePersistenceImpl<LayoutSetBranch>
 	implements LayoutSetBranchPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>LayoutSetBranchUtil</code> to access the layout set branch persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

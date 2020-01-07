@@ -72,7 +72,7 @@ import java.util.Set;
 public class DLFileEntryPersistenceImpl
 	extends BasePersistenceImpl<DLFileEntry> implements DLFileEntryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>DLFileEntryUtil</code> to access the document library file entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

@@ -93,7 +93,7 @@ public abstract class DLFileEntryLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements DLFileEntryLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>DLFileEntryLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.document.library.kernel.service.DLFileEntryLocalServiceUtil</code>.

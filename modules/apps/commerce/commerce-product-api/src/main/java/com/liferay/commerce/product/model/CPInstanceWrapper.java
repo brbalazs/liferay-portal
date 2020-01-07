@@ -920,11 +920,6 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 		return _cpInstance.isSubscriptionEnabled();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a cp instance model instance should use the <code>CPInstance</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_cpInstance.persist();

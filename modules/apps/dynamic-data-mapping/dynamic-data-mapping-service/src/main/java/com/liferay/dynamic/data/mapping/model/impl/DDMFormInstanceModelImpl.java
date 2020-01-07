@@ -73,7 +73,7 @@ import java.util.function.Function;
 public class DDMFormInstanceModelImpl
 	extends BaseModelImpl<DDMFormInstance> implements DDMFormInstanceModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ddm form instance model instance should use the <code>DDMFormInstance</code> interface instead.

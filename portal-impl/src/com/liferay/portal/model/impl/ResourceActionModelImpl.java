@@ -55,7 +55,7 @@ import java.util.function.Function;
 public class ResourceActionModelImpl
 	extends BaseModelImpl<ResourceAction> implements ResourceActionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a resource action model instance should use the <code>ResourceAction</code> interface instead.

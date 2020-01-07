@@ -73,7 +73,7 @@ import java.util.function.Function;
 public class AssetCategoryModelImpl
 	extends BaseModelImpl<AssetCategory> implements AssetCategoryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a asset category model instance should use the <code>AssetCategory</code> interface instead.

@@ -60,7 +60,7 @@ import java.util.function.Function;
 public class DLFileRankModelImpl
 	extends BaseModelImpl<DLFileRank> implements DLFileRankModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a document library file rank model instance should use the <code>DLFileRank</code> interface instead.

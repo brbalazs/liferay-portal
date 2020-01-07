@@ -291,11 +291,6 @@ public class CommerceDiscountRuleWrapper
 		return _commerceDiscountRule.isNew();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce discount rule model instance should use the <code>CommerceDiscountRule</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_commerceDiscountRule.persist();

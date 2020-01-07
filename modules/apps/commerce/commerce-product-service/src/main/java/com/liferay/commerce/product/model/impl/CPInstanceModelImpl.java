@@ -70,7 +70,7 @@ import java.util.function.Function;
 public class CPInstanceModelImpl
 	extends BaseModelImpl<CPInstance> implements CPInstanceModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a cp instance model instance should use the <code>CPInstance</code> interface instead.

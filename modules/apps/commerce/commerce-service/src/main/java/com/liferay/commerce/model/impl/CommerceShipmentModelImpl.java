@@ -65,7 +65,7 @@ import java.util.function.Function;
 public class CommerceShipmentModelImpl
 	extends BaseModelImpl<CommerceShipment> implements CommerceShipmentModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce shipment model instance should use the <code>CommerceShipment</code> interface instead.

@@ -423,11 +423,6 @@ public class CommercePriceEntryWrapper
 		return _commercePriceEntry.isNew();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce price entry model instance should use the <code>CommercePriceEntry</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_commercePriceEntry.persist();

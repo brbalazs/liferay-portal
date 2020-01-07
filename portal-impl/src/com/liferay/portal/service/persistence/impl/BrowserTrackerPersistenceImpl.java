@@ -60,7 +60,7 @@ public class BrowserTrackerPersistenceImpl
 	extends BasePersistenceImpl<BrowserTracker>
 	implements BrowserTrackerPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>BrowserTrackerUtil</code> to access the browser tracker persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

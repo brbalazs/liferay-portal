@@ -63,7 +63,7 @@ public class ResourceTypePermissionPersistenceImpl
 	extends BasePersistenceImpl<ResourceTypePermission>
 	implements ResourceTypePermissionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ResourceTypePermissionUtil</code> to access the resource type permission persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

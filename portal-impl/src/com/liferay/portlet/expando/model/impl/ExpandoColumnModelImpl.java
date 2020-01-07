@@ -57,7 +57,7 @@ import java.util.function.Function;
 public class ExpandoColumnModelImpl
 	extends BaseModelImpl<ExpandoColumn> implements ExpandoColumnModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a expando column model instance should use the <code>ExpandoColumn</code> interface instead.

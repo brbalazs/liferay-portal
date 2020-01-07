@@ -61,7 +61,7 @@ public class UserNotificationDeliveryModelImpl
 	extends BaseModelImpl<UserNotificationDelivery>
 	implements UserNotificationDeliveryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a user notification delivery model instance should use the <code>UserNotificationDelivery</code> interface instead.

@@ -64,7 +64,7 @@ import java.util.function.Function;
 public class AccountModelImpl
 	extends BaseModelImpl<Account> implements AccountModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a account model instance should use the <code>Account</code> interface instead.

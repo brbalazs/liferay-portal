@@ -69,7 +69,7 @@ public class AssetDisplayPageEntryPersistenceImpl
 	extends BasePersistenceImpl<AssetDisplayPageEntry>
 	implements AssetDisplayPageEntryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>AssetDisplayPageEntryUtil</code> to access the asset display page entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

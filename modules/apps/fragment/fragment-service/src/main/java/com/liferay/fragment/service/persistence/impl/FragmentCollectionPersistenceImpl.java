@@ -70,7 +70,7 @@ public class FragmentCollectionPersistenceImpl
 	extends BasePersistenceImpl<FragmentCollection>
 	implements FragmentCollectionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>FragmentCollectionUtil</code> to access the fragment collection persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

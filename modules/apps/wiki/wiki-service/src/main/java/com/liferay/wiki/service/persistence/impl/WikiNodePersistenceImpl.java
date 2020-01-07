@@ -70,7 +70,7 @@ import java.util.Set;
 public class WikiNodePersistenceImpl
 	extends BasePersistenceImpl<WikiNode> implements WikiNodePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>WikiNodeUtil</code> to access the wiki node persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

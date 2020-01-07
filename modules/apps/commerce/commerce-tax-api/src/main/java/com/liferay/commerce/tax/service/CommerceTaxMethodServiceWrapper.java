@@ -33,11 +33,6 @@ public class CommerceTaxMethodServiceWrapper
 		_commerceTaxMethodService = commerceTaxMethodService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link CommerceTaxMethodServiceUtil} to access the commerce tax method remote service. Add custom service methods to <code>com.liferay.commerce.tax.service.impl.CommerceTaxMethodServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public com.liferay.commerce.tax.model.CommerceTaxMethod
 			addCommerceTaxMethod(

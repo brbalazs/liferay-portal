@@ -69,7 +69,7 @@ public class PortletLocalServiceWrapper
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 #clearPortletsMap)}
+	 #clearPortletsMap()}
 	 */
 	@Deprecated
 	@Override
@@ -510,7 +510,7 @@ public class PortletLocalServiceWrapper
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 #loadGetPortletsMap(long))}
+	 #loadGetPortletsMap(long)}
 	 */
 	@Deprecated
 	@Override

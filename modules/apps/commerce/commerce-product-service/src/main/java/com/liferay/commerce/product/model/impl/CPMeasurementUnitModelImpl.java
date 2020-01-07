@@ -73,7 +73,7 @@ import java.util.function.Function;
 public class CPMeasurementUnitModelImpl
 	extends BaseModelImpl<CPMeasurementUnit> implements CPMeasurementUnitModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a cp measurement unit model instance should use the <code>CPMeasurementUnit</code> interface instead.

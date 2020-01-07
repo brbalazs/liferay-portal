@@ -60,7 +60,7 @@ public class ChangesetCollectionModelImpl
 	extends BaseModelImpl<ChangesetCollection>
 	implements ChangesetCollectionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a changeset collection model instance should use the <code>ChangesetCollection</code> interface instead.

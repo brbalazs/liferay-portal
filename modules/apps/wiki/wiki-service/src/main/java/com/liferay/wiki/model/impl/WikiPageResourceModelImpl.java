@@ -55,7 +55,7 @@ import java.util.function.Function;
 public class WikiPageResourceModelImpl
 	extends BaseModelImpl<WikiPageResource> implements WikiPageResourceModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a wiki page resource model instance should use the <code>WikiPageResource</code> interface instead.

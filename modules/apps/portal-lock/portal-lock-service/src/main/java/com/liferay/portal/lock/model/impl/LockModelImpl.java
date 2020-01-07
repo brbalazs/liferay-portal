@@ -58,7 +58,7 @@ import java.util.function.Function;
  */
 public class LockModelImpl extends BaseModelImpl<Lock> implements LockModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a lock model instance should use the <code>Lock</code> interface instead.

@@ -40,7 +40,7 @@ import java.util.Set;
 public interface SamlIdpSpConnectionPersistence
 	extends BasePersistence<SamlIdpSpConnection> {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link SamlIdpSpConnectionUtil} to access the saml idp sp connection persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

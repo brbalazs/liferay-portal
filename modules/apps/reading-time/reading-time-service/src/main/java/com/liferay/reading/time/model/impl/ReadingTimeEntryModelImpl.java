@@ -70,7 +70,7 @@ import java.util.function.Function;
 public class ReadingTimeEntryModelImpl
 	extends BaseModelImpl<ReadingTimeEntry> implements ReadingTimeEntryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a reading time entry model instance should use the <code>ReadingTimeEntry</code> interface instead.

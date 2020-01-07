@@ -305,11 +305,6 @@ public class CommerceInventoryBookedQuantityWrapper
 		return _commerceInventoryBookedQuantity.isNew();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce inventory booked quantity model instance should use the <code>CommerceInventoryBookedQuantity</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_commerceInventoryBookedQuantity.persist();

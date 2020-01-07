@@ -61,7 +61,7 @@ public class DDMDataProviderInstanceLinkPersistenceImpl
 	extends BasePersistenceImpl<DDMDataProviderInstanceLink>
 	implements DDMDataProviderInstanceLinkPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>DDMDataProviderInstanceLinkUtil</code> to access the ddm data provider instance link persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

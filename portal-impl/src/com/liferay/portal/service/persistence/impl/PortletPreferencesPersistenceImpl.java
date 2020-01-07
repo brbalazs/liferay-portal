@@ -62,7 +62,7 @@ public class PortletPreferencesPersistenceImpl
 	extends BasePersistenceImpl<PortletPreferences>
 	implements PortletPreferencesPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>PortletPreferencesUtil</code> to access the portlet preferences persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

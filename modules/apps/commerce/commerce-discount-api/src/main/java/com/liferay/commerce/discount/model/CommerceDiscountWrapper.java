@@ -748,11 +748,6 @@ public class CommerceDiscountWrapper
 		return _commerceDiscount.isUsePercentage();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce discount model instance should use the <code>CommerceDiscount</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_commerceDiscount.persist();

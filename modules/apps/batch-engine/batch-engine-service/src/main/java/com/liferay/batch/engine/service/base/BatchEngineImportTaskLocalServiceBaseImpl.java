@@ -77,7 +77,7 @@ public abstract class BatchEngineImportTaskLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements BatchEngineImportTaskLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>BatchEngineImportTaskLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.batch.engine.service.BatchEngineImportTaskLocalServiceUtil</code>.

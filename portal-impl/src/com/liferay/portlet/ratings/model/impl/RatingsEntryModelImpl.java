@@ -67,7 +67,7 @@ import java.util.function.Function;
 public class RatingsEntryModelImpl
 	extends BaseModelImpl<RatingsEntry> implements RatingsEntryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ratings entry model instance should use the <code>RatingsEntry</code> interface instead.

@@ -49,7 +49,7 @@ public abstract class SAPEntryServiceBaseImpl
 	extends BaseServiceImpl
 	implements IdentifiableOSGiService, SAPEntryService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>SAPEntryService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.portal.security.service.access.policy.service.SAPEntryServiceUtil</code>.

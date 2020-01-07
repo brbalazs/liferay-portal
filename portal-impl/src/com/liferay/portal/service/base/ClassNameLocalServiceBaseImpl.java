@@ -62,7 +62,7 @@ public abstract class ClassNameLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements ClassNameLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>ClassNameLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.portal.kernel.service.ClassNameLocalServiceUtil</code>.

@@ -405,7 +405,7 @@ public class CommerceOrderItemServiceSoap {
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated As of Athanasius (7.3.x)
 	 */
 	@Deprecated
 	public static com.liferay.commerce.model.CommerceOrderItemSoap

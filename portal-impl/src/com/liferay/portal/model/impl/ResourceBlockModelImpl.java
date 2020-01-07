@@ -62,7 +62,7 @@ import java.util.function.Function;
 public class ResourceBlockModelImpl
 	extends BaseModelImpl<ResourceBlock> implements ResourceBlockModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a resource block model instance should use the <code>ResourceBlock</code> interface instead.

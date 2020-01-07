@@ -61,7 +61,7 @@ import java.util.function.Function;
 public class UserGroupRoleModelImpl
 	extends BaseModelImpl<UserGroupRole> implements UserGroupRoleModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a user group role model instance should use the <code>UserGroupRole</code> interface instead.

@@ -56,7 +56,7 @@ public class DLFileEntryMetadataModelImpl
 	extends BaseModelImpl<DLFileEntryMetadata>
 	implements DLFileEntryMetadataModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a document library file entry metadata model instance should use the <code>DLFileEntryMetadata</code> interface instead.

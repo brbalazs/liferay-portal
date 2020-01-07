@@ -56,7 +56,7 @@ import java.util.List;
 public interface SamlSpSessionLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link SamlSpSessionLocalServiceUtil} to access the saml sp session local service. Add custom service methods to <code>com.liferay.saml.persistence.service.impl.SamlSpSessionLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

@@ -60,7 +60,7 @@ public class UserGroupRolePersistenceImpl
 	extends BasePersistenceImpl<UserGroupRole>
 	implements UserGroupRolePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>UserGroupRoleUtil</code> to access the user group role persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

@@ -71,7 +71,7 @@ public class CommerceNotificationTemplatePersistenceImpl
 	extends BasePersistenceImpl<CommerceNotificationTemplate>
 	implements CommerceNotificationTemplatePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CommerceNotificationTemplateUtil</code> to access the commerce notification template persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
@@ -4625,6 +4625,18 @@ public class CommerceNotificationTemplatePersistenceImpl
 				(CommerceNotificationTemplateModelImpl)
 					commerceNotificationTemplate,
 				true);
+		}
+	}
+
+	public void clearCache(Set<Serializable> primaryKeys) {
+		finderCache.clearCache(FINDER_CLASS_NAME_ENTITY);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		for (Serializable primaryKey : primaryKeys) {
+			entityCache.removeResult(
+				CommerceNotificationTemplateModelImpl.ENTITY_CACHE_ENABLED,
+				CommerceNotificationTemplateImpl.class, primaryKey);
 		}
 	}
 

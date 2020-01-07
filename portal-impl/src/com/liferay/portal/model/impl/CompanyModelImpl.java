@@ -60,7 +60,7 @@ import java.util.function.Function;
 public class CompanyModelImpl
 	extends BaseModelImpl<Company> implements CompanyModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a company model instance should use the <code>Company</code> interface instead.

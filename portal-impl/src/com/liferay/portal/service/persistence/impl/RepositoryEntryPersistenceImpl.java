@@ -68,7 +68,7 @@ public class RepositoryEntryPersistenceImpl
 	extends BasePersistenceImpl<RepositoryEntry>
 	implements RepositoryEntryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>RepositoryEntryUtil</code> to access the repository entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

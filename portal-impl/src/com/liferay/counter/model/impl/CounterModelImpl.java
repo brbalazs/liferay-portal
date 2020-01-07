@@ -52,7 +52,7 @@ import java.util.function.Function;
 public class CounterModelImpl
 	extends BaseModelImpl<Counter> implements CounterModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a counter model instance should use the <code>Counter</code> interface instead.

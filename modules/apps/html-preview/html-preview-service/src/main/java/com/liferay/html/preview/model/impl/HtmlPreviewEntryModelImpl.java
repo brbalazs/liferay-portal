@@ -61,7 +61,7 @@ import java.util.function.Function;
 public class HtmlPreviewEntryModelImpl
 	extends BaseModelImpl<HtmlPreviewEntry> implements HtmlPreviewEntryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a html preview entry model instance should use the <code>HtmlPreviewEntry</code> interface instead.

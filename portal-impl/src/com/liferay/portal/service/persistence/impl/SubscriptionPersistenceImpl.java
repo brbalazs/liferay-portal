@@ -69,7 +69,7 @@ public class SubscriptionPersistenceImpl
 	extends BasePersistenceImpl<Subscription>
 	implements SubscriptionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>SubscriptionUtil</code> to access the subscription persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

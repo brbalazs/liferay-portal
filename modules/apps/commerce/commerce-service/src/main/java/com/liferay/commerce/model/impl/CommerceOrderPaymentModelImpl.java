@@ -61,7 +61,7 @@ public class CommerceOrderPaymentModelImpl
 	extends BaseModelImpl<CommerceOrderPayment>
 	implements CommerceOrderPaymentModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce order payment model instance should use the <code>CommerceOrderPayment</code> interface instead.

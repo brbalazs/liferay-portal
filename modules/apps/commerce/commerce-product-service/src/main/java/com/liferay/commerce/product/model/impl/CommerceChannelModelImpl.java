@@ -65,7 +65,7 @@ import java.util.function.Function;
 public class CommerceChannelModelImpl
 	extends BaseModelImpl<CommerceChannel> implements CommerceChannelModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce channel model instance should use the <code>CommerceChannel</code> interface instead.

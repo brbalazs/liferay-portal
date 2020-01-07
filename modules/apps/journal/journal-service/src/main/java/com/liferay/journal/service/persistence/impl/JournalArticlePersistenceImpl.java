@@ -76,7 +76,7 @@ public class JournalArticlePersistenceImpl
 	extends BasePersistenceImpl<JournalArticle>
 	implements JournalArticlePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>JournalArticleUtil</code> to access the journal article persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

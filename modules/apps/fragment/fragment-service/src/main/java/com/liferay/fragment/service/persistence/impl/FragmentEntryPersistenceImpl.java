@@ -70,7 +70,7 @@ public class FragmentEntryPersistenceImpl
 	extends BasePersistenceImpl<FragmentEntry>
 	implements FragmentEntryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>FragmentEntryUtil</code> to access the fragment entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

@@ -64,7 +64,7 @@ import java.util.function.Function;
 public class LayoutSetBranchModelImpl
 	extends BaseModelImpl<LayoutSetBranch> implements LayoutSetBranchModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a layout set branch model instance should use the <code>LayoutSetBranch</code> interface instead.

@@ -74,7 +74,7 @@ public class LayoutSetPrototypeModelImpl
 	extends BaseModelImpl<LayoutSetPrototype>
 	implements LayoutSetPrototypeModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a layout set prototype model instance should use the <code>LayoutSetPrototype</code> interface instead.

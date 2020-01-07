@@ -80,7 +80,7 @@ import java.util.Set;
 public class UserPersistenceImpl
 	extends BasePersistenceImpl<User> implements UserPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>UserUtil</code> to access the user persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

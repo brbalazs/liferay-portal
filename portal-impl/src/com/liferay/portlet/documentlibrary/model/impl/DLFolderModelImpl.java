@@ -71,7 +71,7 @@ import java.util.function.Function;
 public class DLFolderModelImpl
 	extends BaseModelImpl<DLFolder> implements DLFolderModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a document library folder model instance should use the <code>DLFolder</code> interface instead.

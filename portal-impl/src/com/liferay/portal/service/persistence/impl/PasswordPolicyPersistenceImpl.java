@@ -71,7 +71,7 @@ public class PasswordPolicyPersistenceImpl
 	extends BasePersistenceImpl<PasswordPolicy>
 	implements PasswordPolicyPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>PasswordPolicyUtil</code> to access the password policy persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

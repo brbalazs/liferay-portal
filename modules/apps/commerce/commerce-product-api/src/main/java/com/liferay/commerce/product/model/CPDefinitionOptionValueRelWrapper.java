@@ -420,11 +420,6 @@ public class CPDefinitionOptionValueRelWrapper
 		return _cpDefinitionOptionValueRel.isNew();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a cp definition option value rel model instance should use the <code>CPDefinitionOptionValueRel</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_cpDefinitionOptionValueRel.persist();

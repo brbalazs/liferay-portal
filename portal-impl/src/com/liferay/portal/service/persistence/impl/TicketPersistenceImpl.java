@@ -63,7 +63,7 @@ import java.util.Set;
 public class TicketPersistenceImpl
 	extends BasePersistenceImpl<Ticket> implements TicketPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>TicketUtil</code> to access the ticket persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

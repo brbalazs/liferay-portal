@@ -568,7 +568,7 @@ public class CommerceOrderItemLocalServiceWrapper
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated As of Athanasius (7.3.x)
 	 */
 	@Deprecated
 	@Override

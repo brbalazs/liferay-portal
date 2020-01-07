@@ -60,7 +60,7 @@ import java.util.function.Function;
 public class CountryModelImpl
 	extends BaseModelImpl<Country> implements CountryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a country model instance should use the <code>Country</code> interface instead.

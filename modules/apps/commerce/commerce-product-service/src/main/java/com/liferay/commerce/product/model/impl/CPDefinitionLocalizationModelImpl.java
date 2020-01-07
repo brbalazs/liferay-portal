@@ -56,7 +56,7 @@ public class CPDefinitionLocalizationModelImpl
 	extends BaseModelImpl<CPDefinitionLocalization>
 	implements CPDefinitionLocalizationModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a cp definition localization model instance should use the <code>CPDefinitionLocalization</code> interface instead.

@@ -501,11 +501,6 @@ public class SamlSpIdpConnectionWrapper
 		return _samlSpIdpConnection.isSignAuthnRequest();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a saml sp idp connection model instance should use the <code>SamlSpIdpConnection</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_samlSpIdpConnection.persist();

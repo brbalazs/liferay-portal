@@ -61,7 +61,7 @@ public class DDMStructureLinkPersistenceImpl
 	extends BasePersistenceImpl<DDMStructureLink>
 	implements DDMStructureLinkPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>DDMStructureLinkUtil</code> to access the ddm structure link persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

@@ -59,7 +59,7 @@ import java.util.function.Function;
 public class BlogsStatsUserModelImpl
 	extends BaseModelImpl<BlogsStatsUser> implements BlogsStatsUserModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a blogs stats user model instance should use the <code>BlogsStatsUser</code> interface instead.

@@ -62,7 +62,7 @@ public class SocialActivitySettingPersistenceImpl
 	extends BasePersistenceImpl<SocialActivitySetting>
 	implements SocialActivitySettingPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>SocialActivitySettingUtil</code> to access the social activity setting persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

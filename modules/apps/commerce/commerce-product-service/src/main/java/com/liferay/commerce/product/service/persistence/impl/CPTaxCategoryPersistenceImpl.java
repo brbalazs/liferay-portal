@@ -64,7 +64,7 @@ public class CPTaxCategoryPersistenceImpl
 	extends BasePersistenceImpl<CPTaxCategory>
 	implements CPTaxCategoryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CPTaxCategoryUtil</code> to access the cp tax category persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

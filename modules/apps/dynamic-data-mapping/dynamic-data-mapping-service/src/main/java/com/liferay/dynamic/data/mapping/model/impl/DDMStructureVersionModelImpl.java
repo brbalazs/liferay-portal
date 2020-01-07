@@ -73,7 +73,7 @@ public class DDMStructureVersionModelImpl
 	extends BaseModelImpl<DDMStructureVersion>
 	implements DDMStructureVersionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ddm structure version model instance should use the <code>DDMStructureVersion</code> interface instead.

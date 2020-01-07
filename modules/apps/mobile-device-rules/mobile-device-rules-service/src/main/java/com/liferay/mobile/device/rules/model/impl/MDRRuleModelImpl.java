@@ -74,7 +74,7 @@ import java.util.function.Function;
 public class MDRRuleModelImpl
 	extends BaseModelImpl<MDRRule> implements MDRRuleModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a mdr rule model instance should use the <code>MDRRule</code> interface instead.

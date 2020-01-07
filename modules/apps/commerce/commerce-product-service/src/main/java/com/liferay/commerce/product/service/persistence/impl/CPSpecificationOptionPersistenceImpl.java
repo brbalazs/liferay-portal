@@ -71,7 +71,7 @@ public class CPSpecificationOptionPersistenceImpl
 	extends BasePersistenceImpl<CPSpecificationOption>
 	implements CPSpecificationOptionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CPSpecificationOptionUtil</code> to access the cp specification option persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

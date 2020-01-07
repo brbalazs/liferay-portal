@@ -59,7 +59,7 @@ import java.util.function.Function;
 public class WeDeployAuthTokenModelImpl
 	extends BaseModelImpl<WeDeployAuthToken> implements WeDeployAuthTokenModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a we deploy auth token model instance should use the <code>WeDeployAuthToken</code> interface instead.

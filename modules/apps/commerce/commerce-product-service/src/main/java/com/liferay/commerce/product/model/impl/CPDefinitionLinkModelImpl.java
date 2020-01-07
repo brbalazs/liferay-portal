@@ -66,7 +66,7 @@ import java.util.function.Function;
 public class CPDefinitionLinkModelImpl
 	extends BaseModelImpl<CPDefinitionLink> implements CPDefinitionLinkModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a cp definition link model instance should use the <code>CPDefinitionLink</code> interface instead.

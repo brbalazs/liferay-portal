@@ -80,7 +80,7 @@ import java.util.Set;
 public class MBMessagePersistenceImpl
 	extends BasePersistenceImpl<MBMessage> implements MBMessagePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>MBMessageUtil</code> to access the message-boards message persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

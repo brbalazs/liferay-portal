@@ -52,7 +52,7 @@ public abstract class ScreensAssetEntryServiceBaseImpl
 	extends BaseServiceImpl
 	implements IdentifiableOSGiService, ScreensAssetEntryService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>ScreensAssetEntryService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.screens.service.ScreensAssetEntryServiceUtil</code>.

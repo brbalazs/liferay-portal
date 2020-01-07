@@ -66,7 +66,7 @@ public class CommerceNotificationTemplateCommerceAccountGroupRelModelImpl
 	extends BaseModelImpl<CommerceNotificationTemplateCommerceAccountGroupRel>
 	implements CommerceNotificationTemplateCommerceAccountGroupRelModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce notification template commerce account group rel model instance should use the <code>CommerceNotificationTemplateCommerceAccountGroupRel</code> interface instead.

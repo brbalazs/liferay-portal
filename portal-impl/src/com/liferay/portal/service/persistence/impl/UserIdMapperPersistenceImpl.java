@@ -63,7 +63,7 @@ public class UserIdMapperPersistenceImpl
 	extends BasePersistenceImpl<UserIdMapper>
 	implements UserIdMapperPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>UserIdMapperUtil</code> to access the user ID mapper persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

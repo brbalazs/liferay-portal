@@ -65,7 +65,7 @@ public class PushNotificationsDeviceModelImpl
 	extends BaseModelImpl<PushNotificationsDevice>
 	implements PushNotificationsDeviceModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a push notifications device model instance should use the <code>PushNotificationsDevice</code> interface instead.

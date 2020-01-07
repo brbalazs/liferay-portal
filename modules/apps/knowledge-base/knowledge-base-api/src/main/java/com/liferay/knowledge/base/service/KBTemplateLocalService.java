@@ -61,7 +61,7 @@ import java.util.List;
 public interface KBTemplateLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link KBTemplateLocalServiceUtil} to access the kb template local service. Add custom service methods to <code>com.liferay.knowledge.base.service.impl.KBTemplateLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

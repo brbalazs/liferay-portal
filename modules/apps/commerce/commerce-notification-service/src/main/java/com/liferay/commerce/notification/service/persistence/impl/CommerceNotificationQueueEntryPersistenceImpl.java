@@ -68,7 +68,7 @@ public class CommerceNotificationQueueEntryPersistenceImpl
 	extends BasePersistenceImpl<CommerceNotificationQueueEntry>
 	implements CommerceNotificationQueueEntryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CommerceNotificationQueueEntryUtil</code> to access the commerce notification queue entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
@@ -2982,6 +2982,18 @@ public class CommerceNotificationQueueEntryPersistenceImpl
 				CommerceNotificationQueueEntryModelImpl.ENTITY_CACHE_ENABLED,
 				CommerceNotificationQueueEntryImpl.class,
 				commerceNotificationQueueEntry.getPrimaryKey());
+		}
+	}
+
+	public void clearCache(Set<Serializable> primaryKeys) {
+		finderCache.clearCache(FINDER_CLASS_NAME_ENTITY);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		for (Serializable primaryKey : primaryKeys) {
+			entityCache.removeResult(
+				CommerceNotificationQueueEntryModelImpl.ENTITY_CACHE_ENABLED,
+				CommerceNotificationQueueEntryImpl.class, primaryKey);
 		}
 	}
 

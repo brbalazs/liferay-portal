@@ -83,7 +83,7 @@ public abstract class CommerceShipmentLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements CommerceShipmentLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>CommerceShipmentLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.service.CommerceShipmentLocalServiceUtil</code>.

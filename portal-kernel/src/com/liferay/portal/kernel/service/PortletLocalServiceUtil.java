@@ -30,7 +30,7 @@ import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
  */
 public class PortletLocalServiceUtil {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.portal.service.impl.PortletLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
@@ -71,7 +71,7 @@ public class PortletLocalServiceUtil {
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 #clearPortletsMap)}
+	 #clearPortletsMap()}
 	 */
 	@Deprecated
 	public static void clearCompanyPortletsPool() {
@@ -472,7 +472,7 @@ public class PortletLocalServiceUtil {
 
 	/**
 	 * @deprecated As of Wilberforce (7.0.x), replaced by {@link
-	 #loadGetPortletsMap(long))}
+	 #loadGetPortletsMap(long)}
 	 */
 	@Deprecated
 	public static java.util.Map<String, com.liferay.portal.kernel.model.Portlet>

@@ -70,7 +70,7 @@ import java.util.Set;
 public class CalendarPersistenceImpl
 	extends BasePersistenceImpl<Calendar> implements CalendarPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CalendarUtil</code> to access the calendar persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

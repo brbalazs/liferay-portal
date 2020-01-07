@@ -65,7 +65,7 @@ import java.util.function.Function;
 public class AnnouncementsFlagModelImpl
 	extends BaseModelImpl<AnnouncementsFlag> implements AnnouncementsFlagModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a announcements flag model instance should use the <code>AnnouncementsFlag</code> interface instead.

@@ -73,7 +73,7 @@ import java.util.function.Function;
 public class LayoutModelImpl
 	extends BaseModelImpl<Layout> implements LayoutModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a layout model instance should use the <code>Layout</code> interface instead.

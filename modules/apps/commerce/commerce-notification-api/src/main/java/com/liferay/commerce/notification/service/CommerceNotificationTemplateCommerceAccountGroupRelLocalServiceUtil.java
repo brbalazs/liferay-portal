@@ -33,7 +33,7 @@ import org.osgi.util.tracker.ServiceTracker;
 public class
 	CommerceNotificationTemplateCommerceAccountGroupRelLocalServiceUtil {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.commerce.notification.service.impl.CommerceNotificationTemplateCommerceAccountGroupRelLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.

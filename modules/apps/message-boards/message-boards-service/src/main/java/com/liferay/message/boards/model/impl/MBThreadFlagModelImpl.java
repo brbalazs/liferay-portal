@@ -61,7 +61,7 @@ import java.util.function.Function;
 public class MBThreadFlagModelImpl
 	extends BaseModelImpl<MBThreadFlag> implements MBThreadFlagModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a message boards thread flag model instance should use the <code>MBThreadFlag</code> interface instead.

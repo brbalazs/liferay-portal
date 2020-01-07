@@ -41,7 +41,7 @@ import java.util.Date;
 public interface SharepointOAuth2TokenEntryModel
 	extends BaseModel<SharepointOAuth2TokenEntry> {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a sharepoint o auth2 token entry model instance should use the {@link SharepointOAuth2TokenEntry} interface instead.

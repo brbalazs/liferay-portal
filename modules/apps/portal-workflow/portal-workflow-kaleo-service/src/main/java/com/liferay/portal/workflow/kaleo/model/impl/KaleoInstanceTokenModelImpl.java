@@ -60,7 +60,7 @@ public class KaleoInstanceTokenModelImpl
 	extends BaseModelImpl<KaleoInstanceToken>
 	implements KaleoInstanceTokenModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a kaleo instance token model instance should use the <code>KaleoInstanceToken</code> interface instead.

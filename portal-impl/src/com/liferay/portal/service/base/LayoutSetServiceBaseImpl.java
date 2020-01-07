@@ -53,7 +53,7 @@ public abstract class LayoutSetServiceBaseImpl
 	extends BaseServiceImpl
 	implements IdentifiableOSGiService, LayoutSetService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>LayoutSetService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.portal.kernel.service.LayoutSetServiceUtil</code>.

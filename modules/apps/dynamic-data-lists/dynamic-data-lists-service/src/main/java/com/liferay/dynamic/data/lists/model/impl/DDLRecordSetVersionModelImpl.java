@@ -73,7 +73,7 @@ public class DDLRecordSetVersionModelImpl
 	extends BaseModelImpl<DDLRecordSetVersion>
 	implements DDLRecordSetVersionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ddl record set version model instance should use the <code>DDLRecordSetVersion</code> interface instead.

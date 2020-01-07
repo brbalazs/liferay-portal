@@ -65,7 +65,7 @@ public class PowwowMeetingPersistenceImpl
 	extends BasePersistenceImpl<PowwowMeeting>
 	implements PowwowMeetingPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>PowwowMeetingUtil</code> to access the powwow meeting persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

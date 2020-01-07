@@ -62,7 +62,7 @@ public abstract class DDMTemplateLinkLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements DDMTemplateLinkLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>DDMTemplateLinkLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.dynamic.data.mapping.service.DDMTemplateLinkLocalServiceUtil</code>.

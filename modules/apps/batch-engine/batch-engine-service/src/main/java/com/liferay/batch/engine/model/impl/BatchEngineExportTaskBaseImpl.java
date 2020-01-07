@@ -32,7 +32,7 @@ import com.liferay.batch.engine.service.BatchEngineExportTaskLocalServiceUtil;
 public abstract class BatchEngineExportTaskBaseImpl
 	extends BatchEngineExportTaskModelImpl implements BatchEngineExportTask {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a batch engine export task model instance should use the <code>BatchEngineExportTask</code> interface instead.

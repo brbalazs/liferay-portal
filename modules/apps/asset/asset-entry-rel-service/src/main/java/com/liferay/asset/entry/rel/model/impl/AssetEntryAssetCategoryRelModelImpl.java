@@ -56,7 +56,7 @@ public class AssetEntryAssetCategoryRelModelImpl
 	extends BaseModelImpl<AssetEntryAssetCategoryRel>
 	implements AssetEntryAssetCategoryRelModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a asset entry asset category rel model instance should use the <code>AssetEntryAssetCategoryRel</code> interface instead.

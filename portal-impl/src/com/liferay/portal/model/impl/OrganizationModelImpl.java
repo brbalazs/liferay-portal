@@ -66,7 +66,7 @@ import java.util.function.Function;
 public class OrganizationModelImpl
 	extends BaseModelImpl<Organization> implements OrganizationModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a organization model instance should use the <code>Organization</code> interface instead.

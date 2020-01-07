@@ -60,7 +60,7 @@ public class RecentLayoutSetBranchPersistenceImpl
 	extends BasePersistenceImpl<RecentLayoutSetBranch>
 	implements RecentLayoutSetBranchPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>RecentLayoutSetBranchUtil</code> to access the recent layout set branch persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

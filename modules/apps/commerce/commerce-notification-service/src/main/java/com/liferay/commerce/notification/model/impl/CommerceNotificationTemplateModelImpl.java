@@ -75,7 +75,7 @@ public class CommerceNotificationTemplateModelImpl
 	extends BaseModelImpl<CommerceNotificationTemplate>
 	implements CommerceNotificationTemplateModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce notification template model instance should use the <code>CommerceNotificationTemplate</code> interface instead.

@@ -74,7 +74,7 @@ public class CPSpecificationOptionModelImpl
 	extends BaseModelImpl<CPSpecificationOption>
 	implements CPSpecificationOptionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a cp specification option model instance should use the <code>CPSpecificationOption</code> interface instead.

@@ -65,7 +65,7 @@ import java.util.function.Function;
 @JSON(strict = true)
 public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a team model instance should use the <code>Team</code> interface instead.

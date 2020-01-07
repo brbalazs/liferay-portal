@@ -68,7 +68,7 @@ public class CommerceChannelRelModelImpl
 	extends BaseModelImpl<CommerceChannelRel>
 	implements CommerceChannelRelModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce channel rel model instance should use the <code>CommerceChannelRel</code> interface instead.

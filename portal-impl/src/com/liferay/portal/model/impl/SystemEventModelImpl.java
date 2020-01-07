@@ -62,7 +62,7 @@ import java.util.function.Function;
 public class SystemEventModelImpl
 	extends BaseModelImpl<SystemEvent> implements SystemEventModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a system event model instance should use the <code>SystemEvent</code> interface instead.

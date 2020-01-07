@@ -67,7 +67,7 @@ import java.util.function.Function;
 public class FragmentEntryModelImpl
 	extends BaseModelImpl<FragmentEntry> implements FragmentEntryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a fragment entry model instance should use the <code>FragmentEntry</code> interface instead.

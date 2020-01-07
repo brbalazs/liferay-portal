@@ -40,7 +40,7 @@ import java.util.Set;
 public interface SamlSpSessionPersistence
 	extends BasePersistence<SamlSpSession> {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link SamlSpSessionUtil} to access the saml sp session persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

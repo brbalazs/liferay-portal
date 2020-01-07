@@ -85,7 +85,7 @@ public abstract class CompanyLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements CompanyLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>CompanyLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.portal.kernel.service.CompanyLocalServiceUtil</code>.

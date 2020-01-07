@@ -68,7 +68,7 @@ public class MemberRequestPersistenceImpl
 	extends BasePersistenceImpl<MemberRequest>
 	implements MemberRequestPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>MemberRequestUtil</code> to access the member request persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

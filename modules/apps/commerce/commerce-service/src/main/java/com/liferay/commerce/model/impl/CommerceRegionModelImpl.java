@@ -66,7 +66,7 @@ import java.util.function.Function;
 public class CommerceRegionModelImpl
 	extends BaseModelImpl<CommerceRegion> implements CommerceRegionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce region model instance should use the <code>CommerceRegion</code> interface instead.

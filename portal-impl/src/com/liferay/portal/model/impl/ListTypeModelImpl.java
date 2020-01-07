@@ -60,7 +60,7 @@ import java.util.function.Function;
 public class ListTypeModelImpl
 	extends BaseModelImpl<ListType> implements ListTypeModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a list type model instance should use the <code>ListType</code> interface instead.

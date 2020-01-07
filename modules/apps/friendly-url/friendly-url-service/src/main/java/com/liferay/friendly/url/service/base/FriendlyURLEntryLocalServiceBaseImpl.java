@@ -78,7 +78,7 @@ public abstract class FriendlyURLEntryLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements FriendlyURLEntryLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>FriendlyURLEntryLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.friendly.url.service.FriendlyURLEntryLocalServiceUtil</code>.

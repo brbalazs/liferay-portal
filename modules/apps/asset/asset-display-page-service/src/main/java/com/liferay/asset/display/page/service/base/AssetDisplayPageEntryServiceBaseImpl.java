@@ -46,7 +46,7 @@ public abstract class AssetDisplayPageEntryServiceBaseImpl
 	extends BaseServiceImpl
 	implements AssetDisplayPageEntryService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>AssetDisplayPageEntryService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.asset.display.page.service.AssetDisplayPageEntryServiceUtil</code>.

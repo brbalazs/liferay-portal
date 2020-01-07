@@ -70,7 +70,7 @@ public class CommerceChannelPersistenceImpl
 	extends BasePersistenceImpl<CommerceChannel>
 	implements CommerceChannelPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CommerceChannelUtil</code> to access the commerce channel persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

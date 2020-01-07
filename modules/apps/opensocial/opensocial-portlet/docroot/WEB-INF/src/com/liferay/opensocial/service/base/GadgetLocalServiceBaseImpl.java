@@ -72,7 +72,7 @@ public abstract class GadgetLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements GadgetLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>GadgetLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.opensocial.service.GadgetLocalServiceUtil</code>.

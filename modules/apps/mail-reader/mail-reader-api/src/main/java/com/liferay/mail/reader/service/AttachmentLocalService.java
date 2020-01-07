@@ -57,7 +57,7 @@ import java.util.List;
 public interface AttachmentLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link AttachmentLocalServiceUtil} to access the attachment local service. Add custom service methods to <code>com.liferay.mail.reader.service.impl.AttachmentLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

@@ -93,7 +93,7 @@ public abstract class CPSpecificationOptionLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements CPSpecificationOptionLocalService, IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>CPSpecificationOptionLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.product.service.CPSpecificationOptionLocalServiceUtil</code>.

@@ -68,7 +68,7 @@ import java.util.function.Function;
 public class KBCommentModelImpl
 	extends BaseModelImpl<KBComment> implements KBCommentModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a kb comment model instance should use the <code>KBComment</code> interface instead.

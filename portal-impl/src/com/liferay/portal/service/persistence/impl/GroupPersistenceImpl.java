@@ -74,7 +74,7 @@ import java.util.Set;
 public class GroupPersistenceImpl
 	extends BasePersistenceImpl<Group> implements GroupPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>GroupUtil</code> to access the group persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

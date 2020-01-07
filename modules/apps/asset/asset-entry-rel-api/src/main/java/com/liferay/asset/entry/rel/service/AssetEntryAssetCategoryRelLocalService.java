@@ -55,7 +55,7 @@ import java.util.List;
 public interface AssetEntryAssetCategoryRelLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link AssetEntryAssetCategoryRelLocalServiceUtil} to access the asset entry asset category rel local service. Add custom service methods to <code>com.liferay.asset.entry.rel.service.impl.AssetEntryAssetCategoryRelLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

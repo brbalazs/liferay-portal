@@ -30,16 +30,10 @@ import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
  */
 public class PowwowMeetingLocalServiceUtil {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.powwow.service.impl.PowwowMeetingLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
-	 */
-
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link PowwowMeetingLocalServiceUtil} to access the powwow meeting local service. Add custom service methods to <code>com.liferay.powwow.service.impl.PowwowMeetingLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public static com.liferay.powwow.model.PowwowMeeting addPowwowMeeting(
 			long userId, long groupId, long powwowServerId, String name,

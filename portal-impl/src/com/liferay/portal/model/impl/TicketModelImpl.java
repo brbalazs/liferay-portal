@@ -58,7 +58,7 @@ import java.util.function.Function;
 public class TicketModelImpl
 	extends BaseModelImpl<Ticket> implements TicketModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ticket model instance should use the <code>Ticket</code> interface instead.

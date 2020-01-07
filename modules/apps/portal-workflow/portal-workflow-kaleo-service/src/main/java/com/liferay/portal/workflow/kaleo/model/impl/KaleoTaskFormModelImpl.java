@@ -59,7 +59,7 @@ import java.util.function.Function;
 public class KaleoTaskFormModelImpl
 	extends BaseModelImpl<KaleoTaskForm> implements KaleoTaskFormModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a kaleo task form model instance should use the <code>KaleoTaskForm</code> interface instead.

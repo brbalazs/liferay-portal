@@ -55,7 +55,7 @@ import java.util.function.Function;
 public class PortalPreferencesModelImpl
 	extends BaseModelImpl<PortalPreferences> implements PortalPreferencesModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a portal preferences model instance should use the <code>PortalPreferences</code> interface instead.

@@ -66,7 +66,7 @@ public class KaleoTransitionPersistenceImpl
 	extends BasePersistenceImpl<KaleoTransition>
 	implements KaleoTransitionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>KaleoTransitionUtil</code> to access the kaleo transition persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

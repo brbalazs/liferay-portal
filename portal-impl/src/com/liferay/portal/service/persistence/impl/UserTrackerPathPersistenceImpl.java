@@ -62,7 +62,7 @@ public class UserTrackerPathPersistenceImpl
 	extends BasePersistenceImpl<UserTrackerPath>
 	implements UserTrackerPathPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>UserTrackerPathUtil</code> to access the user tracker path persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

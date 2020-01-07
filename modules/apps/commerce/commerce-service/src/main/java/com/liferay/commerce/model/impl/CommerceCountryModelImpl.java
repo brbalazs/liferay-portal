@@ -73,7 +73,7 @@ import java.util.function.Function;
 public class CommerceCountryModelImpl
 	extends BaseModelImpl<CommerceCountry> implements CommerceCountryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce country model instance should use the <code>CommerceCountry</code> interface instead.

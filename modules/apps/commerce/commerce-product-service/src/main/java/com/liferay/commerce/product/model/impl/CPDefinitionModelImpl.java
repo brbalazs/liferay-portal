@@ -71,7 +71,7 @@ import java.util.function.Function;
 public class CPDefinitionModelImpl
 	extends BaseModelImpl<CPDefinition> implements CPDefinitionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a cp definition model instance should use the <code>CPDefinition</code> interface instead.

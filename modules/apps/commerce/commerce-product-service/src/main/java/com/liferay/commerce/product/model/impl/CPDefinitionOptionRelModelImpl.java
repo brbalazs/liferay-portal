@@ -74,7 +74,7 @@ public class CPDefinitionOptionRelModelImpl
 	extends BaseModelImpl<CPDefinitionOptionRel>
 	implements CPDefinitionOptionRelModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a cp definition option rel model instance should use the <code>CPDefinitionOptionRel</code> interface instead.

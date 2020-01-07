@@ -68,7 +68,7 @@ import java.util.Set;
 public class DDLRecordPersistenceImpl
 	extends BasePersistenceImpl<DDLRecord> implements DDLRecordPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>DDLRecordUtil</code> to access the ddl record persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

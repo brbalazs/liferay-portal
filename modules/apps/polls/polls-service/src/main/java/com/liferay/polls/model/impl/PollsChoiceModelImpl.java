@@ -73,7 +73,7 @@ import java.util.function.Function;
 public class PollsChoiceModelImpl
 	extends BaseModelImpl<PollsChoice> implements PollsChoiceModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a polls choice model instance should use the <code>PollsChoice</code> interface instead.

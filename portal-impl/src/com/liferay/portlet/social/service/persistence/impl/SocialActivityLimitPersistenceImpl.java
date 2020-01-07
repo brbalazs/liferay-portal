@@ -61,7 +61,7 @@ public class SocialActivityLimitPersistenceImpl
 	extends BasePersistenceImpl<SocialActivityLimit>
 	implements SocialActivityLimitPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>SocialActivityLimitUtil</code> to access the social activity limit persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

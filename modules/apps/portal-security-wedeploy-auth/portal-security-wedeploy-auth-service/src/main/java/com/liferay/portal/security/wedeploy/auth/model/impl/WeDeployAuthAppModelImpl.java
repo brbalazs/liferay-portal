@@ -64,7 +64,7 @@ import java.util.function.Function;
 public class WeDeployAuthAppModelImpl
 	extends BaseModelImpl<WeDeployAuthApp> implements WeDeployAuthAppModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a we deploy auth app model instance should use the <code>WeDeployAuthApp</code> interface instead.

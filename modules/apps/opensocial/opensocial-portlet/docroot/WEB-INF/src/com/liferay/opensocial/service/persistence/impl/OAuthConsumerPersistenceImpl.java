@@ -65,7 +65,7 @@ public class OAuthConsumerPersistenceImpl
 	extends BasePersistenceImpl<OAuthConsumer>
 	implements OAuthConsumerPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>OAuthConsumerUtil</code> to access the o auth consumer persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

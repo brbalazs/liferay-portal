@@ -73,7 +73,7 @@ public abstract class CommerceAccountOrganizationRelLocalServiceBaseImpl
 	implements CommerceAccountOrganizationRelLocalService,
 			   IdentifiableOSGiService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>CommerceAccountOrganizationRelLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.account.service.CommerceAccountOrganizationRelLocalServiceUtil</code>.

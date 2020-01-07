@@ -65,7 +65,7 @@ import java.util.function.Function;
 public class PowwowMeetingModelImpl
 	extends BaseModelImpl<PowwowMeeting> implements PowwowMeetingModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a powwow meeting model instance should use the <code>PowwowMeeting</code> interface instead.

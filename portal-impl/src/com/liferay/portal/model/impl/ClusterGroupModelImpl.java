@@ -55,7 +55,7 @@ import java.util.function.Function;
 public class ClusterGroupModelImpl
 	extends BaseModelImpl<ClusterGroup> implements ClusterGroupModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a cluster group model instance should use the <code>ClusterGroup</code> interface instead.

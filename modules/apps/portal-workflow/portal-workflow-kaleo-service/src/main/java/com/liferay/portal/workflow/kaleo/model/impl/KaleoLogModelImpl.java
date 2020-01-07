@@ -59,7 +59,7 @@ import java.util.function.Function;
 public class KaleoLogModelImpl
 	extends BaseModelImpl<KaleoLog> implements KaleoLogModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a kaleo log model instance should use the <code>KaleoLog</code> interface instead.

@@ -65,7 +65,7 @@ public class WorkflowDefinitionLinkPersistenceImpl
 	extends BasePersistenceImpl<WorkflowDefinitionLink>
 	implements WorkflowDefinitionLinkPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>WorkflowDefinitionLinkUtil</code> to access the workflow definition link persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

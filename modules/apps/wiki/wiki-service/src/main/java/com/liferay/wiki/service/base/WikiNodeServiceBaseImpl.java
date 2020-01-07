@@ -49,7 +49,7 @@ public abstract class WikiNodeServiceBaseImpl
 	extends BaseServiceImpl
 	implements IdentifiableOSGiService, WikiNodeService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>WikiNodeService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.wiki.service.WikiNodeServiceUtil</code>.

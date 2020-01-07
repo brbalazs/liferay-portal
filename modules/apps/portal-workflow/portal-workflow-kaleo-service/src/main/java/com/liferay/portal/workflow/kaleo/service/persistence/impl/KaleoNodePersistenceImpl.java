@@ -65,7 +65,7 @@ import java.util.Set;
 public class KaleoNodePersistenceImpl
 	extends BasePersistenceImpl<KaleoNode> implements KaleoNodePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>KaleoNodeUtil</code> to access the kaleo node persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

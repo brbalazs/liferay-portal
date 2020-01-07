@@ -74,7 +74,7 @@ public class CommerceAvailabilityEstimateModelImpl
 	extends BaseModelImpl<CommerceAvailabilityEstimate>
 	implements CommerceAvailabilityEstimateModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce availability estimate model instance should use the <code>CommerceAvailabilityEstimate</code> interface instead.

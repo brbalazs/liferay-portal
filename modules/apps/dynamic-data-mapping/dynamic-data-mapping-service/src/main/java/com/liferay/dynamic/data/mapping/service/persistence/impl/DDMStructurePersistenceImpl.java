@@ -74,7 +74,7 @@ public class DDMStructurePersistenceImpl
 	extends BasePersistenceImpl<DDMStructure>
 	implements DDMStructurePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>DDMStructureUtil</code> to access the ddm structure persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

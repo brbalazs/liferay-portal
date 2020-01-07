@@ -61,7 +61,7 @@ import java.util.function.Function;
 public class MBMailingListModelImpl
 	extends BaseModelImpl<MBMailingList> implements MBMailingListModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a message boards mailing list model instance should use the <code>MBMailingList</code> interface instead.

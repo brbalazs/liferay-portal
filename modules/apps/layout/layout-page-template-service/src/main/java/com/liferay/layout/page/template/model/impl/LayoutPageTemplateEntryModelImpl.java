@@ -69,7 +69,7 @@ public class LayoutPageTemplateEntryModelImpl
 	extends BaseModelImpl<LayoutPageTemplateEntry>
 	implements LayoutPageTemplateEntryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a layout page template entry model instance should use the <code>LayoutPageTemplateEntry</code> interface instead.

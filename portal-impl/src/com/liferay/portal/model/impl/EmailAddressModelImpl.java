@@ -68,7 +68,7 @@ import java.util.function.Function;
 public class EmailAddressModelImpl
 	extends BaseModelImpl<EmailAddress> implements EmailAddressModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a email address model instance should use the <code>EmailAddress</code> interface instead.

@@ -67,7 +67,7 @@ public class KaleoInstancePersistenceImpl
 	extends BasePersistenceImpl<KaleoInstance>
 	implements KaleoInstancePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>KaleoInstanceUtil</code> to access the kaleo instance persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

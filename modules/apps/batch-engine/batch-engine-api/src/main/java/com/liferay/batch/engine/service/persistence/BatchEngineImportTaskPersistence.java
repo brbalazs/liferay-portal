@@ -40,7 +40,7 @@ import java.util.Set;
 public interface BatchEngineImportTaskPersistence
 	extends BasePersistence<BatchEngineImportTask> {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link BatchEngineImportTaskUtil} to access the batch engine import task persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

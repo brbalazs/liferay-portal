@@ -33,11 +33,6 @@ public class CommerceSubscriptionEntryServiceWrapper
 		_commerceSubscriptionEntryService = commerceSubscriptionEntryService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link CommerceSubscriptionEntryServiceUtil} to access the commerce subscription entry remote service. Add custom service methods to <code>com.liferay.commerce.service.impl.CommerceSubscriptionEntryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public void deleteCommerceSubscriptionEntry(
 			long commerceSubscriptionEntryId)

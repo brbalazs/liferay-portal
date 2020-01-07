@@ -69,7 +69,7 @@ public class FriendlyURLEntryPersistenceImpl
 	extends BasePersistenceImpl<FriendlyURLEntry>
 	implements FriendlyURLEntryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>FriendlyURLEntryUtil</code> to access the friendly url entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

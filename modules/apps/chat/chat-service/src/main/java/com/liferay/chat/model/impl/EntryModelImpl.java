@@ -57,7 +57,7 @@ import java.util.function.Function;
  */
 public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a entry model instance should use the <code>Entry</code> interface instead.

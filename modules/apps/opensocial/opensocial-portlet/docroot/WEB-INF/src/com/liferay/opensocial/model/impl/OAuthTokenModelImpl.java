@@ -59,7 +59,7 @@ import java.util.function.Function;
 public class OAuthTokenModelImpl
 	extends BaseModelImpl<OAuthToken> implements OAuthTokenModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a o auth token model instance should use the <code>OAuthToken</code> interface instead.

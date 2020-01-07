@@ -73,7 +73,7 @@ import java.util.function.Function;
 public class CPOptionCategoryModelImpl
 	extends BaseModelImpl<CPOptionCategory> implements CPOptionCategoryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a cp option category model instance should use the <code>CPOptionCategory</code> interface instead.

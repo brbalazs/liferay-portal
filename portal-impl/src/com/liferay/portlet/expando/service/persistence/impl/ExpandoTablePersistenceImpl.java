@@ -61,7 +61,7 @@ public class ExpandoTablePersistenceImpl
 	extends BasePersistenceImpl<ExpandoTable>
 	implements ExpandoTablePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ExpandoTableUtil</code> to access the expando table persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

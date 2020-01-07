@@ -60,7 +60,7 @@ public class KaleoTaskFormInstanceModelImpl
 	extends BaseModelImpl<KaleoTaskFormInstance>
 	implements KaleoTaskFormInstanceModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a kaleo task form instance model instance should use the <code>KaleoTaskFormInstance</code> interface instead.

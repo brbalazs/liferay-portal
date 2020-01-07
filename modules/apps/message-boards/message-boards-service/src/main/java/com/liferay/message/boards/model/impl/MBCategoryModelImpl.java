@@ -71,7 +71,7 @@ import java.util.function.Function;
 public class MBCategoryModelImpl
 	extends BaseModelImpl<MBCategory> implements MBCategoryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a message boards category model instance should use the <code>MBCategory</code> interface instead.

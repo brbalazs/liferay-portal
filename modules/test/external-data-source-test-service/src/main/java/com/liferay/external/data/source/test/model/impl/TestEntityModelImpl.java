@@ -55,7 +55,7 @@ import java.util.function.Function;
 public class TestEntityModelImpl
 	extends BaseModelImpl<TestEntity> implements TestEntityModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a test entity model instance should use the <code>TestEntity</code> interface instead.

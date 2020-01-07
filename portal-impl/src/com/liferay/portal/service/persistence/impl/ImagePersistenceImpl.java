@@ -59,7 +59,7 @@ import java.util.Set;
 public class ImagePersistenceImpl
 	extends BasePersistenceImpl<Image> implements ImagePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ImageUtil</code> to access the image persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

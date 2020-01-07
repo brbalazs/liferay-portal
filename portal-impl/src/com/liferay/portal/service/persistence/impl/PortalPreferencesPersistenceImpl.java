@@ -60,7 +60,7 @@ public class PortalPreferencesPersistenceImpl
 	extends BasePersistenceImpl<PortalPreferences>
 	implements PortalPreferencesPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>PortalPreferencesUtil</code> to access the portal preferences persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

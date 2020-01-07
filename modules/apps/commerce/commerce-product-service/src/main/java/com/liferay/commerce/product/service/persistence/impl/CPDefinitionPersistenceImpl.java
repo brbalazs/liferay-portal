@@ -71,7 +71,7 @@ public class CPDefinitionPersistenceImpl
 	extends BasePersistenceImpl<CPDefinition>
 	implements CPDefinitionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CPDefinitionUtil</code> to access the cp definition persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

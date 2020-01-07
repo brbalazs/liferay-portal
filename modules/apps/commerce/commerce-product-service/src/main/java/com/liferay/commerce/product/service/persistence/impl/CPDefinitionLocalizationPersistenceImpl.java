@@ -62,7 +62,7 @@ public class CPDefinitionLocalizationPersistenceImpl
 	extends BasePersistenceImpl<CPDefinitionLocalization>
 	implements CPDefinitionLocalizationPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CPDefinitionLocalizationUtil</code> to access the cp definition localization persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

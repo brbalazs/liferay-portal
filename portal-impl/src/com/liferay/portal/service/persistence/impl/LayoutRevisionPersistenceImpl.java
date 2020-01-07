@@ -64,7 +64,7 @@ public class LayoutRevisionPersistenceImpl
 	extends BasePersistenceImpl<LayoutRevision>
 	implements LayoutRevisionPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>LayoutRevisionUtil</code> to access the layout revision persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

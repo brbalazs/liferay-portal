@@ -67,7 +67,7 @@ import java.util.function.Function;
 @JSON(strict = true)
 public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a phone model instance should use the <code>Phone</code> interface instead.

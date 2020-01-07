@@ -62,7 +62,7 @@ import java.util.Set;
 public class PortletPersistenceImpl
 	extends BasePersistenceImpl<Portlet> implements PortletPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>PortletUtil</code> to access the portlet persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

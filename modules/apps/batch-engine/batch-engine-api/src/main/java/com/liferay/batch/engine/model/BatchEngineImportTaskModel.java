@@ -48,7 +48,7 @@ public interface BatchEngineImportTaskModel
 	extends BaseModel<BatchEngineImportTask>, MVCCModel, ShardedModel,
 			StagedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a batch engine import task model instance should use the {@link BatchEngineImportTask} interface instead.

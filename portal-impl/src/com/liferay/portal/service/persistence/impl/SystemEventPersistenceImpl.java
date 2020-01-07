@@ -61,7 +61,7 @@ import java.util.Set;
 public class SystemEventPersistenceImpl
 	extends BasePersistenceImpl<SystemEvent> implements SystemEventPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>SystemEventUtil</code> to access the system event persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

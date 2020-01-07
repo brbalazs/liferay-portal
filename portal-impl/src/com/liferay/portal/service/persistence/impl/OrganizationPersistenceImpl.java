@@ -78,7 +78,7 @@ public class OrganizationPersistenceImpl
 	extends BasePersistenceImpl<Organization>
 	implements OrganizationPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>OrganizationUtil</code> to access the organization persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

@@ -68,7 +68,7 @@ import java.util.Set;
 public class DDMContentPersistenceImpl
 	extends BasePersistenceImpl<DDMContent> implements DDMContentPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>DDMContentUtil</code> to access the ddm content persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

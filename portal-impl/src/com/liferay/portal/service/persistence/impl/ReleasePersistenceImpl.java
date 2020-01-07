@@ -65,7 +65,7 @@ import java.util.Set;
 public class ReleasePersistenceImpl
 	extends BasePersistenceImpl<Release> implements ReleasePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ReleaseUtil</code> to access the release persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

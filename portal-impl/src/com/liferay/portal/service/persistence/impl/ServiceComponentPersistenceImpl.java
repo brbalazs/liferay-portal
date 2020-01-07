@@ -62,7 +62,7 @@ public class ServiceComponentPersistenceImpl
 	extends BasePersistenceImpl<ServiceComponent>
 	implements ServiceComponentPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ServiceComponentUtil</code> to access the service component persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

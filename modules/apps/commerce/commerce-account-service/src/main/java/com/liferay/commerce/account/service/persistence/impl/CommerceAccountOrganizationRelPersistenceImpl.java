@@ -64,7 +64,7 @@ public class CommerceAccountOrganizationRelPersistenceImpl
 	extends BasePersistenceImpl<CommerceAccountOrganizationRel>
 	implements CommerceAccountOrganizationRelPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CommerceAccountOrganizationRelUtil</code> to access the commerce account organization rel persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

@@ -67,7 +67,7 @@ import java.util.Set;
 public class AccountPersistenceImpl
 	extends BasePersistenceImpl<Account> implements AccountPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>AccountUtil</code> to access the account persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

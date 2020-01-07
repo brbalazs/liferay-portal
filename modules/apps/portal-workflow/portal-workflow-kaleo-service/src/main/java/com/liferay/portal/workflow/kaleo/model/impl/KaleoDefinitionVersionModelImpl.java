@@ -69,7 +69,7 @@ public class KaleoDefinitionVersionModelImpl
 	extends BaseModelImpl<KaleoDefinitionVersion>
 	implements KaleoDefinitionVersionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a kaleo definition version model instance should use the <code>KaleoDefinitionVersion</code> interface instead.

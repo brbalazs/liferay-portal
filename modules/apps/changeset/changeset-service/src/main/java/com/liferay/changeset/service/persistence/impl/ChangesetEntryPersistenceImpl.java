@@ -64,7 +64,7 @@ public class ChangesetEntryPersistenceImpl
 	extends BasePersistenceImpl<ChangesetEntry>
 	implements ChangesetEntryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ChangesetEntryUtil</code> to access the changeset entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

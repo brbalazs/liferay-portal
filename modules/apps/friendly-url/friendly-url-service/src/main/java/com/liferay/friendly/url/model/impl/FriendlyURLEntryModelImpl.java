@@ -63,7 +63,7 @@ import java.util.function.Function;
 public class FriendlyURLEntryModelImpl
 	extends BaseModelImpl<FriendlyURLEntry> implements FriendlyURLEntryModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a friendly url entry model instance should use the <code>FriendlyURLEntry</code> interface instead.

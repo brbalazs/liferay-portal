@@ -32,7 +32,7 @@ import org.osgi.util.tracker.ServiceTracker;
  */
 public class AssetTagStatsLocalServiceUtil {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.asset.tag.stats.service.impl.AssetTagStatsLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.

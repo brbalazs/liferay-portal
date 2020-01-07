@@ -67,7 +67,7 @@ public class CommercePaymentMethodGroupRelPersistenceImpl
 	extends BasePersistenceImpl<CommercePaymentMethodGroupRel>
 	implements CommercePaymentMethodGroupRelPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CommercePaymentMethodGroupRelUtil</code> to access the commerce payment method group rel persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

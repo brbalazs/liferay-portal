@@ -376,11 +376,6 @@ public class CommerceTierPriceEntryWrapper
 		return _commerceTierPriceEntry.isNew();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce tier price entry model instance should use the <code>CommerceTierPriceEntry</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_commerceTierPriceEntry.persist();

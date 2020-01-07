@@ -64,7 +64,7 @@ public class RatingsStatsPersistenceImpl
 	extends BasePersistenceImpl<RatingsStats>
 	implements RatingsStatsPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>RatingsStatsUtil</code> to access the ratings stats persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

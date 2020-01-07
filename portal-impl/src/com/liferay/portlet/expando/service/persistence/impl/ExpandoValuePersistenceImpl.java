@@ -63,7 +63,7 @@ public class ExpandoValuePersistenceImpl
 	extends BasePersistenceImpl<ExpandoValue>
 	implements ExpandoValuePersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ExpandoValueUtil</code> to access the expando value persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

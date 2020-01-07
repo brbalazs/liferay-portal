@@ -491,11 +491,6 @@ public class SamlIdpSpConnectionWrapper
 		return _samlIdpSpConnection.isNew();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a saml idp sp connection model instance should use the <code>SamlIdpSpConnection</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_samlIdpSpConnection.persist();

@@ -71,7 +71,7 @@ import java.util.function.Function;
 public class DLFileShortcutModelImpl
 	extends BaseModelImpl<DLFileShortcut> implements DLFileShortcutModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a document library file shortcut model instance should use the <code>DLFileShortcut</code> interface instead.

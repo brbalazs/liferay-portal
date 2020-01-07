@@ -69,7 +69,7 @@ public class CPDisplayLayoutPersistenceImpl
 	extends BasePersistenceImpl<CPDisplayLayout>
 	implements CPDisplayLayoutPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CPDisplayLayoutUtil</code> to access the cp display layout persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

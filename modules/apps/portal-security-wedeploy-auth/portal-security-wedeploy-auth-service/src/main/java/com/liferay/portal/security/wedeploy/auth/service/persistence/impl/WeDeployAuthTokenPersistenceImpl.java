@@ -68,7 +68,7 @@ public class WeDeployAuthTokenPersistenceImpl
 	extends BasePersistenceImpl<WeDeployAuthToken>
 	implements WeDeployAuthTokenPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>WeDeployAuthTokenUtil</code> to access the we deploy auth token persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

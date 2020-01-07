@@ -73,7 +73,7 @@ import java.util.Set;
 public class MBCategoryPersistenceImpl
 	extends BasePersistenceImpl<MBCategory> implements MBCategoryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>MBCategoryUtil</code> to access the message boards category persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

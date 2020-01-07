@@ -78,7 +78,7 @@ import java.util.Set;
 public class UserGroupPersistenceImpl
 	extends BasePersistenceImpl<UserGroup> implements UserGroupPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>UserGroupUtil</code> to access the user group persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

@@ -69,7 +69,7 @@ public class ExpandoColumnPersistenceImpl
 	extends BasePersistenceImpl<ExpandoColumn>
 	implements ExpandoColumnPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>ExpandoColumnUtil</code> to access the expando column persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

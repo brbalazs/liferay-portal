@@ -72,7 +72,7 @@ public class LayoutPageTemplateEntryPersistenceImpl
 	extends BasePersistenceImpl<LayoutPageTemplateEntry>
 	implements LayoutPageTemplateEntryPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>LayoutPageTemplateEntryUtil</code> to access the layout page template entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

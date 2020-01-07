@@ -60,7 +60,7 @@ import java.util.function.Function;
 @JSON(strict = true)
 public class ImageModelImpl extends BaseModelImpl<Image> implements ImageModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a image model instance should use the <code>Image</code> interface instead.

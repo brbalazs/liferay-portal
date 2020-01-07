@@ -55,7 +55,7 @@ import java.util.function.Function;
 public class ModuleModelImpl
 	extends BaseModelImpl<Module> implements ModuleModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a module model instance should use the <code>Module</code> interface instead.

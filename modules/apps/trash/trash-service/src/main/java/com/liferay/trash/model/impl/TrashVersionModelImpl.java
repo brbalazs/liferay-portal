@@ -57,7 +57,7 @@ import java.util.function.Function;
 public class TrashVersionModelImpl
 	extends BaseModelImpl<TrashVersion> implements TrashVersionModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a trash version model instance should use the <code>TrashVersion</code> interface instead.
