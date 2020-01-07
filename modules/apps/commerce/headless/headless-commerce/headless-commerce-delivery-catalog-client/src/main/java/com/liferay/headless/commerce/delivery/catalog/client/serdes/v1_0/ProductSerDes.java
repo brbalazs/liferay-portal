@@ -14,6 +14,7 @@
 
 package com.liferay.headless.commerce.delivery.catalog.client.serdes.v1_0;
 
+import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Category;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.RelatedProduct;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Sku;
@@ -62,6 +63,26 @@ public class ProductSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (product.getCategories() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"categories\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < product.getCategories().length; i++) {
+				sb.append(String.valueOf(product.getCategories()[i]));
+
+				if ((i + 1) < product.getCategories().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (product.getCreateDate() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -98,20 +119,6 @@ public class ProductSerDes {
 			sb.append("\"expando\": ");
 
 			sb.append(_toJSON(product.getExpando()));
-		}
-
-		if (product.getExternalReferenceCode() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"externalReferenceCode\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(product.getExternalReferenceCode()));
-
-			sb.append("\"");
 		}
 
 		if (product.getFriendlyUrl() != null) {
@@ -370,6 +377,13 @@ public class ProductSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (product.getCategories() == null) {
+			map.put("categories", null);
+		}
+		else {
+			map.put("categories", String.valueOf(product.getCategories()));
+		}
+
 		map.put(
 			"createDate",
 			liferayToJSONDateFormat.format(product.getCreateDate()));
@@ -386,15 +400,6 @@ public class ProductSerDes {
 		}
 		else {
 			map.put("expando", String.valueOf(product.getExpando()));
-		}
-
-		if (product.getExternalReferenceCode() == null) {
-			map.put("externalReferenceCode", null);
-		}
-		else {
-			map.put(
-				"externalReferenceCode",
-				String.valueOf(product.getExternalReferenceCode()));
 		}
 
 		if (product.getFriendlyUrl() == null) {
@@ -534,7 +539,19 @@ public class ProductSerDes {
 			Product product, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "createDate")) {
+			if (Objects.equals(jsonParserFieldName, "categories")) {
+				if (jsonParserFieldValue != null) {
+					product.setCategories(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> CategorySerDes.toDTO((String)object)
+						).toArray(
+							size -> new Category[size]
+						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "createDate")) {
 				if (jsonParserFieldValue != null) {
 					product.setCreateDate(toDate((String)jsonParserFieldValue));
 				}
@@ -548,14 +565,6 @@ public class ProductSerDes {
 				if (jsonParserFieldValue != null) {
 					product.setExpando(
 						(Map)ProductSerDes.toMap((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(
-						jsonParserFieldName, "externalReferenceCode")) {
-
-				if (jsonParserFieldValue != null) {
-					product.setExternalReferenceCode(
-						(String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "friendlyUrl")) {

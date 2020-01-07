@@ -30,6 +30,27 @@ import javax.annotation.Generated;
 @Generated("")
 public class Product {
 
+	public Category[] getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Category[] categories) {
+		this.categories = categories;
+	}
+
+	public void setCategories(
+		UnsafeSupplier<Category[], Exception> categoriesUnsafeSupplier) {
+
+		try {
+			categories = categoriesUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Category[] categories;
+
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -92,27 +113,6 @@ public class Product {
 	}
 
 	protected Map<String, ?> expando;
-
-	public String getExternalReferenceCode() {
-		return externalReferenceCode;
-	}
-
-	public void setExternalReferenceCode(String externalReferenceCode) {
-		this.externalReferenceCode = externalReferenceCode;
-	}
-
-	public void setExternalReferenceCode(
-		UnsafeSupplier<String, Exception> externalReferenceCodeUnsafeSupplier) {
-
-		try {
-			externalReferenceCode = externalReferenceCodeUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String externalReferenceCode;
 
 	public String getFriendlyUrl() {
 		return friendlyUrl;

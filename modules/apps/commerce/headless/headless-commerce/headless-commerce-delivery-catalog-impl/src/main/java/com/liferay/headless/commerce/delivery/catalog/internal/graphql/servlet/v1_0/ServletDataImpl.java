@@ -16,6 +16,7 @@ package com.liferay.headless.commerce.delivery.catalog.internal.graphql.servlet.
 
 import com.liferay.headless.commerce.delivery.catalog.internal.graphql.mutation.v1_0.Mutation;
 import com.liferay.headless.commerce.delivery.catalog.internal.graphql.query.v1_0.Query;
+import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.CategoryResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.ProductResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.RelatedProductResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.SkuResource;
@@ -40,6 +41,8 @@ public class ServletDataImpl implements ServletData {
 
 	@Activate
 	public void activate(BundleContext bundleContext) {
+		Query.setCategoryResourceComponentServiceObjects(
+			_categoryResourceComponentServiceObjects);
 		Query.setProductResourceComponentServiceObjects(
 			_productResourceComponentServiceObjects);
 		Query.setRelatedProductResourceComponentServiceObjects(
@@ -62,6 +65,10 @@ public class ServletDataImpl implements ServletData {
 	public Query getQuery() {
 		return new Query();
 	}
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<CategoryResource>
+		_categoryResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<ProductResource>

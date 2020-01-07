@@ -184,7 +184,6 @@ public abstract class BaseProductResourceTestCase {
 		Product product = randomProduct();
 
 		product.setDescription(regex);
-		product.setExternalReferenceCode(regex);
 		product.setFriendlyUrl(regex);
 		product.setMetaDescription(regex);
 		product.setMetaKeyword(regex);
@@ -202,7 +201,6 @@ public abstract class BaseProductResourceTestCase {
 		product = ProductSerDes.toDTO(json);
 
 		Assert.assertEquals(regex, product.getDescription());
-		Assert.assertEquals(regex, product.getExternalReferenceCode());
 		Assert.assertEquals(regex, product.getFriendlyUrl());
 		Assert.assertEquals(regex, product.getMetaDescription());
 		Assert.assertEquals(regex, product.getMetaKeyword());
@@ -605,6 +603,14 @@ public abstract class BaseProductResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("categories", additionalAssertFieldName)) {
+				if (product.getCategories() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("createDate", additionalAssertFieldName)) {
 				if (product.getCreateDate() == null) {
 					valid = false;
@@ -623,16 +629,6 @@ public abstract class BaseProductResourceTestCase {
 
 			if (Objects.equals("expando", additionalAssertFieldName)) {
 				if (product.getExpando() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals(
-					"externalReferenceCode", additionalAssertFieldName)) {
-
-				if (product.getExternalReferenceCode() == null) {
 					valid = false;
 				}
 
@@ -814,6 +810,16 @@ public abstract class BaseProductResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("categories", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						product1.getCategories(), product2.getCategories())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("createDate", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						product1.getCreateDate(), product2.getCreateDate())) {
@@ -837,19 +843,6 @@ public abstract class BaseProductResourceTestCase {
 			if (Objects.equals("expando", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						product1.getExpando(), product2.getExpando())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals(
-					"externalReferenceCode", additionalAssertFieldName)) {
-
-				if (!Objects.deepEquals(
-						product1.getExternalReferenceCode(),
-						product2.getExternalReferenceCode())) {
 
 					return false;
 				}
@@ -1043,17 +1036,6 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("externalReferenceCode", fieldName)) {
-				if (!Objects.deepEquals(
-						product.getExternalReferenceCode(),
-						jsonObject.getString("externalReferenceCode"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("friendlyUrl", fieldName)) {
 				if (!Objects.deepEquals(
 						product.getFriendlyUrl(),
@@ -1240,6 +1222,11 @@ public abstract class BaseProductResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
+		if (entityFieldName.equals("categories")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("createDate")) {
 			if (operator.equals("between")) {
 				sb = new StringBundler();
@@ -1282,14 +1269,6 @@ public abstract class BaseProductResourceTestCase {
 		if (entityFieldName.equals("expando")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("externalReferenceCode")) {
-			sb.append("'");
-			sb.append(String.valueOf(product.getExternalReferenceCode()));
-			sb.append("'");
-
-			return sb.toString();
 		}
 
 		if (entityFieldName.equals("friendlyUrl")) {
@@ -1451,7 +1430,6 @@ public abstract class BaseProductResourceTestCase {
 			{
 				createDate = RandomTestUtil.nextDate();
 				description = RandomTestUtil.randomString();
-				externalReferenceCode = RandomTestUtil.randomString();
 				friendlyUrl = RandomTestUtil.randomString();
 				id = RandomTestUtil.randomLong();
 				metaDescription = RandomTestUtil.randomString();

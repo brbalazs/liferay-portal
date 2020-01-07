@@ -64,6 +64,8 @@ public class OpenAPIResourceImpl {
 
 	private final Set<Class<?>> _resourceClasses = new HashSet<Class<?>>() {
 		{
+			add(CategoryResourceImpl.class);
+
 			add(ProductResourceImpl.class);
 
 			add(RelatedProductResourceImpl.class);

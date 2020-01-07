@@ -14,9 +14,11 @@
 
 package com.liferay.headless.commerce.delivery.catalog.internal.graphql.query.v1_0;
 
+import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Category;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.RelatedProduct;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Sku;
+import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.CategoryResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.ProductResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.RelatedProductResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.SkuResource;
@@ -49,6 +51,14 @@ import org.osgi.service.component.ComponentServiceObjects;
 @Generated("")
 public class Query {
 
+	public static void setCategoryResourceComponentServiceObjects(
+		ComponentServiceObjects<CategoryResource>
+			categoryResourceComponentServiceObjects) {
+
+		_categoryResourceComponentServiceObjects =
+			categoryResourceComponentServiceObjects;
+	}
+
 	public static void setProductResourceComponentServiceObjects(
 		ComponentServiceObjects<ProductResource>
 			productResourceComponentServiceObjects) {
@@ -76,7 +86,27 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {product(id: ___){createDate, description, expando, externalReferenceCode, friendlyUrl, id, metaDescription, metaKeyword, metaTitle, modifiedDate, multipleOrderQuantity, name, productId, productType, shortDescription, skus, slug, relatedProducts, tags, urlImage}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productCategories(page: ___, pageSize: ___, productId: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField(description = "Gets a list of Category related to a Product.")
+	public CategoryPage productCategories(
+			@GraphQLName("productId") Long productId,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_categoryResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			categoryResource -> new CategoryPage(
+				categoryResource.getProductCategoriesPage(
+					productId, Pagination.of(page, pageSize))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {product(id: ___){categories, createDate, description, expando, friendlyUrl, id, metaDescription, metaKeyword, metaTitle, modifiedDate, multipleOrderQuantity, name, productId, productType, relatedProducts, shortDescription, skus, slug, tags, urlImage}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrieves products from selected channel.")
 	public Product product(@GraphQLName("id") Long id) throws Exception {
@@ -231,6 +261,34 @@ public class Query {
 
 	}
 
+	@GraphQLName("CategoryPage")
+	public class CategoryPage {
+
+		public CategoryPage(Page categoryPage) {
+			items = categoryPage.getItems();
+			lastPage = categoryPage.getLastPage();
+			page = categoryPage.getPage();
+			pageSize = categoryPage.getPageSize();
+			totalCount = categoryPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected java.util.Collection<Category> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
 	@GraphQLName("ProductPage")
 	public class ProductPage {
 
@@ -334,6 +392,17 @@ public class Query {
 		}
 	}
 
+	private void _populateResourceContext(CategoryResource categoryResource)
+		throws Exception {
+
+		categoryResource.setContextAcceptLanguage(_acceptLanguage);
+		categoryResource.setContextCompany(_company);
+		categoryResource.setContextHttpServletRequest(_httpServletRequest);
+		categoryResource.setContextHttpServletResponse(_httpServletResponse);
+		categoryResource.setContextUriInfo(_uriInfo);
+		categoryResource.setContextUser(_user);
+	}
+
 	private void _populateResourceContext(ProductResource productResource)
 		throws Exception {
 
@@ -370,6 +439,8 @@ public class Query {
 		skuResource.setContextUser(_user);
 	}
 
+	private static ComponentServiceObjects<CategoryResource>
+		_categoryResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductResource>
 		_productResourceComponentServiceObjects;
 	private static ComponentServiceObjects<RelatedProductResource>

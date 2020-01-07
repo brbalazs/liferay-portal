@@ -52,6 +52,35 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Product {
 
 	@Schema
+	@Valid
+	public Category[] getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Category[] categories) {
+		this.categories = categories;
+	}
+
+	@JsonIgnore
+	public void setCategories(
+		UnsafeSupplier<Category[], Exception> categoriesUnsafeSupplier) {
+
+		try {
+			categories = categoriesUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Category[] categories;
+
+	@Schema
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -135,34 +164,6 @@ public class Product {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Map<String, ?> expando;
-
-	@Schema
-	public String getExternalReferenceCode() {
-		return externalReferenceCode;
-	}
-
-	public void setExternalReferenceCode(String externalReferenceCode) {
-		this.externalReferenceCode = externalReferenceCode;
-	}
-
-	@JsonIgnore
-	public void setExternalReferenceCode(
-		UnsafeSupplier<String, Exception> externalReferenceCodeUnsafeSupplier) {
-
-		try {
-			externalReferenceCode = externalReferenceCodeUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String externalReferenceCode;
 
 	@Schema
 	public String getFriendlyUrl() {
@@ -639,6 +640,26 @@ public class Product {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (categories != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"categories\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < categories.length; i++) {
+				sb.append(String.valueOf(categories[i]));
+
+				if ((i + 1) < categories.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (createDate != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -675,20 +696,6 @@ public class Product {
 			sb.append("\"expando\": ");
 
 			sb.append(_toJSON(expando));
-		}
-
-		if (externalReferenceCode != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"externalReferenceCode\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(externalReferenceCode));
-
-			sb.append("\"");
 		}
 
 		if (friendlyUrl != null) {
