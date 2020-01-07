@@ -114,6 +114,27 @@ public class Product {
 
 	protected String externalReferenceCode;
 
+	public String getFriendlyUrl() {
+		return friendlyUrl;
+	}
+
+	public void setFriendlyUrl(String friendlyUrl) {
+		this.friendlyUrl = friendlyUrl;
+	}
+
+	public void setFriendlyUrl(
+		UnsafeSupplier<String, Exception> friendlyUrlUnsafeSupplier) {
+
+		try {
+			friendlyUrl = friendlyUrlUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String friendlyUrl;
+
 	public Long getId() {
 		return id;
 	}

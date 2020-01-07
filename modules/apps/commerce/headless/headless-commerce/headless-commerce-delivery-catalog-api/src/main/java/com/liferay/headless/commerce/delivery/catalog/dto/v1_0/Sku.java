@@ -25,6 +25,10 @@ import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
@@ -33,6 +37,7 @@ import java.util.Set;
 import javax.annotation.Generated;
 
 import javax.validation.Valid;
+import javax.validation.constraints.DecimalMin;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -104,6 +109,175 @@ public class Sku {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Availability availability;
 
+	@DecimalMin("0")
+	@Schema
+	public Double getDepth() {
+		return depth;
+	}
+
+	public void setDepth(Double depth) {
+		this.depth = depth;
+	}
+
+	@JsonIgnore
+	public void setDepth(
+		UnsafeSupplier<Double, Exception> depthUnsafeSupplier) {
+
+		try {
+			depth = depthUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double depth;
+
+	@Schema
+	public Date getDisplayDate() {
+		return displayDate;
+	}
+
+	public void setDisplayDate(Date displayDate) {
+		this.displayDate = displayDate;
+	}
+
+	@JsonIgnore
+	public void setDisplayDate(
+		UnsafeSupplier<Date, Exception> displayDateUnsafeSupplier) {
+
+		try {
+			displayDate = displayDateUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Date displayDate;
+
+	@Schema
+	public Date getExpirationDate() {
+		return expirationDate;
+	}
+
+	public void setExpirationDate(Date expirationDate) {
+		this.expirationDate = expirationDate;
+	}
+
+	@JsonIgnore
+	public void setExpirationDate(
+		UnsafeSupplier<Date, Exception> expirationDateUnsafeSupplier) {
+
+		try {
+			expirationDate = expirationDateUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Date expirationDate;
+
+	@Schema
+	public String getGtin() {
+		return gtin;
+	}
+
+	public void setGtin(String gtin) {
+		this.gtin = gtin;
+	}
+
+	@JsonIgnore
+	public void setGtin(UnsafeSupplier<String, Exception> gtinUnsafeSupplier) {
+		try {
+			gtin = gtinUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String gtin;
+
+	@DecimalMin("0")
+	@Schema
+	public Double getHeight() {
+		return height;
+	}
+
+	public void setHeight(Double height) {
+		this.height = height;
+	}
+
+	@JsonIgnore
+	public void setHeight(
+		UnsafeSupplier<Double, Exception> heightUnsafeSupplier) {
+
+		try {
+			height = heightUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double height;
+
+	@Schema
+	public String getManufacturerPartNumber() {
+		return manufacturerPartNumber;
+	}
+
+	public void setManufacturerPartNumber(String manufacturerPartNumber) {
+		this.manufacturerPartNumber = manufacturerPartNumber;
+	}
+
+	@JsonIgnore
+	public void setManufacturerPartNumber(
+		UnsafeSupplier<String, Exception>
+			manufacturerPartNumberUnsafeSupplier) {
+
+		try {
+			manufacturerPartNumber = manufacturerPartNumberUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String manufacturerPartNumber;
+
 	@Schema
 	public Integer getMaxOrderQuantity() {
 		return maxOrderQuantity;
@@ -161,6 +335,63 @@ public class Sku {
 	protected Integer minOrderQuantity;
 
 	@Schema
+	public Boolean getNeverExpire() {
+		return neverExpire;
+	}
+
+	public void setNeverExpire(Boolean neverExpire) {
+		this.neverExpire = neverExpire;
+	}
+
+	@JsonIgnore
+	public void setNeverExpire(
+		UnsafeSupplier<Boolean, Exception> neverExpireUnsafeSupplier) {
+
+		try {
+			neverExpire = neverExpireUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean neverExpire;
+
+	@Schema
+	@Valid
+	public Map<String, String> getOptions() {
+		return options;
+	}
+
+	public void setOptions(Map<String, String> options) {
+		this.options = options;
+	}
+
+	@JsonIgnore
+	public void setOptions(
+		UnsafeSupplier<Map<String, String>, Exception> optionsUnsafeSupplier) {
+
+		try {
+			options = optionsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Map<String, String> options;
+
+	@Schema
 	@Valid
 	public Price getPrice() {
 		return price;
@@ -188,6 +419,62 @@ public class Sku {
 	protected Price price;
 
 	@Schema
+	public Boolean getPublished() {
+		return published;
+	}
+
+	public void setPublished(Boolean published) {
+		this.published = published;
+	}
+
+	@JsonIgnore
+	public void setPublished(
+		UnsafeSupplier<Boolean, Exception> publishedUnsafeSupplier) {
+
+		try {
+			published = publishedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean published;
+
+	@Schema
+	public Boolean getPurchasable() {
+		return purchasable;
+	}
+
+	public void setPurchasable(Boolean purchasable) {
+		this.purchasable = purchasable;
+	}
+
+	@JsonIgnore
+	public void setPurchasable(
+		UnsafeSupplier<Boolean, Exception> purchasableUnsafeSupplier) {
+
+		try {
+			purchasable = purchasableUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean purchasable;
+
+	@Schema
 	public String getSku() {
 		return sku;
 	}
@@ -212,6 +499,64 @@ public class Sku {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String sku;
+
+	@DecimalMin("0")
+	@Schema
+	public Double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Double weight) {
+		this.weight = weight;
+	}
+
+	@JsonIgnore
+	public void setWeight(
+		UnsafeSupplier<Double, Exception> weightUnsafeSupplier) {
+
+		try {
+			weight = weightUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double weight;
+
+	@DecimalMin("0")
+	@Schema
+	public Double getWidth() {
+		return width;
+	}
+
+	public void setWidth(Double width) {
+		this.width = width;
+	}
+
+	@JsonIgnore
+	public void setWidth(
+		UnsafeSupplier<Double, Exception> widthUnsafeSupplier) {
+
+		try {
+			width = widthUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double width;
 
 	@Override
 	public boolean equals(Object object) {
@@ -239,6 +584,9 @@ public class Sku {
 		StringBundler sb = new StringBundler();
 
 		sb.append("{");
+
+		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
 		if (allowedOrderQuantities != null) {
 			if (sb.length() > 1) {
@@ -274,6 +622,82 @@ public class Sku {
 			sb.append(String.valueOf(availability));
 		}
 
+		if (depth != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"depth\": ");
+
+			sb.append(depth);
+		}
+
+		if (displayDate != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"displayDate\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(displayDate));
+
+			sb.append("\"");
+		}
+
+		if (expirationDate != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"expirationDate\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(expirationDate));
+
+			sb.append("\"");
+		}
+
+		if (gtin != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"gtin\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(gtin));
+
+			sb.append("\"");
+		}
+
+		if (height != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"height\": ");
+
+			sb.append(height);
+		}
+
+		if (manufacturerPartNumber != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"manufacturerPartNumber\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(manufacturerPartNumber));
+
+			sb.append("\"");
+		}
+
 		if (maxOrderQuantity != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -294,6 +718,26 @@ public class Sku {
 			sb.append(minOrderQuantity);
 		}
 
+		if (neverExpire != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"neverExpire\": ");
+
+			sb.append(neverExpire);
+		}
+
+		if (options != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"options\": ");
+
+			sb.append(_toJSON(options));
+		}
+
 		if (price != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -302,6 +746,26 @@ public class Sku {
 			sb.append("\"price\": ");
 
 			sb.append(String.valueOf(price));
+		}
+
+		if (published != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"published\": ");
+
+			sb.append(published);
+		}
+
+		if (purchasable != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"purchasable\": ");
+
+			sb.append(purchasable);
 		}
 
 		if (sku != null) {
@@ -316,6 +780,26 @@ public class Sku {
 			sb.append(_escape(sku));
 
 			sb.append("\"");
+		}
+
+		if (weight != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"weight\": ");
+
+			sb.append(weight);
+		}
+
+		if (width != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"width\": ");
+
+			sb.append(width);
 		}
 
 		sb.append("}");

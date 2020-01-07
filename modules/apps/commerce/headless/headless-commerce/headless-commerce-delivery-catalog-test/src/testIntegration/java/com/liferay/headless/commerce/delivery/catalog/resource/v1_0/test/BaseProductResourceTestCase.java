@@ -185,6 +185,7 @@ public abstract class BaseProductResourceTestCase {
 
 		product.setDescription(regex);
 		product.setExternalReferenceCode(regex);
+		product.setFriendlyUrl(regex);
 		product.setMetaDescription(regex);
 		product.setMetaKeyword(regex);
 		product.setMetaTitle(regex);
@@ -202,6 +203,7 @@ public abstract class BaseProductResourceTestCase {
 
 		Assert.assertEquals(regex, product.getDescription());
 		Assert.assertEquals(regex, product.getExternalReferenceCode());
+		Assert.assertEquals(regex, product.getFriendlyUrl());
 		Assert.assertEquals(regex, product.getMetaDescription());
 		Assert.assertEquals(regex, product.getMetaKeyword());
 		Assert.assertEquals(regex, product.getMetaTitle());
@@ -637,6 +639,14 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("friendlyUrl", additionalAssertFieldName)) {
+				if (product.getFriendlyUrl() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("metaDescription", additionalAssertFieldName)) {
 				if (product.getMetaDescription() == null) {
 					valid = false;
@@ -839,6 +849,16 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("friendlyUrl", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						product1.getFriendlyUrl(), product2.getFriendlyUrl())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("id", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(product1.getId(), product2.getId())) {
 					return false;
@@ -1008,6 +1028,17 @@ public abstract class BaseProductResourceTestCase {
 				if (!Objects.deepEquals(
 						product.getExternalReferenceCode(),
 						jsonObject.getString("externalReferenceCode"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("friendlyUrl", fieldName)) {
+				if (!Objects.deepEquals(
+						product.getFriendlyUrl(),
+						jsonObject.getString("friendlyUrl"))) {
 
 					return false;
 				}
@@ -1242,6 +1273,14 @@ public abstract class BaseProductResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("friendlyUrl")) {
+			sb.append("'");
+			sb.append(String.valueOf(product.getFriendlyUrl()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("id")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1389,6 +1428,7 @@ public abstract class BaseProductResourceTestCase {
 				createDate = RandomTestUtil.nextDate();
 				description = RandomTestUtil.randomString();
 				externalReferenceCode = RandomTestUtil.randomString();
+				friendlyUrl = RandomTestUtil.randomString();
 				id = RandomTestUtil.randomLong();
 				metaDescription = RandomTestUtil.randomString();
 				metaKeyword = RandomTestUtil.randomString();

@@ -45,17 +45,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Price {
 
 	@Schema
-	public String getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
 	@JsonIgnore
 	public void setPrice(
-		UnsafeSupplier<String, Exception> priceUnsafeSupplier) {
+		UnsafeSupplier<Double, Exception> priceUnsafeSupplier) {
 
 		try {
 			price = priceUnsafeSupplier.get();
@@ -70,20 +70,48 @@ public class Price {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String price;
+	protected Double price;
 
 	@Schema
-	public String getPromoPrice() {
+	public String getPriceFormatted() {
+		return priceFormatted;
+	}
+
+	public void setPriceFormatted(String priceFormatted) {
+		this.priceFormatted = priceFormatted;
+	}
+
+	@JsonIgnore
+	public void setPriceFormatted(
+		UnsafeSupplier<String, Exception> priceFormattedUnsafeSupplier) {
+
+		try {
+			priceFormatted = priceFormattedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String priceFormatted;
+
+	@Schema
+	public Double getPromoPrice() {
 		return promoPrice;
 	}
 
-	public void setPromoPrice(String promoPrice) {
+	public void setPromoPrice(Double promoPrice) {
 		this.promoPrice = promoPrice;
 	}
 
 	@JsonIgnore
 	public void setPromoPrice(
-		UnsafeSupplier<String, Exception> promoPriceUnsafeSupplier) {
+		UnsafeSupplier<Double, Exception> promoPriceUnsafeSupplier) {
 
 		try {
 			promoPrice = promoPriceUnsafeSupplier.get();
@@ -98,20 +126,48 @@ public class Price {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String promoPrice;
+	protected Double promoPrice;
 
 	@Schema
-	public String getTierPrice() {
+	public String getPromoPriceFormatted() {
+		return promoPriceFormatted;
+	}
+
+	public void setPromoPriceFormatted(String promoPriceFormatted) {
+		this.promoPriceFormatted = promoPriceFormatted;
+	}
+
+	@JsonIgnore
+	public void setPromoPriceFormatted(
+		UnsafeSupplier<String, Exception> promoPriceFormattedUnsafeSupplier) {
+
+		try {
+			promoPriceFormatted = promoPriceFormattedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String promoPriceFormatted;
+
+	@Schema
+	public Double getTierPrice() {
 		return tierPrice;
 	}
 
-	public void setTierPrice(String tierPrice) {
+	public void setTierPrice(Double tierPrice) {
 		this.tierPrice = tierPrice;
 	}
 
 	@JsonIgnore
 	public void setTierPrice(
-		UnsafeSupplier<String, Exception> tierPriceUnsafeSupplier) {
+		UnsafeSupplier<Double, Exception> tierPriceUnsafeSupplier) {
 
 		try {
 			tierPrice = tierPriceUnsafeSupplier.get();
@@ -126,7 +182,35 @@ public class Price {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String tierPrice;
+	protected Double tierPrice;
+
+	@Schema
+	public String getTierPriceFormatted() {
+		return tierPriceFormatted;
+	}
+
+	public void setTierPriceFormatted(String tierPriceFormatted) {
+		this.tierPriceFormatted = tierPriceFormatted;
+	}
+
+	@JsonIgnore
+	public void setTierPriceFormatted(
+		UnsafeSupplier<String, Exception> tierPriceFormattedUnsafeSupplier) {
+
+		try {
+			tierPriceFormatted = tierPriceFormattedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String tierPriceFormatted;
 
 	@Override
 	public boolean equals(Object object) {
@@ -162,9 +246,19 @@ public class Price {
 
 			sb.append("\"price\": ");
 
+			sb.append(price);
+		}
+
+		if (priceFormatted != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"priceFormatted\": ");
+
 			sb.append("\"");
 
-			sb.append(_escape(price));
+			sb.append(_escape(priceFormatted));
 
 			sb.append("\"");
 		}
@@ -176,9 +270,19 @@ public class Price {
 
 			sb.append("\"promoPrice\": ");
 
+			sb.append(promoPrice);
+		}
+
+		if (promoPriceFormatted != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"promoPriceFormatted\": ");
+
 			sb.append("\"");
 
-			sb.append(_escape(promoPrice));
+			sb.append(_escape(promoPriceFormatted));
 
 			sb.append("\"");
 		}
@@ -190,9 +294,19 @@ public class Price {
 
 			sb.append("\"tierPrice\": ");
 
+			sb.append(tierPrice);
+		}
+
+		if (tierPriceFormatted != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"tierPriceFormatted\": ");
+
 			sb.append("\"");
 
-			sb.append(_escape(tierPrice));
+			sb.append(_escape(tierPriceFormatted));
 
 			sb.append("\"");
 		}

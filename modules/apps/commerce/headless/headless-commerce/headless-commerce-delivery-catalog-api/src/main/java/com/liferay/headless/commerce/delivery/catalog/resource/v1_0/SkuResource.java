@@ -15,10 +15,9 @@
 package com.liferay.headless.commerce.delivery.catalog.resource.v1_0;
 
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Sku;
-import com.liferay.portal.kernel.model.Company;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
+import com.liferay.portal.vulcan.pagination.Pagination;
 
 import javax.annotation.Generated;
 
@@ -41,13 +40,15 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface SkuResource {
 
-	public Page<Sku> getProductIdSkusPage(Long id) throws Exception;
+	public Page<Sku> getProductIdSkusPage(Long id, Pagination pagination)
+		throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}
 
-	public void setContextCompany(Company contextCompany);
+	public void setContextCompany(
+		com.liferay.portal.kernel.model.Company contextCompany);
 
 	public default void setContextHttpServletRequest(
 		HttpServletRequest contextHttpServletRequest) {
@@ -60,6 +61,7 @@ public interface SkuResource {
 	public default void setContextUriInfo(UriInfo contextUriInfo) {
 	}
 
-	public void setContextUser(User contextUser);
+	public void setContextUser(
+		com.liferay.portal.kernel.model.User contextUser);
 
 }

@@ -17,6 +17,8 @@ package com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0;
 import com.liferay.headless.commerce.delivery.catalog.client.function.UnsafeSupplier;
 import com.liferay.headless.commerce.delivery.catalog.client.serdes.v1_0.SkuSerDes;
 
+import java.util.Date;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -71,6 +73,131 @@ public class Sku {
 
 	protected Availability availability;
 
+	public Double getDepth() {
+		return depth;
+	}
+
+	public void setDepth(Double depth) {
+		this.depth = depth;
+	}
+
+	public void setDepth(
+		UnsafeSupplier<Double, Exception> depthUnsafeSupplier) {
+
+		try {
+			depth = depthUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double depth;
+
+	public Date getDisplayDate() {
+		return displayDate;
+	}
+
+	public void setDisplayDate(Date displayDate) {
+		this.displayDate = displayDate;
+	}
+
+	public void setDisplayDate(
+		UnsafeSupplier<Date, Exception> displayDateUnsafeSupplier) {
+
+		try {
+			displayDate = displayDateUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Date displayDate;
+
+	public Date getExpirationDate() {
+		return expirationDate;
+	}
+
+	public void setExpirationDate(Date expirationDate) {
+		this.expirationDate = expirationDate;
+	}
+
+	public void setExpirationDate(
+		UnsafeSupplier<Date, Exception> expirationDateUnsafeSupplier) {
+
+		try {
+			expirationDate = expirationDateUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Date expirationDate;
+
+	public String getGtin() {
+		return gtin;
+	}
+
+	public void setGtin(String gtin) {
+		this.gtin = gtin;
+	}
+
+	public void setGtin(UnsafeSupplier<String, Exception> gtinUnsafeSupplier) {
+		try {
+			gtin = gtinUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String gtin;
+
+	public Double getHeight() {
+		return height;
+	}
+
+	public void setHeight(Double height) {
+		this.height = height;
+	}
+
+	public void setHeight(
+		UnsafeSupplier<Double, Exception> heightUnsafeSupplier) {
+
+		try {
+			height = heightUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double height;
+
+	public String getManufacturerPartNumber() {
+		return manufacturerPartNumber;
+	}
+
+	public void setManufacturerPartNumber(String manufacturerPartNumber) {
+		this.manufacturerPartNumber = manufacturerPartNumber;
+	}
+
+	public void setManufacturerPartNumber(
+		UnsafeSupplier<String, Exception>
+			manufacturerPartNumberUnsafeSupplier) {
+
+		try {
+			manufacturerPartNumber = manufacturerPartNumberUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String manufacturerPartNumber;
+
 	public Integer getMaxOrderQuantity() {
 		return maxOrderQuantity;
 	}
@@ -113,6 +240,48 @@ public class Sku {
 
 	protected Integer minOrderQuantity;
 
+	public Boolean getNeverExpire() {
+		return neverExpire;
+	}
+
+	public void setNeverExpire(Boolean neverExpire) {
+		this.neverExpire = neverExpire;
+	}
+
+	public void setNeverExpire(
+		UnsafeSupplier<Boolean, Exception> neverExpireUnsafeSupplier) {
+
+		try {
+			neverExpire = neverExpireUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean neverExpire;
+
+	public Map<String, String> getOptions() {
+		return options;
+	}
+
+	public void setOptions(Map<String, String> options) {
+		this.options = options;
+	}
+
+	public void setOptions(
+		UnsafeSupplier<Map<String, String>, Exception> optionsUnsafeSupplier) {
+
+		try {
+			options = optionsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Map<String, String> options;
+
 	public Price getPrice() {
 		return price;
 	}
@@ -132,6 +301,48 @@ public class Sku {
 
 	protected Price price;
 
+	public Boolean getPublished() {
+		return published;
+	}
+
+	public void setPublished(Boolean published) {
+		this.published = published;
+	}
+
+	public void setPublished(
+		UnsafeSupplier<Boolean, Exception> publishedUnsafeSupplier) {
+
+		try {
+			published = publishedUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean published;
+
+	public Boolean getPurchasable() {
+		return purchasable;
+	}
+
+	public void setPurchasable(Boolean purchasable) {
+		this.purchasable = purchasable;
+	}
+
+	public void setPurchasable(
+		UnsafeSupplier<Boolean, Exception> purchasableUnsafeSupplier) {
+
+		try {
+			purchasable = purchasableUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean purchasable;
+
 	public String getSku() {
 		return sku;
 	}
@@ -150,6 +361,48 @@ public class Sku {
 	}
 
 	protected String sku;
+
+	public Double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Double weight) {
+		this.weight = weight;
+	}
+
+	public void setWeight(
+		UnsafeSupplier<Double, Exception> weightUnsafeSupplier) {
+
+		try {
+			weight = weightUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double weight;
+
+	public Double getWidth() {
+		return width;
+	}
+
+	public void setWidth(Double width) {
+		this.width = width;
+	}
+
+	public void setWidth(
+		UnsafeSupplier<Double, Exception> widthUnsafeSupplier) {
+
+		try {
+			width = widthUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double width;
 
 	@Override
 	public boolean equals(Object object) {

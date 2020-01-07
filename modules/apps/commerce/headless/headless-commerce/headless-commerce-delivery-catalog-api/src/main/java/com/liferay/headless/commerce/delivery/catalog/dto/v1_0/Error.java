@@ -74,7 +74,7 @@ public class Error {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Internal error code mapping")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@NotNull
 	protected Integer errorCode;
@@ -161,7 +161,7 @@ public class Error {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "HTTP Status code")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@NotNull
 	protected Integer status;

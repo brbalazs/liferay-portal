@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Sku;
 import com.liferay.headless.commerce.delivery.catalog.client.http.HttpInvoker;
 import com.liferay.headless.commerce.delivery.catalog.client.pagination.Page;
+import com.liferay.headless.commerce.delivery.catalog.client.pagination.Pagination;
 import com.liferay.headless.commerce.delivery.catalog.client.resource.v1_0.SkuResource;
 import com.liferay.headless.commerce.delivery.catalog.client.serdes.v1_0.SkuSerDes;
 import com.liferay.petra.string.StringBundler;
@@ -65,6 +66,7 @@ import javax.annotation.Generated;
 import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.lang.time.DateUtils;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -174,6 +176,8 @@ public abstract class BaseSkuResourceTestCase {
 
 		Sku sku = randomSku();
 
+		sku.setGtin(regex);
+		sku.setManufacturerPartNumber(regex);
 		sku.setSku(regex);
 
 		String json = SkuSerDes.toJSON(sku);
@@ -182,13 +186,15 @@ public abstract class BaseSkuResourceTestCase {
 
 		sku = SkuSerDes.toDTO(json);
 
+		Assert.assertEquals(regex, sku.getGtin());
+		Assert.assertEquals(regex, sku.getManufacturerPartNumber());
 		Assert.assertEquals(regex, sku.getSku());
 	}
 
 	@Test
 	public void testGetProductIdSkusPage() throws Exception {
 		Page<Sku> page = skuResource.getProductIdSkusPage(
-			testGetProductIdSkusPage_getId());
+			testGetProductIdSkusPage_getId(), Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
@@ -199,7 +205,8 @@ public abstract class BaseSkuResourceTestCase {
 			Sku irrelevantSku = testGetProductIdSkusPage_addSku(
 				irrelevantId, randomIrrelevantSku());
 
-			page = skuResource.getProductIdSkusPage(irrelevantId);
+			page = skuResource.getProductIdSkusPage(
+				irrelevantId, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -212,13 +219,46 @@ public abstract class BaseSkuResourceTestCase {
 
 		Sku sku2 = testGetProductIdSkusPage_addSku(id, randomSku());
 
-		page = skuResource.getProductIdSkusPage(id);
+		page = skuResource.getProductIdSkusPage(id, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(sku1, sku2), (List<Sku>)page.getItems());
 		assertValid(page);
+	}
+
+	@Test
+	public void testGetProductIdSkusPageWithPagination() throws Exception {
+		Long id = testGetProductIdSkusPage_getId();
+
+		Sku sku1 = testGetProductIdSkusPage_addSku(id, randomSku());
+
+		Sku sku2 = testGetProductIdSkusPage_addSku(id, randomSku());
+
+		Sku sku3 = testGetProductIdSkusPage_addSku(id, randomSku());
+
+		Page<Sku> page1 = skuResource.getProductIdSkusPage(
+			id, Pagination.of(1, 2));
+
+		List<Sku> skus1 = (List<Sku>)page1.getItems();
+
+		Assert.assertEquals(skus1.toString(), 2, skus1.size());
+
+		Page<Sku> page2 = skuResource.getProductIdSkusPage(
+			id, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<Sku> skus2 = (List<Sku>)page2.getItems();
+
+		Assert.assertEquals(skus2.toString(), 1, skus2.size());
+
+		Page<Sku> page3 = skuResource.getProductIdSkusPage(
+			id, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(sku1, sku2, sku3), (List<Sku>)page3.getItems());
 	}
 
 	protected Sku testGetProductIdSkusPage_addSku(Long id, Sku sku)
@@ -318,6 +358,56 @@ public abstract class BaseSkuResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("depth", additionalAssertFieldName)) {
+				if (sku.getDepth() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("displayDate", additionalAssertFieldName)) {
+				if (sku.getDisplayDate() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("expirationDate", additionalAssertFieldName)) {
+				if (sku.getExpirationDate() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("gtin", additionalAssertFieldName)) {
+				if (sku.getGtin() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("height", additionalAssertFieldName)) {
+				if (sku.getHeight() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"manufacturerPartNumber", additionalAssertFieldName)) {
+
+				if (sku.getManufacturerPartNumber() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("maxOrderQuantity", additionalAssertFieldName)) {
 				if (sku.getMaxOrderQuantity() == null) {
 					valid = false;
@@ -334,6 +424,22 @@ public abstract class BaseSkuResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("neverExpire", additionalAssertFieldName)) {
+				if (sku.getNeverExpire() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("options", additionalAssertFieldName)) {
+				if (sku.getOptions() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("price", additionalAssertFieldName)) {
 				if (sku.getPrice() == null) {
 					valid = false;
@@ -342,8 +448,40 @@ public abstract class BaseSkuResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("published", additionalAssertFieldName)) {
+				if (sku.getPublished() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("purchasable", additionalAssertFieldName)) {
+				if (sku.getPurchasable() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("sku", additionalAssertFieldName)) {
 				if (sku.getSku() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("weight", additionalAssertFieldName)) {
+				if (sku.getWeight() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("width", additionalAssertFieldName)) {
+				if (sku.getWidth() == null) {
 					valid = false;
 				}
 
@@ -426,6 +564,63 @@ public abstract class BaseSkuResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("depth", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(sku1.getDepth(), sku2.getDepth())) {
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("displayDate", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						sku1.getDisplayDate(), sku2.getDisplayDate())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("expirationDate", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						sku1.getExpirationDate(), sku2.getExpirationDate())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("gtin", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(sku1.getGtin(), sku2.getGtin())) {
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("height", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(sku1.getHeight(), sku2.getHeight())) {
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"manufacturerPartNumber", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						sku1.getManufacturerPartNumber(),
+						sku2.getManufacturerPartNumber())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("maxOrderQuantity", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						sku1.getMaxOrderQuantity(),
@@ -448,6 +643,24 @@ public abstract class BaseSkuResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("neverExpire", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						sku1.getNeverExpire(), sku2.getNeverExpire())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("options", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(sku1.getOptions(), sku2.getOptions())) {
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("price", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(sku1.getPrice(), sku2.getPrice())) {
 					return false;
@@ -456,8 +669,44 @@ public abstract class BaseSkuResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("published", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						sku1.getPublished(), sku2.getPublished())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("purchasable", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						sku1.getPurchasable(), sku2.getPurchasable())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("sku", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(sku1.getSku(), sku2.getSku())) {
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("weight", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(sku1.getWeight(), sku2.getWeight())) {
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("width", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(sku1.getWidth(), sku2.getWidth())) {
 					return false;
 				}
 
@@ -474,6 +723,47 @@ public abstract class BaseSkuResourceTestCase {
 
 	protected boolean equalsJSONObject(Sku sku, JSONObject jsonObject) {
 		for (String fieldName : getAdditionalAssertFieldNames()) {
+			if (Objects.equals("depth", fieldName)) {
+				if (!Objects.deepEquals(
+						sku.getDepth(), jsonObject.getDouble("depth"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("gtin", fieldName)) {
+				if (!Objects.deepEquals(
+						sku.getGtin(), jsonObject.getString("gtin"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("height", fieldName)) {
+				if (!Objects.deepEquals(
+						sku.getHeight(), jsonObject.getDouble("height"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("manufacturerPartNumber", fieldName)) {
+				if (!Objects.deepEquals(
+						sku.getManufacturerPartNumber(),
+						jsonObject.getString("manufacturerPartNumber"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("maxOrderQuantity", fieldName)) {
 				if (!Objects.deepEquals(
 						sku.getMaxOrderQuantity(),
@@ -496,9 +786,62 @@ public abstract class BaseSkuResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("neverExpire", fieldName)) {
+				if (!Objects.deepEquals(
+						sku.getNeverExpire(),
+						jsonObject.getBoolean("neverExpire"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("published", fieldName)) {
+				if (!Objects.deepEquals(
+						sku.getPublished(),
+						jsonObject.getBoolean("published"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("purchasable", fieldName)) {
+				if (!Objects.deepEquals(
+						sku.getPurchasable(),
+						jsonObject.getBoolean("purchasable"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("sku", fieldName)) {
 				if (!Objects.deepEquals(
 						sku.getSku(), jsonObject.getString("sku"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("weight", fieldName)) {
+				if (!Objects.deepEquals(
+						sku.getWeight(), jsonObject.getDouble("weight"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("width", fieldName)) {
+				if (!Objects.deepEquals(
+						sku.getWidth(), jsonObject.getDouble("width"))) {
 
 					return false;
 				}
@@ -573,6 +916,94 @@ public abstract class BaseSkuResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("depth")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("displayDate")) {
+			if (operator.equals("between")) {
+				sb = new StringBundler();
+
+				sb.append("(");
+				sb.append(entityFieldName);
+				sb.append(" gt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(sku.getDisplayDate(), -2)));
+				sb.append(" and ");
+				sb.append(entityFieldName);
+				sb.append(" lt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(sku.getDisplayDate(), 2)));
+				sb.append(")");
+			}
+			else {
+				sb.append(entityFieldName);
+
+				sb.append(" ");
+				sb.append(operator);
+				sb.append(" ");
+
+				sb.append(_dateFormat.format(sku.getDisplayDate()));
+			}
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("expirationDate")) {
+			if (operator.equals("between")) {
+				sb = new StringBundler();
+
+				sb.append("(");
+				sb.append(entityFieldName);
+				sb.append(" gt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(sku.getExpirationDate(), -2)));
+				sb.append(" and ");
+				sb.append(entityFieldName);
+				sb.append(" lt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(sku.getExpirationDate(), 2)));
+				sb.append(")");
+			}
+			else {
+				sb.append(entityFieldName);
+
+				sb.append(" ");
+				sb.append(operator);
+				sb.append(" ");
+
+				sb.append(_dateFormat.format(sku.getExpirationDate()));
+			}
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("gtin")) {
+			sb.append("'");
+			sb.append(String.valueOf(sku.getGtin()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("height")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("manufacturerPartNumber")) {
+			sb.append("'");
+			sb.append(String.valueOf(sku.getManufacturerPartNumber()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("maxOrderQuantity")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -583,7 +1014,27 @@ public abstract class BaseSkuResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("neverExpire")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("options")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("price")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("published")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("purchasable")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -594,6 +1045,16 @@ public abstract class BaseSkuResourceTestCase {
 			sb.append("'");
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("weight")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("width")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		throw new IllegalArgumentException(
@@ -620,9 +1081,20 @@ public abstract class BaseSkuResourceTestCase {
 	protected Sku randomSku() throws Exception {
 		return new Sku() {
 			{
+				depth = RandomTestUtil.randomDouble();
+				displayDate = RandomTestUtil.nextDate();
+				expirationDate = RandomTestUtil.nextDate();
+				gtin = RandomTestUtil.randomString();
+				height = RandomTestUtil.randomDouble();
+				manufacturerPartNumber = RandomTestUtil.randomString();
 				maxOrderQuantity = RandomTestUtil.randomInt();
 				minOrderQuantity = RandomTestUtil.randomInt();
+				neverExpire = RandomTestUtil.randomBoolean();
+				published = RandomTestUtil.randomBoolean();
+				purchasable = RandomTestUtil.randomBoolean();
 				sku = RandomTestUtil.randomString();
+				weight = RandomTestUtil.randomDouble();
+				width = RandomTestUtil.randomDouble();
 			}
 		};
 	}

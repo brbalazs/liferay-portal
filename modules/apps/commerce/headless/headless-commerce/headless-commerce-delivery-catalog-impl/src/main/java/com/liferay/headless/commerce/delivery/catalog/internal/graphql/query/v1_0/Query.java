@@ -20,8 +20,6 @@ import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.ProductResou
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.SkuResource;
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
-import com.liferay.portal.kernel.model.Company;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
@@ -68,9 +66,9 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {product(id: ___){createDate, description, expando, externalReferenceCode, id, metaDescription, metaKeyword, metaTitle, modifiedDate, multipleOrderQuantity, name, productId, productType, shortDescription, skus, slug, tags, urlImage}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {product(id: ___){createDate, description, expando, externalReferenceCode, friendlyUrl, id, metaDescription, metaKeyword, metaTitle, modifiedDate, multipleOrderQuantity, name, productId, productType, shortDescription, skus, slug, tags, urlImage}}"}' -u 'test@liferay.com:test'
 	 */
-	@GraphQLField
+	@GraphQLField(description = "Retrieves products from selected channel.")
 	public Product product(@GraphQLName("id") Long id) throws Exception {
 		return _applyComponentServiceObjects(
 			_productResourceComponentServiceObjects,
@@ -83,7 +81,7 @@ public class Query {
 	 *
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {storeChannelProducts(channelId: ___, filter: ___, page: ___, pageSize: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
-	@GraphQLField
+	@GraphQLField(description = "Retrieves products from selected channel.")
 	public ProductPage storeChannelProducts(
 			@GraphQLName("channelId") Long channelId,
 			@GraphQLName("filter") String filterString,
@@ -106,13 +104,19 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productIdSkus(id: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productIdSkus(id: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
-	@GraphQLField
-	public SkuPage productIdSkus(@GraphQLName("id") Long id) throws Exception {
+	@GraphQLField(description = "Retrieves products from selected channel.")
+	public SkuPage productIdSkus(
+			@GraphQLName("id") Long id, @GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
 		return _applyComponentServiceObjects(
 			_skuResourceComponentServiceObjects, this::_populateResourceContext,
-			skuResource -> new SkuPage(skuResource.getProductIdSkusPage(id)));
+			skuResource -> new SkuPage(
+				skuResource.getProductIdSkusPage(
+					id, Pagination.of(page, pageSize))));
 	}
 
 	@GraphQLTypeExtension(Product.class)
@@ -122,13 +126,18 @@ public class Query {
 			_product = product;
 		}
 
-		@GraphQLField
-		public SkuPage idSkus() throws Exception {
+		@GraphQLField(description = "Retrieves products from selected channel.")
+		public SkuPage idSkus(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
 			return _applyComponentServiceObjects(
 				_skuResourceComponentServiceObjects,
 				Query.this::_populateResourceContext,
 				skuResource -> new SkuPage(
-					skuResource.getProductIdSkusPage(_product.getId())));
+					skuResource.getProductIdSkusPage(
+						_product.getId(), Pagination.of(page, pageSize))));
 		}
 
 		private Product _product;
@@ -140,6 +149,7 @@ public class Query {
 
 		public ProductPage(Page productPage) {
 			items = productPage.getItems();
+			lastPage = productPage.getLastPage();
 			page = productPage.getPage();
 			pageSize = productPage.getPageSize();
 			totalCount = productPage.getTotalCount();
@@ -147,6 +157,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<Product> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -164,6 +177,7 @@ public class Query {
 
 		public SkuPage(Page skuPage) {
 			items = skuPage.getItems();
+			lastPage = skuPage.getLastPage();
 			page = skuPage.getPage();
 			pageSize = skuPage.getPageSize();
 			totalCount = skuPage.getTotalCount();
@@ -171,6 +185,9 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<Sku> items;
+
+		@GraphQLField
+		protected long lastPage;
 
 		@GraphQLField
 		protected long page;
@@ -232,10 +249,10 @@ public class Query {
 	private AcceptLanguage _acceptLanguage;
 	private BiFunction<Object, String, Filter> _filterBiFunction;
 	private BiFunction<Object, String, Sort[]> _sortsBiFunction;
-	private Company _company;
+	private com.liferay.portal.kernel.model.Company _company;
+	private com.liferay.portal.kernel.model.User _user;
 	private HttpServletRequest _httpServletRequest;
 	private HttpServletResponse _httpServletResponse;
 	private UriInfo _uriInfo;
-	private User _user;
 
 }

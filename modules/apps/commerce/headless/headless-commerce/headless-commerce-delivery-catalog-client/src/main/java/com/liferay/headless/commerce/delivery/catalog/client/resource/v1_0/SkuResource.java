@@ -17,6 +17,7 @@ package com.liferay.headless.commerce.delivery.catalog.client.resource.v1_0;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Sku;
 import com.liferay.headless.commerce.delivery.catalog.client.http.HttpInvoker;
 import com.liferay.headless.commerce.delivery.catalog.client.pagination.Page;
+import com.liferay.headless.commerce.delivery.catalog.client.pagination.Pagination;
 import com.liferay.headless.commerce.delivery.catalog.client.serdes.v1_0.SkuSerDes;
 
 import java.util.LinkedHashMap;
@@ -37,9 +38,11 @@ public interface SkuResource {
 		return new Builder();
 	}
 
-	public Page<Sku> getProductIdSkusPage(Long id) throws Exception;
+	public Page<Sku> getProductIdSkusPage(Long id, Pagination pagination)
+		throws Exception;
 
-	public HttpInvoker.HttpResponse getProductIdSkusPageHttpResponse(Long id)
+	public HttpInvoker.HttpResponse getProductIdSkusPageHttpResponse(
+			Long id, Pagination pagination)
 		throws Exception;
 
 	public static class Builder {
@@ -97,9 +100,11 @@ public interface SkuResource {
 
 	public static class SkuResourceImpl implements SkuResource {
 
-		public Page<Sku> getProductIdSkusPage(Long id) throws Exception {
+		public Page<Sku> getProductIdSkusPage(Long id, Pagination pagination)
+			throws Exception {
+
 			HttpInvoker.HttpResponse httpResponse =
-				getProductIdSkusPageHttpResponse(id);
+				getProductIdSkusPageHttpResponse(id, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -113,7 +118,7 @@ public interface SkuResource {
 		}
 
 		public HttpInvoker.HttpResponse getProductIdSkusPageHttpResponse(
-				Long id)
+				Long id, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -136,6 +141,13 @@ public interface SkuResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +

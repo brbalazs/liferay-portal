@@ -28,16 +28,16 @@ import javax.annotation.Generated;
 @Generated("")
 public class Price {
 
-	public String getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
 	public void setPrice(
-		UnsafeSupplier<String, Exception> priceUnsafeSupplier) {
+		UnsafeSupplier<Double, Exception> priceUnsafeSupplier) {
 
 		try {
 			price = priceUnsafeSupplier.get();
@@ -47,18 +47,39 @@ public class Price {
 		}
 	}
 
-	protected String price;
+	protected Double price;
 
-	public String getPromoPrice() {
+	public String getPriceFormatted() {
+		return priceFormatted;
+	}
+
+	public void setPriceFormatted(String priceFormatted) {
+		this.priceFormatted = priceFormatted;
+	}
+
+	public void setPriceFormatted(
+		UnsafeSupplier<String, Exception> priceFormattedUnsafeSupplier) {
+
+		try {
+			priceFormatted = priceFormattedUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String priceFormatted;
+
+	public Double getPromoPrice() {
 		return promoPrice;
 	}
 
-	public void setPromoPrice(String promoPrice) {
+	public void setPromoPrice(Double promoPrice) {
 		this.promoPrice = promoPrice;
 	}
 
 	public void setPromoPrice(
-		UnsafeSupplier<String, Exception> promoPriceUnsafeSupplier) {
+		UnsafeSupplier<Double, Exception> promoPriceUnsafeSupplier) {
 
 		try {
 			promoPrice = promoPriceUnsafeSupplier.get();
@@ -68,18 +89,39 @@ public class Price {
 		}
 	}
 
-	protected String promoPrice;
+	protected Double promoPrice;
 
-	public String getTierPrice() {
+	public String getPromoPriceFormatted() {
+		return promoPriceFormatted;
+	}
+
+	public void setPromoPriceFormatted(String promoPriceFormatted) {
+		this.promoPriceFormatted = promoPriceFormatted;
+	}
+
+	public void setPromoPriceFormatted(
+		UnsafeSupplier<String, Exception> promoPriceFormattedUnsafeSupplier) {
+
+		try {
+			promoPriceFormatted = promoPriceFormattedUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String promoPriceFormatted;
+
+	public Double getTierPrice() {
 		return tierPrice;
 	}
 
-	public void setTierPrice(String tierPrice) {
+	public void setTierPrice(Double tierPrice) {
 		this.tierPrice = tierPrice;
 	}
 
 	public void setTierPrice(
-		UnsafeSupplier<String, Exception> tierPriceUnsafeSupplier) {
+		UnsafeSupplier<Double, Exception> tierPriceUnsafeSupplier) {
 
 		try {
 			tierPrice = tierPriceUnsafeSupplier.get();
@@ -89,7 +131,28 @@ public class Price {
 		}
 	}
 
-	protected String tierPrice;
+	protected Double tierPrice;
+
+	public String getTierPriceFormatted() {
+		return tierPriceFormatted;
+	}
+
+	public void setTierPriceFormatted(String tierPriceFormatted) {
+		this.tierPriceFormatted = tierPriceFormatted;
+	}
+
+	public void setTierPriceFormatted(
+		UnsafeSupplier<String, Exception> tierPriceFormattedUnsafeSupplier) {
+
+		try {
+			tierPriceFormatted = tierPriceFormattedUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String tierPriceFormatted;
 
 	@Override
 	public boolean equals(Object object) {

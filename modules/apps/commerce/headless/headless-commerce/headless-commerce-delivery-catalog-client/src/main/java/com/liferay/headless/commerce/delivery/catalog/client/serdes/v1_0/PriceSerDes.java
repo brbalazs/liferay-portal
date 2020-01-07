@@ -60,9 +60,19 @@ public class PriceSerDes {
 
 			sb.append("\"price\": ");
 
+			sb.append(price.getPrice());
+		}
+
+		if (price.getPriceFormatted() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"priceFormatted\": ");
+
 			sb.append("\"");
 
-			sb.append(_escape(price.getPrice()));
+			sb.append(_escape(price.getPriceFormatted()));
 
 			sb.append("\"");
 		}
@@ -74,9 +84,19 @@ public class PriceSerDes {
 
 			sb.append("\"promoPrice\": ");
 
+			sb.append(price.getPromoPrice());
+		}
+
+		if (price.getPromoPriceFormatted() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"promoPriceFormatted\": ");
+
 			sb.append("\"");
 
-			sb.append(_escape(price.getPromoPrice()));
+			sb.append(_escape(price.getPromoPriceFormatted()));
 
 			sb.append("\"");
 		}
@@ -88,9 +108,19 @@ public class PriceSerDes {
 
 			sb.append("\"tierPrice\": ");
 
+			sb.append(price.getTierPrice());
+		}
+
+		if (price.getTierPriceFormatted() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"tierPriceFormatted\": ");
+
 			sb.append("\"");
 
-			sb.append(_escape(price.getTierPrice()));
+			sb.append(_escape(price.getTierPriceFormatted()));
 
 			sb.append("\"");
 		}
@@ -120,6 +150,14 @@ public class PriceSerDes {
 			map.put("price", String.valueOf(price.getPrice()));
 		}
 
+		if (price.getPriceFormatted() == null) {
+			map.put("priceFormatted", null);
+		}
+		else {
+			map.put(
+				"priceFormatted", String.valueOf(price.getPriceFormatted()));
+		}
+
 		if (price.getPromoPrice() == null) {
 			map.put("promoPrice", null);
 		}
@@ -127,11 +165,29 @@ public class PriceSerDes {
 			map.put("promoPrice", String.valueOf(price.getPromoPrice()));
 		}
 
+		if (price.getPromoPriceFormatted() == null) {
+			map.put("promoPriceFormatted", null);
+		}
+		else {
+			map.put(
+				"promoPriceFormatted",
+				String.valueOf(price.getPromoPriceFormatted()));
+		}
+
 		if (price.getTierPrice() == null) {
 			map.put("tierPrice", null);
 		}
 		else {
 			map.put("tierPrice", String.valueOf(price.getTierPrice()));
+		}
+
+		if (price.getTierPriceFormatted() == null) {
+			map.put("tierPriceFormatted", null);
+		}
+		else {
+			map.put(
+				"tierPriceFormatted",
+				String.valueOf(price.getTierPriceFormatted()));
 		}
 
 		return map;
@@ -156,17 +212,39 @@ public class PriceSerDes {
 
 			if (Objects.equals(jsonParserFieldName, "price")) {
 				if (jsonParserFieldValue != null) {
-					price.setPrice((String)jsonParserFieldValue);
+					price.setPrice(
+						Double.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "priceFormatted")) {
+				if (jsonParserFieldValue != null) {
+					price.setPriceFormatted((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "promoPrice")) {
 				if (jsonParserFieldValue != null) {
-					price.setPromoPrice((String)jsonParserFieldValue);
+					price.setPromoPrice(
+						Double.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "promoPriceFormatted")) {
+
+				if (jsonParserFieldValue != null) {
+					price.setPromoPriceFormatted((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "tierPrice")) {
 				if (jsonParserFieldValue != null) {
-					price.setTierPrice((String)jsonParserFieldValue);
+					price.setTierPrice(
+						Double.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "tierPriceFormatted")) {
+
+				if (jsonParserFieldValue != null) {
+					price.setTierPriceFormatted((String)jsonParserFieldValue);
 				}
 			}
 			else {

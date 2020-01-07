@@ -164,6 +164,34 @@ public class Product {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String externalReferenceCode;
 
+	@Schema
+	public String getFriendlyUrl() {
+		return friendlyUrl;
+	}
+
+	public void setFriendlyUrl(String friendlyUrl) {
+		this.friendlyUrl = friendlyUrl;
+	}
+
+	@JsonIgnore
+	public void setFriendlyUrl(
+		UnsafeSupplier<String, Exception> friendlyUrlUnsafeSupplier) {
+
+		try {
+			friendlyUrl = friendlyUrlUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String friendlyUrl;
+
 	@DecimalMin("0")
 	@Schema
 	public Long getId() {
@@ -629,6 +657,20 @@ public class Product {
 			sb.append("\"");
 
 			sb.append(_escape(externalReferenceCode));
+
+			sb.append("\"");
+		}
+
+		if (friendlyUrl != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"friendlyUrl\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(friendlyUrl));
 
 			sb.append("\"");
 		}
