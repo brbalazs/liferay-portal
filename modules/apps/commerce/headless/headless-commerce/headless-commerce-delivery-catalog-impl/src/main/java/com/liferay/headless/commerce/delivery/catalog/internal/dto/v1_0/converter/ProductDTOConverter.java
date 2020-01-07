@@ -77,7 +77,6 @@ public class ProductDTOConverter implements DTOConverter {
 				createDate = cpDefinition.getCreateDate();
 				description = cpDefinition.getDescription();
 				expando = expandoBridge.getAttributes();
-				externalReferenceCode = cProduct.getExternalReferenceCode();
 				friendlyUrl = _getFriendlyUrl(
 					cpDefinition, languageId, portalURL);
 				id = cpDefinition.getCPDefinitionId();
