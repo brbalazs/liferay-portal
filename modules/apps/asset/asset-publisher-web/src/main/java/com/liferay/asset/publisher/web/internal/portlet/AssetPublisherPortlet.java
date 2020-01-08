@@ -15,8 +15,6 @@
 package com.liferay.asset.publisher.web.internal.portlet;
 
 import com.liferay.asset.constants.AssetWebKeys;
-import com.liferay.asset.kernel.exception.NoSuchCategoryException;
-import com.liferay.asset.kernel.service.AssetCategoryLocalService;
 import com.liferay.asset.publisher.constants.AssetPublisherPortletKeys;
 import com.liferay.asset.publisher.constants.AssetPublisherWebKeys;
 import com.liferay.asset.publisher.util.AssetPublisherHelper;
@@ -346,19 +344,6 @@ public class AssetPublisherPortlet extends MVCPortlet {
 				AssetPublisherWebKeys.ASSET_PUBLISHER_DISPLAY_CONTEXT,
 				assetPublisherDisplayContext);
 
-			long assetCategoryId =
-				assetPublisherDisplayContext.getAssetCategoryId();
-
-			if (assetCategoryId > 0) {
-				try {
-					assetCategoryLocalService.getCategory(assetCategoryId);
-				}
-				catch (NoSuchCategoryException nsce) {
-					SessionErrors.add(
-						renderRequest, NoSuchCategoryException.class.getName());
-				}
-			}
-
 			renderRequest.setAttribute(
 				AssetPublisherWebKeys.ASSET_PUBLISHER_HELPER,
 				assetPublisherHelper);
@@ -371,8 +356,6 @@ public class AssetPublisherPortlet extends MVCPortlet {
 		}
 
 		if (SessionErrors.contains(
-				renderRequest, NoSuchCategoryException.class.getName()) ||
-			SessionErrors.contains(
 				renderRequest, NoSuchGroupException.class.getName()) ||
 			SessionErrors.contains(
 				renderRequest, PrincipalException.getNestedClasses())) {
@@ -386,8 +369,7 @@ public class AssetPublisherPortlet extends MVCPortlet {
 
 	@Override
 	protected boolean isSessionErrorException(Throwable cause) {
-		if (cause instanceof NoSuchCategoryException ||
-			cause instanceof NoSuchGroupException ||
+		if (cause instanceof NoSuchGroupException ||
 			cause instanceof PrincipalException) {
 
 			return true;
@@ -395,9 +377,6 @@ public class AssetPublisherPortlet extends MVCPortlet {
 
 		return false;
 	}
-
-	@Reference
-	protected AssetCategoryLocalService assetCategoryLocalService;
 
 	@Reference
 	protected AssetEntryActionRegistry assetEntryActionRegistry;
