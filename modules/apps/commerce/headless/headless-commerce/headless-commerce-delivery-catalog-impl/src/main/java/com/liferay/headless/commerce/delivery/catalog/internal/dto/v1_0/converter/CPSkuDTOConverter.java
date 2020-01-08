@@ -14,22 +14,19 @@
 
 package com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.converter;
 
-import com.liferay.commerce.currency.model.CommerceCurrency;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
-import com.liferay.commerce.inventory.CPDefinitionInventoryEngineRegistry;
-import com.liferay.commerce.product.content.util.CPContentHelper;
-import com.liferay.commerce.product.model.CPDefinition;
+import com.liferay.commerce.discount.CommerceDiscountValue;
+import com.liferay.commerce.price.CommerceProductPrice;
+import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
-import com.liferay.commerce.product.model.CommerceCatalog;
-import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
-import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Price;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Sku;
@@ -37,6 +34,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 
 import java.math.BigDecimal;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -63,18 +61,8 @@ public class CPSkuDTOConverter implements DTOConverter {
 		CPSkuDTOConverterContext cpSkuDTOConverterConvertContext =
 			(CPSkuDTOConverterContext)dtoConverterContext;
 
-		CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
+		CPInstance cpInstance = _cpInstanceService.getCPInstance(
 			cpSkuDTOConverterConvertContext.getResourcePrimKey());
-
-		CPDefinition cpDefinition =
-			cpSkuDTOConverterConvertContext.getCPDefinition();
-
-		CommerceCatalog commerceCatalog = cpDefinition.getCommerceCatalog();
-
-		CommerceCurrency commerceCurrency =
-			_commerceCurrencyService.getCommerceCurrency(
-				cpSkuDTOConverterConvertContext.getCompanyId(),
-				commerceCatalog.getCommerceCurrencyCode());
 
 		return new Sku() {
 			{
@@ -86,7 +74,8 @@ public class CPSkuDTOConverter implements DTOConverter {
 				manufacturerPartNumber = cpInstance.getManufacturerPartNumber();
 				options = _getOptions(cpInstance);
 				price = _getPrice(
-					commerceCurrency, cpInstance,
+					cpInstance, 1,
+					cpSkuDTOConverterConvertContext.getCommerceContext(),
 					cpSkuDTOConverterConvertContext.getLocale());
 				published = cpInstance.isPublished();
 				purchasable = cpInstance.isPurchasable();
@@ -95,6 +84,20 @@ public class CPSkuDTOConverter implements DTOConverter {
 				width = cpInstance.getWidth();
 			}
 		};
+	}
+
+	private String[] _getFormattedDiscountPercentages(
+			BigDecimal[] discountPercentages, Locale locale)
+		throws PortalException {
+
+		List<String> formattedDiscountPercentages = new ArrayList<>();
+
+		for (BigDecimal percentage : discountPercentages) {
+			formattedDiscountPercentages.add(
+				_commercePriceFormatter.format(percentage, locale));
+		}
+
+		return formattedDiscountPercentages.toArray(new String[0]);
 	}
 
 	private Map<String, String> _getOptions(CPInstance cpInstance)
@@ -131,48 +134,73 @@ public class CPSkuDTOConverter implements DTOConverter {
 	}
 
 	private Price _getPrice(
-			CommerceCurrency currencyCode, CPInstance cpInstance, Locale locale)
+			CPInstance cpInstance, int quantity,
+			CommerceContext commerceContext, Locale locale)
 		throws PortalException {
 
-		BigDecimal cpInstancePrice = cpInstance.getPrice();
-		BigDecimal cpInstancePromoPrice = cpInstance.getPromoPrice();
+		CommerceProductPrice commerceProductPrice =
+			_commerceProductPriceCalculation.getCommerceProductPrice(
+				cpInstance.getCPInstanceId(), quantity, true, commerceContext);
 
-		return new Price() {
+		if (commerceProductPrice == null) {
+			return new Price();
+		}
+
+		CommerceMoney unitPriceMoney = commerceProductPrice.getUnitPrice();
+
+		CommerceMoney unitPromoPriceMoney =
+			commerceProductPrice.getUnitPromoPrice();
+
+		BigDecimal unitPromoPrice = unitPromoPriceMoney.getPrice();
+
+		BigDecimal unitPrice = unitPriceMoney.getPrice();
+
+		Price price = new Price() {
 			{
-				price = cpInstancePrice.doubleValue();
-				priceFormatted = _commercePriceFormatter.format(
-					currencyCode, cpInstancePrice, locale);
-				promoPrice = cpInstancePromoPrice.doubleValue();
-				promoPriceFormatted = _commercePriceFormatter.format(
-					currencyCode, cpInstancePromoPrice, locale);
+				price = unitPrice.doubleValue();
+				priceFormatted = unitPriceMoney.format(locale);
 			}
 		};
-	}
 
-	@Reference
-	private CommerceCurrencyService _commerceCurrencyService;
+		if ((unitPromoPrice != null) &&
+			(unitPromoPrice.compareTo(BigDecimal.ZERO) > 0) &&
+			(unitPromoPrice.compareTo(unitPriceMoney.getPrice()) < 0)) {
+
+			price.setPromoPrice(unitPromoPrice.doubleValue());
+			price.setPromoPriceFormatted(unitPromoPriceMoney.format(locale));
+		}
+
+		CommerceDiscountValue discountValue =
+			commerceProductPrice.getDiscountValue();
+
+		if (discountValue != null) {
+			CommerceMoney discountAmount = discountValue.getDiscountAmount();
+
+			CommerceMoney finalPrice = commerceProductPrice.getFinalPrice();
+
+			price.setDiscount(discountAmount.format(locale));
+			price.setDiscountPercentage(
+				_commercePriceFormatter.format(
+					discountValue.getDiscountPercentage(), locale));
+			price.setDiscountPercentages(
+				_getFormattedDiscountPercentages(
+					discountValue.getPercentages(), locale));
+			price.setFinalPrice(finalPrice.format(locale));
+		}
+
+		return price;
+	}
 
 	@Reference
 	private CommercePriceFormatter _commercePriceFormatter;
 
 	@Reference
-	private CPContentHelper _cpContentHelper;
-
-	@Reference
-	private CPDefinitionInventoryEngineRegistry
-		_cpDefinitionInventoryEngineRegistry;
-
-	@Reference
-	private CPDefinitionInventoryLocalService
-		_cpDefinitionInventoryLocalService;
+	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
 
 	@Reference
-	private CPInstanceLocalService _cpInstanceLocalService;
-
-	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
+	private CPInstanceService _cpInstanceService;
 
 }

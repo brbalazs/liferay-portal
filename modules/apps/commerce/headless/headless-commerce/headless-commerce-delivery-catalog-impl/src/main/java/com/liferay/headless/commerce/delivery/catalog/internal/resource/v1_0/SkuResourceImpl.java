@@ -14,11 +14,15 @@
 
 package com.liferay.headless.commerce.delivery.catalog.internal.resource.v1_0;
 
+import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.product.catalog.CPSku;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CPInstanceService;
+import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
@@ -51,7 +55,8 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 
 	@NestedField(parentClass = Product.class, value = "skus")
 	@Override
-	public Page<Sku> getProductIdSkusPage(
+	public Page<Sku> getStoreChannelProductIdSkusPage(
+			@NotNull Long channelId,
 			@NestedFieldId("productId") @NotNull Long id, Pagination pagination)
 		throws Exception {
 
@@ -59,7 +64,8 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 			_cpDefinitionService.fetchCPDefinitionByCProductId(id);
 
 		if (cpDefinition == null) {
-			return super.getProductIdSkusPage(id, pagination);
+			return super.getStoreChannelProductIdSkusPage(
+				channelId, id, pagination);
 		}
 
 		List<CPInstance> cpInstances =
@@ -74,17 +80,26 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 			WorkflowConstants.STATUS_APPROVED);
 
 		return Page.of(
-			_toSKUs(cpInstances, cpDefinition), pagination, totalItems);
+			_toSKUs(channelId, cpInstances, cpDefinition), pagination,
+			totalItems);
 	}
 
 	private List<Sku> _toSKUs(
-			List<CPInstance> cpInstances, CPDefinition cpDefinition)
+			Long channelId, List<CPInstance> cpInstances,
+			CPDefinition cpDefinition)
 		throws Exception {
+
+		CommerceChannel commerceChannel =
+			_commerceChannelService.getCommerceChannel(channelId);
 
 		List<Sku> skus = new ArrayList<>();
 
 		DTOConverter skuDTOConverter = _dtoConverterRegistry.getDTOConverter(
 			CPSku.class.getName());
+
+		CommerceContext commerceContext = _commerceContextFactory.create(
+			contextCompany.getCompanyId(), commerceChannel.getSiteGroupId(),
+			contextUser.getUserId(), 0, contextCompany.getAccountId());
 
 		for (CPInstance cpInstance : cpInstances) {
 			skus.add(
@@ -92,11 +107,17 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 					new CPSkuDTOConverterContext(
 						contextAcceptLanguage.getPreferredLocale(),
 						cpInstance.getCPInstanceId(), cpDefinition,
-						contextCompany.getCompanyId())));
+						contextCompany.getCompanyId(), commerceContext)));
 		}
 
 		return skus;
 	}
+
+	@Reference
+	private CommerceChannelService _commerceChannelService;
+
+	@Reference
+	private CommerceContextFactory _commerceContextFactory;
 
 	@Reference
 	private CPDefinitionService _cpDefinitionService;

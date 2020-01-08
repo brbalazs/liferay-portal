@@ -14,6 +14,7 @@
 
 package com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.converter;
 
+import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 
@@ -26,12 +27,17 @@ public class CPSkuDTOConverterContext extends DefaultDTOConverterContext {
 
 	public CPSkuDTOConverterContext(
 		Locale locale, long resourcePrimKey, CPDefinition cpDefinition,
-		long companyId) {
+		long companyId, CommerceContext commerceContext) {
 
 		super(locale, resourcePrimKey);
 
 		_cpDefinition = cpDefinition;
 		_companyId = companyId;
+		_commerceContext = commerceContext;
+	}
+
+	public CommerceContext getCommerceContext() {
+		return _commerceContext;
 	}
 
 	public long getCompanyId() {
@@ -42,6 +48,7 @@ public class CPSkuDTOConverterContext extends DefaultDTOConverterContext {
 		return _cpDefinition;
 	}
 
+	private final CommerceContext _commerceContext;
 	private final long _companyId;
 	private final CPDefinition _cpDefinition;
 
