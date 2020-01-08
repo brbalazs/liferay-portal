@@ -34,13 +34,13 @@
 					cssClass='<%= \"language-value \" + cssClass %>'
 					editorName="<%= editorName %>"
 					name='<%= inputEditorName %>'
-					onChangeMethod='<%= randomNamespace + \"OnChangeEditor\" %>'
+					onChangeMethod='<%= randomNamespace + \"onChangeEditor\" %>'
 					placeholder="<%= placeholder %>"
 					toolbarSet="<%= toolbarSet %>"
 				/>
 
 				<aui:script>
-					function <portlet:namespace /><%= randomNamespace %>OnChangeEditor() {
+					function <portlet:namespace /><%= randomNamespace %>onChangeEditor() {
 						var inputLocalized = Liferay.component('<portlet:namespace /><%= HtmlUtil.escapeJS(fieldName) %>');
 
 						var editor = window['<portlet:namespace /><%= HtmlUtil.escapeJS(inputEditorName) %>'];
