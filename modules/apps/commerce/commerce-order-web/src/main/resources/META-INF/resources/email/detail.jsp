@@ -24,7 +24,7 @@ CommerceNotificationQueueEntry commerceNotificationQueueEntry = commerceOrderEdi
 
 <commerce-ui:modal-content
 	showCancelButton="<%= false %>"
-	showSumitButton="<%= false %>"
+	showSubmitButton="<%= false %>"
 >
 	<div class="commerce-notification-queue-entry-header"></div>
 

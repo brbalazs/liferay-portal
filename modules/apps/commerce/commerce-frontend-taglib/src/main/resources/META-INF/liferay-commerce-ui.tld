@@ -274,7 +274,7 @@
 			<type>boolean</type>
 		</attribute>
 		<attribute>
-			<name>showSumitButton</name>
+			<name>showSubmitButton</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>boolean</type>
