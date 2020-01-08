@@ -5456,10 +5456,10 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			user.setReminderQueryAnswer(reminderQueryAnswer);
 		}
 
-		boolean screenNameChanged = !StringUtil.equalsIgnoreCase(
+		boolean screenNameModified = !StringUtil.equalsIgnoreCase(
 			user.getScreenName(), screenName);
 
-		if (screenNameChanged) {
+		if (screenNameModified) {
 			user.setScreenName(screenName);
 
 			user.setDigest(StringPool.BLANK);
@@ -5557,7 +5557,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		// Group
 
-		if (screenNameChanged) {
+		if (screenNameModified) {
 			Group group = groupLocalService.getUserGroup(
 				user.getCompanyId(), userId);
 
