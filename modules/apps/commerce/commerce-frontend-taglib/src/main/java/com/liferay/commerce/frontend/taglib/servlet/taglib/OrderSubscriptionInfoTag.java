@@ -45,14 +45,14 @@ import javax.servlet.jsp.PageContext;
 public class OrderSubscriptionInfoTag extends ComponentRendererTag {
 
 	@Override
-	public int doStartTag() throws JspException {
+	public int doStartTag() {
 		try {
 			CommerceOrderItem commerceOrderItem =
 				CommerceOrderItemLocalServiceUtil.fetchCommerceOrderItem(
 					_commerceOrderItemId);
 
 			CPInstance cpInstance = CPInstanceServiceUtil.fetchCPInstance(
-				_cpInstanceId);
+				commerceOrderItem.getCPInstanceId());
 
 			CommerceSubscriptionEntry commerceSubscriptionEntry = null;
 
@@ -214,9 +214,6 @@ public class OrderSubscriptionInfoTag extends ComponentRendererTag {
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		OrderSubscriptionInfoTag.class);
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		SubscriptionInfoTag.class);
 
 	private long _commerceOrderItemId;
 	private long _duration;
