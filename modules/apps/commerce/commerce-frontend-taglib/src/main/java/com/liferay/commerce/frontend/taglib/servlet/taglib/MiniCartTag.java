@@ -120,9 +120,10 @@ public class MiniCartTag extends ComponentRendererTag {
 
 			putValue(
 				"placeholder",
-				LanguageUtil.format(request, "add-a-x-product-x-to-the-cart",
-				new Object[] {"<span class='stress'>", "</span><br />"},
-				false));
+				LanguageUtil.format(
+					request, "add-a-x-product-x-to-the-cart",
+					new Object[] {"<span class='stress'>", "</span><br />"},
+					false));
 
 			setTemplateNamespace("MiniCart.render");
 		}
