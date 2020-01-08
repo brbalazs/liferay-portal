@@ -236,45 +236,43 @@ public class JournalTransformer {
 				templateId, tokens, languageId, document, script, langType);
 
 			if ((themeDisplay != null) && (themeDisplay.getRequest() != null)) {
-				HttpServletRequest httpServletRequest =
-					themeDisplay.getRequest();
-
 				PortletRequest originalPortletRequest = null;
 				PortletResponse originalPortletResponse = null;
 
-				if (portletRequestModel != null) {
+				HttpServletRequest httpServletRequest =
+					themeDisplay.getRequest();
 
-					// Store original request attributes
+				try {
+					if (portletRequestModel != null) {
+						originalPortletRequest =
+							(PortletRequest)httpServletRequest.getAttribute(
+								JavaConstants.JAVAX_PORTLET_REQUEST);
+						originalPortletResponse =
+							(PortletResponse)httpServletRequest.getAttribute(
+								JavaConstants.JAVAX_PORTLET_RESPONSE);
 
-					originalPortletRequest =
-						(PortletRequest)httpServletRequest.getAttribute(
-							JavaConstants.JAVAX_PORTLET_REQUEST);
-					originalPortletResponse =
-						(PortletResponse)httpServletRequest.getAttribute(
-							JavaConstants.JAVAX_PORTLET_RESPONSE);
+						httpServletRequest.setAttribute(
+							JavaConstants.JAVAX_PORTLET_REQUEST,
+							portletRequestModel.getPortletRequest());
+						httpServletRequest.setAttribute(
+							JavaConstants.JAVAX_PORTLET_RESPONSE,
+							portletRequestModel.getPortletResponse());
+						httpServletRequest.setAttribute(
+							PortletRequest.LIFECYCLE_PHASE,
+							portletRequestModel.getLifecycle());
+					}
 
-					httpServletRequest.setAttribute(
-						JavaConstants.JAVAX_PORTLET_REQUEST,
-						portletRequestModel.getPortletRequest());
-					httpServletRequest.setAttribute(
-						JavaConstants.JAVAX_PORTLET_RESPONSE,
-						portletRequestModel.getPortletResponse());
-					httpServletRequest.setAttribute(
-						PortletRequest.LIFECYCLE_PHASE,
-						portletRequestModel.getLifecycle());
+					template.prepare(httpServletRequest);
 				}
-
-				template.prepare(httpServletRequest);
-
-				// Restore request attributes
-
-				if (portletRequestModel != null) {
-					httpServletRequest.setAttribute(
-						JavaConstants.JAVAX_PORTLET_REQUEST,
-						originalPortletRequest);
-					httpServletRequest.setAttribute(
-						JavaConstants.JAVAX_PORTLET_RESPONSE,
-						originalPortletResponse);
+				finally {
+					if (portletRequestModel != null) {
+						httpServletRequest.setAttribute(
+							JavaConstants.JAVAX_PORTLET_REQUEST,
+							originalPortletRequest);
+						httpServletRequest.setAttribute(
+							JavaConstants.JAVAX_PORTLET_RESPONSE,
+							originalPortletResponse);
+					}
 				}
 			}
 
