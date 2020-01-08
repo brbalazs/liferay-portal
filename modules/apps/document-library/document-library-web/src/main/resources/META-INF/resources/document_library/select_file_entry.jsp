@@ -43,12 +43,16 @@ dlSearchContainer.setTotal(foldersAndFileEntriesAndFileShortcutsCount);
 List<Object> foldersAndFileEntriesAndFileShortcuts = DLAppServiceUtil.getFoldersAndFileEntriesAndFileShortcuts(groupId, folderId, WorkflowConstants.STATUS_APPROVED, true, dlSearchContainer.getStart(), dlSearchContainer.getEnd(), dlSearchContainer.getOrderByComparator());
 
 dlSearchContainer.setResults(foldersAndFileEntriesAndFileShortcuts);
+
+Group group = GroupLocalServiceUtil.getGroup(groupId);
+
+boolean isGuest = group.isGuest();
 %>
 
 <div class="container-fluid-1280">
 	<aui:form method="post" name="selectFileEntryFm">
 		<liferay-ui:breadcrumb
-			showGuestGroup="<%= false %>"
+			showGuestGroup="<%= isGuest %>"
 			showLayout="<%= false %>"
 			showParentGroups="<%= false %>"
 		/>
