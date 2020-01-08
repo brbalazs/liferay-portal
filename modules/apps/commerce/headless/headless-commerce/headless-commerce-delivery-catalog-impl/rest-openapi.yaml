@@ -285,33 +285,36 @@ info:
     version: v1.0
 openapi: 3.0.1
 paths:
-    /products/{id}:
+    /relatedProducts/{id}:
         get:
             description:
-                Retrieves products from selected channel.
-            operationId: getProduct
+                Gets a Related Product by ID.
+            operationId: getRelatedProduct
             parameters:
                 - in: path
-                  explode: false
                   name: id
                   required: true
                   schema:
                       description:
-                          Product Id
+                          The resource Id
                       example: 30130
                       format: int64
                       minimum: 0
                       type: integer
-                  style: simple
             responses:
                 200:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Product"
+                                $ref: "#/components/schemas/RelatedProduct"
                         application/xml:
                             schema:
-                                $ref: "#/components/schemas/Product"
+                                $ref: "#/components/schemas/RelatedProduct"
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
                 401:
                     content:
                         application/json:
@@ -342,13 +345,26 @@ paths:
                                 $ref: "#/components/schemas/Error"
                     description:
                         Unexpected error
-            tags: ["Product"]
-    /products/{productId}/categories:
+            tags:
+                - RelatedProduct
+    /stores/{channelId}/products/{productId}/categories:
         get:
             description:
                 Gets a list of Category related to a Product.
-            operationId: getProductCategoriesPage
+            operationId: getStoreChannelProductCategoriesPage
             parameters:
+                - in: path
+                  explode: false
+                  name: channelId
+                  required: true
+                  schema:
+                      description:
+                          Channel Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
                 - in: path
                   explode: false
                   name: productId
@@ -418,12 +434,24 @@ paths:
                         Unexpected error
             tags:
                 - Category
-    /products/{productId}/relatedProducts:
+    /stores/{channelId}/products/{productId}/relatedProducts:
         get:
             description:
                 Gets a list of Related Products of a Product.
-            operationId: getProductRelatedProductsPage
+            operationId: getStoreChannelProductRelatedProductsPage
             parameters:
+                - in: path
+                  explode: false
+                  name: channelId
+                  required: true
+                  schema:
+                      description:
+                          Channel Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
                 - in: path
                   explode: false
                   name: productId
@@ -499,73 +527,11 @@ paths:
                     description:
                         Unexpected error
             tags: ["RelatedProduct"]
-    /relatedProducts/{id}:
-        get:
-            description:
-                Gets a Related Product by ID.
-            operationId: getRelatedProduct
-            parameters:
-                - in: path
-                  name: id
-                  required: true
-                  schema:
-                      description:
-                          The resource Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/RelatedProduct"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/RelatedProduct"
-                    description:
-                        Successful operation
-                400:
-                    description:
-                        Invalid input
-                401:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Authentication information is missing or invalid
-                404:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        The specified resource was not found
-                500:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Unexpected error
-            tags:
-                - RelatedProduct
-    /stores/{channelId}/products/{id}/skus:
+    /stores/{channelId}/products/{productId}/skus:
         get:
             description:
                 Retrieves products from selected channel.
-            operationId: getStoreChannelProductIdSkusPage
+            operationId: getStoreChannelProductSkusPage
             parameters:
                 - in: path
                   explode: false
@@ -581,7 +547,7 @@ paths:
                   style: simple
                 - in: path
                   explode: false
-                  name: id
+                  name: productId
                   required: true
                   schema:
                       description:
@@ -645,6 +611,76 @@ paths:
                     description:
                         Unexpected error
             tags: ["Sku"]
+    /stores/{channelId}/products/{productId}:
+        get:
+            description:
+                Retrieves products from selected channel.
+            operationId: getStoreChannelProduct
+            parameters:
+                - in: path
+                  explode: false
+                  name: channelId
+                  required: true
+                  schema:
+                      description:
+                          Channel Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: path
+                  explode: false
+                  name: productId
+                  required: true
+                  schema:
+                      description:
+                          Product Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Product"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Product"
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            tags: ["Product"]
     /stores/{channelId}/products:
         get:
             description:
