@@ -1224,9 +1224,6 @@ public class AssetPublisherExportImportPortletPreferencesProcessor
 	protected Capability assetImportCapability;
 
 	@Reference
-	protected AssetListEntryLocalService assetListEntryLocalService;
-
-	@Reference
 	protected AssetPublisherHelper assetPublisherHelper;
 
 	@Reference
