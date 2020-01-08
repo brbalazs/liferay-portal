@@ -49,9 +49,18 @@ import org.osgi.service.component.annotations.ServiceScope;
 )
 public class RelatedProductResourceImpl extends BaseRelatedProductResourceImpl {
 
+	@Override
+	public RelatedProduct getRelatedProduct(Long id) throws Exception {
+		return _relatedProductDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				contextAcceptLanguage.getPreferredLocale(),
+				GetterUtil.getLong(id)));
+	}
+
 	@NestedField(parentClass = Product.class, value = "relatedProducts")
 	@Override
-	public Page<RelatedProduct> getProductRelatedProductsPage(
+	public Page<RelatedProduct> getStoreChannelProductRelatedProductsPage(
+			@NotNull Long channelId,
 			@NestedFieldId(value = "productId") @NotNull Long productId,
 			String type, Pagination pagination)
 		throws Exception {
@@ -65,14 +74,6 @@ public class RelatedProductResourceImpl extends BaseRelatedProductResourceImpl {
 		}
 
 		return _getRelatedProductPage(cpDefinition, type, pagination);
-	}
-
-	@Override
-	public RelatedProduct getRelatedProduct(Long id) throws Exception {
-		return _relatedProductDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				GetterUtil.getLong(id)));
 	}
 
 	private Page<RelatedProduct> _getRelatedProductPage(

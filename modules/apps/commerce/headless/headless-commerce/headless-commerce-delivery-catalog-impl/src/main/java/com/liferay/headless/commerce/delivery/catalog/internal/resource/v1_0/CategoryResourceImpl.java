@@ -51,7 +51,8 @@ public class CategoryResourceImpl extends BaseCategoryResourceImpl {
 
 	@NestedField(parentClass = Product.class, value = "categories")
 	@Override
-	public Page<Category> getProductCategoriesPage(
+	public Page<Category> getStoreChannelProductCategoriesPage(
+			@NotNull Long channelId,
 			@NestedFieldId(value = "productId") @NotNull Long productId,
 			Pagination pagination)
 		throws Exception {

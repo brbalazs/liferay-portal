@@ -55,17 +55,18 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 
 	@NestedField(parentClass = Product.class, value = "skus")
 	@Override
-	public Page<Sku> getStoreChannelProductIdSkusPage(
+	public Page<Sku> getStoreChannelProductSkusPage(
 			@NotNull Long channelId,
-			@NestedFieldId("productId") @NotNull Long id, Pagination pagination)
+			@NestedFieldId("productId") @NotNull Long productId,
+			Pagination pagination)
 		throws Exception {
 
 		CPDefinition cpDefinition =
-			_cpDefinitionService.fetchCPDefinitionByCProductId(id);
+			_cpDefinitionService.fetchCPDefinitionByCProductId(productId);
 
 		if (cpDefinition == null) {
-			return super.getStoreChannelProductIdSkusPage(
-				channelId, id, pagination);
+			return super.getStoreChannelProductSkusPage(
+				channelId, productId, pagination);
 		}
 
 		List<CPInstance> cpInstances =

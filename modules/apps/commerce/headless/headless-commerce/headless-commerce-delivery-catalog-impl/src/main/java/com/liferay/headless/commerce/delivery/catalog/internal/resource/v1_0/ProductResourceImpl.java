@@ -66,13 +66,16 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class ProductResourceImpl extends BaseProductResourceImpl {
 
 	@Override
-	public Product getProduct(@NotNull Long id) throws Exception {
+	public Product getStoreChannelProduct(
+			@NotNull Long channelId, @NotNull Long productId)
+		throws Exception {
+
 		CPDefinition cpDefinition =
-			_cpDefinitionService.fetchCPDefinitionByCProductId(id);
+			_cpDefinitionService.fetchCPDefinitionByCProductId(productId);
 
 		if (cpDefinition == null) {
 			throw new NoSuchCPDefinitionException(
-				"Unable to find Product with ID: " + id);
+				"Unable to find Product with ID: " + productId);
 		}
 
 		return _toProduct(cpDefinition);
