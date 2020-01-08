@@ -1,7 +1,3 @@
-<%@ include file="/header/init.jsp" %>
-
-<%@ taglib uri="http://liferay.com/tld/commerce-ui" prefix="commerce-ui" %>
-
 <%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
@@ -18,10 +14,7 @@
  */
 --%>
 
-<%@ page import="com.liferay.portal.kernel.language.LanguageUtil" %>
-
-<%@ page import="java.util.HashMap" %><%@
-page import="java.util.Map" %>
+<%@ include file="/header/init.jsp" %>
 
 <div class="bg-white border-bottom commerce-header<%= fullWidth ? " container-fluid" : StringPool.BLANK %><%= Validator.isNotNull(wrapperCssClasses) ? StringPool.SPACE + wrapperCssClasses : StringPool.BLANK %>">
 	<div class="container<%= Validator.isNotNull(cssClasses) ? StringPool.SPACE + cssClasses : StringPool.BLANK %>">

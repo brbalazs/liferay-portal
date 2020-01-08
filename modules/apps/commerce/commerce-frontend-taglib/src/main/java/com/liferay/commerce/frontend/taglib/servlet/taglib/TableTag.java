@@ -88,7 +88,9 @@ public class TableTag extends IncludeTag {
 			sb.append(portletDisplay.getId());
 
 			for (Map.Entry<String, String> entry : _contextParams.entrySet()) {
-				sb.append("&" + entry.getKey() + "=");
+				sb.append(StringPool.AMPERSAND);
+				sb.append(entry.getKey());
+				sb.append(StringPool.EQUAL);
 				sb.append(entry.getValue());
 			}
 
@@ -160,10 +162,15 @@ public class TableTag extends IncludeTag {
 		super.cleanUp();
 
 		_clayTableContext = null;
-		_contextParams = new java.util.HashMap<>();
+		_clayTableDataJSONBuilder = null;
+		_clayTableRegistry = null;
+		_clayTableSerializer = null;
+		_commerceDataProviderRegistry = null;
+		_contextParams = null;
 		_dataProviderKey = null;
 		_dataSetAPI = null;
 		_deltaParam = null;
+		_filterFactoryRegistry = null;
 		_id = null;
 		_items = null;
 		_itemsPerPage = 0;

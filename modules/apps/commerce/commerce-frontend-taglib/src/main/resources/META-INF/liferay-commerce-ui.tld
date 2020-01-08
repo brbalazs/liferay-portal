@@ -107,62 +107,20 @@
 		</attribute>
 	</tag>
 	<tag>
-		<name>modal-content</name>
-		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.ModalContentTag</tag-class>
-		<body-content>JSP</body-content>
-		<attribute>
-			<name>modalId</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<name>title</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<name>showCancelButton</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>boolean</type>
-		</attribute>
-		<attribute>
-			<name>showSumitButton</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>boolean</type>
-		</attribute>
-		<attribute>
-			<name>submitButtonLabel</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-	</tag>
-	<tag>
-		<name>side-panel-content</name>
-		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.SidePanelContentTag</tag-class>
-		<body-content>JSP</body-content>
-		<attribute>
-			<name>sidePanelId</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<name>title</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<name>showCloseButton</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-	</tag>
-	<tag>
 		<description><![CDATA[Creates a configurable header.]]></description>
 		<name>header</name>
 		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.HeaderTag</tag-class>
 		<body-content>JSP</body-content>
+		<attribute>
+			<name>actions</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>assignerModalUrl</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
 		<attribute>
 			<description><![CDATA[A bean associated with the model object.]]></description>
 			<name>bean</name>
@@ -181,16 +139,6 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
-			<name>fullWidth</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<name>actions</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
 			<name>externalReferenceCode</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -201,7 +149,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
-			<name>assignerModalUrl</name>
+			<name>fullWidth</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
@@ -278,15 +226,15 @@
 		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.ModalTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
 			<name>refreshPageOnClose</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>boolean</type>
-		</attribute>
-		<attribute>
-			<name>id</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<name>size</name>
@@ -307,6 +255,38 @@
 		<attribute>
 			<name>url</name>
 			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>modal-content</name>
+		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.ModalContentTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>modalId</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>showCancelButton</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+		</attribute>
+		<attribute>
+			<name>showSumitButton</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+		</attribute>
+		<attribute>
+			<name>submitButtonLabel</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>title</name>
+			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
@@ -445,6 +425,26 @@
 		</attribute>
 	</tag>
 	<tag>
+		<name>side-panel-content</name>
+		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.SidePanelContentTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>showCloseButton</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>sidePanelId</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>title</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
 		<name>step-tracker</name>
 		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.StepTrackerTag</tag-class>
 		<body-content>empty</body-content>
@@ -555,12 +555,6 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
-			<name>stackedLayout</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>boolean</type>
-		</attribute>
-		<attribute>
 			<name>itemsPerPage</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -582,6 +576,12 @@
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>javax.portlet.PortletURL</type>
+		</attribute>
+		<attribute>
+			<name>stackedLayout</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
 		</attribute>
 		<attribute>
 			<name>tableName</name>

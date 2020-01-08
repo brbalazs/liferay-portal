@@ -399,8 +399,6 @@ public class CommerceOrderItemClayTable
 				}
 			}
 			else {
-				String period = StringPool.BLANK;
-
 				CommerceSubscriptionEntry commerceSubscriptionEntry =
 					_commerceSubscriptionEntryLocalService.
 						fetchCommerceSubscriptionEntry(
@@ -409,6 +407,8 @@ public class CommerceOrderItemClayTable
 				if (commerceSubscriptionEntry == null) {
 					return subscriptionDuration;
 				}
+
+				String period = StringPool.BLANK;
 
 				long duration =
 					commerceSubscriptionEntry.getMaxSubscriptionCycles();
@@ -436,8 +436,6 @@ public class CommerceOrderItemClayTable
 			CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
 
 			if (commerceOrder.isOpen()) {
-				String period = StringPool.BLANK;
-
 				CPInstance cpInstance = commerceOrderItem.getCPInstance();
 
 				CPSubscriptionInfo cpSubscriptionInfo =
@@ -446,6 +444,8 @@ public class CommerceOrderItemClayTable
 				if (cpSubscriptionInfo == null) {
 					return subscriptionPeriod;
 				}
+
+				String period = StringPool.BLANK;
 
 				CPSubscriptionType cpSubscriptionType =
 					_cpSubscriptionTypeRegistry.getCPSubscriptionType(
@@ -467,8 +467,6 @@ public class CommerceOrderItemClayTable
 					});
 			}
 			else {
-				String period = StringPool.BLANK;
-
 				CommerceSubscriptionEntry commerceSubscriptionEntry =
 					_commerceSubscriptionEntryLocalService.
 						fetchCommerceSubscriptionEntry(
@@ -477,6 +475,8 @@ public class CommerceOrderItemClayTable
 				if (commerceSubscriptionEntry == null) {
 					return subscriptionPeriod;
 				}
+
+				String period = StringPool.BLANK;
 
 				int subscriptionLength =
 					commerceSubscriptionEntry.getSubscriptionLength();
