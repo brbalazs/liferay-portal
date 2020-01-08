@@ -39,12 +39,14 @@ public interface RelatedProductResource {
 		return new Builder();
 	}
 
-	public Page<RelatedProduct> getProductRelatedProductsPage(
-			Long productId, String type, Pagination pagination)
+	public Page<RelatedProduct> getStoreChannelProductRelatedProductsPage(
+			Long channelId, Long productId, String type, Pagination pagination)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse getProductRelatedProductsPageHttpResponse(
-			Long productId, String type, Pagination pagination)
+	public HttpInvoker.HttpResponse
+			getStoreChannelProductRelatedProductsPageHttpResponse(
+				Long channelId, Long productId, String type,
+				Pagination pagination)
 		throws Exception;
 
 	public RelatedProduct getRelatedProduct(Long id) throws Exception;
@@ -108,13 +110,14 @@ public interface RelatedProductResource {
 	public static class RelatedProductResourceImpl
 		implements RelatedProductResource {
 
-		public Page<RelatedProduct> getProductRelatedProductsPage(
-				Long productId, String type, Pagination pagination)
+		public Page<RelatedProduct> getStoreChannelProductRelatedProductsPage(
+				Long channelId, Long productId, String type,
+				Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getProductRelatedProductsPageHttpResponse(
-					productId, type, pagination);
+				getStoreChannelProductRelatedProductsPageHttpResponse(
+					channelId, productId, type, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -128,8 +131,9 @@ public interface RelatedProductResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getProductRelatedProductsPageHttpResponse(
-					Long productId, String type, Pagination pagination)
+				getStoreChannelProductRelatedProductsPageHttpResponse(
+					Long channelId, Long productId, String type,
+					Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -167,8 +171,8 @@ public interface RelatedProductResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-catalog/v1.0/products/{productId}/relatedProducts",
-				productId);
+						"/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/relatedProducts",
+				channelId, productId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

@@ -28,6 +28,90 @@ import javax.annotation.Generated;
 @Generated("")
 public class Price {
 
+	public String getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(String discount) {
+		this.discount = discount;
+	}
+
+	public void setDiscount(
+		UnsafeSupplier<String, Exception> discountUnsafeSupplier) {
+
+		try {
+			discount = discountUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String discount;
+
+	public String getDiscountPercentage() {
+		return discountPercentage;
+	}
+
+	public void setDiscountPercentage(String discountPercentage) {
+		this.discountPercentage = discountPercentage;
+	}
+
+	public void setDiscountPercentage(
+		UnsafeSupplier<String, Exception> discountPercentageUnsafeSupplier) {
+
+		try {
+			discountPercentage = discountPercentageUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String discountPercentage;
+
+	public String[] getDiscountPercentages() {
+		return discountPercentages;
+	}
+
+	public void setDiscountPercentages(String[] discountPercentages) {
+		this.discountPercentages = discountPercentages;
+	}
+
+	public void setDiscountPercentages(
+		UnsafeSupplier<String[], Exception> discountPercentagesUnsafeSupplier) {
+
+		try {
+			discountPercentages = discountPercentagesUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String[] discountPercentages;
+
+	public String getFinalPrice() {
+		return finalPrice;
+	}
+
+	public void setFinalPrice(String finalPrice) {
+		this.finalPrice = finalPrice;
+	}
+
+	public void setFinalPrice(
+		UnsafeSupplier<String, Exception> finalPriceUnsafeSupplier) {
+
+		try {
+			finalPrice = finalPriceUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String finalPrice;
+
 	public Double getPrice() {
 		return price;
 	}

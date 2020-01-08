@@ -40,7 +40,8 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface SkuResource {
 
-	public Page<Sku> getProductIdSkusPage(Long id, Pagination pagination)
+	public Page<Sku> getStoreChannelProductSkusPage(
+			Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

@@ -57,22 +57,25 @@ public abstract class BaseCategoryResourceImpl implements CategoryResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/products/{productId}/categories'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/categories'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
 	@Operation(description = "Gets a list of Category related to a Product.")
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.PATH, name = "channelId"),
 			@Parameter(in = ParameterIn.PATH, name = "productId"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/products/{productId}/categories")
+	@Path("/stores/{channelId}/products/{productId}/categories")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Category")})
-	public Page<Category> getProductCategoriesPage(
+	public Page<Category> getStoreChannelProductCategoriesPage(
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Long
 				productId,
 			@Context Pagination pagination)

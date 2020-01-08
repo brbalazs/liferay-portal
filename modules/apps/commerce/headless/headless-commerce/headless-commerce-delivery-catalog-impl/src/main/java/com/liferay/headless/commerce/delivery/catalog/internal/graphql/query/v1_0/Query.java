@@ -29,7 +29,6 @@ import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLTypeExtension;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
@@ -86,10 +85,11 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productCategories(page: ___, pageSize: ___, productId: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {storeChannelProductCategories(channelId: ___, page: ___, pageSize: ___, productId: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Gets a list of Category related to a Product.")
-	public CategoryPage productCategories(
+	public CategoryPage storeChannelProductCategories(
+			@GraphQLName("channelId") Long channelId,
 			@GraphQLName("productId") Long productId,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
@@ -99,21 +99,26 @@ public class Query {
 			_categoryResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			categoryResource -> new CategoryPage(
-				categoryResource.getProductCategoriesPage(
-					productId, Pagination.of(page, pageSize))));
+				categoryResource.getStoreChannelProductCategoriesPage(
+					channelId, productId, Pagination.of(page, pageSize))));
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {product(id: ___){categories, createDate, description, expando, friendlyUrl, id, metaDescription, metaKeyword, metaTitle, modifiedDate, multipleOrderQuantity, name, productId, productType, relatedProducts, shortDescription, skus, slug, tags, urlImage}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {storeChannelProduct(channelId: ___, productId: ___){categories, createDate, description, expando, friendlyUrl, id, metaDescription, metaKeyword, metaTitle, modifiedDate, multipleOrderQuantity, name, productId, productType, relatedProducts, shortDescription, skus, slug, tags, urlImage}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrieves products from selected channel.")
-	public Product product(@GraphQLName("id") Long id) throws Exception {
+	public Product storeChannelProduct(
+			@GraphQLName("channelId") Long channelId,
+			@GraphQLName("productId") Long productId)
+		throws Exception {
+
 		return _applyComponentServiceObjects(
 			_productResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			productResource -> productResource.getProduct(id));
+			productResource -> productResource.getStoreChannelProduct(
+				channelId, productId));
 	}
 
 	/**
@@ -144,10 +149,11 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productRelatedProducts(page: ___, pageSize: ___, productId: ___, type: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {storeChannelProductRelatedProducts(channelId: ___, page: ___, pageSize: ___, productId: ___, type: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Gets a list of Related Products of a Product.")
-	public RelatedProductPage productRelatedProducts(
+	public RelatedProductPage storeChannelProductRelatedProducts(
+			@GraphQLName("channelId") Long channelId,
 			@GraphQLName("productId") Long productId,
 			@GraphQLName("type") String type,
 			@GraphQLName("pageSize") int pageSize,
@@ -158,8 +164,10 @@ public class Query {
 			_relatedProductResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			relatedProductResource -> new RelatedProductPage(
-				relatedProductResource.getProductRelatedProductsPage(
-					productId, type, Pagination.of(page, pageSize))));
+				relatedProductResource.
+					getStoreChannelProductRelatedProductsPage(
+						channelId, productId, type,
+						Pagination.of(page, pageSize))));
 	}
 
 	/**
@@ -181,84 +189,21 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productIdSkus(id: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {storeChannelProductSkus(channelId: ___, page: ___, pageSize: ___, productId: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrieves products from selected channel.")
-	public SkuPage productIdSkus(
-			@GraphQLName("id") Long id, @GraphQLName("pageSize") int pageSize,
+	public SkuPage storeChannelProductSkus(
+			@GraphQLName("channelId") Long channelId,
+			@GraphQLName("productId") Long productId,
+			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_skuResourceComponentServiceObjects, this::_populateResourceContext,
 			skuResource -> new SkuPage(
-				skuResource.getProductIdSkusPage(
-					id, Pagination.of(page, pageSize))));
-	}
-
-	@GraphQLTypeExtension(RelatedProduct.class)
-	public class GetProductTypeExtension {
-
-		public GetProductTypeExtension(RelatedProduct relatedProduct) {
-			_relatedProduct = relatedProduct;
-		}
-
-		@GraphQLField(description = "Retrieves products from selected channel.")
-		public Product product() throws Exception {
-			return _applyComponentServiceObjects(
-				_productResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				productResource -> productResource.getProduct(
-					_relatedProduct.getId()));
-		}
-
-		private RelatedProduct _relatedProduct;
-
-	}
-
-	@GraphQLTypeExtension(Product.class)
-	public class GetRelatedProductTypeExtension {
-
-		public GetRelatedProductTypeExtension(Product product) {
-			_product = product;
-		}
-
-		@GraphQLField(description = "Gets a Related Product by ID.")
-		public RelatedProduct relatedProduct() throws Exception {
-			return _applyComponentServiceObjects(
-				_relatedProductResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				relatedProductResource ->
-					relatedProductResource.getRelatedProduct(_product.getId()));
-		}
-
-		private Product _product;
-
-	}
-
-	@GraphQLTypeExtension(Product.class)
-	public class GetProductIdSkusPageTypeExtension {
-
-		public GetProductIdSkusPageTypeExtension(Product product) {
-			_product = product;
-		}
-
-		@GraphQLField(description = "Retrieves products from selected channel.")
-		public SkuPage idSkus(
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
-			throws Exception {
-
-			return _applyComponentServiceObjects(
-				_skuResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				skuResource -> new SkuPage(
-					skuResource.getProductIdSkusPage(
-						_product.getId(), Pagination.of(page, pageSize))));
-		}
-
-		private Product _product;
-
+				skuResource.getStoreChannelProductSkusPage(
+					channelId, productId, Pagination.of(page, pageSize))));
 	}
 
 	@GraphQLName("CategoryPage")

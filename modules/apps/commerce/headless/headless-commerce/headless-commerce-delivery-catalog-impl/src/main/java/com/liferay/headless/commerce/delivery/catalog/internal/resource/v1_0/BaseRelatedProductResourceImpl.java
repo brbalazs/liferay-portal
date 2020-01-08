@@ -59,23 +59,26 @@ public abstract class BaseRelatedProductResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/products/{productId}/relatedProducts'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/relatedProducts'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
 	@Operation(description = "Gets a list of Related Products of a Product.")
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.PATH, name = "channelId"),
 			@Parameter(in = ParameterIn.PATH, name = "productId"),
 			@Parameter(in = ParameterIn.QUERY, name = "type"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/products/{productId}/relatedProducts")
+	@Path("/stores/{channelId}/products/{productId}/relatedProducts")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "RelatedProduct")})
-	public Page<RelatedProduct> getProductRelatedProductsPage(
+	public Page<RelatedProduct> getStoreChannelProductRelatedProductsPage(
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Long
 				productId,
 			@Parameter(hidden = true) @QueryParam("type") String type,

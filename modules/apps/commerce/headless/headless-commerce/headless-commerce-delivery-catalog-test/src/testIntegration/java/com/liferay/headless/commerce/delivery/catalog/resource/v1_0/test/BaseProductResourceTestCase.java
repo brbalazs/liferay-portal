@@ -213,22 +213,23 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	@Test
-	public void testGetProduct() throws Exception {
-		Product postProduct = testGetProduct_addProduct();
+	public void testGetStoreChannelProduct() throws Exception {
+		Product postProduct = testGetStoreChannelProduct_addProduct();
 
-		Product getProduct = productResource.getProduct(postProduct.getId());
+		Product getProduct = productResource.getStoreChannelProduct(
+			postProduct.getChannelId(), postProduct.getId());
 
 		assertEquals(postProduct, getProduct);
 		assertValid(getProduct);
 	}
 
-	protected Product testGetProduct_addProduct() throws Exception {
+	protected Product testGetStoreChannelProduct_addProduct() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
 	@Test
-	public void testGraphQLGetProduct() throws Exception {
+	public void testGraphQLGetStoreChannelProduct() throws Exception {
 		Product product = testGraphQLProduct_addProduct();
 
 		List<GraphQLField> graphQLFields = getGraphQLFields();
@@ -236,10 +237,11 @@ public abstract class BaseProductResourceTestCase {
 		GraphQLField graphQLField = new GraphQLField(
 			"query",
 			new GraphQLField(
-				"product",
+				"storeChannelProduct",
 				new HashMap<String, Object>() {
 					{
-						put("id", product.getId());
+						put("channelId", product.getChannelId());
+						put("productId", product.getId());
 					}
 				},
 				graphQLFields.toArray(new GraphQLField[0])));
@@ -250,7 +252,8 @@ public abstract class BaseProductResourceTestCase {
 		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
 
 		Assert.assertTrue(
-			equalsJSONObject(product, dataJSONObject.getJSONObject("product")));
+			equalsJSONObject(
+				product, dataJSONObject.getJSONObject("storeChannelProduct")));
 	}
 
 	@Test

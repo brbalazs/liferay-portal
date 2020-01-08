@@ -40,8 +40,8 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface RelatedProductResource {
 
-	public Page<RelatedProduct> getProductRelatedProductsPage(
-			Long productId, String type, Pagination pagination)
+	public Page<RelatedProduct> getStoreChannelProductRelatedProductsPage(
+			Long channelId, Long productId, String type, Pagination pagination)
 		throws Exception;
 
 	public RelatedProduct getRelatedProduct(Long id) throws Exception;

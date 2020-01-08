@@ -45,6 +45,118 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Price {
 
 	@Schema
+	public String getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(String discount) {
+		this.discount = discount;
+	}
+
+	@JsonIgnore
+	public void setDiscount(
+		UnsafeSupplier<String, Exception> discountUnsafeSupplier) {
+
+		try {
+			discount = discountUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String discount;
+
+	@Schema
+	public String getDiscountPercentage() {
+		return discountPercentage;
+	}
+
+	public void setDiscountPercentage(String discountPercentage) {
+		this.discountPercentage = discountPercentage;
+	}
+
+	@JsonIgnore
+	public void setDiscountPercentage(
+		UnsafeSupplier<String, Exception> discountPercentageUnsafeSupplier) {
+
+		try {
+			discountPercentage = discountPercentageUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String discountPercentage;
+
+	@Schema
+	public String[] getDiscountPercentages() {
+		return discountPercentages;
+	}
+
+	public void setDiscountPercentages(String[] discountPercentages) {
+		this.discountPercentages = discountPercentages;
+	}
+
+	@JsonIgnore
+	public void setDiscountPercentages(
+		UnsafeSupplier<String[], Exception> discountPercentagesUnsafeSupplier) {
+
+		try {
+			discountPercentages = discountPercentagesUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String[] discountPercentages;
+
+	@Schema
+	public String getFinalPrice() {
+		return finalPrice;
+	}
+
+	public void setFinalPrice(String finalPrice) {
+		this.finalPrice = finalPrice;
+	}
+
+	@JsonIgnore
+	public void setFinalPrice(
+		UnsafeSupplier<String, Exception> finalPriceUnsafeSupplier) {
+
+		try {
+			finalPrice = finalPriceUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String finalPrice;
+
+	@Schema
 	public Double getPrice() {
 		return price;
 	}
@@ -238,6 +350,72 @@ public class Price {
 		StringBundler sb = new StringBundler();
 
 		sb.append("{");
+
+		if (discount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discount\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(discount));
+
+			sb.append("\"");
+		}
+
+		if (discountPercentage != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountPercentage\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(discountPercentage));
+
+			sb.append("\"");
+		}
+
+		if (discountPercentages != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountPercentages\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < discountPercentages.length; i++) {
+				sb.append("\"");
+
+				sb.append(_escape(discountPercentages[i]));
+
+				sb.append("\"");
+
+				if ((i + 1) < discountPercentages.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (finalPrice != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"finalPrice\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(finalPrice));
+
+			sb.append("\"");
+		}
 
 		if (price != null) {
 			if (sb.length() > 1) {

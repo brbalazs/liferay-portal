@@ -39,9 +39,11 @@ public interface ProductResource {
 		return new Builder();
 	}
 
-	public Product getProduct(Long id) throws Exception;
+	public Product getStoreChannelProduct(Long channelId, Long productId)
+		throws Exception;
 
-	public HttpInvoker.HttpResponse getProductHttpResponse(Long id)
+	public HttpInvoker.HttpResponse getStoreChannelProductHttpResponse(
+			Long channelId, Long productId)
 		throws Exception;
 
 	public Page<Product> getStoreChannelProductsPage(
@@ -109,8 +111,11 @@ public interface ProductResource {
 
 	public static class ProductResourceImpl implements ProductResource {
 
-		public Product getProduct(Long id) throws Exception {
-			HttpInvoker.HttpResponse httpResponse = getProductHttpResponse(id);
+		public Product getStoreChannelProduct(Long channelId, Long productId)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getStoreChannelProductHttpResponse(channelId, productId);
 
 			String content = httpResponse.getContent();
 
@@ -132,7 +137,8 @@ public interface ProductResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getProductHttpResponse(Long id)
+		public HttpInvoker.HttpResponse getStoreChannelProductHttpResponse(
+				Long channelId, Long productId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -159,8 +165,8 @@ public interface ProductResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-catalog/v1.0/products/{id}",
-				id);
+						"/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}",
+				channelId, productId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

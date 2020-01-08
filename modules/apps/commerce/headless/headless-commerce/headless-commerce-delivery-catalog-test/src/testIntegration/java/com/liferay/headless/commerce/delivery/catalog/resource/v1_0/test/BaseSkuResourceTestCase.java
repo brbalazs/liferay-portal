@@ -192,21 +192,28 @@ public abstract class BaseSkuResourceTestCase {
 	}
 
 	@Test
-	public void testGetProductIdSkusPage() throws Exception {
-		Page<Sku> page = skuResource.getProductIdSkusPage(
-			testGetProductIdSkusPage_getId(), Pagination.of(1, 2));
+	public void testGetStoreChannelProductSkusPage() throws Exception {
+		Page<Sku> page = skuResource.getStoreChannelProductSkusPage(
+			testGetStoreChannelProductSkusPage_getChannelId(),
+			testGetStoreChannelProductSkusPage_getProductId(),
+			Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
-		Long id = testGetProductIdSkusPage_getId();
-		Long irrelevantId = testGetProductIdSkusPage_getIrrelevantId();
+		Long channelId = testGetStoreChannelProductSkusPage_getChannelId();
+		Long irrelevantChannelId =
+			testGetStoreChannelProductSkusPage_getIrrelevantChannelId();
+		Long productId = testGetStoreChannelProductSkusPage_getProductId();
+		Long irrelevantProductId =
+			testGetStoreChannelProductSkusPage_getIrrelevantProductId();
 
-		if ((irrelevantId != null)) {
-			Sku irrelevantSku = testGetProductIdSkusPage_addSku(
-				irrelevantId, randomIrrelevantSku());
+		if ((irrelevantChannelId != null) && (irrelevantProductId != null)) {
+			Sku irrelevantSku = testGetStoreChannelProductSkusPage_addSku(
+				irrelevantChannelId, irrelevantProductId,
+				randomIrrelevantSku());
 
-			page = skuResource.getProductIdSkusPage(
-				irrelevantId, Pagination.of(1, 2));
+			page = skuResource.getStoreChannelProductSkusPage(
+				irrelevantChannelId, irrelevantProductId, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -215,11 +222,14 @@ public abstract class BaseSkuResourceTestCase {
 			assertValid(page);
 		}
 
-		Sku sku1 = testGetProductIdSkusPage_addSku(id, randomSku());
+		Sku sku1 = testGetStoreChannelProductSkusPage_addSku(
+			channelId, productId, randomSku());
 
-		Sku sku2 = testGetProductIdSkusPage_addSku(id, randomSku());
+		Sku sku2 = testGetStoreChannelProductSkusPage_addSku(
+			channelId, productId, randomSku());
 
-		page = skuResource.getProductIdSkusPage(id, Pagination.of(1, 2));
+		page = skuResource.getStoreChannelProductSkusPage(
+			channelId, productId, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -229,24 +239,30 @@ public abstract class BaseSkuResourceTestCase {
 	}
 
 	@Test
-	public void testGetProductIdSkusPageWithPagination() throws Exception {
-		Long id = testGetProductIdSkusPage_getId();
+	public void testGetStoreChannelProductSkusPageWithPagination()
+		throws Exception {
 
-		Sku sku1 = testGetProductIdSkusPage_addSku(id, randomSku());
+		Long channelId = testGetStoreChannelProductSkusPage_getChannelId();
+		Long productId = testGetStoreChannelProductSkusPage_getProductId();
 
-		Sku sku2 = testGetProductIdSkusPage_addSku(id, randomSku());
+		Sku sku1 = testGetStoreChannelProductSkusPage_addSku(
+			channelId, productId, randomSku());
 
-		Sku sku3 = testGetProductIdSkusPage_addSku(id, randomSku());
+		Sku sku2 = testGetStoreChannelProductSkusPage_addSku(
+			channelId, productId, randomSku());
 
-		Page<Sku> page1 = skuResource.getProductIdSkusPage(
-			id, Pagination.of(1, 2));
+		Sku sku3 = testGetStoreChannelProductSkusPage_addSku(
+			channelId, productId, randomSku());
+
+		Page<Sku> page1 = skuResource.getStoreChannelProductSkusPage(
+			channelId, productId, Pagination.of(1, 2));
 
 		List<Sku> skus1 = (List<Sku>)page1.getItems();
 
 		Assert.assertEquals(skus1.toString(), 2, skus1.size());
 
-		Page<Sku> page2 = skuResource.getProductIdSkusPage(
-			id, Pagination.of(2, 2));
+		Page<Sku> page2 = skuResource.getStoreChannelProductSkusPage(
+			channelId, productId, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -254,26 +270,44 @@ public abstract class BaseSkuResourceTestCase {
 
 		Assert.assertEquals(skus2.toString(), 1, skus2.size());
 
-		Page<Sku> page3 = skuResource.getProductIdSkusPage(
-			id, Pagination.of(1, 3));
+		Page<Sku> page3 = skuResource.getStoreChannelProductSkusPage(
+			channelId, productId, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(sku1, sku2, sku3), (List<Sku>)page3.getItems());
 	}
 
-	protected Sku testGetProductIdSkusPage_addSku(Long id, Sku sku)
+	protected Sku testGetStoreChannelProductSkusPage_addSku(
+			Long channelId, Long productId, Sku sku)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long testGetProductIdSkusPage_getId() throws Exception {
+	protected Long testGetStoreChannelProductSkusPage_getChannelId()
+		throws Exception {
+
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long testGetProductIdSkusPage_getIrrelevantId() throws Exception {
+	protected Long testGetStoreChannelProductSkusPage_getIrrelevantChannelId()
+		throws Exception {
+
+		return null;
+	}
+
+	protected Long testGetStoreChannelProductSkusPage_getProductId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Long testGetStoreChannelProductSkusPage_getIrrelevantProductId()
+		throws Exception {
+
 		return null;
 	}
 

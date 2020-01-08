@@ -189,25 +189,37 @@ public abstract class BaseRelatedProductResourceTestCase {
 	}
 
 	@Test
-	public void testGetProductRelatedProductsPage() throws Exception {
+	public void testGetStoreChannelProductRelatedProductsPage()
+		throws Exception {
+
 		Page<RelatedProduct> page =
-			relatedProductResource.getProductRelatedProductsPage(
-				testGetProductRelatedProductsPage_getProductId(),
+			relatedProductResource.getStoreChannelProductRelatedProductsPage(
+				testGetStoreChannelProductRelatedProductsPage_getChannelId(),
+				testGetStoreChannelProductRelatedProductsPage_getProductId(),
 				RandomTestUtil.randomString(), Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
-		Long productId = testGetProductRelatedProductsPage_getProductId();
+		Long channelId =
+			testGetStoreChannelProductRelatedProductsPage_getChannelId();
+		Long irrelevantChannelId =
+			testGetStoreChannelProductRelatedProductsPage_getIrrelevantChannelId();
+		Long productId =
+			testGetStoreChannelProductRelatedProductsPage_getProductId();
 		Long irrelevantProductId =
-			testGetProductRelatedProductsPage_getIrrelevantProductId();
+			testGetStoreChannelProductRelatedProductsPage_getIrrelevantProductId();
 
-		if ((irrelevantProductId != null)) {
+		if ((irrelevantChannelId != null) && (irrelevantProductId != null)) {
 			RelatedProduct irrelevantRelatedProduct =
-				testGetProductRelatedProductsPage_addRelatedProduct(
-					irrelevantProductId, randomIrrelevantRelatedProduct());
+				testGetStoreChannelProductRelatedProductsPage_addRelatedProduct(
+					irrelevantChannelId, irrelevantProductId,
+					randomIrrelevantRelatedProduct());
 
-			page = relatedProductResource.getProductRelatedProductsPage(
-				irrelevantProductId, null, Pagination.of(1, 2));
+			page =
+				relatedProductResource.
+					getStoreChannelProductRelatedProductsPage(
+						irrelevantChannelId, irrelevantProductId, null,
+						Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -218,15 +230,15 @@ public abstract class BaseRelatedProductResourceTestCase {
 		}
 
 		RelatedProduct relatedProduct1 =
-			testGetProductRelatedProductsPage_addRelatedProduct(
-				productId, randomRelatedProduct());
+			testGetStoreChannelProductRelatedProductsPage_addRelatedProduct(
+				channelId, productId, randomRelatedProduct());
 
 		RelatedProduct relatedProduct2 =
-			testGetProductRelatedProductsPage_addRelatedProduct(
-				productId, randomRelatedProduct());
+			testGetStoreChannelProductRelatedProductsPage_addRelatedProduct(
+				channelId, productId, randomRelatedProduct());
 
-		page = relatedProductResource.getProductRelatedProductsPage(
-			productId, null, Pagination.of(1, 2));
+		page = relatedProductResource.getStoreChannelProductRelatedProductsPage(
+			channelId, productId, null, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -237,26 +249,29 @@ public abstract class BaseRelatedProductResourceTestCase {
 	}
 
 	@Test
-	public void testGetProductRelatedProductsPageWithPagination()
+	public void testGetStoreChannelProductRelatedProductsPageWithPagination()
 		throws Exception {
 
-		Long productId = testGetProductRelatedProductsPage_getProductId();
+		Long channelId =
+			testGetStoreChannelProductRelatedProductsPage_getChannelId();
+		Long productId =
+			testGetStoreChannelProductRelatedProductsPage_getProductId();
 
 		RelatedProduct relatedProduct1 =
-			testGetProductRelatedProductsPage_addRelatedProduct(
-				productId, randomRelatedProduct());
+			testGetStoreChannelProductRelatedProductsPage_addRelatedProduct(
+				channelId, productId, randomRelatedProduct());
 
 		RelatedProduct relatedProduct2 =
-			testGetProductRelatedProductsPage_addRelatedProduct(
-				productId, randomRelatedProduct());
+			testGetStoreChannelProductRelatedProductsPage_addRelatedProduct(
+				channelId, productId, randomRelatedProduct());
 
 		RelatedProduct relatedProduct3 =
-			testGetProductRelatedProductsPage_addRelatedProduct(
-				productId, randomRelatedProduct());
+			testGetStoreChannelProductRelatedProductsPage_addRelatedProduct(
+				channelId, productId, randomRelatedProduct());
 
 		Page<RelatedProduct> page1 =
-			relatedProductResource.getProductRelatedProductsPage(
-				productId, null, Pagination.of(1, 2));
+			relatedProductResource.getStoreChannelProductRelatedProductsPage(
+				channelId, productId, null, Pagination.of(1, 2));
 
 		List<RelatedProduct> relatedProducts1 =
 			(List<RelatedProduct>)page1.getItems();
@@ -265,8 +280,8 @@ public abstract class BaseRelatedProductResourceTestCase {
 			relatedProducts1.toString(), 2, relatedProducts1.size());
 
 		Page<RelatedProduct> page2 =
-			relatedProductResource.getProductRelatedProductsPage(
-				productId, null, Pagination.of(2, 2));
+			relatedProductResource.getStoreChannelProductRelatedProductsPage(
+				channelId, productId, null, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -277,8 +292,8 @@ public abstract class BaseRelatedProductResourceTestCase {
 			relatedProducts2.toString(), 1, relatedProducts2.size());
 
 		Page<RelatedProduct> page3 =
-			relatedProductResource.getProductRelatedProductsPage(
-				productId, null, Pagination.of(1, 3));
+			relatedProductResource.getStoreChannelProductRelatedProductsPage(
+				channelId, productId, null, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(relatedProduct1, relatedProduct2, relatedProduct3),
@@ -286,22 +301,37 @@ public abstract class BaseRelatedProductResourceTestCase {
 	}
 
 	protected RelatedProduct
-			testGetProductRelatedProductsPage_addRelatedProduct(
-				Long productId, RelatedProduct relatedProduct)
+			testGetStoreChannelProductRelatedProductsPage_addRelatedProduct(
+				Long channelId, Long productId, RelatedProduct relatedProduct)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long testGetProductRelatedProductsPage_getProductId()
+	protected Long testGetStoreChannelProductRelatedProductsPage_getChannelId()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long testGetProductRelatedProductsPage_getIrrelevantProductId()
+	protected Long
+			testGetStoreChannelProductRelatedProductsPage_getIrrelevantChannelId()
+		throws Exception {
+
+		return null;
+	}
+
+	protected Long testGetStoreChannelProductRelatedProductsPage_getProductId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Long
+			testGetStoreChannelProductRelatedProductsPage_getIrrelevantProductId()
 		throws Exception {
 
 		return null;

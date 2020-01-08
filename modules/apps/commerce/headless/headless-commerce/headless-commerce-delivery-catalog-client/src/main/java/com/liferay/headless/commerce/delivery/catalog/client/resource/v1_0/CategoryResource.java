@@ -38,12 +38,13 @@ public interface CategoryResource {
 		return new Builder();
 	}
 
-	public Page<Category> getProductCategoriesPage(
-			Long productId, Pagination pagination)
+	public Page<Category> getStoreChannelProductCategoriesPage(
+			Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse getProductCategoriesPageHttpResponse(
-			Long productId, Pagination pagination)
+	public HttpInvoker.HttpResponse
+			getStoreChannelProductCategoriesPageHttpResponse(
+				Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 
 	public static class Builder {
@@ -101,12 +102,13 @@ public interface CategoryResource {
 
 	public static class CategoryResourceImpl implements CategoryResource {
 
-		public Page<Category> getProductCategoriesPage(
-				Long productId, Pagination pagination)
+		public Page<Category> getStoreChannelProductCategoriesPage(
+				Long channelId, Long productId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getProductCategoriesPageHttpResponse(productId, pagination);
+				getStoreChannelProductCategoriesPageHttpResponse(
+					channelId, productId, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -119,8 +121,9 @@ public interface CategoryResource {
 			return Page.of(content, CategorySerDes::toDTO);
 		}
 
-		public HttpInvoker.HttpResponse getProductCategoriesPageHttpResponse(
-				Long productId, Pagination pagination)
+		public HttpInvoker.HttpResponse
+				getStoreChannelProductCategoriesPageHttpResponse(
+					Long channelId, Long productId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -154,8 +157,8 @@ public interface CategoryResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-catalog/v1.0/products/{productId}/categories",
-				productId);
+						"/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/categories",
+				channelId, productId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

@@ -38,11 +38,12 @@ public interface SkuResource {
 		return new Builder();
 	}
 
-	public Page<Sku> getProductIdSkusPage(Long id, Pagination pagination)
+	public Page<Sku> getStoreChannelProductSkusPage(
+			Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse getProductIdSkusPageHttpResponse(
-			Long id, Pagination pagination)
+	public HttpInvoker.HttpResponse getStoreChannelProductSkusPageHttpResponse(
+			Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 
 	public static class Builder {
@@ -100,11 +101,13 @@ public interface SkuResource {
 
 	public static class SkuResourceImpl implements SkuResource {
 
-		public Page<Sku> getProductIdSkusPage(Long id, Pagination pagination)
+		public Page<Sku> getStoreChannelProductSkusPage(
+				Long channelId, Long productId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getProductIdSkusPageHttpResponse(id, pagination);
+				getStoreChannelProductSkusPageHttpResponse(
+					channelId, productId, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -117,8 +120,9 @@ public interface SkuResource {
 			return Page.of(content, SkuSerDes::toDTO);
 		}
 
-		public HttpInvoker.HttpResponse getProductIdSkusPageHttpResponse(
-				Long id, Pagination pagination)
+		public HttpInvoker.HttpResponse
+				getStoreChannelProductSkusPageHttpResponse(
+					Long channelId, Long productId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -152,8 +156,8 @@ public interface SkuResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-catalog/v1.0/products/{id}/skus",
-				id);
+						"/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/skus",
+				channelId, productId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

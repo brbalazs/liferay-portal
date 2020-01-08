@@ -189,23 +189,32 @@ public abstract class BaseCategoryResourceTestCase {
 	}
 
 	@Test
-	public void testGetProductCategoriesPage() throws Exception {
-		Page<Category> page = categoryResource.getProductCategoriesPage(
-			testGetProductCategoriesPage_getProductId(), Pagination.of(1, 2));
+	public void testGetStoreChannelProductCategoriesPage() throws Exception {
+		Page<Category> page =
+			categoryResource.getStoreChannelProductCategoriesPage(
+				testGetStoreChannelProductCategoriesPage_getChannelId(),
+				testGetStoreChannelProductCategoriesPage_getProductId(),
+				Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
-		Long productId = testGetProductCategoriesPage_getProductId();
+		Long channelId =
+			testGetStoreChannelProductCategoriesPage_getChannelId();
+		Long irrelevantChannelId =
+			testGetStoreChannelProductCategoriesPage_getIrrelevantChannelId();
+		Long productId =
+			testGetStoreChannelProductCategoriesPage_getProductId();
 		Long irrelevantProductId =
-			testGetProductCategoriesPage_getIrrelevantProductId();
+			testGetStoreChannelProductCategoriesPage_getIrrelevantProductId();
 
-		if ((irrelevantProductId != null)) {
+		if ((irrelevantChannelId != null) && (irrelevantProductId != null)) {
 			Category irrelevantCategory =
-				testGetProductCategoriesPage_addCategory(
-					irrelevantProductId, randomIrrelevantCategory());
+				testGetStoreChannelProductCategoriesPage_addCategory(
+					irrelevantChannelId, irrelevantProductId,
+					randomIrrelevantCategory());
 
-			page = categoryResource.getProductCategoriesPage(
-				irrelevantProductId, Pagination.of(1, 2));
+			page = categoryResource.getStoreChannelProductCategoriesPage(
+				irrelevantChannelId, irrelevantProductId, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -215,14 +224,16 @@ public abstract class BaseCategoryResourceTestCase {
 			assertValid(page);
 		}
 
-		Category category1 = testGetProductCategoriesPage_addCategory(
-			productId, randomCategory());
+		Category category1 =
+			testGetStoreChannelProductCategoriesPage_addCategory(
+				channelId, productId, randomCategory());
 
-		Category category2 = testGetProductCategoriesPage_addCategory(
-			productId, randomCategory());
+		Category category2 =
+			testGetStoreChannelProductCategoriesPage_addCategory(
+				channelId, productId, randomCategory());
 
-		page = categoryResource.getProductCategoriesPage(
-			productId, Pagination.of(1, 2));
+		page = categoryResource.getStoreChannelProductCategoriesPage(
+			channelId, productId, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -233,27 +244,37 @@ public abstract class BaseCategoryResourceTestCase {
 	}
 
 	@Test
-	public void testGetProductCategoriesPageWithPagination() throws Exception {
-		Long productId = testGetProductCategoriesPage_getProductId();
+	public void testGetStoreChannelProductCategoriesPageWithPagination()
+		throws Exception {
 
-		Category category1 = testGetProductCategoriesPage_addCategory(
-			productId, randomCategory());
+		Long channelId =
+			testGetStoreChannelProductCategoriesPage_getChannelId();
+		Long productId =
+			testGetStoreChannelProductCategoriesPage_getProductId();
 
-		Category category2 = testGetProductCategoriesPage_addCategory(
-			productId, randomCategory());
+		Category category1 =
+			testGetStoreChannelProductCategoriesPage_addCategory(
+				channelId, productId, randomCategory());
 
-		Category category3 = testGetProductCategoriesPage_addCategory(
-			productId, randomCategory());
+		Category category2 =
+			testGetStoreChannelProductCategoriesPage_addCategory(
+				channelId, productId, randomCategory());
 
-		Page<Category> page1 = categoryResource.getProductCategoriesPage(
-			productId, Pagination.of(1, 2));
+		Category category3 =
+			testGetStoreChannelProductCategoriesPage_addCategory(
+				channelId, productId, randomCategory());
+
+		Page<Category> page1 =
+			categoryResource.getStoreChannelProductCategoriesPage(
+				channelId, productId, Pagination.of(1, 2));
 
 		List<Category> categories1 = (List<Category>)page1.getItems();
 
 		Assert.assertEquals(categories1.toString(), 2, categories1.size());
 
-		Page<Category> page2 = categoryResource.getProductCategoriesPage(
-			productId, Pagination.of(2, 2));
+		Page<Category> page2 =
+			categoryResource.getStoreChannelProductCategoriesPage(
+				channelId, productId, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -261,30 +282,46 @@ public abstract class BaseCategoryResourceTestCase {
 
 		Assert.assertEquals(categories2.toString(), 1, categories2.size());
 
-		Page<Category> page3 = categoryResource.getProductCategoriesPage(
-			productId, Pagination.of(1, 3));
+		Page<Category> page3 =
+			categoryResource.getStoreChannelProductCategoriesPage(
+				channelId, productId, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(category1, category2, category3),
 			(List<Category>)page3.getItems());
 	}
 
-	protected Category testGetProductCategoriesPage_addCategory(
-			Long productId, Category category)
+	protected Category testGetStoreChannelProductCategoriesPage_addCategory(
+			Long channelId, Long productId, Category category)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long testGetProductCategoriesPage_getProductId()
+	protected Long testGetStoreChannelProductCategoriesPage_getChannelId()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long testGetProductCategoriesPage_getIrrelevantProductId()
+	protected Long
+			testGetStoreChannelProductCategoriesPage_getIrrelevantChannelId()
+		throws Exception {
+
+		return null;
+	}
+
+	protected Long testGetStoreChannelProductCategoriesPage_getProductId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Long
+			testGetStoreChannelProductCategoriesPage_getIrrelevantProductId()
 		throws Exception {
 
 		return null;

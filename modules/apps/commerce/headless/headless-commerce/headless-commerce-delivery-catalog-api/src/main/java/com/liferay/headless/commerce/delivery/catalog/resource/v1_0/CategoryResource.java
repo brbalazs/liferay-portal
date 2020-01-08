@@ -40,8 +40,8 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface CategoryResource {
 
-	public Page<Category> getProductCategoriesPage(
-			Long productId, Pagination pagination)
+	public Page<Category> getStoreChannelProductCategoriesPage(
+			Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(
