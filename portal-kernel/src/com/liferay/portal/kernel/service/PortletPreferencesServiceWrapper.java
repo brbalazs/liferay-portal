@@ -52,11 +52,11 @@ public class PortletPreferencesServiceWrapper
 	public void restoreArchivedPreferences(
 			long groupId, com.liferay.portal.kernel.model.Layout layout,
 			java.lang.String portletId, long portletItemId,
-			javax.portlet.PortletPreferences preferences)
+			javax.portlet.PortletPreferences jxPortletPreferences)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_portletPreferencesService.restoreArchivedPreferences(
-			groupId, layout, portletId, portletItemId, preferences);
+			groupId, layout, portletId, portletItemId, jxPortletPreferences);
 	}
 
 	@Override
@@ -64,11 +64,11 @@ public class PortletPreferencesServiceWrapper
 			long groupId, com.liferay.portal.kernel.model.Layout layout,
 			java.lang.String portletId,
 			com.liferay.portal.kernel.model.PortletItem portletItem,
-			javax.portlet.PortletPreferences preferences)
+			javax.portlet.PortletPreferences jxPortletPreferences)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_portletPreferencesService.restoreArchivedPreferences(
-			groupId, layout, portletId, portletItem, preferences);
+			groupId, layout, portletId, portletItem, jxPortletPreferences);
 	}
 
 	@Override
@@ -76,22 +76,22 @@ public class PortletPreferencesServiceWrapper
 			long groupId, java.lang.String name,
 			com.liferay.portal.kernel.model.Layout layout,
 			java.lang.String portletId,
-			javax.portlet.PortletPreferences preferences)
+			javax.portlet.PortletPreferences jxPortletPreferences)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_portletPreferencesService.restoreArchivedPreferences(
-			groupId, name, layout, portletId, preferences);
+			groupId, name, layout, portletId, jxPortletPreferences);
 	}
 
 	@Override
 	public void updateArchivePreferences(
 			long userId, long groupId, java.lang.String name,
 			java.lang.String portletId,
-			javax.portlet.PortletPreferences preferences)
+			javax.portlet.PortletPreferences jxPortletPreferences)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_portletPreferencesService.updateArchivePreferences(
-			userId, groupId, name, portletId, preferences);
+			userId, groupId, name, portletId, jxPortletPreferences);
 	}
 
 	@Override
