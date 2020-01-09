@@ -445,6 +445,36 @@ public class Product {
 	protected Long productId;
 
 	@Schema
+	@Valid
+	public ProductOption[] getProductOptions() {
+		return productOptions;
+	}
+
+	public void setProductOptions(ProductOption[] productOptions) {
+		this.productOptions = productOptions;
+	}
+
+	@JsonIgnore
+	public void setProductOptions(
+		UnsafeSupplier<ProductOption[], Exception>
+			productOptionsUnsafeSupplier) {
+
+		try {
+			productOptions = productOptionsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected ProductOption[] productOptions;
+
+	@Schema
 	public String getProductType() {
 		return productType;
 	}
@@ -859,6 +889,26 @@ public class Product {
 			sb.append("\"productId\": ");
 
 			sb.append(productId);
+		}
+
+		if (productOptions != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"productOptions\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < productOptions.length; i++) {
+				sb.append(String.valueOf(productOptions[i]));
+
+				if ((i + 1) < productOptions.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
 		if (productType != null) {

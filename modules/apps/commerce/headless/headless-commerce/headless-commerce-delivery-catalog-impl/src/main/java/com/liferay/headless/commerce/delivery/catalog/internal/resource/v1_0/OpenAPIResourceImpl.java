@@ -70,6 +70,8 @@ public class OpenAPIResourceImpl {
 
 			add(ProductResourceImpl.class);
 
+			add(ProductOptionResourceImpl.class);
+
 			add(RelatedProductResourceImpl.class);
 
 			add(SkuResourceImpl.class);

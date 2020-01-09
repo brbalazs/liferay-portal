@@ -17,6 +17,7 @@ package com.liferay.headless.commerce.delivery.catalog.client.serdes.v1_0;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Attachment;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Category;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Product;
+import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.ProductOption;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.RelatedProduct;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Sku;
 import com.liferay.headless.commerce.delivery.catalog.client.json.BaseJSONParser;
@@ -257,6 +258,26 @@ public class ProductSerDes {
 			sb.append(product.getProductId());
 		}
 
+		if (product.getProductOptions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"productOptions\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < product.getProductOptions().length; i++) {
+				sb.append(String.valueOf(product.getProductOptions()[i]));
+
+				if ((i + 1) < product.getProductOptions().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (product.getProductType() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -494,6 +515,14 @@ public class ProductSerDes {
 			map.put("productId", String.valueOf(product.getProductId()));
 		}
 
+		if (product.getProductOptions() == null) {
+			map.put("productOptions", null);
+		}
+		else {
+			map.put(
+				"productOptions", String.valueOf(product.getProductOptions()));
+		}
+
 		if (product.getProductType() == null) {
 			map.put("productType", null);
 		}
@@ -655,6 +684,18 @@ public class ProductSerDes {
 				if (jsonParserFieldValue != null) {
 					product.setProductId(
 						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "productOptions")) {
+				if (jsonParserFieldValue != null) {
+					product.setProductOptions(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> ProductOptionSerDes.toDTO((String)object)
+						).toArray(
+							size -> new ProductOption[size]
+						));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "productType")) {

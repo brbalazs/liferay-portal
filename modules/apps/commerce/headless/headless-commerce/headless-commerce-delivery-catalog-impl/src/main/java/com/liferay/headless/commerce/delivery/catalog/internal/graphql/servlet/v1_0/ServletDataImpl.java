@@ -18,6 +18,7 @@ import com.liferay.headless.commerce.delivery.catalog.internal.graphql.mutation.
 import com.liferay.headless.commerce.delivery.catalog.internal.graphql.query.v1_0.Query;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.AttachmentResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.CategoryResource;
+import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.ProductOptionResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.ProductResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.RelatedProductResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.SkuResource;
@@ -48,6 +49,8 @@ public class ServletDataImpl implements ServletData {
 			_categoryResourceComponentServiceObjects);
 		Query.setProductResourceComponentServiceObjects(
 			_productResourceComponentServiceObjects);
+		Query.setProductOptionResourceComponentServiceObjects(
+			_productOptionResourceComponentServiceObjects);
 		Query.setRelatedProductResourceComponentServiceObjects(
 			_relatedProductResourceComponentServiceObjects);
 		Query.setSkuResourceComponentServiceObjects(
@@ -80,6 +83,10 @@ public class ServletDataImpl implements ServletData {
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<ProductResource>
 		_productResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<ProductOptionResource>
+		_productOptionResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<RelatedProductResource>

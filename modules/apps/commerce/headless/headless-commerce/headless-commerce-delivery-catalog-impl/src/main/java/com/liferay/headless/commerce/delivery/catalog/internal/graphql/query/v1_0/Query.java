@@ -17,10 +17,12 @@ package com.liferay.headless.commerce.delivery.catalog.internal.graphql.query.v1
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Attachment;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Category;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
+import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.ProductOption;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.RelatedProduct;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Sku;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.AttachmentResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.CategoryResource;
+import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.ProductOptionResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.ProductResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.RelatedProductResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.SkuResource;
@@ -74,6 +76,14 @@ public class Query {
 
 		_productResourceComponentServiceObjects =
 			productResourceComponentServiceObjects;
+	}
+
+	public static void setProductOptionResourceComponentServiceObjects(
+		ComponentServiceObjects<ProductOptionResource>
+			productOptionResourceComponentServiceObjects) {
+
+		_productOptionResourceComponentServiceObjects =
+			productOptionResourceComponentServiceObjects;
 	}
 
 	public static void setRelatedProductResourceComponentServiceObjects(
@@ -158,7 +168,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {storeChannelProduct(channelId: ___, productId: ___){categories, createDate, description, expando, friendlyUrl, id, attachments, metaDescription, metaKeyword, metaTitle, modifiedDate, multipleOrderQuantity, name, productId, productType, relatedProducts, shortDescription, skus, slug, tags, urlImage}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {storeChannelProduct(channelId: ___, productId: ___){categories, createDate, description, expando, friendlyUrl, id, attachments, metaDescription, metaKeyword, metaTitle, modifiedDate, multipleOrderQuantity, name, productOptions, productId, productType, relatedProducts, shortDescription, skus, slug, tags, urlImage}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrieves products from selected channel.")
 	public Product storeChannelProduct(
@@ -196,6 +206,27 @@ public class Query {
 					_filterBiFunction.apply(productResource, filterString),
 					Pagination.of(page, pageSize),
 					_sortsBiFunction.apply(productResource, sortsString))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {storeChannelProductOptions(channelId: ___, page: ___, pageSize: ___, productId: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public ProductOptionPage storeChannelProductOptions(
+			@GraphQLName("channelId") Long channelId,
+			@GraphQLName("productId") Long productId,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productOptionResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productOptionResource -> new ProductOptionPage(
+				productOptionResource.getStoreChannelProductOptionsPage(
+					channelId, productId, Pagination.of(page, pageSize))));
 	}
 
 	/**
@@ -342,6 +373,34 @@ public class Query {
 
 	}
 
+	@GraphQLName("ProductOptionPage")
+	public class ProductOptionPage {
+
+		public ProductOptionPage(Page productOptionPage) {
+			items = productOptionPage.getItems();
+			lastPage = productOptionPage.getLastPage();
+			page = productOptionPage.getPage();
+			pageSize = productOptionPage.getPageSize();
+			totalCount = productOptionPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected java.util.Collection<ProductOption> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
 	@GraphQLName("RelatedProductPage")
 	public class RelatedProductPage {
 
@@ -451,6 +510,19 @@ public class Query {
 	}
 
 	private void _populateResourceContext(
+			ProductOptionResource productOptionResource)
+		throws Exception {
+
+		productOptionResource.setContextAcceptLanguage(_acceptLanguage);
+		productOptionResource.setContextCompany(_company);
+		productOptionResource.setContextHttpServletRequest(_httpServletRequest);
+		productOptionResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		productOptionResource.setContextUriInfo(_uriInfo);
+		productOptionResource.setContextUser(_user);
+	}
+
+	private void _populateResourceContext(
 			RelatedProductResource relatedProductResource)
 		throws Exception {
 
@@ -481,6 +553,8 @@ public class Query {
 		_categoryResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductResource>
 		_productResourceComponentServiceObjects;
+	private static ComponentServiceObjects<ProductOptionResource>
+		_productOptionResourceComponentServiceObjects;
 	private static ComponentServiceObjects<RelatedProductResource>
 		_relatedProductResourceComponentServiceObjects;
 	private static ComponentServiceObjects<SkuResource>

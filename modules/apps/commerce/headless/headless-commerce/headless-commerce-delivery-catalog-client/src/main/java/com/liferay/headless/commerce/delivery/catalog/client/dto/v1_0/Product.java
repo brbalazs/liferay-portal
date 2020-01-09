@@ -321,6 +321,28 @@ public class Product {
 
 	protected Long productId;
 
+	public ProductOption[] getProductOptions() {
+		return productOptions;
+	}
+
+	public void setProductOptions(ProductOption[] productOptions) {
+		this.productOptions = productOptions;
+	}
+
+	public void setProductOptions(
+		UnsafeSupplier<ProductOption[], Exception>
+			productOptionsUnsafeSupplier) {
+
+		try {
+			productOptions = productOptionsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected ProductOption[] productOptions;
+
 	public String getProductType() {
 		return productType;
 	}
