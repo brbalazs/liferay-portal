@@ -14,15 +14,14 @@
 
 package com.liferay.headless.commerce.delivery.catalog.internal.resource.v1_0;
 
-import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.RelatedProduct;
-import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.RelatedProductResource;
+import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Attachment;
+import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.AttachmentResource;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -43,7 +42,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
@@ -53,54 +51,60 @@ import javax.ws.rs.core.UriInfo;
  */
 @Generated("")
 @Path("/v1.0")
-public abstract class BaseRelatedProductResourceImpl
-	implements RelatedProductResource {
+public abstract class BaseAttachmentResourceImpl implements AttachmentResource {
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/relatedProducts/{id}'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/attachments'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
-	@Operation(description = "Gets a Related Product by ID.")
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/relatedProducts/{id}")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "channelId"),
+			@Parameter(in = ParameterIn.PATH, name = "productId"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
+	@Path("/stores/{channelId}/products/{productId}/attachments")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "RelatedProduct")})
-	public RelatedProduct getRelatedProduct(
-			@NotNull @Parameter(hidden = true) @PathParam("id") Long id)
+	@Tags(value = {@Tag(name = "Attachment")})
+	public Page<Attachment> getStoreChannelProductAttachmentsPage(
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("productId") Long
+				productId,
+			@Context Pagination pagination)
 		throws Exception {
 
-		return new RelatedProduct();
+		return Page.of(Collections.emptyList());
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/relatedProducts'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/images'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
-	@Operation(description = "Gets a list of Related Products of a Product.")
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "channelId"),
 			@Parameter(in = ParameterIn.PATH, name = "productId"),
-			@Parameter(in = ParameterIn.QUERY, name = "type"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/stores/{channelId}/products/{productId}/relatedProducts")
+	@Path("/stores/{channelId}/products/{productId}/images")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "RelatedProduct")})
-	public Page<RelatedProduct> getStoreChannelProductRelatedProductsPage(
+	@Tags(value = {@Tag(name = "Attachment")})
+	public Page<Attachment> getStoreChannelProductImagesPage(
 			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
 				channelId,
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Long
 				productId,
-			@Parameter(hidden = true) @QueryParam("type") String type,
 			@Context Pagination pagination)
 		throws Exception {
 
@@ -140,7 +144,7 @@ public abstract class BaseRelatedProductResourceImpl
 	}
 
 	protected void preparePatch(
-		RelatedProduct relatedProduct, RelatedProduct existingRelatedProduct) {
+		Attachment attachment, Attachment existingAttachment) {
 	}
 
 	protected <T, R> List<R> transform(

@@ -14,7 +14,7 @@
 
 package com.liferay.headless.commerce.delivery.catalog.resource.v1_0;
 
-import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.RelatedProduct;
+import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Attachment;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -38,12 +38,14 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @Generated("")
 @ProviderType
-public interface RelatedProductResource {
+public interface AttachmentResource {
 
-	public RelatedProduct getRelatedProduct(Long id) throws Exception;
+	public Page<Attachment> getStoreChannelProductAttachmentsPage(
+			Long channelId, Long productId, Pagination pagination)
+		throws Exception;
 
-	public Page<RelatedProduct> getStoreChannelProductRelatedProductsPage(
-			Long channelId, Long productId, String type, Pagination pagination)
+	public Page<Attachment> getStoreChannelProductImagesPage(
+			Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

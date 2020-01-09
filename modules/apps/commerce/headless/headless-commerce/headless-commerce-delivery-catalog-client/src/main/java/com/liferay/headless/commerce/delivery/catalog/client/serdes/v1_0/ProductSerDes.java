@@ -14,6 +14,7 @@
 
 package com.liferay.headless.commerce.delivery.catalog.client.serdes.v1_0;
 
+import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Attachment;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Category;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.RelatedProduct;
@@ -62,6 +63,26 @@ public class ProductSerDes {
 
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+		if (product.getAttachments() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"attachments\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < product.getAttachments().length; i++) {
+				sb.append(String.valueOf(product.getAttachments()[i]));
+
+				if ((i + 1) < product.getAttachments().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
 
 		if (product.getCategories() != null) {
 			if (sb.length() > 1) {
@@ -377,6 +398,13 @@ public class ProductSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (product.getAttachments() == null) {
+			map.put("attachments", null);
+		}
+		else {
+			map.put("attachments", String.valueOf(product.getAttachments()));
+		}
+
 		if (product.getCategories() == null) {
 			map.put("categories", null);
 		}
@@ -539,7 +567,19 @@ public class ProductSerDes {
 			Product product, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "categories")) {
+			if (Objects.equals(jsonParserFieldName, "attachments")) {
+				if (jsonParserFieldValue != null) {
+					product.setAttachments(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> AttachmentSerDes.toDTO((String)object)
+						).toArray(
+							size -> new Attachment[size]
+						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "categories")) {
 				if (jsonParserFieldValue != null) {
 					product.setCategories(
 						Stream.of(

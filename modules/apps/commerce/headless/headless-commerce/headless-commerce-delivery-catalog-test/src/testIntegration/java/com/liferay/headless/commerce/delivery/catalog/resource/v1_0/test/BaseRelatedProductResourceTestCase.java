@@ -189,6 +189,55 @@ public abstract class BaseRelatedProductResourceTestCase {
 	}
 
 	@Test
+	public void testGetRelatedProduct() throws Exception {
+		RelatedProduct postRelatedProduct =
+			testGetRelatedProduct_addRelatedProduct();
+
+		RelatedProduct getRelatedProduct =
+			relatedProductResource.getRelatedProduct(
+				postRelatedProduct.getId());
+
+		assertEquals(postRelatedProduct, getRelatedProduct);
+		assertValid(getRelatedProduct);
+	}
+
+	protected RelatedProduct testGetRelatedProduct_addRelatedProduct()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetRelatedProduct() throws Exception {
+		RelatedProduct relatedProduct =
+			testGraphQLRelatedProduct_addRelatedProduct();
+
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"query",
+			new GraphQLField(
+				"relatedProduct",
+				new HashMap<String, Object>() {
+					{
+						put("id", relatedProduct.getId());
+					}
+				},
+				graphQLFields.toArray(new GraphQLField[0])));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
+		Assert.assertTrue(
+			equalsJSONObject(
+				relatedProduct,
+				dataJSONObject.getJSONObject("relatedProduct")));
+	}
+
+	@Test
 	public void testGetStoreChannelProductRelatedProductsPage()
 		throws Exception {
 
@@ -335,55 +384,6 @@ public abstract class BaseRelatedProductResourceTestCase {
 		throws Exception {
 
 		return null;
-	}
-
-	@Test
-	public void testGetRelatedProduct() throws Exception {
-		RelatedProduct postRelatedProduct =
-			testGetRelatedProduct_addRelatedProduct();
-
-		RelatedProduct getRelatedProduct =
-			relatedProductResource.getRelatedProduct(
-				postRelatedProduct.getId());
-
-		assertEquals(postRelatedProduct, getRelatedProduct);
-		assertValid(getRelatedProduct);
-	}
-
-	protected RelatedProduct testGetRelatedProduct_addRelatedProduct()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLGetRelatedProduct() throws Exception {
-		RelatedProduct relatedProduct =
-			testGraphQLRelatedProduct_addRelatedProduct();
-
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"relatedProduct",
-				new HashMap<String, Object>() {
-					{
-						put("id", relatedProduct.getId());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		Assert.assertTrue(
-			equalsJSONObject(
-				relatedProduct,
-				dataJSONObject.getJSONObject("relatedProduct")));
 	}
 
 	protected RelatedProduct testGraphQLRelatedProduct_addRelatedProduct()

@@ -14,16 +14,15 @@
 
 package com.liferay.headless.commerce.delivery.catalog.client.resource.v1_0;
 
-import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.RelatedProduct;
+import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Attachment;
 import com.liferay.headless.commerce.delivery.catalog.client.http.HttpInvoker;
 import com.liferay.headless.commerce.delivery.catalog.client.pagination.Page;
 import com.liferay.headless.commerce.delivery.catalog.client.pagination.Pagination;
-import com.liferay.headless.commerce.delivery.catalog.client.serdes.v1_0.RelatedProductSerDes;
+import com.liferay.headless.commerce.delivery.catalog.client.serdes.v1_0.AttachmentSerDes;
 
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.Generated;
@@ -33,25 +32,28 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public interface RelatedProductResource {
+public interface AttachmentResource {
 
 	public static Builder builder() {
 		return new Builder();
 	}
 
-	public RelatedProduct getRelatedProduct(Long id) throws Exception;
-
-	public HttpInvoker.HttpResponse getRelatedProductHttpResponse(Long id)
-		throws Exception;
-
-	public Page<RelatedProduct> getStoreChannelProductRelatedProductsPage(
-			Long channelId, Long productId, String type, Pagination pagination)
+	public Page<Attachment> getStoreChannelProductAttachmentsPage(
+			Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			getStoreChannelProductRelatedProductsPageHttpResponse(
-				Long channelId, Long productId, String type,
-				Pagination pagination)
+			getStoreChannelProductAttachmentsPageHttpResponse(
+				Long channelId, Long productId, Pagination pagination)
+		throws Exception;
+
+	public Page<Attachment> getStoreChannelProductImagesPage(
+			Long channelId, Long productId, Pagination pagination)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getStoreChannelProductImagesPageHttpResponse(
+				Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 
 	public static class Builder {
@@ -63,8 +65,8 @@ public interface RelatedProductResource {
 			return this;
 		}
 
-		public RelatedProductResource build() {
-			return new RelatedProductResourceImpl(this);
+		public AttachmentResource build() {
+			return new AttachmentResourceImpl(this);
 		}
 
 		public Builder endpoint(String host, int port, String scheme) {
@@ -107,12 +109,15 @@ public interface RelatedProductResource {
 
 	}
 
-	public static class RelatedProductResourceImpl
-		implements RelatedProductResource {
+	public static class AttachmentResourceImpl implements AttachmentResource {
 
-		public RelatedProduct getRelatedProduct(Long id) throws Exception {
+		public Page<Attachment> getStoreChannelProductAttachmentsPage(
+				Long channelId, Long productId, Pagination pagination)
+			throws Exception {
+
 			HttpInvoker.HttpResponse httpResponse =
-				getRelatedProductHttpResponse(id);
+				getStoreChannelProductAttachmentsPageHttpResponse(
+					channelId, productId, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -122,78 +127,12 @@ public interface RelatedProductResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			try {
-				return RelatedProductSerDes.toDTO(content);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw e;
-			}
-		}
-
-		public HttpInvoker.HttpResponse getRelatedProductHttpResponse(Long id)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/headless-commerce-delivery-catalog/v1.0/relatedProducts/{id}",
-				id);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public Page<RelatedProduct> getStoreChannelProductRelatedProductsPage(
-				Long channelId, Long productId, String type,
-				Pagination pagination)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getStoreChannelProductRelatedProductsPageHttpResponse(
-					channelId, productId, type, pagination);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			return Page.of(content, RelatedProductSerDes::toDTO);
+			return Page.of(content, AttachmentSerDes::toDTO);
 		}
 
 		public HttpInvoker.HttpResponse
-				getStoreChannelProductRelatedProductsPageHttpResponse(
-					Long channelId, Long productId, String type,
-					Pagination pagination)
+				getStoreChannelProductAttachmentsPageHttpResponse(
+					Long channelId, Long productId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -216,10 +155,6 @@ public interface RelatedProductResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			if (type != null) {
-				httpInvoker.parameter("type", String.valueOf(type));
-			}
 
 			if (pagination != null) {
 				httpInvoker.parameter(
@@ -231,7 +166,7 @@ public interface RelatedProductResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/relatedProducts",
+						"/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/attachments",
 				channelId, productId);
 
 			httpInvoker.userNameAndPassword(
@@ -240,12 +175,76 @@ public interface RelatedProductResource {
 			return httpInvoker.invoke();
 		}
 
-		private RelatedProductResourceImpl(Builder builder) {
+		public Page<Attachment> getStoreChannelProductImagesPage(
+				Long channelId, Long productId, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getStoreChannelProductImagesPageHttpResponse(
+					channelId, productId, pagination);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, AttachmentSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse
+				getStoreChannelProductImagesPageHttpResponse(
+					Long channelId, Long productId, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/images",
+				channelId, productId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		private AttachmentResourceImpl(Builder builder) {
 			_builder = builder;
 		}
 
 		private static final Logger _logger = Logger.getLogger(
-			RelatedProductResource.class.getName());
+			AttachmentResource.class.getName());
 
 		private Builder _builder;
 
