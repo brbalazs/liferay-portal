@@ -29,8 +29,7 @@
 		"redux": "^4.0.4"
 	},
 	"devDependencies": {
-		"clay-css": "^2.16.2",
-		"faker": "^4.1.0",
+		"clay-css": "^2.16.2"
 	},
 	"name": "commerce-frontend-js",
 	"private": true,

@@ -1,6 +1,3 @@
-<%@ page import="java.util.HashMap" %><%@
-page import="java.util.Map" %>
-
 <%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
