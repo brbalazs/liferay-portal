@@ -343,6 +343,30 @@ public class Product {
 
 	protected ProductOption[] productOptions;
 
+	public ProductSpecification[] getProductSpecifications() {
+		return productSpecifications;
+	}
+
+	public void setProductSpecifications(
+		ProductSpecification[] productSpecifications) {
+
+		this.productSpecifications = productSpecifications;
+	}
+
+	public void setProductSpecifications(
+		UnsafeSupplier<ProductSpecification[], Exception>
+			productSpecificationsUnsafeSupplier) {
+
+		try {
+			productSpecifications = productSpecificationsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected ProductSpecification[] productSpecifications;
+
 	public String getProductType() {
 		return productType;
 	}

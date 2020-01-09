@@ -18,6 +18,7 @@ import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Attachment
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Category;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.ProductOption;
+import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.ProductSpecification;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.RelatedProduct;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Sku;
 import com.liferay.headless.commerce.delivery.catalog.client.json.BaseJSONParser;
@@ -278,6 +279,29 @@ public class ProductSerDes {
 			sb.append("]");
 		}
 
+		if (product.getProductSpecifications() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"productSpecifications\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < product.getProductSpecifications().length;
+				 i++) {
+
+				sb.append(
+					String.valueOf(product.getProductSpecifications()[i]));
+
+				if ((i + 1) < product.getProductSpecifications().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (product.getProductType() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -523,6 +547,15 @@ public class ProductSerDes {
 				"productOptions", String.valueOf(product.getProductOptions()));
 		}
 
+		if (product.getProductSpecifications() == null) {
+			map.put("productSpecifications", null);
+		}
+		else {
+			map.put(
+				"productSpecifications",
+				String.valueOf(product.getProductSpecifications()));
+		}
+
 		if (product.getProductType() == null) {
 			map.put("productType", null);
 		}
@@ -695,6 +728,21 @@ public class ProductSerDes {
 							object -> ProductOptionSerDes.toDTO((String)object)
 						).toArray(
 							size -> new ProductOption[size]
+						));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "productSpecifications")) {
+
+				if (jsonParserFieldValue != null) {
+					product.setProductSpecifications(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> ProductSpecificationSerDes.toDTO(
+								(String)object)
+						).toArray(
+							size -> new ProductSpecification[size]
 						));
 				}
 			}

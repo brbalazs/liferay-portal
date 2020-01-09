@@ -18,12 +18,14 @@ import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Attachment;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Category;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.ProductOption;
+import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.ProductSpecification;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.RelatedProduct;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Sku;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.AttachmentResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.CategoryResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.ProductOptionResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.ProductResource;
+import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.ProductSpecificationResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.RelatedProductResource;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.SkuResource;
 import com.liferay.petra.function.UnsafeConsumer;
@@ -84,6 +86,14 @@ public class Query {
 
 		_productOptionResourceComponentServiceObjects =
 			productOptionResourceComponentServiceObjects;
+	}
+
+	public static void setProductSpecificationResourceComponentServiceObjects(
+		ComponentServiceObjects<ProductSpecificationResource>
+			productSpecificationResourceComponentServiceObjects) {
+
+		_productSpecificationResourceComponentServiceObjects =
+			productSpecificationResourceComponentServiceObjects;
 	}
 
 	public static void setRelatedProductResourceComponentServiceObjects(
@@ -168,7 +178,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {storeChannelProduct(channelId: ___, productId: ___){categories, createDate, description, expando, friendlyUrl, id, attachments, metaDescription, metaKeyword, metaTitle, modifiedDate, multipleOrderQuantity, name, productOptions, productId, productType, relatedProducts, shortDescription, skus, slug, tags, urlImage}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {storeChannelProduct(channelId: ___, productId: ___){attachments, categories, createDate, description, expando, friendlyUrl, id, metaDescription, metaKeyword, metaTitle, modifiedDate, multipleOrderQuantity, name, productId, productOptions, productSpecifications, productType, relatedProducts, shortDescription, skus, slug, tags, urlImage}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrieves products from selected channel.")
 	public Product storeChannelProduct(
@@ -227,6 +237,28 @@ public class Query {
 			productOptionResource -> new ProductOptionPage(
 				productOptionResource.getStoreChannelProductOptionsPage(
 					channelId, productId, Pagination.of(page, pageSize))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {storeChannelProductProductSpecifications(channelId: ___, page: ___, pageSize: ___, productId: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public ProductSpecificationPage storeChannelProductProductSpecifications(
+			@GraphQLName("channelId") Long channelId,
+			@GraphQLName("productId") Long productId,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productSpecificationResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productSpecificationResource -> new ProductSpecificationPage(
+				productSpecificationResource.
+					getStoreChannelProductProductSpecificationsPage(
+						channelId, productId, Pagination.of(page, pageSize))));
 	}
 
 	/**
@@ -401,6 +433,34 @@ public class Query {
 
 	}
 
+	@GraphQLName("ProductSpecificationPage")
+	public class ProductSpecificationPage {
+
+		public ProductSpecificationPage(Page productSpecificationPage) {
+			items = productSpecificationPage.getItems();
+			lastPage = productSpecificationPage.getLastPage();
+			page = productSpecificationPage.getPage();
+			pageSize = productSpecificationPage.getPageSize();
+			totalCount = productSpecificationPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected java.util.Collection<ProductSpecification> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
 	@GraphQLName("RelatedProductPage")
 	public class RelatedProductPage {
 
@@ -523,6 +583,20 @@ public class Query {
 	}
 
 	private void _populateResourceContext(
+			ProductSpecificationResource productSpecificationResource)
+		throws Exception {
+
+		productSpecificationResource.setContextAcceptLanguage(_acceptLanguage);
+		productSpecificationResource.setContextCompany(_company);
+		productSpecificationResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		productSpecificationResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		productSpecificationResource.setContextUriInfo(_uriInfo);
+		productSpecificationResource.setContextUser(_user);
+	}
+
+	private void _populateResourceContext(
 			RelatedProductResource relatedProductResource)
 		throws Exception {
 
@@ -555,6 +629,8 @@ public class Query {
 		_productResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductOptionResource>
 		_productOptionResourceComponentServiceObjects;
+	private static ComponentServiceObjects<ProductSpecificationResource>
+		_productSpecificationResourceComponentServiceObjects;
 	private static ComponentServiceObjects<RelatedProductResource>
 		_relatedProductResourceComponentServiceObjects;
 	private static ComponentServiceObjects<SkuResource>
