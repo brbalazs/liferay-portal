@@ -30,7 +30,7 @@
 	},
 	"devDependencies": {
 		"clay-css": "^2.16.2",
-		"faker": "^4.1.0",
+		"faker": "^4.1.0"
 	},
 	"name": "commerce-frontend-js",
 	"private": true,
