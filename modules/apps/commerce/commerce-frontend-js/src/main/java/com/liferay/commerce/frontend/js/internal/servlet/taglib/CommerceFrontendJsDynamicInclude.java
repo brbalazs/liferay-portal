@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.frontend.js.servlet.taglib;
+package com.liferay.commerce.frontend.js.internal.servlet.taglib;
 
 import com.liferay.portal.kernel.servlet.taglib.BaseDynamicInclude;
 import com.liferay.portal.kernel.servlet.taglib.DynamicInclude;
