@@ -166,7 +166,7 @@ public class EditCommerceOrderItemMVCActionCommand
 				actionRequest, "price");
 
 			_commerceOrderItemService.updateCommerceOrderItemUnitPrice(
-				commerceOrderItemId, price, quantity);
+				commerceOrderItemId, price);
 		}
 	}
 

@@ -215,16 +215,13 @@ public class CommerceOrderListDisplayContext {
 	}
 
 	public PortletURL getPortletURL() {
-		PortletURL portletURL = getSearchURL();
+		LiferayPortletResponse liferayPortletResponse =
+			_commerceOrderRequestHelper.getLiferayPortletResponse();
 
-		for (String displayTerm : CommerceOrderDisplayTerms.VALID_TERMS) {
-			String paramValue = ParamUtil.getString(
-				_commerceOrderRequestHelper.getRequest(), displayTerm);
+		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
-			if (Validator.isNotNull(paramValue)) {
-				portletURL.setParameter(displayTerm, paramValue);
-			}
-		}
+		portletURL.setParameter("showFilter", String.valueOf(_showFilter));
+		portletURL.setParameter("tabs1", _tabs1);
 
 		return portletURL;
 	}
@@ -237,22 +234,6 @@ public class CommerceOrderListDisplayContext {
 		}
 
 		return _searchContainer;
-	}
-
-	public PortletURL getSearchURL() {
-		LiferayPortletResponse liferayPortletResponse =
-			_commerceOrderRequestHelper.getLiferayPortletResponse();
-
-		PortletURL portletURL = liferayPortletResponse.createRenderURL();
-
-		portletURL.setParameter("showFilter", String.valueOf(_showFilter));
-		portletURL.setParameter("tabs1", _tabs1);
-
-		if (Validator.isNotNull(_keywords)) {
-			portletURL.setParameter("keywords", _keywords);
-		}
-
-		return portletURL;
 	}
 
 	public boolean isOpenTab() {
