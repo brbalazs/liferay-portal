@@ -164,7 +164,8 @@ public class CommerceTestUtil {
 	}
 
 	public static CommerceOrder addCheckoutDetailsToUserOrder(
-			CommerceOrder commerceOrder, long userId, boolean subscription)
+			CommerceOrder commerceOrder, long userId,
+			boolean paymentSubscription)
 		throws Exception {
 
 		long groupId = commerceOrder.getGroupId();
@@ -175,7 +176,7 @@ public class CommerceTestUtil {
 
 		cpInstance.setPrice(price);
 
-		if (subscription) {
+		if (paymentSubscription) {
 			cpInstance.setOverrideSubscriptionInfo(true);
 			cpInstance.setSubscriptionEnabled(true);
 			cpInstance.setSubscriptionLength(1);
@@ -222,6 +223,92 @@ public class CommerceTestUtil {
 
 		CommerceShippingMethod commerceShippingMethod =
 			addCommerceShippingMethod(userId, commerceChannel.getGroupId());
+
+		commerceOrder.setCommerceShippingMethodId(
+			commerceShippingMethod.getCommerceShippingMethodId());
+
+		CommerceShippingFixedOption commerceShippingFixedOption =
+			addCommerceShippingFixedOption(commerceShippingMethod);
+
+		commerceOrder.setShippingOptionName(
+			commerceShippingFixedOption.getName());
+
+		commerceOrder.setShippingAmount(
+			commerceShippingFixedOption.getAmount());
+
+		return CommerceOrderLocalServiceUtil.updateCommerceOrder(commerceOrder);
+	}
+
+	public static CommerceOrder addCheckoutDetailsToUserOrder(
+			CommerceOrder commerceOrder, long userId,
+			boolean paymentSubscription, boolean deliverySubscription)
+		throws Exception {
+
+		long groupId = commerceOrder.getGroupId();
+
+		CPInstance cpInstance = CPTestUtil.addCPInstance(groupId);
+
+		BigDecimal price = BigDecimal.valueOf(RandomTestUtil.randomDouble());
+
+		cpInstance.setPrice(price);
+
+		if (paymentSubscription) {
+			cpInstance.setOverrideSubscriptionInfo(true);
+			cpInstance.setSubscriptionEnabled(true);
+			cpInstance.setSubscriptionLength(1);
+			cpInstance.setSubscriptionType(CPConstants.DAILY_SUBSCRIPTION_TYPE);
+			cpInstance.setMaxSubscriptionCycles(2);
+		}
+
+		if (deliverySubscription) {
+			cpInstance.setOverrideSubscriptionInfo(true);
+			cpInstance.setDeliverySubscriptionEnabled(true);
+			cpInstance.setDeliverySubscriptionLength(1);
+			cpInstance.setDeliverySubscriptionType(
+				CPConstants.DAILY_SUBSCRIPTION_TYPE);
+			cpInstance.setDeliveryMaxSubscriptionCycles(2);
+		}
+
+		CPInstanceLocalServiceUtil.updateCPInstance(cpInstance);
+
+		CommerceInventoryWarehouse commerceInventoryWarehouse =
+			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
+
+		CommerceChannel commerceChannel =
+			CommerceChannelLocalServiceUtil.getCommerceChannelByOrderGroupId(
+				commerceOrder.getGroupId());
+
+		addWarehouseCommerceChannelRel(
+			commerceInventoryWarehouse.getCommerceInventoryWarehouseId(),
+			commerceChannel.getCommerceChannelId());
+
+		CommerceInventoryTestUtil.addCommerceInventoryWarehouseItem(
+			userId, commerceInventoryWarehouse, cpInstance.getSku(), 10);
+
+		addCommerceOrderItem(
+			commerceOrder.getCommerceOrderId(), cpInstance.getCPInstanceId(),
+			4);
+
+		CommerceAddress billingCommerceAddress = addUserCommerceAddress(
+			groupId, userId);
+		CommerceAddress shippingCommerceAddress = addUserCommerceAddress(
+			groupId, userId);
+
+		commerceOrder.setBillingAddressId(
+			billingCommerceAddress.getCommerceAddressId());
+		commerceOrder.setShippingAddressId(
+			shippingCommerceAddress.getCommerceAddressId());
+
+		CommercePaymentMethodGroupRel commercePaymentMethodGroupRel =
+			addCommercePaymentMethodGroupRel(
+				commerceOrder.getCompanyId(), groupId, userId,
+				commerceChannel.getSiteGroupId());
+
+		commerceOrder.setCommercePaymentMethodKey(
+			commercePaymentMethodGroupRel.getEngineKey());
+
+		CommerceShippingMethod commerceShippingMethod =
+			addCommerceShippingMethod(groupId);
 
 		commerceOrder.setCommerceShippingMethodId(
 			commerceShippingMethod.getCommerceShippingMethodId());

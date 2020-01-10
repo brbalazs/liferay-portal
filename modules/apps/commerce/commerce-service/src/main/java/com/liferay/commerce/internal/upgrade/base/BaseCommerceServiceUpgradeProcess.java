@@ -52,6 +52,31 @@ public abstract class BaseCommerceServiceUpgradeProcess extends UpgradeProcess {
 		}
 	}
 
+	protected void changeColumnType(
+			Class<?> tableClass, String tableName, String columnName,
+			String newColumnType)
+		throws Exception {
+
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				String.format(
+					"Changing column %s to type %s for table %s", columnName,
+					newColumnType, tableName));
+		}
+
+		if (hasColumn(tableName, columnName)) {
+			alter(tableClass, new AlterColumnType(columnName, newColumnType));
+		}
+		else {
+			if (_log.isInfoEnabled()) {
+				_log.info(
+					String.format(
+						"No column %s exists on table %s", columnName,
+						tableName));
+			}
+		}
+	}
+
 	@Override
 	protected abstract void doUpgrade() throws Exception;
 
@@ -100,32 +125,6 @@ public abstract class BaseCommerceServiceUpgradeProcess extends UpgradeProcess {
 				_log.info(
 					String.format(
 						"Column %s already exists on table %s", newColumnName,
-						tableName));
-			}
-		}
-	}
-
-	protected void changeColumnType(
-			Class<?> tableClass, String tableName, String columnName,
-			String newColumnType)
-		throws Exception {
-
-		if (_log.isInfoEnabled()) {
-			_log.info(
-				String.format(
-					"Changing column %s to type %s for table %s", columnName,
-					newColumnType, tableName));
-		}
-
-		if (hasColumn(tableName, columnName)) {
-			alter(
-				tableClass, new AlterColumnType(columnName, newColumnType));
-		}
-		else {
-			if (_log.isInfoEnabled()) {
-				_log.info(
-					String.format(
-						"No column %s exists on table %s", columnName,
 						tableName));
 			}
 		}
