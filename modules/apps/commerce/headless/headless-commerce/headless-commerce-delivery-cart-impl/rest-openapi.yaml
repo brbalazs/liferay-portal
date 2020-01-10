@@ -1,0 +1,185 @@
+components:
+    parameters:
+        channelId:
+            in: path
+            explode: false
+            name: channelId
+            required: true
+            schema:
+                description:
+                    Channel Id
+                example: 30130
+                format: int64
+                minimum: 0
+                type: integer
+            style: simple
+        orderId:
+            in: path
+            explode: false
+            name: orderId
+            required: true
+            schema:
+                description:
+                    Order Id
+                example: 30130
+                format: int64
+                minimum: 0
+                type: integer
+            style: simple
+    schemas:
+        Cart:
+            properties:
+                accountId:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                orderId:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                orderItems:
+                    items:
+                        $ref: "#/components/schemas/OrderItem"
+                    type: array
+                summary:
+                    $ref: "#/components/schemas/Summary"
+            type: object
+        Error:
+            properties:
+                errorCode:
+                    description:
+                        Internal error code mapping
+                    example: 996
+                    readOnly: true
+                    type: integer
+                errorDescription:
+                    example: Unable to find currency. Currency code should be expressed with
+                        3-letter ISO 4217 format.
+                    readOnly: true
+                    type: string
+                message:
+                    example: No CommerceCurrency exists with the key {groupId=41811, code=US
+                        Dollar}
+                    readOnly: true
+                    type: string
+                status:
+                    description:
+                        HTTP Status code
+                    example: 404
+                    readOnly: true
+                    type: integer
+            required:
+                - errorCode
+                - errorDescription
+                - message
+                - status
+            type: object
+        OrderItem:
+            properties:
+                id:
+                    example: 30130
+                    format: int64
+                    minimum: 0
+                    readOnly: true
+                    type: integer
+                name:
+                    type: string
+                quantity:
+                    example: 30080
+                    format: int32
+                    minimum: 0
+                    type: integer
+            type: object
+        Summary:
+            properties:
+                discount:
+                    type: string
+                itemsQuantity:
+                    type: integer
+                subTotal:
+                    type: string
+                total:
+                    type: string
+            type: object
+info:
+    description:
+        Headless Delivery Commerce Cart API
+    license:
+        name: Apache 2.0
+        url: http://www.apache.org/licenses/LICENSE-2.0.html
+    title: Headless Delivery
+    version: v1.0
+openapi: 3.0.1
+paths:
+    /stores/{channelId}/carts/{orderId}:
+        get:
+            description:
+                Retrieves products from selected channel.
+            operationId: getStoreChannelCart
+            parameters:
+                - in: path
+                  explode: false
+                  name: channelId
+                  required: true
+                  schema:
+                      description:
+                          Channel Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: path
+                  explode: false
+                  name: orderId
+                  required: true
+                  schema:
+                      description:
+                          Order Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Cart"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Cart"
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            tags: ["Cart"]
+servers:
+    - url: /
