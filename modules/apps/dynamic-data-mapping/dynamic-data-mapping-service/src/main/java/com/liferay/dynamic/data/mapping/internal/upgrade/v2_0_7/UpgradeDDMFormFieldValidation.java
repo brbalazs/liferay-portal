@@ -172,7 +172,7 @@ public class UpgradeDDMFormFieldValidation extends UpgradeProcess {
 	}
 
 	private boolean _upgradeValidation(JSONArray fieldsJSONArray) {
-		boolean validationUpgraded = false;
+		boolean upgraded = false;
 
 		for (int i = 0; i < fieldsJSONArray.length(); i++) {
 			JSONObject jsonObject = fieldsJSONArray.getJSONObject(i);
@@ -190,22 +190,20 @@ public class UpgradeDDMFormFieldValidation extends UpgradeProcess {
 
 				validationJSONObject.put("expression", upgradedValue);
 
-				validationUpgraded =
-					validationUpgraded ||
-					!StringUtil.equals(expression, upgradedValue);
+				upgraded =
+					upgraded || !StringUtil.equals(expression, upgradedValue);
 			}
 
 			JSONArray nestedFieldsJSONArray = jsonObject.getJSONArray(
 				"nestedFields");
 
 			if (nestedFieldsJSONArray != null) {
-				validationUpgraded =
-					_upgradeValidation(nestedFieldsJSONArray) ||
-					validationUpgraded;
+				upgraded =
+					_upgradeValidation(nestedFieldsJSONArray) || upgraded;
 			}
 		}
 
-		return validationUpgraded;
+		return upgraded;
 	}
 
 	private final JSONFactory _jsonFactory;
