@@ -1,12 +1,10 @@
-import React, { useState, useContext } from 'react';
-import ClayDropDown from '@clayui/drop-down';
 import { ClayButtonWithIcon } from '@clayui/button';
+import ClayDropDown from '@clayui/drop-down';
 import PropTypes from 'prop-types';
-
-import DatasetDisplayContext from '../../DatasetDisplayContext.es'
+import React, { useState, useContext } from 'react';
 
 import { OPEN_MODAL } from '../../../../utilities/eventsDefinitions.es';
-import { datasetDisplaySupportModalId } from '../../DatasetDisplay.es';
+import DatasetDisplayContext from '../../DatasetDisplayContext.es'
 
 function CreationMenu(props) {
 	const [active, setActive] = useState(false);
@@ -18,7 +16,7 @@ function CreationMenu(props) {
 		switch (clickedItem.type) {
 			case 'modal':
 				Liferay.fire(OPEN_MODAL, {
-					id: datasetDisplaySupportModalId,
+					id: datasetContext.modalId,
 					onClose: datasetContext.loadData,
 					url: clickedItem.url,
 				})

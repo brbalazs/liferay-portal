@@ -4,19 +4,16 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useState, useRef, useEffect} from 'react';
 
-import DatasetDisplayContext from './DatasetDisplayContext.es';
-import ManagementBar from './management_bar/index.es';
-
-import Modal from '../modal/Modal.es';
-
-import {createOdataFilterStrings} from '../../utilities/odata.es';
 import {showNotification} from '../../utilities/index.es';
-import {formatFilters} from './utilities/filters.es';
-import {getRenderers} from './utilities/contentRenderers.es';
-
+import {createOdataFilterStrings} from '../../utilities/odata.es';
+import Modal from '../modal/Modal.es';
+import DatasetDisplayContext from './DatasetDisplayContext.es';
 import EmptyResultMessage from './EmptyResultMessage.es';
+import ManagementBar from './management_bar/index.es';
+import {getRenderers} from './utilities/contentRenderers.es';
+import {formatFilters} from './utilities/filters.es';
 
-export const datasetDisplaySupportModalId = 'dataset-display-support-modal'
+const datasetDisplaySupportModalId = 'dataset-support-modal-id'
 
 function loadData(apiUrl, filters, delta, page = 1, sorting = []) {
 	const filterString = `&${createOdataFilterStrings(filters)}`;
