@@ -134,7 +134,7 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 			updateOrderStatus(actionRequest);
 		}
 		else if (cmd.equals("orderSummary")) {
-			//TODO update order summary
+			updateOrderSummary(actionRequest);
 		}
 		else if (cmd.equals("paymentMethod")) {
 			updatePaymentMethod(actionRequest);
@@ -304,6 +304,48 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 		_commerceOrderService.updateOrderDate(
 			commerceOrderId, orderDateMonth, orderDateDay, orderDateYear,
 			orderDateHour, orderDateMinute, serviceContext);
+	}
+
+	protected void updateOrderSummary(ActionRequest actionRequest)
+		throws Exception {
+
+		long commerceOrderId = ParamUtil.getLong(
+			actionRequest, "commerceOrderId");
+
+		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
+			commerceOrderId);
+
+		String subtotal = ParamUtil.getString(actionRequest, "subtotal");
+		String subtotalDiscountAmount = ParamUtil.getString(
+			actionRequest, "subtotalDiscountAmount");
+		String shippingAmount = ParamUtil.getString(
+			actionRequest, "shippingAmount");
+		String shippingDiscountAmount = ParamUtil.getString(
+			actionRequest, "shippingDiscountAmount");
+		String taxAmount = ParamUtil.getString(actionRequest, "taxAmount");
+		String total = ParamUtil.getString(actionRequest, "total");
+		String totalDiscountAmount = ParamUtil.getString(
+			actionRequest, "totalDiscountAmount");
+
+		_commerceOrderService.updateCommerceOrderPrices(
+			commerceOrder.getCommerceOrderId(), new BigDecimal(subtotal),
+			new BigDecimal(subtotalDiscountAmount),
+			commerceOrder.getSubtotalDiscountPercentageLevel1(),
+			commerceOrder.getSubtotalDiscountPercentageLevel2(),
+			commerceOrder.getSubtotalDiscountPercentageLevel3(),
+			commerceOrder.getSubtotalDiscountPercentageLevel4(),
+			new BigDecimal(shippingAmount),
+			new BigDecimal(shippingDiscountAmount),
+			commerceOrder.getShippingDiscountPercentageLevel1(),
+			commerceOrder.getShippingDiscountPercentageLevel2(),
+			commerceOrder.getShippingDiscountPercentageLevel3(),
+			commerceOrder.getShippingDiscountPercentageLevel4(),
+			new BigDecimal(taxAmount), new BigDecimal(total),
+			new BigDecimal(totalDiscountAmount),
+			commerceOrder.getTotalDiscountPercentageLevel1(),
+			commerceOrder.getTotalDiscountPercentageLevel2(),
+			commerceOrder.getTotalDiscountPercentageLevel3(),
+			commerceOrder.getTotalDiscountPercentageLevel4());
 	}
 
 	protected void updatePaymentMethod(ActionRequest actionRequest)
