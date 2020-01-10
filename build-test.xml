@@ -7933,6 +7933,16 @@ module.framework.properties.org.osgi.framework.bootdelegation=\
 			</then>
 		</if>
 
+		<if>
+			<equals arg1="${app.server.type}" arg2="tcserver" />
+			<then>
+				<echo append="true" file="portal-impl/src/portal-ext.properties">
+
+session.cookie.use.full.hostname=true
+				</echo>
+			</then>
+		</if>
+
 		<apply-portal-ext-properties />
 	</target>
 
