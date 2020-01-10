@@ -81,6 +81,19 @@ public class CommerceSubscriptionEntryImpl
 	}
 
 	@Override
+	public UnicodeProperties getDeliverySubscriptionTypeSettingsProperties() {
+		if (_deliverySubscriptionTypeSettingsProperties == null) {
+			_deliverySubscriptionTypeSettingsProperties = new UnicodeProperties(
+				true);
+
+			_deliverySubscriptionTypeSettingsProperties.fastLoad(
+				getDeliverySubscriptionTypeSettings());
+		}
+
+		return _deliverySubscriptionTypeSettingsProperties;
+	}
+
+	@Override
 	public UnicodeProperties getSubscriptionTypeSettingsProperties() {
 		if (_subscriptionTypeSettingsProperties == null) {
 			_subscriptionTypeSettingsProperties = new UnicodeProperties(true);
@@ -90,6 +103,22 @@ public class CommerceSubscriptionEntryImpl
 		}
 
 		return _subscriptionTypeSettingsProperties;
+	}
+
+	@Override
+	public void setDeliverySubscriptionTypeSettingsProperties(
+		UnicodeProperties deliverySubscriptionTypeSettingsProperties) {
+
+		_deliverySubscriptionTypeSettingsProperties =
+			deliverySubscriptionTypeSettingsProperties;
+
+		if (_deliverySubscriptionTypeSettingsProperties == null) {
+			_deliverySubscriptionTypeSettingsProperties =
+				new UnicodeProperties();
+		}
+
+		super.setSubscriptionTypeSettings(
+			_deliverySubscriptionTypeSettingsProperties.toString());
 	}
 
 	@Override
@@ -114,6 +143,7 @@ public class CommerceSubscriptionEntryImpl
 			_subscriptionTypeSettingsProperties.toString());
 	}
 
+	private UnicodeProperties _deliverySubscriptionTypeSettingsProperties;
 	private UnicodeProperties _subscriptionTypeSettingsProperties;
 
 }

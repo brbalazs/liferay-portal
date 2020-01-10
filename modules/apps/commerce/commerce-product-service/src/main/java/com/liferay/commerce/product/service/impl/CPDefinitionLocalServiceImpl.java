@@ -1506,6 +1506,35 @@ public class CPDefinitionLocalServiceImpl
 
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
+	public CPDefinition updateDeliverySubscriptionInfo(
+			long cpDefinitionId, boolean deliverySubscriptionEnabled,
+			int deliverySubscriptionLength, String deliverySubscriptionType,
+			UnicodeProperties deliverySubscriptionTypeSettingsProperties,
+			long deliveryMaxSubscriptionCycles)
+		throws PortalException {
+
+		CPDefinition cpDefinition = cpDefinitionPersistence.findByPrimaryKey(
+			cpDefinitionId);
+
+		if (cpDefinitionLocalService.isVersionable(cpDefinition)) {
+			cpDefinition = cpDefinitionLocalService.copyCPDefinition(
+				cpDefinitionId);
+		}
+
+		cpDefinition.setDeliverySubscriptionEnabled(
+			deliverySubscriptionEnabled);
+		cpDefinition.setDeliverySubscriptionLength(deliverySubscriptionLength);
+		cpDefinition.setDeliverySubscriptionType(deliverySubscriptionType);
+		cpDefinition.setDeliverySubscriptionTypeSettingsProperties(
+			deliverySubscriptionTypeSettingsProperties);
+		cpDefinition.setDeliveryMaxSubscriptionCycles(
+			deliveryMaxSubscriptionCycles);
+
+		return cpDefinitionPersistence.update(cpDefinition);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public CPDefinition updateShippingInfo(
 			long cpDefinitionId, boolean shippable, boolean freeShipping,
 			boolean shipSeparately, double shippingExtraPrice, double width,

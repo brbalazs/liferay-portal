@@ -59,6 +59,7 @@ import java.util.TreeSet;
  * @author Marco Leo
  * @author Andrea Di Giorgi
  * @author Alessio Antonio Rendina
+ * @author Luca Pellizzon
  */
 public class CPDefinitionImpl extends CPDefinitionBaseImpl {
 
@@ -251,6 +252,19 @@ public class CPDefinitionImpl extends CPDefinitionBaseImpl {
 	}
 
 	@Override
+	public UnicodeProperties getDeliverySubscriptionTypeSettingsProperties() {
+		if (_deliverySubscriptionTypeSettingsProperties == null) {
+			_deliverySubscriptionTypeSettingsProperties = new UnicodeProperties(
+				true);
+
+			_deliverySubscriptionTypeSettingsProperties.fastLoad(
+				getDeliverySubscriptionTypeSettings());
+		}
+
+		return _deliverySubscriptionTypeSettingsProperties;
+	}
+
+	@Override
 	public Map<Locale, String> getDescriptionMap() {
 		if (_descriptionMap != null) {
 			return _descriptionMap;
@@ -388,6 +402,31 @@ public class CPDefinitionImpl extends CPDefinitionBaseImpl {
 	}
 
 	@Override
+	public void setDeliverySubscriptionTypeSettings(
+		String subscriptionTypeSettings) {
+
+		super.setDeliverySubscriptionTypeSettings(subscriptionTypeSettings);
+
+		_deliverySubscriptionTypeSettingsProperties = null;
+	}
+
+	@Override
+	public void setDeliverySubscriptionTypeSettingsProperties(
+		UnicodeProperties deliverySubscriptionTypeSettingsProperties) {
+
+		_deliverySubscriptionTypeSettingsProperties =
+			deliverySubscriptionTypeSettingsProperties;
+
+		if (_deliverySubscriptionTypeSettingsProperties == null) {
+			_deliverySubscriptionTypeSettingsProperties =
+				new UnicodeProperties();
+		}
+
+		super.setSubscriptionTypeSettings(
+			_deliverySubscriptionTypeSettingsProperties.toString());
+	}
+
+	@Override
 	public void setDescriptionMap(Map<Locale, String> descriptionMap) {
 		_descriptionMap = descriptionMap;
 	}
@@ -436,6 +475,7 @@ public class CPDefinitionImpl extends CPDefinitionBaseImpl {
 		_urlTitleMap = urlTitleMap;
 	}
 
+	private UnicodeProperties _deliverySubscriptionTypeSettingsProperties;
 	private Map<Locale, String> _descriptionMap;
 	private String _layoutUuid;
 	private Map<Locale, String> _metaDescriptionMap;

@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.util.UnicodeProperties;
  * @author Marco Leo
  * @author Andrea Di Giorgi
  * @author Alessio Antonio Rendina
+ * @author Luca Pellizzon
  */
 public class CPInstanceImpl extends CPInstanceBaseImpl {
 
@@ -46,11 +47,16 @@ public class CPInstanceImpl extends CPInstanceBaseImpl {
 
 	@Override
 	public CPSubscriptionInfo getCPSubscriptionInfo() throws PortalException {
-		if (isOverrideSubscriptionInfo() && isSubscriptionEnabled()) {
+		if (isOverrideSubscriptionInfo() &&
+			(isSubscriptionEnabled() || isDeliverySubscriptionEnabled())) {
+
 			return new CPSubscriptionInfo(
 				getSubscriptionLength(), getSubscriptionType(),
 				getSubscriptionTypeSettingsProperties(),
-				getMaxSubscriptionCycles());
+				getMaxSubscriptionCycles(), getDeliverySubscriptionLength(),
+				getDeliverySubscriptionType(),
+				getDeliverySubscriptionTypeSettingsProperties(),
+				getDeliveryMaxSubscriptionCycles());
 		}
 		else if (!isOverrideSubscriptionInfo()) {
 			CPDefinition cpDefinition = getCPDefinition();
@@ -60,11 +66,29 @@ public class CPInstanceImpl extends CPInstanceBaseImpl {
 					cpDefinition.getSubscriptionLength(),
 					cpDefinition.getSubscriptionType(),
 					cpDefinition.getSubscriptionTypeSettingsProperties(),
-					cpDefinition.getMaxSubscriptionCycles());
+					cpDefinition.getMaxSubscriptionCycles(),
+					cpDefinition.getDeliverySubscriptionLength(),
+					cpDefinition.getDeliverySubscriptionType(),
+					cpDefinition.
+						getDeliverySubscriptionTypeSettingsProperties(),
+					cpDefinition.getDeliveryMaxSubscriptionCycles());
 			}
 		}
 
 		return null;
+	}
+
+	@Override
+	public UnicodeProperties getDeliverySubscriptionTypeSettingsProperties() {
+		if (_orderSubscriptionTypeSettingsProperties == null) {
+			_orderSubscriptionTypeSettingsProperties = new UnicodeProperties(
+				true);
+
+			_orderSubscriptionTypeSettingsProperties.fastLoad(
+				getDeliverySubscriptionTypeSettings());
+		}
+
+		return _orderSubscriptionTypeSettingsProperties;
 	}
 
 	@Override
@@ -101,6 +125,7 @@ public class CPInstanceImpl extends CPInstanceBaseImpl {
 			_subscriptionTypeSettingsProperties.toString());
 	}
 
+	private UnicodeProperties _orderSubscriptionTypeSettingsProperties;
 	private UnicodeProperties _subscriptionTypeSettingsProperties;
 
 }

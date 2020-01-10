@@ -73,11 +73,11 @@ import java.util.concurrent.Callable;
 
 /**
  * @author Alessio Antonio Rendina
+ * @author Luca Pellizzon
  */
 public class CommerceSubscriptionEntryLocalServiceImpl
 	extends CommerceSubscriptionEntryLocalServiceBaseImpl {
 
-	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommerceSubscriptionEntry addCommerceSubscriptionEntry(
 			long userId, long groupId, long commerceOrderItemId,
@@ -86,12 +86,37 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 			UnicodeProperties subscriptionTypeSettingsProperties)
 		throws PortalException {
 
+		return commerceSubscriptionEntryLocalService.
+			addCommerceSubscriptionEntry(
+				userId, groupId, commerceOrderItemId, subscriptionLength,
+				subscriptionType, maxSubscriptionCycles,
+				subscriptionTypeSettingsProperties, 0, null, 0, null);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceSubscriptionEntry addCommerceSubscriptionEntry(
+			long userId, long groupId, long commerceOrderItemId,
+			int paymentSubscriptionLength, String paymentSubscriptionType,
+			long paymentMaxSubscriptionCycles,
+			UnicodeProperties subscriptionTypeSettingsProperties,
+			int deliverySubscriptionLength, String deliverySubscriptionType,
+			long deliveryMaxSubscriptionCycles,
+			UnicodeProperties deliverySubscriptionTypeSettingsProperties)
+		throws PortalException {
+
 		User user = userLocalService.getUser(userId);
 
-		CPSubscriptionType cpSubscriptionType =
-			_cpSubscriptionTypeRegistry.getCPSubscriptionType(subscriptionType);
+		CPSubscriptionType cpPaymentSubscriptionType =
+			_cpSubscriptionTypeRegistry.getCPSubscriptionType(
+				paymentSubscriptionType);
 
-		validateCPSubscriptionType(cpSubscriptionType);
+		CPSubscriptionType cpDeliverySubscriptionType =
+			_cpSubscriptionTypeRegistry.getCPSubscriptionType(
+				deliverySubscriptionType);
+
+		validateCPSubscriptionType(
+			cpPaymentSubscriptionType, cpDeliverySubscriptionType);
 
 		long commerceSubscriptionEntryId = counterLocalService.increment();
 
@@ -106,30 +131,63 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 		commerceSubscriptionEntry.setUserName(user.getFullName());
 
 		commerceSubscriptionEntry.setCommerceOrderItemId(commerceOrderItemId);
-		commerceSubscriptionEntry.setSubscriptionLength(subscriptionLength);
-		commerceSubscriptionEntry.setSubscriptionType(subscriptionType);
+		commerceSubscriptionEntry.setSubscriptionLength(
+			paymentSubscriptionLength);
+		commerceSubscriptionEntry.setSubscriptionType(paymentSubscriptionType);
 		commerceSubscriptionEntry.setCurrentCycle(1);
 		commerceSubscriptionEntry.setMaxSubscriptionCycles(
-			maxSubscriptionCycles);
+			paymentMaxSubscriptionCycles);
 		commerceSubscriptionEntry.setSubscriptionTypeSettingsProperties(
 			subscriptionTypeSettingsProperties);
 		commerceSubscriptionEntry.setSubscriptionStatus(
 			CommerceSubscriptionEntryConstants.SUBSCRIPTION_STATUS_ACTIVE);
 		commerceSubscriptionEntry.setLastIterationDate(new Date());
+		commerceSubscriptionEntry.setDeliverySubscriptionLength(
+			deliverySubscriptionLength);
+		commerceSubscriptionEntry.setDeliverySubscriptionType(
+			deliverySubscriptionType);
+		commerceSubscriptionEntry.setDeliveryCurrentCycle(1);
+		commerceSubscriptionEntry.setDeliveryMaxSubscriptionCycles(
+			deliveryMaxSubscriptionCycles);
+		commerceSubscriptionEntry.setDeliverySubscriptionTypeSettingsProperties(
+			deliverySubscriptionTypeSettingsProperties);
+		commerceSubscriptionEntry.setDeliverySubscriptionStatus(
+			CommerceSubscriptionEntryConstants.SUBSCRIPTION_STATUS_ACTIVE);
+		commerceSubscriptionEntry.setDeliveryLastIterationDate(new Date());
 
-		Date subscriptionNextIterationDate =
-			cpSubscriptionType.getSubscriptionNextIterationDate(
-				user.getTimeZone(), subscriptionLength,
-				subscriptionTypeSettingsProperties, null);
+		if (cpPaymentSubscriptionType != null) {
+			Date subscriptionNextIterationDate =
+				cpPaymentSubscriptionType.getSubscriptionNextIterationDate(
+					user.getTimeZone(), paymentSubscriptionLength,
+					subscriptionTypeSettingsProperties, null);
 
-		commerceSubscriptionEntry.setNextIterationDate(
-			subscriptionNextIterationDate);
+			commerceSubscriptionEntry.setNextIterationDate(
+				subscriptionNextIterationDate);
 
-		Date subscriptionStartDate =
-			cpSubscriptionType.getSubscriptionStartDate(
-				user.getTimeZone(), subscriptionTypeSettingsProperties);
+			Date subscriptionStartDate =
+				cpPaymentSubscriptionType.getSubscriptionStartDate(
+					user.getTimeZone(), subscriptionTypeSettingsProperties);
 
-		commerceSubscriptionEntry.setStartDate(subscriptionStartDate);
+			commerceSubscriptionEntry.setStartDate(subscriptionStartDate);
+		}
+
+		if (cpDeliverySubscriptionType != null) {
+			Date subscriptionNextIterationDate =
+				cpDeliverySubscriptionType.getSubscriptionNextIterationDate(
+					user.getTimeZone(), deliverySubscriptionLength,
+					deliverySubscriptionTypeSettingsProperties, null);
+
+			commerceSubscriptionEntry.setDeliveryNextIterationDate(
+				subscriptionNextIterationDate);
+
+			Date subscriptionStartDate =
+				cpDeliverySubscriptionType.getSubscriptionStartDate(
+					user.getTimeZone(),
+					deliverySubscriptionTypeSettingsProperties);
+
+			commerceSubscriptionEntry.setDeliveryStartDate(
+				subscriptionStartDate);
+		}
 
 		return commerceSubscriptionEntryPersistence.update(
 			commerceSubscriptionEntry);
@@ -183,11 +241,16 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 			throw new CommerceSubscriptionCPInstanceIdException();
 		}
 
-		CPSubscriptionType cpSubscriptionType =
+		CPSubscriptionType paymentSubscriptionType =
 			_cpSubscriptionTypeRegistry.getCPSubscriptionType(
 				cpSubscriptionInfo.getSubscriptionType());
 
-		validateCPSubscriptionType(cpSubscriptionType);
+		CPSubscriptionType deliverySubscriptionType =
+			_cpSubscriptionTypeRegistry.getCPSubscriptionType(
+				cpSubscriptionInfo.getDeliverySubscriptionType());
+
+		validateCPSubscriptionType(
+			paymentSubscriptionType, deliverySubscriptionType);
 
 		long commerceSubscriptionEntryId = counterLocalService.increment();
 
@@ -218,7 +281,7 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 		commerceSubscriptionEntry.setLastIterationDate(new Date());
 
 		Date subscriptionNextIterationDate =
-			cpSubscriptionType.getSubscriptionNextIterationDate(
+			paymentSubscriptionType.getSubscriptionNextIterationDate(
 				user.getTimeZone(), cpSubscriptionInfo.getSubscriptionLength(),
 				cpSubscriptionInfo.getSubscriptionTypeSettingsProperties(),
 				null);
@@ -227,7 +290,7 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 			subscriptionNextIterationDate);
 
 		Date subscriptionStartDate =
-			cpSubscriptionType.getSubscriptionStartDate(
+			paymentSubscriptionType.getSubscriptionStartDate(
 				user.getTimeZone(),
 				cpSubscriptionInfo.getSubscriptionTypeSettingsProperties());
 
@@ -295,6 +358,14 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 	}
 
 	@Override
+	public List<CommerceSubscriptionEntry>
+		getCommerceDeliverySubscriptionEntriesToRenew() {
+
+		return commerceSubscriptionEntryFinder.findByDeliveryNextIterationDate(
+			new Date());
+	}
+
+	@Override
 	public List<CommerceSubscriptionEntry> getCommerceSubscriptionEntries(
 		long companyId, long userId, int start, int end,
 		OrderByComparator<CommerceSubscriptionEntry> orderByComparator) {
@@ -337,6 +408,71 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 	}
 
 	@Override
+	public CommerceSubscriptionEntry
+			incrementCommerceDeliverySubscriptionEntryCycle(
+				long commerceSubscriptionEntryId)
+		throws PortalException {
+
+		CommerceSubscriptionEntry commerceSubscriptionEntry =
+			commerceSubscriptionEntryPersistence.findByPrimaryKey(
+				commerceSubscriptionEntryId);
+
+		long currentSubscriptionCycle =
+			commerceSubscriptionEntry.getDeliveryCurrentCycle();
+
+		commerceSubscriptionEntry.setDeliveryCurrentCycle(
+			currentSubscriptionCycle + 1);
+
+		User user = userLocalService.getUser(
+			commerceSubscriptionEntry.getUserId());
+
+		CPSubscriptionType paymentSubscriptionType =
+			_cpSubscriptionTypeRegistry.getCPSubscriptionType(
+				commerceSubscriptionEntry.getDeliverySubscriptionType());
+
+		CPSubscriptionType deliverySubscriptionType =
+			_cpSubscriptionTypeRegistry.getCPSubscriptionType(
+				commerceSubscriptionEntry.getDeliverySubscriptionType());
+
+		validateCPSubscriptionType(
+			paymentSubscriptionType, deliverySubscriptionType);
+
+		commerceSubscriptionEntry.setDeliveryLastIterationDate(
+			commerceSubscriptionEntry.getDeliveryNextIterationDate());
+
+		Date subscriptionNextIterationDate =
+			paymentSubscriptionType.getSubscriptionNextIterationDate(
+				user.getTimeZone(),
+				commerceSubscriptionEntry.getDeliverySubscriptionLength(),
+				commerceSubscriptionEntry.
+					getDeliverySubscriptionTypeSettingsProperties(),
+				commerceSubscriptionEntry.getDeliveryNextIterationDate());
+
+		commerceSubscriptionEntry.setDeliveryNextIterationDate(
+			subscriptionNextIterationDate);
+
+		CommerceSubscriptionEntry updatedSubscriptionEntry =
+			commerceSubscriptionEntryPersistence.update(
+				commerceSubscriptionEntry);
+
+		// Send user notification
+
+		CommerceOrderItem commerceOrderItem =
+			commerceSubscriptionEntry.fetchCommerceOrderItem();
+
+		if (commerceOrderItem != null) {
+			CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
+
+			_commerceNotificationHelper.sendNotifications(
+				commerceOrder.getGroupId(), commerceOrder.getUserId(),
+				CommerceSubscriptionNotificationConstants.SUBSCRIPTION_RENEWED,
+				updatedSubscriptionEntry);
+		}
+
+		return updatedSubscriptionEntry;
+	}
+
+	@Override
 	public CommerceSubscriptionEntry incrementCommerceSubscriptionEntryCycle(
 			long commerceSubscriptionEntryId)
 		throws PortalException {
@@ -353,17 +489,22 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 		User user = userLocalService.getUser(
 			commerceSubscriptionEntry.getUserId());
 
-		CPSubscriptionType cpSubscriptionType =
+		CPSubscriptionType paymentSubscriptionType =
 			_cpSubscriptionTypeRegistry.getCPSubscriptionType(
 				commerceSubscriptionEntry.getSubscriptionType());
 
-		validateCPSubscriptionType(cpSubscriptionType);
+		CPSubscriptionType deliverySubscriptionType =
+			_cpSubscriptionTypeRegistry.getCPSubscriptionType(
+				commerceSubscriptionEntry.getDeliverySubscriptionType());
+
+		validateCPSubscriptionType(
+			paymentSubscriptionType, deliverySubscriptionType);
 
 		commerceSubscriptionEntry.setLastIterationDate(
 			commerceSubscriptionEntry.getNextIterationDate());
 
 		Date subscriptionNextIterationDate =
-			cpSubscriptionType.getSubscriptionNextIterationDate(
+			paymentSubscriptionType.getSubscriptionNextIterationDate(
 				user.getTimeZone(),
 				commerceSubscriptionEntry.getSubscriptionLength(),
 				commerceSubscriptionEntry.
@@ -428,17 +569,24 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 	@Override
 	public CommerceSubscriptionEntry updateCommerceSubscriptionEntry(
 			long commerceSubscriptionEntryId, int subscriptionLength,
-			String subscriptionType,
+			int deliverySubscriptionLength, String subscriptionType,
+			String deliverySubscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
-			long maxSubscriptionCycles, int subscriptionStatus,
+			UnicodeProperties deliverySubscriptionTypeSettingsProperties,
+			long maxSubscriptionCycles, long deliveryMaxSubscriptionCycles,
+			int subscriptionStatus, int deliverySubscriptionStatus,
 			int nextIterationDateMonth, int nextIterationDateDay,
 			int nextIterationDateYear, int nextIterationDateHour,
-			int nextIterationDateMinute)
+			int nextIterationDateMinute, int deliveryNextIterationDateMonth,
+			int deliveryNextIterationDateDay, int deliveryNextIterationDateYear,
+			int deliveryNextIterationDateHour,
+			int deliveryNextIterationDateMinute)
 		throws PortalException {
 
 		validateCPSubscriptionType(
+			_cpSubscriptionTypeRegistry.getCPSubscriptionType(subscriptionType),
 			_cpSubscriptionTypeRegistry.getCPSubscriptionType(
-				subscriptionType));
+				deliverySubscriptionType));
 
 		CommerceSubscriptionEntry commerceSubscriptionEntry =
 			commerceSubscriptionEntryPersistence.findByPrimaryKey(
@@ -451,13 +599,27 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 			subscriptionStatus,
 			commerceSubscriptionEntry.getSubscriptionStatus());
 
+		validateSubscriptionStatus(
+			deliverySubscriptionStatus,
+			commerceSubscriptionEntry.getDeliverySubscriptionStatus());
+
 		commerceSubscriptionEntry.setSubscriptionLength(subscriptionLength);
 		commerceSubscriptionEntry.setSubscriptionType(subscriptionType);
+		commerceSubscriptionEntry.setDeliverySubscriptionLength(
+			deliverySubscriptionLength);
+		commerceSubscriptionEntry.setDeliverySubscriptionType(
+			deliverySubscriptionType);
 		commerceSubscriptionEntry.setSubscriptionTypeSettingsProperties(
 			subscriptionTypeSettingsProperties);
+		commerceSubscriptionEntry.setDeliverySubscriptionTypeSettingsProperties(
+			deliverySubscriptionTypeSettingsProperties);
 		commerceSubscriptionEntry.setMaxSubscriptionCycles(
 			maxSubscriptionCycles);
 		commerceSubscriptionEntry.setSubscriptionStatus(subscriptionStatus);
+		commerceSubscriptionEntry.setDeliveryMaxSubscriptionCycles(
+			deliveryMaxSubscriptionCycles);
+		commerceSubscriptionEntry.setDeliverySubscriptionStatus(
+			deliverySubscriptionStatus);
 
 		Date nextIterationDate = PortalUtil.getDate(
 			nextIterationDateMonth, nextIterationDateDay, nextIterationDateYear,
@@ -466,8 +628,38 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 
 		commerceSubscriptionEntry.setNextIterationDate(nextIterationDate);
 
+		nextIterationDate = PortalUtil.getDate(
+			deliveryNextIterationDateMonth, deliveryNextIterationDateDay,
+			deliveryNextIterationDateYear, deliveryNextIterationDateHour,
+			deliveryNextIterationDateMinute, user.getTimeZone(),
+			CommerceSubscriptionEntryNextIterationDateException.class);
+
+		commerceSubscriptionEntry.setDeliveryNextIterationDate(
+			nextIterationDate);
+
 		return commerceSubscriptionEntryPersistence.update(
 			commerceSubscriptionEntry);
+	}
+
+	@Override
+	public CommerceSubscriptionEntry updateCommerceSubscriptionEntry(
+			long commerceSubscriptionEntryId, int subscriptionLength,
+			String subscriptionType,
+			UnicodeProperties subscriptionTypeSettingsProperties,
+			long maxSubscriptionCycles, int subscriptionStatus,
+			int nextIterationDateMonth, int nextIterationDateDay,
+			int nextIterationDateYear, int nextIterationDateHour,
+			int nextIterationDateMinute)
+		throws PortalException {
+
+		return commerceSubscriptionEntryLocalService.
+			updateCommerceSubscriptionEntry(
+				commerceSubscriptionEntryId, subscriptionLength, 0,
+				subscriptionType, null, subscriptionTypeSettingsProperties,
+				null, maxSubscriptionCycles, 0, subscriptionStatus, 0,
+				nextIterationDateMonth, nextIterationDateDay,
+				nextIterationDateYear, nextIterationDateHour,
+				nextIterationDateMinute, 0, 0, 0, 0, 0);
 	}
 
 	@Override
@@ -483,16 +675,21 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 		User user = userLocalService.getUser(
 			commerceSubscriptionEntry.getUserId());
 
-		CPSubscriptionType cpSubscriptionType =
+		CPSubscriptionType paymentSubscriptionType =
 			_cpSubscriptionTypeRegistry.getCPSubscriptionType(
 				commerceSubscriptionEntry.getSubscriptionType());
 
-		validateCPSubscriptionType(cpSubscriptionType);
+		CPSubscriptionType deliverySubscriptionType =
+			_cpSubscriptionTypeRegistry.getCPSubscriptionType(
+				commerceSubscriptionEntry.getDeliverySubscriptionType());
+
+		validateCPSubscriptionType(
+			paymentSubscriptionType, deliverySubscriptionType);
 
 		commerceSubscriptionEntry.setLastIterationDate(lastIterationDate);
 
 		Date subscriptionNextIterationDate =
-			cpSubscriptionType.getSubscriptionNextIterationDate(
+			paymentSubscriptionType.getSubscriptionNextIterationDate(
 				user.getTimeZone(),
 				commerceSubscriptionEntry.getSubscriptionLength(),
 				commerceSubscriptionEntry.
@@ -501,6 +698,32 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 
 		commerceSubscriptionEntry.setNextIterationDate(
 			subscriptionNextIterationDate);
+
+		return commerceSubscriptionEntryPersistence.update(
+			commerceSubscriptionEntry);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceSubscriptionEntry updateDeliverySubscriptionStatus(
+			long commerceSubscriptionEntryId, int subscriptionStatus)
+		throws PortalException {
+
+		CommerceSubscriptionEntry commerceSubscriptionEntry =
+			commerceSubscriptionEntryPersistence.findByPrimaryKey(
+				commerceSubscriptionEntryId);
+
+		validateSubscriptionStatus(
+			subscriptionStatus,
+			commerceSubscriptionEntry.getSubscriptionStatus());
+
+		commerceSubscriptionEntry.setDeliverySubscriptionStatus(
+			subscriptionStatus);
+
+		// Messaging
+
+		sendSubscriptionStatusMessage(
+			commerceSubscriptionEntryId, subscriptionStatus);
 
 		return commerceSubscriptionEntryPersistence.update(
 			commerceSubscriptionEntry);
@@ -674,10 +897,13 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 	}
 
 	protected void validateCPSubscriptionType(
-			CPSubscriptionType cpSubscriptionType)
+			CPSubscriptionType paymentSubscriptionType,
+			CPSubscriptionType deliverySubscriptionType)
 		throws PortalException {
 
-		if (cpSubscriptionType == null) {
+		if ((paymentSubscriptionType == null) &&
+			(deliverySubscriptionType == null)) {
+
 			throw new CommerceSubscriptionTypeException();
 		}
 	}

@@ -154,10 +154,19 @@ public class CommerceOrderItemLocalServiceImpl
 		_setCommerceOrderItemDiscountValue(
 			commerceOrderItem, commerceProductPrice.getDiscountValue());
 
-		boolean subscription = cpDefinition.isSubscriptionEnabled();
+		boolean subscription = false;
 
-		if (cpInstance.isOverrideSubscriptionInfo()) {
-			subscription = cpInstance.isSubscriptionEnabled();
+		if (cpDefinition.isSubscriptionEnabled() ||
+			cpDefinition.isDeliverySubscriptionEnabled()) {
+
+			subscription = true;
+		}
+
+		if (cpInstance.isOverrideSubscriptionInfo() &&
+			(cpInstance.isSubscriptionEnabled() ||
+			 cpInstance.isDeliverySubscriptionEnabled())) {
+
+			subscription = true;
 		}
 
 		commerceOrderItem.setSubscription(subscription);

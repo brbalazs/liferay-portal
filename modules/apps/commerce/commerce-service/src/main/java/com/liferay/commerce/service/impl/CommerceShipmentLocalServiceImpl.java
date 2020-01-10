@@ -58,6 +58,52 @@ public class CommerceShipmentLocalServiceImpl
 
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
+	public CommerceShipment addCommerceDeliverySubscriptionShipment(
+			long userId, long commerceOrderId, String name, String description,
+			String street1, String street2, String street3, String city,
+			String zip, long commerceRegionId, long commerceCountryId,
+			String phoneNumber)
+		throws PortalException {
+
+		User user = userLocalService.getUser(userId);
+
+		CommerceOrder commerceOrder =
+			commerceOrderLocalService.getCommerceOrder(commerceOrderId);
+
+		long commerceShipmentId = counterLocalService.increment();
+
+		CommerceShipment commerceShipment = commerceShipmentPersistence.create(
+			commerceShipmentId);
+
+		commerceShipment.setGroupId(commerceOrder.getGroupId());
+		commerceShipment.setCompanyId(user.getCompanyId());
+		commerceShipment.setUserId(user.getUserId());
+		commerceShipment.setUserName(user.getFullName());
+		commerceShipment.setCommerceAccountId(
+			commerceOrder.getCommerceAccountId());
+		commerceShipment.setCommerceAddressId(
+			commerceOrder.getShippingAddressId());
+		commerceShipment.setCommerceShippingMethodId(
+			commerceOrder.getCommerceShippingMethodId());
+		commerceShipment.setShippingOptionName(
+			commerceOrder.getShippingOptionName());
+		commerceShipment.setStatus(
+			CommerceShipmentConstants.SHIPMENT_STATUS_PROCESSING);
+
+		CommerceAddress commerceAddress = updateCommerceShipmentAddress(
+			commerceShipment, name, description, street1, street2, street3,
+			city, zip, commerceRegionId, commerceCountryId, phoneNumber);
+
+		commerceShipment.setCommerceAddressId(
+			commerceAddress.getCommerceAddressId());
+
+		commerceShipment = commerceShipmentPersistence.update(commerceShipment);
+
+		return commerceShipment;
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public CommerceShipment addCommerceShipment(
 			long groupId, long commerceAccountId, long commerceAddressId,
 			long commerceShippingMethodId, String commerceShippingOptionName,
