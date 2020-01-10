@@ -149,6 +149,14 @@ public class CommerceInventoryWarehouseItemLocalServiceWrapper
 			deleteCommerceInventoryWarehouseItems(companyId, sku);
 	}
 
+	@Override
+	public void deleteCommerceInventoryWarehouseItemsByCompanyId(
+		long companyId) {
+
+		_commerceInventoryWarehouseItemLocalService.
+			deleteCommerceInventoryWarehouseItemsByCompanyId(companyId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

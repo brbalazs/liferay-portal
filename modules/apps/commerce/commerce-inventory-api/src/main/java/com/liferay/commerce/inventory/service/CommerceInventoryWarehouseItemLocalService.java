@@ -123,6 +123,9 @@ public interface CommerceInventoryWarehouseItemLocalService
 	public void deleteCommerceInventoryWarehouseItems(
 		long companyId, String sku);
 
+	public void deleteCommerceInventoryWarehouseItemsByCompanyId(
+		long companyId);
+
 	/**
 	 * @throws PortalException
 	 */

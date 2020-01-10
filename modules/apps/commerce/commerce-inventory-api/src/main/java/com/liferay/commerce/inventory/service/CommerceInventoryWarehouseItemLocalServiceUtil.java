@@ -144,6 +144,13 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 		getService().deleteCommerceInventoryWarehouseItems(companyId, sku);
 	}
 
+	public static void deleteCommerceInventoryWarehouseItemsByCompanyId(
+		long companyId) {
+
+		getService().deleteCommerceInventoryWarehouseItemsByCompanyId(
+			companyId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
