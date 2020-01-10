@@ -33,6 +33,7 @@ import com.liferay.commerce.product.internal.upgrade.v1_6_0.CommerceCatalogUpgra
 import com.liferay.commerce.product.internal.upgrade.v1_6_0.CommerceChannelUpgradeProcess;
 import com.liferay.commerce.product.internal.upgrade.v1_7_0.CPDefinitionFiltersUpgradeProcess;
 import com.liferay.commerce.product.internal.upgrade.v2_0_0.CPInstanceOptionValueRelUpgradeProcess;
+import com.liferay.commerce.product.internal.upgrade.v2_1_0.SubscriptionUpgradeProcess;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -139,6 +140,10 @@ public class CommerceProductUpgradeStepRegistrator
 			new CPInstanceOptionValueRelUpgradeProcess(
 				_jsonFactory, _portalUUID));
 
+		registry.register(
+			_SCHEMA_VERSION_2_0_0, _SCHEMA_VERSION_2_1_0,
+			new SubscriptionUpgradeProcess());
+
 		if (_log.isInfoEnabled()) {
 			_log.info("COMMERCE PRODUCT UPGRADE STEP REGISTRATOR FINISHED");
 		}
@@ -175,6 +180,8 @@ public class CommerceProductUpgradeStepRegistrator
 	private static final String _SCHEMA_VERSION_1_11_2 = "1.11.2";
 
 	private static final String _SCHEMA_VERSION_2_0_0 = "2.0.0";
+
+	private static final String _SCHEMA_VERSION_2_1_0 = "2.1.0";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceProductUpgradeStepRegistrator.class);

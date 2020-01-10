@@ -32,6 +32,8 @@ import com.liferay.commerce.internal.upgrade.v4_2_1.PrintedNoteUpgradeProcess;
 import com.liferay.commerce.internal.upgrade.v4_3_0.CommerceOrderDateUpgradeProcess;
 import com.liferay.commerce.internal.upgrade.v4_4_0.CommerceOrderManuallyAdjustedUpgradeProcess;
 import com.liferay.commerce.internal.upgrade.v4_5_1.CommerceShippingMethodUpgradeProcess;
+import com.liferay.commerce.internal.upgrade.v4_6_0.ShipmentUpgradeProcess;
+import com.liferay.commerce.internal.upgrade.v4_6_0.SubscriptionUpgradeProcess;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.portal.kernel.log.Log;
@@ -50,6 +52,7 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Rodrigo Guedes de Souza
  * @author Alec Sloan
+ * @author Alessio Antonio Rendina
  */
 @Component(immediate = true, service = UpgradeStepRegistrator.class)
 public class CommerceUpgradeStepRegistrator implements UpgradeStepRegistrator {
@@ -162,6 +165,10 @@ public class CommerceUpgradeStepRegistrator implements UpgradeStepRegistrator {
 			new CommerceShippingMethodUpgradeProcess(
 				_classNameLocalService, _groupLocalService));
 
+		registry.register(
+			_SCHEMA_VERSION_4_5_1, _SCHEMA_VERSION_4_6_0,
+			new SubscriptionUpgradeProcess(), new ShipmentUpgradeProcess());
+
 		if (_log.isInfoEnabled()) {
 			_log.info("COMMERCE UPGRADE STEP REGISTRATOR FINISHED");
 		}
@@ -202,6 +209,8 @@ public class CommerceUpgradeStepRegistrator implements UpgradeStepRegistrator {
 	private static final String _SCHEMA_VERSION_4_5_0 = "4.5.0";
 
 	private static final String _SCHEMA_VERSION_4_5_1 = "4.5.1";
+
+	private static final String _SCHEMA_VERSION_4_6_0 = "4.6.0";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceUpgradeStepRegistrator.class);
