@@ -723,6 +723,15 @@
 		<column name="lastIterationDate" type="Date" />
 		<column name="nextIterationDate" type="Date" />
 		<column name="startDate" type="Date" />
+		<column name="deliverySubscriptionLength" type="int" />
+		<column name="deliverySubscriptionType" type="String" />
+		<column db-name="deliverySubTypeSettings" name="deliverySubscriptionTypeSettings" type="String" />
+		<column name="deliveryCurrentCycle" type="long" />
+		<column name="deliveryMaxSubscriptionCycles" type="long" />
+		<column name="deliverySubscriptionStatus" type="int" />
+		<column name="deliveryLastIterationDate" type="Date" />
+		<column name="deliveryNextIterationDate" type="Date" />
+		<column name="deliveryStartDate" type="Date" />
 
 		<!-- Order -->
 

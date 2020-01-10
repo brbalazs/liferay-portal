@@ -254,6 +254,11 @@
 		<column name="subscriptionType" type="String" />
 		<column name="subscriptionTypeSettings" type="String" />
 		<column name="maxSubscriptionCycles" type="long" />
+		<column name="deliverySubscriptionEnabled" type="boolean" />
+		<column name="deliverySubscriptionLength" type="int" />
+		<column name="deliverySubscriptionType" type="String" />
+		<column db-name="deliverySubTypeSettings" name="deliverySubscriptionTypeSettings" type="String" />
+		<column name="deliveryMaxSubscriptionCycles" type="long" />
 		<column name="accountGroupFilterEnabled" type="boolean" />
 		<column name="channelFilterEnabled" type="boolean" />
 		<column name="version" type="int" />
@@ -722,6 +727,11 @@
 		<column name="subscriptionType" type="String" />
 		<column name="subscriptionTypeSettings" type="String" />
 		<column name="maxSubscriptionCycles" type="long" />
+		<column name="deliverySubscriptionEnabled" type="boolean" />
+		<column name="deliverySubscriptionLength" type="int" />
+		<column name="deliverySubscriptionType" type="String" />
+		<column db-name="deliverySubTypeSettings" name="deliverySubscriptionTypeSettings" type="String" />
+		<column name="deliveryMaxSubscriptionCycles" type="long" />
 		<column name="status" type="int" />
 		<column name="statusByUserId" type="long" />
 		<column name="statusByUserName" type="String" />
