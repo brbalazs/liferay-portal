@@ -116,7 +116,8 @@ public class CommerceInventoryEngineImpl implements CommerceInventoryEngine {
 				companyId, channelGroupId, sku);
 
 		int commerceBookedQuantity =
-			_commerceBookedQuantityLocalService.getCommerceBookedQuantity(sku);
+			_commerceBookedQuantityLocalService.getCommerceBookedQuantity(
+				companyId, sku);
 
 		return stockQuantity - commerceBookedQuantity;
 	}
@@ -128,7 +129,8 @@ public class CommerceInventoryEngineImpl implements CommerceInventoryEngine {
 				companyId, sku);
 
 		int commerceBookedQuantity =
-			_commerceBookedQuantityLocalService.getCommerceBookedQuantity(sku);
+			_commerceBookedQuantityLocalService.getCommerceBookedQuantity(
+				companyId, sku);
 
 		return stockQuantity - commerceBookedQuantity;
 	}
