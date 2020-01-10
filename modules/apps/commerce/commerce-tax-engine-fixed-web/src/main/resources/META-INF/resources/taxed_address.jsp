@@ -30,7 +30,10 @@ CommerceTaxedAddressDisplayContext commerceTaxedAddressDisplayContext = (Commerc
 	<div class="lfr-form-content">
 		<aui:fieldset-group markupView="lexicon">
 			<aui:fieldset>
-				<aui:input labelOff="billing-address" labelOn="shipping-address" name="apply-tax-to" type="toggle-switch" value="<%= commerceTaxedAddressDisplayContext.isTaxAppliedToShippingAddress() %>" />
+				<liferay-ui:message key="apply-tax-to" />
+
+				<aui:input checked="<%= commerceTaxedAddressDisplayContext.isTaxAppliedToShippingAddress() %>" label="shipping-address" name="apply-tax-to" type="radio" value="<%= true %>" />
+				<aui:input checked="<%= !commerceTaxedAddressDisplayContext.isTaxAppliedToShippingAddress() %>" label="billing-address" name="apply-tax-to" type="radio" value="<%= false %>" />
 			</aui:fieldset>
 		</aui:fieldset-group>
 	</div>
