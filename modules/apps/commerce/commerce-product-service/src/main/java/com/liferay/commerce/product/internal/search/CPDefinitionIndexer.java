@@ -54,6 +54,7 @@ import com.liferay.portal.kernel.search.IndexWriterHelper;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Summary;
+import com.liferay.portal.kernel.search.facet.util.RangeParserUtil;
 import com.liferay.portal.kernel.search.filter.BooleanFilter;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.search.filter.TermFilter;
@@ -130,6 +131,19 @@ public class CPDefinitionIndexer extends BaseIndexer<CPDefinition> {
 		}
 
 		Map<String, Serializable> attributes = searchContext.getAttributes();
+
+		if (attributes.containsKey("basePrice")) {
+			String[] basePriceRanges = GetterUtil.getStringValues(
+				attributes.get("basePrice"));
+
+			for (String basePriceRange : basePriceRanges) {
+				String[] rangeArray = RangeParserUtil.parserRange(
+					basePriceRange);
+
+				contextBooleanFilter.addRangeTerm(
+					"basePrice", rangeArray[0], rangeArray[1]);
+			}
+		}
 
 		if (attributes.containsKey(CPField.PUBLISHED)) {
 			boolean published = GetterUtil.getBoolean(
