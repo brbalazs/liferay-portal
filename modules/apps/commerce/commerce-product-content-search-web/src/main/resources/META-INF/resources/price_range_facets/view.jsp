@@ -117,27 +117,15 @@ if (minDouble != 0) {
 		</c:choose>
 
 		<c:if test="<%= cpPriceRangeFacetsDisplayContext.showInputRange() %>">
-			<style>
-				input::-webkit-outer-spin-button,
-				input::-webkit-inner-spin-button {
-					-webkit-appearance: none;
-					margin: 0;
-				}
-
-				input[type=number] {
-					-moz-appearance:textfield;
-				}
-			</style>
-
 			<div class="mt-3 row">
-				<aui:input label="<%= StringPool.BLANK %>" min="0" name="minimum" prefix="<%= cpPriceRangeFacetsDisplayContext.getCurrentCommerceCurrencySymbol() %>" type="number" value="<%= min %>" wrapperCssClass="col-md-5 p-0" />
+				<aui:input cssClass="price-range-input" label="<%= StringPool.BLANK %>" min="0" name="minimum" prefix="<%= cpPriceRangeFacetsDisplayContext.getCurrentCommerceCurrencySymbol() %>" type="number" value="<%= min %>" wrapperCssClass="col-md-5 price-range-input-wrapper" />
 
-				<span class="mt-auto text-center" style="margin-bottom: 2rem; width: 3%">-</span>
+				<span class="mt-auto price-range-seperator text-center">-</span>
 
-				<aui:input label="<%= StringPool.BLANK %>" name="maximum" prefix="<%= cpPriceRangeFacetsDisplayContext.getCurrentCommerceCurrencySymbol() %>" type="number" value="<%= max %>" wrapperCssClass="col-md-5 p-0" />
+				<aui:input cssClass="price-range-input" label="<%= StringPool.BLANK %>" name="maximum" prefix="<%= cpPriceRangeFacetsDisplayContext.getCurrentCommerceCurrencySymbol() %>" type="number" value="<%= max %>" wrapperCssClass="col-md-5 price-range-input-wrapper" />
 
-				<div class="col-md-1 p-0">
-					<button class="btn btn-secondary" onclick="<%= renderResponse.getNamespace() + "submitPriceRange();" %>" style="height: 40px; margin-bottom: 1.5rem; width: inherit"><liferay-ui:message key="go" /></button>
+				<div class="col-md-1 ml-2 p-0">
+					<button class="btn btn-secondary price-range-btn" onclick="<%= renderResponse.getNamespace() + "submitPriceRange();" %>"><liferay-ui:message key="go" /></button>
 				</div>
 			</div>
 
