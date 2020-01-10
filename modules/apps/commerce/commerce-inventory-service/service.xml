@@ -62,6 +62,10 @@
 		<finder name="LtExpirationDate" return-type="Collection">
 			<finder-column comparator="&lt;" name="expirationDate" />
 		</finder>
+		<finder name="C_S" return-type="Collection">
+			<finder-column name="companyId" />
+			<finder-column name="sku" />
+		</finder>
 	</entity>
 	<entity local-service="true" name="CommerceInventoryReplenishmentItem" remote-service="true" table="CIReplenishmentItem">
 
