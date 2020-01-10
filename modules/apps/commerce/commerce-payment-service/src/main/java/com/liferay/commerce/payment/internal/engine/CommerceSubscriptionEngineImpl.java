@@ -18,7 +18,6 @@ import com.liferay.commerce.constants.CommerceSubscriptionEntryConstants;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
-import com.liferay.commerce.notification.util.CommerceNotificationHelper;
 import com.liferay.commerce.payment.engine.CommerceSubscriptionEngine;
 import com.liferay.commerce.payment.method.CommercePaymentMethod;
 import com.liferay.commerce.payment.request.CommercePaymentRequest;
@@ -33,6 +32,8 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.Portal;
 
+import java.util.Objects;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Component;
@@ -44,6 +45,34 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = CommerceSubscriptionEngine.class)
 public class CommerceSubscriptionEngineImpl
 	implements CommerceSubscriptionEngine {
+
+	@Override
+	@Transactional(
+		propagation = Propagation.REQUIRED, readOnly = false,
+		rollbackFor = Exception.class
+	)
+	public boolean activateRecurringDelivery(long commerceSubscriptionEntryId)
+		throws Exception {
+
+		CommerceSubscriptionEntry commerceSubscriptionEntry =
+			_commerceSubscriptionEntryLocalService.getCommerceSubscriptionEntry(
+				commerceSubscriptionEntryId);
+
+		if (Objects.equals(
+				CommerceSubscriptionEntryConstants.SUBSCRIPTION_STATUS_ACTIVE,
+				commerceSubscriptionEntry.getSubscriptionStatus())) {
+
+			_commerceSubscriptionEntryLocalService.
+				updateDeliverySubscriptionStatus(
+					commerceSubscriptionEntryId,
+					CommerceSubscriptionEntryConstants.
+						SUBSCRIPTION_STATUS_ACTIVE);
+
+			return true;
+		}
+
+		return false;
+	}
 
 	@Override
 	@Transactional(
@@ -92,6 +121,21 @@ public class CommerceSubscriptionEngineImpl
 		}
 
 		return activateSubscription;
+	}
+
+	@Override
+	@Transactional(
+		propagation = Propagation.REQUIRED, readOnly = false,
+		rollbackFor = Exception.class
+	)
+	public boolean cancelRecurringDelivery(long commerceSubscriptionEntryId)
+		throws Exception {
+
+		_commerceSubscriptionEntryLocalService.updateDeliverySubscriptionStatus(
+			commerceSubscriptionEntryId,
+			CommerceSubscriptionEntryConstants.SUBSCRIPTION_STATUS_CANCELLED);
+
+		return true;
 	}
 
 	@Override
@@ -264,6 +308,38 @@ public class CommerceSubscriptionEngineImpl
 		propagation = Propagation.REQUIRED, readOnly = false,
 		rollbackFor = Exception.class
 	)
+	public boolean suspendRecurringDelivery(long commerceSubscriptionEntryId)
+		throws Exception {
+
+		CommerceSubscriptionEntry commerceSubscriptionEntry =
+			_commerceSubscriptionEntryLocalService.getCommerceSubscriptionEntry(
+				commerceSubscriptionEntryId);
+
+		if (Objects.equals(
+				CommerceSubscriptionEntryConstants.SUBSCRIPTION_STATUS_ACTIVE,
+				commerceSubscriptionEntry.getSubscriptionStatus()) ||
+			Objects.equals(
+				CommerceSubscriptionEntryConstants.
+					SUBSCRIPTION_STATUS_SUSPENDED,
+				commerceSubscriptionEntry.getSubscriptionStatus())) {
+
+			_commerceSubscriptionEntryLocalService.
+				updateDeliverySubscriptionStatus(
+					commerceSubscriptionEntryId,
+					CommerceSubscriptionEntryConstants.
+						SUBSCRIPTION_STATUS_SUSPENDED);
+
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	@Transactional(
+		propagation = Propagation.REQUIRED, readOnly = false,
+		rollbackFor = Exception.class
+	)
 	public boolean suspendRecurringPayment(long commerceSubscriptionEntryId)
 		throws Exception {
 
@@ -308,9 +384,6 @@ public class CommerceSubscriptionEngineImpl
 
 		return suspendSubscription;
 	}
-
-	@Reference
-	private CommerceNotificationHelper _commerceNotificationHelper;
 
 	@Reference
 	private CommerceOrderLocalService _commerceOrderLocalService;

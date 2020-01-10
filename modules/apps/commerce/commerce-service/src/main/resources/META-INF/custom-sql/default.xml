@@ -287,6 +287,18 @@
 				(CommerceShipmentItem.commerceOrderItemId = ?)
 		]]>
 	</sql>
+	<sql id="com.liferay.commerce.service.persistence.CommerceSubscriptionEntryFinder.findByDeliveryNextIterationDate">
+		<![CDATA[
+			SELECT
+				CommerceSubscriptionEntry.*
+			FROM
+				CommerceSubscriptionEntry
+			WHERE
+				(CommerceSubscriptionEntry.deliveryNextIterationDate < ?) AND
+				(CommerceSubscriptionEntry.deliverySubscriptionStatus = 0) AND
+				(CommerceSubscriptionEntry.subscriptionStatus = 0)
+		]]>
+	</sql>
 	<sql id="com.liferay.commerce.service.persistence.CommerceSubscriptionEntryFinder.findByNextIterationDate">
 		<![CDATA[
 			SELECT
