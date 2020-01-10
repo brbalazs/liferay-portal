@@ -108,6 +108,13 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 	}
 
 	@Override
+	public void deleteCommerceInventoryWarehouseItemsByCompanyId(
+		long companyId) {
+
+		commerceInventoryWarehouseItemPersistence.removeByCompanyId(companyId);
+	}
+
+	@Override
 	public CommerceInventoryWarehouseItem fetchCommerceInventoryWarehouseItem(
 		long commerceInventoryWarehouseId, String sku) {
 
