@@ -80,6 +80,10 @@ public class CPPortletKeys {
 		"com_liferay_commerce_product_options_web_internal_portlet_" +
 			"CPOptionsPortlet";
 
+	public static final String CP_PRICE_RANGE_FACETS =
+		"com_liferay_commerce_product_content_search_web_internal_portlet_" +
+			"CPPriceRangeFacetsPortlet";
+
 	public static final String CP_PUBLISHER_WEB =
 		"com_liferay_commerce_product_content_web_internal_portlet_" +
 			"CPPublisherPortlet";
