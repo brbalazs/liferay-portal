@@ -20,6 +20,6 @@ package com.liferay.portal.vulcan.dto.converter;
  */
 public interface DTOConverterRegistry {
 
-	public DTOConverter getDTOConverter(String assetEntryClassName);
+	public DTOConverter getDTOConverter(String dtoClassName);
 
 }

@@ -31,8 +31,8 @@ import org.osgi.service.component.annotations.Deactivate;
 @Component(service = DTOConverterRegistry.class)
 public class DTOConverterRegistryImpl implements DTOConverterRegistry {
 
-	public DTOConverter getDTOConverter(String assetEntryClassName) {
-		return _serviceTrackerMap.getService(assetEntryClassName);
+	public DTOConverter getDTOConverter(String dtoClassName) {
+		return _serviceTrackerMap.getService(dtoClassName);
 	}
 
 	@Activate
@@ -40,10 +40,10 @@ public class DTOConverterRegistryImpl implements DTOConverterRegistry {
 		_serviceTrackerMap = ServiceTrackerMapFactory.openSingleValueMap(
 			bundleContext, DTOConverter.class, "(dto.class.name=*)",
 			(serviceReference, emitter) -> {
-				String assetEntryClassName =
-					(String)serviceReference.getProperty("dto.class.name");
+				String dtoClassName = (String)serviceReference.getProperty(
+					"dto.class.name");
 
-				emitter.emit(assetEntryClassName);
+				emitter.emit(dtoClassName);
 			});
 	}
 
