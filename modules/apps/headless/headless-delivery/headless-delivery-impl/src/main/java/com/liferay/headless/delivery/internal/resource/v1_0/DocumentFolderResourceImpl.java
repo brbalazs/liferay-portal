@@ -246,9 +246,9 @@ public class DocumentFolderResourceImpl
 	private DocumentFolder _toDocumentFolder(Folder folder) throws Exception {
 		return _documentFolderDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				_dtoConverterRegistry,
-				contextAcceptLanguage.getPreferredLocale(),
-				folder.getFolderId(), contextUriInfo, contextUser));
+				_dtoConverterRegistry, folder.getFolderId(),
+				contextAcceptLanguage.getPreferredLocale(), contextUriInfo,
+				contextUser));
 	}
 
 	private DocumentFolder _updateDocumentFolder(

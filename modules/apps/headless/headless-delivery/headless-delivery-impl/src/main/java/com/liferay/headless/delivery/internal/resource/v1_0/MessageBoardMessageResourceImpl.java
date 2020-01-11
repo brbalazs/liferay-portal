@@ -346,7 +346,7 @@ public class MessageBoardMessageResourceImpl
 
 		return _messageBoardMessageDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				_dtoConverterRegistry, null, mbMessage.getPrimaryKey(),
+				_dtoConverterRegistry, mbMessage.getPrimaryKey(), null,
 				contextUriInfo, contextUser));
 	}
 

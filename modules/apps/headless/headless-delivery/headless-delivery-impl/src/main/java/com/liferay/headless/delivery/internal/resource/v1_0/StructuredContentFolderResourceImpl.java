@@ -252,9 +252,9 @@ public class StructuredContentFolderResourceImpl
 
 		return _structuredContentFolderDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				_dtoConverterRegistry,
-				contextAcceptLanguage.getPreferredLocale(),
-				journalFolder.getFolderId(), contextUriInfo, contextUser));
+				_dtoConverterRegistry, journalFolder.getFolderId(),
+				contextAcceptLanguage.getPreferredLocale(), contextUriInfo,
+				contextUser));
 	}
 
 	@Reference

@@ -29,37 +29,37 @@ public class DefaultDTOConverterContext implements DTOConverterContext {
 
 	public DefaultDTOConverterContext(
 		boolean acceptAllLanguages, DTOConverterRegistry dtoConverterRegistry,
-		Locale locale, Object id, UriInfo uriInfo, User user) {
+		Object id, Locale locale, UriInfo uriInfo, User user) {
 
 		_acceptAllLanguages = acceptAllLanguages;
 		_dtoConverterRegistry = dtoConverterRegistry;
-		_locale = locale;
 		_id = id;
+		_locale = locale;
 		_uriInfo = uriInfo;
 		_user = user;
 	}
 
 	public DefaultDTOConverterContext(
-		DTOConverterRegistry dtoConverterRegistry, Locale locale, Object id,
+		DTOConverterRegistry dtoConverterRegistry, Object id, Locale locale,
 		UriInfo uriInfo, User user) {
 
-		this(false, dtoConverterRegistry, locale, id, uriInfo, user);
+		this(false, dtoConverterRegistry, id, locale, uriInfo, user);
 	}
 
-	public DefaultDTOConverterContext(Locale locale, Object id) {
-		this(locale, id, null, null);
-	}
-
-	public DefaultDTOConverterContext(
-		Locale locale, Object id, UriInfo uriInfo) {
-
-		this(locale, id, uriInfo, null);
+	public DefaultDTOConverterContext(Object id, Locale locale) {
+		this(id, locale, null, null);
 	}
 
 	public DefaultDTOConverterContext(
-		Locale locale, Object id, UriInfo uriInfo, User user) {
+		Object id, Locale locale, UriInfo uriInfo) {
 
-		this(false, null, locale, id, uriInfo, user);
+		this(id, locale, uriInfo, null);
+	}
+
+	public DefaultDTOConverterContext(
+		Object id, Locale locale, UriInfo uriInfo, User user) {
+
+		this(false, null, id, locale, uriInfo, user);
 	}
 
 	@Override
