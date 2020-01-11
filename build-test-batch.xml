@@ -3061,7 +3061,7 @@ log.sanitizer.enabled=false</echo>
 					<if>
 						<equals arg1="${build.profile}" arg2="dxp" />
 						<then>
-							<echo> Building Commerce with DXP profile </echo>
+							<echo>Building Commerce with DXP profile.</echo>
 
 							<antcall inheritAll="false" target="setup-profile-dxp" />
 
@@ -3074,7 +3074,7 @@ log.sanitizer.enabled=false</echo>
 							</gradle-execute>
 						</then>
 						<else>
-							<echo> Building Commerce </echo>
+							<echo>Building Commerce.</echo>
 
 							<gradle-execute dir="${project.dir}/modules/apps/commerce" task="deploy">
 								<arg value="clean" />
