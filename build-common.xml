@@ -1524,6 +1524,10 @@ artifact.url=${remote.repository.url}/com/liferay/portal/com.liferay.${processed
 								<arg value="-m" />
 								<arg value="artifact:ignore ${artifact.name} ${artifact.version} releng" />
 							</exec>
+
+							<antcall target="deploy" />
+
+							<antcall target="install-portal-snapshot" />
 						</then>
 					</if>
 
