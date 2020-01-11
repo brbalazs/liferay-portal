@@ -94,7 +94,7 @@ public class BlogPostingDTOConverter
 					BlogsEntry.class.getName(), blogsEntry.getEntryId());
 				relatedContents = RelatedContentUtil.toRelatedContents(
 					_assetEntryLocalService, _assetLinkLocalService,
-					dtoConverterContext.getDtoConverterRegistry(),
+					dtoConverterContext.getDTOConverterRegistry(),
 					blogsEntry.getModelClassName(), blogsEntry.getEntryId(),
 					dtoConverterContext.getLocale());
 				siteId = blogsEntry.getGroupId();

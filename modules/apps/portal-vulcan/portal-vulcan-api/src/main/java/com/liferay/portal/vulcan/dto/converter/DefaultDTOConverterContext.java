@@ -63,7 +63,7 @@ public class DefaultDTOConverterContext implements DTOConverterContext {
 	}
 
 	@Override
-	public DTOConverterRegistry getDtoConverterRegistry() {
+	public DTOConverterRegistry getDTOConverterRegistry() {
 		return _dtoConverterRegistry;
 	}
 

@@ -88,7 +88,7 @@ public class MessageBoardMessageDTOConverter
 						WorkflowConstants.STATUS_APPROVED);
 				relatedContents = RelatedContentUtil.toRelatedContents(
 					_assetEntryLocalService, _assetLinkLocalService,
-					dtoConverterContext.getDtoConverterRegistry(),
+					dtoConverterContext.getDTOConverterRegistry(),
 					mbMessage.getModelClassName(), mbMessage.getMessageId(),
 					dtoConverterContext.getLocale());
 				showAsAnswer = mbMessage.isAnswer();

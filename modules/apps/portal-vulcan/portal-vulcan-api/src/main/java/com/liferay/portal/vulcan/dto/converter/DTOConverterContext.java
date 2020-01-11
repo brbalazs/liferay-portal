@@ -29,7 +29,7 @@ import javax.ws.rs.core.UriInfo;
  */
 public interface DTOConverterContext {
 
-	public default DTOConverterRegistry getDtoConverterRegistry() {
+	public default DTOConverterRegistry getDTOConverterRegistry() {
 		return null;
 	}
 

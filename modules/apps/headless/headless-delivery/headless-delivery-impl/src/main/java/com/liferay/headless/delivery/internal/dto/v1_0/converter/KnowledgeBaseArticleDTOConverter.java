@@ -109,7 +109,7 @@ public class KnowledgeBaseArticleDTOConverter
 				parentKnowledgeBaseFolderId = kbArticle.getKbFolderId();
 				relatedContents = RelatedContentUtil.toRelatedContents(
 					_assetEntryLocalService, _assetLinkLocalService,
-					dtoConverterContext.getDtoConverterRegistry(),
+					dtoConverterContext.getDTOConverterRegistry(),
 					kbArticle.getModelClassName(),
 					kbArticle.getResourcePrimKey(),
 					dtoConverterContext.getLocale());

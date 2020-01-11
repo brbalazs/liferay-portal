@@ -109,7 +109,7 @@ public class DocumentDTOConverter
 					DLFileEntry.class.getName(), fileEntry.getFileEntryId());
 				relatedContents = RelatedContentUtil.toRelatedContents(
 					_assetEntryLocalService, _assetLinkLocalService,
-					dtoConverterContext.getDtoConverterRegistry(),
+					dtoConverterContext.getDTOConverterRegistry(),
 					DLFileEntry.class.getName(), fileEntry.getFileEntryId(),
 					dtoConverterContext.getLocale());
 				sizeInBytes = fileEntry.getSize();

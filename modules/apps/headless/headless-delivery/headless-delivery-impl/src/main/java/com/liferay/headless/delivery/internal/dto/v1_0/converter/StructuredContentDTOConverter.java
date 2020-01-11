@@ -150,7 +150,7 @@ public class StructuredContentDTOConverter
 					journalArticle.getResourcePrimKey());
 				relatedContents = RelatedContentUtil.toRelatedContents(
 					_assetEntryLocalService, _assetLinkLocalService,
-					dtoConverterContext.getDtoConverterRegistry(),
+					dtoConverterContext.getDTOConverterRegistry(),
 					JournalArticle.class.getName(),
 					journalArticle.getResourcePrimKey(),
 					dtoConverterContext.getLocale());
