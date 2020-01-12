@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
 
 import java.io.File;
@@ -34,11 +35,14 @@ public class DLManagementUtil {
 
 	public static DLFileEntry addOrUpdateFile(
 			long folderId, long fileEntryId, String fileName,
-			InputStream inStream, String mimeType,
-			ServiceContext serviceContext)
+			InputStream inStream, String mimeType)
 		throws PortalException {
 
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
 		long groupId = serviceContext.getScopeGroupId();
+
 		DLFileEntry fileEntry = null;
 
 		if (fileEntryId == 0) {
@@ -58,11 +62,13 @@ public class DLManagementUtil {
 	}
 
 	public static DLFileEntry addOrUpdateFile(
-			long fileEntryId, String processName, File file,
-			ServiceContext serviceContext)
+			long fileEntryId, String processName, File file)
 		throws PortalException {
 
-		Folder folder = getOrCreateFolder(
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		Folder folder = _getOrCreateFolder(
 			serviceContext.getScopeGroupId(), 0, "PROCESS_" + processName,
 			serviceContext);
 
@@ -87,7 +93,7 @@ public class DLManagementUtil {
 		return fileEntry;
 	}
 
-	public static Folder getOrCreateFolder(
+	private static Folder _getOrCreateFolder(
 			long repositoryId, long parentFolderId, String folderName,
 			ServiceContext serviceContext)
 		throws PortalException {
