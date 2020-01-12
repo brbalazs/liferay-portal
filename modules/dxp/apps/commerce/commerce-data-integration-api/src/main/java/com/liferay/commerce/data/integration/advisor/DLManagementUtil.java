@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.commerce.data.integration.service.util;
+package com.liferay.commerce.data.integration.advisor;
 
 import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.document.library.kernel.service.DLAppLocalServiceUtil;
