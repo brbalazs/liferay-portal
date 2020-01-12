@@ -31,7 +31,7 @@ import java.io.InputStream;
 /**
  * @author guywandji
  */
-public class DLManagementUtil {
+public class DLAdvisor {
 
 	public static DLFileEntry addOrUpdateFile(
 			long folderId, long fileEntryId, String fileName,
@@ -121,7 +121,6 @@ public class DLManagementUtil {
 		return folder;
 	}
 
-	private static final Log _log = LogFactoryUtil.getLog(
-		DLManagementUtil.class);
+	private static final Log _log = LogFactoryUtil.getLog(DLAdvisor.class);
 
 }
