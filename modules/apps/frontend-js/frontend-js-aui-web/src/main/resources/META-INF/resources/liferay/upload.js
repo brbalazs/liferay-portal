@@ -1012,7 +1012,9 @@ AUI.add(
 
 						if (A.UA.ie) {
 							instance._fileListTPL.tpls = instance._fileListTPL.tpls.map(
-								tpl => {
+								function(item, index) {
+									var tpl = item;
+
 									if (tpl.tplFn) {
 										var tplBodyRegex = /function anonymous\(values,parent\s*\) \{\s*(.*)\s*\}/;
 										var tplFn = tpl.tplFn.toString();
