@@ -18,6 +18,12 @@
     overflow: hidden;
     z-index: 2;
     transition: border .2s ease-in;
+
+    .minium-card__actions &.btn-add-to-cart {
+      max-width: 180px;
+      margin: 30px auto;
+      border-radius: 8px;
+    }
   
     &::before {
       content: '';

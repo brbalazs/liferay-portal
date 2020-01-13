@@ -135,7 +135,7 @@
   }
 
   &__empty_sku {
-    display: inline-block;
+    display: none;
     font-size: 12px;
     line-height: 1;
     margin-bottom: 0;
@@ -147,6 +147,7 @@
     color: inherit;
     font-size: 16px;
     font-weight: 600;
+    height: 44px;
     margin-bottom: 0;
     margin-top: 10px;
     overflow: hidden;
@@ -185,9 +186,9 @@
   }
 
   &__description {
+    flex-grow: 1;
     font-size: 14px;
     margin: 0;
-    min-height: 26px;
 
     @media only screen and (max-width: $bp-small) {
       font-size: 10px;
