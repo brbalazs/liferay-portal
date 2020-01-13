@@ -19,7 +19,8 @@ Speedwell.features.categoryMenu = (function(w) {
         if (isCatalogLink) {
             categoryNavigationElement.focus();
             categoryNavigationElement.classList.add(IS_OPEN);
-        } else {
+        }
+        else {
             categoryNavigationElement.classList.remove(IS_OPEN);
         }
     }

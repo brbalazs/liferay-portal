@@ -43,7 +43,8 @@ const SpeedwellSlider = function (sliderContainer, setupDOMSlideFn,
 
     if (!!this.sliderWrapper) {
         this.init();
-    } else {
+    }
+    else {
         throw new Error('Container not found.');
     }
 };
@@ -166,7 +167,8 @@ SpeedwellSlider.prototype = {
         if (isEnabled) {
             this.controls.prevBtn.removeAttribute('disabled');
             this.controls.nextBtn.removeAttribute('disabled');
-        } else {
+        }
+        else {
             this.controls.prevBtn.setAttribute('disabled', isEnabled);
             this.controls.nextBtn.setAttribute('disabled', isEnabled);
         }
@@ -266,7 +268,8 @@ SpeedwellSlider.prototype = {
             this.stateCycleMap[CURRENT] = this.stateCycleMap[NEXT];
             this.stateCycleMap[NEXT] = this.stateCycleMap[WILL_BE_NEXT];
             this.stateCycleMap[WILL_BE_NEXT] = nextSlideContent;
-        } else {
+        }
+        else {
             this.stateCycleMap[WILL_BE_NEXT] = this.stateCycleMap[NEXT];
             this.stateCycleMap[NEXT] = this.stateCycleMap[CURRENT];
             this.stateCycleMap[CURRENT] = nextSlideContent;

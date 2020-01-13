@@ -21,7 +21,8 @@ function TableHeadCell(props) {
 				direction: el.direction === 'ASC' ? 'DESC' : 'ASC'
 			}) : el)
 			context.updateSorting(updatedSortedElements)
-		} else {
+		}
+		else {
 			context.updateSorting([{
 				direction: 'ASC',
 				fieldName: props.fieldName
@@ -70,10 +71,12 @@ function TableHeadRow(props) {
 			
 			if (field.contentRenderer === 'picture') {
 				expandedClass = null;
-			} else if (!firstElementGotExpanded) {
+			}
+			else if (!firstElementGotExpanded) {
 				expandedClass = 'table-cell-expand';
 				firstElementGotExpanded = true
-			} else {
+			}
+			else {
 				expandedClass = 'table-cell-expand-smaller';
 			}
 			

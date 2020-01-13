@@ -71,7 +71,8 @@ class AddToCart extends Component {
 						jsonresponse.successMessage,
 						'success'
 					);
-				} else {
+				}
+				else {
 					var validatorErrors = jsonresponse.validatorErrors;
 
 					if (validatorErrors) {
@@ -81,7 +82,8 @@ class AddToCart extends Component {
 								'danger'
 							);
 						});
-					} else {
+					}
+					else {
 						instance._showNotification(
 							jsonresponse.error,
 							'danger'
@@ -106,7 +108,8 @@ class AddToCart extends Component {
 					instance._addToCart();
 				}
 			});
-		} else {
+		}
+		else {
 			this._addToCart();
 		}
 	}

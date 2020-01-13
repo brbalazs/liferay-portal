@@ -15,10 +15,12 @@ function CheckboxesFilter(props) {
 
 		if (!value.includes(itemValue)) {
 			return setValue(value.concat(itemValue));
-		} else {
+		}
+		else {
 			if (value.length === 1) {
 				return setValue(undefined);
-			} else {
+			}
+			else {
 				return setValue(value.filter(v => v !== itemValue));
 			}
 		}

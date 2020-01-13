@@ -47,7 +47,8 @@ function BulkActions(props) {
 			);
 
 			setCurrentSidePanelActionPayload(sidePanelActionPayload)
-		} else {
+		}
+		else {
 			submit(
 				actionDefinition.url,
 				actionDefinition.method || 'post',

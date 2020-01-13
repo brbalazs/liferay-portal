@@ -47,7 +47,8 @@
 			var form = document.querySelector("form");
 			if (form) {
 				submitForm(form);
-			} else {
+			}
+			else {
 				throw new Error("no forms found");
 			}
 		})

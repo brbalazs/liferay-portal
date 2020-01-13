@@ -19,7 +19,8 @@ function Modal(props) {
 		if (iframeLoadingCounter > 1) {
 			if (onClose) {
 				onClose();
-			} else if (props.onClose) {
+			}
+			else if (props.onClose) {
 				props.onClose()
 			}
 		}
@@ -99,7 +100,8 @@ function Modal(props) {
 
 		if (iframeForm) {
 			iframeRef.current.contentWindow.submitForm(iframeForm)
-		} else {
+		}
+		else {
 			throw new Error('Form not available');
 		}
 	}

@@ -63,7 +63,8 @@ if (commerceOrder != null) {
 						.then(function(payload) {
 							if (payload.success) {
 								window.location.reload();
-							} else {
+							}
+							else {
 								new Liferay.Notification(
 									{
 										closeable: true,
@@ -112,7 +113,8 @@ if (commerceOrder != null) {
 						.then(function(payload) {
 							if (payload.success) {
 								window.location.reload();
-							} else {
+							}
+							else {
 								new Liferay.Notification(
 									{
 										closeable: true,

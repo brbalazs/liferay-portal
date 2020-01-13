@@ -52,7 +52,8 @@ export default class SidePanel extends React.Component {
 			const container = document.querySelector(this.props.containerSelector);
 			if (container) {
 				container.classList.add('with-side-panel');
-			} else {
+			}
+			else {
 				throw new Error(`Container: "${this.props.containerSelector}" not found!`)
 			}
 		}

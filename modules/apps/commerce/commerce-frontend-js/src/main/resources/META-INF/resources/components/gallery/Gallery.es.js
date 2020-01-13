@@ -87,7 +87,8 @@ export default class Gallery extends React.Component {
 		return new Promise(resolve => {
 			if (this.state.loaded.has(imageUrl)) {
 				resolve(imageUrl);
-			} else {
+			}
+			else {
 				this.setState({loading: true});
 				fetchImage(imageUrl).then(() => {
 					this.setState(

@@ -3,7 +3,8 @@ export const registeredPanels = new Map();
 export function exposeSidePanel(id, callback = null) {
     if (callback) {
         registeredPanels.set(id, callback);
-    } else {
+    }
+    else {
         registeredPanels.delete(id);
     }
 }

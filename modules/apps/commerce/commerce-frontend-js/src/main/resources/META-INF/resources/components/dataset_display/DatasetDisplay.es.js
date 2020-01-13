@@ -79,13 +79,16 @@ function DatasetDisplay(props) {
 		if (val === 'all-items') {
 			if (checked) {
 				setselectedItemsId(props.items.map(el => el.id));
-			} else {
+			}
+			else {
 				setselectedItemsId([]);
 			}
-		} else {
+		}
+		else {
 			if (checked) {
 				setselectedItemsId(selectedItemsId.concat(val));
-			} else {
+			}
+			else {
 				setselectedItemsId(selectedItemsId.filter(el => el !== val));
 			}
 		}

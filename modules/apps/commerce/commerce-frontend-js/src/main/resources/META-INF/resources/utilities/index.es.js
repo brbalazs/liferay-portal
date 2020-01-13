@@ -111,7 +111,8 @@ export function launcher(Component, componentId, rootId, props) {
 	if (Liferay && Liferay.component && Liferay.on && Liferay.detach) {
 		Liferay.component(componentId, componentInstance);
 		Liferay.on('beforeNavigate', destroyComponent);
-	} else {
+	}
+	else {
 		// eslint-disable-next-line no-console
 		console.info('Liferay env not found');
 	}
