@@ -176,8 +176,8 @@ message.
 		</gradle-execute>
 
 		<parallel failonany="true" threadcount="${parallel.thread.count}">
-			<ant dir="api" inheritAll="false" target="clean" />
 			<ant dir="benchmarks" inheritAll="false" target="clean" />
+
 			<ant dir="classes" inheritAll="false" target="clean" />
 
 			<ant dir="portal-kernel" inheritAll="false" target="clean" />
@@ -193,6 +193,7 @@ message.
 
 			<ant dir="sql" inheritAll="false" target="clean" />
 
+			<delete dir="api" />
 			<delete dir="jacoco" />
 
 			<sequential>
