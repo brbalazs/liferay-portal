@@ -50,6 +50,7 @@ import java.text.Format;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * @author Raymond Augé
@@ -156,6 +157,12 @@ public class LayoutSetBranchLocalServiceImpl
 				layoutSetBranch.isPrivateLayout());
 
 			for (Layout layout : layouts) {
+				if (Objects.equals(
+						layout.getType(), LayoutConstants.TYPE_CONTROL_PANEL)) {
+
+					continue;
+				}
+
 				LayoutBranch layoutBranch =
 					layoutBranchLocalService.addLayoutBranch(
 						layoutSetBranchId, layout.getPlid(),
