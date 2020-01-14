@@ -16,13 +16,11 @@ function CheckboxesFilter(props) {
 		if (!value.includes(itemValue)) {
 			return setValue(value.concat(itemValue));
 		}
+		else if (value.length === 1) {
+			return setValue(undefined);
+		}
 		else {
-			if (value.length === 1) {
-				return setValue(undefined);
-			}
-			else {
-				return setValue(value.filter(v => v !== itemValue));
-			}
+			return setValue(value.filter(v => v !== itemValue));
 		}
 	}
 
