@@ -1110,6 +1110,16 @@ AUI.add(
 			var fieldOptions = [];
 
 			if (options) {
+				var builder = instance.get('builder');
+
+				var translationManager = builder.translationManager;
+
+				var defaultLocale = translationManager.get('defaultLocale');
+
+				var availableLocales = translationManager.get(
+					'availableLocales'
+				);
+
 				options.forEach(
 					function(option) {
 						var fieldOption = {};
@@ -1119,12 +1129,40 @@ AUI.add(
 						fieldOption.value = option.value;
 						fieldOption.label = {};
 
-						A.each(
-							localizationMap,
-							function(item, index, collection) {
-								fieldOption.label[index] = LiferayFormBuilderUtil.normalizeValue(item.label);
+					availableLocales.forEach(locale => {
+						var label = A.Object.getValue(localizationMap, [
+							locale,
+							'label'
+						]);
+
+						if (!isValue(label)) {
+							label = A.Object.getValue(localizationMap, [
+								defaultLocale,
+								'label'
+							]);
+
+							if (!isValue(label)) {
+								for (var localizationMapLocale in localizationMap) {
+									label = A.Object.getValue(localizationMap, [
+										localizationMapLocale,
+										'label'
+									]);
+
+									if (isValue(label)) {
+										break;
+									}
+								}
 							}
-						);
+
+							if (!isValue(label)) {
+								label = STR_BLANK;
+							}
+						}
+
+						fieldOption.label[
+							locale
+						] = LiferayFormBuilderUtil.normalizeValue(label);
+					});
 
 						fieldOptions.push(fieldOption);
 					}
