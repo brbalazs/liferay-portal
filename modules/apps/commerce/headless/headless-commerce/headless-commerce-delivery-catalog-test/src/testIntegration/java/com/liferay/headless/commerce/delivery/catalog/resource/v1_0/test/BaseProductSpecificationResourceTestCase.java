@@ -194,36 +194,36 @@ public abstract class BaseProductSpecificationResourceTestCase {
 	}
 
 	@Test
-	public void testGetStoreChannelProductProductSpecificationsPage()
+	public void testGetChannelProductProductSpecificationsPage()
 		throws Exception {
 
 		Page<ProductSpecification> page =
 			productSpecificationResource.
-				getStoreChannelProductProductSpecificationsPage(
-					testGetStoreChannelProductProductSpecificationsPage_getChannelId(),
-					testGetStoreChannelProductProductSpecificationsPage_getProductId(),
+				getChannelProductProductSpecificationsPage(
+					testGetChannelProductProductSpecificationsPage_getChannelId(),
+					testGetChannelProductProductSpecificationsPage_getProductId(),
 					Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
 		Long channelId =
-			testGetStoreChannelProductProductSpecificationsPage_getChannelId();
+			testGetChannelProductProductSpecificationsPage_getChannelId();
 		Long irrelevantChannelId =
-			testGetStoreChannelProductProductSpecificationsPage_getIrrelevantChannelId();
+			testGetChannelProductProductSpecificationsPage_getIrrelevantChannelId();
 		Long productId =
-			testGetStoreChannelProductProductSpecificationsPage_getProductId();
+			testGetChannelProductProductSpecificationsPage_getProductId();
 		Long irrelevantProductId =
-			testGetStoreChannelProductProductSpecificationsPage_getIrrelevantProductId();
+			testGetChannelProductProductSpecificationsPage_getIrrelevantProductId();
 
 		if ((irrelevantChannelId != null) && (irrelevantProductId != null)) {
 			ProductSpecification irrelevantProductSpecification =
-				testGetStoreChannelProductProductSpecificationsPage_addProductSpecification(
+				testGetChannelProductProductSpecificationsPage_addProductSpecification(
 					irrelevantChannelId, irrelevantProductId,
 					randomIrrelevantProductSpecification());
 
 			page =
 				productSpecificationResource.
-					getStoreChannelProductProductSpecificationsPage(
+					getChannelProductProductSpecificationsPage(
 						irrelevantChannelId, irrelevantProductId,
 						Pagination.of(1, 2));
 
@@ -236,16 +236,16 @@ public abstract class BaseProductSpecificationResourceTestCase {
 		}
 
 		ProductSpecification productSpecification1 =
-			testGetStoreChannelProductProductSpecificationsPage_addProductSpecification(
+			testGetChannelProductProductSpecificationsPage_addProductSpecification(
 				channelId, productId, randomProductSpecification());
 
 		ProductSpecification productSpecification2 =
-			testGetStoreChannelProductProductSpecificationsPage_addProductSpecification(
+			testGetChannelProductProductSpecificationsPage_addProductSpecification(
 				channelId, productId, randomProductSpecification());
 
 		page =
 			productSpecificationResource.
-				getStoreChannelProductProductSpecificationsPage(
+				getChannelProductProductSpecificationsPage(
 					channelId, productId, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
@@ -257,29 +257,29 @@ public abstract class BaseProductSpecificationResourceTestCase {
 	}
 
 	@Test
-	public void testGetStoreChannelProductProductSpecificationsPageWithPagination()
+	public void testGetChannelProductProductSpecificationsPageWithPagination()
 		throws Exception {
 
 		Long channelId =
-			testGetStoreChannelProductProductSpecificationsPage_getChannelId();
+			testGetChannelProductProductSpecificationsPage_getChannelId();
 		Long productId =
-			testGetStoreChannelProductProductSpecificationsPage_getProductId();
+			testGetChannelProductProductSpecificationsPage_getProductId();
 
 		ProductSpecification productSpecification1 =
-			testGetStoreChannelProductProductSpecificationsPage_addProductSpecification(
+			testGetChannelProductProductSpecificationsPage_addProductSpecification(
 				channelId, productId, randomProductSpecification());
 
 		ProductSpecification productSpecification2 =
-			testGetStoreChannelProductProductSpecificationsPage_addProductSpecification(
+			testGetChannelProductProductSpecificationsPage_addProductSpecification(
 				channelId, productId, randomProductSpecification());
 
 		ProductSpecification productSpecification3 =
-			testGetStoreChannelProductProductSpecificationsPage_addProductSpecification(
+			testGetChannelProductProductSpecificationsPage_addProductSpecification(
 				channelId, productId, randomProductSpecification());
 
 		Page<ProductSpecification> page1 =
 			productSpecificationResource.
-				getStoreChannelProductProductSpecificationsPage(
+				getChannelProductProductSpecificationsPage(
 					channelId, productId, Pagination.of(1, 2));
 
 		List<ProductSpecification> productSpecifications1 =
@@ -291,7 +291,7 @@ public abstract class BaseProductSpecificationResourceTestCase {
 
 		Page<ProductSpecification> page2 =
 			productSpecificationResource.
-				getStoreChannelProductProductSpecificationsPage(
+				getChannelProductProductSpecificationsPage(
 					channelId, productId, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
@@ -305,7 +305,7 @@ public abstract class BaseProductSpecificationResourceTestCase {
 
 		Page<ProductSpecification> page3 =
 			productSpecificationResource.
-				getStoreChannelProductProductSpecificationsPage(
+				getChannelProductProductSpecificationsPage(
 					channelId, productId, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
@@ -316,7 +316,7 @@ public abstract class BaseProductSpecificationResourceTestCase {
 	}
 
 	protected ProductSpecification
-			testGetStoreChannelProductProductSpecificationsPage_addProductSpecification(
+			testGetChannelProductProductSpecificationsPage_addProductSpecification(
 				Long channelId, Long productId,
 				ProductSpecification productSpecification)
 		throws Exception {
@@ -325,8 +325,7 @@ public abstract class BaseProductSpecificationResourceTestCase {
 			"This method needs to be implemented");
 	}
 
-	protected Long
-			testGetStoreChannelProductProductSpecificationsPage_getChannelId()
+	protected Long testGetChannelProductProductSpecificationsPage_getChannelId()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -334,14 +333,13 @@ public abstract class BaseProductSpecificationResourceTestCase {
 	}
 
 	protected Long
-			testGetStoreChannelProductProductSpecificationsPage_getIrrelevantChannelId()
+			testGetChannelProductProductSpecificationsPage_getIrrelevantChannelId()
 		throws Exception {
 
 		return null;
 	}
 
-	protected Long
-			testGetStoreChannelProductProductSpecificationsPage_getProductId()
+	protected Long testGetChannelProductProductSpecificationsPage_getProductId()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -349,7 +347,7 @@ public abstract class BaseProductSpecificationResourceTestCase {
 	}
 
 	protected Long
-			testGetStoreChannelProductProductSpecificationsPage_getIrrelevantProductId()
+			testGetChannelProductProductSpecificationsPage_getIrrelevantProductId()
 		throws Exception {
 
 		return null;

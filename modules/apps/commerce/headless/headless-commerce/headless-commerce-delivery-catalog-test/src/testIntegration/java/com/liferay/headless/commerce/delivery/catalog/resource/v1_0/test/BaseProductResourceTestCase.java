@@ -213,23 +213,23 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	@Test
-	public void testGetStoreChannelProduct() throws Exception {
-		Product postProduct = testGetStoreChannelProduct_addProduct();
+	public void testGetChannelProduct() throws Exception {
+		Product postProduct = testGetChannelProduct_addProduct();
 
-		Product getProduct = productResource.getStoreChannelProduct(
+		Product getProduct = productResource.getChannelProduct(
 			postProduct.getChannelId(), postProduct.getId());
 
 		assertEquals(postProduct, getProduct);
 		assertValid(getProduct);
 	}
 
-	protected Product testGetStoreChannelProduct_addProduct() throws Exception {
+	protected Product testGetChannelProduct_addProduct() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
 	@Test
-	public void testGraphQLGetStoreChannelProduct() throws Exception {
+	public void testGraphQLGetChannelProduct() throws Exception {
 		Product product = testGraphQLProduct_addProduct();
 
 		List<GraphQLField> graphQLFields = getGraphQLFields();
@@ -237,7 +237,7 @@ public abstract class BaseProductResourceTestCase {
 		GraphQLField graphQLField = new GraphQLField(
 			"query",
 			new GraphQLField(
-				"storeChannelProduct",
+				"channelProduct",
 				new HashMap<String, Object>() {
 					{
 						put("channelId", product.getChannelId());
@@ -253,27 +253,26 @@ public abstract class BaseProductResourceTestCase {
 
 		Assert.assertTrue(
 			equalsJSONObject(
-				product, dataJSONObject.getJSONObject("storeChannelProduct")));
+				product, dataJSONObject.getJSONObject("channelProduct")));
 	}
 
 	@Test
-	public void testGetStoreChannelProductsPage() throws Exception {
-		Page<Product> page = productResource.getStoreChannelProductsPage(
-			testGetStoreChannelProductsPage_getChannelId(), null,
+	public void testGetChannelProductsPage() throws Exception {
+		Page<Product> page = productResource.getChannelProductsPage(
+			testGetChannelProductsPage_getChannelId(), null,
 			Pagination.of(1, 2), null);
 
 		Assert.assertEquals(0, page.getTotalCount());
 
-		Long channelId = testGetStoreChannelProductsPage_getChannelId();
+		Long channelId = testGetChannelProductsPage_getChannelId();
 		Long irrelevantChannelId =
-			testGetStoreChannelProductsPage_getIrrelevantChannelId();
+			testGetChannelProductsPage_getIrrelevantChannelId();
 
 		if ((irrelevantChannelId != null)) {
-			Product irrelevantProduct =
-				testGetStoreChannelProductsPage_addProduct(
-					irrelevantChannelId, randomIrrelevantProduct());
+			Product irrelevantProduct = testGetChannelProductsPage_addProduct(
+				irrelevantChannelId, randomIrrelevantProduct());
 
-			page = productResource.getStoreChannelProductsPage(
+			page = productResource.getChannelProductsPage(
 				irrelevantChannelId, null, Pagination.of(1, 2), null);
 
 			Assert.assertEquals(1, page.getTotalCount());
@@ -284,13 +283,13 @@ public abstract class BaseProductResourceTestCase {
 			assertValid(page);
 		}
 
-		Product product1 = testGetStoreChannelProductsPage_addProduct(
+		Product product1 = testGetChannelProductsPage_addProduct(
 			channelId, randomProduct());
 
-		Product product2 = testGetStoreChannelProductsPage_addProduct(
+		Product product2 = testGetChannelProductsPage_addProduct(
 			channelId, randomProduct());
 
-		page = productResource.getStoreChannelProductsPage(
+		page = productResource.getChannelProductsPage(
 			channelId, null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
@@ -301,7 +300,7 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	@Test
-	public void testGetStoreChannelProductsPageWithFilterDateTimeEquals()
+	public void testGetChannelProductsPageWithFilterDateTimeEquals()
 		throws Exception {
 
 		List<EntityField> entityFields = getEntityFields(
@@ -311,15 +310,14 @@ public abstract class BaseProductResourceTestCase {
 			return;
 		}
 
-		Long channelId = testGetStoreChannelProductsPage_getChannelId();
+		Long channelId = testGetChannelProductsPage_getChannelId();
 
 		Product product1 = randomProduct();
 
-		product1 = testGetStoreChannelProductsPage_addProduct(
-			channelId, product1);
+		product1 = testGetChannelProductsPage_addProduct(channelId, product1);
 
 		for (EntityField entityField : entityFields) {
-			Page<Product> page = productResource.getStoreChannelProductsPage(
+			Page<Product> page = productResource.getChannelProductsPage(
 				channelId, getFilterString(entityField, "between", product1),
 				Pagination.of(1, 2), null);
 
@@ -330,7 +328,7 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	@Test
-	public void testGetStoreChannelProductsPageWithFilterStringEquals()
+	public void testGetChannelProductsPageWithFilterStringEquals()
 		throws Exception {
 
 		List<EntityField> entityFields = getEntityFields(
@@ -340,17 +338,17 @@ public abstract class BaseProductResourceTestCase {
 			return;
 		}
 
-		Long channelId = testGetStoreChannelProductsPage_getChannelId();
+		Long channelId = testGetChannelProductsPage_getChannelId();
 
-		Product product1 = testGetStoreChannelProductsPage_addProduct(
+		Product product1 = testGetChannelProductsPage_addProduct(
 			channelId, randomProduct());
 
 		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Product product2 = testGetStoreChannelProductsPage_addProduct(
+		Product product2 = testGetChannelProductsPage_addProduct(
 			channelId, randomProduct());
 
 		for (EntityField entityField : entityFields) {
-			Page<Product> page = productResource.getStoreChannelProductsPage(
+			Page<Product> page = productResource.getChannelProductsPage(
 				channelId, getFilterString(entityField, "eq", product1),
 				Pagination.of(1, 2), null);
 
@@ -361,28 +359,26 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	@Test
-	public void testGetStoreChannelProductsPageWithPagination()
-		throws Exception {
+	public void testGetChannelProductsPageWithPagination() throws Exception {
+		Long channelId = testGetChannelProductsPage_getChannelId();
 
-		Long channelId = testGetStoreChannelProductsPage_getChannelId();
-
-		Product product1 = testGetStoreChannelProductsPage_addProduct(
+		Product product1 = testGetChannelProductsPage_addProduct(
 			channelId, randomProduct());
 
-		Product product2 = testGetStoreChannelProductsPage_addProduct(
+		Product product2 = testGetChannelProductsPage_addProduct(
 			channelId, randomProduct());
 
-		Product product3 = testGetStoreChannelProductsPage_addProduct(
+		Product product3 = testGetChannelProductsPage_addProduct(
 			channelId, randomProduct());
 
-		Page<Product> page1 = productResource.getStoreChannelProductsPage(
+		Page<Product> page1 = productResource.getChannelProductsPage(
 			channelId, null, Pagination.of(1, 2), null);
 
 		List<Product> products1 = (List<Product>)page1.getItems();
 
 		Assert.assertEquals(products1.toString(), 2, products1.size());
 
-		Page<Product> page2 = productResource.getStoreChannelProductsPage(
+		Page<Product> page2 = productResource.getChannelProductsPage(
 			channelId, null, Pagination.of(2, 2), null);
 
 		Assert.assertEquals(3, page2.getTotalCount());
@@ -391,7 +387,7 @@ public abstract class BaseProductResourceTestCase {
 
 		Assert.assertEquals(products2.toString(), 1, products2.size());
 
-		Page<Product> page3 = productResource.getStoreChannelProductsPage(
+		Page<Product> page3 = productResource.getChannelProductsPage(
 			channelId, null, Pagination.of(1, 3), null);
 
 		assertEqualsIgnoringOrder(
@@ -400,10 +396,8 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	@Test
-	public void testGetStoreChannelProductsPageWithSortDateTime()
-		throws Exception {
-
-		testGetStoreChannelProductsPageWithSort(
+	public void testGetChannelProductsPageWithSortDateTime() throws Exception {
+		testGetChannelProductsPageWithSort(
 			EntityField.Type.DATE_TIME,
 			(entityField, product1, product2) -> {
 				BeanUtils.setProperty(
@@ -413,10 +407,8 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	@Test
-	public void testGetStoreChannelProductsPageWithSortInteger()
-		throws Exception {
-
-		testGetStoreChannelProductsPageWithSort(
+	public void testGetChannelProductsPageWithSortInteger() throws Exception {
+		testGetChannelProductsPageWithSort(
 			EntityField.Type.INTEGER,
 			(entityField, product1, product2) -> {
 				BeanUtils.setProperty(product1, entityField.getName(), 0);
@@ -425,10 +417,8 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	@Test
-	public void testGetStoreChannelProductsPageWithSortString()
-		throws Exception {
-
-		testGetStoreChannelProductsPageWithSort(
+	public void testGetChannelProductsPageWithSortString() throws Exception {
+		testGetChannelProductsPageWithSort(
 			EntityField.Type.STRING,
 			(entityField, product1, product2) -> {
 				Class<?> clazz = product1.getClass();
@@ -456,7 +446,7 @@ public abstract class BaseProductResourceTestCase {
 			});
 	}
 
-	protected void testGetStoreChannelProductsPageWithSort(
+	protected void testGetChannelProductsPageWithSort(
 			EntityField.Type type,
 			UnsafeTriConsumer<EntityField, Product, Product, Exception>
 				unsafeTriConsumer)
@@ -468,7 +458,7 @@ public abstract class BaseProductResourceTestCase {
 			return;
 		}
 
-		Long channelId = testGetStoreChannelProductsPage_getChannelId();
+		Long channelId = testGetChannelProductsPage_getChannelId();
 
 		Product product1 = randomProduct();
 		Product product2 = randomProduct();
@@ -477,14 +467,12 @@ public abstract class BaseProductResourceTestCase {
 			unsafeTriConsumer.accept(entityField, product1, product2);
 		}
 
-		product1 = testGetStoreChannelProductsPage_addProduct(
-			channelId, product1);
+		product1 = testGetChannelProductsPage_addProduct(channelId, product1);
 
-		product2 = testGetStoreChannelProductsPage_addProduct(
-			channelId, product2);
+		product2 = testGetChannelProductsPage_addProduct(channelId, product2);
 
 		for (EntityField entityField : entityFields) {
-			Page<Product> ascPage = productResource.getStoreChannelProductsPage(
+			Page<Product> ascPage = productResource.getChannelProductsPage(
 				channelId, null, Pagination.of(1, 2),
 				entityField.getName() + ":asc");
 
@@ -492,10 +480,9 @@ public abstract class BaseProductResourceTestCase {
 				Arrays.asList(product1, product2),
 				(List<Product>)ascPage.getItems());
 
-			Page<Product> descPage =
-				productResource.getStoreChannelProductsPage(
-					channelId, null, Pagination.of(1, 2),
-					entityField.getName() + ":desc");
+			Page<Product> descPage = productResource.getChannelProductsPage(
+				channelId, null, Pagination.of(1, 2),
+				entityField.getName() + ":desc");
 
 			assertEquals(
 				Arrays.asList(product2, product1),
@@ -503,7 +490,7 @@ public abstract class BaseProductResourceTestCase {
 		}
 	}
 
-	protected Product testGetStoreChannelProductsPage_addProduct(
+	protected Product testGetChannelProductsPage_addProduct(
 			Long channelId, Product product)
 		throws Exception {
 
@@ -511,14 +498,12 @@ public abstract class BaseProductResourceTestCase {
 			"This method needs to be implemented");
 	}
 
-	protected Long testGetStoreChannelProductsPage_getChannelId()
-		throws Exception {
-
+	protected Long testGetChannelProductsPage_getChannelId() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long testGetStoreChannelProductsPage_getIrrelevantChannelId()
+	protected Long testGetChannelProductsPage_getIrrelevantChannelId()
 		throws Exception {
 
 		return null;

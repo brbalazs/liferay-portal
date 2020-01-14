@@ -23,7 +23,6 @@ import com.liferay.headless.commerce.delivery.catalog.client.serdes.v1_0.Related
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.Generated;
@@ -39,17 +38,12 @@ public interface RelatedProductResource {
 		return new Builder();
 	}
 
-	public RelatedProduct getRelatedProduct(Long id) throws Exception;
-
-	public HttpInvoker.HttpResponse getRelatedProductHttpResponse(Long id)
-		throws Exception;
-
-	public Page<RelatedProduct> getStoreChannelProductRelatedProductsPage(
+	public Page<RelatedProduct> getChannelProductRelatedProductsPage(
 			Long channelId, Long productId, String type, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			getStoreChannelProductRelatedProductsPageHttpResponse(
+			getChannelProductRelatedProductsPageHttpResponse(
 				Long channelId, Long productId, String type,
 				Pagination pagination)
 		throws Exception;
@@ -110,73 +104,13 @@ public interface RelatedProductResource {
 	public static class RelatedProductResourceImpl
 		implements RelatedProductResource {
 
-		public RelatedProduct getRelatedProduct(Long id) throws Exception {
-			HttpInvoker.HttpResponse httpResponse =
-				getRelatedProductHttpResponse(id);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return RelatedProductSerDes.toDTO(content);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw e;
-			}
-		}
-
-		public HttpInvoker.HttpResponse getRelatedProductHttpResponse(Long id)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/headless-commerce-delivery-catalog/v1.0/relatedProducts/{id}",
-				id);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public Page<RelatedProduct> getStoreChannelProductRelatedProductsPage(
+		public Page<RelatedProduct> getChannelProductRelatedProductsPage(
 				Long channelId, Long productId, String type,
 				Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getStoreChannelProductRelatedProductsPageHttpResponse(
+				getChannelProductRelatedProductsPageHttpResponse(
 					channelId, productId, type, pagination);
 
 			String content = httpResponse.getContent();
@@ -191,7 +125,7 @@ public interface RelatedProductResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getStoreChannelProductRelatedProductsPageHttpResponse(
+				getChannelProductRelatedProductsPageHttpResponse(
 					Long channelId, Long productId, String type,
 					Pagination pagination)
 			throws Exception {
@@ -231,7 +165,7 @@ public interface RelatedProductResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/relatedProducts",
+						"/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}/relatedProducts",
 				channelId, productId);
 
 			httpInvoker.userNameAndPassword(

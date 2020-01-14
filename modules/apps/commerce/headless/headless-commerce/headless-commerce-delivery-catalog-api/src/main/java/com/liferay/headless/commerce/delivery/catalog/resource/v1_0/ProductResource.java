@@ -42,10 +42,10 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface ProductResource {
 
-	public Product getStoreChannelProduct(Long channelId, Long productId)
+	public Product getChannelProduct(Long channelId, Long productId)
 		throws Exception;
 
-	public Page<Product> getStoreChannelProductsPage(
+	public Page<Product> getChannelProductsPage(
 			Long channelId, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 

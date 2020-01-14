@@ -40,11 +40,11 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface AttachmentResource {
 
-	public Page<Attachment> getStoreChannelProductAttachmentsPage(
+	public Page<Attachment> getChannelProductAttachmentsPage(
 			Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 
-	public Page<Attachment> getStoreChannelProductImagesPage(
+	public Page<Attachment> getChannelProductImagesPage(
 			Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 

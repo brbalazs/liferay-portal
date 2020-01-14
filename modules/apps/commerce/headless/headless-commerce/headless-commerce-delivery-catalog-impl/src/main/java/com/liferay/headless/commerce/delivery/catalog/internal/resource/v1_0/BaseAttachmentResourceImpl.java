@@ -56,7 +56,7 @@ public abstract class BaseAttachmentResourceImpl implements AttachmentResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/attachments'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}/attachments'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -68,10 +68,10 @@ public abstract class BaseAttachmentResourceImpl implements AttachmentResource {
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/stores/{channelId}/products/{productId}/attachments")
+	@Path("/channels/{channelId}/products/{productId}/attachments")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Attachment")})
-	public Page<Attachment> getStoreChannelProductAttachmentsPage(
+	public Page<Attachment> getChannelProductAttachmentsPage(
 			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
 				channelId,
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Long
@@ -85,7 +85,7 @@ public abstract class BaseAttachmentResourceImpl implements AttachmentResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/images'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}/images'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -97,10 +97,10 @@ public abstract class BaseAttachmentResourceImpl implements AttachmentResource {
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/stores/{channelId}/products/{productId}/images")
+	@Path("/channels/{channelId}/products/{productId}/images")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Attachment")})
-	public Page<Attachment> getStoreChannelProductImagesPage(
+	public Page<Attachment> getChannelProductImagesPage(
 			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
 				channelId,
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Long

@@ -55,28 +55,28 @@ public class AvailabilitySerDes {
 
 		sb.append("{");
 
-		if (availability.getAvailabilityLabel() != null) {
+		if (availability.getLabel() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"availabilityLabel\": ");
+			sb.append("\"label\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(availability.getAvailabilityLabel()));
+			sb.append(_escape(availability.getLabel()));
 
 			sb.append("\"");
 		}
 
-		if (availability.getAvailabilityNumber() != null) {
+		if (availability.getStockQuantity() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"availabilityNumber\": ");
+			sb.append("\"stockQuantity\": ");
 
-			sb.append(availability.getAvailabilityNumber());
+			sb.append(availability.getStockQuantity());
 		}
 
 		sb.append("}");
@@ -98,22 +98,20 @@ public class AvailabilitySerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
-		if (availability.getAvailabilityLabel() == null) {
-			map.put("availabilityLabel", null);
+		if (availability.getLabel() == null) {
+			map.put("label", null);
 		}
 		else {
-			map.put(
-				"availabilityLabel",
-				String.valueOf(availability.getAvailabilityLabel()));
+			map.put("label", String.valueOf(availability.getLabel()));
 		}
 
-		if (availability.getAvailabilityNumber() == null) {
-			map.put("availabilityNumber", null);
+		if (availability.getStockQuantity() == null) {
+			map.put("stockQuantity", null);
 		}
 		else {
 			map.put(
-				"availabilityNumber",
-				String.valueOf(availability.getAvailabilityNumber()));
+				"stockQuantity",
+				String.valueOf(availability.getStockQuantity()));
 		}
 
 		return map;
@@ -137,17 +135,14 @@ public class AvailabilitySerDes {
 			Availability availability, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "availabilityLabel")) {
+			if (Objects.equals(jsonParserFieldName, "label")) {
 				if (jsonParserFieldValue != null) {
-					availability.setAvailabilityLabel(
-						(String)jsonParserFieldValue);
+					availability.setLabel((String)jsonParserFieldValue);
 				}
 			}
-			else if (Objects.equals(
-						jsonParserFieldName, "availabilityNumber")) {
-
+			else if (Objects.equals(jsonParserFieldName, "stockQuantity")) {
 				if (jsonParserFieldValue != null) {
-					availability.setAvailabilityNumber(
+					availability.setStockQuantity(
 						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}

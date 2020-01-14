@@ -38,13 +38,12 @@ public interface CategoryResource {
 		return new Builder();
 	}
 
-	public Page<Category> getStoreChannelProductCategoriesPage(
+	public Page<Category> getChannelProductCategoriesPage(
 			Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse
-			getStoreChannelProductCategoriesPageHttpResponse(
-				Long channelId, Long productId, Pagination pagination)
+	public HttpInvoker.HttpResponse getChannelProductCategoriesPageHttpResponse(
+			Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 
 	public static class Builder {
@@ -102,12 +101,12 @@ public interface CategoryResource {
 
 	public static class CategoryResourceImpl implements CategoryResource {
 
-		public Page<Category> getStoreChannelProductCategoriesPage(
+		public Page<Category> getChannelProductCategoriesPage(
 				Long channelId, Long productId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getStoreChannelProductCategoriesPageHttpResponse(
+				getChannelProductCategoriesPageHttpResponse(
 					channelId, productId, pagination);
 
 			String content = httpResponse.getContent();
@@ -122,7 +121,7 @@ public interface CategoryResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getStoreChannelProductCategoriesPageHttpResponse(
+				getChannelProductCategoriesPageHttpResponse(
 					Long channelId, Long productId, Pagination pagination)
 			throws Exception {
 
@@ -157,7 +156,7 @@ public interface CategoryResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/categories",
+						"/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}/categories",
 				channelId, productId);
 
 			httpInvoker.userNameAndPassword(

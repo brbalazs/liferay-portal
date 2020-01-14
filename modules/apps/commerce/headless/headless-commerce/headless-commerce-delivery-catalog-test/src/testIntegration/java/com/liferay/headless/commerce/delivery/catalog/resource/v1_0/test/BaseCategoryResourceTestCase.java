@@ -189,31 +189,28 @@ public abstract class BaseCategoryResourceTestCase {
 	}
 
 	@Test
-	public void testGetStoreChannelProductCategoriesPage() throws Exception {
-		Page<Category> page =
-			categoryResource.getStoreChannelProductCategoriesPage(
-				testGetStoreChannelProductCategoriesPage_getChannelId(),
-				testGetStoreChannelProductCategoriesPage_getProductId(),
-				Pagination.of(1, 2));
+	public void testGetChannelProductCategoriesPage() throws Exception {
+		Page<Category> page = categoryResource.getChannelProductCategoriesPage(
+			testGetChannelProductCategoriesPage_getChannelId(),
+			testGetChannelProductCategoriesPage_getProductId(),
+			Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
-		Long channelId =
-			testGetStoreChannelProductCategoriesPage_getChannelId();
+		Long channelId = testGetChannelProductCategoriesPage_getChannelId();
 		Long irrelevantChannelId =
-			testGetStoreChannelProductCategoriesPage_getIrrelevantChannelId();
-		Long productId =
-			testGetStoreChannelProductCategoriesPage_getProductId();
+			testGetChannelProductCategoriesPage_getIrrelevantChannelId();
+		Long productId = testGetChannelProductCategoriesPage_getProductId();
 		Long irrelevantProductId =
-			testGetStoreChannelProductCategoriesPage_getIrrelevantProductId();
+			testGetChannelProductCategoriesPage_getIrrelevantProductId();
 
 		if ((irrelevantChannelId != null) && (irrelevantProductId != null)) {
 			Category irrelevantCategory =
-				testGetStoreChannelProductCategoriesPage_addCategory(
+				testGetChannelProductCategoriesPage_addCategory(
 					irrelevantChannelId, irrelevantProductId,
 					randomIrrelevantCategory());
 
-			page = categoryResource.getStoreChannelProductCategoriesPage(
+			page = categoryResource.getChannelProductCategoriesPage(
 				irrelevantChannelId, irrelevantProductId, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
@@ -224,15 +221,13 @@ public abstract class BaseCategoryResourceTestCase {
 			assertValid(page);
 		}
 
-		Category category1 =
-			testGetStoreChannelProductCategoriesPage_addCategory(
-				channelId, productId, randomCategory());
+		Category category1 = testGetChannelProductCategoriesPage_addCategory(
+			channelId, productId, randomCategory());
 
-		Category category2 =
-			testGetStoreChannelProductCategoriesPage_addCategory(
-				channelId, productId, randomCategory());
+		Category category2 = testGetChannelProductCategoriesPage_addCategory(
+			channelId, productId, randomCategory());
 
-		page = categoryResource.getStoreChannelProductCategoriesPage(
+		page = categoryResource.getChannelProductCategoriesPage(
 			channelId, productId, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
@@ -244,37 +239,30 @@ public abstract class BaseCategoryResourceTestCase {
 	}
 
 	@Test
-	public void testGetStoreChannelProductCategoriesPageWithPagination()
+	public void testGetChannelProductCategoriesPageWithPagination()
 		throws Exception {
 
-		Long channelId =
-			testGetStoreChannelProductCategoriesPage_getChannelId();
-		Long productId =
-			testGetStoreChannelProductCategoriesPage_getProductId();
+		Long channelId = testGetChannelProductCategoriesPage_getChannelId();
+		Long productId = testGetChannelProductCategoriesPage_getProductId();
 
-		Category category1 =
-			testGetStoreChannelProductCategoriesPage_addCategory(
-				channelId, productId, randomCategory());
+		Category category1 = testGetChannelProductCategoriesPage_addCategory(
+			channelId, productId, randomCategory());
 
-		Category category2 =
-			testGetStoreChannelProductCategoriesPage_addCategory(
-				channelId, productId, randomCategory());
+		Category category2 = testGetChannelProductCategoriesPage_addCategory(
+			channelId, productId, randomCategory());
 
-		Category category3 =
-			testGetStoreChannelProductCategoriesPage_addCategory(
-				channelId, productId, randomCategory());
+		Category category3 = testGetChannelProductCategoriesPage_addCategory(
+			channelId, productId, randomCategory());
 
-		Page<Category> page1 =
-			categoryResource.getStoreChannelProductCategoriesPage(
-				channelId, productId, Pagination.of(1, 2));
+		Page<Category> page1 = categoryResource.getChannelProductCategoriesPage(
+			channelId, productId, Pagination.of(1, 2));
 
 		List<Category> categories1 = (List<Category>)page1.getItems();
 
 		Assert.assertEquals(categories1.toString(), 2, categories1.size());
 
-		Page<Category> page2 =
-			categoryResource.getStoreChannelProductCategoriesPage(
-				channelId, productId, Pagination.of(2, 2));
+		Page<Category> page2 = categoryResource.getChannelProductCategoriesPage(
+			channelId, productId, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -282,16 +270,15 @@ public abstract class BaseCategoryResourceTestCase {
 
 		Assert.assertEquals(categories2.toString(), 1, categories2.size());
 
-		Page<Category> page3 =
-			categoryResource.getStoreChannelProductCategoriesPage(
-				channelId, productId, Pagination.of(1, 3));
+		Page<Category> page3 = categoryResource.getChannelProductCategoriesPage(
+			channelId, productId, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(category1, category2, category3),
 			(List<Category>)page3.getItems());
 	}
 
-	protected Category testGetStoreChannelProductCategoriesPage_addCategory(
+	protected Category testGetChannelProductCategoriesPage_addCategory(
 			Long channelId, Long productId, Category category)
 		throws Exception {
 
@@ -299,29 +286,27 @@ public abstract class BaseCategoryResourceTestCase {
 			"This method needs to be implemented");
 	}
 
-	protected Long testGetStoreChannelProductCategoriesPage_getChannelId()
+	protected Long testGetChannelProductCategoriesPage_getChannelId()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long
-			testGetStoreChannelProductCategoriesPage_getIrrelevantChannelId()
+	protected Long testGetChannelProductCategoriesPage_getIrrelevantChannelId()
 		throws Exception {
 
 		return null;
 	}
 
-	protected Long testGetStoreChannelProductCategoriesPage_getProductId()
+	protected Long testGetChannelProductCategoriesPage_getProductId()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long
-			testGetStoreChannelProductCategoriesPage_getIrrelevantProductId()
+	protected Long testGetChannelProductCategoriesPage_getIrrelevantProductId()
 		throws Exception {
 
 		return null;

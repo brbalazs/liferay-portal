@@ -28,47 +28,47 @@ import javax.annotation.Generated;
 @Generated("")
 public class Availability {
 
-	public String getAvailabilityLabel() {
-		return availabilityLabel;
+	public String getLabel() {
+		return label;
 	}
 
-	public void setAvailabilityLabel(String availabilityLabel) {
-		this.availabilityLabel = availabilityLabel;
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
-	public void setAvailabilityLabel(
-		UnsafeSupplier<String, Exception> availabilityLabelUnsafeSupplier) {
+	public void setLabel(
+		UnsafeSupplier<String, Exception> labelUnsafeSupplier) {
 
 		try {
-			availabilityLabel = availabilityLabelUnsafeSupplier.get();
+			label = labelUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected String availabilityLabel;
+	protected String label;
 
-	public Integer getAvailabilityNumber() {
-		return availabilityNumber;
+	public Integer getStockQuantity() {
+		return stockQuantity;
 	}
 
-	public void setAvailabilityNumber(Integer availabilityNumber) {
-		this.availabilityNumber = availabilityNumber;
+	public void setStockQuantity(Integer stockQuantity) {
+		this.stockQuantity = stockQuantity;
 	}
 
-	public void setAvailabilityNumber(
-		UnsafeSupplier<Integer, Exception> availabilityNumberUnsafeSupplier) {
+	public void setStockQuantity(
+		UnsafeSupplier<Integer, Exception> stockQuantityUnsafeSupplier) {
 
 		try {
-			availabilityNumber = availabilityNumberUnsafeSupplier.get();
+			stockQuantity = stockQuantityUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected Integer availabilityNumber;
+	protected Integer stockQuantity;
 
 	@Override
 	public boolean equals(Object object) {

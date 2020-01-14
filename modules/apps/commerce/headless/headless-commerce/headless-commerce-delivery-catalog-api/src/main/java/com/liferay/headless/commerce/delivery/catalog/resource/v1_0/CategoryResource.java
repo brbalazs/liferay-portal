@@ -40,7 +40,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface CategoryResource {
 
-	public Page<Category> getStoreChannelProductCategoriesPage(
+	public Page<Category> getChannelProductCategoriesPage(
 			Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 

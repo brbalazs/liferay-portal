@@ -57,7 +57,7 @@ public abstract class BaseSkuResourceImpl implements SkuResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/skus'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}/skus'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -70,10 +70,10 @@ public abstract class BaseSkuResourceImpl implements SkuResource {
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/stores/{channelId}/products/{productId}/skus")
+	@Path("/channels/{channelId}/products/{productId}/skus")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Sku")})
-	public Page<Sku> getStoreChannelProductSkusPage(
+	public Page<Sku> getChannelProductSkusPage(
 			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
 				channelId,
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Long

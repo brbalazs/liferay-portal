@@ -191,29 +191,29 @@ public abstract class BaseProductOptionResourceTestCase {
 	}
 
 	@Test
-	public void testGetStoreChannelProductOptionsPage() throws Exception {
+	public void testGetChannelProductOptionsPage() throws Exception {
 		Page<ProductOption> page =
-			productOptionResource.getStoreChannelProductOptionsPage(
-				testGetStoreChannelProductOptionsPage_getChannelId(),
-				testGetStoreChannelProductOptionsPage_getProductId(),
+			productOptionResource.getChannelProductOptionsPage(
+				testGetChannelProductOptionsPage_getChannelId(),
+				testGetChannelProductOptionsPage_getProductId(),
 				Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
-		Long channelId = testGetStoreChannelProductOptionsPage_getChannelId();
+		Long channelId = testGetChannelProductOptionsPage_getChannelId();
 		Long irrelevantChannelId =
-			testGetStoreChannelProductOptionsPage_getIrrelevantChannelId();
-		Long productId = testGetStoreChannelProductOptionsPage_getProductId();
+			testGetChannelProductOptionsPage_getIrrelevantChannelId();
+		Long productId = testGetChannelProductOptionsPage_getProductId();
 		Long irrelevantProductId =
-			testGetStoreChannelProductOptionsPage_getIrrelevantProductId();
+			testGetChannelProductOptionsPage_getIrrelevantProductId();
 
 		if ((irrelevantChannelId != null) && (irrelevantProductId != null)) {
 			ProductOption irrelevantProductOption =
-				testGetStoreChannelProductOptionsPage_addProductOption(
+				testGetChannelProductOptionsPage_addProductOption(
 					irrelevantChannelId, irrelevantProductId,
 					randomIrrelevantProductOption());
 
-			page = productOptionResource.getStoreChannelProductOptionsPage(
+			page = productOptionResource.getChannelProductOptionsPage(
 				irrelevantChannelId, irrelevantProductId, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
@@ -225,14 +225,14 @@ public abstract class BaseProductOptionResourceTestCase {
 		}
 
 		ProductOption productOption1 =
-			testGetStoreChannelProductOptionsPage_addProductOption(
+			testGetChannelProductOptionsPage_addProductOption(
 				channelId, productId, randomProductOption());
 
 		ProductOption productOption2 =
-			testGetStoreChannelProductOptionsPage_addProductOption(
+			testGetChannelProductOptionsPage_addProductOption(
 				channelId, productId, randomProductOption());
 
-		page = productOptionResource.getStoreChannelProductOptionsPage(
+		page = productOptionResource.getChannelProductOptionsPage(
 			channelId, productId, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
@@ -244,26 +244,26 @@ public abstract class BaseProductOptionResourceTestCase {
 	}
 
 	@Test
-	public void testGetStoreChannelProductOptionsPageWithPagination()
+	public void testGetChannelProductOptionsPageWithPagination()
 		throws Exception {
 
-		Long channelId = testGetStoreChannelProductOptionsPage_getChannelId();
-		Long productId = testGetStoreChannelProductOptionsPage_getProductId();
+		Long channelId = testGetChannelProductOptionsPage_getChannelId();
+		Long productId = testGetChannelProductOptionsPage_getProductId();
 
 		ProductOption productOption1 =
-			testGetStoreChannelProductOptionsPage_addProductOption(
+			testGetChannelProductOptionsPage_addProductOption(
 				channelId, productId, randomProductOption());
 
 		ProductOption productOption2 =
-			testGetStoreChannelProductOptionsPage_addProductOption(
+			testGetChannelProductOptionsPage_addProductOption(
 				channelId, productId, randomProductOption());
 
 		ProductOption productOption3 =
-			testGetStoreChannelProductOptionsPage_addProductOption(
+			testGetChannelProductOptionsPage_addProductOption(
 				channelId, productId, randomProductOption());
 
 		Page<ProductOption> page1 =
-			productOptionResource.getStoreChannelProductOptionsPage(
+			productOptionResource.getChannelProductOptionsPage(
 				channelId, productId, Pagination.of(1, 2));
 
 		List<ProductOption> productOptions1 =
@@ -273,7 +273,7 @@ public abstract class BaseProductOptionResourceTestCase {
 			productOptions1.toString(), 2, productOptions1.size());
 
 		Page<ProductOption> page2 =
-			productOptionResource.getStoreChannelProductOptionsPage(
+			productOptionResource.getChannelProductOptionsPage(
 				channelId, productId, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
@@ -285,7 +285,7 @@ public abstract class BaseProductOptionResourceTestCase {
 			productOptions2.toString(), 1, productOptions2.size());
 
 		Page<ProductOption> page3 =
-			productOptionResource.getStoreChannelProductOptionsPage(
+			productOptionResource.getChannelProductOptionsPage(
 				channelId, productId, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
@@ -293,38 +293,35 @@ public abstract class BaseProductOptionResourceTestCase {
 			(List<ProductOption>)page3.getItems());
 	}
 
-	protected ProductOption
-			testGetStoreChannelProductOptionsPage_addProductOption(
-				Long channelId, Long productId, ProductOption productOption)
+	protected ProductOption testGetChannelProductOptionsPage_addProductOption(
+			Long channelId, Long productId, ProductOption productOption)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long testGetStoreChannelProductOptionsPage_getChannelId()
+	protected Long testGetChannelProductOptionsPage_getChannelId()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long
-			testGetStoreChannelProductOptionsPage_getIrrelevantChannelId()
+	protected Long testGetChannelProductOptionsPage_getIrrelevantChannelId()
 		throws Exception {
 
 		return null;
 	}
 
-	protected Long testGetStoreChannelProductOptionsPage_getProductId()
+	protected Long testGetChannelProductOptionsPage_getProductId()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long
-			testGetStoreChannelProductOptionsPage_getIrrelevantProductId()
+	protected Long testGetChannelProductOptionsPage_getIrrelevantProductId()
 		throws Exception {
 
 		return null;

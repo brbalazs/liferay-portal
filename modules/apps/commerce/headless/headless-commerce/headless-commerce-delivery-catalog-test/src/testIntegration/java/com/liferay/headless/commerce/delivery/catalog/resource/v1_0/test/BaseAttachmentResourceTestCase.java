@@ -192,31 +192,29 @@ public abstract class BaseAttachmentResourceTestCase {
 	}
 
 	@Test
-	public void testGetStoreChannelProductAttachmentsPage() throws Exception {
+	public void testGetChannelProductAttachmentsPage() throws Exception {
 		Page<Attachment> page =
-			attachmentResource.getStoreChannelProductAttachmentsPage(
-				testGetStoreChannelProductAttachmentsPage_getChannelId(),
-				testGetStoreChannelProductAttachmentsPage_getProductId(),
+			attachmentResource.getChannelProductAttachmentsPage(
+				testGetChannelProductAttachmentsPage_getChannelId(),
+				testGetChannelProductAttachmentsPage_getProductId(),
 				Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
-		Long channelId =
-			testGetStoreChannelProductAttachmentsPage_getChannelId();
+		Long channelId = testGetChannelProductAttachmentsPage_getChannelId();
 		Long irrelevantChannelId =
-			testGetStoreChannelProductAttachmentsPage_getIrrelevantChannelId();
-		Long productId =
-			testGetStoreChannelProductAttachmentsPage_getProductId();
+			testGetChannelProductAttachmentsPage_getIrrelevantChannelId();
+		Long productId = testGetChannelProductAttachmentsPage_getProductId();
 		Long irrelevantProductId =
-			testGetStoreChannelProductAttachmentsPage_getIrrelevantProductId();
+			testGetChannelProductAttachmentsPage_getIrrelevantProductId();
 
 		if ((irrelevantChannelId != null) && (irrelevantProductId != null)) {
 			Attachment irrelevantAttachment =
-				testGetStoreChannelProductAttachmentsPage_addAttachment(
+				testGetChannelProductAttachmentsPage_addAttachment(
 					irrelevantChannelId, irrelevantProductId,
 					randomIrrelevantAttachment());
 
-			page = attachmentResource.getStoreChannelProductAttachmentsPage(
+			page = attachmentResource.getChannelProductAttachmentsPage(
 				irrelevantChannelId, irrelevantProductId, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
@@ -228,14 +226,14 @@ public abstract class BaseAttachmentResourceTestCase {
 		}
 
 		Attachment attachment1 =
-			testGetStoreChannelProductAttachmentsPage_addAttachment(
+			testGetChannelProductAttachmentsPage_addAttachment(
 				channelId, productId, randomAttachment());
 
 		Attachment attachment2 =
-			testGetStoreChannelProductAttachmentsPage_addAttachment(
+			testGetChannelProductAttachmentsPage_addAttachment(
 				channelId, productId, randomAttachment());
 
-		page = attachmentResource.getStoreChannelProductAttachmentsPage(
+		page = attachmentResource.getChannelProductAttachmentsPage(
 			channelId, productId, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
@@ -247,28 +245,26 @@ public abstract class BaseAttachmentResourceTestCase {
 	}
 
 	@Test
-	public void testGetStoreChannelProductAttachmentsPageWithPagination()
+	public void testGetChannelProductAttachmentsPageWithPagination()
 		throws Exception {
 
-		Long channelId =
-			testGetStoreChannelProductAttachmentsPage_getChannelId();
-		Long productId =
-			testGetStoreChannelProductAttachmentsPage_getProductId();
+		Long channelId = testGetChannelProductAttachmentsPage_getChannelId();
+		Long productId = testGetChannelProductAttachmentsPage_getProductId();
 
 		Attachment attachment1 =
-			testGetStoreChannelProductAttachmentsPage_addAttachment(
+			testGetChannelProductAttachmentsPage_addAttachment(
 				channelId, productId, randomAttachment());
 
 		Attachment attachment2 =
-			testGetStoreChannelProductAttachmentsPage_addAttachment(
+			testGetChannelProductAttachmentsPage_addAttachment(
 				channelId, productId, randomAttachment());
 
 		Attachment attachment3 =
-			testGetStoreChannelProductAttachmentsPage_addAttachment(
+			testGetChannelProductAttachmentsPage_addAttachment(
 				channelId, productId, randomAttachment());
 
 		Page<Attachment> page1 =
-			attachmentResource.getStoreChannelProductAttachmentsPage(
+			attachmentResource.getChannelProductAttachmentsPage(
 				channelId, productId, Pagination.of(1, 2));
 
 		List<Attachment> attachments1 = (List<Attachment>)page1.getItems();
@@ -276,7 +272,7 @@ public abstract class BaseAttachmentResourceTestCase {
 		Assert.assertEquals(attachments1.toString(), 2, attachments1.size());
 
 		Page<Attachment> page2 =
-			attachmentResource.getStoreChannelProductAttachmentsPage(
+			attachmentResource.getChannelProductAttachmentsPage(
 				channelId, productId, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
@@ -286,7 +282,7 @@ public abstract class BaseAttachmentResourceTestCase {
 		Assert.assertEquals(attachments2.toString(), 1, attachments2.size());
 
 		Page<Attachment> page3 =
-			attachmentResource.getStoreChannelProductAttachmentsPage(
+			attachmentResource.getChannelProductAttachmentsPage(
 				channelId, productId, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
@@ -294,143 +290,7 @@ public abstract class BaseAttachmentResourceTestCase {
 			(List<Attachment>)page3.getItems());
 	}
 
-	protected Attachment
-			testGetStoreChannelProductAttachmentsPage_addAttachment(
-				Long channelId, Long productId, Attachment attachment)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected Long testGetStoreChannelProductAttachmentsPage_getChannelId()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected Long
-			testGetStoreChannelProductAttachmentsPage_getIrrelevantChannelId()
-		throws Exception {
-
-		return null;
-	}
-
-	protected Long testGetStoreChannelProductAttachmentsPage_getProductId()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected Long
-			testGetStoreChannelProductAttachmentsPage_getIrrelevantProductId()
-		throws Exception {
-
-		return null;
-	}
-
-	@Test
-	public void testGetStoreChannelProductImagesPage() throws Exception {
-		Page<Attachment> page =
-			attachmentResource.getStoreChannelProductImagesPage(
-				testGetStoreChannelProductImagesPage_getChannelId(),
-				testGetStoreChannelProductImagesPage_getProductId(),
-				Pagination.of(1, 2));
-
-		Assert.assertEquals(0, page.getTotalCount());
-
-		Long channelId = testGetStoreChannelProductImagesPage_getChannelId();
-		Long irrelevantChannelId =
-			testGetStoreChannelProductImagesPage_getIrrelevantChannelId();
-		Long productId = testGetStoreChannelProductImagesPage_getProductId();
-		Long irrelevantProductId =
-			testGetStoreChannelProductImagesPage_getIrrelevantProductId();
-
-		if ((irrelevantChannelId != null) && (irrelevantProductId != null)) {
-			Attachment irrelevantAttachment =
-				testGetStoreChannelProductImagesPage_addAttachment(
-					irrelevantChannelId, irrelevantProductId,
-					randomIrrelevantAttachment());
-
-			page = attachmentResource.getStoreChannelProductImagesPage(
-				irrelevantChannelId, irrelevantProductId, Pagination.of(1, 2));
-
-			Assert.assertEquals(1, page.getTotalCount());
-
-			assertEquals(
-				Arrays.asList(irrelevantAttachment),
-				(List<Attachment>)page.getItems());
-			assertValid(page);
-		}
-
-		Attachment attachment1 =
-			testGetStoreChannelProductImagesPage_addAttachment(
-				channelId, productId, randomAttachment());
-
-		Attachment attachment2 =
-			testGetStoreChannelProductImagesPage_addAttachment(
-				channelId, productId, randomAttachment());
-
-		page = attachmentResource.getStoreChannelProductImagesPage(
-			channelId, productId, Pagination.of(1, 2));
-
-		Assert.assertEquals(2, page.getTotalCount());
-
-		assertEqualsIgnoringOrder(
-			Arrays.asList(attachment1, attachment2),
-			(List<Attachment>)page.getItems());
-		assertValid(page);
-	}
-
-	@Test
-	public void testGetStoreChannelProductImagesPageWithPagination()
-		throws Exception {
-
-		Long channelId = testGetStoreChannelProductImagesPage_getChannelId();
-		Long productId = testGetStoreChannelProductImagesPage_getProductId();
-
-		Attachment attachment1 =
-			testGetStoreChannelProductImagesPage_addAttachment(
-				channelId, productId, randomAttachment());
-
-		Attachment attachment2 =
-			testGetStoreChannelProductImagesPage_addAttachment(
-				channelId, productId, randomAttachment());
-
-		Attachment attachment3 =
-			testGetStoreChannelProductImagesPage_addAttachment(
-				channelId, productId, randomAttachment());
-
-		Page<Attachment> page1 =
-			attachmentResource.getStoreChannelProductImagesPage(
-				channelId, productId, Pagination.of(1, 2));
-
-		List<Attachment> attachments1 = (List<Attachment>)page1.getItems();
-
-		Assert.assertEquals(attachments1.toString(), 2, attachments1.size());
-
-		Page<Attachment> page2 =
-			attachmentResource.getStoreChannelProductImagesPage(
-				channelId, productId, Pagination.of(2, 2));
-
-		Assert.assertEquals(3, page2.getTotalCount());
-
-		List<Attachment> attachments2 = (List<Attachment>)page2.getItems();
-
-		Assert.assertEquals(attachments2.toString(), 1, attachments2.size());
-
-		Page<Attachment> page3 =
-			attachmentResource.getStoreChannelProductImagesPage(
-				channelId, productId, Pagination.of(1, 3));
-
-		assertEqualsIgnoringOrder(
-			Arrays.asList(attachment1, attachment2, attachment3),
-			(List<Attachment>)page3.getItems());
-	}
-
-	protected Attachment testGetStoreChannelProductImagesPage_addAttachment(
+	protected Attachment testGetChannelProductAttachmentsPage_addAttachment(
 			Long channelId, Long productId, Attachment attachment)
 		throws Exception {
 
@@ -438,27 +298,151 @@ public abstract class BaseAttachmentResourceTestCase {
 			"This method needs to be implemented");
 	}
 
-	protected Long testGetStoreChannelProductImagesPage_getChannelId()
+	protected Long testGetChannelProductAttachmentsPage_getChannelId()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long testGetStoreChannelProductImagesPage_getIrrelevantChannelId()
+	protected Long testGetChannelProductAttachmentsPage_getIrrelevantChannelId()
 		throws Exception {
 
 		return null;
 	}
 
-	protected Long testGetStoreChannelProductImagesPage_getProductId()
+	protected Long testGetChannelProductAttachmentsPage_getProductId()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long testGetStoreChannelProductImagesPage_getIrrelevantProductId()
+	protected Long testGetChannelProductAttachmentsPage_getIrrelevantProductId()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
+	public void testGetChannelProductImagesPage() throws Exception {
+		Page<Attachment> page = attachmentResource.getChannelProductImagesPage(
+			testGetChannelProductImagesPage_getChannelId(),
+			testGetChannelProductImagesPage_getProductId(),
+			Pagination.of(1, 2));
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		Long channelId = testGetChannelProductImagesPage_getChannelId();
+		Long irrelevantChannelId =
+			testGetChannelProductImagesPage_getIrrelevantChannelId();
+		Long productId = testGetChannelProductImagesPage_getProductId();
+		Long irrelevantProductId =
+			testGetChannelProductImagesPage_getIrrelevantProductId();
+
+		if ((irrelevantChannelId != null) && (irrelevantProductId != null)) {
+			Attachment irrelevantAttachment =
+				testGetChannelProductImagesPage_addAttachment(
+					irrelevantChannelId, irrelevantProductId,
+					randomIrrelevantAttachment());
+
+			page = attachmentResource.getChannelProductImagesPage(
+				irrelevantChannelId, irrelevantProductId, Pagination.of(1, 2));
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantAttachment),
+				(List<Attachment>)page.getItems());
+			assertValid(page);
+		}
+
+		Attachment attachment1 = testGetChannelProductImagesPage_addAttachment(
+			channelId, productId, randomAttachment());
+
+		Attachment attachment2 = testGetChannelProductImagesPage_addAttachment(
+			channelId, productId, randomAttachment());
+
+		page = attachmentResource.getChannelProductImagesPage(
+			channelId, productId, Pagination.of(1, 2));
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(attachment1, attachment2),
+			(List<Attachment>)page.getItems());
+		assertValid(page);
+	}
+
+	@Test
+	public void testGetChannelProductImagesPageWithPagination()
+		throws Exception {
+
+		Long channelId = testGetChannelProductImagesPage_getChannelId();
+		Long productId = testGetChannelProductImagesPage_getProductId();
+
+		Attachment attachment1 = testGetChannelProductImagesPage_addAttachment(
+			channelId, productId, randomAttachment());
+
+		Attachment attachment2 = testGetChannelProductImagesPage_addAttachment(
+			channelId, productId, randomAttachment());
+
+		Attachment attachment3 = testGetChannelProductImagesPage_addAttachment(
+			channelId, productId, randomAttachment());
+
+		Page<Attachment> page1 = attachmentResource.getChannelProductImagesPage(
+			channelId, productId, Pagination.of(1, 2));
+
+		List<Attachment> attachments1 = (List<Attachment>)page1.getItems();
+
+		Assert.assertEquals(attachments1.toString(), 2, attachments1.size());
+
+		Page<Attachment> page2 = attachmentResource.getChannelProductImagesPage(
+			channelId, productId, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<Attachment> attachments2 = (List<Attachment>)page2.getItems();
+
+		Assert.assertEquals(attachments2.toString(), 1, attachments2.size());
+
+		Page<Attachment> page3 = attachmentResource.getChannelProductImagesPage(
+			channelId, productId, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(attachment1, attachment2, attachment3),
+			(List<Attachment>)page3.getItems());
+	}
+
+	protected Attachment testGetChannelProductImagesPage_addAttachment(
+			Long channelId, Long productId, Attachment attachment)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Long testGetChannelProductImagesPage_getChannelId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Long testGetChannelProductImagesPage_getIrrelevantChannelId()
+		throws Exception {
+
+		return null;
+	}
+
+	protected Long testGetChannelProductImagesPage_getProductId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Long testGetChannelProductImagesPage_getIrrelevantProductId()
 		throws Exception {
 
 		return null;

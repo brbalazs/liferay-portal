@@ -59,7 +59,7 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -70,10 +70,10 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 			@Parameter(in = ParameterIn.PATH, name = "productId")
 		}
 	)
-	@Path("/stores/{channelId}/products/{productId}")
+	@Path("/channels/{channelId}/products/{productId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
-	public Product getStoreChannelProduct(
+	public Product getChannelProduct(
 			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
 				channelId,
 			@NotNull @Parameter(hidden = true) @PathParam("productId") Long
@@ -86,7 +86,7 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -100,10 +100,10 @@ public abstract class BaseProductResourceImpl implements ProductResource {
 			@Parameter(in = ParameterIn.QUERY, name = "sort")
 		}
 	)
-	@Path("/stores/{channelId}/products")
+	@Path("/channels/{channelId}/products")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Product")})
-	public Page<Product> getStoreChannelProductsPage(
+	public Page<Product> getChannelProductsPage(
 			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
 				channelId,
 			@Context Filter filter, @Context Pagination pagination,

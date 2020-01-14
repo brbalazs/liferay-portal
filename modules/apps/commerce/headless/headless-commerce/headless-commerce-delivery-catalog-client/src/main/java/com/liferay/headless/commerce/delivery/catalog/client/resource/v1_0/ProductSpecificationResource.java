@@ -39,12 +39,12 @@ public interface ProductSpecificationResource {
 	}
 
 	public Page<ProductSpecification>
-			getStoreChannelProductProductSpecificationsPage(
+			getChannelProductProductSpecificationsPage(
 				Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			getStoreChannelProductProductSpecificationsPageHttpResponse(
+			getChannelProductProductSpecificationsPageHttpResponse(
 				Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 
@@ -105,12 +105,12 @@ public interface ProductSpecificationResource {
 		implements ProductSpecificationResource {
 
 		public Page<ProductSpecification>
-				getStoreChannelProductProductSpecificationsPage(
+				getChannelProductProductSpecificationsPage(
 					Long channelId, Long productId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getStoreChannelProductProductSpecificationsPageHttpResponse(
+				getChannelProductProductSpecificationsPageHttpResponse(
 					channelId, productId, pagination);
 
 			String content = httpResponse.getContent();
@@ -125,7 +125,7 @@ public interface ProductSpecificationResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getStoreChannelProductProductSpecificationsPageHttpResponse(
+				getChannelProductProductSpecificationsPageHttpResponse(
 					Long channelId, Long productId, Pagination pagination)
 			throws Exception {
 
@@ -160,7 +160,7 @@ public interface ProductSpecificationResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/productSpecifications",
+						"/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}/productSpecifications",
 				channelId, productId);
 
 			httpInvoker.userNameAndPassword(

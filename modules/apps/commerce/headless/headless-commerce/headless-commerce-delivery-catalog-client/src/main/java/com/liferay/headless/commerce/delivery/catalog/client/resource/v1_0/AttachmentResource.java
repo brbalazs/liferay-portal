@@ -38,22 +38,21 @@ public interface AttachmentResource {
 		return new Builder();
 	}
 
-	public Page<Attachment> getStoreChannelProductAttachmentsPage(
+	public Page<Attachment> getChannelProductAttachmentsPage(
 			Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			getStoreChannelProductAttachmentsPageHttpResponse(
+			getChannelProductAttachmentsPageHttpResponse(
 				Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 
-	public Page<Attachment> getStoreChannelProductImagesPage(
+	public Page<Attachment> getChannelProductImagesPage(
 			Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse
-			getStoreChannelProductImagesPageHttpResponse(
-				Long channelId, Long productId, Pagination pagination)
+	public HttpInvoker.HttpResponse getChannelProductImagesPageHttpResponse(
+			Long channelId, Long productId, Pagination pagination)
 		throws Exception;
 
 	public static class Builder {
@@ -111,12 +110,12 @@ public interface AttachmentResource {
 
 	public static class AttachmentResourceImpl implements AttachmentResource {
 
-		public Page<Attachment> getStoreChannelProductAttachmentsPage(
+		public Page<Attachment> getChannelProductAttachmentsPage(
 				Long channelId, Long productId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getStoreChannelProductAttachmentsPageHttpResponse(
+				getChannelProductAttachmentsPageHttpResponse(
 					channelId, productId, pagination);
 
 			String content = httpResponse.getContent();
@@ -131,7 +130,7 @@ public interface AttachmentResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getStoreChannelProductAttachmentsPageHttpResponse(
+				getChannelProductAttachmentsPageHttpResponse(
 					Long channelId, Long productId, Pagination pagination)
 			throws Exception {
 
@@ -166,7 +165,7 @@ public interface AttachmentResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/attachments",
+						"/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}/attachments",
 				channelId, productId);
 
 			httpInvoker.userNameAndPassword(
@@ -175,12 +174,12 @@ public interface AttachmentResource {
 			return httpInvoker.invoke();
 		}
 
-		public Page<Attachment> getStoreChannelProductImagesPage(
+		public Page<Attachment> getChannelProductImagesPage(
 				Long channelId, Long productId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getStoreChannelProductImagesPageHttpResponse(
+				getChannelProductImagesPageHttpResponse(
 					channelId, productId, pagination);
 
 			String content = httpResponse.getContent();
@@ -194,9 +193,8 @@ public interface AttachmentResource {
 			return Page.of(content, AttachmentSerDes::toDTO);
 		}
 
-		public HttpInvoker.HttpResponse
-				getStoreChannelProductImagesPageHttpResponse(
-					Long channelId, Long productId, Pagination pagination)
+		public HttpInvoker.HttpResponse getChannelProductImagesPageHttpResponse(
+				Long channelId, Long productId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -230,7 +228,7 @@ public interface AttachmentResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-catalog/v1.0/stores/{channelId}/products/{productId}/images",
+						"/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}/images",
 				channelId, productId);
 
 			httpInvoker.userNameAndPassword(

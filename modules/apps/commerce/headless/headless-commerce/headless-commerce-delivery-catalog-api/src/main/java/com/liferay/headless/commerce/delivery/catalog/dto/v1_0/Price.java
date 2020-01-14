@@ -45,6 +45,34 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Price {
 
 	@Schema
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	@JsonIgnore
+	public void setCurrency(
+		UnsafeSupplier<String, Exception> currencyUnsafeSupplier) {
+
+		try {
+			currency = currencyUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String currency;
+
+	@Schema
 	public String getDiscount() {
 		return discount;
 	}
@@ -350,6 +378,20 @@ public class Price {
 		StringBundler sb = new StringBundler();
 
 		sb.append("{");
+
+		if (currency != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"currency\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(currency));
+
+			sb.append("\"");
+		}
 
 		if (discount != null) {
 			if (sb.length() > 1) {

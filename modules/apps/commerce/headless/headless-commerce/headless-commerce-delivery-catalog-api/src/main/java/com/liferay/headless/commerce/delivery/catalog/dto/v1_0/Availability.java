@@ -45,20 +45,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Availability {
 
 	@Schema
-	public String getAvailabilityLabel() {
-		return availabilityLabel;
+	public String getLabel() {
+		return label;
 	}
 
-	public void setAvailabilityLabel(String availabilityLabel) {
-		this.availabilityLabel = availabilityLabel;
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 	@JsonIgnore
-	public void setAvailabilityLabel(
-		UnsafeSupplier<String, Exception> availabilityLabelUnsafeSupplier) {
+	public void setLabel(
+		UnsafeSupplier<String, Exception> labelUnsafeSupplier) {
 
 		try {
-			availabilityLabel = availabilityLabelUnsafeSupplier.get();
+			label = labelUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -70,23 +70,23 @@ public class Availability {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String availabilityLabel;
+	protected String label;
 
 	@Schema
-	public Integer getAvailabilityNumber() {
-		return availabilityNumber;
+	public Integer getStockQuantity() {
+		return stockQuantity;
 	}
 
-	public void setAvailabilityNumber(Integer availabilityNumber) {
-		this.availabilityNumber = availabilityNumber;
+	public void setStockQuantity(Integer stockQuantity) {
+		this.stockQuantity = stockQuantity;
 	}
 
 	@JsonIgnore
-	public void setAvailabilityNumber(
-		UnsafeSupplier<Integer, Exception> availabilityNumberUnsafeSupplier) {
+	public void setStockQuantity(
+		UnsafeSupplier<Integer, Exception> stockQuantityUnsafeSupplier) {
 
 		try {
-			availabilityNumber = availabilityNumberUnsafeSupplier.get();
+			stockQuantity = stockQuantityUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -98,7 +98,7 @@ public class Availability {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Integer availabilityNumber;
+	protected Integer stockQuantity;
 
 	@Override
 	public boolean equals(Object object) {
@@ -127,28 +127,28 @@ public class Availability {
 
 		sb.append("{");
 
-		if (availabilityLabel != null) {
+		if (label != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"availabilityLabel\": ");
+			sb.append("\"label\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(availabilityLabel));
+			sb.append(_escape(label));
 
 			sb.append("\"");
 		}
 
-		if (availabilityNumber != null) {
+		if (stockQuantity != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"availabilityNumber\": ");
+			sb.append("\"stockQuantity\": ");
 
-			sb.append(availabilityNumber);
+			sb.append(stockQuantity);
 		}
 
 		sb.append("}");

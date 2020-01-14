@@ -53,6 +53,20 @@ public class PriceSerDes {
 
 		sb.append("{");
 
+		if (price.getCurrency() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"currency\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(price.getCurrency()));
+
+			sb.append("\"");
+		}
+
 		if (price.getDiscount() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -209,6 +223,13 @@ public class PriceSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (price.getCurrency() == null) {
+			map.put("currency", null);
+		}
+		else {
+			map.put("currency", String.valueOf(price.getCurrency()));
+		}
+
 		if (price.getDiscount() == null) {
 			map.put("discount", null);
 		}
@@ -308,7 +329,12 @@ public class PriceSerDes {
 			Price price, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "discount")) {
+			if (Objects.equals(jsonParserFieldName, "currency")) {
+				if (jsonParserFieldValue != null) {
+					price.setCurrency((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "discount")) {
 				if (jsonParserFieldValue != null) {
 					price.setDiscount((String)jsonParserFieldValue);
 				}

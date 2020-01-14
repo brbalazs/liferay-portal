@@ -28,6 +28,27 @@ import javax.annotation.Generated;
 @Generated("")
 public class Price {
 
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	public void setCurrency(
+		UnsafeSupplier<String, Exception> currencyUnsafeSupplier) {
+
+		try {
+			currency = currencyUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String currency;
+
 	public String getDiscount() {
 		return discount;
 	}
