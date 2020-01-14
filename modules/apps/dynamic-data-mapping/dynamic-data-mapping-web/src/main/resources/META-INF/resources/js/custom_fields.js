@@ -1205,28 +1205,33 @@ AUI.add(
 
 			var defaultLocale = translationManager.get('defaultLocale');
 
-					var value = A.Object.getValue(localizationMap, [locale, attribute]);
+			var value = A.Object.getValue(localizationMap, [locale, attribute]);
 
-					if (!isValue(value)) {
-						value = A.Object.getValue(localizationMap, [defaultLocale, attribute]);
+			if (isValue(value)) {
+				return value;
+			}
 
-						if (!isValue(value)) {
-							for (var localizationMapLocale in localizationMap) {
-								value = A.Object.getValue(localizationMap, [localizationMapLocale, attribute]);
+			value = A.Object.getValue(localizationMap, [
+				defaultLocale,
+				attribute
+			]);
 
-								if (isValue(value)) {
-									break;
-								}
-							}
-						}
+			if (isValue(value)) {
+				return value;
+			}
 
-						if (!isValue(value)) {
-							value = STR_BLANK;
-						}
-					}
+			for (var localizationMapLocale in localizationMap) {
+				value = A.Object.getValue(localizationMap, [
+					localizationMapLocale,
+					attribute
+				]);
+
+				if (isValue(value)) {
+					return value;
 				}
+			}
 
-			return value;
+			return STR_BLANK;
 		};
 
 		SerializableFieldSupport.prototype.serialize = function() {
