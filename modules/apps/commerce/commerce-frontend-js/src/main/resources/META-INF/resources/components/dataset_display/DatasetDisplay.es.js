@@ -1,10 +1,9 @@
 import {ClayIconSpriteContext} from '@clayui/icon';
 import {ClayPaginationBarWithBasicItems} from '@clayui/pagination-bar';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useState, useRef, useEffect} from 'react';
 
-import {showNotification} from '../../utilities/index.es';
+import {getRandomId, showNotification} from '../../utilities/index.es';
 import {createOdataFilterStrings} from '../../utilities/odata.es';
 import Modal from '../modal/Modal.es';
 import DatasetDisplayContext from './DatasetDisplayContext.es';
@@ -13,7 +12,7 @@ import ManagementBar from './management_bar/index.es';
 import {getRenderers} from './utilities/contentRenderers.es';
 import {formatFilters} from './utilities/filters.es';
 
-const datasetDisplaySupportModalId = 'dataset-support-modal-id'
+
 
 function loadData(apiUrl, filters, delta, page = 1, sorting = []) {
 	const authString = `&p_auth=${window.Liferay.authToken}`;
@@ -29,6 +28,8 @@ function loadData(apiUrl, filters, delta, page = 1, sorting = []) {
 
 function DatasetDisplay(props) {
 	const contentRenderers = getRenderers(props.contentRenderers);
+
+	const [datasetDisplaySupportModalId] = useState('support-modal-' + getRandomId())
 
 	const [selectedItemsId, setselectedItemsId] = useState([]);
 	const [filters, updateFilters] = useState(formatFilters(props.filters));
@@ -95,6 +96,62 @@ function DatasetDisplay(props) {
 		}
 	};
 
+	const management_bar = props.showManagementBar ? (
+		<div className="dataset-display-management-bar-wrapper">
+			<ManagementBar
+				activeContentRenderer={activeContentRenderer}
+				bulkActions={props.bulkActions}
+				contentRenderers={props.contentRenderers}
+				creationMenuItems={props.creationMenuItems}
+				filters={filters}
+				fluid={props.style === 'fluid'}
+				onFiltersChange={updateFilters}
+				selectAllItems={() => selectItems('all-items', true)}
+				selectedItemsId={selectedItemsId}
+				setActiveContentRenderer={setActiveContentRenderer}
+				sidePanelId={props.sidePanelId}
+				totalItemsCount={props.items.length}
+			/>
+		</div>
+	) : null;
+
+	const content = (
+		<div className="dataset-display-content-wrapper">
+			{
+				items && items.length ? ( 
+					<ContentRendererComponent
+						items={items}
+						onSelect={selectItems}
+						schema={props.schema}
+						selectable={props.bulkActions && !!props.bulkActions.length}
+						selectedItemsId={selectedItemsId}
+						sidePanelId={props.sidePanelId}
+						sorting={sorting}
+					/>
+				) : (
+					<EmptyResultMessage />
+				)
+			}
+		</div>
+	)
+
+	const pagination = (props.showPagination && props.pagination && items.length) ? (
+		<div className="dataset-display-pagination-wrapper">
+			<ClayPaginationBarWithBasicItems
+				activeDelta={delta}
+				activePage={pageNumber}
+				deltas={props.deltas}
+				ellipsisBuffer={3}
+				onDeltaChange={(deltaVal) => {
+					setPageNumber(1);
+					setDelta(deltaVal);
+				}}
+				onPageChange={setPageNumber}
+				totalItems={totalItems}
+			/>
+		</div>
+	) : null
+
 	return (
 		<DatasetDisplayContext.Provider
 			value={{
@@ -108,58 +165,29 @@ function DatasetDisplay(props) {
 		>
 			<ClayIconSpriteContext.Provider value={props.spritemap}>
 				<Modal id={datasetDisplaySupportModalId} />
-				<div className={classNames('dataset-display', props.wrapperCssClasses, props.stackedLayout && 'dataset-display-stacked')}>
-					{ props.showManagementBar ? (
-						<div className={classNames("dataset-display-management-bar-wrapper", props.managementBarWrapperCssClasses)}>
-							<ManagementBar
-								activeContentRenderer={activeContentRenderer}
-								bulkActions={props.bulkActions}
-								contentRenderers={props.contentRenderers}
-								creationMenuItems={props.creationMenuItems}
-								filters={filters}
-								onFiltersChange={updateFilters}
-								selectAllItems={() => selectItems('all-items', true)}
-								selectedItemsId={selectedItemsId}
-								setActiveContentRenderer={setActiveContentRenderer}
-								sidePanelId={props.sidePanelId}
-								totalItemsCount={props.items.length}
-							/>
+					{props.style === 'default' && (
+						<div className="dataset-display">
+							{management_bar}
+							{content}
+							{pagination}
 						</div>
-					) : null}
-					<div className={classNames("dataset-display-content-wrapper", props.contentWrapperCssClasses)}>
-						{
-							items && items.length ? (
-								<ContentRendererComponent
-									items={items}
-									onSelect={selectItems}
-									schema={props.schema}
-									selectable={props.bulkActions && !!props.bulkActions.length}
-									selectedItemsId={selectedItemsId}
-									sidePanelId={props.sidePanelId}
-									sorting={sorting}
-								/>
-							) : (
-								<EmptyResultMessage />
-							)
-						}
-					</div>
-				</div>
-				{props.showPagination && props.pagination && items.length ? (
-					<div className={classNames("dataset-display-pagination-wrapper", props.paginationWrapperCssClasses)}>
-						<ClayPaginationBarWithBasicItems
-							activeDelta={delta}
-							activePage={pageNumber}
-							deltas={props.deltas}
-							ellipsisBuffer={3}
-							onDeltaChange={(deltaVal) => {
-								setPageNumber(1);
-								setDelta(deltaVal);
-							}}
-							onPageChange={setPageNumber}
-							totalItems={totalItems}
-						/>
-					</div>
-				) : null}
+					)}
+					{props.style === 'stacked' && (
+						<div className="dataset-display dataset-display-stacked">
+							{management_bar}
+							{content}
+							{pagination}
+						</div>
+					)}
+					{props.style === 'fluid' && (
+						<div className="dataset-display dataset-display-fluid">
+							{management_bar}
+							<div className="container mt-3">
+								{content}
+								{pagination}
+							</div>
+						</div>
+					)}
 			</ClayIconSpriteContext.Provider>
 		</DatasetDisplayContext.Provider>
 	);
@@ -178,12 +206,10 @@ DatasetDisplay.propTypes = {
 			label: PropTypes.string,
 		})
 	),
-	contentWrapperCssClasses: PropTypes.string,
 	creationMenuItems: PropTypes.array,
 	filters: PropTypes.array,
 	id: PropTypes.string.isRequired,
 	items: PropTypes.array.isRequired,
-	managementBarWrapperCssClasses: PropTypes.string,
 	pagination: PropTypes.shape({
 		deltas: PropTypes.arrayOf(
 			PropTypes.shape({
@@ -201,8 +227,11 @@ DatasetDisplay.propTypes = {
 	sidePanelId: PropTypes.string,
 	sorting: PropTypes.array,
 	spritemap: PropTypes.string.isRequired,
-	stackedLayout: PropTypes.bool,
-	wrapperCssClasses: PropTypes.string
+	style: PropTypes.oneOf([
+		'default',
+		'fluid',
+		'stacked'
+	]),
 };
 
 DatasetDisplay.defaultProps = {
@@ -211,7 +240,7 @@ DatasetDisplay.defaultProps = {
 	showManagementBar: true,
 	showPagination: true,
 	sorting: [],
-	stackedLayout: true
+	style: 'default'
 };
 
 export default DatasetDisplay;

@@ -244,8 +244,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 				namespace="<%= renderResponse.getNamespace() %>"
 				pageNumber="<%= 1 %>"
 				portletURL="<%= commerceOrderEditDisplayContext.getCommerceOrderItemsPortletURL() %>"
-				stackedLayout="<%= false %>"
-				tableName="<%= CommerceOrderItemClayTable.NAME %>"
+				id="<%= CommerceOrderItemClayTable.NAME %>"
 			/>
 		</commerce-ui:panel>
 	</div>

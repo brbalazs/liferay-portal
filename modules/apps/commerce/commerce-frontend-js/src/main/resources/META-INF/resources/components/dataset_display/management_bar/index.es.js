@@ -16,9 +16,10 @@ function ManagementBar(props) {
 	}, [JSON.stringify(state.filters)]);
 
 	return (
-		<React.Fragment>
+		<>
 			<BulkActions
 				bulkActions={props.bulkActions}
+				fluid={props.fluid}
 				selectAllItems={props.selectAllItems}
 				selectedItemsId={props.selectedItemsId}
 				totalItemsCount={props.totalItemsCount}
@@ -27,7 +28,7 @@ function ManagementBar(props) {
 				<NavBar creationMenuItems={props.creationMenuItems} />
 			)}
 			<ActiveFiltersBar disabled={!!props.selectedItemsId.length} />
-		</React.Fragment>
+		</>
 	);
 };
 
@@ -129,11 +130,13 @@ Wrapper.propTypes = {
 			})
 		])
 	),
+	fluid: PropTypes.bool,
 	onFiltersChange: PropTypes.func.isRequired
 };
 
 Wrapper.defaultProps = {
 	filters: [],
+	fluid: false
 };
 
 export default Wrapper;

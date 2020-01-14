@@ -86,8 +86,8 @@ function BulkActions(props) {
 	return props.selectedItemsId.length ? (
 		<TableContext.Consumer>
 			{({formRef, loadData, sidePanelId}) => (
-				<nav className="management-bar-primary navbar navbar-expand-md pb-2 pt-2 subnav-tbar">
-					<div className="container-fluid container-fluid-max-xl py-1">
+				<nav className="management-bar-primary navbar navbar-expand-md pb-2 pt-2 subnav-tbar border-bottom">
+					<div className={classNames("container-fluid container-fluid-max-xl py-1", !props.fluid && 'px-0')}>
 						<ul className="navbar-nav">
 							<li className="nav-item">
 								<span className="text-truncate">

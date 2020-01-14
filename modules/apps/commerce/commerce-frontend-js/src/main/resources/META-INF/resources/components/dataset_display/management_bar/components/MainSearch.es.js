@@ -1,7 +1,8 @@
 import Icon from '@clayui/icon';
-import React, { useState, useEffect } from 'react';
 import classNames from 'classnames'
+import React, { useState, useEffect } from 'react';
 import getAppContext from './Context.es';
+
 
 function MainSearch() {
 	const {actions, state} = getAppContext();

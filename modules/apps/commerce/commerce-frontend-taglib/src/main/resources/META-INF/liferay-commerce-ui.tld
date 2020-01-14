@@ -578,13 +578,12 @@
 			<type>javax.portlet.PortletURL</type>
 		</attribute>
 		<attribute>
-			<name>stackedLayout</name>
+			<name>style</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
-			<type>boolean</type>
 		</attribute>
 		<attribute>
-			<name>tableName</name>
+			<name>id</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>

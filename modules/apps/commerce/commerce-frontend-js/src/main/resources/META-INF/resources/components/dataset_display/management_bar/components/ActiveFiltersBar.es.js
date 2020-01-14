@@ -13,46 +13,50 @@ function ActiveFiltersBar(props) {
 	);
 
 	return filtersActive.length ? (
-		<nav className="subnav-tbar subnav-tbar-primary subnav-tbar-light p-3 border-top mb-0">
-			<ul className="tbar-nav">
-				<li className="p-0 tbar-item tbar-item-expand">
-					<div className="tbar-section">
-						{filtersActive.map(id => {
-							const filter = state.filters.reduce(
-								(found, filter) =>
-									found ||
-									(filter.id === id ? filter : null),
-								null
-							);
+		<div className="management-bar management-bar-light navbar navbar-expand-md border-bottom">
+			<div className="container-fluid container-fluid-max-xl">
+				<nav className="mb-0 py-3 subnav-tbar subnav-tbar-light subnav-tbar-primary w-100">
+					<ul className="tbar-nav">
+						<li className="p-0 tbar-item tbar-item-expand">
+							<div className="tbar-section">
+								{filtersActive.map(id => {
+									const filter = state.filters.reduce(
+										(found, filter) =>
+											found ||
+											(filter.id === id ? filter : null),
+										null
+									);
 
-							if (!filter) {
-								throw new Error(`Filter "${id}" not found.`);
-							}
+									if (!filter) {
+										throw new Error(`Filter "${id}" not found.`);
+									}
 
-							return (
-								<FilterResume
+									return (
+										<FilterResume
+											disabled={props.disabled}
+											key={filter.id}
+											{...filter}
+										/>
+									);
+								})}
+							</div>
+						</li>
+						<li className="tbar-item">
+							<div className="tbar-section">
+								<ClayButton
+									className=" tbar-link btn-sm"
 									disabled={props.disabled}
-									key={filter.id}
-									{...filter}
-								/>
-							);
-						})}
-					</div>
-				</li>
-				<li className="tbar-item">
-					<div className="tbar-section">
-						<ClayButton
-							className=" tbar-link btn-sm"
-							disabled={props.disabled}
-							displayType="link"
-							onClick={actions.resetFiltersValue}
-						>
-							{Liferay.Language.get('reset-filters')}
-						</ClayButton>
-					</div>
-				</li>
-			</ul>
-		</nav>
+									displayType="link"
+									onClick={actions.resetFiltersValue}
+								>
+									{Liferay.Language.get('reset-filters')}
+								</ClayButton>
+							</div>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
 	) : null;
 };
 

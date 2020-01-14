@@ -79,7 +79,7 @@ public class TableTag extends IncludeTag {
 			sb.append("/o/commerce-ui/commerce-data-set/");
 			sb.append(themeDisplay.getScopeGroupId());
 			sb.append(StringPool.FORWARD_SLASH);
-			sb.append(_tableName);
+			sb.append(_id);
 			sb.append(StringPool.FORWARD_SLASH);
 			sb.append(_dataProviderKey);
 			sb.append("?plid=");
@@ -118,6 +118,10 @@ public class TableTag extends IncludeTag {
 		_deltaParam = deltaParam;
 	}
 
+	public void setId(String id) {
+		_id = id;
+	}
+
 	public void setItemsPerPage(int itemsPerPage) {
 		_itemsPerPage = itemsPerPage;
 	}
@@ -149,12 +153,8 @@ public class TableTag extends IncludeTag {
 		_portletURL = portletURL;
 	}
 
-	public void setStackedLayout(boolean stackedLayout) {
-		_stackedLayout = stackedLayout;
-	}
-
-	public void setTableName(String tableName) {
-		_tableName = tableName;
+	public void setStyle(String style) {
+		_style = style;
 	}
 
 	@Override
@@ -181,8 +181,7 @@ public class TableTag extends IncludeTag {
 		_portletURL = null;
 		_showPagination = false;
 		_spritemap = null;
-		_stackedLayout = false;
-		_tableName = null;
+		_style = "default";
 		_totalItems = 0;
 	}
 
@@ -233,6 +232,7 @@ public class TableTag extends IncludeTag {
 			"liferay-commerce:table:dataProviderKey", _dataProviderKey);
 		request.setAttribute("liferay-commerce:table:dataSetAPI", _dataSetAPI);
 		request.setAttribute("liferay-commerce:table:deltaParam", _deltaParam);
+		request.setAttribute("liferay-commerce:table:id", _id);
 		request.setAttribute("liferay-commerce:table:items", _items);
 		request.setAttribute(
 			"liferay-commerce:table:itemsPerPage", _itemsPerPage);
@@ -247,9 +247,7 @@ public class TableTag extends IncludeTag {
 		request.setAttribute(
 			"liferay-commerce:table:showPagination", _showPagination);
 		request.setAttribute("liferay-commerce:table:spritemap", _spritemap);
-		request.setAttribute(
-			"liferay-commerce:table:stackedLayout", _stackedLayout);
-		request.setAttribute("liferay-commerce:table:tableName", _tableName);
+		request.setAttribute("liferay-commerce:table:style", _style);
 		request.setAttribute("liferay-commerce:table:totalItems", _totalItems);
 	}
 
@@ -271,7 +269,7 @@ public class TableTag extends IncludeTag {
 			null);
 
 		String json = _clayTableDataJSONBuilder.build(
-			themeDisplay.getScopeGroupId(), _tableName, items, request);
+			themeDisplay.getScopeGroupId(), _id, items, request);
 
 		_items = JSONFactoryUtil.looseDeserialize(json);
 
@@ -302,7 +300,7 @@ public class TableTag extends IncludeTag {
 	}
 
 	private void _setTableContext() {
-		ClayTable clayTable = _clayTableRegistry.getClayTable(_tableName);
+		ClayTable clayTable = _clayTableRegistry.getClayTable(_id);
 
 		_clayTableContext = _clayTableSerializer.serialize(
 			clayTable, PortalUtil.getLocale(request));
@@ -334,8 +332,7 @@ public class TableTag extends IncludeTag {
 	private PortletURL _portletURL;
 	private boolean _showPagination;
 	private String _spritemap;
-	private boolean _stackedLayout;
-	private String _tableName;
+	private String _style = "default";
 	private int _totalItems;
 
 }

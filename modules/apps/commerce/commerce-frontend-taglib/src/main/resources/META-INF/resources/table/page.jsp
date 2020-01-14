@@ -101,7 +101,7 @@
 					}
 				],
 				dataProviderKey : "<%= dataProviderKey %>",
-				id : "<%= tableName %>",
+				id : "<%= id %>",
 				items : <%= jsonSerializer.serializeDeep(items) %>,
 				showPagination : <%= showPagination %>,
 				pagination : {
@@ -113,7 +113,7 @@
 				namespace : "<%= namespace %>",
 				portletURL : "<%= portletURL %>",
 				spritemap : "<%= spritemap %>",
-				stackedLayout : <%= stackedLayout %>
+				style : "<%= style %>"
 			}
 		)
 	);

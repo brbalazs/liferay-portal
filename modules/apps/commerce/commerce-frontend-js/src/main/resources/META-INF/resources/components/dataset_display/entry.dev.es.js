@@ -3,6 +3,184 @@ import sidePanelLauncher from './../side_panel/entry.es';
 
 import '../../styles/main.scss';
 
+const fluidDataSetDisplayProps = {
+	apiUrl: 'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
+	bulkActions: [
+		{
+			icon: 'plus',
+			label: 'Add',
+			sidePanelCompatible: true,
+			url: '/side-panel/edit.html',
+		},
+		{
+			icon: 'trash',
+			label: 'Delete',
+			method: 'delete',
+			url: '/delete',
+		}
+	],
+	creationMenuItems: [
+		{
+			href: "/standard/edit",
+			label: 'Add'
+		},
+		{
+			label: 'Add via modal',
+			type: 'modal',
+			url: 'modal/url'
+		}
+	],
+	filters: [
+		{
+			id: 'number-test',
+			inputText: '$',
+			label: 'Number test',
+			max: 200,
+			min: 20,
+			operator: 'gt',
+			type: 'number',
+			value: 123
+		}
+	],
+	id: 'tableTest',
+	items: [
+		{
+			actionItems: [
+				{
+					cssClasses: "",
+					href: "http://localhost:8080/group/guest/~/control_panel/manage?p_p_id=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&p_p_lifecycle=0&p_p_state=maximized&_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_javax.portlet.action=editCommerceOrderItem&_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_cmd=delete&_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_redirect=%2Fgroup%2Fguest%2F%7E%2Fcontrol_panel%2Fmanage%3Fp_p_id%3Dcom_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet%26p_p_lifecycle%3D0%26p_p_state%3Dmaximized%26p_p_mode%3Dview%26_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_redirect%3Dhttp%253A%252F%252Flocalhost%253A8080%252Fgroup%252Fguest%252F%7E%252Fcontrol_panel%252Fmanage%253Fp_p_id%253Dcom_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet%2526p_p_lifecycle%253D0%2526p_p_state%253Dmaximized%2526p_p_mode%253Dview%2526p_p_auth%253DVLNBjvR0%26_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_mvcRenderCommandName%3DeditCommerceOrder%26_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_commerceOrderId%3D38938%26p_p_auth%3DVLNBjvR0&_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_commerceOrderItemId=38943&p_p_auth=VLNBjvR0",
+					icon: "trash",
+					label: "Delete",
+					onClick: "",
+					order: 0,
+					quickAction: false,
+					separator: false,
+				}
+			],
+			bookedQuantityId: 0,
+			date: {
+				icon: 'date',
+				url: '/modal/date/url'
+			},
+			discountAmount: 0,
+			discountPercentageLevel1: 0,
+			discountPercentageLevel2: 0,
+			discountPercentageLevel3: 0,
+			discountPercentageLevel4: 0,
+			finalPrice: 200,
+			id: 37175,
+			name: 'ABS Sensor',
+			order: {
+				label: '#37174',
+				url: '/modal/order/url'
+			},
+			quantity: 4,
+			shippedQuantity: 0,
+			shippingAddress: {},
+			shippingAddressId: 0,
+			sku: {
+				label: 'MIN93015',
+				url: '/sidepanel-1.html'
+			},
+			skuExternalReferenceCode: 'min93015',
+			skuId: 35663,
+			status: {
+				displayStyle: 'info',
+				label: 'delivered',
+			},
+			subscription: false,
+			thumbnail: {
+				alt: 'ABS Sensor',
+				shape: 'rounded',
+				size: 'lg',
+				url: 'https://via.placeholder.com/150',
+			},
+			unitPrice: 50
+		}
+	],
+	pageSize: 5,
+	pagination: {
+		deltas: [
+			{
+				label: 5
+			},
+			{
+				label: 10
+			},
+			{
+				label: 20
+			},
+			{
+				label: 30
+			},
+			{
+				label: 50
+			},
+			{
+				href:
+					'http://localhost:8080/group/test-1/pending-orders?p_p_id=com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_delta=75',
+				label: 75
+			}
+		],
+		initialDelta: 10,
+		initialPageNumber: 1,
+		initialTotalItems: 40
+	},
+	schema: {
+		fields: [
+			{
+				contentRenderer: 'picture',
+				fieldName: 'thumbnail',
+				label: '',
+			},
+			{
+				contentRenderer: 'sidePanelLink',
+				fieldName: 'sku',
+				label: 'SKU',
+				sortable: true,
+			},
+			{
+				fieldName: 'name',
+				label: 'Name',
+				sortable: true
+			},
+			{
+				fieldName: 'unitPrice',
+				label: 'Price',
+				sortable: true
+			},
+			{
+				contentRenderer: 'modalLink',
+				fieldName: 'order',
+				label: 'Order',
+			},
+			{
+				contentRenderer: 'label',
+				fieldName: 'status',
+				label: 'Status',
+			},
+			{
+				fieldName: 'quantity',
+				label: 'Quantity',
+				sortable: true
+			},
+			{
+				fieldName: 'finalPrice',
+				label: 'Total',
+				sortable: false
+			},
+			{
+				contentRenderer: 'modalLink',
+				fieldName: 'date',
+			},
+		]
+	},
+	showPagination: true,
+	sidePanelId: 'sidePanelTestId',
+	spritemap: './assets/icons.svg',
+	style: 'fluid',
+}
+
 const dataSetDisplayProps = {
 	apiUrl: 'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
 	bulkActions: [
@@ -743,7 +921,7 @@ const dataSetDisplayProps = {
 	showPagination: true,
 	sidePanelId: 'sidePanelTestId',
 	spritemap: './assets/icons.svg',
-	stackedLayout: false,
+	// style: 'fluid',
 }
 
 const emailsDataSetDisplayProps = {
@@ -847,10 +1025,12 @@ const emailsDataSetDisplayProps = {
 	},
 	showPagination: true,
 	sidePanelId: 'sidePanelTestId',
-	spritemap: './assets/icons.svg'
+	spritemap: './assets/icons.svg',
+	style: 'stacked',
 }
 
 datasetDisplayLauncher('dataset-display', 'dataset-display-root-id', dataSetDisplayProps);
+datasetDisplayLauncher('fluid-dataset-display', 'fluid-dataset-display-root-id', fluidDataSetDisplayProps);
 datasetDisplayLauncher('emails-dataset-display', 'emails-dataset-display-root-id', emailsDataSetDisplayProps);
 
 sidePanelLauncher('sidePanel', 'side-panel-root-id', {

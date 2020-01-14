@@ -12,14 +12,14 @@ function NavBar(props) {
 	const mainFilter = state.filters.find(f => f.main);
 
 	return (
-		<nav className="management-bar management-bar-light navbar navbar-expand-md">
+		<nav className="management-bar management-bar-light navbar navbar-expand-md border-bottom">
 			<div className="container-fluid container-fluid-max-xl">
 				{state.filters.length > 1 ? (
-					<div className="navbar-nav">
+					<div className="navbar-nav mr-2">
 						<FiltersDropdown />
 					</div>
 				) : null}
-				<div className="navbar-form navbar-form-autofit navbar-overlay navbar-overlay-sm-down">
+				<div className="navbar-form navbar-form-autofit navbar-overlay navbar-overlay-sm-down pl-0">
 					{mainFilter ? <MainSearch /> : null}
 				</div>
 				{(props.creationMenuItems && props.creationMenuItems.length) ? (

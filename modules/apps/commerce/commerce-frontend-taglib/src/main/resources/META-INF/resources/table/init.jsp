@@ -43,9 +43,9 @@ int pageNumber = (int)request.getAttribute("liferay-commerce:table:pageNumber");
 List<ClayPaginationEntry> paginationEntries = (List<ClayPaginationEntry>)request.getAttribute("liferay-commerce:table:paginationEntries");
 PortletURL portletURL = (PortletURL)request.getAttribute("liferay-commerce:table:portletURL");
 boolean showPagination = (boolean)request.getAttribute("liferay-commerce:table:showPagination");
-boolean stackedLayout = (boolean)request.getAttribute("liferay-commerce:table:stackedLayout");
+String style = (String)request.getAttribute("liferay-commerce:table:style");
 String spritemap = (String)request.getAttribute("liferay-commerce:table:spritemap");
-String tableName = (String)request.getAttribute("liferay-commerce:table:tableName");
+String id = (String)request.getAttribute("liferay-commerce:table:id");
 int totalItems = (int)request.getAttribute("liferay-commerce:table:totalItems");
 
 JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();

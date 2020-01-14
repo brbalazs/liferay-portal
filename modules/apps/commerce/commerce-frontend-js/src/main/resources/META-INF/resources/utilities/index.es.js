@@ -116,8 +116,13 @@ export function launcher(Component, componentId, rootId, props) {
 	return componentInstance;
 }
 
+export function getRandomId() {
+	return Math.random().toString(36).substr(2, 9)
+}
+
 export default {
 	debounce,
+	getRandomId,
 	launcher,
-	showNotification
+	showNotification,
 };

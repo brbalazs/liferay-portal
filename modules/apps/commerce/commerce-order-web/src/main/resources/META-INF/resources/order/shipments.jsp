@@ -50,8 +50,8 @@ contextParams.put("commerceOrderId", String.valueOf(commerceOrder.getCommerceOrd
 	namespace="<%= renderResponse.getNamespace() %>"
 	pageNumber="<%= 1 %>"
 	portletURL="<%= portletURL %>"
-	stackedLayout="<%= true %>"
-	tableName="<%= CommerceShipmentClayTable.NAME %>"
+	style="stacked"
+	id="<%= CommerceShipmentClayTable.NAME %>"
 />
 
 <aui:script>
