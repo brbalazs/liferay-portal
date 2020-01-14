@@ -198,7 +198,8 @@ SpeedwellSlider.prototype = {
 
                 this.datasetSize = this.dataset.length;
                 resolve();
-            } catch (e) {
+            }
+            catch (e) {
                 reject(new Error(e));
             }
         });

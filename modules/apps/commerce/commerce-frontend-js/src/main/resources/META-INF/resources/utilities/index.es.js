@@ -100,7 +100,8 @@ export function launcher(Component, componentId, rootId, props) {
 	function destroyComponent() {
 		try {
 			ReactDOM.unmountComponentAtNode(portletFrame);
-		} catch (e) {
+		}
+		catch (e) {
 			console.error(e);
 		}
 

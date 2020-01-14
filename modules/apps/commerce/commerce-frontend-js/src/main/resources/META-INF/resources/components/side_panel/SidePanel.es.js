@@ -225,7 +225,7 @@ export default class SidePanel extends React.Component {
 			const submitButton = iframeDocument.querySelector(
 				'[type="submit"]'
 			);
-	
+
 			if (submitButton) {
 				submitButton.addEventListener('click', this.handleIframeClickOnSubmit);
 			}
@@ -233,8 +233,9 @@ export default class SidePanel extends React.Component {
 			this.setState({
 				closeButtonStyle: iframeDocument.querySelector(".side-panel-iframe-menu-wrapper") ? 'menu' : 'simple'
 			})
-			
-		} catch (error) {
+
+		}
+		catch (error) {
 			throw new Error(`Cannot access to iframe body. Url: "${this.state.currentUrl}"`)
 		}
 	}
@@ -294,7 +295,7 @@ export default class SidePanel extends React.Component {
 		)
 
 		return ReactDOM.createPortal(
-			this.props.spritemap 
+			this.props.spritemap
 			? (
 				<ClayIconSpriteContext.Provider value={this.props.spritemap}>
 					{content}
