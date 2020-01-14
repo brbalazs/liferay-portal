@@ -4,7 +4,7 @@ import './CPOptionValuesEditor.es';
 import './CPOptionValueDetail.es';
 import './CPOptionValueList.es';
 import Component from 'metal-component';
-import {Config} from 'metal-state';
+import { Config } from 'metal-state';
 import Soy from 'metal-soy';
 
 import templates from './CPOptionsEditor.soy';
@@ -35,6 +35,7 @@ class CPOptionsEditor extends Component {
 			url,
 			{
 				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'GET'
 			}
 		).then(

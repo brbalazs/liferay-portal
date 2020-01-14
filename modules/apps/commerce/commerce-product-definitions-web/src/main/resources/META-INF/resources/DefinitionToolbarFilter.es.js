@@ -1,5 +1,5 @@
 import Component from 'metal-component';
-import {Config} from 'metal-state';
+import { Config } from 'metal-state';
 import Soy from 'metal-soy';
 
 import templates from './DefinitionToolbarFilter.soy';
@@ -22,7 +22,7 @@ class DefinitionToolbarFilter extends Component {
 	rendered() {
 		AUI().use(
 			'liferay-commerce-frontend-asset-categories-selector',
-			function(A) {
+			function (A) {
 				var categoryBox = this.element.querySelector('#assetCategoriesSelector');
 
 				if (categoryBox) {
@@ -252,6 +252,7 @@ class DefinitionToolbarFilter extends Component {
 			url,
 			{
 				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'GET'
 			}
 		).then(
@@ -273,6 +274,7 @@ class DefinitionToolbarFilter extends Component {
 			url,
 			{
 				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'GET'
 			}
 		).then(

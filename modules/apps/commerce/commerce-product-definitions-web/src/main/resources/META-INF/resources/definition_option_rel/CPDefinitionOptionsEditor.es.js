@@ -5,7 +5,7 @@ import './CPDefinitionOptionValueDetail.es';
 import './CPDefinitionOptionValueList.es';
 
 import Component from 'metal-component';
-import {Config} from 'metal-state';
+import { Config } from 'metal-state';
 import Soy from 'metal-soy';
 
 import templates from './CPDefinitionOptionsEditor.soy';
@@ -32,7 +32,7 @@ class CPDefinitionOptionsEditor extends Component {
 					{
 						eventName: 'productOptionsSelectItem',
 						on: {
-							selectedItemChange: function(event) {
+							selectedItemChange: function (event) {
 								var selectedItems = event.newVal;
 
 								var formData = new FormData();
@@ -47,6 +47,7 @@ class CPDefinitionOptionsEditor extends Component {
 									{
 										body: formData,
 										credentials: 'include',
+										headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 										method: 'POST'
 									}
 								).then(
@@ -81,6 +82,7 @@ class CPDefinitionOptionsEditor extends Component {
 			url,
 			{
 				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'GET'
 			}
 		).then(

@@ -46,6 +46,7 @@
 			{
 				body: requestBody,
 				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'post'
 			}
 		)
@@ -112,6 +113,7 @@
 			{
 				body: formData,
 				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'post'
 			}
 		).then(

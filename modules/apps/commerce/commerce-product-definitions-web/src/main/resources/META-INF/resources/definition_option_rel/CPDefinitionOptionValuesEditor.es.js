@@ -1,5 +1,5 @@
 import Component from 'metal-component';
-import {Config} from 'metal-state';
+import { Config } from 'metal-state';
 import Soy from 'metal-soy';
 
 import templates from './CPDefinitionOptionValuesEditor.soy';
@@ -46,6 +46,7 @@ class CPDefinitionOptionValuesEditor extends Component {
 			url,
 			{
 				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'GET'
 			}
 		).then(

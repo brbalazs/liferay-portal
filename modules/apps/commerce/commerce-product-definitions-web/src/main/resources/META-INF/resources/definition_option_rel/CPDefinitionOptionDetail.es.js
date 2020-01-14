@@ -1,7 +1,7 @@
 import Component from 'metal-component';
-import {Config} from 'metal-state';
+import { Config } from 'metal-state';
 import Soy from 'metal-soy';
-import {globalEval} from 'metal-dom';
+import { globalEval } from 'metal-dom';
 
 import templates from './CPDefinitionOptionDetail.soy';
 
@@ -34,6 +34,7 @@ class CPDefinitionOptionDetail extends Component {
 			url,
 			{
 				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'GET'
 			}
 		).then(
@@ -110,6 +111,7 @@ class CPDefinitionOptionDetail extends Component {
 			{
 				body: formData,
 				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'POST'
 			}
 		).then(
@@ -133,6 +135,7 @@ class CPDefinitionOptionDetail extends Component {
 			{
 				body: formData,
 				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'POST'
 			}
 		).then(
