@@ -4,7 +4,7 @@ AUI.add(
 		A.Do.before(
 			function (state) {
 				if (state.owner === 'liferay.component') {
-					return new A.Do.Halt(null);    
+					return new A.Do.Halt(null);
 				}
 			},
 			Liferay.ManagementBar,

@@ -12,7 +12,7 @@ function getCurrentPage() {
 
 function Example({spritemap}) {
 	const [current, setComponent] = React.useState(getCurrentPage());
-	
+
 	return (
 		<div className="container-fluid">
 			<div className="row">

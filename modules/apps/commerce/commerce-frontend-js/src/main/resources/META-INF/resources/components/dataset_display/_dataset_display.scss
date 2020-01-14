@@ -19,7 +19,7 @@
     &-management-bar-wrapper {
         border-bottom: 1px solid $border-color;
     }
-    
+
     &-content-wrapper {
         margin-bottom: map-get($spacers, 3);
     }
@@ -33,7 +33,7 @@
             margin-bottom: map-get($spacers, 3);
             border: 1px solid $border-color;
         }
-        
+
         .dataset-display-content-wrapper {
             margin-bottom: map-get($spacers, 3);
             border: 1px solid $border-color;

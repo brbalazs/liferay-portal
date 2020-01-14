@@ -22,8 +22,8 @@ export function getRenderers(newRenderers = []) {
 
     return [
         ...(
-            newDefaultRenderer 
-            ? defaultContentRenderers.map(render => ({...render, default: false})) 
+            newDefaultRenderer
+            ? defaultContentRenderers.map(render => ({...render, default: false}))
             : defaultContentRenderers
         ),
         ...newRenderers

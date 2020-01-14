@@ -37,8 +37,8 @@ function TableHeadCell(props) {
 			headingTitle
 		>
 			{props.sortable ? (
-				<a 
-					className="inline-item text-truncate-inline text-nowrap" 
+				<a
+					className="inline-item text-truncate-inline text-nowrap"
 					href="#"
 					onClick={_handleSortingCellClick}
 				>
@@ -68,7 +68,7 @@ function TableHeadRow(props) {
 
 		return fields.map((field) => {
 			let expandedClass = null;
-			
+
 			if (field.contentRenderer === 'picture') {
 				expandedClass = null;
 			}
@@ -79,7 +79,7 @@ function TableHeadRow(props) {
 			else {
 				expandedClass = 'table-cell-expand-smaller';
 			}
-			
+
 			return (
 				<TableHeadCell
 					className={expandedClass}

@@ -34,23 +34,23 @@
       bottom: 0;
       z-index: -2;
     }
-  
+
     &::after {
       transition: all ease-in-out .3s;
     }
-  
+
     &:active,
     &:focus,
     &:focus-within {
       box-shadow: none !important;
       outline: none !important;
     }
-  
+
     &[disabled],
     .disabled {
       cursor: not-allowed;;
     }
-  
+
     &:not([disabled]):not(.disabled):not(.btn-unstyled):not(.btn-link) {
       &::after {
         content: "";
@@ -67,13 +67,13 @@
         transform-origin: left;
         z-index: -1;
       }
-      
+
       &:hover::after {
         opacity: 1;
         transform: scaleX(1);
       }
     }
-  
+
     &.btn-unstyled {
       border: none;
       border-radius: 0;
@@ -84,25 +84,25 @@
       line-height: inherit;
       padding: 0;
       text-transform: none;
-  
+
       &:focus,
       &:focus-within {
         box-shadow: none;
       }
     }
-  
+
     &.btn-primary {
       border-color: $color-theme;
       background: transparent;
       color: $color-bg;
-  
+
       &:not([disabled]):not(.disabled) {
         border-color: $color-theme;
 
         &::before {
           background-color: $color-theme;
         }
-        
+
         &::after {
           background-color: $color-theme-dark;
         }
@@ -112,25 +112,25 @@
             border-color: $color-theme-dark;
         }
       }
-  
+
       &[disabled] {
         border-color: $color-disabled;
-  
+
         &::before {
           background-color: $color-disabled;
         }
       }
     }
-  
+
     &.btn-secondary {
       border-color: $color-theme;
       color: $color-theme;
       background: transparent;
-  
+
       &::before {
         background-color: $color-bg;
       }
-  
+
       &:not([disabled]):not(.disabled) {
         border-color: $color-theme;
 
@@ -138,29 +138,29 @@
           background-color: $color-border;
         }
       }
-  
+
       &[disabled] {
         border-color: $color-disabled;
         color: $color-disabled;
-  
+
         &::before {
           background-color: $color-bg;
         }
       }
     }
-  
+
     &.btn-success {
       border-color: $color-mood-good;
       background: transparent;
       color: $color-bg;
-  
+
       &:not([disabled]):not(.disabled) {
         border-color: $color-mood-good;
 
         &::before {
           background-color: $color-mood-good;
         }
-        
+
         &::after {
           background-color: darken( $color-mood-good, 10% );
         }
@@ -170,28 +170,28 @@
             border-color: darken( $color-mood-good, 10% );
         }
       }
-  
+
       &[disabled] {
         border-color: lighten($color-mood-good, 20%);;
-  
+
         &::before {
           background-color: lighten($color-mood-good, 20%);;
         }
       }
     }
-  
+
     &.btn-danger {
       border-color: $color-mood-bad;
       background: transparent;
       color: $color-bg;
-  
+
       &:not([disabled]):not(.disabled) {
         border-color: $color-mood-bad;
 
         &::before {
           background-color: $color-mood-bad;
         }
-        
+
         &::after {
           background-color: darken( $color-mood-bad, 10% );
         }
@@ -201,28 +201,28 @@
             border-color: darken( $color-mood-bad, 10% );
         }
       }
-  
+
       &[disabled] {
         border-color: lighten($color-mood-bad, 20%);;
-  
+
         &::before {
           background-color: lighten($color-mood-bad, 20%);;
         }
       }
     }
-  
+
     &.btn-warning {
       border-color: $color-mood-neutral;
       background: transparent;
       color: $color-bg;
-  
+
       &:not([disabled]):not(.disabled) {
         border-color: $color-mood-neutral;
 
         &::before {
           background-color: $color-mood-neutral;
         }
-        
+
         &::after {
           background-color: darken( $color-mood-neutral, 10% );
         }
@@ -232,37 +232,37 @@
             border-color: darken( $color-mood-neutral, 10% );
         }
       }
-  
+
       &[disabled] {
         border-color: lighten($color-mood-neutral, 20%);;
-  
+
         &::before {
           background-color: lighten($color-mood-neutral, 20%);;
         }
       }
     }
-  
+
     &.btn-monospaced {
       border-radius: 8px;
     }
-  
+
     &.btn-sm {
       height: 44px;
-  
+
       &.btn-monospaced {
         width: 44px;
       }
     }
-  
+
     &.btn-lg {
       font-size: 12px;
       height: 64px;
-  
+
       &.btn-monospaced {
         width: 64px;
       }
     }
-    
+
     &.btn-fixed {
       min-width: 170px;
     }

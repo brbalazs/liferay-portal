@@ -60,7 +60,7 @@
       transform: scale(0, 0);
       z-index: -1;
     }
-    
+
     &:hover::after {
       opacity: 1;
       transform: scale(5, 5);
@@ -97,7 +97,7 @@
       &:hover::before {
         background-color: $color-theme-dark;
       }
-      
+
       &::after {
         background-color: $color-theme-dark;
       }
@@ -154,7 +154,7 @@
       &:hover::before {
         background-color: darken( $color-mood-good, 10% );
       }
-      
+
       &::after {
         background-color: darken( $color-mood-good, 10% );
       }
@@ -182,7 +182,7 @@
       &:hover::before {
         background-color: darken( $color-mood-bad, 10% );
       }
-      
+
       &::after {
         background-color: darken( $color-mood-bad, 10% );
       }
@@ -210,7 +210,7 @@
       &:hover::before {
         background-color: darken( $color-mood-neutral, 10% );
       }
-      
+
       &::after {
         background-color: darken( $color-mood-neutral, 10% );
       }
@@ -245,7 +245,7 @@
       width: 64px;
     }
   }
-  
+
   &.btn-fixed {
     min-width: 170px;
   }

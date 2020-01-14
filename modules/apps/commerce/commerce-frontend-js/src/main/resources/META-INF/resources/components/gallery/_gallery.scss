@@ -8,11 +8,11 @@
     top: 0;
     transition: all ease 100ms;
     width: 20%;
-    
+
     &:hover {
       background-position: 0%;
     }
-  
+
     &.next {
       cursor: e-resize;
       right: 0;

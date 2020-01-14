@@ -25,11 +25,11 @@ function Email(props) {
     }
 
     return (
-        <li 
+        <li
             className={classNames(
-                "bg-white d-flex p-4", 
-                props.borderBottom 
-                ? "border-top-0 border-left-0 border-right-0 border-bottom" 
+                "bg-white d-flex p-4",
+                props.borderBottom
+                ? "border-top-0 border-left-0 border-right-0 border-bottom"
                 : "border-0"
             )}
         >
@@ -106,7 +106,7 @@ function EmailsList(props) {
     return (
         <ClayList className="mb-0">
             {props.items.map((item, i) => (
-                <Email 
+                <Email
                     key={i}
                     {...item}
                     borderBottom={i !== props.items.length - 1}

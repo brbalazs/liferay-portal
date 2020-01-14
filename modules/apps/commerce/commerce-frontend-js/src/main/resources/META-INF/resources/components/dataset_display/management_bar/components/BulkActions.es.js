@@ -31,7 +31,7 @@ function getRichPayload(payload, ids = []) {
 
 function BulkActions(props) {
 	const [currentSidePanelActionPayload, setCurrentSidePanelActionPayload] = useState(null);
-	
+
 	function handleActionClick(actionDefinition, formRef, loadData, sidePanelId) {
 		if (actionDefinition.sidePanelCompatible) {
 			const sidePanelActionPayload = {
@@ -40,7 +40,7 @@ function BulkActions(props) {
 				onAfterSubmit: () => loadData(),
 				slug: actionDefinition.slug || null,
 			}
-			
+
 			Liferay.fire(
 				OPEN_SIDE_PANEL,
 				getRichPayload(sidePanelActionPayload, props.selectedItemsId)

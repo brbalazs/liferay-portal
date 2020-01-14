@@ -14,7 +14,7 @@ function Modal(props) {
 	const [title, setTitle] = useState(props.title);
 	const [url, setUrl] = useState(props.url);
 	const iframeRef = useRef(null);
-	
+
 	const {observer, onClose: closeModal} = useModal({onClose: () => {
 		if (iframeLoadingCounter > 1) {
 			if (onClose) {
@@ -24,7 +24,7 @@ function Modal(props) {
 				props.onClose()
 			}
 		}
-		
+
 		setIframeLoadingCounter(() => 0);
 		setLoading(false);
 		setVisible(false);
@@ -78,10 +78,10 @@ function Modal(props) {
 	function handleIframeLoad() {
 		setLoading(false);
 		setIframeLoadingCounter(c => c + 1);
-		
+
 		const iframeDocument = iframeRef.current.contentDocument;
 		const iframeWindow = iframeRef.current.contentWindow;
-		
+
 		if (iframeDocument && iframeWindow) {
 			if (iframeWindow.Liferay && iframeWindow.Liferay.on) {
 				iframeWindow.Liferay.on('endNavigate', e => {
@@ -124,7 +124,7 @@ function Modal(props) {
 					src={url}
 					title={title}
 				/>
-				{loading && 
+				{loading &&
 					<div className="loader-container">
 						<ClayLoadingIndicator />
 					</div>

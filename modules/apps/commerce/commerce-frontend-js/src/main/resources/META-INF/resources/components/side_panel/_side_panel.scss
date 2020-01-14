@@ -17,13 +17,13 @@
     transition: top ease-in-out .1s, right ease-in-out .1s, opacity ease-in .2s;
     z-index: 1;
     opacity: .5;
-    
+
     &-simple {
       top: 29px;
       right: 20px;
       opacity: 1;
     }
-    
+
     &-menu {
       top: 4px;
       right: 16px;
@@ -64,7 +64,7 @@
     top: 0;
     z-index: 10;
   }
-    
+
   &:not(.is-loading) .loader {
     transition: all ease 200ms;
     opacity: 0;
