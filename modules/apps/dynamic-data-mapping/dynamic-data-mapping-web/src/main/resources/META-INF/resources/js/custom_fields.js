@@ -1114,8 +1114,6 @@ AUI.add(
 
 				var translationManager = builder.translationManager;
 
-				var defaultLocale = translationManager.get('defaultLocale');
-
 				var availableLocales = translationManager.get(
 					'availableLocales'
 				);
@@ -1130,34 +1128,11 @@ AUI.add(
 						fieldOption.label = {};
 
 					availableLocales.forEach(locale => {
-						var label = A.Object.getValue(localizationMap, [
+						var label = instance._getLocaleValue(
+							localizationMap,
 							locale,
 							'label'
-						]);
-
-						if (!isValue(label)) {
-							label = A.Object.getValue(localizationMap, [
-								defaultLocale,
-								'label'
-							]);
-
-							if (!isValue(label)) {
-								for (var localizationMapLocale in localizationMap) {
-									label = A.Object.getValue(localizationMap, [
-										localizationMapLocale,
-										'label'
-									]);
-
-									if (isValue(label)) {
-										break;
-									}
-								}
-							}
-
-							if (!isValue(label)) {
-								label = STR_BLANK;
-							}
-						}
+						);
 
 						fieldOption.label[
 							locale
@@ -1201,10 +1176,35 @@ AUI.add(
 
 			var translationManager = builder.translationManager;
 
-			var defaultLocale = translationManager.get('defaultLocale');
-
 			translationManager.get('availableLocales').forEach(
 				function(locale) {
+
+				var value = instance._getLocaleValue(
+					localizationMap,
+					locale,
+					attribute
+				);
+
+					localizedValue[locale] = LiferayFormBuilderUtil.normalizeValue(value);
+				}
+			);
+
+			return localizedValue;
+		};
+
+		SerializableFieldSupport.prototype._getLocaleValue = function(
+			localizationMap,
+			locale,
+			attribute
+		) {
+			var instance = this;
+
+			var builder = instance.get('builder');
+
+			var translationManager = builder.translationManager;
+
+			var defaultLocale = translationManager.get('defaultLocale');
+
 					var value = A.Object.getValue(localizationMap, [locale, attribute]);
 
 					if (!isValue(value)) {
@@ -1224,12 +1224,9 @@ AUI.add(
 							value = STR_BLANK;
 						}
 					}
-
-					localizedValue[locale] = LiferayFormBuilderUtil.normalizeValue(value);
 				}
-			);
 
-			return localizedValue;
+			return value;
 		};
 
 		SerializableFieldSupport.prototype.serialize = function() {
