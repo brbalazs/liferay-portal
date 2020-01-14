@@ -24,7 +24,6 @@ import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.RelatedProduct;
 import com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.converter.RelatedProductDTOConverter;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.RelatedProductResource;
-import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.fields.NestedFieldId;
@@ -49,17 +48,9 @@ import org.osgi.service.component.annotations.ServiceScope;
 )
 public class RelatedProductResourceImpl extends BaseRelatedProductResourceImpl {
 
-	@Override
-	public RelatedProduct getRelatedProduct(Long id) throws Exception {
-		return _relatedProductDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
-				contextAcceptLanguage.getPreferredLocale(),
-				GetterUtil.getLong(id)));
-	}
-
 	@NestedField(parentClass = Product.class, value = "relatedProducts")
 	@Override
-	public Page<RelatedProduct> getStoreChannelProductRelatedProductsPage(
+	public Page<RelatedProduct> getChannelProductRelatedProductsPage(
 			@NotNull Long channelId,
 			@NestedFieldId(value = "productId") @NotNull Long productId,
 			String type, Pagination pagination)

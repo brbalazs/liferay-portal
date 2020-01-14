@@ -25,9 +25,8 @@ import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
+import com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.converter.ProductDTOConverter;
 import com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.converter.ProductDTOConverterContext;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.ProductResource;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -51,6 +50,7 @@ import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -66,7 +66,7 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class ProductResourceImpl extends BaseProductResourceImpl {
 
 	@Override
-	public Product getStoreChannelProduct(
+	public Product getChannelProduct(
 			@NotNull Long channelId, @NotNull Long productId)
 		throws Exception {
 
@@ -82,10 +82,12 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 	}
 
 	@Override
-	public Page<Product> getStoreChannelProductsPage(
+	public Page<Product> getChannelProductsPage(
 			@NotNull Long channelId, Filter filter, Pagination pagination,
 			Sort[] sorts)
 		throws Exception {
+
+		Response.ResponseBuilder responseBuilder = Response.accepted(null);
 
 		long companyId = contextCompany.getCompanyId();
 		SearchContext searchContext = new SearchContext();
@@ -137,11 +139,7 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 	protected Company contextCompany;
 
 	private Product _toProduct(CPDefinition cpDefinition) throws Exception {
-		DTOConverter cpCatalogEntryDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CPCatalogEntry.class.getName());
-
-		return (Product)cpCatalogEntryDTOConverter.toDTO(
+		return _productDTOConverter.toDTO(
 			new ProductDTOConverterContext(
 				contextAcceptLanguage.getPreferredLocale(),
 				cpDefinition.getCPDefinitionId(), cpDefinition));
@@ -151,15 +149,12 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 		throws Exception {
 
 		List<Product> products = new ArrayList<>();
-		DTOConverter cpCatalogEntryDTOConverter =
-			_dtoConverterRegistry.getDTOConverter(
-				CPCatalogEntry.class.getName());
 
 		for (CPCatalogEntry cpCatalogEntry :
 				cpDataSourceResult.getCPCatalogEntries()) {
 
 			products.add(
-				(Product)cpCatalogEntryDTOConverter.toDTO(
+				_productDTOConverter.toDTO(
 					new ProductDTOConverterContext(
 						contextAcceptLanguage.getPreferredLocale(),
 						cpCatalogEntry.getCPDefinitionId(), cpCatalogEntry)));
@@ -181,6 +176,6 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 	private CPDefinitionService _cpDefinitionService;
 
 	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
+	private ProductDTOConverter _productDTOConverter;
 
 }

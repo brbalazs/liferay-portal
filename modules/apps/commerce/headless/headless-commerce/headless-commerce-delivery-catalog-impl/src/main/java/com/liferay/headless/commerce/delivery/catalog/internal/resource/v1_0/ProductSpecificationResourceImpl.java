@@ -51,7 +51,7 @@ public class ProductSpecificationResourceImpl
 	@NestedField(parentClass = Product.class, value = "productSpecifications")
 	@Override
 	public Page<ProductSpecification>
-			getStoreChannelProductProductSpecificationsPage(
+			getChannelProductProductSpecificationsPage(
 				@NotNull Long channelId,
 				@NestedFieldId(value = "productId") @NotNull Long productId,
 				Pagination pagination)

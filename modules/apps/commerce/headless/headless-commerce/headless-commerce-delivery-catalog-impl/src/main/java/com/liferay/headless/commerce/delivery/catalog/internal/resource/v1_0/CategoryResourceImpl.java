@@ -20,7 +20,6 @@ import com.liferay.commerce.product.exception.NoSuchCPDefinitionException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
-import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Category;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.converter.CategoryDTOConverter;
@@ -51,7 +50,7 @@ public class CategoryResourceImpl extends BaseCategoryResourceImpl {
 
 	@NestedField(parentClass = Product.class, value = "categories")
 	@Override
-	public Page<Category> getStoreChannelProductCategoriesPage(
+	public Page<Category> getChannelProductCategoriesPage(
 			@NotNull Long channelId,
 			@NestedFieldId(value = "productId") @NotNull Long productId,
 			Pagination pagination)
@@ -108,8 +107,5 @@ public class CategoryResourceImpl extends BaseCategoryResourceImpl {
 
 	@Reference
 	private CPDefinitionService _cpDefinitionService;
-
-	@Reference
-	private ServiceContextHelper _serviceContextHelper;
 
 }

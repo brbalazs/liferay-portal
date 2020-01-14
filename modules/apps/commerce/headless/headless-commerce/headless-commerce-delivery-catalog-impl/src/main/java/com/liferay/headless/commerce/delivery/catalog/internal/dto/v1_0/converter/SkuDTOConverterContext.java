@@ -23,9 +23,9 @@ import java.util.Locale;
 /**
  * @author Andrea Sbarra
  */
-public class CPSkuDTOConverterContext extends DefaultDTOConverterContext {
+public class SkuDTOConverterContext extends DefaultDTOConverterContext {
 
-	public CPSkuDTOConverterContext(
+	public SkuDTOConverterContext(
 		Locale locale, long resourcePrimKey, CPDefinition cpDefinition,
 		long companyId, CommerceContext commerceContext) {
 

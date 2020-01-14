@@ -15,9 +15,12 @@
 package com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.converter;
 
 import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.discount.CommerceDiscountValue;
+import com.liferay.commerce.inventory.CPDefinitionInventoryEngine;
+import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
@@ -27,10 +30,13 @@ import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
+import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Availability;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Price;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Sku;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
 import java.math.BigDecimal;
 
@@ -39,6 +45,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -48,9 +55,9 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	property = "model.class.name=com.liferay.commerce.product.catalog.CPSku",
-	service = {CPSkuDTOConverter.class, DTOConverter.class}
+	service = {DTOConverter.class, SkuDTOConverter.class}
 )
-public class CPSkuDTOConverter implements DTOConverter {
+public class SkuDTOConverter implements DTOConverter {
 
 	@Override
 	public String getContentType() {
@@ -58,14 +65,20 @@ public class CPSkuDTOConverter implements DTOConverter {
 	}
 
 	public Sku toDTO(DTOConverterContext dtoConverterContext) throws Exception {
-		CPSkuDTOConverterContext cpSkuDTOConverterConvertContext =
-			(CPSkuDTOConverterContext)dtoConverterContext;
+		SkuDTOConverterContext cpSkuDTOConverterConvertContext =
+			(SkuDTOConverterContext)dtoConverterContext;
 
 		CPInstance cpInstance = _cpInstanceService.getCPInstance(
 			cpSkuDTOConverterConvertContext.getResourcePrimKey());
 
 		return new Sku() {
 			{
+				availability = _getAvailability(
+					cpSkuDTOConverterConvertContext.getCompanyId(),
+					cpSkuDTOConverterConvertContext.getCommerceContext(
+					).getCommerceChannelGroupId(),
+					cpInstance.getSku(), cpInstance,
+					cpSkuDTOConverterConvertContext.getLocale());
 				depth = cpInstance.getDepth();
 				displayDate = cpInstance.getDisplayDate();
 				expirationDate = cpInstance.getExpirationDate();
@@ -86,6 +99,33 @@ public class CPSkuDTOConverter implements DTOConverter {
 		};
 	}
 
+	private Availability _getAvailability(
+			long companyId, long channelGroupId, String sku,
+			CPInstance cpInstance, Locale locale)
+		throws PortalException {
+
+		Availability availability = new Availability();
+		int stockQuantity = _commerceInventoryEngine.getStockQuantity(
+			companyId, channelGroupId, sku);
+
+		if (_cpDefinitionInventoryEngine.isDisplayAvailability(cpInstance)) {
+			if (stockQuantity > 0) {
+				availability.setLabel(
+					_getLocalizedMessage(locale, "available"));
+			}
+			else {
+				availability.setLabel(
+					_getLocalizedMessage(locale, "unavailable"));
+			}
+		}
+
+		if (_cpDefinitionInventoryEngine.isDisplayStockQuantity(cpInstance)) {
+			availability.setStockQuantity(stockQuantity);
+		}
+
+		return availability;
+	}
+
 	private String[] _getFormattedDiscountPercentages(
 			BigDecimal[] discountPercentages, Locale locale)
 		throws PortalException {
@@ -98,6 +138,13 @@ public class CPSkuDTOConverter implements DTOConverter {
 		}
 
 		return formattedDiscountPercentages.toArray(new String[0]);
+	}
+
+	private String _getLocalizedMessage(Locale locale, String key) {
+		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
+			"content.Language", locale, getClass());
+
+		return LanguageUtil.get(resourceBundle, key);
 	}
 
 	private Map<String, String> _getOptions(CPInstance cpInstance)
@@ -146,6 +193,9 @@ public class CPSkuDTOConverter implements DTOConverter {
 			return new Price();
 		}
 
+		CommerceCurrency commerceCurrency =
+			commerceContext.getCommerceCurrency();
+
 		CommerceMoney unitPriceMoney = commerceProductPrice.getUnitPrice();
 
 		CommerceMoney unitPromoPriceMoney =
@@ -157,6 +207,7 @@ public class CPSkuDTOConverter implements DTOConverter {
 
 		Price price = new Price() {
 			{
+				currency = commerceCurrency.getName(locale);
 				price = unitPrice.doubleValue();
 				priceFormatted = unitPriceMoney.format(locale);
 			}
@@ -192,10 +243,16 @@ public class CPSkuDTOConverter implements DTOConverter {
 	}
 
 	@Reference
+	private CommerceInventoryEngine _commerceInventoryEngine;
+
+	@Reference
 	private CommercePriceFormatter _commercePriceFormatter;
 
 	@Reference
 	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
+
+	@Reference
+	private CPDefinitionInventoryEngine _cpDefinitionInventoryEngine;
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;

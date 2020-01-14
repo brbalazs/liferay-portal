@@ -28,6 +28,7 @@ import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.AttachmentRe
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.vulcan.fields.NestedField;
+import com.liferay.portal.vulcan.fields.NestedFieldId;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
@@ -51,8 +52,9 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 
 	@NestedField(parentClass = Product.class, value = "attachments")
 	@Override
-	public Page<Attachment> getStoreChannelProductAttachmentsPage(
-			@NotNull Long channelId, @NotNull Long productId,
+	public Page<Attachment> getChannelProductAttachmentsPage(
+			@NotNull Long channelId,
+			@NestedFieldId("productId") @NotNull Long productId,
 			Pagination pagination)
 		throws Exception {
 
@@ -71,8 +73,9 @@ public class AttachmentResourceImpl extends BaseAttachmentResourceImpl {
 
 	@NestedField(parentClass = Product.class, value = "images")
 	@Override
-	public Page<Attachment> getStoreChannelProductImagesPage(
-			@NotNull Long channelId, @NotNull Long productId,
+	public Page<Attachment> getChannelProductImagesPage(
+			@NotNull Long channelId,
+			@NestedFieldId("productId") @NotNull Long productId,
 			Pagination pagination)
 		throws Exception {
 

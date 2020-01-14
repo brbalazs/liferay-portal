@@ -16,18 +16,16 @@ package com.liferay.headless.commerce.delivery.catalog.internal.resource.v1_0;
 
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
-import com.liferay.commerce.product.catalog.CPSku;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.service.CommerceChannelService;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Sku;
-import com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.converter.CPSkuDTOConverterContext;
+import com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.converter.SkuDTOConverter;
+import com.liferay.headless.commerce.delivery.catalog.internal.dto.v1_0.converter.SkuDTOConverterContext;
 import com.liferay.headless.commerce.delivery.catalog.resource.v1_0.SkuResource;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.vulcan.fields.NestedField;
@@ -55,7 +53,7 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 
 	@NestedField(parentClass = Product.class, value = "skus")
 	@Override
-	public Page<Sku> getStoreChannelProductSkusPage(
+	public Page<Sku> getChannelProductSkusPage(
 			@NotNull Long channelId,
 			@NestedFieldId("productId") @NotNull Long productId,
 			Pagination pagination)
@@ -65,7 +63,7 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 			_cpDefinitionService.fetchCPDefinitionByCProductId(productId);
 
 		if (cpDefinition == null) {
-			return super.getStoreChannelProductSkusPage(
+			return super.getChannelProductSkusPage(
 				channelId, productId, pagination);
 		}
 
@@ -95,17 +93,14 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 
 		List<Sku> skus = new ArrayList<>();
 
-		DTOConverter skuDTOConverter = _dtoConverterRegistry.getDTOConverter(
-			CPSku.class.getName());
-
 		CommerceContext commerceContext = _commerceContextFactory.create(
 			contextCompany.getCompanyId(), commerceChannel.getSiteGroupId(),
 			contextUser.getUserId(), 0, contextCompany.getAccountId());
 
 		for (CPInstance cpInstance : cpInstances) {
 			skus.add(
-				(Sku)skuDTOConverter.toDTO(
-					new CPSkuDTOConverterContext(
+				_skuDTOConverter.toDTO(
+					new SkuDTOConverterContext(
 						contextAcceptLanguage.getPreferredLocale(),
 						cpInstance.getCPInstanceId(), cpDefinition,
 						contextCompany.getCompanyId(), commerceContext)));
@@ -127,6 +122,6 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 	private CPInstanceService _cpInstanceService;
 
 	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
+	private SkuDTOConverter _skuDTOConverter;
 
 }
