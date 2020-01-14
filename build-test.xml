@@ -11974,7 +11974,7 @@ module.framework.properties.blacklist.portal.profile.names=${blacklist.portal.pr
 					<try>
 						<ant antfile="build-test-analytics-cloud.xml" target="start-analytics-cloud" />
 
-						<property location="${analytics.cloud.faro.dir}/test_analytics_cloud.sh" name="analytics.cloud.test.sh" />
+						<property location="${analytics.cloud.faro.dir}/osb-faro-functional-test/test_analytics_cloud.sh" name="analytics.cloud.test.sh" />
 
 						<property location="${basedir.unix}/portal-web/${selenium.executable.dir.name}" name="selenium.executable.dir.path" />
 
@@ -11991,9 +11991,7 @@ url=${env.HOSTNAME}:8080</echo>
 						<echo file="${analytics.cloud.test.sh}">
 							#!/bin/bash
 
-							./gradlew cleanNPM npmInstall
-
-							./gradlew \
+							../gradlew \
 								-Danalytics.cloud.url=${analytics.cloud.faro.frontend.url} \
 								-Dbrowser.chrome.bin.args=${browser.chrome.bin.args} \
 								-Dbrowser.chrome.bin.file=${browser.chrome.bin.file} \
@@ -12008,7 +12006,7 @@ url=${env.HOSTNAME}:8080</echo>
 								testIntegration
 						</echo>
 
-						<exec dir="${analytics.cloud.faro.dir}" executable="/bin/bash" failonerror="true">
+						<exec dir="${analytics.cloud.faro.dir}/osb-faro-functional-test" executable="/bin/bash" failonerror="true">
 							<arg value="${analytics.cloud.test.sh}" />
 						</exec>
 
