@@ -44,7 +44,7 @@ public class CommerceFrontendJsDynamicInclude extends BaseDynamicInclude {
 
 		printWriter.print(
 			"<link href=\"/o/commerce-frontend-js/styles/main.css\" " +
-				"rel=\"stylesheet\" type=\"text/css\">");
+				"rel=\"stylesheet\" type=\"text/css\" />");
 	}
 
 	@Override
