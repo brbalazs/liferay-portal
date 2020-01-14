@@ -130,11 +130,11 @@ export default class SidePanel extends React.Component {
 	load(url, refreshPageAfterSubmit) {
 		this.setState(
 			{
-				currentUrl: url,
-				loading: true,
 				onAfterSubmit: refreshPageAfterSubmit
 					? () => window.location.reload()
-					: null
+					: null,
+				currentUrl: url,
+				loading: true
 			},
 			() => {
 				if (this.iframeRef.current &&

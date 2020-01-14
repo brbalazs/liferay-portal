@@ -1,39 +1,39 @@
 .side-panel {
-  box-shadow: -10px 20px 30px rgba(39, 40, 51, 0.15);
   background-color: #F1F2F5;
+  bottom: 0;
+  box-shadow: -10px 20px 30px rgba(39, 40, 51, 0.15);
   position: fixed;
   right: 0;
   top: 0;
-  bottom: 0;
-  width: 50%;
   transition: transform ease 500ms, box-shadow ease 500ms, width ease 500ms;
+  width: 50%;
   will-change: transform, box-shadow, opacity, width;
   z-index: 989;
 
   &-close {
+    opacity: .5;
     position: absolute;
     right: 0;
     top: 0;
     transition: top ease-in-out .1s, right ease-in-out .1s, opacity ease-in .2s;
     z-index: 1;
-    opacity: .5;
-
-    &-simple {
-      top: 29px;
-      right: 20px;
-      opacity: 1;
-    }
 
     &-menu {
-      top: 4px;
-      right: 16px;
       opacity: 1;
+      right: 16px;
+      top: 4px;
+    }
+
+    &-simple {
+      opacity: 1;
+      right: 20px;
+      top: 29px;
     }
   }
 
   &.is-hidden {
-    transform: translateX(100%);
     box-shadow: 0 0 0 rgba(39, 40, 51, 0.15);
+    transform: translateX(100%);
   }
 
   &-xs { width: 25%; }
@@ -43,14 +43,9 @@
   &-xl { width: 75%; }
   &-full { width: 100%; }
 
-  .tab-content,
-  .tab-pane {
+  iframe {
     height: 100%;
-    position: relative;
-  }
-
-  .nav {
-    border-bottom: 1px solid #DDDEE7;
+    width: 100%;
   }
 
   .loader {
@@ -66,23 +61,22 @@
   }
 
   &:not(.is-loading) .loader {
-    transition: all ease 200ms;
     opacity: 0;
     pointer-events: none;
-  }
-
-  iframe {
-    height: 100%;
-    width: 100%;
+    transition: all ease 200ms;
   }
 
   &.is-loading iframe {
     display: none;
   }
 
+  .nav {
+    border-bottom: 1px solid #DDDEE7;
+  }
+
   .side-menu {
-    bottom: 0;
     border-bottom-width: 0;
+    bottom: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -90,11 +84,17 @@
     right: 100%;
     top: 0;
   }
+
+  .tab-content,
+  .tab-pane {
+    height: 100%;
+    position: relative;
+  }
 }
 
 .side-panel-header {
-  padding-right: 42px;
   background-color: white;
+  padding-right: 42px;
   position: sticky;
   top: 0;
 
@@ -104,8 +104,53 @@
 }
 
 .side-panel-iframe {
-  padding: map-get($spacers, 3);
   background-color: $info-bc;
+  padding: map-get($spacers, 3);
+
+  &-content {
+    background: white;
+    border-radius: 0 0 4px 4px;
+    padding: map-get($spacers, 3);
+  }
+
+  &-header {
+    &-sticky {
+      background: #f7f7f7;
+      padding-right: 50px;
+      position: sticky;
+      top: 1.5rem;
+      z-index: 10;
+
+      &::after {
+        background: #f7f7f7;
+        border-radius: 4px 4px 0 0;
+        bottom: 0;
+        box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.6);
+        clip-path: polygon(-10% -10%, 110% -10%, 110% 100%, -10% 100%);
+        content: '';
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: -1;
+      }
+
+      &::before {
+        background-color: $background-color;
+        bottom: 0;
+        content: '';
+        height: calc(100% + #{map-get($spacers, 4)});
+        left: -#{map-get($spacers, 3)};
+        position: absolute;
+        right: -#{map-get($spacers, 3)};
+        z-index: -2;
+      }
+    }
+
+    .title {
+      margin: 0;
+    }
+  }
 
   &-menu-wrapper {
     padding-right: 60px;
@@ -115,50 +160,5 @@
 
   &-wrapper {
     padding: map-get($spacers, 4) map-get($spacers, 3);
-  }
-
-  &-header {
-    &-sticky {
-      position: sticky;
-      padding-right: 50px;
-      top: 1.5rem;
-      z-index: 10;
-      background: #f7f7f7;
-
-      &::after {
-        content: '';
-        position: absolute;
-        z-index: -1;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        top: 0;
-        background: #f7f7f7;
-        border-radius: 4px 4px 0 0;
-        box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.6);
-        clip-path: polygon(-10% -10%, 110% -10%, 110% 100%, -10% 100%);
-      }
-
-      &::before {
-        content: '';
-        position: absolute;
-        z-index: -2;
-        background-color: $background-color;
-        bottom: 0;
-        left: -#{map-get($spacers, 3)};
-        right: -#{map-get($spacers, 3)};
-        height: calc(100% + #{map-get($spacers, 4)});
-      }
-    }
-
-    .title {
-      margin: 0;
-    }
-  }
-
-  &-content {
-    padding: map-get($spacers, 3);
-    border-radius: 0 0 4px 4px;
-    background: white;
   }
 }

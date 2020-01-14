@@ -1,4 +1,14 @@
 .add-to-cart {
+    &-block {
+        input {
+            width: 60px;
+        }
+
+        select {
+            width: 80px;
+        }
+    }
+
     &-icon-container {
         position: relative;
     }
@@ -19,32 +29,12 @@
             height: 100%;
         }
     }
-
-    &-block {
-        input {
-            width: 60px;
-        }
-
-        select {
-            width: 80px;
-        }
-    }
-}
-
-.btn-add-to-cart {
-    &-inline {
-        margin-left: $spacer;
-    }
-
-    &-block {
-        margin-top: $spacer;
-    }
 }
 
 .add-to-cart-icon-container {
+    opacity: .4;
     position: relative;
     transition: opacity .1s ease-in;
-    opacity: .4;
 
     &.active {
         opacity: 1;
@@ -60,9 +50,9 @@
     background: white;
     border-radius: 50%;
     height: 6px;
+    opacity: .6;
     position: absolute;
     right: -1px;
-    opacity: .6;
     top: -6px;
     transform: scale(0);
     transform-origin: 50%;
@@ -71,10 +61,10 @@
     z-index: 1;
 
     &.active {
-        transform: scale(1);
         opacity: 1;
+        transform: scale(1);
     }
-    
+
     &.adding {
         animation-duration: .3s;
         animation-fill-mode: both;
@@ -87,6 +77,16 @@
         animation-fill-mode: both;
         animation-name: addToCartBounce;
         opacity: 1;
+    }
+}
+
+.btn-add-to-cart {
+    &-block {
+        margin-top: $spacer;
+    }
+
+    &-inline {
+        margin-left: $spacer;
     }
 }
 

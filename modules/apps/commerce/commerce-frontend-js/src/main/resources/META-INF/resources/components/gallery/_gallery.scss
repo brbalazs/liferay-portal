@@ -25,6 +25,10 @@
     }
   }
 
+  .card {
+    position: relative;
+  }
+
   .gallery-overlay {
     background: #fff;
     cursor: zoom-out;
@@ -69,10 +73,6 @@
 
   .main-image {
     cursor: zoom-in;
-    position: relative;
-  }
-
-  .card {
     position: relative;
   }
 }

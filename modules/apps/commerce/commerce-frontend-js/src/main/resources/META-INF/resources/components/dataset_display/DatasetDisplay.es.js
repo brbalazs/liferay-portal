@@ -16,10 +16,11 @@ import {formatFilters} from './utilities/filters.es';
 const datasetDisplaySupportModalId = 'dataset-support-modal-id'
 
 function loadData(apiUrl, filters, delta, page = 1, sorting = []) {
-	const filterString = `&${createOdataFilterStrings(filters)}`;
 	const authString = `&p_auth=${window.Liferay.authToken}`;
+	const filterString = `&${createOdataFilterStrings(filters)}`;
 	const pagination = `&pageSize=${delta}&page=${page}`;
 	const sortingString = sorting.length ? `&orderBy=${JSON.stringify(sorting)}` : ``;
+
 	const url = `${apiUrl}${authString}${pagination}${sortingString}${filterString}`;
 
 	return fetch(url)

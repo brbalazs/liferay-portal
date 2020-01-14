@@ -14,13 +14,13 @@
         color: $danger;
     }
 
-    &-promo {
-        color: $danger;
-    }
-
     &-inactive {
         color: $gray-600;
         font-weight: normal;
         text-decoration: line-through;
+    }
+
+    &-promo {
+        color: $danger;
     }
 }

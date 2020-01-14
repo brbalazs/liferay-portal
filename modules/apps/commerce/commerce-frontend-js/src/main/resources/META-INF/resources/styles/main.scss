@@ -9,16 +9,24 @@
 @import "../components/side_panel/side_panel";
 @import "../components/step_tracker/step_tracker";
 
+.cell-comment {
+  cursor: pointer;
+
+  svg {
+    pointer-events: none;
+  }
+}
+
 .commerce-admin-header {
   position: sticky;
   z-index: 989;
 
-  .ie11 & {
-    position: static
-  }
-
   .has-control-menu & {
     top: 56px;
+  }
+
+  .ie11 & {
+    position: static
   }
 }
 
@@ -36,33 +44,9 @@
   }
 }
 
-.sticky-header-menu {
-  border-bottom: 1px solid $border-color;
-  position: sticky;
-  z-index: 10;
-}
-
-.cell-comment {
-  cursor: pointer;
-
-  svg {
-    pointer-events: none;
-  }
-}
-
-.row.vertically-divided {
-  overflow: hidden;
-
-  & > [class*="col"] {
-    &::after {
-      content: '';
-      position: absolute;
-      z-index: 0;
-      border-right: 1px solid #e6e7ed;
-      top: 0;
-      bottom: 0;
-      right: -1px;
-    }
+.filter-panel-head {
+  &.active .panel-header-link {
+    background-color: $info-bc;
   }
 }
 
@@ -87,11 +71,27 @@
   }
 }
 
+.row.vertically-divided {
+  overflow: hidden;
+
+  & > [class*="col"] {
+    &::after {
+      border-right: 1px solid #e6e7ed;
+      bottom: 0;
+      content: '';
+      position: absolute;
+      right: -1px;
+      top: 0;
+      z-index: 0;
+    }
+  }
+}
+
 .sorting-icons-wrapper {
   .sorting-icon {
     &:nth-child(2) {
-      position: relative;
       left: -6px;
+      position: relative;
     }
 
     &:not(.active) {
@@ -100,8 +100,8 @@
   }
 }
 
-.filter-panel-head {
-  &.active .panel-header-link {
-    background-color: $info-bc;
-  }
+.sticky-header-menu {
+  border-bottom: 1px solid $border-color;
+  position: sticky;
+  z-index: 10;
 }
