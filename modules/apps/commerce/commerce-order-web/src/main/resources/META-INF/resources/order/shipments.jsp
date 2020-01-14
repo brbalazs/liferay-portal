@@ -35,15 +35,13 @@ PortletURL portletURL = commerceOrderEditDisplayContext.getCommerceShipmentsPort
 	url="<%= editCommerceShipmentURL %>"
 />
 
-<!-- TODO: creationMenu to be passed in order to add a new shipment -->
-
 <%
 CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
 java.util.Map<String, String> contextParams = new java.util.HashMap<>();
 contextParams.put("commerceOrderId", String.valueOf(commerceOrder.getCommerceOrderId()));
 %>
 
-<commerce-ui:table-react
+<commerce-ui:dataset-display
 	contextParams="<%= contextParams %>"
 	dataProviderKey="<%= CommerceShipmentClayTable.NAME %>"
 	itemsPerPage="<%= 10 %>"

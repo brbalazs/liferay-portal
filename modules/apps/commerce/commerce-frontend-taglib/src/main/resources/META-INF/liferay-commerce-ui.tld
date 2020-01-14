@@ -535,8 +535,8 @@
 		</attribute>
 	</tag>
 	<tag>
-		<name>table-react</name>
-		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.TableTag</tag-class>
+		<name>dataset-display</name>
+		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.DatasetDisplayTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>contextParams</name>

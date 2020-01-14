@@ -140,6 +140,7 @@ function DatasetDisplay(props) {
 			<ClayPaginationBarWithBasicItems
 				activeDelta={delta}
 				activePage={pageNumber}
+				className="mb-2"
 				deltas={props.deltas}
 				ellipsisBuffer={3}
 				onDeltaChange={(deltaVal) => {

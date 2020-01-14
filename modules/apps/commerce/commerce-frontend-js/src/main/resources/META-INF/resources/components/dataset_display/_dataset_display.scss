@@ -17,6 +17,10 @@
         margin-bottom: 0;
     }
 
+    &-management-bar-wrapper > * {
+        margin-bottom: 0;
+    }
+
     &-pagination-wrapper {
         margin: map-get($spacers, 3) map-get($spacers, 3) 0;
     }

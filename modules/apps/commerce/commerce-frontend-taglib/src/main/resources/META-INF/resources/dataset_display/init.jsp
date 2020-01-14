@@ -32,21 +32,21 @@ page import="java.util.Map" %>
 <liferay-theme:defineObjects />
 
 <%
-Map<String, Object> clayTableContext = (Map<String, Object>)request.getAttribute("liferay-commerce:table:clayTableContext");
-String dataProviderKey = (String)request.getAttribute("liferay-commerce:table:dataProviderKey");
-String dataSetAPI = (String)request.getAttribute("liferay-commerce:table:dataSetAPI");
-Filter filter = (Filter)request.getAttribute("liferay-commerce:table:filter");
-int itemsPerPage = (int)request.getAttribute("liferay-commerce:table:itemsPerPage");
-Object items = request.getAttribute("liferay-commerce:table:items");
-String namespace = (String)request.getAttribute("liferay-commerce:table:namespace");
-int pageNumber = (int)request.getAttribute("liferay-commerce:table:pageNumber");
-List<ClayPaginationEntry> paginationEntries = (List<ClayPaginationEntry>)request.getAttribute("liferay-commerce:table:paginationEntries");
-PortletURL portletURL = (PortletURL)request.getAttribute("liferay-commerce:table:portletURL");
-boolean showPagination = (boolean)request.getAttribute("liferay-commerce:table:showPagination");
-String style = (String)request.getAttribute("liferay-commerce:table:style");
-String spritemap = (String)request.getAttribute("liferay-commerce:table:spritemap");
-String id = (String)request.getAttribute("liferay-commerce:table:id");
-int totalItems = (int)request.getAttribute("liferay-commerce:table:totalItems");
+Map<String, Object> clayTableContext = (Map<String, Object>)request.getAttribute("liferay-commerce:dataset-display:clayTableContext");
+String dataProviderKey = (String)request.getAttribute("liferay-commerce:dataset-display:dataProviderKey");
+String dataSetAPI = (String)request.getAttribute("liferay-commerce:dataset-display:dataSetAPI");
+Filter filter = (Filter)request.getAttribute("liferay-commerce:dataset-display:filter");
+int itemsPerPage = (int)request.getAttribute("liferay-commerce:dataset-display:itemsPerPage");
+Object items = request.getAttribute("liferay-commerce:dataset-display:items");
+String namespace = (String)request.getAttribute("liferay-commerce:dataset-display:namespace");
+int pageNumber = (int)request.getAttribute("liferay-commerce:dataset-display:pageNumber");
+List<ClayPaginationEntry> paginationEntries = (List<ClayPaginationEntry>)request.getAttribute("liferay-commerce:dataset-display:paginationEntries");
+PortletURL portletURL = (PortletURL)request.getAttribute("liferay-commerce:dataset-display:portletURL");
+boolean showPagination = (boolean)request.getAttribute("liferay-commerce:dataset-display:showPagination");
+String style = (String)request.getAttribute("liferay-commerce:dataset-display:style");
+String spritemap = (String)request.getAttribute("liferay-commerce:dataset-display:spritemap");
+String id = (String)request.getAttribute("liferay-commerce:dataset-display:id");
+int totalItems = (int)request.getAttribute("liferay-commerce:dataset-display:totalItems");
 
 JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
 String randomNamespace = PortalUtil.generateRandomKey(request, "taglib_step_tracker") + StringPool.UNDERLINE;

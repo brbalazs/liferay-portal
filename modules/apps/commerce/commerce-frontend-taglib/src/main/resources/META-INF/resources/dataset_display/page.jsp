@@ -14,7 +14,7 @@
  */
 --%>
 
-<%@ include file="/table/init.jsp" %>
+<%@ include file="/dataset_display/init.jsp" %>
 
 <div class="table-root" id="<%= containerId %>"></div>
 

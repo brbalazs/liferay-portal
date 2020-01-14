@@ -56,7 +56,7 @@ import javax.servlet.jsp.PageContext;
  * @author Marco Leo
  * @author Alessio Antonio Rendina
  */
-public class TableTag extends IncludeTag {
+public class DatasetDisplayTag extends IncludeTag {
 
 	@Override
 	public int doStartTag() throws JspException {
@@ -227,28 +227,28 @@ public class TableTag extends IncludeTag {
 	@Override
 	protected void setAttributes(HttpServletRequest httpServletRequest) {
 		request.setAttribute(
-			"liferay-commerce:table:clayTableContext", _clayTableContext);
+			"liferay-commerce:dataset-display:clayTableContext", _clayTableContext);
 		request.setAttribute(
-			"liferay-commerce:table:dataProviderKey", _dataProviderKey);
-		request.setAttribute("liferay-commerce:table:dataSetAPI", _dataSetAPI);
-		request.setAttribute("liferay-commerce:table:deltaParam", _deltaParam);
-		request.setAttribute("liferay-commerce:table:id", _id);
-		request.setAttribute("liferay-commerce:table:items", _items);
+			"liferay-commerce:dataset-display:dataProviderKey", _dataProviderKey);
+		request.setAttribute("liferay-commerce:dataset-display:dataSetAPI", _dataSetAPI);
+		request.setAttribute("liferay-commerce:dataset-display:deltaParam", _deltaParam);
+		request.setAttribute("liferay-commerce:dataset-display:id", _id);
+		request.setAttribute("liferay-commerce:dataset-display:items", _items);
 		request.setAttribute(
-			"liferay-commerce:table:itemsPerPage", _itemsPerPage);
-		request.setAttribute("liferay-commerce:table:namespace", _namespace);
-		request.setAttribute("liferay-commerce:table:pageNumber", _pageNumber);
+			"liferay-commerce:dataset-display:itemsPerPage", _itemsPerPage);
+		request.setAttribute("liferay-commerce:dataset-display:namespace", _namespace);
+		request.setAttribute("liferay-commerce:dataset-display:pageNumber", _pageNumber);
 		request.setAttribute(
-			"liferay-commerce:table:paginationEntries", _paginationEntries);
+			"liferay-commerce:dataset-display:paginationEntries", _paginationEntries);
 		request.setAttribute(
-			"liferay-commerce:table:paginationSelectedEntry",
+			"liferay-commerce:dataset-display:paginationSelectedEntry",
 			_paginationSelectedEntry);
-		request.setAttribute("liferay-commerce:table:portletURL", _portletURL);
+		request.setAttribute("liferay-commerce:dataset-display:portletURL", _portletURL);
 		request.setAttribute(
-			"liferay-commerce:table:showPagination", _showPagination);
-		request.setAttribute("liferay-commerce:table:spritemap", _spritemap);
-		request.setAttribute("liferay-commerce:table:style", _style);
-		request.setAttribute("liferay-commerce:table:totalItems", _totalItems);
+			"liferay-commerce:dataset-display:showPagination", _showPagination);
+		request.setAttribute("liferay-commerce:dataset-display:spritemap", _spritemap);
+		request.setAttribute("liferay-commerce:dataset-display:style", _style);
+		request.setAttribute("liferay-commerce:dataset-display:totalItems", _totalItems);
 	}
 
 	private void _setItems() throws Exception {
@@ -304,13 +304,11 @@ public class TableTag extends IncludeTag {
 
 		_clayTableContext = _clayTableSerializer.serialize(
 			clayTable, PortalUtil.getLocale(request));
-
-		_id = clayTable.getId() + "CommerceTable";
 	}
 
-	private static final String _PAGE = "/table/page.jsp";
+	private static final String _PAGE = "/dataset_display/page.jsp";
 
-	private static final Log _log = LogFactoryUtil.getLog(TableTag.class);
+	private static final Log _log = LogFactoryUtil.getLog(DatasetDisplayTag.class);
 
 	private Map<String, Object> _clayTableContext;
 	private ClayTableDataJSONBuilder _clayTableDataJSONBuilder;

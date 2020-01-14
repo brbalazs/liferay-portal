@@ -1,3 +1,4 @@
+<%@ taglib prefix="commerce-ui" uri="http://liferay.com/tld/commerce-ui" %>
 <%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
@@ -237,7 +238,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 			contextParams.put("commerceOrderId", String.valueOf(commerceOrder.getCommerceOrderId()));
 			%>
 
-			<commerce-ui:table-react
+			<commerce-ui:dataset-display
 				contextParams="<%= contextParams %>"
 				dataProviderKey="<%= CommerceOrderItemClayTable.NAME %>"
 				itemsPerPage="<%= 10 %>"
