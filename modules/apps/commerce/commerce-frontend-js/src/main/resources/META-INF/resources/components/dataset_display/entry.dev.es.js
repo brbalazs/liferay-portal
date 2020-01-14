@@ -21,10 +21,6 @@ const fluidDataSetDisplayProps = {
 	],
 	creationMenuItems: [
 		{
-			href: "/standard/edit",
-			label: 'Add'
-		},
-		{
 			label: 'Add via modal',
 			type: 'modal',
 			url: 'modal/url'

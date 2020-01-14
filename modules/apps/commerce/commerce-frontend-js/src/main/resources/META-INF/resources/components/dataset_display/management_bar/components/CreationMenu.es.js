@@ -29,10 +29,12 @@ function CreationMenu(props) {
 		}
 	}
 
+	if(!props.items || !props.items.length) return;
+
 	return (
 		<ul className="navbar-nav">
 			<li className="nav-item">
-				{props.items.length ? (
+				{props.items.length > 1 ? (
 					<ClayDropDown
 						active={active}
 						onActiveChange={setActive}
