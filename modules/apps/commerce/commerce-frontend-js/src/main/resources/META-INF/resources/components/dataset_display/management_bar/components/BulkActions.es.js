@@ -33,7 +33,7 @@ function BulkActions(props) {
 	const [currentSidePanelActionPayload, setCurrentSidePanelActionPayload] = useState(null);
 	
 	function handleActionClick(actionDefinition, formRef, loadData, sidePanelId) {
-		if(actionDefinition.sidePanelCompatible) {
+		if (actionDefinition.sidePanelCompatible) {
 			const sidePanelActionPayload = {
 				baseUrl: actionDefinition.url,
 				id: sidePanelId,
@@ -58,13 +58,13 @@ function BulkActions(props) {
 
 	useEffect(
 		() => {
-			if(!currentSidePanelActionPayload) {
+			if (!currentSidePanelActionPayload) {
 				return;
 			}
 
 			const currentOpenedSidePanel = getOpenedSidePanel();
 
-			if(
+			if (
 				currentOpenedSidePanel &&
 				(currentOpenedSidePanel.id === currentSidePanelActionPayload.id) &&
 				(currentOpenedSidePanel.url.indexOf(currentSidePanelActionPayload.baseUrl) > -1)

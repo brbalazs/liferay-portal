@@ -32,7 +32,7 @@ String linkId = PortalUtil.generateRandomKey(request, "info-box") + StringPool.U
 				<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as eventsDefinitions">
 					const link = document.getElementById('<%= linkId %>');
 
-					if(link) {
+					if (link) {
 						link.addEventListener('click', function(e) {
 							e.preventDefault();
 							Liferay.fire(

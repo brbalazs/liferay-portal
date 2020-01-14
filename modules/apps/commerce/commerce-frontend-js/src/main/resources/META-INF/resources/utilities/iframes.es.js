@@ -4,7 +4,7 @@ export const iframeHandlerModalId = 'iframe-handler-modal';
 
 export function initializeIframeListeners() {
     Liferay.on(OPEN_MODAL, function(payload) {
-        if(!window.parent) {
+        if (!window.parent) {
             return;
         }
     

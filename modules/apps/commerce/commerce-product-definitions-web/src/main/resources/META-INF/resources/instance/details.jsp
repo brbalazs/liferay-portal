@@ -169,7 +169,7 @@ productSkusURL.setParameter("screenNavigationCategoryKey", cpInstanceDisplayCont
 
 <aui:script>
 	function getMetalJsFormData(metalJsForm) {
-		if(!metalJsForm) {
+		if (!metalJsForm) {
 			return [];
 		}
 
@@ -188,7 +188,7 @@ productSkusURL.setParameter("screenNavigationCategoryKey", cpInstanceDisplayCont
 
 	Liferay.componentReady("ProductOptions<%= cpDefinition.getCPDefinitionId() %>")
 		.then(function(ddmForm) {
-			if(!ddmForm.on) {
+			if (!ddmForm.on) {
 				return;
 			}
 			ddmForm.on(

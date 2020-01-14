@@ -1,10 +1,10 @@
 export function createOdataFilterString(key, operator, value) {
 	let formattedValue = value;
 
-	if(value instanceof String) {
+	if (value instanceof String) {
 		formattedValue = `'${value}'`;
 	}
-	if(value instanceof Object) {
+	if (value instanceof Object) {
 		formattedValue = JSON.stringify(value);
 	}
 
@@ -17,7 +17,7 @@ export function createOdataFilterStrings(filters) {
 			return filter.value.map(
                 value => `(${createOdataFilterString(filter.id, filter.operator, value)})`).join(' or ')
 		}
-		if(filter.main) {
+		if (filter.main) {
 			return `(startwith(${filter.id}, '${filter.value}') eq true)`
 		}
 		return createOdataFilterString(filter.id, filter.operator, filter.value)

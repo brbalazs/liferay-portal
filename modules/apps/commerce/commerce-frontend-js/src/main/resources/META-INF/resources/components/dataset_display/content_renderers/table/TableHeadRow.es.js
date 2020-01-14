@@ -15,7 +15,7 @@ function TableHeadCell(props) {
 	function _handleSortingCellClick(e) {
 		e.preventDefault();
 
-		if(sortingMatch) {
+		if (sortingMatch) {
 			const updatedSortedElements = context.sorting.map((el) => el.fieldName === props.fieldName ? ({
 				...el,
 				direction: el.direction === 'ASC' ? 'DESC' : 'ASC'
@@ -68,7 +68,7 @@ function TableHeadRow(props) {
 		return fields.map((field) => {
 			let expandedClass = null;
 			
-			if(field.contentRenderer === 'picture') {
+			if (field.contentRenderer === 'picture') {
 				expandedClass = null;
 			} else if (!firstElementGotExpanded) {
 				expandedClass = 'table-cell-expand';

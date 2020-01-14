@@ -25,7 +25,7 @@ export function showNotification(
 	closeable = true,
 	duration = 500
 ) {
-	if(!window.AUI) {
+	if (!window.AUI) {
 		return;
 	}
 	AUI().use('liferay-notification', () => {
@@ -63,7 +63,7 @@ if (!window.Liferay) {
 		fire: (name, payload) => {
 			var e = document.createEvent( 'CustomEvent' );
 			e.initCustomEvent(name);
-			if(payload) {
+			if (payload) {
 				Object.keys(payload).forEach(key => { e[key] = payload[key] })
 			}
 			window.dispatchEvent(e);

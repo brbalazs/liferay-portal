@@ -45,7 +45,7 @@
 		trigger.addEventListener("click", function(e) {
 			e.preventDefault();
 			var form = document.querySelector("form");
-			if(form) {
+			if (form) {
 				submitForm(form);
 			} else {
 				throw new Error("no forms found");
@@ -56,7 +56,7 @@
 	var iframeContent = document.querySelector(".modal-iframe-content");
 	var iframeFooter = document.querySelector(".modal-iframe-footer");
 
-	if(iframeContent && iframeFooter) {
+	if (iframeContent && iframeFooter) {
 		function adjustBottomSpace() {
 			iframeContent.style.marginBottom = iframeFooter.offsetHeight + "px"
 		}

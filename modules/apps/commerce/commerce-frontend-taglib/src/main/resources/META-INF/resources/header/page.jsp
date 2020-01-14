@@ -209,7 +209,7 @@
 
 	var debouncedUpdateMenuDistanceFromTop = utilities.debounce(updateMenuDistanceFromTop, 200)
 
-	if(pageHeader) {
+	if (pageHeader) {
 		pageHeader.classList.add("sticky-header-menu");
 		updateMenuDistanceFromTop()
 	}

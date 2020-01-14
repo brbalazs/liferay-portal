@@ -45,7 +45,7 @@ export default class Gallery extends React.Component {
 	}
 
 	_handleImagesUpdate(e) {
-		if(e.images) {
+		if (e.images) {
 			this.setState({
 				images: e.images,
 				selected: 0

@@ -16,7 +16,7 @@ function Modal(props) {
 	const iframeRef = useRef(null);
 	
 	const {observer, onClose: closeModal} = useModal({onClose: () => {
-		if(iframeLoadingCounter > 1) {
+		if (iframeLoadingCounter > 1) {
 			if (onClose) {
 				onClose();
 			} else if (props.onClose) {
@@ -38,15 +38,15 @@ function Modal(props) {
 			setLoading(true);
 			setVisible(true);
 
-			if(data.url) {
+			if (data.url) {
 				setUrl(data.url);
 			}
 
-			if(data.onClose) {
+			if (data.onClose) {
 				setOnClose(() => data.onClose);
 			}
 
-			if(data.title) {
+			if (data.title) {
 				setTitle(data.title);
 			}
 		}

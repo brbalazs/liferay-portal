@@ -43,18 +43,18 @@ function DatasetDisplay(props) {
 	const formRef = useRef(null);
 
 	function updateDataset(dataSetData) {
-		if(dataSetData instanceof Array) {
+		if (dataSetData instanceof Array) {
 			return updateItems(dataSetData);
 		}
 		updateItems(dataSetData.items);
 		setTotalItems(dataSetData.totalItems);
 	}
-	
+
 	function getData(apiUrl, filters, delta, pageNumber, sorting, showSuccessNotification = false) {
 		return loadData(apiUrl, filters, delta, pageNumber, sorting)
 			.then(updateDataset)
 			.then(() => {
-				if(showSuccessNotification) {
+				if (showSuccessNotification) {
 					showNotification(
 						Liferay.Language.get('table-data-updated'),
 						'success'

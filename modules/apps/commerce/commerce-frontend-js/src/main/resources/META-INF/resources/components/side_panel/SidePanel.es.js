@@ -48,9 +48,9 @@ export default class SidePanel extends React.Component {
 			window.addEventListener('resize', this.debouncedUpdateTop);
 			this.updateTop();
 		}
-		if(this.props.containerSelector) {
+		if (this.props.containerSelector) {
 			const container = document.querySelector(this.props.containerSelector);
-			if(container) {
+			if (container) {
 				container.classList.add('with-side-panel');
 			} else {
 				throw new Error(`Container: "${this.props.containerSelector}" not found!`)
@@ -105,13 +105,13 @@ export default class SidePanel extends React.Component {
 	}
 
 	updateTop() {
-		if(!this.props.topAnchorSelector) {
+		if (!this.props.topAnchorSelector) {
 			return;
 		}
 
 		const topAnchor = document.querySelector(this.props.topAnchorSelector);
 
-		if(!topAnchor) {
+		if (!topAnchor) {
 			return;
 		}
 
@@ -190,7 +190,7 @@ export default class SidePanel extends React.Component {
 	}
 
 	handleIframeSubmit(e) {
-		if(e.id !== this.props.id) {
+		if (e.id !== this.props.id) {
 			return;
 		}
 

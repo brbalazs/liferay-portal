@@ -1,7 +1,7 @@
 export const registeredPanels = new Map();
 
 export function exposeSidePanel(id, callback = null) {
-    if(callback) {
+    if (callback) {
         registeredPanels.set(id, callback);
     } else {
         registeredPanels.delete(id);
@@ -18,7 +18,7 @@ export function getOpenedSidePanel() {
     registeredPanels.forEach((getData, id) => {
         const data = getData();
 
-        if(data.visible) {
+        if (data.visible) {
             openedSidePanel = {
                 id,
                 ...data

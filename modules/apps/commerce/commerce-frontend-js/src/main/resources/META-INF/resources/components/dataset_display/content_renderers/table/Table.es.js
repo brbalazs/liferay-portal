@@ -10,7 +10,7 @@ import TableHeadRow from './TableHeadRow.es';
 import ActionsDropdown from '../common/ActionsDropdown.es';
 
 function TableCell(props) {
-	if(!props.value) {
+	if (!props.value) {
 		return (<ClayTable.Cell />)
 	}
 

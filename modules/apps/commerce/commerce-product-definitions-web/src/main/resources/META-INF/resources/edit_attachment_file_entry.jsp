@@ -132,7 +132,7 @@ PortalUtil.addPortletBreadcrumbEntry(request, title, StringPool.BLANK, data);
 
 <aui:script>
 	function getMetalJsFormData(metalJsForm) {
-		if(!metalJsForm) {
+		if (!metalJsForm) {
 			return [];
 		}
 
@@ -151,7 +151,7 @@ PortalUtil.addPortletBreadcrumbEntry(request, title, StringPool.BLANK, data);
 
 	Liferay.componentReady("ProductOptions<%= cpDefinitionId %>")
 		.then(function(ddmForm) {
-			if(!ddmForm.on) {
+			if (!ddmForm.on) {
 				return;
 			}
 			ddmForm.on(

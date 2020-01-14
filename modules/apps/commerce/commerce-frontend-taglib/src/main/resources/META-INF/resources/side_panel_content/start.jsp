@@ -22,7 +22,7 @@
 	var pageMenu = document.querySelector(".page-header");
 	var pageHeader = document.querySelector(".side-panel-iframe-header");
 
-	if(!pageMenu && pageHeader) {
+	if (!pageMenu && pageHeader) {
 		pageHeader.classList.add('side-panel-iframe-header-sticky');
 	}
 </aui:script>
