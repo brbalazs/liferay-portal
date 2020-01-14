@@ -19,12 +19,7 @@ export function debounce(func, wait, immediate) {
 	};
 }
 
-export function showNotification(
-	message,
-	type,
-	closeable = true,
-	duration = 500
-) {
+export function showNotification(message, type, closeable = true, duration = 500) {
 	if (!window.AUI) {
 		return;
 	}

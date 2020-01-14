@@ -44,7 +44,9 @@
 	document.querySelectorAll(".form-submitter").forEach(function(trigger) {
 		trigger.addEventListener("click", function(e) {
 			e.preventDefault();
+
 			var form = document.querySelector("form");
+
 			if (form) {
 				submitForm(form);
 			}

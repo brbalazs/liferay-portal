@@ -27,9 +27,7 @@ function MainSearch() {
 						<input
 							className="form-control input-group-inset input-group-inset-after"
 							onChange={e => updateInputValue(e.target.value)}
-							placeholder={mainFilter.placeholder || Liferay.Language.get(
-								'search-for'
-							)}
+							placeholder={mainFilter.placeholder || Liferay.Language.get('search-for')}
 							type="text"
 							value={inputValue}
 						/>

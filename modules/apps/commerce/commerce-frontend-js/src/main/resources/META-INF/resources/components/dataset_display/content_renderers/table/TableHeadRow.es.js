@@ -62,7 +62,6 @@ function TableHeadCell(props) {
 }
 
 function TableHeadRow(props) {
-
 	const getColumns = (fields) => {
 		let firstElementGotExpanded = false;
 
@@ -103,8 +102,7 @@ function TableHeadRow(props) {
 									props.allElementsSelected
 								}
 								indeterminate={
-									props.selectedItemsId
-										.length &&
+									props.selectedItemsId.length &&
 									!props.allElementsSelected
 								}
 								name={'table-head-selector'}

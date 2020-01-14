@@ -14,6 +14,7 @@ function submit(action, method = 'get', form) {
 
 	form.current.action = action;
 	form.current.method = method;
+
 	form.current.submit();
 }
 
@@ -65,11 +66,10 @@ function BulkActions(props) {
 
 			const currentOpenedSidePanel = getOpenedSidePanel();
 
-			if (
-				currentOpenedSidePanel &&
+			if (currentOpenedSidePanel &&
 				(currentOpenedSidePanel.id === currentSidePanelActionPayload.id) &&
-				(currentOpenedSidePanel.url.indexOf(currentSidePanelActionPayload.baseUrl) > -1)
-			) {
+				(currentOpenedSidePanel.url.indexOf(currentSidePanelActionPayload.baseUrl) > -1)) {
+
 				Liferay.fire(
 					OPEN_SIDE_PANEL,
 					getRichPayload(currentSidePanelActionPayload, props.selectedItemsId)

@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import Modal from '../modal/Modal.es';
 import { iframeHandlerModalId } from '../../utilities/iframes.es';
 import classNames from 'classnames';
+
 export default class SidePanel extends React.Component {
 
 	static defaultSize = 'md'
@@ -48,6 +49,7 @@ export default class SidePanel extends React.Component {
 			window.addEventListener('resize', this.debouncedUpdateTop);
 			this.updateTop();
 		}
+
 		if (this.props.containerSelector) {
 			const container = document.querySelector(this.props.containerSelector);
 			if (container) {
@@ -57,6 +59,7 @@ export default class SidePanel extends React.Component {
 				throw new Error(`Container: "${this.props.containerSelector}" not found!`)
 			}
 		}
+
 		if (Liferay) {
 			Liferay.on(OPEN_SIDE_PANEL, this.handlePanelOpenEvent);
 			Liferay.on(OPEN, this.handlePanelOpenEvent);
@@ -100,6 +103,7 @@ export default class SidePanel extends React.Component {
 		if (this.props.topAnchorSelector) {
 			window.removeEventListener('resize', this.debouncedUpdateTop);
 		}
+
 		if (Liferay) {
 			Liferay.detach(OPEN_SIDE_PANEL, this.handlePanelOpenEvent);
 		}
@@ -133,10 +137,9 @@ export default class SidePanel extends React.Component {
 					: null
 			},
 			() => {
-				if (
-					this.iframeRef.current &&
-					this.iframeRef.current.contentWindow
-				) {
+				if (this.iframeRef.current &&
+					this.iframeRef.current.contentWindow) {
+
 					this.iframeRef.current.contentWindow.location = this.state.currentUrl;
 				}
 			}
@@ -233,7 +236,6 @@ export default class SidePanel extends React.Component {
 			this.setState({
 				closeButtonStyle: iframeDocument.querySelector(".side-panel-iframe-menu-wrapper") ? 'menu' : 'simple'
 			})
-
 		}
 		catch (error) {
 			throw new Error(`Cannot access to iframe body. Url: "${this.state.currentUrl}"`)
