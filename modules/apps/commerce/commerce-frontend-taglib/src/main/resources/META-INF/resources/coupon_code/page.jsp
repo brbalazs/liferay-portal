@@ -54,7 +54,11 @@ if (commerceOrder != null) {
 				function(event) {
 					var actionURL = '<%= PortalUtil.getPortalURL(request) + "/o/commerce-ui/order/" + commerceOrder.getCommerceOrderId() + "/coupon-code" %>';
 
-					fetch(actionURL, {method: 'post'})
+					fetch(actionURL, {
+						credentials: 'include',
+						headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
+						method: 'post'
+					})
 						.then(function(res) {return res.json()})
 						.then(function(payload) {
 							if (payload.success) {
@@ -99,7 +103,11 @@ if (commerceOrder != null) {
 
 					actionURL = actionURL + window.document.querySelector('#<portlet:namespace />couponCode').value;
 
-					fetch(actionURL, {method: 'post'})
+					fetch(actionURL, {
+						credentials: 'include',
+						headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
+						method: 'post'
+					})
 						.then(function(res) {return res.json()})
 						.then(function(payload) {
 							if (payload.success) {

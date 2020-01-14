@@ -2,7 +2,7 @@
 
 import template from './ProductsCompare.soy';
 import Component from 'metal-component';
-import Soy, {Config} from 'metal-soy';
+import Soy, { Config } from 'metal-soy';
 
 import './ProductsCompareItem.es';
 
@@ -77,6 +77,7 @@ class ProductsCompare extends Component {
 			{
 				body: formData,
 				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'post'
 			}
 		);
@@ -171,5 +172,5 @@ ProductsCompare.STATE = {
 	spritemap: Config.string()
 };
 
-export {ProductsCompare};
+export { ProductsCompare };
 export default ProductsCompare;

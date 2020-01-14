@@ -2,7 +2,7 @@
 
 import template from './AccountSelector.soy';
 import Component from 'metal-component';
-import Soy, {Config} from 'metal-soy';
+import Soy, { Config } from 'metal-soy';
 
 import 'clay-icon';
 
@@ -24,7 +24,7 @@ class AccountSelector extends Component {
 		window.Liferay.detach('orderChanged', this._refreshOrderState, this);
 	}
 
-	_refreshOrderState({orderId}) {
+	_refreshOrderState({ orderId }) {
 		this._getOrders()
 			.then(orders => {
 				this.orders = orders;
@@ -120,6 +120,8 @@ class AccountSelector extends Component {
 			this.accountsAPI + 'set-current-account?groupId=' + themeDisplay.getScopeGroupId() + `&p_auth=${window.Liferay.authToken}`,
 			{
 				body: formData,
+				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'POST'
 			}
 		).then(
@@ -157,6 +159,8 @@ class AccountSelector extends Component {
 		return fetch(
 			this.accountsAPI + 'search-accounts?groupId=' + themeDisplay.getScopeGroupId() + `&p_auth=${window.Liferay.authToken}&page=1&pageSize=10&q=${query}`,
 			{
+				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'GET'
 			}
 		)
@@ -175,6 +179,8 @@ class AccountSelector extends Component {
 		return fetch(
 			this.accountsAPI + 'search-accounts/' + this.currentAccount.accountId + '/orders?groupId=' + themeDisplay.getScopeGroupId() + `&p_auth=${window.Liferay.authToken}&page=1&pageSize=10&q=${query}`,
 			{
+				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'GET'
 			}
 		)
@@ -245,5 +251,5 @@ AccountSelector.STATE = {
 	viewAllOrdersLink: Config.string().required()
 };
 
-export {AccountSelector};
+export { AccountSelector };
 export default AccountSelector;

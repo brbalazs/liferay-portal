@@ -1,5 +1,5 @@
 import Component from 'metal-component';
-import Soy, {Config} from 'metal-soy';
+import Soy, { Config } from 'metal-soy';
 import debounce from 'metal-debounce';
 import template from './SearchResults.soy';
 
@@ -67,8 +67,10 @@ class SearchResults extends Component {
 
 	rendered() {
 		if (this.refs && this.refs.selected) {
-			this.refs.selected.scrollIntoView({behavior: 'smooth',
-				block: 'nearest'});
+			this.refs.selected.scrollIntoView({
+				behavior: 'smooth',
+				block: 'nearest'
+			});
 		}
 	}
 
@@ -83,6 +85,8 @@ class SearchResults extends Component {
 			`${this.searchAPI}${themeDisplay.getPlid()}?commerceAccountId=${this.commerceAccountId}&
 				groupId=${themeDisplay.getScopeGroupId()}&p_auth=${Liferay.authToken}&q=${this.queryString}`,
 			{
+				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'GET'
 			}
 		)
@@ -142,7 +146,7 @@ class SearchResults extends Component {
 		this.search();
 	}
 
-	willUpdate({visible}) {
+	willUpdate({ visible }) {
 		if (visible) {
 			if (visible.newVal) {
 				document.addEventListener('keydown', this.handleKeyDown);
@@ -183,5 +187,5 @@ SearchResults.STATE = {
 	visible: Config.bool().value(false)
 };
 
-export {SearchResults};
+export { SearchResults };
 export default SearchResults;

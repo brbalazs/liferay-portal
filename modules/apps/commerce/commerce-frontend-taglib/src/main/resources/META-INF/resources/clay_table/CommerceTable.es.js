@@ -1,6 +1,6 @@
 import 'clay-table';
 import 'clay-pagination-bar';
-import {Config} from 'metal-state';
+import { Config } from 'metal-state';
 import Component from 'metal-component';
 import Soy from 'metal-soy';
 
@@ -73,6 +73,8 @@ class CommerceTable extends Component {
 		fetch(
 			this._getApiURL(),
 			{
+				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'GET'
 			}
 		)
@@ -110,5 +112,5 @@ CommerceTable.STATE = {
 	totalItems: Config.number().required()
 };
 
-export {CommerceTable};
+export { CommerceTable };
 export default CommerceTable;

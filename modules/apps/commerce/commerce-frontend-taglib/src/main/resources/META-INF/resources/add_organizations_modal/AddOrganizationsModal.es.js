@@ -1,10 +1,10 @@
 'use strict';
 
-import {debounce} from 'metal-debounce';
+import { debounce } from 'metal-debounce';
 
 import template from './AddOrganizationsModal.soy';
 import Component from 'metal-component';
-import Soy, {Config} from 'metal-soy';
+import Soy, { Config } from 'metal-soy';
 
 import 'clay-modal';
 
@@ -80,6 +80,8 @@ class AddOrganizationModal extends Component {
 		return fetch(
 			this.organizationsAPI + '?groupId=' + themeDisplay.getScopeGroupId() + '&p_auth=' + Liferay.authToken + '&q=' + this.query,
 			{
+				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'GET'
 			}
 		)
@@ -158,5 +160,5 @@ AddOrganizationModal.STATE = {
 	_modalVisible: Config.bool().internal().value(false)
 };
 
-export {AddOrganizationModal};
+export { AddOrganizationModal };
 export default AddOrganizationModal;

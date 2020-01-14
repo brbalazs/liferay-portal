@@ -1,5 +1,5 @@
 import Component from 'metal-component';
-import Soy, {Config} from 'metal-soy';
+import Soy, { Config } from 'metal-soy';
 
 import template from './CartFlusher.soy';
 
@@ -45,13 +45,17 @@ class CartFlusher extends Component {
 	}
 
 	_handleConfirm() {
-		fetch(this.apiEndpoint, {method: 'DELETE'})
+		fetch(this.apiEndpoint, {
+			credentials: 'include',
+			headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
+			method: 'DELETE'
+		})
 			.then(response => response.json())
-			.then(({success, products, summary}) => {
+			.then(({ success, products, summary }) => {
 				this.isAsking = false;
 
 				if (success && (!products.length || !products)) {
-					this.emit('deleteAllItems', {products: null, summary});
+					this.emit('deleteAllItems', { products: null, summary });
 				} else {
 					throw new Error(Liferay.Language.get('unable-to-empty-the-cart'));
 				}
@@ -71,5 +75,5 @@ CartFlusher.STATE = {
 	isAsking: Config.bool().value(false)
 };
 
-export {CartFlusher};
+export { CartFlusher };
 export default CartFlusher;

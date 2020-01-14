@@ -1,10 +1,10 @@
 'use strict';
 
-import {debounce} from 'metal-debounce';
+import { debounce } from 'metal-debounce';
 
 import template from './AddAccountModal.soy';
 import Component from 'metal-component';
-import Soy, {Config} from 'metal-soy';
+import Soy, { Config } from 'metal-soy';
 
 import 'clay-modal';
 
@@ -94,7 +94,9 @@ class AddAccountModal extends Component {
 		return fetch(
 			this.usersAPI + '?groupId=' + themeDisplay.getScopeGroupId() + '&p_auth=' + Liferay.authToken + '&q=' + this.query,
 			{
-				method: 'GET'
+				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
+				method: 'GET',
 			}
 		)
 			.then(
@@ -168,5 +170,5 @@ AddAccountModal.STATE = {
 	_modalVisible: Config.bool().internal().value(false)
 };
 
-export {AddAccountModal};
+export { AddAccountModal };
 export default AddAccountModal;

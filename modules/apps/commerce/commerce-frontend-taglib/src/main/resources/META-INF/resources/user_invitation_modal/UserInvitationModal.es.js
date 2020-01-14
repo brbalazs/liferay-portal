@@ -1,10 +1,10 @@
 'use strict';
 
-import {debounce} from 'metal-debounce';
+import { debounce } from 'metal-debounce';
 
 import template from './UserInvitationModal.soy';
 import Component from 'metal-component';
-import Soy, {Config} from 'metal-soy';
+import Soy, { Config } from 'metal-soy';
 
 import 'clay-modal';
 
@@ -91,6 +91,8 @@ class UserInvitationModal extends Component {
 		return fetch(
 			this.usersAPI + '?groupId=' + themeDisplay.getScopeGroupId() + '&p_auth=' + Liferay.authToken + '&q=' + this.query,
 			{
+				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'GET'
 			}
 		)
@@ -158,5 +160,5 @@ UserInvitationModal.STATE = {
 	_modalVisible: Config.bool().internal().value(false)
 };
 
-export {UserInvitationModal};
+export { UserInvitationModal };
 export default UserInvitationModal;

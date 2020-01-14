@@ -2,7 +2,7 @@
 
 import template from './ProductCard.soy';
 import Component from 'metal-component';
-import Soy, {Config} from 'metal-soy';
+import Soy, { Config } from 'metal-soy';
 
 function liferayNavigation(url) {
 	if (Liferay.SPA) {
@@ -59,6 +59,7 @@ class ProductCard extends Component {
 			{
 				body: formData,
 				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'post'
 			}
 		)
@@ -91,6 +92,8 @@ class ProductCard extends Component {
 			this.wishlistAPI + `?p_auth=${window.Liferay.authToken}`,
 			{
 				body: formData,
+				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'POST'
 			}
 		)
@@ -192,5 +195,5 @@ ProductCard.STATE = {
 	wishlistAPI: Config.string()
 };
 
-export {ProductCard};
+export { ProductCard };
 export default ProductCard;

@@ -2,7 +2,7 @@
 
 import template from './AddressModal.soy';
 import Component from 'metal-component';
-import Soy, {Config} from 'metal-soy';
+import Soy, { Config } from 'metal-soy';
 
 import 'clay-modal';
 
@@ -120,6 +120,8 @@ class AddressModal extends Component {
 		fetch(
 			'/o/commerce-ui/address/' + id + '?p_auth=' + Liferay.authToken,
 			{
+				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'GET'
 			}
 		).then(
@@ -153,6 +155,8 @@ class AddressModal extends Component {
 		return fetch(
 			this.countriesAPI,
 			{
+				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'GET'
 			}
 		)
@@ -171,6 +175,8 @@ class AddressModal extends Component {
 		return fetch(
 			this.regionsAPI + this._formData.country + '?p_auth=' + Liferay.authToken,
 			{
+				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'GET'
 			}
 		)
@@ -313,5 +319,5 @@ AddressModal.STATE = {
 	).value(1)
 };
 
-export {AddressModal};
+export { AddressModal };
 export default AddressModal;

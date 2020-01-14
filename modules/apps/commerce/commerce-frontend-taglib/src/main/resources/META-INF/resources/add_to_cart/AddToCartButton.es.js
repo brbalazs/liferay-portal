@@ -1,6 +1,6 @@
 import template from './AddToCartButton.soy';
 import Component from 'metal-component';
-import Soy, {Config} from 'metal-soy';
+import Soy, { Config } from 'metal-soy';
 
 import '../quantity_selector/QuantitySelector.es';
 
@@ -63,6 +63,8 @@ function doSubmit() {
 		this.cartAPI + `?p_auth=${window.Liferay.authToken}`,
 		{
 			body: formData,
+			credentials: 'include',
+			headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 			method: 'POST'
 		}
 	).then(
@@ -277,5 +279,5 @@ AddToCartButton.STATE = {
 	)
 };
 
-export {AddToCartButton};
+export { AddToCartButton };
 export default AddToCartButton;

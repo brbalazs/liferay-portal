@@ -1,10 +1,10 @@
 'use strict';
 
-import {debounce} from 'metal-debounce';
+import { debounce } from 'metal-debounce';
 
 import template from './UserInvitation.soy';
 import Component from 'metal-component';
-import Soy, {Config} from 'metal-soy';
+import Soy, { Config } from 'metal-soy';
 
 import 'clay-modal';
 
@@ -109,6 +109,8 @@ class UserInvitation extends Component {
 		return fetch(
 			this.usersAPI + '?p_auth=' + Liferay.authToken + '&q=' + this.query,
 			{
+				credentials: 'include',
+				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 				method: 'GET'
 			}
 		)
@@ -152,5 +154,5 @@ UserInvitation.STATE = {
 	_loading: Config.bool().internal().value(false)
 };
 
-export {UserInvitation};
+export { UserInvitation };
 export default UserInvitation;
