@@ -111,24 +111,7 @@ const dataSetDisplayProps = {
 			operator: 'gt',
 			type: 'number',
 			value: 123
-		},
-		// {
-		// 	id: 'product-name',
-		// 	main: true,
-		// 	placeholder: 'Product name',
-		// 	value: 'Test input',
-		// }
-		// {
-		// 	label: 'Date test',
-		// 	operator: 'eq',
-		// 	slug: 'date-test',
-		// 	type: 'date',
-		// 	value: {
-		// 		day: 1,
-		// 		month: 2,
-		// 		year: 1
-		// 	}
-		// }
+		}
 	],
 	id: 'tableTest',
 	items: [

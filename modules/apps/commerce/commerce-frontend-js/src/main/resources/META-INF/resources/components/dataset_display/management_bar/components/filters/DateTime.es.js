@@ -44,7 +44,6 @@ function DateFilter(props) {
 				<ClayButton
 					className="btn-sm"
 					onClick={() => actions.updateFilterValue(props.id, value)}
-					// disabled={prettifyDateTimeValue(value) === prettifyDateTimeValue(props.value)}
 				>
 					{props.panelType === 'edit'
 						? Liferay.Language.get('edit-filter')

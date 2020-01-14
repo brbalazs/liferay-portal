@@ -70,9 +70,6 @@ export const prettifyFilterValue = props => {
 			return prettifyDateValue(props.value);
 		case 'date-time':
 			return prettifyDateTimeValue(props.value);
-		// case 'date-range':
-		// case 'date-time-range':
-		//     return prettifySelectValue(props);
 
 		default:
 			return props.value;
