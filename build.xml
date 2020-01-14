@@ -175,6 +175,9 @@ message.
 			<arg value="-Dbuild.profile=portal-pre" />
 		</gradle-execute>
 
+		<delete dir="api" />
+		<delete dir="jacoco" />
+
 		<parallel failonany="true" threadcount="${parallel.thread.count}">
 			<ant dir="benchmarks" inheritAll="false" target="clean" />
 
@@ -192,9 +195,6 @@ message.
 			<ant dir="portal-test-integration" inheritAll="false" target="clean" />
 
 			<ant dir="sql" inheritAll="false" target="clean" />
-
-			<delete dir="api" />
-			<delete dir="jacoco" />
 
 			<sequential>
 				<delete dir="${sdk.dir}" />
