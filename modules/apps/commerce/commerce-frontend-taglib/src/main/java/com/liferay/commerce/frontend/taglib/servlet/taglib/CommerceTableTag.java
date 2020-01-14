@@ -142,8 +142,8 @@ public class CommerceTableTag extends ComponentRendererTag {
 		putValue("filter", filter);
 	}
 
-	public void setItemPerPage(int itemPerPage) {
-		putValue("itemPerPage", itemPerPage);
+	public void setItemsPerPage(int itemsPerPage) {
+		putValue("itemsPerPage", itemsPerPage);
 	}
 
 	public void setNamespace(String namespace) {
@@ -230,7 +230,7 @@ public class CommerceTableTag extends ComponentRendererTag {
 			int itemsPerPage = ParamUtil.getInteger(request, "itemsPerPage");
 
 			if (itemsPerPage > 0) {
-				setItemPerPage(itemsPerPage);
+				setItemsPerPage(itemsPerPage);
 			}
 		}
 
@@ -256,17 +256,17 @@ public class CommerceTableTag extends ComponentRendererTag {
 
 		putValue("filters", filter);
 
-		int itemPerPage = GetterUtil.getInteger(context.get("itemPerPage"));
+		int itemsPerPage = GetterUtil.getInteger(context.get("itemsPerPage"));
 
 		List<Object> items = commerceDataSetDataProvider.getItems(
-			request, filter, new PaginationImpl(itemPerPage, pageNumber), null);
+			request, filter, new PaginationImpl(itemsPerPage, pageNumber), null);
 
 		String json = _clayTableDataJSONBuilder.build(
 			themeDisplay.getScopeGroupId(), tableName, items, request);
 
 		putValue("items", JSONFactoryUtil.looseDeserialize(json));
 
-		putValue("pageSize", itemPerPage);
+		putValue("pageSize", itemsPerPage);
 
 		int totalItems = commerceDataSetDataProvider.countItems(
 			request, filter);
@@ -298,7 +298,7 @@ public class CommerceTableTag extends ComponentRendererTag {
 			int itemsPerPage = ParamUtil.getInteger(request, "itemsPerPage");
 
 			if (itemsPerPage > 0) {
-				setItemPerPage(itemsPerPage);
+				setItemsPerPage(itemsPerPage);
 			}
 		}
 
@@ -314,10 +314,10 @@ public class CommerceTableTag extends ComponentRendererTag {
 
 		Stream<ClayPaginationEntry> stream = clayPaginationEntries.stream();
 
-		int itemPerPage = GetterUtil.getInteger(context.get("itemPerPage"));
+		int itemsPerPage = GetterUtil.getInteger(context.get("itemsPerPage"));
 
 		ClayPaginationEntry clayPaginationEntry = stream.filter(
-			entry -> entry.getLabel() == itemPerPage
+			entry -> entry.getLabel() == itemsPerPage
 		).findAny(
 		).orElse(
 			null

@@ -191,7 +191,7 @@ if (commerceOrder != null) {
 	<div class="col-md-12">
 		<commerce-ui:table
 			dataProviderKey="commercePlacedOrderItems"
-			itemPerPage="<%= 5 %>"
+			itemsPerPage="<%= 5 %>"
 			namespace="<%= renderResponse.getNamespace() %>"
 			pageNumber="1"
 			portletURL="<%= commerceOrderContentDisplayContext.getPortletURL() %>"

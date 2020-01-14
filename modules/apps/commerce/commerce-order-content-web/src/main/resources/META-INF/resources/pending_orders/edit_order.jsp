@@ -292,7 +292,7 @@ List<CommerceAddress> billingAddresses = commerceOrderContentDisplayContext.getB
 		<commerce-ui:table
 			dataProviderKey="commercePendingOrderItems"
 			filter="<%= commerceOrderContentDisplayContext.getOrderFilter() %>"
-			itemPerPage="<%= 5 %>"
+			itemsPerPage="<%= 5 %>"
 			namespace="<%= renderResponse.getNamespace() %>"
 			pageNumber="1"
 			portletURL="<%= commerceOrderContentDisplayContext.getPortletURL() %>"

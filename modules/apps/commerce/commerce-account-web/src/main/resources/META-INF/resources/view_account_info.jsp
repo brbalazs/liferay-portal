@@ -23,7 +23,7 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 <commerce-ui:table
 	dataProviderKey="<%= CommerceAccountOrganizationClayTable.NAME %>"
 	filter="<%= commerceAccountDisplayContext.getAccountFilter() %>"
-	itemPerPage="<%= 5 %>"
+	itemsPerPage="<%= 5 %>"
 	namespace="<%= renderResponse.getNamespace() %>"
 	pageNumber="1"
 	portletURL="<%= commerceAccountDisplayContext.getPortletURL() %>"

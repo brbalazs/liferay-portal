@@ -95,7 +95,7 @@ CommerceShipment commerceShipment = commerceOrderEditDisplayContext.getCommerceS
 
 			<commerce-ui:table
 				dataProviderKey="<%= CommerceShipmentItemClayTable.NAME %>"
-				itemPerPage="<%= 5 %>"
+				itemsPerPage="<%= 5 %>"
 				namespace="<%= renderResponse.getNamespace() %>"
 				pageNumber="<%= 1 %>"
 				portletURL="<%= currentURLObj %>"

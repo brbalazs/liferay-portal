@@ -74,7 +74,7 @@ portletURL.setParameter("userId", String.valueOf(selectedUser.getUserId()));
 		<commerce-ui:table
 			dataProviderKey="commerceAccountUserRoles"
 			filter="<%= commerceAccountDisplayContext.getAccountFilter() %>"
-			itemPerPage="<%= 5 %>"
+			itemsPerPage="<%= 5 %>"
 			namespace="<%= renderResponse.getNamespace() %>"
 			pageNumber="1"
 			portletURL="<%= portletURL %>"

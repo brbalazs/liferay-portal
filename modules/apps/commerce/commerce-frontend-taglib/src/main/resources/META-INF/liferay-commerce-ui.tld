@@ -560,7 +560,7 @@
 			<type>com.liferay.commerce.frontend.Filter</type>
 		</attribute>
 		<attribute>
-			<name>itemPerPage</name>
+			<name>itemsPerPage</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>int</type>
