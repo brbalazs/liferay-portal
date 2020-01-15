@@ -41,14 +41,10 @@ User selUser = (User)request.getAttribute(UsersAdminWebKeys.SELECTED_USER);
 		classPK="<%= (selUser != null) ? selUser.getPrimaryKey() : 0 %>"
 	/>
 
-<%
-long[] groupIds = {themeDisplay.getCompanyGroupId()};
-%>
-
 <div class="form-group">
 	<liferay-asset:asset-tags-selector
 		className="<%= User.class.getName() %>"
 		classPK="<%= (selUser != null) ? selUser.getPrimaryKey() : 0 %>"
-		groupIds="<%= groupIds %>"
+		groupIds="<%= new long[] {themeDisplay.getCompanyGroupId()} %>"
 	/>
 </aui:fieldset>
