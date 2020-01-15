@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.application.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.application.model.CommerceApplicationModel;
 import com.liferay.commerce.application.service.CommerceApplicationModelLocalServiceUtil;
 
@@ -31,22 +29,25 @@ import com.liferay.commerce.application.service.CommerceApplicationModelLocalSer
  * @see CommerceApplicationModel
  * @generated
  */
-@ProviderType
 public abstract class CommerceApplicationModelBaseImpl
 	extends CommerceApplicationModelModelImpl
 	implements CommerceApplicationModel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce application model model instance should use the {@link CommerceApplicationModel} interface instead.
+	 * Never modify or reference this class directly. All methods that expect a commerce application model model instance should use the <code>CommerceApplicationModel</code> interface instead.
 	 */
 	@Override
 	public void persist() {
 		if (this.isNew()) {
-			CommerceApplicationModelLocalServiceUtil.addCommerceApplicationModel(this);
+			CommerceApplicationModelLocalServiceUtil.
+				addCommerceApplicationModel(this);
 		}
 		else {
-			CommerceApplicationModelLocalServiceUtil.updateCommerceApplicationModel(this);
+			CommerceApplicationModelLocalServiceUtil.
+				updateCommerceApplicationModel(this);
 		}
 	}
+
 }

@@ -25,34 +25,42 @@ import com.liferay.portal.kernel.util.Accessor;
  *
  * @author Luca Pellizzon
  * @see CommerceApplicationModelModel
- * @see com.liferay.commerce.application.model.impl.CommerceApplicationModelImpl
- * @see com.liferay.commerce.application.model.impl.CommerceApplicationModelModelImpl
  * @generated
  */
-@ImplementationClassName("com.liferay.commerce.application.model.impl.CommerceApplicationModelImpl")
+@ImplementationClassName(
+	"com.liferay.commerce.application.model.impl.CommerceApplicationModelImpl"
+)
 @ProviderType
-public interface CommerceApplicationModel extends CommerceApplicationModelModel,
-	PersistedModel {
+public interface CommerceApplicationModel
+	extends CommerceApplicationModelModel, PersistedModel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this interface directly. Add methods to {@link com.liferay.commerce.application.model.impl.CommerceApplicationModelImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add methods to <code>com.liferay.commerce.application.model.impl.CommerceApplicationModelImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public static final Accessor<CommerceApplicationModel, Long> COMMERCE_APPLICATION_MODEL_ID_ACCESSOR =
-		new Accessor<CommerceApplicationModel, Long>() {
-			@Override
-			public Long get(CommerceApplicationModel commerceApplicationModel) {
-				return commerceApplicationModel.getCommerceApplicationModelId();
-			}
+	public static final Accessor<CommerceApplicationModel, Long>
+		COMMERCE_APPLICATION_MODEL_ID_ACCESSOR =
+			new Accessor<CommerceApplicationModel, Long>() {
 
-			@Override
-			public Class<Long> getAttributeClass() {
-				return Long.class;
-			}
+				@Override
+				public Long get(
+					CommerceApplicationModel commerceApplicationModel) {
 
-			@Override
-			public Class<CommerceApplicationModel> getTypeClass() {
-				return CommerceApplicationModel.class;
-			}
-		};
+					return commerceApplicationModel.
+						getCommerceApplicationModelId();
+				}
+
+				@Override
+				public Class<Long> getAttributeClass() {
+					return Long.class;
+				}
+
+				@Override
+				public Class<CommerceApplicationModel> getTypeClass() {
+					return CommerceApplicationModel.class;
+				}
+
+			};
+
 }

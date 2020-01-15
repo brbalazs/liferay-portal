@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.application.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.application.model.CommerceApplicationModelCProductRel;
 import com.liferay.commerce.application.service.CommerceApplicationModelCProductRelLocalServiceUtil;
 
@@ -31,22 +29,25 @@ import com.liferay.commerce.application.service.CommerceApplicationModelCProduct
  * @see CommerceApplicationModelCProductRel
  * @generated
  */
-@ProviderType
 public abstract class CommerceApplicationModelCProductRelBaseImpl
 	extends CommerceApplicationModelCProductRelModelImpl
 	implements CommerceApplicationModelCProductRel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce application model c product rel model instance should use the {@link CommerceApplicationModelCProductRel} interface instead.
+	 * Never modify or reference this class directly. All methods that expect a commerce application model c product rel model instance should use the <code>CommerceApplicationModelCProductRel</code> interface instead.
 	 */
 	@Override
 	public void persist() {
 		if (this.isNew()) {
-			CommerceApplicationModelCProductRelLocalServiceUtil.addCommerceApplicationModelCProductRel(this);
+			CommerceApplicationModelCProductRelLocalServiceUtil.
+				addCommerceApplicationModelCProductRel(this);
 		}
 		else {
-			CommerceApplicationModelCProductRelLocalServiceUtil.updateCommerceApplicationModelCProductRel(this);
+			CommerceApplicationModelCProductRelLocalServiceUtil.
+				updateCommerceApplicationModelCProductRel(this);
 		}
 	}
+
 }

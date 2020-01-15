@@ -14,10 +14,7 @@
 
 package com.liferay.commerce.application.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.application.model.CommerceApplicationBrand;
-
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -33,12 +30,11 @@ import java.util.Date;
  * The cache model class for representing CommerceApplicationBrand in entity cache.
  *
  * @author Luca Pellizzon
- * @see CommerceApplicationBrand
  * @generated
  */
-@ProviderType
-public class CommerceApplicationBrandCacheModel implements CacheModel<CommerceApplicationBrand>,
-	Externalizable {
+public class CommerceApplicationBrandCacheModel
+	implements CacheModel<CommerceApplicationBrand>, Externalizable {
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -49,9 +45,12 @@ public class CommerceApplicationBrandCacheModel implements CacheModel<CommerceAp
 			return false;
 		}
 
-		CommerceApplicationBrandCacheModel commerceApplicationBrandCacheModel = (CommerceApplicationBrandCacheModel)obj;
+		CommerceApplicationBrandCacheModel commerceApplicationBrandCacheModel =
+			(CommerceApplicationBrandCacheModel)obj;
 
-		if (commerceApplicationBrandId == commerceApplicationBrandCacheModel.commerceApplicationBrandId) {
+		if (commerceApplicationBrandId ==
+				commerceApplicationBrandCacheModel.commerceApplicationBrandId) {
+
 			return true;
 		}
 
@@ -90,9 +89,11 @@ public class CommerceApplicationBrandCacheModel implements CacheModel<CommerceAp
 
 	@Override
 	public CommerceApplicationBrand toEntityModel() {
-		CommerceApplicationBrandImpl commerceApplicationBrandImpl = new CommerceApplicationBrandImpl();
+		CommerceApplicationBrandImpl commerceApplicationBrandImpl =
+			new CommerceApplicationBrandImpl();
 
-		commerceApplicationBrandImpl.setCommerceApplicationBrandId(commerceApplicationBrandId);
+		commerceApplicationBrandImpl.setCommerceApplicationBrandId(
+			commerceApplicationBrandId);
 		commerceApplicationBrandImpl.setCompanyId(companyId);
 		commerceApplicationBrandImpl.setUserId(userId);
 
@@ -114,7 +115,8 @@ public class CommerceApplicationBrandCacheModel implements CacheModel<CommerceAp
 			commerceApplicationBrandImpl.setModifiedDate(null);
 		}
 		else {
-			commerceApplicationBrandImpl.setModifiedDate(new Date(modifiedDate));
+			commerceApplicationBrandImpl.setModifiedDate(
+				new Date(modifiedDate));
 		}
 
 		if (name == null) {
@@ -147,8 +149,7 @@ public class CommerceApplicationBrandCacheModel implements CacheModel<CommerceAp
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput objectOutput)
-		throws IOException {
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(commerceApplicationBrandId);
 
 		objectOutput.writeLong(companyId);
@@ -183,4 +184,5 @@ public class CommerceApplicationBrandCacheModel implements CacheModel<CommerceAp
 	public long modifiedDate;
 	public String name;
 	public long logoId;
+
 }

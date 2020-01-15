@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.application.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -26,16 +24,18 @@ import java.util.List;
  * This class is used by SOAP remote services, specifically {@link com.liferay.commerce.application.service.http.CommerceApplicationBrandServiceSoap}.
  *
  * @author Luca Pellizzon
- * @see com.liferay.commerce.application.service.http.CommerceApplicationBrandServiceSoap
  * @generated
  */
-@ProviderType
 public class CommerceApplicationBrandSoap implements Serializable {
+
 	public static CommerceApplicationBrandSoap toSoapModel(
 		CommerceApplicationBrand model) {
-		CommerceApplicationBrandSoap soapModel = new CommerceApplicationBrandSoap();
 
-		soapModel.setCommerceApplicationBrandId(model.getCommerceApplicationBrandId());
+		CommerceApplicationBrandSoap soapModel =
+			new CommerceApplicationBrandSoap();
+
+		soapModel.setCommerceApplicationBrandId(
+			model.getCommerceApplicationBrandId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
 		soapModel.setUserName(model.getUserName());
@@ -49,7 +49,9 @@ public class CommerceApplicationBrandSoap implements Serializable {
 
 	public static CommerceApplicationBrandSoap[] toSoapModels(
 		CommerceApplicationBrand[] models) {
-		CommerceApplicationBrandSoap[] soapModels = new CommerceApplicationBrandSoap[models.length];
+
+		CommerceApplicationBrandSoap[] soapModels =
+			new CommerceApplicationBrandSoap[models.length];
 
 		for (int i = 0; i < models.length; i++) {
 			soapModels[i] = toSoapModel(models[i]);
@@ -60,10 +62,13 @@ public class CommerceApplicationBrandSoap implements Serializable {
 
 	public static CommerceApplicationBrandSoap[][] toSoapModels(
 		CommerceApplicationBrand[][] models) {
+
 		CommerceApplicationBrandSoap[][] soapModels = null;
 
 		if (models.length > 0) {
-			soapModels = new CommerceApplicationBrandSoap[models.length][models[0].length];
+			soapModels =
+				new CommerceApplicationBrandSoap
+					[models.length][models[0].length];
 		}
 		else {
 			soapModels = new CommerceApplicationBrandSoap[0][0];
@@ -78,13 +83,16 @@ public class CommerceApplicationBrandSoap implements Serializable {
 
 	public static CommerceApplicationBrandSoap[] toSoapModels(
 		List<CommerceApplicationBrand> models) {
-		List<CommerceApplicationBrandSoap> soapModels = new ArrayList<CommerceApplicationBrandSoap>(models.size());
+
+		List<CommerceApplicationBrandSoap> soapModels =
+			new ArrayList<CommerceApplicationBrandSoap>(models.size());
 
 		for (CommerceApplicationBrand model : models) {
 			soapModels.add(toSoapModel(model));
 		}
 
-		return soapModels.toArray(new CommerceApplicationBrandSoap[soapModels.size()]);
+		return soapModels.toArray(
+			new CommerceApplicationBrandSoap[soapModels.size()]);
 	}
 
 	public CommerceApplicationBrandSoap() {
@@ -170,4 +178,5 @@ public class CommerceApplicationBrandSoap implements Serializable {
 	private Date _modifiedDate;
 	private String _name;
 	private long _logoId;
+
 }

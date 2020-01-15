@@ -14,10 +14,7 @@
 
 package com.liferay.commerce.application.service.http;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.application.service.CommerceApplicationModelCProductRelServiceUtil;
-
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.HttpPrincipal;
@@ -27,10 +24,11 @@ import com.liferay.portal.kernel.util.MethodKey;
 
 /**
  * Provides the HTTP utility for the
- * {@link CommerceApplicationModelCProductRelServiceUtil} service utility. The
+ * <code>CommerceApplicationModelCProductRelServiceUtil</code> service
+ * utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it requires an additional
- * {@link HttpPrincipal} parameter.
+ * <code>HttpPrincipal</code> parameter.
  *
  * <p>
  * The benefits of using the HTTP utility is that it is fast and allows for
@@ -49,23 +47,26 @@ import com.liferay.portal.kernel.util.MethodKey;
  *
  * @author Luca Pellizzon
  * @see CommerceApplicationModelCProductRelServiceSoap
- * @see HttpPrincipal
- * @see CommerceApplicationModelCProductRelServiceUtil
  * @generated
  */
-@ProviderType
 public class CommerceApplicationModelCProductRelServiceHttp {
-	public static com.liferay.commerce.application.model.CommerceApplicationModelCProductRel addCommerceApplicationModelCProductRel(
-		HttpPrincipal httpPrincipal, long userId,
-		long commerceApplicationModelId, long cProductId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceApplicationModelCProductRelServiceUtil.class,
-					"addCommerceApplicationModelCProductRel",
-					_addCommerceApplicationModelCProductRelParameterTypes0);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey, userId,
-					commerceApplicationModelId, cProductId);
+	public static
+		com.liferay.commerce.application.model.
+			CommerceApplicationModelCProductRel
+					addCommerceApplicationModelCProductRel(
+						HttpPrincipal httpPrincipal, long userId,
+						long commerceApplicationModelId, long cProductId)
+				throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceApplicationModelCProductRelServiceUtil.class,
+				"addCommerceApplicationModelCProductRel",
+				_addCommerceApplicationModelCProductRelParameterTypes0);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userId, commerceApplicationModelId, cProductId);
 
 			Object returnObj = null;
 
@@ -73,14 +74,19 @@ public class CommerceApplicationModelCProductRelServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
 				}
 
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 
-			return (com.liferay.commerce.application.model.CommerceApplicationModelCProductRel)returnObj;
+			return (com.liferay.commerce.application.model.
+				CommerceApplicationModelCProductRel)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -90,25 +96,32 @@ public class CommerceApplicationModelCProductRelServiceHttp {
 	}
 
 	public static void deleteCommerceApplicationModelCProductRel(
-		HttpPrincipal httpPrincipal, long commerceApplicationModelCProductRelId)
+			HttpPrincipal httpPrincipal,
+			long commerceApplicationModelCProductRelId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceApplicationModelCProductRelServiceUtil.class,
-					"deleteCommerceApplicationModelCProductRel",
-					_deleteCommerceApplicationModelCProductRelParameterTypes1);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					commerceApplicationModelCProductRelId);
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceApplicationModelCProductRelServiceUtil.class,
+				"deleteCommerceApplicationModelCProductRel",
+				_deleteCommerceApplicationModelCProductRelParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceApplicationModelCProductRelId);
 
 			try {
 				TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
 				}
 
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
@@ -118,17 +131,22 @@ public class CommerceApplicationModelCProductRelServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.commerce.application.model.CommerceApplicationModelCProductRel> getCommerceApplicationModelCProductRels(
-		HttpPrincipal httpPrincipal, long commerceApplicationModelId,
-		int start, int end)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceApplicationModelCProductRelServiceUtil.class,
-					"getCommerceApplicationModelCProductRels",
-					_getCommerceApplicationModelCProductRelsParameterTypes2);
+	public static java.util.List
+		<com.liferay.commerce.application.model.
+			CommerceApplicationModelCProductRel>
+					getCommerceApplicationModelCProductRels(
+						HttpPrincipal httpPrincipal,
+						long commerceApplicationModelId, int start, int end)
+				throws com.liferay.portal.kernel.exception.PortalException {
 
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					commerceApplicationModelId, start, end);
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceApplicationModelCProductRelServiceUtil.class,
+				"getCommerceApplicationModelCProductRels",
+				_getCommerceApplicationModelCProductRelsParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceApplicationModelId, start, end);
 
 			Object returnObj = null;
 
@@ -136,14 +154,20 @@ public class CommerceApplicationModelCProductRelServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
 				}
 
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 
-			return (java.util.List<com.liferay.commerce.application.model.CommerceApplicationModelCProductRel>)returnObj;
+			return (java.util.List
+				<com.liferay.commerce.application.model.
+					CommerceApplicationModelCProductRel>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -153,15 +177,17 @@ public class CommerceApplicationModelCProductRelServiceHttp {
 	}
 
 	public static int getCommerceApplicationModelCProductRelsCount(
-		HttpPrincipal httpPrincipal, long commerceApplicationModelId)
+			HttpPrincipal httpPrincipal, long commerceApplicationModelId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceApplicationModelCProductRelServiceUtil.class,
-					"getCommerceApplicationModelCProductRelsCount",
-					_getCommerceApplicationModelCProductRelsCountParameterTypes3);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					commerceApplicationModelId);
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceApplicationModelCProductRelServiceUtil.class,
+				"getCommerceApplicationModelCProductRelsCount",
+				_getCommerceApplicationModelCProductRelsCountParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceApplicationModelId);
 
 			Object returnObj = null;
 
@@ -169,11 +195,15 @@ public class CommerceApplicationModelCProductRelServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
 				}
 
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 
 			return ((Integer)returnObj).intValue();
@@ -185,13 +215,22 @@ public class CommerceApplicationModelCProductRelServiceHttp {
 		}
 	}
 
-	private static Log _log = LogFactoryUtil.getLog(CommerceApplicationModelCProductRelServiceHttp.class);
-	private static final Class<?>[] _addCommerceApplicationModelCProductRelParameterTypes0 =
-		new Class[] { long.class, long.class, long.class };
-	private static final Class<?>[] _deleteCommerceApplicationModelCProductRelParameterTypes1 =
-		new Class[] { long.class };
-	private static final Class<?>[] _getCommerceApplicationModelCProductRelsParameterTypes2 =
-		new Class[] { long.class, int.class, int.class };
-	private static final Class<?>[] _getCommerceApplicationModelCProductRelsCountParameterTypes3 =
-		new Class[] { long.class };
+	private static Log _log = LogFactoryUtil.getLog(
+		CommerceApplicationModelCProductRelServiceHttp.class);
+
+	private static final Class<?>[]
+		_addCommerceApplicationModelCProductRelParameterTypes0 = new Class[] {
+			long.class, long.class, long.class
+		};
+	private static final Class<?>[]
+		_deleteCommerceApplicationModelCProductRelParameterTypes1 =
+			new Class[] {long.class};
+	private static final Class<?>[]
+		_getCommerceApplicationModelCProductRelsParameterTypes2 = new Class[] {
+			long.class, int.class, int.class
+		};
+	private static final Class<?>[]
+		_getCommerceApplicationModelCProductRelsCountParameterTypes3 =
+			new Class[] {long.class};
+
 }

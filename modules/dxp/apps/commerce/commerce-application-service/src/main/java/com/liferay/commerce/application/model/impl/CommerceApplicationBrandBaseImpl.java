@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.application.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.application.model.CommerceApplicationBrand;
 import com.liferay.commerce.application.service.CommerceApplicationBrandLocalServiceUtil;
 
@@ -31,22 +29,25 @@ import com.liferay.commerce.application.service.CommerceApplicationBrandLocalSer
  * @see CommerceApplicationBrand
  * @generated
  */
-@ProviderType
 public abstract class CommerceApplicationBrandBaseImpl
 	extends CommerceApplicationBrandModelImpl
 	implements CommerceApplicationBrand {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce application brand model instance should use the {@link CommerceApplicationBrand} interface instead.
+	 * Never modify or reference this class directly. All methods that expect a commerce application brand model instance should use the <code>CommerceApplicationBrand</code> interface instead.
 	 */
 	@Override
 	public void persist() {
 		if (this.isNew()) {
-			CommerceApplicationBrandLocalServiceUtil.addCommerceApplicationBrand(this);
+			CommerceApplicationBrandLocalServiceUtil.
+				addCommerceApplicationBrand(this);
 		}
 		else {
-			CommerceApplicationBrandLocalServiceUtil.updateCommerceApplicationBrand(this);
+			CommerceApplicationBrandLocalServiceUtil.
+				updateCommerceApplicationBrand(this);
 		}
 	}
+
 }

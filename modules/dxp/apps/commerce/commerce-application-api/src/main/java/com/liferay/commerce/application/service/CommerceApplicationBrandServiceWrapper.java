@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.application.service;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
@@ -25,65 +23,77 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @see CommerceApplicationBrandService
  * @generated
  */
-@ProviderType
 public class CommerceApplicationBrandServiceWrapper
 	implements CommerceApplicationBrandService,
-		ServiceWrapper<CommerceApplicationBrandService> {
+			   ServiceWrapper<CommerceApplicationBrandService> {
+
 	public CommerceApplicationBrandServiceWrapper(
 		CommerceApplicationBrandService commerceApplicationBrandService) {
+
 		_commerceApplicationBrandService = commerceApplicationBrandService;
 	}
 
 	@Override
-	public com.liferay.commerce.application.model.CommerceApplicationBrand addCommerceApplicationBrand(
-		long userId, String name, boolean logo, byte[] logoBytes)
+	public com.liferay.commerce.application.model.CommerceApplicationBrand
+			addCommerceApplicationBrand(
+				long userId, String name, boolean logo, byte[] logoBytes)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _commerceApplicationBrandService.addCommerceApplicationBrand(userId,
-			name, logo, logoBytes);
+
+		return _commerceApplicationBrandService.addCommerceApplicationBrand(
+			userId, name, logo, logoBytes);
 	}
 
 	@Override
 	public void deleteCommerceApplicationBrand(long commerceApplicationBrandId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		_commerceApplicationBrandService.deleteCommerceApplicationBrand(commerceApplicationBrandId);
+
+		_commerceApplicationBrandService.deleteCommerceApplicationBrand(
+			commerceApplicationBrandId);
 	}
 
 	@Override
-	public com.liferay.commerce.application.model.CommerceApplicationBrand getCommerceApplicationBrand(
-		long commerceApplicationBrandId)
+	public com.liferay.commerce.application.model.CommerceApplicationBrand
+			getCommerceApplicationBrand(long commerceApplicationBrandId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _commerceApplicationBrandService.getCommerceApplicationBrand(commerceApplicationBrandId);
+
+		return _commerceApplicationBrandService.getCommerceApplicationBrand(
+			commerceApplicationBrandId);
 	}
 
 	@Override
-	public java.util.List<com.liferay.commerce.application.model.CommerceApplicationBrand> getCommerceApplicationBrands(
-		long companyId, int start, int end) {
-		return _commerceApplicationBrandService.getCommerceApplicationBrands(companyId,
-			start, end);
+	public java.util.List
+		<com.liferay.commerce.application.model.CommerceApplicationBrand>
+			getCommerceApplicationBrands(long companyId, int start, int end) {
+
+		return _commerceApplicationBrandService.getCommerceApplicationBrands(
+			companyId, start, end);
 	}
 
 	@Override
 	public int getCommerceApplicationBrandsCount(long companyId) {
-		return _commerceApplicationBrandService.getCommerceApplicationBrandsCount(companyId);
+		return _commerceApplicationBrandService.
+			getCommerceApplicationBrandsCount(companyId);
 	}
 
 	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
-	*/
+	 * Returns the OSGi service identifier.
+	 *
+	 * @return the OSGi service identifier
+	 */
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _commerceApplicationBrandService.getOSGiServiceIdentifier();
 	}
 
 	@Override
-	public com.liferay.commerce.application.model.CommerceApplicationBrand updateCommerceApplicationBrand(
-		long commerceApplicationBrandId, String name, boolean logo,
-		byte[] logoBytes)
+	public com.liferay.commerce.application.model.CommerceApplicationBrand
+			updateCommerceApplicationBrand(
+				long commerceApplicationBrandId, String name, boolean logo,
+				byte[] logoBytes)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _commerceApplicationBrandService.updateCommerceApplicationBrand(commerceApplicationBrandId,
-			name, logo, logoBytes);
+
+		return _commerceApplicationBrandService.updateCommerceApplicationBrand(
+			commerceApplicationBrandId, name, logo, logoBytes);
 	}
 
 	@Override
@@ -94,8 +104,10 @@ public class CommerceApplicationBrandServiceWrapper
 	@Override
 	public void setWrappedService(
 		CommerceApplicationBrandService commerceApplicationBrandService) {
+
 		_commerceApplicationBrandService = commerceApplicationBrandService;
 	}
 
 	private CommerceApplicationBrandService _commerceApplicationBrandService;
+
 }

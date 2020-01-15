@@ -19,7 +19,6 @@ import com.liferay.commerce.application.service.CommerceApplicationModelCProduct
 import com.liferay.commerce.application.service.persistence.CommerceApplicationBrandPersistence;
 import com.liferay.commerce.application.service.persistence.CommerceApplicationModelCProductRelPersistence;
 import com.liferay.commerce.application.service.persistence.CommerceApplicationModelPersistence;
-
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
@@ -44,17 +43,17 @@ import javax.sql.DataSource;
  *
  * @author Luca Pellizzon
  * @see com.liferay.commerce.application.service.impl.CommerceApplicationModelCProductRelServiceImpl
- * @see com.liferay.commerce.application.service.CommerceApplicationModelCProductRelServiceUtil
  * @generated
  */
 public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	extends BaseServiceImpl
 	implements CommerceApplicationModelCProductRelService,
-		IdentifiableOSGiService {
+			   IdentifiableOSGiService {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Always use {@link com.liferay.commerce.application.service.CommerceApplicationModelCProductRelServiceUtil} to access the commerce application model c product rel remote service.
+	 * Never modify or reference this class directly. Use <code>CommerceApplicationModelCProductRelService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.application.service.CommerceApplicationModelCProductRelServiceUtil</code>.
 	 */
 
 	/**
@@ -62,7 +61,10 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 *
 	 * @return the commerce application brand local service
 	 */
-	public com.liferay.commerce.application.service.CommerceApplicationBrandLocalService getCommerceApplicationBrandLocalService() {
+	public com.liferay.commerce.application.service.
+		CommerceApplicationBrandLocalService
+			getCommerceApplicationBrandLocalService() {
+
 		return commerceApplicationBrandLocalService;
 	}
 
@@ -72,8 +74,12 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 * @param commerceApplicationBrandLocalService the commerce application brand local service
 	 */
 	public void setCommerceApplicationBrandLocalService(
-		com.liferay.commerce.application.service.CommerceApplicationBrandLocalService commerceApplicationBrandLocalService) {
-		this.commerceApplicationBrandLocalService = commerceApplicationBrandLocalService;
+		com.liferay.commerce.application.service.
+			CommerceApplicationBrandLocalService
+				commerceApplicationBrandLocalService) {
+
+		this.commerceApplicationBrandLocalService =
+			commerceApplicationBrandLocalService;
 	}
 
 	/**
@@ -81,7 +87,10 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 *
 	 * @return the commerce application brand remote service
 	 */
-	public com.liferay.commerce.application.service.CommerceApplicationBrandService getCommerceApplicationBrandService() {
+	public
+		com.liferay.commerce.application.service.CommerceApplicationBrandService
+			getCommerceApplicationBrandService() {
+
 		return commerceApplicationBrandService;
 	}
 
@@ -91,7 +100,9 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 * @param commerceApplicationBrandService the commerce application brand remote service
 	 */
 	public void setCommerceApplicationBrandService(
-		com.liferay.commerce.application.service.CommerceApplicationBrandService commerceApplicationBrandService) {
+		com.liferay.commerce.application.service.CommerceApplicationBrandService
+			commerceApplicationBrandService) {
+
 		this.commerceApplicationBrandService = commerceApplicationBrandService;
 	}
 
@@ -100,7 +111,9 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 *
 	 * @return the commerce application brand persistence
 	 */
-	public CommerceApplicationBrandPersistence getCommerceApplicationBrandPersistence() {
+	public CommerceApplicationBrandPersistence
+		getCommerceApplicationBrandPersistence() {
+
 		return commerceApplicationBrandPersistence;
 	}
 
@@ -110,8 +123,11 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 * @param commerceApplicationBrandPersistence the commerce application brand persistence
 	 */
 	public void setCommerceApplicationBrandPersistence(
-		CommerceApplicationBrandPersistence commerceApplicationBrandPersistence) {
-		this.commerceApplicationBrandPersistence = commerceApplicationBrandPersistence;
+		CommerceApplicationBrandPersistence
+			commerceApplicationBrandPersistence) {
+
+		this.commerceApplicationBrandPersistence =
+			commerceApplicationBrandPersistence;
 	}
 
 	/**
@@ -119,7 +135,10 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 *
 	 * @return the commerce application model local service
 	 */
-	public com.liferay.commerce.application.service.CommerceApplicationModelLocalService getCommerceApplicationModelLocalService() {
+	public com.liferay.commerce.application.service.
+		CommerceApplicationModelLocalService
+			getCommerceApplicationModelLocalService() {
+
 		return commerceApplicationModelLocalService;
 	}
 
@@ -129,8 +148,12 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 * @param commerceApplicationModelLocalService the commerce application model local service
 	 */
 	public void setCommerceApplicationModelLocalService(
-		com.liferay.commerce.application.service.CommerceApplicationModelLocalService commerceApplicationModelLocalService) {
-		this.commerceApplicationModelLocalService = commerceApplicationModelLocalService;
+		com.liferay.commerce.application.service.
+			CommerceApplicationModelLocalService
+				commerceApplicationModelLocalService) {
+
+		this.commerceApplicationModelLocalService =
+			commerceApplicationModelLocalService;
 	}
 
 	/**
@@ -138,7 +161,10 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 *
 	 * @return the commerce application model remote service
 	 */
-	public com.liferay.commerce.application.service.CommerceApplicationModelService getCommerceApplicationModelService() {
+	public
+		com.liferay.commerce.application.service.CommerceApplicationModelService
+			getCommerceApplicationModelService() {
+
 		return commerceApplicationModelService;
 	}
 
@@ -148,7 +174,9 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 * @param commerceApplicationModelService the commerce application model remote service
 	 */
 	public void setCommerceApplicationModelService(
-		com.liferay.commerce.application.service.CommerceApplicationModelService commerceApplicationModelService) {
+		com.liferay.commerce.application.service.CommerceApplicationModelService
+			commerceApplicationModelService) {
+
 		this.commerceApplicationModelService = commerceApplicationModelService;
 	}
 
@@ -157,7 +185,9 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 *
 	 * @return the commerce application model persistence
 	 */
-	public CommerceApplicationModelPersistence getCommerceApplicationModelPersistence() {
+	public CommerceApplicationModelPersistence
+		getCommerceApplicationModelPersistence() {
+
 		return commerceApplicationModelPersistence;
 	}
 
@@ -167,8 +197,11 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 * @param commerceApplicationModelPersistence the commerce application model persistence
 	 */
 	public void setCommerceApplicationModelPersistence(
-		CommerceApplicationModelPersistence commerceApplicationModelPersistence) {
-		this.commerceApplicationModelPersistence = commerceApplicationModelPersistence;
+		CommerceApplicationModelPersistence
+			commerceApplicationModelPersistence) {
+
+		this.commerceApplicationModelPersistence =
+			commerceApplicationModelPersistence;
 	}
 
 	/**
@@ -176,7 +209,10 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 *
 	 * @return the commerce application model c product rel local service
 	 */
-	public com.liferay.commerce.application.service.CommerceApplicationModelCProductRelLocalService getCommerceApplicationModelCProductRelLocalService() {
+	public com.liferay.commerce.application.service.
+		CommerceApplicationModelCProductRelLocalService
+			getCommerceApplicationModelCProductRelLocalService() {
+
 		return commerceApplicationModelCProductRelLocalService;
 	}
 
@@ -186,8 +222,12 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 * @param commerceApplicationModelCProductRelLocalService the commerce application model c product rel local service
 	 */
 	public void setCommerceApplicationModelCProductRelLocalService(
-		com.liferay.commerce.application.service.CommerceApplicationModelCProductRelLocalService commerceApplicationModelCProductRelLocalService) {
-		this.commerceApplicationModelCProductRelLocalService = commerceApplicationModelCProductRelLocalService;
+		com.liferay.commerce.application.service.
+			CommerceApplicationModelCProductRelLocalService
+				commerceApplicationModelCProductRelLocalService) {
+
+		this.commerceApplicationModelCProductRelLocalService =
+			commerceApplicationModelCProductRelLocalService;
 	}
 
 	/**
@@ -195,7 +235,9 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 *
 	 * @return the commerce application model c product rel remote service
 	 */
-	public CommerceApplicationModelCProductRelService getCommerceApplicationModelCProductRelService() {
+	public CommerceApplicationModelCProductRelService
+		getCommerceApplicationModelCProductRelService() {
+
 		return commerceApplicationModelCProductRelService;
 	}
 
@@ -205,8 +247,11 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 * @param commerceApplicationModelCProductRelService the commerce application model c product rel remote service
 	 */
 	public void setCommerceApplicationModelCProductRelService(
-		CommerceApplicationModelCProductRelService commerceApplicationModelCProductRelService) {
-		this.commerceApplicationModelCProductRelService = commerceApplicationModelCProductRelService;
+		CommerceApplicationModelCProductRelService
+			commerceApplicationModelCProductRelService) {
+
+		this.commerceApplicationModelCProductRelService =
+			commerceApplicationModelCProductRelService;
 	}
 
 	/**
@@ -214,7 +259,9 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 *
 	 * @return the commerce application model c product rel persistence
 	 */
-	public CommerceApplicationModelCProductRelPersistence getCommerceApplicationModelCProductRelPersistence() {
+	public CommerceApplicationModelCProductRelPersistence
+		getCommerceApplicationModelCProductRelPersistence() {
+
 		return commerceApplicationModelCProductRelPersistence;
 	}
 
@@ -224,8 +271,11 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 * @param commerceApplicationModelCProductRelPersistence the commerce application model c product rel persistence
 	 */
 	public void setCommerceApplicationModelCProductRelPersistence(
-		CommerceApplicationModelCProductRelPersistence commerceApplicationModelCProductRelPersistence) {
-		this.commerceApplicationModelCProductRelPersistence = commerceApplicationModelCProductRelPersistence;
+		CommerceApplicationModelCProductRelPersistence
+			commerceApplicationModelCProductRelPersistence) {
+
+		this.commerceApplicationModelCProductRelPersistence =
+			commerceApplicationModelCProductRelPersistence;
 	}
 
 	/**
@@ -233,7 +283,9 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 *
 	 * @return the counter local service
 	 */
-	public com.liferay.counter.kernel.service.CounterLocalService getCounterLocalService() {
+	public com.liferay.counter.kernel.service.CounterLocalService
+		getCounterLocalService() {
+
 		return counterLocalService;
 	}
 
@@ -243,7 +295,9 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 * @param counterLocalService the counter local service
 	 */
 	public void setCounterLocalService(
-		com.liferay.counter.kernel.service.CounterLocalService counterLocalService) {
+		com.liferay.counter.kernel.service.CounterLocalService
+			counterLocalService) {
+
 		this.counterLocalService = counterLocalService;
 	}
 
@@ -252,7 +306,9 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 *
 	 * @return the class name local service
 	 */
-	public com.liferay.portal.kernel.service.ClassNameLocalService getClassNameLocalService() {
+	public com.liferay.portal.kernel.service.ClassNameLocalService
+		getClassNameLocalService() {
+
 		return classNameLocalService;
 	}
 
@@ -262,7 +318,9 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 * @param classNameLocalService the class name local service
 	 */
 	public void setClassNameLocalService(
-		com.liferay.portal.kernel.service.ClassNameLocalService classNameLocalService) {
+		com.liferay.portal.kernel.service.ClassNameLocalService
+			classNameLocalService) {
+
 		this.classNameLocalService = classNameLocalService;
 	}
 
@@ -271,7 +329,9 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 *
 	 * @return the class name remote service
 	 */
-	public com.liferay.portal.kernel.service.ClassNameService getClassNameService() {
+	public com.liferay.portal.kernel.service.ClassNameService
+		getClassNameService() {
+
 		return classNameService;
 	}
 
@@ -282,6 +342,7 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 */
 	public void setClassNameService(
 		com.liferay.portal.kernel.service.ClassNameService classNameService) {
+
 		this.classNameService = classNameService;
 	}
 
@@ -301,6 +362,7 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 */
 	public void setClassNamePersistence(
 		ClassNamePersistence classNamePersistence) {
+
 		this.classNamePersistence = classNamePersistence;
 	}
 
@@ -309,7 +371,9 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 *
 	 * @return the resource local service
 	 */
-	public com.liferay.portal.kernel.service.ResourceLocalService getResourceLocalService() {
+	public com.liferay.portal.kernel.service.ResourceLocalService
+		getResourceLocalService() {
+
 		return resourceLocalService;
 	}
 
@@ -319,7 +383,9 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 * @param resourceLocalService the resource local service
 	 */
 	public void setResourceLocalService(
-		com.liferay.portal.kernel.service.ResourceLocalService resourceLocalService) {
+		com.liferay.portal.kernel.service.ResourceLocalService
+			resourceLocalService) {
+
 		this.resourceLocalService = resourceLocalService;
 	}
 
@@ -328,7 +394,9 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 *
 	 * @return the user local service
 	 */
-	public com.liferay.portal.kernel.service.UserLocalService getUserLocalService() {
+	public com.liferay.portal.kernel.service.UserLocalService
+		getUserLocalService() {
+
 		return userLocalService;
 	}
 
@@ -339,6 +407,7 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 */
 	public void setUserLocalService(
 		com.liferay.portal.kernel.service.UserLocalService userLocalService) {
+
 		this.userLocalService = userLocalService;
 	}
 
@@ -358,6 +427,7 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 */
 	public void setUserService(
 		com.liferay.portal.kernel.service.UserService userService) {
+
 		this.userService = userService;
 	}
 
@@ -410,15 +480,16 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 	 */
 	protected void runSQL(String sql) {
 		try {
-			DataSource dataSource = commerceApplicationModelCProductRelPersistence.getDataSource();
+			DataSource dataSource =
+				commerceApplicationModelCProductRelPersistence.getDataSource();
 
 			DB db = DBManagerUtil.getDB();
 
 			sql = db.buildSQL(sql);
 			sql = PortalUtil.transformSQL(sql);
 
-			SqlUpdate sqlUpdate = SqlUpdateFactoryUtil.getSqlUpdate(dataSource,
-					sql);
+			SqlUpdate sqlUpdate = SqlUpdateFactoryUtil.getSqlUpdate(
+				dataSource, sql);
 
 			sqlUpdate.update();
 		}
@@ -427,38 +498,96 @@ public abstract class CommerceApplicationModelCProductRelServiceBaseImpl
 		}
 	}
 
-	@BeanReference(type = com.liferay.commerce.application.service.CommerceApplicationBrandLocalService.class)
-	protected com.liferay.commerce.application.service.CommerceApplicationBrandLocalService commerceApplicationBrandLocalService;
-	@BeanReference(type = com.liferay.commerce.application.service.CommerceApplicationBrandService.class)
-	protected com.liferay.commerce.application.service.CommerceApplicationBrandService commerceApplicationBrandService;
+	@BeanReference(
+		type = com.liferay.commerce.application.service.CommerceApplicationBrandLocalService.class
+	)
+	protected com.liferay.commerce.application.service.
+		CommerceApplicationBrandLocalService
+			commerceApplicationBrandLocalService;
+
+	@BeanReference(
+		type = com.liferay.commerce.application.service.CommerceApplicationBrandService.class
+	)
+	protected
+		com.liferay.commerce.application.service.CommerceApplicationBrandService
+			commerceApplicationBrandService;
+
 	@BeanReference(type = CommerceApplicationBrandPersistence.class)
-	protected CommerceApplicationBrandPersistence commerceApplicationBrandPersistence;
-	@BeanReference(type = com.liferay.commerce.application.service.CommerceApplicationModelLocalService.class)
-	protected com.liferay.commerce.application.service.CommerceApplicationModelLocalService commerceApplicationModelLocalService;
-	@BeanReference(type = com.liferay.commerce.application.service.CommerceApplicationModelService.class)
-	protected com.liferay.commerce.application.service.CommerceApplicationModelService commerceApplicationModelService;
+	protected CommerceApplicationBrandPersistence
+		commerceApplicationBrandPersistence;
+
+	@BeanReference(
+		type = com.liferay.commerce.application.service.CommerceApplicationModelLocalService.class
+	)
+	protected com.liferay.commerce.application.service.
+		CommerceApplicationModelLocalService
+			commerceApplicationModelLocalService;
+
+	@BeanReference(
+		type = com.liferay.commerce.application.service.CommerceApplicationModelService.class
+	)
+	protected
+		com.liferay.commerce.application.service.CommerceApplicationModelService
+			commerceApplicationModelService;
+
 	@BeanReference(type = CommerceApplicationModelPersistence.class)
-	protected CommerceApplicationModelPersistence commerceApplicationModelPersistence;
-	@BeanReference(type = com.liferay.commerce.application.service.CommerceApplicationModelCProductRelLocalService.class)
-	protected com.liferay.commerce.application.service.CommerceApplicationModelCProductRelLocalService commerceApplicationModelCProductRelLocalService;
+	protected CommerceApplicationModelPersistence
+		commerceApplicationModelPersistence;
+
+	@BeanReference(
+		type = com.liferay.commerce.application.service.CommerceApplicationModelCProductRelLocalService.class
+	)
+	protected com.liferay.commerce.application.service.
+		CommerceApplicationModelCProductRelLocalService
+			commerceApplicationModelCProductRelLocalService;
+
 	@BeanReference(type = CommerceApplicationModelCProductRelService.class)
-	protected CommerceApplicationModelCProductRelService commerceApplicationModelCProductRelService;
+	protected CommerceApplicationModelCProductRelService
+		commerceApplicationModelCProductRelService;
+
 	@BeanReference(type = CommerceApplicationModelCProductRelPersistence.class)
-	protected CommerceApplicationModelCProductRelPersistence commerceApplicationModelCProductRelPersistence;
-	@ServiceReference(type = com.liferay.counter.kernel.service.CounterLocalService.class)
-	protected com.liferay.counter.kernel.service.CounterLocalService counterLocalService;
-	@ServiceReference(type = com.liferay.portal.kernel.service.ClassNameLocalService.class)
-	protected com.liferay.portal.kernel.service.ClassNameLocalService classNameLocalService;
-	@ServiceReference(type = com.liferay.portal.kernel.service.ClassNameService.class)
-	protected com.liferay.portal.kernel.service.ClassNameService classNameService;
+	protected CommerceApplicationModelCProductRelPersistence
+		commerceApplicationModelCProductRelPersistence;
+
+	@ServiceReference(
+		type = com.liferay.counter.kernel.service.CounterLocalService.class
+	)
+	protected com.liferay.counter.kernel.service.CounterLocalService
+		counterLocalService;
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.ClassNameLocalService.class
+	)
+	protected com.liferay.portal.kernel.service.ClassNameLocalService
+		classNameLocalService;
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.ClassNameService.class
+	)
+	protected com.liferay.portal.kernel.service.ClassNameService
+		classNameService;
+
 	@ServiceReference(type = ClassNamePersistence.class)
 	protected ClassNamePersistence classNamePersistence;
-	@ServiceReference(type = com.liferay.portal.kernel.service.ResourceLocalService.class)
-	protected com.liferay.portal.kernel.service.ResourceLocalService resourceLocalService;
-	@ServiceReference(type = com.liferay.portal.kernel.service.UserLocalService.class)
-	protected com.liferay.portal.kernel.service.UserLocalService userLocalService;
-	@ServiceReference(type = com.liferay.portal.kernel.service.UserService.class)
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.ResourceLocalService.class
+	)
+	protected com.liferay.portal.kernel.service.ResourceLocalService
+		resourceLocalService;
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.UserLocalService.class
+	)
+	protected com.liferay.portal.kernel.service.UserLocalService
+		userLocalService;
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.UserService.class
+	)
 	protected com.liferay.portal.kernel.service.UserService userService;
+
 	@ServiceReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
+
 }

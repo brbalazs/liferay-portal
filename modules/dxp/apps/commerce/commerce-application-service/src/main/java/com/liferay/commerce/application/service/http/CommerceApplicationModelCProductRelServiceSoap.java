@@ -14,10 +14,7 @@
 
 package com.liferay.commerce.application.service.http;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.application.service.CommerceApplicationModelCProductRelServiceUtil;
-
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
@@ -25,19 +22,20 @@ import java.rmi.RemoteException;
 
 /**
  * Provides the SOAP utility for the
- * {@link CommerceApplicationModelCProductRelServiceUtil} service utility. The
- * static methods of this class calls the same methods of the service utility.
- * However, the signatures are different because it is difficult for SOAP to
- * support certain types.
+ * <code>CommerceApplicationModelCProductRelServiceUtil</code> service
+ * utility. The static methods of this class call the same methods of the
+ * service utility. However, the signatures are different because it is
+ * difficult for SOAP to support certain types.
  *
  * <p>
  * ServiceBuilder follows certain rules in translating the methods. For example,
- * if the method in the service utility returns a {@link java.util.List}, that
- * is translated to an array of {@link com.liferay.commerce.application.model.CommerceApplicationModelCProductRelSoap}.
- * If the method in the service utility returns a
- * {@link com.liferay.commerce.application.model.CommerceApplicationModelCProductRel}, that is translated to a
- * {@link com.liferay.commerce.application.model.CommerceApplicationModelCProductRelSoap}. Methods that SOAP cannot
- * safely wire are skipped.
+ * if the method in the service utility returns a <code>java.util.List</code>,
+ * that is translated to an array of
+ * <code>com.liferay.commerce.application.model.CommerceApplicationModelCProductRelSoap</code>. If the method in the
+ * service utility returns a
+ * <code>com.liferay.commerce.application.model.CommerceApplicationModelCProductRel</code>, that is translated to a
+ * <code>com.liferay.commerce.application.model.CommerceApplicationModelCProductRelSoap</code>. Methods that SOAP
+ * cannot safely wire are skipped.
  * </p>
  *
  * <p>
@@ -59,21 +57,27 @@ import java.rmi.RemoteException;
  *
  * @author Luca Pellizzon
  * @see CommerceApplicationModelCProductRelServiceHttp
- * @see com.liferay.commerce.application.model.CommerceApplicationModelCProductRelSoap
- * @see CommerceApplicationModelCProductRelServiceUtil
  * @generated
  */
-@ProviderType
 public class CommerceApplicationModelCProductRelServiceSoap {
-	public static com.liferay.commerce.application.model.CommerceApplicationModelCProductRelSoap addCommerceApplicationModelCProductRel(
-		long userId, long commerceApplicationModelId, long cProductId)
-		throws RemoteException {
-		try {
-			com.liferay.commerce.application.model.CommerceApplicationModelCProductRel returnValue =
-				CommerceApplicationModelCProductRelServiceUtil.addCommerceApplicationModelCProductRel(userId,
-					commerceApplicationModelId, cProductId);
 
-			return com.liferay.commerce.application.model.CommerceApplicationModelCProductRelSoap.toSoapModel(returnValue);
+	public static com.liferay.commerce.application.model.
+		CommerceApplicationModelCProductRelSoap
+				addCommerceApplicationModelCProductRel(
+					long userId, long commerceApplicationModelId,
+					long cProductId)
+			throws RemoteException {
+
+		try {
+			com.liferay.commerce.application.model.
+				CommerceApplicationModelCProductRel returnValue =
+					CommerceApplicationModelCProductRelServiceUtil.
+						addCommerceApplicationModelCProductRel(
+							userId, commerceApplicationModelId, cProductId);
+
+			return com.liferay.commerce.application.model.
+				CommerceApplicationModelCProductRelSoap.toSoapModel(
+					returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -83,9 +87,13 @@ public class CommerceApplicationModelCProductRelServiceSoap {
 	}
 
 	public static void deleteCommerceApplicationModelCProductRel(
-		long commerceApplicationModelCProductRelId) throws RemoteException {
+			long commerceApplicationModelCProductRelId)
+		throws RemoteException {
+
 		try {
-			CommerceApplicationModelCProductRelServiceUtil.deleteCommerceApplicationModelCProductRel(commerceApplicationModelCProductRelId);
+			CommerceApplicationModelCProductRelServiceUtil.
+				deleteCommerceApplicationModelCProductRel(
+					commerceApplicationModelCProductRelId);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -94,15 +102,23 @@ public class CommerceApplicationModelCProductRelServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.application.model.CommerceApplicationModelCProductRelSoap[] getCommerceApplicationModelCProductRels(
-		long commerceApplicationModelId, int start, int end)
-		throws RemoteException {
-		try {
-			java.util.List<com.liferay.commerce.application.model.CommerceApplicationModelCProductRel> returnValue =
-				CommerceApplicationModelCProductRelServiceUtil.getCommerceApplicationModelCProductRels(commerceApplicationModelId,
-					start, end);
+	public static com.liferay.commerce.application.model.
+		CommerceApplicationModelCProductRelSoap[]
+				getCommerceApplicationModelCProductRels(
+					long commerceApplicationModelId, int start, int end)
+			throws RemoteException {
 
-			return com.liferay.commerce.application.model.CommerceApplicationModelCProductRelSoap.toSoapModels(returnValue);
+		try {
+			java.util.List
+				<com.liferay.commerce.application.model.
+					CommerceApplicationModelCProductRel> returnValue =
+						CommerceApplicationModelCProductRelServiceUtil.
+							getCommerceApplicationModelCProductRels(
+								commerceApplicationModelId, start, end);
+
+			return com.liferay.commerce.application.model.
+				CommerceApplicationModelCProductRelSoap.toSoapModels(
+					returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -112,9 +128,14 @@ public class CommerceApplicationModelCProductRelServiceSoap {
 	}
 
 	public static int getCommerceApplicationModelCProductRelsCount(
-		long commerceApplicationModelId) throws RemoteException {
+			long commerceApplicationModelId)
+		throws RemoteException {
+
 		try {
-			int returnValue = CommerceApplicationModelCProductRelServiceUtil.getCommerceApplicationModelCProductRelsCount(commerceApplicationModelId);
+			int returnValue =
+				CommerceApplicationModelCProductRelServiceUtil.
+					getCommerceApplicationModelCProductRelsCount(
+						commerceApplicationModelId);
 
 			return returnValue;
 		}
@@ -125,5 +146,7 @@ public class CommerceApplicationModelCProductRelServiceSoap {
 		}
 	}
 
-	private static Log _log = LogFactoryUtil.getLog(CommerceApplicationModelCProductRelServiceSoap.class);
+	private static Log _log = LogFactoryUtil.getLog(
+		CommerceApplicationModelCProductRelServiceSoap.class);
+
 }

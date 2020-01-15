@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.application.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -26,22 +24,25 @@ import java.util.List;
  * This class is used by SOAP remote services, specifically {@link com.liferay.commerce.application.service.http.CommerceApplicationModelCProductRelServiceSoap}.
  *
  * @author Luca Pellizzon
- * @see com.liferay.commerce.application.service.http.CommerceApplicationModelCProductRelServiceSoap
  * @generated
  */
-@ProviderType
 public class CommerceApplicationModelCProductRelSoap implements Serializable {
+
 	public static CommerceApplicationModelCProductRelSoap toSoapModel(
 		CommerceApplicationModelCProductRel model) {
-		CommerceApplicationModelCProductRelSoap soapModel = new CommerceApplicationModelCProductRelSoap();
 
-		soapModel.setCommerceApplicationModelCProductRelId(model.getCommerceApplicationModelCProductRelId());
+		CommerceApplicationModelCProductRelSoap soapModel =
+			new CommerceApplicationModelCProductRelSoap();
+
+		soapModel.setCommerceApplicationModelCProductRelId(
+			model.getCommerceApplicationModelCProductRelId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
-		soapModel.setCommerceApplicationModelId(model.getCommerceApplicationModelId());
+		soapModel.setCommerceApplicationModelId(
+			model.getCommerceApplicationModelId());
 		soapModel.setCProductId(model.getCProductId());
 
 		return soapModel;
@@ -49,7 +50,9 @@ public class CommerceApplicationModelCProductRelSoap implements Serializable {
 
 	public static CommerceApplicationModelCProductRelSoap[] toSoapModels(
 		CommerceApplicationModelCProductRel[] models) {
-		CommerceApplicationModelCProductRelSoap[] soapModels = new CommerceApplicationModelCProductRelSoap[models.length];
+
+		CommerceApplicationModelCProductRelSoap[] soapModels =
+			new CommerceApplicationModelCProductRelSoap[models.length];
 
 		for (int i = 0; i < models.length; i++) {
 			soapModels[i] = toSoapModel(models[i]);
@@ -60,10 +63,12 @@ public class CommerceApplicationModelCProductRelSoap implements Serializable {
 
 	public static CommerceApplicationModelCProductRelSoap[][] toSoapModels(
 		CommerceApplicationModelCProductRel[][] models) {
+
 		CommerceApplicationModelCProductRelSoap[][] soapModels = null;
 
 		if (models.length > 0) {
-			soapModels = new CommerceApplicationModelCProductRelSoap[models.length][models[0].length];
+			soapModels = new CommerceApplicationModelCProductRelSoap
+				[models.length][models[0].length];
 		}
 		else {
 			soapModels = new CommerceApplicationModelCProductRelSoap[0][0];
@@ -78,13 +83,17 @@ public class CommerceApplicationModelCProductRelSoap implements Serializable {
 
 	public static CommerceApplicationModelCProductRelSoap[] toSoapModels(
 		List<CommerceApplicationModelCProductRel> models) {
-		List<CommerceApplicationModelCProductRelSoap> soapModels = new ArrayList<CommerceApplicationModelCProductRelSoap>(models.size());
+
+		List<CommerceApplicationModelCProductRelSoap> soapModels =
+			new ArrayList<CommerceApplicationModelCProductRelSoap>(
+				models.size());
 
 		for (CommerceApplicationModelCProductRel model : models) {
 			soapModels.add(toSoapModel(model));
 		}
 
-		return soapModels.toArray(new CommerceApplicationModelCProductRelSoap[soapModels.size()]);
+		return soapModels.toArray(
+			new CommerceApplicationModelCProductRelSoap[soapModels.size()]);
 	}
 
 	public CommerceApplicationModelCProductRelSoap() {
@@ -104,7 +113,9 @@ public class CommerceApplicationModelCProductRelSoap implements Serializable {
 
 	public void setCommerceApplicationModelCProductRelId(
 		long commerceApplicationModelCProductRelId) {
-		_commerceApplicationModelCProductRelId = commerceApplicationModelCProductRelId;
+
+		_commerceApplicationModelCProductRelId =
+			commerceApplicationModelCProductRelId;
 	}
 
 	public long getCompanyId() {
@@ -171,4 +182,5 @@ public class CommerceApplicationModelCProductRelSoap implements Serializable {
 	private Date _modifiedDate;
 	private long _commerceApplicationModelId;
 	private long _CProductId;
+
 }

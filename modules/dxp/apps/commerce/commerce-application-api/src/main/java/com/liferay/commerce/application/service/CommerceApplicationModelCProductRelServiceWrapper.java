@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.application.service;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
@@ -25,53 +23,74 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @see CommerceApplicationModelCProductRelService
  * @generated
  */
-@ProviderType
 public class CommerceApplicationModelCProductRelServiceWrapper
 	implements CommerceApplicationModelCProductRelService,
-		ServiceWrapper<CommerceApplicationModelCProductRelService> {
+			   ServiceWrapper<CommerceApplicationModelCProductRelService> {
+
 	public CommerceApplicationModelCProductRelServiceWrapper(
-		CommerceApplicationModelCProductRelService commerceApplicationModelCProductRelService) {
-		_commerceApplicationModelCProductRelService = commerceApplicationModelCProductRelService;
+		CommerceApplicationModelCProductRelService
+			commerceApplicationModelCProductRelService) {
+
+		_commerceApplicationModelCProductRelService =
+			commerceApplicationModelCProductRelService;
 	}
 
 	@Override
-	public com.liferay.commerce.application.model.CommerceApplicationModelCProductRel addCommerceApplicationModelCProductRel(
-		long userId, long commerceApplicationModelId, long cProductId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _commerceApplicationModelCProductRelService.addCommerceApplicationModelCProductRel(userId,
-			commerceApplicationModelId, cProductId);
+	public
+		com.liferay.commerce.application.model.
+			CommerceApplicationModelCProductRel
+					addCommerceApplicationModelCProductRel(
+						long userId, long commerceApplicationModelId,
+						long cProductId)
+				throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceApplicationModelCProductRelService.
+			addCommerceApplicationModelCProductRel(
+				userId, commerceApplicationModelId, cProductId);
 	}
 
 	@Override
 	public void deleteCommerceApplicationModelCProductRel(
-		long commerceApplicationModelCProductRelId)
+			long commerceApplicationModelCProductRelId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		_commerceApplicationModelCProductRelService.deleteCommerceApplicationModelCProductRel(commerceApplicationModelCProductRelId);
+
+		_commerceApplicationModelCProductRelService.
+			deleteCommerceApplicationModelCProductRel(
+				commerceApplicationModelCProductRelId);
 	}
 
 	@Override
-	public java.util.List<com.liferay.commerce.application.model.CommerceApplicationModelCProductRel> getCommerceApplicationModelCProductRels(
-		long commerceApplicationModelId, int start, int end)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _commerceApplicationModelCProductRelService.getCommerceApplicationModelCProductRels(commerceApplicationModelId,
-			start, end);
+	public java.util.List
+		<com.liferay.commerce.application.model.
+			CommerceApplicationModelCProductRel>
+					getCommerceApplicationModelCProductRels(
+						long commerceApplicationModelId, int start, int end)
+				throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceApplicationModelCProductRelService.
+			getCommerceApplicationModelCProductRels(
+				commerceApplicationModelId, start, end);
 	}
 
 	@Override
 	public int getCommerceApplicationModelCProductRelsCount(
-		long commerceApplicationModelId)
+			long commerceApplicationModelId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _commerceApplicationModelCProductRelService.getCommerceApplicationModelCProductRelsCount(commerceApplicationModelId);
+
+		return _commerceApplicationModelCProductRelService.
+			getCommerceApplicationModelCProductRelsCount(
+				commerceApplicationModelId);
 	}
 
 	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
-	*/
+	 * Returns the OSGi service identifier.
+	 *
+	 * @return the OSGi service identifier
+	 */
 	@Override
 	public String getOSGiServiceIdentifier() {
-		return _commerceApplicationModelCProductRelService.getOSGiServiceIdentifier();
+		return _commerceApplicationModelCProductRelService.
+			getOSGiServiceIdentifier();
 	}
 
 	@Override
@@ -81,9 +100,14 @@ public class CommerceApplicationModelCProductRelServiceWrapper
 
 	@Override
 	public void setWrappedService(
-		CommerceApplicationModelCProductRelService commerceApplicationModelCProductRelService) {
-		_commerceApplicationModelCProductRelService = commerceApplicationModelCProductRelService;
+		CommerceApplicationModelCProductRelService
+			commerceApplicationModelCProductRelService) {
+
+		_commerceApplicationModelCProductRelService =
+			commerceApplicationModelCProductRelService;
 	}
 
-	private CommerceApplicationModelCProductRelService _commerceApplicationModelCProductRelService;
+	private CommerceApplicationModelCProductRelService
+		_commerceApplicationModelCProductRelService;
+
 }

@@ -14,10 +14,7 @@
 
 package com.liferay.commerce.application.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.application.model.CommerceApplicationModelCProductRel;
-
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -33,12 +30,11 @@ import java.util.Date;
  * The cache model class for representing CommerceApplicationModelCProductRel in entity cache.
  *
  * @author Luca Pellizzon
- * @see CommerceApplicationModelCProductRel
  * @generated
  */
-@ProviderType
-public class CommerceApplicationModelCProductRelCacheModel implements CacheModel<CommerceApplicationModelCProductRel>,
-	Externalizable {
+public class CommerceApplicationModelCProductRelCacheModel
+	implements CacheModel<CommerceApplicationModelCProductRel>, Externalizable {
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -49,10 +45,14 @@ public class CommerceApplicationModelCProductRelCacheModel implements CacheModel
 			return false;
 		}
 
-		CommerceApplicationModelCProductRelCacheModel commerceApplicationModelCProductRelCacheModel =
-			(CommerceApplicationModelCProductRelCacheModel)obj;
+		CommerceApplicationModelCProductRelCacheModel
+			commerceApplicationModelCProductRelCacheModel =
+				(CommerceApplicationModelCProductRelCacheModel)obj;
 
-		if (commerceApplicationModelCProductRelId == commerceApplicationModelCProductRelCacheModel.commerceApplicationModelCProductRelId) {
+		if (commerceApplicationModelCProductRelId ==
+				commerceApplicationModelCProductRelCacheModel.
+					commerceApplicationModelCProductRelId) {
+
 			return true;
 		}
 
@@ -91,10 +91,13 @@ public class CommerceApplicationModelCProductRelCacheModel implements CacheModel
 
 	@Override
 	public CommerceApplicationModelCProductRel toEntityModel() {
-		CommerceApplicationModelCProductRelImpl commerceApplicationModelCProductRelImpl =
-			new CommerceApplicationModelCProductRelImpl();
+		CommerceApplicationModelCProductRelImpl
+			commerceApplicationModelCProductRelImpl =
+				new CommerceApplicationModelCProductRelImpl();
 
-		commerceApplicationModelCProductRelImpl.setCommerceApplicationModelCProductRelId(commerceApplicationModelCProductRelId);
+		commerceApplicationModelCProductRelImpl.
+			setCommerceApplicationModelCProductRelId(
+				commerceApplicationModelCProductRelId);
 		commerceApplicationModelCProductRelImpl.setCompanyId(companyId);
 		commerceApplicationModelCProductRelImpl.setUserId(userId);
 
@@ -109,19 +112,20 @@ public class CommerceApplicationModelCProductRelCacheModel implements CacheModel
 			commerceApplicationModelCProductRelImpl.setCreateDate(null);
 		}
 		else {
-			commerceApplicationModelCProductRelImpl.setCreateDate(new Date(
-					createDate));
+			commerceApplicationModelCProductRelImpl.setCreateDate(
+				new Date(createDate));
 		}
 
 		if (modifiedDate == Long.MIN_VALUE) {
 			commerceApplicationModelCProductRelImpl.setModifiedDate(null);
 		}
 		else {
-			commerceApplicationModelCProductRelImpl.setModifiedDate(new Date(
-					modifiedDate));
+			commerceApplicationModelCProductRelImpl.setModifiedDate(
+				new Date(modifiedDate));
 		}
 
-		commerceApplicationModelCProductRelImpl.setCommerceApplicationModelId(commerceApplicationModelId);
+		commerceApplicationModelCProductRelImpl.setCommerceApplicationModelId(
+			commerceApplicationModelId);
 		commerceApplicationModelCProductRelImpl.setCProductId(CProductId);
 
 		commerceApplicationModelCProductRelImpl.resetOriginalValues();
@@ -146,8 +150,7 @@ public class CommerceApplicationModelCProductRelCacheModel implements CacheModel
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput objectOutput)
-		throws IOException {
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(commerceApplicationModelCProductRelId);
 
 		objectOutput.writeLong(companyId);
@@ -177,4 +180,5 @@ public class CommerceApplicationModelCProductRelCacheModel implements CacheModel
 	public long modifiedDate;
 	public long commerceApplicationModelId;
 	public long CProductId;
+
 }

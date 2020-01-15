@@ -14,10 +14,7 @@
 
 package com.liferay.commerce.application.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -37,11 +34,13 @@ import java.util.Objects;
  * @see CommerceApplicationBrand
  * @generated
  */
-@ProviderType
-public class CommerceApplicationBrandWrapper implements CommerceApplicationBrand,
-	ModelWrapper<CommerceApplicationBrand> {
+public class CommerceApplicationBrandWrapper
+	implements CommerceApplicationBrand,
+			   ModelWrapper<CommerceApplicationBrand> {
+
 	public CommerceApplicationBrandWrapper(
 		CommerceApplicationBrand commerceApplicationBrand) {
+
 		_commerceApplicationBrand = commerceApplicationBrand;
 	}
 
@@ -59,8 +58,8 @@ public class CommerceApplicationBrandWrapper implements CommerceApplicationBrand
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		attributes.put("commerceApplicationBrandId",
-			getCommerceApplicationBrandId());
+		attributes.put(
+			"commerceApplicationBrandId", getCommerceApplicationBrandId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("userName", getUserName());
@@ -75,7 +74,7 @@ public class CommerceApplicationBrandWrapper implements CommerceApplicationBrand
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		Long commerceApplicationBrandId = (Long)attributes.get(
-				"commerceApplicationBrandId");
+			"commerceApplicationBrandId");
 
 		if (commerceApplicationBrandId != null) {
 			setCommerceApplicationBrandId(commerceApplicationBrandId);
@@ -126,7 +125,8 @@ public class CommerceApplicationBrandWrapper implements CommerceApplicationBrand
 
 	@Override
 	public Object clone() {
-		return new CommerceApplicationBrandWrapper((CommerceApplicationBrand)_commerceApplicationBrand.clone());
+		return new CommerceApplicationBrandWrapper(
+			(CommerceApplicationBrand)_commerceApplicationBrand.clone());
 	}
 
 	@Override
@@ -135,30 +135,30 @@ public class CommerceApplicationBrandWrapper implements CommerceApplicationBrand
 	}
 
 	/**
-	* Returns the commerce application brand ID of this commerce application brand.
-	*
-	* @return the commerce application brand ID of this commerce application brand
-	*/
+	 * Returns the commerce application brand ID of this commerce application brand.
+	 *
+	 * @return the commerce application brand ID of this commerce application brand
+	 */
 	@Override
 	public long getCommerceApplicationBrandId() {
 		return _commerceApplicationBrand.getCommerceApplicationBrandId();
 	}
 
 	/**
-	* Returns the company ID of this commerce application brand.
-	*
-	* @return the company ID of this commerce application brand
-	*/
+	 * Returns the company ID of this commerce application brand.
+	 *
+	 * @return the company ID of this commerce application brand
+	 */
 	@Override
 	public long getCompanyId() {
 		return _commerceApplicationBrand.getCompanyId();
 	}
 
 	/**
-	* Returns the create date of this commerce application brand.
-	*
-	* @return the create date of this commerce application brand
-	*/
+	 * Returns the create date of this commerce application brand.
+	 *
+	 * @return the create date of this commerce application brand
+	 */
 	@Override
 	public Date getCreateDate() {
 		return _commerceApplicationBrand.getCreateDate();
@@ -170,40 +170,40 @@ public class CommerceApplicationBrandWrapper implements CommerceApplicationBrand
 	}
 
 	/**
-	* Returns the logo ID of this commerce application brand.
-	*
-	* @return the logo ID of this commerce application brand
-	*/
+	 * Returns the logo ID of this commerce application brand.
+	 *
+	 * @return the logo ID of this commerce application brand
+	 */
 	@Override
 	public long getLogoId() {
 		return _commerceApplicationBrand.getLogoId();
 	}
 
 	/**
-	* Returns the modified date of this commerce application brand.
-	*
-	* @return the modified date of this commerce application brand
-	*/
+	 * Returns the modified date of this commerce application brand.
+	 *
+	 * @return the modified date of this commerce application brand
+	 */
 	@Override
 	public Date getModifiedDate() {
 		return _commerceApplicationBrand.getModifiedDate();
 	}
 
 	/**
-	* Returns the name of this commerce application brand.
-	*
-	* @return the name of this commerce application brand
-	*/
+	 * Returns the name of this commerce application brand.
+	 *
+	 * @return the name of this commerce application brand
+	 */
 	@Override
 	public String getName() {
 		return _commerceApplicationBrand.getName();
 	}
 
 	/**
-	* Returns the primary key of this commerce application brand.
-	*
-	* @return the primary key of this commerce application brand
-	*/
+	 * Returns the primary key of this commerce application brand.
+	 *
+	 * @return the primary key of this commerce application brand
+	 */
 	@Override
 	public long getPrimaryKey() {
 		return _commerceApplicationBrand.getPrimaryKey();
@@ -215,30 +215,30 @@ public class CommerceApplicationBrandWrapper implements CommerceApplicationBrand
 	}
 
 	/**
-	* Returns the user ID of this commerce application brand.
-	*
-	* @return the user ID of this commerce application brand
-	*/
+	 * Returns the user ID of this commerce application brand.
+	 *
+	 * @return the user ID of this commerce application brand
+	 */
 	@Override
 	public long getUserId() {
 		return _commerceApplicationBrand.getUserId();
 	}
 
 	/**
-	* Returns the user name of this commerce application brand.
-	*
-	* @return the user name of this commerce application brand
-	*/
+	 * Returns the user name of this commerce application brand.
+	 *
+	 * @return the user name of this commerce application brand
+	 */
 	@Override
 	public String getUserName() {
 		return _commerceApplicationBrand.getUserName();
 	}
 
 	/**
-	* Returns the user uuid of this commerce application brand.
-	*
-	* @return the user uuid of this commerce application brand
-	*/
+	 * Returns the user uuid of this commerce application brand.
+	 *
+	 * @return the user uuid of this commerce application brand
+	 */
 	@Override
 	public String getUserUuid() {
 		return _commerceApplicationBrand.getUserUuid();
@@ -275,30 +275,31 @@ public class CommerceApplicationBrandWrapper implements CommerceApplicationBrand
 	}
 
 	/**
-	* Sets the commerce application brand ID of this commerce application brand.
-	*
-	* @param commerceApplicationBrandId the commerce application brand ID of this commerce application brand
-	*/
+	 * Sets the commerce application brand ID of this commerce application brand.
+	 *
+	 * @param commerceApplicationBrandId the commerce application brand ID of this commerce application brand
+	 */
 	@Override
 	public void setCommerceApplicationBrandId(long commerceApplicationBrandId) {
-		_commerceApplicationBrand.setCommerceApplicationBrandId(commerceApplicationBrandId);
+		_commerceApplicationBrand.setCommerceApplicationBrandId(
+			commerceApplicationBrandId);
 	}
 
 	/**
-	* Sets the company ID of this commerce application brand.
-	*
-	* @param companyId the company ID of this commerce application brand
-	*/
+	 * Sets the company ID of this commerce application brand.
+	 *
+	 * @param companyId the company ID of this commerce application brand
+	 */
 	@Override
 	public void setCompanyId(long companyId) {
 		_commerceApplicationBrand.setCompanyId(companyId);
 	}
 
 	/**
-	* Sets the create date of this commerce application brand.
-	*
-	* @param createDate the create date of this commerce application brand
-	*/
+	 * Sets the create date of this commerce application brand.
+	 *
+	 * @param createDate the create date of this commerce application brand
+	 */
 	@Override
 	public void setCreateDate(Date createDate) {
 		_commerceApplicationBrand.setCreateDate(createDate);
@@ -307,6 +308,7 @@ public class CommerceApplicationBrandWrapper implements CommerceApplicationBrand
 	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
 		_commerceApplicationBrand.setExpandoBridgeAttributes(baseModel);
 	}
 
@@ -321,30 +323,30 @@ public class CommerceApplicationBrandWrapper implements CommerceApplicationBrand
 	}
 
 	/**
-	* Sets the logo ID of this commerce application brand.
-	*
-	* @param logoId the logo ID of this commerce application brand
-	*/
+	 * Sets the logo ID of this commerce application brand.
+	 *
+	 * @param logoId the logo ID of this commerce application brand
+	 */
 	@Override
 	public void setLogoId(long logoId) {
 		_commerceApplicationBrand.setLogoId(logoId);
 	}
 
 	/**
-	* Sets the modified date of this commerce application brand.
-	*
-	* @param modifiedDate the modified date of this commerce application brand
-	*/
+	 * Sets the modified date of this commerce application brand.
+	 *
+	 * @param modifiedDate the modified date of this commerce application brand
+	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_commerceApplicationBrand.setModifiedDate(modifiedDate);
 	}
 
 	/**
-	* Sets the name of this commerce application brand.
-	*
-	* @param name the name of this commerce application brand
-	*/
+	 * Sets the name of this commerce application brand.
+	 *
+	 * @param name the name of this commerce application brand
+	 */
 	@Override
 	public void setName(String name) {
 		_commerceApplicationBrand.setName(name);
@@ -356,10 +358,10 @@ public class CommerceApplicationBrandWrapper implements CommerceApplicationBrand
 	}
 
 	/**
-	* Sets the primary key of this commerce application brand.
-	*
-	* @param primaryKey the primary key of this commerce application brand
-	*/
+	 * Sets the primary key of this commerce application brand.
+	 *
+	 * @param primaryKey the primary key of this commerce application brand
+	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_commerceApplicationBrand.setPrimaryKey(primaryKey);
@@ -371,43 +373,46 @@ public class CommerceApplicationBrandWrapper implements CommerceApplicationBrand
 	}
 
 	/**
-	* Sets the user ID of this commerce application brand.
-	*
-	* @param userId the user ID of this commerce application brand
-	*/
+	 * Sets the user ID of this commerce application brand.
+	 *
+	 * @param userId the user ID of this commerce application brand
+	 */
 	@Override
 	public void setUserId(long userId) {
 		_commerceApplicationBrand.setUserId(userId);
 	}
 
 	/**
-	* Sets the user name of this commerce application brand.
-	*
-	* @param userName the user name of this commerce application brand
-	*/
+	 * Sets the user name of this commerce application brand.
+	 *
+	 * @param userName the user name of this commerce application brand
+	 */
 	@Override
 	public void setUserName(String userName) {
 		_commerceApplicationBrand.setUserName(userName);
 	}
 
 	/**
-	* Sets the user uuid of this commerce application brand.
-	*
-	* @param userUuid the user uuid of this commerce application brand
-	*/
+	 * Sets the user uuid of this commerce application brand.
+	 *
+	 * @param userUuid the user uuid of this commerce application brand
+	 */
 	@Override
 	public void setUserUuid(String userUuid) {
 		_commerceApplicationBrand.setUserUuid(userUuid);
 	}
 
 	@Override
-	public com.liferay.portal.kernel.model.CacheModel<CommerceApplicationBrand> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<CommerceApplicationBrand>
+		toCacheModel() {
+
 		return _commerceApplicationBrand.toCacheModel();
 	}
 
 	@Override
 	public CommerceApplicationBrand toEscapedModel() {
-		return new CommerceApplicationBrandWrapper(_commerceApplicationBrand.toEscapedModel());
+		return new CommerceApplicationBrandWrapper(
+			_commerceApplicationBrand.toEscapedModel());
 	}
 
 	@Override
@@ -417,7 +422,8 @@ public class CommerceApplicationBrandWrapper implements CommerceApplicationBrand
 
 	@Override
 	public CommerceApplicationBrand toUnescapedModel() {
-		return new CommerceApplicationBrandWrapper(_commerceApplicationBrand.toUnescapedModel());
+		return new CommerceApplicationBrandWrapper(
+			_commerceApplicationBrand.toUnescapedModel());
 	}
 
 	@Override
@@ -435,10 +441,13 @@ public class CommerceApplicationBrandWrapper implements CommerceApplicationBrand
 			return false;
 		}
 
-		CommerceApplicationBrandWrapper commerceApplicationBrandWrapper = (CommerceApplicationBrandWrapper)obj;
+		CommerceApplicationBrandWrapper commerceApplicationBrandWrapper =
+			(CommerceApplicationBrandWrapper)obj;
 
-		if (Objects.equals(_commerceApplicationBrand,
-					commerceApplicationBrandWrapper._commerceApplicationBrand)) {
+		if (Objects.equals(
+				_commerceApplicationBrand,
+				commerceApplicationBrandWrapper._commerceApplicationBrand)) {
+
 			return true;
 		}
 
@@ -466,4 +475,5 @@ public class CommerceApplicationBrandWrapper implements CommerceApplicationBrand
 	}
 
 	private final CommerceApplicationBrand _commerceApplicationBrand;
+
 }

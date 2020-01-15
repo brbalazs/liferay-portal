@@ -14,14 +14,11 @@
 
 package com.liferay.commerce.application.service.persistence.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.application.exception.NoSuchApplicationModelCProductRelException;
 import com.liferay.commerce.application.model.CommerceApplicationModelCProductRel;
 import com.liferay.commerce.application.model.impl.CommerceApplicationModelCProductRelImpl;
 import com.liferay.commerce.application.model.impl.CommerceApplicationModelCProductRelModelImpl;
 import com.liferay.commerce.application.service.persistence.CommerceApplicationModelCProductRelPersistence;
-
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -31,10 +28,9 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
-import com.liferay.portal.kernel.service.persistence.CompanyProvider;
-import com.liferay.portal.kernel.service.persistence.CompanyProviderWrapper;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -64,62 +60,34 @@ import java.util.Set;
  * </p>
  *
  * @author Luca Pellizzon
- * @see CommerceApplicationModelCProductRelPersistence
- * @see com.liferay.commerce.application.service.persistence.CommerceApplicationModelCProductRelUtil
  * @generated
  */
-@ProviderType
 public class CommerceApplicationModelCProductRelPersistenceImpl
 	extends BasePersistenceImpl<CommerceApplicationModelCProductRel>
 	implements CommerceApplicationModelCProductRelPersistence {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Always use {@link CommerceApplicationModelCProductRelUtil} to access the commerce application model c product rel persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
+	 * Never modify or reference this class directly. Always use <code>CommerceApplicationModelCProductRelUtil</code> to access the commerce application model c product rel persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static final String FINDER_CLASS_NAME_ENTITY = CommerceApplicationModelCProductRelImpl.class.getName();
-	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List1";
-	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List2";
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceApplicationModelCProductRelModelImpl.FINDER_CACHE_ENABLED,
-			CommerceApplicationModelCProductRelImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL = new FinderPath(CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceApplicationModelCProductRelModelImpl.FINDER_CACHE_ENABLED,
-			CommerceApplicationModelCProductRelImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceApplicationModelCProductRelModelImpl.FINDER_CACHE_ENABLED,
-			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
-			new String[0]);
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_COMMERCEAPPLICATIONMODELID =
-		new FinderPath(CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceApplicationModelCProductRelModelImpl.FINDER_CACHE_ENABLED,
-			CommerceApplicationModelCProductRelImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
-			"findByCommerceApplicationModelId",
-			new String[] {
-				Long.class.getName(),
+	public static final String FINDER_CLASS_NAME_ENTITY =
+		CommerceApplicationModelCProductRelImpl.class.getName();
 
-			Integer.class.getName(), Integer.class.getName(),
-				OrderByComparator.class.getName()
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMMERCEAPPLICATIONMODELID =
-		new FinderPath(CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceApplicationModelCProductRelModelImpl.FINDER_CACHE_ENABLED,
-			CommerceApplicationModelCProductRelImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"findByCommerceApplicationModelId",
-			new String[] { Long.class.getName() },
-			CommerceApplicationModelCProductRelModelImpl.COMMERCEAPPLICATIONMODELID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_COMMERCEAPPLICATIONMODELID =
-		new FinderPath(CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceApplicationModelCProductRelModelImpl.FINDER_CACHE_ENABLED,
-			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"countByCommerceApplicationModelId",
-			new String[] { Long.class.getName() });
+	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List1";
+
+	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List2";
+
+	private FinderPath _finderPathWithPaginationFindAll;
+	private FinderPath _finderPathWithoutPaginationFindAll;
+	private FinderPath _finderPathCountAll;
+	private FinderPath
+		_finderPathWithPaginationFindByCommerceApplicationModelId;
+	private FinderPath
+		_finderPathWithoutPaginationFindByCommerceApplicationModelId;
+	private FinderPath _finderPathCountByCommerceApplicationModelId;
 
 	/**
 	 * Returns all the commerce application model c product rels where commerceApplicationModelId = &#63;.
@@ -128,17 +96,19 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 * @return the matching commerce application model c product rels
 	 */
 	@Override
-	public List<CommerceApplicationModelCProductRel> findByCommerceApplicationModelId(
-		long commerceApplicationModelId) {
-		return findByCommerceApplicationModelId(commerceApplicationModelId,
-			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	public List<CommerceApplicationModelCProductRel>
+		findByCommerceApplicationModelId(long commerceApplicationModelId) {
+
+		return findByCommerceApplicationModelId(
+			commerceApplicationModelId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			null);
 	}
 
 	/**
 	 * Returns a range of all the commerce application model c product rels where commerceApplicationModelId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationModelCProductRelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceApplicationModelCProductRelModelImpl</code>.
 	 * </p>
 	 *
 	 * @param commerceApplicationModelId the commerce application model ID
@@ -147,17 +117,19 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 * @return the range of matching commerce application model c product rels
 	 */
 	@Override
-	public List<CommerceApplicationModelCProductRel> findByCommerceApplicationModelId(
-		long commerceApplicationModelId, int start, int end) {
-		return findByCommerceApplicationModelId(commerceApplicationModelId,
-			start, end, null);
+	public List<CommerceApplicationModelCProductRel>
+		findByCommerceApplicationModelId(
+			long commerceApplicationModelId, int start, int end) {
+
+		return findByCommerceApplicationModelId(
+			commerceApplicationModelId, start, end, null);
 	}
 
 	/**
 	 * Returns an ordered range of all the commerce application model c product rels where commerceApplicationModelId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationModelCProductRelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceApplicationModelCProductRelModelImpl</code>.
 	 * </p>
 	 *
 	 * @param commerceApplicationModelId the commerce application model ID
@@ -167,60 +139,73 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 * @return the ordered range of matching commerce application model c product rels
 	 */
 	@Override
-	public List<CommerceApplicationModelCProductRel> findByCommerceApplicationModelId(
-		long commerceApplicationModelId, int start, int end,
-		OrderByComparator<CommerceApplicationModelCProductRel> orderByComparator) {
-		return findByCommerceApplicationModelId(commerceApplicationModelId,
-			start, end, orderByComparator, true);
+	public List<CommerceApplicationModelCProductRel>
+		findByCommerceApplicationModelId(
+			long commerceApplicationModelId, int start, int end,
+			OrderByComparator<CommerceApplicationModelCProductRel>
+				orderByComparator) {
+
+		return findByCommerceApplicationModelId(
+			commerceApplicationModelId, start, end, orderByComparator, true);
 	}
 
 	/**
 	 * Returns an ordered range of all the commerce application model c product rels where commerceApplicationModelId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationModelCProductRelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceApplicationModelCProductRelModelImpl</code>.
 	 * </p>
 	 *
 	 * @param commerceApplicationModelId the commerce application model ID
 	 * @param start the lower bound of the range of commerce application model c product rels
 	 * @param end the upper bound of the range of commerce application model c product rels (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching commerce application model c product rels
 	 */
 	@Override
-	public List<CommerceApplicationModelCProductRel> findByCommerceApplicationModelId(
-		long commerceApplicationModelId, int start, int end,
-		OrderByComparator<CommerceApplicationModelCProductRel> orderByComparator,
-		boolean retrieveFromCache) {
-		boolean pagination = true;
+	public List<CommerceApplicationModelCProductRel>
+		findByCommerceApplicationModelId(
+			long commerceApplicationModelId, int start, int end,
+			OrderByComparator<CommerceApplicationModelCProductRel>
+				orderByComparator,
+			boolean useFinderCache) {
+
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMMERCEAPPLICATIONMODELID;
-			finderArgs = new Object[] { commerceApplicationModelId };
-		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_COMMERCEAPPLICATIONMODELID;
-			finderArgs = new Object[] {
-					commerceApplicationModelId,
+			(orderByComparator == null)) {
 
-					start, end, orderByComparator
-				};
+			if (useFinderCache) {
+				finderPath =
+					_finderPathWithoutPaginationFindByCommerceApplicationModelId;
+				finderArgs = new Object[] {commerceApplicationModelId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath =
+				_finderPathWithPaginationFindByCommerceApplicationModelId;
+			finderArgs = new Object[] {
+				commerceApplicationModelId, start, end, orderByComparator
+			};
 		}
 
 		List<CommerceApplicationModelCProductRel> list = null;
 
-		if (retrieveFromCache) {
-			list = (List<CommerceApplicationModelCProductRel>)finderCache.getResult(finderPath,
-					finderArgs, this);
+		if (useFinderCache) {
+			list =
+				(List<CommerceApplicationModelCProductRel>)
+					finderCache.getResult(finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
-				for (CommerceApplicationModelCProductRel commerceApplicationModelCProductRel : list) {
-					if ((commerceApplicationModelId != commerceApplicationModelCProductRel.getCommerceApplicationModelId())) {
+				for (CommerceApplicationModelCProductRel
+						commerceApplicationModelCProductRel : list) {
+
+					if (commerceApplicationModelId !=
+							commerceApplicationModelCProductRel.
+								getCommerceApplicationModelId()) {
+
 						list = null;
 
 						break;
@@ -233,8 +218,8 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
 				query = new StringBundler(3);
@@ -242,15 +227,16 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 
 			query.append(_SQL_SELECT_COMMERCEAPPLICATIONMODELCPRODUCTREL_WHERE);
 
-			query.append(_FINDER_COLUMN_COMMERCEAPPLICATIONMODELID_COMMERCEAPPLICATIONMODELID_2);
+			query.append(
+				_FINDER_COLUMN_COMMERCEAPPLICATIONMODELID_COMMERCEAPPLICATIONMODELID_2);
 
 			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else
-			 if (pagination) {
-				query.append(CommerceApplicationModelCProductRelModelImpl.ORDER_BY_JPQL);
+			else {
+				query.append(
+					CommerceApplicationModelCProductRelModelImpl.ORDER_BY_JPQL);
 			}
 
 			String sql = query.toString();
@@ -266,25 +252,20 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 
 				qPos.add(commerceApplicationModelId);
 
-				if (!pagination) {
-					list = (List<CommerceApplicationModelCProductRel>)QueryUtil.list(q,
-							getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<CommerceApplicationModelCProductRel>)QueryUtil.list(q,
-							getDialect(), start, end);
-				}
+				list =
+					(List<CommerceApplicationModelCProductRel>)QueryUtil.list(
+						q, getDialect(), start, end);
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -305,12 +286,17 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 * @throws NoSuchApplicationModelCProductRelException if a matching commerce application model c product rel could not be found
 	 */
 	@Override
-	public CommerceApplicationModelCProductRel findByCommerceApplicationModelId_First(
-		long commerceApplicationModelId,
-		OrderByComparator<CommerceApplicationModelCProductRel> orderByComparator)
+	public CommerceApplicationModelCProductRel
+			findByCommerceApplicationModelId_First(
+				long commerceApplicationModelId,
+				OrderByComparator<CommerceApplicationModelCProductRel>
+					orderByComparator)
 		throws NoSuchApplicationModelCProductRelException {
-		CommerceApplicationModelCProductRel commerceApplicationModelCProductRel = fetchByCommerceApplicationModelId_First(commerceApplicationModelId,
-				orderByComparator);
+
+		CommerceApplicationModelCProductRel
+			commerceApplicationModelCProductRel =
+				fetchByCommerceApplicationModelId_First(
+					commerceApplicationModelId, orderByComparator);
 
 		if (commerceApplicationModelCProductRel != null) {
 			return commerceApplicationModelCProductRel;
@@ -336,11 +322,15 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 * @return the first matching commerce application model c product rel, or <code>null</code> if a matching commerce application model c product rel could not be found
 	 */
 	@Override
-	public CommerceApplicationModelCProductRel fetchByCommerceApplicationModelId_First(
-		long commerceApplicationModelId,
-		OrderByComparator<CommerceApplicationModelCProductRel> orderByComparator) {
-		List<CommerceApplicationModelCProductRel> list = findByCommerceApplicationModelId(commerceApplicationModelId,
-				0, 1, orderByComparator);
+	public CommerceApplicationModelCProductRel
+		fetchByCommerceApplicationModelId_First(
+			long commerceApplicationModelId,
+			OrderByComparator<CommerceApplicationModelCProductRel>
+				orderByComparator) {
+
+		List<CommerceApplicationModelCProductRel> list =
+			findByCommerceApplicationModelId(
+				commerceApplicationModelId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -358,12 +348,17 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 * @throws NoSuchApplicationModelCProductRelException if a matching commerce application model c product rel could not be found
 	 */
 	@Override
-	public CommerceApplicationModelCProductRel findByCommerceApplicationModelId_Last(
-		long commerceApplicationModelId,
-		OrderByComparator<CommerceApplicationModelCProductRel> orderByComparator)
+	public CommerceApplicationModelCProductRel
+			findByCommerceApplicationModelId_Last(
+				long commerceApplicationModelId,
+				OrderByComparator<CommerceApplicationModelCProductRel>
+					orderByComparator)
 		throws NoSuchApplicationModelCProductRelException {
-		CommerceApplicationModelCProductRel commerceApplicationModelCProductRel = fetchByCommerceApplicationModelId_Last(commerceApplicationModelId,
-				orderByComparator);
+
+		CommerceApplicationModelCProductRel
+			commerceApplicationModelCProductRel =
+				fetchByCommerceApplicationModelId_Last(
+					commerceApplicationModelId, orderByComparator);
 
 		if (commerceApplicationModelCProductRel != null) {
 			return commerceApplicationModelCProductRel;
@@ -389,17 +384,23 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 * @return the last matching commerce application model c product rel, or <code>null</code> if a matching commerce application model c product rel could not be found
 	 */
 	@Override
-	public CommerceApplicationModelCProductRel fetchByCommerceApplicationModelId_Last(
-		long commerceApplicationModelId,
-		OrderByComparator<CommerceApplicationModelCProductRel> orderByComparator) {
-		int count = countByCommerceApplicationModelId(commerceApplicationModelId);
+	public CommerceApplicationModelCProductRel
+		fetchByCommerceApplicationModelId_Last(
+			long commerceApplicationModelId,
+			OrderByComparator<CommerceApplicationModelCProductRel>
+				orderByComparator) {
+
+		int count = countByCommerceApplicationModelId(
+			commerceApplicationModelId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<CommerceApplicationModelCProductRel> list = findByCommerceApplicationModelId(commerceApplicationModelId,
-				count - 1, count, orderByComparator);
+		List<CommerceApplicationModelCProductRel> list =
+			findByCommerceApplicationModelId(
+				commerceApplicationModelId, count - 1, count,
+				orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -418,29 +419,35 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 * @throws NoSuchApplicationModelCProductRelException if a commerce application model c product rel with the primary key could not be found
 	 */
 	@Override
-	public CommerceApplicationModelCProductRel[] findByCommerceApplicationModelId_PrevAndNext(
-		long commerceApplicationModelCProductRelId,
-		long commerceApplicationModelId,
-		OrderByComparator<CommerceApplicationModelCProductRel> orderByComparator)
+	public CommerceApplicationModelCProductRel[]
+			findByCommerceApplicationModelId_PrevAndNext(
+				long commerceApplicationModelCProductRelId,
+				long commerceApplicationModelId,
+				OrderByComparator<CommerceApplicationModelCProductRel>
+					orderByComparator)
 		throws NoSuchApplicationModelCProductRelException {
-		CommerceApplicationModelCProductRel commerceApplicationModelCProductRel = findByPrimaryKey(commerceApplicationModelCProductRelId);
+
+		CommerceApplicationModelCProductRel
+			commerceApplicationModelCProductRel = findByPrimaryKey(
+				commerceApplicationModelCProductRelId);
 
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			CommerceApplicationModelCProductRel[] array = new CommerceApplicationModelCProductRelImpl[3];
+			CommerceApplicationModelCProductRel[] array =
+				new CommerceApplicationModelCProductRelImpl[3];
 
-			array[0] = getByCommerceApplicationModelId_PrevAndNext(session,
-					commerceApplicationModelCProductRel,
-					commerceApplicationModelId, orderByComparator, true);
+			array[0] = getByCommerceApplicationModelId_PrevAndNext(
+				session, commerceApplicationModelCProductRel,
+				commerceApplicationModelId, orderByComparator, true);
 
 			array[1] = commerceApplicationModelCProductRel;
 
-			array[2] = getByCommerceApplicationModelId_PrevAndNext(session,
-					commerceApplicationModelCProductRel,
-					commerceApplicationModelId, orderByComparator, false);
+			array[2] = getByCommerceApplicationModelId_PrevAndNext(
+				session, commerceApplicationModelCProductRel,
+				commerceApplicationModelId, orderByComparator, false);
 
 			return array;
 		}
@@ -452,17 +459,21 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 		}
 	}
 
-	protected CommerceApplicationModelCProductRel getByCommerceApplicationModelId_PrevAndNext(
-		Session session,
-		CommerceApplicationModelCProductRel commerceApplicationModelCProductRel,
-		long commerceApplicationModelId,
-		OrderByComparator<CommerceApplicationModelCProductRel> orderByComparator,
-		boolean previous) {
+	protected CommerceApplicationModelCProductRel
+		getByCommerceApplicationModelId_PrevAndNext(
+			Session session,
+			CommerceApplicationModelCProductRel
+				commerceApplicationModelCProductRel,
+			long commerceApplicationModelId,
+			OrderByComparator<CommerceApplicationModelCProductRel>
+				orderByComparator,
+			boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(4 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -471,10 +482,12 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 
 		query.append(_SQL_SELECT_COMMERCEAPPLICATIONMODELCPRODUCTREL_WHERE);
 
-		query.append(_FINDER_COLUMN_COMMERCEAPPLICATIONMODELID_COMMERCEAPPLICATIONMODELID_2);
+		query.append(
+			_FINDER_COLUMN_COMMERCEAPPLICATIONMODELID_COMMERCEAPPLICATIONMODELID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -529,7 +542,8 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 			}
 		}
 		else {
-			query.append(CommerceApplicationModelCProductRelModelImpl.ORDER_BY_JPQL);
+			query.append(
+				CommerceApplicationModelCProductRelModelImpl.ORDER_BY_JPQL);
 		}
 
 		String sql = query.toString();
@@ -544,10 +558,11 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 		qPos.add(commerceApplicationModelId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(commerceApplicationModelCProductRel);
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						commerceApplicationModelCProductRel)) {
 
-			for (Object value : values) {
-				qPos.add(value);
+				qPos.add(orderByConditionValue);
 			}
 		}
 
@@ -569,9 +584,13 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	@Override
 	public void removeByCommerceApplicationModelId(
 		long commerceApplicationModelId) {
-		for (CommerceApplicationModelCProductRel commerceApplicationModelCProductRel : findByCommerceApplicationModelId(
-				commerceApplicationModelId, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null)) {
+
+		for (CommerceApplicationModelCProductRel
+				commerceApplicationModelCProductRel :
+					findByCommerceApplicationModelId(
+						commerceApplicationModelId, QueryUtil.ALL_POS,
+						QueryUtil.ALL_POS, null)) {
+
 			remove(commerceApplicationModelCProductRel);
 		}
 	}
@@ -585,9 +604,10 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	@Override
 	public int countByCommerceApplicationModelId(
 		long commerceApplicationModelId) {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_COMMERCEAPPLICATIONMODELID;
 
-		Object[] finderArgs = new Object[] { commerceApplicationModelId };
+		FinderPath finderPath = _finderPathCountByCommerceApplicationModelId;
+
+		Object[] finderArgs = new Object[] {commerceApplicationModelId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -596,7 +616,8 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 
 			query.append(_SQL_COUNT_COMMERCEAPPLICATIONMODELCPRODUCTREL_WHERE);
 
-			query.append(_FINDER_COLUMN_COMMERCEAPPLICATIONMODELID_COMMERCEAPPLICATIONMODELID_2);
+			query.append(
+				_FINDER_COLUMN_COMMERCEAPPLICATIONMODELID_COMMERCEAPPLICATIONMODELID_2);
 
 			String sql = query.toString();
 
@@ -628,30 +649,13 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_COMMERCEAPPLICATIONMODELID_COMMERCEAPPLICATIONMODELID_2 =
-		"commerceApplicationModelCProductRel.commerceApplicationModelId = ?";
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_CPRODUCTID =
-		new FinderPath(CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceApplicationModelCProductRelModelImpl.FINDER_CACHE_ENABLED,
-			CommerceApplicationModelCProductRelImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCProductId",
-			new String[] {
-				Long.class.getName(),
+	private static final String
+		_FINDER_COLUMN_COMMERCEAPPLICATIONMODELID_COMMERCEAPPLICATIONMODELID_2 =
+			"commerceApplicationModelCProductRel.commerceApplicationModelId = ?";
 
-			Integer.class.getName(), Integer.class.getName(),
-				OrderByComparator.class.getName()
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CPRODUCTID =
-		new FinderPath(CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceApplicationModelCProductRelModelImpl.FINDER_CACHE_ENABLED,
-			CommerceApplicationModelCProductRelImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCProductId",
-			new String[] { Long.class.getName() },
-			CommerceApplicationModelCProductRelModelImpl.CPRODUCTID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_CPRODUCTID = new FinderPath(CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceApplicationModelCProductRelModelImpl.FINDER_CACHE_ENABLED,
-			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"countByCProductId", new String[] { Long.class.getName() });
+	private FinderPath _finderPathWithPaginationFindByCProductId;
+	private FinderPath _finderPathWithoutPaginationFindByCProductId;
+	private FinderPath _finderPathCountByCProductId;
 
 	/**
 	 * Returns all the commerce application model c product rels where CProductId = &#63;.
@@ -662,15 +666,16 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	@Override
 	public List<CommerceApplicationModelCProductRel> findByCProductId(
 		long CProductId) {
-		return findByCProductId(CProductId, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, null);
+
+		return findByCProductId(
+			CProductId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
 	 * Returns a range of all the commerce application model c product rels where CProductId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationModelCProductRelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceApplicationModelCProductRelModelImpl</code>.
 	 * </p>
 	 *
 	 * @param CProductId the c product ID
@@ -681,6 +686,7 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	@Override
 	public List<CommerceApplicationModelCProductRel> findByCProductId(
 		long CProductId, int start, int end) {
+
 		return findByCProductId(CProductId, start, end, null);
 	}
 
@@ -688,7 +694,7 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 * Returns an ordered range of all the commerce application model c product rels where CProductId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationModelCProductRelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceApplicationModelCProductRelModelImpl</code>.
 	 * </p>
 	 *
 	 * @param CProductId the c product ID
@@ -700,53 +706,67 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	@Override
 	public List<CommerceApplicationModelCProductRel> findByCProductId(
 		long CProductId, int start, int end,
-		OrderByComparator<CommerceApplicationModelCProductRel> orderByComparator) {
-		return findByCProductId(CProductId, start, end, orderByComparator, true);
+		OrderByComparator<CommerceApplicationModelCProductRel>
+			orderByComparator) {
+
+		return findByCProductId(
+			CProductId, start, end, orderByComparator, true);
 	}
 
 	/**
 	 * Returns an ordered range of all the commerce application model c product rels where CProductId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationModelCProductRelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceApplicationModelCProductRelModelImpl</code>.
 	 * </p>
 	 *
 	 * @param CProductId the c product ID
 	 * @param start the lower bound of the range of commerce application model c product rels
 	 * @param end the upper bound of the range of commerce application model c product rels (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching commerce application model c product rels
 	 */
 	@Override
 	public List<CommerceApplicationModelCProductRel> findByCProductId(
 		long CProductId, int start, int end,
-		OrderByComparator<CommerceApplicationModelCProductRel> orderByComparator,
-		boolean retrieveFromCache) {
-		boolean pagination = true;
+		OrderByComparator<CommerceApplicationModelCProductRel>
+			orderByComparator,
+		boolean useFinderCache) {
+
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CPRODUCTID;
-			finderArgs = new Object[] { CProductId };
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByCProductId;
+				finderArgs = new Object[] {CProductId};
+			}
 		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_CPRODUCTID;
-			finderArgs = new Object[] { CProductId, start, end, orderByComparator };
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByCProductId;
+			finderArgs = new Object[] {
+				CProductId, start, end, orderByComparator
+			};
 		}
 
 		List<CommerceApplicationModelCProductRel> list = null;
 
-		if (retrieveFromCache) {
-			list = (List<CommerceApplicationModelCProductRel>)finderCache.getResult(finderPath,
-					finderArgs, this);
+		if (useFinderCache) {
+			list =
+				(List<CommerceApplicationModelCProductRel>)
+					finderCache.getResult(finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
-				for (CommerceApplicationModelCProductRel commerceApplicationModelCProductRel : list) {
-					if ((CProductId != commerceApplicationModelCProductRel.getCProductId())) {
+				for (CommerceApplicationModelCProductRel
+						commerceApplicationModelCProductRel : list) {
+
+					if (CProductId !=
+							commerceApplicationModelCProductRel.
+								getCProductId()) {
+
 						list = null;
 
 						break;
@@ -759,8 +779,8 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
 				query = new StringBundler(3);
@@ -771,12 +791,12 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 			query.append(_FINDER_COLUMN_CPRODUCTID_CPRODUCTID_2);
 
 			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else
-			 if (pagination) {
-				query.append(CommerceApplicationModelCProductRelModelImpl.ORDER_BY_JPQL);
+			else {
+				query.append(
+					CommerceApplicationModelCProductRelModelImpl.ORDER_BY_JPQL);
 			}
 
 			String sql = query.toString();
@@ -792,25 +812,20 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 
 				qPos.add(CProductId);
 
-				if (!pagination) {
-					list = (List<CommerceApplicationModelCProductRel>)QueryUtil.list(q,
-							getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<CommerceApplicationModelCProductRel>)QueryUtil.list(q,
-							getDialect(), start, end);
-				}
+				list =
+					(List<CommerceApplicationModelCProductRel>)QueryUtil.list(
+						q, getDialect(), start, end);
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -832,11 +847,14 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 */
 	@Override
 	public CommerceApplicationModelCProductRel findByCProductId_First(
-		long CProductId,
-		OrderByComparator<CommerceApplicationModelCProductRel> orderByComparator)
+			long CProductId,
+			OrderByComparator<CommerceApplicationModelCProductRel>
+				orderByComparator)
 		throws NoSuchApplicationModelCProductRelException {
-		CommerceApplicationModelCProductRel commerceApplicationModelCProductRel = fetchByCProductId_First(CProductId,
-				orderByComparator);
+
+		CommerceApplicationModelCProductRel
+			commerceApplicationModelCProductRel = fetchByCProductId_First(
+				CProductId, orderByComparator);
 
 		if (commerceApplicationModelCProductRel != null) {
 			return commerceApplicationModelCProductRel;
@@ -864,9 +882,11 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	@Override
 	public CommerceApplicationModelCProductRel fetchByCProductId_First(
 		long CProductId,
-		OrderByComparator<CommerceApplicationModelCProductRel> orderByComparator) {
-		List<CommerceApplicationModelCProductRel> list = findByCProductId(CProductId,
-				0, 1, orderByComparator);
+		OrderByComparator<CommerceApplicationModelCProductRel>
+			orderByComparator) {
+
+		List<CommerceApplicationModelCProductRel> list = findByCProductId(
+			CProductId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -885,11 +905,14 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 */
 	@Override
 	public CommerceApplicationModelCProductRel findByCProductId_Last(
-		long CProductId,
-		OrderByComparator<CommerceApplicationModelCProductRel> orderByComparator)
+			long CProductId,
+			OrderByComparator<CommerceApplicationModelCProductRel>
+				orderByComparator)
 		throws NoSuchApplicationModelCProductRelException {
-		CommerceApplicationModelCProductRel commerceApplicationModelCProductRel = fetchByCProductId_Last(CProductId,
-				orderByComparator);
+
+		CommerceApplicationModelCProductRel
+			commerceApplicationModelCProductRel = fetchByCProductId_Last(
+				CProductId, orderByComparator);
 
 		if (commerceApplicationModelCProductRel != null) {
 			return commerceApplicationModelCProductRel;
@@ -917,15 +940,17 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	@Override
 	public CommerceApplicationModelCProductRel fetchByCProductId_Last(
 		long CProductId,
-		OrderByComparator<CommerceApplicationModelCProductRel> orderByComparator) {
+		OrderByComparator<CommerceApplicationModelCProductRel>
+			orderByComparator) {
+
 		int count = countByCProductId(CProductId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<CommerceApplicationModelCProductRel> list = findByCProductId(CProductId,
-				count - 1, count, orderByComparator);
+		List<CommerceApplicationModelCProductRel> list = findByCProductId(
+			CProductId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -945,27 +970,32 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 */
 	@Override
 	public CommerceApplicationModelCProductRel[] findByCProductId_PrevAndNext(
-		long commerceApplicationModelCProductRelId, long CProductId,
-		OrderByComparator<CommerceApplicationModelCProductRel> orderByComparator)
+			long commerceApplicationModelCProductRelId, long CProductId,
+			OrderByComparator<CommerceApplicationModelCProductRel>
+				orderByComparator)
 		throws NoSuchApplicationModelCProductRelException {
-		CommerceApplicationModelCProductRel commerceApplicationModelCProductRel = findByPrimaryKey(commerceApplicationModelCProductRelId);
+
+		CommerceApplicationModelCProductRel
+			commerceApplicationModelCProductRel = findByPrimaryKey(
+				commerceApplicationModelCProductRelId);
 
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			CommerceApplicationModelCProductRel[] array = new CommerceApplicationModelCProductRelImpl[3];
+			CommerceApplicationModelCProductRel[] array =
+				new CommerceApplicationModelCProductRelImpl[3];
 
-			array[0] = getByCProductId_PrevAndNext(session,
-					commerceApplicationModelCProductRel, CProductId,
-					orderByComparator, true);
+			array[0] = getByCProductId_PrevAndNext(
+				session, commerceApplicationModelCProductRel, CProductId,
+				orderByComparator, true);
 
 			array[1] = commerceApplicationModelCProductRel;
 
-			array[2] = getByCProductId_PrevAndNext(session,
-					commerceApplicationModelCProductRel, CProductId,
-					orderByComparator, false);
+			array[2] = getByCProductId_PrevAndNext(
+				session, commerceApplicationModelCProductRel, CProductId,
+				orderByComparator, false);
 
 			return array;
 		}
@@ -981,13 +1011,15 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 		Session session,
 		CommerceApplicationModelCProductRel commerceApplicationModelCProductRel,
 		long CProductId,
-		OrderByComparator<CommerceApplicationModelCProductRel> orderByComparator,
+		OrderByComparator<CommerceApplicationModelCProductRel>
+			orderByComparator,
 		boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(4 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -999,7 +1031,8 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 		query.append(_FINDER_COLUMN_CPRODUCTID_CPRODUCTID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -1054,7 +1087,8 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 			}
 		}
 		else {
-			query.append(CommerceApplicationModelCProductRelModelImpl.ORDER_BY_JPQL);
+			query.append(
+				CommerceApplicationModelCProductRelModelImpl.ORDER_BY_JPQL);
 		}
 
 		String sql = query.toString();
@@ -1069,10 +1103,11 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 		qPos.add(CProductId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(commerceApplicationModelCProductRel);
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						commerceApplicationModelCProductRel)) {
 
-			for (Object value : values) {
-				qPos.add(value);
+				qPos.add(orderByConditionValue);
 			}
 		}
 
@@ -1093,8 +1128,12 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 */
 	@Override
 	public void removeByCProductId(long CProductId) {
-		for (CommerceApplicationModelCProductRel commerceApplicationModelCProductRel : findByCProductId(
-				CProductId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+		for (CommerceApplicationModelCProductRel
+				commerceApplicationModelCProductRel :
+					findByCProductId(
+						CProductId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+						null)) {
+
 			remove(commerceApplicationModelCProductRel);
 		}
 	}
@@ -1107,9 +1146,9 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 */
 	@Override
 	public int countByCProductId(long CProductId) {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_CPRODUCTID;
+		FinderPath finderPath = _finderPathCountByCProductId;
 
-		Object[] finderArgs = new Object[] { CProductId };
+		Object[] finderArgs = new Object[] {CProductId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -1150,21 +1189,22 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_CPRODUCTID_CPRODUCTID_2 = "commerceApplicationModelCProductRel.CProductId = ?";
+	private static final String _FINDER_COLUMN_CPRODUCTID_CPRODUCTID_2 =
+		"commerceApplicationModelCProductRel.CProductId = ?";
 
 	public CommerceApplicationModelCProductRelPersistenceImpl() {
 		setModelClass(CommerceApplicationModelCProductRel.class);
 
+		Map<String, String> dbColumnNames = new HashMap<String, String>();
+
+		dbColumnNames.put(
+			"commerceApplicationModelCProductRelId", "CAModelCProductRelId");
+
 		try {
 			Field field = BasePersistenceImpl.class.getDeclaredField(
-					"_dbColumnNames");
+				"_dbColumnNames");
 
 			field.setAccessible(true);
-
-			Map<String, String> dbColumnNames = new HashMap<String, String>();
-
-			dbColumnNames.put("commerceApplicationModelCProductRelId",
-				"CAModelCProductRelId");
 
 			field.set(this, dbColumnNames);
 		}
@@ -1182,8 +1222,11 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(
-		CommerceApplicationModelCProductRel commerceApplicationModelCProductRel) {
-		entityCache.putResult(CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
+		CommerceApplicationModelCProductRel
+			commerceApplicationModelCProductRel) {
+
+		entityCache.putResult(
+			CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceApplicationModelCProductRelImpl.class,
 			commerceApplicationModelCProductRel.getPrimaryKey(),
 			commerceApplicationModelCProductRel);
@@ -1198,12 +1241,20 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(
-		List<CommerceApplicationModelCProductRel> commerceApplicationModelCProductRels) {
-		for (CommerceApplicationModelCProductRel commerceApplicationModelCProductRel : commerceApplicationModelCProductRels) {
+		List<CommerceApplicationModelCProductRel>
+			commerceApplicationModelCProductRels) {
+
+		for (CommerceApplicationModelCProductRel
+				commerceApplicationModelCProductRel :
+					commerceApplicationModelCProductRels) {
+
 			if (entityCache.getResult(
-						CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
-						CommerceApplicationModelCProductRelImpl.class,
-						commerceApplicationModelCProductRel.getPrimaryKey()) == null) {
+					CommerceApplicationModelCProductRelModelImpl.
+						ENTITY_CACHE_ENABLED,
+					CommerceApplicationModelCProductRelImpl.class,
+					commerceApplicationModelCProductRel.getPrimaryKey()) ==
+						null) {
+
 				cacheResult(commerceApplicationModelCProductRel);
 			}
 			else {
@@ -1216,7 +1267,7 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 * Clears the cache for all commerce application model c product rels.
 	 *
 	 * <p>
-	 * The {@link EntityCache} and {@link FinderCache} are both cleared by this method.
+	 * The <code>EntityCache</code> and <code>FinderCache</code> are both cleared by this method.
 	 * </p>
 	 */
 	@Override
@@ -1232,13 +1283,16 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 * Clears the cache for the commerce application model c product rel.
 	 *
 	 * <p>
-	 * The {@link EntityCache} and {@link FinderCache} are both cleared by this method.
+	 * The <code>EntityCache</code> and <code>FinderCache</code> are both cleared by this method.
 	 * </p>
 	 */
 	@Override
 	public void clearCache(
-		CommerceApplicationModelCProductRel commerceApplicationModelCProductRel) {
-		entityCache.removeResult(CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
+		CommerceApplicationModelCProductRel
+			commerceApplicationModelCProductRel) {
+
+		entityCache.removeResult(
+			CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceApplicationModelCProductRelImpl.class,
 			commerceApplicationModelCProductRel.getPrimaryKey());
 
@@ -1248,14 +1302,34 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 
 	@Override
 	public void clearCache(
-		List<CommerceApplicationModelCProductRel> commerceApplicationModelCProductRels) {
+		List<CommerceApplicationModelCProductRel>
+			commerceApplicationModelCProductRels) {
+
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
-		for (CommerceApplicationModelCProductRel commerceApplicationModelCProductRel : commerceApplicationModelCProductRels) {
-			entityCache.removeResult(CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
+		for (CommerceApplicationModelCProductRel
+				commerceApplicationModelCProductRel :
+					commerceApplicationModelCProductRels) {
+
+			entityCache.removeResult(
+				CommerceApplicationModelCProductRelModelImpl.
+					ENTITY_CACHE_ENABLED,
 				CommerceApplicationModelCProductRelImpl.class,
 				commerceApplicationModelCProductRel.getPrimaryKey());
+		}
+	}
+
+	public void clearCache(Set<Serializable> primaryKeys) {
+		finderCache.clearCache(FINDER_CLASS_NAME_ENTITY);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		for (Serializable primaryKey : primaryKeys) {
+			entityCache.removeResult(
+				CommerceApplicationModelCProductRelModelImpl.
+					ENTITY_CACHE_ENABLED,
+				CommerceApplicationModelCProductRelImpl.class, primaryKey);
 		}
 	}
 
@@ -1268,12 +1342,17 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	@Override
 	public CommerceApplicationModelCProductRel create(
 		long commerceApplicationModelCProductRelId) {
-		CommerceApplicationModelCProductRel commerceApplicationModelCProductRel = new CommerceApplicationModelCProductRelImpl();
+
+		CommerceApplicationModelCProductRel
+			commerceApplicationModelCProductRel =
+				new CommerceApplicationModelCProductRelImpl();
 
 		commerceApplicationModelCProductRel.setNew(true);
-		commerceApplicationModelCProductRel.setPrimaryKey(commerceApplicationModelCProductRelId);
+		commerceApplicationModelCProductRel.setPrimaryKey(
+			commerceApplicationModelCProductRelId);
 
-		commerceApplicationModelCProductRel.setCompanyId(companyProvider.getCompanyId());
+		commerceApplicationModelCProductRel.setCompanyId(
+			CompanyThreadLocal.getCompanyId());
 
 		return commerceApplicationModelCProductRel;
 	}
@@ -1287,8 +1366,9 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 */
 	@Override
 	public CommerceApplicationModelCProductRel remove(
-		long commerceApplicationModelCProductRelId)
+			long commerceApplicationModelCProductRelId)
 		throws NoSuchApplicationModelCProductRelException {
+
 		return remove((Serializable)commerceApplicationModelCProductRelId);
 	}
 
@@ -1302,22 +1382,25 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	@Override
 	public CommerceApplicationModelCProductRel remove(Serializable primaryKey)
 		throws NoSuchApplicationModelCProductRelException {
+
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			CommerceApplicationModelCProductRel commerceApplicationModelCProductRel =
-				(CommerceApplicationModelCProductRel)session.get(CommerceApplicationModelCProductRelImpl.class,
-					primaryKey);
+			CommerceApplicationModelCProductRel
+				commerceApplicationModelCProductRel =
+					(CommerceApplicationModelCProductRel)session.get(
+						CommerceApplicationModelCProductRelImpl.class,
+						primaryKey);
 
 			if (commerceApplicationModelCProductRel == null) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
-				throw new NoSuchApplicationModelCProductRelException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					primaryKey);
+				throw new NoSuchApplicationModelCProductRelException(
+					_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			return remove(commerceApplicationModelCProductRel);
@@ -1335,14 +1418,18 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 
 	@Override
 	protected CommerceApplicationModelCProductRel removeImpl(
-		CommerceApplicationModelCProductRel commerceApplicationModelCProductRel) {
+		CommerceApplicationModelCProductRel
+			commerceApplicationModelCProductRel) {
+
 		Session session = null;
 
 		try {
 			session = openSession();
 
 			if (!session.contains(commerceApplicationModelCProductRel)) {
-				commerceApplicationModelCProductRel = (CommerceApplicationModelCProductRel)session.get(CommerceApplicationModelCProductRelImpl.class,
+				commerceApplicationModelCProductRel =
+					(CommerceApplicationModelCProductRel)session.get(
+						CommerceApplicationModelCProductRelImpl.class,
 						commerceApplicationModelCProductRel.getPrimaryKeyObj());
 			}
 
@@ -1366,51 +1453,63 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 
 	@Override
 	public CommerceApplicationModelCProductRel updateImpl(
-		CommerceApplicationModelCProductRel commerceApplicationModelCProductRel) {
+		CommerceApplicationModelCProductRel
+			commerceApplicationModelCProductRel) {
+
 		boolean isNew = commerceApplicationModelCProductRel.isNew();
 
-		if (!(commerceApplicationModelCProductRel instanceof CommerceApplicationModelCProductRelModelImpl)) {
+		if (!(commerceApplicationModelCProductRel instanceof
+				CommerceApplicationModelCProductRelModelImpl)) {
+
 			InvocationHandler invocationHandler = null;
 
 			if (ProxyUtil.isProxyClass(
-						commerceApplicationModelCProductRel.getClass())) {
-				invocationHandler = ProxyUtil.getInvocationHandler(commerceApplicationModelCProductRel);
+					commerceApplicationModelCProductRel.getClass())) {
+
+				invocationHandler = ProxyUtil.getInvocationHandler(
+					commerceApplicationModelCProductRel);
 
 				throw new IllegalArgumentException(
 					"Implement ModelWrapper in commerceApplicationModelCProductRel proxy " +
-					invocationHandler.getClass());
+						invocationHandler.getClass());
 			}
 
 			throw new IllegalArgumentException(
 				"Implement ModelWrapper in custom CommerceApplicationModelCProductRel implementation " +
-				commerceApplicationModelCProductRel.getClass());
+					commerceApplicationModelCProductRel.getClass());
 		}
 
-		CommerceApplicationModelCProductRelModelImpl commerceApplicationModelCProductRelModelImpl =
-			(CommerceApplicationModelCProductRelModelImpl)commerceApplicationModelCProductRel;
+		CommerceApplicationModelCProductRelModelImpl
+			commerceApplicationModelCProductRelModelImpl =
+				(CommerceApplicationModelCProductRelModelImpl)
+					commerceApplicationModelCProductRel;
 
-		ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
 
 		Date now = new Date();
 
 		if (isNew &&
-				(commerceApplicationModelCProductRel.getCreateDate() == null)) {
+			(commerceApplicationModelCProductRel.getCreateDate() == null)) {
+
 			if (serviceContext == null) {
 				commerceApplicationModelCProductRel.setCreateDate(now);
 			}
 			else {
-				commerceApplicationModelCProductRel.setCreateDate(serviceContext.getCreateDate(
-						now));
+				commerceApplicationModelCProductRel.setCreateDate(
+					serviceContext.getCreateDate(now));
 			}
 		}
 
-		if (!commerceApplicationModelCProductRelModelImpl.hasSetModifiedDate()) {
+		if (!commerceApplicationModelCProductRelModelImpl.
+				hasSetModifiedDate()) {
+
 			if (serviceContext == null) {
 				commerceApplicationModelCProductRel.setModifiedDate(now);
 			}
 			else {
-				commerceApplicationModelCProductRel.setModifiedDate(serviceContext.getModifiedDate(
-						now));
+				commerceApplicationModelCProductRel.setModifiedDate(
+					serviceContext.getModifiedDate(now));
 			}
 		}
 
@@ -1425,7 +1524,9 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 				commerceApplicationModelCProductRel.setNew(false);
 			}
 			else {
-				commerceApplicationModelCProductRel = (CommerceApplicationModelCProductRel)session.merge(commerceApplicationModelCProductRel);
+				commerceApplicationModelCProductRel =
+					(CommerceApplicationModelCProductRel)session.merge(
+						commerceApplicationModelCProductRel);
 			}
 		}
 		catch (Exception e) {
@@ -1437,76 +1538,90 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 
-		if (!CommerceApplicationModelCProductRelModelImpl.COLUMN_BITMASK_ENABLED) {
+		if (!CommerceApplicationModelCProductRelModelImpl.
+				COLUMN_BITMASK_ENABLED) {
+
 			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
-		else
-		 if (isNew) {
+		else if (isNew) {
 			Object[] args = new Object[] {
-					commerceApplicationModelCProductRelModelImpl.getCommerceApplicationModelId()
-				};
+				commerceApplicationModelCProductRelModelImpl.
+					getCommerceApplicationModelId()
+			};
 
-			finderCache.removeResult(FINDER_PATH_COUNT_BY_COMMERCEAPPLICATIONMODELID,
-				args);
-			finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMMERCEAPPLICATIONMODELID,
+			finderCache.removeResult(
+				_finderPathCountByCommerceApplicationModelId, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByCommerceApplicationModelId,
 				args);
 
 			args = new Object[] {
+				commerceApplicationModelCProductRelModelImpl.getCProductId()
+			};
+
+			finderCache.removeResult(_finderPathCountByCProductId, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByCProductId, args);
+
+			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
+		}
+		else {
+			if ((commerceApplicationModelCProductRelModelImpl.
+					getColumnBitmask() &
+				 _finderPathWithoutPaginationFindByCommerceApplicationModelId.
+					 getColumnBitmask()) != 0) {
+
+				Object[] args = new Object[] {
+					commerceApplicationModelCProductRelModelImpl.
+						getOriginalCommerceApplicationModelId()
+				};
+
+				finderCache.removeResult(
+					_finderPathCountByCommerceApplicationModelId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByCommerceApplicationModelId,
+					args);
+
+				args = new Object[] {
+					commerceApplicationModelCProductRelModelImpl.
+						getCommerceApplicationModelId()
+				};
+
+				finderCache.removeResult(
+					_finderPathCountByCommerceApplicationModelId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByCommerceApplicationModelId,
+					args);
+			}
+
+			if ((commerceApplicationModelCProductRelModelImpl.
+					getColumnBitmask() &
+				 _finderPathWithoutPaginationFindByCProductId.
+					 getColumnBitmask()) != 0) {
+
+				Object[] args = new Object[] {
+					commerceApplicationModelCProductRelModelImpl.
+						getOriginalCProductId()
+				};
+
+				finderCache.removeResult(_finderPathCountByCProductId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByCProductId, args);
+
+				args = new Object[] {
 					commerceApplicationModelCProductRelModelImpl.getCProductId()
 				};
 
-			finderCache.removeResult(FINDER_PATH_COUNT_BY_CPRODUCTID, args);
-			finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CPRODUCTID,
-				args);
-
-			finderCache.removeResult(FINDER_PATH_COUNT_ALL, FINDER_ARGS_EMPTY);
-			finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL,
-				FINDER_ARGS_EMPTY);
-		}
-
-		else {
-			if ((commerceApplicationModelCProductRelModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMMERCEAPPLICATIONMODELID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						commerceApplicationModelCProductRelModelImpl.getOriginalCommerceApplicationModelId()
-					};
-
-				finderCache.removeResult(FINDER_PATH_COUNT_BY_COMMERCEAPPLICATIONMODELID,
-					args);
-				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMMERCEAPPLICATIONMODELID,
-					args);
-
-				args = new Object[] {
-						commerceApplicationModelCProductRelModelImpl.getCommerceApplicationModelId()
-					};
-
-				finderCache.removeResult(FINDER_PATH_COUNT_BY_COMMERCEAPPLICATIONMODELID,
-					args);
-				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMMERCEAPPLICATIONMODELID,
-					args);
-			}
-
-			if ((commerceApplicationModelCProductRelModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CPRODUCTID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						commerceApplicationModelCProductRelModelImpl.getOriginalCProductId()
-					};
-
-				finderCache.removeResult(FINDER_PATH_COUNT_BY_CPRODUCTID, args);
-				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CPRODUCTID,
-					args);
-
-				args = new Object[] {
-						commerceApplicationModelCProductRelModelImpl.getCProductId()
-					};
-
-				finderCache.removeResult(FINDER_PATH_COUNT_BY_CPRODUCTID, args);
-				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CPRODUCTID,
-					args);
+				finderCache.removeResult(_finderPathCountByCProductId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByCProductId, args);
 			}
 		}
 
-		entityCache.putResult(CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.putResult(
+			CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceApplicationModelCProductRelImpl.class,
 			commerceApplicationModelCProductRel.getPrimaryKey(),
 			commerceApplicationModelCProductRel, false);
@@ -1517,7 +1632,7 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	}
 
 	/**
-	 * Returns the commerce application model c product rel with the primary key or throws a {@link com.liferay.portal.kernel.exception.NoSuchModelException} if it could not be found.
+	 * Returns the commerce application model c product rel with the primary key or throws a <code>com.liferay.portal.kernel.exception.NoSuchModelException</code> if it could not be found.
 	 *
 	 * @param primaryKey the primary key of the commerce application model c product rel
 	 * @return the commerce application model c product rel
@@ -1525,24 +1640,26 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 */
 	@Override
 	public CommerceApplicationModelCProductRel findByPrimaryKey(
-		Serializable primaryKey)
+			Serializable primaryKey)
 		throws NoSuchApplicationModelCProductRelException {
-		CommerceApplicationModelCProductRel commerceApplicationModelCProductRel = fetchByPrimaryKey(primaryKey);
+
+		CommerceApplicationModelCProductRel
+			commerceApplicationModelCProductRel = fetchByPrimaryKey(primaryKey);
 
 		if (commerceApplicationModelCProductRel == null) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
-			throw new NoSuchApplicationModelCProductRelException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				primaryKey);
+			throw new NoSuchApplicationModelCProductRelException(
+				_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 		}
 
 		return commerceApplicationModelCProductRel;
 	}
 
 	/**
-	 * Returns the commerce application model c product rel with the primary key or throws a {@link NoSuchApplicationModelCProductRelException} if it could not be found.
+	 * Returns the commerce application model c product rel with the primary key or throws a <code>NoSuchApplicationModelCProductRelException</code> if it could not be found.
 	 *
 	 * @param commerceApplicationModelCProductRelId the primary key of the commerce application model c product rel
 	 * @return the commerce application model c product rel
@@ -1550,9 +1667,11 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 */
 	@Override
 	public CommerceApplicationModelCProductRel findByPrimaryKey(
-		long commerceApplicationModelCProductRelId)
+			long commerceApplicationModelCProductRelId)
 		throws NoSuchApplicationModelCProductRelException {
-		return findByPrimaryKey((Serializable)commerceApplicationModelCProductRelId);
+
+		return findByPrimaryKey(
+			(Serializable)commerceApplicationModelCProductRelId);
 	}
 
 	/**
@@ -1564,14 +1683,18 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	@Override
 	public CommerceApplicationModelCProductRel fetchByPrimaryKey(
 		Serializable primaryKey) {
-		Serializable serializable = entityCache.getResult(CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
-				CommerceApplicationModelCProductRelImpl.class, primaryKey);
+
+		Serializable serializable = entityCache.getResult(
+			CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceApplicationModelCProductRelImpl.class, primaryKey);
 
 		if (serializable == nullModel) {
 			return null;
 		}
 
-		CommerceApplicationModelCProductRel commerceApplicationModelCProductRel = (CommerceApplicationModelCProductRel)serializable;
+		CommerceApplicationModelCProductRel
+			commerceApplicationModelCProductRel =
+				(CommerceApplicationModelCProductRel)serializable;
 
 		if (commerceApplicationModelCProductRel == null) {
 			Session session = null;
@@ -1579,20 +1702,26 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 			try {
 				session = openSession();
 
-				commerceApplicationModelCProductRel = (CommerceApplicationModelCProductRel)session.get(CommerceApplicationModelCProductRelImpl.class,
+				commerceApplicationModelCProductRel =
+					(CommerceApplicationModelCProductRel)session.get(
+						CommerceApplicationModelCProductRelImpl.class,
 						primaryKey);
 
 				if (commerceApplicationModelCProductRel != null) {
 					cacheResult(commerceApplicationModelCProductRel);
 				}
 				else {
-					entityCache.putResult(CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
+					entityCache.putResult(
+						CommerceApplicationModelCProductRelModelImpl.
+							ENTITY_CACHE_ENABLED,
 						CommerceApplicationModelCProductRelImpl.class,
 						primaryKey, nullModel);
 				}
 			}
 			catch (Exception e) {
-				entityCache.removeResult(CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.removeResult(
+					CommerceApplicationModelCProductRelModelImpl.
+						ENTITY_CACHE_ENABLED,
 					CommerceApplicationModelCProductRelImpl.class, primaryKey);
 
 				throw processException(e);
@@ -1614,25 +1743,30 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	@Override
 	public CommerceApplicationModelCProductRel fetchByPrimaryKey(
 		long commerceApplicationModelCProductRelId) {
-		return fetchByPrimaryKey((Serializable)commerceApplicationModelCProductRelId);
+
+		return fetchByPrimaryKey(
+			(Serializable)commerceApplicationModelCProductRelId);
 	}
 
 	@Override
-	public Map<Serializable, CommerceApplicationModelCProductRel> fetchByPrimaryKeys(
-		Set<Serializable> primaryKeys) {
+	public Map<Serializable, CommerceApplicationModelCProductRel>
+		fetchByPrimaryKeys(Set<Serializable> primaryKeys) {
+
 		if (primaryKeys.isEmpty()) {
 			return Collections.emptyMap();
 		}
 
-		Map<Serializable, CommerceApplicationModelCProductRel> map = new HashMap<Serializable, CommerceApplicationModelCProductRel>();
+		Map<Serializable, CommerceApplicationModelCProductRel> map =
+			new HashMap<Serializable, CommerceApplicationModelCProductRel>();
 
 		if (primaryKeys.size() == 1) {
 			Iterator<Serializable> iterator = primaryKeys.iterator();
 
 			Serializable primaryKey = iterator.next();
 
-			CommerceApplicationModelCProductRel commerceApplicationModelCProductRel =
-				fetchByPrimaryKey(primaryKey);
+			CommerceApplicationModelCProductRel
+				commerceApplicationModelCProductRel = fetchByPrimaryKey(
+					primaryKey);
 
 			if (commerceApplicationModelCProductRel != null) {
 				map.put(primaryKey, commerceApplicationModelCProductRel);
@@ -1644,8 +1778,10 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 		Set<Serializable> uncachedPrimaryKeys = null;
 
 		for (Serializable primaryKey : primaryKeys) {
-			Serializable serializable = entityCache.getResult(CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
-					CommerceApplicationModelCProductRelImpl.class, primaryKey);
+			Serializable serializable = entityCache.getResult(
+				CommerceApplicationModelCProductRelModelImpl.
+					ENTITY_CACHE_ENABLED,
+				CommerceApplicationModelCProductRelImpl.class, primaryKey);
 
 			if (serializable != nullModel) {
 				if (serializable == null) {
@@ -1656,7 +1792,8 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 					uncachedPrimaryKeys.add(primaryKey);
 				}
 				else {
-					map.put(primaryKey,
+					map.put(
+						primaryKey,
 						(CommerceApplicationModelCProductRel)serializable);
 				}
 			}
@@ -1666,10 +1803,11 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 			return map;
 		}
 
-		StringBundler query = new StringBundler((uncachedPrimaryKeys.size() * 2) +
-				1);
+		StringBundler query = new StringBundler(
+			uncachedPrimaryKeys.size() * 2 + 1);
 
-		query.append(_SQL_SELECT_COMMERCEAPPLICATIONMODELCPRODUCTREL_WHERE_PKS_IN);
+		query.append(
+			_SQL_SELECT_COMMERCEAPPLICATIONMODELCPRODUCTREL_WHERE_PKS_IN);
 
 		for (Serializable primaryKey : uncachedPrimaryKeys) {
 			query.append((long)primaryKey);
@@ -1690,17 +1828,24 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 
 			Query q = session.createQuery(sql);
 
-			for (CommerceApplicationModelCProductRel commerceApplicationModelCProductRel : (List<CommerceApplicationModelCProductRel>)q.list()) {
-				map.put(commerceApplicationModelCProductRel.getPrimaryKeyObj(),
+			for (CommerceApplicationModelCProductRel
+					commerceApplicationModelCProductRel :
+						(List<CommerceApplicationModelCProductRel>)q.list()) {
+
+				map.put(
+					commerceApplicationModelCProductRel.getPrimaryKeyObj(),
 					commerceApplicationModelCProductRel);
 
 				cacheResult(commerceApplicationModelCProductRel);
 
-				uncachedPrimaryKeys.remove(commerceApplicationModelCProductRel.getPrimaryKeyObj());
+				uncachedPrimaryKeys.remove(
+					commerceApplicationModelCProductRel.getPrimaryKeyObj());
 			}
 
 			for (Serializable primaryKey : uncachedPrimaryKeys) {
-				entityCache.putResult(CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.putResult(
+					CommerceApplicationModelCProductRelModelImpl.
+						ENTITY_CACHE_ENABLED,
 					CommerceApplicationModelCProductRelImpl.class, primaryKey,
 					nullModel);
 			}
@@ -1729,7 +1874,7 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 * Returns a range of all the commerce application model c product rels.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationModelCProductRelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceApplicationModelCProductRelModelImpl</code>.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce application model c product rels
@@ -1737,7 +1882,9 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 * @return the range of commerce application model c product rels
 	 */
 	@Override
-	public List<CommerceApplicationModelCProductRel> findAll(int start, int end) {
+	public List<CommerceApplicationModelCProductRel> findAll(
+		int start, int end) {
+
 		return findAll(start, end, null);
 	}
 
@@ -1745,7 +1892,7 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 * Returns an ordered range of all the commerce application model c product rels.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationModelCProductRelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceApplicationModelCProductRelModelImpl</code>.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce application model c product rels
@@ -1754,9 +1901,11 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 * @return the ordered range of commerce application model c product rels
 	 */
 	@Override
-	public List<CommerceApplicationModelCProductRel> findAll(int start,
-		int end,
-		OrderByComparator<CommerceApplicationModelCProductRel> orderByComparator) {
+	public List<CommerceApplicationModelCProductRel> findAll(
+		int start, int end,
+		OrderByComparator<CommerceApplicationModelCProductRel>
+			orderByComparator) {
+
 		return findAll(start, end, orderByComparator, true);
 	}
 
@@ -1764,40 +1913,44 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 * Returns an ordered range of all the commerce application model c product rels.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceApplicationModelCProductRelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceApplicationModelCProductRelModelImpl</code>.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce application model c product rels
 	 * @param end the upper bound of the range of commerce application model c product rels (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of commerce application model c product rels
 	 */
 	@Override
-	public List<CommerceApplicationModelCProductRel> findAll(int start,
-		int end,
-		OrderByComparator<CommerceApplicationModelCProductRel> orderByComparator,
-		boolean retrieveFromCache) {
-		boolean pagination = true;
+	public List<CommerceApplicationModelCProductRel> findAll(
+		int start, int end,
+		OrderByComparator<CommerceApplicationModelCProductRel>
+			orderByComparator,
+		boolean useFinderCache) {
+
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL;
-			finderArgs = FINDER_ARGS_EMPTY;
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindAll;
+				finderArgs = FINDER_ARGS_EMPTY;
+			}
 		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_ALL;
-			finderArgs = new Object[] { start, end, orderByComparator };
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindAll;
+			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<CommerceApplicationModelCProductRel> list = null;
 
-		if (retrieveFromCache) {
-			list = (List<CommerceApplicationModelCProductRel>)finderCache.getResult(finderPath,
-					finderArgs, this);
+		if (useFinderCache) {
+			list =
+				(List<CommerceApplicationModelCProductRel>)
+					finderCache.getResult(finderPath, finderArgs, this);
 		}
 
 		if (list == null) {
@@ -1805,22 +1958,21 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 			String sql = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(2 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					2 + (orderByComparator.getOrderByFields().length * 2));
 
 				query.append(_SQL_SELECT_COMMERCEAPPLICATIONMODELCPRODUCTREL);
 
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
 				sql = query.toString();
 			}
 			else {
 				sql = _SQL_SELECT_COMMERCEAPPLICATIONMODELCPRODUCTREL;
 
-				if (pagination) {
-					sql = sql.concat(CommerceApplicationModelCProductRelModelImpl.ORDER_BY_JPQL);
-				}
+				sql = sql.concat(
+					CommerceApplicationModelCProductRelModelImpl.ORDER_BY_JPQL);
 			}
 
 			Session session = null;
@@ -1830,25 +1982,20 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 
 				Query q = session.createQuery(sql);
 
-				if (!pagination) {
-					list = (List<CommerceApplicationModelCProductRel>)QueryUtil.list(q,
-							getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<CommerceApplicationModelCProductRel>)QueryUtil.list(q,
-							getDialect(), start, end);
-				}
+				list =
+					(List<CommerceApplicationModelCProductRel>)QueryUtil.list(
+						q, getDialect(), start, end);
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1866,7 +2013,9 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 */
 	@Override
 	public void removeAll() {
-		for (CommerceApplicationModelCProductRel commerceApplicationModelCProductRel : findAll()) {
+		for (CommerceApplicationModelCProductRel
+				commerceApplicationModelCProductRel : findAll()) {
+
 			remove(commerceApplicationModelCProductRel);
 		}
 	}
@@ -1878,8 +2027,8 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 */
 	@Override
 	public int countAll() {
-		Long count = (Long)finderCache.getResult(FINDER_PATH_COUNT_ALL,
-				FINDER_ARGS_EMPTY, this);
+		Long count = (Long)finderCache.getResult(
+			_finderPathCountAll, FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1887,16 +2036,17 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 			try {
 				session = openSession();
 
-				Query q = session.createQuery(_SQL_COUNT_COMMERCEAPPLICATIONMODELCPRODUCTREL);
+				Query q = session.createQuery(
+					_SQL_COUNT_COMMERCEAPPLICATIONMODELCPRODUCTREL);
 
 				count = (Long)q.uniqueResult();
 
-				finderCache.putResult(FINDER_PATH_COUNT_ALL, FINDER_ARGS_EMPTY,
-					count);
+				finderCache.putResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
 			catch (Exception e) {
-				finderCache.removeResult(FINDER_PATH_COUNT_ALL,
-					FINDER_ARGS_EMPTY);
+				finderCache.removeResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY);
 
 				throw processException(e);
 			}
@@ -1922,34 +2072,131 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	 * Initializes the commerce application model c product rel persistence.
 	 */
 	public void afterPropertiesSet() {
+		_finderPathWithPaginationFindAll = new FinderPath(
+			CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceApplicationModelCProductRelModelImpl.FINDER_CACHE_ENABLED,
+			CommerceApplicationModelCProductRelImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
+
+		_finderPathWithoutPaginationFindAll = new FinderPath(
+			CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceApplicationModelCProductRelModelImpl.FINDER_CACHE_ENABLED,
+			CommerceApplicationModelCProductRelImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
+			new String[0]);
+
+		_finderPathCountAll = new FinderPath(
+			CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceApplicationModelCProductRelModelImpl.FINDER_CACHE_ENABLED,
+			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
+			new String[0]);
+
+		_finderPathWithPaginationFindByCommerceApplicationModelId =
+			new FinderPath(
+				CommerceApplicationModelCProductRelModelImpl.
+					ENTITY_CACHE_ENABLED,
+				CommerceApplicationModelCProductRelModelImpl.
+					FINDER_CACHE_ENABLED,
+				CommerceApplicationModelCProductRelImpl.class,
+				FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+				"findByCommerceApplicationModelId",
+				new String[] {
+					Long.class.getName(), Integer.class.getName(),
+					Integer.class.getName(), OrderByComparator.class.getName()
+				});
+
+		_finderPathWithoutPaginationFindByCommerceApplicationModelId =
+			new FinderPath(
+				CommerceApplicationModelCProductRelModelImpl.
+					ENTITY_CACHE_ENABLED,
+				CommerceApplicationModelCProductRelModelImpl.
+					FINDER_CACHE_ENABLED,
+				CommerceApplicationModelCProductRelImpl.class,
+				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+				"findByCommerceApplicationModelId",
+				new String[] {Long.class.getName()},
+				CommerceApplicationModelCProductRelModelImpl.
+					COMMERCEAPPLICATIONMODELID_COLUMN_BITMASK);
+
+		_finderPathCountByCommerceApplicationModelId = new FinderPath(
+			CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceApplicationModelCProductRelModelImpl.FINDER_CACHE_ENABLED,
+			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByCommerceApplicationModelId",
+			new String[] {Long.class.getName()});
+
+		_finderPathWithPaginationFindByCProductId = new FinderPath(
+			CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceApplicationModelCProductRelModelImpl.FINDER_CACHE_ENABLED,
+			CommerceApplicationModelCProductRelImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCProductId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
+
+		_finderPathWithoutPaginationFindByCProductId = new FinderPath(
+			CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceApplicationModelCProductRelModelImpl.FINDER_CACHE_ENABLED,
+			CommerceApplicationModelCProductRelImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCProductId",
+			new String[] {Long.class.getName()},
+			CommerceApplicationModelCProductRelModelImpl.
+				CPRODUCTID_COLUMN_BITMASK);
+
+		_finderPathCountByCProductId = new FinderPath(
+			CommerceApplicationModelCProductRelModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceApplicationModelCProductRelModelImpl.FINDER_CACHE_ENABLED,
+			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByCProductId", new String[] {Long.class.getName()});
 	}
 
 	public void destroy() {
-		entityCache.removeCache(CommerceApplicationModelCProductRelImpl.class.getName());
+		entityCache.removeCache(
+			CommerceApplicationModelCProductRelImpl.class.getName());
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
-	@ServiceReference(type = CompanyProviderWrapper.class)
-	protected CompanyProvider companyProvider;
 	@ServiceReference(type = EntityCache.class)
 	protected EntityCache entityCache;
+
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
-	private static final String _SQL_SELECT_COMMERCEAPPLICATIONMODELCPRODUCTREL = "SELECT commerceApplicationModelCProductRel FROM CommerceApplicationModelCProductRel commerceApplicationModelCProductRel";
-	private static final String _SQL_SELECT_COMMERCEAPPLICATIONMODELCPRODUCTREL_WHERE_PKS_IN =
-		"SELECT commerceApplicationModelCProductRel FROM CommerceApplicationModelCProductRel commerceApplicationModelCProductRel WHERE CAModelCProductRelId IN (";
-	private static final String _SQL_SELECT_COMMERCEAPPLICATIONMODELCPRODUCTREL_WHERE =
-		"SELECT commerceApplicationModelCProductRel FROM CommerceApplicationModelCProductRel commerceApplicationModelCProductRel WHERE ";
-	private static final String _SQL_COUNT_COMMERCEAPPLICATIONMODELCPRODUCTREL = "SELECT COUNT(commerceApplicationModelCProductRel) FROM CommerceApplicationModelCProductRel commerceApplicationModelCProductRel";
-	private static final String _SQL_COUNT_COMMERCEAPPLICATIONMODELCPRODUCTREL_WHERE =
-		"SELECT COUNT(commerceApplicationModelCProductRel) FROM CommerceApplicationModelCProductRel commerceApplicationModelCProductRel WHERE ";
-	private static final String _ORDER_BY_ENTITY_ALIAS = "commerceApplicationModelCProductRel.";
-	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No CommerceApplicationModelCProductRel exists with the primary key ";
-	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No CommerceApplicationModelCProductRel exists with the key {";
-	private static final Log _log = LogFactoryUtil.getLog(CommerceApplicationModelCProductRelPersistenceImpl.class);
-	private static final Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
-				"commerceApplicationModelCProductRelId"
-			});
+
+	private static final String
+		_SQL_SELECT_COMMERCEAPPLICATIONMODELCPRODUCTREL =
+			"SELECT commerceApplicationModelCProductRel FROM CommerceApplicationModelCProductRel commerceApplicationModelCProductRel";
+
+	private static final String
+		_SQL_SELECT_COMMERCEAPPLICATIONMODELCPRODUCTREL_WHERE_PKS_IN =
+			"SELECT commerceApplicationModelCProductRel FROM CommerceApplicationModelCProductRel commerceApplicationModelCProductRel WHERE CAModelCProductRelId IN (";
+
+	private static final String
+		_SQL_SELECT_COMMERCEAPPLICATIONMODELCPRODUCTREL_WHERE =
+			"SELECT commerceApplicationModelCProductRel FROM CommerceApplicationModelCProductRel commerceApplicationModelCProductRel WHERE ";
+
+	private static final String _SQL_COUNT_COMMERCEAPPLICATIONMODELCPRODUCTREL =
+		"SELECT COUNT(commerceApplicationModelCProductRel) FROM CommerceApplicationModelCProductRel commerceApplicationModelCProductRel";
+
+	private static final String
+		_SQL_COUNT_COMMERCEAPPLICATIONMODELCPRODUCTREL_WHERE =
+			"SELECT COUNT(commerceApplicationModelCProductRel) FROM CommerceApplicationModelCProductRel commerceApplicationModelCProductRel WHERE ";
+
+	private static final String _ORDER_BY_ENTITY_ALIAS =
+		"commerceApplicationModelCProductRel.";
+
+	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY =
+		"No CommerceApplicationModelCProductRel exists with the primary key ";
+
+	private static final String _NO_SUCH_ENTITY_WITH_KEY =
+		"No CommerceApplicationModelCProductRel exists with the key {";
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceApplicationModelCProductRelPersistenceImpl.class);
+
+	private static final Set<String> _badColumnNames = SetUtil.fromArray(
+		new String[] {"commerceApplicationModelCProductRelId"});
+
 }

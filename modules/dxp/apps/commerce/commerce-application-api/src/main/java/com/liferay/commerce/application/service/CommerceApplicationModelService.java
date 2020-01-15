@@ -17,7 +17,6 @@ package com.liferay.commerce.application.service;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.application.model.CommerceApplicationModel;
-
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
@@ -37,25 +36,32 @@ import java.util.List;
  *
  * @author Luca Pellizzon
  * @see CommerceApplicationModelServiceUtil
- * @see com.liferay.commerce.application.service.base.CommerceApplicationModelServiceBaseImpl
- * @see com.liferay.commerce.application.service.impl.CommerceApplicationModelServiceImpl
  * @generated
  */
 @AccessControlled
 @JSONWebService
-@OSGiBeanProperties(property =  {
-	"json.web.service.context.name=commerce", "json.web.service.context.path=CommerceApplicationModel"}, service = CommerceApplicationModelService.class)
+@OSGiBeanProperties(
+	property = {
+		"json.web.service.context.name=commerce",
+		"json.web.service.context.path=CommerceApplicationModel"
+	},
+	service = CommerceApplicationModelService.class
+)
 @ProviderType
-@Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
-	PortalException.class, SystemException.class})
+@Transactional(
+	isolation = Isolation.PORTAL,
+	rollbackFor = {PortalException.class, SystemException.class}
+)
 public interface CommerceApplicationModelService extends BaseService {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CommerceApplicationModelServiceUtil} to access the commerce application model remote service. Add custom service methods to {@link com.liferay.commerce.application.service.impl.CommerceApplicationModelServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify or reference this interface directly. Always use {@link CommerceApplicationModelServiceUtil} to access the commerce application model remote service. Add custom service methods to <code>com.liferay.commerce.application.service.impl.CommerceApplicationModelServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public CommerceApplicationModel addCommerceApplicationModel(long userId,
-		long commerceApplicationBrandId, String name, String year)
+	public CommerceApplicationModel addCommerceApplicationModel(
+			long userId, long commerceApplicationBrandId, String name,
+			String year)
 		throws PortalException;
 
 	public void deleteCommerceApplicationModel(long commerceApplicationModelId)
@@ -63,15 +69,17 @@ public interface CommerceApplicationModelService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceApplicationModel getCommerceApplicationModel(
-		long commerceApplicationModelId) throws PortalException;
+			long commerceApplicationModelId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceApplicationModel> getCommerceApplicationModels(
 		long commerceApplicationBrandId, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommerceApplicationModel> getCommerceApplicationModelsByCompanyId(
-		long companyId, int start, int end);
+	public List<CommerceApplicationModel>
+		getCommerceApplicationModelsByCompanyId(
+			long companyId, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceApplicationModelsCount(
@@ -81,13 +89,14 @@ public interface CommerceApplicationModelService extends BaseService {
 	public int getCommerceApplicationModelsCountByCompanyId(long companyId);
 
 	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
-	*/
+	 * Returns the OSGi service identifier.
+	 *
+	 * @return the OSGi service identifier
+	 */
 	public String getOSGiServiceIdentifier();
 
 	public CommerceApplicationModel updateCommerceApplicationModel(
-		long commerceApplicationModelId, String name, String year)
+			long commerceApplicationModelId, String name, String year)
 		throws PortalException;
+
 }

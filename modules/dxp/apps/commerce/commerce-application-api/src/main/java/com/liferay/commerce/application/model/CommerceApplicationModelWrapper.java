@@ -14,10 +14,7 @@
 
 package com.liferay.commerce.application.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -37,11 +34,13 @@ import java.util.Objects;
  * @see CommerceApplicationModel
  * @generated
  */
-@ProviderType
-public class CommerceApplicationModelWrapper implements CommerceApplicationModel,
-	ModelWrapper<CommerceApplicationModel> {
+public class CommerceApplicationModelWrapper
+	implements CommerceApplicationModel,
+			   ModelWrapper<CommerceApplicationModel> {
+
 	public CommerceApplicationModelWrapper(
 		CommerceApplicationModel commerceApplicationModel) {
+
 		_commerceApplicationModel = commerceApplicationModel;
 	}
 
@@ -59,15 +58,15 @@ public class CommerceApplicationModelWrapper implements CommerceApplicationModel
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		attributes.put("commerceApplicationModelId",
-			getCommerceApplicationModelId());
+		attributes.put(
+			"commerceApplicationModelId", getCommerceApplicationModelId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("commerceApplicationBrandId",
-			getCommerceApplicationBrandId());
+		attributes.put(
+			"commerceApplicationBrandId", getCommerceApplicationBrandId());
 		attributes.put("name", getName());
 		attributes.put("year", getYear());
 
@@ -77,7 +76,7 @@ public class CommerceApplicationModelWrapper implements CommerceApplicationModel
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		Long commerceApplicationModelId = (Long)attributes.get(
-				"commerceApplicationModelId");
+			"commerceApplicationModelId");
 
 		if (commerceApplicationModelId != null) {
 			setCommerceApplicationModelId(commerceApplicationModelId);
@@ -114,7 +113,7 @@ public class CommerceApplicationModelWrapper implements CommerceApplicationModel
 		}
 
 		Long commerceApplicationBrandId = (Long)attributes.get(
-				"commerceApplicationBrandId");
+			"commerceApplicationBrandId");
 
 		if (commerceApplicationBrandId != null) {
 			setCommerceApplicationBrandId(commerceApplicationBrandId);
@@ -135,7 +134,8 @@ public class CommerceApplicationModelWrapper implements CommerceApplicationModel
 
 	@Override
 	public Object clone() {
-		return new CommerceApplicationModelWrapper((CommerceApplicationModel)_commerceApplicationModel.clone());
+		return new CommerceApplicationModelWrapper(
+			(CommerceApplicationModel)_commerceApplicationModel.clone());
 	}
 
 	@Override
@@ -144,40 +144,40 @@ public class CommerceApplicationModelWrapper implements CommerceApplicationModel
 	}
 
 	/**
-	* Returns the commerce application brand ID of this commerce application model.
-	*
-	* @return the commerce application brand ID of this commerce application model
-	*/
+	 * Returns the commerce application brand ID of this commerce application model.
+	 *
+	 * @return the commerce application brand ID of this commerce application model
+	 */
 	@Override
 	public long getCommerceApplicationBrandId() {
 		return _commerceApplicationModel.getCommerceApplicationBrandId();
 	}
 
 	/**
-	* Returns the commerce application model ID of this commerce application model.
-	*
-	* @return the commerce application model ID of this commerce application model
-	*/
+	 * Returns the commerce application model ID of this commerce application model.
+	 *
+	 * @return the commerce application model ID of this commerce application model
+	 */
 	@Override
 	public long getCommerceApplicationModelId() {
 		return _commerceApplicationModel.getCommerceApplicationModelId();
 	}
 
 	/**
-	* Returns the company ID of this commerce application model.
-	*
-	* @return the company ID of this commerce application model
-	*/
+	 * Returns the company ID of this commerce application model.
+	 *
+	 * @return the company ID of this commerce application model
+	 */
 	@Override
 	public long getCompanyId() {
 		return _commerceApplicationModel.getCompanyId();
 	}
 
 	/**
-	* Returns the create date of this commerce application model.
-	*
-	* @return the create date of this commerce application model
-	*/
+	 * Returns the create date of this commerce application model.
+	 *
+	 * @return the create date of this commerce application model
+	 */
 	@Override
 	public Date getCreateDate() {
 		return _commerceApplicationModel.getCreateDate();
@@ -189,30 +189,30 @@ public class CommerceApplicationModelWrapper implements CommerceApplicationModel
 	}
 
 	/**
-	* Returns the modified date of this commerce application model.
-	*
-	* @return the modified date of this commerce application model
-	*/
+	 * Returns the modified date of this commerce application model.
+	 *
+	 * @return the modified date of this commerce application model
+	 */
 	@Override
 	public Date getModifiedDate() {
 		return _commerceApplicationModel.getModifiedDate();
 	}
 
 	/**
-	* Returns the name of this commerce application model.
-	*
-	* @return the name of this commerce application model
-	*/
+	 * Returns the name of this commerce application model.
+	 *
+	 * @return the name of this commerce application model
+	 */
 	@Override
 	public String getName() {
 		return _commerceApplicationModel.getName();
 	}
 
 	/**
-	* Returns the primary key of this commerce application model.
-	*
-	* @return the primary key of this commerce application model
-	*/
+	 * Returns the primary key of this commerce application model.
+	 *
+	 * @return the primary key of this commerce application model
+	 */
 	@Override
 	public long getPrimaryKey() {
 		return _commerceApplicationModel.getPrimaryKey();
@@ -224,40 +224,40 @@ public class CommerceApplicationModelWrapper implements CommerceApplicationModel
 	}
 
 	/**
-	* Returns the user ID of this commerce application model.
-	*
-	* @return the user ID of this commerce application model
-	*/
+	 * Returns the user ID of this commerce application model.
+	 *
+	 * @return the user ID of this commerce application model
+	 */
 	@Override
 	public long getUserId() {
 		return _commerceApplicationModel.getUserId();
 	}
 
 	/**
-	* Returns the user name of this commerce application model.
-	*
-	* @return the user name of this commerce application model
-	*/
+	 * Returns the user name of this commerce application model.
+	 *
+	 * @return the user name of this commerce application model
+	 */
 	@Override
 	public String getUserName() {
 		return _commerceApplicationModel.getUserName();
 	}
 
 	/**
-	* Returns the user uuid of this commerce application model.
-	*
-	* @return the user uuid of this commerce application model
-	*/
+	 * Returns the user uuid of this commerce application model.
+	 *
+	 * @return the user uuid of this commerce application model
+	 */
 	@Override
 	public String getUserUuid() {
 		return _commerceApplicationModel.getUserUuid();
 	}
 
 	/**
-	* Returns the year of this commerce application model.
-	*
-	* @return the year of this commerce application model
-	*/
+	 * Returns the year of this commerce application model.
+	 *
+	 * @return the year of this commerce application model
+	 */
 	@Override
 	public String getYear() {
 		return _commerceApplicationModel.getYear();
@@ -294,40 +294,42 @@ public class CommerceApplicationModelWrapper implements CommerceApplicationModel
 	}
 
 	/**
-	* Sets the commerce application brand ID of this commerce application model.
-	*
-	* @param commerceApplicationBrandId the commerce application brand ID of this commerce application model
-	*/
+	 * Sets the commerce application brand ID of this commerce application model.
+	 *
+	 * @param commerceApplicationBrandId the commerce application brand ID of this commerce application model
+	 */
 	@Override
 	public void setCommerceApplicationBrandId(long commerceApplicationBrandId) {
-		_commerceApplicationModel.setCommerceApplicationBrandId(commerceApplicationBrandId);
+		_commerceApplicationModel.setCommerceApplicationBrandId(
+			commerceApplicationBrandId);
 	}
 
 	/**
-	* Sets the commerce application model ID of this commerce application model.
-	*
-	* @param commerceApplicationModelId the commerce application model ID of this commerce application model
-	*/
+	 * Sets the commerce application model ID of this commerce application model.
+	 *
+	 * @param commerceApplicationModelId the commerce application model ID of this commerce application model
+	 */
 	@Override
 	public void setCommerceApplicationModelId(long commerceApplicationModelId) {
-		_commerceApplicationModel.setCommerceApplicationModelId(commerceApplicationModelId);
+		_commerceApplicationModel.setCommerceApplicationModelId(
+			commerceApplicationModelId);
 	}
 
 	/**
-	* Sets the company ID of this commerce application model.
-	*
-	* @param companyId the company ID of this commerce application model
-	*/
+	 * Sets the company ID of this commerce application model.
+	 *
+	 * @param companyId the company ID of this commerce application model
+	 */
 	@Override
 	public void setCompanyId(long companyId) {
 		_commerceApplicationModel.setCompanyId(companyId);
 	}
 
 	/**
-	* Sets the create date of this commerce application model.
-	*
-	* @param createDate the create date of this commerce application model
-	*/
+	 * Sets the create date of this commerce application model.
+	 *
+	 * @param createDate the create date of this commerce application model
+	 */
 	@Override
 	public void setCreateDate(Date createDate) {
 		_commerceApplicationModel.setCreateDate(createDate);
@@ -336,6 +338,7 @@ public class CommerceApplicationModelWrapper implements CommerceApplicationModel
 	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
 		_commerceApplicationModel.setExpandoBridgeAttributes(baseModel);
 	}
 
@@ -350,20 +353,20 @@ public class CommerceApplicationModelWrapper implements CommerceApplicationModel
 	}
 
 	/**
-	* Sets the modified date of this commerce application model.
-	*
-	* @param modifiedDate the modified date of this commerce application model
-	*/
+	 * Sets the modified date of this commerce application model.
+	 *
+	 * @param modifiedDate the modified date of this commerce application model
+	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_commerceApplicationModel.setModifiedDate(modifiedDate);
 	}
 
 	/**
-	* Sets the name of this commerce application model.
-	*
-	* @param name the name of this commerce application model
-	*/
+	 * Sets the name of this commerce application model.
+	 *
+	 * @param name the name of this commerce application model
+	 */
 	@Override
 	public void setName(String name) {
 		_commerceApplicationModel.setName(name);
@@ -375,10 +378,10 @@ public class CommerceApplicationModelWrapper implements CommerceApplicationModel
 	}
 
 	/**
-	* Sets the primary key of this commerce application model.
-	*
-	* @param primaryKey the primary key of this commerce application model
-	*/
+	 * Sets the primary key of this commerce application model.
+	 *
+	 * @param primaryKey the primary key of this commerce application model
+	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_commerceApplicationModel.setPrimaryKey(primaryKey);
@@ -390,53 +393,56 @@ public class CommerceApplicationModelWrapper implements CommerceApplicationModel
 	}
 
 	/**
-	* Sets the user ID of this commerce application model.
-	*
-	* @param userId the user ID of this commerce application model
-	*/
+	 * Sets the user ID of this commerce application model.
+	 *
+	 * @param userId the user ID of this commerce application model
+	 */
 	@Override
 	public void setUserId(long userId) {
 		_commerceApplicationModel.setUserId(userId);
 	}
 
 	/**
-	* Sets the user name of this commerce application model.
-	*
-	* @param userName the user name of this commerce application model
-	*/
+	 * Sets the user name of this commerce application model.
+	 *
+	 * @param userName the user name of this commerce application model
+	 */
 	@Override
 	public void setUserName(String userName) {
 		_commerceApplicationModel.setUserName(userName);
 	}
 
 	/**
-	* Sets the user uuid of this commerce application model.
-	*
-	* @param userUuid the user uuid of this commerce application model
-	*/
+	 * Sets the user uuid of this commerce application model.
+	 *
+	 * @param userUuid the user uuid of this commerce application model
+	 */
 	@Override
 	public void setUserUuid(String userUuid) {
 		_commerceApplicationModel.setUserUuid(userUuid);
 	}
 
 	/**
-	* Sets the year of this commerce application model.
-	*
-	* @param year the year of this commerce application model
-	*/
+	 * Sets the year of this commerce application model.
+	 *
+	 * @param year the year of this commerce application model
+	 */
 	@Override
 	public void setYear(String year) {
 		_commerceApplicationModel.setYear(year);
 	}
 
 	@Override
-	public com.liferay.portal.kernel.model.CacheModel<CommerceApplicationModel> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<CommerceApplicationModel>
+		toCacheModel() {
+
 		return _commerceApplicationModel.toCacheModel();
 	}
 
 	@Override
 	public CommerceApplicationModel toEscapedModel() {
-		return new CommerceApplicationModelWrapper(_commerceApplicationModel.toEscapedModel());
+		return new CommerceApplicationModelWrapper(
+			_commerceApplicationModel.toEscapedModel());
 	}
 
 	@Override
@@ -446,7 +452,8 @@ public class CommerceApplicationModelWrapper implements CommerceApplicationModel
 
 	@Override
 	public CommerceApplicationModel toUnescapedModel() {
-		return new CommerceApplicationModelWrapper(_commerceApplicationModel.toUnescapedModel());
+		return new CommerceApplicationModelWrapper(
+			_commerceApplicationModel.toUnescapedModel());
 	}
 
 	@Override
@@ -464,10 +471,13 @@ public class CommerceApplicationModelWrapper implements CommerceApplicationModel
 			return false;
 		}
 
-		CommerceApplicationModelWrapper commerceApplicationModelWrapper = (CommerceApplicationModelWrapper)obj;
+		CommerceApplicationModelWrapper commerceApplicationModelWrapper =
+			(CommerceApplicationModelWrapper)obj;
 
-		if (Objects.equals(_commerceApplicationModel,
-					commerceApplicationModelWrapper._commerceApplicationModel)) {
+		if (Objects.equals(
+				_commerceApplicationModel,
+				commerceApplicationModelWrapper._commerceApplicationModel)) {
+
 			return true;
 		}
 
@@ -495,4 +505,5 @@ public class CommerceApplicationModelWrapper implements CommerceApplicationModel
 	}
 
 	private final CommerceApplicationModel _commerceApplicationModel;
+
 }

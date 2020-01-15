@@ -25,34 +25,42 @@ import com.liferay.portal.kernel.util.Accessor;
  *
  * @author Luca Pellizzon
  * @see CommerceApplicationBrandModel
- * @see com.liferay.commerce.application.model.impl.CommerceApplicationBrandImpl
- * @see com.liferay.commerce.application.model.impl.CommerceApplicationBrandModelImpl
  * @generated
  */
-@ImplementationClassName("com.liferay.commerce.application.model.impl.CommerceApplicationBrandImpl")
+@ImplementationClassName(
+	"com.liferay.commerce.application.model.impl.CommerceApplicationBrandImpl"
+)
 @ProviderType
-public interface CommerceApplicationBrand extends CommerceApplicationBrandModel,
-	PersistedModel {
+public interface CommerceApplicationBrand
+	extends CommerceApplicationBrandModel, PersistedModel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this interface directly. Add methods to {@link com.liferay.commerce.application.model.impl.CommerceApplicationBrandImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add methods to <code>com.liferay.commerce.application.model.impl.CommerceApplicationBrandImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public static final Accessor<CommerceApplicationBrand, Long> COMMERCE_APPLICATION_BRAND_ID_ACCESSOR =
-		new Accessor<CommerceApplicationBrand, Long>() {
-			@Override
-			public Long get(CommerceApplicationBrand commerceApplicationBrand) {
-				return commerceApplicationBrand.getCommerceApplicationBrandId();
-			}
+	public static final Accessor<CommerceApplicationBrand, Long>
+		COMMERCE_APPLICATION_BRAND_ID_ACCESSOR =
+			new Accessor<CommerceApplicationBrand, Long>() {
 
-			@Override
-			public Class<Long> getAttributeClass() {
-				return Long.class;
-			}
+				@Override
+				public Long get(
+					CommerceApplicationBrand commerceApplicationBrand) {
 
-			@Override
-			public Class<CommerceApplicationBrand> getTypeClass() {
-				return CommerceApplicationBrand.class;
-			}
-		};
+					return commerceApplicationBrand.
+						getCommerceApplicationBrandId();
+				}
+
+				@Override
+				public Class<Long> getAttributeClass() {
+					return Long.class;
+				}
+
+				@Override
+				public Class<CommerceApplicationBrand> getTypeClass() {
+					return CommerceApplicationBrand.class;
+				}
+
+			};
+
 }

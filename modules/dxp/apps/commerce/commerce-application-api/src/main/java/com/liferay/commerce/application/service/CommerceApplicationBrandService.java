@@ -17,7 +17,6 @@ package com.liferay.commerce.application.service;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.application.model.CommerceApplicationBrand;
-
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
@@ -37,32 +36,40 @@ import java.util.List;
  *
  * @author Luca Pellizzon
  * @see CommerceApplicationBrandServiceUtil
- * @see com.liferay.commerce.application.service.base.CommerceApplicationBrandServiceBaseImpl
- * @see com.liferay.commerce.application.service.impl.CommerceApplicationBrandServiceImpl
  * @generated
  */
 @AccessControlled
 @JSONWebService
-@OSGiBeanProperties(property =  {
-	"json.web.service.context.name=commerce", "json.web.service.context.path=CommerceApplicationBrand"}, service = CommerceApplicationBrandService.class)
+@OSGiBeanProperties(
+	property = {
+		"json.web.service.context.name=commerce",
+		"json.web.service.context.path=CommerceApplicationBrand"
+	},
+	service = CommerceApplicationBrandService.class
+)
 @ProviderType
-@Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
-	PortalException.class, SystemException.class})
+@Transactional(
+	isolation = Isolation.PORTAL,
+	rollbackFor = {PortalException.class, SystemException.class}
+)
 public interface CommerceApplicationBrandService extends BaseService {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CommerceApplicationBrandServiceUtil} to access the commerce application brand remote service. Add custom service methods to {@link com.liferay.commerce.application.service.impl.CommerceApplicationBrandServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify or reference this interface directly. Always use {@link CommerceApplicationBrandServiceUtil} to access the commerce application brand remote service. Add custom service methods to <code>com.liferay.commerce.application.service.impl.CommerceApplicationBrandServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public CommerceApplicationBrand addCommerceApplicationBrand(long userId,
-		String name, boolean logo, byte[] logoBytes) throws PortalException;
+	public CommerceApplicationBrand addCommerceApplicationBrand(
+			long userId, String name, boolean logo, byte[] logoBytes)
+		throws PortalException;
 
 	public void deleteCommerceApplicationBrand(long commerceApplicationBrandId)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceApplicationBrand getCommerceApplicationBrand(
-		long commerceApplicationBrandId) throws PortalException;
+			long commerceApplicationBrandId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceApplicationBrand> getCommerceApplicationBrands(
@@ -72,13 +79,15 @@ public interface CommerceApplicationBrandService extends BaseService {
 	public int getCommerceApplicationBrandsCount(long companyId);
 
 	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
-	*/
+	 * Returns the OSGi service identifier.
+	 *
+	 * @return the OSGi service identifier
+	 */
 	public String getOSGiServiceIdentifier();
 
 	public CommerceApplicationBrand updateCommerceApplicationBrand(
-		long commerceApplicationBrandId, String name, boolean logo,
-		byte[] logoBytes) throws PortalException;
+			long commerceApplicationBrandId, String name, boolean logo,
+			byte[] logoBytes)
+		throws PortalException;
+
 }

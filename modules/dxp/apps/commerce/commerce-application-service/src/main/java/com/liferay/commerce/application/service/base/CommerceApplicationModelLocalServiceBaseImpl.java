@@ -14,14 +14,11 @@
 
 package com.liferay.commerce.application.service.base;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.application.model.CommerceApplicationModel;
 import com.liferay.commerce.application.service.CommerceApplicationModelLocalService;
 import com.liferay.commerce.application.service.persistence.CommerceApplicationBrandPersistence;
 import com.liferay.commerce.application.service.persistence.CommerceApplicationModelCProductRelPersistence;
 import com.liferay.commerce.application.service.persistence.CommerceApplicationModelPersistence;
-
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
@@ -63,17 +60,16 @@ import javax.sql.DataSource;
  *
  * @author Luca Pellizzon
  * @see com.liferay.commerce.application.service.impl.CommerceApplicationModelLocalServiceImpl
- * @see com.liferay.commerce.application.service.CommerceApplicationModelLocalServiceUtil
  * @generated
  */
-@ProviderType
 public abstract class CommerceApplicationModelLocalServiceBaseImpl
-	extends BaseLocalServiceImpl implements CommerceApplicationModelLocalService,
-		IdentifiableOSGiService {
+	extends BaseLocalServiceImpl
+	implements CommerceApplicationModelLocalService, IdentifiableOSGiService {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Always use {@link com.liferay.commerce.application.service.CommerceApplicationModelLocalServiceUtil} to access the commerce application model local service.
+	 * Never modify or reference this class directly. Use <code>CommerceApplicationModelLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.application.service.CommerceApplicationModelLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -86,9 +82,11 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	@Override
 	public CommerceApplicationModel addCommerceApplicationModel(
 		CommerceApplicationModel commerceApplicationModel) {
+
 		commerceApplicationModel.setNew(true);
 
-		return commerceApplicationModelPersistence.update(commerceApplicationModel);
+		return commerceApplicationModelPersistence.update(
+			commerceApplicationModel);
 	}
 
 	/**
@@ -101,7 +99,9 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	@Transactional(enabled = false)
 	public CommerceApplicationModel createCommerceApplicationModel(
 		long commerceApplicationModelId) {
-		return commerceApplicationModelPersistence.create(commerceApplicationModelId);
+
+		return commerceApplicationModelPersistence.create(
+			commerceApplicationModelId);
 	}
 
 	/**
@@ -114,8 +114,11 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public CommerceApplicationModel deleteCommerceApplicationModel(
-		long commerceApplicationModelId) throws PortalException {
-		return commerceApplicationModelPersistence.remove(commerceApplicationModelId);
+			long commerceApplicationModelId)
+		throws PortalException {
+
+		return commerceApplicationModelPersistence.remove(
+			commerceApplicationModelId);
 	}
 
 	/**
@@ -128,17 +131,19 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public CommerceApplicationModel deleteCommerceApplicationModel(
-		CommerceApplicationModel commerceApplicationModel)
+			CommerceApplicationModel commerceApplicationModel)
 		throws PortalException {
-		return commerceApplicationModelPersistence.remove(commerceApplicationModel);
+
+		return commerceApplicationModelPersistence.remove(
+			commerceApplicationModel);
 	}
 
 	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
-		return DynamicQueryFactoryUtil.forClass(CommerceApplicationModel.class,
-			clazz.getClassLoader());
+		return DynamicQueryFactoryUtil.forClass(
+			CommerceApplicationModel.class, clazz.getClassLoader());
 	}
 
 	/**
@@ -149,14 +154,15 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 */
 	@Override
 	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
-		return commerceApplicationModelPersistence.findWithDynamicQuery(dynamicQuery);
+		return commerceApplicationModelPersistence.findWithDynamicQuery(
+			dynamicQuery);
 	}
 
 	/**
 	 * Performs a dynamic query on the database and returns a range of the matching rows.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.commerce.application.model.impl.CommerceApplicationModelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>com.liferay.commerce.application.model.impl.CommerceApplicationModelModelImpl</code>.
 	 * </p>
 	 *
 	 * @param dynamicQuery the dynamic query
@@ -165,17 +171,18 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 */
 	@Override
-	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
-		int end) {
-		return commerceApplicationModelPersistence.findWithDynamicQuery(dynamicQuery,
-			start, end);
+	public <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
+
+		return commerceApplicationModelPersistence.findWithDynamicQuery(
+			dynamicQuery, start, end);
 	}
 
 	/**
 	 * Performs a dynamic query on the database and returns an ordered range of the matching rows.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.commerce.application.model.impl.CommerceApplicationModelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>com.liferay.commerce.application.model.impl.CommerceApplicationModelModelImpl</code>.
 	 * </p>
 	 *
 	 * @param dynamicQuery the dynamic query
@@ -185,10 +192,12 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 */
 	@Override
-	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
-		int end, OrderByComparator<T> orderByComparator) {
-		return commerceApplicationModelPersistence.findWithDynamicQuery(dynamicQuery,
-			start, end, orderByComparator);
+	public <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
+
+		return commerceApplicationModelPersistence.findWithDynamicQuery(
+			dynamicQuery, start, end, orderByComparator);
 	}
 
 	/**
@@ -199,7 +208,8 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 */
 	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery) {
-		return commerceApplicationModelPersistence.countWithDynamicQuery(dynamicQuery);
+		return commerceApplicationModelPersistence.countWithDynamicQuery(
+			dynamicQuery);
 	}
 
 	/**
@@ -210,16 +220,19 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 * @return the number of rows matching the dynamic query
 	 */
 	@Override
-	public long dynamicQueryCount(DynamicQuery dynamicQuery,
-		Projection projection) {
-		return commerceApplicationModelPersistence.countWithDynamicQuery(dynamicQuery,
-			projection);
+	public long dynamicQueryCount(
+		DynamicQuery dynamicQuery, Projection projection) {
+
+		return commerceApplicationModelPersistence.countWithDynamicQuery(
+			dynamicQuery, projection);
 	}
 
 	@Override
 	public CommerceApplicationModel fetchCommerceApplicationModel(
 		long commerceApplicationModelId) {
-		return commerceApplicationModelPersistence.fetchByPrimaryKey(commerceApplicationModelId);
+
+		return commerceApplicationModelPersistence.fetchByPrimaryKey(
+			commerceApplicationModelId);
 	}
 
 	/**
@@ -231,15 +244,20 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 */
 	@Override
 	public CommerceApplicationModel getCommerceApplicationModel(
-		long commerceApplicationModelId) throws PortalException {
-		return commerceApplicationModelPersistence.findByPrimaryKey(commerceApplicationModelId);
+			long commerceApplicationModelId)
+		throws PortalException {
+
+		return commerceApplicationModelPersistence.findByPrimaryKey(
+			commerceApplicationModelId);
 	}
 
 	@Override
 	public ActionableDynamicQuery getActionableDynamicQuery() {
-		ActionableDynamicQuery actionableDynamicQuery = new DefaultActionableDynamicQuery();
+		ActionableDynamicQuery actionableDynamicQuery =
+			new DefaultActionableDynamicQuery();
 
-		actionableDynamicQuery.setBaseLocalService(commerceApplicationModelLocalService);
+		actionableDynamicQuery.setBaseLocalService(
+			commerceApplicationModelLocalService);
 		actionableDynamicQuery.setClassLoader(getClassLoader());
 		actionableDynamicQuery.setModelClass(CommerceApplicationModel.class);
 
@@ -250,12 +268,17 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	}
 
 	@Override
-	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
-		IndexableActionableDynamicQuery indexableActionableDynamicQuery = new IndexableActionableDynamicQuery();
+	public IndexableActionableDynamicQuery
+		getIndexableActionableDynamicQuery() {
 
-		indexableActionableDynamicQuery.setBaseLocalService(commerceApplicationModelLocalService);
+		IndexableActionableDynamicQuery indexableActionableDynamicQuery =
+			new IndexableActionableDynamicQuery();
+
+		indexableActionableDynamicQuery.setBaseLocalService(
+			commerceApplicationModelLocalService);
 		indexableActionableDynamicQuery.setClassLoader(getClassLoader());
-		indexableActionableDynamicQuery.setModelClass(CommerceApplicationModel.class);
+		indexableActionableDynamicQuery.setModelClass(
+			CommerceApplicationModel.class);
 
 		indexableActionableDynamicQuery.setPrimaryKeyPropertyName(
 			"commerceApplicationModelId");
@@ -265,7 +288,9 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 
 	protected void initActionableDynamicQuery(
 		ActionableDynamicQuery actionableDynamicQuery) {
-		actionableDynamicQuery.setBaseLocalService(commerceApplicationModelLocalService);
+
+		actionableDynamicQuery.setBaseLocalService(
+			commerceApplicationModelLocalService);
 		actionableDynamicQuery.setClassLoader(getClassLoader());
 		actionableDynamicQuery.setModelClass(CommerceApplicationModel.class);
 
@@ -279,20 +304,25 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	@Override
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException {
-		return commerceApplicationModelLocalService.deleteCommerceApplicationModel((CommerceApplicationModel)persistedModel);
+
+		return commerceApplicationModelLocalService.
+			deleteCommerceApplicationModel(
+				(CommerceApplicationModel)persistedModel);
 	}
 
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {
-		return commerceApplicationModelPersistence.findByPrimaryKey(primaryKeyObj);
+
+		return commerceApplicationModelPersistence.findByPrimaryKey(
+			primaryKeyObj);
 	}
 
 	/**
 	 * Returns a range of all the commerce application models.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.commerce.application.model.impl.CommerceApplicationModelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>com.liferay.commerce.application.model.impl.CommerceApplicationModelModelImpl</code>.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce application models
@@ -302,6 +332,7 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	@Override
 	public List<CommerceApplicationModel> getCommerceApplicationModels(
 		int start, int end) {
+
 		return commerceApplicationModelPersistence.findAll(start, end);
 	}
 
@@ -325,7 +356,9 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	@Override
 	public CommerceApplicationModel updateCommerceApplicationModel(
 		CommerceApplicationModel commerceApplicationModel) {
-		return commerceApplicationModelPersistence.update(commerceApplicationModel);
+
+		return commerceApplicationModelPersistence.update(
+			commerceApplicationModel);
 	}
 
 	/**
@@ -333,7 +366,10 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 *
 	 * @return the commerce application brand local service
 	 */
-	public com.liferay.commerce.application.service.CommerceApplicationBrandLocalService getCommerceApplicationBrandLocalService() {
+	public com.liferay.commerce.application.service.
+		CommerceApplicationBrandLocalService
+			getCommerceApplicationBrandLocalService() {
+
 		return commerceApplicationBrandLocalService;
 	}
 
@@ -343,8 +379,12 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 * @param commerceApplicationBrandLocalService the commerce application brand local service
 	 */
 	public void setCommerceApplicationBrandLocalService(
-		com.liferay.commerce.application.service.CommerceApplicationBrandLocalService commerceApplicationBrandLocalService) {
-		this.commerceApplicationBrandLocalService = commerceApplicationBrandLocalService;
+		com.liferay.commerce.application.service.
+			CommerceApplicationBrandLocalService
+				commerceApplicationBrandLocalService) {
+
+		this.commerceApplicationBrandLocalService =
+			commerceApplicationBrandLocalService;
 	}
 
 	/**
@@ -352,7 +392,9 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 *
 	 * @return the commerce application brand persistence
 	 */
-	public CommerceApplicationBrandPersistence getCommerceApplicationBrandPersistence() {
+	public CommerceApplicationBrandPersistence
+		getCommerceApplicationBrandPersistence() {
+
 		return commerceApplicationBrandPersistence;
 	}
 
@@ -362,8 +404,11 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 * @param commerceApplicationBrandPersistence the commerce application brand persistence
 	 */
 	public void setCommerceApplicationBrandPersistence(
-		CommerceApplicationBrandPersistence commerceApplicationBrandPersistence) {
-		this.commerceApplicationBrandPersistence = commerceApplicationBrandPersistence;
+		CommerceApplicationBrandPersistence
+			commerceApplicationBrandPersistence) {
+
+		this.commerceApplicationBrandPersistence =
+			commerceApplicationBrandPersistence;
 	}
 
 	/**
@@ -371,7 +416,9 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 *
 	 * @return the commerce application model local service
 	 */
-	public CommerceApplicationModelLocalService getCommerceApplicationModelLocalService() {
+	public CommerceApplicationModelLocalService
+		getCommerceApplicationModelLocalService() {
+
 		return commerceApplicationModelLocalService;
 	}
 
@@ -381,8 +428,11 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 * @param commerceApplicationModelLocalService the commerce application model local service
 	 */
 	public void setCommerceApplicationModelLocalService(
-		CommerceApplicationModelLocalService commerceApplicationModelLocalService) {
-		this.commerceApplicationModelLocalService = commerceApplicationModelLocalService;
+		CommerceApplicationModelLocalService
+			commerceApplicationModelLocalService) {
+
+		this.commerceApplicationModelLocalService =
+			commerceApplicationModelLocalService;
 	}
 
 	/**
@@ -390,7 +440,9 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 *
 	 * @return the commerce application model persistence
 	 */
-	public CommerceApplicationModelPersistence getCommerceApplicationModelPersistence() {
+	public CommerceApplicationModelPersistence
+		getCommerceApplicationModelPersistence() {
+
 		return commerceApplicationModelPersistence;
 	}
 
@@ -400,8 +452,11 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 * @param commerceApplicationModelPersistence the commerce application model persistence
 	 */
 	public void setCommerceApplicationModelPersistence(
-		CommerceApplicationModelPersistence commerceApplicationModelPersistence) {
-		this.commerceApplicationModelPersistence = commerceApplicationModelPersistence;
+		CommerceApplicationModelPersistence
+			commerceApplicationModelPersistence) {
+
+		this.commerceApplicationModelPersistence =
+			commerceApplicationModelPersistence;
 	}
 
 	/**
@@ -409,7 +464,10 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 *
 	 * @return the commerce application model c product rel local service
 	 */
-	public com.liferay.commerce.application.service.CommerceApplicationModelCProductRelLocalService getCommerceApplicationModelCProductRelLocalService() {
+	public com.liferay.commerce.application.service.
+		CommerceApplicationModelCProductRelLocalService
+			getCommerceApplicationModelCProductRelLocalService() {
+
 		return commerceApplicationModelCProductRelLocalService;
 	}
 
@@ -419,8 +477,12 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 * @param commerceApplicationModelCProductRelLocalService the commerce application model c product rel local service
 	 */
 	public void setCommerceApplicationModelCProductRelLocalService(
-		com.liferay.commerce.application.service.CommerceApplicationModelCProductRelLocalService commerceApplicationModelCProductRelLocalService) {
-		this.commerceApplicationModelCProductRelLocalService = commerceApplicationModelCProductRelLocalService;
+		com.liferay.commerce.application.service.
+			CommerceApplicationModelCProductRelLocalService
+				commerceApplicationModelCProductRelLocalService) {
+
+		this.commerceApplicationModelCProductRelLocalService =
+			commerceApplicationModelCProductRelLocalService;
 	}
 
 	/**
@@ -428,7 +490,9 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 *
 	 * @return the commerce application model c product rel persistence
 	 */
-	public CommerceApplicationModelCProductRelPersistence getCommerceApplicationModelCProductRelPersistence() {
+	public CommerceApplicationModelCProductRelPersistence
+		getCommerceApplicationModelCProductRelPersistence() {
+
 		return commerceApplicationModelCProductRelPersistence;
 	}
 
@@ -438,8 +502,11 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 * @param commerceApplicationModelCProductRelPersistence the commerce application model c product rel persistence
 	 */
 	public void setCommerceApplicationModelCProductRelPersistence(
-		CommerceApplicationModelCProductRelPersistence commerceApplicationModelCProductRelPersistence) {
-		this.commerceApplicationModelCProductRelPersistence = commerceApplicationModelCProductRelPersistence;
+		CommerceApplicationModelCProductRelPersistence
+			commerceApplicationModelCProductRelPersistence) {
+
+		this.commerceApplicationModelCProductRelPersistence =
+			commerceApplicationModelCProductRelPersistence;
 	}
 
 	/**
@@ -447,7 +514,9 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 *
 	 * @return the counter local service
 	 */
-	public com.liferay.counter.kernel.service.CounterLocalService getCounterLocalService() {
+	public com.liferay.counter.kernel.service.CounterLocalService
+		getCounterLocalService() {
+
 		return counterLocalService;
 	}
 
@@ -457,7 +526,9 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 * @param counterLocalService the counter local service
 	 */
 	public void setCounterLocalService(
-		com.liferay.counter.kernel.service.CounterLocalService counterLocalService) {
+		com.liferay.counter.kernel.service.CounterLocalService
+			counterLocalService) {
+
 		this.counterLocalService = counterLocalService;
 	}
 
@@ -466,7 +537,9 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 *
 	 * @return the class name local service
 	 */
-	public com.liferay.portal.kernel.service.ClassNameLocalService getClassNameLocalService() {
+	public com.liferay.portal.kernel.service.ClassNameLocalService
+		getClassNameLocalService() {
+
 		return classNameLocalService;
 	}
 
@@ -476,7 +549,9 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 * @param classNameLocalService the class name local service
 	 */
 	public void setClassNameLocalService(
-		com.liferay.portal.kernel.service.ClassNameLocalService classNameLocalService) {
+		com.liferay.portal.kernel.service.ClassNameLocalService
+			classNameLocalService) {
+
 		this.classNameLocalService = classNameLocalService;
 	}
 
@@ -496,6 +571,7 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 */
 	public void setClassNamePersistence(
 		ClassNamePersistence classNamePersistence) {
+
 		this.classNamePersistence = classNamePersistence;
 	}
 
@@ -504,7 +580,9 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 *
 	 * @return the resource local service
 	 */
-	public com.liferay.portal.kernel.service.ResourceLocalService getResourceLocalService() {
+	public com.liferay.portal.kernel.service.ResourceLocalService
+		getResourceLocalService() {
+
 		return resourceLocalService;
 	}
 
@@ -514,7 +592,9 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 * @param resourceLocalService the resource local service
 	 */
 	public void setResourceLocalService(
-		com.liferay.portal.kernel.service.ResourceLocalService resourceLocalService) {
+		com.liferay.portal.kernel.service.ResourceLocalService
+			resourceLocalService) {
+
 		this.resourceLocalService = resourceLocalService;
 	}
 
@@ -523,7 +603,9 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 *
 	 * @return the user local service
 	 */
-	public com.liferay.portal.kernel.service.UserLocalService getUserLocalService() {
+	public com.liferay.portal.kernel.service.UserLocalService
+		getUserLocalService() {
+
 		return userLocalService;
 	}
 
@@ -534,6 +616,7 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 */
 	public void setUserLocalService(
 		com.liferay.portal.kernel.service.UserLocalService userLocalService) {
+
 		this.userLocalService = userLocalService;
 	}
 
@@ -556,7 +639,8 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		persistedModelLocalServiceRegistry.register("com.liferay.commerce.application.model.CommerceApplicationModel",
+		persistedModelLocalServiceRegistry.register(
+			"com.liferay.commerce.application.model.CommerceApplicationModel",
 			commerceApplicationModelLocalService);
 	}
 
@@ -590,15 +674,16 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	 */
 	protected void runSQL(String sql) {
 		try {
-			DataSource dataSource = commerceApplicationModelPersistence.getDataSource();
+			DataSource dataSource =
+				commerceApplicationModelPersistence.getDataSource();
 
 			DB db = DBManagerUtil.getDB();
 
 			sql = db.buildSQL(sql);
 			sql = PortalUtil.transformSQL(sql);
 
-			SqlUpdate sqlUpdate = SqlUpdateFactoryUtil.getSqlUpdate(dataSource,
-					sql);
+			SqlUpdate sqlUpdate = SqlUpdateFactoryUtil.getSqlUpdate(
+				dataSource, sql);
 
 			sqlUpdate.update();
 		}
@@ -607,30 +692,68 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 		}
 	}
 
-	@BeanReference(type = com.liferay.commerce.application.service.CommerceApplicationBrandLocalService.class)
-	protected com.liferay.commerce.application.service.CommerceApplicationBrandLocalService commerceApplicationBrandLocalService;
+	@BeanReference(
+		type = com.liferay.commerce.application.service.CommerceApplicationBrandLocalService.class
+	)
+	protected com.liferay.commerce.application.service.
+		CommerceApplicationBrandLocalService
+			commerceApplicationBrandLocalService;
+
 	@BeanReference(type = CommerceApplicationBrandPersistence.class)
-	protected CommerceApplicationBrandPersistence commerceApplicationBrandPersistence;
+	protected CommerceApplicationBrandPersistence
+		commerceApplicationBrandPersistence;
+
 	@BeanReference(type = CommerceApplicationModelLocalService.class)
-	protected CommerceApplicationModelLocalService commerceApplicationModelLocalService;
+	protected CommerceApplicationModelLocalService
+		commerceApplicationModelLocalService;
+
 	@BeanReference(type = CommerceApplicationModelPersistence.class)
-	protected CommerceApplicationModelPersistence commerceApplicationModelPersistence;
-	@BeanReference(type = com.liferay.commerce.application.service.CommerceApplicationModelCProductRelLocalService.class)
-	protected com.liferay.commerce.application.service.CommerceApplicationModelCProductRelLocalService commerceApplicationModelCProductRelLocalService;
+	protected CommerceApplicationModelPersistence
+		commerceApplicationModelPersistence;
+
+	@BeanReference(
+		type = com.liferay.commerce.application.service.CommerceApplicationModelCProductRelLocalService.class
+	)
+	protected com.liferay.commerce.application.service.
+		CommerceApplicationModelCProductRelLocalService
+			commerceApplicationModelCProductRelLocalService;
+
 	@BeanReference(type = CommerceApplicationModelCProductRelPersistence.class)
-	protected CommerceApplicationModelCProductRelPersistence commerceApplicationModelCProductRelPersistence;
-	@ServiceReference(type = com.liferay.counter.kernel.service.CounterLocalService.class)
-	protected com.liferay.counter.kernel.service.CounterLocalService counterLocalService;
-	@ServiceReference(type = com.liferay.portal.kernel.service.ClassNameLocalService.class)
-	protected com.liferay.portal.kernel.service.ClassNameLocalService classNameLocalService;
+	protected CommerceApplicationModelCProductRelPersistence
+		commerceApplicationModelCProductRelPersistence;
+
+	@ServiceReference(
+		type = com.liferay.counter.kernel.service.CounterLocalService.class
+	)
+	protected com.liferay.counter.kernel.service.CounterLocalService
+		counterLocalService;
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.ClassNameLocalService.class
+	)
+	protected com.liferay.portal.kernel.service.ClassNameLocalService
+		classNameLocalService;
+
 	@ServiceReference(type = ClassNamePersistence.class)
 	protected ClassNamePersistence classNamePersistence;
-	@ServiceReference(type = com.liferay.portal.kernel.service.ResourceLocalService.class)
-	protected com.liferay.portal.kernel.service.ResourceLocalService resourceLocalService;
-	@ServiceReference(type = com.liferay.portal.kernel.service.UserLocalService.class)
-	protected com.liferay.portal.kernel.service.UserLocalService userLocalService;
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.ResourceLocalService.class
+	)
+	protected com.liferay.portal.kernel.service.ResourceLocalService
+		resourceLocalService;
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.UserLocalService.class
+	)
+	protected com.liferay.portal.kernel.service.UserLocalService
+		userLocalService;
+
 	@ServiceReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
+
 	@ServiceReference(type = PersistedModelLocalServiceRegistry.class)
-	protected PersistedModelLocalServiceRegistry persistedModelLocalServiceRegistry;
+	protected PersistedModelLocalServiceRegistry
+		persistedModelLocalServiceRegistry;
+
 }

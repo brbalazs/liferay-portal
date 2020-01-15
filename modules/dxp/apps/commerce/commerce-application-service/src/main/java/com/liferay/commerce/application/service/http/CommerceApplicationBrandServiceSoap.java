@@ -14,10 +14,7 @@
 
 package com.liferay.commerce.application.service.http;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.application.service.CommerceApplicationBrandServiceUtil;
-
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
@@ -25,19 +22,20 @@ import java.rmi.RemoteException;
 
 /**
  * Provides the SOAP utility for the
- * {@link CommerceApplicationBrandServiceUtil} service utility. The
- * static methods of this class calls the same methods of the service utility.
- * However, the signatures are different because it is difficult for SOAP to
- * support certain types.
+ * <code>CommerceApplicationBrandServiceUtil</code> service
+ * utility. The static methods of this class call the same methods of the
+ * service utility. However, the signatures are different because it is
+ * difficult for SOAP to support certain types.
  *
  * <p>
  * ServiceBuilder follows certain rules in translating the methods. For example,
- * if the method in the service utility returns a {@link java.util.List}, that
- * is translated to an array of {@link com.liferay.commerce.application.model.CommerceApplicationBrandSoap}.
- * If the method in the service utility returns a
- * {@link com.liferay.commerce.application.model.CommerceApplicationBrand}, that is translated to a
- * {@link com.liferay.commerce.application.model.CommerceApplicationBrandSoap}. Methods that SOAP cannot
- * safely wire are skipped.
+ * if the method in the service utility returns a <code>java.util.List</code>,
+ * that is translated to an array of
+ * <code>com.liferay.commerce.application.model.CommerceApplicationBrandSoap</code>. If the method in the
+ * service utility returns a
+ * <code>com.liferay.commerce.application.model.CommerceApplicationBrand</code>, that is translated to a
+ * <code>com.liferay.commerce.application.model.CommerceApplicationBrandSoap</code>. Methods that SOAP
+ * cannot safely wire are skipped.
  * </p>
  *
  * <p>
@@ -59,21 +57,25 @@ import java.rmi.RemoteException;
  *
  * @author Luca Pellizzon
  * @see CommerceApplicationBrandServiceHttp
- * @see com.liferay.commerce.application.model.CommerceApplicationBrandSoap
- * @see CommerceApplicationBrandServiceUtil
  * @generated
  */
-@ProviderType
 public class CommerceApplicationBrandServiceSoap {
-	public static com.liferay.commerce.application.model.CommerceApplicationBrandSoap addCommerceApplicationBrand(
-		long userId, String name, boolean logo, byte[] logoBytes)
-		throws RemoteException {
-		try {
-			com.liferay.commerce.application.model.CommerceApplicationBrand returnValue =
-				CommerceApplicationBrandServiceUtil.addCommerceApplicationBrand(userId,
-					name, logo, logoBytes);
 
-			return com.liferay.commerce.application.model.CommerceApplicationBrandSoap.toSoapModel(returnValue);
+	public static
+		com.liferay.commerce.application.model.CommerceApplicationBrandSoap
+				addCommerceApplicationBrand(
+					long userId, String name, boolean logo, byte[] logoBytes)
+			throws RemoteException {
+
+		try {
+			com.liferay.commerce.application.model.CommerceApplicationBrand
+				returnValue =
+					CommerceApplicationBrandServiceUtil.
+						addCommerceApplicationBrand(
+							userId, name, logo, logoBytes);
+
+			return com.liferay.commerce.application.model.
+				CommerceApplicationBrandSoap.toSoapModel(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -83,9 +85,12 @@ public class CommerceApplicationBrandServiceSoap {
 	}
 
 	public static void deleteCommerceApplicationBrand(
-		long commerceApplicationBrandId) throws RemoteException {
+			long commerceApplicationBrandId)
+		throws RemoteException {
+
 		try {
-			CommerceApplicationBrandServiceUtil.deleteCommerceApplicationBrand(commerceApplicationBrandId);
+			CommerceApplicationBrandServiceUtil.deleteCommerceApplicationBrand(
+				commerceApplicationBrandId);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -94,13 +99,19 @@ public class CommerceApplicationBrandServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.application.model.CommerceApplicationBrandSoap getCommerceApplicationBrand(
-		long commerceApplicationBrandId) throws RemoteException {
-		try {
-			com.liferay.commerce.application.model.CommerceApplicationBrand returnValue =
-				CommerceApplicationBrandServiceUtil.getCommerceApplicationBrand(commerceApplicationBrandId);
+	public static
+		com.liferay.commerce.application.model.CommerceApplicationBrandSoap
+				getCommerceApplicationBrand(long commerceApplicationBrandId)
+			throws RemoteException {
 
-			return com.liferay.commerce.application.model.CommerceApplicationBrandSoap.toSoapModel(returnValue);
+		try {
+			com.liferay.commerce.application.model.CommerceApplicationBrand
+				returnValue =
+					CommerceApplicationBrandServiceUtil.
+						getCommerceApplicationBrand(commerceApplicationBrandId);
+
+			return com.liferay.commerce.application.model.
+				CommerceApplicationBrandSoap.toSoapModel(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -109,14 +120,20 @@ public class CommerceApplicationBrandServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.application.model.CommerceApplicationBrandSoap[] getCommerceApplicationBrands(
-		long companyId, int start, int end) throws RemoteException {
-		try {
-			java.util.List<com.liferay.commerce.application.model.CommerceApplicationBrand> returnValue =
-				CommerceApplicationBrandServiceUtil.getCommerceApplicationBrands(companyId,
-					start, end);
+	public static
+		com.liferay.commerce.application.model.CommerceApplicationBrandSoap[]
+				getCommerceApplicationBrands(long companyId, int start, int end)
+			throws RemoteException {
 
-			return com.liferay.commerce.application.model.CommerceApplicationBrandSoap.toSoapModels(returnValue);
+		try {
+			java.util.List
+				<com.liferay.commerce.application.model.
+					CommerceApplicationBrand> returnValue =
+						CommerceApplicationBrandServiceUtil.
+							getCommerceApplicationBrands(companyId, start, end);
+
+			return com.liferay.commerce.application.model.
+				CommerceApplicationBrandSoap.toSoapModels(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -127,8 +144,11 @@ public class CommerceApplicationBrandServiceSoap {
 
 	public static int getCommerceApplicationBrandsCount(long companyId)
 		throws RemoteException {
+
 		try {
-			int returnValue = CommerceApplicationBrandServiceUtil.getCommerceApplicationBrandsCount(companyId);
+			int returnValue =
+				CommerceApplicationBrandServiceUtil.
+					getCommerceApplicationBrandsCount(companyId);
 
 			return returnValue;
 		}
@@ -139,15 +159,22 @@ public class CommerceApplicationBrandServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.application.model.CommerceApplicationBrandSoap updateCommerceApplicationBrand(
-		long commerceApplicationBrandId, String name, boolean logo,
-		byte[] logoBytes) throws RemoteException {
-		try {
-			com.liferay.commerce.application.model.CommerceApplicationBrand returnValue =
-				CommerceApplicationBrandServiceUtil.updateCommerceApplicationBrand(commerceApplicationBrandId,
-					name, logo, logoBytes);
+	public static
+		com.liferay.commerce.application.model.CommerceApplicationBrandSoap
+				updateCommerceApplicationBrand(
+					long commerceApplicationBrandId, String name, boolean logo,
+					byte[] logoBytes)
+			throws RemoteException {
 
-			return com.liferay.commerce.application.model.CommerceApplicationBrandSoap.toSoapModel(returnValue);
+		try {
+			com.liferay.commerce.application.model.CommerceApplicationBrand
+				returnValue =
+					CommerceApplicationBrandServiceUtil.
+						updateCommerceApplicationBrand(
+							commerceApplicationBrandId, name, logo, logoBytes);
+
+			return com.liferay.commerce.application.model.
+				CommerceApplicationBrandSoap.toSoapModel(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -156,5 +183,7 @@ public class CommerceApplicationBrandServiceSoap {
 		}
 	}
 
-	private static Log _log = LogFactoryUtil.getLog(CommerceApplicationBrandServiceSoap.class);
+	private static Log _log = LogFactoryUtil.getLog(
+		CommerceApplicationBrandServiceSoap.class);
+
 }

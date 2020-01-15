@@ -14,10 +14,7 @@
 
 package com.liferay.commerce.application.service.http;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.application.service.CommerceApplicationModelServiceUtil;
-
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.HttpPrincipal;
@@ -27,10 +24,11 @@ import com.liferay.portal.kernel.util.MethodKey;
 
 /**
  * Provides the HTTP utility for the
- * {@link CommerceApplicationModelServiceUtil} service utility. The
+ * <code>CommerceApplicationModelServiceUtil</code> service
+ * utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it requires an additional
- * {@link HttpPrincipal} parameter.
+ * <code>HttpPrincipal</code> parameter.
  *
  * <p>
  * The benefits of using the HTTP utility is that it is fast and allows for
@@ -49,23 +47,25 @@ import com.liferay.portal.kernel.util.MethodKey;
  *
  * @author Luca Pellizzon
  * @see CommerceApplicationModelServiceSoap
- * @see HttpPrincipal
- * @see CommerceApplicationModelServiceUtil
  * @generated
  */
-@ProviderType
 public class CommerceApplicationModelServiceHttp {
-	public static com.liferay.commerce.application.model.CommerceApplicationModel addCommerceApplicationModel(
-		HttpPrincipal httpPrincipal, long userId,
-		long commerceApplicationBrandId, String name, String year)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceApplicationModelServiceUtil.class,
-					"addCommerceApplicationModel",
-					_addCommerceApplicationModelParameterTypes0);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey, userId,
-					commerceApplicationBrandId, name, year);
+	public static
+		com.liferay.commerce.application.model.CommerceApplicationModel
+				addCommerceApplicationModel(
+					HttpPrincipal httpPrincipal, long userId,
+					long commerceApplicationBrandId, String name, String year)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceApplicationModelServiceUtil.class,
+				"addCommerceApplicationModel",
+				_addCommerceApplicationModelParameterTypes0);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userId, commerceApplicationBrandId, name, year);
 
 			Object returnObj = null;
 
@@ -73,14 +73,19 @@ public class CommerceApplicationModelServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
 				}
 
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 
-			return (com.liferay.commerce.application.model.CommerceApplicationModel)returnObj;
+			return (com.liferay.commerce.application.model.
+				CommerceApplicationModel)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -90,25 +95,31 @@ public class CommerceApplicationModelServiceHttp {
 	}
 
 	public static void deleteCommerceApplicationModel(
-		HttpPrincipal httpPrincipal, long commerceApplicationModelId)
+			HttpPrincipal httpPrincipal, long commerceApplicationModelId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceApplicationModelServiceUtil.class,
-					"deleteCommerceApplicationModel",
-					_deleteCommerceApplicationModelParameterTypes1);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					commerceApplicationModelId);
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceApplicationModelServiceUtil.class,
+				"deleteCommerceApplicationModel",
+				_deleteCommerceApplicationModelParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceApplicationModelId);
 
 			try {
 				TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
 				}
 
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
@@ -118,16 +129,21 @@ public class CommerceApplicationModelServiceHttp {
 		}
 	}
 
-	public static com.liferay.commerce.application.model.CommerceApplicationModel getCommerceApplicationModel(
-		HttpPrincipal httpPrincipal, long commerceApplicationModelId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceApplicationModelServiceUtil.class,
-					"getCommerceApplicationModel",
-					_getCommerceApplicationModelParameterTypes2);
+	public static
+		com.liferay.commerce.application.model.CommerceApplicationModel
+				getCommerceApplicationModel(
+					HttpPrincipal httpPrincipal,
+					long commerceApplicationModelId)
+			throws com.liferay.portal.kernel.exception.PortalException {
 
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					commerceApplicationModelId);
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceApplicationModelServiceUtil.class,
+				"getCommerceApplicationModel",
+				_getCommerceApplicationModelParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceApplicationModelId);
 
 			Object returnObj = null;
 
@@ -135,14 +151,19 @@ public class CommerceApplicationModelServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
 				}
 
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 
-			return (com.liferay.commerce.application.model.CommerceApplicationModel)returnObj;
+			return (com.liferay.commerce.application.model.
+				CommerceApplicationModel)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -151,15 +172,20 @@ public class CommerceApplicationModelServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.commerce.application.model.CommerceApplicationModel> getCommerceApplicationModelsByCompanyId(
-		HttpPrincipal httpPrincipal, long companyId, int start, int end) {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceApplicationModelServiceUtil.class,
-					"getCommerceApplicationModelsByCompanyId",
-					_getCommerceApplicationModelsByCompanyIdParameterTypes3);
+	public static java.util.List
+		<com.liferay.commerce.application.model.CommerceApplicationModel>
+			getCommerceApplicationModels(
+				HttpPrincipal httpPrincipal, long commerceApplicationBrandId,
+				int start, int end) {
 
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					companyId, start, end);
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceApplicationModelServiceUtil.class,
+				"getCommerceApplicationModels",
+				_getCommerceApplicationModelsParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceApplicationBrandId, start, end);
 
 			Object returnObj = null;
 
@@ -167,10 +193,13 @@ public class CommerceApplicationModelServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 
-			return (java.util.List<com.liferay.commerce.application.model.CommerceApplicationModel>)returnObj;
+			return (java.util.List
+				<com.liferay.commerce.application.model.
+					CommerceApplicationModel>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -179,16 +208,20 @@ public class CommerceApplicationModelServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.commerce.application.model.CommerceApplicationModel> getCommerceApplicationModels(
-		HttpPrincipal httpPrincipal, long commerceApplicationBrandId,
-		int start, int end) {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceApplicationModelServiceUtil.class,
-					"getCommerceApplicationModels",
-					_getCommerceApplicationModelsParameterTypes4);
+	public static java.util.List
+		<com.liferay.commerce.application.model.CommerceApplicationModel>
+			getCommerceApplicationModelsByCompanyId(
+				HttpPrincipal httpPrincipal, long companyId, int start,
+				int end) {
 
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					commerceApplicationBrandId, start, end);
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceApplicationModelServiceUtil.class,
+				"getCommerceApplicationModelsByCompanyId",
+				_getCommerceApplicationModelsByCompanyIdParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, companyId, start, end);
 
 			Object returnObj = null;
 
@@ -196,37 +229,13 @@ public class CommerceApplicationModelServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 
-			return (java.util.List<com.liferay.commerce.application.model.CommerceApplicationModel>)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
-	public static int getCommerceApplicationModelsCountByCompanyId(
-		HttpPrincipal httpPrincipal, long companyId) {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceApplicationModelServiceUtil.class,
-					"getCommerceApplicationModelsCountByCompanyId",
-					_getCommerceApplicationModelsCountByCompanyIdParameterTypes5);
-
-			MethodHandler methodHandler = new MethodHandler(methodKey, companyId);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
-			}
-
-			return ((Integer)returnObj).intValue();
+			return (java.util.List
+				<com.liferay.commerce.application.model.
+					CommerceApplicationModel>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -237,13 +246,15 @@ public class CommerceApplicationModelServiceHttp {
 
 	public static int getCommerceApplicationModelsCount(
 		HttpPrincipal httpPrincipal, long commerceApplicationBrandId) {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceApplicationModelServiceUtil.class,
-					"getCommerceApplicationModelsCount",
-					_getCommerceApplicationModelsCountParameterTypes6);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					commerceApplicationBrandId);
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceApplicationModelServiceUtil.class,
+				"getCommerceApplicationModelsCount",
+				_getCommerceApplicationModelsCountParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceApplicationBrandId);
 
 			Object returnObj = null;
 
@@ -251,7 +262,8 @@ public class CommerceApplicationModelServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 
 			return ((Integer)returnObj).intValue();
@@ -263,17 +275,17 @@ public class CommerceApplicationModelServiceHttp {
 		}
 	}
 
-	public static com.liferay.commerce.application.model.CommerceApplicationModel updateCommerceApplicationModel(
-		HttpPrincipal httpPrincipal, long commerceApplicationModelId,
-		String name, String year)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceApplicationModelServiceUtil.class,
-					"updateCommerceApplicationModel",
-					_updateCommerceApplicationModelParameterTypes7);
+	public static int getCommerceApplicationModelsCountByCompanyId(
+		HttpPrincipal httpPrincipal, long companyId) {
 
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					commerceApplicationModelId, name, year);
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceApplicationModelServiceUtil.class,
+				"getCommerceApplicationModelsCountByCompanyId",
+				_getCommerceApplicationModelsCountByCompanyIdParameterTypes6);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, companyId);
 
 			Object returnObj = null;
 
@@ -281,14 +293,11 @@ public class CommerceApplicationModelServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 
-			return (com.liferay.commerce.application.model.CommerceApplicationModel)returnObj;
+			return ((Integer)returnObj).intValue();
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -297,23 +306,80 @@ public class CommerceApplicationModelServiceHttp {
 		}
 	}
 
-	private static Log _log = LogFactoryUtil.getLog(CommerceApplicationModelServiceHttp.class);
-	private static final Class<?>[] _addCommerceApplicationModelParameterTypes0 = new Class[] {
+	public static
+		com.liferay.commerce.application.model.CommerceApplicationModel
+				updateCommerceApplicationModel(
+					HttpPrincipal httpPrincipal,
+					long commerceApplicationModelId, String name, String year)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceApplicationModelServiceUtil.class,
+				"updateCommerceApplicationModel",
+				_updateCommerceApplicationModelParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceApplicationModelId, name, year);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (com.liferay.commerce.application.model.
+				CommerceApplicationModel)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		CommerceApplicationModelServiceHttp.class);
+
+	private static final Class<?>[]
+		_addCommerceApplicationModelParameterTypes0 = new Class[] {
 			long.class, long.class, String.class, String.class
 		};
-	private static final Class<?>[] _deleteCommerceApplicationModelParameterTypes1 =
-		new Class[] { long.class };
-	private static final Class<?>[] _getCommerceApplicationModelParameterTypes2 = new Class[] {
+	private static final Class<?>[]
+		_deleteCommerceApplicationModelParameterTypes1 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _getCommerceApplicationModelsByCompanyIdParameterTypes3 =
-		new Class[] { long.class, int.class, int.class };
-	private static final Class<?>[] _getCommerceApplicationModelsParameterTypes4 =
-		new Class[] { long.class, int.class, int.class };
-	private static final Class<?>[] _getCommerceApplicationModelsCountByCompanyIdParameterTypes5 =
-		new Class[] { long.class };
-	private static final Class<?>[] _getCommerceApplicationModelsCountParameterTypes6 =
-		new Class[] { long.class };
-	private static final Class<?>[] _updateCommerceApplicationModelParameterTypes7 =
-		new Class[] { long.class, String.class, String.class };
+	private static final Class<?>[]
+		_getCommerceApplicationModelParameterTypes2 = new Class[] {long.class};
+	private static final Class<?>[]
+		_getCommerceApplicationModelsParameterTypes3 = new Class[] {
+			long.class, int.class, int.class
+		};
+	private static final Class<?>[]
+		_getCommerceApplicationModelsByCompanyIdParameterTypes4 = new Class[] {
+			long.class, int.class, int.class
+		};
+	private static final Class<?>[]
+		_getCommerceApplicationModelsCountParameterTypes5 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getCommerceApplicationModelsCountByCompanyIdParameterTypes6 =
+			new Class[] {long.class};
+	private static final Class<?>[]
+		_updateCommerceApplicationModelParameterTypes7 = new Class[] {
+			long.class, String.class, String.class
+		};
+
 }
