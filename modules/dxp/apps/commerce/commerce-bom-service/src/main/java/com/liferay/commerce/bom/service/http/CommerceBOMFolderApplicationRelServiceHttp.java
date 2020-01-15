@@ -14,10 +14,7 @@
 
 package com.liferay.commerce.bom.service.http;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelServiceUtil;
-
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.HttpPrincipal;
@@ -27,10 +24,11 @@ import com.liferay.portal.kernel.util.MethodKey;
 
 /**
  * Provides the HTTP utility for the
- * {@link CommerceBOMFolderApplicationRelServiceUtil} service utility. The
+ * <code>CommerceBOMFolderApplicationRelServiceUtil</code> service
+ * utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it requires an additional
- * {@link HttpPrincipal} parameter.
+ * <code>HttpPrincipal</code> parameter.
  *
  * <p>
  * The benefits of using the HTTP utility is that it is fast and allows for
@@ -49,23 +47,25 @@ import com.liferay.portal.kernel.util.MethodKey;
  *
  * @author Luca Pellizzon
  * @see CommerceBOMFolderApplicationRelServiceSoap
- * @see HttpPrincipal
- * @see CommerceBOMFolderApplicationRelServiceUtil
  * @generated
  */
-@ProviderType
 public class CommerceBOMFolderApplicationRelServiceHttp {
-	public static com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel addCommerceBOMFolderApplicationRel(
-		HttpPrincipal httpPrincipal, long userId, long commerceBOMFolderId,
-		long commerceApplicationModelId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceBOMFolderApplicationRelServiceUtil.class,
-					"addCommerceBOMFolderApplicationRel",
-					_addCommerceBOMFolderApplicationRelParameterTypes0);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey, userId,
-					commerceBOMFolderId, commerceApplicationModelId);
+	public static com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel
+			addCommerceBOMFolderApplicationRel(
+				HttpPrincipal httpPrincipal, long userId,
+				long commerceBOMFolderId, long commerceApplicationModelId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceBOMFolderApplicationRelServiceUtil.class,
+				"addCommerceBOMFolderApplicationRel",
+				_addCommerceBOMFolderApplicationRelParameterTypes0);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userId, commerceBOMFolderId,
+				commerceApplicationModelId);
 
 			Object returnObj = null;
 
@@ -73,14 +73,19 @@ public class CommerceBOMFolderApplicationRelServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
 				}
 
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 
-			return (com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel)returnObj;
+			return (com.liferay.commerce.bom.model.
+				CommerceBOMFolderApplicationRel)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -90,25 +95,31 @@ public class CommerceBOMFolderApplicationRelServiceHttp {
 	}
 
 	public static void deleteCommerceBOMFolderApplicationRel(
-		HttpPrincipal httpPrincipal, long commerceBOMFolderApplicationRelId)
+			HttpPrincipal httpPrincipal, long commerceBOMFolderApplicationRelId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceBOMFolderApplicationRelServiceUtil.class,
-					"deleteCommerceBOMFolderApplicationRel",
-					_deleteCommerceBOMFolderApplicationRelParameterTypes1);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					commerceBOMFolderApplicationRelId);
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceBOMFolderApplicationRelServiceUtil.class,
+				"deleteCommerceBOMFolderApplicationRel",
+				_deleteCommerceBOMFolderApplicationRelParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceBOMFolderApplicationRelId);
 
 			try {
 				TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
 				}
 
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
@@ -118,17 +129,21 @@ public class CommerceBOMFolderApplicationRelServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel> getCommerceBOMFolderApplicationRelsByCAMId(
-		HttpPrincipal httpPrincipal, long commerceApplicationModelId,
-		int start, int end)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceBOMFolderApplicationRelServiceUtil.class,
-					"getCommerceBOMFolderApplicationRelsByCAMId",
-					_getCommerceBOMFolderApplicationRelsByCAMIdParameterTypes2);
+	public static java.util.List
+		<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel>
+				getCommerceBOMFolderApplicationRelsByCAMId(
+					HttpPrincipal httpPrincipal,
+					long commerceApplicationModelId, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
 
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					commerceApplicationModelId, start, end);
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceBOMFolderApplicationRelServiceUtil.class,
+				"getCommerceBOMFolderApplicationRelsByCAMId",
+				_getCommerceBOMFolderApplicationRelsByCAMIdParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceApplicationModelId, start, end);
 
 			Object returnObj = null;
 
@@ -136,14 +151,20 @@ public class CommerceBOMFolderApplicationRelServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
 				}
 
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 
-			return (java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel>)returnObj;
+			return (java.util.List
+				<com.liferay.commerce.bom.model.
+					CommerceBOMFolderApplicationRel>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -152,16 +173,21 @@ public class CommerceBOMFolderApplicationRelServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel> getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
-		HttpPrincipal httpPrincipal, long commerceBOMFolderId, int start,
-		int end) throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceBOMFolderApplicationRelServiceUtil.class,
-					"getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId",
-					_getCommerceBOMFolderApplicationRelsByCommerceBOMFolderIdParameterTypes3);
+	public static java.util.List
+		<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel>
+				getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
+					HttpPrincipal httpPrincipal, long commerceBOMFolderId,
+					int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
 
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					commerceBOMFolderId, start, end);
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceBOMFolderApplicationRelServiceUtil.class,
+				"getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId",
+				_getCommerceBOMFolderApplicationRelsByCommerceBOMFolderIdParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceBOMFolderId, start, end);
 
 			Object returnObj = null;
 
@@ -169,14 +195,20 @@ public class CommerceBOMFolderApplicationRelServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
 				}
 
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 
-			return (java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel>)returnObj;
+			return (java.util.List
+				<com.liferay.commerce.bom.model.
+					CommerceBOMFolderApplicationRel>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -186,15 +218,17 @@ public class CommerceBOMFolderApplicationRelServiceHttp {
 	}
 
 	public static int getCommerceBOMFolderApplicationRelsCountByCAMId(
-		HttpPrincipal httpPrincipal, long commerceApplicationModelId)
+			HttpPrincipal httpPrincipal, long commerceApplicationModelId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceBOMFolderApplicationRelServiceUtil.class,
-					"getCommerceBOMFolderApplicationRelsCountByCAMId",
-					_getCommerceBOMFolderApplicationRelsCountByCAMIdParameterTypes4);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					commerceApplicationModelId);
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceBOMFolderApplicationRelServiceUtil.class,
+				"getCommerceBOMFolderApplicationRelsCountByCAMId",
+				_getCommerceBOMFolderApplicationRelsCountByCAMIdParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceApplicationModelId);
 
 			Object returnObj = null;
 
@@ -202,11 +236,15 @@ public class CommerceBOMFolderApplicationRelServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
 				}
 
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 
 			return ((Integer)returnObj).intValue();
@@ -218,16 +256,19 @@ public class CommerceBOMFolderApplicationRelServiceHttp {
 		}
 	}
 
-	public static int getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(
-		HttpPrincipal httpPrincipal, long commerceBOMFolderId)
+	public static int
+			getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(
+				HttpPrincipal httpPrincipal, long commerceBOMFolderId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(CommerceBOMFolderApplicationRelServiceUtil.class,
-					"getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId",
-					_getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderIdParameterTypes5);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					commerceBOMFolderId);
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceBOMFolderApplicationRelServiceUtil.class,
+				"getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId",
+				_getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderIdParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceBOMFolderId);
 
 			Object returnObj = null;
 
@@ -235,11 +276,15 @@ public class CommerceBOMFolderApplicationRelServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
 				}
 
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
 			}
 
 			return ((Integer)returnObj).intValue();
@@ -251,17 +296,28 @@ public class CommerceBOMFolderApplicationRelServiceHttp {
 		}
 	}
 
-	private static Log _log = LogFactoryUtil.getLog(CommerceBOMFolderApplicationRelServiceHttp.class);
-	private static final Class<?>[] _addCommerceBOMFolderApplicationRelParameterTypes0 =
-		new Class[] { long.class, long.class, long.class };
-	private static final Class<?>[] _deleteCommerceBOMFolderApplicationRelParameterTypes1 =
-		new Class[] { long.class };
-	private static final Class<?>[] _getCommerceBOMFolderApplicationRelsByCAMIdParameterTypes2 =
-		new Class[] { long.class, int.class, int.class };
-	private static final Class<?>[] _getCommerceBOMFolderApplicationRelsByCommerceBOMFolderIdParameterTypes3 =
-		new Class[] { long.class, int.class, int.class };
-	private static final Class<?>[] _getCommerceBOMFolderApplicationRelsCountByCAMIdParameterTypes4 =
-		new Class[] { long.class };
-	private static final Class<?>[] _getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderIdParameterTypes5 =
-		new Class[] { long.class };
+	private static Log _log = LogFactoryUtil.getLog(
+		CommerceBOMFolderApplicationRelServiceHttp.class);
+
+	private static final Class<?>[]
+		_addCommerceBOMFolderApplicationRelParameterTypes0 = new Class[] {
+			long.class, long.class, long.class
+		};
+	private static final Class<?>[]
+		_deleteCommerceBOMFolderApplicationRelParameterTypes1 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getCommerceBOMFolderApplicationRelsByCAMIdParameterTypes2 =
+			new Class[] {long.class, int.class, int.class};
+	private static final Class<?>[]
+		_getCommerceBOMFolderApplicationRelsByCommerceBOMFolderIdParameterTypes3 =
+			new Class[] {long.class, int.class, int.class};
+	private static final Class<?>[]
+		_getCommerceBOMFolderApplicationRelsCountByCAMIdParameterTypes4 =
+			new Class[] {long.class};
+	private static final Class<?>[]
+		_getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderIdParameterTypes5 =
+			new Class[] {long.class};
+
 }

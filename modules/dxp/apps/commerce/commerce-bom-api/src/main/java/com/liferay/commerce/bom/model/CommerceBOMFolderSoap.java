@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.bom.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -26,11 +24,10 @@ import java.util.List;
  * This class is used by SOAP remote services, specifically {@link com.liferay.commerce.bom.service.http.CommerceBOMFolderServiceSoap}.
  *
  * @author Luca Pellizzon
- * @see com.liferay.commerce.bom.service.http.CommerceBOMFolderServiceSoap
  * @generated
  */
-@ProviderType
 public class CommerceBOMFolderSoap implements Serializable {
+
 	public static CommerceBOMFolderSoap toSoapModel(CommerceBOMFolder model) {
 		CommerceBOMFolderSoap soapModel = new CommerceBOMFolderSoap();
 
@@ -40,7 +37,8 @@ public class CommerceBOMFolderSoap implements Serializable {
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
-		soapModel.setParentCommerceBOMFolderId(model.getParentCommerceBOMFolderId());
+		soapModel.setParentCommerceBOMFolderId(
+			model.getParentCommerceBOMFolderId());
 		soapModel.setName(model.getName());
 		soapModel.setLogoId(model.getLogoId());
 		soapModel.setTreePath(model.getTreePath());
@@ -50,7 +48,9 @@ public class CommerceBOMFolderSoap implements Serializable {
 
 	public static CommerceBOMFolderSoap[] toSoapModels(
 		CommerceBOMFolder[] models) {
-		CommerceBOMFolderSoap[] soapModels = new CommerceBOMFolderSoap[models.length];
+
+		CommerceBOMFolderSoap[] soapModels =
+			new CommerceBOMFolderSoap[models.length];
 
 		for (int i = 0; i < models.length; i++) {
 			soapModels[i] = toSoapModel(models[i]);
@@ -61,10 +61,12 @@ public class CommerceBOMFolderSoap implements Serializable {
 
 	public static CommerceBOMFolderSoap[][] toSoapModels(
 		CommerceBOMFolder[][] models) {
+
 		CommerceBOMFolderSoap[][] soapModels = null;
 
 		if (models.length > 0) {
-			soapModels = new CommerceBOMFolderSoap[models.length][models[0].length];
+			soapModels =
+				new CommerceBOMFolderSoap[models.length][models[0].length];
 		}
 		else {
 			soapModels = new CommerceBOMFolderSoap[0][0];
@@ -79,7 +81,9 @@ public class CommerceBOMFolderSoap implements Serializable {
 
 	public static CommerceBOMFolderSoap[] toSoapModels(
 		List<CommerceBOMFolder> models) {
-		List<CommerceBOMFolderSoap> soapModels = new ArrayList<CommerceBOMFolderSoap>(models.size());
+
+		List<CommerceBOMFolderSoap> soapModels =
+			new ArrayList<CommerceBOMFolderSoap>(models.size());
 
 		for (CommerceBOMFolder model : models) {
 			soapModels.add(toSoapModel(model));
@@ -189,4 +193,5 @@ public class CommerceBOMFolderSoap implements Serializable {
 	private String _name;
 	private long _logoId;
 	private String _treePath;
+
 }

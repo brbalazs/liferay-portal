@@ -356,11 +356,6 @@ public class CommerceMLForecastAlertEntryWrapper
 		return _commerceMLForecastAlertEntry.isNew();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce ml forecast alert entry model instance should use the <code>CommerceMLForecastAlertEntry</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_commerceMLForecastAlertEntry.persist();

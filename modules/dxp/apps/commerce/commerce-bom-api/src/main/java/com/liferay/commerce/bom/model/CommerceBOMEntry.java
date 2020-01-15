@@ -25,33 +25,39 @@ import com.liferay.portal.kernel.util.Accessor;
  *
  * @author Luca Pellizzon
  * @see CommerceBOMEntryModel
- * @see com.liferay.commerce.bom.model.impl.CommerceBOMEntryImpl
- * @see com.liferay.commerce.bom.model.impl.CommerceBOMEntryModelImpl
  * @generated
  */
-@ImplementationClassName("com.liferay.commerce.bom.model.impl.CommerceBOMEntryImpl")
+@ImplementationClassName(
+	"com.liferay.commerce.bom.model.impl.CommerceBOMEntryImpl"
+)
 @ProviderType
-public interface CommerceBOMEntry extends CommerceBOMEntryModel, PersistedModel {
+public interface CommerceBOMEntry
+	extends CommerceBOMEntryModel, PersistedModel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this interface directly. Add methods to {@link com.liferay.commerce.bom.model.impl.CommerceBOMEntryImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add methods to <code>com.liferay.commerce.bom.model.impl.CommerceBOMEntryImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public static final Accessor<CommerceBOMEntry, Long> COMMERCE_BOM_ENTRY_ID_ACCESSOR =
-		new Accessor<CommerceBOMEntry, Long>() {
-			@Override
-			public Long get(CommerceBOMEntry commerceBOMEntry) {
-				return commerceBOMEntry.getCommerceBOMEntryId();
-			}
+	public static final Accessor<CommerceBOMEntry, Long>
+		COMMERCE_BOM_ENTRY_ID_ACCESSOR =
+			new Accessor<CommerceBOMEntry, Long>() {
 
-			@Override
-			public Class<Long> getAttributeClass() {
-				return Long.class;
-			}
+				@Override
+				public Long get(CommerceBOMEntry commerceBOMEntry) {
+					return commerceBOMEntry.getCommerceBOMEntryId();
+				}
 
-			@Override
-			public Class<CommerceBOMEntry> getTypeClass() {
-				return CommerceBOMEntry.class;
-			}
-		};
+				@Override
+				public Class<Long> getAttributeClass() {
+					return Long.class;
+				}
+
+				@Override
+				public Class<CommerceBOMEntry> getTypeClass() {
+					return CommerceBOMEntry.class;
+				}
+
+			};
+
 }

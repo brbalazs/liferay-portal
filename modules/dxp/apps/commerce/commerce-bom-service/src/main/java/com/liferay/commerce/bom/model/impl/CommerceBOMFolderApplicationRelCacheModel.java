@@ -14,10 +14,7 @@
 
 package com.liferay.commerce.bom.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel;
-
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -33,12 +30,11 @@ import java.util.Date;
  * The cache model class for representing CommerceBOMFolderApplicationRel in entity cache.
  *
  * @author Luca Pellizzon
- * @see CommerceBOMFolderApplicationRel
  * @generated
  */
-@ProviderType
-public class CommerceBOMFolderApplicationRelCacheModel implements CacheModel<CommerceBOMFolderApplicationRel>,
-	Externalizable {
+public class CommerceBOMFolderApplicationRelCacheModel
+	implements CacheModel<CommerceBOMFolderApplicationRel>, Externalizable {
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -49,10 +45,14 @@ public class CommerceBOMFolderApplicationRelCacheModel implements CacheModel<Com
 			return false;
 		}
 
-		CommerceBOMFolderApplicationRelCacheModel commerceBOMFolderApplicationRelCacheModel =
-			(CommerceBOMFolderApplicationRelCacheModel)obj;
+		CommerceBOMFolderApplicationRelCacheModel
+			commerceBOMFolderApplicationRelCacheModel =
+				(CommerceBOMFolderApplicationRelCacheModel)obj;
 
-		if (commerceBOMFolderApplicationRelId == commerceBOMFolderApplicationRelCacheModel.commerceBOMFolderApplicationRelId) {
+		if (commerceBOMFolderApplicationRelId ==
+				commerceBOMFolderApplicationRelCacheModel.
+					commerceBOMFolderApplicationRelId) {
+
 			return true;
 		}
 
@@ -91,9 +91,13 @@ public class CommerceBOMFolderApplicationRelCacheModel implements CacheModel<Com
 
 	@Override
 	public CommerceBOMFolderApplicationRel toEntityModel() {
-		CommerceBOMFolderApplicationRelImpl commerceBOMFolderApplicationRelImpl = new CommerceBOMFolderApplicationRelImpl();
+		CommerceBOMFolderApplicationRelImpl
+			commerceBOMFolderApplicationRelImpl =
+				new CommerceBOMFolderApplicationRelImpl();
 
-		commerceBOMFolderApplicationRelImpl.setCommerceBOMFolderApplicationRelId(commerceBOMFolderApplicationRelId);
+		commerceBOMFolderApplicationRelImpl.
+			setCommerceBOMFolderApplicationRelId(
+				commerceBOMFolderApplicationRelId);
 		commerceBOMFolderApplicationRelImpl.setCompanyId(companyId);
 		commerceBOMFolderApplicationRelImpl.setUserId(userId);
 
@@ -108,20 +112,22 @@ public class CommerceBOMFolderApplicationRelCacheModel implements CacheModel<Com
 			commerceBOMFolderApplicationRelImpl.setCreateDate(null);
 		}
 		else {
-			commerceBOMFolderApplicationRelImpl.setCreateDate(new Date(
-					createDate));
+			commerceBOMFolderApplicationRelImpl.setCreateDate(
+				new Date(createDate));
 		}
 
 		if (modifiedDate == Long.MIN_VALUE) {
 			commerceBOMFolderApplicationRelImpl.setModifiedDate(null);
 		}
 		else {
-			commerceBOMFolderApplicationRelImpl.setModifiedDate(new Date(
-					modifiedDate));
+			commerceBOMFolderApplicationRelImpl.setModifiedDate(
+				new Date(modifiedDate));
 		}
 
-		commerceBOMFolderApplicationRelImpl.setCommerceBOMFolderId(commerceBOMFolderId);
-		commerceBOMFolderApplicationRelImpl.setCommerceApplicationModelId(commerceApplicationModelId);
+		commerceBOMFolderApplicationRelImpl.setCommerceBOMFolderId(
+			commerceBOMFolderId);
+		commerceBOMFolderApplicationRelImpl.setCommerceApplicationModelId(
+			commerceApplicationModelId);
 
 		commerceBOMFolderApplicationRelImpl.resetOriginalValues();
 
@@ -145,8 +151,7 @@ public class CommerceBOMFolderApplicationRelCacheModel implements CacheModel<Com
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput objectOutput)
-		throws IOException {
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(commerceBOMFolderApplicationRelId);
 
 		objectOutput.writeLong(companyId);
@@ -176,4 +181,5 @@ public class CommerceBOMFolderApplicationRelCacheModel implements CacheModel<Com
 	public long modifiedDate;
 	public long commerceBOMFolderId;
 	public long commerceApplicationModelId;
+
 }

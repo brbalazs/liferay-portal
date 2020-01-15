@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.bom.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.bom.model.CommerceBOMEntry;
 import com.liferay.commerce.bom.service.CommerceBOMEntryLocalServiceUtil;
 
@@ -31,13 +29,13 @@ import com.liferay.commerce.bom.service.CommerceBOMEntryLocalServiceUtil;
  * @see CommerceBOMEntry
  * @generated
  */
-@ProviderType
-public abstract class CommerceBOMEntryBaseImpl extends CommerceBOMEntryModelImpl
-	implements CommerceBOMEntry {
+public abstract class CommerceBOMEntryBaseImpl
+	extends CommerceBOMEntryModelImpl implements CommerceBOMEntry {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce bom entry model instance should use the {@link CommerceBOMEntry} interface instead.
+	 * Never modify or reference this class directly. All methods that expect a commerce bom entry model instance should use the <code>CommerceBOMEntry</code> interface instead.
 	 */
 	@Override
 	public void persist() {
@@ -48,4 +46,5 @@ public abstract class CommerceBOMEntryBaseImpl extends CommerceBOMEntryModelImpl
 			CommerceBOMEntryLocalServiceUtil.updateCommerceBOMEntry(this);
 		}
 	}
+
 }

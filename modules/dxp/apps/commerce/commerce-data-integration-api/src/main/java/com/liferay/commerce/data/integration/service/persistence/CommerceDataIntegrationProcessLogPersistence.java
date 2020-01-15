@@ -40,7 +40,7 @@ import java.util.Set;
 public interface CommerceDataIntegrationProcessLogPersistence
 	extends BasePersistence<CommerceDataIntegrationProcessLog> {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link CommerceDataIntegrationProcessLogUtil} to access the commerce data integration process log persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

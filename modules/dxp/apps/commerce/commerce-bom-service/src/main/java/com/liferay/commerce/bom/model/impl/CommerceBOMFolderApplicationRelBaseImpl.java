@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.bom.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel;
 import com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelLocalServiceUtil;
 
@@ -31,22 +29,25 @@ import com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelLocalServ
  * @see CommerceBOMFolderApplicationRel
  * @generated
  */
-@ProviderType
 public abstract class CommerceBOMFolderApplicationRelBaseImpl
 	extends CommerceBOMFolderApplicationRelModelImpl
 	implements CommerceBOMFolderApplicationRel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce bom folder application rel model instance should use the {@link CommerceBOMFolderApplicationRel} interface instead.
+	 * Never modify or reference this class directly. All methods that expect a commerce bom folder application rel model instance should use the <code>CommerceBOMFolderApplicationRel</code> interface instead.
 	 */
 	@Override
 	public void persist() {
 		if (this.isNew()) {
-			CommerceBOMFolderApplicationRelLocalServiceUtil.addCommerceBOMFolderApplicationRel(this);
+			CommerceBOMFolderApplicationRelLocalServiceUtil.
+				addCommerceBOMFolderApplicationRel(this);
 		}
 		else {
-			CommerceBOMFolderApplicationRelLocalServiceUtil.updateCommerceBOMFolderApplicationRel(this);
+			CommerceBOMFolderApplicationRelLocalServiceUtil.
+				updateCommerceBOMFolderApplicationRel(this);
 		}
 	}
+
 }

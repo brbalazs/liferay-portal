@@ -69,7 +69,7 @@ public class CommerceDataIntegrationProcessPersistenceImpl
 	extends BasePersistenceImpl<CommerceDataIntegrationProcess>
 	implements CommerceDataIntegrationProcessPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CommerceDataIntegrationProcessUtil</code> to access the commerce data integration process persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

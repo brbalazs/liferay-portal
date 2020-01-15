@@ -25,41 +25,50 @@ import com.liferay.portal.kernel.util.Accessor;
  *
  * @author Luca Pellizzon
  * @see CommerceBOMFolderApplicationRelModel
- * @see com.liferay.commerce.bom.model.impl.CommerceBOMFolderApplicationRelImpl
- * @see com.liferay.commerce.bom.model.impl.CommerceBOMFolderApplicationRelModelImpl
  * @generated
  */
-@ImplementationClassName("com.liferay.commerce.bom.model.impl.CommerceBOMFolderApplicationRelImpl")
+@ImplementationClassName(
+	"com.liferay.commerce.bom.model.impl.CommerceBOMFolderApplicationRelImpl"
+)
 @ProviderType
 public interface CommerceBOMFolderApplicationRel
 	extends CommerceBOMFolderApplicationRelModel, PersistedModel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this interface directly. Add methods to {@link com.liferay.commerce.bom.model.impl.CommerceBOMFolderApplicationRelImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add methods to <code>com.liferay.commerce.bom.model.impl.CommerceBOMFolderApplicationRelImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public static final Accessor<CommerceBOMFolderApplicationRel, Long> COMMERCE_BOM_FOLDER_APPLICATION_REL_ID_ACCESSOR =
-		new Accessor<CommerceBOMFolderApplicationRel, Long>() {
-			@Override
-			public Long get(
-				CommerceBOMFolderApplicationRel commerceBOMFolderApplicationRel) {
-				return commerceBOMFolderApplicationRel.getCommerceBOMFolderApplicationRelId();
-			}
+	public static final Accessor<CommerceBOMFolderApplicationRel, Long>
+		COMMERCE_BOM_FOLDER_APPLICATION_REL_ID_ACCESSOR =
+			new Accessor<CommerceBOMFolderApplicationRel, Long>() {
 
-			@Override
-			public Class<Long> getAttributeClass() {
-				return Long.class;
-			}
+				@Override
+				public Long get(
+					CommerceBOMFolderApplicationRel
+						commerceBOMFolderApplicationRel) {
 
-			@Override
-			public Class<CommerceBOMFolderApplicationRel> getTypeClass() {
-				return CommerceBOMFolderApplicationRel.class;
-			}
-		};
+					return commerceBOMFolderApplicationRel.
+						getCommerceBOMFolderApplicationRelId();
+				}
 
-	public com.liferay.commerce.application.model.CommerceApplicationModel getCommerceApplicationModel()
+				@Override
+				public Class<Long> getAttributeClass() {
+					return Long.class;
+				}
+
+				@Override
+				public Class<CommerceBOMFolderApplicationRel> getTypeClass() {
+					return CommerceBOMFolderApplicationRel.class;
+				}
+
+			};
+
+	public com.liferay.commerce.application.model.CommerceApplicationModel
+			getCommerceApplicationModel()
 		throws com.liferay.portal.kernel.exception.PortalException;
 
 	public CommerceBOMFolder getCommerceBOMFolder()
 		throws com.liferay.portal.kernel.exception.PortalException;
+
 }

@@ -14,15 +14,12 @@
 
 package com.liferay.commerce.bom.service.base;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel;
 import com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelLocalService;
 import com.liferay.commerce.bom.service.persistence.CommerceBOMDefinitionPersistence;
 import com.liferay.commerce.bom.service.persistence.CommerceBOMEntryPersistence;
 import com.liferay.commerce.bom.service.persistence.CommerceBOMFolderApplicationRelPersistence;
 import com.liferay.commerce.bom.service.persistence.CommerceBOMFolderPersistence;
-
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
@@ -64,18 +61,17 @@ import javax.sql.DataSource;
  *
  * @author Luca Pellizzon
  * @see com.liferay.commerce.bom.service.impl.CommerceBOMFolderApplicationRelLocalServiceImpl
- * @see com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelLocalServiceUtil
  * @generated
  */
-@ProviderType
 public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements CommerceBOMFolderApplicationRelLocalService,
-		IdentifiableOSGiService {
+			   IdentifiableOSGiService {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Always use {@link com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelLocalServiceUtil} to access the commerce bom folder application rel local service.
+	 * Never modify or reference this class directly. Use <code>CommerceBOMFolderApplicationRelLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -88,9 +84,11 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	@Override
 	public CommerceBOMFolderApplicationRel addCommerceBOMFolderApplicationRel(
 		CommerceBOMFolderApplicationRel commerceBOMFolderApplicationRel) {
+
 		commerceBOMFolderApplicationRel.setNew(true);
 
-		return commerceBOMFolderApplicationRelPersistence.update(commerceBOMFolderApplicationRel);
+		return commerceBOMFolderApplicationRelPersistence.update(
+			commerceBOMFolderApplicationRel);
 	}
 
 	/**
@@ -101,9 +99,12 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 */
 	@Override
 	@Transactional(enabled = false)
-	public CommerceBOMFolderApplicationRel createCommerceBOMFolderApplicationRel(
-		long commerceBOMFolderApplicationRelId) {
-		return commerceBOMFolderApplicationRelPersistence.create(commerceBOMFolderApplicationRelId);
+	public CommerceBOMFolderApplicationRel
+		createCommerceBOMFolderApplicationRel(
+			long commerceBOMFolderApplicationRelId) {
+
+		return commerceBOMFolderApplicationRelPersistence.create(
+			commerceBOMFolderApplicationRelId);
 	}
 
 	/**
@@ -115,9 +116,13 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public CommerceBOMFolderApplicationRel deleteCommerceBOMFolderApplicationRel(
-		long commerceBOMFolderApplicationRelId) throws PortalException {
-		return commerceBOMFolderApplicationRelPersistence.remove(commerceBOMFolderApplicationRelId);
+	public CommerceBOMFolderApplicationRel
+			deleteCommerceBOMFolderApplicationRel(
+				long commerceBOMFolderApplicationRelId)
+		throws PortalException {
+
+		return commerceBOMFolderApplicationRelPersistence.remove(
+			commerceBOMFolderApplicationRelId);
 	}
 
 	/**
@@ -128,17 +133,20 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public CommerceBOMFolderApplicationRel deleteCommerceBOMFolderApplicationRel(
-		CommerceBOMFolderApplicationRel commerceBOMFolderApplicationRel) {
-		return commerceBOMFolderApplicationRelPersistence.remove(commerceBOMFolderApplicationRel);
+	public CommerceBOMFolderApplicationRel
+		deleteCommerceBOMFolderApplicationRel(
+			CommerceBOMFolderApplicationRel commerceBOMFolderApplicationRel) {
+
+		return commerceBOMFolderApplicationRelPersistence.remove(
+			commerceBOMFolderApplicationRel);
 	}
 
 	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
-		return DynamicQueryFactoryUtil.forClass(CommerceBOMFolderApplicationRel.class,
-			clazz.getClassLoader());
+		return DynamicQueryFactoryUtil.forClass(
+			CommerceBOMFolderApplicationRel.class, clazz.getClassLoader());
 	}
 
 	/**
@@ -149,14 +157,15 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 */
 	@Override
 	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
-		return commerceBOMFolderApplicationRelPersistence.findWithDynamicQuery(dynamicQuery);
+		return commerceBOMFolderApplicationRelPersistence.findWithDynamicQuery(
+			dynamicQuery);
 	}
 
 	/**
 	 * Performs a dynamic query on the database and returns a range of the matching rows.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.commerce.bom.model.impl.CommerceBOMFolderApplicationRelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>com.liferay.commerce.bom.model.impl.CommerceBOMFolderApplicationRelModelImpl</code>.
 	 * </p>
 	 *
 	 * @param dynamicQuery the dynamic query
@@ -165,17 +174,18 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 */
 	@Override
-	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
-		int end) {
-		return commerceBOMFolderApplicationRelPersistence.findWithDynamicQuery(dynamicQuery,
-			start, end);
+	public <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
+
+		return commerceBOMFolderApplicationRelPersistence.findWithDynamicQuery(
+			dynamicQuery, start, end);
 	}
 
 	/**
 	 * Performs a dynamic query on the database and returns an ordered range of the matching rows.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.commerce.bom.model.impl.CommerceBOMFolderApplicationRelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>com.liferay.commerce.bom.model.impl.CommerceBOMFolderApplicationRelModelImpl</code>.
 	 * </p>
 	 *
 	 * @param dynamicQuery the dynamic query
@@ -185,10 +195,12 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 */
 	@Override
-	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
-		int end, OrderByComparator<T> orderByComparator) {
-		return commerceBOMFolderApplicationRelPersistence.findWithDynamicQuery(dynamicQuery,
-			start, end, orderByComparator);
+	public <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
+
+		return commerceBOMFolderApplicationRelPersistence.findWithDynamicQuery(
+			dynamicQuery, start, end, orderByComparator);
 	}
 
 	/**
@@ -199,7 +211,8 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 */
 	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery) {
-		return commerceBOMFolderApplicationRelPersistence.countWithDynamicQuery(dynamicQuery);
+		return commerceBOMFolderApplicationRelPersistence.countWithDynamicQuery(
+			dynamicQuery);
 	}
 
 	/**
@@ -210,16 +223,19 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 * @return the number of rows matching the dynamic query
 	 */
 	@Override
-	public long dynamicQueryCount(DynamicQuery dynamicQuery,
-		Projection projection) {
-		return commerceBOMFolderApplicationRelPersistence.countWithDynamicQuery(dynamicQuery,
-			projection);
+	public long dynamicQueryCount(
+		DynamicQuery dynamicQuery, Projection projection) {
+
+		return commerceBOMFolderApplicationRelPersistence.countWithDynamicQuery(
+			dynamicQuery, projection);
 	}
 
 	@Override
 	public CommerceBOMFolderApplicationRel fetchCommerceBOMFolderApplicationRel(
 		long commerceBOMFolderApplicationRelId) {
-		return commerceBOMFolderApplicationRelPersistence.fetchByPrimaryKey(commerceBOMFolderApplicationRelId);
+
+		return commerceBOMFolderApplicationRelPersistence.fetchByPrimaryKey(
+			commerceBOMFolderApplicationRelId);
 	}
 
 	/**
@@ -231,17 +247,23 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 */
 	@Override
 	public CommerceBOMFolderApplicationRel getCommerceBOMFolderApplicationRel(
-		long commerceBOMFolderApplicationRelId) throws PortalException {
-		return commerceBOMFolderApplicationRelPersistence.findByPrimaryKey(commerceBOMFolderApplicationRelId);
+			long commerceBOMFolderApplicationRelId)
+		throws PortalException {
+
+		return commerceBOMFolderApplicationRelPersistence.findByPrimaryKey(
+			commerceBOMFolderApplicationRelId);
 	}
 
 	@Override
 	public ActionableDynamicQuery getActionableDynamicQuery() {
-		ActionableDynamicQuery actionableDynamicQuery = new DefaultActionableDynamicQuery();
+		ActionableDynamicQuery actionableDynamicQuery =
+			new DefaultActionableDynamicQuery();
 
-		actionableDynamicQuery.setBaseLocalService(commerceBOMFolderApplicationRelLocalService);
+		actionableDynamicQuery.setBaseLocalService(
+			commerceBOMFolderApplicationRelLocalService);
 		actionableDynamicQuery.setClassLoader(getClassLoader());
-		actionableDynamicQuery.setModelClass(CommerceBOMFolderApplicationRel.class);
+		actionableDynamicQuery.setModelClass(
+			CommerceBOMFolderApplicationRel.class);
 
 		actionableDynamicQuery.setPrimaryKeyPropertyName(
 			"commerceBOMFolderApplicationRelId");
@@ -250,12 +272,17 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	}
 
 	@Override
-	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
-		IndexableActionableDynamicQuery indexableActionableDynamicQuery = new IndexableActionableDynamicQuery();
+	public IndexableActionableDynamicQuery
+		getIndexableActionableDynamicQuery() {
 
-		indexableActionableDynamicQuery.setBaseLocalService(commerceBOMFolderApplicationRelLocalService);
+		IndexableActionableDynamicQuery indexableActionableDynamicQuery =
+			new IndexableActionableDynamicQuery();
+
+		indexableActionableDynamicQuery.setBaseLocalService(
+			commerceBOMFolderApplicationRelLocalService);
 		indexableActionableDynamicQuery.setClassLoader(getClassLoader());
-		indexableActionableDynamicQuery.setModelClass(CommerceBOMFolderApplicationRel.class);
+		indexableActionableDynamicQuery.setModelClass(
+			CommerceBOMFolderApplicationRel.class);
 
 		indexableActionableDynamicQuery.setPrimaryKeyPropertyName(
 			"commerceBOMFolderApplicationRelId");
@@ -265,9 +292,12 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 
 	protected void initActionableDynamicQuery(
 		ActionableDynamicQuery actionableDynamicQuery) {
-		actionableDynamicQuery.setBaseLocalService(commerceBOMFolderApplicationRelLocalService);
+
+		actionableDynamicQuery.setBaseLocalService(
+			commerceBOMFolderApplicationRelLocalService);
 		actionableDynamicQuery.setClassLoader(getClassLoader());
-		actionableDynamicQuery.setModelClass(CommerceBOMFolderApplicationRel.class);
+		actionableDynamicQuery.setModelClass(
+			CommerceBOMFolderApplicationRel.class);
 
 		actionableDynamicQuery.setPrimaryKeyPropertyName(
 			"commerceBOMFolderApplicationRelId");
@@ -279,20 +309,25 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	@Override
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException {
-		return commerceBOMFolderApplicationRelLocalService.deleteCommerceBOMFolderApplicationRel((CommerceBOMFolderApplicationRel)persistedModel);
+
+		return commerceBOMFolderApplicationRelLocalService.
+			deleteCommerceBOMFolderApplicationRel(
+				(CommerceBOMFolderApplicationRel)persistedModel);
 	}
 
 	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {
-		return commerceBOMFolderApplicationRelPersistence.findByPrimaryKey(primaryKeyObj);
+
+		return commerceBOMFolderApplicationRelPersistence.findByPrimaryKey(
+			primaryKeyObj);
 	}
 
 	/**
 	 * Returns a range of all the commerce bom folder application rels.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.commerce.bom.model.impl.CommerceBOMFolderApplicationRelModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>com.liferay.commerce.bom.model.impl.CommerceBOMFolderApplicationRelModelImpl</code>.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce bom folder application rels
@@ -300,8 +335,9 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 * @return the range of commerce bom folder application rels
 	 */
 	@Override
-	public List<CommerceBOMFolderApplicationRel> getCommerceBOMFolderApplicationRels(
-		int start, int end) {
+	public List<CommerceBOMFolderApplicationRel>
+		getCommerceBOMFolderApplicationRels(int start, int end) {
+
 		return commerceBOMFolderApplicationRelPersistence.findAll(start, end);
 	}
 
@@ -323,9 +359,12 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
-	public CommerceBOMFolderApplicationRel updateCommerceBOMFolderApplicationRel(
-		CommerceBOMFolderApplicationRel commerceBOMFolderApplicationRel) {
-		return commerceBOMFolderApplicationRelPersistence.update(commerceBOMFolderApplicationRel);
+	public CommerceBOMFolderApplicationRel
+		updateCommerceBOMFolderApplicationRel(
+			CommerceBOMFolderApplicationRel commerceBOMFolderApplicationRel) {
+
+		return commerceBOMFolderApplicationRelPersistence.update(
+			commerceBOMFolderApplicationRel);
 	}
 
 	/**
@@ -333,7 +372,9 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 *
 	 * @return the commerce bom definition local service
 	 */
-	public com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalService getCommerceBOMDefinitionLocalService() {
+	public com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalService
+		getCommerceBOMDefinitionLocalService() {
+
 		return commerceBOMDefinitionLocalService;
 	}
 
@@ -343,8 +384,11 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 * @param commerceBOMDefinitionLocalService the commerce bom definition local service
 	 */
 	public void setCommerceBOMDefinitionLocalService(
-		com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalService commerceBOMDefinitionLocalService) {
-		this.commerceBOMDefinitionLocalService = commerceBOMDefinitionLocalService;
+		com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalService
+			commerceBOMDefinitionLocalService) {
+
+		this.commerceBOMDefinitionLocalService =
+			commerceBOMDefinitionLocalService;
 	}
 
 	/**
@@ -352,7 +396,9 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 *
 	 * @return the commerce bom definition persistence
 	 */
-	public CommerceBOMDefinitionPersistence getCommerceBOMDefinitionPersistence() {
+	public CommerceBOMDefinitionPersistence
+		getCommerceBOMDefinitionPersistence() {
+
 		return commerceBOMDefinitionPersistence;
 	}
 
@@ -363,7 +409,9 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 */
 	public void setCommerceBOMDefinitionPersistence(
 		CommerceBOMDefinitionPersistence commerceBOMDefinitionPersistence) {
-		this.commerceBOMDefinitionPersistence = commerceBOMDefinitionPersistence;
+
+		this.commerceBOMDefinitionPersistence =
+			commerceBOMDefinitionPersistence;
 	}
 
 	/**
@@ -371,7 +419,9 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 *
 	 * @return the commerce bom entry local service
 	 */
-	public com.liferay.commerce.bom.service.CommerceBOMEntryLocalService getCommerceBOMEntryLocalService() {
+	public com.liferay.commerce.bom.service.CommerceBOMEntryLocalService
+		getCommerceBOMEntryLocalService() {
+
 		return commerceBOMEntryLocalService;
 	}
 
@@ -381,7 +431,9 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 * @param commerceBOMEntryLocalService the commerce bom entry local service
 	 */
 	public void setCommerceBOMEntryLocalService(
-		com.liferay.commerce.bom.service.CommerceBOMEntryLocalService commerceBOMEntryLocalService) {
+		com.liferay.commerce.bom.service.CommerceBOMEntryLocalService
+			commerceBOMEntryLocalService) {
+
 		this.commerceBOMEntryLocalService = commerceBOMEntryLocalService;
 	}
 
@@ -401,6 +453,7 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 */
 	public void setCommerceBOMEntryPersistence(
 		CommerceBOMEntryPersistence commerceBOMEntryPersistence) {
+
 		this.commerceBOMEntryPersistence = commerceBOMEntryPersistence;
 	}
 
@@ -409,7 +462,9 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 *
 	 * @return the commerce bom folder local service
 	 */
-	public com.liferay.commerce.bom.service.CommerceBOMFolderLocalService getCommerceBOMFolderLocalService() {
+	public com.liferay.commerce.bom.service.CommerceBOMFolderLocalService
+		getCommerceBOMFolderLocalService() {
+
 		return commerceBOMFolderLocalService;
 	}
 
@@ -419,7 +474,9 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 * @param commerceBOMFolderLocalService the commerce bom folder local service
 	 */
 	public void setCommerceBOMFolderLocalService(
-		com.liferay.commerce.bom.service.CommerceBOMFolderLocalService commerceBOMFolderLocalService) {
+		com.liferay.commerce.bom.service.CommerceBOMFolderLocalService
+			commerceBOMFolderLocalService) {
+
 		this.commerceBOMFolderLocalService = commerceBOMFolderLocalService;
 	}
 
@@ -439,6 +496,7 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 */
 	public void setCommerceBOMFolderPersistence(
 		CommerceBOMFolderPersistence commerceBOMFolderPersistence) {
+
 		this.commerceBOMFolderPersistence = commerceBOMFolderPersistence;
 	}
 
@@ -447,7 +505,9 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 *
 	 * @return the commerce bom folder application rel local service
 	 */
-	public CommerceBOMFolderApplicationRelLocalService getCommerceBOMFolderApplicationRelLocalService() {
+	public CommerceBOMFolderApplicationRelLocalService
+		getCommerceBOMFolderApplicationRelLocalService() {
+
 		return commerceBOMFolderApplicationRelLocalService;
 	}
 
@@ -457,8 +517,11 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 * @param commerceBOMFolderApplicationRelLocalService the commerce bom folder application rel local service
 	 */
 	public void setCommerceBOMFolderApplicationRelLocalService(
-		CommerceBOMFolderApplicationRelLocalService commerceBOMFolderApplicationRelLocalService) {
-		this.commerceBOMFolderApplicationRelLocalService = commerceBOMFolderApplicationRelLocalService;
+		CommerceBOMFolderApplicationRelLocalService
+			commerceBOMFolderApplicationRelLocalService) {
+
+		this.commerceBOMFolderApplicationRelLocalService =
+			commerceBOMFolderApplicationRelLocalService;
 	}
 
 	/**
@@ -466,7 +529,9 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 *
 	 * @return the commerce bom folder application rel persistence
 	 */
-	public CommerceBOMFolderApplicationRelPersistence getCommerceBOMFolderApplicationRelPersistence() {
+	public CommerceBOMFolderApplicationRelPersistence
+		getCommerceBOMFolderApplicationRelPersistence() {
+
 		return commerceBOMFolderApplicationRelPersistence;
 	}
 
@@ -476,8 +541,11 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 * @param commerceBOMFolderApplicationRelPersistence the commerce bom folder application rel persistence
 	 */
 	public void setCommerceBOMFolderApplicationRelPersistence(
-		CommerceBOMFolderApplicationRelPersistence commerceBOMFolderApplicationRelPersistence) {
-		this.commerceBOMFolderApplicationRelPersistence = commerceBOMFolderApplicationRelPersistence;
+		CommerceBOMFolderApplicationRelPersistence
+			commerceBOMFolderApplicationRelPersistence) {
+
+		this.commerceBOMFolderApplicationRelPersistence =
+			commerceBOMFolderApplicationRelPersistence;
 	}
 
 	/**
@@ -485,7 +553,9 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 *
 	 * @return the counter local service
 	 */
-	public com.liferay.counter.kernel.service.CounterLocalService getCounterLocalService() {
+	public com.liferay.counter.kernel.service.CounterLocalService
+		getCounterLocalService() {
+
 		return counterLocalService;
 	}
 
@@ -495,7 +565,9 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 * @param counterLocalService the counter local service
 	 */
 	public void setCounterLocalService(
-		com.liferay.counter.kernel.service.CounterLocalService counterLocalService) {
+		com.liferay.counter.kernel.service.CounterLocalService
+			counterLocalService) {
+
 		this.counterLocalService = counterLocalService;
 	}
 
@@ -504,7 +576,9 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 *
 	 * @return the class name local service
 	 */
-	public com.liferay.portal.kernel.service.ClassNameLocalService getClassNameLocalService() {
+	public com.liferay.portal.kernel.service.ClassNameLocalService
+		getClassNameLocalService() {
+
 		return classNameLocalService;
 	}
 
@@ -514,7 +588,9 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 * @param classNameLocalService the class name local service
 	 */
 	public void setClassNameLocalService(
-		com.liferay.portal.kernel.service.ClassNameLocalService classNameLocalService) {
+		com.liferay.portal.kernel.service.ClassNameLocalService
+			classNameLocalService) {
+
 		this.classNameLocalService = classNameLocalService;
 	}
 
@@ -534,6 +610,7 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 */
 	public void setClassNamePersistence(
 		ClassNamePersistence classNamePersistence) {
+
 		this.classNamePersistence = classNamePersistence;
 	}
 
@@ -542,7 +619,9 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 *
 	 * @return the resource local service
 	 */
-	public com.liferay.portal.kernel.service.ResourceLocalService getResourceLocalService() {
+	public com.liferay.portal.kernel.service.ResourceLocalService
+		getResourceLocalService() {
+
 		return resourceLocalService;
 	}
 
@@ -552,7 +631,9 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 * @param resourceLocalService the resource local service
 	 */
 	public void setResourceLocalService(
-		com.liferay.portal.kernel.service.ResourceLocalService resourceLocalService) {
+		com.liferay.portal.kernel.service.ResourceLocalService
+			resourceLocalService) {
+
 		this.resourceLocalService = resourceLocalService;
 	}
 
@@ -561,7 +642,9 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 *
 	 * @return the user local service
 	 */
-	public com.liferay.portal.kernel.service.UserLocalService getUserLocalService() {
+	public com.liferay.portal.kernel.service.UserLocalService
+		getUserLocalService() {
+
 		return userLocalService;
 	}
 
@@ -572,6 +655,7 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 */
 	public void setUserLocalService(
 		com.liferay.portal.kernel.service.UserLocalService userLocalService) {
+
 		this.userLocalService = userLocalService;
 	}
 
@@ -594,7 +678,8 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		persistedModelLocalServiceRegistry.register("com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel",
+		persistedModelLocalServiceRegistry.register(
+			"com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel",
 			commerceBOMFolderApplicationRelLocalService);
 	}
 
@@ -628,15 +713,16 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 	 */
 	protected void runSQL(String sql) {
 		try {
-			DataSource dataSource = commerceBOMFolderApplicationRelPersistence.getDataSource();
+			DataSource dataSource =
+				commerceBOMFolderApplicationRelPersistence.getDataSource();
 
 			DB db = DBManagerUtil.getDB();
 
 			sql = db.buildSQL(sql);
 			sql = PortalUtil.transformSQL(sql);
 
-			SqlUpdate sqlUpdate = SqlUpdateFactoryUtil.getSqlUpdate(dataSource,
-					sql);
+			SqlUpdate sqlUpdate = SqlUpdateFactoryUtil.getSqlUpdate(
+				dataSource, sql);
 
 			sqlUpdate.update();
 		}
@@ -645,34 +731,73 @@ public abstract class CommerceBOMFolderApplicationRelLocalServiceBaseImpl
 		}
 	}
 
-	@BeanReference(type = com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalService.class)
-	protected com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalService commerceBOMDefinitionLocalService;
+	@BeanReference(
+		type = com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalService.class
+	)
+	protected com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalService
+		commerceBOMDefinitionLocalService;
+
 	@BeanReference(type = CommerceBOMDefinitionPersistence.class)
 	protected CommerceBOMDefinitionPersistence commerceBOMDefinitionPersistence;
-	@BeanReference(type = com.liferay.commerce.bom.service.CommerceBOMEntryLocalService.class)
-	protected com.liferay.commerce.bom.service.CommerceBOMEntryLocalService commerceBOMEntryLocalService;
+
+	@BeanReference(
+		type = com.liferay.commerce.bom.service.CommerceBOMEntryLocalService.class
+	)
+	protected com.liferay.commerce.bom.service.CommerceBOMEntryLocalService
+		commerceBOMEntryLocalService;
+
 	@BeanReference(type = CommerceBOMEntryPersistence.class)
 	protected CommerceBOMEntryPersistence commerceBOMEntryPersistence;
-	@BeanReference(type = com.liferay.commerce.bom.service.CommerceBOMFolderLocalService.class)
-	protected com.liferay.commerce.bom.service.CommerceBOMFolderLocalService commerceBOMFolderLocalService;
+
+	@BeanReference(
+		type = com.liferay.commerce.bom.service.CommerceBOMFolderLocalService.class
+	)
+	protected com.liferay.commerce.bom.service.CommerceBOMFolderLocalService
+		commerceBOMFolderLocalService;
+
 	@BeanReference(type = CommerceBOMFolderPersistence.class)
 	protected CommerceBOMFolderPersistence commerceBOMFolderPersistence;
+
 	@BeanReference(type = CommerceBOMFolderApplicationRelLocalService.class)
-	protected CommerceBOMFolderApplicationRelLocalService commerceBOMFolderApplicationRelLocalService;
+	protected CommerceBOMFolderApplicationRelLocalService
+		commerceBOMFolderApplicationRelLocalService;
+
 	@BeanReference(type = CommerceBOMFolderApplicationRelPersistence.class)
-	protected CommerceBOMFolderApplicationRelPersistence commerceBOMFolderApplicationRelPersistence;
-	@ServiceReference(type = com.liferay.counter.kernel.service.CounterLocalService.class)
-	protected com.liferay.counter.kernel.service.CounterLocalService counterLocalService;
-	@ServiceReference(type = com.liferay.portal.kernel.service.ClassNameLocalService.class)
-	protected com.liferay.portal.kernel.service.ClassNameLocalService classNameLocalService;
+	protected CommerceBOMFolderApplicationRelPersistence
+		commerceBOMFolderApplicationRelPersistence;
+
+	@ServiceReference(
+		type = com.liferay.counter.kernel.service.CounterLocalService.class
+	)
+	protected com.liferay.counter.kernel.service.CounterLocalService
+		counterLocalService;
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.ClassNameLocalService.class
+	)
+	protected com.liferay.portal.kernel.service.ClassNameLocalService
+		classNameLocalService;
+
 	@ServiceReference(type = ClassNamePersistence.class)
 	protected ClassNamePersistence classNamePersistence;
-	@ServiceReference(type = com.liferay.portal.kernel.service.ResourceLocalService.class)
-	protected com.liferay.portal.kernel.service.ResourceLocalService resourceLocalService;
-	@ServiceReference(type = com.liferay.portal.kernel.service.UserLocalService.class)
-	protected com.liferay.portal.kernel.service.UserLocalService userLocalService;
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.ResourceLocalService.class
+	)
+	protected com.liferay.portal.kernel.service.ResourceLocalService
+		resourceLocalService;
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.UserLocalService.class
+	)
+	protected com.liferay.portal.kernel.service.UserLocalService
+		userLocalService;
+
 	@ServiceReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
+
 	@ServiceReference(type = PersistedModelLocalServiceRegistry.class)
-	protected PersistedModelLocalServiceRegistry persistedModelLocalServiceRegistry;
+	protected PersistedModelLocalServiceRegistry
+		persistedModelLocalServiceRegistry;
+
 }

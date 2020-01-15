@@ -14,10 +14,7 @@
 
 package com.liferay.commerce.bom.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.bom.model.CommerceBOMEntry;
-
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -33,12 +30,11 @@ import java.util.Date;
  * The cache model class for representing CommerceBOMEntry in entity cache.
  *
  * @author Luca Pellizzon
- * @see CommerceBOMEntry
  * @generated
  */
-@ProviderType
-public class CommerceBOMEntryCacheModel implements CacheModel<CommerceBOMEntry>,
-	Externalizable {
+public class CommerceBOMEntryCacheModel
+	implements CacheModel<CommerceBOMEntry>, Externalizable {
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -49,9 +45,12 @@ public class CommerceBOMEntryCacheModel implements CacheModel<CommerceBOMEntry>,
 			return false;
 		}
 
-		CommerceBOMEntryCacheModel commerceBOMEntryCacheModel = (CommerceBOMEntryCacheModel)obj;
+		CommerceBOMEntryCacheModel commerceBOMEntryCacheModel =
+			(CommerceBOMEntryCacheModel)obj;
 
-		if (commerceBOMEntryId == commerceBOMEntryCacheModel.commerceBOMEntryId) {
+		if (commerceBOMEntryId ==
+				commerceBOMEntryCacheModel.commerceBOMEntryId) {
+
 			return true;
 		}
 
@@ -137,7 +136,8 @@ public class CommerceBOMEntryCacheModel implements CacheModel<CommerceBOMEntry>,
 		}
 
 		commerceBOMEntryImpl.setCProductId(CProductId);
-		commerceBOMEntryImpl.setCommerceBOMDefinitionId(commerceBOMDefinitionId);
+		commerceBOMEntryImpl.setCommerceBOMDefinitionId(
+			commerceBOMDefinitionId);
 		commerceBOMEntryImpl.setPositionX(positionX);
 		commerceBOMEntryImpl.setPositionY(positionY);
 		commerceBOMEntryImpl.setRadius(radius);
@@ -173,8 +173,7 @@ public class CommerceBOMEntryCacheModel implements CacheModel<CommerceBOMEntry>,
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput objectOutput)
-		throws IOException {
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(commerceBOMEntryId);
 
 		objectOutput.writeLong(companyId);
@@ -224,4 +223,5 @@ public class CommerceBOMEntryCacheModel implements CacheModel<CommerceBOMEntry>,
 	public double positionX;
 	public double positionY;
 	public double radius;
+
 }

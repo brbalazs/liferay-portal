@@ -14,10 +14,7 @@
 
 package com.liferay.commerce.bom.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -37,11 +34,12 @@ import java.util.Objects;
  * @see CommerceBOMDefinition
  * @generated
  */
-@ProviderType
-public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
-	ModelWrapper<CommerceBOMDefinition> {
+public class CommerceBOMDefinitionWrapper
+	implements CommerceBOMDefinition, ModelWrapper<CommerceBOMDefinition> {
+
 	public CommerceBOMDefinitionWrapper(
 		CommerceBOMDefinition commerceBOMDefinition) {
+
 		_commerceBOMDefinition = commerceBOMDefinition;
 	}
 
@@ -76,7 +74,7 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		Long commerceBOMDefinitionId = (Long)attributes.get(
-				"commerceBOMDefinitionId");
+			"commerceBOMDefinitionId");
 
 		if (commerceBOMDefinitionId != null) {
 			setCommerceBOMDefinitionId(commerceBOMDefinitionId);
@@ -119,7 +117,7 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 		}
 
 		Long CPAttachmentFileEntryId = (Long)attributes.get(
-				"CPAttachmentFileEntryId");
+			"CPAttachmentFileEntryId");
 
 		if (CPAttachmentFileEntryId != null) {
 			setCPAttachmentFileEntryId(CPAttachmentFileEntryId);
@@ -140,7 +138,8 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 
 	@Override
 	public Object clone() {
-		return new CommerceBOMDefinitionWrapper((CommerceBOMDefinition)_commerceBOMDefinition.clone());
+		return new CommerceBOMDefinitionWrapper(
+			(CommerceBOMDefinition)_commerceBOMDefinition.clone());
 	}
 
 	@Override
@@ -154,55 +153,57 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 	}
 
 	@Override
-	public com.liferay.commerce.product.model.CPAttachmentFileEntry fetchCPAttachmentFileEntry() {
+	public com.liferay.commerce.product.model.CPAttachmentFileEntry
+		fetchCPAttachmentFileEntry() {
+
 		return _commerceBOMDefinition.fetchCPAttachmentFileEntry();
 	}
 
 	/**
-	* Returns the commerce bom definition ID of this commerce bom definition.
-	*
-	* @return the commerce bom definition ID of this commerce bom definition
-	*/
+	 * Returns the commerce bom definition ID of this commerce bom definition.
+	 *
+	 * @return the commerce bom definition ID of this commerce bom definition
+	 */
 	@Override
 	public long getCommerceBOMDefinitionId() {
 		return _commerceBOMDefinition.getCommerceBOMDefinitionId();
 	}
 
 	/**
-	* Returns the commerce bom folder ID of this commerce bom definition.
-	*
-	* @return the commerce bom folder ID of this commerce bom definition
-	*/
+	 * Returns the commerce bom folder ID of this commerce bom definition.
+	 *
+	 * @return the commerce bom folder ID of this commerce bom definition
+	 */
 	@Override
 	public long getCommerceBOMFolderId() {
 		return _commerceBOMDefinition.getCommerceBOMFolderId();
 	}
 
 	/**
-	* Returns the company ID of this commerce bom definition.
-	*
-	* @return the company ID of this commerce bom definition
-	*/
+	 * Returns the company ID of this commerce bom definition.
+	 *
+	 * @return the company ID of this commerce bom definition
+	 */
 	@Override
 	public long getCompanyId() {
 		return _commerceBOMDefinition.getCompanyId();
 	}
 
 	/**
-	* Returns the cp attachment file entry ID of this commerce bom definition.
-	*
-	* @return the cp attachment file entry ID of this commerce bom definition
-	*/
+	 * Returns the cp attachment file entry ID of this commerce bom definition.
+	 *
+	 * @return the cp attachment file entry ID of this commerce bom definition
+	 */
 	@Override
 	public long getCPAttachmentFileEntryId() {
 		return _commerceBOMDefinition.getCPAttachmentFileEntryId();
 	}
 
 	/**
-	* Returns the create date of this commerce bom definition.
-	*
-	* @return the create date of this commerce bom definition
-	*/
+	 * Returns the create date of this commerce bom definition.
+	 *
+	 * @return the create date of this commerce bom definition
+	 */
 	@Override
 	public Date getCreateDate() {
 		return _commerceBOMDefinition.getCreateDate();
@@ -214,40 +215,40 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 	}
 
 	/**
-	* Returns the friendly url of this commerce bom definition.
-	*
-	* @return the friendly url of this commerce bom definition
-	*/
+	 * Returns the friendly url of this commerce bom definition.
+	 *
+	 * @return the friendly url of this commerce bom definition
+	 */
 	@Override
 	public String getFriendlyUrl() {
 		return _commerceBOMDefinition.getFriendlyUrl();
 	}
 
 	/**
-	* Returns the modified date of this commerce bom definition.
-	*
-	* @return the modified date of this commerce bom definition
-	*/
+	 * Returns the modified date of this commerce bom definition.
+	 *
+	 * @return the modified date of this commerce bom definition
+	 */
 	@Override
 	public Date getModifiedDate() {
 		return _commerceBOMDefinition.getModifiedDate();
 	}
 
 	/**
-	* Returns the name of this commerce bom definition.
-	*
-	* @return the name of this commerce bom definition
-	*/
+	 * Returns the name of this commerce bom definition.
+	 *
+	 * @return the name of this commerce bom definition
+	 */
 	@Override
 	public String getName() {
 		return _commerceBOMDefinition.getName();
 	}
 
 	/**
-	* Returns the primary key of this commerce bom definition.
-	*
-	* @return the primary key of this commerce bom definition
-	*/
+	 * Returns the primary key of this commerce bom definition.
+	 *
+	 * @return the primary key of this commerce bom definition
+	 */
 	@Override
 	public long getPrimaryKey() {
 		return _commerceBOMDefinition.getPrimaryKey();
@@ -259,30 +260,30 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 	}
 
 	/**
-	* Returns the user ID of this commerce bom definition.
-	*
-	* @return the user ID of this commerce bom definition
-	*/
+	 * Returns the user ID of this commerce bom definition.
+	 *
+	 * @return the user ID of this commerce bom definition
+	 */
 	@Override
 	public long getUserId() {
 		return _commerceBOMDefinition.getUserId();
 	}
 
 	/**
-	* Returns the user name of this commerce bom definition.
-	*
-	* @return the user name of this commerce bom definition
-	*/
+	 * Returns the user name of this commerce bom definition.
+	 *
+	 * @return the user name of this commerce bom definition
+	 */
 	@Override
 	public String getUserName() {
 		return _commerceBOMDefinition.getUserName();
 	}
 
 	/**
-	* Returns the user uuid of this commerce bom definition.
-	*
-	* @return the user uuid of this commerce bom definition
-	*/
+	 * Returns the user uuid of this commerce bom definition.
+	 *
+	 * @return the user uuid of this commerce bom definition
+	 */
 	@Override
 	public String getUserUuid() {
 		return _commerceBOMDefinition.getUserUuid();
@@ -319,50 +320,52 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 	}
 
 	/**
-	* Sets the commerce bom definition ID of this commerce bom definition.
-	*
-	* @param commerceBOMDefinitionId the commerce bom definition ID of this commerce bom definition
-	*/
+	 * Sets the commerce bom definition ID of this commerce bom definition.
+	 *
+	 * @param commerceBOMDefinitionId the commerce bom definition ID of this commerce bom definition
+	 */
 	@Override
 	public void setCommerceBOMDefinitionId(long commerceBOMDefinitionId) {
-		_commerceBOMDefinition.setCommerceBOMDefinitionId(commerceBOMDefinitionId);
+		_commerceBOMDefinition.setCommerceBOMDefinitionId(
+			commerceBOMDefinitionId);
 	}
 
 	/**
-	* Sets the commerce bom folder ID of this commerce bom definition.
-	*
-	* @param commerceBOMFolderId the commerce bom folder ID of this commerce bom definition
-	*/
+	 * Sets the commerce bom folder ID of this commerce bom definition.
+	 *
+	 * @param commerceBOMFolderId the commerce bom folder ID of this commerce bom definition
+	 */
 	@Override
 	public void setCommerceBOMFolderId(long commerceBOMFolderId) {
 		_commerceBOMDefinition.setCommerceBOMFolderId(commerceBOMFolderId);
 	}
 
 	/**
-	* Sets the company ID of this commerce bom definition.
-	*
-	* @param companyId the company ID of this commerce bom definition
-	*/
+	 * Sets the company ID of this commerce bom definition.
+	 *
+	 * @param companyId the company ID of this commerce bom definition
+	 */
 	@Override
 	public void setCompanyId(long companyId) {
 		_commerceBOMDefinition.setCompanyId(companyId);
 	}
 
 	/**
-	* Sets the cp attachment file entry ID of this commerce bom definition.
-	*
-	* @param CPAttachmentFileEntryId the cp attachment file entry ID of this commerce bom definition
-	*/
+	 * Sets the cp attachment file entry ID of this commerce bom definition.
+	 *
+	 * @param CPAttachmentFileEntryId the cp attachment file entry ID of this commerce bom definition
+	 */
 	@Override
 	public void setCPAttachmentFileEntryId(long CPAttachmentFileEntryId) {
-		_commerceBOMDefinition.setCPAttachmentFileEntryId(CPAttachmentFileEntryId);
+		_commerceBOMDefinition.setCPAttachmentFileEntryId(
+			CPAttachmentFileEntryId);
 	}
 
 	/**
-	* Sets the create date of this commerce bom definition.
-	*
-	* @param createDate the create date of this commerce bom definition
-	*/
+	 * Sets the create date of this commerce bom definition.
+	 *
+	 * @param createDate the create date of this commerce bom definition
+	 */
 	@Override
 	public void setCreateDate(Date createDate) {
 		_commerceBOMDefinition.setCreateDate(createDate);
@@ -371,6 +374,7 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
 		_commerceBOMDefinition.setExpandoBridgeAttributes(baseModel);
 	}
 
@@ -385,30 +389,30 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 	}
 
 	/**
-	* Sets the friendly url of this commerce bom definition.
-	*
-	* @param friendlyUrl the friendly url of this commerce bom definition
-	*/
+	 * Sets the friendly url of this commerce bom definition.
+	 *
+	 * @param friendlyUrl the friendly url of this commerce bom definition
+	 */
 	@Override
 	public void setFriendlyUrl(String friendlyUrl) {
 		_commerceBOMDefinition.setFriendlyUrl(friendlyUrl);
 	}
 
 	/**
-	* Sets the modified date of this commerce bom definition.
-	*
-	* @param modifiedDate the modified date of this commerce bom definition
-	*/
+	 * Sets the modified date of this commerce bom definition.
+	 *
+	 * @param modifiedDate the modified date of this commerce bom definition
+	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_commerceBOMDefinition.setModifiedDate(modifiedDate);
 	}
 
 	/**
-	* Sets the name of this commerce bom definition.
-	*
-	* @param name the name of this commerce bom definition
-	*/
+	 * Sets the name of this commerce bom definition.
+	 *
+	 * @param name the name of this commerce bom definition
+	 */
 	@Override
 	public void setName(String name) {
 		_commerceBOMDefinition.setName(name);
@@ -420,10 +424,10 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 	}
 
 	/**
-	* Sets the primary key of this commerce bom definition.
-	*
-	* @param primaryKey the primary key of this commerce bom definition
-	*/
+	 * Sets the primary key of this commerce bom definition.
+	 *
+	 * @param primaryKey the primary key of this commerce bom definition
+	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_commerceBOMDefinition.setPrimaryKey(primaryKey);
@@ -435,43 +439,46 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 	}
 
 	/**
-	* Sets the user ID of this commerce bom definition.
-	*
-	* @param userId the user ID of this commerce bom definition
-	*/
+	 * Sets the user ID of this commerce bom definition.
+	 *
+	 * @param userId the user ID of this commerce bom definition
+	 */
 	@Override
 	public void setUserId(long userId) {
 		_commerceBOMDefinition.setUserId(userId);
 	}
 
 	/**
-	* Sets the user name of this commerce bom definition.
-	*
-	* @param userName the user name of this commerce bom definition
-	*/
+	 * Sets the user name of this commerce bom definition.
+	 *
+	 * @param userName the user name of this commerce bom definition
+	 */
 	@Override
 	public void setUserName(String userName) {
 		_commerceBOMDefinition.setUserName(userName);
 	}
 
 	/**
-	* Sets the user uuid of this commerce bom definition.
-	*
-	* @param userUuid the user uuid of this commerce bom definition
-	*/
+	 * Sets the user uuid of this commerce bom definition.
+	 *
+	 * @param userUuid the user uuid of this commerce bom definition
+	 */
 	@Override
 	public void setUserUuid(String userUuid) {
 		_commerceBOMDefinition.setUserUuid(userUuid);
 	}
 
 	@Override
-	public com.liferay.portal.kernel.model.CacheModel<CommerceBOMDefinition> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<CommerceBOMDefinition>
+		toCacheModel() {
+
 		return _commerceBOMDefinition.toCacheModel();
 	}
 
 	@Override
 	public CommerceBOMDefinition toEscapedModel() {
-		return new CommerceBOMDefinitionWrapper(_commerceBOMDefinition.toEscapedModel());
+		return new CommerceBOMDefinitionWrapper(
+			_commerceBOMDefinition.toEscapedModel());
 	}
 
 	@Override
@@ -481,7 +488,8 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 
 	@Override
 	public CommerceBOMDefinition toUnescapedModel() {
-		return new CommerceBOMDefinitionWrapper(_commerceBOMDefinition.toUnescapedModel());
+		return new CommerceBOMDefinitionWrapper(
+			_commerceBOMDefinition.toUnescapedModel());
 	}
 
 	@Override
@@ -499,10 +507,13 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 			return false;
 		}
 
-		CommerceBOMDefinitionWrapper commerceBOMDefinitionWrapper = (CommerceBOMDefinitionWrapper)obj;
+		CommerceBOMDefinitionWrapper commerceBOMDefinitionWrapper =
+			(CommerceBOMDefinitionWrapper)obj;
 
-		if (Objects.equals(_commerceBOMDefinition,
-					commerceBOMDefinitionWrapper._commerceBOMDefinition)) {
+		if (Objects.equals(
+				_commerceBOMDefinition,
+				commerceBOMDefinitionWrapper._commerceBOMDefinition)) {
+
 			return true;
 		}
 
@@ -530,4 +541,5 @@ public class CommerceBOMDefinitionWrapper implements CommerceBOMDefinition,
 	}
 
 	private final CommerceBOMDefinition _commerceBOMDefinition;
+
 }

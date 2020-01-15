@@ -56,7 +56,7 @@ public class CommerceMLForecastAlertEntryServiceHttp {
 			CommerceMLForecastAlertEntry>
 					getAboveThresholdCommerceMLForecastAlertEntries(
 						HttpPrincipal httpPrincipal, long companyId,
-						long userId, int status, double relativeChangeThreshold,
+						long userId, int status, double relativeChange,
 						int start, int end)
 				throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -67,8 +67,8 @@ public class CommerceMLForecastAlertEntryServiceHttp {
 				_getAboveThresholdCommerceMLForecastAlertEntriesParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, companyId, userId, status, relativeChangeThreshold,
-				start, end);
+				methodKey, companyId, userId, status, relativeChange, start,
+				end);
 
 			Object returnObj = null;
 
@@ -100,7 +100,7 @@ public class CommerceMLForecastAlertEntryServiceHttp {
 
 	public static int getAboveThresholdCommerceMLForecastAlertEntriesCount(
 			HttpPrincipal httpPrincipal, long companyId, long userId,
-			int status, double relativeChangeThreshold)
+			int status, double relativeChange)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -110,7 +110,7 @@ public class CommerceMLForecastAlertEntryServiceHttp {
 				_getAboveThresholdCommerceMLForecastAlertEntriesCountParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, companyId, userId, status, relativeChangeThreshold);
+				methodKey, companyId, userId, status, relativeChange);
 
 			Object returnObj = null;
 
@@ -143,7 +143,7 @@ public class CommerceMLForecastAlertEntryServiceHttp {
 			CommerceMLForecastAlertEntry>
 					getBelowThresholdCommerceMLForecastAlertEntries(
 						HttpPrincipal httpPrincipal, long companyId,
-						long userId, int status, double relativeChangeThreshold,
+						long userId, int status, double relativeChange,
 						int start, int end)
 				throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -154,8 +154,8 @@ public class CommerceMLForecastAlertEntryServiceHttp {
 				_getBelowThresholdCommerceMLForecastAlertEntriesParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, companyId, userId, status, relativeChangeThreshold,
-				start, end);
+				methodKey, companyId, userId, status, relativeChange, start,
+				end);
 
 			Object returnObj = null;
 
@@ -187,7 +187,7 @@ public class CommerceMLForecastAlertEntryServiceHttp {
 
 	public static int getBelowThresholdCommerceMLForecastAlertEntriesCount(
 			HttpPrincipal httpPrincipal, long companyId, long userId,
-			int status, double relativeChangeThreshold)
+			int status, double relativeChange)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -197,7 +197,7 @@ public class CommerceMLForecastAlertEntryServiceHttp {
 				_getBelowThresholdCommerceMLForecastAlertEntriesCountParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, companyId, userId, status, relativeChangeThreshold);
+				methodKey, companyId, userId, status, relativeChange);
 
 			Object returnObj = null;
 

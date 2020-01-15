@@ -14,11 +14,8 @@
 
 package com.liferay.commerce.bom.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.bom.model.CommerceBOMFolder;
 import com.liferay.commerce.bom.service.CommerceBOMFolderLocalServiceUtil;
-
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.StringBundler;
 
@@ -37,13 +34,13 @@ import java.util.List;
  * @see CommerceBOMFolder
  * @generated
  */
-@ProviderType
 public abstract class CommerceBOMFolderBaseImpl
 	extends CommerceBOMFolderModelImpl implements CommerceBOMFolder {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce bom folder model instance should use the {@link CommerceBOMFolder} interface instead.
+	 * Never modify or reference this class directly. All methods that expect a commerce bom folder model instance should use the <code>CommerceBOMFolder</code> interface instead.
 	 */
 	@Override
 	public void persist() {
@@ -58,18 +55,20 @@ public abstract class CommerceBOMFolderBaseImpl
 	@Override
 	@SuppressWarnings("unused")
 	public String buildTreePath() throws PortalException {
-		List<CommerceBOMFolder> commerceBOMFolders = new ArrayList<CommerceBOMFolder>();
+		List<CommerceBOMFolder> commerceBOMFolders =
+			new ArrayList<CommerceBOMFolder>();
 
 		CommerceBOMFolder commerceBOMFolder = this;
 
 		while (commerceBOMFolder != null) {
 			commerceBOMFolders.add(commerceBOMFolder);
 
-			commerceBOMFolder = CommerceBOMFolderLocalServiceUtil.fetchCommerceBOMFolder(commerceBOMFolder.getParentCommerceBOMFolderId());
+			commerceBOMFolder =
+				CommerceBOMFolderLocalServiceUtil.fetchCommerceBOMFolder(
+					commerceBOMFolder.getParentCommerceBOMFolderId());
 		}
 
-		StringBundler sb = new StringBundler((commerceBOMFolders.size() * 2) +
-				1);
+		StringBundler sb = new StringBundler(commerceBOMFolders.size() * 2 + 1);
 
 		sb.append("/");
 
@@ -89,6 +88,8 @@ public abstract class CommerceBOMFolderBaseImpl
 
 		commerceBOMFolder.setTreePath(treePath);
 
-		CommerceBOMFolderLocalServiceUtil.updateCommerceBOMFolder(commerceBOMFolder);
+		CommerceBOMFolderLocalServiceUtil.updateCommerceBOMFolder(
+			commerceBOMFolder);
 	}
+
 }

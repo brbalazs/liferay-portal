@@ -65,7 +65,7 @@ public class CommerceMLForecastAlertEntryServiceSoap {
 		CommerceMLForecastAlertEntrySoap[]
 				getAboveThresholdCommerceMLForecastAlertEntries(
 					long companyId, long userId, int status,
-					double relativeChangeThreshold, int start, int end)
+					double relativeChange, int start, int end)
 			throws RemoteException {
 
 		try {
@@ -74,8 +74,8 @@ public class CommerceMLForecastAlertEntryServiceSoap {
 					CommerceMLForecastAlertEntry> returnValue =
 						CommerceMLForecastAlertEntryServiceUtil.
 							getAboveThresholdCommerceMLForecastAlertEntries(
-								companyId, userId, status,
-								relativeChangeThreshold, start, end);
+								companyId, userId, status, relativeChange,
+								start, end);
 
 			return com.liferay.commerce.machine.learning.forecast.alert.model.
 				CommerceMLForecastAlertEntrySoap.toSoapModels(returnValue);
@@ -88,15 +88,14 @@ public class CommerceMLForecastAlertEntryServiceSoap {
 	}
 
 	public static int getAboveThresholdCommerceMLForecastAlertEntriesCount(
-			long companyId, long userId, int status,
-			double relativeChangeThreshold)
+			long companyId, long userId, int status, double relativeChange)
 		throws RemoteException {
 
 		try {
 			int returnValue =
 				CommerceMLForecastAlertEntryServiceUtil.
 					getAboveThresholdCommerceMLForecastAlertEntriesCount(
-						companyId, userId, status, relativeChangeThreshold);
+						companyId, userId, status, relativeChange);
 
 			return returnValue;
 		}
@@ -111,7 +110,7 @@ public class CommerceMLForecastAlertEntryServiceSoap {
 		CommerceMLForecastAlertEntrySoap[]
 				getBelowThresholdCommerceMLForecastAlertEntries(
 					long companyId, long userId, int status,
-					double relativeChangeThreshold, int start, int end)
+					double relativeChange, int start, int end)
 			throws RemoteException {
 
 		try {
@@ -120,8 +119,8 @@ public class CommerceMLForecastAlertEntryServiceSoap {
 					CommerceMLForecastAlertEntry> returnValue =
 						CommerceMLForecastAlertEntryServiceUtil.
 							getBelowThresholdCommerceMLForecastAlertEntries(
-								companyId, userId, status,
-								relativeChangeThreshold, start, end);
+								companyId, userId, status, relativeChange,
+								start, end);
 
 			return com.liferay.commerce.machine.learning.forecast.alert.model.
 				CommerceMLForecastAlertEntrySoap.toSoapModels(returnValue);
@@ -134,15 +133,14 @@ public class CommerceMLForecastAlertEntryServiceSoap {
 	}
 
 	public static int getBelowThresholdCommerceMLForecastAlertEntriesCount(
-			long companyId, long userId, int status,
-			double relativeChangeThreshold)
+			long companyId, long userId, int status, double relativeChange)
 		throws RemoteException {
 
 		try {
 			int returnValue =
 				CommerceMLForecastAlertEntryServiceUtil.
 					getBelowThresholdCommerceMLForecastAlertEntriesCount(
-						companyId, userId, status, relativeChangeThreshold);
+						companyId, userId, status, relativeChange);
 
 			return returnValue;
 		}

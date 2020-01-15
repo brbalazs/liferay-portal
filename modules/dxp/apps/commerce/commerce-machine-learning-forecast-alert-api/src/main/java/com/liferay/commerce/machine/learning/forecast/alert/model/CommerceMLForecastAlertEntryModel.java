@@ -44,7 +44,7 @@ public interface CommerceMLForecastAlertEntryModel
 	extends BaseModel<CommerceMLForecastAlertEntry>, ShardedModel,
 			StagedAuditedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a commerce ml forecast alert entry model instance should use the {@link CommerceMLForecastAlertEntry} interface instead.

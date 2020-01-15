@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.bom.service;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
@@ -25,69 +23,82 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @see CommerceBOMEntryService
  * @generated
  */
-@ProviderType
-public class CommerceBOMEntryServiceWrapper implements CommerceBOMEntryService,
-	ServiceWrapper<CommerceBOMEntryService> {
+public class CommerceBOMEntryServiceWrapper
+	implements CommerceBOMEntryService,
+			   ServiceWrapper<CommerceBOMEntryService> {
+
 	public CommerceBOMEntryServiceWrapper(
 		CommerceBOMEntryService commerceBOMEntryService) {
+
 		_commerceBOMEntryService = commerceBOMEntryService;
 	}
 
 	@Override
 	public com.liferay.commerce.bom.model.CommerceBOMEntry addCommerceBOMEntry(
-		long userId, int number, String cpInstanceUuid, long cProductId,
-		long commerceBOMDefinitionId, double positionX, double positionY,
-		double radius)
+			long userId, int number, String cpInstanceUuid, long cProductId,
+			long commerceBOMDefinitionId, double positionX, double positionY,
+			double radius)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _commerceBOMEntryService.addCommerceBOMEntry(userId, number,
-			cpInstanceUuid, cProductId, commerceBOMDefinitionId, positionX,
-			positionY, radius);
+
+		return _commerceBOMEntryService.addCommerceBOMEntry(
+			userId, number, cpInstanceUuid, cProductId, commerceBOMDefinitionId,
+			positionX, positionY, radius);
 	}
 
 	@Override
 	public void deleteCommerceBOMEntry(long commerceBOMEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException {
+
 		_commerceBOMEntryService.deleteCommerceBOMEntry(commerceBOMEntryId);
 	}
 
 	@Override
-	public java.util.List<com.liferay.commerce.bom.model.CommerceBOMEntry> getCommerceBOMEntries(
-		long commerceBOMDefinitionId, int start, int end)
+	public java.util.List<com.liferay.commerce.bom.model.CommerceBOMEntry>
+			getCommerceBOMEntries(
+				long commerceBOMDefinitionId, int start, int end)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _commerceBOMEntryService.getCommerceBOMEntries(commerceBOMDefinitionId,
-			start, end);
+
+		return _commerceBOMEntryService.getCommerceBOMEntries(
+			commerceBOMDefinitionId, start, end);
 	}
 
 	@Override
 	public int getCommerceBOMEntriesCount(long commerceBOMDefinitionId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _commerceBOMEntryService.getCommerceBOMEntriesCount(commerceBOMDefinitionId);
+
+		return _commerceBOMEntryService.getCommerceBOMEntriesCount(
+			commerceBOMDefinitionId);
 	}
 
 	@Override
 	public com.liferay.commerce.bom.model.CommerceBOMEntry getCommerceBOMEntry(
-		long commerceBOMEntryId)
+			long commerceBOMEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException {
+
 		return _commerceBOMEntryService.getCommerceBOMEntry(commerceBOMEntryId);
 	}
 
 	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
-	*/
+	 * Returns the OSGi service identifier.
+	 *
+	 * @return the OSGi service identifier
+	 */
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _commerceBOMEntryService.getOSGiServiceIdentifier();
 	}
 
 	@Override
-	public com.liferay.commerce.bom.model.CommerceBOMEntry updateCommerceBOMEntry(
-		long commerceBOMEntryId, int number, String cpInstanceUuid,
-		long cProductId, double positionX, double positionY, double radius)
+	public com.liferay.commerce.bom.model.CommerceBOMEntry
+			updateCommerceBOMEntry(
+				long commerceBOMEntryId, int number, String cpInstanceUuid,
+				long cProductId, double positionX, double positionY,
+				double radius)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _commerceBOMEntryService.updateCommerceBOMEntry(commerceBOMEntryId,
-			number, cpInstanceUuid, cProductId, positionX, positionY, radius);
+
+		return _commerceBOMEntryService.updateCommerceBOMEntry(
+			commerceBOMEntryId, number, cpInstanceUuid, cProductId, positionX,
+			positionY, radius);
 	}
 
 	@Override
@@ -98,8 +109,10 @@ public class CommerceBOMEntryServiceWrapper implements CommerceBOMEntryService,
 	@Override
 	public void setWrappedService(
 		CommerceBOMEntryService commerceBOMEntryService) {
+
 		_commerceBOMEntryService = commerceBOMEntryService;
 	}
 
 	private CommerceBOMEntryService _commerceBOMEntryService;
+
 }

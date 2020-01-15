@@ -35,11 +35,6 @@ public class CommerceDataIntegrationProcessLogServiceWrapper
 			commerceDataIntegrationProcessLogService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link CommerceDataIntegrationProcessLogServiceUtil} to access the commerce data integration process log remote service. Add custom service methods to <code>com.liferay.commerce.data.integration.service.impl.CommerceDataIntegrationProcessLogServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public com.liferay.commerce.data.integration.model.
 		CommerceDataIntegrationProcessLog addCommerceDataIntegrationProcessLog(

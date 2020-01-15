@@ -44,7 +44,7 @@ public interface CommerceDataIntegrationProcessLogModel
 	extends AuditedModel, BaseModel<CommerceDataIntegrationProcessLog>,
 			ShardedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a commerce data integration process log model instance should use the {@link CommerceDataIntegrationProcessLog} interface instead.

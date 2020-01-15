@@ -33,7 +33,7 @@ public abstract class CommerceDataIntegrationProcessLogBaseImpl
 	extends CommerceDataIntegrationProcessLogModelImpl
 	implements CommerceDataIntegrationProcessLog {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce data integration process log model instance should use the <code>CommerceDataIntegrationProcessLog</code> interface instead.

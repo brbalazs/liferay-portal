@@ -14,10 +14,7 @@
 
 package com.liferay.commerce.bom.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.bom.model.CommerceBOMDefinition;
-
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -33,12 +30,11 @@ import java.util.Date;
  * The cache model class for representing CommerceBOMDefinition in entity cache.
  *
  * @author Luca Pellizzon
- * @see CommerceBOMDefinition
  * @generated
  */
-@ProviderType
-public class CommerceBOMDefinitionCacheModel implements CacheModel<CommerceBOMDefinition>,
-	Externalizable {
+public class CommerceBOMDefinitionCacheModel
+	implements CacheModel<CommerceBOMDefinition>, Externalizable {
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -49,9 +45,12 @@ public class CommerceBOMDefinitionCacheModel implements CacheModel<CommerceBOMDe
 			return false;
 		}
 
-		CommerceBOMDefinitionCacheModel commerceBOMDefinitionCacheModel = (CommerceBOMDefinitionCacheModel)obj;
+		CommerceBOMDefinitionCacheModel commerceBOMDefinitionCacheModel =
+			(CommerceBOMDefinitionCacheModel)obj;
 
-		if (commerceBOMDefinitionId == commerceBOMDefinitionCacheModel.commerceBOMDefinitionId) {
+		if (commerceBOMDefinitionId ==
+				commerceBOMDefinitionCacheModel.commerceBOMDefinitionId) {
+
 			return true;
 		}
 
@@ -94,9 +93,11 @@ public class CommerceBOMDefinitionCacheModel implements CacheModel<CommerceBOMDe
 
 	@Override
 	public CommerceBOMDefinition toEntityModel() {
-		CommerceBOMDefinitionImpl commerceBOMDefinitionImpl = new CommerceBOMDefinitionImpl();
+		CommerceBOMDefinitionImpl commerceBOMDefinitionImpl =
+			new CommerceBOMDefinitionImpl();
 
-		commerceBOMDefinitionImpl.setCommerceBOMDefinitionId(commerceBOMDefinitionId);
+		commerceBOMDefinitionImpl.setCommerceBOMDefinitionId(
+			commerceBOMDefinitionId);
 		commerceBOMDefinitionImpl.setCompanyId(companyId);
 		commerceBOMDefinitionImpl.setUserId(userId);
 
@@ -122,7 +123,8 @@ public class CommerceBOMDefinitionCacheModel implements CacheModel<CommerceBOMDe
 		}
 
 		commerceBOMDefinitionImpl.setCommerceBOMFolderId(commerceBOMFolderId);
-		commerceBOMDefinitionImpl.setCPAttachmentFileEntryId(CPAttachmentFileEntryId);
+		commerceBOMDefinitionImpl.setCPAttachmentFileEntryId(
+			CPAttachmentFileEntryId);
 
 		if (name == null) {
 			commerceBOMDefinitionImpl.setName("");
@@ -162,8 +164,7 @@ public class CommerceBOMDefinitionCacheModel implements CacheModel<CommerceBOMDe
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput objectOutput)
-		throws IOException {
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(commerceBOMDefinitionId);
 
 		objectOutput.writeLong(companyId);
@@ -209,4 +210,5 @@ public class CommerceBOMDefinitionCacheModel implements CacheModel<CommerceBOMDe
 	public long CPAttachmentFileEntryId;
 	public String name;
 	public String friendlyUrl;
+
 }

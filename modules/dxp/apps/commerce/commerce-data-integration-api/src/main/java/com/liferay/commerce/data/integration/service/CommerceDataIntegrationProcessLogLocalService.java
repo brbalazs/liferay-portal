@@ -56,7 +56,7 @@ import java.util.List;
 public interface CommerceDataIntegrationProcessLogLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link CommerceDataIntegrationProcessLogLocalServiceUtil} to access the commerce data integration process log local service. Add custom service methods to <code>com.liferay.commerce.data.integration.service.impl.CommerceDataIntegrationProcessLogLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

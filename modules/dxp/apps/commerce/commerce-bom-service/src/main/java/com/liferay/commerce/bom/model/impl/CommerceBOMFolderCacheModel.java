@@ -14,10 +14,7 @@
 
 package com.liferay.commerce.bom.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.bom.model.CommerceBOMFolder;
-
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -33,12 +30,11 @@ import java.util.Date;
  * The cache model class for representing CommerceBOMFolder in entity cache.
  *
  * @author Luca Pellizzon
- * @see CommerceBOMFolder
  * @generated
  */
-@ProviderType
-public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder>,
-	Externalizable {
+public class CommerceBOMFolderCacheModel
+	implements CacheModel<CommerceBOMFolder>, Externalizable {
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -49,9 +45,12 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 			return false;
 		}
 
-		CommerceBOMFolderCacheModel commerceBOMFolderCacheModel = (CommerceBOMFolderCacheModel)obj;
+		CommerceBOMFolderCacheModel commerceBOMFolderCacheModel =
+			(CommerceBOMFolderCacheModel)obj;
 
-		if (commerceBOMFolderId == commerceBOMFolderCacheModel.commerceBOMFolderId) {
+		if (commerceBOMFolderId ==
+				commerceBOMFolderCacheModel.commerceBOMFolderId) {
+
 			return true;
 		}
 
@@ -94,7 +93,8 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 
 	@Override
 	public CommerceBOMFolder toEntityModel() {
-		CommerceBOMFolderImpl commerceBOMFolderImpl = new CommerceBOMFolderImpl();
+		CommerceBOMFolderImpl commerceBOMFolderImpl =
+			new CommerceBOMFolderImpl();
 
 		commerceBOMFolderImpl.setCommerceBOMFolderId(commerceBOMFolderId);
 		commerceBOMFolderImpl.setCompanyId(companyId);
@@ -121,7 +121,8 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 			commerceBOMFolderImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
-		commerceBOMFolderImpl.setParentCommerceBOMFolderId(parentCommerceBOMFolderId);
+		commerceBOMFolderImpl.setParentCommerceBOMFolderId(
+			parentCommerceBOMFolderId);
 
 		if (name == null) {
 			commerceBOMFolderImpl.setName("");
@@ -163,8 +164,7 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput objectOutput)
-		throws IOException {
+	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(commerceBOMFolderId);
 
 		objectOutput.writeLong(companyId);
@@ -210,4 +210,5 @@ public class CommerceBOMFolderCacheModel implements CacheModel<CommerceBOMFolder
 	public String name;
 	public long logoId;
 	public String treePath;
+
 }

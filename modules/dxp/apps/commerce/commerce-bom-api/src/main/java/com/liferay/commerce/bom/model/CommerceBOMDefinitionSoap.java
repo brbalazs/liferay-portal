@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.bom.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -26,23 +24,25 @@ import java.util.List;
  * This class is used by SOAP remote services, specifically {@link com.liferay.commerce.bom.service.http.CommerceBOMDefinitionServiceSoap}.
  *
  * @author Luca Pellizzon
- * @see com.liferay.commerce.bom.service.http.CommerceBOMDefinitionServiceSoap
  * @generated
  */
-@ProviderType
 public class CommerceBOMDefinitionSoap implements Serializable {
+
 	public static CommerceBOMDefinitionSoap toSoapModel(
 		CommerceBOMDefinition model) {
+
 		CommerceBOMDefinitionSoap soapModel = new CommerceBOMDefinitionSoap();
 
-		soapModel.setCommerceBOMDefinitionId(model.getCommerceBOMDefinitionId());
+		soapModel.setCommerceBOMDefinitionId(
+			model.getCommerceBOMDefinitionId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setCommerceBOMFolderId(model.getCommerceBOMFolderId());
-		soapModel.setCPAttachmentFileEntryId(model.getCPAttachmentFileEntryId());
+		soapModel.setCPAttachmentFileEntryId(
+			model.getCPAttachmentFileEntryId());
 		soapModel.setName(model.getName());
 		soapModel.setFriendlyUrl(model.getFriendlyUrl());
 
@@ -51,7 +51,9 @@ public class CommerceBOMDefinitionSoap implements Serializable {
 
 	public static CommerceBOMDefinitionSoap[] toSoapModels(
 		CommerceBOMDefinition[] models) {
-		CommerceBOMDefinitionSoap[] soapModels = new CommerceBOMDefinitionSoap[models.length];
+
+		CommerceBOMDefinitionSoap[] soapModels =
+			new CommerceBOMDefinitionSoap[models.length];
 
 		for (int i = 0; i < models.length; i++) {
 			soapModels[i] = toSoapModel(models[i]);
@@ -62,10 +64,12 @@ public class CommerceBOMDefinitionSoap implements Serializable {
 
 	public static CommerceBOMDefinitionSoap[][] toSoapModels(
 		CommerceBOMDefinition[][] models) {
+
 		CommerceBOMDefinitionSoap[][] soapModels = null;
 
 		if (models.length > 0) {
-			soapModels = new CommerceBOMDefinitionSoap[models.length][models[0].length];
+			soapModels =
+				new CommerceBOMDefinitionSoap[models.length][models[0].length];
 		}
 		else {
 			soapModels = new CommerceBOMDefinitionSoap[0][0];
@@ -80,13 +84,16 @@ public class CommerceBOMDefinitionSoap implements Serializable {
 
 	public static CommerceBOMDefinitionSoap[] toSoapModels(
 		List<CommerceBOMDefinition> models) {
-		List<CommerceBOMDefinitionSoap> soapModels = new ArrayList<CommerceBOMDefinitionSoap>(models.size());
+
+		List<CommerceBOMDefinitionSoap> soapModels =
+			new ArrayList<CommerceBOMDefinitionSoap>(models.size());
 
 		for (CommerceBOMDefinition model : models) {
 			soapModels.add(toSoapModel(model));
 		}
 
-		return soapModels.toArray(new CommerceBOMDefinitionSoap[soapModels.size()]);
+		return soapModels.toArray(
+			new CommerceBOMDefinitionSoap[soapModels.size()]);
 	}
 
 	public CommerceBOMDefinitionSoap() {
@@ -190,4 +197,5 @@ public class CommerceBOMDefinitionSoap implements Serializable {
 	private long _CPAttachmentFileEntryId;
 	private String _name;
 	private String _friendlyUrl;
+
 }

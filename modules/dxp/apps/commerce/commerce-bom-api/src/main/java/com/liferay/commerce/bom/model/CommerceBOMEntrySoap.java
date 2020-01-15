@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.bom.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -26,11 +24,10 @@ import java.util.List;
  * This class is used by SOAP remote services, specifically {@link com.liferay.commerce.bom.service.http.CommerceBOMEntryServiceSoap}.
  *
  * @author Luca Pellizzon
- * @see com.liferay.commerce.bom.service.http.CommerceBOMEntryServiceSoap
  * @generated
  */
-@ProviderType
 public class CommerceBOMEntrySoap implements Serializable {
+
 	public static CommerceBOMEntrySoap toSoapModel(CommerceBOMEntry model) {
 		CommerceBOMEntrySoap soapModel = new CommerceBOMEntrySoap();
 
@@ -43,7 +40,8 @@ public class CommerceBOMEntrySoap implements Serializable {
 		soapModel.setNumber(model.getNumber());
 		soapModel.setCPInstanceUuid(model.getCPInstanceUuid());
 		soapModel.setCProductId(model.getCProductId());
-		soapModel.setCommerceBOMDefinitionId(model.getCommerceBOMDefinitionId());
+		soapModel.setCommerceBOMDefinitionId(
+			model.getCommerceBOMDefinitionId());
 		soapModel.setPositionX(model.getPositionX());
 		soapModel.setPositionY(model.getPositionY());
 		soapModel.setRadius(model.getRadius());
@@ -51,8 +49,11 @@ public class CommerceBOMEntrySoap implements Serializable {
 		return soapModel;
 	}
 
-	public static CommerceBOMEntrySoap[] toSoapModels(CommerceBOMEntry[] models) {
-		CommerceBOMEntrySoap[] soapModels = new CommerceBOMEntrySoap[models.length];
+	public static CommerceBOMEntrySoap[] toSoapModels(
+		CommerceBOMEntry[] models) {
+
+		CommerceBOMEntrySoap[] soapModels =
+			new CommerceBOMEntrySoap[models.length];
 
 		for (int i = 0; i < models.length; i++) {
 			soapModels[i] = toSoapModel(models[i]);
@@ -63,10 +64,12 @@ public class CommerceBOMEntrySoap implements Serializable {
 
 	public static CommerceBOMEntrySoap[][] toSoapModels(
 		CommerceBOMEntry[][] models) {
+
 		CommerceBOMEntrySoap[][] soapModels = null;
 
 		if (models.length > 0) {
-			soapModels = new CommerceBOMEntrySoap[models.length][models[0].length];
+			soapModels =
+				new CommerceBOMEntrySoap[models.length][models[0].length];
 		}
 		else {
 			soapModels = new CommerceBOMEntrySoap[0][0];
@@ -81,7 +84,9 @@ public class CommerceBOMEntrySoap implements Serializable {
 
 	public static CommerceBOMEntrySoap[] toSoapModels(
 		List<CommerceBOMEntry> models) {
-		List<CommerceBOMEntrySoap> soapModels = new ArrayList<CommerceBOMEntrySoap>(models.size());
+
+		List<CommerceBOMEntrySoap> soapModels =
+			new ArrayList<CommerceBOMEntrySoap>(models.size());
 
 		for (CommerceBOMEntry model : models) {
 			soapModels.add(toSoapModel(model));
@@ -218,4 +223,5 @@ public class CommerceBOMEntrySoap implements Serializable {
 	private double _positionX;
 	private double _positionY;
 	private double _radius;
+
 }

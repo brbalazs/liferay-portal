@@ -17,7 +17,6 @@ package com.liferay.commerce.bom.service;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.bom.model.CommerceBOMDefinition;
-
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
@@ -37,33 +36,41 @@ import java.util.List;
  *
  * @author Luca Pellizzon
  * @see CommerceBOMDefinitionServiceUtil
- * @see com.liferay.commerce.bom.service.base.CommerceBOMDefinitionServiceBaseImpl
- * @see com.liferay.commerce.bom.service.impl.CommerceBOMDefinitionServiceImpl
  * @generated
  */
 @AccessControlled
 @JSONWebService
-@OSGiBeanProperties(property =  {
-	"json.web.service.context.name=commerce", "json.web.service.context.path=CommerceBOMDefinition"}, service = CommerceBOMDefinitionService.class)
+@OSGiBeanProperties(
+	property = {
+		"json.web.service.context.name=commerce",
+		"json.web.service.context.path=CommerceBOMDefinition"
+	},
+	service = CommerceBOMDefinitionService.class
+)
 @ProviderType
-@Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
-	PortalException.class, SystemException.class})
+@Transactional(
+	isolation = Isolation.PORTAL,
+	rollbackFor = {PortalException.class, SystemException.class}
+)
 public interface CommerceBOMDefinitionService extends BaseService {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CommerceBOMDefinitionServiceUtil} to access the commerce bom definition remote service. Add custom service methods to {@link com.liferay.commerce.bom.service.impl.CommerceBOMDefinitionServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify or reference this interface directly. Always use {@link CommerceBOMDefinitionServiceUtil} to access the commerce bom definition remote service. Add custom service methods to <code>com.liferay.commerce.bom.service.impl.CommerceBOMDefinitionServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public CommerceBOMDefinition addCommerceBOMDefinition(long userId,
-		long commerceBOMFolderId, long cpAttachmentFileEntryId, String name,
-		String friendlyUrl) throws PortalException;
+	public CommerceBOMDefinition addCommerceBOMDefinition(
+			long userId, long commerceBOMFolderId, long cpAttachmentFileEntryId,
+			String name, String friendlyUrl)
+		throws PortalException;
 
 	public void deleteCommerceBOMDefinition(long commerceBOMDefinitionId)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceBOMDefinition getCommerceBOMDefinition(
-		long commerceBOMDefinitionId) throws PortalException;
+			long commerceBOMDefinitionId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceBOMDefinition> getCommerceBOMDefinitions(
@@ -73,13 +80,15 @@ public interface CommerceBOMDefinitionService extends BaseService {
 	public int getCommerceBOMDefinitionsCount(long commerceBOMFolderId);
 
 	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
-	*/
+	 * Returns the OSGi service identifier.
+	 *
+	 * @return the OSGi service identifier
+	 */
 	public String getOSGiServiceIdentifier();
 
 	public CommerceBOMDefinition updateCommerceBOMDefinition(
-		long commerceBOMDefinitionId, long cpAttachmentFileEntryId, String name)
+			long commerceBOMDefinitionId, long cpAttachmentFileEntryId,
+			String name)
 		throws PortalException;
+
 }

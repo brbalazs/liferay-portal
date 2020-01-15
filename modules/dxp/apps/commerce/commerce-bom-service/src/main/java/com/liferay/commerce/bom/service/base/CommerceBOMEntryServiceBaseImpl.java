@@ -20,7 +20,6 @@ import com.liferay.commerce.bom.service.persistence.CommerceBOMDefinitionPersist
 import com.liferay.commerce.bom.service.persistence.CommerceBOMEntryPersistence;
 import com.liferay.commerce.bom.service.persistence.CommerceBOMFolderApplicationRelPersistence;
 import com.liferay.commerce.bom.service.persistence.CommerceBOMFolderPersistence;
-
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
@@ -45,15 +44,16 @@ import javax.sql.DataSource;
  *
  * @author Luca Pellizzon
  * @see com.liferay.commerce.bom.service.impl.CommerceBOMEntryServiceImpl
- * @see com.liferay.commerce.bom.service.CommerceBOMEntryServiceUtil
  * @generated
  */
-public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
+public abstract class CommerceBOMEntryServiceBaseImpl
+	extends BaseServiceImpl
 	implements CommerceBOMEntryService, IdentifiableOSGiService {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Always use {@link com.liferay.commerce.bom.service.CommerceBOMEntryServiceUtil} to access the commerce bom entry remote service.
+	 * Never modify or reference this class directly. Use <code>CommerceBOMEntryService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.bom.service.CommerceBOMEntryServiceUtil</code>.
 	 */
 
 	/**
@@ -61,7 +61,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 *
 	 * @return the commerce bom definition local service
 	 */
-	public com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalService getCommerceBOMDefinitionLocalService() {
+	public com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalService
+		getCommerceBOMDefinitionLocalService() {
+
 		return commerceBOMDefinitionLocalService;
 	}
 
@@ -71,8 +73,11 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 * @param commerceBOMDefinitionLocalService the commerce bom definition local service
 	 */
 	public void setCommerceBOMDefinitionLocalService(
-		com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalService commerceBOMDefinitionLocalService) {
-		this.commerceBOMDefinitionLocalService = commerceBOMDefinitionLocalService;
+		com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalService
+			commerceBOMDefinitionLocalService) {
+
+		this.commerceBOMDefinitionLocalService =
+			commerceBOMDefinitionLocalService;
 	}
 
 	/**
@@ -80,7 +85,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 *
 	 * @return the commerce bom definition remote service
 	 */
-	public com.liferay.commerce.bom.service.CommerceBOMDefinitionService getCommerceBOMDefinitionService() {
+	public com.liferay.commerce.bom.service.CommerceBOMDefinitionService
+		getCommerceBOMDefinitionService() {
+
 		return commerceBOMDefinitionService;
 	}
 
@@ -90,7 +97,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 * @param commerceBOMDefinitionService the commerce bom definition remote service
 	 */
 	public void setCommerceBOMDefinitionService(
-		com.liferay.commerce.bom.service.CommerceBOMDefinitionService commerceBOMDefinitionService) {
+		com.liferay.commerce.bom.service.CommerceBOMDefinitionService
+			commerceBOMDefinitionService) {
+
 		this.commerceBOMDefinitionService = commerceBOMDefinitionService;
 	}
 
@@ -99,7 +108,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 *
 	 * @return the commerce bom definition persistence
 	 */
-	public CommerceBOMDefinitionPersistence getCommerceBOMDefinitionPersistence() {
+	public CommerceBOMDefinitionPersistence
+		getCommerceBOMDefinitionPersistence() {
+
 		return commerceBOMDefinitionPersistence;
 	}
 
@@ -110,7 +121,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 */
 	public void setCommerceBOMDefinitionPersistence(
 		CommerceBOMDefinitionPersistence commerceBOMDefinitionPersistence) {
-		this.commerceBOMDefinitionPersistence = commerceBOMDefinitionPersistence;
+
+		this.commerceBOMDefinitionPersistence =
+			commerceBOMDefinitionPersistence;
 	}
 
 	/**
@@ -118,7 +131,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 *
 	 * @return the commerce bom entry local service
 	 */
-	public com.liferay.commerce.bom.service.CommerceBOMEntryLocalService getCommerceBOMEntryLocalService() {
+	public com.liferay.commerce.bom.service.CommerceBOMEntryLocalService
+		getCommerceBOMEntryLocalService() {
+
 		return commerceBOMEntryLocalService;
 	}
 
@@ -128,7 +143,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 * @param commerceBOMEntryLocalService the commerce bom entry local service
 	 */
 	public void setCommerceBOMEntryLocalService(
-		com.liferay.commerce.bom.service.CommerceBOMEntryLocalService commerceBOMEntryLocalService) {
+		com.liferay.commerce.bom.service.CommerceBOMEntryLocalService
+			commerceBOMEntryLocalService) {
+
 		this.commerceBOMEntryLocalService = commerceBOMEntryLocalService;
 	}
 
@@ -148,6 +165,7 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 */
 	public void setCommerceBOMEntryService(
 		CommerceBOMEntryService commerceBOMEntryService) {
+
 		this.commerceBOMEntryService = commerceBOMEntryService;
 	}
 
@@ -167,6 +185,7 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 */
 	public void setCommerceBOMEntryPersistence(
 		CommerceBOMEntryPersistence commerceBOMEntryPersistence) {
+
 		this.commerceBOMEntryPersistence = commerceBOMEntryPersistence;
 	}
 
@@ -175,7 +194,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 *
 	 * @return the commerce bom folder local service
 	 */
-	public com.liferay.commerce.bom.service.CommerceBOMFolderLocalService getCommerceBOMFolderLocalService() {
+	public com.liferay.commerce.bom.service.CommerceBOMFolderLocalService
+		getCommerceBOMFolderLocalService() {
+
 		return commerceBOMFolderLocalService;
 	}
 
@@ -185,7 +206,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 * @param commerceBOMFolderLocalService the commerce bom folder local service
 	 */
 	public void setCommerceBOMFolderLocalService(
-		com.liferay.commerce.bom.service.CommerceBOMFolderLocalService commerceBOMFolderLocalService) {
+		com.liferay.commerce.bom.service.CommerceBOMFolderLocalService
+			commerceBOMFolderLocalService) {
+
 		this.commerceBOMFolderLocalService = commerceBOMFolderLocalService;
 	}
 
@@ -194,7 +217,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 *
 	 * @return the commerce bom folder remote service
 	 */
-	public com.liferay.commerce.bom.service.CommerceBOMFolderService getCommerceBOMFolderService() {
+	public com.liferay.commerce.bom.service.CommerceBOMFolderService
+		getCommerceBOMFolderService() {
+
 		return commerceBOMFolderService;
 	}
 
@@ -204,7 +229,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 * @param commerceBOMFolderService the commerce bom folder remote service
 	 */
 	public void setCommerceBOMFolderService(
-		com.liferay.commerce.bom.service.CommerceBOMFolderService commerceBOMFolderService) {
+		com.liferay.commerce.bom.service.CommerceBOMFolderService
+			commerceBOMFolderService) {
+
 		this.commerceBOMFolderService = commerceBOMFolderService;
 	}
 
@@ -224,6 +251,7 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 */
 	public void setCommerceBOMFolderPersistence(
 		CommerceBOMFolderPersistence commerceBOMFolderPersistence) {
+
 		this.commerceBOMFolderPersistence = commerceBOMFolderPersistence;
 	}
 
@@ -232,7 +260,11 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 *
 	 * @return the commerce bom folder application rel local service
 	 */
-	public com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelLocalService getCommerceBOMFolderApplicationRelLocalService() {
+	public
+		com.liferay.commerce.bom.service.
+			CommerceBOMFolderApplicationRelLocalService
+				getCommerceBOMFolderApplicationRelLocalService() {
+
 		return commerceBOMFolderApplicationRelLocalService;
 	}
 
@@ -242,8 +274,12 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 * @param commerceBOMFolderApplicationRelLocalService the commerce bom folder application rel local service
 	 */
 	public void setCommerceBOMFolderApplicationRelLocalService(
-		com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelLocalService commerceBOMFolderApplicationRelLocalService) {
-		this.commerceBOMFolderApplicationRelLocalService = commerceBOMFolderApplicationRelLocalService;
+		com.liferay.commerce.bom.service.
+			CommerceBOMFolderApplicationRelLocalService
+				commerceBOMFolderApplicationRelLocalService) {
+
+		this.commerceBOMFolderApplicationRelLocalService =
+			commerceBOMFolderApplicationRelLocalService;
 	}
 
 	/**
@@ -251,7 +287,10 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 *
 	 * @return the commerce bom folder application rel remote service
 	 */
-	public com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelService getCommerceBOMFolderApplicationRelService() {
+	public
+		com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelService
+			getCommerceBOMFolderApplicationRelService() {
+
 		return commerceBOMFolderApplicationRelService;
 	}
 
@@ -261,8 +300,11 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 * @param commerceBOMFolderApplicationRelService the commerce bom folder application rel remote service
 	 */
 	public void setCommerceBOMFolderApplicationRelService(
-		com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelService commerceBOMFolderApplicationRelService) {
-		this.commerceBOMFolderApplicationRelService = commerceBOMFolderApplicationRelService;
+		com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelService
+			commerceBOMFolderApplicationRelService) {
+
+		this.commerceBOMFolderApplicationRelService =
+			commerceBOMFolderApplicationRelService;
 	}
 
 	/**
@@ -270,7 +312,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 *
 	 * @return the commerce bom folder application rel persistence
 	 */
-	public CommerceBOMFolderApplicationRelPersistence getCommerceBOMFolderApplicationRelPersistence() {
+	public CommerceBOMFolderApplicationRelPersistence
+		getCommerceBOMFolderApplicationRelPersistence() {
+
 		return commerceBOMFolderApplicationRelPersistence;
 	}
 
@@ -280,8 +324,11 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 * @param commerceBOMFolderApplicationRelPersistence the commerce bom folder application rel persistence
 	 */
 	public void setCommerceBOMFolderApplicationRelPersistence(
-		CommerceBOMFolderApplicationRelPersistence commerceBOMFolderApplicationRelPersistence) {
-		this.commerceBOMFolderApplicationRelPersistence = commerceBOMFolderApplicationRelPersistence;
+		CommerceBOMFolderApplicationRelPersistence
+			commerceBOMFolderApplicationRelPersistence) {
+
+		this.commerceBOMFolderApplicationRelPersistence =
+			commerceBOMFolderApplicationRelPersistence;
 	}
 
 	/**
@@ -289,7 +336,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 *
 	 * @return the counter local service
 	 */
-	public com.liferay.counter.kernel.service.CounterLocalService getCounterLocalService() {
+	public com.liferay.counter.kernel.service.CounterLocalService
+		getCounterLocalService() {
+
 		return counterLocalService;
 	}
 
@@ -299,7 +348,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 * @param counterLocalService the counter local service
 	 */
 	public void setCounterLocalService(
-		com.liferay.counter.kernel.service.CounterLocalService counterLocalService) {
+		com.liferay.counter.kernel.service.CounterLocalService
+			counterLocalService) {
+
 		this.counterLocalService = counterLocalService;
 	}
 
@@ -308,7 +359,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 *
 	 * @return the class name local service
 	 */
-	public com.liferay.portal.kernel.service.ClassNameLocalService getClassNameLocalService() {
+	public com.liferay.portal.kernel.service.ClassNameLocalService
+		getClassNameLocalService() {
+
 		return classNameLocalService;
 	}
 
@@ -318,7 +371,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 * @param classNameLocalService the class name local service
 	 */
 	public void setClassNameLocalService(
-		com.liferay.portal.kernel.service.ClassNameLocalService classNameLocalService) {
+		com.liferay.portal.kernel.service.ClassNameLocalService
+			classNameLocalService) {
+
 		this.classNameLocalService = classNameLocalService;
 	}
 
@@ -327,7 +382,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 *
 	 * @return the class name remote service
 	 */
-	public com.liferay.portal.kernel.service.ClassNameService getClassNameService() {
+	public com.liferay.portal.kernel.service.ClassNameService
+		getClassNameService() {
+
 		return classNameService;
 	}
 
@@ -338,6 +395,7 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 */
 	public void setClassNameService(
 		com.liferay.portal.kernel.service.ClassNameService classNameService) {
+
 		this.classNameService = classNameService;
 	}
 
@@ -357,6 +415,7 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 */
 	public void setClassNamePersistence(
 		ClassNamePersistence classNamePersistence) {
+
 		this.classNamePersistence = classNamePersistence;
 	}
 
@@ -365,7 +424,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 *
 	 * @return the resource local service
 	 */
-	public com.liferay.portal.kernel.service.ResourceLocalService getResourceLocalService() {
+	public com.liferay.portal.kernel.service.ResourceLocalService
+		getResourceLocalService() {
+
 		return resourceLocalService;
 	}
 
@@ -375,7 +436,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 * @param resourceLocalService the resource local service
 	 */
 	public void setResourceLocalService(
-		com.liferay.portal.kernel.service.ResourceLocalService resourceLocalService) {
+		com.liferay.portal.kernel.service.ResourceLocalService
+			resourceLocalService) {
+
 		this.resourceLocalService = resourceLocalService;
 	}
 
@@ -384,7 +447,9 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 *
 	 * @return the user local service
 	 */
-	public com.liferay.portal.kernel.service.UserLocalService getUserLocalService() {
+	public com.liferay.portal.kernel.service.UserLocalService
+		getUserLocalService() {
+
 		return userLocalService;
 	}
 
@@ -395,6 +460,7 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 */
 	public void setUserLocalService(
 		com.liferay.portal.kernel.service.UserLocalService userLocalService) {
+
 		this.userLocalService = userLocalService;
 	}
 
@@ -414,6 +480,7 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 	 */
 	public void setUserService(
 		com.liferay.portal.kernel.service.UserService userService) {
+
 		this.userService = userService;
 	}
 
@@ -473,8 +540,8 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 			sql = db.buildSQL(sql);
 			sql = PortalUtil.transformSQL(sql);
 
-			SqlUpdate sqlUpdate = SqlUpdateFactoryUtil.getSqlUpdate(dataSource,
-					sql);
+			SqlUpdate sqlUpdate = SqlUpdateFactoryUtil.getSqlUpdate(
+				dataSource, sql);
 
 			sqlUpdate.update();
 		}
@@ -483,44 +550,106 @@ public abstract class CommerceBOMEntryServiceBaseImpl extends BaseServiceImpl
 		}
 	}
 
-	@BeanReference(type = com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalService.class)
-	protected com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalService commerceBOMDefinitionLocalService;
-	@BeanReference(type = com.liferay.commerce.bom.service.CommerceBOMDefinitionService.class)
-	protected com.liferay.commerce.bom.service.CommerceBOMDefinitionService commerceBOMDefinitionService;
+	@BeanReference(
+		type = com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalService.class
+	)
+	protected com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalService
+		commerceBOMDefinitionLocalService;
+
+	@BeanReference(
+		type = com.liferay.commerce.bom.service.CommerceBOMDefinitionService.class
+	)
+	protected com.liferay.commerce.bom.service.CommerceBOMDefinitionService
+		commerceBOMDefinitionService;
+
 	@BeanReference(type = CommerceBOMDefinitionPersistence.class)
 	protected CommerceBOMDefinitionPersistence commerceBOMDefinitionPersistence;
-	@BeanReference(type = com.liferay.commerce.bom.service.CommerceBOMEntryLocalService.class)
-	protected com.liferay.commerce.bom.service.CommerceBOMEntryLocalService commerceBOMEntryLocalService;
+
+	@BeanReference(
+		type = com.liferay.commerce.bom.service.CommerceBOMEntryLocalService.class
+	)
+	protected com.liferay.commerce.bom.service.CommerceBOMEntryLocalService
+		commerceBOMEntryLocalService;
+
 	@BeanReference(type = CommerceBOMEntryService.class)
 	protected CommerceBOMEntryService commerceBOMEntryService;
+
 	@BeanReference(type = CommerceBOMEntryPersistence.class)
 	protected CommerceBOMEntryPersistence commerceBOMEntryPersistence;
-	@BeanReference(type = com.liferay.commerce.bom.service.CommerceBOMFolderLocalService.class)
-	protected com.liferay.commerce.bom.service.CommerceBOMFolderLocalService commerceBOMFolderLocalService;
-	@BeanReference(type = com.liferay.commerce.bom.service.CommerceBOMFolderService.class)
-	protected com.liferay.commerce.bom.service.CommerceBOMFolderService commerceBOMFolderService;
+
+	@BeanReference(
+		type = com.liferay.commerce.bom.service.CommerceBOMFolderLocalService.class
+	)
+	protected com.liferay.commerce.bom.service.CommerceBOMFolderLocalService
+		commerceBOMFolderLocalService;
+
+	@BeanReference(
+		type = com.liferay.commerce.bom.service.CommerceBOMFolderService.class
+	)
+	protected com.liferay.commerce.bom.service.CommerceBOMFolderService
+		commerceBOMFolderService;
+
 	@BeanReference(type = CommerceBOMFolderPersistence.class)
 	protected CommerceBOMFolderPersistence commerceBOMFolderPersistence;
-	@BeanReference(type = com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelLocalService.class)
-	protected com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelLocalService commerceBOMFolderApplicationRelLocalService;
-	@BeanReference(type = com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelService.class)
-	protected com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelService commerceBOMFolderApplicationRelService;
+
+	@BeanReference(
+		type = com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelLocalService.class
+	)
+	protected
+		com.liferay.commerce.bom.service.
+			CommerceBOMFolderApplicationRelLocalService
+				commerceBOMFolderApplicationRelLocalService;
+
+	@BeanReference(
+		type = com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelService.class
+	)
+	protected
+		com.liferay.commerce.bom.service.CommerceBOMFolderApplicationRelService
+			commerceBOMFolderApplicationRelService;
+
 	@BeanReference(type = CommerceBOMFolderApplicationRelPersistence.class)
-	protected CommerceBOMFolderApplicationRelPersistence commerceBOMFolderApplicationRelPersistence;
-	@ServiceReference(type = com.liferay.counter.kernel.service.CounterLocalService.class)
-	protected com.liferay.counter.kernel.service.CounterLocalService counterLocalService;
-	@ServiceReference(type = com.liferay.portal.kernel.service.ClassNameLocalService.class)
-	protected com.liferay.portal.kernel.service.ClassNameLocalService classNameLocalService;
-	@ServiceReference(type = com.liferay.portal.kernel.service.ClassNameService.class)
-	protected com.liferay.portal.kernel.service.ClassNameService classNameService;
+	protected CommerceBOMFolderApplicationRelPersistence
+		commerceBOMFolderApplicationRelPersistence;
+
+	@ServiceReference(
+		type = com.liferay.counter.kernel.service.CounterLocalService.class
+	)
+	protected com.liferay.counter.kernel.service.CounterLocalService
+		counterLocalService;
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.ClassNameLocalService.class
+	)
+	protected com.liferay.portal.kernel.service.ClassNameLocalService
+		classNameLocalService;
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.ClassNameService.class
+	)
+	protected com.liferay.portal.kernel.service.ClassNameService
+		classNameService;
+
 	@ServiceReference(type = ClassNamePersistence.class)
 	protected ClassNamePersistence classNamePersistence;
-	@ServiceReference(type = com.liferay.portal.kernel.service.ResourceLocalService.class)
-	protected com.liferay.portal.kernel.service.ResourceLocalService resourceLocalService;
-	@ServiceReference(type = com.liferay.portal.kernel.service.UserLocalService.class)
-	protected com.liferay.portal.kernel.service.UserLocalService userLocalService;
-	@ServiceReference(type = com.liferay.portal.kernel.service.UserService.class)
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.ResourceLocalService.class
+	)
+	protected com.liferay.portal.kernel.service.ResourceLocalService
+		resourceLocalService;
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.UserLocalService.class
+	)
+	protected com.liferay.portal.kernel.service.UserLocalService
+		userLocalService;
+
+	@ServiceReference(
+		type = com.liferay.portal.kernel.service.UserService.class
+	)
 	protected com.liferay.portal.kernel.service.UserService userService;
+
 	@ServiceReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
+
 }

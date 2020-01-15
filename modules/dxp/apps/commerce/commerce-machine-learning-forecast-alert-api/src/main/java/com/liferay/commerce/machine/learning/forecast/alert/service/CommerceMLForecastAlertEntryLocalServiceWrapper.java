@@ -134,7 +134,7 @@ public class CommerceMLForecastAlertEntryLocalServiceWrapper
 	 * Performs a dynamic query on the database and returns a range of the matching rows.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>com.liferay.commerce.machine.learning.forecast.alert.model.impl.CommerceMLForecastAlertEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>com.liferay.commerce.machine.learning.forecast.alert.model.impl.CommerceMLForecastAlertEntryModelImpl</code>.
 	 * </p>
 	 *
 	 * @param dynamicQuery the dynamic query
@@ -155,7 +155,7 @@ public class CommerceMLForecastAlertEntryLocalServiceWrapper
 	 * Performs a dynamic query on the database and returns an ordered range of the matching rows.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>com.liferay.commerce.machine.learning.forecast.alert.model.impl.CommerceMLForecastAlertEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>com.liferay.commerce.machine.learning.forecast.alert.model.impl.CommerceMLForecastAlertEntryModelImpl</code>.
 	 * </p>
 	 *
 	 * @param dynamicQuery the dynamic query
@@ -236,22 +236,23 @@ public class CommerceMLForecastAlertEntryLocalServiceWrapper
 		<com.liferay.commerce.machine.learning.forecast.alert.model.
 			CommerceMLForecastAlertEntry>
 				getAboveThresholdCommerceMLForecastAlertEntries(
-					long companyId, long[] commerceAccountIds, double threshold,
-					int status, int start, int end) {
+					long companyId, long[] commerceAccountIds,
+					double relativeChange, int status, int start, int end) {
 
 		return _commerceMLForecastAlertEntryLocalService.
 			getAboveThresholdCommerceMLForecastAlertEntries(
-				companyId, commerceAccountIds, threshold, status, start, end);
+				companyId, commerceAccountIds, relativeChange, status, start,
+				end);
 	}
 
 	@Override
 	public int getAboveThresholdCommerceMLForecastAlertEntriesCount(
-		long companyId, long[] commerceAccountIds, double threshold,
+		long companyId, long[] commerceAccountIds, double relativeChange,
 		int status) {
 
 		return _commerceMLForecastAlertEntryLocalService.
 			getAboveThresholdCommerceMLForecastAlertEntriesCount(
-				companyId, commerceAccountIds, threshold, status);
+				companyId, commerceAccountIds, relativeChange, status);
 	}
 
 	@Override
@@ -267,29 +268,30 @@ public class CommerceMLForecastAlertEntryLocalServiceWrapper
 		<com.liferay.commerce.machine.learning.forecast.alert.model.
 			CommerceMLForecastAlertEntry>
 				getBelowThresholdCommerceMLForecastAlertEntries(
-					long companyId, long[] commerceAccountIds, double threshold,
-					int status, int start, int end) {
+					long companyId, long[] commerceAccountIds,
+					double relativeChange, int status, int start, int end) {
 
 		return _commerceMLForecastAlertEntryLocalService.
 			getBelowThresholdCommerceMLForecastAlertEntries(
-				companyId, commerceAccountIds, threshold, status, start, end);
+				companyId, commerceAccountIds, relativeChange, status, start,
+				end);
 	}
 
 	@Override
 	public int getBelowThresholdCommerceMLForecastAlertEntriesCount(
-		long companyId, long[] commerceAccountIds, double threshold,
+		long companyId, long[] commerceAccountIds, double relativeChange,
 		int status) {
 
 		return _commerceMLForecastAlertEntryLocalService.
 			getBelowThresholdCommerceMLForecastAlertEntriesCount(
-				companyId, commerceAccountIds, threshold, status);
+				companyId, commerceAccountIds, relativeChange, status);
 	}
 
 	/**
 	 * Returns a range of all the commerce ml forecast alert entries.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>com.liferay.commerce.machine.learning.forecast.alert.model.impl.CommerceMLForecastAlertEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>com.liferay.commerce.machine.learning.forecast.alert.model.impl.CommerceMLForecastAlertEntryModelImpl</code>.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce ml forecast alert entries
@@ -438,11 +440,6 @@ public class CommerceMLForecastAlertEntryLocalServiceWrapper
 			userId, commerceMLForecastAlertEntryId, status);
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Use <code>CommerceMLForecastAlertEntryLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>CommerceMLForecastAlertEntryLocalServiceUtil</code>.
-	 */
 	@Override
 	public com.liferay.commerce.machine.learning.forecast.alert.model.
 		CommerceMLForecastAlertEntry upsertCommerceMLForecastAlertEntry(

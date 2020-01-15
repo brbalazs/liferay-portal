@@ -33,7 +33,7 @@ public abstract class CommerceMLForecastAlertEntryBaseImpl
 	extends CommerceMLForecastAlertEntryModelImpl
 	implements CommerceMLForecastAlertEntry {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a commerce ml forecast alert entry model instance should use the <code>CommerceMLForecastAlertEntry</code> interface instead.

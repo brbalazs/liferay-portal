@@ -17,7 +17,6 @@ package com.liferay.commerce.bom.service;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.bom.model.CommerceBOMEntry;
-
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
@@ -37,26 +36,33 @@ import java.util.List;
  *
  * @author Luca Pellizzon
  * @see CommerceBOMEntryServiceUtil
- * @see com.liferay.commerce.bom.service.base.CommerceBOMEntryServiceBaseImpl
- * @see com.liferay.commerce.bom.service.impl.CommerceBOMEntryServiceImpl
  * @generated
  */
 @AccessControlled
 @JSONWebService
-@OSGiBeanProperties(property =  {
-	"json.web.service.context.name=commerce", "json.web.service.context.path=CommerceBOMEntry"}, service = CommerceBOMEntryService.class)
+@OSGiBeanProperties(
+	property = {
+		"json.web.service.context.name=commerce",
+		"json.web.service.context.path=CommerceBOMEntry"
+	},
+	service = CommerceBOMEntryService.class
+)
 @ProviderType
-@Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
-	PortalException.class, SystemException.class})
+@Transactional(
+	isolation = Isolation.PORTAL,
+	rollbackFor = {PortalException.class, SystemException.class}
+)
 public interface CommerceBOMEntryService extends BaseService {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CommerceBOMEntryServiceUtil} to access the commerce bom entry remote service. Add custom service methods to {@link com.liferay.commerce.bom.service.impl.CommerceBOMEntryServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify or reference this interface directly. Always use {@link CommerceBOMEntryServiceUtil} to access the commerce bom entry remote service. Add custom service methods to <code>com.liferay.commerce.bom.service.impl.CommerceBOMEntryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public CommerceBOMEntry addCommerceBOMEntry(long userId, int number,
-		String cpInstanceUuid, long cProductId, long commerceBOMDefinitionId,
-		double positionX, double positionY, double radius)
+	public CommerceBOMEntry addCommerceBOMEntry(
+			long userId, int number, String cpInstanceUuid, long cProductId,
+			long commerceBOMDefinitionId, double positionX, double positionY,
+			double radius)
 		throws PortalException;
 
 	public void deleteCommerceBOMEntry(long commerceBOMEntryId)
@@ -64,7 +70,7 @@ public interface CommerceBOMEntryService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceBOMEntry> getCommerceBOMEntries(
-		long commerceBOMDefinitionId, int start, int end)
+			long commerceBOMDefinitionId, int start, int end)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -76,13 +82,15 @@ public interface CommerceBOMEntryService extends BaseService {
 		throws PortalException;
 
 	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
-	*/
+	 * Returns the OSGi service identifier.
+	 *
+	 * @return the OSGi service identifier
+	 */
 	public String getOSGiServiceIdentifier();
 
-	public CommerceBOMEntry updateCommerceBOMEntry(long commerceBOMEntryId,
-		int number, String cpInstanceUuid, long cProductId, double positionX,
-		double positionY, double radius) throws PortalException;
+	public CommerceBOMEntry updateCommerceBOMEntry(
+			long commerceBOMEntryId, int number, String cpInstanceUuid,
+			long cProductId, double positionX, double positionY, double radius)
+		throws PortalException;
+
 }

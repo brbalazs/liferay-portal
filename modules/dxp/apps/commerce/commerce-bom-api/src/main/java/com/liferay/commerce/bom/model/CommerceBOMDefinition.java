@@ -25,38 +25,44 @@ import com.liferay.portal.kernel.util.Accessor;
  *
  * @author Luca Pellizzon
  * @see CommerceBOMDefinitionModel
- * @see com.liferay.commerce.bom.model.impl.CommerceBOMDefinitionImpl
- * @see com.liferay.commerce.bom.model.impl.CommerceBOMDefinitionModelImpl
  * @generated
  */
-@ImplementationClassName("com.liferay.commerce.bom.model.impl.CommerceBOMDefinitionImpl")
+@ImplementationClassName(
+	"com.liferay.commerce.bom.model.impl.CommerceBOMDefinitionImpl"
+)
 @ProviderType
-public interface CommerceBOMDefinition extends CommerceBOMDefinitionModel,
-	PersistedModel {
+public interface CommerceBOMDefinition
+	extends CommerceBOMDefinitionModel, PersistedModel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this interface directly. Add methods to {@link com.liferay.commerce.bom.model.impl.CommerceBOMDefinitionImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add methods to <code>com.liferay.commerce.bom.model.impl.CommerceBOMDefinitionImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public static final Accessor<CommerceBOMDefinition, Long> COMMERCE_BOM_DEFINITION_ID_ACCESSOR =
-		new Accessor<CommerceBOMDefinition, Long>() {
-			@Override
-			public Long get(CommerceBOMDefinition commerceBOMDefinition) {
-				return commerceBOMDefinition.getCommerceBOMDefinitionId();
-			}
+	public static final Accessor<CommerceBOMDefinition, Long>
+		COMMERCE_BOM_DEFINITION_ID_ACCESSOR =
+			new Accessor<CommerceBOMDefinition, Long>() {
 
-			@Override
-			public Class<Long> getAttributeClass() {
-				return Long.class;
-			}
+				@Override
+				public Long get(CommerceBOMDefinition commerceBOMDefinition) {
+					return commerceBOMDefinition.getCommerceBOMDefinitionId();
+				}
 
-			@Override
-			public Class<CommerceBOMDefinition> getTypeClass() {
-				return CommerceBOMDefinition.class;
-			}
-		};
+				@Override
+				public Class<Long> getAttributeClass() {
+					return Long.class;
+				}
+
+				@Override
+				public Class<CommerceBOMDefinition> getTypeClass() {
+					return CommerceBOMDefinition.class;
+				}
+
+			};
 
 	public CommerceBOMFolder fetchCommerceBOMFolder();
 
-	public com.liferay.commerce.product.model.CPAttachmentFileEntry fetchCPAttachmentFileEntry();
+	public com.liferay.commerce.product.model.CPAttachmentFileEntry
+		fetchCPAttachmentFileEntry();
+
 }

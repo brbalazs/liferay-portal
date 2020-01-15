@@ -35,34 +35,28 @@ public class CommerceMLForecastAlertEntryServiceWrapper
 			commerceMLForecastAlertEntryService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link CommerceMLForecastAlertEntryServiceUtil} to access the commerce ml forecast alert entry remote service. Add custom service methods to <code>com.liferay.commerce.machine.learning.forecast.alert.service.impl.CommerceMLForecastAlertEntryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public java.util.List
 		<com.liferay.commerce.machine.learning.forecast.alert.model.
 			CommerceMLForecastAlertEntry>
 					getAboveThresholdCommerceMLForecastAlertEntries(
 						long companyId, long userId, int status,
-						double relativeChangeThreshold, int start, int end)
+						double relativeChange, int start, int end)
 				throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commerceMLForecastAlertEntryService.
 			getAboveThresholdCommerceMLForecastAlertEntries(
-				companyId, userId, status, relativeChangeThreshold, start, end);
+				companyId, userId, status, relativeChange, start, end);
 	}
 
 	@Override
 	public int getAboveThresholdCommerceMLForecastAlertEntriesCount(
-			long companyId, long userId, int status,
-			double relativeChangeThreshold)
+			long companyId, long userId, int status, double relativeChange)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commerceMLForecastAlertEntryService.
 			getAboveThresholdCommerceMLForecastAlertEntriesCount(
-				companyId, userId, status, relativeChangeThreshold);
+				companyId, userId, status, relativeChange);
 	}
 
 	@Override
@@ -71,23 +65,22 @@ public class CommerceMLForecastAlertEntryServiceWrapper
 			CommerceMLForecastAlertEntry>
 					getBelowThresholdCommerceMLForecastAlertEntries(
 						long companyId, long userId, int status,
-						double relativeChangeThreshold, int start, int end)
+						double relativeChange, int start, int end)
 				throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commerceMLForecastAlertEntryService.
 			getBelowThresholdCommerceMLForecastAlertEntries(
-				companyId, userId, status, relativeChangeThreshold, start, end);
+				companyId, userId, status, relativeChange, start, end);
 	}
 
 	@Override
 	public int getBelowThresholdCommerceMLForecastAlertEntriesCount(
-			long companyId, long userId, int status,
-			double relativeChangeThreshold)
+			long companyId, long userId, int status, double relativeChange)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commerceMLForecastAlertEntryService.
 			getBelowThresholdCommerceMLForecastAlertEntriesCount(
-				companyId, userId, status, relativeChangeThreshold);
+				companyId, userId, status, relativeChange);
 	}
 
 	@Override

@@ -17,7 +17,6 @@ package com.liferay.commerce.bom.service;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.bom.model.CommerceBOMFolder;
-
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
@@ -37,26 +36,33 @@ import java.util.List;
  *
  * @author Luca Pellizzon
  * @see CommerceBOMFolderServiceUtil
- * @see com.liferay.commerce.bom.service.base.CommerceBOMFolderServiceBaseImpl
- * @see com.liferay.commerce.bom.service.impl.CommerceBOMFolderServiceImpl
  * @generated
  */
 @AccessControlled
 @JSONWebService
-@OSGiBeanProperties(property =  {
-	"json.web.service.context.name=commerce", "json.web.service.context.path=CommerceBOMFolder"}, service = CommerceBOMFolderService.class)
+@OSGiBeanProperties(
+	property = {
+		"json.web.service.context.name=commerce",
+		"json.web.service.context.path=CommerceBOMFolder"
+	},
+	service = CommerceBOMFolderService.class
+)
 @ProviderType
-@Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
-	PortalException.class, SystemException.class})
+@Transactional(
+	isolation = Isolation.PORTAL,
+	rollbackFor = {PortalException.class, SystemException.class}
+)
 public interface CommerceBOMFolderService extends BaseService {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CommerceBOMFolderServiceUtil} to access the commerce bom folder remote service. Add custom service methods to {@link com.liferay.commerce.bom.service.impl.CommerceBOMFolderServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify or reference this interface directly. Always use {@link CommerceBOMFolderServiceUtil} to access the commerce bom folder remote service. Add custom service methods to <code>com.liferay.commerce.bom.service.impl.CommerceBOMFolderServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public CommerceBOMFolder addCommerceBOMFolder(long userId,
-		long parentCommerceBOMFolderId, String name, boolean logo,
-		byte[] logoBytes) throws PortalException;
+	public CommerceBOMFolder addCommerceBOMFolder(
+			long userId, long parentCommerceBOMFolderId, String name,
+			boolean logo, byte[] logoBytes)
+		throws PortalException;
 
 	public void deleteCommerceBOMFolder(long commerceBOMFolderId)
 		throws PortalException;
@@ -66,27 +72,30 @@ public interface CommerceBOMFolderService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommerceBOMFolder> getCommerceBOMFolders(long companyId,
-		int start, int end);
+	public List<CommerceBOMFolder> getCommerceBOMFolders(
+		long companyId, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommerceBOMFolder> getCommerceBOMFolders(long companyId,
-		long parentCommerceBOMFolderId, int start, int end);
+	public List<CommerceBOMFolder> getCommerceBOMFolders(
+		long companyId, long parentCommerceBOMFolderId, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceBOMFoldersCount(long companyId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommerceBOMFoldersCount(long companyId,
-		long parentCommerceBOMFolderId);
+	public int getCommerceBOMFoldersCount(
+		long companyId, long parentCommerceBOMFolderId);
 
 	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
-	*/
+	 * Returns the OSGi service identifier.
+	 *
+	 * @return the OSGi service identifier
+	 */
 	public String getOSGiServiceIdentifier();
 
-	public CommerceBOMFolder updateCommerceBOMFolder(long commerceBOMFolderId,
-		String name, boolean logo, byte[] logoBytes) throws PortalException;
+	public CommerceBOMFolder updateCommerceBOMFolder(
+			long commerceBOMFolderId, String name, boolean logo,
+			byte[] logoBytes)
+		throws PortalException;
+
 }

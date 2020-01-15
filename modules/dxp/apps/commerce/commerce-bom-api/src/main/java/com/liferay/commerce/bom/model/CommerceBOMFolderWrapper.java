@@ -14,10 +14,7 @@
 
 package com.liferay.commerce.bom.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -37,9 +34,9 @@ import java.util.Objects;
  * @see CommerceBOMFolder
  * @generated
  */
-@ProviderType
-public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
-	ModelWrapper<CommerceBOMFolder> {
+public class CommerceBOMFolderWrapper
+	implements CommerceBOMFolder, ModelWrapper<CommerceBOMFolder> {
+
 	public CommerceBOMFolderWrapper(CommerceBOMFolder commerceBOMFolder) {
 		_commerceBOMFolder = commerceBOMFolder;
 	}
@@ -64,8 +61,8 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("parentCommerceBOMFolderId",
-			getParentCommerceBOMFolderId());
+		attributes.put(
+			"parentCommerceBOMFolderId", getParentCommerceBOMFolderId());
 		attributes.put("name", getName());
 		attributes.put("logoId", getLogoId());
 		attributes.put("treePath", getTreePath());
@@ -112,7 +109,7 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 		}
 
 		Long parentCommerceBOMFolderId = (Long)attributes.get(
-				"parentCommerceBOMFolderId");
+			"parentCommerceBOMFolderId");
 
 		if (parentCommerceBOMFolderId != null) {
 			setParentCommerceBOMFolderId(parentCommerceBOMFolderId);
@@ -140,12 +137,14 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	@Override
 	public String buildTreePath()
 		throws com.liferay.portal.kernel.exception.PortalException {
+
 		return _commerceBOMFolder.buildTreePath();
 	}
 
 	@Override
 	public Object clone() {
-		return new CommerceBOMFolderWrapper((CommerceBOMFolder)_commerceBOMFolder.clone());
+		return new CommerceBOMFolderWrapper(
+			(CommerceBOMFolder)_commerceBOMFolder.clone());
 	}
 
 	@Override
@@ -156,40 +155,42 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	@Override
 	public java.util.List<Long> getAncestorCommerceBOMFolderIds()
 		throws com.liferay.portal.kernel.exception.PortalException {
+
 		return _commerceBOMFolder.getAncestorCommerceBOMFolderIds();
 	}
 
 	@Override
 	public java.util.List<CommerceBOMFolder> getAncestors()
 		throws com.liferay.portal.kernel.exception.PortalException {
+
 		return _commerceBOMFolder.getAncestors();
 	}
 
 	/**
-	* Returns the commerce bom folder ID of this commerce bom folder.
-	*
-	* @return the commerce bom folder ID of this commerce bom folder
-	*/
+	 * Returns the commerce bom folder ID of this commerce bom folder.
+	 *
+	 * @return the commerce bom folder ID of this commerce bom folder
+	 */
 	@Override
 	public long getCommerceBOMFolderId() {
 		return _commerceBOMFolder.getCommerceBOMFolderId();
 	}
 
 	/**
-	* Returns the company ID of this commerce bom folder.
-	*
-	* @return the company ID of this commerce bom folder
-	*/
+	 * Returns the company ID of this commerce bom folder.
+	 *
+	 * @return the company ID of this commerce bom folder
+	 */
 	@Override
 	public long getCompanyId() {
 		return _commerceBOMFolder.getCompanyId();
 	}
 
 	/**
-	* Returns the create date of this commerce bom folder.
-	*
-	* @return the create date of this commerce bom folder
-	*/
+	 * Returns the create date of this commerce bom folder.
+	 *
+	 * @return the create date of this commerce bom folder
+	 */
 	@Override
 	public Date getCreateDate() {
 		return _commerceBOMFolder.getCreateDate();
@@ -201,30 +202,30 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	}
 
 	/**
-	* Returns the logo ID of this commerce bom folder.
-	*
-	* @return the logo ID of this commerce bom folder
-	*/
+	 * Returns the logo ID of this commerce bom folder.
+	 *
+	 * @return the logo ID of this commerce bom folder
+	 */
 	@Override
 	public long getLogoId() {
 		return _commerceBOMFolder.getLogoId();
 	}
 
 	/**
-	* Returns the modified date of this commerce bom folder.
-	*
-	* @return the modified date of this commerce bom folder
-	*/
+	 * Returns the modified date of this commerce bom folder.
+	 *
+	 * @return the modified date of this commerce bom folder
+	 */
 	@Override
 	public Date getModifiedDate() {
 		return _commerceBOMFolder.getModifiedDate();
 	}
 
 	/**
-	* Returns the name of this commerce bom folder.
-	*
-	* @return the name of this commerce bom folder
-	*/
+	 * Returns the name of this commerce bom folder.
+	 *
+	 * @return the name of this commerce bom folder
+	 */
 	@Override
 	public String getName() {
 		return _commerceBOMFolder.getName();
@@ -233,24 +234,25 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	@Override
 	public CommerceBOMFolder getParentCommerceBOMFolder()
 		throws com.liferay.portal.kernel.exception.PortalException {
+
 		return _commerceBOMFolder.getParentCommerceBOMFolder();
 	}
 
 	/**
-	* Returns the parent commerce bom folder ID of this commerce bom folder.
-	*
-	* @return the parent commerce bom folder ID of this commerce bom folder
-	*/
+	 * Returns the parent commerce bom folder ID of this commerce bom folder.
+	 *
+	 * @return the parent commerce bom folder ID of this commerce bom folder
+	 */
 	@Override
 	public long getParentCommerceBOMFolderId() {
 		return _commerceBOMFolder.getParentCommerceBOMFolderId();
 	}
 
 	/**
-	* Returns the primary key of this commerce bom folder.
-	*
-	* @return the primary key of this commerce bom folder
-	*/
+	 * Returns the primary key of this commerce bom folder.
+	 *
+	 * @return the primary key of this commerce bom folder
+	 */
 	@Override
 	public long getPrimaryKey() {
 		return _commerceBOMFolder.getPrimaryKey();
@@ -262,40 +264,40 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	}
 
 	/**
-	* Returns the tree path of this commerce bom folder.
-	*
-	* @return the tree path of this commerce bom folder
-	*/
+	 * Returns the tree path of this commerce bom folder.
+	 *
+	 * @return the tree path of this commerce bom folder
+	 */
 	@Override
 	public String getTreePath() {
 		return _commerceBOMFolder.getTreePath();
 	}
 
 	/**
-	* Returns the user ID of this commerce bom folder.
-	*
-	* @return the user ID of this commerce bom folder
-	*/
+	 * Returns the user ID of this commerce bom folder.
+	 *
+	 * @return the user ID of this commerce bom folder
+	 */
 	@Override
 	public long getUserId() {
 		return _commerceBOMFolder.getUserId();
 	}
 
 	/**
-	* Returns the user name of this commerce bom folder.
-	*
-	* @return the user name of this commerce bom folder
-	*/
+	 * Returns the user name of this commerce bom folder.
+	 *
+	 * @return the user name of this commerce bom folder
+	 */
 	@Override
 	public String getUserName() {
 		return _commerceBOMFolder.getUserName();
 	}
 
 	/**
-	* Returns the user uuid of this commerce bom folder.
-	*
-	* @return the user uuid of this commerce bom folder
-	*/
+	 * Returns the user uuid of this commerce bom folder.
+	 *
+	 * @return the user uuid of this commerce bom folder
+	 */
 	@Override
 	public String getUserUuid() {
 		return _commerceBOMFolder.getUserUuid();
@@ -337,30 +339,30 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	}
 
 	/**
-	* Sets the commerce bom folder ID of this commerce bom folder.
-	*
-	* @param commerceBOMFolderId the commerce bom folder ID of this commerce bom folder
-	*/
+	 * Sets the commerce bom folder ID of this commerce bom folder.
+	 *
+	 * @param commerceBOMFolderId the commerce bom folder ID of this commerce bom folder
+	 */
 	@Override
 	public void setCommerceBOMFolderId(long commerceBOMFolderId) {
 		_commerceBOMFolder.setCommerceBOMFolderId(commerceBOMFolderId);
 	}
 
 	/**
-	* Sets the company ID of this commerce bom folder.
-	*
-	* @param companyId the company ID of this commerce bom folder
-	*/
+	 * Sets the company ID of this commerce bom folder.
+	 *
+	 * @param companyId the company ID of this commerce bom folder
+	 */
 	@Override
 	public void setCompanyId(long companyId) {
 		_commerceBOMFolder.setCompanyId(companyId);
 	}
 
 	/**
-	* Sets the create date of this commerce bom folder.
-	*
-	* @param createDate the create date of this commerce bom folder
-	*/
+	 * Sets the create date of this commerce bom folder.
+	 *
+	 * @param createDate the create date of this commerce bom folder
+	 */
 	@Override
 	public void setCreateDate(Date createDate) {
 		_commerceBOMFolder.setCreateDate(createDate);
@@ -369,6 +371,7 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+
 		_commerceBOMFolder.setExpandoBridgeAttributes(baseModel);
 	}
 
@@ -383,30 +386,30 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	}
 
 	/**
-	* Sets the logo ID of this commerce bom folder.
-	*
-	* @param logoId the logo ID of this commerce bom folder
-	*/
+	 * Sets the logo ID of this commerce bom folder.
+	 *
+	 * @param logoId the logo ID of this commerce bom folder
+	 */
 	@Override
 	public void setLogoId(long logoId) {
 		_commerceBOMFolder.setLogoId(logoId);
 	}
 
 	/**
-	* Sets the modified date of this commerce bom folder.
-	*
-	* @param modifiedDate the modified date of this commerce bom folder
-	*/
+	 * Sets the modified date of this commerce bom folder.
+	 *
+	 * @param modifiedDate the modified date of this commerce bom folder
+	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_commerceBOMFolder.setModifiedDate(modifiedDate);
 	}
 
 	/**
-	* Sets the name of this commerce bom folder.
-	*
-	* @param name the name of this commerce bom folder
-	*/
+	 * Sets the name of this commerce bom folder.
+	 *
+	 * @param name the name of this commerce bom folder
+	 */
 	@Override
 	public void setName(String name) {
 		_commerceBOMFolder.setName(name);
@@ -418,20 +421,21 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	}
 
 	/**
-	* Sets the parent commerce bom folder ID of this commerce bom folder.
-	*
-	* @param parentCommerceBOMFolderId the parent commerce bom folder ID of this commerce bom folder
-	*/
+	 * Sets the parent commerce bom folder ID of this commerce bom folder.
+	 *
+	 * @param parentCommerceBOMFolderId the parent commerce bom folder ID of this commerce bom folder
+	 */
 	@Override
 	public void setParentCommerceBOMFolderId(long parentCommerceBOMFolderId) {
-		_commerceBOMFolder.setParentCommerceBOMFolderId(parentCommerceBOMFolderId);
+		_commerceBOMFolder.setParentCommerceBOMFolderId(
+			parentCommerceBOMFolderId);
 	}
 
 	/**
-	* Sets the primary key of this commerce bom folder.
-	*
-	* @param primaryKey the primary key of this commerce bom folder
-	*/
+	 * Sets the primary key of this commerce bom folder.
+	 *
+	 * @param primaryKey the primary key of this commerce bom folder
+	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_commerceBOMFolder.setPrimaryKey(primaryKey);
@@ -443,53 +447,56 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	}
 
 	/**
-	* Sets the tree path of this commerce bom folder.
-	*
-	* @param treePath the tree path of this commerce bom folder
-	*/
+	 * Sets the tree path of this commerce bom folder.
+	 *
+	 * @param treePath the tree path of this commerce bom folder
+	 */
 	@Override
 	public void setTreePath(String treePath) {
 		_commerceBOMFolder.setTreePath(treePath);
 	}
 
 	/**
-	* Sets the user ID of this commerce bom folder.
-	*
-	* @param userId the user ID of this commerce bom folder
-	*/
+	 * Sets the user ID of this commerce bom folder.
+	 *
+	 * @param userId the user ID of this commerce bom folder
+	 */
 	@Override
 	public void setUserId(long userId) {
 		_commerceBOMFolder.setUserId(userId);
 	}
 
 	/**
-	* Sets the user name of this commerce bom folder.
-	*
-	* @param userName the user name of this commerce bom folder
-	*/
+	 * Sets the user name of this commerce bom folder.
+	 *
+	 * @param userName the user name of this commerce bom folder
+	 */
 	@Override
 	public void setUserName(String userName) {
 		_commerceBOMFolder.setUserName(userName);
 	}
 
 	/**
-	* Sets the user uuid of this commerce bom folder.
-	*
-	* @param userUuid the user uuid of this commerce bom folder
-	*/
+	 * Sets the user uuid of this commerce bom folder.
+	 *
+	 * @param userUuid the user uuid of this commerce bom folder
+	 */
 	@Override
 	public void setUserUuid(String userUuid) {
 		_commerceBOMFolder.setUserUuid(userUuid);
 	}
 
 	@Override
-	public com.liferay.portal.kernel.model.CacheModel<CommerceBOMFolder> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<CommerceBOMFolder>
+		toCacheModel() {
+
 		return _commerceBOMFolder.toCacheModel();
 	}
 
 	@Override
 	public CommerceBOMFolder toEscapedModel() {
-		return new CommerceBOMFolderWrapper(_commerceBOMFolder.toEscapedModel());
+		return new CommerceBOMFolderWrapper(
+			_commerceBOMFolder.toEscapedModel());
 	}
 
 	@Override
@@ -499,7 +506,8 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 
 	@Override
 	public CommerceBOMFolder toUnescapedModel() {
-		return new CommerceBOMFolderWrapper(_commerceBOMFolder.toUnescapedModel());
+		return new CommerceBOMFolderWrapper(
+			_commerceBOMFolder.toUnescapedModel());
 	}
 
 	@Override
@@ -522,10 +530,13 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 			return false;
 		}
 
-		CommerceBOMFolderWrapper commerceBOMFolderWrapper = (CommerceBOMFolderWrapper)obj;
+		CommerceBOMFolderWrapper commerceBOMFolderWrapper =
+			(CommerceBOMFolderWrapper)obj;
 
-		if (Objects.equals(_commerceBOMFolder,
-					commerceBOMFolderWrapper._commerceBOMFolder)) {
+		if (Objects.equals(
+				_commerceBOMFolder,
+				commerceBOMFolderWrapper._commerceBOMFolder)) {
+
 			return true;
 		}
 
@@ -553,4 +564,5 @@ public class CommerceBOMFolderWrapper implements CommerceBOMFolder,
 	}
 
 	private final CommerceBOMFolder _commerceBOMFolder;
+
 }

@@ -14,84 +14,91 @@
 
 package com.liferay.commerce.bom.service;
 
-import aQute.bnd.annotation.ProviderType;
-
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
-
 import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * Provides the remote service utility for CommerceBOMFolderApplicationRel. This utility wraps
- * {@link com.liferay.commerce.bom.service.impl.CommerceBOMFolderApplicationRelServiceImpl} and is the
- * primary access point for service operations in application layer code running
- * on a remote server. Methods of this service are expected to have security
- * checks based on the propagated JAAS credentials because this service can be
+ * <code>com.liferay.commerce.bom.service.impl.CommerceBOMFolderApplicationRelServiceImpl</code> and is an
+ * access point for service operations in application layer code running on a
+ * remote server. Methods of this service are expected to have security checks
+ * based on the propagated JAAS credentials because this service can be
  * accessed remotely.
  *
  * @author Luca Pellizzon
  * @see CommerceBOMFolderApplicationRelService
- * @see com.liferay.commerce.bom.service.base.CommerceBOMFolderApplicationRelServiceBaseImpl
- * @see com.liferay.commerce.bom.service.impl.CommerceBOMFolderApplicationRelServiceImpl
  * @generated
  */
-@ProviderType
 public class CommerceBOMFolderApplicationRelServiceUtil {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this class directly. Add custom service methods to {@link com.liferay.commerce.bom.service.impl.CommerceBOMFolderApplicationRelServiceImpl} and rerun ServiceBuilder to regenerate this class.
+	 * Never modify this class directly. Add custom service methods to <code>com.liferay.commerce.bom.service.impl.CommerceBOMFolderApplicationRelServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel addCommerceBOMFolderApplicationRel(
-		long userId, long commerceBOMFolderId, long commerceApplicationModelId)
+	public static com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel
+			addCommerceBOMFolderApplicationRel(
+				long userId, long commerceBOMFolderId,
+				long commerceApplicationModelId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService()
-				   .addCommerceBOMFolderApplicationRel(userId,
-			commerceBOMFolderId, commerceApplicationModelId);
+
+		return getService().addCommerceBOMFolderApplicationRel(
+			userId, commerceBOMFolderId, commerceApplicationModelId);
 	}
 
 	public static void deleteCommerceBOMFolderApplicationRel(
-		long commerceBOMFolderApplicationRelId)
+			long commerceBOMFolderApplicationRelId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		getService()
-			.deleteCommerceBOMFolderApplicationRel(commerceBOMFolderApplicationRelId);
+
+		getService().deleteCommerceBOMFolderApplicationRel(
+			commerceBOMFolderApplicationRelId);
 	}
 
-	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel> getCommerceBOMFolderApplicationRelsByCAMId(
-		long commerceApplicationModelId, int start, int end)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService()
-				   .getCommerceBOMFolderApplicationRelsByCAMId(commerceApplicationModelId,
-			start, end);
+	public static java.util.List
+		<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel>
+				getCommerceBOMFolderApplicationRelsByCAMId(
+					long commerceApplicationModelId, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getCommerceBOMFolderApplicationRelsByCAMId(
+			commerceApplicationModelId, start, end);
 	}
 
-	public static java.util.List<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel> getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
-		long commerceBOMFolderId, int start, int end)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService()
-				   .getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(commerceBOMFolderId,
-			start, end);
+	public static java.util.List
+		<com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel>
+				getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
+					long commerceBOMFolderId, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().
+			getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
+				commerceBOMFolderId, start, end);
 	}
 
 	public static int getCommerceBOMFolderApplicationRelsCountByCAMId(
-		long commerceApplicationModelId)
+			long commerceApplicationModelId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService()
-				   .getCommerceBOMFolderApplicationRelsCountByCAMId(commerceApplicationModelId);
+
+		return getService().getCommerceBOMFolderApplicationRelsCountByCAMId(
+			commerceApplicationModelId);
 	}
 
-	public static int getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(
-		long commerceBOMFolderId)
+	public static int
+			getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(
+				long commerceBOMFolderId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService()
-				   .getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(commerceBOMFolderId);
+
+		return getService().
+			getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(
+				commerceBOMFolderId);
 	}
 
 	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
-	*/
+	 * Returns the OSGi service identifier.
+	 *
+	 * @return the OSGi service identifier
+	 */
 	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
 	}
@@ -100,17 +107,26 @@ public class CommerceBOMFolderApplicationRelServiceUtil {
 		return _serviceTracker.getService();
 	}
 
-	private static ServiceTracker<CommerceBOMFolderApplicationRelService, CommerceBOMFolderApplicationRelService> _serviceTracker;
+	private static ServiceTracker
+		<CommerceBOMFolderApplicationRelService,
+		 CommerceBOMFolderApplicationRelService> _serviceTracker;
 
 	static {
-		Bundle bundle = FrameworkUtil.getBundle(CommerceBOMFolderApplicationRelService.class);
+		Bundle bundle = FrameworkUtil.getBundle(
+			CommerceBOMFolderApplicationRelService.class);
 
-		ServiceTracker<CommerceBOMFolderApplicationRelService, CommerceBOMFolderApplicationRelService> serviceTracker =
-			new ServiceTracker<CommerceBOMFolderApplicationRelService, CommerceBOMFolderApplicationRelService>(bundle.getBundleContext(),
-				CommerceBOMFolderApplicationRelService.class, null);
+		ServiceTracker
+			<CommerceBOMFolderApplicationRelService,
+			 CommerceBOMFolderApplicationRelService> serviceTracker =
+				new ServiceTracker
+					<CommerceBOMFolderApplicationRelService,
+					 CommerceBOMFolderApplicationRelService>(
+						 bundle.getBundleContext(),
+						 CommerceBOMFolderApplicationRelService.class, null);
 
 		serviceTracker.open();
 
 		_serviceTracker = serviceTracker;
 	}
+
 }

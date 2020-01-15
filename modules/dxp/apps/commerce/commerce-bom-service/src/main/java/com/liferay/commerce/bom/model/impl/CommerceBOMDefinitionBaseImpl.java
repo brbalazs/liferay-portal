@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.bom.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.bom.model.CommerceBOMDefinition;
 import com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalServiceUtil;
 
@@ -31,21 +29,24 @@ import com.liferay.commerce.bom.service.CommerceBOMDefinitionLocalServiceUtil;
  * @see CommerceBOMDefinition
  * @generated
  */
-@ProviderType
 public abstract class CommerceBOMDefinitionBaseImpl
 	extends CommerceBOMDefinitionModelImpl implements CommerceBOMDefinition {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce bom definition model instance should use the {@link CommerceBOMDefinition} interface instead.
+	 * Never modify or reference this class directly. All methods that expect a commerce bom definition model instance should use the <code>CommerceBOMDefinition</code> interface instead.
 	 */
 	@Override
 	public void persist() {
 		if (this.isNew()) {
-			CommerceBOMDefinitionLocalServiceUtil.addCommerceBOMDefinition(this);
+			CommerceBOMDefinitionLocalServiceUtil.addCommerceBOMDefinition(
+				this);
 		}
 		else {
-			CommerceBOMDefinitionLocalServiceUtil.updateCommerceBOMDefinition(this);
+			CommerceBOMDefinitionLocalServiceUtil.updateCommerceBOMDefinition(
+				this);
 		}
 	}
+
 }

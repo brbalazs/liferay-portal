@@ -26,36 +26,40 @@ import com.liferay.portal.kernel.util.Accessor;
  *
  * @author Luca Pellizzon
  * @see CommerceBOMFolderModel
- * @see com.liferay.commerce.bom.model.impl.CommerceBOMFolderImpl
- * @see com.liferay.commerce.bom.model.impl.CommerceBOMFolderModelImpl
  * @generated
  */
-@ImplementationClassName("com.liferay.commerce.bom.model.impl.CommerceBOMFolderImpl")
+@ImplementationClassName(
+	"com.liferay.commerce.bom.model.impl.CommerceBOMFolderImpl"
+)
 @ProviderType
-public interface CommerceBOMFolder extends CommerceBOMFolderModel, PersistedModel,
-	TreeModel {
+public interface CommerceBOMFolder
+	extends CommerceBOMFolderModel, PersistedModel, TreeModel {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this interface directly. Add methods to {@link com.liferay.commerce.bom.model.impl.CommerceBOMFolderImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add methods to <code>com.liferay.commerce.bom.model.impl.CommerceBOMFolderImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public static final Accessor<CommerceBOMFolder, Long> COMMERCE_BOM_FOLDER_ID_ACCESSOR =
-		new Accessor<CommerceBOMFolder, Long>() {
-			@Override
-			public Long get(CommerceBOMFolder commerceBOMFolder) {
-				return commerceBOMFolder.getCommerceBOMFolderId();
-			}
+	public static final Accessor<CommerceBOMFolder, Long>
+		COMMERCE_BOM_FOLDER_ID_ACCESSOR =
+			new Accessor<CommerceBOMFolder, Long>() {
 
-			@Override
-			public Class<Long> getAttributeClass() {
-				return Long.class;
-			}
+				@Override
+				public Long get(CommerceBOMFolder commerceBOMFolder) {
+					return commerceBOMFolder.getCommerceBOMFolderId();
+				}
 
-			@Override
-			public Class<CommerceBOMFolder> getTypeClass() {
-				return CommerceBOMFolder.class;
-			}
-		};
+				@Override
+				public Class<Long> getAttributeClass() {
+					return Long.class;
+				}
+
+				@Override
+				public Class<CommerceBOMFolder> getTypeClass() {
+					return CommerceBOMFolder.class;
+				}
+
+			};
 
 	public java.util.List<Long> getAncestorCommerceBOMFolderIds()
 		throws com.liferay.portal.kernel.exception.PortalException;
@@ -67,4 +71,5 @@ public interface CommerceBOMFolder extends CommerceBOMFolderModel, PersistedMode
 		throws com.liferay.portal.kernel.exception.PortalException;
 
 	public boolean isRoot();
+
 }

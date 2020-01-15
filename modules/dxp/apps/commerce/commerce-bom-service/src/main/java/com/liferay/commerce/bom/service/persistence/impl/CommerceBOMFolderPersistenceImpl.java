@@ -14,14 +14,11 @@
 
 package com.liferay.commerce.bom.service.persistence.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.bom.exception.NoSuchBOMFolderException;
 import com.liferay.commerce.bom.model.CommerceBOMFolder;
 import com.liferay.commerce.bom.model.impl.CommerceBOMFolderImpl;
 import com.liferay.commerce.bom.model.impl.CommerceBOMFolderModelImpl;
 import com.liferay.commerce.bom.service.persistence.CommerceBOMFolderPersistence;
-
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -32,11 +29,10 @@ import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
-import com.liferay.portal.kernel.service.persistence.CompanyProvider;
-import com.liferay.portal.kernel.service.persistence.CompanyProviderWrapper;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -64,57 +60,32 @@ import java.util.Set;
  * </p>
  *
  * @author Luca Pellizzon
- * @see CommerceBOMFolderPersistence
- * @see com.liferay.commerce.bom.service.persistence.CommerceBOMFolderUtil
  * @generated
  */
-@ProviderType
-public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<CommerceBOMFolder>
+public class CommerceBOMFolderPersistenceImpl
+	extends BasePersistenceImpl<CommerceBOMFolder>
 	implements CommerceBOMFolderPersistence {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Always use {@link CommerceBOMFolderUtil} to access the commerce bom folder persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
+	 * Never modify or reference this class directly. Always use <code>CommerceBOMFolderUtil</code> to access the commerce bom folder persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static final String FINDER_CLASS_NAME_ENTITY = CommerceBOMFolderImpl.class.getName();
-	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List1";
-	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List2";
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED,
-			CommerceBOMFolderImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL = new FinderPath(CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED,
-			CommerceBOMFolderImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANYID =
-		new FinderPath(CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED,
-			CommerceBOMFolderImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCompanyId",
-			new String[] {
-				Long.class.getName(),
+	public static final String FINDER_CLASS_NAME_ENTITY =
+		CommerceBOMFolderImpl.class.getName();
 
-			Integer.class.getName(), Integer.class.getName(),
-				OrderByComparator.class.getName()
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID =
-		new FinderPath(CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED,
-			CommerceBOMFolderImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCompanyId",
-			new String[] { Long.class.getName() },
-			CommerceBOMFolderModelImpl.COMPANYID_COLUMN_BITMASK |
-			CommerceBOMFolderModelImpl.NAME_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_COMPANYID = new FinderPath(CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompanyId",
-			new String[] { Long.class.getName() });
+	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List1";
+
+	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List2";
+
+	private FinderPath _finderPathWithPaginationFindAll;
+	private FinderPath _finderPathWithoutPaginationFindAll;
+	private FinderPath _finderPathCountAll;
+	private FinderPath _finderPathWithPaginationFindByCompanyId;
+	private FinderPath _finderPathWithoutPaginationFindByCompanyId;
+	private FinderPath _finderPathCountByCompanyId;
 
 	/**
 	 * Returns all the commerce bom folders where companyId = &#63;.
@@ -124,15 +95,15 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 */
 	@Override
 	public List<CommerceBOMFolder> findByCompanyId(long companyId) {
-		return findByCompanyId(companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			null);
+		return findByCompanyId(
+			companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
 	 * Returns a range of all the commerce bom folders where companyId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMFolderModelImpl</code>.
 	 * </p>
 	 *
 	 * @param companyId the company ID
@@ -141,8 +112,9 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @return the range of matching commerce bom folders
 	 */
 	@Override
-	public List<CommerceBOMFolder> findByCompanyId(long companyId, int start,
-		int end) {
+	public List<CommerceBOMFolder> findByCompanyId(
+		long companyId, int start, int end) {
+
 		return findByCompanyId(companyId, start, end, null);
 	}
 
@@ -150,7 +122,7 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * Returns an ordered range of all the commerce bom folders where companyId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMFolderModelImpl</code>.
 	 * </p>
 	 *
 	 * @param companyId the company ID
@@ -160,8 +132,10 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @return the ordered range of matching commerce bom folders
 	 */
 	@Override
-	public List<CommerceBOMFolder> findByCompanyId(long companyId, int start,
-		int end, OrderByComparator<CommerceBOMFolder> orderByComparator) {
+	public List<CommerceBOMFolder> findByCompanyId(
+		long companyId, int start, int end,
+		OrderByComparator<CommerceBOMFolder> orderByComparator) {
+
 		return findByCompanyId(companyId, start, end, orderByComparator, true);
 	}
 
@@ -169,44 +143,49 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * Returns an ordered range of all the commerce bom folders where companyId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMFolderModelImpl</code>.
 	 * </p>
 	 *
 	 * @param companyId the company ID
 	 * @param start the lower bound of the range of commerce bom folders
 	 * @param end the upper bound of the range of commerce bom folders (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching commerce bom folders
 	 */
 	@Override
-	public List<CommerceBOMFolder> findByCompanyId(long companyId, int start,
-		int end, OrderByComparator<CommerceBOMFolder> orderByComparator,
-		boolean retrieveFromCache) {
-		boolean pagination = true;
+	public List<CommerceBOMFolder> findByCompanyId(
+		long companyId, int start, int end,
+		OrderByComparator<CommerceBOMFolder> orderByComparator,
+		boolean useFinderCache) {
+
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID;
-			finderArgs = new Object[] { companyId };
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByCompanyId;
+				finderArgs = new Object[] {companyId};
+			}
 		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANYID;
-			finderArgs = new Object[] { companyId, start, end, orderByComparator };
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByCompanyId;
+			finderArgs = new Object[] {
+				companyId, start, end, orderByComparator
+			};
 		}
 
 		List<CommerceBOMFolder> list = null;
 
-		if (retrieveFromCache) {
-			list = (List<CommerceBOMFolder>)finderCache.getResult(finderPath,
-					finderArgs, this);
+		if (useFinderCache) {
+			list = (List<CommerceBOMFolder>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (CommerceBOMFolder commerceBOMFolder : list) {
-					if ((companyId != commerceBOMFolder.getCompanyId())) {
+					if (companyId != commerceBOMFolder.getCompanyId()) {
 						list = null;
 
 						break;
@@ -219,8 +198,8 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
 				query = new StringBundler(3);
@@ -231,11 +210,10 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else
-			 if (pagination) {
+			else {
 				query.append(CommerceBOMFolderModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -252,25 +230,19 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 				qPos.add(companyId);
 
-				if (!pagination) {
-					list = (List<CommerceBOMFolder>)QueryUtil.list(q,
-							getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<CommerceBOMFolder>)QueryUtil.list(q,
-							getDialect(), start, end);
-				}
+				list = (List<CommerceBOMFolder>)QueryUtil.list(
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -291,11 +263,13 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @throws NoSuchBOMFolderException if a matching commerce bom folder could not be found
 	 */
 	@Override
-	public CommerceBOMFolder findByCompanyId_First(long companyId,
-		OrderByComparator<CommerceBOMFolder> orderByComparator)
+	public CommerceBOMFolder findByCompanyId_First(
+			long companyId,
+			OrderByComparator<CommerceBOMFolder> orderByComparator)
 		throws NoSuchBOMFolderException {
-		CommerceBOMFolder commerceBOMFolder = fetchByCompanyId_First(companyId,
-				orderByComparator);
+
+		CommerceBOMFolder commerceBOMFolder = fetchByCompanyId_First(
+			companyId, orderByComparator);
 
 		if (commerceBOMFolder != null) {
 			return commerceBOMFolder;
@@ -321,10 +295,12 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @return the first matching commerce bom folder, or <code>null</code> if a matching commerce bom folder could not be found
 	 */
 	@Override
-	public CommerceBOMFolder fetchByCompanyId_First(long companyId,
+	public CommerceBOMFolder fetchByCompanyId_First(
+		long companyId,
 		OrderByComparator<CommerceBOMFolder> orderByComparator) {
-		List<CommerceBOMFolder> list = findByCompanyId(companyId, 0, 1,
-				orderByComparator);
+
+		List<CommerceBOMFolder> list = findByCompanyId(
+			companyId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -342,11 +318,13 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @throws NoSuchBOMFolderException if a matching commerce bom folder could not be found
 	 */
 	@Override
-	public CommerceBOMFolder findByCompanyId_Last(long companyId,
-		OrderByComparator<CommerceBOMFolder> orderByComparator)
+	public CommerceBOMFolder findByCompanyId_Last(
+			long companyId,
+			OrderByComparator<CommerceBOMFolder> orderByComparator)
 		throws NoSuchBOMFolderException {
-		CommerceBOMFolder commerceBOMFolder = fetchByCompanyId_Last(companyId,
-				orderByComparator);
+
+		CommerceBOMFolder commerceBOMFolder = fetchByCompanyId_Last(
+			companyId, orderByComparator);
 
 		if (commerceBOMFolder != null) {
 			return commerceBOMFolder;
@@ -372,16 +350,18 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @return the last matching commerce bom folder, or <code>null</code> if a matching commerce bom folder could not be found
 	 */
 	@Override
-	public CommerceBOMFolder fetchByCompanyId_Last(long companyId,
+	public CommerceBOMFolder fetchByCompanyId_Last(
+		long companyId,
 		OrderByComparator<CommerceBOMFolder> orderByComparator) {
+
 		int count = countByCompanyId(companyId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<CommerceBOMFolder> list = findByCompanyId(companyId, count - 1,
-				count, orderByComparator);
+		List<CommerceBOMFolder> list = findByCompanyId(
+			companyId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -401,10 +381,12 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 */
 	@Override
 	public CommerceBOMFolder[] findByCompanyId_PrevAndNext(
-		long commerceBOMFolderId, long companyId,
-		OrderByComparator<CommerceBOMFolder> orderByComparator)
+			long commerceBOMFolderId, long companyId,
+			OrderByComparator<CommerceBOMFolder> orderByComparator)
 		throws NoSuchBOMFolderException {
-		CommerceBOMFolder commerceBOMFolder = findByPrimaryKey(commerceBOMFolderId);
+
+		CommerceBOMFolder commerceBOMFolder = findByPrimaryKey(
+			commerceBOMFolderId);
 
 		Session session = null;
 
@@ -413,13 +395,14 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 			CommerceBOMFolder[] array = new CommerceBOMFolderImpl[3];
 
-			array[0] = getByCompanyId_PrevAndNext(session, commerceBOMFolder,
-					companyId, orderByComparator, true);
+			array[0] = getByCompanyId_PrevAndNext(
+				session, commerceBOMFolder, companyId, orderByComparator, true);
 
 			array[1] = commerceBOMFolder;
 
-			array[2] = getByCompanyId_PrevAndNext(session, commerceBOMFolder,
-					companyId, orderByComparator, false);
+			array[2] = getByCompanyId_PrevAndNext(
+				session, commerceBOMFolder, companyId, orderByComparator,
+				false);
 
 			return array;
 		}
@@ -431,14 +414,16 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		}
 	}
 
-	protected CommerceBOMFolder getByCompanyId_PrevAndNext(Session session,
-		CommerceBOMFolder commerceBOMFolder, long companyId,
-		OrderByComparator<CommerceBOMFolder> orderByComparator, boolean previous) {
+	protected CommerceBOMFolder getByCompanyId_PrevAndNext(
+		Session session, CommerceBOMFolder commerceBOMFolder, long companyId,
+		OrderByComparator<CommerceBOMFolder> orderByComparator,
+		boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(4 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -450,7 +435,8 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -520,10 +506,11 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(commerceBOMFolder);
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						commerceBOMFolder)) {
 
-			for (Object value : values) {
-				qPos.add(value);
+				qPos.add(orderByConditionValue);
 			}
 		}
 
@@ -545,15 +532,15 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 */
 	@Override
 	public List<CommerceBOMFolder> filterFindByCompanyId(long companyId) {
-		return filterFindByCompanyId(companyId, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, null);
+		return filterFindByCompanyId(
+			companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
 	 * Returns a range of all the commerce bom folders that the user has permission to view where companyId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMFolderModelImpl</code>.
 	 * </p>
 	 *
 	 * @param companyId the company ID
@@ -562,8 +549,9 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @return the range of matching commerce bom folders that the user has permission to view
 	 */
 	@Override
-	public List<CommerceBOMFolder> filterFindByCompanyId(long companyId,
-		int start, int end) {
+	public List<CommerceBOMFolder> filterFindByCompanyId(
+		long companyId, int start, int end) {
+
 		return filterFindByCompanyId(companyId, start, end, null);
 	}
 
@@ -571,7 +559,7 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * Returns an ordered range of all the commerce bom folders that the user has permissions to view where companyId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMFolderModelImpl</code>.
 	 * </p>
 	 *
 	 * @param companyId the company ID
@@ -581,9 +569,10 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @return the ordered range of matching commerce bom folders that the user has permission to view
 	 */
 	@Override
-	public List<CommerceBOMFolder> filterFindByCompanyId(long companyId,
-		int start, int end,
+	public List<CommerceBOMFolder> filterFindByCompanyId(
+		long companyId, int start, int end,
 		OrderByComparator<CommerceBOMFolder> orderByComparator) {
+
 		if (!InlineSQLHelperUtil.isEnabled(companyId, 0)) {
 			return findByCompanyId(companyId, start, end, orderByComparator);
 		}
@@ -591,8 +580,8 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(3 +
-					(orderByComparator.getOrderByFields().length * 2));
+			query = new StringBundler(
+				3 + (orderByComparator.getOrderByFields().length * 2));
 		}
 		else {
 			query = new StringBundler(4);
@@ -602,23 +591,25 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			query.append(_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_WHERE);
 		}
 		else {
-			query.append(_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_1);
+			query.append(
+				_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
 		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (!getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_2);
+			query.append(
+				_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_2);
 		}
 
 		if (orderByComparator != null) {
 			if (getDB().isSupportsInlineDistinct()) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator, true);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
 			}
 			else {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_TABLE,
-					orderByComparator, true);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
 			}
 		}
 		else {
@@ -630,9 +621,9 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			}
 		}
 
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				CommerceBOMFolder.class.getName(),
-				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), CommerceBOMFolder.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
 		Session session = null;
 
@@ -652,8 +643,8 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 			qPos.add(companyId);
 
-			return (List<CommerceBOMFolder>)QueryUtil.list(q, getDialect(),
-				start, end);
+			return (List<CommerceBOMFolder>)QueryUtil.list(
+				q, getDialect(), start, end);
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -674,15 +665,17 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 */
 	@Override
 	public CommerceBOMFolder[] filterFindByCompanyId_PrevAndNext(
-		long commerceBOMFolderId, long companyId,
-		OrderByComparator<CommerceBOMFolder> orderByComparator)
+			long commerceBOMFolderId, long companyId,
+			OrderByComparator<CommerceBOMFolder> orderByComparator)
 		throws NoSuchBOMFolderException {
+
 		if (!InlineSQLHelperUtil.isEnabled(companyId, 0)) {
-			return findByCompanyId_PrevAndNext(commerceBOMFolderId, companyId,
-				orderByComparator);
+			return findByCompanyId_PrevAndNext(
+				commerceBOMFolderId, companyId, orderByComparator);
 		}
 
-		CommerceBOMFolder commerceBOMFolder = findByPrimaryKey(commerceBOMFolderId);
+		CommerceBOMFolder commerceBOMFolder = findByPrimaryKey(
+			commerceBOMFolderId);
 
 		Session session = null;
 
@@ -691,13 +684,14 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 			CommerceBOMFolder[] array = new CommerceBOMFolderImpl[3];
 
-			array[0] = filterGetByCompanyId_PrevAndNext(session,
-					commerceBOMFolder, companyId, orderByComparator, true);
+			array[0] = filterGetByCompanyId_PrevAndNext(
+				session, commerceBOMFolder, companyId, orderByComparator, true);
 
 			array[1] = commerceBOMFolder;
 
-			array[2] = filterGetByCompanyId_PrevAndNext(session,
-					commerceBOMFolder, companyId, orderByComparator, false);
+			array[2] = filterGetByCompanyId_PrevAndNext(
+				session, commerceBOMFolder, companyId, orderByComparator,
+				false);
 
 			return array;
 		}
@@ -711,12 +705,14 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 	protected CommerceBOMFolder filterGetByCompanyId_PrevAndNext(
 		Session session, CommerceBOMFolder commerceBOMFolder, long companyId,
-		OrderByComparator<CommerceBOMFolder> orderByComparator, boolean previous) {
+		OrderByComparator<CommerceBOMFolder> orderByComparator,
+		boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(5 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -727,17 +723,20 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			query.append(_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_WHERE);
 		}
 		else {
-			query.append(_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_1);
+			query.append(
+				_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
 		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (!getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_2);
+			query.append(
+				_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_2);
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -745,13 +744,17 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
-					query.append(_ORDER_BY_ENTITY_ALIAS);
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_ALIAS, orderByConditionFields[i],
+							true));
 				}
 				else {
-					query.append(_ORDER_BY_ENTITY_TABLE);
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_TABLE, orderByConditionFields[i],
+							true));
 				}
-
-				query.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
@@ -777,13 +780,15 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
-					query.append(_ORDER_BY_ENTITY_ALIAS);
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_ALIAS, orderByFields[i], true));
 				}
 				else {
-					query.append(_ORDER_BY_ENTITY_TABLE);
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_TABLE, orderByFields[i], true));
 				}
-
-				query.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
@@ -812,9 +817,9 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			}
 		}
 
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				CommerceBOMFolder.class.getName(),
-				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), CommerceBOMFolder.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
 		SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
@@ -833,10 +838,11 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(commerceBOMFolder);
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						commerceBOMFolder)) {
 
-			for (Object value : values) {
-				qPos.add(value);
+				qPos.add(orderByConditionValue);
 			}
 		}
 
@@ -857,8 +863,10 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 */
 	@Override
 	public void removeByCompanyId(long companyId) {
-		for (CommerceBOMFolder commerceBOMFolder : findByCompanyId(companyId,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+		for (CommerceBOMFolder commerceBOMFolder :
+				findByCompanyId(
+					companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+
 			remove(commerceBOMFolder);
 		}
 	}
@@ -871,9 +879,9 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 */
 	@Override
 	public int countByCompanyId(long companyId) {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_COMPANYID;
+		FinderPath finderPath = _finderPathCountByCompanyId;
 
-		Object[] finderArgs = new Object[] { companyId };
+		Object[] finderArgs = new Object[] {companyId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -932,9 +940,9 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				CommerceBOMFolder.class.getName(),
-				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), CommerceBOMFolder.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
 		Session session = null;
 
@@ -943,8 +951,8 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
-			q.addScalar(COUNT_COLUMN_NAME,
-				com.liferay.portal.kernel.dao.orm.Type.LONG);
+			q.addScalar(
+				COUNT_COLUMN_NAME, com.liferay.portal.kernel.dao.orm.Type.LONG);
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
@@ -962,29 +970,12 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		}
 	}
 
-	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 = "commerceBOMFolder.companyId = ?";
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_C_P = new FinderPath(CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED,
-			CommerceBOMFolderImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByC_P",
-			new String[] {
-				Long.class.getName(), Long.class.getName(),
+	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 =
+		"commerceBOMFolder.companyId = ?";
 
-			Integer.class.getName(), Integer.class.getName(),
-				OrderByComparator.class.getName()
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_P = new FinderPath(CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED,
-			CommerceBOMFolderImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByC_P",
-			new String[] { Long.class.getName(), Long.class.getName() },
-			CommerceBOMFolderModelImpl.COMPANYID_COLUMN_BITMASK |
-			CommerceBOMFolderModelImpl.PARENTCOMMERCEBOMFOLDERID_COLUMN_BITMASK |
-			CommerceBOMFolderModelImpl.NAME_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_C_P = new FinderPath(CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_P",
-			new String[] { Long.class.getName(), Long.class.getName() });
+	private FinderPath _finderPathWithPaginationFindByC_P;
+	private FinderPath _finderPathWithoutPaginationFindByC_P;
+	private FinderPath _finderPathCountByC_P;
 
 	/**
 	 * Returns all the commerce bom folders where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
@@ -994,17 +985,19 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @return the matching commerce bom folders
 	 */
 	@Override
-	public List<CommerceBOMFolder> findByC_P(long companyId,
-		long parentCommerceBOMFolderId) {
-		return findByC_P(companyId, parentCommerceBOMFolderId,
-			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	public List<CommerceBOMFolder> findByC_P(
+		long companyId, long parentCommerceBOMFolderId) {
+
+		return findByC_P(
+			companyId, parentCommerceBOMFolderId, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
 	}
 
 	/**
 	 * Returns a range of all the commerce bom folders where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMFolderModelImpl</code>.
 	 * </p>
 	 *
 	 * @param companyId the company ID
@@ -1014,16 +1007,18 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @return the range of matching commerce bom folders
 	 */
 	@Override
-	public List<CommerceBOMFolder> findByC_P(long companyId,
-		long parentCommerceBOMFolderId, int start, int end) {
-		return findByC_P(companyId, parentCommerceBOMFolderId, start, end, null);
+	public List<CommerceBOMFolder> findByC_P(
+		long companyId, long parentCommerceBOMFolderId, int start, int end) {
+
+		return findByC_P(
+			companyId, parentCommerceBOMFolderId, start, end, null);
 	}
 
 	/**
 	 * Returns an ordered range of all the commerce bom folders where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMFolderModelImpl</code>.
 	 * </p>
 	 *
 	 * @param companyId the company ID
@@ -1034,18 +1029,20 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @return the ordered range of matching commerce bom folders
 	 */
 	@Override
-	public List<CommerceBOMFolder> findByC_P(long companyId,
-		long parentCommerceBOMFolderId, int start, int end,
+	public List<CommerceBOMFolder> findByC_P(
+		long companyId, long parentCommerceBOMFolderId, int start, int end,
 		OrderByComparator<CommerceBOMFolder> orderByComparator) {
-		return findByC_P(companyId, parentCommerceBOMFolderId, start, end,
-			orderByComparator, true);
+
+		return findByC_P(
+			companyId, parentCommerceBOMFolderId, start, end, orderByComparator,
+			true);
 	}
 
 	/**
 	 * Returns an ordered range of all the commerce bom folders where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMFolderModelImpl</code>.
 	 * </p>
 	 *
 	 * @param companyId the company ID
@@ -1053,43 +1050,48 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @param start the lower bound of the range of commerce bom folders
 	 * @param end the upper bound of the range of commerce bom folders (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching commerce bom folders
 	 */
 	@Override
-	public List<CommerceBOMFolder> findByC_P(long companyId,
-		long parentCommerceBOMFolderId, int start, int end,
+	public List<CommerceBOMFolder> findByC_P(
+		long companyId, long parentCommerceBOMFolderId, int start, int end,
 		OrderByComparator<CommerceBOMFolder> orderByComparator,
-		boolean retrieveFromCache) {
-		boolean pagination = true;
+		boolean useFinderCache) {
+
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_P;
-			finderArgs = new Object[] { companyId, parentCommerceBOMFolderId };
-		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_C_P;
-			finderArgs = new Object[] {
-					companyId, parentCommerceBOMFolderId,
+			(orderByComparator == null)) {
 
-					start, end, orderByComparator
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByC_P;
+				finderArgs = new Object[] {
+					companyId, parentCommerceBOMFolderId
 				};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByC_P;
+			finderArgs = new Object[] {
+				companyId, parentCommerceBOMFolderId, start, end,
+				orderByComparator
+			};
 		}
 
 		List<CommerceBOMFolder> list = null;
 
-		if (retrieveFromCache) {
-			list = (List<CommerceBOMFolder>)finderCache.getResult(finderPath,
-					finderArgs, this);
+		if (useFinderCache) {
+			list = (List<CommerceBOMFolder>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (CommerceBOMFolder commerceBOMFolder : list) {
 					if ((companyId != commerceBOMFolder.getCompanyId()) ||
-							(parentCommerceBOMFolderId != commerceBOMFolder.getParentCommerceBOMFolderId())) {
+						(parentCommerceBOMFolderId !=
+							commerceBOMFolder.getParentCommerceBOMFolderId())) {
+
 						list = null;
 
 						break;
@@ -1102,8 +1104,8 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(4 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					4 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
 				query = new StringBundler(4);
@@ -1116,11 +1118,10 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			query.append(_FINDER_COLUMN_C_P_PARENTCOMMERCEBOMFOLDERID_2);
 
 			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else
-			 if (pagination) {
+			else {
 				query.append(CommerceBOMFolderModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -1139,25 +1140,19 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 				qPos.add(parentCommerceBOMFolderId);
 
-				if (!pagination) {
-					list = (List<CommerceBOMFolder>)QueryUtil.list(q,
-							getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<CommerceBOMFolder>)QueryUtil.list(q,
-							getDialect(), start, end);
-				}
+				list = (List<CommerceBOMFolder>)QueryUtil.list(
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1179,12 +1174,13 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @throws NoSuchBOMFolderException if a matching commerce bom folder could not be found
 	 */
 	@Override
-	public CommerceBOMFolder findByC_P_First(long companyId,
-		long parentCommerceBOMFolderId,
-		OrderByComparator<CommerceBOMFolder> orderByComparator)
+	public CommerceBOMFolder findByC_P_First(
+			long companyId, long parentCommerceBOMFolderId,
+			OrderByComparator<CommerceBOMFolder> orderByComparator)
 		throws NoSuchBOMFolderException {
-		CommerceBOMFolder commerceBOMFolder = fetchByC_P_First(companyId,
-				parentCommerceBOMFolderId, orderByComparator);
+
+		CommerceBOMFolder commerceBOMFolder = fetchByC_P_First(
+			companyId, parentCommerceBOMFolderId, orderByComparator);
 
 		if (commerceBOMFolder != null) {
 			return commerceBOMFolder;
@@ -1214,11 +1210,12 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @return the first matching commerce bom folder, or <code>null</code> if a matching commerce bom folder could not be found
 	 */
 	@Override
-	public CommerceBOMFolder fetchByC_P_First(long companyId,
-		long parentCommerceBOMFolderId,
+	public CommerceBOMFolder fetchByC_P_First(
+		long companyId, long parentCommerceBOMFolderId,
 		OrderByComparator<CommerceBOMFolder> orderByComparator) {
-		List<CommerceBOMFolder> list = findByC_P(companyId,
-				parentCommerceBOMFolderId, 0, 1, orderByComparator);
+
+		List<CommerceBOMFolder> list = findByC_P(
+			companyId, parentCommerceBOMFolderId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -1237,12 +1234,13 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @throws NoSuchBOMFolderException if a matching commerce bom folder could not be found
 	 */
 	@Override
-	public CommerceBOMFolder findByC_P_Last(long companyId,
-		long parentCommerceBOMFolderId,
-		OrderByComparator<CommerceBOMFolder> orderByComparator)
+	public CommerceBOMFolder findByC_P_Last(
+			long companyId, long parentCommerceBOMFolderId,
+			OrderByComparator<CommerceBOMFolder> orderByComparator)
 		throws NoSuchBOMFolderException {
-		CommerceBOMFolder commerceBOMFolder = fetchByC_P_Last(companyId,
-				parentCommerceBOMFolderId, orderByComparator);
+
+		CommerceBOMFolder commerceBOMFolder = fetchByC_P_Last(
+			companyId, parentCommerceBOMFolderId, orderByComparator);
 
 		if (commerceBOMFolder != null) {
 			return commerceBOMFolder;
@@ -1272,17 +1270,19 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @return the last matching commerce bom folder, or <code>null</code> if a matching commerce bom folder could not be found
 	 */
 	@Override
-	public CommerceBOMFolder fetchByC_P_Last(long companyId,
-		long parentCommerceBOMFolderId,
+	public CommerceBOMFolder fetchByC_P_Last(
+		long companyId, long parentCommerceBOMFolderId,
 		OrderByComparator<CommerceBOMFolder> orderByComparator) {
+
 		int count = countByC_P(companyId, parentCommerceBOMFolderId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<CommerceBOMFolder> list = findByC_P(companyId,
-				parentCommerceBOMFolderId, count - 1, count, orderByComparator);
+		List<CommerceBOMFolder> list = findByC_P(
+			companyId, parentCommerceBOMFolderId, count - 1, count,
+			orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -1302,11 +1302,14 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @throws NoSuchBOMFolderException if a commerce bom folder with the primary key could not be found
 	 */
 	@Override
-	public CommerceBOMFolder[] findByC_P_PrevAndNext(long commerceBOMFolderId,
-		long companyId, long parentCommerceBOMFolderId,
-		OrderByComparator<CommerceBOMFolder> orderByComparator)
+	public CommerceBOMFolder[] findByC_P_PrevAndNext(
+			long commerceBOMFolderId, long companyId,
+			long parentCommerceBOMFolderId,
+			OrderByComparator<CommerceBOMFolder> orderByComparator)
 		throws NoSuchBOMFolderException {
-		CommerceBOMFolder commerceBOMFolder = findByPrimaryKey(commerceBOMFolderId);
+
+		CommerceBOMFolder commerceBOMFolder = findByPrimaryKey(
+			commerceBOMFolderId);
 
 		Session session = null;
 
@@ -1315,15 +1318,15 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 			CommerceBOMFolder[] array = new CommerceBOMFolderImpl[3];
 
-			array[0] = getByC_P_PrevAndNext(session, commerceBOMFolder,
-					companyId, parentCommerceBOMFolderId, orderByComparator,
-					true);
+			array[0] = getByC_P_PrevAndNext(
+				session, commerceBOMFolder, companyId,
+				parentCommerceBOMFolderId, orderByComparator, true);
 
 			array[1] = commerceBOMFolder;
 
-			array[2] = getByC_P_PrevAndNext(session, commerceBOMFolder,
-					companyId, parentCommerceBOMFolderId, orderByComparator,
-					false);
+			array[2] = getByC_P_PrevAndNext(
+				session, commerceBOMFolder, companyId,
+				parentCommerceBOMFolderId, orderByComparator, false);
 
 			return array;
 		}
@@ -1335,15 +1338,17 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		}
 	}
 
-	protected CommerceBOMFolder getByC_P_PrevAndNext(Session session,
-		CommerceBOMFolder commerceBOMFolder, long companyId,
+	protected CommerceBOMFolder getByC_P_PrevAndNext(
+		Session session, CommerceBOMFolder commerceBOMFolder, long companyId,
 		long parentCommerceBOMFolderId,
-		OrderByComparator<CommerceBOMFolder> orderByComparator, boolean previous) {
+		OrderByComparator<CommerceBOMFolder> orderByComparator,
+		boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(5 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -1357,7 +1362,8 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		query.append(_FINDER_COLUMN_C_P_PARENTCOMMERCEBOMFOLDERID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -1429,10 +1435,11 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		qPos.add(parentCommerceBOMFolderId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(commerceBOMFolder);
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						commerceBOMFolder)) {
 
-			for (Object value : values) {
-				qPos.add(value);
+				qPos.add(orderByConditionValue);
 			}
 		}
 
@@ -1454,17 +1461,19 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @return the matching commerce bom folders that the user has permission to view
 	 */
 	@Override
-	public List<CommerceBOMFolder> filterFindByC_P(long companyId,
-		long parentCommerceBOMFolderId) {
-		return filterFindByC_P(companyId, parentCommerceBOMFolderId,
-			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	public List<CommerceBOMFolder> filterFindByC_P(
+		long companyId, long parentCommerceBOMFolderId) {
+
+		return filterFindByC_P(
+			companyId, parentCommerceBOMFolderId, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
 	}
 
 	/**
 	 * Returns a range of all the commerce bom folders that the user has permission to view where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMFolderModelImpl</code>.
 	 * </p>
 	 *
 	 * @param companyId the company ID
@@ -1474,17 +1483,18 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @return the range of matching commerce bom folders that the user has permission to view
 	 */
 	@Override
-	public List<CommerceBOMFolder> filterFindByC_P(long companyId,
-		long parentCommerceBOMFolderId, int start, int end) {
-		return filterFindByC_P(companyId, parentCommerceBOMFolderId, start,
-			end, null);
+	public List<CommerceBOMFolder> filterFindByC_P(
+		long companyId, long parentCommerceBOMFolderId, int start, int end) {
+
+		return filterFindByC_P(
+			companyId, parentCommerceBOMFolderId, start, end, null);
 	}
 
 	/**
 	 * Returns an ordered range of all the commerce bom folders that the user has permissions to view where companyId = &#63; and parentCommerceBOMFolderId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMFolderModelImpl</code>.
 	 * </p>
 	 *
 	 * @param companyId the company ID
@@ -1495,19 +1505,21 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @return the ordered range of matching commerce bom folders that the user has permission to view
 	 */
 	@Override
-	public List<CommerceBOMFolder> filterFindByC_P(long companyId,
-		long parentCommerceBOMFolderId, int start, int end,
+	public List<CommerceBOMFolder> filterFindByC_P(
+		long companyId, long parentCommerceBOMFolderId, int start, int end,
 		OrderByComparator<CommerceBOMFolder> orderByComparator) {
+
 		if (!InlineSQLHelperUtil.isEnabled(companyId, 0)) {
-			return findByC_P(companyId, parentCommerceBOMFolderId, start, end,
+			return findByC_P(
+				companyId, parentCommerceBOMFolderId, start, end,
 				orderByComparator);
 		}
 
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(4 +
-					(orderByComparator.getOrderByFields().length * 2));
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByFields().length * 2));
 		}
 		else {
 			query = new StringBundler(5);
@@ -1517,7 +1529,8 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			query.append(_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_WHERE);
 		}
 		else {
-			query.append(_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_1);
+			query.append(
+				_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
 		query.append(_FINDER_COLUMN_C_P_COMPANYID_2);
@@ -1525,17 +1538,18 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		query.append(_FINDER_COLUMN_C_P_PARENTCOMMERCEBOMFOLDERID_2);
 
 		if (!getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_2);
+			query.append(
+				_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_2);
 		}
 
 		if (orderByComparator != null) {
 			if (getDB().isSupportsInlineDistinct()) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator, true);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator, true);
 			}
 			else {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_TABLE,
-					orderByComparator, true);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_TABLE, orderByComparator, true);
 			}
 		}
 		else {
@@ -1547,9 +1561,9 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			}
 		}
 
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				CommerceBOMFolder.class.getName(),
-				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), CommerceBOMFolder.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
 		Session session = null;
 
@@ -1571,8 +1585,8 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 			qPos.add(parentCommerceBOMFolderId);
 
-			return (List<CommerceBOMFolder>)QueryUtil.list(q, getDialect(),
-				start, end);
+			return (List<CommerceBOMFolder>)QueryUtil.list(
+				q, getDialect(), start, end);
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -1594,16 +1608,19 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 */
 	@Override
 	public CommerceBOMFolder[] filterFindByC_P_PrevAndNext(
-		long commerceBOMFolderId, long companyId,
-		long parentCommerceBOMFolderId,
-		OrderByComparator<CommerceBOMFolder> orderByComparator)
+			long commerceBOMFolderId, long companyId,
+			long parentCommerceBOMFolderId,
+			OrderByComparator<CommerceBOMFolder> orderByComparator)
 		throws NoSuchBOMFolderException {
+
 		if (!InlineSQLHelperUtil.isEnabled(companyId, 0)) {
-			return findByC_P_PrevAndNext(commerceBOMFolderId, companyId,
-				parentCommerceBOMFolderId, orderByComparator);
+			return findByC_P_PrevAndNext(
+				commerceBOMFolderId, companyId, parentCommerceBOMFolderId,
+				orderByComparator);
 		}
 
-		CommerceBOMFolder commerceBOMFolder = findByPrimaryKey(commerceBOMFolderId);
+		CommerceBOMFolder commerceBOMFolder = findByPrimaryKey(
+			commerceBOMFolderId);
 
 		Session session = null;
 
@@ -1612,15 +1629,15 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 			CommerceBOMFolder[] array = new CommerceBOMFolderImpl[3];
 
-			array[0] = filterGetByC_P_PrevAndNext(session, commerceBOMFolder,
-					companyId, parentCommerceBOMFolderId, orderByComparator,
-					true);
+			array[0] = filterGetByC_P_PrevAndNext(
+				session, commerceBOMFolder, companyId,
+				parentCommerceBOMFolderId, orderByComparator, true);
 
 			array[1] = commerceBOMFolder;
 
-			array[2] = filterGetByC_P_PrevAndNext(session, commerceBOMFolder,
-					companyId, parentCommerceBOMFolderId, orderByComparator,
-					false);
+			array[2] = filterGetByC_P_PrevAndNext(
+				session, commerceBOMFolder, companyId,
+				parentCommerceBOMFolderId, orderByComparator, false);
 
 			return array;
 		}
@@ -1632,15 +1649,17 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		}
 	}
 
-	protected CommerceBOMFolder filterGetByC_P_PrevAndNext(Session session,
-		CommerceBOMFolder commerceBOMFolder, long companyId,
+	protected CommerceBOMFolder filterGetByC_P_PrevAndNext(
+		Session session, CommerceBOMFolder commerceBOMFolder, long companyId,
 		long parentCommerceBOMFolderId,
-		OrderByComparator<CommerceBOMFolder> orderByComparator, boolean previous) {
+		OrderByComparator<CommerceBOMFolder> orderByComparator,
+		boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(6 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				6 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -1651,7 +1670,8 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			query.append(_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_WHERE);
 		}
 		else {
-			query.append(_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_1);
+			query.append(
+				_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
 		query.append(_FINDER_COLUMN_C_P_COMPANYID_2);
@@ -1659,11 +1679,13 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		query.append(_FINDER_COLUMN_C_P_PARENTCOMMERCEBOMFOLDERID_2);
 
 		if (!getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_2);
+			query.append(
+				_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_2);
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -1671,13 +1693,17 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
-					query.append(_ORDER_BY_ENTITY_ALIAS);
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_ALIAS, orderByConditionFields[i],
+							true));
 				}
 				else {
-					query.append(_ORDER_BY_ENTITY_TABLE);
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_TABLE, orderByConditionFields[i],
+							true));
 				}
-
-				query.append(orderByConditionFields[i]);
 
 				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
@@ -1703,13 +1729,15 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
-					query.append(_ORDER_BY_ENTITY_ALIAS);
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_ALIAS, orderByFields[i], true));
 				}
 				else {
-					query.append(_ORDER_BY_ENTITY_TABLE);
+					query.append(
+						getColumnName(
+							_ORDER_BY_ENTITY_TABLE, orderByFields[i], true));
 				}
-
-				query.append(orderByFields[i]);
 
 				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
@@ -1738,9 +1766,9 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			}
 		}
 
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				CommerceBOMFolder.class.getName(),
-				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), CommerceBOMFolder.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
 		SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
@@ -1761,10 +1789,11 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		qPos.add(parentCommerceBOMFolderId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(commerceBOMFolder);
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						commerceBOMFolder)) {
 
-			for (Object value : values) {
-				qPos.add(value);
+				qPos.add(orderByConditionValue);
 			}
 		}
 
@@ -1786,9 +1815,11 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 */
 	@Override
 	public void removeByC_P(long companyId, long parentCommerceBOMFolderId) {
-		for (CommerceBOMFolder commerceBOMFolder : findByC_P(companyId,
-				parentCommerceBOMFolderId, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null)) {
+		for (CommerceBOMFolder commerceBOMFolder :
+				findByC_P(
+					companyId, parentCommerceBOMFolderId, QueryUtil.ALL_POS,
+					QueryUtil.ALL_POS, null)) {
+
 			remove(commerceBOMFolder);
 		}
 	}
@@ -1802,9 +1833,11 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 */
 	@Override
 	public int countByC_P(long companyId, long parentCommerceBOMFolderId) {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_P;
+		FinderPath finderPath = _finderPathCountByC_P;
 
-		Object[] finderArgs = new Object[] { companyId, parentCommerceBOMFolderId };
+		Object[] finderArgs = new Object[] {
+			companyId, parentCommerceBOMFolderId
+		};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -1857,7 +1890,9 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @return the number of matching commerce bom folders that the user has permission to view
 	 */
 	@Override
-	public int filterCountByC_P(long companyId, long parentCommerceBOMFolderId) {
+	public int filterCountByC_P(
+		long companyId, long parentCommerceBOMFolderId) {
+
 		if (!InlineSQLHelperUtil.isEnabled(companyId, 0)) {
 			return countByC_P(companyId, parentCommerceBOMFolderId);
 		}
@@ -1870,9 +1905,9 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 		query.append(_FINDER_COLUMN_C_P_PARENTCOMMERCEBOMFOLDERID_2);
 
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				CommerceBOMFolder.class.getName(),
-				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(
+			query.toString(), CommerceBOMFolder.class.getName(),
+			_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
 
 		Session session = null;
 
@@ -1881,8 +1916,8 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
-			q.addScalar(COUNT_COLUMN_NAME,
-				com.liferay.portal.kernel.dao.orm.Type.LONG);
+			q.addScalar(
+				COUNT_COLUMN_NAME, com.liferay.portal.kernel.dao.orm.Type.LONG);
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
@@ -1902,8 +1937,11 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		}
 	}
 
-	private static final String _FINDER_COLUMN_C_P_COMPANYID_2 = "commerceBOMFolder.companyId = ? AND ";
-	private static final String _FINDER_COLUMN_C_P_PARENTCOMMERCEBOMFOLDERID_2 = "commerceBOMFolder.parentCommerceBOMFolderId = ?";
+	private static final String _FINDER_COLUMN_C_P_COMPANYID_2 =
+		"commerceBOMFolder.companyId = ? AND ";
+
+	private static final String _FINDER_COLUMN_C_P_PARENTCOMMERCEBOMFOLDERID_2 =
+		"commerceBOMFolder.parentCommerceBOMFolderId = ?";
 
 	public CommerceBOMFolderPersistenceImpl() {
 		setModelClass(CommerceBOMFolder.class);
@@ -1916,7 +1954,8 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 */
 	@Override
 	public void cacheResult(CommerceBOMFolder commerceBOMFolder) {
-		entityCache.putResult(CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.putResult(
+			CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceBOMFolderImpl.class, commerceBOMFolder.getPrimaryKey(),
 			commerceBOMFolder);
 
@@ -1932,9 +1971,10 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	public void cacheResult(List<CommerceBOMFolder> commerceBOMFolders) {
 		for (CommerceBOMFolder commerceBOMFolder : commerceBOMFolders) {
 			if (entityCache.getResult(
-						CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
-						CommerceBOMFolderImpl.class,
-						commerceBOMFolder.getPrimaryKey()) == null) {
+					CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+					CommerceBOMFolderImpl.class,
+					commerceBOMFolder.getPrimaryKey()) == null) {
+
 				cacheResult(commerceBOMFolder);
 			}
 			else {
@@ -1947,7 +1987,7 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * Clears the cache for all commerce bom folders.
 	 *
 	 * <p>
-	 * The {@link EntityCache} and {@link FinderCache} are both cleared by this method.
+	 * The <code>EntityCache</code> and <code>FinderCache</code> are both cleared by this method.
 	 * </p>
 	 */
 	@Override
@@ -1963,12 +2003,13 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * Clears the cache for the commerce bom folder.
 	 *
 	 * <p>
-	 * The {@link EntityCache} and {@link FinderCache} are both cleared by this method.
+	 * The <code>EntityCache</code> and <code>FinderCache</code> are both cleared by this method.
 	 * </p>
 	 */
 	@Override
 	public void clearCache(CommerceBOMFolder commerceBOMFolder) {
-		entityCache.removeResult(CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.removeResult(
+			CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceBOMFolderImpl.class, commerceBOMFolder.getPrimaryKey());
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
@@ -1981,8 +2022,21 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
 		for (CommerceBOMFolder commerceBOMFolder : commerceBOMFolders) {
-			entityCache.removeResult(CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+			entityCache.removeResult(
+				CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
 				CommerceBOMFolderImpl.class, commerceBOMFolder.getPrimaryKey());
+		}
+	}
+
+	public void clearCache(Set<Serializable> primaryKeys) {
+		finderCache.clearCache(FINDER_CLASS_NAME_ENTITY);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		for (Serializable primaryKey : primaryKeys) {
+			entityCache.removeResult(
+				CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+				CommerceBOMFolderImpl.class, primaryKey);
 		}
 	}
 
@@ -1999,7 +2053,7 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		commerceBOMFolder.setNew(true);
 		commerceBOMFolder.setPrimaryKey(commerceBOMFolderId);
 
-		commerceBOMFolder.setCompanyId(companyProvider.getCompanyId());
+		commerceBOMFolder.setCompanyId(CompanyThreadLocal.getCompanyId());
 
 		return commerceBOMFolder;
 	}
@@ -2014,6 +2068,7 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	@Override
 	public CommerceBOMFolder remove(long commerceBOMFolderId)
 		throws NoSuchBOMFolderException {
+
 		return remove((Serializable)commerceBOMFolderId);
 	}
 
@@ -2027,21 +2082,23 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	@Override
 	public CommerceBOMFolder remove(Serializable primaryKey)
 		throws NoSuchBOMFolderException {
+
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			CommerceBOMFolder commerceBOMFolder = (CommerceBOMFolder)session.get(CommerceBOMFolderImpl.class,
-					primaryKey);
+			CommerceBOMFolder commerceBOMFolder =
+				(CommerceBOMFolder)session.get(
+					CommerceBOMFolderImpl.class, primaryKey);
 
 			if (commerceBOMFolder == null) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
-				throw new NoSuchBOMFolderException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					primaryKey);
+				throw new NoSuchBOMFolderException(
+					_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			return remove(commerceBOMFolder);
@@ -2058,15 +2115,18 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	}
 
 	@Override
-	protected CommerceBOMFolder removeImpl(CommerceBOMFolder commerceBOMFolder) {
+	protected CommerceBOMFolder removeImpl(
+		CommerceBOMFolder commerceBOMFolder) {
+
 		Session session = null;
 
 		try {
 			session = openSession();
 
 			if (!session.contains(commerceBOMFolder)) {
-				commerceBOMFolder = (CommerceBOMFolder)session.get(CommerceBOMFolderImpl.class,
-						commerceBOMFolder.getPrimaryKeyObj());
+				commerceBOMFolder = (CommerceBOMFolder)session.get(
+					CommerceBOMFolderImpl.class,
+					commerceBOMFolder.getPrimaryKeyObj());
 			}
 
 			if (commerceBOMFolder != null) {
@@ -2095,21 +2155,24 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			InvocationHandler invocationHandler = null;
 
 			if (ProxyUtil.isProxyClass(commerceBOMFolder.getClass())) {
-				invocationHandler = ProxyUtil.getInvocationHandler(commerceBOMFolder);
+				invocationHandler = ProxyUtil.getInvocationHandler(
+					commerceBOMFolder);
 
 				throw new IllegalArgumentException(
 					"Implement ModelWrapper in commerceBOMFolder proxy " +
-					invocationHandler.getClass());
+						invocationHandler.getClass());
 			}
 
 			throw new IllegalArgumentException(
 				"Implement ModelWrapper in custom CommerceBOMFolder implementation " +
-				commerceBOMFolder.getClass());
+					commerceBOMFolder.getClass());
 		}
 
-		CommerceBOMFolderModelImpl commerceBOMFolderModelImpl = (CommerceBOMFolderModelImpl)commerceBOMFolder;
+		CommerceBOMFolderModelImpl commerceBOMFolderModelImpl =
+			(CommerceBOMFolderModelImpl)commerceBOMFolder;
 
-		ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
 
 		Date now = new Date();
 
@@ -2118,8 +2181,8 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 				commerceBOMFolder.setCreateDate(now);
 			}
 			else {
-				commerceBOMFolder.setCreateDate(serviceContext.getCreateDate(
-						now));
+				commerceBOMFolder.setCreateDate(
+					serviceContext.getCreateDate(now));
 			}
 		}
 
@@ -2128,8 +2191,8 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 				commerceBOMFolder.setModifiedDate(now);
 			}
 			else {
-				commerceBOMFolder.setModifiedDate(serviceContext.getModifiedDate(
-						now));
+				commerceBOMFolder.setModifiedDate(
+					serviceContext.getModifiedDate(now));
 			}
 		}
 
@@ -2144,7 +2207,8 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 				commerceBOMFolder.setNew(false);
 			}
 			else {
-				commerceBOMFolder = (CommerceBOMFolder)session.merge(commerceBOMFolder);
+				commerceBOMFolder = (CommerceBOMFolder)session.merge(
+					commerceBOMFolder);
 			}
 		}
 		catch (Exception e) {
@@ -2159,71 +2223,75 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		if (!CommerceBOMFolderModelImpl.COLUMN_BITMASK_ENABLED) {
 			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
-		else
-		 if (isNew) {
+		else if (isNew) {
 			Object[] args = new Object[] {
-					commerceBOMFolderModelImpl.getCompanyId()
-				};
+				commerceBOMFolderModelImpl.getCompanyId()
+			};
 
-			finderCache.removeResult(FINDER_PATH_COUNT_BY_COMPANYID, args);
-			finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
-				args);
+			finderCache.removeResult(_finderPathCountByCompanyId, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByCompanyId, args);
 
 			args = new Object[] {
+				commerceBOMFolderModelImpl.getCompanyId(),
+				commerceBOMFolderModelImpl.getParentCommerceBOMFolderId()
+			};
+
+			finderCache.removeResult(_finderPathCountByC_P, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByC_P, args);
+
+			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
+		}
+		else {
+			if ((commerceBOMFolderModelImpl.getColumnBitmask() &
+				 _finderPathWithoutPaginationFindByCompanyId.
+					 getColumnBitmask()) != 0) {
+
+				Object[] args = new Object[] {
+					commerceBOMFolderModelImpl.getOriginalCompanyId()
+				};
+
+				finderCache.removeResult(_finderPathCountByCompanyId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByCompanyId, args);
+
+				args = new Object[] {commerceBOMFolderModelImpl.getCompanyId()};
+
+				finderCache.removeResult(_finderPathCountByCompanyId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByCompanyId, args);
+			}
+
+			if ((commerceBOMFolderModelImpl.getColumnBitmask() &
+				 _finderPathWithoutPaginationFindByC_P.getColumnBitmask()) !=
+					 0) {
+
+				Object[] args = new Object[] {
+					commerceBOMFolderModelImpl.getOriginalCompanyId(),
+					commerceBOMFolderModelImpl.
+						getOriginalParentCommerceBOMFolderId()
+				};
+
+				finderCache.removeResult(_finderPathCountByC_P, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByC_P, args);
+
+				args = new Object[] {
 					commerceBOMFolderModelImpl.getCompanyId(),
 					commerceBOMFolderModelImpl.getParentCommerceBOMFolderId()
 				};
 
-			finderCache.removeResult(FINDER_PATH_COUNT_BY_C_P, args);
-			finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_P,
-				args);
-
-			finderCache.removeResult(FINDER_PATH_COUNT_ALL, FINDER_ARGS_EMPTY);
-			finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL,
-				FINDER_ARGS_EMPTY);
-		}
-
-		else {
-			if ((commerceBOMFolderModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						commerceBOMFolderModelImpl.getOriginalCompanyId()
-					};
-
-				finderCache.removeResult(FINDER_PATH_COUNT_BY_COMPANYID, args);
-				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
-					args);
-
-				args = new Object[] { commerceBOMFolderModelImpl.getCompanyId() };
-
-				finderCache.removeResult(FINDER_PATH_COUNT_BY_COMPANYID, args);
-				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
-					args);
-			}
-
-			if ((commerceBOMFolderModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_P.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						commerceBOMFolderModelImpl.getOriginalCompanyId(),
-						commerceBOMFolderModelImpl.getOriginalParentCommerceBOMFolderId()
-					};
-
-				finderCache.removeResult(FINDER_PATH_COUNT_BY_C_P, args);
-				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_P,
-					args);
-
-				args = new Object[] {
-						commerceBOMFolderModelImpl.getCompanyId(),
-						commerceBOMFolderModelImpl.getParentCommerceBOMFolderId()
-					};
-
-				finderCache.removeResult(FINDER_PATH_COUNT_BY_C_P, args);
-				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_P,
-					args);
+				finderCache.removeResult(_finderPathCountByC_P, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByC_P, args);
 			}
 		}
 
-		entityCache.putResult(CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.putResult(
+			CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceBOMFolderImpl.class, commerceBOMFolder.getPrimaryKey(),
 			commerceBOMFolder, false);
 
@@ -2233,7 +2301,7 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	}
 
 	/**
-	 * Returns the commerce bom folder with the primary key or throws a {@link com.liferay.portal.kernel.exception.NoSuchModelException} if it could not be found.
+	 * Returns the commerce bom folder with the primary key or throws a <code>com.liferay.portal.kernel.exception.NoSuchModelException</code> if it could not be found.
 	 *
 	 * @param primaryKey the primary key of the commerce bom folder
 	 * @return the commerce bom folder
@@ -2242,6 +2310,7 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	@Override
 	public CommerceBOMFolder findByPrimaryKey(Serializable primaryKey)
 		throws NoSuchBOMFolderException {
+
 		CommerceBOMFolder commerceBOMFolder = fetchByPrimaryKey(primaryKey);
 
 		if (commerceBOMFolder == null) {
@@ -2249,15 +2318,15 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
-			throw new NoSuchBOMFolderException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				primaryKey);
+			throw new NoSuchBOMFolderException(
+				_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 		}
 
 		return commerceBOMFolder;
 	}
 
 	/**
-	 * Returns the commerce bom folder with the primary key or throws a {@link NoSuchBOMFolderException} if it could not be found.
+	 * Returns the commerce bom folder with the primary key or throws a <code>NoSuchBOMFolderException</code> if it could not be found.
 	 *
 	 * @param commerceBOMFolderId the primary key of the commerce bom folder
 	 * @return the commerce bom folder
@@ -2266,6 +2335,7 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	@Override
 	public CommerceBOMFolder findByPrimaryKey(long commerceBOMFolderId)
 		throws NoSuchBOMFolderException {
+
 		return findByPrimaryKey((Serializable)commerceBOMFolderId);
 	}
 
@@ -2277,8 +2347,9 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 */
 	@Override
 	public CommerceBOMFolder fetchByPrimaryKey(Serializable primaryKey) {
-		Serializable serializable = entityCache.getResult(CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
-				CommerceBOMFolderImpl.class, primaryKey);
+		Serializable serializable = entityCache.getResult(
+			CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceBOMFolderImpl.class, primaryKey);
 
 		if (serializable == nullModel) {
 			return null;
@@ -2292,19 +2363,21 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			try {
 				session = openSession();
 
-				commerceBOMFolder = (CommerceBOMFolder)session.get(CommerceBOMFolderImpl.class,
-						primaryKey);
+				commerceBOMFolder = (CommerceBOMFolder)session.get(
+					CommerceBOMFolderImpl.class, primaryKey);
 
 				if (commerceBOMFolder != null) {
 					cacheResult(commerceBOMFolder);
 				}
 				else {
-					entityCache.putResult(CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+					entityCache.putResult(
+						CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
 						CommerceBOMFolderImpl.class, primaryKey, nullModel);
 				}
 			}
 			catch (Exception e) {
-				entityCache.removeResult(CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.removeResult(
+					CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
 					CommerceBOMFolderImpl.class, primaryKey);
 
 				throw processException(e);
@@ -2331,11 +2404,13 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	@Override
 	public Map<Serializable, CommerceBOMFolder> fetchByPrimaryKeys(
 		Set<Serializable> primaryKeys) {
+
 		if (primaryKeys.isEmpty()) {
 			return Collections.emptyMap();
 		}
 
-		Map<Serializable, CommerceBOMFolder> map = new HashMap<Serializable, CommerceBOMFolder>();
+		Map<Serializable, CommerceBOMFolder> map =
+			new HashMap<Serializable, CommerceBOMFolder>();
 
 		if (primaryKeys.size() == 1) {
 			Iterator<Serializable> iterator = primaryKeys.iterator();
@@ -2354,8 +2429,9 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		Set<Serializable> uncachedPrimaryKeys = null;
 
 		for (Serializable primaryKey : primaryKeys) {
-			Serializable serializable = entityCache.getResult(CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
-					CommerceBOMFolderImpl.class, primaryKey);
+			Serializable serializable = entityCache.getResult(
+				CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+				CommerceBOMFolderImpl.class, primaryKey);
 
 			if (serializable != nullModel) {
 				if (serializable == null) {
@@ -2375,8 +2451,8 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			return map;
 		}
 
-		StringBundler query = new StringBundler((uncachedPrimaryKeys.size() * 2) +
-				1);
+		StringBundler query = new StringBundler(
+			uncachedPrimaryKeys.size() * 2 + 1);
 
 		query.append(_SQL_SELECT_COMMERCEBOMFOLDER_WHERE_PKS_IN);
 
@@ -2399,16 +2475,21 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 			Query q = session.createQuery(sql);
 
-			for (CommerceBOMFolder commerceBOMFolder : (List<CommerceBOMFolder>)q.list()) {
-				map.put(commerceBOMFolder.getPrimaryKeyObj(), commerceBOMFolder);
+			for (CommerceBOMFolder commerceBOMFolder :
+					(List<CommerceBOMFolder>)q.list()) {
+
+				map.put(
+					commerceBOMFolder.getPrimaryKeyObj(), commerceBOMFolder);
 
 				cacheResult(commerceBOMFolder);
 
-				uncachedPrimaryKeys.remove(commerceBOMFolder.getPrimaryKeyObj());
+				uncachedPrimaryKeys.remove(
+					commerceBOMFolder.getPrimaryKeyObj());
 			}
 
 			for (Serializable primaryKey : uncachedPrimaryKeys) {
-				entityCache.putResult(CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.putResult(
+					CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
 					CommerceBOMFolderImpl.class, primaryKey, nullModel);
 			}
 		}
@@ -2436,7 +2517,7 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * Returns a range of all the commerce bom folders.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMFolderModelImpl</code>.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce bom folders
@@ -2452,7 +2533,7 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * Returns an ordered range of all the commerce bom folders.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMFolderModelImpl</code>.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce bom folders
@@ -2461,8 +2542,10 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * @return the ordered range of commerce bom folders
 	 */
 	@Override
-	public List<CommerceBOMFolder> findAll(int start, int end,
+	public List<CommerceBOMFolder> findAll(
+		int start, int end,
 		OrderByComparator<CommerceBOMFolder> orderByComparator) {
+
 		return findAll(start, end, orderByComparator, true);
 	}
 
@@ -2470,39 +2553,42 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * Returns an ordered range of all the commerce bom folders.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMFolderModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMFolderModelImpl</code>.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce bom folders
 	 * @param end the upper bound of the range of commerce bom folders (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of commerce bom folders
 	 */
 	@Override
-	public List<CommerceBOMFolder> findAll(int start, int end,
+	public List<CommerceBOMFolder> findAll(
+		int start, int end,
 		OrderByComparator<CommerceBOMFolder> orderByComparator,
-		boolean retrieveFromCache) {
-		boolean pagination = true;
+		boolean useFinderCache) {
+
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL;
-			finderArgs = FINDER_ARGS_EMPTY;
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindAll;
+				finderArgs = FINDER_ARGS_EMPTY;
+			}
 		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_ALL;
-			finderArgs = new Object[] { start, end, orderByComparator };
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindAll;
+			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<CommerceBOMFolder> list = null;
 
-		if (retrieveFromCache) {
-			list = (List<CommerceBOMFolder>)finderCache.getResult(finderPath,
-					finderArgs, this);
+		if (useFinderCache) {
+			list = (List<CommerceBOMFolder>)finderCache.getResult(
+				finderPath, finderArgs, this);
 		}
 
 		if (list == null) {
@@ -2510,22 +2596,20 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 			String sql = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(2 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					2 + (orderByComparator.getOrderByFields().length * 2));
 
 				query.append(_SQL_SELECT_COMMERCEBOMFOLDER);
 
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
 				sql = query.toString();
 			}
 			else {
 				sql = _SQL_SELECT_COMMERCEBOMFOLDER;
 
-				if (pagination) {
-					sql = sql.concat(CommerceBOMFolderModelImpl.ORDER_BY_JPQL);
-				}
+				sql = sql.concat(CommerceBOMFolderModelImpl.ORDER_BY_JPQL);
 			}
 
 			Session session = null;
@@ -2535,25 +2619,19 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 				Query q = session.createQuery(sql);
 
-				if (!pagination) {
-					list = (List<CommerceBOMFolder>)QueryUtil.list(q,
-							getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<CommerceBOMFolder>)QueryUtil.list(q,
-							getDialect(), start, end);
-				}
+				list = (List<CommerceBOMFolder>)QueryUtil.list(
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -2583,8 +2661,8 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 */
 	@Override
 	public int countAll() {
-		Long count = (Long)finderCache.getResult(FINDER_PATH_COUNT_ALL,
-				FINDER_ARGS_EMPTY, this);
+		Long count = (Long)finderCache.getResult(
+			_finderPathCountAll, FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -2596,12 +2674,12 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 
 				count = (Long)q.uniqueResult();
 
-				finderCache.putResult(FINDER_PATH_COUNT_ALL, FINDER_ARGS_EMPTY,
-					count);
+				finderCache.putResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
 			catch (Exception e) {
-				finderCache.removeResult(FINDER_PATH_COUNT_ALL,
-					FINDER_ARGS_EMPTY);
+				finderCache.removeResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY);
 
 				throw processException(e);
 			}
@@ -2622,6 +2700,77 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 	 * Initializes the commerce bom folder persistence.
 	 */
 	public void afterPropertiesSet() {
+		_finderPathWithPaginationFindAll = new FinderPath(
+			CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED,
+			CommerceBOMFolderImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+			"findAll", new String[0]);
+
+		_finderPathWithoutPaginationFindAll = new FinderPath(
+			CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED,
+			CommerceBOMFolderImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
+			new String[0]);
+
+		_finderPathCountAll = new FinderPath(
+			CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
+			new String[0]);
+
+		_finderPathWithPaginationFindByCompanyId = new FinderPath(
+			CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED,
+			CommerceBOMFolderImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+			"findByCompanyId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
+
+		_finderPathWithoutPaginationFindByCompanyId = new FinderPath(
+			CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED,
+			CommerceBOMFolderImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCompanyId",
+			new String[] {Long.class.getName()},
+			CommerceBOMFolderModelImpl.COMPANYID_COLUMN_BITMASK |
+			CommerceBOMFolderModelImpl.NAME_COLUMN_BITMASK);
+
+		_finderPathCountByCompanyId = new FinderPath(
+			CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompanyId",
+			new String[] {Long.class.getName()});
+
+		_finderPathWithPaginationFindByC_P = new FinderPath(
+			CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED,
+			CommerceBOMFolderImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+			"findByC_P",
+			new String[] {
+				Long.class.getName(), Long.class.getName(),
+				Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			});
+
+		_finderPathWithoutPaginationFindByC_P = new FinderPath(
+			CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED,
+			CommerceBOMFolderImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByC_P",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			CommerceBOMFolderModelImpl.COMPANYID_COLUMN_BITMASK |
+			CommerceBOMFolderModelImpl.
+				PARENTCOMMERCEBOMFOLDERID_COLUMN_BITMASK |
+			CommerceBOMFolderModelImpl.NAME_COLUMN_BITMASK);
+
+		_finderPathCountByC_P = new FinderPath(
+			CommerceBOMFolderModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceBOMFolderModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_P",
+			new String[] {Long.class.getName(), Long.class.getName()});
 	}
 
 	public void destroy() {
@@ -2631,29 +2780,59 @@ public class CommerceBOMFolderPersistenceImpl extends BasePersistenceImpl<Commer
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
-	@ServiceReference(type = CompanyProviderWrapper.class)
-	protected CompanyProvider companyProvider;
 	@ServiceReference(type = EntityCache.class)
 	protected EntityCache entityCache;
+
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
-	private static final String _SQL_SELECT_COMMERCEBOMFOLDER = "SELECT commerceBOMFolder FROM CommerceBOMFolder commerceBOMFolder";
-	private static final String _SQL_SELECT_COMMERCEBOMFOLDER_WHERE_PKS_IN = "SELECT commerceBOMFolder FROM CommerceBOMFolder commerceBOMFolder WHERE commerceBOMFolderId IN (";
-	private static final String _SQL_SELECT_COMMERCEBOMFOLDER_WHERE = "SELECT commerceBOMFolder FROM CommerceBOMFolder commerceBOMFolder WHERE ";
-	private static final String _SQL_COUNT_COMMERCEBOMFOLDER = "SELECT COUNT(commerceBOMFolder) FROM CommerceBOMFolder commerceBOMFolder";
-	private static final String _SQL_COUNT_COMMERCEBOMFOLDER_WHERE = "SELECT COUNT(commerceBOMFolder) FROM CommerceBOMFolder commerceBOMFolder WHERE ";
-	private static final String _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN = "commerceBOMFolder.commerceBOMFolderId";
-	private static final String _FILTER_SQL_SELECT_COMMERCEBOMFOLDER_WHERE = "SELECT DISTINCT {commerceBOMFolder.*} FROM CommerceBOMFolder commerceBOMFolder WHERE ";
-	private static final String _FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_1 =
-		"SELECT {CommerceBOMFolder.*} FROM (SELECT DISTINCT commerceBOMFolder.commerceBOMFolderId FROM CommerceBOMFolder commerceBOMFolder WHERE ";
-	private static final String _FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_2 =
-		") TEMP_TABLE INNER JOIN CommerceBOMFolder ON TEMP_TABLE.commerceBOMFolderId = CommerceBOMFolder.commerceBOMFolderId";
-	private static final String _FILTER_SQL_COUNT_COMMERCEBOMFOLDER_WHERE = "SELECT COUNT(DISTINCT commerceBOMFolder.commerceBOMFolderId) AS COUNT_VALUE FROM CommerceBOMFolder commerceBOMFolder WHERE ";
+
+	private static final String _SQL_SELECT_COMMERCEBOMFOLDER =
+		"SELECT commerceBOMFolder FROM CommerceBOMFolder commerceBOMFolder";
+
+	private static final String _SQL_SELECT_COMMERCEBOMFOLDER_WHERE_PKS_IN =
+		"SELECT commerceBOMFolder FROM CommerceBOMFolder commerceBOMFolder WHERE commerceBOMFolderId IN (";
+
+	private static final String _SQL_SELECT_COMMERCEBOMFOLDER_WHERE =
+		"SELECT commerceBOMFolder FROM CommerceBOMFolder commerceBOMFolder WHERE ";
+
+	private static final String _SQL_COUNT_COMMERCEBOMFOLDER =
+		"SELECT COUNT(commerceBOMFolder) FROM CommerceBOMFolder commerceBOMFolder";
+
+	private static final String _SQL_COUNT_COMMERCEBOMFOLDER_WHERE =
+		"SELECT COUNT(commerceBOMFolder) FROM CommerceBOMFolder commerceBOMFolder WHERE ";
+
+	private static final String _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN =
+		"commerceBOMFolder.commerceBOMFolderId";
+
+	private static final String _FILTER_SQL_SELECT_COMMERCEBOMFOLDER_WHERE =
+		"SELECT DISTINCT {commerceBOMFolder.*} FROM CommerceBOMFolder commerceBOMFolder WHERE ";
+
+	private static final String
+		_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_1 =
+			"SELECT {CommerceBOMFolder.*} FROM (SELECT DISTINCT commerceBOMFolder.commerceBOMFolderId FROM CommerceBOMFolder commerceBOMFolder WHERE ";
+
+	private static final String
+		_FILTER_SQL_SELECT_COMMERCEBOMFOLDER_NO_INLINE_DISTINCT_WHERE_2 =
+			") TEMP_TABLE INNER JOIN CommerceBOMFolder ON TEMP_TABLE.commerceBOMFolderId = CommerceBOMFolder.commerceBOMFolderId";
+
+	private static final String _FILTER_SQL_COUNT_COMMERCEBOMFOLDER_WHERE =
+		"SELECT COUNT(DISTINCT commerceBOMFolder.commerceBOMFolderId) AS COUNT_VALUE FROM CommerceBOMFolder commerceBOMFolder WHERE ";
+
 	private static final String _FILTER_ENTITY_ALIAS = "commerceBOMFolder";
+
 	private static final String _FILTER_ENTITY_TABLE = "CommerceBOMFolder";
+
 	private static final String _ORDER_BY_ENTITY_ALIAS = "commerceBOMFolder.";
+
 	private static final String _ORDER_BY_ENTITY_TABLE = "CommerceBOMFolder.";
-	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No CommerceBOMFolder exists with the primary key ";
-	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No CommerceBOMFolder exists with the key {";
-	private static final Log _log = LogFactoryUtil.getLog(CommerceBOMFolderPersistenceImpl.class);
+
+	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY =
+		"No CommerceBOMFolder exists with the primary key ";
+
+	private static final String _NO_SUCH_ENTITY_WITH_KEY =
+		"No CommerceBOMFolder exists with the key {";
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceBOMFolderPersistenceImpl.class);
+
 }

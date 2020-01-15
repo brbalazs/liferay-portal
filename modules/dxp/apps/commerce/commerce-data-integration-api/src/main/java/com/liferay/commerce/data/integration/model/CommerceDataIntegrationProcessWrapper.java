@@ -400,11 +400,6 @@ public class CommerceDataIntegrationProcessWrapper
 		return _commerceDataIntegrationProcess.isSystem();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a commerce data integration process model instance should use the <code>CommerceDataIntegrationProcess</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		_commerceDataIntegrationProcess.persist();

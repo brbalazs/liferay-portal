@@ -17,7 +17,6 @@ package com.liferay.commerce.bom.service;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.bom.model.CommerceBOMFolderApplicationRel;
-
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
@@ -37,51 +36,65 @@ import java.util.List;
  *
  * @author Luca Pellizzon
  * @see CommerceBOMFolderApplicationRelServiceUtil
- * @see com.liferay.commerce.bom.service.base.CommerceBOMFolderApplicationRelServiceBaseImpl
- * @see com.liferay.commerce.bom.service.impl.CommerceBOMFolderApplicationRelServiceImpl
  * @generated
  */
 @AccessControlled
 @JSONWebService
-@OSGiBeanProperties(property =  {
-	"json.web.service.context.name=commerce", "json.web.service.context.path=CommerceBOMFolderApplicationRel"}, service = CommerceBOMFolderApplicationRelService.class)
+@OSGiBeanProperties(
+	property = {
+		"json.web.service.context.name=commerce",
+		"json.web.service.context.path=CommerceBOMFolderApplicationRel"
+	},
+	service = CommerceBOMFolderApplicationRelService.class
+)
 @ProviderType
-@Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
-	PortalException.class, SystemException.class})
+@Transactional(
+	isolation = Isolation.PORTAL,
+	rollbackFor = {PortalException.class, SystemException.class}
+)
 public interface CommerceBOMFolderApplicationRelService extends BaseService {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CommerceBOMFolderApplicationRelServiceUtil} to access the commerce bom folder application rel remote service. Add custom service methods to {@link com.liferay.commerce.bom.service.impl.CommerceBOMFolderApplicationRelServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify or reference this interface directly. Always use {@link CommerceBOMFolderApplicationRelServiceUtil} to access the commerce bom folder application rel remote service. Add custom service methods to <code>com.liferay.commerce.bom.service.impl.CommerceBOMFolderApplicationRelServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public CommerceBOMFolderApplicationRel addCommerceBOMFolderApplicationRel(
-		long userId, long commerceBOMFolderId, long commerceApplicationModelId)
+			long userId, long commerceBOMFolderId,
+			long commerceApplicationModelId)
 		throws PortalException;
 
 	public void deleteCommerceBOMFolderApplicationRel(
-		long commerceBOMFolderApplicationRelId) throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommerceBOMFolderApplicationRel> getCommerceBOMFolderApplicationRelsByCAMId(
-		long commerceApplicationModelId, int start, int end)
+			long commerceBOMFolderApplicationRelId)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommerceBOMFolderApplicationRel> getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
-		long commerceBOMFolderId, int start, int end) throws PortalException;
+	public List<CommerceBOMFolderApplicationRel>
+			getCommerceBOMFolderApplicationRelsByCAMId(
+				long commerceApplicationModelId, int start, int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceBOMFolderApplicationRel>
+			getCommerceBOMFolderApplicationRelsByCommerceBOMFolderId(
+				long commerceBOMFolderId, int start, int end)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceBOMFolderApplicationRelsCountByCAMId(
-		long commerceApplicationModelId) throws PortalException;
+			long commerceApplicationModelId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceBOMFolderApplicationRelsCountByCommerceBOMFolderId(
-		long commerceBOMFolderId) throws PortalException;
+			long commerceBOMFolderId)
+		throws PortalException;
 
 	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
-	*/
+	 * Returns the OSGi service identifier.
+	 *
+	 * @return the OSGi service identifier
+	 */
 	public String getOSGiServiceIdentifier();
+
 }

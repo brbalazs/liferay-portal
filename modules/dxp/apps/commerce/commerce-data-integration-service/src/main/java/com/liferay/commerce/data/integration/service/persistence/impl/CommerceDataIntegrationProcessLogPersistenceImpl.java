@@ -66,7 +66,7 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 	extends BasePersistenceImpl<CommerceDataIntegrationProcessLog>
 	implements CommerceDataIntegrationProcessLogPersistence {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>CommerceDataIntegrationProcessLogUtil</code> to access the commerce data integration process log persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.

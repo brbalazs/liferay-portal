@@ -14,14 +14,11 @@
 
 package com.liferay.commerce.bom.service.persistence.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.bom.exception.NoSuchBOMEntryException;
 import com.liferay.commerce.bom.model.CommerceBOMEntry;
 import com.liferay.commerce.bom.model.impl.CommerceBOMEntryImpl;
 import com.liferay.commerce.bom.model.impl.CommerceBOMEntryModelImpl;
 import com.liferay.commerce.bom.service.persistence.CommerceBOMEntryPersistence;
-
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -31,10 +28,9 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
-import com.liferay.portal.kernel.service.persistence.CompanyProvider;
-import com.liferay.portal.kernel.service.persistence.CompanyProviderWrapper;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -64,59 +60,33 @@ import java.util.Set;
  * </p>
  *
  * @author Luca Pellizzon
- * @see CommerceBOMEntryPersistence
- * @see com.liferay.commerce.bom.service.persistence.CommerceBOMEntryUtil
  * @generated
  */
-@ProviderType
-public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<CommerceBOMEntry>
+public class CommerceBOMEntryPersistenceImpl
+	extends BasePersistenceImpl<CommerceBOMEntry>
 	implements CommerceBOMEntryPersistence {
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Always use {@link CommerceBOMEntryUtil} to access the commerce bom entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
+	 * Never modify or reference this class directly. Always use <code>CommerceBOMEntryUtil</code> to access the commerce bom entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static final String FINDER_CLASS_NAME_ENTITY = CommerceBOMEntryImpl.class.getName();
-	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List1";
-	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
-		".List2";
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceBOMEntryModelImpl.FINDER_CACHE_ENABLED,
-			CommerceBOMEntryImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
-			"findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL = new FinderPath(CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceBOMEntryModelImpl.FINDER_CACHE_ENABLED,
-			CommerceBOMEntryImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceBOMEntryModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_COMMERCEBOMDEFINITIONID =
-		new FinderPath(CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceBOMEntryModelImpl.FINDER_CACHE_ENABLED,
-			CommerceBOMEntryImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
-			"findByCommerceBOMDefinitionId",
-			new String[] {
-				Long.class.getName(),
+	public static final String FINDER_CLASS_NAME_ENTITY =
+		CommerceBOMEntryImpl.class.getName();
 
-			Integer.class.getName(), Integer.class.getName(),
-				OrderByComparator.class.getName()
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMMERCEBOMDEFINITIONID =
-		new FinderPath(CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceBOMEntryModelImpl.FINDER_CACHE_ENABLED,
-			CommerceBOMEntryImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"findByCommerceBOMDefinitionId",
-			new String[] { Long.class.getName() },
-			CommerceBOMEntryModelImpl.COMMERCEBOMDEFINITIONID_COLUMN_BITMASK |
-			CommerceBOMEntryModelImpl.NUMBER_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_COMMERCEBOMDEFINITIONID = new FinderPath(CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
-			CommerceBOMEntryModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"countByCommerceBOMDefinitionId",
-			new String[] { Long.class.getName() });
+	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List1";
+
+	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List2";
+
+	private FinderPath _finderPathWithPaginationFindAll;
+	private FinderPath _finderPathWithoutPaginationFindAll;
+	private FinderPath _finderPathCountAll;
+	private FinderPath _finderPathWithPaginationFindByCommerceBOMDefinitionId;
+	private FinderPath
+		_finderPathWithoutPaginationFindByCommerceBOMDefinitionId;
+	private FinderPath _finderPathCountByCommerceBOMDefinitionId;
 
 	/**
 	 * Returns all the commerce bom entries where commerceBOMDefinitionId = &#63;.
@@ -127,15 +97,17 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	@Override
 	public List<CommerceBOMEntry> findByCommerceBOMDefinitionId(
 		long commerceBOMDefinitionId) {
-		return findByCommerceBOMDefinitionId(commerceBOMDefinitionId,
-			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+
+		return findByCommerceBOMDefinitionId(
+			commerceBOMDefinitionId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			null);
 	}
 
 	/**
 	 * Returns a range of all the commerce bom entries where commerceBOMDefinitionId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMEntryModelImpl</code>.
 	 * </p>
 	 *
 	 * @param commerceBOMDefinitionId the commerce bom definition ID
@@ -146,15 +118,16 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	@Override
 	public List<CommerceBOMEntry> findByCommerceBOMDefinitionId(
 		long commerceBOMDefinitionId, int start, int end) {
-		return findByCommerceBOMDefinitionId(commerceBOMDefinitionId, start,
-			end, null);
+
+		return findByCommerceBOMDefinitionId(
+			commerceBOMDefinitionId, start, end, null);
 	}
 
 	/**
 	 * Returns an ordered range of all the commerce bom entries where commerceBOMDefinitionId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMEntryModelImpl</code>.
 	 * </p>
 	 *
 	 * @param commerceBOMDefinitionId the commerce bom definition ID
@@ -167,57 +140,61 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	public List<CommerceBOMEntry> findByCommerceBOMDefinitionId(
 		long commerceBOMDefinitionId, int start, int end,
 		OrderByComparator<CommerceBOMEntry> orderByComparator) {
-		return findByCommerceBOMDefinitionId(commerceBOMDefinitionId, start,
-			end, orderByComparator, true);
+
+		return findByCommerceBOMDefinitionId(
+			commerceBOMDefinitionId, start, end, orderByComparator, true);
 	}
 
 	/**
 	 * Returns an ordered range of all the commerce bom entries where commerceBOMDefinitionId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMEntryModelImpl</code>.
 	 * </p>
 	 *
 	 * @param commerceBOMDefinitionId the commerce bom definition ID
 	 * @param start the lower bound of the range of commerce bom entries
 	 * @param end the upper bound of the range of commerce bom entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching commerce bom entries
 	 */
 	@Override
 	public List<CommerceBOMEntry> findByCommerceBOMDefinitionId(
 		long commerceBOMDefinitionId, int start, int end,
 		OrderByComparator<CommerceBOMEntry> orderByComparator,
-		boolean retrieveFromCache) {
-		boolean pagination = true;
+		boolean useFinderCache) {
+
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMMERCEBOMDEFINITIONID;
-			finderArgs = new Object[] { commerceBOMDefinitionId };
-		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_COMMERCEBOMDEFINITIONID;
-			finderArgs = new Object[] {
-					commerceBOMDefinitionId,
+			(orderByComparator == null)) {
 
-					start, end, orderByComparator
-				};
+			if (useFinderCache) {
+				finderPath =
+					_finderPathWithoutPaginationFindByCommerceBOMDefinitionId;
+				finderArgs = new Object[] {commerceBOMDefinitionId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByCommerceBOMDefinitionId;
+			finderArgs = new Object[] {
+				commerceBOMDefinitionId, start, end, orderByComparator
+			};
 		}
 
 		List<CommerceBOMEntry> list = null;
 
-		if (retrieveFromCache) {
-			list = (List<CommerceBOMEntry>)finderCache.getResult(finderPath,
-					finderArgs, this);
+		if (useFinderCache) {
+			list = (List<CommerceBOMEntry>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (CommerceBOMEntry commerceBOMEntry : list) {
-					if ((commerceBOMDefinitionId != commerceBOMEntry.getCommerceBOMDefinitionId())) {
+					if (commerceBOMDefinitionId !=
+							commerceBOMEntry.getCommerceBOMDefinitionId()) {
+
 						list = null;
 
 						break;
@@ -230,8 +207,8 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 			StringBundler query = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
 				query = new StringBundler(3);
@@ -239,14 +216,14 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 
 			query.append(_SQL_SELECT_COMMERCEBOMENTRY_WHERE);
 
-			query.append(_FINDER_COLUMN_COMMERCEBOMDEFINITIONID_COMMERCEBOMDEFINITIONID_2);
+			query.append(
+				_FINDER_COLUMN_COMMERCEBOMDEFINITIONID_COMMERCEBOMDEFINITIONID_2);
 
 			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else
-			 if (pagination) {
+			else {
 				query.append(CommerceBOMEntryModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -263,25 +240,19 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 
 				qPos.add(commerceBOMDefinitionId);
 
-				if (!pagination) {
-					list = (List<CommerceBOMEntry>)QueryUtil.list(q,
-							getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<CommerceBOMEntry>)QueryUtil.list(q,
-							getDialect(), start, end);
-				}
+				list = (List<CommerceBOMEntry>)QueryUtil.list(
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -303,11 +274,13 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	 */
 	@Override
 	public CommerceBOMEntry findByCommerceBOMDefinitionId_First(
-		long commerceBOMDefinitionId,
-		OrderByComparator<CommerceBOMEntry> orderByComparator)
+			long commerceBOMDefinitionId,
+			OrderByComparator<CommerceBOMEntry> orderByComparator)
 		throws NoSuchBOMEntryException {
-		CommerceBOMEntry commerceBOMEntry = fetchByCommerceBOMDefinitionId_First(commerceBOMDefinitionId,
-				orderByComparator);
+
+		CommerceBOMEntry commerceBOMEntry =
+			fetchByCommerceBOMDefinitionId_First(
+				commerceBOMDefinitionId, orderByComparator);
 
 		if (commerceBOMEntry != null) {
 			return commerceBOMEntry;
@@ -336,8 +309,9 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	public CommerceBOMEntry fetchByCommerceBOMDefinitionId_First(
 		long commerceBOMDefinitionId,
 		OrderByComparator<CommerceBOMEntry> orderByComparator) {
-		List<CommerceBOMEntry> list = findByCommerceBOMDefinitionId(commerceBOMDefinitionId,
-				0, 1, orderByComparator);
+
+		List<CommerceBOMEntry> list = findByCommerceBOMDefinitionId(
+			commerceBOMDefinitionId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -356,11 +330,12 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	 */
 	@Override
 	public CommerceBOMEntry findByCommerceBOMDefinitionId_Last(
-		long commerceBOMDefinitionId,
-		OrderByComparator<CommerceBOMEntry> orderByComparator)
+			long commerceBOMDefinitionId,
+			OrderByComparator<CommerceBOMEntry> orderByComparator)
 		throws NoSuchBOMEntryException {
-		CommerceBOMEntry commerceBOMEntry = fetchByCommerceBOMDefinitionId_Last(commerceBOMDefinitionId,
-				orderByComparator);
+
+		CommerceBOMEntry commerceBOMEntry = fetchByCommerceBOMDefinitionId_Last(
+			commerceBOMDefinitionId, orderByComparator);
 
 		if (commerceBOMEntry != null) {
 			return commerceBOMEntry;
@@ -389,14 +364,15 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	public CommerceBOMEntry fetchByCommerceBOMDefinitionId_Last(
 		long commerceBOMDefinitionId,
 		OrderByComparator<CommerceBOMEntry> orderByComparator) {
+
 		int count = countByCommerceBOMDefinitionId(commerceBOMDefinitionId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<CommerceBOMEntry> list = findByCommerceBOMDefinitionId(commerceBOMDefinitionId,
-				count - 1, count, orderByComparator);
+		List<CommerceBOMEntry> list = findByCommerceBOMDefinitionId(
+			commerceBOMDefinitionId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -416,10 +392,12 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	 */
 	@Override
 	public CommerceBOMEntry[] findByCommerceBOMDefinitionId_PrevAndNext(
-		long commerceBOMEntryId, long commerceBOMDefinitionId,
-		OrderByComparator<CommerceBOMEntry> orderByComparator)
+			long commerceBOMEntryId, long commerceBOMDefinitionId,
+			OrderByComparator<CommerceBOMEntry> orderByComparator)
 		throws NoSuchBOMEntryException {
-		CommerceBOMEntry commerceBOMEntry = findByPrimaryKey(commerceBOMEntryId);
+
+		CommerceBOMEntry commerceBOMEntry = findByPrimaryKey(
+			commerceBOMEntryId);
 
 		Session session = null;
 
@@ -428,15 +406,15 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 
 			CommerceBOMEntry[] array = new CommerceBOMEntryImpl[3];
 
-			array[0] = getByCommerceBOMDefinitionId_PrevAndNext(session,
-					commerceBOMEntry, commerceBOMDefinitionId,
-					orderByComparator, true);
+			array[0] = getByCommerceBOMDefinitionId_PrevAndNext(
+				session, commerceBOMEntry, commerceBOMDefinitionId,
+				orderByComparator, true);
 
 			array[1] = commerceBOMEntry;
 
-			array[2] = getByCommerceBOMDefinitionId_PrevAndNext(session,
-					commerceBOMEntry, commerceBOMDefinitionId,
-					orderByComparator, false);
+			array[2] = getByCommerceBOMDefinitionId_PrevAndNext(
+				session, commerceBOMEntry, commerceBOMDefinitionId,
+				orderByComparator, false);
 
 			return array;
 		}
@@ -451,12 +429,14 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	protected CommerceBOMEntry getByCommerceBOMDefinitionId_PrevAndNext(
 		Session session, CommerceBOMEntry commerceBOMEntry,
 		long commerceBOMDefinitionId,
-		OrderByComparator<CommerceBOMEntry> orderByComparator, boolean previous) {
+		OrderByComparator<CommerceBOMEntry> orderByComparator,
+		boolean previous) {
+
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
-			query = new StringBundler(4 +
-					(orderByComparator.getOrderByConditionFields().length * 3) +
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
@@ -465,10 +445,12 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 
 		query.append(_SQL_SELECT_COMMERCEBOMENTRY_WHERE);
 
-		query.append(_FINDER_COLUMN_COMMERCEBOMDEFINITIONID_COMMERCEBOMDEFINITIONID_2);
+		query.append(
+			_FINDER_COLUMN_COMMERCEBOMDEFINITIONID_COMMERCEBOMDEFINITIONID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
 
 			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
@@ -538,10 +520,11 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 		qPos.add(commerceBOMDefinitionId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(commerceBOMEntry);
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						commerceBOMEntry)) {
 
-			for (Object value : values) {
-				qPos.add(value);
+				qPos.add(orderByConditionValue);
 			}
 		}
 
@@ -562,9 +545,11 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	 */
 	@Override
 	public void removeByCommerceBOMDefinitionId(long commerceBOMDefinitionId) {
-		for (CommerceBOMEntry commerceBOMEntry : findByCommerceBOMDefinitionId(
-				commerceBOMDefinitionId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-				null)) {
+		for (CommerceBOMEntry commerceBOMEntry :
+				findByCommerceBOMDefinitionId(
+					commerceBOMDefinitionId, QueryUtil.ALL_POS,
+					QueryUtil.ALL_POS, null)) {
+
 			remove(commerceBOMEntry);
 		}
 	}
@@ -577,9 +562,9 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	 */
 	@Override
 	public int countByCommerceBOMDefinitionId(long commerceBOMDefinitionId) {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_COMMERCEBOMDEFINITIONID;
+		FinderPath finderPath = _finderPathCountByCommerceBOMDefinitionId;
 
-		Object[] finderArgs = new Object[] { commerceBOMDefinitionId };
+		Object[] finderArgs = new Object[] {commerceBOMDefinitionId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -588,7 +573,8 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 
 			query.append(_SQL_COUNT_COMMERCEBOMENTRY_WHERE);
 
-			query.append(_FINDER_COLUMN_COMMERCEBOMDEFINITIONID_COMMERCEBOMDEFINITIONID_2);
+			query.append(
+				_FINDER_COLUMN_COMMERCEBOMDEFINITIONID_COMMERCEBOMDEFINITIONID_2);
 
 			String sql = query.toString();
 
@@ -620,21 +606,22 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_COMMERCEBOMDEFINITIONID_COMMERCEBOMDEFINITIONID_2 =
-		"commerceBOMEntry.commerceBOMDefinitionId = ?";
+	private static final String
+		_FINDER_COLUMN_COMMERCEBOMDEFINITIONID_COMMERCEBOMDEFINITIONID_2 =
+			"commerceBOMEntry.commerceBOMDefinitionId = ?";
 
 	public CommerceBOMEntryPersistenceImpl() {
 		setModelClass(CommerceBOMEntry.class);
 
+		Map<String, String> dbColumnNames = new HashMap<String, String>();
+
+		dbColumnNames.put("number", "number_");
+
 		try {
 			Field field = BasePersistenceImpl.class.getDeclaredField(
-					"_dbColumnNames");
+				"_dbColumnNames");
 
 			field.setAccessible(true);
-
-			Map<String, String> dbColumnNames = new HashMap<String, String>();
-
-			dbColumnNames.put("number", "number_");
 
 			field.set(this, dbColumnNames);
 		}
@@ -652,7 +639,8 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	 */
 	@Override
 	public void cacheResult(CommerceBOMEntry commerceBOMEntry) {
-		entityCache.putResult(CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.putResult(
+			CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceBOMEntryImpl.class, commerceBOMEntry.getPrimaryKey(),
 			commerceBOMEntry);
 
@@ -668,9 +656,10 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	public void cacheResult(List<CommerceBOMEntry> commerceBOMEntries) {
 		for (CommerceBOMEntry commerceBOMEntry : commerceBOMEntries) {
 			if (entityCache.getResult(
-						CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
-						CommerceBOMEntryImpl.class,
-						commerceBOMEntry.getPrimaryKey()) == null) {
+					CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
+					CommerceBOMEntryImpl.class,
+					commerceBOMEntry.getPrimaryKey()) == null) {
+
 				cacheResult(commerceBOMEntry);
 			}
 			else {
@@ -683,7 +672,7 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	 * Clears the cache for all commerce bom entries.
 	 *
 	 * <p>
-	 * The {@link EntityCache} and {@link FinderCache} are both cleared by this method.
+	 * The <code>EntityCache</code> and <code>FinderCache</code> are both cleared by this method.
 	 * </p>
 	 */
 	@Override
@@ -699,12 +688,13 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	 * Clears the cache for the commerce bom entry.
 	 *
 	 * <p>
-	 * The {@link EntityCache} and {@link FinderCache} are both cleared by this method.
+	 * The <code>EntityCache</code> and <code>FinderCache</code> are both cleared by this method.
 	 * </p>
 	 */
 	@Override
 	public void clearCache(CommerceBOMEntry commerceBOMEntry) {
-		entityCache.removeResult(CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.removeResult(
+			CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceBOMEntryImpl.class, commerceBOMEntry.getPrimaryKey());
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
@@ -717,8 +707,21 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
 		for (CommerceBOMEntry commerceBOMEntry : commerceBOMEntries) {
-			entityCache.removeResult(CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
+			entityCache.removeResult(
+				CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
 				CommerceBOMEntryImpl.class, commerceBOMEntry.getPrimaryKey());
+		}
+	}
+
+	public void clearCache(Set<Serializable> primaryKeys) {
+		finderCache.clearCache(FINDER_CLASS_NAME_ENTITY);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		for (Serializable primaryKey : primaryKeys) {
+			entityCache.removeResult(
+				CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
+				CommerceBOMEntryImpl.class, primaryKey);
 		}
 	}
 
@@ -735,7 +738,7 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 		commerceBOMEntry.setNew(true);
 		commerceBOMEntry.setPrimaryKey(commerceBOMEntryId);
 
-		commerceBOMEntry.setCompanyId(companyProvider.getCompanyId());
+		commerceBOMEntry.setCompanyId(CompanyThreadLocal.getCompanyId());
 
 		return commerceBOMEntry;
 	}
@@ -750,6 +753,7 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	@Override
 	public CommerceBOMEntry remove(long commerceBOMEntryId)
 		throws NoSuchBOMEntryException {
+
 		return remove((Serializable)commerceBOMEntryId);
 	}
 
@@ -763,21 +767,22 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	@Override
 	public CommerceBOMEntry remove(Serializable primaryKey)
 		throws NoSuchBOMEntryException {
+
 		Session session = null;
 
 		try {
 			session = openSession();
 
-			CommerceBOMEntry commerceBOMEntry = (CommerceBOMEntry)session.get(CommerceBOMEntryImpl.class,
-					primaryKey);
+			CommerceBOMEntry commerceBOMEntry = (CommerceBOMEntry)session.get(
+				CommerceBOMEntryImpl.class, primaryKey);
 
 			if (commerceBOMEntry == null) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
-				throw new NoSuchBOMEntryException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					primaryKey);
+				throw new NoSuchBOMEntryException(
+					_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			return remove(commerceBOMEntry);
@@ -801,8 +806,9 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 			session = openSession();
 
 			if (!session.contains(commerceBOMEntry)) {
-				commerceBOMEntry = (CommerceBOMEntry)session.get(CommerceBOMEntryImpl.class,
-						commerceBOMEntry.getPrimaryKeyObj());
+				commerceBOMEntry = (CommerceBOMEntry)session.get(
+					CommerceBOMEntryImpl.class,
+					commerceBOMEntry.getPrimaryKeyObj());
 			}
 
 			if (commerceBOMEntry != null) {
@@ -831,21 +837,24 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 			InvocationHandler invocationHandler = null;
 
 			if (ProxyUtil.isProxyClass(commerceBOMEntry.getClass())) {
-				invocationHandler = ProxyUtil.getInvocationHandler(commerceBOMEntry);
+				invocationHandler = ProxyUtil.getInvocationHandler(
+					commerceBOMEntry);
 
 				throw new IllegalArgumentException(
 					"Implement ModelWrapper in commerceBOMEntry proxy " +
-					invocationHandler.getClass());
+						invocationHandler.getClass());
 			}
 
 			throw new IllegalArgumentException(
 				"Implement ModelWrapper in custom CommerceBOMEntry implementation " +
-				commerceBOMEntry.getClass());
+					commerceBOMEntry.getClass());
 		}
 
-		CommerceBOMEntryModelImpl commerceBOMEntryModelImpl = (CommerceBOMEntryModelImpl)commerceBOMEntry;
+		CommerceBOMEntryModelImpl commerceBOMEntryModelImpl =
+			(CommerceBOMEntryModelImpl)commerceBOMEntry;
 
-		ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
 
 		Date now = new Date();
 
@@ -854,7 +863,8 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 				commerceBOMEntry.setCreateDate(now);
 			}
 			else {
-				commerceBOMEntry.setCreateDate(serviceContext.getCreateDate(now));
+				commerceBOMEntry.setCreateDate(
+					serviceContext.getCreateDate(now));
 			}
 		}
 
@@ -863,8 +873,8 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 				commerceBOMEntry.setModifiedDate(now);
 			}
 			else {
-				commerceBOMEntry.setModifiedDate(serviceContext.getModifiedDate(
-						now));
+				commerceBOMEntry.setModifiedDate(
+					serviceContext.getModifiedDate(now));
 			}
 		}
 
@@ -879,7 +889,8 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 				commerceBOMEntry.setNew(false);
 			}
 			else {
-				commerceBOMEntry = (CommerceBOMEntry)session.merge(commerceBOMEntry);
+				commerceBOMEntry = (CommerceBOMEntry)session.merge(
+					commerceBOMEntry);
 			}
 		}
 		catch (Exception e) {
@@ -894,46 +905,51 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 		if (!CommerceBOMEntryModelImpl.COLUMN_BITMASK_ENABLED) {
 			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
-		else
-		 if (isNew) {
+		else if (isNew) {
 			Object[] args = new Object[] {
-					commerceBOMEntryModelImpl.getCommerceBOMDefinitionId()
-				};
+				commerceBOMEntryModelImpl.getCommerceBOMDefinitionId()
+			};
 
-			finderCache.removeResult(FINDER_PATH_COUNT_BY_COMMERCEBOMDEFINITIONID,
-				args);
-			finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMMERCEBOMDEFINITIONID,
+			finderCache.removeResult(
+				_finderPathCountByCommerceBOMDefinitionId, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByCommerceBOMDefinitionId,
 				args);
 
-			finderCache.removeResult(FINDER_PATH_COUNT_ALL, FINDER_ARGS_EMPTY);
-			finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL,
-				FINDER_ARGS_EMPTY);
+			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
 		}
-
 		else {
 			if ((commerceBOMEntryModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMMERCEBOMDEFINITIONID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						commerceBOMEntryModelImpl.getOriginalCommerceBOMDefinitionId()
-					};
+				 _finderPathWithoutPaginationFindByCommerceBOMDefinitionId.
+					 getColumnBitmask()) != 0) {
 
-				finderCache.removeResult(FINDER_PATH_COUNT_BY_COMMERCEBOMDEFINITIONID,
-					args);
-				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMMERCEBOMDEFINITIONID,
+				Object[] args = new Object[] {
+					commerceBOMEntryModelImpl.
+						getOriginalCommerceBOMDefinitionId()
+				};
+
+				finderCache.removeResult(
+					_finderPathCountByCommerceBOMDefinitionId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByCommerceBOMDefinitionId,
 					args);
 
 				args = new Object[] {
-						commerceBOMEntryModelImpl.getCommerceBOMDefinitionId()
-					};
+					commerceBOMEntryModelImpl.getCommerceBOMDefinitionId()
+				};
 
-				finderCache.removeResult(FINDER_PATH_COUNT_BY_COMMERCEBOMDEFINITIONID,
-					args);
-				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMMERCEBOMDEFINITIONID,
+				finderCache.removeResult(
+					_finderPathCountByCommerceBOMDefinitionId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByCommerceBOMDefinitionId,
 					args);
 			}
 		}
 
-		entityCache.putResult(CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
+		entityCache.putResult(
+			CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
 			CommerceBOMEntryImpl.class, commerceBOMEntry.getPrimaryKey(),
 			commerceBOMEntry, false);
 
@@ -943,7 +959,7 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	}
 
 	/**
-	 * Returns the commerce bom entry with the primary key or throws a {@link com.liferay.portal.kernel.exception.NoSuchModelException} if it could not be found.
+	 * Returns the commerce bom entry with the primary key or throws a <code>com.liferay.portal.kernel.exception.NoSuchModelException</code> if it could not be found.
 	 *
 	 * @param primaryKey the primary key of the commerce bom entry
 	 * @return the commerce bom entry
@@ -952,6 +968,7 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	@Override
 	public CommerceBOMEntry findByPrimaryKey(Serializable primaryKey)
 		throws NoSuchBOMEntryException {
+
 		CommerceBOMEntry commerceBOMEntry = fetchByPrimaryKey(primaryKey);
 
 		if (commerceBOMEntry == null) {
@@ -959,15 +976,15 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
-			throw new NoSuchBOMEntryException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				primaryKey);
+			throw new NoSuchBOMEntryException(
+				_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 		}
 
 		return commerceBOMEntry;
 	}
 
 	/**
-	 * Returns the commerce bom entry with the primary key or throws a {@link NoSuchBOMEntryException} if it could not be found.
+	 * Returns the commerce bom entry with the primary key or throws a <code>NoSuchBOMEntryException</code> if it could not be found.
 	 *
 	 * @param commerceBOMEntryId the primary key of the commerce bom entry
 	 * @return the commerce bom entry
@@ -976,6 +993,7 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	@Override
 	public CommerceBOMEntry findByPrimaryKey(long commerceBOMEntryId)
 		throws NoSuchBOMEntryException {
+
 		return findByPrimaryKey((Serializable)commerceBOMEntryId);
 	}
 
@@ -987,8 +1005,9 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	 */
 	@Override
 	public CommerceBOMEntry fetchByPrimaryKey(Serializable primaryKey) {
-		Serializable serializable = entityCache.getResult(CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
-				CommerceBOMEntryImpl.class, primaryKey);
+		Serializable serializable = entityCache.getResult(
+			CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceBOMEntryImpl.class, primaryKey);
 
 		if (serializable == nullModel) {
 			return null;
@@ -1002,19 +1021,21 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 			try {
 				session = openSession();
 
-				commerceBOMEntry = (CommerceBOMEntry)session.get(CommerceBOMEntryImpl.class,
-						primaryKey);
+				commerceBOMEntry = (CommerceBOMEntry)session.get(
+					CommerceBOMEntryImpl.class, primaryKey);
 
 				if (commerceBOMEntry != null) {
 					cacheResult(commerceBOMEntry);
 				}
 				else {
-					entityCache.putResult(CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
+					entityCache.putResult(
+						CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
 						CommerceBOMEntryImpl.class, primaryKey, nullModel);
 				}
 			}
 			catch (Exception e) {
-				entityCache.removeResult(CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.removeResult(
+					CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
 					CommerceBOMEntryImpl.class, primaryKey);
 
 				throw processException(e);
@@ -1041,11 +1062,13 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	@Override
 	public Map<Serializable, CommerceBOMEntry> fetchByPrimaryKeys(
 		Set<Serializable> primaryKeys) {
+
 		if (primaryKeys.isEmpty()) {
 			return Collections.emptyMap();
 		}
 
-		Map<Serializable, CommerceBOMEntry> map = new HashMap<Serializable, CommerceBOMEntry>();
+		Map<Serializable, CommerceBOMEntry> map =
+			new HashMap<Serializable, CommerceBOMEntry>();
 
 		if (primaryKeys.size() == 1) {
 			Iterator<Serializable> iterator = primaryKeys.iterator();
@@ -1064,8 +1087,9 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 		Set<Serializable> uncachedPrimaryKeys = null;
 
 		for (Serializable primaryKey : primaryKeys) {
-			Serializable serializable = entityCache.getResult(CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
-					CommerceBOMEntryImpl.class, primaryKey);
+			Serializable serializable = entityCache.getResult(
+				CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
+				CommerceBOMEntryImpl.class, primaryKey);
 
 			if (serializable != nullModel) {
 				if (serializable == null) {
@@ -1085,8 +1109,8 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 			return map;
 		}
 
-		StringBundler query = new StringBundler((uncachedPrimaryKeys.size() * 2) +
-				1);
+		StringBundler query = new StringBundler(
+			uncachedPrimaryKeys.size() * 2 + 1);
 
 		query.append(_SQL_SELECT_COMMERCEBOMENTRY_WHERE_PKS_IN);
 
@@ -1109,7 +1133,9 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 
 			Query q = session.createQuery(sql);
 
-			for (CommerceBOMEntry commerceBOMEntry : (List<CommerceBOMEntry>)q.list()) {
+			for (CommerceBOMEntry commerceBOMEntry :
+					(List<CommerceBOMEntry>)q.list()) {
+
 				map.put(commerceBOMEntry.getPrimaryKeyObj(), commerceBOMEntry);
 
 				cacheResult(commerceBOMEntry);
@@ -1118,7 +1144,8 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 			}
 
 			for (Serializable primaryKey : uncachedPrimaryKeys) {
-				entityCache.putResult(CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
+				entityCache.putResult(
+					CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
 					CommerceBOMEntryImpl.class, primaryKey, nullModel);
 			}
 		}
@@ -1146,7 +1173,7 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	 * Returns a range of all the commerce bom entries.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMEntryModelImpl</code>.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce bom entries
@@ -1162,7 +1189,7 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	 * Returns an ordered range of all the commerce bom entries.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMEntryModelImpl</code>.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce bom entries
@@ -1171,8 +1198,10 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	 * @return the ordered range of commerce bom entries
 	 */
 	@Override
-	public List<CommerceBOMEntry> findAll(int start, int end,
+	public List<CommerceBOMEntry> findAll(
+		int start, int end,
 		OrderByComparator<CommerceBOMEntry> orderByComparator) {
+
 		return findAll(start, end, orderByComparator, true);
 	}
 
@@ -1180,39 +1209,42 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	 * Returns an ordered range of all the commerce bom entries.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CommerceBOMEntryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommerceBOMEntryModelImpl</code>.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of commerce bom entries
 	 * @param end the upper bound of the range of commerce bom entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of commerce bom entries
 	 */
 	@Override
-	public List<CommerceBOMEntry> findAll(int start, int end,
+	public List<CommerceBOMEntry> findAll(
+		int start, int end,
 		OrderByComparator<CommerceBOMEntry> orderByComparator,
-		boolean retrieveFromCache) {
-		boolean pagination = true;
+		boolean useFinderCache) {
+
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL;
-			finderArgs = FINDER_ARGS_EMPTY;
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindAll;
+				finderArgs = FINDER_ARGS_EMPTY;
+			}
 		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_ALL;
-			finderArgs = new Object[] { start, end, orderByComparator };
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindAll;
+			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<CommerceBOMEntry> list = null;
 
-		if (retrieveFromCache) {
-			list = (List<CommerceBOMEntry>)finderCache.getResult(finderPath,
-					finderArgs, this);
+		if (useFinderCache) {
+			list = (List<CommerceBOMEntry>)finderCache.getResult(
+				finderPath, finderArgs, this);
 		}
 
 		if (list == null) {
@@ -1220,22 +1252,20 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 			String sql = null;
 
 			if (orderByComparator != null) {
-				query = new StringBundler(2 +
-						(orderByComparator.getOrderByFields().length * 2));
+				query = new StringBundler(
+					2 + (orderByComparator.getOrderByFields().length * 2));
 
 				query.append(_SQL_SELECT_COMMERCEBOMENTRY);
 
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 
 				sql = query.toString();
 			}
 			else {
 				sql = _SQL_SELECT_COMMERCEBOMENTRY;
 
-				if (pagination) {
-					sql = sql.concat(CommerceBOMEntryModelImpl.ORDER_BY_JPQL);
-				}
+				sql = sql.concat(CommerceBOMEntryModelImpl.ORDER_BY_JPQL);
 			}
 
 			Session session = null;
@@ -1245,25 +1275,19 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 
 				Query q = session.createQuery(sql);
 
-				if (!pagination) {
-					list = (List<CommerceBOMEntry>)QueryUtil.list(q,
-							getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<CommerceBOMEntry>)QueryUtil.list(q,
-							getDialect(), start, end);
-				}
+				list = (List<CommerceBOMEntry>)QueryUtil.list(
+					q, getDialect(), start, end);
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1293,8 +1317,8 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	 */
 	@Override
 	public int countAll() {
-		Long count = (Long)finderCache.getResult(FINDER_PATH_COUNT_ALL,
-				FINDER_ARGS_EMPTY, this);
+		Long count = (Long)finderCache.getResult(
+			_finderPathCountAll, FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1306,12 +1330,12 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 
 				count = (Long)q.uniqueResult();
 
-				finderCache.putResult(FINDER_PATH_COUNT_ALL, FINDER_ARGS_EMPTY,
-					count);
+				finderCache.putResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
 			catch (Exception e) {
-				finderCache.removeResult(FINDER_PATH_COUNT_ALL,
-					FINDER_ARGS_EMPTY);
+				finderCache.removeResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY);
 
 				throw processException(e);
 			}
@@ -1337,6 +1361,53 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 	 * Initializes the commerce bom entry persistence.
 	 */
 	public void afterPropertiesSet() {
+		_finderPathWithPaginationFindAll = new FinderPath(
+			CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceBOMEntryModelImpl.FINDER_CACHE_ENABLED,
+			CommerceBOMEntryImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+			"findAll", new String[0]);
+
+		_finderPathWithoutPaginationFindAll = new FinderPath(
+			CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceBOMEntryModelImpl.FINDER_CACHE_ENABLED,
+			CommerceBOMEntryImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
+			new String[0]);
+
+		_finderPathCountAll = new FinderPath(
+			CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceBOMEntryModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
+			new String[0]);
+
+		_finderPathWithPaginationFindByCommerceBOMDefinitionId = new FinderPath(
+			CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceBOMEntryModelImpl.FINDER_CACHE_ENABLED,
+			CommerceBOMEntryImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+			"findByCommerceBOMDefinitionId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
+
+		_finderPathWithoutPaginationFindByCommerceBOMDefinitionId =
+			new FinderPath(
+				CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
+				CommerceBOMEntryModelImpl.FINDER_CACHE_ENABLED,
+				CommerceBOMEntryImpl.class,
+				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+				"findByCommerceBOMDefinitionId",
+				new String[] {Long.class.getName()},
+				CommerceBOMEntryModelImpl.
+					COMMERCEBOMDEFINITIONID_COLUMN_BITMASK |
+				CommerceBOMEntryModelImpl.NUMBER_COLUMN_BITMASK);
+
+		_finderPathCountByCommerceBOMDefinitionId = new FinderPath(
+			CommerceBOMEntryModelImpl.ENTITY_CACHE_ENABLED,
+			CommerceBOMEntryModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByCommerceBOMDefinitionId",
+			new String[] {Long.class.getName()});
 	}
 
 	public void destroy() {
@@ -1346,22 +1417,39 @@ public class CommerceBOMEntryPersistenceImpl extends BasePersistenceImpl<Commerc
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
-	@ServiceReference(type = CompanyProviderWrapper.class)
-	protected CompanyProvider companyProvider;
 	@ServiceReference(type = EntityCache.class)
 	protected EntityCache entityCache;
+
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
-	private static final String _SQL_SELECT_COMMERCEBOMENTRY = "SELECT commerceBOMEntry FROM CommerceBOMEntry commerceBOMEntry";
-	private static final String _SQL_SELECT_COMMERCEBOMENTRY_WHERE_PKS_IN = "SELECT commerceBOMEntry FROM CommerceBOMEntry commerceBOMEntry WHERE commerceBOMEntryId IN (";
-	private static final String _SQL_SELECT_COMMERCEBOMENTRY_WHERE = "SELECT commerceBOMEntry FROM CommerceBOMEntry commerceBOMEntry WHERE ";
-	private static final String _SQL_COUNT_COMMERCEBOMENTRY = "SELECT COUNT(commerceBOMEntry) FROM CommerceBOMEntry commerceBOMEntry";
-	private static final String _SQL_COUNT_COMMERCEBOMENTRY_WHERE = "SELECT COUNT(commerceBOMEntry) FROM CommerceBOMEntry commerceBOMEntry WHERE ";
+
+	private static final String _SQL_SELECT_COMMERCEBOMENTRY =
+		"SELECT commerceBOMEntry FROM CommerceBOMEntry commerceBOMEntry";
+
+	private static final String _SQL_SELECT_COMMERCEBOMENTRY_WHERE_PKS_IN =
+		"SELECT commerceBOMEntry FROM CommerceBOMEntry commerceBOMEntry WHERE commerceBOMEntryId IN (";
+
+	private static final String _SQL_SELECT_COMMERCEBOMENTRY_WHERE =
+		"SELECT commerceBOMEntry FROM CommerceBOMEntry commerceBOMEntry WHERE ";
+
+	private static final String _SQL_COUNT_COMMERCEBOMENTRY =
+		"SELECT COUNT(commerceBOMEntry) FROM CommerceBOMEntry commerceBOMEntry";
+
+	private static final String _SQL_COUNT_COMMERCEBOMENTRY_WHERE =
+		"SELECT COUNT(commerceBOMEntry) FROM CommerceBOMEntry commerceBOMEntry WHERE ";
+
 	private static final String _ORDER_BY_ENTITY_ALIAS = "commerceBOMEntry.";
-	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No CommerceBOMEntry exists with the primary key ";
-	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No CommerceBOMEntry exists with the key {";
-	private static final Log _log = LogFactoryUtil.getLog(CommerceBOMEntryPersistenceImpl.class);
-	private static final Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
-				"number"
-			});
+
+	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY =
+		"No CommerceBOMEntry exists with the primary key ";
+
+	private static final String _NO_SUCH_ENTITY_WITH_KEY =
+		"No CommerceBOMEntry exists with the key {";
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceBOMEntryPersistenceImpl.class);
+
+	private static final Set<String> _badColumnNames = SetUtil.fromArray(
+		new String[] {"number"});
+
 }

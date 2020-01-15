@@ -14,10 +14,7 @@
 
 package com.liferay.commerce.bom.service.http;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.bom.service.CommerceBOMDefinitionServiceUtil;
-
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
@@ -25,19 +22,20 @@ import java.rmi.RemoteException;
 
 /**
  * Provides the SOAP utility for the
- * {@link CommerceBOMDefinitionServiceUtil} service utility. The
- * static methods of this class calls the same methods of the service utility.
- * However, the signatures are different because it is difficult for SOAP to
- * support certain types.
+ * <code>CommerceBOMDefinitionServiceUtil</code> service
+ * utility. The static methods of this class call the same methods of the
+ * service utility. However, the signatures are different because it is
+ * difficult for SOAP to support certain types.
  *
  * <p>
  * ServiceBuilder follows certain rules in translating the methods. For example,
- * if the method in the service utility returns a {@link java.util.List}, that
- * is translated to an array of {@link com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap}.
- * If the method in the service utility returns a
- * {@link com.liferay.commerce.bom.model.CommerceBOMDefinition}, that is translated to a
- * {@link com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap}. Methods that SOAP cannot
- * safely wire are skipped.
+ * if the method in the service utility returns a <code>java.util.List</code>,
+ * that is translated to an array of
+ * <code>com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap</code>. If the method in the
+ * service utility returns a
+ * <code>com.liferay.commerce.bom.model.CommerceBOMDefinition</code>, that is translated to a
+ * <code>com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap</code>. Methods that SOAP
+ * cannot safely wire are skipped.
  * </p>
  *
  * <p>
@@ -59,21 +57,24 @@ import java.rmi.RemoteException;
  *
  * @author Luca Pellizzon
  * @see CommerceBOMDefinitionServiceHttp
- * @see com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap
- * @see CommerceBOMDefinitionServiceUtil
  * @generated
  */
-@ProviderType
 public class CommerceBOMDefinitionServiceSoap {
-	public static com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap addCommerceBOMDefinition(
-		long userId, long commerceBOMFolderId, long cpAttachmentFileEntryId,
-		String name, String friendlyUrl) throws RemoteException {
+
+	public static com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap
+			addCommerceBOMDefinition(
+				long userId, long commerceBOMFolderId,
+				long cpAttachmentFileEntryId, String name, String friendlyUrl)
+		throws RemoteException {
+
 		try {
-			com.liferay.commerce.bom.model.CommerceBOMDefinition returnValue = CommerceBOMDefinitionServiceUtil.addCommerceBOMDefinition(userId,
-					commerceBOMFolderId, cpAttachmentFileEntryId, name,
+			com.liferay.commerce.bom.model.CommerceBOMDefinition returnValue =
+				CommerceBOMDefinitionServiceUtil.addCommerceBOMDefinition(
+					userId, commerceBOMFolderId, cpAttachmentFileEntryId, name,
 					friendlyUrl);
 
-			return com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap.toSoapModel(returnValue);
+			return com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap.
+				toSoapModel(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -84,8 +85,10 @@ public class CommerceBOMDefinitionServiceSoap {
 
 	public static void deleteCommerceBOMDefinition(long commerceBOMDefinitionId)
 		throws RemoteException {
+
 		try {
-			CommerceBOMDefinitionServiceUtil.deleteCommerceBOMDefinition(commerceBOMDefinitionId);
+			CommerceBOMDefinitionServiceUtil.deleteCommerceBOMDefinition(
+				commerceBOMDefinitionId);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -94,12 +97,17 @@ public class CommerceBOMDefinitionServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap getCommerceBOMDefinition(
-		long commerceBOMDefinitionId) throws RemoteException {
-		try {
-			com.liferay.commerce.bom.model.CommerceBOMDefinition returnValue = CommerceBOMDefinitionServiceUtil.getCommerceBOMDefinition(commerceBOMDefinitionId);
+	public static com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap
+			getCommerceBOMDefinition(long commerceBOMDefinitionId)
+		throws RemoteException {
 
-			return com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap.toSoapModel(returnValue);
+		try {
+			com.liferay.commerce.bom.model.CommerceBOMDefinition returnValue =
+				CommerceBOMDefinitionServiceUtil.getCommerceBOMDefinition(
+					commerceBOMDefinitionId);
+
+			return com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap.
+				toSoapModel(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -108,14 +116,19 @@ public class CommerceBOMDefinitionServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap[] getCommerceBOMDefinitions(
-		long commerceBOMFolderId, int start, int end) throws RemoteException {
-		try {
-			java.util.List<com.liferay.commerce.bom.model.CommerceBOMDefinition> returnValue =
-				CommerceBOMDefinitionServiceUtil.getCommerceBOMDefinitions(commerceBOMFolderId,
-					start, end);
+	public static com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap[]
+			getCommerceBOMDefinitions(
+				long commerceBOMFolderId, int start, int end)
+		throws RemoteException {
 
-			return com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap.toSoapModels(returnValue);
+		try {
+			java.util.List<com.liferay.commerce.bom.model.CommerceBOMDefinition>
+				returnValue =
+					CommerceBOMDefinitionServiceUtil.getCommerceBOMDefinitions(
+						commerceBOMFolderId, start, end);
+
+			return com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap.
+				toSoapModels(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -126,8 +139,11 @@ public class CommerceBOMDefinitionServiceSoap {
 
 	public static int getCommerceBOMDefinitionsCount(long commerceBOMFolderId)
 		throws RemoteException {
+
 		try {
-			int returnValue = CommerceBOMDefinitionServiceUtil.getCommerceBOMDefinitionsCount(commerceBOMFolderId);
+			int returnValue =
+				CommerceBOMDefinitionServiceUtil.getCommerceBOMDefinitionsCount(
+					commerceBOMFolderId);
 
 			return returnValue;
 		}
@@ -138,14 +154,19 @@ public class CommerceBOMDefinitionServiceSoap {
 		}
 	}
 
-	public static com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap updateCommerceBOMDefinition(
-		long commerceBOMDefinitionId, long cpAttachmentFileEntryId, String name)
+	public static com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap
+			updateCommerceBOMDefinition(
+				long commerceBOMDefinitionId, long cpAttachmentFileEntryId,
+				String name)
 		throws RemoteException {
-		try {
-			com.liferay.commerce.bom.model.CommerceBOMDefinition returnValue = CommerceBOMDefinitionServiceUtil.updateCommerceBOMDefinition(commerceBOMDefinitionId,
-					cpAttachmentFileEntryId, name);
 
-			return com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap.toSoapModel(returnValue);
+		try {
+			com.liferay.commerce.bom.model.CommerceBOMDefinition returnValue =
+				CommerceBOMDefinitionServiceUtil.updateCommerceBOMDefinition(
+					commerceBOMDefinitionId, cpAttachmentFileEntryId, name);
+
+			return com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap.
+				toSoapModel(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -154,5 +175,7 @@ public class CommerceBOMDefinitionServiceSoap {
 		}
 	}
 
-	private static Log _log = LogFactoryUtil.getLog(CommerceBOMDefinitionServiceSoap.class);
+	private static Log _log = LogFactoryUtil.getLog(
+		CommerceBOMDefinitionServiceSoap.class);
+
 }
