@@ -29,6 +29,7 @@ import com.liferay.headless.commerce.delivery.cart.client.resource.v1_0.CartReso
 import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.CartSerDes;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -52,6 +53,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -181,13 +183,107 @@ public abstract class BaseCartResourceTestCase {
 	}
 
 	@Test
-	public void testGetStoreChannelCart() throws Exception {
-		Assert.assertTrue(false);
+	public void testGetChannelCart() throws Exception {
+		Cart postCart = testGetChannelCart_addCart();
+
+		Cart getCart = cartResource.getChannelCart(
+			postCart.getId(), postCart.getChannelId());
+
+		assertEquals(postCart, getCart);
+		assertValid(getCart);
+	}
+
+	protected Cart testGetChannelCart_addCart() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
-	public void testGraphQLGetStoreChannelCart() throws Exception {
-		Assert.assertTrue(true);
+	public void testGraphQLGetChannelCart() throws Exception {
+		Cart cart = testGraphQLCart_addCart();
+
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"query",
+			new GraphQLField(
+				"channelCart",
+				new HashMap<String, Object>() {
+					{
+						put("cartId", cart.getId());
+						put("channelId", cart.getChannelId());
+					}
+				},
+				graphQLFields.toArray(new GraphQLField[0])));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
+		Assert.assertTrue(
+			equalsJSONObject(
+				cart, dataJSONObject.getJSONObject("channelCart")));
+	}
+
+	@Test
+	public void testGetChannelCartsPage() throws Exception {
+		Page<Cart> page = cartResource.getChannelCartsPage(
+			testGetChannelCartsPage_getChannelId());
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		Long channelId = testGetChannelCartsPage_getChannelId();
+		Long irrelevantChannelId =
+			testGetChannelCartsPage_getIrrelevantChannelId();
+
+		if ((irrelevantChannelId != null)) {
+			Cart irrelevantCart = testGetChannelCartsPage_addCart(
+				irrelevantChannelId, randomIrrelevantCart());
+
+			page = cartResource.getChannelCartsPage(irrelevantChannelId);
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantCart), (List<Cart>)page.getItems());
+			assertValid(page);
+		}
+
+		Cart cart1 = testGetChannelCartsPage_addCart(channelId, randomCart());
+
+		Cart cart2 = testGetChannelCartsPage_addCart(channelId, randomCart());
+
+		page = cartResource.getChannelCartsPage(channelId);
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(cart1, cart2), (List<Cart>)page.getItems());
+		assertValid(page);
+	}
+
+	protected Cart testGetChannelCartsPage_addCart(Long channelId, Cart cart)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Long testGetChannelCartsPage_getChannelId() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Long testGetChannelCartsPage_getIrrelevantChannelId()
+		throws Exception {
+
+		return null;
+	}
+
+	protected Cart testGraphQLCart_addCart() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	protected void assertHttpResponseStatusCode(
@@ -256,19 +352,15 @@ public abstract class BaseCartResourceTestCase {
 	protected void assertValid(Cart cart) {
 		boolean valid = true;
 
+		if (cart.getId() == null) {
+			valid = false;
+		}
+
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
 			if (Objects.equals("accountId", additionalAssertFieldName)) {
 				if (cart.getAccountId() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("orderId", additionalAssertFieldName)) {
-				if (cart.getOrderId() == null) {
 					valid = false;
 				}
 
@@ -354,10 +446,8 @@ public abstract class BaseCartResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("orderId", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						cart1.getOrderId(), cart2.getOrderId())) {
-
+			if (Objects.equals("id", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(cart1.getId(), cart2.getId())) {
 					return false;
 				}
 
@@ -404,9 +494,9 @@ public abstract class BaseCartResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("orderId", fieldName)) {
+			if (Objects.equals("id", fieldName)) {
 				if (!Objects.deepEquals(
-						cart.getOrderId(), jsonObject.getLong("orderId"))) {
+						cart.getId(), jsonObject.getLong("id"))) {
 
 					return false;
 				}
@@ -476,7 +566,7 @@ public abstract class BaseCartResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("orderId")) {
+		if (entityFieldName.equals("id")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -516,7 +606,7 @@ public abstract class BaseCartResourceTestCase {
 		return new Cart() {
 			{
 				accountId = RandomTestUtil.randomLong();
-				orderId = RandomTestUtil.randomLong();
+				id = RandomTestUtil.randomLong();
 			}
 		};
 	}

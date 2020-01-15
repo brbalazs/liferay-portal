@@ -49,26 +49,24 @@ public class Cart {
 
 	protected Long accountId;
 
-	public Long getOrderId() {
-		return orderId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setOrderId(Long orderId) {
-		this.orderId = orderId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public void setOrderId(
-		UnsafeSupplier<Long, Exception> orderIdUnsafeSupplier) {
-
+	public void setId(UnsafeSupplier<Long, Exception> idUnsafeSupplier) {
 		try {
-			orderId = orderIdUnsafeSupplier.get();
+			id = idUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected Long orderId;
+	protected Long id;
 
 	public OrderItem[] getOrderItems() {
 		return orderItems;

@@ -16,6 +16,8 @@ package com.liferay.headless.commerce.delivery.cart.client.resource.v1_0;
 
 import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.Cart;
 import com.liferay.headless.commerce.delivery.cart.client.http.HttpInvoker;
+import com.liferay.headless.commerce.delivery.cart.client.pagination.Page;
+import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.CartSerDes;
 
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -36,11 +38,16 @@ public interface CartResource {
 		return new Builder();
 	}
 
-	public Cart getStoreChannelCart(Long channelId, Long orderId)
+	public Cart getChannelCart(Long cartId, Long channelId) throws Exception;
+
+	public HttpInvoker.HttpResponse getChannelCartHttpResponse(
+			Long cartId, Long channelId)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse getStoreChannelCartHttpResponse(
-			Long channelId, Long orderId)
+	public Page<Cart> getChannelCartsPage(Long channelId) throws Exception;
+
+	public HttpInvoker.HttpResponse getChannelCartsPageHttpResponse(
+			Long channelId)
 		throws Exception;
 
 	public static class Builder {
@@ -98,11 +105,11 @@ public interface CartResource {
 
 	public static class CartResourceImpl implements CartResource {
 
-		public Cart getStoreChannelCart(Long channelId, Long orderId)
+		public Cart getChannelCart(Long cartId, Long channelId)
 			throws Exception {
 
-			HttpInvoker.HttpResponse httpResponse =
-				getStoreChannelCartHttpResponse(channelId, orderId);
+			HttpInvoker.HttpResponse httpResponse = getChannelCartHttpResponse(
+				cartId, channelId);
 
 			String content = httpResponse.getContent();
 
@@ -113,8 +120,7 @@ public interface CartResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
 			try {
-				return com.liferay.headless.commerce.delivery.cart.client.
-					serdes.v1_0.CartSerDes.toDTO(content);
+				return CartSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -125,8 +131,8 @@ public interface CartResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getStoreChannelCartHttpResponse(
-				Long channelId, Long orderId)
+		public HttpInvoker.HttpResponse getChannelCartHttpResponse(
+				Long cartId, Long channelId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -153,8 +159,60 @@ public interface CartResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/stores/{channelId}/carts/{orderId}",
-				channelId, orderId);
+						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}",
+				cartId, channelId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Page<Cart> getChannelCartsPage(Long channelId) throws Exception {
+			HttpInvoker.HttpResponse httpResponse =
+				getChannelCartsPageHttpResponse(channelId);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			return Page.of(content, CartSerDes::toDTO);
+		}
+
+		public HttpInvoker.HttpResponse getChannelCartsPageHttpResponse(
+				Long channelId)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts",
+				channelId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

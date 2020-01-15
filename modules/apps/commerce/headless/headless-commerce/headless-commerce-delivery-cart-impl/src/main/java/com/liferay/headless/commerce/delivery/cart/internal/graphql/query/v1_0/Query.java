@@ -25,6 +25,7 @@ import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 import com.liferay.portal.vulcan.pagination.Page;
 
+import java.util.Map;
 import java.util.function.BiFunction;
 
 import javax.annotation.Generated;
@@ -54,31 +55,52 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {storeChannelCart(channelId: ___, orderId: ___){accountId, orderId, orderItems, summary}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelCart(cartId: ___, channelId: ___){accountId, id, orderItems, summary}}"}' -u 'test@liferay.com:test'
 	 */
-	@GraphQLField(description = "Retrieves products from selected channel.")
-	public Cart storeChannelCart(
-			@GraphQLName("channelId") Long channelId,
-			@GraphQLName("orderId") Long orderId)
+	@GraphQLField(description = "Retrive information of the given Cart.")
+	public Cart channelCart(
+			@GraphQLName("cartId") Long cartId,
+			@GraphQLName("channelId") Long channelId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_cartResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartResource -> cartResource.getStoreChannelCart(
-				channelId, orderId));
+			cartResource -> cartResource.getChannelCart(cartId, channelId));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelCarts(channelId: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField(
+		description = "Retrieves carts for specific account in the given channl."
+	)
+	public CartPage channelCarts(@GraphQLName("channelId") Long channelId)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_cartResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			cartResource -> new CartPage(
+				cartResource.getChannelCartsPage(channelId)));
 	}
 
 	@GraphQLName("CartPage")
 	public class CartPage {
 
 		public CartPage(Page cartPage) {
+			actions = cartPage.getActions();
 			items = cartPage.getItems();
 			lastPage = cartPage.getLastPage();
 			page = cartPage.getPage();
 			pageSize = cartPage.getPageSize();
 			totalCount = cartPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<Cart> items;

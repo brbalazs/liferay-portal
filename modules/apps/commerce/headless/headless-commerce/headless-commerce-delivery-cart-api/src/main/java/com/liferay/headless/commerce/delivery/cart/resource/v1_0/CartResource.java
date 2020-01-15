@@ -16,6 +16,7 @@ package com.liferay.headless.commerce.delivery.cart.resource.v1_0;
 
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
+import com.liferay.portal.vulcan.pagination.Page;
 
 import javax.annotation.Generated;
 
@@ -38,8 +39,9 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface CartResource {
 
-	public Cart getStoreChannelCart(Long channelId, Long orderId)
-		throws Exception;
+	public Cart getChannelCart(Long cartId, Long channelId) throws Exception;
+
+	public Page<Cart> getChannelCartsPage(Long channelId) throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

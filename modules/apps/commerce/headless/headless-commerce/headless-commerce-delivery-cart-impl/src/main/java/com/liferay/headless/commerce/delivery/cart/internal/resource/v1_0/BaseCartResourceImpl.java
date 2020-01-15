@@ -17,7 +17,10 @@ package com.liferay.headless.commerce.delivery.cart.internal.resource.v1_0;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
 import com.liferay.petra.function.UnsafeFunction;
+import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
+import com.liferay.portal.vulcan.pagination.Page;
+import com.liferay.portal.vulcan.util.ActionUtil;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +30,9 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Generated;
 
@@ -53,28 +58,49 @@ public abstract class BaseCartResourceImpl implements CartResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/stores/{channelId}/carts/{orderId}'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
-	@Operation(description = "Retrieves products from selected channel.")
+	@Operation(description = "Retrive information of the given Cart.")
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "channelId"),
-			@Parameter(in = ParameterIn.PATH, name = "orderId")
+			@Parameter(in = ParameterIn.PATH, name = "cartId")
 		}
 	)
-	@Path("/stores/{channelId}/carts/{orderId}")
+	@Path("/channels/{channelId}/carts/{cartId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
-	public Cart getStoreChannelCart(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-				channelId,
-			@NotNull @Parameter(hidden = true) @PathParam("orderId") Long
-				orderId)
+	public Cart getChannelCart(
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId
+				)
 		throws Exception {
 
 		return new Cart();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Operation(
+		description = "Retrieves carts for specific account in the given channl."
+	)
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "channelId")})
+	@Path("/channels/{channelId}/carts")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Cart")})
+	public Page<Cart> getChannelCartsPage(
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
 	}
 
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
@@ -107,6 +133,30 @@ public abstract class BaseCartResourceImpl implements CartResource {
 		com.liferay.portal.kernel.model.User contextUser) {
 
 		this.contextUser = contextUser;
+	}
+
+	protected Map<String, String> addAction(
+		String actionName, GroupedModel groupedModel, String methodName) {
+
+		return ActionUtil.addAction(
+			actionName, getClass(), groupedModel, methodName, contextUriInfo);
+	}
+
+	protected Map<String, String> addAction(
+		String actionName, Long id, String methodName, String permissionName,
+		Long siteId) {
+
+		return ActionUtil.addAction(
+			actionName, getClass(), id, methodName, permissionName, siteId,
+			contextUriInfo);
+	}
+
+	protected Map<String, String> addAction(
+		String actionName, String methodName, String permissionName,
+		Long siteId) {
+
+		return addAction(
+			actionName, siteId, methodName, permissionName, siteId);
 	}
 
 	protected void preparePatch(Cart cart, Cart existingCart) {

@@ -75,20 +75,18 @@ public class Cart {
 	protected Long accountId;
 
 	@Schema
-	public Long getOrderId() {
-		return orderId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setOrderId(Long orderId) {
-		this.orderId = orderId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	@JsonIgnore
-	public void setOrderId(
-		UnsafeSupplier<Long, Exception> orderIdUnsafeSupplier) {
-
+	public void setId(UnsafeSupplier<Long, Exception> idUnsafeSupplier) {
 		try {
-			orderId = orderIdUnsafeSupplier.get();
+			id = idUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -100,7 +98,7 @@ public class Cart {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected Long orderId;
+	protected Long id;
 
 	@Schema
 	@Valid
@@ -197,14 +195,14 @@ public class Cart {
 			sb.append(accountId);
 		}
 
-		if (orderId != null) {
+		if (id != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"orderId\": ");
+			sb.append("\"id\": ");
 
-			sb.append(orderId);
+			sb.append(id);
 		}
 
 		if (orderItems != null) {

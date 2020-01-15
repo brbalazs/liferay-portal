@@ -65,14 +65,14 @@ public class CartSerDes {
 			sb.append(cart.getAccountId());
 		}
 
-		if (cart.getOrderId() != null) {
+		if (cart.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"orderId\": ");
+			sb.append("\"id\": ");
 
-			sb.append(cart.getOrderId());
+			sb.append(cart.getId());
 		}
 
 		if (cart.getOrderItems() != null) {
@@ -130,11 +130,11 @@ public class CartSerDes {
 			map.put("accountId", String.valueOf(cart.getAccountId()));
 		}
 
-		if (cart.getOrderId() == null) {
-			map.put("orderId", null);
+		if (cart.getId() == null) {
+			map.put("id", null);
 		}
 		else {
-			map.put("orderId", String.valueOf(cart.getOrderId()));
+			map.put("id", String.valueOf(cart.getId()));
 		}
 
 		if (cart.getOrderItems() == null) {
@@ -177,9 +177,9 @@ public class CartSerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "orderId")) {
+			else if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
-					cart.setOrderId(Long.valueOf((String)jsonParserFieldValue));
+					cart.setId(Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "orderItems")) {
