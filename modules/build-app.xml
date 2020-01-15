@@ -1018,23 +1018,23 @@
 
 		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="${line.separator}" />
 
-		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="context-names=" />
-
-		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="${line.separator}" />
-
-		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="remote-app-id=${remote.app.id}" />
-
-		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="${line.separator}" />
-
-		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="version=1.0" />
-
-		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="${line.separator}" />
-
 		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="category=${title}" />
 
 		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="${line.separator}" />
 
+		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="context-names=" />
+
+		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="${line.separator}" />
+
 		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="description=${title}" />
+
+		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="${line.separator}" />
+
+		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="icon-url=https://www.liferay.com/web/guest/marketplace/-/mp/asset/icon/71985553" />
+
+		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="${line.separator}" />
+
+		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="remote-app-id=${remote.app.id}" />
 
 		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="${line.separator}" />
 
@@ -1046,7 +1046,7 @@
 
 		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="${line.separator}" />
 
-		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="icon-url=https://www.liferay.com/web/guest/marketplace/-/mp/asset/icon/71985553" />
+		<echo append="true" file="${lpkg.dir}/liferay-marketplace.properties" message="version=1.0" />
 	</target>
 
 	<target depends="dist-module-artifacts,get-app-change-log,zip-app-sources-init" if="zip.app.sources" name="zip-app-sources">
