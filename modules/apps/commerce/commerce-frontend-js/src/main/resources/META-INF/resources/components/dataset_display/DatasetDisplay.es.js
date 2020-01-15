@@ -12,8 +12,6 @@ import ManagementBar from './management_bar/index.es';
 import {getRenderers} from './utilities/contentRenderers.es';
 import {formatFilters} from './utilities/filters.es';
 
-
-
 function loadData(apiUrl, filters, delta, page = 1, sorting = []) {
 	const authString = `&p_auth=${window.Liferay.authToken}`;
 	const filterString = `&${createOdataFilterStrings(filters)}`;
@@ -166,29 +164,29 @@ function DatasetDisplay(props) {
 		>
 			<ClayIconSpriteContext.Provider value={props.spritemap}>
 				<Modal id={datasetDisplaySupportModalId} />
-					{props.style === 'default' && (
-						<div className="dataset-display">
-							{management_bar}
+				{props.style === 'default' && (
+					<div className="dataset-display">
+						{management_bar}
+						{content}
+						{pagination}
+					</div>
+				)}
+				{props.style === 'stacked' && (
+					<div className="dataset-display dataset-display-stacked">
+						{management_bar}
+						{content}
+						{pagination}
+					</div>
+				)}
+				{props.style === 'fluid' && (
+					<div className="dataset-display dataset-display-fluid">
+						{management_bar}
+						<div className="container mt-3">
 							{content}
 							{pagination}
 						</div>
-					)}
-					{props.style === 'stacked' && (
-						<div className="dataset-display dataset-display-stacked">
-							{management_bar}
-							{content}
-							{pagination}
-						</div>
-					)}
-					{props.style === 'fluid' && (
-						<div className="dataset-display dataset-display-fluid">
-							{management_bar}
-							<div className="container mt-3">
-								{content}
-								{pagination}
-							</div>
-						</div>
-					)}
+					</div>
+				)}
 			</ClayIconSpriteContext.Provider>
 		</DatasetDisplayContext.Provider>
 	);

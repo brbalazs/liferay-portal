@@ -916,8 +916,7 @@ const dataSetDisplayProps = {
 	},
 	showPagination: true,
 	sidePanelId: 'sidePanelTestId',
-	spritemap: './assets/icons.svg',
-	// style: 'fluid',
+	spritemap: './assets/icons.svg'
 }
 
 const emailsDataSetDisplayProps = {

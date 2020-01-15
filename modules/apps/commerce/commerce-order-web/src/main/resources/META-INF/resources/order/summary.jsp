@@ -1,4 +1,3 @@
-<%@ taglib prefix="commerce-ui" uri="http://liferay.com/tld/commerce-ui" %>
 <%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
@@ -241,11 +240,11 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 			<commerce-ui:dataset-display
 				contextParams="<%= contextParams %>"
 				dataProviderKey="<%= CommerceOrderItemClayTable.NAME %>"
+				id="<%= CommerceOrderItemClayTable.NAME %>"
 				itemsPerPage="<%= 10 %>"
 				namespace="<%= renderResponse.getNamespace() %>"
 				pageNumber="<%= 1 %>"
 				portletURL="<%= commerceOrderEditDisplayContext.getCommerceOrderItemsPortletURL() %>"
-				id="<%= CommerceOrderItemClayTable.NAME %>"
 			/>
 		</commerce-ui:panel>
 	</div>
