@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.order.web.internal.frontend;
 
-import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.currency.model.CommerceMoney;
@@ -43,19 +42,15 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
-import com.liferay.portal.kernel.portlet.PortalPreferences;
-import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.search.SortFactoryUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.TextFormatter;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +80,7 @@ public class CommerceOrderItemDataSetDataProvider
 		throws PortalException {
 
 		BaseModelSearchResult<CommerceOrderItem> baseModelSearchResult =
-			_getBaseModelSearchResult(httpServletRequest, filter, null);
+			_getBaseModelSearchResult(httpServletRequest, filter, null, null);
 
 		return baseModelSearchResult.getLength();
 	}
@@ -109,7 +104,8 @@ public class CommerceOrderItemDataSetDataProvider
 			_portal.getUserId(httpServletRequest), 0, 0);
 
 		BaseModelSearchResult<CommerceOrderItem> baseModelSearchResult =
-			_getBaseModelSearchResult(httpServletRequest, filter, pagination);
+			_getBaseModelSearchResult(
+				httpServletRequest, filter, pagination, sort);
 
 		for (CommerceOrderItem commerceOrderItem :
 				baseModelSearchResult.getBaseModels()) {
@@ -163,7 +159,7 @@ public class CommerceOrderItemDataSetDataProvider
 
 	private BaseModelSearchResult<CommerceOrderItem> _getBaseModelSearchResult(
 			HttpServletRequest httpServletRequest, Filter filter,
-			Pagination pagination)
+			Pagination pagination, Sort sort)
 		throws PortalException {
 
 		BaseModelSearchResult<CommerceOrderItem> baseModelSearchResult = null;
@@ -181,11 +177,6 @@ public class CommerceOrderItemDataSetDataProvider
 			start = pagination.getStartPosition();
 			end = pagination.getEndPosition();
 		}
-
-		_setSortPreferences(httpServletRequest);
-
-		Sort sort = SortFactoryUtil.getSort(
-			CommerceOrderItem.class, _orderByCol, _orderByType);
 
 		OrderItemFilterImpl orderItemFilterImpl = (OrderItemFilterImpl)filter;
 
@@ -386,47 +377,6 @@ public class CommerceOrderItemDataSetDataProvider
 		return subscriptionPeriod;
 	}
 
-	private void _setOrderByCol(String orderByCol) {
-		_orderByCol = orderByCol;
-	}
-
-	private void _setOrderByType(String orderByType) {
-		_orderByType = orderByType;
-	}
-
-	private void _setSortPreferences(HttpServletRequest httpServletRequest) {
-		PortalPreferences preferences =
-			PortletPreferencesFactoryUtil.getPortalPreferences(
-				httpServletRequest);
-
-		String orderByCol = ParamUtil.getString(
-			httpServletRequest, "orderByCol");
-		String orderByType = ParamUtil.getString(
-			httpServletRequest, "orderByType");
-
-		if (Validator.isNotNull(orderByCol) &&
-			Validator.isNotNull(orderByType)) {
-
-			preferences.setValue(
-				CommercePortletKeys.COMMERCE_ORDER,
-				"commerce-order-items-order-by-col", orderByCol);
-			preferences.setValue(
-				CommercePortletKeys.COMMERCE_ORDER,
-				"commerce-order-items-order-by-type", orderByType);
-		}
-		else {
-			orderByCol = preferences.getValue(
-				CommercePortletKeys.COMMERCE_ORDER,
-				"commerce-order-items-order-by-col", "sku");
-			orderByType = preferences.getValue(
-				CommercePortletKeys.COMMERCE_ORDER,
-				"commerce-order-items-order-by-type", "asc");
-		}
-
-		_setOrderByCol(orderByCol);
-		_setOrderByType(orderByType);
-	}
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceOrderItemDataSetDataProvider.class);
 
@@ -448,9 +398,6 @@ public class CommerceOrderItemDataSetDataProvider
 
 	@Reference
 	private CPSubscriptionTypeRegistry _cpSubscriptionTypeRegistry;
-
-	private String _orderByCol;
-	private String _orderByType;
 
 	@Reference
 	private Portal _portal;
