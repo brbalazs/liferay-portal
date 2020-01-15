@@ -27,7 +27,6 @@ import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderNoteService;
-import com.liferay.commerce.service.CommerceOrderPaymentLocalService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceShipmentService;
 import com.liferay.commerce.util.CommerceWorkflowedModelHelper;
@@ -73,9 +72,7 @@ public class EditCommerceOrderMVCRenderCommand implements MVCRenderCommand {
 					_commerceWorkflowedModelHelper, _commerceOrderService,
 					_commerceOrderItemService,
 					_commerceOrderModelResourcePermission,
-					_commerceOrderNoteService,
-					_commerceOrderPaymentLocalService,
-					_commerceOrderValidatorRegistry,
+					_commerceOrderNoteService, _commerceOrderValidatorRegistry,
 					_commercePaymentMethodGroupRelService,
 					_commerceOrderPriceCalculation, _commerceShipmentService,
 					_itemSelector, renderRequest, _userLocalService,
@@ -125,9 +122,6 @@ public class EditCommerceOrderMVCRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private CommerceOrderNoteService _commerceOrderNoteService;
-
-	@Reference
-	private CommerceOrderPaymentLocalService _commerceOrderPaymentLocalService;
 
 	@Reference
 	private CommerceOrderPriceCalculation _commerceOrderPriceCalculation;

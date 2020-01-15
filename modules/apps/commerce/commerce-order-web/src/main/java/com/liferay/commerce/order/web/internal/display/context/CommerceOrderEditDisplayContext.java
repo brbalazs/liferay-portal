@@ -112,7 +112,6 @@ public class CommerceOrderEditDisplayContext {
 			CommerceOrderItemService commerceOrderItemService,
 			ModelResourcePermission commerceOrderModelResourcePermission,
 			CommerceOrderNoteService commerceOrderNoteService,
-			CommerceOrderPaymentLocalService commerceOrderPaymentLocalService,
 			CommerceOrderValidatorRegistry commerceOrderValidatorRegistry,
 			CommercePaymentMethodGroupRelService
 				commercePaymentMethodGroupRelService,
@@ -135,7 +134,6 @@ public class CommerceOrderEditDisplayContext {
 		_commerceOrderModelResourcePermission =
 			commerceOrderModelResourcePermission;
 		_commerceOrderNoteService = commerceOrderNoteService;
-		_commerceOrderPaymentLocalService = commerceOrderPaymentLocalService;
 		_commerceOrderValidatorRegistry = commerceOrderValidatorRegistry;
 		_commercePaymentMethodGroupRelService =
 			commercePaymentMethodGroupRelService;
@@ -232,44 +230,6 @@ public class CommerceOrderEditDisplayContext {
 		}
 
 		return portletURL;
-	}
-
-	public SearchContainer<CommerceNotificationQueueEntry>
-			getCommerceNotificationQueueEntriesSearchContainer()
-		throws PortalException {
-
-		if (_notificationSearchContainer != null) {
-			return _notificationSearchContainer;
-		}
-
-		_notificationSearchContainer = new SearchContainer<>(
-			_commerceOrderRequestHelper.getLiferayPortletRequest(),
-			getCommerceNotificationQueueEntriesPortletURL(), null,
-			"there-are-no-emails");
-
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
-				_commerceOrder.getGroupId());
-
-		int total =
-			_commerceNotificationQueueEntryLocalService.
-				getCommerceNotificationQueueEntriesCount(
-					commerceChannel.getSiteGroupId(),
-					CommerceOrder.class.getName(), getCommerceOrderId(), true);
-
-		_notificationSearchContainer.setTotal(total);
-
-		List<CommerceNotificationQueueEntry> results =
-			_commerceNotificationQueueEntryLocalService.
-				getCommerceNotificationQueueEntries(
-					commerceChannel.getSiteGroupId(),
-					CommerceOrder.class.getName(), getCommerceOrderId(), true,
-					_notificationSearchContainer.getStart(),
-					_notificationSearchContainer.getEnd(), null);
-
-		_notificationSearchContainer.setResults(results);
-
-		return _notificationSearchContainer;
 	}
 
 	public CommerceNotificationQueueEntry getCommerceNotificationQueueEntry()
@@ -429,35 +389,6 @@ public class CommerceOrderEditDisplayContext {
 		}
 
 		return portletURL;
-	}
-
-	public SearchContainer<CommerceOrderPayment>
-			getCommerceOrderPaymentsSearchContainer()
-		throws PortalException {
-
-		if (_paymentSearchContainer != null) {
-			return _paymentSearchContainer;
-		}
-
-		_paymentSearchContainer = new SearchContainer<>(
-			_commerceOrderRequestHelper.getLiferayPortletRequest(),
-			getCommerceOrderPaymentsPortletURL(), null,
-			"there-are-no-payment-transactions");
-
-		int total =
-			_commerceOrderPaymentLocalService.getCommerceOrderPaymentsCount(
-				getCommerceOrderId());
-
-		_paymentSearchContainer.setTotal(total);
-
-		List<CommerceOrderPayment> results =
-			_commerceOrderPaymentLocalService.getCommerceOrderPayments(
-				getCommerceOrderId(), _paymentSearchContainer.getStart(),
-				_paymentSearchContainer.getEnd(), null);
-
-		_paymentSearchContainer.setResults(results);
-
-		return _paymentSearchContainer;
 	}
 
 	public String getCommercePaymentMethodLabel(
@@ -973,8 +904,6 @@ public class CommerceOrderEditDisplayContext {
 	private final CommerceOrderItemService _commerceOrderItemService;
 	private final ModelResourcePermission _commerceOrderModelResourcePermission;
 	private final CommerceOrderNoteService _commerceOrderNoteService;
-	private final CommerceOrderPaymentLocalService
-		_commerceOrderPaymentLocalService;
 	private final CommerceOrderPriceCalculation _commerceOrderPriceCalculation;
 	private final CommerceOrderRequestHelper _commerceOrderRequestHelper;
 	private final CommerceOrderService _commerceOrderService;
@@ -986,9 +915,6 @@ public class CommerceOrderEditDisplayContext {
 	private final CommerceShipmentService _commerceShipmentService;
 	private final CommerceWorkflowedModelHelper _commerceWorkflowedModelHelper;
 	private final ItemSelector _itemSelector;
-	private SearchContainer<CommerceNotificationQueueEntry>
-		_notificationSearchContainer;
-	private SearchContainer<CommerceOrderPayment> _paymentSearchContainer;
 	private final UserLocalService _userLocalService;
 	private final WorkflowTaskManager _workflowTaskManager;
 
