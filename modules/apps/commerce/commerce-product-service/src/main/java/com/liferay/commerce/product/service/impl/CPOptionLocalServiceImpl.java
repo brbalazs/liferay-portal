@@ -164,11 +164,11 @@ public class CPOptionLocalServiceImpl extends CPOptionLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<CPOption> findByCompanyId(
+	public List<CPOption> findCPOptionByCompanyId(
 		long companyId, int start, int end,
 		OrderByComparator<CPOption> orderByComparator) {
 
-		return cpOptionPersistence.findByCompanyId(
+		return cpOptionPersistence.filterFindByCompanyId(
 			companyId, start, end, orderByComparator);
 	}
 

@@ -15,8 +15,8 @@
 package com.liferay.commerce.product.util.comparator;
 
 import com.liferay.commerce.product.model.CPOption;
-import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.StringUtil;
 
 /**
  * @author Andrea Sbarra
@@ -39,8 +39,10 @@ public class CPOptionNameComparator extends OrderByComparator<CPOption> {
 
 	@Override
 	public int compare(CPOption cpOption1, CPOption cpOption2) {
-		int value = DateUtil.compareTo(
-			cpOption1.getModifiedDate(), cpOption2.getModifiedDate());
+		String name1 = StringUtil.toLowerCase(cpOption1.getName());
+		String name2 = StringUtil.toLowerCase(cpOption2.getName());
+
+		int value = name1.compareTo(name2);
 
 		if (_ascending) {
 			return value;
