@@ -16,10 +16,34 @@
 
 <%@ include file="/subscription_info/init.jsp" %>
 
-<c:if test="<%= Validator.isNotNull(subscriptionPeriod) %>">
-	<span class="product-subscription-period">(<%= subscriptionPeriod %>)</span>
-</c:if>
+<div class="row">
+	<div>
+		<%= LanguageUtil.get(request, "payment-subscription") %>
+	</div>
 
-<c:if test="<%= Validator.isNotNull(durationPeriod) %>">
-	<span class="product-subscription-period"> <%= durationPeriod %></span>
-</c:if>
+	<div>
+		<c:if test="<%= Validator.isNotNull(subscriptionPeriod) %>">
+			<span class="product-subscription-period">(<%= subscriptionPeriod %>)</span>
+		</c:if>
+
+		<c:if test="<%= Validator.isNotNull(durationPeriod) %>">
+			<span class="product-subscription-period"> <%= durationPeriod %></span>
+		</c:if>
+	</div>
+</div>
+
+<div class="row">
+	<div>
+		<%= LanguageUtil.get(request, "delivery-subscription") %>
+	</div>
+
+	<div>
+		<c:if test="<%= Validator.isNotNull(subscriptionPeriod) %>">
+			<span class="product-subscription-period">(<%= deliverySubscriptionPeriod %>)</span>
+		</c:if>
+
+		<c:if test="<%= Validator.isNotNull(durationPeriod) %>">
+			<span class="product-subscription-period"> <%= deliveryDurationPeriod %></span>
+		</c:if>
+	</div>
+</div>

@@ -60,11 +60,23 @@ public class ProductSubscriptionInfoTag extends IncludeTag {
 
 			_length = cpSubscriptionInfo.getSubscriptionLength();
 
+			_deliveryLength =
+				cpSubscriptionInfo.getDeliverySubscriptionLength();
+
 			_duration = _length * cpSubscriptionInfo.getMaxSubscriptionCycles();
+
+			_deliveryDuration =
+				_deliveryLength *
+					cpSubscriptionInfo.getDeliveryMaxSubscriptionCycles();
 
 			String subscriptionType = cpSubscriptionInfo.getSubscriptionType();
 
+			String deliverySubscriptionType =
+				cpSubscriptionInfo.getDeliverySubscriptionType();
+
 			String period = StringPool.BLANK;
+
+			String deliveryPeriod = StringPool.BLANK;
 
 			ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 				WebKeys.THEME_DISPLAY);
@@ -73,13 +85,28 @@ public class ProductSubscriptionInfoTag extends IncludeTag {
 				cpSubscriptionTypeRegistry.getCPSubscriptionType(
 					subscriptionType);
 
+			CPSubscriptionType cpDeliverySubscriptionType =
+				cpSubscriptionTypeRegistry.getCPSubscriptionType(
+					deliverySubscriptionType);
+
 			if (cpSubscriptionType != null) {
 				period = cpSubscriptionType.getLabel(themeDisplay.getLocale());
 			}
 
+			if (cpDeliverySubscriptionType != null) {
+				deliveryPeriod = cpDeliverySubscriptionType.getLabel(
+					themeDisplay.getLocale());
+			}
+
 			_subscriptionPeriodKey = _getPeriodKey(period, _length != 1);
 
+			_deliverySubscriptionPeriodKey = _getPeriodKey(
+				deliveryPeriod, _deliveryLength != 1);
+
 			_durationPeriodKey = _getPeriodKey(period, _duration != 1);
+
+			_deliveryDurationPeriodKey = _getPeriodKey(
+				deliveryPeriod, _deliveryDuration != 1);
 		}
 		catch (PortalException pe) {
 			if (_log.isDebugEnabled()) {
@@ -95,10 +122,24 @@ public class ProductSubscriptionInfoTag extends IncludeTag {
 				new Object[] {_duration, _durationPeriodKey});
 		}
 
+		if (_deliveryShowDuration && (_deliveryDuration > 0)) {
+			_deliveryDurationPeriod = LanguageUtil.format(
+				request, "duration-x-x",
+				new Object[] {_deliveryDuration, _deliveryDurationPeriodKey});
+		}
+
 		if ((_length > 0) && Validator.isNotNull(_subscriptionPeriodKey)) {
 			_subscriptionPeriod = LanguageUtil.format(
 				request, "every-x-x",
 				new Object[] {_length, _subscriptionPeriodKey});
+		}
+
+		if ((_deliveryLength > 0) &&
+			Validator.isNotNull(_deliverySubscriptionPeriodKey)) {
+
+			_deliverySubscriptionPeriod = LanguageUtil.format(
+				request, "every-x-x",
+				new Object[] {_deliveryLength, _deliverySubscriptionPeriodKey});
 		}
 
 		return super.doStartTag();
@@ -134,6 +175,13 @@ public class ProductSubscriptionInfoTag extends IncludeTag {
 		super.cleanUp();
 
 		_cpInstanceId = 0;
+		_deliveryDuration = 0;
+		_deliveryDurationPeriod = null;
+		_deliveryDurationPeriodKey = null;
+		_deliveryLength = 0;
+		_deliveryShowDuration = true;
+		_deliverySubscriptionPeriod = null;
+		_deliverySubscriptionPeriodKey = null;
 		_duration = 0;
 		_durationPeriod = null;
 		_durationPeriodKey = null;
@@ -150,6 +198,12 @@ public class ProductSubscriptionInfoTag extends IncludeTag {
 
 	@Override
 	protected void setAttributes(HttpServletRequest request) {
+		request.setAttribute(
+			"liferay-commerce:subscription-info:deliveryDurationPeriod",
+			_deliveryDurationPeriod);
+		request.setAttribute(
+			"liferay-commerce:subscription-info:deliverySubscriptionPeriod",
+			_deliverySubscriptionPeriod);
 		request.setAttribute(
 			"liferay-commerce:subscription-info:durationPeriod",
 			_durationPeriod);
@@ -176,6 +230,13 @@ public class ProductSubscriptionInfoTag extends IncludeTag {
 		ProductSubscriptionInfoTag.class);
 
 	private long _cpInstanceId;
+	private long _deliveryDuration;
+	private String _deliveryDurationPeriod;
+	private String _deliveryDurationPeriodKey;
+	private int _deliveryLength;
+	private boolean _deliveryShowDuration = true;
+	private String _deliverySubscriptionPeriod;
+	private String _deliverySubscriptionPeriodKey;
 	private long _duration;
 	private String _durationPeriod;
 	private String _durationPeriodKey;

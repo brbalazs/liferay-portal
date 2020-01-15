@@ -18,11 +18,14 @@
 
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 
-<%@ page import="com.liferay.portal.kernel.util.Validator" %>
+<%@ page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
+page import="com.liferay.portal.kernel.util.Validator" %>
 
 <liferay-theme:defineObjects />
 
 <%
 String durationPeriod = (String)request.getAttribute("liferay-commerce:subscription-info:durationPeriod");
 String subscriptionPeriod = (String)request.getAttribute("liferay-commerce:subscription-info:subscriptionPeriod");
+String deliveryDurationPeriod = (String)request.getAttribute("liferay-commerce:subscription-info:deliveryDurationPeriod");
+String deliverySubscriptionPeriod = (String)request.getAttribute("liferay-commerce:subscription-info:deliverySubscriptionPeriod");
 %>
