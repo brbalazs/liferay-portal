@@ -80,18 +80,17 @@ public class LPKGArtifactInstaller implements ArtifactInstaller {
 		List<File> lpkgFiles = ContainerLPKGUtil.deploy(
 			file, _bundleContext, properties);
 
-		if (lpkgFiles != null) {
-			try (SafeClosable safeCloseable =
-					LPKGBatchInstallThreadLocal.setBatchInstallInProcess(
-						true)) {
-
-				_batchInstall(lpkgFiles);
-			}
+		if (lpkgFiles == null) {
+			_install(file, properties);
 
 			return;
 		}
 
-		_install(file, properties);
+		try (SafeClosable safeCloseable =
+				LPKGBatchInstallThreadLocal.setBatchInstallInProcess(true)) {
+
+			_batchInstall(lpkgFiles);
+		}
 	}
 
 	@Override
@@ -138,7 +137,7 @@ public class LPKGArtifactInstaller implements ArtifactInstaller {
 		for (Map.Entry<Bundle, List<Bundle>> entry : lpkgBundles.entrySet()) {
 			List<Bundle> bundles = entry.getValue();
 
-			for (Bundle bundle : entry.getValue()) {
+			for (Bundle bundle : bundles) {
 				try {
 					BundleStartLevelUtil.setStartLevelAndStart(
 						bundle,
