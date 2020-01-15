@@ -87,11 +87,13 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 />
 
 <div class="row">
-	<div class="col-12 mb-4">
-		<commerce-ui:step-tracker
-			steps="<%= commerceOrderEditDisplayContext.getOrderSteps() %>"
-		/>
-	</div>
+	<c:if test="<%= !commerceOrder.isOpen() %>">
+		<div class="col-12 mb-4">
+			<commerce-ui:step-tracker
+				steps="<%= commerceOrderEditDisplayContext.getOrderSteps() %>"
+			/>
+		</div>
+	</c:if>
 
 	<div class="col-12">
 		<commerce-ui:panel
@@ -232,7 +234,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 		>
 
 			<%
-			java.util.Map<String, String> contextParams = new java.util.HashMap<>();
+			Map<String, String> contextParams = new HashMap<>();
 
 			contextParams.put("commerceOrderId", String.valueOf(commerceOrder.getCommerceOrderId()));
 			%>
