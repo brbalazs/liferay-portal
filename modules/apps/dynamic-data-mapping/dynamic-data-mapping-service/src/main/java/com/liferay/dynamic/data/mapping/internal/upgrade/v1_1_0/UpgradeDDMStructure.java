@@ -65,6 +65,8 @@ public class UpgradeDDMStructure extends UpgradeProcess {
 		throws DDMExpressionException {
 
 		try {
+			visibilityExpression = removeSpaces(visibilityExpression);
+
 			DDMExpression<Boolean> ddmExpression =
 				_ddmExpressionFactory.createBooleanDDMExpression(
 					visibilityExpression);
@@ -96,6 +98,13 @@ public class UpgradeDDMStructure extends UpgradeProcess {
 
 			throw ddmee;
 		}
+	}
+
+	protected String removeSpaces(String expression) {
+		expression = expression.replaceAll(
+			_SPACE_NOT_IN_QUOTES_REGEX, StringPool.BLANK);
+
+		return expression;
 	}
 
 	protected String updateDefinition(String definition)
@@ -193,6 +202,10 @@ public class UpgradeDDMStructure extends UpgradeProcess {
 			}
 		}
 	}
+
+	private static final String _SPACE_NOT_IN_QUOTES_REGEX =
+		"\\s+(?=((\\\\[\\\\\"]|[^\\\\\"])*\"(\\\\[\\\\\"]|[^\\\\\"])*\")*(" +
+			"\\\\[\\\\\"]|[^\\\\\"])*$)";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		UpgradeDDMStructure.class);
