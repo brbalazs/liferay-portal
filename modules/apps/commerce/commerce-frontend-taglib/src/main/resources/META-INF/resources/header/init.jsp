@@ -37,19 +37,19 @@ page import="java.util.Map" %>
 <liferay-theme:defineObjects />
 
 <%
-boolean fullWidth = (boolean)request.getAttribute("liferay-commerce:header:fullWidth");
+List<HeaderActionModel> actions = (List<HeaderActionModel>)request.getAttribute("liferay-commerce:header:actions");
 Object bean = request.getAttribute("liferay-commerce:header:bean");
 String cssClasses = (String)request.getAttribute("liferay-commerce:header:cssClasses");
-String wrapperCssClasses = (String)request.getAttribute("liferay-commerce:header:wrapperCssClasses");
-Class<?> model = (Class<?>)request.getAttribute("liferay-commerce:header:model");
-String title = (String)request.getAttribute("liferay-commerce:header:title");
-String spritemap = (String)request.getAttribute("liferay-commerce:header:spritemap");
-String version = (String)request.getAttribute("liferay-commerce:header:version");
-String previewUrl = (String)request.getAttribute("liferay-commerce:header:previewUrl");
-String thumbnailUrl = (String)request.getAttribute("liferay-commerce:header:thumbnailUrl");
-List<HeaderActionModel> actions = (List<HeaderActionModel>)request.getAttribute("liferay-commerce:header:actions");
 List<DropdownItem> dropdownItems = (List<DropdownItem>)request.getAttribute("liferay-commerce:header:dropdownItems");
-String erc = (String)request.getAttribute("liferay-commerce:header:externalReferenceCode");
-String ercEditUrl = (String)request.getAttribute("liferay-commerce:header:externalReferenceCodeEditUrl");
 String assignerModalUrl = (String)request.getAttribute("liferay-commerce:header:assignerModalUrl");
+String externalReferenceCode = (String)request.getAttribute("liferay-commerce:header:externalReferenceCode");
+String externalReferenceCodeEditUrl = (String)request.getAttribute("liferay-commerce:header:externalReferenceCodeEditUrl");
+boolean fullWidth = (boolean)request.getAttribute("liferay-commerce:header:fullWidth");
+Class<?> model = (Class<?>)request.getAttribute("liferay-commerce:header:model");
+String previewUrl = (String)request.getAttribute("liferay-commerce:header:previewUrl");
+String spritemap = (String)request.getAttribute("liferay-commerce:header:spritemap");
+String thumbnailUrl = (String)request.getAttribute("liferay-commerce:header:thumbnailUrl");
+String title = (String)request.getAttribute("liferay-commerce:header:title");
+String version = (String)request.getAttribute("liferay-commerce:header:version");
+String wrapperCssClasses = (String)request.getAttribute("liferay-commerce:header:wrapperCssClasses");
 %>

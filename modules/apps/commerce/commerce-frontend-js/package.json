@@ -31,9 +31,6 @@
 		"clay-css": "^2.16.2",
 		"faker": "^4.1.0"
 	},
-	"workspaces": {
-		"nohoist": ["@clayui", "@clayui/**"]
-	},
 	"name": "commerce-frontend-js",
 	"private": true,
 	"scripts": {
@@ -43,5 +40,11 @@
 		"test": "liferay-npm-scripts test",
 		"watch": "liferay-npm-scripts webpack --watch --host 0.0.0.0"
 	},
-	"version": "1.0.6"
+	"version": "1.0.6",
+	"workspaces": {
+		"nohoist": [
+			"@clayui",
+			"@clayui/**"
+		]
+	}
 }

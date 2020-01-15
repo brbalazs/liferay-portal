@@ -37,8 +37,8 @@ String dataProviderKey = (String)request.getAttribute("liferay-commerce:dataset-
 String dataSetAPI = (String)request.getAttribute("liferay-commerce:dataset-display:dataSetAPI");
 Filter filter = (Filter)request.getAttribute("liferay-commerce:dataset-display:filter");
 String id = (String)request.getAttribute("liferay-commerce:dataset-display:id");
-int itemsPerPage = (int)request.getAttribute("liferay-commerce:dataset-display:itemsPerPage");
 Object items = request.getAttribute("liferay-commerce:dataset-display:items");
+int itemsPerPage = (int)request.getAttribute("liferay-commerce:dataset-display:itemsPerPage");
 String namespace = (String)request.getAttribute("liferay-commerce:dataset-display:namespace");
 int pageNumber = (int)request.getAttribute("liferay-commerce:dataset-display:pageNumber");
 List<ClayPaginationEntry> paginationEntries = (List<ClayPaginationEntry>)request.getAttribute("liferay-commerce:dataset-display:paginationEntries");
@@ -49,6 +49,7 @@ String style = (String)request.getAttribute("liferay-commerce:dataset-display:st
 int totalItems = (int)request.getAttribute("liferay-commerce:dataset-display:totalItems");
 
 JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
+
 String randomNamespace = PortalUtil.generateRandomKey(request, "taglib_step_tracker") + StringPool.UNDERLINE;
 
 String containerId = randomNamespace + "table-id";

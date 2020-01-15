@@ -77,10 +77,10 @@ public class MiniCartTag extends ComponentRendererTag {
 				}
 			}
 
+			String checkoutURL = StringPool.BLANK;
+
 			PortletURL commerceCheckoutPortletURL =
 				_commerceOrderHttpHelper.getCommerceCheckoutPortletURL(request);
-
-			String checkoutURL = StringPool.BLANK;
 
 			if (commerceCheckoutPortletURL != null) {
 				checkoutURL = String.valueOf(commerceCheckoutPortletURL);

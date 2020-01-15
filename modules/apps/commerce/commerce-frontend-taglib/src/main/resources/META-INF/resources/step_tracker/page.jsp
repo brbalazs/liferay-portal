@@ -23,8 +23,8 @@
 		"<%= stepTrackerId %>",
 		"<%= stepTrackerId %>",
 		{
-			steps: <%= jsonSerializer.serializeDeep(steps) %>,
-			spritemap: "<%= spritemap %>"
+			spritemap: "<%= spritemap %>",
+			steps: <%= jsonSerializer.serializeDeep(steps) %>
 		}
 	);
 </aui:script>

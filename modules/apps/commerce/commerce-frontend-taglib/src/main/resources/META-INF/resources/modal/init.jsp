@@ -23,11 +23,11 @@ page import="com.liferay.portal.kernel.util.PortalUtil" %>
 <liferay-theme:defineObjects />
 
 <%
-String url = (String)request.getAttribute("liferay-commerce:modal:url");
-String size = (String)request.getAttribute("liferay-commerce:modal:size");
-String title = (String)request.getAttribute("liferay-commerce:modal:title");
-String spritemap = (String)request.getAttribute("liferay-commerce:modal:spritemap");
-String id = (String)request.getAttribute("liferay-commerce:modal:id");
 boolean refreshPageOnClose = (boolean)request.getAttribute("liferay-commerce:modal:refreshPageOnClose");
+String id = (String)request.getAttribute("liferay-commerce:modal:id");
 String randomNamespace = PortalUtil.generateRandomKey(request, "taglib_modal") + StringPool.UNDERLINE;
+String size = (String)request.getAttribute("liferay-commerce:modal:size");
+String spritemap = (String)request.getAttribute("liferay-commerce:modal:spritemap");
+String title = (String)request.getAttribute("liferay-commerce:modal:title");
+String url = (String)request.getAttribute("liferay-commerce:modal:url");
 %>

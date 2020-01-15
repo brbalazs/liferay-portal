@@ -40,30 +40,28 @@ public class SearchResultsTag extends ComponentRendererTag {
 		CommerceContext commerceContext = (CommerceContext)request.getAttribute(
 			CommerceWebKeys.COMMERCE_CONTEXT);
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
 		try {
 			CommerceAccount commerceAccount =
 				commerceContext.getCommerceAccount();
 
-			if (commerceAccount != null) {
-				putValue(
-					"commerceAccountId",
-					commerceAccount.getCommerceAccountId());
-			}
+			putValue(
+				"commerceAccountId", commerceAccount.getCommerceAccountId());
 		}
 		catch (PortalException pe) {
 			_log.error(pe, pe);
 		}
 
 		putValue(
+			"searchAPI",
+			PortalUtil.getPortalURL(request) + "/o/commerce-ui/search/");
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		putValue(
 			"spritemap",
 			themeDisplay.getPathThemeImages() + "/commerce-icons.svg");
 
-		putValue(
-			"searchAPI",
-			PortalUtil.getPortalURL(request) + "/o/commerce-ui/search/");
 		putValue("visible", false);
 
 		setTemplateNamespace("SearchResults.render");

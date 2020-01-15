@@ -28,9 +28,10 @@ page import="com.liferay.portal.kernel.util.PortalUtil" %>
 <liferay-theme:defineObjects />
 
 <%
-	List<SummaryItem> items = (List<SummaryItem>)request.getAttribute("liferay-commerce:summary:items");
-	String randomNamespace = PortalUtil.generateRandomKey(request, "taglib_summary") + StringPool.UNDERLINE;
+List<SummaryItem> items = (List<SummaryItem>)request.getAttribute("liferay-commerce:summary:items");
+JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
 
-	String summaryId = randomNamespace + "summary-id";
-	JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
+String randomNamespace = PortalUtil.generateRandomKey(request, "taglib_summary") + StringPool.UNDERLINE;
+
+String summaryId = randomNamespace + "summary-id";
 %>

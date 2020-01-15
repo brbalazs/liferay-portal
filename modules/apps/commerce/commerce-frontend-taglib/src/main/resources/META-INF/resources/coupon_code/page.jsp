@@ -59,7 +59,9 @@ if (commerceOrder != null) {
 						headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 						method: 'post'
 					})
-						.then(function(res) {return res.json()})
+						.then(function(res) {
+							return res.json();
+						})
 						.then(function(payload) {
 							if (payload.success) {
 								window.location.reload();
@@ -109,7 +111,9 @@ if (commerceOrder != null) {
 						headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
 						method: 'post'
 					})
-						.then(function(res) {return res.json()})
+						.then(function(res) {
+							return res.json();
+						})
 						.then(function(payload) {
 							if (payload.success) {
 								window.location.reload();

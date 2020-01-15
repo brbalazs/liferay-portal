@@ -17,8 +17,8 @@
 <%@ include file="/panel/init.jsp" %>
 
 <%
-	String cardCssClasses = "card d-flex" + (Validator.isNotNull(elementClasses) ? " " + elementClasses : "");
-	String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? " " + bodyClasses : "");
+String cardCssClasses = "card d-flex" + (Validator.isNotNull(elementClasses) ? " " + elementClasses : "");
+String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? " " + bodyClasses : "");
 %>
 
 <div class="<%= cardCssClasses %>">
@@ -31,15 +31,18 @@
 					const link = document.getElementById('<%= linkId %>');
 
 					if (link) {
-						link.addEventListener('click', function(e) {
-							e.preventDefault();
-							Liferay.fire(
-								eventsDefinitions.OPEN,
-								{
-									id: "<%= actionTargetId %>"
-								}
-							)
-						})
+						link.addEventListener(
+							'click',
+							function(e) {
+								e.preventDefault();
+								Liferay.fire(
+									eventsDefinitions.OPEN,
+									{
+										id: "<%= actionTargetId %>"
+									}
+								);
+							}
+						);
 					}
 				</aui:script>
 			</c:if>

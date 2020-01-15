@@ -34,27 +34,37 @@
 </div>
 
 <aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events, commerce-frontend-js/utilities/index.es as utilities">
-	document.querySelectorAll(".modal-closer").forEach(function(trigger) {
-		trigger.addEventListener("click", function(e) {
-		  e.preventDefault();
-		  window.parent.Liferay.fire(events.CLOSE_MODAL);
-		})
-	})
+	document.querySelectorAll(".modal-closer").forEach(
+		function(trigger) {
+			trigger.addEventListener(
+				"click",
+				function(e) {
+					e.preventDefault();
+					window.parent.Liferay.fire(events.CLOSE_MODAL);
+				}
+			);
+		}
+	);
 
-	document.querySelectorAll(".form-submitter").forEach(function(trigger) {
-		trigger.addEventListener("click", function(e) {
-			e.preventDefault();
+	document.querySelectorAll(".form-submitter").forEach(
+		function(trigger) {
+			trigger.addEventListener(
+				"click",
+				function(e) {
+					e.preventDefault();
 
-			var form = document.querySelector("form");
+					var form = document.querySelector("form");
 
-			if (form) {
-				submitForm(form);
-			}
-			else {
-				throw new Error("no forms found");
-			}
-		})
-	})
+					if (form) {
+						submitForm(form);
+					}
+					else {
+						throw new Error("no forms found");
+					}
+				}
+			);
+		}
+	);
 
 	var iframeContent = document.querySelector(".modal-iframe-content");
 	var iframeFooter = document.querySelector(".modal-iframe-footer");
@@ -70,5 +80,4 @@
 
 		window.addEventListener("resize", debouncedAdjustBottomSpace);
 	}
-
 </aui:script>

@@ -73,7 +73,7 @@ public class DatasetDisplayTag extends IncludeTag {
 			_setPagination();
 
 			StringBundler sb = new StringBundler(
-				11 + (_contextParams.size() * 2));
+				11 + (_contextParams.size() * 4));
 
 			sb.append(PortalUtil.getPortalURL(request));
 			sb.append("/o/commerce-ui/commerce-data-set/");
@@ -188,9 +188,6 @@ public class DatasetDisplayTag extends IncludeTag {
 	protected List<ClayPaginationEntry> getClayPaginationEntries() {
 		String portletURLString = _portletURL.toString();
 
-		portletURLString = HttpUtil.removeParameter(
-			portletURLString, _namespace + _deltaParam);
-
 		List<ClayPaginationEntry> clayPaginationEntries = new ArrayList<>();
 
 		for (int curDelta : PropsValues.SEARCH_CONTAINER_PAGE_DELTA_VALUES) {
@@ -198,7 +195,7 @@ public class DatasetDisplayTag extends IncludeTag {
 				continue;
 			}
 
-			String curDeltaURL = HttpUtil.addParameter(
+			String curDeltaURL = HttpUtil.setParameter(
 				portletURLString, _namespace + _deltaParam, curDelta);
 
 			clayPaginationEntries.add(

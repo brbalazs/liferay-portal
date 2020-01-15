@@ -26,12 +26,11 @@
 			<%= jsonSerializer.serializeDeep(clayTableContext) %>,
 			{
 				apiUrl : "<%= dataSetAPI %>",
-				// filters : <%= jsonSerializer.serializeDeep(filter) %>,
 				filters : [
 					{
+						id: 'text-test',
 						label: 'Text test',
 						operator: 'contains',
-						id: 'text-test',
 						type: 'text',
 						value: 'Test input'
 					},
@@ -46,9 +45,9 @@
 								value: 'second-option'
 							}
 						],
+						id: 'select-test',
 						label: 'Select test',
 						operator: 'eq',
-						id: 'select-test',
 						type: 'select',
 						value: 'second-option'
 					},
@@ -63,9 +62,9 @@
 								value: 'second-option'
 							}
 						],
+						id: 'radio-test',
 						label: 'Radio test',
 						operator: 'eq',
-						id: 'radio-test',
 						type: 'radio'
 					},
 					{
@@ -83,19 +82,19 @@
 								value: 'third-option'
 							}
 						],
+						id: 'checkbox-test',
 						label: 'Checkbox test',
 						operator: 'contains',
-						id: 'checkbox-test',
 						type: 'checkbox',
 						value: ['first-option', 'third-option']
 					},
 					{
+						id: 'number-test',
 						inputText: '$',
 						label: 'Number test',
 						max: 200,
 						min: 20,
 						operator: 'eq',
-						id: 'number-test',
 						type: 'number',
 						value: 123
 					}

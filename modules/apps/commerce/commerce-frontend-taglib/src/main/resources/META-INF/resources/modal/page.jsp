@@ -28,12 +28,12 @@ String containerId = randomNamespace + "modal-root";
 		"<%= containerId %>",
 		{
 			id: "<%= id %>",
+			onClose: <%= refreshPageOnClose %> ? function() { window.location.reload() } : null,
 			portletId: "<%= portletDisplay.getRootPortletId() %>",
-			url: "<%= url %>",
 			size: "<%= size %>",
-			title: "<%= title %>",
 			spritemap: "<%= spritemap %>",
-			onClose: <%= refreshPageOnClose %> ? function() { window.location.reload() } : null
+			title: "<%= title %>",
+			url: "<%= url %>"
 		}
 	);
 </aui:script>

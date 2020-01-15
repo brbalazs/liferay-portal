@@ -66,7 +66,7 @@ public class OrderSubscriptionInfoTag extends ComponentRendererTag {
 			}
 			catch (Exception e) {
 				if (_log.isDebugEnabled()) {
-					_log.debug(e.getMessage(), e);
+					_log.debug(e, e);
 				}
 			}
 
@@ -104,14 +104,14 @@ public class OrderSubscriptionInfoTag extends ComponentRendererTag {
 
 			String period = StringPool.BLANK;
 
-			ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
 			CPSubscriptionType cpSubscriptionType =
 				cpSubscriptionTypeRegistry.getCPSubscriptionType(
 					subscriptionType);
 
 			if (cpSubscriptionType != null) {
+				ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+					WebKeys.THEME_DISPLAY);
+
 				period = cpSubscriptionType.getLabel(themeDisplay.getLocale());
 			}
 

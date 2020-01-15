@@ -57,28 +57,31 @@
 									</span>
 
 									<strong class="header-info-value">
-										<%= erc %>
+										<%= externalReferenceCode %>
 									</strong>
 
 									<liferay-ui:icon-help message='<%= LanguageUtil.get(request, "external-reference-code") %>' />
 
-									<c:if test="<%= Validator.isNotNull(ercEditUrl) %>">
+									<c:if test="<%= Validator.isNotNull(externalReferenceCodeEditUrl) %>">
 										<button class="btn btn-link btn-unstyled header-info-link ml-3" id="erc-edit-modal-opener">
 											<%= LanguageUtil.get(request, "edit") %>
 										</button>
 
 										<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
-											document.querySelector("#erc-edit-modal-opener").addEventListener("click", function(e) {
-												e.preventDefault();
-												Liferay.fire(events.OPEN_MODAL, {id: "erc-edit-modal"});
-											})
+											document.querySelector("#erc-edit-modal-opener").addEventListener(
+												"click",
+												function(e) {
+													e.preventDefault();
+													Liferay.fire(events.OPEN_MODAL, {id: "erc-edit-modal"});
+												}
+											);
 										</aui:script>
 
 										<commerce-ui:modal
 											id="erc-edit-modal"
 											refreshPageOnClose="<%= true %>"
 											title='<%= LanguageUtil.get(request, "edit-erc") %>'
-											url="<%= ercEditUrl %>"
+											url="<%= externalReferenceCodeEditUrl %>"
 										/>
 									</c:if>
 								</small>
@@ -139,17 +142,19 @@
 								</button>
 
 								<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
-									document.querySelector("#edit-assignee-modal-opener").addEventListener("click", function(e) {
-										e.preventDefault();
-										Liferay.fire(events.OPEN_MODAL, {id: "edit-assignee-modal"});
-									})
+									document.querySelector("#edit-assignee-modal-opener").addEventListener(
+										"click", function(e) {
+											e.preventDefault();
+											Liferay.fire(events.OPEN_MODAL, {id: "edit-assignee-modal"});
+										}
+									);
 								</aui:script>
 
 								<commerce-ui:modal
 									id="edit-assignee-modal"
 									refreshPageOnClose="<%= true %>"
 									title='<%= LanguageUtil.get(request, "edit-current-assignee") %>'
-									url="<%= ercEditUrl %>"
+									url="<%= externalReferenceCodeEditUrl %>"
 								/>
 							</c:if>
 						</div>
@@ -199,8 +204,8 @@
 </div>
 
 <aui:script require="commerce-frontend-js/utilities/index.es as utilities">
-	var pageHeader = document.querySelector(".page-header");
 	var commerceHeader = document.querySelector(".commerce-header");
+	var pageHeader = document.querySelector(".page-header");
 
 	function updateMenuDistanceFromTop() {
 		var distanceFromTop = commerceHeader.getClientRects()[0].bottom;

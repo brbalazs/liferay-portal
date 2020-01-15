@@ -36,9 +36,9 @@ public class SidePanelContentTag extends IncludeTag {
 	public int doStartTag() throws JspException {
 		setAttributeNamespace(_ATTRIBUTE_NAMESPACE);
 
+		setNamespacedAttribute(request, "showCloseButton", _showCloseButton);
 		setNamespacedAttribute(request, "sidePanelId", _sidePanelId);
 		setNamespacedAttribute(request, "title", _title);
-		setNamespacedAttribute(request, "showCloseButton", _showCloseButton);
 
 		super.doStartTag();
 

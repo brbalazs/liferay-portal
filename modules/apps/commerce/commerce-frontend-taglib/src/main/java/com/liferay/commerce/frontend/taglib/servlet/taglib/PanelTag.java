@@ -41,10 +41,6 @@ public class PanelTag extends IncludeTag {
 	public int doStartTag() throws JspException {
 		setAttributeNamespace(_ATTRIBUTE_NAMESPACE);
 
-		String randomNamespace =
-			PortalUtil.generateRandomKey(request, "commerce_panel") +
-				StringPool.UNDERLINE;
-
 		if (Validator.isNull(_spritemap)) {
 			ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 				WebKeys.THEME_DISPLAY);
@@ -52,16 +48,21 @@ public class PanelTag extends IncludeTag {
 			_spritemap = themeDisplay.getPathThemeImages() + "/clay/icons.svg";
 		}
 
-		setNamespacedAttribute(request, "spritemap", _spritemap);
-		setNamespacedAttribute(request, "title", _title);
-		setNamespacedAttribute(request, "actionLabel", _actionLabel);
 		setNamespacedAttribute(request, "actionIcon", _actionIcon);
+		setNamespacedAttribute(request, "actionLabel", _actionLabel);
 		setNamespacedAttribute(request, "actionTargetId", _actionTargetId);
 		setNamespacedAttribute(request, "actionUrl", _actionUrl);
+		setNamespacedAttribute(request, "bodyClasses", _bodyClasses);
+		setNamespacedAttribute(request, "elementClasses", _elementClasses);
 		setNamespacedAttribute(request, "showMoreId", _showMoreId);
 		setNamespacedAttribute(request, "showMoreUrl", _showMoreUrl);
-		setNamespacedAttribute(request, "elementClasses", _elementClasses);
-		setNamespacedAttribute(request, "bodyClasses", _bodyClasses);
+		setNamespacedAttribute(request, "spritemap", _spritemap);
+		setNamespacedAttribute(request, "title", _title);
+
+		String randomNamespace =
+			PortalUtil.generateRandomKey(request, "commerce_panel") +
+				StringPool.UNDERLINE;
+
 		setNamespacedAttribute(request, "randomNamespace", randomNamespace);
 
 		super.doStartTag();

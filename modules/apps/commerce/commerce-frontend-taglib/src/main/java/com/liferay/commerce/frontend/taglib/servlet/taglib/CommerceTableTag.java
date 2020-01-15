@@ -68,14 +68,12 @@ public class CommerceTableTag extends ComponentRendererTag {
 
 		String dataProviderKey = GetterUtil.getString(
 			context.get("dataProviderKey"));
-
 		String tableName = GetterUtil.getString(context.get("tableName"));
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
 		Layout layout = themeDisplay.getLayout();
-
 		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
 
 		try {
@@ -85,21 +83,15 @@ public class CommerceTableTag extends ComponentRendererTag {
 
 			setComponentId(tableName + "CommerceTable");
 
-			StringBundler sb = new StringBundler(11);
-
-			sb.append(PortalUtil.getPortalURL(request));
-			sb.append("/o/commerce-ui/commerce-data-set/");
-			sb.append(themeDisplay.getScopeGroupId());
-			sb.append(StringPool.FORWARD_SLASH);
-			sb.append(tableName);
-			sb.append(StringPool.FORWARD_SLASH);
-			sb.append(dataProviderKey);
-			sb.append("?plid=");
-			sb.append(layout.getPlid());
-			sb.append("&portletId=");
-			sb.append(portletDisplay.getId());
-
-			putValue("dataSetAPI", sb.toString());
+			putValue(
+				"dataSetAPI",
+				StringBundler.concat(
+					PortalUtil.getPortalURL(request),
+					"/o/commerce-ui/commerce-data-set/",
+					themeDisplay.getScopeGroupId(), StringPool.FORWARD_SLASH,
+					tableName, StringPool.FORWARD_SLASH, dataProviderKey,
+					"?plid=", layout.getPlid(), "&portletId=",
+					portletDisplay.getId()));
 
 			putValue(
 				"spritemap",

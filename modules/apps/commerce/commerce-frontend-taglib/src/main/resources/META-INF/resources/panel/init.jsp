@@ -26,17 +26,16 @@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 <liferay-theme:defineObjects />
 
 <%
-String title = (String)request.getAttribute("liferay-commerce:panel:title");
-String actionUrl = (String)request.getAttribute("liferay-commerce:panel:actionUrl");
-String actionLabel = (String)request.getAttribute("liferay-commerce:panel:actionLabel");
 String actionIcon = (String)request.getAttribute("liferay-commerce:panel:actionIcon");
+String actionLabel = (String)request.getAttribute("liferay-commerce:panel:actionLabel");
 String actionTargetId = (String)request.getAttribute("liferay-commerce:panel:actionTargetId");
+String actionUrl = (String)request.getAttribute("liferay-commerce:panel:actionUrl");
+String bodyClasses = (String)request.getAttribute("liferay-commerce:panel:bodyClasses");
+String elementClasses = (String)request.getAttribute("liferay-commerce:panel:elementClasses");
+String randomNamespace = (String)request.getAttribute("liferay-commerce:panel:randomNamespace");
 String showMoreId = (String)request.getAttribute("liferay-commerce:panel:showMoreId");
 String showMoreUrl = (String)request.getAttribute("liferay-commerce:panel:showMoreUrl");
-
-String elementClasses = (String)request.getAttribute("liferay-commerce:panel:elementClasses");
-String bodyClasses = (String)request.getAttribute("liferay-commerce:panel:bodyClasses");
-String randomNamespace = (String)request.getAttribute("liferay-commerce:panel:randomNamespace");
+String title = (String)request.getAttribute("liferay-commerce:panel:title");
 
 String linkId = Validator.isNotNull(actionTargetId) ? actionTargetId : (randomNamespace + "header-link");
 String showMoreButtonId = Validator.isNotNull(showMoreId) ? showMoreId : (randomNamespace + "show-more-button");
