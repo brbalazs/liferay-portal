@@ -55,21 +55,29 @@ public class CartDTOConverter implements DTOConverter {
 	public Cart toDTO(DTOConverterContext dtoConverterContext)
 		throws Exception {
 
+		CartDTOConverterContext cartDTOConverterContext =
+			(CartDTOConverterContext)dtoConverterContext;
+
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
-			dtoConverterContext.getResourcePrimKey());
+			cartDTOConverterContext.getResourcePrimKey());
 
 		String languageId = LanguageUtil.getLanguageId(
-			dtoConverterContext.getLocale());
+			cartDTOConverterContext.getLocale());
 
-		return new Cart() {
-			{
-				accountId = commerceOrder.getCommerceAccountId();
-				orderId = commerceOrder.getCommerceOrderId();
-				orderItems = _getOrderItems(commerceOrder, languageId);
-				summary = _getSummary(
-					commerceOrder, dtoConverterContext.getLocale());
-			}
-		};
+		boolean useFullEntity = cartDTOConverterContext.isUseFullEntity();
+
+		Cart cart = new Cart();
+
+		cart.setId(commerceOrder.getCommerceOrderId());
+
+		if (useFullEntity) {
+			cart.setAccountId(commerceOrder.getCommerceAccountId());
+			cart.setOrderItems(_getOrderItems(commerceOrder, languageId));
+			cart.setSummary(
+				_getSummary(commerceOrder, dtoConverterContext.getLocale()));
+		}
+
+		return cart;
 	}
 
 	private OrderItem[] _getOrderItems(

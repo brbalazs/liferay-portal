@@ -14,13 +14,20 @@
 
 package com.liferay.headless.commerce.delivery.cart.internal.resource.v1_0;
 
+import com.liferay.commerce.exception.NoSuchOrderException;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.service.CommerceOrderService;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterRegistry;
-import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
+import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.CartDTOConverter;
+import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.CartDTOConverterContext;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.vulcan.pagination.Page;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -38,30 +45,66 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class CartResourceImpl extends BaseCartResourceImpl {
 
 	@Override
-	public Cart getStoreChannelCart(
-			@NotNull Long channelId, @NotNull Long orderId)
+	public Cart getChannelCart(@NotNull Long channelId, @NotNull Long cartId)
 		throws Exception {
 
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
-			orderId);
+			cartId);
 
-		return _toCart(commerceOrder);
+		CommerceChannel commerceChannel =
+			_commerceChannelService.getCommerceChannel(channelId);
+
+		if (commerceChannel.getGroupId() != commerceOrder.getGroupId()) {
+			throw new NoSuchOrderException("Can't find order on channel");
+		}
+
+		return _toCart(commerceOrder, true);
 	}
 
-	private Cart _toCart(CommerceOrder commerceOrder) throws Exception {
-		DTOConverter cartDTOConverter = _dtoConverterRegistry.getDTOConverter(
-			Cart.class.getName());
+	@Override
+	public Page<Cart> getChannelCartsPage(@NotNull Long channelId)
+		throws Exception {
 
-		return (Cart)cartDTOConverter.toDTO(
-			new DefaultDTOConverterContext(
+		CommerceChannel commerceChannel =
+			_commerceChannelService.getCommerceChannel(channelId);
+
+		List<CommerceOrder> commerceOrders =
+			_commerceOrderService.getUserPendingCommerceOrders(
+				contextCompany.getCompanyId(), commerceChannel.getGroupId(),
+				null, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+		return Page.of(_toCarts(commerceOrders, false));
+	}
+
+	private Cart _toCart(CommerceOrder commerceOrder, boolean useFullEntity)
+		throws Exception {
+
+		return _cartDTOConverter.toDTO(
+			new CartDTOConverterContext(
 				contextAcceptLanguage.getPreferredLocale(),
-				commerceOrder.getCommerceOrderId()));
+				commerceOrder.getCommerceOrderId(), useFullEntity));
 	}
+
+	private List<Cart> _toCarts(
+			List<CommerceOrder> commerceOrders, boolean useFullEntity)
+		throws Exception {
+
+		List<Cart> carts = new ArrayList<>();
+
+		for (CommerceOrder commerceOrder : commerceOrders) {
+			carts.add(_toCart(commerceOrder, useFullEntity));
+		}
+
+		return carts;
+	}
+
+	@Reference
+	private CartDTOConverter _cartDTOConverter;
+
+	@Reference
+	private CommerceChannelService _commerceChannelService;
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
-
-	@Reference
-	private DTOConverterRegistry _dtoConverterRegistry;
 
 }
