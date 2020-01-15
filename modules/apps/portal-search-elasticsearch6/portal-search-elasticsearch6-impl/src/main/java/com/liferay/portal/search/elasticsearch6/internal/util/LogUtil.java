@@ -46,8 +46,8 @@ public class LogUtil {
 	public static void logActionResponse(Log log, BulkResponse bulkResponse)
 		throws IOException {
 
-		if (bulkResponse.hasFailures()) {
-			log.error(bulkResponse.buildFailureMessage());
+		if (bulkResponse.hasFailures() && log.isWarnEnabled()) {
+			log.warn(bulkResponse.buildFailureMessage());
 		}
 
 		logActionResponse(log, (ActionResponse)bulkResponse);
