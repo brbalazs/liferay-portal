@@ -97,56 +97,22 @@ SearchContainer<CommerceOrderPayment> commerceOrderPaymentsSearchContainer = com
 			elementClasses="flex-fill"
 			title='<%= LanguageUtil.get(request, "payment-transactions") %>'
 		>
-			<liferay-ui:search-container
-				id="commerceOrderPayments"
-				searchContainer="<%= commerceOrderPaymentsSearchContainer %>"
-			>
-				<liferay-ui:search-container-row
-					className="com.liferay.commerce.model.CommerceOrderPayment"
-					cssClass="entry-display-style"
-					escapedModel="<%= true %>"
-					keyProperty="commerceOrderPaymentId"
-					modelVar="commerceOrderPayment"
-				>
-					<liferay-ui:search-container-column-text
-						name="type"
-					>
-						<clay:label
-							label="<%= LanguageUtil.get(request, CommerceOrderPaymentConstants.getOrderPaymentStatusLabel(commerceOrderPayment.getStatus())) %>"
-							style="<%= CommerceOrderPaymentConstants.getOrderPaymentLabelStyle(commerceOrderPayment.getStatus()) %>"
-						/>
-					</liferay-ui:search-container-column-text>
 
-					<%
-					String amount = StringPool.BLANK;
+			<%
+			Map<String, String> contextParams = new HashMap<>();
 
-					CommerceMoney totalMoney = commerceOrder.getTotalMoney();
+			contextParams.put("commerceOrderId", String.valueOf(commerceOrder.getCommerceOrderId()));
+			%>
 
-					if (totalMoney != null) {
-						amount = totalMoney.format(locale);
-					}
-					%>
-
-					<liferay-ui:search-container-column-text
-						name="amount"
-					>
-						<%= HtmlUtil.escape(amount) %>
-					</liferay-ui:search-container-column-text>
-
-					<liferay-ui:search-container-column-date
-						name="date"
-						property="createDate"
-					/>
-
-					<liferay-ui:search-container-column-text
-						property="content"
-					/>
-				</liferay-ui:search-container-row>
-
-				<liferay-ui:search-iterator
-					markupView="lexicon"
-				/>
-			</liferay-ui:search-container>
+			<commerce-ui:dataset-display
+				contextParams="<%= contextParams %>"
+				dataProviderKey="<%= CommercePaymentClayTable.NAME %>"
+				id="<%= CommercePaymentClayTable.NAME %>"
+				itemsPerPage="<%= 10 %>"
+				namespace="<%= renderResponse.getNamespace() %>"
+				pageNumber="<%= 1 %>"
+				portletURL="<%= commerceOrderEditDisplayContext.getCommerceOrderPaymentsPortletURL() %>"
+			/>
 		</commerce-ui:panel>
 	</div>
 </div>
