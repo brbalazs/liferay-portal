@@ -15,22 +15,30 @@
 package com.liferay.portal.service.persistence;
 
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.OrganizationConstants;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.service.OrganizationLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.service.persistence.OrganizationFinderUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.OrganizationTestUtil;
+import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
+import com.liferay.portal.kernel.util.LinkedHashMapBuilder;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.TransactionalTestRule;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -90,6 +98,77 @@ public class OrganizationFinderTest {
 			StringPool.NOT_EQUAL, null, null, null, null, params2);
 
 		Assert.assertEquals(count1, count2);
+	}
+
+	@Test
+	public void testSearchOrganizationsWithOrganizationsTreeParameter()
+		throws Exception {
+
+		testSearchOrganizationsWithOrganizationsTreeParameter(false, false);
+	}
+
+	@Test
+	public void testSearchOrganizationsWithOrganizationsTreeParameterAsAdminUser()
+		throws Exception {
+
+		testSearchOrganizationsWithOrganizationsTreeParameter(true, true);
+	}
+
+	@Test
+	public void testSearchOrganizationsWithOrganizationsTreeParameterAsUser()
+		throws Exception {
+
+		testSearchOrganizationsWithOrganizationsTreeParameter(true, false);
+	}
+
+	protected void testSearchOrganizationsWithOrganizationsTreeParameter(
+			boolean searchAsUser, boolean searchAsAdminUser)
+		throws Exception {
+
+		Organization organization = OrganizationTestUtil.addOrganization(
+			OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID,
+			RandomTestUtil.randomString(), false);
+
+		OrganizationTestUtil.addOrganization(
+			organization.getOrganizationId(), RandomTestUtil.randomString(),
+			false);
+
+		_user = UserTestUtil.addUser();
+
+		UserLocalServiceUtil.addOrganizationUsers(
+			organization.getOrganizationId(), new long[] {_user.getUserId()});
+
+		if (searchAsAdminUser) {
+			_user = UserTestUtil.addOrganizationAdminUser(organization);
+		}
+
+		if (searchAsUser) {
+			PermissionChecker permissionChecker =
+				PermissionCheckerFactoryUtil.create(_user);
+
+			PermissionThreadLocal.setPermissionChecker(permissionChecker);
+		}
+
+		LinkedHashMap<String, Object> organizationParams =
+			LinkedHashMapBuilder.<String, Object>put(
+				"organizationsTree", _user.getOrganizations(true)
+			).build();
+
+		List<Organization> finderSearchResults =
+			OrganizationLocalServiceUtil.search(
+				_user.getCompanyId(),
+				OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, null, null,
+				null, null, organizationParams, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		if (searchAsUser && searchAsAdminUser) {
+			Assert.assertEquals(
+				finderSearchResults.toString(), 2, finderSearchResults.size());
+		}
+		else {
+			Assert.assertEquals(
+				finderSearchResults.toString(), 1, finderSearchResults.size());
+		}
 	}
 
 	@DeleteAfterTestRun
