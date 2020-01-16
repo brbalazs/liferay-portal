@@ -40,13 +40,18 @@ else {
 }
 %>
 
+<liferay-portlet:renderURL var="editCommerceOrderExternalReferenceCodeURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+	<portlet:param name="mvcRenderCommandName" value="editCommerceOrderExternalReferenceCode" />
+	<portlet:param name="commerceOrderId" value="<%= String.valueOf(commerceOrderEditDisplayContext.getCommerceOrderId()) %>" />
+</liferay-portlet:renderURL>
+
 <commerce-ui:header
 	actions="<%= commerceOrderEditDisplayContext.getHeaderActionModels() %>"
 	assignerModalUrl="/assigner/modal/url"
 	bean="<%= commerceOrder %>"
 	dropdownItems="<%= commerceOrderEditDisplayContext.getDropdownItems() %>"
-	externalReferenceCode="123asd"
-	externalReferenceCodeEditUrl="/external/reference/code/edit/url"
+	externalReferenceCode="<%= commerceOrder.getExternalReferenceCode() %>"
+	externalReferenceCodeEditUrl="<%= editCommerceOrderExternalReferenceCodeURL %>"
 	model="<%= CommerceOrder.class %>"
 	thumbnailUrl="<%= commerceOrderEditDisplayContext.getCommerceAccountThumbnailURL() %>"
 	title="<%= headerTitle %>"

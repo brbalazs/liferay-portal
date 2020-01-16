@@ -61,11 +61,24 @@
 									</strong>
 
 									<liferay-ui:icon-help message='<%= LanguageUtil.get(request, "external-reference-code") %>' />
+								<small class="d-block">
+									<span class="header-info-title">
+										<liferay-ui:message key="erc" />:
+									</span>
+
+									<strong class="header-info-value">
+										<%= externalReferenceCode %>
+									</strong>
+
+									<liferay-ui:icon-help message="external-reference-code" />
 
 									<c:if test="<%= Validator.isNotNull(externalReferenceCodeEditUrl) %>">
-										<button class="btn btn-link btn-unstyled header-info-link ml-3" id="erc-edit-modal-opener">
-											<%= LanguageUtil.get(request, "edit") %>
-										</button>
+										<clay:link
+											elementClasses="btn btn-link btn-unstyled header-info-link ml-3"
+											href="#"
+											id="erc-edit-modal-opener"
+											label='<%= LanguageUtil.get(request, "edit") %>'
+										/>
 
 										<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
 											document
@@ -79,7 +92,7 @@
 										<commerce-ui:modal
 											id="erc-edit-modal"
 											refreshPageOnClose="<%= true %>"
-											title='<%= LanguageUtil.get(request, "edit-erc") %>'
+											title='<%= LanguageUtil.format(request, "edit-x", "external-reference-code") %>'
 											url="<%= externalReferenceCodeEditUrl %>"
 										/>
 									</c:if>
