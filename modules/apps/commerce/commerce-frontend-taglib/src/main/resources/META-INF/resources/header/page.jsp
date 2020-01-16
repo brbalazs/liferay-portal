@@ -252,21 +252,25 @@
 						</div>
 					</c:if>
 
-					<div class="align-items-center border-left col-auto d-flex pl-3">
-						<clay:dropdown-menu
-							buttonType="button"
-							dropdownItems="<%= dropdownItems %>"
-							icon="ellipsis-v"
-						/>
+					<c:if test=" <%= (Validator.isNotNull(dropdownItems) && !dropdownItems.isEmpty()) || Validator.isNotNull(previewUrl) %>">
+						<div class="align-items-center border-left col-auto d-flex pl-3">
+							<c:if test=" <%= Validator.isNotNull(dropdownItems) && !dropdownItems.isEmpty() %>">
+								<clay:dropdown-menu
+									buttonType="button"
+									dropdownItems="<%= dropdownItems %>"
+									icon="ellipsis-v"
+								/>
+							</c:if>
 
-						<c:if test="<%= Validator.isNotNull(previewUrl) %>">
-							<clay:link
-								elementClasses="btn btn-outline-borderless btn-outline-secondary btn-sm text-primary"
-								href="<%= previewUrl %>"
-								icon="shortcut"
-							/>
-						</c:if>
-					</div>
+							<c:if test="<%= Validator.isNotNull(previewUrl) %>">
+								<clay:link
+									elementClasses="btn btn-outline-borderless btn-outline-secondary btn-sm text-primary"
+									href="<%= previewUrl %>"
+									icon="shortcut"
+								/>
+							</c:if>
+						</div>
+					</c:if>
 				</div>
 			</div>
 		</div>
