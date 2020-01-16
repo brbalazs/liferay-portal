@@ -18,6 +18,9 @@ import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.Cart;
 import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.OrderItem;
 import com.liferay.headless.commerce.delivery.cart.client.json.BaseJSONParser;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
@@ -55,6 +58,23 @@ public class CartSerDes {
 
 		sb.append("{");
 
+		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+		if (cart.getAccount() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"account\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(cart.getAccount()));
+
+			sb.append("\"");
+		}
+
 		if (cart.getAccountId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -63,6 +83,34 @@ public class CartSerDes {
 			sb.append("\"accountId\": ");
 
 			sb.append(cart.getAccountId());
+		}
+
+		if (cart.getAuthor() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"author\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(cart.getAuthor()));
+
+			sb.append("\"");
+		}
+
+		if (cart.getCreateDate() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"createDate\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(cart.getCreateDate()));
+
+			sb.append("\"");
 		}
 
 		if (cart.getId() != null) {
@@ -95,6 +143,20 @@ public class CartSerDes {
 			sb.append("]");
 		}
 
+		if (cart.getStatus() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"status\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(cart.getStatus()));
+
+			sb.append("\"");
+		}
+
 		if (cart.getSummary() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -123,12 +185,32 @@ public class CartSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+		if (cart.getAccount() == null) {
+			map.put("account", null);
+		}
+		else {
+			map.put("account", String.valueOf(cart.getAccount()));
+		}
+
 		if (cart.getAccountId() == null) {
 			map.put("accountId", null);
 		}
 		else {
 			map.put("accountId", String.valueOf(cart.getAccountId()));
 		}
+
+		if (cart.getAuthor() == null) {
+			map.put("author", null);
+		}
+		else {
+			map.put("author", String.valueOf(cart.getAuthor()));
+		}
+
+		map.put(
+			"createDate", liferayToJSONDateFormat.format(cart.getCreateDate()));
 
 		if (cart.getId() == null) {
 			map.put("id", null);
@@ -142,6 +224,13 @@ public class CartSerDes {
 		}
 		else {
 			map.put("orderItems", String.valueOf(cart.getOrderItems()));
+		}
+
+		if (cart.getStatus() == null) {
+			map.put("status", null);
+		}
+		else {
+			map.put("status", String.valueOf(cart.getStatus()));
 		}
 
 		if (cart.getSummary() == null) {
@@ -171,10 +260,25 @@ public class CartSerDes {
 			Cart cart, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "accountId")) {
+			if (Objects.equals(jsonParserFieldName, "account")) {
+				if (jsonParserFieldValue != null) {
+					cart.setAccount((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "accountId")) {
 				if (jsonParserFieldValue != null) {
 					cart.setAccountId(
 						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "author")) {
+				if (jsonParserFieldValue != null) {
+					cart.setAuthor((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "createDate")) {
+				if (jsonParserFieldValue != null) {
+					cart.setCreateDate(toDate((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "id")) {
@@ -192,6 +296,11 @@ public class CartSerDes {
 						).toArray(
 							size -> new OrderItem[size]
 						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "status")) {
+				if (jsonParserFieldValue != null) {
+					cart.setStatus((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "summary")) {

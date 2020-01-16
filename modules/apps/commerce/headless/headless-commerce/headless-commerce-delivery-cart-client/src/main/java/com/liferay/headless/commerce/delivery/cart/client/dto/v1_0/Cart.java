@@ -17,6 +17,7 @@ package com.liferay.headless.commerce.delivery.cart.client.dto.v1_0;
 import com.liferay.headless.commerce.delivery.cart.client.function.UnsafeSupplier;
 import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.CartSerDes;
 
+import java.util.Date;
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -27,6 +28,27 @@ import javax.annotation.Generated;
  */
 @Generated("")
 public class Cart {
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+	public void setAccount(
+		UnsafeSupplier<String, Exception> accountUnsafeSupplier) {
+
+		try {
+			account = accountUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String account;
 
 	public Long getAccountId() {
 		return accountId;
@@ -48,6 +70,48 @@ public class Cart {
 	}
 
 	protected Long accountId;
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public void setAuthor(
+		UnsafeSupplier<String, Exception> authorUnsafeSupplier) {
+
+		try {
+			author = authorUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String author;
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public void setCreateDate(
+		UnsafeSupplier<Date, Exception> createDateUnsafeSupplier) {
+
+		try {
+			createDate = createDateUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Date createDate;
 
 	public Long getId() {
 		return id;
@@ -88,6 +152,27 @@ public class Cart {
 	}
 
 	protected OrderItem[] orderItems;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public void setStatus(
+		UnsafeSupplier<String, Exception> statusUnsafeSupplier) {
+
+		try {
+			status = statusUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String status;
 
 	public Summary getSummary() {
 		return summary;

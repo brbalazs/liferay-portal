@@ -25,6 +25,10 @@ import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
@@ -45,6 +49,34 @@ import javax.xml.bind.annotation.XmlRootElement;
 @JsonFilter("Liferay.Vulcan")
 @XmlRootElement(name = "Cart")
 public class Cart {
+
+	@Schema
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+	@JsonIgnore
+	public void setAccount(
+		UnsafeSupplier<String, Exception> accountUnsafeSupplier) {
+
+		try {
+			account = accountUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String account;
 
 	@Schema
 	public Long getAccountId() {
@@ -73,6 +105,62 @@ public class Cart {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long accountId;
+
+	@Schema
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	@JsonIgnore
+	public void setAuthor(
+		UnsafeSupplier<String, Exception> authorUnsafeSupplier) {
+
+		try {
+			author = authorUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String author;
+
+	@Schema
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	@JsonIgnore
+	public void setCreateDate(
+		UnsafeSupplier<Date, Exception> createDateUnsafeSupplier) {
+
+		try {
+			createDate = createDateUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Date createDate;
 
 	@Schema
 	public Long getId() {
@@ -130,6 +218,34 @@ public class Cart {
 	protected OrderItem[] orderItems;
 
 	@Schema
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	@JsonIgnore
+	public void setStatus(
+		UnsafeSupplier<String, Exception> statusUnsafeSupplier) {
+
+		try {
+			status = statusUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String status;
+
+	@Schema
 	@Valid
 	public Summary getSummary() {
 		return summary;
@@ -185,6 +301,23 @@ public class Cart {
 
 		sb.append("{");
 
+		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+		if (account != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"account\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(account));
+
+			sb.append("\"");
+		}
+
 		if (accountId != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -193,6 +326,34 @@ public class Cart {
 			sb.append("\"accountId\": ");
 
 			sb.append(accountId);
+		}
+
+		if (author != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"author\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(author));
+
+			sb.append("\"");
+		}
+
+		if (createDate != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"createDate\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(createDate));
+
+			sb.append("\"");
 		}
 
 		if (id != null) {
@@ -223,6 +384,20 @@ public class Cart {
 			}
 
 			sb.append("]");
+		}
+
+		if (status != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"status\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(status));
+
+			sb.append("\"");
 		}
 
 		if (summary != null) {
