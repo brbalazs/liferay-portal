@@ -251,7 +251,8 @@ public class CommerceTableTag extends ComponentRendererTag {
 		int itemsPerPage = GetterUtil.getInteger(context.get("itemsPerPage"));
 
 		List<Object> items = commerceDataSetDataProvider.getItems(
-			request, filter, new PaginationImpl(itemsPerPage, pageNumber), null);
+			request, filter, new PaginationImpl(itemsPerPage, pageNumber),
+			null);
 
 		String json = _clayTableDataJSONBuilder.build(
 			themeDisplay.getScopeGroupId(), tableName, items, request);

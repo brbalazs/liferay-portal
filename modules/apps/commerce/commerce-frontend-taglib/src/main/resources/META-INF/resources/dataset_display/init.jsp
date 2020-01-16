@@ -17,8 +17,7 @@
 <%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %><%@
 taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 
-<%@ page import="com.liferay.commerce.frontend.Filter" %><%@
-page import="com.liferay.commerce.frontend.taglib.internal.model.ClayPaginationEntry" %><%@
+<%@ page import="com.liferay.commerce.frontend.taglib.internal.model.ClayPaginationEntry" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.json.JSONFactoryUtil" %><%@
 page import="com.liferay.portal.kernel.json.JSONSerializer" %><%@
@@ -35,7 +34,6 @@ page import="java.util.Map" %>
 Map<String, Object> clayTableContext = (Map<String, Object>)request.getAttribute("liferay-commerce:dataset-display:clayTableContext");
 String dataProviderKey = (String)request.getAttribute("liferay-commerce:dataset-display:dataProviderKey");
 String dataSetAPI = (String)request.getAttribute("liferay-commerce:dataset-display:dataSetAPI");
-Filter filter = (Filter)request.getAttribute("liferay-commerce:dataset-display:filter");
 String id = (String)request.getAttribute("liferay-commerce:dataset-display:id");
 Object items = request.getAttribute("liferay-commerce:dataset-display:items");
 int itemsPerPage = (int)request.getAttribute("liferay-commerce:dataset-display:itemsPerPage");
