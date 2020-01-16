@@ -235,11 +235,18 @@
 
 							<%
 							for (HeaderActionModel action : actions) {
-								String buttonStyle = "btn " + action.getAdditionalClasses();
+								String buttonClasses = "btn ";
+
+								if (Validator.isNotNull(action.getAdditionalClasses())) {
+									buttonClasses += action.getAdditionalClasses();
+								}
+								else {
+									buttonClasses += "btn-default";
+								}
 							%>
 
 								<clay:link
-									elementClasses="<%= buttonStyle %>"
+									elementClasses="<%= buttonClasses %>"
 									href="<%= action.getHref() %>"
 									id="<%= action.getId() %>"
 									label="<%= LanguageUtil.get(request, action.getLabel()) %>"

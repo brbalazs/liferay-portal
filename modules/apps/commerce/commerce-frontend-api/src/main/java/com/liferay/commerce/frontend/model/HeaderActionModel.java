@@ -14,9 +14,6 @@
 
 package com.liferay.commerce.frontend.model;
 
-import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.util.Validator;
-
 /**
  * @author Marco Leo
  * @author Alessio Antonio Rendina
@@ -28,14 +25,6 @@ public class HeaderActionModel {
 
 	public HeaderActionModel(
 		String additionalClasses, String href, String id, String label) {
-
-		if (Validator.isNull(additionalClasses)) {
-			additionalClasses = "btn-default";
-		}
-
-		if (Validator.isNull(href)) {
-			href = StringPool.POUND;
-		}
 
 		_additionalClasses = additionalClasses;
 		_href = href;
@@ -60,18 +49,10 @@ public class HeaderActionModel {
 	}
 
 	public void setAdditionalClasses(String additionalClasses) {
-		if (Validator.isNull(_additionalClasses)) {
-			additionalClasses = "btn-default";
-		}
-
 		_additionalClasses = additionalClasses;
 	}
 
 	public void setHref(String href) {
-		if (Validator.isNull(href)) {
-			href = StringPool.POUND;
-		}
-
 		_href = href;
 	}
 
