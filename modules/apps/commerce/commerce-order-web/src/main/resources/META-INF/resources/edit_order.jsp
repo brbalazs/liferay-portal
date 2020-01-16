@@ -24,7 +24,9 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 String headerTitle = null;
 
 if (commerceOrder != null) {
-	headerTitle = LanguageUtil.format(request, "order-x", commerceOrder.getCommerceOrderId());
+	CommerceAccount commerceAccount = commerceOrder.getCommerceAccount();
+
+	headerTitle = commerceAccount.getName();
 }
 else {
 	headerTitle = LanguageUtil.get(request, "add-order");
