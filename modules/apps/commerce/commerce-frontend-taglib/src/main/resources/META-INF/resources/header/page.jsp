@@ -22,6 +22,8 @@
 	if (bean instanceof WorkflowedModel) {
 		isWorkflowedModel = true;
 	}
+
+	BaseModel beanBaseModel = (BaseModel)bean;
 %>
 
 <div class="bg-white border-bottom commerce-header<%= fullWidth ? " container-fluid" : StringPool.BLANK %><%= Validator.isNotNull(wrapperCssClasses) ? StringPool.SPACE + wrapperCssClasses : StringPool.BLANK %>">
@@ -65,7 +67,7 @@
 									</span>
 
 									<strong class="header-info-value">
-										<%= beanId %>
+										<%= beanBaseModel.getPrimaryKeyObj() %>
 									</strong>
 
 									<liferay-ui:icon-help message="identification-number" />

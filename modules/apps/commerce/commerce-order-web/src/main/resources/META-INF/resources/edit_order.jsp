@@ -50,7 +50,6 @@ else {
 <commerce-ui:header
 	actions="<%= commerceOrderEditDisplayContext.getHeaderActionModels() %>"
 	bean="<%= commerceOrder %>"
-	beanId="<%= commerceOrder.getCommerceOrderId() %>"
 	beanIdLabel="order-id"
 	dropdownItems="<%= commerceOrderEditDisplayContext.getDropdownItems() %>"
 	externalReferenceCode="<%= commerceOrder.getExternalReferenceCode() %>"

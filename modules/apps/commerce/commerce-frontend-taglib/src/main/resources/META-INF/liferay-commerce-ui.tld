@@ -187,11 +187,6 @@
 			<type>java.lang.Object</type>
 		</attribute>
 		<attribute>
-			<name>beanId</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
 			<name>beanIdLabel</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>

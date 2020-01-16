@@ -29,6 +29,7 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
+page import="com.liferay.portal.kernel.model.BaseModel" %><%@
 page import="com.liferay.portal.kernel.model.WorkflowedModel" %><%@
 page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
@@ -48,7 +49,6 @@ page import="java.util.Map" %>
 <%
 List<HeaderActionModel> actions = (List<HeaderActionModel>)request.getAttribute("liferay-commerce:header:actions");
 Object bean = request.getAttribute("liferay-commerce:header:bean");
-long beanId = (long)request.getAttribute("liferay-commerce:header:beanId");
 String beanIdLabel = (String)request.getAttribute("liferay-commerce:header:beanIdLabel");
 String cssClasses = (String)request.getAttribute("liferay-commerce:header:cssClasses");
 List<DropdownItem> dropdownItems = (List<DropdownItem>)request.getAttribute("liferay-commerce:header:dropdownItems");

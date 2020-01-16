@@ -45,10 +45,6 @@ public class HeaderTag extends IncludeTag {
 		return _bean;
 	}
 
-	public long getBeanId() {
-		return _beanId;
-	}
-
 	public String getBeanLabel() {
 		return _beanIdLabel;
 	}
@@ -115,10 +111,6 @@ public class HeaderTag extends IncludeTag {
 
 	public void setBean(Object bean) {
 		_bean = bean;
-	}
-
-	public void setBeanId(long beanId) {
-		_beanId = beanId;
 	}
 
 	public void setBeanIdLabel(String beanIdLabel) {
@@ -193,7 +185,6 @@ public class HeaderTag extends IncludeTag {
 		_actions = null;
 		_assignerModalUrl = null;
 		_bean = null;
-		_beanId = 0;
 		_beanIdLabel = null;
 		_cssClasses = null;
 		_dropdownItems = null;
@@ -228,7 +219,6 @@ public class HeaderTag extends IncludeTag {
 		request.setAttribute(
 			"liferay-commerce:header:assignerModalUrl", _assignerModalUrl);
 		request.setAttribute("liferay-commerce:header:bean", _bean);
-		request.setAttribute("liferay-commerce:header:beanId", _beanId);
 		request.setAttribute(
 			"liferay-commerce:header:beanIdLabel", _beanIdLabel);
 		request.setAttribute("liferay-commerce:header:cssClasses", _cssClasses);
@@ -261,7 +251,6 @@ public class HeaderTag extends IncludeTag {
 	private List<HeaderActionModel> _actions;
 	private String _assignerModalUrl;
 	private Object _bean;
-	private long _beanId;
 	private String _beanIdLabel;
 	private String _cssClasses;
 	private List<DropdownItem> _dropdownItems;
