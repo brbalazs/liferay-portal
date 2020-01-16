@@ -16,8 +16,11 @@ package com.liferay.commerce.order.web.internal.portlet.action;
 
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.exception.NoSuchOrderException;
+import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.notification.service.CommerceNotificationQueueEntryLocalService;
 import com.liferay.commerce.notification.service.CommerceNotificationTemplateService;
+import com.liferay.commerce.order.CommerceOrderHelper;
+import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.web.internal.display.context.CommerceOrderEditDisplayContext;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelService;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
@@ -31,9 +34,11 @@ import com.liferay.commerce.service.CommerceShipmentService;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.workflow.WorkflowTaskManager;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -65,12 +70,16 @@ public class EditCommerceOrderItemMVCRenderCommand implements MVCRenderCommand {
 					_commerceAddressService, _commerceChannelLocalService,
 					_commerceNotificationTemplateService,
 					_commerceNotificationQueueEntryLocalService,
-					_commerceOrderService, _commerceOrderItemService,
+					_commerceOrderHelper, _commerceOrderService,
+					_commerceOrderItemService,
+					_commerceOrderModelResourcePermission,
 					_commerceOrderNoteService,
 					_commerceOrderPaymentLocalService,
+					_commerceOrderValidatorRegistry,
 					_commercePaymentMethodGroupRelService,
 					_commerceOrderPriceCalculation, _commerceShipmentService,
-					_itemSelector, renderRequest, _userLocalService);
+					_itemSelector, renderRequest, _userLocalService,
+					_workflowTaskManager);
 
 			renderRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -106,7 +115,16 @@ public class EditCommerceOrderItemMVCRenderCommand implements MVCRenderCommand {
 		_commerceNotificationTemplateService;
 
 	@Reference
+	private CommerceOrderHelper _commerceOrderHelper;
+
+	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.model.CommerceOrder)"
+	)
+	private ModelResourcePermission<CommerceOrder>
+		_commerceOrderModelResourcePermission;
 
 	@Reference
 	private CommerceOrderNoteService _commerceOrderNoteService;
@@ -121,6 +139,9 @@ public class EditCommerceOrderItemMVCRenderCommand implements MVCRenderCommand {
 	private CommerceOrderService _commerceOrderService;
 
 	@Reference
+	private CommerceOrderValidatorRegistry _commerceOrderValidatorRegistry;
+
+	@Reference
 	private CommercePaymentMethodGroupRelService
 		_commercePaymentMethodGroupRelService;
 
@@ -132,5 +153,8 @@ public class EditCommerceOrderItemMVCRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private UserLocalService _userLocalService;
+
+	@Reference
+	private WorkflowTaskManager _workflowTaskManager;
 
 }
