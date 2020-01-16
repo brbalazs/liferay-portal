@@ -59,18 +59,18 @@ public class EditCommerceOrderItemMVCActionCommand
 	protected void addCommerceOrderItems(ActionRequest actionRequest)
 		throws Exception {
 
+		long commerceOrderId = ParamUtil.getLong(
+			actionRequest, "commerceOrderId");
+
 		CommerceContext commerceContext =
 			(CommerceContext)actionRequest.getAttribute(
 				CommerceWebKeys.COMMERCE_CONTEXT);
 
-		long commerceOrderId = ParamUtil.getLong(
-			actionRequest, "commerceOrderId");
-
-		long[] cpInstanceIds = StringUtil.split(
-			ParamUtil.getString(actionRequest, "cpInstanceIds"), 0L);
-
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			CommerceOrderItem.class.getName(), actionRequest);
+
+		long[] cpInstanceIds = ParamUtil.getLongValues(
+			actionRequest, "cpInstanceIds");
 
 		for (long cpInstanceId : cpInstanceIds) {
 			CPInstance cpInstance = _cpInstanceService.getCPInstance(
@@ -98,10 +98,8 @@ public class EditCommerceOrderItemMVCActionCommand
 			deleteCommerceOrderItemIds = new long[] {commerceOrderItemId};
 		}
 		else {
-			deleteCommerceOrderItemIds = StringUtil.split(
-				ParamUtil.getString(
-					actionRequest, "deleteCommerceOrderItemIds"),
-				0L);
+			deleteCommerceOrderItemIds = ParamUtil.getLongValues(
+				actionRequest, "deleteCommerceOrderItemIds");
 		}
 
 		for (long deleteCommerceOrderItemId : deleteCommerceOrderItemIds) {
@@ -142,22 +140,21 @@ public class EditCommerceOrderItemMVCActionCommand
 
 		long commerceOrderItemId = ParamUtil.getLong(
 			actionRequest, "commerceOrderItemId");
-
-		CommerceContext commerceContext =
-			(CommerceContext)actionRequest.getAttribute(
-				CommerceWebKeys.COMMERCE_CONTEXT);
+		int quantity = ParamUtil.getInteger(actionRequest, "quantity");
 
 		CommerceOrderItem commerceOrderItem =
 			_commerceOrderItemService.getCommerceOrderItem(commerceOrderItemId);
 
 		CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
 
-		int quantity = ParamUtil.getInteger(actionRequest, "quantity");
-
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			CommerceOrderItem.class.getName(), actionRequest);
-
 		if (commerceOrder.isOpen()) {
+			CommerceContext commerceContext =
+				(CommerceContext)actionRequest.getAttribute(
+					CommerceWebKeys.COMMERCE_CONTEXT);
+
+			ServiceContext serviceContext = ServiceContextFactory.getInstance(
+				CommerceOrderItem.class.getName(), actionRequest);
+
 			_commerceOrderItemService.updateCommerceOrderItem(
 				commerceOrderItemId, quantity, commerceContext, serviceContext);
 		}

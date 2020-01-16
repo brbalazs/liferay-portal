@@ -21,15 +21,6 @@ CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrder
 
 CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
 
-portletDisplay.setShowBackIcon(true);
-
-if (Validator.isNull(redirect)) {
-	portletDisplay.setURLBack(String.valueOf(renderResponse.createRenderURL()));
-}
-else {
-	portletDisplay.setURLBack(redirect);
-}
-
 String headerTitle = null;
 
 if (commerceOrder != null) {
@@ -37,6 +28,15 @@ if (commerceOrder != null) {
 }
 else {
 	headerTitle = LanguageUtil.get(request, "add-order");
+}
+
+portletDisplay.setShowBackIcon(true);
+
+if (Validator.isNull(redirect)) {
+	portletDisplay.setURLBack(String.valueOf(renderResponse.createRenderURL()));
+}
+else {
+	portletDisplay.setURLBack(redirect);
 }
 %>
 

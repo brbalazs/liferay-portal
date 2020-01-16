@@ -22,22 +22,22 @@ CommerceContext commerceContext = (CommerceContext)request.getAttribute(Commerce
 
 CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrderEditDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
-long commerceOrderId = commerceOrderEditDisplayContext.getCommerceOrderId();
-
 CommerceAddress billingAddress = null;
+
+CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
 
 if (commerceOrder != null) {
 	billingAddress = commerceOrder.getBillingAddress();
 }
 
+long commerceOrderId = commerceOrderEditDisplayContext.getCommerceOrderId();
 List<CommercePaymentMethodGroupRel> commercePaymentMethods = commerceOrderEditDisplayContext.getCommercePaymentMethods();
 
 long commerceCountryId = BeanParamUtil.getLong(billingAddress, request, "commerceCountryId");
 long commerceRegionId = BeanParamUtil.getLong(billingAddress, request, "commerceRegionId");
 
-int paymentStatus = BeanParamUtil.getInteger(commerceOrder, request, "paymentStatus");
 String commercePaymentMethodKey = BeanParamUtil.getString(commerceOrder, request, "commercePaymentMethodKey");
+int paymentStatus = BeanParamUtil.getInteger(commerceOrder, request, "paymentStatus");
 %>
 
 <liferay-portlet:actionURL name="editCommerceOrder" var="editCommerceOrderURL" />
@@ -153,8 +153,8 @@ String commercePaymentMethodKey = BeanParamUtil.getString(commerceOrder, request
 						'/commerce.commercecountry/get-billing-commerce-countries-by-channel-id',
 						{
 							commerceChannelId: <%= commerceContext.getCommerceChannelId() %>,
-							start: -1,
-							end: -1
+							end: -1,
+							start: -1
 						},
 						callback
 					);
@@ -170,8 +170,8 @@ String commercePaymentMethodKey = BeanParamUtil.getString(commerceOrder, request
 					Liferay.Service(
 						'/commerce.commerceregion/get-commerce-regions',
 						{
-							commerceCountryId: Number(selectKey),
-							active: true
+							active: true,
+							commerceCountryId: Number(selectKey)
 						},
 						callback
 					);

@@ -34,7 +34,7 @@ public class OrderItemFilterFactoryImpl implements FilterFactory {
 
 	@Override
 	public Filter create(HttpServletRequest httpServletRequest) {
-		OrderItemFilterImpl orderItemFilter = new OrderItemFilterImpl();
+		OrderItemFilterImpl orderItemFilterImpl = new OrderItemFilterImpl();
 
 		boolean advancedSearch = ParamUtil.getBoolean(
 			httpServletRequest, "advancedSearch");
@@ -44,13 +44,13 @@ public class OrderItemFilterFactoryImpl implements FilterFactory {
 		String name = ParamUtil.getString(httpServletRequest, "name");
 		String sku = ParamUtil.getString(httpServletRequest, "sku");
 
-		orderItemFilter.setAdvancedSearch(advancedSearch);
-		orderItemFilter.setAndOperator(andOperator);
-		orderItemFilter.setKeywords(keywords);
-		orderItemFilter.setName(name);
-		orderItemFilter.setSku(sku);
+		orderItemFilterImpl.setAdvancedSearch(advancedSearch);
+		orderItemFilterImpl.setAndOperator(andOperator);
+		orderItemFilterImpl.setKeywords(keywords);
+		orderItemFilterImpl.setName(name);
+		orderItemFilterImpl.setSku(sku);
 
-		return orderItemFilter;
+		return orderItemFilterImpl;
 	}
 
 }

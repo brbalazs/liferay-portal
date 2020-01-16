@@ -20,7 +20,7 @@
 CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrderEditDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
-List<CommercePaymentMethodGroupRel> commercePaymentMethods = commerceOrderEditDisplayContext.getCommercePaymentMethods();
+List<CommercePaymentMethodGroupRel> commercePaymentMethodGroupRels = commerceOrderEditDisplayContext.getCommercePaymentMethods();
 %>
 
 <portlet:actionURL name="editCommerceOrder" var="editCommerceOrderPaymentMethodActionURL" />
@@ -34,7 +34,7 @@ List<CommercePaymentMethodGroupRel> commercePaymentMethods = commerceOrderEditDi
 		<liferay-ui:error exception="<%= CommerceOrderPaymentMethodException.class %>" message="please-select-a-valid-payment-method" />
 
 		<c:choose>
-			<c:when test="<%= commercePaymentMethods.isEmpty() %>">
+			<c:when test="<%= commercePaymentMethodGroupRels.isEmpty() %>">
 				<aui:row>
 					<aui:col width="<%= 100 %>">
 						<aui:alert closeable="<%= false %>" type="info">
@@ -47,7 +47,7 @@ List<CommercePaymentMethodGroupRel> commercePaymentMethods = commerceOrderEditDi
 				<ul class="list-group">
 
 					<%
-					for (CommercePaymentMethodGroupRel commercePaymentMethodGroupRel : commercePaymentMethods) {
+					for (CommercePaymentMethodGroupRel commercePaymentMethodGroupRel : commercePaymentMethodGroupRels) {
 					%>
 
 						<li class="commerce-payment-types list-group-item list-group-item-flex">

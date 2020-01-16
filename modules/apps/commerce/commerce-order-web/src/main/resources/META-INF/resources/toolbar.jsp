@@ -20,17 +20,17 @@
 <%
 CommerceOrderListDisplayContext commerceOrderListDisplayContext = (CommerceOrderListDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
+List<KeyValuePair> availableAdvanceStatusKVPs = commerceOrderListDisplayContext.getAvailableAdvanceStatusKVPs();
+List<KeyValuePair> availableOrderStatusKVPs = commerceOrderListDisplayContext.getAvailableOrderStatusKVPs();
+List<CommerceChannel> channels = commerceOrderListDisplayContext.getCommerceChannels();
+
 SearchContainer<CommerceOrder> commerceOrderSearchContainer = commerceOrderListDisplayContext.getSearchContainer();
 
 CommerceOrderDisplayTerms commerceOrderDisplayTerms = (CommerceOrderDisplayTerms)commerceOrderSearchContainer.getDisplayTerms();
-boolean showFilter = commerceOrderListDisplayContext.isShowFilter();
-
-List<CommerceChannel> channels = commerceOrderListDisplayContext.getCommerceChannels();
-
-List<KeyValuePair> availableAdvanceStatusKVPs = commerceOrderListDisplayContext.getAvailableAdvanceStatusKVPs();
-List<KeyValuePair> availableOrderStatusKVPs = commerceOrderListDisplayContext.getAvailableOrderStatusKVPs();
 
 PortletURL searchURL = commerceOrderListDisplayContext.getSearchURL();
+
+boolean showFilter = commerceOrderListDisplayContext.isShowFilter();
 
 searchURL.setParameter("showFilter", String.valueOf(showFilter));
 

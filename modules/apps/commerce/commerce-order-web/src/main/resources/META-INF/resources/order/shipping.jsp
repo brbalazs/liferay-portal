@@ -21,10 +21,9 @@ CommerceContext commerceContext = (CommerceContext)request.getAttribute(Commerce
 
 CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrderEditDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
-long commerceOrderId = commerceOrderEditDisplayContext.getCommerceOrderId();
-
 CommerceAddress shippingAddress = null;
+
+CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
 
 if (commerceOrder != null) {
 	shippingAddress = commerceOrder.getShippingAddress();
@@ -32,6 +31,8 @@ if (commerceOrder != null) {
 
 long commerceCountryId = BeanParamUtil.getLong(shippingAddress, request, "commerceCountryId");
 long commerceRegionId = BeanParamUtil.getLong(shippingAddress, request, "commerceRegionId");
+
+long commerceOrderId = commerceOrderEditDisplayContext.getCommerceOrderId();
 %>
 
 <liferay-portlet:actionURL name="editCommerceOrder" var="editCommerceOrderURL" />
@@ -95,8 +96,8 @@ long commerceRegionId = BeanParamUtil.getLong(shippingAddress, request, "commerc
 						'/commerce.commercecountry/get-shipping-commerce-countries-by-channel-id',
 						{
 							commerceChannelId: <%= commerceContext.getCommerceChannelId() %>,
-							start: -1,
-							end: -1
+							end: -1,
+							start: -1
 						},
 						callback
 					);
@@ -112,8 +113,8 @@ long commerceRegionId = BeanParamUtil.getLong(shippingAddress, request, "commerc
 					Liferay.Service(
 						'/commerce.commerceregion/get-commerce-regions',
 						{
-							commerceCountryId: Number(selectKey),
-							active: true
+							active: true,
+							commerceCountryId: Number(selectKey)
 						},
 						callback
 					);

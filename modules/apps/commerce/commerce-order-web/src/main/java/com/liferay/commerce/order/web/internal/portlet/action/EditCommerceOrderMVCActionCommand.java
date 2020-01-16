@@ -34,7 +34,6 @@ import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.StringUtil;
 
 import java.math.BigDecimal;
 
@@ -106,9 +105,8 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 			deleteCommerceOrderIds = new long[] {commerceOrderId};
 		}
 		else {
-			deleteCommerceOrderIds = StringUtil.split(
-				ParamUtil.getString(actionRequest, "deleteCommerceOrderIds"),
-				0L);
+			deleteCommerceOrderIds = ParamUtil.getLongValues(
+				actionRequest, "deleteCommerceOrderIds");
 		}
 
 		for (long deleteCommerceOrderId : deleteCommerceOrderIds) {
@@ -247,10 +245,10 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 		String street3 = ParamUtil.getString(actionRequest, "street3");
 		String city = ParamUtil.getString(actionRequest, "city");
 		String zip = ParamUtil.getString(actionRequest, "zip");
-		long commerceCountryId = ParamUtil.getLong(
-			actionRequest, "commerceCountryId");
 		long commerceRegionId = ParamUtil.getLong(
 			actionRequest, "commerceRegionId");
+		long commerceCountryId = ParamUtil.getLong(
+			actionRequest, "commerceCountryId");
 		String phoneNumber = ParamUtil.getString(actionRequest, "phoneNumber");
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
@@ -280,7 +278,6 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 
 		long commerceOrderId = ParamUtil.getLong(
 			actionRequest, "commerceOrderId");
-
 		int orderStatus = ParamUtil.getInteger(actionRequest, "orderStatus");
 
 		_commerceOrderService.updateOrderStatus(commerceOrderId, orderStatus);
@@ -327,7 +324,6 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 
 		long commerceOrderId = ParamUtil.getLong(
 			actionRequest, "commerceOrderId");
-
 		String printedNote = ParamUtil.getString(actionRequest, "printedNote");
 
 		_commerceOrderService.updatePrintedNote(commerceOrderId, printedNote);
@@ -338,7 +334,6 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 
 		long commerceOrderId = ParamUtil.getLong(
 			actionRequest, "commerceOrderId");
-
 		String purchaseOrderNumber = ParamUtil.getString(
 			actionRequest, "purchaseOrderNumber");
 
@@ -395,10 +390,10 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 		String street3 = ParamUtil.getString(actionRequest, "street3");
 		String city = ParamUtil.getString(actionRequest, "city");
 		String zip = ParamUtil.getString(actionRequest, "zip");
-		long commerceCountryId = ParamUtil.getLong(
-			actionRequest, "commerceCountryId");
 		long commerceRegionId = ParamUtil.getLong(
 			actionRequest, "commerceRegionId");
+		long commerceCountryId = ParamUtil.getLong(
+			actionRequest, "commerceCountryId");
 		String phoneNumber = ParamUtil.getString(actionRequest, "phoneNumber");
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
@@ -414,10 +409,6 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 		long commerceOrderId = ParamUtil.getLong(
 			actionRequest, "commerceOrderId");
 
-		CommerceContext commerceContext =
-			(CommerceContext)actionRequest.getAttribute(
-				CommerceWebKeys.COMMERCE_CONTEXT);
-
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
 			commerceOrderId);
 
@@ -425,6 +416,10 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 		String shippingPrice = ParamUtil.getString(
 			actionRequest, "shippingPrice");
 		String total = ParamUtil.getString(actionRequest, "total");
+
+		CommerceContext commerceContext =
+			(CommerceContext)actionRequest.getAttribute(
+				CommerceWebKeys.COMMERCE_CONTEXT);
 
 		_commerceOrderService.updateCommerceOrder(
 			commerceOrder.getCommerceOrderId(),

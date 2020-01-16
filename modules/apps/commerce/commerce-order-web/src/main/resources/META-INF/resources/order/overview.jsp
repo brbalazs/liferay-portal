@@ -20,14 +20,13 @@
 CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrderEditDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 int[] availableOrderStatuses = commerceOrderEditDisplayContext.getAvailableOrderStatuses();
-CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
 long commerceOrderId = commerceOrderEditDisplayContext.getCommerceOrderId();
 
+CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
+
 CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
-
-int orderStatus = BeanParamUtil.getInteger(commerceOrder, request, "orderStatus");
-
 String externalReferenceCode = commerceOrder.getExternalReferenceCode();
+int orderStatus = BeanParamUtil.getInteger(commerceOrder, request, "orderStatus");
 %>
 
 <liferay-portlet:actionURL name="editCommerceOrder" var="editCommerceOrderURL" />

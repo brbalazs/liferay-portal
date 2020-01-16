@@ -74,9 +74,9 @@ long commerceRegionId = BeanParamUtil.getLong(commerceAddress, request, "commerc
 						Liferay.Service(
 							'/commerce.commercecountry/get-billing-commerce-countries',
 							{
-								companyId: <%= company.getCompanyId() %>,
+								active: true,
 								billingAllowed: true,
-								active: true
+								companyId: <%= company.getCompanyId() %>
 							},
 							injectCountryPlaceholder
 						);
@@ -103,8 +103,8 @@ long commerceRegionId = BeanParamUtil.getLong(commerceAddress, request, "commerc
 						Liferay.Service(
 								'/commerce.commerceregion/get-commerce-regions',
 								{
-									commerceCountryId: Number(selectKey),
-									active: true
+									active: true,
+									commerceCountryId: Number(selectKey)
 								},
 								injectRegionPlaceholder
 						);

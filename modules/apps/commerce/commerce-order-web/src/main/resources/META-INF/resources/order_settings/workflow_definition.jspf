@@ -23,12 +23,12 @@
 	for (WorkflowDefinition workflowDefinition : workflowDefinitions) {
 		boolean selected = false;
 
-		if ((workflowDefinitionLink != null) && workflowDefinitionLink.getWorkflowDefinitionName().equals(workflowDefinition.getName()) && (workflowDefinitionLink.getWorkflowDefinitionVersion() == workflowDefinition.getVersion())) {
+		if ((workflowDefinitionLink != null) && Objects.equals(workflowDefinitionLink.getWorkflowDefinitionName(), workflowDefinition.getName()) && (workflowDefinitionLink.getWorkflowDefinitionVersion() == workflowDefinition.getVersion())) {
 			selected = true;
 		}
 	%>
 
-		<aui:option label='<%= HtmlUtil.escapeAttribute(workflowDefinition.getTitle(themeDisplay.getLanguageId())) + " (" + LanguageUtil.format(locale, "version-x", workflowDefinition.getVersion(), false) + ")" %>' selected="<%= selected %>" value="<%= HtmlUtil.escapeAttribute(workflowDefinition.getName()) + StringPool.AT + workflowDefinition.getVersion() %>" />
+		<aui:option label='<%= HtmlUtil.escapeAttribute(workflowDefinition.getTitle(themeDisplay.getLanguageId())) + " (" + LanguageUtil.format(locale, "version-x", workflowDefinition.getVersion(), false) + StringPool.CLOSE_PARENTHESIS %>' selected="<%= selected %>" value="<%= HtmlUtil.escapeAttribute(workflowDefinition.getName()) + StringPool.AT + workflowDefinition.getVersion() %>" />
 
 	<%
 	}

@@ -20,6 +20,7 @@
 CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrderEditDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 long commerceOrderId = commerceOrderEditDisplayContext.getCommerceOrderId();
+
 Format dateFormatDateTime = FastDateFormatFactoryUtil.getDateTime(locale, timeZone);
 %>
 
@@ -59,11 +60,16 @@ Format dateFormatDateTime = FastDateFormatFactoryUtil.getDateTime(locale, timeZo
 
 								<div class="col">
 									<header class="lfr-discussion-message-author">
+
+										<%
+										User commerceOrderNoteUser = commerceOrderNote.getUser();
+										%>
+
 										<aui:a
 											cssClass="author-link"
 											href="<%=
-												((commerceOrderNote.getUser() != null) && commerceOrderNote.getUser().isActive())
-													? commerceOrderNote.getUser().getDisplayURL(themeDisplay)
+												((commerceOrderNoteUser != null) && commerceOrderNoteUser.isActive())
+													? commerceOrderNoteUser.getDisplayURL(themeDisplay)
 													: null
 											%>"
 										>
@@ -86,9 +92,14 @@ Format dateFormatDateTime = FastDateFormatFactoryUtil.getDateTime(locale, timeZo
 
 								<div class="align-items-center col-auto d-flex">
 									<span class="small">
-										<liferay-ui:message arguments="<%= LanguageUtil.getTimeDescription(request, System.currentTimeMillis() - commerceOrderNote.getCreateDate().getTime(), true) %>" key="x-ago" translateArguments="<%= false %>" />
 
-										<c:if test="<%= commerceOrderNote.getCreateDate().before(commerceOrderNote.getModifiedDate()) %>">
+										<%
+										Date commerceOrderNoteCreateDate = commerceOrderNote.getCreateDate();
+										%>
+
+										<liferay-ui:message arguments="<%= LanguageUtil.getTimeDescription(request, System.currentTimeMillis() - commerceOrderNoteCreateDate.getTime(), true) %>" key="x-ago" translateArguments="<%= false %>" />
+
+										<c:if test="<%= commerceOrderNoteCreateDate.before(commerceOrderNote.getModifiedDate()) %>">
 											<strong onmouseover="Liferay.Portal.ToolTip.show(this, '<%= HtmlUtil.escapeJS(dateFormatDateTime.format(commerceOrderNote.getModifiedDate())) %>');">
 												- <liferay-ui:message key="edited" />
 											</strong>

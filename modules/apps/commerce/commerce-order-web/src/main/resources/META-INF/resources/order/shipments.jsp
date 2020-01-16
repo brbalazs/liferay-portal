@@ -36,8 +36,10 @@ PortletURL portletURL = commerceOrderEditDisplayContext.getCommerceShipmentsPort
 />
 
 <%
-CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
 java.util.Map<String, String> contextParams = new java.util.HashMap<>();
+
+CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
+
 contextParams.put("commerceOrderId", String.valueOf(commerceOrder.getCommerceOrderId()));
 %>
 

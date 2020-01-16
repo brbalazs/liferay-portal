@@ -90,9 +90,9 @@ CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrder
 					<div class="col-auto">
 
 						<%
-						Date sentDate = commerceNotificationQueueEntry.getSentDate();
-
 						String sentDateDescription = StringPool.BLANK;
+
+						Date sentDate = commerceNotificationQueueEntry.getSentDate();
 
 						if (sentDate != null) {
 							sentDateDescription = LanguageUtil.getTimeDescription(request, System.currentTimeMillis() - sentDate.getTime(), true);

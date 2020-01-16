@@ -139,8 +139,8 @@ long commerceRegionId = commerceAccountAddressAdminDisplayContext.getCommerceReg
 						'/commerce.commercecountry/get-billing-commerce-countries',
 						{
 							companyId: <%= company.getCompanyId() %>,
-							start: -1,
-							end: -1
+							end: -1,
+							start: -1
 						},
 						callback
 					);
@@ -156,8 +156,8 @@ long commerceRegionId = commerceAccountAddressAdminDisplayContext.getCommerceReg
 					Liferay.Service(
 					'/commerce.commerceregion/get-commerce-regions',
 						{
-							commerceCountryId: Number(selectKey),
-							active: true
+							active: true,
+							commerceCountryId: Number(selectKey)
 						},
 						callback
 					);

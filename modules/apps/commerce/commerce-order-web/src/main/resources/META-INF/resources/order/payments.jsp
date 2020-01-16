@@ -19,8 +19,8 @@
 <%
 CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrderEditDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-SearchContainer<CommerceOrderPayment> commerceOrderPaymentsSearchContainer = commerceOrderEditDisplayContext.getCommerceOrderPaymentsSearchContainer();
 CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
+SearchContainer<CommerceOrderPayment> commerceOrderPaymentsSearchContainer = commerceOrderEditDisplayContext.getCommerceOrderPaymentsSearchContainer();
 %>
 
 <div class="row">
@@ -54,7 +54,7 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 				<c:when test="<%= Validator.isNull(commerceOrderPaymentMethodName) %>">
 					<div class="align-items-center d-flex payment-info">
 						<span class="text-muted">
-							<%= LanguageUtil.get(request, "click-add-to-insert") %>
+							<liferay-ui:message key="click-add-to-insert" />
 						</span>
 					</div>
 				</c:when>

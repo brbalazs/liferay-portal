@@ -317,25 +317,20 @@ public class CommerceUtil {
 			orderByAsc = true;
 		}
 
-		OrderByComparator<CommerceShipment> orderByComparator = null;
-
 		if (orderByCol.equals("create-date")) {
-			orderByComparator = new CommerceShipmentCreateDateComparator(
-				orderByAsc);
+			return new CommerceShipmentCreateDateComparator(orderByAsc);
 		}
 		else if (orderByCol.equals("expected-delivery-date")) {
-			orderByComparator = new CommerceShipmentExpectedDateComparator(
-				orderByAsc);
+			return new CommerceShipmentExpectedDateComparator(orderByAsc);
 		}
 		else if (orderByCol.equals("shipment-number")) {
-			orderByComparator = new CommerceShipmentIdComparator(orderByAsc);
+			return new CommerceShipmentIdComparator(orderByAsc);
 		}
 		else if (orderByCol.equals("shipping-date")) {
-			orderByComparator = new CommerceShipmentShippingDateComparator(
-				orderByAsc);
+			return new CommerceShipmentShippingDateComparator(orderByAsc);
 		}
 
-		return orderByComparator;
+		return null;
 	}
 
 }

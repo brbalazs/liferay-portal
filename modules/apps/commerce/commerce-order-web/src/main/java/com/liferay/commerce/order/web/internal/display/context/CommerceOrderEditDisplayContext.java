@@ -171,13 +171,10 @@ public class CommerceOrderEditDisplayContext {
 		StringBundler sb = new StringBundler(5);
 
 		sb.append(themeDisplay.getPathImage());
+		sb.append("/organization_logo?img_id=");
+		sb.append(commerceAccount.getLogoId());
 
-		if (commerceAccount.getLogoId() == 0) {
-			sb.append("/organization_logo?img_id=0");
-		}
-		else {
-			sb.append("/organization_logo?img_id=");
-			sb.append(commerceAccount.getLogoId());
+		if (commerceAccount.getLogoId() > 0) {
 			sb.append("&t=");
 			sb.append(
 				WebServerServletTokenUtil.getToken(
@@ -455,16 +452,11 @@ public class CommerceOrderEditDisplayContext {
 			_commerceOrderRequestHelper.getLocale());
 
 		if (!commercePaymentMethodGroupRel.isActive()) {
-			StringBundler sb = new StringBundler(4);
-
-			sb.append(label);
-			sb.append(" (");
-			sb.append(
+			label = StringBundler.concat(
+				label, StringPool.SPACE, StringPool.OPEN_PARENTHESIS,
 				LanguageUtil.get(
-					_commerceOrderRequestHelper.getRequest(), "inactive"));
-			sb.append(CharPool.CLOSE_PARENTHESIS);
-
-			label = sb.toString();
+					_commerceOrderRequestHelper.getRequest(), "inactive"),
+				StringPool.CLOSE_PARENTHESIS);
 		}
 
 		return label;
@@ -582,13 +574,13 @@ public class CommerceOrderEditDisplayContext {
 	public List<DropdownItem> getDropdownItems() {
 		List<DropdownItem> headerDropdownItems = new ArrayList<>();
 
-		DropdownItem headerDropdownItem = new DropdownItem();
+		DropdownItem headerDropdownItem1 = new DropdownItem();
 
-		headerDropdownItem.setLabel("First link");
-		headerDropdownItem.setHref("/first-link");
-		headerDropdownItem.setIcon("home");
+		headerDropdownItem1.setLabel("First link");
+		headerDropdownItem1.setHref("/first-link");
+		headerDropdownItem1.setIcon("home");
 
-		headerDropdownItems.add(headerDropdownItem);
+		headerDropdownItems.add(headerDropdownItem1);
 
 		DropdownItem headerDropdownItem2 = new DropdownItem();
 
@@ -906,19 +898,12 @@ public class CommerceOrderEditDisplayContext {
 	}
 
 	public String getUserPortraitSrc(User user) {
-		StringBundler sb = new StringBundler(5);
-
 		ThemeDisplay themeDisplay =
 			_commerceOrderRequestHelper.getThemeDisplay();
 
-		sb.append(themeDisplay.getPathImage());
-
-		sb.append("/user_portrait?screenName=");
-		sb.append(user.getScreenName());
-		sb.append("&amp;companyId=");
-		sb.append(user.getCompanyId());
-
-		return sb.toString();
+		return StringBundler.concat(
+			themeDisplay.getPathImage(), "/user_portrait?screenName=",
+			user.getScreenName(), "&amp;companyId=", user.getCompanyId());
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

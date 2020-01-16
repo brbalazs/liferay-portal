@@ -320,37 +320,37 @@ public class OrderResourceImpl
 
 		commerceOrder = _commerceOrderService.updateCommerceOrder(
 			commerceOrder.getCommerceOrderId(),
-			GetterUtil.get(
+			GetterUtil.getLong(
 				order.getBillingAddressId(),
 				commerceOrder.getBillingAddressId()),
-			GetterUtil.get(
+			GetterUtil.getLong(
 				order.getShippingAddressId(),
 				commerceOrder.getShippingAddressId()),
-			GetterUtil.get(
+			GetterUtil.getString(
 				order.getPaymentMethod(),
 				commerceOrder.getCommercePaymentMethodKey()),
 			commerceShippingMethodId,
-			GetterUtil.get(
+			GetterUtil.getString(
 				order.getShippingOption(),
 				commerceOrder.getShippingOptionName()),
-			GetterUtil.get(
+			GetterUtil.getString(
 				order.getPurchaseOrderNumber(),
 				commerceOrder.getPurchaseOrderNumber()),
-			(BigDecimal)GetterUtil.get(
+			(BigDecimal)GetterUtil.getNumber(
 				order.getSubtotal(), commerceOrder.getSubtotal()),
-			(BigDecimal)GetterUtil.get(
+			(BigDecimal)GetterUtil.getNumber(
 				order.getShippingAmount(), commerceOrder.getShippingAmount()),
-			(BigDecimal)GetterUtil.get(
+			(BigDecimal)GetterUtil.getNumber(
 				order.getTotal(), commerceOrder.getTotal()),
-			GetterUtil.get(
+			GetterUtil.getString(
 				order.getAdvanceStatus(), commerceOrder.getAdvanceStatus()),
-			GetterUtil.get(
+			GetterUtil.getString(
 				order.getExternalReferenceCode(),
 				commerceOrder.getExternalReferenceCode()),
 			_commerceContextFactory.create(
 				contextCompany.getCompanyId(), commerceChannel.getSiteGroupId(),
-				_user.getUserId(), 0L,
-				GetterUtil.get(
+				_user.getUserId(), 0,
+				GetterUtil.getLong(
 					order.getAccountId(),
 					commerceOrder.getCommerceAccountId())));
 
@@ -420,21 +420,21 @@ public class OrderResourceImpl
 			_user.getUserId(), commerceChannel.getGroupId(),
 			commerceAccount.getCommerceAccountId(),
 			commerceCurrency.getCommerceCurrencyId(),
-			GetterUtil.get(order.getBillingAddressId(), 0L),
-			GetterUtil.get(order.getShippingAddressId(), 0L),
+			GetterUtil.getLong(order.getBillingAddressId()),
+			GetterUtil.getLong(order.getShippingAddressId()),
 			order.getPaymentMethod(), commerceShippingMethodId,
 			order.getShippingOption(), order.getPurchaseOrderNumber(),
 			order.getSubtotal(), order.getShippingAmount(), order.getTotal(),
-			GetterUtil.get(
+			GetterUtil.getInteger(
 				order.getPaymentStatus(),
 				CommerceOrderConstants.PAYMENT_STATUS_PENDING),
-			GetterUtil.get(
+			GetterUtil.getInteger(
 				order.getOrderStatus(),
 				CommerceOrderConstants.ORDER_STATUS_TO_FULFILL),
 			order.getAdvanceStatus(), order.getExternalReferenceCode(),
 			_commerceContextFactory.create(
 				contextCompany.getCompanyId(), commerceChannel.getSiteGroupId(),
-				_user.getUserId(), 0L, commerceAccount.getCommerceAccountId()),
+				_user.getUserId(), 0, commerceAccount.getCommerceAccountId()),
 			serviceContext);
 
 		// Order date

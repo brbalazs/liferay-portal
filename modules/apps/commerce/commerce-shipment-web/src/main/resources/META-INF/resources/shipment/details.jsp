@@ -151,8 +151,8 @@ if (commerceAddress != null) {
 						'/commerce.commercecountry/get-shipping-commerce-countries-by-channel-id',
 						{
 							commerceChannelId: <%= commerceContext.getCommerceChannelId() %>,
-							start: -1,
-							end: -1
+							end: -1,
+							start: -1
 						},
 						callback
 					);
@@ -168,8 +168,8 @@ if (commerceAddress != null) {
 					Liferay.Service(
 						'/commerce.commerceregion/get-commerce-regions',
 						{
-							commerceCountryId: Number(selectKey),
-							active: true
+							active: true,
+							commerceCountryId: Number(selectKey)
 						},
 						callback
 					);

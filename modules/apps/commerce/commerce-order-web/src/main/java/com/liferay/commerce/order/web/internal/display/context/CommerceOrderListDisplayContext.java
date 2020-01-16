@@ -29,7 +29,6 @@ import com.liferay.commerce.service.CommerceOrderNoteService;
 import com.liferay.commerce.util.CommerceUtil;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem;
 import com.liferay.petra.function.UnsafeFunction;
-import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
@@ -107,10 +106,9 @@ public class CommerceOrderListDisplayContext {
 		ThemeDisplay themeDisplay =
 			_commerceOrderRequestHelper.getThemeDisplay();
 
-		_commerceOrderDateFormatDateTime =
-			FastDateFormatFactoryUtil.getDateTime(
-				DateFormat.MEDIUM, DateFormat.MEDIUM, themeDisplay.getLocale(),
-				themeDisplay.getTimeZone());
+		_commerceOrderDateFormat = FastDateFormatFactoryUtil.getDateTime(
+			DateFormat.MEDIUM, DateFormat.MEDIUM, themeDisplay.getLocale(),
+			themeDisplay.getTimeZone());
 
 		_keywords = ParamUtil.getString(renderRequest, "keywords");
 		_showFilter = ParamUtil.getBoolean(renderRequest, "showFilter");
@@ -149,8 +147,7 @@ public class CommerceOrderListDisplayContext {
 	}
 
 	public String getCommerceOrderCreateDateTime(CommerceOrder commerceOrder) {
-		return _commerceOrderDateFormatDateTime.format(
-			commerceOrder.getCreateDate());
+		return _commerceOrderDateFormat.format(commerceOrder.getCreateDate());
 	}
 
 	public String getCommerceOrderDateTime(CommerceOrder commerceOrder) {
@@ -161,8 +158,7 @@ public class CommerceOrderListDisplayContext {
 			return LanguageUtil.get(themeDisplay.getLocale(), "unknown");
 		}
 
-		return _commerceOrderDateFormatDateTime.format(
-			commerceOrder.getOrderDate());
+		return _commerceOrderDateFormat.format(commerceOrder.getOrderDate());
 	}
 
 	public int getCommerceOrderNotesCount(CommerceOrder commerceOrder)
@@ -291,12 +287,12 @@ public class CommerceOrderListDisplayContext {
 
 		JSONObject dataJSONObject = facetConfiguration.getData();
 
+		JSONArray rangesJSONArray = _jsonFactory.createJSONArray();
+
 		JSONObject rangeJSONObject = _jsonFactory.createJSONObject();
 
 		rangeJSONObject.put(
 			"range", _getFacetCreateDateRange(commerceOrderDisplayTerms));
-
-		JSONArray rangesJSONArray = _jsonFactory.createJSONArray();
 
 		rangesJSONArray.put(rangeJSONObject);
 
@@ -380,17 +376,15 @@ public class CommerceOrderListDisplayContext {
 			return Collections.emptyList();
 		}
 
+		HttpServletRequest httpServletRequest =
+			_commerceOrderRequestHelper.getRequest();
+
 		FacetCollector facetCollector = facet.getFacetCollector();
 
 		List<TermCollector> termCollectors = facetCollector.getTermCollectors();
 
 		List<KeyValuePair> keyValuePairs = new ArrayList<>(
 			termCollectors.size());
-
-		HttpServletRequest httpServletRequest =
-			_commerceOrderRequestHelper.getRequest();
-
-		StringBundler sb = new StringBundler();
 
 		for (TermCollector termCollector : termCollectors) {
 			String term = termCollector.getTerm();
@@ -405,14 +399,14 @@ public class CommerceOrderListDisplayContext {
 				continue;
 			}
 
-			sb.append(LanguageUtil.get(httpServletRequest, label));
-			sb.append(" (");
-			sb.append(termCollector.getFrequency());
-			sb.append(CharPool.CLOSE_PARENTHESIS);
-
-			keyValuePairs.add(new KeyValuePair(term, sb.toString()));
-
-			sb.setIndex(0);
+			keyValuePairs.add(
+				new KeyValuePair(
+					term,
+					StringBundler.concat(
+						LanguageUtil.get(httpServletRequest, label),
+						StringPool.SPACE, StringPool.OPEN_PARENTHESIS,
+						termCollector.getFrequency(),
+						StringPool.CLOSE_PARENTHESIS)));
 		}
 
 		return keyValuePairs;
@@ -534,10 +528,6 @@ public class CommerceOrderListDisplayContext {
 		DateFormat dateFormat = DateFormatFactoryUtil.getSimpleDateFormat(
 			PropsValues.INDEX_DATE_FORMAT_PATTERN);
 
-		StringBundler sb = new StringBundler(5);
-
-		sb.append(CharPool.OPEN_BRACKET);
-
 		Date startCreateDate = commerceOrderDisplayTerms.getStartCreateDate();
 
 		if (startCreateDate == null) {
@@ -546,10 +536,6 @@ public class CommerceOrderListDisplayContext {
 
 			startCreateDate = calendar.getTime();
 		}
-
-		sb.append(dateFormat.format(startCreateDate));
-
-		sb.append(" TO ");
 
 		Date endCreateDate = commerceOrderDisplayTerms.getEndCreateDate();
 
@@ -560,11 +546,9 @@ public class CommerceOrderListDisplayContext {
 			endCreateDate = calendar.getTime();
 		}
 
-		sb.append(dateFormat.format(endCreateDate));
-
-		sb.append(CharPool.CLOSE_BRACKET);
-
-		return sb.toString();
+		return StringBundler.concat(
+			StringPool.OPEN_BRACKET, dateFormat.format(startCreateDate), " TO ",
+			dateFormat.format(endCreateDate), StringPool.CLOSE_BRACKET);
 	}
 
 	private void _initNavigationItems() {
@@ -623,7 +607,7 @@ public class CommerceOrderListDisplayContext {
 	private List<KeyValuePair> _availableAdvanceStatusKVPs;
 	private List<KeyValuePair> _availableOrderStatusKVPs;
 	private final CommerceChannelService _commerceChannelService;
-	private final Format _commerceOrderDateFormatDateTime;
+	private final Format _commerceOrderDateFormat;
 	private final CommerceOrderLocalService _commerceOrderLocalService;
 	private final CommerceOrderNoteService _commerceOrderNoteService;
 	private final CommerceOrderRequestHelper _commerceOrderRequestHelper;

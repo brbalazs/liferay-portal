@@ -21,9 +21,10 @@
 CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrderEditDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
-CommerceOrderItem commerceOrderItem = commerceOrderEditDisplayContext.getCommerceOrderItem();
 
 CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
+
+CommerceOrderItem commerceOrderItem = commerceOrderEditDisplayContext.getCommerceOrderItem();
 
 portletDisplay.setShowBackIcon(true);
 
