@@ -16,14 +16,17 @@ package com.liferay.headless.commerce.delivery.cart.internal.resource.v1_0;
 
 import com.liferay.commerce.exception.NoSuchOrderException;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.service.CommerceOrderService;
+import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
-import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.CartDTOConverter;
-import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.CartDTOConverterContext;
-import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.OrderItem;
+import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.OrderItemDTOConverter;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.OrderItemResource;
+import com.liferay.portal.vulcan.fields.NestedField;
+import com.liferay.portal.vulcan.fields.NestedFieldId;
 import com.liferay.portal.vulcan.pagination.Page;
 
 import java.util.ArrayList;
@@ -39,13 +42,24 @@ import org.osgi.service.component.annotations.ServiceScope;
  * @author Andrea Sbarra
  */
 @Component(
-	properties = "OSGI-INF/liferay/rest/v1_0/cart.properties",
-	scope = ServiceScope.PROTOTYPE, service = CartResource.class
+	properties = "OSGI-INF/liferay/rest/v1_0/order-item.properties",
+	scope = ServiceScope.PROTOTYPE, service = OrderItemResource.class
 )
-public class CartResourceImpl extends BaseCartResourceImpl {
+public class OrderItemResourceImpl extends BaseOrderItemResourceImpl {
 
 	@Override
-	public Cart getChannelCart(@NotNull Long channelId, @NotNull Long cartId)
+	public OrderItem getChannelCartOrderItem(
+			@NotNull Long channelId, @NotNull Long cartId,
+			@NotNull Long orderItemId)
+		throws Exception {
+
+		return super.getChannelCartOrderItem(channelId, cartId, orderItemId);
+	}
+
+	@NestedField(parentClass = Cart.class, value = "orderItems")
+	@Override
+	public Page<OrderItem> getChannelCartOrderItemsPage(
+			@NotNull Long channelId, @NestedFieldId("id") @NotNull Long cartId)
 		throws Exception {
 
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
@@ -58,54 +72,38 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 			throw new NoSuchOrderException("Can't find order on channel");
 		}
 
-		return _toCart(commerceOrder, commerceChannel.getSiteGroupId());
+		return Page.of(_toOrderItems(commerceOrder.getCommerceOrderItems()));
 	}
 
-	@Override
-	public Page<Cart> getChannelCartsPage(@NotNull Long channelId)
+	private OrderItem _toOrderItem(CommerceOrderItem commerceOrderItem)
 		throws Exception {
 
-		CommerceChannel commerceChannel =
-			_commerceChannelService.getCommerceChannel(channelId);
-
-		List<CommerceOrder> commerceOrders =
-			_commerceOrderService.getUserPendingCommerceOrders(
-				contextCompany.getCompanyId(), commerceChannel.getGroupId(),
-				null, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-
-		return Page.of(
-			_toCarts(commerceOrders, commerceChannel.getSiteGroupId()));
-	}
-
-	private Cart _toCart(CommerceOrder commerceOrder, long channelGroupId)
-		throws Exception {
-
-		return _cartDTOConverter.toDTO(
-			new CartDTOConverterContext(
+		return _orderItemDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
 				contextAcceptLanguage.getPreferredLocale(),
-				commerceOrder.getCommerceOrderId(), channelGroupId));
+				commerceOrderItem.getCommerceOrderItemId()));
 	}
 
-	private List<Cart> _toCarts(
-			List<CommerceOrder> commerceOrders, long channelGroupId)
+	private List<OrderItem> _toOrderItems(
+			List<CommerceOrderItem> commerceOrderItems)
 		throws Exception {
 
-		List<Cart> carts = new ArrayList<>();
+		List<OrderItem> orderItems = new ArrayList<>();
 
-		for (CommerceOrder commerceOrder : commerceOrders) {
-			carts.add(_toCart(commerceOrder, channelGroupId));
+		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
+			orderItems.add(_toOrderItem(commerceOrderItem));
 		}
 
-		return carts;
+		return orderItems;
 	}
-
-	@Reference
-	private CartDTOConverter _cartDTOConverter;
 
 	@Reference
 	private CommerceChannelService _commerceChannelService;
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
+
+	@Reference
+	private OrderItemDTOConverter _orderItemDTOConverter;
 
 }

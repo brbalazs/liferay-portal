@@ -26,14 +26,15 @@ import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.OrderItem;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Summary;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.language.LanguageResources;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -61,52 +62,36 @@ public class CartDTOConverter implements DTOConverter {
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
 			cartDTOConverterContext.getResourcePrimKey());
 
-		String languageId = LanguageUtil.getLanguageId(
-			cartDTOConverterContext.getLocale());
+		Locale locale = cartDTOConverterContext.getLocale();
 
-		boolean useFullEntity = cartDTOConverterContext.isUseFullEntity();
+		ResourceBundle resourceBundle = LanguageResources.getResourceBundle(
+			locale);
 
-		Cart cart = new Cart();
+		String workflowStatusLabel = LanguageUtil.get(
+			resourceBundle,
+			WorkflowConstants.getStatusLabel(commerceOrder.getStatus()));
 
-		cart.setId(commerceOrder.getCommerceOrderId());
-
-		if (useFullEntity) {
-			cart.setAccountId(commerceOrder.getCommerceAccountId());
-			cart.setOrderItems(_getOrderItems(commerceOrder, languageId));
-			cart.setSummary(
-				_getSummary(commerceOrder, dtoConverterContext.getLocale()));
-		}
-
-		return cart;
+		return new Cart() {
+			{
+				id = commerceOrder.getCommerceOrderId();
+				account = commerceOrder.getCommerceAccountName();
+				accountId = commerceOrder.getCommerceAccountId();
+				author = commerceOrder.getUserName();
+				createDate = commerceOrder.getCreateDate();
+				status = workflowStatusLabel;
+				summary = _getSummary(
+					commerceOrder, locale,
+					cartDTOConverterContext.getChannelSiteGroupId());
+			}
+		};
 	}
 
-	private OrderItem[] _getOrderItems(
-		CommerceOrder commerceOrder, String languageId) {
-
-		List<OrderItem> orderItems = new ArrayList<>();
-
-		for (CommerceOrderItem commerceOrderItem :
-				commerceOrder.getCommerceOrderItems()) {
-
-			OrderItem orderItem = new OrderItem() {
-				{
-					id = commerceOrderItem.getCommerceOrderItemId();
-					name = commerceOrderItem.getName(languageId);
-					quantity = commerceOrderItem.getQuantity();
-				}
-			};
-
-			orderItems.add(orderItem);
-		}
-
-		return orderItems.toArray(new OrderItem[0]);
-	}
-
-	private Summary _getSummary(CommerceOrder commerceOrder, Locale locale)
+	private Summary _getSummary(
+			CommerceOrder commerceOrder, Locale locale, long channelSiteGroupId)
 		throws PortalException {
 
 		CommerceContext commerceContext = _commerceContextFactory.create(
-			commerceOrder.getCompanyId(), commerceOrder.getScopeGroupId(),
+			commerceOrder.getCompanyId(), channelSiteGroupId,
 			commerceOrder.getUserId(), commerceOrder.getCommerceOrderId(),
 			commerceOrder.getCommerceAccountId());
 

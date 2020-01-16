@@ -7,17 +7,17 @@ import java.util.Locale;
 public class CartDTOConverterContext extends DefaultDTOConverterContext {
 
 	public CartDTOConverterContext(
-		Locale locale, long resourcePrimKey, boolean useFullEntity) {
+		Locale locale, long resourcePrimKey, long channelSiteGroupId) {
 
 		super(locale, resourcePrimKey);
 
-		_useFullEntity = useFullEntity;
+		_channelSiteGroupId = channelSiteGroupId;
 	}
 
-	public boolean isUseFullEntity() {
-		return _useFullEntity;
+	public long getChannelSiteGroupId() {
+		return _channelSiteGroupId;
 	}
 
-	private final boolean _useFullEntity;
+	private final long _channelSiteGroupId;
 
 }
