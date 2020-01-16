@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Commerce Frontend API
 Bundle-SymbolicName: com.liferay.commerce.frontend.api
-Bundle-Version: 2.0.2
+Bundle-Version: 3.0.0
 Export-Package:\
 	com.liferay.commerce.frontend,\
 	com.liferay.commerce.frontend.clay.data.set,\
