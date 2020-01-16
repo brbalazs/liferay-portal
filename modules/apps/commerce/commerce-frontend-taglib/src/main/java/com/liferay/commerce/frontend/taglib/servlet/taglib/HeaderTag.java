@@ -20,6 +20,7 @@ import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.workflow.WorkflowTask;
 import com.liferay.taglib.util.IncludeTag;
 
 import java.util.List;
@@ -78,6 +79,10 @@ public class HeaderTag extends IncludeTag {
 
 	public String getPreviewUrl() {
 		return _previewUrl;
+	}
+
+	public WorkflowTask getReviewWorkflowTask() {
+		return _reviewWorkflowTask;
 	}
 
 	public String getSpritemap() {
@@ -157,6 +162,10 @@ public class HeaderTag extends IncludeTag {
 		_previewUrl = previewUrl;
 	}
 
+	public void setReviewWorkflowTask(WorkflowTask workflowTask) {
+		_reviewWorkflowTask = workflowTask;
+	}
+
 	public void setSpritemap(String spritemap) {
 		_spritemap = spritemap;
 	}
@@ -193,6 +202,7 @@ public class HeaderTag extends IncludeTag {
 		_fullWidth = false;
 		_model = null;
 		_previewUrl = null;
+		_reviewWorkflowTask = null;
 		_spritemap = null;
 		_thumbnailUrl = null;
 		_title = null;
@@ -235,6 +245,8 @@ public class HeaderTag extends IncludeTag {
 			"liferay-commerce:header:hasWorkflow", Boolean.FALSE);
 		request.setAttribute("liferay-commerce:header:model", _model);
 		request.setAttribute("liferay-commerce:header:previewUrl", _previewUrl);
+		request.setAttribute(
+			"liferay-commerce:header:reviewWorkflowTask", _reviewWorkflowTask);
 		request.setAttribute("liferay-commerce:header:spritemap", _spritemap);
 		request.setAttribute(
 			"liferay-commerce:header:thumbnailUrl", _thumbnailUrl);
@@ -258,6 +270,7 @@ public class HeaderTag extends IncludeTag {
 	private boolean _fullWidth;
 	private Class<?> _model;
 	private String _previewUrl;
+	private WorkflowTask _reviewWorkflowTask;
 	private String _spritemap;
 	private String _thumbnailUrl;
 	private String _title;

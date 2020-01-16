@@ -49,7 +49,6 @@ else {
 
 <commerce-ui:header
 	actions="<%= commerceOrderEditDisplayContext.getHeaderActionModels() %>"
-	assignerModalUrl="/assigner/modal/url"
 	bean="<%= commerceOrder %>"
 	beanId="<%= commerceOrder.getCommerceOrderId() %>"
 	beanIdLabel="order-id"
@@ -57,6 +56,7 @@ else {
 	externalReferenceCode="<%= commerceOrder.getExternalReferenceCode() %>"
 	externalReferenceCodeEditUrl="<%= editCommerceOrderExternalReferenceCodeURL %>"
 	model="<%= CommerceOrder.class %>"
+	reviewWorkflowTask="<%= commerceOrderEditDisplayContext.getReviewWorkflowTask() %>"
 	thumbnailUrl="<%= commerceOrderEditDisplayContext.getCommerceAccountThumbnailURL() %>"
 	title="<%= headerTitle %>"
 />

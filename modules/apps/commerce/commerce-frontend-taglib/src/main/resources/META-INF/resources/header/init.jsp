@@ -16,9 +16,12 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
+
 <%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %><%@
 taglib uri="http://liferay.com/tld/clay" prefix="clay" %><%@
 taglib uri="http://liferay.com/tld/commerce-ui" prefix="commerce-ui" %><%@
+taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %><%@
 taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
@@ -27,14 +30,20 @@ page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem" 
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.model.WorkflowedModel" %><%@
+page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
-page import="com.liferay.portal.kernel.util.Validator" %>
+page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
+page import="com.liferay.portal.kernel.util.PortletKeys" %><%@
+page import="com.liferay.portal.kernel.util.Validator" %><%@
+page import="com.liferay.portal.kernel.workflow.WorkflowTask" %>
 
 <%@ page import="java.util.HashMap" %><%@
 page import="java.util.List" %><%@
 page import="java.util.Map" %>
 
 <liferay-theme:defineObjects />
+
+<portlet:defineObjects />
 
 <%
 List<HeaderActionModel> actions = (List<HeaderActionModel>)request.getAttribute("liferay-commerce:header:actions");
@@ -49,6 +58,7 @@ String externalReferenceCodeEditUrl = (String)request.getAttribute("liferay-comm
 boolean fullWidth = (boolean)request.getAttribute("liferay-commerce:header:fullWidth");
 Class<?> model = (Class<?>)request.getAttribute("liferay-commerce:header:model");
 String previewUrl = (String)request.getAttribute("liferay-commerce:header:previewUrl");
+WorkflowTask reviewWorkflowTask = (WorkflowTask)request.getAttribute("liferay-commerce:header:reviewWorkflowTask");
 String spritemap = (String)request.getAttribute("liferay-commerce:header:spritemap");
 String thumbnailUrl = (String)request.getAttribute("liferay-commerce:header:thumbnailUrl");
 String title = (String)request.getAttribute("liferay-commerce:header:title");

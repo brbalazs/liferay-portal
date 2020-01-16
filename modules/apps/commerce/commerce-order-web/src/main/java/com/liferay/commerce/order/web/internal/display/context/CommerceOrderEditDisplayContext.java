@@ -80,6 +80,8 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.webserver.WebServerServletTokenUtil;
+import com.liferay.portal.kernel.workflow.WorkflowTask;
+import com.liferay.portal.kernel.workflow.WorkflowTaskManager;
 
 import java.text.DateFormat;
 import java.text.Format;
@@ -122,7 +124,8 @@ public class CommerceOrderEditDisplayContext {
 			CommerceOrderPriceCalculation commerceOrderPriceCalculation,
 			CommerceShipmentService commerceShipmentService,
 			ItemSelector itemSelector, RenderRequest renderRequest,
-			UserLocalService userLocalService)
+			UserLocalService userLocalService,
+			WorkflowTaskManager workflowTaskManager)
 		throws PortalException {
 
 		_commerceAddressService = commerceAddressService;
@@ -145,6 +148,7 @@ public class CommerceOrderEditDisplayContext {
 		_commerceShipmentService = commerceShipmentService;
 		_itemSelector = itemSelector;
 		_userLocalService = userLocalService;
+		_workflowTaskManager = workflowTaskManager;
 
 		long commerceOrderId = ParamUtil.getLong(
 			renderRequest, "commerceOrderId");
@@ -844,6 +848,23 @@ public class CommerceOrderEditDisplayContext {
 		return steps;
 	}
 
+	public WorkflowTask getReviewWorkflowTask() throws PortalException {
+		ThemeDisplay themeDisplay =
+			_commerceOrderRequestHelper.getThemeDisplay();
+
+		List<WorkflowTask> workflowTasks = _workflowTaskManager.search(
+			themeDisplay.getCompanyId(), themeDisplay.getUserId(), "review",
+			CommerceOrder.class.getName(),
+			new Long[] {_commerceOrder.getCommerceOrderId()}, null, null, false,
+			null, false, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+
+		if (workflowTasks.size() == 1) {
+			return workflowTasks.get(0);
+		}
+
+		return null;
+	}
+
 	public List<SummaryElement> getSummary() throws PortalException {
 		List<SummaryElement> summary = new ArrayList<>();
 
@@ -1019,5 +1040,6 @@ public class CommerceOrderEditDisplayContext {
 		_notificationSearchContainer;
 	private SearchContainer<CommerceOrderPayment> _paymentSearchContainer;
 	private final UserLocalService _userLocalService;
+	private final WorkflowTaskManager _workflowTaskManager;
 
 }

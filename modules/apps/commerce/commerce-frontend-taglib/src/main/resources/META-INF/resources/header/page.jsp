@@ -16,6 +16,14 @@
 
 <%@ include file="/header/init.jsp" %>
 
+<%
+	boolean isWorkflowedModel = false;
+
+	if (bean instanceof WorkflowedModel) {
+		isWorkflowedModel = true;
+	}
+%>
+
 <div class="bg-white border-bottom commerce-header<%= fullWidth ? " container-fluid" : StringPool.BLANK %><%= Validator.isNotNull(wrapperCssClasses) ? StringPool.SPACE + wrapperCssClasses : StringPool.BLANK %>">
 	<div class="container<%= Validator.isNotNull(cssClasses) ? StringPool.SPACE + cssClasses : StringPool.BLANK %>">
 		<div class="d-lg-flex py-2">
@@ -33,12 +41,12 @@
 
 					<div class="col">
 						<div class="row">
-							<div class="col-auto">
+							<div class="border-left col-auto">
 								<h3 class="mb-0">
 									<%= HtmlUtil.escape(title) %>
 								</h3>
 
-								<c:if test="<%= bean instanceof WorkflowedModel %>">
+								<c:if test="<%= isWorkflowedModel %>">
 
 									<%
 									WorkflowedModel workflowedModel = (WorkflowedModel)bean;
@@ -83,12 +91,13 @@
 										/>
 
 										<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
-											document
-												.querySelector('#erc-edit-modal-opener')
-												.addEventListener('click', function(e) {
+											document.querySelector("#erc-edit-modal-opener").addEventListener(
+												"click",
+												function(e) {
 													e.preventDefault();
-													Liferay.fire(events.OPEN_MODAL, {id: 'erc-edit-modal'});
-												});
+													Liferay.fire(events.OPEN_MODAL, {id: "erc-edit-modal"});
+												}
+											);
 										</aui:script>
 
 										<commerce-ui:modal
@@ -126,39 +135,98 @@
 
 			<div class="collapse d-lg-flex" id="navbarNavAltMarkup">
 				<div class="align-self-center row">
-					<c:if test="<%= true %>">
-						<div class="col col-12 col-lg-auto d-flex mt-3 mt-lg-0">
+					<c:if test="<%= Validator.isNotNull(reviewWorkflowTask) %>">
+
+						<%
+							boolean assignedToCurrentUser = false;
+
+							if (reviewWorkflowTask.getAssigneeUserId() == user.getUserId()) {
+								assignedToCurrentUser = true;
+							}
+						%>
+
+						<div class="border-left col col-12 col-lg-auto d-flex mt-3 mt-lg-0">
 							<small class="d-block">
-								<span class="d-block header-info-title">
+								<span class="header-info-title mr-1">
 									<%= LanguageUtil.get(request, "assigned-to") %>:
 								</span>
 
-								<strong class="d-block header-info-value">
-									admin <!-- TODO: adding current assignee -->
-								</strong>
-							</small>
-
-							<c:if test="<%= Validator.isNotNull(assignerModalUrl) %>">
-								<button class="btn btn-secondary ml-3" id="edit-assignee-modal-opener">
-									<%= LanguageUtil.get(request, "assign-to") %>
+								<button aria-expanded="false" aria-haspopup="true" class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
+									<%= assignedToCurrentUser ? LanguageUtil.get(request, "me") : PortalUtil.getUserName(reviewWorkflowTask.getAssigneeUserId(), LanguageUtil.get(request, "nobody")) %>
+									<svg aria-hidden="true" class="lexicon-icon lexicon-icon-caret-bottom">
+										<use xlink:href="<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg#caret-bottom">
+									</svg>
 								</button>
 
-								<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
-									document
-										.querySelector('#edit-assignee-modal-opener')
-										.addEventListener('click', function(e) {
-											e.preventDefault();
-											Liferay.fire(events.OPEN_MODAL, {id: 'edit-assignee-modal'});
-										});
-								</aui:script>
+								<div class="dropdown-menu dropdown-menu-right">
+									<c:if test="<%= !assignedToCurrentUser %>">
+										<clay:link
+											elementClasses="dropdown-item transition-link"
+											href="#"
+											id="assign-to-me-modal-opener"
+											label='<%= LanguageUtil.get(request, "assign-to-me") %>'
+										/>
 
-								<commerce-ui:modal
-									id="edit-assignee-modal"
-									refreshPageOnClose="<%= true %>"
-									title='<%= LanguageUtil.get(request, "edit-current-assignee") %>'
-									url="<%= externalReferenceCodeEditUrl %>"
-								/>
-							</c:if>
+										<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
+											document.querySelector('#assign-to-me-modal-opener').addEventListener('click', function(e) {
+												e.preventDefault();
+												Liferay.fire(events.OPEN_MODAL, {
+													id: 'assign-to-me-modal'
+												});
+											})
+										</aui:script>
+
+										<liferay-portlet:renderURL portletName="<%= PortletKeys.MY_WORKFLOW_TASK %>" var="assignToMeURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+											<portlet:param name="mvcPath" value="/workflow_task_assign.jsp" />
+											<portlet:param name="hideDefaultSuccessMessage" value="<%= Boolean.TRUE.toString() %>" />
+											<portlet:param name="workflowTaskId" value="<%= String.valueOf(reviewWorkflowTask.getWorkflowTaskId()) %>" />
+											<portlet:param name="assigneeUserId" value="<%= String.valueOf(user.getUserId()) %>" />
+										</liferay-portlet:renderURL>
+
+										<commerce-ui:modal
+											id="assign-to-me-modal"
+											refreshPageOnClose="<%= true %>"
+											title='<%= LanguageUtil.get(request, "assign-to-me") %>'
+											url="<%= assignToMeURL %>"
+										/>
+									</c:if>
+
+									<clay:link
+										elementClasses="dropdown-item transition-link"
+										href="#"
+										id="assign-modal-opener"
+										label='<%= LanguageUtil.get(request, "assign-to-...") %>'
+									/>
+
+									<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
+										document.querySelector("#assign-modal-opener").addEventListener("click", function(e) {
+											e.preventDefault();
+											Liferay.fire(events.OPEN_MODAL, {
+												id: "assign-modal"
+											});
+										})
+									</aui:script>
+
+									<liferay-portlet:renderURL portletName="<%= PortletKeys.MY_WORKFLOW_TASK %>" var="assignToMeURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+										<portlet:param name="mvcPath" value="/workflow_task_assign.jsp" />
+										<portlet:param name="hideDefaultSuccessMessage" value="<%= Boolean.TRUE.toString() %>" />
+										<portlet:param name="workflowTaskId" value="<%= String.valueOf(reviewWorkflowTask.getWorkflowTaskId()) %>" />
+									</liferay-portlet:renderURL>
+
+									<commerce-ui:modal
+										id="assign-modal"
+										refreshPageOnClose="<%= true %>"
+										title='<%= LanguageUtil.get(request, "assign-to-...") %>'
+										url="<%= assignToMeURL %>"
+									/>
+
+									<aui:script>
+										function _<%= PortletKeys.MY_WORKFLOW_TASK %>_refreshPortlet() {
+											window.location.reload();
+										}
+									</aui:script>
+								</div>
+							</small>
 						</div>
 					</c:if>
 
@@ -206,23 +274,20 @@
 </div>
 
 <aui:script require="commerce-frontend-js/utilities/index.es as utilities">
-	var commerceHeader = document.querySelector('.commerce-header');
-	var pageHeader = document.querySelector('.page-header');
+	var commerceHeader = document.querySelector(".commerce-header");
+	var pageHeader = document.querySelector(".page-header");
 
 	function updateMenuDistanceFromTop() {
 		var distanceFromTop = commerceHeader.getClientRects()[0].bottom;
-		pageHeader.style.top = distanceFromTop + 'px';
+		pageHeader.style.top = distanceFromTop + "px"
 	}
 
-	var debouncedUpdateMenuDistanceFromTop = utilities.debounce(
-		updateMenuDistanceFromTop,
-		200
-	);
+	var debouncedUpdateMenuDistanceFromTop = utilities.debounce(updateMenuDistanceFromTop, 200)
 
 	if (pageHeader) {
-		pageHeader.classList.add('sticky-header-menu');
-		updateMenuDistanceFromTop();
+		pageHeader.classList.add("sticky-header-menu");
+		updateMenuDistanceFromTop()
 	}
 
-	window.addEventListener('resize', debouncedUpdateMenuDistanceFromTop);
+	window.addEventListener("resize", debouncedUpdateMenuDistanceFromTop)
 </aui:script>
