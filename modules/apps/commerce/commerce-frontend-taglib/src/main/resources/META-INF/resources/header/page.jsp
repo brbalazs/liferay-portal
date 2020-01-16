@@ -53,14 +53,16 @@
 							<div class="border-left col d-flex flex-column justify-content-center">
 								<small class="d-block">
 									<span class="header-info-title">
-										<%= LanguageUtil.get(request, "erc") %>:
+										<liferay-ui:message key="<%= beanIdLabel %>" />:
 									</span>
 
 									<strong class="header-info-value">
-										<%= externalReferenceCode %>
+										<%= beanId %>
 									</strong>
 
-									<liferay-ui:icon-help message='<%= LanguageUtil.get(request, "external-reference-code") %>' />
+									<liferay-ui:icon-help message="identification-number" />
+								</small>
+
 								<small class="d-block">
 									<span class="header-info-title">
 										<liferay-ui:message key="erc" />:
@@ -96,18 +98,6 @@
 											url="<%= externalReferenceCodeEditUrl %>"
 										/>
 									</c:if>
-								</small>
-
-								<small class="d-block">
-									<span class="header-info-title">
-										<%= LanguageUtil.get(request, "id") %>:
-									</span>
-
-									<strong class="header-info-value">
-										2837162 <!-- TODO: id to be added -->
-									</strong>
-
-									<liferay-ui:icon-help message='<%= LanguageUtil.get(request, "identification-number") %>' />
 								</small>
 							</div>
 						</div>

@@ -39,6 +39,8 @@ page import="java.util.Map" %>
 <%
 List<HeaderActionModel> actions = (List<HeaderActionModel>)request.getAttribute("liferay-commerce:header:actions");
 Object bean = request.getAttribute("liferay-commerce:header:bean");
+long beanId = (long)request.getAttribute("liferay-commerce:header:beanId");
+String beanIdLabel = (String)request.getAttribute("liferay-commerce:header:beanIdLabel");
 String cssClasses = (String)request.getAttribute("liferay-commerce:header:cssClasses");
 List<DropdownItem> dropdownItems = (List<DropdownItem>)request.getAttribute("liferay-commerce:header:dropdownItems");
 String assignerModalUrl = (String)request.getAttribute("liferay-commerce:header:assignerModalUrl");

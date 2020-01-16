@@ -51,6 +51,8 @@ else {
 	actions="<%= commerceOrderEditDisplayContext.getHeaderActionModels() %>"
 	assignerModalUrl="/assigner/modal/url"
 	bean="<%= commerceOrder %>"
+	beanId="<%= commerceOrder.getCommerceOrderId() %>"
+	beanIdLabel="order-id"
 	dropdownItems="<%= commerceOrderEditDisplayContext.getDropdownItems() %>"
 	externalReferenceCode="<%= commerceOrder.getExternalReferenceCode() %>"
 	externalReferenceCodeEditUrl="<%= editCommerceOrderExternalReferenceCodeURL %>"
