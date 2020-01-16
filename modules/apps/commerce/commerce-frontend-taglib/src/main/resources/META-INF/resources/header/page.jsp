@@ -162,19 +162,19 @@
 						</div>
 					</c:if>
 
-					<c:if test="<%= actions != null %>">
-						<div class="col-12 col-lg-auto header-actions mt-3 mt-lg-0">
+					<c:if test="<%= Validator.isNotNull(actions) && !actions.isEmpty() %>">
+						<div class="border-left col-12 col-lg-auto header-actions mt-3 mt-lg-0">
 
 							<%
 							for (HeaderActionModel action : actions) {
+								String buttonStyle = "btn " + action.getAdditionalClasses();
 							%>
 
 								<clay:link
-									buttonStyle="<%= action.getStyle() %>"
-									elementClasses="mr-1"
+									elementClasses="<%= buttonStyle %>"
 									href="<%= action.getHref() %>"
 									id="<%= action.getId() %>"
-									label="<%= action.getLabel() %>"
+									label="<%= LanguageUtil.get(request, action.getLabel()) %>"
 								/>
 
 							<%
