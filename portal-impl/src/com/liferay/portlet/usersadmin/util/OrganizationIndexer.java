@@ -36,6 +36,8 @@ import com.liferay.portal.kernel.search.filter.QueryFilter;
 import com.liferay.portal.kernel.search.filter.TermsFilter;
 import com.liferay.portal.kernel.search.generic.TermQueryImpl;
 import com.liferay.portal.kernel.search.generic.WildcardQueryImpl;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.OrganizationLocalServiceUtil;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -113,8 +115,20 @@ public class OrganizationIndexer extends BaseIndexer<Organization> {
 				booleanFilter.add(new QueryFilter(termQuery));
 			}
 
+			PermissionChecker permissionChecker =
+				PermissionThreadLocal.getPermissionChecker();
+
 			for (Organization organization : organizationsTree) {
 				String treePath = organization.buildTreePath();
+
+				if ((permissionChecker != null) &&
+					(permissionChecker.isOrganizationAdmin(
+						organization.getOrganizationId()) ||
+					 permissionChecker.isOrganizationOwner(
+						 organization.getOrganizationId()))) {
+
+					treePath = treePath + "*";
+				}
 
 				WildcardQuery wildcardQuery = new WildcardQueryImpl(
 					Field.TREE_PATH, treePath);
