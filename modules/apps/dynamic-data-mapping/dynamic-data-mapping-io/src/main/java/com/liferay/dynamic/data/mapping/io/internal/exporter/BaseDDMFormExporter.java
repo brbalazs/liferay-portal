@@ -146,20 +146,17 @@ public abstract class BaseDDMFormExporter implements DDMFormExporter {
 
 		Stream<DDMFormFieldValue> stream = ddmFormFieldValues.stream();
 
-		ArrayList<String> arrayListValues = stream.collect(
-			ArrayList::new,
-			(list, ddmForFieldValue) -> {
-				String value = ddmFormFieldValueRenderer.render(
-					ddmForFieldValue, getLocale());
-
-				if (Validator.isNotNull(value)) {
-					list.add(value);
-				}
-			},
-			ArrayList::addAll);
-
 		String valueString = HtmlUtil.render(
-			StringUtil.merge(arrayListValues, StringPool.COMMA_AND_SPACE));
+			StringUtil.merge(
+				stream.map(
+					ddmForFieldValue -> ddmFormFieldValueRenderer.render(
+						ddmForFieldValue, getLocale())
+				).filter(
+					Validator::isNotNull
+				).collect(
+					Collectors.toList()
+				),
+				StringPool.COMMA_AND_SPACE));
 
 		return new DDMFormFieldRenderedValue(
 			ddmFormField.getName(), ddmFormField.getLabel(), valueString);
