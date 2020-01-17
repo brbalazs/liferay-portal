@@ -92,10 +92,11 @@ public class CommerceInventoryBookedQuantityLocalServiceImpl
 	}
 
 	@Override
-	public int getCommerceBookedQuantity(String sku) {
+	public int getCommerceBookedQuantity(long companyId, String sku) {
 		List<CommerceInventoryBookedQuantity>
 			commerceInventoryBookedQuantities =
-				commerceInventoryBookedQuantityPersistence.findBySku(sku);
+				commerceInventoryBookedQuantityPersistence.findByC_S(
+					companyId, sku);
 
 		int resultQuantity = 0;
 
