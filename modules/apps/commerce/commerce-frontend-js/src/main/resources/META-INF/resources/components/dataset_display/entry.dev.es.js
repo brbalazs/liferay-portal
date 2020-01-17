@@ -848,7 +848,7 @@ const dataSetDisplayProps = {
 				label: 'Order',
 			},
 			{
-				contentRenderer: 'customLabel',
+				contentRenderer: 'label',
 				fieldName: 'status',
 				label: 'Status',
 			},
@@ -985,8 +985,8 @@ const emailsDataSetDisplayProps = {
 	style: 'stacked',
 }
 
-// datasetDisplayLauncher('emails-dataset-display', 'emails-dataset-display-root-id', emailsDataSetDisplayProps);
-// datasetDisplayLauncher('fluid-dataset-display', 'fluid-dataset-display-root-id', fluidDataSetDisplayProps);
+datasetDisplayLauncher('emails-dataset-display', 'emails-dataset-display-root-id', emailsDataSetDisplayProps);
+datasetDisplayLauncher('fluid-dataset-display', 'fluid-dataset-display-root-id', fluidDataSetDisplayProps);
 datasetDisplayLauncher('dataset-display', 'dataset-display-root-id', dataSetDisplayProps);
 
 sidePanelLauncher('sidePanel', 'side-panel-root-id', {

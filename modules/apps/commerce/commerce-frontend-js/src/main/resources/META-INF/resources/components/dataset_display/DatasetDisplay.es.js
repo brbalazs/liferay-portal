@@ -99,7 +99,7 @@ function DatasetDisplay(props) {
 		}
 	};
 
-	const management_bar = props.showManagementBar ? (
+	const managementBar = props.showManagementBar ? (
 		<div className="dataset-display-management-bar-wrapper">
 			<ManagementBar
 				activeContentRenderer={activeContentRenderer}
@@ -187,21 +187,21 @@ function DatasetDisplay(props) {
 				<Modal id={datasetDisplaySupportModalId} />
 				{props.style === 'default' && (
 					<div className="dataset-display">
-						{management_bar}
+						{managementBar}
 						{content}
 						{pagination}
 					</div>
 				)}
 				{props.style === 'stacked' && (
 					<div className="dataset-display dataset-display-stacked">
-						{management_bar}
+						{managementBar}
 						{content}
 						{pagination}
 					</div>
 				)}
 				{props.style === 'fluid' && (
 					<div className="dataset-display dataset-display-fluid">
-						{management_bar}
+						{managementBar}
 						<div className="container mt-3">
 							{content}
 							{pagination}
