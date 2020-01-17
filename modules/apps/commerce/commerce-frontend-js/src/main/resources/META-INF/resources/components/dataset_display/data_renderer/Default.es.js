@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 function Default(props) {
 	switch (true) {
 		case !(props.value instanceof Object):
-			return <>{props.value}</>
+			return <React.Fragment>{props.value}</React.Fragment>
 		case !!props.value.icon:
 			return <ClayIcon symbol={props.value.icon} />
 		case !!props.value.pictureUrl:

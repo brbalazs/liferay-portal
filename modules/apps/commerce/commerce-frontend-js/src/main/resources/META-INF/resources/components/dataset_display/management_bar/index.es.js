@@ -16,7 +16,7 @@ function ManagementBar(props) {
 	}, [JSON.stringify(state.filters)]);
 
 	return (
-		<>
+		<React.Fragment>
 			<BulkActions
 				bulkActions={props.bulkActions}
 				fluid={props.fluid}
@@ -28,7 +28,7 @@ function ManagementBar(props) {
 				<NavBar creationMenuItems={props.creationMenuItems} />
 			)}
 			<ActiveFiltersBar disabled={!!props.selectedItemsId.length} />
-		</>
+		</React.Fragment>
 	);
 };
 

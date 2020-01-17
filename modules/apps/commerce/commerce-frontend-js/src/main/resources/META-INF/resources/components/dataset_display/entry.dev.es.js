@@ -20,25 +20,6 @@ const fluidDataSetDisplayProps = {
 			url: '/delete',
 		}
 	],
-	contentRenderers: [
-		{
-			component: (props) => {
-				return (
-					<>
-						<h4 className="p-3 mb-0 bg-dark text-center text-white">Hey, I'm a custom template from the outside</h4>
-						{props.items.map(item => (
-							<div className="p-3 text-center bg-white" key={item.skuId}>
-								<strong className="mr-3">{item.skuId}</strong>
-								{item.name}
-							</div>
-						))}
-					</>
-				)
-			},
-			id: 'custom-table',
-			label: 'Hey you don\'t know me',
-		}
-	],
 	creationMenuItems: [
 		{
 			label: 'Add via modal',
@@ -118,11 +99,30 @@ const fluidDataSetDisplayProps = {
 		initialPageNumber: 1,
 		initialTotalItems: 40
 	},
-	schema: {},
 	showPagination: true,
 	sidePanelId: 'sidePanelTestId',
 	spritemap: './assets/icons.svg',
 	style: 'fluid',
+	views: [
+		{
+			component: (props) => {
+				return (
+					<React.Fragment>
+						<h4 className="p-3 mb-0 bg-dark text-center text-white">Hey, I'm a custom template from the outside</h4>
+						{props.items.map(item => (
+							<div className="p-3 text-center bg-white" key={item.skuId}>
+								<strong className="mr-3">{item.skuId}</strong>
+								{item.name}
+							</div>
+						))}
+					</React.Fragment>
+				)
+			},
+			id: 'custom-table',
+			label: 'Hey you don\'t know me',
+			schema: {},
+		}
+	],
 }
 
 const dataSetDisplayProps = {
@@ -819,70 +819,69 @@ const dataSetDisplayProps = {
 		initialPageNumber: 1,
 		initialTotalItems: 40
 	},
-	schema: {
-		fields: [
-			{
-				contentRenderer: 'picture',
-				fieldName: 'thumbnail',
-				label: '',
-			},
-			{
-				contentRenderer: 'sidePanelLink',
-				fieldName: 'sku',
-				label: 'SKU',
-				sortable: true,
-			},
-			{
-				fieldName: 'name',
-				label: 'Name',
-				sortable: true
-			},
-			{
-				fieldName: 'unitPrice',
-				label: 'Price',
-				sortable: true
-			},
-			{
-				contentRenderer: 'modalLink',
-				fieldName: 'order',
-				label: 'Order',
-			},
-			{
-				contentRenderer: 'label',
-				fieldName: 'status',
-				label: 'Status',
-			},
-			{
-				fieldName: 'quantity',
-				label: 'Quantity',
-				sortable: true
-			},
-			{
-				fieldName: 'finalPrice',
-				label: 'Total',
-				sortable: false
-			},
-			{
-				contentRenderer: 'modalLink',
-				fieldName: 'date',
-			},
-		]
-	},
 	showPagination: true,
 	sidePanelId: 'sidePanelTestId',
-	spritemap: './assets/icons.svg'
+	spritemap: './assets/icons.svg',
+	views: [
+		{
+			icon: 'table',
+			id: 'table',
+			schema: {
+				fields: [
+					{
+						contentRenderer: 'picture',
+						fieldName: 'thumbnail',
+						label: '',
+					},
+					{
+						contentRenderer: 'sidePanelLink',
+						fieldName: 'sku',
+						label: 'SKU',
+						sortable: true,
+					},
+					{
+						fieldName: 'name',
+						label: 'Name',
+						sortable: true
+					},
+					{
+						fieldName: 'unitPrice',
+						label: 'Price',
+						sortable: true
+					},
+					{
+						contentRenderer: 'modalLink',
+						fieldName: 'order',
+						label: 'Order',
+					},
+					{
+						contentRenderer: 'label',
+						fieldName: 'status',
+						label: 'Status',
+					},
+					{
+						fieldName: 'quantity',
+						label: 'Quantity',
+						sortable: true
+					},
+					{
+						fieldName: 'finalPrice',
+						label: 'Total',
+						sortable: false
+					},
+					{
+						contentRenderer: 'modalLink',
+						fieldName: 'date',
+					},
+				]
+			},
+		}
+	]
 }
 
 const emailsDataSetDisplayProps = {
-	activeContentRenderer: 'emails-list',
+	activeView: 'emails-list',
 	apiUrl: 'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
-	contentRenderers: [
-		{
-			icon: 'email',
-			id: 'emails-list',
-			label: 'Email'
-		}
-	],
 	creationMenuItems: [
 		{
 			href: "/standard/edit",
@@ -983,6 +982,13 @@ const emailsDataSetDisplayProps = {
 	sidePanelId: 'sidePanelTestId',
 	spritemap: './assets/icons.svg',
 	style: 'stacked',
+	views: [
+		{
+			icon: 'email',
+			id: 'emails-list',
+			label: 'Email'
+		}
+	],
 }
 
 datasetDisplayLauncher('emails-dataset-display', 'emails-dataset-display-root-id', emailsDataSetDisplayProps);

@@ -9,7 +9,7 @@ import Modal from '../modal/Modal.es';
 import DatasetDisplayContext from './DatasetDisplayContext.es';
 import EmptyResultMessage from './EmptyResultMessage.es';
 import ManagementBar from './management_bar/index.es';
-import { getContentRenderers } from './utilities/contentRenderers.es';
+import { getViews } from './views/index.es';
 import {formatFilters} from './utilities/filters.es';
 import { OPEN_SIDE_PANEL, OPEN_MODAL } from '../../utilities/eventsDefinitions.es';
 import { getDataRenderers } from './data_renderer/index.es';
@@ -27,7 +27,7 @@ function loadData(apiUrl, filters, delta, page = 1, sorting = []) {
 }
 
 function DatasetDisplay(props) {
-	const [contentRenderers] = useState(getContentRenderers(props.contentRenderers));
+	const [views] = useState(getViews(props.views));
 	const [dataRenderers] = useState(getDataRenderers(props.dataRenderers))
 
 	const [datasetDisplaySupportModalId] = useState('support-modal-' + getRandomId())
@@ -39,11 +39,11 @@ function DatasetDisplay(props) {
 	const [pageNumber, setPageNumber] = useState(props.pagination.initialPageNumber || 1);
 	const [delta, setDelta] = useState(props.pagination.initialDelta || props.pagination.deltas[0].label);
 	const [totalItems, setTotalItems] = useState(props.pagination.initialTotalItems);
-	const [activeContentRenderer, setActiveContentRenderer] = useState(
-		props.activeContentRenderer || contentRenderers[0].id
+	const [activeView, setactiveView] = useState(
+		props.activeView || views[0].id
 	);
 
-	const ContentRendererComponent = contentRenderers.find(renderer => renderer.id === activeContentRenderer).component;
+	const View = views.find(renderer => renderer.id === activeView).component;
 
 	const formRef = useRef(null);
 
@@ -102,31 +102,31 @@ function DatasetDisplay(props) {
 	const managementBar = props.showManagementBar ? (
 		<div className="dataset-display-management-bar-wrapper">
 			<ManagementBar
-				activeContentRenderer={activeContentRenderer}
+				activeView={activeView}
 				bulkActions={props.bulkActions}
-				contentRenderers={props.contentRenderers}
 				creationMenuItems={props.creationMenuItems}
 				filters={filters}
 				fluid={props.style === 'fluid'}
 				onFiltersChange={updateFilters}
 				selectAllItems={() => selectItems('all-items', true)}
 				selectedItemsId={selectedItemsId}
-				setActiveContentRenderer={setActiveContentRenderer}
+				setactiveView={setactiveView}
 				sidePanelId={props.sidePanelId}
 				totalItemsCount={props.items.length}
+				views={props.views}
 			/>
 		</div>
 	) : null;
 
-	const content = (
+	const view = (
 		<div className="dataset-display-content-wrapper">
 			{
 				items && items.length ? ( 
-					<ContentRendererComponent
+					<View
 						datasetDisplayContext={DatasetDisplayContext}
 						items={items}
 						onSelect={selectItems}
-						schema={props.schema}
+						schema={props.views.find(view => view.id === activeView).schema || {}}
 						selectable={props.bulkActions && !!props.bulkActions.length}
 						selectedItemsId={selectedItemsId}
 					/>
@@ -188,14 +188,14 @@ function DatasetDisplay(props) {
 				{props.style === 'default' && (
 					<div className="dataset-display">
 						{managementBar}
-						{content}
+						{view}
 						{pagination}
 					</div>
 				)}
 				{props.style === 'stacked' && (
 					<div className="dataset-display dataset-display-stacked">
 						{managementBar}
-						{content}
+						{view}
 						{pagination}
 					</div>
 				)}
@@ -203,7 +203,7 @@ function DatasetDisplay(props) {
 					<div className="dataset-display dataset-display-fluid">
 						{managementBar}
 						<div className="container mt-3">
-							{content}
+							{view}
 							{pagination}
 						</div>
 					</div>
@@ -214,17 +214,9 @@ function DatasetDisplay(props) {
 }
 
 DatasetDisplay.propTypes = {
-	activeContentRenderer: PropTypes.string,
+	activeView: PropTypes.string,
 	apiUrl: PropTypes.string.isRequired,
 	bulkActions: PropTypes.array,
-	contentRenderers: PropTypes.arrayOf(
-		PropTypes.shape({
-			component: PropTypes.any,
-			icon: PropTypes.string,
-			id: PropTypes.string.isRequired,
-			label: PropTypes.string
-		})
-	),
 	creationMenuItems: PropTypes.array,
 	dataRenderers: PropTypes.arrayOf(PropTypes.shape({
 		component: PropTypes.any,
@@ -244,7 +236,6 @@ DatasetDisplay.propTypes = {
 		initialPageNumber: PropTypes.number,
 		initialTotalItems: PropTypes.number.isRequired,
 	}),
-	schema: PropTypes.object,
 	showManagementBar: PropTypes.bool,
 	showPagination: PropTypes.bool,
 	sidePanelId: PropTypes.string,
@@ -255,10 +246,27 @@ DatasetDisplay.propTypes = {
 		'fluid',
 		'stacked'
 	]),
+	views: PropTypes.arrayOf(
+		PropTypes.shape({
+			component: PropTypes.any,
+			icon: PropTypes.string,
+			id: PropTypes.string.isRequired,
+			label: PropTypes.string,
+			main: PropTypes.bool,
+			schema: PropTypes.object,
+		})
+	),
 };
 
 DatasetDisplay.defaultProps = {
-	contentRenderers: [
+	dataRenderers: [],
+	filters: [],
+	items: [],
+	showManagementBar: true,
+	showPagination: true,
+	sorting: [],
+	style: 'default',
+	views: [
 		{
 			icon: 'table',
 			id: 'table',
@@ -266,13 +274,6 @@ DatasetDisplay.defaultProps = {
 			main: true,
 		}
 	],
-	data_renderer: {},
-	filters: [],
-	items: [],
-	showManagementBar: true,
-	showPagination: true,
-	sorting: [],
-	style: 'default'
 };
 
 export default DatasetDisplay;

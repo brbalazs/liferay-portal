@@ -9,7 +9,7 @@ function TooltipPrice(props) {
 	const [ visible, setVisible ] = useState(false);
 
 	return (
-		<>
+		<React.Fragment>
 			{props.value.final}
 			<ClayButton
 				className="cell-comment text-info px-1 my-n2 inline-item"
@@ -41,7 +41,7 @@ function TooltipPrice(props) {
 					</ClayTooltip>
 				) : null
 			}
-		</>
+		</React.Fragment>
 	)
 }
 
