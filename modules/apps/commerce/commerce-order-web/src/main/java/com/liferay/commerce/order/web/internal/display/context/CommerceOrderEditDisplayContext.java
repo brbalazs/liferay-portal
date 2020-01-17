@@ -848,23 +848,6 @@ public class CommerceOrderEditDisplayContext {
 		return steps;
 	}
 
-	public WorkflowTask getReviewWorkflowTask() throws PortalException {
-		ThemeDisplay themeDisplay =
-			_commerceOrderRequestHelper.getThemeDisplay();
-
-		List<WorkflowTask> workflowTasks = _workflowTaskManager.search(
-			themeDisplay.getCompanyId(), themeDisplay.getUserId(), "review",
-			CommerceOrder.class.getName(),
-			new Long[] {_commerceOrder.getCommerceOrderId()}, null, null, false,
-			null, false, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
-
-		if (workflowTasks.size() == 1) {
-			return workflowTasks.get(0);
-		}
-
-		return null;
-	}
-
 	public List<SummaryElement> getSummary() throws PortalException {
 		List<SummaryElement> summary = new ArrayList<>();
 

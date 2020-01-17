@@ -55,7 +55,6 @@ else {
 	externalReferenceCode="<%= commerceOrder.getExternalReferenceCode() %>"
 	externalReferenceCodeEditUrl="<%= editCommerceOrderExternalReferenceCodeURL %>"
 	model="<%= CommerceOrder.class %>"
-	reviewWorkflowTask="<%= commerceOrderEditDisplayContext.getReviewWorkflowTask() %>"
 	thumbnailUrl="<%= commerceOrderEditDisplayContext.getCommerceAccountThumbnailURL() %>"
 	title="<%= headerTitle %>"
 />

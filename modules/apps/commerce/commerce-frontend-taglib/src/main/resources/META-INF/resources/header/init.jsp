@@ -41,6 +41,7 @@ page import="com.liferay.portal.kernel.workflow.WorkflowTask" %>
 <%@ page import="java.util.HashMap" %><%@
 page import="java.util.List" %><%@
 page import="java.util.Map" %>
+<%@ page import="com.liferay.commerce.frontend.util.HeaderHelperUtil" %>
 
 <liferay-theme:defineObjects />
 
@@ -58,10 +59,15 @@ String externalReferenceCodeEditUrl = (String)request.getAttribute("liferay-comm
 boolean fullWidth = (boolean)request.getAttribute("liferay-commerce:header:fullWidth");
 Class<?> model = (Class<?>)request.getAttribute("liferay-commerce:header:model");
 String previewUrl = (String)request.getAttribute("liferay-commerce:header:previewUrl");
-WorkflowTask reviewWorkflowTask = (WorkflowTask)request.getAttribute("liferay-commerce:header:reviewWorkflowTask");
 String spritemap = (String)request.getAttribute("liferay-commerce:header:spritemap");
 String thumbnailUrl = (String)request.getAttribute("liferay-commerce:header:thumbnailUrl");
 String title = (String)request.getAttribute("liferay-commerce:header:title");
 String version = (String)request.getAttribute("liferay-commerce:header:version");
 String wrapperCssClasses = (String)request.getAttribute("liferay-commerce:header:wrapperCssClasses");
+
+BaseModel beanBaseModel = (BaseModel)bean;
+
+long beanId = (long)beanBaseModel.getPrimaryKeyObj();
+
+WorkflowTask reviewWorkflowTask = HeaderHelperUtil.getReviewWorkflowTask(themeDisplay.getCompanyId(), themeDisplay.getUserId(), beanId, model.getName());
 %>

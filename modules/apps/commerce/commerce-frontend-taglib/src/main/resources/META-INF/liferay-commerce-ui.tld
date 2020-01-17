@@ -229,13 +229,6 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
-			<description><![CDATA[The "review" WorkflowTask associate with the asset.]]></description>
-			<name>reviewWorkflowTask</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>com.liferay.portal.kernel.workflow.WorkflowTask</type>
-		</attribute>
-		<attribute>
 			<name>thumbnailUrl</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>

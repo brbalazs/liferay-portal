@@ -23,8 +23,6 @@ if (bean instanceof WorkflowedModel) {
 	isWorkflowedModel = true;
 }
 
-BaseModel beanBaseModel = (BaseModel)bean;
-
 String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletKeys.MY_WORKFLOW_TASK);
 %>
 
@@ -69,7 +67,7 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 									</span>
 
 									<strong class="header-info-value">
-										<%= beanBaseModel.getPrimaryKeyObj() %>
+										<%= beanId %>
 									</strong>
 
 									<liferay-ui:icon-help message="identification-number" />
