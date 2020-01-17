@@ -1,26 +1,20 @@
-import React, { useContext } from 'react'
-import ClayList from '@clayui/list';
 import ClayLabel from '@clayui/label';
+import ClayList from '@clayui/list';
 import ClaySticker from '@clayui/sticker';
-import ActionsDropdown from '../common/ActionsDropdown.es';
 import classNames from 'classnames';
-import DatasetContext from '../../DatasetDisplayContext.es';
-
 import PropTypes from 'prop-types';
-import { OPEN_SIDE_PANEL } from '../../../../utilities/eventsDefinitions.es';
+import React, { useContext } from 'react'
 
 function Email(props) {
-
-    const {loadData} = useContext(DatasetContext);
+    const {dataRenderers, loadData, openSidePanel} = useContext(props.datasetDisplayContext);
 
     function handleClickOnSubject(e) {
         e.preventDefault();
 
-        Liferay.fire(OPEN_SIDE_PANEL, {
-            id: props.sidePanelId,
+        openSidePanel({
             onAfterSubmit: () => loadData(),
             slug: 'email',
-            url: props.url,
+            url: props.url
         })
     }
 
@@ -64,14 +58,14 @@ function Email(props) {
                         <div className="col-12">
                             <h5 className="mt-3"><a href="#" onClick={handleClickOnSubject}>{props.subject}</a></h5>
                             <div>
-                                {props.abstract}
+                                {props.summary}
                             </div>
                         </div>
                     </div>
                 </div>
                 {props.actionItems.length ? (
                     <div className="col-auto d-flex flex-column justify-content-center">
-                        <ActionsDropdown items={props.actionItems} />
+                        <dataRenderers.actionsDropdown items={props.actionItems} />
                     </div>
                 ) : null}
             </div>
@@ -80,7 +74,6 @@ function Email(props) {
 }
 
 Email.propTypes = {
-    abstract: PropTypes.string.isRequired,
     actionItems: PropTypes.array,
     author: PropTypes.shape({
         avatarUrl: PropTypes.string,
@@ -89,12 +82,12 @@ Email.propTypes = {
     }).isRequired,
     borderBottom: PropTypes.bool,
     date: PropTypes.string.isRequired,
-    sidePanelId: PropTypes.string,
     status: PropTypes.shape({
         displayStyle: PropTypes.string,
         label: PropTypes.string.isRequired
     }),
     subject: PropTypes.string.isRequired,
+    summary: PropTypes.string.isRequired,
     url: PropTypes.string,
 }
 
@@ -110,7 +103,7 @@ function EmailsList(props) {
                     key={i}
                     {...item}
                     borderBottom={i !== props.items.length - 1}
-                    sidePanelId={props.sidePanelId}
+                    datasetDisplayContext={props.datasetDisplayContext}
                 />
             ))}
         </ClayList>
@@ -118,8 +111,9 @@ function EmailsList(props) {
 }
 
 EmailsList.propTypes = {
-    items: PropTypes.array,
-    sidePanelId: PropTypes.string
+    dataRenderers: PropTypes.object,
+    datasetDisplayContext: PropTypes.any,
+    items: PropTypes.array
 }
 
 EmailsList.defaultProps = {

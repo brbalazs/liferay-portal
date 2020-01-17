@@ -1,11 +1,11 @@
 import React from 'react';
 
 const DatasetDisplayContext = React.createContext({
-	enableInlineEditing: () => {},
 	formRef: null,
-	inlineEditingDetails: null,
 	loadData: () => {},
 	modalId: null,
+	openModal: () => {},
+	openSidePanel: () => {},
 	sidePanelId: null,
 	sorting: [],
 	updateSorting: () => {},

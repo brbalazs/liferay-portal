@@ -1,13 +1,13 @@
-import Table from '../content_renderers/table/Table.es'
-import EmailsList from '../content_renderers/emails_list/EmailsList';
+import Table from '../content_renderer/table/Table.es'
+import EmailsList from '../content_renderer/emails_list/EmailsList';
 
 export const defaultContentRenderers = [
     {
         component: Table,
-        default: true,
         icon: 'table',
         id: 'table',
         label: Liferay.Language.get('table'),
+        main: true,
     },
     {
         component: EmailsList,
@@ -17,15 +17,25 @@ export const defaultContentRenderers = [
     }
 ]
 
-export function getRenderers(newRenderers = []) {
-    const newDefaultRenderer = newRenderers.find(renderer => renderer.default);
+export function getContentRenderers(contentRenderers) {
+    if(!contentRenderers) {
+        return defaultContentRenderers;
+    }
 
-    return [
-        ...(
-            newDefaultRenderer
-            ? defaultContentRenderers.map(render => ({...render, default: false}))
-            : defaultContentRenderers
-        ),
-        ...newRenderers
-    ]
+    const enrichedRenderers = contentRenderers.map(contentRenderer => {
+        if(!contentRenderer.component) {
+            const matchedDefaultComponent = defaultContentRenderers.find(
+                defaultRenderer => defaultRenderer.id === contentRenderer.id
+            )
+
+            return {
+                ...contentRenderer,
+                component: matchedDefaultComponent.component
+            }
+        }
+        return contentRenderer
+    })
+
+    return enrichedRenderers;
+
 }

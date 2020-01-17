@@ -53,3 +53,26 @@
         }
     }
 }
+
+.tooltip-table {
+    background: transparent;
+    border: none;
+    border-collapse: collapse;
+    color: white;
+    width: 100%;
+
+    td {
+        background-color: transparent !important;
+        border-color: rgba(255,255,255,0.1);
+        padding-bottom: map-get($spacers, 1) !important;
+        padding-top: map-get($spacers, 1) !important;
+        
+        &:first-child {
+            padding-left: 0 !important;
+        }
+
+        &:last-child {
+            padding-right: 0 !important;
+        }
+    }
+}

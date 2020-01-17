@@ -1,6 +1,6 @@
 import ClaySticker from '@clayui/sticker';
-import React from 'react';
 import Proptype from 'prop-types';
+import React from 'react';
 
 function Picture(props) {
 	return (

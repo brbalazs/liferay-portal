@@ -1,6 +1,7 @@
 import ClayButton from '@clayui/button';
 import ClayDropDown from '@clayui/drop-down';
 import ClayIcon from '@clayui/icon';
+import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
 function ActionsDropdown(props) {
@@ -32,6 +33,16 @@ function ActionsDropdown(props) {
 			</ClayDropDown.ItemList>
 		</ClayDropDown>
 	);
+}
+
+ActionsDropdown.propTypes = {
+	items: PropTypes.arrayOf(
+		PropTypes.shape({
+			href: PropTypes.string,
+			icon: PropTypes.string,
+			label: PropTypes.string.isRequired,
+		})
+	)
 }
 
 export default ActionsDropdown;

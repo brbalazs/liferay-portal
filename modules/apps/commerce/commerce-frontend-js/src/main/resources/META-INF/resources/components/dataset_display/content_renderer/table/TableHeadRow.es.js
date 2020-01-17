@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import classNames from 'classnames'
 
-import Checkbox from './cellTemplate/Checkbox.es';
+import Checkbox from '../../data_renderer/Checkbox.es';
 import ClayIcon from '@clayui/icon';
 import DatasetDisplayContext from '../../DatasetDisplayContext.es'
 

@@ -9,8 +9,10 @@ import Modal from '../modal/Modal.es';
 import DatasetDisplayContext from './DatasetDisplayContext.es';
 import EmptyResultMessage from './EmptyResultMessage.es';
 import ManagementBar from './management_bar/index.es';
-import {getRenderers} from './utilities/contentRenderers.es';
+import { getContentRenderers } from './utilities/contentRenderers.es';
 import {formatFilters} from './utilities/filters.es';
+import { OPEN_SIDE_PANEL, OPEN_MODAL } from '../../utilities/eventsDefinitions.es';
+import { getDataRenderers } from './data_renderer/index.es';
 
 function loadData(apiUrl, filters, delta, page = 1, sorting = []) {
 	const authString = `&p_auth=${window.Liferay.authToken}`;
@@ -25,7 +27,8 @@ function loadData(apiUrl, filters, delta, page = 1, sorting = []) {
 }
 
 function DatasetDisplay(props) {
-	const contentRenderers = getRenderers(props.contentRenderers);
+	const [contentRenderers] = useState(getContentRenderers(props.contentRenderers));
+	const [dataRenderers] = useState(getDataRenderers(props.dataRenderers))
 
 	const [datasetDisplaySupportModalId] = useState('support-modal-' + getRandomId())
 
@@ -36,7 +39,9 @@ function DatasetDisplay(props) {
 	const [pageNumber, setPageNumber] = useState(props.pagination.initialPageNumber || 1);
 	const [delta, setDelta] = useState(props.pagination.initialDelta || props.pagination.deltas[0].label);
 	const [totalItems, setTotalItems] = useState(props.pagination.initialTotalItems);
-	const [activeContentRenderer, setActiveContentRenderer] = useState(props.activeContentRenderer || contentRenderers.find((el) => el.default).id);
+	const [activeContentRenderer, setActiveContentRenderer] = useState(
+		props.activeContentRenderer || contentRenderers[0].id
+	);
 
 	const ContentRendererComponent = contentRenderers.find(renderer => renderer.id === activeContentRenderer).component;
 
@@ -46,8 +51,8 @@ function DatasetDisplay(props) {
 		if (dataSetData instanceof Array) {
 			return updateItems(dataSetData);
 		}
-		updateItems(dataSetData.items);
 		setTotalItems(dataSetData.totalItems);
+		return updateItems(dataSetData.items);
 	}
 
 	function getData(apiUrl, filters, delta, pageNumber, sorting, showSuccessNotification = false) {
@@ -58,22 +63,22 @@ function DatasetDisplay(props) {
 					showNotification(
 						Liferay.Language.get('table-data-updated'),
 						'success'
-					)
+					);
 				}
 			})
 			.catch((e) => {
-				console.error(e)
+				console.error(e);
 				showNotification(
 					Liferay.Language.get('unexpected-error'),
 					'danger'
-				)
+				);
 			})
 	};
 
 	useEffect(() => {
-		getData(props.apiUrl, filters.filter(e => !!e.value), delta, pageNumber, sorting)
+		getData(props.apiUrl, filters.filter(e => !!e.value), delta, pageNumber, sorting);
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [props.apiUrl, filters, delta, pageNumber, sorting])
+	}, [props.apiUrl, filters, delta, pageNumber, sorting]);
 
 	const selectItems = (val, checked) => {
 		if (val === 'all-items') {
@@ -118,20 +123,19 @@ function DatasetDisplay(props) {
 			{
 				items && items.length ? ( 
 					<ContentRendererComponent
+						datasetDisplayContext={DatasetDisplayContext}
 						items={items}
 						onSelect={selectItems}
 						schema={props.schema}
 						selectable={props.bulkActions && !!props.bulkActions.length}
 						selectedItemsId={selectedItemsId}
-						sidePanelId={props.sidePanelId}
-						sorting={sorting}
 					/>
 				) : (
 					<EmptyResultMessage />
 				)
 			}
 		</div>
-	)
+	);
 
 	const pagination = (props.showPagination && props.pagination && items.length) ? (
 		<div className="dataset-display-pagination-wrapper">
@@ -149,14 +153,31 @@ function DatasetDisplay(props) {
 				totalItems={totalItems}
 			/>
 		</div>
-	) : null
+	) : null;
+
+	function openSidePanel(config) {
+		return Liferay.fire(OPEN_SIDE_PANEL, {
+			id: props.sidePanelId,
+			...config
+		})
+	}
+
+	function openModal(config) {
+		return Liferay.fire(OPEN_MODAL, {
+			id: datasetDisplaySupportModalId,
+			...config
+		})
+	}
 
 	return (
 		<DatasetDisplayContext.Provider
 			value={{
+				dataRenderers,
 				formRef,
 				loadData: () => getData(props.apiUrl, filters.filter(e => !!e.value), delta, pageNumber, sorting, true),
 				modalId: datasetDisplaySupportModalId,
+				openModal,
+				openSidePanel,
 				sidePanelId: props.sidePanelId,
 				sorting,
 				updateSorting,
@@ -198,14 +219,17 @@ DatasetDisplay.propTypes = {
 	bulkActions: PropTypes.array,
 	contentRenderers: PropTypes.arrayOf(
 		PropTypes.shape({
-			component: PropTypes.any.isRequired,
-			default: PropTypes.bool,
+			component: PropTypes.any,
 			icon: PropTypes.string,
-			id: PropTypes.string,
-			label: PropTypes.string,
+			id: PropTypes.string.isRequired,
+			label: PropTypes.string
 		})
 	),
 	creationMenuItems: PropTypes.array,
+	dataRenderers: PropTypes.arrayOf(PropTypes.shape({
+		component: PropTypes.any,
+		id: PropTypes.string,
+	})),
 	filters: PropTypes.array,
 	id: PropTypes.string.isRequired,
 	items: PropTypes.array.isRequired,
@@ -234,6 +258,15 @@ DatasetDisplay.propTypes = {
 };
 
 DatasetDisplay.defaultProps = {
+	contentRenderers: [
+		{
+			icon: 'table',
+			id: 'table',
+			label: 'Table',
+			main: true,
+		}
+	],
+	data_renderer: {},
 	filters: [],
 	items: [],
 	showManagementBar: true,

@@ -18,8 +18,8 @@
 
 <div class="table-root" id="<%= containerId %>"></div>
 
-<aui:script require="commerce-frontend-js/components/dataset_display/entry.es as table">
-	table.default(
+<aui:script require="commerce-frontend-js/components/dataset_display/entry.es as datasetDisplay">
+	datasetDisplay.default(
 		"<%= containerId %>",
 		"<%= containerId %>",
 		Object.assign(
@@ -112,7 +112,8 @@
 				namespace : "<%= namespace %>",
 				portletURL : "<%= portletURL %>",
 				spritemap : "<%= spritemap %>",
-				style : "<%= style %>"
+				style : "<%= style %>",
+				contentRenderer: "<%= alias %>
 			}
 		)
 	);
