@@ -17,13 +17,15 @@
 <%@ include file="/header/init.jsp" %>
 
 <%
-	boolean isWorkflowedModel = false;
+boolean isWorkflowedModel = false;
 
-	if (bean instanceof WorkflowedModel) {
-		isWorkflowedModel = true;
-	}
+if (bean instanceof WorkflowedModel) {
+	isWorkflowedModel = true;
+}
 
-	BaseModel beanBaseModel = (BaseModel)bean;
+BaseModel beanBaseModel = (BaseModel)bean;
+
+String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletKeys.MY_WORKFLOW_TASK);
 %>
 
 <div class="bg-white border-bottom commerce-header<%= fullWidth ? " container-fluid" : StringPool.BLANK %><%= Validator.isNotNull(wrapperCssClasses) ? StringPool.SPACE + wrapperCssClasses : StringPool.BLANK %>">
@@ -138,45 +140,43 @@
 			<div class="collapse d-lg-flex" id="navbarNavAltMarkup">
 				<div class="align-self-center row">
 					<c:if test="<%= Validator.isNotNull(reviewWorkflowTask) %>">
-
 						<%
-							boolean assignedToCurrentUser = false;
+						boolean assignedToCurrentUser = false;
 
-							if (reviewWorkflowTask.getAssigneeUserId() == user.getUserId()) {
-								assignedToCurrentUser = true;
-							}
+						if (reviewWorkflowTask.getAssigneeUserId() == user.getUserId()) {
+							assignedToCurrentUser = true;
+						}
+
+						String assignee = PortalUtil.getUserName(reviewWorkflowTask.getAssigneeUserId(), "nobody");
+
+						if (assignedToCurrentUser) {
+							assignee = "me";
+						}
 						%>
 
 						<div class="border-left col col-12 col-lg-auto d-flex mt-3 mt-lg-0">
 							<small class="d-block">
 								<span class="header-info-title mr-1">
-									<%= LanguageUtil.get(request, "assigned-to") %>:
+									<liferay-ui:message key="assigned-to" />:
 								</span>
 
 								<button aria-expanded="false" aria-haspopup="true" class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
-									<%= assignedToCurrentUser ? LanguageUtil.get(request, "me") : PortalUtil.getUserName(reviewWorkflowTask.getAssigneeUserId(), LanguageUtil.get(request, "nobody")) %>
-									<svg aria-hidden="true" class="lexicon-icon lexicon-icon-caret-bottom">
-										<use xlink:href="<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg#caret-bottom">
-									</svg>
+									<liferay-ui:message key="<%= assignee %>" />
+
+									<clay:icon
+										symbol="caret-bottom"
+									/>
 								</button>
 
 								<div class="dropdown-menu dropdown-menu-right">
 									<c:if test="<%= !assignedToCurrentUser %>">
-										<clay:link
+										<clay:button
 											elementClasses="dropdown-item transition-link"
-											href="#"
-											id="assign-to-me-modal-opener"
+											id='<%= renderResponse.getNamespace() + "assign-to-me-modal-opener" %>'
 											label='<%= LanguageUtil.get(request, "assign-to-me") %>'
+											size="lg"
+											style="secondary"
 										/>
-
-										<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
-											document.querySelector('#assign-to-me-modal-opener').addEventListener('click', function(e) {
-												e.preventDefault();
-												Liferay.fire(events.OPEN_MODAL, {
-													id: 'assign-to-me-modal'
-												});
-											})
-										</aui:script>
 
 										<liferay-portlet:renderURL portletName="<%= PortletKeys.MY_WORKFLOW_TASK %>" var="assignToMeURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 											<portlet:param name="mvcPath" value="/workflow_task_assign.jsp" />
@@ -185,46 +185,64 @@
 											<portlet:param name="assigneeUserId" value="<%= String.valueOf(user.getUserId()) %>" />
 										</liferay-portlet:renderURL>
 
-										<commerce-ui:modal
-											id="assign-to-me-modal"
-											refreshPageOnClose="<%= true %>"
-											title='<%= LanguageUtil.get(request, "assign-to-me") %>'
-											url="<%= assignToMeURL %>"
-										/>
+										<aui:script>
+											document.querySelector('#<portlet:namespace />assign-to-me-modal-opener').addEventListener('click', function(e) {
+												Liferay.Util.openWindow(
+													{
+														dialog: {
+															destroyOnHide: true,
+															height: 430,
+															resizable: false,
+															width: 896
+														},
+														dialogIframe: {
+															bodyCssClass: 'dialog-with-footer task-dialog'
+														},
+														id: '<%= myWorkflowTasksPortletNamespace %>assignToDialog',
+														title: '<liferay-ui:message key="assign-to-me" />',
+														uri: '<%= assignToMeURL %>'
+													}
+												);
+											});
+										</aui:script>
 									</c:if>
 
-									<clay:link
+									<clay:button
 										elementClasses="dropdown-item transition-link"
-										href="#"
-										id="assign-modal-opener"
+										id='<%= renderResponse.getNamespace() + "assign-to-modal-opener" %>'
 										label='<%= LanguageUtil.get(request, "assign-to-...") %>'
+										size="lg"
+										style="secondary"
 									/>
 
-									<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
-										document.querySelector("#assign-modal-opener").addEventListener("click", function(e) {
-											e.preventDefault();
-											Liferay.fire(events.OPEN_MODAL, {
-												id: "assign-modal"
-											});
-										})
-									</aui:script>
-
-									<liferay-portlet:renderURL portletName="<%= PortletKeys.MY_WORKFLOW_TASK %>" var="assignToMeURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+									<liferay-portlet:renderURL portletName="<%= PortletKeys.MY_WORKFLOW_TASK %>" var="assignToURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 										<portlet:param name="mvcPath" value="/workflow_task_assign.jsp" />
 										<portlet:param name="hideDefaultSuccessMessage" value="<%= Boolean.TRUE.toString() %>" />
 										<portlet:param name="workflowTaskId" value="<%= String.valueOf(reviewWorkflowTask.getWorkflowTaskId()) %>" />
 									</liferay-portlet:renderURL>
 
-									<commerce-ui:modal
-										id="assign-modal"
-										refreshPageOnClose="<%= true %>"
-										title='<%= LanguageUtil.get(request, "assign-to-...") %>'
-										url="<%= assignToMeURL %>"
-									/>
-
 									<aui:script>
-										function _<%= PortletKeys.MY_WORKFLOW_TASK %>_refreshPortlet() {
-											window.location.reload();
+										document.querySelector('#<portlet:namespace />assign-to-modal-opener').addEventListener('click', function(e) {
+											Liferay.Util.openWindow(
+												{
+													dialog: {
+														destroyOnHide: true,
+														height: 430,
+														resizable: false,
+														width: 896
+													},
+													dialogIframe: {
+														bodyCssClass: 'dialog-with-footer task-dialog'
+													},
+													id: '<%= myWorkflowTasksPortletNamespace %>assignToDialog',
+													title: '<liferay-ui:message key="assign-to-..." />',
+													uri: '<%= assignToURL %>'
+												}
+											);
+										});
+
+										function <%= myWorkflowTasksPortletNamespace %>refreshPortlet() {
+											window.location.reload()
 										}
 									</aui:script>
 								</div>
