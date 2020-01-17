@@ -128,12 +128,14 @@ public class CommerceInventoryBookedQuantityModelImpl
 			"value.object.column.bitmask.enabled.com.liferay.commerce.inventory.model.CommerceInventoryBookedQuantity"),
 		true);
 
-	public static final long EXPIRATIONDATE_COLUMN_BITMASK = 1L;
+	public static final long COMPANYID_COLUMN_BITMASK = 1L;
 
-	public static final long SKU_COLUMN_BITMASK = 2L;
+	public static final long EXPIRATIONDATE_COLUMN_BITMASK = 2L;
+
+	public static final long SKU_COLUMN_BITMASK = 4L;
 
 	public static final long COMMERCEINVENTORYBOOKEDQUANTITYID_COLUMN_BITMASK =
-		4L;
+		8L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -639,7 +641,19 @@ public class CommerceInventoryBookedQuantityModelImpl
 
 	@Override
 	public void setCompanyId(long companyId) {
+		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCompanyId) {
+			_setOriginalCompanyId = true;
+
+			_originalCompanyId = _companyId;
+		}
+
 		_companyId = companyId;
+	}
+
+	public long getOriginalCompanyId() {
+		return _originalCompanyId;
 	}
 
 	@JSON
@@ -905,6 +919,11 @@ public class CommerceInventoryBookedQuantityModelImpl
 		CommerceInventoryBookedQuantityModelImpl
 			commerceInventoryBookedQuantityModelImpl = this;
 
+		commerceInventoryBookedQuantityModelImpl._originalCompanyId =
+			commerceInventoryBookedQuantityModelImpl._companyId;
+
+		commerceInventoryBookedQuantityModelImpl._setOriginalCompanyId = false;
+
 		commerceInventoryBookedQuantityModelImpl._setModifiedDate = false;
 
 		commerceInventoryBookedQuantityModelImpl._originalSku =
@@ -1073,6 +1092,8 @@ public class CommerceInventoryBookedQuantityModelImpl
 
 	private long _commerceInventoryBookedQuantityId;
 	private long _companyId;
+	private long _originalCompanyId;
+	private boolean _setOriginalCompanyId;
 	private long _userId;
 	private String _userName;
 	private Date _createDate;

@@ -1,6 +1,7 @@
 create index IX_E7D143D9 on CIAudit (createDate);
 create index IX_57638B52 on CIAudit (sku[$COLUMN_LENGTH:75$]);
 
+create index IX_1B168464 on CIBookedQuantity (companyId, sku[$COLUMN_LENGTH:75$]);
 create index IX_33BF9CB0 on CIBookedQuantity (expirationDate);
 create index IX_EC1719EE on CIBookedQuantity (sku[$COLUMN_LENGTH:75$]);
 

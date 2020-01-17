@@ -241,8 +241,8 @@ public class CommerceInventoryBookedQuantityLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
-	public static int getCommerceBookedQuantity(String sku) {
-		return getService().getCommerceBookedQuantity(sku);
+	public static int getCommerceBookedQuantity(long companyId, String sku) {
+		return getService().getCommerceBookedQuantity(companyId, sku);
 	}
 
 	/**

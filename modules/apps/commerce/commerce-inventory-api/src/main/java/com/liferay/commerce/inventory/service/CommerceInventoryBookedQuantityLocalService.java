@@ -200,7 +200,7 @@ public interface CommerceInventoryBookedQuantityLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommerceBookedQuantity(String sku);
+	public int getCommerceBookedQuantity(long companyId, String sku);
 
 	/**
 	 * Returns a range of all the commerce inventory booked quantities.

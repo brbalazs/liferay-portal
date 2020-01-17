@@ -256,9 +256,9 @@ public class CommerceInventoryBookedQuantityLocalServiceWrapper
 	}
 
 	@Override
-	public int getCommerceBookedQuantity(String sku) {
+	public int getCommerceBookedQuantity(long companyId, String sku) {
 		return _commerceInventoryBookedQuantityLocalService.
-			getCommerceBookedQuantity(sku);
+			getCommerceBookedQuantity(companyId, sku);
 	}
 
 	/**

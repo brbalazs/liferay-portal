@@ -221,6 +221,15 @@ public class CommerceInventoryBookedQuantityPersistenceTest {
 	}
 
 	@Test
+	public void testCountByC_S() throws Exception {
+		_persistence.countByC_S(RandomTestUtil.nextLong(), "");
+
+		_persistence.countByC_S(0L, "null");
+
+		_persistence.countByC_S(0L, (String)null);
+	}
+
+	@Test
 	public void testFindByPrimaryKeyExisting() throws Exception {
 		CommerceInventoryBookedQuantity newCommerceInventoryBookedQuantity =
 			addCommerceInventoryBookedQuantity();
