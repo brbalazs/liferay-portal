@@ -27,16 +27,17 @@ CommerceVirtualOrderItemContentDisplayContext commerceVirtualOrderItemContentDis
 		</div>
 	</c:when>
 	<c:otherwise>
+
 		<%
+		Map<String, Object> contextObjects = new HashMap<>();
 
-			Map<String, Object> contextObjects = new HashMap<>();
+		contextObjects.put("commerceVirtualOrderItemContentDisplayContext", commerceVirtualOrderItemContentDisplayContext);
 
-			contextObjects.put("commerceVirtualOrderItemContentDisplayContext", commerceVirtualOrderItemContentDisplayContext);
+		SearchContainer<CommerceVirtualOrderItem> commerceVirtualOrderContentDisplayContextSearchContainer = commerceVirtualOrderItemContentDisplayContext.getSearchContainer();
 
-			SearchContainer<CommerceVirtualOrderItem> commerceVirtualOrderContentDisplayContextSearchContainer = commerceVirtualOrderItemContentDisplayContext.getSearchContainer();
-
-			List<CommerceVirtualOrderItem> results = commerceVirtualOrderContentDisplayContextSearchContainer.getResults();
+		List<CommerceVirtualOrderItem> results = commerceVirtualOrderContentDisplayContextSearchContainer.getResults();
 		%>
+
 		<liferay-ddm:template-renderer
 			className="<%= CommerceVirtualOrderItemContentPortlet.class.getName() %>"
 			contextObjects="<%= contextObjects %>"
