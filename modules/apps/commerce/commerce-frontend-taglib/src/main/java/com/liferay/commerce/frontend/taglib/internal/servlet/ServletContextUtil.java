@@ -163,6 +163,7 @@ public class ServletContextUtil {
 		_cpContentHelper = cpContentHelper;
 	}
 
+	@Reference(unbind = "-")
 	protected void setCPSubscriptionTypeRegistry(
 		CPSubscriptionTypeRegistry cpSubscriptionTypeRegistry) {
 
