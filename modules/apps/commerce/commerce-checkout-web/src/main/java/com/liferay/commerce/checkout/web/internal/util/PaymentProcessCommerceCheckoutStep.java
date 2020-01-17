@@ -118,13 +118,10 @@ public class PaymentProcessCommerceCheckoutStep
 					_commerceCheckoutStepServicesTracker, commerceOrder,
 					httpServletRequest, _portal);
 
-		httpServletRequest.setAttribute(
-			CommerceCheckoutWebKeys.COMMERCE_CHECKOUT_STEP_DISPLAY_CONTEXT,
-			paymentProcessCheckoutStepDisplayContext);
+		String paymentServletURL = httpServletResponse.encodeRedirectURL(
+			paymentProcessCheckoutStepDisplayContext.getPaymentServletUrl());
 
-		_jspRenderer.renderJSP(
-			httpServletRequest, httpServletResponse,
-			"/checkout_step/payment_process.jsp");
+		httpServletResponse.sendRedirect(paymentServletURL);
 	}
 
 	@Override
