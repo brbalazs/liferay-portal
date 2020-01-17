@@ -27,12 +27,15 @@ import com.liferay.dynamic.data.mapping.service.DDMFormInstanceVersionLocalServi
 import com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue;
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
 import com.liferay.dynamic.data.mapping.util.comparator.FormInstanceVersionVersionComparator;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.time.LocalDateTime;
@@ -131,7 +134,7 @@ public abstract class BaseDDMFormExporter implements DDMFormExporter {
 		DDMFormField ddmFormField,
 		Map<String, List<DDMFormFieldValue>> ddmFormFieldValueMap) {
 
-		List<DDMFormFieldValue> ddmForFieldValues = ddmFormFieldValueMap.get(
+		List<DDMFormFieldValue> ddmFormFieldValues = ddmFormFieldValueMap.get(
 			ddmFormField.getName());
 
 		DDMFormFieldTypeServicesTracker ddmFormFieldTypeServicesTracker =
@@ -141,9 +144,22 @@ public abstract class BaseDDMFormExporter implements DDMFormExporter {
 			ddmFormFieldTypeServicesTracker.getDDMFormFieldValueRenderer(
 				ddmFormField.getType());
 
+		Stream<DDMFormFieldValue> stream = ddmFormFieldValues.stream();
+
+		ArrayList<String> arrayListValues = stream.collect(
+			ArrayList::new,
+			(list, ddmForFieldValue) -> {
+				String value = ddmFormFieldValueRenderer.render(
+					ddmForFieldValue, getLocale());
+
+				if (Validator.isNotNull(value)) {
+					list.add(value);
+				}
+			},
+			ArrayList::addAll);
+
 		String valueString = HtmlUtil.render(
-			ddmFormFieldValueRenderer.render(
-				ddmForFieldValues.get(0), getLocale()));
+			StringUtil.merge(arrayListValues, StringPool.COMMA_AND_SPACE));
 
 		return new DDMFormFieldRenderedValue(
 			ddmFormField.getName(), ddmFormField.getLabel(), valueString);
