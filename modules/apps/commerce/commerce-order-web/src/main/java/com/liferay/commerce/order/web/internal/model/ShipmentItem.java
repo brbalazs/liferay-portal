@@ -21,14 +21,14 @@ public class ShipmentItem {
 
 	public ShipmentItem(
 		long shipmentItemId, long orderId, String sku, int orderedCount,
-		int shippedCount, int toSend) {
+		int shippedQuantity, int shippableQuantity) {
 
 		_shipmentItemId = shipmentItemId;
 		_orderId = orderId;
 		_sku = sku;
 		_orderedCount = orderedCount;
-		_shippedCount = shippedCount;
-		_toSend = toSend;
+		_shippedQuantity = shippedQuantity;
+		_shippableQuantity = shippableQuantity;
 	}
 
 	public int getOrderedCount() {
@@ -43,23 +43,23 @@ public class ShipmentItem {
 		return _shipmentItemId;
 	}
 
-	public int getShippedCount() {
-		return _shippedCount;
+	public int getShippedQuantity() {
+		return _shippedQuantity;
 	}
 
 	public String getSku() {
 		return _sku;
 	}
 
-	public int getToSend() {
-		return _toSend;
+	public int getShippableQuantity() {
+		return _shippableQuantity;
 	}
 
 	private final int _orderedCount;
 	private final long _orderId;
 	private final long _shipmentItemId;
-	private final int _shippedCount;
+	private final int _shippedQuantity;
 	private final String _sku;
-	private final int _toSend;
+	private final int _shippableQuantity;
 
 }
