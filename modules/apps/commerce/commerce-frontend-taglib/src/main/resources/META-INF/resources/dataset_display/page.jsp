@@ -113,7 +113,6 @@
 				portletURL : "<%= portletURL %>",
 				spritemap : "<%= spritemap %>",
 				style : "<%= style %>",
-				contentRenderer: "<%= alias %>
 			}
 		)
 	);
