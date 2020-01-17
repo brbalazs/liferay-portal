@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.ActionRequest;
@@ -49,6 +50,7 @@ import javax.portlet.ActionResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -110,6 +112,9 @@ public class OrderSummaryCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 		CommerceOrder commerceOrder =
 			orderSummaryCheckoutStepDisplayContext.getCommerceOrder();
 
+		String goToConfirmation = (String)httpServletRequest.getAttribute(
+			"goToConfirmation");
+
 		if (!commerceOrder.isOpen()) {
 			httpServletRequest.setAttribute(
 				CommerceCheckoutWebKeys.COMMERCE_CHECKOUT_STEP_ORDER_DETAIL_URL,
@@ -118,6 +123,21 @@ public class OrderSummaryCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
 			_jspRenderer.renderJSP(
 				httpServletRequest, httpServletResponse, "/error.jsp");
+		}
+		else if (Validator.isNotNull(goToConfirmation)) {
+			while (httpServletResponse instanceof HttpServletResponseWrapper) {
+				HttpServletResponseWrapper httpServletResponseWrapper =
+					(HttpServletResponseWrapper)httpServletResponse;
+
+				httpServletResponse =
+					(HttpServletResponse)
+						httpServletResponseWrapper.getResponse();
+			}
+
+			goToConfirmation = httpServletResponse.encodeRedirectURL(
+				goToConfirmation);
+
+			httpServletResponse.sendRedirect(goToConfirmation);
 		}
 		else {
 			httpServletRequest.setAttribute(
