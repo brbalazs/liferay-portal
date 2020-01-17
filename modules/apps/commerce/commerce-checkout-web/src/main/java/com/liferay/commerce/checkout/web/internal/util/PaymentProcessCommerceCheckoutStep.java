@@ -35,6 +35,7 @@ import javax.portlet.ActionResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -117,6 +118,16 @@ public class PaymentProcessCommerceCheckoutStep
 				new PaymentProcessCheckoutStepDisplayContext(
 					_commerceCheckoutStepServicesTracker, commerceOrder,
 					httpServletRequest, _portal);
+
+		// Redirection only works with the original servlet response
+
+		while (httpServletResponse instanceof HttpServletResponseWrapper) {
+			HttpServletResponseWrapper httpServletResponseWrapper =
+				(HttpServletResponseWrapper)httpServletResponse;
+
+			httpServletResponse =
+				(HttpServletResponse)httpServletResponseWrapper.getResponse();
+		}
 
 		String paymentServletURL = httpServletResponse.encodeRedirectURL(
 			paymentProcessCheckoutStepDisplayContext.getPaymentServletUrl());
