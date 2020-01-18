@@ -50,21 +50,30 @@ public class PanelTag extends IncludeTag {
 
 		String randomNamespace =
 			PortalUtil.generateRandomKey(request, "commerce_panel") +
-			StringPool.UNDERLINE;
+				StringPool.UNDERLINE;
 
 		request.setAttribute("liferay-commerce:panel:actionIcon", _actionIcon);
-		request.setAttribute("liferay-commerce:panel:actionLabel", _actionLabel);
-		request.setAttribute("liferay-commerce:panel:actionTargetId", _actionTargetId);
+		request.setAttribute(
+			"liferay-commerce:panel:actionLabel", _actionLabel);
+		request.setAttribute(
+			"liferay-commerce:panel:actionTargetId", _actionTargetId);
 		request.setAttribute("liferay-commerce:panel:actionUrl", _actionUrl);
-		request.setAttribute("liferay-commerce:panel:bodyClasses", _bodyClasses);
+		request.setAttribute(
+			"liferay-commerce:panel:bodyClasses", _bodyClasses);
 		request.setAttribute("liferay-commerce:panel:collapsed", _collapsed);
-		request.setAttribute("liferay-commerce:panel:collapseLabel", _collapseLabel);
-		request.setAttribute("liferay-commerce:panel:collapseSwitchName", _collapseSwitchName);
-		request.setAttribute("liferay-commerce:panel:collapsible", _collapsible);
-		request.setAttribute("liferay-commerce:panel:elementClasses", _elementClasses);
-		request.setAttribute("liferay-commerce:panel:randomNamespace", randomNamespace);
+		request.setAttribute(
+			"liferay-commerce:panel:collapseLabel", _collapseLabel);
+		request.setAttribute(
+			"liferay-commerce:panel:collapseSwitchName", _collapseSwitchName);
+		request.setAttribute(
+			"liferay-commerce:panel:collapsible", _collapsible);
+		request.setAttribute(
+			"liferay-commerce:panel:elementClasses", _elementClasses);
+		request.setAttribute(
+			"liferay-commerce:panel:randomNamespace", randomNamespace);
 		request.setAttribute("liferay-commerce:panel:showMoreId", _showMoreId);
-		request.setAttribute("liferay-commerce:panel:showMoreUrl", _showMoreUrl);
+		request.setAttribute(
+			"liferay-commerce:panel:showMoreUrl", _showMoreUrl);
 		request.setAttribute("liferay-commerce:panel:spritemap", _spritemap);
 		request.setAttribute("liferay-commerce:panel:title", _title);
 
@@ -97,9 +106,13 @@ public class PanelTag extends IncludeTag {
 		return _collapsed;
 	}
 
-	public String getCollapseLabel() { return  _collapseLabel; }
+	public String getCollapseLabel() {
+		return _collapseLabel;
+	}
 
-	public String getCollapseSwitchName() { return  _collapseSwitchName; }
+	public String getCollapseSwitchName() {
+		return _collapseSwitchName;
+	}
 
 	public boolean getCollapsible() {
 		return _collapsible;
@@ -149,9 +162,13 @@ public class PanelTag extends IncludeTag {
 		_collapsed = collapsed;
 	}
 
-	public void setCollapseLabel(String collapseLabel) { _collapseLabel = collapseLabel; }
+	public void setCollapseLabel(String collapseLabel) {
+		_collapseLabel = collapseLabel;
+	}
 
-	public void setCollapseSwitchName(String collapseSwitchName) { _collapseSwitchName = collapseSwitchName; }
+	public void setCollapseSwitchName(String collapseSwitchName) {
+		_collapseSwitchName = collapseSwitchName;
+	}
 
 	public void setCollapsible(boolean collapsible) {
 		_collapsible = collapsible;
@@ -193,11 +210,11 @@ public class PanelTag extends IncludeTag {
 		_actionTargetId = null;
 		_actionUrl = null;
 		_bodyClasses = null;
-		_elementClasses = null;
 		_collapsed = false;
 		_collapseLabel = null;
 		_collapseSwitchName = null;
 		_collapsible = false;
+		_elementClasses = null;
 		_showMoreId = null;
 		_showMoreUrl = null;
 		_spritemap = null;
@@ -226,10 +243,10 @@ public class PanelTag extends IncludeTag {
 	private String _actionTargetId;
 	private String _actionUrl;
 	private String _bodyClasses;
-	private boolean _collapsed = false;
+	private boolean _collapsed;
 	private String _collapseLabel;
 	private String _collapseSwitchName;
-	private boolean _collapsible = false;
+	private boolean _collapsible;
 	private String _elementClasses;
 	private String _showMoreId;
 	private String _showMoreUrl;
