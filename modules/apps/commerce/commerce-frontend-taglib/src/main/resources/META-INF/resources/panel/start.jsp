@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.liferay.petra.string.StringPool" %><%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -17,8 +17,8 @@
 <%@ include file="/panel/init.jsp" %>
 
 <%
-String cardCssClasses = "card d-flex" + (Validator.isNotNull(elementClasses) ? " " + elementClasses : "");
-String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? " " + bodyClasses : "");
+String cardCssClasses = "card d-flex" + (Validator.isNotNull(elementClasses) ? StringPool.SPACE + elementClasses : StringPool.BLANK);
+String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? StringPool.SPACE + bodyClasses : StringPool.BLANK);
 %>
 
 <div class="<%= cardCssClasses %>">
@@ -63,8 +63,32 @@ String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? " " + 
 						id="<%= linkId %>"
 					/>
 				</c:when>
+				<c:when test="<%= collapsible || Validator.isNotNull(collapseLabel) || Validator.isNotNull(collapseSwitchName) %>">
+					<span class="d-flex mr-n2">
+						<c:if test="<%= Validator.isNotNull(collapseLabel)%>">
+							<h5 class="mb-0 mr-3"><%= collapseLabel %></h5>
+						</c:if>
+						<label class="toggle-switch my-lg-n2">
+							<input
+								aria-expanded="<%= !collapsed %>"
+								<%= collapsed ? StringPool.BLANK : "checked"%>
+								data-target="#<%= randomNamespace %>collapse"
+								data-toggle="collapse"
+								class="toggle-switch-check"
+								<c:if test="<%= Validator.isNotNull(collapseSwitchName) %>">
+									name="<%= collapseSwitchName %>"
+								</c:if>
+								type="checkbox"
+							/>
+							<span aria-hidden="true" class="toggle-switch-bar">
+								<span class="toggle-switch-handle"></span>
+							</span>
+						</label>
+					</span>
+				</c:when>
 			</c:choose>
 		</h4>
 	</c:if>
 
-	<div class="<%= bodyCssClasses %>">
+	<div id="<%= randomNamespace %>collapse" class="collapse<%= collapsed ? StringPool.BLANK : StringPool.SPACE + "show" %>">
+		<div class="<%= bodyCssClasses %>">

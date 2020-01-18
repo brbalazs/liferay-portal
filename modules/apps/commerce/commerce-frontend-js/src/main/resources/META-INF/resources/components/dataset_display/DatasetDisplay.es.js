@@ -3,7 +3,7 @@ import {ClayPaginationBarWithBasicItems} from '@clayui/pagination-bar';
 import PropTypes from 'prop-types';
 import React, {useState, useRef, useEffect} from 'react';
 
-import {getRandomId, showNotification} from '../../utilities/index.es';
+import {getRandomId, showNotification, getJsModule} from '../../utilities/index.es';
 import {createOdataFilterStrings} from '../../utilities/odata.es';
 import Modal from '../modal/Modal.es';
 import DatasetDisplayContext from './DatasetDisplayContext.es';
@@ -27,8 +27,9 @@ function loadData(apiUrl, filters, delta, page = 1, sorting = []) {
 }
 
 function DatasetDisplay(props) {
-	const [views] = useState(getViews(props.views));
-	const [dataRenderers] = useState(getDataRenderers(props.dataRenderers))
+	const [views, updateViews] = useState(getViews(props.views));
+	const [dataRenderers, updateDataRenderers] = useState(getDataRenderers(props.dataRenderers));
+	const [loading, setLoading] = useState(false)
 
 	const [datasetDisplaySupportModalId] = useState('support-modal-' + getRandomId())
 
@@ -39,11 +40,28 @@ function DatasetDisplay(props) {
 	const [pageNumber, setPageNumber] = useState(props.pagination.initialPageNumber || 1);
 	const [delta, setDelta] = useState(props.pagination.initialDelta || props.pagination.deltas[0].label);
 	const [totalItems, setTotalItems] = useState(props.pagination.initialTotalItems);
-	const [activeView, setactiveView] = useState(
-		props.activeView || views[0].id
+	const [activeViewId, setActiveView] = useState(
+		props.activeViewId || views[0].id
 	);
+	const currentView = views.find(view => view.id === activeViewId);
 
-	const View = views.find(renderer => renderer.id === activeView).component;
+	useEffect(() => {
+		if(currentView.moduleUrl && !currentView.component) {
+			setLoading(true)
+			getJsModule(currentView.moduleUrl)
+				.then((component) => {
+					updateViews((views) => views.map(view => view.id === activeViewId ? {
+						...view,
+						component
+					} : view))
+				})
+				.catch((err) => {
+					showNotification(Liferay.Language.get('unexpected-error'), 'danger');
+					throw new Error(`Requested module: ${currentView.moduleUrl} not available`, err);
+				})
+				.finally(() => setLoading(false))
+		}
+	}, [activeViewId, views, currentView, setLoading])
 
 	const formRef = useRef(null);
 
@@ -102,7 +120,7 @@ function DatasetDisplay(props) {
 	const managementBar = props.showManagementBar ? (
 		<div className="dataset-display-management-bar-wrapper">
 			<ManagementBar
-				activeView={activeView}
+				activeViewId={activeViewId}
 				bulkActions={props.bulkActions}
 				creationMenuItems={props.creationMenuItems}
 				filters={filters}
@@ -110,7 +128,7 @@ function DatasetDisplay(props) {
 				onFiltersChange={updateFilters}
 				selectAllItems={() => selectItems('all-items', true)}
 				selectedItemsId={selectedItemsId}
-				setactiveView={setactiveView}
+				setActiveView={setActiveView}
 				sidePanelId={props.sidePanelId}
 				totalItemsCount={props.items.length}
 				views={props.views}
@@ -118,15 +136,15 @@ function DatasetDisplay(props) {
 		</div>
 	) : null;
 
-	const view = (
+	const view = !loading && currentView.component ? (
 		<div className="dataset-display-content-wrapper">
 			{
 				items && items.length ? ( 
-					<View
+					<currentView.component
 						datasetDisplayContext={DatasetDisplayContext}
 						items={items}
 						onSelect={selectItems}
-						schema={props.views.find(view => view.id === activeView).schema || {}}
+						schema={props.views.find(view => view.id === activeViewId).schema || {}}
 						selectable={props.bulkActions && !!props.bulkActions.length}
 						selectedItemsId={selectedItemsId}
 					/>
@@ -135,6 +153,8 @@ function DatasetDisplay(props) {
 				)
 			}
 		</div>
+	) : (
+		<span aria-hidden="true" className="loading-animation my-7" />
 	);
 
 	const pagination = (props.showPagination && props.pagination && items.length) ? (
@@ -214,7 +234,7 @@ function DatasetDisplay(props) {
 }
 
 DatasetDisplay.propTypes = {
-	activeView: PropTypes.string,
+	activeViewId: PropTypes.string,
 	apiUrl: PropTypes.string.isRequired,
 	bulkActions: PropTypes.array,
 	creationMenuItems: PropTypes.array,
@@ -253,6 +273,7 @@ DatasetDisplay.propTypes = {
 			id: PropTypes.string.isRequired,
 			label: PropTypes.string,
 			main: PropTypes.bool,
+			moduleUrl: PropTypes.string,
 			schema: PropTypes.object,
 		})
 	),

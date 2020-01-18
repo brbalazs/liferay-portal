@@ -126,6 +126,7 @@ const fluidDataSetDisplayProps = {
 }
 
 const dataSetDisplayProps = {
+	activeViewId: 'table',
 	apiUrl: 'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
 	bulkActions: [
 		{
@@ -824,8 +825,33 @@ const dataSetDisplayProps = {
 	spritemap: './assets/icons.svg',
 	views: [
 		{
+			component: (props) => {
+				return (
+					<React.Fragment>
+						<h4 className="p-3 mb-0 bg-dark text-center text-white">Hey, I'm a custom template from the outside</h4>
+						{props.items.map(item => (
+							<div className="p-3 text-center bg-white" key={item.skuId}>
+								<strong className="mr-3">{item.skuId}</strong>
+								{item.name}
+							</div>
+						))}
+					</React.Fragment>
+				)
+			},
+			icon: 'list',
+			id: 'list',
+			label: 'List'
+		},
+		{
+			icon: 'code',
+			id: 'example',
+			label: 'JSON',
+			moduleUrl: '/fake/url'
+		},
+		{
 			icon: 'table',
 			id: 'table',
+			label: 'Table',
 			schema: {
 				fields: [
 					{
@@ -880,7 +906,6 @@ const dataSetDisplayProps = {
 }
 
 const emailsDataSetDisplayProps = {
-	activeView: 'emails-list',
 	apiUrl: 'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
 	creationMenuItems: [
 		{

@@ -16,7 +16,9 @@
 
 <%@ include file="/dataset_display/init.jsp" %>
 
-<div class="table-root" id="<%= containerId %>"></div>
+<div class="table-root" id="<%= containerId %>">
+	<span aria-hidden="true" class="loading-animation my-7"></span>
+</div>
 
 <aui:script require="commerce-frontend-js/components/dataset_display/entry.es as datasetDisplay">
 	datasetDisplay.default(
@@ -112,7 +114,7 @@
 				namespace : "<%= namespace %>",
 				portletURL : "<%= portletURL %>",
 				spritemap : "<%= spritemap %>",
-				style : "<%= style %>",
+				style : "<%= style %>"
 			}
 		)
 	);

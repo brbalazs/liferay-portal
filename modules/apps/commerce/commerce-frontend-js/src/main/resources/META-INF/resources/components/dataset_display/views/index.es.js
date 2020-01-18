@@ -28,10 +28,10 @@ export function getViews(views) {
                 defaultRenderer => defaultRenderer.id === view.id
             )
 
-            return {
+            return matchedDefaultView ? {
                 ...view,
                 component: matchedDefaultView.component
-            }
+            } : view 
         }
         return view
     })

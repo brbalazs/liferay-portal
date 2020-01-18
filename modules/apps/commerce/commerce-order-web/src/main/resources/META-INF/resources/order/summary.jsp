@@ -274,6 +274,31 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 			/>
 		</commerce-ui:panel>
 	</div>
+
+	<div class="col-12">
+		<commerce-ui:panel
+			title='<%= LanguageUtil.get(request, "order-summary") %>'
+			collapseLabel="show"
+		>
+			<commerce-ui:summary-table
+				data="<%= commerceOrderEditDisplayContext.getSummary() %>"
+			/>
+		</commerce-ui:panel>
+	</div>
+
+	<div class="col-12">
+		<commerce-ui:panel
+			title='<%= LanguageUtil.get(request, "order-summary") %>'
+			collapsible="<%= true %>"
+			collapsed="<%= true %>"
+			collapseSwitchName="enable-stuff"
+			collapseLabel="Enable:"
+		>
+			<commerce-ui:summary-table
+				data="<%= commerceOrderEditDisplayContext.getSummary() %>"
+			/>
+		</commerce-ui:panel>
+	</div>
 </div>
 
 <div id="<portlet:namespace />side-panel-root"></div>

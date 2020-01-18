@@ -25,7 +25,12 @@ function ManagementBar(props) {
 				totalItemsCount={props.totalItemsCount}
 			/>
 			{!props.selectedItemsId.length && (
-				<NavBar creationMenuItems={props.creationMenuItems} />
+				<NavBar 
+					activeViewId={props.activeViewId}
+					creationMenuItems={props.creationMenuItems}
+					views={props.views}
+					setActiveView={props.setActiveView}
+				/>
 			)}
 			<ActiveFiltersBar disabled={!!props.selectedItemsId.length} />
 		</React.Fragment>
@@ -61,6 +66,7 @@ const baseValues = {
 };
 
 Wrapper.propTypes = {
+	activeViewId: PropTypes.string.isRequired,
 	creationMenuItems: PropTypes.array,
 	filters: PropTypes.arrayOf(
 		PropTypes.oneOfType([
@@ -131,7 +137,9 @@ Wrapper.propTypes = {
 		])
 	),
 	fluid: PropTypes.bool,
-	onFiltersChange: PropTypes.func.isRequired
+	onFiltersChange: PropTypes.func.isRequired,
+	setActiveView: PropTypes.func.isRequired,
+	views: PropTypes.array.isRequired,
 };
 
 Wrapper.defaultProps = {

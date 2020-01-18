@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
+import Example from '../components/dataset_display/views/example/Example.es';
 
 export function debounce(func, wait, immediate) {
 	let timeout;
@@ -120,8 +121,27 @@ export function getRandomId() {
 	return Math.random().toString(36).substr(2, 9)
 }
 
+export function getLiferayJsModule(moduleUrl) {
+	return new Promise((resolve, reject) => {
+		Liferay.Loader.require(moduleUrl, (jsModule) => {
+			return resolve(jsModule.defult || jsModule);
+		}, (err) => {
+			return reject(err);
+		})
+	})
+}
+
+export function getFakeJsModule() {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve(Example), 500);
+	})
+}
+
+export const getJsModule = (Liferay.Loader && Liferay.Loader.require) ? getLiferayJsModule : getFakeJsModule;
+
 export default {
 	debounce,
+	getJsModule,
 	getRandomId,
 	launcher,
 	showNotification,
