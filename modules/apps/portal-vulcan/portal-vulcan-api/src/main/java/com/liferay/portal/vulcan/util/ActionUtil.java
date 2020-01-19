@@ -77,7 +77,7 @@ public class ActionUtil {
 			PermissionThreadLocal.getPermissionChecker();
 
 		if (!modelResourceActions.contains(actionName) ||
-			permissionChecker.hasPermission(
+			!permissionChecker.hasPermission(
 				siteId, permissionName, id, actionName)) {
 
 			return null;
