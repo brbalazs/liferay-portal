@@ -1127,17 +1127,19 @@ AUI.add(
 						fieldOption.value = option.value;
 						fieldOption.label = {};
 
-						availableLocales.forEach(locale => {
-							var label = instance._getValue(
-								'label',
-								locale,
-								localizationMap
-							);
+						availableLocales.forEach(
+							function(locale) {
+								var label = instance._getValue(
+									'label',
+									locale,
+									localizationMap
+								);
 
-							fieldOption.label[
-								locale
-							] = LiferayFormBuilderUtil.normalizeValue(label);
-						});
+								fieldOption.label[
+									locale
+								] = LiferayFormBuilderUtil.normalizeValue(label);
+							}
+						);
 
 						fieldOptions.push(fieldOption);
 					}
