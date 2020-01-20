@@ -14,6 +14,7 @@
 
 package com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0;
 
+import com.liferay.commerce.context.CommerceContext;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 
 import java.util.Locale;
@@ -21,20 +22,20 @@ import java.util.Locale;
 /**
  * @author Andrea Sbarra
  */
-public class CartDTOConverterContext extends DefaultDTOConverterContext {
+public class CartItemDTOConverterContext extends DefaultDTOConverterContext {
 
-	public CartDTOConverterContext(
-		Locale locale, long resourcePrimKey, long channelSiteGroupId) {
+	public CartItemDTOConverterContext(
+		Locale locale, long resourcePrimKey, CommerceContext commerceContext) {
 
 		super(locale, resourcePrimKey);
 
-		_channelSiteGroupId = channelSiteGroupId;
+		_commerceContext = commerceContext;
 	}
 
-	public long getChannelSiteGroupId() {
-		return _channelSiteGroupId;
+	public CommerceContext getCommerceContext() {
+		return _commerceContext;
 	}
 
-	private final long _channelSiteGroupId;
+	private final CommerceContext _commerceContext;
 
 }

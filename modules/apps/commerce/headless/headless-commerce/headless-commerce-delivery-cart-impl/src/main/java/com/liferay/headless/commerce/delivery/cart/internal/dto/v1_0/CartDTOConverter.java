@@ -102,26 +102,56 @@ public class CartDTOConverter implements DTOConverter {
 			_commerceOrderPriceCalculation.getCommerceOrderPrice(
 				commerceOrder, commerceContext);
 
-		CommerceMoney commerceOrderPriceTotal = commerceOrderPrice.getTotal();
+		CommerceMoney _shippingValue = commerceOrderPrice.getShippingValue();
+
 		CommerceMoney commerceOrderPriceSubTotal =
 			commerceOrderPrice.getSubtotal();
+
+		CommerceMoney _taxValue = commerceOrderPrice.getTaxValue();
+
+		CommerceMoney commerceOrderPriceTotal = commerceOrderPrice.getTotal();
 
 		Summary summary = new Summary() {
 			{
 				itemsQuantity = commerceOrderItems.size();
-				subTotal = commerceOrderPriceSubTotal.format(locale);
+				shippingValue = _shippingValue.format(locale);
+				subtotal = commerceOrderPriceSubTotal.format(locale);
+				taxValue = _taxValue.format(locale);
 				total = commerceOrderPriceTotal.format(locale);
 			}
 		};
+
+		CommerceDiscountValue shippingDiscountValue =
+			commerceOrderPrice.getShippingDiscountValue();
+
+		if (shippingDiscountValue != null) {
+			CommerceMoney shippingDiscountValueDiscountAmount =
+				shippingDiscountValue.getDiscountAmount();
+
+			summary.setShippingDiscountValue(
+				shippingDiscountValueDiscountAmount.format(locale));
+		}
+
+		CommerceDiscountValue subtotalDiscountValue =
+			commerceOrderPrice.getSubtotalDiscountValue();
+
+		if (subtotalDiscountValue != null) {
+			CommerceMoney subtotalDiscountValueDiscountAmount =
+				subtotalDiscountValue.getDiscountAmount();
+
+			summary.setSubtotalDiscountValue(
+				subtotalDiscountValueDiscountAmount.format(locale));
+		}
 
 		CommerceDiscountValue totalDiscountValue =
 			commerceOrderPrice.getTotalDiscountValue();
 
 		if (totalDiscountValue != null) {
-			CommerceMoney discountAmount =
+			CommerceMoney totalDiscountValueDiscountAmount =
 				totalDiscountValue.getDiscountAmount();
 
-			summary.setDiscount(discountAmount.format(locale));
+			summary.setTotalDiscountValue(
+				totalDiscountValueDiscountAmount.format(locale));
 		}
 
 		return summary;
