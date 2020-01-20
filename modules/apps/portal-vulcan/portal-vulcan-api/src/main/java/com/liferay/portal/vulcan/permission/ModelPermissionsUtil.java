@@ -40,7 +40,8 @@ public class ModelPermissionsUtil {
 		throws PortalException {
 
 		ModelPermissions modelPermissions = ModelPermissionsFactory.create(
-			new String[0], new String[0], resourceName);
+			//new String[0], new String[0], resourceName);
+			new String[0], new String[0]);
 
 		for (Permission permission : permissions) {
 			String[] actionIds = permission.getActionIds();
