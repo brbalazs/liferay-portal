@@ -14,6 +14,7 @@
 
 package com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0;
 
+import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.Order;
 import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.OrderItem;
 import com.liferay.headless.commerce.delivery.cart.client.json.BaseJSONParser;
 
@@ -22,6 +23,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.stream.Stream;
 
 import javax.annotation.Generated;
 
@@ -30,22 +32,22 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class OrderItemSerDes {
+public class OrderSerDes {
 
-	public static OrderItem toDTO(String json) {
-		OrderItemJSONParser orderItemJSONParser = new OrderItemJSONParser();
+	public static Order toDTO(String json) {
+		OrderJSONParser orderJSONParser = new OrderJSONParser();
 
-		return orderItemJSONParser.parseToDTO(json);
+		return orderJSONParser.parseToDTO(json);
 	}
 
-	public static OrderItem[] toDTOs(String json) {
-		OrderItemJSONParser orderItemJSONParser = new OrderItemJSONParser();
+	public static Order[] toDTOs(String json) {
+		OrderJSONParser orderJSONParser = new OrderJSONParser();
 
-		return orderItemJSONParser.parseToDTOs(json);
+		return orderJSONParser.parseToDTOs(json);
 	}
 
-	public static String toJSON(OrderItem orderItem) {
-		if (orderItem == null) {
+	public static String toJSON(Order order) {
+		if (order == null) {
 			return "null";
 		}
 
@@ -53,48 +55,34 @@ public class OrderItemSerDes {
 
 		sb.append("{");
 
-		if (orderItem.getId() != null) {
+		if (order.getAccountId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"id\": ");
+			sb.append("\"accountId\": ");
 
-			sb.append(orderItem.getId());
+			sb.append(order.getAccountId());
 		}
 
-		if (orderItem.getOptions() != null) {
+		if (order.getOrderItems() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"options\": ");
+			sb.append("\"orderItems\": ");
 
-			sb.append("\"");
+			sb.append("[");
 
-			sb.append(_escape(orderItem.getOptions()));
+			for (int i = 0; i < order.getOrderItems().length; i++) {
+				sb.append(String.valueOf(order.getOrderItems()[i]));
 
-			sb.append("\"");
-		}
-
-		if (orderItem.getProductId() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
+				if ((i + 1) < order.getOrderItems().length) {
+					sb.append(", ");
+				}
 			}
 
-			sb.append("\"productId\": ");
-
-			sb.append(orderItem.getProductId());
-		}
-
-		if (orderItem.getQuantity() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"quantity\": ");
-
-			sb.append(orderItem.getQuantity());
+			sb.append("]");
 		}
 
 		sb.append("}");
@@ -103,86 +91,68 @@ public class OrderItemSerDes {
 	}
 
 	public static Map<String, Object> toMap(String json) {
-		OrderItemJSONParser orderItemJSONParser = new OrderItemJSONParser();
+		OrderJSONParser orderJSONParser = new OrderJSONParser();
 
-		return orderItemJSONParser.parseToMap(json);
+		return orderJSONParser.parseToMap(json);
 	}
 
-	public static Map<String, String> toMap(OrderItem orderItem) {
-		if (orderItem == null) {
+	public static Map<String, String> toMap(Order order) {
+		if (order == null) {
 			return null;
 		}
 
 		Map<String, String> map = new TreeMap<>();
 
-		if (orderItem.getId() == null) {
-			map.put("id", null);
+		if (order.getAccountId() == null) {
+			map.put("accountId", null);
 		}
 		else {
-			map.put("id", String.valueOf(orderItem.getId()));
+			map.put("accountId", String.valueOf(order.getAccountId()));
 		}
 
-		if (orderItem.getOptions() == null) {
-			map.put("options", null);
+		if (order.getOrderItems() == null) {
+			map.put("orderItems", null);
 		}
 		else {
-			map.put("options", String.valueOf(orderItem.getOptions()));
-		}
-
-		if (orderItem.getProductId() == null) {
-			map.put("productId", null);
-		}
-		else {
-			map.put("productId", String.valueOf(orderItem.getProductId()));
-		}
-
-		if (orderItem.getQuantity() == null) {
-			map.put("quantity", null);
-		}
-		else {
-			map.put("quantity", String.valueOf(orderItem.getQuantity()));
+			map.put("orderItems", String.valueOf(order.getOrderItems()));
 		}
 
 		return map;
 	}
 
-	public static class OrderItemJSONParser extends BaseJSONParser<OrderItem> {
+	public static class OrderJSONParser extends BaseJSONParser<Order> {
 
 		@Override
-		protected OrderItem createDTO() {
-			return new OrderItem();
+		protected Order createDTO() {
+			return new Order();
 		}
 
 		@Override
-		protected OrderItem[] createDTOArray(int size) {
-			return new OrderItem[size];
+		protected Order[] createDTOArray(int size) {
+			return new Order[size];
 		}
 
 		@Override
 		protected void setField(
-			OrderItem orderItem, String jsonParserFieldName,
+			Order order, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "id")) {
+			if (Objects.equals(jsonParserFieldName, "accountId")) {
 				if (jsonParserFieldValue != null) {
-					orderItem.setId(Long.valueOf((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "options")) {
-				if (jsonParserFieldValue != null) {
-					orderItem.setOptions((String)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "productId")) {
-				if (jsonParserFieldValue != null) {
-					orderItem.setProductId(
+					order.setAccountId(
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "quantity")) {
+			else if (Objects.equals(jsonParserFieldName, "orderItems")) {
 				if (jsonParserFieldValue != null) {
-					orderItem.setQuantity(
-						Integer.valueOf((String)jsonParserFieldValue));
+					order.setOrderItems(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> OrderItemSerDes.toDTO((String)object)
+						).toArray(
+							size -> new OrderItem[size]
+						));
 				}
 			}
 			else {

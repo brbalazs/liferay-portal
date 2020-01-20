@@ -192,6 +192,23 @@ public abstract class BaseCartResourceTestCase {
 	}
 
 	@Test
+	public void testPostChannelCartCartItem() throws Exception {
+		Cart randomCart = randomCart();
+
+		Cart postCart = testPostChannelCartCartItem_addCart(randomCart);
+
+		assertEquals(randomCart, postCart);
+		assertValid(postCart);
+	}
+
+	protected Cart testPostChannelCartCartItem_addCart(Cart cart)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
 	public void testGetChannelCart() throws Exception {
 		Cart postCart = testGetChannelCart_addCart();
 
@@ -236,6 +253,28 @@ public abstract class BaseCartResourceTestCase {
 	}
 
 	@Test
+	public void testPutChannelCart() throws Exception {
+		Cart postCart = testPutChannelCart_addCart();
+
+		Cart randomCart = randomCart();
+
+		Cart putCart = cartResource.putCart(postCart.getId(), randomCart);
+
+		assertEquals(randomCart, putCart);
+		assertValid(putCart);
+
+		Cart getCart = cartResource.getCart(putCart.getId());
+
+		assertEquals(randomCart, getCart);
+		assertValid(getCart);
+	}
+
+	protected Cart testPutChannelCart_addCart() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
 	public void testGetChannelCartsPage() throws Exception {
 		Page<Cart> page = cartResource.getChannelCartsPage(
 			testGetChannelCartsPage_getChannelId());
@@ -275,8 +314,7 @@ public abstract class BaseCartResourceTestCase {
 	protected Cart testGetChannelCartsPage_addCart(Long channelId, Cart cart)
 		throws Exception {
 
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+		return cartResource.postChannelCart(channelId, cart);
 	}
 
 	protected Long testGetChannelCartsPage_getChannelId() throws Exception {
@@ -288,6 +326,21 @@ public abstract class BaseCartResourceTestCase {
 		throws Exception {
 
 		return null;
+	}
+
+	@Test
+	public void testPostChannelCart() throws Exception {
+		Cart randomCart = randomCart();
+
+		Cart postCart = testPostChannelCart_addCart(randomCart);
+
+		assertEquals(randomCart, postCart);
+		assertValid(postCart);
+	}
+
+	protected Cart testPostChannelCart_addCart(Cart cart) throws Exception {
+		return cartResource.postChannelCart(
+			testGetChannelCartsPage_getChannelId(), cart);
 	}
 
 	protected Cart testGraphQLCart_addCart() throws Exception {
@@ -392,16 +445,16 @@ public abstract class BaseCartResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("createDate", additionalAssertFieldName)) {
-				if (cart.getCreateDate() == null) {
+			if (Objects.equals("cartItems", additionalAssertFieldName)) {
+				if (cart.getCartItems() == null) {
 					valid = false;
 				}
 
 				continue;
 			}
 
-			if (Objects.equals("orderItems", additionalAssertFieldName)) {
-				if (cart.getOrderItems() == null) {
+			if (Objects.equals("createDate", additionalAssertFieldName)) {
+				if (cart.getCreateDate() == null) {
 					valid = false;
 				}
 
@@ -505,6 +558,16 @@ public abstract class BaseCartResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("cartItems", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						cart1.getCartItems(), cart2.getCartItems())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("createDate", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						cart1.getCreateDate(), cart2.getCreateDate())) {
@@ -517,16 +580,6 @@ public abstract class BaseCartResourceTestCase {
 
 			if (Objects.equals("id", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(cart1.getId(), cart2.getId())) {
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("orderItems", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						cart1.getOrderItems(), cart2.getOrderItems())) {
-
 					return false;
 				}
 
@@ -689,6 +742,11 @@ public abstract class BaseCartResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("cartItems")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("createDate")) {
 			if (operator.equals("between")) {
 				sb = new StringBundler();
@@ -721,11 +779,6 @@ public abstract class BaseCartResourceTestCase {
 		}
 
 		if (entityFieldName.equals("id")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("orderItems")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}

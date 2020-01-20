@@ -45,34 +45,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Summary {
 
 	@Schema
-	public String getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(String discount) {
-		this.discount = discount;
-	}
-
-	@JsonIgnore
-	public void setDiscount(
-		UnsafeSupplier<String, Exception> discountUnsafeSupplier) {
-
-		try {
-			discount = discountUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String discount;
-
-	@Schema
 	public Integer getItemsQuantity() {
 		return itemsQuantity;
 	}
@@ -101,20 +73,20 @@ public class Summary {
 	protected Integer itemsQuantity;
 
 	@Schema
-	public String getSubTotal() {
-		return subTotal;
+	public String getShippingDiscountValue() {
+		return shippingDiscountValue;
 	}
 
-	public void setSubTotal(String subTotal) {
-		this.subTotal = subTotal;
+	public void setShippingDiscountValue(String shippingDiscountValue) {
+		this.shippingDiscountValue = shippingDiscountValue;
 	}
 
 	@JsonIgnore
-	public void setSubTotal(
-		UnsafeSupplier<String, Exception> subTotalUnsafeSupplier) {
+	public void setShippingDiscountValue(
+		UnsafeSupplier<String, Exception> shippingDiscountValueUnsafeSupplier) {
 
 		try {
-			subTotal = subTotalUnsafeSupplier.get();
+			shippingDiscountValue = shippingDiscountValueUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -126,7 +98,119 @@ public class Summary {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String subTotal;
+	protected String shippingDiscountValue;
+
+	@Schema
+	public String getShippingValue() {
+		return shippingValue;
+	}
+
+	public void setShippingValue(String shippingValue) {
+		this.shippingValue = shippingValue;
+	}
+
+	@JsonIgnore
+	public void setShippingValue(
+		UnsafeSupplier<String, Exception> shippingValueUnsafeSupplier) {
+
+		try {
+			shippingValue = shippingValueUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String shippingValue;
+
+	@Schema
+	public String getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(String subtotal) {
+		this.subtotal = subtotal;
+	}
+
+	@JsonIgnore
+	public void setSubtotal(
+		UnsafeSupplier<String, Exception> subtotalUnsafeSupplier) {
+
+		try {
+			subtotal = subtotalUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String subtotal;
+
+	@Schema
+	public String getSubtotalDiscountValue() {
+		return subtotalDiscountValue;
+	}
+
+	public void setSubtotalDiscountValue(String subtotalDiscountValue) {
+		this.subtotalDiscountValue = subtotalDiscountValue;
+	}
+
+	@JsonIgnore
+	public void setSubtotalDiscountValue(
+		UnsafeSupplier<String, Exception> subtotalDiscountValueUnsafeSupplier) {
+
+		try {
+			subtotalDiscountValue = subtotalDiscountValueUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String subtotalDiscountValue;
+
+	@Schema
+	public String getTaxValue() {
+		return taxValue;
+	}
+
+	public void setTaxValue(String taxValue) {
+		this.taxValue = taxValue;
+	}
+
+	@JsonIgnore
+	public void setTaxValue(
+		UnsafeSupplier<String, Exception> taxValueUnsafeSupplier) {
+
+		try {
+			taxValue = taxValueUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String taxValue;
 
 	@Schema
 	public String getTotal() {
@@ -156,6 +240,34 @@ public class Summary {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String total;
 
+	@Schema
+	public String getTotalDiscountValue() {
+		return totalDiscountValue;
+	}
+
+	public void setTotalDiscountValue(String totalDiscountValue) {
+		this.totalDiscountValue = totalDiscountValue;
+	}
+
+	@JsonIgnore
+	public void setTotalDiscountValue(
+		UnsafeSupplier<String, Exception> totalDiscountValueUnsafeSupplier) {
+
+		try {
+			totalDiscountValue = totalDiscountValueUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String totalDiscountValue;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -183,20 +295,6 @@ public class Summary {
 
 		sb.append("{");
 
-		if (discount != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"discount\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(discount));
-
-			sb.append("\"");
-		}
-
 		if (itemsQuantity != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -207,16 +305,72 @@ public class Summary {
 			sb.append(itemsQuantity);
 		}
 
-		if (subTotal != null) {
+		if (shippingDiscountValue != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"subTotal\": ");
+			sb.append("\"shippingDiscountValue\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(subTotal));
+			sb.append(_escape(shippingDiscountValue));
+
+			sb.append("\"");
+		}
+
+		if (shippingValue != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingValue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(shippingValue));
+
+			sb.append("\"");
+		}
+
+		if (subtotal != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotal\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(subtotal));
+
+			sb.append("\"");
+		}
+
+		if (subtotalDiscountValue != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalDiscountValue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(subtotalDiscountValue));
+
+			sb.append("\"");
+		}
+
+		if (taxValue != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"taxValue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(taxValue));
 
 			sb.append("\"");
 		}
@@ -231,6 +385,20 @@ public class Summary {
 			sb.append("\"");
 
 			sb.append(_escape(total));
+
+			sb.append("\"");
+		}
+
+		if (totalDiscountValue != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalDiscountValue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(totalDiscountValue));
 
 			sb.append("\"");
 		}

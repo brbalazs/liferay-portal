@@ -32,6 +32,9 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
+import javax.validation.constraints.DecimalMin;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -39,11 +42,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName("OrderItem")
+@GraphQLName("CartItem")
 @JsonFilter("Liferay.Vulcan")
-@XmlRootElement(name = "OrderItem")
-public class OrderItem {
+@XmlRootElement(name = "CartItem")
+public class CartItem {
 
+	@DecimalMin("0")
 	@Schema
 	public Long getId() {
 		return id;
@@ -67,24 +71,22 @@ public class OrderItem {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long id;
 
 	@Schema
-	public String getOptions() {
-		return options;
+	public String getName() {
+		return name;
 	}
 
-	public void setOptions(String options) {
-		this.options = options;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@JsonIgnore
-	public void setOptions(
-		UnsafeSupplier<String, Exception> optionsUnsafeSupplier) {
-
+	public void setName(UnsafeSupplier<String, Exception> nameUnsafeSupplier) {
 		try {
-			options = optionsUnsafeSupplier.get();
+			name = nameUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -96,23 +98,22 @@ public class OrderItem {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String options;
+	protected String name;
 
 	@Schema
-	public Long getProductId() {
-		return productId;
+	@Valid
+	public Price getPrice() {
+		return price;
 	}
 
-	public void setProductId(Long productId) {
-		this.productId = productId;
+	public void setPrice(Price price) {
+		this.price = price;
 	}
 
 	@JsonIgnore
-	public void setProductId(
-		UnsafeSupplier<Long, Exception> productIdUnsafeSupplier) {
-
+	public void setPrice(UnsafeSupplier<Price, Exception> priceUnsafeSupplier) {
 		try {
-			productId = productIdUnsafeSupplier.get();
+			price = priceUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -124,8 +125,9 @@ public class OrderItem {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Long productId;
+	protected Price price;
 
+	@DecimalMin("0")
 	@Schema
 	public Integer getQuantity() {
 		return quantity;
@@ -160,13 +162,13 @@ public class OrderItem {
 			return true;
 		}
 
-		if (!(object instanceof OrderItem)) {
+		if (!(object instanceof CartItem)) {
 			return false;
 		}
 
-		OrderItem orderItem = (OrderItem)object;
+		CartItem cartItem = (CartItem)object;
 
-		return Objects.equals(toString(), orderItem.toString());
+		return Objects.equals(toString(), cartItem.toString());
 	}
 
 	@Override
@@ -191,28 +193,28 @@ public class OrderItem {
 			sb.append(id);
 		}
 
-		if (options != null) {
+		if (name != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"options\": ");
+			sb.append("\"name\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(options));
+			sb.append(_escape(name));
 
 			sb.append("\"");
 		}
 
-		if (productId != null) {
+		if (price != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"productId\": ");
+			sb.append("\"price\": ");
 
-			sb.append(productId);
+			sb.append(String.valueOf(price));
 		}
 
 		if (quantity != null) {
@@ -231,7 +233,7 @@ public class OrderItem {
 	}
 
 	@Schema(
-		defaultValue = "com.liferay.headless.commerce.delivery.cart.dto.v1_0.OrderItem",
+		defaultValue = "com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartItem",
 		name = "x-class-name"
 	)
 	public String xClassName;

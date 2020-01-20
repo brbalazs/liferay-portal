@@ -92,6 +92,27 @@ public class Cart {
 
 	protected String author;
 
+	public CartItem[] getCartItems() {
+		return cartItems;
+	}
+
+	public void setCartItems(CartItem[] cartItems) {
+		this.cartItems = cartItems;
+	}
+
+	public void setCartItems(
+		UnsafeSupplier<CartItem[], Exception> cartItemsUnsafeSupplier) {
+
+		try {
+			cartItems = cartItemsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected CartItem[] cartItems;
+
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -131,27 +152,6 @@ public class Cart {
 	}
 
 	protected Long id;
-
-	public OrderItem[] getOrderItems() {
-		return orderItems;
-	}
-
-	public void setOrderItems(OrderItem[] orderItems) {
-		this.orderItems = orderItems;
-	}
-
-	public void setOrderItems(
-		UnsafeSupplier<OrderItem[], Exception> orderItemsUnsafeSupplier) {
-
-		try {
-			orderItems = orderItemsUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected OrderItem[] orderItems;
 
 	public String getStatus() {
 		return status;

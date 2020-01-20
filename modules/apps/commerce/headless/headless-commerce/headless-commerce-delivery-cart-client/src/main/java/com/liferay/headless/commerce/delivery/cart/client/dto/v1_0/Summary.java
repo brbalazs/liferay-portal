@@ -28,27 +28,6 @@ import javax.annotation.Generated;
 @Generated("")
 public class Summary {
 
-	public String getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(String discount) {
-		this.discount = discount;
-	}
-
-	public void setDiscount(
-		UnsafeSupplier<String, Exception> discountUnsafeSupplier) {
-
-		try {
-			discount = discountUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String discount;
-
 	public Integer getItemsQuantity() {
 		return itemsQuantity;
 	}
@@ -70,26 +49,110 @@ public class Summary {
 
 	protected Integer itemsQuantity;
 
-	public String getSubTotal() {
-		return subTotal;
+	public String getShippingDiscountValue() {
+		return shippingDiscountValue;
 	}
 
-	public void setSubTotal(String subTotal) {
-		this.subTotal = subTotal;
+	public void setShippingDiscountValue(String shippingDiscountValue) {
+		this.shippingDiscountValue = shippingDiscountValue;
 	}
 
-	public void setSubTotal(
-		UnsafeSupplier<String, Exception> subTotalUnsafeSupplier) {
+	public void setShippingDiscountValue(
+		UnsafeSupplier<String, Exception> shippingDiscountValueUnsafeSupplier) {
 
 		try {
-			subTotal = subTotalUnsafeSupplier.get();
+			shippingDiscountValue = shippingDiscountValueUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected String subTotal;
+	protected String shippingDiscountValue;
+
+	public String getShippingValue() {
+		return shippingValue;
+	}
+
+	public void setShippingValue(String shippingValue) {
+		this.shippingValue = shippingValue;
+	}
+
+	public void setShippingValue(
+		UnsafeSupplier<String, Exception> shippingValueUnsafeSupplier) {
+
+		try {
+			shippingValue = shippingValueUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String shippingValue;
+
+	public String getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(String subtotal) {
+		this.subtotal = subtotal;
+	}
+
+	public void setSubtotal(
+		UnsafeSupplier<String, Exception> subtotalUnsafeSupplier) {
+
+		try {
+			subtotal = subtotalUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String subtotal;
+
+	public String getSubtotalDiscountValue() {
+		return subtotalDiscountValue;
+	}
+
+	public void setSubtotalDiscountValue(String subtotalDiscountValue) {
+		this.subtotalDiscountValue = subtotalDiscountValue;
+	}
+
+	public void setSubtotalDiscountValue(
+		UnsafeSupplier<String, Exception> subtotalDiscountValueUnsafeSupplier) {
+
+		try {
+			subtotalDiscountValue = subtotalDiscountValueUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String subtotalDiscountValue;
+
+	public String getTaxValue() {
+		return taxValue;
+	}
+
+	public void setTaxValue(String taxValue) {
+		this.taxValue = taxValue;
+	}
+
+	public void setTaxValue(
+		UnsafeSupplier<String, Exception> taxValueUnsafeSupplier) {
+
+		try {
+			taxValue = taxValueUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String taxValue;
 
 	public String getTotal() {
 		return total;
@@ -111,6 +174,27 @@ public class Summary {
 	}
 
 	protected String total;
+
+	public String getTotalDiscountValue() {
+		return totalDiscountValue;
+	}
+
+	public void setTotalDiscountValue(String totalDiscountValue) {
+		this.totalDiscountValue = totalDiscountValue;
+	}
+
+	public void setTotalDiscountValue(
+		UnsafeSupplier<String, Exception> totalDiscountValueUnsafeSupplier) {
+
+		try {
+			totalDiscountValue = totalDiscountValueUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String totalDiscountValue;
 
 	@Override
 	public boolean equals(Object object) {

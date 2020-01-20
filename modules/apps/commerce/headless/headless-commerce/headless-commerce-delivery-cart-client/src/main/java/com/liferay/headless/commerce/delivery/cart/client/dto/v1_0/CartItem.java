@@ -15,7 +15,7 @@
 package com.liferay.headless.commerce.delivery.cart.client.dto.v1_0;
 
 import com.liferay.headless.commerce.delivery.cart.client.function.UnsafeSupplier;
-import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.OrderItemSerDes;
+import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.CartItemSerDes;
 
 import java.util.Objects;
 
@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class OrderItem {
+public class CartItem {
 
 	public Long getId() {
 		return id;
@@ -47,47 +47,43 @@ public class OrderItem {
 
 	protected Long id;
 
-	public String getOptions() {
-		return options;
+	public String getName() {
+		return name;
 	}
 
-	public void setOptions(String options) {
-		this.options = options;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setOptions(
-		UnsafeSupplier<String, Exception> optionsUnsafeSupplier) {
-
+	public void setName(UnsafeSupplier<String, Exception> nameUnsafeSupplier) {
 		try {
-			options = optionsUnsafeSupplier.get();
+			name = nameUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected String options;
+	protected String name;
 
-	public Long getProductId() {
-		return productId;
+	public Price getPrice() {
+		return price;
 	}
 
-	public void setProductId(Long productId) {
-		this.productId = productId;
+	public void setPrice(Price price) {
+		this.price = price;
 	}
 
-	public void setProductId(
-		UnsafeSupplier<Long, Exception> productIdUnsafeSupplier) {
-
+	public void setPrice(UnsafeSupplier<Price, Exception> priceUnsafeSupplier) {
 		try {
-			productId = productIdUnsafeSupplier.get();
+			price = priceUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected Long productId;
+	protected Price price;
 
 	public Integer getQuantity() {
 		return quantity;
@@ -116,13 +112,13 @@ public class OrderItem {
 			return true;
 		}
 
-		if (!(object instanceof OrderItem)) {
+		if (!(object instanceof CartItem)) {
 			return false;
 		}
 
-		OrderItem orderItem = (OrderItem)object;
+		CartItem cartItem = (CartItem)object;
 
-		return Objects.equals(toString(), orderItem.toString());
+		return Objects.equals(toString(), cartItem.toString());
 	}
 
 	@Override
@@ -133,7 +129,7 @@ public class OrderItem {
 	}
 
 	public String toString() {
-		return OrderItemSerDes.toJSON(this);
+		return CartItemSerDes.toJSON(this);
 	}
 
 }

@@ -25,18 +25,12 @@ import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
-import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 import javax.annotation.Generated;
-
-import javax.validation.Valid;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -45,26 +39,26 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName("Cart")
+@GraphQLName("Price")
 @JsonFilter("Liferay.Vulcan")
-@XmlRootElement(name = "Cart")
-public class Cart {
+@XmlRootElement(name = "Price")
+public class Price {
 
 	@Schema
-	public String getAccount() {
-		return account;
+	public String getCurrency() {
+		return currency;
 	}
 
-	public void setAccount(String account) {
-		this.account = account;
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 
 	@JsonIgnore
-	public void setAccount(
-		UnsafeSupplier<String, Exception> accountUnsafeSupplier) {
+	public void setCurrency(
+		UnsafeSupplier<String, Exception> currencyUnsafeSupplier) {
 
 		try {
-			account = accountUnsafeSupplier.get();
+			currency = currencyUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -76,51 +70,23 @@ public class Cart {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String account;
+	protected String currency;
 
 	@Schema
-	public Long getAccountId() {
-		return accountId;
+	public Double getDiscount() {
+		return discount;
 	}
 
-	public void setAccountId(Long accountId) {
-		this.accountId = accountId;
+	public void setDiscount(Double discount) {
+		this.discount = discount;
 	}
 
 	@JsonIgnore
-	public void setAccountId(
-		UnsafeSupplier<Long, Exception> accountIdUnsafeSupplier) {
+	public void setDiscount(
+		UnsafeSupplier<Double, Exception> discountUnsafeSupplier) {
 
 		try {
-			accountId = accountIdUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected Long accountId;
-
-	@Schema
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	@JsonIgnore
-	public void setAuthor(
-		UnsafeSupplier<String, Exception> authorUnsafeSupplier) {
-
-		try {
-			author = authorUnsafeSupplier.get();
+			discount = discountUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -132,24 +98,23 @@ public class Cart {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String author;
+	protected Double discount;
 
 	@Schema
-	@Valid
-	public CartItem[] getCartItems() {
-		return cartItems;
+	public String getDiscountFormatted() {
+		return discountFormatted;
 	}
 
-	public void setCartItems(CartItem[] cartItems) {
-		this.cartItems = cartItems;
+	public void setDiscountFormatted(String discountFormatted) {
+		this.discountFormatted = discountFormatted;
 	}
 
 	@JsonIgnore
-	public void setCartItems(
-		UnsafeSupplier<CartItem[], Exception> cartItemsUnsafeSupplier) {
+	public void setDiscountFormatted(
+		UnsafeSupplier<String, Exception> discountFormattedUnsafeSupplier) {
 
 		try {
-			cartItems = cartItemsUnsafeSupplier.get();
+			discountFormatted = discountFormattedUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -161,23 +126,23 @@ public class Cart {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected CartItem[] cartItems;
+	protected String discountFormatted;
 
 	@Schema
-	public Date getCreateDate() {
-		return createDate;
+	public Double getFinalPrice() {
+		return finalPrice;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setFinalPrice(Double finalPrice) {
+		this.finalPrice = finalPrice;
 	}
 
 	@JsonIgnore
-	public void setCreateDate(
-		UnsafeSupplier<Date, Exception> createDateUnsafeSupplier) {
+	public void setFinalPrice(
+		UnsafeSupplier<Double, Exception> finalPriceUnsafeSupplier) {
 
 		try {
-			createDate = createDateUnsafeSupplier.get();
+			finalPrice = finalPriceUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -189,49 +154,23 @@ public class Cart {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Date createDate;
+	protected Double finalPrice;
 
 	@Schema
-	public Long getId() {
-		return id;
+	public String getFinalPriceFormatted() {
+		return finalPriceFormatted;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setFinalPriceFormatted(String finalPriceFormatted) {
+		this.finalPriceFormatted = finalPriceFormatted;
 	}
 
 	@JsonIgnore
-	public void setId(UnsafeSupplier<Long, Exception> idUnsafeSupplier) {
-		try {
-			id = idUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected Long id;
-
-	@Schema
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	@JsonIgnore
-	public void setStatus(
-		UnsafeSupplier<String, Exception> statusUnsafeSupplier) {
+	public void setFinalPriceFormatted(
+		UnsafeSupplier<String, Exception> finalPriceFormattedUnsafeSupplier) {
 
 		try {
-			status = statusUnsafeSupplier.get();
+			finalPriceFormatted = finalPriceFormattedUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -243,24 +182,23 @@ public class Cart {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String status;
+	protected String finalPriceFormatted;
 
 	@Schema
-	@Valid
-	public Summary getSummary() {
-		return summary;
+	public Double getPrice() {
+		return price;
 	}
 
-	public void setSummary(Summary summary) {
-		this.summary = summary;
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
 	@JsonIgnore
-	public void setSummary(
-		UnsafeSupplier<Summary, Exception> summaryUnsafeSupplier) {
+	public void setPrice(
+		UnsafeSupplier<Double, Exception> priceUnsafeSupplier) {
 
 		try {
-			summary = summaryUnsafeSupplier.get();
+			price = priceUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -272,7 +210,91 @@ public class Cart {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Summary summary;
+	protected Double price;
+
+	@Schema
+	public String getPriceFormatted() {
+		return priceFormatted;
+	}
+
+	public void setPriceFormatted(String priceFormatted) {
+		this.priceFormatted = priceFormatted;
+	}
+
+	@JsonIgnore
+	public void setPriceFormatted(
+		UnsafeSupplier<String, Exception> priceFormattedUnsafeSupplier) {
+
+		try {
+			priceFormatted = priceFormattedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String priceFormatted;
+
+	@Schema
+	public Double getPromoPrice() {
+		return promoPrice;
+	}
+
+	public void setPromoPrice(Double promoPrice) {
+		this.promoPrice = promoPrice;
+	}
+
+	@JsonIgnore
+	public void setPromoPrice(
+		UnsafeSupplier<Double, Exception> promoPriceUnsafeSupplier) {
+
+		try {
+			promoPrice = promoPriceUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double promoPrice;
+
+	@Schema
+	public String getPromoPriceFormatted() {
+		return promoPriceFormatted;
+	}
+
+	public void setPromoPriceFormatted(String promoPriceFormatted) {
+		this.promoPriceFormatted = promoPriceFormatted;
+	}
+
+	@JsonIgnore
+	public void setPromoPriceFormatted(
+		UnsafeSupplier<String, Exception> promoPriceFormattedUnsafeSupplier) {
+
+		try {
+			promoPriceFormatted = promoPriceFormattedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String promoPriceFormatted;
 
 	@Override
 	public boolean equals(Object object) {
@@ -280,13 +302,13 @@ public class Cart {
 			return true;
 		}
 
-		if (!(object instanceof Cart)) {
+		if (!(object instanceof Price)) {
 			return false;
 		}
 
-		Cart cart = (Cart)object;
+		Price price = (Price)object;
 
-		return Objects.equals(toString(), cart.toString());
+		return Objects.equals(toString(), price.toString());
 	}
 
 	@Override
@@ -301,113 +323,114 @@ public class Cart {
 
 		sb.append("{");
 
-		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
-			"yyyy-MM-dd'T'HH:mm:ss'Z'");
-
-		if (account != null) {
+		if (currency != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"account\": ");
+			sb.append("\"currency\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(account));
+			sb.append(_escape(currency));
 
 			sb.append("\"");
 		}
 
-		if (accountId != null) {
+		if (discount != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountId\": ");
+			sb.append("\"discount\": ");
 
-			sb.append(accountId);
+			sb.append(discount);
 		}
 
-		if (author != null) {
+		if (discountFormatted != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"author\": ");
+			sb.append("\"discountFormatted\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(author));
-
-			sb.append("\"");
-		}
-
-		if (cartItems != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"cartItems\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < cartItems.length; i++) {
-				sb.append(String.valueOf(cartItems[i]));
-
-				if ((i + 1) < cartItems.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
-		if (createDate != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"createDate\": ");
-
-			sb.append("\"");
-
-			sb.append(liferayToJSONDateFormat.format(createDate));
+			sb.append(_escape(discountFormatted));
 
 			sb.append("\"");
 		}
 
-		if (id != null) {
+		if (finalPrice != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"id\": ");
+			sb.append("\"finalPrice\": ");
 
-			sb.append(id);
+			sb.append(finalPrice);
 		}
 
-		if (status != null) {
+		if (finalPriceFormatted != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"status\": ");
+			sb.append("\"finalPriceFormatted\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(status));
+			sb.append(_escape(finalPriceFormatted));
 
 			sb.append("\"");
 		}
 
-		if (summary != null) {
+		if (price != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"summary\": ");
+			sb.append("\"price\": ");
 
-			sb.append(String.valueOf(summary));
+			sb.append(price);
+		}
+
+		if (priceFormatted != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"priceFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(priceFormatted));
+
+			sb.append("\"");
+		}
+
+		if (promoPrice != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"promoPrice\": ");
+
+			sb.append(promoPrice);
+		}
+
+		if (promoPriceFormatted != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"promoPriceFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(promoPriceFormatted));
+
+			sb.append("\"");
 		}
 
 		sb.append("}");
@@ -416,7 +439,7 @@ public class Cart {
 	}
 
 	@Schema(
-		defaultValue = "com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart",
+		defaultValue = "com.liferay.headless.commerce.delivery.cart.dto.v1_0.Price",
 		name = "x-class-name"
 	)
 	public String xClassName;

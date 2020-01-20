@@ -16,8 +16,8 @@ package com.liferay.headless.commerce.delivery.cart.internal.graphql.servlet.v1_
 
 import com.liferay.headless.commerce.delivery.cart.internal.graphql.mutation.v1_0.Mutation;
 import com.liferay.headless.commerce.delivery.cart.internal.graphql.query.v1_0.Query;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartItemResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
-import com.liferay.headless.commerce.delivery.cart.resource.v1_0.OrderItemResource;
 import com.liferay.portal.vulcan.graphql.servlet.ServletData;
 
 import javax.annotation.Generated;
@@ -39,10 +39,15 @@ public class ServletDataImpl implements ServletData {
 
 	@Activate
 	public void activate(BundleContext bundleContext) {
+		Mutation.setCartResourceComponentServiceObjects(
+			_cartResourceComponentServiceObjects);
+		Mutation.setCartItemResourceComponentServiceObjects(
+			_cartItemResourceComponentServiceObjects);
+
 		Query.setCartResourceComponentServiceObjects(
 			_cartResourceComponentServiceObjects);
-		Query.setOrderItemResourceComponentServiceObjects(
-			_orderItemResourceComponentServiceObjects);
+		Query.setCartItemResourceComponentServiceObjects(
+			_cartItemResourceComponentServiceObjects);
 	}
 
 	@Override
@@ -65,7 +70,7 @@ public class ServletDataImpl implements ServletData {
 		_cartResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
-	private ComponentServiceObjects<OrderItemResource>
-		_orderItemResourceComponentServiceObjects;
+	private ComponentServiceObjects<CartItemResource>
+		_cartItemResourceComponentServiceObjects;
 
 }

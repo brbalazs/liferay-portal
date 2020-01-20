@@ -15,7 +15,7 @@
 package com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0;
 
 import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.Cart;
-import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.OrderItem;
+import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.CartItem;
 import com.liferay.headless.commerce.delivery.cart.client.json.BaseJSONParser;
 
 import java.text.DateFormat;
@@ -99,6 +99,26 @@ public class CartSerDes {
 			sb.append("\"");
 		}
 
+		if (cart.getCartItems() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"cartItems\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < cart.getCartItems().length; i++) {
+				sb.append(String.valueOf(cart.getCartItems()[i]));
+
+				if ((i + 1) < cart.getCartItems().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (cart.getCreateDate() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -121,26 +141,6 @@ public class CartSerDes {
 			sb.append("\"id\": ");
 
 			sb.append(cart.getId());
-		}
-
-		if (cart.getOrderItems() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"orderItems\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < cart.getOrderItems().length; i++) {
-				sb.append(String.valueOf(cart.getOrderItems()[i]));
-
-				if ((i + 1) < cart.getOrderItems().length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
 		}
 
 		if (cart.getStatus() != null) {
@@ -209,6 +209,13 @@ public class CartSerDes {
 			map.put("author", String.valueOf(cart.getAuthor()));
 		}
 
+		if (cart.getCartItems() == null) {
+			map.put("cartItems", null);
+		}
+		else {
+			map.put("cartItems", String.valueOf(cart.getCartItems()));
+		}
+
 		map.put(
 			"createDate", liferayToJSONDateFormat.format(cart.getCreateDate()));
 
@@ -217,13 +224,6 @@ public class CartSerDes {
 		}
 		else {
 			map.put("id", String.valueOf(cart.getId()));
-		}
-
-		if (cart.getOrderItems() == null) {
-			map.put("orderItems", null);
-		}
-		else {
-			map.put("orderItems", String.valueOf(cart.getOrderItems()));
 		}
 
 		if (cart.getStatus() == null) {
@@ -276,6 +276,18 @@ public class CartSerDes {
 					cart.setAuthor((String)jsonParserFieldValue);
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "cartItems")) {
+				if (jsonParserFieldValue != null) {
+					cart.setCartItems(
+						Stream.of(
+							toStrings((Object[])jsonParserFieldValue)
+						).map(
+							object -> CartItemSerDes.toDTO((String)object)
+						).toArray(
+							size -> new CartItem[size]
+						));
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "createDate")) {
 				if (jsonParserFieldValue != null) {
 					cart.setCreateDate(toDate((String)jsonParserFieldValue));
@@ -284,18 +296,6 @@ public class CartSerDes {
 			else if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
 					cart.setId(Long.valueOf((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "orderItems")) {
-				if (jsonParserFieldValue != null) {
-					cart.setOrderItems(
-						Stream.of(
-							toStrings((Object[])jsonParserFieldValue)
-						).map(
-							object -> OrderItemSerDes.toDTO((String)object)
-						).toArray(
-							size -> new OrderItem[size]
-						));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "status")) {

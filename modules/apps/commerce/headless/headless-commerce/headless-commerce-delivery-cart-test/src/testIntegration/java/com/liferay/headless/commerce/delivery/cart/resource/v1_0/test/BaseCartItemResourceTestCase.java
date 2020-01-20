@@ -22,11 +22,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
-import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.OrderItem;
+import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.CartItem;
 import com.liferay.headless.commerce.delivery.cart.client.http.HttpInvoker;
 import com.liferay.headless.commerce.delivery.cart.client.pagination.Page;
-import com.liferay.headless.commerce.delivery.cart.client.resource.v1_0.OrderItemResource;
-import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.OrderItemSerDes;
+import com.liferay.headless.commerce.delivery.cart.client.resource.v1_0.CartItemResource;
+import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.CartItemSerDes;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -65,6 +65,7 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 
 import org.junit.After;
@@ -80,7 +81,7 @@ import org.junit.Test;
  * @generated
  */
 @Generated("")
-public abstract class BaseOrderItemResourceTestCase {
+public abstract class BaseCartItemResourceTestCase {
 
 	@ClassRule
 	@Rule
@@ -101,11 +102,11 @@ public abstract class BaseOrderItemResourceTestCase {
 		testCompany = CompanyLocalServiceUtil.getCompany(
 			testGroup.getCompanyId());
 
-		_orderItemResource.setContextCompany(testCompany);
+		_cartItemResource.setContextCompany(testCompany);
 
-		OrderItemResource.Builder builder = OrderItemResource.builder();
+		CartItemResource.Builder builder = CartItemResource.builder();
 
-		orderItemResource = builder.locale(
+		cartItemResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -134,13 +135,13 @@ public abstract class BaseOrderItemResourceTestCase {
 			}
 		};
 
-		OrderItem orderItem1 = randomOrderItem();
+		CartItem cartItem1 = randomCartItem();
 
-		String json = objectMapper.writeValueAsString(orderItem1);
+		String json = objectMapper.writeValueAsString(cartItem1);
 
-		OrderItem orderItem2 = OrderItemSerDes.toDTO(json);
+		CartItem cartItem2 = CartItemSerDes.toDTO(json);
 
-		Assert.assertTrue(equals(orderItem1, orderItem2));
+		Assert.assertTrue(equals(cartItem1, cartItem2));
 	}
 
 	@Test
@@ -160,10 +161,10 @@ public abstract class BaseOrderItemResourceTestCase {
 			}
 		};
 
-		OrderItem orderItem = randomOrderItem();
+		CartItem cartItem = randomCartItem();
 
-		String json1 = objectMapper.writeValueAsString(orderItem);
-		String json2 = OrderItemSerDes.toJSON(orderItem);
+		String json1 = objectMapper.writeValueAsString(cartItem);
+		String json2 = CartItemSerDes.toJSON(cartItem);
 
 		Assert.assertEquals(
 			objectMapper.readTree(json1), objectMapper.readTree(json2));
@@ -173,115 +174,32 @@ public abstract class BaseOrderItemResourceTestCase {
 	public void testEscapeRegexInStringFields() throws Exception {
 		String regex = "^[0-9]+(\\.[0-9]{1,2})\"?";
 
-		OrderItem orderItem = randomOrderItem();
+		CartItem cartItem = randomCartItem();
 
-		orderItem.setName(regex);
+		cartItem.setName(regex);
 
-		String json = OrderItemSerDes.toJSON(orderItem);
+		String json = CartItemSerDes.toJSON(cartItem);
 
 		Assert.assertFalse(json.contains(regex));
 
-		orderItem = OrderItemSerDes.toDTO(json);
+		cartItem = CartItemSerDes.toDTO(json);
 
-		Assert.assertEquals(regex, orderItem.getName());
+		Assert.assertEquals(regex, cartItem.getName());
 	}
 
 	@Test
-	public void testGetChannelCartOrderItemsPage() throws Exception {
-		Page<OrderItem> page = orderItemResource.getChannelCartOrderItemsPage(
-			testGetChannelCartOrderItemsPage_getCartId(),
-			testGetChannelCartOrderItemsPage_getChannelId());
+	public void testGetChannelCartCartItem() throws Exception {
+		CartItem postCartItem = testGetChannelCartCartItem_addCartItem();
 
-		Assert.assertEquals(0, page.getTotalCount());
+		CartItem getCartItem = cartItemResource.getChannelCartCartItem(
+			postCartItem.getCartId(), postCartItem.getId(),
+			postCartItem.getChannelId());
 
-		Long cartId = testGetChannelCartOrderItemsPage_getCartId();
-		Long irrelevantCartId =
-			testGetChannelCartOrderItemsPage_getIrrelevantCartId();
-		Long channelId = testGetChannelCartOrderItemsPage_getChannelId();
-		Long irrelevantChannelId =
-			testGetChannelCartOrderItemsPage_getIrrelevantChannelId();
-
-		if ((irrelevantCartId != null) && (irrelevantChannelId != null)) {
-			OrderItem irrelevantOrderItem =
-				testGetChannelCartOrderItemsPage_addOrderItem(
-					irrelevantCartId, irrelevantChannelId,
-					randomIrrelevantOrderItem());
-
-			page = orderItemResource.getChannelCartOrderItemsPage(
-				irrelevantCartId, irrelevantChannelId);
-
-			Assert.assertEquals(1, page.getTotalCount());
-
-			assertEquals(
-				Arrays.asList(irrelevantOrderItem),
-				(List<OrderItem>)page.getItems());
-			assertValid(page);
-		}
-
-		OrderItem orderItem1 = testGetChannelCartOrderItemsPage_addOrderItem(
-			cartId, channelId, randomOrderItem());
-
-		OrderItem orderItem2 = testGetChannelCartOrderItemsPage_addOrderItem(
-			cartId, channelId, randomOrderItem());
-
-		page = orderItemResource.getChannelCartOrderItemsPage(
-			cartId, channelId);
-
-		Assert.assertEquals(2, page.getTotalCount());
-
-		assertEqualsIgnoringOrder(
-			Arrays.asList(orderItem1, orderItem2),
-			(List<OrderItem>)page.getItems());
-		assertValid(page);
+		assertEquals(postCartItem, getCartItem);
+		assertValid(getCartItem);
 	}
 
-	protected OrderItem testGetChannelCartOrderItemsPage_addOrderItem(
-			Long cartId, Long channelId, OrderItem orderItem)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected Long testGetChannelCartOrderItemsPage_getCartId()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected Long testGetChannelCartOrderItemsPage_getIrrelevantCartId()
-		throws Exception {
-
-		return null;
-	}
-
-	protected Long testGetChannelCartOrderItemsPage_getChannelId()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected Long testGetChannelCartOrderItemsPage_getIrrelevantChannelId()
-		throws Exception {
-
-		return null;
-	}
-
-	@Test
-	public void testGetChannelCartOrderItem() throws Exception {
-		OrderItem postOrderItem = testGetChannelCartOrderItem_addOrderItem();
-
-		OrderItem getOrderItem = orderItemResource.getChannelCartOrderItem(
-			postOrderItem.getCartId(), postOrderItem.getChannelId(),
-			postOrderItem.getId());
-
-		assertEquals(postOrderItem, getOrderItem);
-		assertValid(getOrderItem);
-	}
-
-	protected OrderItem testGetChannelCartOrderItem_addOrderItem()
+	protected CartItem testGetChannelCartCartItem_addCartItem()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -289,20 +207,20 @@ public abstract class BaseOrderItemResourceTestCase {
 	}
 
 	@Test
-	public void testGraphQLGetChannelCartOrderItem() throws Exception {
-		OrderItem orderItem = testGraphQLOrderItem_addOrderItem();
+	public void testGraphQLGetChannelCartCartItem() throws Exception {
+		CartItem cartItem = testGraphQLCartItem_addCartItem();
 
 		List<GraphQLField> graphQLFields = getGraphQLFields();
 
 		GraphQLField graphQLField = new GraphQLField(
 			"query",
 			new GraphQLField(
-				"channelCartOrderItem",
+				"channelCartCartItem",
 				new HashMap<String, Object>() {
 					{
-						put("cartId", orderItem.getCartId());
-						put("channelId", orderItem.getChannelId());
-						put("orderItemId", orderItem.getId());
+						put("cartId", cartItem.getCartId());
+						put("cartItemId", cartItem.getId());
+						put("channelId", cartItem.getChannelId());
 					}
 				},
 				graphQLFields.toArray(new GraphQLField[0])));
@@ -314,11 +232,147 @@ public abstract class BaseOrderItemResourceTestCase {
 
 		Assert.assertTrue(
 			equalsJSONObject(
-				orderItem,
-				dataJSONObject.getJSONObject("channelCartOrderItem")));
+				cartItem, dataJSONObject.getJSONObject("channelCartCartItem")));
 	}
 
-	protected OrderItem testGraphQLOrderItem_addOrderItem() throws Exception {
+	@Test
+	public void testPatchChannelCartCartItem() throws Exception {
+		CartItem postCartItem = testPatchChannelCartCartItem_addCartItem();
+
+		CartItem randomPatchCartItem = randomPatchCartItem();
+
+		CartItem patchCartItem = cartItemResource.patchChannelCartCartItem(
+			postCartItem.getId(), randomPatchCartItem);
+
+		CartItem expectedPatchCartItem = (CartItem)BeanUtils.cloneBean(
+			postCartItem);
+
+		_beanUtilsBean.copyProperties(
+			expectedPatchCartItem, randomPatchCartItem);
+
+		CartItem getCartItem = cartItemResource.getCartItem(
+			patchCartItem.getId());
+
+		assertEquals(expectedPatchCartItem, getCartItem);
+		assertValid(getCartItem);
+	}
+
+	protected CartItem testPatchChannelCartCartItem_addCartItem()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testPutChannelCartCartItem() throws Exception {
+		CartItem postCartItem = testPutChannelCartCartItem_addCartItem();
+
+		CartItem randomCartItem = randomCartItem();
+
+		CartItem putCartItem = cartItemResource.putCartItem(
+			postCartItem.getId(), randomCartItem);
+
+		assertEquals(randomCartItem, putCartItem);
+		assertValid(putCartItem);
+
+		CartItem getCartItem = cartItemResource.getCartItem(
+			putCartItem.getId());
+
+		assertEquals(randomCartItem, getCartItem);
+		assertValid(getCartItem);
+	}
+
+	protected CartItem testPutChannelCartCartItem_addCartItem()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGetChannelCartCartItemsPage() throws Exception {
+		Page<CartItem> page = cartItemResource.getChannelCartCartItemsPage(
+			testGetChannelCartCartItemsPage_getCartId(),
+			testGetChannelCartCartItemsPage_getChannelId());
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		Long cartId = testGetChannelCartCartItemsPage_getCartId();
+		Long irrelevantCartId =
+			testGetChannelCartCartItemsPage_getIrrelevantCartId();
+		Long channelId = testGetChannelCartCartItemsPage_getChannelId();
+		Long irrelevantChannelId =
+			testGetChannelCartCartItemsPage_getIrrelevantChannelId();
+
+		if ((irrelevantCartId != null) && (irrelevantChannelId != null)) {
+			CartItem irrelevantCartItem =
+				testGetChannelCartCartItemsPage_addCartItem(
+					irrelevantCartId, irrelevantChannelId,
+					randomIrrelevantCartItem());
+
+			page = cartItemResource.getChannelCartCartItemsPage(
+				irrelevantCartId, irrelevantChannelId);
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantCartItem),
+				(List<CartItem>)page.getItems());
+			assertValid(page);
+		}
+
+		CartItem cartItem1 = testGetChannelCartCartItemsPage_addCartItem(
+			cartId, channelId, randomCartItem());
+
+		CartItem cartItem2 = testGetChannelCartCartItemsPage_addCartItem(
+			cartId, channelId, randomCartItem());
+
+		page = cartItemResource.getChannelCartCartItemsPage(cartId, channelId);
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(cartItem1, cartItem2),
+			(List<CartItem>)page.getItems());
+		assertValid(page);
+	}
+
+	protected CartItem testGetChannelCartCartItemsPage_addCartItem(
+			Long cartId, Long channelId, CartItem cartItem)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Long testGetChannelCartCartItemsPage_getCartId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Long testGetChannelCartCartItemsPage_getIrrelevantCartId()
+		throws Exception {
+
+		return null;
+	}
+
+	protected Long testGetChannelCartCartItemsPage_getChannelId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Long testGetChannelCartCartItemsPage_getIrrelevantChannelId()
+		throws Exception {
+
+		return null;
+	}
+
+	protected CartItem testGraphQLCartItem_addCartItem() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
@@ -331,35 +385,35 @@ public abstract class BaseOrderItemResourceTestCase {
 			expectedHttpResponseStatusCode, actualHttpResponse.getStatusCode());
 	}
 
-	protected void assertEquals(OrderItem orderItem1, OrderItem orderItem2) {
+	protected void assertEquals(CartItem cartItem1, CartItem cartItem2) {
 		Assert.assertTrue(
-			orderItem1 + " does not equal " + orderItem2,
-			equals(orderItem1, orderItem2));
+			cartItem1 + " does not equal " + cartItem2,
+			equals(cartItem1, cartItem2));
 	}
 
 	protected void assertEquals(
-		List<OrderItem> orderItems1, List<OrderItem> orderItems2) {
+		List<CartItem> cartItems1, List<CartItem> cartItems2) {
 
-		Assert.assertEquals(orderItems1.size(), orderItems2.size());
+		Assert.assertEquals(cartItems1.size(), cartItems2.size());
 
-		for (int i = 0; i < orderItems1.size(); i++) {
-			OrderItem orderItem1 = orderItems1.get(i);
-			OrderItem orderItem2 = orderItems2.get(i);
+		for (int i = 0; i < cartItems1.size(); i++) {
+			CartItem cartItem1 = cartItems1.get(i);
+			CartItem cartItem2 = cartItems2.get(i);
 
-			assertEquals(orderItem1, orderItem2);
+			assertEquals(cartItem1, cartItem2);
 		}
 	}
 
 	protected void assertEqualsIgnoringOrder(
-		List<OrderItem> orderItems1, List<OrderItem> orderItems2) {
+		List<CartItem> cartItems1, List<CartItem> cartItems2) {
 
-		Assert.assertEquals(orderItems1.size(), orderItems2.size());
+		Assert.assertEquals(cartItems1.size(), cartItems2.size());
 
-		for (OrderItem orderItem1 : orderItems1) {
+		for (CartItem cartItem1 : cartItems1) {
 			boolean contains = false;
 
-			for (OrderItem orderItem2 : orderItems2) {
-				if (equals(orderItem1, orderItem2)) {
+			for (CartItem cartItem2 : cartItems2) {
+				if (equals(cartItem1, cartItem2)) {
 					contains = true;
 
 					break;
@@ -367,18 +421,18 @@ public abstract class BaseOrderItemResourceTestCase {
 			}
 
 			Assert.assertTrue(
-				orderItems2 + " does not contain " + orderItem1, contains);
+				cartItems2 + " does not contain " + cartItem1, contains);
 		}
 	}
 
 	protected void assertEqualsJSONArray(
-		List<OrderItem> orderItems, JSONArray jsonArray) {
+		List<CartItem> cartItems, JSONArray jsonArray) {
 
-		for (OrderItem orderItem : orderItems) {
+		for (CartItem cartItem : cartItems) {
 			boolean contains = false;
 
 			for (Object object : jsonArray) {
-				if (equalsJSONObject(orderItem, (JSONObject)object)) {
+				if (equalsJSONObject(cartItem, (JSONObject)object)) {
 					contains = true;
 
 					break;
@@ -386,14 +440,14 @@ public abstract class BaseOrderItemResourceTestCase {
 			}
 
 			Assert.assertTrue(
-				jsonArray + " does not contain " + orderItem, contains);
+				jsonArray + " does not contain " + cartItem, contains);
 		}
 	}
 
-	protected void assertValid(OrderItem orderItem) {
+	protected void assertValid(CartItem cartItem) {
 		boolean valid = true;
 
-		if (orderItem.getId() == null) {
+		if (cartItem.getId() == null) {
 			valid = false;
 		}
 
@@ -401,7 +455,15 @@ public abstract class BaseOrderItemResourceTestCase {
 				getAdditionalAssertFieldNames()) {
 
 			if (Objects.equals("name", additionalAssertFieldName)) {
-				if (orderItem.getName() == null) {
+				if (cartItem.getName() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("price", additionalAssertFieldName)) {
+				if (cartItem.getPrice() == null) {
 					valid = false;
 				}
 
@@ -409,7 +471,7 @@ public abstract class BaseOrderItemResourceTestCase {
 			}
 
 			if (Objects.equals("quantity", additionalAssertFieldName)) {
-				if (orderItem.getQuantity() == null) {
+				if (cartItem.getQuantity() == null) {
 					valid = false;
 				}
 
@@ -424,12 +486,12 @@ public abstract class BaseOrderItemResourceTestCase {
 		Assert.assertTrue(valid);
 	}
 
-	protected void assertValid(Page<OrderItem> page) {
+	protected void assertValid(Page<CartItem> page) {
 		boolean valid = false;
 
-		java.util.Collection<OrderItem> orderItems = page.getItems();
+		java.util.Collection<CartItem> cartItems = page.getItems();
 
-		int size = orderItems.size();
+		int size = cartItems.size();
 
 		if ((page.getLastPage() > 0) && (page.getPage() > 0) &&
 			(page.getPageSize() > 0) && (page.getTotalCount() > 0) &&
@@ -461,8 +523,8 @@ public abstract class BaseOrderItemResourceTestCase {
 		return new String[0];
 	}
 
-	protected boolean equals(OrderItem orderItem1, OrderItem orderItem2) {
-		if (orderItem1 == orderItem2) {
+	protected boolean equals(CartItem cartItem1, CartItem cartItem2) {
+		if (cartItem1 == cartItem2) {
 			return true;
 		}
 
@@ -470,9 +532,7 @@ public abstract class BaseOrderItemResourceTestCase {
 				getAdditionalAssertFieldNames()) {
 
 			if (Objects.equals("id", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						orderItem1.getId(), orderItem2.getId())) {
-
+				if (!Objects.deepEquals(cartItem1.getId(), cartItem2.getId())) {
 					return false;
 				}
 
@@ -481,7 +541,17 @@ public abstract class BaseOrderItemResourceTestCase {
 
 			if (Objects.equals("name", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						orderItem1.getName(), orderItem2.getName())) {
+						cartItem1.getName(), cartItem2.getName())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("price", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						cartItem1.getPrice(), cartItem2.getPrice())) {
 
 					return false;
 				}
@@ -491,7 +561,7 @@ public abstract class BaseOrderItemResourceTestCase {
 
 			if (Objects.equals("quantity", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						orderItem1.getQuantity(), orderItem2.getQuantity())) {
+						cartItem1.getQuantity(), cartItem2.getQuantity())) {
 
 					return false;
 				}
@@ -508,12 +578,12 @@ public abstract class BaseOrderItemResourceTestCase {
 	}
 
 	protected boolean equalsJSONObject(
-		OrderItem orderItem, JSONObject jsonObject) {
+		CartItem cartItem, JSONObject jsonObject) {
 
 		for (String fieldName : getAdditionalAssertFieldNames()) {
 			if (Objects.equals("id", fieldName)) {
 				if (!Objects.deepEquals(
-						orderItem.getId(), jsonObject.getLong("id"))) {
+						cartItem.getId(), jsonObject.getLong("id"))) {
 
 					return false;
 				}
@@ -523,7 +593,7 @@ public abstract class BaseOrderItemResourceTestCase {
 
 			if (Objects.equals("name", fieldName)) {
 				if (!Objects.deepEquals(
-						orderItem.getName(), jsonObject.getString("name"))) {
+						cartItem.getName(), jsonObject.getString("name"))) {
 
 					return false;
 				}
@@ -533,7 +603,7 @@ public abstract class BaseOrderItemResourceTestCase {
 
 			if (Objects.equals("quantity", fieldName)) {
 				if (!Objects.deepEquals(
-						orderItem.getQuantity(),
+						cartItem.getQuantity(),
 						jsonObject.getInt("quantity"))) {
 
 					return false;
@@ -552,13 +622,13 @@ public abstract class BaseOrderItemResourceTestCase {
 	protected java.util.Collection<EntityField> getEntityFields()
 		throws Exception {
 
-		if (!(_orderItemResource instanceof EntityModelResource)) {
+		if (!(_cartItemResource instanceof EntityModelResource)) {
 			throw new UnsupportedOperationException(
 				"Resource is not an instance of EntityModelResource");
 		}
 
 		EntityModelResource entityModelResource =
-			(EntityModelResource)_orderItemResource;
+			(EntityModelResource)_cartItemResource;
 
 		EntityModel entityModel = entityModelResource.getEntityModel(
 			new MultivaluedHashMap());
@@ -587,7 +657,7 @@ public abstract class BaseOrderItemResourceTestCase {
 	}
 
 	protected String getFilterString(
-		EntityField entityField, String operator, OrderItem orderItem) {
+		EntityField entityField, String operator, CartItem cartItem) {
 
 		StringBundler sb = new StringBundler();
 
@@ -606,10 +676,15 @@ public abstract class BaseOrderItemResourceTestCase {
 
 		if (entityFieldName.equals("name")) {
 			sb.append("'");
-			sb.append(String.valueOf(orderItem.getName()));
+			sb.append(String.valueOf(cartItem.getName()));
 			sb.append("'");
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("price")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("quantity")) {
@@ -638,8 +713,8 @@ public abstract class BaseOrderItemResourceTestCase {
 		return httpResponse.getContent();
 	}
 
-	protected OrderItem randomOrderItem() throws Exception {
-		return new OrderItem() {
+	protected CartItem randomCartItem() throws Exception {
+		return new CartItem() {
 			{
 				id = RandomTestUtil.randomLong();
 				name = RandomTestUtil.randomString();
@@ -648,17 +723,17 @@ public abstract class BaseOrderItemResourceTestCase {
 		};
 	}
 
-	protected OrderItem randomIrrelevantOrderItem() throws Exception {
-		OrderItem randomIrrelevantOrderItem = randomOrderItem();
+	protected CartItem randomIrrelevantCartItem() throws Exception {
+		CartItem randomIrrelevantCartItem = randomCartItem();
 
-		return randomIrrelevantOrderItem;
+		return randomIrrelevantCartItem;
 	}
 
-	protected OrderItem randomPatchOrderItem() throws Exception {
-		return randomOrderItem();
+	protected CartItem randomPatchCartItem() throws Exception {
+		return randomCartItem();
 	}
 
-	protected OrderItemResource orderItemResource;
+	protected CartItemResource cartItemResource;
 	protected Group irrelevantGroup;
 	protected Company testCompany;
 	protected Group testGroup;
@@ -722,7 +797,7 @@ public abstract class BaseOrderItemResourceTestCase {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		BaseOrderItemResourceTestCase.class);
+		BaseCartItemResourceTestCase.class);
 
 	private static BeanUtilsBean _beanUtilsBean = new BeanUtilsBean() {
 
@@ -741,6 +816,6 @@ public abstract class BaseOrderItemResourceTestCase {
 	@Inject
 	private
 		com.liferay.headless.commerce.delivery.cart.resource.v1_0.
-			OrderItemResource _orderItemResource;
+			CartItemResource _cartItemResource;
 
 }

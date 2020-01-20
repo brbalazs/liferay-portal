@@ -53,20 +53,6 @@ public class SummarySerDes {
 
 		sb.append("{");
 
-		if (summary.getDiscount() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"discount\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(summary.getDiscount()));
-
-			sb.append("\"");
-		}
-
 		if (summary.getItemsQuantity() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -77,16 +63,72 @@ public class SummarySerDes {
 			sb.append(summary.getItemsQuantity());
 		}
 
-		if (summary.getSubTotal() != null) {
+		if (summary.getShippingDiscountValue() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"subTotal\": ");
+			sb.append("\"shippingDiscountValue\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(summary.getSubTotal()));
+			sb.append(_escape(summary.getShippingDiscountValue()));
+
+			sb.append("\"");
+		}
+
+		if (summary.getShippingValue() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingValue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(summary.getShippingValue()));
+
+			sb.append("\"");
+		}
+
+		if (summary.getSubtotal() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotal\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(summary.getSubtotal()));
+
+			sb.append("\"");
+		}
+
+		if (summary.getSubtotalDiscountValue() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalDiscountValue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(summary.getSubtotalDiscountValue()));
+
+			sb.append("\"");
+		}
+
+		if (summary.getTaxValue() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"taxValue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(summary.getTaxValue()));
 
 			sb.append("\"");
 		}
@@ -101,6 +143,20 @@ public class SummarySerDes {
 			sb.append("\"");
 
 			sb.append(_escape(summary.getTotal()));
+
+			sb.append("\"");
+		}
+
+		if (summary.getTotalDiscountValue() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalDiscountValue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(summary.getTotalDiscountValue()));
 
 			sb.append("\"");
 		}
@@ -123,13 +179,6 @@ public class SummarySerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
-		if (summary.getDiscount() == null) {
-			map.put("discount", null);
-		}
-		else {
-			map.put("discount", String.valueOf(summary.getDiscount()));
-		}
-
 		if (summary.getItemsQuantity() == null) {
 			map.put("itemsQuantity", null);
 		}
@@ -138,11 +187,44 @@ public class SummarySerDes {
 				"itemsQuantity", String.valueOf(summary.getItemsQuantity()));
 		}
 
-		if (summary.getSubTotal() == null) {
-			map.put("subTotal", null);
+		if (summary.getShippingDiscountValue() == null) {
+			map.put("shippingDiscountValue", null);
 		}
 		else {
-			map.put("subTotal", String.valueOf(summary.getSubTotal()));
+			map.put(
+				"shippingDiscountValue",
+				String.valueOf(summary.getShippingDiscountValue()));
+		}
+
+		if (summary.getShippingValue() == null) {
+			map.put("shippingValue", null);
+		}
+		else {
+			map.put(
+				"shippingValue", String.valueOf(summary.getShippingValue()));
+		}
+
+		if (summary.getSubtotal() == null) {
+			map.put("subtotal", null);
+		}
+		else {
+			map.put("subtotal", String.valueOf(summary.getSubtotal()));
+		}
+
+		if (summary.getSubtotalDiscountValue() == null) {
+			map.put("subtotalDiscountValue", null);
+		}
+		else {
+			map.put(
+				"subtotalDiscountValue",
+				String.valueOf(summary.getSubtotalDiscountValue()));
+		}
+
+		if (summary.getTaxValue() == null) {
+			map.put("taxValue", null);
+		}
+		else {
+			map.put("taxValue", String.valueOf(summary.getTaxValue()));
 		}
 
 		if (summary.getTotal() == null) {
@@ -150,6 +232,15 @@ public class SummarySerDes {
 		}
 		else {
 			map.put("total", String.valueOf(summary.getTotal()));
+		}
+
+		if (summary.getTotalDiscountValue() == null) {
+			map.put("totalDiscountValue", null);
+		}
+		else {
+			map.put(
+				"totalDiscountValue",
+				String.valueOf(summary.getTotalDiscountValue()));
 		}
 
 		return map;
@@ -172,25 +263,53 @@ public class SummarySerDes {
 			Summary summary, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "discount")) {
-				if (jsonParserFieldValue != null) {
-					summary.setDiscount((String)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "itemsQuantity")) {
+			if (Objects.equals(jsonParserFieldName, "itemsQuantity")) {
 				if (jsonParserFieldValue != null) {
 					summary.setItemsQuantity(
 						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "subTotal")) {
+			else if (Objects.equals(
+						jsonParserFieldName, "shippingDiscountValue")) {
+
 				if (jsonParserFieldValue != null) {
-					summary.setSubTotal((String)jsonParserFieldValue);
+					summary.setShippingDiscountValue(
+						(String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "shippingValue")) {
+				if (jsonParserFieldValue != null) {
+					summary.setShippingValue((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "subtotal")) {
+				if (jsonParserFieldValue != null) {
+					summary.setSubtotal((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "subtotalDiscountValue")) {
+
+				if (jsonParserFieldValue != null) {
+					summary.setSubtotalDiscountValue(
+						(String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "taxValue")) {
+				if (jsonParserFieldValue != null) {
+					summary.setTaxValue((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "total")) {
 				if (jsonParserFieldValue != null) {
 					summary.setTotal((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "totalDiscountValue")) {
+
+				if (jsonParserFieldValue != null) {
+					summary.setTotalDiscountValue((String)jsonParserFieldValue);
 				}
 			}
 			else {
