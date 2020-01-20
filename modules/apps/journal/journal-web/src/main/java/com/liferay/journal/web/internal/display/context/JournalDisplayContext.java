@@ -978,8 +978,15 @@ public class JournalDisplayContext {
 		_orderByType = ParamUtil.getString(_request, "orderByType");
 
 		if (Validator.isNull(_orderByType)) {
+			String defaultOrderByType = "asc";
+
+			if (Objects.equals(getOrderByCol(), "modified-date")) {
+				defaultOrderByType = "desc";
+			}
+
 			_orderByType = _portalPreferences.getValue(
-				JournalPortletKeys.JOURNAL, "order-by-type", "asc");
+				JournalPortletKeys.JOURNAL, "order-by-type",
+				defaultOrderByType);
 		}
 		else {
 			boolean saveOrderBy = ParamUtil.getBoolean(_request, "saveOrderBy");
