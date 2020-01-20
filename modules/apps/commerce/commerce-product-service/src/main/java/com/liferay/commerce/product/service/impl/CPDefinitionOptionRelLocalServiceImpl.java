@@ -505,20 +505,20 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		else {
 			cpDefinitionLocalService.updateCPDefinitionIgnoreSKUCombinations(
 				cpDefinition.getCPDefinitionId(), false, serviceContext);
-		}
 
-		List<CPInstance> cpInstances =
-			cpInstanceLocalService.getCPDefinitionInstances(
-				cpDefinition.getCPDefinitionId(),
-				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null);
+			List<CPInstance> cpInstances =
+				cpInstanceLocalService.getCPDefinitionInstances(
+					cpDefinition.getCPDefinitionId(),
+					WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
+					QueryUtil.ALL_POS, null);
 
-		for (CPInstance cpInstance : cpInstances) {
-			if (Validator.isNull(cpInstance.getJson())) {
-				cpInstanceLocalService.updateStatus(
-					serviceContext.getUserId(), cpInstance.getCPInstanceId(),
-					WorkflowConstants.STATUS_INACTIVE, serviceContext,
-					new HashMap<String, Serializable>());
+			for (CPInstance cpInstance : cpInstances) {
+				if (Validator.isNull(cpInstance.getJson())) {
+					cpInstanceLocalService.updateStatus(
+						serviceContext.getUserId(), cpInstance.getCPInstanceId(),
+						WorkflowConstants.STATUS_INACTIVE, serviceContext,
+						new HashMap<String, Serializable>());
+				}
 			}
 		}
 	}
