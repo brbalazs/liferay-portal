@@ -15,19 +15,36 @@
 package com.liferay.portal.service;
 
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.model.ResourceAction;
+import com.liferay.portal.kernel.model.ResourceConstants;
+import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserGroup;
+import com.liferay.portal.kernel.model.role.RoleConstants;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.service.ResourceActionLocalServiceUtil;
+import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
 import com.liferay.portal.kernel.service.UserGroupLocalServiceUtil;
 import com.liferay.portal.kernel.service.UserGroupServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
+import com.liferay.portal.kernel.test.util.ResourcePermissionTestUtil;
+import com.liferay.portal.kernel.test.util.RoleTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.test.util.UserGroupTestUtil;
+import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.service.persistence.constants.UserGroupFinderConstants;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerTestRule;
+import com.liferay.users.admin.kernel.util.UsersAdminUtil;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.junit.Assert;
@@ -46,6 +63,59 @@ public class UserGroupServiceTest {
 		new AggregateTestRule(
 			new LiferayIntegrationTestRule(),
 			PermissionCheckerTestRule.INSTANCE);
+
+	@Test
+	public void testDatabaseSearchPermissionCheck() throws Exception {
+		UserGroup publicUserGroup = addUserGroup();
+		UserGroup privateUserGroup = addUserGroup();
+
+		User groupUser = UserTestUtil.addUser();
+
+		UserGroupLocalServiceUtil.addUserUserGroup(
+			groupUser.getUserId(), publicUserGroup);
+
+		UserGroupLocalServiceUtil.addUserUserGroup(
+			groupUser.getUserId(), privateUserGroup);
+
+		User publicAdminUser = UserTestUtil.addUser();
+
+		Role publicAdminRole = RoleTestUtil.addRole(RoleConstants.TYPE_REGULAR);
+
+		RoleLocalServiceUtil.addUserRole(
+			publicAdminUser.getUserId(), publicAdminRole);
+
+		ResourceAction viewAction =
+			ResourceActionLocalServiceUtil.fetchResourceAction(
+				UserGroup.class.getName(), ActionKeys.VIEW);
+
+		ResourcePermissionTestUtil.addResourcePermission(
+			viewAction.getBitwiseValue(), UserGroup.class.getName(),
+			String.valueOf(publicUserGroup.getUserGroupId()),
+			publicAdminRole.getRoleId(), ResourceConstants.SCOPE_INDIVIDUAL);
+
+		PermissionThreadLocal.setPermissionChecker(
+			PermissionCheckerFactoryUtil.create(publicAdminUser));
+
+		String keywords = null;
+
+		LinkedHashMap<String, Object> userGroupParams = new LinkedHashMap<>();
+
+		userGroupParams.put(
+			UserGroupFinderConstants.PARAM_KEY_USER_GROUPS_USERS,
+			Long.valueOf(groupUser.getUserId()));
+
+		List<UserGroup> userGroups = UserGroupServiceUtil.search(
+			publicAdminRole.getCompanyId(), keywords, userGroupParams,
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			UsersAdminUtil.getUserGroupOrderByComparator("name", "asc"));
+
+		Assert.assertEquals(userGroups.toString(), 1, userGroups.size());
+
+		UserLocalServiceUtil.deleteUser(groupUser);
+		UserLocalServiceUtil.deleteUser(publicAdminUser);
+
+		RoleLocalServiceUtil.deleteRole(publicAdminRole);
+	}
 
 	@Test
 	public void testGetGtUserGroups() throws Exception {
