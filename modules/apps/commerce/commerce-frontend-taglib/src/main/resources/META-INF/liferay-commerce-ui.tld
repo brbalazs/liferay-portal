@@ -239,6 +239,12 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+			<name>transitionPortletURL</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>javax.portlet.PortletURL</type>
+		</attribute>
+		<attribute>
 			<name>version</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>

@@ -16,7 +16,7 @@ package com.liferay.commerce.taglib.servlet.taglib;
 
 import com.liferay.commerce.constants.CommerceOrderActionKeys;
 import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.order.CommerceOrderHelper;
+import com.liferay.commerce.util.CommerceWorkflowedModelHelper;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.service.CommerceOrderServiceUtil;
 import com.liferay.commerce.taglib.servlet.taglib.internal.servlet.ServletContextUtil;
@@ -93,7 +93,7 @@ public class OrderTransitionsTag extends IncludeTag {
 	public void setPageContext(PageContext pageContext) {
 		super.setPageContext(pageContext);
 
-		commerceOrderHelper = ServletContextUtil.getCommerceOrderHelper();
+		_commerceWorkflowedModelHelper = ServletContextUtil.getCommerceOrderHelper();
 		commerceOrderModelResourcePermission =
 			ServletContextUtil.getCommerceOrderModelResourcePermission();
 		commerceOrderValidatorRegistry =
@@ -131,7 +131,7 @@ public class OrderTransitionsTag extends IncludeTag {
 			_pathThemeImages);
 	}
 
-	protected CommerceOrderHelper commerceOrderHelper;
+	protected CommerceWorkflowedModelHelper _commerceWorkflowedModelHelper;
 	protected ModelResourcePermission<CommerceOrder>
 		commerceOrderModelResourcePermission;
 	protected CommerceOrderValidatorRegistry commerceOrderValidatorRegistry;
@@ -187,8 +187,10 @@ public class OrderTransitionsTag extends IncludeTag {
 		int start = transitionOVPs.size();
 
 		transitionOVPs.addAll(
-			commerceOrderHelper.getWorkflowTransitions(
-				themeDisplay.getUserId(), commerceOrder));
+			_commerceWorkflowedModelHelper.getWorkflowTransitions(
+				themeDisplay.getUserId(), commerceOrder.getCompanyId(),
+				commerceOrder.getModelClassName(),
+				commerceOrder.getCommerceOrderId()));
 
 		if (approveOVP != null) {
 			for (int i = start; i < transitionOVPs.size(); i++) {

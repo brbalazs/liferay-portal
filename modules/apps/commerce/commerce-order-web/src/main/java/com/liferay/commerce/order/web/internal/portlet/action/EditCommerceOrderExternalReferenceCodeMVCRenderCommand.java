@@ -19,7 +19,6 @@ import com.liferay.commerce.exception.NoSuchOrderException;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.notification.service.CommerceNotificationQueueEntryLocalService;
 import com.liferay.commerce.notification.service.CommerceNotificationTemplateService;
-import com.liferay.commerce.order.CommerceOrderHelper;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.web.internal.display.context.CommerceOrderEditDisplayContext;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelService;
@@ -31,6 +30,7 @@ import com.liferay.commerce.service.CommerceOrderNoteService;
 import com.liferay.commerce.service.CommerceOrderPaymentLocalService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceShipmentService;
+import com.liferay.commerce.util.CommerceWorkflowedModelHelper;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
@@ -71,7 +71,7 @@ public class EditCommerceOrderExternalReferenceCodeMVCRenderCommand
 					_commerceAddressService, _commerceChannelLocalService,
 					_commerceNotificationTemplateService,
 					_commerceNotificationQueueEntryLocalService,
-					_commerceOrderHelper, _commerceOrderService,
+					_commerceWorkflowedModelHelper, _commerceOrderService,
 					_commerceOrderItemService,
 					_commerceOrderModelResourcePermission,
 					_commerceOrderNoteService,
@@ -116,9 +116,6 @@ public class EditCommerceOrderExternalReferenceCodeMVCRenderCommand
 		_commerceNotificationTemplateService;
 
 	@Reference
-	private CommerceOrderHelper _commerceOrderHelper;
-
-	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
 
 	@Reference(
@@ -148,6 +145,9 @@ public class EditCommerceOrderExternalReferenceCodeMVCRenderCommand
 
 	@Reference
 	private CommerceShipmentService _commerceShipmentService;
+
+	@Reference
+	private CommerceWorkflowedModelHelper _commerceWorkflowedModelHelper;
 
 	@Reference
 	private ItemSelector _itemSelector;

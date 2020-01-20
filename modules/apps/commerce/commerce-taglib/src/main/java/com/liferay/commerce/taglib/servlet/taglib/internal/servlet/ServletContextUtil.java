@@ -18,7 +18,7 @@ import com.liferay.application.list.PanelAppRegistry;
 import com.liferay.application.list.PanelCategoryRegistry;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.order.CommerceOrderHelper;
+import com.liferay.commerce.util.CommerceWorkflowedModelHelper;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
@@ -42,7 +42,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = ServletContextUtil.class)
 public class ServletContextUtil {
 
-	public static final CommerceOrderHelper getCommerceOrderHelper() {
+	public static final CommerceWorkflowedModelHelper getCommerceOrderHelper() {
 		return _servletContextUtil._getCommerceOrderHelper();
 	}
 
@@ -109,10 +109,10 @@ public class ServletContextUtil {
 	}
 
 	@Reference(unbind = "-")
-	protected void setCommerceOrderHelper(
-		CommerceOrderHelper commerceOrderHelper) {
+	protected void setCommerceWorkflowedModelHelper(
+		CommerceWorkflowedModelHelper commerceWorkflowedModelHelper) {
 
-		_commerceOrderHelper = commerceOrderHelper;
+		_commerceWorkflowedModelHelper = commerceWorkflowedModelHelper;
 	}
 
 	@Reference(
@@ -194,8 +194,8 @@ public class ServletContextUtil {
 		_servletContext = servletContext;
 	}
 
-	private CommerceOrderHelper _getCommerceOrderHelper() {
-		return _commerceOrderHelper;
+	private CommerceWorkflowedModelHelper _getCommerceOrderHelper() {
+		return _commerceWorkflowedModelHelper;
 	}
 
 	private ModelResourcePermission<CommerceOrder>
@@ -248,7 +248,7 @@ public class ServletContextUtil {
 
 	private static ServletContextUtil _servletContextUtil;
 
-	private CommerceOrderHelper _commerceOrderHelper;
+	private CommerceWorkflowedModelHelper _commerceWorkflowedModelHelper;
 	private ModelResourcePermission<CommerceOrder>
 		_commerceOrderModelResourcePermission;
 	private CommerceOrderValidatorRegistry _commerceOrderValidatorRegistry;

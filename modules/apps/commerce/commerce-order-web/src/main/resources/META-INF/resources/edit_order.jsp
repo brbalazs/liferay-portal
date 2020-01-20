@@ -57,6 +57,7 @@ else {
 	model="<%= CommerceOrder.class %>"
 	thumbnailUrl="<%= commerceOrderEditDisplayContext.getCommerceAccountThumbnailURL() %>"
 	title="<%= headerTitle %>"
+	transitionPortletURL="<%= commerceOrderEditDisplayContext.getTransitionOrderPortletURL() %>"
 />
 
 <div id="<portlet:namespace />editOrderContainer">

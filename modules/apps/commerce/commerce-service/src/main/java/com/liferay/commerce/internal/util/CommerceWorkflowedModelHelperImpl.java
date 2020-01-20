@@ -12,10 +12,9 @@
  * details.
  */
 
-package com.liferay.commerce.internal.order;
+package com.liferay.commerce.internal.util;
 
-import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.order.CommerceOrderHelper;
+import com.liferay.commerce.util.CommerceWorkflowedModelHelper;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.ObjectValuePair;
@@ -29,36 +28,37 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Andrea Di Giorgi
+ * @author Alec Sloan
  */
-@Component(immediate = true, service = CommerceOrderHelper.class)
-public class CommerceOrderHelperImpl implements CommerceOrderHelper {
+@Component(immediate = true, service = CommerceWorkflowedModelHelper.class)
+public class CommerceWorkflowedModelHelperImpl
+	implements CommerceWorkflowedModelHelper {
 
 	@Override
 	public List<ObjectValuePair<Long, String>> getWorkflowTransitions(
-			long userId, CommerceOrder commerceOrder)
+			long userId, long companyId, String className, long classPK)
 		throws PortalException {
 
 		List<ObjectValuePair<Long, String>> transitionOVPs = new ArrayList<>();
 
-		_populateTransitionOVPs(transitionOVPs, userId, commerceOrder, true);
-		_populateTransitionOVPs(transitionOVPs, userId, commerceOrder, false);
+		_populateTransitionOVPs(
+			transitionOVPs, userId, companyId, className, classPK, true);
+		_populateTransitionOVPs(
+			transitionOVPs, userId, companyId, className, classPK, false);
 
 		return transitionOVPs;
 	}
 
 	private void _populateTransitionOVPs(
 			List<ObjectValuePair<Long, String>> transitionOVPs, long userId,
-			CommerceOrder commerceOrder, boolean searchByUserRoles)
+			long companyId, String className, long classPK,
+			boolean searchByUserRoles)
 		throws PortalException {
 
-		long companyId = commerceOrder.getCompanyId();
-
 		List<WorkflowTask> workflowTasks = _workflowTaskManager.search(
-			companyId, userId, null, CommerceOrder.class.getName(),
-			new Long[] {commerceOrder.getCommerceOrderId()}, null, null, false,
-			searchByUserRoles, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			null);
+			companyId, userId, null, className, new Long[] {classPK}, null,
+			null, false, searchByUserRoles, true, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
 
 		for (WorkflowTask workflowTask : workflowTasks) {
 			long workflowTaskId = workflowTask.getWorkflowTaskId();

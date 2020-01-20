@@ -21,6 +21,10 @@ boolean isWorkflowedModel = false;
 
 if (bean instanceof WorkflowedModel) {
 	isWorkflowedModel = true;
+
+	if (transitionPortletURL != null) {
+		actions.addAll(0, HeaderHelperUtil.getWorkflowTransitionHeaderActionModels(themeDisplay.getUserId(), themeDisplay.getCompanyId(), model.getName(), beanId, transitionPortletURL));
+	}
 }
 
 String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletKeys.MY_WORKFLOW_TASK);
@@ -138,6 +142,7 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 			<div class="collapse d-lg-flex" id="navbarNavAltMarkup">
 				<div class="align-self-center row">
 					<c:if test="<%= Validator.isNotNull(reviewWorkflowTask) %>">
+
 						<%
 						boolean assignedToCurrentUser = false;
 

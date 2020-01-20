@@ -26,6 +26,7 @@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
 <%@ page import="com.liferay.commerce.frontend.model.HeaderActionModel" %><%@
+page import="com.liferay.commerce.frontend.util.HeaderHelperUtil" %><%@
 page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
@@ -41,7 +42,8 @@ page import="com.liferay.portal.kernel.workflow.WorkflowTask" %>
 <%@ page import="java.util.HashMap" %><%@
 page import="java.util.List" %><%@
 page import="java.util.Map" %>
-<%@ page import="com.liferay.commerce.frontend.util.HeaderHelperUtil" %>
+
+<%@ page import="javax.portlet.PortletURL" %>
 
 <liferay-theme:defineObjects />
 
@@ -62,6 +64,7 @@ String previewUrl = (String)request.getAttribute("liferay-commerce:header:previe
 String spritemap = (String)request.getAttribute("liferay-commerce:header:spritemap");
 String thumbnailUrl = (String)request.getAttribute("liferay-commerce:header:thumbnailUrl");
 String title = (String)request.getAttribute("liferay-commerce:header:title");
+PortletURL transitionPortletURL = (PortletURL)request.getAttribute("liferay-commerce:header:transitionPortletURL");
 String version = (String)request.getAttribute("liferay-commerce:header:version");
 String wrapperCssClasses = (String)request.getAttribute("liferay-commerce:header:wrapperCssClasses");
 

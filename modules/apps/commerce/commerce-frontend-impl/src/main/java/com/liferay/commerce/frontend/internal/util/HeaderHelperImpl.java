@@ -14,14 +14,20 @@
 
 package com.liferay.commerce.frontend.internal.util;
 
+import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.frontend.util.HeaderHelper;
+import com.liferay.commerce.util.CommerceWorkflowedModelHelper;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.workflow.WorkflowTask;
 import com.liferay.portal.kernel.workflow.WorkflowTaskManager;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import javax.portlet.PortletURL;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,6 +51,50 @@ public class HeaderHelperImpl implements HeaderHelper {
 
 		return null;
 	}
+
+	public List<HeaderActionModel> getWorkflowTransitionHeaderActionModels(
+			long userId, long companyId, String className, long beanId,
+			PortletURL transitionPortletURL)
+		throws PortalException {
+
+		List<HeaderActionModel> headerActionModels = new ArrayList<>();
+
+		List<ObjectValuePair<Long, String>> workflowTransitionObjectValuePairs =
+			_commerceWorkflowedModelHelper.getWorkflowTransitions(
+				userId, companyId, className, beanId);
+
+		HeaderActionModel headerActionModel;
+
+		for (ObjectValuePair<Long, String> workflowTransitionObjectValuePair :
+			workflowTransitionObjectValuePairs) {
+
+			String transitionName =
+				workflowTransitionObjectValuePair.getValue();
+
+			transitionPortletURL.setParameter("transitionName", transitionName);
+
+			transitionPortletURL.setParameter(
+				"workflowTaskId",
+				String.valueOf(workflowTransitionObjectValuePair.getKey()));
+
+			String additionalClasses = null;
+
+			if (transitionName.equals("approve")) {
+				additionalClasses = "btn-primary";
+			}
+
+			headerActionModel = new HeaderActionModel(
+				additionalClasses, transitionPortletURL.toString(), null,
+				transitionName);
+
+			headerActionModels.add(headerActionModel);
+		}
+
+		return headerActionModels;
+	}
+
+	@Reference
+	private CommerceWorkflowedModelHelper _commerceWorkflowedModelHelper;
 
 	@Reference
 	private WorkflowTaskManager _workflowTaskManager;

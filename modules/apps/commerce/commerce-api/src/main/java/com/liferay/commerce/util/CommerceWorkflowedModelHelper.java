@@ -12,24 +12,23 @@
  * details.
  */
 
-package com.liferay.commerce.order;
+package com.liferay.commerce.util;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.ObjectValuePair;
 
 import java.util.List;
 
 /**
- * @author Andrea Di Giorgi
+ * @author Alec Sloan
  */
 @ProviderType
-public interface CommerceOrderHelper {
+public interface CommerceWorkflowedModelHelper {
 
 	public List<ObjectValuePair<Long, String>> getWorkflowTransitions(
-			long userId, CommerceOrder commerceOrder)
+			long userId, long companyId, String className, long classPK)
 		throws PortalException;
 
 }

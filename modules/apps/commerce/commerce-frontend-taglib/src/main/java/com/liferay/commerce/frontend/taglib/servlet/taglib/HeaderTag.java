@@ -24,6 +24,7 @@ import com.liferay.taglib.util.IncludeTag;
 
 import java.util.List;
 
+import javax.portlet.PortletURL;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
 
@@ -86,6 +87,10 @@ public class HeaderTag extends IncludeTag {
 
 	public String getTitle() {
 		return _title;
+	}
+
+	public PortletURL getTransitionPortletURL() {
+		return _transitionPortletURL;
 	}
 
 	public String getVersion() {
@@ -161,6 +166,10 @@ public class HeaderTag extends IncludeTag {
 		_title = title;
 	}
 
+	public void setTransitionPortletURL(PortletURL transitionPortletURL) {
+		_transitionPortletURL = transitionPortletURL;
+	}
+
 	public void setVersion(String version) {
 		_version = version;
 	}
@@ -187,6 +196,7 @@ public class HeaderTag extends IncludeTag {
 		_spritemap = null;
 		_thumbnailUrl = null;
 		_title = null;
+		_transitionPortletURL = null;
 		_version = null;
 		_wrapperCssClasses = null;
 	}
@@ -229,6 +239,8 @@ public class HeaderTag extends IncludeTag {
 		request.setAttribute(
 			"liferay-commerce:header:thumbnailUrl", _thumbnailUrl);
 		request.setAttribute("liferay-commerce:header:title", _title);
+		request.setAttribute(
+			"liferay-commerce:header:transitionPortletURL", _transitionPortletURL);
 		request.setAttribute("liferay-commerce:header:version", _version);
 		request.setAttribute(
 			"liferay-commerce:header:wrapperCssClasses", _wrapperCssClasses);
@@ -250,6 +262,7 @@ public class HeaderTag extends IncludeTag {
 	private String _spritemap;
 	private String _thumbnailUrl;
 	private String _title;
+	private PortletURL _transitionPortletURL;
 	private String _version;
 	private String _wrapperCssClasses;
 

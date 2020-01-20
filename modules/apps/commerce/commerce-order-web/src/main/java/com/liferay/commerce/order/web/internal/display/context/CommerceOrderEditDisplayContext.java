@@ -16,7 +16,6 @@ package com.liferay.commerce.order.web.internal.display.context;
 
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.constants.CommerceOrderConstants;
-import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
@@ -33,7 +32,6 @@ import com.liferay.commerce.notification.model.CommerceNotificationQueueEntry;
 import com.liferay.commerce.notification.model.CommerceNotificationTemplate;
 import com.liferay.commerce.notification.service.CommerceNotificationQueueEntryLocalService;
 import com.liferay.commerce.notification.service.CommerceNotificationTemplateService;
-import com.liferay.commerce.order.CommerceOrderHelper;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.order.web.internal.display.context.util.CommerceOrderRequestHelper;
 import com.liferay.commerce.order.web.internal.servlet.taglib.ui.CommerceOrderScreenNavigationConstants;
@@ -50,6 +48,7 @@ import com.liferay.commerce.service.CommerceOrderNoteService;
 import com.liferay.commerce.service.CommerceOrderPaymentLocalService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceShipmentService;
+import com.liferay.commerce.util.CommerceWorkflowedModelHelper;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorReturnType;
@@ -75,9 +74,7 @@ import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
-import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.webserver.WebServerServletTokenUtil;
 import com.liferay.portal.kernel.workflow.WorkflowTaskManager;
@@ -91,7 +88,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
-import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.WindowStateException;
@@ -111,7 +107,7 @@ public class CommerceOrderEditDisplayContext {
 				commerceNotificationTemplateService,
 			CommerceNotificationQueueEntryLocalService
 				commerceNotificationQueueEntryLocalService,
-			CommerceOrderHelper commerceOrderHelper,
+			CommerceWorkflowedModelHelper commerceWorkflowedModelHelper,
 			CommerceOrderService commerceOrderService,
 			CommerceOrderItemService commerceOrderItemService,
 			ModelResourcePermission commerceOrderModelResourcePermission,
@@ -133,7 +129,7 @@ public class CommerceOrderEditDisplayContext {
 			commerceNotificationTemplateService;
 		_commerceNotificationQueueEntryLocalService =
 			commerceNotificationQueueEntryLocalService;
-		_commerceOrderHelper = commerceOrderHelper;
+		_commerceWorkflowedModelHelper = commerceWorkflowedModelHelper;
 		_commerceOrderService = commerceOrderService;
 		_commerceOrderItemService = commerceOrderItemService;
 		_commerceOrderModelResourcePermission =
@@ -622,76 +618,31 @@ public class CommerceOrderEditDisplayContext {
 			return headerActionModels;
 		}
 
-		PortletURL portletURL = PortalUtil.getControlPanelPortletURL(
-			_commerceOrderRequestHelper.getRequest(),
-			CommercePortletKeys.COMMERCE_ORDER, PortletRequest.ACTION_PHASE);
-
-		portletURL.setParameter(ActionRequest.ACTION_NAME, "editCommerceOrder");
-		portletURL.setParameter(Constants.CMD, "transition");
-		portletURL.setParameter(
-			"commerceOrderId",
-			String.valueOf(_commerceOrder.getCommerceOrderId()));
-		portletURL.setParameter(
-			"redirect", _commerceOrderRequestHelper.getCurrentURL());
+		PortletURL portletURL = getTransitionOrderPortletURL();
 
 		HeaderActionModel headerActionModel;
 
-		PortletURL actionPortletURL = portletURL;
-
 		if (!_commerceOrder.isOpen()) {
-			actionPortletURL.setParameter("redirect", portletURL.toString());
-			actionPortletURL.setParameter("transitionName", "reorder");
+			portletURL.setParameter("transitionName", "reorder");
 
 			headerActionModel = new HeaderActionModel(
-				null, actionPortletURL.toString(), null, "reorder");
+				null, portletURL.toString(), null, "reorder");
 
 			headerActionModels.add(headerActionModel);
 		}
-
-		ThemeDisplay themeDisplay =
-			_commerceOrderRequestHelper.getThemeDisplay();
 
 		if (_commerceOrder.isOpen() && _commerceOrder.isDraft() &&
 			!_commerceOrder.isEmpty() &&
 			_commerceOrderValidatorRegistry.isValid(
-				themeDisplay.getLocale(), _commerceOrder) &&
+				_commerceOrderRequestHelper.getLocale(), _commerceOrder) &&
 			_commerceOrderModelResourcePermission.contains(
-				themeDisplay.getPermissionChecker(), _commerceOrder,
-				ActionKeys.UPDATE)) {
+				_commerceOrderRequestHelper.getPermissionChecker(),
+				_commerceOrder, ActionKeys.UPDATE)) {
 
-			actionPortletURL.setParameter("transitionName", "submit");
-
-			headerActionModel = new HeaderActionModel(
-				"btn-primary", actionPortletURL.toString(), null, "submit");
-
-			headerActionModels.add(headerActionModel);
-		}
-
-		List<ObjectValuePair<Long, String>> workflowTransitionObjectValuePairs =
-			_commerceOrderHelper.getWorkflowTransitions(
-				themeDisplay.getUserId(), _commerceOrder);
-
-		for (ObjectValuePair<Long, String> workflowTransitionObjectValuePair :
-				workflowTransitionObjectValuePairs) {
-
-			String transitionName =
-				workflowTransitionObjectValuePair.getValue();
-
-			actionPortletURL.setParameter("transitionName", transitionName);
-
-			actionPortletURL.setParameter(
-				"workflowTaskId",
-				String.valueOf(workflowTransitionObjectValuePair.getKey()));
-
-			String additionalClasses = null;
-
-			if (transitionName.equals("approve")) {
-				additionalClasses = "btn-primary";
-			}
+			portletURL.setParameter("transitionName", "submit");
 
 			headerActionModel = new HeaderActionModel(
-				additionalClasses, actionPortletURL.toString(), null,
-				transitionName);
+				"btn-primary", portletURL.toString(), null, "submit");
 
 			headerActionModels.add(headerActionModel);
 		}
@@ -981,6 +932,23 @@ public class CommerceOrderEditDisplayContext {
 		return summary;
 	}
 
+	public PortletURL getTransitionOrderPortletURL() {
+		LiferayPortletResponse liferayPortletResponse =
+			_commerceOrderRequestHelper.getLiferayPortletResponse();
+
+		PortletURL portletURL = liferayPortletResponse.createActionURL();
+
+		portletURL.setParameter(ActionRequest.ACTION_NAME, "editCommerceOrder");
+		portletURL.setParameter(Constants.CMD, "transition");
+		portletURL.setParameter(
+			"commerceOrderId",
+			String.valueOf(_commerceOrder.getCommerceOrderId()));
+		portletURL.setParameter(
+			"redirect", _commerceOrderRequestHelper.getCurrentURL());
+
+		return portletURL;
+	}
+
 	public String getUserPortraitSrc(User user) {
 		ThemeDisplay themeDisplay =
 			_commerceOrderRequestHelper.getThemeDisplay();
@@ -1001,7 +969,6 @@ public class CommerceOrderEditDisplayContext {
 		_commerceNotificationTemplateService;
 	private final CommerceOrder _commerceOrder;
 	private final Format _commerceOrderDateFormatDateTime;
-	private final CommerceOrderHelper _commerceOrderHelper;
 	private CommerceOrderItem _commerceOrderItem;
 	private final CommerceOrderItemService _commerceOrderItemService;
 	private final ModelResourcePermission _commerceOrderModelResourcePermission;
@@ -1017,6 +984,7 @@ public class CommerceOrderEditDisplayContext {
 		_commercePaymentMethodGroupRelService;
 	private CommerceShipment _commerceShipment;
 	private final CommerceShipmentService _commerceShipmentService;
+	private final CommerceWorkflowedModelHelper _commerceWorkflowedModelHelper;
 	private final ItemSelector _itemSelector;
 	private SearchContainer<CommerceNotificationQueueEntry>
 		_notificationSearchContainer;
