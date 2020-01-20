@@ -388,6 +388,12 @@ components:
                     format: double
                     minimum: 0
                     type: number
+                id:
+                    example: 30130
+                    format: int64
+                    minimum: 0
+                    readOnly: true
+                    type: integer
                 manufacturerPartNumber:
                     example: "12341234"
                     type: string
