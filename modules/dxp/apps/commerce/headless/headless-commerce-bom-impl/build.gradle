@@ -17,6 +17,7 @@ dependencies {
 	compileOnly project(":apps:commerce:commerce-media-api")
 	compileOnly project(":apps:commerce:commerce-product-api")
 	compileOnly project(":apps:commerce:headless:headless-commerce-core-api")
+	compileOnly project(":apps:oauth2-provider:oauth2-provider-scope-api")
 	compileOnly project(":apps:portal-odata:portal-odata-api")
 	compileOnly project(":apps:portal-vulcan:portal-vulcan-api")
 	compileOnly project(":dxp:apps:commerce:commerce-bom-api")
