@@ -76,9 +76,11 @@ public class CProductLocalServiceUtil {
 	 *
 	 * @param cProduct the c product
 	 * @return the c product that was removed
+	 * @throws PortalException
 	 */
 	public static com.liferay.commerce.product.model.CProduct deleteCProduct(
-		com.liferay.commerce.product.model.CProduct cProduct) {
+			com.liferay.commerce.product.model.CProduct cProduct)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().deleteCProduct(cProduct);
 	}
