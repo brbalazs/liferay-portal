@@ -707,7 +707,8 @@ public class StagingUtil {
 			Group stagingGroup, boolean setRemoteSiteURL, String remoteSiteURL)
 		throws PortalException {
 
-		_staging.setRemoteSiteURL(stagingGroup, setRemoteSiteURL, remoteSiteURL);
+		_staging.setRemoteSiteURL(
+			stagingGroup, setRemoteSiteURL, remoteSiteURL);
 	}
 
 	public static String stripProtocolFromRemoteAddress(String remoteAddress) {
