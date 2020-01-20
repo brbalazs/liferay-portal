@@ -26,7 +26,7 @@ function ManagementBar(props) {
 			/>
 			{!props.selectedItemsId.length && (
 				<NavBar 
-					activeViewId={props.activeViewId}
+					activeView={props.activeView}
 					creationMenuItems={props.creationMenuItems}
 					views={props.views}
 					setActiveView={props.setActiveView}
@@ -66,7 +66,7 @@ const baseValues = {
 };
 
 Wrapper.propTypes = {
-	activeViewId: PropTypes.string.isRequired,
+	activeView: PropTypes.number.isRequired,
 	creationMenuItems: PropTypes.array,
 	filters: PropTypes.arrayOf(
 		PropTypes.oneOfType([

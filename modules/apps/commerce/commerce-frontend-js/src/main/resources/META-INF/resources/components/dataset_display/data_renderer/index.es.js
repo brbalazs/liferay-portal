@@ -7,62 +7,39 @@ import ModalLink from './ModalLink.es';
 import Picture from './Picture.es';
 import SidePanelLink from './SidePanelLink.es';
 import TooltipPrice from './TooltipPrice.es';
+import { getJsModule } from '../../../utilities/index.es';
 
-export const defaultRenderers = [
-	{
-		component: ActionsDropdown,
-		id: "actionsDropdown",
-	},
-	{
-		component: Checkbox,
-		id: "checkbox",
-	},
-	{
-		component: Default,
-		id: "default",
-	},
-	{
-		component: Label,
-		id: "label",
-	},
-	{
-		component: Link,
-		id: "link",
-	},
-	{
-		component: ModalLink,
-		id: "modalLink",
-	},
-	{
-		component: Picture,
-		id: "picture",
-	},
-	{
-		component: SidePanelLink,
-		id: "sidePanelLink",
-	},
-	{
-		component: TooltipPrice,
-		id: "tooltipPrice",
-	}
-];
-
-function getRenderersObjectMap(map= []) {
-	return map.reduce(
-		(acc, el) => ({
-			...acc, 
-			[el.id] : el.component
-		}),
-		{}
-	)
+export const defaultRenderers = {
+	actionsDropdown: ActionsDropdown,
+	checkbox: Checkbox,
+	default: Default,
+	label: Label,
+	link: Link,
+	modalLink: ModalLink,
+	picture: Picture,
+	sidePanelLink: SidePanelLink,
+	tooltipPrice: TooltipPrice,
 }
 
-export function getDataRenderers(customRenderers) {
-	const defaultRenderersObject = getRenderersObjectMap(defaultRenderers);
-	const customRenderersObject = getRenderersObjectMap(customRenderers);
-	return {...defaultRenderersObject, ...customRenderersObject}
+export const fetchedContentRenderers = [];
+
+export function getDataRendererByUrl(url) {
+	return new Promise((resolve, reject) => {
+		const addedDataRenderer = fetchedContentRenderers.find(cr => cr.url === url);
+		if(addedDataRenderer) {
+			resolve(addedDataRenderer.component);
+		}
+		return getJsModule(url)
+			.then((fetchedComponent) => {
+				fetchedContentRenderers.push({
+					component: fetchedComponent,
+					url
+				})
+				return resolve(fetchedComponent);
+			}).catch(reject)
+	})
 }
 
-export function getDataRenderer(id, renderers) {
-	return renderers[id] || Default;
+export function getDataRendererById(id) {
+	return defaultRenderers[id] || Default;
 }

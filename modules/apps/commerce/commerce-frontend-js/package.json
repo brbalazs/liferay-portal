@@ -38,7 +38,7 @@
 		"checkFormat": "liferay-npm-scripts check",
 		"format": "liferay-npm-scripts fix",
 		"test": "liferay-npm-scripts test",
-		"watch": "liferay-npm-scripts webpack --watch --host 0.0.0.0"
+		"watch": "liferay-npm-scripts webpack --watch"
 	},
 	"version": "1.0.6",
 	"workspaces": {

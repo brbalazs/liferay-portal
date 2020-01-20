@@ -68,8 +68,8 @@ function TableHeadRow(props) {
 		return fields.map((field) => {
 			let expandedClass = null;
 
-			if (field.contentRenderer === 'picture') {
-				expandedClass = null;
+			if (typeof field.expand === 'boolean') {
+				expandedClass = field.expand ? 'table-cell-expand-smaller' : null;
 			}
 			else if (!firstElementGotExpanded) {
 				expandedClass = 'table-cell-expand';
@@ -106,7 +106,7 @@ function TableHeadRow(props) {
 									!props.allElementsSelected
 								}
 								name={'table-head-selector'}
-								onSelect={props.onSelect}
+								onSelect={props.selectItems}
 								value={'all-items'}
 							/>
 						) : null}

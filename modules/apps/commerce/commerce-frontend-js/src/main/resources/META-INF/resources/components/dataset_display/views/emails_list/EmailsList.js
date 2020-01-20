@@ -3,10 +3,12 @@ import ClayList from '@clayui/list';
 import ClaySticker from '@clayui/sticker';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react'
+import React, { useContext } from 'react';
+import ActionsDropdown from '../../data_renderer/ActionsDropdown.es';
+
 
 function Email(props) {
-    const {dataRenderers, loadData, openSidePanel} = useContext(props.datasetDisplayContext);
+    const {loadData, openSidePanel} = useContext(props.datasetDisplayContext);
 
     function handleClickOnSubject(e) {
         e.preventDefault();
@@ -65,7 +67,7 @@ function Email(props) {
                 </div>
                 {props.actionItems.length ? (
                     <div className="col-auto d-flex flex-column justify-content-center">
-                        <dataRenderers.actionsDropdown items={props.actionItems} />
+                        <ActionsDropdown items={props.actionItems} />
                     </div>
                 ) : null}
             </div>

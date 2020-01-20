@@ -126,7 +126,7 @@ const fluidDataSetDisplayProps = {
 }
 
 const dataSetDisplayProps = {
-	activeViewId: 'table',
+	activeView: 2,
 	apiUrl: 'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
 	bulkActions: [
 		{
@@ -163,12 +163,6 @@ const dataSetDisplayProps = {
 			type: 'inline',
 		}
 	],
-	dataRenderers: [{
-		component: (props) => {
-			return (<small className="border p-1">{props.value.label}</small>)
-		},
-		id: 'label',
-	}],
 	filters: [
 		{
 			id: 'text-test',
@@ -839,23 +833,22 @@ const dataSetDisplayProps = {
 				)
 			},
 			icon: 'list',
-			id: 'list',
 			label: 'List'
 		},
 		{
+			contentRendererModuleUrl: '/fake/url',
 			icon: 'code',
-			id: 'example',
 			label: 'JSON',
-			moduleUrl: '/fake/url'
 		},
 		{
+			contentRenderer: 'table',
 			icon: 'table',
-			id: 'table',
 			label: 'Table',
 			schema: {
 				fields: [
 					{
-						contentRenderer: 'picture',
+						contentRendererModuleUrl: '/fake/content/renderer/picture',
+						expand: false,
 						fieldName: 'thumbnail',
 						label: '',
 					},
@@ -899,6 +892,41 @@ const dataSetDisplayProps = {
 						contentRenderer: 'modalLink',
 						fieldName: 'date',
 					},
+				]
+			},
+		},
+		{
+			contentRenderer: 'table',
+			icon: 'merge',
+			label: 'Custom table',
+			schema: {
+				fields: [
+					{
+						contentRenderer: 'picture',
+						fieldName: 'thumbnail',
+						label: '',
+					},
+					{
+						contentRenderer: 'sidePanelLink',
+						fieldName: 'sku',
+						label: 'SKU',
+						sortable: true,
+					},
+					{
+						fieldName: 'name',
+						label: 'Name',
+						sortable: true
+					},
+					{
+						fieldName: 'unitPrice',
+						label: 'Price',
+						sortable: true
+					},
+					{
+						contentRenderer: 'modalLink',
+						fieldName: 'order',
+						label: 'Order',
+					}
 				]
 			},
 		}
@@ -1009,15 +1037,15 @@ const emailsDataSetDisplayProps = {
 	style: 'stacked',
 	views: [
 		{
+			contentRenderer: 'emailsList',
 			icon: 'email',
-			id: 'emails-list',
 			label: 'Email'
 		}
 	],
 }
 
-datasetDisplayLauncher('emails-dataset-display', 'emails-dataset-display-root-id', emailsDataSetDisplayProps);
-datasetDisplayLauncher('fluid-dataset-display', 'fluid-dataset-display-root-id', fluidDataSetDisplayProps);
+// datasetDisplayLauncher('emails-dataset-display', 'emails-dataset-display-root-id', emailsDataSetDisplayProps);
+// datasetDisplayLauncher('fluid-dataset-display', 'fluid-dataset-display-root-id', fluidDataSetDisplayProps);
 datasetDisplayLauncher('dataset-display', 'dataset-display-root-id', dataSetDisplayProps);
 
 sidePanelLauncher('sidePanel', 'side-panel-root-id', {

@@ -6,7 +6,6 @@ import MainSearch from './MainSearch.es';
 import CreationMenu from './CreationMenu.es';
 
 import PropTypes from 'prop-types';
-import { ClayButtonWithIcon } from '@clayui/button';
 
 function NavBar(props) {
 	const {state} = getAppContext();
@@ -29,7 +28,7 @@ function NavBar(props) {
 						(props.views && props.views.length > 1) 
 						? (
 							<ActiveViewSelector
-								activeViewId={props.activeViewId}
+								activeView={props.activeView}
 								setActiveView={props.setActiveView}
 								views={props.views}
 							/>
@@ -46,13 +45,12 @@ function NavBar(props) {
 };
 
 NavBar.propTypes = {
-	activeViewId: PropTypes.string,
+	activeView: PropTypes.number,
 	creationMenuItems: PropTypes.array,
 	setActiveView: PropTypes.func,
 	views: PropTypes.arrayOf(PropTypes.shape({
 		icon: PropTypes.string.isRequired,
-		id: PropTypes.string,
-		label: PropTypes.string,
+		label: PropTypes.string.isRequired,
 	}))
 }
 

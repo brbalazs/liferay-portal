@@ -18,21 +18,21 @@ function ActiveViewSelector(props) {
 			trigger={
 				<ClayButtonWithIcon
 					displayType="secondary"
-					symbol={props.views.find(view => view.id === props.activeViewId).icon}
+					symbol={props.views[props.activeView || 0].icon}
 				/>
 			}
 		>
 			<ClayDropDown.ItemList>
-				{props.views.map(view => (
+				{props.views.map((view, i) => (
 					<ClayDropDown.Item
 						href="#"
-						key={view.id}
+						key={i}
 						onClick={(e) => {
 							e.preventDefault();
-							props.setActiveView(view.id);
+							props.setActiveView(i);
 						}}
 					>
-						<ClayIcon symbol={view.icon} className="mr-3" />
+						<ClayIcon className="mr-3" symbol={view.icon} />
 						{view.label}
 					</ClayDropDown.Item>
 				))}
@@ -42,11 +42,10 @@ function ActiveViewSelector(props) {
 };
 
 ActiveViewSelector.propTypes = {
-	activeViewId: PropTypes.string.isRequired,
-	setActiveView: PropTypes.string.isRequired,
+	activeView: PropTypes.number.isRequired,
+	setActiveView: PropTypes.func.isRequired,
 	views: PropTypes.arrayOf(PropTypes.shape({
 		icon: PropTypes.string.isRequired,
-		id: PropTypes.string.isRequired,
 		label: PropTypes.string.isRequired,
 	}))
 }

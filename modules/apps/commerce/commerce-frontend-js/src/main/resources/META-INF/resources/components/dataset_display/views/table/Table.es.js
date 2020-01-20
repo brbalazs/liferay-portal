@@ -1,25 +1,48 @@
 import ClayTable from '@clayui/table';
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
+import ActionsDropdown from '../../data_renderer/ActionsDropdown.es';
+import Checkbox from '../../data_renderer/Checkbox.es';
 import Comment from '../../data_renderer/Comment.es';
-import { getDataRenderer } from '../../data_renderer/index.es';
+import { getDataRendererById, getDataRendererByUrl } from '../../data_renderer/index.es';
 import TableHeadRow from './TableHeadRow.es';
 
 function CustomTableCell(props) {
-	if (!props.value) {
-		return (<ClayTable.Cell />)
-	}
+	const { view, ...otherProps } = props;
+	const [ currentView, updateCurrentView ] = useState({
+		...view,
+		Component: view.contentRendererModuleUrl ? null : getDataRendererById(view.contentRenderer)
+	});
+	const [ loading, setLoading ] = useState(false);
 
-	const { dataRenderers, template, ...otherProps } = props;
-	const Template = getDataRenderer(template, dataRenderers);
-
-	return (
+	useEffect(() => {
+		if(loading) {
+			return;
+		}
+		if(currentView.contentRendererModuleUrl) {
+			setLoading(true);
+			getDataRendererByUrl(currentView.contentRendererModuleUrl).then(
+				(Component) => {
+					updateCurrentView({
+						...currentView,
+						Component
+					})
+					setLoading(false)
+				})
+		}
+	}, [])
+	
+	return props.value ? (
 		<ClayTable.Cell>
-			<Template {...otherProps} />
+			{(currentView.Component && !loading) ? (
+				<currentView.Component {...otherProps} value={props.value} />
+			) : (
+				<span aria-hidden="true" className="loading-animation loading-animation-sm" />
+			)}
 			{props.comment && <Comment>{props.comment}</Comment>}
 		</ClayTable.Cell>
-	);
+	) : <ClayTable.Cell />
 }
 
 function areAllElementsSelected(selectedItemsId, allItems) {
@@ -33,14 +56,20 @@ function areAllElementsSelected(selectedItemsId, allItems) {
 }
 
 function Table(props) {
-	const {dataRenderers, formRef} = useContext(props.datasetDisplayContext);
+	const {
+		formRef,
+		selectItems,
+		selectable,
+		selectedItemsId,
+		sorting
+	} = useContext(props.datasetDisplayContext);
+
 	const showActionItems = !!props.items.find(el => el.actionItems);
+
 	const allElementsSelected = areAllElementsSelected(
-		props.selectedItemsId,
+		selectedItemsId,
 		props.items
 	);
-
-	const ActionsDropdown = getDataRenderer('actionsDropdown', dataRenderers)
 
 	return (
 		<form ref={formRef}>
@@ -48,29 +77,29 @@ function Table(props) {
 				<TableHeadRow
 					allElementsSelected={allElementsSelected}
 					itemsQuantity={props.items.length}
-					onSelect={props.onSelect}
 					schema={props.schema}
-					selectable={props.selectable}
-					selectedItemsId={props.selectedItemsId}
+					selectItems={selectItems}
+					selectable={selectable}
+					selectedItemsId={selectedItemsId}
 					showActionItems={showActionItems}
-					sorting={props.sorting}
+					sorting={sorting}
 				/>
 				<ClayTable.Body>
 					{props.items.map(item => (
 						<ClayTable.Row key={item.id}>
-							{props.selectable && (
-								<CustomTableCell
-									checked={
-										!!props.selectedItemsId.find(
-											el => el === item.id
-										)
-									}
-									dataRenderers={dataRenderers}
-									name="selectedIds"
-									onSelect={props.onSelect}
-									template="checkbox"
-									value={item.id}
-								/>
+							{selectable && (
+								<ClayTable.Cell>
+									<Checkbox
+										checked={
+											!!selectedItemsId.find(
+												el => el === item.id
+											)
+										}
+										name="selectedIds"
+										onSelect={selectItems}
+										value={item.id}
+									/>
+								</ClayTable.Cell>
 							)}
 							{props.schema.fields.map(field => {
 								const fieldName = field.fieldName;
@@ -79,19 +108,19 @@ function Table(props) {
 									...otherProps
 								} = item;
 								const comment = otherProps.comments
-									? otherProps.comments[
-											field.fieldName
-										]
+									? otherProps.comments[field.fieldName]
 									: null;
 								return (
 									<CustomTableCell
 										comment={comment}
 										data={otherProps}
-										dataRenderers={dataRenderers}
 										fieldName={field.fieldName}
 										key={field.fieldName}
-										template={field.contentRenderer}
 										value={value}
+										view={{
+											contentRenderer: field.contentRenderer,
+											contentRendererModuleUrl: field.contentRendererModuleUrl
+										}}
 									/>
 								);
 							})}
@@ -101,7 +130,7 @@ function Table(props) {
 										<ActionsDropdown
 											items={item.actionItems}
 										/>
-									</ClayTable.Cell >
+									</ClayTable.Cell>
 								) : (
 									<ClayTable.Cell />
 								)
@@ -111,7 +140,7 @@ function Table(props) {
 				</ClayTable.Body>
 			</ClayTable>
 		</form>
-	)
+	);
 }
 
 Table.propTypes = {
@@ -124,7 +153,7 @@ Table.propTypes = {
 	schema: PropTypes.shape({
 		fields: PropTypes.array.isRequired
 	}).isRequired,
-	selectedItemsId: PropTypes.array,
+	selectedItemsId: PropTypes.array
 };
 
 Table.defaultProps = {

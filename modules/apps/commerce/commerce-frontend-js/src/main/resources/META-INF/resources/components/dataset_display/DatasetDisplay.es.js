@@ -3,16 +3,14 @@ import {ClayPaginationBarWithBasicItems} from '@clayui/pagination-bar';
 import PropTypes from 'prop-types';
 import React, {useState, useRef, useEffect} from 'react';
 
-import {getRandomId, showNotification, getJsModule} from '../../utilities/index.es';
+import {getRandomId, showNotification, getJsModule, getContentRendererByViewId} from '../../utilities/index.es';
 import {createOdataFilterStrings} from '../../utilities/odata.es';
 import Modal from '../modal/Modal.es';
 import DatasetDisplayContext from './DatasetDisplayContext.es';
 import EmptyResultMessage from './EmptyResultMessage.es';
 import ManagementBar from './management_bar/index.es';
-import { getViews } from './views/index.es';
 import {formatFilters} from './utilities/filters.es';
 import { OPEN_SIDE_PANEL, OPEN_MODAL } from '../../utilities/eventsDefinitions.es';
-import { getDataRenderers } from './data_renderer/index.es';
 
 function loadData(apiUrl, filters, delta, page = 1, sorting = []) {
 	const authString = `&p_auth=${window.Liferay.authToken}`;
@@ -27,9 +25,8 @@ function loadData(apiUrl, filters, delta, page = 1, sorting = []) {
 }
 
 function DatasetDisplay(props) {
-	const [views, updateViews] = useState(getViews(props.views));
-	const [dataRenderers, updateDataRenderers] = useState(getDataRenderers(props.dataRenderers));
-	const [loading, setLoading] = useState(false)
+	const [views, updateViews] = useState(props.views);
+	const [loading, setLoading] = useState(false);
 
 	const [datasetDisplaySupportModalId] = useState('support-modal-' + getRandomId())
 
@@ -40,28 +37,46 @@ function DatasetDisplay(props) {
 	const [pageNumber, setPageNumber] = useState(props.pagination.initialPageNumber || 1);
 	const [delta, setDelta] = useState(props.pagination.initialDelta || props.pagination.deltas[0].label);
 	const [totalItems, setTotalItems] = useState(props.pagination.initialTotalItems);
-	const [activeViewId, setActiveView] = useState(
-		props.activeViewId || views[0].id
+	const [activeView, setActiveView] = useState(
+		props.activeView || 0
 	);
-	const currentView = views.find(view => view.id === activeViewId);
+	const {
+		component: CurrentViewComponent,
+		contentRenderer,
+		contentRendererModuleUrl: currentViewModuleUrl,
+		...currentViewProps
+	} = views[activeView];
+
+	const selectable = props.bulkActions && !!props.bulkActions.length;
 
 	useEffect(() => {
-		if(currentView.moduleUrl && !currentView.component) {
-			setLoading(true)
-			getJsModule(currentView.moduleUrl)
+		if(!CurrentViewComponent && (currentViewModuleUrl || contentRenderer)) {
+			setLoading(true);
+			(
+				contentRenderer 
+				? getContentRendererByViewId(contentRenderer)
+				: getJsModule(currentViewModuleUrl)
+			)
 				.then((component) => {
-					updateViews((views) => views.map(view => view.id === activeViewId ? {
+					updateViews((views) => views.map((view, i) => i === activeView ? {
 						...view,
 						component
 					} : view))
 				})
 				.catch((err) => {
 					showNotification(Liferay.Language.get('unexpected-error'), 'danger');
-					throw new Error(`Requested module: ${currentView.moduleUrl} not available`, err);
+					throw new Error(`Requested module: ${currentViewModuleUrl} not available`, err);
 				})
 				.finally(() => setLoading(false))
 		}
-	}, [activeViewId, views, currentView, setLoading])
+	}, [
+		activeView,
+		contentRenderer,
+		views,
+		currentViewModuleUrl,
+		CurrentViewComponent,
+		setLoading
+	])
 
 	const formRef = useRef(null);
 
@@ -120,13 +135,15 @@ function DatasetDisplay(props) {
 	const managementBar = props.showManagementBar ? (
 		<div className="dataset-display-management-bar-wrapper">
 			<ManagementBar
-				activeViewId={activeViewId}
+				activeView={activeView}
 				bulkActions={props.bulkActions}
 				creationMenuItems={props.creationMenuItems}
 				filters={filters}
 				fluid={props.style === 'fluid'}
 				onFiltersChange={updateFilters}
 				selectAllItems={() => selectItems('all-items', true)}
+				selectItems={selectItems}
+				selectable={selectable}
 				selectedItemsId={selectedItemsId}
 				setActiveView={setActiveView}
 				sidePanelId={props.sidePanelId}
@@ -136,17 +153,14 @@ function DatasetDisplay(props) {
 		</div>
 	) : null;
 
-	const view = !loading && currentView.component ? (
+	const view = !loading && CurrentViewComponent ? (
 		<div className="dataset-display-content-wrapper">
 			{
 				items && items.length ? ( 
-					<currentView.component
+					<CurrentViewComponent
 						datasetDisplayContext={DatasetDisplayContext}
 						items={items}
-						onSelect={selectItems}
-						schema={props.views.find(view => view.id === activeViewId).schema || {}}
-						selectable={props.bulkActions && !!props.bulkActions.length}
-						selectedItemsId={selectedItemsId}
+						{...currentViewProps}
 					/>
 				) : (
 					<EmptyResultMessage />
@@ -192,12 +206,14 @@ function DatasetDisplay(props) {
 	return (
 		<DatasetDisplayContext.Provider
 			value={{
-				dataRenderers,
 				formRef,
 				loadData: () => getData(props.apiUrl, filters.filter(e => !!e.value), delta, pageNumber, sorting, true),
 				modalId: datasetDisplaySupportModalId,
 				openModal,
 				openSidePanel,
+				selectItems,
+				selectable,
+				selectedItemsId,
 				sidePanelId: props.sidePanelId,
 				sorting,
 				updateSorting,
@@ -269,14 +285,13 @@ DatasetDisplay.propTypes = {
 	views: PropTypes.arrayOf(
 		PropTypes.shape({
 			component: PropTypes.any,
+			contentRenderer: PropTypes.string,
+			contentRendererModuleUrl: PropTypes.string,
 			icon: PropTypes.string,
-			id: PropTypes.string.isRequired,
 			label: PropTypes.string,
-			main: PropTypes.bool,
-			moduleUrl: PropTypes.string,
 			schema: PropTypes.object,
 		})
-	),
+	).isRequired,
 };
 
 DatasetDisplay.defaultProps = {
@@ -286,15 +301,7 @@ DatasetDisplay.defaultProps = {
 	showManagementBar: true,
 	showPagination: true,
 	sorting: [],
-	style: 'default',
-	views: [
-		{
-			icon: 'table',
-			id: 'table',
-			label: 'Table',
-			main: true,
-		}
-	],
+	style: 'default'
 };
 
 export default DatasetDisplay;
