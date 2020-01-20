@@ -588,6 +588,19 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 	}
 
 	@Override
+	public CommerceOrder updateCommerceOrderExternalReferenceCode(
+			long commerceOrderId, String externalReferenceCode)
+		throws PortalException {
+
+		_commerceOrderModelResourcePermission.check(
+			getPermissionChecker(), commerceOrderId, ActionKeys.UPDATE);
+
+		return commerceOrderLocalService.
+			updateCommerceOrderExternalReferenceCode(
+				commerceOrderId, externalReferenceCode);
+	}
+
+	@Override
 	public CommerceOrder updateCommerceOrderPrices(
 			long commerceOrderId, BigDecimal subtotal,
 			BigDecimal subtotalDiscountAmount,

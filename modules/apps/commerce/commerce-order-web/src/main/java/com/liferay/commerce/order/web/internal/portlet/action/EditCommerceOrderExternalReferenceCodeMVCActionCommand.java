@@ -17,7 +17,6 @@ package com.liferay.commerce.order.web.internal.portlet.action;
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.exception.CommerceOrderNoteContentException;
 import com.liferay.commerce.exception.NoSuchOrderException;
-import com.liferay.commerce.exception.NoSuchOrderNoteException;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -84,16 +83,8 @@ public class EditCommerceOrderExternalReferenceCodeMVCActionCommand
 		String externalReferenceCode = ParamUtil.getString(
 			actionRequest, "externalReferenceCode");
 
-		_commerceOrderService.updateCommerceOrder(
-			commerceOrder.getCommerceOrderId(),
-			commerceOrder.getBillingAddressId(),
-			commerceOrder.getShippingAddressId(),
-			commerceOrder.getCommercePaymentMethodKey(),
-			commerceOrder.getCommerceShippingMethodId(),
-			commerceOrder.getShippingOptionName(),
-			commerceOrder.getPurchaseOrderNumber(), commerceOrder.getSubtotal(),
-			commerceOrder.getShippingAmount(), commerceOrder.getTotal(),
-			commerceOrder.getAdvanceStatus(), externalReferenceCode, null);
+		_commerceOrderService.updateCommerceOrderExternalReferenceCode(
+			commerceOrder.getCommerceOrderId(), externalReferenceCode);
 	}
 
 	@Reference

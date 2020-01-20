@@ -1130,6 +1130,19 @@ public class CommerceOrderLocalServiceImpl
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
+	public CommerceOrder updateCommerceOrderExternalReferenceCode(
+			long commerceOrderId, String externalReferenceCode)
+		throws PortalException {
+
+		CommerceOrder commerceOrder = commerceOrderPersistence.findByPrimaryKey(
+			commerceOrderId);
+
+		commerceOrder.setExternalReferenceCode(externalReferenceCode);
+
+		return commerceOrderPersistence.update(commerceOrder);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommerceOrder updateCommerceOrderPrices(
 			long commerceOrderId, BigDecimal subtotal,
