@@ -917,16 +917,6 @@ AUI.add(
 						instance.activeDropColStack = [];
 					},
 
-					_createFieldActions: function() {
-						var instance = this;
-
-						instance.eachFormBuilderField(
-							function(field) {
-								field.get('container').append(instance._getFieldActionsLayout());
-							}
-						);
-					},
-
 					_currentRowIndex: function() {
 						var instance = this;
 
@@ -1281,7 +1271,6 @@ AUI.add(
 								var row = instance.getFieldRow(field);
 
 								activeLayout.normalizeColsHeight(new A.NodeList(row));
-								field.get('container').append(instance._getFieldActionsLayout());
 								field.get('container').ancestor('.col').removeClass('col-empty');
 							}
 						);
