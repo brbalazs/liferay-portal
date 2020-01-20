@@ -36,7 +36,7 @@ import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.dto.v1_0.Sku;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.util.ResourceBundleUtil;
+import com.liferay.portal.language.LanguageResources;
 
 import java.math.BigDecimal;
 
@@ -84,6 +84,7 @@ public class SkuDTOConverter implements DTOConverter {
 				expirationDate = cpInstance.getExpirationDate();
 				gtin = cpInstance.getGtin();
 				height = cpInstance.getHeight();
+				id = cpInstance.getCPInstanceId();
 				manufacturerPartNumber = cpInstance.getManufacturerPartNumber();
 				options = _getOptions(cpInstance);
 				price = _getPrice(
@@ -141,8 +142,8 @@ public class SkuDTOConverter implements DTOConverter {
 	}
 
 	private String _getLocalizedMessage(Locale locale, String key) {
-		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
-			"content.Language", locale, getClass());
+		ResourceBundle resourceBundle = LanguageResources.getResourceBundle(
+			locale);
 
 		return LanguageUtil.get(resourceBundle, key);
 	}
