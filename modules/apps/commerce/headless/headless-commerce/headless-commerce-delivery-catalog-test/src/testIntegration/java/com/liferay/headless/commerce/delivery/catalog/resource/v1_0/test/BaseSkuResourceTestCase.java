@@ -308,6 +308,11 @@ public abstract class BaseSkuResourceTestCase {
 		return null;
 	}
 
+	protected Sku testGraphQLSku_addSku() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
 	protected void assertHttpResponseStatusCode(
 		int expectedHttpResponseStatusCode,
 		HttpInvoker.HttpResponse actualHttpResponse) {
@@ -367,6 +372,10 @@ public abstract class BaseSkuResourceTestCase {
 
 	protected void assertValid(Sku sku) {
 		boolean valid = true;
+
+		if (sku.getId() == null) {
+			valid = false;
+		}
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
@@ -639,6 +648,14 @@ public abstract class BaseSkuResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("id", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(sku1.getId(), sku2.getId())) {
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"manufacturerPartNumber", additionalAssertFieldName)) {
 
@@ -777,6 +794,16 @@ public abstract class BaseSkuResourceTestCase {
 			if (Objects.equals("height", fieldName)) {
 				if (!Objects.deepEquals(
 						sku.getHeight(), jsonObject.getDouble("height"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("id", fieldName)) {
+				if (!Objects.deepEquals(
+						sku.getId(), jsonObject.getLong("id"))) {
 
 					return false;
 				}
@@ -1027,6 +1054,11 @@ public abstract class BaseSkuResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("id")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("manufacturerPartNumber")) {
 			sb.append("'");
 			sb.append(String.valueOf(sku.getManufacturerPartNumber()));
@@ -1117,6 +1149,7 @@ public abstract class BaseSkuResourceTestCase {
 				expirationDate = RandomTestUtil.nextDate();
 				gtin = RandomTestUtil.randomString();
 				height = RandomTestUtil.randomDouble();
+				id = RandomTestUtil.randomLong();
 				manufacturerPartNumber = RandomTestUtil.randomString();
 				maxOrderQuantity = RandomTestUtil.randomInt();
 				minOrderQuantity = RandomTestUtil.randomInt();

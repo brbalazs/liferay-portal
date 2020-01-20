@@ -155,6 +155,16 @@ public class SkuSerDes {
 			sb.append(sku.getHeight());
 		}
 
+		if (sku.getId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"id\": ");
+
+			sb.append(sku.getId());
+		}
+
 		if (sku.getManufacturerPartNumber() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -339,6 +349,13 @@ public class SkuSerDes {
 			map.put("height", String.valueOf(sku.getHeight()));
 		}
 
+		if (sku.getId() == null) {
+			map.put("id", null);
+		}
+		else {
+			map.put("id", String.valueOf(sku.getId()));
+		}
+
 		if (sku.getManufacturerPartNumber() == null) {
 			map.put("manufacturerPartNumber", null);
 		}
@@ -474,6 +491,11 @@ public class SkuSerDes {
 			else if (Objects.equals(jsonParserFieldName, "height")) {
 				if (jsonParserFieldValue != null) {
 					sku.setHeight(Double.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "id")) {
+				if (jsonParserFieldValue != null) {
+					sku.setId(Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(

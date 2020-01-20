@@ -38,6 +38,7 @@ import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
+import java.util.Map;
 import java.util.function.BiFunction;
 
 import javax.annotation.Generated;
@@ -308,12 +309,16 @@ public class Query {
 	public class AttachmentPage {
 
 		public AttachmentPage(Page attachmentPage) {
+			actions = attachmentPage.getActions();
 			items = attachmentPage.getItems();
 			lastPage = attachmentPage.getLastPage();
 			page = attachmentPage.getPage();
 			pageSize = attachmentPage.getPageSize();
 			totalCount = attachmentPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<Attachment> items;
@@ -336,12 +341,16 @@ public class Query {
 	public class CategoryPage {
 
 		public CategoryPage(Page categoryPage) {
+			actions = categoryPage.getActions();
 			items = categoryPage.getItems();
 			lastPage = categoryPage.getLastPage();
 			page = categoryPage.getPage();
 			pageSize = categoryPage.getPageSize();
 			totalCount = categoryPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<Category> items;
@@ -364,12 +373,16 @@ public class Query {
 	public class ProductPage {
 
 		public ProductPage(Page productPage) {
+			actions = productPage.getActions();
 			items = productPage.getItems();
 			lastPage = productPage.getLastPage();
 			page = productPage.getPage();
 			pageSize = productPage.getPageSize();
 			totalCount = productPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<Product> items;
@@ -392,12 +405,16 @@ public class Query {
 	public class ProductOptionPage {
 
 		public ProductOptionPage(Page productOptionPage) {
+			actions = productOptionPage.getActions();
 			items = productOptionPage.getItems();
 			lastPage = productOptionPage.getLastPage();
 			page = productOptionPage.getPage();
 			pageSize = productOptionPage.getPageSize();
 			totalCount = productOptionPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<ProductOption> items;
@@ -420,12 +437,16 @@ public class Query {
 	public class ProductSpecificationPage {
 
 		public ProductSpecificationPage(Page productSpecificationPage) {
+			actions = productSpecificationPage.getActions();
 			items = productSpecificationPage.getItems();
 			lastPage = productSpecificationPage.getLastPage();
 			page = productSpecificationPage.getPage();
 			pageSize = productSpecificationPage.getPageSize();
 			totalCount = productSpecificationPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<ProductSpecification> items;
@@ -448,12 +469,16 @@ public class Query {
 	public class RelatedProductPage {
 
 		public RelatedProductPage(Page relatedProductPage) {
+			actions = relatedProductPage.getActions();
 			items = relatedProductPage.getItems();
 			lastPage = relatedProductPage.getLastPage();
 			page = relatedProductPage.getPage();
 			pageSize = relatedProductPage.getPageSize();
 			totalCount = relatedProductPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<RelatedProduct> items;
@@ -476,12 +501,16 @@ public class Query {
 	public class SkuPage {
 
 		public SkuPage(Page skuPage) {
+			actions = skuPage.getActions();
 			items = skuPage.getItems();
 			lastPage = skuPage.getLastPage();
 			page = skuPage.getPage();
 			pageSize = skuPage.getPageSize();
 			totalCount = skuPage.getTotalCount();
 		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
 
 		@GraphQLField
 		protected java.util.Collection<Sku> items;
