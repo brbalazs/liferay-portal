@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.asset.publisher.web.internal.server.taglib.ui;
+package com.liferay.asset.publisher.web.internal.servlet.taglib.ui;
 
 import com.liferay.asset.publisher.constants.AssetPublisherConstants;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -26,10 +26,10 @@ import org.osgi.service.component.annotations.Component;
  * @author Eudaldo Alonso
  */
 @Component(
-	property = "form.navigator.category.order:Integer=20",
+	property = "form.navigator.category.order:Integer=30",
 	service = FormNavigatorCategory.class
 )
-public class DisplaySettingsFormNavigatorCategory
+public class AssetSelectionFormNavigatorCategory
 	implements FormNavigatorCategory {
 
 	@Override
@@ -39,12 +39,12 @@ public class DisplaySettingsFormNavigatorCategory
 
 	@Override
 	public String getKey() {
-		return AssetPublisherConstants.CATEGORY_KEY_DISPLAY_SETTINGS;
+		return AssetPublisherConstants.CATEGORY_KEY_ASSET_SELECTION;
 	}
 
 	@Override
 	public String getLabel(Locale locale) {
-		return LanguageUtil.get(locale, "display-settings");
+		return LanguageUtil.get(locale, "asset-selection");
 	}
 
 }

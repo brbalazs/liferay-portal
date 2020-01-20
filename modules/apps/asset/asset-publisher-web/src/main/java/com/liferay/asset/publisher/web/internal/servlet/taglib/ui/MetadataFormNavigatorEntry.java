@@ -12,39 +12,48 @@
  * details.
  */
 
-package com.liferay.asset.publisher.web.internal.server.taglib.ui;
+package com.liferay.asset.publisher.web.internal.servlet.taglib.ui;
 
 import com.liferay.asset.publisher.constants.AssetPublisherConstants;
-import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.servlet.taglib.ui.FormNavigatorCategory;
+import com.liferay.portal.kernel.servlet.taglib.ui.FormNavigatorEntry;
 
-import java.util.Locale;
+import javax.servlet.ServletContext;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Eudaldo Alonso
  */
 @Component(
-	property = "form.navigator.category.order:Integer=30",
-	service = FormNavigatorCategory.class
+	property = "form.navigator.entry.order:Integer=100",
+	service = FormNavigatorEntry.class
 )
-public class AssetSelectionFormNavigatorCategory
-	implements FormNavigatorCategory {
+public class MetadataFormNavigatorEntry
+	extends BaseConfigurationFormNavigatorEntry {
 
 	@Override
-	public String getFormNavigatorId() {
-		return AssetPublisherConstants.FORM_NAVIGATOR_ID_CONFIGURATION;
+	public String getCategoryKey() {
+		return AssetPublisherConstants.CATEGORY_KEY_DISPLAY_SETTINGS;
 	}
 
 	@Override
 	public String getKey() {
-		return AssetPublisherConstants.CATEGORY_KEY_ASSET_SELECTION;
+		return "metadata";
 	}
 
 	@Override
-	public String getLabel(Locale locale) {
-		return LanguageUtil.get(locale, "asset-selection");
+	@Reference(
+		target = "(osgi.web.symbolicname=com.liferay.asset.publisher.web)",
+		unbind = "-"
+	)
+	public void setServletContext(ServletContext servletContext) {
+		super.setServletContext(servletContext);
+	}
+
+	@Override
+	protected String getJspPath() {
+		return "/configuration/metadata.jsp";
 	}
 
 }

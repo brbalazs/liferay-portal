@@ -12,48 +12,39 @@
  * details.
  */
 
-package com.liferay.asset.publisher.web.internal.server.taglib.ui;
+package com.liferay.asset.publisher.web.internal.servlet.taglib.ui;
 
 import com.liferay.asset.publisher.constants.AssetPublisherConstants;
-import com.liferay.portal.kernel.servlet.taglib.ui.FormNavigatorEntry;
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.servlet.taglib.ui.FormNavigatorCategory;
 
-import javax.servlet.ServletContext;
+import java.util.Locale;
 
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Eudaldo Alonso
  */
 @Component(
-	property = "form.navigator.entry.order:Integer=100",
-	service = FormNavigatorEntry.class
+	property = "form.navigator.category.order:Integer=20",
+	service = FormNavigatorCategory.class
 )
-public class SubscriptionsFormNavigatorEntry
-	extends BaseConfigurationFormNavigatorEntry {
+public class DisplaySettingsFormNavigatorCategory
+	implements FormNavigatorCategory {
 
 	@Override
-	public String getCategoryKey() {
-		return AssetPublisherConstants.CATEGORY_KEY_SUBSCRIPTIONS;
+	public String getFormNavigatorId() {
+		return AssetPublisherConstants.FORM_NAVIGATOR_ID_CONFIGURATION;
 	}
 
 	@Override
 	public String getKey() {
-		return "subscriptions";
+		return AssetPublisherConstants.CATEGORY_KEY_DISPLAY_SETTINGS;
 	}
 
 	@Override
-	@Reference(
-		target = "(osgi.web.symbolicname=com.liferay.asset.publisher.web)",
-		unbind = "-"
-	)
-	public void setServletContext(ServletContext servletContext) {
-		super.setServletContext(servletContext);
-	}
-
-	@Override
-	protected String getJspPath() {
-		return "/configuration/subscriptions.jsp";
+	public String getLabel(Locale locale) {
+		return LanguageUtil.get(locale, "display-settings");
 	}
 
 }

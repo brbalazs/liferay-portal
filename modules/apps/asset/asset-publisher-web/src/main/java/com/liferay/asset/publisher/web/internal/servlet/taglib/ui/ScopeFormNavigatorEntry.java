@@ -12,14 +12,12 @@
  * details.
  */
 
-package com.liferay.asset.publisher.web.internal.server.taglib.ui;
+package com.liferay.asset.publisher.web.internal.servlet.taglib.ui;
 
 import com.liferay.asset.publisher.constants.AssetPublisherConstants;
-import com.liferay.asset.publisher.web.internal.util.AssetPublisherCustomizer;
-import com.liferay.asset.publisher.web.internal.util.AssetPublisherCustomizerRegistry;
-import com.liferay.portal.kernel.model.Portlet;
+import com.liferay.asset.publisher.constants.AssetPublisherPortletKeys;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.service.PortletLocalService;
+import com.liferay.portal.kernel.portlet.PortletIdCodec;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.servlet.taglib.ui.FormNavigatorEntry;
@@ -35,10 +33,10 @@ import org.osgi.service.component.annotations.Reference;
  * @author Eudaldo Alonso
  */
 @Component(
-	property = "form.navigator.entry.order:Integer=200",
+	property = "form.navigator.entry.order:Integer=400",
 	service = FormNavigatorEntry.class
 )
-public class OrderingAndGroupingFormNavigatorEntry
+public class ScopeFormNavigatorEntry
 	extends BaseConfigurationFormNavigatorEntry {
 
 	@Override
@@ -48,13 +46,13 @@ public class OrderingAndGroupingFormNavigatorEntry
 
 	@Override
 	public String getKey() {
-		return "ordering-and-grouping";
+		return "scope";
 	}
 
 	@Override
 	public boolean isVisible(User user, Object object) {
 		if (!isDynamicAssetSelection()) {
-			return false;
+			return true;
 		}
 
 		ServiceContext serviceContext =
@@ -64,19 +62,14 @@ public class OrderingAndGroupingFormNavigatorEntry
 
 		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
 
-		Portlet portlet = _portletLocalService.getPortletById(
-			themeDisplay.getCompanyId(), portletDisplay.getPortletResource());
+		String rootPortletId = PortletIdCodec.decodePortletName(
+			portletDisplay.getPortletName());
 
-		AssetPublisherCustomizer assetPublisherCustomizer =
-			assetPublisherCustomizerRegistry.getAssetPublisherCustomizer(
-				portlet.getRootPortletId());
-
-		if (assetPublisherCustomizer == null) {
-			return true;
+		if (rootPortletId.equals(AssetPublisherPortletKeys.RELATED_ASSETS)) {
+			return false;
 		}
 
-		return assetPublisherCustomizer.isOrderingAndGroupingEnabled(
-			serviceContext.getRequest());
+		return true;
 	}
 
 	@Override
@@ -90,13 +83,7 @@ public class OrderingAndGroupingFormNavigatorEntry
 
 	@Override
 	protected String getJspPath() {
-		return "/configuration/ordering_and_grouping.jsp";
+		return "/configuration/scope.jsp";
 	}
-
-	@Reference
-	protected AssetPublisherCustomizerRegistry assetPublisherCustomizerRegistry;
-
-	@Reference
-	private PortletLocalService _portletLocalService;
 
 }

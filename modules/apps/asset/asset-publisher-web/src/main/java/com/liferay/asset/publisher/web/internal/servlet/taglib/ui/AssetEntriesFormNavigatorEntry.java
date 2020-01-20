@@ -12,9 +12,10 @@
  * details.
  */
 
-package com.liferay.asset.publisher.web.internal.server.taglib.ui;
+package com.liferay.asset.publisher.web.internal.servlet.taglib.ui;
 
 import com.liferay.asset.publisher.constants.AssetPublisherConstants;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.servlet.taglib.ui.FormNavigatorEntry;
 
 import javax.servlet.ServletContext;
@@ -23,23 +24,32 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Pavel Savinov
+ * @author Eudaldo Alonso
  */
 @Component(
-	property = "form.navigator.entry.order:Integer=150",
+	property = "form.navigator.entry.order:Integer=300",
 	service = FormNavigatorEntry.class
 )
-public class SetAndEnableFormNavigatorEntry
+public class AssetEntriesFormNavigatorEntry
 	extends BaseConfigurationFormNavigatorEntry {
 
 	@Override
 	public String getCategoryKey() {
-		return AssetPublisherConstants.CATEGORY_KEY_DISPLAY_SETTINGS;
+		return AssetPublisherConstants.CATEGORY_KEY_ASSET_SELECTION;
 	}
 
 	@Override
 	public String getKey() {
-		return "set-and-enable";
+		return "asset-entries";
+	}
+
+	@Override
+	public boolean isVisible(User user, Object object) {
+		if (isDynamicAssetSelection()) {
+			return false;
+		}
+
+		return true;
 	}
 
 	@Override
@@ -53,7 +63,7 @@ public class SetAndEnableFormNavigatorEntry
 
 	@Override
 	protected String getJspPath() {
-		return "/configuration/set_enable.jsp";
+		return "/configuration/asset_entries.jsp";
 	}
 
 }
