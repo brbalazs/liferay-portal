@@ -26,7 +26,7 @@ import org.osgi.service.component.annotations.Component;
  */
 @Component(
 	property = {
-		"osgi.jaxrs.application.base=/commerce-bom",
+		"liferay.jackson=false", "osgi.jaxrs.application.base=/commerce-bom",
 		"osgi.jaxrs.extension.select=(osgi.jaxrs.name=Liferay.Vulcan)",
 		"osgi.jaxrs.name=Liferay.Commerce.BOM"
 	},

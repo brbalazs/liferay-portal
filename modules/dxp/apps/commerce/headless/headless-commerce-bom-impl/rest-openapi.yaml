@@ -190,7 +190,7 @@ components:
             type: object
         ItemData:
             properties:
-                compatibilities:
+                brands:
                     example:
                         - models:
                               - id: 31231
@@ -200,7 +200,7 @@ components:
                     items:
                         $ref: "#/components/schemas/Brand"
                     type: array
-                content:
+                items:
                     example:
                         - id: 31130
                           name: Item 1
@@ -320,16 +320,15 @@ info:
     contact:
         email: team-commerce@liferay.com
         name: Commerce Team
-    description:
-        Liferay Commerce BOM API
+    description:         Liferay Commerce BOM API
     license:
-        name: GNU Lesser General Public License 2.1
-        url: https://www.gnu.org/licenses/lgpl-2.1.html
+        name: "Apache 2.0"
+        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
     title: Liferay Commerce BOM API
     version: "1.0"
 openapi: 3.0.0
 paths:
-    /areas/{id}/spot/:
+    /areas/{id}/spot:
         post:
             operationId: postAreaIdSpot
             parameters:
@@ -673,7 +672,7 @@ paths:
             summary: Gets the Folder by ID.
             tags:
                 - Folder
-    /products/:
+    /products:
         get:
             operationId: getProductsPage
             parameters:

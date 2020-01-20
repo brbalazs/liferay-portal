@@ -20,9 +20,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
-
-import graphql.annotations.annotationTypes.GraphQLField;
-import graphql.annotations.annotationTypes.GraphQLName;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -32,6 +31,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.annotation.Generated;
+
+import javax.validation.Valid;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -46,6 +47,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Folder {
 
 	@Schema
+	@Valid
 	public Breadcrumb[] getBreadcrumbs() {
 		return breadcrumbs;
 	}
@@ -74,6 +76,7 @@ public class Folder {
 	protected Breadcrumb[] breadcrumbs;
 
 	@Schema
+	@Valid
 	public ItemData getData() {
 		return data;
 	}
@@ -162,6 +165,12 @@ public class Folder {
 
 		return sb.toString();
 	}
+
+	@Schema(
+		defaultValue = "com.liferay.headless.commerce.bom.dto.v1_0.Folder",
+		name = "x-class-name"
+	)
+	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

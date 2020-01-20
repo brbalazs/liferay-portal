@@ -20,9 +20,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
-
-import graphql.annotations.annotationTypes.GraphQLField;
-import graphql.annotations.annotationTypes.GraphQLName;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -32,6 +31,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.annotation.Generated;
+
+import javax.validation.Valid;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -46,20 +47,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ItemData {
 
 	@Schema
-	public Brand[] getCompatibilities() {
-		return compatibilities;
+	@Valid
+	public Brand[] getBrands() {
+		return brands;
 	}
 
-	public void setCompatibilities(Brand[] compatibilities) {
-		this.compatibilities = compatibilities;
+	public void setBrands(Brand[] brands) {
+		this.brands = brands;
 	}
 
 	@JsonIgnore
-	public void setCompatibilities(
-		UnsafeSupplier<Brand[], Exception> compatibilitiesUnsafeSupplier) {
+	public void setBrands(
+		UnsafeSupplier<Brand[], Exception> brandsUnsafeSupplier) {
 
 		try {
-			compatibilities = compatibilitiesUnsafeSupplier.get();
+			brands = brandsUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -71,23 +73,24 @@ public class ItemData {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Brand[] compatibilities;
+	protected Brand[] brands;
 
 	@Schema
-	public Item[] getContent() {
-		return content;
+	@Valid
+	public Item[] getItems() {
+		return items;
 	}
 
-	public void setContent(Item[] content) {
-		this.content = content;
+	public void setItems(Item[] items) {
+		this.items = items;
 	}
 
 	@JsonIgnore
-	public void setContent(
-		UnsafeSupplier<Item[], Exception> contentUnsafeSupplier) {
+	public void setItems(
+		UnsafeSupplier<Item[], Exception> itemsUnsafeSupplier) {
 
 		try {
-			content = contentUnsafeSupplier.get();
+			items = itemsUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -99,9 +102,10 @@ public class ItemData {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Item[] content;
+	protected Item[] items;
 
 	@Schema
+	@Valid
 	public Product[] getProducts() {
 		return products;
 	}
@@ -130,6 +134,7 @@ public class ItemData {
 	protected Product[] products;
 
 	@Schema
+	@Valid
 	public Spot[] getSpots() {
 		return spots;
 	}
@@ -184,19 +189,19 @@ public class ItemData {
 
 		sb.append("{");
 
-		if (compatibilities != null) {
+		if (brands != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"compatibilities\": ");
+			sb.append("\"brands\": ");
 
 			sb.append("[");
 
-			for (int i = 0; i < compatibilities.length; i++) {
-				sb.append(String.valueOf(compatibilities[i]));
+			for (int i = 0; i < brands.length; i++) {
+				sb.append(String.valueOf(brands[i]));
 
-				if ((i + 1) < compatibilities.length) {
+				if ((i + 1) < brands.length) {
 					sb.append(", ");
 				}
 			}
@@ -204,19 +209,19 @@ public class ItemData {
 			sb.append("]");
 		}
 
-		if (content != null) {
+		if (items != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"content\": ");
+			sb.append("\"items\": ");
 
 			sb.append("[");
 
-			for (int i = 0; i < content.length; i++) {
-				sb.append(String.valueOf(content[i]));
+			for (int i = 0; i < items.length; i++) {
+				sb.append(String.valueOf(items[i]));
 
-				if ((i + 1) < content.length) {
+				if ((i + 1) < items.length) {
 					sb.append(", ");
 				}
 			}
@@ -268,6 +273,12 @@ public class ItemData {
 
 		return sb.toString();
 	}
+
+	@Schema(
+		defaultValue = "com.liferay.headless.commerce.bom.dto.v1_0.ItemData",
+		name = "x-class-name"
+	)
+	public String xClassName;
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

@@ -169,8 +169,10 @@ info:
     contact:
         email: team-commerce@liferay.com
         name: Commerce Team
-    description:
-        Liferay Commerce Forecast API
+    description:         Liferay Commerce Forecast API
+    license:
+        name: "Apache 2.0"
+        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
     title: Liferay Commerce Forecast API
     version: v1.0
 openapi: 3.0.0

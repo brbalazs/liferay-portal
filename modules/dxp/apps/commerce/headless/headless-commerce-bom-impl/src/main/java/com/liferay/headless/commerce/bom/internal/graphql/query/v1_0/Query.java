@@ -22,17 +22,22 @@ import com.liferay.headless.commerce.bom.resource.v1_0.FolderResource;
 import com.liferay.headless.commerce.bom.resource.v1_0.ProductResource;
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
-import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
-import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 import com.liferay.portal.vulcan.pagination.Page;
 
-import graphql.annotations.annotationTypes.GraphQLField;
-import graphql.annotations.annotationTypes.GraphQLInvokeDetached;
-import graphql.annotations.annotationTypes.GraphQLName;
-
-import java.util.Collection;
+import java.util.Map;
+import java.util.function.BiFunction;
 
 import javax.annotation.Generated;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import javax.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.ComponentServiceObjects;
 
@@ -67,37 +72,140 @@ public class Query {
 			productResourceComponentServiceObjects;
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {area(id: ___){breadcrumbs, data}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	@GraphQLInvokeDetached
-	public Area getArea(@GraphQLName("id") Long id) throws Exception {
+	public Area area(@GraphQLName("id") Long id) throws Exception {
 		return _applyComponentServiceObjects(
 			_areaResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			areaResource -> areaResource.getArea(id));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {folder(id: ___){breadcrumbs, data}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	@GraphQLInvokeDetached
-	public Folder getFolder(@GraphQLName("id") Long id) throws Exception {
+	public Folder folder(@GraphQLName("id") Long id) throws Exception {
 		return _applyComponentServiceObjects(
 			_folderResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			folderResource -> folderResource.getFolder(id));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {products(q: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
 	@GraphQLField
-	@GraphQLInvokeDetached
-	public Collection<Product> getProductsPage(@GraphQLName("q") String q)
-		throws Exception {
-
+	public ProductPage products(@GraphQLName("q") String q) throws Exception {
 		return _applyComponentServiceObjects(
 			_productResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			productResource -> {
-				Page paginationPage = productResource.getProductsPage(q);
+			productResource -> new ProductPage(
+				productResource.getProductsPage(q)));
+	}
 
-				return paginationPage.getItems();
-			});
+	@GraphQLName("AreaPage")
+	public class AreaPage {
+
+		public AreaPage(Page areaPage) {
+			actions = areaPage.getActions();
+			items = areaPage.getItems();
+			lastPage = areaPage.getLastPage();
+			page = areaPage.getPage();
+			pageSize = areaPage.getPageSize();
+			totalCount = areaPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected java.util.Collection<Area> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
+	@GraphQLName("FolderPage")
+	public class FolderPage {
+
+		public FolderPage(Page folderPage) {
+			actions = folderPage.getActions();
+			items = folderPage.getItems();
+			lastPage = folderPage.getLastPage();
+			page = folderPage.getPage();
+			pageSize = folderPage.getPageSize();
+			totalCount = folderPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected java.util.Collection<Folder> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
+	@GraphQLName("ProductPage")
+	public class ProductPage {
+
+		public ProductPage(Page productPage) {
+			actions = productPage.getActions();
+			items = productPage.getItems();
+			lastPage = productPage.getLastPage();
+			page = productPage.getPage();
+			pageSize = productPage.getPageSize();
+			totalCount = productPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected java.util.Collection<Product> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
 	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
@@ -122,25 +230,34 @@ public class Query {
 	private void _populateResourceContext(AreaResource areaResource)
 		throws Exception {
 
-		areaResource.setContextCompany(
-			CompanyLocalServiceUtil.getCompany(
-				CompanyThreadLocal.getCompanyId()));
+		areaResource.setContextAcceptLanguage(_acceptLanguage);
+		areaResource.setContextCompany(_company);
+		areaResource.setContextHttpServletRequest(_httpServletRequest);
+		areaResource.setContextHttpServletResponse(_httpServletResponse);
+		areaResource.setContextUriInfo(_uriInfo);
+		areaResource.setContextUser(_user);
 	}
 
 	private void _populateResourceContext(FolderResource folderResource)
 		throws Exception {
 
-		folderResource.setContextCompany(
-			CompanyLocalServiceUtil.getCompany(
-				CompanyThreadLocal.getCompanyId()));
+		folderResource.setContextAcceptLanguage(_acceptLanguage);
+		folderResource.setContextCompany(_company);
+		folderResource.setContextHttpServletRequest(_httpServletRequest);
+		folderResource.setContextHttpServletResponse(_httpServletResponse);
+		folderResource.setContextUriInfo(_uriInfo);
+		folderResource.setContextUser(_user);
 	}
 
 	private void _populateResourceContext(ProductResource productResource)
 		throws Exception {
 
-		productResource.setContextCompany(
-			CompanyLocalServiceUtil.getCompany(
-				CompanyThreadLocal.getCompanyId()));
+		productResource.setContextAcceptLanguage(_acceptLanguage);
+		productResource.setContextCompany(_company);
+		productResource.setContextHttpServletRequest(_httpServletRequest);
+		productResource.setContextHttpServletResponse(_httpServletResponse);
+		productResource.setContextUriInfo(_uriInfo);
+		productResource.setContextUser(_user);
 	}
 
 	private static ComponentServiceObjects<AreaResource>
@@ -149,5 +266,14 @@ public class Query {
 		_folderResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductResource>
 		_productResourceComponentServiceObjects;
+
+	private AcceptLanguage _acceptLanguage;
+	private BiFunction<Object, String, Filter> _filterBiFunction;
+	private BiFunction<Object, String, Sort[]> _sortsBiFunction;
+	private com.liferay.portal.kernel.model.Company _company;
+	private com.liferay.portal.kernel.model.User _user;
+	private HttpServletRequest _httpServletRequest;
+	private HttpServletResponse _httpServletResponse;
+	private UriInfo _uriInfo;
 
 }

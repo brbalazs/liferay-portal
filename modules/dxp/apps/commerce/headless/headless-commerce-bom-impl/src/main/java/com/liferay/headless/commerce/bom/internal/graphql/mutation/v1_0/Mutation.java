@@ -18,16 +18,17 @@ import com.liferay.headless.commerce.bom.dto.v1_0.Spot;
 import com.liferay.headless.commerce.bom.resource.v1_0.SpotResource;
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
-import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
-import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
-
-import graphql.annotations.annotationTypes.GraphQLField;
-import graphql.annotations.annotationTypes.GraphQLInvokeDetached;
-import graphql.annotations.annotationTypes.GraphQLName;
+import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 
 import javax.annotation.Generated;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.ComponentServiceObjects;
 
@@ -47,8 +48,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	@GraphQLInvokeDetached
-	public Spot postAreaIdSpot(
+	public Spot createAreaIdSpot(
 			@GraphQLName("id") Long id, @GraphQLName("spot") Spot spot)
 		throws Exception {
 
@@ -58,7 +58,7 @@ public class Mutation {
 			spotResource -> spotResource.postAreaIdSpot(id, spot));
 	}
 
-	@GraphQLInvokeDetached
+	@GraphQLField
 	public Response deleteAreaIdSpot(
 			@GraphQLName("id") Long id, @GraphQLName("spotId") Long spotId)
 		throws Exception {
@@ -69,8 +69,8 @@ public class Mutation {
 			spotResource -> spotResource.deleteAreaIdSpot(id, spotId));
 	}
 
-	@GraphQLInvokeDetached
-	public Response putAreaIdSpot(
+	@GraphQLField
+	public Response updateAreaIdSpot(
 			@GraphQLName("id") Long id, @GraphQLName("spotId") Long spotId,
 			@GraphQLName("spot") Spot spot)
 		throws Exception {
@@ -122,12 +122,22 @@ public class Mutation {
 	private void _populateResourceContext(SpotResource spotResource)
 		throws Exception {
 
-		spotResource.setContextCompany(
-			CompanyLocalServiceUtil.getCompany(
-				CompanyThreadLocal.getCompanyId()));
+		spotResource.setContextAcceptLanguage(_acceptLanguage);
+		spotResource.setContextCompany(_company);
+		spotResource.setContextHttpServletRequest(_httpServletRequest);
+		spotResource.setContextHttpServletResponse(_httpServletResponse);
+		spotResource.setContextUriInfo(_uriInfo);
+		spotResource.setContextUser(_user);
 	}
 
 	private static ComponentServiceObjects<SpotResource>
 		_spotResourceComponentServiceObjects;
+
+	private AcceptLanguage _acceptLanguage;
+	private com.liferay.portal.kernel.model.Company _company;
+	private com.liferay.portal.kernel.model.User _user;
+	private HttpServletRequest _httpServletRequest;
+	private HttpServletResponse _httpServletResponse;
+	private UriInfo _uriInfo;
 
 }
