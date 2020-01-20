@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ReleaseInfo;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
@@ -655,7 +656,7 @@ public class CalendarICalDataHandler implements CalendarDataHandler {
 		Company company = CompanyLocalServiceUtil.getCompany(
 			calendarBooking.getCompanyId());
 
-		String calendarBookingDescription = StringUtil.replace(
+		String calendarBookingDescriptionText = StringUtil.replace(
 			calendarBooking.getDescription(user.getLocale()),
 			new String[] {"href=\"/", "src=\"/"},
 			new String[] {
@@ -665,12 +666,15 @@ public class CalendarICalDataHandler implements CalendarDataHandler {
 					"/"
 			});
 
+		String calendarBookingDescription = HtmlUtil.stripHtml(
+			calendarBookingDescriptionText);
+
 		Description description = new Description(calendarBookingDescription);
 
 		propertyList.add(description);
 
 		XProperty xProperty = new XProperty(
-			"X-ALT-DESC", calendarBookingDescription);
+			"X-ALT-DESC", calendarBookingDescriptionText);
 
 		ParameterList parameters = xProperty.getParameters();
 
