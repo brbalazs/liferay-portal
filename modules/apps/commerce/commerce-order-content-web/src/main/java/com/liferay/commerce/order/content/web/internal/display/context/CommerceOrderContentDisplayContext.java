@@ -418,19 +418,6 @@ public class CommerceOrderContentDisplayContext {
 
 		List<HeaderActionModel> headerActionModels = new ArrayList<>();
 
-		HeaderActionModel headerActionModel1 = new HeaderActionModel();
-
-		headerActionModel1.setLabel("Action 1");
-		headerActionModel1.setStyle("secondary");
-
-		headerActionModels.add(headerActionModel1);
-
-		HeaderActionModel headerActionModel2 = new HeaderActionModel();
-
-		headerActionModel2.setLabel("Action 2");
-
-		headerActionModels.add(headerActionModel2);
-
 		return headerActionModels;
 	}
 
