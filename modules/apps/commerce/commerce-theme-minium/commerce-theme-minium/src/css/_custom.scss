@@ -13,6 +13,10 @@ html {
 	}
 }
 
+#wrapper {
+  padding-top: 0;
+}
+
 #minium {
 	transition: padding ease 500ms;
 
@@ -24,6 +28,10 @@ html {
 		}
 	}
 
+	body.has-control-menu.has-edit-mode-menu.signed-in & .minium-frame__topbar {
+		top: 120px;
+	}
+
 	body.has-control-menu.signed-in & .minium-frame__toolbar {
 		margin-top: $liferay-topbar-size;
 
@@ -32,12 +40,20 @@ html {
 		}
 	}
 
+	body.has-control-menu.has-edit-mode-menu.signed-in & .minium-frame__toolbar {
+		top: 120px;
+	}
+
 	body.has-control-menu.signed-in & .minium-frame__sidebar {
 		top: $liferay-topbar-size;
 
 		@media screen and (max-width: $bp-xsmall) {
 			top: $liferay-topbar-size-small;
 		}
+	}
+
+	body.has-control-menu.has-edit-mode-menu.signed-in & .minium-frame__sidebar {
+		top: 120px;
 	}
 
 	@media screen and (hover: none) {
