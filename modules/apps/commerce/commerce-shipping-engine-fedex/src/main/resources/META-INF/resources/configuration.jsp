@@ -66,7 +66,7 @@ String[] serviceTypes = StringUtil.split(fedExCommerceShippingEngineGroupService
 				%>
 
 					<div>
-						<aui:input checked="<%= ArrayUtil.contains(serviceTypes, serviceType) %>" label="<%= FedExCommerceShippingEngineConstants.getServiceTypeLabel(serviceType) %>" name="settings--serviceTypes--" type="checkbox" value="<%= serviceType %>" />
+						<aui:input checked="<%= ArrayUtil.contains(serviceTypes, serviceType) %>" id='<%= "settings--serviceTypes" + serviceType + "--" %>' label="<%= FedExCommerceShippingEngineConstants.getServiceTypeLabel(serviceType) %>" name="settings--serviceTypes--" type="checkbox" value="<%= serviceType %>" />
 					</div>
 
 				<%
