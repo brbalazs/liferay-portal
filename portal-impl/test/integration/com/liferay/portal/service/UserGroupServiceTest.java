@@ -187,11 +187,10 @@ public class UserGroupServiceTest {
 	}
 
 	protected void assertSearch(User user, int expected) throws Exception {
-		LinkedHashMap<String, Object> userGroupParams = new LinkedHashMap<>();
-
-		userGroupParams.put(
-			UserGroupFinderConstants.PARAM_KEY_USER_GROUPS_USERS,
-			user.getUserId());
+		LinkedHashMap<String, Object> userGroupParams =
+			LinkedHashMapBuilder.<String, Object>put(
+				UserGroupFinderConstants.PARAM_KEY_USER_GROUPS_USERS,
+				Long.valueOf(user.getUserId()));
 
 		List<UserGroup> userGroups = UserGroupServiceUtil.search(
 			user.getCompanyId(), null, userGroupParams, QueryUtil.ALL_POS,
