@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<custom-sql>
+	<sql id="com.liferay.commerce.pricing.service.persistence.CommercePricingClassFinder.findByCN_CI">
+		<![CDATA[
+			SELECT
+				{CommercePricingClass.*}
+			FROM
+				CommercePricingClass
+			LEFT JOIN
+				CommercePricingClassRel ON
+					CommercePricingClass.commercePricingClassId = CommercePricingClassRel.commercePricingClassId
+			WHERE
+				(CommercePricingClassRel.classNameId = ?) AND
+				(CommercePricingClassRel.classPK = ?)
+		]]>
+	</sql>
+</custom-sql>
