@@ -56,6 +56,7 @@ public class ActionUtil {
 	/**
 	 * @deprecated As of Athanasius (7.3.x)
 	 */
+	@Deprecated
 	public static Map<String, String> addAction(
 		String actionName, Class clazz, GroupedModel groupedModel,
 		String methodName, UriInfo uriInfo) {
@@ -66,6 +67,7 @@ public class ActionUtil {
 	/**
 	 * @deprecated As of Athanasius (7.3.x)
 	 */
+	@Deprecated
 	public static Map<String, String> addAction(
 		String actionName, Class clazz, Long id, String methodName,
 		String permissionName, Long siteId, UriInfo uriInfo) {
