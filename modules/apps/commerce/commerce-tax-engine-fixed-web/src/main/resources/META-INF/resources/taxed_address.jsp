@@ -29,9 +29,7 @@ CommerceTaxedAddressDisplayContext commerceTaxedAddressDisplayContext = (Commerc
 
 	<div class="lfr-form-content">
 		<aui:fieldset-group markupView="lexicon">
-			<aui:fieldset>
-				<liferay-ui:message key="apply-tax-to" />
-
+			<aui:fieldset label="apply-tax-to">
 				<aui:input checked="<%= commerceTaxedAddressDisplayContext.isTaxAppliedToShippingAddress() %>" label="shipping-address" name="apply-tax-to" type="radio" value="<%= true %>" />
 				<aui:input checked="<%= !commerceTaxedAddressDisplayContext.isTaxAppliedToShippingAddress() %>" label="billing-address" name="apply-tax-to" type="radio" value="<%= false %>" />
 			</aui:fieldset>
