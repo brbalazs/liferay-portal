@@ -88,8 +88,8 @@ public class FolderResourceImpl extends BaseFolderResourceImpl {
 
 		ItemData itemData = new ItemData();
 
-		itemData.setCompatibilities(new Brand[0]);
-		itemData.setContent(_getItems(id));
+		//itemData.setCompatibilities(new Brand[0]);
+		//itemData.setContent(_getItems(id));
 		itemData.setProducts(new Product[0]);
 		itemData.setSpots(new Spot[0]);
 
