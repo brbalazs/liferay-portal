@@ -66,55 +66,60 @@ public class UserGroupServiceTest {
 
 	@Test
 	public void testDatabaseSearchPermissionCheck() throws Exception {
-		UserGroup publicUserGroup = addUserGroup();
-		UserGroup privateUserGroup = addUserGroup();
-
 		User groupUser = UserTestUtil.addUser();
-
-		UserGroupLocalServiceUtil.addUserUserGroup(
-			groupUser.getUserId(), publicUserGroup);
-
-		UserGroupLocalServiceUtil.addUserUserGroup(
-			groupUser.getUserId(), privateUserGroup);
 
 		User publicAdminUser = UserTestUtil.addUser();
 
 		Role publicAdminRole = RoleTestUtil.addRole(RoleConstants.TYPE_REGULAR);
 
-		RoleLocalServiceUtil.addUserRole(
-			publicAdminUser.getUserId(), publicAdminRole);
+		try {
+			UserGroup publicUserGroup = addUserGroup();
+			UserGroup privateUserGroup = addUserGroup();
 
-		ResourceAction viewAction =
-			ResourceActionLocalServiceUtil.fetchResourceAction(
-				UserGroup.class.getName(), ActionKeys.VIEW);
+			UserGroupLocalServiceUtil.addUserUserGroup(
+				groupUser.getUserId(), publicUserGroup);
 
-		ResourcePermissionTestUtil.addResourcePermission(
-			viewAction.getBitwiseValue(), UserGroup.class.getName(),
-			String.valueOf(publicUserGroup.getUserGroupId()),
-			publicAdminRole.getRoleId(), ResourceConstants.SCOPE_INDIVIDUAL);
+			UserGroupLocalServiceUtil.addUserUserGroup(
+				groupUser.getUserId(), privateUserGroup);
 
-		PermissionThreadLocal.setPermissionChecker(
-			PermissionCheckerFactoryUtil.create(publicAdminUser));
+			RoleLocalServiceUtil.addUserRole(
+				publicAdminUser.getUserId(), publicAdminRole);
 
-		String keywords = null;
+			ResourceAction viewAction =
+				ResourceActionLocalServiceUtil.fetchResourceAction(
+					UserGroup.class.getName(), ActionKeys.VIEW);
 
-		LinkedHashMap<String, Object> userGroupParams = new LinkedHashMap<>();
+			ResourcePermissionTestUtil.addResourcePermission(
+				viewAction.getBitwiseValue(), UserGroup.class.getName(),
+				String.valueOf(publicUserGroup.getUserGroupId()),
+				publicAdminRole.getRoleId(),
+				ResourceConstants.SCOPE_INDIVIDUAL);
 
-		userGroupParams.put(
-			UserGroupFinderConstants.PARAM_KEY_USER_GROUPS_USERS,
-			Long.valueOf(groupUser.getUserId()));
+			PermissionThreadLocal.setPermissionChecker(
+				PermissionCheckerFactoryUtil.create(publicAdminUser));
 
-		List<UserGroup> userGroups = UserGroupServiceUtil.search(
-			publicAdminRole.getCompanyId(), keywords, userGroupParams,
-			QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			UsersAdminUtil.getUserGroupOrderByComparator("name", "asc"));
+			String keywords = null;
 
-		Assert.assertEquals(userGroups.toString(), 1, userGroups.size());
+			LinkedHashMap<String, Object> userGroupParams =
+				new LinkedHashMap<>();
 
-		UserLocalServiceUtil.deleteUser(groupUser);
-		UserLocalServiceUtil.deleteUser(publicAdminUser);
+			userGroupParams.put(
+				UserGroupFinderConstants.PARAM_KEY_USER_GROUPS_USERS,
+				Long.valueOf(groupUser.getUserId()));
 
-		RoleLocalServiceUtil.deleteRole(publicAdminRole);
+			List<UserGroup> userGroups = UserGroupServiceUtil.search(
+				publicAdminRole.getCompanyId(), keywords, userGroupParams,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+				UsersAdminUtil.getUserGroupOrderByComparator("name", "asc"));
+
+			Assert.assertEquals(userGroups.toString(), 1, userGroups.size());
+		}
+		finally {
+			UserLocalServiceUtil.deleteUser(groupUser);
+			UserLocalServiceUtil.deleteUser(publicAdminUser);
+
+			RoleLocalServiceUtil.deleteRole(publicAdminRole);
+		}
 	}
 
 	@Test
