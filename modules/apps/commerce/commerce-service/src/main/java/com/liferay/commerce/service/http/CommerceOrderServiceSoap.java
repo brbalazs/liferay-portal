@@ -822,6 +822,27 @@ public class CommerceOrderServiceSoap {
 	}
 
 	public static com.liferay.commerce.model.CommerceOrderSoap
+			updateCommerceOrderExternalReferenceCode(
+				long commerceOrderId, String externalReferenceCode)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.model.CommerceOrder returnValue =
+				CommerceOrderServiceUtil.
+					updateCommerceOrderExternalReferenceCode(
+						commerceOrderId, externalReferenceCode);
+
+			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceOrderSoap
 			updateCommerceOrderPrices(
 				long commerceOrderId, java.math.BigDecimal subtotal,
 				java.math.BigDecimal subtotalDiscountAmount,

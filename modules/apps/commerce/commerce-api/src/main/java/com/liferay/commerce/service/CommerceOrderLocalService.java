@@ -522,6 +522,11 @@ public interface CommerceOrderLocalService
 		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
+	public CommerceOrder updateCommerceOrderExternalReferenceCode(
+			long commerceOrderId, String externalReferenceCode)
+		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
 	public CommerceOrder updateCommerceOrderPrices(
 			long commerceOrderId, BigDecimal subtotal,
 			BigDecimal subtotalDiscountAmount,

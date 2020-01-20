@@ -391,6 +391,15 @@ public class CommerceOrderServiceUtil {
 	}
 
 	public static com.liferay.commerce.model.CommerceOrder
+			updateCommerceOrderExternalReferenceCode(
+				long commerceOrderId, String externalReferenceCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateCommerceOrderExternalReferenceCode(
+			commerceOrderId, externalReferenceCode);
+	}
+
+	public static com.liferay.commerce.model.CommerceOrder
 			updateCommerceOrderPrices(
 				long commerceOrderId, java.math.BigDecimal subtotal,
 				java.math.BigDecimal subtotalDiscountAmount,
