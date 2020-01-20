@@ -65,12 +65,17 @@ public class CProductLocalServiceImpl extends CProductLocalServiceBaseImpl {
 
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
-	public CProduct deleteCProduct(CProduct cProduct) {
+	public CProduct deleteCProduct(CProduct cProduct) throws PortalException {
 
 		// Commerce product definitions
 
 		cpDefinitionLocalService.deleteCPDefinitions(
 			cProduct.getCProductId(), WorkflowConstants.STATUS_ANY);
+
+		// Commerce product definition links
+
+		cpDefinitionLinkLocalService.deleteCPDefinitionLinksByCProductId(
+			cProduct.getCProductId());
 
 		// Commerce product
 

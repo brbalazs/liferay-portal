@@ -638,7 +638,7 @@ public class CPDefinitionLocalServiceImpl
 		cpDisplayLayoutLocalService.deleteCPDisplayLayout(
 			CPDefinition.class, cpDefinition.getCPDefinitionId());
 
-		// CPVersionContributors
+		// Commerce product version contributors
 
 		List<CPVersionContributor> cpVersionContributors =
 			CPVersionContributorRegistryUtil.getCPVersionContributors();
