@@ -5,6 +5,10 @@ html, body {
   width: 100%;
 }
 
+#wrapper {
+  padding-top: 0;
+}
+
 #speedwell {
   font-family: 'Open Sans', sans-serif;
   font-size: $std-font-size;
