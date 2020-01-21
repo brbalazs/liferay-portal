@@ -267,7 +267,7 @@ if (forcePost && (portletURL != null)) {
 					<%
 					int remainingPages = ((pages - (cur + 2)) < initialPages) ? (pages - (cur + 2)) : initialPages;
 
-					for (int i = (cur + 2); i < ((cur + 2) + remainingPages); i++) {
+					for (int i = cur + 2; i < ((cur + 2) + remainingPages); i++) {
 					%>
 
 						<li>
