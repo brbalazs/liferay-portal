@@ -80,9 +80,8 @@ public class CPDefinitionSpecificationOptionValueLocalServiceImpl
 		cpDefinitionSpecificationOptionValue.setExpandoBridgeAttributes(
 			serviceContext);
 
-		cpDefinitionSpecificationOptionValue =
-			cpDefinitionSpecificationOptionValuePersistence.update(
-				cpDefinitionSpecificationOptionValue);
+		cpDefinitionSpecificationOptionValuePersistence.update(
+			cpDefinitionSpecificationOptionValue);
 
 		// Commerce product definition
 
@@ -311,9 +310,8 @@ public class CPDefinitionSpecificationOptionValueLocalServiceImpl
 		cpDefinitionSpecificationOptionValue.setExpandoBridgeAttributes(
 			serviceContext);
 
-		cpDefinitionSpecificationOptionValue =
-			cpDefinitionSpecificationOptionValuePersistence.update(
-				cpDefinitionSpecificationOptionValue);
+		cpDefinitionSpecificationOptionValuePersistence.update(
+			cpDefinitionSpecificationOptionValue);
 
 		// Commerce product definition
 
@@ -353,9 +351,8 @@ public class CPDefinitionSpecificationOptionValueLocalServiceImpl
 		cpDefinitionSpecificationOptionValue.setCPOptionCategoryId(
 			cpOptionCategoryId);
 
-		cpDefinitionSpecificationOptionValue =
-			cpDefinitionSpecificationOptionValuePersistence.update(
-				cpDefinitionSpecificationOptionValue);
+		cpDefinitionSpecificationOptionValuePersistence.update(
+			cpDefinitionSpecificationOptionValue);
 
 		// Commerce product definition
 

@@ -88,7 +88,9 @@ public class CPDefinitionInventoryLocalServiceImpl
 		cpDefinitionInventory.setAllowedOrderQuantities(allowedOrderQuantities);
 		cpDefinitionInventory.setMultipleOrderQuantity(multipleOrderQuantity);
 
-		return cpDefinitionInventoryPersistence.update(cpDefinitionInventory);
+		cpDefinitionInventoryPersistence.update(cpDefinitionInventory);
+
+		return cpDefinitionInventory;
 	}
 
 	/**
@@ -249,7 +251,9 @@ public class CPDefinitionInventoryLocalServiceImpl
 		cpDefinitionInventory.setAllowedOrderQuantities(allowedOrderQuantities);
 		cpDefinitionInventory.setMultipleOrderQuantity(multipleOrderQuantity);
 
-		return cpDefinitionInventoryPersistence.update(cpDefinitionInventory);
+		cpDefinitionInventoryPersistence.update(cpDefinitionInventory);
+
+		return cpDefinitionInventory;
 	}
 
 	/**

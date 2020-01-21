@@ -43,7 +43,9 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 		row.setTableId(tableId);
 		row.setClassPK(classPK);
 
-		return expandoRowPersistence.update(row);
+		expandoRowPersistence.update(row);
+
+		return row;
 	}
 
 	@Override

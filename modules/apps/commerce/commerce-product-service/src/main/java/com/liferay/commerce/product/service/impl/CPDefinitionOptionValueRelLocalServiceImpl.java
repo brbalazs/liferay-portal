@@ -132,9 +132,8 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		cpDefinitionOptionValueRel.setKey(key);
 		cpDefinitionOptionValueRel.setExpandoBridgeAttributes(serviceContext);
 
-		cpDefinitionOptionValueRel =
-			cpDefinitionOptionValueRelPersistence.update(
-				cpDefinitionOptionValueRel);
+		cpDefinitionOptionValueRelPersistence.update(
+			cpDefinitionOptionValueRel);
 
 		// Commerce product definition
 
@@ -393,9 +392,8 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		cpDefinitionOptionValueRel.setKey(key);
 		cpDefinitionOptionValueRel.setExpandoBridgeAttributes(serviceContext);
 
-		cpDefinitionOptionValueRel =
-			cpDefinitionOptionValueRelPersistence.update(
-				cpDefinitionOptionValueRel);
+		cpDefinitionOptionValueRelPersistence.update(
+			cpDefinitionOptionValueRel);
 
 		// Commerce product definition
 

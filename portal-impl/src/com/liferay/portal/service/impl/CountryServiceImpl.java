@@ -75,7 +75,9 @@ public class CountryServiceImpl extends CountryServiceBaseImpl {
 		country.setIdd(idd);
 		country.setActive(active);
 
-		return countryPersistence.update(country);
+		countryPersistence.update(country);
+
+		return country;
 	}
 
 	@Override

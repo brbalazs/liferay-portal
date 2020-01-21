@@ -66,7 +66,9 @@ public class PhoneLocalServiceImpl extends PhoneLocalServiceBaseImpl {
 		phone.setTypeId(typeId);
 		phone.setPrimary(primary);
 
-		return phonePersistence.update(phone);
+		phonePersistence.update(phone);
+
+		return phone;
 	}
 
 	@Override
@@ -128,7 +130,9 @@ public class PhoneLocalServiceImpl extends PhoneLocalServiceBaseImpl {
 		phone.setTypeId(typeId);
 		phone.setPrimary(primary);
 
-		return phonePersistence.update(phone);
+		phonePersistence.update(phone);
+
+		return phone;
 	}
 
 	protected void validate(

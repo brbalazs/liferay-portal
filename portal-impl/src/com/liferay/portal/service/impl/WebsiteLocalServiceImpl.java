@@ -59,7 +59,9 @@ public class WebsiteLocalServiceImpl extends WebsiteLocalServiceBaseImpl {
 		website.setTypeId(typeId);
 		website.setPrimary(primary);
 
-		return websitePersistence.update(website);
+		websitePersistence.update(website);
+
+		return website;
 	}
 
 	@Override
@@ -119,7 +121,9 @@ public class WebsiteLocalServiceImpl extends WebsiteLocalServiceBaseImpl {
 		website.setTypeId(typeId);
 		website.setPrimary(primary);
 
-		return websitePersistence.update(website);
+		websitePersistence.update(website);
+
+		return website;
 	}
 
 	protected void validate(

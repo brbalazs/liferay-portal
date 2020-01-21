@@ -365,7 +365,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 		entry.setStatusDate(serviceContext.getModifiedDate(null));
 		entry.setExpandoBridgeAttributes(serviceContext);
 
-		entry = blogsEntryPersistence.update(entry);
+		blogsEntryPersistence.update(entry);
 
 		// Resources
 
@@ -429,7 +429,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 		entry.setSmallImageFileEntryId(smallImageFileEntryId);
 		entry.setSmallImageURL(smallImageURL);
 
-		entry = blogsEntryPersistence.update(entry);
+		blogsEntryPersistence.update(entry);
 
 		// Workflow
 
@@ -1011,7 +1011,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 		if (oldStatus == WorkflowConstants.STATUS_PENDING) {
 			entry.setStatus(WorkflowConstants.STATUS_DRAFT);
 
-			entry = blogsEntryPersistence.update(entry);
+			blogsEntryPersistence.update(entry);
 		}
 
 		entry = updateStatus(
@@ -1301,7 +1301,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 		entry.setExpandoBridgeAttributes(serviceContext);
 
-		entry = blogsEntryPersistence.update(entry);
+		blogsEntryPersistence.update(entry);
 
 		// Asset
 
@@ -1373,7 +1373,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 		entry.setSmallImageFileEntryId(smallImageFileEntryId);
 		entry.setSmallImageURL(smallImageURL);
 
-		entry = blogsEntryPersistence.update(entry);
+		blogsEntryPersistence.update(entry);
 
 		// Workflow
 
@@ -1519,7 +1519,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 			entry.setUrlTitle(friendlyURLEntry.getUrlTitle());
 		}
 
-		entry = blogsEntryPersistence.update(entry);
+		blogsEntryPersistence.update(entry);
 
 		// Statistics
 
@@ -2176,7 +2176,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 			entry.setTrackbacks(StringPool.BLANK);
 
-			entry = blogsEntryPersistence.update(entry);
+			blogsEntryPersistence.update(entry);
 		}
 
 		Set<String> oldTrackbacks = SetUtil.fromArray(

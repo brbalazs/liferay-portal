@@ -211,8 +211,7 @@ public class ServiceComponentLocalServiceImpl
 
 			serviceComponent.setData(dataXML);
 
-			serviceComponent = serviceComponentPersistence.update(
-				serviceComponent);
+			serviceComponentPersistence.update(serviceComponent);
 
 			if (((serviceComponentConfiguration instanceof
 					ServletServiceContextComponentConfiguration) &&

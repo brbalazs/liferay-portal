@@ -62,7 +62,9 @@ public class EmailAddressLocalServiceImpl
 		emailAddress.setTypeId(typeId);
 		emailAddress.setPrimary(primary);
 
-		return emailAddressPersistence.update(emailAddress);
+		emailAddressPersistence.update(emailAddress);
+
+		return emailAddress;
 	}
 
 	@Override
@@ -129,7 +131,9 @@ public class EmailAddressLocalServiceImpl
 		emailAddress.setTypeId(typeId);
 		emailAddress.setPrimary(primary);
 
-		return emailAddressPersistence.update(emailAddress);
+		emailAddressPersistence.update(emailAddress);
+
+		return emailAddress;
 	}
 
 	protected void validate(

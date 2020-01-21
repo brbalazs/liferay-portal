@@ -70,8 +70,10 @@ public class CommerceShippingFixedOptionRelLocalServiceImpl
 			rateUnitWeightPrice);
 		commerceShippingFixedOptionRel.setRatePercentage(ratePercentage);
 
-		return commerceShippingFixedOptionRelPersistence.update(
+		commerceShippingFixedOptionRelPersistence.update(
 			commerceShippingFixedOptionRel);
+
+		return commerceShippingFixedOptionRel;
 	}
 
 	@Override
@@ -178,8 +180,10 @@ public class CommerceShippingFixedOptionRelLocalServiceImpl
 			rateUnitWeightPrice);
 		commerceShippingFixedOptionRel.setRatePercentage(ratePercentage);
 
-		return commerceShippingFixedOptionRelPersistence.update(
+		commerceShippingFixedOptionRelPersistence.update(
 			commerceShippingFixedOptionRel);
+
+		return commerceShippingFixedOptionRel;
 	}
 
 }

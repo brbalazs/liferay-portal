@@ -282,7 +282,9 @@ public class JournalContentSearchLocalServiceImpl
 			contentSearch.setArticleId(articleId);
 		}
 
-		return journalContentSearchPersistence.update(contentSearch);
+		journalContentSearchPersistence.update(contentSearch);
+
+		return contentSearch;
 	}
 
 	@Override

@@ -83,7 +83,9 @@ public class LayoutSetLocalServiceImpl extends LayoutSetLocalServiceBaseImpl {
 
 		layoutSet = initLayoutSet(layoutSet);
 
-		return layoutSetPersistence.update(layoutSet);
+		layoutSetPersistence.update(layoutSet);
+
+		return layoutSet;
 	}
 
 	@Override
@@ -129,7 +131,7 @@ public class LayoutSetLocalServiceImpl extends LayoutSetLocalServiceBaseImpl {
 
 			layoutSet.setLogoId(layoutSet.getLogoId());
 
-			layoutSet = layoutSetPersistence.update(layoutSet);
+			layoutSetPersistence.update(layoutSet);
 		}
 		else {
 			layoutSetPersistence.removeByG_P(groupId, privateLayout);
@@ -390,7 +392,7 @@ public class LayoutSetLocalServiceImpl extends LayoutSetLocalServiceBaseImpl {
 			layoutSet.setColorSchemeId(colorSchemeId);
 			layoutSet.setCss(css);
 
-			layoutSet = layoutSetPersistence.update(layoutSet);
+			layoutSetPersistence.update(layoutSet);
 
 			if (PrefsPropsUtil.getBoolean(
 					PropsKeys.THEME_SYNC_ON_GROUP,
@@ -439,7 +441,9 @@ public class LayoutSetLocalServiceImpl extends LayoutSetLocalServiceBaseImpl {
 		layoutSet.setModifiedDate(new Date());
 		layoutSet.setPageCount(pageCount);
 
-		return layoutSetPersistence.update(layoutSet);
+		layoutSetPersistence.update(layoutSet);
+
+		return layoutSet;
 	}
 
 	@Override
@@ -464,7 +468,9 @@ public class LayoutSetLocalServiceImpl extends LayoutSetLocalServiceBaseImpl {
 
 			layoutSet.setSettingsProperties(settingsProperties);
 
-			return layoutSetPersistence.update(layoutSet);
+			layoutSetPersistence.update(layoutSet);
+
+			return layoutSet;
 		}
 
 		layoutSetBranch.setModifiedDate(new Date());

@@ -68,8 +68,7 @@ public class CommerceDiscountRuleLocalServiceImpl
 
 		commerceDiscountRule.setSettingsProperties(settingsProperties);
 
-		commerceDiscountRule = commerceDiscountRulePersistence.update(
-			commerceDiscountRule);
+		commerceDiscountRulePersistence.update(commerceDiscountRule);
 
 		// Commerce discount
 
@@ -160,8 +159,7 @@ public class CommerceDiscountRuleLocalServiceImpl
 
 		commerceDiscountRule.setSettingsProperties(settingsProperties);
 
-		commerceDiscountRule = commerceDiscountRulePersistence.update(
-			commerceDiscountRule);
+		commerceDiscountRulePersistence.update(commerceDiscountRule);
 
 		// Commerce discount
 

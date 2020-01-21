@@ -87,8 +87,7 @@ public class CPSpecificationOptionLocalServiceImpl
 		cpSpecificationOption.setKey(key);
 		cpSpecificationOption.setExpandoBridgeAttributes(serviceContext);
 
-		cpSpecificationOption = cpSpecificationOptionPersistence.update(
-			cpSpecificationOption);
+		cpSpecificationOptionPersistence.update(cpSpecificationOption);
 
 		// Resources
 
@@ -195,7 +194,9 @@ public class CPSpecificationOptionLocalServiceImpl
 
 		cpSpecificationOption.setCPOptionCategoryId(cpOptionCategoryId);
 
-		return cpSpecificationOptionPersistence.update(cpSpecificationOption);
+		cpSpecificationOptionPersistence.update(cpSpecificationOption);
+
+		return cpSpecificationOption;
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
@@ -223,7 +224,9 @@ public class CPSpecificationOptionLocalServiceImpl
 		cpSpecificationOption.setKey(key);
 		cpSpecificationOption.setExpandoBridgeAttributes(serviceContext);
 
-		return cpSpecificationOptionPersistence.update(cpSpecificationOption);
+		cpSpecificationOptionPersistence.update(cpSpecificationOption);
+
+		return cpSpecificationOption;
 	}
 
 	protected SearchContext buildSearchContext(

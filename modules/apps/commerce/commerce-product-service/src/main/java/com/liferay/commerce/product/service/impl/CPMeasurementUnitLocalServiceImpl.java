@@ -70,7 +70,9 @@ public class CPMeasurementUnitLocalServiceImpl
 		cpMeasurementUnit.setPriority(priority);
 		cpMeasurementUnit.setType(type);
 
-		return cpMeasurementUnitPersistence.update(cpMeasurementUnit);
+		cpMeasurementUnitPersistence.update(cpMeasurementUnit);
+
+		return cpMeasurementUnit;
 	}
 
 	@Override
@@ -202,7 +204,9 @@ public class CPMeasurementUnitLocalServiceImpl
 
 		cpMeasurementUnit.setPrimary(primary);
 
-		return cpMeasurementUnitPersistence.update(cpMeasurementUnit);
+		cpMeasurementUnitPersistence.update(cpMeasurementUnit);
+
+		return cpMeasurementUnit;
 	}
 
 	@Override
@@ -230,7 +234,9 @@ public class CPMeasurementUnitLocalServiceImpl
 		cpMeasurementUnit.setPriority(priority);
 		cpMeasurementUnit.setType(type);
 
-		return cpMeasurementUnitPersistence.update(cpMeasurementUnit);
+		cpMeasurementUnitPersistence.update(cpMeasurementUnit);
+
+		return cpMeasurementUnit;
 	}
 
 	protected void validate(

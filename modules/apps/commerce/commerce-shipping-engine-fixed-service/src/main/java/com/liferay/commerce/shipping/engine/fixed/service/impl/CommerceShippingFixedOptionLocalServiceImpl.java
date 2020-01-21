@@ -60,8 +60,10 @@ public class CommerceShippingFixedOptionLocalServiceImpl
 		commerceShippingFixedOption.setAmount(amount);
 		commerceShippingFixedOption.setPriority(priority);
 
-		return commerceShippingFixedOptionPersistence.update(
+		commerceShippingFixedOptionPersistence.update(
 			commerceShippingFixedOption);
+
+		return commerceShippingFixedOption;
 	}
 
 	@Override
@@ -133,8 +135,10 @@ public class CommerceShippingFixedOptionLocalServiceImpl
 		commerceShippingFixedOption.setAmount(amount);
 		commerceShippingFixedOption.setPriority(priority);
 
-		return commerceShippingFixedOptionPersistence.update(
+		commerceShippingFixedOptionPersistence.update(
 			commerceShippingFixedOption);
+
+		return commerceShippingFixedOption;
 	}
 
 }

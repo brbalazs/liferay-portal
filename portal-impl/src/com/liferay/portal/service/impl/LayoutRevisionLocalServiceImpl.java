@@ -101,7 +101,7 @@ public class LayoutRevisionLocalServiceImpl
 		layoutRevision.setStatus(WorkflowConstants.STATUS_DRAFT);
 		layoutRevision.setStatusDate(serviceContext.getModifiedDate(now));
 
-		layoutRevision = layoutRevisionPersistence.update(layoutRevision);
+		layoutRevisionPersistence.update(layoutRevision);
 
 		_layoutRevisionId.set(layoutRevision.getLayoutRevisionId());
 
@@ -512,7 +512,7 @@ public class LayoutRevisionLocalServiceImpl
 			layoutRevision.setStatusDate(
 				serviceContext.getModifiedDate(new Date()));
 
-			layoutRevision = layoutRevisionPersistence.update(layoutRevision);
+			layoutRevisionPersistence.update(layoutRevision);
 
 			_layoutRevisionId.set(layoutRevision.getLayoutRevisionId());
 
@@ -545,7 +545,7 @@ public class LayoutRevisionLocalServiceImpl
 			layoutRevision.setColorSchemeId(colorSchemeId);
 			layoutRevision.setCss(css);
 
-			layoutRevision = layoutRevisionPersistence.update(layoutRevision);
+			layoutRevisionPersistence.update(layoutRevision);
 
 			_layoutRevisionId.set(layoutRevision.getLayoutRevisionId());
 		}
@@ -600,7 +600,7 @@ public class LayoutRevisionLocalServiceImpl
 			layoutRevision.setMajor(false);
 		}
 
-		layoutRevision = layoutRevisionPersistence.update(layoutRevision);
+		layoutRevisionPersistence.update(layoutRevision);
 
 		if (status == WorkflowConstants.STATUS_APPROVED) {
 			List<LayoutRevision> layoutRevisions =
@@ -614,8 +614,7 @@ public class LayoutRevisionLocalServiceImpl
 
 					curLayoutRevision.setHead(false);
 
-					curLayoutRevision = layoutRevisionPersistence.update(
-						curLayoutRevision);
+					layoutRevisionPersistence.update(curLayoutRevision);
 				}
 			}
 		}
@@ -729,7 +728,7 @@ public class LayoutRevisionLocalServiceImpl
 		layoutRevision.setParentLayoutRevisionId(parentLayoutRevisionId);
 		layoutRevision.setMajor(true);
 
-		layoutRevision = layoutRevisionPersistence.update(layoutRevision);
+		layoutRevisionPersistence.update(layoutRevision);
 
 		for (LayoutRevision parentLayoutRevision : parentLayoutRevisions) {
 			List<LayoutRevision> childrenLayoutRevisions =

@@ -148,7 +148,9 @@ public class CommerceAddressLocalServiceImpl
 		commerceAddress.setType(type);
 		commerceAddress.setExternalReferenceCode(externalReferenceCode);
 
-		return commerceAddressPersistence.update(commerceAddress);
+		commerceAddressPersistence.update(commerceAddress);
+
+		return commerceAddress;
 	}
 
 	@Override
@@ -510,7 +512,7 @@ public class CommerceAddressLocalServiceImpl
 		commerceAddress.setPhoneNumber(phoneNumber);
 		commerceAddress.setType(type);
 
-		commerceAddress = commerceAddressPersistence.update(commerceAddress);
+		commerceAddressPersistence.update(commerceAddress);
 
 		// Commerce orders
 

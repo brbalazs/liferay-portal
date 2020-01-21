@@ -85,7 +85,7 @@ public class CommerceChannelLocalServiceImpl
 		commerceChannel.setCommerceCurrencyCode(commerceCurrencyCode);
 		commerceChannel.setExternalReferenceCode(externalReferenceCode);
 
-		commerceChannel = commerceChannelPersistence.update(commerceChannel);
+		commerceChannelPersistence.update(commerceChannel);
 
 		// Group
 
@@ -260,7 +260,9 @@ public class CommerceChannelLocalServiceImpl
 		commerceChannel.setTypeSettingsProperties(typeSettingsProperties);
 		commerceChannel.setCommerceCurrencyCode(commerceCurrencyCode);
 
-		return commerceChannelPersistence.update(commerceChannel);
+		commerceChannelPersistence.update(commerceChannel);
+
+		return commerceChannel;
 	}
 
 	protected SearchContext buildSearchContext(

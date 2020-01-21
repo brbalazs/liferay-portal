@@ -103,8 +103,7 @@ public class SiteNavigationMenuLocalServiceImpl
 		siteNavigationMenu.setType(type);
 		siteNavigationMenu.setAuto(auto);
 
-		siteNavigationMenu = siteNavigationMenuPersistence.update(
-			siteNavigationMenu);
+		siteNavigationMenuPersistence.update(siteNavigationMenu);
 
 		// Resources
 

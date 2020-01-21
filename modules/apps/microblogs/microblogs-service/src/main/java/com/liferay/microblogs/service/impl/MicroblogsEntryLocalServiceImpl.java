@@ -96,7 +96,7 @@ public class MicroblogsEntryLocalServiceImpl
 		microblogsEntry.setParentMicroblogsEntryId(parentMicroblogsEntryId);
 		microblogsEntry.setSocialRelationType(socialRelationType);
 
-		microblogsEntry = microblogsEntryPersistence.update(microblogsEntry);
+		microblogsEntryPersistence.update(microblogsEntry);
 
 		// Resources
 
@@ -147,7 +147,7 @@ public class MicroblogsEntryLocalServiceImpl
 		microblogsEntry.setParentMicroblogsEntryId(parentMicroblogsEntryId);
 		microblogsEntry.setSocialRelationType(socialRelationType);
 
-		microblogsEntry = microblogsEntryPersistence.update(microblogsEntry);
+		microblogsEntryPersistence.update(microblogsEntry);
 
 		// Resources
 
@@ -551,7 +551,7 @@ public class MicroblogsEntryLocalServiceImpl
 		microblogsEntry.setContent(content);
 		microblogsEntry.setSocialRelationType(socialRelationType);
 
-		microblogsEntry = microblogsEntryPersistence.update(microblogsEntry);
+		microblogsEntryPersistence.update(microblogsEntry);
 
 		// Asset
 

@@ -86,7 +86,7 @@ public class CPOptionCategoryLocalServiceImpl
 		cpOptionCategory.setPriority(priority);
 		cpOptionCategory.setKey(key);
 
-		cpOptionCategory = cpOptionCategoryPersistence.update(cpOptionCategory);
+		cpOptionCategoryPersistence.update(cpOptionCategory);
 
 		// Resources
 
@@ -224,7 +224,9 @@ public class CPOptionCategoryLocalServiceImpl
 		cpOptionCategory.setPriority(priority);
 		cpOptionCategory.setKey(key);
 
-		return cpOptionCategoryPersistence.update(cpOptionCategory);
+		cpOptionCategoryPersistence.update(cpOptionCategory);
+
+		return cpOptionCategory;
 	}
 
 	protected SearchContext buildSearchContext(

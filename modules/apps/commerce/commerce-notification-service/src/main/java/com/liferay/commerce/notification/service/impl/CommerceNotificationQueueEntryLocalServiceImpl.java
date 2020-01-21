@@ -99,8 +99,10 @@ public class CommerceNotificationQueueEntryLocalServiceImpl
 		commerceNotificationQueueEntry.setBody(body);
 		commerceNotificationQueueEntry.setPriority(priority);
 
-		return commerceNotificationQueueEntryPersistence.update(
+		commerceNotificationQueueEntryPersistence.update(
 			commerceNotificationQueueEntry);
+
+		return commerceNotificationQueueEntry;
 	}
 
 	@Indexable(type = IndexableType.DELETE)
@@ -322,8 +324,10 @@ public class CommerceNotificationQueueEntryLocalServiceImpl
 			commerceNotificationQueueEntry.setSentDate(null);
 		}
 
-		return commerceNotificationQueueEntryPersistence.update(
+		commerceNotificationQueueEntryPersistence.update(
 			commerceNotificationQueueEntry);
+
+		return commerceNotificationQueueEntry;
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
@@ -335,8 +339,10 @@ public class CommerceNotificationQueueEntryLocalServiceImpl
 		commerceNotificationQueueEntry.setCommerceNotificationTemplateId(
 			commerceNotificationTemplateId);
 
-		return commerceNotificationQueueEntryPersistence.update(
+		commerceNotificationQueueEntryPersistence.update(
 			commerceNotificationQueueEntry);
+
+		return commerceNotificationQueueEntry;
 	}
 
 	@ServiceReference(type = MailService.class)

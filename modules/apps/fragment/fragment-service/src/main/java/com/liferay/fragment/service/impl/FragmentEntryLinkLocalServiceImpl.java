@@ -117,7 +117,9 @@ public class FragmentEntryLinkLocalServiceImpl
 
 		_updateClassModel(classNameId, classPK);
 
-		return fragmentEntryLinkPersistence.update(fragmentEntryLink);
+		fragmentEntryLinkPersistence.update(fragmentEntryLink);
+
+		return fragmentEntryLink;
 	}
 
 	@Override
@@ -250,7 +252,9 @@ public class FragmentEntryLinkLocalServiceImpl
 		_updateClassModel(
 			fragmentEntryLink.getClassNameId(), fragmentEntryLink.getClassPK());
 
-		return fragmentEntryLinkPersistence.update(fragmentEntryLink);
+		fragmentEntryLinkPersistence.update(fragmentEntryLink);
+
+		return fragmentEntryLink;
 	}
 
 	@Override
@@ -301,7 +305,9 @@ public class FragmentEntryLinkLocalServiceImpl
 
 		fragmentEntryLink.setPosition(position);
 
-		return fragmentEntryLinkPersistence.update(fragmentEntryLink);
+		fragmentEntryLinkPersistence.update(fragmentEntryLink);
+
+		return fragmentEntryLink;
 	}
 
 	@Override
@@ -317,7 +323,9 @@ public class FragmentEntryLinkLocalServiceImpl
 		_updateClassModel(
 			fragmentEntryLink.getClassNameId(), fragmentEntryLink.getClassPK());
 
-		return fragmentEntryLinkPersistence.update(fragmentEntryLink);
+		fragmentEntryLinkPersistence.update(fragmentEntryLink);
+
+		return fragmentEntryLink;
 	}
 
 	@Override

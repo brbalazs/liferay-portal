@@ -72,7 +72,9 @@ public class ModuleLocalServiceImpl extends ModuleLocalServiceBaseImpl {
 		module.setBundleVersion(bundleVersion);
 		module.setContextName(contextName);
 
-		return modulePersistence.update(module);
+		modulePersistence.update(module);
+
+		return module;
 	}
 
 	@Override

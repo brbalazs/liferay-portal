@@ -218,7 +218,7 @@ public class CommerceOrderLocalServiceImpl
 		commerceOrder.setStatusDate(serviceContext.getModifiedDate(null));
 		commerceOrder.setExpandoBridgeAttributes(serviceContext);
 
-		commerceOrder = commerceOrderPersistence.update(commerceOrder);
+		commerceOrderPersistence.update(commerceOrder);
 
 		// Workflow
 
@@ -965,7 +965,7 @@ public class CommerceOrderLocalServiceImpl
 			CommerceOrderConstants.ORDER_STATUS_TO_TRANSMIT);
 		commerceOrder.setStatus(WorkflowConstants.STATUS_PENDING);
 
-		commerceOrder = commerceOrderPersistence.update(commerceOrder);
+		commerceOrderPersistence.update(commerceOrder);
 
 		// Messaging
 
@@ -1286,7 +1286,7 @@ public class CommerceOrderLocalServiceImpl
 
 		commerceOrder.setOrderStatus(orderStatus);
 
-		commerceOrder = commerceOrderPersistence.update(commerceOrder);
+		commerceOrderPersistence.update(commerceOrder);
 
 		// Messaging
 
@@ -1310,7 +1310,7 @@ public class CommerceOrderLocalServiceImpl
 
 		commerceOrder.setPaymentStatus(paymentStatus);
 
-		commerceOrder = commerceOrderPersistence.update(commerceOrder);
+		commerceOrderPersistence.update(commerceOrder);
 
 		if ((commerceOrder.getOrderStatus() ==
 				CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS) &&
@@ -1344,7 +1344,7 @@ public class CommerceOrderLocalServiceImpl
 		commerceOrder.setTransactionId(transactionId);
 		commerceOrder.setPaymentStatus(paymentStatus);
 
-		commerceOrder = commerceOrderPersistence.update(commerceOrder);
+		commerceOrderPersistence.update(commerceOrder);
 
 		if ((commerceOrder.getOrderStatus() ==
 				CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS) &&
@@ -1424,7 +1424,7 @@ public class CommerceOrderLocalServiceImpl
 		commerceOrder.setShippingOptionName(shippingOptionName);
 		commerceOrder.setShippingAmount(shippingAmount);
 
-		commerceOrder = commerceOrderPersistence.update(commerceOrder);
+		commerceOrderPersistence.update(commerceOrder);
 
 		return commerceOrderLocalService.recalculatePrice(
 			commerceOrder.getCommerceOrderId(), commerceContext);

@@ -94,8 +94,7 @@ public class KaleoNotificationLocalServiceImpl
 			kaleoNotification.setNotificationTypes(sb.toString());
 		}
 
-		kaleoNotification = kaleoNotificationPersistence.update(
-			kaleoNotification);
+		kaleoNotificationPersistence.update(kaleoNotification);
 
 		// Kaleo notification recipients
 

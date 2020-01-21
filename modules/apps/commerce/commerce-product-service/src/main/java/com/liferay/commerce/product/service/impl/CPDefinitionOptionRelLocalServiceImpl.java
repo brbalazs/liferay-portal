@@ -135,8 +135,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		cpDefinitionOptionRel.setKey(cpOption.getKey());
 		cpDefinitionOptionRel.setExpandoBridgeAttributes(serviceContext);
 
-		cpDefinitionOptionRel = cpDefinitionOptionRelPersistence.update(
-			cpDefinitionOptionRel);
+		cpDefinitionOptionRelPersistence.update(cpDefinitionOptionRel);
 
 		// Commerce product definition option value rels
 
@@ -377,8 +376,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		cpDefinitionOptionRel.setSkuContributor(skuContributor);
 		cpDefinitionOptionRel.setExpandoBridgeAttributes(serviceContext);
 
-		cpDefinitionOptionRel = cpDefinitionOptionRelPersistence.update(
-			cpDefinitionOptionRel);
+		cpDefinitionOptionRelPersistence.update(cpDefinitionOptionRel);
 
 		// Commerce product instances
 

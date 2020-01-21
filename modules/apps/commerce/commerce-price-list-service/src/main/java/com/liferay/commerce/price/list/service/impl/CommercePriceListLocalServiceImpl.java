@@ -172,8 +172,7 @@ public class CommercePriceListLocalServiceImpl
 		commercePriceList.setStatusDate(serviceContext.getModifiedDate(now));
 		commercePriceList.setExpandoBridgeAttributes(serviceContext);
 
-		commercePriceList = commercePriceListPersistence.update(
-			commercePriceList);
+		commercePriceListPersistence.update(commercePriceList);
 
 		// Workflow
 
@@ -513,8 +512,7 @@ public class CommercePriceListLocalServiceImpl
 		commercePriceList.setStatusDate(serviceContext.getModifiedDate(now));
 		commercePriceList.setExpandoBridgeAttributes(serviceContext);
 
-		commercePriceList = commercePriceListPersistence.update(
-			commercePriceList);
+		commercePriceListPersistence.update(commercePriceList);
 
 		// Workflow
 
@@ -556,8 +554,7 @@ public class CommercePriceListLocalServiceImpl
 		for (CommercePriceList commercePriceList : commercePriceLists) {
 			commercePriceList.setCommerceCurrencyId(0);
 
-			commercePriceList = commercePriceListPersistence.update(
-				commercePriceList);
+			commercePriceListPersistence.update(commercePriceList);
 
 			cleanPriceListCache(commercePriceList.getCompanyId());
 
@@ -577,8 +574,7 @@ public class CommercePriceListLocalServiceImpl
 
 		commercePriceList.setExternalReferenceCode(externalReferenceCode);
 
-		commercePriceList = commercePriceListPersistence.update(
-			commercePriceList);
+		commercePriceListPersistence.update(commercePriceList);
 
 		cleanPriceListCache(commercePriceList.getCompanyId());
 
@@ -625,8 +621,7 @@ public class CommercePriceListLocalServiceImpl
 		commercePriceList.setStatusByUserName(user.getFullName());
 		commercePriceList.setStatusDate(modifiedDate);
 
-		commercePriceList = commercePriceListPersistence.update(
-			commercePriceList);
+		commercePriceListPersistence.update(commercePriceList);
 
 		cleanPriceListCache(commercePriceList.getCompanyId());
 

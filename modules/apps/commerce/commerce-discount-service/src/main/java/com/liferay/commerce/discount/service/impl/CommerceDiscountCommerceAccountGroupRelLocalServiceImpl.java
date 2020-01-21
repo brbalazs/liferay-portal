@@ -55,8 +55,10 @@ public class CommerceDiscountCommerceAccountGroupRelLocalServiceImpl
 		commerceDiscountCommerceAccountGroupRel.setCommerceAccountGroupId(
 			commerceAccountGroupId);
 
-		return commerceDiscountCommerceAccountGroupRelPersistence.update(
+		commerceDiscountCommerceAccountGroupRelPersistence.update(
 			commerceDiscountCommerceAccountGroupRel);
+
+		return commerceDiscountCommerceAccountGroupRel;
 	}
 
 	@Override

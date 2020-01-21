@@ -60,8 +60,10 @@ public class CommerceNotificationTemplateCommerceAccountGroupRelLocalServiceImpl
 		commerceNotificationTemplateCommerceAccountGroupRel.
 			setCommerceAccountGroupId(commerceAccountGroupId);
 
-		return commerceNotificationTemplateCommerceAccountGroupRelPersistence.
-			update(commerceNotificationTemplateCommerceAccountGroupRel);
+		commerceNotificationTemplateCommerceAccountGroupRelPersistence.update(
+			commerceNotificationTemplateCommerceAccountGroupRel);
+
+		return commerceNotificationTemplateCommerceAccountGroupRel;
 	}
 
 	@Override

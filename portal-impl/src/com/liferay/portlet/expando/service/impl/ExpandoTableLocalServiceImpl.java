@@ -68,7 +68,9 @@ public class ExpandoTableLocalServiceImpl
 		table.setClassNameId(classNameId);
 		table.setName(name);
 
-		return expandoTablePersistence.update(table);
+		expandoTablePersistence.update(table);
+
+		return table;
 	}
 
 	@Override

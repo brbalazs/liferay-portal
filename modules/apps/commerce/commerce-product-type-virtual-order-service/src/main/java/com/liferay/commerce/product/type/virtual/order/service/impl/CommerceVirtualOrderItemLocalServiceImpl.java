@@ -114,8 +114,9 @@ public class CommerceVirtualOrderItemLocalServiceImpl
 				commerceVirtualOrderItem);
 		}
 
-		return commerceVirtualOrderItemPersistence.update(
-			commerceVirtualOrderItem);
+		commerceVirtualOrderItemPersistence.update(commerceVirtualOrderItem);
+
+		return commerceVirtualOrderItem;
 	}
 
 	@Override
@@ -271,8 +272,9 @@ public class CommerceVirtualOrderItemLocalServiceImpl
 		commerceVirtualOrderItem.setUsages(
 			commerceVirtualOrderItem.getUsages() + 1);
 
-		return commerceVirtualOrderItemPersistence.update(
-			commerceVirtualOrderItem);
+		commerceVirtualOrderItemPersistence.update(commerceVirtualOrderItem);
+
+		return commerceVirtualOrderItem;
 	}
 
 	@Override
@@ -338,8 +340,9 @@ public class CommerceVirtualOrderItemLocalServiceImpl
 				commerceVirtualOrderItem);
 		}
 
-		return commerceVirtualOrderItemPersistence.update(
-			commerceVirtualOrderItem);
+		commerceVirtualOrderItemPersistence.update(commerceVirtualOrderItem);
+
+		return commerceVirtualOrderItem;
 	}
 
 	@Override
@@ -353,8 +356,9 @@ public class CommerceVirtualOrderItemLocalServiceImpl
 
 		commerceVirtualOrderItem = setDurationDates(commerceVirtualOrderItem);
 
-		return commerceVirtualOrderItemPersistence.update(
-			commerceVirtualOrderItem);
+		commerceVirtualOrderItemPersistence.update(commerceVirtualOrderItem);
+
+		return commerceVirtualOrderItem;
 	}
 
 	protected Date calculateCommerceVirtualOrderItemEndDate(

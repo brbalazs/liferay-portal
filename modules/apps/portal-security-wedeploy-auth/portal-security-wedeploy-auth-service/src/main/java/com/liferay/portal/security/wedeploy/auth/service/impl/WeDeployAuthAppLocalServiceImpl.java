@@ -65,7 +65,7 @@ public class WeDeployAuthAppLocalServiceImpl
 
 		weDeployAuthApp.setClientSecret(clientSecret);
 
-		weDeployAuthApp = weDeployAuthAppPersistence.update(weDeployAuthApp);
+		weDeployAuthAppPersistence.update(weDeployAuthApp);
 
 		// Resources
 

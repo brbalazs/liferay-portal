@@ -167,7 +167,7 @@ public class BlogsStatsUserLocalServiceImpl
 			statsUser.setCompanyId(group.getCompanyId());
 			statsUser.setUserId(userId);
 
-			statsUser = blogsStatsUserPersistence.update(statsUser);
+			blogsStatsUserPersistence.update(statsUser);
 		}
 
 		return statsUser;

@@ -54,7 +54,9 @@ public class CommerceTaxFixedRateLocalServiceImpl
 		commerceTaxFixedRate.setCPTaxCategoryId(cpTaxCategoryId);
 		commerceTaxFixedRate.setRate(rate);
 
-		return commerceTaxFixedRatePersistence.update(commerceTaxFixedRate);
+		commerceTaxFixedRatePersistence.update(commerceTaxFixedRate);
+
+		return commerceTaxFixedRate;
 	}
 
 	@Override
@@ -117,7 +119,9 @@ public class CommerceTaxFixedRateLocalServiceImpl
 
 		commerceTaxFixedRate.setRate(rate);
 
-		return commerceTaxFixedRatePersistence.update(commerceTaxFixedRate);
+		commerceTaxFixedRatePersistence.update(commerceTaxFixedRate);
+
+		return commerceTaxFixedRate;
 	}
 
 	protected void validate(long cpTaxCategoryId, long commerceTaxMethodId)

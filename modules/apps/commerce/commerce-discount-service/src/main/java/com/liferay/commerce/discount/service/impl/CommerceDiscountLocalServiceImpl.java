@@ -146,7 +146,7 @@ public class CommerceDiscountLocalServiceImpl
 		commerceDiscount.setStatusDate(serviceContext.getModifiedDate(now));
 		commerceDiscount.setExpandoBridgeAttributes(serviceContext);
 
-		commerceDiscount = commerceDiscountPersistence.update(commerceDiscount);
+		commerceDiscountPersistence.update(commerceDiscount);
 
 		// Resources
 
@@ -271,7 +271,9 @@ public class CommerceDiscountLocalServiceImpl
 
 		commerceDiscount.setNumberOfUse(commerceDiscount.getNumberOfUse() + 1);
 
-		return commerceDiscountPersistence.update(commerceDiscount);
+		commerceDiscountPersistence.update(commerceDiscount);
+
+		return commerceDiscount;
 	}
 
 	@Override
@@ -377,7 +379,7 @@ public class CommerceDiscountLocalServiceImpl
 		commerceDiscount.setStatusDate(serviceContext.getModifiedDate(now));
 		commerceDiscount.setExpandoBridgeAttributes(serviceContext);
 
-		commerceDiscount = commerceDiscountPersistence.update(commerceDiscount);
+		commerceDiscountPersistence.update(commerceDiscount);
 
 		return startWorkflowInstance(
 			user.getUserId(), commerceDiscount, serviceContext);
@@ -421,7 +423,9 @@ public class CommerceDiscountLocalServiceImpl
 		commerceDiscount.setStatusByUserName(user.getFullName());
 		commerceDiscount.setStatusDate(serviceContext.getModifiedDate(now));
 
-		return commerceDiscountPersistence.update(commerceDiscount);
+		commerceDiscountPersistence.update(commerceDiscount);
+
+		return commerceDiscount;
 	}
 
 	@Indexable(type = IndexableType.REINDEX)

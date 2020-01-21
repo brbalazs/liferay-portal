@@ -86,7 +86,7 @@ public class OAuthApplicationLocalServiceImpl
 		oAuthApplication.setCallbackURI(callbackURI);
 		oAuthApplication.setWebsiteURL(websiteURL);
 
-		oAuthApplication = oAuthApplicationPersistence.update(oAuthApplication);
+		oAuthApplicationPersistence.update(oAuthApplication);
 
 		// Resources
 
@@ -245,8 +245,7 @@ public class OAuthApplicationLocalServiceImpl
 
 			oAuthApplication.setLogoId(logoId);
 
-			oAuthApplication = oAuthApplicationPersistence.update(
-				oAuthApplication);
+			oAuthApplicationPersistence.update(oAuthApplication);
 		}
 
 		imageLocalService.updateImage(logoId, inputStream);
@@ -273,7 +272,9 @@ public class OAuthApplicationLocalServiceImpl
 		oAuthApplication.setCallbackURI(callbackURI);
 		oAuthApplication.setWebsiteURL(websiteURL);
 
-		return oAuthApplicationPersistence.update(oAuthApplication);
+		oAuthApplicationPersistence.update(oAuthApplication);
+
+		return oAuthApplication;
 	}
 
 	protected void validate(String name, String callbackURI, String websiteURL)

@@ -46,7 +46,7 @@ public class RatingsStatsLocalServiceImpl
 		stats.setAverageScore(0.0);
 
 		try {
-			stats = ratingsStatsPersistence.update(stats);
+			ratingsStatsPersistence.update(stats);
 		}
 		catch (SystemException se) {
 			if (_log.isWarnEnabled()) {

@@ -170,7 +170,7 @@ public class DDMStructureLocalServiceImpl
 		structure.setStorageType(storageType);
 		structure.setType(type);
 
-		structure = ddmStructurePersistence.update(structure);
+		ddmStructurePersistence.update(structure);
 
 		// Resources
 
@@ -1598,7 +1598,9 @@ public class DDMStructureLocalServiceImpl
 		structureVersion.setStatusByUserName(user.getFullName());
 		structureVersion.setStatusDate(structure.getModifiedDate());
 
-		return ddmStructureVersionPersistence.update(structureVersion);
+		ddmStructureVersionPersistence.update(structureVersion);
+
+		return structureVersion;
 	}
 
 	protected Set<Long> deleteStructures(List<DDMStructure> structures)
@@ -1690,7 +1692,7 @@ public class DDMStructureLocalServiceImpl
 			return structure;
 		}
 
-		structure = ddmStructurePersistence.update(structure);
+		ddmStructurePersistence.update(structure);
 
 		// Structure templates
 

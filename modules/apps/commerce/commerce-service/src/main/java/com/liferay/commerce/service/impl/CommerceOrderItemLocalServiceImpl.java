@@ -156,8 +156,7 @@ public class CommerceOrderItemLocalServiceImpl
 
 		commerceOrderItem.setSubscription(subscription);
 
-		commerceOrderItem = commerceOrderItemPersistence.update(
-			commerceOrderItem);
+		commerceOrderItemPersistence.update(commerceOrderItem);
 
 		commerceOrderLocalService.recalculatePrice(
 			commerceOrderItem.getCommerceOrderId(), commerceContext);
@@ -480,8 +479,7 @@ public class CommerceOrderItemLocalServiceImpl
 		_setCommerceOrderItemDiscountValue(
 			commerceOrderItem, commerceProductPrice.getDiscountValue());
 
-		commerceOrderItem = commerceOrderItemPersistence.update(
-			commerceOrderItem);
+		commerceOrderItemPersistence.update(commerceOrderItem);
 
 		commerceOrderLocalService.recalculatePrice(
 			commerceOrderItem.getCommerceOrderId(), commerceContext);

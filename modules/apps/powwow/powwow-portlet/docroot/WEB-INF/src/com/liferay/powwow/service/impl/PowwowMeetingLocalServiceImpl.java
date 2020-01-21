@@ -96,7 +96,7 @@ public class PowwowMeetingLocalServiceImpl
 		powwowMeeting.setCalendarBookingId(calendarBookingId);
 		powwowMeeting.setStatus(status);
 
-		powwowMeeting = powwowMeetingPersistence.update(powwowMeeting);
+		powwowMeetingPersistence.update(powwowMeeting);
 
 		// Resources
 
@@ -312,7 +312,9 @@ public class PowwowMeetingLocalServiceImpl
 
 		powwowMeeting.setStatus(status);
 
-		return powwowMeetingPersistence.update(powwowMeeting);
+		powwowMeetingPersistence.update(powwowMeeting);
+
+		return powwowMeeting;
 	}
 
 	protected DynamicQuery buildDynamicQuery(

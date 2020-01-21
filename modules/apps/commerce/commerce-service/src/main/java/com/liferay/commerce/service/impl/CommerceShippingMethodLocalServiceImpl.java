@@ -90,8 +90,7 @@ public class CommerceShippingMethodLocalServiceImpl
 		commerceShippingMethod.setPriority(priority);
 		commerceShippingMethod.setActive(active);
 
-		commerceShippingMethod = commerceShippingMethodPersistence.update(
-			commerceShippingMethod);
+		commerceShippingMethodPersistence.update(commerceShippingMethod);
 
 		// Image
 
@@ -253,7 +252,9 @@ public class CommerceShippingMethodLocalServiceImpl
 
 		commerceShippingMethod.setActive(active);
 
-		return commerceShippingMethodPersistence.update(commerceShippingMethod);
+		commerceShippingMethodPersistence.update(commerceShippingMethod);
+
+		return commerceShippingMethod;
 	}
 
 	@Override
@@ -283,8 +284,7 @@ public class CommerceShippingMethodLocalServiceImpl
 		commerceShippingMethod.setPriority(priority);
 		commerceShippingMethod.setActive(active);
 
-		commerceShippingMethod = commerceShippingMethodPersistence.update(
-			commerceShippingMethod);
+		commerceShippingMethodPersistence.update(commerceShippingMethod);
 
 		// Image
 

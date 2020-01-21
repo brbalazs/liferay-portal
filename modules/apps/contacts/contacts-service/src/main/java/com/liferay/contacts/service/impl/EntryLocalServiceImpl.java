@@ -58,7 +58,9 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 		entry.setEmailAddress(emailAddress);
 		entry.setComments(comments);
 
-		return entryPersistence.update(entry);
+		entryPersistence.update(entry);
+
+		return entry;
 	}
 
 	@Override
@@ -114,7 +116,9 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 		entry.setEmailAddress(emailAddress);
 		entry.setComments(comments);
 
-		return entryPersistence.update(entry);
+		entryPersistence.update(entry);
+
+		return entry;
 	}
 
 	protected void validate(

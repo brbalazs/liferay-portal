@@ -97,7 +97,9 @@ public class CommerceWishListItemLocalServiceImpl
 		commerceWishListItem.setCProductId(cProductId);
 		commerceWishListItem.setJson(json);
 
-		return commerceWishListItemPersistence.update(commerceWishListItem);
+		commerceWishListItemPersistence.update(commerceWishListItem);
+
+		return commerceWishListItem;
 	}
 
 	@Override

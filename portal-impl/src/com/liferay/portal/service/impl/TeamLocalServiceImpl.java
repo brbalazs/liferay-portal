@@ -80,7 +80,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 		team.setName(name);
 		team.setDescription(description);
 
-		team = teamPersistence.update(team);
+		teamPersistence.update(team);
 
 		// Resources
 
@@ -226,7 +226,9 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 		team.setName(name);
 		team.setDescription(description);
 
-		return teamPersistence.update(team);
+		teamPersistence.update(team);
+
+		return team;
 	}
 
 	protected void validate(long teamId, long groupId, String name)

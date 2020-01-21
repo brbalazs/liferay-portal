@@ -64,7 +64,9 @@ public class SamlIdpSsoSessionLocalServiceImpl
 		samlIdpSsoSession.setModifiedDate(now);
 		samlIdpSsoSession.setSamlIdpSsoSessionKey(samlIdpSsoSessionKey);
 
-		return samlIdpSsoSessionPersistence.update(samlIdpSsoSession);
+		samlIdpSsoSessionPersistence.update(samlIdpSsoSession);
+
+		return samlIdpSsoSession;
 	}
 
 	@Override
@@ -106,7 +108,9 @@ public class SamlIdpSsoSessionLocalServiceImpl
 
 		samlIdpSsoSession.setModifiedDate(new Date());
 
-		return samlIdpSsoSessionPersistence.update(samlIdpSsoSession);
+		samlIdpSsoSessionPersistence.update(samlIdpSsoSession);
+
+		return samlIdpSsoSession;
 	}
 
 	@ServiceReference(type = ConfigurationAdmin.class)

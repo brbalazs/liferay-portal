@@ -115,7 +115,9 @@ public class SamlSpIdpConnectionLocalServiceImpl
 		samlSpIdpConnection.setSignAuthnRequest(signAuthnRequest);
 		samlSpIdpConnection.setUserAttributeMappings(userAttributeMappings);
 
-		return samlSpIdpConnectionPersistence.update(samlSpIdpConnection);
+		samlSpIdpConnectionPersistence.update(samlSpIdpConnection);
+
+		return samlSpIdpConnection;
 	}
 
 	@Override
@@ -282,7 +284,9 @@ public class SamlSpIdpConnectionLocalServiceImpl
 		samlSpIdpConnection.setSignAuthnRequest(signAuthnRequest);
 		samlSpIdpConnection.setUserAttributeMappings(userAttributeMappings);
 
-		return samlSpIdpConnectionPersistence.update(samlSpIdpConnection);
+		samlSpIdpConnectionPersistence.update(samlSpIdpConnection);
+
+		return samlSpIdpConnection;
 	}
 
 	protected String getMetadataXml(

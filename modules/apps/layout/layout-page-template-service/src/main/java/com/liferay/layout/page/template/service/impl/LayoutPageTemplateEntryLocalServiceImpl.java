@@ -134,8 +134,7 @@ public class LayoutPageTemplateEntryLocalServiceImpl
 		layoutPageTemplateEntry.setStatusByUserName(user.getScreenName());
 		layoutPageTemplateEntry.setStatusDate(new Date());
 
-		layoutPageTemplateEntry = layoutPageTemplateEntryPersistence.update(
-			layoutPageTemplateEntry);
+		layoutPageTemplateEntryPersistence.update(layoutPageTemplateEntry);
 
 		// Resources
 
@@ -533,8 +532,7 @@ public class LayoutPageTemplateEntryLocalServiceImpl
 		layoutPageTemplateEntry.setClassNameId(classNameId);
 		layoutPageTemplateEntry.setClassTypeId(classTypeId);
 
-		layoutPageTemplateEntry = layoutPageTemplateEntryPersistence.update(
-			layoutPageTemplateEntry);
+		layoutPageTemplateEntryPersistence.update(layoutPageTemplateEntry);
 
 		// Dynamic data mapping structure link
 
@@ -614,8 +612,7 @@ public class LayoutPageTemplateEntryLocalServiceImpl
 		layoutPageTemplateEntry.setModifiedDate(new Date());
 		layoutPageTemplateEntry.setName(name);
 
-		layoutPageTemplateEntry = layoutPageTemplateEntryPersistence.update(
-			layoutPageTemplateEntry);
+		layoutPageTemplateEntryPersistence.update(layoutPageTemplateEntry);
 
 		// Fragment entry instance links
 

@@ -988,7 +988,7 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 
 		entry.setVisible(visible);
 
-		entry = assetEntryPersistence.update(entry);
+		assetEntryPersistence.update(entry);
 
 		List<AssetTag> tags = assetEntryPersistence.getAssetTags(
 			entry.getEntryId());

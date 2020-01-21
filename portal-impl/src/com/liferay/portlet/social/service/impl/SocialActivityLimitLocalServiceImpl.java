@@ -58,7 +58,9 @@ public class SocialActivityLimitLocalServiceImpl
 		activityLimit.setActivityCounterName(activityCounterName);
 		activityLimit.setCount(limitPeriod, 0);
 
-		return socialActivityLimitPersistence.update(activityLimit);
+		socialActivityLimitPersistence.update(activityLimit);
+
+		return activityLimit;
 	}
 
 	@Override

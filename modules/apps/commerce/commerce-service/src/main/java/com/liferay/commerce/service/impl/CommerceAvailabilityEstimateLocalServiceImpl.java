@@ -53,8 +53,10 @@ public class CommerceAvailabilityEstimateLocalServiceImpl
 		commerceAvailabilityEstimate.setTitleMap(titleMap);
 		commerceAvailabilityEstimate.setPriority(priority);
 
-		return commerceAvailabilityEstimatePersistence.update(
+		commerceAvailabilityEstimatePersistence.update(
 			commerceAvailabilityEstimate);
+
+		return commerceAvailabilityEstimate;
 	}
 
 	@Override
@@ -133,8 +135,10 @@ public class CommerceAvailabilityEstimateLocalServiceImpl
 		commerceAvailabilityEstimate.setTitleMap(titleMap);
 		commerceAvailabilityEstimate.setPriority(priority);
 
-		return commerceAvailabilityEstimatePersistence.update(
+		commerceAvailabilityEstimatePersistence.update(
 			commerceAvailabilityEstimate);
+
+		return commerceAvailabilityEstimate;
 	}
 
 }

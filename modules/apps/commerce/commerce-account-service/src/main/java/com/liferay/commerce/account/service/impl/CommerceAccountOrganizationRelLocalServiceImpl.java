@@ -52,8 +52,10 @@ public class CommerceAccountOrganizationRelLocalServiceImpl
 		commerceAccountOrganizationRel.setUserId(user.getUserId());
 		commerceAccountOrganizationRel.setUserName(user.getFullName());
 
-		return commerceAccountOrganizationRelPersistence.update(
+		commerceAccountOrganizationRelPersistence.update(
 			commerceAccountOrganizationRel);
+
+		return commerceAccountOrganizationRel;
 	}
 
 	@Override

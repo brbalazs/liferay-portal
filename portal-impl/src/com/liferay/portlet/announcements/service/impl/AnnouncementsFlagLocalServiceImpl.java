@@ -39,7 +39,9 @@ public class AnnouncementsFlagLocalServiceImpl
 		flag.setEntryId(entryId);
 		flag.setValue(value);
 
-		return announcementsFlagPersistence.update(flag);
+		announcementsFlagPersistence.update(flag);
+
+		return flag;
 	}
 
 	@Override

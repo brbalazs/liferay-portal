@@ -48,7 +48,9 @@ public class SamlSpAuthRequestLocalServiceImpl
 		samlSpAuthRequest.setSamlIdpEntityId(samlIdpEntityId);
 		samlSpAuthRequest.setSamlSpAuthRequestKey(samlSpAuthRequestKey);
 
-		return samlSpAuthRequestPersistence.update(samlSpAuthRequest);
+		samlSpAuthRequestPersistence.update(samlSpAuthRequest);
+
+		return samlSpAuthRequest;
 	}
 
 	@Override

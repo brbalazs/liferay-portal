@@ -378,7 +378,7 @@ public class AppLocalServiceImpl extends AppLocalServiceBaseImpl {
 		app.setVersion(version);
 		app.setRequired(required);
 
-		app = appPersistence.update(app);
+		appPersistence.update(app);
 
 		// File
 

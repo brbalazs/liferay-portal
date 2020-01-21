@@ -52,7 +52,7 @@ public class SocialActivitySetLocalServiceImpl
 		activitySet.setType(activity.getType());
 		activitySet.setActivityCount(1);
 
-		activitySet = socialActivitySetPersistence.update(activitySet);
+		socialActivitySetPersistence.update(activitySet);
 
 		// Activity
 

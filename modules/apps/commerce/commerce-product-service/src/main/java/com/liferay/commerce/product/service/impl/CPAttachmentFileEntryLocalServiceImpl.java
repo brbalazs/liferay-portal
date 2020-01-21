@@ -188,8 +188,7 @@ public class CPAttachmentFileEntryLocalServiceImpl
 		cpAttachmentFileEntry.setType(type);
 		cpAttachmentFileEntry.setExpandoBridgeAttributes(serviceContext);
 
-		cpAttachmentFileEntry = cpAttachmentFileEntryPersistence.update(
-			cpAttachmentFileEntry);
+		cpAttachmentFileEntryPersistence.update(cpAttachmentFileEntry);
 
 		reindex(classNameId, classPK);
 
@@ -504,8 +503,7 @@ public class CPAttachmentFileEntryLocalServiceImpl
 		cpAttachmentFileEntry.setType(type);
 		cpAttachmentFileEntry.setExpandoBridgeAttributes(serviceContext);
 
-		cpAttachmentFileEntry = cpAttachmentFileEntryPersistence.update(
-			cpAttachmentFileEntry);
+		cpAttachmentFileEntryPersistence.update(cpAttachmentFileEntry);
 
 		// Workflow
 
@@ -554,8 +552,7 @@ public class CPAttachmentFileEntryLocalServiceImpl
 		cpAttachmentFileEntry.setStatusByUserName(user.getFullName());
 		cpAttachmentFileEntry.setStatusDate(modifiedDate);
 
-		cpAttachmentFileEntry = cpAttachmentFileEntryPersistence.update(
-			cpAttachmentFileEntry);
+		cpAttachmentFileEntryPersistence.update(cpAttachmentFileEntry);
 
 		reindex(
 			cpAttachmentFileEntry.getClassNameId(),

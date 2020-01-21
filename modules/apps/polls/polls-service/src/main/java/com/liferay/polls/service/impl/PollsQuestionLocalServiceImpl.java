@@ -103,7 +103,7 @@ public class PollsQuestionLocalServiceImpl
 		question.setDescriptionMap(descriptionMap);
 		question.setExpirationDate(expirationDate);
 
-		question = pollsQuestionPersistence.update(question);
+		pollsQuestionPersistence.update(question);
 
 		// Resources
 
@@ -357,7 +357,7 @@ public class PollsQuestionLocalServiceImpl
 		question.setDescriptionMap(descriptionMap);
 		question.setExpirationDate(expirationDate);
 
-		question = pollsQuestionPersistence.update(question);
+		pollsQuestionPersistence.update(question);
 
 		// Choices
 

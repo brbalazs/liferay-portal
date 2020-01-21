@@ -57,7 +57,7 @@ public class OAuthUserLocalServiceImpl extends OAuthUserLocalServiceBaseImpl {
 		oAuthUser.setAccessToken(accessToken);
 		oAuthUser.setAccessSecret(accessSecret);
 
-		oAuthUser = oAuthUserPersistence.update(oAuthUser);
+		oAuthUserPersistence.update(oAuthUser);
 
 		// Resources
 
@@ -154,7 +154,9 @@ public class OAuthUserLocalServiceImpl extends OAuthUserLocalServiceBaseImpl {
 		oAuthUser.setAccessToken(accessToken);
 		oAuthUser.setAccessSecret(accessSecret);
 
-		return oAuthUserPersistence.update(oAuthUser);
+		oAuthUserPersistence.update(oAuthUser);
+
+		return oAuthUser;
 	}
 
 	protected void validate(long oAuthApplicationId) throws PortalException {

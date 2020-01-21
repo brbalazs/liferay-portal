@@ -75,7 +75,9 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 		address.setMailing(mailing);
 		address.setPrimary(primary);
 
-		return addressPersistence.update(address);
+		addressPersistence.update(address);
+
+		return address;
 	}
 
 	@Override
@@ -148,7 +150,9 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 		address.setMailing(mailing);
 		address.setPrimary(primary);
 
-		return addressPersistence.update(address);
+		addressPersistence.update(address);
+
+		return address;
 	}
 
 	protected void validate(
@@ -166,7 +170,7 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 				if ((addressId <= 0) || (address.getAddressId() != addressId)) {
 					address.setMailing(false);
 
-					address = addressPersistence.update(address);
+					addressPersistence.update(address);
 				}
 			}
 		}

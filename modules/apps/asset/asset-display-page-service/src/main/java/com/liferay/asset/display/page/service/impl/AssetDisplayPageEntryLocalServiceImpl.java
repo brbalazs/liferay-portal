@@ -61,7 +61,9 @@ public class AssetDisplayPageEntryLocalServiceImpl
 			layoutPageTemplateEntryId);
 		assetDisplayPageEntry.setType(type);
 
-		return assetDisplayPageEntryPersistence.update(assetDisplayPageEntry);
+		assetDisplayPageEntryPersistence.update(assetDisplayPageEntry);
+
+		return assetDisplayPageEntry;
 	}
 
 	@Override
@@ -125,7 +127,9 @@ public class AssetDisplayPageEntryLocalServiceImpl
 			layoutPageTemplateEntryId);
 		assetDisplayPageEntry.setType(type);
 
-		return assetDisplayPageEntryPersistence.update(assetDisplayPageEntry);
+		assetDisplayPageEntryPersistence.update(assetDisplayPageEntry);
+
+		return assetDisplayPageEntry;
 	}
 
 }

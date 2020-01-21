@@ -455,7 +455,7 @@ public class JournalArticleLocalServiceImpl
 		article.setStatusDate(serviceContext.getModifiedDate(now));
 		article.setExpandoBridgeAttributes(serviceContext);
 
-		article = journalArticlePersistence.update(article);
+		journalArticlePersistence.update(article);
 
 		// Friendly URLs
 
@@ -816,7 +816,9 @@ public class JournalArticleLocalServiceImpl
 
 		article.setResourcePrimKey(resourcePrimKey);
 
-		return journalArticlePersistence.update(article);
+		journalArticlePersistence.update(article);
+
+		return article;
 	}
 
 	/**
@@ -993,7 +995,7 @@ public class JournalArticleLocalServiceImpl
 		ExpandoBridgeUtil.copyExpandoBridgeAttributes(
 			oldArticle.getExpandoBridge(), newArticle.getExpandoBridge());
 
-		newArticle = journalArticlePersistence.update(newArticle);
+		journalArticlePersistence.update(newArticle);
 
 		// Article localization
 
@@ -4014,7 +4016,7 @@ public class JournalArticleLocalServiceImpl
 		if (oldStatus == WorkflowConstants.STATUS_PENDING) {
 			article.setStatus(WorkflowConstants.STATUS_DRAFT);
 
-			article = journalArticlePersistence.update(article);
+			journalArticlePersistence.update(article);
 		}
 
 		List<JournalArticle> articleVersions =
@@ -4195,7 +4197,9 @@ public class JournalArticleLocalServiceImpl
 			article.setContent(content);
 		}
 
-		return journalArticlePersistence.update(article);
+		journalArticlePersistence.update(article);
+
+		return article;
 	}
 
 	/**
@@ -4234,7 +4238,7 @@ public class JournalArticleLocalServiceImpl
 
 		article.setArticleId(trashArticleId);
 
-		article = journalArticlePersistence.update(article);
+		journalArticlePersistence.update(article);
 
 		JournalArticleResource articleResource =
 			journalArticleResourcePersistence.fetchByPrimaryKey(
@@ -5728,7 +5732,7 @@ public class JournalArticleLocalServiceImpl
 			latestArticle.getExpandoBridge(), article.getExpandoBridge(),
 			serviceContext);
 
-		article = journalArticlePersistence.update(article);
+		journalArticlePersistence.update(article);
 
 		// Friendly URLs
 
@@ -6118,7 +6122,9 @@ public class JournalArticleLocalServiceImpl
 
 		article.setUrlTitle(urlTitle);
 
-		return journalArticlePersistence.update(article);
+		journalArticlePersistence.update(article);
+
+		return article;
 	}
 
 	/**
@@ -6257,7 +6263,9 @@ public class JournalArticleLocalServiceImpl
 
 		article.setContent(content);
 
-		return journalArticlePersistence.update(article);
+		journalArticlePersistence.update(article);
+
+		return article;
 	}
 
 	/**
@@ -6396,7 +6404,9 @@ public class JournalArticleLocalServiceImpl
 
 		article.setContent(content);
 
-		return journalArticlePersistence.update(article);
+		journalArticlePersistence.update(article);
+
+		return article;
 	}
 
 	/**
@@ -6496,7 +6506,7 @@ public class JournalArticleLocalServiceImpl
 		article.setStatusByUserName(user.getFullName());
 		article.setStatusDate(modifiedDate);
 
-		article = journalArticlePersistence.update(article);
+		journalArticlePersistence.update(article);
 
 		if (isExpireAllArticleVersions(article.getCompanyId())) {
 			setArticlesExpirationDate(article);
@@ -7017,7 +7027,7 @@ public class JournalArticleLocalServiceImpl
 
 				article.setStatus(WorkflowConstants.STATUS_EXPIRED);
 
-				article = journalArticlePersistence.update(article);
+				journalArticlePersistence.update(article);
 
 				updatePreviousApprovedArticle(article);
 

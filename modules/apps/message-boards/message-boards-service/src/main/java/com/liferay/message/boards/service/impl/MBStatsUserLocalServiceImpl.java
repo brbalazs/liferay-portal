@@ -52,7 +52,7 @@ public class MBStatsUserLocalServiceImpl
 		statsUser.setUserId(userId);
 
 		try {
-			statsUser = mbStatsUserPersistence.update(statsUser);
+			mbStatsUserPersistence.update(statsUser);
 		}
 		catch (SystemException se) {
 			if (_log.isWarnEnabled()) {
@@ -253,7 +253,9 @@ public class MBStatsUserLocalServiceImpl
 			statsUser.setLastPostDate(lastPostDate);
 		}
 
-		return mbStatsUserPersistence.update(statsUser);
+		mbStatsUserPersistence.update(statsUser);
+
+		return statsUser;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

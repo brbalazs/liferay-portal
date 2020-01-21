@@ -418,7 +418,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			group.setExpandoBridgeAttributes(serviceContext);
 		}
 
-		group = groupPersistence.update(group);
+		groupPersistence.update(group);
 
 		// Layout sets
 
@@ -3729,7 +3729,9 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 
 		group.setFriendlyURL(friendlyURL);
 
-		return groupPersistence.update(group);
+		groupPersistence.update(group);
+
+		return group;
 	}
 
 	@Override
@@ -3821,7 +3823,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			group.setExpandoBridgeAttributes(serviceContext);
 		}
 
-		group = groupPersistence.update(group);
+		groupPersistence.update(group);
 
 		if (group.hasStagingGroup() && !group.isStagedRemotely()) {
 			Group stagingGroup = group.getStagingGroup();
@@ -3944,7 +3946,9 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 
 		group.setTypeSettings(typeSettings);
 
-		return groupPersistence.update(group);
+		groupPersistence.update(group);
+
+		return group;
 	}
 
 	/**
@@ -3965,7 +3969,9 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 
 		group.setSite(site);
 
-		return groupPersistence.update(group);
+		groupPersistence.update(group);
+
+		return group;
 	}
 
 	@Override
