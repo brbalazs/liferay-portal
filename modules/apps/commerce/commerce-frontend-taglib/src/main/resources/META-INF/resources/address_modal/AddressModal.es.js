@@ -186,7 +186,7 @@ class AddressModal extends Component {
 		return e;
 	}
 
-	_addAddress(e) {
+	_addAddress(_e) {
 		return this.emit('addressModalSave', this._formData);
 	}
 

@@ -36,7 +36,7 @@ class TagSelector extends Component {
 	rendered() {
 		this.element.addEventListener('click', this.focusTagInput_.bind(this));
 
-		AUI().use('liferay-commerce-frontend-asset-tag-selector', A => {
+		AUI().use('liferay-commerce-frontend-asset-tag-selector', () => {
 			const config = {
 				allowAddEntry: true,
 				contentBox: this.element,

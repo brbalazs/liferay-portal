@@ -24,7 +24,7 @@ AUI.add(
 			NAME: 'productcontent',
 
 			prototype: {
-				initializer(config) {
+				initializer(_config) {
 					var instance = this;
 
 					instance._bindUI();
@@ -177,7 +177,7 @@ AUI.add(
 
 					instance._eventHandles = eventHandles;
 				},
-				_ddmFormChange(valueChangeEvent) {
+				_ddmFormChange(_valueChangeEvent) {
 					var instance = this;
 
 					instance._renderImages();

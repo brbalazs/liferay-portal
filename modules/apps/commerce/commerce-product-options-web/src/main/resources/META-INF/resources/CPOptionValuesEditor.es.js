@@ -69,7 +69,7 @@ class CPOptionValuesEditor extends Component {
 			});
 	}
 
-	_handleShowChange(event) {
+	_handleShowChange(_event) {
 		this.loadOptionValues();
 	}
 
@@ -89,13 +89,13 @@ class CPOptionValuesEditor extends Component {
 		}
 	}
 
-	_handleOptionValueDeleted(event) {
+	_handleOptionValueDeleted(_event) {
 		this._currentOptionValue = null;
 
 		this.loadOptionValues();
 	}
 
-	_handleCancelEditing(event) {
+	_handleCancelEditing(_event) {
 		this._currentOptionValue = null;
 
 		this.loadOptionValues();

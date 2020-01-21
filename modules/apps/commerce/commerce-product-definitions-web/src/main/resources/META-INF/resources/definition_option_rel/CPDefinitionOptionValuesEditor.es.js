@@ -77,7 +77,7 @@ class CPDefinitionOptionValuesEditor extends Component {
 			});
 	}
 
-	_handleShowChange(event) {
+	_handleShowChange(_event) {
 		this.loadOptionValues();
 	}
 
@@ -108,7 +108,7 @@ class CPDefinitionOptionValuesEditor extends Component {
 		this.loadOptionValues();
 	}
 
-	_handleCancelEditing(event) {
+	_handleCancelEditing(_event) {
 		this._currentCPDefinitionOptionValueRelId = null;
 
 		this.loadOptionValues();

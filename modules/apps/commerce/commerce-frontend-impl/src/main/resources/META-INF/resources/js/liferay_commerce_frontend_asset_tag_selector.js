@@ -111,8 +111,6 @@ AUI.add(
 
 				tagNames: {
 					setter(value) {
-						var instance = this;
-
 						if (Lang.isString(value)) {
 							value = value.split(',');
 						}
@@ -206,7 +204,7 @@ AUI.add(
 						if (text.indexOf(',') > -1) {
 							var items = text.split(',');
 
-							items.forEach((item, index) => {
+							items.forEach(item => {
 								instance.entries.add(item, {});
 							});
 						} else {
@@ -474,7 +472,7 @@ AUI.add(
 					itemSelectorDialog.open();
 				},
 
-				_updateHiddenInput(event) {
+				_updateHiddenInput(_event) {
 					var instance = this;
 
 					var hiddenInput = instance.get('hiddenInput');

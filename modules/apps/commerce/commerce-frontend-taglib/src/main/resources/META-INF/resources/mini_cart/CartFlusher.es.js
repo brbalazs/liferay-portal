@@ -6,7 +6,7 @@ import template from './CartFlusher.soy';
 let notificationDidShow = false;
 
 function showNotification(message, type) {
-	!notificationDidShow &&
+	if (!notificationDidShow) {
 		AUI().use('liferay-notification', () => {
 			new Liferay.Notification({
 				closeable: true,
@@ -21,6 +21,7 @@ function showNotification(message, type) {
 				type
 			});
 		});
+	}
 
 	notificationDidShow = true;
 

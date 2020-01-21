@@ -75,13 +75,13 @@ class CPOptionsEditor extends Component {
 		}
 	}
 
-	_handleoptionDeleted(event) {
+	_handleoptionDeleted(_event) {
 		this._currentOption = null;
 
 		this.loadOptions();
 	}
 
-	_handleCancelEditing(event) {
+	_handleCancelEditing(_event) {
 		this._currentOption = null;
 
 		this.loadOptions();

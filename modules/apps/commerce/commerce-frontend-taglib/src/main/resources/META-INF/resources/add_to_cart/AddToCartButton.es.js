@@ -10,7 +10,7 @@ let notificationDidShow = false;
 const ALL = 'all';
 
 function showNotification(message, type) {
-	!notificationDidShow &&
+	if (!notificationDidShow) {
 		AUI().use('liferay-notification', () => {
 			new Liferay.Notification({
 				closeable: true,
@@ -25,6 +25,7 @@ function showNotification(message, type) {
 				type
 			});
 		});
+	}
 
 	notificationDidShow = true;
 
@@ -102,7 +103,7 @@ function doSubmit() {
 				}
 			}
 		})
-		.catch(weShouldHandleErrors => {});
+		.catch(_weShouldHandleErrors => {});
 }
 
 class AddToCartButton extends Component {

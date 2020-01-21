@@ -60,7 +60,7 @@ class SearchResults extends Component {
 		this.selectedIndex = parseInt(e.delegateTarget.dataset.pos, 10);
 	}
 
-	handleMouseLeave(e) {
+	handleMouseLeave(_e) {
 		this.selectedIndex = this.getFirstSuggestion();
 	}
 

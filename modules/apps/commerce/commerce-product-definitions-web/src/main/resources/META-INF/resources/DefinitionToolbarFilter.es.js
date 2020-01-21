@@ -51,7 +51,7 @@ class DefinitionToolbarFilter extends Component {
 		});
 	}
 
-	onEntriesChanged_(event) {
+	onEntriesChanged_(_event) {
 		this._handleAddFilter();
 	}
 
@@ -71,7 +71,7 @@ class DefinitionToolbarFilter extends Component {
 		this._loadOptionValues();
 	}
 
-	_getLabel(selection) {
+	_getLabel(_selection) {
 		var label = '';
 
 		if (this._currentSelection == 'optionsNames') {

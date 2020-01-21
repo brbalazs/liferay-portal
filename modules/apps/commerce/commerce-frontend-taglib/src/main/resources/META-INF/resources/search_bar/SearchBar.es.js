@@ -65,7 +65,7 @@ class SearchBar extends Component {
 		}
 	}
 
-	_handleResetQuery(evt) {
+	_handleResetQuery(_evt) {
 		this._updateQuery('');
 	}
 

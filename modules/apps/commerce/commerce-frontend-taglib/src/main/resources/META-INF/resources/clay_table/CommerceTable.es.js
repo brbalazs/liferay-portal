@@ -60,7 +60,7 @@ class CommerceTable extends Component {
 	 * @param {!Event} event
 	 * @private
 	 */
-	_handleItemToggled(event) {}
+	_handleItemToggled(_event) {}
 
 	_handlePageClicked(event) {
 		if (this.disableAJAX) {

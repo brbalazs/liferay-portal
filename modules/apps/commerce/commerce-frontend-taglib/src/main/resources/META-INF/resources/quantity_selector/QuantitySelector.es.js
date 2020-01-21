@@ -121,16 +121,19 @@ class QuantitySelector extends Component {
 	_submitQuantity(quantity) {
 		if (this.multipleQuantity) {
 			if (quantity % this.multipleQuantity) {
-				return (this.inputError = 'NotMultipleThan');
+				this.inputError = 'NotMultipleThan';
+				return this.inputError;
 			}
 		}
 
 		if (quantity < this.minQuantity) {
-			return (this.inputError = 'MinAvailableReached');
+			this.inputError = 'MinAvailableReached';
+			return this.inputError;
 		}
 
 		if (quantity > this.maxQuantity) {
-			return (this.inputError = 'MaxAvailableReached');
+			this.inputError = 'MaxAvailableReached';
+			return this.inputError;
 		}
 
 		return this._updateQuantity(quantity);

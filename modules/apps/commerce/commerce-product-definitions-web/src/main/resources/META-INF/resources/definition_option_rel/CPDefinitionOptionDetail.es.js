@@ -23,8 +23,6 @@ class CPDefinitionOptionDetail extends Component {
 	}
 
 	loadOptionDetail(cpDefinitionOptionRelId) {
-		var instance = this;
-
 		const optionDetail = this.refs['option-detail'];
 
 		var url = new URL(this.optionURL);

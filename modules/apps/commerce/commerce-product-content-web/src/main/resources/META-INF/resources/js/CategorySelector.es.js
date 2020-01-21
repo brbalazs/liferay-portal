@@ -27,7 +27,7 @@ class CategorySelector extends Component {
 	 */
 
 	rendered() {
-		AUI().use('liferay-commerce-frontend-asset-categories-selector', A => {
+		AUI().use('liferay-commerce-frontend-asset-categories-selector', () => {
 			const config = {
 				categoryIds: this.rule.queryValues || '',
 				categoryTitles: this.rule.categoryIdsTitles || [],

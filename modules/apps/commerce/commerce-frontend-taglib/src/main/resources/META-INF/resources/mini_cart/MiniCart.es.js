@@ -54,19 +54,29 @@ class Cart extends Component {
 
 	open() {
 		this._open = true;
-		this._topbar && this._topbar.classList.add(OPEN_CART_CLASS);
+
+		if (this._topbar) {
+			this._topbar.classList.add(OPEN_CART_CLASS);
+		}
+
 		this.element.addEventListener('transitionend', () => {
 			window.addEventListener('click', this._handleClickOutside);
 		});
+
 		return this._open;
 	}
 
 	close() {
 		this._open = false;
-		this._topbar && this._topbar.classList.remove(OPEN_CART_CLASS);
+
+		if (this._topbar) {
+			this._topbar.classList.remove(OPEN_CART_CLASS);
+		}
+
 		this.element.addEventListener('transitionend', () => {
 			window.removeEventListener('click', this._handleClickOutside);
 		});
+
 		return this._open;
 	}
 
@@ -315,7 +325,7 @@ class Cart extends Component {
 				this._handleResponseErrors(productId, jsonresponse);
 				return this._removePendingOperation(productId);
 			})
-			.catch(err => {
+			.catch(_err => {
 				this._removePendingOperation(productId);
 				this._setProductProperties(productId, {
 					deleteDisabled: false,
@@ -388,7 +398,9 @@ class Cart extends Component {
 				groupId=${themeDisplay.getScopeGroupId()}&p_auth=${Liferay.authToken}`
 			: '';
 
-		!!productId && this._addPendingOperation(productId);
+		if (productId) {
+			this._addPendingOperation(productId);
+		}
 
 		return fetch(endpoint,
 			{
@@ -422,8 +434,10 @@ class Cart extends Component {
 
 				this._handleResponseErrors(productId, jsonresponse);
 			})
-			.catch(err => {
-				!!productId && this._removePendingOperation(productId);
+			.catch(_err => {
+				if (productId) {
+					this._removePendingOperation(productId);
+				}
 			});
 	}
 }
