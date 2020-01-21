@@ -312,6 +312,21 @@ public interface CommerceDiscountModel
 	public void setMaximumDiscountAmount(BigDecimal maximumDiscountAmount);
 
 	/**
+	 * Returns the level of this commerce discount.
+	 *
+	 * @return the level of this commerce discount
+	 */
+	@AutoEscape
+	public String getLevel();
+
+	/**
+	 * Sets the level of this commerce discount.
+	 *
+	 * @param level the level of this commerce discount
+	 */
+	public void setLevel(String level);
+
+	/**
 	 * Returns the level1 of this commerce discount.
 	 *
 	 * @return the level1 of this commerce discount
@@ -409,6 +424,27 @@ public interface CommerceDiscountModel
 	 * @param numberOfUse the number of use of this commerce discount
 	 */
 	public void setNumberOfUse(int numberOfUse);
+
+	/**
+	 * Returns the rules conjunction of this commerce discount.
+	 *
+	 * @return the rules conjunction of this commerce discount
+	 */
+	public boolean getRulesConjunction();
+
+	/**
+	 * Returns <code>true</code> if this commerce discount is rules conjunction.
+	 *
+	 * @return <code>true</code> if this commerce discount is rules conjunction; <code>false</code> otherwise
+	 */
+	public boolean isRulesConjunction();
+
+	/**
+	 * Sets whether this commerce discount is rules conjunction.
+	 *
+	 * @param rulesConjunction the rules conjunction of this commerce discount
+	 */
+	public void setRulesConjunction(boolean rulesConjunction);
 
 	/**
 	 * Returns the active of this commerce discount.

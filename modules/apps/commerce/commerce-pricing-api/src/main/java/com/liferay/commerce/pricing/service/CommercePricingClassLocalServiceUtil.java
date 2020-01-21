@@ -270,6 +270,14 @@ public class CommercePricingClassLocalServiceUtil {
 		return getService().getCommercePricingClass(commercePricingClassId);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.pricing.model.CommercePricingClass>
+			getCommercePricingClassByCPDefinition(long cpDefinitionId) {
+
+		return getService().getCommercePricingClassByCPDefinition(
+			cpDefinitionId);
+	}
+
 	/**
 	 * Returns the commerce pricing class matching the UUID and group.
 	 *

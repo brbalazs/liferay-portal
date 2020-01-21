@@ -175,6 +175,21 @@ public interface CommerceDiscountRuleModel
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
+	 * Returns the name of this commerce discount rule.
+	 *
+	 * @return the name of this commerce discount rule
+	 */
+	@AutoEscape
+	public String getName();
+
+	/**
+	 * Sets the name of this commerce discount rule.
+	 *
+	 * @param name the name of this commerce discount rule
+	 */
+	public void setName(String name);
+
+	/**
 	 * Returns the commerce discount ID of this commerce discount rule.
 	 *
 	 * @return the commerce discount ID of this commerce discount rule

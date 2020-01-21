@@ -66,6 +66,11 @@ public interface CommerceDiscountRuleService extends BaseService {
 			ServiceContext serviceContext)
 		throws PortalException;
 
+	public CommerceDiscountRule addCommerceDiscountRule(
+			long commerceDiscountId, String name, String type,
+			String typeSettings, ServiceContext serviceContext)
+		throws PortalException;
+
 	public void deleteCommerceDiscountRule(long commerceDiscountRuleId)
 		throws PortalException;
 
@@ -98,6 +103,11 @@ public interface CommerceDiscountRuleService extends BaseService {
 
 	public CommerceDiscountRule updateCommerceDiscountRule(
 			long commerceDiscountRuleId, String type, String typeSettings)
+		throws PortalException;
+
+	public CommerceDiscountRule updateCommerceDiscountRule(
+			long commerceDiscountRuleId, String name, String type,
+			String typeSettings)
 		throws PortalException;
 
 }

@@ -16,6 +16,7 @@ package com.liferay.commerce.pricing.service.base;
 
 import com.liferay.commerce.pricing.model.CommercePricingClassRel;
 import com.liferay.commerce.pricing.service.CommercePricingClassRelLocalService;
+import com.liferay.commerce.pricing.service.persistence.CommercePricingClassFinder;
 import com.liferay.commerce.pricing.service.persistence.CommercePricingClassPersistence;
 import com.liferay.commerce.pricing.service.persistence.CommercePricingClassRelPersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
@@ -407,6 +408,26 @@ public abstract class CommercePricingClassRelLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the commerce pricing class finder.
+	 *
+	 * @return the commerce pricing class finder
+	 */
+	public CommercePricingClassFinder getCommercePricingClassFinder() {
+		return commercePricingClassFinder;
+	}
+
+	/**
+	 * Sets the commerce pricing class finder.
+	 *
+	 * @param commercePricingClassFinder the commerce pricing class finder
+	 */
+	public void setCommercePricingClassFinder(
+		CommercePricingClassFinder commercePricingClassFinder) {
+
+		this.commercePricingClassFinder = commercePricingClassFinder;
+	}
+
+	/**
 	 * Returns the commerce pricing class rel local service.
 	 *
 	 * @return the commerce pricing class rel local service
@@ -645,6 +666,9 @@ public abstract class CommercePricingClassRelLocalServiceBaseImpl
 
 	@BeanReference(type = CommercePricingClassPersistence.class)
 	protected CommercePricingClassPersistence commercePricingClassPersistence;
+
+	@BeanReference(type = CommercePricingClassFinder.class)
+	protected CommercePricingClassFinder commercePricingClassFinder;
 
 	@BeanReference(type = CommercePricingClassRelLocalService.class)
 	protected CommercePricingClassRelLocalService

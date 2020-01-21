@@ -60,6 +60,18 @@ public class CommerceDiscountRuleLocalServiceWrapper
 			commerceDiscountId, type, typeSettings, serviceContext);
 	}
 
+	@Override
+	public com.liferay.commerce.discount.model.CommerceDiscountRule
+			addCommerceDiscountRule(
+				long commerceDiscountId, String name, String type,
+				String typeSettings,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceDiscountRuleLocalService.addCommerceDiscountRule(
+			commerceDiscountId, name, type, typeSettings, serviceContext);
+	}
+
 	/**
 	 * Creates a new commerce discount rule with the primary key. Does not add the commerce discount rule to the database.
 	 *
@@ -355,6 +367,17 @@ public class CommerceDiscountRuleLocalServiceWrapper
 
 		return _commerceDiscountRuleLocalService.updateCommerceDiscountRule(
 			commerceDiscountRuleId, type, typeSettings);
+	}
+
+	@Override
+	public com.liferay.commerce.discount.model.CommerceDiscountRule
+			updateCommerceDiscountRule(
+				long commerceDiscountRuleId, String name, String type,
+				String typeSettings)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceDiscountRuleLocalService.updateCommerceDiscountRule(
+			commerceDiscountRuleId, name, type, typeSettings);
 	}
 
 	@Override

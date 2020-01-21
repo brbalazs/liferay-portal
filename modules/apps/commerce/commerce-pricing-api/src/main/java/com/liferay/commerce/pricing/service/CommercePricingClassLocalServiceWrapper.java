@@ -293,6 +293,15 @@ public class CommercePricingClassLocalServiceWrapper
 			commercePricingClassId);
 	}
 
+	@Override
+	public java.util.List
+		<com.liferay.commerce.pricing.model.CommercePricingClass>
+			getCommercePricingClassByCPDefinition(long cpDefinitionId) {
+
+		return _commercePricingClassLocalService.
+			getCommercePricingClassByCPDefinition(cpDefinitionId);
+	}
+
 	/**
 	 * Returns the commerce pricing class matching the UUID and group.
 	 *

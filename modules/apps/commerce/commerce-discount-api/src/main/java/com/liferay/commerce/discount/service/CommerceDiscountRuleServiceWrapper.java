@@ -45,6 +45,18 @@ public class CommerceDiscountRuleServiceWrapper
 	}
 
 	@Override
+	public com.liferay.commerce.discount.model.CommerceDiscountRule
+			addCommerceDiscountRule(
+				long commerceDiscountId, String name, String type,
+				String typeSettings,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceDiscountRuleService.addCommerceDiscountRule(
+			commerceDiscountId, name, type, typeSettings, serviceContext);
+	}
+
+	@Override
 	public void deleteCommerceDiscountRule(long commerceDiscountRuleId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -110,6 +122,17 @@ public class CommerceDiscountRuleServiceWrapper
 
 		return _commerceDiscountRuleService.updateCommerceDiscountRule(
 			commerceDiscountRuleId, type, typeSettings);
+	}
+
+	@Override
+	public com.liferay.commerce.discount.model.CommerceDiscountRule
+			updateCommerceDiscountRule(
+				long commerceDiscountRuleId, String name, String type,
+				String typeSettings)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceDiscountRuleService.updateCommerceDiscountRule(
+			commerceDiscountRuleId, name, type, typeSettings);
 	}
 
 	@Override

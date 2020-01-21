@@ -83,6 +83,30 @@ public class CommerceDiscountRuleServiceSoap {
 		}
 	}
 
+	public static com.liferay.commerce.discount.model.CommerceDiscountRuleSoap
+			addCommerceDiscountRule(
+				long commerceDiscountId, String name, String type,
+				String typeSettings,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.discount.model.CommerceDiscountRule
+				returnValue =
+					CommerceDiscountRuleServiceUtil.addCommerceDiscountRule(
+						commerceDiscountId, name, type, typeSettings,
+						serviceContext);
+
+			return com.liferay.commerce.discount.model.CommerceDiscountRuleSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static void deleteCommerceDiscountRule(long commerceDiscountRuleId)
 		throws RemoteException {
 
@@ -199,6 +223,28 @@ public class CommerceDiscountRuleServiceSoap {
 			_log.error(exception, exception);
 
 			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.discount.model.CommerceDiscountRuleSoap
+			updateCommerceDiscountRule(
+				long commerceDiscountRuleId, String name, String type,
+				String typeSettings)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.discount.model.CommerceDiscountRule
+				returnValue =
+					CommerceDiscountRuleServiceUtil.updateCommerceDiscountRule(
+						commerceDiscountRuleId, name, type, typeSettings);
+
+			return com.liferay.commerce.discount.model.CommerceDiscountRuleSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
 		}
 	}
 

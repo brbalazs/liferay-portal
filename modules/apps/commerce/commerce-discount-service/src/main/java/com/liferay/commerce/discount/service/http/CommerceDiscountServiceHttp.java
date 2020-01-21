@@ -111,6 +111,66 @@ public class CommerceDiscountServiceHttp {
 		}
 	}
 
+	public static com.liferay.commerce.discount.model.CommerceDiscount
+			addCommerceDiscount(
+				HttpPrincipal httpPrincipal, long userId, String title,
+				String target, boolean useCouponCode, String couponCode,
+				boolean usePercentage,
+				java.math.BigDecimal maximumDiscountAmount, String level,
+				java.math.BigDecimal level1, java.math.BigDecimal level2,
+				java.math.BigDecimal level3, java.math.BigDecimal level4,
+				String limitationType, int limitationTimes,
+				boolean rulesConjunction, boolean active, int displayDateMonth,
+				int displayDateDay, int displayDateYear, int displayDateHour,
+				int displayDateMinute, int expirationDateMonth,
+				int expirationDateDay, int expirationDateYear,
+				int expirationDateHour, int expirationDateMinute,
+				boolean neverExpire,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceDiscountServiceUtil.class, "addCommerceDiscount",
+				_addCommerceDiscountParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userId, title, target, useCouponCode, couponCode,
+				usePercentage, maximumDiscountAmount, level, level1, level2,
+				level3, level4, limitationType, limitationTimes,
+				rulesConjunction, active, displayDateMonth, displayDateDay,
+				displayDateYear, displayDateHour, displayDateMinute,
+				expirationDateMonth, expirationDateDay, expirationDateYear,
+				expirationDateHour, expirationDateMinute, neverExpire,
+				serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (com.liferay.commerce.discount.model.CommerceDiscount)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static void deleteCommerceDiscount(
 			HttpPrincipal httpPrincipal, long commerceDiscountId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -118,7 +178,7 @@ public class CommerceDiscountServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceDiscountServiceUtil.class, "deleteCommerceDiscount",
-				_deleteCommerceDiscountParameterTypes1);
+				_deleteCommerceDiscountParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceDiscountId);
@@ -157,7 +217,7 @@ public class CommerceDiscountServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceDiscountServiceUtil.class,
 				"fetchByExternalReferenceCode",
-				_fetchByExternalReferenceCodeParameterTypes2);
+				_fetchByExternalReferenceCodeParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, externalReferenceCode);
@@ -199,7 +259,7 @@ public class CommerceDiscountServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceDiscountServiceUtil.class, "fetchCommerceDiscount",
-				_fetchCommerceDiscountParameterTypes3);
+				_fetchCommerceDiscountParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceDiscountId);
@@ -241,7 +301,7 @@ public class CommerceDiscountServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceDiscountServiceUtil.class, "getCommerceDiscount",
-				_getCommerceDiscountParameterTypes4);
+				_getCommerceDiscountParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceDiscountId);
@@ -285,7 +345,7 @@ public class CommerceDiscountServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceDiscountServiceUtil.class, "getCommerceDiscounts",
-				_getCommerceDiscountsParameterTypes5);
+				_getCommerceDiscountsParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, couponCode);
@@ -327,7 +387,7 @@ public class CommerceDiscountServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceDiscountServiceUtil.class, "getCommerceDiscountsCount",
-				_getCommerceDiscountsCountParameterTypes6);
+				_getCommerceDiscountsCountParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, couponCode);
@@ -371,7 +431,7 @@ public class CommerceDiscountServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceDiscountServiceUtil.class, "searchCommerceDiscounts",
-				_searchCommerceDiscountsParameterTypes7);
+				_searchCommerceDiscountsParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, keywords, status, start, end, sort);
@@ -426,7 +486,7 @@ public class CommerceDiscountServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceDiscountServiceUtil.class, "updateCommerceDiscount",
-				_updateCommerceDiscountParameterTypes8);
+				_updateCommerceDiscountParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceDiscountId, title, target, useCouponCode,
@@ -467,6 +527,66 @@ public class CommerceDiscountServiceHttp {
 	}
 
 	public static com.liferay.commerce.discount.model.CommerceDiscount
+			updateCommerceDiscount(
+				HttpPrincipal httpPrincipal, long commerceDiscountId,
+				String title, String target, boolean useCouponCode,
+				String couponCode, boolean usePercentage,
+				java.math.BigDecimal maximumDiscountAmount, String level,
+				java.math.BigDecimal level1, java.math.BigDecimal level2,
+				java.math.BigDecimal level3, java.math.BigDecimal level4,
+				String limitationType, int limitationTimes,
+				boolean rulesConjunction, boolean active, int displayDateMonth,
+				int displayDateDay, int displayDateYear, int displayDateHour,
+				int displayDateMinute, int expirationDateMonth,
+				int expirationDateDay, int expirationDateYear,
+				int expirationDateHour, int expirationDateMinute,
+				boolean neverExpire,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceDiscountServiceUtil.class, "updateCommerceDiscount",
+				_updateCommerceDiscountParameterTypes10);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceDiscountId, title, target, useCouponCode,
+				couponCode, usePercentage, maximumDiscountAmount, level, level1,
+				level2, level3, level4, limitationType, limitationTimes,
+				rulesConjunction, active, displayDateMonth, displayDateDay,
+				displayDateYear, displayDateHour, displayDateMinute,
+				expirationDateMonth, expirationDateDay, expirationDateYear,
+				expirationDateHour, expirationDateMinute, neverExpire,
+				serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (com.liferay.commerce.discount.model.CommerceDiscount)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static com.liferay.commerce.discount.model.CommerceDiscount
 			upsertCommerceDiscount(
 				HttpPrincipal httpPrincipal, long userId,
 				long commerceDiscountId, String title, String target,
@@ -487,7 +607,7 @@ public class CommerceDiscountServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceDiscountServiceUtil.class, "upsertCommerceDiscount",
-				_upsertCommerceDiscountParameterTypes9);
+				_upsertCommerceDiscountParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, userId, commerceDiscountId, title, target,
@@ -528,6 +648,66 @@ public class CommerceDiscountServiceHttp {
 		}
 	}
 
+	public static com.liferay.commerce.discount.model.CommerceDiscount
+			upsertCommerceDiscount(
+				HttpPrincipal httpPrincipal, long userId,
+				long commerceDiscountId, String title, String target,
+				boolean useCouponCode, String couponCode, boolean usePercentage,
+				java.math.BigDecimal maximumDiscountAmount, String level,
+				java.math.BigDecimal level1, java.math.BigDecimal level2,
+				java.math.BigDecimal level3, java.math.BigDecimal level4,
+				String limitationType, int limitationTimes,
+				boolean rulesConjunction, boolean active, int displayDateMonth,
+				int displayDateDay, int displayDateYear, int displayDateHour,
+				int displayDateMinute, int expirationDateMonth,
+				int expirationDateDay, int expirationDateYear,
+				int expirationDateHour, int expirationDateMinute,
+				String externalReferenceCode, boolean neverExpire,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceDiscountServiceUtil.class, "upsertCommerceDiscount",
+				_upsertCommerceDiscountParameterTypes12);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userId, commerceDiscountId, title, target,
+				useCouponCode, couponCode, usePercentage, maximumDiscountAmount,
+				level, level1, level2, level3, level4, limitationType,
+				limitationTimes, rulesConjunction, active, displayDateMonth,
+				displayDateDay, displayDateYear, displayDateHour,
+				displayDateMinute, expirationDateMonth, expirationDateDay,
+				expirationDateYear, expirationDateHour, expirationDateMinute,
+				externalReferenceCode, neverExpire, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (com.liferay.commerce.discount.model.CommerceDiscount)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		CommerceDiscountServiceHttp.class);
 
@@ -542,26 +722,37 @@ public class CommerceDiscountServiceHttp {
 			int.class, int.class, boolean.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _deleteCommerceDiscountParameterTypes1 =
+	private static final Class<?>[] _addCommerceDiscountParameterTypes1 =
+		new Class[] {
+			long.class, String.class, String.class, boolean.class, String.class,
+			boolean.class, java.math.BigDecimal.class, String.class,
+			java.math.BigDecimal.class, java.math.BigDecimal.class,
+			java.math.BigDecimal.class, java.math.BigDecimal.class,
+			String.class, int.class, boolean.class, boolean.class, int.class,
+			int.class, int.class, int.class, int.class, int.class, int.class,
+			int.class, int.class, int.class, boolean.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _deleteCommerceDiscountParameterTypes2 =
 		new Class[] {long.class};
 	private static final Class<?>[]
-		_fetchByExternalReferenceCodeParameterTypes2 = new Class[] {
+		_fetchByExternalReferenceCodeParameterTypes3 = new Class[] {
 			long.class, String.class
 		};
-	private static final Class<?>[] _fetchCommerceDiscountParameterTypes3 =
+	private static final Class<?>[] _fetchCommerceDiscountParameterTypes4 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getCommerceDiscountParameterTypes4 =
+	private static final Class<?>[] _getCommerceDiscountParameterTypes5 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getCommerceDiscountsParameterTypes5 =
+	private static final Class<?>[] _getCommerceDiscountsParameterTypes6 =
 		new Class[] {long.class, String.class};
-	private static final Class<?>[] _getCommerceDiscountsCountParameterTypes6 =
+	private static final Class<?>[] _getCommerceDiscountsCountParameterTypes7 =
 		new Class[] {long.class, String.class};
-	private static final Class<?>[] _searchCommerceDiscountsParameterTypes7 =
+	private static final Class<?>[] _searchCommerceDiscountsParameterTypes8 =
 		new Class[] {
 			long.class, String.class, int.class, int.class, int.class,
 			com.liferay.portal.kernel.search.Sort.class
 		};
-	private static final Class<?>[] _updateCommerceDiscountParameterTypes8 =
+	private static final Class<?>[] _updateCommerceDiscountParameterTypes9 =
 		new Class[] {
 			long.class, String.class, String.class, boolean.class, String.class,
 			boolean.class, java.math.BigDecimal.class,
@@ -572,7 +763,18 @@ public class CommerceDiscountServiceHttp {
 			int.class, int.class, boolean.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _upsertCommerceDiscountParameterTypes9 =
+	private static final Class<?>[] _updateCommerceDiscountParameterTypes10 =
+		new Class[] {
+			long.class, String.class, String.class, boolean.class, String.class,
+			boolean.class, java.math.BigDecimal.class, String.class,
+			java.math.BigDecimal.class, java.math.BigDecimal.class,
+			java.math.BigDecimal.class, java.math.BigDecimal.class,
+			String.class, int.class, boolean.class, boolean.class, int.class,
+			int.class, int.class, int.class, int.class, int.class, int.class,
+			int.class, int.class, int.class, boolean.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _upsertCommerceDiscountParameterTypes11 =
 		new Class[] {
 			long.class, long.class, String.class, String.class, boolean.class,
 			String.class, boolean.class, java.math.BigDecimal.class,
@@ -581,6 +783,18 @@ public class CommerceDiscountServiceHttp {
 			String.class, int.class, boolean.class, int.class, int.class,
 			int.class, int.class, int.class, int.class, int.class, int.class,
 			int.class, int.class, String.class, boolean.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _upsertCommerceDiscountParameterTypes12 =
+		new Class[] {
+			long.class, long.class, String.class, String.class, boolean.class,
+			String.class, boolean.class, java.math.BigDecimal.class,
+			String.class, java.math.BigDecimal.class,
+			java.math.BigDecimal.class, java.math.BigDecimal.class,
+			java.math.BigDecimal.class, String.class, int.class, boolean.class,
+			boolean.class, int.class, int.class, int.class, int.class,
+			int.class, int.class, int.class, int.class, int.class, int.class,
+			String.class, boolean.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 

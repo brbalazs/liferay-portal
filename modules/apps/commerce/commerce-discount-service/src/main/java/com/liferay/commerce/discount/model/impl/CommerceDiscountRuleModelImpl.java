@@ -77,8 +77,8 @@ public class CommerceDiscountRuleModelImpl
 		{"commerceDiscountRuleId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"commerceDiscountId", Types.BIGINT}, {"type_", Types.VARCHAR},
-		{"typeSettings", Types.CLOB}
+		{"name", Types.VARCHAR}, {"commerceDiscountId", Types.BIGINT},
+		{"type_", Types.VARCHAR}, {"typeSettings", Types.CLOB}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -91,13 +91,14 @@ public class CommerceDiscountRuleModelImpl
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("commerceDiscountId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("type_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("typeSettings", Types.CLOB);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CommerceDiscountRule (commerceDiscountRuleId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commerceDiscountId LONG,type_ VARCHAR(75) null,typeSettings TEXT null)";
+		"create table CommerceDiscountRule (commerceDiscountRuleId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,commerceDiscountId LONG,type_ VARCHAR(75) null,typeSettings TEXT null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table CommerceDiscountRule";
@@ -154,6 +155,7 @@ public class CommerceDiscountRuleModelImpl
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
+		model.setName(soapModel.getName());
 		model.setCommerceDiscountId(soapModel.getCommerceDiscountId());
 		model.setType(soapModel.getType());
 		model.setTypeSettings(soapModel.getTypeSettings());
@@ -460,6 +462,29 @@ public class CommerceDiscountRuleModelImpl
 
 			});
 		attributeGetterFunctions.put(
+			"name",
+			new Function<CommerceDiscountRule, Object>() {
+
+				@Override
+				public Object apply(CommerceDiscountRule commerceDiscountRule) {
+					return commerceDiscountRule.getName();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"name",
+			new BiConsumer<CommerceDiscountRule, Object>() {
+
+				@Override
+				public void accept(
+					CommerceDiscountRule commerceDiscountRule,
+					Object nameObject) {
+
+					commerceDiscountRule.setName((String)nameObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
 			"commerceDiscountId",
 			new Function<CommerceDiscountRule, Object>() {
 
@@ -634,6 +659,22 @@ public class CommerceDiscountRuleModelImpl
 
 	@JSON
 	@Override
+	public String getName() {
+		if (_name == null) {
+			return "";
+		}
+		else {
+			return _name;
+		}
+	}
+
+	@Override
+	public void setName(String name) {
+		_name = name;
+	}
+
+	@JSON
+	@Override
 	public long getCommerceDiscountId() {
 		return _commerceDiscountId;
 	}
@@ -732,6 +773,7 @@ public class CommerceDiscountRuleModelImpl
 		commerceDiscountRuleImpl.setUserName(getUserName());
 		commerceDiscountRuleImpl.setCreateDate(getCreateDate());
 		commerceDiscountRuleImpl.setModifiedDate(getModifiedDate());
+		commerceDiscountRuleImpl.setName(getName());
 		commerceDiscountRuleImpl.setCommerceDiscountId(getCommerceDiscountId());
 		commerceDiscountRuleImpl.setType(getType());
 		commerceDiscountRuleImpl.setTypeSettings(getTypeSettings());
@@ -847,6 +889,14 @@ public class CommerceDiscountRuleModelImpl
 			commerceDiscountRuleCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
+		commerceDiscountRuleCacheModel.name = getName();
+
+		String name = commerceDiscountRuleCacheModel.name;
+
+		if ((name != null) && (name.length() == 0)) {
+			commerceDiscountRuleCacheModel.name = null;
+		}
+
 		commerceDiscountRuleCacheModel.commerceDiscountId =
 			getCommerceDiscountId();
 
@@ -948,6 +998,7 @@ public class CommerceDiscountRuleModelImpl
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
+	private String _name;
 	private long _commerceDiscountId;
 	private long _originalCommerceDiscountId;
 	private boolean _setOriginalCommerceDiscountId;

@@ -234,6 +234,10 @@ public interface CommercePricingClassLocalService
 			long commercePricingClassId)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePricingClass> getCommercePricingClassByCPDefinition(
+		long cpDefinitionId);
+
 	/**
 	 * Returns the commerce pricing class matching the UUID and group.
 	 *
