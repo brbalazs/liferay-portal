@@ -112,8 +112,9 @@ public class CommerceInventoryWarehouseLocalServiceImpl
 			externalReferenceCode);
 		commerceInventoryWarehouse.setExpandoBridgeAttributes(serviceContext);
 
-		commerceInventoryWarehousePersistence.update(
-			commerceInventoryWarehouse);
+		commerceInventoryWarehouse =
+			commerceInventoryWarehousePersistence.update(
+				commerceInventoryWarehouse);
 
 		// Resources
 
@@ -301,10 +302,8 @@ public class CommerceInventoryWarehouseLocalServiceImpl
 
 		commerceInventoryWarehouse.setActive(active);
 
-		commerceInventoryWarehousePersistence.update(
+		return commerceInventoryWarehousePersistence.update(
 			commerceInventoryWarehouse);
-
-		return commerceInventoryWarehouse;
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
@@ -338,10 +337,8 @@ public class CommerceInventoryWarehouseLocalServiceImpl
 		commerceInventoryWarehouse.setLongitude(longitude);
 		commerceInventoryWarehouse.setExpandoBridgeAttributes(serviceContext);
 
-		commerceInventoryWarehousePersistence.update(
+		return commerceInventoryWarehousePersistence.update(
 			commerceInventoryWarehouse);
-
-		return commerceInventoryWarehouse;
 	}
 
 	protected SearchContext buildSearchContext(

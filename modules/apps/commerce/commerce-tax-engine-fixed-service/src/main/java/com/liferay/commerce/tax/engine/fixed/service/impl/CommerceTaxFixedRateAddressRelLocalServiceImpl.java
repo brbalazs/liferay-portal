@@ -57,10 +57,8 @@ public class CommerceTaxFixedRateAddressRelLocalServiceImpl
 		commerceTaxFixedRateAddressRel.setZip(zip);
 		commerceTaxFixedRateAddressRel.setRate(rate);
 
-		commerceTaxFixedRateAddressRelPersistence.update(
+		return commerceTaxFixedRateAddressRelPersistence.update(
 			commerceTaxFixedRateAddressRel);
-
-		return commerceTaxFixedRateAddressRel;
 	}
 
 	@Override
@@ -158,10 +156,8 @@ public class CommerceTaxFixedRateAddressRelLocalServiceImpl
 		commerceTaxFixedRateAddressRel.setZip(zip);
 		commerceTaxFixedRateAddressRel.setRate(rate);
 
-		commerceTaxFixedRateAddressRelPersistence.update(
+		return commerceTaxFixedRateAddressRelPersistence.update(
 			commerceTaxFixedRateAddressRel);
-
-		return commerceTaxFixedRateAddressRel;
 	}
 
 }

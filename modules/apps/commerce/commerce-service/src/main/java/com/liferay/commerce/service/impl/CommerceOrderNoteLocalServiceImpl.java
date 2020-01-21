@@ -76,9 +76,7 @@ public class CommerceOrderNoteLocalServiceImpl
 		commerceOrderNote.setRestricted(restricted);
 		commerceOrderNote.setExternalReferenceCode(externalReferenceCode);
 
-		commerceOrderNotePersistence.update(commerceOrderNote);
-
-		return commerceOrderNote;
+		return commerceOrderNotePersistence.update(commerceOrderNote);
 	}
 
 	@Override
@@ -159,9 +157,7 @@ public class CommerceOrderNoteLocalServiceImpl
 			commerceOrderNote.setExternalReferenceCode(externalReferenceCode);
 		}
 
-		commerceOrderNotePersistence.update(commerceOrderNote);
-
-		return commerceOrderNote;
+		return commerceOrderNotePersistence.update(commerceOrderNote);
 	}
 
 	public CommerceOrderNote upsertCommerceOrderNote(

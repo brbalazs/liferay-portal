@@ -132,9 +132,8 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 
 		commerceSubscriptionEntry.setStartDate(subscriptionStartDate);
 
-		commerceSubscriptionEntryPersistence.update(commerceSubscriptionEntry);
-
-		return commerceSubscriptionEntry;
+		return commerceSubscriptionEntryPersistence.update(
+			commerceSubscriptionEntry);
 	}
 
 	/**

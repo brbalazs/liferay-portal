@@ -233,7 +233,7 @@ public class CommerceShipmentLocalServiceImpl
 		commerceShipment.setExpectedDate(expectedDate);
 		commerceShipment.setStatus(status);
 
-		commerceShipmentPersistence.update(commerceShipment);
+		commerceShipment = commerceShipmentPersistence.update(commerceShipment);
 
 		// Commerce order
 

@@ -95,7 +95,7 @@ public class CommerceCatalogLocalServiceImpl
 			GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, null, false, true,
 			null);
 
-		commerceCatalogPersistence.update(commerceCatalog);
+		commerceCatalog = commerceCatalogPersistence.update(commerceCatalog);
 
 		// Resources
 

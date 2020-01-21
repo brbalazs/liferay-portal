@@ -84,10 +84,8 @@ public class CommerceAccountGroupCommerceAccountRelLocalServiceImpl
 		commerceAccountGroupCommerceAccountRel.setExternalReferenceCode(
 			externalReferenceCode);
 
-		commerceAccountGroupCommerceAccountRelPersistence.update(
+		return commerceAccountGroupCommerceAccountRelPersistence.update(
 			commerceAccountGroupCommerceAccountRel);
-
-		return commerceAccountGroupCommerceAccountRel;
 	}
 
 	@Override

@@ -115,7 +115,8 @@ public class CommerceTierPriceEntryLocalServiceImpl
 		commerceTierPriceEntry.setExpandoBridgeAttributes(serviceContext);
 		commerceTierPriceEntry.setExternalReferenceCode(externalReferenceCode);
 
-		commerceTierPriceEntryPersistence.update(commerceTierPriceEntry);
+		commerceTierPriceEntry = commerceTierPriceEntryPersistence.update(
+			commerceTierPriceEntry);
 
 		// Commerce price entry
 

@@ -68,8 +68,9 @@ public class CommerceDataIntegrationProcessLocalServiceImpl
 			typeSettingsProperties);
 		commerceDataIntegrationProcess.setSystem(system);
 
-		commerceDataIntegrationProcessPersistence.update(
-			commerceDataIntegrationProcess);
+		commerceDataIntegrationProcess =
+			commerceDataIntegrationProcessPersistence.update(
+				commerceDataIntegrationProcess);
 
 		// Resources
 

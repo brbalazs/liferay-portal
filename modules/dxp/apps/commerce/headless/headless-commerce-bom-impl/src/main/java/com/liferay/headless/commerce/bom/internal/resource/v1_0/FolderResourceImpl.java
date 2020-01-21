@@ -21,7 +21,6 @@ import com.liferay.commerce.bom.service.CommerceBOMDefinitionService;
 import com.liferay.commerce.bom.service.CommerceBOMFolderService;
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
 import com.liferay.document.library.kernel.util.DLUtil;
-import com.liferay.headless.commerce.bom.dto.v1_0.Brand;
 import com.liferay.headless.commerce.bom.dto.v1_0.Folder;
 import com.liferay.headless.commerce.bom.dto.v1_0.Item;
 import com.liferay.headless.commerce.bom.dto.v1_0.ItemData;

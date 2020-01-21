@@ -61,9 +61,7 @@ public class CommerceTaxMethodLocalServiceImpl
 		commerceTaxMethod.setPercentage(percentage);
 		commerceTaxMethod.setActive(active);
 
-		commerceTaxMethodPersistence.update(commerceTaxMethod);
-
-		return commerceTaxMethod;
+		return commerceTaxMethodPersistence.update(commerceTaxMethod);
 	}
 
 	@Override
@@ -110,9 +108,7 @@ public class CommerceTaxMethodLocalServiceImpl
 
 		commerceTaxMethod.setActive(active);
 
-		commerceTaxMethodPersistence.update(commerceTaxMethod);
-
-		return commerceTaxMethod;
+		return commerceTaxMethodPersistence.update(commerceTaxMethod);
 	}
 
 	@Override
@@ -132,9 +128,7 @@ public class CommerceTaxMethodLocalServiceImpl
 		commerceTaxMethod.setPercentage(percentage);
 		commerceTaxMethod.setActive(active);
 
-		commerceTaxMethodPersistence.update(commerceTaxMethod);
-
-		return commerceTaxMethod;
+		return commerceTaxMethodPersistence.update(commerceTaxMethod);
 	}
 
 	protected void validate(Map<Locale, String> nameMap, String engineKey)
