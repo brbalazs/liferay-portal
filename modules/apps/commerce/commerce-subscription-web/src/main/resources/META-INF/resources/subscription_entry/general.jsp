@@ -102,7 +102,7 @@
         <%-- collapsable --%>
         <commerce-ui:panel
                 bodyClasses="p-0"
-                title='<%= LanguageUtil.get(request, "payment-subscription") %>'
+                title='<%= LanguageUtil.get(request, "delivery-subscription") %>'
         >
             <!-- FORM 2 -->
             <div class="row">
