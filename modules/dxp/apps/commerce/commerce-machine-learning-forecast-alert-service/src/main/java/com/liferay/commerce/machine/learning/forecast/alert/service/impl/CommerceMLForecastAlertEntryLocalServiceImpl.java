@@ -103,10 +103,8 @@ public class CommerceMLForecastAlertEntryLocalServiceImpl
 		commerceMLForecastAlertEntry.setModifiedDate(new Date());
 		commerceMLForecastAlertEntry.setStatus(status);
 
-		commerceMLForecastAlertEntryPersistence.update(
+		return commerceMLForecastAlertEntryPersistence.update(
 			commerceMLForecastAlertEntry);
-
-		return commerceMLForecastAlertEntry;
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
@@ -145,8 +143,9 @@ public class CommerceMLForecastAlertEntryLocalServiceImpl
 		commerceMLForecastAlertEntry.setStatus(
 			CommerceMLForecastAlertConstants.STATUS_NEW);
 
-		commerceMLForecastAlertEntryPersistence.update(
-			commerceMLForecastAlertEntry);
+		commerceMLForecastAlertEntry =
+			commerceMLForecastAlertEntryPersistence.update(
+				commerceMLForecastAlertEntry);
 
 		// Resources
 

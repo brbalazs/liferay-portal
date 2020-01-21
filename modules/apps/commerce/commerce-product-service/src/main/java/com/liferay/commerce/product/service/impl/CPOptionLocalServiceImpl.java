@@ -91,7 +91,7 @@ public class CPOptionLocalServiceImpl extends CPOptionLocalServiceBaseImpl {
 		cpOption.setExpandoBridgeAttributes(serviceContext);
 		cpOption.setExternalReferenceCode(externalReferenceCode);
 
-		cpOptionPersistence.update(cpOption);
+		cpOption = cpOptionPersistence.update(cpOption);
 
 		// Resources
 
@@ -209,9 +209,7 @@ public class CPOptionLocalServiceImpl extends CPOptionLocalServiceBaseImpl {
 		cpOption.setKey(key);
 		cpOption.setExpandoBridgeAttributes(serviceContext);
 
-		cpOptionPersistence.update(cpOption);
-
-		return cpOption;
+		return cpOptionPersistence.update(cpOption);
 	}
 
 	@Override

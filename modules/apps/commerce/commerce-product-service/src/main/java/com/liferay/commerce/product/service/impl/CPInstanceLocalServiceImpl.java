@@ -217,7 +217,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 		cpInstance.setStatusDate(serviceContext.getModifiedDate(now));
 		cpInstance.setExpandoBridgeAttributes(serviceContext);
 
-		cpInstancePersistence.update(cpInstance);
+		cpInstance = cpInstancePersistence.update(cpInstance);
 
 		reindexCPDefinition(cpDefinitionId);
 
@@ -773,7 +773,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 		cpInstance.setStatusDate(serviceContext.getModifiedDate(now));
 		cpInstance.setExpandoBridgeAttributes(serviceContext);
 
-		cpInstancePersistence.update(cpInstance);
+		cpInstance = cpInstancePersistence.update(cpInstance);
 
 		reindexCPDefinition(cpInstance.getCPDefinitionId());
 
@@ -888,9 +888,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 		cpInstance.setStatusByUserName(user.getFullName());
 		cpInstance.setStatusDate(modifiedDate);
 
-		cpInstancePersistence.update(cpInstance);
-
-		return cpInstance;
+		return cpInstancePersistence.update(cpInstance);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)

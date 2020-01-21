@@ -100,8 +100,9 @@ public class CommercePaymentMethodGroupRelLocalServiceImpl
 		commercePaymentMethodGroupRel.setPriority(priority);
 		commercePaymentMethodGroupRel.setActive(active);
 
-		commercePaymentMethodGroupRelPersistence.update(
-			commercePaymentMethodGroupRel);
+		commercePaymentMethodGroupRel =
+			commercePaymentMethodGroupRelPersistence.update(
+				commercePaymentMethodGroupRel);
 
 		// Image
 
@@ -353,8 +354,9 @@ public class CommercePaymentMethodGroupRelLocalServiceImpl
 		commercePaymentMethodGroupRel.setPriority(priority);
 		commercePaymentMethodGroupRel.setActive(active);
 
-		commercePaymentMethodGroupRelPersistence.update(
-			commercePaymentMethodGroupRel);
+		commercePaymentMethodGroupRel =
+			commercePaymentMethodGroupRelPersistence.update(
+				commercePaymentMethodGroupRel);
 
 		// Image
 

@@ -117,9 +117,7 @@ public class CommerceCurrencyLocalServiceImpl
 		commerceCurrency.setPriority(priority);
 		commerceCurrency.setActive(active);
 
-		commerceCurrencyPersistence.update(commerceCurrency);
-
-		return commerceCurrency;
+		return commerceCurrencyPersistence.update(commerceCurrency);
 	}
 
 	@Override
@@ -270,9 +268,7 @@ public class CommerceCurrencyLocalServiceImpl
 
 		commerceCurrency.setActive(active);
 
-		commerceCurrencyPersistence.update(commerceCurrency);
-
-		return commerceCurrency;
+		return commerceCurrencyPersistence.update(commerceCurrency);
 	}
 
 	@Override
@@ -288,9 +284,7 @@ public class CommerceCurrencyLocalServiceImpl
 
 		commerceCurrency.setPrimary(primary);
 
-		commerceCurrencyPersistence.update(commerceCurrency);
-
-		return commerceCurrency;
+		return commerceCurrencyPersistence.update(commerceCurrency);
 	}
 
 	@Override
@@ -342,9 +336,7 @@ public class CommerceCurrencyLocalServiceImpl
 		commerceCurrency.setPriority(priority);
 		commerceCurrency.setActive(active);
 
-		commerceCurrencyPersistence.update(commerceCurrency);
-
-		return commerceCurrency;
+		return commerceCurrencyPersistence.update(commerceCurrency);
 	}
 
 	@Override

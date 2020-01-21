@@ -107,9 +107,7 @@ public class CommerceCountryLocalServiceImpl
 		commerceCountry.setActive(active);
 		commerceCountry.setChannelFilterEnabled(false);
 
-		commerceCountryPersistence.update(commerceCountry);
-
-		return commerceCountry;
+		return commerceCountryPersistence.update(commerceCountry);
 	}
 
 	@Override
@@ -385,9 +383,7 @@ public class CommerceCountryLocalServiceImpl
 
 		commerceCountry.setActive(active);
 
-		commerceCountryPersistence.update(commerceCountry);
-
-		return commerceCountry;
+		return commerceCountryPersistence.update(commerceCountry);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
@@ -415,9 +411,7 @@ public class CommerceCountryLocalServiceImpl
 		commerceCountry.setPriority(priority);
 		commerceCountry.setActive(active);
 
-		commerceCountryPersistence.update(commerceCountry);
-
-		return commerceCountry;
+		return commerceCountryPersistence.update(commerceCountry);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)

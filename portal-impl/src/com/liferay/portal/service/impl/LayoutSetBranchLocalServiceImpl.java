@@ -135,7 +135,7 @@ public class LayoutSetBranchLocalServiceImpl
 		layoutSetBranch.setCss(css);
 		layoutSetBranch.setSettings(settings);
 
-		layoutSetBranchPersistence.update(layoutSetBranch);
+		layoutSetBranch = layoutSetBranchPersistence.update(layoutSetBranch);
 
 		// Resources
 
@@ -470,9 +470,7 @@ public class LayoutSetBranchLocalServiceImpl
 		layoutSetBranch.setName(name);
 		layoutSetBranch.setDescription(description);
 
-		layoutSetBranchPersistence.update(layoutSetBranch);
-
-		return layoutSetBranch;
+		return layoutSetBranchPersistence.update(layoutSetBranch);
 	}
 
 	protected String getLayoutBranchName(

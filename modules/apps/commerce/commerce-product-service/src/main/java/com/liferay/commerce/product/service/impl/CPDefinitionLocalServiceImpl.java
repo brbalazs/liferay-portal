@@ -231,7 +231,7 @@ public class CPDefinitionLocalServiceImpl
 		cpDefinition.setStatusDate(serviceContext.getModifiedDate(now));
 		cpDefinition.setExpandoBridgeAttributes(serviceContext);
 
-		cpDefinitionPersistence.update(cpDefinition);
+		cpDefinition = cpDefinitionPersistence.update(cpDefinition);
 
 		// Commerce product definition localization
 
@@ -308,7 +308,8 @@ public class CPDefinitionLocalServiceImpl
 		if (originalCPDefinition.isPublished()) {
 			originalCPDefinition.setPublished(false);
 
-			cpDefinitionPersistence.update(originalCPDefinition);
+			originalCPDefinition = cpDefinitionPersistence.update(
+				originalCPDefinition);
 		}
 
 		newCPDefinition.setUuid(PortalUUIDUtil.generate());
@@ -321,7 +322,7 @@ public class CPDefinitionLocalServiceImpl
 			cProductLocalService.increment(
 				originalCPDefinition.getCProductId()));
 
-		cpDefinitionPersistence.update(newCPDefinition);
+		newCPDefinition = cpDefinitionPersistence.update(newCPDefinition);
 
 		// AssetEntry
 
@@ -1333,7 +1334,7 @@ public class CPDefinitionLocalServiceImpl
 		cpDefinition.setStatusDate(serviceContext.getModifiedDate(now));
 		cpDefinition.setExpandoBridgeAttributes(serviceContext);
 
-		cpDefinitionPersistence.update(cpDefinition);
+		cpDefinition = cpDefinitionPersistence.update(cpDefinition);
 
 		if (MapUtil.isEmpty(urlTitleMap)) {
 			urlTitleMap = _getUniqueUrlTitles(cpDefinition, nameMap);
@@ -1570,7 +1571,7 @@ public class CPDefinitionLocalServiceImpl
 		cpDefinition.setStatusByUserName(user.getFullName());
 		cpDefinition.setStatusDate(modifiedDate);
 
-		cpDefinitionPersistence.update(cpDefinition);
+		cpDefinition = cpDefinitionPersistence.update(cpDefinition);
 
 		if (status == WorkflowConstants.STATUS_APPROVED) {
 

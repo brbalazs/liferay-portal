@@ -105,7 +105,7 @@ public class CProductLocalServiceImpl extends CProductLocalServiceBaseImpl {
 
 		cProduct.setLatestVersion(cProduct.getLatestVersion() + 1);
 
-		cProductPersistence.update(cProduct);
+		cProduct = cProductPersistence.update(cProduct);
 
 		return cProduct.getLatestVersion();
 	}

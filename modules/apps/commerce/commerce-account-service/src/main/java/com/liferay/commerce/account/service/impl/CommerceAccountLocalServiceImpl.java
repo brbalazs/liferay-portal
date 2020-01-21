@@ -145,7 +145,7 @@ public class CommerceAccountLocalServiceImpl
 		commerceAccount.setExternalReferenceCode(externalReferenceCode);
 		commerceAccount.setExpandoBridgeAttributes(serviceContext);
 
-		commerceAccountPersistence.update(commerceAccount);
+		commerceAccount = commerceAccountPersistence.update(commerceAccount);
 
 		// Group
 
@@ -447,9 +447,7 @@ public class CommerceAccountLocalServiceImpl
 
 		commerceAccount.setActive(active);
 
-		commerceAccountPersistence.update(commerceAccount);
-
-		return commerceAccount;
+		return commerceAccountPersistence.update(commerceAccount);
 	}
 
 	@Override
@@ -520,7 +518,7 @@ public class CommerceAccountLocalServiceImpl
 
 		commerceAccount.setExpandoBridgeAttributes(serviceContext);
 
-		commerceAccountPersistence.update(commerceAccount);
+		commerceAccount = commerceAccountPersistence.update(commerceAccount);
 
 		// Workflow
 
@@ -618,9 +616,7 @@ public class CommerceAccountLocalServiceImpl
 
 		commerceAccount.setStatusDate(modifiedDate);
 
-		commerceAccountPersistence.update(commerceAccount);
-
-		return commerceAccount;
+		return commerceAccountPersistence.update(commerceAccount);
 	}
 
 	@Override

@@ -53,10 +53,8 @@ public class CommerceAddressRestrictionLocalServiceImpl
 		commerceAddressRestriction.setClassPK(classPK);
 		commerceAddressRestriction.setCommerceCountryId(commerceCountryId);
 
-		commerceAddressRestrictionPersistence.update(
+		return commerceAddressRestrictionPersistence.update(
 			commerceAddressRestriction);
-
-		return commerceAddressRestriction;
 	}
 
 	@Override

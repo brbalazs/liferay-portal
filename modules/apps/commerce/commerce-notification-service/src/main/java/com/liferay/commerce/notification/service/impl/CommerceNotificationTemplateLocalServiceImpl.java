@@ -79,8 +79,9 @@ public class CommerceNotificationTemplateLocalServiceImpl
 		commerceNotificationTemplate.setBodyMap(bodyMap);
 		commerceNotificationTemplate.setExpandoBridgeAttributes(serviceContext);
 
-		commerceNotificationTemplatePersistence.update(
-			commerceNotificationTemplate);
+		commerceNotificationTemplate =
+			commerceNotificationTemplatePersistence.update(
+				commerceNotificationTemplate);
 
 		// Resources
 
@@ -227,10 +228,8 @@ public class CommerceNotificationTemplateLocalServiceImpl
 		commerceNotificationTemplate.setBodyMap(bodyMap);
 		commerceNotificationTemplate.setExpandoBridgeAttributes(serviceContext);
 
-		commerceNotificationTemplatePersistence.update(
+		return commerceNotificationTemplatePersistence.update(
 			commerceNotificationTemplate);
-
-		return commerceNotificationTemplate;
 	}
 
 	protected void validate(String name, String from, String type)

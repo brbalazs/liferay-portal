@@ -207,7 +207,7 @@ public class RatingsEntryLocalServiceImpl
 
 			entry.setScore(score);
 
-			ratingsEntryPersistence.update(entry);
+			entry = ratingsEntryPersistence.update(entry);
 
 			// Stats
 
@@ -222,7 +222,7 @@ public class RatingsEntryLocalServiceImpl
 			stats.setAverageScore(
 				stats.getTotalScore() / stats.getTotalEntries());
 
-			ratingsStatsPersistence.update(stats);
+			stats = ratingsStatsPersistence.update(stats);
 		}
 		else {
 			User user = userPersistence.findByPrimaryKey(userId);
@@ -238,7 +238,7 @@ public class RatingsEntryLocalServiceImpl
 			entry.setClassPK(classPK);
 			entry.setScore(score);
 
-			ratingsEntryPersistence.update(entry);
+			entry = ratingsEntryPersistence.update(entry);
 
 			// Stats
 
