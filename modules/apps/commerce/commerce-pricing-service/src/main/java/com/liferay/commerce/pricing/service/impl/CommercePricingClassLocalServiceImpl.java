@@ -18,6 +18,7 @@ import com.liferay.commerce.pricing.exception.CommercePricingClassTitleException
 import com.liferay.commerce.pricing.exception.NoSuchPricingClassException;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.base.CommercePricingClassLocalServiceBaseImpl;
+import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -122,6 +123,14 @@ public class CommercePricingClassLocalServiceImpl
 
 		return commercePricingClassPersistence.fetchByC_ERC(
 			companyId, externalReferenceCode);
+	}
+
+	@Override
+	public List<CommercePricingClass> getCommercePricingClassByCPDefinition(
+		long cpDefinitionId) {
+
+		return commercePricingClassFinder.findByCN_CI(
+			CPDefinition.class.getName(), cpDefinitionId);
 	}
 
 	@Override
