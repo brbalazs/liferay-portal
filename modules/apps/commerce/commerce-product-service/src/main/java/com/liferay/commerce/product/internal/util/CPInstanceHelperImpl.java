@@ -71,9 +71,11 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -266,9 +268,6 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 			Map<String, String> optionMap)
 		throws Exception {
 
-		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
-			new ArrayList<>();
-
 		CPDefinition cpDefinition = _cpDefinitionLocalService.getCPDefinition(
 			cpDefinitionId);
 
@@ -316,6 +315,9 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 
 		Document[] documents = hits.getDocs();
 
+		Set<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+			new HashSet<>();
+
 		for (Document document : documents) {
 			String key = GetterUtil.getString(document.get(optionFieldName));
 
@@ -326,7 +328,7 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 						key));
 		}
 
-		return cpDefinitionOptionValueRels;
+		return new ArrayList<>(cpDefinitionOptionValueRels);
 	}
 
 	@Override
