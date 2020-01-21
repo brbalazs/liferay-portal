@@ -445,7 +445,13 @@ AUI.add(
 										var value = item1[index2];
 
 										if (item2.test('input[type=checkbox],input[type=radio]')) {
-											item2.set('checked', A.DataType.Boolean.parse(value));
+											item2.set('checked',
+												A.DataType.Boolean.parse(
+													value || typeof value == 'boolean'
+														? value
+														: true
+												)
+											);
 										}
 										else if (item2.test('select[multiple]') && Lang.isArray(value)) {
 											value.forEach(
