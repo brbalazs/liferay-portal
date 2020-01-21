@@ -40,6 +40,47 @@ components:
                 type: integer
             style: simple
     schemas:
+        BillingAddress:
+            properties:
+                city:
+                    type: string
+                countryISOCode:
+                    type: string
+                description:
+                    type: string
+                id:
+                    example: 31130
+                    format: int64
+                    minimum: 0
+                    type: integer
+                latitude:
+                    format: double
+                    type: number
+                longitude:
+                    format: double
+                    type: number
+                name:
+                    type: string
+                phoneNumber:
+                    type: string
+                regionISOCode:
+                    type: string
+                street1:
+                    type: string
+                street2:
+                    type: string
+                street3:
+                    type: string
+                vatNumber:
+                    type: string
+                zip:
+                    type: string
+            required:
+                - city
+                - countryISOCode
+                - name
+                - street1
+            type: object
         Cart:
             properties:
                 account:
@@ -50,6 +91,8 @@ components:
                     type: integer
                 author:
                     type: string
+                billingAddress:
+                    $ref: "#/components/schemas/BillingAddress"
                 cartItems:
                     items:
                         $ref: "#/components/schemas/CartItem"
@@ -62,6 +105,8 @@ components:
                     format: int64
                     readOnly: true
                     type: integer
+                shippingAddress:
+                    $ref: "#/components/schemas/ShippingAddress"
                 status:
                     type: string
                 summary:
@@ -121,10 +166,14 @@ components:
                     format: int64
                     readOnly: true
                     type: integer
+                billingAddress:
+                    $ref: "#/components/schemas/BillingAddress"
                 orderItems:
                     items:
                         $ref: "#/components/schemas/OrderItem"
                     type: array
+                shippingAddress:
+                    $ref: "#/components/schemas/ShippingAddress"
             type: object
         OrderItem:
             properties:
@@ -165,6 +214,45 @@ components:
                 promoPriceFormatted:
                     type: string
             type: object
+        ShippingAddress:
+            properties:
+                city:
+                    type: string
+                countryISOCode:
+                    type: string
+                description:
+                    type: string
+                id:
+                    example: 31130
+                    format: int64
+                    minimum: 0
+                    type: integer
+                latitude:
+                    format: double
+                    type: number
+                longitude:
+                    format: double
+                    type: number
+                name:
+                    type: string
+                phoneNumber:
+                    type: string
+                regionISOCode:
+                    type: string
+                street1:
+                    type: string
+                street2:
+                    type: string
+                street3:
+                    type: string
+                zip:
+                    type: string
+            required:
+                - city
+                - countryISOCode
+                - name
+                - street1
+            type: object
         Summary:
             properties:
                 itemsQuantity:
@@ -194,6 +282,124 @@ info:
     version: v1.0
 openapi: 3.0.1
 paths:
+    /channels/{channelId}/carts/{cartId}/billingAddress:
+        get:
+            description:
+                Retrive cart billing address.
+            operationId: getChannelCartBillingAddress
+            parameters:
+                - in: path
+                  explode: false
+                  name: cartId
+                  required: true
+                  schema:
+                      description:
+                          Cart Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: path
+                  explode: false
+                  name: channelId
+                  required: true
+                  schema:
+                      description:
+                          Channel Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/BillingAddress"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/BillingAddress"
+                    description:
+                        ""
+                401:
+                    $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/responses/UnauthorizedError"
+                404:
+                    $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/responses/NotFound"
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            tags: ["BillingAddress"]
+        patch:
+            operationId: patchChannelCartBillingAddress
+            parameters:
+                - in: path
+                  explode: false
+                  name: cartId
+                  required: true
+                  schema:
+                      description:
+                          Cart Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: path
+                  explode: false
+                  name: channelId
+                  required: true
+                  schema:
+                      description:
+                          Channel Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/BillingAddress"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/BillingAddress"
+                required: true
+            responses:
+                202:
+                    description:
+                        Async
+                204:
+                    description:
+                        Updated
+                400:
+                    description:
+                        Invalid input
+                401:
+                    $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/responses/UnauthorizedError"
+                404:
+                    $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/responses/NotFound"
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            summary: Updates a billing Address related to an Order.
+            tags: ["BillingAddress"]
     /channels/{channelId}/carts/{cartId}/cartItems/{cartItemId}:
         get:
             description:
@@ -608,6 +814,124 @@ paths:
                     description:
                         Unexpected error
             tags: ["Cart"]
+    /channels/{channelId}/carts/{cartId}/shippingAddress:
+        get:
+            description:
+                Retrive cart shipping address.
+            operationId: getChannelCartShippingAddress
+            parameters:
+                - in: path
+                  explode: false
+                  name: cartId
+                  required: true
+                  schema:
+                      description:
+                          Cart Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: path
+                  explode: false
+                  name: channelId
+                  required: true
+                  schema:
+                      description:
+                          Channel Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ShippingAddress"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/ShippingAddress"
+                    description:
+                        ""
+                401:
+                    $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/responses/UnauthorizedError"
+                404:
+                    $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/responses/NotFound"
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            tags: ["ShippingAddress"]
+        patch:
+            operationId: patchChannelCartShippingAddress
+            parameters:
+                - in: path
+                  explode: false
+                  name: cartId
+                  required: true
+                  schema:
+                      description:
+                          Cart Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: path
+                  explode: false
+                  name: channelId
+                  required: true
+                  schema:
+                      description:
+                          Channel Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ShippingAddress"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/ShippingAddress"
+                required: true
+            responses:
+                202:
+                    description:
+                        Async
+                204:
+                    description:
+                        Updated
+                400:
+                    description:
+                        Invalid input
+                401:
+                    $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/responses/UnauthorizedError"
+                404:
+                    $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/responses/NotFound"
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            summary: Updates a shipping Address of a Cart.
+            tags: ["ShippingAddress"]
     /channels/{channelId}/carts/{cartId}:
         get:
             description:
