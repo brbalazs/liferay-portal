@@ -5228,7 +5228,8 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			}
 			catch (SystemException se) {
 				if (se.getCause() instanceof ConnectException) {
-					_log.error("Connection error: " + se.getMessage());
+					_log.error(
+						"Unable to connect to remote live: " + se.getMessage());
 
 					if (_log.isDebugEnabled()) {
 						_log.debug(se, se);
