@@ -55,7 +55,6 @@ Object bean = request.getAttribute("liferay-commerce:header:bean");
 String beanIdLabel = (String)request.getAttribute("liferay-commerce:header:beanIdLabel");
 String cssClasses = (String)request.getAttribute("liferay-commerce:header:cssClasses");
 List<DropdownItem> dropdownItems = (List<DropdownItem>)request.getAttribute("liferay-commerce:header:dropdownItems");
-String assignerModalUrl = (String)request.getAttribute("liferay-commerce:header:assignerModalUrl");
 String externalReferenceCode = (String)request.getAttribute("liferay-commerce:header:externalReferenceCode");
 String externalReferenceCodeEditUrl = (String)request.getAttribute("liferay-commerce:header:externalReferenceCodeEditUrl");
 boolean fullWidth = (boolean)request.getAttribute("liferay-commerce:header:fullWidth");
