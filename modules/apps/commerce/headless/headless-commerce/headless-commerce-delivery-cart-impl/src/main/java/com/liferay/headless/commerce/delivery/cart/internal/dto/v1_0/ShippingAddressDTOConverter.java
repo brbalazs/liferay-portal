@@ -20,7 +20,6 @@ import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.ShippingAddress;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -39,7 +38,7 @@ public class ShippingAddressDTOConverter implements DTOConverter {
 
 	@Override
 	public String getContentType() {
-		return Cart.class.getSimpleName();
+		return ShippingAddress.class.getSimpleName();
 	}
 
 	public ShippingAddress toDTO(DTOConverterContext dtoConverterContext)

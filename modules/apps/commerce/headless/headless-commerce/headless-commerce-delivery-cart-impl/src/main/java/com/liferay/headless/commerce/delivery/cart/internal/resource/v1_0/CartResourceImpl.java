@@ -20,7 +20,6 @@ import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.exception.NoSuchOrderException;
 import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.service.CommerceChannelService;
@@ -120,36 +119,6 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 
 		_updateNestedResources(
 			order, commerceOrder, commerceContext, serviceContext);
-
-		return _toCart(commerceOrder, commerceChannel.getSiteGroupId());
-	}
-
-	@Override
-	public Cart postChannelCartCartItem(
-			@NotNull Long channelId, @NotNull Long cartId, OrderItem orderItem)
-		throws Exception {
-
-		CommerceChannel commerceChannel =
-			_commerceChannelService.getCommerceChannel(channelId);
-
-		ServiceContext serviceContext = _serviceContextHelper.getServiceContext(
-			commerceChannel.getGroupId());
-
-		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
-			cartId);
-
-		CommerceContext commerceContext = _commerceContextFactory.create(
-			contextCompany.getCompanyId(), commerceChannel.getSiteGroupId(),
-			contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
-			commerceOrder.getCommerceAccountId());
-
-		CPInstance cpInstance = _cpInstanceService.getCPInstance(
-			orderItem.getProductId());
-
-		_commerceOrderItemService.upsertCommerceOrderItem(
-			commerceOrder.getCommerceOrderId(), orderItem.getProductId(),
-			orderItem.getQuantity(), 0, cpInstance.getJson(), commerceContext,
-			serviceContext);
 
 		return _toCart(commerceOrder, commerceChannel.getSiteGroupId());
 	}

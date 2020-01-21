@@ -19,13 +19,16 @@ import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.exception.NoSuchOrderException;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
+import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartItem;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.OrderItem;
 import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.CartItemDTOConverter;
 import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.CartItemDTOConverterContext;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartItemResource;
@@ -101,6 +104,36 @@ public class CartItemResourceImpl extends BaseCartItemResourceImpl {
 	}
 
 	@Override
+	public CartItem postChannelCartCartItem(
+			@NotNull Long channelId, @NotNull Long cartId, OrderItem orderItem)
+		throws Exception {
+
+		CommerceChannel commerceChannel =
+			_commerceChannelService.getCommerceChannel(channelId);
+
+		ServiceContext serviceContext = _serviceContextHelper.getServiceContext(
+			commerceChannel.getGroupId());
+
+		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
+			cartId);
+
+		CommerceContext commerceContext = _commerceContextFactory.create(
+			contextCompany.getCompanyId(), commerceChannel.getSiteGroupId(),
+			contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
+			commerceOrder.getCommerceAccountId());
+
+		CPInstance cpInstance = _cpInstanceService.getCPInstance(
+			orderItem.getProductId());
+
+		return _toCartItem(
+			_commerceOrderItemService.upsertCommerceOrderItem(
+				commerceOrder.getCommerceOrderId(), orderItem.getProductId(),
+				orderItem.getQuantity(), 0, cpInstance.getJson(),
+				commerceContext, serviceContext),
+			commerceContext);
+	}
+
+	@Override
 	public CartItem putChannelCartCartItem(
 			@NotNull Long channelId, @NotNull Long cartId,
 			@NotNull Long cartItemId, CartItem cartItem)
@@ -166,6 +199,9 @@ public class CartItemResourceImpl extends BaseCartItemResourceImpl {
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
+
+	@Reference
+	private CPInstanceService _cpInstanceService;
 
 	@Reference
 	private CartItemDTOConverter _orderItemDTOConverter;

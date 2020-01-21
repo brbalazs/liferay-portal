@@ -17,6 +17,7 @@ package com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
@@ -32,6 +33,9 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.language.LanguageResources;
 
+import java.math.BigDecimal;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -86,6 +90,20 @@ public class CartDTOConverter implements DTOConverter {
 		};
 	}
 
+	private String[] _getFormattedDiscountPercentages(
+			BigDecimal[] discountPercentages, Locale locale)
+		throws PortalException {
+
+		List<String> formattedDiscountPercentages = new ArrayList<>();
+
+		for (BigDecimal percentage : discountPercentages) {
+			formattedDiscountPercentages.add(
+				_commercePriceFormatter.format(percentage, locale));
+		}
+
+		return formattedDiscountPercentages.toArray(new String[0]);
+	}
+
 	private Summary _getSummary(
 			CommerceOrder commerceOrder, Locale locale, long channelSiteGroupId)
 		throws PortalException {
@@ -130,6 +148,15 @@ public class CartDTOConverter implements DTOConverter {
 
 			summary.setShippingDiscountValue(
 				shippingDiscountValueDiscountAmount.format(locale));
+
+			summary.setShippingDiscountPercentageLevel1(
+				commerceOrder.getShippingDiscountPercentageLevel1());
+			summary.setShippingDiscountPercentageLevel2(
+				commerceOrder.getShippingDiscountPercentageLevel2());
+			summary.setShippingDiscountPercentageLevel3(
+				commerceOrder.getShippingDiscountPercentageLevel3());
+			summary.setShippingDiscountPercentageLevel4(
+				commerceOrder.getShippingDiscountPercentageLevel4());
 		}
 
 		CommerceDiscountValue subtotalDiscountValue =
@@ -141,6 +168,15 @@ public class CartDTOConverter implements DTOConverter {
 
 			summary.setSubtotalDiscountValue(
 				subtotalDiscountValueDiscountAmount.format(locale));
+
+			summary.setSubtotalDiscountPercentageLevel1(
+				commerceOrder.getSubtotalDiscountPercentageLevel1());
+			summary.setSubtotalDiscountPercentageLevel2(
+				commerceOrder.getSubtotalDiscountPercentageLevel2());
+			summary.setSubtotalDiscountPercentageLevel3(
+				commerceOrder.getSubtotalDiscountPercentageLevel3());
+			summary.setSubtotalDiscountPercentageLevel4(
+				commerceOrder.getSubtotalDiscountPercentageLevel4());
 		}
 
 		CommerceDiscountValue totalDiscountValue =
@@ -152,6 +188,15 @@ public class CartDTOConverter implements DTOConverter {
 
 			summary.setTotalDiscountValue(
 				totalDiscountValueDiscountAmount.format(locale));
+
+			summary.setTotalDiscountPercentageLevel1(
+				commerceOrder.getTotalDiscountPercentageLevel1());
+			summary.setTotalDiscountPercentageLevel2(
+				commerceOrder.getTotalDiscountPercentageLevel2());
+			summary.setTotalDiscountPercentageLevel3(
+				commerceOrder.getTotalDiscountPercentageLevel3());
+			summary.setTotalDiscountPercentageLevel4(
+				commerceOrder.getTotalDiscountPercentageLevel4());
 		}
 
 		return summary;
@@ -165,5 +210,8 @@ public class CartDTOConverter implements DTOConverter {
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
+
+	@Reference
+	private CommercePriceFormatter _commercePriceFormatter;
 
 }
