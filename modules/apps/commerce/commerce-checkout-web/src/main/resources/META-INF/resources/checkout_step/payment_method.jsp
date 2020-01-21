@@ -81,10 +81,10 @@ String commercePaymentMethodKey = BeanParamUtil.getString(commerceOrder, request
 
 <c:if test="<%= commercePaymentMethods.isEmpty() %>">
 	<aui:script use="aui-base">
-		var continue = A.one('#<portlet:namespace />continue');
+		var value = A.one('#<portlet:namespace />continue');
 
-		if (continue) {
-			Liferay.Util.toggleDisabled(continue, true);
+		if (value) {
+			Liferay.Util.toggleDisabled(value, true);
 		}
 	</aui:script>
 </c:if>
