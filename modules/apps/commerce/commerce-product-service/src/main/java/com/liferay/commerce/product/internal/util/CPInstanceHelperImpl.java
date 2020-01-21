@@ -266,7 +266,7 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 	public List<CPDefinitionOptionValueRel> getCPDefinitionOptionValueRel(
 			long cpDefinitionId, String optionKey,
 			Map<String, String> optionMap)
-		throws Exception {
+		throws PortalException {
 
 		CPDefinition cpDefinition = _cpDefinitionLocalService.getCPDefinition(
 			cpDefinitionId);
@@ -738,69 +738,83 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 				continue;
 			}
 
-			try {
-				List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
-					null;
+			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels = null;
 
-				if (cpDefinitionOptionRel.isSkuContributor() && publicStore) {
-					cpDefinitionOptionValueRels = getCPDefinitionOptionValueRel(
-						cpDefinitionId, cpDefinitionOptionRel.getKey(),
-						filters);
-				}
-				else {
-					cpDefinitionOptionValueRels =
-						cpDefinitionOptionRel.getCPDefinitionOptionValueRels();
-				}
+			if (cpDefinitionOptionRel.isSkuContributor() && publicStore) {
+				cpDefinitionOptionValueRels = getCPDefinitionOptionValueRel(
+					cpDefinitionId, cpDefinitionOptionRel.getKey(), filters);
+			}
+			else {
+				cpDefinitionOptionValueRels =
+					cpDefinitionOptionRel.getCPDefinitionOptionValueRels();
+			}
 
-				DDMFormField ddmFormField = new DDMFormField(
-					cpDefinitionOptionRel.getKey(),
-					cpDefinitionOptionRel.getDDMFormFieldTypeName());
+			DDMFormField ddmFormField = _getDDMFormField(
+				cpDefinitionOptionRel, cpDefinitionOptionValueRels, locale);
 
-				if (!cpDefinitionOptionValueRels.isEmpty()) {
-					DDMFormFieldOptions ddmFormFieldOptions =
-						new DDMFormFieldOptions();
-
-					for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
-							cpDefinitionOptionValueRels) {
-
-						ddmFormFieldOptions.addOptionLabel(
-							cpDefinitionOptionValueRel.getKey(), locale,
-							cpDefinitionOptionValueRel.getName(locale));
-					}
-
-					ddmFormField.setDDMFormFieldOptions(ddmFormFieldOptions);
-
-					if (cpDefinitionOptionRel.isSkuContributor()) {
-						ddmFormField.setPredefinedValue(
-							_getDDMFormFieldPredefinedValue(
-								ddmFormFieldOptions));
-					}
-				}
-
-				LocalizedValue localizedValue = new LocalizedValue(locale);
-
-				localizedValue.addString(
-					locale, cpDefinitionOptionRel.getName(locale));
-
-				ddmFormField.setLabel(localizedValue);
-
-				boolean required = _isDDMFormRequired(
+			ddmFormField.setRequired(
+				_isDDMFormRequired(
 					cpDefinitionOptionRel, ignoreSKUCombinations, optional,
-					publicStore);
+					publicStore));
 
-				ddmFormField.setRequired(required);
-
-				ddmForm.addDDMFormField(ddmFormField);
-			}
-			catch (Exception e) {
-				throw new PortalException("Unable to find option values", e);
-			}
+			ddmForm.addDDMFormField(ddmFormField);
 		}
 
 		ddmForm.addAvailableLocale(locale);
 		ddmForm.setDefaultLocale(locale);
 
 		return ddmForm;
+	}
+
+	private DDMFormField _getDDMFormField(
+		CPDefinitionOptionRel cpDefinitionOptionRel,
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
+		Locale locale) {
+
+		DDMFormField ddmFormField = new DDMFormField(
+			cpDefinitionOptionRel.getKey(),
+			cpDefinitionOptionRel.getDDMFormFieldTypeName());
+
+		LocalizedValue ddmFormFieldLabelLocalizedValue = new LocalizedValue(
+			locale);
+
+		ddmFormFieldLabelLocalizedValue.addString(
+			locale, cpDefinitionOptionRel.getName(locale));
+
+		ddmFormField.setLabel(ddmFormFieldLabelLocalizedValue);
+
+		if (cpDefinitionOptionValueRels.isEmpty()) {
+			return ddmFormField;
+		}
+
+		DDMFormFieldOptions ddmFormFieldOptions = _getDDMFormFieldOptions(
+			cpDefinitionOptionValueRels, locale);
+
+		ddmFormField.setDDMFormFieldOptions(ddmFormFieldOptions);
+
+		if (cpDefinitionOptionRel.isSkuContributor()) {
+			ddmFormField.setPredefinedValue(
+				_getDDMFormFieldPredefinedValue(ddmFormFieldOptions));
+		}
+
+		return ddmFormField;
+	}
+
+	private DDMFormFieldOptions _getDDMFormFieldOptions(
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
+		Locale locale) {
+
+		DDMFormFieldOptions ddmFormFieldOptions = new DDMFormFieldOptions();
+
+		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+				cpDefinitionOptionValueRels) {
+
+			ddmFormFieldOptions.addOptionLabel(
+				cpDefinitionOptionValueRel.getKey(), locale,
+				cpDefinitionOptionValueRel.getName(locale));
+		}
+
+		return ddmFormFieldOptions;
 	}
 
 	private LocalizedValue _getDDMFormFieldPredefinedValue(
