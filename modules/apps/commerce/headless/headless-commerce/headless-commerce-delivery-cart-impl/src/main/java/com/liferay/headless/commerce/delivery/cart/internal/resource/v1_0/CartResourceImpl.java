@@ -23,16 +23,21 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CPInstanceService;
-import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.service.CommerceChannelService;
+import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.BillingAddress;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Order;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.OrderItem;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.ShippingAddress;
 import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.CartDTOConverter;
 import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.CartDTOConverterContext;
+import com.liferay.headless.commerce.delivery.cart.internal.v1_0.BillingAddressUtil;
+import com.liferay.headless.commerce.delivery.cart.internal.v1_0.OrderItemUtil;
+import com.liferay.headless.commerce.delivery.cart.internal.v1_0.ShippingAddressUtil;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -113,12 +118,8 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		ServiceContext serviceContext = _serviceContextHelper.getServiceContext(
 			commerceChannel.getGroupId());
 
-		for (OrderItem orderItem : order.getOrderItems()) {
-			_commerceOrderItemService.upsertCommerceOrderItem(
-				commerceOrder.getCommerceOrderId(), orderItem.getProductId(),
-				orderItem.getQuantity(), 0, orderItem.getOptions(),
-				commerceContext, serviceContext);
-		}
+		_updateNestedResources(
+			order, commerceOrder, commerceContext, serviceContext);
 
 		return _toCart(commerceOrder, commerceChannel.getSiteGroupId());
 	}
@@ -202,11 +203,60 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		return carts;
 	}
 
+	private CommerceOrder _updateNestedResources(
+			Order order, CommerceOrder commerceOrder,
+			CommerceContext commerceContext, ServiceContext serviceContext)
+		throws Exception {
+
+		// Order items
+
+		OrderItem[] orderItems = order.getOrderItems();
+
+		if (orderItems != null) {
+			_commerceOrderItemService.deleteCommerceOrderItems(
+				commerceOrder.getCommerceOrderId());
+
+			for (OrderItem orderItem : orderItems) {
+				OrderItemUtil.upsertCommerceOrderItem(
+					_cpInstanceService, _commerceOrderItemService, orderItem,
+					commerceOrder,
+					_commerceContextFactory.create(
+						contextCompany.getCompanyId(),
+						commerceOrder.getGroupId(), contextUser.getUserId(),
+						commerceOrder.getCommerceOrderId(),
+						commerceOrder.getCommerceAccountId()),
+					serviceContext);
+			}
+		}
+
+		// Billing Address
+
+		BillingAddress billingAddress = order.getBillingAddress();
+
+		if (billingAddress != null) {
+			commerceOrder = BillingAddressUtil.upsertBillingAddress(
+				_commerceAddressService, _commerceOrderService, commerceOrder,
+				billingAddress, serviceContext);
+		}
+
+		// Shipping Address
+
+		ShippingAddress shippingAddress = order.getShippingAddress();
+
+		if (shippingAddress != null) {
+			commerceOrder = ShippingAddressUtil.upsertShippingAddress(
+				_commerceAddressService, _commerceOrderService, commerceOrder,
+				shippingAddress, serviceContext);
+		}
+
+		return commerceOrder;
+	}
+
 	@Reference
 	private CartDTOConverter _cartDTOConverter;
 
 	@Reference
-	private CommerceChannelLocalService _commerceChannelLocalService;
+	private CommerceAddressService _commerceAddressService;
 
 	@Reference
 	private CommerceChannelService _commerceChannelService;
