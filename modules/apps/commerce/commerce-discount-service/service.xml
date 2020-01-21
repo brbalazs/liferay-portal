@@ -73,6 +73,46 @@
 		<reference entity="WorkflowInstanceLink" package-path="com.liferay.portal" />
 		<reference entity="ExpandoRow" package-path="com.liferay.portlet.expando" />
 	</entity>
+	<entity local-service="true" name="CommerceDiscountAccountRel" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="commerceDiscountAccountRelId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="commerceAccountId" type="long" />
+		<column name="commerceDiscountId" type="long" />
+		<column name="order" type="int" />
+		<column name="lastPublishDate" type="Date" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="order" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="CommerceAccountId" return-type="Collection">
+			<finder-column name="commerceAccountId" />
+		</finder>
+		<finder name="CommerceDiscountId" return-type="Collection">
+			<finder-column name="commerceDiscountId" />
+		</finder>
+		<finder name="C_C" return-type="CommercePriceListAccountRel" unique="true">
+			<finder-column name="commerceAccountId" />
+			<finder-column name="commerceDiscountId" />
+		</finder>
+	</entity>
 	<entity local-service="true" name="CommerceDiscountCommerceAccountGroupRel" remote-service="true" table="CDiscountCAccountGroupRel">
 
 		<!-- PK fields -->

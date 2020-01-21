@@ -14,6 +14,10 @@
 
 package com.liferay.commerce.discount.service.impl;
 
+import com.liferay.asset.kernel.model.AssetCategory;
+import com.liferay.asset.kernel.model.AssetEntry;
+import com.liferay.asset.kernel.service.AssetEntryLocalService;
+import com.liferay.commerce.discount.constants.CommerceDiscountConstants;
 import com.liferay.commerce.discount.exception.CommerceDiscountCouponCodeException;
 import com.liferay.commerce.discount.exception.CommerceDiscountDisplayDateException;
 import com.liferay.commerce.discount.exception.CommerceDiscountExpirationDateException;
@@ -26,6 +30,9 @@ import com.liferay.commerce.discount.service.base.CommerceDiscountLocalServiceBa
 import com.liferay.commerce.discount.target.CommerceDiscountTarget;
 import com.liferay.commerce.discount.target.CommerceDiscountTargetRegistry;
 import com.liferay.commerce.discount.util.comparator.CommerceDiscountCreateDateComparator;
+import com.liferay.commerce.pricing.model.CommercePricingClass;
+import com.liferay.commerce.pricing.service.CommercePricingClassLocalService;
+import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -61,9 +68,13 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 /**
  * @author Marco Leo
@@ -82,6 +93,32 @@ public class CommerceDiscountLocalServiceImpl
 			String limitationType, int limitationTimes, boolean active,
 			int displayDateMonth, int displayDateDay, int displayDateYear,
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			boolean neverExpire, ServiceContext serviceContext)
+		throws PortalException {
+
+		return commerceDiscountLocalService.addCommerceDiscount(
+			userId, title, target, useCouponCode, couponCode, usePercentage,
+			maximumDiscountAmount, "", level1, level2, level3, level4,
+			limitationType, limitationTimes, true, active, displayDateMonth,
+			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
+			expirationDateMonth, expirationDateDay, expirationDateYear,
+			expirationDateHour, expirationDateMinute, neverExpire,
+			serviceContext);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceDiscount addCommerceDiscount(
+			long userId, String title, String target, boolean useCouponCode,
+			String couponCode, boolean usePercentage,
+			BigDecimal maximumDiscountAmount, String level, BigDecimal level1,
+			BigDecimal level2, BigDecimal level3, BigDecimal level4,
+			String limitationType, int limitationTimes,
+			boolean rulesConjunction, boolean active, int displayDateMonth,
+			int displayDateDay, int displayDateYear, int displayDateHour,
+			int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
 			boolean neverExpire, ServiceContext serviceContext)
@@ -125,12 +162,28 @@ public class CommerceDiscountLocalServiceImpl
 		commerceDiscount.setCouponCode(couponCode);
 		commerceDiscount.setUsePercentage(usePercentage);
 		commerceDiscount.setMaximumDiscountAmount(maximumDiscountAmount);
-		commerceDiscount.setLevel1(level1);
-		commerceDiscount.setLevel2(level2);
-		commerceDiscount.setLevel3(level3);
-		commerceDiscount.setLevel4(level4);
+		commerceDiscount.setLevel(level);
+
+		if(!level.isEmpty()) {
+			if(level.equals(CommerceDiscountConstants.LEVEL1)) {
+				commerceDiscount.setLevel1(level1);
+			} else if(level.equals(CommerceDiscountConstants.LEVEL2)) {
+				commerceDiscount.setLevel2(level1);
+			} else if(level.equals(CommerceDiscountConstants.LEVEL3)) {
+				commerceDiscount.setLevel3(level1);
+			} else if(level.equals(CommerceDiscountConstants.LEVEL4)) {
+				commerceDiscount.setLevel4(level1);
+			}
+		} else {
+			commerceDiscount.setLevel1(level1);
+			commerceDiscount.setLevel2(level2);
+			commerceDiscount.setLevel3(level3);
+			commerceDiscount.setLevel4(level4);
+		}
+
 		commerceDiscount.setLimitationType(limitationType);
 		commerceDiscount.setLimitationTimes(limitationTimes);
+		commerceDiscount.setRulesConjunction(rulesConjunction);
 		commerceDiscount.setActive(active);
 		commerceDiscount.setDisplayDate(displayDate);
 		commerceDiscount.setExpirationDate(expirationDate);
@@ -246,6 +299,108 @@ public class CommerceDiscountLocalServiceImpl
 
 		return commerceDiscountPersistence.fetchByC_ERC(
 			companyId, externalReferenceCode);
+	}
+
+	@Override
+	public List<CommerceDiscount> findByA_A_C_or_U_Order(
+		long commerceAccountId, long[] commerceAccountGroupIds,
+		long commerceChannelId, String commerceDiscountTargetType) {
+
+		return commerceDiscountFinder.findByA_A_C_or_U_Order(
+			commerceAccountId, commerceAccountGroupIds, commerceChannelId,
+			commerceDiscountTargetType);
+	}
+
+	@Override
+	public List<CommerceDiscount> findByA_A_C_or_U_Product(
+		long commerceAccountId, long[] commerceAccountGroupIds,
+		long commerceChannelId, long cpDefinitionId) {
+
+		return commerceDiscountFinder.findByA_A_C_or_U_Product(
+			commerceAccountId, commerceAccountGroupIds, commerceChannelId,
+			cpDefinitionId, _getAssetCategoryIds(cpDefinitionId),
+			_getCPDefinitionPricingClassIds(cpDefinitionId));
+	}
+
+	@Override
+	public List<CommerceDiscount> findByA_C_C_Order(
+		long commerceAccountId, String commerceDiscountTargetType) {
+
+		return commerceDiscountFinder.findByA_C_C_Order(
+			commerceAccountId, commerceDiscountTargetType);
+	}
+
+	@Override
+	public List<CommerceDiscount> findByA_C_C_Product(
+		long commerceAccountId, long cpDefinitionId) {
+
+		return commerceDiscountFinder.findByA_C_C_Product(
+			commerceAccountId, cpDefinitionId,
+			_getAssetCategoryIds(cpDefinitionId),
+			_getCPDefinitionPricingClassIds(cpDefinitionId));
+	}
+
+	@Override
+	public List<CommerceDiscount> findByAG_C_C_Order(
+		long[] commerceAccountGroupIds, String commerceDiscountTargetType) {
+
+		return commerceDiscountFinder.findByAG_C_C_Order(
+			commerceAccountGroupIds, commerceDiscountTargetType);
+	}
+
+	@Override
+	public List<CommerceDiscount> findByAG_C_C_Product(
+		long[] commerceAccountGroupIds, long cpDefinitionId) {
+
+		return commerceDiscountFinder.findByAG_C_C_Product(
+			commerceAccountGroupIds, cpDefinitionId,
+			_getAssetCategoryIds(cpDefinitionId),
+			_getCPDefinitionPricingClassIds(cpDefinitionId));
+	}
+
+	@Override
+	public List<CommerceDiscount> findByC_C_C_Order(
+		long commerceChannelId, String commerceDiscountTargetType) {
+
+		return commerceDiscountFinder.findByC_C_C_Order(
+			commerceChannelId, commerceDiscountTargetType);
+	}
+
+	@Override
+	public List<CommerceDiscount> findByC_C_C_Product(
+		long commerceChannelId, long cpDefinitionId) {
+
+		return commerceDiscountFinder.findByC_C_C_Product(
+			commerceChannelId, cpDefinitionId,
+			_getAssetCategoryIds(cpDefinitionId),
+			_getCPDefinitionPricingClassIds(cpDefinitionId));
+	}
+
+	@Override
+	public List<CommerceDiscount> findByUnqualifiedOrder(
+		String commerceDiscountTargetType) {
+
+		return commerceDiscountFinder.findByUnqualifiedOrder(
+			commerceDiscountTargetType);
+	}
+
+	@Override
+	public List<CommerceDiscount> findByUnqualifiedProduct(
+		long cpDefinitionId) {
+
+		return commerceDiscountFinder.findByUnqualifiedProduct(
+			cpDefinitionId, _getAssetCategoryIds(cpDefinitionId),
+			_getCPDefinitionPricingClassIds(cpDefinitionId));
+	}
+
+	@Override
+	public List<CommerceDiscount> findPriceListDiscountProduct(
+		long[] commerceDiscountIds, long cpDefinitionId) {
+
+		return commerceDiscountFinder.findPriceListDiscountProduct(
+			commerceDiscountIds, cpDefinitionId,
+			_getAssetCategoryIds(cpDefinitionId),
+			_getCPDefinitionPricingClassIds(cpDefinitionId));
 	}
 
 	@Override
@@ -385,6 +540,82 @@ public class CommerceDiscountLocalServiceImpl
 
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
+	public CommerceDiscount updateCommerceDiscount(
+			long commerceDiscountId, String title, String target,
+			boolean useCouponCode, String couponCode, boolean usePercentage,
+			BigDecimal maximumDiscountAmount, String level, BigDecimal level1,
+			BigDecimal level2, BigDecimal level3, BigDecimal level4,
+			String limitationType, int limitationTimes,
+			boolean rulesConjunction, boolean active, int displayDateMonth,
+			int displayDateDay, int displayDateYear, int displayDateHour,
+			int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			boolean neverExpire, ServiceContext serviceContext)
+		throws PortalException {
+
+		User user = userLocalService.getUser(serviceContext.getUserId());
+
+		CommerceDiscount commerceDiscount =
+			commerceDiscountPersistence.findByPrimaryKey(commerceDiscountId);
+
+		validate(
+			serviceContext.getCompanyId(), commerceDiscountId, title, target,
+			useCouponCode, couponCode, limitationType);
+
+		Date now = new Date();
+
+		Date displayDate = PortalUtil.getDate(
+			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
+			displayDateMinute, user.getTimeZone(),
+			CommerceDiscountDisplayDateException.class);
+
+		Date expirationDate = null;
+
+		if (!neverExpire) {
+			expirationDate = PortalUtil.getDate(
+				expirationDateMonth, expirationDateDay, expirationDateYear,
+				expirationDateHour, expirationDateMinute, user.getTimeZone(),
+				CommerceDiscountExpirationDateException.class);
+		}
+
+		commerceDiscount.setTitle(title);
+		commerceDiscount.setTarget(target);
+		commerceDiscount.setUseCouponCode(useCouponCode);
+		commerceDiscount.setCouponCode(couponCode);
+		commerceDiscount.setUsePercentage(usePercentage);
+		commerceDiscount.setMaximumDiscountAmount(maximumDiscountAmount);
+		commerceDiscount.setLevel(level);
+		commerceDiscount.setLevel1(level1);
+		commerceDiscount.setLevel2(level2);
+		commerceDiscount.setLevel3(level3);
+		commerceDiscount.setLevel4(level4);
+		commerceDiscount.setLimitationType(limitationType);
+		commerceDiscount.setLimitationTimes(limitationTimes);
+		commerceDiscount.setRulesConjunction(rulesConjunction);
+		commerceDiscount.setActive(active);
+		commerceDiscount.setDisplayDate(displayDate);
+		commerceDiscount.setExpirationDate(expirationDate);
+
+		if ((expirationDate == null) || expirationDate.after(now)) {
+			commerceDiscount.setStatus(WorkflowConstants.STATUS_DRAFT);
+		}
+		else {
+			commerceDiscount.setStatus(WorkflowConstants.STATUS_EXPIRED);
+		}
+
+		commerceDiscount.setStatusByUserId(user.getUserId());
+		commerceDiscount.setStatusDate(serviceContext.getModifiedDate(now));
+		commerceDiscount.setExpandoBridgeAttributes(serviceContext);
+
+		commerceDiscountPersistence.update(commerceDiscount);
+
+		return startWorkflowInstance(
+			user.getUserId(), commerceDiscount, serviceContext);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public CommerceDiscount updateStatus(
 			long userId, long commerceDiscountId, int status,
 			ServiceContext serviceContext,
@@ -489,6 +720,76 @@ public class CommerceDiscountLocalServiceImpl
 			expirationDateMonth, expirationDateDay, expirationDateYear,
 			expirationDateHour, expirationDateMinute, neverExpire,
 			serviceContext);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceDiscount upsertCommerceDiscount(
+			long userId, long commerceDiscountId, String title, String target,
+			boolean useCouponCode, String couponCode, boolean usePercentage,
+			BigDecimal maximumDiscountAmount, String level, BigDecimal level1,
+			BigDecimal level2, BigDecimal level3, BigDecimal level4,
+			String limitationType, int limitationTimes,
+			boolean rulesConjunction, boolean active, int displayDateMonth,
+			int displayDateDay, int displayDateYear, int displayDateHour,
+			int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			String externalReferenceCode, boolean neverExpire,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		// Update
+
+		if (commerceDiscountId > 0) {
+			try {
+				return commerceDiscountLocalService.updateCommerceDiscount(
+					commerceDiscountId, title, target, useCouponCode,
+					couponCode, usePercentage, maximumDiscountAmount, level,
+					level1, level2, level3, level4, limitationType,
+					limitationTimes, rulesConjunction, active, displayDateMonth,
+					displayDateDay, displayDateYear, displayDateHour,
+					displayDateMinute, expirationDateMonth, expirationDateDay,
+					expirationDateYear, expirationDateHour,
+					expirationDateMinute, neverExpire, serviceContext);
+			}
+			catch (NoSuchDiscountException nsde) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"Unable to find discount with ID: " +
+							commerceDiscountId);
+				}
+			}
+		}
+
+		if (!Validator.isBlank(externalReferenceCode)) {
+			CommerceDiscount commerceDiscount =
+				commerceDiscountPersistence.fetchByC_ERC(
+					serviceContext.getCompanyId(), externalReferenceCode);
+
+			if (commerceDiscount != null) {
+				return commerceDiscountLocalService.updateCommerceDiscount(
+					commerceDiscountId, title, target, useCouponCode,
+					couponCode, usePercentage, maximumDiscountAmount, level,
+					level1, level2, level3, level4, limitationType,
+					limitationTimes, rulesConjunction, active, displayDateMonth,
+					displayDateDay, displayDateYear, displayDateHour,
+					displayDateMinute, expirationDateMonth, expirationDateDay,
+					expirationDateYear, expirationDateHour,
+					expirationDateMinute, neverExpire, serviceContext);
+			}
+		}
+
+		// Add
+
+		return commerceDiscountLocalService.addCommerceDiscount(
+			userId, title, target, useCouponCode, couponCode, usePercentage,
+			maximumDiscountAmount, level, level1, level2, level3, level4,
+			limitationType, limitationTimes, rulesConjunction, active,
+			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
+			displayDateMinute, expirationDateMonth, expirationDateDay,
+			expirationDateYear, expirationDateHour, expirationDateMinute,
+			neverExpire, serviceContext);
 	}
 
 	protected SearchContext buildSearchContext(
@@ -672,6 +973,45 @@ public class CommerceDiscountLocalServiceImpl
 		}
 	}
 
+	private long[] _getAssetCategoryIds(long cpDefinitionId) {
+		try {
+			AssetEntry assetEntry = _assetEntryLocalService.getEntry(
+				CPDefinition.class.getName(), cpDefinitionId);
+
+			Set<AssetCategory> assetCategories = new HashSet<>();
+
+			for (AssetCategory assetCategory : assetEntry.getCategories()) {
+				assetCategories.add(assetCategory);
+				assetCategories.addAll(assetCategory.getAncestors());
+			}
+
+			Stream<AssetCategory> stream = assetCategories.stream();
+
+			LongStream longStream = stream.mapToLong(
+				AssetCategory::getCategoryId);
+
+			return longStream.toArray();
+		}
+		catch (PortalException pe) {
+			_log.error(pe, pe);
+		}
+
+		return new long[0];
+	}
+
+	private long[] _getCPDefinitionPricingClassIds(long cpDefinitionId) {
+		List<CommercePricingClass> commercePricingClasses =
+			_commercePricingClassLocalService.
+				getCommercePricingClassByCPDefinition(cpDefinitionId);
+
+		Stream<CommercePricingClass> stream = commercePricingClasses.stream();
+
+		LongStream longStream = stream.mapToLong(
+			CommercePricingClass::getCommercePricingClassId);
+
+		return longStream.toArray();
+	}
+
 	private static final String[] _SELECTED_FIELD_NAMES = {
 		Field.ENTRY_CLASS_PK, Field.COMPANY_ID, Field.UID
 	};
@@ -679,7 +1019,13 @@ public class CommerceDiscountLocalServiceImpl
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceDiscountLocalServiceImpl.class);
 
+	@ServiceReference(type = AssetEntryLocalService.class)
+	private AssetEntryLocalService _assetEntryLocalService;
+
 	@ServiceReference(type = CommerceDiscountTargetRegistry.class)
 	private CommerceDiscountTargetRegistry _commerceDiscountTargetRegistry;
+
+	@ServiceReference(type = CommercePricingClassLocalService.class)
+	private CommercePricingClassLocalService _commercePricingClassLocalService;
 
 }
