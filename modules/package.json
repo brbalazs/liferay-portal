@@ -48,6 +48,10 @@
 		"clay-table": "2.14.2",
 		"clay-tooltip": "2.14.2"
 	},
+	"scripts": {
+		"checkFormat": "liferay-npm-scripts check",
+		"format": "liferay-npm-scripts fix"
+	},
 	"workspaces": {
 		"packages": [
 			"apps/adaptive-media/*-{taglib,web}",

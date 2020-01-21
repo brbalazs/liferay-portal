@@ -12,8 +12,13 @@
  * details.
  */
 
+const COMMERCE_GLOBS = [
+	'/apps/commerce/*/*.js',
+	'/apps/commerce/*/{src,test}/**/*.{js,scss}',
+	'/apps/commerce/*/{src}/**/*.{jsp,jspf}'
+];
+
 module.exports = {
-	check: ['src/main/resources/META-INF/resources/js/**/*.js'],
-	fix: ['src/main/resources/META-INF/resources/js/**/*.js'],
-	preset: 'liferay-npm-scripts/src/presets/standard',
+	check: COMMERCE_GLOBS,
+	fix: COMMERCE_GLOBS,
 };
