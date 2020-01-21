@@ -98,6 +98,15 @@ public class CommerceAccountGroupCommerceAccountRelLocalServiceImpl
 
 	@Override
 	public CommerceAccountGroupCommerceAccountRel
+		fetchCommerceAccountGroupCommerceAccountRel(
+			long commerceAccountGroupId, long commerceAccountId) {
+
+		return commerceAccountGroupCommerceAccountRelPersistence.fetchByC_C(
+			commerceAccountGroupId, commerceAccountId);
+	}
+
+	@Override
+	public CommerceAccountGroupCommerceAccountRel
 			getCommerceAccountGroupCommerceAccountRel(
 				long commerceAccountGroupId, long commerceAccountId)
 		throws PortalException {
