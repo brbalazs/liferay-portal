@@ -361,14 +361,23 @@ public class CommerceDiscountCalculationImpl
 				_commerceDiscountRuleTypeRegistry.getCommerceDiscountRuleType(
 					commerceDiscountRule.getType());
 
-			if (!commerceDiscountRuleType.evaluate(
-					commerceDiscountRule, commerceContext)) {
+			boolean commerceDiscountRuleTypeEvaluation =
+				commerceDiscountRuleType.evaluate(
+					commerceDiscountRule, commerceContext);
+
+			if (!commerceDiscountRuleTypeEvaluation &&
+				commerceDiscount.isRulesConjunction()) {
 
 				return false;
 			}
+			else if (commerceDiscountRuleTypeEvaluation &&
+					 !commerceDiscount.isRulesConjunction()) {
+
+				return true;
+			}
 		}
 
-		return true;
+		return commerceDiscount.isRulesConjunction();
 	}
 
 	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);

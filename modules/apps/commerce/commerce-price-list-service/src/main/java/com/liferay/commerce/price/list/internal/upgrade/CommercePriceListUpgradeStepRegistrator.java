@@ -18,6 +18,9 @@ import com.liferay.commerce.price.list.internal.upgrade.v1_1_0.CommercePriceEntr
 import com.liferay.commerce.price.list.internal.upgrade.v1_2_0.CommercePriceListAccountRelUpgradeProcess;
 import com.liferay.commerce.price.list.internal.upgrade.v2_0_0.CommercePriceListCommerceAccountGroupRelUpgradeProcess;
 import com.liferay.commerce.price.list.internal.upgrade.v2_0_0.CommerceTierPriceEntryUpgradeProcess;
+import com.liferay.commerce.price.list.internal.upgrade.v2_1_0.CommercePriceListChannelRelUpgradeProcess;
+import com.liferay.commerce.price.list.internal.upgrade.v2_1_0.CommercePriceListDiscountRelUpgradeProcess;
+import com.liferay.commerce.price.list.internal.upgrade.v2_1_0.CommercePriceListRelUpgradeProcess;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.portal.kernel.log.Log;
@@ -58,6 +61,18 @@ public class CommercePriceListUpgradeStepRegistrator
 				CommercePriceListAccountRelUpgradeProcess(),
 			new CommercePriceListCommerceAccountGroupRelUpgradeProcess(),
 			new CommerceTierPriceEntryUpgradeProcess());
+
+		registry.register(
+			_SCHEMA_VERSION_2_0_0, _SCHEMA_VERSION_2_1_0,
+			new com.liferay.commerce.price.list.internal.upgrade.v2_1_0.
+				CommercePriceEntryUpgradeProcess(),
+			new com.liferay.commerce.price.list.internal.upgrade.v2_1_0.
+				CommercePriceListUpgradeProcess(),
+			new com.liferay.commerce.price.list.internal.upgrade.v2_1_0.
+				CommerceTierPriceEntryUpgradeProcess(),
+			new CommercePriceListChannelRelUpgradeProcess(),
+			new CommercePriceListDiscountRelUpgradeProcess(),
+			new CommercePriceListRelUpgradeProcess());
 
 		if (_log.isInfoEnabled()) {
 			_log.info("COMMERCE PRICE LIST UPGRADE STEP REGISTRATOR FINISHED");
