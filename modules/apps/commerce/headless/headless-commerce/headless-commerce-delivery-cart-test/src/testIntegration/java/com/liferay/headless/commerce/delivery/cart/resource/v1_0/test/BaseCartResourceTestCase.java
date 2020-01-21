@@ -445,6 +445,14 @@ public abstract class BaseCartResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("billingAddress", additionalAssertFieldName)) {
+				if (cart.getBillingAddress() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("cartItems", additionalAssertFieldName)) {
 				if (cart.getCartItems() == null) {
 					valid = false;
@@ -455,6 +463,14 @@ public abstract class BaseCartResourceTestCase {
 
 			if (Objects.equals("createDate", additionalAssertFieldName)) {
 				if (cart.getCreateDate() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("shippingAddress", additionalAssertFieldName)) {
+				if (cart.getShippingAddress() == null) {
 					valid = false;
 				}
 
@@ -558,6 +574,16 @@ public abstract class BaseCartResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("billingAddress", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						cart1.getBillingAddress(), cart2.getBillingAddress())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("cartItems", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						cart1.getCartItems(), cart2.getCartItems())) {
@@ -580,6 +606,17 @@ public abstract class BaseCartResourceTestCase {
 
 			if (Objects.equals("id", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(cart1.getId(), cart2.getId())) {
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("shippingAddress", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						cart1.getShippingAddress(),
+						cart2.getShippingAddress())) {
+
 					return false;
 				}
 
@@ -742,6 +779,11 @@ public abstract class BaseCartResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("billingAddress")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("cartItems")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -779,6 +821,11 @@ public abstract class BaseCartResourceTestCase {
 		}
 
 		if (entityFieldName.equals("id")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("shippingAddress")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}

@@ -49,6 +49,28 @@ public class Order {
 
 	protected Long accountId;
 
+	public BillingAddress getBillingAddress() {
+		return billingAddress;
+	}
+
+	public void setBillingAddress(BillingAddress billingAddress) {
+		this.billingAddress = billingAddress;
+	}
+
+	public void setBillingAddress(
+		UnsafeSupplier<BillingAddress, Exception>
+			billingAddressUnsafeSupplier) {
+
+		try {
+			billingAddress = billingAddressUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BillingAddress billingAddress;
+
 	public OrderItem[] getOrderItems() {
 		return orderItems;
 	}
@@ -69,6 +91,28 @@ public class Order {
 	}
 
 	protected OrderItem[] orderItems;
+
+	public ShippingAddress getShippingAddress() {
+		return shippingAddress;
+	}
+
+	public void setShippingAddress(ShippingAddress shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
+
+	public void setShippingAddress(
+		UnsafeSupplier<ShippingAddress, Exception>
+			shippingAddressUnsafeSupplier) {
+
+		try {
+			shippingAddress = shippingAddressUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected ShippingAddress shippingAddress;
 
 	@Override
 	public boolean equals(Object object) {

@@ -14,14 +14,11 @@
 
 package com.liferay.headless.commerce.delivery.cart.internal.resource.v1_0;
 
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Order;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.OrderItem;
-import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.ShippingAddress;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.ShippingAddressResource;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
-import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.util.ActionUtil;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
@@ -32,7 +29,6 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -45,150 +41,80 @@ import javax.validation.constraints.NotNull;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
+import javax.ws.rs.PATCH;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 /**
  * @author Andrea Sbarra
- * @generated 
+ * @generated
  */
 @Generated("")
 @Path("/v1.0")
-public abstract class BaseCartResourceImpl implements CartResource {
+public abstract class BaseShippingAddressResourceImpl
+	implements ShippingAddressResource {
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/cartItems' -d $'{"id": ___, "options": ___, "productId": ___, "quantity": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@Operation(
-		description = "Add new Items to a Cart, return the whole Cart updated."
-	)
-	@POST
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "channelId"),
-			@Parameter(in = ParameterIn.PATH, name = "cartId")
-		}
-	)
-	@Path("/channels/{channelId}/carts/{cartId}/cartItems")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Cart")})
-	public Cart postChannelCartCartItem(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-				channelId,
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
-			OrderItem orderItem)
-		throws Exception {
-
-		return new Cart();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/shippingAddress'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
-	@Operation(description = "Retrive information of the given Cart.")
+	@Operation(description = "Retrive cart shipping address.")
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "channelId"),
 			@Parameter(in = ParameterIn.PATH, name = "cartId")
 		}
 	)
-	@Path("/channels/{channelId}/carts/{cartId}")
+	@Path("/channels/{channelId}/carts/{cartId}/shippingAddress")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Cart")})
-	public Cart getChannelCart(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-				channelId,
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId
-	)
+	@Tags(value = {@Tag(name = "ShippingAddress")})
+	public ShippingAddress getChannelCartShippingAddress(
+		@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+			channelId,
+		@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId
+			)
 		throws Exception {
 
-		return new Cart();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}' -d $'{"orderItems": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@PUT
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "channelId"),
-			@Parameter(in = ParameterIn.PATH, name = "cartId")
-		}
-	)
-	@Path("/channels/{channelId}/carts/{cartId}")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Cart")})
-	public Cart putChannelCart(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-				channelId,
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
-			Order order)
-		throws Exception {
-
-		return new Cart();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@GET
-	@Operation(
-		description = "Retrieves carts for specific account in the given channl."
-	)
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "channelId")})
-	@Path("/channels/{channelId}/carts")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Cart")})
-	public Page<Cart> getChannelCartsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-				channelId)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts' -d $'{"orderItems": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@POST
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "channelId")})
-	@Path("/channels/{channelId}/carts")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Cart")})
-	public Cart postChannelCart(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-				channelId,
-			Order order)
-		throws Exception {
-
-		return new Cart();
+		return new ShippingAddress();
 	}
 
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
 		this.contextAcceptLanguage = contextAcceptLanguage;
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/shippingAddress' -d $'{"city": ___, "countryISOCode": ___, "description": ___, "id": ___, "latitude": ___, "longitude": ___, "name": ___, "phoneNumber": ___, "regionISOCode": ___, "street1": ___, "street2": ___, "street3": ___, "zip": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@PATCH
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "channelId"),
+			@Parameter(in = ParameterIn.PATH, name = "cartId")
+		}
+	)
+	@Path("/channels/{channelId}/carts/{cartId}/shippingAddress")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "ShippingAddress")})
+	public Response patchChannelCartShippingAddress(
+		@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+			channelId,
+		@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
+		ShippingAddress shippingAddress)
+		throws Exception {
+
+		Response.ResponseBuilder responseBuilder = Response.ok();
+
+		return responseBuilder.build();
 	}
 
 	public void setContextCompany(
@@ -243,7 +169,9 @@ public abstract class BaseCartResourceImpl implements CartResource {
 			actionName, siteId, methodName, permissionName, siteId);
 	}
 
-	protected void preparePatch(Cart cart, Cart existingCart) {
+	protected void preparePatch(
+		ShippingAddress shippingAddress,
+		ShippingAddress existingShippingAddress) {
 	}
 
 	protected <T, R> List<R> transform(

@@ -136,6 +136,36 @@ public class Cart {
 
 	@Schema
 	@Valid
+	public BillingAddress getBillingAddress() {
+		return billingAddress;
+	}
+
+	public void setBillingAddress(BillingAddress billingAddress) {
+		this.billingAddress = billingAddress;
+	}
+
+	@JsonIgnore
+	public void setBillingAddress(
+		UnsafeSupplier<BillingAddress, Exception>
+			billingAddressUnsafeSupplier) {
+
+		try {
+			billingAddress = billingAddressUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected BillingAddress billingAddress;
+
+	@Schema
+	@Valid
 	public CartItem[] getCartItems() {
 		return cartItems;
 	}
@@ -216,6 +246,36 @@ public class Cart {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long id;
+
+	@Schema
+	@Valid
+	public ShippingAddress getShippingAddress() {
+		return shippingAddress;
+	}
+
+	public void setShippingAddress(ShippingAddress shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
+
+	@JsonIgnore
+	public void setShippingAddress(
+		UnsafeSupplier<ShippingAddress, Exception>
+			shippingAddressUnsafeSupplier) {
+
+		try {
+			shippingAddress = shippingAddressUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected ShippingAddress shippingAddress;
 
 	@Schema
 	public String getStatus() {
@@ -342,6 +402,16 @@ public class Cart {
 			sb.append("\"");
 		}
 
+		if (billingAddress != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"billingAddress\": ");
+
+			sb.append(String.valueOf(billingAddress));
+		}
+
 		if (cartItems != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -384,6 +454,16 @@ public class Cart {
 			sb.append("\"id\": ");
 
 			sb.append(id);
+		}
+
+		if (shippingAddress != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingAddress\": ");
+
+			sb.append(String.valueOf(shippingAddress));
 		}
 
 		if (status != null) {

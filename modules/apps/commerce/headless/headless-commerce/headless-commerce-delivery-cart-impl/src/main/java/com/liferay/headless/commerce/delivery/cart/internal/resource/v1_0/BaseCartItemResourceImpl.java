@@ -52,7 +52,7 @@ import javax.ws.rs.core.UriInfo;
 
 /**
  * @author Andrea Sbarra
- * @generated
+ * @generated 
  */
 @Generated("")
 @Path("/v1.0")

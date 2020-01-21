@@ -92,6 +92,28 @@ public class Cart {
 
 	protected String author;
 
+	public BillingAddress getBillingAddress() {
+		return billingAddress;
+	}
+
+	public void setBillingAddress(BillingAddress billingAddress) {
+		this.billingAddress = billingAddress;
+	}
+
+	public void setBillingAddress(
+		UnsafeSupplier<BillingAddress, Exception>
+			billingAddressUnsafeSupplier) {
+
+		try {
+			billingAddress = billingAddressUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BillingAddress billingAddress;
+
 	public CartItem[] getCartItems() {
 		return cartItems;
 	}
@@ -152,6 +174,28 @@ public class Cart {
 	}
 
 	protected Long id;
+
+	public ShippingAddress getShippingAddress() {
+		return shippingAddress;
+	}
+
+	public void setShippingAddress(ShippingAddress shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
+
+	public void setShippingAddress(
+		UnsafeSupplier<ShippingAddress, Exception>
+			shippingAddressUnsafeSupplier) {
+
+		try {
+			shippingAddress = shippingAddressUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected ShippingAddress shippingAddress;
 
 	public String getStatus() {
 		return status;

@@ -14,12 +14,16 @@
 
 package com.liferay.headless.commerce.delivery.cart.internal.graphql.mutation.v1_0;
 
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.BillingAddress;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartItem;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Order;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.OrderItem;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.ShippingAddress;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.BillingAddressResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartItemResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.ShippingAddressResource;
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
@@ -31,6 +35,7 @@ import javax.annotation.Generated;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.ComponentServiceObjects;
@@ -41,6 +46,14 @@ import org.osgi.service.component.ComponentServiceObjects;
  */
 @Generated("")
 public class Mutation {
+
+	public static void setBillingAddressResourceComponentServiceObjects(
+		ComponentServiceObjects<BillingAddressResource>
+			billingAddressResourceComponentServiceObjects) {
+
+		_billingAddressResourceComponentServiceObjects =
+			billingAddressResourceComponentServiceObjects;
+	}
 
 	public static void setCartResourceComponentServiceObjects(
 		ComponentServiceObjects<CartResource>
@@ -56,6 +69,29 @@ public class Mutation {
 
 		_cartItemResourceComponentServiceObjects =
 			cartItemResourceComponentServiceObjects;
+	}
+
+	public static void setShippingAddressResourceComponentServiceObjects(
+		ComponentServiceObjects<ShippingAddressResource>
+			shippingAddressResourceComponentServiceObjects) {
+
+		_shippingAddressResourceComponentServiceObjects =
+			shippingAddressResourceComponentServiceObjects;
+	}
+
+	@GraphQLField
+	public Response patchChannelCartBillingAddress(
+			@GraphQLName("cartId") Long cartId,
+			@GraphQLName("channelId") Long channelId,
+			@GraphQLName("billingAddress") BillingAddress billingAddress)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_billingAddressResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			billingAddressResource ->
+				billingAddressResource.patchChannelCartBillingAddress(
+					cartId, channelId, billingAddress));
 	}
 
 	@GraphQLField(
@@ -130,6 +166,21 @@ public class Mutation {
 				cartId, cartItemId, channelId, cartItem));
 	}
 
+	@GraphQLField
+	public Response patchChannelCartShippingAddress(
+			@GraphQLName("cartId") Long cartId,
+			@GraphQLName("channelId") Long channelId,
+			@GraphQLName("shippingAddress") ShippingAddress shippingAddress)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_shippingAddressResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			shippingAddressResource ->
+				shippingAddressResource.patchChannelCartShippingAddress(
+					cartId, channelId, shippingAddress));
+	}
+
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
 			_applyComponentServiceObjects(
 				ComponentServiceObjects<T> componentServiceObjects,
@@ -168,6 +219,20 @@ public class Mutation {
 		}
 	}
 
+	private void _populateResourceContext(
+			BillingAddressResource billingAddressResource)
+		throws Exception {
+
+		billingAddressResource.setContextAcceptLanguage(_acceptLanguage);
+		billingAddressResource.setContextCompany(_company);
+		billingAddressResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		billingAddressResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		billingAddressResource.setContextUriInfo(_uriInfo);
+		billingAddressResource.setContextUser(_user);
+	}
+
 	private void _populateResourceContext(CartResource cartResource)
 		throws Exception {
 
@@ -190,10 +255,28 @@ public class Mutation {
 		cartItemResource.setContextUser(_user);
 	}
 
+	private void _populateResourceContext(
+			ShippingAddressResource shippingAddressResource)
+		throws Exception {
+
+		shippingAddressResource.setContextAcceptLanguage(_acceptLanguage);
+		shippingAddressResource.setContextCompany(_company);
+		shippingAddressResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		shippingAddressResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		shippingAddressResource.setContextUriInfo(_uriInfo);
+		shippingAddressResource.setContextUser(_user);
+	}
+
+	private static ComponentServiceObjects<BillingAddressResource>
+		_billingAddressResourceComponentServiceObjects;
 	private static ComponentServiceObjects<CartResource>
 		_cartResourceComponentServiceObjects;
 	private static ComponentServiceObjects<CartItemResource>
 		_cartItemResourceComponentServiceObjects;
+	private static ComponentServiceObjects<ShippingAddressResource>
+		_shippingAddressResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
 	private com.liferay.portal.kernel.model.Company _company;

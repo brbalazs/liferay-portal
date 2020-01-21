@@ -14,10 +14,14 @@
 
 package com.liferay.headless.commerce.delivery.cart.internal.graphql.query.v1_0;
 
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.BillingAddress;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartItem;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.ShippingAddress;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.BillingAddressResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartItemResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.ShippingAddressResource;
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.search.Sort;
@@ -46,6 +50,14 @@ import org.osgi.service.component.ComponentServiceObjects;
 @Generated("")
 public class Query {
 
+	public static void setBillingAddressResourceComponentServiceObjects(
+		ComponentServiceObjects<BillingAddressResource>
+			billingAddressResourceComponentServiceObjects) {
+
+		_billingAddressResourceComponentServiceObjects =
+			billingAddressResourceComponentServiceObjects;
+	}
+
 	public static void setCartResourceComponentServiceObjects(
 		ComponentServiceObjects<CartResource>
 			cartResourceComponentServiceObjects) {
@@ -62,10 +74,37 @@ public class Query {
 			cartItemResourceComponentServiceObjects;
 	}
 
+	public static void setShippingAddressResourceComponentServiceObjects(
+		ComponentServiceObjects<ShippingAddressResource>
+			shippingAddressResourceComponentServiceObjects) {
+
+		_shippingAddressResourceComponentServiceObjects =
+			shippingAddressResourceComponentServiceObjects;
+	}
+
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelCart(cartId: ___, channelId: ___){account, accountId, author, cartItems, createDate, id, status, summary}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelCartBillingAddress(cartId: ___, channelId: ___){city, countryISOCode, description, id, latitude, longitude, name, phoneNumber, regionISOCode, street1, street2, street3, vatNumber, zip}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField(description = "Retrive cart billing address.")
+	public BillingAddress channelCartBillingAddress(
+			@GraphQLName("cartId") Long cartId,
+			@GraphQLName("channelId") Long channelId)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_billingAddressResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			billingAddressResource ->
+				billingAddressResource.getChannelCartBillingAddress(
+					cartId, channelId));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelCart(cartId: ___, channelId: ___){account, accountId, author, billingAddress, shippingAddress, cartItems, createDate, id, status, summary}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrive information of the given Cart.")
 	public Cart channelCart(
@@ -135,6 +174,57 @@ public class Query {
 					cartId, channelId)));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelCartShippingAddress(cartId: ___, channelId: ___){city, countryISOCode, description, id, latitude, longitude, name, phoneNumber, regionISOCode, street1, street2, street3, zip}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField(description = "Retrive cart shipping address.")
+	public ShippingAddress channelCartShippingAddress(
+			@GraphQLName("cartId") Long cartId,
+			@GraphQLName("channelId") Long channelId)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_shippingAddressResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			shippingAddressResource ->
+				shippingAddressResource.getChannelCartShippingAddress(
+					cartId, channelId));
+	}
+
+	@GraphQLName("BillingAddressPage")
+	public class BillingAddressPage {
+
+		public BillingAddressPage(Page billingAddressPage) {
+			actions = billingAddressPage.getActions();
+			items = billingAddressPage.getItems();
+			lastPage = billingAddressPage.getLastPage();
+			page = billingAddressPage.getPage();
+			pageSize = billingAddressPage.getPageSize();
+			totalCount = billingAddressPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected java.util.Collection<BillingAddress> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
 	@GraphQLName("CartPage")
 	public class CartPage {
 
@@ -199,6 +289,38 @@ public class Query {
 
 	}
 
+	@GraphQLName("ShippingAddressPage")
+	public class ShippingAddressPage {
+
+		public ShippingAddressPage(Page shippingAddressPage) {
+			actions = shippingAddressPage.getActions();
+			items = shippingAddressPage.getItems();
+			lastPage = shippingAddressPage.getLastPage();
+			page = shippingAddressPage.getPage();
+			pageSize = shippingAddressPage.getPageSize();
+			totalCount = shippingAddressPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected java.util.Collection<ShippingAddress> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
 			_applyComponentServiceObjects(
 				ComponentServiceObjects<T> componentServiceObjects,
@@ -216,6 +338,20 @@ public class Query {
 		finally {
 			componentServiceObjects.ungetService(resource);
 		}
+	}
+
+	private void _populateResourceContext(
+			BillingAddressResource billingAddressResource)
+		throws Exception {
+
+		billingAddressResource.setContextAcceptLanguage(_acceptLanguage);
+		billingAddressResource.setContextCompany(_company);
+		billingAddressResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		billingAddressResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		billingAddressResource.setContextUriInfo(_uriInfo);
+		billingAddressResource.setContextUser(_user);
 	}
 
 	private void _populateResourceContext(CartResource cartResource)
@@ -240,10 +376,28 @@ public class Query {
 		cartItemResource.setContextUser(_user);
 	}
 
+	private void _populateResourceContext(
+			ShippingAddressResource shippingAddressResource)
+		throws Exception {
+
+		shippingAddressResource.setContextAcceptLanguage(_acceptLanguage);
+		shippingAddressResource.setContextCompany(_company);
+		shippingAddressResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		shippingAddressResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		shippingAddressResource.setContextUriInfo(_uriInfo);
+		shippingAddressResource.setContextUser(_user);
+	}
+
+	private static ComponentServiceObjects<BillingAddressResource>
+		_billingAddressResourceComponentServiceObjects;
 	private static ComponentServiceObjects<CartResource>
 		_cartResourceComponentServiceObjects;
 	private static ComponentServiceObjects<CartItemResource>
 		_cartItemResourceComponentServiceObjects;
+	private static ComponentServiceObjects<ShippingAddressResource>
+		_shippingAddressResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
 	private BiFunction<Object, String, Filter> _filterBiFunction;

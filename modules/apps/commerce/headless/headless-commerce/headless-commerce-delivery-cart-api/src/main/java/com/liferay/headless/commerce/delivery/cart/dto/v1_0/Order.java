@@ -76,6 +76,36 @@ public class Order {
 
 	@Schema
 	@Valid
+	public BillingAddress getBillingAddress() {
+		return billingAddress;
+	}
+
+	public void setBillingAddress(BillingAddress billingAddress) {
+		this.billingAddress = billingAddress;
+	}
+
+	@JsonIgnore
+	public void setBillingAddress(
+		UnsafeSupplier<BillingAddress, Exception>
+			billingAddressUnsafeSupplier) {
+
+		try {
+			billingAddress = billingAddressUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected BillingAddress billingAddress;
+
+	@Schema
+	@Valid
 	public OrderItem[] getOrderItems() {
 		return orderItems;
 	}
@@ -102,6 +132,36 @@ public class Order {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected OrderItem[] orderItems;
+
+	@Schema
+	@Valid
+	public ShippingAddress getShippingAddress() {
+		return shippingAddress;
+	}
+
+	public void setShippingAddress(ShippingAddress shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
+
+	@JsonIgnore
+	public void setShippingAddress(
+		UnsafeSupplier<ShippingAddress, Exception>
+			shippingAddressUnsafeSupplier) {
+
+		try {
+			shippingAddress = shippingAddressUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected ShippingAddress shippingAddress;
 
 	@Override
 	public boolean equals(Object object) {
@@ -140,6 +200,16 @@ public class Order {
 			sb.append(accountId);
 		}
 
+		if (billingAddress != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"billingAddress\": ");
+
+			sb.append(String.valueOf(billingAddress));
+		}
+
 		if (orderItems != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -158,6 +228,16 @@ public class Order {
 			}
 
 			sb.append("]");
+		}
+
+		if (shippingAddress != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingAddress\": ");
+
+			sb.append(String.valueOf(shippingAddress));
 		}
 
 		sb.append("}");

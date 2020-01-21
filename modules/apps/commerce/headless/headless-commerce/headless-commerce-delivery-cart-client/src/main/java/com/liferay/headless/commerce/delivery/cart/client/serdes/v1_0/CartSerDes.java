@@ -99,6 +99,16 @@ public class CartSerDes {
 			sb.append("\"");
 		}
 
+		if (cart.getBillingAddress() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"billingAddress\": ");
+
+			sb.append(String.valueOf(cart.getBillingAddress()));
+		}
+
 		if (cart.getCartItems() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -141,6 +151,16 @@ public class CartSerDes {
 			sb.append("\"id\": ");
 
 			sb.append(cart.getId());
+		}
+
+		if (cart.getShippingAddress() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingAddress\": ");
+
+			sb.append(String.valueOf(cart.getShippingAddress()));
 		}
 
 		if (cart.getStatus() != null) {
@@ -209,6 +229,13 @@ public class CartSerDes {
 			map.put("author", String.valueOf(cart.getAuthor()));
 		}
 
+		if (cart.getBillingAddress() == null) {
+			map.put("billingAddress", null);
+		}
+		else {
+			map.put("billingAddress", String.valueOf(cart.getBillingAddress()));
+		}
+
 		if (cart.getCartItems() == null) {
 			map.put("cartItems", null);
 		}
@@ -224,6 +251,14 @@ public class CartSerDes {
 		}
 		else {
 			map.put("id", String.valueOf(cart.getId()));
+		}
+
+		if (cart.getShippingAddress() == null) {
+			map.put("shippingAddress", null);
+		}
+		else {
+			map.put(
+				"shippingAddress", String.valueOf(cart.getShippingAddress()));
 		}
 
 		if (cart.getStatus() == null) {
@@ -276,6 +311,13 @@ public class CartSerDes {
 					cart.setAuthor((String)jsonParserFieldValue);
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "billingAddress")) {
+				if (jsonParserFieldValue != null) {
+					cart.setBillingAddress(
+						BillingAddressSerDes.toDTO(
+							(String)jsonParserFieldValue));
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "cartItems")) {
 				if (jsonParserFieldValue != null) {
 					cart.setCartItems(
@@ -296,6 +338,13 @@ public class CartSerDes {
 			else if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
 					cart.setId(Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "shippingAddress")) {
+				if (jsonParserFieldValue != null) {
+					cart.setShippingAddress(
+						ShippingAddressSerDes.toDTO(
+							(String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "status")) {

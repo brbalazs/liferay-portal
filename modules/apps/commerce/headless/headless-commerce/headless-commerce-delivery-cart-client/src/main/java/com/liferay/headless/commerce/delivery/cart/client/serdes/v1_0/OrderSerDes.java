@@ -65,6 +65,16 @@ public class OrderSerDes {
 			sb.append(order.getAccountId());
 		}
 
+		if (order.getBillingAddress() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"billingAddress\": ");
+
+			sb.append(String.valueOf(order.getBillingAddress()));
+		}
+
 		if (order.getOrderItems() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -83,6 +93,16 @@ public class OrderSerDes {
 			}
 
 			sb.append("]");
+		}
+
+		if (order.getShippingAddress() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingAddress\": ");
+
+			sb.append(String.valueOf(order.getShippingAddress()));
 		}
 
 		sb.append("}");
@@ -110,11 +130,27 @@ public class OrderSerDes {
 			map.put("accountId", String.valueOf(order.getAccountId()));
 		}
 
+		if (order.getBillingAddress() == null) {
+			map.put("billingAddress", null);
+		}
+		else {
+			map.put(
+				"billingAddress", String.valueOf(order.getBillingAddress()));
+		}
+
 		if (order.getOrderItems() == null) {
 			map.put("orderItems", null);
 		}
 		else {
 			map.put("orderItems", String.valueOf(order.getOrderItems()));
+		}
+
+		if (order.getShippingAddress() == null) {
+			map.put("shippingAddress", null);
+		}
+		else {
+			map.put(
+				"shippingAddress", String.valueOf(order.getShippingAddress()));
 		}
 
 		return map;
@@ -143,6 +179,13 @@ public class OrderSerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "billingAddress")) {
+				if (jsonParserFieldValue != null) {
+					order.setBillingAddress(
+						BillingAddressSerDes.toDTO(
+							(String)jsonParserFieldValue));
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "orderItems")) {
 				if (jsonParserFieldValue != null) {
 					order.setOrderItems(
@@ -153,6 +196,13 @@ public class OrderSerDes {
 						).toArray(
 							size -> new OrderItem[size]
 						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "shippingAddress")) {
+				if (jsonParserFieldValue != null) {
+					order.setShippingAddress(
+						ShippingAddressSerDes.toDTO(
+							(String)jsonParserFieldValue));
 				}
 			}
 			else {

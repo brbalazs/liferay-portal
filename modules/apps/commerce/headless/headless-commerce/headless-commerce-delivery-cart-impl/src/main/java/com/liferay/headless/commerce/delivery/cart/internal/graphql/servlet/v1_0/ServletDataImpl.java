@@ -16,8 +16,10 @@ package com.liferay.headless.commerce.delivery.cart.internal.graphql.servlet.v1_
 
 import com.liferay.headless.commerce.delivery.cart.internal.graphql.mutation.v1_0.Mutation;
 import com.liferay.headless.commerce.delivery.cart.internal.graphql.query.v1_0.Query;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.BillingAddressResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartItemResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.ShippingAddressResource;
 import com.liferay.portal.vulcan.graphql.servlet.ServletData;
 
 import javax.annotation.Generated;
@@ -39,15 +41,23 @@ public class ServletDataImpl implements ServletData {
 
 	@Activate
 	public void activate(BundleContext bundleContext) {
+		Mutation.setBillingAddressResourceComponentServiceObjects(
+			_billingAddressResourceComponentServiceObjects);
 		Mutation.setCartResourceComponentServiceObjects(
 			_cartResourceComponentServiceObjects);
 		Mutation.setCartItemResourceComponentServiceObjects(
 			_cartItemResourceComponentServiceObjects);
+		Mutation.setShippingAddressResourceComponentServiceObjects(
+			_shippingAddressResourceComponentServiceObjects);
 
+		Query.setBillingAddressResourceComponentServiceObjects(
+			_billingAddressResourceComponentServiceObjects);
 		Query.setCartResourceComponentServiceObjects(
 			_cartResourceComponentServiceObjects);
 		Query.setCartItemResourceComponentServiceObjects(
 			_cartItemResourceComponentServiceObjects);
+		Query.setShippingAddressResourceComponentServiceObjects(
+			_shippingAddressResourceComponentServiceObjects);
 	}
 
 	@Override
@@ -66,11 +76,19 @@ public class ServletDataImpl implements ServletData {
 	}
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<BillingAddressResource>
+		_billingAddressResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<CartResource>
 		_cartResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<CartItemResource>
 		_cartItemResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<ShippingAddressResource>
+		_shippingAddressResourceComponentServiceObjects;
 
 }
