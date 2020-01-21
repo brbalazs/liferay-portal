@@ -84,6 +84,10 @@ public class FragmentEntryLinkEditorConfigContributor
 
 		jsonObject.put("removePlugins", getRemovePluginsLists());
 
+		jsonObject.put(
+			"spritemap",
+			themeDisplay.getPathThemeImages() + "/lexicon/icons.svg");
+
 		jsonObject.put("toolbars", JSONFactoryUtil.createJSONObject());
 	}
 

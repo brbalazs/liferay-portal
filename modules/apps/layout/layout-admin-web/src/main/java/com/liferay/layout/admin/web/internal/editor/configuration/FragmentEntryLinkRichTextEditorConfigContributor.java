@@ -82,6 +82,11 @@ public class FragmentEntryLinkRichTextEditorConfigContributor
 		jsonObject.put("filebrowserImageBrowseUrl", itemSelectorURL.toString());
 
 		jsonObject.put("removePlugins", getRemovePluginsLists());
+
+		jsonObject.put(
+			"spritemap",
+			themeDisplay.getPathThemeImages() + "/lexicon/icons.svg");
+
 		jsonObject.put("toolbars", getToolbarsJSONObject());
 	}
 
