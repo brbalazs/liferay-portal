@@ -39,42 +39,7 @@ describe(
 			'regression',
 			function() {
 				it(
-					'should serialize "receptionType" attribute.',
-					function(done) {
-						var jsonDefinition = {
-							nodes: [
-								{
-									name: 'task1',
-									notifications: {
-										name: ['notification1'],
-										recipients: [
-											{
-												receptionType: 'bcc'
-											}
-										]
-									},
-									xmlType: 'task'
-								}
-							]
-						};
-
-						var definition = serializeDefinition(
-							XML_NAMESPACE,
-							METADATA,
-							jsonDefinition
-						);
-
-						assert(
-							definition.indexOf('receptionType="bcc"') > 0,
-							'receptionType attribute not serialized.'
-						);
-
-						done();
-					}
-				);
-
-				it(
-					'should not serialize "receptionType" attribute if it has no value.',
+					'test should not serialize "receptionType" attribute if it has no value.',
 					function(done) {
 						var jsonDefinition = {
 							nodes: [
@@ -109,7 +74,7 @@ describe(
 				);
 
 				it(
-					'should not serialize "receptionType" attribute if it has an empty string value.',
+					'test should not serialize "receptionType" attribute if it has an empty string value.',
 					function(done) {
 						var jsonDefinition = {
 							nodes: [
@@ -119,7 +84,7 @@ describe(
 										name: ['notification1'],
 										recipients: [
 											{
-												receptionType: [""]
+												receptionType: ['']
 											}
 										]
 									},
@@ -137,6 +102,64 @@ describe(
 						assert(
 							definition.indexOf('receptionType="') < 0,
 							'Empty receptionType attribute is serialized.'
+						);
+
+						done();
+					}
+				);
+
+				it('test should not serialize <assignment> attribute if it has no value.', done => {
+					var jsonDefinition = {
+						nodes: [
+							{
+								assignments: {},
+								name: 'task1',
+								xmlType: 'task'
+							}
+						]
+					};
+
+					var definition = serializeDefinition(
+						XML_NAMESPACE,
+						METADATA,
+						jsonDefinition
+					);
+
+					assert(
+						definition.indexOf('<assignments') < 0,
+						'<assignments/> element not serialized from empty object.'
+					);
+
+					done();
+				});
+
+				it('test should serialize "receptionType" attribute.', done => {
+						var jsonDefinition = {
+							nodes: [
+								{
+									name: 'task1',
+									notifications: {
+										name: ['notification1'],
+										recipients: [
+											{
+												receptionType: 'bcc'
+											}
+										]
+									},
+									xmlType: 'task'
+								}
+							]
+						};
+
+						var definition = serializeDefinition(
+							XML_NAMESPACE,
+							METADATA,
+							jsonDefinition
+						);
+
+						assert(
+							definition.indexOf('receptionType="bcc"') >  0,
+							'receptionType attribute not serialized.'
 						);
 
 						done();
@@ -217,12 +240,14 @@ describe(
 				);
 
 				it(
-					'should serialize <assignment> even when assignment object is empty.',
+					'should serialize <assignment> element if given.',
 					function(done) {
 						var jsonDefinition = {
 							nodes: [
 								{
-									assignments: {},
+									assignments: {
+										assignmentType: 'taskAssignees'
+									},
 									name: 'task1',
 									xmlType: 'task'
 								}
