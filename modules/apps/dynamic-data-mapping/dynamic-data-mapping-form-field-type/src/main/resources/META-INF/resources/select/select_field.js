@@ -409,6 +409,8 @@ AUI.add(
 						});
 
 						instance.set('value', value);
+
+						instance.render();
 					},
 
 					showErrorMessage: function() {
