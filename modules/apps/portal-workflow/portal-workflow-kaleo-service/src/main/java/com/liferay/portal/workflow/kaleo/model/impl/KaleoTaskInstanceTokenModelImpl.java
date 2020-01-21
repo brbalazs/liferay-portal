@@ -262,13 +262,15 @@ public class KaleoTaskInstanceTokenModelImpl
 				try {
 					return constructor.newInstance(invocationHandler);
 				}
-				catch (ReflectiveOperationException roe) {
-					throw new InternalError(roe);
+				catch (ReflectiveOperationException
+							reflectiveOperationException) {
+
+					throw new InternalError(reflectiveOperationException);
 				}
 			};
 		}
-		catch (NoSuchMethodException nsme) {
-			throw new InternalError(nsme);
+		catch (NoSuchMethodException noSuchMethodException) {
+			throw new InternalError(noSuchMethodException);
 		}
 	}
 
@@ -843,7 +845,7 @@ public class KaleoTaskInstanceTokenModelImpl
 
 			return user.getUuid();
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			return "";
 		}
 	}
@@ -1048,7 +1050,7 @@ public class KaleoTaskInstanceTokenModelImpl
 
 			return user.getUuid();
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			return "";
 		}
 	}

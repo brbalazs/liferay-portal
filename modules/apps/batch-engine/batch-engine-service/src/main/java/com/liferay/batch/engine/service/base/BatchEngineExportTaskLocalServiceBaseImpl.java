@@ -545,8 +545,8 @@ public abstract class BatchEngineExportTaskLocalServiceBaseImpl
 			return (BatchEngineExportTaskContentBlobModel)session.get(
 				BatchEngineExportTaskContentBlobModel.class, primaryKey);
 		}
-		catch (Exception e) {
-			throw batchEngineExportTaskPersistence.processException(e);
+		catch (Exception exception) {
+			throw batchEngineExportTaskPersistence.processException(exception);
 		}
 		finally {
 			batchEngineExportTaskPersistence.closeSession(session);
@@ -576,8 +576,8 @@ public abstract class BatchEngineExportTaskLocalServiceBaseImpl
 
 			return inputStream;
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 
@@ -640,8 +640,8 @@ public abstract class BatchEngineExportTaskLocalServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

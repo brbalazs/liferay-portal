@@ -79,10 +79,10 @@ public class CommerceApplicationModelCProductRelServiceSoap {
 				CommerceApplicationModelCProductRelSoap.toSoapModel(
 					returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -95,10 +95,10 @@ public class CommerceApplicationModelCProductRelServiceSoap {
 				deleteCommerceApplicationModelCProductRel(
 					commerceApplicationModelCProductRelId);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -120,10 +120,10 @@ public class CommerceApplicationModelCProductRelServiceSoap {
 				CommerceApplicationModelCProductRelSoap.toSoapModels(
 					returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -139,10 +139,10 @@ public class CommerceApplicationModelCProductRelServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 

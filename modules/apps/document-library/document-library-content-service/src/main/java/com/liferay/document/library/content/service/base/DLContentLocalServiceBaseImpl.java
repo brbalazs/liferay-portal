@@ -401,8 +401,8 @@ public abstract class DLContentLocalServiceBaseImpl
 			return (DLContentDataBlobModel)session.get(
 				DLContentDataBlobModel.class, primaryKey);
 		}
-		catch (Exception e) {
-			throw dlContentPersistence.processException(e);
+		catch (Exception exception) {
+			throw dlContentPersistence.processException(exception);
 		}
 		finally {
 			dlContentPersistence.closeSession(session);
@@ -431,8 +431,8 @@ public abstract class DLContentLocalServiceBaseImpl
 
 			return inputStream;
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 
@@ -494,8 +494,8 @@ public abstract class DLContentLocalServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

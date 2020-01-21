@@ -76,10 +76,10 @@ public class CommerceBOMDefinitionServiceSoap {
 			return com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -90,10 +90,10 @@ public class CommerceBOMDefinitionServiceSoap {
 			CommerceBOMDefinitionServiceUtil.deleteCommerceBOMDefinition(
 				commerceBOMDefinitionId);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -109,10 +109,10 @@ public class CommerceBOMDefinitionServiceSoap {
 			return com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -130,10 +130,10 @@ public class CommerceBOMDefinitionServiceSoap {
 			return com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap.
 				toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -147,10 +147,10 @@ public class CommerceBOMDefinitionServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -168,10 +168,10 @@ public class CommerceBOMDefinitionServiceSoap {
 			return com.liferay.commerce.bom.model.CommerceBOMDefinitionSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 

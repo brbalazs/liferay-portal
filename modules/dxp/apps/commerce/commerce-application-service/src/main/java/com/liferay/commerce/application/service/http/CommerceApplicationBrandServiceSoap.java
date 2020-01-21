@@ -77,10 +77,10 @@ public class CommerceApplicationBrandServiceSoap {
 			return com.liferay.commerce.application.model.
 				CommerceApplicationBrandSoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -92,10 +92,10 @@ public class CommerceApplicationBrandServiceSoap {
 			CommerceApplicationBrandServiceUtil.deleteCommerceApplicationBrand(
 				commerceApplicationBrandId);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -113,10 +113,10 @@ public class CommerceApplicationBrandServiceSoap {
 			return com.liferay.commerce.application.model.
 				CommerceApplicationBrandSoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -135,10 +135,10 @@ public class CommerceApplicationBrandServiceSoap {
 			return com.liferay.commerce.application.model.
 				CommerceApplicationBrandSoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -152,10 +152,10 @@ public class CommerceApplicationBrandServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -176,10 +176,10 @@ public class CommerceApplicationBrandServiceSoap {
 			return com.liferay.commerce.application.model.
 				CommerceApplicationBrandSoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 

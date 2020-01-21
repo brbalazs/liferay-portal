@@ -70,10 +70,10 @@ public class CommerceDataIntegrationProcessServiceSoap {
 				deleteCommerceDataIntegrationProcess(
 					commerceDataIntegrationProcessId);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -92,10 +92,10 @@ public class CommerceDataIntegrationProcessServiceSoap {
 			return com.liferay.commerce.data.integration.model.
 				CommerceDataIntegrationProcessSoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -114,10 +114,10 @@ public class CommerceDataIntegrationProcessServiceSoap {
 			return com.liferay.commerce.data.integration.model.
 				CommerceDataIntegrationProcessSoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -138,10 +138,10 @@ public class CommerceDataIntegrationProcessServiceSoap {
 			return com.liferay.commerce.data.integration.model.
 				CommerceDataIntegrationProcessSoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -155,10 +155,10 @@ public class CommerceDataIntegrationProcessServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -186,10 +186,10 @@ public class CommerceDataIntegrationProcessServiceSoap {
 			return com.liferay.commerce.data.integration.model.
 				CommerceDataIntegrationProcessSoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 

@@ -371,13 +371,15 @@ public class DLFileEntryModelImpl
 				try {
 					return constructor.newInstance(invocationHandler);
 				}
-				catch (ReflectiveOperationException roe) {
-					throw new InternalError(roe);
+				catch (ReflectiveOperationException
+							reflectiveOperationException) {
+
+					throw new InternalError(reflectiveOperationException);
 				}
 			};
 		}
-		catch (NoSuchMethodException nsme) {
-			throw new InternalError(nsme);
+		catch (NoSuchMethodException noSuchMethodException) {
+			throw new InternalError(noSuchMethodException);
 		}
 	}
 
@@ -1164,7 +1166,7 @@ public class DLFileEntryModelImpl
 
 			return user.getUuid();
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			return "";
 		}
 	}
@@ -1697,7 +1699,7 @@ public class DLFileEntryModelImpl
 			try {
 				containerModel = trashHandler.getParentContainerModel(this);
 			}
-			catch (NoSuchModelException nsme) {
+			catch (NoSuchModelException noSuchModelException) {
 				return null;
 			}
 
@@ -1775,7 +1777,7 @@ public class DLFileEntryModelImpl
 				return ((TrashedModel)containerModel).isInTrash();
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return false;

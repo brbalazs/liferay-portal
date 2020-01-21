@@ -79,10 +79,10 @@ public class CommerceBOMFolderApplicationRelServiceSoap {
 			return com.liferay.commerce.bom.model.
 				CommerceBOMFolderApplicationRelSoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -95,10 +95,10 @@ public class CommerceBOMFolderApplicationRelServiceSoap {
 				deleteCommerceBOMFolderApplicationRel(
 					commerceBOMFolderApplicationRelId);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -119,10 +119,10 @@ public class CommerceBOMFolderApplicationRelServiceSoap {
 			return com.liferay.commerce.bom.model.
 				CommerceBOMFolderApplicationRelSoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -143,10 +143,10 @@ public class CommerceBOMFolderApplicationRelServiceSoap {
 			return com.liferay.commerce.bom.model.
 				CommerceBOMFolderApplicationRelSoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -162,10 +162,10 @@ public class CommerceBOMFolderApplicationRelServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -182,10 +182,10 @@ public class CommerceBOMFolderApplicationRelServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 

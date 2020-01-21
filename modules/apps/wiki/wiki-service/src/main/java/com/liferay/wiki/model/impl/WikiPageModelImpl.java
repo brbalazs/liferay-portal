@@ -349,13 +349,15 @@ public class WikiPageModelImpl
 				try {
 					return constructor.newInstance(invocationHandler);
 				}
-				catch (ReflectiveOperationException roe) {
-					throw new InternalError(roe);
+				catch (ReflectiveOperationException
+							reflectiveOperationException) {
+
+					throw new InternalError(reflectiveOperationException);
 				}
 			};
 		}
-		catch (NoSuchMethodException nsme) {
-			throw new InternalError(nsme);
+		catch (NoSuchMethodException noSuchMethodException) {
+			throw new InternalError(noSuchMethodException);
 		}
 	}
 
@@ -1009,7 +1011,7 @@ public class WikiPageModelImpl
 
 			return user.getUuid();
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			return "";
 		}
 	}
@@ -1346,7 +1348,7 @@ public class WikiPageModelImpl
 
 			return user.getUuid();
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			return "";
 		}
 	}
@@ -1439,7 +1441,7 @@ public class WikiPageModelImpl
 			try {
 				containerModel = trashHandler.getParentContainerModel(this);
 			}
-			catch (NoSuchModelException nsme) {
+			catch (NoSuchModelException noSuchModelException) {
 				return null;
 			}
 
@@ -1517,7 +1519,7 @@ public class WikiPageModelImpl
 				return ((TrashedModel)containerModel).isInTrash();
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return false;

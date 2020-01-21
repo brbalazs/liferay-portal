@@ -80,10 +80,10 @@ public class CommerceMLForecastAlertEntryServiceSoap {
 			return com.liferay.commerce.machine.learning.forecast.alert.model.
 				CommerceMLForecastAlertEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -99,10 +99,10 @@ public class CommerceMLForecastAlertEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -125,10 +125,10 @@ public class CommerceMLForecastAlertEntryServiceSoap {
 			return com.liferay.commerce.machine.learning.forecast.alert.model.
 				CommerceMLForecastAlertEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -144,10 +144,10 @@ public class CommerceMLForecastAlertEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -167,10 +167,10 @@ public class CommerceMLForecastAlertEntryServiceSoap {
 			return com.liferay.commerce.machine.learning.forecast.alert.model.
 				CommerceMLForecastAlertEntrySoap.toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -186,10 +186,10 @@ public class CommerceMLForecastAlertEntryServiceSoap {
 
 			return returnValue;
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -207,10 +207,10 @@ public class CommerceMLForecastAlertEntryServiceSoap {
 			return com.liferay.commerce.machine.learning.forecast.alert.model.
 				CommerceMLForecastAlertEntrySoap.toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 

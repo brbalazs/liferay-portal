@@ -328,13 +328,15 @@ public class DLFileShortcutModelImpl
 				try {
 					return constructor.newInstance(invocationHandler);
 				}
-				catch (ReflectiveOperationException roe) {
-					throw new InternalError(roe);
+				catch (ReflectiveOperationException
+							reflectiveOperationException) {
+
+					throw new InternalError(reflectiveOperationException);
 				}
 			};
 		}
-		catch (NoSuchMethodException nsme) {
-			throw new InternalError(nsme);
+		catch (NoSuchMethodException noSuchMethodException) {
+			throw new InternalError(noSuchMethodException);
 		}
 	}
 
@@ -861,7 +863,7 @@ public class DLFileShortcutModelImpl
 
 			return user.getUuid();
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			return "";
 		}
 	}
@@ -1068,7 +1070,7 @@ public class DLFileShortcutModelImpl
 
 			return user.getUuid();
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			return "";
 		}
 	}
@@ -1137,7 +1139,7 @@ public class DLFileShortcutModelImpl
 			try {
 				containerModel = trashHandler.getParentContainerModel(this);
 			}
-			catch (NoSuchModelException nsme) {
+			catch (NoSuchModelException noSuchModelException) {
 				return null;
 			}
 
@@ -1215,7 +1217,7 @@ public class DLFileShortcutModelImpl
 				return ((TrashedModel)containerModel).isInTrash();
 			}
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 		}
 
 		return false;

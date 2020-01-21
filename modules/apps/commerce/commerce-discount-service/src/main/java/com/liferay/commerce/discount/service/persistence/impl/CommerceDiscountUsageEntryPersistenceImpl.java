@@ -260,11 +260,11 @@ public class CommerceDiscountUsageEntryPersistenceImpl
 
 			return remove(commerceDiscountUsageEntry);
 		}
-		catch (NoSuchDiscountUsageEntryException nsee) {
-			throw nsee;
+		catch (NoSuchDiscountUsageEntryException noSuchEntityException) {
+			throw noSuchEntityException;
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -291,8 +291,8 @@ public class CommerceDiscountUsageEntryPersistenceImpl
 				session.delete(commerceDiscountUsageEntry);
 			}
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -375,8 +375,8 @@ public class CommerceDiscountUsageEntryPersistenceImpl
 						commerceDiscountUsageEntry);
 			}
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -484,12 +484,12 @@ public class CommerceDiscountUsageEntryPersistenceImpl
 						nullModel);
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				entityCache.removeResult(
 					CommerceDiscountUsageEntryModelImpl.ENTITY_CACHE_ENABLED,
 					CommerceDiscountUsageEntryImpl.class, primaryKey);
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -608,8 +608,8 @@ public class CommerceDiscountUsageEntryPersistenceImpl
 					nullModel);
 			}
 		}
-		catch (Exception e) {
-			throw processException(e);
+		catch (Exception exception) {
+			throw processException(exception);
 		}
 		finally {
 			closeSession(session);
@@ -744,12 +744,12 @@ public class CommerceDiscountUsageEntryPersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
@@ -796,11 +796,11 @@ public class CommerceDiscountUsageEntryPersistenceImpl
 				finderCache.putResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
-			catch (Exception e) {
+			catch (Exception exception) {
 				finderCache.removeResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY);
 
-				throw processException(e);
+				throw processException(exception);
 			}
 			finally {
 				closeSession(session);
