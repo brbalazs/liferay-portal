@@ -62,8 +62,15 @@ public class GetLayoutChildrenMVCActionCommand extends BaseMVCActionCommand {
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
-		JSONArray jsonArray = layoutsAdminDisplayContext.getLayoutsJSONArray(
-			layout.getLayoutId(), layout.isPrivateLayout());
+		JSONArray jsonArray = null;
+
+		if (layout != null) {
+			jsonArray = layoutsAdminDisplayContext.getLayoutsJSONArray(
+				layout.getLayoutId(), layout.isPrivateLayout());
+		}
+		else {
+			jsonArray = JSONFactoryUtil.createJSONArray();
+		}
 
 		jsonObject.put("children", jsonArray);
 
