@@ -258,6 +258,7 @@
 			"layout-template-id": "2_columns_ii",
 			"layoutUpdateable": true,
 			"lfr-theme:regular:is-login-page": true,
+			"lfr-theme:regular:redirect-to-private-layouts": true,
 			"lfr-theme:regular:show-sidebar": false,
 			"lfr-theme:regular:show-topbar": false,
 			"lfr-theme:regular:wide-layout": true,
