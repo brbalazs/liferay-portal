@@ -122,4 +122,12 @@ html {
 	.form-group-inline {
 		margin-bottom: 0;
 	}
+
+	.card.fragments-editor__drag-source {
+		position: relative;
+	}
+}
+
+#wrapper {
+  padding-top: 0;
 }
