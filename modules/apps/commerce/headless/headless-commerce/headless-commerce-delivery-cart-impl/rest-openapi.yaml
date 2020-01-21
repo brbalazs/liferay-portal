@@ -8,7 +8,6 @@ components:
             schema:
                 description:
                     Cart Id
-                example: 30130
                 format: int64
                 minimum: 0
                 type: integer
@@ -21,7 +20,6 @@ components:
             schema:
                 description:
                     Cart Item Id
-                example: 30130
                 format: int64
                 minimum: 0
                 type: integer
@@ -34,7 +32,18 @@ components:
             schema:
                 description:
                     Channel Id
-                example: 30130
+                format: int64
+                minimum: 0
+                type: integer
+            style: simple
+        noteId:
+            in: path
+            explode: false
+            name: noteId
+            required: true
+            schema:
+                description:
+                    Note Id
                 format: int64
                 minimum: 0
                 type: integer
@@ -105,6 +114,21 @@ components:
                     format: int64
                     readOnly: true
                     type: integer
+                notes:
+                    items:
+                        $ref: "#/components/schemas/Note"
+                    type: array
+                paymentMethod:
+                    example: paypal
+                    type: string
+                paymentStatus:
+                    example: 0
+                    format: int32
+                    minimum: 0
+                    type: integer
+                printedNote:
+                    example: Order printed note
+                    type: string
                 shippingAddress:
                     $ref: "#/components/schemas/ShippingAddress"
                 status:
@@ -123,7 +147,7 @@ components:
                 name:
                     type: string
                 price:
-                    $ref : "#/components/schemas/Price"
+                    $ref: "#/components/schemas/Price"
                 quantity:
                     example: 30080
                     format: int32
@@ -160,6 +184,26 @@ components:
                 - message
                 - status
             type: object
+        Note:
+            properties:
+                author:
+                    type: string
+                content:
+                    type: string
+                id:
+                    example: 30130
+                    format: int64
+                    minimum: 0
+                    type: integer
+                orderId:
+                    example: 30128
+                    format: int64
+                    minimum: 0
+                    type: integer
+                restricted:
+                    example: true
+                    type: boolean
+            type: object
         Order:
             properties:
                 accountId:
@@ -168,15 +212,32 @@ components:
                     type: integer
                 billingAddress:
                     $ref: "#/components/schemas/BillingAddress"
+                billingAddressId:
+                    example: 31130
+                    format: int64
+                    minimum: 0
+                    type: integer
                 orderItems:
                     items:
                         $ref: "#/components/schemas/OrderItem"
                     type: array
                 shippingAddress:
                     $ref: "#/components/schemas/ShippingAddress"
+                shippingAddressId:
+                    example: 31130
+                    format: int64
+                    minimum: 0
+                    type: integer
             type: object
         OrderItem:
             properties:
+                billingAddress:
+                    $ref: "#/components/schemas/BillingAddress"
+                billingAddressId:
+                    example: 31130
+                    format: int64
+                    minimum: 0
+                    type: integer
                 id:
                     format: int64
                     type: integer
@@ -188,6 +249,13 @@ components:
                 quantity:
                     format: int32
                     type: integer
+                shippingAddress:
+                    $ref: "#/components/schemas/ShippingAddress"
+                shippingAddressId:
+                    example: 31130
+                    format: int64
+                    minimum: 0
+                    type: integer
             type: object
         Price:
             properties:
@@ -198,6 +266,28 @@ components:
                     type: number
                 discountFormatted:
                     type: string
+                discountPercentage:
+                    type: string
+                discountPercentageLevel1:
+                    example: 20
+                    format: bigdecimal
+                    minimum: 0
+                    type: number
+                discountPercentageLevel2:
+                    example: 0
+                    format: bigdecimal
+                    minimum: 0
+                    type: number
+                discountPercentageLevel3:
+                    example: 0
+                    format: bigdecimal
+                    minimum: 0
+                    type: number
+                discountPercentageLevel4:
+                    example: 0
+                    format: bigdecimal
+                    minimum: 0
+                    type: number
                 finalPrice:
                     format: double
                     type: number
@@ -257,18 +347,78 @@ components:
             properties:
                 itemsQuantity:
                     type: integer
+                shippingDiscountPercentageLevel1:
+                    example: 20
+                    format: bigdecimal
+                    minimum: 0
+                    type: number
+                shippingDiscountPercentageLevel2:
+                    example: 0
+                    format: bigdecimal
+                    minimum: 0
+                    type: number
+                shippingDiscountPercentageLevel3:
+                    example: 0
+                    format: bigdecimal
+                    minimum: 0
+                    type: number
+                shippingDiscountPercentageLevel4:
+                    example: 0
+                    format: bigdecimal
+                    minimum: 0
+                    type: number
                 shippingDiscountValue:
                     type: string
                 shippingValue:
                     type: string
                 subtotal:
                     type: string
+                subtotalDiscountPercentageLevel1:
+                    example: 20
+                    format: bigdecimal
+                    minimum: 0
+                    type: number
+                subtotalDiscountPercentageLevel2:
+                    example: 0
+                    format: bigdecimal
+                    minimum: 0
+                    type: number
+                subtotalDiscountPercentageLevel3:
+                    example: 0
+                    format: bigdecimal
+                    minimum: 0
+                    type: number
+                subtotalDiscountPercentageLevel4:
+                    example: 0
+                    format: bigdecimal
+                    minimum: 0
+                    type: number
                 subtotalDiscountValue:
                     type: string
                 taxValue:
                     type: string
                 total:
                     type: string
+                totalDiscountPercentageLevel1:
+                    example: 20
+                    format: bigdecimal
+                    minimum: 0
+                    type: number
+                totalDiscountPercentageLevel2:
+                    example: 0
+                    format: bigdecimal
+                    minimum: 0
+                    type: number
+                totalDiscountPercentageLevel3:
+                    example: 0
+                    format: bigdecimal
+                    minimum: 0
+                    type: number
+                totalDiscountPercentageLevel4:
+                    example: 0
+                    format: bigdecimal
+                    minimum: 0
+                    type: number
                 totalDiscountValue:
                     type: string
             type: object
@@ -295,7 +445,6 @@ paths:
                   schema:
                       description:
                           Cart Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -307,7 +456,6 @@ paths:
                   schema:
                       description:
                           Channel Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -321,20 +469,34 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/BillingAddress"
+                400:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
                     description:
-                        ""
-                401:
-                    $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/responses/UnauthorizedError"
+                        Authentication information is missing or invalid
                 404:
-                    $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/responses/NotFound"
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
                 500:
                     content:
                         application/json:
                             schema:
-                                $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/schemas/Error"
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/schemas/Error"
+                                $ref: "#/components/schemas/Error"
                     description:
                         Unexpected error
             tags: ["BillingAddress"]
@@ -348,7 +510,6 @@ paths:
                   schema:
                       description:
                           Cart Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -360,7 +521,6 @@ paths:
                   schema:
                       description:
                           Channel Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -382,25 +542,93 @@ paths:
                     description:
                         Updated
                 400:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                400:
                     description:
                         Invalid input
-                401:
-                    $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/responses/UnauthorizedError"
                 404:
-                    $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/responses/NotFound"
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
                 500:
                     content:
                         application/json:
                             schema:
-                                $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/schemas/Error"
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/schemas/Error"
+                                $ref: "#/components/schemas/Error"
                     description:
                         Unexpected error
             summary: Updates a billing Address related to an Order.
             tags: ["BillingAddress"]
     /channels/{channelId}/carts/{cartId}/cartItems/{cartItemId}:
+        delete:
+            operationId: deleteChannelCartCartItem
+            parameters:
+                - in: path
+                  explode: false
+                  name: cartId
+                  required: true
+                  schema:
+                      description:
+                          Cart Id
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: path
+                  explode: false
+                  name: cartItemId
+                  required: true
+                  schema:
+                      description:
+                          Cart Item Id
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: path
+                  explode: false
+                  name: channelId
+                  required: true
+                  schema:
+                      description:
+                          Channel Id
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            responses:
+                204:
+                    description:
+                        No content
+                400:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+            summary: Deletes an Order Item by ID.
+            tags: ["CartItem"]
         get:
             description:
                 Retrive information of the given Cart.
@@ -413,7 +641,6 @@ paths:
                   schema:
                       description:
                           Cart Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -425,7 +652,6 @@ paths:
                   schema:
                       description:
                           Cart Item Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -437,7 +663,6 @@ paths:
                   schema:
                       description:
                           Channel Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -451,7 +676,7 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/CartItem"
-                401:
+                400:
                     content:
                         application/json:
                             schema:
@@ -494,7 +719,6 @@ paths:
                   schema:
                       description:
                           Cart Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -506,7 +730,6 @@ paths:
                   schema:
                       description:
                           Cart Item Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -518,7 +741,6 @@ paths:
                   schema:
                       description:
                           Channel Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -541,7 +763,7 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/CartItem"
-                401:
+                400:
                     content:
                         application/json:
                             schema:
@@ -574,7 +796,7 @@ paths:
             tags: ["CartItem"]
         put:
             description:
-                Retrive information of the given Cart.
+                update the given Cart.
             operationId: putChannelCartCartItem
             parameters:
                 - in: path
@@ -584,7 +806,6 @@ paths:
                   schema:
                       description:
                           Cart Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -596,7 +817,6 @@ paths:
                   schema:
                       description:
                           Cart Item Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -608,7 +828,6 @@ paths:
                   schema:
                       description:
                           Channel Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -675,7 +894,6 @@ paths:
                   schema:
                       description:
                           Cart Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -687,7 +905,6 @@ paths:
                   schema:
                       description:
                           Channel Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -705,7 +922,7 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/CartItem"
                                 type: array
-                401:
+                400:
                     content:
                         application/json:
                             schema:
@@ -748,7 +965,6 @@ paths:
                   schema:
                       description:
                           Cart Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -760,7 +976,6 @@ paths:
                   schema:
                       description:
                           Channel Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -779,11 +994,11 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Cart"
+                                $ref: "#/components/schemas/CartItem"
                         application/xml:
                             schema:
-                                $ref: "#/components/schemas/Cart"
-                401:
+                                $ref: "#/components/schemas/CartItem"
+                400:
                     content:
                         application/json:
                             schema:
@@ -813,7 +1028,401 @@ paths:
                                 $ref: "#/components/schemas/Error"
                     description:
                         Unexpected error
-            tags: ["Cart"]
+            tags: ["CartItem"]
+    /channels/{channelId}/carts/{cartId}/notes/{noteId}:
+        delete:
+            operationId: deleteChannelCartNote
+            parameters:
+                - in: path
+                  explode: false
+                  name: cartId
+                  required: true
+                  schema:
+                      description:
+                          Cart Id
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: path
+                  explode: false
+                  name: channelId
+                  required: true
+                  schema:
+                      description:
+                          Channel Id
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: path
+                  explode: false
+                  name: noteId
+                  required: true
+                  schema:
+                      description:
+                          Note Id
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            responses:
+                204:
+                    description:
+                        No content
+                400:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+            summary: Deletes an Order Note by ID.
+            tags: ["Note"]
+        get:
+            operationId: getChannelCartNote
+            parameters:
+                - in: path
+                  explode: false
+                  name: cartId
+                  required: true
+                  schema:
+                      description:
+                          Cart Id
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: path
+                  explode: false
+                  name: channelId
+                  required: true
+                  schema:
+                      description:
+                          Channel Id
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: path
+                  explode: false
+                  name: noteId
+                  required: true
+                  schema:
+                      description:
+                          Note Id
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Note"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Note"
+                    description:
+                        Successful operation
+                400:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                400:
+                    description:
+                        Invalid input
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            summary: Gets a Note by ID.
+            tags: ["Note"]
+        patch:
+            operationId: patchChannelCartNote
+            parameters:
+                - in: path
+                  explode: false
+                  name: cartId
+                  required: true
+                  schema:
+                      description:
+                          Cart Id
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: path
+                  explode: false
+                  name: channelId
+                  required: true
+                  schema:
+                      description:
+                          Channel Id
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: path
+                  explode: false
+                  name: noteId
+                  required: true
+                  schema:
+                      description:
+                          Note Id
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Note"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Note"
+                required: true
+            responses:
+                202:
+                    description:
+                        Async
+                204:
+                    description:
+                        Updated
+                400:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                400:
+                    description:
+                        Invalid input
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            summary: Updates an Order Note by ID.
+            tags: ["Note"]
+    /channels/{channelId}/carts/{cartId}/notes:
+        get:
+            operationId: getChannelCartNotesPage
+            parameters:
+                - in: path
+                  explode: false
+                  name: cartId
+                  required: true
+                  schema:
+                      description:
+                          Cart Id
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: path
+                  explode: false
+                  name: channelId
+                  required: true
+                  schema:
+                      description:
+                          Channel Id
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: query
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Note"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Note"
+                                type: array
+                    description:
+                        Successful operation
+                400:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                400:
+                    description:
+                        Invalid input
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            summary: Gets a list of Notes related to a Cart.
+            tags: ["Note"]
+        post:
+            operationId: postChannelCartNote
+            parameters:
+                - in: path
+                  explode: false
+                  name: cartId
+                  required: true
+                  schema:
+                      description:
+                          Cart Id
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+                - in: path
+                  explode: false
+                  name: channelId
+                  required: true
+                  schema:
+                      description:
+                          Channel Id
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Note"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Note"
+                required: true
+            responses:
+                201:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Note"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Note"
+                    description:
+                        Created
+                202:
+                    description:
+                        Async
+                204:
+                    description:
+                        Updated
+                400:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                400:
+                    description:
+                        Invalid input
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            summary: Creates or updates a Note.
+            tags: ["Note"]
     /channels/{channelId}/carts/{cartId}/shippingAddress:
         get:
             description:
@@ -827,7 +1436,6 @@ paths:
                   schema:
                       description:
                           Cart Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -839,7 +1447,6 @@ paths:
                   schema:
                       description:
                           Channel Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -853,20 +1460,34 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/ShippingAddress"
+                400:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
                     description:
-                        ""
-                401:
-                    $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/responses/UnauthorizedError"
+                        Authentication information is missing or invalid
                 404:
-                    $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/responses/NotFound"
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
                 500:
                     content:
                         application/json:
                             schema:
-                                $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/schemas/Error"
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/schemas/Error"
+                                $ref: "#/components/schemas/Error"
                     description:
                         Unexpected error
             tags: ["ShippingAddress"]
@@ -880,7 +1501,6 @@ paths:
                   schema:
                       description:
                           Cart Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -892,7 +1512,6 @@ paths:
                   schema:
                       description:
                           Channel Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -914,20 +1533,36 @@ paths:
                     description:
                         Updated
                 400:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                400:
                     description:
                         Invalid input
-                401:
-                    $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/responses/UnauthorizedError"
                 404:
-                    $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/responses/NotFound"
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
                 500:
                     content:
                         application/json:
                             schema:
-                                $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/schemas/Error"
+                                $ref: "#/components/schemas/Error"
                         application/xml:
                             schema:
-                                $ref: "https://api.swaggerhub.com/apis/liferayinc/commerce-domain/v1.0#/components/schemas/Error"
+                                $ref: "#/components/schemas/Error"
                     description:
                         Unexpected error
             summary: Updates a shipping Address of a Cart.
@@ -945,7 +1580,6 @@ paths:
                   schema:
                       description:
                           Cart Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -957,7 +1591,6 @@ paths:
                   schema:
                       description:
                           Channel Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -971,7 +1604,7 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/Cart"
-                401:
+                400:
                     content:
                         application/json:
                             schema:
@@ -1012,7 +1645,6 @@ paths:
                   schema:
                       description:
                           Cart Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -1024,7 +1656,6 @@ paths:
                   schema:
                       description:
                           Channel Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -1050,9 +1681,6 @@ paths:
                     description:
                         Created
                 400:
-                    description:
-                        Invalid input
-                401:
                     content:
                         application/json:
                             schema:
@@ -1062,6 +1690,9 @@ paths:
                                 $ref: "#/components/schemas/Error"
                     description:
                         Authentication information is missing or invalid
+                400:
+                    description:
+                        Invalid input
                 404:
                     content:
                         application/json:
@@ -1097,7 +1728,6 @@ paths:
                   schema:
                       description:
                           Channel Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -1117,7 +1747,7 @@ paths:
                                 type: array
                     description:
                         Successful operation
-                401:
+                400:
                     content:
                         application/json:
                             schema:
@@ -1158,7 +1788,6 @@ paths:
                   schema:
                       description:
                           Channel Id
-                      example: 30130
                       format: int64
                       minimum: 0
                       type: integer
@@ -1184,9 +1813,6 @@ paths:
                     description:
                         Created
                 400:
-                    description:
-                        Invalid input
-                401:
                     content:
                         application/json:
                             schema:
@@ -1196,6 +1822,9 @@ paths:
                                 $ref: "#/components/schemas/Error"
                     description:
                         Authentication information is missing or invalid
+                400:
+                    description:
+                        Invalid input
                 404:
                     content:
                         application/json:
