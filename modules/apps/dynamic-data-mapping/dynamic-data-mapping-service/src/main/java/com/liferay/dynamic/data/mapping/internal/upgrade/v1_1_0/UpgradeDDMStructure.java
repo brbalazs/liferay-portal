@@ -101,10 +101,10 @@ public class UpgradeDDMStructure extends UpgradeProcess {
 	}
 
 	protected String removeSpaces(String expression) {
-		expression = expression.replaceAll(
-			_SPACE_NOT_IN_QUOTES_REGEX, StringPool.BLANK);
-
-		return expression;
+		return expression.replaceAll(
+			"\\s+(?=((\\\\[\\\\\"]|[^\\\\\"])*\"(\\\\[\\\\\"]|[^\\\\\"])*\")" +
+				"*(\\\\[\\\\\"]|[^\\\\\"])*$)",
+			StringPool.BLANK);
 	}
 
 	protected String updateDefinition(String definition)
@@ -202,10 +202,6 @@ public class UpgradeDDMStructure extends UpgradeProcess {
 			}
 		}
 	}
-
-	private static final String _SPACE_NOT_IN_QUOTES_REGEX =
-		"\\s+(?=((\\\\[\\\\\"]|[^\\\\\"])*\"(\\\\[\\\\\"]|[^\\\\\"])*\")*(" +
-			"\\\\[\\\\\"]|[^\\\\\"])*$)";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		UpgradeDDMStructure.class);
