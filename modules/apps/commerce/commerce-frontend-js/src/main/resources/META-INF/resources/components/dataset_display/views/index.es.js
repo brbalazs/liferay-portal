@@ -1,5 +1,6 @@
 import EmailsList from './emails_list/EmailsList';
-import Table from './table/Table.es'
+import Table from './table/Table.es';
+import SelectableItemsList from './selectable_items_list/SelectableItemsList.es';
 
 export default [
     {
@@ -9,5 +10,9 @@ export default [
     {
         component: EmailsList,
         id: 'emailsList',
+    },
+    {
+        component: SelectableItemsList,
+        id: 'selectableItemsList',
     }
 ];

@@ -896,39 +896,18 @@ const dataSetDisplayProps = {
 			},
 		},
 		{
-			contentRenderer: 'table',
+			contentRenderer: 'selectableItemsList',
+			formActionUrl: 'fake/action/url',
+			formId: 'test-form-id',
+			formMethod: 'put',
 			icon: 'merge',
 			label: 'Custom table',
 			schema: {
-				fields: [
-					{
-						contentRenderer: 'picture',
-						fieldName: 'thumbnail',
-						label: '',
-					},
-					{
-						contentRenderer: 'sidePanelLink',
-						fieldName: 'sku',
-						label: 'SKU',
-						sortable: true,
-					},
-					{
-						fieldName: 'name',
-						label: 'Name',
-						sortable: true
-					},
-					{
-						fieldName: 'unitPrice',
-						label: 'Price',
-						sortable: true
-					},
-					{
-						contentRenderer: 'modalLink',
-						fieldName: 'order',
-						label: 'Order',
-					}
-				]
+				description: 'name',
+				radioValue: 'skuId',
+				title: 'skuId',
 			},
+			selectedItemValue: 36553
 		}
 	]
 }
