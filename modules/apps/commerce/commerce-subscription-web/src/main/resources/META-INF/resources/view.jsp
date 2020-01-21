@@ -17,46 +17,114 @@
 <%@ include file="/init.jsp" %>
 
 <%
-CommerceSubscriptionEntryDisplayContext commerceSubscriptionEntryDisplayContext = (CommerceSubscriptionEntryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+	CommerceSubscriptionEntryDisplayContext commerceSubscriptionEntryDisplayContext = (CommerceSubscriptionEntryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+
+	SearchContainer<CommerceSubscriptionEntry> commerceSubscriptionEntrySearchContainer = commerceSubscriptionEntryDisplayContext.getSearchContainer();
+
+	boolean hasManageCommerceSubscriptionEntryPermission = commerceSubscriptionEntryDisplayContext.hasManageCommerceSubscriptionEntryPermission();
 %>
 
-<c:choose>
-	<c:when test="<%= !commerceSubscriptionEntryDisplayContext.hasCommerceChannel() %>">
-		<div class="alert alert-info mx-auto">
-			<liferay-ui:message key="this-site-does-not-have-a-channel" />
-		</div>
-	</c:when>
-	<c:otherwise>
+<div class="row">
+	<div class="col-12 mb-4">
+		<commerce-ui:dataset-display
+				contextParams=""
+				dataProviderKey="<%= CommerceSubscriptionEntryClayTable.NAME %>"
+				itemsPerPage="<%= 10 %>"
+				namespace="<%= renderResponse.getNamespace() %>"
+				pageNumber="<%= 1 %>"
+				portletURL="<%-- <%= commerceSubscriptionEntryDisplayContext.getPortletURL() %> -->"
+				style="fluid"
+				tableName="<%= CommerceSubscriptionEntryClayTable.NAME %>"
+		/>
+	</div>
+</div>
 
-		<%
-		SearchContainer<CommerceSubscriptionEntry> commerceSubscriptionEntrySearchContainer = commerceSubscriptionEntryDisplayContext.getSearchContainer();
+<!-- <%--
+<liferay-frontend:management-bar
+	includeCheckBox="<%= true %>"
+	searchContainerId="commerceSubscriptionEntries"
+>
+	<liferay-frontend:management-bar-filters>
+		<liferay-frontend:management-bar-navigation
+			navigationKeys='<%= new String[] {"all", "active", "suspended", "cancelled", "completed", "never-ends"} %>'
+			portletURL="<%= commerceSubscriptionEntryDisplayContext.getPortletURL() %>"
+		/>
 
-		boolean hasManageCommerceSubscriptionEntryPermission = commerceSubscriptionEntryDisplayContext.hasManageCommerceSubscriptionEntryPermission();
-		%>
+		<liferay-frontend:management-bar-sort
+			orderByCol="<%= commerceSubscriptionEntryDisplayContext.getOrderByCol() %>"
+			orderByType="<%= commerceSubscriptionEntryDisplayContext.getOrderByType() %>"
+			orderColumns='<%= new String[] {"create-date"} %>'
+			portletURL="<%= commerceSubscriptionEntryDisplayContext.getPortletURL() %>"
+		/>
 
-		<portlet:actionURL name="editCommerceSubscriptionEntry" var="editCommerceSubscriptionEntryActionURL" />
+		<li>
+			<liferay-commerce:search-input
+				actionURL="<%= commerceSubscriptionEntryDisplayContext.getPortletURL() %>"
+				formName="searchFm"
+			/>
+		</li>
+	</liferay-frontend:management-bar-filters>
 
-		<liferay-frontend:management-bar
-			includeCheckBox="<%= true %>"
-			searchContainerId="commerceSubscriptionEntries"
-		>
-			<liferay-frontend:management-bar-filters>
-				<liferay-frontend:management-bar-navigation
-					navigationKeys='<%= new String[] {"all", "active", "suspended", "cancelled", "completed", "never-ends"} %>'
-					portletURL="<%= commerceSubscriptionEntryDisplayContext.getPortletURL() %>"
-				/>
+	<liferay-frontend:management-bar-buttons>
+		<liferay-frontend:management-bar-display-buttons
+			displayViews='<%= new String[] {"list"} %>'
+			portletURL="<%= commerceSubscriptionEntryDisplayContext.getPortletURL() %>"
+			selectedDisplayStyle="list"
+		/>
+	</liferay-frontend:management-bar-buttons>
 
-				<liferay-frontend:management-bar-sort
-					orderByCol="<%= commerceSubscriptionEntryDisplayContext.getOrderByCol() %>"
-					orderByType="<%= commerceSubscriptionEntryDisplayContext.getOrderByType() %>"
-					orderColumns='<%= new String[] {"create-date"} %>'
-					portletURL="<%= commerceSubscriptionEntryDisplayContext.getPortletURL() %>"
-				/>
+	<c:if test="<%= hasManageCommerceSubscriptionEntryPermission %>">
+		<liferay-frontend:management-bar-action-buttons>
+			<liferay-frontend:management-bar-button
+				href='<%= "javascript:" + renderResponse.getNamespace() + "deleteCommerceSubscriptionEntries();" %>'
+				icon="times"
+				label="delete"
+			/>
+		</liferay-frontend:management-bar-action-buttons>
+	</c:if>
+</liferay-frontend:management-bar>
 
-				<li>
-					<liferay-commerce:search-input
-						actionURL="<%= commerceSubscriptionEntryDisplayContext.getPortletURL() %>"
-						formName="searchFm"
+<div class="container-fluid-1280" id="<portlet:namespace />subscriptionContainer">
+	<aui:form action="<%= editCommerceSubscriptionEntryActionURL %>" method="post" name="fm">
+		<aui:input name="<%= Constants.CMD %>" type="hidden" />
+		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+		<aui:input name="deleteCommerceSubscriptionEntryIds" type="hidden" />
+
+		<div class="product-subscriptions-container" id="<portlet:namespace />entriesContainer">
+			<liferay-ui:search-container
+				id="commerceSubscriptionEntries"
+				searchContainer="<%= commerceSubscriptionEntrySearchContainer %>"
+			>
+				<liferay-ui:search-container-row
+					className="com.liferay.commerce.model.CommerceSubscriptionEntry"
+					cssClass="entry-display-style"
+					keyProperty="commerceSubscriptionEntryId"
+					modelVar="commerceSubscriptionEntry"
+				>
+
+					<%
+					PortletURL rowURL = renderResponse.createRenderURL();
+
+					rowURL.setParameter("mvcRenderCommandName", "editCommerceSubscriptionEntry");
+					rowURL.setParameter("redirect", currentURL);
+					rowURL.setParameter("commerceSubscriptionEntryId", String.valueOf(commerceSubscriptionEntry.getCommerceSubscriptionEntryId()));
+
+					CommerceOrderItem commerceOrderItem = commerceSubscriptionEntry.fetchCommerceOrderItem();
+
+					CommerceOrder commerceOrder = null;
+
+					if (commerceOrderItem != null) {
+						commerceOrder = commerceOrderItem.getCommerceOrder();
+					}
+
+					request.setAttribute(CommerceOrderConstants.COMMERCE_ORDER, commerceOrder);
+					%>
+
+					<liferay-ui:search-container-column-text
+						cssClass="important"
+						href="<%= rowURL %>"
+						name="subscription-id"
+						property="commerceSubscriptionEntryId"
 					/>
 				</li>
 			</liferay-frontend:management-bar-filters>
@@ -200,28 +268,28 @@ CommerceSubscriptionEntryDisplayContext commerceSubscriptionEntryDisplayContext 
 				</div>
 			</aui:form>
 		</div>
+	</aui:form>
+</div>
 
-		<aui:script>
-			function <portlet:namespace />deleteCommerceSubscriptionEntries() {
-				if (
-					confirm(
-						'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-subscription-entries" />'
-					)
-				) {
-					var form = AUI.$(document.<portlet:namespace />fm);
+<aui:script>
+	function <portlet:namespace />deleteCommerceSubscriptionEntries() {
+		if (
+			confirm(
+				'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-subscription-entries" />'
+			)
+		) {
+			var form = AUI.$(document.<portlet:namespace />fm);
 
-					form.attr('method', 'post');
-					form.fm('<%= Constants.CMD %>').val('<%= Constants.DELETE %>');
-					form.fm('deleteCommerceSubscriptionEntryIds').val(
-						Liferay.Util.listCheckedExcept(
-							form,
-							'<portlet:namespace />allRowIds'
-						)
-					);
+			form.attr('method', 'post');
+			form.fm('<%= Constants.CMD %>').val('<%= Constants.DELETE %>');
+			form.fm('deleteCommerceSubscriptionEntryIds').val(
+				Liferay.Util.listCheckedExcept(
+					form,
+					'<portlet:namespace />allRowIds'
+				)
+			);
 
-					submitForm(form);
-				}
-			}
-		</aui:script>
-	</c:otherwise>
-</c:choose>
+			submitForm(form);
+		}
+	}
+</aui:script> --%> -->
