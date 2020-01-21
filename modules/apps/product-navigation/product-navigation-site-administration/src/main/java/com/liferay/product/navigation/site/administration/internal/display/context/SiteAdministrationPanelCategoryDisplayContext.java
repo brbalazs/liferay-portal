@@ -193,11 +193,11 @@ public class SiteAdministrationPanelCategoryDisplayContext {
 
 				_log.error("Unable to get live group URL: " + pe.getMessage());
 			}
-			catch (SystemException se) {
-				Throwable cause = se.getCause();
+			catch (SystemException systemException) {
+				Throwable cause = systemException.getCause();
 
 				if (!(cause instanceof ConnectException)) {
-					throw se;
+					throw systemException;
 				}
 
 				_log.error(
