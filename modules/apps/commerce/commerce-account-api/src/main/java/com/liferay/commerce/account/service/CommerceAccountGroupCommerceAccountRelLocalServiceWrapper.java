@@ -273,6 +273,18 @@ public class CommerceAccountGroupCommerceAccountRelLocalServiceWrapper
 				commerceAccountGroupCommerceAccountRelId);
 	}
 
+	@Override
+	public
+		com.liferay.commerce.account.model.
+			CommerceAccountGroupCommerceAccountRel
+				fetchCommerceAccountGroupCommerceAccountRel(
+					long commerceAccountGroupId, long commerceAccountId) {
+
+		return _commerceAccountGroupCommerceAccountRelLocalService.
+			fetchCommerceAccountGroupCommerceAccountRel(
+				commerceAccountGroupId, commerceAccountId);
+	}
+
 	/**
 	 * Returns the commerce account group commerce account rel with the matching external reference code and company.
 	 *

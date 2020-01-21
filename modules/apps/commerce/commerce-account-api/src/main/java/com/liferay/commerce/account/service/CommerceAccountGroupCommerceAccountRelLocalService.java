@@ -203,6 +203,11 @@ public interface CommerceAccountGroupCommerceAccountRelLocalService
 		fetchCommerceAccountGroupCommerceAccountRel(
 			long commerceAccountGroupCommerceAccountRelId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommerceAccountGroupCommerceAccountRel
+		fetchCommerceAccountGroupCommerceAccountRel(
+			long commerceAccountGroupId, long commerceAccountId);
+
 	/**
 	 * Returns the commerce account group commerce account rel with the matching external reference code and company.
 	 *
