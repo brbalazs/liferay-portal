@@ -767,6 +767,12 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 					}
 
 					ddmFormField.setDDMFormFieldOptions(ddmFormFieldOptions);
+
+					if (cpDefinitionOptionRel.isSkuContributor()) {
+						ddmFormField.setPredefinedValue(
+							_getDDMFormFieldPredefinedValue(
+								ddmFormFieldOptions));
+					}
 				}
 
 				LocalizedValue localizedValue = new LocalizedValue(locale);
@@ -793,6 +799,23 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 		ddmForm.setDefaultLocale(locale);
 
 		return ddmForm;
+	}
+
+	private LocalizedValue _getDDMFormFieldPredefinedValue(
+		DDMFormFieldOptions ddmFormFieldOptions) {
+
+		Map<String, LocalizedValue> options = ddmFormFieldOptions.getOptions();
+
+		if (options.isEmpty()) {
+			return new LocalizedValue(ddmFormFieldOptions.getDefaultLocale());
+		}
+
+		for (LocalizedValue value : options.values()) {
+			return value;
+		}
+
+		throw new IllegalArgumentException(
+			"Provided DDM field options miss valid field value");
 	}
 
 	private boolean _isDDMFormRequired(
