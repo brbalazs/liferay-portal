@@ -9,38 +9,33 @@ function SelectableItemsList(props) {
 
     return (
         <ClayList>
-            <form action={props.formActionUrl} id={props.formId} method={props.formMethod}>
-                <input hidden name="selected-ids" readOnly value={currentValue}/>
-                {props.items.map((item, i) => (
-                    <ClayList.Item  className={classNames(i ? 'border-left-0 border-bottom-0 border-right-0' : 'border-0')} flex key={item.id}>
-                        {props.schema.radioValue && (
-                            <ClayList.ItemField>
-                                    <ClayRadio
-                                        checked={item[props.schema.radioValue] == currentValue}
-                                        onChange={(e) => setCurrentValue(e.target.value)}
-                                        value={item[props.schema.radioValue]}
-                                    />
-                            </ClayList.ItemField>
-                        )}
-                        <ClayList.ItemField expand>
-                            {props.schema.title && (
-                                <ClayList.ItemTitle>{item[props.schema.title]}</ClayList.ItemTitle>
-                            )}
-                            {props.schema.description && (
-                                <ClayList.ItemText>{item[props.schema.description]}</ClayList.ItemText>
-                            )}
+            <input hidden name="selectedIds" readOnly value={currentValue}/>
+            {props.items.map((item, i) => (
+                <ClayList.Item  className={classNames(i ? 'border-left-0 border-bottom-0 border-right-0' : 'border-0')} flex key={item.id}>
+                    {props.schema.radioValue && (
+                        <ClayList.ItemField>
+                                <ClayRadio
+                                    checked={item[props.schema.radioValue] == currentValue}
+                                    onChange={(e) => setCurrentValue(e.target.value)}
+                                    value={item[props.schema.radioValue]}
+                                />
                         </ClayList.ItemField>
-                    </ClayList.Item>
-                ))}
-            </form>
+                    )}
+                    <ClayList.ItemField expand>
+                        {props.schema.title && (
+                            <ClayList.ItemTitle>{item[props.schema.title]}</ClayList.ItemTitle>
+                        )}
+                        {props.schema.description && (
+                            <ClayList.ItemText>{item[props.schema.description]}</ClayList.ItemText>
+                        )}
+                    </ClayList.ItemField>
+                </ClayList.Item>
+            ))}
         </ClayList>
     )
 }
 
 SelectableItemsList.propTypes = {
-    formActionUrl: PropTypes.string,
-    formId: PropTypes.string,
-    formMethod: PropTypes.string,
     items: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.oneOfType([
@@ -61,7 +56,6 @@ SelectableItemsList.propTypes = {
 }
 
 SelectableItemsList.defaultTypes = {
-    formMethod: 'post',
     selectedItemValue: ''
 }
 

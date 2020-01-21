@@ -254,10 +254,6 @@ DatasetDisplay.propTypes = {
 	apiUrl: PropTypes.string.isRequired,
 	bulkActions: PropTypes.array,
 	creationMenuItems: PropTypes.array,
-	dataRenderers: PropTypes.arrayOf(PropTypes.shape({
-		component: PropTypes.any,
-		id: PropTypes.string,
-	})),
 	filters: PropTypes.array,
 	id: PropTypes.string.isRequired,
 	items: PropTypes.array.isRequired,
