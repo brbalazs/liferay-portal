@@ -52,8 +52,8 @@ public class AccountCategoryForecastResourceImpl
 	@Override
 	public Page<AccountCategoryForecast>
 			getAccountCategoryForecastsByMonthlyRevenuePage(
-				Long[] categoryIds, Long[] accountIds, Date forecastStartDate,
-				Integer historyLength, Integer forecastLength,
+				Long[] categoryIds, Long[] accountIds, Integer forecastLength,
+				Date forecastStartDate, Integer historyLength,
 				Pagination pagination)
 		throws Exception {
 
