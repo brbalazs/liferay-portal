@@ -743,12 +743,7 @@ public class GraphQLServletExtender {
 
 			Class<?> fieldClass = field.getType();
 
-			if (Objects.equals(field.getName(), "contextScopeChecker")) {
-				field.setAccessible(true);
-
-				field.set(instance, _getScopeChecker());
-			}
-			else if (fieldClass.isAssignableFrom(AcceptLanguage.class)) {
+			if (fieldClass.isAssignableFrom(AcceptLanguage.class)) {
 				field.setAccessible(true);
 
 				field.set(instance, acceptLanguage);
@@ -854,6 +849,11 @@ public class GraphQLServletExtender {
 					};
 
 				field.set(instance, sortsBiFunction);
+			}
+			else if (Objects.equals(field.getName(), "contextScopeChecker")) {
+				field.setAccessible(true);
+
+				field.set(instance, _getScopeChecker());
 			}
 		}
 
