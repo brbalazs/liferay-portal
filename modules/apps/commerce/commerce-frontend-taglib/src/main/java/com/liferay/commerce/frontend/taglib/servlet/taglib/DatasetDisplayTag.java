@@ -118,6 +118,10 @@ public class DatasetDisplayTag extends IncludeTag {
 		_deltaParam = deltaParam;
 	}
 
+	public void setFormId(String formId) {
+		_formId = formId;
+	}
+
 	public void setId(String id) {
 		_id = id;
 	}
@@ -171,6 +175,7 @@ public class DatasetDisplayTag extends IncludeTag {
 		_dataSetAPI = null;
 		_deltaParam = null;
 		_filterFactoryRegistry = null;
+		_formId = null;
 		_id = null;
 		_items = null;
 		_itemsPerPage = 0;
@@ -233,6 +238,8 @@ public class DatasetDisplayTag extends IncludeTag {
 			"liferay-commerce:dataset-display:dataSetAPI", _dataSetAPI);
 		request.setAttribute(
 			"liferay-commerce:dataset-display:deltaParam", _deltaParam);
+		request.setAttribute(
+			"liferay-commerce:dataset-display:formId", _formId);
 		request.setAttribute("liferay-commerce:dataset-display:id", _id);
 		request.setAttribute("liferay-commerce:dataset-display:items", _items);
 		request.setAttribute(
@@ -328,6 +335,7 @@ public class DatasetDisplayTag extends IncludeTag {
 	private String _dataSetAPI;
 	private String _deltaParam;
 	private FilterFactoryRegistry _filterFactoryRegistry;
+	private String _formId;
 	private String _id;
 	private Object _items;
 	private int _itemsPerPage;

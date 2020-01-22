@@ -34,6 +34,7 @@ page import="java.util.Map" %>
 Map<String, Object> clayTableContext = (Map<String, Object>)request.getAttribute("liferay-commerce:dataset-display:clayTableContext");
 String dataProviderKey = (String)request.getAttribute("liferay-commerce:dataset-display:dataProviderKey");
 String dataSetAPI = (String)request.getAttribute("liferay-commerce:dataset-display:dataSetAPI");
+String formId = (String)request.getAttribute("liferay-commerce:dataset-display:formId");
 String id = (String)request.getAttribute("liferay-commerce:dataset-display:id");
 Object items = request.getAttribute("liferay-commerce:dataset-display:items");
 int itemsPerPage = (int)request.getAttribute("liferay-commerce:dataset-display:itemsPerPage");

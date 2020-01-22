@@ -101,6 +101,7 @@
 						value: 123
 					}
 				],
+				formId: "<%= formId %>",
 				dataProviderKey : "<%= dataProviderKey %>",
 				id : "<%= id %>",
 				items : <%= jsonSerializer.serializeDeep(items) %>,
