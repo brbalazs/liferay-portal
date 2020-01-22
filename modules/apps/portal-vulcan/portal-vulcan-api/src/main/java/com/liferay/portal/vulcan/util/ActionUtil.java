@@ -55,35 +55,6 @@ public class ActionUtil {
 			groupedModel.getGroupId(), uriInfo);
 	}
 
-	/**
-	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
-	 *             #addAction(String, Class, GroupedModel, String, Object,
-	 *             UriInfo)}
-	 */
-	@Deprecated
-	public static Map<String, String> addAction(
-		String actionName, Class clazz, GroupedModel groupedModel,
-		String methodName, UriInfo uriInfo) {
-
-		return addAction(
-			actionName, clazz, groupedModel, methodName, null, uriInfo);
-	}
-
-	/**
-	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
-	 *             #addAction(String, Class, Long, String, String, Object,
-	 *             Long, UriInfo)}
-	 */
-	@Deprecated
-	public static Map<String, String> addAction(
-		String actionName, Class clazz, Long id, String methodName,
-		String permissionName, Long siteId, UriInfo uriInfo) {
-
-		return addAction(
-			actionName, clazz, id, methodName, permissionName, null, siteId,
-			uriInfo);
-	}
-
 	public static Map<String, String> addAction(
 		String actionName, Class clazz, Long id, String methodName,
 		String permissionName, Object object, Long siteId, UriInfo uriInfo) {
