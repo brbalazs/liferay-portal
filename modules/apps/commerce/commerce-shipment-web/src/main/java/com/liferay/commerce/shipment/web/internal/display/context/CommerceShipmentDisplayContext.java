@@ -96,8 +96,7 @@ public class CommerceShipmentDisplayContext
 
 		_commerceInventoryWarehouses =
 			_commerceInventoryWarehouseService.getCommerceInventoryWarehouses(
-				cpRequestHelper.getCompanyId(),
-				cpRequestHelper.getChannelGroupId(), true);
+				cpRequestHelper.getCompanyId(), _getGroupId(), true);
 
 		return _commerceInventoryWarehouses;
 	}
@@ -301,6 +300,20 @@ public class CommerceShipmentDisplayContext
 		return stream.mapToLong(
 			CommerceChannel::getGroupId
 		).toArray();
+	}
+
+	private long _getGroupId() throws PortalException {
+		CommerceShipment commerceShipment = getCommerceShipment();
+
+		if (commerceShipment != null) {
+			return commerceShipment.getGroupId();
+		}
+
+		CommerceOrder commerceOrder =
+			_commerceOrderLocalService.getCommerceOrder(
+				ParamUtil.getLong(httpServletRequest, "commerceOrderId"));
+
+		return commerceOrder.getGroupId();
 	}
 
 	private final CommerceChannelService _commerceChannelService;
