@@ -42,6 +42,7 @@ const fluidDataSetDisplayProps = {
 	id: 'tableTest',
 	items: [
 		{
+			id: 'asd',
 			name: 'ABS Sensor',
 			price: {
 				details: [
@@ -65,10 +66,19 @@ const fluidDataSetDisplayProps = {
 				final: '12 Gazillions',
 			},
 			skuId: 35663,
+			testLink: {
+				label: 'Test 1',
+				url: '/test/link/1'
+			}
 		},
 		{
+			id: 'sdf',
 			name: 'SBA Sensor',
 			skuId: 345345,
+			testLink: {
+				label: 'Test 1',
+				url: '/test/link/1'
+			}
 		}
 	],
 	pageSize: 5,
@@ -122,7 +132,27 @@ const fluidDataSetDisplayProps = {
 			id: 'custom-table',
 			label: 'Hey you don\'t know me',
 			schema: {},
-		}
+		},
+
+		{
+			contentRenderer: 'table',
+			icon: 'table',
+			label: 'Table',
+			schema: {
+				fields: [
+					{
+						fieldName: 'name',
+						label: 'Name',
+						sortable: true
+					},
+					{
+						contentRenderer: 'link',
+						fieldName: 'testLink',
+						label: 'Example link',
+					},
+				],
+			},
+		},
 	],
 }
 

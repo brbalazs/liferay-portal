@@ -10,6 +10,8 @@ function Default(props) {
 			return <ClayIcon symbol={props.value.icon} />
 		case !!props.value.pictureUrl:
 			return (<img alt={props.value.label} src={props.value.pictureUrl} />)
+		case !!props.value.label:
+			return <React.Fragment>{props.value.label}</React.Fragment>
 		default:
 			throw new Error(`The object ${JSON.stringify(props.value)} doesn't match the template schema`)
 	}
@@ -22,6 +24,9 @@ Default.propTypes = {
 		PropTypes.shape(PropTypes.oneOf([
 			{
 				icon: PropTypes.string.isRequired
+			},
+			{
+				label: PropTypes.string.isRequired
 			},
 			{
 				label: PropTypes.string.isRequired,

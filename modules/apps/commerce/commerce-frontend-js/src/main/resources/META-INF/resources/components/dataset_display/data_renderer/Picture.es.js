@@ -1,5 +1,5 @@
 import ClaySticker from '@clayui/sticker';
-import Proptype from 'prop-types';
+import PropType from 'prop-types';
 import React from 'react';
 
 function Picture(props) {
@@ -21,12 +21,16 @@ function Picture(props) {
 }
 
 Picture.propTypes = {
-	shape: Proptype.oneOf([
-		'circle', 'rounded'
-	]),
-	size: Proptype.oneOf([
-		'lg','sm','xl'
-	]),
+	value: PropType.shape({
+		alt: PropType.string.isRequired,
+		shape: PropType.oneOf([
+			'circle', 'rounded'
+		]),
+		size: PropType.oneOf([
+			'lg','sm','xl'
+		]),
+		url: PropType.string.isRequired
+	})
 }
 
 export default Picture;
