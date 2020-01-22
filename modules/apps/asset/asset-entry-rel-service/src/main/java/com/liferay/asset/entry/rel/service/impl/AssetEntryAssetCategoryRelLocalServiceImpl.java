@@ -16,6 +16,7 @@ package com.liferay.asset.entry.rel.service.impl;
 
 import com.liferay.asset.entry.rel.model.AssetEntryAssetCategoryRel;
 import com.liferay.asset.entry.rel.service.base.AssetEntryAssetCategoryRelLocalServiceBaseImpl;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.util.List;
@@ -92,21 +93,12 @@ public class AssetEntryAssetCategoryRelLocalServiceImpl
 
 	@Override
 	public long[] getAssetCategoryPrimaryKeys(long entryId) {
-		List<AssetEntryAssetCategoryRel> assetEntryAssetCategoryRelList =
+		List<AssetEntryAssetCategoryRel> assetEntryAssetCategoryRels =
 			getAssetEntryAssetCategoryRelsByAssetEntryId(entryId);
 
-		long[] assetCategoryPrimaryKeys =
-			new long[assetEntryAssetCategoryRelList.size()];
-
-		for (int i = 0; i < assetEntryAssetCategoryRelList.size(); i++) {
-			AssetEntryAssetCategoryRel assetEntryAssetCategoryRel =
-				assetEntryAssetCategoryRelList.get(i);
-
-			assetCategoryPrimaryKeys[i] =
-				assetEntryAssetCategoryRel.getAssetCategoryId();
-		}
-
-		return assetCategoryPrimaryKeys;
+		return ListUtil.toLongArray(
+			assetEntryAssetCategoryRels,
+			AssetEntryAssetCategoryRel::getAssetCategoryId);
 	}
 
 	@Override
@@ -171,21 +163,12 @@ public class AssetEntryAssetCategoryRelLocalServiceImpl
 
 	@Override
 	public long[] getAssetEntryPrimaryKeys(long categoryId) {
-		List<AssetEntryAssetCategoryRel> assetEntryAssetCategoryRelList =
+		List<AssetEntryAssetCategoryRel> assetEntryAssetCategoryRels =
 			getAssetEntryAssetCategoryRelsByAssetCategoryId(categoryId);
 
-		long[] assetEntryPrimaryKeys =
-			new long[assetEntryAssetCategoryRelList.size()];
-
-		for (int i = 0; i < assetEntryAssetCategoryRelList.size(); i++) {
-			AssetEntryAssetCategoryRel assetEntryAssetCategoryRel =
-				assetEntryAssetCategoryRelList.get(i);
-
-			assetEntryPrimaryKeys[i] =
-				assetEntryAssetCategoryRel.getAssetCategoryId();
-		}
-
-		return assetEntryPrimaryKeys;
+		return ListUtil.toLongArray(
+			assetEntryAssetCategoryRels,
+			AssetEntryAssetCategoryRel::getAssetCategoryId);
 	}
 
 }
