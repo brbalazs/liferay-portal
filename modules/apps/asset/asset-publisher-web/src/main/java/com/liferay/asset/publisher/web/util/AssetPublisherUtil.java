@@ -429,7 +429,10 @@ public class AssetPublisherUtil {
 		List<String> missingAssetEntryUuids = new ArrayList<>();
 
 		for (String assetEntryXml : assetEntryXmls) {
-			Document document = SAXReaderUtil.read(assetEntryXml);
+			String safeAssetEntryXml = HtmlUtil.fromInputSafe(assetEntryXml);
+
+			Document document = SAXReaderUtil.read(
+				HtmlUtil.unescape(safeAssetEntryXml));
 
 			Element rootElement = document.getRootElement();
 
