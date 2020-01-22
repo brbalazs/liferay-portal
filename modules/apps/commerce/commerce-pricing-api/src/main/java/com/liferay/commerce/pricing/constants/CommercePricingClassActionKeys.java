@@ -22,7 +22,7 @@ public class CommercePricingClassActionKeys {
 	public static final String ADD_COMMERCE_PRICING_CLASS =
 		"ADD_COMMERCE_PRICING_CLASS";
 
-	public static final String VIEW_COMMERCE_PRICING_CLASS =
-		"VIEW_COMMERCE_PRICING_CLASS";
+	public static final String VIEW_COMMERCE_PRICING_CLASSES =
+		"VIEW_COMMERCE_PRICING_CLASSES";
 
 }

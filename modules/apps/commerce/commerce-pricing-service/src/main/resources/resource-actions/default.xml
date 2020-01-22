@@ -7,13 +7,13 @@
 		<permissions>
 			<supports>
 				<action-key>ADD_COMMERCE_PRICING_CLASS</action-key>
-				<action-key>VIEW_COMMERCE_PRICING_CLASS</action-key>
+				<action-key>VIEW_COMMERCE_PRICING_CLASSES</action-key>
 			</supports>
 			<site-member-defaults />
 			<guest-defaults />
 			<guest-unsupported>
 				<action-key>ADD_COMMERCE_PRICING_CLASS</action-key>
-				<action-key>VIEW_COMMERCE_PRICING_CLASS</action-key>
+				<action-key>VIEW_COMMERCE_PRICING_CLASSES</action-key>
 			</guest-unsupported>
 		</permissions>
 	</portlet-resource>

@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
@@ -131,6 +132,20 @@ public class CommercePricingClassLocalServiceImpl
 
 		return commercePricingClassFinder.findByCN_CI(
 			CPDefinition.class.getName(), cpDefinitionId);
+	}
+
+	@Override
+	public List<CommercePricingClass> getCommercePricingClasses(
+		long companyId, int start, int end,
+		OrderByComparator<CommercePricingClass> orderByComparator) {
+
+		return commercePricingClassPersistence.findByCompanyId(
+			companyId, start, end, orderByComparator);
+	}
+
+	@Override
+	public int getCommercePricingClassesCount(long companyId) {
+		return commercePricingClassPersistence.countByCompanyId(companyId);
 	}
 
 	@Override

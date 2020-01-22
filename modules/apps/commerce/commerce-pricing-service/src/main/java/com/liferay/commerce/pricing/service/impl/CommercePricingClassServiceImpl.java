@@ -23,6 +23,9 @@ import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermi
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.util.List;
 
 /**
  * @author Riccardo Alberti
@@ -98,10 +101,28 @@ public class CommercePricingClassServiceImpl
 
 		PortalPermissionUtil.check(
 			getPermissionChecker(),
-			CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASS);
+			CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassLocalService.getCommercePricingClass(
 			commercePricingClassId);
+	}
+
+	@Override
+	public int getCommercePricingClassesCount(long companyId)
+		throws PortalException {
+
+		return commercePricingClassLocalService.getCommercePricingClassesCount(
+			companyId);
+	}
+
+	@Override
+	public List<CommercePricingClass> getCommercePricingClasses(
+			long companyId, int start, int end,
+			OrderByComparator<CommercePricingClass> orderByComparator)
+		throws PortalException {
+
+		return commercePricingClassLocalService.getCommercePricingClasses(
+			companyId, start, end, orderByComparator);
 	}
 
 	@Override
