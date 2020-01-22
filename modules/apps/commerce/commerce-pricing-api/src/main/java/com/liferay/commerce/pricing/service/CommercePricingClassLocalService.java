@@ -266,6 +266,11 @@ public interface CommercePricingClassLocalService
 	public List<CommercePricingClass> getCommercePricingClasses(
 		int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePricingClass> getCommercePricingClasses(
+		long companyId, int start, int end,
+		OrderByComparator<CommercePricingClass> orderByComparator);
+
 	/**
 	 * Returns all the commerce pricing classes matching the UUID and company.
 	 *
@@ -301,6 +306,9 @@ public interface CommercePricingClassLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommercePricingClassesCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommercePricingClassesCount(long companyId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(

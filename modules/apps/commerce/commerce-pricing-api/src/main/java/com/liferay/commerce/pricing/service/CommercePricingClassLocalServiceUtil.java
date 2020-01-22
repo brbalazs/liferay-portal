@@ -312,6 +312,18 @@ public class CommercePricingClassLocalServiceUtil {
 		return getService().getCommercePricingClasses(start, end);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.pricing.model.CommercePricingClass>
+			getCommercePricingClasses(
+				long companyId, int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<com.liferay.commerce.pricing.model.CommercePricingClass>
+						orderByComparator) {
+
+		return getService().getCommercePricingClasses(
+			companyId, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns all the commerce pricing classes matching the UUID and company.
 	 *
@@ -357,6 +369,10 @@ public class CommercePricingClassLocalServiceUtil {
 	 */
 	public static int getCommercePricingClassesCount() {
 		return getService().getCommercePricingClassesCount();
+	}
+
+	public static int getCommercePricingClassesCount(long companyId) {
+		return getService().getCommercePricingClassesCount(companyId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery

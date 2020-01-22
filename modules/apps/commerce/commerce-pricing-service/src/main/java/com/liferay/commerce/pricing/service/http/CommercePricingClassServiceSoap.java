@@ -167,6 +167,49 @@ public class CommercePricingClassServiceSoap {
 		}
 	}
 
+	public static int getCommercePricingClassesCount(long companyId)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommercePricingClassServiceUtil.getCommercePricingClassesCount(
+					companyId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap[]
+			getCommercePricingClasses(
+				long companyId, int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<com.liferay.commerce.pricing.model.CommercePricingClass>
+						orderByComparator)
+		throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.commerce.pricing.model.CommercePricingClass>
+					returnValue =
+						CommercePricingClassServiceUtil.
+							getCommercePricingClasses(
+								companyId, start, end, orderByComparator);
+
+			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap
 			updateCommercePricingClass(
 				long commercePricingClassId, long userId, long groupId,

@@ -27,6 +27,9 @@ import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import java.util.List;
 
 /**
  * Provides the remote service interface for CommercePricingClass. Methods of this
@@ -80,6 +83,16 @@ public interface CommercePricingClassService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommercePricingClass getCommercePricingClass(
 			long commercePricingClassId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePricingClass> getCommercePricingClasses(
+			long companyId, int start, int end,
+			OrderByComparator<CommercePricingClass> orderByComparator)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommercePricingClassesCount(long companyId)
 		throws PortalException;
 
 	/**

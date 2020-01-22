@@ -339,6 +339,19 @@ public class CommercePricingClassLocalServiceWrapper
 			start, end);
 	}
 
+	@Override
+	public java.util.List
+		<com.liferay.commerce.pricing.model.CommercePricingClass>
+			getCommercePricingClasses(
+				long companyId, int start, int end,
+				com.liferay.portal.kernel.util.OrderByComparator
+					<com.liferay.commerce.pricing.model.CommercePricingClass>
+						orderByComparator) {
+
+		return _commercePricingClassLocalService.getCommercePricingClasses(
+			companyId, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns all the commerce pricing classes matching the UUID and company.
 	 *
@@ -389,6 +402,12 @@ public class CommercePricingClassLocalServiceWrapper
 	public int getCommercePricingClassesCount() {
 		return _commercePricingClassLocalService.
 			getCommercePricingClassesCount();
+	}
+
+	@Override
+	public int getCommercePricingClassesCount(long companyId) {
+		return _commercePricingClassLocalService.getCommercePricingClassesCount(
+			companyId);
 	}
 
 	@Override
