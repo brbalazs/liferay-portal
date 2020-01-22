@@ -15,7 +15,6 @@ dependencies {
 	compileOnly project(":apps:commerce:commerce-inventory-api")
 	compileOnly project(":apps:commerce:headless:headless-commerce-core-api")
 	compileOnly project(":apps:commerce:headless:headless-commerce:headless-commerce-admin-inventory-api")
-	compileOnly project(":apps:oauth2-provider:oauth2-provider-scope-api")
 }
 
 configurations.all {
