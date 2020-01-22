@@ -22,6 +22,7 @@ import com.liferay.commerce.discount.service.CommerceDiscountRelService;
 import com.liferay.commerce.discount.service.CommerceDiscountService;
 import com.liferay.commerce.discount.target.CommerceDiscountTargetRegistry;
 import com.liferay.commerce.discount.web.internal.display.context.CommerceDiscountRelDisplayContext;
+import com.liferay.commerce.pricing.service.CommercePricingClassService;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CommerceChannelRelService;
 import com.liferay.commerce.product.service.CommerceChannelService;
@@ -48,7 +49,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Alessio Antonio Rendina
+ * @author Riccardo Alberti
  */
 @Component(
 	property = {
@@ -57,20 +58,20 @@ import org.osgi.service.component.annotations.Reference;
 	},
 	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
 )
-public class CommerceDiscountCategoriesScreenNavigationEntry
+public class CommerceDiscountPricingClassesScreenNavigationEntry
 	implements ScreenNavigationCategory,
 			   ScreenNavigationEntry<CommerceDiscount> {
 
 	@Override
 	public String getCategoryKey() {
 		return CommerceDiscountScreenNavigationConstants.
-			CATEGORY_KEY_COMMERCE_DISCOUNT_CATEGORIES;
+			CATEGORY_KEY_COMMERCE_DISCOUNT_PRICING_CLASSES;
 	}
 
 	@Override
 	public String getEntryKey() {
 		return CommerceDiscountScreenNavigationConstants.
-			ENTRY_KEY_COMMERCE_DISCOUNT_CATEGORIES;
+			ENTRY_KEY_COMMERCE_DISCOUNT_PRICING_CLASSES;
 	}
 
 	@Override
@@ -81,7 +82,7 @@ public class CommerceDiscountCategoriesScreenNavigationEntry
 		return LanguageUtil.get(
 			resourceBundle,
 			CommerceDiscountScreenNavigationConstants.
-				ENTRY_KEY_COMMERCE_DISCOUNT_CATEGORIES);
+				ENTRY_KEY_COMMERCE_DISCOUNT_PRICING_CLASSES);
 	}
 
 	@Override
@@ -96,7 +97,7 @@ public class CommerceDiscountCategoriesScreenNavigationEntry
 			return false;
 		}
 
-		if (CommerceDiscountConstants.TARGET_CATEGORIES.equals(
+		if (CommerceDiscountConstants.TARGET_PRICING_CLASS.equals(
 				commerceDiscount.getTarget())) {
 
 			return true;
@@ -119,14 +120,15 @@ public class CommerceDiscountCategoriesScreenNavigationEntry
 				_commerceDiscountRelService, _commerceDiscountService,
 				_commerceDiscountTargetRegistry,
 				_commerceDiscountCommerceAccountGroupRelService,
-				_cpDefinitionService, null, httpServletRequest, _itemSelector);
+				_cpDefinitionService, _commercePricingClassService,
+				httpServletRequest, _itemSelector);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, commerceDiscountRelDisplayContext);
 
 		_jspRenderer.renderJSP(
 			_servletContext, httpServletRequest, httpServletResponse,
-			"/discount/categories.jsp");
+			"/discount/pricing_classes.jsp");
 	}
 
 	@Reference
@@ -156,6 +158,9 @@ public class CommerceDiscountCategoriesScreenNavigationEntry
 
 	@Reference
 	private CommerceDiscountTargetRegistry _commerceDiscountTargetRegistry;
+
+	@Reference
+	private CommercePricingClassService _commercePricingClassService;
 
 	@Reference
 	private CPDefinitionService _cpDefinitionService;
