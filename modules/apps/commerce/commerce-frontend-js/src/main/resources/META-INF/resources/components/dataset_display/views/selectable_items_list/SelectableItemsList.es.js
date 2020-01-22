@@ -1,26 +1,34 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ClayList from '@clayui/list';
-import {ClayRadio} from '@clayui/form';
+import {ClayRadio, ClayCheckbox} from '@clayui/form';
 
 function SelectableItemsList(props) {
-    const [currentValue, setCurrentValue] = useState(props.selectedItemValue);
-
+	const {
+        selectItems,
+        selectedItemsKey,
+        selectedItemsValue,
+        selectionType,
+	} = useContext(props.datasetDisplayContext);
+    
     return (
         <ClayList>
-            <input hidden name="selectedIds" readOnly value={currentValue}/>
             {props.items.map((item, i) => (
                 <ClayList.Item  className={classNames(i ? 'border-left-0 border-bottom-0 border-right-0' : 'border-0')} flex key={item.id}>
-                    {props.schema.radioValue && (
-                        <ClayList.ItemField>
-                                <ClayRadio
-                                    checked={item[props.schema.radioValue] == currentValue}
-                                    onChange={(e) => setCurrentValue(e.target.value)}
-                                    value={item[props.schema.radioValue]}
-                                />
-                        </ClayList.ItemField>
-                    )}
+                    <ClayList.ItemField>
+                        {selectionType === 'single' ? (
+                            <ClayRadio
+                                checked={selectedItemsValue.includes(item[selectedItemsKey])}
+                                onChange={() => selectItems(item[selectedItemsKey])}
+                            />
+                        ) : (
+                            <ClayCheckbox
+                                checked={selectedItemsValue.includes(item[selectedItemsKey])}
+                                onChange={() => selectItems(item[selectedItemsKey])}
+                            />
+                        )}
+                    </ClayList.ItemField>
                     <ClayList.ItemField expand>
                         {props.schema.title && (
                             <ClayList.ItemTitle>{item[props.schema.title]}</ClayList.ItemTitle>
@@ -36,6 +44,7 @@ function SelectableItemsList(props) {
 }
 
 SelectableItemsList.propTypes = {
+    context: PropTypes.any,
     items: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.oneOfType([
@@ -46,17 +55,13 @@ SelectableItemsList.propTypes = {
     ),
     schema: PropTypes.shape({
         description: PropTypes.string,
-        radioValue: PropTypes.string,
+        selectedItemValue: PropTypes.string,
         title: PropTypes.string,
     }),
-    selectedItemValue: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string,
-    ])
 }
 
 SelectableItemsList.defaultTypes = {
-    selectedItemValue: ''
+    activeItemValue: ''
 }
 
 export default SelectableItemsList;

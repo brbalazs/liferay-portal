@@ -118,6 +118,7 @@ const fluidDataSetDisplayProps = {
 					</React.Fragment>
 				)
 			},
+			icon: 'merge',
 			id: 'custom-table',
 			label: 'Hey you don\'t know me',
 			schema: {},
@@ -236,6 +237,7 @@ const dataSetDisplayProps = {
 			value: 123
 		}
 	],
+	formId: 'form-id',
 	id: 'tableTest',
 	items: [
 		{
@@ -814,6 +816,8 @@ const dataSetDisplayProps = {
 		initialPageNumber: 1,
 		initialTotalItems: 40
 	},
+	selectedItemsKey: 'name',
+	selectionType: 'single',
 	showPagination: true,
 	sidePanelId: 'sidePanelTestId',
 	spritemap: './assets/icons.svg',
@@ -832,8 +836,8 @@ const dataSetDisplayProps = {
 					</React.Fragment>
 				)
 			},
-			icon: 'list',
-			label: 'List'
+			icon: 'merge',
+			label: 'Custom list'
 		},
 		{
 			contentRendererModuleUrl: '/fake/url',
@@ -892,22 +896,18 @@ const dataSetDisplayProps = {
 						contentRenderer: 'modalLink',
 						fieldName: 'date',
 					},
-				]
+				],
 			},
 		},
 		{
+			activeItemValue: 36553,
 			contentRenderer: 'selectableItemsList',
-			formActionUrl: 'fake/action/url',
-			formId: 'test-form-id',
-			formMethod: 'put',
-			icon: 'merge',
-			label: 'Custom table',
+			icon: 'list',
+			label: 'List',
 			schema: {
 				description: 'name',
-				radioValue: 'skuId',
 				title: 'skuId',
 			},
-			selectedItemValue: 36553
 		}
 	]
 }

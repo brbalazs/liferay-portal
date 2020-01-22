@@ -3,29 +3,37 @@ import ClayLink from '@clayui/link';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useState, useEffect} from 'react';
-import TableContext from '../../DatasetDisplayContext.es';
+
+import DatasetDisplayContext from '../../DatasetDisplayContext.es';
 import { OPEN_SIDE_PANEL } from '../../../../utilities/eventsDefinitions.es';
 import { getOpenedSidePanel } from '../../../../utilities/sidePanels.es';
 
-function submit(action, method = 'get', form) {
-	if (!form.current) {
-		return;
+function submit(action, method = 'get', formId, form) {
+	let queriedForm;
+
+	if(formId) {
+		queriedForm = document.getElementById(formId);
+	}
+	if (form.current) {
+		queriedForm = form.current;
+	}
+	if(!queriedForm) {
+		throw new Error('Form not found')
 	}
 
-	form.current.action = action;
-	form.current.method = method;
-
-	form.current.submit();
+	queriedForm.action = action;
+	queriedForm.method = method;
+	queriedForm.submit();
 }
 
-function getQueryString(ids = []) {
-	return `?ids=${ids.join(',')}`;
+function getQueryString(key, values = []) {
+	return `?${key}=${values.join(',')}`;
 }
 
-function getRichPayload(payload, ids = []) {
+function getRichPayload(payload, key, values = []) {
 	const richPayload = {
 		...payload,
-		url: payload.baseUrl + getQueryString(ids)
+		url: payload.baseUrl + getQueryString(key, values)
 	};
 	return richPayload;
 }
@@ -33,7 +41,7 @@ function getRichPayload(payload, ids = []) {
 function BulkActions(props) {
 	const [currentSidePanelActionPayload, setCurrentSidePanelActionPayload] = useState(null);
 
-	function handleActionClick(actionDefinition, formRef, loadData, sidePanelId) {
+	function handleActionClick(actionDefinition, formId, formRef, loadData, sidePanelId) {
 		if (actionDefinition.sidePanelCompatible) {
 			const sidePanelActionPayload = {
 				baseUrl: actionDefinition.url,
@@ -44,7 +52,7 @@ function BulkActions(props) {
 
 			Liferay.fire(
 				OPEN_SIDE_PANEL,
-				getRichPayload(sidePanelActionPayload, props.selectedItemsId)
+				getRichPayload(sidePanelActionPayload, props.selectedItemsKey, props.selectedItemsValue)
 			);
 
 			setCurrentSidePanelActionPayload(sidePanelActionPayload)
@@ -53,6 +61,7 @@ function BulkActions(props) {
 			submit(
 				actionDefinition.url,
 				actionDefinition.method || 'post',
+				formId,
 				formRef
 			)
 		}
@@ -72,26 +81,26 @@ function BulkActions(props) {
 
 				Liferay.fire(
 					OPEN_SIDE_PANEL,
-					getRichPayload(currentSidePanelActionPayload, props.selectedItemsId)
+					getRichPayload(currentSidePanelActionPayload, props.selectedItemsValue)
 				);
 			}
 
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[
-			props.selectedItemsId
+			props.selectedItemsValue
 		]
 	)
 
-	return props.selectedItemsId.length ? (
-		<TableContext.Consumer>
-			{({formRef, loadData, sidePanelId}) => (
+	return props.selectedItemsValue.length ? (
+		<DatasetDisplayContext.Consumer>
+			{({formId, formRef, loadData, sidePanelId}) => (
 				<nav className="management-bar-primary navbar navbar-expand-md pb-2 pt-2 subnav-tbar border-bottom">
 					<div className={classNames("container-fluid container-fluid-max-xl py-1", !props.fluid && 'px-0')}>
 						<ul className="navbar-nav">
 							<li className="nav-item">
 								<span className="text-truncate">
-									{props.selectedItemsId.length}{' '}
+									{props.selectedItemsValue.length}{' '}
 									{Liferay.Language.get('of')}{' '}
 									{props.totalItemsCount}{' '}
 									{Liferay.Language.get('items-selected')}
@@ -116,7 +125,7 @@ function BulkActions(props) {
 										i > 0 && 'ml-1'
 									)}
 									key={actionDefinition.label}
-									onClick={() => handleActionClick(actionDefinition, formRef, loadData, sidePanelId)}
+									onClick={() => handleActionClick(actionDefinition, formId, formRef, loadData, sidePanelId)}
 								>
 									<ClayIcon symbol={actionDefinition.icon} />
 								</button>
@@ -125,7 +134,7 @@ function BulkActions(props) {
 					</div>
 				</nav>
 			)}
-		</TableContext.Consumer>
+		</DatasetDisplayContext.Consumer>
 	) : null;
 }
 
@@ -139,7 +148,8 @@ BulkActions.propTypes = {
 			url: PropTypes.string.isRequired,
 		})
 	),
-	selectedItemsId: PropTypes.array.isRequired,
+	selectedItemsKey: PropTypes.string.isRequired,
+	selectedItemsValue: PropTypes.array.isRequired,
 	totalItemsCount: PropTypes.number.isRequired
 };
 

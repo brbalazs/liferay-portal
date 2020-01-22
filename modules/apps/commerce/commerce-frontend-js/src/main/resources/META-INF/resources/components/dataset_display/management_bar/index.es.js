@@ -17,22 +17,30 @@ function ManagementBar(props) {
 
 	return (
 		<React.Fragment>
-			<BulkActions
-				bulkActions={props.bulkActions}
-				fluid={props.fluid}
-				selectAllItems={props.selectAllItems}
-				selectedItemsId={props.selectedItemsId}
-				totalItemsCount={props.totalItemsCount}
-			/>
-			{!props.selectedItemsId.length && (
-				<NavBar 
-					activeView={props.activeView}
-					creationMenuItems={props.creationMenuItems}
-					views={props.views}
-					setActiveView={props.setActiveView}
+			{props.selectionType === 'multiple' && (
+				<BulkActions
+					bulkActions={props.bulkActions}
+					fluid={props.fluid}
+					selectAllItems={props.selectAllItems}
+					selectedItemsValue={props.selectedItemsValue}
+					selectedItemsKey={props.selectedItemsKey}
+					totalItemsCount={props.totalItemsCount}
 				/>
 			)}
-			<ActiveFiltersBar disabled={!!props.selectedItemsId.length} />
+			{
+				(
+					!props.selectedItemsValue.length
+					|| (props.selectionType === 'single')
+				) && (
+					<NavBar 
+						activeView={props.activeView}
+						creationMenuItems={props.creationMenuItems}
+						views={props.views}
+						setActiveView={props.setActiveView}
+					/>
+				)
+			}
+			<ActiveFiltersBar disabled={!!props.selectedItemsValue.length} />
 		</React.Fragment>
 	);
 };
@@ -138,6 +146,11 @@ Wrapper.propTypes = {
 	),
 	fluid: PropTypes.bool,
 	onFiltersChange: PropTypes.func.isRequired,
+	selectedItemsKey: PropTypes.string.isRequired,
+	selectionType: PropTypes.oneOf([
+		'single',
+		'multiple',
+	]).isRequired,
 	setActiveView: PropTypes.func.isRequired,
 	views: PropTypes.array.isRequired,
 };

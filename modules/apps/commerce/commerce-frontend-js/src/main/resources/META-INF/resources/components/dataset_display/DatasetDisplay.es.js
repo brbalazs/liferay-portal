@@ -30,7 +30,7 @@ function DatasetDisplay(props) {
 
 	const [datasetDisplaySupportModalId] = useState('support-modal-' + getRandomId())
 
-	const [selectedItemsId, setselectedItemsId] = useState([]);
+	const [selectedItemsValue, setSelectedItemsValue] = useState([]);
 	const [filters, updateFilters] = useState(formatFilters(props.filters));
 	const [sorting, updateSorting] = useState(props.sorting)
 	const [items, updateItems] = useState(props.items)
@@ -113,22 +113,21 @@ function DatasetDisplay(props) {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.apiUrl, filters, delta, pageNumber, sorting]);
 
-	const selectItems = (val, checked) => {
-		if (val === 'all-items') {
-			if (checked) {
-				setselectedItemsId(props.items.map(el => el.id));
-			}
-			else {
-				setselectedItemsId([]);
-			}
+	const selectItems = (val) => {
+		if (val instanceof Array) {
+			return setSelectedItemsValue(val);
 		}
-		else {
-			if (checked) {
-				setselectedItemsId(selectedItemsId.concat(val));
-			}
-			else {
-				setselectedItemsId(selectedItemsId.filter(el => el !== val));
-			}
+
+		if(props.selectionType === 'single') {
+			return setSelectedItemsValue([val]);
+		} 
+
+		const itemAdded = selectedItemsValue.find(item => item === val);
+
+		if(itemAdded) {
+			setSelectedItemsValue(selectedItemsValue.filter(el => el !== val));
+		} else {
+			setSelectedItemsValue(selectedItemsValue.concat(val))
 		}
 	};
 
@@ -141,10 +140,11 @@ function DatasetDisplay(props) {
 				filters={filters}
 				fluid={props.style === 'fluid'}
 				onFiltersChange={updateFilters}
-				selectAllItems={() => selectItems('all-items', true)}
-				selectItems={selectItems}
+				selectAllItems={() => selectItems(items.map(item => item[props.selectedItemsKey]))}
 				selectable={selectable}
-				selectedItemsId={selectedItemsId}
+				selectedItemsKey={props.selectedItemsKey}
+				selectedItemsValue={selectedItemsValue}
+				selectionType={props.selectionType}
 				setActiveView={setActiveView}
 				sidePanelId={props.sidePanelId}
 				totalItemsCount={props.items.length}
@@ -155,6 +155,7 @@ function DatasetDisplay(props) {
 
 	const view = !loading && CurrentViewComponent ? (
 		<div className="dataset-display-content-wrapper">
+			<input hidden name={`${props.id}-selected-${props.selectedItemsKey}`} readOnly value={selectedItemsValue.join(',')}/>
 			{
 				items && items.length ? ( 
 					<CurrentViewComponent
@@ -170,6 +171,8 @@ function DatasetDisplay(props) {
 	) : (
 		<span aria-hidden="true" className="loading-animation my-7" />
 	);
+
+	const wrappedView = props.formId ? view : <form ref={formRef}>{view}</form>
 
 	const pagination = (props.showPagination && props.pagination && items.length) ? (
 		<div className="dataset-display-pagination-wrapper">
@@ -206,6 +209,7 @@ function DatasetDisplay(props) {
 	return (
 		<DatasetDisplayContext.Provider
 			value={{
+				formId: props.formId,
 				formRef,
 				loadData: () => getData(props.apiUrl, filters.filter(e => !!e.value), delta, pageNumber, sorting, true),
 				modalId: datasetDisplaySupportModalId,
@@ -213,7 +217,9 @@ function DatasetDisplay(props) {
 				openSidePanel,
 				selectItems,
 				selectable,
-				selectedItemsId,
+				selectedItemsKey: props.selectedItemsKey,
+				selectedItemsValue,
+				selectionType: props.selectionType,
 				sidePanelId: props.sidePanelId,
 				sorting,
 				updateSorting,
@@ -224,14 +230,14 @@ function DatasetDisplay(props) {
 				{props.style === 'default' && (
 					<div className="dataset-display">
 						{managementBar}
-						{view}
+						{wrappedView}
 						{pagination}
 					</div>
 				)}
 				{props.style === 'stacked' && (
 					<div className="dataset-display dataset-display-stacked">
 						{managementBar}
-						{view}
+						{wrappedView}
 						{pagination}
 					</div>
 				)}
@@ -239,7 +245,7 @@ function DatasetDisplay(props) {
 					<div className="dataset-display dataset-display-fluid">
 						{managementBar}
 						<div className="container mt-3">
-							{view}
+							{wrappedView}
 							{pagination}
 						</div>
 					</div>
@@ -255,6 +261,7 @@ DatasetDisplay.propTypes = {
 	bulkActions: PropTypes.array,
 	creationMenuItems: PropTypes.array,
 	filters: PropTypes.array,
+	formId: PropTypes.string,
 	id: PropTypes.string.isRequired,
 	items: PropTypes.array.isRequired,
 	pagination: PropTypes.shape({
@@ -268,6 +275,11 @@ DatasetDisplay.propTypes = {
 		initialPageNumber: PropTypes.number,
 		initialTotalItems: PropTypes.number.isRequired,
 	}),
+	selectedItemsKey: PropTypes.string,
+	selectionType: PropTypes.oneOf([
+		'single',
+		'multiple',
+	]),
 	showManagementBar: PropTypes.bool,
 	showPagination: PropTypes.bool,
 	sidePanelId: PropTypes.string,
@@ -291,9 +303,10 @@ DatasetDisplay.propTypes = {
 };
 
 DatasetDisplay.defaultProps = {
-	dataRenderers: [],
 	filters: [],
 	items: [],
+	selectedItemsKey: 'id',
+	selectionType: 'multiple',
 	showManagementBar: true,
 	showPagination: true,
 	sorting: [],

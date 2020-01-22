@@ -5,25 +5,22 @@ import classNames from 'classnames'
 
 import Checkbox from '../../data_renderer/Checkbox.es';
 import ClayIcon from '@clayui/icon';
-import DatasetDisplayContext from '../../DatasetDisplayContext.es'
 
 function TableHeadCell(props) {
-	const context = useContext(DatasetDisplayContext);
+	const sortingMatch = props.sorting.find((el) => el.fieldName === props.fieldName)
 
-	const sortingMatch = context.sorting.find((el) => el.fieldName === props.fieldName)
-
-	function _handleSortingCellClick(e) {
+	function handleSortingCellClick(e) {
 		e.preventDefault();
 
 		if (sortingMatch) {
-			const updatedSortedElements = context.sorting.map((el) => el.fieldName === props.fieldName ? ({
+			const updatedSortedElements = props.sorting.map((el) => el.fieldName === props.fieldName ? ({
 				...el,
 				direction: el.direction === 'ASC' ? 'DESC' : 'ASC'
 			}) : el)
-			context.updateSorting(updatedSortedElements)
+			props.updateSorting(updatedSortedElements)
 		}
 		else {
-			context.updateSorting([{
+			props.updateSorting([{
 				direction: 'ASC',
 				fieldName: props.fieldName
 			}])
@@ -40,7 +37,7 @@ function TableHeadCell(props) {
 				<a
 					className="inline-item text-truncate-inline text-nowrap"
 					href="#"
-					onClick={_handleSortingCellClick}
+					onClick={handleSortingCellClick}
 				>
 					{props.label || ''}
 					<span className="inline-item inline-item-after sorting-icons-wrapper">
@@ -86,9 +83,19 @@ function TableHeadRow(props) {
 					key={field.fieldName}
 					label={field.label}
 					sortable={field.sortable}
+					sorting={props.sorting}
+					updateSorting={props.updateSorting}
 				/>
 			)
 		})
+	}
+
+	function handleCheckboxClick() {
+		if(props.selectedItemsValue.length === props.items.length) {
+			return props.selectItems([]);
+		}
+		
+		return props.selectItems(props.items.map((item) => item[props.selectedItemsKey]))
 	}
 
 	return (
@@ -96,18 +103,15 @@ function TableHeadRow(props) {
 			<ClayTable.Row>
 				{props.selectable && (
 					<ClayTable.Cell headingCell>
-						{props.itemsQuantity ? (
+						{(props.items.length && props.selectionType === 'multiple') ? (
 							<Checkbox
-								checked={
-									props.allElementsSelected
-								}
+								checked={!!props.selectedItemsValue.length}
 								indeterminate={
-									props.selectedItemsId.length &&
-									!props.allElementsSelected
+									!!props.selectedItemsValue.length &&
+									(props.items.length !== props.selectedItemsValue.length)
 								}
-								name={'table-head-selector'}
-								onSelect={props.selectItems}
-								value={'all-items'}
+								name="table-head-selector"
+								onChange={handleCheckboxClick}
 							/>
 						) : null}
 					</ClayTable.Cell>
@@ -122,8 +126,7 @@ function TableHeadRow(props) {
 }
 
 TableHeadRow.propTypes = {
-	allElementsSelected: PropTypes.bool,
-	itemsQuantity: PropTypes.number,
+	items: PropTypes.array,
 	schema: PropTypes.shape({
 		fields: PropTypes.arrayOf(
 			PropTypes.shape({
@@ -134,7 +137,7 @@ TableHeadRow.propTypes = {
 			}).isRequired
 		)
 	}),
-	selectedItemsId: PropTypes.arrayOf(
+	selectedItemsValue: PropTypes.arrayOf(
 		PropTypes.oneOfType(
 			[
 				PropTypes.string,
@@ -142,6 +145,9 @@ TableHeadRow.propTypes = {
 			]
 		)
 	),
+	selectionType: PropTypes.oneOf([
+		'single', 'multiple'
+	]),
 	showActionItems: PropTypes.bool,
 	sorting: PropTypes.arrayOf(
 		PropTypes.shape({
@@ -150,9 +156,5 @@ TableHeadRow.propTypes = {
 		})
 	),
 };
-
-TableHeadRow.defaultProps = {
-	allElementsSelected: false
-}
 
 export default TableHeadRow;

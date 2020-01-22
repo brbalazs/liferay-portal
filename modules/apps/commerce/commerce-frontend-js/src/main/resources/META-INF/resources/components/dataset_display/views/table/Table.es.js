@@ -4,6 +4,7 @@ import React, { useState, useEffect, useContext } from 'react';
 
 import ActionsDropdown from '../../data_renderer/ActionsDropdown.es';
 import Checkbox from '../../data_renderer/Checkbox.es';
+import Radio from '../../data_renderer/Radio.es';
 import Comment from '../../data_renderer/Comment.es';
 import { getDataRendererById, getDataRendererByUrl } from '../../data_renderer/index.es';
 import TableHeadRow from './TableHeadRow.es';
@@ -45,101 +46,89 @@ function CustomTableCell(props) {
 	) : <ClayTable.Cell />
 }
 
-function areAllElementsSelected(selectedItemsId, allItems) {
-	const selectedItemsString = selectedItemsId.sort().join(',');
-	const allItemsString = allItems
-		.map(el => el.id)
-		.sort()
-		.join(',');
-
-	return selectedItemsString === allItemsString;
-}
-
 function Table(props) {
 	const {
-		formRef,
 		selectItems,
 		selectable,
-		selectedItemsId,
-		sorting
+		selectedItemsKey,
+		selectedItemsValue,
+		selectionType,
+		sorting,
+		updateSorting
 	} = useContext(props.datasetDisplayContext);
 
 	const showActionItems = !!props.items.find(el => el.actionItems);
 
-	const allElementsSelected = areAllElementsSelected(
-		selectedItemsId,
-		props.items
-	);
+	const SelectionComponent = selectionType === 'multiple' ? Checkbox : Radio;
 
 	return (
-		<form ref={formRef}>
-			<ClayTable borderless responsive={false}>
-				<TableHeadRow
-					allElementsSelected={allElementsSelected}
-					itemsQuantity={props.items.length}
-					schema={props.schema}
-					selectItems={selectItems}
-					selectable={selectable}
-					selectedItemsId={selectedItemsId}
-					showActionItems={showActionItems}
-					sorting={sorting}
-				/>
-				<ClayTable.Body>
-					{props.items.map(item => (
-						<ClayTable.Row key={item.id}>
-							{selectable && (
+		<ClayTable borderless responsive={false}>
+			<TableHeadRow
+				items={props.items}
+				schema={props.schema}
+				selectItems={selectItems}
+				selectable={selectable}
+				selectedItemsKey={selectedItemsKey}
+				selectedItemsValue={selectedItemsValue}
+				selectionType={selectionType}
+				showActionItems={showActionItems}
+				sorting={sorting}
+				updateSorting={updateSorting}
+			/>
+			<ClayTable.Body>
+				{props.items.map((item, i) => (
+					<ClayTable.Row key={item.id || i}>
+						{selectable && (
+							<ClayTable.Cell>
+								<SelectionComponent
+									checked={
+										!!selectedItemsValue.find(
+											el => el === item[selectedItemsKey]
+										)
+									}
+									onChange={() => selectItems(item[selectedItemsKey])}
+									value={item[selectedItemsKey]}
+								/>
+							</ClayTable.Cell>
+						)}
+						{props.schema.fields.map(field => {
+							const fieldName = field.fieldName;
+							const {
+								[fieldName]: value,
+								...otherProps
+							} = item;
+							const comment = otherProps.comments
+								? otherProps.comments[field.fieldName]
+								: null;
+							return (
+								<CustomTableCell
+									comment={comment}
+									data={otherProps}
+									fieldName={field.fieldName}
+									key={field.fieldName}
+									value={value}
+									view={{
+										contentRenderer: field.contentRenderer,
+										contentRendererModuleUrl: field.contentRendererModuleUrl
+									}}
+								/>
+							);
+						})}
+						{showActionItems ? (
+							item.actionItems ? (
 								<ClayTable.Cell>
-									<Checkbox
-										checked={
-											!!selectedItemsId.find(
-												el => el === item.id
-											)
-										}
-										name="selectedIds"
-										onSelect={selectItems}
-										value={item.id}
+									<ActionsDropdown
+										items={item.actionItems}
 									/>
 								</ClayTable.Cell>
-							)}
-							{props.schema.fields.map(field => {
-								const fieldName = field.fieldName;
-								const {
-									[fieldName]: value,
-									...otherProps
-								} = item;
-								const comment = otherProps.comments
-									? otherProps.comments[field.fieldName]
-									: null;
-								return (
-									<CustomTableCell
-										comment={comment}
-										data={otherProps}
-										fieldName={field.fieldName}
-										key={field.fieldName}
-										value={value}
-										view={{
-											contentRenderer: field.contentRenderer,
-											contentRendererModuleUrl: field.contentRendererModuleUrl
-										}}
-									/>
-								);
-							})}
-							{showActionItems ? (
-								item.actionItems ? (
-									<ClayTable.Cell>
-										<ActionsDropdown
-											items={item.actionItems}
-										/>
-									</ClayTable.Cell>
-								) : (
-									<ClayTable.Cell />
-								)
-							) : null}
-						</ClayTable.Row>
-					))}
-				</ClayTable.Body>
-			</ClayTable>
-		</form>
+							) : (
+								<ClayTable.Cell />
+							)
+						) : null}
+					</ClayTable.Row>
+				))}
+			</ClayTable.Body>
+		</ClayTable>
 	);
 }
 
@@ -153,7 +142,6 @@ Table.propTypes = {
 	schema: PropTypes.shape({
 		fields: PropTypes.array.isRequired
 	}).isRequired,
-	selectedItemsId: PropTypes.array
 };
 
 Table.defaultProps = {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const DatasetDisplayContext = React.createContext({
-	dataRenderers: [],
+	formId: null,
 	formRef: null,
 	loadData: () => {},
 	modalId: null,
@@ -9,7 +9,7 @@ const DatasetDisplayContext = React.createContext({
 	openSidePanel: () => {},
 	selectItems: () => {},
 	selectable: false,
-	selectedItemsId: [],
+	selectedItemsValue: [],
 	sidePanelId: null,
 	sorting: [],
 	updateSorting: () => {},

@@ -11,7 +11,7 @@ module.exports = [
     entry_dev: "entry.dev.es.js",
     folder: "example",
     name: "Example"
-  },
+  },/*
   {
     entry: "entry.es.js",
     entry_dev: "entry.dev.es.js",
@@ -46,5 +46,5 @@ module.exports = [
     folder: "step_tracker",
     name: "Step tracker",
     page: "step-tracker.html"
-  }
+  }*/
 ];
