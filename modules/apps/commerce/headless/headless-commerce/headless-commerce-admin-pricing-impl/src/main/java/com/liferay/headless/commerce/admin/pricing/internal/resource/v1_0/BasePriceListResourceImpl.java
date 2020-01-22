@@ -60,6 +60,37 @@ import javax.ws.rs.core.UriInfo;
 public abstract class BasePriceListResourceImpl implements PriceListResource {
 
 	@Override
+	@GET
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "filter"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize"),
+			@Parameter(in = ParameterIn.QUERY, name = "sort")
+		}
+	)
+	@Path("/priceLists")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "PriceList")})
+	public Page<PriceList> getPriceListsPage(
+			@Context Filter filter, @Context Pagination pagination,
+			@Context Sort[] sorts)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
+	}
+
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@POST
+	@Path("/priceLists")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "PriceList")})
+	public PriceList postPriceList(PriceList priceList) throws Exception {
+		return new PriceList();
+	}
+
+	@Override
 	@DELETE
 	@Parameters(
 		value = {
@@ -162,37 +193,6 @@ public abstract class BasePriceListResourceImpl implements PriceListResource {
 		Response.ResponseBuilder responseBuilder = Response.ok();
 
 		return responseBuilder.build();
-	}
-
-	@Override
-	@GET
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "filter"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize"),
-			@Parameter(in = ParameterIn.QUERY, name = "sort")
-		}
-	)
-	@Path("/priceLists")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "PriceList")})
-	public Page<PriceList> getPriceListsPage(
-			@Context Filter filter, @Context Pagination pagination,
-			@Context Sort[] sorts)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@POST
-	@Path("/priceLists")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "PriceList")})
-	public PriceList postPriceList(PriceList priceList) throws Exception {
-		return new PriceList();
 	}
 
 	public void setContextCompany(Company contextCompany) {

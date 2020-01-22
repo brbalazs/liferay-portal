@@ -16,7 +16,6 @@ package com.liferay.headless.commerce.bom.internal.resource.v1_0;
 
 import com.liferay.headless.commerce.bom.dto.v1_0.Folder;
 import com.liferay.headless.commerce.bom.resource.v1_0.FolderResource;
-import com.liferay.oauth2.provider.scope.ScopeChecker;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.service.ResourceActionLocalService;
@@ -170,7 +169,7 @@ public abstract class BaseFolderResourceImpl implements FolderResource {
 	protected ResourceActionLocalService resourceActionLocalService;
 	protected ResourcePermissionLocalService resourcePermissionLocalService;
 	protected RoleLocalService roleLocalService;
-	protected ScopeChecker contextScopeChecker;
+	protected Object contextScopeChecker;
 	protected UriInfo contextUriInfo;
 
 }
