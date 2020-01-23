@@ -20,6 +20,8 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.notification.service.CommerceNotificationQueueEntryLocalService;
 import com.liferay.commerce.notification.service.CommerceNotificationTemplateService;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
+import com.liferay.commerce.order.engine.CommerceOrderEngine;
+import com.liferay.commerce.order.status.CommerceOrderStatusRegistry;
 import com.liferay.commerce.order.web.internal.display.context.CommerceOrderEditDisplayContext;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelService;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
@@ -66,9 +68,9 @@ public class EditCommerceOrderShipmentMVCRenderCommand
 					_commerceAddressService, _commerceChannelLocalService,
 					_commerceNotificationTemplateService,
 					_commerceNotificationQueueEntryLocalService,
+					_commerceWorkflowedModelHelper, _commerceOrderEngine,
 					_commerceOrderService, _commerceOrderItemService,
 					_commerceOrderModelResourcePermission,
-					_commerceOrderNoteService, _commerceOrderValidatorRegistry,
 					_commercePaymentMethodGroupRelService,
 					_commerceOrderPriceCalculation, _commerceShipmentService,
 					renderRequest);
@@ -107,6 +109,9 @@ public class EditCommerceOrderShipmentMVCRenderCommand
 		_commerceNotificationTemplateService;
 
 	@Reference
+	private CommerceOrderEngine _commerceOrderEngine;
+
+	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
 
 	@Reference(
@@ -123,6 +128,9 @@ public class EditCommerceOrderShipmentMVCRenderCommand
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
+
+	@Reference
+	private CommerceOrderStatusRegistry _commerceOrderStatusRegistry;
 
 	@Reference
 	private CommerceOrderValidatorRegistry _commerceOrderValidatorRegistry;

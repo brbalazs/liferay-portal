@@ -32,6 +32,9 @@ import com.liferay.commerce.notification.model.CommerceNotificationTemplate;
 import com.liferay.commerce.notification.service.CommerceNotificationQueueEntryLocalService;
 import com.liferay.commerce.notification.service.CommerceNotificationTemplateService;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
+import com.liferay.commerce.order.engine.CommerceOrderEngine;
+import com.liferay.commerce.order.status.CommerceOrderStatus;
+import com.liferay.commerce.order.status.CommerceOrderStatusRegistry;
 import com.liferay.commerce.order.web.internal.display.context.util.CommerceOrderRequestHelper;
 import com.liferay.commerce.order.web.internal.servlet.taglib.ui.CommerceOrderScreenNavigationConstants;
 import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
@@ -57,14 +60,15 @@ import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
-import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.webserver.WebServerServletTokenUtil;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.text.DateFormat;
 import java.text.Format;
@@ -94,11 +98,11 @@ public class CommerceOrderEditDisplayContext {
 				commerceNotificationTemplateService,
 			CommerceNotificationQueueEntryLocalService
 				commerceNotificationQueueEntryLocalService,
+			CommerceOrderEngine commerceOrderEngine,
 			CommerceOrderService commerceOrderService,
 			CommerceOrderItemService commerceOrderItemService,
-			ModelResourcePermission commerceOrderModelResourcePermission,
 			CommerceOrderNoteService commerceOrderNoteService,
-			CommerceOrderValidatorRegistry commerceOrderValidatorRegistry,
+			CommerceOrderStatusRegistry commerceOrderStatusRegistry,
 			CommercePaymentMethodGroupRelService
 				commercePaymentMethodGroupRelService,
 			CommerceOrderPriceCalculation commerceOrderPriceCalculation,
@@ -112,12 +116,11 @@ public class CommerceOrderEditDisplayContext {
 			commerceNotificationTemplateService;
 		_commerceNotificationQueueEntryLocalService =
 			commerceNotificationQueueEntryLocalService;
+		_commerceOrderEngine = commerceOrderEngine;
 		_commerceOrderService = commerceOrderService;
 		_commerceOrderItemService = commerceOrderItemService;
-		_commerceOrderModelResourcePermission =
-			commerceOrderModelResourcePermission;
 		_commerceOrderNoteService = commerceOrderNoteService;
-		_commerceOrderValidatorRegistry = commerceOrderValidatorRegistry;
+		_commerceOrderStatusRegistry = commerceOrderStatusRegistry;
 		_commercePaymentMethodGroupRelService =
 			commercePaymentMethodGroupRelService;
 		_commerceOrderPriceCalculation = commerceOrderPriceCalculation;
@@ -513,37 +516,56 @@ public class CommerceOrderEditDisplayContext {
 
 		List<HeaderActionModel> headerActionModels = new ArrayList<>();
 
-		if (_commerceOrder == null) {
+		CommerceOrderStatus currentCommerceOrderStatus =
+			_commerceOrderEngine.getCurrentCommerceOrderStatus(_commerceOrder);
+
+		if ((_commerceOrder == null) || (currentCommerceOrderStatus == null) ||
+			!currentCommerceOrderStatus.isComplete(_commerceOrder)) {
+
 			return headerActionModels;
+		}
+
+		List<CommerceOrderStatus> commerceOrderStatuses =
+			_commerceOrderEngine.getNextCommerceOrderStatuses(_commerceOrder);
+
+		if ((currentCommerceOrderStatus.getKey() ==
+				CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS) &&
+			(_commerceOrder.getPaymentStatus() !=
+				CommerceOrderConstants.PAYMENT_STATUS_PENDING) &&
+			_commerceOrder.isApproved() && commerceOrderStatuses.isEmpty() &&
+			currentCommerceOrderStatus.isTransitionCriteriaMet(
+				_commerceOrder)) {
+
+			commerceOrderStatuses.add(currentCommerceOrderStatus);
 		}
 
 		PortletURL portletURL = getTransitionOrderPortletURL();
 
-		HeaderActionModel headerActionModel;
+		for (CommerceOrderStatus commerceOrderStatus : commerceOrderStatuses) {
+			String label = CommerceOrderConstants.getOrderStatusLabel(
+				commerceOrderStatus.getKey());
 
-		if (!_commerceOrder.isOpen()) {
-			portletURL.setParameter("transitionName", "reorder");
+			if (commerceOrderStatus.getKey() ==
+					CommerceOrderConstants.ORDER_STATUS_SHIPPED) {
 
-			headerActionModel = new HeaderActionModel(
-				null, portletURL.toString(), null, "reorder");
+				label = "ship-order";
+			}
+			else if (commerceOrderStatus.getKey() ==
+						CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS) {
 
-			headerActionModels.add(headerActionModel);
-		}
+				label = "checkout";
 
-		if (_commerceOrder.isOpen() && _commerceOrder.isDraft() &&
-			!_commerceOrder.isEmpty() &&
-			_commerceOrderValidatorRegistry.isValid(
-				_commerceOrderRequestHelper.getLocale(), _commerceOrder) &&
-			_commerceOrderModelResourcePermission.contains(
-				_commerceOrderRequestHelper.getPermissionChecker(),
-				_commerceOrder, ActionKeys.UPDATE)) {
+				if (!_commerceOrder.isApproved()) {
+					label = "submit";
+				}
+			}
 
-			portletURL.setParameter("transitionName", "submit");
+			portletURL.setParameter(
+				"transitionName", String.valueOf(commerceOrderStatus.getKey()));
 
-			headerActionModel = new HeaderActionModel(
-				"btn-primary", portletURL.toString(), null, "submit");
-
-			headerActionModels.add(headerActionModel);
+			headerActionModels.add(
+				new HeaderActionModel(
+					"btn-primary", portletURL.toString(), null, label));
 		}
 
 		return headerActionModels;
@@ -556,104 +578,64 @@ public class CommerceOrderEditDisplayContext {
 			return steps;
 		}
 
-		StepModel step1 = new StepModel();
-		StepModel step2 = new StepModel();
-		StepModel step3 = new StepModel();
-		StepModel step4 = new StepModel();
-		StepModel step5 = new StepModel();
+		CommerceOrderStatus currentCommerceOrderStatus =
+			_commerceOrderEngine.getCurrentCommerceOrderStatus(_commerceOrder);
 
-		step1.setId(
-			CommerceOrderConstants.getOrderStatusLabel(
-				CommerceOrderConstants.ORDER_STATUS_TO_FULFILL));
-		step1.setLabel(
-			LanguageUtil.get(
-				_commerceOrderRequestHelper.getRequest(),
-				CommerceOrderConstants.getOrderStatusLabel(
-					CommerceOrderConstants.ORDER_STATUS_TO_FULFILL)));
+		List<CommerceOrderStatus> commerceOrderStatuses =
+			_commerceOrderStatusRegistry.getCommerceOrderStatuses();
 
-		step2.setId(
-			CommerceOrderConstants.getOrderStatusLabel(
-				CommerceOrderConstants.ORDER_STATUS_FULFILLED));
-		step2.setLabel(
-			LanguageUtil.get(
-				_commerceOrderRequestHelper.getRequest(),
-				CommerceOrderConstants.getOrderStatusLabel(
-					CommerceOrderConstants.ORDER_STATUS_FULFILLED)));
+		if ((currentCommerceOrderStatus != null) &&
+			currentCommerceOrderStatus.isWorkflowEnabled(_commerceOrder)) {
 
-		step3.setId(
-			CommerceOrderConstants.getOrderStatusLabel(
-				CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED));
-		step3.setLabel(
-			LanguageUtil.get(
-				_commerceOrderRequestHelper.getRequest(),
-				CommerceOrderConstants.getOrderStatusLabel(
-					CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED)));
-
-		step4.setId(
-			CommerceOrderConstants.getOrderStatusLabel(
-				CommerceOrderConstants.ORDER_STATUS_SHIPPED));
-		step4.setLabel(
-			LanguageUtil.get(
-				_commerceOrderRequestHelper.getRequest(),
-				CommerceOrderConstants.getOrderStatusLabel(
-					CommerceOrderConstants.ORDER_STATUS_SHIPPED)));
-
-		step5.setId(
-			CommerceOrderConstants.getOrderStatusLabel(
-				CommerceOrderConstants.ORDER_STATUS_COMPLETED));
-		step5.setLabel(
-			LanguageUtil.get(
-				_commerceOrderRequestHelper.getRequest(),
-				CommerceOrderConstants.getOrderStatusLabel(
-					CommerceOrderConstants.ORDER_STATUS_COMPLETED)));
-
-		int orderStatus = _commerceOrder.getOrderStatus();
-
-		if (orderStatus == CommerceOrderConstants.ORDER_STATUS_COMPLETED) {
-			step1.setState("completed");
-			step2.setState("completed");
-			step3.setState("completed");
-			step4.setState("completed");
-			step5.setState("completed");
-		}
-		else if (orderStatus ==
-					CommerceOrderConstants.ORDER_STATUS_TO_FULFILL) {
-
-			step1.setState("active");
-			step2.setState("inactive");
-			step3.setState("inactive");
-			step4.setState("inactive");
-			step5.setState("inactive");
-		}
-		else if (orderStatus == CommerceOrderConstants.ORDER_STATUS_FULFILLED) {
-			step1.setState("completed");
-			step2.setState("active");
-			step3.setState("inactive");
-			step4.setState("inactive");
-			step5.setState("inactive");
-		}
-		else if (orderStatus ==
-					CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED) {
-
-			step1.setState("completed");
-			step2.setState("completed");
-			step3.setState("active");
-			step4.setState("inactive");
-			step5.setState("inactive");
-		}
-		else if (orderStatus == CommerceOrderConstants.ORDER_STATUS_SHIPPED) {
-			step1.setState("completed");
-			step2.setState("completed");
-			step3.setState("completed");
-			step4.setState("active");
-			step5.setState("inactive");
+			return _getWorkflowSteps();
 		}
 
-		steps.add(step1);
-		steps.add(step2);
-		steps.add(step3);
-		steps.add(step4);
-		steps.add(step5);
+		if (ArrayUtil.contains(
+				CommerceOrderConstants.ORDER_STATUSES_OPEN,
+				_commerceOrder.getOrderStatus())) {
+
+			return steps;
+		}
+
+		for (CommerceOrderStatus commerceOrderStatus : commerceOrderStatuses) {
+			if (((commerceOrderStatus.getKey() ==
+					CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED) &&
+				 (_commerceOrder.getOrderStatus() !=
+					 CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED)) ||
+				ArrayUtil.contains(
+					CommerceOrderConstants.ORDER_STATUSES_OPEN,
+					commerceOrderStatus.getKey())) {
+
+				continue;
+			}
+
+			StepModel step = new StepModel();
+
+			step.setId(
+				CommerceOrderConstants.getOrderStatusLabel(
+					commerceOrderStatus.getKey()));
+			step.setLabel(
+				commerceOrderStatus.getLabel(
+					_commerceOrderRequestHelper.getLocale()));
+
+			if (commerceOrderStatus.equals(currentCommerceOrderStatus) &&
+				(commerceOrderStatus.getKey() !=
+					CommerceOrderConstants.ORDER_STATUS_COMPLETED)) {
+
+				step.setState("active");
+			}
+			else if ((currentCommerceOrderStatus != null) &&
+					 (commerceOrderStatus.getPriority() <=
+						 currentCommerceOrderStatus.getPriority())) {
+
+				step.setState("completed");
+			}
+			else {
+				step.setState("inactive");
+			}
+
+			steps.add(step);
+		}
 
 		return steps;
 	}
@@ -809,6 +791,42 @@ public class CommerceOrderEditDisplayContext {
 		return portletURL;
 	}
 
+	private List<StepModel> _getWorkflowSteps() {
+		List<StepModel> steps = new ArrayList<>();
+
+		int[] workflowStatuses = {
+			WorkflowConstants.STATUS_DRAFT, WorkflowConstants.STATUS_PENDING,
+			WorkflowConstants.STATUS_APPROVED
+		};
+
+		for (int workflowStatus : workflowStatuses) {
+			StepModel step = new StepModel();
+
+			String workflowStatusLabel = WorkflowConstants.getStatusLabel(
+				workflowStatus);
+
+			step.setId(workflowStatusLabel);
+			step.setLabel(
+				LanguageUtil.get(
+					_commerceOrderRequestHelper.getLocale(),
+					workflowStatusLabel));
+
+			if (_commerceOrder.getStatus() == workflowStatus) {
+				step.setState("active");
+			}
+			else if (_commerceOrder.getStatus() < workflowStatus) {
+				step.setState("completed");
+			}
+			else {
+				step.setState("inactive");
+			}
+
+			steps.add(step);
+		}
+
+		return steps;
+	}
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceOrderEditDisplayContext.class);
 
@@ -820,15 +838,14 @@ public class CommerceOrderEditDisplayContext {
 		_commerceNotificationTemplateService;
 	private final CommerceOrder _commerceOrder;
 	private final Format _commerceOrderDateFormatDateTime;
+	private final CommerceOrderEngine _commerceOrderEngine;
 	private CommerceOrderItem _commerceOrderItem;
 	private final CommerceOrderItemService _commerceOrderItemService;
-	private final ModelResourcePermission _commerceOrderModelResourcePermission;
 	private final CommerceOrderNoteService _commerceOrderNoteService;
 	private final CommerceOrderPriceCalculation _commerceOrderPriceCalculation;
 	private final CommerceOrderRequestHelper _commerceOrderRequestHelper;
 	private final CommerceOrderService _commerceOrderService;
-	private final CommerceOrderValidatorRegistry
-		_commerceOrderValidatorRegistry;
+	private final CommerceOrderStatusRegistry _commerceOrderStatusRegistry;
 	private final CommercePaymentMethodGroupRelService
 		_commercePaymentMethodGroupRelService;
 	private CommerceShipment _commerceShipment;
