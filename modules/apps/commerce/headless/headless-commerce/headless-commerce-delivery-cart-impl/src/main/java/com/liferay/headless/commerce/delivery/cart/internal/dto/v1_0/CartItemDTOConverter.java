@@ -19,10 +19,11 @@ import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.service.CommerceOrderItemService;
+import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartItem;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.OrderItem;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartItemPost;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Price;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -45,7 +46,7 @@ public class CartItemDTOConverter implements DTOConverter {
 
 	@Override
 	public String getContentType() {
-		return OrderItem.class.getSimpleName();
+		return CartItemPost.class.getSimpleName();
 	}
 
 	@Override
@@ -61,6 +62,8 @@ public class CartItemDTOConverter implements DTOConverter {
 
 		Locale locale = cartItemDTOConverterContext.getLocale();
 
+		ExpandoBridge expandoBridge = commerceOrderItem.getExpandoBridge();
+
 		CommerceContext commerceContext =
 			cartItemDTOConverterContext.getCommerceContext();
 
@@ -69,9 +72,15 @@ public class CartItemDTOConverter implements DTOConverter {
 		return new CartItem() {
 			{
 				id = commerceOrderItem.getCommerceOrderItemId();
+				customFields = expandoBridge.getAttributes();
 				name = commerceOrderItem.getName(languageId);
+				options = commerceOrderItem.getJson();
 				price = _getPrice(commerceOrderItem, commerceContext, locale);
 				quantity = commerceOrderItem.getQuantity();
+				productId = commerceOrderItem.getCProductId();
+				sku = commerceOrderItem.getSku();
+				skuId = commerceOrderItem.getCPInstanceId();
+				subscription = commerceOrderItem.getSubscription();
 			}
 		};
 	}
@@ -90,13 +99,16 @@ public class CartItemDTOConverter implements DTOConverter {
 
 		CommerceMoney unitPromoPriceMoney =
 			commerceOrderItem.getPromoPriceMoney();
+
 		BigDecimal unitPromoPrice = commerceOrderItem.getUnitPrice();
 
 		CommerceMoney discountAmountMoney =
 			commerceOrderItem.getDiscountAmountMoney();
+
 		BigDecimal discountAmount = commerceOrderItem.getDiscountAmount();
 
 		CommerceMoney finalPriceMoney = commerceOrderItem.getFinalPriceMoney();
+
 		BigDecimal finalPrice = commerceOrderItem.getFinalPrice();
 
 		Price price = new Price() {
@@ -115,6 +127,24 @@ public class CartItemDTOConverter implements DTOConverter {
 		if (discountAmount != null) {
 			price.setDiscountFormatted(discountAmountMoney.format(locale));
 			price.setDiscount(discountAmount.doubleValue());
+
+			BigDecimal discountPercentageLevel1 =
+				commerceOrderItem.getDiscountPercentageLevel1();
+			BigDecimal discountPercentageLevel2 =
+				commerceOrderItem.getDiscountPercentageLevel2();
+			BigDecimal discountPercentageLevel3 =
+				commerceOrderItem.getDiscountPercentageLevel3();
+			BigDecimal discountPercentageLevel4 =
+				commerceOrderItem.getDiscountPercentageLevel4();
+
+			price.setDiscountPercentageLevel1(
+				discountPercentageLevel1.doubleValue());
+			price.setDiscountPercentageLevel2(
+				discountPercentageLevel2.doubleValue());
+			price.setDiscountPercentageLevel3(
+				discountPercentageLevel3.doubleValue());
+			price.setDiscountPercentageLevel4(
+				discountPercentageLevel4.doubleValue());
 		}
 
 		if (finalPrice != null) {

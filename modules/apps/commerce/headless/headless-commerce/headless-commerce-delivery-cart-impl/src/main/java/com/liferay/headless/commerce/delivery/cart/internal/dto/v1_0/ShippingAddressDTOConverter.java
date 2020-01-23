@@ -22,7 +22,8 @@ import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.ShippingAddress;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.exception.PortalException;
+
+import java.util.Locale;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -50,17 +51,23 @@ public class ShippingAddressDTOConverter implements DTOConverter {
 
 		CommerceCountry commerceCountry = commerceAddress.getCommerceCountry();
 
+		CommerceRegion commerceRegion = commerceAddress.getCommerceRegion();
+
+		Locale locale = dtoConverterContext.getLocale();
+
 		return new ShippingAddress() {
 			{
 				city = commerceAddress.getCity();
 				countryISOCode = commerceCountry.getTwoLettersISOCode();
+				country = commerceCountry.getName(locale);
 				description = commerceAddress.getDescription();
 				id = commerceAddress.getCommerceAddressId();
 				latitude = commerceAddress.getLatitude();
 				longitude = commerceAddress.getLongitude();
 				name = commerceAddress.getName();
 				phoneNumber = commerceAddress.getPhoneNumber();
-				regionISOCode = _getRegionISOCode(commerceAddress);
+				regionISOCode = _getRegionISOCode(commerceRegion);
+				region = commerceRegion.getName();
 				street1 = commerceAddress.getStreet1();
 				street2 = commerceAddress.getStreet2();
 				street3 = commerceAddress.getStreet3();
@@ -69,11 +76,7 @@ public class ShippingAddressDTOConverter implements DTOConverter {
 		};
 	}
 
-	private String _getRegionISOCode(CommerceAddress commerceAddress)
-		throws PortalException {
-
-		CommerceRegion commerceRegion = commerceAddress.getCommerceRegion();
-
+	private String _getRegionISOCode(CommerceRegion commerceRegion) {
 		if (commerceRegion == null) {
 			return StringPool.BLANK;
 		}

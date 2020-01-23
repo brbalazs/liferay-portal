@@ -16,7 +16,6 @@ package com.liferay.headless.commerce.delivery.cart.internal.resource.v1_0;
 
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
-import com.liferay.commerce.exception.NoSuchOrderException;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.product.model.CPInstance;
@@ -28,7 +27,7 @@ import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartItem;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.OrderItem;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartItemPost;
 import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.CartItemDTOConverter;
 import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.CartItemDTOConverterContext;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartItemResource;
@@ -36,11 +35,14 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.fields.NestedFieldId;
 import com.liferay.portal.vulcan.pagination.Page;
+import com.liferay.portal.vulcan.pagination.Pagination;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
+
+import javax.ws.rs.core.Response;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -56,7 +58,20 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class CartItemResourceImpl extends BaseCartItemResourceImpl {
 
 	@Override
-	public CartItem getChannelCartCartItem(
+	public Response deleteChannelCartItemCartItem(
+			@NotNull Long channelId, @NotNull Long cartId,
+			@NotNull Long cartItemId)
+		throws Exception {
+
+		_commerceOrderItemService.deleteCommerceOrderItem(cartItemId);
+
+		Response.ResponseBuilder responseBuilder = Response.noContent();
+
+		return responseBuilder.build();
+	}
+
+	@Override
+	public CartItem getChannelCartItemCartItem(
 			@NotNull Long channelId, @NotNull Long cartId,
 			@NotNull Long cartItemId)
 		throws Exception {
@@ -79,8 +94,9 @@ public class CartItemResourceImpl extends BaseCartItemResourceImpl {
 
 	@NestedField(parentClass = Cart.class, value = "cartItems")
 	@Override
-	public Page<CartItem> getChannelCartCartItemsPage(
-			@NotNull Long channelId, @NestedFieldId("id") @NotNull Long cartId)
+	public Page<CartItem> getChannelCartItemsPage(
+			@NotNull Long channelId, @NestedFieldId("id") @NotNull Long cartId,
+			Pagination pagination)
 		throws Exception {
 
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
@@ -89,23 +105,28 @@ public class CartItemResourceImpl extends BaseCartItemResourceImpl {
 		CommerceChannel commerceChannel =
 			_commerceChannelService.getCommerceChannel(channelId);
 
-		if (commerceChannel.getGroupId() != commerceOrder.getGroupId()) {
-			throw new NoSuchOrderException("Can't find order on channel");
-		}
-
 		CommerceContext commerceContext = _commerceContextFactory.create(
 			contextCompany.getCompanyId(), commerceChannel.getSiteGroupId(),
 			contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
 			commerceOrder.getCommerceAccountId());
 
+		List<CommerceOrderItem> commerceOrderItems =
+			_commerceOrderItemService.getCommerceOrderItems(
+				cartId, pagination.getStartPosition(),
+				pagination.getEndPosition());
+
+		int commerceOrderItemsCount =
+			_commerceOrderItemService.getCommerceOrderItemsCount(cartId);
+
 		return Page.of(
-			_toCartItems(
-				commerceOrder.getCommerceOrderItems(), commerceContext));
+			_toCartItems(commerceOrderItems, commerceContext), pagination,
+			commerceOrderItemsCount);
 	}
 
 	@Override
-	public CartItem postChannelCartCartItem(
-			@NotNull Long channelId, @NotNull Long cartId, OrderItem orderItem)
+	public CartItem postChannelCartItem(
+			@NotNull Long channelId, @NotNull Long cartId,
+			CartItemPost cartItemPost)
 		throws Exception {
 
 		CommerceChannel commerceChannel =
@@ -123,18 +144,18 @@ public class CartItemResourceImpl extends BaseCartItemResourceImpl {
 			commerceOrder.getCommerceAccountId());
 
 		CPInstance cpInstance = _cpInstanceService.getCPInstance(
-			orderItem.getProductId());
+			cartItemPost.getSkuId());
 
 		return _toCartItem(
 			_commerceOrderItemService.upsertCommerceOrderItem(
-				commerceOrder.getCommerceOrderId(), orderItem.getProductId(),
-				orderItem.getQuantity(), 0, cpInstance.getJson(),
+				commerceOrder.getCommerceOrderId(), cartItemPost.getSkuId(),
+				cartItemPost.getQuantity(), 0, cpInstance.getJson(),
 				commerceContext, serviceContext),
 			commerceContext);
 	}
 
 	@Override
-	public CartItem putChannelCartCartItem(
+	public CartItem putChannelCartItemCartItem(
 			@NotNull Long channelId, @NotNull Long cartId,
 			@NotNull Long cartItemId, CartItem cartItem)
 		throws Exception {
