@@ -6,14 +6,16 @@ import DefaultContent from './Default.es';
 function Link(props) {
 	return (
 		<ClayLink href={props.value.url}>
-			<DefaultContent {...props} />
+			<DefaultContent value={props.value.label} />
 		</ClayLink>
 	);
 }
 
 Link.propTypes = {
-	label: PropTypes.string,
-	url: PropTypes.string,
+	value: PropTypes.shape({
+		label: PropTypes.string,
+		url: PropTypes.string,
+	})
 }
 
 export default Link;

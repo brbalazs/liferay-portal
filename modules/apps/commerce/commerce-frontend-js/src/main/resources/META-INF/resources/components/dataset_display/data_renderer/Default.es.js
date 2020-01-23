@@ -26,7 +26,8 @@ Default.propTypes = {
 				icon: PropTypes.string.isRequired
 			},
 			{
-				label: PropTypes.string.isRequired
+				label: PropTypes.string.isRequired,
+				url: PropTypes.string
 			},
 			{
 				label: PropTypes.string.isRequired,

@@ -8,6 +8,7 @@ import Picture from './Picture.es';
 import SidePanelLink from './SidePanelLink.es';
 import TooltipPrice from './TooltipPrice.es';
 import { getJsModule } from '../../../utilities/index.es';
+import QuantitySelector from './QuantitySelector.es';
 
 export const defaultRenderers = {
 	actionsDropdown: ActionsDropdown,
@@ -17,6 +18,7 @@ export const defaultRenderers = {
 	link: Link,
 	modalLink: ModalLink,
 	picture: Picture,
+	quantitySelector: QuantitySelector,
 	sidePanelLink: SidePanelLink,
 	tooltipPrice: TooltipPrice,
 }

@@ -69,7 +69,13 @@ const fluidDataSetDisplayProps = {
 			testLink: {
 				label: 'Test 1',
 				url: '/test/link/1'
-			}
+			},
+			testQuantity: {
+				allowedQuantities: [3, 6, 7, 100],
+				disabled: false,
+				inputName: 'asd-quantity',
+				quantity: 6,
+			},
 		},
 		{
 			id: 'sdf',
@@ -78,7 +84,14 @@ const fluidDataSetDisplayProps = {
 			testLink: {
 				label: 'Test 1',
 				url: '/test/link/1'
-			}
+			},
+			testQuantity: {
+				inputName: 'sdf-quantity',
+				maxQuantity: 1000,
+				minQuantity: 2,
+				multipleQuantity: 2,
+				quantity: 6,
+			},
 		}
 	],
 	pageSize: 5,
@@ -149,6 +162,11 @@ const fluidDataSetDisplayProps = {
 						contentRenderer: 'link',
 						fieldName: 'testLink',
 						label: 'Example link',
+					},
+					{
+						contentRenderer: 'quantitySelector',
+						fieldName: 'testQuantity',
+						label: 'Qt. Selector',
 					},
 				],
 			},
