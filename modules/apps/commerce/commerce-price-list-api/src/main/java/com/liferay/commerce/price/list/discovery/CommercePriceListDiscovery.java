@@ -12,17 +12,22 @@
  * details.
  */
 
-package com.liferay.commerce.price.list.constants;
+package com.liferay.commerce.price.list.discovery;
+
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.commerce.price.list.model.CommercePriceList;
+import com.liferay.portal.kernel.exception.PortalException;
 
 /**
  * @author Riccardo Alberti
  */
-public class CommercePriceListTypeKeys {
+@ProviderType
+public interface CommercePriceListDiscovery {
 
-	public static final String TYPE_CONTRACT = "contract";
-
-	public static final String TYPE_PRICE_LIST = "price-list";
-
-	public static final String TYPE_PROMOTION = "promotion";
+	public CommercePriceList getCommercePriceList(
+			String type, String cPInstanceUuid, long commerceAccountId,
+			long[] commerceAccountGroupIds, long commerceChannelId)
+		throws PortalException;
 
 }

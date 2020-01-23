@@ -13,4 +13,118 @@
 				([$OWNER_USER_ID$] [$OWNER_USER_ID_AND_OR_CONNECTOR$] ([$STATUS$]))
 		]]>
 	</sql>
+	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.findByCommerceAccountId">
+		<![CDATA[
+			SELECT
+				DISTINCT CommercePriceList.*
+			FROM
+				CommercePriceList
+			INNER JOIN
+				CommercePriceListAccountRel ON
+					CommercePriceListAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
+			WHERE
+				(CommercePriceList.status = 0) AND
+				(CommercePriceList.type_ = ?) AND
+				(CommercePriceListAccountRel.commerceAccountId = ?)
+			ORDER BY
+				CommercePriceList.priority DESC
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.findByCommerceAccountGroupIds">
+		<![CDATA[
+			SELECT
+				DISTINCT CommercePriceList.*
+			FROM
+				CommercePriceList
+			INNER JOIN
+				CPLCommerceGroupAccountRel ON
+					CPLCommerceGroupAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
+			WHERE
+				(CommercePriceList.status = 0) AND
+				(CommercePriceList.type_ = ?) AND
+				(CPLCommerceGroupAccountRel.commerceAccountGroupId IN ([$ACCOUNT_GROUP_IDS$]))
+			ORDER BY
+				CommercePriceList.priority DESC
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.findByCommerceChannelId">
+		<![CDATA[
+			SELECT
+				DISTINCT CommercePriceList.*
+			FROM
+				CommercePriceList
+			INNER JOIN
+				CommercePriceListChannelRel ON
+					CommercePriceListChannelRel.commercePriceListId = CommercePriceList.commercePriceListId
+			WHERE
+				(CommercePriceList.status = 0) AND
+				(CommercePriceList.type_ = ?) AND
+				(CommercePriceListChannelRel.commerceChannelId = ?)
+			ORDER BY
+				CommercePriceList.priority DESC
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.findByUnqualified">
+		<![CDATA[
+			SELECT
+				DISTINCT CommercePriceList.*
+			FROM
+				CommercePriceList
+			LEFT JOIN
+				CommercePriceListAccountRel ON
+					CommercePriceListAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
+			LEFT JOIN
+				CPLCommerceGroupAccountRel ON
+					CPLCommerceGroupAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
+			LEFT JOIN
+				CommercePriceListChannelRel ON
+					CommercePriceListChannelRel.commercePriceListId = CommercePriceList.commercePriceListId
+			WHERE
+				(CommercePriceList.status = 0) AND
+				(CommercePriceList.type_ = ?) AND
+				(CommercePriceListAccountRel.commercePriceListAccountRelId IS NULL) AND
+				(CPLCommerceGroupAccountRel.cPLCommerceAccountGroupRelId IS NULL) AND
+				(CommercePriceListChannelRel.commercePriceListChannelRelId IS NULL)
+			ORDER BY
+				CommercePriceList.priority DESC
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.findByLowestPrice">
+		<![CDATA[
+			SELECT
+				DISTINCT CommercePriceList.*
+			FROM
+				CommercePriceList
+			INNER JOIN
+				CommercePriceEntry ON
+					CommercePriceEntry.commercePriceListId = CommercePriceList.commercePriceListId
+			LEFT JOIN
+				CommercePriceListAccountRel ON
+					CommercePriceListAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
+			LEFT JOIN
+				CPLCommerceGroupAccountRel ON
+					CPLCommerceGroupAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
+			LEFT JOIN
+				CommercePriceListChannelRel ON
+					CommercePriceListChannelRel.commercePriceListId = CommercePriceList.commercePriceListId
+			WHERE
+				(CommercePriceList.status = 0) AND
+				(CommercePriceList.type_ = ?) AND
+				(CommercePriceEntry.CPInstanceUuid = ?) AND
+				(
+					(
+						(CommercePriceListAccountRel.commerceAccountId = ?) OR
+						(CPLCommerceGroupAccountRel.commerceAccountGroupId IN ([$ACCOUNT_GROUP_IDS$])) OR
+						(CommercePriceListChannelRel.commerceChannelId = ?)
+					) OR
+					(
+						(CommercePriceListAccountRel.commercePriceListAccountRelId IS NULL) AND
+						(CPLCommerceGroupAccountRel.cPLCommerceAccountGroupRelId IS NULL) AND
+						(CommercePriceListChannelRel.commercePriceListChannelRelId IS NULL)
+					)
+				)
+			ORDER BY
+				CommercePriceEntry.price ASC
+		]]>
+	</sql>
 </custom-sql>
