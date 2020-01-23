@@ -122,13 +122,13 @@ class CPDefinitionOptionsEditor extends Component {
 	}
 
 	_handleOptionSaved(event) {
-		this.cpDefinitionId = event.cpDefinitionId.toString();
-
-		this._currentOption = event.cpDefinitionOptionRelId;
-
-		this.updateState();
-
 		if (event.success) {
+			this.cpDefinitionId = event.cpDefinitionId.toString();
+
+			this._currentOption = event.cpDefinitionOptionRelId;
+
+			this.updateState();
+
 			this._showNotification(this.successMessage, 'success');
 		} else {
 			this._showNotification(event.message, 'danger');
