@@ -113,10 +113,10 @@ public class ShippingMethodResourceImpl extends BaseShippingMethodResourceImpl {
 
 		return new ShippingMethod() {
 			{
+				description = commerceShippingMethod.getDescription(
+					contextAcceptLanguage.getPreferredLocale());
 				id = commerceShippingMethod.getCommerceShippingMethodId();
 				name = commerceShippingMethod.getName(
-					contextAcceptLanguage.getPreferredLocale());
-				description = commerceShippingMethod.getDescription(
 					contextAcceptLanguage.getPreferredLocale());
 				shippingOptions = _getShippingOptions(
 					commerceShippingMethod, commerceChannel, commerceOrder);
@@ -152,13 +152,13 @@ public class ShippingMethodResourceImpl extends BaseShippingMethodResourceImpl {
 
 		return new ShippingOption() {
 			{
-				name = commerceShippingOption.getName();
-				label = commerceShippingOption.getLabel();
 				amount = commerceShippingOptionAmount.doubleValue();
 				amountFormatted = _commercePriceFormatter.format(
 					commerceOrder.getCommerceCurrency(),
 					commerceShippingOption.getAmount(),
 					contextAcceptLanguage.getPreferredLocale());
+				label = commerceShippingOption.getLabel();
+				name = commerceShippingOption.getName();
 			}
 		};
 	}

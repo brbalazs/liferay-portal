@@ -71,13 +71,13 @@ public class CartItemDTOConverter implements DTOConverter {
 
 		return new CartItem() {
 			{
-				id = commerceOrderItem.getCommerceOrderItemId();
 				customFields = expandoBridge.getAttributes();
+				id = commerceOrderItem.getCommerceOrderItemId();
 				name = commerceOrderItem.getName(languageId);
 				options = commerceOrderItem.getJson();
 				price = _getPrice(commerceOrderItem, commerceContext, locale);
-				quantity = commerceOrderItem.getQuantity();
 				productId = commerceOrderItem.getCProductId();
+				quantity = commerceOrderItem.getQuantity();
 				sku = commerceOrderItem.getSku();
 				skuId = commerceOrderItem.getCPInstanceId();
 				subscription = commerceOrderItem.getSubscription();

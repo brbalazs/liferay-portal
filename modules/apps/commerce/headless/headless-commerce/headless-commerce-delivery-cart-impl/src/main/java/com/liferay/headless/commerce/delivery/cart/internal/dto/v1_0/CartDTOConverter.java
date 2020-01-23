@@ -88,13 +88,13 @@ public class CartDTOConverter implements DTOConverter {
 
 		Cart cart = new Cart() {
 			{
-				id = commerceOrder.getCommerceOrderId();
 				account = commerceOrder.getCommerceAccountName();
 				accountId = commerceOrder.getCommerceAccountId();
 				author = commerceOrder.getUserName();
 				couponCode = commerceOrder.getCouponCode();
-				customFields = expandoBridge.getAttributes();
 				createDate = commerceOrder.getCreateDate();
+				customFields = expandoBridge.getAttributes();
+				id = commerceOrder.getCommerceOrderId();
 				lastPriceUpdateDate = commerceOrder.getLastPriceUpdateDate();
 				modifiedDate = commerceOrder.getModifiedDate();
 				paymentMethod = commerceOrder.getCommercePaymentMethodKey();
@@ -155,9 +155,11 @@ public class CartDTOConverter implements DTOConverter {
 			_commerceOrderPriceCalculation.getCommerceOrderPrice(
 				commerceOrder, commerceContext);
 
-		CommerceMoney _shippingValue = commerceOrderPrice.getShippingValue();
+		CommerceMoney commerceOrderPriceShippingValue =
+			commerceOrderPrice.getShippingValue();
 
-		BigDecimal shippingValuePrice = _shippingValue.getPrice();
+		BigDecimal commerceOrderPriceShippingValuePrice =
+			commerceOrderPriceShippingValue.getPrice();
 
 		CommerceMoney commerceOrderPriceSubTotal =
 			commerceOrderPrice.getSubtotal();
@@ -165,9 +167,11 @@ public class CartDTOConverter implements DTOConverter {
 		BigDecimal orderPriceSubTotalPrice =
 			commerceOrderPriceSubTotal.getPrice();
 
-		CommerceMoney _taxValue = commerceOrderPrice.getTaxValue();
+		CommerceMoney commerceOrderPriceTaxValue =
+			commerceOrderPrice.getTaxValue();
 
-		BigDecimal taxValuePrice = _taxValue.getPrice();
+		BigDecimal commerceOrderPriceTaxValuePrice =
+			commerceOrderPriceTaxValue.getPrice();
 
 		CommerceMoney commerceOrderPriceTotal = commerceOrderPrice.getTotal();
 
@@ -177,12 +181,14 @@ public class CartDTOConverter implements DTOConverter {
 			{
 				currency = commerceCurrency.getName(locale);
 				itemsQuantity = commerceOrderItems.size();
-				shippingValue = shippingValuePrice.doubleValue();
-				shippingValueFormatted = _shippingValue.format(locale);
+				shippingValue =
+					commerceOrderPriceShippingValuePrice.doubleValue();
+				shippingValueFormatted = commerceOrderPriceShippingValue.format(
+					locale);
 				subtotal = orderPriceSubTotalPrice.doubleValue();
 				subtotalFormatted = commerceOrderPriceSubTotal.format(locale);
-				taxValue = taxValuePrice.doubleValue();
-				taxValueFormatted = _taxValue.format(locale);
+				taxValue = commerceOrderPriceTaxValuePrice.doubleValue();
+				taxValueFormatted = commerceOrderPriceTaxValue.format(locale);
 				total = orderPriceTotalPrice.doubleValue();
 				totalFormatted = commerceOrderPriceTotal.format(locale);
 			}
