@@ -4,8 +4,8 @@ import React, { useState, useEffect, useContext } from 'react';
 
 import ActionsDropdown from '../../data_renderer/ActionsDropdown.es';
 import Checkbox from '../../data_renderer/Checkbox.es';
-import Radio from '../../data_renderer/Radio.es';
 import Comment from '../../data_renderer/Comment.es';
+import Radio from '../../data_renderer/Radio.es';
 import { getDataRendererById, getDataRendererByUrl } from '../../data_renderer/index.es';
 import TableHeadRow from './TableHeadRow.es';
 

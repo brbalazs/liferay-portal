@@ -3,7 +3,8 @@ import {ClayPaginationBarWithBasicItems} from '@clayui/pagination-bar';
 import PropTypes from 'prop-types';
 import React, {useState, useRef, useEffect} from 'react';
 
-import {getRandomId, showNotification, getJsModule, getContentRendererByViewId} from '../../utilities/index.es';
+import {getRandomId, showNotification, getJsModule} from '../../utilities/index.es';
+import {getViewById} from './views/index.es';
 import {createOdataFilterStrings} from '../../utilities/odata.es';
 import Modal from '../modal/Modal.es';
 import DatasetDisplayContext from './DatasetDisplayContext.es';
@@ -54,7 +55,7 @@ function DatasetDisplay(props) {
 			setLoading(true);
 			(
 				contentRenderer 
-				? getContentRendererByViewId(contentRenderer)
+				? getViewById(contentRenderer)
 				: getJsModule(currentViewModuleUrl)
 			)
 				.then((component) => {

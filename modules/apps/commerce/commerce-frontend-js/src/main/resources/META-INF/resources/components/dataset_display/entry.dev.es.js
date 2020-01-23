@@ -956,15 +956,6 @@ const dataSetDisplayProps = {
 				description: 'name',
 				title: 'skuId',
 			},
-		},
-		{
-			contentRenderer: 'cards',
-			icon: 'documents-and-media',
-			label: 'Cards',
-			schema: {
-				description: 'name',
-				title: 'skuId',
-			},
 		}
 	]
 }

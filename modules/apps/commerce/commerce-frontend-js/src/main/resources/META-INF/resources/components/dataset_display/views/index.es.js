@@ -2,7 +2,7 @@ import EmailsList from './emails_list/EmailsList';
 import Table from './table/Table.es';
 import List from './list/List.es';
 
-export default [
+const views = [
     {
         component: Table,
         id: 'table',
@@ -16,3 +16,14 @@ export default [
         id: 'list',
     }
 ];
+
+export function getViewById(requestedContentRendererId) {
+	return new Promise((resolve) => {
+		views.forEach(
+			(view) => {
+				if(view.id === requestedContentRendererId) resolve(view.component);
+			}
+		)
+		throw new Error(`No content renderer found with the ID: "${requestedContentRendererId}"`);
+	})
+}

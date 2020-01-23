@@ -1,8 +1,5 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-import Example from '../components/dataset_display/views/example/Example.es';
-import views from '../components/dataset_display/views/index.es';
-import Picture from '../components/dataset_display/data_renderer/Picture.es';
 
 export function debounce(func, wait, immediate) {
 	let timeout;
@@ -133,26 +130,16 @@ export function getLiferayJsModule(moduleUrl) {
 	})
 }
 
-export function getFakeJsModule(url) {
+export function getFakeJsModule() {
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve(
-				(url.indexOf('picture') > -1)
-					? Picture
-					: Example
-				)
+				((props) => {
+					console.log(props)
+					return (<React.Fragment>fakely fetched component</React.Fragment>)
+				})
+			)
 		}, 500);
-	})
-}
-
-export function getContentRendererByViewId(requestedContentRendererId) {
-	return new Promise((resolve) => {
-		views.forEach(
-			(view) => {
-				if(view.id === requestedContentRendererId) resolve(view.component);
-			}
-		)
-		throw new Error(`No content renderer found with the ID: "${requestedContentRendererId}"`);
 	})
 }
 
@@ -160,7 +147,6 @@ export const getJsModule = (Liferay.Loader && Liferay.Loader.require) ? getLifer
 
 export default {
 	debounce,
-	getContentRendererByViewId,
 	getJsModule,
 	getRandomId,
 	launcher,
