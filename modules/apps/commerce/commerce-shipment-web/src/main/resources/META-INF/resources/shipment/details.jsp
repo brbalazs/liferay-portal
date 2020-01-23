@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.liferay.portal.kernel.util.Validator" %><%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -33,149 +33,49 @@ if (commerceAddress != null) {
 	commerceCountryId = commerceAddress.getCommerceCountryId();
 	commerceRegionId = commerceAddress.getCommerceRegionId();
 }
+
+
+String headerTitle = commerceShipmentId.toString();
+
+if (commerceOrder != null) {
+	headerTitle = LanguageUtil.format(request, "order-x", commerceOrder.getCommerceOrderId());
+}
+else {
+	headerTitle = LanguageUtil.get(request, "add-order");
+}
+
+portletDisplay.setShowBackIcon(true);
+
+if (Validator.isNull(redirect)) {
+	portletDisplay.setURLBack(String.valueOf(renderResponse.createRenderURL()));
+}
+else {
+	portletDisplay.setURLBack(redirect);
+}
+
 %>
 
-<portlet:actionURL name="editCommerceShipment" var="editCommerceShipmentActionURL" />
+<aui:alert closeable="<%= false %>" cssClass="mt-0" type="warning">
+	<liferay-ui:message key="<%-- TODO define label key at page refresh --%>" />
+</aui:alert>
 
-<aui:form action="<%= editCommerceShipmentActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
-	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
-	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-	<aui:input name="commerceShipmentId" type="hidden" value="<%= String.valueOf(commerceShipmentId) %>" />
+<commerce-ui:header
+	actions="<%-- TODO implement = commerceShipmentItemDisplayContext.getHeaderActionModels() --%>"
+	assignerModalUrl="/assigner/modal/url"
+	bean="<%= commerceShipment %>"
+	dropdownItems="<%= commerceOrderEditDisplayContext.getDropdownItems() %>"
+	externalReferenceCode="123asd"
+	externalReferenceCodeEditUrl="/external/reference/code/edit/url"
+	model="<%= CommerceShipment.class %>"
+	thumbnailUrl="<%= commerce.getCommerceAccountThumbnailURL() %>"
+	title="<%= headerTitle %>"
+/>
 
-	<aui:model-context bean="<%= commerceAddress %>" model="<%= CommerceAddress.class %>" />
-
-	<liferay-ui:error exception="<%= CommerceAddressCityException.class %>" message="please-enter-a-valid-city" />
-	<liferay-ui:error exception="<%= CommerceAddressCountryException.class %>" message="please-select-a-country" />
-	<liferay-ui:error exception="<%= CommerceAddressStreetException.class %>" message="please-enter-a-valid-street" />
-	<liferay-ui:error exception="<%= CommerceAddressZipException.class %>" message="please-enter-a-valid-zip" />
-	<liferay-ui:error exception="<%= CommerceShipmentStatusException.class %>" message="please-select-a-valid-status" />
-
-	<aui:fieldset-group markupView="lexicon">
-		<aui:fieldset>
-			<aui:row>
-				<aui:col width="<%= 50 %>">
-					<aui:input name="name" />
-
-					<aui:input name="description" />
-
-					<aui:input name="street1" />
-
-					<aui:input name="street2" />
-
-					<aui:input name="street3" />
-				</aui:col>
-
-				<aui:col width="<%= 50 %>">
-					<aui:input name="city" />
-
-					<aui:input label="postal-code" name="zip" />
-
-					<aui:select label="country" name="commerceCountryId" showEmptyOption="<%= true %>">
-
-						<%
-						List<CommerceCountry> commerceCountries = commerceShipmentItemDisplayContext.getCommerceCountries();
-
-						for (CommerceCountry commerceCountry : commerceCountries) {
-						%>
-
-							<aui:option label="<%= commerceCountry.getName(locale) %>" selected="<%= (commerceAddress != null) && (commerceAddress.getCommerceCountryId() == commerceCountry.getCommerceCountryId()) %>" value="<%= commerceCountry.getCommerceCountryId() %>" />
-
-						<%
-						}
-						%>
-
-					</aui:select>
-
-					<aui:select label="region" name="commerceRegionId" showEmptyOption="<%= true %>">
-
-						<%
-						List<CommerceRegion> commerceRegions = commerceShipmentItemDisplayContext.getCommerceRegions();
-
-						for (CommerceRegion commerceRegion : commerceRegions) {
-						%>
-
-							<aui:option label="<%= commerceRegion.getName() %>" selected="<%= (commerceAddress != null) && (commerceAddress.getCommerceRegionId() == commerceRegion.getCommerceRegionId()) %>" value="<%= commerceRegion.getCommerceRegionId() %>" />
-
-						<%
-						}
-						%>
-
-					</aui:select>
-
-					<aui:input name="phoneNumber" />
-				</aui:col>
-			</aui:row>
-		</aui:fieldset>
-
-		<aui:model-context bean="<%= commerceShipment %>" model="<%= CommerceShipment.class %>" />
-
-		<aui:fieldset>
-			<aui:input name="carrier" />
-
-			<aui:input name="trackingNumber" />
-
-			<aui:select name="status">
-
-				<%
-				for (int status : CommerceShipmentConstants.SHIPMENT_STATUSES) {
-				%>
-
-					<aui:option label="<%= CommerceShipmentConstants.getShipmentStatusLabel(status) %>" selected="<%= status == commerceShipment.getStatus() %>" value="<%= status %>" />
-
-				<%
-				}
-				%>
-
-			</aui:select>
-
-			<aui:input name="shippingDate" />
-
-			<aui:input label="expected-delivery-date" name="expectedDate" />
-		</aui:fieldset>
-	</aui:fieldset-group>
-
-	<aui:button-row>
-		<aui:button cssClass="btn-lg" name="saveButton" type="submit" value="save" />
-
-		<aui:button cssClass="btn-lg" href="<%= shipmentsURL %>" type="cancel" />
-	</aui:button-row>
-</aui:form>
-
-<aui:script use="aui-base,liferay-dynamic-select">
-	new Liferay.DynamicSelect([
-		{
-			select: '<portlet:namespace />commerceCountryId',
-			selectData: function(callback) {
-				Liferay.Service(
-					'/commerce.commercecountry/get-shipping-commerce-countries-by-channel-id',
-					{
-						commerceChannelId: <%= commerceContext.getCommerceChannelId() %>,
-						end: -1,
-						start: -1
-					},
-					callback
-				);
-			},
-			selectDesc: 'nameCurrentValue',
-			selectId: 'commerceCountryId',
-			selectSort: '<%= true %>',
-			selectVal: '<%= commerceCountryId %>'
-		},
-		{
-			select: '<portlet:namespace />commerceRegionId',
-			selectData: function(callback, selectKey) {
-				Liferay.Service(
-					'/commerce.commerceregion/get-commerce-regions',
-					{
-						active: true,
-						commerceCountryId: Number(selectKey)
-					},
-					callback
-				);
-			},
-			selectDesc: 'name',
-			selectId: 'commerceRegionId',
-			selectVal: '<%= commerceRegionId %>'
-		}
-	]);
-</aui:script>
+<div id="<portlet:namespace />editShipmentContainer">
+	<liferay-frontend:screen-navigation
+		fullContainerCssClass="col-12 pt-4"
+		key="<%-- TODO implement = CommerceShipmentScreenNavigationConstants.SUMMARY --%>"
+		modelBean="<%= commerceShipment %>"
+		portletURL="<%= currentURLObj %>"
+	/>
+</div>
