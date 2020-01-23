@@ -42,9 +42,6 @@ import javax.ws.rs.core.HttpHeaders;
  */
 public class AcceptLanguageImpl implements AcceptLanguage {
 
-	public static final String X_ACCEPT_ALL_LANGUAGES =
-		"X-Accept-All-Languages";
-
 	public AcceptLanguageImpl(
 		HttpServletRequest httpServletRequest, Language language,
 		Portal portal) {
@@ -126,7 +123,7 @@ public class AcceptLanguageImpl implements AcceptLanguage {
 	@Override
 	public boolean isAcceptAllLanguages() {
 		return GetterUtil.getBoolean(
-			_httpServletRequest.getHeader(X_ACCEPT_ALL_LANGUAGES));
+			_httpServletRequest.getHeader("X-Accept-All-Languages"));
 	}
 
 	private final HttpServletRequest _httpServletRequest;
