@@ -949,9 +949,18 @@ const dataSetDisplayProps = {
 		},
 		{
 			activeItemValue: 36553,
-			contentRenderer: 'selectableItemsList',
+			contentRenderer: 'list',
 			icon: 'list',
 			label: 'List',
+			schema: {
+				description: 'name',
+				title: 'skuId',
+			},
+		},
+		{
+			contentRenderer: 'cards',
+			icon: 'documents-and-media',
+			label: 'Cards',
 			schema: {
 				description: 'name',
 				title: 'skuId',

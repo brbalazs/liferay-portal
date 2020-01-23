@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import ClayList from '@clayui/list';
 import {ClayRadio, ClayCheckbox} from '@clayui/form';
 
-function SelectableItemsList(props) {
+function List(props) {
 	const {
         selectItems,
         selectedItemsKey,
@@ -43,7 +43,7 @@ function SelectableItemsList(props) {
     )
 }
 
-SelectableItemsList.propTypes = {
+List.propTypes = {
     context: PropTypes.any,
     items: PropTypes.arrayOf(
         PropTypes.shape({
@@ -60,8 +60,8 @@ SelectableItemsList.propTypes = {
     }),
 }
 
-SelectableItemsList.defaultTypes = {
+List.defaultTypes = {
     activeItemValue: ''
 }
 
-export default SelectableItemsList;
+export default List;

@@ -1,6 +1,6 @@
 import EmailsList from './emails_list/EmailsList';
 import Table from './table/Table.es';
-import SelectableItemsList from './selectable_items_list/SelectableItemsList.es';
+import List from './list/List.es';
 
 export default [
     {
@@ -12,7 +12,7 @@ export default [
         id: 'emailsList',
     },
     {
-        component: SelectableItemsList,
-        id: 'selectableItemsList',
+        component: List,
+        id: 'list',
     }
 ];
