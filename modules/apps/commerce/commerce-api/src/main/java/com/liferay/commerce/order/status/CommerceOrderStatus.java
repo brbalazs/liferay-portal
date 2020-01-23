@@ -17,7 +17,6 @@ package com.liferay.commerce.order.status;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.service.CommerceOrderServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 
 import java.util.Locale;
@@ -28,13 +27,8 @@ import java.util.Locale;
 @ProviderType
 public interface CommerceOrderStatus {
 
-	public default CommerceOrder doTransition(
-			CommerceOrder commerceOrder, long userId)
-		throws PortalException {
-
-		return CommerceOrderServiceUtil.updateOrderStatus(
-			commerceOrder.getCommerceOrderId(), getKey());
-	}
+	public CommerceOrder doTransition(CommerceOrder commerceOrder, long userId)
+		throws PortalException;
 
 	public int getKey();
 
