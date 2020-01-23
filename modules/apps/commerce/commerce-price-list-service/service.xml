@@ -25,8 +25,20 @@
 		<column name="CProductId" type="long" />
 		<column name="price" type="BigDecimal" />
 		<column name="promoPrice" type="BigDecimal" />
+		<column name="discountDiscovery" type="boolean" />
+		<column name="discountLevel1" type="BigDecimal" />
+		<column name="discountLevel2" type="BigDecimal" />
+		<column name="discountLevel3" type="BigDecimal" />
+		<column name="discountLevel4" type="BigDecimal" />
 		<column name="hasTierPrice" type="boolean" />
+		<column name="bulkPricing" type="boolean" />
+		<column name="displayDate" type="Date" />
+		<column name="expirationDate" type="Date" />
 		<column name="lastPublishDate" type="Date" />
+		<column name="status" type="int" />
+		<column name="statusByUserId" type="long" />
+		<column name="statusByUserName" type="String" />
+		<column name="statusDate" type="Date" />
 
 		<!-- Order -->
 
@@ -76,6 +88,7 @@
 
 		<column name="commerceCurrencyId" type="long" />
 		<column name="parentCommercePriceListId" type="long" />
+		<column name="type" type="String" />
 		<column name="name" type="String" />
 		<column name="priority" type="double" />
 		<column name="displayDate" type="Date" />
@@ -212,6 +225,119 @@
 
 		<reference entity="ExpandoRow" package-path="com.liferay.portlet.expando" />
 	</entity>
+	<entity local-service="true" name="CommercePriceListDiscountRel" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="commercePriceListDiscountRelId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="commerceDiscountId" type="long" />
+		<column name="commercePriceListId" type="long" />
+		<column name="order" type="int" />
+		<column name="lastPublishDate" type="Date" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="order" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="CommercePriceListId" return-type="Collection">
+			<finder-column name="commercePriceListId" />
+		</finder>
+		<finder name="C_C" return-type="CommercePriceListDiscountRel" unique="true">
+			<finder-column name="commerceDiscountId" />
+			<finder-column name="commercePriceListId" />
+		</finder>
+	</entity>
+	<entity local-service="true" name="CommercePriceListPriceModifierRel" remote-service="true" table="CPLPriceModifierRel" uuid="true">
+
+		<!-- PK fields -->
+
+		<column db-name="CPLPriceModifierRelId" name="commercePriceListPriceModifierRelId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="commercePriceModifierId" type="long" />
+		<column name="commercePriceListId" type="long" />
+		<column name="order" type="int" />
+		<column name="lastPublishDate" type="Date" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="order" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="CommercePriceListId" return-type="Collection">
+			<finder-column name="commercePriceListId" />
+		</finder>
+		<finder name="C_C" return-type="CommercePriceListPriceModifierRel" unique="true">
+			<finder-column name="commercePriceModifierId" />
+			<finder-column name="commercePriceListId" />
+		</finder>
+	</entity>
+	<entity local-service="true" name="CommercePriceListRel" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="commercePriceListDiscountRelId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="commercePriceListId" type="long" />
+		<column name="classNameId" type="long" />
+		<column name="classPK" type="long" />
+		<column name="order" type="int" />
+		<column name="lastPublishDate" type="Date" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="order" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="CommercePriceListId" return-type="Collection">
+			<finder-column name="commercePriceListId" />
+		</finder>
+		<finder name="C_C_C" return-type="CommercePriceListRel" unique="true">
+			<finder-column name="commercePriceListId" />
+			<finder-column name="classNameId" />
+			<finder-column name="classPK" />
+		</finder>
+	</entity>
 	<entity external-reference-code="true" local-service="true" name="CommerceTierPriceEntry" remote-service="true" uuid="true">
 
 		<!-- PK fields -->
@@ -231,8 +357,19 @@
 		<column name="commercePriceEntryId" type="long" />
 		<column name="price" type="BigDecimal" />
 		<column name="promoPrice" type="BigDecimal" />
+		<column name="discountDiscovery" type="boolean" />
+		<column name="discountLevel1" type="BigDecimal" />
+		<column name="discountLevel2" type="BigDecimal" />
+		<column name="discountLevel3" type="BigDecimal" />
+		<column name="discountLevel4" type="BigDecimal" />
 		<column name="minQuantity" type="int" />
+		<column name="displayDate" type="Date" />
+		<column name="expirationDate" type="Date" />
 		<column name="lastPublishDate" type="Date" />
+		<column name="status" type="int" />
+		<column name="statusByUserId" type="long" />
+		<column name="statusByUserName" type="String" />
+		<column name="statusDate" type="Date" />
 
 		<!-- Order -->
 

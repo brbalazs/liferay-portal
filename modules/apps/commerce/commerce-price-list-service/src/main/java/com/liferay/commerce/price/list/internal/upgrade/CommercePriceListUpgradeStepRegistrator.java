@@ -87,6 +87,8 @@ public class CommercePriceListUpgradeStepRegistrator
 
 	private static final String _SCHEMA_VERSION_2_0_0 = "2.0.0";
 
+	private static final String _SCHEMA_VERSION_2_1_0 = "2.1.0";
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommercePriceListUpgradeStepRegistrator.class);
 
