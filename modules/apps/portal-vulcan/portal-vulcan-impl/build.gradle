@@ -77,7 +77,6 @@ deployDependencies {
 	include "jackson-jaxrs-json-provider-*.jar"
 	include "jackson-module-jaxb-annotations-*.jar"
 	include "swagger-annotations-*.jar"
-	include "validation-api-*.jar"
 }
 
 jar {
