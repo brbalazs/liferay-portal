@@ -206,11 +206,23 @@ module.framework.properties.osgi.console=11312</echo>
 			<if>
 				<matches pattern=".*\.7z$" string="${archive.basename}" />
 				<then>
-					<execute>
-						<![CDATA[
-							7z x @{src} -o@{dest} -aoa
-						]]>
-					</execute>
+					<if>
+						<os family="mac" />
+						<then>
+							<execute>
+								<![CDATA[
+									unar @{src} -o @{dest} -f
+								]]>
+							</execute>
+						</then>
+						<else>
+							<execute>
+								<![CDATA[
+									7z x @{src} -o @{dest} -aoa
+								]]>
+							</execute>
+						</else>
+					</if>
 				</then>
 				<elseif>
 					<matches pattern=".*\.tar\.gz$" string="${archive.basename}" />
