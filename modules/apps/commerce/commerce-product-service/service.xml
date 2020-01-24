@@ -1166,6 +1166,7 @@
 		<exception>DuplicateCPDefinitionOptionRelKey</exception>
 		<exception>DuplicateCPFriendlyURLEntry</exception>
 		<exception>DuplicateCProduct</exception>
+		<exception>InvalidCommerceChannelType</exception>
 		<exception>NoSuchSkuContributorCPDefinitionOptionRel</exception>
 	</exceptions>
 </service-builder>
