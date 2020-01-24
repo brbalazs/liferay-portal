@@ -6861,9 +6861,9 @@ public class PortalImpl implements Portal {
 			return false;
 		}
 
-		int urlDecodeCount = _PORTLET_RESOURCE_ID_URL_DECODE_COUNT;
+		int count = _PORTLET_RESOURCE_ID_URL_DECODE_COUNT;
 
-		while ((urlDecodeCount > 0) && resourceId.contains("%")) {
+		while ((count > 0) && resourceId.contains("%")) {
 			resourceId = HttpUtil.decodePath(resourceId);
 
 			matcher = _bannedResourceIdPattern.matcher(resourceId);
@@ -6872,9 +6872,9 @@ public class PortalImpl implements Portal {
 				return false;
 			}
 
-			urlDecodeCount--;
+			count--;
 
-			if (urlDecodeCount == 0) {
+			if (count == 0) {
 				return false;
 			}
 		}
