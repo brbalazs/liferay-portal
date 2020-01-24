@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 import Component from 'metal-component';
 import Soy, { Config } from 'metal-soy';
 
@@ -234,16 +248,16 @@ class AddToCartButton extends Component {
 Soy.register(AddToCartButton, template);
 
 AddToCartButton.STATE = {
-	id: Config.string(),
 	accountId: Config.oneOfType([Config.number(), Config.string()]),
 	buttonStyle: Config.oneOf(['block', 'inline']).value('inline'),
 	cartAPI: Config.string().required(),
 	disabled: Config.bool().value(false),
+	id: Config.string(),
 	inputQuantity: Config.number(),
 	options: Config.oneOfType([Config.object(), Config.string()]).value('[]'),
 	orderId: Config.oneOfType([Config.number(), Config.string()]),
-	quantity: Config.number(),
 	productId: Config.oneOfType([Config.number(), Config.string()]).required(),
+	quantity: Config.number(),
 	settings: Config.shapeOf({
 		allowedQuantity: Config.array(Config.number()),
 		maxQuantity: Config.number(),

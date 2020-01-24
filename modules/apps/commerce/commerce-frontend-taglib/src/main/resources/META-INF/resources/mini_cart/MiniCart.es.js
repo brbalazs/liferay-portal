@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 import 'clay-icon';
 import Component from 'metal-component';
 import debounce from 'metal-debounce';
@@ -189,7 +203,7 @@ class Cart extends Component {
 	}
 
 	_removeProductsFromCart(products = []) {
-		products.length &&
+		if (products.length) {
 			products.forEach(product => {
 				const {
 					cpinstanceId: catalogProductId,
@@ -205,6 +219,7 @@ class Cart extends Component {
 					updating: false
 				});
 			});
+		}
 	}
 
 	_setProductProperties(productId, newProperties) {
@@ -453,26 +468,21 @@ const productStateSchema = {
 };
 
 Cart.STATE = {
+	_loading: Config.bool()
+		.internal()
+		.value(false),
+	_open: Config.bool()
+		.internal()
+		.value(false),
 	cartAPI: Config.string().required(),
-	orderId: Config.oneOfType([Config.number(), Config.string()]),
 	checkoutUrl: Config.string().required(),
 	commerceAccountId: Config.oneOfType([Config.number(), Config.string()]),
 	detailsUrl: Config.string(),
-	valid: Config.bool(),
 	disabled: Config.bool().value(false),
 	displayDiscountLevels: Config.bool().value(false),
 	flushCartUrl: Config.string(),
+	orderId: Config.oneOfType([Config.number(), Config.string()]),
 	pendingOperations: Config.array().value([]),
-
-	/**
-	 * For each product in the cart,
-	 * the related object received from the endpoint
-	 * contains 2 ID's:
-	 *
-	 * @param productId The id of the product relative to the cart.
-	 * @param cpinstanceId The id of the product relative to the catalog.
-	 */
-
 	products: {
 		setter: 'normalizeProducts',
 		value: null
@@ -481,7 +491,6 @@ Cart.STATE = {
 		.internal()
 		.value(0),
 	spritemap: Config.string().required(),
-	workflowStatus: Config.number(),
 	summary: Config.shapeOf({
 		checkoutUrl: Config.string(),
 		discount: Config.string(),
@@ -489,12 +498,8 @@ Cart.STATE = {
 		subtotal: Config.string(),
 		total: Config.string()
 	}),
-	_loading: Config.bool()
-		.internal()
-		.value(false),
-	_open: Config.bool()
-		.internal()
-		.value(false)
+	valid: Config.bool(),
+	workflowStatus: Config.number()
 };
 
 export { Cart };

@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 import Component from 'metal-component';
 import Soy from 'metal-soy';
 import {Config} from 'metal-state';
@@ -307,17 +321,17 @@ class DefinitionToolbarFilter extends Component {
  */
 
 DefinitionToolbarFilter.STATE = {
+	_currentSelection: Config.string().value(''),
+	_filters: Config.array().value([]),
+	_optionValues: Config.array().value([]),
+	_terms: Config.array().value([]),
 	categorySelectorURL: Config.string().required(),
 	cpDefinitionsFacetsURL: Config.string().required(),
 	groupIds: Config.string().value(''),
 	namespace: Config.string().required(),
 	pathThemeImages: Config.string().required(),
 	portletURL: Config.string().required(),
-	vocabularyIds: Config.string().required(),
-	_currentSelection: Config.string().value(''),
-	_filters: Config.array().value([]),
-	_optionValues: Config.array().value([]),
-	_terms: Config.array().value([])
+	vocabularyIds: Config.string().required()
 };
 
 // Register component

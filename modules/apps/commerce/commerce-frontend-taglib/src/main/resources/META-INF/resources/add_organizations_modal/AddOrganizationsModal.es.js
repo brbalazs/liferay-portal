@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 'use strict';
 
 import Component from 'metal-component';
@@ -153,17 +167,17 @@ const ORGANIZATION_SCHEMA = Config.shapeOf({
 });
 
 AddOrganizationModal.STATE = {
-	organizations: Config.array(ORGANIZATION_SCHEMA).value([]),
-	organizationsAPI: Config.string().value(''),
-	query: Config.string().value(''),
-	selectedOrganizations: Config.array(ORGANIZATION_SCHEMA).value([]),
-	spritemap: Config.string(),
 	_loading: Config.bool()
 		.internal()
 		.value(false),
 	_modalVisible: Config.bool()
 		.internal()
-		.value(false)
+		.value(false),
+	organizations: Config.array(ORGANIZATION_SCHEMA).value([]),
+	organizationsAPI: Config.string().value(''),
+	query: Config.string().value(''),
+	selectedOrganizations: Config.array(ORGANIZATION_SCHEMA).value([]),
+	spritemap: Config.string()
 };
 
 export { AddOrganizationModal };

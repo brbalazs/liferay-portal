@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 import './CPDefinitionOptionDetail.es';
 
 import './CPDefinitionOptionList.es';
@@ -261,17 +275,17 @@ class CPDefinitionOptionsEditor extends Component {
  */
 
 CPDefinitionOptionsEditor.STATE = {
+	_cpDefinitionOptions: Config.array().value([]),
 	cpDefinitionId: Config.string().required(),
-	cpDefinitionOptionsURL: Config.string().required(),
-	cpDefinitionOptionValueRelsURL: Config.string().required(),
 	cpDefinitionOptionValueRelURL: Config.string().required(),
+	cpDefinitionOptionValueRelsURL: Config.string().required(),
+	cpDefinitionOptionsURL: Config.string().required(),
 	editProductDefinitionOptionRelURL: Config.string().required(),
 	namespace: Config.string().required(),
-	optionsItemSelectorURL: Config.string().required(),
 	optionURL: Config.string().required(),
+	optionsItemSelectorURL: Config.string().required(),
 	pathThemeImages: Config.string().required(),
-	successMessage: Config.string().required(),
-	_cpDefinitionOptions: Config.array().value([])
+	successMessage: Config.string().required()
 };
 
 // Register component

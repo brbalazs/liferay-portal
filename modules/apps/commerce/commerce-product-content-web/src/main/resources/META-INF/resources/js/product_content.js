@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 AUI.add(
 	'liferay-commerce-product-content',
 	A => {
@@ -24,128 +38,6 @@ AUI.add(
 			NAME: 'productcontent',
 
 			prototype: {
-				initializer(_config) {
-					var instance = this;
-
-					instance._bindUI();
-					instance._renderUI();
-				},
-
-				destructor() {
-					var instance = this;
-
-					new A.EventHandle(instance._eventHandles).detach();
-				},
-				checkCPInstance() {
-					var instance = this;
-
-					var cpDefinitionId = instance.get('cpDefinitionId');
-
-					var portletURL = Liferay.PortletURL.createActionURL();
-
-					portletURL.setPortletId(CP_CONTENT_WEB_PORTLET_KEY);
-					portletURL.setName('checkCPInstance');
-					portletURL.setParameter('cpDefinitionId', cpDefinitionId);
-					portletURL.setParameter('p_auth', Liferay.authToken);
-
-					var ddmFormValues = JSON.stringify(
-						instance.getFormValues()
-					);
-
-					var data = {};
-
-					data[
-						'_' + CP_CONTENT_WEB_PORTLET_KEY + '_ddmFormValues'
-					] = ddmFormValues;
-					data.groupId = themeDisplay.getScopeGroupId();
-
-					A.io.request(portletURL.toString(), {
-						data,
-						on: {
-							success(event, id, obj) {
-								var response = JSON.parse(obj.response);
-
-								if (response.cpInstanceExist) {
-									instance._renderCPInstance(response);
-									instance.set(
-										'cpInstanceId',
-										response.cpInstanceId
-									);
-								}
-
-								Liferay.fire(
-									cpDefinitionId + CP_INSTANCE_CHANGE_EVENT,
-									response
-								);
-							}
-						}
-					});
-				},
-				getCPDefinitionId() {
-					return this.get('cpDefinitionId');
-				},
-				getCPInstanceId() {
-					return this.get('cpInstanceId');
-				},
-				getFormValues() {
-					var instance = this;
-
-					var cpDefinitionId = instance.get('cpDefinitionId');
-
-					var ddmForm = Liferay.component(
-						'ProductOptions' + cpDefinitionId + 'DDMForm'
-					);
-
-					if (!ddmForm) {
-						return [];
-					}
-
-					var fields = ddmForm.getImmediateFields();
-
-					var fieldValues = [];
-
-					fields.forEach(field => {
-						var fieldValue = {};
-
-						fieldValue.key = field.get('fieldName');
-
-						var value = field.getValue();
-
-						var arrValue = [];
-
-						if (value instanceof Array) {
-							arrValue = value;
-						} else {
-							arrValue.push(value);
-						}
-
-						fieldValue.value = arrValue;
-
-						fieldValues.push(fieldValue);
-					});
-
-					return fieldValues;
-				},
-				getProductContent() {
-					var instance = this;
-
-					return A.one(instance.get('productContentSelector'));
-				},
-				validateProduct(callback) {
-					var instance = this;
-
-					var cpDefinitionId = instance.get('cpDefinitionId');
-
-					var ddmForm = Liferay.component(
-						'ProductOptions' + cpDefinitionId + 'DDMForm'
-					);
-
-					if (!ddmForm) {
-						callback.call(instance, false);
-					} else {
-						ddmForm.validate(callback);
-					}
-				},
 				_bindUI() {
 					var instance = this;
 
@@ -199,64 +91,6 @@ AUI.add(
 					var instance = this;
 
 					return A.one(instance.get('thumbsContainerSelector'));
-				},
-				_renderImages() {
-					var instance = this;
-
-					var ddmFormValues = JSON.stringify(
-						instance.getFormValues()
-					);
-
-					var data = {};
-
-					data[
-						instance.get('namespace') + 'ddmFormValues'
-					] = ddmFormValues;
-					data.groupId = themeDisplay.getScopeGroupId();
-
-					A.io.request(instance.get('viewAttachmentURL'), {
-						data,
-						on: {
-							success(event, id, obj) {
-								var response = JSON.parse(obj.response);
-
-								instance._renderThumbsImages(response);
-							}
-						}
-					});
-				},
-				_renderThumbsImages(images) {
-					var instance = this;
-
-					var thumbsContainer = instance._getThumbsContainer();
-
-					thumbsContainer.setHTML('');
-
-					images.forEach(image => {
-						var thumbContainer = A.Node.create(
-							'<div class="thumb" />'
-						);
-
-						thumbContainer.setAttribute('data-url', image.url);
-
-						var imageNode = A.Node.create(
-							'<img class="img-fluid" />'
-						);
-
-						imageNode.setAttribute('src', image.url);
-
-						imageNode.appendTo(thumbContainer);
-
-						thumbContainer.appendTo(thumbsContainer);
-					});
-
-					if (images.length > 0) {
-						var fullImage = A.one(
-							instance.get('fullImageSelector')
-						);
-
-						fullImage.setAttribute('src', images[0].url);
-					}
 				},
 				_renderCPInstance(cpInstance) {
 					var instance = this;
@@ -379,6 +213,64 @@ AUI.add(
 						);
 					});
 				},
+				_renderImages() {
+					var instance = this;
+
+					var ddmFormValues = JSON.stringify(
+						instance.getFormValues()
+					);
+
+					var data = {};
+
+					data[
+						instance.get('namespace') + 'ddmFormValues'
+					] = ddmFormValues;
+					data.groupId = themeDisplay.getScopeGroupId();
+
+					A.io.request(instance.get('viewAttachmentURL'), {
+						data,
+						on: {
+							success(event, id, obj) {
+								var response = JSON.parse(obj.response);
+
+								instance._renderThumbsImages(response);
+							}
+						}
+					});
+				},
+				_renderThumbsImages(images) {
+					var instance = this;
+
+					var thumbsContainer = instance._getThumbsContainer();
+
+					thumbsContainer.setHTML('');
+
+					images.forEach(image => {
+						var thumbContainer = A.Node.create(
+							'<div class="thumb" />'
+						);
+
+						thumbContainer.setAttribute('data-url', image.url);
+
+						var imageNode = A.Node.create(
+							'<img class="img-fluid" />'
+						);
+
+						imageNode.setAttribute('src', image.url);
+
+						imageNode.appendTo(thumbContainer);
+
+						thumbContainer.appendTo(thumbsContainer);
+					});
+
+					if (images.length > 0) {
+						var fullImage = A.one(
+							instance.get('fullImageSelector')
+						);
+
+						fullImage.setAttribute('src', images[0].url);
+					}
+				},
 				_renderUI() {
 					var instance = this;
 
@@ -390,6 +282,127 @@ AUI.add(
 							instance.get('cpDefinitionId')
 						);
 					});
+				},
+				checkCPInstance() {
+					var instance = this;
+
+					var cpDefinitionId = instance.get('cpDefinitionId');
+
+					var portletURL = Liferay.PortletURL.createActionURL();
+
+					portletURL.setPortletId(CP_CONTENT_WEB_PORTLET_KEY);
+					portletURL.setName('checkCPInstance');
+					portletURL.setParameter('cpDefinitionId', cpDefinitionId);
+					portletURL.setParameter('p_auth', Liferay.authToken);
+
+					var ddmFormValues = JSON.stringify(
+						instance.getFormValues()
+					);
+
+					var data = {};
+
+					data[
+						'_' + CP_CONTENT_WEB_PORTLET_KEY + '_ddmFormValues'
+					] = ddmFormValues;
+					data.groupId = themeDisplay.getScopeGroupId();
+
+					A.io.request(portletURL.toString(), {
+						data,
+						on: {
+							success(event, id, obj) {
+								var response = JSON.parse(obj.response);
+
+								if (response.cpInstanceExist) {
+									instance._renderCPInstance(response);
+									instance.set(
+										'cpInstanceId',
+										response.cpInstanceId
+									);
+								}
+
+								Liferay.fire(
+									cpDefinitionId + CP_INSTANCE_CHANGE_EVENT,
+									response
+								);
+							}
+						}
+					});
+				},
+				destructor() {
+					var instance = this;
+
+					new A.EventHandle(instance._eventHandles).detach();
+				},
+				getCPDefinitionId() {
+					return this.get('cpDefinitionId');
+				},
+				getCPInstanceId() {
+					return this.get('cpInstanceId');
+				},
+				getFormValues() {
+					var instance = this;
+
+					var cpDefinitionId = instance.get('cpDefinitionId');
+
+					var ddmForm = Liferay.component(
+						'ProductOptions' + cpDefinitionId + 'DDMForm'
+					);
+
+					if (!ddmForm) {
+						return [];
+					}
+
+					var fields = ddmForm.getImmediateFields();
+
+					var fieldValues = [];
+
+					fields.forEach(field => {
+						var fieldValue = {};
+
+						fieldValue.key = field.get('fieldName');
+
+						var value = field.getValue();
+
+						var arrValue = [];
+
+						if (value instanceof Array) {
+							arrValue = value;
+						} else {
+							arrValue.push(value);
+						}
+
+						fieldValue.value = arrValue;
+
+						fieldValues.push(fieldValue);
+					});
+
+					return fieldValues;
+				},
+				getProductContent() {
+					var instance = this;
+
+					return A.one(instance.get('productContentSelector'));
+				},
+				initializer(_config) {
+					var instance = this;
+
+					instance._bindUI();
+					instance._renderUI();
+				},
+				validateProduct(callback) {
+					var instance = this;
+
+					var cpDefinitionId = instance.get('cpDefinitionId');
+
+					var ddmForm = Liferay.component(
+						'ProductOptions' + cpDefinitionId + 'DDMForm'
+					);
+
+					if (!ddmForm) {
+						callback.call(instance, false);
+					} else {
+						ddmForm.validate(callback);
+					}
 				}
 			}
 		});

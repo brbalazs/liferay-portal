@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 'use strict';
 
 import Component from 'metal-component';
@@ -125,12 +139,12 @@ class AddressModal extends Component {
 				this._formData = {
 					...this._formData,
 					address: data.street1,
+					addressType: data.type,
 					city: data.city,
 					country: data.commerceCountryId,
-					addressType: data.type,
 					id,
-					region: data.commerceRegionId,
 					referent: data.name,
+					region: data.commerceRegionId,
 					telephone: data.phoneNumber,
 					zipCode: data.zip
 				};
@@ -225,15 +239,10 @@ class AddressModal extends Component {
 Soy.register(AddressModal, template);
 
 AddressModal.STATE = {
-	countriesAPI: Config.string().required(),
-	regionsAPI: Config.string().required(),
-	spritemap: Config.string(),
-	_isBillingAllowed: Config.bool().value(true),
-	_isShippingAllowed: Config.bool().value(true),
 	_countries: Config.array(
 		Config.shapeOf({
-			id: Config.number().required(),
 			billingAllowed: Config.bool().required(),
+			id: Config.number().required(),
 			name: Config.string().required(),
 			shippingAllowed: Config.bool().required()
 		})
@@ -260,6 +269,8 @@ AddressModal.STATE = {
 		telephone: null,
 		zipCode: null
 	}),
+	_isBillingAllowed: Config.bool().value(true),
+	_isShippingAllowed: Config.bool().value(true),
 	_modalVisible: Config.bool()
 		.internal()
 		.value(false),
@@ -270,7 +281,10 @@ AddressModal.STATE = {
 		})
 	).value([]),
 	_secondFormValid: Config.bool().value(false),
-	_stage: Config.number(Config.oneOf([1, 2])).value(1)
+	_stage: Config.number(Config.oneOf([1, 2])).value(1),
+	countriesAPI: Config.string().required(),
+	regionsAPI: Config.string().required(),
+	spritemap: Config.string()
 };
 
 export { AddressModal };

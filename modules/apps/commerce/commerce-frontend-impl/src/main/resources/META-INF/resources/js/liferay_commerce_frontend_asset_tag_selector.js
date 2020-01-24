@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 AUI.add(
 	'liferay-commerce-frontend-asset-tag-selector',
 	A => {
@@ -126,73 +140,6 @@ AUI.add(
 			NAME: 'tagselector',
 
 			prototype: {
-				renderUI() {
-					var instance = this;
-
-					AssetTaglibTagsSelector.superclass.renderUI.apply(
-						instance,
-						arguments
-					);
-
-					instance._renderIcons();
-
-					instance.inputNode.addClass('lfr-tag-selector-input');
-
-					instance._overlayAlign.node = instance.entryHolder;
-				},
-
-				bindUI() {
-					var instance = this;
-
-					AssetTaglibTagsSelector.superclass.bindUI.apply(
-						instance,
-						arguments
-					);
-
-					instance._bindTagsSelector();
-
-					var entries = instance.entries;
-
-					entries.after('add', instance._updateHiddenInput, instance);
-					entries.after(
-						'remove',
-						instance._updateHiddenInput,
-						instance
-					);
-
-					A.Do.before(
-						instance._checkDuplicateTag,
-						instance.entries,
-						'add',
-						instance
-					);
-					A.Do.before(
-						instance._checkMaxLengthTag,
-						instance.entries,
-						'add',
-						instance
-					);
-				},
-
-				syncUI() {
-					var instance = this;
-
-					AssetTaglibTagsSelector.superclass.syncUI.apply(
-						instance,
-						arguments
-					);
-
-					var tagNames = instance.get('tagNames');
-
-					tagNames.forEach(instance.add, instance);
-				},
-
-				addEntries() {
-					var instance = this;
-
-					instance._addEntries();
-				},
-
 				_addEntries() {
 					var instance = this;
 
@@ -478,6 +425,73 @@ AUI.add(
 					var hiddenInput = instance.get('hiddenInput');
 
 					hiddenInput.val(instance.entries.keys.join());
+				},
+
+				addEntries() {
+					var instance = this;
+
+					instance._addEntries();
+				},
+
+				bindUI() {
+					var instance = this;
+
+					AssetTaglibTagsSelector.superclass.bindUI.apply(
+						instance,
+						arguments
+					);
+
+					instance._bindTagsSelector();
+
+					var entries = instance.entries;
+
+					entries.after('add', instance._updateHiddenInput, instance);
+					entries.after(
+						'remove',
+						instance._updateHiddenInput,
+						instance
+					);
+
+					A.Do.before(
+						instance._checkDuplicateTag,
+						instance.entries,
+						'add',
+						instance
+					);
+					A.Do.before(
+						instance._checkMaxLengthTag,
+						instance.entries,
+						'add',
+						instance
+					);
+				},
+
+				renderUI() {
+					var instance = this;
+
+					AssetTaglibTagsSelector.superclass.renderUI.apply(
+						instance,
+						arguments
+					);
+
+					instance._renderIcons();
+
+					instance.inputNode.addClass('lfr-tag-selector-input');
+
+					instance._overlayAlign.node = instance.entryHolder;
+				},
+
+				syncUI() {
+					var instance = this;
+
+					AssetTaglibTagsSelector.superclass.syncUI.apply(
+						instance,
+						arguments
+					);
+
+					var tagNames = instance.get('tagNames');
+
+					tagNames.forEach(instance.add, instance);
 				}
 			}
 		});

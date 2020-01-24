@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 AUI.add(
 	'liferay-commerce-frontend-asset-categories-selector',
 	A => {
@@ -98,59 +112,6 @@ AUI.add(
 			NAME,
 
 			prototype: {
-				TREEVIEWS: {},
-				UI_EVENTS: {},
-
-				renderUI() {
-					var instance = this;
-
-					AssetTaglibCategoriesSelector.superclass.constructor.superclass.renderUI.apply(
-						instance,
-						arguments
-					);
-
-					instance._renderIcons();
-
-					instance.inputContainer.addClass('hide-accessible');
-
-					instance._applyARIARoles();
-				},
-
-				bindUI() {
-					var instance = this;
-
-					AssetTaglibCategoriesSelector.superclass.bindUI.apply(
-						instance,
-						arguments
-					);
-				},
-
-				syncUI() {
-					var instance = this;
-
-					AssetTaglibCategoriesSelector.superclass.constructor.superclass.syncUI.apply(
-						instance,
-						arguments
-					);
-
-					instance.entries.getKey = function(obj) {
-						return obj.categoryId;
-					};
-
-					var categoryTitles = instance.get('categoryTitles');
-
-					var categoryIds = instance.get('categoryIds');
-
-					categoryIds.forEach((item, index) => {
-						var entry = {
-							categoryId: item,
-							value: LString.unescapeHTML(categoryTitles[index])
-						};
-
-						instance.entries.add(entry);
-					});
-				},
-
 				_afterTBLFocusedChange: EMPTY_FN,
 
 				_applyARIARoles() {
@@ -281,6 +242,59 @@ AUI.add(
 					var hiddenInput = instance.get('hiddenInput');
 
 					hiddenInput.val(instance.entries.keys.join(','));
+				},
+
+				TREEVIEWS: {},
+				UI_EVENTS: {},
+
+				bindUI() {
+					var instance = this;
+
+					AssetTaglibCategoriesSelector.superclass.bindUI.apply(
+						instance,
+						arguments
+					);
+				},
+
+				renderUI() {
+					var instance = this;
+
+					AssetTaglibCategoriesSelector.superclass.constructor.superclass.renderUI.apply(
+						instance,
+						arguments
+					);
+
+					instance._renderIcons();
+
+					instance.inputContainer.addClass('hide-accessible');
+
+					instance._applyARIARoles();
+				},
+
+				syncUI() {
+					var instance = this;
+
+					AssetTaglibCategoriesSelector.superclass.constructor.superclass.syncUI.apply(
+						instance,
+						arguments
+					);
+
+					instance.entries.getKey = function(obj) {
+						return obj.categoryId;
+					};
+
+					var categoryTitles = instance.get('categoryTitles');
+
+					var categoryIds = instance.get('categoryIds');
+
+					categoryIds.forEach((item, index) => {
+						var entry = {
+							categoryId: item,
+							value: LString.unescapeHTML(categoryTitles[index])
+						};
+
+						instance.entries.add(entry);
+					});
 				}
 			}
 		});

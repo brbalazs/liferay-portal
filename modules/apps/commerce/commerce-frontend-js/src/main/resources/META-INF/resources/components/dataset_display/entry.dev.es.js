@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 import React from 'react';
 
 import sidePanelLauncher from './../side_panel/entry.es';
@@ -134,7 +148,7 @@ const fluidDataSetDisplayProps = {
 				return (
 					<>
 						<h4 className="p-3 mb-0 bg-dark text-center text-white">
-							Hey, I'm a custom template from the outside
+							Hey, I&apos;m a custom template from the outside
 						</h4>
 						{props.items.map(item => (
 							<div
@@ -880,7 +894,7 @@ const dataSetDisplayProps = {
 				return (
 					<>
 						<h4 className="p-3 mb-0 bg-dark text-center text-white">
-							Hey, I'm a custom template from the outside
+							Hey, I&apos;m a custom template from the outside
 						</h4>
 						{props.items.map(item => (
 							<div
@@ -911,6 +925,7 @@ const dataSetDisplayProps = {
 					{
 						contentRendererModuleUrl:
 							'/fake/content/renderer/picture',
+						// contentRenderer: 'picture',
 						expand: false,
 						fieldName: 'thumbnail',
 						label: ''
