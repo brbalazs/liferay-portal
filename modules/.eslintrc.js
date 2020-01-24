@@ -37,6 +37,12 @@ config = {
 	rules: {
 		'liferay-portal/no-global-fetch': 'off',
 		'liferay-portal/no-metal-plugins': 'off',
+		'notice/notice': [
+			'error',
+			{
+				templateFile: path.join(__dirname, 'copyright.js')
+			}
+		]
 	}
 };
 
