@@ -9,7 +9,6 @@ import templates from './CategorySelector.soy';
  * AUI module liferay-commerce-frontend-asset-categories-selector
  */
 class CategorySelector extends Component {
-
 	/**
 	 * Updates the calculated rule fields for `queryValues` and `categoryIdsTitles`
 	 * every time a new category entry is added or removed to the selection
@@ -28,38 +27,34 @@ class CategorySelector extends Component {
 	 */
 
 	rendered() {
-		AUI().use(
-			'liferay-commerce-frontend-asset-categories-selector',
-			function(A) {
-				const config = {
-					categoryIds: this.rule.queryValues || '',
-					categoryTitles: this.rule.categoryIdsTitles || [],
-					contentBox: this.element,
-					eventName: this.eventName,
-					groupIds: this.groupIds,
-					hiddenInput: `#${this.refs.hiddenInput.getAttribute('id')}`,
-					portletURL: this.categorySelectorURL,
-					vocabularyIds: this.vocabularyIds
-				};
+		AUI().use('liferay-commerce-frontend-asset-categories-selector', A => {
+			const config = {
+				categoryIds: this.rule.queryValues || '',
+				categoryTitles: this.rule.categoryIdsTitles || [],
+				contentBox: this.element,
+				eventName: this.eventName,
+				groupIds: this.groupIds,
+				hiddenInput: `#${this.refs.hiddenInput.getAttribute('id')}`,
+				portletURL: this.categorySelectorURL,
+				vocabularyIds: this.vocabularyIds
+			};
 
-				this.categoriesSelector_ = new Liferay.AssetTaglibCategoriesSelector(
-					config
-				);
+			this.categoriesSelector_ = new Liferay.AssetTaglibCategoriesSelector(
+				config
+			);
 
-				const entries = this.categoriesSelector_.entries;
+			const entries = this.categoriesSelector_.entries;
 
-				entries.after('add', this.onEntriesChanged_, this);
-				entries.after('remove', this.onEntriesChanged_, this);
+			entries.after('add', this.onEntriesChanged_, this);
+			entries.after('remove', this.onEntriesChanged_, this);
 
-				this.categoriesSelector_.render();
-				this.element.parentNode.removeAttribute('tabindex');
-			}.bind(this)
-		);
+			this.categoriesSelector_.render();
+			this.element.parentNode.removeAttribute('tabindex');
+		});
 	}
 }
 
 CategorySelector.STATE = {
-
 	/**
 	 * Number used for avoiding conflicts between different
 	 * instances of the component/portlet.

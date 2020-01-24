@@ -84,28 +84,25 @@ if (commerceChannel != null) {
 </c:if>
 
 <aui:script use="aui-base,liferay-item-selector-dialog">
-	$('#<portlet:namespace />selectSite').on(
-		'click',
-		function(event) {
-			event.preventDefault();
+	$('#<portlet:namespace />selectSite').on('click', function(event) {
+		event.preventDefault();
 
-			Liferay.Util.selectEntity(
-				{
-					dialog: {
-						constrain: true,
-						modal: true
-					},
-					eventName: 'sitesSelectItem',
-					title: '<liferay-ui:message arguments="site" key="select-x" />',
-					uri: '<%= siteCommerceChannelTypeDisplayContext.getItemSelectorUrl() %>'
-				}
-			);
-		}
-	);
+		Liferay.Util.selectEntity({
+			dialog: {
+				constrain: true,
+				modal: true
+			},
+			eventName: 'sitesSelectItem',
+			title: '<liferay-ui:message arguments="site" key="select-x" />',
+			uri: '<%= siteCommerceChannelTypeDisplayContext.getItemSelectorUrl() %>'
+		});
+	});
 </aui:script>
 
 <aui:script use="liferay-search-container">
-	var searchContainer = Liferay.SearchContainer.get('<portlet:namespace />CommerceChannelSitesSearchContainer');
+	var searchContainer = Liferay.SearchContainer.get(
+		'<portlet:namespace />CommerceChannelSitesSearchContainer'
+	);
 
 	var searchContainerContentBox = searchContainer.get('contentBox');
 
@@ -120,40 +117,43 @@ if (commerceChannel != null) {
 
 			searchContainer.deleteRow(tr, link.getAttribute('data-rowId'));
 
-			A.one('#<portlet:namespace />siteGroupId').val(0)
+			A.one('#<portlet:namespace />siteGroupId').val(0);
 		},
 		'.modify-link'
 	);
 
-	Liferay.on(
-		'sitesSelectItem',
-		function(event) {
-			var item = event.data;
+	Liferay.on('sitesSelectItem', function(event) {
+		var item = event.data;
 
-			if (item) {
-				var searchContainer = Liferay.SearchContainer.get('<portlet:namespace />CommerceChannelSitesSearchContainer');
+		if (item) {
+			var searchContainer = Liferay.SearchContainer.get(
+				'<portlet:namespace />CommerceChannelSitesSearchContainer'
+			);
 
-				var link = A.one("[data-rowid="+searchContainer.getData()+"]")
+			var link = A.one('[data-rowid=' + searchContainer.getData() + ']');
 
-				if (link !== null) {
-					var tr = link.ancestor('tr');
+			if (link !== null) {
+				var tr = link.ancestor('tr');
 
-					searchContainer.deleteRow(tr, link.getAttribute('data-rowId'));
-				}
+				searchContainer.deleteRow(tr, link.getAttribute('data-rowId'));
+			}
 
-				if (!searchContainer.getData().includes(item.id)) {
-					var rowColumns = [];
+			if (!searchContainer.getData().includes(item.id)) {
+				var rowColumns = [];
 
-					rowColumns.push(item.name);
-					rowColumns.push('<a class="float-right modify-link" data-rowId="' + item.id + '" href="javascript:;"><%= UnicodeFormatter.toString(removeCommerceChannelSiteIcon) %></a>');
+				rowColumns.push(item.name);
+				rowColumns.push(
+					'<a class="float-right modify-link" data-rowId="' +
+						item.id +
+						'" href="javascript:;"><%= UnicodeFormatter.toString(removeCommerceChannelSiteIcon) %></a>'
+				);
 
-					A.one('#<portlet:namespace />siteGroupId').val(item.id);
+				A.one('#<portlet:namespace />siteGroupId').val(item.id);
 
-					searchContainer.addRow(rowColumns, item.id);
+				searchContainer.addRow(rowColumns, item.id);
 
-					searchContainer.updateDataStore();
-				}
+				searchContainer.updateDataStore();
 			}
 		}
-	);
+	});
 </aui:script>

@@ -4,7 +4,11 @@ import ClayModal, {useModal} from '@clayui/modal';
 import PropTypes from 'prop-types';
 import React, {useState, useRef, useEffect} from 'react';
 
-import {OPEN, OPEN_MODAL, CLOSE_MODAL} from '../../utilities/eventsDefinitions.es';
+import {
+	OPEN,
+	OPEN_MODAL,
+	CLOSE_MODAL
+} from '../../utilities/eventsDefinitions.es';
 
 function Modal(props) {
 	const [visible, setVisible] = useState(false);
@@ -15,24 +19,25 @@ function Modal(props) {
 	const [url, setUrl] = useState(props.url);
 	const iframeRef = useRef(null);
 
-	const {observer, onClose: closeModal} = useModal({onClose: () => {
-		if (iframeLoadingCounter > 1) {
-			if (onClose) {
-				onClose();
+	const {observer, onClose: closeModal} = useModal({
+		onClose: () => {
+			if (iframeLoadingCounter > 1) {
+				if (onClose) {
+					onClose();
+				} else if (props.onClose) {
+					props.onClose();
+				}
 			}
-			else if (props.onClose) {
-				props.onClose()
-			}
-		}
 
-		setIframeLoadingCounter(() => 0);
-		setLoading(false);
-		setVisible(false);
-	}});
+			setIframeLoadingCounter(() => 0);
+			setLoading(false);
+			setVisible(false);
+		}
+	});
 
 	useEffect(() => {
 		function handleOpenEvent(data) {
-			if ((props.id !== data.id) || visible) {
+			if (props.id !== data.id || visible) {
 				return;
 			}
 
@@ -68,12 +73,12 @@ function Modal(props) {
 			Liferay.on('destroyPortlet', cleanUpListeners);
 		}
 
-		return () => cleanUpListeners({portletId: props.portletId})
-	}, [props.id, props.portletId, closeModal]);
+		return () => cleanUpListeners({portletId: props.portletId});
+	}, [props.id, props.portletId, closeModal, visible]);
 
 	useEffect(() => {
 		setOnClose(() => props.onClose);
-	}, [props.onClose])
+	}, [props.onClose]);
 
 	function handleIframeLoad() {
 		setLoading(false);
@@ -99,9 +104,8 @@ function Modal(props) {
 		);
 
 		if (iframeForm) {
-			iframeRef.current.contentWindow.submitForm(iframeForm)
-		}
-		else {
+			iframeRef.current.contentWindow.submitForm(iframeForm);
+		} else {
 			throw new Error('Form not available');
 		}
 	}
@@ -124,11 +128,11 @@ function Modal(props) {
 					src={url}
 					title={title}
 				/>
-				{loading &&
+				{loading && (
 					<div className="loader-container">
 						<ClayLoadingIndicator />
 					</div>
-				}
+				)}
 			</div>
 			{(props.showSubmit ||
 				props.submitLabel ||
@@ -161,7 +165,7 @@ function Modal(props) {
 			)}
 		</ClayModal>
 	) : null;
-};
+}
 
 Modal.propTypes = {
 	cancelLabel: PropTypes.string,

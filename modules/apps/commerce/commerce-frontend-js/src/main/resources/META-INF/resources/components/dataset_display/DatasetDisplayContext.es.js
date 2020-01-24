@@ -12,7 +12,7 @@ const DatasetDisplayContext = React.createContext({
 	selectedItemsValue: [],
 	sidePanelId: null,
 	sorting: [],
-	updateSorting: () => {},
+	updateSorting: () => {}
 });
 
 export default DatasetDisplayContext;

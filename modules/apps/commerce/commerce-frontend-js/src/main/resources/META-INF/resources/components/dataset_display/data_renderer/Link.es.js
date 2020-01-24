@@ -1,6 +1,7 @@
 import ClayLink from '@clayui/link';
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+
 import DefaultContent from './Default.es';
 
 function Link(props) {
@@ -14,8 +15,8 @@ function Link(props) {
 Link.propTypes = {
 	value: PropTypes.shape({
 		label: PropTypes.string,
-		url: PropTypes.string,
+		url: PropTypes.string
 	})
-}
+};
 
 export default Link;

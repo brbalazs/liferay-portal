@@ -1,8 +1,8 @@
 AUI.add(
 	'liferay-commerce-frontend-management-bar-state',
-	function(A) {
+	A => {
 		A.Do.before(
-			function (state) {
+			state => {
 				if (state.owner === 'liferay.component') {
 					return new A.Do.Halt(null);
 				}
@@ -13,8 +13,6 @@ AUI.add(
 	},
 	'',
 	{
-		requires: [
-			'liferay-management-bar'
-		]
+		requires: ['liferay-management-bar']
 	}
 );

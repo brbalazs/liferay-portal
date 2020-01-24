@@ -19,7 +19,12 @@ export function debounce(func, wait, immediate) {
 	};
 }
 
-export function showNotification(message, type, closeable = true, duration = 500) {
+export function showNotification(
+	message,
+	type,
+	closeable = true,
+	duration = 500
+) {
 	if (!window.AUI) {
 		return;
 	}
@@ -40,11 +45,8 @@ export function showNotification(message, type, closeable = true, duration = 500
 }
 
 export function showErrorNotification(e) {
-	console.error(e)
-	showNotification(
-		Liferay.Language.get('unexpected-error'),
-		'danger'
-	)
+	console.error(e);
+	showNotification(Liferay.Language.get('unexpected-error'), 'danger');
 }
 
 if (!window.Liferay) {
@@ -56,10 +58,12 @@ if (!window.Liferay) {
 			window.removeEventListener(name, fn);
 		},
 		fire: (name, payload) => {
-			var e = document.createEvent( 'CustomEvent' );
+			var e = document.createEvent('CustomEvent');
 			e.initCustomEvent(name);
 			if (payload) {
-				Object.keys(payload).forEach(key => { e[key] = payload[key] })
+				Object.keys(payload).forEach(key => {
+					e[key] = payload[key];
+				});
 			}
 			window.dispatchEvent(e);
 		},
@@ -95,8 +99,7 @@ export function launcher(Component, componentId, rootId, props) {
 	function destroyComponent() {
 		try {
 			ReactDOM.unmountComponentAtNode(portletFrame);
-		}
-		catch (e) {
+		} catch (e) {
 			console.error(e);
 		}
 
@@ -107,8 +110,7 @@ export function launcher(Component, componentId, rootId, props) {
 	if (Liferay && Liferay.component && Liferay.on && Liferay.detach) {
 		Liferay.component(componentId, componentInstance);
 		Liferay.on('beforeNavigate', destroyComponent);
-	}
-	else {
+	} else {
 		// eslint-disable-next-line no-console
 		console.info('Liferay env not found');
 	}
@@ -117,38 +119,45 @@ export function launcher(Component, componentId, rootId, props) {
 }
 
 export function getRandomId() {
-	return Math.random().toString(36).substr(2, 9)
+	return Math.random()
+		.toString(36)
+		.substr(2, 9);
 }
 
 export function getLiferayJsModule(moduleUrl) {
 	return new Promise((resolve, reject) => {
-		Liferay.Loader.require(moduleUrl, (jsModule) => {
-			return resolve(jsModule.defult || jsModule);
-		}, (err) => {
-			return reject(err);
-		})
-	})
+		Liferay.Loader.require(
+			moduleUrl,
+			jsModule => {
+				return resolve(jsModule.defult || jsModule);
+			},
+			err => {
+				return reject(err);
+			}
+		);
+	});
 }
 
 export function getFakeJsModule() {
-	return new Promise((resolve) => {
+	return new Promise(resolve => {
 		setTimeout(() => {
-			resolve(
-				((props) => {
-					console.log(props)
-					return (<React.Fragment>fakely fetched component</React.Fragment>)
-				})
-			)
+			resolve(props => {
+				console.log(props);
+				return <>fakely fetched component</>;
+			});
 		}, 500);
-	})
+	});
 }
 
-export const getJsModule = (Liferay.Loader && Liferay.Loader.require) ? getLiferayJsModule : getFakeJsModule;
+export const getJsModule =
+	Liferay.Loader && Liferay.Loader.require
+		? getLiferayJsModule
+		: getFakeJsModule;
 
 export default {
 	debounce,
 	getJsModule,
 	getRandomId,
 	launcher,
-	showNotification,
+	showNotification
 };

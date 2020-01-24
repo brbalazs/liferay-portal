@@ -1,11 +1,11 @@
 'use strict';
 
-import template from './CommerceInputText.soy';
 import Component from 'metal-component';
 import Soy, {Config} from 'metal-soy';
 
-class CommerceInputText extends Component {
-}
+import template from './CommerceInputText.soy';
+
+class CommerceInputText extends Component {}
 
 Soy.register(CommerceInputText, template);
 

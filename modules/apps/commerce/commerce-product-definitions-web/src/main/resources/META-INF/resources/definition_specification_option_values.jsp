@@ -181,47 +181,62 @@ PortletURL portletURL = cpDefinitionSpecificationOptionValueDisplayContext.getPo
 
 	<aui:script>
 		function <portlet:namespace />deleteCPDefinitionSpecificationOptionValues() {
-			if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-specifications" />')) {
+			if (
+				confirm(
+					'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-specifications" />'
+				)
+			) {
 				var form = AUI.$(document.<portlet:namespace />fm);
 
 				form.attr('method', 'post');
 				form.fm('<%= Constants.CMD %>').val('<%= Constants.DELETE %>');
-				form.fm('deleteCPDefinitionSpecificationOptionValueIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
+				form.fm('deleteCPDefinitionSpecificationOptionValueIds').val(
+					Liferay.Util.listCheckedExcept(
+						form,
+						'<portlet:namespace />allRowIds'
+					)
+				);
 
-				submitForm(form, '<portlet:actionURL name="editProductDefinitionSpecificationOptionValue" />');
+				submitForm(
+					form,
+					'<portlet:actionURL name="editProductDefinitionSpecificationOptionValue" />'
+				);
 			}
 		}
 	</aui:script>
 
 	<aui:script use="liferay-item-selector-dialog">
-		$('#<portlet:namespace />addCommerceProductDefinitionSpecificationOptionValue').on(
-			'click',
-			function(event) {
-				event.preventDefault();
+		$(
+			'#<portlet:namespace />addCommerceProductDefinitionSpecificationOptionValue'
+		).on('click', function(event) {
+			event.preventDefault();
 
-				var itemSelectorDialog = new A.LiferayItemSelectorDialog(
-					{
-						eventName: 'productSpecificationOptionsSelectItem',
-						on: {
-							selectedItemChange: function(event) {
-								var selectedItems = event.newVal;
+			var itemSelectorDialog = new A.LiferayItemSelectorDialog({
+				eventName: 'productSpecificationOptionsSelectItem',
+				on: {
+					selectedItemChange: function(event) {
+						var selectedItems = event.newVal;
 
-								if (selectedItems) {
-									$('#<portlet:namespace />cpSpecificationOptionIds').val(selectedItems);
+						if (selectedItems) {
+							$('#<portlet:namespace />cpSpecificationOptionIds').val(
+								selectedItems
+							);
 
-									var addCPDefinitionSpecificationOptionValueFm = $('#<portlet:namespace />addCPDefinitionSpecificationOptionValueFm');
+							var addCPDefinitionSpecificationOptionValueFm = $(
+								'#<portlet:namespace />addCPDefinitionSpecificationOptionValueFm'
+							);
 
-									submitForm(addCPDefinitionSpecificationOptionValueFm);
-								}
-							}
-						},
-						title: '<liferay-ui:message arguments="<%= cpDefinition.getName(languageId) %>" key="add-new-specification-to-x" />',
-						url: '<%= cpDefinitionSpecificationOptionValueDisplayContext.getItemSelectorUrl() %>'
+							submitForm(addCPDefinitionSpecificationOptionValueFm);
+						}
 					}
-				);
+				},
+				title:
+					'<liferay-ui:message arguments="<%= cpDefinition.getName(languageId) %>" key="add-new-specification-to-x" />',
+				url:
+					'<%= cpDefinitionSpecificationOptionValueDisplayContext.getItemSelectorUrl() %>'
+			});
 
-				itemSelectorDialog.open();
-			}
-		);
+			itemSelectorDialog.open();
+		});
 	</aui:script>
 </c:if>

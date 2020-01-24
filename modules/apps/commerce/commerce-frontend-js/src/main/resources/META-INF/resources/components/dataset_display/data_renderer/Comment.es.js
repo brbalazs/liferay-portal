@@ -1,7 +1,7 @@
-import React from 'react';
-import {ClayTooltipProvider} from '@clayui/tooltip';
-import ClayIcon from '@clayui/icon';
 import ClayButton from '@clayui/button';
+import ClayIcon from '@clayui/icon';
+import {ClayTooltipProvider} from '@clayui/tooltip';
+import React from 'react';
 
 function Comment(props) {
 	return (
@@ -16,7 +16,7 @@ function Comment(props) {
 				<ClayIcon symbol="info-circle" />
 			</ClayButton>
 		</ClayTooltipProvider>
-	)
+	);
 }
 
 export default Comment;

@@ -1,7 +1,7 @@
 import Component from 'metal-component';
-import { Config } from 'metal-state';
+import {globalEval} from 'metal-dom';
 import Soy from 'metal-soy';
-import { globalEval } from 'metal-dom';
+import {Config} from 'metal-state';
 
 import templates from './CPDefinitionOptionDetail.soy';
 
@@ -11,9 +11,11 @@ import templates from './CPDefinitionOptionDetail.soy';
  */
 
 class CPDefinitionOptionDetail extends Component {
-
 	created() {
-		this.on('cpDefinitionOptionRelIdChanged', this._handleCPDefinitionOptionChange);
+		this.on(
+			'cpDefinitionOptionRelIdChanged',
+			this._handleCPDefinitionOptionChange
+		);
 	}
 
 	rendered() {
@@ -23,11 +25,14 @@ class CPDefinitionOptionDetail extends Component {
 	loadOptionDetail(cpDefinitionOptionRelId) {
 		var instance = this;
 
-		let optionDetail = this.refs['option-detail'];
+		const optionDetail = this.refs['option-detail'];
 
 		var url = new URL(this.optionURL);
 
-		url.searchParams.append(this.namespace + 'cpDefinitionOptionRelId', cpDefinitionOptionRelId);
+		url.searchParams.append(
+			this.namespace + 'cpDefinitionOptionRelId',
+			cpDefinitionOptionRelId
+		);
 		url.searchParams.set('p_auth', Liferay.authToken);
 
 		fetch(
@@ -44,8 +49,7 @@ class CPDefinitionOptionDetail extends Component {
 				optionDetail.innerHTML = text;
 
 				globalEval.runScriptsInElement(optionDetail);
-			}
-		);
+			});
 	}
 
 	_handleCPDefinitionOptionChange(event) {
@@ -55,36 +59,31 @@ class CPDefinitionOptionDetail extends Component {
 	_handleSaveOption() {
 		var instance = this;
 
-		AUI().use(
-			'aui-base',
-			'aui-form-validator',
-			'liferay-form',
-			(A) => {
-				var hasErrors = false;
+		AUI().use('aui-base', 'aui-form-validator', 'liferay-form', A => {
+			var hasErrors = false;
 
-				let form = instance.element.querySelector('.option-detail form');
+			const form = instance.element.querySelector('.option-detail form');
 
-				var liferayForm = Liferay.Form.get(form.getAttribute('id'));
+			var liferayForm = Liferay.Form.get(form.getAttribute('id'));
 
-				if (liferayForm) {
-					var validator = liferayForm.formValidator;
+			if (liferayForm) {
+				var validator = liferayForm.formValidator;
 
-					if (A.instanceOf(validator, A.FormValidator)) {
-						validator.validate();
+				if (A.instanceOf(validator, A.FormValidator)) {
+					validator.validate();
 
-						hasErrors = validator.hasErrors();
+					hasErrors = validator.hasErrors();
 
-						if (hasErrors) {
-							validator.focusInvalidField();
-						}
+					if (hasErrors) {
+						validator.focusInvalidField();
 					}
 				}
-
-				if (!hasErrors) {
-					instance._saveOption();
-				}
 			}
-		);
+
+			if (!hasErrors) {
+				instance._saveOption();
+			}
+		});
 	}
 
 	_handleCancel() {
@@ -92,13 +91,19 @@ class CPDefinitionOptionDetail extends Component {
 	}
 
 	_handleDeleteOption() {
-		if (confirm(Liferay.Language.get('are-you-sure-you-want-to-delete-the-selected-option'))) {
+		if (
+			confirm(
+				Liferay.Language.get(
+					'are-you-sure-you-want-to-delete-the-selected-option'
+				)
+			)
+		) {
 			this._deleteOption();
 		}
 	}
 
 	_deleteOption() {
-		let form = this.element.querySelector('.option-detail form');
+		const form = this.element.querySelector('.option-detail form');
 
 		form.querySelector('[name=' + this.namespace + 'cmd]').value = 'delete';
 
@@ -119,12 +124,11 @@ class CPDefinitionOptionDetail extends Component {
 		).then(
 			(jsonResponse) => {
 				this.emit('optionDeleted', jsonResponse);
-			}
-		);
+			});
 	}
 
 	_saveOption() {
-		let form = this.element.querySelector('.option-detail form');
+		const form = this.element.querySelector('.option-detail form');
 
 		var formData = new FormData(form);
 
@@ -143,10 +147,8 @@ class CPDefinitionOptionDetail extends Component {
 		).then(
 			(jsonResponse) => {
 				this.emit('optionSaved', jsonResponse);
-			}
-		);
+			});
 	}
-
 }
 
 /**

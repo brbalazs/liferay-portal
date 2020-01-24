@@ -1,5 +1,7 @@
 import './CategorySelector.es';
+
 import './TagSelector.es';
+
 import Component from 'metal-component';
 import Soy from 'metal-soy';
 
@@ -16,7 +18,6 @@ const DEFAULT_RULE = {
  */
 
 class AutoField extends Component {
-
 	/**
 	 * @inheritDoc
 	 */
@@ -42,8 +43,8 @@ class AutoField extends Component {
 	 */
 
 	changeSelector_(event) {
-		let itemIndex = event.delegateTarget.getAttribute('data-item-index');
-		let rules = this.rules;
+		const itemIndex = event.delegateTarget.getAttribute('data-item-index');
+		const rules = this.rules;
 
 		rules[itemIndex] = {
 			queryAndOperator: 'all',
@@ -62,8 +63,8 @@ class AutoField extends Component {
 	 */
 
 	deleteRule_(event) {
-		let itemIndex = event.delegateTarget.getAttribute('data-rule-id');
-		let list = this.rules;
+		const itemIndex = event.delegateTarget.getAttribute('data-rule-id');
+		const list = this.rules;
 
 		list.splice(itemIndex, 1);
 
@@ -83,7 +84,6 @@ class AutoField extends Component {
 }
 
 AutoField.STATE = {
-
 	/**
 	 * Array of rules being rendered as children. Each rule
 	 * represents a step on the filtering process, being either

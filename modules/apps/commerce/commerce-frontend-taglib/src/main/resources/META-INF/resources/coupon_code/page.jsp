@@ -47,12 +47,15 @@ if (commerceOrder != null) {
 		</div>
 
 		<aui:script>
-			const couponCodeIconRemove = window.document.querySelector('#<portlet:namespace />couponCodeIconRemove');
+			const couponCodeIconRemove = window.document.querySelector(
+				'#<portlet:namespace />couponCodeIconRemove'
+			);
 
 			couponCodeIconRemove.addEventListener(
 				'click',
 				function(event) {
-					var actionURL = '<%= PortalUtil.getPortalURL(request) + "/o/commerce-ui/order/" + commerceOrder.getCommerceOrderId() + "/coupon-code" %>';
+					var actionURL =
+						'<%= PortalUtil.getPortalURL(request) + "/o/commerce-ui/order/" + commerceOrder.getCommerceOrderId() + "/coupon-code" %>';
 
 					fetch(actionURL, {
 						credentials: 'include',
@@ -65,25 +68,22 @@ if (commerceOrder != null) {
 						.then(function(payload) {
 							if (payload.success) {
 								window.location.reload();
+							} else {
+								new Liferay.Notification({
+									closeable: true,
+									delay: {
+										hide: 5000,
+										show: 0
+									},
+									duration: 500,
+									message:
+										'<liferay-ui:message key="please-enter-a-valid-coupon-code" />',
+									render: true,
+									title: '<liferay-ui:message key="danger" />',
+									type: 'danger'
+								});
 							}
-							else {
-								new Liferay.Notification(
-									{
-										closeable: true,
-										delay: {
-											hide: 5000,
-											show: 0
-										},
-										duration: 500,
-										message: '<liferay-ui:message key="please-enter-a-valid-coupon-code" />',
-										render: true,
-										title: '<liferay-ui:message key="danger" />',
-										type: 'danger'
-									}
-								);
-							}
-						}
-					);
+						});
 				},
 				{
 					once: true
@@ -97,14 +97,20 @@ if (commerceOrder != null) {
 		<aui:button name="applyCouponCodeButton" type="submit" value="apply" />
 
 		<aui:script>
-			const applyCouponCodeButton = window.document.querySelector('#<portlet:namespace />applyCouponCodeButton');
+			const applyCouponCodeButton = window.document.querySelector(
+				'#<portlet:namespace />applyCouponCodeButton'
+			);
 
 			applyCouponCodeButton.addEventListener(
 				'click',
 				function(event) {
-					var actionURL = '<%= PortalUtil.getPortalURL(request) + "/o/commerce-ui/order/" + commerceOrder.getCommerceOrderId() + "/coupon-code/" %>';
+					var actionURL =
+						'<%= PortalUtil.getPortalURL(request) + "/o/commerce-ui/order/" + commerceOrder.getCommerceOrderId() + "/coupon-code/" %>';
 
-					actionURL = actionURL + window.document.querySelector('#<portlet:namespace />couponCode').value;
+					actionURL =
+						actionURL +
+						window.document.querySelector('#<portlet:namespace />couponCode')
+							.value;
 
 					fetch(actionURL, {
 						credentials: 'include',
@@ -117,25 +123,22 @@ if (commerceOrder != null) {
 						.then(function(payload) {
 							if (payload.success) {
 								window.location.reload();
+							} else {
+								new Liferay.Notification({
+									closeable: true,
+									delay: {
+										hide: 5000,
+										show: 0
+									},
+									duration: 500,
+									message:
+										'<liferay-ui:message key="please-enter-a-valid-coupon-code" />',
+									render: true,
+									title: '<liferay-ui:message key="danger" />',
+									type: 'danger'
+								});
 							}
-							else {
-								new Liferay.Notification(
-									{
-										closeable: true,
-										delay: {
-											hide: 5000,
-											show: 0
-										},
-										duration: 500,
-										message: '<liferay-ui:message key="please-enter-a-valid-coupon-code" />',
-										render: true,
-										title: '<liferay-ui:message key="danger" />',
-										type: 'danger'
-									}
-								);
-							}
-						}
-					);
+						});
 				},
 				{
 					once: true

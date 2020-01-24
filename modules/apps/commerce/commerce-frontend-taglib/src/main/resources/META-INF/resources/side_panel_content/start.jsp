@@ -19,8 +19,8 @@
 <aui:script require="commerce-frontend-js/utilities/iframes.es as iframesUtils">
 	iframesUtils.initializeIframeListeners();
 
-	var pageMenu = document.querySelector(".page-header");
-	var pageHeader = document.querySelector(".side-panel-iframe-header");
+	var pageMenu = document.querySelector('.page-header');
+	var pageHeader = document.querySelector('.side-panel-iframe-header');
 
 	if (!pageMenu && pageHeader) {
 		pageHeader.classList.add('side-panel-iframe-header-sticky');

@@ -1,7 +1,7 @@
-import React from 'react';
+import ClayButton from '@clayui/button';
 import ClayIcon from '@clayui/icon';
 import classNames from 'classnames';
-import ClayButton from '@clayui/button';
+import React from 'react';
 
 export default function SideMenu(props) {
 	return (
@@ -9,17 +9,15 @@ export default function SideMenu(props) {
 			{props.items.map(item => (
 				<li className="nav-item" key={item.slug}>
 					<ClayButton
-						className={
-							classNames(
-								"mx-3 my-2 btn-secondary",
-								props.active === item.slug && 'active'
-							)
-						}
+						className={classNames(
+							'mx-3 my-2 btn-secondary',
+							props.active === item.slug && 'active'
+						)}
 						displayType="unstyled"
 						monospaced
-						onClick={(e) => {
+						onClick={e => {
 							e.preventDefault();
-							props.open(item.href, item.slug)
+							props.open(item.href, item.slug);
 						}}
 					>
 						<ClayIcon symbol={item.icon} />

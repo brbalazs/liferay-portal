@@ -130,10 +130,19 @@ CPTaxCategoryDisplayContext cpTaxCategoryDisplayContext = (CPTaxCategoryDisplayC
 
 	<aui:script>
 		function <portlet:namespace />deleteCPTaxCategories() {
-			if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-tax-categories" />')) {
+			if (
+				confirm(
+					'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-tax-categories" />'
+				)
+			) {
 				var form = AUI.$(document.<portlet:namespace />fm);
 
-				form.fm('deleteCPTaxCategoryIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
+				form.fm('deleteCPTaxCategoryIds').val(
+					Liferay.Util.listCheckedExcept(
+						form,
+						'<portlet:namespace />allRowIds'
+					)
+				);
 
 				submitForm(form);
 			}

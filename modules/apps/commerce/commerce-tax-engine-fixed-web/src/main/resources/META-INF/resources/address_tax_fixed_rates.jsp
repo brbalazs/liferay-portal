@@ -152,10 +152,19 @@ boolean manageCommerceTaxMethodsPermission = commerceTaxFixedRateAddressRelsDisp
 
 <aui:script>
 	function <portlet:namespace />deleteCommerceTaxFixedRateAddressRels() {
-		if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-tax-rate-settings" />')) {
+		if (
+			confirm(
+				'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-tax-rate-settings" />'
+			)
+		) {
 			var form = AUI.$(document.<portlet:namespace />fm);
 
-			form.fm('deleteCommerceTaxFixedRateAddressRelIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
+			form.fm('deleteCommerceTaxFixedRateAddressRelIds').val(
+				Liferay.Util.listCheckedExcept(
+					form,
+					'<portlet:namespace />allRowIds'
+				)
+			);
 
 			submitForm(form);
 		}

@@ -6,25 +6,21 @@ import template from './CartFlusher.soy';
 let notificationDidShow = false;
 
 function showNotification(message, type) {
-	!notificationDidShow && AUI().use(
-		'liferay-notification',
-		() => {
-			new Liferay.Notification(
-				{
-					closeable: true,
-					delay: {
-						hide: 5000,
-						show: 0
-					},
-					duration: 500,
-					message: message,
-					render: true,
-					title: '',
-					type: type
-				}
-			);
-		}
-	);
+	!notificationDidShow &&
+		AUI().use('liferay-notification', () => {
+			new Liferay.Notification({
+				closeable: true,
+				delay: {
+					hide: 5000,
+					show: 0
+				},
+				duration: 500,
+				message,
+				render: true,
+				title: '',
+				type
+			});
+		});
 
 	notificationDidShow = true;
 
@@ -51,14 +47,15 @@ class CartFlusher extends Component {
 			method: 'DELETE'
 		})
 			.then(response => response.json())
-			.then(({ success, products, summary }) => {
+			.then(({products, success, summary}) => {
 				this.isAsking = false;
 
 				if (success && (!products.length || !products)) {
 					this.emit('deleteAllItems', { products: null, summary });
-				}
-				else {
-					throw new Error(Liferay.Language.get('unable-to-empty-the-cart'));
+				} else {
+					throw new Error(
+						Liferay.Language.get('unable-to-empty-the-cart')
+					);
 				}
 			})
 			.catch(e => {

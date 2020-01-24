@@ -1,17 +1,17 @@
 module.exports = [
-  {
-    entry: "entry.es.js",
-    entry_dev: "entry.dev.es.js",
-    folder: "dataset_display",
-    name: "Dataset display",
-    page: "dataset-display.html"
-  },
-  {
-    entry: "entry.es.js",
-    entry_dev: "entry.dev.es.js",
-    folder: "example",
-    name: "Example"
-  },/*
+	{
+		entry: 'entry.es.js',
+		entry_dev: 'entry.dev.es.js',
+		folder: 'dataset_display',
+		name: 'Dataset display',
+		page: 'dataset-display.html'
+	},
+	{
+		entry: 'entry.es.js',
+		entry_dev: 'entry.dev.es.js',
+		folder: 'example',
+		name: 'Example'
+	} /*
   {
     entry: "entry.es.js",
     entry_dev: "entry.dev.es.js",

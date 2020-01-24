@@ -6,7 +6,7 @@ export const CLOSE_SIDE_PANEL = 'close-side-panel';
 export const OPEN = 'open-component';
 export const CURRENT_PRODUCT_UPDATED = 'current-product-updated';
 export const PRODUCT_OPTIONS_CHANGED = 'product-options-changed';
-export const CURRENT_PRODUCT_STATUS_CHANGED = 'current-product-status-changed'
+export const CURRENT_PRODUCT_STATUS_CHANGED = 'current-product-status-changed';
 
 export default {
 	CLOSE_MODAL,
@@ -17,5 +17,5 @@ export default {
 	OPEN,
 	OPEN_MODAL,
 	OPEN_SIDE_PANEL,
-	PRODUCT_OPTIONS_CHANGED,
+	PRODUCT_OPTIONS_CHANGED
 };

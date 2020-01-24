@@ -10,7 +10,6 @@ import templates from './CPDefinitionOptionList.soy';
  */
 
 class CPDefinitionOptionList extends Component {
-
 	_handleEditValues(event) {
 		var target = event.currentTarget;
 

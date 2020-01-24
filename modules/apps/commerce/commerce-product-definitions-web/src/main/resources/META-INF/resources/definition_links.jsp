@@ -182,12 +182,21 @@ PortletURL portletURL = cpDefinitionLinkDisplayContext.getPortletURL();
 
 	<aui:script>
 		function <portlet:namespace />deleteCPDefinitionLinks() {
-			if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-products" />')) {
+			if (
+				confirm(
+					'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-products" />'
+				)
+			) {
 				var form = AUI.$(document.<portlet:namespace />fm);
 
 				form.attr('method', 'post');
 				form.fm('<%= Constants.CMD %>').val('<%= Constants.DELETE %>');
-				form.fm('deleteCPDefinitionLinkIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
+				form.fm('deleteCPDefinitionLinkIds').val(
+					Liferay.Util.listCheckedExcept(
+						form,
+						'<portlet:namespace />allRowIds'
+					)
+				);
 
 				submitForm(form, '<portlet:actionURL name="editCPDefinitionLink" />');
 			}
@@ -195,36 +204,38 @@ PortletURL portletURL = cpDefinitionLinkDisplayContext.getPortletURL();
 	</aui:script>
 
 	<aui:script use="liferay-item-selector-dialog">
-		$('#<portlet:namespace />addCommerceProductDefinition').on(
-			'click',
-			function(event) {
-				event.preventDefault();
+		$('#<portlet:namespace />addCommerceProductDefinition').on('click', function(
+			event
+		) {
+			event.preventDefault();
 
-				var itemSelectorDialog = new A.LiferayItemSelectorDialog(
-					{
-						eventName: 'productDefinitionsSelectItem',
-						on: {
-							selectedItemChange: function(event) {
-								var <portlet:namespace />addCPDefinitionIds = [];
+			var itemSelectorDialog = new A.LiferayItemSelectorDialog({
+				eventName: 'productDefinitionsSelectItem',
+				on: {
+					selectedItemChange: function(event) {
+						var <portlet:namespace />addCPDefinitionIds = [];
 
-								var selectedItems = event.newVal;
+						var selectedItems = event.newVal;
 
-								if (selectedItems) {
-									$('#<portlet:namespace />cpDefinitionIds').val(selectedItems);
+						if (selectedItems) {
+							$('#<portlet:namespace />cpDefinitionIds').val(
+								selectedItems
+							);
 
-									var addCPDefinitionLinkFm = $('#<portlet:namespace />addCPDefinitionLinkFm');
+							var addCPDefinitionLinkFm = $(
+								'#<portlet:namespace />addCPDefinitionLinkFm'
+							);
 
-									submitForm(addCPDefinitionLinkFm);
-								}
-							}
-						},
-						title: '<liferay-ui:message arguments="<%= cpDefinition.getName(languageId) %>" key="add-new-product-to-x" />',
-						url: '<%= cpDefinitionLinkDisplayContext.getItemSelectorUrl() %>'
+							submitForm(addCPDefinitionLinkFm);
+						}
 					}
-				);
+				},
+				title:
+					'<liferay-ui:message arguments="<%= cpDefinition.getName(languageId) %>" key="add-new-product-to-x" />',
+				url: '<%= cpDefinitionLinkDisplayContext.getItemSelectorUrl() %>'
+			});
 
-				itemSelectorDialog.open();
-			}
-		);
+			itemSelectorDialog.open();
+		});
 	</aui:script>
 </c:if>

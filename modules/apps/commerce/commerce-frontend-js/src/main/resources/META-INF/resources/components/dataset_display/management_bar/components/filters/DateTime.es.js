@@ -34,7 +34,7 @@ function DateFilter(props) {
 	}
 
 	return (
-		<React.Fragment>
+		<>
 			<ClayDatePicker
 				onValueChange={updateDateTime}
 				time
@@ -50,8 +50,8 @@ function DateFilter(props) {
 						: Liferay.Language.get('add-filter')}
 				</ClayButton>
 			</div>
-		</React.Fragment>
+		</>
 	);
-};
+}
 
 export default DateFilter;

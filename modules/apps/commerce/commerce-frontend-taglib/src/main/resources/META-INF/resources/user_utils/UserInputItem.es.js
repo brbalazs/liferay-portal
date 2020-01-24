@@ -1,20 +1,17 @@
 'use strict';
 
-import template from './UserInputItem.soy';
 import Component from 'metal-component';
 import Soy, {Config} from 'metal-soy';
 
-class UserInputItem extends Component {
+import template from './UserInputItem.soy';
 
+class UserInputItem extends Component {
 	_handleRemoveItem(evt) {
 		evt.preventDefault();
 
-		return this.emit(
-			'removeItem',
-			{
-				email: this.email
-			}
-		);
+		return this.emit('removeItem', {
+			email: this.email
+		});
 	}
 }
 

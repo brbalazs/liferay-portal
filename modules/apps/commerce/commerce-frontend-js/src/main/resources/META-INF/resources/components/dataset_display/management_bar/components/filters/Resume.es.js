@@ -53,6 +53,6 @@ function Resume(props) {
 	);
 
 	return props.disabled ? label : dropDown;
-};
+}
 
 export default Resume;

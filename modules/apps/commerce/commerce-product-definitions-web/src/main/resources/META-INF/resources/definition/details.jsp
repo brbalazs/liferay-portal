@@ -199,16 +199,13 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 <aui:script use="aui-base">
 	var publishButton = A.one('#<portlet:namespace />publishButton');
 
-	publishButton.on(
-		'click',
-		function() {
-			var workflowActionInput = A.one('#<portlet:namespace />workflowAction');
+	publishButton.on('click', function() {
+		var workflowActionInput = A.one('#<portlet:namespace />workflowAction');
 
-			if (workflowActionInput) {
-				workflowActionInput.val('<%= WorkflowConstants.ACTION_PUBLISH %>');
-			}
+		if (workflowActionInput) {
+			workflowActionInput.val('<%= WorkflowConstants.ACTION_PUBLISH %>');
 		}
-	);
+	});
 </aui:script>
 
 <c:if test="<%= cpDefinition == null %>">
@@ -221,7 +218,9 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 
 		const nameInput = form.querySelector('#<portlet:namespace />nameMapAsXML');
 		const urlInput = form.querySelector('#<portlet:namespace />urlTitleMapAsXML');
-		const urlTitleInputLocalized = Liferay.component('<portlet:namespace />urlTitleMapAsXML');
+		const urlTitleInputLocalized = Liferay.component(
+			'<portlet:namespace />urlTitleMapAsXML'
+		);
 
 		const debounce = utilities.debounce;
 
@@ -232,9 +231,6 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 			urlTitleInputLocalized.updateInputLanguage(slug);
 		};
 
-		nameInput.addEventListener(
-			'input',
-			debounce(handleOnNameInput, 200)
-		);
+		nameInput.addEventListener('input', debounce(handleOnNameInput, 200));
 	</aui:script>
 </c:if>

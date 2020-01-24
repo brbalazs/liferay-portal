@@ -187,11 +187,8 @@ Map<Long, List<CommerceOrderValidatorResult>> commerceOrderValidatorResultMap = 
 	</div>
 
 	<aui:script>
-		Liferay.after(
-			'commerce:productAddedToCart',
-			function(event) {
-				Liferay.Portlet.refresh('#p_p_id<portlet:namespace />');
-			}
-		);
+		Liferay.after('commerce:productAddedToCart', function(event) {
+			Liferay.Portlet.refresh('#p_p_id<portlet:namespace />');
+		});
 	</aui:script>
 </liferay-ddm:template-renderer>

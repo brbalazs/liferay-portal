@@ -67,5 +67,8 @@ boolean shipSeparately = BeanParamUtil.getBoolean(cpDefinition, request, "shipSe
 </aui:form>
 
 <aui:script>
-	Liferay.Util.toggleBoxes('<portlet:namespace />shippable', '<portlet:namespace />shippableOptions');
+	Liferay.Util.toggleBoxes(
+		'<portlet:namespace />shippable',
+		'<portlet:namespace />shippableOptions'
+	);
 </aui:script>

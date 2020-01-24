@@ -16,34 +16,30 @@ function ManagementBar(props) {
 	}, [JSON.stringify(state.filters)]);
 
 	return (
-		<React.Fragment>
+		<>
 			{props.selectionType === 'multiple' && (
 				<BulkActions
 					bulkActions={props.bulkActions}
 					fluid={props.fluid}
 					selectAllItems={props.selectAllItems}
-					selectedItemsValue={props.selectedItemsValue}
 					selectedItemsKey={props.selectedItemsKey}
+					selectedItemsValue={props.selectedItemsValue}
 					totalItemsCount={props.totalItemsCount}
 				/>
 			)}
-			{
-				(
-					!props.selectedItemsValue.length
-					|| (props.selectionType === 'single')
-				) && (
-					<NavBar 
-						activeView={props.activeView}
-						creationMenuItems={props.creationMenuItems}
-						views={props.views}
-						setActiveView={props.setActiveView}
-					/>
-				)
-			}
+			{(!props.selectedItemsValue.length ||
+				props.selectionType === 'single') && (
+				<NavBar
+					activeView={props.activeView}
+					creationMenuItems={props.creationMenuItems}
+					setActiveView={props.setActiveView}
+					views={props.views}
+				/>
+			)}
 			<ActiveFiltersBar disabled={!!props.selectedItemsValue.length} />
-		</React.Fragment>
+		</>
 	);
-};
+}
 
 function Wrapper(props) {
 	const {filters, ...otherProps} = props;
@@ -53,7 +49,7 @@ function Wrapper(props) {
 			<ManagementBar {...otherProps} />
 		</StoreProvider>
 	);
-};
+}
 
 const baseValues = {
 	id: PropTypes.string.isRequired,
@@ -70,7 +66,7 @@ const baseValues = {
 		'or',
 		'not',
 		'startswith'
-	]).isRequired,
+	]).isRequired
 };
 
 Wrapper.propTypes = {
@@ -147,12 +143,9 @@ Wrapper.propTypes = {
 	fluid: PropTypes.bool,
 	onFiltersChange: PropTypes.func.isRequired,
 	selectedItemsKey: PropTypes.string.isRequired,
-	selectionType: PropTypes.oneOf([
-		'single',
-		'multiple',
-	]).isRequired,
+	selectionType: PropTypes.oneOf(['single', 'multiple']).isRequired,
 	setActiveView: PropTypes.func.isRequired,
-	views: PropTypes.array.isRequired,
+	views: PropTypes.array.isRequired
 };
 
 Wrapper.defaultProps = {

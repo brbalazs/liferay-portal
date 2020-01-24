@@ -1,38 +1,42 @@
+import ClayIcon from '@clayui/icon';
 import ClayTable from '@clayui/table';
+import classNames from 'classnames';
+
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
-import classNames from 'classnames'
+import React, {useContext} from 'react';
 
 import Checkbox from '../../data_renderer/Checkbox.es';
-import ClayIcon from '@clayui/icon';
 
 function TableHeadCell(props) {
-	const sortingMatch = props.sorting.find((el) => el.fieldName === props.fieldName)
+	const sortingMatch = props.sorting.find(
+		el => el.fieldName === props.fieldName
+	);
 
 	function handleSortingCellClick(e) {
 		e.preventDefault();
 
 		if (sortingMatch) {
-			const updatedSortedElements = props.sorting.map((el) => el.fieldName === props.fieldName ? ({
-				...el,
-				direction: el.direction === 'ASC' ? 'DESC' : 'ASC'
-			}) : el)
-			props.updateSorting(updatedSortedElements)
-		}
-		else {
-			props.updateSorting([{
-				direction: 'ASC',
-				fieldName: props.fieldName
-			}])
+			const updatedSortedElements = props.sorting.map(el =>
+				el.fieldName === props.fieldName
+					? {
+							...el,
+							direction: el.direction === 'ASC' ? 'DESC' : 'ASC'
+					  }
+					: el
+			);
+			props.updateSorting(updatedSortedElements);
+		} else {
+			props.updateSorting([
+				{
+					direction: 'ASC',
+					fieldName: props.fieldName
+				}
+			]);
 		}
 	}
 
 	return (
-		<ClayTable.Cell
-			className={props.className}
-			headingCell
-			headingTitle
-		>
+		<ClayTable.Cell className={props.className} headingCell headingTitle>
 			{props.sortable ? (
 				<a
 					className="inline-item text-truncate-inline text-nowrap"
@@ -42,37 +46,49 @@ function TableHeadCell(props) {
 					{props.label || ''}
 					<span className="inline-item inline-item-after sorting-icons-wrapper">
 						<ClayIcon
-							className={classNames("sorting-icon", (sortingMatch && (sortingMatch.direction === 'ASC')) && 'active')}
+							className={classNames(
+								'sorting-icon',
+								sortingMatch &&
+									sortingMatch.direction === 'ASC' &&
+									'active'
+							)}
 							draggable
 							symbol={'order-arrow-up'}
-							/>
+						/>
 						<ClayIcon
-							className={classNames("sorting-icon", (sortingMatch && (sortingMatch.direction === 'DESC')) && 'active')}
+							className={classNames(
+								'sorting-icon',
+								sortingMatch &&
+									sortingMatch.direction === 'DESC' &&
+									'active'
+							)}
 							draggable
 							symbol={'order-arrow-down'}
 						/>
 					</span>
 				</a>
-			) : (props.label || '')}
+			) : (
+				props.label || ''
+			)}
 		</ClayTable.Cell>
-	)
+	);
 }
 
 function TableHeadRow(props) {
-	const getColumns = (fields) => {
+	const getColumns = fields => {
 		let firstElementGotExpanded = false;
 
-		return fields.map((field) => {
+		return fields.map(field => {
 			let expandedClass = null;
 
 			if (typeof field.expand === 'boolean') {
-				expandedClass = field.expand ? 'table-cell-expand-smaller' : null;
-			}
-			else if (!firstElementGotExpanded) {
+				expandedClass = field.expand
+					? 'table-cell-expand-smaller'
+					: null;
+			} else if (!firstElementGotExpanded) {
 				expandedClass = 'table-cell-expand';
-				firstElementGotExpanded = true
-			}
-			else {
+				firstElementGotExpanded = true;
+			} else {
 				expandedClass = 'table-cell-expand-smaller';
 			}
 
@@ -86,16 +102,18 @@ function TableHeadRow(props) {
 					sorting={props.sorting}
 					updateSorting={props.updateSorting}
 				/>
-			)
-		})
-	}
+			);
+		});
+	};
 
 	function handleCheckboxClick() {
-		if(props.selectedItemsValue.length === props.items.length) {
+		if (props.selectedItemsValue.length === props.items.length) {
 			return props.selectItems([]);
 		}
-		
-		return props.selectItems(props.items.map((item) => item[props.selectedItemsKey]))
+
+		return props.selectItems(
+			props.items.map(item => item[props.selectedItemsKey])
+		);
 	}
 
 	return (
@@ -103,12 +121,14 @@ function TableHeadRow(props) {
 			<ClayTable.Row>
 				{props.selectable && (
 					<ClayTable.Cell headingCell>
-						{(props.items.length && props.selectionType === 'multiple') ? (
+						{props.items.length &&
+						props.selectionType === 'multiple' ? (
 							<Checkbox
 								checked={!!props.selectedItemsValue.length}
 								indeterminate={
 									!!props.selectedItemsValue.length &&
-									(props.items.length !== props.selectedItemsValue.length)
+									props.items.length !==
+										props.selectedItemsValue.length
 								}
 								name="table-head-selector"
 								onChange={handleCheckboxClick}
@@ -117,12 +137,10 @@ function TableHeadRow(props) {
 					</ClayTable.Cell>
 				)}
 				{getColumns(props.schema.fields)}
-				{props.showActionItems && (
-					<ClayTable.Cell headingCell />
-				)}
+				{props.showActionItems && <ClayTable.Cell headingCell />}
 			</ClayTable.Row>
 		</ClayTable.Head>
-	)
+	);
 }
 
 TableHeadRow.propTypes = {
@@ -138,23 +156,16 @@ TableHeadRow.propTypes = {
 		)
 	}),
 	selectedItemsValue: PropTypes.arrayOf(
-		PropTypes.oneOfType(
-			[
-				PropTypes.string,
-				PropTypes.number
-			]
-		)
+		PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 	),
-	selectionType: PropTypes.oneOf([
-		'single', 'multiple'
-	]),
+	selectionType: PropTypes.oneOf(['single', 'multiple']),
 	showActionItems: PropTypes.bool,
 	sorting: PropTypes.arrayOf(
 		PropTypes.shape({
 			direction: PropTypes.oneOf(['ASC', 'DESC']).isRequired,
 			fieldName: PropTypes.string.isRequired
 		})
-	),
+	)
 };
 
 export default TableHeadRow;

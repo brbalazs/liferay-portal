@@ -141,11 +141,20 @@ CommerceOrderListDisplayContext commerceOrderListDisplayContext = (CommerceOrder
 
 <aui:script>
 	function <portlet:namespace />deleteCommerceOrders() {
-		if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-orders" />')) {
+		if (
+			confirm(
+				'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-orders" />'
+			)
+		) {
 			var form = AUI.$(document.<portlet:namespace />fm);
 
 			form.fm('<%= Constants.CMD %>').val('<%= Constants.DELETE %>');
-			form.fm('deleteCommerceOrderIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
+			form.fm('deleteCommerceOrderIds').val(
+				Liferay.Util.listCheckedExcept(
+					form,
+					'<portlet:namespace />allRowIds'
+				)
+			);
 
 			submitForm(form);
 		}
@@ -153,7 +162,9 @@ CommerceOrderListDisplayContext commerceOrderListDisplayContext = (CommerceOrder
 </aui:script>
 
 <aui:script use="liferay-util-window">
-	var searchContainer = A.one('#<portlet:namespace />commerceOrdersSearchContainer');
+	var searchContainer = A.one(
+		'#<portlet:namespace />commerceOrdersSearchContainer'
+	);
 	var transitionComments = A.one('#<portlet:namespace />transitionComments');
 
 	searchContainer.delegate(
@@ -167,9 +178,13 @@ CommerceOrderListDisplayContext commerceOrderListDisplayContext = (CommerceOrder
 
 			var url = '<%= editCommerceOrderURL %>';
 
-			url += '&<portlet:namespace />commerceOrderId=' + link.getData('commerceOrderId');
+			url +=
+				'&<portlet:namespace />commerceOrderId=' +
+				link.getData('commerceOrderId');
 			url += '&<portlet:namespace />workflowTaskId=' + workflowTaskId;
-			url += '&<portlet:namespace />transitionName=' + link.getData('transitionName');
+			url +=
+				'&<portlet:namespace />transitionName=' +
+				link.getData('transitionName');
 
 			form.setAttribute('action', url);
 			form.setAttribute('method', 'POST');
@@ -184,52 +199,51 @@ CommerceOrderListDisplayContext commerceOrderListDisplayContext = (CommerceOrder
 
 			transitionComments.show();
 
-			var dialog = Liferay.Util.Window.getWindow(
-				{
-					dialog: {
-						bodyContent: form,
-						destroyOnHide: true,
-						height: 400,
-						resizable: false,
-						toolbars: {
-							footer: [
-								{
-									cssClass: 'btn-primary mr-2',
-									label: '<liferay-ui:message key="done" />',
-									on: {
-										click: function() {
-											submitForm(form);
-										}
-									}
-								},
-								{
-									cssClass: 'btn-cancel',
-									label: '<liferay-ui:message key="cancel" />',
-									on: {
-										click: function() {
-											dialog.hide();
-										}
+			var dialog = Liferay.Util.Window.getWindow({
+				dialog: {
+					bodyContent: form,
+					destroyOnHide: true,
+					height: 400,
+					resizable: false,
+					toolbars: {
+						footer: [
+							{
+								cssClass: 'btn-primary mr-2',
+								label: '<liferay-ui:message key="done" />',
+								on: {
+									click: function() {
+										submitForm(form);
 									}
 								}
-							],
-							header: [
-								{
-									cssClass: 'close',
-									discardDefaultButtonCssClasses: true,
-									labelHTML: '<span aria-hidden="true">&times;</span>',
-									on: {
-										click: function(event) {
-											dialog.hide();
-										}
+							},
+							{
+								cssClass: 'btn-cancel',
+								label: '<liferay-ui:message key="cancel" />',
+								on: {
+									click: function() {
+										dialog.hide();
 									}
 								}
-							]
-						},
-						width: 720
+							}
+						],
+						header: [
+							{
+								cssClass: 'close',
+								discardDefaultButtonCssClasses: true,
+								labelHTML:
+									'<span aria-hidden="true">&times;</span>',
+								on: {
+									click: function(event) {
+										dialog.hide();
+									}
+								}
+							}
+						]
 					},
-					title: link.text()
-				}
-			);
+					width: 720
+				},
+				title: link.text()
+			});
 		},
 		'.transition-link'
 	);

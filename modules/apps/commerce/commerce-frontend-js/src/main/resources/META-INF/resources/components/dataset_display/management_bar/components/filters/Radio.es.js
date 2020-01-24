@@ -9,7 +9,7 @@ function RadioFilter(props) {
 	const [value, setValue] = useState(props.value);
 
 	return (
-		<React.Fragment>
+		<>
 			<ClayRadioGroup
 				onSelectedValueChange={setValue}
 				selectedValue={value || ''}
@@ -33,8 +33,8 @@ function RadioFilter(props) {
 						: Liferay.Language.get('add-filter')}
 				</ClayButton>
 			</div>
-		</React.Fragment>
+		</>
 	);
-};
+}
 
 export default RadioFilter;

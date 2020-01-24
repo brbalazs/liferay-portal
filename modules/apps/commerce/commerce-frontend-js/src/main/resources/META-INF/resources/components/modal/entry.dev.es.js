@@ -1,10 +1,11 @@
 import React from 'react';
 
-import {launcher} from '../../utilities/index.es';
 import {OPEN_MODAL} from '../../utilities/eventsDefinitions.es';
+import {launcher} from '../../utilities/index.es';
 import modalLauncher from './entry.es';
 
 import './_modal.scss';
+
 import '../../styles/main.scss';
 
 const props = {

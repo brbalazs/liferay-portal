@@ -1,14 +1,14 @@
 export const prettifyCheckboxValue = (value, items) => {
 	const prettifiedValue = value
 		? value
-			.map(v => {
-				return items.reduce(
-					(found, item) =>
-						found || (item.value === v ? item.label : null),
-					null
-				);
-			})
-			.join(', ')
+				.map(v => {
+					return items.reduce(
+						(found, item) =>
+							found || (item.value === v ? item.label : null),
+						null
+					);
+				})
+				.join(', ')
 		: '';
 
 	return prettifiedValue;
@@ -17,9 +17,9 @@ export const prettifyCheckboxValue = (value, items) => {
 export const prettifySelectValue = (value, items) => {
 	const prettifiedValue = value
 		? items.reduce(
-			(found, item) =>
-				found || (item.value === value ? item.label : null),
-			null
+				(found, item) =>
+					found || (item.value === value ? item.label : null),
+				null
 		  )
 		: '';
 
@@ -48,12 +48,12 @@ export const prettifyDateTimeValue = value => {
 		value instanceof Date
 			? value
 			: new Date(
-				value.year,
-				value.month,
-				value.day,
-				value.hours,
-				value.minutes,
-				value.seconds
+					value.year,
+					value.month,
+					value.day,
+					value.hours,
+					value.minutes,
+					value.seconds
 			  );
 
 	return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();

@@ -1,10 +1,10 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+
+import {PRODUCT_OPTIONS_CHANGED} from '../../utilities/eventsDefinitions.es';
 import MainImage from './MainImage';
 import Overlay from './Overlay';
 import Thumbnails from './Thumbnails';
-
-import { PRODUCT_OPTIONS_CHANGED } from '../../utilities/eventsDefinitions.es';
 
 function fetchImage(url) {
 	return new Promise(resolve => {
@@ -37,11 +37,11 @@ export default class Gallery extends React.Component {
 	}
 
 	componentDidMount() {
-		Liferay.on(PRODUCT_OPTIONS_CHANGED, this._handleImagesUpdate, this)
+		Liferay.on(PRODUCT_OPTIONS_CHANGED, this._handleImagesUpdate, this);
 	}
 
 	componentWillUnmount() {
-		Liferay.detach(PRODUCT_OPTIONS_CHANGED, this._handleImagesUpdate, this)
+		Liferay.detach(PRODUCT_OPTIONS_CHANGED, this._handleImagesUpdate, this);
 	}
 
 	_handleImagesUpdate(e) {
@@ -49,7 +49,7 @@ export default class Gallery extends React.Component {
 			this.setState({
 				images: e.images,
 				selected: 0
-			})
+			});
 		}
 	}
 
@@ -87,8 +87,7 @@ export default class Gallery extends React.Component {
 		return new Promise(resolve => {
 			if (this.state.loaded.has(imageUrl)) {
 				resolve(imageUrl);
-			}
-			else {
+			} else {
 				this.setState({loading: true});
 				fetchImage(imageUrl).then(() => {
 					this.setState(

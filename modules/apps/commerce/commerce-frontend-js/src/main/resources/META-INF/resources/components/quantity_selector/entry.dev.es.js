@@ -11,6 +11,6 @@ launcher('quantity-selector', 'quantity-selector-root-id', {
 	multipleQuantity: 2,
 	quantity: 10,
 	size: 'large',
-	spritemap: './assets/icons.svg',
+	spritemap: './assets/icons.svg'
 	// style: 'simple'
 });

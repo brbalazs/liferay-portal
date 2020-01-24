@@ -141,25 +141,46 @@ boolean ending = maxSubscriptionCycles > 0;
 </aui:form>
 
 <aui:script>
-	Liferay.Util.toggleBoxes('<portlet:namespace />overrideSubscriptionInfo', '<portlet:namespace />subscriptionInfo');
+	Liferay.Util.toggleBoxes(
+		'<portlet:namespace />overrideSubscriptionInfo',
+		'<portlet:namespace />subscriptionInfo'
+	);
 
-	Liferay.Util.toggleBoxes('<portlet:namespace />subscriptionEnabled', '<portlet:namespace />subscriptionOptions');
+	Liferay.Util.toggleBoxes(
+		'<portlet:namespace />subscriptionEnabled',
+		'<portlet:namespace />subscriptionOptions'
+	);
 
 	Liferay.provide(
 		window,
 		'<portlet:namespace />selectSubscriptionType',
-			function() {
+		function() {
 			var A = AUI();
 
-			var overrideSubscriptionInfo = A.one('#<portlet:namespace />overrideSubscriptionInfo').attr('checked');
-			var subscriptionEnabled = A.one('#<portlet:namespace />subscriptionEnabled').attr('checked');
-			var subscriptionLength = A.one('#<portlet:namespace />subscriptionLength').val();
-			var subscriptionType = A.one('#<portlet:namespace />subscriptionType').val();
-			var maxSubscriptionCycles = A.one('#<portlet:namespace />maxSubscriptionCycles').val();
+			var overrideSubscriptionInfo = A.one(
+				'#<portlet:namespace />overrideSubscriptionInfo'
+			).attr('checked');
+			var subscriptionEnabled = A.one(
+				'#<portlet:namespace />subscriptionEnabled'
+			).attr('checked');
+			var subscriptionLength = A.one(
+				'#<portlet:namespace />subscriptionLength'
+			).val();
+			var subscriptionType = A.one(
+				'#<portlet:namespace />subscriptionType'
+			).val();
+			var maxSubscriptionCycles = A.one(
+				'#<portlet:namespace />maxSubscriptionCycles'
+			).val();
 
-			var portletURL = new Liferay.PortletURL.createURL('<%= currentURLObj %>');
+			var portletURL = new Liferay.PortletURL.createURL(
+				'<%= currentURLObj %>'
+			);
 
-			portletURL.setParameter('overrideSubscriptionInfo', overrideSubscriptionInfo);
+			portletURL.setParameter(
+				'overrideSubscriptionInfo',
+				overrideSubscriptionInfo
+			);
 			portletURL.setParameter('subscriptionEnabled', subscriptionEnabled);
 			portletURL.setParameter('subscriptionLength', subscriptionLength);
 			portletURL.setParameter('subscriptionType', subscriptionType);
@@ -172,35 +193,36 @@ boolean ending = maxSubscriptionCycles > 0;
 </aui:script>
 
 <aui:script use="liferay-form">
-	A.one('#<portlet:namespace />neverEnds').on(
-	'change',
-		function(event) {
-			var formValidator = Liferay.Form.get('<portlet:namespace />fm').formValidator;
+	A.one('#<portlet:namespace />neverEnds').on('change', function(event) {
+		var formValidator = Liferay.Form.get('<portlet:namespace />fm')
+			.formValidator;
 
-			formValidator.validateField('<portlet:namespace />maxSubscriptionCycles');
-		}
-	);
+		formValidator.validateField('<portlet:namespace />maxSubscriptionCycles');
+	});
 </aui:script>
 
 <aui:script use="aui-toggler">
-	new A.Toggler(
-		{
-			animated: true,
-			content: '#<portlet:namespace />neverEndsContainer .never-ends-content',
-			expanded: <%= ending %>,
-			header: '#<portlet:namespace />neverEndsContainer .never-ends-header',
-			on: {
-				animatingChange: function(event) {
-					var instance = this;
+	new A.Toggler({
+		animated: true,
+		content: '#<portlet:namespace />neverEndsContainer .never-ends-content',
+		expanded: <%= ending %>,
+		header: '#<portlet:namespace />neverEndsContainer .never-ends-header',
+		on: {
+			animatingChange: function(event) {
+				var instance = this;
 
-					if (!instance.get('expanded')) {
-						A.one('#<portlet:namespace />maxSubscriptionCycles').attr('disabled', false);
-					}
-					else {
-						A.one('#<portlet:namespace />maxSubscriptionCycles').attr('disabled', true);
-					}
+				if (!instance.get('expanded')) {
+					A.one('#<portlet:namespace />maxSubscriptionCycles').attr(
+						'disabled',
+						false
+					);
+				} else {
+					A.one('#<portlet:namespace />maxSubscriptionCycles').attr(
+						'disabled',
+						true
+					);
 				}
 			}
 		}
-	);
+	});
 </aui:script>

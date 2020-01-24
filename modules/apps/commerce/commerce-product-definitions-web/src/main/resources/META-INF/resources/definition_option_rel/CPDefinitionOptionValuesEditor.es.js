@@ -1,6 +1,6 @@
 import Component from 'metal-component';
-import { Config } from 'metal-state';
 import Soy from 'metal-soy';
+import {Config} from 'metal-state';
 
 import templates from './CPDefinitionOptionValuesEditor.soy';
 
@@ -10,7 +10,6 @@ import templates from './CPDefinitionOptionValuesEditor.soy';
  */
 
 class CPDefinitionOptionValuesEditor extends Component {
-
 	constructor(opt_config, opt_parentElement) {
 		super(opt_config, opt_parentElement);
 
@@ -39,7 +38,10 @@ class CPDefinitionOptionValuesEditor extends Component {
 
 		var url = new URL(this.cpDefinitionOptionValueRelsURL);
 
-		url.searchParams.append(this.namespace + 'cpDefinitionOptionRelId', this.cpDefinitionOptionRelId);
+		url.searchParams.append(
+			this.namespace + 'cpDefinitionOptionRelId',
+			this.cpDefinitionOptionRelId
+		);
 		url.searchParams.set('p_auth', Liferay.authToken);
 
 		fetch(
@@ -55,17 +57,24 @@ class CPDefinitionOptionValuesEditor extends Component {
 			(jsonResponse) => {
 				this._cpDefinitionOptionValueRels = jsonResponse;
 
-				if ((this._cpDefinitionOptionValueRels && this._cpDefinitionOptionValueRels.length > 0)) {
-					if (!this._currentCPDefinitionOptionValueRelId || this._currentCPDefinitionOptionValueRelId == null) {
+				if (
+					this._cpDefinitionOptionValueRels &&
+					this._cpDefinitionOptionValueRels.length > 0
+				) {
+					if (
+						!this._currentCPDefinitionOptionValueRelId ||
+						this._currentCPDefinitionOptionValueRelId == null
+					) {
 						this._currentCPDefinitionOptionValueRelId = this._cpDefinitionOptionValueRels[0].cpDefinitionOptionValueRelId;
 					}
-				}
-				else if ((this._cpDefinitionOptionValueRels && this._cpDefinitionOptionValueRels.length == 0)) {
+				} else if (
+					this._cpDefinitionOptionValueRels &&
+					this._cpDefinitionOptionValueRels.length == 0
+				) {
 					this._newCPDefinitionOptionValueRelName = '';
 					this._currentCPDefinitionOptionValueRelId = '0';
 				}
-			}
-		);
+			});
 	}
 
 	_handleShowChange(event) {
@@ -79,14 +88,14 @@ class CPDefinitionOptionValuesEditor extends Component {
 	_handleOptionValueSaved(event) {
 		this.cpDefinitionId = event.cpDefinitionId.toString();
 		this.cpDefinitionOptionRelId = event.cpDefinitionOptionRelId.toString();
-		this._currentCPDefinitionOptionValueRelId = event.cpDefinitionOptionValueRelId;
+		this._currentCPDefinitionOptionValueRelId =
+			event.cpDefinitionOptionValueRelId;
 
 		this.loadOptionValues();
 
 		if (event.success) {
 			this._showNotification(this.successMessage, 'success');
-		}
-		else {
+		} else {
 			this._showNotification(event.message, 'danger');
 		}
 	}
@@ -108,55 +117,69 @@ class CPDefinitionOptionValuesEditor extends Component {
 	_handleNameChange(newName) {
 		if (this._currentCPDefinitionOptionValueRelId == '0') {
 			this._newCPDefinitionOptionValueRelName = newName;
-		}
-		else {
+		} else {
 			this._newCPDefinitionOptionValueRelName = '';
 		}
 	}
 
 	_showNotification(message, type) {
-		AUI().use(
-			'liferay-notification',
-			() => {
-				new Liferay.Notification(
-					{
-						closeable: true,
-						delay: {
-							hide: 5000,
-							show: 0
-						},
-						duration: 500,
-						message: message,
-						render: true,
-						title: '',
-						type: type
-					}
-				);
-			}
-		);
+		AUI().use('liferay-notification', () => {
+			new Liferay.Notification({
+				closeable: true,
+				delay: {
+					hide: 5000,
+					show: 0
+				},
+				duration: 500,
+				message,
+				render: true,
+				title: '',
+				type
+			});
+		});
 	}
 
 	_updateCPDefinitionId() {
-		let instance = this;
+		const instance = this;
 
 		var url = new URL(window.location.href);
 
-		var cpDefinitionId = url.searchParams.get(instance.namespace + 'cpDefinitionId');
+		var cpDefinitionId = url.searchParams.get(
+			instance.namespace + 'cpDefinitionId'
+		);
 
-		if (instance.cpDefinitionId && (cpDefinitionId != instance.cpDefinitionId)) {
-			var cpDefinitionOptionValueRelURL = new URL(instance.cpDefinitionOptionValueRelURL);
+		if (
+			instance.cpDefinitionId &&
+			cpDefinitionId != instance.cpDefinitionId
+		) {
+			var cpDefinitionOptionValueRelURL = new URL(
+				instance.cpDefinitionOptionValueRelURL
+			);
 
-			cpDefinitionOptionValueRelURL.searchParams.set(instance.namespace + 'cpDefinitionId', instance.cpDefinitionId);
+			cpDefinitionOptionValueRelURL.searchParams.set(
+				instance.namespace + 'cpDefinitionId',
+				instance.cpDefinitionId
+			);
 
-			instance.cpDefinitionOptionValueRelURL = cpDefinitionOptionValueRelURL.href;
+			instance.cpDefinitionOptionValueRelURL =
+				cpDefinitionOptionValueRelURL.href;
 
-			var cpDefinitionOptionValueRelsURL = new URL(instance.cpDefinitionOptionValueRelsURL);
+			var cpDefinitionOptionValueRelsURL = new URL(
+				instance.cpDefinitionOptionValueRelsURL
+			);
 
-			cpDefinitionOptionValueRelsURL.searchParams.set(instance.namespace + 'cpDefinitionId', instance.cpDefinitionId);
+			cpDefinitionOptionValueRelsURL.searchParams.set(
+				instance.namespace + 'cpDefinitionId',
+				instance.cpDefinitionId
+			);
 
-			instance.cpDefinitionOptionValueRelsURL = cpDefinitionOptionValueRelsURL.href;
+			instance.cpDefinitionOptionValueRelsURL =
+				cpDefinitionOptionValueRelsURL.href;
 
-			url.searchParams.set(instance.namespace + 'cpDefinitionId', instance.cpDefinitionId);
+			url.searchParams.set(
+				instance.namespace + 'cpDefinitionId',
+				instance.cpDefinitionId
+			);
 
 			window.history.pushState({}, '', url);
 		}

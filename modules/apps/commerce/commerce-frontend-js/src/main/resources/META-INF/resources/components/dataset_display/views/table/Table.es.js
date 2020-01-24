@@ -1,49 +1,60 @@
 import ClayTable from '@clayui/table';
 import PropTypes from 'prop-types';
-import React, { useState, useEffect, useContext } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 
 import ActionsDropdown from '../../data_renderer/ActionsDropdown.es';
 import Checkbox from '../../data_renderer/Checkbox.es';
 import Comment from '../../data_renderer/Comment.es';
 import Radio from '../../data_renderer/Radio.es';
-import { getDataRendererById, getDataRendererByUrl } from '../../data_renderer/index.es';
+import {
+	getDataRendererById,
+	getDataRendererByUrl
+} from '../../data_renderer/index.es';
 import TableHeadRow from './TableHeadRow.es';
 
 function CustomTableCell(props) {
-	const { view, ...otherProps } = props;
-	const [ currentView, updateCurrentView ] = useState({
+	const {view, ...otherProps} = props;
+	const [currentView, updateCurrentView] = useState({
 		...view,
-		Component: view.contentRendererModuleUrl ? null : getDataRendererById(view.contentRenderer)
+		Component: view.contentRendererModuleUrl
+			? null
+			: getDataRendererById(view.contentRenderer)
 	});
-	const [ loading, setLoading ] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		if(loading) {
+		if (loading) {
 			return;
 		}
-		if(currentView.contentRendererModuleUrl) {
+		if (currentView.contentRendererModuleUrl) {
 			setLoading(true);
 			getDataRendererByUrl(currentView.contentRendererModuleUrl).then(
-				(Component) => {
+				Component => {
 					updateCurrentView({
 						...currentView,
 						Component
-					})
-					setLoading(false)
-				})
+					});
+					setLoading(false);
+				}
+			);
 		}
-	}, [])
-	
+	}, [currentView, loading]);
+
 	return props.value ? (
 		<ClayTable.Cell>
-			{(currentView.Component && !loading) ? (
+			{currentView.Component && !loading ? (
 				<currentView.Component {...otherProps} value={props.value} />
 			) : (
-				<span aria-hidden="true" className="loading-animation loading-animation-sm" />
+				<span
+					aria-hidden="true"
+					className="loading-animation loading-animation-sm"
+				/>
 			)}
 			{props.comment && <Comment>{props.comment}</Comment>}
 		</ClayTable.Cell>
-	) : <ClayTable.Cell />
+	) : (
+		<ClayTable.Cell />
+	);
 }
 
 function Table(props) {
@@ -86,17 +97,16 @@ function Table(props) {
 											el => el === item[selectedItemsKey]
 										)
 									}
-									onChange={() => selectItems(item[selectedItemsKey])}
+									onChange={() =>
+										selectItems(item[selectedItemsKey])
+									}
 									value={item[selectedItemsKey]}
 								/>
 							</ClayTable.Cell>
 						)}
 						{props.schema.fields.map(field => {
 							const fieldName = field.fieldName;
-							const {
-								[fieldName]: value,
-								...otherProps
-							} = item;
+							const {[fieldName]: value, ...otherProps} = item;
 							const comment = otherProps.comments
 								? otherProps.comments[field.fieldName]
 								: null;
@@ -109,7 +119,8 @@ function Table(props) {
 									value={value}
 									view={{
 										contentRenderer: field.contentRenderer,
-										contentRendererModuleUrl: field.contentRendererModuleUrl
+										contentRendererModuleUrl:
+											field.contentRendererModuleUrl
 									}}
 								/>
 							);
@@ -117,9 +128,7 @@ function Table(props) {
 						{showActionItems ? (
 							item.actionItems ? (
 								<ClayTable.Cell>
-									<ActionsDropdown
-										items={item.actionItems}
-									/>
+									<ActionsDropdown items={item.actionItems} />
 								</ClayTable.Cell>
 							) : (
 								<ClayTable.Cell />
@@ -141,7 +150,7 @@ Table.propTypes = {
 	),
 	schema: PropTypes.shape({
 		fields: PropTypes.array.isRequired
-	}).isRequired,
+	}).isRequired
 };
 
 Table.defaultProps = {

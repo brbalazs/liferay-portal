@@ -246,28 +246,30 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 </div>
 
 <aui:script>
-	$(document).ready(
-		function() {
-			$('.thumb').click(
-				function() {
-					$('#<portlet:namespace />full-image').attr('src', $(this).attr('data-url'));
-				}
+	$(document).ready(function() {
+		$('.thumb').click(function() {
+			$('#<portlet:namespace />full-image').attr(
+				'src',
+				$(this).attr('data-url')
 			);
-		}
-	);
+		});
+	});
 </aui:script>
 
 <aui:script use="liferay-commerce-product-content">
-	var productContent = new Liferay.Portlet.ProductContent(
-		{
-			cpDefinitionId: <%= cpDefinitionId %>,
-			fullImageSelector : '#<portlet:namespace />full-image',
-			namespace: '<portlet:namespace />',
-			productContentSelector: '#<portlet:namespace /><%= cpDefinitionId %>ProductContent',
-			thumbsContainerSelector : '#<portlet:namespace />thumbs-container',
-			viewAttachmentURL: '<%= String.valueOf(cpContentHelper.getViewAttachmentURL(liferayPortletRequest, liferayPortletResponse)) %>'
-		}
-	);
+	var productContent = new Liferay.Portlet.ProductContent({
+		cpDefinitionId: <%= cpDefinitionId %>,
+		fullImageSelector: '#<portlet:namespace />full-image',
+		namespace: '<portlet:namespace />',
+		productContentSelector:
+			'#<portlet:namespace /><%= cpDefinitionId %>ProductContent',
+		thumbsContainerSelector: '#<portlet:namespace />thumbs-container',
+		viewAttachmentURL:
+			'<%= String.valueOf(cpContentHelper.getViewAttachmentURL(liferayPortletRequest, liferayPortletResponse)) %>'
+	});
 
-	Liferay.component('<portlet:namespace /><%= cpDefinitionId %>ProductContent', productContent);
+	Liferay.component(
+		'<portlet:namespace /><%= cpDefinitionId %>ProductContent',
+		productContent
+	);
 </aui:script>

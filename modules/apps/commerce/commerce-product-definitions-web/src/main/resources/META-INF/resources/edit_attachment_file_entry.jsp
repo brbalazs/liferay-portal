@@ -138,65 +138,59 @@ PortalUtil.addPortletBreadcrumbEntry(request, title, StringPool.BLANK, data);
 
 		var renderer = Object.values(metalJsForm.refs)[0];
 
-		return Object.values(renderer.refs)
-			.map(
-				function(option) {
-					return {
-						key: option.fieldName,
-						value: option.value
-					}
-				}
-			);
+		return Object.values(renderer.refs).map(function(option) {
+			return {
+				key: option.fieldName,
+				value: option.value
+			};
+		});
 	}
 
-	Liferay.componentReady("ProductOptions<%= cpDefinitionId %>")
-		.then(function(ddmForm) {
-			if (!ddmForm.on) {
-				return;
-			}
-			ddmForm.on(
-				'fieldEdited',
-				function() {
-					var fieldValues = getMetalJsFormData(ddmForm);
+	Liferay.componentReady('ProductOptions<%= cpDefinitionId %>').then(function(
+		ddmForm
+	) {
+		if (!ddmForm.on) {
+			return;
+		}
+		ddmForm.on('fieldEdited', function() {
+			var fieldValues = getMetalJsFormData(ddmForm);
 
-					var form = AUI.$(document.<portlet:namespace />fm);
-					form.fm('ddmFormValues').val(JSON.stringify(fieldValues));
-				}
-			);
+			var form = AUI.$(document.<portlet:namespace />fm);
+			form.fm('ddmFormValues').val(JSON.stringify(fieldValues));
 		});
+	});
 
 	function <portlet:namespace />saveAttachmentFileEntry(forceDisable) {
 		var form = AUI.$(document.<portlet:namespace />fm);
 
-		var ddmForm = Liferay.component("ProductOptions<%= cpDefinitionId %>DDMForm");
+		var ddmForm = Liferay.component(
+			'ProductOptions<%= cpDefinitionId %>DDMForm'
+		);
 
 		if (ddmForm) {
 			var fields = ddmForm.getImmediateFields();
 
 			var fieldValues = [];
 
-			fields.forEach(
-				function(field) {
-					var fieldValue = {};
+			fields.forEach(function(field) {
+				var fieldValue = {};
 
-					fieldValue.key = field.get('fieldName');
+				fieldValue.key = field.get('fieldName');
 
-					var value = field.getValue();
+				var value = field.getValue();
 
-					var arrValue = [];
+				var arrValue = [];
 
-					if (value instanceof Array) {
-						arrValue = value;
-					}
-					else {
-						arrValue.push(value);
-					}
-
-					fieldValue.value = arrValue;
-
-					fieldValues.push(fieldValue);
+				if (value instanceof Array) {
+					arrValue = value;
+				} else {
+					arrValue.push(value);
 				}
-			);
+
+				fieldValue.value = arrValue;
+
+				fieldValues.push(fieldValue);
+			});
 
 			form.fm('ddmFormValues').val(JSON.stringify(fieldValues));
 		}
@@ -208,14 +202,11 @@ PortalUtil.addPortletBreadcrumbEntry(request, title, StringPool.BLANK, data);
 <aui:script use="aui-base,event-input">
 	var publishButton = A.one('#<portlet:namespace />publishButton');
 
-	publishButton.on(
-		'click',
-		function() {
-			var workflowActionInput = A.one('#<portlet:namespace />workflowAction');
+	publishButton.on('click', function() {
+		var workflowActionInput = A.one('#<portlet:namespace />workflowAction');
 
-			if (workflowActionInput) {
-				workflowActionInput.val('<%= WorkflowConstants.ACTION_PUBLISH %>');
-			}
+		if (workflowActionInput) {
+			workflowActionInput.val('<%= WorkflowConstants.ACTION_PUBLISH %>');
 		}
-	);
+	});
 </aui:script>

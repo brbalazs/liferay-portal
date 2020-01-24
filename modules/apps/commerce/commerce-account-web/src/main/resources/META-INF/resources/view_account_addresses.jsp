@@ -66,63 +66,61 @@ portletURL.setParameter(PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backUR
 	</aui:form>
 
 	<aui:script>
-		Liferay.provide(
-			window,
-			'<portlet:namespace />openAddressModal',
-			function(evt) {
-				const addressModal = Liferay.component('addressModal');
-				addressModal.resetForm();
-				addressModal.open();
-			}
-		);
+		Liferay.provide(window, '<portlet:namespace />openAddressModal', function(evt) {
+			const addressModal = Liferay.component('addressModal');
+			addressModal.resetForm();
+			addressModal.open();
+		});
 
-		Liferay.provide(
-			window,
-			'editCommerceAddress',
-			function(id) {
-				const addressModal = Liferay.component('addressModal');
-				addressModal.fetchExistingAddress(id);
-				addressModal.open();
-			}
-		);
+		Liferay.provide(window, 'editCommerceAddress', function(id) {
+			const addressModal = Liferay.component('addressModal');
+			addressModal.fetchExistingAddress(id);
+			addressModal.open();
+		});
 
-		Liferay.provide(
-			window,
-			'deleteCommerceAddress',
-			function(id) {
-				document.querySelector('#<portlet:namespace /><%= Constants.CMD %>').value = '<%= Constants.DELETE %>';
-				document.querySelector('#<portlet:namespace />commerceAddressId').value = id;
+		Liferay.provide(window, 'deleteCommerceAddress', function(id) {
+			document.querySelector('#<portlet:namespace /><%= Constants.CMD %>').value =
+				'<%= Constants.DELETE %>';
+			document.querySelector(
+				'#<portlet:namespace />commerceAddressId'
+			).value = id;
+
+			submitForm(document.<portlet:namespace />addressFm);
+		});
+
+		Liferay.componentReady('addressModal').then(function(addressModal) {
+			addressModal.on('addressModalSave', function(formData) {
+				document.querySelector('#<portlet:namespace />name').value =
+					formData.referent;
+				document.querySelector('#<portlet:namespace />street1').value =
+					formData.address;
+				document.querySelector('#<portlet:namespace />city').value =
+					formData.city;
+				document.querySelector('#<portlet:namespace />zip').value =
+					formData.zipCode;
+				document.querySelector(
+					'#<portlet:namespace />commerceCountryId'
+				).value = formData.country;
+				document.querySelector('#<portlet:namespace />commerceRegionId').value =
+					formData.region;
+				document.querySelector('#<portlet:namespace />phoneNumber').value =
+					formData.telephone;
+				document.querySelector('#<portlet:namespace />addressType').value =
+					formData.addressType;
+
+				if (formData.id) {
+					document.querySelector(
+						'#<portlet:namespace />commerceAddressId'
+					).value = formData.id;
+					document.querySelector(
+						'#<portlet:namespace /><%= Constants.CMD %>'
+					).value = '<%= Constants.UPDATE %>';
+				}
+
+				addressModal.close();
 
 				submitForm(document.<portlet:namespace />addressFm);
-			}
-		);
-
-		Liferay.componentReady('addressModal').then(
-			function(addressModal) {
-				addressModal.on(
-					'addressModalSave',
-					function(formData) {
-						document.querySelector('#<portlet:namespace />name').value = formData.referent;
-						document.querySelector('#<portlet:namespace />street1').value = formData.address;
-						document.querySelector('#<portlet:namespace />city').value = formData.city;
-						document.querySelector('#<portlet:namespace />zip').value = formData.zipCode;
-						document.querySelector('#<portlet:namespace />commerceCountryId').value = formData.country;
-						document.querySelector('#<portlet:namespace />commerceRegionId').value = formData.region;
-						document.querySelector('#<portlet:namespace />phoneNumber').value = formData.telephone;
-						document.querySelector('#<portlet:namespace />addressType').value = formData.addressType;
-
-						if (formData.id) {
-							document.querySelector('#<portlet:namespace />commerceAddressId').value = formData.id;
-							document.querySelector('#<portlet:namespace /><%= Constants.CMD %>').value = '<%= Constants.UPDATE %>';
-						}
-
-						addressModal.close();
-
-						submitForm(document.<portlet:namespace />addressFm);
-					}
-				);
-			}
-		);
-
+			});
+		});
 	</aui:script>
 </c:if>

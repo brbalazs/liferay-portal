@@ -1,6 +1,6 @@
 import Component from 'metal-component';
-import { Config } from 'metal-state';
 import Soy from 'metal-soy';
+import {Config} from 'metal-state';
 
 import templates from './DefinitionToolbarFilter.soy';
 
@@ -10,7 +10,6 @@ import templates from './DefinitionToolbarFilter.soy';
  */
 
 class DefinitionToolbarFilter extends Component {
-
 	created() {
 		this._buildFilters();
 	}
@@ -25,30 +24,31 @@ class DefinitionToolbarFilter extends Component {
 			function (A) {
 				var categoryBox = this.element.querySelector('#assetCategoriesSelector');
 
-				if (categoryBox) {
-					const config = {
-						categoryIds: '',
-						categoryTitles: [],
-						contentBox: categoryBox,
-						eventName: this.namespace + 'selectCategory',
-						groupIds: this.groupIds,
-						hiddenInput: '#categoryIds',
-						portletURL: this.categorySelectorURL,
-						singleSelect: true,
-						title: Liferay.Language.get('select-category'),
-						vocabularyIds: this.vocabularyIds
-					};
+			if (categoryBox) {
+				const config = {
+					categoryIds: '',
+					categoryTitles: [],
+					contentBox: categoryBox,
+					eventName: this.namespace + 'selectCategory',
+					groupIds: this.groupIds,
+					hiddenInput: '#categoryIds',
+					portletURL: this.categorySelectorURL,
+					singleSelect: true,
+					title: Liferay.Language.get('select-category'),
+					vocabularyIds: this.vocabularyIds
+				};
 
-					this.categoriesSelector_ = new Liferay.AssetTaglibCategoriesSelector(config);
+				this.categoriesSelector_ = new Liferay.AssetTaglibCategoriesSelector(
+					config
+				);
 
-					const entries = this.categoriesSelector_.entries;
+				const entries = this.categoriesSelector_.entries;
 
-					entries.after('add', this.onEntriesChanged_, this);
+				entries.after('add', this.onEntriesChanged_, this);
 
-					this.categoriesSelector_.render();
-				}
-			}.bind(this)
-		);
+				this.categoriesSelector_.render();
+			}
+		});
 	}
 
 	onEntriesChanged_(event) {
@@ -76,14 +76,11 @@ class DefinitionToolbarFilter extends Component {
 
 		if (this._currentSelection == 'optionsNames') {
 			label = Liferay.Language.get('option');
-		}
-		else if (this._currentSelection == 'assetCategoryIds') {
+		} else if (this._currentSelection == 'assetCategoryIds') {
 			label = Liferay.Language.get('category');
-		}
-		else if (this._currentSelection == 'productTypeName') {
+		} else if (this._currentSelection == 'productTypeName') {
 			label = Liferay.Language.get('product-type');
-		}
-		else if (this._currentSelection == 'status') {
+		} else if (this._currentSelection == 'status') {
 			label = Liferay.Language.get('status');
 		}
 
@@ -108,24 +105,29 @@ class DefinitionToolbarFilter extends Component {
 
 			var optionValue = optionValueSelect.value;
 
-			var currentOptionName = optionNameSelect.options[optionNameSelect.selectedIndex];
-			var currentOptionValue = optionValueSelect.options[optionValueSelect.selectedIndex];
+			var currentOptionName =
+				optionNameSelect.options[optionNameSelect.selectedIndex];
+			var currentOptionValue =
+				optionValueSelect.options[optionValueSelect.selectedIndex];
 
-			label = currentOptionName.getAttribute('data-label') + ' - ' + currentOptionValue.getAttribute('data-label');
+			label =
+				currentOptionName.getAttribute('data-label') +
+				' - ' +
+				currentOptionValue.getAttribute('data-label');
 
 			field = 'OPTION_' + this._currentOption;
 
 			value = optionValue;
-		}
-		else if (this._currentSelection == 'assetCategoryIds') {
+		} else if (this._currentSelection == 'assetCategoryIds') {
 			var category = this.categoriesSelector_.entries.values[0];
 
 			label = category.value;
 
 			value = category.categoryId;
-		}
-		else {
-			var currentSelect = this.element.querySelector('#' + this._currentSelection);
+		} else {
+			var currentSelect = this.element.querySelector(
+				'#' + this._currentSelection
+			);
 
 			var fieldValue = currentSelect.value;
 
@@ -133,7 +135,8 @@ class DefinitionToolbarFilter extends Component {
 				return;
 			}
 
-			var currentOption = currentSelect.options[currentSelect.selectedIndex];
+			var currentOption =
+				currentSelect.options[currentSelect.selectedIndex];
 
 			label = currentOption.getAttribute('data-label');
 
@@ -142,13 +145,11 @@ class DefinitionToolbarFilter extends Component {
 
 		label = this._getLabel(this._currentSelection) + ' : ' + label;
 
-		filters.push(
-			{
-				field: field,
-				label: label,
-				value: value
-			}
-		);
+		filters.push({
+			field,
+			label,
+			value
+		});
 
 		this._filters = filters;
 
@@ -182,9 +183,15 @@ class DefinitionToolbarFilter extends Component {
 		var filtersLabels = [];
 		var filtersValues = [];
 
-		var filterFieldsString = url.searchParams.get(this.namespace + 'filterFields');
-		var filtersLabelsString = url.searchParams.get(this.namespace + 'filtersLabels');
-		var filtersValuesString = url.searchParams.get(this.namespace + 'filtersValues');
+		var filterFieldsString = url.searchParams.get(
+			this.namespace + 'filterFields'
+		);
+		var filtersLabelsString = url.searchParams.get(
+			this.namespace + 'filtersLabels'
+		);
+		var filtersValuesString = url.searchParams.get(
+			this.namespace + 'filtersValues'
+		);
 
 		if (filterFieldsString) {
 			filterFields = filterFieldsString.split(',');
@@ -200,17 +207,13 @@ class DefinitionToolbarFilter extends Component {
 
 		var filters = [];
 
-		filterFields.forEach(
-			(field, index) => {
-				filters.push(
-					{
-						field: field,
-						label: filtersLabels[index],
-						value: filtersValues[index]
-					}
-				);
-			}
-		);
+		filterFields.forEach((field, index) => {
+			filters.push({
+				field,
+				label: filtersLabels[index],
+				value: filtersValues[index]
+			});
+		});
 
 		this._filters = filters;
 	}
@@ -222,22 +225,28 @@ class DefinitionToolbarFilter extends Component {
 		var filtersLabels = [];
 		var filtersValues = [];
 
-		this._filters.forEach(
-			(filter) => {
-				filterFields.push(filter.field);
-				filtersLabels.push(filter.label);
-				filtersValues.push(filter.value);
-			}
-		);
+		this._filters.forEach(filter => {
+			filterFields.push(filter.field);
+			filtersLabels.push(filter.label);
+			filtersValues.push(filter.value);
+		});
 
-		url.searchParams.set(this.namespace + 'filterFields', filterFields.join(','));
-		url.searchParams.set(this.namespace + 'filtersLabels', filtersLabels.join(','));
-		url.searchParams.set(this.namespace + 'filtersValues', filtersValues.join(','));
+		url.searchParams.set(
+			this.namespace + 'filterFields',
+			filterFields.join(',')
+		);
+		url.searchParams.set(
+			this.namespace + 'filtersLabels',
+			filtersLabels.join(',')
+		);
+		url.searchParams.set(
+			this.namespace + 'filtersValues',
+			filtersValues.join(',')
+		);
 
 		if (Liferay.SPA) {
 			Liferay.SPA.app.navigate(url.toString());
-		}
-		else {
+		} else {
 			window.location.href = url.toString();
 		}
 	}
@@ -245,7 +254,10 @@ class DefinitionToolbarFilter extends Component {
 	_loadTerms() {
 		var url = new URL(this.cpDefinitionsFacetsURL);
 
-		url.searchParams.append(this.namespace + 'fieldName', this._currentSelection);
+		url.searchParams.append(
+			this.namespace + 'fieldName',
+			this._currentSelection
+		);
 		url.searchParams.set('p_auth', Liferay.authToken);
 
 		fetch(
@@ -260,14 +272,16 @@ class DefinitionToolbarFilter extends Component {
 		).then(
 			(jsonResponse) => {
 				this._terms = jsonResponse;
-			}
-		);
+			});
 	}
 
 	_loadOptionValues() {
 		var url = new URL(this.cpDefinitionsFacetsURL);
 
-		url.searchParams.append(this.namespace + 'fieldName', 'OPTION_' + this._currentOption);
+		url.searchParams.append(
+			this.namespace + 'fieldName',
+			'OPTION_' + this._currentOption
+		);
 		url.searchParams.set('p_auth', Liferay.authToken);
 
 		fetch(
@@ -282,8 +296,7 @@ class DefinitionToolbarFilter extends Component {
 		).then(
 			(jsonResponse) => {
 				this._optionValues = jsonResponse;
-			}
-		);
+			});
 	}
 }
 

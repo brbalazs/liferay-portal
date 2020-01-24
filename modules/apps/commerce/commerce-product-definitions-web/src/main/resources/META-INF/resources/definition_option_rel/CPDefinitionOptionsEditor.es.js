@@ -1,12 +1,16 @@
 import './CPDefinitionOptionDetail.es';
+
 import './CPDefinitionOptionList.es';
+
 import './CPDefinitionOptionValuesEditor.es';
+
 import './CPDefinitionOptionValueDetail.es';
+
 import './CPDefinitionOptionValueList.es';
 
 import Component from 'metal-component';
-import { Config } from 'metal-state';
 import Soy from 'metal-soy';
+import {Config} from 'metal-state';
 
 import templates from './CPDefinitionOptionsEditor.soy';
 
@@ -16,7 +20,6 @@ import templates from './CPDefinitionOptionsEditor.soy';
  */
 
 class CPDefinitionOptionsEditor extends Component {
-
 	created() {
 		this.updateState();
 		this._handleKeyUpForModal = this._handleKeyUpForModal.bind(this);
@@ -35,12 +38,21 @@ class CPDefinitionOptionsEditor extends Component {
 							selectedItemChange: function (event) {
 								var selectedItems = event.newVal;
 
-								var formData = new FormData();
+						var formData = new FormData();
 
-								formData.append(instance.namespace + 'cmd', 'add_multiple');
-								formData.append(instance.namespace + 'cpDefinitionId', instance.cpDefinitionId);
-								formData.append(instance.namespace + 'cpOptionIds', selectedItems);
-								formData.append('p_auth', Liferay.authToken);
+						formData.append(
+							instance.namespace + 'cmd',
+							'add_multiple'
+						);
+						formData.append(
+							instance.namespace + 'cpDefinitionId',
+							instance.cpDefinitionId
+						);
+						formData.append(
+							instance.namespace + 'cpOptionIds',
+							selectedItems
+						);
+						formData.append('p_auth', Liferay.authToken);
 
 								fetch(
 									instance.editProductDefinitionOptionRelURL,
@@ -56,19 +68,16 @@ class CPDefinitionOptionsEditor extends Component {
 									(jsonResponse) => {
 										instance.cpDefinitionId = jsonResponse.cpDefinitionId.toString();
 
-										instance.updateState();
-									}
-								);
-							}
-						},
-						title: Liferay.Language.get('select-options-to-add'),
-						url: instance.optionsItemSelectorURL
+								instance.updateState();
+							});
 					}
-				);
+				},
+				title: Liferay.Language.get('select-options-to-add'),
+				url: instance.optionsItemSelectorURL
+			});
 
-				itemSelectorDialog.open();
-			}
-		);
+			itemSelectorDialog.open();
+		});
 	}
 
 	updateState() {
@@ -91,13 +100,15 @@ class CPDefinitionOptionsEditor extends Component {
 			(jsonResponse) => {
 				this._cpDefinitionOptions = jsonResponse;
 
-				if ((this._cpDefinitionOptions && this._cpDefinitionOptions.length > 0)) {
+				if (
+					this._cpDefinitionOptions &&
+					this._cpDefinitionOptions.length > 0
+				) {
 					if (!this._currentOption || this._currentOption == null) {
 						this._currentOption = this._cpDefinitionOptions[0].cpDefinitionOptionRelId;
 					}
 				}
-			}
-		);
+			});
 	}
 
 	_handleOptionSelected(cpDefinitionOptionRelId) {
@@ -114,8 +125,7 @@ class CPDefinitionOptionsEditor extends Component {
 
 		if (event.success) {
 			this._showNotification(this.successMessage, 'success');
-		}
-		else {
+		} else {
 			this._showNotification(event.message, 'danger');
 		}
 	}
@@ -129,8 +139,7 @@ class CPDefinitionOptionsEditor extends Component {
 
 		if (event.success) {
 			this._showNotification(this.successMessage, 'success');
-		}
-		else {
+		} else {
 			this._showNotification(event.message, 'danger');
 		}
 	}
@@ -165,59 +174,79 @@ class CPDefinitionOptionsEditor extends Component {
 	}
 
 	_showNotification(message, type) {
-		AUI().use(
-			'liferay-notification',
-			() => {
-				new Liferay.Notification(
-					{
-						closeable: true,
-						delay: {
-							hide: 5000,
-							show: 0
-						},
-						duration: 500,
-						message: message,
-						render: true,
-						title: '',
-						type: type
-					}
-				);
-			}
-		);
+		AUI().use('liferay-notification', () => {
+			new Liferay.Notification({
+				closeable: true,
+				delay: {
+					hide: 5000,
+					show: 0
+				},
+				duration: 500,
+				message,
+				render: true,
+				title: '',
+				type
+			});
+		});
 	}
 
 	_updateCPDefinitionId() {
-		let instance = this;
+		const instance = this;
 
 		var url = new URL(window.location.href);
 
-		var urlCPDefinitionId = url.searchParams.get(instance.namespace + 'cpDefinitionId');
+		var urlCPDefinitionId = url.searchParams.get(
+			instance.namespace + 'cpDefinitionId'
+		);
 
 		if (urlCPDefinitionId != instance.cpDefinitionId) {
-			var cpDefinitionId = Math.max(urlCPDefinitionId, instance.cpDefinitionId || 0);
+			var cpDefinitionId = Math.max(
+				urlCPDefinitionId,
+				instance.cpDefinitionId || 0
+			);
 
 			instance.cpDefinitionId = cpDefinitionId.toString();
 
-			var cpDefinitionOptionsURL = new URL(instance.cpDefinitionOptionsURL);
+			var cpDefinitionOptionsURL = new URL(
+				instance.cpDefinitionOptionsURL
+			);
 
-			cpDefinitionOptionsURL.searchParams.set(instance.namespace + 'cpDefinitionId', cpDefinitionId);
+			cpDefinitionOptionsURL.searchParams.set(
+				instance.namespace + 'cpDefinitionId',
+				cpDefinitionId
+			);
 
 			instance.cpDefinitionOptionsURL = cpDefinitionOptionsURL.href;
 
-			var cpDefinitionOptionValueRelURL = new URL(instance.cpDefinitionOptionValueRelURL);
+			var cpDefinitionOptionValueRelURL = new URL(
+				instance.cpDefinitionOptionValueRelURL
+			);
 
-			cpDefinitionOptionValueRelURL.searchParams.set(instance.namespace + 'cpDefinitionId', cpDefinitionId);
+			cpDefinitionOptionValueRelURL.searchParams.set(
+				instance.namespace + 'cpDefinitionId',
+				cpDefinitionId
+			);
 
-			instance.cpDefinitionOptionValueRelURL = cpDefinitionOptionValueRelURL.href;
+			instance.cpDefinitionOptionValueRelURL =
+				cpDefinitionOptionValueRelURL.href;
 
-			var cpDefinitionOptionValueRelsURL = new URL(instance.cpDefinitionOptionValueRelsURL);
+			var cpDefinitionOptionValueRelsURL = new URL(
+				instance.cpDefinitionOptionValueRelsURL
+			);
 
-			cpDefinitionOptionValueRelsURL.searchParams.set(instance.namespace + 'cpDefinitionId', cpDefinitionId);
+			cpDefinitionOptionValueRelsURL.searchParams.set(
+				instance.namespace + 'cpDefinitionId',
+				cpDefinitionId
+			);
 
-			instance.cpDefinitionOptionValueRelsURL = cpDefinitionOptionValueRelsURL.href;
+			instance.cpDefinitionOptionValueRelsURL =
+				cpDefinitionOptionValueRelsURL.href;
 
 			if (urlCPDefinitionId != cpDefinitionId) {
-				url.searchParams.set(instance.namespace + 'cpDefinitionId', cpDefinitionId);
+				url.searchParams.set(
+					instance.namespace + 'cpDefinitionId',
+					cpDefinitionId
+				);
 
 				window.history.pushState({}, '', url);
 			}

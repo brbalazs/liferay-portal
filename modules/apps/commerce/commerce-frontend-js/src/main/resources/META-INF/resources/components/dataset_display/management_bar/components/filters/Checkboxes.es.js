@@ -15,17 +15,15 @@ function CheckboxesFilter(props) {
 
 		if (!value.includes(itemValue)) {
 			return setValue(value.concat(itemValue));
-		}
-		else if (value.length === 1) {
+		} else if (value.length === 1) {
 			return setValue(undefined);
-		}
-		else {
+		} else {
 			return setValue(value.filter(v => v !== itemValue));
 		}
 	}
 
 	return (
-		<React.Fragment>
+		<>
 			{props.items.map((item, i) => {
 				let checked = false;
 
@@ -57,8 +55,8 @@ function CheckboxesFilter(props) {
 						: Liferay.Language.get('add-filter')}
 				</ClayButton>
 			</div>
-		</React.Fragment>
+		</>
 	);
-};
+}
 
 export default CheckboxesFilter;

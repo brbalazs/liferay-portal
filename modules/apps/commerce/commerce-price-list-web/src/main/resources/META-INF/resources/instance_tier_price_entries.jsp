@@ -200,14 +200,26 @@ PortalUtil.addPortletBreadcrumbEntry(request, title, StringPool.BLANK, data);
 
 	<aui:script>
 		function <portlet:namespace />deleteCommerceTierPriceEntries() {
-			if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-tier-price-entries" />')) {
+			if (
+				confirm(
+					'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-tier-price-entries" />'
+				)
+			) {
 				var form = AUI.$(document.<portlet:namespace />fm);
 
 				form.attr('method', 'post');
 				form.fm('<%= Constants.CMD %>').val('<%= Constants.DELETE %>');
-				form.fm('deleteCommerceTierPriceEntryIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
+				form.fm('deleteCommerceTierPriceEntryIds').val(
+					Liferay.Util.listCheckedExcept(
+						form,
+						'<portlet:namespace />allRowIds'
+					)
+				);
 
-				submitForm(form, '<portlet:actionURL name="editCPInstanceCommerceTierPriceEntry" />');
+				submitForm(
+					form,
+					'<portlet:actionURL name="editCPInstanceCommerceTierPriceEntry" />'
+				);
 			}
 		}
 	</aui:script>

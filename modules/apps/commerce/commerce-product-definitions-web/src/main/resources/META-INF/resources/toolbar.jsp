@@ -111,10 +111,11 @@ String definitionToolbarFilterRequire = npmResolver.resolveModuleName("commerce-
 <aui:script require="<%= definitionToolbarFilterRequire %>">
 	var definitionToolbarFilter = new DefinitionToolbarFilter.default(
 		{
-			categorySelectorURL: '<%= cpDefinitionsDisplayContext.getCategorySelectorURL(renderResponse.getNamespace() + "selectCategory") %>',
-			cpDefinitionsFacetsURL : '<%= cpDefinitionsFacetsURL.toString() %>',
+			categorySelectorURL:
+				'<%= cpDefinitionsDisplayContext.getCategorySelectorURL(renderResponse.getNamespace() + "selectCategory") %>',
+			cpDefinitionsFacetsURL: '<%= cpDefinitionsFacetsURL.toString() %>',
 			groupIds: '<%= themeDisplay.getScopeGroupId() %>',
-			namespace : '<portlet:namespace />',
+			namespace: '<portlet:namespace />',
 			pathThemeImages: '<%= themeDisplay.getPathThemeImages() %>',
 			portletURL: '<%= cpDefinitionsDisplayContext.getPortletURL() %>',
 			vocabularyIds: '<%= cpDefinitionsDisplayContext.getVocabularyIds() %>'
@@ -125,12 +126,21 @@ String definitionToolbarFilterRequire = npmResolver.resolveModuleName("commerce-
 
 <aui:script>
 	function <portlet:namespace />deleteCPDefinitions() {
-		if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-products" />')) {
+		if (
+			confirm(
+				'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-products" />'
+			)
+		) {
 			var form = AUI.$(document.<portlet:namespace />fm);
 
 			form.attr('method', 'post');
 			form.fm('<%= Constants.CMD %>').val('<%= Constants.DELETE %>');
-			form.fm('deleteCPDefinitionIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
+			form.fm('deleteCPDefinitionIds').val(
+				Liferay.Util.listCheckedExcept(
+					form,
+					'<portlet:namespace />allRowIds'
+				)
+			);
 
 			submitForm(form, '<portlet:actionURL name="editProductDefinition" />');
 		}

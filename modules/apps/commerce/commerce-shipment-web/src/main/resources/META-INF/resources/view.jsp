@@ -181,10 +181,19 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 
 	<aui:script>
 		function <portlet:namespace />deleteCommerceShipments() {
-			if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-shipments" />')) {
+			if (
+				confirm(
+					'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-shipments" />'
+				)
+			) {
 				var form = AUI.$(document.<portlet:namespace />fm);
 
-				form.fm('deleteCommerceShipmentIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
+				form.fm('deleteCommerceShipmentIds').val(
+					Liferay.Util.listCheckedExcept(
+						form,
+						'<portlet:namespace />allRowIds'
+					)
+				);
 
 				submitForm(form);
 			}

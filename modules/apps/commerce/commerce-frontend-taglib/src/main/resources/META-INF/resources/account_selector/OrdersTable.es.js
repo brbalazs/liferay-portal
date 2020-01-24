@@ -1,20 +1,16 @@
 'use strict';
 
+import Component from 'metal-component';
 import debounce from 'metal-debounce';
+import Soy, {Config} from 'metal-soy';
 
 import template from './OrdersTable.soy';
-import Component from 'metal-component';
-import Soy, {Config} from 'metal-soy';
 
 import '../autocomplete_item/AutocompleteItem.es';
 
 class OrdersTable extends Component {
-
 	created() {
-		this._getOrders = debounce(
-			this._getOrders.bind(this),
-			500
-		);
+		this._getOrders = debounce(this._getOrders.bind(this), 500);
 	}
 
 	_getOrders() {
@@ -34,7 +30,6 @@ class OrdersTable extends Component {
 		evt.preventDefault();
 		return this._getOrders();
 	}
-
 }
 
 Soy.register(OrdersTable, template);
@@ -42,27 +37,17 @@ Soy.register(OrdersTable, template);
 OrdersTable.STATE = {
 	accountName: Config.string(),
 	createNewOrderLink: Config.string(),
-	currentOrderId: Config.oneOfType(
-		[
-			Config.number(),
-			Config.string()
-		]
-	),
-	filterString: Config.string().value('').internal(),
+	currentOrderId: Config.oneOfType([Config.number(), Config.string()]),
+	filterString: Config.string()
+		.value('')
+		.internal(),
 	orders: Config.arrayOf(
-		Config.shapeOf(
-			{
-				addOrderLink: Config.string(),
-				id: Config.oneOfType(
-					[
-						Config.number(),
-						Config.string()
-					]
-				).required(),
-				lastEdit: Config.string(),
-				status: Config.string()
-			}
-		)
+		Config.shapeOf({
+			addOrderLink: Config.string(),
+			id: Config.oneOfType([Config.number(), Config.string()]).required(),
+			lastEdit: Config.string(),
+			status: Config.string()
+		})
 	),
 	showBack: Config.bool().value(true),
 	spritemap: Config.string().required(),

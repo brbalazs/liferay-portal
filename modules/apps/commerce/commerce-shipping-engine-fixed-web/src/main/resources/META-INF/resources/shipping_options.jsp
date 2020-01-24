@@ -138,10 +138,19 @@ SearchContainer<CommerceShippingFixedOption> commerceShippingFixedOptionSearchCo
 
 <aui:script>
 	function <portlet:namespace />deleteCommerceShippingFixedOptions() {
-		if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-shipping-options" />')) {
+		if (
+			confirm(
+				'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-shipping-options" />'
+			)
+		) {
 			var form = AUI.$(document.<portlet:namespace />fm);
 
-			form.fm('deleteCommerceShippingFixedOptionIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
+			form.fm('deleteCommerceShippingFixedOptionIds').val(
+				Liferay.Util.listCheckedExcept(
+					form,
+					'<portlet:namespace />allRowIds'
+				)
+			);
 
 			submitForm(form);
 		}
@@ -154,23 +163,21 @@ SearchContainer<CommerceShippingFixedOption> commerceShippingFixedOptionSearchCo
 			title = '<liferay-ui:message key="add-shipping-option" />';
 		}
 
-		Liferay.Util.openWindow(
-			{
-				dialog: {
-					centered: true,
-					destroyOnClose: true,
-					height: 516,
-					modal: true,
-					width: 600
-				},
-				dialogIframe: {
-					bodyCssClass: 'dialog-with-footer'
-				},
-				id: 'editShippingFixedOptionDialog',
-				title: title,
-				uri: uri
-			}
-		);
+		Liferay.Util.openWindow({
+			dialog: {
+				centered: true,
+				destroyOnClose: true,
+				height: 516,
+				modal: true,
+				width: 600
+			},
+			dialogIframe: {
+				bodyCssClass: 'dialog-with-footer'
+			},
+			id: 'editShippingFixedOptionDialog',
+			title: title,
+			uri: uri
+		});
 	}
 
 	Liferay.provide(

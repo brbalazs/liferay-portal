@@ -47,6 +47,6 @@ function NumberFilter(props) {
 			</div>
 		</div>
 	);
-};
+}
 
 export default NumberFilter;

@@ -1,23 +1,25 @@
 import React from 'react';
-import datasetDisplayLauncher from './entry.es';
+
 import sidePanelLauncher from './../side_panel/entry.es';
+import datasetDisplayLauncher from './entry.es';
 
 import '../../styles/main.scss';
 
 const fluidDataSetDisplayProps = {
-	apiUrl: 'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
+	apiUrl:
+		'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
 	bulkActions: [
 		{
 			icon: 'plus',
 			label: 'Add',
 			sidePanelCompatible: true,
-			url: '/side-panel/edit.html',
+			url: '/side-panel/edit.html'
 		},
 		{
 			icon: 'trash',
 			label: 'Delete',
 			method: 'delete',
-			url: '/delete',
+			url: '/delete'
 		}
 	],
 	creationMenuItems: [
@@ -60,10 +62,10 @@ const fluidDataSetDisplayProps = {
 					},
 					{
 						label: 'Discounts',
-						value: [ 40, 30, 20, 10 ]
+						value: [40, 30, 20, 10]
 					}
 				],
-				final: '12 Gazillions',
+				final: '12 Gazillions'
 			},
 			skuId: 35663,
 			testLink: {
@@ -74,8 +76,8 @@ const fluidDataSetDisplayProps = {
 				allowedQuantities: [3, 6, 7, 100],
 				disabled: false,
 				inputName: 'asd-quantity',
-				quantity: 6,
-			},
+				quantity: 6
+			}
 		},
 		{
 			id: 'sdf',
@@ -90,8 +92,8 @@ const fluidDataSetDisplayProps = {
 				maxQuantity: 1000,
 				minQuantity: 2,
 				multipleQuantity: 2,
-				quantity: 6,
-			},
+				quantity: 6
+			}
 		}
 	],
 	pageSize: 5,
@@ -128,23 +130,28 @@ const fluidDataSetDisplayProps = {
 	style: 'fluid',
 	views: [
 		{
-			component: (props) => {
+			component: props => {
 				return (
-					<React.Fragment>
-						<h4 className="p-3 mb-0 bg-dark text-center text-white">Hey, I'm a custom template from the outside</h4>
+					<>
+						<h4 className="p-3 mb-0 bg-dark text-center text-white">
+							Hey, I'm a custom template from the outside
+						</h4>
 						{props.items.map(item => (
-							<div className="p-3 text-center bg-white" key={item.skuId}>
+							<div
+								className="p-3 text-center bg-white"
+								key={item.skuId}
+							>
 								<strong className="mr-3">{item.skuId}</strong>
 								{item.name}
 							</div>
 						))}
-					</React.Fragment>
-				)
+					</>
+				);
 			},
 			icon: 'merge',
 			id: 'custom-table',
-			label: 'Hey you don\'t know me',
-			schema: {},
+			label: "Hey you don't know me",
+			schema: {}
 		},
 
 		{
@@ -161,39 +168,40 @@ const fluidDataSetDisplayProps = {
 					{
 						contentRenderer: 'link',
 						fieldName: 'testLink',
-						label: 'Example link',
+						label: 'Example link'
 					},
 					{
 						contentRenderer: 'quantitySelector',
 						fieldName: 'testQuantity',
-						label: 'Qt. Selector',
-					},
-				],
-			},
-		},
-	],
-}
+						label: 'Qt. Selector'
+					}
+				]
+			}
+		}
+	]
+};
 
 const dataSetDisplayProps = {
 	activeView: 2,
-	apiUrl: 'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
+	apiUrl:
+		'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
 	bulkActions: [
 		{
 			icon: 'plus',
 			label: 'Add',
 			sidePanelCompatible: true,
-			url: '/side-panel/edit.html',
+			url: '/side-panel/edit.html'
 		},
 		{
 			icon: 'trash',
 			label: 'Delete',
 			method: 'delete',
-			url: '/delete',
+			url: '/delete'
 		}
 	],
 	creationMenuItems: [
 		{
-			href: "/standard/edit",
+			href: '/standard/edit',
 			label: 'Add'
 		},
 		{
@@ -203,13 +211,9 @@ const dataSetDisplayProps = {
 		},
 		{
 			apiUrl: 'api/endpoint',
-			editableFields: [
-				'name',
-				'quantity',
-				'quantity'
-			],
+			editableFields: ['name', 'quantity', 'quantity'],
 			label: 'Add via inline',
-			type: 'inline',
+			type: 'inline'
 		}
 	],
 	filters: [
@@ -291,14 +295,15 @@ const dataSetDisplayProps = {
 		{
 			actionItems: [
 				{
-					cssClasses: "",
-					href: "http://localhost:8080/group/guest/~/control_panel/manage?p_p_id=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&p_p_lifecycle=0&p_p_state=maximized&_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_javax.portlet.action=editCommerceOrderItem&_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_cmd=delete&_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_redirect=%2Fgroup%2Fguest%2F%7E%2Fcontrol_panel%2Fmanage%3Fp_p_id%3Dcom_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet%26p_p_lifecycle%3D0%26p_p_state%3Dmaximized%26p_p_mode%3Dview%26_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_redirect%3Dhttp%253A%252F%252Flocalhost%253A8080%252Fgroup%252Fguest%252F%7E%252Fcontrol_panel%252Fmanage%253Fp_p_id%253Dcom_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet%2526p_p_lifecycle%253D0%2526p_p_state%253Dmaximized%2526p_p_mode%253Dview%2526p_p_auth%253DVLNBjvR0%26_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_mvcRenderCommandName%3DeditCommerceOrder%26_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_commerceOrderId%3D38938%26p_p_auth%3DVLNBjvR0&_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_commerceOrderItemId=38943&p_p_auth=VLNBjvR0",
-					icon: "trash",
-					label: "Delete",
-					onClick: "",
+					cssClasses: '',
+					href:
+						'http://localhost:8080/group/guest/~/control_panel/manage?p_p_id=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&p_p_lifecycle=0&p_p_state=maximized&_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_javax.portlet.action=editCommerceOrderItem&_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_cmd=delete&_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_redirect=%2Fgroup%2Fguest%2F%7E%2Fcontrol_panel%2Fmanage%3Fp_p_id%3Dcom_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet%26p_p_lifecycle%3D0%26p_p_state%3Dmaximized%26p_p_mode%3Dview%26_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_redirect%3Dhttp%253A%252F%252Flocalhost%253A8080%252Fgroup%252Fguest%252F%7E%252Fcontrol_panel%252Fmanage%253Fp_p_id%253Dcom_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet%2526p_p_lifecycle%253D0%2526p_p_state%253Dmaximized%2526p_p_mode%253Dview%2526p_p_auth%253DVLNBjvR0%26_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_mvcRenderCommandName%3DeditCommerceOrder%26_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_commerceOrderId%3D38938%26p_p_auth%3DVLNBjvR0&_com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet_commerceOrderItemId=38943&p_p_auth=VLNBjvR0',
+					icon: 'trash',
+					label: 'Delete',
+					onClick: '',
 					order: 0,
 					quickAction: false,
-					separator: false,
+					separator: false
 				}
 			],
 			bookedQuantityId: 0,
@@ -330,22 +335,22 @@ const dataSetDisplayProps = {
 			skuId: 35663,
 			status: {
 				displayStyle: 'info',
-				label: 'delivered',
+				label: 'delivered'
 			},
 			subscription: false,
 			thumbnail: {
 				alt: 'ABS Sensor',
 				shape: 'rounded',
 				size: 'lg',
-				url: 'https://via.placeholder.com/150',
+				url: 'https://via.placeholder.com/150'
 			},
 			unitPrice: 50
 		},
 		{
 			bookedQuantityId: 0,
 			comments: {
-				name: "Square pls",
-				quantity: "This is a test! I don't like this number btw",
+				name: 'Square pls',
+				quantity: "This is a test! I don't like this number btw"
 			},
 			date: {
 				icon: 'date',
@@ -375,14 +380,14 @@ const dataSetDisplayProps = {
 			skuId: 36456,
 			status: {
 				displayStyle: 'secondary',
-				label: 'delivered',
+				label: 'delivered'
 			},
 			subscription: false,
 			thumbnail: {
 				alt: 'ABS Sensor',
 				shape: 'rounded',
 				size: 'lg',
-				url: 'https://via.placeholder.com/150',
+				url: 'https://via.placeholder.com/150'
 			},
 			unitPrice: 152
 		},
@@ -419,7 +424,7 @@ const dataSetDisplayProps = {
 				alt: 'ABS Sensor',
 				shape: 'rounded',
 				size: 'lg',
-				url: 'https://via.placeholder.com/150',
+				url: 'https://via.placeholder.com/150'
 			},
 			unitPrice: 70
 		},
@@ -453,14 +458,14 @@ const dataSetDisplayProps = {
 			skuId: 35798,
 			status: {
 				displayStyle: 'success',
-				label: 'delivered',
+				label: 'delivered'
 			},
 			subscription: false,
 			thumbnail: {
 				alt: 'ABS Sensor',
 				shape: 'rounded',
 				size: 'lg',
-				url: 'https://via.placeholder.com/150',
+				url: 'https://via.placeholder.com/150'
 			},
 			unitPrice: 21
 		},
@@ -494,14 +499,14 @@ const dataSetDisplayProps = {
 			skuId: 35872,
 			status: {
 				displayStyle: 'warning',
-				label: 'delivered',
+				label: 'delivered'
 			},
 			subscription: false,
 			thumbnail: {
 				alt: 'ABS Sensor',
 				shape: 'rounded',
 				size: 'lg',
-				url: 'https://via.placeholder.com/150',
+				url: 'https://via.placeholder.com/150'
 			},
 			unitPrice: 40
 		},
@@ -535,14 +540,14 @@ const dataSetDisplayProps = {
 			skuId: 36474,
 			status: {
 				displayStyle: 'danger',
-				label: 'delivered',
+				label: 'delivered'
 			},
 			subscription: false,
 			thumbnail: {
 				alt: 'ABS Sensor',
 				shape: 'rounded',
 				size: 'lg',
-				url: 'https://via.placeholder.com/150',
+				url: 'https://via.placeholder.com/150'
 			},
 			unitPrice: 18
 		},
@@ -571,20 +576,20 @@ const dataSetDisplayProps = {
 			sku: {
 				label: 'MIN93021',
 				size: 'lg',
-				url: '/sidepanel-1.html',
+				url: '/sidepanel-1.html'
 			},
 			skuExternalReferenceCode: 'min93021',
 			skuId: 35900,
 			status: {
 				displayStyle: 'success',
-				label: 'delivered',
+				label: 'delivered'
 			},
 			subscription: false,
 			thumbnail: {
 				alt: 'ABS Sensor',
 				shape: 'rounded',
 				size: 'lg',
-				url: 'https://via.placeholder.com/150',
+				url: 'https://via.placeholder.com/150'
 			},
 			unitPrice: 90
 		},
@@ -613,20 +618,20 @@ const dataSetDisplayProps = {
 			sku: {
 				label: 'MIN00674',
 				size: 'sm',
-				url: '/sidepanel-1.html',
+				url: '/sidepanel-1.html'
 			},
 			skuExternalReferenceCode: 'min00674',
 			skuId: 36132,
 			status: {
 				displayStyle: 'success',
-				label: 'delivered',
+				label: 'delivered'
 			},
 			subscription: false,
 			thumbnail: {
 				alt: 'ABS Sensor',
 				shape: 'rounded',
 				size: 'lg',
-				url: 'https://via.placeholder.com/150',
+				url: 'https://via.placeholder.com/150'
 			},
 			unitPrice: 695
 		},
@@ -660,14 +665,14 @@ const dataSetDisplayProps = {
 			skuId: 36553,
 			status: {
 				displayStyle: 'success',
-				label: 'delivered',
+				label: 'delivered'
 			},
 			subscription: false,
 			thumbnail: {
 				alt: 'ABS Sensor',
 				shape: 'rounded',
 				size: 'lg',
-				url: 'https://via.placeholder.com/150',
+				url: 'https://via.placeholder.com/150'
 			},
 			unitPrice: 104
 		},
@@ -701,14 +706,14 @@ const dataSetDisplayProps = {
 			skuId: 36492,
 			status: {
 				displayStyle: 'success',
-				label: 'delivered',
+				label: 'delivered'
 			},
 			subscription: false,
 			thumbnail: {
 				alt: 'ABS Sensor',
 				shape: 'rounded',
 				size: 'lg',
-				url: 'https://via.placeholder.com/150',
+				url: 'https://via.placeholder.com/150'
 			},
 			unitPrice: 89
 		},
@@ -742,14 +747,14 @@ const dataSetDisplayProps = {
 			skuId: 36700,
 			status: {
 				displayStyle: 'success',
-				label: 'delivered',
+				label: 'delivered'
 			},
 			subscription: false,
 			thumbnail: {
 				alt: 'ABS Sensor',
 				shape: 'rounded',
 				size: 'lg',
-				url: 'https://via.placeholder.com/150',
+				url: 'https://via.placeholder.com/150'
 			},
 			unitPrice: 89
 		},
@@ -783,14 +788,14 @@ const dataSetDisplayProps = {
 			skuId: 36604,
 			status: {
 				displayStyle: 'success',
-				label: 'delivered',
+				label: 'delivered'
 			},
 			subscription: false,
 			thumbnail: {
 				alt: 'ABS Sensor',
 				shape: 'rounded',
 				size: 'lg',
-				url: 'https://via.placeholder.com/150',
+				url: 'https://via.placeholder.com/150'
 			},
 			unitPrice: 211
 		},
@@ -824,14 +829,14 @@ const dataSetDisplayProps = {
 			skuId: 36744,
 			status: {
 				displayStyle: 'success',
-				label: 'delivered',
+				label: 'delivered'
 			},
 			subscription: false,
 			thumbnail: {
 				alt: 'ABS Sensor',
 				shape: 'rounded',
 				size: 'lg',
-				url: 'https://via.placeholder.com/150',
+				url: 'https://via.placeholder.com/150'
 			},
 			unitPrice: 396
 		}
@@ -871,18 +876,23 @@ const dataSetDisplayProps = {
 	spritemap: './assets/icons.svg',
 	views: [
 		{
-			component: (props) => {
+			component: props => {
 				return (
-					<React.Fragment>
-						<h4 className="p-3 mb-0 bg-dark text-center text-white">Hey, I'm a custom template from the outside</h4>
+					<>
+						<h4 className="p-3 mb-0 bg-dark text-center text-white">
+							Hey, I'm a custom template from the outside
+						</h4>
 						{props.items.map(item => (
-							<div className="p-3 text-center bg-white" key={item.skuId}>
+							<div
+								className="p-3 text-center bg-white"
+								key={item.skuId}
+							>
 								<strong className="mr-3">{item.skuId}</strong>
 								{item.name}
 							</div>
 						))}
-					</React.Fragment>
-				)
+					</>
+				);
 			},
 			icon: 'merge',
 			label: 'Custom list'
@@ -890,7 +900,7 @@ const dataSetDisplayProps = {
 		{
 			contentRendererModuleUrl: '/fake/url',
 			icon: 'code',
-			label: 'JSON',
+			label: 'JSON'
 		},
 		{
 			contentRenderer: 'table',
@@ -899,16 +909,17 @@ const dataSetDisplayProps = {
 			schema: {
 				fields: [
 					{
-						contentRendererModuleUrl: '/fake/content/renderer/picture',
+						contentRendererModuleUrl:
+							'/fake/content/renderer/picture',
 						expand: false,
 						fieldName: 'thumbnail',
-						label: '',
+						label: ''
 					},
 					{
 						contentRenderer: 'sidePanelLink',
 						fieldName: 'sku',
 						label: 'SKU',
-						sortable: true,
+						sortable: true
 					},
 					{
 						fieldName: 'name',
@@ -923,12 +934,12 @@ const dataSetDisplayProps = {
 					{
 						contentRenderer: 'modalLink',
 						fieldName: 'order',
-						label: 'Order',
+						label: 'Order'
 					},
 					{
 						contentRenderer: 'label',
 						fieldName: 'status',
-						label: 'Status',
+						label: 'Status'
 					},
 					{
 						fieldName: 'quantity',
@@ -942,10 +953,10 @@ const dataSetDisplayProps = {
 					},
 					{
 						contentRenderer: 'modalLink',
-						fieldName: 'date',
-					},
-				],
-			},
+						fieldName: 'date'
+					}
+				]
+			}
 		},
 		{
 			activeItemValue: 36553,
@@ -954,17 +965,18 @@ const dataSetDisplayProps = {
 			label: 'List',
 			schema: {
 				description: 'name',
-				title: 'skuId',
-			},
+				title: 'skuId'
+			}
 		}
 	]
-}
+};
 
 const emailsDataSetDisplayProps = {
-	apiUrl: 'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
+	apiUrl:
+		'http://localhost:8080/o/commerce-ui/commerce-data-set/20124/commerceOrderItems/commerceOrderItems?plid=1&portletId=com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet&commerceOrderId=38938',
 	creationMenuItems: [
 		{
-			href: "/standard/edit",
+			href: '/standard/edit',
 			label: 'Add'
 		},
 		{
@@ -974,13 +986,9 @@ const emailsDataSetDisplayProps = {
 		},
 		{
 			apiUrl: 'api/endpoint',
-			editableFields: [
-				'name',
-				'quantity',
-				'quantity'
-			],
+			editableFields: ['name', 'quantity', 'quantity'],
 			label: 'Add via inline',
-			type: 'inline',
+			type: 'inline'
 		}
 	],
 	id: 'emailsDatasetDIsplay',
@@ -988,46 +996,50 @@ const emailsDataSetDisplayProps = {
 		{
 			actionItems: [
 				{
-					href: "/delete/action/url",
-					icon: "trash",
-					label: "Delete",
+					href: '/delete/action/url',
+					icon: 'trash',
+					label: 'Delete'
 				}
 			],
 			author: {
-				avatarUrl: "https://via.placeholder.com/150",
-				email: "john.doe@gmail.com",
-				name: "John Doe",
+				avatarUrl: 'https://via.placeholder.com/150',
+				email: 'john.doe@gmail.com',
+				name: 'John Doe'
 			},
-			date: "1 day ago",
+			date: '1 day ago',
 			status: {
 				displayStyle: 'danger',
-				label: "Order not placed"
+				label: 'Order not placed'
 			},
-			subject: "Mauris blandit aliquet elit, eget tincidunt nibh pulvinar.",
-			summary: "Pellentesque in ipsum id orci porta dapibus. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla quis lorem ut libero malesuada feugiat. Pellentesque in ipsum id orci porta dapibus...",
-			url: "/side-panel/email.html",
+			subject:
+				'Mauris blandit aliquet elit, eget tincidunt nibh pulvinar.',
+			summary:
+				'Pellentesque in ipsum id orci porta dapibus. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla quis lorem ut libero malesuada feugiat. Pellentesque in ipsum id orci porta dapibus...',
+			url: '/side-panel/email.html'
 		},
 		{
 			actionItems: [
 				{
-					href: "/delete/action/url",
-					icon: "trash",
-					label: "Delete",
+					href: '/delete/action/url',
+					icon: 'trash',
+					label: 'Delete'
 				}
 			],
 			author: {
-				avatarUrl: "https://via.placeholder.com/150",
-				email: "john.doe@gmail.com",
-				name: "John Doe",
+				avatarUrl: 'https://via.placeholder.com/150',
+				email: 'john.doe@gmail.com',
+				name: 'John Doe'
 			},
-			date: "14th April 2018",
+			date: '14th April 2018',
 			status: {
 				displayStyle: 'success',
-				label: "Order placed"
+				label: 'Order placed'
 			},
-			subject: "Curabitur aliquet quam id dui posuere blandit. Proin eget tortor risus.",
-			summary: "Cras ultricies ligula sed magna dictum porta. Donec rutrum congue leo eget malesuada. Proin eget tortor risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Quisque velit nisi, pretium ut lacinia in, elementum id enim...",
-			url: "/side-panel/email.html",
+			subject:
+				'Curabitur aliquet quam id dui posuere blandit. Proin eget tortor risus.',
+			summary:
+				'Cras ultricies ligula sed magna dictum porta. Donec rutrum congue leo eget malesuada. Proin eget tortor risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Quisque velit nisi, pretium ut lacinia in, elementum id enim...',
+			url: '/side-panel/email.html'
 		}
 	],
 	pageSize: 5,
@@ -1068,12 +1080,24 @@ const emailsDataSetDisplayProps = {
 			icon: 'email',
 			label: 'Email'
 		}
-	],
-}
+	]
+};
 
-datasetDisplayLauncher('emails-dataset-display', 'emails-dataset-display-root-id', emailsDataSetDisplayProps);
-datasetDisplayLauncher('fluid-dataset-display', 'fluid-dataset-display-root-id', fluidDataSetDisplayProps);
-datasetDisplayLauncher('dataset-display', 'dataset-display-root-id', dataSetDisplayProps);
+datasetDisplayLauncher(
+	'emails-dataset-display',
+	'emails-dataset-display-root-id',
+	emailsDataSetDisplayProps
+);
+datasetDisplayLauncher(
+	'fluid-dataset-display',
+	'fluid-dataset-display-root-id',
+	fluidDataSetDisplayProps
+);
+datasetDisplayLauncher(
+	'dataset-display',
+	'dataset-display-root-id',
+	dataSetDisplayProps
+);
 
 sidePanelLauncher('sidePanel', 'side-panel-root-id', {
 	containerSelector: '.container',
@@ -1082,20 +1106,20 @@ sidePanelLauncher('sidePanel', 'side-panel-root-id', {
 		{
 			href: '/side-panel/comments.html',
 			icon: 'comments',
-			slug: 'comments',
+			slug: 'comments'
 		},
 		{
 			href: '/side-panel/edit.html',
 			icon: 'pencil',
-			slug: 'edit',
+			slug: 'edit'
 		},
 		{
 			href: '/side-panel/changelog.html',
 			icon: 'restore',
-			slug: 'changelog',
-		},
+			slug: 'changelog'
+		}
 	],
 	size: 'md',
 	spritemap: './assets/icons.svg',
-	topAnchorSelector: '.top-anchor',
+	topAnchorSelector: '.top-anchor'
 });

@@ -108,10 +108,19 @@ portletDisplay.setURLBack(redirect);
 
 	<aui:script>
 		function <portlet:namespace />deleteCommerceWishListItems() {
-			if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-items" />')) {
+			if (
+				confirm(
+					'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-items" />'
+				)
+			) {
 				var form = AUI.$(document.<portlet:namespace />fm);
 
-				form.fm('deleteCommerceWishListItemIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
+				form.fm('deleteCommerceWishListItemIds').val(
+					Liferay.Util.listCheckedExcept(
+						form,
+						'<portlet:namespace />allRowIds'
+					)
+				);
 
 				submitForm(form);
 			}

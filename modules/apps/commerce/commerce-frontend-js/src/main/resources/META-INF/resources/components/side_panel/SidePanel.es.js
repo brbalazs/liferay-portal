@@ -1,22 +1,26 @@
 import ClayButton from '@clayui/button';
 import ClayIcon from '@clayui/icon';
+import {ClayIconSpriteContext} from '@clayui/icon';
 import ClayLoadingIndicator from '@clayui/loading-indicator';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import React from 'react';
 
-import {OPEN, OPEN_SIDE_PANEL, CLOSE_SIDE_PANEL, IFRAME_LOADED} from '../../utilities/eventsDefinitions.es';
+import {
+	OPEN,
+	OPEN_SIDE_PANEL,
+	CLOSE_SIDE_PANEL,
+	IFRAME_LOADED
+} from '../../utilities/eventsDefinitions.es';
+import {iframeHandlerModalId} from '../../utilities/iframes.es';
 import {debounce} from '../../utilities/index.es';
-import { exposeSidePanel } from '../../utilities/sidePanels.es';
-import SideMenu from './SideMenu.es';
-import { ClayIconSpriteContext } from '@clayui/icon';
-import PropTypes from 'prop-types';
+import {exposeSidePanel} from '../../utilities/sidePanels.es';
 import Modal from '../modal/Modal.es';
-import { iframeHandlerModalId } from '../../utilities/iframes.es';
-import classNames from 'classnames';
+import SideMenu from './SideMenu.es';
 
 export default class SidePanel extends React.Component {
-
-	static defaultSize = 'md'
+	static defaultSize = 'md';
 
 	constructor(props) {
 		super(props);
@@ -29,9 +33,11 @@ export default class SidePanel extends React.Component {
 			onAfterSubmit: props.onAfterSubmit || null,
 			size: props.size || this.defaultSize,
 			topDistance: 0,
-			visible: !!props.visible,
+			visible: !!props.visible
 		};
-		this.handleIframeClickOnSubmit = this.handleIframeClickOnSubmit.bind(this);
+		this.handleIframeClickOnSubmit = this.handleIframeClickOnSubmit.bind(
+			this
+		);
 		this.handleIframeSubmit = this.handleIframeSubmit.bind(this);
 		this.handleContentLoaded = this.handleContentLoaded.bind(this);
 		this.close = this.close.bind(this);
@@ -51,12 +57,15 @@ export default class SidePanel extends React.Component {
 		}
 
 		if (this.props.containerSelector) {
-			const container = document.querySelector(this.props.containerSelector);
+			const container = document.querySelector(
+				this.props.containerSelector
+			);
 			if (container) {
 				container.classList.add('with-side-panel');
-			}
-			else {
-				throw new Error(`Container: "${this.props.containerSelector}" not found!`)
+			} else {
+				throw new Error(
+					`Container: "${this.props.containerSelector}" not found!`
+				);
 			}
 		}
 
@@ -70,8 +79,8 @@ export default class SidePanel extends React.Component {
 			activeMenuItem: this.state.active,
 			size: this.state.size,
 			url: this.state.currentUrl,
-			visible: this.state.visible,
-		}))
+			visible: this.state.visible
+		}));
 	}
 
 	handlePanelOpenEvent(e) {
@@ -137,9 +146,10 @@ export default class SidePanel extends React.Component {
 				loading: true
 			},
 			() => {
-				if (this.iframeRef.current &&
-					this.iframeRef.current.contentWindow) {
-
+				if (
+					this.iframeRef.current &&
+					this.iframeRef.current.contentWindow
+				) {
 					this.iframeRef.current.contentWindow.location = this.state.currentUrl;
 				}
 			}
@@ -154,7 +164,7 @@ export default class SidePanel extends React.Component {
 	}
 
 	open(url = this.state.currentUrl, active = null) {
-		this.setState({active, closeButtonStyle: null})
+		this.setState({active, closeButtonStyle: null});
 		switch (true) {
 			case !this.state.visible:
 				return this.toggle(true).then(() => {
@@ -173,7 +183,7 @@ export default class SidePanel extends React.Component {
 				active: null,
 				closeButtonStyle: null,
 				currentUrl: null,
-				loading: true,
+				loading: true
 			});
 		});
 	}
@@ -210,13 +220,13 @@ export default class SidePanel extends React.Component {
 
 		setTimeout(() => {
 			Liferay.detach(IFRAME_LOADED, this.handleIframeSubmit);
-		}, 3000)
+		}, 3000);
 	}
 
 	handleContentLoaded() {
 		Liferay.fire(IFRAME_LOADED, {
 			id: this.props.id
-		})
+		});
 
 		this.setState({
 			loading: false
@@ -230,15 +240,23 @@ export default class SidePanel extends React.Component {
 			);
 
 			if (submitButton) {
-				submitButton.addEventListener('click', this.handleIframeClickOnSubmit);
+				submitButton.addEventListener(
+					'click',
+					this.handleIframeClickOnSubmit
+				);
 			}
 
 			this.setState({
-				closeButtonStyle: iframeDocument.querySelector(".side-panel-iframe-menu-wrapper") ? 'menu' : 'simple'
-			})
-		}
-		catch (error) {
-			throw new Error(`Cannot access to iframe body. Url: "${this.state.currentUrl}"`)
+				closeButtonStyle: iframeDocument.querySelector(
+					'.side-panel-iframe-menu-wrapper'
+				)
+					? 'menu'
+					: 'simple'
+			});
+		} catch (error) {
+			throw new Error(
+				`Cannot access to iframe body. Url: "${this.state.currentUrl}"`
+			);
 		}
 	}
 
@@ -250,7 +268,7 @@ export default class SidePanel extends React.Component {
 				: '';
 
 		const content = (
-			<React.Fragment>
+			<>
 				<Modal id={iframeHandlerModalId} />
 				<div
 					className={`side-panel side-panel-${this.state.size} ${visibility} ${loading}`}
@@ -267,21 +285,29 @@ export default class SidePanel extends React.Component {
 
 					<ClayButton
 						className={classNames(
-							"side-panel-close",
-							this.state.closeButtonStyle === "simple" && "side-panel-close-simple",
-							this.state.closeButtonStyle === "menu" && "side-panel-close-menu",
+							'side-panel-close',
+							this.state.closeButtonStyle === 'simple' &&
+								'side-panel-close-simple',
+							this.state.closeButtonStyle === 'menu' &&
+								'side-panel-close-menu'
 						)}
 						displayType="monospaced"
 						onClick={() => this.close()}
 					>
-						<ClayIcon spritemap={this.props.spritemap} symbol="times" />
+						<ClayIcon
+							spritemap={this.props.spritemap}
+							symbol="times"
+						/>
 					</ClayButton>
 
 					<div className="tab-content">
 						<div className="loader">
 							<ClayLoadingIndicator />
 						</div>
-						<div className="active fade show tab-pane" role="tabpanel">
+						<div
+							className="active fade show tab-pane"
+							role="tabpanel"
+						>
 							{!(this.state.moving && this.state.visible) && (
 								<iframe
 									frameBorder="0"
@@ -293,17 +319,17 @@ export default class SidePanel extends React.Component {
 						</div>
 					</div>
 				</div>
-			</React.Fragment>
-		)
+			</>
+		);
 
 		return ReactDOM.createPortal(
-			this.props.spritemap
-			? (
+			this.props.spritemap ? (
 				<ClayIconSpriteContext.Provider value={this.props.spritemap}>
 					{content}
 				</ClayIconSpriteContext.Provider>
-			)
-			: content,
+			) : (
+				content
+			),
 			this.props.portalWrapperId
 				? document.getElementById(this.props.portalWrapperId)
 				: document.querySelector('body')
@@ -317,5 +343,5 @@ SidePanel.propTypes = {
 	portalWrapperId: PropTypes.string,
 	size: PropTypes.string,
 	spritemap: PropTypes.string,
-	topAnchorSelector: PropTypes.any,
-}
+	topAnchorSelector: PropTypes.any
+};

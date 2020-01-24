@@ -1,12 +1,12 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 export default function Arrows({onNext, onPrev}) {
 	return (
-		<React.Fragment>
+		<>
 			{onPrev && <div className="arrow prev" onClick={onPrev} />}
 			{onNext && <div className="arrow next" onClick={onNext} />}
-		</React.Fragment>
+		</>
 	);
 }
 

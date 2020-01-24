@@ -45,15 +45,25 @@ int selectedMonthlyMode = monthlyCPSubscriptionTypeDisplayContext.getSelectedMon
 </div>
 
 <aui:script>
-	function changeMonthlyCPSubscriptionTypeSettingsMode () {
+	function changeMonthlyCPSubscriptionTypeSettingsMode() {
 		var A = AUI();
 
-		if (A.one('#<portlet:namespace />monthlyMode').val() == '<%= CPSubscriptionTypeConstants.MODE_EXACT_DAY_OF_MONTH %>') {
-			A.one('#<portlet:namespace />monthDayInputContainer').removeClass('hide');
-		}
-		else {
-			if (!A.one('#<portlet:namespace />monthDayInputContainer').hasClass('hide')) {
-				A.one('#<portlet:namespace />monthDayInputContainer').addClass('hide');
+		if (
+			A.one('#<portlet:namespace />monthlyMode').val() ==
+			'<%= CPSubscriptionTypeConstants.MODE_EXACT_DAY_OF_MONTH %>'
+		) {
+			A.one('#<portlet:namespace />monthDayInputContainer').removeClass(
+				'hide'
+			);
+		} else {
+			if (
+				!A.one('#<portlet:namespace />monthDayInputContainer').hasClass(
+					'hide'
+				)
+			) {
+				A.one('#<portlet:namespace />monthDayInputContainer').addClass(
+					'hide'
+				);
 			}
 		}
 	}

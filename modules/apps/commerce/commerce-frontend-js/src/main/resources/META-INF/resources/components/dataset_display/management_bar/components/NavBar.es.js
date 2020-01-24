@@ -1,11 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import getAppContext from './Context.es';
+
 import ActiveViewSelector from './ActiveViewSelector.es';
+import getAppContext from './Context.es';
+import CreationMenu from './CreationMenu.es';
 import FiltersDropdown from './FiltersDropdown.es';
 import MainSearch from './MainSearch.es';
-import CreationMenu from './CreationMenu.es';
-
-import PropTypes from 'prop-types';
 
 function NavBar(props) {
 	const {state} = getAppContext();
@@ -24,38 +24,36 @@ function NavBar(props) {
 					{mainFilter ? <MainSearch /> : null}
 				</div>
 				<div className="navbar-form navbar-form-autofit navbar-overlay navbar-overlay-sm-down pl-0">
-					{
-						(props.views && props.views.length > 1) 
-						? (
-							<ActiveViewSelector
-								activeView={props.activeView}
-								setActiveView={props.setActiveView}
-								views={props.views}
-							/>
-						)
-						: null
-					}
+					{props.views && props.views.length > 1 ? (
+						<ActiveViewSelector
+							activeView={props.activeView}
+							setActiveView={props.setActiveView}
+							views={props.views}
+						/>
+					) : null}
 				</div>
-				{(props.creationMenuItems && props.creationMenuItems.length) ? (
-					<CreationMenu items={props.creationMenuItems}/>
+				{props.creationMenuItems && props.creationMenuItems.length ? (
+					<CreationMenu items={props.creationMenuItems} />
 				) : null}
 			</div>
 		</nav>
 	);
-};
+}
 
 NavBar.propTypes = {
 	activeView: PropTypes.number,
 	creationMenuItems: PropTypes.array,
 	setActiveView: PropTypes.func,
-	views: PropTypes.arrayOf(PropTypes.shape({
-		icon: PropTypes.string.isRequired,
-		label: PropTypes.string.isRequired,
-	}))
-}
+	views: PropTypes.arrayOf(
+		PropTypes.shape({
+			icon: PropTypes.string.isRequired,
+			label: PropTypes.string.isRequired
+		})
+	)
+};
 
 NavBar.defaultProps = {
 	creationMenuItems: []
-}
+};
 
 export default NavBar;

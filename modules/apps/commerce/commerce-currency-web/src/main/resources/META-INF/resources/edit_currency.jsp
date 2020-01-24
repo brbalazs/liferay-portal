@@ -122,5 +122,9 @@ PortalUtil.addPortletBreadcrumbEntry(request, title, StringPool.BLANK, data);
 		submitForm(document.<portlet:namespace />fm);
 	}
 
-	Liferay.Util.toggleBoxes('<portlet:namespace />primary', '<portlet:namespace />rateOptions', true);
+	Liferay.Util.toggleBoxes(
+		'<portlet:namespace />primary',
+		'<portlet:namespace />rateOptions',
+		true
+	);
 </aui:script>

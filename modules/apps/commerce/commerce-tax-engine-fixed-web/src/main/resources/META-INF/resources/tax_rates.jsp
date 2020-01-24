@@ -108,7 +108,10 @@ SearchContainer<CPTaxCategory> cpTaxCategorySearchContainer = commerceTaxFixedRa
 </aui:form>
 
 <aui:script>
-	function <portlet:namespace/>updateCommerceTaxFixedRate(cpTaxCategoryId, index) {
+	function <portlet:namespace/>updateCommerceTaxFixedRate(
+		cpTaxCategoryId,
+		index
+	) {
 		var form = $(document.<portlet:namespace />fm);
 
 		form.fm('cpTaxCategoryId').val(cpTaxCategoryId);

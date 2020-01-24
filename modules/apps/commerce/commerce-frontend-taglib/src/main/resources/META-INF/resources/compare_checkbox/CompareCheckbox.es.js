@@ -1,20 +1,33 @@
 'use strict';
 
-import template from './CompareCheckbox.soy';
 import Component from 'metal-component';
 import Soy, {Config} from 'metal-soy';
+
+import template from './CompareCheckbox.soy';
 
 class CompareCheckbox extends Component {
 	attached() {
 		window.Liferay.on('compareIsAvailable', this._enableCompare, this);
 		window.Liferay.on('compareIsUnavailable', this._disableCompare, this);
-		window.Liferay.on('productRemovedFromCompare', this._removeFromCompare, this);
+		window.Liferay.on(
+			'productRemovedFromCompare',
+			this._removeFromCompare,
+			this
+		);
 	}
 
 	detached() {
 		window.Liferay.detach('compareIsAvailable', this._enableCompare, this);
-		window.Liferay.detach('compareIsUnavailable', this._disableCompare, this);
-		window.Liferay.detach('productRemovedFromCompare', this._removeFromCompare, this);
+		window.Liferay.detach(
+			'compareIsUnavailable',
+			this._disableCompare,
+			this
+		);
+		window.Liferay.detach(
+			'productRemovedFromCompare',
+			this._removeFromCompare,
+			this
+		);
 	}
 
 	_enableCompare() {
@@ -35,25 +48,19 @@ class CompareCheckbox extends Component {
 	}
 
 	_emitUpdates() {
-		this.emit(
-			'checkboxCompareUpdated',
-			{
-				compareAvailable: this.compareAvailable,
-				inCompare: this.inCompare
-			}
-		);
+		this.emit('checkboxCompareUpdated', {
+			compareAvailable: this.compareAvailable,
+			inCompare: this.inCompare
+		});
 	}
 
 	_handleCompareCheckbox(evt) {
 		evt.preventDefault();
 		this.inCompare = !this.inCompare;
-		return Liferay.fire(
-			'toggleProductToCompare',
-			{
-				id: this.productId,
-				thumbnail: this.pictureUrl || null
-			}
-		);
+		return Liferay.fire('toggleProductToCompare', {
+			id: this.productId,
+			thumbnail: this.pictureUrl || null
+		});
 	}
 }
 
@@ -65,12 +72,7 @@ CompareCheckbox.STATE = {
 	inCompare: Config.bool(),
 	labelVisible: Config.bool(),
 	pictureUrl: Config.string(),
-	productId: Config.oneOfType(
-		[
-			Config.number(),
-			Config.string()
-		]
-	).required()
+	productId: Config.oneOfType([Config.number(), Config.string()]).required()
 };
 
 export {CompareCheckbox};

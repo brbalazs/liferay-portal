@@ -79,10 +79,14 @@ boolean lastRecurringPaymentMethod = commercePaymentMethodGroupRelsDisplayContex
 <c:choose>
 	<c:when test="<%= lastRecurringPaymentMethod && commercePaymentMethodGroupRel.isActive() %>">
 		<aui:script use="aui-base">
-			A.one("#<portlet:namespace />togglePaymentMethod<%= engineKey %>").on(
+			A.one('#<portlet:namespace />togglePaymentMethod<%= engineKey %>').on(
 				'click',
 				function(e) {
-					if (confirm('<liferay-ui:message key="there-might-be-subscriptions-that-depend-on-this-payment-method-if-you-deactivate-it-you-will-have-to-manually-manage-those-subscriptions" />')) {
+					if (
+						confirm(
+							'<liferay-ui:message key="there-might-be-subscriptions-that-depend-on-this-payment-method-if-you-deactivate-it-you-will-have-to-manually-manage-those-subscriptions" />'
+						)
+					) {
 						window.location.replace('<%= setActiveURL %>');
 					}
 				}
@@ -91,7 +95,7 @@ boolean lastRecurringPaymentMethod = commercePaymentMethodGroupRelsDisplayContex
 	</c:when>
 	<c:otherwise>
 		<aui:script use="aui-base">
-			A.one("#<portlet:namespace />togglePaymentMethod<%= engineKey %>").on(
+			A.one('#<portlet:namespace />togglePaymentMethod<%= engineKey %>').on(
 				'click',
 				function() {
 					window.location.replace('<%= setActiveURL %>');

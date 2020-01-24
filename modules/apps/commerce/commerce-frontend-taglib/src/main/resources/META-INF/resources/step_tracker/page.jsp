@@ -19,12 +19,8 @@
 <div class="step-tracker-root" id="<%= stepTrackerId %>"></div>
 
 <aui:script require="commerce-frontend-js/components/step_tracker/entry.es as stepTracker">
-	stepTracker.default(
-		"<%= stepTrackerId %>",
-		"<%= stepTrackerId %>",
-		{
-			spritemap: "<%= spritemap %>",
-			steps: <%= jsonSerializer.serializeDeep(steps) %>
-		}
-	);
+	stepTracker.default('<%= stepTrackerId %>', '<%= stepTrackerId %>', {
+		spritemap: '<%= spritemap %>',
+		steps: <%= jsonSerializer.serializeDeep(steps) %>
+	});
 </aui:script>

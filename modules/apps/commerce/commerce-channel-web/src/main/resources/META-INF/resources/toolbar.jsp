@@ -79,11 +79,20 @@ CommerceChannelDisplayContext commerceChannelDisplayContext = (CommerceChannelDi
 
 <aui:script>
 	function <portlet:namespace />deleteCommerceChannels() {
-		if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-channels" />')) {
+		if (
+			confirm(
+				'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-channels" />'
+			)
+		) {
 			var form = AUI.$(document.<portlet:namespace />fm);
 
 			form.fm('<%= Constants.CMD %>').val('<%= Constants.DELETE %>');
-			form.fm('commerceChannelIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
+			form.fm('commerceChannelIds').val(
+				Liferay.Util.listCheckedExcept(
+					form,
+					'<portlet:namespace />allRowIds'
+				)
+			);
 
 			submitForm(form);
 		}

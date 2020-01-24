@@ -1,21 +1,18 @@
 'use strict';
 
-import template from './AutocompleteItem.soy';
 import Component from 'metal-component';
 import Soy, {Config} from 'metal-soy';
 
-class AutocompleteItem extends Component {
+import template from './AutocompleteItem.soy';
 
+class AutocompleteItem extends Component {
 	processQuery() {
 		const regex = new RegExp(`(.*?)(${this.query})(.*)`, 'gmi');
 		const results = regex.exec(this.text);
 
 		if (results) {
-			this.updateHighlightedText(
-				results.map(el => el.toString())
-			);
-		}
-		else {
+			this.updateHighlightedText(results.map(el => el.toString()));
+		} else {
 			this.reinitializeTextGroups();
 		}
 

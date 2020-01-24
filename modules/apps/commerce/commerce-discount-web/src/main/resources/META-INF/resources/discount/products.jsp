@@ -117,45 +117,54 @@ SearchContainer<CommerceDiscountRel> cpDefinitionCommerceDiscountRelSearchContai
 </div>
 
 <aui:script use="liferay-item-selector-dialog">
-	$('#<portlet:namespace />addCommerceDiscountRelMenuItem').on(
-		'click',
-		function(event) {
-			event.preventDefault();
+	$('#<portlet:namespace />addCommerceDiscountRelMenuItem').on('click', function(
+		event
+	) {
+		event.preventDefault();
 
-			var itemSelectorDialog = new A.LiferayItemSelectorDialog(
-				{
-					eventName: 'productDefinitionsSelectItem',
-					on: {
-						selectedItemChange: function(event) {
-							var <portlet:namespace />addCPDefinitionIds = [];
+		var itemSelectorDialog = new A.LiferayItemSelectorDialog({
+			eventName: 'productDefinitionsSelectItem',
+			on: {
+				selectedItemChange: function(event) {
+					var <portlet:namespace />addCPDefinitionIds = [];
 
-							var selectedItems = event.newVal;
+					var selectedItems = event.newVal;
 
-							if (selectedItems) {
-								$('#<portlet:namespace />addClassPKs').val(selectedItems);
+					if (selectedItems) {
+						$('#<portlet:namespace />addClassPKs').val(selectedItems);
 
-								var addCommerceDiscountRelFm = $('#<portlet:namespace />addCommerceDiscountRelFm');
+						var addCommerceDiscountRelFm = $(
+							'#<portlet:namespace />addCommerceDiscountRelFm'
+						);
 
-								submitForm(addCommerceDiscountRelFm);
-							}
-						}
-					},
-					title: '<liferay-ui:message arguments="<%= commerceDiscount.getTitle() %>" key="add-new-product-to-x" />',
-					url: '<%= commerceDiscountRelDisplayContext.getItemSelectorUrl() %>'
+						submitForm(addCommerceDiscountRelFm);
+					}
 				}
-			);
+			},
+			title:
+				'<liferay-ui:message arguments="<%= commerceDiscount.getTitle() %>" key="add-new-product-to-x" />',
+			url: '<%= commerceDiscountRelDisplayContext.getItemSelectorUrl() %>'
+		});
 
-			itemSelectorDialog.open();
-		}
-	);
+		itemSelectorDialog.open();
+	});
 </aui:script>
 
 <aui:script>
 	function <portlet:namespace />deleteCommerceDiscountRels() {
-		if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-discount-products" />')) {
+		if (
+			confirm(
+				'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-discount-products" />'
+			)
+		) {
 			var form = AUI.$(document.<portlet:namespace />fm);
 
-			form.fm('deleteCommerceDiscountRelIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
+			form.fm('deleteCommerceDiscountRelIds').val(
+				Liferay.Util.listCheckedExcept(
+					form,
+					'<portlet:namespace />allRowIds'
+				)
+			);
 
 			submitForm(form);
 		}

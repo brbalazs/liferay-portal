@@ -1,8 +1,9 @@
 import ClayDropDown from '@clayui/drop-down';
 import Icon from '@clayui/icon';
 import ClayPanel from '@clayui/panel';
+import classNames from 'classnames';
+
 import React, {useState, useEffect} from 'react';
-import classNames from 'classnames'
 
 import {renderFilter} from '../../utilities/filters.es';
 import getAppContext from './Context.es';
@@ -61,14 +62,20 @@ function FiltersDropdown() {
 				<ClayDropDown.ItemList>
 					{visibleFilters.map(item => (
 						<ClayPanel
-							className={classNames(`mb-0 filter-panel-head`, item.value && 'active')}
+							className={classNames(
+								`mb-0 filter-panel-head`,
+								item.value && 'active'
+							)}
 							collapsable
 							displayTitle={item.label}
 							key={item.id}
 							showCollapseIcon={true}
 						>
 							<ClayPanel.Body className="filter-body">
-								{renderFilter(item, item.value ? 'edit' : 'add')}
+								{renderFilter(
+									item,
+									item.value ? 'edit' : 'add'
+								)}
 							</ClayPanel.Body>
 						</ClayPanel>
 					))}
@@ -80,6 +87,6 @@ function FiltersDropdown() {
 			)}
 		</ClayDropDown>
 	) : null;
-};
+}
 
 export default FiltersDropdown;

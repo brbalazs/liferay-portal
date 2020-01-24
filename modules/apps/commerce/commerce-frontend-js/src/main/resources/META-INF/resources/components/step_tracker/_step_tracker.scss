@@ -1,35 +1,41 @@
 .step-tracker {
-  display: table;
-  overflow: hidden;
-  width: 100%;
+	display: table;
+	overflow: hidden;
+	width: 100%;
 
-  .step {
-    background: currentColor;
-    display: table-cell;
-    padding: 8px;
-    position: relative;
-    text-align: center;
+	.step {
+		background: currentColor;
+		display: table-cell;
+		padding: 8px;
+		position: relative;
+		text-align: center;
 
-    &:not(:first-child) {
-      clip-path: polygon(calc(100% + 26px) 0%, calc(100% + 26px) 100%, 4px 100%, 26px 50%, 4px 0);
-    }
+		&:not(:first-child) {
+			clip-path: polygon(
+				calc(100% + 26px) 0%,
+				calc(100% + 26px) 100%,
+				4px 100%,
+				26px 50%,
+				4px 0
+			);
+		}
 
-    &:not(:last-child) {
-      &::after {
-        background-color: currentColor;
-        clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
-        content: '';
-        height: 100%;
-        left: 100%;
-        position: absolute;
-        top: 0;
-        width: 22px;
-        z-index: 0;
-      }
-    }
+		&:not(:last-child) {
+			&::after {
+				background-color: currentColor;
+				clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+				content: '';
+				height: 100%;
+				left: 100%;
+				position: absolute;
+				top: 0;
+				width: 22px;
+				z-index: 0;
+			}
+		}
 
-    .step-label {
-      color: white;
-    }
-  }
+		.step-label {
+			color: white;
+		}
+	}
 }

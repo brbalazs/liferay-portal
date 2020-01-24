@@ -8,7 +8,10 @@ function ActiveFiltersBar(props) {
 	const {actions, state} = getAppContext();
 
 	const filtersActive = state.filters.reduce(
-		(acc, filter) => ((filter.value && !filter.invisible && !filter.main) ? acc.concat(filter.id) : acc),
+		(acc, filter) =>
+			filter.value && !filter.invisible && !filter.main
+				? acc.concat(filter.id)
+				: acc,
 		[]
 	);
 
@@ -28,7 +31,9 @@ function ActiveFiltersBar(props) {
 									);
 
 									if (!filter) {
-										throw new Error(`Filter "${id}" not found.`);
+										throw new Error(
+											`Filter "${id}" not found.`
+										);
 									}
 
 									return (
@@ -58,6 +63,6 @@ function ActiveFiltersBar(props) {
 			</div>
 		</div>
 	) : null;
-};
+}
 
 export default ActiveFiltersBar;

@@ -1,7 +1,7 @@
 import Component from 'metal-component';
-import {Config} from 'metal-state';
-import Soy from 'metal-soy';
 import dom from 'metal-dom';
+import Soy from 'metal-soy';
+import {Config} from 'metal-state';
 
 import templates from './CPOptionValueList.soy';
 
@@ -11,7 +11,6 @@ import templates from './CPOptionValueList.soy';
  */
 
 class CPOptionValueList extends Component {
-
 	_handleAddOptionValueClick(event) {
 		event.stopImmediatePropagation();
 		event.preventDefault();

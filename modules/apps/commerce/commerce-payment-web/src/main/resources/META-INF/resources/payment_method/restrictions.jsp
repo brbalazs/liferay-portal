@@ -164,10 +164,19 @@ CommercePaymentMethodGroupRelRestrictionsDisplayContext commercePaymentMethodGro
 
 	<aui:script>
 		function <portlet:namespace />deleteCommerceAddressRestrictions() {
-			if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-restrictions" />')) {
+			if (
+				confirm(
+					'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-restrictions" />'
+				)
+			) {
 				var form = AUI.$(document.<portlet:namespace />fm);
 
-				form.fm('deleteCommerceAddressRestrictionIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
+				form.fm('deleteCommerceAddressRestrictionIds').val(
+					Liferay.Util.listCheckedExcept(
+						form,
+						'<portlet:namespace />allRowIds'
+					)
+				);
 
 				submitForm(form);
 			}
@@ -175,34 +184,36 @@ CommercePaymentMethodGroupRelRestrictionsDisplayContext commercePaymentMethodGro
 	</aui:script>
 
 	<aui:script use="liferay-item-selector-dialog">
-		$('#<portlet:namespace />addCommerceAddressRestriction').on(
-			'click',
-			function(event) {
-				event.preventDefault();
+		$('#<portlet:namespace />addCommerceAddressRestriction').on('click', function(
+			event
+		) {
+			event.preventDefault();
 
-				var itemSelectorDialog = new A.LiferayItemSelectorDialog(
-					{
-						eventName: 'countriesSelectItem',
-						on: {
-							selectedItemChange: function(event) {
-								var selectedItems = event.newVal;
+			var itemSelectorDialog = new A.LiferayItemSelectorDialog({
+				eventName: 'countriesSelectItem',
+				on: {
+					selectedItemChange: function(event) {
+						var selectedItems = event.newVal;
 
-								if (selectedItems) {
-									$('#<portlet:namespace />commerceCountryIds').val(selectedItems);
+						if (selectedItems) {
+							$('#<portlet:namespace />commerceCountryIds').val(
+								selectedItems
+							);
 
-									var addCommerceAddressRestrictionFm = $('#<portlet:namespace />addCommerceAddressRestrictionFm');
+							var addCommerceAddressRestrictionFm = $(
+								'#<portlet:namespace />addCommerceAddressRestrictionFm'
+							);
 
-									submitForm(addCommerceAddressRestrictionFm);
-								}
-							}
-						},
-						title: '<liferay-ui:message key="add-restrictions" />',
-						url: '<%= commercePaymentMethodGroupRelRestrictionsDisplayContext.getItemSelectorUrl() %>'
+							submitForm(addCommerceAddressRestrictionFm);
+						}
 					}
-				);
+				},
+				title: '<liferay-ui:message key="add-restrictions" />',
+				url:
+					'<%= commercePaymentMethodGroupRelRestrictionsDisplayContext.getItemSelectorUrl() %>'
+			});
 
-				itemSelectorDialog.open();
-			}
-		);
+			itemSelectorDialog.open();
+		});
 	</aui:script>
 </c:if>

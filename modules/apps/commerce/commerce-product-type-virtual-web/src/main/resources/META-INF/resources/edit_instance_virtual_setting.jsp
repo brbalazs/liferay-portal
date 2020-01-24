@@ -132,5 +132,8 @@ boolean override = BeanParamUtil.getBoolean(cpDefinitionVirtualSetting, request,
 </aui:form>
 
 <aui:script>
-	Liferay.Util.toggleBoxes('<portlet:namespace />override', '<portlet:namespace />cpDefinitionVirtualSettingContainer');
+	Liferay.Util.toggleBoxes(
+		'<portlet:namespace />override',
+		'<portlet:namespace />cpDefinitionVirtualSettingContainer'
+	);
 </aui:script>

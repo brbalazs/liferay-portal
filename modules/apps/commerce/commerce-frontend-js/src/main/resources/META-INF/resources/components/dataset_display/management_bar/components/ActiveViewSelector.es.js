@@ -1,12 +1,13 @@
+import {ClayButtonWithIcon} from '@clayui/button';
 import ClayDropDown from '@clayui/drop-down';
-import Icon from '@clayui/icon';
-import ClayPanel from '@clayui/panel';
-import React, { useState } from 'react';
-import classNames from 'classnames'
-import { ClayButtonWithIcon } from '@clayui/button';
-import PropTypes from 'prop-types';
-import ClayLink from '@clayui/link';
 import ClayIcon from '@clayui/icon';
+import Icon from '@clayui/icon';
+import ClayLink from '@clayui/link';
+import ClayPanel from '@clayui/panel';
+import classNames from 'classnames';
+
+import PropTypes from 'prop-types';
+import React, {useState} from 'react';
 
 function ActiveViewSelector(props) {
 	const [active, setActive] = useState(false);
@@ -27,7 +28,7 @@ function ActiveViewSelector(props) {
 					<ClayDropDown.Item
 						href="#"
 						key={i}
-						onClick={(e) => {
+						onClick={e => {
 							e.preventDefault();
 							props.setActiveView(i);
 						}}
@@ -39,15 +40,17 @@ function ActiveViewSelector(props) {
 			</ClayDropDown.ItemList>
 		</ClayDropDown>
 	);
-};
+}
 
 ActiveViewSelector.propTypes = {
 	activeView: PropTypes.number.isRequired,
 	setActiveView: PropTypes.func.isRequired,
-	views: PropTypes.arrayOf(PropTypes.shape({
-		icon: PropTypes.string.isRequired,
-		label: PropTypes.string.isRequired,
-	}))
-}
+	views: PropTypes.arrayOf(
+		PropTypes.shape({
+			icon: PropTypes.string.isRequired,
+			label: PropTypes.string.isRequired
+		})
+	)
+};
 
 export default ActiveViewSelector;

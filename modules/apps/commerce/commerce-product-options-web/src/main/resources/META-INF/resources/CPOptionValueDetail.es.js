@@ -1,7 +1,7 @@
 import Component from 'metal-component';
-import { Config } from 'metal-state';
+import {globalEval} from 'metal-dom';
 import Soy from 'metal-soy';
-import { globalEval } from 'metal-dom';
+import {Config} from 'metal-state';
 
 import templates from './CPOptionValueDetail.soy';
 
@@ -11,7 +11,6 @@ import templates from './CPOptionValueDetail.soy';
  */
 
 class CPOptionValueDetail extends Component {
-
 	constructor(opt_config, opt_parentElement) {
 		super(opt_config, opt_parentElement);
 
@@ -25,11 +24,16 @@ class CPOptionValueDetail extends Component {
 	loadOptionValueDetail(cpOptionValueId) {
 		var instance = this;
 
-		let optionValueDetail = this.element.querySelector('.option-value-detail');
+		const optionValueDetail = this.element.querySelector(
+			'.option-value-detail'
+		);
 
 		var url = new URL(this.optionValueURL);
 
-		url.searchParams.append(this.namespace + 'cpOptionValueId', cpOptionValueId);
+		url.searchParams.append(
+			this.namespace + 'cpOptionValueId',
+			cpOptionValueId
+		);
 		url.searchParams.set('p_auth', Liferay.authToken);
 
 		fetch(
@@ -47,20 +51,18 @@ class CPOptionValueDetail extends Component {
 
 				globalEval.runScriptsInElement(optionValueDetail);
 
-				var name = optionValueDetail.querySelector('#' + instance.namespace + 'optionValueName');
+				var name = optionValueDetail.querySelector(
+					'#' + instance.namespace + 'optionValueName'
+				);
 
 				if (name) {
-					name.addEventListener(
-						'keyup',
-						(event) => {
-							var target = event.target;
+					name.addEventListener('keyup', event => {
+						var target = event.target;
 
-							instance.emit('nameChange', target.value);
-						}
-					);
+						instance.emit('nameChange', target.value);
+					});
 				}
-			}
-		);
+			});
 	}
 
 	_handleCPOptionValueChange(event) {
@@ -70,36 +72,33 @@ class CPOptionValueDetail extends Component {
 	_handleSaveOptionValue() {
 		var instance = this;
 
-		AUI().use(
-			'aui-base',
-			'aui-form-validator',
-			'liferay-form',
-			(A) => {
-				var hasErrors = false;
+		AUI().use('aui-base', 'aui-form-validator', 'liferay-form', A => {
+			var hasErrors = false;
 
-				let form = instance.element.querySelector('.option-value-detail form');
+			const form = instance.element.querySelector(
+				'.option-value-detail form'
+			);
 
-				var liferayForm = Liferay.Form.get(form.getAttribute('id'));
+			var liferayForm = Liferay.Form.get(form.getAttribute('id'));
 
-				if (liferayForm) {
-					var validator = liferayForm.formValidator;
+			if (liferayForm) {
+				var validator = liferayForm.formValidator;
 
-					if (A.instanceOf(validator, A.FormValidator)) {
-						validator.validate();
+				if (A.instanceOf(validator, A.FormValidator)) {
+					validator.validate();
 
-						hasErrors = validator.hasErrors();
+					hasErrors = validator.hasErrors();
 
-						if (hasErrors) {
-							validator.focusInvalidField();
-						}
+					if (hasErrors) {
+						validator.focusInvalidField();
 					}
 				}
-
-				if (!hasErrors) {
-					instance._saveOptionValue();
-				}
 			}
-		);
+
+			if (!hasErrors) {
+				instance._saveOptionValue();
+			}
+		});
 	}
 
 	_handleCancel() {
@@ -107,13 +106,17 @@ class CPOptionValueDetail extends Component {
 	}
 
 	_handleDeleteOptionValue() {
-		if (confirm(Liferay.Language.get('are-you-sure-you-want-to-delete-this'))) {
+		if (
+			confirm(
+				Liferay.Language.get('are-you-sure-you-want-to-delete-this')
+			)
+		) {
 			this._deleteOptionValue();
 		}
 	}
 
 	_deleteOptionValue() {
-		let form = this.element.querySelector('.option-value-detail form');
+		const form = this.element.querySelector('.option-value-detail form');
 
 		form.querySelector('[name=' + this.namespace + 'cmd]').value = 'delete';
 
@@ -134,14 +137,15 @@ class CPOptionValueDetail extends Component {
 		).then(
 			(jsonResponse) => {
 				this.emit('optionValueDeleted', jsonResponse);
-			}
-		);
+			});
 	}
 
 	_saveOptionValue() {
-		let form = this.element.querySelector('.option-value-detail form');
+		const form = this.element.querySelector('.option-value-detail form');
 
-		form.querySelector('[name=' + this.namespace + 'cpOptionId]').value = this.cpOptionId;
+		form.querySelector(
+			'[name=' + this.namespace + 'cpOptionId]'
+		).value = this.cpOptionId;
 
 		var formData = new FormData(form);
 
@@ -160,8 +164,7 @@ class CPOptionValueDetail extends Component {
 		).then(
 			(jsonResponse) => {
 				this.emit('optionValueSaved', jsonResponse);
-			}
-		);
+			});
 	}
 }
 

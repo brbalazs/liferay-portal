@@ -1,6 +1,6 @@
 import Component from 'metal-component';
-import {Config} from 'metal-state';
 import Soy from 'metal-soy';
+import {Config} from 'metal-state';
 
 import templates from './CPOptionList.soy';
 
@@ -10,7 +10,6 @@ import templates from './CPOptionList.soy';
  */
 
 class CPOptionList extends Component {
-
 	_handleEditValues(event) {
 		var target = event.currentTarget;
 

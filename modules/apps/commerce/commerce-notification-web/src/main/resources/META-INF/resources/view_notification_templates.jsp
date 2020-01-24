@@ -178,11 +178,20 @@ portletURL.setParameter("notificationNavigationItem", notificationNavigationItem
 
 <aui:script>
 	function <portlet:namespace />deleteCommerceNotificationTemplates() {
-		if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-notification-templates" />')) {
+		if (
+			confirm(
+				'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-notification-templates" />'
+			)
+		) {
 			var form = AUI.$(document.<portlet:namespace />fm);
 
 			form.fm('<%= Constants.CMD %>').val('<%= Constants.DELETE %>');
-			form.fm('deleteCommerceNotificationTemplateIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
+			form.fm('deleteCommerceNotificationTemplateIds').val(
+				Liferay.Util.listCheckedExcept(
+					form,
+					'<portlet:namespace />allRowIds'
+				)
+			);
 
 			submitForm(form);
 		}

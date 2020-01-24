@@ -1,6 +1,6 @@
 export const actionsDefinition = {
 	RESET_FILTERS_VALUE: 'resetFiltersValue',
-	UPDATE_FILTER_VALUE: 'updateFilterValue',
+	UPDATE_FILTER_VALUE: 'updateFilterValue'
 };
 
 const updateFilterValue = dispatch => (id, value = null) =>
@@ -19,7 +19,7 @@ const resetFiltersValue = dispatch => () =>
 
 export const actions = {
 	resetFiltersValue,
-	updateFilterValue,
+	updateFilterValue
 };
 
 export default actions;

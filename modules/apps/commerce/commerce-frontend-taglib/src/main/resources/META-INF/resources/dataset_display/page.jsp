@@ -22,101 +22,98 @@
 
 <aui:script require="commerce-frontend-js/components/dataset_display/entry.es as datasetDisplay">
 	datasetDisplay.default(
-		"<%= containerId %>",
-		"<%= containerId %>",
-		Object.assign(
-			<%= jsonSerializer.serializeDeep(clayTableContext) %>,
-			{
-				apiUrl : "<%= dataSetAPI %>",
-				filters : [
-					{
-						id: 'text-test',
-						label: 'Text test',
-						operator: 'contains',
-						type: 'text',
-						value: 'Test input'
-					},
-					{
-						items: [
-							{
-								label: 'First option',
-								value: 'first-option'
-							},
-							{
-								label: 'Second option',
-								value: 'second-option'
-							}
-						],
-						id: 'select-test',
-						label: 'Select test',
-						operator: 'eq',
-						type: 'select',
-						value: 'second-option'
-					},
-					{
-						items: [
-							{
-								label: 'First option',
-								value: 'first-option'
-							},
-							{
-								label: 'Second option',
-								value: 'second-option'
-							}
-						],
-						id: 'radio-test',
-						label: 'Radio test',
-						operator: 'eq',
-						type: 'radio'
-					},
-					{
-						items: [
-							{
-								label: 'First option',
-								value: 'first-option'
-							},
-							{
-								label: 'Second option',
-								value: 'second-option'
-							},
-							{
-								label: 'Third option',
-								value: 'third-option'
-							}
-						],
-						id: 'checkbox-test',
-						label: 'Checkbox test',
-						operator: 'contains',
-						type: 'checkbox',
-						value: ['first-option', 'third-option']
-					},
-					{
-						id: 'number-test',
-						inputText: '$',
-						label: 'Number test',
-						max: 200,
-						min: 20,
-						operator: 'eq',
-						type: 'number',
-						value: 123
-					}
-				],
-				formId: "<%= formId %>",
-				dataProviderKey : "<%= dataProviderKey %>",
-				id : "<%= id %>",
-				items : <%= jsonSerializer.serializeDeep(items) %>,
-				showPagination : <%= showPagination %>,
-				pagination : {
-					deltas : <%= jsonSerializer.serializeDeep(paginationEntries) %>,
-					initialDelta : <%= itemsPerPage %>,
-					initialPageNumber : <%= pageNumber %>,
-					initialTotalItems : <%= totalItems %>
+		'<%= containerId %>',
+		'<%= containerId %>',
+		Object.assign(<%= jsonSerializer.serializeDeep(clayTableContext) %>, {
+			apiUrl: '<%= dataSetAPI %>',
+			filters: [
+				{
+					id: 'text-test',
+					label: 'Text test',
+					operator: 'contains',
+					type: 'text',
+					value: 'Test input'
 				},
-				namespace : "<%= namespace %>",
-				portletURL : "<%= portletURL %>",
-				spritemap : "<%= spritemap %>",
-				style : "<%= style %>"
-			}
-		)
+				{
+					items: [
+						{
+							label: 'First option',
+							value: 'first-option'
+						},
+						{
+							label: 'Second option',
+							value: 'second-option'
+						}
+					],
+					id: 'select-test',
+					label: 'Select test',
+					operator: 'eq',
+					type: 'select',
+					value: 'second-option'
+				},
+				{
+					items: [
+						{
+							label: 'First option',
+							value: 'first-option'
+						},
+						{
+							label: 'Second option',
+							value: 'second-option'
+						}
+					],
+					id: 'radio-test',
+					label: 'Radio test',
+					operator: 'eq',
+					type: 'radio'
+				},
+				{
+					items: [
+						{
+							label: 'First option',
+							value: 'first-option'
+						},
+						{
+							label: 'Second option',
+							value: 'second-option'
+						},
+						{
+							label: 'Third option',
+							value: 'third-option'
+						}
+					],
+					id: 'checkbox-test',
+					label: 'Checkbox test',
+					operator: 'contains',
+					type: 'checkbox',
+					value: ['first-option', 'third-option']
+				},
+				{
+					id: 'number-test',
+					inputText: '$',
+					label: 'Number test',
+					max: 200,
+					min: 20,
+					operator: 'eq',
+					type: 'number',
+					value: 123
+				}
+			],
+			formId: '<%= formId %>',
+			dataProviderKey: '<%= dataProviderKey %>',
+			id: '<%= id %>',
+			items: <%= jsonSerializer.serializeDeep(items) %>,
+			showPagination: <%= showPagination %>,
+			pagination: {
+				deltas: <%= jsonSerializer.serializeDeep(paginationEntries) %>,
+				initialDelta: <%= itemsPerPage %>,
+				initialPageNumber: <%= pageNumber %>,
+				initialTotalItems: <%= totalItems %>
+			},
+			namespace: '<%= namespace %>',
+			portletURL: '<%= portletURL %>',
+			spritemap: '<%= spritemap %>',
+			style: '<%= style %>'
+		})
 	);
 </aui:script>

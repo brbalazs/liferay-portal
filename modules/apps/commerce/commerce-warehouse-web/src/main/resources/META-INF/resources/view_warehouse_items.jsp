@@ -101,20 +101,26 @@ if (Validator.isNotNull(backURL)) {
 	</div>
 
 	<aui:script>
-		function <portlet:namespace/>updateCommerceInventoryWarehouseItem(commerceInventoryWarehouseId, commerceInventoryWarehouseItemId, index) {
+		function <portlet:namespace/>updateCommerceInventoryWarehouseItem(
+			commerceInventoryWarehouseId,
+			commerceInventoryWarehouseItemId,
+			index
+		) {
 			var form = $(document.<portlet:namespace />fm);
 
 			if (commerceInventoryWarehouseItemId > 0) {
 				form.fm('<%= Constants.CMD %>').val('<%= Constants.UPDATE %>');
-			}
-			else {
+			} else {
 				form.fm('<%= Constants.CMD %>').val('<%= Constants.ADD %>');
 			}
 
 			form.fm('commerceInventoryWarehouseId').val(commerceInventoryWarehouseId);
-			form.fm('commerceInventoryWarehouseItemId').val(commerceInventoryWarehouseItemId);
+			form.fm('commerceInventoryWarehouseItemId').val(
+				commerceInventoryWarehouseItemId
+			);
 
-			var quantityInputId = '#<portlet:namespace />commerceInventoryWarehouseItemQuantity' + index;
+			var quantityInputId =
+				'#<portlet:namespace />commerceInventoryWarehouseItemQuantity' + index;
 
 			var quantityInput = $(quantityInputId);
 
@@ -125,19 +131,19 @@ if (Validator.isNotNull(backURL)) {
 	</aui:script>
 
 	<aui:script>
-		var quantityPrefix = "<portlet:namespace />commerceInventoryWarehouseItemQuantity";
+		var quantityPrefix =
+			'<portlet:namespace />commerceInventoryWarehouseItemQuantity';
 		var enterKeyCode = 13;
 
-		$('input[id^=' + quantityPrefix + ']').on(
-			'keypress',
-			function(event) {
-				if (event.keyCode == enterKeyCode) {
-					event.preventDefault();
+		$('input[id^=' + quantityPrefix + ']').on('keypress', function(event) {
+			if (event.keyCode == enterKeyCode) {
+				event.preventDefault();
 
-					var curIndex = $(this).attr('id').split(quantityPrefix)[1];
-					$("#<portlet:namespace/>saveButton" + curIndex).click();
-				}
+				var curIndex = $(this)
+					.attr('id')
+					.split(quantityPrefix)[1];
+				$('#<portlet:namespace/>saveButton' + curIndex).click();
 			}
-		);
+		});
 	</aui:script>
 </c:if>

@@ -68,13 +68,12 @@
 										</button>
 
 										<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
-											document.querySelector("#erc-edit-modal-opener").addEventListener(
-												"click",
-												function(e) {
+											document
+												.querySelector('#erc-edit-modal-opener')
+												.addEventListener('click', function(e) {
 													e.preventDefault();
-													Liferay.fire(events.OPEN_MODAL, {id: "erc-edit-modal"});
-												}
-											);
+													Liferay.fire(events.OPEN_MODAL, {id: 'erc-edit-modal'});
+												});
 										</aui:script>
 
 										<commerce-ui:modal
@@ -142,12 +141,12 @@
 								</button>
 
 								<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
-									document.querySelector("#edit-assignee-modal-opener").addEventListener(
-										"click", function(e) {
+									document
+										.querySelector('#edit-assignee-modal-opener')
+										.addEventListener('click', function(e) {
 											e.preventDefault();
-											Liferay.fire(events.OPEN_MODAL, {id: "edit-assignee-modal"});
-										}
-									);
+											Liferay.fire(events.OPEN_MODAL, {id: 'edit-assignee-modal'});
+										});
 								</aui:script>
 
 								<commerce-ui:modal
@@ -204,20 +203,23 @@
 </div>
 
 <aui:script require="commerce-frontend-js/utilities/index.es as utilities">
-	var commerceHeader = document.querySelector(".commerce-header");
-	var pageHeader = document.querySelector(".page-header");
+	var commerceHeader = document.querySelector('.commerce-header');
+	var pageHeader = document.querySelector('.page-header');
 
 	function updateMenuDistanceFromTop() {
 		var distanceFromTop = commerceHeader.getClientRects()[0].bottom;
-		pageHeader.style.top = distanceFromTop + "px"
+		pageHeader.style.top = distanceFromTop + 'px';
 	}
 
-	var debouncedUpdateMenuDistanceFromTop = utilities.debounce(updateMenuDistanceFromTop, 200)
+	var debouncedUpdateMenuDistanceFromTop = utilities.debounce(
+		updateMenuDistanceFromTop,
+		200
+	);
 
 	if (pageHeader) {
-		pageHeader.classList.add("sticky-header-menu");
-		updateMenuDistanceFromTop()
+		pageHeader.classList.add('sticky-header-menu');
+		updateMenuDistanceFromTop();
 	}
 
-	window.addEventListener("resize", debouncedUpdateMenuDistanceFromTop)
+	window.addEventListener('resize', debouncedUpdateMenuDistanceFromTop);
 </aui:script>

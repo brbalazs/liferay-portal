@@ -1,5 +1,6 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+
 import Thumbnail from './Thumbnail';
 
 export default function Thumbnails({

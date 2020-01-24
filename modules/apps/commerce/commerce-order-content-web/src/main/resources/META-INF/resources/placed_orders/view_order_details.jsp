@@ -267,25 +267,24 @@ if (commerceOrder != null) {
 
 <aui:script>
 	function <portlet:namespace/>viewCommerceOrderShipments(uri) {
-		Liferay.Util.openWindow(
-			{
-				dialog: {
-					centered: true,
-					destroyOnClose: true,
-					modal: true
-				},
-				dialogIframe: {
-					bodyCssClass: 'dialog'
-				},
-				id: 'viewCommerceOrderShipmentsDialog',
-				title: '',
-				uri: uri
-			}
-		);
+		Liferay.Util.openWindow({
+			dialog: {
+				centered: true,
+				destroyOnClose: true,
+				modal: true
+			},
+			dialogIframe: {
+				bodyCssClass: 'dialog'
+			},
+			id: 'viewCommerceOrderShipmentsDialog',
+			title: '',
+			uri: uri
+		});
 	}
 
 	function <portlet:namespace />reorderCommerceOrder() {
-		document.<portlet:namespace />fm.<portlet:namespace /><%= Constants.CMD %>.value = 'reorder';
+		document.<portlet:namespace />fm.<portlet:namespace /><%= Constants.CMD %>.value =
+			'reorder';
 
 		submitForm(document.<portlet:namespace />fm);
 	}

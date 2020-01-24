@@ -1,6 +1,7 @@
-import template from './AddToCartButton.soy';
 import Component from 'metal-component';
 import Soy, { Config } from 'metal-soy';
+
+import template from './AddToCartButton.soy';
 
 import '../quantity_selector/QuantitySelector.es';
 
@@ -9,25 +10,21 @@ let notificationDidShow = false;
 const ALL = 'all';
 
 function showNotification(message, type) {
-	!notificationDidShow && AUI().use(
-		'liferay-notification',
-		() => {
-			new Liferay.Notification(
-				{
-					closeable: true,
-					delay: {
-						hide: 5000,
-						show: 0
-					},
-					duration: 500,
-					message: message,
-					render: true,
-					title: '',
-					type: type
-				}
-			);
-		}
-	);
+	!notificationDidShow &&
+		AUI().use('liferay-notification', () => {
+			new Liferay.Notification({
+				closeable: true,
+				delay: {
+					hide: 5000,
+					show: 0
+				},
+				duration: 500,
+				message,
+				render: true,
+				title: '',
+				type
+			});
+		});
 
 	notificationDidShow = true;
 
@@ -37,12 +34,11 @@ function showNotification(message, type) {
 }
 
 function resetInputQuantity() {
-	this.inputQuantity = (
+	this.inputQuantity =
 		this.settings.allowedQuantities &&
 		this.settings.allowedQuantities.length
-	) ?
-		this.settings.allowedQuantities[0] :
-		this.settings.minQuantity;
+			? this.settings.allowedQuantities[0]
+			: this.settings.minQuantity;
 }
 
 function doSubmit() {
@@ -73,58 +69,43 @@ function doSubmit() {
 		jsonresponse => {
 			if (jsonresponse.success) {
 				if (jsonresponse.products) {
-					Liferay.fire(
-						'refreshCartUsingData',
-						{
-							detailsUrl: jsonresponse.detailsUrl,
-							orderId: jsonresponse.orderId,
-							products: jsonresponse.products,
-							summary: jsonresponse.summary,
-							valid: jsonresponse.valid
-						}
-					);
+					Liferay.fire('refreshCartUsingData', {
+						detailsUrl: jsonresponse.detailsUrl,
+						orderId: jsonresponse.orderId,
+						products: jsonresponse.products,
+						summary: jsonresponse.summary,
+						valid: jsonresponse.valid
+					});
 				}
 
 				if (this.orderId !== jsonresponse.orderId) {
-					Liferay.fire(
-						'orderChanged',
-						{
-							orderId: jsonresponse.orderId
-						}
-					);
+					Liferay.fire('orderChanged', {
+						orderId: jsonresponse.orderId
+					});
 					this.orderId = jsonresponse.orderId;
 				}
 
 				this._animateMarker(this.quantity);
 				this.quantity = this.inputQuantity;
 				resetInputQuantity.call(this);
-			}
-			else if (jsonresponse.errorMessages) {
+			} else if (jsonresponse.errorMessages) {
 				showNotification(jsonresponse.errorMessages[0], 'danger');
-			}
-			else {
+			} else {
 				const validatorErrors = jsonresponse.validatorErrors;
 
 				if (validatorErrors) {
-					validatorErrors.forEach(
-						validatorError => {
-							showNotification(validatorError.message, 'danger');
-						}
-					);
-				}
-				else {
+					validatorErrors.forEach(validatorError => {
+						showNotification(validatorError.message, 'danger');
+					});
+				} else {
 					showNotification(jsonresponse.error, 'danger');
 				}
 			}
-		}
-	).catch(
-		weShouldHandleErrors => {
-		}
-	);
+		})
+		.catch(weShouldHandleErrors => {});
 }
 
 class AddToCartButton extends Component {
-
 	created() {
 		this.quantity = this.quantity;
 		resetInputQuantity.call(this);
@@ -134,35 +115,62 @@ class AddToCartButton extends Component {
 	_animateMarker(prevQuantity) {
 		if (prevQuantity === 0) {
 			this.updatingTransition = 'adding';
-		}
-		else {
+		} else {
 			this.updatingTransition = 'incrementing';
 		}
 
-		this.refs.marker.addEventListener('animationend', this._handleMarkerAnimation, this);
+		this.refs.marker.addEventListener(
+			'animationend',
+			this._handleMarkerAnimation,
+			this
+		);
 	}
 
 	_handleMarkerAnimation() {
 		this.updatingTransition = null;
-		this.refs.marker.removeEventListener('animationend', this._handleMarkerAnimation, this);
+		this.refs.marker.removeEventListener(
+			'animationend',
+			this._handleMarkerAnimation,
+			this
+		);
 	}
 
 	attached() {
 		window.Liferay.on('accountSelected', this._handleAccountChange, this);
-		window.Liferay.on('productRemovedFromCart', this._handleCartProductRemoval, this);
+		window.Liferay.on(
+			'productRemovedFromCart',
+			this._handleCartProductRemoval,
+			this
+		);
 
 		// TODO: event definition to be imported as a constant
 
-		window.Liferay.on('current-product-status-changed', this._handleCurrentProductStatusChange, this);
+		window.Liferay.on(
+			'current-product-status-changed',
+			this._handleCurrentProductStatusChange,
+			this
+		);
 	}
 
 	detached() {
-		window.Liferay.detach('accountSelected', this._handleAccountChange, this);
-		window.Liferay.detach('productRemovedFromCart', this._handleCartProductRemoval, this);
+		window.Liferay.detach(
+			'accountSelected',
+			this._handleAccountChange,
+			this
+		);
+		window.Liferay.detach(
+			'productRemovedFromCart',
+			this._handleCartProductRemoval,
+			this
+		);
 
 		// TODO: event definition to be imported as a constant
 
-		window.Liferay.detach('current-product-status-changed', this._handleCurrentProductStatusChange, this);
+		window.Liferay.detach(
+			'current-product-status-changed',
+			this._handleCurrentProductStatusChange,
+			this
+		);
 	}
 
 	_handleUpdateQuantity(quantity) {
@@ -175,7 +183,7 @@ class AddToCartButton extends Component {
 	}
 
 	_handleCurrentProductStatusChange(e) {
-		if (this.id && (this.id !== e.addToCartId)) {
+		if (this.id && this.id !== e.addToCartId) {
 			return;
 		}
 		if (e.productId) {
@@ -184,8 +192,7 @@ class AddToCartButton extends Component {
 			this.quantity = e.quantity;
 			this.settings = e.settings;
 			this.disabled = false;
-		}
-		else {
+		} else {
 			this.disabled = true;
 		}
 	}
@@ -201,9 +208,7 @@ class AddToCartButton extends Component {
 	}
 
 	_handleCartProductRemoval(e) {
-		if (e.productId === this.productId ||
-			e.productId === ALL) {
-
+		if (e.productId === this.productId || e.productId === ALL) {
 			this.quantity = 0;
 			resetInputQuantity.call(this);
 		}
@@ -229,54 +234,22 @@ Soy.register(AddToCartButton, template);
 
 AddToCartButton.STATE = {
 	id: Config.string(),
-	accountId: Config.oneOfType(
-		[
-			Config.number(),
-			Config.string()
-		]
-	),
-	buttonStyle: Config.oneOf(
-		[
-			'block',
-			'inline'
-		]
-	).value('inline'),
+	accountId: Config.oneOfType([Config.number(), Config.string()]),
+	buttonStyle: Config.oneOf(['block', 'inline']).value('inline'),
 	cartAPI: Config.string().required(),
 	disabled: Config.bool().value(false),
 	inputQuantity: Config.number(),
-	options: Config.oneOfType(
-		[
-			Config.object(),
-			Config.string()
-		]
-	).value('[]'),
-	orderId: Config.oneOfType(
-		[
-			Config.number(),
-			Config.string()
-		]
-	),
+	options: Config.oneOfType([Config.object(), Config.string()]).value('[]'),
+	orderId: Config.oneOfType([Config.number(), Config.string()]),
 	quantity: Config.number(),
-	productId: Config.oneOfType(
-		[
-			Config.number(),
-			Config.string()
-		]
-	).required(),
-	settings: Config.shapeOf(
-		{
-			allowedQuantity: Config.array(Config.number()),
-			maxQuantity: Config.number(),
-			minQuantity: Config.number(),
-			multipleQuantity: Config.number()
-		}
-	).value({}),
-	updatingTransition: Config.oneOf(
-		[
-			'adding',
-			'incrementing'
-		]
-	)
+	productId: Config.oneOfType([Config.number(), Config.string()]).required(),
+	settings: Config.shapeOf({
+		allowedQuantity: Config.array(Config.number()),
+		maxQuantity: Config.number(),
+		minQuantity: Config.number(),
+		multipleQuantity: Config.number()
+	}).value({}),
+	updatingTransition: Config.oneOf(['adding', 'incrementing'])
 };
 
 export { AddToCartButton };

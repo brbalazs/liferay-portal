@@ -20,10 +20,10 @@ Label.propTypes = {
 				'warning',
 				'danger'
 			]),
-			label: PropTypes.string,
+			label: PropTypes.string
 		}),
 		PropTypes.string
 	])
-}
+};
 
 export default Label;

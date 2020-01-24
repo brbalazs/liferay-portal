@@ -61,5 +61,8 @@ if (messageLocalizedValuesMap != null) {
 </aui:form>
 
 <aui:script>
-	Liferay.Util.toggleBoxes('<portlet:namespace />showMessagePage', '<portlet:namespace />message');
+	Liferay.Util.toggleBoxes(
+		'<portlet:namespace />showMessagePage',
+		'<portlet:namespace />message'
+	);
 </aui:script>

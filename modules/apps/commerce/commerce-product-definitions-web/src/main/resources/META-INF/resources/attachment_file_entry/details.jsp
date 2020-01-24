@@ -79,54 +79,51 @@ int type = cpAttachmentFileEntriesDisplayContext.getType();
 <aui:input name="priority" />
 
 <aui:script use="liferay-item-selector-dialog">
-	$('#<portlet:namespace />selectFile').on(
-		'click',
-		function(event) {
-			event.preventDefault();
+	$('#<portlet:namespace />selectFile').on('click', function(event) {
+		event.preventDefault();
 
-			var itemSelectorDialog = new A.LiferayItemSelectorDialog(
-				{
-					eventName: 'addCPAttachmentFileEntry',
-					on: {
-						selectedItemChange: function(event) {
-							var selectedItem = event.newVal;
+		var itemSelectorDialog = new A.LiferayItemSelectorDialog({
+			eventName: 'addCPAttachmentFileEntry',
+			on: {
+				selectedItemChange: function(event) {
+					var selectedItem = event.newVal;
 
-							if (selectedItem) {
-								var value = JSON.parse(selectedItem.value);
+					if (selectedItem) {
+						var value = JSON.parse(selectedItem.value);
 
-								$('#<portlet:namespace />fileEntryId').val(value.fileEntryId);
+						$('#<portlet:namespace />fileEntryId').val(
+							value.fileEntryId
+						);
 
-								$('#<portlet:namespace />fileEntryTitle').html(value.title);
+						$('#<portlet:namespace />fileEntryTitle').html(value.title);
 
-								$('#<portlet:namespace />fileEntryContainer').removeClass('hidden');
+						$('#<portlet:namespace />fileEntryContainer').removeClass(
+							'hidden'
+						);
 
-								$('#<portlet:namespace />deleteFile').removeClass('hidden');
-							}
-						}
-					},
-					title: '<liferay-ui:message key="select-file" />',
-					url: '<%= cpAttachmentFileEntriesDisplayContext.getAttachmentItemSelectorUrl() %>'
+						$('#<portlet:namespace />deleteFile').removeClass('hidden');
+					}
 				}
-			);
+			},
+			title: '<liferay-ui:message key="select-file" />',
+			url:
+				'<%= cpAttachmentFileEntriesDisplayContext.getAttachmentItemSelectorUrl() %>'
+		});
 
-			itemSelectorDialog.open();
-		}
-	);
+		itemSelectorDialog.open();
+	});
 </aui:script>
 
 <aui:script>
-	$('#<portlet:namespace />deleteFile').on(
-		'click',
-		function(event) {
-			event.preventDefault();
+	$('#<portlet:namespace />deleteFile').on('click', function(event) {
+		event.preventDefault();
 
-			$('#<portlet:namespace />fileEntryId').val(0);
+		$('#<portlet:namespace />fileEntryId').val(0);
 
-			$('#<portlet:namespace />fileEntryTitle').html('');
+		$('#<portlet:namespace />fileEntryTitle').html('');
 
-			$('#<portlet:namespace />fileEntryContainer').addClass('hidden');
+		$('#<portlet:namespace />fileEntryContainer').addClass('hidden');
 
-			$('#<portlet:namespace />deleteFile').addClass('hidden');
-		}
-	);
+		$('#<portlet:namespace />deleteFile').addClass('hidden');
+	});
 </aui:script>

@@ -1,6 +1,7 @@
-import template from './Loader.soy';
 import Component from 'metal-component';
 import Soy, {Config} from 'metal-soy';
+
+import template from './Loader.soy';
 
 import '../price/Price.es';
 

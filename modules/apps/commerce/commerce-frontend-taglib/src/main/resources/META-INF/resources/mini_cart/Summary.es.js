@@ -1,6 +1,7 @@
-import template from './Summary.soy';
 import Component from 'metal-component';
 import Soy, {Config} from 'metal-soy';
+
+import template from './Summary.soy';
 
 import './Loader.es';
 

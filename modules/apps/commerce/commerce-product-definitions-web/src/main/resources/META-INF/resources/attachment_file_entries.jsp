@@ -218,14 +218,26 @@ PortletURL portletURL = cpAttachmentFileEntriesDisplayContext.getPortletURL();
 
 	<aui:script>
 		function <portlet:namespace />deleteCPAttachmentFileEntries() {
-			if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-attachments" />')) {
+			if (
+				confirm(
+					'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-attachments" />'
+				)
+			) {
 				var form = AUI.$(document.<portlet:namespace />fm);
 
 				form.attr('method', 'post');
 				form.fm('<%= Constants.CMD %>').val('<%= Constants.DELETE %>');
-				form.fm('deleteCPAttachmentFileEntryIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
+				form.fm('deleteCPAttachmentFileEntryIds').val(
+					Liferay.Util.listCheckedExcept(
+						form,
+						'<portlet:namespace />allRowIds'
+					)
+				);
 
-				submitForm(form, '<portlet:actionURL name="editCPAttachmentFileEntry" />');
+				submitForm(
+					form,
+					'<portlet:actionURL name="editCPAttachmentFileEntry" />'
+				);
 			}
 		}
 	</aui:script>

@@ -1,7 +1,7 @@
 import Component from 'metal-component';
-import { Config } from 'metal-state';
+import {globalEval} from 'metal-dom';
 import Soy from 'metal-soy';
-import { globalEval } from 'metal-dom';
+import {Config} from 'metal-state';
 
 import templates from './CPOptionDetail.soy';
 
@@ -11,7 +11,6 @@ import templates from './CPOptionDetail.soy';
  */
 
 class CPOptionDetail extends Component {
-
 	created() {
 		this.on('cpOptionIdChanged', this._handleCPOptionChange);
 	}
@@ -23,7 +22,7 @@ class CPOptionDetail extends Component {
 	loadOptionDetail(cpOptionId) {
 		var instance = this;
 
-		let optionDetail = this.refs['option-detail'];
+		const optionDetail = this.refs['option-detail'];
 
 		var url = new URL(this.optionURL);
 
@@ -45,20 +44,18 @@ class CPOptionDetail extends Component {
 
 				globalEval.runScriptsInElement(optionDetail);
 
-				var name = optionDetail.querySelector('#' + instance.namespace + 'name');
+				var name = optionDetail.querySelector(
+					'#' + instance.namespace + 'name'
+				);
 
 				if (name) {
-					name.addEventListener(
-						'keyup',
-						(event) => {
-							var target = event.target;
+					name.addEventListener('keyup', event => {
+						var target = event.target;
 
-							instance.emit('nameChange', target.value);
-						}
-					);
+						instance.emit('nameChange', target.value);
+					});
 				}
-			}
-		);
+			});
 	}
 
 	_handleCPOptionChange(event) {
@@ -68,36 +65,31 @@ class CPOptionDetail extends Component {
 	_handleSaveOption() {
 		var instance = this;
 
-		AUI().use(
-			'aui-base',
-			'aui-form-validator',
-			'liferay-form',
-			(A) => {
-				var hasErrors = false;
+		AUI().use('aui-base', 'aui-form-validator', 'liferay-form', A => {
+			var hasErrors = false;
 
-				let form = instance.element.querySelector('.option-detail form');
+			const form = instance.element.querySelector('.option-detail form');
 
-				var liferayForm = Liferay.Form.get(form.getAttribute('id'));
+			var liferayForm = Liferay.Form.get(form.getAttribute('id'));
 
-				if (liferayForm) {
-					var validator = liferayForm.formValidator;
+			if (liferayForm) {
+				var validator = liferayForm.formValidator;
 
-					if (A.instanceOf(validator, A.FormValidator)) {
-						validator.validate();
+				if (A.instanceOf(validator, A.FormValidator)) {
+					validator.validate();
 
-						hasErrors = validator.hasErrors();
+					hasErrors = validator.hasErrors();
 
-						if (hasErrors) {
-							validator.focusInvalidField();
-						}
+					if (hasErrors) {
+						validator.focusInvalidField();
 					}
 				}
-
-				if (!hasErrors) {
-					instance._saveOption();
-				}
 			}
-		);
+
+			if (!hasErrors) {
+				instance._saveOption();
+			}
+		});
 	}
 
 	_handleCancel() {
@@ -105,13 +97,19 @@ class CPOptionDetail extends Component {
 	}
 
 	_handleDeleteOption() {
-		if (confirm(Liferay.Language.get('are-you-sure-you-want-to-delete-the-selected-option'))) {
+		if (
+			confirm(
+				Liferay.Language.get(
+					'are-you-sure-you-want-to-delete-the-selected-option'
+				)
+			)
+		) {
 			this._deleteOption();
 		}
 	}
 
 	_deleteOption() {
-		let form = this.element.querySelector('.option-detail form');
+		const form = this.element.querySelector('.option-detail form');
 
 		form.querySelector('[name=' + this.namespace + 'cmd]').value = 'delete';
 
@@ -132,12 +130,11 @@ class CPOptionDetail extends Component {
 		).then(
 			(jsonResponse) => {
 				this.emit('optionDeleted', jsonResponse);
-			}
-		);
+			});
 	}
 
 	_saveOption() {
-		let form = this.element.querySelector('.option-detail form');
+		const form = this.element.querySelector('.option-detail form');
 
 		var formData = new FormData(form);
 
@@ -156,10 +153,8 @@ class CPOptionDetail extends Component {
 		).then(
 			(jsonResponse) => {
 				this.emit('optionSaved', jsonResponse);
-			}
-		);
+			});
 	}
-
 }
 
 /**

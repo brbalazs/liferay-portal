@@ -1,78 +1,78 @@
 .dataset-display {
-    .table {
-        td:first-child,
-        th:first-child,
-        .table-cell-start {
-            padding-left: map-get($spacers, 3);
-        }
+	.table {
+		td:first-child,
+		th:first-child,
+		.table-cell-start {
+			padding-left: map-get($spacers, 3);
+		}
 
-        td:last-child,
-        th:last-child,
-        .table-cell-end {
-            padding-right: map-get($spacers, 3);
-        }
-    }
+		td:last-child,
+		th:last-child,
+		.table-cell-end {
+			padding-right: map-get($spacers, 3);
+		}
+	}
 
-    .table-responsive {
-        margin-bottom: 0;
-    }
+	.table-responsive {
+		margin-bottom: 0;
+	}
 
-    &-fluid {
-        .dataset-display-content-wrapper {
-            border: 1px solid $border-color;
-        }
+	&-fluid {
+		.dataset-display-content-wrapper {
+			border: 1px solid $border-color;
+		}
 
-        .dataset-display-pagination-wrapper {
-            margin: map-get($spacers, 3) 0 0;
-        }
-    }
+		.dataset-display-pagination-wrapper {
+			margin: map-get($spacers, 3) 0 0;
+		}
+	}
 
-    &-management-bar-wrapper > * {
-        margin-bottom: 0;
-    }
+	&-management-bar-wrapper > * {
+		margin-bottom: 0;
+	}
 
-    &-pagination-wrapper {
-        margin: map-get($spacers, 3) map-get($spacers, 3) 0;
-    }
+	&-pagination-wrapper {
+		margin: map-get($spacers, 3) map-get($spacers, 3) 0;
+	}
 
-    &-stacked {
-        .dataset-display-content-wrapper {
-            border: 1px solid $border-color;
-            margin-bottom: map-get($spacers, 3);
-        }
+	&-stacked {
+		.dataset-display-content-wrapper {
+			border: 1px solid $border-color;
+			margin-bottom: map-get($spacers, 3);
+		}
 
-        .dataset-display-management-bar-wrapper {
-            border-color: $border-color;
-            border-style: solid;
-            border-width: 1px 1px 0 1px;
-            margin-bottom: map-get($spacers, 3);
-        }
+		.dataset-display-management-bar-wrapper {
+			border-color: $border-color;
+			border-style: solid;
+			border-width: 1px 1px 0 1px;
+			margin-bottom: map-get($spacers, 3);
+		}
 
-        .dataset-display-pagination-wrapper {
-            margin: map-get($spacers, 3) 0 0;
-        }
-    }
+		.dataset-display-pagination-wrapper {
+			margin: map-get($spacers, 3) 0 0;
+		}
+	}
 }
 
 .tooltip-table {
-    background: transparent;
-    border: none;
-    border-collapse: collapse;
-    color: white;
-    width: 100%;
+	background: transparent;
+	border: none;
+	border-collapse: collapse;
+	color: white;
+	width: 100%;
 
-    td {
-        background-color: transparent !important;
-        border-color: rgba(255,255,255,0.1);
-        padding-bottom: map-get($spacers, 1) !important;
-        padding-top: map-get($spacers, 1) !important;
-        
-        &:first-child {
-            padding-left: 0 !important;
-        }
+	td {
+		background-color: transparent !important;
+		border-color: rgba(255, 255, 255, 0.1);
+		padding-bottom: map-get($spacers, 1) !important;
+		padding-top: map-get($spacers, 1) !important;
 
-        &:last-child {
-            padding-right: 0 !important;
-        }
-    }
+		&:first-child {
+			padding-left: 0 !important;
+		}
+
+		&:last-child {
+			padding-right: 0 !important;
+		}
+	}
 }

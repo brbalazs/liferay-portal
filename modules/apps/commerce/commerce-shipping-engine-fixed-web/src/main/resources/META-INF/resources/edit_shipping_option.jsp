@@ -69,31 +69,27 @@ if (commerceShippingFixedOption != null) {
 
 			var url = '<%= editCommerceShippingFixedOptionActionURL %>';
 
-			A.io.request(
-				url,
-				{
-					form: {
-						id: '<portlet:namespace/>fm'
-					},
-					method: 'POST',
-					on: {
-						success: function() {
-							Liferay.Util.getOpener().refreshPortlet();
-							Liferay.Util.getOpener().closePopup('editShippingFixedOptionDialog');
-						}
+			A.io.request(url, {
+				form: {
+					id: '<portlet:namespace/>fm'
+				},
+				method: 'POST',
+				on: {
+					success: function() {
+						Liferay.Util.getOpener().refreshPortlet();
+						Liferay.Util.getOpener().closePopup(
+							'editShippingFixedOptionDialog'
+						);
 					}
 				}
-			);
+			});
 		},
 		['aui-base', 'aui-io-request', 'io-form']
 	);
 </aui:script>
 
 <aui:script use="aui-base">
-	A.one('#<portlet:namespace/>cancelButton').on(
-		'click',
-		function(event) {
-			Liferay.Util.getOpener().closePopup('editShippingFixedOptionDialog');
-		}
-	);
+	A.one('#<portlet:namespace/>cancelButton').on('click', function(event) {
+		Liferay.Util.getOpener().closePopup('editShippingFixedOptionDialog');
+	});
 </aui:script>

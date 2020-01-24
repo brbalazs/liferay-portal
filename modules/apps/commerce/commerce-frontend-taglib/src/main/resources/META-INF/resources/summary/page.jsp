@@ -19,11 +19,7 @@
 <div class="summary-root" id="<%= summaryId %>"></div>
 
 <aui:script require="commerce-frontend-js/components/summary/entry.es as summary">
-	summary.default(
-		"<%= summaryId %>",
-		"<%= summaryId %>",
-		{
-			items: <%= jsonSerializer.serializeDeep(items) %>
-		}
-	);
+	summary.default('<%= summaryId %>', '<%= summaryId %>', {
+		items: <%= jsonSerializer.serializeDeep(items) %>
+	});
 </aui:script>

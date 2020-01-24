@@ -7,17 +7,18 @@ const components = require('./src/main/resources/META-INF/resources/components/i
 
 const outputPath = path.resolve(__dirname, './dev/public');
 
-const getComponentPath = (component, entry) => path.join(
-	__dirname,
-	'src',
-	'main',
-	'resources',
-	'META-INF',
-	'resources',
-	'components',
-	component,
-	entry
-);
+const getComponentPath = (component, entry) =>
+	path.join(
+		__dirname,
+		'src',
+		'main',
+		'resources',
+		'META-INF',
+		'resources',
+		'components',
+		component,
+		entry
+	);
 
 // eslint-disable-next-line no-undef
 module.exports = {
@@ -35,11 +36,14 @@ module.exports = {
 				target: 'http://localhost:8080/'
 			}
 		},
-		publicPath: '/',
+		publicPath: '/'
 	},
 	devtool: 'inline-source-map',
 	entry: components.reduce((comp, current) => {
-		comp[current.folder] = getComponentPath(current.folder, current.entry_dev)
+		comp[current.folder] = getComponentPath(
+			current.folder,
+			current.entry_dev
+		);
 		return comp;
 	}, {}),
 	mode: 'development',
@@ -50,37 +54,37 @@ module.exports = {
 				test: /\.(js|jsx)$/,
 				use: [
 					{
-						loader: 'babel-loader',
-					},
-				],
+						loader: 'babel-loader'
+					}
+				]
 			},
 			{
 				test: /\.(scss|css)$/,
 				use: [
 					{loader: 'style-loader'},
 					{loader: 'css-loader'},
-					{loader: 'sass-loader'},
-				],
+					{loader: 'sass-loader'}
+				]
 			},
 			{
 				exclude: /node_modules/,
 				test: /\.tsx?$/,
-				use: 'ts-loader',
-			},
-		],
+				use: 'ts-loader'
+			}
+		]
 	},
 	output: {
 		filename: '[name].js',
-		path: outputPath,
+		path: outputPath
 	},
 	plugins: [
 		new webpack.optimize.ModuleConcatenationPlugin(),
 		new HtmlWebpackPlugin({
 			inject: false,
-			template: path.resolve(__dirname, './dev/public/index.html'),
-		}),
+			template: path.resolve(__dirname, './dev/public/index.html')
+		})
 	],
 	resolve: {
-		extensions: ['.js', '.jsx'],
-	},
+		extensions: ['.js', '.jsx']
+	}
 };

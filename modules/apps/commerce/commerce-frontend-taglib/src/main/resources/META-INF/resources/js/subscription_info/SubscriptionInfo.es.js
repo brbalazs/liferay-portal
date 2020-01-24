@@ -1,6 +1,7 @@
-import template from './SubscriptionInfo.soy';
 import Component from 'metal-component';
 import Soy, {Config} from 'metal-soy';
+
+import template from './SubscriptionInfo.soy';
 
 class SubscriptionInfo extends Component {}
 

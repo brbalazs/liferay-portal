@@ -65,7 +65,9 @@ long cpDefinitionId = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionId
 					return string.toLowerCase().replace(/[^a-z1-9]+/g, '-');
 				}
 
-				const form = document.getElementById('<portlet:namespace />cpDefinitionOptionValueRelfm');
+				const form = document.getElementById(
+					'<portlet:namespace />cpDefinitionOptionValueRelfm'
+				);
 
 				const keyInput = form.querySelector('#<portlet:namespace />key');
 				const nameInput = form.querySelector('#<portlet:namespace />optionValueName');
@@ -76,10 +78,7 @@ long cpDefinitionId = cpDefinitionOptionValueRelDisplayContext.getCPDefinitionId
 					keyInput.value = slugify(nameInput.value);
 				};
 
-				nameInput.addEventListener(
-					'input',
-					debounce(handleOnNameInput, 200)
-				);
+				nameInput.addEventListener('input', debounce(handleOnNameInput, 200));
 			</aui:script>
 		</c:if>
 	</div>

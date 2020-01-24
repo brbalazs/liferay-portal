@@ -129,9 +129,13 @@ portletDisplay.setURLBack(backURL);
 
 			var name = A.one('#<portlet:namespace />name').val();
 			var type = A.one('#<portlet:namespace />type').val();
-			var commerceCurrencyCode = A.one('#<portlet:namespace />commerceCurrencyCode').val();
+			var commerceCurrencyCode = A.one(
+				'#<portlet:namespace />commerceCurrencyCode'
+			).val();
 
-			var portletURL = new Liferay.PortletURL.createURL('<%= currentURLObj %>');
+			var portletURL = new Liferay.PortletURL.createURL(
+				'<%= currentURLObj %>'
+			);
 
 			portletURL.setParameter('name', name);
 			portletURL.setParameter('type', type);

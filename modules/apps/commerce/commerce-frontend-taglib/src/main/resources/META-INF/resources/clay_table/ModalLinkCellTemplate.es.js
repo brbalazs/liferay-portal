@@ -1,11 +1,12 @@
-import Soy from 'metal-soy';
 import Component from 'metal-component';
+import Soy from 'metal-soy';
 import {Config} from 'metal-state';
+
 import template from './ModalLinkCellTemplate.soy';
+
 import 'clay-modal';
 
 class ModalLinkCellTemplate extends Component {
-
 	_openPopUp(e) {
 		e.preventDefault();
 		this._lazyLoad = true;

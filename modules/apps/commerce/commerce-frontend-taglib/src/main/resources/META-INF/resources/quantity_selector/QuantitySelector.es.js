@@ -1,12 +1,14 @@
-import template from './QuantitySelector.soy';
 import Component from 'metal-component';
 import Soy, {Config} from 'metal-soy';
 
-class QuantitySelector extends Component {
+import template from './QuantitySelector.soy';
 
+class QuantitySelector extends Component {
 	attached() {
 		if (!this.quantity) {
-			this.quantity = this.allowedQuantities ? this.allowedQuantities[0] : this.minQuantity;
+			this.quantity = this.allowedQuantities
+				? this.allowedQuantities[0]
+				: this.minQuantity;
 			this._updateQuantity(this.quantity);
 		}
 		return !!this.quantity;
@@ -31,17 +33,17 @@ class QuantitySelector extends Component {
 	}
 
 	_isPrevButtonAvailable(quantity) {
-		let tempValue = this.multipleQuantity ?
-			quantity - this.multipleQuantity :
-			quantity - 1;
+		const tempValue = this.multipleQuantity
+			? quantity - this.multipleQuantity
+			: quantity - 1;
 
 		return tempValue >= this.minQuantity;
 	}
 
 	_isNextButtonAvailable(quantity) {
-		let tempValue = this.multipleQuantity ?
-			quantity + this.multipleQuantity :
-			quantity + 1;
+		const tempValue = this.multipleQuantity
+			? quantity + this.multipleQuantity
+			: quantity + 1;
 
 		return tempValue <= this.maxQuantity;
 	}
@@ -57,8 +59,7 @@ class QuantitySelector extends Component {
 
 		if (this.multipleQuantity) {
 			quantity -= this.multipleQuantity;
-		}
-		else {
+		} else {
 			quantity -= 1;
 		}
 
@@ -81,8 +82,7 @@ class QuantitySelector extends Component {
 
 		if (this.multipleQuantity) {
 			quantity += this.multipleQuantity;
-		}
-		else {
+		} else {
 			quantity += 1;
 		}
 
@@ -108,10 +108,7 @@ class QuantitySelector extends Component {
 		if (!e.target.value) {
 			return null;
 		}
-		const quantity = parseInt(
-			e.target.value,
-			10
-		);
+		const quantity = parseInt(e.target.value, 10);
 		return this._submitQuantity(quantity);
 	}
 
@@ -143,7 +140,6 @@ class QuantitySelector extends Component {
 		this.showError = false;
 		return this.emit('updateQuantity', quantity);
 	}
-
 }
 
 QuantitySelector.STATE = {

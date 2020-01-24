@@ -1,6 +1,6 @@
 import Component from 'metal-component';
-import { Config } from 'metal-state';
 import Soy from 'metal-soy';
+import {Config} from 'metal-state';
 
 import templates from './CPOptionValuesEditor.soy';
 
@@ -10,7 +10,6 @@ import templates from './CPOptionValuesEditor.soy';
  */
 
 class CPOptionValuesEditor extends Component {
-
 	constructor(opt_config, opt_parentElement) {
 		super(opt_config, opt_parentElement);
 
@@ -53,17 +52,21 @@ class CPOptionValuesEditor extends Component {
 			(jsonResponse) => {
 				this._optionValues = jsonResponse;
 
-				if ((this._optionValues && this._optionValues.length > 0)) {
-					if (!this._currentOptionValue || this._currentOptionValue == null) {
+				if (this._optionValues && this._optionValues.length > 0) {
+					if (
+						!this._currentOptionValue ||
+						this._currentOptionValue == null
+					) {
 						this._currentOptionValue = this._optionValues[0].cpOptionValueId;
 					}
-				}
-				else if ((this._optionValues && this._optionValues.length == 0)) {
+				} else if (
+					this._optionValues &&
+					this._optionValues.length == 0
+				) {
 					this._newOptionValueName = '';
 					this._currentOptionValue = '0';
 				}
-			}
-		);
+			});
 	}
 
 	_handleShowChange(event) {
@@ -81,8 +84,7 @@ class CPOptionValuesEditor extends Component {
 
 		if (event.success) {
 			this._showNotification(this.successMessage, 'success');
-		}
-		else {
+		} else {
 			this._showNotification(event.message, 'danger');
 		}
 	}
@@ -102,32 +104,26 @@ class CPOptionValuesEditor extends Component {
 	_handleNameChange(newName) {
 		if (this._currentOptionValue == '0') {
 			this._newOptionValueName = newName;
-		}
-		else {
+		} else {
 			this._newOptionValueName = '';
 		}
 	}
 
 	_showNotification(message, type) {
-		AUI().use(
-			'liferay-notification',
-			() => {
-				new Liferay.Notification(
-					{
-						closeable: true,
-						delay: {
-							hide: 5000,
-							show: 0
-						},
-						duration: 500,
-						message: message,
-						render: true,
-						title: '',
-						type: type
-					}
-				);
-			}
-		);
+		AUI().use('liferay-notification', () => {
+			new Liferay.Notification({
+				closeable: true,
+				delay: {
+					hide: 5000,
+					show: 0
+				},
+				duration: 500,
+				message,
+				render: true,
+				title: '',
+				type
+			});
+		});
 	}
 }
 

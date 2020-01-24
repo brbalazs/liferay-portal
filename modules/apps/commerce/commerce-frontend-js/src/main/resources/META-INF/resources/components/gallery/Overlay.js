@@ -1,5 +1,6 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+
 import Arrows from './Arrows';
 
 export default function Overlay({

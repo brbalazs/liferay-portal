@@ -1,16 +1,17 @@
 import 'clay-table';
+
 import 'clay-pagination-bar';
-import { Config } from 'metal-state';
 import Component from 'metal-component';
 import Soy from 'metal-soy';
+import {Config} from 'metal-state';
 
 import template from './CommerceTable.soy';
 
 import './CommerceTableExtensions.es';
+
 import './ModalLinkCellTemplate.es';
 
 class CommerceTable extends Component {
-
 	_getApiURL() {
 		let url = this.dataSetAPI;
 
@@ -18,10 +19,17 @@ class CommerceTable extends Component {
 		url += `&page=${this.currentPage}`;
 		url += `&p_auth=${Liferay.authToken}`;
 
-		url += '&' + Object.keys(this.filters).map(
-			el => {
-				return encodeURIComponent(el) + '=' + encodeURIComponent(this.filters[el]);
-			}).join('&');
+		url +=
+			'&' +
+			Object.keys(this.filters)
+				.map(el => {
+					return (
+						encodeURIComponent(el) +
+						'=' +
+						encodeURIComponent(this.filters[el])
+					);
+				})
+				.join('&');
 
 		return url;
 	}
@@ -39,7 +47,9 @@ class CommerceTable extends Component {
 
 		this.pageSize = event.data.item.label;
 		this.currentPage = 1;
-		this.paginationSelectedEntry = this.paginationEntries.map((x) => x.label).indexOf(this.pageSize);
+		this.paginationSelectedEntry = this.paginationEntries
+			.map(x => x.label)
+			.indexOf(this.pageSize);
 
 		this._loadData();
 	}
@@ -50,15 +60,14 @@ class CommerceTable extends Component {
 	 * @param {!Event} event
 	 * @private
 	 */
-	_handleItemToggled(event) {
-	}
+	_handleItemToggled(event) {}
 
 	_handlePageClicked(event) {
 		if (this.disableAJAX) {
 			return;
 		}
 
-		let newPage = parseInt(event.data.page, 10);
+		const newPage = parseInt(event.data.page, 10);
 
 		if (this.currentPage == newPage) {
 			return;
@@ -79,16 +88,11 @@ class CommerceTable extends Component {
 			}
 		)
 			.then(response => response.json())
-			.then(
-				updatedItems => {
-					this.items = updatedItems;
-				}
-			)
-			.catch(
-				console.error
-			);
+			.then(updatedItems => {
+				this.items = updatedItems;
+			})
+			.catch(console.error);
 	}
-
 }
 
 Soy.register(CommerceTable, template);

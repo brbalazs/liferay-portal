@@ -10,9 +10,7 @@
 							trigger: 'liferay-management-bar'
 						},
 						path: 'management_bar_state.js',
-						requires: [
-							'liferay-management-bar'
-						]
+						requires: ['liferay-management-bar']
 					},
 					'liferay-commerce-frontend-asset-tag-selector': {
 						path: 'liferay_commerce_frontend_asset_tag_selector.js',
@@ -27,7 +25,8 @@
 						]
 					},
 					'liferay-commerce-frontend-asset-categories-selector': {
-						path: 'liferay_commerce_frontend_asset_categories_selector.js',
+						path:
+							'liferay_commerce_frontend_asset_categories_selector.js',
 						requires: [
 							'aui-tree',
 							'liferay-commerce-frontend-asset-tag-selector'

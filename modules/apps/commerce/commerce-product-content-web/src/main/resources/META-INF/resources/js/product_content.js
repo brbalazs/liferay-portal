@@ -1,6 +1,6 @@
 AUI.add(
 	'liferay-commerce-product-content',
-	function(A) {
+	A => {
 		var STR_DDM_FORM_EVENT = 'DDMForm:render';
 
 		var CP_CONTENT_WEB_PORTLET_KEY =
@@ -24,19 +24,19 @@ AUI.add(
 			NAME: 'productcontent',
 
 			prototype: {
-				initializer: function(config) {
+				initializer(config) {
 					var instance = this;
 
 					instance._bindUI();
 					instance._renderUI();
 				},
 
-				destructor: function() {
+				destructor() {
 					var instance = this;
 
 					new A.EventHandle(instance._eventHandles).detach();
 				},
-				checkCPInstance: function() {
+				checkCPInstance() {
 					var instance = this;
 
 					var cpDefinitionId = instance.get('cpDefinitionId');
@@ -60,9 +60,9 @@ AUI.add(
 					data.groupId = themeDisplay.getScopeGroupId();
 
 					A.io.request(portletURL.toString(), {
-						data: data,
+						data,
 						on: {
-							success: function(event, id, obj) {
+							success(event, id, obj) {
 								var response = JSON.parse(obj.response);
 
 								if (response.cpInstanceExist) {
@@ -81,18 +81,20 @@ AUI.add(
 						}
 					});
 				},
-				getCPDefinitionId: function() {
+				getCPDefinitionId() {
 					return this.get('cpDefinitionId');
 				},
-				getCPInstanceId: function() {
+				getCPInstanceId() {
 					return this.get('cpInstanceId');
 				},
-				getFormValues: function() {
+				getFormValues() {
 					var instance = this;
 
 					var cpDefinitionId = instance.get('cpDefinitionId');
 
-					var ddmForm = Liferay.component('ProductOptions' + cpDefinitionId + 'DDMForm');
+					var ddmForm = Liferay.component(
+						'ProductOptions' + cpDefinitionId + 'DDMForm'
+					);
 
 					if (!ddmForm) {
 						return [];
@@ -102,7 +104,7 @@ AUI.add(
 
 					var fieldValues = [];
 
-					fields.forEach(function(field) {
+					fields.forEach(field => {
 						var fieldValue = {};
 
 						fieldValue.key = field.get('fieldName');
@@ -113,8 +115,7 @@ AUI.add(
 
 						if (value instanceof Array) {
 							arrValue = value;
-						}
-						else {
+						} else {
 							arrValue.push(value);
 						}
 
@@ -125,33 +126,36 @@ AUI.add(
 
 					return fieldValues;
 				},
-				getProductContent: function() {
+				getProductContent() {
 					var instance = this;
 
 					return A.one(instance.get('productContentSelector'));
 				},
-				validateProduct: function(callback) {
+				validateProduct(callback) {
 					var instance = this;
 
 					var cpDefinitionId = instance.get('cpDefinitionId');
 
-					var ddmForm = Liferay.component('ProductOptions' + cpDefinitionId + 'DDMForm');
+					var ddmForm = Liferay.component(
+						'ProductOptions' + cpDefinitionId + 'DDMForm'
+					);
 
 					if (!ddmForm) {
 						callback.call(instance, false);
-					}
-					else {
+					} else {
 						ddmForm.validate(callback);
 					}
 				},
-				_bindUI: function() {
+				_bindUI() {
 					var instance = this;
 
 					var eventHandles = [];
 
 					var cpDefinitionId = instance.get('cpDefinitionId');
 
-					var form = Liferay.component('ProductOptions' + cpDefinitionId + 'DDMForm');
+					var form = Liferay.component(
+						'ProductOptions' + cpDefinitionId + 'DDMForm'
+					);
 
 					if (form) {
 						form.after(
@@ -163,7 +167,9 @@ AUI.add(
 
 					eventHandles.push(
 						Liferay.on(
-							'ProductOptions' + cpDefinitionId + STR_DDM_FORM_EVENT,
+							'ProductOptions' +
+								cpDefinitionId +
+								STR_DDM_FORM_EVENT,
 							instance._ddmFormRender,
 							instance
 						)
@@ -171,14 +177,14 @@ AUI.add(
 
 					instance._eventHandles = eventHandles;
 				},
-				_ddmFormChange: function(valueChangeEvent) {
+				_ddmFormChange(valueChangeEvent) {
 					var instance = this;
 
 					instance._renderImages();
 
 					instance.checkCPInstance();
 				},
-				_ddmFormRender: function(event) {
+				_ddmFormRender(event) {
 					var instance = this;
 
 					var form = event.form;
@@ -189,12 +195,12 @@ AUI.add(
 						instance
 					);
 				},
-				_getThumbsContainer: function() {
+				_getThumbsContainer() {
 					var instance = this;
 
 					return A.one(instance.get('thumbsContainerSelector'));
 				},
-				_renderImages: function() {
+				_renderImages() {
 					var instance = this;
 
 					var ddmFormValues = JSON.stringify(
@@ -209,9 +215,9 @@ AUI.add(
 					data.groupId = themeDisplay.getScopeGroupId();
 
 					A.io.request(instance.get('viewAttachmentURL'), {
-						data: data,
+						data,
 						on: {
-							success: function(event, id, obj) {
+							success(event, id, obj) {
 								var response = JSON.parse(obj.response);
 
 								instance._renderThumbsImages(response);
@@ -219,14 +225,14 @@ AUI.add(
 						}
 					});
 				},
-				_renderThumbsImages: function(images) {
+				_renderThumbsImages(images) {
 					var instance = this;
 
 					var thumbsContainer = instance._getThumbsContainer();
 
 					thumbsContainer.setHTML('');
 
-					images.forEach(function(image) {
+					images.forEach(image => {
 						var thumbContainer = A.Node.create(
 							'<div class="thumb" />'
 						);
@@ -252,7 +258,7 @@ AUI.add(
 						fullImage.setAttribute('src', images[0].url);
 					}
 				},
-				_renderCPInstance: function(cpInstance) {
+				_renderCPInstance(cpInstance) {
 					var instance = this;
 
 					var productContent = instance.getProductContent();
@@ -366,28 +372,24 @@ AUI.add(
 						sampleFilesShow.show();
 					}
 
-					productContent
-						.all('[data-cp-instance-id]')
-						.each(function(node) {
-							node.setAttribute(
-								'data-cp-instance-id',
-								cpInstance.cpInstanceId
-							);
-						});
+					productContent.all('[data-cp-instance-id]').each(node => {
+						node.setAttribute(
+							'data-cp-instance-id',
+							cpInstance.cpInstanceId
+						);
+					});
 				},
-				_renderUI: function() {
+				_renderUI() {
 					var instance = this;
 
 					var productContent = instance.getProductContent();
 
-					productContent
-						.all('[data-cp-definition-id]')
-						.each(function(node) {
-							node.setAttribute(
-								'data-cp-definition-id',
-								instance.get('cpDefinitionId')
-							);
-						});
+					productContent.all('[data-cp-definition-id]').each(node => {
+						node.setAttribute(
+							'data-cp-definition-id',
+							instance.get('cpDefinitionId')
+						);
+					});
 				}
 			}
 		});

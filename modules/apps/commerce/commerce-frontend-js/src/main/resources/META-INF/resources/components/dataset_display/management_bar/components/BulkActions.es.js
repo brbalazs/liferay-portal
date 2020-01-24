@@ -4,21 +4,21 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useState, useEffect} from 'react';
 
+import {OPEN_SIDE_PANEL} from '../../../../utilities/eventsDefinitions.es';
+import {getOpenedSidePanel} from '../../../../utilities/sidePanels.es';
 import DatasetDisplayContext from '../../DatasetDisplayContext.es';
-import { OPEN_SIDE_PANEL } from '../../../../utilities/eventsDefinitions.es';
-import { getOpenedSidePanel } from '../../../../utilities/sidePanels.es';
 
 function submit(action, method = 'get', formId, form) {
 	let queriedForm;
 
-	if(formId) {
+	if (formId) {
 		queriedForm = document.getElementById(formId);
 	}
 	if (form.current) {
 		queriedForm = form.current;
 	}
-	if(!queriedForm) {
-		throw new Error('Form not found')
+	if (!queriedForm) {
+		throw new Error('Form not found');
 	}
 
 	queriedForm.action = action;
@@ -39,31 +39,43 @@ function getRichPayload(payload, key, values = []) {
 }
 
 function BulkActions(props) {
-	const [currentSidePanelActionPayload, setCurrentSidePanelActionPayload] = useState(null);
+	const [
+		currentSidePanelActionPayload,
+		setCurrentSidePanelActionPayload
+	] = useState(null);
 
-	function handleActionClick(actionDefinition, formId, formRef, loadData, sidePanelId) {
+	function handleActionClick(
+		actionDefinition,
+		formId,
+		formRef,
+		loadData,
+		sidePanelId
+	) {
 		if (actionDefinition.sidePanelCompatible) {
 			const sidePanelActionPayload = {
 				baseUrl: actionDefinition.url,
 				id: sidePanelId,
 				onAfterSubmit: () => loadData(),
-				slug: actionDefinition.slug || null,
-			}
+				slug: actionDefinition.slug || null
+			};
 
 			Liferay.fire(
 				OPEN_SIDE_PANEL,
-				getRichPayload(sidePanelActionPayload, props.selectedItemsKey, props.selectedItemsValue)
+				getRichPayload(
+					sidePanelActionPayload,
+					props.selectedItemsKey,
+					props.selectedItemsValue
+				)
 			);
 
-			setCurrentSidePanelActionPayload(sidePanelActionPayload)
-		}
-		else {
+			setCurrentSidePanelActionPayload(sidePanelActionPayload);
+		} else {
 			submit(
 				actionDefinition.url,
 				actionDefinition.method || 'post',
 				formId,
 				formRef
-			)
+			);
 		}
 	}
 
@@ -75,28 +87,37 @@ function BulkActions(props) {
 
 			const currentOpenedSidePanel = getOpenedSidePanel();
 
-			if (currentOpenedSidePanel &&
-				(currentOpenedSidePanel.id === currentSidePanelActionPayload.id) &&
-				(currentOpenedSidePanel.url.indexOf(currentSidePanelActionPayload.baseUrl) > -1)) {
-
+			if (
+				currentOpenedSidePanel &&
+				currentOpenedSidePanel.id ===
+					currentSidePanelActionPayload.id &&
+				currentOpenedSidePanel.url.indexOf(
+					currentSidePanelActionPayload.baseUrl
+				) > -1
+			) {
 				Liferay.fire(
 					OPEN_SIDE_PANEL,
-					getRichPayload(currentSidePanelActionPayload, props.selectedItemsValue)
+					getRichPayload(
+						currentSidePanelActionPayload,
+						props.selectedItemsValue
+					)
 				);
 			}
-
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[
-			props.selectedItemsValue
-		]
-	)
+		[props.selectedItemsValue]
+	);
 
 	return props.selectedItemsValue.length ? (
 		<DatasetDisplayContext.Consumer>
 			{({formId, formRef, loadData, sidePanelId}) => (
 				<nav className="management-bar-primary navbar navbar-expand-md pb-2 pt-2 subnav-tbar border-bottom">
-					<div className={classNames("container-fluid container-fluid-max-xl py-1", !props.fluid && 'px-0')}>
+					<div
+						className={classNames(
+							'container-fluid container-fluid-max-xl py-1',
+							!props.fluid && 'px-0'
+						)}
+					>
 						<ul className="navbar-nav">
 							<li className="nav-item">
 								<span className="text-truncate">
@@ -125,7 +146,15 @@ function BulkActions(props) {
 										i > 0 && 'ml-1'
 									)}
 									key={actionDefinition.label}
-									onClick={() => handleActionClick(actionDefinition, formId, formRef, loadData, sidePanelId)}
+									onClick={() =>
+										handleActionClick(
+											actionDefinition,
+											formId,
+											formRef,
+											loadData,
+											sidePanelId
+										)
+									}
 								>
 									<ClayIcon symbol={actionDefinition.icon} />
 								</button>
@@ -145,7 +174,7 @@ BulkActions.propTypes = {
 			label: PropTypes.string.isRequired,
 			method: PropTypes.string,
 			sidePanelCompatible: PropTypes.bool,
-			url: PropTypes.string.isRequired,
+			url: PropTypes.string.isRequired
 		})
 	),
 	selectedItemsKey: PropTypes.string.isRequired,

@@ -100,37 +100,30 @@ portletURL.setParameter("userId", String.valueOf(selectedUser.getUserId()));
 		/>
 
 		<aui:script>
+			Liferay.provide(window, '<portlet:namespace />openUserRolesModal', function(
+				evt
+			) {
+				const userRolesModal = Liferay.component('userRolesModal');
+				userRolesModal.open();
+			});
 
-			Liferay.provide(
-				window,
-				'<portlet:namespace />openUserRolesModal',
-				function(evt) {
-					const userRolesModal = Liferay.component('userRolesModal');
-					userRolesModal.open();
-				}
-			);
+			Liferay.componentReady('userRolesModal').then(function(userRolesModal) {
+				userRolesModal.on('updateRoles', function(selectedRoles) {
+					let selectedRoleIds = selectedRoles
+						.map(function(role) {
+							return role.id;
+						})
+						.join(',');
 
-			Liferay.componentReady('userRolesModal').then(
-				function(userRolesModal) {
-					userRolesModal.on(
-						'updateRoles',
-						function(selectedRoles) {
-							let selectedRoleIds = selectedRoles.map(
-								function(role) {
-									return role.id
-								}
-							).join(',');
+					document.querySelector(
+						'#<portlet:namespace />selectedRoleIds'
+					).value = selectedRoleIds;
 
-							document.querySelector('#<portlet:namespace />selectedRoleIds').value = selectedRoleIds;
+					userRolesModal.close();
 
-							userRolesModal.close();
-
-							submitForm(document.<portlet:namespace />editCommerceAccountUserFm);
-						}
-					);
-				}
-			);
-
+					submitForm(document.<portlet:namespace />editCommerceAccountUserFm);
+				});
+			});
 		</aui:script>
 	</c:if>
 </c:if>

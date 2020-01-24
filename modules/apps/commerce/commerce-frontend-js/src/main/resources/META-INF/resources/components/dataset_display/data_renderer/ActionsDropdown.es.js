@@ -40,9 +40,9 @@ ActionsDropdown.propTypes = {
 		PropTypes.shape({
 			href: PropTypes.string,
 			icon: PropTypes.string,
-			label: PropTypes.string.isRequired,
+			label: PropTypes.string.isRequired
 		})
 	)
-}
+};
 
 export default ActionsDropdown;

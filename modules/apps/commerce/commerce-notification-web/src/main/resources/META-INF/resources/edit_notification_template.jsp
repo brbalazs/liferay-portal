@@ -70,8 +70,8 @@ PortalUtil.addPortletBreadcrumbEntry(request, title, StringPool.BLANK, data);
 	}
 
 	Liferay.provide(
-	window,
-	'<portlet:namespace />selectType',
+		window,
+		'<portlet:namespace />selectType',
 		function() {
 			var A = AUI();
 
@@ -83,7 +83,9 @@ PortalUtil.addPortletBreadcrumbEntry(request, title, StringPool.BLANK, data);
 			var bcc = A.one('#<portlet:namespace />bcc').val();
 			var type = A.one('#<portlet:namespace />type').val();
 
-			var portletURL = new Liferay.PortletURL.createURL('<%= currentURLObj %>');
+			var portletURL = new Liferay.PortletURL.createURL(
+				'<%= currentURLObj %>'
+			);
 
 			portletURL.setParameter('name', name);
 			portletURL.setParameter('description', description);

@@ -45,6 +45,6 @@ function TextFilter(props) {
 			</div>
 		</div>
 	);
-};
+}
 
 export default TextFilter;

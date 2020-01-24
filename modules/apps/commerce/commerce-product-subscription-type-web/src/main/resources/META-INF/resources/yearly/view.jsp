@@ -60,15 +60,25 @@ int selectedYearlyMode = yearlyCPSubscriptionTypeDisplayContext.getSelectedYearl
 </div>
 
 <aui:script>
-	function changeYearlyCPSubscriptionTypeSettingsMode () {
+	function changeYearlyCPSubscriptionTypeSettingsMode() {
 		var A = AUI();
 
-		if (A.one('#<portlet:namespace />yearlyMode').val() == '<%= CPSubscriptionTypeConstants.MODE_EXACT_DAY_OF_YEAR %>') {
-				A.one('#<portlet:namespace />exactDayOfYearInputContainer').removeClass('hide');
-		}
-		else {
-			if (!A.one('#<portlet:namespace />exactDayOfYearInputContainer').hasClass('hide')) {
-				A.one('#<portlet:namespace />exactDayOfYearInputContainer').addClass('hide');
+		if (
+			A.one('#<portlet:namespace />yearlyMode').val() ==
+			'<%= CPSubscriptionTypeConstants.MODE_EXACT_DAY_OF_YEAR %>'
+		) {
+			A.one('#<portlet:namespace />exactDayOfYearInputContainer').removeClass(
+				'hide'
+			);
+		} else {
+			if (
+				!A.one(
+					'#<portlet:namespace />exactDayOfYearInputContainer'
+				).hasClass('hide')
+			) {
+				A.one(
+					'#<portlet:namespace />exactDayOfYearInputContainer'
+				).addClass('hide');
 			}
 		}
 	}

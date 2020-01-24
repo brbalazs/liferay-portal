@@ -57,73 +57,67 @@ request.setAttribute("view.jsp-filterPerAccount", false);
 	/>
 
 	<aui:script>
-		Liferay.provide(
-			window,
-			'<portlet:namespace />openAddAccountModal',
-			function(evt) {
-				const addAccountModal = Liferay.component('addAccountModal');
+		Liferay.provide(window, '<portlet:namespace />openAddAccountModal', function(
+			evt
+		) {
+			const addAccountModal = Liferay.component('addAccountModal');
 
-				addAccountModal.open();
-			}
-		);
+			addAccountModal.open();
+		});
 
-		Liferay.provide(
-			window,
-			'setCurrentAccount',
-			function(id) {
-				document.querySelector('#<portlet:namespace /><%= Constants.CMD %>').value = 'setCurrentAccount';
-				document.querySelector('#<portlet:namespace />commerceAccountId').value = id;
+		Liferay.provide(window, 'setCurrentAccount', function(id) {
+			document.querySelector('#<portlet:namespace /><%= Constants.CMD %>').value =
+				'setCurrentAccount';
+			document.querySelector(
+				'#<portlet:namespace />commerceAccountId'
+			).value = id;
+
+			submitForm(document.<portlet:namespace />commerceAccountFm);
+		});
+
+		Liferay.provide(window, 'toggleActiveCommerceAccount', function(id) {
+			document.querySelector('#<portlet:namespace /><%= Constants.CMD %>').value =
+				'setActive';
+			document.querySelector(
+				'#<portlet:namespace />commerceAccountId'
+			).value = id;
+
+			submitForm(document.<portlet:namespace />commerceAccountFm);
+		});
+
+		Liferay.componentReady('addAccountModal').then(function(addAccountModal) {
+			addAccountModal.on('AddAccountModalSave', function(event) {
+				let existingUserIds = event.administratorsEmail
+					.filter(function(el) {
+						return el.userId;
+					})
+					.map(function(usr) {
+						return usr.userId;
+					})
+					.join(',');
+
+				let newUserEmails = event.administratorsEmail
+					.filter(function(el) {
+						return !el.userId;
+					})
+					.map(function(usr) {
+						return usr.email;
+					})
+					.join(',');
+
+				document.querySelector(
+					'#<portlet:namespace />emailAddresses'
+				).value = newUserEmails;
+				document.querySelector('#<portlet:namespace />name').value =
+					event.accountName;
+				document.querySelector(
+					'#<portlet:namespace />userIds'
+				).value = existingUserIds;
+
+				addAccountModal.close();
 
 				submitForm(document.<portlet:namespace />commerceAccountFm);
-			}
-		);
-
-		Liferay.provide(
-			window,
-			'toggleActiveCommerceAccount',
-			function(id) {
-				document.querySelector('#<portlet:namespace /><%= Constants.CMD %>').value = 'setActive';
-				document.querySelector('#<portlet:namespace />commerceAccountId').value = id;
-
-				submitForm(document.<portlet:namespace />commerceAccountFm);
-			}
-		);
-
-		Liferay.componentReady('addAccountModal').then(
-			function(addAccountModal) {
-				addAccountModal.on(
-					'AddAccountModalSave',
-					function(event) {
-						let existingUserIds = event.administratorsEmail.filter(
-							function(el) {
-								return el.userId;
-							}
-						).map(
-							function(usr) {
-								return usr.userId
-							}
-						).join(',');
-
-						let newUserEmails = event.administratorsEmail.filter(
-							function(el) {
-								return !el.userId;
-							}
-						).map(
-							function(usr) {
-								return usr.email
-							}
-						).join(',');
-
-						document.querySelector('#<portlet:namespace />emailAddresses').value = newUserEmails;
-						document.querySelector('#<portlet:namespace />name').value = event.accountName;
-						document.querySelector('#<portlet:namespace />userIds').value = existingUserIds;
-
-						addAccountModal.close();
-
-						submitForm(document.<portlet:namespace />commerceAccountFm);
-					}
-				);
-			}
-		);
+			});
+		});
 	</aui:script>
 </c:if>

@@ -117,12 +117,13 @@ CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrder
 
 <aui:script require="commerce-frontend-js/js/side_panel/entry.es as SidePanel">
 	sidePanel.default(
-		"<portlet:namespace />sidePanel",
-		"<portlet:namespace />side-panel-root",
+		'<portlet:namespace />sidePanel',
+		'<portlet:namespace />side-panel-root',
 		{
-			portalWrapperId: "<portlet:namespace />side-panel-wrapper",
-			spritemap: "<%= themeDisplay.getPathThemeImages() + "/clay/icons.svg" %>",
-			topAnchorSelector: ".commerce-header"
+			portalWrapperId: '<portlet:namespace />side-panel-wrapper',
+			spritemap:
+				'<%= themeDisplay.getPathThemeImages() + "/clay/icons.svg" %>',
+			topAnchorSelector: '.commerce-header'
 		}
 	);
 </aui:script>

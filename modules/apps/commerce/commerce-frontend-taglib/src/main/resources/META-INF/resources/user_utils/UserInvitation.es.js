@@ -1,20 +1,20 @@
 'use strict';
 
-import { debounce } from 'metal-debounce';
+import Component from 'metal-component';
+import {debounce} from 'metal-debounce';
+import Soy, {Config} from 'metal-soy';
 
 import template from './UserInvitation.soy';
-import Component from 'metal-component';
-import Soy, { Config } from 'metal-soy';
 
 import 'clay-modal';
 
 import './UserListItem.es';
+
 import './UserInputItem.es';
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 class UserInvitation extends Component {
-
 	attached() {
 		this._debouncedFetchUsers = debounce(this._fetchUsers.bind(this), 300);
 	}
@@ -32,7 +32,9 @@ class UserInvitation extends Component {
 	}
 
 	testAddedUsers(e) {
-		const contentWrapper = this.element.querySelector('.autocomplete-input__content');
+		const contentWrapper = this.element.querySelector(
+			'.autocomplete-input__content'
+		);
 		this.element.querySelector('.autocomplete-input__box').focus();
 		if (contentWrapper.scrollTo) {
 			contentWrapper.scrollTo(0, contentWrapper.offsetHeight);
@@ -92,13 +94,16 @@ class UserInvitation extends Component {
 		}
 
 		const userAlreadyAdded = this.addedUsers.reduce(
-			(alreadyAdded, user) => alreadyAdded || user.email === userToBeToggled.email,
+			(alreadyAdded, user) =>
+				alreadyAdded || user.email === userToBeToggled.email,
 			false
 		);
 
-		this.addedUsers = userAlreadyAdded ?
-			this.addedUsers.filter((user) => user.email !== userToBeToggled.email) :
-			[...this.addedUsers, userToBeToggled];
+		this.addedUsers = userAlreadyAdded
+			? this.addedUsers.filter(
+					user => user.email !== userToBeToggled.email
+			  )
+			: [...this.addedUsers, userToBeToggled];
 
 		this.testAddedUsers();
 
@@ -114,36 +119,25 @@ class UserInvitation extends Component {
 				method: 'GET'
 			}
 		)
-			.then(
-				response => response.json()
-			)
-			.then(
-				response => {
-					this._loading = false;
+			.then(response => response.json())
+			.then(response => {
+				this._loading = false;
 
-					this.users = response.users;
+				this.users = response.users;
 
-					return this.users;
-				}
-			);
+				return this.users;
+			});
 	}
 }
 
 Soy.register(UserInvitation, template);
 
-const USER_SCHEMA = Config.shapeOf(
-	{
-		email: Config.string().required(),
-		name: Config.string().required(),
-		thumbnail: Config.string().required(),
-		userId: Config.oneOfType(
-			[
-				Config.number(),
-				Config.string()
-			]
-		).required()
-	}
-);
+const USER_SCHEMA = Config.shapeOf({
+	email: Config.string().required(),
+	name: Config.string().required(),
+	thumbnail: Config.string().required(),
+	userId: Config.oneOfType([Config.number(), Config.string()]).required()
+});
 
 UserInvitation.STATE = {
 	addedUsers: Config.array(USER_SCHEMA).value([]),
@@ -151,7 +145,9 @@ UserInvitation.STATE = {
 	spritemap: Config.string(),
 	users: Config.array(USER_SCHEMA).value([]),
 	usersAPI: Config.string().value(''),
-	_loading: Config.bool().internal().value(false)
+	_loading: Config.bool()
+		.internal()
+		.value(false)
 };
 
 export { UserInvitation };

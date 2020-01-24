@@ -73,11 +73,20 @@ CommerceWishListDisplayContext commerceWishListDisplayContext = (CommerceWishLis
 
 	<aui:script>
 		function <portlet:namespace />deleteCommerceWishLists() {
-			if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-wish-lists" />')) {
+			if (
+				confirm(
+					'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-wish-lists" />'
+				)
+			) {
 				var form = AUI.$(document.<portlet:namespace />fm);
 
 				form.fm('<%= Constants.CMD %>').val('<%= Constants.DELETE %>');
-				form.fm('deleteCommerceWishListIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
+				form.fm('deleteCommerceWishListIds').val(
+					Liferay.Util.listCheckedExcept(
+						form,
+						'<portlet:namespace />allRowIds'
+					)
+				);
 
 				submitForm(form);
 			}

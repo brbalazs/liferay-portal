@@ -173,15 +173,23 @@ pageContext.setAttribute("searchURL", searchURL);
 
 <aui:script>
 	function <portlet:namespace />toggleFilter() {
-		var showFilterInput = AUI.$('#<portlet:namespace />searchFm input[name=<portlet:namespace />showFilter]');
+		var showFilterInput = AUI.$(
+			'#<portlet:namespace />searchFm input[name=<portlet:namespace />showFilter]'
+		);
 
-		var showFilter = (showFilterInput.val() == 'true');
+		var showFilter = showFilterInput.val() == 'true';
 
 		showFilter = !showFilter;
 
 		showFilterInput.val(showFilter);
 
-		AUI.$('#<portlet:namespace />filterButton').toggleClass('active', showFilter);
-		AUI.$('#<portlet:namespace />filterSettings').toggleClass('hide', !showFilter);
+		AUI.$('#<portlet:namespace />filterButton').toggleClass(
+			'active',
+			showFilter
+		);
+		AUI.$('#<portlet:namespace />filterSettings').toggleClass(
+			'hide',
+			!showFilter
+		);
 	}
 </aui:script>

@@ -148,7 +148,8 @@ List<CommerceVirtualOrderItem> results = commerceVirtualOrderContentDisplayConte
 					function(dialogId, commerceVirtualOrderItemId) {
 						<portlet:namespace />closePopup(dialogId);
 
-						var formName = '#<portlet:namespace />' + commerceVirtualOrderItemId + 'Fm';
+						var formName =
+							'#<portlet:namespace />' + commerceVirtualOrderItemId + 'Fm';
 
 						var form = AUI.$(formName);
 

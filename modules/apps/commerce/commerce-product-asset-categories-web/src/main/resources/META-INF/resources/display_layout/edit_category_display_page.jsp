@@ -105,48 +105,43 @@ if (Validator.isNotNull(cpDisplayLayout)) {
 </aui:form>
 
 <aui:script use="liferay-item-selector-dialog">
-	var displayPageItemContainer = $('#<portlet:namespace />displayPageItemContainer');
+	var displayPageItemContainer = $(
+		'#<portlet:namespace />displayPageItemContainer'
+	);
 	var displayPageItemRemove = $('#<portlet:namespace />displayPageItemRemove');
 	var displayPageNameInput = $('#<portlet:namespace />displayPageNameInput');
 	var pagesContainerInput = $('#<portlet:namespace />pagesContainerInput');
 
-	$('#<portlet:namespace />chooseDisplayPage').on(
-		'click',
-		function(event) {
-			var itemSelectorDialog = new A.LiferayItemSelectorDialog(
-				{
-					eventName: 'selectDisplayPage',
-					on: {
-						selectedItemChange: function(event) {
-							var selectedItem = event.newVal;
+	$('#<portlet:namespace />chooseDisplayPage').on('click', function(event) {
+		var itemSelectorDialog = new A.LiferayItemSelectorDialog({
+			eventName: 'selectDisplayPage',
+			on: {
+				selectedItemChange: function(event) {
+					var selectedItem = event.newVal;
 
-							if (selectedItem) {
-								pagesContainerInput.val(selectedItem.id);
+					if (selectedItem) {
+						pagesContainerInput.val(selectedItem.id);
 
-								displayPageNameInput.html(selectedItem.name);
+						displayPageNameInput.html(selectedItem.name);
 
-								displayPageItemRemove.removeClass('hide');
-							}
-						}
-					},
-					'strings.add': '<liferay-ui:message key="done" />',
-					title: '<liferay-ui:message key="select-category-display-page" />',
-					url: '<%= categoryCPDisplayLayoutDisplayContext.getItemSelectorUrl(renderRequest) %>'
+						displayPageItemRemove.removeClass('hide');
+					}
 				}
-			);
+			},
+			'strings.add': '<liferay-ui:message key="done" />',
+			title: '<liferay-ui:message key="select-category-display-page" />',
+			url:
+				'<%= categoryCPDisplayLayoutDisplayContext.getItemSelectorUrl(renderRequest) %>'
+		});
 
-			itemSelectorDialog.open();
-		}
-	);
+		itemSelectorDialog.open();
+	});
 
-	displayPageItemRemove.on(
-		'click',
-		function(event) {
-			displayPageNameInput.html('<liferay-ui:message key="none" />');
+	displayPageItemRemove.on('click', function(event) {
+		displayPageNameInput.html('<liferay-ui:message key="none" />');
 
-			pagesContainerInput.val('');
+		pagesContainerInput.val('');
 
-			displayPageItemRemove.addClass('hide');
-		}
-	);
+		displayPageItemRemove.addClass('hide');
+	});
 </aui:script>

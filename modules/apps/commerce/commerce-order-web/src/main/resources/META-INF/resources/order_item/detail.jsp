@@ -88,7 +88,7 @@ portletDisplay.setURLBack(redirect);
 			Liferay.fire(events.OPEN_MODAL, {
 				title: 'Modal from side panel',
 				url: '/test/url'
-			})
-		})
+			});
+		});
 	</aui:script>
 </commerce-ui:side-panel-content>

@@ -144,28 +144,26 @@ if (Validator.isNotNull(layoutUuid)) {
 </aui:form>
 
 <aui:script use="aui-base,liferay-item-selector-dialog">
-	$('#<portlet:namespace />selectProduct').on(
-		'click',
-		function(event) {
-			event.preventDefault();
+	$('#<portlet:namespace />selectProduct').on('click', function(event) {
+		event.preventDefault();
 
-			Liferay.Util.selectEntity(
-				{
-					dialog: {
-						constrain: true,
-						modal: true
-					},
-					eventName: 'productDefinitionsSelectItem',
-					title: '<liferay-ui:message arguments="product" key="select-x" />',
-					uri: '<%= cpDefinitionDisplayLayoutDisplayContext.getProductItemSelectorUrl() %>'
-				}
-			);
-		}
-	);
+		Liferay.Util.selectEntity({
+			dialog: {
+				constrain: true,
+				modal: true
+			},
+			eventName: 'productDefinitionsSelectItem',
+			title: '<liferay-ui:message arguments="product" key="select-x" />',
+			uri:
+				'<%= cpDefinitionDisplayLayoutDisplayContext.getProductItemSelectorUrl() %>'
+		});
+	});
 </aui:script>
 
 <aui:script use="liferay-search-container">
-	var searchContainer = Liferay.SearchContainer.get('<portlet:namespace />CPDefinitionsSearchContainer');
+	var searchContainer = Liferay.SearchContainer.get(
+		'<portlet:namespace />CPDefinitionsSearchContainer'
+	);
 
 	var searchContainerContentBox = searchContainer.get('contentBox');
 
@@ -180,87 +178,85 @@ if (Validator.isNotNull(layoutUuid)) {
 
 			searchContainer.deleteRow(tr, link.getAttribute('data-rowId'));
 
-			A.one('#<portlet:namespace />classPK').val(0)
+			A.one('#<portlet:namespace />classPK').val(0);
 		},
 		'.modify-link'
 	);
 
-	Liferay.on(
-		'productDefinitionsSelectItem',
-		function(event) {
-			var item = event.data;
+	Liferay.on('productDefinitionsSelectItem', function(event) {
+		var item = event.data;
 
-			if (item) {
-				var searchContainer = Liferay.SearchContainer.get('<portlet:namespace />CPDefinitionsSearchContainer');
+		if (item) {
+			var searchContainer = Liferay.SearchContainer.get(
+				'<portlet:namespace />CPDefinitionsSearchContainer'
+			);
 
-				var link = A.one("[data-rowid="+searchContainer.getData()+"]")
+			var link = A.one('[data-rowid=' + searchContainer.getData() + ']');
 
-				if (link !== null) {
-					var tr = link.ancestor('tr');
+			if (link !== null) {
+				var tr = link.ancestor('tr');
 
-					searchContainer.deleteRow(tr, link.getAttribute('data-rowId'));
-				}
+				searchContainer.deleteRow(tr, link.getAttribute('data-rowId'));
+			}
 
-				if (!searchContainer.getData().includes(item.id)) {
-					var rowColumns = [];
+			if (!searchContainer.getData().includes(item.id)) {
+				var rowColumns = [];
 
-					rowColumns.push(item.name);
-					rowColumns.push('<a class="float-right modify-link" data-rowId="' + item.id + '" href="javascript:;"><%= UnicodeFormatter.toString(removeCPDefinitionIcon) %></a>');
+				rowColumns.push(item.name);
+				rowColumns.push(
+					'<a class="float-right modify-link" data-rowId="' +
+						item.id +
+						'" href="javascript:;"><%= UnicodeFormatter.toString(removeCPDefinitionIcon) %></a>'
+				);
 
-					A.one('#<portlet:namespace />classPK').val(item.id);
+				A.one('#<portlet:namespace />classPK').val(item.id);
 
-					searchContainer.addRow(rowColumns, item.id);
+				searchContainer.addRow(rowColumns, item.id);
 
-					searchContainer.updateDataStore();
-				}
+				searchContainer.updateDataStore();
 			}
 		}
-	);
+	});
 </aui:script>
 
 <aui:script use="liferay-item-selector-dialog">
-	var displayPageItemContainer = $('#<portlet:namespace />displayPageItemContainer');
+	var displayPageItemContainer = $(
+		'#<portlet:namespace />displayPageItemContainer'
+	);
 	var displayPageItemRemove = $('#<portlet:namespace />displayPageItemRemove');
 	var displayPageNameInput = $('#<portlet:namespace />displayPageNameInput');
 	var pagesContainerInput = $('#<portlet:namespace />pagesContainerInput');
 
-	$('#<portlet:namespace />chooseDisplayPage').on(
-		'click',
-		function(event) {
-			var itemSelectorDialog = new A.LiferayItemSelectorDialog(
-				{
-					eventName: 'selectDisplayPage',
-					on: {
-						selectedItemChange: function(event) {
-							var selectedItem = event.newVal;
+	$('#<portlet:namespace />chooseDisplayPage').on('click', function(event) {
+		var itemSelectorDialog = new A.LiferayItemSelectorDialog({
+			eventName: 'selectDisplayPage',
+			on: {
+				selectedItemChange: function(event) {
+					var selectedItem = event.newVal;
 
-							if (selectedItem) {
-								pagesContainerInput.val(selectedItem.id);
+					if (selectedItem) {
+						pagesContainerInput.val(selectedItem.id);
 
-								displayPageNameInput.html(selectedItem.name);
+						displayPageNameInput.html(selectedItem.name);
 
-								displayPageItemRemove.removeClass('hide');
-							}
-						}
-					},
-					'strings.add': '<liferay-ui:message key="done" />',
-					title: '<liferay-ui:message key="select-product-display-page" />',
-					url: '<%= cpDefinitionDisplayLayoutDisplayContext.getDisplayPageItemSelectorUrl() %>'
+						displayPageItemRemove.removeClass('hide');
+					}
 				}
-			);
+			},
+			'strings.add': '<liferay-ui:message key="done" />',
+			title: '<liferay-ui:message key="select-product-display-page" />',
+			url:
+				'<%= cpDefinitionDisplayLayoutDisplayContext.getDisplayPageItemSelectorUrl() %>'
+		});
 
-			itemSelectorDialog.open();
-		}
-	);
+		itemSelectorDialog.open();
+	});
 
-	displayPageItemRemove.on(
-		'click',
-		function(event) {
-			displayPageNameInput.html('<liferay-ui:message key="none" />');
+	displayPageItemRemove.on('click', function(event) {
+		displayPageNameInput.html('<liferay-ui:message key="none" />');
 
-			pagesContainerInput.val('');
+		pagesContainerInput.val('');
 
-			displayPageItemRemove.addClass('hide');
-		}
-	);
+		displayPageItemRemove.addClass('hide');
+	});
 </aui:script>

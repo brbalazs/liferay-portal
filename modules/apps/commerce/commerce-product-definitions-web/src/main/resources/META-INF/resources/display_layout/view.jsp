@@ -118,14 +118,26 @@ PortletURL portletURL = cpDefinitionDisplayLayoutDisplayContext.getPortletURL();
 
 <aui:script>
 	function <portlet:namespace />deleteCPDisplayLayouts() {
-		if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-diplay-layouts" />')) {
+		if (
+			confirm(
+				'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-diplay-layouts" />'
+			)
+		) {
 			var form = AUI.$(document.<portlet:namespace />fm);
 
 			form.attr('method', 'post');
 			form.fm('<%= Constants.CMD %>').val('<%= Constants.DELETE %>');
-			form.fm('deleteCPDisplayLayoutIds').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
+			form.fm('deleteCPDisplayLayoutIds').val(
+				Liferay.Util.listCheckedExcept(
+					form,
+					'<portlet:namespace />allRowIds'
+				)
+			);
 
-			submitForm(form, '<portlet:actionURL name="editProductDisplayLayout" />');
+			submitForm(
+				form,
+				'<portlet:actionURL name="editProductDisplayLayout" />'
+			);
 		}
 	}
 </aui:script>

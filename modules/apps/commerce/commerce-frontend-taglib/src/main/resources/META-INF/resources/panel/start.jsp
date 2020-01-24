@@ -33,18 +33,12 @@ String bodyCssClasses = "card-body" + (Validator.isNotNull(bodyClasses) ? String
 					const link = document.getElementById('<%= linkId %>');
 
 					if (link) {
-						link.addEventListener(
-							'click',
-							function(e) {
-								e.preventDefault();
-								Liferay.fire(
-									eventsDefinitions.OPEN,
-									{
-										id: "<%= actionTargetId %>"
-									}
-								);
-							}
-						);
+						link.addEventListener('click', function(e) {
+							e.preventDefault();
+							Liferay.fire(eventsDefinitions.OPEN, {
+								id: '<%= actionTargetId %>'
+							});
+						});
 					}
 				</aui:script>
 			</c:if>

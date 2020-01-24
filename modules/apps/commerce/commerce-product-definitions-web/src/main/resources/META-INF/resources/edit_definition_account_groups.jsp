@@ -121,13 +121,25 @@ SearchContainer<CommerceAccountGroupRel> commerceAccountGroupRelSearchContainer 
 </aui:form>
 
 <aui:script>
-	Liferay.Util.toggleBoxes('<portlet:namespace />accountGroupFilterEnabled', '<portlet:namespace />accountGroupSearchContainer');
+	Liferay.Util.toggleBoxes(
+		'<portlet:namespace />accountGroupFilterEnabled',
+		'<portlet:namespace />accountGroupSearchContainer'
+	);
 
 	function <portlet:namespace />deleteCommerceAccountGroups() {
-		if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-remove-the-selected-account-groups-from-the-product" />')) {
+		if (
+			confirm(
+				'<liferay-ui:message key="are-you-sure-you-want-to-remove-the-selected-account-groups-from-the-product" />'
+			)
+		) {
 			var form = AUI.$(document.<portlet:namespace />fm);
 
-			form.fm('commerceAccountGroupIds').val(Liferay.Util.listUncheckedExcept(form, '<portlet:namespace />allRowIds'));
+			form.fm('commerceAccountGroupIds').val(
+				Liferay.Util.listUncheckedExcept(
+					form,
+					'<portlet:namespace />allRowIds'
+				)
+			);
 
 			submitForm(form);
 		}
@@ -135,46 +147,51 @@ SearchContainer<CommerceAccountGroupRel> commerceAccountGroupRelSearchContainer 
 </aui:script>
 
 <aui:script use="liferay-item-selector-dialog">
-	$('#<portlet:namespace />selectCommerceAccountGroup').on(
-		'click',
-		function(event) {
-			event.preventDefault();
+	$('#<portlet:namespace />selectCommerceAccountGroup').on('click', function(
+		event
+	) {
+		event.preventDefault();
 
-			var itemSelectorDialog = new A.LiferayItemSelectorDialog(
-				{
-					eventName: 'accountGroupSelectItem',
-					on: {
-						selectedItemChange: function(event) {
-							var <portlet:namespace />addCommerceAccountGroupIds = [];
+		var itemSelectorDialog = new A.LiferayItemSelectorDialog({
+			eventName: 'accountGroupSelectItem',
+			on: {
+				selectedItemChange: function(event) {
+					var <portlet:namespace />addCommerceAccountGroupIds = [];
 
-							<portlet:namespace />addCommerceAccountGroupIds.push('<%= commerceAccountGroupIdsString %>');
+					<portlet:namespace />addCommerceAccountGroupIds.push(
+						'<%= commerceAccountGroupIdsString %>'
+					);
 
-							var selectedItems = event.newVal;
+					var selectedItems = event.newVal;
 
-							if (selectedItems) {
-								var A = AUI();
+					if (selectedItems) {
+						var A = AUI();
 
-								A.Array.each(
-									selectedItems,
-									function(item, index, selectedItems) {
-										<portlet:namespace />addCommerceAccountGroupIds.push(item.commerceAccountGroupId);
-									}
-								);
+						A.Array.each(selectedItems, function(
+							item,
+							index,
+							selectedItems
+						) {
+							<portlet:namespace />addCommerceAccountGroupIds.push(
+								item.commerceAccountGroupId
+							);
+						});
 
-								$('#<portlet:namespace />commerceAccountGroupIds').val(<portlet:namespace />addCommerceAccountGroupIds);
+						$('#<portlet:namespace />commerceAccountGroupIds').val(
+							<portlet:namespace />addCommerceAccountGroupIds
+						);
 
-								var form = $('#<portlet:namespace />fm');
+						var form = $('#<portlet:namespace />fm');
 
-								submitForm(form);
-							}
-						}
-					},
-					title: '<liferay-ui:message key="select-account-group" />',
-					url: '<%= cpDefinitionAccountGroupDisplayContext.getItemSelectorUrl() %>'
+						submitForm(form);
+					}
 				}
-			);
+			},
+			title: '<liferay-ui:message key="select-account-group" />',
+			url:
+				'<%= cpDefinitionAccountGroupDisplayContext.getItemSelectorUrl() %>'
+		});
 
-			itemSelectorDialog.open();
-		}
-	);
+		itemSelectorDialog.open();
+	});
 </aui:script>
