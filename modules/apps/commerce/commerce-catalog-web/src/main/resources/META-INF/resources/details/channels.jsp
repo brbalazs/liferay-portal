@@ -17,11 +17,11 @@
 <%@ include file="/init.jsp" %>
 
 <%
-CommerceCatalogDisplayContext commerceCatalogDisplayContext = (CommerceCatalogDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+	CommerceCatalogDisplayContext commerceCatalogDisplayContext = (CommerceCatalogDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-PortletURL portletURL = commerceCatalogDisplayContext.getPortletURL();
+	PortletURL portletURL = commerceCatalogDisplayContext.getPortletURL();
 
-portletURL.setParameter("searchContainerId", "commerceCatalogs");
+	portletURL.setParameter("searchContainerId", "commerceCatalogs");
 %>
 
 <div class="row">
@@ -33,7 +33,7 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 			namespace="<%= renderResponse.getNamespace() %>"
 			pageNumber="<%= 1 %>"
 			portletURL="<%= portletURL %>"
-			style="fluid"
+			style="stacked"
 		/>
 	</div>
 </div>

@@ -17,11 +17,11 @@
 <%@ include file="/init.jsp" %>
 
 <%
-CommerceCatalogDisplayContext commerceCatalogDisplayContext = (CommerceCatalogDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+	CommerceCatalogDisplayContext commerceCatalogDisplayContext = (CommerceCatalogDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-PortletURL portletURL = commerceCatalogDisplayContext.getPortletURL();
+	PortletURL portletURL = commerceCatalogDisplayContext.getPortletURL();
 
-portletURL.setParameter("searchContainerId", "commerceCatalogs");
+	portletURL.setParameter("searchContainerId", "commerceCatalogs");
 %>
 
 <div class="row">
@@ -37,3 +37,18 @@ portletURL.setParameter("searchContainerId", "commerceCatalogs");
 		/>
 	</div>
 </div>
+
+<div id="<portlet:namespace />side-panel-root"></div>
+<div id="<portlet:namespace />side-panel-wrapper"></div>
+
+<aui:script require="commerce-frontend-js/components/side_panel/entry.es as sidePanel">
+	sidePanel.default(
+		"<portlet:namespace />sidePanel",
+		"<portlet:namespace />side-panel-root",
+		{
+			portalWrapperId: "<portlet:namespace />side-panel-wrapper",
+			spritemap: "<%= themeDisplay.getPathThemeImages() + "/clay/icons.svg" %>",
+			topAnchorSelector: ".commerce-header"
+		}
+	);
+</aui:script>
