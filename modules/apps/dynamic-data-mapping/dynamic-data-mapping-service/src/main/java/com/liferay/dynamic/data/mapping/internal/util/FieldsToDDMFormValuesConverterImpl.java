@@ -211,7 +211,9 @@ public class FieldsToDDMFormValuesConverterImpl
 
 			fieldValue = valueDate.getTime();
 		}
-		else if (fieldValue instanceof Number) {
+		else if ((fieldValue instanceof Number) &&
+				 !(fieldValue instanceof Integer)) {
+
 			NumberFormat numberFormat = NumberFormat.getInstance(locale);
 
 			Number number = (Number)fieldValue;
