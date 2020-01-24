@@ -309,10 +309,10 @@ public class TaxonomyCategoryResourceImpl
 				dateModified = assetCategory.getModifiedDate();
 				description = assetCategory.getDescription(
 					contextAcceptLanguage.getPreferredLocale());
-				id = assetCategory.getCategoryId();
 				description_i18n = LocalizedMapUtil.getLocalizedMap(
 					contextAcceptLanguage.isAcceptAllLanguages(),
 					assetCategory.getDescriptionMap());
+				id = assetCategory.getCategoryId();
 				name = assetCategory.getTitle(
 					contextAcceptLanguage.getPreferredLocale());
 				name_i18n = LocalizedMapUtil.getLocalizedMap(
