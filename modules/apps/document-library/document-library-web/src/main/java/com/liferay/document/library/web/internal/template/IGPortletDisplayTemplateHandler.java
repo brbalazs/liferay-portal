@@ -52,7 +52,7 @@ import org.osgi.service.component.annotations.Reference;
 	property = "javax.portlet.name=" + DLPortletKeys.MEDIA_GALLERY_DISPLAY,
 	service = TemplateHandler.class
 )
-public class DocumentLibraryPortletDisplayTemplateHandler
+public class IGPortletDisplayTemplateHandler
 	extends BasePortletDisplayTemplateHandler {
 
 	@Override
@@ -146,7 +146,7 @@ public class DocumentLibraryPortletDisplayTemplateHandler
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		DocumentLibraryPortletDisplayTemplateHandler.class);
+		IGPortletDisplayTemplateHandler.class);
 
 	private volatile DLConfiguration _dlConfiguration;
 
