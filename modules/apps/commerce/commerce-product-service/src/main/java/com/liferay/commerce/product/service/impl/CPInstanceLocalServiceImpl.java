@@ -17,7 +17,6 @@ package com.liferay.commerce.product.service.impl;
 import com.liferay.commerce.product.constants.CPField;
 import com.liferay.commerce.product.exception.CPInstanceDisplayDateException;
 import com.liferay.commerce.product.exception.CPInstanceExpirationDateException;
-import com.liferay.commerce.product.exception.CPInstanceJsonException;
 import com.liferay.commerce.product.exception.CPInstanceSkuException;
 import com.liferay.commerce.product.exception.NoSuchCPInstanceException;
 import com.liferay.commerce.product.exception.NoSuchSkuContributorCPDefinitionOptionRelException;
@@ -34,10 +33,6 @@ import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.json.JSONArray;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.SystemEventConstants;
@@ -265,92 +260,42 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			neverExpire = true;
 		}
 
-		Map<CPDefinitionOptionRel, CPDefinitionOptionValueRel[]>
-			combinationGeneratorMap = new HashMap<>();
-
-		List<CPDefinitionOptionRel> cpDefinitionOptionRels =
-			cpDefinitionOptionRelLocalService.getCPDefinitionOptionRels(
-				cpDefinitionId, true);
-
-		if (cpDefinitionOptionRels.isEmpty()) {
-			throw new NoSuchSkuContributorCPDefinitionOptionRelException();
-		}
-
-		for (CPDefinitionOptionRel cpDefinitionOptionRel :
-				cpDefinitionOptionRels) {
-
-			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
-				cpDefinitionOptionRel.getCPDefinitionOptionValueRels();
-
-			CPDefinitionOptionValueRel[] cpDefinitionOptionValueRelArray =
-				new CPDefinitionOptionValueRel
-					[cpDefinitionOptionValueRels.size()];
-
-			cpDefinitionOptionValueRelArray =
-				cpDefinitionOptionValueRels.toArray(
-					cpDefinitionOptionValueRelArray);
-
-			combinationGeneratorMap.put(
-				cpDefinitionOptionRel, cpDefinitionOptionValueRelArray);
-		}
-
-		SKUCombinationsIterator iterator = new SKUCombinationsIterator(
-			combinationGeneratorMap);
+		SKUCombinationsIterator iterator = _getSKUCombinationsIterator(
+			cpDefinitionId);
 
 		while (iterator.hasNext()) {
 			CPDefinitionOptionValueRel[] cpDefinitionOptionValueRels =
 				iterator.next();
 
-			JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
-
-			StringBundler skuSB = new StringBundler(
-				cpDefinitionOptionValueRels.length + 1);
-
-			for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
-					cpDefinitionOptionValueRels) {
-
-				skuSB.append(
-					StringUtil.toUpperCase(
-						cpDefinitionOptionValueRel.getName(
-							serviceContext.getLanguageId())));
-
-				JSONArray valueJSONArray = JSONUtil.put(
-					String.valueOf(cpDefinitionOptionValueRel.getKey()));
-
-				CPDefinitionOptionRel cpDefinitionOptionRel =
-					cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
-
-				JSONObject jsonObject = JSONUtil.put(
-					"key", cpDefinitionOptionRel.getKey()
-				).put(
-					"value", valueJSONArray
-				);
-
-				jsonArray.put(jsonObject);
-			}
+			String sku = _getSKU(
+				cpDefinitionOptionValueRels, serviceContext.getLanguageId());
 
 			CPInstance cpInstance = cpInstancePersistence.fetchByC_S(
-				cpDefinitionId, skuSB.toString());
+				cpDefinitionId, sku);
 
 			if (cpInstance != null) {
 				continue;
 			}
 
-			try {
-				addCPInstance(
-					cpDefinitionId, cpDefinition.getGroupId(), skuSB.toString(),
-					StringPool.BLANK, StringPool.BLANK, true,
-					jsonArray.toString(), cpDefinition.getWidth(),
-					cpDefinition.getHeight(), cpDefinition.getDepth(),
-					cpDefinition.getWeight(), BigDecimal.ZERO, BigDecimal.ZERO,
-					BigDecimal.ZERO, true, cpDefinition.getDisplayDate(),
-					cpDefinition.getExpirationDate(), neverExpire,
-					serviceContext);
-			}
-			catch (CPInstanceJsonException cpije) {
-				if (_log.isDebugEnabled()) {
-					_log.debug(cpije, cpije);
-				}
+			cpInstance = addCPInstance(
+				cpDefinitionId, cpDefinition.getGroupId(), sku,
+				StringPool.BLANK, StringPool.BLANK, true, StringPool.BLANK,
+				cpDefinition.getWidth(), cpDefinition.getHeight(),
+				cpDefinition.getDepth(), cpDefinition.getWeight(),
+				BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, true,
+				cpDefinition.getDisplayDate(), cpDefinition.getExpirationDate(),
+				neverExpire, serviceContext);
+
+			for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+					cpDefinitionOptionValueRels) {
+
+				cpInstanceOptionSetLocalService.addCPInstanceOptionSet(
+					cpDefinition.getGroupId(), serviceContext.getCompanyId(),
+					serviceContext.getUserId(),
+					cpDefinitionOptionValueRel.getCPDefinitionOptionRelId(),
+					cpDefinitionOptionValueRel.
+						getCPDefinitionOptionValueRelId(),
+					cpInstance.getCPInstanceUuid());
 			}
 		}
 	}
@@ -1306,6 +1251,60 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 				}
 			}
 		}
+	}
+
+	private String _getSKU(
+		CPDefinitionOptionValueRel[] cpDefinitionOptionValueRels,
+		String languageId) {
+
+		StringBundler skuSB = new StringBundler(
+			cpDefinitionOptionValueRels.length + 1);
+
+		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+				cpDefinitionOptionValueRels) {
+
+			skuSB.append(
+				StringUtil.toUpperCase(
+					cpDefinitionOptionValueRel.getName(languageId)));
+		}
+
+		return skuSB.toString();
+	}
+
+	private SKUCombinationsIterator _getSKUCombinationsIterator(
+			long cpDefinitionId)
+		throws NoSuchSkuContributorCPDefinitionOptionRelException {
+
+		List<CPDefinitionOptionRel> cpDefinitionOptionRels =
+			cpDefinitionOptionRelLocalService.getCPDefinitionOptionRels(
+				cpDefinitionId, true);
+
+		if (cpDefinitionOptionRels.isEmpty()) {
+			throw new NoSuchSkuContributorCPDefinitionOptionRelException();
+		}
+
+		Map<CPDefinitionOptionRel, CPDefinitionOptionValueRel[]>
+			combinationGeneratorMap = new HashMap<>();
+
+		for (CPDefinitionOptionRel cpDefinitionOptionRel :
+				cpDefinitionOptionRels) {
+
+			List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+				cpDefinitionOptionRel.getCPDefinitionOptionValueRels();
+
+			CPDefinitionOptionValueRel[] cpDefinitionOptionValueRelArray =
+				new CPDefinitionOptionValueRel
+					[cpDefinitionOptionValueRels.size()];
+
+			cpDefinitionOptionValueRelArray =
+				cpDefinitionOptionValueRels.toArray(
+					cpDefinitionOptionValueRelArray);
+
+			combinationGeneratorMap.put(
+				cpDefinitionOptionRel, cpDefinitionOptionValueRelArray);
+		}
+
+		return new SKUCombinationsIterator(combinationGeneratorMap);
 	}
 
 	private static final String[] _SELECTED_FIELD_NAMES = {
