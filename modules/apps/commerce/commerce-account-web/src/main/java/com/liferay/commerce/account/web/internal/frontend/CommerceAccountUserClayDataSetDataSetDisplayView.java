@@ -20,15 +20,16 @@ import com.liferay.commerce.account.model.CommerceAccountUserRel;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.service.CommerceAccountUserRelService;
 import com.liferay.commerce.account.web.internal.model.Member;
-import com.liferay.commerce.frontend.ClayTable;
-import com.liferay.commerce.frontend.ClayTableAction;
-import com.liferay.commerce.frontend.ClayTableActionProvider;
-import com.liferay.commerce.frontend.ClayTableSchema;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilder;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayView;
+import com.liferay.commerce.frontend.clay.table.ClayTableDataSetDisplayView;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -65,26 +66,26 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"commerce.data.provider.key=" + CommerceAccountUserClayTable.NAME,
-		"commerce.table.name=" + CommerceAccountUserClayTable.NAME
+		"commerce.data.provider.key=" + CommerceAccountUserClayDataSetDataSetDisplayView.NAME,
+		"commerce.data.set.display.name=" + CommerceAccountUserClayDataSetDataSetDisplayView.NAME
 	},
 	service = {
-		ClayTable.class, ClayTableActionProvider.class,
+		ClayDataSetActionProvider.class, ClayDataSetDisplayView.class,
 		CommerceDataSetDataProvider.class
 	}
 )
-public class CommerceAccountUserClayTable
-	implements ClayTable, ClayTableActionProvider,
-			   CommerceDataSetDataProvider<Member> {
+public class CommerceAccountUserClayDataSetDataSetDisplayView
+	extends ClayTableDataSetDisplayView
+	implements ClayDataSetActionProvider, CommerceDataSetDataProvider<Member> {
 
 	public static final String NAME = "commerceAccountUsers";
 
 	@Override
-	public List<ClayTableAction> clayTableActions(
+	public List<ClayDataSetAction> clayDataSetActions(
 			HttpServletRequest httpServletRequest, long groupId, Object model)
 		throws PortalException {
 
-		List<ClayTableAction> clayTableActions = new ArrayList<>();
+		List<ClayDataSetAction> clayDataSetActions = new ArrayList<>();
 
 		Member member = (Member)model;
 
@@ -102,27 +103,29 @@ public class CommerceAccountUserClayTable
 			String viewURL = _getAccountUserViewDetailURL(
 				member.getMemberId(), httpServletRequest);
 
-			ClayTableAction viewClayTableAction = new ClayTableAction(
+			ClayDataSetAction viewClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK, viewURL, StringPool.BLANK,
 				LanguageUtil.get(httpServletRequest, "view"), null, false,
 				false);
 
-			clayTableActions.add(viewClayTableAction);
+			clayDataSetActions.add(viewClayDataSetAction);
 
 			if (permissionChecker.isCompanyAdmin() ||
 				(member.getMemberId() != themeDisplay.getUserId())) {
 
-				ClayTableAction removeClayTableAction = new ClayTableAction(
-					StringPool.BLANK, StringPool.POUND, StringPool.BLANK,
-					LanguageUtil.get(httpServletRequest, "remove"),
-					"removeCommerceAccountUser('" + member.getMemberId() + "')",
-					false, false);
+				ClayDataSetAction removeClayDataSetAction =
+					new ClayDataSetAction(
+						StringPool.BLANK, StringPool.POUND, StringPool.BLANK,
+						LanguageUtil.get(httpServletRequest, "remove"),
+						"removeCommerceAccountUser('" + member.getMemberId() +
+							"')",
+						false, false);
 
-				clayTableActions.add(removeClayTableAction);
+				clayDataSetActions.add(removeClayDataSetAction);
 			}
 		}
 
-		return clayTableActions;
+		return clayDataSetActions;
 	}
 
 	@Override
@@ -147,11 +150,6 @@ public class CommerceAccountUserClayTable
 		clayTableSchemaBuilder.addField("email", "email");
 
 		return clayTableSchemaBuilder.build();
-	}
-
-	@Override
-	public String getId() {
-		return NAME;
 	}
 
 	@Override
@@ -189,11 +187,6 @@ public class CommerceAccountUserClayTable
 		}
 
 		return members;
-	}
-
-	@Override
-	public boolean isShowActionsMenu() {
-		return true;
 	}
 
 	protected String getUserRoles(User user, long groupId)

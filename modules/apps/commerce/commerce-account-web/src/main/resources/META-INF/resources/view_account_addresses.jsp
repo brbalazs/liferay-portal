@@ -28,14 +28,13 @@ portletURL.setParameter(PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backUR
 
 <portlet:actionURL name="editCommerceAddress" var="editCommerceAddressActionURL" />
 
-<commerce-ui:table
-	dataProviderKey="<%= CommerceAccountAddressClayTable.NAME %>"
-	filter="<%= commerceAccountDisplayContext.getAccountFilter() %>"
-	itemsPerPage="<%= 5 %>"
+<commerce-ui:dataset-display
+	dataProviderKey="<%= CommerceAccountAddressClayDataSetDataSetDisplayView.NAME %>"
+	id="<%= CommerceAccountAddressClayDataSetDataSetDisplayView.NAME %>"
+	itemsPerPage="<%= 10 %>"
 	namespace="<%= renderResponse.getNamespace() %>"
-	pageNumber="1"
+	pageNumber="<%= 1 %>"
 	portletURL="<%= commerceAccountDisplayContext.getPortletURL() %>"
-	tableName="<%= CommerceAccountAddressClayTable.NAME %>"
 />
 
 <c:if test="<%= commerceAccountDisplayContext.hasCommerceAccountModelPermissions(commerceAccount, ActionKeys.UPDATE) %>">

@@ -25,14 +25,13 @@ request.setAttribute("view.jsp-filterPerAccount", false);
 <liferay-ui:error exception="<%= UserEmailAddressException.MustValidate.class %>" message="please-enter-a-valid-email-address" />
 
 <div class="commerce-account-container" id="<portlet:namespace />entriesContainer">
-	<commerce-ui:table
-		dataProviderKey="commerceAccounts"
-		filter="<%= commerceAccountDisplayContext.getAccountFilter() %>"
-		itemsPerPage="<%= 5 %>"
+	<commerce-ui:dataset-display
+		dataProviderKey="<%= CommerceAccountClayDataSetDataSetDisplayView.NAME %>"
+		id="<%= CommerceAccountClayDataSetDataSetDisplayView.NAME %>"
+		itemsPerPage="<%= 10 %>"
 		namespace="<%= renderResponse.getNamespace() %>"
-		pageNumber="1"
+		pageNumber="<%= 1 %>"
 		portletURL="<%= commerceAccountDisplayContext.getPortletURL() %>"
-		tableName="commerceAccounts"
 	/>
 </div>
 

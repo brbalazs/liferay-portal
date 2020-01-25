@@ -18,15 +18,16 @@ import com.liferay.commerce.account.constants.CommerceAccountActionKeys;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.web.internal.model.Address;
 import com.liferay.commerce.constants.CommerceAddressConstants;
-import com.liferay.commerce.frontend.ClayTable;
-import com.liferay.commerce.frontend.ClayTableAction;
-import com.liferay.commerce.frontend.ClayTableActionProvider;
-import com.liferay.commerce.frontend.ClayTableSchema;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilder;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayView;
+import com.liferay.commerce.frontend.clay.table.ClayTableDataSetDisplayView;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.service.CommerceAddressService;
@@ -55,22 +56,22 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"commerce.data.provider.key=" + CommerceAccountAddressClayTable.NAME,
-		"commerce.table.name=" + CommerceAccountAddressClayTable.NAME
+		"commerce.data.provider.key=" + CommerceAccountAddressClayDataSetDataSetDisplayView.NAME,
+		"commerce.data.set.display.name=" + CommerceAccountAddressClayDataSetDataSetDisplayView.NAME
 	},
 	service = {
-		ClayTable.class, ClayTableActionProvider.class,
+		ClayDataSetActionProvider.class, ClayDataSetDisplayView.class,
 		CommerceDataSetDataProvider.class
 	}
 )
-public class CommerceAccountAddressClayTable
-	implements ClayTable, ClayTableActionProvider,
-			   CommerceDataSetDataProvider<Address> {
+public class CommerceAccountAddressClayDataSetDataSetDisplayView
+	extends ClayTableDataSetDisplayView
+	implements ClayDataSetActionProvider, CommerceDataSetDataProvider<Address> {
 
 	public static final String NAME = "commerceAccountAddresses";
 
 	@Override
-	public List<ClayTableAction> clayTableActions(
+	public List<ClayDataSetAction> clayDataSetActions(
 			HttpServletRequest httpServletRequest, long groupId, Object model)
 		throws PortalException {
 
@@ -88,7 +89,7 @@ public class CommerceAccountAddressClayTable
 			return Collections.emptyList();
 		}
 
-		List<ClayTableAction> clayTableActions = new ArrayList<>();
+		List<ClayDataSetAction> clayDataSetActions = new ArrayList<>();
 
 		Address address = (Address)model;
 
@@ -102,23 +103,23 @@ public class CommerceAccountAddressClayTable
 		sb.append(StringPool.CLOSE_PARENTHESIS);
 		sb.append(StringPool.SEMICOLON);
 
-		ClayTableAction deleteClayTableAction = new ClayTableAction(
+		ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
 			StringPool.BLANK, StringPool.POUND, StringPool.BLANK,
 			LanguageUtil.get(httpServletRequest, "delete"), sb.toString(),
 			false, false);
 
-		clayTableActions.add(deleteClayTableAction);
+		clayDataSetActions.add(deleteClayDataSetAction);
 
 		sb.setStringAt("editCommerceAddress", 0);
 
-		ClayTableAction editClayTableAction = new ClayTableAction(
+		ClayDataSetAction editClayDataSetAction = new ClayDataSetAction(
 			StringPool.BLANK, StringPool.POUND, StringPool.BLANK,
 			LanguageUtil.get(httpServletRequest, "edit"), sb.toString(), false,
 			false);
 
-		clayTableActions.add(editClayTableAction);
+		clayDataSetActions.add(editClayDataSetAction);
 
-		return clayTableActions;
+		return clayDataSetActions;
 	}
 
 	@Override
@@ -147,11 +148,6 @@ public class CommerceAccountAddressClayTable
 		clayTableSchemaBuilder.addField("phoneNumber", "phone");
 
 		return clayTableSchemaBuilder.build();
-	}
-
-	@Override
-	public String getId() {
-		return NAME;
 	}
 
 	@Override
@@ -189,11 +185,6 @@ public class CommerceAccountAddressClayTable
 		}
 
 		return addresses;
-	}
-
-	@Override
-	public boolean isShowActionsMenu() {
-		return true;
 	}
 
 	protected String getCompleteAddress(CommerceAddress commerceAddress)

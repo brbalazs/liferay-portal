@@ -71,14 +71,13 @@ portletURL.setParameter("userId", String.valueOf(selectedUser.getUserId()));
 	</div>
 
 	<div class="commerce-account-container">
-		<commerce-ui:table
-			dataProviderKey="commerceAccountUserRoles"
-			filter="<%= commerceAccountDisplayContext.getAccountFilter() %>"
-			itemsPerPage="<%= 5 %>"
+		<commerce-ui:dataset-display
+			dataProviderKey="<%= CommerceAccountUserRolesClayTableDataSetDisplayView.NAME %>"
+			id="<%= CommerceAccountUserRolesClayTableDataSetDisplayView.NAME %>"
+			itemsPerPage="<%= 10 %>"
 			namespace="<%= renderResponse.getNamespace() %>"
-			pageNumber="1"
+			pageNumber="<%= 1 %>"
 			portletURL="<%= portletURL %>"
-			tableName="commerceAccountUserRoles"
 		/>
 	</div>
 

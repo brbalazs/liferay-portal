@@ -21,16 +21,17 @@ import com.liferay.commerce.account.web.internal.model.Account;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
-import com.liferay.commerce.frontend.ClayTable;
-import com.liferay.commerce.frontend.ClayTableAction;
-import com.liferay.commerce.frontend.ClayTableActionProvider;
-import com.liferay.commerce.frontend.ClayTableSchema;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilder;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilderFactory;
-import com.liferay.commerce.frontend.ClayTableSchemaField;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayView;
+import com.liferay.commerce.frontend.clay.table.ClayTableDataSetDisplayView;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchemaField;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.petra.string.StringBundler;
@@ -65,26 +66,26 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"commerce.data.provider.key=" + CommerceAccountClayTable.NAME,
-		"commerce.table.name=" + CommerceAccountClayTable.NAME
+		"commerce.data.provider.key=" + CommerceAccountClayDataSetDataSetDisplayView.NAME,
+		"commerce.data.set.display.name=" + CommerceAccountClayDataSetDataSetDisplayView.NAME
 	},
 	service = {
-		ClayTable.class, ClayTableActionProvider.class,
+		ClayDataSetActionProvider.class, ClayDataSetDisplayView.class,
 		CommerceDataSetDataProvider.class
 	}
 )
-public class CommerceAccountClayTable
-	implements ClayTable, ClayTableActionProvider,
-			   CommerceDataSetDataProvider<Account> {
+public class CommerceAccountClayDataSetDataSetDisplayView
+	extends ClayTableDataSetDisplayView
+	implements ClayDataSetActionProvider, CommerceDataSetDataProvider<Account> {
 
 	public static final String NAME = "commerceAccounts";
 
 	@Override
-	public List<ClayTableAction> clayTableActions(
+	public List<ClayDataSetAction> clayDataSetActions(
 			HttpServletRequest httpServletRequest, long groupId, Object model)
 		throws PortalException {
 
-		List<ClayTableAction> clayTableActions = new ArrayList<>();
+		List<ClayDataSetAction> clayDataSetActions = new ArrayList<>();
 
 		Account account = (Account)model;
 
@@ -99,12 +100,12 @@ public class CommerceAccountClayTable
 			String viewURL = _getAccountViewDetailURL(
 				account.getAccountId(), httpServletRequest);
 
-			ClayTableAction clayTableViewAction = new ClayTableAction(
+			ClayDataSetAction clayTableViewAction = new ClayDataSetAction(
 				StringPool.BLANK, viewURL, StringPool.BLANK,
 				LanguageUtil.get(httpServletRequest, "view"), null, false,
 				false);
 
-			clayTableActions.add(clayTableViewAction);
+			clayDataSetActions.add(clayTableViewAction);
 
 			CommerceContext commerceContext =
 				(CommerceContext)httpServletRequest.getAttribute(
@@ -118,13 +119,14 @@ public class CommerceAccountClayTable
 					 currentCommerceAccount.getCommerceAccountId())) &&
 				account.getActive()) {
 
-				ClayTableAction clayTableSetActiveAction = new ClayTableAction(
-					StringPool.BLANK, StringPool.POUND, StringPool.BLANK,
-					LanguageUtil.get(httpServletRequest, "select"),
-					"setCurrentAccount('" + account.getAccountId() + "')",
-					false, false);
+				ClayDataSetAction clayTableSetActiveAction =
+					new ClayDataSetAction(
+						StringPool.BLANK, StringPool.POUND, StringPool.BLANK,
+						LanguageUtil.get(httpServletRequest, "select"),
+						"setCurrentAccount('" + account.getAccountId() + "')",
+						false, false);
 
-				clayTableActions.add(clayTableSetActiveAction);
+				clayDataSetActions.add(clayTableSetActiveAction);
 			}
 		}
 
@@ -135,22 +137,22 @@ public class CommerceAccountClayTable
 			String toggleActiveJavascript =
 				"toggleActiveCommerceAccount('" + account.getAccountId() + "')";
 
-			ClayTableAction clayTableSetActiveAction = new ClayTableAction(
+			ClayDataSetAction clayTableSetActiveAction = new ClayDataSetAction(
 				"commerce-button--good", StringPool.POUND, StringPool.BLANK,
 				LanguageUtil.get(httpServletRequest, "activate"),
 				toggleActiveJavascript, false, false);
 
 			if (account.getActive()) {
-				clayTableSetActiveAction = new ClayTableAction(
+				clayTableSetActiveAction = new ClayDataSetAction(
 					"commerce-button--bad", StringPool.POUND, StringPool.BLANK,
 					LanguageUtil.get(httpServletRequest, "deactivate"),
 					toggleActiveJavascript, false, false);
 			}
 
-			clayTableActions.add(clayTableSetActiveAction);
+			clayDataSetActions.add(clayTableSetActiveAction);
 		}
 
-		return clayTableActions;
+		return clayDataSetActions;
 	}
 
 	@Override
@@ -196,11 +198,6 @@ public class CommerceAccountClayTable
 		statusField.setContentRenderer("commerceTableCellActive");
 
 		return clayTableSchemaBuilder.build();
-	}
-
-	@Override
-	public String getId() {
-		return NAME;
 	}
 
 	@Override
@@ -266,11 +263,6 @@ public class CommerceAccountClayTable
 		}
 
 		return accounts;
-	}
-
-	@Override
-	public boolean isShowActionsMenu() {
-		return true;
 	}
 
 	private String _getAccountViewDetailURL(

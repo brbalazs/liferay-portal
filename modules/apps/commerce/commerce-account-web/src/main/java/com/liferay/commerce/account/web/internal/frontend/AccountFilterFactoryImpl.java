@@ -29,11 +29,11 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	immediate = true,
 	property = {
-		"commerce.data.provider.key=" + CommerceAccountAddressClayTable.NAME,
-		"commerce.data.provider.key=" + CommerceAccountClayTable.NAME,
-		"commerce.data.provider.key=" + CommerceAccountOrganizationClayTable.NAME,
-		"commerce.data.provider.key=" + CommerceAccountUserClayTable.NAME,
-		"commerce.data.provider.key=" + CommerceAccountUserRolesClayTable.NAME
+		"commerce.data.provider.key=" + CommerceAccountAddressClayDataSetDataSetDisplayView.NAME,
+		"commerce.data.provider.key=" + CommerceAccountClayDataSetDataSetDisplayView.NAME,
+		"commerce.data.provider.key=" + CommerceAccountOrganizationClayDataSetDataSetDisplayView.NAME,
+		"commerce.data.provider.key=" + CommerceAccountUserClayDataSetDataSetDisplayView.NAME,
+		"commerce.data.provider.key=" + CommerceAccountUserRolesClayTableDataSetDisplayView.NAME
 	},
 	service = FilterFactory.class
 )

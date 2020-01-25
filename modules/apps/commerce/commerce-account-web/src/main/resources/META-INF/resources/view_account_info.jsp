@@ -20,14 +20,13 @@
 CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 %>
 
-<commerce-ui:table
-	dataProviderKey="<%= CommerceAccountOrganizationClayTable.NAME %>"
-	filter="<%= commerceAccountDisplayContext.getAccountFilter() %>"
-	itemsPerPage="<%= 5 %>"
+<commerce-ui:dataset-display
+	dataProviderKey="<%= CommerceAccountOrganizationClayDataSetDataSetDisplayView.NAME %>"
+	id="<%= CommerceAccountOrganizationClayDataSetDataSetDisplayView.NAME %>"
+	itemsPerPage="<%= 10 %>"
 	namespace="<%= renderResponse.getNamespace() %>"
-	pageNumber="1"
+	pageNumber="<%= 1 %>"
 	portletURL="<%= commerceAccountDisplayContext.getPortletURL() %>"
-	tableName="<%= CommerceAccountOrganizationClayTable.NAME %>"
 />
 
 <c:if test="<%= commerceAccountDisplayContext.hasCommerceAccountModelPermissions(CommerceAccountActionKeys.MANAGE_ORGANIZATIONS) %>">

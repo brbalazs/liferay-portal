@@ -17,13 +17,14 @@ package com.liferay.commerce.account.web.internal.frontend;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.web.internal.model.AccountRole;
-import com.liferay.commerce.frontend.ClayTable;
-import com.liferay.commerce.frontend.ClayTableSchema;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilder;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayView;
+import com.liferay.commerce.frontend.clay.table.ClayTableDataSetDisplayView;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.UserGroupRole;
@@ -47,13 +48,14 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"commerce.data.provider.key=" + CommerceAccountUserRolesClayTable.NAME,
-		"commerce.table.name=" + CommerceAccountUserRolesClayTable.NAME
+		"commerce.data.provider.key=" + CommerceAccountUserRolesClayTableDataSetDisplayView.NAME,
+		"commerce.data.set.display.name=" + CommerceAccountUserRolesClayTableDataSetDisplayView.NAME
 	},
-	service = {ClayTable.class, CommerceDataSetDataProvider.class}
+	service = {ClayDataSetDisplayView.class, CommerceDataSetDataProvider.class}
 )
-public class CommerceAccountUserRolesClayTable
-	implements ClayTable, CommerceDataSetDataProvider<AccountRole> {
+public class CommerceAccountUserRolesClayTableDataSetDisplayView
+	extends ClayTableDataSetDisplayView
+	implements CommerceDataSetDataProvider<AccountRole> {
 
 	public static final String NAME = "commerceAccountUserRoles";
 
@@ -80,11 +82,6 @@ public class CommerceAccountUserRolesClayTable
 		clayTableSchemaBuilder.addField("name", "name");
 
 		return clayTableSchemaBuilder.build();
-	}
-
-	@Override
-	public String getId() {
-		return NAME;
 	}
 
 	@Override
@@ -121,11 +118,6 @@ public class CommerceAccountUserRolesClayTable
 		}
 
 		return accountRoles;
-	}
-
-	@Override
-	public boolean isShowActionsMenu() {
-		return false;
 	}
 
 	@Reference

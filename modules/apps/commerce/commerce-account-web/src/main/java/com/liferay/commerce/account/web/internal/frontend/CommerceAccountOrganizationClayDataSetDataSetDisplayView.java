@@ -19,15 +19,16 @@ import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.model.CommerceAccountOrganizationRel;
 import com.liferay.commerce.account.service.CommerceAccountOrganizationRelService;
 import com.liferay.commerce.account.web.internal.model.Organization;
-import com.liferay.commerce.frontend.ClayTable;
-import com.liferay.commerce.frontend.ClayTableAction;
-import com.liferay.commerce.frontend.ClayTableActionProvider;
-import com.liferay.commerce.frontend.ClayTableSchema;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilder;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayView;
+import com.liferay.commerce.frontend.clay.table.ClayTableDataSetDisplayView;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
@@ -56,26 +57,27 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"commerce.data.provider.key=" + CommerceAccountOrganizationClayTable.NAME,
-		"commerce.table.name=" + CommerceAccountOrganizationClayTable.NAME
+		"commerce.data.provider.key=" + CommerceAccountOrganizationClayDataSetDataSetDisplayView.NAME,
+		"commerce.data.set.display.name=" + CommerceAccountOrganizationClayDataSetDataSetDisplayView.NAME
 	},
 	service = {
-		ClayTable.class, ClayTableActionProvider.class,
+		ClayDataSetActionProvider.class, ClayDataSetDisplayView.class,
 		CommerceDataSetDataProvider.class
 	}
 )
-public class CommerceAccountOrganizationClayTable
-	implements ClayTable, ClayTableActionProvider,
+public class CommerceAccountOrganizationClayDataSetDataSetDisplayView
+	extends ClayTableDataSetDisplayView
+	implements ClayDataSetActionProvider,
 			   CommerceDataSetDataProvider<Organization> {
 
 	public static final String NAME = "commerceAccountOrganizations";
 
 	@Override
-	public List<ClayTableAction> clayTableActions(
+	public List<ClayDataSetAction> clayDataSetActions(
 			HttpServletRequest httpServletRequest, long groupId, Object model)
 		throws PortalException {
 
-		List<ClayTableAction> clayTableActions = new ArrayList<>();
+		List<ClayDataSetAction> clayDataSetActions = new ArrayList<>();
 
 		Organization organization = (Organization)model;
 
@@ -90,17 +92,17 @@ public class CommerceAccountOrganizationClayTable
 				themeDisplay.getPermissionChecker(), commerceAccountId,
 				CommerceAccountActionKeys.MANAGE_ORGANIZATIONS)) {
 
-			ClayTableAction deleteClayTableAction = new ClayTableAction(
+			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK, StringPool.POUND, StringPool.BLANK,
 				LanguageUtil.get(httpServletRequest, "delete"),
 				"deleteCommerceAccountOrganization('" +
 					organization.getOrganizationId() + "')",
 				false, false);
 
-			clayTableActions.add(deleteClayTableAction);
+			clayDataSetActions.add(deleteClayDataSetAction);
 		}
 
-		return clayTableActions;
+		return clayDataSetActions;
 	}
 
 	@Override
@@ -123,11 +125,6 @@ public class CommerceAccountOrganizationClayTable
 		clayTableSchemaBuilder.addField("path", "path");
 
 		return clayTableSchemaBuilder.build();
-	}
-
-	@Override
-	public String getId() {
-		return NAME;
 	}
 
 	@Override
@@ -161,11 +158,6 @@ public class CommerceAccountOrganizationClayTable
 		}
 
 		return organizations;
-	}
-
-	@Override
-	public boolean isShowActionsMenu() {
-		return true;
 	}
 
 	protected String getPath(String treePath) throws PortalException {
