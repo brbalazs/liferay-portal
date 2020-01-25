@@ -25,13 +25,13 @@ portletURL.setParameter(PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backUR
 %>
 
 <commerce-ui:table
-	dataProviderKey="<%= CommerceOrganizationUserClayTable.NAME %>"
+	dataProviderKey="<%= CommerceOrganizationUserClayTableDataSetDisplayView.NAME %>"
 	filter="<%= commerceOrganizationDisplayContext.getOrganizationFilter() %>"
 	itemPerPage="<%= 5 %>"
 	namespace="<%= renderResponse.getNamespace() %>"
 	pageNumber="1"
 	portletURL="<%= commerceOrganizationDisplayContext.getPortletURL() %>"
-	tableName="<%= CommerceOrganizationUserClayTable.NAME %>"
+	tableName="<%= CommerceOrganizationUserClayTableDataSetDisplayView.NAME %>"
 />
 
 <c:if test="<%= OrganizationPermissionUtil.contains(permissionChecker, commerceOrganizationDisplayContext.getOrganizationId(), ActionKeys.ASSIGN_MEMBERS) %>">

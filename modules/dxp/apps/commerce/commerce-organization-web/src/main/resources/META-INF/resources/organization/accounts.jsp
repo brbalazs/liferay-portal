@@ -22,13 +22,13 @@ CommerceOrganizationDisplayContext commerceOrganizationDisplayContext = (Commerc
 
 <div class="commerce-organization-container" id="<portlet:namespace />entriesContainer">
 	<commerce-ui:table
-		dataProviderKey="<%= CommerceOrganizationAccountClayTable.NAME %>"
+		dataProviderKey="<%= CommerceOrganizationAccountClayTableDataSetDisplayView.NAME %>"
 		filter="<%= commerceOrganizationDisplayContext.getOrganizationFilter() %>"
 		itemPerPage="<%= 5 %>"
 		namespace="<%= renderResponse.getNamespace() %>"
 		pageNumber="1"
 		portletURL="<%= commerceOrganizationDisplayContext.getPortletURL() %>"
-		tableName="<%= CommerceOrganizationAccountClayTable.NAME %>"
+		tableName="<%= CommerceOrganizationAccountClayTableDataSetDisplayView.NAME %>"
 	/>
 </div>
 

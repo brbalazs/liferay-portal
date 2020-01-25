@@ -26,9 +26,9 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
 <%@ page import="com.liferay.commerce.organization.web.internal.constants.CommerceOrganizationConstants" %><%@
 page import="com.liferay.commerce.organization.web.internal.display.context.CommerceOrganizationDisplayContext" %><%@
-page import="com.liferay.commerce.organization.web.internal.frontend.CommerceOrganizationAccountClayTable" %><%@
-page import="com.liferay.commerce.organization.web.internal.frontend.CommerceOrganizationClayTable" %><%@
-page import="com.liferay.commerce.organization.web.internal.frontend.CommerceOrganizationUserClayTable" %><%@
+page import="com.liferay.commerce.organization.web.internal.frontend.CommerceOrganizationAccountClayTableDataSetDisplayView" %><%@
+page import="com.liferay.commerce.organization.web.internal.frontend.CommerceOrganizationClayTableDataSetDisplayView" %><%@
+page import="com.liferay.commerce.organization.web.internal.frontend.CommerceOrganizationUserClayTableDataSetDisplayView" %><%@
 page import="com.liferay.commerce.organization.web.internal.js.loader.modules.extender.npm.NPMResolverProvider" %><%@
 page import="com.liferay.commerce.organization.web.internal.servlet.taglib.ui.CommerceOrganizationScreenNavigationConstants" %><%@
 page import="com.liferay.frontend.js.loader.modules.extender.npm.NPMResolver" %><%@

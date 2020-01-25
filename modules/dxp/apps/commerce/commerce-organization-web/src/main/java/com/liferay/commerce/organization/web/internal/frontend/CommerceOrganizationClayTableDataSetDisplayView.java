@@ -14,15 +14,15 @@
 
 package com.liferay.commerce.organization.web.internal.frontend;
 
-import com.liferay.commerce.frontend.ClayTable;
 import com.liferay.commerce.frontend.ClayTableAction;
 import com.liferay.commerce.frontend.ClayTableActionProvider;
-import com.liferay.commerce.frontend.ClayTableSchema;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilder;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.frontend.clay.table.ClayTableDataSetDisplayView;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.organization.web.internal.model.Organization;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
@@ -57,16 +57,16 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"commerce.data.provider.key=" + CommerceOrganizationClayTable.NAME,
-		"commerce.table.name=" + CommerceOrganizationClayTable.NAME
+		"commerce.data.provider.key=" + CommerceOrganizationClayTableDataSetDisplayView.NAME,
+		"commerce.table.name=" + CommerceOrganizationClayTableDataSetDisplayView.NAME
 	},
 	service = {
-		ClayTable.class, ClayTableActionProvider.class,
+		ClayTableActionProvider.class, ClayTableDataSetDisplayView.class,
 		CommerceDataSetDataProvider.class
 	}
 )
-public class CommerceOrganizationClayTable
-	implements ClayTable, ClayTableActionProvider,
+public class CommerceOrganizationClayTableDataSetDisplayView
+	implements ClayTableActionProvider, ClayTableDataSetDisplayView,
 			   CommerceDataSetDataProvider<Organization> {
 
 	public static final String NAME = "commerceOrganizations";
