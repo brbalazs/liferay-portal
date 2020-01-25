@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.frontend;
+package com.liferay.commerce.frontend.clay.table;
 
 /**
  * @author Marco Leo
@@ -25,18 +25,10 @@ public interface ClayTableSchemaBuilder {
 
 	public ClayTableSchemaField addField(String fieldName, String label);
 
-	public void addInputNamesMap(String inputName, Object object);
-
-	public void addProperties(String name, Object value);
-
 	public ClayTableSchema build();
 
 	public void removeField(String fieldName);
 
 	public void setClayTableSchema(ClayTableSchema clayTableSchema);
-
-	public void setInputNameField(String inputNameField);
-
-	public void setInputValueField(String inputValueField);
 
 }

@@ -12,9 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.frontend;
-
-import java.util.Map;
+package com.liferay.commerce.frontend.clay.table;
 
 /**
  * @author Marco Leo
@@ -25,24 +23,16 @@ public class ClayTableSchemaField {
 		return _contentRenderer;
 	}
 
-	public Map<String, Object> getContentRendererMap() {
-		return _contentRendererMap;
+	public String getContentRendererModuleUrl() {
+		return _contentRendererModuleUrl;
 	}
 
 	public String getFieldName() {
 		return _fieldName;
 	}
 
-	public Map<String, Object> getFieldNameMap() {
-		return _fieldNameMap;
-	}
-
 	public String getLabel() {
 		return _label;
-	}
-
-	public Map<String, Object> getProperties() {
-		return _properties;
 	}
 
 	public SortingOrder getSortingOrder() {
@@ -57,24 +47,16 @@ public class ClayTableSchemaField {
 		_contentRenderer = contentRenderer;
 	}
 
-	public void setContentRendererMap(Map<String, Object> contentRendererMap) {
-		_contentRendererMap = contentRendererMap;
+	public void setContentRendererModuleUrl(String contentRendererModuleUrl) {
+		_contentRendererModuleUrl = contentRendererModuleUrl;
 	}
 
 	public void setFieldName(String fieldName) {
 		_fieldName = fieldName;
 	}
 
-	public void setFieldNameMap(Map<String, Object> fieldNameMap) {
-		_fieldNameMap = fieldNameMap;
-	}
-
 	public void setLabel(String label) {
 		_label = label;
-	}
-
-	public void setProperties(Map<String, Object> properties) {
-		_properties = properties;
 	}
 
 	public void setSortable(boolean sortable) {
@@ -92,11 +74,9 @@ public class ClayTableSchemaField {
 	}
 
 	private String _contentRenderer;
-	private Map<String, Object> _contentRendererMap;
+	private String _contentRendererModuleUrl;
 	private String _fieldName;
-	private Map<String, Object> _fieldNameMap;
 	private String _label;
-	private Map<String, Object> _properties;
 	private boolean _sortable;
 	private SortingOrder _sortingOrder;
 

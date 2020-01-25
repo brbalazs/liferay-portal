@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.frontend;
+package com.liferay.commerce.frontend.clay.table;
 
 import java.util.Map;
 
@@ -25,46 +25,10 @@ public class ClayTableSchema {
 		return _fields;
 	}
 
-	public String getInputNameField() {
-		return _inputNameField;
-	}
-
-	public Map<String, Object> getInputNamesMap() {
-		return _inputNamesMap;
-	}
-
-	public String getInputValueField() {
-		return _inputValueField;
-	}
-
-	public Map<String, Object> getProperties() {
-		return _properties;
-	}
-
 	public void setFields(Map<String, ClayTableSchemaField> fields) {
 		_fields = fields;
 	}
 
-	public void setInputNameField(String inputNameField) {
-		_inputNameField = inputNameField;
-	}
-
-	public void setInputNamesMap(Map<String, Object> inputNamesMap) {
-		_inputNamesMap = inputNamesMap;
-	}
-
-	public void setInputValueField(String inputValueField) {
-		_inputValueField = inputValueField;
-	}
-
-	public void setProperties(Map<String, Object> properties) {
-		_properties = properties;
-	}
-
 	private Map<String, ClayTableSchemaField> _fields;
-	private String _inputNameField;
-	private Map<String, Object> _inputNamesMap;
-	private String _inputValueField;
-	private Map<String, Object> _properties;
 
 }

@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.frontend;
+package com.liferay.commerce.frontend.clay.table;
 
 import aQute.bnd.annotation.ProviderType;
 
