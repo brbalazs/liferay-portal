@@ -12,10 +12,10 @@
  * details.
  */
 
-package com.liferay.commerce.frontend.internal.clay.table;
+package com.liferay.commerce.frontend.internal.clay.data.set;
 
-import com.liferay.commerce.frontend.ClayTableActionProvider;
-import com.liferay.commerce.frontend.ClayTableActionProviderRegistry;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProviderRegistry;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerCustomizerFactory;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerCustomizerFactory.ServiceWrapper;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
@@ -35,47 +35,48 @@ import org.osgi.service.component.annotations.Deactivate;
 /**
  * @author Marco Leo
  */
-@Component(immediate = true, service = ClayTableActionProviderRegistry.class)
-public class ClayTableActionProviderRegistryImpl
-	implements ClayTableActionProviderRegistry {
+@Component(immediate = true, service = ClayDataSetActionProviderRegistry.class)
+public class ClayDataSetActionProviderRegistryImpl
+	implements ClayDataSetActionProviderRegistry {
 
 	@Override
-	public List<ClayTableActionProvider> getClayTableActionProviders(
+	public List<ClayDataSetActionProvider> getClayDataSetActionProviders(
 		String key) {
 
-		List<ServiceWrapper<ClayTableActionProvider>>
-			clayTableActionProviderServiceWrappers =
+		List<ServiceWrapper<ClayDataSetActionProvider>>
+			clayDataSetActionProviderServiceWrappers =
 				_serviceTrackerMap.getService(key);
 
-		if (clayTableActionProviderServiceWrappers == null) {
+		if (clayDataSetActionProviderServiceWrappers == null) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					"No ClayTableActionProvider registered with key " + key);
+					"No ClayDataSetActionProvider registered with key " + key);
 			}
 
 			return Collections.emptyList();
 		}
 
-		List<ClayTableActionProvider> clayTableActionProviders =
+		List<ClayDataSetActionProvider> clayDataSetActionProviders =
 			new ArrayList<>();
 
-		for (ServiceWrapper<ClayTableActionProvider>
+		for (ServiceWrapper<ClayDataSetActionProvider>
 				tableActionProviderServiceWrapper :
-					clayTableActionProviderServiceWrappers) {
+					clayDataSetActionProviderServiceWrappers) {
 
-			clayTableActionProviders.add(
+			clayDataSetActionProviders.add(
 				tableActionProviderServiceWrapper.getService());
 		}
 
-		return clayTableActionProviders;
+		return clayDataSetActionProviders;
 	}
 
 	@Activate
 	protected void activate(BundleContext bundleContext) {
 		_serviceTrackerMap = ServiceTrackerMapFactory.openMultiValueMap(
-			bundleContext, ClayTableActionProvider.class, "commerce.table.name",
+			bundleContext, ClayDataSetActionProvider.class,
+			"commerce.data.provider.key",
 			ServiceTrackerCustomizerFactory.
-				<ClayTableActionProvider>serviceWrapper(bundleContext));
+				<ClayDataSetActionProvider>serviceWrapper(bundleContext));
 	}
 
 	@Deactivate
@@ -84,10 +85,10 @@ public class ClayTableActionProviderRegistryImpl
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		ClayTableActionProviderRegistryImpl.class);
+		ClayDataSetActionProviderRegistryImpl.class);
 
 	private ServiceTrackerMap
-		<String, List<ServiceWrapper<ClayTableActionProvider>>>
+		<String, List<ServiceWrapper<ClayDataSetActionProvider>>>
 			_serviceTrackerMap;
 
 }

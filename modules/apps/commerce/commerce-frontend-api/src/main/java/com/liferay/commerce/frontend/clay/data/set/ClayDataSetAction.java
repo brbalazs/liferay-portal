@@ -12,14 +12,14 @@
  * details.
  */
 
-package com.liferay.commerce.frontend;
+package com.liferay.commerce.frontend.clay.data.set;
 
 /**
  * @author Marco Leo
  */
-public class ClayTableAction {
+public class ClayDataSetAction {
 
-	public ClayTableAction(
+	public ClayDataSetAction(
 		String cssClasses, String href, String icon, String label,
 		String onClick, boolean quickAction, boolean separator) {
 

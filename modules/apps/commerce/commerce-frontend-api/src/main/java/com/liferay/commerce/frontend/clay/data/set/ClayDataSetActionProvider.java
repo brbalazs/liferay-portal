@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.frontend;
+package com.liferay.commerce.frontend.clay.data.set;
 
 import aQute.bnd.annotation.ConsumerType;
 
@@ -26,9 +26,9 @@ import javax.servlet.http.HttpServletRequest;
  * @author Marco Leo
  */
 @ConsumerType
-public interface ClayTableActionProvider {
+public interface ClayDataSetActionProvider {
 
-	public List<ClayTableAction> clayTableActions(
+	public List<ClayDataSetAction> clayDataSetActions(
 			HttpServletRequest httpServletRequest, long groupId, Object model)
 		throws PortalException;
 

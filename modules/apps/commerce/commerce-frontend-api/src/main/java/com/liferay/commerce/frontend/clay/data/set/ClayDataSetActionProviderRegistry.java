@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.frontend;
+package com.liferay.commerce.frontend.clay.data.set;
 
 import aQute.bnd.annotation.ProviderType;
 
@@ -22,9 +22,9 @@ import java.util.List;
  * @author Marco Leo
  */
 @ProviderType
-public interface ClayTableActionProviderRegistry {
+public interface ClayDataSetActionProviderRegistry {
 
-	public List<ClayTableActionProvider> getClayTableActionProviders(
+	public List<ClayDataSetActionProvider> getClayDataSetActionProviders(
 		String key);
 
 }
