@@ -14,12 +14,12 @@
 
 package com.liferay.commerce.frontend.internal.data.provider;
 
-import com.liferay.commerce.frontend.ClayTableDataJSONBuilder;
 import com.liferay.commerce.frontend.CommerceDataProviderRegistry;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.FilterFactory;
 import com.liferay.commerce.frontend.FilterFactoryRegistry;
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDataJSONBuilder;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Layout;
@@ -99,7 +99,7 @@ public class CommerceDataSetDataProviderResource {
 				httpServletRequest, filterFactory.create(httpServletRequest),
 				pagination, sort);
 
-			String json = _clayTableDataJSONBuilder.build(
+			String json = _clayDataSetDataJSONBuilder.build(
 				groupId, tableName, items, httpServletRequest);
 
 			return Response.ok(
@@ -119,7 +119,7 @@ public class CommerceDataSetDataProviderResource {
 		CommerceDataSetDataProviderResource.class);
 
 	@Reference
-	private ClayTableDataJSONBuilder _clayTableDataJSONBuilder;
+	private ClayDataSetDataJSONBuilder _clayDataSetDataJSONBuilder;
 
 	@Reference
 	private CommerceDataProviderRegistry _commerceDataProviderRegistry;

@@ -12,39 +12,23 @@
  * details.
  */
 
-package com.liferay.commerce.frontend.internal.clay.table;
+package com.liferay.commerce.frontend.clay.data.set;
 
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.commerce.frontend.ClayTableAction;
-
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Marco Leo
  */
-public class ClayTableRow {
+@ProviderType
+public interface ClayDataSetDataJSONBuilder {
 
-	public ClayTableRow(Object item) {
-		_item = item;
-		_actionItems = new ArrayList<>();
-	}
-
-	public void addActionItems(List<ClayTableAction> actionItems) {
-		this._actionItems.addAll(actionItems);
-	}
-
-	public List<ClayTableAction> getActionItems() {
-		return _actionItems;
-	}
-
-	@JsonUnwrapped
-	public Object getItem() {
-		return _item;
-	}
-
-	private final List<ClayTableAction> _actionItems;
-	private final Object _item;
+	public String build(
+			long groupId, String tableName, List<Object> items,
+			HttpServletRequest httpServletRequest)
+		throws Exception;
 
 }
