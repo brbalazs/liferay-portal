@@ -239,8 +239,8 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 
 			<commerce-ui:dataset-display
 				contextParams="<%= contextParams %>"
-				dataProviderKey="<%= CommerceOrderItemClayTable.NAME %>"
-				id="<%= CommerceOrderItemClayTable.NAME %>"
+				dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDER_ITEMS %>"
+				id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDER_ITEMS %>"
 				itemsPerPage="<%= 10 %>"
 				namespace="<%= renderResponse.getNamespace() %>"
 				pageNumber="<%= 1 %>"
@@ -268,31 +268,6 @@ CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder()
 			actionTargetId="order-summary-modal"
 			actionUrl="<%= editOrderSummaryURL %>"
 			title='<%= LanguageUtil.get(request, "order-summary") %>'
-		>
-			<commerce-ui:summary-table
-				data="<%= commerceOrderEditDisplayContext.getSummary() %>"
-			/>
-		</commerce-ui:panel>
-	</div>
-
-	<div class="col-12">
-		<commerce-ui:panel
-			title='<%= LanguageUtil.get(request, "order-summary") %>'
-			collapseLabel="show"
-		>
-			<commerce-ui:summary-table
-				data="<%= commerceOrderEditDisplayContext.getSummary() %>"
-			/>
-		</commerce-ui:panel>
-	</div>
-
-	<div class="col-12">
-		<commerce-ui:panel
-			title='<%= LanguageUtil.get(request, "order-summary") %>'
-			collapsible="<%= true %>"
-			collapsed="<%= true %>"
-			collapseSwitchName="enable-stuff"
-			collapseLabel="Enable:"
 		>
 			<commerce-ui:summary-table
 				data="<%= commerceOrderEditDisplayContext.getSummary() %>"

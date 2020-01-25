@@ -19,13 +19,6 @@ import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.discount.CommerceDiscountValue;
-import com.liferay.commerce.frontend.ClayTable;
-import com.liferay.commerce.frontend.ClayTableAction;
-import com.liferay.commerce.frontend.ClayTableActionProvider;
-import com.liferay.commerce.frontend.ClayTableSchema;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilder;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilderFactory;
-import com.liferay.commerce.frontend.ClayTableSchemaField;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
@@ -34,7 +27,6 @@ import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.order.web.internal.model.OrderItem;
 import com.liferay.commerce.order.web.internal.model.Sku;
-import com.liferay.commerce.order.web.internal.security.permission.resource.CommerceOrderPermission;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.model.CPInstance;
@@ -58,22 +50,17 @@ import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.SortFactoryUtil;
-import com.liferay.portal.kernel.security.permission.ActionKeys;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.TextFormatter;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import javax.portlet.ActionRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.WindowStateException;
 
@@ -87,51 +74,11 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = {
-		"commerce.data.provider.key=" + CommerceOrderItemClayTable.NAME,
-		"commerce.table.name=" + CommerceOrderItemClayTable.NAME
-	},
-	service = {
-		ClayTable.class, ClayTableActionProvider.class,
-		CommerceDataSetDataProvider.class
-	}
+	property = "commerce.data.provider.key=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDER_ITEMS,
+	service = CommerceDataSetDataProvider.class
 )
-public class CommerceOrderItemClayTable
-	implements ClayTable, ClayTableActionProvider,
-			   CommerceDataSetDataProvider<OrderItem> {
-
-	public static final String NAME = "commerceOrderItems";
-
-	@Override
-	public List<ClayTableAction> clayTableActions(
-			HttpServletRequest httpServletRequest, long groupId, Object model)
-		throws PortalException {
-
-		List<ClayTableAction> clayTableActions = new ArrayList<>();
-
-		OrderItem orderItem = (OrderItem)model;
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
-		if (_commerceOrderPermission.contains(
-				themeDisplay.getPermissionChecker(), orderItem.getOrderId(),
-				ActionKeys.UPDATE)) {
-
-			PortletURL deleteURL = _getOrderItemDeleteURL(
-				orderItem.getOrderItemId(), httpServletRequest);
-
-			ClayTableAction deleteClayTableAction = new ClayTableAction(
-				StringPool.BLANK, deleteURL.toString(), StringPool.BLANK,
-				LanguageUtil.get(httpServletRequest, "delete"),
-				StringPool.BLANK, false, false);
-
-			clayTableActions.add(deleteClayTableAction);
-		}
-
-		return clayTableActions;
-	}
+public class CommerceOrderItemDataSetDataProvider
+	implements CommerceDataSetDataProvider<OrderItem> {
 
 	@Override
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
@@ -141,37 +88,6 @@ public class CommerceOrderItemClayTable
 			_getBaseModelSearchResult(httpServletRequest, filter, null);
 
 		return baseModelSearchResult.getLength();
-	}
-
-	@Override
-	public ClayTableSchema getClayTableSchema() {
-		ClayTableSchemaBuilder clayTableSchemaBuilder =
-			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
-
-		ClayTableSchemaField skuField = clayTableSchemaBuilder.addField(
-			"sku", "sku");
-
-		skuField.setContentRenderer("sidePanelLink");
-
-		clayTableSchemaBuilder.addField("name", "name");
-
-		ClayTableSchemaField priceField = clayTableSchemaBuilder.addField(
-			"price", "price");
-
-		priceField.setContentRenderer("commerceTableCellSubscription");
-
-		clayTableSchemaBuilder.addField("discount", "discount");
-
-		clayTableSchemaBuilder.addField("quantity", "quantity");
-
-		clayTableSchemaBuilder.addField("total", "total");
-
-		return clayTableSchemaBuilder.build();
-	}
-
-	@Override
-	public String getId() {
-		return NAME;
 	}
 
 	@Override
@@ -245,11 +161,6 @@ public class CommerceOrderItemClayTable
 		return orderItems;
 	}
 
-	@Override
-	public boolean isShowActionsMenu() {
-		return true;
-	}
-
 	private BaseModelSearchResult<CommerceOrderItem> _getBaseModelSearchResult(
 			HttpServletRequest httpServletRequest, Filter filter,
 			Pagination pagination)
@@ -291,25 +202,6 @@ public class CommerceOrderItemClayTable
 		}
 
 		return baseModelSearchResult;
-	}
-
-	private PortletURL _getOrderItemDeleteURL(
-			long commerceOrderItemId, HttpServletRequest httpServletRequest)
-		throws PortalException {
-
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, CommerceOrder.class.getName(),
-			PortletProvider.Action.MANAGE);
-
-		portletURL.setParameter(
-			ActionRequest.ACTION_NAME, "editCommerceOrderItem");
-		portletURL.setParameter(Constants.CMD, Constants.DELETE);
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
-		portletURL.setParameter(
-			"commerceOrderItemId", String.valueOf(commerceOrderItemId));
-
-		return portletURL;
 	}
 
 	private String _getOrderItemPanelURL(
@@ -536,19 +428,13 @@ public class CommerceOrderItemClayTable
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceOrderItemClayTable.class);
-
-	@Reference
-	private ClayTableSchemaBuilderFactory _clayTableSchemaBuilderFactory;
+		CommerceOrderItemDataSetDataProvider.class);
 
 	@Reference
 	private CommerceContextFactory _commerceContextFactory;
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
-
-	@Reference
-	private CommerceOrderPermission _commerceOrderPermission;
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;

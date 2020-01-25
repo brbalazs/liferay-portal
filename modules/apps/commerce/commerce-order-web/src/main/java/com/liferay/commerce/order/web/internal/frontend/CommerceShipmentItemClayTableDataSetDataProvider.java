@@ -14,10 +14,6 @@
 
 package com.liferay.commerce.order.web.internal.frontend;
 
-import com.liferay.commerce.frontend.ClayTable;
-import com.liferay.commerce.frontend.ClayTableSchema;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilder;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
@@ -43,16 +39,11 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = {
-		"commerce.data.provider.key=" + CommerceShipmentItemClayTable.NAME,
-		"commerce.table.name=" + CommerceShipmentItemClayTable.NAME
-	},
-	service = {ClayTable.class, CommerceDataSetDataProvider.class}
+	property = "commerce.data.provider.key=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENT_ITEMS,
+	service = CommerceDataSetDataProvider.class
 )
-public class CommerceShipmentItemClayTable
-	implements ClayTable, CommerceDataSetDataProvider<ShipmentItem> {
-
-	public static final String NAME = "commerceShipmentItems";
+public class CommerceShipmentItemClayTableDataSetDataProvider
+	implements CommerceDataSetDataProvider<ShipmentItem> {
 
 	@Override
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
@@ -63,29 +54,6 @@ public class CommerceShipmentItemClayTable
 
 		return _commerceShipmentItemService.getCommerceShipmentItemsCount(
 			commerceShipmentId);
-	}
-
-	@Override
-	public ClayTableSchema getClayTableSchema() {
-		ClayTableSchemaBuilder clayTableSchemaBuilder =
-			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
-
-		clayTableSchemaBuilder.addField("sku", "sku");
-
-		clayTableSchemaBuilder.addField("orderId", "order-id");
-
-		clayTableSchemaBuilder.addField("orderedCount", "ordered");
-
-		clayTableSchemaBuilder.addField("shippedCount", "shipped");
-
-		clayTableSchemaBuilder.addField("toSend", "to-send");
-
-		return clayTableSchemaBuilder.build();
-	}
-
-	@Override
-	public String getId() {
-		return NAME;
 	}
 
 	@Override
@@ -123,9 +91,6 @@ public class CommerceShipmentItemClayTable
 
 		return shipmentItems;
 	}
-
-	@Reference
-	private ClayTableSchemaBuilderFactory _clayTableSchemaBuilderFactory;
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;

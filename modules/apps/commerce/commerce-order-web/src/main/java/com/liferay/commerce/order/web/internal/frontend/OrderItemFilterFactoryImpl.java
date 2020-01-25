@@ -27,7 +27,7 @@ import org.osgi.service.component.annotations.Component;
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.provider.key=" + CommerceOrderItemClayTable.NAME,
+	property = "commerce.data.provider.key=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_ORDER_ITEMS,
 	service = FilterFactory.class
 )
 public class OrderItemFilterFactoryImpl implements FilterFactory {

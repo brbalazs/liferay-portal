@@ -14,15 +14,7 @@
 
 package com.liferay.commerce.order.web.internal.frontend;
 
-import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.constants.CommerceShipmentConstants;
-import com.liferay.commerce.frontend.ClayTable;
-import com.liferay.commerce.frontend.ClayTableAction;
-import com.liferay.commerce.frontend.ClayTableActionProvider;
-import com.liferay.commerce.frontend.ClayTableSchema;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilder;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilderFactory;
-import com.liferay.commerce.frontend.ClayTableSchemaField;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
@@ -43,17 +35,12 @@ import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.portlet.ActionRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.WindowStateException;
 
@@ -67,51 +54,11 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = {
-		"commerce.data.provider.key=" + CommerceShipmentClayTable.NAME,
-		"commerce.table.name=" + CommerceShipmentClayTable.NAME
-	},
-	service = {
-		ClayTable.class, ClayTableActionProvider.class,
-		CommerceDataSetDataProvider.class
-	}
+	property = "commerce.data.provider.key=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENTS,
+	service = CommerceDataSetDataProvider.class
 )
-public class CommerceShipmentClayTable
-	implements ClayTable, ClayTableActionProvider,
-			   CommerceDataSetDataProvider<Shipment> {
-
-	public static final String NAME = "commerceShipments";
-
-	@Override
-	public List<ClayTableAction> clayTableActions(
-			HttpServletRequest httpServletRequest, long groupId, Object model)
-		throws PortalException {
-
-		List<ClayTableAction> clayTableActions = new ArrayList<>();
-
-		Shipment shipment = (Shipment)model;
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
-		if (PortalPermissionUtil.contains(
-				themeDisplay.getPermissionChecker(),
-				CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS)) {
-
-			PortletURL deleteURL = _getShipmentDeleteURL(
-				shipment.getShipmentId(), httpServletRequest);
-
-			ClayTableAction deleteClayTableAction = new ClayTableAction(
-				StringPool.BLANK, deleteURL.toString(), StringPool.BLANK,
-				LanguageUtil.get(httpServletRequest, "delete"),
-				StringPool.BLANK, false, false);
-
-			clayTableActions.add(deleteClayTableAction);
-		}
-
-		return clayTableActions;
-	}
+public class CommerceShipmentDataSetDataProvider
+	implements CommerceDataSetDataProvider<Shipment> {
 
 	@Override
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
@@ -126,35 +73,6 @@ public class CommerceShipmentClayTable
 		return _commerceShipmentService.getCommerceShipmentsCount(
 			_portal.getCompanyId(httpServletRequest),
 			commerceOrder.getShippingAddressId());
-	}
-
-	@Override
-	public ClayTableSchema getClayTableSchema() {
-		ClayTableSchemaBuilder clayTableSchemaBuilder =
-			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
-
-		ClayTableSchemaField shipmentIdField = clayTableSchemaBuilder.addField(
-			"shipmentId", "shipment-id");
-
-		shipmentIdField.setContentRenderer("commerceTableCellSidePanelLink");
-
-		clayTableSchemaBuilder.addField("address", "address");
-
-		clayTableSchemaBuilder.addField("createDate", "create-date");
-
-		ClayTableSchemaField statusField = clayTableSchemaBuilder.addField(
-			"status", "status");
-
-		statusField.setContentRenderer("commerceTableCellStatus");
-
-		clayTableSchemaBuilder.addField("tracking", "tracking");
-
-		return clayTableSchemaBuilder.build();
-	}
-
-	@Override
-	public String getId() {
-		return NAME;
 	}
 
 	@Override
@@ -199,11 +117,6 @@ public class CommerceShipmentClayTable
 		return shipments;
 	}
 
-	@Override
-	public boolean isShowActionsMenu() {
-		return true;
-	}
-
 	private String _getDescriptiveAddress(CommerceShipment commerceShipment)
 		throws PortalException {
 
@@ -231,25 +144,6 @@ public class CommerceShipmentClayTable
 		sb.append(commerceAddress.getZip());
 
 		return sb.toString();
-	}
-
-	private PortletURL _getShipmentDeleteURL(
-			long commerceShipmentId, HttpServletRequest httpServletRequest)
-		throws PortalException {
-
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, CommerceOrder.class.getName(),
-			PortletProvider.Action.MANAGE);
-
-		portletURL.setParameter(
-			ActionRequest.ACTION_NAME, "editCommerceOrderShipment");
-		portletURL.setParameter(Constants.CMD, Constants.DELETE);
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
-		portletURL.setParameter(
-			"commerceShipmentId", String.valueOf(commerceShipmentId));
-
-		return portletURL;
 	}
 
 	private String _getShipmentPanelURL(
@@ -285,10 +179,7 @@ public class CommerceShipmentClayTable
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceShipmentClayTable.class);
-
-	@Reference
-	private ClayTableSchemaBuilderFactory _clayTableSchemaBuilderFactory;
+		CommerceShipmentDataSetDataProvider.class);
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;

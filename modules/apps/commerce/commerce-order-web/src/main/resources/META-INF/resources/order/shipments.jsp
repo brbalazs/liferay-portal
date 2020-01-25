@@ -45,8 +45,8 @@ contextParams.put("commerceOrderId", String.valueOf(commerceOrder.getCommerceOrd
 
 <commerce-ui:dataset-display
 	contextParams="<%= contextParams %>"
-	dataProviderKey="<%= CommerceShipmentClayTable.NAME %>"
-	id="<%= CommerceShipmentClayTable.NAME %>"
+	dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENTS %>"
+	id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENTS %>"
 	itemsPerPage="<%= 10 %>"
 	namespace="<%= renderResponse.getNamespace() %>"
 	pageNumber="<%= 1 %>"

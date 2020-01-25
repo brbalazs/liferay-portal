@@ -93,13 +93,13 @@ CommerceShipment commerceShipment = commerceOrderEditDisplayContext.getCommerceS
 				</liferay-frontend:management-bar-buttons>
 			</liferay-frontend:management-bar>
 
-			<commerce-ui:table
-				dataProviderKey="<%= CommerceShipmentItemClayTable.NAME %>"
-				itemsPerPage="<%= 5 %>"
+			<commerce-ui:dataset-display
+				dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENT_ITEMS %>"
+				id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENT_ITEMS %>"
+				itemsPerPage="<%= 10 %>"
 				namespace="<%= renderResponse.getNamespace() %>"
 				pageNumber="<%= 1 %>"
 				portletURL="<%= currentURLObj %>"
-				tableName="<%= CommerceShipmentItemClayTable.NAME %>"
 			/>
 		</commerce-ui:panel>
 	</div>
