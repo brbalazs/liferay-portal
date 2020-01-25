@@ -23,15 +23,14 @@ page import="com.liferay.portal.kernel.json.JSONFactoryUtil" %><%@
 page import="com.liferay.portal.kernel.json.JSONSerializer" %><%@
 page import="com.liferay.portal.kernel.util.PortalUtil" %>
 
-<%@ page import="java.util.List" %><%@
-page import="java.util.Map" %>
+<%@ page import="java.util.List" %>
 
 <%@ page import="javax.portlet.PortletURL" %>
 
 <liferay-theme:defineObjects />
 
 <%
-Map<String, Object> clayTableContext = (Map<String, Object>)request.getAttribute("liferay-commerce:dataset-display:clayTableContext");
+Object clayDataSetDisplayViewsContext = request.getAttribute("liferay-commerce:dataset-display:clayDataSetDisplayViewsContext");
 String dataProviderKey = (String)request.getAttribute("liferay-commerce:dataset-display:dataProviderKey");
 String dataSetAPI = (String)request.getAttribute("liferay-commerce:dataset-display:dataSetAPI");
 String formId = (String)request.getAttribute("liferay-commerce:dataset-display:formId");
