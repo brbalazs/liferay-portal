@@ -3,6 +3,8 @@ Bundle-SymbolicName: com.liferay.commerce.frontend.api
 Bundle-Version: 2.0.2
 Export-Package:\
 	com.liferay.commerce.frontend,\
+	com.liferay.commerce.frontend.clay.data.set,\
+	com.liferay.commerce.frontend.clay.table,\
 	com.liferay.commerce.frontend.model,\
 	com.liferay.commerce.frontend.template.soy.renderer,\
 	com.liferay.commerce.frontend.util
