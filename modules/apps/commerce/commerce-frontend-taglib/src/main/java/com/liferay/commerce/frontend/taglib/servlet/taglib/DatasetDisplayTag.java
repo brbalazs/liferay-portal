@@ -14,16 +14,14 @@
 
 package com.liferay.commerce.frontend.taglib.servlet.taglib;
 
-import com.liferay.commerce.frontend.ClayTable;
-import com.liferay.commerce.frontend.ClayTableDataJSONBuilder;
-import com.liferay.commerce.frontend.ClayTableRegistry;
-import com.liferay.commerce.frontend.ClayTableSerializer;
 import com.liferay.commerce.frontend.CommerceDataProviderRegistry;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.FilterFactory;
 import com.liferay.commerce.frontend.FilterFactoryRegistry;
 import com.liferay.commerce.frontend.PaginationImpl;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDataJSONBuilder;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayViewSerializer;
 import com.liferay.commerce.frontend.taglib.internal.model.ClayPaginationEntry;
 import com.liferay.commerce.frontend.taglib.internal.servlet.ServletContextUtil;
 import com.liferay.petra.string.StringBundler;
@@ -136,10 +134,10 @@ public class DatasetDisplayTag extends IncludeTag {
 
 	@Override
 	public void setPageContext(PageContext pageContext) {
-		_clayTableDataJSONBuilder =
+		_clayDataSetDataJSONBuilder =
 			ServletContextUtil.getClayTableDataJSONBuilder();
-		_clayTableRegistry = ServletContextUtil.getClayTableRegistry();
-		_clayTableSerializer = ServletContextUtil.getClayTableSerializer();
+		_clayDataSetDisplayViewSerializer =
+			ServletContextUtil.getClayDataSetDisplayViewSerializer();
 		_commerceDataProviderRegistry =
 			ServletContextUtil.getCommerceDataProviderRegistry();
 		_filterFactoryRegistry = ServletContextUtil.getFilterFactoryRegistry();
@@ -165,10 +163,9 @@ public class DatasetDisplayTag extends IncludeTag {
 	protected void cleanUp() {
 		super.cleanUp();
 
-		_clayTableContext = null;
-		_clayTableDataJSONBuilder = null;
-		_clayTableRegistry = null;
-		_clayTableSerializer = null;
+		_clayDataSetDataJSONBuilder = null;
+		_clayDataSetDisplayViewsContext = null;
+		_clayDataSetDisplayViewSerializer = null;
 		_commerceDataProviderRegistry = null;
 		_contextParams = null;
 		_dataProviderKey = null;
@@ -229,8 +226,8 @@ public class DatasetDisplayTag extends IncludeTag {
 	@Override
 	protected void setAttributes(HttpServletRequest httpServletRequest) {
 		request.setAttribute(
-			"liferay-commerce:dataset-display:clayTableContext",
-			_clayTableContext);
+			"liferay-commerce:dataset-display:clayDataSetDisplayViewsContext",
+			_clayDataSetDisplayViewsContext);
 		request.setAttribute(
 			"liferay-commerce:dataset-display:dataProviderKey",
 			_dataProviderKey);
@@ -282,7 +279,7 @@ public class DatasetDisplayTag extends IncludeTag {
 			request, filter, new PaginationImpl(_itemsPerPage, _pageNumber),
 			null);
 
-		String json = _clayTableDataJSONBuilder.build(
+		String json = _clayDataSetDataJSONBuilder.build(
 			themeDisplay.getScopeGroupId(), _id, items, request);
 
 		_items = JSONFactoryUtil.looseDeserialize(json);
@@ -314,10 +311,9 @@ public class DatasetDisplayTag extends IncludeTag {
 	}
 
 	private void _setTableContext() {
-		ClayTable clayTable = _clayTableRegistry.getClayTable(_id);
-
-		_clayTableContext = _clayTableSerializer.serialize(
-			clayTable, PortalUtil.getLocale(request));
+		_clayDataSetDisplayViewsContext =
+			_clayDataSetDisplayViewSerializer.serialize(
+				_id, PortalUtil.getLocale(request));
 	}
 
 	private static final String _PAGE = "/dataset_display/page.jsp";
@@ -325,10 +321,9 @@ public class DatasetDisplayTag extends IncludeTag {
 	private static final Log _log = LogFactoryUtil.getLog(
 		DatasetDisplayTag.class);
 
-	private Map<String, Object> _clayTableContext;
-	private ClayTableDataJSONBuilder _clayTableDataJSONBuilder;
-	private ClayTableRegistry _clayTableRegistry;
-	private ClayTableSerializer _clayTableSerializer;
+	private ClayDataSetDataJSONBuilder _clayDataSetDataJSONBuilder;
+	private Object _clayDataSetDisplayViewsContext;
+	private ClayDataSetDisplayViewSerializer _clayDataSetDisplayViewSerializer;
 	private CommerceDataProviderRegistry _commerceDataProviderRegistry;
 	private Map<String, String> _contextParams;
 	private String _dataProviderKey;
