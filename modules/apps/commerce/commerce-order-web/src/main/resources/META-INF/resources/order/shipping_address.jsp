@@ -54,65 +54,63 @@ long commerceRegionId = BeanParamUtil.getLong(commerceAddress, request, "commerc
 </commerce-ui:modal-content>
 
 <aui:script use="liferay-dynamic-select">
-	new Liferay.DynamicSelect(
-			[
-				{
-					select: '<portlet:namespace />commerceCountryId',
-					selectData: function(callback) {
-						function injectCountryPlaceholder(list) {
-							callback([
-								{
-									commerceCountryId: '0',
-									nameCurrentValue: '- <liferay-ui:message key="select-country" />'
-								},
-								...list
-							]);
-						}
-
-						Liferay.Service(
-							'/commerce.commercecountry/get-shipping-commerce-countries',
-							{
-								active: true,
-								companyId: <%= company.getCompanyId() %>,
-								shippingAllowed: true
-							},
-							injectCountryPlaceholder
-						);
-					},
-					selectDesc: 'nameCurrentValue',
-					selectId: 'commerceCountryId',
-					selectNullable: <%= false %>,
-					selectSort: '<%= true %>',
-					selectVal: '<%= commerceCountryId %>'
-				},
-				{
-					select: '<portlet:namespace />commerceRegionId',
-					selectData: function(callback, selectKey) {
-						function injectRegionPlaceholder(list) {
-							callback([
-								{
-									commerceRegionId: '0',
-									name: '- <liferay-ui:message key="select-region" />'
-								},
-								...list
-							]);
-						}
-
-						Liferay.Service(
-								'/commerce.commerceregion/get-commerce-regions',
-								{
-									active: true,
-									commerceCountryId: Number(selectKey)
-								},
-								injectRegionPlaceholder
-						);
-					},
-					selectDesc: 'name',
-					selectId: 'commerceRegionId',
-					selectNullable: <%= false %>,
-					selectVal: '<%= commerceRegionId %>'
+	new Liferay.DynamicSelect([
+		{
+			select: '<portlet:namespace />commerceCountryId',
+			selectData: function(callback) {
+				function injectCountryPlaceholder(list) {
+					callback([
+						{
+							commerceCountryId: '0',
+							nameCurrentValue:
+								'- <liferay-ui:message key="select-country" />'
+						},
+						...list
+					]);
 				}
-			]
-	);
 
+				Liferay.Service(
+					'/commerce.commercecountry/get-shipping-commerce-countries',
+					{
+						active: true,
+						companyId: <%= company.getCompanyId() %>,
+						shippingAllowed: true
+					},
+					injectCountryPlaceholder
+				);
+			},
+			selectDesc: 'nameCurrentValue',
+			selectId: 'commerceCountryId',
+			selectNullable: <%= false %>,
+			selectSort: '<%= true %>',
+			selectVal: '<%= commerceCountryId %>'
+		},
+		{
+			select: '<portlet:namespace />commerceRegionId',
+			selectData: function(callback, selectKey) {
+				function injectRegionPlaceholder(list) {
+					callback([
+						{
+							commerceRegionId: '0',
+							name: '- <liferay-ui:message key="select-region" />'
+						},
+						...list
+					]);
+				}
+
+				Liferay.Service(
+					'/commerce.commerceregion/get-commerce-regions',
+					{
+						active: true,
+						commerceCountryId: Number(selectKey)
+					},
+					injectRegionPlaceholder
+				);
+			},
+			selectDesc: 'name',
+			selectId: 'commerceRegionId',
+			selectNullable: <%= false %>,
+			selectVal: '<%= commerceRegionId %>'
+		}
+	]);
 </aui:script>

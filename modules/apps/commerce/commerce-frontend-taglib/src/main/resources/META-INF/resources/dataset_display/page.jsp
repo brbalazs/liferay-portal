@@ -22,14 +22,14 @@
 
 <aui:script require="commerce-frontend-js/components/dataset_display/entry.es as datasetDisplay">
 	datasetDisplay.default(
-		"<%= containerId %>",
-		"<%= containerId %>",
+		'<%= containerId %>',
+		'<%= containerId %>',
 		Object.assign(
 			{},
 			{
-				views : <%= jsonSerializer.serializeDeep(clayDataSetDisplayViewsContext) %>,
-				apiUrl : "<%= dataSetAPI %>",
-				filters : [
+				views: <%= jsonSerializer.serializeDeep(clayDataSetDisplayViewsContext) %>,
+				apiUrl: '<%= dataSetAPI %>',
+				filters: [
 					{
 						id: 'text-test',
 						label: 'Text test',
@@ -102,16 +102,22 @@
 						value: 123
 					}
 				],
-				formId: "<%= formId %>",
-				dataProviderKey : "<%= dataProviderKey %>",
-				id : "<%= id %>",
-				items : <%= jsonSerializer.serializeDeep(items) %>,
-				showPagination : <%= showPagination %>,
-				pagination : {
-					deltas : <%= jsonSerializer.serializeDeep(paginationEntries) %>,
-					initialDelta : <%= itemsPerPage %>,
-					initialPageNumber : <%= pageNumber %>,
-					initialTotalItems : <%= totalItems %>
+				formId: '<%= formId %>',
+				dataProviderKey: '<%= dataProviderKey %>',
+				id: '<%= id %>',
+				items: <%= jsonSerializer.serializeDeep(items) %>,
+				showPagination: <%= showPagination %>,
+				pagination: {
+					deltas: <%= jsonSerializer.serializeDeep(paginationEntries) %>,
+					initialDelta: <%= itemsPerPage %>,
+					initialPageNumber: <%= pageNumber %>,
+					initialTotalItems: <%= totalItems %>
 				},
+				namespace: '<%= namespace %>',
+				portletURL: '<%= portletURL %>',
+				spritemap: '<%= spritemap %>',
+				style: '<%= style %>'
+			}
+		)
 	);
 </aui:script>

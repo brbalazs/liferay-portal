@@ -87,54 +87,51 @@ long commerceOrderId = commerceOrderEditDisplayContext.getCommerceOrderId();
 </aui:fieldset-group>
 
 <aui:script use="aui-base,liferay-dynamic-select">
-	new Liferay.DynamicSelect(
-		[
-			{
-				select: '<portlet:namespace />commerceCountryId',
-				selectData: function(callback) {
-					Liferay.Service(
-						'/commerce.commercecountry/get-shipping-commerce-countries-by-channel-id',
-						{
-							commerceChannelId: <%= commerceContext.getCommerceChannelId() %>,
-							end: -1,
-							start: -1
-						},
-						callback
-					);
-				},
-				selectDesc: 'nameCurrentValue',
-				selectId: 'commerceCountryId',
-				selectSort: '<%= true %>',
-				selectVal: '<%= commerceCountryId %>'
+	new Liferay.DynamicSelect([
+		{
+			select: '<portlet:namespace />commerceCountryId',
+			selectData: function(callback) {
+				Liferay.Service(
+					'/commerce.commercecountry/get-shipping-commerce-countries-by-channel-id',
+					{
+						commerceChannelId: <%= commerceContext.getCommerceChannelId() %>,
+						end: -1,
+						start: -1
+					},
+					callback
+				);
 			},
-			{
-				select: '<portlet:namespace />commerceRegionId',
-				selectData: function(callback, selectKey) {
-					Liferay.Service(
-						'/commerce.commerceregion/get-commerce-regions',
-						{
-							active: true,
-							commerceCountryId: Number(selectKey)
-						},
-						callback
-					);
-				},
-				selectDesc: 'name',
-				selectId: 'commerceRegionId',
-				selectVal: '<%= commerceRegionId %>'
-			}
-		]
-	);
+			selectDesc: 'nameCurrentValue',
+			selectId: 'commerceCountryId',
+			selectSort: '<%= true %>',
+			selectVal: '<%= commerceCountryId %>'
+		},
+		{
+			select: '<portlet:namespace />commerceRegionId',
+			selectData: function(callback, selectKey) {
+				Liferay.Service(
+					'/commerce.commerceregion/get-commerce-regions',
+					{
+						active: true,
+						commerceCountryId: Number(selectKey)
+					},
+					callback
+				);
+			},
+			selectDesc: 'name',
+			selectId: 'commerceRegionId',
+			selectVal: '<%= commerceRegionId %>'
+		}
+	]);
 
 	var form = A.one('#<portlet:namespace />shippingAddressFm');
 
-	form.on(
-		'reset',
-		function() {
-			var commerceCountrySelect = A.one('#<portlet:namespace />commerceCountryId');
+	form.on('reset', function() {
+		var commerceCountrySelect = A.one(
+			'#<portlet:namespace />commerceCountryId'
+		);
 
-			commerceCountrySelect.val('<%= commerceCountryId %>');
-			commerceCountrySelect.simulate('change');
-		}
-	);
+		commerceCountrySelect.val('<%= commerceCountryId %>');
+		commerceCountrySelect.simulate('change');
+	});
 </aui:script>
