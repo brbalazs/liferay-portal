@@ -1,4 +1,3 @@
-<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -12,19 +11,24 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
---%>
 
-<%@ include file="/init.jsp" %>
+package com.liferay.commerce.order.content.web.internal.frontend;
 
-<%
-CommerceOrderContentDisplayContext commerceOrderContentDisplayContext = (CommerceOrderContentDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-%>
+/**
+ * @author Marco Leo
+ */
+public class CommerceOrderDataSetConstants {
 
-<commerce-ui:dataset-display
-	dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PLACED_ORDERS %>"
-	id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PLACED_ORDERS %>"
-	itemsPerPage="<%= 10 %>"
-	namespace="<%= renderResponse.getNamespace() %>"
-	pageNumber="<%= 1 %>"
-	portletURL="<%= commerceOrderContentDisplayContext.getPortletURL() %>"
-/>
+	public static final String COMMERCE_DATA_SET_KEY_PENDING_ORDER_ITEMS =
+		"commercePendingOrderItems";
+
+	public static final String COMMERCE_DATA_SET_KEY_PENDING_ORDERS =
+		"commercePendingOrders";
+
+	public static final String COMMERCE_DATA_SET_KEY_PLACED_ORDER_ITEMS =
+		"commercePlacedOrderItems";
+
+	public static final String COMMERCE_DATA_SET_KEY_PLACED_ORDERS =
+		"commercePlacedOrders";
+
+}

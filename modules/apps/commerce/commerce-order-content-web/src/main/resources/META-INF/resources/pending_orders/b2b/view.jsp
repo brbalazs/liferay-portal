@@ -22,14 +22,13 @@ CommerceOrderContentDisplayContext commerceOrderContentDisplayContext = (Commerc
 
 <portlet:actionURL name="editCommerceOrder" var="editCommerceOrderURL" />
 
-<commerce-ui:table
-	dataProviderKey="commercePendingOrders"
-	filter="<%= commerceOrderContentDisplayContext.getOrderFilter() %>"
-	itemsPerPage="<%= 5 %>"
+<commerce-ui:dataset-display
+	dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PENDING_ORDERS %>"
+	id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PENDING_ORDERS %>"
+	itemsPerPage="<%= 10 %>"
 	namespace="<%= renderResponse.getNamespace() %>"
-	pageNumber="1"
+	pageNumber="<%= 1 %>"
 	portletURL="<%= commerceOrderContentDisplayContext.getPortletURL() %>"
-	tableName="commercePendingOrders"
 />
 
 <div class="commerce-cta is-visible">

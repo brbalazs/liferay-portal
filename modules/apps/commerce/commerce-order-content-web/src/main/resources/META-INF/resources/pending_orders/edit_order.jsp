@@ -289,14 +289,21 @@ List<CommerceAddress> billingAddresses = commerceOrderContentDisplayContext.getB
 
 <div class="row">
 	<div class="col-md-9">
-		<commerce-ui:table
-			dataProviderKey="commercePendingOrderItems"
-			filter="<%= commerceOrderContentDisplayContext.getOrderFilter() %>"
-			itemsPerPage="<%= 5 %>"
+
+		<%
+		java.util.Map<String, String> contextParams = new java.util.HashMap<>();
+
+		contextParams.put("commerceOrderId", String.valueOf(commerceOrder.getCommerceOrderId()));
+		%>
+
+		<commerce-ui:dataset-display
+			contextParams="<%= contextParams %>"
+			dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PENDING_ORDER_ITEMS %>"
+			id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PENDING_ORDER_ITEMS %>"
+			itemsPerPage="<%= 10 %>"
 			namespace="<%= renderResponse.getNamespace() %>"
-			pageNumber="1"
+			pageNumber="<%= 1 %>"
 			portletURL="<%= commerceOrderContentDisplayContext.getPortletURL() %>"
-			tableName="commercePendingOrderItems"
 		/>
 	</div>
 

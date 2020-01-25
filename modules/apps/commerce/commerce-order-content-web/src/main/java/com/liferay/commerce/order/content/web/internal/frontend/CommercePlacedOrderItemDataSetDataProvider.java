@@ -15,11 +15,6 @@
 package com.liferay.commerce.order.content.web.internal.frontend;
 
 import com.liferay.commerce.currency.model.CommerceMoney;
-import com.liferay.commerce.frontend.ClayTable;
-import com.liferay.commerce.frontend.ClayTableSchema;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilder;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilderFactory;
-import com.liferay.commerce.frontend.ClayTableSchemaField;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
@@ -59,16 +54,11 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = {
-		"commerce.data.provider.key=" + CommercePlacedOrderItemClayTable.NAME,
-		"commerce.table.name=" + CommercePlacedOrderItemClayTable.NAME
-	},
-	service = {ClayTable.class, CommerceDataSetDataProvider.class}
+	property = "commerce.data.provider.key=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PLACED_ORDER_ITEMS,
+	service = CommerceDataSetDataProvider.class
 )
-public class CommercePlacedOrderItemClayTable
-	implements ClayTable, CommerceDataSetDataProvider<OrderItem> {
-
-	public static final String NAME = "commercePlacedOrderItems";
+public class CommercePlacedOrderItemDataSetDataProvider
+	implements CommerceDataSetDataProvider<OrderItem> {
 
 	@Override
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
@@ -78,45 +68,6 @@ public class CommercePlacedOrderItemClayTable
 
 		return _commerceOrderItemService.getCommerceOrderItemsCount(
 			orderFilterImpl.getCommerceOrderId());
-	}
-
-	@Override
-	public ClayTableSchema getClayTableSchema() {
-		ClayTableSchemaBuilder clayTableSchemaBuilder =
-			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
-
-		ClayTableSchemaField skuField = clayTableSchemaBuilder.addField(
-			"sku", "sku");
-
-		skuField.setContentRenderer("commerceTableCellImageName");
-
-		clayTableSchemaBuilder.addField("name", "name");
-
-		ClayTableSchemaField priceField = clayTableSchemaBuilder.addField(
-			"price", "price");
-
-		priceField.setContentRenderer("commerceTablePrice");
-
-		clayTableSchemaBuilder.addField("discount", "discount");
-
-		clayTableSchemaBuilder.addField("quantity", "quantity");
-
-		clayTableSchemaBuilder.addField("total", "total");
-
-		clayTableSchemaBuilder.addField("shippedQuantity", "shippedQuantity");
-
-		ClayTableSchemaField clayTableSchemaField =
-			clayTableSchemaBuilder.addField(
-				"viewShipmentsURL", "viewShipmentsURL");
-
-		clayTableSchemaField.setContentRenderer("commerceTableCellModalLink");
-
-		return clayTableSchemaBuilder.build();
-	}
-
-	@Override
-	public String getId() {
-		return NAME;
 	}
 
 	@Override
@@ -230,16 +181,8 @@ public class CommercePlacedOrderItemClayTable
 		return orderItems;
 	}
 
-	@Override
-	public boolean isShowActionsMenu() {
-		return false;
-	}
-
 	private static final Log _log = LogFactoryUtil.getLog(
-		CommercePlacedOrderItemClayTable.class);
-
-	@Reference
-	private ClayTableSchemaBuilderFactory _clayTableSchemaBuilderFactory;
+		CommercePlacedOrderItemDataSetDataProvider.class);
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
