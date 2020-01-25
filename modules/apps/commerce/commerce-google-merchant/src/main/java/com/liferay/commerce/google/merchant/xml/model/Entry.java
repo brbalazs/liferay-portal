@@ -13,10 +13,10 @@ import javax.xml.bind.annotation.XmlType;
  * Represents Google Merchant Center Entry in a Feed
  *
  */
-@XmlRootElement(name = "entry")
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "entry")
 @XmlType(
-	propOrder={
+	propOrder = {
 		"_id", "_title", "_description", "_link", "_image_link", "_condition",
 		"_availability", "_price", "_shipping"
 	}
@@ -59,31 +59,37 @@ public class Entry {
 		_title = title;
 	}
 
-	@XmlElement(name="availability", namespace = "http://base.google.com/ns/1.0")
+	@XmlElement(
+		name = "availability", namespace = "http://base.google.com/ns/1.0"
+	)
 	private String _availability;
 
-	@XmlElement(name="condition", namespace = "http://base.google.com/ns/1.0")
+	@XmlElement(name = "condition", namespace = "http://base.google.com/ns/1.0")
 	private String _condition;
 
-	@XmlElement(name="description", namespace = "http://base.google.com/ns/1.0")
+	@XmlElement(
+		name = "description", namespace = "http://base.google.com/ns/1.0"
+	)
 	private String _description;
 
-	@XmlElement(name="id", namespace = "http://base.google.com/ns/1.0")
+	@XmlElement(name = "id", namespace = "http://base.google.com/ns/1.0")
 	private String _id;
 
-	@XmlElement(name="image_link", namespace = "http://base.google.com/ns/1.0")
+	@XmlElement(
+		name = "image_link", namespace = "http://base.google.com/ns/1.0"
+	)
 	private String _image_link;
 
-	@XmlElement(name="link", namespace = "http://base.google.com/ns/1.0")
+	@XmlElement(name = "link", namespace = "http://base.google.com/ns/1.0")
 	private String _link;
 
-	@XmlElement(name="price", namespace = "http://base.google.com/ns/1.0")
+	@XmlElement(name = "price", namespace = "http://base.google.com/ns/1.0")
 	private String _price;
 
-	@XmlElement(name="shipping", namespace = "http://base.google.com/ns/1.0")
+	@XmlElement(name = "shipping", namespace = "http://base.google.com/ns/1.0")
 	private Shipping _shipping;
 
-	@XmlElement(name="title", namespace = "http://base.google.com/ns/1.0")
+	@XmlElement(name = "title", namespace = "http://base.google.com/ns/1.0")
 	private String _title;
 
 }

@@ -14,15 +14,13 @@ import javax.xml.bind.annotation.XmlType;
  *
  * Example: <code><link rel="self" href="http://www.example.com"/></code>
  */
-@XmlRootElement(name = "link")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(
-	propOrder={
-		"_rel", "_href"
-	}
-)
+@XmlRootElement(name = "link")
+@XmlType(propOrder = {"_rel", "_href"})
 public class Link {
-	public Link() {}
+
+	public Link() {
+	}
 
 	public Link(String href) {
 		_href = href;

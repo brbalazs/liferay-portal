@@ -17,13 +17,9 @@ import javax.xml.bind.annotation.XmlType;
  * Represents Google Merchant Center Feed
  *
  */
-@XmlRootElement(name = "feed")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(
-	propOrder={
-		"_xmlns", "_title", "_link", "_updated", "_entries"
-	}
-)
+@XmlRootElement(name = "feed")
+@XmlType(propOrder = {"_xmlns", "_title", "_link", "_updated", "_entries"})
 public class Feed {
 
 	public void addEntry(Entry entry) {
@@ -46,7 +42,10 @@ public class Feed {
 		_updated = updated;
 	}
 
-	@XmlElement(name="entry")
+	@XmlAttribute(name = "xmlns")
+	private static final String _xmlns = "http://www.w3.org/2005/Atom";
+
+	@XmlElement(name = "entry")
 	private List<Entry> _entries = new ArrayList<>();
 
 	@XmlElement(name = "link", required = true)
@@ -57,8 +56,5 @@ public class Feed {
 
 	@XmlElement(name = "updated", required = true)
 	private String _updated;
-
-	@XmlAttribute(name = "xmlns")
-	private String _xmlns = "http://www.w3.org/2005/Atom";
 
 }

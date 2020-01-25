@@ -17,13 +17,16 @@ public class ProductFeedXMLGeneratorUtil {
 
 	public static String getCommerceChannelProductsXML(long commerceChannelId)
 		throws PortalException {
-		return _serviceTracker.getService().getCommerceChannelProductsXML(
-			commerceChannelId);
+
+		return _serviceTracker.getService(
+		).getCommerceChannelProductsXML(
+			commerceChannelId
+		);
 	}
 
 	private static final ServiceTracker<?, ProductFeedXMLGenerator>
 		_serviceTracker = ServiceTrackerFactory.open(
-		FrameworkUtil.getBundle(ProductFeedXMLGeneratorUtil.class),
-		ProductFeedXMLGenerator.class);
+			FrameworkUtil.getBundle(ProductFeedXMLGeneratorUtil.class),
+			ProductFeedXMLGenerator.class);
 
 }

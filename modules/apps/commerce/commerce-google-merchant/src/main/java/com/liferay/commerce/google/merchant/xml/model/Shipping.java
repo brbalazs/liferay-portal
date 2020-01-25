@@ -2,7 +2,6 @@ package com.liferay.commerce.google.merchant.xml.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -14,16 +13,13 @@ import javax.xml.bind.annotation.XmlType;
  * Represents Google Merchant Center Shipping attributes
  *
  */
-@XmlRootElement(name = "shipping", namespace = "http://base.google.com/ns/1.0")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(
-	propOrder={
-		"_country", "_service", "_price"
-	}
-)
+@XmlRootElement(name = "shipping", namespace = "http://base.google.com/ns/1.0")
+@XmlType(propOrder = {"_country", "_service", "_price"})
 public class Shipping {
 
-	public Shipping() {}
+	public Shipping() {
+	}
 
 	public Shipping(String country, String service, String price) {
 		_country = country;
