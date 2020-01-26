@@ -35,34 +35,37 @@ class DefinitionToolbarFilter extends Component {
 	rendered() {
 		AUI().use(
 			'liferay-commerce-frontend-asset-categories-selector',
-			function (A) {
-				var categoryBox = this.element.querySelector('#assetCategoriesSelector');
-
-			if (categoryBox) {
-				const config = {
-					categoryIds: '',
-					categoryTitles: [],
-					contentBox: categoryBox,
-					eventName: this.namespace + 'selectCategory',
-					groupIds: this.groupIds,
-					hiddenInput: '#categoryIds',
-					portletURL: this.categorySelectorURL,
-					singleSelect: true,
-					title: Liferay.Language.get('select-category'),
-					vocabularyIds: this.vocabularyIds
-				};
-
-				this.categoriesSelector_ = new Liferay.AssetTaglibCategoriesSelector(
-					config
+			function() {
+				var categoryBox = this.element.querySelector(
+					'#assetCategoriesSelector'
 				);
 
-				const entries = this.categoriesSelector_.entries;
+				if (categoryBox) {
+					const config = {
+						categoryIds: '',
+						categoryTitles: [],
+						contentBox: categoryBox,
+						eventName: this.namespace + 'selectCategory',
+						groupIds: this.groupIds,
+						hiddenInput: '#categoryIds',
+						portletURL: this.categorySelectorURL,
+						singleSelect: true,
+						title: Liferay.Language.get('select-category'),
+						vocabularyIds: this.vocabularyIds
+					};
 
-				entries.after('add', this.onEntriesChanged_, this);
+					this.categoriesSelector_ = new Liferay.AssetTaglibCategoriesSelector(
+						config
+					);
 
-				this.categoriesSelector_.render();
+					const entries = this.categoriesSelector_.entries;
+
+					entries.after('add', this.onEntriesChanged_, this);
+
+					this.categoriesSelector_.render();
+				}
 			}
-		});
+		);
 	}
 
 	onEntriesChanged_(_event) {
@@ -274,17 +277,13 @@ class DefinitionToolbarFilter extends Component {
 		);
 		url.searchParams.set('p_auth', Liferay.authToken);
 
-		fetch(
-			url,
-			{
-				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
-				method: 'GET'
-			}
-		).then(
-			response => response.json()
-		).then(
-			(jsonResponse) => {
+		fetch(url, {
+			credentials: 'include',
+			headers: new Headers({'x-csrf-token': Liferay.authToken}),
+			method: 'GET'
+		})
+			.then(response => response.json())
+			.then(jsonResponse => {
 				this._terms = jsonResponse;
 			});
 	}
@@ -298,17 +297,13 @@ class DefinitionToolbarFilter extends Component {
 		);
 		url.searchParams.set('p_auth', Liferay.authToken);
 
-		fetch(
-			url,
-			{
-				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
-				method: 'GET'
-			}
-		).then(
-			response => response.json()
-		).then(
-			(jsonResponse) => {
+		fetch(url, {
+			credentials: 'include',
+			headers: new Headers({'x-csrf-token': Liferay.authToken}),
+			method: 'GET'
+		})
+			.then(response => response.json())
+			.then(jsonResponse => {
 				this._optionValues = jsonResponse;
 			});
 	}

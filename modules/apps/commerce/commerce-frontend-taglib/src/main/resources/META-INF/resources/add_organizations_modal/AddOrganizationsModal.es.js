@@ -15,7 +15,7 @@
 'use strict';
 
 import Component from 'metal-component';
-import { debounce } from 'metal-debounce';
+import {debounce} from 'metal-debounce';
 import Soy, {Config} from 'metal-soy';
 
 import template from './AddOrganizationsModal.soy';
@@ -113,7 +113,7 @@ class AddOrganizationModal extends Component {
 				this.query,
 			{
 				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
+				headers: new Headers({'x-csrf-token': Liferay.authToken}),
 				method: 'GET'
 			}
 		)
@@ -180,5 +180,5 @@ AddOrganizationModal.STATE = {
 	spritemap: Config.string()
 };
 
-export { AddOrganizationModal };
+export {AddOrganizationModal};
 export default AddOrganizationModal;

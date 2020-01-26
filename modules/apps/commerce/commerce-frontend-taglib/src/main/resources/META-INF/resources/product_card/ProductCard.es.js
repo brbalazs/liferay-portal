@@ -15,7 +15,7 @@
 'use strict';
 
 import Component from 'metal-component';
-import Soy, { Config } from 'metal-soy';
+import Soy, {Config} from 'metal-soy';
 
 import template from './ProductCard.soy';
 
@@ -71,21 +71,15 @@ class ProductCard extends Component {
 		);
 		formData.append('p_auth', Liferay.authToken);
 
-		return fetch(
-			this.editCompareProductActionURL,
-			{
-				body: formData,
-				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
-				method: 'post'
-			}
-		)
-			.then(
-				() => {
-					liferayNavigation(window.location.href);
-					return Liferay.SPA;
-				}
-			);
+		return fetch(this.editCompareProductActionURL, {
+			body: formData,
+			credentials: 'include',
+			headers: new Headers({'x-csrf-token': Liferay.authToken}),
+			method: 'post'
+		}).then(() => {
+			liferayNavigation(window.location.href);
+			return Liferay.SPA;
+		});
 	}
 
 	_handleWishListButtonClick() {
@@ -108,15 +102,12 @@ class ProductCard extends Component {
 		formData.append('skuId', this.skuId ? this.skuId : 0);
 		formData.append('options', '[]');
 
-		fetch(
-			this.wishlistAPI + `?p_auth=${window.Liferay.authToken}`,
-			{
-				body: formData,
-				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
-				method: 'POST'
-			}
-		)
+		fetch(this.wishlistAPI + `?p_auth=${window.Liferay.authToken}`, {
+			body: formData,
+			credentials: 'include',
+			headers: new Headers({'x-csrf-token': Liferay.authToken}),
+			method: 'POST'
+		})
 			.then(response => response.json())
 			.then(jsonresponse => {
 				this.addedToWishlist = jsonresponse.success;
@@ -179,5 +170,5 @@ ProductCard.STATE = {
 	wishlistAPI: Config.string()
 };
 
-export { ProductCard };
+export {ProductCard};
 export default ProductCard;

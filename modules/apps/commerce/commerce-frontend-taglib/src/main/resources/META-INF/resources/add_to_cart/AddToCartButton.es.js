@@ -13,7 +13,7 @@
  */
 
 import Component from 'metal-component';
-import Soy, { Config } from 'metal-soy';
+import Soy, {Config} from 'metal-soy';
 
 import template from './AddToCartButton.soy';
 
@@ -70,18 +70,14 @@ function doSubmit() {
 		formData.append('orderId', this.orderId);
 	}
 
-	return fetch(
-		this.cartAPI + `?p_auth=${window.Liferay.authToken}`,
-		{
-			body: formData,
-			credentials: 'include',
-			headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
-			method: 'POST'
-		}
-	).then(
-		response => response.json()
-	).then(
-		jsonresponse => {
+	return fetch(this.cartAPI + `?p_auth=${window.Liferay.authToken}`, {
+		body: formData,
+		credentials: 'include',
+		headers: new Headers({'x-csrf-token': Liferay.authToken}),
+		method: 'POST'
+	})
+		.then(response => response.json())
+		.then(jsonresponse => {
 			if (jsonresponse.success) {
 				if (jsonresponse.products) {
 					Liferay.fire('refreshCartUsingData', {
@@ -267,5 +263,5 @@ AddToCartButton.STATE = {
 	updatingTransition: Config.oneOf(['adding', 'incrementing'])
 };
 
-export { AddToCartButton };
+export {AddToCartButton};
 export default AddToCartButton;

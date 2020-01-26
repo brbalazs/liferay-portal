@@ -18,12 +18,12 @@ import com.liferay.application.list.PanelAppRegistry;
 import com.liferay.application.list.PanelCategoryRegistry;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.util.CommerceWorkflowedModelHelper;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.commerce.product.util.CPInstanceHelper;
+import com.liferay.commerce.util.CommerceWorkflowedModelHelper;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 
@@ -108,13 +108,6 @@ public class ServletContextUtil {
 		_servletContextUtil = null;
 	}
 
-	@Reference(unbind = "-")
-	protected void setCommerceWorkflowedModelHelper(
-		CommerceWorkflowedModelHelper commerceWorkflowedModelHelper) {
-
-		_commerceWorkflowedModelHelper = commerceWorkflowedModelHelper;
-	}
-
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.model.CommerceOrder)",
 		unbind = "-"
@@ -153,6 +146,13 @@ public class ServletContextUtil {
 		CommercePriceListLocalService commercePriceListLocalService) {
 
 		_commercePriceListLocalService = commercePriceListLocalService;
+	}
+
+	@Reference(unbind = "-")
+	protected void setCommerceWorkflowedModelHelper(
+		CommerceWorkflowedModelHelper commerceWorkflowedModelHelper) {
+
+		_commerceWorkflowedModelHelper = commerceWorkflowedModelHelper;
 	}
 
 	@Reference(unbind = "-")
@@ -248,13 +248,13 @@ public class ServletContextUtil {
 
 	private static ServletContextUtil _servletContextUtil;
 
-	private CommerceWorkflowedModelHelper _commerceWorkflowedModelHelper;
 	private ModelResourcePermission<CommerceOrder>
 		_commerceOrderModelResourcePermission;
 	private CommerceOrderValidatorRegistry _commerceOrderValidatorRegistry;
 	private CommercePriceFormatter _commercePriceFormatter;
 	private CommercePriceListLocalService _commercePriceListLocalService;
 	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
+	private CommerceWorkflowedModelHelper _commerceWorkflowedModelHelper;
 	private ConfigurationProvider _configurationProvider;
 	private CPDefinitionHelper _cpDefinitionHelper;
 	private CPInstanceHelper _cpInstanceHelper;

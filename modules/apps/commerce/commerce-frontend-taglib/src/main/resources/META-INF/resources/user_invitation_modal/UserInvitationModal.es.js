@@ -14,11 +14,11 @@
 
 'use strict';
 
-import { debounce } from 'metal-debounce';
+import Component from 'metal-component';
+import {debounce} from 'metal-debounce';
+import Soy, {Config} from 'metal-soy';
 
 import template from './UserInvitationModal.soy';
-import Component from 'metal-component';
-import Soy, { Config } from 'metal-soy';
 
 import 'clay-modal';
 
@@ -116,7 +116,7 @@ class UserInvitationModal extends Component {
 				this.query,
 			{
 				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
+				headers: new Headers({'x-csrf-token': Liferay.authToken}),
 				method: 'GET'
 			}
 		)
@@ -174,5 +174,5 @@ UserInvitationModal.STATE = {
 	usersAPI: Config.string().value('')
 };
 
-export { UserInvitationModal };
+export {UserInvitationModal};
 export default UserInvitationModal;

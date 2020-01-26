@@ -17,14 +17,14 @@ package com.liferay.commerce.frontend.util;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.osgi.util.ServiceTrackerFactory;
 import com.liferay.portal.kernel.exception.PortalException;
-
 import com.liferay.portal.kernel.workflow.WorkflowTask;
+
+import java.util.List;
+
+import javax.portlet.PortletURL;
 
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.util.tracker.ServiceTracker;
-
-import javax.portlet.PortletURL;
-import java.util.List;
 
 /**
  * @author Alec Sloan
@@ -41,9 +41,10 @@ public class HeaderHelperUtil {
 			companyId, userId, beanId, className);
 	}
 
-	public static List<HeaderActionModel> getWorkflowTransitionHeaderActionModels(
-			long userId, long companyId, String className, long beanId,
-			PortletURL transitionPortletURL)
+	public static List<HeaderActionModel>
+			getWorkflowTransitionHeaderActionModels(
+				long userId, long companyId, String className, long beanId,
+				PortletURL transitionPortletURL)
 		throws PortalException {
 
 		HeaderHelper headerHelper = _serviceTracker.getService();
@@ -52,8 +53,8 @@ public class HeaderHelperUtil {
 			userId, companyId, className, beanId, transitionPortletURL);
 	}
 
-	private static final ServiceTracker<?, HeaderHelper>
-		_serviceTracker = ServiceTrackerFactory.open(
+	private static final ServiceTracker<?, HeaderHelper> _serviceTracker =
+		ServiceTrackerFactory.open(
 			FrameworkUtil.getBundle(HeaderHelperUtil.class),
 			HeaderHelper.class);
 

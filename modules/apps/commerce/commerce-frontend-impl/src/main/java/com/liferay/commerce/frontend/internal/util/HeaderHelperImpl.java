@@ -22,13 +22,14 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.workflow.WorkflowTask;
 import com.liferay.portal.kernel.workflow.WorkflowTaskManager;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-
-import javax.portlet.PortletURL;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.portlet.PortletURL;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Alec Sloan
@@ -66,7 +67,7 @@ public class HeaderHelperImpl implements HeaderHelper {
 		HeaderActionModel headerActionModel;
 
 		for (ObjectValuePair<Long, String> workflowTransitionObjectValuePair :
-			workflowTransitionObjectValuePairs) {
+				workflowTransitionObjectValuePairs) {
 
 			String transitionName =
 				workflowTransitionObjectValuePair.getValue();

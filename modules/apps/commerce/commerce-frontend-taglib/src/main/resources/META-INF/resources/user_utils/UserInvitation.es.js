@@ -129,7 +129,7 @@ class UserInvitation extends Component {
 			this.usersAPI + '?p_auth=' + Liferay.authToken + '&q=' + this.query,
 			{
 				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
+				headers: new Headers({'x-csrf-token': Liferay.authToken}),
 				method: 'GET'
 			}
 		)
@@ -164,5 +164,5 @@ UserInvitation.STATE = {
 	usersAPI: Config.string().value('')
 };
 
-export { UserInvitation };
+export {UserInvitation};
 export default UserInvitation;

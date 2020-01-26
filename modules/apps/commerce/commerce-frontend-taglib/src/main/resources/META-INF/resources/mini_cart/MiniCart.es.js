@@ -15,7 +15,7 @@
 import 'clay-icon';
 import Component from 'metal-component';
 import debounce from 'metal-debounce';
-import Soy, { Config } from 'metal-soy';
+import Soy, {Config} from 'metal-soy';
 
 import template from './MiniCart.soy';
 
@@ -30,10 +30,7 @@ const ALL = 'all',
 	OPEN_CART_CLASS = 'cart-open';
 
 function notifyProductRemoval(productId = ALL) {
-	Liferay.fire(
-		'productRemovedFromCart',
-		{ productId }
-	);
+	Liferay.fire('productRemovedFromCart', {productId});
 }
 
 class Cart extends Component {
@@ -254,7 +251,7 @@ class Cart extends Component {
 		});
 	}
 
-	_handleDeleteAllItems({ products, summary }) {
+	_handleDeleteAllItems({products, summary}) {
 		this.products = products;
 		this.summary = {
 			...this.summary,
@@ -322,8 +319,8 @@ class Cart extends Component {
 			{
 				credentials: 'include',
 				headers: new Headers({
+					Accept: 'application/json',
 					'Content-Type': 'application/json',
-					'Accept': 'application/json',
 					'x-csrf-token': Liferay.authToken
 				}),
 				method: 'PUT'
@@ -381,7 +378,7 @@ class Cart extends Component {
 				groupId=${themeDisplay.getScopeGroupId()}&p_auth=${Liferay.authToken}`,
 			{
 				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
+				headers: new Headers({'x-csrf-token': Liferay.authToken}),
 				method: 'GET'
 			}
 		)
@@ -417,13 +414,11 @@ class Cart extends Component {
 			this._addPendingOperation(productId);
 		}
 
-		return fetch(endpoint,
-			{
-				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
-				method: 'DELETE'
-			}
-		)
+		return fetch(endpoint, {
+			credentials: 'include',
+			headers: new Headers({'x-csrf-token': Liferay.authToken}),
+			method: 'DELETE'
+		})
 			.then(response => response.json())
 			.then(jsonresponse => {
 				if (jsonresponse.success) {
@@ -502,5 +497,5 @@ Cart.STATE = {
 	workflowStatus: Config.number()
 };
 
-export { Cart };
+export {Cart};
 export default Cart;

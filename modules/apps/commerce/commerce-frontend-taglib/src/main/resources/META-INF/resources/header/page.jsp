@@ -97,13 +97,12 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 										/>
 
 										<aui:script require="commerce-frontend-js/utilities/eventsDefinitions.es as events">
-											document.querySelector("#erc-edit-modal-opener").addEventListener(
-												"click",
-												function(e) {
+											document
+												.querySelector('#erc-edit-modal-opener')
+												.addEventListener('click', function(e) {
 													e.preventDefault();
-													Liferay.fire(events.OPEN_MODAL, {id: "erc-edit-modal"});
-												}
-											);
+													Liferay.fire(events.OPEN_MODAL, {id: 'erc-edit-modal'});
+												});
 										</aui:script>
 
 										<commerce-ui:modal
@@ -189,9 +188,10 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 										</liferay-portlet:renderURL>
 
 										<aui:script>
-											document.querySelector('#<portlet:namespace />assign-to-me-modal-opener').addEventListener('click', function(e) {
-												Liferay.Util.openWindow(
-													{
+											document
+												.querySelector('#<portlet:namespace />assign-to-me-modal-opener')
+												.addEventListener('click', function(e) {
+													Liferay.Util.openWindow({
 														dialog: {
 															destroyOnHide: true,
 															height: 430,
@@ -204,9 +204,8 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 														id: '<%= myWorkflowTasksPortletNamespace %>assignToDialog',
 														title: '<liferay-ui:message key="assign-to-me" />',
 														uri: '<%= assignToMeURL %>'
-													}
-												);
-											});
+													});
+												});
 										</aui:script>
 									</c:if>
 
@@ -225,9 +224,10 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 									</liferay-portlet:renderURL>
 
 									<aui:script>
-										document.querySelector('#<portlet:namespace />assign-to-modal-opener').addEventListener('click', function(e) {
-											Liferay.Util.openWindow(
-												{
+										document
+											.querySelector('#<portlet:namespace />assign-to-modal-opener')
+											.addEventListener('click', function(e) {
+												Liferay.Util.openWindow({
 													dialog: {
 														destroyOnHide: true,
 														height: 430,
@@ -240,12 +240,11 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 													id: '<%= myWorkflowTasksPortletNamespace %>assignToDialog',
 													title: '<liferay-ui:message key="assign-to-..." />',
 													uri: '<%= assignToURL %>'
-												}
-											);
-										});
+												});
+											});
 
 										function <%= myWorkflowTasksPortletNamespace %>refreshPortlet() {
-											window.location.reload()
+											window.location.reload();
 										}
 									</aui:script>
 								</div>
@@ -308,20 +307,23 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 </div>
 
 <aui:script require="commerce-frontend-js/utilities/index.es as utilities">
-	var commerceHeader = document.querySelector(".commerce-header");
-	var pageHeader = document.querySelector(".page-header");
+	var commerceHeader = document.querySelector('.commerce-header');
+	var pageHeader = document.querySelector('.page-header');
 
 	function updateMenuDistanceFromTop() {
 		var distanceFromTop = commerceHeader.getClientRects()[0].bottom;
-		pageHeader.style.top = distanceFromTop + "px"
+		pageHeader.style.top = distanceFromTop + 'px';
 	}
 
-	var debouncedUpdateMenuDistanceFromTop = utilities.debounce(updateMenuDistanceFromTop, 200)
+	var debouncedUpdateMenuDistanceFromTop = utilities.debounce(
+		updateMenuDistanceFromTop,
+		200
+	);
 
 	if (pageHeader) {
-		pageHeader.classList.add("sticky-header-menu");
-		updateMenuDistanceFromTop()
+		pageHeader.classList.add('sticky-header-menu');
+		updateMenuDistanceFromTop();
 	}
 
-	window.addEventListener("resize", debouncedUpdateMenuDistanceFromTop)
+	window.addEventListener('resize', debouncedUpdateMenuDistanceFromTop);
 </aui:script>

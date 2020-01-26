@@ -42,15 +42,12 @@ class CPDefinitionOptionsEditor extends Component {
 	_handleAddOption() {
 		var instance = this;
 
-		AUI().use(
-			'liferay-item-selector-dialog',
-			(A) => {
-				var itemSelectorDialog = new A.LiferayItemSelectorDialog(
-					{
-						eventName: 'productOptionsSelectItem',
-						on: {
-							selectedItemChange: function (event) {
-								var selectedItems = event.newVal;
+		AUI().use('liferay-item-selector-dialog', A => {
+			var itemSelectorDialog = new A.LiferayItemSelectorDialog({
+				eventName: 'productOptionsSelectItem',
+				on: {
+					selectedItemChange(event) {
+						var selectedItems = event.newVal;
 
 						var formData = new FormData();
 
@@ -68,19 +65,17 @@ class CPDefinitionOptionsEditor extends Component {
 						);
 						formData.append('p_auth', Liferay.authToken);
 
-								fetch(
-									instance.editProductDefinitionOptionRelURL,
-									{
-										body: formData,
-										credentials: 'include',
-										headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
-										method: 'POST'
-									}
-								).then(
-									response => response.json()
-								).then(
-									(jsonResponse) => {
-										instance.cpDefinitionId = jsonResponse.cpDefinitionId.toString();
+						fetch(instance.editProductDefinitionOptionRelURL, {
+							body: formData,
+							credentials: 'include',
+							headers: new Headers({
+								'x-csrf-token': Liferay.authToken
+							}),
+							method: 'POST'
+						})
+							.then(response => response.json())
+							.then(jsonResponse => {
+								instance.cpDefinitionId = jsonResponse.cpDefinitionId.toString();
 
 								instance.updateState();
 							});
@@ -101,17 +96,13 @@ class CPDefinitionOptionsEditor extends Component {
 
 		url.searchParams.set('p_auth', window.Liferay.authToken);
 
-		fetch(
-			url,
-			{
-				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
-				method: 'GET'
-			}
-		).then(
-			response => response.json()
-		).then(
-			(jsonResponse) => {
+		fetch(url, {
+			credentials: 'include',
+			headers: new Headers({'x-csrf-token': Liferay.authToken}),
+			method: 'GET'
+		})
+			.then(response => response.json())
+			.then(jsonResponse => {
 				this._cpDefinitionOptions = jsonResponse;
 
 				if (

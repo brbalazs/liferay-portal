@@ -15,7 +15,7 @@
 'use strict';
 
 import Component from 'metal-component';
-import Soy, { Config } from 'metal-soy';
+import Soy, {Config} from 'metal-soy';
 
 import template from './ProductsCompare.soy';
 
@@ -84,15 +84,12 @@ class ProductsCompare extends Component {
 		formData.append(this.portletNamespace + id + 'Compare', toogle);
 		formData.append('p_auth', Liferay.authToken);
 
-		return fetch(
-			this.editCompareProductActionURL,
-			{
-				body: formData,
-				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
-				method: 'post'
-			}
-		);
+		return fetch(this.editCompareProductActionURL, {
+			body: formData,
+			credentials: 'include',
+			headers: new Headers({'x-csrf-token': Liferay.authToken}),
+			method: 'post'
+		});
 	}
 
 	_handleAddProduct(product) {
@@ -164,5 +161,5 @@ ProductsCompare.STATE = {
 	spritemap: Config.string()
 };
 
-export { ProductsCompare };
+export {ProductsCompare};
 export default ProductsCompare;

@@ -53,17 +53,13 @@ class CPOptionValuesEditor extends Component {
 		url.searchParams.append(this.namespace + 'cpOptionId', this.cpOptionId);
 		url.searchParams.set('p_auth', Liferay.authToken);
 
-		fetch(
-			url,
-			{
-				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
-				method: 'GET'
-			}
-		).then(
-			response => response.json()
-		).then(
-			(jsonResponse) => {
+		fetch(url, {
+			credentials: 'include',
+			headers: new Headers({'x-csrf-token': Liferay.authToken}),
+			method: 'GET'
+		})
+			.then(response => response.json())
+			.then(jsonResponse => {
 				this._optionValues = jsonResponse;
 
 				if (this._optionValues && this._optionValues.length > 0) {

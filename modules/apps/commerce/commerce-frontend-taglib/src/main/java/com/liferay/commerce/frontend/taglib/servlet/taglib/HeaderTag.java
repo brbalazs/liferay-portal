@@ -25,6 +25,7 @@ import com.liferay.taglib.util.IncludeTag;
 import java.util.List;
 
 import javax.portlet.PortletURL;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
 
@@ -240,7 +241,8 @@ public class HeaderTag extends IncludeTag {
 			"liferay-commerce:header:thumbnailUrl", _thumbnailUrl);
 		request.setAttribute("liferay-commerce:header:title", _title);
 		request.setAttribute(
-			"liferay-commerce:header:transitionPortletURL", _transitionPortletURL);
+			"liferay-commerce:header:transitionPortletURL",
+			_transitionPortletURL);
 		request.setAttribute("liferay-commerce:header:version", _version);
 		request.setAttribute(
 			"liferay-commerce:header:wrapperCssClasses", _wrapperCssClasses);

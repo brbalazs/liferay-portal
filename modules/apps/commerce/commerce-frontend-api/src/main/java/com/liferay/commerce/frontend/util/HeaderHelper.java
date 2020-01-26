@@ -16,14 +16,13 @@ package com.liferay.commerce.frontend.util;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.workflow.WorkflowTask;
 
-import javax.portlet.PortletURL;
-
 import java.util.List;
+
+import javax.portlet.PortletURL;
 
 /**
  * @author Alec Sloan
@@ -32,8 +31,8 @@ import java.util.List;
 public interface HeaderHelper {
 
 	public WorkflowTask getReviewWorkflowTask(
-		long companyId, long userId, long beanId, String className)
-	throws PortalException;
+			long companyId, long userId, long beanId, String className)
+		throws PortalException;
 
 	public List<HeaderActionModel> getWorkflowTransitionHeaderActionModels(
 			long userId, long companyId, String className, long beanId,

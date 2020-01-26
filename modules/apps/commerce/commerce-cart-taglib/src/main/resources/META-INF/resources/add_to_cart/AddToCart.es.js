@@ -14,7 +14,7 @@
 
 import Component from 'metal-component';
 import Soy from 'metal-soy';
-import { Config } from 'metal-state';
+import {Config} from 'metal-state';
 
 import templates from './AddToCart.soy';
 
@@ -73,7 +73,7 @@ class AddToCart extends Component {
 		fetch(this.uri + `&p_auth=${window.Liferay.authToken}`, {
 			body: formData,
 			credentials: 'include',
-			headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
+			headers: new Headers({'x-csrf-token': Liferay.authToken}),
 			method: 'post'
 		})
 			.then(response => response.json())

@@ -59,7 +59,7 @@ if (commerceOrder != null) {
 
 					fetch(actionURL, {
 						credentials: 'include',
-						headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
+						headers: new Headers({'x-csrf-token': Liferay.authToken}),
 						method: 'post'
 					})
 						.then(function(res) {
@@ -114,7 +114,7 @@ if (commerceOrder != null) {
 
 					fetch(actionURL, {
 						credentials: 'include',
-						headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
+						headers: new Headers({'x-csrf-token': Liferay.authToken}),
 						method: 'post'
 					})
 						.then(function(res) {

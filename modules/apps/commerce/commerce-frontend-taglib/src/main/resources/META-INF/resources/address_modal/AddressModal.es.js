@@ -15,7 +15,7 @@
 'use strict';
 
 import Component from 'metal-component';
-import Soy, { Config } from 'metal-soy';
+import Soy, {Config} from 'metal-soy';
 
 import template from './AddressModal.soy';
 
@@ -123,17 +123,13 @@ class AddressModal extends Component {
 	}
 
 	fetchExistingAddress(id) {
-		fetch(
-			'/o/commerce-ui/address/' + id + '?p_auth=' + Liferay.authToken,
-			{
-				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
-				method: 'GET'
-			}
-		).then(
-			response => response.json()
-		).then(
-			(jsonResponse) => {
+		fetch('/o/commerce-ui/address/' + id + '?p_auth=' + Liferay.authToken, {
+			credentials: 'include',
+			headers: new Headers({'x-csrf-token': Liferay.authToken}),
+			method: 'GET'
+		})
+			.then(response => response.json())
+			.then(jsonResponse => {
 				const data = JSON.parse(jsonResponse);
 
 				this._formData = {
@@ -154,23 +150,16 @@ class AddressModal extends Component {
 	}
 
 	_fetchCountries() {
-		return fetch(
-			this.countriesAPI,
-			{
-				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
-				method: 'GET'
-			}
-		)
-			.then(
-				response => response.json()
-			)
-			.then(
-				countries => {
-					this._countries = countries;
-					return this._countries;
-				}
-			);
+		return fetch(this.countriesAPI, {
+			credentials: 'include',
+			headers: new Headers({'x-csrf-token': Liferay.authToken}),
+			method: 'GET'
+		})
+			.then(response => response.json())
+			.then(countries => {
+				this._countries = countries;
+				return this._countries;
+			});
 	}
 
 	_fetchRegions() {
@@ -181,7 +170,7 @@ class AddressModal extends Component {
 				Liferay.authToken,
 			{
 				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
+				headers: new Headers({'x-csrf-token': Liferay.authToken}),
 				method: 'GET'
 			}
 		)
@@ -287,5 +276,5 @@ AddressModal.STATE = {
 	spritemap: Config.string()
 };
 
-export { AddressModal };
+export {AddressModal};
 export default AddressModal;

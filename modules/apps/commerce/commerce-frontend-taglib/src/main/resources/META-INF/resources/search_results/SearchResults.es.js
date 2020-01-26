@@ -13,8 +13,9 @@
  */
 
 import Component from 'metal-component';
-import Soy, { Config } from 'metal-soy';
 import debounce from 'metal-debounce';
+import Soy, {Config} from 'metal-soy';
+
 import template from './SearchResults.soy';
 
 class SearchResults extends Component {
@@ -103,7 +104,7 @@ class SearchResults extends Component {
 			}`,
 			{
 				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
+				headers: new Headers({'x-csrf-token': Liferay.authToken}),
 				method: 'GET'
 			}
 		)
@@ -160,7 +161,7 @@ class SearchResults extends Component {
 		this.search();
 	}
 
-	willUpdate({ visible }) {
+	willUpdate({visible}) {
 		if (visible) {
 			if (visible.newVal) {
 				document.addEventListener('keydown', this.handleKeyDown);
@@ -194,5 +195,5 @@ SearchResults.STATE = {
 	visible: Config.bool().value(false)
 };
 
-export { SearchResults };
+export {SearchResults};
 export default SearchResults;

@@ -50,17 +50,13 @@ class CPOptionValueDetail extends Component {
 		);
 		url.searchParams.set('p_auth', Liferay.authToken);
 
-		fetch(
-			url,
-			{
-				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
-				method: 'GET'
-			}
-		).then(
-			response => response.text()
-		).then(
-			(text) => {
+		fetch(url, {
+			credentials: 'include',
+			headers: new Headers({'x-csrf-token': Liferay.authToken}),
+			method: 'GET'
+		})
+			.then(response => response.text())
+			.then(text => {
 				optionValueDetail.innerHTML = text;
 
 				globalEval.runScriptsInElement(optionValueDetail);
@@ -138,18 +134,14 @@ class CPOptionValueDetail extends Component {
 
 		formData.set('p_auth', Liferay.authToken);
 
-		fetch(
-			form.action,
-			{
-				body: formData,
-				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
-				method: 'POST'
-			}
-		).then(
-			response => response.json()
-		).then(
-			(jsonResponse) => {
+		fetch(form.action, {
+			body: formData,
+			credentials: 'include',
+			headers: new Headers({'x-csrf-token': Liferay.authToken}),
+			method: 'POST'
+		})
+			.then(response => response.json())
+			.then(jsonResponse => {
 				this.emit('optionValueDeleted', jsonResponse);
 			});
 	}
@@ -165,18 +157,14 @@ class CPOptionValueDetail extends Component {
 
 		formData.set('p_auth', Liferay.authToken);
 
-		fetch(
-			form.action,
-			{
-				body: formData,
-				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
-				method: 'POST'
-			}
-		).then(
-			response => response.json()
-		).then(
-			(jsonResponse) => {
+		fetch(form.action, {
+			body: formData,
+			credentials: 'include',
+			headers: new Headers({'x-csrf-token': Liferay.authToken}),
+			method: 'POST'
+		})
+			.then(response => response.json())
+			.then(jsonResponse => {
 				this.emit('optionValueSaved', jsonResponse);
 			});
 	}

@@ -15,7 +15,7 @@
 'use strict';
 
 import Component from 'metal-component';
-import { debounce } from 'metal-debounce';
+import {debounce} from 'metal-debounce';
 import Soy, {Config} from 'metal-soy';
 
 import template from './AddAccountModal.soy';
@@ -119,8 +119,8 @@ class AddAccountModal extends Component {
 				this.query,
 			{
 				credentials: 'include',
-				headers: new Headers({ 'x-csrf-token': Liferay.authToken }),
-				method: 'GET',
+				headers: new Headers({'x-csrf-token': Liferay.authToken}),
+				method: 'GET'
 			}
 		)
 			.then(response => response.json())
@@ -184,5 +184,5 @@ AddAccountModal.STATE = {
 	usersAPI: Config.string().value('')
 };
 
-export { AddAccountModal };
+export {AddAccountModal};
 export default AddAccountModal;

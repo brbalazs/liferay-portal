@@ -16,10 +16,10 @@ package com.liferay.commerce.taglib.servlet.taglib;
 
 import com.liferay.commerce.constants.CommerceOrderActionKeys;
 import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.util.CommerceWorkflowedModelHelper;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
 import com.liferay.commerce.service.CommerceOrderServiceUtil;
 import com.liferay.commerce.taglib.servlet.taglib.internal.servlet.ServletContextUtil;
+import com.liferay.commerce.util.CommerceWorkflowedModelHelper;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -93,7 +93,8 @@ public class OrderTransitionsTag extends IncludeTag {
 	public void setPageContext(PageContext pageContext) {
 		super.setPageContext(pageContext);
 
-		_commerceWorkflowedModelHelper = ServletContextUtil.getCommerceOrderHelper();
+		commerceWorkflowedModelHelper =
+			ServletContextUtil.getCommerceOrderHelper();
 		commerceOrderModelResourcePermission =
 			ServletContextUtil.getCommerceOrderModelResourcePermission();
 		commerceOrderValidatorRegistry =
@@ -131,10 +132,10 @@ public class OrderTransitionsTag extends IncludeTag {
 			_pathThemeImages);
 	}
 
-	protected CommerceWorkflowedModelHelper _commerceWorkflowedModelHelper;
 	protected ModelResourcePermission<CommerceOrder>
 		commerceOrderModelResourcePermission;
 	protected CommerceOrderValidatorRegistry commerceOrderValidatorRegistry;
+	protected CommerceWorkflowedModelHelper commerceWorkflowedModelHelper;
 
 	private List<ObjectValuePair<Long, String>> _getCommerceOrderTransitionOVPs(
 			CommerceOrder commerceOrder, ThemeDisplay themeDisplay)
@@ -147,8 +148,7 @@ public class OrderTransitionsTag extends IncludeTag {
 		}
 
 		if (!commerceOrder.isOpen()) {
-			transitionOVPs.add(
-				new ObjectValuePair<Long, String>(0L, "reorder"));
+			transitionOVPs.add(new ObjectValuePair<>(0L, "reorder"));
 		}
 
 		ObjectValuePair<Long, String> approveOVP = null;
@@ -187,7 +187,7 @@ public class OrderTransitionsTag extends IncludeTag {
 		int start = transitionOVPs.size();
 
 		transitionOVPs.addAll(
-			_commerceWorkflowedModelHelper.getWorkflowTransitions(
+			commerceWorkflowedModelHelper.getWorkflowTransitions(
 				themeDisplay.getUserId(), commerceOrder.getCompanyId(),
 				commerceOrder.getModelClassName(),
 				commerceOrder.getCommerceOrderId()));
