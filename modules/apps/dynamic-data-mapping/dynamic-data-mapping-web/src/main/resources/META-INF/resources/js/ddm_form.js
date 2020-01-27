@@ -3844,6 +3844,8 @@ AUI.add(
 					_onSubmitForm: function(event) {
 						var instance = this;
 						
+						instance.toJSON();
+
 						instance.fillEmptyLocales();
 
 						instance.finalizeRepeatableFieldLocalizations();
