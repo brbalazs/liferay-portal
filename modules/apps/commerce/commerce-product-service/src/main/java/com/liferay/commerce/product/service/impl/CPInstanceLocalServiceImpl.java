@@ -25,9 +25,9 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
 import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.service.base.CPInstanceLocalServiceBaseImpl;
-import com.liferay.commerce.product.util.DDMFormValuesUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -70,6 +70,7 @@ import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -158,7 +159,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			status = WorkflowConstants.STATUS_SCHEDULED;
 		}
 
-		validate(0, cpDefinitionId, sku, json, status, serviceContext);
+		validate(0, cpDefinitionId, sku, status, serviceContext);
 
 		long cpInstanceId = counterLocalService.increment();
 
@@ -181,7 +182,6 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 		cpInstance.setGtin(gtin);
 		cpInstance.setManufacturerPartNumber(manufacturerPartNumber);
 		cpInstance.setPurchasable(purchasable);
-		cpInstance.setJson(json);
 		cpInstance.setWidth(width);
 		cpInstance.setHeight(height);
 		cpInstance.setDepth(depth);
@@ -279,7 +279,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
 			cpInstance = addCPInstance(
 				cpDefinitionId, cpDefinition.getGroupId(), sku,
-				StringPool.BLANK, StringPool.BLANK, true, StringPool.BLANK,
+				StringPool.BLANK, StringPool.BLANK, true, null,
 				cpDefinition.getWidth(), cpDefinition.getHeight(),
 				cpDefinition.getDepth(), cpDefinition.getWeight(),
 				BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, true,
@@ -289,13 +289,15 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
 					cpDefinitionOptionValueRels) {
 
-				cpInstanceOptionSetLocalService.addCPInstanceOptionSet(
-					cpDefinition.getGroupId(), serviceContext.getCompanyId(),
-					serviceContext.getUserId(),
-					cpDefinitionOptionValueRel.getCPDefinitionOptionRelId(),
-					cpDefinitionOptionValueRel.
-						getCPDefinitionOptionValueRelId(),
-					cpInstance.getCPInstanceUuid());
+				cpInstanceOptionValueRelLocalService.
+					addCPInstanceOptionValueRel(
+						cpDefinition.getGroupId(),
+						serviceContext.getCompanyId(),
+						serviceContext.getUserId(),
+						cpDefinitionOptionValueRel.getCPDefinitionOptionRelId(),
+						cpDefinitionOptionValueRel.
+							getCPDefinitionOptionValueRelId(),
+						cpInstance.getCPInstanceId());
 			}
 		}
 	}
@@ -339,8 +341,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
 			validate(
 				cpInstance.getCPInstanceId(), cpInstance.getCPDefinitionId(),
-				cpInstance.getSku(), cpInstance.getJson(),
-				cpInstance.getStatus(), serviceContext);
+				cpInstance.getSku(), cpInstance.getStatus(), serviceContext);
 		}
 	}
 
@@ -662,7 +663,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
 		validate(
 			cpInstanceId, cpInstance.getCPDefinitionId(), cpInstance.getSku(),
-			cpInstance.getJson(), cpInstance.getStatus(), serviceContext);
+			cpInstance.getStatus(), serviceContext);
 
 		if (cpDefinitionLocalService.isVersionable(
 				cpInstance.getCPDefinitionId())) {
@@ -802,7 +803,8 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
 		if (!cpDefinition.isIgnoreSKUCombinations() &&
-			Validator.isNull(cpInstance.getJson())) {
+			cpInstanceOptionValueRelLocalService.hasCPInstanceOptionValueRel(
+				cpInstance.getCPInstanceId())) {
 
 			status = WorkflowConstants.STATUS_INACTIVE;
 		}
@@ -1164,8 +1166,8 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 	}
 
 	protected void validate(
-			long cpInstanceId, long cpDefinitionId, String sku, String json,
-			int status, ServiceContext serviceContext)
+			long cpInstanceId, long cpDefinitionId, String sku, int status,
+			ServiceContext serviceContext)
 		throws PortalException {
 
 		CPInstance cpInstance = cpInstancePersistence.fetchByC_S(
@@ -1216,7 +1218,10 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 					cpDefinitionId, WorkflowConstants.STATUS_APPROVED);
 
 				for (CPInstance curCPInstance : cpInstances) {
-					if (Validator.isNull(curCPInstance.getJson())) {
+					if (!cpInstanceOptionValueRelLocalService.
+							hasCPInstanceOptionValueRel(
+								curCPInstance.getCPInstanceId())) {
+
 						updateStatus(
 							serviceContext.getUserId(),
 							curCPInstance.getCPInstanceId(),
@@ -1228,8 +1233,10 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
 					if ((cpInstanceId <= 0) &&
 						(status == WorkflowConstants.STATUS_APPROVED) &&
-						DDMFormValuesUtil.equals(
-							json, curCPInstance.getJson())) {
+						cpInstanceOptionValueRelLocalService.
+							matchesCPInstanceOptionValueRels(
+								curCPInstance.getCPInstanceId(),
+								Collections.emptyList())) {
 
 						updateStatus(
 							serviceContext.getUserId(),
@@ -1241,7 +1248,9 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 					}
 				}
 
-				if ((cpInstanceId > 0) && Validator.isNull(json)) {
+				if ((cpInstanceId > 0) &&
+					_checkCPInstanceOptionSet(Collections.emptyList())) {
+
 					updateStatus(
 						serviceContext.getUserId(), cpInstanceId,
 						WorkflowConstants.STATUS_INACTIVE, serviceContext,
@@ -1251,6 +1260,14 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 				}
 			}
 		}
+	}
+
+	private boolean _checkCPInstanceOptionSet(
+		List<CPInstanceOptionValueRel> cpInstanceOptionValueRels) {
+
+		throw new UnsupportedOperationException(
+			"Provide implementation that checks existing entries " +
+				cpInstanceOptionValueRels.size());
 	}
 
 	private String _getSKU(
