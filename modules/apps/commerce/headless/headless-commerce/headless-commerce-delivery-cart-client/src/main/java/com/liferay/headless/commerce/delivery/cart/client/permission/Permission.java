@@ -27,24 +27,68 @@ import javax.annotation.Generated;
 @Generated("")
 public class Permission {
 
+	public static Permission toDTO(String json) {
+		PermissionJSONParser<Permission> permissionJSONParser =
+			new PermissionJSONParser();
+
+		return permissionJSONParser.parseToDTO(json);
+	}
+
 	public String[] getActionIds() {
-		return _actionIds;
+		return actionIds;
 	}
 
 	public String getRoleName() {
-		return _roleName;
+		return roleName;
 	}
 
 	public void setActionIds(String[] actionIds) {
-		this._actionIds = actionIds;
+		this.actionIds = actionIds;
 	}
 
 	public void setRoleName(String roleName) {
-		this._roleName = roleName;
+		this.roleName = roleName;
 	}
 
-	private String[] _actionIds;
-	private String _roleName;
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("{");
+
+		if (actionIds != null) {
+			sb.append("\"actionIds\": [");
+
+			for (int i = 0; i < actionIds.length; i++) {
+				sb.append("\"");
+				sb.append(actionIds[i]);
+				sb.append("\"");
+
+				if ((i + 1) < actionIds.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (roleName != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"roleName\": \"");
+			sb.append(roleName);
+			sb.append("\"");
+		}
+
+		sb.append("}");
+
+		return sb.toString();
+	}
+
+	protected String[] actionIds;
+	protected String roleName;
 
 	private static class PermissionJSONParser<T>
 		extends BaseJSONParser<Permission> {

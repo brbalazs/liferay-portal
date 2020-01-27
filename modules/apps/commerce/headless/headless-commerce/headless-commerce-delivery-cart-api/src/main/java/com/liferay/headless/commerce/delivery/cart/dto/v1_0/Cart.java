@@ -37,7 +37,6 @@ import java.util.Set;
 import javax.annotation.Generated;
 
 import javax.validation.Valid;
-import javax.validation.constraints.DecimalMin;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -164,6 +163,34 @@ public class Cart {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected BillingAddress billingAddress;
+
+	@Schema
+	public Long getBillingId() {
+		return billingId;
+	}
+
+	public void setBillingId(Long billingId) {
+		this.billingId = billingId;
+	}
+
+	@JsonIgnore
+	public void setBillingId(
+		UnsafeSupplier<Long, Exception> billingIdUnsafeSupplier) {
+
+		try {
+			billingId = billingIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Long billingId;
 
 	@Schema
 	@Valid
@@ -446,7 +473,6 @@ public class Cart {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String paymentMethodLabel;
 
-	@DecimalMin("0")
 	@Schema
 	public Integer getPaymentStatus() {
 		return paymentStatus;
@@ -588,6 +614,34 @@ public class Cart {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ShippingAddress shippingAddress;
+
+	@Schema
+	public Long getShippingAddressId() {
+		return shippingAddressId;
+	}
+
+	public void setShippingAddressId(Long shippingAddressId) {
+		this.shippingAddressId = shippingAddressId;
+	}
+
+	@JsonIgnore
+	public void setShippingAddressId(
+		UnsafeSupplier<Long, Exception> shippingAddressIdUnsafeSupplier) {
+
+		try {
+			shippingAddressId = shippingAddressIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Long shippingAddressId;
 
 	@Schema
 	public String getShippingMethod() {
@@ -778,6 +832,16 @@ public class Cart {
 			sb.append("\"billingAddress\": ");
 
 			sb.append(String.valueOf(billingAddress));
+		}
+
+		if (billingId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"billingId\": ");
+
+			sb.append(billingId);
 		}
 
 		if (cartItems != null) {
@@ -984,6 +1048,16 @@ public class Cart {
 			sb.append("\"shippingAddress\": ");
 
 			sb.append(String.valueOf(shippingAddress));
+		}
+
+		if (shippingAddressId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingAddressId\": ");
+
+			sb.append(shippingAddressId);
 		}
 
 		if (shippingMethod != null) {

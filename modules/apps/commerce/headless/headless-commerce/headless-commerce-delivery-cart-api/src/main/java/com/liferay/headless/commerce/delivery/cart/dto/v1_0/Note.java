@@ -32,8 +32,6 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
-import javax.validation.constraints.DecimalMin;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -102,7 +100,6 @@ public class Note {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String content;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getId() {
 		return id;
@@ -129,7 +126,6 @@ public class Note {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long id;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getOrderId() {
 		return orderId;

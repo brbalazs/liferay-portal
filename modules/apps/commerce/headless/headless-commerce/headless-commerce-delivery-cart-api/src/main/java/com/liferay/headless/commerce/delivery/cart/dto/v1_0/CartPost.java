@@ -33,7 +33,6 @@ import java.util.Set;
 import javax.annotation.Generated;
 
 import javax.validation.Valid;
-import javax.validation.constraints.DecimalMin;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -72,7 +71,7 @@ public class CartPost {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long accountId;
 
 	@Schema
@@ -105,7 +104,6 @@ public class CartPost {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected BillingAddress billingAddress;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getBillingAddressId() {
 		return billingAddressId;
@@ -250,7 +248,6 @@ public class CartPost {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ShippingAddress shippingAddress;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getShippingAddressId() {
 		return shippingAddressId;

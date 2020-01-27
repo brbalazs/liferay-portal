@@ -115,6 +115,27 @@ public class Cart {
 
 	protected BillingAddress billingAddress;
 
+	public Long getBillingId() {
+		return billingId;
+	}
+
+	public void setBillingId(Long billingId) {
+		this.billingId = billingId;
+	}
+
+	public void setBillingId(
+		UnsafeSupplier<Long, Exception> billingIdUnsafeSupplier) {
+
+		try {
+			billingId = billingIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long billingId;
+
 	public CartItem[] getCartItems() {
 		return cartItems;
 	}
@@ -428,6 +449,27 @@ public class Cart {
 	}
 
 	protected ShippingAddress shippingAddress;
+
+	public Long getShippingAddressId() {
+		return shippingAddressId;
+	}
+
+	public void setShippingAddressId(Long shippingAddressId) {
+		this.shippingAddressId = shippingAddressId;
+	}
+
+	public void setShippingAddressId(
+		UnsafeSupplier<Long, Exception> shippingAddressIdUnsafeSupplier) {
+
+		try {
+			shippingAddressId = shippingAddressIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long shippingAddressId;
 
 	public String getShippingMethod() {
 		return shippingMethod;

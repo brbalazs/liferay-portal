@@ -527,6 +527,14 @@ public abstract class BaseCartResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("billingId", additionalAssertFieldName)) {
+				if (cart.getBillingId() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("cartItems", additionalAssertFieldName)) {
 				if (cart.getCartItems() == null) {
 					valid = false;
@@ -641,6 +649,16 @@ public abstract class BaseCartResourceTestCase {
 
 			if (Objects.equals("shippingAddress", additionalAssertFieldName)) {
 				if (cart.getShippingAddress() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"shippingAddressId", additionalAssertFieldName)) {
+
+				if (cart.getShippingAddressId() == null) {
 					valid = false;
 				}
 
@@ -763,6 +781,16 @@ public abstract class BaseCartResourceTestCase {
 			if (Objects.equals("billingAddress", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						cart1.getBillingAddress(), cart2.getBillingAddress())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("billingId", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						cart1.getBillingId(), cart2.getBillingId())) {
 
 					return false;
 				}
@@ -929,6 +957,19 @@ public abstract class BaseCartResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"shippingAddressId", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						cart1.getShippingAddressId(),
+						cart2.getShippingAddressId())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("shippingMethod", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						cart1.getShippingMethod(), cart2.getShippingMethod())) {
@@ -1000,6 +1041,16 @@ public abstract class BaseCartResourceTestCase {
 			if (Objects.equals("author", fieldName)) {
 				if (!Objects.deepEquals(
 						cart.getAuthor(), jsonObject.getString("author"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("billingId", fieldName)) {
+				if (!Objects.deepEquals(
+						cart.getBillingId(), jsonObject.getLong("billingId"))) {
 
 					return false;
 				}
@@ -1087,6 +1138,17 @@ public abstract class BaseCartResourceTestCase {
 				if (!Objects.deepEquals(
 						cart.getPurchaseOrderNumber(),
 						jsonObject.getString("purchaseOrderNumber"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("shippingAddressId", fieldName)) {
+				if (!Objects.deepEquals(
+						cart.getShippingAddressId(),
+						jsonObject.getLong("shippingAddressId"))) {
 
 					return false;
 				}
@@ -1205,6 +1267,11 @@ public abstract class BaseCartResourceTestCase {
 		}
 
 		if (entityFieldName.equals("billingAddress")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("billingId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -1382,6 +1449,11 @@ public abstract class BaseCartResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("shippingAddressId")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("shippingMethod")) {
 			sb.append("'");
 			sb.append(String.valueOf(cart.getShippingMethod()));
@@ -1438,6 +1510,7 @@ public abstract class BaseCartResourceTestCase {
 				account = RandomTestUtil.randomString();
 				accountId = RandomTestUtil.randomLong();
 				author = RandomTestUtil.randomString();
+				billingId = RandomTestUtil.randomLong();
 				couponCode = RandomTestUtil.randomString();
 				createDate = RandomTestUtil.nextDate();
 				id = RandomTestUtil.randomLong();
@@ -1449,6 +1522,7 @@ public abstract class BaseCartResourceTestCase {
 				paymentStatusLabel = RandomTestUtil.randomString();
 				printedNote = RandomTestUtil.randomString();
 				purchaseOrderNumber = RandomTestUtil.randomString();
+				shippingAddressId = RandomTestUtil.randomLong();
 				shippingMethod = RandomTestUtil.randomString();
 				shippingOption = RandomTestUtil.randomString();
 				status = RandomTestUtil.randomString();

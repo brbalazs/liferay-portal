@@ -157,7 +157,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelCart(cartId: ___, channelId: ___){id, account, accountId, author, billingAddress, createDate, cartItems, couponCode, customFields, lastPriceUpdateDate, modifiedDate, notes, paymentMethod, paymentMethodLabel, paymentStatus, paymentStatusLabel, printedNote, purchaseOrderNumber, shippingAddress, shippingMethod, shippingOption, status, summary}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelCart(cartId: ___, channelId: ___){id, account, accountId, author, billingAddress, billingId, createDate, cartItems, couponCode, customFields, lastPriceUpdateDate, modifiedDate, notes, paymentMethod, paymentMethodLabel, paymentStatus, paymentStatusLabel, printedNote, purchaseOrderNumber, shippingAddress, shippingAddressId, shippingMethod, shippingOption, status, summary}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrive information of the given Cart.")
 	public Cart channelCart(

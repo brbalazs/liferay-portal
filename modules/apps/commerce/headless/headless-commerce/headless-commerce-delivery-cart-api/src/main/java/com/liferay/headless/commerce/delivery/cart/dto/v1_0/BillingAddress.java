@@ -32,7 +32,6 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -160,7 +159,6 @@ public class BillingAddress {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String description;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getId() {
 		return id;

@@ -33,7 +33,6 @@ import java.util.Set;
 import javax.annotation.Generated;
 
 import javax.validation.Valid;
-import javax.validation.constraints.DecimalMin;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -76,7 +75,6 @@ public class CartItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Map<String, ?> customFields;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getId() {
 		return id;
@@ -212,7 +210,6 @@ public class CartItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long productId;
 
-	@DecimalMin("0")
 	@Schema
 	public Integer getQuantity() {
 		return quantity;
@@ -267,7 +264,6 @@ public class CartItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String sku;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getSkuId() {
 		return skuId;

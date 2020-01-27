@@ -33,7 +33,6 @@ import java.util.Set;
 import javax.annotation.Generated;
 
 import javax.validation.Valid;
-import javax.validation.constraints.DecimalMin;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -75,7 +74,6 @@ public class ShippingMethod {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String description;
 
-	@DecimalMin("0")
 	@Schema
 	public Long getId() {
 		return id;
