@@ -1,3 +1,7 @@
 Bundle-Name: Liferay Headless Commerce Admin Order Implementation
 Bundle-SymbolicName: com.liferay.headless.commerce.admin.order.impl
 Bundle-Version: 1.0.12
+Import-Package:\
+	com.liferay.portal.vulcan.util;version="[1.1.0,3.0.0)",\
+	\
+	*
