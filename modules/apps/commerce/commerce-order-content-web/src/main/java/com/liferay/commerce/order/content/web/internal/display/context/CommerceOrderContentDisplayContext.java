@@ -73,6 +73,7 @@ import java.text.DecimalFormat;
 import java.text.Format;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -416,9 +417,7 @@ public class CommerceOrderContentDisplayContext {
 	public List<HeaderActionModel> getHeaderActionModels()
 		throws PortalException {
 
-		List<HeaderActionModel> headerActionModels = new ArrayList<>();
-
-		return headerActionModels;
+		return Collections.emptyList();
 	}
 
 	public OrderFilterImpl getOrderFilter() {
