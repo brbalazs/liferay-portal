@@ -253,6 +253,21 @@ public interface CommercePriceListModel
 	public void setParentCommercePriceListId(long parentCommercePriceListId);
 
 	/**
+	 * Returns the type of this commerce price list.
+	 *
+	 * @return the type of this commerce price list
+	 */
+	@AutoEscape
+	public String getType();
+
+	/**
+	 * Sets the type of this commerce price list.
+	 *
+	 * @param type the type of this commerce price list
+	 */
+	public void setType(String type);
+
+	/**
 	 * Returns the name of this commerce price list.
 	 *
 	 * @return the name of this commerce price list

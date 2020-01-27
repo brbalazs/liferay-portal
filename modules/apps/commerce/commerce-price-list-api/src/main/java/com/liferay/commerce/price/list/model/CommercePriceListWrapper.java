@@ -68,6 +68,7 @@ public class CommercePriceListWrapper
 		attributes.put("commerceCurrencyId", getCommerceCurrencyId());
 		attributes.put(
 			"parentCommercePriceListId", getParentCommercePriceListId());
+		attributes.put("type", getType());
 		attributes.put("name", getName());
 		attributes.put("priority", getPriority());
 		attributes.put("displayDate", getDisplayDate());
@@ -149,6 +150,12 @@ public class CommercePriceListWrapper
 
 		if (parentCommercePriceListId != null) {
 			setParentCommercePriceListId(parentCommercePriceListId);
+		}
+
+		String type = (String)attributes.get("type");
+
+		if (type != null) {
+			setType(type);
 		}
 
 		String name = (String)attributes.get("name");
@@ -423,6 +430,16 @@ public class CommercePriceListWrapper
 	@Override
 	public Date getStatusDate() {
 		return _commercePriceList.getStatusDate();
+	}
+
+	/**
+	 * Returns the type of this commerce price list.
+	 *
+	 * @return the type of this commerce price list
+	 */
+	@Override
+	public String getType() {
+		return _commercePriceList.getType();
 	}
 
 	/**
@@ -791,6 +808,16 @@ public class CommercePriceListWrapper
 	@Override
 	public void setStatusDate(Date statusDate) {
 		_commercePriceList.setStatusDate(statusDate);
+	}
+
+	/**
+	 * Sets the type of this commerce price list.
+	 *
+	 * @param type the type of this commerce price list
+	 */
+	@Override
+	public void setType(String type) {
+		_commercePriceList.setType(type);
 	}
 
 	/**

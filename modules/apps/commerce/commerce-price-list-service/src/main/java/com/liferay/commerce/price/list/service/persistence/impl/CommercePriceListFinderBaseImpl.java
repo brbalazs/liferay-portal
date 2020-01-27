@@ -40,6 +40,7 @@ public class CommercePriceListFinderBaseImpl
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
+		dbColumnNames.put("type", "type_");
 
 		try {
 			Field field = BasePersistenceImpl.class.getDeclaredField(

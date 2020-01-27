@@ -81,9 +81,9 @@ public class CommercePriceListModelImpl
 		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
 		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"commerceCurrencyId", Types.BIGINT},
-		{"parentCommercePriceListId", Types.BIGINT}, {"name", Types.VARCHAR},
-		{"priority", Types.DOUBLE}, {"displayDate", Types.TIMESTAMP},
-		{"expirationDate", Types.TIMESTAMP},
+		{"parentCommercePriceListId", Types.BIGINT}, {"type_", Types.VARCHAR},
+		{"name", Types.VARCHAR}, {"priority", Types.DOUBLE},
+		{"displayDate", Types.TIMESTAMP}, {"expirationDate", Types.TIMESTAMP},
 		{"lastPublishDate", Types.TIMESTAMP}, {"status", Types.INTEGER},
 		{"statusByUserId", Types.BIGINT}, {"statusByUserName", Types.VARCHAR},
 		{"statusDate", Types.TIMESTAMP}
@@ -104,6 +104,7 @@ public class CommercePriceListModelImpl
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("commerceCurrencyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("parentCommercePriceListId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("type_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("priority", Types.DOUBLE);
 		TABLE_COLUMNS_MAP.put("displayDate", Types.TIMESTAMP);
@@ -116,7 +117,7 @@ public class CommercePriceListModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CommercePriceList (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,commercePriceListId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commerceCurrencyId LONG,parentCommercePriceListId LONG,name VARCHAR(75) null,priority DOUBLE,displayDate DATE null,expirationDate DATE null,lastPublishDate DATE null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
+		"create table CommercePriceList (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,commercePriceListId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commerceCurrencyId LONG,parentCommercePriceListId LONG,type_ VARCHAR(75) null,name VARCHAR(75) null,priority DOUBLE,displayDate DATE null,expirationDate DATE null,lastPublishDate DATE null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
 
 	public static final String TABLE_SQL_DROP = "drop table CommercePriceList";
 
@@ -192,6 +193,7 @@ public class CommercePriceListModelImpl
 		model.setCommerceCurrencyId(soapModel.getCommerceCurrencyId());
 		model.setParentCommercePriceListId(
 			soapModel.getParentCommercePriceListId());
+		model.setType(soapModel.getType());
 		model.setName(soapModel.getName());
 		model.setPriority(soapModel.getPriority());
 		model.setDisplayDate(soapModel.getDisplayDate());
@@ -613,6 +615,28 @@ public class CommercePriceListModelImpl
 
 					commercePriceList.setParentCommercePriceListId(
 						(Long)parentCommercePriceListIdObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<CommercePriceList, Object>() {
+
+				@Override
+				public Object apply(CommercePriceList commercePriceList) {
+					return commercePriceList.getType();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"type",
+			new BiConsumer<CommercePriceList, Object>() {
+
+				@Override
+				public void accept(
+					CommercePriceList commercePriceList, Object typeObject) {
+
+					commercePriceList.setType((String)typeObject);
 				}
 
 			});
@@ -1062,6 +1086,22 @@ public class CommercePriceListModelImpl
 
 	@JSON
 	@Override
+	public String getType() {
+		if (_type == null) {
+			return "";
+		}
+		else {
+			return _type;
+		}
+	}
+
+	@Override
+	public void setType(String type) {
+		_type = type;
+	}
+
+	@JSON
+	@Override
 	public String getName() {
 		if (_name == null) {
 			return "";
@@ -1345,6 +1385,7 @@ public class CommercePriceListModelImpl
 		commercePriceListImpl.setCommerceCurrencyId(getCommerceCurrencyId());
 		commercePriceListImpl.setParentCommercePriceListId(
 			getParentCommercePriceListId());
+		commercePriceListImpl.setType(getType());
 		commercePriceListImpl.setName(getName());
 		commercePriceListImpl.setPriority(getPriority());
 		commercePriceListImpl.setDisplayDate(getDisplayDate());
@@ -1548,6 +1589,14 @@ public class CommercePriceListModelImpl
 		commercePriceListCacheModel.parentCommercePriceListId =
 			getParentCommercePriceListId();
 
+		commercePriceListCacheModel.type = getType();
+
+		String type = commercePriceListCacheModel.type;
+
+		if ((type != null) && (type.length() == 0)) {
+			commercePriceListCacheModel.type = null;
+		}
+
 		commercePriceListCacheModel.name = getName();
 
 		String name = commercePriceListCacheModel.name;
@@ -1703,6 +1752,7 @@ public class CommercePriceListModelImpl
 	private long _parentCommercePriceListId;
 	private long _originalParentCommercePriceListId;
 	private boolean _setOriginalParentCommercePriceListId;
+	private String _type;
 	private String _name;
 	private double _priority;
 	private Date _displayDate;

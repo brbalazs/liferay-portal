@@ -1,6 +1,10 @@
 create unique index IX_DEFDE07C on CPLCommerceGroupAccountRel (commercePriceListId, commerceAccountGroupId);
 create index IX_E475B7EB on CPLCommerceGroupAccountRel (uuid_[$COLUMN_LENGTH:75$], companyId);
 
+create index IX_57E653B9 on CPLPriceModifierRel (commercePriceListId);
+create unique index IX_62D21865 on CPLPriceModifierRel (commercePriceModifierId, commercePriceListId);
+create index IX_21422912 on CPLPriceModifierRel (uuid_[$COLUMN_LENGTH:75$], companyId);
+
 create unique index IX_85F53E15 on CPLUserSegmentEntryRel (commercePriceListId, commerceUserSegmentEntryId);
 create index IX_A215DC0A on CPLUserSegmentEntryRel (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_1A99DD0C on CPLUserSegmentEntryRel (uuid_[$COLUMN_LENGTH:75$], groupId);
@@ -22,6 +26,18 @@ create unique index IX_554D1708 on CommercePriceList (uuid_[$COLUMN_LENGTH:75$],
 create unique index IX_3DEE5A98 on CommercePriceListAccountRel (commerceAccountId, commercePriceListId);
 create index IX_7279F379 on CommercePriceListAccountRel (commercePriceListId);
 create index IX_D598A152 on CommercePriceListAccountRel (uuid_[$COLUMN_LENGTH:75$], companyId);
+
+create unique index IX_2CCFD56C on CommercePriceListChannelRel (commerceChannelId, commercePriceListId);
+create index IX_898B66CF on CommercePriceListChannelRel (commercePriceListId);
+create index IX_F7DDDDBC on CommercePriceListChannelRel (uuid_[$COLUMN_LENGTH:75$], companyId);
+
+create unique index IX_CC15AA9A on CommercePriceListDiscountRel (commerceDiscountId, commercePriceListId);
+create index IX_36D76E5 on CommercePriceListDiscountRel (commercePriceListId);
+create index IX_96A5B566 on CommercePriceListDiscountRel (uuid_[$COLUMN_LENGTH:75$], companyId);
+
+create unique index IX_65BE05CF on CommercePriceListRel (classNameId, classPK, commercePriceListId);
+create unique index IX_1B5AD819 on CommercePriceListRel (commercePriceListId, classNameId, classPK);
+create index IX_68DC7FE7 on CommercePriceListRel (uuid_[$COLUMN_LENGTH:75$], companyId);
 
 create unique index IX_A622C8AE on CommerceTierPriceEntry (commercePriceEntryId, minQuantity);
 create index IX_95D59361 on CommerceTierPriceEntry (companyId, externalReferenceCode[$COLUMN_LENGTH:75$]);

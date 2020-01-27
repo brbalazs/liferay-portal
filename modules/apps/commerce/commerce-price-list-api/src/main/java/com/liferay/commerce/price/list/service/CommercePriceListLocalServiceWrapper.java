@@ -135,6 +135,72 @@ public class CommercePriceListLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceList
+			addCommercePriceList(
+				long groupId, long userId, long commerceCurrencyId, String type,
+				long parentCommercePriceListId, String name, double priority,
+				int displayDateMonth, int displayDateDay, int displayDateYear,
+				int displayDateHour, int displayDateMinute,
+				int expirationDateMonth, int expirationDateDay,
+				int expirationDateYear, int expirationDateHour,
+				int expirationDateMinute, boolean neverExpire,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceListLocalService.addCommercePriceList(
+			groupId, userId, commerceCurrencyId, type,
+			parentCommercePriceListId, name, priority, displayDateMonth,
+			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
+			expirationDateMonth, expirationDateDay, expirationDateYear,
+			expirationDateHour, expirationDateMinute, neverExpire,
+			serviceContext);
+	}
+
+	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceList
+			addCommercePriceList(
+				long groupId, long userId, long commerceCurrencyId, String type,
+				long parentCommercePriceListId, String name, double priority,
+				int displayDateMonth, int displayDateDay, int displayDateYear,
+				int displayDateHour, int displayDateMinute,
+				int expirationDateMonth, int expirationDateDay,
+				int expirationDateYear, int expirationDateHour,
+				int expirationDateMinute, String externalReferenceCode,
+				boolean neverExpire,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceListLocalService.addCommercePriceList(
+			groupId, userId, commerceCurrencyId, type,
+			parentCommercePriceListId, name, priority, displayDateMonth,
+			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
+			expirationDateMonth, expirationDateDay, expirationDateYear,
+			expirationDateHour, expirationDateMinute, externalReferenceCode,
+			neverExpire, serviceContext);
+	}
+
+	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceList
+			addCommercePriceList(
+				long groupId, long userId, long commerceCurrencyId, String type,
+				String name, double priority, int displayDateMonth,
+				int displayDateDay, int displayDateYear, int displayDateHour,
+				int displayDateMinute, int expirationDateMonth,
+				int expirationDateDay, int expirationDateYear,
+				int expirationDateHour, int expirationDateMinute,
+				boolean neverExpire,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceListLocalService.addCommercePriceList(
+			groupId, userId, commerceCurrencyId, type, name, priority,
+			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
+			displayDateMinute, expirationDateMonth, expirationDateDay,
+			expirationDateYear, expirationDateHour, expirationDateMinute,
+			neverExpire, serviceContext);
+	}
+
+	@Override
 	public void checkCommercePriceLists()
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -388,6 +454,51 @@ public class CommercePriceListLocalServiceWrapper
 			companyId, groupId, commerceAccountId, commerceAccountGroupIds);
 	}
 
+	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceList
+		getCommercePriceListByAccountGroupIds(
+			String type, long[] commerceAccountGroupIds) {
+
+		return _commercePriceListLocalService.
+			getCommercePriceListByAccountGroupIds(
+				type, commerceAccountGroupIds);
+	}
+
+	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceList
+		getCommercePriceListByAccountId(String type, long commerceAccountId) {
+
+		return _commercePriceListLocalService.getCommercePriceListByAccountId(
+			type, commerceAccountId);
+	}
+
+	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceList
+		getCommercePriceListByChannelId(String type, long commerceChannelId) {
+
+		return _commercePriceListLocalService.getCommercePriceListByChannelId(
+			type, commerceChannelId);
+	}
+
+	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceList
+		getCommercePriceListByLowestPrice(
+			String type, String cPInstanceUuid, long commerceAccountId,
+			long[] commerceAccountGroupIds, long commerceChannelId) {
+
+		return _commercePriceListLocalService.getCommercePriceListByLowestPrice(
+			type, cPInstanceUuid, commerceAccountId, commerceAccountGroupIds,
+			commerceChannelId);
+	}
+
+	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceList
+		getCommercePriceListByUnqualified(String type) {
+
+		return _commercePriceListLocalService.getCommercePriceListByUnqualified(
+			type);
+	}
+
 	/**
 	 * Returns the commerce price list matching the UUID and group.
 	 *
@@ -632,6 +743,28 @@ public class CommercePriceListLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceList
+			updateCommercePriceList(
+				long commercePriceListId, long commerceCurrencyId, String type,
+				long parentCommercePriceListId, String name, double priority,
+				int displayDateMonth, int displayDateDay, int displayDateYear,
+				int displayDateHour, int displayDateMinute,
+				int expirationDateMonth, int expirationDateDay,
+				int expirationDateYear, int expirationDateHour,
+				int expirationDateMinute, boolean neverExpire,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceListLocalService.updateCommercePriceList(
+			commercePriceListId, commerceCurrencyId, type,
+			parentCommercePriceListId, name, priority, displayDateMonth,
+			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
+			expirationDateMonth, expirationDateDay, expirationDateYear,
+			expirationDateHour, expirationDateMinute, neverExpire,
+			serviceContext);
+	}
+
+	@Override
 	public void updateCommercePriceListCurrencies(long commerceCurrencyId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -735,6 +868,30 @@ public class CommercePriceListLocalServiceWrapper
 			expirationDateDay, expirationDateYear, expirationDateHour,
 			expirationDateMinute, externalReferenceCode, neverExpire,
 			serviceContext);
+	}
+
+	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceList
+			upsertCommercePriceList(
+				long groupId, long userId, long commercePriceListId,
+				long commerceCurrencyId, String type,
+				long parentCommercePriceListId, String name, double priority,
+				int displayDateMonth, int displayDateDay, int displayDateYear,
+				int displayDateHour, int displayDateMinute,
+				int expirationDateMonth, int expirationDateDay,
+				int expirationDateYear, int expirationDateHour,
+				int expirationDateMinute, String externalReferenceCode,
+				boolean neverExpire,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceListLocalService.upsertCommercePriceList(
+			groupId, userId, commercePriceListId, commerceCurrencyId, type,
+			parentCommercePriceListId, name, priority, displayDateMonth,
+			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
+			expirationDateMonth, expirationDateDay, expirationDateYear,
+			expirationDateHour, expirationDateMinute, externalReferenceCode,
+			neverExpire, serviceContext);
 	}
 
 	@Override

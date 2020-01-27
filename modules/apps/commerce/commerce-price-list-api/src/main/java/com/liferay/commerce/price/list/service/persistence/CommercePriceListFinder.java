@@ -31,4 +31,39 @@ public interface CommercePriceListFinder {
 					<com.liferay.commerce.price.list.model.CommercePriceList>
 						queryDefinition);
 
+	public java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceList>
+			findByCommerceAccountId(
+				com.liferay.portal.kernel.dao.orm.QueryDefinition
+					<com.liferay.commerce.price.list.model.CommercePriceList>
+						queryDefinition);
+
+	public java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceList>
+			findByCommerceAccountGroupIds(
+				com.liferay.portal.kernel.dao.orm.QueryDefinition
+					<com.liferay.commerce.price.list.model.CommercePriceList>
+						queryDefinition);
+
+	public java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceList>
+			findByCommerceChannelId(
+				com.liferay.portal.kernel.dao.orm.QueryDefinition
+					<com.liferay.commerce.price.list.model.CommercePriceList>
+						queryDefinition);
+
+	public java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceList>
+			findByUnqualified(
+				com.liferay.portal.kernel.dao.orm.QueryDefinition
+					<com.liferay.commerce.price.list.model.CommercePriceList>
+						queryDefinition);
+
+	public java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceList>
+			findByLowestPrice(
+				com.liferay.portal.kernel.dao.orm.QueryDefinition
+					<com.liferay.commerce.price.list.model.CommercePriceList>
+						queryDefinition);
+
 }

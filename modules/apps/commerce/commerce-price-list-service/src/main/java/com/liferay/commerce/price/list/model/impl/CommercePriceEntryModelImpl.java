@@ -34,6 +34,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.io.Serializable;
 
@@ -85,7 +86,14 @@ public class CommercePriceEntryModelImpl
 		{"commercePriceListId", Types.BIGINT},
 		{"CPInstanceUuid", Types.VARCHAR}, {"CProductId", Types.BIGINT},
 		{"price", Types.DECIMAL}, {"promoPrice", Types.DECIMAL},
-		{"hasTierPrice", Types.BOOLEAN}, {"lastPublishDate", Types.TIMESTAMP}
+		{"discountDiscovery", Types.BOOLEAN}, {"discountLevel1", Types.DECIMAL},
+		{"discountLevel2", Types.DECIMAL}, {"discountLevel3", Types.DECIMAL},
+		{"discountLevel4", Types.DECIMAL}, {"hasTierPrice", Types.BOOLEAN},
+		{"bulkPricing", Types.BOOLEAN}, {"displayDate", Types.TIMESTAMP},
+		{"expirationDate", Types.TIMESTAMP},
+		{"lastPublishDate", Types.TIMESTAMP}, {"status", Types.INTEGER},
+		{"statusByUserId", Types.BIGINT}, {"statusByUserName", Types.VARCHAR},
+		{"statusDate", Types.TIMESTAMP}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -105,12 +113,24 @@ public class CommercePriceEntryModelImpl
 		TABLE_COLUMNS_MAP.put("CProductId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("price", Types.DECIMAL);
 		TABLE_COLUMNS_MAP.put("promoPrice", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("discountDiscovery", Types.BOOLEAN);
+		TABLE_COLUMNS_MAP.put("discountLevel1", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("discountLevel2", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("discountLevel3", Types.DECIMAL);
+		TABLE_COLUMNS_MAP.put("discountLevel4", Types.DECIMAL);
 		TABLE_COLUMNS_MAP.put("hasTierPrice", Types.BOOLEAN);
+		TABLE_COLUMNS_MAP.put("bulkPricing", Types.BOOLEAN);
+		TABLE_COLUMNS_MAP.put("displayDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("expirationDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("lastPublishDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("status", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("statusByUserId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("statusByUserName", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("statusDate", Types.TIMESTAMP);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CommercePriceEntry (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,commercePriceEntryId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commercePriceListId LONG,CPInstanceUuid VARCHAR(75) null,CProductId LONG,price DECIMAL(30, 16) null,promoPrice DECIMAL(30, 16) null,hasTierPrice BOOLEAN,lastPublishDate DATE null)";
+		"create table CommercePriceEntry (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,commercePriceEntryId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commercePriceListId LONG,CPInstanceUuid VARCHAR(75) null,CProductId LONG,price DECIMAL(30, 16) null,promoPrice DECIMAL(30, 16) null,discountDiscovery BOOLEAN,discountLevel1 DECIMAL(30, 16) null,discountLevel2 DECIMAL(30, 16) null,discountLevel3 DECIMAL(30, 16) null,discountLevel4 DECIMAL(30, 16) null,hasTierPrice BOOLEAN,bulkPricing BOOLEAN,displayDate DATE null,expirationDate DATE null,lastPublishDate DATE null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
 
 	public static final String TABLE_SQL_DROP = "drop table CommercePriceEntry";
 
@@ -179,8 +199,20 @@ public class CommercePriceEntryModelImpl
 		model.setCProductId(soapModel.getCProductId());
 		model.setPrice(soapModel.getPrice());
 		model.setPromoPrice(soapModel.getPromoPrice());
+		model.setDiscountDiscovery(soapModel.isDiscountDiscovery());
+		model.setDiscountLevel1(soapModel.getDiscountLevel1());
+		model.setDiscountLevel2(soapModel.getDiscountLevel2());
+		model.setDiscountLevel3(soapModel.getDiscountLevel3());
+		model.setDiscountLevel4(soapModel.getDiscountLevel4());
 		model.setHasTierPrice(soapModel.isHasTierPrice());
+		model.setBulkPricing(soapModel.isBulkPricing());
+		model.setDisplayDate(soapModel.getDisplayDate());
+		model.setExpirationDate(soapModel.getExpirationDate());
 		model.setLastPublishDate(soapModel.getLastPublishDate());
+		model.setStatus(soapModel.getStatus());
+		model.setStatusByUserId(soapModel.getStatusByUserId());
+		model.setStatusByUserName(soapModel.getStatusByUserName());
+		model.setStatusDate(soapModel.getStatusDate());
 
 		return model;
 	}
@@ -646,6 +678,126 @@ public class CommercePriceEntryModelImpl
 
 			});
 		attributeGetterFunctions.put(
+			"discountDiscovery",
+			new Function<CommercePriceEntry, Object>() {
+
+				@Override
+				public Object apply(CommercePriceEntry commercePriceEntry) {
+					return commercePriceEntry.getDiscountDiscovery();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"discountDiscovery",
+			new BiConsumer<CommercePriceEntry, Object>() {
+
+				@Override
+				public void accept(
+					CommercePriceEntry commercePriceEntry,
+					Object discountDiscoveryObject) {
+
+					commercePriceEntry.setDiscountDiscovery(
+						(Boolean)discountDiscoveryObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"discountLevel1",
+			new Function<CommercePriceEntry, Object>() {
+
+				@Override
+				public Object apply(CommercePriceEntry commercePriceEntry) {
+					return commercePriceEntry.getDiscountLevel1();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"discountLevel1",
+			new BiConsumer<CommercePriceEntry, Object>() {
+
+				@Override
+				public void accept(
+					CommercePriceEntry commercePriceEntry,
+					Object discountLevel1Object) {
+
+					commercePriceEntry.setDiscountLevel1(
+						(BigDecimal)discountLevel1Object);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"discountLevel2",
+			new Function<CommercePriceEntry, Object>() {
+
+				@Override
+				public Object apply(CommercePriceEntry commercePriceEntry) {
+					return commercePriceEntry.getDiscountLevel2();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"discountLevel2",
+			new BiConsumer<CommercePriceEntry, Object>() {
+
+				@Override
+				public void accept(
+					CommercePriceEntry commercePriceEntry,
+					Object discountLevel2Object) {
+
+					commercePriceEntry.setDiscountLevel2(
+						(BigDecimal)discountLevel2Object);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"discountLevel3",
+			new Function<CommercePriceEntry, Object>() {
+
+				@Override
+				public Object apply(CommercePriceEntry commercePriceEntry) {
+					return commercePriceEntry.getDiscountLevel3();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"discountLevel3",
+			new BiConsumer<CommercePriceEntry, Object>() {
+
+				@Override
+				public void accept(
+					CommercePriceEntry commercePriceEntry,
+					Object discountLevel3Object) {
+
+					commercePriceEntry.setDiscountLevel3(
+						(BigDecimal)discountLevel3Object);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"discountLevel4",
+			new Function<CommercePriceEntry, Object>() {
+
+				@Override
+				public Object apply(CommercePriceEntry commercePriceEntry) {
+					return commercePriceEntry.getDiscountLevel4();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"discountLevel4",
+			new BiConsumer<CommercePriceEntry, Object>() {
+
+				@Override
+				public void accept(
+					CommercePriceEntry commercePriceEntry,
+					Object discountLevel4Object) {
+
+					commercePriceEntry.setDiscountLevel4(
+						(BigDecimal)discountLevel4Object);
+				}
+
+			});
+		attributeGetterFunctions.put(
 			"hasTierPrice",
 			new Function<CommercePriceEntry, Object>() {
 
@@ -670,6 +822,77 @@ public class CommercePriceEntryModelImpl
 
 			});
 		attributeGetterFunctions.put(
+			"bulkPricing",
+			new Function<CommercePriceEntry, Object>() {
+
+				@Override
+				public Object apply(CommercePriceEntry commercePriceEntry) {
+					return commercePriceEntry.getBulkPricing();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"bulkPricing",
+			new BiConsumer<CommercePriceEntry, Object>() {
+
+				@Override
+				public void accept(
+					CommercePriceEntry commercePriceEntry,
+					Object bulkPricingObject) {
+
+					commercePriceEntry.setBulkPricing(
+						(Boolean)bulkPricingObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"displayDate",
+			new Function<CommercePriceEntry, Object>() {
+
+				@Override
+				public Object apply(CommercePriceEntry commercePriceEntry) {
+					return commercePriceEntry.getDisplayDate();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"displayDate",
+			new BiConsumer<CommercePriceEntry, Object>() {
+
+				@Override
+				public void accept(
+					CommercePriceEntry commercePriceEntry,
+					Object displayDateObject) {
+
+					commercePriceEntry.setDisplayDate((Date)displayDateObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"expirationDate",
+			new Function<CommercePriceEntry, Object>() {
+
+				@Override
+				public Object apply(CommercePriceEntry commercePriceEntry) {
+					return commercePriceEntry.getExpirationDate();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"expirationDate",
+			new BiConsumer<CommercePriceEntry, Object>() {
+
+				@Override
+				public void accept(
+					CommercePriceEntry commercePriceEntry,
+					Object expirationDateObject) {
+
+					commercePriceEntry.setExpirationDate(
+						(Date)expirationDateObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
 			"lastPublishDate",
 			new Function<CommercePriceEntry, Object>() {
 
@@ -690,6 +913,100 @@ public class CommercePriceEntryModelImpl
 
 					commercePriceEntry.setLastPublishDate(
 						(Date)lastPublishDateObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<CommercePriceEntry, Object>() {
+
+				@Override
+				public Object apply(CommercePriceEntry commercePriceEntry) {
+					return commercePriceEntry.getStatus();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"status",
+			new BiConsumer<CommercePriceEntry, Object>() {
+
+				@Override
+				public void accept(
+					CommercePriceEntry commercePriceEntry,
+					Object statusObject) {
+
+					commercePriceEntry.setStatus((Integer)statusObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserId",
+			new Function<CommercePriceEntry, Object>() {
+
+				@Override
+				public Object apply(CommercePriceEntry commercePriceEntry) {
+					return commercePriceEntry.getStatusByUserId();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"statusByUserId",
+			new BiConsumer<CommercePriceEntry, Object>() {
+
+				@Override
+				public void accept(
+					CommercePriceEntry commercePriceEntry,
+					Object statusByUserIdObject) {
+
+					commercePriceEntry.setStatusByUserId(
+						(Long)statusByUserIdObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserName",
+			new Function<CommercePriceEntry, Object>() {
+
+				@Override
+				public Object apply(CommercePriceEntry commercePriceEntry) {
+					return commercePriceEntry.getStatusByUserName();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"statusByUserName",
+			new BiConsumer<CommercePriceEntry, Object>() {
+
+				@Override
+				public void accept(
+					CommercePriceEntry commercePriceEntry,
+					Object statusByUserNameObject) {
+
+					commercePriceEntry.setStatusByUserName(
+						(String)statusByUserNameObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusDate",
+			new Function<CommercePriceEntry, Object>() {
+
+				@Override
+				public Object apply(CommercePriceEntry commercePriceEntry) {
+					return commercePriceEntry.getStatusDate();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"statusDate",
+			new BiConsumer<CommercePriceEntry, Object>() {
+
+				@Override
+				public void accept(
+					CommercePriceEntry commercePriceEntry,
+					Object statusDateObject) {
+
+					commercePriceEntry.setStatusDate((Date)statusDateObject);
 				}
 
 			});
@@ -943,6 +1260,67 @@ public class CommercePriceEntryModelImpl
 
 	@JSON
 	@Override
+	public boolean getDiscountDiscovery() {
+		return _discountDiscovery;
+	}
+
+	@JSON
+	@Override
+	public boolean isDiscountDiscovery() {
+		return _discountDiscovery;
+	}
+
+	@Override
+	public void setDiscountDiscovery(boolean discountDiscovery) {
+		_discountDiscovery = discountDiscovery;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getDiscountLevel1() {
+		return _discountLevel1;
+	}
+
+	@Override
+	public void setDiscountLevel1(BigDecimal discountLevel1) {
+		_discountLevel1 = discountLevel1;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getDiscountLevel2() {
+		return _discountLevel2;
+	}
+
+	@Override
+	public void setDiscountLevel2(BigDecimal discountLevel2) {
+		_discountLevel2 = discountLevel2;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getDiscountLevel3() {
+		return _discountLevel3;
+	}
+
+	@Override
+	public void setDiscountLevel3(BigDecimal discountLevel3) {
+		_discountLevel3 = discountLevel3;
+	}
+
+	@JSON
+	@Override
+	public BigDecimal getDiscountLevel4() {
+		return _discountLevel4;
+	}
+
+	@Override
+	public void setDiscountLevel4(BigDecimal discountLevel4) {
+		_discountLevel4 = discountLevel4;
+	}
+
+	@JSON
+	@Override
 	public boolean getHasTierPrice() {
 		return _hasTierPrice;
 	}
@@ -960,6 +1338,45 @@ public class CommercePriceEntryModelImpl
 
 	@JSON
 	@Override
+	public boolean getBulkPricing() {
+		return _bulkPricing;
+	}
+
+	@JSON
+	@Override
+	public boolean isBulkPricing() {
+		return _bulkPricing;
+	}
+
+	@Override
+	public void setBulkPricing(boolean bulkPricing) {
+		_bulkPricing = bulkPricing;
+	}
+
+	@JSON
+	@Override
+	public Date getDisplayDate() {
+		return _displayDate;
+	}
+
+	@Override
+	public void setDisplayDate(Date displayDate) {
+		_displayDate = displayDate;
+	}
+
+	@JSON
+	@Override
+	public Date getExpirationDate() {
+		return _expirationDate;
+	}
+
+	@Override
+	public void setExpirationDate(Date expirationDate) {
+		_expirationDate = expirationDate;
+	}
+
+	@JSON
+	@Override
 	public Date getLastPublishDate() {
 		return _lastPublishDate;
 	}
@@ -969,10 +1386,155 @@ public class CommercePriceEntryModelImpl
 		_lastPublishDate = lastPublishDate;
 	}
 
+	@JSON
+	@Override
+	public int getStatus() {
+		return _status;
+	}
+
+	@Override
+	public void setStatus(int status) {
+		_status = status;
+	}
+
+	@JSON
+	@Override
+	public long getStatusByUserId() {
+		return _statusByUserId;
+	}
+
+	@Override
+	public void setStatusByUserId(long statusByUserId) {
+		_statusByUserId = statusByUserId;
+	}
+
+	@Override
+	public String getStatusByUserUuid() {
+		try {
+			User user = UserLocalServiceUtil.getUserById(getStatusByUserId());
+
+			return user.getUuid();
+		}
+		catch (PortalException pe) {
+			return "";
+		}
+	}
+
+	@Override
+	public void setStatusByUserUuid(String statusByUserUuid) {
+	}
+
+	@JSON
+	@Override
+	public String getStatusByUserName() {
+		if (_statusByUserName == null) {
+			return "";
+		}
+		else {
+			return _statusByUserName;
+		}
+	}
+
+	@Override
+	public void setStatusByUserName(String statusByUserName) {
+		_statusByUserName = statusByUserName;
+	}
+
+	@JSON
+	@Override
+	public Date getStatusDate() {
+		return _statusDate;
+	}
+
+	@Override
+	public void setStatusDate(Date statusDate) {
+		_statusDate = statusDate;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
 			PortalUtil.getClassNameId(CommercePriceEntry.class.getName()));
+	}
+
+	@Override
+	public boolean isApproved() {
+		if (getStatus() == WorkflowConstants.STATUS_APPROVED) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean isDenied() {
+		if (getStatus() == WorkflowConstants.STATUS_DENIED) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean isDraft() {
+		if (getStatus() == WorkflowConstants.STATUS_DRAFT) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean isExpired() {
+		if (getStatus() == WorkflowConstants.STATUS_EXPIRED) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean isInactive() {
+		if (getStatus() == WorkflowConstants.STATUS_INACTIVE) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean isIncomplete() {
+		if (getStatus() == WorkflowConstants.STATUS_INCOMPLETE) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean isPending() {
+		if (getStatus() == WorkflowConstants.STATUS_PENDING) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean isScheduled() {
+		if (getStatus() == WorkflowConstants.STATUS_SCHEDULED) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public long getColumnBitmask() {
@@ -1028,8 +1590,20 @@ public class CommercePriceEntryModelImpl
 		commercePriceEntryImpl.setCProductId(getCProductId());
 		commercePriceEntryImpl.setPrice(getPrice());
 		commercePriceEntryImpl.setPromoPrice(getPromoPrice());
+		commercePriceEntryImpl.setDiscountDiscovery(isDiscountDiscovery());
+		commercePriceEntryImpl.setDiscountLevel1(getDiscountLevel1());
+		commercePriceEntryImpl.setDiscountLevel2(getDiscountLevel2());
+		commercePriceEntryImpl.setDiscountLevel3(getDiscountLevel3());
+		commercePriceEntryImpl.setDiscountLevel4(getDiscountLevel4());
 		commercePriceEntryImpl.setHasTierPrice(isHasTierPrice());
+		commercePriceEntryImpl.setBulkPricing(isBulkPricing());
+		commercePriceEntryImpl.setDisplayDate(getDisplayDate());
+		commercePriceEntryImpl.setExpirationDate(getExpirationDate());
 		commercePriceEntryImpl.setLastPublishDate(getLastPublishDate());
+		commercePriceEntryImpl.setStatus(getStatus());
+		commercePriceEntryImpl.setStatusByUserId(getStatusByUserId());
+		commercePriceEntryImpl.setStatusByUserName(getStatusByUserName());
+		commercePriceEntryImpl.setStatusDate(getStatusDate());
 
 		commercePriceEntryImpl.resetOriginalValues();
 
@@ -1192,7 +1766,38 @@ public class CommercePriceEntryModelImpl
 
 		commercePriceEntryCacheModel.promoPrice = getPromoPrice();
 
+		commercePriceEntryCacheModel.discountDiscovery = isDiscountDiscovery();
+
+		commercePriceEntryCacheModel.discountLevel1 = getDiscountLevel1();
+
+		commercePriceEntryCacheModel.discountLevel2 = getDiscountLevel2();
+
+		commercePriceEntryCacheModel.discountLevel3 = getDiscountLevel3();
+
+		commercePriceEntryCacheModel.discountLevel4 = getDiscountLevel4();
+
 		commercePriceEntryCacheModel.hasTierPrice = isHasTierPrice();
+
+		commercePriceEntryCacheModel.bulkPricing = isBulkPricing();
+
+		Date displayDate = getDisplayDate();
+
+		if (displayDate != null) {
+			commercePriceEntryCacheModel.displayDate = displayDate.getTime();
+		}
+		else {
+			commercePriceEntryCacheModel.displayDate = Long.MIN_VALUE;
+		}
+
+		Date expirationDate = getExpirationDate();
+
+		if (expirationDate != null) {
+			commercePriceEntryCacheModel.expirationDate =
+				expirationDate.getTime();
+		}
+		else {
+			commercePriceEntryCacheModel.expirationDate = Long.MIN_VALUE;
+		}
 
 		Date lastPublishDate = getLastPublishDate();
 
@@ -1202,6 +1807,27 @@ public class CommercePriceEntryModelImpl
 		}
 		else {
 			commercePriceEntryCacheModel.lastPublishDate = Long.MIN_VALUE;
+		}
+
+		commercePriceEntryCacheModel.status = getStatus();
+
+		commercePriceEntryCacheModel.statusByUserId = getStatusByUserId();
+
+		commercePriceEntryCacheModel.statusByUserName = getStatusByUserName();
+
+		String statusByUserName = commercePriceEntryCacheModel.statusByUserName;
+
+		if ((statusByUserName != null) && (statusByUserName.length() == 0)) {
+			commercePriceEntryCacheModel.statusByUserName = null;
+		}
+
+		Date statusDate = getStatusDate();
+
+		if (statusDate != null) {
+			commercePriceEntryCacheModel.statusDate = statusDate.getTime();
+		}
+		else {
+			commercePriceEntryCacheModel.statusDate = Long.MIN_VALUE;
 		}
 
 		return commercePriceEntryCacheModel;
@@ -1298,8 +1924,20 @@ public class CommercePriceEntryModelImpl
 	private long _CProductId;
 	private BigDecimal _price;
 	private BigDecimal _promoPrice;
+	private boolean _discountDiscovery;
+	private BigDecimal _discountLevel1;
+	private BigDecimal _discountLevel2;
+	private BigDecimal _discountLevel3;
+	private BigDecimal _discountLevel4;
 	private boolean _hasTierPrice;
+	private boolean _bulkPricing;
+	private Date _displayDate;
+	private Date _expirationDate;
 	private Date _lastPublishDate;
+	private int _status;
+	private long _statusByUserId;
+	private String _statusByUserName;
+	private Date _statusDate;
 	private long _columnBitmask;
 	private CommercePriceEntry _escapedModel;
 
