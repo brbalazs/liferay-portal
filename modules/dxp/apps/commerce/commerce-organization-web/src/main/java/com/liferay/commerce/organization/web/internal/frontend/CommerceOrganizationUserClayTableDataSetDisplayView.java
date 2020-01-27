@@ -15,11 +15,12 @@
 package com.liferay.commerce.organization.web.internal.frontend;
 
 import com.liferay.commerce.account.model.CommerceAccount;
-import com.liferay.commerce.frontend.ClayTableAction;
-import com.liferay.commerce.frontend.ClayTableActionProvider;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayView;
 import com.liferay.commerce.frontend.clay.table.ClayTableDataSetDisplayView;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
@@ -68,22 +69,22 @@ import org.osgi.service.component.annotations.Reference;
 		"commerce.table.name=" + CommerceOrganizationUserClayTableDataSetDisplayView.NAME
 	},
 	service = {
-		ClayTableActionProvider.class, ClayTableDataSetDisplayView.class,
+		ClayDataSetActionProvider.class, ClayDataSetDisplayView.class,
 		CommerceDataSetDataProvider.class
 	}
 )
 public class CommerceOrganizationUserClayTableDataSetDisplayView
-	implements ClayTableActionProvider, ClayTableDataSetDisplayView,
-			   CommerceDataSetDataProvider<User> {
+	extends ClayTableDataSetDisplayView
+	implements ClayDataSetActionProvider, CommerceDataSetDataProvider<User> {
 
 	public static final String NAME = "commerceOrganizationUsers";
 
 	@Override
-	public List<ClayTableAction> clayTableActions(
+	public List<ClayDataSetAction> clayDataSetActions(
 			HttpServletRequest httpServletRequest, long groupId, Object model)
 		throws PortalException {
 
-		List<ClayTableAction> clayTableActions = new ArrayList<>();
+		List<ClayDataSetAction> clayTableActions = new ArrayList<>();
 
 		User user = (User)model;
 
@@ -100,12 +101,12 @@ public class CommerceOrganizationUserClayTableDataSetDisplayView
 			String viewURL = _getOrganizationUserViewDetailURL(
 				user.getUserId(), httpServletRequest);
 
-			ClayTableAction viewClayTableAction = new ClayTableAction(
+			ClayDataSetAction viewClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK, viewURL, StringPool.BLANK,
 				LanguageUtil.get(httpServletRequest, "view"), null, false,
 				false);
 
-			clayTableActions.add(viewClayTableAction);
+			clayTableActions.add(viewClayDataSetAction);
 		}
 
 		if (permissionChecker.isCompanyAdmin() ||
@@ -121,7 +122,7 @@ public class CommerceOrganizationUserClayTableDataSetDisplayView
 			sb.append(StringPool.CLOSE_PARENTHESIS);
 			sb.append(StringPool.SEMICOLON);
 
-			ClayTableAction clayTableAction = new ClayTableAction(
+			ClayDataSetAction clayTableAction = new ClayDataSetAction(
 				StringPool.BLANK, sb.toString(), StringPool.BLANK,
 				LanguageUtil.get(httpServletRequest, "delete"), null, false,
 				false);
@@ -159,11 +160,6 @@ public class CommerceOrganizationUserClayTableDataSetDisplayView
 	}
 
 	@Override
-	public String getId() {
-		return NAME;
-	}
-
-	@Override
 	public List<User> getItems(
 			HttpServletRequest httpServletRequest, Filter filter,
 			Pagination pagination, Sort sort)
@@ -196,11 +192,6 @@ public class CommerceOrganizationUserClayTableDataSetDisplayView
 		}
 
 		return users;
-	}
-
-	@Override
-	public boolean isShowActionsMenu() {
-		return true;
 	}
 
 	protected String[] getUserRoles(

@@ -23,14 +23,13 @@ request.setAttribute("view.jsp-filterPerOrganization", false);
 %>
 
 <div class="commerce-organization-container" id="<portlet:namespace />entriesContainer">
-	<commerce-ui:table
+	<commerce-ui:dataset-display
 		dataProviderKey="<%= CommerceOrganizationClayTableDataSetDisplayView.NAME %>"
-		filter="<%= commerceOrganizationDisplayContext.getOrganizationFilter() %>"
-		itemPerPage="<%= 5 %>"
+		id="<%= CommerceOrganizationClayTableDataSetDisplayView.NAME %>"
+		itemsPerPage="<%= 10 %>"
 		namespace="<%= renderResponse.getNamespace() %>"
-		pageNumber="1"
+		pageNumber="<%= 1 %>"
 		portletURL="<%= commerceOrganizationDisplayContext.getPortletURL() %>"
-		tableName="<%= CommerceOrganizationClayTableDataSetDisplayView.NAME %>"
 	/>
 </div>
 

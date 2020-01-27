@@ -24,14 +24,13 @@ PortletURL portletURL = currentURLObj;
 portletURL.setParameter(PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL", backURL);
 %>
 
-<commerce-ui:table
+<commerce-ui:dataset-display
 	dataProviderKey="<%= CommerceOrganizationUserClayTableDataSetDisplayView.NAME %>"
-	filter="<%= commerceOrganizationDisplayContext.getOrganizationFilter() %>"
-	itemPerPage="<%= 5 %>"
+	id="<%= CommerceOrganizationClayTableDataSetDisplayView.NAME %>"
+	itemsPerPage="<%= 10 %>"
 	namespace="<%= renderResponse.getNamespace() %>"
-	pageNumber="1"
+	pageNumber="<%= 1 %>"
 	portletURL="<%= commerceOrganizationDisplayContext.getPortletURL() %>"
-	tableName="<%= CommerceOrganizationUserClayTableDataSetDisplayView.NAME %>"
 />
 
 <c:if test="<%= OrganizationPermissionUtil.contains(permissionChecker, commerceOrganizationDisplayContext.getOrganizationId(), ActionKeys.ASSIGN_MEMBERS) %>">

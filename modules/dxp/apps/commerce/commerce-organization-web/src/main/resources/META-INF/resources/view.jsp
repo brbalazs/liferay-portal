@@ -68,14 +68,13 @@ NPMResolver npmResolver = NPMResolverProvider.getNPMResolver();
 <c:choose>
 	<c:when test="<%= viewMode.equals(CommerceOrganizationConstants.LIST_VIEW_MODE) %>">
 		<div class="commerce-organization-container container container-fluid" id="<portlet:namespace />entriesContainer">
-			<commerce-ui:table
+			<commerce-ui:dataset-display
 				dataProviderKey="<%= CommerceOrganizationClayTableDataSetDisplayView.NAME %>"
-				filter="<%= commerceOrganizationDisplayContext.getOrganizationFilter() %>"
-				itemPerPage="<%= 5 %>"
+				id="<%= CommerceOrganizationClayTableDataSetDisplayView.NAME %>"
+				itemsPerPage="<%= 10 %>"
 				namespace="<%= renderResponse.getNamespace() %>"
-				pageNumber="1"
+				pageNumber="<%= 1 %>"
 				portletURL="<%= commerceOrganizationDisplayContext.getPortletURL() %>"
-				tableName="<%= CommerceOrganizationClayTableDataSetDisplayView.NAME %>"
 			/>
 		</div>
 	</c:when>

@@ -14,11 +14,12 @@
 
 package com.liferay.commerce.organization.web.internal.frontend;
 
-import com.liferay.commerce.frontend.ClayTableAction;
-import com.liferay.commerce.frontend.ClayTableActionProvider;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayView;
 import com.liferay.commerce.frontend.clay.table.ClayTableDataSetDisplayView;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
@@ -61,22 +62,23 @@ import org.osgi.service.component.annotations.Reference;
 		"commerce.table.name=" + CommerceOrganizationClayTableDataSetDisplayView.NAME
 	},
 	service = {
-		ClayTableActionProvider.class, ClayTableDataSetDisplayView.class,
+		ClayDataSetActionProvider.class, ClayDataSetDisplayView.class,
 		CommerceDataSetDataProvider.class
 	}
 )
 public class CommerceOrganizationClayTableDataSetDisplayView
-	implements ClayTableActionProvider, ClayTableDataSetDisplayView,
+	extends ClayTableDataSetDisplayView
+	implements ClayDataSetActionProvider,
 			   CommerceDataSetDataProvider<Organization> {
 
 	public static final String NAME = "commerceOrganizations";
 
 	@Override
-	public List<ClayTableAction> clayTableActions(
+	public List<ClayDataSetAction> clayDataSetActions(
 			HttpServletRequest httpServletRequest, long groupId, Object model)
 		throws PortalException {
 
-		List<ClayTableAction> clayTableActions = new ArrayList<>();
+		List<ClayDataSetAction> clayDataSetActions = new ArrayList<>();
 
 		Organization organization = (Organization)model;
 
@@ -91,25 +93,25 @@ public class CommerceOrganizationClayTableDataSetDisplayView
 			String viewURL = _getViewOrganizationDetailURL(
 				organization.getOrganizationId(), httpServletRequest);
 
-			ClayTableAction viewClayTableAction = new ClayTableAction(
+			ClayDataSetAction viewClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK, viewURL, StringPool.BLANK,
 				LanguageUtil.get(httpServletRequest, "view-detail"), null,
 				false, false);
 
-			clayTableActions.add(viewClayTableAction);
+			clayDataSetActions.add(viewClayDataSetAction);
 
 			String viewSubOrganizationsURL =
 				_getOrganizationViewSuborganizationsURL(
 					organization.getOrganizationId(), httpServletRequest);
 
-			ClayTableAction viewSubOrganizationsClayTableAction =
-				new ClayTableAction(
+			ClayDataSetAction viewSubOrganizationsClayDataSetAction =
+				new ClayDataSetAction(
 					StringPool.BLANK, viewSubOrganizationsURL, StringPool.BLANK,
 					LanguageUtil.get(
 						httpServletRequest, "view-suborganizations"),
 					null, false, false);
 
-			clayTableActions.add(viewSubOrganizationsClayTableAction);
+			clayDataSetActions.add(viewSubOrganizationsClayDataSetAction);
 		}
 
 		if (OrganizationPermissionUtil.contains(
@@ -126,15 +128,15 @@ public class CommerceOrganizationClayTableDataSetDisplayView
 			sb.append(StringPool.CLOSE_PARENTHESIS);
 			sb.append(StringPool.SEMICOLON);
 
-			ClayTableAction deleteClayTableAction = new ClayTableAction(
+			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK, sb.toString(), StringPool.BLANK,
 				LanguageUtil.get(httpServletRequest, "delete"), null, false,
 				false);
 
-			clayTableActions.add(deleteClayTableAction);
+			clayDataSetActions.add(deleteClayDataSetAction);
 		}
 
-		return clayTableActions;
+		return clayDataSetActions;
 	}
 
 	@Override
@@ -162,11 +164,6 @@ public class CommerceOrganizationClayTableDataSetDisplayView
 		clayTableSchemaBuilder.addField("path", "path");
 
 		return clayTableSchemaBuilder.build();
-	}
-
-	@Override
-	public String getId() {
-		return NAME;
 	}
 
 	@Override
@@ -200,11 +197,6 @@ public class CommerceOrganizationClayTableDataSetDisplayView
 		}
 
 		return organizations;
-	}
-
-	@Override
-	public boolean isShowActionsMenu() {
-		return true;
 	}
 
 	protected String getPath(String treePath) throws PortalException {
