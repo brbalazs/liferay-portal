@@ -2,36 +2,38 @@ package com.liferay.commerce.google.merchant.internal.xml;
 
 import com.liferay.commerce.google.merchant.internal.xml.model.Feed;
 import com.liferay.commerce.google.merchant.internal.xml.model.Link;
+import com.liferay.commerce.product.catalog.CPCatalogEntry;
+import com.liferay.commerce.product.catalog.CPQuery;
+import com.liferay.commerce.product.data.source.CPDataSourceResult;
 import com.liferay.commerce.product.exception.InvalidCommerceChannelTypeException;
-import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.model.CommerceChannelConstants;
-import com.liferay.commerce.product.model.CommerceChannelRel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
-import com.liferay.commerce.product.service.CommerceChannelRelLocalService;
-import com.liferay.portal.kernel.dao.orm.Criterion;
-import com.liferay.portal.kernel.dao.orm.DynamicQuery;
-import com.liferay.portal.kernel.dao.orm.Property;
-import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
+import com.liferay.commerce.product.util.CPDefinitionHelper;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.model.ClassName;
 import com.liferay.portal.kernel.model.Group;
-import com.liferay.portal.kernel.service.ClassNameLocalService;
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.util.Portal;
 
+import java.io.Serializable;
 import java.io.StringWriter;
 
 import java.sql.Timestamp;
 
 import java.time.Instant;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -44,7 +46,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = ProductFeedXMLGenerator.class)
 public class ProductFeedXMLGenerator {
 
-	public String getCommerceChannelProductsXML(long commerceChannelId)
+	public String generateFeedXML(long commerceChannelId)
 		throws PortalException {
 
 		CommerceChannel commerceChannel =
@@ -64,8 +66,9 @@ public class ProductFeedXMLGenerator {
 
 		feed.setTitle(commerceChannel.getName());
 
-		long groupId = commerceChannel.getSiteGroupId();
-		Group group = _groupLocalService.getGroup(groupId);
+		long siteGroupId = commerceChannel.getSiteGroupId();
+
+		Group group = _groupLocalService.getGroup(siteGroupId);
 
 		String href = _portal.getLayoutSetDisplayURL(
 			group.getPublicLayoutSet(), false);
@@ -82,21 +85,10 @@ public class ProductFeedXMLGenerator {
 
 		feed.setUpdated(updated);
 
-		DynamicQuery dynamicQuery =
-			_commerceChannelRelLocalService.dynamicQuery();
+		List<CPCatalogEntry> cpCatalogEntries = getCPCatalogEntriesByChannel(
+			commerceChannel);
 
-		Property property = PropertyFactoryUtil.forName("classNameId");
-		ClassName className = _classNameLocalService.getClassName(
-			CPDefinition.class.getName());
-
-		Criterion criterion = property.eq(className.getClassNameId());
-
-		dynamicQuery.add(criterion);
-
-		List<CommerceChannelRel> commerceChannelRels =
-			_commerceChannelRelLocalService.dynamicQuery(dynamicQuery);
-
-		for (CommerceChannelRel commerceChannelRel : commerceChannelRels) {
+		for (CPCatalogEntry cpCatalogEntry : cpCatalogEntries) {
 			//TODO COMMERCE-2690 add XML for a product here
 		}
 
@@ -118,14 +110,35 @@ public class ProductFeedXMLGenerator {
 		}
 	}
 
-	@Reference
-	private ClassNameLocalService _classNameLocalService;
+	private List<CPCatalogEntry> getCPCatalogEntriesByChannel(
+			CommerceChannel commerceChannel) throws PortalException {
+
+		Map<String, Serializable> attributes = new HashMap<>();
+
+		long commerceChannelGroupId = commerceChannel.getGroupId();
+
+		attributes.put(
+			"commerceChannelGroupId", commerceChannelGroupId);
+		attributes.put(Field.STATUS, WorkflowConstants.STATUS_APPROVED);
+
+		SearchContext searchContext = new SearchContext();
+		searchContext.setAttributes(attributes);
+		searchContext.setCompanyId(commerceChannel.getCompanyId());
+
+		CPQuery cpQuery = new CPQuery();
+
+		CPDataSourceResult cpDataSourceResult =
+			_cpDefinitionHelper.search(commerceChannelGroupId, searchContext,
+				cpQuery, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+		return cpDataSourceResult.getCPCatalogEntries();
+	}
 
 	@Reference
 	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
-	private CommerceChannelRelLocalService _commerceChannelRelLocalService;
+	private CPDefinitionHelper _cpDefinitionHelper;
 
 	@Reference
 	private GroupLocalService _groupLocalService;
