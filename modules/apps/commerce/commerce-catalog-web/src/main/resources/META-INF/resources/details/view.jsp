@@ -14,23 +14,23 @@
  */
 --%>
 
-<%@ include file="/init.jsp" %>
+<%@ include file="../init.jsp" %>
 
 <%
-	// TODO CommerceCatalogsDisplayContext
+
+	CommerceCatalogDisplayContext commerceCatalogDisplayContext = (CommerceCatalogDisplayContext) request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+
+	CommerceCatalog commerceCatalog = commerceCatalogDisplayContext.getCommerceCatalog();
 
 	String headerTitle = null;
 
-	if (commerceOrder != null) {
-		headerTitle = LanguageUtil.format(request, "order-x", commerceOrder.getCommerceOrderId());
-	}
-	else {
-		headerTitle = LanguageUtil.get(request, "add-order");
+	if (commerceCatalog != null) {
+		headerTitle = commerceCatalog.getName();
 	}
 
 	portletDisplay.setShowBackIcon(true);
 
-	if (Validator.isNull(redirect)) {
+	if (redirect == null) {
 		portletDisplay.setURLBack(String.valueOf(renderResponse.createRenderURL()));
 	}
 	else {
@@ -39,22 +39,22 @@
 %>
 
 <commerce-ui:header
-	actions="<%-- TOOO implement displayContext = .getHeaderActionModels() --%>"
+	actions="<%= commerceCatalogDisplayContext.getHeaderActionModels() %>"
 	assignerModalUrl="/assigner/modal/url"
-	bean="<%!-- TODO implement = commerceCatalogs --%>"
-	dropdownItems="<%-- TOOO implement displayContext = .getHeaderActionModels() --%>"
+	bean="<%= commerceCatalog %>"
+	dropdownItems="<%= commerceCatalogDisplayContext.getDropdownItems() %>"
 	externalReferenceCode="123asd"
 	externalReferenceCodeEditUrl="/external/reference/code/edit/url"
-	model="<%!-- TODO implement = commerceCatalogs --%>"
-	thumbnailUrl="<%-- TOOO implement displayContext = .getHeaderActionModels() --%>"
+	model="<%= commerceCatalog %>"
+	thumbnailUrl="<%-- TOOO it would be nice to have the proper Default Catalog Image --%>"
 	title="<%= headerTitle %>"
 />
 
-<div id="<portlet:namespace />editOrderContainer">
+<div id="<portlet:namespace />editCatalogContainer">
 	<liferay-frontend:screen-navigation
 		fullContainerCssClass="col-12 pt-4"
-		key="<%-- TODO implement screen navigation constants %>"
-		modelBean="<%!-- TODO implement = commerceCatalogs --%>"
+		key="<%= CommerceCatalogScreenNavigationConstants.SCREEN_NAVIGATION_KEY_COMMERCE_CATALOG_GENERAL %>"
+		modelBean="<%= CommerceCatalog.class %>"
 		portletURL="<%= currentURLObj %>"
 	/>
 </div>

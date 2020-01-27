@@ -16,15 +16,18 @@ package com.liferay.commerce.catalog.web.internal.display.context;
 
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.commerce.product.util.CPUtil;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
@@ -34,6 +37,7 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.portlet.PortletRequest;
@@ -135,6 +139,62 @@ public class CommerceCatalogDisplayContext
 		}
 
 		return portletURL;
+	}
+
+	public List<HeaderActionModel> getHeaderActionModels() {
+
+		HttpServletRequest request = cpRequestHelper.getRequest();
+
+		List<HeaderActionModel> headerActionModels = new ArrayList<>();
+
+		HeaderActionModel headerActionModelCancel = new HeaderActionModel();
+
+		headerActionModelCancel.setLabel(
+			LanguageUtil.get(request, "cancel"));
+		headerActionModelCancel.setStyle("unstyled");
+
+		headerActionModels.add(headerActionModelCancel);
+
+		HeaderActionModel headerActionModelSave = new HeaderActionModel();
+
+		headerActionModelSave.setLabel(
+			LanguageUtil.get(request, "save"));
+		headerActionModelSave.setStyle("secondary");
+
+		headerActionModels.add(headerActionModelSave);
+
+		HeaderActionModel headerActionModelSaveAndPublish =
+			new HeaderActionModel();
+
+		headerActionModelSaveAndPublish.setLabel(
+			LanguageUtil.get(request, "save-and-publish"));
+
+		headerActionModels.add(headerActionModelSaveAndPublish);
+
+		return headerActionModels;
+	}
+
+	public List<DropdownItem> getDropdownItems() {
+		List<DropdownItem> headerDropdownItems = new ArrayList<>();
+
+		DropdownItem headerDropdownItem1 = new DropdownItem();
+
+		headerDropdownItem1.setLabel("First link");
+		headerDropdownItem1.setHref("/first-link");
+		headerDropdownItem1.setIcon("home");
+
+		headerDropdownItems.add(headerDropdownItem1);
+
+		DropdownItem headerDropdownItem2 = new DropdownItem();
+
+		headerDropdownItem2.setLabel("Second link");
+		headerDropdownItem2.setIcon("blogs");
+		headerDropdownItem2.setHref("/second-link");
+		headerDropdownItem2.setActive(true);
+
+		headerDropdownItems.add(headerDropdownItem2);
+
+		return headerDropdownItems;
 	}
 
 	@Override
