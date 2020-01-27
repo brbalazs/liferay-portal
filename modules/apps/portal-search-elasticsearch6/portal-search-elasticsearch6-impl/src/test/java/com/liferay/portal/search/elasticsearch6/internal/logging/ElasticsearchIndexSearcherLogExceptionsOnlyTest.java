@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.search.generic.BooleanQueryImpl;
 import com.liferay.portal.kernel.search.generic.TermQueryImpl;
 import com.liferay.portal.search.elasticsearch6.internal.ElasticsearchIndexingFixture;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchFixture;
+import com.liferay.portal.search.elasticsearch6.internal.connection.LiferayIndexCreator;
 import com.liferay.portal.search.test.util.indexing.BaseIndexingTestCase;
 import com.liferay.portal.search.test.util.indexing.IndexingFixture;
 import com.liferay.portal.search.test.util.logging.ExpectedLogTestRule;
@@ -69,13 +70,12 @@ public class ElasticsearchIndexSearcherLogExceptionsOnlyTest
 
 	@Override
 	protected IndexingFixture createIndexingFixture() {
-		return new ElasticsearchIndexingFixture() {
-			{
-				setCompanyId(BaseIndexingTestCase.COMPANY_ID);
-				setElasticsearchFixture(createElasticsearchFixture());
-				setLiferayMappingsAddedToIndex(true);
-			}
-		};
+		ElasticsearchFixture elasticsearchFixture =
+			createElasticsearchFixture();
+
+		return new ElasticsearchIndexingFixture(
+			elasticsearchFixture, BaseIndexingTestCase.COMPANY_ID,
+			new LiferayIndexCreator(elasticsearchFixture));
 	}
 
 	protected Query getMalformedQuery() {

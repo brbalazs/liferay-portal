@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.search.elasticsearch6.internal.ElasticsearchIndexingFixture;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchFixture;
+import com.liferay.portal.search.elasticsearch6.internal.connection.LiferayIndexCreator;
 import com.liferay.portal.search.test.util.indexing.BaseIndexingTestCase;
 import com.liferay.portal.search.test.util.indexing.DocumentCreationHelpers;
 import com.liferay.portal.search.test.util.indexing.IndexingFixture;
@@ -242,13 +243,12 @@ public class ElasticsearchIndexWriterExceptionsTest
 
 	@Override
 	protected IndexingFixture createIndexingFixture() {
-		return new ElasticsearchIndexingFixture() {
-			{
-				setCompanyId(BaseIndexingTestCase.COMPANY_ID);
-				setElasticsearchFixture(new ElasticsearchFixture(getClass()));
-				setLiferayMappingsAddedToIndex(true);
-			}
-		};
+		ElasticsearchFixture elasticsearchFixture = new ElasticsearchFixture(
+			getClass());
+
+		return new ElasticsearchIndexingFixture(
+			elasticsearchFixture, BaseIndexingTestCase.COMPANY_ID,
+			new LiferayIndexCreator(elasticsearchFixture));
 	}
 
 }
