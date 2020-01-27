@@ -1,4 +1,4 @@
-package com.liferay.commerce.google.merchant.xml.model;
+package com.liferay.commerce.google.merchant.internal.xml.model;
 
 import java.util.ArrayList;
 import java.util.List;

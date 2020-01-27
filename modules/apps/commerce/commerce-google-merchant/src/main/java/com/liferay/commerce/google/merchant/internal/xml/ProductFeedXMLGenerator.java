@@ -1,7 +1,7 @@
-package com.liferay.commerce.google.merchant.xml;
+package com.liferay.commerce.google.merchant.internal.xml;
 
-import com.liferay.commerce.google.merchant.xml.model.Feed;
-import com.liferay.commerce.google.merchant.xml.model.Link;
+import com.liferay.commerce.google.merchant.internal.xml.model.Feed;
+import com.liferay.commerce.google.merchant.internal.xml.model.Link;
 import com.liferay.commerce.product.exception.InvalidCommerceChannelTypeException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CommerceChannel;
