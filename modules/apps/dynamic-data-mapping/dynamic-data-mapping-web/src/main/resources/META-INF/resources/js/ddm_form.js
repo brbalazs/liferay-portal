@@ -448,6 +448,31 @@ AUI.add(
 
 						instance.get('container').remove();
 					},
+					
+					fillEmptyLocales() {
+						var instance = this;
+	
+						instance.get('fields').forEach(field => {
+							if (!field.get('localizable')) {
+								return;
+							}
+	
+							var localizationMap = field.get('localizationMap');
+	
+							var defaultLocale = instance.getDefaultLocale();
+	
+							instance.get('availableLanguageIds').forEach(locale => {
+								if (Object.keys(localizationMap).includes(locale)) {
+									return;
+								}
+	
+								localizationMap[locale] =
+									localizationMap[defaultLocale];
+							});
+	
+							field.set('localizationMap', localizationMap);
+						});
+					},
 
 					createField: function(fieldTemplate) {
 						var instance = this;
@@ -3458,6 +3483,31 @@ AUI.add(
 						);
 					},
 
+					fillEmptyLocales: function() {
+						var instance = this;
+	
+						instance.get('fields').forEach(field => {
+							if (!field.get('localizable')) {
+								return;
+							}
+	
+							var localizationMap = field.get('localizationMap');
+	
+							var defaultLocale = instance.getDefaultLocale();
+	
+							instance.get('availableLanguageIds').forEach(locale => {
+								if (Object.keys(localizationMap).includes(locale)) {
+									return;
+								}
+	
+								localizationMap[locale] =
+									localizationMap[defaultLocale];
+							});
+	
+							field.set('localizationMap', localizationMap);
+						});
+					},
+
 					finalizeRepeatableFieldLocalizations: function() {
 						var instance = this;
 
@@ -3820,6 +3870,8 @@ AUI.add(
 
 					_onSubmitForm: function(event) {
 						var instance = this;
+						
+						instance.fillEmptyLocales();
 
 						instance.finalizeRepeatableFieldLocalizations();
 
