@@ -39,13 +39,6 @@ public interface ProductResource {
 		return new Builder();
 	}
 
-	public Product getChannelProduct(Long channelId, Long productId)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse getChannelProductHttpResponse(
-			Long channelId, Long productId)
-		throws Exception;
-
 	public Page<Product> getChannelProductsPage(
 			Long channelId, String filterString, Pagination pagination,
 			String sortString)
@@ -54,6 +47,13 @@ public interface ProductResource {
 	public HttpInvoker.HttpResponse getChannelProductsPageHttpResponse(
 			Long channelId, String filterString, Pagination pagination,
 			String sortString)
+		throws Exception;
+
+	public Product getChannelProduct(Long channelId, Long productId)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse getChannelProductHttpResponse(
+			Long channelId, Long productId)
 		throws Exception;
 
 	public static class Builder {
@@ -110,69 +110,6 @@ public interface ProductResource {
 	}
 
 	public static class ProductResourceImpl implements ProductResource {
-
-		public Product getChannelProduct(Long channelId, Long productId)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getChannelProductHttpResponse(channelId, productId);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return ProductSerDes.toDTO(content);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw e;
-			}
-		}
-
-		public HttpInvoker.HttpResponse getChannelProductHttpResponse(
-				Long channelId, Long productId)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}",
-				channelId, productId);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
 
 		public Page<Product> getChannelProductsPage(
 				Long channelId, String filterString, Pagination pagination,
@@ -240,6 +177,69 @@ public interface ProductResource {
 					_builder._port +
 						"/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products",
 				channelId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Product getChannelProduct(Long channelId, Long productId)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getChannelProductHttpResponse(channelId, productId);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return ProductSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw e;
+			}
+		}
+
+		public HttpInvoker.HttpResponse getChannelProductHttpResponse(
+				Long channelId, Long productId)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}",
+				channelId, productId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

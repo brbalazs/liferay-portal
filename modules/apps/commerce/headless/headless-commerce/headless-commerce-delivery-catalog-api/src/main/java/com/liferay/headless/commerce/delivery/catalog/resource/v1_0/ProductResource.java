@@ -42,11 +42,11 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface ProductResource {
 
-	public Product getChannelProduct(Long channelId, Long productId)
-		throws Exception;
-
 	public Page<Product> getChannelProductsPage(
 			Long channelId, Filter filter, Pagination pagination, Sort[] sorts)
+		throws Exception;
+
+	public Product getChannelProduct(Long channelId, Long productId)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

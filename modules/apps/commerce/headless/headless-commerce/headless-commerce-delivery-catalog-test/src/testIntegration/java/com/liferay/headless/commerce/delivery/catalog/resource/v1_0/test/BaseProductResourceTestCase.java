@@ -213,50 +213,6 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	@Test
-	public void testGetChannelProduct() throws Exception {
-		Product postProduct = testGetChannelProduct_addProduct();
-
-		Product getProduct = productResource.getChannelProduct(
-			postProduct.getChannelId(), postProduct.getId());
-
-		assertEquals(postProduct, getProduct);
-		assertValid(getProduct);
-	}
-
-	protected Product testGetChannelProduct_addProduct() throws Exception {
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLGetChannelProduct() throws Exception {
-		Product product = testGraphQLProduct_addProduct();
-
-		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"query",
-			new GraphQLField(
-				"channelProduct",
-				new HashMap<String, Object>() {
-					{
-						put("channelId", product.getChannelId());
-						put("productId", product.getId());
-					}
-				},
-				graphQLFields.toArray(new GraphQLField[0])));
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			invoke(graphQLField.toString()));
-
-		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
-
-		Assert.assertTrue(
-			equalsJSONObject(
-				product, dataJSONObject.getJSONObject("channelProduct")));
-	}
-
-	@Test
 	public void testGetChannelProductsPage() throws Exception {
 		Page<Product> page = productResource.getChannelProductsPage(
 			testGetChannelProductsPage_getChannelId(), null,
@@ -507,6 +463,50 @@ public abstract class BaseProductResourceTestCase {
 		throws Exception {
 
 		return null;
+	}
+
+	@Test
+	public void testGetChannelProduct() throws Exception {
+		Product postProduct = testGetChannelProduct_addProduct();
+
+		Product getProduct = productResource.getChannelProduct(
+			postProduct.getChannelId(), postProduct.getId());
+
+		assertEquals(postProduct, getProduct);
+		assertValid(getProduct);
+	}
+
+	protected Product testGetChannelProduct_addProduct() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetChannelProduct() throws Exception {
+		Product product = testGraphQLProduct_addProduct();
+
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"query",
+			new GraphQLField(
+				"channelProduct",
+				new HashMap<String, Object>() {
+					{
+						put("channelId", product.getChannelId());
+						put("productId", product.getId());
+					}
+				},
+				graphQLFields.toArray(new GraphQLField[0])));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
+		Assert.assertTrue(
+			equalsJSONObject(
+				product, dataJSONObject.getJSONObject("channelProduct")));
 	}
 
 	protected Product testGraphQLProduct_addProduct() throws Exception {
