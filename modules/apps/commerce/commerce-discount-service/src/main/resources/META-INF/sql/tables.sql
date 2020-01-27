@@ -43,6 +43,20 @@ create table CommerceDiscount (
 	statusDate DATE null
 );
 
+create table CommerceDiscountAccountRel (
+	uuid_ VARCHAR(75) null,
+	commerceDiscountAccountRelId LONG not null primary key,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	commerceAccountId LONG,
+	commerceDiscountId LONG,
+	order_ INTEGER,
+	lastPublishDate DATE null
+);
+
 create table CommerceDiscountRel (
 	commerceDiscountRelId LONG not null primary key,
 	companyId LONG,

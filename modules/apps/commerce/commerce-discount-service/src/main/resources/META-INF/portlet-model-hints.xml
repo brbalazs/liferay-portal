@@ -36,6 +36,19 @@
 		<field name="statusByUserName" type="String" />
 		<field name="statusDate" type="Date" />
 	</model>
+	<model name="com.liferay.commerce.discount.model.CommerceDiscountAccountRel">
+		<field name="uuid" type="String" />
+		<field name="commerceDiscountAccountRelId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="commerceAccountId" type="long" />
+		<field name="commerceDiscountId" type="long" />
+		<field name="order" type="int" />
+		<field name="lastPublishDate" type="Date" />
+	</model>
 	<model name="com.liferay.commerce.discount.model.CommerceDiscountCommerceAccountGroupRel">
 		<field name="commerceDiscountCommerceAccountGroupRelId" type="long" />
 		<field name="companyId" type="long" />

@@ -298,6 +298,95 @@ public class CommerceDiscountLocalServiceUtil {
 			uuid, companyId);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscount>
+			findByA_A_C_or_U_Order(
+				long commerceAccountId, long[] commerceAccountGroupIds,
+				long commerceChannelId, String commerceDiscountTargetType) {
+
+		return getService().findByA_A_C_or_U_Order(
+			commerceAccountId, commerceAccountGroupIds, commerceChannelId,
+			commerceDiscountTargetType);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscount>
+			findByA_A_C_or_U_Product(
+				long commerceAccountId, long[] commerceAccountGroupIds,
+				long commerceChannelId, long cpDefinitionId) {
+
+		return getService().findByA_A_C_or_U_Product(
+			commerceAccountId, commerceAccountGroupIds, commerceChannelId,
+			cpDefinitionId);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscount>
+			findByA_C_C_Order(
+				long commerceAccountId, String commerceDiscountTargetType) {
+
+		return getService().findByA_C_C_Order(
+			commerceAccountId, commerceDiscountTargetType);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscount>
+			findByA_C_C_Product(long commerceAccountId, long cpDefinitionId) {
+
+		return getService().findByA_C_C_Product(
+			commerceAccountId, cpDefinitionId);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscount>
+			findByAG_C_C_Order(
+				long[] commerceAccountGroupIds,
+				String commerceDiscountTargetType) {
+
+		return getService().findByAG_C_C_Order(
+			commerceAccountGroupIds, commerceDiscountTargetType);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscount>
+			findByAG_C_C_Product(
+				long[] commerceAccountGroupIds, long cpDefinitionId) {
+
+		return getService().findByAG_C_C_Product(
+			commerceAccountGroupIds, cpDefinitionId);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscount>
+			findByC_C_C_Order(
+				long commerceChannelId, String commerceDiscountTargetType) {
+
+		return getService().findByC_C_C_Order(
+			commerceChannelId, commerceDiscountTargetType);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscount>
+			findByC_C_C_Product(long commerceChannelId, long cpDefinitionId) {
+
+		return getService().findByC_C_C_Product(
+			commerceChannelId, cpDefinitionId);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscount>
+			findByUnqualifiedOrder(String commerceDiscountTargetType) {
+
+		return getService().findByUnqualifiedOrder(commerceDiscountTargetType);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscount>
+			findByUnqualifiedProduct(long cpDefinitionId) {
+
+		return getService().findByUnqualifiedProduct(cpDefinitionId);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
