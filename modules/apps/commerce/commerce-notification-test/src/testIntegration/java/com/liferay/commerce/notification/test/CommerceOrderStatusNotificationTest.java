@@ -150,23 +150,6 @@ public class CommerceOrderStatusNotificationTest {
 		Assert.assertEquals(1, commerceNotificationQueueEntriesCount);
 
 		_checkCommerceNotificationTemplate(
-			CommerceOrderConstants.ORDER_NOTIFICATION_PLACED);
-
-		_commerceOrderLocalService.updateOrderStatus(
-			_commerceOrder.getCommerceOrderId(),
-			CommerceOrderConstants.ORDER_STATUS_AWAITING_SHIPMENT);
-
-		// Notifications are asynchronous, give time to send
-
-		Thread.sleep(1000);
-
-		commerceNotificationQueueEntriesCount =
-			_commerceNotificationQueueEntryLocalService.
-				getCommerceNotificationQueueEntriesCount(_group.getGroupId());
-
-		Assert.assertEquals(2, commerceNotificationQueueEntriesCount);
-
-		_checkCommerceNotificationTemplate(
 			CommerceOrderConstants.ORDER_NOTIFICATION_AWAITING_SHIPMENT);
 
 		_commerceOrderLocalService.updateOrderStatus(
@@ -181,7 +164,7 @@ public class CommerceOrderStatusNotificationTest {
 			_commerceNotificationQueueEntryLocalService.
 				getCommerceNotificationQueueEntriesCount(_group.getGroupId());
 
-		Assert.assertEquals(3, commerceNotificationQueueEntriesCount);
+		Assert.assertEquals(2, commerceNotificationQueueEntriesCount);
 
 		_checkCommerceNotificationTemplate(
 			CommerceOrderConstants.ORDER_NOTIFICATION_SHIPPED);
@@ -198,7 +181,7 @@ public class CommerceOrderStatusNotificationTest {
 			_commerceNotificationQueueEntryLocalService.
 				getCommerceNotificationQueueEntriesCount(_group.getGroupId());
 
-		Assert.assertEquals(4, commerceNotificationQueueEntriesCount);
+		Assert.assertEquals(3, commerceNotificationQueueEntriesCount);
 
 		_checkCommerceNotificationTemplate(
 			CommerceOrderConstants.ORDER_NOTIFICATION_COMPLETED);
