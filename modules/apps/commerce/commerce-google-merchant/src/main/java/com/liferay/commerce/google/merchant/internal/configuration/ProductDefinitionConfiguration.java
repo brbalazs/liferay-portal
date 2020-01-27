@@ -41,4 +41,7 @@ public interface ProductDefinitionConfiguration {
 	)
 	public String checkIntervalUnit();
 
+	@Meta.AD(name="cron-expression", required = false)
+	public String cronExpression();
+
 }
