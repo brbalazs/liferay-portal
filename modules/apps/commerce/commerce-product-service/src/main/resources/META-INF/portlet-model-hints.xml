@@ -333,6 +333,19 @@
 		<field name="statusByUserName" type="String" />
 		<field name="statusDate" type="Date" />
 	</model>
+	<model name="com.liferay.commerce.product.model.CPInstanceOptionValueRel">
+		<field name="uuid" type="String" />
+		<field name="CPInstanceOptionValueRelId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="CPDefinitionOptionRelId" type="long" />
+		<field name="CPDefinitionOptionValueRelId" type="long" />
+		<field name="CPInstanceId" type="long" />
+	</model>
 	<model name="com.liferay.commerce.product.model.CPMeasurementUnit">
 		<field name="uuid" type="String" />
 		<field name="CPMeasurementUnitId" type="long" />

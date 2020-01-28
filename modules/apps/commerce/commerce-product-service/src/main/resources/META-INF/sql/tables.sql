@@ -220,6 +220,20 @@ create table CPInstance (
 	statusDate DATE null
 );
 
+create table CPInstanceOptionValueRel (
+	uuid_ VARCHAR(75) null,
+	CPInstanceOptionValueRelId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	CPDefinitionOptionRelId LONG,
+	CPDefinitionOptionValueRelId LONG,
+	CPInstanceId LONG
+);
+
 create table CPMeasurementUnit (
 	uuid_ VARCHAR(75) null,
 	CPMeasurementUnitId LONG not null primary key,
