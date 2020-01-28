@@ -1,10 +1,8 @@
 package com.liferay.commerce.google.merchant.internal.xml.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 /**
  *
@@ -14,9 +12,8 @@ import javax.xml.bind.annotation.XmlType;
  *
  * Example: <code><link rel="self" href="http://www.example.com"/></code>
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "link")
-@XmlType(propOrder = {"_rel", "_href"})
+@JacksonXmlRootElement(localName = "link")
+@JsonPropertyOrder({"rel", "href"})
 public class Link {
 
 	public Link() {
@@ -30,10 +27,10 @@ public class Link {
 		_href = href;
 	}
 
-	@XmlAttribute(name = "href")
+	@JacksonXmlProperty(isAttribute = true, localName = "href")
 	private String _href;
 
-	@XmlAttribute(name = "rel")
+	@JacksonXmlProperty(isAttribute = true, localName = "rel")
 	private String _rel = "self";
 
 }

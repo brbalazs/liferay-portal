@@ -1,14 +1,11 @@
 package com.liferay.commerce.google.merchant.internal.xml.model;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 /**
  *
@@ -17,9 +14,8 @@ import javax.xml.bind.annotation.XmlType;
  * Represents Google Merchant Center Feed
  *
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "feed")
-@XmlType(propOrder = {"_xmlns", "_title", "_link", "_updated", "_entries"})
+@JacksonXmlRootElement(localName = "feed")
+@JsonPropertyOrder({"xmlns", "xmlns:g", "title", "link", "updated", "entries"})
 public class Feed {
 
 	public void addEntry(Entry entry) {
@@ -42,19 +38,22 @@ public class Feed {
 		_updated = updated;
 	}
 
-	@XmlAttribute(name = "xmlns")
+	@JacksonXmlProperty(isAttribute = true, localName = "xmlns")
 	private static final String _xmlns = "http://www.w3.org/2005/Atom";
 
-	@XmlElement(name = "entry")
+	@JacksonXmlProperty(isAttribute = true, localName = "xmlns:g")
+	private static final String _xmlnsg = "http://base.google.com/ns/1.0";
+
+	@JacksonXmlProperty(localName = "entry")
 	private List<Entry> _entries = new ArrayList<>();
 
-	@XmlElement(name = "link", required = true)
+	@JacksonXmlProperty(localName = "link")
 	private Link _link;
 
-	@XmlElement(name = "title", required = true)
+	@JacksonXmlProperty(localName = "title")
 	private String _title;
 
-	@XmlElement(name = "updated", required = true)
+	@JacksonXmlProperty(localName = "updated")
 	private String _updated;
 
 }

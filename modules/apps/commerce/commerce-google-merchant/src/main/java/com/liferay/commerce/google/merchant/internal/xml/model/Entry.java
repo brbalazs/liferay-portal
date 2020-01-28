@@ -1,10 +1,8 @@
 package com.liferay.commerce.google.merchant.internal.xml.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 /**
  *
@@ -13,12 +11,11 @@ import javax.xml.bind.annotation.XmlType;
  * Represents Google Merchant Center Entry in a Feed
  *
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "entry")
-@XmlType(
-	propOrder = {
-		"_id", "_title", "_description", "_link", "_image_link", "_condition",
-		"_availability", "_price", "_shipping"
+@JacksonXmlRootElement(localName = "entry")
+@JsonPropertyOrder(
+	{
+		"id", "title", "description", "link", "image_link", "condition",
+		"availability", "price", "shipping"
 	}
 )
 public class Entry {
@@ -59,37 +56,49 @@ public class Entry {
 		_title = title;
 	}
 
-	@XmlElement(
-		name = "availability", namespace = "http://base.google.com/ns/1.0"
+	@JacksonXmlProperty(
+		localName = "availability", namespace = "http://base.google.com/ns/1.0"
 	)
 	private String _availability;
 
-	@XmlElement(name = "condition", namespace = "http://base.google.com/ns/1.0")
+	@JacksonXmlProperty(
+		localName = "condition", namespace = "http://base.google.com/ns/1.0"
+	)
 	private String _condition;
 
-	@XmlElement(
-		name = "description", namespace = "http://base.google.com/ns/1.0"
+	@JacksonXmlProperty(
+		localName = "description", namespace = "http://base.google.com/ns/1.0"
 	)
 	private String _description;
 
-	@XmlElement(name = "id", namespace = "http://base.google.com/ns/1.0")
+	@JacksonXmlProperty(
+		localName = "id", namespace = "http://base.google.com/ns/1.0"
+	)
 	private String _id;
 
-	@XmlElement(
-		name = "image_link", namespace = "http://base.google.com/ns/1.0"
+	@JacksonXmlProperty(
+		localName = "image_link", namespace = "http://base.google.com/ns/1.0"
 	)
 	private String _image_link;
 
-	@XmlElement(name = "link", namespace = "http://base.google.com/ns/1.0")
+	@JacksonXmlProperty(
+		localName = "link", namespace = "http://base.google.com/ns/1.0"
+	)
 	private String _link;
 
-	@XmlElement(name = "price", namespace = "http://base.google.com/ns/1.0")
+	@JacksonXmlProperty(
+		localName = "price", namespace = "http://base.google.com/ns/1.0"
+	)
 	private String _price;
 
-	@XmlElement(name = "shipping", namespace = "http://base.google.com/ns/1.0")
+	@JacksonXmlProperty(
+		localName = "shipping", namespace = "http://base.google.com/ns/1.0"
+	)
 	private Shipping _shipping;
 
-	@XmlElement(name = "title", namespace = "http://base.google.com/ns/1.0")
+	@JacksonXmlProperty(
+		localName = "title", namespace = "http://base.google.com/ns/1.0"
+	)
 	private String _title;
 
 }

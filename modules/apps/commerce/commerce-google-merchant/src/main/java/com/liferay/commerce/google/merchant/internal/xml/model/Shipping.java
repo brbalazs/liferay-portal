@@ -1,10 +1,8 @@
 package com.liferay.commerce.google.merchant.internal.xml.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 /**
  *
@@ -13,9 +11,10 @@ import javax.xml.bind.annotation.XmlType;
  * Represents Google Merchant Center Shipping attributes
  *
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "shipping", namespace = "http://base.google.com/ns/1.0")
-@XmlType(propOrder = {"_country", "_service", "_price"})
+@JacksonXmlRootElement(
+	localName = "shipping", namespace = "http://base.google.com/ns/1.0"
+)
+@JsonPropertyOrder({"country", "service", "price"})
 public class Shipping {
 
 	public Shipping() {
@@ -39,13 +38,19 @@ public class Shipping {
 		_service = service;
 	}
 
-	@XmlElement(name = "country", namespace = "http://base.google.com/ns/1.0")
+	@JacksonXmlProperty(
+		localName = "country", namespace = "http://base.google.com/ns/1.0"
+	)
 	private String _country;
 
-	@XmlElement(name = "price", namespace = "http://base.google.com/ns/1.0")
+	@JacksonXmlProperty(
+		localName = "price", namespace = "http://base.google.com/ns/1.0"
+	)
 	private String _price;
 
-	@XmlElement(name = "service", namespace = "http://base.google.com/ns/1.0")
+	@JacksonXmlProperty(
+		localName = "service", namespace = "http://base.google.com/ns/1.0"
+	)
 	private String _service;
 
 }

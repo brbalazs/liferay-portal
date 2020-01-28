@@ -1,5 +1,13 @@
 package com.liferay.commerce.google.merchant.internal.xml;
 
+import com.ctc.wstx.api.WstxOutputProperties;
+import com.ctc.wstx.stax.WstxInputFactory;
+import com.ctc.wstx.stax.WstxOutputFactory;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.dataformat.xml.XmlFactory;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
 import com.liferay.commerce.google.merchant.internal.xml.model.Feed;
 import com.liferay.commerce.google.merchant.internal.xml.model.Link;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
@@ -20,7 +28,6 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.io.Serializable;
-import java.io.StringWriter;
 
 import java.sql.Timestamp;
 
@@ -30,9 +37,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLOutputFactory;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -93,20 +99,22 @@ public class ProductFeedXMLGenerator {
 		}
 
 		try {
-			JAXBContext jaxbContext = JAXBContext.newInstance(Feed.class);
+			XMLInputFactory xmlInputFactory = new WstxInputFactory();
 
-			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			XMLOutputFactory xmlOutputFactory = new WstxOutputFactory();
 
-			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			xmlOutputFactory.setProperty(
+				WstxOutputProperties.P_OUTPUT_VALIDATE_ATTR, true);
 
-			StringWriter sw = new StringWriter();
+			XmlFactory xmlFactory = new XmlFactory(
+				xmlInputFactory, xmlOutputFactory);
 
-			jaxbMarshaller.marshal(feed, sw);
+			XmlMapper xmlMapper = new XmlMapper(xmlFactory);
 
-			return sw.toString();
+			return xmlMapper.writeValueAsString(feed);
 		}
-		catch (JAXBException jaxbe) {
-			throw new PortalException(jaxbe);
+		catch (JsonProcessingException jpe) {
+			throw new PortalException(jpe);
 		}
 	}
 
