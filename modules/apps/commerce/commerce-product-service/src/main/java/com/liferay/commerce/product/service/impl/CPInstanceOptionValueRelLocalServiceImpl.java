@@ -14,7 +14,13 @@
 
 package com.liferay.commerce.product.service.impl;
 
+import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
 import com.liferay.commerce.product.service.base.CPInstanceOptionValueRelLocalServiceBaseImpl;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * The implementation of the cp instance option value rel local service.
@@ -32,10 +38,95 @@ import com.liferay.commerce.product.service.base.CPInstanceOptionValueRelLocalSe
 public class CPInstanceOptionValueRelLocalServiceImpl
 	extends CPInstanceOptionValueRelLocalServiceBaseImpl {
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Use <code>com.liferay.commerce.product.service.CPInstanceOptionValueRelLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.product.service.CPInstanceOptionValueRelLocalServiceUtil</code>.
-	 */
+	@Override
+	public CPInstanceOptionValueRel addCPInstanceOptionValueRel(
+			long groupId, long companyId, long userId,
+			long cpDefinitionOptionRelId, long cpDefinitionOptionValueRelId,
+			long cpInstanceId)
+		throws PortalException {
+
+		long cpInstanceOptionValueRelId = counterLocalService.increment();
+
+		CPInstanceOptionValueRel cpInstanceOptionValueRel =
+			cpInstanceOptionValueRelPersistence.create(
+				cpInstanceOptionValueRelId);
+
+		cpInstanceOptionValueRel.setGroupId(groupId);
+		cpInstanceOptionValueRel.setCompanyId(companyId);
+		cpInstanceOptionValueRel.setUserId(userId);
+
+		User user = userLocalService.getUser(userId);
+
+		cpInstanceOptionValueRel.setUserName(user.getFullName());
+
+		Date createDate = new Date();
+
+		cpInstanceOptionValueRel.setCreateDate(createDate);
+		cpInstanceOptionValueRel.setModifiedDate(createDate);
+
+		cpInstanceOptionValueRel.setCPDefinitionOptionRelId(
+			cpDefinitionOptionRelId);
+		cpInstanceOptionValueRel.setCPDefinitionOptionValueRelId(
+			cpDefinitionOptionValueRelId);
+		cpInstanceOptionValueRel.setCPInstanceId(cpInstanceId);
+
+		return cpInstanceOptionValueRelPersistence.update(
+			cpInstanceOptionValueRel);
+	}
+
+	@Override
+	public boolean hasCPInstanceOptionValueRel(long cpInstanceId) {
+		int countByCPInstanceId =
+			cpInstanceOptionValueRelPersistence.countByCPInstanceId(
+				cpInstanceId);
+
+		if (countByCPInstanceId > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean matchesCPInstanceOptionValueRels(
+		long cpInstanceId,
+		List<CPInstanceOptionValueRel> cpInstanceOptionValueRels) {
+
+		List<CPInstanceOptionValueRel> cpInstanceCPInstanceOptionValueRels =
+			cpInstanceOptionValueRelPersistence.findByCPInstanceId(
+				cpInstanceId);
+
+		if (cpInstanceOptionValueRels.size() !=
+				cpInstanceCPInstanceOptionValueRels.size()) {
+
+			return false;
+		}
+
+		int matchCount = 0;
+
+		for (CPInstanceOptionValueRel cpInstanceOptionValueRel :
+				cpInstanceOptionValueRels) {
+
+			for (CPInstanceOptionValueRel currCPInstanceOptionValueRel :
+					cpInstanceCPInstanceOptionValueRels) {
+
+				if ((cpInstanceOptionValueRel.getCPDefinitionOptionRelId() ==
+						currCPInstanceOptionValueRel.
+							getCPDefinitionOptionRelId()) &&
+					(cpInstanceOptionValueRel.getCPDefinitionOptionRelId() ==
+						currCPInstanceOptionValueRel.
+							getCPDefinitionOptionRelId())) {
+
+					matchCount++;
+				}
+			}
+		}
+
+		if (cpInstanceOptionValueRels.size() == matchCount) {
+			return true;
+		}
+
+		return false;
+	}
 
 }
