@@ -45,12 +45,12 @@ public class CPDefinitionLinkUpgradeProcess extends UpgradeProcess {
 				if (!r2.next()) {
 					if (_log.isDebugEnabled()) {
 						_log.debug(
-							"Removing CPDefinitionLink rows with CProductId " +
-								cProductId);
+							"Removing commerce product definition link rows " +
+								"with commerce product ID " + cProductId);
 					}
 
 					runSQL(
-						"DELETE FROM CPDefinitionLink WHERE CProductId = " +
+						"delete from CPDefinitionLink where CProductId = " +
 							cProductId);
 				}
 			}
@@ -58,10 +58,10 @@ public class CPDefinitionLinkUpgradeProcess extends UpgradeProcess {
 	}
 
 	private static final String _SELECT_CPDEFINITIONLINK_SQL =
-		"SELECT DISTINCT CProductId FROM CPDefinitionLink";
+		"select distinct CProductId from CPDefinitionLink";
 
 	private static final String _SELECT_CPRODUCT_SQL =
-		"SELECT CProductId FROM CProduct WHERE CProductId = ?";
+		"select CProductId from CProduct where CProductId = ?";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CPDefinitionLinkUpgradeProcess.class);
