@@ -30,10 +30,11 @@ public class CPDefinitionLinkUpgradeProcess extends UpgradeProcess {
 	@Override
 	protected void doUpgrade() throws Exception {
 		try (PreparedStatement ps = connection.prepareStatement(
-				_SELECT_CPRODUCT_SQL);
+				"select CProductId from CProduct where CProductId = ?");
 			Statement s = connection.createStatement(
 				ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-			ResultSet r1 = s.executeQuery(_SELECT_CPDEFINITIONLINK_SQL)) {
+			ResultSet r1 = s.executeQuery(
+				"select distinct CProductId from CPDefinitionLink")) {
 
 			while (r1.next()) {
 				long cProductId = r1.getLong("CProductId");
@@ -56,12 +57,6 @@ public class CPDefinitionLinkUpgradeProcess extends UpgradeProcess {
 			}
 		}
 	}
-
-	private static final String _SELECT_CPDEFINITIONLINK_SQL =
-		"select distinct CProductId from CPDefinitionLink";
-
-	private static final String _SELECT_CPRODUCT_SQL =
-		"select CProductId from CProduct where CProductId = ?";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CPDefinitionLinkUpgradeProcess.class);
