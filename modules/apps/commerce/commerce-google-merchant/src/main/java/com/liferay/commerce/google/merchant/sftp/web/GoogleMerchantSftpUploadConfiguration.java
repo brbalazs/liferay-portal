@@ -1,4 +1,4 @@
-package com.liferay.commerce.google.merchant.sftp.web.portlet;
+package com.liferay.commerce.google.merchant.sftp.web;
 
 import aQute.bnd.annotation.metatype.Meta;
 import com.liferay.commerce.google.merchant.sftp.web.constants.GoogleMerchantSftpWebPortletKeys;
@@ -9,7 +9,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
  */
 @ExtendedObjectClassDefinition(category = "google-merchant")
 @Meta.OCD(
-	id = "com.liferay.commerce.google.merchant.sftp.web.portlet.GoogleMerchantSftpUploadConfiguration",
+	id = "com.liferay.commerce.google.merchant.sftp.web.GoogleMerchantSftpUploadConfiguration",
 	name = "google-merchant-sftp-upload-configuration"
 )
 public interface GoogleMerchantSftpUploadConfiguration {
@@ -36,9 +36,9 @@ public interface GoogleMerchantSftpUploadConfiguration {
 	public String googleMerchantFeedPassword();
 
 	@Meta.AD(
-		deflt = "",
+		deflt = "19321",
 		name = "port",
 		required = false
 	)
-	public String port();
+	public int port();
 }

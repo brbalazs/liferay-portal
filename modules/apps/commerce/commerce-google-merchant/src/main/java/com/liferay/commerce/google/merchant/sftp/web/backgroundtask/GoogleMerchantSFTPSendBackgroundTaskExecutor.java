@@ -5,7 +5,7 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import com.liferay.commerce.google.merchant.sftp.web.constants.GoogleMerchantSftpWebPortletKeys;
 import com.liferay.commerce.google.merchant.sftp.web.jsch.FingerprintHostKeyRepository;
-import com.liferay.commerce.google.merchant.sftp.web.portlet.GoogleMerchantSftpUploadConfiguration;
+import com.liferay.commerce.google.merchant.sftp.web.GoogleMerchantSftpUploadConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTask;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskExecutor;
@@ -29,7 +29,7 @@ import java.util.Map;
  * @author Thomas Stewart
  */
 @Component(
-	configurationPid = "com.liferay.commerce.google.merchant.sftp.web.portlet.GoogleMerchantSftpUploadConfiguration",
+	configurationPid = "com.liferay.commerce.google.merchant.sftp.web.GoogleMerchantSftpUploadConfiguration",
 	configurationPolicy = ConfigurationPolicy.OPTIONAL,
 	immediate = true,
 	property = {
