@@ -55,19 +55,6 @@ String galleryId = PortalUtil.generateRandomKey(request, "gallery");
 				<h4 class="product-header-subtitle" data-text-cp-instance-gtin>
 					<%= (cpSku == null) ? StringPool.BLANK : HtmlUtil.escape(cpSku.getGtin()) %>
 				</h4>
-
-				<c:choose>
-					<c:when test="<%= cpSku != null %>">
-						<div class="availability mt-1"><%= cpContentHelper.getAvailabilityLabel(request) %></div>
-						<div class="availability-estimate mt-1"><%= cpContentHelper.getAvailabilityEstimateLabel(request) %></div>
-						<div class="mt-1 stock-quantity"><%= cpContentHelper.getStockQuantityLabel(request) %></div>
-					</c:when>
-					<c:otherwise>
-						<div class="availability mt-1" data-text-cp-instance-availability></div>
-						<div class="availability-estimate mt-1" data-text-cp-instance-availability-estimate></div>
-						<div class="stock-quantity mt-1" data-text-cp-instance-stock-quantity></div>
-					</c:otherwise>
-				</c:choose>
 			</header>
 
 			<p class="mt-3 procuct-description"><%= cpCatalogEntry.getDescription() %></p>
@@ -86,6 +73,19 @@ String galleryId = PortalUtil.generateRandomKey(request, "gallery");
 				<%@ include file="/render/form_handlers/aui.jspf" %>
 				<%@ include file="/render/form_handlers/metal_js.jspf" %>
 			</div>
+
+			<c:choose>
+				<c:when test="<%= cpSku != null %>">
+					<div class="availability mt-1"><%= cpContentHelper.getAvailabilityLabel(request) %></div>
+					<div class="availability-estimate mt-1"><%= cpContentHelper.getAvailabilityEstimateLabel(request) %></div>
+					<div class="mt-1 stock-quantity"><%= cpContentHelper.getStockQuantityLabel(request) %></div>
+				</c:when>
+				<c:otherwise>
+					<div class="availability mt-1" data-text-cp-instance-availability></div>
+					<div class="availability-estimate mt-1" data-text-cp-instance-availability-estimate></div>
+					<div class="stock-quantity mt-1" data-text-cp-instance-stock-quantity></div>
+				</c:otherwise>
+			</c:choose>
 
 			<h2 class="commerce-price mt-3" data-text-cp-instance-price>
 				<c:if test="<%= cpSku != null %>">
