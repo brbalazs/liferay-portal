@@ -211,18 +211,19 @@ public class FieldsToDDMFormValuesConverterImpl
 
 			fieldValue = valueDate.getTime();
 		}
-		else if ((fieldValue instanceof Number) &&
-				 !(fieldValue instanceof Integer)) {
-
+		else if (fieldValue instanceof Number) {
 			NumberFormat numberFormat = NumberFormat.getInstance(locale);
 
 			Number number = (Number)fieldValue;
 
 			if (number instanceof Double || number instanceof Float) {
 				numberFormat.setMinimumFractionDigits(1);
-			}
 
-			return numberFormat.format(number.doubleValue());
+				return numberFormat.format(number.doubleValue());
+			}
+			else if (fieldValue instanceof Integer) {
+				return numberFormat.format(number.intValue());
+			}
 		}
 
 		return String.valueOf(fieldValue);
