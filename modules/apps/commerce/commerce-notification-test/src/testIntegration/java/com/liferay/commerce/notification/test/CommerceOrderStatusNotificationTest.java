@@ -150,7 +150,7 @@ public class CommerceOrderStatusNotificationTest {
 		Assert.assertEquals(1, commerceNotificationQueueEntriesCount);
 
 		_checkCommerceNotificationTemplate(
-			CommerceOrderConstants.ORDER_NOTIFICATION_AWAITING_SHIPMENT);
+			CommerceOrderConstants.ORDER_NOTIFICATION_PLACED);
 
 		_commerceOrderLocalService.updateOrderStatus(
 			_commerceOrder.getCommerceOrderId(),
