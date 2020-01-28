@@ -4,6 +4,7 @@ import com.ctc.wstx.api.WstxOutputProperties;
 import com.ctc.wstx.stax.WstxInputFactory;
 import com.ctc.wstx.stax.WstxOutputFactory;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.xml.XmlFactory;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -110,6 +111,8 @@ public class ProductFeedXMLGenerator {
 				xmlInputFactory, xmlOutputFactory);
 
 			XmlMapper xmlMapper = new XmlMapper(xmlFactory);
+
+			xmlMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 
 			return xmlMapper.writeValueAsString(feed);
 		}
