@@ -54,8 +54,8 @@ public class GoogleMerchantSFTPSendBackgroundTaskExecutor
 		String password =
 			_googleMerchantSftpUploadConfiguration.googleMerchantFeedPassword();
 
-		String host = GoogleMerchantSftpWebPortletKeys.GOOGLE_PARTNER_UPLOAD_URL;
-		int port = 19321;
+		String host = _googleMerchantSftpUploadConfiguration.host();
+		int port = _googleMerchantSftpUploadConfiguration.port();
 
 		JSch jsch = new JSch();
 

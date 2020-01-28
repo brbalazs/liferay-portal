@@ -1,6 +1,7 @@
 package com.liferay.commerce.google.merchant.sftp.web.portlet;
 
 import aQute.bnd.annotation.metatype.Meta;
+import com.liferay.commerce.google.merchant.sftp.web.constants.GoogleMerchantSftpWebPortletKeys;
 import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
 
 /**
@@ -14,11 +15,11 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 public interface GoogleMerchantSftpUploadConfiguration {
 
 	@Meta.AD(
-		deflt = "",
-		name = "host-key",
+		deflt = GoogleMerchantSftpWebPortletKeys.GOOGLE_PARTNER_UPLOAD_URL,
+		name = "host",
 		required = false
 	)
-	public String hostKey();
+	public String host();
 
 	@Meta.AD(
 		deflt = "",
@@ -33,4 +34,11 @@ public interface GoogleMerchantSftpUploadConfiguration {
 		required = false
 	)
 	public String googleMerchantFeedPassword();
+
+	@Meta.AD(
+		deflt = "",
+		name = "port",
+		required = false
+	)
+	public String port();
 }
