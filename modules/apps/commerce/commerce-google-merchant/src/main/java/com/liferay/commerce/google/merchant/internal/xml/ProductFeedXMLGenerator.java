@@ -17,6 +17,7 @@ import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.io.Serializable;
 import java.io.StringWriter;
@@ -33,7 +34,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -111,25 +111,26 @@ public class ProductFeedXMLGenerator {
 	}
 
 	private List<CPCatalogEntry> getCPCatalogEntriesByChannel(
-			CommerceChannel commerceChannel) throws PortalException {
+			CommerceChannel commerceChannel)
+		throws PortalException {
 
 		Map<String, Serializable> attributes = new HashMap<>();
 
 		long commerceChannelGroupId = commerceChannel.getGroupId();
 
-		attributes.put(
-			"commerceChannelGroupId", commerceChannelGroupId);
 		attributes.put(Field.STATUS, WorkflowConstants.STATUS_APPROVED);
+		attributes.put("commerceChannelGroupId", commerceChannelGroupId);
 
 		SearchContext searchContext = new SearchContext();
+
 		searchContext.setAttributes(attributes);
 		searchContext.setCompanyId(commerceChannel.getCompanyId());
 
 		CPQuery cpQuery = new CPQuery();
 
-		CPDataSourceResult cpDataSourceResult =
-			_cpDefinitionHelper.search(commerceChannelGroupId, searchContext,
-				cpQuery, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		CPDataSourceResult cpDataSourceResult = _cpDefinitionHelper.search(
+			commerceChannelGroupId, searchContext, cpQuery, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS);
 
 		return cpDataSourceResult.getCPCatalogEntries();
 	}
