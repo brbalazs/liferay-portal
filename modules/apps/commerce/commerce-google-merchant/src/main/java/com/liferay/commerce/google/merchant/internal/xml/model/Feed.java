@@ -8,11 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Kayleen Lim
  *
  * Represents Google Merchant Center Feed
- *
  */
 @JacksonXmlRootElement(localName = "feed")
 @JsonPropertyOrder({"xmlns", "xmlns:g", "title", "link", "updated", "entries"})
@@ -38,11 +36,15 @@ public class Feed {
 		_updated = updated;
 	}
 
+	private static final String _XMLNS = "http://www.w3.org/2005/Atom";
+
+	private static final String _XMLNS_GOOGLE = "http://base.google.com/ns/1.0";
+
 	@JacksonXmlProperty(isAttribute = true, localName = "xmlns")
-	private static final String _xmlns = "http://www.w3.org/2005/Atom";
+	private String _xmlns = _XMLNS;
 
 	@JacksonXmlProperty(isAttribute = true, localName = "xmlns:g")
-	private static final String _xmlnsg = "http://base.google.com/ns/1.0";
+	private String _xmlnsg = _XMLNS_GOOGLE;
 
 	@JacksonXmlProperty(localName = "entry")
 	private List<Entry> _entries = new ArrayList<>();

@@ -52,7 +52,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = ProductFeedXMLGenerator.class)
 public class ProductFeedXMLGenerator {
 
-	public String generateFeedXML(long commerceChannelId)
+	public String generateProductFeedXML(long commerceChannelId)
 		throws PortalException {
 
 		CommerceChannel commerceChannel =
@@ -91,7 +91,7 @@ public class ProductFeedXMLGenerator {
 
 		feed.setUpdated(updated);
 
-		List<CPCatalogEntry> cpCatalogEntries = getCPCatalogEntriesByChannel(
+		List<CPCatalogEntry> cpCatalogEntries = _getCPCatalogEntriesByChannel(
 			commerceChannel);
 
 		for (CPCatalogEntry cpCatalogEntry : cpCatalogEntries) {
@@ -118,7 +118,7 @@ public class ProductFeedXMLGenerator {
 		}
 	}
 
-	private List<CPCatalogEntry> getCPCatalogEntriesByChannel(
+	private List<CPCatalogEntry> _getCPCatalogEntriesByChannel(
 			CommerceChannel commerceChannel)
 		throws PortalException {
 

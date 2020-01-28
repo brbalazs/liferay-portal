@@ -5,11 +5,9 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 /**
- *
  * @author Kayleen Lim
  *
  * Represents Google Merchant Center Shipping attributes
- *
  */
 @JacksonXmlRootElement(
 	localName = "shipping", namespace = "http://base.google.com/ns/1.0"

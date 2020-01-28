@@ -5,11 +5,9 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 /**
- *
  * @author Kayleen Lim
  *
  * Represents Google Merchant Center Entry in a Feed
- *
  */
 @JacksonXmlRootElement(localName = "entry")
 @JsonPropertyOrder(
@@ -37,7 +35,7 @@ public class Entry {
 	}
 
 	public void setImage_link(String image_link) {
-		_image_link = image_link;
+		_imageLink = image_link;
 	}
 
 	public void setLink(String link) {
@@ -79,7 +77,7 @@ public class Entry {
 	@JacksonXmlProperty(
 		localName = "image_link", namespace = "http://base.google.com/ns/1.0"
 	)
-	private String _image_link;
+	private String _imageLink;
 
 	@JacksonXmlProperty(
 		localName = "link", namespace = "http://base.google.com/ns/1.0"
