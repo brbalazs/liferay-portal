@@ -3458,26 +3458,28 @@ AUI.add(
 						);
 					},
 
-					fillEmptyLocales: function() {
-						var instance = this;
+					fillEmptyLocales: function(instance, fields, availableLanguageIds) {
+						fields.forEach(field => {
+							if (field.get('localizable')) {
+								var localizationMap = field.get('localizationMap');
 
-						instance.get('fields').forEach(field => {
-							if (!field.get('localizable')) {
-								return;
+								var defaultLocale = field.getDefaultLocale();
+								
+								availableLanguageIds.forEach(locale => {
+									if (!localizationMap[locale]) {
+										localizationMap[locale] =
+											localizationMap[defaultLocale];
+									}
+								});
+
+								field.set('localizationMap', localizationMap);
 							}
-
-							var localizationMap = field.get('localizationMap');
-
-							var defaultLocale = instance.getDefaultLocale();
-
-							instance.get('availableLanguageIds').forEach(locale => {
-								if (!localizationMap[locale]) {
-									localizationMap[locale] =
-										localizationMap[defaultLocale];
-								}
-							});
-
-							field.set('localizationMap', localizationMap);
+						
+							instance.fillEmptyLocales(
+								instance,
+								field.get('fields'),
+								availableLanguageIds
+							);
 						});
 					},
 
@@ -3846,7 +3848,11 @@ AUI.add(
 						
 						instance.toJSON();
 
-						instance.fillEmptyLocales();
+						instance.fillEmptyLocales(
+							instance,
+							instance.get('fields'),
+							instance.get('availableLanguageIds')
+						);
 
 						instance.finalizeRepeatableFieldLocalizations();
 
