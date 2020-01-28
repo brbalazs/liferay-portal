@@ -54,7 +54,6 @@ if (stagingType == StagingConstants.TYPE_REMOTE_STAGING) {
 
 			<%
 			boolean secureConnection = GetterUtil.getBoolean(liveGroupTypeSettings.getProperty("secureConnection"));
-			boolean overrideRemoteSiteURL = GetterUtil.getBoolean(liveGroupTypeSettings.getProperty("overrideRemoteSiteURL"));
 			%>
 
 			<liferay-staging:checkbox
@@ -62,6 +61,10 @@ if (stagingType == StagingConstants.TYPE_REMOTE_STAGING) {
 				label="use-a-secure-network-connection"
 				name="secureConnection"
 			/>
+
+			<%
+			boolean overrideRemoteSiteURL = GetterUtil.getBoolean(liveGroupTypeSettings.getProperty("overrideRemoteSiteURL"));
+			%>
 
 			<liferay-staging:checkbox
 				checked="<%= overrideRemoteSiteURL %>"
