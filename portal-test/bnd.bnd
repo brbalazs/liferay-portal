@@ -8,7 +8,6 @@ Export-Package:\
 	com.liferay.portal.kernel.test.randomizerbumpers,\
 	com.liferay.portal.kernel.test.rule,\
 	com.liferay.portal.kernel.test.rule.callback,\
-	com.liferay.portal.kernel.test.search,\
 	com.liferay.portal.kernel.test.util,\
 	com.liferay.portlet.asset.service.persistence.test,\
 	com.liferay.portlet.dynamicdatamapping.util.test,\
