@@ -1,42 +1,22 @@
 @import 'speedwell';
 
-html, body {
+body,
+html {
   overflow-x: hidden;
   width: 100%;
 }
 
-#wrapper {
-  padding-top: 0;
-}
-
-#speedwell {
-  font-family: 'Open Sans', sans-serif;
-  font-size: $std-font-size;
-}
-
-button {
-  background-color: #FFF;
-}
-
 body:not(.has-control-menu) {
-  .speedwell-topbar {
-    top: 0;
+  .speedwell-frame__content--wide {
+    padding: 0;
 
-    @media screen and (max-width: $bp-small) {
-      top: 0;
+    .login-container {
+      padding: 126px 30px !important;
     }
   }
 
-  .speedwell-frame__content--wide {
-      padding: 0;
-
-      .login-container {
-        padding: 126px 30px !important;
-      }
-  }
-
-  .speedwell-search__results,
-  .speedwell-main-menu::before {
+  .speedwell-main-menu::before,
+  .speedwell-search__results {
     top: $topbar-height;
 
     @media screen and (max-width: $bp-small) {
@@ -48,16 +28,35 @@ body:not(.has-control-menu) {
     }
   }
 
-  #currentHead {
-    display: none;
-  }
-
   .speedwell-main-menu__links {
     top: calc(#{$topbar-height} - 1px);
 
     @media screen and (max-width: $bp-small) {
       top: calc(#{$topbar-height-small} - 10px);
     }
+  }
+
+  .speedwell-topbar {
+    top: 0;
+
+    @media screen and (max-width: $bp-small) {
+      top: 0;
+    }
+  }
+
+  #currentHead {
+    display: none;
+  }
+}
+
+body:not(.is-accessible) {
+  // Accommodate on a case-by-case basis.
+  // By default, accessibility focus outline
+  // is removed after 5s if no Tab is pressed
+  // at page load-up.
+
+  *:focus {
+    outline: none !important;
   }
 }
 
@@ -75,6 +74,10 @@ body.has-control-menu {
   }
 }
 
+button {
+  background-color: #FFF;
+}
+
 .speedwell-content {
   &--wide {
     margin: 0 auto;
@@ -85,28 +88,25 @@ body.has-control-menu {
 
   .portlet-barebone {
     margin-top: 0 !important;
-
   }
 }
 
-body:not(.is-accessible) {
-  // Accommodate on a case-by-case basis.
-  // By default, accessibility focus outline
-  // is removed after 5s if no Tab is pressed
-  // at page load-up.
+#speedwell {
+  font-family: 'Open Sans', sans-serif;
+  font-size: $std-font-size;
+}
 
-  *:focus {
-    outline: none !important;
-  }
+#wrapper {
+  padding-top: 0;
 }
 
 @media screen and (min-width: 320px) and (max-width: 350px) {
-  html {
-    width: 126%
-  }
-
   body {
     width: 100%;
     font-size: 12px;
+  }
+
+  html {
+    width: 126%
   }
 }
