@@ -1,1169 +1,1111 @@
-components:
-    parameters:
-        channelId:
-            in: path
-            explode: false
-            name: channelId
-            required: true
-            schema:
-                description:
-                    Channel Id
-                example: 30130
-                format: int64
-                minimum: 0
-                type: integer
-            style: simple
-        productId:
-            in: path
-            explode: false
-            name: productId
-            required: true
-            schema:
-                description:
-                    Product Id
-                example: 30130
-                format: int64
-                minimum: 0
-                type: integer
-            style: simple
-    schemas:
-        Attachment:
-            properties:
-                attachment:
-                    description:
-                        Base64 encoded file
-                    type: string
-                displayDate:
-                    example: 2017-07-21
-                    format: date
-                    type: string
-                expirationDate:
-                    example: 2017-08-21
-                    format: date
-                    type: string
-                id:
-                    example: 30130
-                    format: int64
-                    minimum: 0
-                    readOnly: true
-                    type: integer
-                neverExpire:
-                    example: true
-                    type: boolean
-                options:
-                    additionalProperties:
-                        type: string
-                    example:
-                        color: yellow
-                        optionKey: optionValueKey
-                        size: xs
-                    type: object
-                priority:
-                    example: 1.2
-                    format: double
-                    type: number
-                src:
-                    description:
-                        URL of the location
-                    type: string
-                title:
-                    type: string
-                type:
-                    format: int32
-                    readOnly: true
-                    type: integer
-            required:
-                - sku
-            type: object
-        Availability:
-            properties:
-                label:
-                    example: Available
-                    type: string
-                stockQuantity:
-                    format: int32
-                    type: integer
-            type: object
-        Category:
-            properties:
-                id:
-                    example: 30130
-                    format: int64
-                    minimum: 0
-                    type: integer
-                name:
-                    description:
-                        Category Name
-                    type: string
-                siteId:
-                    format: int64
-                    type: integer
-                vocabulary:
-                    example: Default Vocabulary
-                    readOnly: true
-                    type: string
-            type: object
-        Error:
-            properties:
-                errorCode:
-                    description:
-                        Internal error code mapping
-                    example: 996
-                    readOnly: true
-                    type: integer
-                errorDescription:
-                    example: Unable to find currency. Currency code should be expressed with
-                        3-letter ISO 4217 format.
-                    readOnly: true
-                    type: string
-                message:
-                    example: No CommerceCurrency exists with the key {groupId=41811, code=US
-                        Dollar}
-                    readOnly: true
-                    type: string
-                status:
-                    description:
-                        HTTP Status code
-                    example: 404
-                    readOnly: true
-                    type: integer
-            required:
-                - errorCode
-                - errorDescription
-                - message
-                - status
-            type: object
-        Price:
-            properties:
-                currency:
-                    type: string
-                discount:
-                    type: string
-                discountPercentage:
-                    type: string
-                discountPercentages:
-                    items:
-                        type: string
-                    type: array
-                finalPrice:
-                    type: string
-                price:
-                    format: double
-                    type: number
-                priceFormatted:
-                    type: string
-                promoPrice:
-                    format: double
-                    type: number
-                promoPriceFormatted:
-                    type: string
-                tierPrice:
-                    format: double
-                    type: number
-                tierPriceFormatted:
-                    type: string
-            type: object
-        Product:
-            properties:
-                attachments:
-                    items:
-                        $ref: "#/components/schemas/Attachment"
-                    type: array
-                categories:
-                    items:
-                        $ref: "#/components/schemas/Category"
-                    type: array
-                createDate:
-                    format: date
-                    type: string
-                description:
-                    type: string
-                expando:
-                    additionalProperties: true
-                    type: object
-                friendlyUrl:
-                    type: string
-                id:
-                    example: 30130
-                    format: int64
-                    minimum: 0
-                    readOnly: true
-                    type: integer
-                metaDescription:
-                    type: string
-                metaKeyword:
-                    type: string
-                metaTitle:
-                    type: string
-                modifiedDate:
-                    format: date
-                    type: string
-                multipleOrderQuantity:
-                    format: int32
-                    type: integer
-                name:
-                    type: string
-                productId:
-                    format: int64
-                    readOnly: true
-                    type: integer
-                productOptions:
-                    items:
-                        $ref: "#/components/schemas/ProductOption"
-                    type: array
-                productSpecifications:
-                    items:
-                        $ref: "#/components/schemas/ProductSpecification"
-                    type: array
-                productType:
-                    example: simple
-                    type: string
-                relatedProducts:
-                    items:
-                        $ref: "#/components/schemas/RelatedProduct"
-                    type: array
-                shortDescription:
-                    type: string
-                skus:
-                    items:
-                        $ref: "#/components/schemas/Sku"
-                    type: array
-                slug:
-                    type: string
-                tags:
-                    example:
-                        - tag1
-                        - tag2
-                        - tag3
-                    items:
-                        type: string
-                    type: array
-                urlImage:
-                    type: string
-            type: object
-        ProductOption:
-            properties:
-                catalogId:
-                    format: int64
-                    type: integer
-                description:
-                    type: string
-                fieldType:
-                    enum:
-                        - checkbox
-                        - checkbox_multiple
-                        - date
-                        - numeric
-                        - radio
-                        - select
-                    example: select
-                    type: string
-                id:
-                    example: 30130
-                    format: int64
-                    minimum: 0
-                    readOnly: true
-                    type: integer
-                key:
-                    example: color
-                    type: string
-                name:
-                    type: string
-                optionId:
-                    example: 30080
-                    format: int64
-                    minimum: 0
-                    type: integer
-                priority:
-                    example: 1.2
-                    format: double
-                    type: number
-                productOptionValues:
-                    items:
-                        $ref: "#/components/schemas/ProductOptionValue"
-                    type: array
-            type: object
-        ProductOptionValue:
-            properties:
-                id:
-                    example: 30130
-                    format: int64
-                    minimum: 0
-                    readOnly: true
-                    type: integer
-                key:
-                    example: black
-                    type: string
-                name:
-                    type: string
-                priority:
-                    example: 1.2
-                    format: double
-                    type: number
-            type: object
-        ProductSpecification:
-            properties:
-                id:
-                    example: 31130
-                    format: int64
-                    minimum: 0
-                    type: integer
-                optionCategoryId:
-                    example: 30129
-                    format: int64
-                    minimum: 0
-                    type: integer
-                priority:
-                    example: 1.2
-                    format: double
-                    minimum: 0
-                    type: number
-                productId:
-                    example: 30129
-                    format: int64
-                    minimum: 0
-                    type: integer
-                specificationId:
-                    example: 30129
-                    format: int64
-                    minimum: 0
-                    type: integer
-                specificationKey:
-                    example: specification-key
-                    type: string
-                value:
-                    type: string
-            type: object
-        RelatedProduct:
-            properties:
-                id:
-                    example: 30130
-                    format: int64
-                    minimum: 0
-                    readOnly: true
-                    type: integer
-                priority:
-                    example: 1.2
-                    format: double
-                    type: number
-                productId:
-                    example: 30129
-                    format: int64
-                    minimum: 0
-                    type: integer
-                type:
-                    example: cross-sell
-                    type: string
-            type: object
-        Sku:
-            properties:
-                allowedOrderQuantities:
-                    example:
-                        - 10
-                        - 20
-                        - 30
-                        - 40
-                    items:
-                        type: string
-                    type: array
-                availability:
-                    $ref: "#/components/schemas/Availability"
-                depth:
-                    example: 1.1
-                    format: double
-                    minimum: 0
-                    type: number
-                displayDate:
-                    example: 2017-07-21
-                    format: date
-                    type: string
-                expirationDate:
-                    example: 2017-08-21
-                    format: date
-                    type: string
-                gtin:
-                    example: "12341234"
-                    type: string
-                height:
-                    example: 20.2
-                    format: double
-                    minimum: 0
-                    type: number
-                id:
-                    example: 30130
-                    format: int64
-                    minimum: 0
-                    readOnly: true
-                    type: integer
-                manufacturerPartNumber:
-                    example: "12341234"
-                    type: string
-                maxOrderQuantity:
-                    format: int32
-                    type: integer
-                minOrderQuantity:
-                    format: int32
-                    type: integer
-                neverExpire:
-                    example: true
-                    type: boolean
-                options:
-                    additionalProperties:
-                        type: string
-                    example:
-                        color: yellow
-                        optionKey: optionValueKey
-                        size: xs
-                    type: object
-                price:
-                    $ref: "#/components/schemas/Price"
-                published:
-                    example: true
-                    type: boolean
-                purchasable:
-                    example: true
-                    type: boolean
-                sku:
-                    type: string
-                weight:
-                    example: 1.1
-                    format: double
-                    minimum: 0
-                    type: number
-                width:
-                    example: 20.2
-                    format: double
-                    minimum: 0
-                    type: number
-            type: object
-info:
-    description:
-        Headless Delivery Commerce Catalog API
-    license:
-        name: Apache 2.0
-        url: http://www.apache.org/licenses/LICENSE-2.0.html
-    title: Headless Delivery Commerce Catalog API
-    version: v1.0
 openapi: 3.0.1
-paths:
-    /channels/{channelId}/products/{productId}/attachments:
-        get:
-            operationId: getChannelProductAttachmentsPage
-            parameters:
-                - in: path
-                  explode: false
-                  name: channelId
-                  required: true
-                  schema:
-                      description:
-                          Channel Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-                - in: path
-                  explode: false
-                  name: productId
-                  required: true
-                  schema:
-                      description:
-                          Product Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-                - in: query
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
-                - in: query
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/Attachment"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/Attachment"
-                                type: array
-                    description:
-                        Successful operation
-                401:
-                    content:
-                        application/json:
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Authentication information is missing or invalid
-                404:
-                    content:
-                        application/json:
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        The specified resource was not found
-                500:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Unexpected error
-            summary: Gets a list of Attachments related to a Product.
-            tags: ["Attachment"]
-    /channels/{channelId}/products/{productId}/categories:
-        get:
-            description:
-                Gets a list of Category related to a Product.
-            operationId: getChannelProductCategoriesPage
-            parameters:
-                - in: path
-                  explode: false
-                  name: channelId
-                  required: true
-                  schema:
-                      description:
-                          Channel Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-                - in: path
-                  explode: false
-                  name: productId
-                  required: true
-                  schema:
-                      description:
-                          Product Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-                - in: query
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
-                - in: query
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/Category"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/Category"
-                                type: array
-                    description:
-                        Successful operation
-                401:
-                    content:
-                        application/json:
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Authentication information is missing or invalid
-                404:
-                    content:
-                        application/json:
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        The specified resource was not found
-                500:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Unexpected error
-            tags: ["Category"]
-    /channels/{channelId}/products/{productId}/images:
-        get:
-            operationId: getChannelProductImagesPage
-            parameters:
-                - in: path
-                  explode: false
-                  name: channelId
-                  required: true
-                  schema:
-                      description:
-                          Channel Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-                - in: path
-                  explode: false
-                  name: productId
-                  required: true
-                  schema:
-                      description:
-                          Product Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-                - in: query
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
-                - in: query
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/Attachment"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/Attachment"
-                                type: array
-                    description:
-                        Successful operation
-                401:
-                    content:
-                        application/json:
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Authentication information is missing or invalid
-                404:
-                    content:
-                        application/json:
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        The specified resource was not found
-                500:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Unexpected error
-            summary: Gets a list of Images related to a Product.
-            tags: ["Attachment"]
-    /channels/{channelId}/products/{productId}/options:
-        get:
-            operationId: getChannelProductOptionsPage
-            parameters:
-                - in: path
-                  explode: false
-                  name: channelId
-                  required: true
-                  schema:
-                      description:
-                          Channel Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-                - in: path
-                  explode: false
-                  name: productId
-                  required: true
-                  schema:
-                      description:
-                          Product Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-                - in: query
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
-                - in: query
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/ProductOption"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/ProductOption"
-                                type: array
-                    description:
-                        Successful operation
-                401:
-                    content:
-                        application/json:
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Authentication information is missing or invalid
-                404:
-                    content:
-                        application/json:
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        The specified resource was not found
-                500:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Unexpected error
-            summary: Gets Product Options.
-            tags: ["ProductOption"]
-    /channels/{channelId}/products/{productId}/productSpecifications:
-        get:
-            operationId: getChannelProductProductSpecificationsPage
-            parameters:
-                - in: path
-                  explode: false
-                  name: channelId
-                  required: true
-                  schema:
-                      description:
-                          Channel Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-                - in: path
-                  explode: false
-                  name: productId
-                  required: true
-                  schema:
-                      description:
-                          Product Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-                - in: query
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
-                - in: query
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/ProductSpecification"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/ProductSpecification"
-                                type: array
-                    description:
-                        Successful operation
-                401:
-                    content:
-                        application/json:
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Authentication information is missing or invalid
-                404:
-                    content:
-                        application/json:
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        The specified resource was not found
-                500:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Unexpected error
-            summary: Gets a list of Values related to a Specification.
-            tags: ["ProductSpecification"]
-    /channels/{channelId}/products/{productId}/relatedProducts:
-        get:
-            description:
-                Gets a list of Related Products of a Product.
-            operationId: getChannelProductRelatedProductsPage
-            parameters:
-                - in: path
-                  explode: false
-                  name: channelId
-                  required: true
-                  schema:
-                      description:
-                          Channel Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-                - in: path
-                  explode: false
-                  name: productId
-                  required: true
-                  schema:
-                      description:
-                          Product Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-                - in: query
-                  explode: true
-                  name: type
-                  required: false
-                  schema:
-                      type: string
-                  style: form
-                - in: query
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
-                - in: query
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/RelatedProduct"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/RelatedProduct"
-                                type: array
-                    description:
-                        Successful operation
-                401:
-                    content:
-                        application/json:
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Authentication information is missing or invalid
-                404:
-                    content:
-                        application/json:
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        The specified resource was not found
-                500:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Unexpected error
-            tags: ["RelatedProduct"]
-    /channels/{channelId}/products/{productId}/skus:
-        get:
-            description:
-                Retrieves products from selected channel.
-            operationId: getChannelProductSkusPage
-            parameters:
-                - in: path
-                  explode: false
-                  name: channelId
-                  required: true
-                  schema:
-                      description:
-                          Channel Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-                - in: path
-                  explode: false
-                  name: productId
-                  required: true
-                  schema:
-                      description:
-                          Product Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-                - in: query
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
-                - in: query
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/Sku"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/Sku"
-                                type: array
-                401:
-                    content:
-                        application/json:
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Authentication information is missing or invalid
-                404:
-                    content:
-                        application/json:
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        The specified resource was not found
-                500:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Unexpected error
-            tags: ["Sku"]
-    /channels/{channelId}/products/{productId}:
-        get:
-            description:
-                Retrieves products from selected channel.
-            operationId: getChannelProduct
-            parameters:
-                - in: path
-                  explode: false
-                  name: channelId
-                  required: true
-                  schema:
-                      description:
-                          Channel Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-                - in: path
-                  explode: false
-                  name: productId
-                  required: true
-                  schema:
-                      description:
-                          Product Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Product"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Product"
-                401:
-                    content:
-                        application/json:
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Authentication information is missing or invalid
-                404:
-                    content:
-                        application/json:
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        The specified resource was not found
-                500:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Unexpected error
-            tags: ["Product"]
-    /channels/{channelId}/products:
-        get:
-            description:
-                Retrieves products from selected channel.
-            operationId: getChannelProductsPage
-            parameters:
-                - in: path
-                  explode: false
-                  name: channelId
-                  required: true
-                  schema:
-                      description:
-                          Channel Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-                - in: query
-                  name: filter
-                  required: false
-                  schema:
-                      type: string
-                - in: query
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
-                - in: query
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
-                - in: query
-                  name: sort
-                  required: false
-                  schema:
-                      type: string
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/Product"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/Product"
-                                type: array
-                401:
-                    content:
-                        application/json:
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Authentication information is missing or invalid
-                404:
-                    content:
-                        application/json:
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        The specified resource was not found
-                500:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-                    description:
-                        Unexpected error
-            tags: ["Product"]
+info:
+  title: Headless Delivery Commerce Catalog API
+  description: Headless Delivery Commerce Catalog API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: v1.0
 servers:
-    - url: /
+  - url: /
+paths:
+  /channels/{channelId}/products:
+    get:
+      operationId: getChannelProductsPage
+      tags:
+        - Product
+      description: Retrieves products from selected channel.
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 0
+            type: integer
+            description: Channel Id
+            format: int64
+            example: 30130
+        - name: filter
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+        401:
+          description: Authentication information is missing or invalid
+          content:
+            application/json:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: The specified resource was not found
+          content:
+            application/json:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /channels/{channelId}/products/{productId}:
+    get:
+      operationId: getChannelProduct
+      tags: ["Product"]
+      description: Retrieves products from selected channel.
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 0
+            type: integer
+            description: Channel Id
+            format: int64
+            example: 30130
+        - name: productId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 0
+            type: integer
+            description: Product Id
+            format: int64
+            example: 30130
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Product"
+        401:
+          description: Authentication information is missing or invalid
+          content:
+            application/json:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: The specified resource was not found
+          content:
+            application/json:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /channels/{channelId}/products/{productId}/attachments:
+    get:
+      operationId: getChannelProductAttachmentsPage
+      tags: ["Attachment"]
+      summary: Gets a list of Attachments related to a Product.
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 0
+            type: integer
+            description: Channel Id
+            format: int64
+            example: 30130
+        - name: productId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 0
+            type: integer
+            description: Product Id
+            format: int64
+            example: 30130
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Attachment"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Attachment"
+        401:
+          description: Authentication information is missing or invalid
+          content:
+            application/json:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: The specified resource was not found
+          content:
+            application/json:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /channels/{channelId}/products/{productId}/categories:
+    get:
+      operationId: getChannelProductCategoriesPage
+      tags: ["Category"]
+      description: Gets a list of Category related to a Product.
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 0
+            type: integer
+            description: Channel Id
+            format: int64
+            example: 30130
+        - name: productId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 0
+            type: integer
+            description: Product Id
+            format: int64
+            example: 30130
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+        401:
+          description: Authentication information is missing or invalid
+          content:
+            application/json:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: The specified resource was not found
+          content:
+            application/json:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /channels/{channelId}/products/{productId}/options:
+    get:
+      operationId: getChannelProductOptionsPage
+      tags: ["ProductOption"]
+      summary: Gets Product Options.
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 0
+            type: integer
+            description: Channel Id
+            format: int64
+            example: 30130
+        - name: productId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 0
+            type: integer
+            description: Product Id
+            format: int64
+            example: 30130
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductOption"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductOption"
+        401:
+          description: Authentication information is missing or invalid
+          content:
+            application/json:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: The specified resource was not found
+          content:
+            application/json:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /channels/{channelId}/products/{productId}/productSpecifications:
+    get:
+      operationId: getChannelProductProductSpecificationsPage
+      tags: ["ProductSpecification"]
+      summary: Gets a list of Values related to a Specification.
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 0
+            type: integer
+            description: Channel Id
+            format: int64
+            example: 30130
+        - name: productId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 0
+            type: integer
+            description: Product Id
+            format: int64
+            example: 30130
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductSpecification"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductSpecification"
+        401:
+          description: Authentication information is missing or invalid
+          content:
+            application/json:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: The specified resource was not found
+          content:
+            application/json:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /channels/{channelId}/products/{productId}/images:
+    get:
+      operationId: getChannelProductImagesPage
+      tags: ["Attachment"]
+      summary: Gets a list of Images related to a Product.
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 0
+            type: integer
+            description: Channel Id
+            format: int64
+            example: 30130
+        - name: productId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 0
+            type: integer
+            description: Product Id
+            format: int64
+            example: 30130
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Attachment"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Attachment"
+        401:
+          description: Authentication information is missing or invalid
+          content:
+            application/json:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: The specified resource was not found
+          content:
+            application/json:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /channels/{channelId}/products/{productId}/relatedProducts:
+    get:
+      operationId: getChannelProductRelatedProductsPage
+      tags: ["RelatedProduct"]
+      description: Gets a list of Related Products of a Product.
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 0
+            type: integer
+            description: Channel Id
+            format: int64
+            example: 30130
+        - name: productId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 0
+            type: integer
+            description: Product Id
+            format: int64
+            example: 30130
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: type
+          in: query
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RelatedProduct"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RelatedProduct"
+        401:
+          description: Authentication information is missing or invalid
+          content:
+            application/json:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: The specified resource was not found
+          content:
+            application/json:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /channels/{channelId}/products/{productId}/skus:
+    get:
+      operationId: getChannelProductSkusPage
+      tags: ["Sku"]
+      description: Retrieves products from selected channel.
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 0
+            type: integer
+            description: Channel Id
+            format: int64
+            example: 30130
+        - name: productId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 0
+            type: integer
+            description: Product Id
+            format: int64
+            example: 30130
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Sku"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Sku"
+        401:
+          description: Authentication information is missing or invalid
+          content:
+            application/json:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: The specified resource was not found
+          content:
+            application/json:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Attachment:
+      required:
+        - sku
+      type: object
+      properties:
+        attachment:
+          type: string
+          description: Base64 encoded file
+        displayDate:
+          type: string
+          format: date
+          example: 2017-07-21
+        expirationDate:
+          type: string
+          format: date
+          example: 2017-08-21
+        title:
+          type: string
+        options:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            optionKey: optionValueKey
+            color: yellow
+            size: xs
+        priority:
+          type: number
+          format: double
+          example: 1.2
+        src:
+          type: string
+          description: URL of the location
+        type:
+          type: integer
+          format: int32
+          readOnly: true
+        neverExpire:
+          type: boolean
+          example: true
+        id:
+          minimum: 0
+          type: integer
+          format: int64
+          readOnly: true
+          example: 30130
+    Availability:
+      type: object
+      properties:
+        label:
+          type: string
+          example: Available
+        stockQuantity:
+          type: integer
+          format: int32
+    Category:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Category Name
+        vocabulary:
+          type: string
+          readOnly: true
+          example: Default Vocabulary
+        siteId:
+          type: integer
+          format: int64
+        id:
+          minimum: 0
+          type: integer
+          format: int64
+          example: 30130
+    Price:
+      type: object
+      properties:
+        currency:
+          type: string
+        discount:
+          type: string
+        discountPercentage:
+          type: string
+        discountPercentages:
+          type: array
+          items:
+            type: string
+        finalPrice:
+          type: string
+        price:
+          type: number
+          format: double
+        priceFormatted:
+          type: string
+        promoPrice:
+          type: number
+          format: double
+        promoPriceFormatted:
+          type: string
+        tierPrice:
+          type: number
+          format: double
+        tierPriceFormatted:
+          type: string
+    Product:
+      type: object
+      properties:
+        attachments:
+          type: array
+          items:
+            $ref: "#/components/schemas/Attachment"
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/Category"
+        createDate:
+          type: string
+          format: date
+        description:
+          type: string
+        expando:
+          type: object
+          additionalProperties: true
+        friendlyUrl:
+          type: string
+        id:
+          minimum: 0
+          type: integer
+          format: int64
+          readOnly: true
+          example: 30130
+        attachments:
+          type: array
+          items:
+            $ref: "#/components/schemas/Attachment"
+        metaDescription:
+          type: string
+        metaKeyword:
+          type: string
+        metaTitle:
+          type: string
+        modifiedDate:
+          type: string
+          format: date
+        multipleOrderQuantity:
+          type: integer
+          format: int32
+        name:
+          type: string
+        productOptions:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductOption"
+        productId:
+          type: integer
+          format: int64
+          readOnly: true
+        productSpecifications:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductSpecification"
+        productType:
+          type: string
+          example: simple
+        relatedProducts:
+          type: array
+          items:
+            $ref: "#/components/schemas/RelatedProduct"
+        shortDescription:
+          type: string
+        skus:
+          type: array
+          items:
+            $ref: "#/components/schemas/Sku"
+        tags:
+          type: array
+          example:
+            - tag1
+            - tag2
+            - tag3
+          items:
+            type: string
+        slug:
+          type: string
+        urlImage:
+          type: string
+    ProductOption:
+      type: object
+      properties:
+        name:
+          type: string
+        key:
+          type: string
+          example: color
+        description:
+          type: string
+        fieldType:
+          type: string
+          example: select
+          enum:
+            - select
+            - radio
+            - date
+            - checkbox
+            - checkbox_multiple
+            - numeric
+        priority:
+          type: number
+          format: double
+          example: 1.2
+        productOptionValues:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductOptionValue"
+        catalogId:
+          type: integer
+          format: int64
+        id:
+          minimum: 0
+          type: integer
+          format: int64
+          readOnly: true
+          example: 30130
+        optionId:
+          minimum: 0
+          type: integer
+          format: int64
+          example: 30080
+    ProductOptionValue:
+      type: object
+      properties:
+        name:
+          type: string
+        key:
+          type: string
+          example: black
+        priority:
+          type: number
+          format: double
+          example: 1.2
+        id:
+          minimum: 0
+          type: integer
+          format: int64
+          readOnly: true
+          example: 30130
+    ProductSpecification:
+      type: object
+      properties:
+        id:
+          minimum: 0
+          type: integer
+          format: int64
+          example: 31130
+        optionCategoryId:
+          minimum: 0
+          type: integer
+          format: int64
+          example: 30129
+        productId:
+          minimum: 0
+          type: integer
+          format: int64
+          example: 30129
+        specificationId:
+          minimum: 0
+          type: integer
+          format: int64
+          example: 30129
+        specificationKey:
+          type: string
+          example: specification-key
+        value:
+          type: string
+        priority:
+          minimum: 0
+          type: number
+          format: double
+          example: 1.2
+    Sku:
+      type: object
+      properties:
+        allowedOrderQuantities:
+          type: array
+          example:
+            - 10
+            - 20
+            - 30
+            - 40
+          items:
+            type: string
+        availability:
+          $ref: "#/components/schemas/Availability"
+        depth:
+          minimum: 0
+          type: number
+          format: double
+          example: 1.1
+        displayDate:
+          type: string
+          format: date
+          example: 2017-07-21
+        expirationDate:
+          type: string
+          format: date
+          example: 2017-08-21
+        gtin:
+          type: string
+          example: "12341234"
+        height:
+          minimum: 0
+          type: number
+          format: double
+          example: 20.2
+        id:
+          minimum: 0
+          type: integer
+          format: int64
+          readOnly: true
+          example: 30130
+        manufacturerPartNumber:
+          type: string
+          example: "12341234"
+        maxOrderQuantity:
+          type: integer
+          format: int32
+        minOrderQuantity:
+          type: integer
+          format: int32
+        neverExpire:
+          type: boolean
+          example: true
+        options:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            optionKey: optionValueKey
+            color: yellow
+            size: xs
+        published:
+          type: boolean
+          example: true
+        purchasable:
+          type: boolean
+          example: true
+        price:
+          $ref: "#/components/schemas/Price"
+        sku:
+          type: string
+        weight:
+          minimum: 0
+          type: number
+          format: double
+          example: 1.1
+        width:
+          minimum: 0
+          type: number
+          format: double
+          example: 20.2
+    RelatedProduct:
+      type: object
+      properties:
+        id:
+          minimum: 0
+          type: integer
+          format: int64
+          readOnly: true
+          example: 30130
+        priority:
+          type: number
+          format: double
+          example: 1.2
+        productId:
+          minimum: 0
+          type: integer
+          format: int64
+          example: 30129
+        type:
+          type: string
+          example: cross-sell
+    Error:
+      required:
+        - errorCode
+        - errorDescription
+        - message
+        - status
+      type: object
+      properties:
+        message:
+          type: string
+          readOnly: true
+          example: No CommerceCurrency exists with the key {groupId=41811, code=US
+            Dollar}
+        errorDescription:
+          type: string
+          readOnly: true
+          example: Unable to find currency. Currency code should be expressed with
+            3-letter ISO 4217 format.
+        status:
+          type: integer
+          description: HTTP Status code
+          readOnly: true
+          example: 404
+        errorCode:
+          type: integer
+          description: Internal error code mapping
+          readOnly: true
+          example: 996
+  parameters:
+    channelId:
+      name: channelId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+        description: Channel Id
+        format: int64
+        example: 30130
+    productId:
+      name: productId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        minimum: 0
+        type: integer
+        description: Product Id
+        format: int64
+        example: 30130
