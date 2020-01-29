@@ -1,3 +1,4 @@
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -11,20 +12,17 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+--%>
 
-import Component from 'metal-component';
-import Soy, {Config} from 'metal-soy';
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-import template from './SubscriptionInfo.soy';
+<%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 
-class SubscriptionInfo extends Component {}
+<%@ page import="com.liferay.portal.kernel.util.Validator" %>
 
-SubscriptionInfo.STATE = {
-	durationPeriod: Config.string(),
-	subscriptionPeriod: Config.string()
-};
+<liferay-theme:defineObjects />
 
-Soy.register(SubscriptionInfo, template);
-
-export {SubscriptionInfo};
-export default SubscriptionInfo;
+<%
+String durationPeriod = (String)request.getAttribute("liferay-commerce:subscription-info:durationPeriod");
+String subscriptionPeriod = (String)request.getAttribute("liferay-commerce:subscription-info:subscriptionPeriod");
+%>
