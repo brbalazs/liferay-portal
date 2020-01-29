@@ -40,6 +40,7 @@ import com.liferay.portal.util.PropsValues;
 import com.liferay.taglib.util.IncludeTag;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -325,7 +326,7 @@ public class DatasetDisplayTag extends IncludeTag {
 	private Object _clayDataSetDisplayViewsContext;
 	private ClayDataSetDisplayViewSerializer _clayDataSetDisplayViewSerializer;
 	private CommerceDataProviderRegistry _commerceDataProviderRegistry;
-	private Map<String, String> _contextParams;
+	private Map<String, String> _contextParams = new HashMap<>();
 	private String _dataProviderKey;
 	private String _dataSetAPI;
 	private String _deltaParam;
