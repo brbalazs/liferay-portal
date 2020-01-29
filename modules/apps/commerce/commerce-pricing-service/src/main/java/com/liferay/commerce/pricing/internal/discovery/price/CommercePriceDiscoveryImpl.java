@@ -22,19 +22,14 @@ import com.liferay.commerce.discount.discovery.CommerceDiscountDiscovery;
 import com.liferay.commerce.price.CommercePriceDiscovery;
 import com.liferay.commerce.price.CommercePriceValue;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
-import com.liferay.commerce.price.list.model.CommercePriceListPriceModifierRel;
 import com.liferay.commerce.price.list.model.CommercePriceListRel;
 import com.liferay.commerce.price.list.model.CommerceTierPriceEntry;
 import com.liferay.commerce.price.list.service.CommercePriceEntryLocalService;
-import com.liferay.commerce.price.list.service.CommercePriceListPriceModifierRelLocalService;
 import com.liferay.commerce.price.list.service.CommercePriceListRelLocalService;
 import com.liferay.commerce.price.list.service.CommerceTierPriceEntryLocalService;
 import com.liferay.commerce.pricing.discovery.modifier.CommercePriceModifierDiscovery;
 import com.liferay.commerce.pricing.discovery.price.CommercePriceValueImpl;
-import com.liferay.commerce.pricing.model.CommercePriceModifier;
-import com.liferay.commerce.pricing.service.CommercePriceModifierLocalService;
-import com.liferay.commerce.pricing.type.CommercePriceModifierType;
-import com.liferay.commerce.pricing.type.CommercePriceModifierTypeRegistry;
+import com.liferay.commerce.pricing.exception.CommerceUndefinedBasePriceListException;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
@@ -44,7 +39,6 @@ import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -82,15 +76,15 @@ public class CommercePriceDiscoveryImpl implements CommercePriceDiscovery {
 				false);
 
 		if (baseCommercePriceEntry == null) {
-			throw new PortalException();
+			throw new CommerceUndefinedBasePriceListException();
 		}
 
 		if (baseCommercePriceEntry.isHasTierPrice()) {
-			if (commercePriceEntry.isBulkPricing()) {
+			if (baseCommercePriceEntry.isBulkPricing()) {
 				CommerceTierPriceEntry commerceTierPriceEntry =
 					_commerceTierPriceEntryLocalService.
 						findClosestCommerceTierPriceEntry(
-							commercePriceEntry.getCommercePriceEntryId(),
+							baseCommercePriceEntry.getCommercePriceEntryId(),
 							quantity);
 
 				commercePriceValues.add(
@@ -98,7 +92,8 @@ public class CommercePriceDiscoveryImpl implements CommercePriceDiscovery {
 						commercePriceListId,
 						commerceTierPriceEntry.getPriceMoney(
 							commerceCurrency.getCommerceCurrencyId()),
-						quantity, commerceContext, cpInstanceId));
+						quantity, commerceTierPriceEntry.getMinQuantity(),
+						commerceContext, cpInstanceId));
 
 				return commercePriceValues;
 			}
@@ -106,9 +101,11 @@ public class CommercePriceDiscoveryImpl implements CommercePriceDiscovery {
 			List<CommerceTierPriceEntry> commerceTierPriceEntries =
 				_commerceTierPriceEntryLocalService.
 					findCommerceTierPriceEntries(
-						commercePriceEntry.getCommercePriceEntryId(), quantity);
+						baseCommercePriceEntry.getCommercePriceEntryId(),
+						quantity);
 
 			return _getCommercePriceValueWithPriceModifiers(
+				baseCommercePriceEntry,
 				baseCommercePriceEntry.getCommercePriceListId(),
 				commerceTierPriceEntries, commerceCurrency, quantity,
 				commerceContext, cpInstanceId);
@@ -119,7 +116,7 @@ public class CommercePriceDiscoveryImpl implements CommercePriceDiscovery {
 				commercePriceListId,
 				baseCommercePriceEntry.getPriceMoney(
 					commerceCurrency.getCommerceCurrencyId()),
-				quantity, commerceContext, cpInstanceId));
+				quantity, 1, commerceContext, cpInstanceId));
 
 		return commercePriceValues;
 	}
@@ -145,8 +142,8 @@ public class CommercePriceDiscoveryImpl implements CommercePriceDiscovery {
 		}
 
 		return _getCommercePriceValueWithPriceModifiers(
-			commercePriceListId, commercePriceValues, quantity, commerceContext,
-			cpInstanceId);
+			commercePriceListId, commercePriceValues, quantity, 1,
+			commerceContext, cpInstanceId);
 	}
 
 	private long _getBasePriceListId(CPInstance cpInstance)
@@ -195,6 +192,43 @@ public class CommercePriceDiscoveryImpl implements CommercePriceDiscovery {
 			new CommerceDiscountLevel(discountLevel4));
 	}
 
+	private CommercePriceValue _getCommercePriceValue(
+			CommercePriceEntry commercePriceEntry,
+			CommerceCurrency commerceCurrency, CommerceContext commerceContext,
+			long cpInstanceId, int quantity, int minQuantity)
+		throws PortalException {
+
+		return _getCommercePriceValue(
+			commercePriceEntry.isDiscountDiscovery(),
+			commercePriceEntry.getPriceMoney(
+				commerceCurrency.getCommerceCurrencyId()),
+			quantity, minQuantity, commercePriceEntry.getCommercePriceListId(),
+			commerceContext, cpInstanceId,
+			commercePriceEntry.getDiscountLevel1(),
+			commercePriceEntry.getDiscountLevel2(),
+			commercePriceEntry.getDiscountLevel3(),
+			commercePriceEntry.getDiscountLevel4());
+	}
+
+	private CommercePriceValue _getCommercePriceValue(
+			CommerceTierPriceEntry commerceTierPriceEntry,
+			CommercePriceEntry commercePriceEntry,
+			CommerceCurrency commerceCurrency, CommerceContext commerceContext,
+			long cpInstanceId, int quantity, int minQuantity)
+		throws PortalException {
+
+		return _getCommercePriceValue(
+			commerceTierPriceEntry.isDiscountDiscovery(),
+			commerceTierPriceEntry.getPriceMoney(
+				commerceCurrency.getCommerceCurrencyId()),
+			quantity, minQuantity, commercePriceEntry.getCommercePriceListId(),
+			commerceContext, cpInstanceId,
+			commerceTierPriceEntry.getDiscountLevel1(),
+			commerceTierPriceEntry.getDiscountLevel2(),
+			commerceTierPriceEntry.getDiscountLevel3(),
+			commerceTierPriceEntry.getDiscountLevel4());
+	}
+
 	private List<CommercePriceValue> _getCommercePriceValuesByPriceEntry(
 			CommercePriceEntry commercePriceEntry, int quantity,
 			CommerceCurrency commerceCurrency, CommerceContext commerceContext,
@@ -206,16 +240,8 @@ public class CommercePriceDiscoveryImpl implements CommercePriceDiscovery {
 		if (!commercePriceEntry.isHasTierPrice()) {
 			commercePriceValues.add(
 				_getCommercePriceValue(
-					commercePriceEntry.isDiscountDiscovery(),
-					commercePriceEntry.getPriceMoney(
-						commerceCurrency.getCommerceCurrencyId()),
-					quantity, Integer.MAX_VALUE,
-					commercePriceEntry.getCommercePriceListId(),
-					commerceContext, cpInstanceId,
-					commercePriceEntry.getDiscountLevel1(),
-					commercePriceEntry.getDiscountLevel2(),
-					commercePriceEntry.getDiscountLevel3(),
-					commercePriceEntry.getDiscountLevel4()));
+					commercePriceEntry, commerceCurrency, commerceContext,
+					cpInstanceId, quantity, 1));
 
 			return commercePriceValues;
 		}
@@ -229,24 +255,40 @@ public class CommercePriceDiscoveryImpl implements CommercePriceDiscovery {
 			if (commerceTierPriceEntry != null) {
 				commercePriceValues.add(
 					_getCommercePriceValue(
-						commerceTierPriceEntry.isDiscountDiscovery(),
-						commerceTierPriceEntry.getPriceMoney(
-							commerceCurrency.getCommerceCurrencyId()),
-						quantity, Integer.MAX_VALUE,
-						commercePriceEntry.getCommercePriceListId(),
-						commerceContext, cpInstanceId,
-						commerceTierPriceEntry.getDiscountLevel1(),
-						commerceTierPriceEntry.getDiscountLevel2(),
-						commerceTierPriceEntry.getDiscountLevel3(),
-						commerceTierPriceEntry.getDiscountLevel4()));
+						commerceTierPriceEntry, commercePriceEntry,
+						commerceCurrency, commerceContext, cpInstanceId,
+						quantity, 1));
 
 				return commercePriceValues;
 			}
+
+			commercePriceValues.add(
+				_getCommercePriceValue(
+					commercePriceEntry, commerceCurrency, commerceContext,
+					cpInstanceId, quantity, 1));
+
+			return commercePriceValues;
 		}
 
 		List<CommerceTierPriceEntry> commerceTierPriceEntries =
 			_commerceTierPriceEntryLocalService.findCommerceTierPriceEntries(
 				commercePriceEntry.getCommercePriceEntryId(), quantity);
+
+		if ((commerceTierPriceEntries == null) ||
+			commerceTierPriceEntries.isEmpty()) {
+
+			commercePriceValues.add(
+				_getCommercePriceValue(
+					commercePriceEntry, commerceCurrency, commerceContext,
+					cpInstanceId, quantity, 1));
+
+			return commercePriceValues;
+		}
+
+		commercePriceValues.add(
+			_getCommercePriceValue(
+				commercePriceEntry, commerceCurrency, commerceContext,
+				cpInstanceId, quantity, 1));
 
 		for (CommerceTierPriceEntry commerceTierPriceEntry :
 				commerceTierPriceEntries) {
@@ -254,106 +296,30 @@ public class CommercePriceDiscoveryImpl implements CommercePriceDiscovery {
 			if (commerceTierPriceEntry != null) {
 				commercePriceValues.add(
 					_getCommercePriceValue(
-						commerceTierPriceEntry.isDiscountDiscovery(),
-						commerceTierPriceEntry.getPriceMoney(
-							commerceCurrency.getCommerceCurrencyId()),
-						quantity, commerceTierPriceEntry.getMinQuantity(),
-						commercePriceEntry.getCommercePriceListId(),
-						commerceContext, cpInstanceId,
-						commerceTierPriceEntry.getDiscountLevel1(),
-						commerceTierPriceEntry.getDiscountLevel2(),
-						commerceTierPriceEntry.getDiscountLevel3(),
-						commerceTierPriceEntry.getDiscountLevel4()));
+						commerceTierPriceEntry, commercePriceEntry,
+						commerceCurrency, commerceContext, cpInstanceId,
+						quantity, commerceTierPriceEntry.getMinQuantity()));
 			}
 		}
 
 		return commercePriceValues;
 	}
 
-	private CommercePriceValue _getCommercePriceValueWithPriceModifiers(
-			long commercePriceListId, CommerceMoney commerceMoney, int quantity,
-			CommerceContext commerceContext, long cpInstanceId)
-		throws PortalException {
-
-		CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
-			cpInstanceId);
-
-		List<CommercePriceListPriceModifierRel>
-			commercePriceListPriceModifierRels =
-				_commercePriceListPriceModifierRelLocalService.
-					getCommercePriceListPriceModifierRels(commercePriceListId);
-
-		CommerceMoney actualCommerceMoney = commerceMoney;
-
-		if ((commercePriceListPriceModifierRels != null) &&
-			!commercePriceListPriceModifierRels.isEmpty()) {
-
-			Stream<CommercePriceListPriceModifierRel> stream =
-				commercePriceListPriceModifierRels.stream();
-
-			long[] commercePriceModifierIds = stream.mapToLong(
-				CommercePriceListPriceModifierRel::getCommercePriceModifierId
-			).toArray();
-
-			List<CommercePriceModifier> commercePriceModifiers =
-				_commercePriceModifierLocalService.
-					getQualifiedCommercePriceModifiers(
-						commercePriceModifierIds,
-						cpInstance.getCPDefinitionId());
-
-			if ((commercePriceModifiers != null) &&
-				!commercePriceModifiers.isEmpty()) {
-
-				CommercePriceModifier commercePriceModifier =
-					_commercePriceModifierDiscovery.
-						getApplicableCommercePriceModifier(
-							commercePriceModifiers, commerceMoney,
-							commerceMoney.getCommerceCurrency());
-
-				CommercePriceModifierType commercePriceModifierType =
-					_commercePriceModifierTypeRegistry.
-						getCommercePriceModifierType(
-							commercePriceModifier.getModifierType());
-
-				actualCommerceMoney = commercePriceModifierType.evaluate(
-					commerceMoney, commercePriceModifier,
-					commerceMoney.getCommerceCurrency());
-			}
-		}
-
-		return new CommercePriceValueImpl(
-			actualCommerceMoney, Integer.MAX_VALUE,
-			_commerceDiscountDiscovery.getProductCommerceDiscountLevels(
-				commercePriceListId, actualCommerceMoney.getPrice(), quantity,
-				commerceContext, cpInstanceId));
-	}
-
 	private List<CommercePriceValue> _getCommercePriceValueWithPriceModifiers(
-			long commercePriceListId,
-			List<CommercePriceValue> commercePriceValues, int quantity,
-			CommerceContext commerceContext, long cpInstanceId)
-		throws PortalException {
-
-		List<CommercePriceValue> finalPriceValues = new ArrayList<>();
-
-		for (CommercePriceValue commercePriceValue : commercePriceValues) {
-			finalPriceValues.add(
-				_getCommercePriceValueWithPriceModifiers(
-					commercePriceListId, commercePriceValue.getCommerceMoney(),
-					quantity, commerceContext, cpInstanceId));
-		}
-
-		return finalPriceValues;
-	}
-
-	private List<CommercePriceValue> _getCommercePriceValueWithPriceModifiers(
-			long commercePriceListId,
+			CommercePriceEntry commercePriceEntry, long commercePriceListId,
 			List<CommerceTierPriceEntry> commerceTierPriceEntries,
 			CommerceCurrency commerceCurrency, int quantity,
 			CommerceContext commerceContext, long cpInstanceId)
 		throws PortalException {
 
 		List<CommercePriceValue> commercePriceValues = new ArrayList<>();
+
+		commercePriceValues.add(
+			_getCommercePriceValueWithPriceModifiers(
+				commercePriceListId,
+				commercePriceEntry.getPriceMoney(
+					commerceCurrency.getCommerceCurrencyId()),
+				quantity, 1, commerceContext, cpInstanceId));
 
 		for (CommerceTierPriceEntry commerceTierPriceEntry :
 				commerceTierPriceEntries) {
@@ -363,10 +329,49 @@ public class CommercePriceDiscoveryImpl implements CommercePriceDiscovery {
 					commercePriceListId,
 					commerceTierPriceEntry.getPriceMoney(
 						commerceCurrency.getCommerceCurrencyId()),
-					quantity, commerceContext, cpInstanceId));
+					quantity, commerceTierPriceEntry.getMinQuantity(),
+					commerceContext, cpInstanceId));
 		}
 
 		return commercePriceValues;
+	}
+
+	private CommercePriceValue _getCommercePriceValueWithPriceModifiers(
+			long commercePriceListId, CommerceMoney commerceMoney, int quantity,
+			int minQuantity, CommerceContext commerceContext, long cpInstanceId)
+		throws PortalException {
+
+		CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
+			cpInstanceId);
+
+		CommerceMoney actualCommerceMoney =
+			_commercePriceModifierDiscovery.applyCommercePriceModifier(
+				commercePriceListId, cpInstance.getCPDefinitionId(),
+				commerceMoney, commerceMoney.getCommerceCurrency());
+
+		return new CommercePriceValueImpl(
+			actualCommerceMoney, minQuantity,
+			_commerceDiscountDiscovery.getProductCommerceDiscountLevels(
+				commercePriceListId, actualCommerceMoney.getPrice(), quantity,
+				commerceContext, cpInstanceId));
+	}
+
+	private List<CommercePriceValue> _getCommercePriceValueWithPriceModifiers(
+			long commercePriceListId,
+			List<CommercePriceValue> commercePriceValues, int quantity,
+			int minQuantity, CommerceContext commerceContext, long cpInstanceId)
+		throws PortalException {
+
+		List<CommercePriceValue> finalPriceValues = new ArrayList<>();
+
+		for (CommercePriceValue commercePriceValue : commercePriceValues) {
+			finalPriceValues.add(
+				_getCommercePriceValueWithPriceModifiers(
+					commercePriceListId, commercePriceValue.getCommerceMoney(),
+					quantity, minQuantity, commerceContext, cpInstanceId));
+		}
+
+		return finalPriceValues;
 	}
 
 	@Reference
@@ -376,22 +381,10 @@ public class CommercePriceDiscoveryImpl implements CommercePriceDiscovery {
 	private CommercePriceEntryLocalService _commercePriceEntryLocalService;
 
 	@Reference
-	private CommercePriceListPriceModifierRelLocalService
-		_commercePriceListPriceModifierRelLocalService;
-
-	@Reference
 	private CommercePriceListRelLocalService _commercePriceListRelLocalService;
 
 	@Reference
 	private CommercePriceModifierDiscovery _commercePriceModifierDiscovery;
-
-	@Reference
-	private CommercePriceModifierLocalService
-		_commercePriceModifierLocalService;
-
-	@Reference
-	private CommercePriceModifierTypeRegistry
-		_commercePriceModifierTypeRegistry;
 
 	@Reference
 	private CommerceTierPriceEntryLocalService

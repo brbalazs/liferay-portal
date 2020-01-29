@@ -16,8 +16,10 @@ package com.liferay.commerce.pricing.internal.discovery.modifier;
 
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.pricing.discovery.modifier.CommercePriceModifierDiscovery;
 import com.liferay.commerce.pricing.model.CommercePriceModifier;
+import com.liferay.commerce.pricing.service.CommercePriceModifierLocalService;
 import com.liferay.commerce.pricing.type.CommercePriceModifierType;
 import com.liferay.commerce.pricing.type.CommercePriceModifierTypeRegistry;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -37,37 +39,52 @@ public class CommercePriceModifierDiscoveryImpl
 	implements CommercePriceModifierDiscovery {
 
 	@Override
-	public CommercePriceModifier getApplicableCommercePriceModifier(
-			List<CommercePriceModifier> commercePriceModifiers,
+	public CommerceMoney applyCommercePriceModifier(
+			long commercePriceListId, long cpDefinitionId,
 			CommerceMoney originalCommerceMoney,
 			CommerceCurrency commerceCurrency)
 		throws PortalException {
 
+		List<CommercePriceModifier> commercePriceModifiers =
+			_commercePriceModifierLocalService.
+				getQualifiedCommercePriceModifiers(
+					commercePriceListId, cpDefinitionId);
+
 		BigDecimal lowestPrice = originalCommerceMoney.getPrice();
-		CommercePriceModifier applicableCommercePriceModifier = null;
 
-		for (CommercePriceModifier commercePriceModifier :
-				commercePriceModifiers) {
+		if ((commercePriceModifiers != null) &&
+			!commercePriceModifiers.isEmpty()) {
 
-			CommercePriceModifierType commercePriceModifierType =
-				_commercePriceModifierTypeRegistry.getCommercePriceModifierType(
-					commercePriceModifier.getModifierType());
+			for (CommercePriceModifier commercePriceModifier :
+					commercePriceModifiers) {
 
-			CommerceMoney actualCommerceMoney =
-				commercePriceModifierType.evaluate(
-					originalCommerceMoney, commercePriceModifier,
-					commerceCurrency);
+				CommercePriceModifierType commercePriceModifierType =
+					_commercePriceModifierTypeRegistry.
+						getCommercePriceModifierType(
+							commercePriceModifier.getModifierType());
 
-			BigDecimal actualPrice = actualCommerceMoney.getPrice();
+				CommerceMoney actualCommerceMoney =
+					commercePriceModifierType.evaluate(
+						originalCommerceMoney, commercePriceModifier,
+						commerceCurrency);
 
-			if (actualPrice.compareTo(lowestPrice) < 0) {
-				lowestPrice = actualPrice;
-				applicableCommercePriceModifier = commercePriceModifier;
+				BigDecimal actualPrice = actualCommerceMoney.getPrice();
+
+				if (actualPrice.compareTo(lowestPrice) < 0) {
+					lowestPrice = actualPrice;
+				}
 			}
 		}
 
-		return applicableCommercePriceModifier;
+		return _commerceMoneyFactory.create(commerceCurrency, lowestPrice);
 	}
+
+	@Reference
+	private CommerceMoneyFactory _commerceMoneyFactory;
+
+	@Reference
+	private CommercePriceModifierLocalService
+		_commercePriceModifierLocalService;
 
 	@Reference
 	private CommercePriceModifierTypeRegistry

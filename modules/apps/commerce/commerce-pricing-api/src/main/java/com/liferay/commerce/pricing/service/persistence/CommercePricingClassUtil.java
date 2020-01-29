@@ -884,74 +884,6 @@ public class CommercePricingClassUtil {
 	}
 
 	/**
-	 * Returns all the commerce pricing classes that the user has permission to view where groupId = &#63;.
-	 *
-	 * @param groupId the group ID
-	 * @return the matching commerce pricing classes that the user has permission to view
-	 */
-	public static List<CommercePricingClass> filterFindByGroupId(long groupId) {
-		return getPersistence().filterFindByGroupId(groupId);
-	}
-
-	/**
-	 * Returns a range of all the commerce pricing classes that the user has permission to view where groupId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommercePricingClassModelImpl</code>.
-	 * </p>
-	 *
-	 * @param groupId the group ID
-	 * @param start the lower bound of the range of commerce pricing classes
-	 * @param end the upper bound of the range of commerce pricing classes (not inclusive)
-	 * @return the range of matching commerce pricing classes that the user has permission to view
-	 */
-	public static List<CommercePricingClass> filterFindByGroupId(
-		long groupId, int start, int end) {
-
-		return getPersistence().filterFindByGroupId(groupId, start, end);
-	}
-
-	/**
-	 * Returns an ordered range of all the commerce pricing classes that the user has permissions to view where groupId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommercePricingClassModelImpl</code>.
-	 * </p>
-	 *
-	 * @param groupId the group ID
-	 * @param start the lower bound of the range of commerce pricing classes
-	 * @param end the upper bound of the range of commerce pricing classes (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching commerce pricing classes that the user has permission to view
-	 */
-	public static List<CommercePricingClass> filterFindByGroupId(
-		long groupId, int start, int end,
-		OrderByComparator<CommercePricingClass> orderByComparator) {
-
-		return getPersistence().filterFindByGroupId(
-			groupId, start, end, orderByComparator);
-	}
-
-	/**
-	 * Returns the commerce pricing classes before and after the current commerce pricing class in the ordered set of commerce pricing classes that the user has permission to view where groupId = &#63;.
-	 *
-	 * @param commercePricingClassId the primary key of the current commerce pricing class
-	 * @param groupId the group ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next commerce pricing class
-	 * @throws NoSuchPricingClassException if a commerce pricing class with the primary key could not be found
-	 */
-	public static CommercePricingClass[] filterFindByGroupId_PrevAndNext(
-			long commercePricingClassId, long groupId,
-			OrderByComparator<CommercePricingClass> orderByComparator)
-		throws com.liferay.commerce.pricing.exception.
-			NoSuchPricingClassException {
-
-		return getPersistence().filterFindByGroupId_PrevAndNext(
-			commercePricingClassId, groupId, orderByComparator);
-	}
-
-	/**
 	 * Removes all the commerce pricing classes where groupId = &#63; from the database.
 	 *
 	 * @param groupId the group ID
@@ -968,16 +900,6 @@ public class CommercePricingClassUtil {
 	 */
 	public static int countByGroupId(long groupId) {
 		return getPersistence().countByGroupId(groupId);
-	}
-
-	/**
-	 * Returns the number of commerce pricing classes that the user has permission to view where groupId = &#63;.
-	 *
-	 * @param groupId the group ID
-	 * @return the number of matching commerce pricing classes that the user has permission to view
-	 */
-	public static int filterCountByGroupId(long groupId) {
-		return getPersistence().filterCountByGroupId(groupId);
 	}
 
 	/**
