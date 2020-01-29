@@ -12,17 +12,28 @@
  * details.
  */
 
-package com.liferay.commerce.pricing.constants;
+package com.liferay.commerce.pricing.exception;
+
+import com.liferay.portal.kernel.exception.PortalException;
 
 /**
  * @author Riccardo Alberti
  */
-public class CommercePricingClassActionKeys {
+public class CommercePriceModifierAmountException extends PortalException {
 
-	public static final String MANAGE_COMMERCE_PRICING_CLASSES =
-		"MANAGE_COMMERCE_PRICING_CLASSES";
+	public CommercePriceModifierAmountException() {
+	}
 
-	public static final String VIEW_COMMERCE_PRICING_CLASSES =
-		"VIEW_COMMERCE_PRICING_CLASSES";
+	public CommercePriceModifierAmountException(String msg) {
+		super(msg);
+	}
+
+	public CommercePriceModifierAmountException(String msg, Throwable cause) {
+		super(msg, cause);
+	}
+
+	public CommercePriceModifierAmountException(Throwable cause) {
+		super(cause);
+	}
 
 }

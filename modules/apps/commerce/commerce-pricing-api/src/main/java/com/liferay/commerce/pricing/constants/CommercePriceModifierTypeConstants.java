@@ -17,12 +17,12 @@ package com.liferay.commerce.pricing.constants;
 /**
  * @author Riccardo Alberti
  */
-public class CommercePricingClassActionKeys {
+public class CommercePriceModifierTypeConstants {
 
-	public static final String MANAGE_COMMERCE_PRICING_CLASSES =
-		"MANAGE_COMMERCE_PRICING_CLASSES";
+	public static final String ABSOLUTE = "absolute";
 
-	public static final String VIEW_COMMERCE_PRICING_CLASSES =
-		"VIEW_COMMERCE_PRICING_CLASSES";
+	public static final String OVERRIDE = "override";
+
+	public static final String PERCENTAGE = "percentage";
 
 }

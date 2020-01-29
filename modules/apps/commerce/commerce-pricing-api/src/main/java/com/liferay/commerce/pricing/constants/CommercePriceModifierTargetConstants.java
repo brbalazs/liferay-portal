@@ -17,12 +17,14 @@ package com.liferay.commerce.pricing.constants;
 /**
  * @author Riccardo Alberti
  */
-public class CommercePricingClassActionKeys {
+public class CommercePriceModifierTargetConstants {
 
-	public static final String MANAGE_COMMERCE_PRICING_CLASSES =
-		"MANAGE_COMMERCE_PRICING_CLASSES";
+	public static final String TARGET_CATALOG = "catalog";
 
-	public static final String VIEW_COMMERCE_PRICING_CLASSES =
-		"VIEW_COMMERCE_PRICING_CLASSES";
+	public static final String TARGET_CATEGORIES = "categories";
+
+	public static final String TARGET_PRICING_CLASS = "pricing-classes";
+
+	public static final String TARGET_PRODUCT = "product";
 
 }

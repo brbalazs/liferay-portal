@@ -12,17 +12,21 @@
  * details.
  */
 
-package com.liferay.commerce.pricing.constants;
+package com.liferay.commerce.pricing.service.persistence;
+
+import aQute.bnd.annotation.ProviderType;
 
 /**
  * @author Riccardo Alberti
+ * @generated
  */
-public class CommercePricingClassActionKeys {
+@ProviderType
+public interface CommercePriceModifierFinder {
 
-	public static final String MANAGE_COMMERCE_PRICING_CLASSES =
-		"MANAGE_COMMERCE_PRICING_CLASSES";
-
-	public static final String VIEW_COMMERCE_PRICING_CLASSES =
-		"VIEW_COMMERCE_PRICING_CLASSES";
+	public java.util.List
+		<com.liferay.commerce.pricing.model.CommercePriceModifier>
+			findByC_C_C_P(
+				long commercePriceListId, long cpDefinitionId,
+				long[] assetCategoriesIds, long[] commercePricingClassesIds);
 
 }

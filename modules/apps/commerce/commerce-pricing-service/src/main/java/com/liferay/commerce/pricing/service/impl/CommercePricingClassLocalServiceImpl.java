@@ -22,7 +22,6 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -60,11 +59,6 @@ public class CommercePricingClassLocalServiceImpl
 		commercePricingClass.setTitle(title);
 		commercePricingClass.setDescription(description);
 
-		// Resources
-
-		resourceLocalService.addModelResources(
-			commercePricingClass, serviceContext);
-
 		return commercePricingClassPersistence.update(commercePricingClass);
 	}
 
@@ -74,12 +68,6 @@ public class CommercePricingClassLocalServiceImpl
 		throws PortalException {
 
 		commercePricingClassRelLocalService.deleteCommercePricingClassRels(
-			commercePricingClass.getCommercePricingClassId());
-
-		resourceLocalService.deleteResource(
-			commercePricingClass.getCompanyId(),
-			CommercePricingClass.class.getName(),
-			ResourceConstants.SCOPE_INDIVIDUAL,
 			commercePricingClass.getCommercePricingClassId());
 
 		return commercePricingClassPersistence.remove(

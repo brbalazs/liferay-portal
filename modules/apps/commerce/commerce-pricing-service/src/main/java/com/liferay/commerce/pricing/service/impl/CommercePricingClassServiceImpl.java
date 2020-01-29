@@ -18,9 +18,6 @@ import com.liferay.commerce.pricing.constants.CommercePricingClassActionKeys;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.base.CommercePricingClassServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.security.permission.ActionKeys;
-import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
-import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -42,7 +39,7 @@ public class CommercePricingClassServiceImpl
 
 		PortalPermissionUtil.check(
 			getPermissionChecker(),
-			CommercePricingClassActionKeys.ADD_COMMERCE_PRICING_CLASS);
+			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassLocalService.addCommercePricingClass(
 			userId, groupId, name, title, description, serviceContext);
@@ -53,8 +50,9 @@ public class CommercePricingClassServiceImpl
 			long commercePricingClassId)
 		throws PortalException {
 
-		_commercePricingClassResourcePermission.check(
-			getPermissionChecker(), commercePricingClassId, ActionKeys.DELETE);
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassLocalService.deleteCommercePricingClass(
 			commercePricingClassId);
@@ -70,8 +68,9 @@ public class CommercePricingClassServiceImpl
 				companyId, externalReferenceCode);
 
 		if (commercePricingClass != null) {
-			_commercePricingClassResourcePermission.check(
-				getPermissionChecker(), commercePricingClass, ActionKeys.VIEW);
+			PortalPermissionUtil.check(
+				getPermissionChecker(),
+				CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
 		}
 
 		return commercePricingClass;
@@ -87,8 +86,9 @@ public class CommercePricingClassServiceImpl
 				commercePricingClassId);
 
 		if (commercePricingClass != null) {
-			_commercePricingClassResourcePermission.check(
-				getPermissionChecker(), commercePricingClass, ActionKeys.VIEW);
+			PortalPermissionUtil.check(
+				getPermissionChecker(),
+				CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
 		}
 
 		return commercePricingClass;
@@ -133,7 +133,7 @@ public class CommercePricingClassServiceImpl
 
 		PortalPermissionUtil.check(
 			getPermissionChecker(),
-			CommercePricingClassActionKeys.ADD_COMMERCE_PRICING_CLASS);
+			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassLocalService.updateCommercePricingClass(
 			commercePricingClassId, userId, groupId, name, title, description,
@@ -149,18 +149,11 @@ public class CommercePricingClassServiceImpl
 
 		PortalPermissionUtil.check(
 			getPermissionChecker(),
-			CommercePricingClassActionKeys.ADD_COMMERCE_PRICING_CLASS);
+			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassLocalService.upsertCommercePricingClass(
 			commercePricingClassId, userId, groupId, name, title, description,
 			externalReferenceCode, serviceContext);
 	}
-
-	private static volatile ModelResourcePermission<CommercePricingClass>
-		_commercePricingClassResourcePermission =
-			ModelResourcePermissionFactory.getInstance(
-				CommercePricingClassServiceImpl.class,
-				"_commercePricingClassResourcePermission",
-				CommercePricingClass.class);
 
 }

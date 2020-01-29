@@ -12,17 +12,17 @@
  * details.
  */
 
-package com.liferay.commerce.pricing.constants;
+package com.liferay.commerce.pricing.type;
+
+import java.util.List;
 
 /**
  * @author Riccardo Alberti
  */
-public class CommercePricingClassActionKeys {
+public interface CommercePriceModifierTypeRegistry {
 
-	public static final String MANAGE_COMMERCE_PRICING_CLASSES =
-		"MANAGE_COMMERCE_PRICING_CLASSES";
+	public CommercePriceModifierType getCommercePriceModifierType(String key);
 
-	public static final String VIEW_COMMERCE_PRICING_CLASSES =
-		"VIEW_COMMERCE_PRICING_CLASSES";
+	public List<CommercePriceModifierType> getCommercePriceModifierTypes();
 
 }

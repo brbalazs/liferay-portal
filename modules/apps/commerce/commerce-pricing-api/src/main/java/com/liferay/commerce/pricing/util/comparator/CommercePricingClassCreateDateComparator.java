@@ -15,7 +15,6 @@
 package com.liferay.commerce.pricing.util.comparator;
 
 import com.liferay.commerce.pricing.model.CommercePricingClass;
-import com.liferay.commerce.pricing.model.CommercePricingClassRel;
 import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
@@ -41,12 +40,12 @@ public class CommercePricingClassCreateDateComparator
 
 	@Override
 	public int compare(
-			CommercePricingClass commercePricingClass1,
-			CommercePricingClass commercePricingClass2) {
+		CommercePricingClass commercePricingClass1,
+		CommercePricingClass commercePricingClass2) {
 
 		int value = DateUtil.compareTo(
-				commercePricingClass1.getCreateDate(),
-				commercePricingClass2.getCreateDate());
+			commercePricingClass1.getCreateDate(),
+			commercePricingClass2.getCreateDate());
 
 		if (_ascending) {
 			return value;
