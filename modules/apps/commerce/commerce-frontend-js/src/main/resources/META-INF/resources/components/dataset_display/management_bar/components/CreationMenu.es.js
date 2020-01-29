@@ -38,7 +38,7 @@ function CreationMenu(props) {
 			case 'inline':
 				break;
 			default:
-				window.location.href = clickedItem.href;
+				window.location.href = clickedItem.url;
 				break;
 		}
 	}
@@ -57,7 +57,7 @@ function CreationMenu(props) {
 						<ClayDropDown.ItemList>
 							{props.items.map((item, i) => (
 								<ClayDropDown.Item
-									href={item.href || '#'}
+									href={item.url || '#'}
 									key={i}
 									onClick={e => {
 										e.preventDefault();
@@ -85,7 +85,7 @@ CreationMenu.propTypes = {
 	items: PropTypes.arrayOf(
 		PropTypes.oneOfType([
 			PropTypes.shape({
-				href: PropTypes.string.isRequired,
+				url: PropTypes.string.isRequired,
 				label: PropTypes.string.isRequired
 			}),
 			PropTypes.shape({
@@ -94,7 +94,7 @@ CreationMenu.propTypes = {
 				url: PropTypes.string.isRequired
 			}),
 			PropTypes.shape({
-				apiUrl: PropTypes.string.isRequired,
+				url: PropTypes.string.isRequired,
 				editableFields: PropTypes.arrayOf(PropTypes.string).isRequired,
 				label: PropTypes.string.isRequired,
 				type: PropTypes.oneOf(['inline']).isRequired
