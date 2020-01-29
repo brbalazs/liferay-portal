@@ -108,14 +108,6 @@ public class CommercePricingClassServiceImpl
 	}
 
 	@Override
-	public int getCommercePricingClassesCount(long companyId)
-		throws PortalException {
-
-		return commercePricingClassLocalService.getCommercePricingClassesCount(
-			companyId);
-	}
-
-	@Override
 	public List<CommercePricingClass> getCommercePricingClasses(
 			long companyId, int start, int end,
 			OrderByComparator<CommercePricingClass> orderByComparator)
@@ -123,6 +115,14 @@ public class CommercePricingClassServiceImpl
 
 		return commercePricingClassLocalService.getCommercePricingClasses(
 			companyId, start, end, orderByComparator);
+	}
+
+	@Override
+	public int getCommercePricingClassesCount(long companyId)
+		throws PortalException {
+
+		return commercePricingClassLocalService.getCommercePricingClassesCount(
+			companyId);
 	}
 
 	@Override

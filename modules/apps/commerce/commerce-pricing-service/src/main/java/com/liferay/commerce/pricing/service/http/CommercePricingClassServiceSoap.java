@@ -78,10 +78,10 @@ public class CommercePricingClassServiceSoap {
 			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -98,10 +98,10 @@ public class CommercePricingClassServiceSoap {
 			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -120,10 +120,10 @@ public class CommercePricingClassServiceSoap {
 			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -140,10 +140,10 @@ public class CommercePricingClassServiceSoap {
 			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -160,27 +160,10 @@ public class CommercePricingClassServiceSoap {
 			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	public static int getCommercePricingClassesCount(long companyId)
-		throws RemoteException {
-
-		try {
-			int returnValue =
-				CommercePricingClassServiceUtil.getCommercePricingClassesCount(
-					companyId);
-
-			return returnValue;
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -203,10 +186,27 @@ public class CommercePricingClassServiceSoap {
 			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
 				toSoapModels(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommercePricingClassesCount(long companyId)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommercePricingClassServiceUtil.getCommercePricingClassesCount(
+					companyId);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -227,10 +227,10 @@ public class CommercePricingClassServiceSoap {
 			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 
@@ -252,10 +252,10 @@ public class CommercePricingClassServiceSoap {
 			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
 				toSoapModel(returnValue);
 		}
-		catch (Exception e) {
-			_log.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
-			throw new RemoteException(e.getMessage());
+			throw new RemoteException(exception.getMessage());
 		}
 	}
 

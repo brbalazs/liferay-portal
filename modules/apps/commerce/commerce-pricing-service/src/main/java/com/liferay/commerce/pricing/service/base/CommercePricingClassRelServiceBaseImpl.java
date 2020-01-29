@@ -16,6 +16,9 @@ package com.liferay.commerce.pricing.service.base;
 
 import com.liferay.commerce.pricing.model.CommercePricingClassRel;
 import com.liferay.commerce.pricing.service.CommercePricingClassRelService;
+import com.liferay.commerce.pricing.service.persistence.CommercePriceModifierFinder;
+import com.liferay.commerce.pricing.service.persistence.CommercePriceModifierPersistence;
+import com.liferay.commerce.pricing.service.persistence.CommercePriceModifierRelPersistence;
 import com.liferay.commerce.pricing.service.persistence.CommercePricingClassFinder;
 import com.liferay.commerce.pricing.service.persistence.CommercePricingClassPersistence;
 import com.liferay.commerce.pricing.service.persistence.CommercePricingClassRelPersistence;
@@ -54,6 +57,171 @@ public abstract class CommercePricingClassRelServiceBaseImpl
 	 *
 	 * Never modify or reference this class directly. Use <code>CommercePricingClassRelService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.commerce.pricing.service.CommercePricingClassRelServiceUtil</code>.
 	 */
+
+	/**
+	 * Returns the commerce price modifier local service.
+	 *
+	 * @return the commerce price modifier local service
+	 */
+	public
+		com.liferay.commerce.pricing.service.CommercePriceModifierLocalService
+			getCommercePriceModifierLocalService() {
+
+		return commercePriceModifierLocalService;
+	}
+
+	/**
+	 * Sets the commerce price modifier local service.
+	 *
+	 * @param commercePriceModifierLocalService the commerce price modifier local service
+	 */
+	public void setCommercePriceModifierLocalService(
+		com.liferay.commerce.pricing.service.CommercePriceModifierLocalService
+			commercePriceModifierLocalService) {
+
+		this.commercePriceModifierLocalService =
+			commercePriceModifierLocalService;
+	}
+
+	/**
+	 * Returns the commerce price modifier remote service.
+	 *
+	 * @return the commerce price modifier remote service
+	 */
+	public com.liferay.commerce.pricing.service.CommercePriceModifierService
+		getCommercePriceModifierService() {
+
+		return commercePriceModifierService;
+	}
+
+	/**
+	 * Sets the commerce price modifier remote service.
+	 *
+	 * @param commercePriceModifierService the commerce price modifier remote service
+	 */
+	public void setCommercePriceModifierService(
+		com.liferay.commerce.pricing.service.CommercePriceModifierService
+			commercePriceModifierService) {
+
+		this.commercePriceModifierService = commercePriceModifierService;
+	}
+
+	/**
+	 * Returns the commerce price modifier persistence.
+	 *
+	 * @return the commerce price modifier persistence
+	 */
+	public CommercePriceModifierPersistence
+		getCommercePriceModifierPersistence() {
+
+		return commercePriceModifierPersistence;
+	}
+
+	/**
+	 * Sets the commerce price modifier persistence.
+	 *
+	 * @param commercePriceModifierPersistence the commerce price modifier persistence
+	 */
+	public void setCommercePriceModifierPersistence(
+		CommercePriceModifierPersistence commercePriceModifierPersistence) {
+
+		this.commercePriceModifierPersistence =
+			commercePriceModifierPersistence;
+	}
+
+	/**
+	 * Returns the commerce price modifier finder.
+	 *
+	 * @return the commerce price modifier finder
+	 */
+	public CommercePriceModifierFinder getCommercePriceModifierFinder() {
+		return commercePriceModifierFinder;
+	}
+
+	/**
+	 * Sets the commerce price modifier finder.
+	 *
+	 * @param commercePriceModifierFinder the commerce price modifier finder
+	 */
+	public void setCommercePriceModifierFinder(
+		CommercePriceModifierFinder commercePriceModifierFinder) {
+
+		this.commercePriceModifierFinder = commercePriceModifierFinder;
+	}
+
+	/**
+	 * Returns the commerce price modifier rel local service.
+	 *
+	 * @return the commerce price modifier rel local service
+	 */
+	public
+		com.liferay.commerce.pricing.service.
+			CommercePriceModifierRelLocalService
+				getCommercePriceModifierRelLocalService() {
+
+		return commercePriceModifierRelLocalService;
+	}
+
+	/**
+	 * Sets the commerce price modifier rel local service.
+	 *
+	 * @param commercePriceModifierRelLocalService the commerce price modifier rel local service
+	 */
+	public void setCommercePriceModifierRelLocalService(
+		com.liferay.commerce.pricing.service.
+			CommercePriceModifierRelLocalService
+				commercePriceModifierRelLocalService) {
+
+		this.commercePriceModifierRelLocalService =
+			commercePriceModifierRelLocalService;
+	}
+
+	/**
+	 * Returns the commerce price modifier rel remote service.
+	 *
+	 * @return the commerce price modifier rel remote service
+	 */
+	public com.liferay.commerce.pricing.service.CommercePriceModifierRelService
+		getCommercePriceModifierRelService() {
+
+		return commercePriceModifierRelService;
+	}
+
+	/**
+	 * Sets the commerce price modifier rel remote service.
+	 *
+	 * @param commercePriceModifierRelService the commerce price modifier rel remote service
+	 */
+	public void setCommercePriceModifierRelService(
+		com.liferay.commerce.pricing.service.CommercePriceModifierRelService
+			commercePriceModifierRelService) {
+
+		this.commercePriceModifierRelService = commercePriceModifierRelService;
+	}
+
+	/**
+	 * Returns the commerce price modifier rel persistence.
+	 *
+	 * @return the commerce price modifier rel persistence
+	 */
+	public CommercePriceModifierRelPersistence
+		getCommercePriceModifierRelPersistence() {
+
+		return commercePriceModifierRelPersistence;
+	}
+
+	/**
+	 * Sets the commerce price modifier rel persistence.
+	 *
+	 * @param commercePriceModifierRelPersistence the commerce price modifier rel persistence
+	 */
+	public void setCommercePriceModifierRelPersistence(
+		CommercePriceModifierRelPersistence
+			commercePriceModifierRelPersistence) {
+
+		this.commercePriceModifierRelPersistence =
+			commercePriceModifierRelPersistence;
+	}
 
 	/**
 	 * Returns the commerce pricing class local service.
@@ -427,10 +595,48 @@ public abstract class CommercePricingClassRelServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
+
+	@BeanReference(
+		type = com.liferay.commerce.pricing.service.CommercePriceModifierLocalService.class
+	)
+	protected
+		com.liferay.commerce.pricing.service.CommercePriceModifierLocalService
+			commercePriceModifierLocalService;
+
+	@BeanReference(
+		type = com.liferay.commerce.pricing.service.CommercePriceModifierService.class
+	)
+	protected com.liferay.commerce.pricing.service.CommercePriceModifierService
+		commercePriceModifierService;
+
+	@BeanReference(type = CommercePriceModifierPersistence.class)
+	protected CommercePriceModifierPersistence commercePriceModifierPersistence;
+
+	@BeanReference(type = CommercePriceModifierFinder.class)
+	protected CommercePriceModifierFinder commercePriceModifierFinder;
+
+	@BeanReference(
+		type = com.liferay.commerce.pricing.service.CommercePriceModifierRelLocalService.class
+	)
+	protected
+		com.liferay.commerce.pricing.service.
+			CommercePriceModifierRelLocalService
+				commercePriceModifierRelLocalService;
+
+	@BeanReference(
+		type = com.liferay.commerce.pricing.service.CommercePriceModifierRelService.class
+	)
+	protected
+		com.liferay.commerce.pricing.service.CommercePriceModifierRelService
+			commercePriceModifierRelService;
+
+	@BeanReference(type = CommercePriceModifierRelPersistence.class)
+	protected CommercePriceModifierRelPersistence
+		commercePriceModifierRelPersistence;
 
 	@BeanReference(
 		type = com.liferay.commerce.pricing.service.CommercePricingClassLocalService.class
