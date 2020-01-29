@@ -10439,6 +10439,18 @@ cluster.link.bind.addr["cluster-link-udp"]=127.0.0.1</echo>
 								</then>
 							</elseif>
 							<elseif>
+								<equals arg1="${database.type}" arg2="sqlserver" />
+								<then>
+									<echo file="${create.sh.file.path}">
+										<![CDATA[
+											#!/bin/bash
+
+											/opt/mssql-tools/bin/sqlcmd -P ${database.password} -U ${database.username} -i /tmp/create.sql
+										]]>
+									</echo>
+								</then>
+							</elseif>
+							<elseif>
 								<equals arg1="${database.type}" arg2="sybase" />
 								<then>
 									<echo file="${create.sh.file.path}">
