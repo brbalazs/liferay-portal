@@ -1305,8 +1305,6 @@ public class CommerceOrderLocalServiceImpl
 
 		final int previousOrderStatus = commerceOrder.getOrderStatus();
 
-		validateOrderStatus(commerceOrder.getCommerceOrderId(), orderStatus);
-
 		commerceOrder.setOrderStatus(orderStatus);
 
 		commerceOrder = commerceOrderPersistence.update(commerceOrder);
@@ -1334,14 +1332,6 @@ public class CommerceOrderLocalServiceImpl
 		commerceOrder.setPaymentStatus(paymentStatus);
 
 		commerceOrder = commerceOrderPersistence.update(commerceOrder);
-
-		if ((commerceOrder.getOrderStatus() ==
-				CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS) &&
-			(commerceOrder.getPaymentStatus() ==
-				CommerceOrderConstants.PAYMENT_STATUS_PAID)) {
-
-			commerceOrder = setCommerceOrderToTransmit(userId, commerceOrder);
-		}
 
 		// Messaging
 
@@ -1846,16 +1836,6 @@ public class CommerceOrderLocalServiceImpl
 
 		if (count >= _commerceOrderConfiguration.guestCartMaxAllowed()) {
 			throw new GuestCartMaxAllowedException();
-		}
-	}
-
-	protected void validateOrderStatus(long commerceOrderId, int orderStatus)
-		throws PortalException {
-
-		if (!ArrayUtil.contains(
-				getAvailableOrderStatuses(commerceOrderId), orderStatus)) {
-
-			throw new CommerceOrderStatusException();
 		}
 	}
 

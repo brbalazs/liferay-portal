@@ -21,7 +21,7 @@ import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceShipment;
-import com.liferay.commerce.service.CommerceAddressService;
+import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceShipmentService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -33,6 +33,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.TransactionConfig;
 import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 
 import java.math.BigDecimal;
@@ -43,6 +44,8 @@ import java.util.concurrent.Callable;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletURL;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -61,36 +64,15 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 
-	protected void addShipment(ActionRequest actionRequest)
+	protected CommerceShipment addShipment(
+			ActionRequest actionRequest, long commerceOrderId)
 		throws PortalException {
-
-		long commerceOrderId = ParamUtil.getLong(
-			actionRequest, "commerceOrderId");
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			CommerceShipment.class.getName(), actionRequest);
 
-		_commerceShipmentService.addCommerceShipment(
+		return _commerceShipmentService.addCommerceShipment(
 			commerceOrderId, serviceContext);
-	}
-
-	protected void approveCommerceOrder(long commerceOrderId) throws Exception {
-		_commerceOrderService.approveCommerceOrder(commerceOrderId);
-	}
-
-	protected void checkoutCommerceOrder(
-			ActionRequest actionRequest, long commerceOrderId)
-		throws Exception {
-
-		CommerceContext commerceContext =
-			(CommerceContext)actionRequest.getAttribute(
-				CommerceWebKeys.COMMERCE_CONTEXT);
-
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			actionRequest);
-
-		_commerceOrderService.checkoutCommerceOrder(
-			commerceOrderId, commerceContext, serviceContext);
 	}
 
 	protected void deleteCommerceOrders(ActionRequest actionRequest)
@@ -149,7 +131,26 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 			updateRequestedDeliveryDate(actionRequest);
 		}
 		else if (cmd.equals("shipment")) {
-			addShipment(actionRequest);
+			long commerceOrderId = ParamUtil.getLong(
+				actionRequest, "commerceOrderId");
+
+			CommerceShipment commerceShipment = addShipment(
+				actionRequest, commerceOrderId);
+
+			PortletURL shipmentPortletURL = _portal.getControlPanelPortletURL(
+				actionRequest, CommercePortletKeys.COMMERCE_SHIPMENT,
+				PortletRequest.RENDER_PHASE);
+
+			shipmentPortletURL.setParameter(
+				"mvcRenderCommandName", "selectCommerceShipmentItems");
+			shipmentPortletURL.setParameter(
+				"commerceOrderId", String.valueOf(commerceOrderId));
+			shipmentPortletURL.setParameter(
+				"commerceShipmentId",
+				String.valueOf(commerceShipment.getCommerceShipmentId()));
+
+			sendRedirect(
+				actionRequest, actionResponse, shipmentPortletURL.toString());
 		}
 		else if (cmd.equals("shippingAddress")) {
 			updateShippingAddress(actionRequest);
@@ -158,11 +159,12 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 			updateTotals(actionRequest);
 		}
 		else if (cmd.equals("transition")) {
-			executeTransition(actionRequest);
+			executeTransition(actionRequest, actionResponse);
 		}
 	}
 
-	protected void executeTransition(ActionRequest actionRequest)
+	protected void executeTransition(
+			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
 		long commerceOrderId = ParamUtil.getLong(
@@ -177,19 +179,26 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 			executeWorkflowTransition(
 				actionRequest, commerceOrderId, transitionName, workflowTaskId);
 		}
-		else if (transitionName.equals("approve") ||
-				 transitionName.equals("force-approve")) {
+		else {
+			CommerceOrder commerceOrder =
+				_commerceOrderService.getCommerceOrder(commerceOrderId);
 
-			approveCommerceOrder(commerceOrderId);
-		}
-		else if (transitionName.equals("checkout")) {
-			checkoutCommerceOrder(actionRequest, commerceOrderId);
-		}
-		else if (transitionName.equals("reorder")) {
-			reorderCommerceOrder(actionRequest, commerceOrderId);
-		}
-		else if (transitionName.equals("submit")) {
-			submitCommerceOrder(commerceOrderId);
+			int orderStatus = GetterUtil.getInteger(
+				transitionName, commerceOrder.getOrderStatus());
+
+			if (orderStatus == CommerceOrderConstants.ORDER_STATUS_SHIPPED) {
+				CommerceShipment commerceShipment = addShipment(
+					actionRequest, commerceOrderId);
+
+				redirectToShipments(
+					commerceOrderId, commerceShipment.getCommerceShipmentId(),
+					actionRequest, actionResponse);
+			}
+			else {
+				_commerceOrderEngine.transitionCommerceOrder(
+					commerceOrder, orderStatus,
+					_portal.getUserId(actionRequest));
+			}
 		}
 	}
 
@@ -216,6 +225,26 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 		}
 	}
 
+	protected void redirectToShipments(
+			long commerceOrderId, long commerceShipmentId,
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+
+		PortletURL shipmentPortletURL = _portal.getControlPanelPortletURL(
+			actionRequest, CommercePortletKeys.COMMERCE_SHIPMENT,
+			PortletRequest.RENDER_PHASE);
+
+		shipmentPortletURL.setParameter(
+			"mvcRenderCommandName", "selectCommerceShipmentItems");
+		shipmentPortletURL.setParameter(
+			"commerceOrderId", String.valueOf(commerceOrderId));
+		shipmentPortletURL.setParameter(
+			"commerceShipmentId", String.valueOf(commerceShipmentId));
+
+		sendRedirect(
+			actionRequest, actionResponse, shipmentPortletURL.toString());
+	}
+
 	protected void reorderCommerceOrder(
 			ActionRequest actionRequest, long commerceOrderId)
 		throws Exception {
@@ -226,10 +255,6 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 
 		_commerceOrderService.reorderCommerceOrder(
 			commerceOrderId, commerceContext);
-	}
-
-	protected void submitCommerceOrder(long commerceOrderId) throws Exception {
-		_commerceOrderService.submitCommerceOrder(commerceOrderId);
 	}
 
 	protected void updateBillingAddress(ActionRequest actionRequest)
@@ -283,39 +308,6 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 
 		_commerceOrderService.updateCustomFields(
 			commerceOrderId, serviceContext);
-	}
-
-	protected void updateOrderStatus(ActionRequest actionRequest)
-		throws Exception {
-
-		long commerceOrderId = ParamUtil.getLong(
-			actionRequest, "commerceOrderId");
-		int orderStatus = ParamUtil.getInteger(actionRequest, "orderStatus");
-
-		_commerceOrderService.updateOrderStatus(commerceOrderId, orderStatus);
-
-		int orderDateMonth = ParamUtil.getInteger(
-			actionRequest, "orderDateMonth");
-		int orderDateDay = ParamUtil.getInteger(actionRequest, "orderDateDay");
-		int orderDateYear = ParamUtil.getInteger(
-			actionRequest, "orderDateYear");
-		int orderDateHour = ParamUtil.getInteger(
-			actionRequest, "orderDateHour");
-		int orderDateMinute = ParamUtil.getInteger(
-			actionRequest, "orderDateMinute");
-		int orderDateAmPm = ParamUtil.getInteger(
-			actionRequest, "orderDateAmPm");
-
-		if (orderDateAmPm == Calendar.PM) {
-			orderDateHour += 12;
-		}
-
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			CommerceOrder.class.getName(), actionRequest);
-
-		_commerceOrderService.updateOrderDate(
-			commerceOrderId, orderDateMonth, orderDateDay, orderDateYear,
-			orderDateHour, orderDateMinute, serviceContext);
 	}
 
 	protected void updateOrderSummary(ActionRequest actionRequest)
@@ -511,6 +503,9 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	@Reference
+	private CommerceOrderEngine _commerceOrderEngine;
+
+	@Reference
 	private CommerceAddressService _commerceAddressService;
 
 	@Reference
@@ -518,5 +513,8 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private CommerceShipmentService _commerceShipmentService;
+
+	@Reference
+	private Portal _portal;
 
 }
