@@ -75,10 +75,9 @@ public abstract class BaseBillingAddressResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "BillingAddress")})
 	public BillingAddress getChannelCartBillingAddress(
-		@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-			channelId,
-		@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId
-			)
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId)
 		throws Exception {
 
 		return new BillingAddress();

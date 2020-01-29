@@ -71,6 +71,27 @@ public class Order {
 
 	protected BillingAddress billingAddress;
 
+	public Long getBillingAddressId() {
+		return billingAddressId;
+	}
+
+	public void setBillingAddressId(Long billingAddressId) {
+		this.billingAddressId = billingAddressId;
+	}
+
+	public void setBillingAddressId(
+		UnsafeSupplier<Long, Exception> billingAddressIdUnsafeSupplier) {
+
+		try {
+			billingAddressId = billingAddressIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long billingAddressId;
+
 	public OrderItem[] getOrderItems() {
 		return orderItems;
 	}
@@ -113,6 +134,27 @@ public class Order {
 	}
 
 	protected ShippingAddress shippingAddress;
+
+	public Long getShippingAddressId() {
+		return shippingAddressId;
+	}
+
+	public void setShippingAddressId(Long shippingAddressId) {
+		this.shippingAddressId = shippingAddressId;
+	}
+
+	public void setShippingAddressId(
+		UnsafeSupplier<Long, Exception> shippingAddressIdUnsafeSupplier) {
+
+		try {
+			shippingAddressId = shippingAddressIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long shippingAddressId;
 
 	@Override
 	public boolean equals(Object object) {

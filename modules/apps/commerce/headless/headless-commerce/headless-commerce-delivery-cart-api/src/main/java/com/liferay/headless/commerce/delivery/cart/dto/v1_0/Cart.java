@@ -37,6 +37,7 @@ import java.util.Set;
 import javax.annotation.Generated;
 
 import javax.validation.Valid;
+import javax.validation.constraints.DecimalMin;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -249,6 +250,120 @@ public class Cart {
 
 	@Schema
 	@Valid
+	public Note[] getNotes() {
+		return notes;
+	}
+
+	public void setNotes(Note[] notes) {
+		this.notes = notes;
+	}
+
+	@JsonIgnore
+	public void setNotes(
+		UnsafeSupplier<Note[], Exception> notesUnsafeSupplier) {
+
+		try {
+			notes = notesUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Note[] notes;
+
+	@Schema
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+
+	@JsonIgnore
+	public void setPaymentMethod(
+		UnsafeSupplier<String, Exception> paymentMethodUnsafeSupplier) {
+
+		try {
+			paymentMethod = paymentMethodUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String paymentMethod;
+
+	@DecimalMin("0")
+	@Schema
+	public Integer getPaymentStatus() {
+		return paymentStatus;
+	}
+
+	public void setPaymentStatus(Integer paymentStatus) {
+		this.paymentStatus = paymentStatus;
+	}
+
+	@JsonIgnore
+	public void setPaymentStatus(
+		UnsafeSupplier<Integer, Exception> paymentStatusUnsafeSupplier) {
+
+		try {
+			paymentStatus = paymentStatusUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Integer paymentStatus;
+
+	@Schema
+	public String getPrintedNote() {
+		return printedNote;
+	}
+
+	public void setPrintedNote(String printedNote) {
+		this.printedNote = printedNote;
+	}
+
+	@JsonIgnore
+	public void setPrintedNote(
+		UnsafeSupplier<String, Exception> printedNoteUnsafeSupplier) {
+
+		try {
+			printedNote = printedNoteUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String printedNote;
+
+	@Schema
+	@Valid
 	public ShippingAddress getShippingAddress() {
 		return shippingAddress;
 	}
@@ -454,6 +569,64 @@ public class Cart {
 			sb.append("\"id\": ");
 
 			sb.append(id);
+		}
+
+		if (notes != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"notes\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < notes.length; i++) {
+				sb.append(String.valueOf(notes[i]));
+
+				if ((i + 1) < notes.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (paymentMethod != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"paymentMethod\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(paymentMethod));
+
+			sb.append("\"");
+		}
+
+		if (paymentStatus != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"paymentStatus\": ");
+
+			sb.append(paymentStatus);
+		}
+
+		if (printedNote != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"printedNote\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(printedNote));
+
+			sb.append("\"");
 		}
 
 		if (shippingAddress != null) {

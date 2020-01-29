@@ -25,12 +25,17 @@ import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.math.BigDecimal;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 import javax.annotation.Generated;
+
+import javax.validation.Valid;
+import javax.validation.constraints.DecimalMin;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -71,6 +76,146 @@ public class Summary {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Integer itemsQuantity;
+
+	@DecimalMin("0")
+	@Schema
+	@Valid
+	public BigDecimal getShippingDiscountPercentageLevel1() {
+		return shippingDiscountPercentageLevel1;
+	}
+
+	public void setShippingDiscountPercentageLevel1(
+		BigDecimal shippingDiscountPercentageLevel1) {
+
+		this.shippingDiscountPercentageLevel1 =
+			shippingDiscountPercentageLevel1;
+	}
+
+	@JsonIgnore
+	public void setShippingDiscountPercentageLevel1(
+		UnsafeSupplier<BigDecimal, Exception>
+			shippingDiscountPercentageLevel1UnsafeSupplier) {
+
+		try {
+			shippingDiscountPercentageLevel1 =
+				shippingDiscountPercentageLevel1UnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected BigDecimal shippingDiscountPercentageLevel1;
+
+	@DecimalMin("0")
+	@Schema
+	@Valid
+	public BigDecimal getShippingDiscountPercentageLevel2() {
+		return shippingDiscountPercentageLevel2;
+	}
+
+	public void setShippingDiscountPercentageLevel2(
+		BigDecimal shippingDiscountPercentageLevel2) {
+
+		this.shippingDiscountPercentageLevel2 =
+			shippingDiscountPercentageLevel2;
+	}
+
+	@JsonIgnore
+	public void setShippingDiscountPercentageLevel2(
+		UnsafeSupplier<BigDecimal, Exception>
+			shippingDiscountPercentageLevel2UnsafeSupplier) {
+
+		try {
+			shippingDiscountPercentageLevel2 =
+				shippingDiscountPercentageLevel2UnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected BigDecimal shippingDiscountPercentageLevel2;
+
+	@DecimalMin("0")
+	@Schema
+	@Valid
+	public BigDecimal getShippingDiscountPercentageLevel3() {
+		return shippingDiscountPercentageLevel3;
+	}
+
+	public void setShippingDiscountPercentageLevel3(
+		BigDecimal shippingDiscountPercentageLevel3) {
+
+		this.shippingDiscountPercentageLevel3 =
+			shippingDiscountPercentageLevel3;
+	}
+
+	@JsonIgnore
+	public void setShippingDiscountPercentageLevel3(
+		UnsafeSupplier<BigDecimal, Exception>
+			shippingDiscountPercentageLevel3UnsafeSupplier) {
+
+		try {
+			shippingDiscountPercentageLevel3 =
+				shippingDiscountPercentageLevel3UnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected BigDecimal shippingDiscountPercentageLevel3;
+
+	@DecimalMin("0")
+	@Schema
+	@Valid
+	public BigDecimal getShippingDiscountPercentageLevel4() {
+		return shippingDiscountPercentageLevel4;
+	}
+
+	public void setShippingDiscountPercentageLevel4(
+		BigDecimal shippingDiscountPercentageLevel4) {
+
+		this.shippingDiscountPercentageLevel4 =
+			shippingDiscountPercentageLevel4;
+	}
+
+	@JsonIgnore
+	public void setShippingDiscountPercentageLevel4(
+		UnsafeSupplier<BigDecimal, Exception>
+			shippingDiscountPercentageLevel4UnsafeSupplier) {
+
+		try {
+			shippingDiscountPercentageLevel4 =
+				shippingDiscountPercentageLevel4UnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected BigDecimal shippingDiscountPercentageLevel4;
 
 	@Schema
 	public String getShippingDiscountValue() {
@@ -156,6 +301,146 @@ public class Summary {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String subtotal;
 
+	@DecimalMin("0")
+	@Schema
+	@Valid
+	public BigDecimal getSubtotalDiscountPercentageLevel1() {
+		return subtotalDiscountPercentageLevel1;
+	}
+
+	public void setSubtotalDiscountPercentageLevel1(
+		BigDecimal subtotalDiscountPercentageLevel1) {
+
+		this.subtotalDiscountPercentageLevel1 =
+			subtotalDiscountPercentageLevel1;
+	}
+
+	@JsonIgnore
+	public void setSubtotalDiscountPercentageLevel1(
+		UnsafeSupplier<BigDecimal, Exception>
+			subtotalDiscountPercentageLevel1UnsafeSupplier) {
+
+		try {
+			subtotalDiscountPercentageLevel1 =
+				subtotalDiscountPercentageLevel1UnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected BigDecimal subtotalDiscountPercentageLevel1;
+
+	@DecimalMin("0")
+	@Schema
+	@Valid
+	public BigDecimal getSubtotalDiscountPercentageLevel2() {
+		return subtotalDiscountPercentageLevel2;
+	}
+
+	public void setSubtotalDiscountPercentageLevel2(
+		BigDecimal subtotalDiscountPercentageLevel2) {
+
+		this.subtotalDiscountPercentageLevel2 =
+			subtotalDiscountPercentageLevel2;
+	}
+
+	@JsonIgnore
+	public void setSubtotalDiscountPercentageLevel2(
+		UnsafeSupplier<BigDecimal, Exception>
+			subtotalDiscountPercentageLevel2UnsafeSupplier) {
+
+		try {
+			subtotalDiscountPercentageLevel2 =
+				subtotalDiscountPercentageLevel2UnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected BigDecimal subtotalDiscountPercentageLevel2;
+
+	@DecimalMin("0")
+	@Schema
+	@Valid
+	public BigDecimal getSubtotalDiscountPercentageLevel3() {
+		return subtotalDiscountPercentageLevel3;
+	}
+
+	public void setSubtotalDiscountPercentageLevel3(
+		BigDecimal subtotalDiscountPercentageLevel3) {
+
+		this.subtotalDiscountPercentageLevel3 =
+			subtotalDiscountPercentageLevel3;
+	}
+
+	@JsonIgnore
+	public void setSubtotalDiscountPercentageLevel3(
+		UnsafeSupplier<BigDecimal, Exception>
+			subtotalDiscountPercentageLevel3UnsafeSupplier) {
+
+		try {
+			subtotalDiscountPercentageLevel3 =
+				subtotalDiscountPercentageLevel3UnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected BigDecimal subtotalDiscountPercentageLevel3;
+
+	@DecimalMin("0")
+	@Schema
+	@Valid
+	public BigDecimal getSubtotalDiscountPercentageLevel4() {
+		return subtotalDiscountPercentageLevel4;
+	}
+
+	public void setSubtotalDiscountPercentageLevel4(
+		BigDecimal subtotalDiscountPercentageLevel4) {
+
+		this.subtotalDiscountPercentageLevel4 =
+			subtotalDiscountPercentageLevel4;
+	}
+
+	@JsonIgnore
+	public void setSubtotalDiscountPercentageLevel4(
+		UnsafeSupplier<BigDecimal, Exception>
+			subtotalDiscountPercentageLevel4UnsafeSupplier) {
+
+		try {
+			subtotalDiscountPercentageLevel4 =
+				subtotalDiscountPercentageLevel4UnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected BigDecimal subtotalDiscountPercentageLevel4;
+
 	@Schema
 	public String getSubtotalDiscountValue() {
 		return subtotalDiscountValue;
@@ -240,6 +525,142 @@ public class Summary {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String total;
 
+	@DecimalMin("0")
+	@Schema
+	@Valid
+	public BigDecimal getTotalDiscountPercentageLevel1() {
+		return totalDiscountPercentageLevel1;
+	}
+
+	public void setTotalDiscountPercentageLevel1(
+		BigDecimal totalDiscountPercentageLevel1) {
+
+		this.totalDiscountPercentageLevel1 = totalDiscountPercentageLevel1;
+	}
+
+	@JsonIgnore
+	public void setTotalDiscountPercentageLevel1(
+		UnsafeSupplier<BigDecimal, Exception>
+			totalDiscountPercentageLevel1UnsafeSupplier) {
+
+		try {
+			totalDiscountPercentageLevel1 =
+				totalDiscountPercentageLevel1UnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected BigDecimal totalDiscountPercentageLevel1;
+
+	@DecimalMin("0")
+	@Schema
+	@Valid
+	public BigDecimal getTotalDiscountPercentageLevel2() {
+		return totalDiscountPercentageLevel2;
+	}
+
+	public void setTotalDiscountPercentageLevel2(
+		BigDecimal totalDiscountPercentageLevel2) {
+
+		this.totalDiscountPercentageLevel2 = totalDiscountPercentageLevel2;
+	}
+
+	@JsonIgnore
+	public void setTotalDiscountPercentageLevel2(
+		UnsafeSupplier<BigDecimal, Exception>
+			totalDiscountPercentageLevel2UnsafeSupplier) {
+
+		try {
+			totalDiscountPercentageLevel2 =
+				totalDiscountPercentageLevel2UnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected BigDecimal totalDiscountPercentageLevel2;
+
+	@DecimalMin("0")
+	@Schema
+	@Valid
+	public BigDecimal getTotalDiscountPercentageLevel3() {
+		return totalDiscountPercentageLevel3;
+	}
+
+	public void setTotalDiscountPercentageLevel3(
+		BigDecimal totalDiscountPercentageLevel3) {
+
+		this.totalDiscountPercentageLevel3 = totalDiscountPercentageLevel3;
+	}
+
+	@JsonIgnore
+	public void setTotalDiscountPercentageLevel3(
+		UnsafeSupplier<BigDecimal, Exception>
+			totalDiscountPercentageLevel3UnsafeSupplier) {
+
+		try {
+			totalDiscountPercentageLevel3 =
+				totalDiscountPercentageLevel3UnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected BigDecimal totalDiscountPercentageLevel3;
+
+	@DecimalMin("0")
+	@Schema
+	@Valid
+	public BigDecimal getTotalDiscountPercentageLevel4() {
+		return totalDiscountPercentageLevel4;
+	}
+
+	public void setTotalDiscountPercentageLevel4(
+		BigDecimal totalDiscountPercentageLevel4) {
+
+		this.totalDiscountPercentageLevel4 = totalDiscountPercentageLevel4;
+	}
+
+	@JsonIgnore
+	public void setTotalDiscountPercentageLevel4(
+		UnsafeSupplier<BigDecimal, Exception>
+			totalDiscountPercentageLevel4UnsafeSupplier) {
+
+		try {
+			totalDiscountPercentageLevel4 =
+				totalDiscountPercentageLevel4UnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected BigDecimal totalDiscountPercentageLevel4;
+
 	@Schema
 	public String getTotalDiscountValue() {
 		return totalDiscountValue;
@@ -305,6 +726,46 @@ public class Summary {
 			sb.append(itemsQuantity);
 		}
 
+		if (shippingDiscountPercentageLevel1 != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingDiscountPercentageLevel1\": ");
+
+			sb.append(shippingDiscountPercentageLevel1);
+		}
+
+		if (shippingDiscountPercentageLevel2 != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingDiscountPercentageLevel2\": ");
+
+			sb.append(shippingDiscountPercentageLevel2);
+		}
+
+		if (shippingDiscountPercentageLevel3 != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingDiscountPercentageLevel3\": ");
+
+			sb.append(shippingDiscountPercentageLevel3);
+		}
+
+		if (shippingDiscountPercentageLevel4 != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingDiscountPercentageLevel4\": ");
+
+			sb.append(shippingDiscountPercentageLevel4);
+		}
+
 		if (shippingDiscountValue != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -347,6 +808,46 @@ public class Summary {
 			sb.append("\"");
 		}
 
+		if (subtotalDiscountPercentageLevel1 != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalDiscountPercentageLevel1\": ");
+
+			sb.append(subtotalDiscountPercentageLevel1);
+		}
+
+		if (subtotalDiscountPercentageLevel2 != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalDiscountPercentageLevel2\": ");
+
+			sb.append(subtotalDiscountPercentageLevel2);
+		}
+
+		if (subtotalDiscountPercentageLevel3 != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalDiscountPercentageLevel3\": ");
+
+			sb.append(subtotalDiscountPercentageLevel3);
+		}
+
+		if (subtotalDiscountPercentageLevel4 != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalDiscountPercentageLevel4\": ");
+
+			sb.append(subtotalDiscountPercentageLevel4);
+		}
+
 		if (subtotalDiscountValue != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -387,6 +888,46 @@ public class Summary {
 			sb.append(_escape(total));
 
 			sb.append("\"");
+		}
+
+		if (totalDiscountPercentageLevel1 != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalDiscountPercentageLevel1\": ");
+
+			sb.append(totalDiscountPercentageLevel1);
+		}
+
+		if (totalDiscountPercentageLevel2 != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalDiscountPercentageLevel2\": ");
+
+			sb.append(totalDiscountPercentageLevel2);
+		}
+
+		if (totalDiscountPercentageLevel3 != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalDiscountPercentageLevel3\": ");
+
+			sb.append(totalDiscountPercentageLevel3);
+		}
+
+		if (totalDiscountPercentageLevel4 != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalDiscountPercentageLevel4\": ");
+
+			sb.append(totalDiscountPercentageLevel4);
 		}
 
 		if (totalDiscountValue != null) {

@@ -175,6 +175,90 @@ public class Cart {
 
 	protected Long id;
 
+	public Note[] getNotes() {
+		return notes;
+	}
+
+	public void setNotes(Note[] notes) {
+		this.notes = notes;
+	}
+
+	public void setNotes(
+		UnsafeSupplier<Note[], Exception> notesUnsafeSupplier) {
+
+		try {
+			notes = notesUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Note[] notes;
+
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+
+	public void setPaymentMethod(
+		UnsafeSupplier<String, Exception> paymentMethodUnsafeSupplier) {
+
+		try {
+			paymentMethod = paymentMethodUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String paymentMethod;
+
+	public Integer getPaymentStatus() {
+		return paymentStatus;
+	}
+
+	public void setPaymentStatus(Integer paymentStatus) {
+		this.paymentStatus = paymentStatus;
+	}
+
+	public void setPaymentStatus(
+		UnsafeSupplier<Integer, Exception> paymentStatusUnsafeSupplier) {
+
+		try {
+			paymentStatus = paymentStatusUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Integer paymentStatus;
+
+	public String getPrintedNote() {
+		return printedNote;
+	}
+
+	public void setPrintedNote(String printedNote) {
+		this.printedNote = printedNote;
+	}
+
+	public void setPrintedNote(
+		UnsafeSupplier<String, Exception> printedNoteUnsafeSupplier) {
+
+		try {
+			printedNote = printedNoteUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String printedNote;
+
 	public ShippingAddress getShippingAddress() {
 		return shippingAddress;
 	}

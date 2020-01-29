@@ -70,6 +70,8 @@ public class OpenAPIResourceImpl {
 
 			add(CartItemResourceImpl.class);
 
+			add(NoteResourceImpl.class);
+
 			add(ShippingAddressResourceImpl.class);
 
 			add(OpenAPIResourceImpl.class);

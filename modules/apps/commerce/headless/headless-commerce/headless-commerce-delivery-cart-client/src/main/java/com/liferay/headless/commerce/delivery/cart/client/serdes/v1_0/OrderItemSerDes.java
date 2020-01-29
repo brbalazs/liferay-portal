@@ -53,6 +53,26 @@ public class OrderItemSerDes {
 
 		sb.append("{");
 
+		if (orderItem.getBillingAddress() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"billingAddress\": ");
+
+			sb.append(String.valueOf(orderItem.getBillingAddress()));
+		}
+
+		if (orderItem.getBillingAddressId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"billingAddressId\": ");
+
+			sb.append(orderItem.getBillingAddressId());
+		}
+
 		if (orderItem.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -97,6 +117,26 @@ public class OrderItemSerDes {
 			sb.append(orderItem.getQuantity());
 		}
 
+		if (orderItem.getShippingAddress() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingAddress\": ");
+
+			sb.append(String.valueOf(orderItem.getShippingAddress()));
+		}
+
+		if (orderItem.getShippingAddressId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingAddressId\": ");
+
+			sb.append(orderItem.getShippingAddressId());
+		}
+
 		sb.append("}");
 
 		return sb.toString();
@@ -114,6 +154,24 @@ public class OrderItemSerDes {
 		}
 
 		Map<String, String> map = new TreeMap<>();
+
+		if (orderItem.getBillingAddress() == null) {
+			map.put("billingAddress", null);
+		}
+		else {
+			map.put(
+				"billingAddress",
+				String.valueOf(orderItem.getBillingAddress()));
+		}
+
+		if (orderItem.getBillingAddressId() == null) {
+			map.put("billingAddressId", null);
+		}
+		else {
+			map.put(
+				"billingAddressId",
+				String.valueOf(orderItem.getBillingAddressId()));
+		}
 
 		if (orderItem.getId() == null) {
 			map.put("id", null);
@@ -143,6 +201,24 @@ public class OrderItemSerDes {
 			map.put("quantity", String.valueOf(orderItem.getQuantity()));
 		}
 
+		if (orderItem.getShippingAddress() == null) {
+			map.put("shippingAddress", null);
+		}
+		else {
+			map.put(
+				"shippingAddress",
+				String.valueOf(orderItem.getShippingAddress()));
+		}
+
+		if (orderItem.getShippingAddressId() == null) {
+			map.put("shippingAddressId", null);
+		}
+		else {
+			map.put(
+				"shippingAddressId",
+				String.valueOf(orderItem.getShippingAddressId()));
+		}
+
 		return map;
 	}
 
@@ -163,7 +239,20 @@ public class OrderItemSerDes {
 			OrderItem orderItem, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "id")) {
+			if (Objects.equals(jsonParserFieldName, "billingAddress")) {
+				if (jsonParserFieldValue != null) {
+					orderItem.setBillingAddress(
+						BillingAddressSerDes.toDTO(
+							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "billingAddressId")) {
+				if (jsonParserFieldValue != null) {
+					orderItem.setBillingAddressId(
+						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
 					orderItem.setId(Long.valueOf((String)jsonParserFieldValue));
 				}
@@ -183,6 +272,19 @@ public class OrderItemSerDes {
 				if (jsonParserFieldValue != null) {
 					orderItem.setQuantity(
 						Integer.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "shippingAddress")) {
+				if (jsonParserFieldValue != null) {
+					orderItem.setShippingAddress(
+						ShippingAddressSerDes.toDTO(
+							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "shippingAddressId")) {
+				if (jsonParserFieldValue != null) {
+					orderItem.setShippingAddressId(
+						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else {

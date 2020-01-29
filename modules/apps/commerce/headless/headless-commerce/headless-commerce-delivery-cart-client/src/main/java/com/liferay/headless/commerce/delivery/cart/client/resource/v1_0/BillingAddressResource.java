@@ -37,19 +37,19 @@ public interface BillingAddressResource {
 	}
 
 	public BillingAddress getChannelCartBillingAddress(
-			Long cartId, Long channelId)
+			Long channelId, Long cartId)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getChannelCartBillingAddressHttpResponse(
-			Long cartId, Long channelId)
+			Long channelId, Long cartId)
 		throws Exception;
 
 	public void patchChannelCartBillingAddress(
-			Long cartId, Long channelId, BillingAddress billingAddress)
+			Long channelId, Long cartId, BillingAddress billingAddress)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse patchChannelCartBillingAddressHttpResponse(
-			Long cartId, Long channelId, BillingAddress billingAddress)
+			Long channelId, Long cartId, BillingAddress billingAddress)
 		throws Exception;
 
 	public static class Builder {
@@ -109,11 +109,11 @@ public interface BillingAddressResource {
 		implements BillingAddressResource {
 
 		public BillingAddress getChannelCartBillingAddress(
-				Long cartId, Long channelId)
+				Long channelId, Long cartId)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getChannelCartBillingAddressHttpResponse(cartId, channelId);
+				getChannelCartBillingAddressHttpResponse(channelId, cartId);
 
 			String content = httpResponse.getContent();
 
@@ -138,7 +138,7 @@ public interface BillingAddressResource {
 
 		public HttpInvoker.HttpResponse
 				getChannelCartBillingAddressHttpResponse(
-					Long cartId, Long channelId)
+					Long channelId, Long cartId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -166,7 +166,7 @@ public interface BillingAddressResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/billingAddress",
-				cartId, channelId);
+				channelId, cartId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -175,12 +175,12 @@ public interface BillingAddressResource {
 		}
 
 		public void patchChannelCartBillingAddress(
-				Long cartId, Long channelId, BillingAddress billingAddress)
+				Long channelId, Long cartId, BillingAddress billingAddress)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				patchChannelCartBillingAddressHttpResponse(
-					cartId, channelId, billingAddress);
+					channelId, cartId, billingAddress);
 
 			String content = httpResponse.getContent();
 
@@ -193,7 +193,7 @@ public interface BillingAddressResource {
 
 		public HttpInvoker.HttpResponse
 				patchChannelCartBillingAddressHttpResponse(
-					Long cartId, Long channelId, BillingAddress billingAddress)
+					Long channelId, Long cartId, BillingAddress billingAddress)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -223,7 +223,7 @@ public interface BillingAddressResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/billingAddress",
-				cartId, channelId);
+				channelId, cartId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

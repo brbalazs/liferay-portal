@@ -213,8 +213,8 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 		BillingAddress getBillingAddress =
 			billingAddressResource.getChannelCartBillingAddress(
-				postBillingAddress.getCartId(),
-				postBillingAddress.getChannelId());
+				postBillingAddress.getChannelId(),
+				postBillingAddress.getCartId());
 
 		assertEquals(postBillingAddress, getBillingAddress);
 		assertValid(getBillingAddress);
@@ -241,8 +241,8 @@ public abstract class BaseBillingAddressResourceTestCase {
 				"channelCartBillingAddress",
 				new HashMap<String, Object>() {
 					{
-						put("cartId", billingAddress.getCartId());
 						put("channelId", billingAddress.getChannelId());
+						put("cartId", billingAddress.getCartId());
 					}
 				},
 				graphQLFields.toArray(new GraphQLField[0])));

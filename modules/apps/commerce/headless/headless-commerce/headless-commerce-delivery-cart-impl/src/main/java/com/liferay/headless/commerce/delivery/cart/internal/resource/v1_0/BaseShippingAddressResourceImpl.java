@@ -75,17 +75,12 @@ public abstract class BaseShippingAddressResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ShippingAddress")})
 	public ShippingAddress getChannelCartShippingAddress(
-		@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-			channelId,
-		@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId
-			)
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId)
 		throws Exception {
 
 		return new ShippingAddress();
-	}
-
-	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
-		this.contextAcceptLanguage = contextAcceptLanguage;
 	}
 
 	/**
@@ -106,15 +101,19 @@ public abstract class BaseShippingAddressResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ShippingAddress")})
 	public Response patchChannelCartShippingAddress(
-		@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-			channelId,
-		@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
-		ShippingAddress shippingAddress)
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
+			ShippingAddress shippingAddress)
 		throws Exception {
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
 
 		return responseBuilder.build();
+	}
+
+	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
+		this.contextAcceptLanguage = contextAcceptLanguage;
 	}
 
 	public void setContextCompany(

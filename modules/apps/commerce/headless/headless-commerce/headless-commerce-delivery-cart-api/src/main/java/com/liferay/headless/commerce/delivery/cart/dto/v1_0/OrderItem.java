@@ -32,6 +32,9 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
+import javax.validation.constraints.DecimalMin;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -43,6 +46,65 @@ import javax.xml.bind.annotation.XmlRootElement;
 @JsonFilter("Liferay.Vulcan")
 @XmlRootElement(name = "OrderItem")
 public class OrderItem {
+
+	@Schema
+	@Valid
+	public BillingAddress getBillingAddress() {
+		return billingAddress;
+	}
+
+	public void setBillingAddress(BillingAddress billingAddress) {
+		this.billingAddress = billingAddress;
+	}
+
+	@JsonIgnore
+	public void setBillingAddress(
+		UnsafeSupplier<BillingAddress, Exception>
+			billingAddressUnsafeSupplier) {
+
+		try {
+			billingAddress = billingAddressUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected BillingAddress billingAddress;
+
+	@DecimalMin("0")
+	@Schema
+	public Long getBillingAddressId() {
+		return billingAddressId;
+	}
+
+	public void setBillingAddressId(Long billingAddressId) {
+		this.billingAddressId = billingAddressId;
+	}
+
+	@JsonIgnore
+	public void setBillingAddressId(
+		UnsafeSupplier<Long, Exception> billingAddressIdUnsafeSupplier) {
+
+		try {
+			billingAddressId = billingAddressIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Long billingAddressId;
 
 	@Schema
 	public Long getId() {
@@ -154,6 +216,65 @@ public class OrderItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Integer quantity;
 
+	@Schema
+	@Valid
+	public ShippingAddress getShippingAddress() {
+		return shippingAddress;
+	}
+
+	public void setShippingAddress(ShippingAddress shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
+
+	@JsonIgnore
+	public void setShippingAddress(
+		UnsafeSupplier<ShippingAddress, Exception>
+			shippingAddressUnsafeSupplier) {
+
+		try {
+			shippingAddress = shippingAddressUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected ShippingAddress shippingAddress;
+
+	@DecimalMin("0")
+	@Schema
+	public Long getShippingAddressId() {
+		return shippingAddressId;
+	}
+
+	public void setShippingAddressId(Long shippingAddressId) {
+		this.shippingAddressId = shippingAddressId;
+	}
+
+	@JsonIgnore
+	public void setShippingAddressId(
+		UnsafeSupplier<Long, Exception> shippingAddressIdUnsafeSupplier) {
+
+		try {
+			shippingAddressId = shippingAddressIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Long shippingAddressId;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -180,6 +301,26 @@ public class OrderItem {
 		StringBundler sb = new StringBundler();
 
 		sb.append("{");
+
+		if (billingAddress != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"billingAddress\": ");
+
+			sb.append(String.valueOf(billingAddress));
+		}
+
+		if (billingAddressId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"billingAddressId\": ");
+
+			sb.append(billingAddressId);
+		}
 
 		if (id != null) {
 			if (sb.length() > 1) {
@@ -223,6 +364,26 @@ public class OrderItem {
 			sb.append("\"quantity\": ");
 
 			sb.append(quantity);
+		}
+
+		if (shippingAddress != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingAddress\": ");
+
+			sb.append(String.valueOf(shippingAddress));
+		}
+
+		if (shippingAddressId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingAddressId\": ");
+
+			sb.append(shippingAddressId);
 		}
 
 		sb.append("}");

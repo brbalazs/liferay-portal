@@ -17,6 +17,8 @@ package com.liferay.headless.commerce.delivery.cart.client.dto.v1_0;
 import com.liferay.headless.commerce.delivery.cart.client.function.UnsafeSupplier;
 import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.SummarySerDes;
 
+import java.math.BigDecimal;
+
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -48,6 +50,110 @@ public class Summary {
 	}
 
 	protected Integer itemsQuantity;
+
+	public BigDecimal getShippingDiscountPercentageLevel1() {
+		return shippingDiscountPercentageLevel1;
+	}
+
+	public void setShippingDiscountPercentageLevel1(
+		BigDecimal shippingDiscountPercentageLevel1) {
+
+		this.shippingDiscountPercentageLevel1 =
+			shippingDiscountPercentageLevel1;
+	}
+
+	public void setShippingDiscountPercentageLevel1(
+		UnsafeSupplier<BigDecimal, Exception>
+			shippingDiscountPercentageLevel1UnsafeSupplier) {
+
+		try {
+			shippingDiscountPercentageLevel1 =
+				shippingDiscountPercentageLevel1UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal shippingDiscountPercentageLevel1;
+
+	public BigDecimal getShippingDiscountPercentageLevel2() {
+		return shippingDiscountPercentageLevel2;
+	}
+
+	public void setShippingDiscountPercentageLevel2(
+		BigDecimal shippingDiscountPercentageLevel2) {
+
+		this.shippingDiscountPercentageLevel2 =
+			shippingDiscountPercentageLevel2;
+	}
+
+	public void setShippingDiscountPercentageLevel2(
+		UnsafeSupplier<BigDecimal, Exception>
+			shippingDiscountPercentageLevel2UnsafeSupplier) {
+
+		try {
+			shippingDiscountPercentageLevel2 =
+				shippingDiscountPercentageLevel2UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal shippingDiscountPercentageLevel2;
+
+	public BigDecimal getShippingDiscountPercentageLevel3() {
+		return shippingDiscountPercentageLevel3;
+	}
+
+	public void setShippingDiscountPercentageLevel3(
+		BigDecimal shippingDiscountPercentageLevel3) {
+
+		this.shippingDiscountPercentageLevel3 =
+			shippingDiscountPercentageLevel3;
+	}
+
+	public void setShippingDiscountPercentageLevel3(
+		UnsafeSupplier<BigDecimal, Exception>
+			shippingDiscountPercentageLevel3UnsafeSupplier) {
+
+		try {
+			shippingDiscountPercentageLevel3 =
+				shippingDiscountPercentageLevel3UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal shippingDiscountPercentageLevel3;
+
+	public BigDecimal getShippingDiscountPercentageLevel4() {
+		return shippingDiscountPercentageLevel4;
+	}
+
+	public void setShippingDiscountPercentageLevel4(
+		BigDecimal shippingDiscountPercentageLevel4) {
+
+		this.shippingDiscountPercentageLevel4 =
+			shippingDiscountPercentageLevel4;
+	}
+
+	public void setShippingDiscountPercentageLevel4(
+		UnsafeSupplier<BigDecimal, Exception>
+			shippingDiscountPercentageLevel4UnsafeSupplier) {
+
+		try {
+			shippingDiscountPercentageLevel4 =
+				shippingDiscountPercentageLevel4UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal shippingDiscountPercentageLevel4;
 
 	public String getShippingDiscountValue() {
 		return shippingDiscountValue;
@@ -112,6 +218,110 @@ public class Summary {
 
 	protected String subtotal;
 
+	public BigDecimal getSubtotalDiscountPercentageLevel1() {
+		return subtotalDiscountPercentageLevel1;
+	}
+
+	public void setSubtotalDiscountPercentageLevel1(
+		BigDecimal subtotalDiscountPercentageLevel1) {
+
+		this.subtotalDiscountPercentageLevel1 =
+			subtotalDiscountPercentageLevel1;
+	}
+
+	public void setSubtotalDiscountPercentageLevel1(
+		UnsafeSupplier<BigDecimal, Exception>
+			subtotalDiscountPercentageLevel1UnsafeSupplier) {
+
+		try {
+			subtotalDiscountPercentageLevel1 =
+				subtotalDiscountPercentageLevel1UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal subtotalDiscountPercentageLevel1;
+
+	public BigDecimal getSubtotalDiscountPercentageLevel2() {
+		return subtotalDiscountPercentageLevel2;
+	}
+
+	public void setSubtotalDiscountPercentageLevel2(
+		BigDecimal subtotalDiscountPercentageLevel2) {
+
+		this.subtotalDiscountPercentageLevel2 =
+			subtotalDiscountPercentageLevel2;
+	}
+
+	public void setSubtotalDiscountPercentageLevel2(
+		UnsafeSupplier<BigDecimal, Exception>
+			subtotalDiscountPercentageLevel2UnsafeSupplier) {
+
+		try {
+			subtotalDiscountPercentageLevel2 =
+				subtotalDiscountPercentageLevel2UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal subtotalDiscountPercentageLevel2;
+
+	public BigDecimal getSubtotalDiscountPercentageLevel3() {
+		return subtotalDiscountPercentageLevel3;
+	}
+
+	public void setSubtotalDiscountPercentageLevel3(
+		BigDecimal subtotalDiscountPercentageLevel3) {
+
+		this.subtotalDiscountPercentageLevel3 =
+			subtotalDiscountPercentageLevel3;
+	}
+
+	public void setSubtotalDiscountPercentageLevel3(
+		UnsafeSupplier<BigDecimal, Exception>
+			subtotalDiscountPercentageLevel3UnsafeSupplier) {
+
+		try {
+			subtotalDiscountPercentageLevel3 =
+				subtotalDiscountPercentageLevel3UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal subtotalDiscountPercentageLevel3;
+
+	public BigDecimal getSubtotalDiscountPercentageLevel4() {
+		return subtotalDiscountPercentageLevel4;
+	}
+
+	public void setSubtotalDiscountPercentageLevel4(
+		BigDecimal subtotalDiscountPercentageLevel4) {
+
+		this.subtotalDiscountPercentageLevel4 =
+			subtotalDiscountPercentageLevel4;
+	}
+
+	public void setSubtotalDiscountPercentageLevel4(
+		UnsafeSupplier<BigDecimal, Exception>
+			subtotalDiscountPercentageLevel4UnsafeSupplier) {
+
+		try {
+			subtotalDiscountPercentageLevel4 =
+				subtotalDiscountPercentageLevel4UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal subtotalDiscountPercentageLevel4;
+
 	public String getSubtotalDiscountValue() {
 		return subtotalDiscountValue;
 	}
@@ -174,6 +384,106 @@ public class Summary {
 	}
 
 	protected String total;
+
+	public BigDecimal getTotalDiscountPercentageLevel1() {
+		return totalDiscountPercentageLevel1;
+	}
+
+	public void setTotalDiscountPercentageLevel1(
+		BigDecimal totalDiscountPercentageLevel1) {
+
+		this.totalDiscountPercentageLevel1 = totalDiscountPercentageLevel1;
+	}
+
+	public void setTotalDiscountPercentageLevel1(
+		UnsafeSupplier<BigDecimal, Exception>
+			totalDiscountPercentageLevel1UnsafeSupplier) {
+
+		try {
+			totalDiscountPercentageLevel1 =
+				totalDiscountPercentageLevel1UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal totalDiscountPercentageLevel1;
+
+	public BigDecimal getTotalDiscountPercentageLevel2() {
+		return totalDiscountPercentageLevel2;
+	}
+
+	public void setTotalDiscountPercentageLevel2(
+		BigDecimal totalDiscountPercentageLevel2) {
+
+		this.totalDiscountPercentageLevel2 = totalDiscountPercentageLevel2;
+	}
+
+	public void setTotalDiscountPercentageLevel2(
+		UnsafeSupplier<BigDecimal, Exception>
+			totalDiscountPercentageLevel2UnsafeSupplier) {
+
+		try {
+			totalDiscountPercentageLevel2 =
+				totalDiscountPercentageLevel2UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal totalDiscountPercentageLevel2;
+
+	public BigDecimal getTotalDiscountPercentageLevel3() {
+		return totalDiscountPercentageLevel3;
+	}
+
+	public void setTotalDiscountPercentageLevel3(
+		BigDecimal totalDiscountPercentageLevel3) {
+
+		this.totalDiscountPercentageLevel3 = totalDiscountPercentageLevel3;
+	}
+
+	public void setTotalDiscountPercentageLevel3(
+		UnsafeSupplier<BigDecimal, Exception>
+			totalDiscountPercentageLevel3UnsafeSupplier) {
+
+		try {
+			totalDiscountPercentageLevel3 =
+				totalDiscountPercentageLevel3UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal totalDiscountPercentageLevel3;
+
+	public BigDecimal getTotalDiscountPercentageLevel4() {
+		return totalDiscountPercentageLevel4;
+	}
+
+	public void setTotalDiscountPercentageLevel4(
+		BigDecimal totalDiscountPercentageLevel4) {
+
+		this.totalDiscountPercentageLevel4 = totalDiscountPercentageLevel4;
+	}
+
+	public void setTotalDiscountPercentageLevel4(
+		UnsafeSupplier<BigDecimal, Exception>
+			totalDiscountPercentageLevel4UnsafeSupplier) {
+
+		try {
+			totalDiscountPercentageLevel4 =
+				totalDiscountPercentageLevel4UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal totalDiscountPercentageLevel4;
 
 	public String getTotalDiscountValue() {
 		return totalDiscountValue;

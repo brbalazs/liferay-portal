@@ -19,6 +19,7 @@ import com.liferay.headless.commerce.delivery.cart.internal.graphql.query.v1_0.Q
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.BillingAddressResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartItemResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.NoteResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.ShippingAddressResource;
 import com.liferay.portal.vulcan.graphql.servlet.ServletData;
 
@@ -47,6 +48,8 @@ public class ServletDataImpl implements ServletData {
 			_cartResourceComponentServiceObjects);
 		Mutation.setCartItemResourceComponentServiceObjects(
 			_cartItemResourceComponentServiceObjects);
+		Mutation.setNoteResourceComponentServiceObjects(
+			_noteResourceComponentServiceObjects);
 		Mutation.setShippingAddressResourceComponentServiceObjects(
 			_shippingAddressResourceComponentServiceObjects);
 
@@ -56,6 +59,8 @@ public class ServletDataImpl implements ServletData {
 			_cartResourceComponentServiceObjects);
 		Query.setCartItemResourceComponentServiceObjects(
 			_cartItemResourceComponentServiceObjects);
+		Query.setNoteResourceComponentServiceObjects(
+			_noteResourceComponentServiceObjects);
 		Query.setShippingAddressResourceComponentServiceObjects(
 			_shippingAddressResourceComponentServiceObjects);
 	}
@@ -86,6 +91,10 @@ public class ServletDataImpl implements ServletData {
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<CartItemResource>
 		_cartItemResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<NoteResource>
+		_noteResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<ShippingAddressResource>

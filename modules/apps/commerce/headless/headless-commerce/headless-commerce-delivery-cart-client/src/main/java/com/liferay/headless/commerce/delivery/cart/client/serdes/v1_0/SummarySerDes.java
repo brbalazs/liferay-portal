@@ -17,6 +17,8 @@ package com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0;
 import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.Summary;
 import com.liferay.headless.commerce.delivery.cart.client.json.BaseJSONParser;
 
+import java.math.BigDecimal;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
@@ -63,6 +65,46 @@ public class SummarySerDes {
 			sb.append(summary.getItemsQuantity());
 		}
 
+		if (summary.getShippingDiscountPercentageLevel1() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingDiscountPercentageLevel1\": ");
+
+			sb.append(summary.getShippingDiscountPercentageLevel1());
+		}
+
+		if (summary.getShippingDiscountPercentageLevel2() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingDiscountPercentageLevel2\": ");
+
+			sb.append(summary.getShippingDiscountPercentageLevel2());
+		}
+
+		if (summary.getShippingDiscountPercentageLevel3() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingDiscountPercentageLevel3\": ");
+
+			sb.append(summary.getShippingDiscountPercentageLevel3());
+		}
+
+		if (summary.getShippingDiscountPercentageLevel4() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingDiscountPercentageLevel4\": ");
+
+			sb.append(summary.getShippingDiscountPercentageLevel4());
+		}
+
 		if (summary.getShippingDiscountValue() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -103,6 +145,46 @@ public class SummarySerDes {
 			sb.append(_escape(summary.getSubtotal()));
 
 			sb.append("\"");
+		}
+
+		if (summary.getSubtotalDiscountPercentageLevel1() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalDiscountPercentageLevel1\": ");
+
+			sb.append(summary.getSubtotalDiscountPercentageLevel1());
+		}
+
+		if (summary.getSubtotalDiscountPercentageLevel2() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalDiscountPercentageLevel2\": ");
+
+			sb.append(summary.getSubtotalDiscountPercentageLevel2());
+		}
+
+		if (summary.getSubtotalDiscountPercentageLevel3() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalDiscountPercentageLevel3\": ");
+
+			sb.append(summary.getSubtotalDiscountPercentageLevel3());
+		}
+
+		if (summary.getSubtotalDiscountPercentageLevel4() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalDiscountPercentageLevel4\": ");
+
+			sb.append(summary.getSubtotalDiscountPercentageLevel4());
 		}
 
 		if (summary.getSubtotalDiscountValue() != null) {
@@ -147,6 +229,46 @@ public class SummarySerDes {
 			sb.append("\"");
 		}
 
+		if (summary.getTotalDiscountPercentageLevel1() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalDiscountPercentageLevel1\": ");
+
+			sb.append(summary.getTotalDiscountPercentageLevel1());
+		}
+
+		if (summary.getTotalDiscountPercentageLevel2() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalDiscountPercentageLevel2\": ");
+
+			sb.append(summary.getTotalDiscountPercentageLevel2());
+		}
+
+		if (summary.getTotalDiscountPercentageLevel3() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalDiscountPercentageLevel3\": ");
+
+			sb.append(summary.getTotalDiscountPercentageLevel3());
+		}
+
+		if (summary.getTotalDiscountPercentageLevel4() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalDiscountPercentageLevel4\": ");
+
+			sb.append(summary.getTotalDiscountPercentageLevel4());
+		}
+
 		if (summary.getTotalDiscountValue() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -187,6 +309,42 @@ public class SummarySerDes {
 				"itemsQuantity", String.valueOf(summary.getItemsQuantity()));
 		}
 
+		if (summary.getShippingDiscountPercentageLevel1() == null) {
+			map.put("shippingDiscountPercentageLevel1", null);
+		}
+		else {
+			map.put(
+				"shippingDiscountPercentageLevel1",
+				String.valueOf(summary.getShippingDiscountPercentageLevel1()));
+		}
+
+		if (summary.getShippingDiscountPercentageLevel2() == null) {
+			map.put("shippingDiscountPercentageLevel2", null);
+		}
+		else {
+			map.put(
+				"shippingDiscountPercentageLevel2",
+				String.valueOf(summary.getShippingDiscountPercentageLevel2()));
+		}
+
+		if (summary.getShippingDiscountPercentageLevel3() == null) {
+			map.put("shippingDiscountPercentageLevel3", null);
+		}
+		else {
+			map.put(
+				"shippingDiscountPercentageLevel3",
+				String.valueOf(summary.getShippingDiscountPercentageLevel3()));
+		}
+
+		if (summary.getShippingDiscountPercentageLevel4() == null) {
+			map.put("shippingDiscountPercentageLevel4", null);
+		}
+		else {
+			map.put(
+				"shippingDiscountPercentageLevel4",
+				String.valueOf(summary.getShippingDiscountPercentageLevel4()));
+		}
+
 		if (summary.getShippingDiscountValue() == null) {
 			map.put("shippingDiscountValue", null);
 		}
@@ -211,6 +369,42 @@ public class SummarySerDes {
 			map.put("subtotal", String.valueOf(summary.getSubtotal()));
 		}
 
+		if (summary.getSubtotalDiscountPercentageLevel1() == null) {
+			map.put("subtotalDiscountPercentageLevel1", null);
+		}
+		else {
+			map.put(
+				"subtotalDiscountPercentageLevel1",
+				String.valueOf(summary.getSubtotalDiscountPercentageLevel1()));
+		}
+
+		if (summary.getSubtotalDiscountPercentageLevel2() == null) {
+			map.put("subtotalDiscountPercentageLevel2", null);
+		}
+		else {
+			map.put(
+				"subtotalDiscountPercentageLevel2",
+				String.valueOf(summary.getSubtotalDiscountPercentageLevel2()));
+		}
+
+		if (summary.getSubtotalDiscountPercentageLevel3() == null) {
+			map.put("subtotalDiscountPercentageLevel3", null);
+		}
+		else {
+			map.put(
+				"subtotalDiscountPercentageLevel3",
+				String.valueOf(summary.getSubtotalDiscountPercentageLevel3()));
+		}
+
+		if (summary.getSubtotalDiscountPercentageLevel4() == null) {
+			map.put("subtotalDiscountPercentageLevel4", null);
+		}
+		else {
+			map.put(
+				"subtotalDiscountPercentageLevel4",
+				String.valueOf(summary.getSubtotalDiscountPercentageLevel4()));
+		}
+
 		if (summary.getSubtotalDiscountValue() == null) {
 			map.put("subtotalDiscountValue", null);
 		}
@@ -232,6 +426,42 @@ public class SummarySerDes {
 		}
 		else {
 			map.put("total", String.valueOf(summary.getTotal()));
+		}
+
+		if (summary.getTotalDiscountPercentageLevel1() == null) {
+			map.put("totalDiscountPercentageLevel1", null);
+		}
+		else {
+			map.put(
+				"totalDiscountPercentageLevel1",
+				String.valueOf(summary.getTotalDiscountPercentageLevel1()));
+		}
+
+		if (summary.getTotalDiscountPercentageLevel2() == null) {
+			map.put("totalDiscountPercentageLevel2", null);
+		}
+		else {
+			map.put(
+				"totalDiscountPercentageLevel2",
+				String.valueOf(summary.getTotalDiscountPercentageLevel2()));
+		}
+
+		if (summary.getTotalDiscountPercentageLevel3() == null) {
+			map.put("totalDiscountPercentageLevel3", null);
+		}
+		else {
+			map.put(
+				"totalDiscountPercentageLevel3",
+				String.valueOf(summary.getTotalDiscountPercentageLevel3()));
+		}
+
+		if (summary.getTotalDiscountPercentageLevel4() == null) {
+			map.put("totalDiscountPercentageLevel4", null);
+		}
+		else {
+			map.put(
+				"totalDiscountPercentageLevel4",
+				String.valueOf(summary.getTotalDiscountPercentageLevel4()));
 		}
 
 		if (summary.getTotalDiscountValue() == null) {
@@ -270,6 +500,42 @@ public class SummarySerDes {
 				}
 			}
 			else if (Objects.equals(
+						jsonParserFieldName,
+						"shippingDiscountPercentageLevel1")) {
+
+				if (jsonParserFieldValue != null) {
+					summary.setShippingDiscountPercentageLevel1(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName,
+						"shippingDiscountPercentageLevel2")) {
+
+				if (jsonParserFieldValue != null) {
+					summary.setShippingDiscountPercentageLevel2(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName,
+						"shippingDiscountPercentageLevel3")) {
+
+				if (jsonParserFieldValue != null) {
+					summary.setShippingDiscountPercentageLevel3(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName,
+						"shippingDiscountPercentageLevel4")) {
+
+				if (jsonParserFieldValue != null) {
+					summary.setShippingDiscountPercentageLevel4(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
 						jsonParserFieldName, "shippingDiscountValue")) {
 
 				if (jsonParserFieldValue != null) {
@@ -288,6 +554,42 @@ public class SummarySerDes {
 				}
 			}
 			else if (Objects.equals(
+						jsonParserFieldName,
+						"subtotalDiscountPercentageLevel1")) {
+
+				if (jsonParserFieldValue != null) {
+					summary.setSubtotalDiscountPercentageLevel1(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName,
+						"subtotalDiscountPercentageLevel2")) {
+
+				if (jsonParserFieldValue != null) {
+					summary.setSubtotalDiscountPercentageLevel2(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName,
+						"subtotalDiscountPercentageLevel3")) {
+
+				if (jsonParserFieldValue != null) {
+					summary.setSubtotalDiscountPercentageLevel3(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName,
+						"subtotalDiscountPercentageLevel4")) {
+
+				if (jsonParserFieldValue != null) {
+					summary.setSubtotalDiscountPercentageLevel4(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
 						jsonParserFieldName, "subtotalDiscountValue")) {
 
 				if (jsonParserFieldValue != null) {
@@ -303,6 +605,38 @@ public class SummarySerDes {
 			else if (Objects.equals(jsonParserFieldName, "total")) {
 				if (jsonParserFieldValue != null) {
 					summary.setTotal((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "totalDiscountPercentageLevel1")) {
+
+				if (jsonParserFieldValue != null) {
+					summary.setTotalDiscountPercentageLevel1(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "totalDiscountPercentageLevel2")) {
+
+				if (jsonParserFieldValue != null) {
+					summary.setTotalDiscountPercentageLevel2(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "totalDiscountPercentageLevel3")) {
+
+				if (jsonParserFieldValue != null) {
+					summary.setTotalDiscountPercentageLevel3(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "totalDiscountPercentageLevel4")) {
+
+				if (jsonParserFieldValue != null) {
+					summary.setTotalDiscountPercentageLevel4(
+						(BigDecimal)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(

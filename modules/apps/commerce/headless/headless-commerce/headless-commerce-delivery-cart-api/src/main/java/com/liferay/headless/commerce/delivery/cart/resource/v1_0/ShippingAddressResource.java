@@ -40,11 +40,11 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ShippingAddressResource {
 
 	public ShippingAddress getChannelCartShippingAddress(
-			Long cartId, Long channelId)
+			Long channelId, Long cartId)
 		throws Exception;
 
 	public Response patchChannelCartShippingAddress(
-			Long cartId, Long channelId, ShippingAddress shippingAddress)
+			Long channelId, Long cartId, ShippingAddress shippingAddress)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

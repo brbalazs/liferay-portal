@@ -14,16 +14,17 @@
 
 package com.liferay.headless.commerce.delivery.cart.resource.v1_0;
 
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Order;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Note;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
+import com.liferay.portal.vulcan.pagination.Pagination;
 
 import javax.annotation.Generated;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -38,15 +39,24 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @Generated("")
 @ProviderType
-public interface CartResource {
+public interface NoteResource {
 
-	public Page<Cart> getChannelCartsPage(Long channelId) throws Exception;
+	public Page<Note> getChannelCartNotesPage(
+			Long channelId, Long cartId, Pagination pagination)
+		throws Exception;
 
-	public Cart postChannelCart(Long channelId, Order order) throws Exception;
+	public Note postChannelCartNote(Long channelId, Long cartId, Note note)
+		throws Exception;
 
-	public Cart getChannelCart(Long channelId, Long cartId) throws Exception;
+	public Response deleteChannelCartNote(
+			Long channelId, Long cartId, Long noteId)
+		throws Exception;
 
-	public Cart putChannelCart(Long channelId, Long cartId, Order order)
+	public Note getChannelCartNote(Long channelId, Long cartId, Long noteId)
+		throws Exception;
+
+	public Response patchChannelCartNote(
+			Long channelId, Long cartId, Long noteId, Note note)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

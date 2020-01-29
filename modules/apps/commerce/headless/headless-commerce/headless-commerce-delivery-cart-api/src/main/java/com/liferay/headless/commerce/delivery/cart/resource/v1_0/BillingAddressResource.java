@@ -40,11 +40,11 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface BillingAddressResource {
 
 	public BillingAddress getChannelCartBillingAddress(
-			Long cartId, Long channelId)
+			Long channelId, Long cartId)
 		throws Exception;
 
 	public Response patchChannelCartBillingAddress(
-			Long cartId, Long channelId, BillingAddress billingAddress)
+			Long channelId, Long cartId, BillingAddress billingAddress)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

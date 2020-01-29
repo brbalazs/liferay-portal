@@ -32,7 +32,6 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
-import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -42,56 +41,26 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName("Order")
+@GraphQLName("Note")
 @JsonFilter("Liferay.Vulcan")
-@XmlRootElement(name = "Order")
-public class Order {
+@XmlRootElement(name = "Note")
+public class Note {
 
 	@Schema
-	public Long getAccountId() {
-		return accountId;
+	public String getAuthor() {
+		return author;
 	}
 
-	public void setAccountId(Long accountId) {
-		this.accountId = accountId;
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 	@JsonIgnore
-	public void setAccountId(
-		UnsafeSupplier<Long, Exception> accountIdUnsafeSupplier) {
+	public void setAuthor(
+		UnsafeSupplier<String, Exception> authorUnsafeSupplier) {
 
 		try {
-			accountId = accountIdUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected Long accountId;
-
-	@Schema
-	@Valid
-	public BillingAddress getBillingAddress() {
-		return billingAddress;
-	}
-
-	public void setBillingAddress(BillingAddress billingAddress) {
-		this.billingAddress = billingAddress;
-	}
-
-	@JsonIgnore
-	public void setBillingAddress(
-		UnsafeSupplier<BillingAddress, Exception>
-			billingAddressUnsafeSupplier) {
-
-		try {
-			billingAddress = billingAddressUnsafeSupplier.get();
+			author = authorUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -103,24 +72,50 @@ public class Order {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected BillingAddress billingAddress;
+	protected String author;
+
+	@Schema
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	@JsonIgnore
+	public void setContent(
+		UnsafeSupplier<String, Exception> contentUnsafeSupplier) {
+
+		try {
+			content = contentUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String content;
 
 	@DecimalMin("0")
 	@Schema
-	public Long getBillingAddressId() {
-		return billingAddressId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setBillingAddressId(Long billingAddressId) {
-		this.billingAddressId = billingAddressId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	@JsonIgnore
-	public void setBillingAddressId(
-		UnsafeSupplier<Long, Exception> billingAddressIdUnsafeSupplier) {
-
+	public void setId(UnsafeSupplier<Long, Exception> idUnsafeSupplier) {
 		try {
-			billingAddressId = billingAddressIdUnsafeSupplier.get();
+			id = idUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -132,83 +127,24 @@ public class Order {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Long billingAddressId;
-
-	@Schema
-	@Valid
-	public OrderItem[] getOrderItems() {
-		return orderItems;
-	}
-
-	public void setOrderItems(OrderItem[] orderItems) {
-		this.orderItems = orderItems;
-	}
-
-	@JsonIgnore
-	public void setOrderItems(
-		UnsafeSupplier<OrderItem[], Exception> orderItemsUnsafeSupplier) {
-
-		try {
-			orderItems = orderItemsUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected OrderItem[] orderItems;
-
-	@Schema
-	@Valid
-	public ShippingAddress getShippingAddress() {
-		return shippingAddress;
-	}
-
-	public void setShippingAddress(ShippingAddress shippingAddress) {
-		this.shippingAddress = shippingAddress;
-	}
-
-	@JsonIgnore
-	public void setShippingAddress(
-		UnsafeSupplier<ShippingAddress, Exception>
-			shippingAddressUnsafeSupplier) {
-
-		try {
-			shippingAddress = shippingAddressUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected ShippingAddress shippingAddress;
+	protected Long id;
 
 	@DecimalMin("0")
 	@Schema
-	public Long getShippingAddressId() {
-		return shippingAddressId;
+	public Long getOrderId() {
+		return orderId;
 	}
 
-	public void setShippingAddressId(Long shippingAddressId) {
-		this.shippingAddressId = shippingAddressId;
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
 	}
 
 	@JsonIgnore
-	public void setShippingAddressId(
-		UnsafeSupplier<Long, Exception> shippingAddressIdUnsafeSupplier) {
+	public void setOrderId(
+		UnsafeSupplier<Long, Exception> orderIdUnsafeSupplier) {
 
 		try {
-			shippingAddressId = shippingAddressIdUnsafeSupplier.get();
+			orderId = orderIdUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -220,7 +156,35 @@ public class Order {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Long shippingAddressId;
+	protected Long orderId;
+
+	@Schema
+	public Boolean getRestricted() {
+		return restricted;
+	}
+
+	public void setRestricted(Boolean restricted) {
+		this.restricted = restricted;
+	}
+
+	@JsonIgnore
+	public void setRestricted(
+		UnsafeSupplier<Boolean, Exception> restrictedUnsafeSupplier) {
+
+		try {
+			restricted = restrictedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean restricted;
 
 	@Override
 	public boolean equals(Object object) {
@@ -228,13 +192,13 @@ public class Order {
 			return true;
 		}
 
-		if (!(object instanceof Order)) {
+		if (!(object instanceof Note)) {
 			return false;
 		}
 
-		Order order = (Order)object;
+		Note note = (Note)object;
 
-		return Objects.equals(toString(), order.toString());
+		return Objects.equals(toString(), note.toString());
 	}
 
 	@Override
@@ -249,74 +213,62 @@ public class Order {
 
 		sb.append("{");
 
-		if (accountId != null) {
+		if (author != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountId\": ");
+			sb.append("\"author\": ");
 
-			sb.append(accountId);
+			sb.append("\"");
+
+			sb.append(_escape(author));
+
+			sb.append("\"");
 		}
 
-		if (billingAddress != null) {
+		if (content != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"billingAddress\": ");
+			sb.append("\"content\": ");
 
-			sb.append(String.valueOf(billingAddress));
+			sb.append("\"");
+
+			sb.append(_escape(content));
+
+			sb.append("\"");
 		}
 
-		if (billingAddressId != null) {
+		if (id != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"billingAddressId\": ");
+			sb.append("\"id\": ");
 
-			sb.append(billingAddressId);
+			sb.append(id);
 		}
 
-		if (orderItems != null) {
+		if (orderId != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"orderItems\": ");
+			sb.append("\"orderId\": ");
 
-			sb.append("[");
-
-			for (int i = 0; i < orderItems.length; i++) {
-				sb.append(String.valueOf(orderItems[i]));
-
-				if ((i + 1) < orderItems.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
+			sb.append(orderId);
 		}
 
-		if (shippingAddress != null) {
+		if (restricted != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"shippingAddress\": ");
+			sb.append("\"restricted\": ");
 
-			sb.append(String.valueOf(shippingAddress));
-		}
-
-		if (shippingAddressId != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"shippingAddressId\": ");
-
-			sb.append(shippingAddressId);
+			sb.append(restricted);
 		}
 
 		sb.append("}");
@@ -325,7 +277,7 @@ public class Order {
 	}
 
 	@Schema(
-		defaultValue = "com.liferay.headless.commerce.delivery.cart.dto.v1_0.Order",
+		defaultValue = "com.liferay.headless.commerce.delivery.cart.dto.v1_0.Note",
 		name = "x-class-name"
 	)
 	public String xClassName;

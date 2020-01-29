@@ -211,8 +211,8 @@ public abstract class BaseShippingAddressResourceTestCase {
 
 		ShippingAddress getShippingAddress =
 			shippingAddressResource.getChannelCartShippingAddress(
-				postShippingAddress.getCartId(),
-				postShippingAddress.getChannelId());
+				postShippingAddress.getChannelId(),
+				postShippingAddress.getCartId());
 
 		assertEquals(postShippingAddress, getShippingAddress);
 		assertValid(getShippingAddress);
@@ -239,8 +239,8 @@ public abstract class BaseShippingAddressResourceTestCase {
 				"channelCartShippingAddress",
 				new HashMap<String, Object>() {
 					{
-						put("cartId", shippingAddress.getCartId());
 						put("channelId", shippingAddress.getChannelId());
+						put("cartId", shippingAddress.getCartId());
 					}
 				},
 				graphQLFields.toArray(new GraphQLField[0])));

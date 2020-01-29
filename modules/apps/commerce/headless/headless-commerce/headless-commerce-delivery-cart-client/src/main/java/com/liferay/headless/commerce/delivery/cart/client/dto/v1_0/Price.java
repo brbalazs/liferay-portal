@@ -17,6 +17,8 @@ package com.liferay.headless.commerce.delivery.cart.client.dto.v1_0;
 import com.liferay.headless.commerce.delivery.cart.client.function.UnsafeSupplier;
 import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.PriceSerDes;
 
+import java.math.BigDecimal;
+
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -90,6 +92,127 @@ public class Price {
 	}
 
 	protected String discountFormatted;
+
+	public String getDiscountPercentage() {
+		return discountPercentage;
+	}
+
+	public void setDiscountPercentage(String discountPercentage) {
+		this.discountPercentage = discountPercentage;
+	}
+
+	public void setDiscountPercentage(
+		UnsafeSupplier<String, Exception> discountPercentageUnsafeSupplier) {
+
+		try {
+			discountPercentage = discountPercentageUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String discountPercentage;
+
+	public BigDecimal getDiscountPercentageLevel1() {
+		return discountPercentageLevel1;
+	}
+
+	public void setDiscountPercentageLevel1(
+		BigDecimal discountPercentageLevel1) {
+
+		this.discountPercentageLevel1 = discountPercentageLevel1;
+	}
+
+	public void setDiscountPercentageLevel1(
+		UnsafeSupplier<BigDecimal, Exception>
+			discountPercentageLevel1UnsafeSupplier) {
+
+		try {
+			discountPercentageLevel1 =
+				discountPercentageLevel1UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal discountPercentageLevel1;
+
+	public BigDecimal getDiscountPercentageLevel2() {
+		return discountPercentageLevel2;
+	}
+
+	public void setDiscountPercentageLevel2(
+		BigDecimal discountPercentageLevel2) {
+
+		this.discountPercentageLevel2 = discountPercentageLevel2;
+	}
+
+	public void setDiscountPercentageLevel2(
+		UnsafeSupplier<BigDecimal, Exception>
+			discountPercentageLevel2UnsafeSupplier) {
+
+		try {
+			discountPercentageLevel2 =
+				discountPercentageLevel2UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal discountPercentageLevel2;
+
+	public BigDecimal getDiscountPercentageLevel3() {
+		return discountPercentageLevel3;
+	}
+
+	public void setDiscountPercentageLevel3(
+		BigDecimal discountPercentageLevel3) {
+
+		this.discountPercentageLevel3 = discountPercentageLevel3;
+	}
+
+	public void setDiscountPercentageLevel3(
+		UnsafeSupplier<BigDecimal, Exception>
+			discountPercentageLevel3UnsafeSupplier) {
+
+		try {
+			discountPercentageLevel3 =
+				discountPercentageLevel3UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal discountPercentageLevel3;
+
+	public BigDecimal getDiscountPercentageLevel4() {
+		return discountPercentageLevel4;
+	}
+
+	public void setDiscountPercentageLevel4(
+		BigDecimal discountPercentageLevel4) {
+
+		this.discountPercentageLevel4 = discountPercentageLevel4;
+	}
+
+	public void setDiscountPercentageLevel4(
+		UnsafeSupplier<BigDecimal, Exception>
+			discountPercentageLevel4UnsafeSupplier) {
+
+		try {
+			discountPercentageLevel4 =
+				discountPercentageLevel4UnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal discountPercentageLevel4;
 
 	public Double getFinalPrice() {
 		return finalPrice;

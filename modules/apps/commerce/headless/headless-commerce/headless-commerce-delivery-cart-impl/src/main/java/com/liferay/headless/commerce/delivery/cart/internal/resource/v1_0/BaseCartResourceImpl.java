@@ -16,7 +16,6 @@ package com.liferay.headless.commerce.delivery.cart.internal.resource.v1_0;
 
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Order;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.OrderItem;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.GroupedModel;
@@ -54,95 +53,11 @@ import javax.ws.rs.core.UriInfo;
 
 /**
  * @author Andrea Sbarra
- * @generated 
+ * @generated
  */
 @Generated("")
 @Path("/v1.0")
 public abstract class BaseCartResourceImpl implements CartResource {
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/cartItems' -d $'{"id": ___, "options": ___, "productId": ___, "quantity": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@Operation(
-		description = "Add new Items to a Cart, return the whole Cart updated."
-	)
-	@POST
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "channelId"),
-			@Parameter(in = ParameterIn.PATH, name = "cartId")
-		}
-	)
-	@Path("/channels/{channelId}/carts/{cartId}/cartItems")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Cart")})
-	public Cart postChannelCartCartItem(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-				channelId,
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
-			OrderItem orderItem)
-		throws Exception {
-
-		return new Cart();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@GET
-	@Operation(description = "Retrive information of the given Cart.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "channelId"),
-			@Parameter(in = ParameterIn.PATH, name = "cartId")
-		}
-	)
-	@Path("/channels/{channelId}/carts/{cartId}")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Cart")})
-	public Cart getChannelCart(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-				channelId,
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId
-	)
-		throws Exception {
-
-		return new Cart();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}' -d $'{"orderItems": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@PUT
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "channelId"),
-			@Parameter(in = ParameterIn.PATH, name = "cartId")
-		}
-	)
-	@Path("/channels/{channelId}/carts/{cartId}")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Cart")})
-	public Cart putChannelCart(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-				channelId,
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
-			Order order)
-		throws Exception {
-
-		return new Cart();
-	}
 
 	/**
 	 * Invoke this method with the command line:
@@ -169,7 +84,7 @@ public abstract class BaseCartResourceImpl implements CartResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts' -d $'{"orderItems": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts' -d $'{"billingAddress": ___, "billingAddressId": ___, "orderItems": ___, "shippingAddress": ___, "shippingAddressId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -181,6 +96,59 @@ public abstract class BaseCartResourceImpl implements CartResource {
 	public Cart postChannelCart(
 			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
 				channelId,
+			Order order)
+		throws Exception {
+
+		return new Cart();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@GET
+	@Operation(description = "Retrive information of the given Cart.")
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "channelId"),
+			@Parameter(in = ParameterIn.PATH, name = "cartId")
+		}
+	)
+	@Path("/channels/{channelId}/carts/{cartId}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Cart")})
+	public Cart getChannelCart(
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId)
+		throws Exception {
+
+		return new Cart();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}' -d $'{"billingAddress": ___, "billingAddressId": ___, "orderItems": ___, "shippingAddress": ___, "shippingAddressId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@PUT
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "channelId"),
+			@Parameter(in = ParameterIn.PATH, name = "cartId")
+		}
+	)
+	@Path("/channels/{channelId}/carts/{cartId}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Cart")})
+	public Cart putChannelCart(
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
 			Order order)
 		throws Exception {
 

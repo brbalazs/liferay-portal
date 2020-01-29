@@ -28,6 +28,49 @@ import javax.annotation.Generated;
 @Generated("")
 public class OrderItem {
 
+	public BillingAddress getBillingAddress() {
+		return billingAddress;
+	}
+
+	public void setBillingAddress(BillingAddress billingAddress) {
+		this.billingAddress = billingAddress;
+	}
+
+	public void setBillingAddress(
+		UnsafeSupplier<BillingAddress, Exception>
+			billingAddressUnsafeSupplier) {
+
+		try {
+			billingAddress = billingAddressUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BillingAddress billingAddress;
+
+	public Long getBillingAddressId() {
+		return billingAddressId;
+	}
+
+	public void setBillingAddressId(Long billingAddressId) {
+		this.billingAddressId = billingAddressId;
+	}
+
+	public void setBillingAddressId(
+		UnsafeSupplier<Long, Exception> billingAddressIdUnsafeSupplier) {
+
+		try {
+			billingAddressId = billingAddressIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long billingAddressId;
+
 	public Long getId() {
 		return id;
 	}
@@ -109,6 +152,49 @@ public class OrderItem {
 	}
 
 	protected Integer quantity;
+
+	public ShippingAddress getShippingAddress() {
+		return shippingAddress;
+	}
+
+	public void setShippingAddress(ShippingAddress shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
+
+	public void setShippingAddress(
+		UnsafeSupplier<ShippingAddress, Exception>
+			shippingAddressUnsafeSupplier) {
+
+		try {
+			shippingAddress = shippingAddressUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected ShippingAddress shippingAddress;
+
+	public Long getShippingAddressId() {
+		return shippingAddressId;
+	}
+
+	public void setShippingAddressId(Long shippingAddressId) {
+		this.shippingAddressId = shippingAddressId;
+	}
+
+	public void setShippingAddressId(
+		UnsafeSupplier<Long, Exception> shippingAddressIdUnsafeSupplier) {
+
+		try {
+			shippingAddressId = shippingAddressIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long shippingAddressId;
 
 	@Override
 	public boolean equals(Object object) {

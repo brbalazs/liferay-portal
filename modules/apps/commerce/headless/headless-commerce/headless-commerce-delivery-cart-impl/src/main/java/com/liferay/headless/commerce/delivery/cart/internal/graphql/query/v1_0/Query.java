@@ -17,10 +17,12 @@ package com.liferay.headless.commerce.delivery.cart.internal.graphql.query.v1_0;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.BillingAddress;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartItem;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Note;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.ShippingAddress;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.BillingAddressResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartItemResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.NoteResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.ShippingAddressResource;
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
@@ -30,6 +32,7 @@ import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 import com.liferay.portal.vulcan.pagination.Page;
+import com.liferay.portal.vulcan.pagination.Pagination;
 
 import java.util.Map;
 import java.util.function.BiFunction;
@@ -74,6 +77,14 @@ public class Query {
 			cartItemResourceComponentServiceObjects;
 	}
 
+	public static void setNoteResourceComponentServiceObjects(
+		ComponentServiceObjects<NoteResource>
+			noteResourceComponentServiceObjects) {
+
+		_noteResourceComponentServiceObjects =
+			noteResourceComponentServiceObjects;
+	}
+
 	public static void setShippingAddressResourceComponentServiceObjects(
 		ComponentServiceObjects<ShippingAddressResource>
 			shippingAddressResourceComponentServiceObjects) {
@@ -85,12 +96,12 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelCartBillingAddress(cartId: ___, channelId: ___){city, countryISOCode, description, id, latitude, longitude, name, phoneNumber, regionISOCode, street1, street2, street3, vatNumber, zip}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelCartBillingAddress(cartId: ___, channelId: ___){id, city, countryISOCode, regionISOCode, description, latitude, longitude, name, phoneNumber, street1, street2, street3, vatNumber, zip}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrive cart billing address.")
 	public BillingAddress channelCartBillingAddress(
-			@GraphQLName("cartId") Long cartId,
-			@GraphQLName("channelId") Long channelId)
+			@GraphQLName("channelId") Long channelId,
+			@GraphQLName("cartId") Long cartId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -98,24 +109,7 @@ public class Query {
 			this::_populateResourceContext,
 			billingAddressResource ->
 				billingAddressResource.getChannelCartBillingAddress(
-					cartId, channelId));
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelCart(cartId: ___, channelId: ___){account, accountId, author, billingAddress, shippingAddress, cartItems, createDate, id, status, summary}}"}' -u 'test@liferay.com:test'
-	 */
-	@GraphQLField(description = "Retrive information of the given Cart.")
-	public Cart channelCart(
-			@GraphQLName("cartId") Long cartId,
-			@GraphQLName("channelId") Long channelId)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_cartResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			cartResource -> cartResource.getChannelCart(cartId, channelId));
+					channelId, cartId));
 	}
 
 	/**
@@ -139,20 +133,18 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelCartCartItem(cartId: ___, cartItemId: ___, channelId: ___){id, name, price, quantity}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelCart(cartId: ___, channelId: ___){id, account, accountId, author, billingAddress, createDate, cartItems, notes, paymentMethod, paymentStatus, printedNote, shippingAddress, status, summary}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrive information of the given Cart.")
-	public CartItem channelCartCartItem(
-			@GraphQLName("cartId") Long cartId,
-			@GraphQLName("cartItemId") Long cartItemId,
-			@GraphQLName("channelId") Long channelId)
+	public Cart channelCart(
+			@GraphQLName("channelId") Long channelId,
+			@GraphQLName("cartId") Long cartId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
-			_cartItemResourceComponentServiceObjects,
+			_cartResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartItemResource -> cartItemResource.getChannelCartCartItem(
-				cartId, cartItemId, channelId));
+			cartResource -> cartResource.getChannelCart(channelId, cartId));
 	}
 
 	/**
@@ -162,8 +154,8 @@ public class Query {
 	 */
 	@GraphQLField(description = "Retrive cart items of a Cart.")
 	public CartItemPage channelCartCartItems(
-			@GraphQLName("cartId") Long cartId,
-			@GraphQLName("channelId") Long channelId)
+			@GraphQLName("channelId") Long channelId,
+			@GraphQLName("cartId") Long cartId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -171,18 +163,77 @@ public class Query {
 			this::_populateResourceContext,
 			cartItemResource -> new CartItemPage(
 				cartItemResource.getChannelCartCartItemsPage(
-					cartId, channelId)));
+					channelId, cartId)));
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelCartShippingAddress(cartId: ___, channelId: ___){city, countryISOCode, description, id, latitude, longitude, name, phoneNumber, regionISOCode, street1, street2, street3, zip}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelCartCartItem(cartId: ___, cartItemId: ___, channelId: ___){name, id, price, quantity}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField(description = "Retrive information of the given Cart.")
+	public CartItem channelCartCartItem(
+			@GraphQLName("channelId") Long channelId,
+			@GraphQLName("cartId") Long cartId,
+			@GraphQLName("cartItemId") Long cartItemId)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_cartItemResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			cartItemResource -> cartItemResource.getChannelCartCartItem(
+				channelId, cartId, cartItemId));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelCartNotes(cartId: ___, channelId: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public NotePage channelCartNotes(
+			@GraphQLName("channelId") Long channelId,
+			@GraphQLName("cartId") Long cartId,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_noteResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			noteResource -> new NotePage(
+				noteResource.getChannelCartNotesPage(
+					channelId, cartId, Pagination.of(page, pageSize))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelCartNote(cartId: ___, channelId: ___, noteId: ___){id, author, content, orderId, restricted}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public Note channelCartNote(
+			@GraphQLName("channelId") Long channelId,
+			@GraphQLName("cartId") Long cartId,
+			@GraphQLName("noteId") Long noteId)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_noteResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			noteResource -> noteResource.getChannelCartNote(
+				channelId, cartId, noteId));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelCartShippingAddress(cartId: ___, channelId: ___){id, city, countryISOCode, regionISOCode, description, latitude, longitude, name, phoneNumber, street1, street2, street3, zip}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrive cart shipping address.")
 	public ShippingAddress channelCartShippingAddress(
-			@GraphQLName("cartId") Long cartId,
-			@GraphQLName("channelId") Long channelId)
+			@GraphQLName("channelId") Long channelId,
+			@GraphQLName("cartId") Long cartId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -190,7 +241,7 @@ public class Query {
 			this::_populateResourceContext,
 			shippingAddressResource ->
 				shippingAddressResource.getChannelCartShippingAddress(
-					cartId, channelId));
+					channelId, cartId));
 	}
 
 	@GraphQLName("BillingAddressPage")
@@ -274,6 +325,38 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<CartItem> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
+	@GraphQLName("NotePage")
+	public class NotePage {
+
+		public NotePage(Page notePage) {
+			actions = notePage.getActions();
+			items = notePage.getItems();
+			lastPage = notePage.getLastPage();
+			page = notePage.getPage();
+			pageSize = notePage.getPageSize();
+			totalCount = notePage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected java.util.Collection<Note> items;
 
 		@GraphQLField
 		protected long lastPage;
@@ -376,6 +459,17 @@ public class Query {
 		cartItemResource.setContextUser(_user);
 	}
 
+	private void _populateResourceContext(NoteResource noteResource)
+		throws Exception {
+
+		noteResource.setContextAcceptLanguage(_acceptLanguage);
+		noteResource.setContextCompany(_company);
+		noteResource.setContextHttpServletRequest(_httpServletRequest);
+		noteResource.setContextHttpServletResponse(_httpServletResponse);
+		noteResource.setContextUriInfo(_uriInfo);
+		noteResource.setContextUser(_user);
+	}
+
 	private void _populateResourceContext(
 			ShippingAddressResource shippingAddressResource)
 		throws Exception {
@@ -396,6 +490,8 @@ public class Query {
 		_cartResourceComponentServiceObjects;
 	private static ComponentServiceObjects<CartItemResource>
 		_cartItemResourceComponentServiceObjects;
+	private static ComponentServiceObjects<NoteResource>
+		_noteResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ShippingAddressResource>
 		_shippingAddressResourceComponentServiceObjects;
 

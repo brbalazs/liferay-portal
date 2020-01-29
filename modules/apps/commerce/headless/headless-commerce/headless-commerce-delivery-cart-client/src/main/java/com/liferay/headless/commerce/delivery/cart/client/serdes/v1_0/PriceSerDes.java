@@ -17,6 +17,8 @@ package com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0;
 import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.Price;
 import com.liferay.headless.commerce.delivery.cart.client.json.BaseJSONParser;
 
+import java.math.BigDecimal;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
@@ -89,6 +91,60 @@ public class PriceSerDes {
 			sb.append(_escape(price.getDiscountFormatted()));
 
 			sb.append("\"");
+		}
+
+		if (price.getDiscountPercentage() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountPercentage\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(price.getDiscountPercentage()));
+
+			sb.append("\"");
+		}
+
+		if (price.getDiscountPercentageLevel1() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountPercentageLevel1\": ");
+
+			sb.append(price.getDiscountPercentageLevel1());
+		}
+
+		if (price.getDiscountPercentageLevel2() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountPercentageLevel2\": ");
+
+			sb.append(price.getDiscountPercentageLevel2());
+		}
+
+		if (price.getDiscountPercentageLevel3() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountPercentageLevel3\": ");
+
+			sb.append(price.getDiscountPercentageLevel3());
+		}
+
+		if (price.getDiscountPercentageLevel4() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountPercentageLevel4\": ");
+
+			sb.append(price.getDiscountPercentageLevel4());
 		}
 
 		if (price.getFinalPrice() != null) {
@@ -204,6 +260,51 @@ public class PriceSerDes {
 				String.valueOf(price.getDiscountFormatted()));
 		}
 
+		if (price.getDiscountPercentage() == null) {
+			map.put("discountPercentage", null);
+		}
+		else {
+			map.put(
+				"discountPercentage",
+				String.valueOf(price.getDiscountPercentage()));
+		}
+
+		if (price.getDiscountPercentageLevel1() == null) {
+			map.put("discountPercentageLevel1", null);
+		}
+		else {
+			map.put(
+				"discountPercentageLevel1",
+				String.valueOf(price.getDiscountPercentageLevel1()));
+		}
+
+		if (price.getDiscountPercentageLevel2() == null) {
+			map.put("discountPercentageLevel2", null);
+		}
+		else {
+			map.put(
+				"discountPercentageLevel2",
+				String.valueOf(price.getDiscountPercentageLevel2()));
+		}
+
+		if (price.getDiscountPercentageLevel3() == null) {
+			map.put("discountPercentageLevel3", null);
+		}
+		else {
+			map.put(
+				"discountPercentageLevel3",
+				String.valueOf(price.getDiscountPercentageLevel3()));
+		}
+
+		if (price.getDiscountPercentageLevel4() == null) {
+			map.put("discountPercentageLevel4", null);
+		}
+		else {
+			map.put(
+				"discountPercentageLevel4",
+				String.valueOf(price.getDiscountPercentageLevel4()));
+		}
+
 		if (price.getFinalPrice() == null) {
 			map.put("finalPrice", null);
 		}
@@ -285,6 +386,45 @@ public class PriceSerDes {
 			else if (Objects.equals(jsonParserFieldName, "discountFormatted")) {
 				if (jsonParserFieldValue != null) {
 					price.setDiscountFormatted((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "discountPercentage")) {
+
+				if (jsonParserFieldValue != null) {
+					price.setDiscountPercentage((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "discountPercentageLevel1")) {
+
+				if (jsonParserFieldValue != null) {
+					price.setDiscountPercentageLevel1(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "discountPercentageLevel2")) {
+
+				if (jsonParserFieldValue != null) {
+					price.setDiscountPercentageLevel2(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "discountPercentageLevel3")) {
+
+				if (jsonParserFieldValue != null) {
+					price.setDiscountPercentageLevel3(
+						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "discountPercentageLevel4")) {
+
+				if (jsonParserFieldValue != null) {
+					price.setDiscountPercentageLevel4(
+						(BigDecimal)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "finalPrice")) {

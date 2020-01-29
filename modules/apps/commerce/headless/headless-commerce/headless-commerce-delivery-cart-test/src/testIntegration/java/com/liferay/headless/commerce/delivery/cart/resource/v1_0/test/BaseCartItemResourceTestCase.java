@@ -188,12 +188,140 @@ public abstract class BaseCartItemResourceTestCase {
 	}
 
 	@Test
+	public void testGetChannelCartCartItemsPage() throws Exception {
+		Page<CartItem> page = cartItemResource.getChannelCartCartItemsPage(
+			testGetChannelCartCartItemsPage_getChannelId(),
+			testGetChannelCartCartItemsPage_getCartId());
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		Long channelId = testGetChannelCartCartItemsPage_getChannelId();
+		Long irrelevantChannelId =
+			testGetChannelCartCartItemsPage_getIrrelevantChannelId();
+		Long cartId = testGetChannelCartCartItemsPage_getCartId();
+		Long irrelevantCartId =
+			testGetChannelCartCartItemsPage_getIrrelevantCartId();
+
+		if ((irrelevantChannelId != null) && (irrelevantCartId != null)) {
+			CartItem irrelevantCartItem =
+				testGetChannelCartCartItemsPage_addCartItem(
+					irrelevantChannelId, irrelevantCartId,
+					randomIrrelevantCartItem());
+
+			page = cartItemResource.getChannelCartCartItemsPage(
+				irrelevantChannelId, irrelevantCartId);
+
+			Assert.assertEquals(1, page.getTotalCount());
+
+			assertEquals(
+				Arrays.asList(irrelevantCartItem),
+				(List<CartItem>)page.getItems());
+			assertValid(page);
+		}
+
+		CartItem cartItem1 = testGetChannelCartCartItemsPage_addCartItem(
+			channelId, cartId, randomCartItem());
+
+		CartItem cartItem2 = testGetChannelCartCartItemsPage_addCartItem(
+			channelId, cartId, randomCartItem());
+
+		page = cartItemResource.getChannelCartCartItemsPage(channelId, cartId);
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(cartItem1, cartItem2),
+			(List<CartItem>)page.getItems());
+		assertValid(page);
+	}
+
+	protected CartItem testGetChannelCartCartItemsPage_addCartItem(
+			Long channelId, Long cartId, CartItem cartItem)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Long testGetChannelCartCartItemsPage_getChannelId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Long testGetChannelCartCartItemsPage_getIrrelevantChannelId()
+		throws Exception {
+
+		return null;
+	}
+
+	protected Long testGetChannelCartCartItemsPage_getCartId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Long testGetChannelCartCartItemsPage_getIrrelevantCartId()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
+	public void testPostChannelCartCartItem() throws Exception {
+		CartItem randomCartItem = randomCartItem();
+
+		CartItem postCartItem = testPostChannelCartCartItem_addCartItem(
+			randomCartItem);
+
+		assertEquals(randomCartItem, postCartItem);
+		assertValid(postCartItem);
+	}
+
+	protected CartItem testPostChannelCartCartItem_addCartItem(
+			CartItem cartItem)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testDeleteChannelCartCartItem() throws Exception {
+		CartItem cartItem = testDeleteChannelCartCartItem_addCartItem();
+
+		assertHttpResponseStatusCode(
+			204,
+			cartItemResource.deleteChannelCartCartItemHttpResponse(
+				null, null, cartItem.getId()));
+
+		assertHttpResponseStatusCode(
+			404,
+			cartItemResource.getChannelCartCartItemHttpResponse(
+				null, null, cartItem.getId()));
+
+		assertHttpResponseStatusCode(
+			404,
+			cartItemResource.getChannelCartCartItemHttpResponse(
+				null, null, 0L));
+	}
+
+	protected CartItem testDeleteChannelCartCartItem_addCartItem()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
 	public void testGetChannelCartCartItem() throws Exception {
 		CartItem postCartItem = testGetChannelCartCartItem_addCartItem();
 
 		CartItem getCartItem = cartItemResource.getChannelCartCartItem(
-			postCartItem.getCartId(), postCartItem.getId(),
-			postCartItem.getChannelId());
+			postCartItem.getChannelId(), postCartItem.getCartId(),
+			postCartItem.getId());
 
 		assertEquals(postCartItem, getCartItem);
 		assertValid(getCartItem);
@@ -218,9 +346,9 @@ public abstract class BaseCartItemResourceTestCase {
 				"channelCartCartItem",
 				new HashMap<String, Object>() {
 					{
+						put("channelId", cartItem.getChannelId());
 						put("cartId", cartItem.getCartId());
 						put("cartItemId", cartItem.getId());
-						put("channelId", cartItem.getChannelId());
 					}
 				},
 				graphQLFields.toArray(new GraphQLField[0])));
@@ -288,88 +416,6 @@ public abstract class BaseCartItemResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGetChannelCartCartItemsPage() throws Exception {
-		Page<CartItem> page = cartItemResource.getChannelCartCartItemsPage(
-			testGetChannelCartCartItemsPage_getCartId(),
-			testGetChannelCartCartItemsPage_getChannelId());
-
-		Assert.assertEquals(0, page.getTotalCount());
-
-		Long cartId = testGetChannelCartCartItemsPage_getCartId();
-		Long irrelevantCartId =
-			testGetChannelCartCartItemsPage_getIrrelevantCartId();
-		Long channelId = testGetChannelCartCartItemsPage_getChannelId();
-		Long irrelevantChannelId =
-			testGetChannelCartCartItemsPage_getIrrelevantChannelId();
-
-		if ((irrelevantCartId != null) && (irrelevantChannelId != null)) {
-			CartItem irrelevantCartItem =
-				testGetChannelCartCartItemsPage_addCartItem(
-					irrelevantCartId, irrelevantChannelId,
-					randomIrrelevantCartItem());
-
-			page = cartItemResource.getChannelCartCartItemsPage(
-				irrelevantCartId, irrelevantChannelId);
-
-			Assert.assertEquals(1, page.getTotalCount());
-
-			assertEquals(
-				Arrays.asList(irrelevantCartItem),
-				(List<CartItem>)page.getItems());
-			assertValid(page);
-		}
-
-		CartItem cartItem1 = testGetChannelCartCartItemsPage_addCartItem(
-			cartId, channelId, randomCartItem());
-
-		CartItem cartItem2 = testGetChannelCartCartItemsPage_addCartItem(
-			cartId, channelId, randomCartItem());
-
-		page = cartItemResource.getChannelCartCartItemsPage(cartId, channelId);
-
-		Assert.assertEquals(2, page.getTotalCount());
-
-		assertEqualsIgnoringOrder(
-			Arrays.asList(cartItem1, cartItem2),
-			(List<CartItem>)page.getItems());
-		assertValid(page);
-	}
-
-	protected CartItem testGetChannelCartCartItemsPage_addCartItem(
-			Long cartId, Long channelId, CartItem cartItem)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected Long testGetChannelCartCartItemsPage_getCartId()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected Long testGetChannelCartCartItemsPage_getIrrelevantCartId()
-		throws Exception {
-
-		return null;
-	}
-
-	protected Long testGetChannelCartCartItemsPage_getChannelId()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected Long testGetChannelCartCartItemsPage_getIrrelevantChannelId()
-		throws Exception {
-
-		return null;
 	}
 
 	protected CartItem testGraphQLCartItem_addCartItem() throws Exception {
