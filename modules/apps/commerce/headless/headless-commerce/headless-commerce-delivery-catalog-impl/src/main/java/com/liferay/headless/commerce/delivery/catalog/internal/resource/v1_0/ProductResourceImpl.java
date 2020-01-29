@@ -50,7 +50,6 @@ import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Response;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -86,8 +85,6 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 			@NotNull Long channelId, Filter filter, Pagination pagination,
 			Sort[] sorts)
 		throws Exception {
-
-		Response.ResponseBuilder responseBuilder = Response.accepted(null);
 
 		long companyId = contextCompany.getCompanyId();
 		SearchContext searchContext = new SearchContext();

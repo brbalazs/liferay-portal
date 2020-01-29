@@ -16,13 +16,13 @@ package com.liferay.headless.commerce.delivery.catalog.resource.v1_0.test;
 
 import static org.junit.Assert.assertFalse;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.headless.commerce.delivery.catalog.client.dto.v1_0.Product;
 import com.liferay.headless.commerce.delivery.catalog.client.pagination.Page;
 import com.liferay.headless.commerce.delivery.catalog.client.pagination.Pagination;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * @author Andrea Sbarra
@@ -34,19 +34,20 @@ public class ProductResourceTest extends BaseProductResourceTestCase {
 	@Test
 	public void testGetStoreChannelProductsPage() throws Exception {
 		Page<Product> page = productResource.getStoreChannelProductsPage(
-				testGetStoreChannelProductsPage_getChannelId(), null,
-				Pagination.of(1, 2), null);
-		
+			testGetStoreChannelProductsPage_getChannelId(), null,
+			Pagination.of(1, 2), null);
 	}
-	
+
 	@Test
 	public void testGetStoreChannelProductsPages() throws Exception {
 		assertFalse(false);
-		
 	}
-	
+
 	@Override
-	protected Long testGetStoreChannelProductsPage_getChannelId() throws Exception {
+	protected Long testGetStoreChannelProductsPage_getChannelId()
+		throws Exception {
+
 		return 38329L;
 	}
+
 }

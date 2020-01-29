@@ -71,12 +71,14 @@ public class SkuDTOConverter implements DTOConverter {
 		CPInstance cpInstance = _cpInstanceService.getCPInstance(
 			cpSkuDTOConverterConvertContext.getResourcePrimKey());
 
+		CommerceContext commerceContext =
+			cpSkuDTOConverterConvertContext.getCommerceContext();
+
 		return new Sku() {
 			{
 				availability = _getAvailability(
 					cpSkuDTOConverterConvertContext.getCompanyId(),
-					cpSkuDTOConverterConvertContext.getCommerceContext(
-					).getCommerceChannelGroupId(),
+					commerceContext.getCommerceChannelGroupId(),
 					cpInstance.getSku(), cpInstance,
 					cpSkuDTOConverterConvertContext.getLocale());
 				depth = cpInstance.getDepth();
