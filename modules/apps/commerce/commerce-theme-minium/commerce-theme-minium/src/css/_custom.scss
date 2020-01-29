@@ -16,68 +16,56 @@ html {
 #minium {
 	transition: padding ease 500ms;
 
-	body.has-control-menu.signed-in & .minium-frame__topbar {
-		top: $liferay-topbar-size;
+	body.has-control-menu.signed-in & {
+		.minium-frame__sidebar,
+		.minium-frame__topbar {
+			top: $liferay-topbar-size;
 
-		@media screen and (max-width: $bp-xsmall) {
-			top: $liferay-topbar-size-small;
+			@media screen and (hover: none) {
+				top: auto;
+			}
+
+			@media screen and (max-width: $bp-xsmall) {
+				top: $liferay-topbar-size-small;
+			}
 		}
-	}
 
-	body.has-control-menu.has-edit-mode-menu.signed-in & .minium-frame__topbar {
-		top: 120px;
-	}
-
-	body.has-control-menu.signed-in & .minium-frame__toolbar {
-		margin-top: $liferay-topbar-size;
-
-		@media screen and (max-width: $bp-xsmall) {
-			margin-top: $liferay-topbar-size-small;
-		}
-	}
-
-	body.has-control-menu.has-edit-mode-menu.signed-in
-		&
 		.minium-frame__toolbar {
-		top: 120px;
-	}
-
-	body.has-control-menu.signed-in & .minium-frame__sidebar {
-		top: $liferay-topbar-size;
-
-		@media screen and (max-width: $bp-xsmall) {
-			top: $liferay-topbar-size-small;
+			margin-top: $liferay-topbar-size;
+			@media screen and (max-width: $bp-xsmall) {
+				margin-top: $liferay-topbar-size-small;
+			}
 		}
 	}
 
-	body.has-control-menu.has-edit-mode-menu.signed-in
-		&
-		.minium-frame__sidebar {
-		top: 120px;
-	}
-
-	@media screen and (hover: none) {
-		body.has-control-menu.signed-in & .minium-frame__sidebar {
-			top: auto;
+	body.has-control-menu.signed-in.has-edit-mode-menu & {
+		.minium-frame__sidebar,
+		.minium-frame__toolbar,
+		.minium-frame__topbar {
+			top: 120px;
 		}
 	}
 
-	body.open & .minium-frame__overlay,
-	body.open & .minium-frame__topbar,
-	body.open & .minium-frame__toolbar,
-	body.open & .minium-frame__sidebar {
-		left: 320px;
+	body.open & {
+		.minium-frame__content {
+			margin-left: 320px;
+		}
+
+		.minium-frame__overlay,
+		.minium-frame__sidebar,
+		.minium-frame__toolbar,
+		.minium-frame__topbar {
+			left: 320px;
+		}
 	}
 
-	body.open-admin-panel & .minium-frame__overlay,
-	body.open-admin-panel & .minium-frame__topbar,
-	body.open-admin-panel & .minium-frame__toolbar,
-	body.open-admin-panel & .minium-frame__sidebar {
-		right: 320px;
-	}
-
-	body.open & .minium-frame__content {
-		margin-left: 320px;
+	body.open-admin-panel & {
+		.minium-frame__overlay,
+		.minium-frame__sidebar,
+		.minium-frame__toolbar,
+		.minium-frame__topbar {
+			right: 320px;
+		}
 	}
 
 	input[type='checkbox'] {
@@ -111,20 +99,20 @@ html {
 		}
 	}
 
-	.container-fluid-max-xl {
-		max-width: initial;
+	.card.fragments-editor__drag-source {
+		position: relative;
 	}
 
-	.page-header {
-		border-radius: 8px;
+	.container-fluid-max-xl {
+		max-width: initial;
 	}
 
 	.form-group-inline {
 		margin-bottom: 0;
 	}
 
-	.card.fragments-editor__drag-source {
-		position: relative;
+	.page-header {
+		border-radius: 8px;
 	}
 }
 
