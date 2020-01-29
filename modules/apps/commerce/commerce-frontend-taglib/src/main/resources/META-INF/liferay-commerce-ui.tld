@@ -101,6 +101,12 @@
 		<tag-class>com.liferay.commerce.frontend.taglib.servlet.taglib.DatasetDisplayTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
+			<name>clayCreationMenu</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>com.liferay.commerce.frontend.ClayCreationMenu</type>
+		</attribute>
+		<attribute>
 			<name>contextParams</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>

@@ -17,7 +17,9 @@
 <%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %><%@
 taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 
-<%@ page import="com.liferay.commerce.frontend.taglib.internal.model.ClayPaginationEntry" %><%@
+<%@ page import="com.liferay.commerce.frontend.ClayCreationMenu" %><%@
+page import="com.liferay.commerce.frontend.Filter" %><%@
+page import="com.liferay.commerce.frontend.taglib.internal.model.ClayPaginationEntry" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.json.JSONFactoryUtil" %><%@
 page import="com.liferay.portal.kernel.json.JSONSerializer" %><%@
@@ -31,6 +33,7 @@ page import="com.liferay.portal.kernel.util.PortalUtil" %>
 
 <%
 Object clayDataSetDisplayViewsContext = request.getAttribute("liferay-commerce:dataset-display:clayDataSetDisplayViewsContext");
+ClayCreationMenu clayCreationMenu = (ClayCreationMenu)request.getAttribute("liferay-commerce:dataset-display:clayCreationMenu");
 String dataProviderKey = (String)request.getAttribute("liferay-commerce:dataset-display:dataProviderKey");
 String dataSetAPI = (String)request.getAttribute("liferay-commerce:dataset-display:dataSetAPI");
 String formId = (String)request.getAttribute("liferay-commerce:dataset-display:formId");

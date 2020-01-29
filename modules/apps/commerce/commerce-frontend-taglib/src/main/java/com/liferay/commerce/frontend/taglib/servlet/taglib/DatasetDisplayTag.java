@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.frontend.taglib.servlet.taglib;
 
+import com.liferay.commerce.frontend.ClayCreationMenu;
 import com.liferay.commerce.frontend.CommerceDataProviderRegistry;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
@@ -105,6 +106,10 @@ public class DatasetDisplayTag extends IncludeTag {
 		return super.doStartTag();
 	}
 
+	public void setClayCreationMenu(ClayCreationMenu clayCreationMenu) {
+		_clayCreationMenu = clayCreationMenu;
+	}
+
 	public void setContextParams(Map<String, String> contextParams) {
 		_contextParams = contextParams;
 	}
@@ -164,6 +169,7 @@ public class DatasetDisplayTag extends IncludeTag {
 	protected void cleanUp() {
 		super.cleanUp();
 
+		_clayCreationMenu = null;
 		_clayDataSetDataJSONBuilder = null;
 		_clayDataSetDisplayViewsContext = null;
 		_clayDataSetDisplayViewSerializer = null;
@@ -226,6 +232,8 @@ public class DatasetDisplayTag extends IncludeTag {
 
 	@Override
 	protected void setAttributes(HttpServletRequest httpServletRequest) {
+		request.setAttribute(
+			"liferay-commerce:dataset-display:clayCreationMenu", _clayCreationMenu);
 		request.setAttribute(
 			"liferay-commerce:dataset-display:clayDataSetDisplayViewsContext",
 			_clayDataSetDisplayViewsContext);
@@ -322,6 +330,7 @@ public class DatasetDisplayTag extends IncludeTag {
 	private static final Log _log = LogFactoryUtil.getLog(
 		DatasetDisplayTag.class);
 
+	private ClayCreationMenu _clayCreationMenu;
 	private ClayDataSetDataJSONBuilder _clayDataSetDataJSONBuilder;
 	private Object _clayDataSetDisplayViewsContext;
 	private ClayDataSetDisplayViewSerializer _clayDataSetDisplayViewSerializer;
