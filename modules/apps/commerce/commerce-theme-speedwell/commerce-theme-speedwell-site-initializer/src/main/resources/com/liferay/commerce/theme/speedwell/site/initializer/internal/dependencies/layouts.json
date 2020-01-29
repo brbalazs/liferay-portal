@@ -95,13 +95,6 @@
 					"lfr-theme:regular:wide-layout": "true"
 				},
 				"name": "Category",
-				"permissions": [
-					{
-						"actionIds": [],
-						"roleName": "Guest",
-						"scope": 4
-					}
-				],
 				"portlets": [
 					{
 						"layoutColumnId": "column-1",
