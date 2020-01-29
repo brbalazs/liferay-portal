@@ -168,7 +168,7 @@ public class DatasetDisplayTag extends IncludeTag {
 		_clayDataSetDisplayViewsContext = null;
 		_clayDataSetDisplayViewSerializer = null;
 		_commerceDataProviderRegistry = null;
-		_contextParams = null;
+		_contextParams = new HashMap<>();
 		_dataProviderKey = null;
 		_dataSetAPI = null;
 		_deltaParam = null;
