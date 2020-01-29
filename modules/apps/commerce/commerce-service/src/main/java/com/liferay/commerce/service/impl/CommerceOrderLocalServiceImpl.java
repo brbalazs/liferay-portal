@@ -467,15 +467,9 @@ public class CommerceOrderLocalServiceImpl
 
 		// Workflow
 
-		if (hasWorkflowDefinition(
-				commerceOrder.getGroupId(),
-				CommerceOrderConstants.TYPE_PK_APPROVAL)) {
-
-			workflowInstanceLinkLocalService.deleteWorkflowInstanceLinks(
-				commerceOrder.getCompanyId(), commerceOrder.getScopeGroupId(),
-				CommerceOrder.class.getName(),
-				commerceOrder.getCommerceOrderId());
-		}
+		workflowInstanceLinkLocalService.deleteWorkflowInstanceLinks(
+			commerceOrder.getCompanyId(), commerceOrder.getScopeGroupId(),
+			CommerceOrder.class.getName(), commerceOrder.getCommerceOrderId());
 
 		return commerceOrder;
 	}
