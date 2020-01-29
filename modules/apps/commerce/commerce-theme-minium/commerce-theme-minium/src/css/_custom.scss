@@ -13,10 +13,6 @@ html {
 	}
 }
 
-#wrapper {
-  padding-top: 0;
-}
-
 #minium {
 	transition: padding ease 500ms;
 
@@ -122,4 +118,8 @@ html {
 	.form-group-inline {
 		margin-bottom: 0;
 	}
+}
+
+#wrapper {
+  padding-top: 0;
 }
