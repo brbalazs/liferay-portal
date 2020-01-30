@@ -30,7 +30,7 @@ function Email(props) {
 		openSidePanel({
 			onAfterSubmit: () => loadData(),
 			slug: 'email',
-			url: props.url
+			url: props.href
 		});
 	}
 
@@ -114,13 +114,13 @@ Email.propTypes = {
 	}).isRequired,
 	borderBottom: PropTypes.bool,
 	date: PropTypes.string.isRequired,
+	href: PropTypes.string,
 	status: PropTypes.shape({
 		displayStyle: PropTypes.string,
 		label: PropTypes.string.isRequired
 	}),
 	subject: PropTypes.string.isRequired,
-	summary: PropTypes.string.isRequired,
-	url: PropTypes.string
+	summary: PropTypes.string.isRequired
 };
 
 Email.defaultProps = {
@@ -128,8 +128,15 @@ Email.defaultProps = {
 };
 
 function EmailsList(props) {
+	const {style} = useContext(props.datasetDisplayContext);
+
 	return (
-		<ClayList className="mb-0">
+		<ClayList
+			className={classNames(
+				'mb-0',
+				style === 'default' ? 'border-bottom' : 'border'
+			)}
+		>
 			{props.items.map((item, i) => (
 				<Email
 					key={i}

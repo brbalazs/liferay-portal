@@ -17,10 +17,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 function Label(props) {
-	return (
+	return props.value ? (
 		<ClayLabel displayType={props.value.displayStyle || 'info'}>
 			{typeof props.value === 'string' ? props.value : props.value.label}
 		</ClayLabel>
+	) : (
+		<></>
 	);
 }
 

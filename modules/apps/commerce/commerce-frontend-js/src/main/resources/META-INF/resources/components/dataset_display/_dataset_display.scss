@@ -18,10 +18,6 @@
 	}
 
 	&-fluid {
-		.dataset-display-content-wrapper {
-			border: 1px solid $border-color;
-		}
-
 		.dataset-display-pagination-wrapper {
 			margin: map-get($spacers, 3) 0 0;
 		}
@@ -37,7 +33,6 @@
 
 	&-stacked {
 		.dataset-display-content-wrapper {
-			border: 1px solid $border-color;
 			margin-bottom: map-get($spacers, 3);
 		}
 

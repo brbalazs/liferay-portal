@@ -65,9 +65,9 @@ function BulkActions(props) {
 		loadData,
 		sidePanelId
 	) {
-		if (actionDefinition.sidePanelCompatible) {
+		if (actionDefinition.target === 'sidePanel') {
 			const sidePanelActionPayload = {
-				baseUrl: actionDefinition.url,
+				baseUrl: actionDefinition.href,
 				id: sidePanelId,
 				onAfterSubmit: () => loadData(),
 				slug: actionDefinition.slug || null
@@ -85,7 +85,7 @@ function BulkActions(props) {
 			setCurrentSidePanelActionPayload(sidePanelActionPayload);
 		} else {
 			submit(
-				actionDefinition.url,
+				actionDefinition.href,
 				actionDefinition.method || 'post',
 				formId,
 				formRef
@@ -184,11 +184,11 @@ function BulkActions(props) {
 BulkActions.propTypes = {
 	bulkActions: PropTypes.arrayOf(
 		PropTypes.shape({
+			href: PropTypes.string.isRequired,
 			icon: PropTypes.string.isRequired,
 			label: PropTypes.string.isRequired,
 			method: PropTypes.string,
-			sidePanelCompatible: PropTypes.bool,
-			url: PropTypes.string.isRequired
+			target: PropTypes.oneOf(['sidePanel', 'modal'])
 		})
 	),
 	selectedItemsKey: PropTypes.string.isRequired,

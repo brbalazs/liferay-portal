@@ -36,20 +36,20 @@ function ModalLink(props) {
 					onSubmit: loadData,
 					size: props.value.size,
 					title: props.value.title,
-					url: props.value.url
+					url: props.value.href
 				})
 			}
 		>
-			<DefaultContent value={props.value.label} />
+			<DefaultContent value={props.value} />
 		</ClayLink>
 	);
 }
 
 ModalLink.propTypes = {
 	value: PropTypes.shape({
+		href: PropTypes.string.isRequired,
 		icon: PropTypes.string,
-		label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-		url: PropTypes.string.isRequired
+		label: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 	}).isRequired
 };
 

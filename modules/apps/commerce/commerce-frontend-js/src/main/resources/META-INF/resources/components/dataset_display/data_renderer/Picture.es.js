@@ -28,7 +28,7 @@ function Picture(props) {
 						<img
 							alt={props.value.alt}
 							className="sticker-img"
-							src={props.value.url}
+							src={props.value.src}
 						/>
 					</div>
 				</ClaySticker>
@@ -42,7 +42,7 @@ Picture.propTypes = {
 		alt: PropType.string.isRequired,
 		shape: PropType.oneOf(['circle', 'rounded']),
 		size: PropType.oneOf(['lg', 'sm', 'xl']),
-		url: PropType.string.isRequired
+		src: PropType.string.isRequired
 	})
 };
 

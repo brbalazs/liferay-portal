@@ -91,7 +91,7 @@ function TableHeadRow(props) {
 	const getColumns = fields => {
 		let firstElementGotExpanded = false;
 
-		return fields.map(field => {
+		return fields.map((field, i) => {
 			let expandedClass = null;
 
 			if (typeof field.expand === 'boolean') {
@@ -107,11 +107,9 @@ function TableHeadRow(props) {
 
 			return (
 				<TableHeadCell
+					{...field}
 					className={expandedClass}
-					fieldName={field.fieldName}
-					key={field.fieldName}
-					label={field.label}
-					sortable={field.sortable}
+					key={field.fieldName || i}
 					sorting={props.sorting}
 					updateSorting={props.updateSorting}
 				/>
@@ -162,7 +160,7 @@ TableHeadRow.propTypes = {
 		fields: PropTypes.arrayOf(
 			PropTypes.shape({
 				contentRenderer: PropTypes.string,
-				fieldName: PropTypes.string.isRequired,
+				fieldName: PropTypes.string,
 				label: PropTypes.string,
 				sortable: PropTypes.bool
 			}).isRequired

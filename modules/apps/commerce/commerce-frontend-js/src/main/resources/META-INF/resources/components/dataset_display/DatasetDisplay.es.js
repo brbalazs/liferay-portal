@@ -293,6 +293,7 @@ function DatasetDisplay(props) {
 				selectionType: props.selectionType,
 				sidePanelId: props.sidePanelId,
 				sorting,
+				style: props.style,
 				updateSorting
 			}}
 		>

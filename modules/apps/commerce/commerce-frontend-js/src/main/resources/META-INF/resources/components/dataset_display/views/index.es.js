@@ -12,6 +12,7 @@
  * details.
  */
 
+import Cards from './cards/Cards.es';
 import EmailsList from './emails_list/EmailsList';
 import List from './list/List.es';
 import Table from './table/Table.es';
@@ -28,6 +29,10 @@ const views = [
 	{
 		component: List,
 		id: 'list'
+	},
+	{
+		component: Cards,
+		id: 'cards'
 	}
 ];
 

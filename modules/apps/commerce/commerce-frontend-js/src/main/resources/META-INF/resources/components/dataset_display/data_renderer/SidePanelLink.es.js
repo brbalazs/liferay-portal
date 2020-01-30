@@ -34,20 +34,21 @@ function SidePanelLink(props) {
 				handleClickOnLink(e, {
 					onSubmit: loadData,
 					size: props.value.size,
-					url: props.value.url
+					url: props.value.href
 				})
 			}
 		>
-			<DefaultContent value={props.value.label} />
+			<DefaultContent value={props.value} />
 		</button>
 	);
 }
 
 SidePanelLink.propTypes = {
 	value: PropTypes.shape({
+		href: PropTypes.string.isRequired,
+		icon: PropTypes.string,
 		label: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-			.isRequired,
-		url: PropTypes.string.isRequired
+			.isRequired
 	}).isRequired
 };
 

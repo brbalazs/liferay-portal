@@ -27,15 +27,13 @@ function CreationMenu(props) {
 	function executeAction(i) {
 		const clickedItem = props.items[i];
 
-		switch (clickedItem.type) {
+		switch (clickedItem.target) {
 			case 'modal':
 				Liferay.fire(OPEN_MODAL, {
 					id: datasetContext.modalId,
 					onClose: datasetContext.loadData,
-					url: clickedItem.url
+					url: clickedItem.href
 				});
-				break;
-			case 'inline':
 				break;
 			default:
 				window.location.href = clickedItem.url;
@@ -90,14 +88,8 @@ CreationMenu.propTypes = {
 			}),
 			PropTypes.shape({
 				label: PropTypes.string.isRequired,
-				type: PropTypes.oneOf(['modal']).isRequired,
+				target: PropTypes.oneOf(['modal']).isRequired,
 				url: PropTypes.string.isRequired
-			}),
-			PropTypes.shape({
-				url: PropTypes.string.isRequired,
-				editableFields: PropTypes.arrayOf(PropTypes.string).isRequired,
-				label: PropTypes.string.isRequired,
-				type: PropTypes.oneOf(['inline']).isRequired
 			})
 		])
 	).isRequired

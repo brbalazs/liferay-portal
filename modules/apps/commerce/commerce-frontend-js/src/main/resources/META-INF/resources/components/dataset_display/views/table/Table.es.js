@@ -27,7 +27,7 @@ import {
 import TableHeadRow from './TableHeadRow.es';
 
 function CustomTableCell(props) {
-	const {view, ...otherProps} = props;
+	const {view} = props;
 	const [currentView, updateCurrentView] = useState({
 		...view,
 		Component: view.contentRendererModuleUrl
@@ -52,12 +52,17 @@ function CustomTableCell(props) {
 				}
 			);
 		}
-	}, [currentView, loading]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [currentView]);
 
-	return props.value ? (
+	return (
 		<ClayTable.Cell>
 			{currentView.Component && !loading ? (
-				<currentView.Component {...otherProps} value={props.value} />
+				<currentView.Component
+					actions={props.actions}
+					options={props.options}
+					value={props.value}
+				/>
 			) : (
 				<span
 					aria-hidden="true"
@@ -66,8 +71,6 @@ function CustomTableCell(props) {
 			)}
 			{props.comment && <Comment>{props.comment}</Comment>}
 		</ClayTable.Cell>
-	) : (
-		<ClayTable.Cell />
 	);
 }
 
@@ -118,18 +121,22 @@ function Table(props) {
 								/>
 							</ClayTable.Cell>
 						)}
-						{props.schema.fields.map(field => {
+						{props.schema.fields.map((field, i) => {
 							const fieldName = field.fieldName;
-							const {[fieldName]: value, ...otherProps} = item;
+							const {
+								actionItems,
+								[fieldName]: value,
+								...otherProps
+							} = item;
 							const comment = otherProps.comments
 								? otherProps.comments[field.fieldName]
 								: null;
 							return (
 								<CustomTableCell
+									actions={actionItems}
 									comment={comment}
-									data={otherProps}
-									fieldName={field.fieldName}
-									key={field.fieldName}
+									key={fieldName || i}
+									options={field}
 									value={value}
 									view={{
 										contentRenderer: field.contentRenderer,

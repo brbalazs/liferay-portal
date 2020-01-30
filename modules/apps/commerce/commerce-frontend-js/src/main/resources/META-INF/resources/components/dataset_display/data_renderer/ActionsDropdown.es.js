@@ -16,7 +16,54 @@ import ClayButton from '@clayui/button';
 import ClayDropDown from '@clayui/drop-down';
 import ClayIcon from '@clayui/icon';
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
+
+import DatasetDisplayContext from '../DatasetDisplayContext.es';
+
+function ActionItem(props) {
+	const {loadData, openModal, openSidePanel} = useContext(
+		DatasetDisplayContext
+	);
+
+	function handleClickOnLink(e, payload, target) {
+		if (target === 'modal') {
+			e.preventDefault();
+			openModal(payload);
+			props.closeMenu();
+		}
+
+		if (target === 'sidePanel') {
+			e.preventDefault();
+			openSidePanel(payload);
+			props.closeMenu();
+		}
+	}
+
+	return (
+		<ClayDropDown.Item
+			href={props.href}
+			onClick={e =>
+				handleClickOnLink(
+					e,
+					{
+						onSubmit: loadData,
+						size: props.size,
+						title: props.title,
+						url: props.href
+					},
+					props.target
+				)
+			}
+		>
+			{props.icon && (
+				<span className="pr-2">
+					<ClayIcon symbol={props.icon} />
+				</span>
+			)}
+			{props.label}
+		</ClayDropDown.Item>
+	);
+}
 
 function ActionsDropdown(props) {
 	const [active, setActive] = useState(false);
@@ -33,16 +80,7 @@ function ActionsDropdown(props) {
 		>
 			<ClayDropDown.ItemList>
 				<ClayDropDown.Group>
-					{props.items.map((item, i) => (
-						<ClayDropDown.Item href={item.href} key={i}>
-							{item.icon && (
-								<span className="pr-2">
-									<ClayIcon symbol={item.icon} />
-								</span>
-							)}
-							{item.label}
-						</ClayDropDown.Item>
-					))}
+					{props.items.map((item, i) => <ActionItem key={i} {...item} closeMenu={() => setActive(false)} />)}
 				</ClayDropDown.Group>
 			</ClayDropDown.ItemList>
 		</ClayDropDown>
@@ -54,7 +92,8 @@ ActionsDropdown.propTypes = {
 		PropTypes.shape({
 			href: PropTypes.string,
 			icon: PropTypes.string,
-			label: PropTypes.string.isRequired
+			label: PropTypes.string.isRequired,
+			target: PropTypes.oneOf(['modal', 'sidePanel'])
 		})
 	)
 };

@@ -13,6 +13,7 @@
  */
 
 import {getJsModule} from '../../../utilities/index.es';
+import ActionsLink from './ActionLink.es';
 import ActionsDropdown from './ActionsDropdown.es';
 import Checkbox from './Checkbox.es';
 import Default from './Default.es';
@@ -25,6 +26,7 @@ import SidePanelLink from './SidePanelLink.es';
 import TooltipPrice from './TooltipPrice.es';
 
 const dataRenderers = {
+	actionLink: ActionsLink,
 	actionsDropdown: ActionsDropdown,
 	checkbox: Checkbox,
 	default: Default,

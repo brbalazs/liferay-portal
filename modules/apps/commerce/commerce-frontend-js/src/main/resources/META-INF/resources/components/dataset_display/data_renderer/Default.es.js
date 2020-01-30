@@ -19,11 +19,9 @@ import React from 'react';
 function Default(props) {
 	switch (true) {
 		case !(props.value instanceof Object):
-			return <>{props.value}</>;
+			return <>{props.value || ''}</>;
 		case !!props.value.icon:
 			return <ClayIcon symbol={props.value.icon} />;
-		case !!props.value.pictureUrl:
-			return <img alt={props.value.label} src={props.value.pictureUrl} />;
 		case !!props.value.label:
 			return <>{props.value.label}</>;
 		default:
@@ -39,21 +37,12 @@ Default.propTypes = {
 	value: PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.number,
-		PropTypes.shape(
-			PropTypes.oneOf([
-				{
-					icon: PropTypes.string.isRequired
-				},
-				{
-					label: PropTypes.string.isRequired,
-					url: PropTypes.string
-				},
-				{
-					label: PropTypes.string.isRequired,
-					pictureUrl: PropTypes.string.isRequired
-				}
-			])
-		)
+		PropTypes.shape({
+			label: PropTypes.string
+		}),
+		PropTypes.shape({
+			icon: PropTypes.string
+		})
 	])
 };
 

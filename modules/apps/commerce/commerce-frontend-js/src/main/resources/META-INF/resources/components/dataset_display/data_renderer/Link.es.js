@@ -20,7 +20,7 @@ import DefaultContent from './Default.es';
 
 function Link(props) {
 	return (
-		<ClayLink href={props.value.url}>
+		<ClayLink href={props.value.href}>
 			<DefaultContent value={props.value.label} />
 		</ClayLink>
 	);
@@ -28,8 +28,8 @@ function Link(props) {
 
 Link.propTypes = {
 	value: PropTypes.shape({
-		label: PropTypes.string,
-		url: PropTypes.string
+		href: PropTypes.string,
+		label: PropTypes.string
 	})
 };
 
