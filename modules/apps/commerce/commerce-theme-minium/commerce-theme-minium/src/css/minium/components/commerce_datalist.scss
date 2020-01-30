@@ -6,7 +6,7 @@
 	opacity: 1;
 	position: relative;
 	transform: translateY(0);
-	transition: transform .1s ease-in;
+	transition: transform 0.1s ease-in;
 	width: 200px;
 	z-index: 1;
 
@@ -17,7 +17,7 @@
 	}
 
 	&.is-disabled {
-		opacity: .5;
+		opacity: 0.5;
 		pointer-events: none;
 	}
 
@@ -30,7 +30,7 @@
 		grid-template-columns: auto 24px;
 		overflow: hidden;
 		padding: 6px 10px;
-		transition: background-color .1s ease-in, border-radius .2s ease-in;
+		transition: background-color 0.1s ease-in, border-radius 0.2s ease-in;
 		z-index: 2;
 
 		&:focus-within {
@@ -52,7 +52,7 @@
 
 					&--default {
 						opacity: 0;
-						transform: translate(0, -50%) scale(.5);
+						transform: translate(0, -50%) scale(0.5);
 					}
 				}
 			}
@@ -72,13 +72,13 @@
 		position: absolute;
 		right: 0;
 		top: 0;
-		transition: transform .2s ease-in, opacity .2s ease-in;
+		transition: transform 0.2s ease-in, opacity 0.2s ease-in;
 
 		&--reset {
 			color: $color-fg-alt;
 			opacity: 0;
 			padding: 0;
-			transform: translate(0, 130%) scale(.5);
+			transform: translate(0, 130%) scale(0.5);
 		}
 
 		&--default {
@@ -132,7 +132,7 @@
 	}
 
 	&__value {
-		animation: zoomInFromRight .1s ease-out;
+		animation: zoomInFromRight 0.1s ease-out;
 		animation-fill-mode: forwards;
 		background-color: $color-disabled;
 		border-radius: 20px;
@@ -166,18 +166,18 @@
 		transform: translateY(-40px);
 		transform: translateY(-40px);
 		transform-origin: 50% 0%;
-		transition: all .1s ease-in;
-		transition: opacity .2s ease-in, transform .2s ease-in;
+		transition: all 0.1s ease-in;
+		transition: opacity 0.2s ease-in, transform 0.2s ease-in;
 		z-index: 1;
 
 		&.is-expanding {
-			animation: expand-dropdown .2s;
+			animation: expand-dropdown 0.2s;
 			animation-fill-mode: forwards;
 			display: block;
 		}
 
 		&.is-collapsing {
-			animation: collapse-dropdown .2s;
+			animation: collapse-dropdown 0.2s;
 			animation-fill-mode: forwards;
 			display: block;
 		}
@@ -208,7 +208,7 @@
 		}
 
 		&--active {
-			font-weight: 600
+			font-weight: 600;
 		}
 
 		&--multiselect {
@@ -224,14 +224,14 @@
 			cursor: inherit;
 		}
 
-		[type="checkbox"] {
+		[type='checkbox'] {
 			margin-right: 15px;
 		}
 	}
 }
 
 @keyframes expand-dropdown {
-	0%   {
+	0% {
 		opacity: 0;
 		transform: translateY(-40px);
 	}
@@ -243,7 +243,7 @@
 }
 
 @keyframes collapse-dropdown {
-	0%   {
+	0% {
 		opacity: 1;
 		transform: translateY(0);
 	}

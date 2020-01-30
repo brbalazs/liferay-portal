@@ -1061,7 +1061,7 @@ const emailsDataSetDisplayProps = {
 				}
 			],
 			author: {
-				avatarsrc: 'https://via.placeholder.com/150',
+				avatarSrc: 'https://via.placeholder.com/150',
 				email: 'john.doe@gmail.com',
 				name: 'John Doe'
 			},
@@ -1085,7 +1085,7 @@ const emailsDataSetDisplayProps = {
 				}
 			],
 			author: {
-				avatarsrc: 'https://via.placeholder.com/150',
+				avatarSrc: 'https://via.placeholder.com/150',
 				email: 'john.doe@gmail.com',
 				name: 'John Doe'
 			},
@@ -1142,21 +1142,21 @@ const emailsDataSetDisplayProps = {
 	]
 };
 
-// datasetDisplayLauncher(
-// 	'emails-dataset-display',
-// 	'emails-dataset-display-root-id',
-// 	emailsDataSetDisplayProps
-// );
+datasetDisplayLauncher(
+	'emails-dataset-display',
+	'emails-dataset-display-root-id',
+	emailsDataSetDisplayProps
+);
 datasetDisplayLauncher(
 	'fluid-dataset-display',
 	'fluid-dataset-display-root-id',
 	fluidDataSetDisplayProps
 );
-// datasetDisplayLauncher(
-// 	'dataset-display',
-// 	'dataset-display-root-id',
-// 	dataSetDisplayProps
-// );
+datasetDisplayLauncher(
+	'dataset-display',
+	'dataset-display-root-id',
+	dataSetDisplayProps
+);
 
 sidePanelLauncher('sidePanel', 'side-panel-root-id', {
 	containerSelector: '.container',

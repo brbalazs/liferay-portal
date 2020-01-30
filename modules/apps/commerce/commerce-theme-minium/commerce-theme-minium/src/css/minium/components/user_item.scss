@@ -6,11 +6,11 @@
 		margin-bottom: 0;
 	}
 
-	&[class*="commerce-bdc"] {
+	&[class*='commerce-bdc'] {
 		border-style: solid;
 		border-width: 0 0 0 5px;
 		padding-left: 15px;
-		transition: all .1s ease-in-out;
+		transition: all 0.1s ease-in-out;
 
 		&:hover {
 			border-width: 0 0 0 6px;

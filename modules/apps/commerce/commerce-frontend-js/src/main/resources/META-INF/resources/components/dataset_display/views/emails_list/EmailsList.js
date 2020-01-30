@@ -48,7 +48,7 @@ function Email(props) {
 					<div className="row">
 						<div className="col">
 							<div className="row">
-								{props.author.avatarUrl && (
+								{props.author.avatarSrc && (
 									<div className="col-auto">
 										<ClaySticker
 											className="sticker-user-icon"
@@ -57,7 +57,7 @@ function Email(props) {
 											<div className="sticker-overlay">
 												<img
 													className="sticker-img"
-													src={props.author.avatarUrl}
+													src={props.author.avatarSrc}
 												/>
 											</div>
 										</ClaySticker>
@@ -108,7 +108,7 @@ function Email(props) {
 Email.propTypes = {
 	actionItems: PropTypes.array,
 	author: PropTypes.shape({
-		avatarUrl: PropTypes.string,
+		avatarSrc: PropTypes.string,
 		email: PropTypes.string.isRequired,
 		name: PropTypes.string.isRequired
 	}).isRequired,

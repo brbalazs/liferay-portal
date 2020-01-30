@@ -5,12 +5,12 @@
 	width: 100%;
 
 	tbody td {
-		border-right: 2px solid #F8F8F9;
+		border-right: 2px solid #f8f8f9;
 		padding: 15px;
 		vertical-align: baseline;
 
 		&:last-child {
-			border-right: none
+			border-right: none;
 		}
 	}
 

@@ -80,7 +80,13 @@ function ActionsDropdown(props) {
 		>
 			<ClayDropDown.ItemList>
 				<ClayDropDown.Group>
-					{props.items.map((item, i) => <ActionItem key={i} {...item} closeMenu={() => setActive(false)} />)}
+					{props.items.map((item, i) => (
+						<ActionItem
+							key={i}
+							{...item}
+							closeMenu={() => setActive(false)}
+						/>
+					))}
 				</ClayDropDown.Group>
 			</ClayDropDown.ItemList>
 		</ClayDropDown>

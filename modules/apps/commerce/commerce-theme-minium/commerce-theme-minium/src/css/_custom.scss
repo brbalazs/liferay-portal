@@ -1,4 +1,4 @@
-@import "./minium/minium";
+@import './minium/minium';
 
 /* inject:imports */
 
@@ -76,9 +76,9 @@ html {
 		margin-left: 320px;
 	}
 
-	input[type="checkbox"] {
+	input[type='checkbox'] {
 		-webkit-appearance: none;
-		background: #FFF;
+		background: #fff;
 		border: 2px solid rgba(157, 158, 158, 0.5);
 		border-radius: 4px;
 		height: 16px;
@@ -118,8 +118,4 @@ html {
 	.form-group-inline {
 		margin-bottom: 0;
 	}
-}
-
-#wrapper {
-  padding-top: 0;
 }
