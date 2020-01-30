@@ -1726,11 +1726,7 @@ public class JournalDisplayContext {
 		return dropdownItem -> {
 			dropdownItem.setActive(active);
 
-			dropdownItem.setHref(
-				_liferayPortletResponse.createRenderURL(), "navigation",
-				navigation, "folderId",
-				String.valueOf(JournalFolderConstants.DEFAULT_PARENT_FOLDER_ID),
-				"showEditActions", String.valueOf(isShowEditActions()));
+			dropdownItem.setHref(getPortletURL(), "navigation", navigation);
 
 			dropdownItem.setLabel(LanguageUtil.get(_request, navigation));
 		};
