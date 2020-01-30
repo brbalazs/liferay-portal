@@ -25,7 +25,7 @@ import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.util.BaseCommerceCheckoutStep;
 import com.liferay.commerce.util.CommerceCheckoutStep;
 import com.liferay.commerce.util.CommerceCheckoutStepServicesTracker;
-import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
+import com.liferay.portal.kernel.servlet.ServletResponseUtil;
 import com.liferay.portal.kernel.util.Portal;
 
 import java.math.BigDecimal;
@@ -121,18 +121,33 @@ public class PaymentProcessCommerceCheckoutStep
 
 		// Redirection only works with the original servlet response
 
-		while (httpServletResponse instanceof HttpServletResponseWrapper) {
-			HttpServletResponseWrapper httpServletResponseWrapper =
-				(HttpServletResponseWrapper)httpServletResponse;
+		HttpServletResponse originalHttpServletResponse = httpServletResponse;
 
-			httpServletResponse =
+		while (originalHttpServletResponse instanceof
+					HttpServletResponseWrapper) {
+
+			HttpServletResponseWrapper httpServletResponseWrapper =
+				(HttpServletResponseWrapper)originalHttpServletResponse;
+
+			originalHttpServletResponse =
 				(HttpServletResponse)httpServletResponseWrapper.getResponse();
 		}
 
-		String paymentServletURL = httpServletResponse.encodeRedirectURL(
-			paymentProcessCheckoutStepDisplayContext.getPaymentServletUrl());
+		String paymentServletURL =
+			originalHttpServletResponse.encodeRedirectURL(
+				paymentProcessCheckoutStepDisplayContext.
+					getPaymentServletUrl());
 
-		httpServletResponse.sendRedirect(paymentServletURL);
+		originalHttpServletResponse.sendRedirect(paymentServletURL);
+
+		// In certain situations the redirect fails: fall back to JS
+
+		if (!originalHttpServletResponse.isCommitted()) {
+			ServletResponseUtil.write(
+				httpServletResponse,
+				"<script>window.location.href = '" + paymentServletURL +
+					"';</script>");
+		}
 	}
 
 	@Override
@@ -149,9 +164,6 @@ public class PaymentProcessCommerceCheckoutStep
 
 	@Reference
 	private CommerceOrderPriceCalculation _commerceOrderPriceCalculation;
-
-	@Reference
-	private JSPRenderer _jspRenderer;
 
 	@Reference
 	private Portal _portal;
