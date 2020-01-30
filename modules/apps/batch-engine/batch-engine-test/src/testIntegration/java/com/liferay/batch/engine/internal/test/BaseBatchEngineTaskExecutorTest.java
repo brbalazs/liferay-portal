@@ -165,7 +165,6 @@ public class BaseBatchEngineTaskExecutorTest {
 
 			LocalDateTime localDateTime = LocalDateTimeUtil.toLocalDateTime(
 				blogPosting.getDatePublished());
-
 			Image image = blogPosting.getImage();
 
 			_blogsEntryService.addEntry(
@@ -235,7 +234,6 @@ public class BaseBatchEngineTaskExecutorTest {
 
 			LocalDateTime localDateTime = LocalDateTimeUtil.toLocalDateTime(
 				blogPosting.getDatePublished());
-
 			Image image = blogPosting.getImage();
 
 			BlogsEntry blogsEntry = _blogsEntryService.getEntry(
