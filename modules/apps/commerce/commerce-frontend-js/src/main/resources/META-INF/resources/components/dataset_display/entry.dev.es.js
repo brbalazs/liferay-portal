@@ -68,6 +68,7 @@ const fluidDataSetDisplayProps = {
 				{
 					href: '/delete/url',
 					icon: 'trash',
+					id: 'delete',
 					label: 'Delete',
 					target: 'modal'
 				},
@@ -227,17 +228,17 @@ const fluidDataSetDisplayProps = {
 			schema: {
 				fields: [
 					{
-						actionIndex: 2,
 						contentRenderer: 'actionLink',
 						fieldName: 'name',
 						label: 'Name',
 						sortable: true
 					},
 					{
-						actionIndex: 1,
-						contentRenderer: 'actionLink'
+						actionId: 'edit',
+						contentRenderer: 'actionLink',
 					},
 					{
+						actionId: 'delete',
 						contentRenderer: 'actionLink'
 					},
 					{

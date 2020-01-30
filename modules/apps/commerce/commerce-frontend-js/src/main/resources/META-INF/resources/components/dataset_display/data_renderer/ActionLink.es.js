@@ -27,7 +27,7 @@ function ActionLink(props) {
 
 	const currentAction = props.options.actionId
 		? props.actions.find(action => action.id === props.options.actionId)
-		: props.actions[props.options.actionIndex || 0];
+		: props.actions[0];
 
 	if (!currentAction) {
 		return <DefaultContent value={props.value} />;
@@ -78,8 +78,7 @@ ActionLink.propTypes = {
 		})
 	),
 	options: PropTypes.shape({
-		actionId: PropTypes.string,
-		actionIndex: PropTypes.number
+		actionId: PropTypes.string
 	}),
 	value: PropTypes.string
 };
