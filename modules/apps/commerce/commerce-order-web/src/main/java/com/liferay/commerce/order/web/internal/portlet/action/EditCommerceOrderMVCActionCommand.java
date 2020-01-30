@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.TransactionConfig;
 import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
@@ -112,9 +113,6 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 		else if (cmd.equals("customFields")) {
 			updateCustomFields(actionRequest);
 		}
-		else if (cmd.equals("orderStatus")) {
-			updateOrderStatus(actionRequest);
-		}
 		else if (cmd.equals("orderSummary")) {
 			updateOrderSummary(actionRequest);
 		}
@@ -134,32 +132,45 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 			long commerceOrderId = ParamUtil.getLong(
 				actionRequest, "commerceOrderId");
 
-			CommerceShipment commerceShipment = addShipment(
-				actionRequest, commerceOrderId);
+				CommerceShipment commerceShipment = addShipment(
+					actionRequest, commerceOrderId);
 
-			PortletURL shipmentPortletURL = _portal.getControlPanelPortletURL(
-				actionRequest, CommercePortletKeys.COMMERCE_SHIPMENT,
-				PortletRequest.RENDER_PHASE);
+				PortletURL shipmentPortletURL =
+					_portal.getControlPanelPortletURL(
+						actionRequest, CommercePortletKeys.COMMERCE_SHIPMENT,
+						PortletRequest.RENDER_PHASE);
 
-			shipmentPortletURL.setParameter(
-				"mvcRenderCommandName", "selectCommerceShipmentItems");
-			shipmentPortletURL.setParameter(
-				"commerceOrderId", String.valueOf(commerceOrderId));
-			shipmentPortletURL.setParameter(
-				"commerceShipmentId",
-				String.valueOf(commerceShipment.getCommerceShipmentId()));
+				shipmentPortletURL.setParameter(
+					"mvcRenderCommandName", "selectCommerceShipmentItems");
+				shipmentPortletURL.setParameter(
+					"commerceOrderId", String.valueOf(commerceOrderId));
+				shipmentPortletURL.setParameter(
+					"commerceShipmentId",
+					String.valueOf(commerceShipment.getCommerceShipmentId()));
 
-			sendRedirect(
-				actionRequest, actionResponse, shipmentPortletURL.toString());
+				sendRedirect(
+					actionRequest, actionResponse,
+					shipmentPortletURL.toString());
+			}
+			else if (cmd.equals("shippingAddress")) {
+				updateShippingAddress(actionRequest);
+			}
+			else if (cmd.equals("totals")) {
+				updateTotals(actionRequest);
+			}
+			else if (cmd.equals("transition")) {
+				executeTransition(actionRequest, actionResponse);
+			}
 		}
-		else if (cmd.equals("shippingAddress")) {
-			updateShippingAddress(actionRequest);
-		}
-		else if (cmd.equals("totals")) {
-			updateTotals(actionRequest);
-		}
-		else if (cmd.equals("transition")) {
-			executeTransition(actionRequest, actionResponse);
+		catch (Exception e) {
+			hideDefaultErrorMessage(actionRequest);
+			hideDefaultSuccessMessage(actionRequest);
+
+			SessionErrors.add(actionRequest, e.getClass());
+
+			String redirect = ParamUtil.getString(actionRequest, "redirect");
+
+			sendRedirect(actionRequest, actionResponse, redirect);
 		}
 	}
 

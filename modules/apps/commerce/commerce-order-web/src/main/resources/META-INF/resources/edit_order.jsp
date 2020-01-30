@@ -61,6 +61,12 @@ else {
 	wrapperCssClasses="side-panel-top-anchor"
 />
 
+<liferay-ui:error embed="<%= false %>" exception="<%= CommerceOrderBillingAddressException.class %>" message="the-order-selected-needs-a-billing-address" />
+<liferay-ui:error embed="<%= false %>" exception="<%= CommerceOrderPaymentMethodException.class %>" message="please-select-a-valid-payment-method" />
+<liferay-ui:error embed="<%= false %>" exception="<%= CommerceOrderShippingAddressException.class %>" message="the-order-selected-needs-a-shipping-address" />
+<liferay-ui:error embed="<%= false %>" exception="<%= CommerceOrderShippingMethodException.class %>" message="please-select-a-valid-shipping-method" />
+<liferay-ui:error embed="<%= false %>" exception="<%= CommerceOrderStatusException.class %>" message="this-order-cannot-be-transitioned" />
+
 <div id="<portlet:namespace />editOrderContainer">
 	<liferay-frontend:screen-navigation
 		fullContainerCssClass="col-12 pt-4"
