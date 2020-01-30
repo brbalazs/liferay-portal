@@ -509,6 +509,18 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 	}
 
 	@Override
+	public CommerceOrder recalculatePrice(
+			long commerceOrderId, CommerceContext commerceContext)
+		throws PortalException {
+
+		_commerceOrderModelResourcePermission.check(
+			getPermissionChecker(), commerceOrderId, ActionKeys.UPDATE);
+
+		return commerceOrderLocalService.recalculatePrice(
+			commerceOrderId, commerceContext);
+	}
+
+	@Override
 	public CommerceOrder reorderCommerceOrder(
 			long commerceOrderId, CommerceContext commerceContext)
 		throws PortalException {
@@ -558,6 +570,17 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 			commerceOrderId, name, description, street1, street2, street3, city,
 			zip, commerceRegionId, commerceCountryId, phoneNumber,
 			serviceContext);
+	}
+
+	@Override
+	public CommerceOrder updateCommerceOrder(CommerceOrder commerceOrder)
+		throws PortalException {
+
+		_commerceOrderModelResourcePermission.check(
+			getPermissionChecker(), commerceOrder.getCommerceOrderId(),
+			ActionKeys.UPDATE);
+
+		return commerceOrderLocalService.updateCommerceOrder(commerceOrder);
 	}
 
 	@Override
