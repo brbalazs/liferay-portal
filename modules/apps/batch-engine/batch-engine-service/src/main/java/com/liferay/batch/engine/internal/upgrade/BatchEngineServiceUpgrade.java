@@ -25,7 +25,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Ivica Cardic
  */
 @Component(immediate = true, service = UpgradeStepRegistrator.class)
-public class BatchEngineUpgrade implements UpgradeStepRegistrator {
+public class BatchEngineServiceUpgrade implements UpgradeStepRegistrator {
 
 	@Override
 	public void register(Registry registry) {
