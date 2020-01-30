@@ -37,7 +37,7 @@ public class BatchEngineExportTaskLocalServiceImpl
 	public BatchEngineExportTask addBatchEngineExportTask(
 		long companyId, long userId, String callbackURL, String className,
 		String contentType, String executeStatus, List<String> fieldNamesList,
-		Map<String, Serializable> parameters, String version) {
+		Map<String, Serializable> parameters) {
 
 		BatchEngineExportTask batchEngineExportTask =
 			batchEngineExportTaskPersistence.create(
@@ -54,7 +54,6 @@ public class BatchEngineExportTaskLocalServiceImpl
 		batchEngineExportTask.setExecuteStatus(executeStatus);
 		batchEngineExportTask.setFieldNamesList(fieldNamesList);
 		batchEngineExportTask.setParameters(parameters);
-		batchEngineExportTask.setVersion(version);
 
 		return batchEngineExportTaskPersistence.update(batchEngineExportTask);
 	}
