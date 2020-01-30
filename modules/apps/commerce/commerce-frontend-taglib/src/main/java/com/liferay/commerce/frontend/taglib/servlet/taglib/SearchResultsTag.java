@@ -63,7 +63,7 @@ public class SearchResultsTag extends ComponentRendererTag {
 
 		putValue(
 			"spritemap",
-			themeDisplay.getPathThemeImages() + "/commerce-icons.svg");
+			themeDisplay.getPathThemeImages() + "/icons.svg");
 
 		putValue("visible", false);
 

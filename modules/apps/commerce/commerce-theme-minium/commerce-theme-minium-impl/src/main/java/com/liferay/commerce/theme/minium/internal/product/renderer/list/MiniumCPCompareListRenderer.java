@@ -176,7 +176,7 @@ public class MiniumCPCompareListRenderer implements CPContentListRenderer {
 
 		context.put(
 			"spritemap",
-			themeDisplay.getPathThemeImages() + "/commerce-icons.svg");
+			themeDisplay.getPathThemeImages() + "/icons.svg");
 
 		context.put("products", products);
 

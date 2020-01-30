@@ -2,14 +2,14 @@
 	<div class="speedwell-topbar__menu speedwell-main-menu">
 		<button class="speedwell-topbar__button speedwell-main-menu__open js-toggle-main-menu">
 			<svg class="lexicon-icon lexicon-icon-bars">
-				<use href="${themeDisplay.getPathThemeImages()}/commerce-icons.svg#bars" />
+				<use href="${themeDisplay.getPathThemeImages()}/icons.svg#bars" />
 			</svg>
 		</button>
 
 		<div class="speedwell-main-menu__link-wrapper">
 			<button class="speedwell-topbar__button js-toggle-main-menu">
 				<svg class="lexicon-icon lexicon-icon-times">
-					<use href="${themeDisplay.getPathThemeImages()}/commerce-icons.svg#times" />
+					<use href="${themeDisplay.getPathThemeImages()}/icons.svg#times" />
 				</svg>
 			</button>
 
@@ -36,7 +36,7 @@
 		<div class="speedwell-topbar__search speedwell-search">
 			<div class="speedwell-topbar__button js-toggle-search">
 				<svg class="lexicon-icon lexicon-icon-search">
-					<use href="${themeDisplay.getPathThemeImages()}/commerce-icons.svg#search" />
+					<use href="${themeDisplay.getPathThemeImages()}/icons.svg#search" />
 				</svg>
 			</div>
 
@@ -44,14 +44,14 @@
 				<div class="speedwell-search__bar">
 					<button class="speedwell-topbar__button" disabled>
 						<svg class="lexicon-icon lexicon-icon-search">
-							<use href="${themeDisplay.getPathThemeImages()}/commerce-icons.svg#search" />
+							<use href="${themeDisplay.getPathThemeImages()}/icons.svg#search" />
 						</svg>
 					</button>
 					<@liferay_commerce_ui["search-bar"] id="search-bar" />
 
 					<button class="speedwell-topbar__button js-toggle-search">
 						<svg class="lexicon-icon lexicon-icon-times">
-							<use href="${themeDisplay.getPathThemeImages()}/commerce-icons.svg#times" />
+							<use href="${themeDisplay.getPathThemeImages()}/icons.svg#times" />
 						</svg>
 					</button>
 				</div>
@@ -65,7 +65,7 @@
 		<div class="speedwell-account">
 			<button class="speedwell-topbar__button js-toggle-account">
 				<svg class="lexicon-icon lexicon-icon-user">
-					<use href="${themeDisplay.getPathThemeImages()}/commerce-icons.svg#user" />
+					<use href="${themeDisplay.getPathThemeImages()}/icons.svg#user" />
 				</svg>
 			</button>
 

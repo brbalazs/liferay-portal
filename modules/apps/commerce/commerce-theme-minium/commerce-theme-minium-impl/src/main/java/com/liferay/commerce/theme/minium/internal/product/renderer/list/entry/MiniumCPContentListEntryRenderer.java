@@ -302,7 +302,7 @@ public class MiniumCPContentListEntryRenderer
 
 		context.put(
 			"spritemap",
-			themeDisplay.getPathThemeImages() + "/commerce-icons.svg");
+			themeDisplay.getPathThemeImages() + "/icons.svg");
 
 		Set<String> dependencies = new HashSet<>();
 

@@ -116,7 +116,7 @@ public class MiniCartTag extends ComponentRendererTag {
 			putValue("productsCount", 0);
 			putValue(
 				"spritemap",
-				themeDisplay.getPathThemeImages() + "/commerce-icons.svg");
+				themeDisplay.getPathThemeImages() + "/icons.svg");
 
 			setTemplateNamespace("MiniCart.render");
 		}

@@ -92,7 +92,7 @@ public class AddToCartTag extends ComponentRendererTag {
 
 			putValue(
 				"spritemap",
-				themeDisplay.getPathThemeImages() + "/commerce-icons.svg");
+				themeDisplay.getPathThemeImages() + "/icons.svg");
 
 			setTemplateNamespace("AddToCartButton.render");
 		}

@@ -36,7 +36,7 @@ public class AddAccountModalTag extends ComponentRendererTag {
 
 		putValue(
 			"spritemap",
-			themeDisplay.getPathThemeImages() + "/commerce-icons.svg");
+			themeDisplay.getPathThemeImages() + "/icons.svg");
 
 		putValue(
 			"usersAPI",
