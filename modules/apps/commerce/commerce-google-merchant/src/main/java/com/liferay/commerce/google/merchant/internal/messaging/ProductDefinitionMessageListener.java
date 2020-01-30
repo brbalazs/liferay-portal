@@ -28,13 +28,11 @@ import com.liferay.portal.kernel.scheduler.SchedulerEntryImpl;
 import com.liferay.portal.kernel.scheduler.TimeUnit;
 import com.liferay.portal.kernel.scheduler.Trigger;
 import com.liferay.portal.kernel.scheduler.TriggerFactory;
-import com.liferay.portal.kernel.util.Validator;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
-import org.quartz.CronExpression;
 
 import java.util.Map;
 
@@ -69,19 +67,18 @@ public class ProductDefinitionMessageListener extends BaseMessageListener {
 		}
 
 		String cronExpression = productDefinitionConfiguration.cronExpression();
-		Trigger trigger;
 
-		if (Validator.isNotNull(cronExpression) &&
-				CronExpression.isValidExpression(cronExpression)) {
+		Trigger trigger = null;
 
+		try {
 			trigger = _triggerFactory.createTrigger(
 				className, className, null, null, cronExpression);
 		}
-		else {
-			if (_log.isDebugEnabled()) {
-				_log.debug("Invalid cron expression");
-			}
+		catch (RuntimeException re) {
+			_log.error(re, re);
+		}
 
+		if (trigger == null) {
 			trigger = _triggerFactory.createTrigger(
 				className, className, null, null,
 				productDefinitionConfiguration.checkInterval(), timeUnit);
