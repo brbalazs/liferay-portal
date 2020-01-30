@@ -29,6 +29,7 @@ CommerceOrderContentDisplayContext commerceOrderContentDisplayContext = (Commerc
 	namespace="<%= renderResponse.getNamespace() %>"
 	pageNumber="<%= 1 %>"
 	portletURL="<%= commerceOrderContentDisplayContext.getPortletURL() %>"
+	style="stacked"
 />
 
 <div class="commerce-cta is-visible">

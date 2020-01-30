@@ -78,6 +78,7 @@ portletURL.setParameter("userId", String.valueOf(selectedUser.getUserId()));
 			namespace="<%= renderResponse.getNamespace() %>"
 			pageNumber="<%= 1 %>"
 			portletURL="<%= portletURL %>"
+			style="stacked"
 		/>
 	</div>
 

@@ -63,6 +63,7 @@ const fluidDataSetDisplayProps = {
 				{
 					href: '/view/url',
 					icon: 'view',
+					id: 'view',
 					label: 'View'
 				},
 				{

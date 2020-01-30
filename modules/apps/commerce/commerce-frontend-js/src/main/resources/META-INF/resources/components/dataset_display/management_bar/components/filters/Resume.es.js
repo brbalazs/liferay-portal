@@ -31,17 +31,18 @@ function Resume(props) {
 	const label = (
 		<ClayLabel
 			className={classNames(
-				'resume component-label tbar-label mr-2 btn p-1',
+				'filter-resume component-label tbar-label mr-2',
 				props.disabled && 'disabled',
-				open && 'border-primary'
+				open && 'active'
 			)}
 			closeButtonProps={{
+				className: 'filter-resume-close',
 				disabled: props.disabled,
 				onClick: () => actions.updateFilterValue(props.id, null)
 			}}
 			role="button"
 		>
-			<div className="d-flex">
+			<div className="filter-resume-content">
 				<ClayIcon
 					className="mr-2"
 					symbol={open ? 'caret-top' : 'caret-bottom'}

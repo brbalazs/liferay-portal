@@ -42,6 +42,7 @@ List<CommerceOrder> commerceOrders = commerceOrderContentDisplayContext.getComme
 				namespace="<%= renderResponse.getNamespace() %>"
 				pageNumber="<%= 1 %>"
 				portletURL="<%= commerceOrderContentDisplayContext.getPortletURL() %>"
+				style="stacked"
 			/>
 		</div>
 	</div>

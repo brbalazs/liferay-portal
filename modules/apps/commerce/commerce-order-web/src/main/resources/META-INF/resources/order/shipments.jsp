@@ -51,7 +51,6 @@ contextParams.put("commerceOrderId", String.valueOf(commerceOrder.getCommerceOrd
 	namespace="<%= renderResponse.getNamespace() %>"
 	pageNumber="<%= 1 %>"
 	portletURL="<%= portletURL %>"
-	style="stacked"
 />
 
 <aui:script>

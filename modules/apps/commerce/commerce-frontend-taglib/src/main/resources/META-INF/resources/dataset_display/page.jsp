@@ -116,7 +116,7 @@
 				},
 				namespace: '<%= namespace %>',
 				portletURL: '<%= portletURL %>',
-				spritemap: '<%= spritemap %>',
+				spritemap: '/o/minium-theme/images/lexicon/icons.svg',
 				style: '<%= style %>'
 			}
 		)

@@ -41,21 +41,22 @@ function MainSearch() {
 			>
 				<div className="input-group">
 					<div className="input-group-item">
-						<input
-							className="form-control input-group-inset input-group-inset-after"
-							onChange={e => updateInputValue(e.target.value)}
-							placeholder={
-								mainFilter.placeholder ||
-								Liferay.Language.get('search-for')
-							}
-							type="text"
-							value={inputValue}
-						/>
-						<span className="input-group-inset-item input-group-inset-item-after">
+						<div className="main-input-wrapper">
+							<input
+								className="main-input-search form-control input-group-inset input-group-inset-after"
+								onChange={e => updateInputValue(e.target.value)}
+								placeholder={
+									mainFilter.placeholder ||
+									Liferay.Language.get('search-for')
+								}
+								type="text"
+								value={inputValue}
+							/>
+
 							<button
 								className={classNames(
-									'btn btn-unstyled',
-									!inputValue.length && 'invisible'
+									'main-input-reset-button btn btn-unstyled',
+									!inputValue.length && 'd-none'
 								)}
 								disabled={!inputValue.length}
 								onClick={() => updateInputValue('')}
@@ -63,6 +64,9 @@ function MainSearch() {
 							>
 								<Icon symbol="times-circle" />
 							</button>
+						</div>
+
+						<span className="input-group-inset-item input-group-inset-item-after">
 							<button
 								className="btn btn-unstyled"
 								onSubmit={e => {

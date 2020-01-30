@@ -1,4 +1,4 @@
-.btn {
+.btn:not(.btn-unstyled) {
 	align-content: center;
 	align-items: center;
 	border: 2px solid transparent;
@@ -41,7 +41,7 @@
 		cursor: not-allowed;
 	}
 
-	&:not([disabled]):not(.disabled):not(.btn-unstyled):not(.btn-link) {
+	&:not([disabled]):not(.disabled):not(.btn-link) {
 		&::after {
 			content: '';
 			display: block;
@@ -64,23 +64,6 @@
 		&:hover::after {
 			opacity: 1;
 			transform: scale(5, 5);
-		}
-	}
-
-	&.btn-unstyled {
-		border: none;
-		border-radius: 0;
-		font-size: inherit;
-		font-weight: inherit;
-		display: inline-block;
-		letter-spacing: normal;
-		line-height: inherit;
-		padding: 0;
-		text-transform: none;
-
-		&:focus,
-		&:focus-within {
-			box-shadow: none;
 		}
 	}
 

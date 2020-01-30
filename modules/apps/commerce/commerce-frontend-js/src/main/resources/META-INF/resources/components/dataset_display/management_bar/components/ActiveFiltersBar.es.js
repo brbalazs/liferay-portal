@@ -30,7 +30,7 @@ function ActiveFiltersBar(props) {
 	);
 
 	return filtersActive.length ? (
-		<div className="management-bar management-bar-light navbar navbar-expand-md border-bottom">
+		<div className="management-bar management-bar-light navbar navbar-expand-md">
 			<div className="container-fluid container-fluid-max-xl">
 				<nav className="mb-0 py-3 subnav-tbar subnav-tbar-light subnav-tbar-primary w-100">
 					<ul className="tbar-nav">
@@ -63,9 +63,8 @@ function ActiveFiltersBar(props) {
 						<li className="tbar-item">
 							<div className="tbar-section">
 								<ClayButton
-									className=" tbar-link btn-sm"
 									disabled={props.disabled}
-									displayType="link"
+									displayType="unstyled"
 									onClick={actions.resetFiltersValue}
 								>
 									{Liferay.Language.get('reset-filters')}

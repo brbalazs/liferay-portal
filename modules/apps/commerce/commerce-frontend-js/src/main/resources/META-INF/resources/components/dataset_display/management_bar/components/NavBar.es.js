@@ -27,7 +27,7 @@ function NavBar(props) {
 	const mainFilter = state.filters.find(f => f.main);
 
 	return (
-		<nav className="management-bar management-bar-light navbar navbar-expand-md border-bottom">
+		<nav className="management-bar management-bar-light navbar navbar-expand-md">
 			<div className="container-fluid container-fluid-max-xl">
 				{state.filters.length > 1 ? (
 					<div className="navbar-nav mr-2">

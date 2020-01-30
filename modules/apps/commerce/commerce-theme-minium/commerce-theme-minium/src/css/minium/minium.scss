@@ -5,16 +5,17 @@
 @import './mixins.scss';
 @import './utilities.scss';
 
-@import './overrides/base.scss';
-@import './overrides/button.scss';
-@import './overrides/card.scss';
-@import './overrides/input.scss';
-@import './overrides/modal.scss';
-@import './overrides/nav.scss';
-@import './overrides/pagination_bar';
-@import './overrides/panel.scss';
-@import './overrides/portlet.scss';
-@import './overrides/table.scss';
+@import 'overrides/base';
+@import 'overrides/button';
+@import 'overrides/card';
+@import 'overrides/dataset-display';
+@import 'overrides/input';
+@import 'overrides/modal';
+@import 'overrides/nav';
+@import 'overrides/pagination_bar';
+@import 'overrides/panel';
+@import 'overrides/portlet';
+@import 'overrides/table';
 @import 'overrides/checkout_page';
 @import 'overrides/order_detail_page';
 @import 'overrides/search_bar';

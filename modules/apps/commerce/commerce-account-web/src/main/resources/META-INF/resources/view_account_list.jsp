@@ -32,6 +32,7 @@ request.setAttribute("view.jsp-filterPerAccount", false);
 		namespace="<%= renderResponse.getNamespace() %>"
 		pageNumber="<%= 1 %>"
 		portletURL="<%= commerceAccountDisplayContext.getPortletURL() %>"
+		style="stacked"
 	/>
 </div>
 
