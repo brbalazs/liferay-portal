@@ -235,7 +235,7 @@ const fluidDataSetDisplayProps = {
 					},
 					{
 						actionId: 'edit',
-						contentRenderer: 'actionLink',
+						contentRenderer: 'actionLink'
 					},
 					{
 						actionId: 'delete',
