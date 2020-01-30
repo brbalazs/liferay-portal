@@ -141,7 +141,16 @@ public class EditCommercePaymentMethodGroupRelMVCActionCommand
 			else if (cmd.equals(Constants.ADD) ||
 					 cmd.equals(Constants.UPDATE)) {
 
-				updateCommercePaymentMethodGroupRel(actionRequest);
+				CommercePaymentMethodGroupRel commercePaymentMethodGroupRel =
+					updateCommercePaymentMethodGroupRel(actionRequest);
+
+				String redirect = getRedirectURL(
+					actionRequest,
+					commercePaymentMethodGroupRel.
+						getCommercePaymentMethodGroupRelId(),
+					"editCommercePaymentMethodGroupRel");
+
+				sendRedirect(actionRequest, actionResponse, redirect);
 			}
 			else if (cmd.equals("setActive")) {
 				setActive(actionRequest);
