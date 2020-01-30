@@ -66,7 +66,7 @@ public abstract class BaseRelatedProductResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}/relatedProducts'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}/related-products'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -80,7 +80,7 @@ public abstract class BaseRelatedProductResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/channels/{channelId}/products/{productId}/relatedProducts")
+	@Path("/channels/{channelId}/products/{productId}/related-products")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "RelatedProduct")})
 	public Page<RelatedProduct> getChannelProductRelatedProductsPage(

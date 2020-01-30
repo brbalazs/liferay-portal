@@ -171,7 +171,7 @@ public interface ProductSpecificationResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}/productSpecifications",
+						"/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}/product-specifications",
 				channelId, productId);
 
 			httpInvoker.userNameAndPassword(
