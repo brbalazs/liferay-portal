@@ -81,11 +81,7 @@
     z-index: 10;
 
     [class*="-icon"] {
-      height: 22px;
-      left: -3px;
       position: relative;
-      top: 0;
-      width: 22px;
     }
 
     path {
@@ -260,75 +256,60 @@
 		}
   }
 
-  &__add-to-wishlist-button {
-    background-color: transparent;
-    border: 0;
+	&__add-to-wishlist-button {
+    background-color: white;
+    border-radius: 50%;
     cursor: pointer;
-    height: 25px;
+    font-size: 1rem;
     padding: 0;
     position: absolute;
-    right: 12px;
-    top: 12px;
-    width: 25px;
+    right: 20px;
+    top: 18px;
     z-index: 10;
+    border-width: 0;
+		
+		&:focus {
+			outline: none;
+		}
 
-    @media only screen and (max-width: 767px) {
-      top: 4px;
-      right: 5px;
-    }
+		[class*="-icon"] {
+			margin-top: 0;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 1;
+			opacity: .5;
+			transition: opacity 0.1s ease-in;
+		}
 
-    &:focus {
-      outline: none;
-    }
+		&:hover [class*="-icon"] {
+			opacity: 1;
+		}
 
-    [class*="-icon"] {
-      height: 24px;
-      opacity: .5;
-      position: relative;
-      top: 2px;
-      transition: all 0.1s ease-in;
-      width: 24px;
-    }
+		.lexicon-icon-heart-full {
+			z-index: 2;
+			opacity: 0;
+			transform: translate(-50%, -50%) scale(0);
+			transform-origin: 50%;
+			transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+		}
 
-    &:hover [class*="-icon"] {
-      opacity: 1;
-      transition: all .1s ease-in;
+		&--added {
+			[class*="-icon"] {
+				opacity: 1;
+			}
 
-      path {
-        fill: $stroke;
-      }
-    }
+			&:hover [class*="-icon"] {
+				transform: translate(-50%, -50%) scale(1.2);
+			}
 
-    .empty-shape {
-      transition: all .1s ease-in;
-    }
-
-    .filled-shape {
-      opacity: 0;
-      transform-origin: 50% 40%;
-      transform: scale(0);
-      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    &--added {
-      path {
-        fill: $stroke;
-      }
-
-      [class*="-icon"] {
-        opacity: 1;
-      }
-
-      &:hover [class*="-icon"] {
-        transform: scale(1.2);
-      }
-
-      .filled-shape {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-  }
+			.lexicon-icon-heart-full {
+				opacity: 1;
+				transform: translate(-50%, -50%) scale(1);
+			}
+		}
+	}
 
   .product-compare-checkbox {
     line-height: 1;

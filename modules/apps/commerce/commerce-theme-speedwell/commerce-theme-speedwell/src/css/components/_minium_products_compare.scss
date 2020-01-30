@@ -64,7 +64,7 @@
 		border-radius: 50%;
 		color: white;
 		cursor: pointer;
-		font-size: 11px;
+		font-size: 0.75rem;
 		height: 18px;
 		left: -9px;
 		line-height: 1.1;
@@ -88,11 +88,9 @@
 		}
 
 		[class*="-icon"] {
-			height: 22px;
-			left: -2px;
 			position: relative;
-			top: 1px;
-			width: 22px;
+			top: 3px;
+			left: 2px;
 		}
 
 		path {
