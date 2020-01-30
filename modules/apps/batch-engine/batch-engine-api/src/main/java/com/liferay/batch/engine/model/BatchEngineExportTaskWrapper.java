@@ -77,7 +77,6 @@ public class BatchEngineExportTaskWrapper
 		attributes.put("executeStatus", getExecuteStatus());
 		attributes.put("parameters", getParameters());
 		attributes.put("startTime", getStartTime());
-		attributes.put("version", getVersion());
 
 		return attributes;
 	}
@@ -186,12 +185,6 @@ public class BatchEngineExportTaskWrapper
 
 		if (startTime != null) {
 			setStartTime(startTime);
-		}
-
-		String version = (String)attributes.get("version");
-
-		if (version != null) {
-			setVersion(version);
 		}
 	}
 
@@ -409,16 +402,6 @@ public class BatchEngineExportTaskWrapper
 	@Override
 	public String getUuid() {
 		return _batchEngineExportTask.getUuid();
-	}
-
-	/**
-	 * Returns the version of this batch engine export task.
-	 *
-	 * @return the version of this batch engine export task
-	 */
-	@Override
-	public String getVersion() {
-		return _batchEngineExportTask.getVersion();
 	}
 
 	@Override
@@ -672,16 +655,6 @@ public class BatchEngineExportTaskWrapper
 	@Override
 	public void setUuid(String uuid) {
 		_batchEngineExportTask.setUuid(uuid);
-	}
-
-	/**
-	 * Sets the version of this batch engine export task.
-	 *
-	 * @param version the version of this batch engine export task
-	 */
-	@Override
-	public void setVersion(String version) {
-		_batchEngineExportTask.setVersion(version);
 	}
 
 	@Override
