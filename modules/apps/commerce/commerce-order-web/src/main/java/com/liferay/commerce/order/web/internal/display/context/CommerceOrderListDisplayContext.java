@@ -15,6 +15,7 @@
 package com.liferay.commerce.order.web.internal.display.context;
 
 import com.liferay.commerce.constants.CommerceOrderConstants;
+import com.liferay.commerce.constants.CommerceOrderPaymentConstants;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.web.internal.display.context.util.CommerceOrderRequestHelper;
@@ -179,7 +180,7 @@ public class CommerceOrderListDisplayContext {
 	public String getCommerceOrderPaymentStatus(CommerceOrder commerceOrder) {
 		return LanguageUtil.get(
 			_commerceOrderRequestHelper.getRequest(),
-			CommerceOrderConstants.getPaymentStatusLabel(
+			CommerceOrderPaymentConstants.getOrderPaymentStatusLabel(
 				commerceOrder.getPaymentStatus()));
 	}
 
