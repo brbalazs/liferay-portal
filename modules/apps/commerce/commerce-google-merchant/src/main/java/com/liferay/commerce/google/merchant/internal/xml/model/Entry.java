@@ -34,8 +34,8 @@ public class Entry {
 		_id = id;
 	}
 
-	public void setImage_link(String image_link) {
-		_imageLink = image_link;
+	public void setImageLink(String imageLink) {
+		_imageLink = imageLink;
 	}
 
 	public void setLink(String link) {
