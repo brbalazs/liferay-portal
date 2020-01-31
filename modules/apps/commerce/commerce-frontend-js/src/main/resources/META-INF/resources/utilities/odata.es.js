@@ -24,13 +24,15 @@ export function createOdataFilterString(key, defaultOperator, type, value) {
 		case 'date':
 			return `${key} ${operator} ${convertObjectDateToIsoString(value)}`;
 		case 'dateRange':
-			if(value.from && value.to) {
-				return `${key} gt ${convertObjectDateToIsoString(value.from)}) and (${key} lt ${convertObjectDateToIsoString(value.to)}`;
+			if (value.from && value.to) {
+				return `${key} gt ${convertObjectDateToIsoString(
+					value.from
+				)}) and (${key} lt ${convertObjectDateToIsoString(value.to)}`;
 			}
-			if(value.from) {
+			if (value.from) {
 				return `${key} gt ${convertObjectDateToIsoString(value.from)}`;
 			}
-			if(value.to) {
+			if (value.to) {
 				return `${key} lt ${convertObjectDateToIsoString(value.to)}`;
 			}
 			break;
@@ -41,7 +43,7 @@ export function createOdataFilterString(key, defaultOperator, type, value) {
 			if (value instanceof Object) {
 				return `${key} ${operator} ${JSON.stringify(value)}`;
 			}
-		}
+	}
 	return `${key} ${operator} ${value}`;
 }
 
@@ -81,4 +83,3 @@ export function createOdataFilterStrings(filters) {
 		: '';
 	return oDataFilters;
 }
-

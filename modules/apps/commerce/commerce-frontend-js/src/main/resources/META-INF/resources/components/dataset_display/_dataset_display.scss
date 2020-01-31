@@ -13,13 +13,13 @@
 	}
 
 	.main-input-reset-button {
+		color: currentColor;
 		height: 100%;
 		position: absolute;
 		right: 0;
 		text-align: center;
 		top: 0;
 		width: map-get($spacers, 5);
-		color: currentColor;
 	}
 
 	.table {
@@ -60,8 +60,8 @@
 
 	&-stacked {
 		.dataset-display-management-bar-wrapper {
-			margin-bottom: map-get($spacers, 3);
 			border: 1px solid $border-color;
+			margin-bottom: map-get($spacers, 3);
 		}
 
 		.dataset-display-content-wrapper {
