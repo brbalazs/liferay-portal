@@ -55,7 +55,7 @@ function DateFilter(props) {
 				</label>
 				<input
 					className="form-control"
-					max={props.max && formatDateObject(props.max)}
+					max={toValue || (props.max && formatDateObject(props.max))}
 					min={props.min && formatDateObject(props.min)}
 					onChange={e => setFromValue(e.target.value)}
 					pattern="\d{4}-\d{2}-\d{2}"
@@ -69,7 +69,7 @@ function DateFilter(props) {
 				<input
 					className="form-control"
 					max={props.max && formatDateObject(props.max)}
-					min={props.min && formatDateObject(props.min)}
+					min={fromValue || (props.min && formatDateObject(props.min))}
 					onChange={e => setToValue(e.target.value)}
 					pattern="\d{4}-\d{2}-\d{2}"
 					placeholder={props.placeholder || 'yyyy-mm-dd'}
