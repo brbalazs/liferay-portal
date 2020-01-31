@@ -14,8 +14,10 @@
 
 import ClayButton from '@clayui/button';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
+import {baseFilterProps} from '../../../utilities/filters.es';
 import getAppContext from '../Context.es';
 
 function TextFilter(props) {
@@ -46,7 +48,7 @@ function TextFilter(props) {
 					</div>
 				)}
 			</div>
-			<div className="mt-2">
+			<div className="mt-3">
 				<ClayButton
 					className="btn-sm"
 					disabled={value === props.value}
@@ -60,5 +62,12 @@ function TextFilter(props) {
 		</div>
 	);
 }
+
+TextFilter.propTypes = {
+	...baseFilterProps,
+	inputText: PropTypes.string,
+	type: PropTypes.oneOf(['text']).isRequired,
+	value: PropTypes.string
+};
 
 export default TextFilter;

@@ -81,17 +81,11 @@ function CreationMenu(props) {
 
 CreationMenu.propTypes = {
 	items: PropTypes.arrayOf(
-		PropTypes.oneOfType([
-			PropTypes.shape({
-				url: PropTypes.string.isRequired,
-				label: PropTypes.string.isRequired
-			}),
-			PropTypes.shape({
-				label: PropTypes.string.isRequired,
-				target: PropTypes.oneOf(['modal']).isRequired,
-				url: PropTypes.string.isRequired
-			})
-		])
+		PropTypes.shape({
+			href: PropTypes.string.isRequired,
+			label: PropTypes.string.isRequired,
+			target: PropTypes.oneOf(['modal'])
+		})
 	).isRequired
 };
 

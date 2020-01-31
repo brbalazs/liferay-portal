@@ -14,8 +14,10 @@
 
 import ClayButton from '@clayui/button';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
+import {baseFilterProps} from '../../../utilities/filters.es';
 import getAppContext from '../Context.es';
 
 function NumberFilter(props) {
@@ -31,7 +33,6 @@ function NumberFilter(props) {
 					})}
 				>
 					<input
-						aria-label="Amount (to the nearest dollar)"
 						className="form-control"
 						max={props.max}
 						min={props.min}
@@ -48,11 +49,13 @@ function NumberFilter(props) {
 					</div>
 				)}
 			</div>
-			<div className="mt-2">
+			<div className="mt-3">
 				<ClayButton
 					className="btn-sm"
-					disabled={value === props.value}
-					onClick={() => actions.updateFilterValue(props.id, value)}
+					disabled={Number(value) === props.value}
+					onClick={() =>
+						actions.updateFilterValue(props.id, Number(value))
+					}
 				>
 					{props.panelType === 'edit'
 						? Liferay.Language.get('edit-filter')
@@ -62,5 +65,14 @@ function NumberFilter(props) {
 		</div>
 	);
 }
+
+NumberFilter.propTypes = {
+	...baseFilterProps,
+	inputText: PropTypes.string,
+	max: PropTypes.number,
+	min: PropTypes.number,
+	type: PropTypes.oneOf(['number']).isRequired,
+	value: PropTypes.number
+};
 
 export default NumberFilter;

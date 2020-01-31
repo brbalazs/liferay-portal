@@ -65,95 +65,10 @@ function Wrapper(props) {
 	);
 }
 
-const baseValues = {
-	id: PropTypes.string.isRequired,
-	invisible: PropTypes.bool,
-	label: PropTypes.string.isRequired,
-	operator: PropTypes.oneOf([
-		'eq',
-		'ne',
-		'gt',
-		'ge',
-		'lt',
-		'le',
-		'and',
-		'or',
-		'not',
-		'startswith'
-	]).isRequired
-};
-
 Wrapper.propTypes = {
 	activeView: PropTypes.number.isRequired,
 	creationMenuItems: PropTypes.array,
-	filters: PropTypes.arrayOf(
-		PropTypes.oneOfType([
-			PropTypes.shape({
-				id: PropTypes.string,
-				main: PropTypes.bool,
-				value: PropTypes.string
-			}),
-			PropTypes.shape({
-				...baseValues,
-				inputText: PropTypes.string,
-				type: PropTypes.oneOf(['text']).isRequired,
-				value: PropTypes.string
-			}),
-			PropTypes.shape({
-				...baseValues,
-				inputText: PropTypes.string,
-				max: PropTypes.number,
-				min: PropTypes.number,
-				type: PropTypes.oneOf(['number']).isRequired,
-				value: PropTypes.number
-			}),
-			PropTypes.shape({
-				...baseValues,
-				inputText: PropTypes.string,
-				type: PropTypes.oneOf(['text']).isRequired,
-				value: PropTypes.string
-			}),
-			PropTypes.shape({
-				...baseValues,
-				items: PropTypes.arrayOf(
-					PropTypes.shape({
-						label: PropTypes.string,
-						value: PropTypes.oneOfType([
-							PropTypes.string,
-							PropTypes.number
-						])
-					})
-				),
-				type: PropTypes.oneOf(['checkbox']).isRequired,
-				value: PropTypes.arrayOf(
-					PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-				)
-			}),
-			PropTypes.shape({
-				...baseValues,
-				items: PropTypes.arrayOf(
-					PropTypes.shape({
-						label: PropTypes.string,
-						value: PropTypes.oneOfType([
-							PropTypes.string,
-							PropTypes.number
-						])
-					})
-				),
-				type: PropTypes.oneOf(['select', 'radio']).isRequired,
-				value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-			}),
-			PropTypes.shape({
-				...baseValues,
-				type: PropTypes.oneOf(['date']).isRequired,
-				value: PropTypes.shape({
-					day: PropTypes.number,
-					month: PropTypes.number,
-					year: PropTypes.number
-				})
-			})
-		])
-	),
+	filters: PropTypes.array,
 	fluid: PropTypes.bool,
 	onFiltersChange: PropTypes.func.isRequired,
 	selectedItemsKey: PropTypes.string.isRequired,

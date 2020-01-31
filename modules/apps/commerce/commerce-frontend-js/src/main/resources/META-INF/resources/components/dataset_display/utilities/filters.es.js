@@ -12,11 +12,12 @@
  * details.
  */
 
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import CheckboxesFilter from '../management_bar/components/filters/Checkboxes.es';
 import DateFilter from '../management_bar/components/filters/Date.es';
-import DateTimeFilter from '../management_bar/components/filters/DateTime.es';
+import DateRangeFilter from '../management_bar/components/filters/DateRange.es';
 import NumberFilter from '../management_bar/components/filters/Number.es';
 import RadioFilter from '../management_bar/components/filters/Radio.es';
 import SelectFilter from '../management_bar/components/filters/Select.es';
@@ -25,7 +26,7 @@ import TextFilter from '../management_bar/components/filters/Text.es';
 export const filterIdToComponentMap = {
 	checkbox: CheckboxesFilter,
 	date: DateFilter,
-	'date-time': DateTimeFilter,
+	dateRange: DateRangeFilter,
 	number: NumberFilter,
 	radio: RadioFilter,
 	select: SelectFilter,
@@ -34,6 +35,10 @@ export const filterIdToComponentMap = {
 
 export const renderFilter = (item, panelType) => {
 	const Filter = filterIdToComponentMap[item.type];
+
+	if (!Filter) {
+		throw new Error(`Filter type '${item.type}' not found.`);
+	}
 
 	return <Filter {...item} panelType={panelType} />;
 };
@@ -52,3 +57,21 @@ export function formatFilters(filters) {
 
 	return formattedFilters;
 }
+
+export const baseFilterProps = {
+	id: PropTypes.string.isRequired,
+	invisible: PropTypes.bool,
+	label: PropTypes.string.isRequired,
+	operator: PropTypes.oneOf([
+		'eq',
+		'ne',
+		'gt',
+		'ge',
+		'lt',
+		'le',
+		'and',
+		'or',
+		'not',
+		'startswith'
+	]).isRequired
+};

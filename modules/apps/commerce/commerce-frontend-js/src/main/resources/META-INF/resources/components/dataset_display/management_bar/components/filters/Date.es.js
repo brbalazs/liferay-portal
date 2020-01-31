@@ -13,74 +13,89 @@
  */
 
 import ClayButton from '@clayui/button';
-import ClayDatePicker from '@clayui/date-picker';
-import React, {useState} from 'react';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React, {useState, useEffect} from 'react';
 
-import {prettifyDateValue} from '../../../utilities/dates.es';
+import {
+	formatDateObject,
+	getDateFromDateString
+} from '../../../utilities/dates.es';
+import {baseFilterProps} from '../../../utilities/filters.es';
 import getAppContext from '../Context.es';
-
-const getDateObj = date => {
-	return {
-		day: date.getDate(),
-		month: date.getMonth(),
-		year: date.getFullYear()
-	};
-};
 
 function DateFilter(props) {
 	const {actions} = getAppContext();
-
-	const [value, setValue] = useState(props.value);
-	const [valid, setValid] = useState(true);
-	const [inputValue, setInputValue] = useState(
-		prettifyDateValue(props.value)
+	const [value, setValue] = useState(
+		props.value ? formatDateObject(props.value) : ''
 	);
 
-	function updateDate(selectedValue) {
-		const newDate =
-			typeof selectedValue === 'string'
-				? new Date(selectedValue)
-				: selectedValue;
-
-		const newDateValid = !(newDate.toLocaleString() === 'Invalid Date');
-
-		setValid(newDateValid);
-
-		const newValue = newDateValid ? getDateObj(newDate) : undefined;
-
-		setInputValue(
-			typeof selectedValue === 'string'
-				? selectedValue
-				: prettifyDateValue(newDate)
-		);
-
-		setValue(newValue);
-	}
+	useEffect(() => {
+		setValue(() => (props.value ? formatDateObject(props.value) : ''));
+	}, [props.value]);
 
 	return (
-		<>
-			<ClayDatePicker
-				dateFormat="DD.MM.YYYY"
-				onValueChange={updateDate}
-				placeholder="DD.MM.YYYY"
-				value={inputValue}
-			/>
-			<div className="mt-2">
+		<div className="form-group">
+			<div className="input-group">
+				<div
+					className={classNames('input-group-item', {
+						'input-group-prepend': props.inputText
+					})}
+				>
+					<input
+						className="form-control"
+						max={props.max && formatDateObject(props.max)}
+						min={props.min && formatDateObject(props.min)}
+						onChange={e => setValue(e.target.value)}
+						pattern="\d{4}-\d{2}-\d{2}"
+						placeholder={props.placeholder || 'yyyy-mm-dd'}
+						type="date"
+						value={value}
+					/>
+				</div>
+			</div>
+			<div className="mt-3">
 				<ClayButton
 					className="btn-sm"
 					disabled={
-						prettifyDateValue(value) ===
-							prettifyDateValue(props.value) || !valid
+						value ==
+						(props.value ? formatDateObject(props.value) : '')
 					}
-					onClick={() => actions.updateFilterValue(props.id, value)}
+					onClick={() => {
+						actions.updateFilterValue(
+							props.id,
+							value ? getDateFromDateString(value) : null
+						);
+					}}
 				>
 					{props.panelType === 'edit'
 						? Liferay.Language.get('edit-filter')
 						: Liferay.Language.get('add-filter')}
 				</ClayButton>
 			</div>
-		</>
+		</div>
 	);
 }
+
+DateFilter.propTypes = {
+	...baseFilterProps,
+	max: PropTypes.shape({
+		day: PropTypes.number,
+		month: PropTypes.number,
+		year: PropTypes.number
+	}),
+	min: PropTypes.shape({
+		day: PropTypes.number,
+		month: PropTypes.number,
+		year: PropTypes.number
+	}),
+	placeholder: PropTypes.string,
+	type: PropTypes.oneOf(['date']).isRequired,
+	value: PropTypes.shape({
+		day: PropTypes.number,
+		month: PropTypes.number,
+		year: PropTypes.number
+	})
+};
 
 export default DateFilter;

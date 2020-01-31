@@ -54,6 +54,57 @@ const fluidDataSetDisplayProps = {
 			operator: 'gt',
 			type: 'number',
 			value: 123
+		},
+		{
+			id: 'shipment-date',
+			label: 'Shipment date',
+			max: {
+				day: 2,
+				month: 9,
+				year: 2020
+			},
+			min: {
+				day: 14,
+				month: 6,
+				year: 2020
+			},
+			operator: 'eq',
+			placeholder: 'dd/mm/yyyy',
+			type: 'date',
+			value: {
+				day: 18,
+				month: 7,
+				year: 2020
+			}
+		},
+		{
+			id: 'order-date',
+			label: 'Order range',
+			max: {
+				day: 2,
+				month: 9,
+				year: 2020
+			},
+			min: {
+				day: 14,
+				month: 6,
+				year: 2020
+			},
+			operator: 'eq',
+			placeholder: 'dd/mm/yyyy',
+			type: 'dateRange',
+			value: {
+				from: {
+					day: 18,
+					month: 7,
+					year: 2020
+				},
+				to: {
+					day: 18,
+					month: 7,
+					year: 2025
+				}
+			}
 		}
 	],
 	id: 'tableTest',

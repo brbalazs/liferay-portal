@@ -40,40 +40,51 @@ export const prettifySelectValue = (value, items) => {
 	return prettifiedValue;
 };
 
-export const prettifyDateValue = value => {
-	if (!value) {
-		return '';
-	}
+export function formatDateObject(dateObject) {
+	return `${dateObject.year}-${('0' + dateObject.month).slice(-2)}-${(
+		'0' + dateObject.day
+	).slice(-2)}`;
+}
 
-	const date =
-		value instanceof Date
-			? value
-			: new Date(value.year, value.month, value.day);
+export function getDateFromDateString(dateString) {
+	const [year, month, day] = dateString.split('-');
+
+	return {
+		day: Number(day),
+		month: Number(month),
+		year: Number(year)
+	};
+}
+
+export function prettifyDateObject(dateObject) {
+	const date = new Date(
+		dateObject.year,
+		dateObject.month - 1,
+		dateObject.day
+	);
 
 	return date.toLocaleDateString();
-};
+}
 
-export const prettifyDateTimeValue = value => {
-	if (!value) {
-		return '';
+export function prettifyDateRangeObject(dateRangeObject) {
+	if (dateRangeObject.from && dateRangeObject.to) {
+		return `${prettifyDateObject(
+			dateRangeObject.from
+		)} - ${prettifyDateObject(dateRangeObject.to)}`;
 	}
+	if (dateRangeObject.from) {
+		return `${Liferay.Language.get('from')} ${prettifyDateObject(
+			dateRangeObject.from
+		)}`;
+	}
+	if (dateRangeObject.to) {
+		return `${Liferay.Language.get('to')} ${prettifyDateObject(
+			dateRangeObject.to
+		)}`;
+	}
+}
 
-	const date =
-		value instanceof Date
-			? value
-			: new Date(
-					value.year,
-					value.month,
-					value.day,
-					value.hours,
-					value.minutes,
-					value.seconds
-			  );
-
-	return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-};
-
-export const prettifyFilterValue = props => {
+export function prettifyFilterValue(props) {
 	switch (props.type) {
 		case 'checkbox':
 			return prettifyCheckboxValue(props.value, props.items);
@@ -81,11 +92,10 @@ export const prettifyFilterValue = props => {
 		case 'select':
 			return prettifySelectValue(props.value, props.items);
 		case 'date':
-			return prettifyDateValue(props.value);
-		case 'date-time':
-			return prettifyDateTimeValue(props.value);
-
+			return prettifyDateObject(props.value);
+		case 'dateRange':
+			return prettifyDateRangeObject(props.value);
 		default:
 			return props.value;
 	}
-};
+}

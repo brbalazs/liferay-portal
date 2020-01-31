@@ -14,8 +14,10 @@
 
 import ClayButton from '@clayui/button';
 import {ClayRadio, ClayRadioGroup} from '@clayui/form';
+import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
+import {baseFilterProps} from '../../../utilities/filters.es';
 import getAppContext from '../Context.es';
 
 function RadioFilter(props) {
@@ -36,7 +38,7 @@ function RadioFilter(props) {
 					/>
 				))}
 			</ClayRadioGroup>
-			<div className="mt-2">
+			<div className="mt-3">
 				<ClayButton
 					className="btn-sm"
 					disabled={value === props.value}
@@ -50,5 +52,17 @@ function RadioFilter(props) {
 		</>
 	);
 }
+
+RadioFilter.propTypes = {
+	...baseFilterProps,
+	items: PropTypes.arrayOf(
+		PropTypes.shape({
+			label: PropTypes.string,
+			value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+		})
+	),
+	type: PropTypes.oneOf(['radio']).isRequired,
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+};
 
 export default RadioFilter;
