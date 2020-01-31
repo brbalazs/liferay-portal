@@ -1,4 +1,4 @@
 Bundle-Name: Liferay Commerce Google Merchant
 Bundle-SymbolicName: com.liferay.commerce.google.merchant
 Bundle-Version: 1.0.0
-Export-Package: com.liferay.commerce.google.merchant.sftp.web.constants
+Export-Package: com.liferay.commerce.google.merchant.constants

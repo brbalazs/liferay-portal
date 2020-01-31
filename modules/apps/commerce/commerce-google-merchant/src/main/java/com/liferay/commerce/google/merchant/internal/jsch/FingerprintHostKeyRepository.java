@@ -1,19 +1,22 @@
-package com.liferay.commerce.google.merchant.sftp.web.jsch;
+package com.liferay.commerce.google.merchant.internal.jsch;
 
 import com.jcraft.jsch.HostKey;
 import com.jcraft.jsch.HostKeyRepository;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.UserInfo;
-import com.liferay.commerce.google.merchant.sftp.web.constants.GoogleMerchantSftpWebPortletKeys;
+import com.liferay.commerce.google.merchant.constants.GoogleMerchantConstants;
 
 /**
  * @author Eric Chin
  */
 public class FingerprintHostKeyRepository implements HostKeyRepository {
 
-	public FingerprintHostKeyRepository(JSch jSch) {
+	public FingerprintHostKeyRepository(
+		JSch jSch, String configuredFingerprint) {
+
 		super();
 
+		_configuredFingerprint = configuredFingerprint;
 		_jSch = jSch;
 	}
 
@@ -21,14 +24,11 @@ public class FingerprintHostKeyRepository implements HostKeyRepository {
 	public int check(String s, byte[] key) {
 		try {
 			HostKey hostKey = new HostKey(
-				GoogleMerchantSftpWebPortletKeys.GOOGLE_PARTNER_UPLOAD_URL, key);
+				GoogleMerchantConstants.GOOGLE_PARTNER_UPLOAD_URL, key);
 
 			String fingerprint = hostKey.getFingerPrint(_jSch);
 
-			String destinationFingerprint =
-				GoogleMerchantSftpWebPortletKeys.GOOGLE_MERCHANT_PARTNER_UPLOAD_FINGERPRINT;
-
-			if (!fingerprint.equals(destinationFingerprint)) {
+			if (!fingerprint.equals(_configuredFingerprint)) {
 				return NOT_INCLUDED;
 			}
 		}
@@ -65,6 +65,8 @@ public class FingerprintHostKeyRepository implements HostKeyRepository {
 	public HostKey[] getHostKey(String s, String s1) {
 		return new HostKey[0];
 	}
+
+	private String _configuredFingerprint;
 
 	private JSch _jSch;
 

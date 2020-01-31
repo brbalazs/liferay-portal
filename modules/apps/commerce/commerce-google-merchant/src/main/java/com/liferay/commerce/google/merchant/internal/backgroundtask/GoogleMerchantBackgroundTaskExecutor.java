@@ -1,0 +1,54 @@
+package com.liferay.commerce.google.merchant.internal.backgroundtask;
+
+import com.liferay.commerce.google.merchant.constants.GoogleMerchantConstants;
+import com.liferay.commerce.google.merchant.internal.sftp.SftpUploader;
+import com.liferay.portal.kernel.backgroundtask.BackgroundTask;
+import com.liferay.portal.kernel.backgroundtask.BackgroundTaskExecutor;
+import com.liferay.portal.kernel.backgroundtask.BackgroundTaskResult;
+import com.liferay.portal.kernel.backgroundtask.BaseBackgroundTaskExecutor;
+import com.liferay.portal.kernel.backgroundtask.display.BackgroundTaskDisplay;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
+/**
+ * @author Thomas Stewart
+ */
+@Component(
+	immediate = true,
+	property = {
+		"background.task.executor.class.name=" + GoogleMerchantConstants.GOOGLE_MERCHANT_B_T_E_CLASS_NAME
+	},
+	service = BackgroundTaskExecutor.class
+)
+public class GoogleMerchantBackgroundTaskExecutor
+	extends BaseBackgroundTaskExecutor {
+
+	@Override
+	public BackgroundTaskExecutor clone() {
+		return this;
+	}
+
+	@Override
+	public BackgroundTaskResult execute(BackgroundTask backgroundTask)
+		throws Exception {
+
+		// TODO: product definition contents will be sent to the uploader once
+		// TODO: completed
+
+		_sftpUploader.upload("test.xml", "TEST");
+
+		return BackgroundTaskResult.SUCCESS;
+	}
+
+	@Override
+	public BackgroundTaskDisplay getBackgroundTaskDisplay(
+		BackgroundTask backgroundTask) {
+
+		return null;
+	}
+
+	@Reference
+	private SftpUploader _sftpUploader;
+
+}
