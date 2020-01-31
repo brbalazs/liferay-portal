@@ -12,17 +12,37 @@
  * details.
  */
 
-export function createOdataFilterString(key, operator, value) {
-	let formattedValue = value;
+export function convertObjectDateToIsoString(objDate) {
+	const date = new Date(objDate.year, objDate.month - 1, objDate.day);
+	return date.toISOString();
+}
 
-	if (value instanceof String) {
-		formattedValue = `'${value}'`;
-	}
-	if (value instanceof Object) {
-		formattedValue = JSON.stringify(value);
-	}
+export function createOdataFilterString(key, defaultOperator, type, value) {
+	const operator = defaultOperator || 'eq';
 
-	return `${key} ${operator} ${formattedValue}`;
+	switch (type) {
+		case 'date':
+			return `${key} ${operator} ${convertObjectDateToIsoString(value)}`;
+		case 'dateRange':
+			if(value.from && value.to) {
+				return `${key} gt ${convertObjectDateToIsoString(value.from)}) and (${key} lt ${convertObjectDateToIsoString(value.to)}`;
+			}
+			if(value.from) {
+				return `${key} gt ${convertObjectDateToIsoString(value.from)}`;
+			}
+			if(value.to) {
+				return `${key} lt ${convertObjectDateToIsoString(value.to)}`;
+			}
+			break;
+		default:
+			if (value instanceof String) {
+				return `${key} ${operator} '${value}'`;
+			}
+			if (value instanceof Object) {
+				return `${key} ${operator} ${JSON.stringify(value)}`;
+			}
+		}
+	return `${key} ${operator} ${value}`;
 }
 
 export function createOdataFilterStrings(filters) {
@@ -35,6 +55,7 @@ export function createOdataFilterStrings(filters) {
 							`(${createOdataFilterString(
 								filter.id,
 								filter.operator,
+								filter.type,
 								value
 							)})`
 					)
@@ -48,6 +69,7 @@ export function createOdataFilterStrings(filters) {
 			return createOdataFilterString(
 				filter.id,
 				filter.operator,
+				filter.type,
 				filter.value
 			);
 		})
@@ -59,3 +81,4 @@ export function createOdataFilterStrings(filters) {
 		: '';
 	return oDataFilters;
 }
+

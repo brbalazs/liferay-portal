@@ -51,7 +51,7 @@ const fluidDataSetDisplayProps = {
 			label: 'Number test',
 			max: 200,
 			min: 20,
-			operator: 'gt',
+			operator: 'eq',
 			type: 'number',
 			value: 123
 		},
@@ -68,7 +68,6 @@ const fluidDataSetDisplayProps = {
 				month: 6,
 				year: 2020
 			},
-			operator: 'eq',
 			placeholder: 'dd/mm/yyyy',
 			type: 'date',
 			value: {
@@ -83,14 +82,13 @@ const fluidDataSetDisplayProps = {
 			max: {
 				day: 2,
 				month: 9,
-				year: 2020
+				year: 2026
 			},
 			min: {
 				day: 14,
 				month: 6,
 				year: 2020
 			},
-			operator: 'eq',
 			placeholder: 'dd/mm/yyyy',
 			type: 'dateRange',
 			value: {

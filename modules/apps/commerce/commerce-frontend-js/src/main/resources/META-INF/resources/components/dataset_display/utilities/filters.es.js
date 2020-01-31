@@ -73,5 +73,5 @@ export const baseFilterProps = {
 		'or',
 		'not',
 		'startswith'
-	]).isRequired
+	])
 };
