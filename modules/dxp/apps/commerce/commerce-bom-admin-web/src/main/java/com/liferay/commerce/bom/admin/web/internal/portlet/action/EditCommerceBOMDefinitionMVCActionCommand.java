@@ -235,21 +235,28 @@ public class EditCommerceBOMDefinitionMVCActionCommand
 					cpAttachmentFileEntry.getCPAttachmentFileEntryId(), name);
 		}
 		else {
-			CPAttachmentFileEntry cpAttachmentFileEntry =
-				_cpAttachmentFileEntryService.addCPAttachmentFileEntry(
-					serviceContext.getUserId(),
-					serviceContext.getScopeGroupId(), classNameId,
-					commerceBOMDefinitionId, fileEntryId, month, dayOfMonth,
-					year, hour, minute, 0, 0, 0, 0, 0, true,
-					Collections.singletonMap(serviceContext.getLocale(), name),
-					null, 0D, CPAttachmentFileEntryConstants.TYPE_IMAGE,
-					serviceContext);
+			long cpAttachmentFileEntryId = 0;
+
+			if (fileEntryId > 0) {
+				CPAttachmentFileEntry cpAttachmentFileEntry =
+					_cpAttachmentFileEntryService.addCPAttachmentFileEntry(
+						serviceContext.getUserId(),
+						serviceContext.getScopeGroupId(), classNameId,
+						commerceBOMDefinitionId, fileEntryId, month, dayOfMonth,
+						year, hour, minute, 0, 0, 0, 0, 0, true,
+						Collections.singletonMap(
+							serviceContext.getLocale(), name),
+						null, 0D, CPAttachmentFileEntryConstants.TYPE_IMAGE,
+						serviceContext);
+
+				cpAttachmentFileEntryId =
+					cpAttachmentFileEntry.getCPAttachmentFileEntryId();
+			}
 
 			commerceBOMDefinition =
 				_commerceBOMDefinitionService.addCommerceBOMDefinition(
 					serviceContext.getUserId(), commerceBOMFolderId,
-					cpAttachmentFileEntry.getCPAttachmentFileEntryId(), name,
-					name);
+					cpAttachmentFileEntryId, name, name);
 		}
 
 		return commerceBOMDefinition;
