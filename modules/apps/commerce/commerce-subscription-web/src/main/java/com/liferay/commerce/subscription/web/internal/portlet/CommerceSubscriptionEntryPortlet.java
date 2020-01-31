@@ -16,9 +16,12 @@ package com.liferay.commerce.subscription.web.internal.portlet;
 
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelLocalService;
 import com.liferay.commerce.product.constants.CPPortletKeys;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPSubscriptionTypeJSPContributorRegistry;
 import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
-import com.liferay.commerce.service.CommerceSubscriptionEntryService;
+import com.liferay.commerce.service.CommerceOrderItemLocalService;
+import com.liferay.commerce.service.CommerceOrderLocalService;
+import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
 import com.liferay.commerce.subscription.web.internal.display.context.CommerceSubscriptionEntryDisplayContext;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
@@ -70,8 +73,11 @@ public class CommerceSubscriptionEntryPortlet extends MVCPortlet {
 		CommerceSubscriptionEntryDisplayContext
 			commerceSubscriptionEntryDisplayContext =
 				new CommerceSubscriptionEntryDisplayContext(
+					_commerceChannelLocalService,
 					_commercePaymentMethodGroupRelLocalService,
-					_commerceSubscriptionEntryService, _configurationProvider,
+					_commerceSubscriptionEntryLocalService,
+					_commerceOrderLocalService, _commerceOrderItemLocalService,
+					_configurationProvider,
 					_cpSubscriptionTypeJSPContributorRegistry,
 					_cpSubscriptionTypeRegistry,
 					_portal.getHttpServletRequest(renderRequest));
@@ -84,11 +90,21 @@ public class CommerceSubscriptionEntryPortlet extends MVCPortlet {
 	}
 
 	@Reference
+	private CommerceChannelLocalService _commerceChannelLocalService;
+
+	@Reference
+	private CommerceOrderItemLocalService _commerceOrderItemLocalService;
+
+	@Reference
+	private CommerceOrderLocalService _commerceOrderLocalService;
+
+	@Reference
 	private CommercePaymentMethodGroupRelLocalService
 		_commercePaymentMethodGroupRelLocalService;
 
 	@Reference
-	private CommerceSubscriptionEntryService _commerceSubscriptionEntryService;
+	private CommerceSubscriptionEntryLocalService
+		_commerceSubscriptionEntryLocalService;
 
 	@Reference
 	private ConfigurationProvider _configurationProvider;
