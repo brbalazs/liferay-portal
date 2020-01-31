@@ -27,11 +27,13 @@ CommerceSubscriptionEntryDisplayContext commerceSubscriptionEntryDisplayContext 
 		</div>
 	</c:when>
 	<c:otherwise>
+
 		<%
 		SearchContainer<CommerceSubscriptionEntry> commerceSubscriptionEntrySearchContainer = commerceSubscriptionEntryDisplayContext.getSearchContainer();
 
 		boolean hasManageCommerceSubscriptionEntryPermission = commerceSubscriptionEntryDisplayContext.hasManageCommerceSubscriptionEntryPermission();
 		%>
+
 		<portlet:actionURL name="editCommerceSubscriptionEntry" var="editCommerceSubscriptionEntryActionURL" />
 
 		<liferay-frontend:management-bar
