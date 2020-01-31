@@ -4,3 +4,7 @@ Bundle-Version: 2.0.7
 Export-Package:\
 	com.liferay.headless.commerce.admin.site.setting.dto.v1_0,\
 	com.liferay.headless.commerce.admin.site.setting.resource.v1_0
+Import-Package:\
+	com.liferay.portal.vulcan.pagination;version="[1.0.0,2.0.0)",\
+	\
+	*
