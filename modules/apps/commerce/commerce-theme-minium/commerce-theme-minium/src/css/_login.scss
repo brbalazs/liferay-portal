@@ -86,7 +86,7 @@
         height: 100%;
     }
 
-    .minium-content {
+    &:not(.page-maximized) .minium-content {
         position: absolute;
         top: 0;
         left: 0;
