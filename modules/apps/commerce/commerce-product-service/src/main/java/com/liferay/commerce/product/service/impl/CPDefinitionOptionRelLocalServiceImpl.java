@@ -515,7 +515,8 @@ public class CPDefinitionOptionRelLocalServiceImpl
 			for (CPInstance cpInstance : cpInstances) {
 				if (Validator.isNull(cpInstance.getJson())) {
 					cpInstanceLocalService.updateStatus(
-						serviceContext.getUserId(), cpInstance.getCPInstanceId(),
+						serviceContext.getUserId(),
+						cpInstance.getCPInstanceId(),
 						WorkflowConstants.STATUS_INACTIVE, serviceContext,
 						new HashMap<String, Serializable>());
 				}
