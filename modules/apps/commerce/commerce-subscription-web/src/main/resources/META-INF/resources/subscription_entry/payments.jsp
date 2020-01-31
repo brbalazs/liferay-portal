@@ -17,25 +17,31 @@
 <%@ include file="/init.jsp" %>
 
 <%
-    // Context
+CommerceSubscriptionEntryDisplayContext commerceSubscriptionEntryDisplayContext = (CommerceSubscriptionEntryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+
+java.util.Map<String, String> contextParams = new java.util.HashMap<>();
+
+CommerceSubscriptionEntry commerceSubscriptionEntry = commerceSubscriptionEntryDisplayContext.getCommerceSubscriptionEntry();
+
+contextParams.put("commerceSubscriptionEntryId", String.valueOf(commerceSubscriptionEntry.getCommerceSubscriptionEntryId()));
 %>
 
 <div class="row">
-    <div class="col-12">
-        <commerce-ui:panel
-                bodyClasses="p-0"
-                title='<%= LanguageUtil.get(request, "items")%>'
-        >
-            <commerce-ui:dataset-display
-                    contextParams="<%= contextParams %>"
-                    dataProviderKey="<%= CommerceSubscriptionEntryClayTable.NAME %>"
-                    id="<%= CommerceSubscriptionEntryClayTable.NAME %>"
-                    itemsPerPage="<%= 10 %>"
-                    namespace="<%= renderResponse.getNamespace() %>"
-                    pageNumber="<%= 1 %>"
-                    portletURL="<%= commerceOrderEditDisplayContext.getCommerceOrderItemsPortletURL() %>"
-                    style="stacked"
-            />
-        </commerce-ui:panel>
-    </div>
+	<div class="col-12">
+		<commerce-ui:panel
+			bodyClasses="p-0"
+			title='<%= LanguageUtil.get(request, "items") %>'
+		>
+			<commerce-ui:dataset-display
+				contextParams="<%= contextParams %>"
+				dataProviderKey="<%= CommerceSubscriptionDataSetConstants.COMMERCE_DATA_SET_KEY_SUBSCRIPTION_PAYMENTS %>"
+				id="<%= CommerceSubscriptionDataSetConstants.COMMERCE_DATA_SET_KEY_SUBSCRIPTION_PAYMENTS %>"
+				itemsPerPage="<%= 10 %>"
+				namespace="<%= renderResponse.getNamespace() %>"
+				pageNumber="<%= 1 %>"
+				portletURL="<%= commerceSubscriptionEntryDisplayContext.getPortletURL() %>"
+				style="stacked"
+			/>
+		</commerce-ui:panel>
+	</div>
 </div>

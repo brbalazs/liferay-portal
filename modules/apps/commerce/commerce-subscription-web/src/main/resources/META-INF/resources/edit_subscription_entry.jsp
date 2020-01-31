@@ -21,13 +21,33 @@ CommerceSubscriptionEntryDisplayContext commerceSubscriptionEntryDisplayContext 
 
 CommerceSubscriptionEntry commerceSubscriptionEntry = commerceSubscriptionEntryDisplayContext.getCommerceSubscriptionEntry();
 
-renderResponse.setTitle(LanguageUtil.format(request, "subscription-x", commerceSubscriptionEntry.getCommerceSubscriptionEntryId()));
+portletDisplay.setShowBackIcon(true);
+
+if (Validator.isNull(redirect)) {
+	portletDisplay.setURLBack(String.valueOf(renderResponse.createRenderURL()));
+}
+else {
+	portletDisplay.setURLBack(redirect);
+}
 %>
 
-<liferay-frontend:screen-navigation
-	containerCssClass="col-md-10"
-	key="<%= CommerceSubscriptionEntryScreenNavigationConstants.SCREEN_NAVIGATION_KEY_COMMERCE_SUBSCRIPTION_ENTRY %>"
-	modelBean="<%= commerceSubscriptionEntry %>"
-	navCssClass="col-md-2"
-	portletURL="<%= currentURLObj %>"
+<commerce-ui:header
+	actions="<%= commerceSubscriptionEntryDisplayContext.getHeaderActionModels() %>"
+	bean="<%= commerceSubscriptionEntry %>"
+	beanIdLabel="subscription-entry"
+	dropdownItems="<%= commerceSubscriptionEntryDisplayContext.getDropdownItems() %>"
+	externalReferenceCode=""
+	externalReferenceCodeEditUrl=""
+	model="<%= CommerceSubscriptionEntry.class %>"
+	thumbnailUrl="<%= commerceSubscriptionEntryDisplayContext.getCommerceAccountThumbnailURL() %>"
+	title="<%= String.valueOf(commerceSubscriptionEntry.getCommerceSubscriptionEntryId()) %>"
 />
+
+<div id="<portlet:namespace />editSubscriptionEntryContainer">
+	<liferay-frontend:screen-navigation
+		fullContainerCssClass="col-12 pt-4"
+		key="<%= CommerceSubscriptionEntryScreenNavigationConstants.SCREEN_NAVIGATION_KEY_COMMERCE_SUBSCRIPTION_ENTRY %>"
+		modelBean="<%= commerceSubscriptionEntry %>"
+		portletURL="<%= currentURLObj %>"
+	/>
+</div>
