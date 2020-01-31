@@ -62,6 +62,7 @@
 		<suppress checks="VariableDeclarationAsUsedCheck" files="portal-impl/src/com/liferay/portal/action/UpdateLayoutAction\.java" />
 	</checkstyle>
 	<source-check>
+		<suppress checks="BNDExportsCheck" files="portal-impl/bnd\.bnd" />
 		<suppress checks="BNDExportsCheck" files="util-slf4j/bnd\.bnd" />
 		<suppress checks="CDNCheck" files="test\.properties" />
 		<suppress checks="JavaCleanUpMethodVariablesCheck" files="util-taglib/src/com/liferay/taglib/util/IncludeTag\.java" />
