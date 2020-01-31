@@ -29,7 +29,7 @@
 			{
 				views: <%= jsonSerializer.serializeDeep(clayDataSetDisplayViewsContext) %>,
 				apiUrl: '<%= dataSetAPI %>',
-				creationMenuItems: <%= jsonSerializer.serializeDeep(clayCreationMenu.getClayCreationMenuItems()) %>,					
+				creationMenuItems: <%= jsonSerializer.serializeDeep(clayCreationMenu.getClayCreationMenuItems()) %>,
 				filters: [
 					{
 						id: 'text-test',

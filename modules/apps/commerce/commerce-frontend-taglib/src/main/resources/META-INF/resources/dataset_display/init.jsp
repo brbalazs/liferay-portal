@@ -18,7 +18,6 @@
 taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 
 <%@ page import="com.liferay.commerce.frontend.ClayCreationMenu" %><%@
-page import="com.liferay.commerce.frontend.Filter" %><%@
 page import="com.liferay.commerce.frontend.taglib.internal.model.ClayPaginationEntry" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.json.JSONFactoryUtil" %><%@

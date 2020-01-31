@@ -19,9 +19,11 @@ package com.liferay.commerce.frontend;
  */
 public class ClayCreationMenuItem {
 
-	public static final String CLAY_CREATION_MENU_ITEM_TYPE_MODAL = "modal";
 	public static final String CLAY_CREATION_MENU_ITEM_TYPE_INLINE = "inline";
+
 	public static final String CLAY_CREATION_MENU_ITEM_TYPE_LINK = "";
+
+	public static final String CLAY_CREATION_MENU_ITEM_TYPE_MODAL = "modal";
 
 	public ClayCreationMenuItem(String url, String label) {
 		_url = url;
@@ -33,10 +35,6 @@ public class ClayCreationMenuItem {
 		_url = url;
 		_label = label;
 		_type = type;
-	}
-
-	public String getUrl() {
-		return _url;
 	}
 
 	public String getLabel() {
@@ -51,8 +49,8 @@ public class ClayCreationMenuItem {
 		return _type;
 	}
 
-	public void setUrl(String url) {
-		_url = url;
+	public String getUrl() {
+		return _url;
 	}
 
 	public void setLabel(String label) {
@@ -67,9 +65,13 @@ public class ClayCreationMenuItem {
 		_type = type;
 	}
 
-	private String _url;
+	public void setUrl(String url) {
+		_url = url;
+	}
+
 	private String _label;
-	private String _type;
 	private int _order;
+	private String _type;
+	private String _url;
 
 }

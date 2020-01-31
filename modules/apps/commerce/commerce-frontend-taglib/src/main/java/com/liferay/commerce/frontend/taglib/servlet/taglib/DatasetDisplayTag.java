@@ -233,7 +233,8 @@ public class DatasetDisplayTag extends IncludeTag {
 	@Override
 	protected void setAttributes(HttpServletRequest httpServletRequest) {
 		request.setAttribute(
-			"liferay-commerce:dataset-display:clayCreationMenu", _clayCreationMenu);
+			"liferay-commerce:dataset-display:clayCreationMenu",
+			_clayCreationMenu);
 		request.setAttribute(
 			"liferay-commerce:dataset-display:clayDataSetDisplayViewsContext",
 			_clayDataSetDisplayViewsContext);

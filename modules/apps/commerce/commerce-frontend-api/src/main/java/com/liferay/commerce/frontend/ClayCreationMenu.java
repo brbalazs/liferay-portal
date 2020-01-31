@@ -34,11 +34,12 @@ public class ClayCreationMenu {
 
 	public void addClayCreationMenuItems(String url, String label) {
 		addClayCreationMenuItems(
-			url, label,
-			ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TYPE_LINK );
+			url, label, ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TYPE_LINK);
 	}
 
-	public void addClayCreationMenuItems(String url, String label, String type) {
+	public void addClayCreationMenuItems(
+		String url, String label, String type) {
+
 		_clayCreationMenuItems.add(new ClayCreationMenuItem(url, label, type));
 	}
 
