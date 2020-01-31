@@ -1,0 +1,140 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
+package com.liferay.commerce.subscription.web.internal.frontend;
+
+import com.liferay.commerce.currency.model.CommerceCurrency;
+import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
+import com.liferay.commerce.frontend.Filter;
+import com.liferay.commerce.frontend.Pagination;
+import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.model.CommerceOrderItem;
+import com.liferay.commerce.model.CommerceOrderPayment;
+import com.liferay.commerce.model.CommerceSubscriptionEntry;
+import com.liferay.commerce.service.CommerceOrderItemLocalService;
+import com.liferay.commerce.service.CommerceOrderPaymentLocalService;
+import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
+import com.liferay.commerce.subscription.web.internal.model.Payment;
+import com.liferay.petra.string.CharPool;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.util.ParamUtil;
+
+import java.math.BigDecimal;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.liferay.portal.kernel.util.StringBundler;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
+/**
+ * @author Luca Pellizzon
+ */
+@Component(
+	immediate = true,
+	property = "commerce.data.provider.key=" + CommerceSubscriptionDataSetConstants.COMMERCE_DATA_SET_KEY_SUBSCRIPTION_PAYMENTS,
+	service = CommerceDataSetDataProvider.class
+)
+public class CommerceSubscriptionPaymentsDataSetDataProvider
+	implements CommerceDataSetDataProvider<Payment> {
+
+	@Override
+	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
+		throws PortalException {
+
+		long commerceSubscriptionEntryId = ParamUtil.getLong(
+			httpServletRequest, "commerceSubscriptionEntryId");
+
+		CommerceSubscriptionEntry commerceSubscriptionEntry =
+			_commerceSubscriptionEntryLocalService.getCommerceSubscriptionEntry(
+				commerceSubscriptionEntryId);
+
+		CommerceOrderItem commerceOrderItem =
+			_commerceOrderItemLocalService.getCommerceOrderItem(
+				commerceSubscriptionEntry.getCommerceOrderItemId());
+
+		List<CommerceOrderPayment> commerceOrderPayments =
+			_commerceOrderPaymentLocalService.getCommerceOrderPayments(
+				commerceOrderItem.getCommerceOrderId(), QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		return commerceOrderPayments.size();
+	}
+
+	@Override
+	public List<Payment> getItems(
+			HttpServletRequest httpServletRequest, Filter filter,
+			Pagination pagination, Sort sort)
+		throws PortalException {
+
+		List<Payment> orderPayments = new ArrayList<>();
+
+		long commerceSubscriptionEntryId = ParamUtil.getLong(
+			httpServletRequest, "commerceSubscriptionEntryId");
+
+		CommerceSubscriptionEntry commerceSubscriptionEntry =
+			_commerceSubscriptionEntryLocalService.getCommerceSubscriptionEntry(
+				commerceSubscriptionEntryId);
+
+		CommerceOrderItem commerceOrderItem =
+			_commerceOrderItemLocalService.getCommerceOrderItem(
+				commerceSubscriptionEntry.getCommerceOrderItemId());
+
+		List<CommerceOrderPayment> commerceOrderPayments =
+			_commerceOrderPaymentLocalService.getCommerceOrderPayments(
+				commerceOrderItem.getCommerceOrderId(), QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+		for (CommerceOrderPayment commerceOrderPayment :
+				commerceOrderPayments) {
+
+			CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
+
+			CommerceCurrency commerceCurrency =
+				commerceOrder.getCommerceCurrency();
+
+			BigDecimal finalPrice = commerceOrderItem.getFinalPrice();
+
+			StringBundler priceStringBundler = new StringBundler();
+
+			priceStringBundler.append(commerceCurrency.round(finalPrice));
+			priceStringBundler.append(CharPool.SPACE);
+			priceStringBundler.append(commerceCurrency.getCode());
+
+			orderPayments.add(
+				new Payment(
+					commerceOrderPayment.getCreateDate(),
+					commerceOrderPayment.getCommerceOrderPaymentId(),
+					priceStringBundler.toString()));
+		}
+
+		return orderPayments;
+	}
+
+	@Reference
+	private CommerceOrderItemLocalService _commerceOrderItemLocalService;
+
+	@Reference
+	private CommerceOrderPaymentLocalService _commerceOrderPaymentLocalService;
+
+	@Reference
+	private CommerceSubscriptionEntryLocalService
+		_commerceSubscriptionEntryLocalService;
+
+}
