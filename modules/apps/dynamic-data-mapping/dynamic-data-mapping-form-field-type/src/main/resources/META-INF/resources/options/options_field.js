@@ -145,7 +145,7 @@ AUI.add(
 							}
 						}
 
-						mainOption.setKey('');
+						mainOption.set('key', '');
 					},
 
 					getLastOption: function() {
@@ -278,8 +278,6 @@ AUI.add(
 						}
 
 						instance.fire('removeOption');
-
-						instance.render();
 
 						if (index > 0 && value.length > 0) {
 							options[index - 1].focus();
@@ -698,8 +696,9 @@ AUI.add(
 
 						instance._skipOptionValueChange = true;
 
-						option.setKey(contextValue.value);
 						option.setValue(contextValue.label);
+
+						option.set('key', contextValue.value);
 
 						if (contextValue.value && option.normalizeKey(contextValue.label) !== contextValue.value) {
 							option.set('generationLocked', true);
