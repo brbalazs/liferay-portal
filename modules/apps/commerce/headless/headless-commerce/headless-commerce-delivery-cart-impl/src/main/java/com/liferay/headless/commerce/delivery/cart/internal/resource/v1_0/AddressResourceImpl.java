@@ -19,18 +19,14 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
-import com.liferay.headless.commerce.core.util.ServiceContextHelper;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Address;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.ShippingAddress;
-import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.ShippingAddressDTOConverter;
-import com.liferay.headless.commerce.delivery.cart.internal.v1_0.ShippingAddressUtil;
-import com.liferay.headless.commerce.delivery.cart.resource.v1_0.ShippingAddressResource;
+import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.AddressDTOConverter;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.AddressResource;
 import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.fields.NestedFieldId;
 
 import javax.validation.constraints.NotNull;
-
-import javax.ws.rs.core.Response;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -40,61 +36,56 @@ import org.osgi.service.component.annotations.ServiceScope;
  * @author Andrea Sbarra
  */
 @Component(
-	properties = "OSGI-INF/liferay/rest/v1_0/shipping-address.properties",
-	scope = ServiceScope.PROTOTYPE, service = ShippingAddressResource.class
+	properties = "OSGI-INF/liferay/rest/v1_0/address.properties",
+	scope = ServiceScope.PROTOTYPE, service = AddressResource.class
 )
-public class ShippingAddressResourceImpl
-	extends BaseShippingAddressResourceImpl {
+public class AddressResourceImpl extends BaseAddressResourceImpl {
 
-	@NestedField(parentClass = Cart.class, value = "shippingAddress")
+	@NestedField(parentClass = Cart.class, value = "billingAddress")
 	@Override
-	public ShippingAddress getChannelCartShippingAddress(
-			@NotNull Long channelId, @NestedFieldId("id") @NotNull Long cartId)
+	public Address getCartBillingAddres(
+			@NestedFieldId("id") @NotNull Long cartId, @NotNull Long addressId)
 		throws Exception {
 
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
 			cartId);
 
 		CommerceAddress commerceAddress =
-			_commerceAddressService.fetchCommerceAddress(
-				commerceOrder.getShippingAddressId());
+			_commerceAddressService.getCommerceAddress(
+				commerceOrder.getBillingAddressId());
 
-		if (commerceAddress == null) {
-			return new ShippingAddress();
-		}
-
-		return _shippingAddressDTOConverter.toDTO(
+		return _addressDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
 				contextAcceptLanguage.getPreferredLocale(),
 				commerceAddress.getCommerceAddressId()));
 	}
 
+	@NestedField(parentClass = Cart.class, value = "shippingAddress")
 	@Override
-	public Response patchChannelCartShippingAddress(
-			@NotNull Long channelId, @NotNull Long cartId,
-			ShippingAddress shippingAddress)
+	public Address getCartShippingAddres(
+			@NestedFieldId("id") @NotNull Long cartId, @NotNull Long addressId)
 		throws Exception {
 
-		ShippingAddressUtil.upsertShippingAddress(
-			_commerceAddressService, _commerceOrderService,
-			_commerceOrderService.getCommerceOrder(cartId), shippingAddress,
-			_serviceContextHelper.getServiceContext());
+		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
+			cartId);
 
-		Response.ResponseBuilder responseBuilder = Response.noContent();
+		CommerceAddress commerceAddress =
+			_commerceAddressService.getCommerceAddress(
+				commerceOrder.getShippingAddressId());
 
-		return responseBuilder.build();
+		return _addressDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				contextAcceptLanguage.getPreferredLocale(),
+				commerceAddress.getCommerceAddressId()));
 	}
+
+	@Reference
+	private AddressDTOConverter _addressDTOConverter;
 
 	@Reference
 	private CommerceAddressService _commerceAddressService;
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
-
-	@Reference
-	private ServiceContextHelper _serviceContextHelper;
-
-	@Reference
-	private ShippingAddressDTOConverter _shippingAddressDTOConverter;
 
 }

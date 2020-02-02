@@ -14,16 +14,15 @@
 
 package com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0;
 
-import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartItem;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartItemPost;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Price;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -46,26 +45,20 @@ public class CartItemDTOConverter implements DTOConverter {
 
 	@Override
 	public String getContentType() {
-		return CartItemPost.class.getSimpleName();
+		return CartItem.class.getSimpleName();
 	}
 
 	@Override
 	public CartItem toDTO(DTOConverterContext dtoConverterContext)
 		throws Exception {
 
-		CartItemDTOConverterContext cartItemDTOConverterContext =
-			(CartItemDTOConverterContext)dtoConverterContext;
-
 		CommerceOrderItem commerceOrderItem =
 			_commerceOrderItemService.getCommerceOrderItem(
-				cartItemDTOConverterContext.getResourcePrimKey());
+				dtoConverterContext.getResourcePrimKey());
 
-		Locale locale = cartItemDTOConverterContext.getLocale();
+		Locale locale = dtoConverterContext.getLocale();
 
 		ExpandoBridge expandoBridge = commerceOrderItem.getExpandoBridge();
-
-		CommerceContext commerceContext =
-			cartItemDTOConverterContext.getCommerceContext();
 
 		String languageId = LanguageUtil.getLanguageId(locale);
 
@@ -75,7 +68,7 @@ public class CartItemDTOConverter implements DTOConverter {
 				id = commerceOrderItem.getCommerceOrderItemId();
 				name = commerceOrderItem.getName(languageId);
 				options = commerceOrderItem.getJson();
-				price = _getPrice(commerceOrderItem, commerceContext, locale);
+				price = _getPrice(commerceOrderItem, locale);
 				productId = commerceOrderItem.getCProductId();
 				quantity = commerceOrderItem.getQuantity();
 				sku = commerceOrderItem.getSku();
@@ -85,31 +78,16 @@ public class CartItemDTOConverter implements DTOConverter {
 		};
 	}
 
-	private Price _getPrice(
-			CommerceOrderItem commerceOrderItem,
-			CommerceContext commerceContext, Locale locale)
+	private Price _getPrice(CommerceOrderItem commerceOrderItem, Locale locale)
 		throws PortalException {
 
-		CommerceCurrency commerceCurrency =
-			commerceContext.getCommerceCurrency();
+		CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
+
+		CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
 
 		CommerceMoney unitPriceMoney = commerceOrderItem.getUnitPriceMoney();
 
 		BigDecimal unitPrice = unitPriceMoney.getPrice();
-
-		CommerceMoney unitPromoPriceMoney =
-			commerceOrderItem.getPromoPriceMoney();
-
-		BigDecimal unitPromoPrice = commerceOrderItem.getUnitPrice();
-
-		CommerceMoney discountAmountMoney =
-			commerceOrderItem.getDiscountAmountMoney();
-
-		BigDecimal discountAmount = commerceOrderItem.getDiscountAmount();
-
-		CommerceMoney finalPriceMoney = commerceOrderItem.getFinalPriceMoney();
-
-		BigDecimal finalPrice = commerceOrderItem.getFinalPrice();
 
 		Price price = new Price() {
 			{
@@ -119,10 +97,20 @@ public class CartItemDTOConverter implements DTOConverter {
 			}
 		};
 
+		CommerceMoney unitPromoPriceMoney =
+			commerceOrderItem.getPromoPriceMoney();
+
+		BigDecimal unitPromoPrice = unitPromoPriceMoney.getPrice();
+
 		if (unitPromoPrice != null) {
 			price.setPromoPrice(unitPromoPrice.doubleValue());
 			price.setPromoPriceFormatted(unitPromoPriceMoney.format(locale));
 		}
+
+		CommerceMoney discountAmountMoney =
+			commerceOrderItem.getDiscountAmountMoney();
+
+		BigDecimal discountAmount = discountAmountMoney.getPrice();
 
 		if (discountAmount != null) {
 			price.setDiscountFormatted(discountAmountMoney.format(locale));
@@ -146,6 +134,10 @@ public class CartItemDTOConverter implements DTOConverter {
 			price.setDiscountPercentageLevel4(
 				discountPercentageLevel4.doubleValue());
 		}
+
+		CommerceMoney finalPriceMoney = commerceOrderItem.getFinalPriceMoney();
+
+		BigDecimal finalPrice = finalPriceMoney.getPrice();
 
 		if (finalPrice != null) {
 			price.setFinalPriceFormatted(finalPriceMoney.format(locale));

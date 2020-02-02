@@ -20,7 +20,7 @@ import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverter;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DTOConverterContext;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.ShippingAddress;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Address;
 import com.liferay.petra.string.StringPool;
 
 import java.util.Locale;
@@ -32,17 +32,17 @@ import org.osgi.service.component.annotations.Reference;
  * @author Andrea Sbarra
  */
 @Component(
-	property = "model.class.name=com.liferay.headless.commerce.delivery.cart.dto.v1_0.ShippingAddress",
-	service = {DTOConverter.class, ShippingAddressDTOConverter.class}
+	property = "model.class.name=com.liferay.headless.commerce.delivery.cart.dto.v1_0.Address",
+	service = {AddressDTOConverter.class, DTOConverter.class}
 )
-public class ShippingAddressDTOConverter implements DTOConverter {
+public class AddressDTOConverter implements DTOConverter {
 
 	@Override
 	public String getContentType() {
-		return ShippingAddress.class.getSimpleName();
+		return Address.class.getSimpleName();
 	}
 
-	public ShippingAddress toDTO(DTOConverterContext dtoConverterContext)
+	public Address toDTO(DTOConverterContext dtoConverterContext)
 		throws Exception {
 
 		CommerceAddress commerceAddress =
@@ -55,7 +55,7 @@ public class ShippingAddressDTOConverter implements DTOConverter {
 
 		Locale locale = dtoConverterContext.getLocale();
 
-		return new ShippingAddress() {
+		Address address = new Address() {
 			{
 				city = commerceAddress.getCity();
 				country = commerceCountry.getName(locale);
@@ -66,14 +66,20 @@ public class ShippingAddressDTOConverter implements DTOConverter {
 				longitude = commerceAddress.getLongitude();
 				name = commerceAddress.getName();
 				phoneNumber = commerceAddress.getPhoneNumber();
-				region = commerceRegion.getName();
-				regionISOCode = _getRegionISOCode(commerceRegion);
 				street1 = commerceAddress.getStreet1();
 				street2 = commerceAddress.getStreet2();
 				street3 = commerceAddress.getStreet3();
+				typeId = commerceAddress.getType();
 				zip = commerceAddress.getZip();
 			}
 		};
+
+		if (commerceRegion != null) {
+			address.setRegion(commerceRegion.getName());
+			address.setRegionISOCode(_getRegionISOCode(commerceRegion));
+		}
+
+		return address;
 	}
 
 	private String _getRegionISOCode(CommerceRegion commerceRegion) {

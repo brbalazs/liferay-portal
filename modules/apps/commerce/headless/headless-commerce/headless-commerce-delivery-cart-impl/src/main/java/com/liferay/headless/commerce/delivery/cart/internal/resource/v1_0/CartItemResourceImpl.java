@@ -21,15 +21,14 @@ import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CPInstanceService;
-import com.liferay.commerce.product.service.CommerceChannelService;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderService;
+import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartItem;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartItemPost;
 import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.CartItemDTOConverter;
-import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.CartItemDTOConverterContext;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartItemResource;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.vulcan.fields.NestedField;
@@ -58,9 +57,8 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class CartItemResourceImpl extends BaseCartItemResourceImpl {
 
 	@Override
-	public Response deleteChannelCartItemCartItem(
-			@NotNull Long channelId, @NotNull Long cartId,
-			@NotNull Long cartItemId)
+	public Response deleteCartItem(
+			@NotNull Long cartId, @NotNull Long cartItemId)
 		throws Exception {
 
 		_commerceOrderItemService.deleteCommerceOrderItem(cartItemId);
@@ -71,44 +69,16 @@ public class CartItemResourceImpl extends BaseCartItemResourceImpl {
 	}
 
 	@Override
-	public CartItem getChannelCartItemCartItem(
-			@NotNull Long channelId, @NotNull Long cartId,
-			@NotNull Long cartItemId)
-		throws Exception {
-
-		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
-			cartId);
-
-		CommerceChannel commerceChannel =
-			_commerceChannelService.getCommerceChannel(channelId);
-
-		CommerceContext commerceContext = _commerceContextFactory.create(
-			contextCompany.getCompanyId(), commerceChannel.getSiteGroupId(),
-			contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
-			commerceOrder.getCommerceAccountId());
-
+	public CartItem getCartItem(@NotNull Long cartItemId) throws Exception {
 		return _toCartItem(
-			_commerceOrderItemService.getCommerceOrderItem(cartItemId),
-			commerceContext);
+			_commerceOrderItemService.getCommerceOrderItem(cartItemId));
 	}
 
 	@NestedField(parentClass = Cart.class, value = "cartItems")
 	@Override
-	public Page<CartItem> getChannelCartItemsPage(
-			@NotNull Long channelId, @NestedFieldId("id") @NotNull Long cartId,
-			Pagination pagination)
+	public Page<CartItem> getCartItemsPage(
+			@NestedFieldId("id") @NotNull Long cartId, Pagination pagination)
 		throws Exception {
-
-		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
-			cartId);
-
-		CommerceChannel commerceChannel =
-			_commerceChannelService.getCommerceChannel(channelId);
-
-		CommerceContext commerceContext = _commerceContextFactory.create(
-			contextCompany.getCompanyId(), commerceChannel.getSiteGroupId(),
-			contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
-			commerceOrder.getCommerceAccountId());
 
 		List<CommerceOrderItem> commerceOrderItems =
 			_commerceOrderItemService.getCommerceOrderItems(
@@ -119,98 +89,90 @@ public class CartItemResourceImpl extends BaseCartItemResourceImpl {
 			_commerceOrderItemService.getCommerceOrderItemsCount(cartId);
 
 		return Page.of(
-			_toCartItems(commerceOrderItems, commerceContext), pagination,
+			_toCartItems(commerceOrderItems), pagination,
 			commerceOrderItemsCount);
 	}
 
 	@Override
-	public CartItem postChannelCartItem(
-			@NotNull Long channelId, @NotNull Long cartId,
-			CartItemPost cartItemPost)
+	public CartItem postCartItem(@NotNull Long cartId, CartItem cartItem)
 		throws Exception {
-
-		CommerceChannel commerceChannel =
-			_commerceChannelService.getCommerceChannel(channelId);
-
-		ServiceContext serviceContext = _serviceContextHelper.getServiceContext(
-			commerceChannel.getGroupId());
 
 		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
 			cartId);
 
-		CommerceContext commerceContext = _commerceContextFactory.create(
-			contextCompany.getCompanyId(), commerceChannel.getSiteGroupId(),
-			contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
-			commerceOrder.getCommerceAccountId());
+		ServiceContext serviceContext = _serviceContextHelper.getServiceContext(
+			commerceOrder.getGroupId());
 
 		CPInstance cpInstance = _cpInstanceService.getCPInstance(
-			cartItemPost.getSkuId());
+			cartItem.getSkuId());
+
+		CommerceChannel commerceChannel =
+			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
+				commerceOrder.getGroupId());
+
+		CommerceContext commerceContext = _commerceContextFactory.create(
+			contextCompany.getCompanyId(), commerceChannel.getSiteGroupId(),
+			contextUser.getUserId(), cartId,
+			commerceOrder.getCommerceAccountId());
 
 		return _toCartItem(
 			_commerceOrderItemService.upsertCommerceOrderItem(
-				commerceOrder.getCommerceOrderId(), cartItemPost.getSkuId(),
-				cartItemPost.getQuantity(), 0, cpInstance.getJson(),
-				commerceContext, serviceContext),
-			commerceContext);
+				commerceOrder.getCommerceOrderId(), cartItem.getSkuId(),
+				cartItem.getQuantity(), 0, cpInstance.getJson(),
+				commerceContext, serviceContext));
 	}
 
 	@Override
-	public CartItem putChannelCartItemCartItem(
-			@NotNull Long channelId, @NotNull Long cartId,
-			@NotNull Long cartItemId, CartItem cartItem)
+	public CartItem putCartItem(@NotNull Long cartItemId, CartItem cartItem)
 		throws Exception {
 
 		CommerceOrderItem commerceOrderItem =
 			_commerceOrderItemService.getCommerceOrderItem(cartItemId);
 
-		CommerceChannel commerceChannel =
-			_commerceChannelService.getCommerceChannel(channelId);
+		ServiceContext serviceContext = _serviceContextHelper.getServiceContext(
+			commerceOrderItem.getGroupId());
 
-		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
-			cartId);
+		CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
+
+		CommerceChannel commerceChannel =
+			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
+				commerceOrder.getGroupId());
 
 		CommerceContext commerceContext = _commerceContextFactory.create(
 			contextCompany.getCompanyId(), commerceChannel.getSiteGroupId(),
 			contextUser.getUserId(), commerceOrder.getCommerceOrderId(),
 			commerceOrder.getCommerceAccountId());
 
-		ServiceContext serviceContext = _serviceContextHelper.getServiceContext(
-			commerceChannel.getGroupId());
-
 		return _toCartItem(
 			_commerceOrderItemService.updateCommerceOrderItem(
 				commerceOrderItem.getCommerceOrderItemId(),
-				cartItem.getQuantity(), commerceContext, serviceContext),
-			commerceContext);
+				cartItem.getQuantity(), commerceContext, serviceContext));
 	}
 
-	private CartItem _toCartItem(
-			CommerceOrderItem commerceOrderItem,
-			CommerceContext commerceContext)
+	private CartItem _toCartItem(CommerceOrderItem commerceOrderItem)
 		throws Exception {
 
 		return _orderItemDTOConverter.toDTO(
-			new CartItemDTOConverterContext(
+			new DefaultDTOConverterContext(
 				contextAcceptLanguage.getPreferredLocale(),
-				commerceOrderItem.getCommerceOrderItemId(), commerceContext));
+				commerceOrderItem.getCommerceOrderItemId()));
 	}
 
 	private List<CartItem> _toCartItems(
-			List<CommerceOrderItem> commerceOrderItems,
-			CommerceContext commerceContext)
+			List<CommerceOrderItem> commerceOrderItems)
 		throws Exception {
 
 		List<CartItem> cartItems = new ArrayList<>();
 
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
-			cartItems.add(_toCartItem(commerceOrderItem, commerceContext));
+			cartItems.add(_toCartItem(commerceOrderItem));
 		}
 
 		return cartItems;
 	}
 
 	@Reference
-	private CommerceChannelService _commerceChannelService;
+	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
 	private CommerceContextFactory _commerceContextFactory;

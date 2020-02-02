@@ -21,9 +21,9 @@ import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.headless.commerce.core.dto.v1_0.converter.DefaultDTOConverterContext;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Note;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartNote;
 import com.liferay.headless.commerce.delivery.cart.internal.dto.v1_0.NoteDTOConverter;
-import com.liferay.headless.commerce.delivery.cart.resource.v1_0.NoteResource;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartNoteResource;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.fields.NestedFieldId;
@@ -45,16 +45,13 @@ import org.osgi.service.component.annotations.ServiceScope;
  * @author Andrea Sbarra
  */
 @Component(
-	properties = "OSGI-INF/liferay/rest/v1_0/note.properties",
-	scope = ServiceScope.PROTOTYPE, service = NoteResource.class
+	properties = "OSGI-INF/liferay/rest/v1_0/cart-note.properties",
+	scope = ServiceScope.PROTOTYPE, service = CartNoteResource.class
 )
-public class NoteResourceImpl extends BaseNoteResourceImpl {
+public class CartNoteResourceImpl extends BaseCartNoteResourceImpl {
 
 	@Override
-	public Response deleteChannelCartNote(
-			@NotNull Long channelId, @NotNull Long cartId, @NotNull Long noteId)
-		throws Exception {
-
+	public Response deleteCartNote(@NotNull Long noteId) throws Exception {
 		_commerceOrderNoteService.deleteCommerceOrderNote(noteId);
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -63,10 +60,7 @@ public class NoteResourceImpl extends BaseNoteResourceImpl {
 	}
 
 	@Override
-	public Note getChannelCartNote(
-			@NotNull Long channelId, @NotNull Long cartId, @NotNull Long noteId)
-		throws Exception {
-
+	public CartNote getCartNote(@NotNull Long noteId) throws Exception {
 		return _noteDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
 				contextAcceptLanguage.getPreferredLocale(),
@@ -75,9 +69,8 @@ public class NoteResourceImpl extends BaseNoteResourceImpl {
 
 	@NestedField(parentClass = Cart.class, value = "notes")
 	@Override
-	public Page<Note> getChannelCartNotesPage(
-			@NotNull Long channelId, @NestedFieldId("id") @NotNull Long cartId,
-			Pagination pagination)
+	public Page<CartNote> getCartNotesPage(
+			@NestedFieldId("id") @NotNull Long cartId, Pagination pagination)
 		throws Exception {
 
 		List<CommerceOrderNote> commerceOrderNotes =
@@ -93,32 +86,26 @@ public class NoteResourceImpl extends BaseNoteResourceImpl {
 	}
 
 	@Override
-	public Response patchChannelCartNote(
-			@NotNull Long channelId, @NotNull Long cartId, @NotNull Long noteId,
-			Note note)
+	public CartNote patchCartNote(@NotNull Long noteId, CartNote cartNote)
 		throws Exception {
 
-		_updateOrderNote(
-			_commerceOrderNoteService.getCommerceOrderNote(noteId), note);
-
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
+		return _updateOrderNote(
+			_commerceOrderNoteService.getCommerceOrderNote(noteId), cartNote);
 	}
 
 	@Override
-	public Note postChannelCartNote(
-			@NotNull Long channelId, @NotNull Long cartId, Note note)
+	public CartNote postCartNote(@NotNull Long cartId, CartNote cartNote)
 		throws Exception {
 
 		return _upsertOrderNote(
-			_commerceOrderService.getCommerceOrder(cartId), note);
+			_commerceOrderService.getCommerceOrder(cartId), cartNote);
 	}
 
-	private List<Note> _toOrderNotes(List<CommerceOrderNote> commerceOrderNotes)
+	private List<CartNote> _toOrderNotes(
+			List<CommerceOrderNote> commerceOrderNotes)
 		throws Exception {
 
-		List<Note> orders = new ArrayList<>();
+		List<CartNote> orders = new ArrayList<>();
 
 		for (CommerceOrderNote commerceOrderNote : commerceOrderNotes) {
 			orders.add(
@@ -131,8 +118,8 @@ public class NoteResourceImpl extends BaseNoteResourceImpl {
 		return orders;
 	}
 
-	private Note _updateOrderNote(
-			CommerceOrderNote commerceOrderNote, Note note)
+	private CartNote _updateOrderNote(
+			CommerceOrderNote commerceOrderNote, CartNote note)
 		throws Exception {
 
 		commerceOrderNote = _commerceOrderNoteService.updateCommerceOrderNote(
@@ -147,7 +134,8 @@ public class NoteResourceImpl extends BaseNoteResourceImpl {
 				commerceOrderNote.getCommerceOrderNoteId()));
 	}
 
-	private Note _upsertOrderNote(CommerceOrder commerceOrder, Note note)
+	private CartNote _upsertOrderNote(
+			CommerceOrder commerceOrder, CartNote note)
 		throws Exception {
 
 		CommerceOrderNote commerceOrderNote =

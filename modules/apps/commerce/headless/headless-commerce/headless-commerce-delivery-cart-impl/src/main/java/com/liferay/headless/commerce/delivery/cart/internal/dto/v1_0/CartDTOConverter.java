@@ -91,6 +91,7 @@ public class CartDTOConverter implements DTOConverter {
 				account = commerceOrder.getCommerceAccountName();
 				accountId = commerceOrder.getCommerceAccountId();
 				author = commerceOrder.getUserName();
+				billingAddressId = commerceOrder.getBillingAddressId();
 				couponCode = commerceOrder.getCouponCode();
 				createDate = commerceOrder.getCreateDate();
 				customFields = expandoBridge.getAttributes();
@@ -102,6 +103,7 @@ public class CartDTOConverter implements DTOConverter {
 				paymentStatusLabel = commerceOrderPaymentStatusLabel;
 				printedNote = commerceOrder.getPrintedNote();
 				purchaseOrderNumber = commerceOrder.getPurchaseOrderNumber();
+				shippingAddressId = commerceOrder.getShippingAddressId();
 				status = workflowStatusLabel;
 				summary = _getSummary(
 					commerceOrder, locale,
@@ -140,16 +142,15 @@ public class CartDTOConverter implements DTOConverter {
 			CommerceOrder commerceOrder, Locale locale, long channelSiteGroupId)
 		throws PortalException {
 
+		CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
+
+		List<CommerceOrderItem> commerceOrderItems =
+			commerceOrder.getCommerceOrderItems();
+
 		CommerceContext commerceContext = _commerceContextFactory.create(
 			commerceOrder.getCompanyId(), channelSiteGroupId,
 			commerceOrder.getUserId(), commerceOrder.getCommerceOrderId(),
 			commerceOrder.getCommerceAccountId());
-
-		CommerceCurrency commerceCurrency =
-			commerceContext.getCommerceCurrency();
-
-		List<CommerceOrderItem> commerceOrderItems =
-			commerceOrder.getCommerceOrderItems();
 
 		CommerceOrderPrice commerceOrderPrice =
 			_commerceOrderPriceCalculation.getCommerceOrderPrice(
