@@ -14,19 +14,13 @@
 
 package com.liferay.headless.commerce.delivery.cart.internal.graphql.mutation.v1_0;
 
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.BillingAddress;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartItem;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartItemPost;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartPost;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartNote;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CouponCode;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Note;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.ShippingAddress;
-import com.liferay.headless.commerce.delivery.cart.resource.v1_0.BillingAddressResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartItemResource;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartNoteResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
-import com.liferay.headless.commerce.delivery.cart.resource.v1_0.NoteResource;
-import com.liferay.headless.commerce.delivery.cart.resource.v1_0.ShippingAddressResource;
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
@@ -50,14 +44,6 @@ import org.osgi.service.component.ComponentServiceObjects;
 @Generated("")
 public class Mutation {
 
-	public static void setBillingAddressResourceComponentServiceObjects(
-		ComponentServiceObjects<BillingAddressResource>
-			billingAddressResourceComponentServiceObjects) {
-
-		_billingAddressResourceComponentServiceObjects =
-			billingAddressResourceComponentServiceObjects;
-	}
-
 	public static void setCartResourceComponentServiceObjects(
 		ComponentServiceObjects<CartResource>
 			cartResourceComponentServiceObjects) {
@@ -74,80 +60,62 @@ public class Mutation {
 			cartItemResourceComponentServiceObjects;
 	}
 
-	public static void setNoteResourceComponentServiceObjects(
-		ComponentServiceObjects<NoteResource>
-			noteResourceComponentServiceObjects) {
+	public static void setCartNoteResourceComponentServiceObjects(
+		ComponentServiceObjects<CartNoteResource>
+			cartNoteResourceComponentServiceObjects) {
 
-		_noteResourceComponentServiceObjects =
-			noteResourceComponentServiceObjects;
-	}
-
-	public static void setShippingAddressResourceComponentServiceObjects(
-		ComponentServiceObjects<ShippingAddressResource>
-			shippingAddressResourceComponentServiceObjects) {
-
-		_shippingAddressResourceComponentServiceObjects =
-			shippingAddressResourceComponentServiceObjects;
-	}
-
-	@GraphQLField
-	public Response patchChannelCartBillingAddress(
-			@GraphQLName("channelId") Long channelId,
-			@GraphQLName("cartId") Long cartId,
-			@GraphQLName("billingAddress") BillingAddress billingAddress)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_billingAddressResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			billingAddressResource ->
-				billingAddressResource.patchChannelCartBillingAddress(
-					channelId, cartId, billingAddress));
+		_cartNoteResourceComponentServiceObjects =
+			cartNoteResourceComponentServiceObjects;
 	}
 
 	@GraphQLField
 	public Cart createChannelCart(
 			@GraphQLName("channelId") Long channelId,
-			@GraphQLName("cartPost") CartPost cartPost)
+			@GraphQLName("cart") Cart cart)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_cartResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartResource -> cartResource.postChannelCart(channelId, cartPost));
+			cartResource -> cartResource.postChannelCart(channelId, cart));
 	}
 
 	@GraphQLField
-	public Response deleteChannelCart(
-			@GraphQLName("channelId") Long channelId,
-			@GraphQLName("cartId") Long cartId)
+	public Response deleteCart(@GraphQLName("cartId") Long cartId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_cartResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartResource -> cartResource.deleteChannelCart(channelId, cartId));
+			cartResource -> cartResource.deleteCart(cartId));
 	}
 
 	@GraphQLField
-	public Cart patchChannelCart(
-			@GraphQLName("channelId") Long channelId,
-			@GraphQLName("cartId") Long cartId,
-			@GraphQLName("cartPost") CartPost cartPost)
+	public Cart patchCart(
+			@GraphQLName("cartId") Long cartId, @GraphQLName("cart") Cart cart)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_cartResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartResource -> cartResource.patchChannelCart(
-				channelId, cartId, cartPost));
+			cartResource -> cartResource.patchCart(cartId, cart));
+	}
+
+	@GraphQLField
+	public Cart updateCart(
+			@GraphQLName("cartId") Long cartId, @GraphQLName("cart") Cart cart)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_cartResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			cartResource -> cartResource.putCart(cartId, cart));
 	}
 
 	@GraphQLField(
 		description = "Add new Items to a Cart, return the whole Cart updated."
 	)
-	public Cart createChannelCartCouponCode(
-			@GraphQLName("channelId") Long channelId,
+	public Cart createCartCouponCode(
 			@GraphQLName("cartId") Long cartId,
 			@GraphQLName("couponCode") CouponCode couponCode)
 		throws Exception {
@@ -155,29 +123,27 @@ public class Mutation {
 		return _applyComponentServiceObjects(
 			_cartResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartResource -> cartResource.postChannelCartCouponCode(
-				channelId, cartId, couponCode));
+			cartResource -> cartResource.postCartCouponCode(
+				cartId, couponCode));
 	}
 
 	@GraphQLField(
 		description = "Add new Items to a Cart, return the whole Cart updated."
 	)
-	public CartItem createChannelCartItem(
-			@GraphQLName("channelId") Long channelId,
+	public CartItem createCartItem(
 			@GraphQLName("cartId") Long cartId,
-			@GraphQLName("cartItemPost") CartItemPost cartItemPost)
+			@GraphQLName("cartItem") CartItem cartItem)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_cartItemResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartItemResource -> cartItemResource.postChannelCartItem(
-				channelId, cartId, cartItemPost));
+			cartItemResource -> cartItemResource.postCartItem(
+				cartId, cartItem));
 	}
 
-	@GraphQLField
-	public Response deleteChannelCartItemCartItem(
-			@GraphQLName("channelId") Long channelId,
+	@GraphQLField(description = "Deletes an Cart Item by ID.")
+	public Response deleteCartItem(
 			@GraphQLName("cartId") Long cartId,
 			@GraphQLName("cartItemId") Long cartItemId)
 		throws Exception {
@@ -185,14 +151,12 @@ public class Mutation {
 		return _applyComponentServiceObjects(
 			_cartItemResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartItemResource -> cartItemResource.deleteChannelCartItemCartItem(
-				channelId, cartId, cartItemId));
+			cartItemResource -> cartItemResource.deleteCartItem(
+				cartId, cartItemId));
 	}
 
 	@GraphQLField(description = "Retrive information of the given Cart.")
-	public CartItem patchChannelCartItemCartItem(
-			@GraphQLName("channelId") Long channelId,
-			@GraphQLName("cartId") Long cartId,
+	public CartItem patchCartItem(
 			@GraphQLName("cartItemId") Long cartItemId,
 			@GraphQLName("cartItem") CartItem cartItem)
 		throws Exception {
@@ -200,14 +164,12 @@ public class Mutation {
 		return _applyComponentServiceObjects(
 			_cartItemResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartItemResource -> cartItemResource.patchChannelCartItemCartItem(
-				channelId, cartId, cartItemId, cartItem));
+			cartItemResource -> cartItemResource.patchCartItem(
+				cartItemId, cartItem));
 	}
 
 	@GraphQLField(description = "update the given Cart.")
-	public CartItem updateChannelCartItemCartItem(
-			@GraphQLName("channelId") Long channelId,
-			@GraphQLName("cartId") Long cartId,
+	public CartItem updateCartItem(
 			@GraphQLName("cartItemId") Long cartItemId,
 			@GraphQLName("cartItem") CartItem cartItem)
 		throws Exception {
@@ -215,64 +177,56 @@ public class Mutation {
 		return _applyComponentServiceObjects(
 			_cartItemResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			cartItemResource -> cartItemResource.putChannelCartItemCartItem(
-				channelId, cartId, cartItemId, cartItem));
+			cartItemResource -> cartItemResource.putCartItem(
+				cartItemId, cartItem));
 	}
 
 	@GraphQLField
-	public Note createChannelCartNote(
-			@GraphQLName("channelId") Long channelId,
-			@GraphQLName("cartId") Long cartId, @GraphQLName("note") Note note)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_noteResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			noteResource -> noteResource.postChannelCartNote(
-				channelId, cartId, note));
-	}
-
-	@GraphQLField
-	public Response deleteChannelCartNote(
-			@GraphQLName("channelId") Long channelId,
+	public CartNote createCartNote(
 			@GraphQLName("cartId") Long cartId,
-			@GraphQLName("noteId") Long noteId)
+			@GraphQLName("cartNote") CartNote cartNote)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
-			_noteResourceComponentServiceObjects,
+			_cartNoteResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			noteResource -> noteResource.deleteChannelCartNote(
-				channelId, cartId, noteId));
+			cartNoteResource -> cartNoteResource.postCartNote(
+				cartId, cartNote));
 	}
 
 	@GraphQLField
-	public Response patchChannelCartNote(
-			@GraphQLName("channelId") Long channelId,
-			@GraphQLName("cartId") Long cartId,
-			@GraphQLName("noteId") Long noteId, @GraphQLName("note") Note note)
+	public Response deleteCartNote(@GraphQLName("noteId") Long noteId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
-			_noteResourceComponentServiceObjects,
+			_cartNoteResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			noteResource -> noteResource.patchChannelCartNote(
-				channelId, cartId, noteId, note));
+			cartNoteResource -> cartNoteResource.deleteCartNote(noteId));
 	}
 
 	@GraphQLField
-	public Response patchChannelCartShippingAddress(
-			@GraphQLName("channelId") Long channelId,
-			@GraphQLName("cartId") Long cartId,
-			@GraphQLName("shippingAddress") ShippingAddress shippingAddress)
+	public CartNote patchCartNote(
+			@GraphQLName("noteId") Long noteId,
+			@GraphQLName("cartNote") CartNote cartNote)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
-			_shippingAddressResourceComponentServiceObjects,
+			_cartNoteResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			shippingAddressResource ->
-				shippingAddressResource.patchChannelCartShippingAddress(
-					channelId, cartId, shippingAddress));
+			cartNoteResource -> cartNoteResource.patchCartNote(
+				noteId, cartNote));
+	}
+
+	@GraphQLField
+	public CartNote updateCartNote(
+			@GraphQLName("noteId") Long noteId,
+			@GraphQLName("cartNote") CartNote cartNote)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_cartNoteResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			cartNoteResource -> cartNoteResource.putCartNote(noteId, cartNote));
 	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
@@ -313,20 +267,6 @@ public class Mutation {
 		}
 	}
 
-	private void _populateResourceContext(
-			BillingAddressResource billingAddressResource)
-		throws Exception {
-
-		billingAddressResource.setContextAcceptLanguage(_acceptLanguage);
-		billingAddressResource.setContextCompany(_company);
-		billingAddressResource.setContextHttpServletRequest(
-			_httpServletRequest);
-		billingAddressResource.setContextHttpServletResponse(
-			_httpServletResponse);
-		billingAddressResource.setContextUriInfo(_uriInfo);
-		billingAddressResource.setContextUser(_user);
-	}
-
 	private void _populateResourceContext(CartResource cartResource)
 		throws Exception {
 
@@ -349,41 +289,23 @@ public class Mutation {
 		cartItemResource.setContextUser(_user);
 	}
 
-	private void _populateResourceContext(NoteResource noteResource)
+	private void _populateResourceContext(CartNoteResource cartNoteResource)
 		throws Exception {
 
-		noteResource.setContextAcceptLanguage(_acceptLanguage);
-		noteResource.setContextCompany(_company);
-		noteResource.setContextHttpServletRequest(_httpServletRequest);
-		noteResource.setContextHttpServletResponse(_httpServletResponse);
-		noteResource.setContextUriInfo(_uriInfo);
-		noteResource.setContextUser(_user);
+		cartNoteResource.setContextAcceptLanguage(_acceptLanguage);
+		cartNoteResource.setContextCompany(_company);
+		cartNoteResource.setContextHttpServletRequest(_httpServletRequest);
+		cartNoteResource.setContextHttpServletResponse(_httpServletResponse);
+		cartNoteResource.setContextUriInfo(_uriInfo);
+		cartNoteResource.setContextUser(_user);
 	}
 
-	private void _populateResourceContext(
-			ShippingAddressResource shippingAddressResource)
-		throws Exception {
-
-		shippingAddressResource.setContextAcceptLanguage(_acceptLanguage);
-		shippingAddressResource.setContextCompany(_company);
-		shippingAddressResource.setContextHttpServletRequest(
-			_httpServletRequest);
-		shippingAddressResource.setContextHttpServletResponse(
-			_httpServletResponse);
-		shippingAddressResource.setContextUriInfo(_uriInfo);
-		shippingAddressResource.setContextUser(_user);
-	}
-
-	private static ComponentServiceObjects<BillingAddressResource>
-		_billingAddressResourceComponentServiceObjects;
 	private static ComponentServiceObjects<CartResource>
 		_cartResourceComponentServiceObjects;
 	private static ComponentServiceObjects<CartItemResource>
 		_cartItemResourceComponentServiceObjects;
-	private static ComponentServiceObjects<NoteResource>
-		_noteResourceComponentServiceObjects;
-	private static ComponentServiceObjects<ShippingAddressResource>
-		_shippingAddressResourceComponentServiceObjects;
+	private static ComponentServiceObjects<CartNoteResource>
+		_cartNoteResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
 	private com.liferay.portal.kernel.model.Company _company;

@@ -14,7 +14,7 @@
 
 package com.liferay.headless.commerce.delivery.cart.resource.v1_0;
 
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Note;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartNote;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -39,24 +39,22 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @Generated("")
 @ProviderType
-public interface NoteResource {
+public interface CartNoteResource {
 
-	public Page<Note> getChannelCartNotesPage(
-			Long channelId, Long cartId, Pagination pagination)
+	public Page<CartNote> getCartNotesPage(Long cartId, Pagination pagination)
 		throws Exception;
 
-	public Note postChannelCartNote(Long channelId, Long cartId, Note note)
+	public CartNote postCartNote(Long cartId, CartNote cartNote)
 		throws Exception;
 
-	public Response deleteChannelCartNote(
-			Long channelId, Long cartId, Long noteId)
+	public Response deleteCartNote(Long noteId) throws Exception;
+
+	public CartNote getCartNote(Long noteId) throws Exception;
+
+	public CartNote patchCartNote(Long noteId, CartNote cartNote)
 		throws Exception;
 
-	public Note getChannelCartNote(Long channelId, Long cartId, Long noteId)
-		throws Exception;
-
-	public Response patchChannelCartNote(
-			Long channelId, Long cartId, Long noteId, Note note)
+	public CartNote putCartNote(Long noteId, CartNote cartNote)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

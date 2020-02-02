@@ -14,8 +14,8 @@
 
 package com.liferay.headless.commerce.delivery.cart.internal.resource.v1_0;
 
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Note;
-import com.liferay.headless.commerce.delivery.cart.resource.v1_0.NoteResource;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartNote;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartNoteResource;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.service.GroupLocalService;
@@ -50,6 +50,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PATCH;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -63,29 +64,26 @@ import javax.ws.rs.core.UriInfo;
  */
 @Generated("")
 @Path("/v1.0")
-public abstract class BaseNoteResourceImpl implements NoteResource {
+public abstract class BaseCartNoteResourceImpl implements CartNoteResource {
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/notes'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/notes'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
 	@Parameters(
 		value = {
-			@Parameter(in = ParameterIn.PATH, name = "channelId"),
 			@Parameter(in = ParameterIn.PATH, name = "cartId"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/channels/{channelId}/carts/{cartId}/notes")
+	@Path("/carts/{cartId}/notes")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Note")})
-	public Page<Note> getChannelCartNotesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-				channelId,
+	@Tags(value = {@Tag(name = "CartNote")})
+	public Page<CartNote> getCartNotesPage(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
 			@Context Pagination pagination)
 		throws Exception {
@@ -96,51 +94,35 @@ public abstract class BaseNoteResourceImpl implements NoteResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/notes' -d $'{"author": ___, "content": ___, "id": ___, "orderId": ___, "restricted": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/notes' -d $'{"content": ___, "restricted": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "channelId"),
-			@Parameter(in = ParameterIn.PATH, name = "cartId")
-		}
-	)
-	@Path("/channels/{channelId}/carts/{cartId}/notes")
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "cartId")})
+	@Path("/carts/{cartId}/notes")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Note")})
-	public Note postChannelCartNote(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-				channelId,
+	@Tags(value = {@Tag(name = "CartNote")})
+	public CartNote postCartNote(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
-			Note note)
+			CartNote cartNote)
 		throws Exception {
 
-		return new Note();
+		return new CartNote();
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/notes/{noteId}'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-notes/{noteId}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@DELETE
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "channelId"),
-			@Parameter(in = ParameterIn.PATH, name = "cartId"),
-			@Parameter(in = ParameterIn.PATH, name = "noteId")
-		}
-	)
-	@Path("/channels/{channelId}/carts/{cartId}/notes/{noteId}")
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "noteId")})
+	@Path("/cart-notes/{noteId}")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Note")})
-	public Response deleteChannelCartNote(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-				channelId,
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
+	@Tags(value = {@Tag(name = "CartNote")})
+	public Response deleteCartNote(
 			@NotNull @Parameter(hidden = true) @PathParam("noteId") Long noteId)
 		throws Exception {
 
@@ -152,59 +134,79 @@ public abstract class BaseNoteResourceImpl implements NoteResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/notes/{noteId}'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-notes/{noteId}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "channelId"),
-			@Parameter(in = ParameterIn.PATH, name = "cartId"),
-			@Parameter(in = ParameterIn.PATH, name = "noteId")
-		}
-	)
-	@Path("/channels/{channelId}/carts/{cartId}/notes/{noteId}")
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "noteId")})
+	@Path("/cart-notes/{noteId}")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Note")})
-	public Note getChannelCartNote(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-				channelId,
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
+	@Tags(value = {@Tag(name = "CartNote")})
+	public CartNote getCartNote(
 			@NotNull @Parameter(hidden = true) @PathParam("noteId") Long noteId)
 		throws Exception {
 
-		return new Note();
+		return new CartNote();
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/notes/{noteId}' -d $'{"author": ___, "content": ___, "id": ___, "orderId": ___, "restricted": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-notes/{noteId}' -d $'{"content": ___, "restricted": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PATCH
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "channelId"),
-			@Parameter(in = ParameterIn.PATH, name = "cartId"),
-			@Parameter(in = ParameterIn.PATH, name = "noteId")
-		}
-	)
-	@Path("/channels/{channelId}/carts/{cartId}/notes/{noteId}")
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "noteId")})
+	@Path("/cart-notes/{noteId}")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Note")})
-	public Response patchChannelCartNote(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-				channelId,
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
+	@Tags(value = {@Tag(name = "CartNote")})
+	public CartNote patchCartNote(
 			@NotNull @Parameter(hidden = true) @PathParam("noteId") Long noteId,
-			Note note)
+			CartNote cartNote)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		CartNote existingCartNote = getCartNote(noteId);
 
-		return responseBuilder.build();
+		if (cartNote.getAuthor() != null) {
+			existingCartNote.setAuthor(cartNote.getAuthor());
+		}
+
+		if (cartNote.getContent() != null) {
+			existingCartNote.setContent(cartNote.getContent());
+		}
+
+		if (cartNote.getOrderId() != null) {
+			existingCartNote.setOrderId(cartNote.getOrderId());
+		}
+
+		if (cartNote.getRestricted() != null) {
+			existingCartNote.setRestricted(cartNote.getRestricted());
+		}
+
+		preparePatch(cartNote, existingCartNote);
+
+		return putCartNote(noteId, existingCartNote);
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/cart-notes/{noteId}' -d $'{"content": ___, "restricted": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@PUT
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "noteId")})
+	@Path("/cart-notes/{noteId}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "CartNote")})
+	public CartNote putCartNote(
+			@NotNull @Parameter(hidden = true) @PathParam("noteId") Long noteId,
+			CartNote cartNote)
+		throws Exception {
+
+		return new CartNote();
 	}
 
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
@@ -264,7 +266,7 @@ public abstract class BaseNoteResourceImpl implements NoteResource {
 			actionName, siteId, methodName, permissionName, siteId);
 	}
 
-	protected void preparePatch(Note note, Note existingNote) {
+	protected void preparePatch(CartNote cartNote, CartNote existingCartNote) {
 	}
 
 	protected <T, R> List<R> transform(

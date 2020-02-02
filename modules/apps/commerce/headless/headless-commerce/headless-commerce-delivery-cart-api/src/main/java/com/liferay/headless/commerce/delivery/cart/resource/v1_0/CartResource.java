@@ -15,7 +15,6 @@
 package com.liferay.headless.commerce.delivery.cart.resource.v1_0;
 
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartPost;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CouponCode;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -46,19 +45,17 @@ public interface CartResource {
 	public Page<Cart> getChannelCartsPage(Long channelId, Pagination pagination)
 		throws Exception;
 
-	public Cart postChannelCart(Long channelId, CartPost cartPost)
-		throws Exception;
+	public Cart postChannelCart(Long channelId, Cart cart) throws Exception;
 
-	public Response deleteChannelCart(Long channelId, Long cartId)
-		throws Exception;
+	public Response deleteCart(Long cartId) throws Exception;
 
-	public Cart getChannelCart(Long channelId, Long cartId) throws Exception;
+	public Cart getCart(Long cartId) throws Exception;
 
-	public Cart patchChannelCart(Long channelId, Long cartId, CartPost cartPost)
-		throws Exception;
+	public Cart patchCart(Long cartId, Cart cart) throws Exception;
 
-	public Cart postChannelCartCouponCode(
-			Long channelId, Long cartId, CouponCode couponCode)
+	public Cart putCart(Long cartId, Cart cart) throws Exception;
+
+	public Cart postCartCouponCode(Long cartId, CouponCode couponCode)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

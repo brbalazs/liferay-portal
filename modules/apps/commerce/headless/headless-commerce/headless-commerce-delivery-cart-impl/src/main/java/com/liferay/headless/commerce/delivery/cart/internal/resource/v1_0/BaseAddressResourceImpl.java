@@ -14,8 +14,8 @@
 
 package com.liferay.headless.commerce.delivery.cart.internal.resource.v1_0;
 
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.ShippingAddress;
-import com.liferay.headless.commerce.delivery.cart.resource.v1_0.ShippingAddressResource;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Address;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.AddressResource;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.service.GroupLocalService;
@@ -43,13 +43,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.validation.constraints.NotNull;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.PATCH;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 /**
@@ -58,62 +55,58 @@ import javax.ws.rs.core.UriInfo;
  */
 @Generated("")
 @Path("/v1.0")
-public abstract class BaseShippingAddressResourceImpl
-	implements ShippingAddressResource {
+public abstract class BaseAddressResourceImpl implements AddressResource {
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/shipping-address'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/billing-address'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
-	@Operation(description = "Retrive cart shipping address.")
+	@Operation(description = "Retrive cart billing address.")
 	@Parameters(
 		value = {
-			@Parameter(in = ParameterIn.PATH, name = "channelId"),
-			@Parameter(in = ParameterIn.PATH, name = "cartId")
+			@Parameter(in = ParameterIn.PATH, name = "cartId"),
+			@Parameter(in = ParameterIn.PATH, name = "addressId")
 		}
 	)
-	@Path("/channels/{channelId}/carts/{cartId}/shipping-address")
+	@Path("/carts/{cartId}/billing-address")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "ShippingAddress")})
-	public ShippingAddress getChannelCartShippingAddress(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-				channelId,
-			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId)
+	@Tags(value = {@Tag(name = "Address")})
+	public Address getCartBillingAddres(
+			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
+			@NotNull @Parameter(hidden = true) @PathParam("addressId") Long
+				addressId)
 		throws Exception {
 
-		return new ShippingAddress();
+		return new Address();
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/shipping-address' -d $'{"city": ___, "country": ___, "countryISOCode": ___, "description": ___, "id": ___, "latitude": ___, "longitude": ___, "name": ___, "phoneNumber": ___, "region": ___, "regionISOCode": ___, "street1": ___, "street2": ___, "street3": ___, "zip": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/shipping-address'  -u 'test@liferay.com:test'
 	 */
 	@Override
-	@Consumes({"application/json", "application/xml"})
-	@PATCH
+	@GET
+	@Operation(description = "Retrive cart billing address.")
 	@Parameters(
 		value = {
-			@Parameter(in = ParameterIn.PATH, name = "channelId"),
-			@Parameter(in = ParameterIn.PATH, name = "cartId")
+			@Parameter(in = ParameterIn.PATH, name = "cartId"),
+			@Parameter(in = ParameterIn.PATH, name = "addressId")
 		}
 	)
-	@Path("/channels/{channelId}/carts/{cartId}/shipping-address")
+	@Path("/carts/{cartId}/shipping-address")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "ShippingAddress")})
-	public Response patchChannelCartShippingAddress(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-				channelId,
+	@Tags(value = {@Tag(name = "Address")})
+	public Address getCartShippingAddres(
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
-			ShippingAddress shippingAddress)
+			@NotNull @Parameter(hidden = true) @PathParam("addressId") Long
+				addressId)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
+		return new Address();
 	}
 
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
@@ -173,9 +166,7 @@ public abstract class BaseShippingAddressResourceImpl
 			actionName, siteId, methodName, permissionName, siteId);
 	}
 
-	protected void preparePatch(
-		ShippingAddress shippingAddress,
-		ShippingAddress existingShippingAddress) {
+	protected void preparePatch(Address address, Address existingAddress) {
 	}
 
 	protected <T, R> List<R> transform(

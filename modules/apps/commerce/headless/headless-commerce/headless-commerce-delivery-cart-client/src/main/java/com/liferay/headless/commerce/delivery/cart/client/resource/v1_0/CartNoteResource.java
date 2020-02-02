@@ -14,11 +14,12 @@
 
 package com.liferay.headless.commerce.delivery.cart.client.resource.v1_0;
 
-import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.Note;
+import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.CartNote;
 import com.liferay.headless.commerce.delivery.cart.client.http.HttpInvoker;
 import com.liferay.headless.commerce.delivery.cart.client.pagination.Page;
 import com.liferay.headless.commerce.delivery.cart.client.pagination.Pagination;
-import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.NoteSerDes;
+import com.liferay.headless.commerce.delivery.cart.client.problem.Problem;
+import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.CartNoteSerDes;
 
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -33,47 +34,48 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public interface NoteResource {
+public interface CartNoteResource {
 
 	public static Builder builder() {
 		return new Builder();
 	}
 
-	public Page<Note> getChannelCartNotesPage(
-			Long channelId, Long cartId, Pagination pagination)
+	public Page<CartNote> getCartNotesPage(Long cartId, Pagination pagination)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse getChannelCartNotesPageHttpResponse(
-			Long channelId, Long cartId, Pagination pagination)
+	public HttpInvoker.HttpResponse getCartNotesPageHttpResponse(
+			Long cartId, Pagination pagination)
 		throws Exception;
 
-	public Note postChannelCartNote(Long channelId, Long cartId, Note note)
+	public CartNote postCartNote(Long cartId, CartNote cartNote)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse postChannelCartNoteHttpResponse(
-			Long channelId, Long cartId, Note note)
+	public HttpInvoker.HttpResponse postCartNoteHttpResponse(
+			Long cartId, CartNote cartNote)
 		throws Exception;
 
-	public void deleteChannelCartNote(Long channelId, Long cartId, Long noteId)
+	public void deleteCartNote(Long noteId) throws Exception;
+
+	public HttpInvoker.HttpResponse deleteCartNoteHttpResponse(Long noteId)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse deleteChannelCartNoteHttpResponse(
-			Long channelId, Long cartId, Long noteId)
+	public CartNote getCartNote(Long noteId) throws Exception;
+
+	public HttpInvoker.HttpResponse getCartNoteHttpResponse(Long noteId)
 		throws Exception;
 
-	public Note getChannelCartNote(Long channelId, Long cartId, Long noteId)
+	public CartNote patchCartNote(Long noteId, CartNote cartNote)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse getChannelCartNoteHttpResponse(
-			Long channelId, Long cartId, Long noteId)
+	public HttpInvoker.HttpResponse patchCartNoteHttpResponse(
+			Long noteId, CartNote cartNote)
 		throws Exception;
 
-	public void patchChannelCartNote(
-			Long channelId, Long cartId, Long noteId, Note note)
+	public CartNote putCartNote(Long noteId, CartNote cartNote)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse patchChannelCartNoteHttpResponse(
-			Long channelId, Long cartId, Long noteId, Note note)
+	public HttpInvoker.HttpResponse putCartNoteHttpResponse(
+			Long noteId, CartNote cartNote)
 		throws Exception;
 
 	public static class Builder {
@@ -85,8 +87,8 @@ public interface NoteResource {
 			return this;
 		}
 
-		public NoteResource build() {
-			return new NoteResourceImpl(this);
+		public CartNoteResource build() {
+			return new CartNoteResourceImpl(this);
 		}
 
 		public Builder endpoint(String host, int port, String scheme) {
@@ -129,15 +131,14 @@ public interface NoteResource {
 
 	}
 
-	public static class NoteResourceImpl implements NoteResource {
+	public static class CartNoteResourceImpl implements CartNoteResource {
 
-		public Page<Note> getChannelCartNotesPage(
-				Long channelId, Long cartId, Pagination pagination)
+		public Page<CartNote> getCartNotesPage(
+				Long cartId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getChannelCartNotesPageHttpResponse(
-					channelId, cartId, pagination);
+				getCartNotesPageHttpResponse(cartId, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -147,11 +148,20 @@ public interface NoteResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, NoteSerDes::toDTO);
+			try {
+				return Page.of(content, CartNoteSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
-		public HttpInvoker.HttpResponse getChannelCartNotesPageHttpResponse(
-				Long channelId, Long cartId, Pagination pagination)
+		public HttpInvoker.HttpResponse getCartNotesPageHttpResponse(
+				Long cartId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -185,8 +195,8 @@ public interface NoteResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/notes",
-				channelId, cartId);
+						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/notes",
+				cartId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -194,11 +204,11 @@ public interface NoteResource {
 			return httpInvoker.invoke();
 		}
 
-		public Note postChannelCartNote(Long channelId, Long cartId, Note note)
+		public CartNote postCartNote(Long cartId, CartNote cartNote)
 			throws Exception {
 
-			HttpInvoker.HttpResponse httpResponse =
-				postChannelCartNoteHttpResponse(channelId, cartId, note);
+			HttpInvoker.HttpResponse httpResponse = postCartNoteHttpResponse(
+				cartId, cartNote);
 
 			String content = httpResponse.getContent();
 
@@ -209,24 +219,24 @@ public interface NoteResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
 			try {
-				return NoteSerDes.toDTO(content);
+				return CartNoteSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
-		public HttpInvoker.HttpResponse postChannelCartNoteHttpResponse(
-				Long channelId, Long cartId, Note note)
+		public HttpInvoker.HttpResponse postCartNoteHttpResponse(
+				Long cartId, CartNote cartNote)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(note.toString(), "application/json");
+			httpInvoker.body(cartNote.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -250,8 +260,8 @@ public interface NoteResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/notes",
-				channelId, cartId);
+						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/notes",
+				cartId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -259,12 +269,9 @@ public interface NoteResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteChannelCartNote(
-				Long channelId, Long cartId, Long noteId)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				deleteChannelCartNoteHttpResponse(channelId, cartId, noteId);
+		public void deleteCartNote(Long noteId) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = deleteCartNoteHttpResponse(
+				noteId);
 
 			String content = httpResponse.getContent();
 
@@ -275,8 +282,7 @@ public interface NoteResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse deleteChannelCartNoteHttpResponse(
-				Long channelId, Long cartId, Long noteId)
+		public HttpInvoker.HttpResponse deleteCartNoteHttpResponse(Long noteId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -303,8 +309,8 @@ public interface NoteResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/notes/{noteId}",
-				channelId, cartId, noteId);
+						"/o/headless-commerce-delivery-cart/v1.0/cart-notes/{noteId}",
+				noteId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -312,11 +318,9 @@ public interface NoteResource {
 			return httpInvoker.invoke();
 		}
 
-		public Note getChannelCartNote(Long channelId, Long cartId, Long noteId)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getChannelCartNoteHttpResponse(channelId, cartId, noteId);
+		public CartNote getCartNote(Long noteId) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = getCartNoteHttpResponse(
+				noteId);
 
 			String content = httpResponse.getContent();
 
@@ -327,19 +331,18 @@ public interface NoteResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
 			try {
-				return NoteSerDes.toDTO(content);
+				return CartNoteSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
-		public HttpInvoker.HttpResponse getChannelCartNoteHttpResponse(
-				Long channelId, Long cartId, Long noteId)
+		public HttpInvoker.HttpResponse getCartNoteHttpResponse(Long noteId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -366,8 +369,8 @@ public interface NoteResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/notes/{noteId}",
-				channelId, cartId, noteId);
+						"/o/headless-commerce-delivery-cart/v1.0/cart-notes/{noteId}",
+				noteId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -375,13 +378,11 @@ public interface NoteResource {
 			return httpInvoker.invoke();
 		}
 
-		public void patchChannelCartNote(
-				Long channelId, Long cartId, Long noteId, Note note)
+		public CartNote patchCartNote(Long noteId, CartNote cartNote)
 			throws Exception {
 
-			HttpInvoker.HttpResponse httpResponse =
-				patchChannelCartNoteHttpResponse(
-					channelId, cartId, noteId, note);
+			HttpInvoker.HttpResponse httpResponse = patchCartNoteHttpResponse(
+				noteId, cartNote);
 
 			String content = httpResponse.getContent();
 
@@ -390,15 +391,26 @@ public interface NoteResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return CartNoteSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
-		public HttpInvoker.HttpResponse patchChannelCartNoteHttpResponse(
-				Long channelId, Long cartId, Long noteId, Note note)
+		public HttpInvoker.HttpResponse patchCartNoteHttpResponse(
+				Long noteId, CartNote cartNote)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(note.toString(), "application/json");
+			httpInvoker.body(cartNote.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -422,8 +434,8 @@ public interface NoteResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/notes/{noteId}",
-				channelId, cartId, noteId);
+						"/o/headless-commerce-delivery-cart/v1.0/cart-notes/{noteId}",
+				noteId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -431,12 +443,77 @@ public interface NoteResource {
 			return httpInvoker.invoke();
 		}
 
-		private NoteResourceImpl(Builder builder) {
+		public CartNote putCartNote(Long noteId, CartNote cartNote)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse = putCartNoteHttpResponse(
+				noteId, cartNote);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return CartNoteSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse putCartNoteHttpResponse(
+				Long noteId, CartNote cartNote)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(cartNote.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/headless-commerce-delivery-cart/v1.0/cart-notes/{noteId}",
+				noteId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		private CartNoteResourceImpl(Builder builder) {
 			_builder = builder;
 		}
 
 		private static final Logger _logger = Logger.getLogger(
-			NoteResource.class.getName());
+			CartNoteResource.class.getName());
 
 		private Builder _builder;
 

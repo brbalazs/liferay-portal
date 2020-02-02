@@ -15,7 +15,7 @@
 package com.liferay.headless.commerce.delivery.cart.client.dto.v1_0;
 
 import com.liferay.headless.commerce.delivery.cart.client.function.UnsafeSupplier;
-import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.BillingAddressSerDes;
+import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.AddressSerDes;
 
 import java.util.Objects;
 
@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class BillingAddress {
+public class Address {
 
 	public String getCity() {
 		return city;
@@ -316,6 +316,46 @@ public class BillingAddress {
 
 	protected String street3;
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public void setType(UnsafeSupplier<String, Exception> typeUnsafeSupplier) {
+		try {
+			type = typeUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String type;
+
+	public Integer getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(Integer typeId) {
+		this.typeId = typeId;
+	}
+
+	public void setTypeId(
+		UnsafeSupplier<Integer, Exception> typeIdUnsafeSupplier) {
+
+		try {
+			typeId = typeIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Integer typeId;
+
 	public String getVatNumber() {
 		return vatNumber;
 	}
@@ -362,13 +402,13 @@ public class BillingAddress {
 			return true;
 		}
 
-		if (!(object instanceof BillingAddress)) {
+		if (!(object instanceof Address)) {
 			return false;
 		}
 
-		BillingAddress billingAddress = (BillingAddress)object;
+		Address address = (Address)object;
 
-		return Objects.equals(toString(), billingAddress.toString());
+		return Objects.equals(toString(), address.toString());
 	}
 
 	@Override
@@ -379,7 +419,7 @@ public class BillingAddress {
 	}
 
 	public String toString() {
-		return BillingAddressSerDes.toJSON(this);
+		return AddressSerDes.toJSON(this);
 	}
 
 }

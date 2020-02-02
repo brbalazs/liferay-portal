@@ -93,17 +93,16 @@ public class Cart {
 
 	protected String author;
 
-	public BillingAddress getBillingAddress() {
+	public Address getBillingAddress() {
 		return billingAddress;
 	}
 
-	public void setBillingAddress(BillingAddress billingAddress) {
+	public void setBillingAddress(Address billingAddress) {
 		this.billingAddress = billingAddress;
 	}
 
 	public void setBillingAddress(
-		UnsafeSupplier<BillingAddress, Exception>
-			billingAddressUnsafeSupplier) {
+		UnsafeSupplier<Address, Exception> billingAddressUnsafeSupplier) {
 
 		try {
 			billingAddress = billingAddressUnsafeSupplier.get();
@@ -113,28 +112,28 @@ public class Cart {
 		}
 	}
 
-	protected BillingAddress billingAddress;
+	protected Address billingAddress;
 
-	public Long getBillingId() {
-		return billingId;
+	public Long getBillingAddressId() {
+		return billingAddressId;
 	}
 
-	public void setBillingId(Long billingId) {
-		this.billingId = billingId;
+	public void setBillingAddressId(Long billingAddressId) {
+		this.billingAddressId = billingAddressId;
 	}
 
-	public void setBillingId(
-		UnsafeSupplier<Long, Exception> billingIdUnsafeSupplier) {
+	public void setBillingAddressId(
+		UnsafeSupplier<Long, Exception> billingAddressIdUnsafeSupplier) {
 
 		try {
-			billingId = billingIdUnsafeSupplier.get();
+			billingAddressId = billingAddressIdUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected Long billingId;
+	protected Long billingAddressId;
 
 	public CartItem[] getCartItems() {
 		return cartItems;
@@ -156,6 +155,48 @@ public class Cart {
 	}
 
 	protected CartItem[] cartItems;
+
+	public CartNote[] getCartNotes() {
+		return cartNotes;
+	}
+
+	public void setCartNotes(CartNote[] cartNotes) {
+		this.cartNotes = cartNotes;
+	}
+
+	public void setCartNotes(
+		UnsafeSupplier<CartNote[], Exception> cartNotesUnsafeSupplier) {
+
+		try {
+			cartNotes = cartNotesUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected CartNote[] cartNotes;
+
+	public Long getChannelId() {
+		return channelId;
+	}
+
+	public void setChannelId(Long channelId) {
+		this.channelId = channelId;
+	}
+
+	public void setChannelId(
+		UnsafeSupplier<Long, Exception> channelIdUnsafeSupplier) {
+
+		try {
+			channelId = channelIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long channelId;
 
 	public String getCouponCode() {
 		return couponCode;
@@ -198,6 +239,27 @@ public class Cart {
 	}
 
 	protected Date createDate;
+
+	public String getCurrencyCode() {
+		return currencyCode;
+	}
+
+	public void setCurrencyCode(String currencyCode) {
+		this.currencyCode = currencyCode;
+	}
+
+	public void setCurrencyCode(
+		UnsafeSupplier<String, Exception> currencyCodeUnsafeSupplier) {
+
+		try {
+			currencyCode = currencyCodeUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String currencyCode;
 
 	public Map<String, ?> getCustomFields() {
 		return customFields;
@@ -280,27 +342,6 @@ public class Cart {
 	}
 
 	protected Date modifiedDate;
-
-	public Note[] getNotes() {
-		return notes;
-	}
-
-	public void setNotes(Note[] notes) {
-		this.notes = notes;
-	}
-
-	public void setNotes(
-		UnsafeSupplier<Note[], Exception> notesUnsafeSupplier) {
-
-		try {
-			notes = notesUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected Note[] notes;
 
 	public String getPaymentMethod() {
 		return paymentMethod;
@@ -428,17 +469,16 @@ public class Cart {
 
 	protected String purchaseOrderNumber;
 
-	public ShippingAddress getShippingAddress() {
+	public Address getShippingAddress() {
 		return shippingAddress;
 	}
 
-	public void setShippingAddress(ShippingAddress shippingAddress) {
+	public void setShippingAddress(Address shippingAddress) {
 		this.shippingAddress = shippingAddress;
 	}
 
 	public void setShippingAddress(
-		UnsafeSupplier<ShippingAddress, Exception>
-			shippingAddressUnsafeSupplier) {
+		UnsafeSupplier<Address, Exception> shippingAddressUnsafeSupplier) {
 
 		try {
 			shippingAddress = shippingAddressUnsafeSupplier.get();
@@ -448,7 +488,7 @@ public class Cart {
 		}
 	}
 
-	protected ShippingAddress shippingAddress;
+	protected Address shippingAddress;
 
 	public Long getShippingAddressId() {
 		return shippingAddressId;
@@ -554,6 +594,27 @@ public class Cart {
 	}
 
 	protected Summary summary;
+
+	public Boolean getUseAsBilling() {
+		return useAsBilling;
+	}
+
+	public void setUseAsBilling(Boolean useAsBilling) {
+		this.useAsBilling = useAsBilling;
+	}
+
+	public void setUseAsBilling(
+		UnsafeSupplier<Boolean, Exception> useAsBillingUnsafeSupplier) {
+
+		try {
+			useAsBilling = useAsBillingUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean useAsBilling;
 
 	@Override
 	public boolean equals(Object object) {

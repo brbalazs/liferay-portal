@@ -18,6 +18,7 @@ import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.Cart;
 import com.liferay.headless.commerce.delivery.cart.client.http.HttpInvoker;
 import com.liferay.headless.commerce.delivery.cart.client.pagination.Page;
 import com.liferay.headless.commerce.delivery.cart.client.pagination.Pagination;
+import com.liferay.headless.commerce.delivery.cart.client.problem.Problem;
 import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.CartSerDes;
 
 import java.util.LinkedHashMap;
@@ -46,50 +47,41 @@ public interface CartResource {
 			Long channelId, Pagination pagination)
 		throws Exception;
 
-	public Cart postChannelCart(
-			Long channelId,
-			com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.CartPost
-				cartPost)
-		throws Exception;
+	public Cart postChannelCart(Long channelId, Cart cart) throws Exception;
 
 	public HttpInvoker.HttpResponse postChannelCartHttpResponse(
-			Long channelId,
-			com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.CartPost
-				cartPost)
+			Long channelId, Cart cart)
 		throws Exception;
 
-	public void deleteChannelCart(Long channelId, Long cartId) throws Exception;
+	public void deleteCart(Long cartId) throws Exception;
 
-	public HttpInvoker.HttpResponse deleteChannelCartHttpResponse(
-			Long channelId, Long cartId)
+	public HttpInvoker.HttpResponse deleteCartHttpResponse(Long cartId)
 		throws Exception;
 
-	public Cart getChannelCart(Long channelId, Long cartId) throws Exception;
+	public Cart getCart(Long cartId) throws Exception;
 
-	public HttpInvoker.HttpResponse getChannelCartHttpResponse(
-			Long channelId, Long cartId)
+	public HttpInvoker.HttpResponse getCartHttpResponse(Long cartId)
 		throws Exception;
 
-	public Cart patchChannelCart(
-			Long channelId, Long cartId,
-			com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.CartPost
-				cartPost)
+	public Cart patchCart(Long cartId, Cart cart) throws Exception;
+
+	public HttpInvoker.HttpResponse patchCartHttpResponse(
+			Long cartId, Cart cart)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse patchChannelCartHttpResponse(
-			Long channelId, Long cartId,
-			com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.CartPost
-				cartPost)
+	public Cart putCart(Long cartId, Cart cart) throws Exception;
+
+	public HttpInvoker.HttpResponse putCartHttpResponse(Long cartId, Cart cart)
 		throws Exception;
 
-	public Cart postChannelCartCouponCode(
-			Long channelId, Long cartId,
+	public Cart postCartCouponCode(
+			Long cartId,
 			com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.
 				CouponCode couponCode)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse postChannelCartCouponCodeHttpResponse(
-			Long channelId, Long cartId,
+	public HttpInvoker.HttpResponse postCartCouponCodeHttpResponse(
+			Long cartId,
 			com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.
 				CouponCode couponCode)
 		throws Exception;
@@ -164,7 +156,16 @@ public interface CartResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, CartSerDes::toDTO);
+			try {
+				return Page.of(content, CartSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse getChannelCartsPageHttpResponse(
@@ -211,14 +212,11 @@ public interface CartResource {
 			return httpInvoker.invoke();
 		}
 
-		public Cart postChannelCart(
-				Long channelId,
-				com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.
-					CartPost cartPost)
+		public Cart postChannelCart(Long channelId, Cart cart)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = postChannelCartHttpResponse(
-				channelId, cartPost);
+				channelId, cart);
 
 			String content = httpResponse.getContent();
 
@@ -236,19 +234,17 @@ public interface CartResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
 		public HttpInvoker.HttpResponse postChannelCartHttpResponse(
-				Long channelId,
-				com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.
-					CartPost cartPost)
+				Long channelId, Cart cart)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(cartPost.toString(), "application/json");
+			httpInvoker.body(cart.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -281,11 +277,9 @@ public interface CartResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteChannelCart(Long channelId, Long cartId)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				deleteChannelCartHttpResponse(channelId, cartId);
+		public void deleteCart(Long cartId) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = deleteCartHttpResponse(
+				cartId);
 
 			String content = httpResponse.getContent();
 
@@ -296,8 +290,7 @@ public interface CartResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse deleteChannelCartHttpResponse(
-				Long channelId, Long cartId)
+		public HttpInvoker.HttpResponse deleteCartHttpResponse(Long cartId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -324,8 +317,8 @@ public interface CartResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}",
-				channelId, cartId);
+						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}",
+				cartId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -333,11 +326,8 @@ public interface CartResource {
 			return httpInvoker.invoke();
 		}
 
-		public Cart getChannelCart(Long channelId, Long cartId)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse = getChannelCartHttpResponse(
-				channelId, cartId);
+		public Cart getCart(Long cartId) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = getCartHttpResponse(cartId);
 
 			String content = httpResponse.getContent();
 
@@ -355,12 +345,11 @@ public interface CartResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
-		public HttpInvoker.HttpResponse getChannelCartHttpResponse(
-				Long channelId, Long cartId)
+		public HttpInvoker.HttpResponse getCartHttpResponse(Long cartId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -387,8 +376,8 @@ public interface CartResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}",
-				channelId, cartId);
+						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}",
+				cartId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -396,14 +385,9 @@ public interface CartResource {
 			return httpInvoker.invoke();
 		}
 
-		public Cart patchChannelCart(
-				Long channelId, Long cartId,
-				com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.
-					CartPost cartPost)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				patchChannelCartHttpResponse(channelId, cartId, cartPost);
+		public Cart patchCart(Long cartId, Cart cart) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = patchCartHttpResponse(
+				cartId, cart);
 
 			String content = httpResponse.getContent();
 
@@ -421,19 +405,17 @@ public interface CartResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
-		public HttpInvoker.HttpResponse patchChannelCartHttpResponse(
-				Long channelId, Long cartId,
-				com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.
-					CartPost cartPost)
+		public HttpInvoker.HttpResponse patchCartHttpResponse(
+				Long cartId, Cart cart)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(cartPost.toString(), "application/json");
+			httpInvoker.body(cart.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -457,8 +439,8 @@ public interface CartResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}",
-				channelId, cartId);
+						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}",
+				cartId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -466,15 +448,9 @@ public interface CartResource {
 			return httpInvoker.invoke();
 		}
 
-		public Cart postChannelCartCouponCode(
-				Long channelId, Long cartId,
-				com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.
-					CouponCode couponCode)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				postChannelCartCouponCodeHttpResponse(
-					channelId, cartId, couponCode);
+		public Cart putCart(Long cartId, Cart cart) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = putCartHttpResponse(
+				cartId, cart);
 
 			String content = httpResponse.getContent();
 
@@ -492,12 +468,80 @@ public interface CartResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
-		public HttpInvoker.HttpResponse postChannelCartCouponCodeHttpResponse(
-				Long channelId, Long cartId,
+		public HttpInvoker.HttpResponse putCartHttpResponse(
+				Long cartId, Cart cart)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(cart.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}",
+				cartId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public Cart postCartCouponCode(
+				Long cartId,
+				com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.
+					CouponCode couponCode)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				postCartCouponCodeHttpResponse(cartId, couponCode);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return CartSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse postCartCouponCodeHttpResponse(
+				Long cartId,
 				com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.
 					CouponCode couponCode)
 			throws Exception {
@@ -528,8 +572,8 @@ public interface CartResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/coupon-code",
-				channelId, cartId);
+						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/coupon-code",
+				cartId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

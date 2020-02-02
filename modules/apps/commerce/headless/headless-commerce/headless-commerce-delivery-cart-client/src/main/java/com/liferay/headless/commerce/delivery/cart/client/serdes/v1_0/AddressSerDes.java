@@ -14,7 +14,7 @@
 
 package com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0;
 
-import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.BillingAddress;
+import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.Address;
 import com.liferay.headless.commerce.delivery.cart.client.json.BaseJSONParser;
 
 import java.util.Iterator;
@@ -30,24 +30,22 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class BillingAddressSerDes {
+public class AddressSerDes {
 
-	public static BillingAddress toDTO(String json) {
-		BillingAddressJSONParser billingAddressJSONParser =
-			new BillingAddressJSONParser();
+	public static Address toDTO(String json) {
+		AddressJSONParser addressJSONParser = new AddressJSONParser();
 
-		return billingAddressJSONParser.parseToDTO(json);
+		return addressJSONParser.parseToDTO(json);
 	}
 
-	public static BillingAddress[] toDTOs(String json) {
-		BillingAddressJSONParser billingAddressJSONParser =
-			new BillingAddressJSONParser();
+	public static Address[] toDTOs(String json) {
+		AddressJSONParser addressJSONParser = new AddressJSONParser();
 
-		return billingAddressJSONParser.parseToDTOs(json);
+		return addressJSONParser.parseToDTOs(json);
 	}
 
-	public static String toJSON(BillingAddress billingAddress) {
-		if (billingAddress == null) {
+	public static String toJSON(Address address) {
+		if (address == null) {
 			return "null";
 		}
 
@@ -55,7 +53,7 @@ public class BillingAddressSerDes {
 
 		sb.append("{");
 
-		if (billingAddress.getCity() != null) {
+		if (address.getCity() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -64,12 +62,12 @@ public class BillingAddressSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(billingAddress.getCity()));
+			sb.append(_escape(address.getCity()));
 
 			sb.append("\"");
 		}
 
-		if (billingAddress.getCountry() != null) {
+		if (address.getCountry() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -78,12 +76,12 @@ public class BillingAddressSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(billingAddress.getCountry()));
+			sb.append(_escape(address.getCountry()));
 
 			sb.append("\"");
 		}
 
-		if (billingAddress.getCountryISOCode() != null) {
+		if (address.getCountryISOCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -92,12 +90,12 @@ public class BillingAddressSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(billingAddress.getCountryISOCode()));
+			sb.append(_escape(address.getCountryISOCode()));
 
 			sb.append("\"");
 		}
 
-		if (billingAddress.getDescription() != null) {
+		if (address.getDescription() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -106,42 +104,42 @@ public class BillingAddressSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(billingAddress.getDescription()));
+			sb.append(_escape(address.getDescription()));
 
 			sb.append("\"");
 		}
 
-		if (billingAddress.getId() != null) {
+		if (address.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"id\": ");
 
-			sb.append(billingAddress.getId());
+			sb.append(address.getId());
 		}
 
-		if (billingAddress.getLatitude() != null) {
+		if (address.getLatitude() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"latitude\": ");
 
-			sb.append(billingAddress.getLatitude());
+			sb.append(address.getLatitude());
 		}
 
-		if (billingAddress.getLongitude() != null) {
+		if (address.getLongitude() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"longitude\": ");
 
-			sb.append(billingAddress.getLongitude());
+			sb.append(address.getLongitude());
 		}
 
-		if (billingAddress.getName() != null) {
+		if (address.getName() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -150,12 +148,12 @@ public class BillingAddressSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(billingAddress.getName()));
+			sb.append(_escape(address.getName()));
 
 			sb.append("\"");
 		}
 
-		if (billingAddress.getPhoneNumber() != null) {
+		if (address.getPhoneNumber() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -164,12 +162,12 @@ public class BillingAddressSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(billingAddress.getPhoneNumber()));
+			sb.append(_escape(address.getPhoneNumber()));
 
 			sb.append("\"");
 		}
 
-		if (billingAddress.getRegion() != null) {
+		if (address.getRegion() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -178,12 +176,12 @@ public class BillingAddressSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(billingAddress.getRegion()));
+			sb.append(_escape(address.getRegion()));
 
 			sb.append("\"");
 		}
 
-		if (billingAddress.getRegionISOCode() != null) {
+		if (address.getRegionISOCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -192,12 +190,12 @@ public class BillingAddressSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(billingAddress.getRegionISOCode()));
+			sb.append(_escape(address.getRegionISOCode()));
 
 			sb.append("\"");
 		}
 
-		if (billingAddress.getStreet1() != null) {
+		if (address.getStreet1() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -206,12 +204,12 @@ public class BillingAddressSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(billingAddress.getStreet1()));
+			sb.append(_escape(address.getStreet1()));
 
 			sb.append("\"");
 		}
 
-		if (billingAddress.getStreet2() != null) {
+		if (address.getStreet2() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -220,12 +218,12 @@ public class BillingAddressSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(billingAddress.getStreet2()));
+			sb.append(_escape(address.getStreet2()));
 
 			sb.append("\"");
 		}
 
-		if (billingAddress.getStreet3() != null) {
+		if (address.getStreet3() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -234,12 +232,36 @@ public class BillingAddressSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(billingAddress.getStreet3()));
+			sb.append(_escape(address.getStreet3()));
 
 			sb.append("\"");
 		}
 
-		if (billingAddress.getVatNumber() != null) {
+		if (address.getType() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"type\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(address.getType()));
+
+			sb.append("\"");
+		}
+
+		if (address.getTypeId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"typeId\": ");
+
+			sb.append(address.getTypeId());
+		}
+
+		if (address.getVatNumber() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -248,12 +270,12 @@ public class BillingAddressSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(billingAddress.getVatNumber()));
+			sb.append(_escape(address.getVatNumber()));
 
 			sb.append("\"");
 		}
 
-		if (billingAddress.getZip() != null) {
+		if (address.getZip() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -262,7 +284,7 @@ public class BillingAddressSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(billingAddress.getZip()));
+			sb.append(_escape(address.getZip()));
 
 			sb.append("\"");
 		}
@@ -273,241 +295,257 @@ public class BillingAddressSerDes {
 	}
 
 	public static Map<String, Object> toMap(String json) {
-		BillingAddressJSONParser billingAddressJSONParser =
-			new BillingAddressJSONParser();
+		AddressJSONParser addressJSONParser = new AddressJSONParser();
 
-		return billingAddressJSONParser.parseToMap(json);
+		return addressJSONParser.parseToMap(json);
 	}
 
-	public static Map<String, String> toMap(BillingAddress billingAddress) {
-		if (billingAddress == null) {
+	public static Map<String, String> toMap(Address address) {
+		if (address == null) {
 			return null;
 		}
 
 		Map<String, String> map = new TreeMap<>();
 
-		if (billingAddress.getCity() == null) {
+		if (address.getCity() == null) {
 			map.put("city", null);
 		}
 		else {
-			map.put("city", String.valueOf(billingAddress.getCity()));
+			map.put("city", String.valueOf(address.getCity()));
 		}
 
-		if (billingAddress.getCountry() == null) {
+		if (address.getCountry() == null) {
 			map.put("country", null);
 		}
 		else {
-			map.put("country", String.valueOf(billingAddress.getCountry()));
+			map.put("country", String.valueOf(address.getCountry()));
 		}
 
-		if (billingAddress.getCountryISOCode() == null) {
+		if (address.getCountryISOCode() == null) {
 			map.put("countryISOCode", null);
 		}
 		else {
 			map.put(
-				"countryISOCode",
-				String.valueOf(billingAddress.getCountryISOCode()));
+				"countryISOCode", String.valueOf(address.getCountryISOCode()));
 		}
 
-		if (billingAddress.getDescription() == null) {
+		if (address.getDescription() == null) {
 			map.put("description", null);
 		}
 		else {
-			map.put(
-				"description", String.valueOf(billingAddress.getDescription()));
+			map.put("description", String.valueOf(address.getDescription()));
 		}
 
-		if (billingAddress.getId() == null) {
+		if (address.getId() == null) {
 			map.put("id", null);
 		}
 		else {
-			map.put("id", String.valueOf(billingAddress.getId()));
+			map.put("id", String.valueOf(address.getId()));
 		}
 
-		if (billingAddress.getLatitude() == null) {
+		if (address.getLatitude() == null) {
 			map.put("latitude", null);
 		}
 		else {
-			map.put("latitude", String.valueOf(billingAddress.getLatitude()));
+			map.put("latitude", String.valueOf(address.getLatitude()));
 		}
 
-		if (billingAddress.getLongitude() == null) {
+		if (address.getLongitude() == null) {
 			map.put("longitude", null);
 		}
 		else {
-			map.put("longitude", String.valueOf(billingAddress.getLongitude()));
+			map.put("longitude", String.valueOf(address.getLongitude()));
 		}
 
-		if (billingAddress.getName() == null) {
+		if (address.getName() == null) {
 			map.put("name", null);
 		}
 		else {
-			map.put("name", String.valueOf(billingAddress.getName()));
+			map.put("name", String.valueOf(address.getName()));
 		}
 
-		if (billingAddress.getPhoneNumber() == null) {
+		if (address.getPhoneNumber() == null) {
 			map.put("phoneNumber", null);
 		}
 		else {
-			map.put(
-				"phoneNumber", String.valueOf(billingAddress.getPhoneNumber()));
+			map.put("phoneNumber", String.valueOf(address.getPhoneNumber()));
 		}
 
-		if (billingAddress.getRegion() == null) {
+		if (address.getRegion() == null) {
 			map.put("region", null);
 		}
 		else {
-			map.put("region", String.valueOf(billingAddress.getRegion()));
+			map.put("region", String.valueOf(address.getRegion()));
 		}
 
-		if (billingAddress.getRegionISOCode() == null) {
+		if (address.getRegionISOCode() == null) {
 			map.put("regionISOCode", null);
 		}
 		else {
 			map.put(
-				"regionISOCode",
-				String.valueOf(billingAddress.getRegionISOCode()));
+				"regionISOCode", String.valueOf(address.getRegionISOCode()));
 		}
 
-		if (billingAddress.getStreet1() == null) {
+		if (address.getStreet1() == null) {
 			map.put("street1", null);
 		}
 		else {
-			map.put("street1", String.valueOf(billingAddress.getStreet1()));
+			map.put("street1", String.valueOf(address.getStreet1()));
 		}
 
-		if (billingAddress.getStreet2() == null) {
+		if (address.getStreet2() == null) {
 			map.put("street2", null);
 		}
 		else {
-			map.put("street2", String.valueOf(billingAddress.getStreet2()));
+			map.put("street2", String.valueOf(address.getStreet2()));
 		}
 
-		if (billingAddress.getStreet3() == null) {
+		if (address.getStreet3() == null) {
 			map.put("street3", null);
 		}
 		else {
-			map.put("street3", String.valueOf(billingAddress.getStreet3()));
+			map.put("street3", String.valueOf(address.getStreet3()));
 		}
 
-		if (billingAddress.getVatNumber() == null) {
+		if (address.getType() == null) {
+			map.put("type", null);
+		}
+		else {
+			map.put("type", String.valueOf(address.getType()));
+		}
+
+		if (address.getTypeId() == null) {
+			map.put("typeId", null);
+		}
+		else {
+			map.put("typeId", String.valueOf(address.getTypeId()));
+		}
+
+		if (address.getVatNumber() == null) {
 			map.put("vatNumber", null);
 		}
 		else {
-			map.put("vatNumber", String.valueOf(billingAddress.getVatNumber()));
+			map.put("vatNumber", String.valueOf(address.getVatNumber()));
 		}
 
-		if (billingAddress.getZip() == null) {
+		if (address.getZip() == null) {
 			map.put("zip", null);
 		}
 		else {
-			map.put("zip", String.valueOf(billingAddress.getZip()));
+			map.put("zip", String.valueOf(address.getZip()));
 		}
 
 		return map;
 	}
 
-	public static class BillingAddressJSONParser
-		extends BaseJSONParser<BillingAddress> {
+	public static class AddressJSONParser extends BaseJSONParser<Address> {
 
 		@Override
-		protected BillingAddress createDTO() {
-			return new BillingAddress();
+		protected Address createDTO() {
+			return new Address();
 		}
 
 		@Override
-		protected BillingAddress[] createDTOArray(int size) {
-			return new BillingAddress[size];
+		protected Address[] createDTOArray(int size) {
+			return new Address[size];
 		}
 
 		@Override
 		protected void setField(
-			BillingAddress billingAddress, String jsonParserFieldName,
+			Address address, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
 			if (Objects.equals(jsonParserFieldName, "city")) {
 				if (jsonParserFieldValue != null) {
-					billingAddress.setCity((String)jsonParserFieldValue);
+					address.setCity((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "country")) {
 				if (jsonParserFieldValue != null) {
-					billingAddress.setCountry((String)jsonParserFieldValue);
+					address.setCountry((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "countryISOCode")) {
 				if (jsonParserFieldValue != null) {
-					billingAddress.setCountryISOCode(
-						(String)jsonParserFieldValue);
+					address.setCountryISOCode((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "description")) {
 				if (jsonParserFieldValue != null) {
-					billingAddress.setDescription((String)jsonParserFieldValue);
+					address.setDescription((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
-					billingAddress.setId(
-						Long.valueOf((String)jsonParserFieldValue));
+					address.setId(Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "latitude")) {
 				if (jsonParserFieldValue != null) {
-					billingAddress.setLatitude(
+					address.setLatitude(
 						Double.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "longitude")) {
 				if (jsonParserFieldValue != null) {
-					billingAddress.setLongitude(
+					address.setLongitude(
 						Double.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "name")) {
 				if (jsonParserFieldValue != null) {
-					billingAddress.setName((String)jsonParserFieldValue);
+					address.setName((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "phoneNumber")) {
 				if (jsonParserFieldValue != null) {
-					billingAddress.setPhoneNumber((String)jsonParserFieldValue);
+					address.setPhoneNumber((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "region")) {
 				if (jsonParserFieldValue != null) {
-					billingAddress.setRegion((String)jsonParserFieldValue);
+					address.setRegion((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "regionISOCode")) {
 				if (jsonParserFieldValue != null) {
-					billingAddress.setRegionISOCode(
-						(String)jsonParserFieldValue);
+					address.setRegionISOCode((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "street1")) {
 				if (jsonParserFieldValue != null) {
-					billingAddress.setStreet1((String)jsonParserFieldValue);
+					address.setStreet1((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "street2")) {
 				if (jsonParserFieldValue != null) {
-					billingAddress.setStreet2((String)jsonParserFieldValue);
+					address.setStreet2((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "street3")) {
 				if (jsonParserFieldValue != null) {
-					billingAddress.setStreet3((String)jsonParserFieldValue);
+					address.setStreet3((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "type")) {
+				if (jsonParserFieldValue != null) {
+					address.setType((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "typeId")) {
+				if (jsonParserFieldValue != null) {
+					address.setTypeId(
+						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "vatNumber")) {
 				if (jsonParserFieldValue != null) {
-					billingAddress.setVatNumber((String)jsonParserFieldValue);
+					address.setVatNumber((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "zip")) {
 				if (jsonParserFieldValue != null) {
-					billingAddress.setZip((String)jsonParserFieldValue);
+					address.setZip((String)jsonParserFieldValue);
 				}
 			}
 			else {

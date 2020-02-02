@@ -75,7 +75,7 @@ public class Cart {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String account;
 
 	@Schema
@@ -103,7 +103,7 @@ public class Cart {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long accountId;
 
 	@Schema
@@ -131,23 +131,22 @@ public class Cart {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String author;
 
 	@Schema
 	@Valid
-	public BillingAddress getBillingAddress() {
+	public Address getBillingAddress() {
 		return billingAddress;
 	}
 
-	public void setBillingAddress(BillingAddress billingAddress) {
+	public void setBillingAddress(Address billingAddress) {
 		this.billingAddress = billingAddress;
 	}
 
 	@JsonIgnore
 	public void setBillingAddress(
-		UnsafeSupplier<BillingAddress, Exception>
-			billingAddressUnsafeSupplier) {
+		UnsafeSupplier<Address, Exception> billingAddressUnsafeSupplier) {
 
 		try {
 			billingAddress = billingAddressUnsafeSupplier.get();
@@ -162,23 +161,23 @@ public class Cart {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected BillingAddress billingAddress;
+	protected Address billingAddress;
 
 	@Schema
-	public Long getBillingId() {
-		return billingId;
+	public Long getBillingAddressId() {
+		return billingAddressId;
 	}
 
-	public void setBillingId(Long billingId) {
-		this.billingId = billingId;
+	public void setBillingAddressId(Long billingAddressId) {
+		this.billingAddressId = billingAddressId;
 	}
 
 	@JsonIgnore
-	public void setBillingId(
-		UnsafeSupplier<Long, Exception> billingIdUnsafeSupplier) {
+	public void setBillingAddressId(
+		UnsafeSupplier<Long, Exception> billingAddressIdUnsafeSupplier) {
 
 		try {
-			billingId = billingIdUnsafeSupplier.get();
+			billingAddressId = billingAddressIdUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -189,8 +188,8 @@ public class Cart {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected Long billingId;
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Long billingAddressId;
 
 	@Schema
 	@Valid
@@ -220,6 +219,63 @@ public class Cart {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected CartItem[] cartItems;
+
+	@Schema
+	@Valid
+	public CartNote[] getCartNotes() {
+		return cartNotes;
+	}
+
+	public void setCartNotes(CartNote[] cartNotes) {
+		this.cartNotes = cartNotes;
+	}
+
+	@JsonIgnore
+	public void setCartNotes(
+		UnsafeSupplier<CartNote[], Exception> cartNotesUnsafeSupplier) {
+
+		try {
+			cartNotes = cartNotesUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected CartNote[] cartNotes;
+
+	@Schema
+	public Long getChannelId() {
+		return channelId;
+	}
+
+	public void setChannelId(Long channelId) {
+		this.channelId = channelId;
+	}
+
+	@JsonIgnore
+	public void setChannelId(
+		UnsafeSupplier<Long, Exception> channelIdUnsafeSupplier) {
+
+		try {
+			channelId = channelIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Long channelId;
 
 	@Schema
 	public String getCouponCode() {
@@ -274,8 +330,36 @@ public class Cart {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date createDate;
+
+	@Schema
+	public String getCurrencyCode() {
+		return currencyCode;
+	}
+
+	public void setCurrencyCode(String currencyCode) {
+		this.currencyCode = currencyCode;
+	}
+
+	@JsonIgnore
+	public void setCurrencyCode(
+		UnsafeSupplier<String, Exception> currencyCodeUnsafeSupplier) {
+
+		try {
+			currencyCode = currencyCodeUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String currencyCode;
 
 	@Schema
 	@Valid
@@ -303,7 +387,7 @@ public class Cart {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Map<String, ?> customFields;
 
 	@Schema
@@ -357,7 +441,7 @@ public class Cart {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date lastPriceUpdateDate;
 
 	@Schema
@@ -385,37 +469,8 @@ public class Cart {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date modifiedDate;
-
-	@Schema
-	@Valid
-	public Note[] getNotes() {
-		return notes;
-	}
-
-	public void setNotes(Note[] notes) {
-		this.notes = notes;
-	}
-
-	@JsonIgnore
-	public void setNotes(
-		UnsafeSupplier<Note[], Exception> notesUnsafeSupplier) {
-
-		try {
-			notes = notesUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Note[] notes;
 
 	@Schema
 	public String getPaymentMethod() {
@@ -470,7 +525,7 @@ public class Cart {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String paymentMethodLabel;
 
 	@Schema
@@ -498,7 +553,7 @@ public class Cart {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Integer paymentStatus;
 
 	@Schema
@@ -526,7 +581,7 @@ public class Cart {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String paymentStatusLabel;
 
 	@Schema
@@ -582,23 +637,22 @@ public class Cart {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String purchaseOrderNumber;
 
 	@Schema
 	@Valid
-	public ShippingAddress getShippingAddress() {
+	public Address getShippingAddress() {
 		return shippingAddress;
 	}
 
-	public void setShippingAddress(ShippingAddress shippingAddress) {
+	public void setShippingAddress(Address shippingAddress) {
 		this.shippingAddress = shippingAddress;
 	}
 
 	@JsonIgnore
 	public void setShippingAddress(
-		UnsafeSupplier<ShippingAddress, Exception>
-			shippingAddressUnsafeSupplier) {
+		UnsafeSupplier<Address, Exception> shippingAddressUnsafeSupplier) {
 
 		try {
 			shippingAddress = shippingAddressUnsafeSupplier.get();
@@ -613,7 +667,7 @@ public class Cart {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected ShippingAddress shippingAddress;
+	protected Address shippingAddress;
 
 	@Schema
 	public Long getShippingAddressId() {
@@ -640,7 +694,7 @@ public class Cart {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long shippingAddressId;
 
 	@Schema
@@ -724,7 +778,7 @@ public class Cart {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String status;
 
 	@Schema
@@ -755,6 +809,34 @@ public class Cart {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Summary summary;
+
+	@Schema
+	public Boolean getUseAsBilling() {
+		return useAsBilling;
+	}
+
+	public void setUseAsBilling(Boolean useAsBilling) {
+		this.useAsBilling = useAsBilling;
+	}
+
+	@JsonIgnore
+	public void setUseAsBilling(
+		UnsafeSupplier<Boolean, Exception> useAsBillingUnsafeSupplier) {
+
+		try {
+			useAsBilling = useAsBillingUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean useAsBilling;
 
 	@Override
 	public boolean equals(Object object) {
@@ -834,14 +916,14 @@ public class Cart {
 			sb.append(String.valueOf(billingAddress));
 		}
 
-		if (billingId != null) {
+		if (billingAddressId != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"billingId\": ");
+			sb.append("\"billingAddressId\": ");
 
-			sb.append(billingId);
+			sb.append(billingAddressId);
 		}
 
 		if (cartItems != null) {
@@ -862,6 +944,36 @@ public class Cart {
 			}
 
 			sb.append("]");
+		}
+
+		if (cartNotes != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"cartNotes\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < cartNotes.length; i++) {
+				sb.append(String.valueOf(cartNotes[i]));
+
+				if ((i + 1) < cartNotes.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (channelId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"channelId\": ");
+
+			sb.append(channelId);
 		}
 
 		if (couponCode != null) {
@@ -888,6 +1000,20 @@ public class Cart {
 			sb.append("\"");
 
 			sb.append(liferayToJSONDateFormat.format(createDate));
+
+			sb.append("\"");
+		}
+
+		if (currencyCode != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"currencyCode\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(currencyCode));
 
 			sb.append("\"");
 		}
@@ -938,26 +1064,6 @@ public class Cart {
 			sb.append(liferayToJSONDateFormat.format(modifiedDate));
 
 			sb.append("\"");
-		}
-
-		if (notes != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"notes\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < notes.length; i++) {
-				sb.append(String.valueOf(notes[i]));
-
-				if ((i + 1) < notes.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
 		}
 
 		if (paymentMethod != null) {
@@ -1110,6 +1216,16 @@ public class Cart {
 			sb.append("\"summary\": ");
 
 			sb.append(String.valueOf(summary));
+		}
+
+		if (useAsBilling != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"useAsBilling\": ");
+
+			sb.append(useAsBilling);
 		}
 
 		sb.append("}");

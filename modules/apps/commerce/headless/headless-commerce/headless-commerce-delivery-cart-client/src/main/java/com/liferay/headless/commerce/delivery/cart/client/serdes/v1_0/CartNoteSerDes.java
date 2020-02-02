@@ -14,7 +14,7 @@
 
 package com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0;
 
-import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.Note;
+import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.CartNote;
 import com.liferay.headless.commerce.delivery.cart.client.json.BaseJSONParser;
 
 import java.util.Iterator;
@@ -30,22 +30,22 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class NoteSerDes {
+public class CartNoteSerDes {
 
-	public static Note toDTO(String json) {
-		NoteJSONParser noteJSONParser = new NoteJSONParser();
+	public static CartNote toDTO(String json) {
+		CartNoteJSONParser cartNoteJSONParser = new CartNoteJSONParser();
 
-		return noteJSONParser.parseToDTO(json);
+		return cartNoteJSONParser.parseToDTO(json);
 	}
 
-	public static Note[] toDTOs(String json) {
-		NoteJSONParser noteJSONParser = new NoteJSONParser();
+	public static CartNote[] toDTOs(String json) {
+		CartNoteJSONParser cartNoteJSONParser = new CartNoteJSONParser();
 
-		return noteJSONParser.parseToDTOs(json);
+		return cartNoteJSONParser.parseToDTOs(json);
 	}
 
-	public static String toJSON(Note note) {
-		if (note == null) {
+	public static String toJSON(CartNote cartNote) {
+		if (cartNote == null) {
 			return "null";
 		}
 
@@ -53,7 +53,7 @@ public class NoteSerDes {
 
 		sb.append("{");
 
-		if (note.getAuthor() != null) {
+		if (cartNote.getAuthor() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -62,12 +62,12 @@ public class NoteSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(note.getAuthor()));
+			sb.append(_escape(cartNote.getAuthor()));
 
 			sb.append("\"");
 		}
 
-		if (note.getContent() != null) {
+		if (cartNote.getContent() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -76,39 +76,39 @@ public class NoteSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(note.getContent()));
+			sb.append(_escape(cartNote.getContent()));
 
 			sb.append("\"");
 		}
 
-		if (note.getId() != null) {
+		if (cartNote.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"id\": ");
 
-			sb.append(note.getId());
+			sb.append(cartNote.getId());
 		}
 
-		if (note.getOrderId() != null) {
+		if (cartNote.getOrderId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"orderId\": ");
 
-			sb.append(note.getOrderId());
+			sb.append(cartNote.getOrderId());
 		}
 
-		if (note.getRestricted() != null) {
+		if (cartNote.getRestricted() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"restricted\": ");
 
-			sb.append(note.getRestricted());
+			sb.append(cartNote.getRestricted());
 		}
 
 		sb.append("}");
@@ -117,96 +117,97 @@ public class NoteSerDes {
 	}
 
 	public static Map<String, Object> toMap(String json) {
-		NoteJSONParser noteJSONParser = new NoteJSONParser();
+		CartNoteJSONParser cartNoteJSONParser = new CartNoteJSONParser();
 
-		return noteJSONParser.parseToMap(json);
+		return cartNoteJSONParser.parseToMap(json);
 	}
 
-	public static Map<String, String> toMap(Note note) {
-		if (note == null) {
+	public static Map<String, String> toMap(CartNote cartNote) {
+		if (cartNote == null) {
 			return null;
 		}
 
 		Map<String, String> map = new TreeMap<>();
 
-		if (note.getAuthor() == null) {
+		if (cartNote.getAuthor() == null) {
 			map.put("author", null);
 		}
 		else {
-			map.put("author", String.valueOf(note.getAuthor()));
+			map.put("author", String.valueOf(cartNote.getAuthor()));
 		}
 
-		if (note.getContent() == null) {
+		if (cartNote.getContent() == null) {
 			map.put("content", null);
 		}
 		else {
-			map.put("content", String.valueOf(note.getContent()));
+			map.put("content", String.valueOf(cartNote.getContent()));
 		}
 
-		if (note.getId() == null) {
+		if (cartNote.getId() == null) {
 			map.put("id", null);
 		}
 		else {
-			map.put("id", String.valueOf(note.getId()));
+			map.put("id", String.valueOf(cartNote.getId()));
 		}
 
-		if (note.getOrderId() == null) {
+		if (cartNote.getOrderId() == null) {
 			map.put("orderId", null);
 		}
 		else {
-			map.put("orderId", String.valueOf(note.getOrderId()));
+			map.put("orderId", String.valueOf(cartNote.getOrderId()));
 		}
 
-		if (note.getRestricted() == null) {
+		if (cartNote.getRestricted() == null) {
 			map.put("restricted", null);
 		}
 		else {
-			map.put("restricted", String.valueOf(note.getRestricted()));
+			map.put("restricted", String.valueOf(cartNote.getRestricted()));
 		}
 
 		return map;
 	}
 
-	public static class NoteJSONParser extends BaseJSONParser<Note> {
+	public static class CartNoteJSONParser extends BaseJSONParser<CartNote> {
 
 		@Override
-		protected Note createDTO() {
-			return new Note();
+		protected CartNote createDTO() {
+			return new CartNote();
 		}
 
 		@Override
-		protected Note[] createDTOArray(int size) {
-			return new Note[size];
+		protected CartNote[] createDTOArray(int size) {
+			return new CartNote[size];
 		}
 
 		@Override
 		protected void setField(
-			Note note, String jsonParserFieldName,
+			CartNote cartNote, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
 			if (Objects.equals(jsonParserFieldName, "author")) {
 				if (jsonParserFieldValue != null) {
-					note.setAuthor((String)jsonParserFieldValue);
+					cartNote.setAuthor((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "content")) {
 				if (jsonParserFieldValue != null) {
-					note.setContent((String)jsonParserFieldValue);
+					cartNote.setContent((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
-					note.setId(Long.valueOf((String)jsonParserFieldValue));
+					cartNote.setId(Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "orderId")) {
 				if (jsonParserFieldValue != null) {
-					note.setOrderId(Long.valueOf((String)jsonParserFieldValue));
+					cartNote.setOrderId(
+						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "restricted")) {
 				if (jsonParserFieldValue != null) {
-					note.setRestricted((Boolean)jsonParserFieldValue);
+					cartNote.setRestricted((Boolean)jsonParserFieldValue);
 				}
 			}
 			else {

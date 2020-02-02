@@ -24,5 +24,5 @@ import org.junit.runner.RunWith;
  */
 @Ignore
 @RunWith(Arquillian.class)
-public class NoteResourceTest extends BaseNoteResourceTestCase {
+public class AddressResourceTest extends BaseAddressResourceTestCase {
 }

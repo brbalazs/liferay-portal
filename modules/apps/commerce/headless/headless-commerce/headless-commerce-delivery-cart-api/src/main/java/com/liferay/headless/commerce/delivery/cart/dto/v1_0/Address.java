@@ -41,11 +41,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName("ShippingAddress")
+@GraphQLName("Address")
 @JsonFilter("Liferay.Vulcan")
 @Schema(requiredProperties = {"city", "countryISOCode", "name", "street1"})
-@XmlRootElement(name = "ShippingAddress")
-public class ShippingAddress {
+@XmlRootElement(name = "Address")
+public class Address {
 
 	@Schema
 	public String getCity() {
@@ -438,6 +438,88 @@ public class ShippingAddress {
 	protected String street3;
 
 	@Schema
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	@JsonIgnore
+	public void setType(UnsafeSupplier<String, Exception> typeUnsafeSupplier) {
+		try {
+			type = typeUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String type;
+
+	@Schema
+	public Integer getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(Integer typeId) {
+		this.typeId = typeId;
+	}
+
+	@JsonIgnore
+	public void setTypeId(
+		UnsafeSupplier<Integer, Exception> typeIdUnsafeSupplier) {
+
+		try {
+			typeId = typeIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Integer typeId;
+
+	@Schema
+	public String getVatNumber() {
+		return vatNumber;
+	}
+
+	public void setVatNumber(String vatNumber) {
+		this.vatNumber = vatNumber;
+	}
+
+	@JsonIgnore
+	public void setVatNumber(
+		UnsafeSupplier<String, Exception> vatNumberUnsafeSupplier) {
+
+		try {
+			vatNumber = vatNumberUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String vatNumber;
+
+	@Schema
 	public String getZip() {
 		return zip;
 	}
@@ -469,13 +551,13 @@ public class ShippingAddress {
 			return true;
 		}
 
-		if (!(object instanceof ShippingAddress)) {
+		if (!(object instanceof Address)) {
 			return false;
 		}
 
-		ShippingAddress shippingAddress = (ShippingAddress)object;
+		Address address = (Address)object;
 
-		return Objects.equals(toString(), shippingAddress.toString());
+		return Objects.equals(toString(), address.toString());
 	}
 
 	@Override
@@ -674,6 +756,44 @@ public class ShippingAddress {
 			sb.append("\"");
 		}
 
+		if (type != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"type\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(type));
+
+			sb.append("\"");
+		}
+
+		if (typeId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"typeId\": ");
+
+			sb.append(typeId);
+		}
+
+		if (vatNumber != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"vatNumber\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(vatNumber));
+
+			sb.append("\"");
+		}
+
 		if (zip != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -694,7 +814,7 @@ public class ShippingAddress {
 	}
 
 	@Schema(
-		defaultValue = "com.liferay.headless.commerce.delivery.cart.dto.v1_0.ShippingAddress",
+		defaultValue = "com.liferay.headless.commerce.delivery.cart.dto.v1_0.Address",
 		name = "x-class-name"
 	)
 	public String xClassName;

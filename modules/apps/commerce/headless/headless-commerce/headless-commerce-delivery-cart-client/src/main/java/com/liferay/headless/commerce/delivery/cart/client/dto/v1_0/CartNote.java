@@ -15,7 +15,7 @@
 package com.liferay.headless.commerce.delivery.cart.client.dto.v1_0;
 
 import com.liferay.headless.commerce.delivery.cart.client.function.UnsafeSupplier;
-import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.NoteSerDes;
+import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.CartNoteSerDes;
 
 import java.util.Objects;
 
@@ -26,7 +26,7 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Note {
+public class CartNote {
 
 	public String getAuthor() {
 		return author;
@@ -137,13 +137,13 @@ public class Note {
 			return true;
 		}
 
-		if (!(object instanceof Note)) {
+		if (!(object instanceof CartNote)) {
 			return false;
 		}
 
-		Note note = (Note)object;
+		CartNote cartNote = (CartNote)object;
 
-		return Objects.equals(toString(), note.toString());
+		return Objects.equals(toString(), cartNote.toString());
 	}
 
 	@Override
@@ -154,7 +154,7 @@ public class Note {
 	}
 
 	public String toString() {
-		return NoteSerDes.toJSON(this);
+		return CartNoteSerDes.toJSON(this);
 	}
 
 }

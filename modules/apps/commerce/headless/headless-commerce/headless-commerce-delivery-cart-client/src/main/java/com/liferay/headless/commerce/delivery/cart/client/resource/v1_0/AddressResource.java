@@ -14,8 +14,9 @@
 
 package com.liferay.headless.commerce.delivery.cart.client.resource.v1_0;
 
-import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.BillingAddress;
+import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.Address;
 import com.liferay.headless.commerce.delivery.cart.client.http.HttpInvoker;
+import com.liferay.headless.commerce.delivery.cart.client.problem.Problem;
 
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -30,26 +31,24 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public interface BillingAddressResource {
+public interface AddressResource {
 
 	public static Builder builder() {
 		return new Builder();
 	}
 
-	public BillingAddress getChannelCartBillingAddress(
-			Long channelId, Long cartId)
+	public Address getCartBillingAddres(Long cartId, Long addressId)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse getChannelCartBillingAddressHttpResponse(
-			Long channelId, Long cartId)
+	public HttpInvoker.HttpResponse getCartBillingAddresHttpResponse(
+			Long cartId, Long addressId)
 		throws Exception;
 
-	public void patchChannelCartBillingAddress(
-			Long channelId, Long cartId, BillingAddress billingAddress)
+	public Address getCartShippingAddres(Long cartId, Long addressId)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse patchChannelCartBillingAddressHttpResponse(
-			Long channelId, Long cartId, BillingAddress billingAddress)
+	public HttpInvoker.HttpResponse getCartShippingAddresHttpResponse(
+			Long cartId, Long addressId)
 		throws Exception;
 
 	public static class Builder {
@@ -61,8 +60,8 @@ public interface BillingAddressResource {
 			return this;
 		}
 
-		public BillingAddressResource build() {
-			return new BillingAddressResourceImpl(this);
+		public AddressResource build() {
+			return new AddressResourceImpl(this);
 		}
 
 		public Builder endpoint(String host, int port, String scheme) {
@@ -105,15 +104,13 @@ public interface BillingAddressResource {
 
 	}
 
-	public static class BillingAddressResourceImpl
-		implements BillingAddressResource {
+	public static class AddressResourceImpl implements AddressResource {
 
-		public BillingAddress getChannelCartBillingAddress(
-				Long channelId, Long cartId)
+		public Address getCartBillingAddres(Long cartId, Long addressId)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getChannelCartBillingAddressHttpResponse(channelId, cartId);
+				getCartBillingAddresHttpResponse(cartId, addressId);
 
 			String content = httpResponse.getContent();
 
@@ -125,20 +122,19 @@ public interface BillingAddressResource {
 
 			try {
 				return com.liferay.headless.commerce.delivery.cart.client.
-					serdes.v1_0.BillingAddressSerDes.toDTO(content);
+					serdes.v1_0.AddressSerDes.toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
-		public HttpInvoker.HttpResponse
-				getChannelCartBillingAddressHttpResponse(
-					Long channelId, Long cartId)
+		public HttpInvoker.HttpResponse getCartBillingAddresHttpResponse(
+				Long cartId, Long addressId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -165,8 +161,8 @@ public interface BillingAddressResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/billing-address",
-				channelId, cartId);
+						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/billing-address",
+				cartId, addressId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -174,13 +170,11 @@ public interface BillingAddressResource {
 			return httpInvoker.invoke();
 		}
 
-		public void patchChannelCartBillingAddress(
-				Long channelId, Long cartId, BillingAddress billingAddress)
+		public Address getCartShippingAddres(Long cartId, Long addressId)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				patchChannelCartBillingAddressHttpResponse(
-					channelId, cartId, billingAddress);
+				getCartShippingAddresHttpResponse(cartId, addressId);
 
 			String content = httpResponse.getContent();
 
@@ -189,16 +183,25 @@ public interface BillingAddressResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return com.liferay.headless.commerce.delivery.cart.client.
+					serdes.v1_0.AddressSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
-		public HttpInvoker.HttpResponse
-				patchChannelCartBillingAddressHttpResponse(
-					Long channelId, Long cartId, BillingAddress billingAddress)
+		public HttpInvoker.HttpResponse getCartShippingAddresHttpResponse(
+				Long cartId, Long addressId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(billingAddress.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -217,13 +220,13 @@ public interface BillingAddressResource {
 				httpInvoker.parameter(entry.getKey(), entry.getValue());
 			}
 
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PATCH);
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/billing-address",
-				channelId, cartId);
+						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/shipping-address",
+				cartId, addressId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -231,12 +234,12 @@ public interface BillingAddressResource {
 			return httpInvoker.invoke();
 		}
 
-		private BillingAddressResourceImpl(Builder builder) {
+		private AddressResourceImpl(Builder builder) {
 			_builder = builder;
 		}
 
 		private static final Logger _logger = Logger.getLogger(
-			BillingAddressResource.class.getName());
+			AddressResource.class.getName());
 
 		private Builder _builder;
 

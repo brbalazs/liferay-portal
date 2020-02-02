@@ -16,12 +16,11 @@ package com.liferay.headless.commerce.delivery.cart.internal.graphql.servlet.v1_
 
 import com.liferay.headless.commerce.delivery.cart.internal.graphql.mutation.v1_0.Mutation;
 import com.liferay.headless.commerce.delivery.cart.internal.graphql.query.v1_0.Query;
-import com.liferay.headless.commerce.delivery.cart.resource.v1_0.BillingAddressResource;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.AddressResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartItemResource;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartNoteResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
-import com.liferay.headless.commerce.delivery.cart.resource.v1_0.NoteResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.PaymentMethodResource;
-import com.liferay.headless.commerce.delivery.cart.resource.v1_0.ShippingAddressResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.ShippingMethodResource;
 import com.liferay.portal.vulcan.graphql.servlet.ServletData;
 
@@ -44,29 +43,23 @@ public class ServletDataImpl implements ServletData {
 
 	@Activate
 	public void activate(BundleContext bundleContext) {
-		Mutation.setBillingAddressResourceComponentServiceObjects(
-			_billingAddressResourceComponentServiceObjects);
 		Mutation.setCartResourceComponentServiceObjects(
 			_cartResourceComponentServiceObjects);
 		Mutation.setCartItemResourceComponentServiceObjects(
 			_cartItemResourceComponentServiceObjects);
-		Mutation.setNoteResourceComponentServiceObjects(
-			_noteResourceComponentServiceObjects);
-		Mutation.setShippingAddressResourceComponentServiceObjects(
-			_shippingAddressResourceComponentServiceObjects);
+		Mutation.setCartNoteResourceComponentServiceObjects(
+			_cartNoteResourceComponentServiceObjects);
 
-		Query.setBillingAddressResourceComponentServiceObjects(
-			_billingAddressResourceComponentServiceObjects);
+		Query.setAddressResourceComponentServiceObjects(
+			_addressResourceComponentServiceObjects);
 		Query.setCartResourceComponentServiceObjects(
 			_cartResourceComponentServiceObjects);
 		Query.setCartItemResourceComponentServiceObjects(
 			_cartItemResourceComponentServiceObjects);
-		Query.setNoteResourceComponentServiceObjects(
-			_noteResourceComponentServiceObjects);
+		Query.setCartNoteResourceComponentServiceObjects(
+			_cartNoteResourceComponentServiceObjects);
 		Query.setPaymentMethodResourceComponentServiceObjects(
 			_paymentMethodResourceComponentServiceObjects);
-		Query.setShippingAddressResourceComponentServiceObjects(
-			_shippingAddressResourceComponentServiceObjects);
 		Query.setShippingMethodResourceComponentServiceObjects(
 			_shippingMethodResourceComponentServiceObjects);
 	}
@@ -87,10 +80,6 @@ public class ServletDataImpl implements ServletData {
 	}
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
-	private ComponentServiceObjects<BillingAddressResource>
-		_billingAddressResourceComponentServiceObjects;
-
-	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<CartResource>
 		_cartResourceComponentServiceObjects;
 
@@ -99,12 +88,12 @@ public class ServletDataImpl implements ServletData {
 		_cartItemResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
-	private ComponentServiceObjects<NoteResource>
-		_noteResourceComponentServiceObjects;
+	private ComponentServiceObjects<CartNoteResource>
+		_cartNoteResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
-	private ComponentServiceObjects<ShippingAddressResource>
-		_shippingAddressResourceComponentServiceObjects;
+	private ComponentServiceObjects<AddressResource>
+		_addressResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<PaymentMethodResource>

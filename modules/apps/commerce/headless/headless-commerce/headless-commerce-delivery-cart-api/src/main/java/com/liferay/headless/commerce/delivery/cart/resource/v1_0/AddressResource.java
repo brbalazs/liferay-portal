@@ -14,7 +14,7 @@
 
 package com.liferay.headless.commerce.delivery.cart.resource.v1_0;
 
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.ShippingAddress;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Address;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 
 import javax.annotation.Generated;
@@ -22,7 +22,6 @@ import javax.annotation.Generated;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -37,14 +36,12 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @Generated("")
 @ProviderType
-public interface ShippingAddressResource {
+public interface AddressResource {
 
-	public ShippingAddress getChannelCartShippingAddress(
-			Long channelId, Long cartId)
+	public Address getCartBillingAddres(Long cartId, Long addressId)
 		throws Exception;
 
-	public Response patchChannelCartShippingAddress(
-			Long channelId, Long cartId, ShippingAddress shippingAddress)
+	public Address getCartShippingAddres(Long cartId, Long addressId)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

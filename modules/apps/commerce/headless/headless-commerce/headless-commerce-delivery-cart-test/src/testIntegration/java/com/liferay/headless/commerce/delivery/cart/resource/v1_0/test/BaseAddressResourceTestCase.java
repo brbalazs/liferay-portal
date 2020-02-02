@@ -22,11 +22,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
-import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.BillingAddress;
+import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.Address;
 import com.liferay.headless.commerce.delivery.cart.client.http.HttpInvoker;
 import com.liferay.headless.commerce.delivery.cart.client.pagination.Page;
-import com.liferay.headless.commerce.delivery.cart.client.resource.v1_0.BillingAddressResource;
-import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.BillingAddressSerDes;
+import com.liferay.headless.commerce.delivery.cart.client.resource.v1_0.AddressResource;
+import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.AddressSerDes;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -79,7 +79,7 @@ import org.junit.Test;
  * @generated
  */
 @Generated("")
-public abstract class BaseBillingAddressResourceTestCase {
+public abstract class BaseAddressResourceTestCase {
 
 	@ClassRule
 	@Rule
@@ -100,12 +100,11 @@ public abstract class BaseBillingAddressResourceTestCase {
 		testCompany = CompanyLocalServiceUtil.getCompany(
 			testGroup.getCompanyId());
 
-		_billingAddressResource.setContextCompany(testCompany);
+		_addressResource.setContextCompany(testCompany);
 
-		BillingAddressResource.Builder builder =
-			BillingAddressResource.builder();
+		AddressResource.Builder builder = AddressResource.builder();
 
-		billingAddressResource = builder.locale(
+		addressResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -134,13 +133,13 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 		};
 
-		BillingAddress billingAddress1 = randomBillingAddress();
+		Address address1 = randomAddress();
 
-		String json = objectMapper.writeValueAsString(billingAddress1);
+		String json = objectMapper.writeValueAsString(address1);
 
-		BillingAddress billingAddress2 = BillingAddressSerDes.toDTO(json);
+		Address address2 = AddressSerDes.toDTO(json);
 
-		Assert.assertTrue(equals(billingAddress1, billingAddress2));
+		Assert.assertTrue(equals(address1, address2));
 	}
 
 	@Test
@@ -160,10 +159,10 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 		};
 
-		BillingAddress billingAddress = randomBillingAddress();
+		Address address = randomAddress();
 
-		String json1 = objectMapper.writeValueAsString(billingAddress);
-		String json2 = BillingAddressSerDes.toJSON(billingAddress);
+		String json1 = objectMapper.writeValueAsString(address);
+		String json2 = AddressSerDes.toJSON(address);
 
 		Assert.assertEquals(
 			objectMapper.readTree(json1), objectMapper.readTree(json2));
@@ -173,80 +172,75 @@ public abstract class BaseBillingAddressResourceTestCase {
 	public void testEscapeRegexInStringFields() throws Exception {
 		String regex = "^[0-9]+(\\.[0-9]{1,2})\"?";
 
-		BillingAddress billingAddress = randomBillingAddress();
+		Address address = randomAddress();
 
-		billingAddress.setCity(regex);
-		billingAddress.setCountry(regex);
-		billingAddress.setCountryISOCode(regex);
-		billingAddress.setDescription(regex);
-		billingAddress.setName(regex);
-		billingAddress.setPhoneNumber(regex);
-		billingAddress.setRegion(regex);
-		billingAddress.setRegionISOCode(regex);
-		billingAddress.setStreet1(regex);
-		billingAddress.setStreet2(regex);
-		billingAddress.setStreet3(regex);
-		billingAddress.setVatNumber(regex);
-		billingAddress.setZip(regex);
+		address.setCity(regex);
+		address.setCountry(regex);
+		address.setCountryISOCode(regex);
+		address.setDescription(regex);
+		address.setName(regex);
+		address.setPhoneNumber(regex);
+		address.setRegion(regex);
+		address.setRegionISOCode(regex);
+		address.setStreet1(regex);
+		address.setStreet2(regex);
+		address.setStreet3(regex);
+		address.setType(regex);
+		address.setVatNumber(regex);
+		address.setZip(regex);
 
-		String json = BillingAddressSerDes.toJSON(billingAddress);
+		String json = AddressSerDes.toJSON(address);
 
 		Assert.assertFalse(json.contains(regex));
 
-		billingAddress = BillingAddressSerDes.toDTO(json);
+		address = AddressSerDes.toDTO(json);
 
-		Assert.assertEquals(regex, billingAddress.getCity());
-		Assert.assertEquals(regex, billingAddress.getCountry());
-		Assert.assertEquals(regex, billingAddress.getCountryISOCode());
-		Assert.assertEquals(regex, billingAddress.getDescription());
-		Assert.assertEquals(regex, billingAddress.getName());
-		Assert.assertEquals(regex, billingAddress.getPhoneNumber());
-		Assert.assertEquals(regex, billingAddress.getRegion());
-		Assert.assertEquals(regex, billingAddress.getRegionISOCode());
-		Assert.assertEquals(regex, billingAddress.getStreet1());
-		Assert.assertEquals(regex, billingAddress.getStreet2());
-		Assert.assertEquals(regex, billingAddress.getStreet3());
-		Assert.assertEquals(regex, billingAddress.getVatNumber());
-		Assert.assertEquals(regex, billingAddress.getZip());
+		Assert.assertEquals(regex, address.getCity());
+		Assert.assertEquals(regex, address.getCountry());
+		Assert.assertEquals(regex, address.getCountryISOCode());
+		Assert.assertEquals(regex, address.getDescription());
+		Assert.assertEquals(regex, address.getName());
+		Assert.assertEquals(regex, address.getPhoneNumber());
+		Assert.assertEquals(regex, address.getRegion());
+		Assert.assertEquals(regex, address.getRegionISOCode());
+		Assert.assertEquals(regex, address.getStreet1());
+		Assert.assertEquals(regex, address.getStreet2());
+		Assert.assertEquals(regex, address.getStreet3());
+		Assert.assertEquals(regex, address.getType());
+		Assert.assertEquals(regex, address.getVatNumber());
+		Assert.assertEquals(regex, address.getZip());
 	}
 
 	@Test
-	public void testGetChannelCartBillingAddress() throws Exception {
-		BillingAddress postBillingAddress =
-			testGetChannelCartBillingAddress_addBillingAddress();
+	public void testGetCartBillingAddres() throws Exception {
+		Address postAddress = testGetCartBillingAddres_addAddress();
 
-		BillingAddress getBillingAddress =
-			billingAddressResource.getChannelCartBillingAddress(
-				postBillingAddress.getChannelId(),
-				postBillingAddress.getCartId());
+		Address getAddress = addressResource.getCartBillingAddres(
+			null, postAddress.getId());
 
-		assertEquals(postBillingAddress, getBillingAddress);
-		assertValid(getBillingAddress);
+		assertEquals(postAddress, getAddress);
+		assertValid(getAddress);
 	}
 
-	protected BillingAddress
-			testGetChannelCartBillingAddress_addBillingAddress()
-		throws Exception {
-
+	protected Address testGetCartBillingAddres_addAddress() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
 	@Test
-	public void testGraphQLGetChannelCartBillingAddress() throws Exception {
-		BillingAddress billingAddress =
-			testGraphQLBillingAddress_addBillingAddress();
+	public void testGraphQLGetCartBillingAddres() throws Exception {
+		Address address = testGraphQLAddress_addAddress();
 
 		List<GraphQLField> graphQLFields = getGraphQLFields();
 
 		GraphQLField graphQLField = new GraphQLField(
 			"query",
 			new GraphQLField(
-				"channelCartBillingAddress",
+				"cartBillingAddres",
 				new HashMap<String, Object>() {
 					{
-						put("channelId", billingAddress.getChannelId());
-						put("cartId", billingAddress.getCartId());
+						put("cartId", null);
+						put("addressId", address.getId());
 					}
 				},
 				graphQLFields.toArray(new GraphQLField[0])));
@@ -258,18 +252,54 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 		Assert.assertTrue(
 			equalsJSONObject(
-				billingAddress,
-				dataJSONObject.getJSONObject("channelCartBillingAddress")));
+				address, dataJSONObject.getJSONObject("cartBillingAddres")));
 	}
 
 	@Test
-	public void testPatchChannelCartBillingAddress() throws Exception {
-		Assert.assertTrue(false);
+	public void testGetCartShippingAddres() throws Exception {
+		Address postAddress = testGetCartShippingAddres_addAddress();
+
+		Address getAddress = addressResource.getCartShippingAddres(
+			null, postAddress.getId());
+
+		assertEquals(postAddress, getAddress);
+		assertValid(getAddress);
 	}
 
-	protected BillingAddress testGraphQLBillingAddress_addBillingAddress()
-		throws Exception {
+	protected Address testGetCartShippingAddres_addAddress() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
 
+	@Test
+	public void testGraphQLGetCartShippingAddres() throws Exception {
+		Address address = testGraphQLAddress_addAddress();
+
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"query",
+			new GraphQLField(
+				"cartShippingAddres",
+				new HashMap<String, Object>() {
+					{
+						put("cartId", null);
+						put("addressId", address.getId());
+					}
+				},
+				graphQLFields.toArray(new GraphQLField[0])));
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			invoke(graphQLField.toString()));
+
+		JSONObject dataJSONObject = jsonObject.getJSONObject("data");
+
+		Assert.assertTrue(
+			equalsJSONObject(
+				address, dataJSONObject.getJSONObject("cartShippingAddres")));
+	}
+
+	protected Address testGraphQLAddress_addAddress() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
@@ -282,39 +312,35 @@ public abstract class BaseBillingAddressResourceTestCase {
 			expectedHttpResponseStatusCode, actualHttpResponse.getStatusCode());
 	}
 
-	protected void assertEquals(
-		BillingAddress billingAddress1, BillingAddress billingAddress2) {
-
+	protected void assertEquals(Address address1, Address address2) {
 		Assert.assertTrue(
-			billingAddress1 + " does not equal " + billingAddress2,
-			equals(billingAddress1, billingAddress2));
+			address1 + " does not equal " + address2,
+			equals(address1, address2));
 	}
 
 	protected void assertEquals(
-		List<BillingAddress> billingAddresses1,
-		List<BillingAddress> billingAddresses2) {
+		List<Address> addresses1, List<Address> addresses2) {
 
-		Assert.assertEquals(billingAddresses1.size(), billingAddresses2.size());
+		Assert.assertEquals(addresses1.size(), addresses2.size());
 
-		for (int i = 0; i < billingAddresses1.size(); i++) {
-			BillingAddress billingAddress1 = billingAddresses1.get(i);
-			BillingAddress billingAddress2 = billingAddresses2.get(i);
+		for (int i = 0; i < addresses1.size(); i++) {
+			Address address1 = addresses1.get(i);
+			Address address2 = addresses2.get(i);
 
-			assertEquals(billingAddress1, billingAddress2);
+			assertEquals(address1, address2);
 		}
 	}
 
 	protected void assertEqualsIgnoringOrder(
-		List<BillingAddress> billingAddresses1,
-		List<BillingAddress> billingAddresses2) {
+		List<Address> addresses1, List<Address> addresses2) {
 
-		Assert.assertEquals(billingAddresses1.size(), billingAddresses2.size());
+		Assert.assertEquals(addresses1.size(), addresses2.size());
 
-		for (BillingAddress billingAddress1 : billingAddresses1) {
+		for (Address address1 : addresses1) {
 			boolean contains = false;
 
-			for (BillingAddress billingAddress2 : billingAddresses2) {
-				if (equals(billingAddress1, billingAddress2)) {
+			for (Address address2 : addresses2) {
+				if (equals(address1, address2)) {
 					contains = true;
 
 					break;
@@ -322,19 +348,18 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			Assert.assertTrue(
-				billingAddresses2 + " does not contain " + billingAddress1,
-				contains);
+				addresses2 + " does not contain " + address1, contains);
 		}
 	}
 
 	protected void assertEqualsJSONArray(
-		List<BillingAddress> billingAddresses, JSONArray jsonArray) {
+		List<Address> addresses, JSONArray jsonArray) {
 
-		for (BillingAddress billingAddress : billingAddresses) {
+		for (Address address : addresses) {
 			boolean contains = false;
 
 			for (Object object : jsonArray) {
-				if (equalsJSONObject(billingAddress, (JSONObject)object)) {
+				if (equalsJSONObject(address, (JSONObject)object)) {
 					contains = true;
 
 					break;
@@ -342,14 +367,14 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			Assert.assertTrue(
-				jsonArray + " does not contain " + billingAddress, contains);
+				jsonArray + " does not contain " + address, contains);
 		}
 	}
 
-	protected void assertValid(BillingAddress billingAddress) {
+	protected void assertValid(Address address) {
 		boolean valid = true;
 
-		if (billingAddress.getId() == null) {
+		if (address.getId() == null) {
 			valid = false;
 		}
 
@@ -357,7 +382,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 				getAdditionalAssertFieldNames()) {
 
 			if (Objects.equals("city", additionalAssertFieldName)) {
-				if (billingAddress.getCity() == null) {
+				if (address.getCity() == null) {
 					valid = false;
 				}
 
@@ -365,7 +390,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			if (Objects.equals("country", additionalAssertFieldName)) {
-				if (billingAddress.getCountry() == null) {
+				if (address.getCountry() == null) {
 					valid = false;
 				}
 
@@ -373,7 +398,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			if (Objects.equals("countryISOCode", additionalAssertFieldName)) {
-				if (billingAddress.getCountryISOCode() == null) {
+				if (address.getCountryISOCode() == null) {
 					valid = false;
 				}
 
@@ -381,7 +406,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			if (Objects.equals("description", additionalAssertFieldName)) {
-				if (billingAddress.getDescription() == null) {
+				if (address.getDescription() == null) {
 					valid = false;
 				}
 
@@ -389,7 +414,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			if (Objects.equals("latitude", additionalAssertFieldName)) {
-				if (billingAddress.getLatitude() == null) {
+				if (address.getLatitude() == null) {
 					valid = false;
 				}
 
@@ -397,7 +422,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			if (Objects.equals("longitude", additionalAssertFieldName)) {
-				if (billingAddress.getLongitude() == null) {
+				if (address.getLongitude() == null) {
 					valid = false;
 				}
 
@@ -405,7 +430,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			if (Objects.equals("name", additionalAssertFieldName)) {
-				if (billingAddress.getName() == null) {
+				if (address.getName() == null) {
 					valid = false;
 				}
 
@@ -413,7 +438,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			if (Objects.equals("phoneNumber", additionalAssertFieldName)) {
-				if (billingAddress.getPhoneNumber() == null) {
+				if (address.getPhoneNumber() == null) {
 					valid = false;
 				}
 
@@ -421,7 +446,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			if (Objects.equals("region", additionalAssertFieldName)) {
-				if (billingAddress.getRegion() == null) {
+				if (address.getRegion() == null) {
 					valid = false;
 				}
 
@@ -429,7 +454,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			if (Objects.equals("regionISOCode", additionalAssertFieldName)) {
-				if (billingAddress.getRegionISOCode() == null) {
+				if (address.getRegionISOCode() == null) {
 					valid = false;
 				}
 
@@ -437,7 +462,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			if (Objects.equals("street1", additionalAssertFieldName)) {
-				if (billingAddress.getStreet1() == null) {
+				if (address.getStreet1() == null) {
 					valid = false;
 				}
 
@@ -445,7 +470,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			if (Objects.equals("street2", additionalAssertFieldName)) {
-				if (billingAddress.getStreet2() == null) {
+				if (address.getStreet2() == null) {
 					valid = false;
 				}
 
@@ -453,7 +478,23 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			if (Objects.equals("street3", additionalAssertFieldName)) {
-				if (billingAddress.getStreet3() == null) {
+				if (address.getStreet3() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("type", additionalAssertFieldName)) {
+				if (address.getType() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("typeId", additionalAssertFieldName)) {
+				if (address.getTypeId() == null) {
 					valid = false;
 				}
 
@@ -461,7 +502,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			if (Objects.equals("vatNumber", additionalAssertFieldName)) {
-				if (billingAddress.getVatNumber() == null) {
+				if (address.getVatNumber() == null) {
 					valid = false;
 				}
 
@@ -469,7 +510,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			if (Objects.equals("zip", additionalAssertFieldName)) {
-				if (billingAddress.getZip() == null) {
+				if (address.getZip() == null) {
 					valid = false;
 				}
 
@@ -484,12 +525,12 @@ public abstract class BaseBillingAddressResourceTestCase {
 		Assert.assertTrue(valid);
 	}
 
-	protected void assertValid(Page<BillingAddress> page) {
+	protected void assertValid(Page<Address> page) {
 		boolean valid = false;
 
-		java.util.Collection<BillingAddress> billingAddresses = page.getItems();
+		java.util.Collection<Address> addresses = page.getItems();
 
-		int size = billingAddresses.size();
+		int size = addresses.size();
 
 		if ((page.getLastPage() > 0) && (page.getPage() > 0) &&
 			(page.getPageSize() > 0) && (page.getTotalCount() > 0) &&
@@ -521,10 +562,8 @@ public abstract class BaseBillingAddressResourceTestCase {
 		return new String[0];
 	}
 
-	protected boolean equals(
-		BillingAddress billingAddress1, BillingAddress billingAddress2) {
-
-		if (billingAddress1 == billingAddress2) {
+	protected boolean equals(Address address1, Address address2) {
+		if (address1 == address2) {
 			return true;
 		}
 
@@ -533,7 +572,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("city", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress1.getCity(), billingAddress2.getCity())) {
+						address1.getCity(), address2.getCity())) {
 
 					return false;
 				}
@@ -543,8 +582,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("country", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress1.getCountry(),
-						billingAddress2.getCountry())) {
+						address1.getCountry(), address2.getCountry())) {
 
 					return false;
 				}
@@ -554,8 +592,8 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("countryISOCode", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress1.getCountryISOCode(),
-						billingAddress2.getCountryISOCode())) {
+						address1.getCountryISOCode(),
+						address2.getCountryISOCode())) {
 
 					return false;
 				}
@@ -565,8 +603,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("description", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress1.getDescription(),
-						billingAddress2.getDescription())) {
+						address1.getDescription(), address2.getDescription())) {
 
 					return false;
 				}
@@ -575,9 +612,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			if (Objects.equals("id", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						billingAddress1.getId(), billingAddress2.getId())) {
-
+				if (!Objects.deepEquals(address1.getId(), address2.getId())) {
 					return false;
 				}
 
@@ -586,8 +621,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("latitude", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress1.getLatitude(),
-						billingAddress2.getLatitude())) {
+						address1.getLatitude(), address2.getLatitude())) {
 
 					return false;
 				}
@@ -597,8 +631,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("longitude", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress1.getLongitude(),
-						billingAddress2.getLongitude())) {
+						address1.getLongitude(), address2.getLongitude())) {
 
 					return false;
 				}
@@ -608,7 +641,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("name", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress1.getName(), billingAddress2.getName())) {
+						address1.getName(), address2.getName())) {
 
 					return false;
 				}
@@ -618,8 +651,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("phoneNumber", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress1.getPhoneNumber(),
-						billingAddress2.getPhoneNumber())) {
+						address1.getPhoneNumber(), address2.getPhoneNumber())) {
 
 					return false;
 				}
@@ -629,8 +661,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("region", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress1.getRegion(),
-						billingAddress2.getRegion())) {
+						address1.getRegion(), address2.getRegion())) {
 
 					return false;
 				}
@@ -640,8 +671,8 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("regionISOCode", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress1.getRegionISOCode(),
-						billingAddress2.getRegionISOCode())) {
+						address1.getRegionISOCode(),
+						address2.getRegionISOCode())) {
 
 					return false;
 				}
@@ -651,8 +682,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("street1", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress1.getStreet1(),
-						billingAddress2.getStreet1())) {
+						address1.getStreet1(), address2.getStreet1())) {
 
 					return false;
 				}
@@ -662,8 +692,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("street2", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress1.getStreet2(),
-						billingAddress2.getStreet2())) {
+						address1.getStreet2(), address2.getStreet2())) {
 
 					return false;
 				}
@@ -673,8 +702,27 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("street3", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress1.getStreet3(),
-						billingAddress2.getStreet3())) {
+						address1.getStreet3(), address2.getStreet3())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("type", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						address1.getType(), address2.getType())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("typeId", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						address1.getTypeId(), address2.getTypeId())) {
 
 					return false;
 				}
@@ -684,8 +732,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("vatNumber", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress1.getVatNumber(),
-						billingAddress2.getVatNumber())) {
+						address1.getVatNumber(), address2.getVatNumber())) {
 
 					return false;
 				}
@@ -694,9 +741,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 			}
 
 			if (Objects.equals("zip", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						billingAddress1.getZip(), billingAddress2.getZip())) {
-
+				if (!Objects.deepEquals(address1.getZip(), address2.getZip())) {
 					return false;
 				}
 
@@ -711,14 +756,11 @@ public abstract class BaseBillingAddressResourceTestCase {
 		return true;
 	}
 
-	protected boolean equalsJSONObject(
-		BillingAddress billingAddress, JSONObject jsonObject) {
-
+	protected boolean equalsJSONObject(Address address, JSONObject jsonObject) {
 		for (String fieldName : getAdditionalAssertFieldNames()) {
 			if (Objects.equals("city", fieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress.getCity(),
-						jsonObject.getString("city"))) {
+						address.getCity(), jsonObject.getString("city"))) {
 
 					return false;
 				}
@@ -728,7 +770,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("country", fieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress.getCountry(),
+						address.getCountry(),
 						jsonObject.getString("country"))) {
 
 					return false;
@@ -739,7 +781,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("countryISOCode", fieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress.getCountryISOCode(),
+						address.getCountryISOCode(),
 						jsonObject.getString("countryISOCode"))) {
 
 					return false;
@@ -750,7 +792,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("description", fieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress.getDescription(),
+						address.getDescription(),
 						jsonObject.getString("description"))) {
 
 					return false;
@@ -761,7 +803,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("id", fieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress.getId(), jsonObject.getLong("id"))) {
+						address.getId(), jsonObject.getLong("id"))) {
 
 					return false;
 				}
@@ -771,7 +813,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("latitude", fieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress.getLatitude(),
+						address.getLatitude(),
 						jsonObject.getDouble("latitude"))) {
 
 					return false;
@@ -782,7 +824,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("longitude", fieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress.getLongitude(),
+						address.getLongitude(),
 						jsonObject.getDouble("longitude"))) {
 
 					return false;
@@ -793,8 +835,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("name", fieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress.getName(),
-						jsonObject.getString("name"))) {
+						address.getName(), jsonObject.getString("name"))) {
 
 					return false;
 				}
@@ -804,7 +845,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("phoneNumber", fieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress.getPhoneNumber(),
+						address.getPhoneNumber(),
 						jsonObject.getString("phoneNumber"))) {
 
 					return false;
@@ -815,8 +856,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("region", fieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress.getRegion(),
-						jsonObject.getString("region"))) {
+						address.getRegion(), jsonObject.getString("region"))) {
 
 					return false;
 				}
@@ -826,7 +866,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("regionISOCode", fieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress.getRegionISOCode(),
+						address.getRegionISOCode(),
 						jsonObject.getString("regionISOCode"))) {
 
 					return false;
@@ -837,7 +877,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("street1", fieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress.getStreet1(),
+						address.getStreet1(),
 						jsonObject.getString("street1"))) {
 
 					return false;
@@ -848,7 +888,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("street2", fieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress.getStreet2(),
+						address.getStreet2(),
 						jsonObject.getString("street2"))) {
 
 					return false;
@@ -859,8 +899,28 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("street3", fieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress.getStreet3(),
+						address.getStreet3(),
 						jsonObject.getString("street3"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("type", fieldName)) {
+				if (!Objects.deepEquals(
+						address.getType(), jsonObject.getString("type"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("typeId", fieldName)) {
+				if (!Objects.deepEquals(
+						address.getTypeId(), jsonObject.getInt("typeId"))) {
 
 					return false;
 				}
@@ -870,7 +930,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("vatNumber", fieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress.getVatNumber(),
+						address.getVatNumber(),
 						jsonObject.getString("vatNumber"))) {
 
 					return false;
@@ -881,7 +941,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("zip", fieldName)) {
 				if (!Objects.deepEquals(
-						billingAddress.getZip(), jsonObject.getString("zip"))) {
+						address.getZip(), jsonObject.getString("zip"))) {
 
 					return false;
 				}
@@ -899,13 +959,13 @@ public abstract class BaseBillingAddressResourceTestCase {
 	protected java.util.Collection<EntityField> getEntityFields()
 		throws Exception {
 
-		if (!(_billingAddressResource instanceof EntityModelResource)) {
+		if (!(_addressResource instanceof EntityModelResource)) {
 			throw new UnsupportedOperationException(
 				"Resource is not an instance of EntityModelResource");
 		}
 
 		EntityModelResource entityModelResource =
-			(EntityModelResource)_billingAddressResource;
+			(EntityModelResource)_addressResource;
 
 		EntityModel entityModel = entityModelResource.getEntityModel(
 			new MultivaluedHashMap());
@@ -934,8 +994,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 	}
 
 	protected String getFilterString(
-		EntityField entityField, String operator,
-		BillingAddress billingAddress) {
+		EntityField entityField, String operator, Address address) {
 
 		StringBundler sb = new StringBundler();
 
@@ -949,7 +1008,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 		if (entityFieldName.equals("city")) {
 			sb.append("'");
-			sb.append(String.valueOf(billingAddress.getCity()));
+			sb.append(String.valueOf(address.getCity()));
 			sb.append("'");
 
 			return sb.toString();
@@ -957,7 +1016,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 		if (entityFieldName.equals("country")) {
 			sb.append("'");
-			sb.append(String.valueOf(billingAddress.getCountry()));
+			sb.append(String.valueOf(address.getCountry()));
 			sb.append("'");
 
 			return sb.toString();
@@ -965,7 +1024,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 		if (entityFieldName.equals("countryISOCode")) {
 			sb.append("'");
-			sb.append(String.valueOf(billingAddress.getCountryISOCode()));
+			sb.append(String.valueOf(address.getCountryISOCode()));
 			sb.append("'");
 
 			return sb.toString();
@@ -973,7 +1032,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 		if (entityFieldName.equals("description")) {
 			sb.append("'");
-			sb.append(String.valueOf(billingAddress.getDescription()));
+			sb.append(String.valueOf(address.getDescription()));
 			sb.append("'");
 
 			return sb.toString();
@@ -996,7 +1055,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 		if (entityFieldName.equals("name")) {
 			sb.append("'");
-			sb.append(String.valueOf(billingAddress.getName()));
+			sb.append(String.valueOf(address.getName()));
 			sb.append("'");
 
 			return sb.toString();
@@ -1004,7 +1063,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 		if (entityFieldName.equals("phoneNumber")) {
 			sb.append("'");
-			sb.append(String.valueOf(billingAddress.getPhoneNumber()));
+			sb.append(String.valueOf(address.getPhoneNumber()));
 			sb.append("'");
 
 			return sb.toString();
@@ -1012,7 +1071,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 		if (entityFieldName.equals("region")) {
 			sb.append("'");
-			sb.append(String.valueOf(billingAddress.getRegion()));
+			sb.append(String.valueOf(address.getRegion()));
 			sb.append("'");
 
 			return sb.toString();
@@ -1020,7 +1079,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 		if (entityFieldName.equals("regionISOCode")) {
 			sb.append("'");
-			sb.append(String.valueOf(billingAddress.getRegionISOCode()));
+			sb.append(String.valueOf(address.getRegionISOCode()));
 			sb.append("'");
 
 			return sb.toString();
@@ -1028,7 +1087,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 		if (entityFieldName.equals("street1")) {
 			sb.append("'");
-			sb.append(String.valueOf(billingAddress.getStreet1()));
+			sb.append(String.valueOf(address.getStreet1()));
 			sb.append("'");
 
 			return sb.toString();
@@ -1036,7 +1095,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 		if (entityFieldName.equals("street2")) {
 			sb.append("'");
-			sb.append(String.valueOf(billingAddress.getStreet2()));
+			sb.append(String.valueOf(address.getStreet2()));
 			sb.append("'");
 
 			return sb.toString();
@@ -1044,15 +1103,28 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 		if (entityFieldName.equals("street3")) {
 			sb.append("'");
-			sb.append(String.valueOf(billingAddress.getStreet3()));
+			sb.append(String.valueOf(address.getStreet3()));
 			sb.append("'");
 
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("type")) {
+			sb.append("'");
+			sb.append(String.valueOf(address.getType()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("typeId")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("vatNumber")) {
 			sb.append("'");
-			sb.append(String.valueOf(billingAddress.getVatNumber()));
+			sb.append(String.valueOf(address.getVatNumber()));
 			sb.append("'");
 
 			return sb.toString();
@@ -1060,7 +1132,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 		if (entityFieldName.equals("zip")) {
 			sb.append("'");
-			sb.append(String.valueOf(billingAddress.getZip()));
+			sb.append(String.valueOf(address.getZip()));
 			sb.append("'");
 
 			return sb.toString();
@@ -1087,8 +1159,8 @@ public abstract class BaseBillingAddressResourceTestCase {
 		return httpResponse.getContent();
 	}
 
-	protected BillingAddress randomBillingAddress() throws Exception {
-		return new BillingAddress() {
+	protected Address randomAddress() throws Exception {
+		return new Address() {
 			{
 				city = RandomTestUtil.randomString();
 				country = RandomTestUtil.randomString();
@@ -1104,23 +1176,25 @@ public abstract class BaseBillingAddressResourceTestCase {
 				street1 = RandomTestUtil.randomString();
 				street2 = RandomTestUtil.randomString();
 				street3 = RandomTestUtil.randomString();
+				type = RandomTestUtil.randomString();
+				typeId = RandomTestUtil.randomInt();
 				vatNumber = RandomTestUtil.randomString();
 				zip = RandomTestUtil.randomString();
 			}
 		};
 	}
 
-	protected BillingAddress randomIrrelevantBillingAddress() throws Exception {
-		BillingAddress randomIrrelevantBillingAddress = randomBillingAddress();
+	protected Address randomIrrelevantAddress() throws Exception {
+		Address randomIrrelevantAddress = randomAddress();
 
-		return randomIrrelevantBillingAddress;
+		return randomIrrelevantAddress;
 	}
 
-	protected BillingAddress randomPatchBillingAddress() throws Exception {
-		return randomBillingAddress();
+	protected Address randomPatchAddress() throws Exception {
+		return randomAddress();
 	}
 
-	protected BillingAddressResource billingAddressResource;
+	protected AddressResource addressResource;
 	protected Group irrelevantGroup;
 	protected Company testCompany;
 	protected Group testGroup;
@@ -1184,7 +1258,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		BaseBillingAddressResourceTestCase.class);
+		BaseAddressResourceTestCase.class);
 
 	private static BeanUtilsBean _beanUtilsBean = new BeanUtilsBean() {
 
@@ -1201,7 +1275,8 @@ public abstract class BaseBillingAddressResourceTestCase {
 	private static DateFormat _dateFormat;
 
 	@Inject
-	private com.liferay.headless.commerce.delivery.cart.resource.v1_0.
-		BillingAddressResource _billingAddressResource;
+	private
+		com.liferay.headless.commerce.delivery.cart.resource.v1_0.
+			AddressResource _addressResource;
 
 }

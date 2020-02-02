@@ -39,10 +39,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName("Note")
+@GraphQLName("CartNote")
 @JsonFilter("Liferay.Vulcan")
-@XmlRootElement(name = "Note")
-public class Note {
+@XmlRootElement(name = "CartNote")
+public class CartNote {
 
 	@Schema
 	public String getAuthor() {
@@ -69,7 +69,7 @@ public class Note {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String author;
 
 	@Schema
@@ -123,7 +123,7 @@ public class Note {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long id;
 
 	@Schema
@@ -151,7 +151,7 @@ public class Note {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long orderId;
 
 	@Schema
@@ -188,13 +188,13 @@ public class Note {
 			return true;
 		}
 
-		if (!(object instanceof Note)) {
+		if (!(object instanceof CartNote)) {
 			return false;
 		}
 
-		Note note = (Note)object;
+		CartNote cartNote = (CartNote)object;
 
-		return Objects.equals(toString(), note.toString());
+		return Objects.equals(toString(), cartNote.toString());
 	}
 
 	@Override
@@ -273,7 +273,7 @@ public class Note {
 	}
 
 	@Schema(
-		defaultValue = "com.liferay.headless.commerce.delivery.cart.dto.v1_0.Note",
+		defaultValue = "com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartNote",
 		name = "x-class-name"
 	)
 	public String xClassName;
