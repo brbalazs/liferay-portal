@@ -30,7 +30,7 @@ if (cpDisplayLayout != null) {
 
 String layoutBreadcrumb = StringPool.BLANK;
 
-if (Validator.isNotNull(cpDisplayLayout)) {
+if (cpDisplayLayout != null) {
 	Layout selLayout = LayoutLocalServiceUtil.fetchLayoutByUuidAndGroupId(cpDisplayLayout.getLayoutUuid(), themeDisplay.getSiteGroupId(), false);
 
 	if (selLayout == null) {
