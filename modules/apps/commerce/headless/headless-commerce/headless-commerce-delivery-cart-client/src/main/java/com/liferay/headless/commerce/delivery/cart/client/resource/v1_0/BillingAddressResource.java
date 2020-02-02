@@ -165,7 +165,7 @@ public interface BillingAddressResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/billingAddress",
+						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/billing-address",
 				channelId, cartId);
 
 			httpInvoker.userNameAndPassword(
@@ -222,7 +222,7 @@ public interface BillingAddressResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/billingAddress",
+						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/billing-address",
 				channelId, cartId);
 
 			httpInvoker.userNameAndPassword(

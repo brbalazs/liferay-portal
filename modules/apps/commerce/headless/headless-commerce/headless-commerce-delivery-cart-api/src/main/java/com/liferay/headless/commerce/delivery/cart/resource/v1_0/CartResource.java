@@ -15,15 +15,18 @@
 package com.liferay.headless.commerce.delivery.cart.resource.v1_0;
 
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Order;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartPost;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CouponCode;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
+import com.liferay.portal.vulcan.pagination.Pagination;
 
 import javax.annotation.Generated;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -40,13 +43,22 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface CartResource {
 
-	public Page<Cart> getChannelCartsPage(Long channelId) throws Exception;
+	public Page<Cart> getChannelCartsPage(Long channelId, Pagination pagination)
+		throws Exception;
 
-	public Cart postChannelCart(Long channelId, Order order) throws Exception;
+	public Cart postChannelCart(Long channelId, CartPost cartPost)
+		throws Exception;
+
+	public Response deleteChannelCart(Long channelId, Long cartId)
+		throws Exception;
 
 	public Cart getChannelCart(Long channelId, Long cartId) throws Exception;
 
-	public Cart putChannelCart(Long channelId, Long cartId, Order order)
+	public Cart patchChannelCart(Long channelId, Long cartId, CartPost cartPost)
+		throws Exception;
+
+	public Cart postChannelCartCouponCode(
+			Long channelId, Long cartId, CouponCode couponCode)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

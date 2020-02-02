@@ -42,56 +42,26 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName("Order")
+@GraphQLName("ShippingMethod")
 @JsonFilter("Liferay.Vulcan")
-@XmlRootElement(name = "Order")
-public class Order {
+@XmlRootElement(name = "ShippingMethod")
+public class ShippingMethod {
 
 	@Schema
-	public Long getAccountId() {
-		return accountId;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setAccountId(Long accountId) {
-		this.accountId = accountId;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@JsonIgnore
-	public void setAccountId(
-		UnsafeSupplier<Long, Exception> accountIdUnsafeSupplier) {
+	public void setDescription(
+		UnsafeSupplier<String, Exception> descriptionUnsafeSupplier) {
 
 		try {
-			accountId = accountIdUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected Long accountId;
-
-	@Schema
-	@Valid
-	public BillingAddress getBillingAddress() {
-		return billingAddress;
-	}
-
-	public void setBillingAddress(BillingAddress billingAddress) {
-		this.billingAddress = billingAddress;
-	}
-
-	@JsonIgnore
-	public void setBillingAddress(
-		UnsafeSupplier<BillingAddress, Exception>
-			billingAddressUnsafeSupplier) {
-
-		try {
-			billingAddress = billingAddressUnsafeSupplier.get();
+			description = descriptionUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -103,24 +73,22 @@ public class Order {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected BillingAddress billingAddress;
+	protected String description;
 
 	@DecimalMin("0")
 	@Schema
-	public Long getBillingAddressId() {
-		return billingAddressId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setBillingAddressId(Long billingAddressId) {
-		this.billingAddressId = billingAddressId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	@JsonIgnore
-	public void setBillingAddressId(
-		UnsafeSupplier<Long, Exception> billingAddressIdUnsafeSupplier) {
-
+	public void setId(UnsafeSupplier<Long, Exception> idUnsafeSupplier) {
 		try {
-			billingAddressId = billingAddressIdUnsafeSupplier.get();
+			id = idUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -132,24 +100,51 @@ public class Order {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Long billingAddressId;
+	protected Long id;
+
+	@Schema
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@JsonIgnore
+	public void setName(UnsafeSupplier<String, Exception> nameUnsafeSupplier) {
+		try {
+			name = nameUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String name;
 
 	@Schema
 	@Valid
-	public OrderItem[] getOrderItems() {
-		return orderItems;
+	public ShippingOption[] getShippingOptions() {
+		return shippingOptions;
 	}
 
-	public void setOrderItems(OrderItem[] orderItems) {
-		this.orderItems = orderItems;
+	public void setShippingOptions(ShippingOption[] shippingOptions) {
+		this.shippingOptions = shippingOptions;
 	}
 
 	@JsonIgnore
-	public void setOrderItems(
-		UnsafeSupplier<OrderItem[], Exception> orderItemsUnsafeSupplier) {
+	public void setShippingOptions(
+		UnsafeSupplier<ShippingOption[], Exception>
+			shippingOptionsUnsafeSupplier) {
 
 		try {
-			orderItems = orderItemsUnsafeSupplier.get();
+			shippingOptions = shippingOptionsUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -161,66 +156,7 @@ public class Order {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected OrderItem[] orderItems;
-
-	@Schema
-	@Valid
-	public ShippingAddress getShippingAddress() {
-		return shippingAddress;
-	}
-
-	public void setShippingAddress(ShippingAddress shippingAddress) {
-		this.shippingAddress = shippingAddress;
-	}
-
-	@JsonIgnore
-	public void setShippingAddress(
-		UnsafeSupplier<ShippingAddress, Exception>
-			shippingAddressUnsafeSupplier) {
-
-		try {
-			shippingAddress = shippingAddressUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected ShippingAddress shippingAddress;
-
-	@DecimalMin("0")
-	@Schema
-	public Long getShippingAddressId() {
-		return shippingAddressId;
-	}
-
-	public void setShippingAddressId(Long shippingAddressId) {
-		this.shippingAddressId = shippingAddressId;
-	}
-
-	@JsonIgnore
-	public void setShippingAddressId(
-		UnsafeSupplier<Long, Exception> shippingAddressIdUnsafeSupplier) {
-
-		try {
-			shippingAddressId = shippingAddressIdUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Long shippingAddressId;
+	protected ShippingOption[] shippingOptions;
 
 	@Override
 	public boolean equals(Object object) {
@@ -228,13 +164,13 @@ public class Order {
 			return true;
 		}
 
-		if (!(object instanceof Order)) {
+		if (!(object instanceof ShippingMethod)) {
 			return false;
 		}
 
-		Order order = (Order)object;
+		ShippingMethod shippingMethod = (ShippingMethod)object;
 
-		return Objects.equals(toString(), order.toString());
+		return Objects.equals(toString(), shippingMethod.toString());
 	}
 
 	@Override
@@ -249,74 +185,62 @@ public class Order {
 
 		sb.append("{");
 
-		if (accountId != null) {
+		if (description != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountId\": ");
+			sb.append("\"description\": ");
 
-			sb.append(accountId);
+			sb.append("\"");
+
+			sb.append(_escape(description));
+
+			sb.append("\"");
 		}
 
-		if (billingAddress != null) {
+		if (id != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"billingAddress\": ");
+			sb.append("\"id\": ");
 
-			sb.append(String.valueOf(billingAddress));
+			sb.append(id);
 		}
 
-		if (billingAddressId != null) {
+		if (name != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"billingAddressId\": ");
+			sb.append("\"name\": ");
 
-			sb.append(billingAddressId);
+			sb.append("\"");
+
+			sb.append(_escape(name));
+
+			sb.append("\"");
 		}
 
-		if (orderItems != null) {
+		if (shippingOptions != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"orderItems\": ");
+			sb.append("\"shippingOptions\": ");
 
 			sb.append("[");
 
-			for (int i = 0; i < orderItems.length; i++) {
-				sb.append(String.valueOf(orderItems[i]));
+			for (int i = 0; i < shippingOptions.length; i++) {
+				sb.append(String.valueOf(shippingOptions[i]));
 
-				if ((i + 1) < orderItems.length) {
+				if ((i + 1) < shippingOptions.length) {
 					sb.append(", ");
 				}
 			}
 
 			sb.append("]");
-		}
-
-		if (shippingAddress != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"shippingAddress\": ");
-
-			sb.append(String.valueOf(shippingAddress));
-		}
-
-		if (shippingAddressId != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"shippingAddressId\": ");
-
-			sb.append(shippingAddressId);
 		}
 
 		sb.append("}");
@@ -325,7 +249,7 @@ public class Order {
 	}
 
 	@Schema(
-		defaultValue = "com.liferay.headless.commerce.delivery.cart.dto.v1_0.Order",
+		defaultValue = "com.liferay.headless.commerce.delivery.cart.dto.v1_0.ShippingMethod",
 		name = "x-class-name"
 	)
 	public String xClassName;

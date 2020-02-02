@@ -47,6 +47,27 @@ public class ShippingAddress {
 
 	protected String city;
 
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public void setCountry(
+		UnsafeSupplier<String, Exception> countryUnsafeSupplier) {
+
+		try {
+			country = countryUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String country;
+
 	public String getCountryISOCode() {
 		return countryISOCode;
 	}
@@ -189,6 +210,27 @@ public class ShippingAddress {
 	}
 
 	protected String phoneNumber;
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+	public void setRegion(
+		UnsafeSupplier<String, Exception> regionUnsafeSupplier) {
+
+		try {
+			region = regionUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String region;
 
 	public String getRegionISOCode() {
 		return regionISOCode;

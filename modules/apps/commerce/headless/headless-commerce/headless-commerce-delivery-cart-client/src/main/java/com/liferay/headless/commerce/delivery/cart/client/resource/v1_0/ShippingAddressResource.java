@@ -165,7 +165,7 @@ public interface ShippingAddressResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/shippingAddress",
+						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/shipping-address",
 				channelId, cartId);
 
 			httpInvoker.userNameAndPassword(
@@ -223,7 +223,7 @@ public interface ShippingAddressResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/shippingAddress",
+						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/shipping-address",
 				channelId, cartId);
 
 			httpInvoker.userNameAndPassword(

@@ -72,7 +72,11 @@ public class OpenAPIResourceImpl {
 
 			add(NoteResourceImpl.class);
 
+			add(PaymentMethodResourceImpl.class);
+
 			add(ShippingAddressResourceImpl.class);
+
+			add(ShippingMethodResourceImpl.class);
 
 			add(OpenAPIResourceImpl.class);
 		}

@@ -47,6 +47,35 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "CartItem")
 public class CartItem {
 
+	@Schema
+	@Valid
+	public Map<String, ?> getCustomFields() {
+		return customFields;
+	}
+
+	public void setCustomFields(Map<String, ?> customFields) {
+		this.customFields = customFields;
+	}
+
+	@JsonIgnore
+	public void setCustomFields(
+		UnsafeSupplier<Map<String, ?>, Exception> customFieldsUnsafeSupplier) {
+
+		try {
+			customFields = customFieldsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Map<String, ?> customFields;
+
 	@DecimalMin("0")
 	@Schema
 	public Long getId() {
@@ -101,6 +130,34 @@ public class CartItem {
 	protected String name;
 
 	@Schema
+	public String getOptions() {
+		return options;
+	}
+
+	public void setOptions(String options) {
+		this.options = options;
+	}
+
+	@JsonIgnore
+	public void setOptions(
+		UnsafeSupplier<String, Exception> optionsUnsafeSupplier) {
+
+		try {
+			options = optionsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String options;
+
+	@Schema
 	@Valid
 	public Price getPrice() {
 		return price;
@@ -126,6 +183,34 @@ public class CartItem {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Price price;
+
+	@Schema
+	public Long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
+
+	@JsonIgnore
+	public void setProductId(
+		UnsafeSupplier<Long, Exception> productIdUnsafeSupplier) {
+
+		try {
+			productId = productIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Long productId;
 
 	@DecimalMin("0")
 	@Schema
@@ -156,6 +241,87 @@ public class CartItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Integer quantity;
 
+	@Schema
+	public String getSku() {
+		return sku;
+	}
+
+	public void setSku(String sku) {
+		this.sku = sku;
+	}
+
+	@JsonIgnore
+	public void setSku(UnsafeSupplier<String, Exception> skuUnsafeSupplier) {
+		try {
+			sku = skuUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String sku;
+
+	@DecimalMin("0")
+	@Schema
+	public Long getSkuId() {
+		return skuId;
+	}
+
+	public void setSkuId(Long skuId) {
+		this.skuId = skuId;
+	}
+
+	@JsonIgnore
+	public void setSkuId(UnsafeSupplier<Long, Exception> skuIdUnsafeSupplier) {
+		try {
+			skuId = skuIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Long skuId;
+
+	@Schema
+	public Boolean getSubscription() {
+		return subscription;
+	}
+
+	public void setSubscription(Boolean subscription) {
+		this.subscription = subscription;
+	}
+
+	@JsonIgnore
+	public void setSubscription(
+		UnsafeSupplier<Boolean, Exception> subscriptionUnsafeSupplier) {
+
+		try {
+			subscription = subscriptionUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean subscription;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -183,6 +349,16 @@ public class CartItem {
 
 		sb.append("{");
 
+		if (customFields != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"customFields\": ");
+
+			sb.append(_toJSON(customFields));
+		}
+
 		if (id != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -207,6 +383,20 @@ public class CartItem {
 			sb.append("\"");
 		}
 
+		if (options != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"options\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(options));
+
+			sb.append("\"");
+		}
+
 		if (price != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -217,6 +407,16 @@ public class CartItem {
 			sb.append(String.valueOf(price));
 		}
 
+		if (productId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"productId\": ");
+
+			sb.append(productId);
+		}
+
 		if (quantity != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -225,6 +425,40 @@ public class CartItem {
 			sb.append("\"quantity\": ");
 
 			sb.append(quantity);
+		}
+
+		if (sku != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"sku\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(sku));
+
+			sb.append("\"");
+		}
+
+		if (skuId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"skuId\": ");
+
+			sb.append(skuId);
+		}
+
+		if (subscription != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subscription\": ");
+
+			sb.append(subscription);
 		}
 
 		sb.append("}");

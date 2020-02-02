@@ -20,7 +20,9 @@ import com.liferay.headless.commerce.delivery.cart.resource.v1_0.BillingAddressR
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartItemResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.NoteResource;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.PaymentMethodResource;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.ShippingAddressResource;
+import com.liferay.headless.commerce.delivery.cart.resource.v1_0.ShippingMethodResource;
 import com.liferay.portal.vulcan.graphql.servlet.ServletData;
 
 import javax.annotation.Generated;
@@ -61,8 +63,12 @@ public class ServletDataImpl implements ServletData {
 			_cartItemResourceComponentServiceObjects);
 		Query.setNoteResourceComponentServiceObjects(
 			_noteResourceComponentServiceObjects);
+		Query.setPaymentMethodResourceComponentServiceObjects(
+			_paymentMethodResourceComponentServiceObjects);
 		Query.setShippingAddressResourceComponentServiceObjects(
 			_shippingAddressResourceComponentServiceObjects);
+		Query.setShippingMethodResourceComponentServiceObjects(
+			_shippingMethodResourceComponentServiceObjects);
 	}
 
 	@Override
@@ -99,5 +105,13 @@ public class ServletDataImpl implements ServletData {
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<ShippingAddressResource>
 		_shippingAddressResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<PaymentMethodResource>
+		_paymentMethodResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<ShippingMethodResource>
+		_shippingMethodResourceComponentServiceObjects;
 
 }

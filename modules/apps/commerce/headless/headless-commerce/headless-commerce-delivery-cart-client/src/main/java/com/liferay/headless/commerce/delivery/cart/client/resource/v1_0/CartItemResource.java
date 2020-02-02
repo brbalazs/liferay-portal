@@ -17,6 +17,7 @@ package com.liferay.headless.commerce.delivery.cart.client.resource.v1_0;
 import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.CartItem;
 import com.liferay.headless.commerce.delivery.cart.client.http.HttpInvoker;
 import com.liferay.headless.commerce.delivery.cart.client.pagination.Page;
+import com.liferay.headless.commerce.delivery.cart.client.pagination.Pagination;
 import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.CartItemSerDes;
 
 import java.util.LinkedHashMap;
@@ -38,55 +39,55 @@ public interface CartItemResource {
 		return new Builder();
 	}
 
-	public Page<CartItem> getChannelCartCartItemsPage(
-			Long channelId, Long cartId)
+	public Page<CartItem> getChannelCartItemsPage(
+			Long channelId, Long cartId, Pagination pagination)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse getChannelCartCartItemsPageHttpResponse(
-			Long channelId, Long cartId)
+	public HttpInvoker.HttpResponse getChannelCartItemsPageHttpResponse(
+			Long channelId, Long cartId, Pagination pagination)
 		throws Exception;
 
-	public CartItem postChannelCartCartItem(
+	public CartItem postChannelCartItem(
 			Long channelId, Long cartId,
 			com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.
-				OrderItem orderItem)
+				CartItemPost cartItemPost)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse postChannelCartCartItemHttpResponse(
+	public HttpInvoker.HttpResponse postChannelCartItemHttpResponse(
 			Long channelId, Long cartId,
 			com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.
-				OrderItem orderItem)
+				CartItemPost cartItemPost)
 		throws Exception;
 
-	public void deleteChannelCartCartItem(
+	public void deleteChannelCartItemCartItem(
 			Long channelId, Long cartId, Long cartItemId)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse deleteChannelCartCartItemHttpResponse(
+	public HttpInvoker.HttpResponse deleteChannelCartItemCartItemHttpResponse(
 			Long channelId, Long cartId, Long cartItemId)
 		throws Exception;
 
-	public CartItem getChannelCartCartItem(
+	public CartItem getChannelCartItemCartItem(
 			Long channelId, Long cartId, Long cartItemId)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse getChannelCartCartItemHttpResponse(
+	public HttpInvoker.HttpResponse getChannelCartItemCartItemHttpResponse(
 			Long channelId, Long cartId, Long cartItemId)
 		throws Exception;
 
-	public CartItem patchChannelCartCartItem(
+	public CartItem patchChannelCartItemCartItem(
 			Long channelId, Long cartId, Long cartItemId, CartItem cartItem)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse patchChannelCartCartItemHttpResponse(
+	public HttpInvoker.HttpResponse patchChannelCartItemCartItemHttpResponse(
 			Long channelId, Long cartId, Long cartItemId, CartItem cartItem)
 		throws Exception;
 
-	public CartItem putChannelCartCartItem(
+	public CartItem putChannelCartItemCartItem(
 			Long channelId, Long cartId, Long cartItemId, CartItem cartItem)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse putChannelCartCartItemHttpResponse(
+	public HttpInvoker.HttpResponse putChannelCartItemCartItemHttpResponse(
 			Long channelId, Long cartId, Long cartItemId, CartItem cartItem)
 		throws Exception;
 
@@ -145,12 +146,13 @@ public interface CartItemResource {
 
 	public static class CartItemResourceImpl implements CartItemResource {
 
-		public Page<CartItem> getChannelCartCartItemsPage(
-				Long channelId, Long cartId)
+		public Page<CartItem> getChannelCartItemsPage(
+				Long channelId, Long cartId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getChannelCartCartItemsPageHttpResponse(channelId, cartId);
+				getChannelCartItemsPageHttpResponse(
+					channelId, cartId, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -163,8 +165,8 @@ public interface CartItemResource {
 			return Page.of(content, CartItemSerDes::toDTO);
 		}
 
-		public HttpInvoker.HttpResponse getChannelCartCartItemsPageHttpResponse(
-				Long channelId, Long cartId)
+		public HttpInvoker.HttpResponse getChannelCartItemsPageHttpResponse(
+				Long channelId, Long cartId, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -188,10 +190,17 @@ public interface CartItemResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
 
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/cartItems",
+						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/items",
 				channelId, cartId);
 
 			httpInvoker.userNameAndPassword(
@@ -200,15 +209,15 @@ public interface CartItemResource {
 			return httpInvoker.invoke();
 		}
 
-		public CartItem postChannelCartCartItem(
+		public CartItem postChannelCartItem(
 				Long channelId, Long cartId,
 				com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.
-					OrderItem orderItem)
+					CartItemPost cartItemPost)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				postChannelCartCartItemHttpResponse(
-					channelId, cartId, orderItem);
+				postChannelCartItemHttpResponse(
+					channelId, cartId, cartItemPost);
 
 			String content = httpResponse.getContent();
 
@@ -230,15 +239,15 @@ public interface CartItemResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse postChannelCartCartItemHttpResponse(
+		public HttpInvoker.HttpResponse postChannelCartItemHttpResponse(
 				Long channelId, Long cartId,
 				com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.
-					OrderItem orderItem)
+					CartItemPost cartItemPost)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(orderItem.toString(), "application/json");
+			httpInvoker.body(cartItemPost.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -262,7 +271,7 @@ public interface CartItemResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/cartItems",
+						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/items",
 				channelId, cartId);
 
 			httpInvoker.userNameAndPassword(
@@ -271,12 +280,12 @@ public interface CartItemResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteChannelCartCartItem(
+		public void deleteChannelCartItemCartItem(
 				Long channelId, Long cartId, Long cartItemId)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				deleteChannelCartCartItemHttpResponse(
+				deleteChannelCartItemCartItemHttpResponse(
 					channelId, cartId, cartItemId);
 
 			String content = httpResponse.getContent();
@@ -288,8 +297,9 @@ public interface CartItemResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse deleteChannelCartCartItemHttpResponse(
-				Long channelId, Long cartId, Long cartItemId)
+		public HttpInvoker.HttpResponse
+				deleteChannelCartItemCartItemHttpResponse(
+					Long channelId, Long cartId, Long cartItemId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -316,7 +326,7 @@ public interface CartItemResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/cartItems/{cartItemId}",
+						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/items/{cartItemId}",
 				channelId, cartId, cartItemId);
 
 			httpInvoker.userNameAndPassword(
@@ -325,12 +335,12 @@ public interface CartItemResource {
 			return httpInvoker.invoke();
 		}
 
-		public CartItem getChannelCartCartItem(
+		public CartItem getChannelCartItemCartItem(
 				Long channelId, Long cartId, Long cartItemId)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getChannelCartCartItemHttpResponse(
+				getChannelCartItemCartItemHttpResponse(
 					channelId, cartId, cartItemId);
 
 			String content = httpResponse.getContent();
@@ -353,7 +363,7 @@ public interface CartItemResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getChannelCartCartItemHttpResponse(
+		public HttpInvoker.HttpResponse getChannelCartItemCartItemHttpResponse(
 				Long channelId, Long cartId, Long cartItemId)
 			throws Exception {
 
@@ -381,7 +391,7 @@ public interface CartItemResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/cartItems/{cartItemId}",
+						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/items/{cartItemId}",
 				channelId, cartId, cartItemId);
 
 			httpInvoker.userNameAndPassword(
@@ -390,12 +400,12 @@ public interface CartItemResource {
 			return httpInvoker.invoke();
 		}
 
-		public CartItem patchChannelCartCartItem(
+		public CartItem patchChannelCartItemCartItem(
 				Long channelId, Long cartId, Long cartItemId, CartItem cartItem)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				patchChannelCartCartItemHttpResponse(
+				patchChannelCartItemCartItemHttpResponse(
 					channelId, cartId, cartItemId, cartItem);
 
 			String content = httpResponse.getContent();
@@ -418,8 +428,10 @@ public interface CartItemResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse patchChannelCartCartItemHttpResponse(
-				Long channelId, Long cartId, Long cartItemId, CartItem cartItem)
+		public HttpInvoker.HttpResponse
+				patchChannelCartItemCartItemHttpResponse(
+					Long channelId, Long cartId, Long cartItemId,
+					CartItem cartItem)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -448,7 +460,7 @@ public interface CartItemResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/cartItems/{cartItemId}",
+						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/items/{cartItemId}",
 				channelId, cartId, cartItemId);
 
 			httpInvoker.userNameAndPassword(
@@ -457,12 +469,12 @@ public interface CartItemResource {
 			return httpInvoker.invoke();
 		}
 
-		public CartItem putChannelCartCartItem(
+		public CartItem putChannelCartItemCartItem(
 				Long channelId, Long cartId, Long cartItemId, CartItem cartItem)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				putChannelCartCartItemHttpResponse(
+				putChannelCartItemCartItemHttpResponse(
 					channelId, cartId, cartItemId, cartItem);
 
 			String content = httpResponse.getContent();
@@ -485,7 +497,7 @@ public interface CartItemResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse putChannelCartCartItemHttpResponse(
+		public HttpInvoker.HttpResponse putChannelCartItemCartItemHttpResponse(
 				Long channelId, Long cartId, Long cartItemId, CartItem cartItem)
 			throws Exception {
 
@@ -515,7 +527,7 @@ public interface CartItemResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/cartItems/{cartItemId}",
+						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/items/{cartItemId}",
 				channelId, cartId, cartItemId);
 
 			httpInvoker.userNameAndPassword(

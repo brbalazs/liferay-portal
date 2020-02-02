@@ -17,8 +17,6 @@ package com.liferay.headless.commerce.delivery.cart.client.dto.v1_0;
 import com.liferay.headless.commerce.delivery.cart.client.function.UnsafeSupplier;
 import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.PriceSerDes;
 
-import java.math.BigDecimal;
-
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -114,18 +112,16 @@ public class Price {
 
 	protected String discountPercentage;
 
-	public BigDecimal getDiscountPercentageLevel1() {
+	public Double getDiscountPercentageLevel1() {
 		return discountPercentageLevel1;
 	}
 
-	public void setDiscountPercentageLevel1(
-		BigDecimal discountPercentageLevel1) {
-
+	public void setDiscountPercentageLevel1(Double discountPercentageLevel1) {
 		this.discountPercentageLevel1 = discountPercentageLevel1;
 	}
 
 	public void setDiscountPercentageLevel1(
-		UnsafeSupplier<BigDecimal, Exception>
+		UnsafeSupplier<Double, Exception>
 			discountPercentageLevel1UnsafeSupplier) {
 
 		try {
@@ -137,20 +133,18 @@ public class Price {
 		}
 	}
 
-	protected BigDecimal discountPercentageLevel1;
+	protected Double discountPercentageLevel1;
 
-	public BigDecimal getDiscountPercentageLevel2() {
+	public Double getDiscountPercentageLevel2() {
 		return discountPercentageLevel2;
 	}
 
-	public void setDiscountPercentageLevel2(
-		BigDecimal discountPercentageLevel2) {
-
+	public void setDiscountPercentageLevel2(Double discountPercentageLevel2) {
 		this.discountPercentageLevel2 = discountPercentageLevel2;
 	}
 
 	public void setDiscountPercentageLevel2(
-		UnsafeSupplier<BigDecimal, Exception>
+		UnsafeSupplier<Double, Exception>
 			discountPercentageLevel2UnsafeSupplier) {
 
 		try {
@@ -162,20 +156,18 @@ public class Price {
 		}
 	}
 
-	protected BigDecimal discountPercentageLevel2;
+	protected Double discountPercentageLevel2;
 
-	public BigDecimal getDiscountPercentageLevel3() {
+	public Double getDiscountPercentageLevel3() {
 		return discountPercentageLevel3;
 	}
 
-	public void setDiscountPercentageLevel3(
-		BigDecimal discountPercentageLevel3) {
-
+	public void setDiscountPercentageLevel3(Double discountPercentageLevel3) {
 		this.discountPercentageLevel3 = discountPercentageLevel3;
 	}
 
 	public void setDiscountPercentageLevel3(
-		UnsafeSupplier<BigDecimal, Exception>
+		UnsafeSupplier<Double, Exception>
 			discountPercentageLevel3UnsafeSupplier) {
 
 		try {
@@ -187,20 +179,18 @@ public class Price {
 		}
 	}
 
-	protected BigDecimal discountPercentageLevel3;
+	protected Double discountPercentageLevel3;
 
-	public BigDecimal getDiscountPercentageLevel4() {
+	public Double getDiscountPercentageLevel4() {
 		return discountPercentageLevel4;
 	}
 
-	public void setDiscountPercentageLevel4(
-		BigDecimal discountPercentageLevel4) {
-
+	public void setDiscountPercentageLevel4(Double discountPercentageLevel4) {
 		this.discountPercentageLevel4 = discountPercentageLevel4;
 	}
 
 	public void setDiscountPercentageLevel4(
-		UnsafeSupplier<BigDecimal, Exception>
+		UnsafeSupplier<Double, Exception>
 			discountPercentageLevel4UnsafeSupplier) {
 
 		try {
@@ -212,7 +202,7 @@ public class Price {
 		}
 	}
 
-	protected BigDecimal discountPercentageLevel4;
+	protected Double discountPercentageLevel4;
 
 	public Double getFinalPrice() {
 		return finalPrice;

@@ -130,6 +130,20 @@ public class CartSerDes {
 			sb.append("]");
 		}
 
+		if (cart.getCouponCode() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"couponCode\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(cart.getCouponCode()));
+
+			sb.append("\"");
+		}
+
 		if (cart.getCreateDate() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -144,6 +158,16 @@ public class CartSerDes {
 			sb.append("\"");
 		}
 
+		if (cart.getCustomFields() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"customFields\": ");
+
+			sb.append(_toJSON(cart.getCustomFields()));
+		}
+
 		if (cart.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -152,6 +176,35 @@ public class CartSerDes {
 			sb.append("\"id\": ");
 
 			sb.append(cart.getId());
+		}
+
+		if (cart.getLastPriceUpdateDate() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"lastPriceUpdateDate\": ");
+
+			sb.append("\"");
+
+			sb.append(
+				liferayToJSONDateFormat.format(cart.getLastPriceUpdateDate()));
+
+			sb.append("\"");
+		}
+
+		if (cart.getModifiedDate() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"modifiedDate\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(cart.getModifiedDate()));
+
+			sb.append("\"");
 		}
 
 		if (cart.getNotes() != null) {
@@ -188,6 +241,20 @@ public class CartSerDes {
 			sb.append("\"");
 		}
 
+		if (cart.getPaymentMethodLabel() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"paymentMethodLabel\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(cart.getPaymentMethodLabel()));
+
+			sb.append("\"");
+		}
+
 		if (cart.getPaymentStatus() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -196,6 +263,20 @@ public class CartSerDes {
 			sb.append("\"paymentStatus\": ");
 
 			sb.append(cart.getPaymentStatus());
+		}
+
+		if (cart.getPaymentStatusLabel() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"paymentStatusLabel\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(cart.getPaymentStatusLabel()));
+
+			sb.append("\"");
 		}
 
 		if (cart.getPrintedNote() != null) {
@@ -212,6 +293,20 @@ public class CartSerDes {
 			sb.append("\"");
 		}
 
+		if (cart.getPurchaseOrderNumber() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"purchaseOrderNumber\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(cart.getPurchaseOrderNumber()));
+
+			sb.append("\"");
+		}
+
 		if (cart.getShippingAddress() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -220,6 +315,34 @@ public class CartSerDes {
 			sb.append("\"shippingAddress\": ");
 
 			sb.append(String.valueOf(cart.getShippingAddress()));
+		}
+
+		if (cart.getShippingMethod() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingMethod\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(cart.getShippingMethod()));
+
+			sb.append("\"");
+		}
+
+		if (cart.getShippingOption() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingOption\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(cart.getShippingOption()));
+
+			sb.append("\"");
 		}
 
 		if (cart.getStatus() != null) {
@@ -302,8 +425,22 @@ public class CartSerDes {
 			map.put("cartItems", String.valueOf(cart.getCartItems()));
 		}
 
+		if (cart.getCouponCode() == null) {
+			map.put("couponCode", null);
+		}
+		else {
+			map.put("couponCode", String.valueOf(cart.getCouponCode()));
+		}
+
 		map.put(
 			"createDate", liferayToJSONDateFormat.format(cart.getCreateDate()));
+
+		if (cart.getCustomFields() == null) {
+			map.put("customFields", null);
+		}
+		else {
+			map.put("customFields", String.valueOf(cart.getCustomFields()));
+		}
 
 		if (cart.getId() == null) {
 			map.put("id", null);
@@ -311,6 +448,14 @@ public class CartSerDes {
 		else {
 			map.put("id", String.valueOf(cart.getId()));
 		}
+
+		map.put(
+			"lastPriceUpdateDate",
+			liferayToJSONDateFormat.format(cart.getLastPriceUpdateDate()));
+
+		map.put(
+			"modifiedDate",
+			liferayToJSONDateFormat.format(cart.getModifiedDate()));
 
 		if (cart.getNotes() == null) {
 			map.put("notes", null);
@@ -326,11 +471,29 @@ public class CartSerDes {
 			map.put("paymentMethod", String.valueOf(cart.getPaymentMethod()));
 		}
 
+		if (cart.getPaymentMethodLabel() == null) {
+			map.put("paymentMethodLabel", null);
+		}
+		else {
+			map.put(
+				"paymentMethodLabel",
+				String.valueOf(cart.getPaymentMethodLabel()));
+		}
+
 		if (cart.getPaymentStatus() == null) {
 			map.put("paymentStatus", null);
 		}
 		else {
 			map.put("paymentStatus", String.valueOf(cart.getPaymentStatus()));
+		}
+
+		if (cart.getPaymentStatusLabel() == null) {
+			map.put("paymentStatusLabel", null);
+		}
+		else {
+			map.put(
+				"paymentStatusLabel",
+				String.valueOf(cart.getPaymentStatusLabel()));
 		}
 
 		if (cart.getPrintedNote() == null) {
@@ -340,12 +503,35 @@ public class CartSerDes {
 			map.put("printedNote", String.valueOf(cart.getPrintedNote()));
 		}
 
+		if (cart.getPurchaseOrderNumber() == null) {
+			map.put("purchaseOrderNumber", null);
+		}
+		else {
+			map.put(
+				"purchaseOrderNumber",
+				String.valueOf(cart.getPurchaseOrderNumber()));
+		}
+
 		if (cart.getShippingAddress() == null) {
 			map.put("shippingAddress", null);
 		}
 		else {
 			map.put(
 				"shippingAddress", String.valueOf(cart.getShippingAddress()));
+		}
+
+		if (cart.getShippingMethod() == null) {
+			map.put("shippingMethod", null);
+		}
+		else {
+			map.put("shippingMethod", String.valueOf(cart.getShippingMethod()));
+		}
+
+		if (cart.getShippingOption() == null) {
+			map.put("shippingOption", null);
+		}
+		else {
+			map.put("shippingOption", String.valueOf(cart.getShippingOption()));
 		}
 
 		if (cart.getStatus() == null) {
@@ -417,14 +603,38 @@ public class CartSerDes {
 						));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "couponCode")) {
+				if (jsonParserFieldValue != null) {
+					cart.setCouponCode((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "createDate")) {
 				if (jsonParserFieldValue != null) {
 					cart.setCreateDate(toDate((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "customFields")) {
+				if (jsonParserFieldValue != null) {
+					cart.setCustomFields(
+						(Map)CartSerDes.toMap((String)jsonParserFieldValue));
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
 					cart.setId(Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "lastPriceUpdateDate")) {
+
+				if (jsonParserFieldValue != null) {
+					cart.setLastPriceUpdateDate(
+						toDate((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "modifiedDate")) {
+				if (jsonParserFieldValue != null) {
+					cart.setModifiedDate(toDate((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "notes")) {
@@ -444,10 +654,24 @@ public class CartSerDes {
 					cart.setPaymentMethod((String)jsonParserFieldValue);
 				}
 			}
+			else if (Objects.equals(
+						jsonParserFieldName, "paymentMethodLabel")) {
+
+				if (jsonParserFieldValue != null) {
+					cart.setPaymentMethodLabel((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "paymentStatus")) {
 				if (jsonParserFieldValue != null) {
 					cart.setPaymentStatus(
 						Integer.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "paymentStatusLabel")) {
+
+				if (jsonParserFieldValue != null) {
+					cart.setPaymentStatusLabel((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "printedNote")) {
@@ -455,11 +679,28 @@ public class CartSerDes {
 					cart.setPrintedNote((String)jsonParserFieldValue);
 				}
 			}
+			else if (Objects.equals(
+						jsonParserFieldName, "purchaseOrderNumber")) {
+
+				if (jsonParserFieldValue != null) {
+					cart.setPurchaseOrderNumber((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "shippingAddress")) {
 				if (jsonParserFieldValue != null) {
 					cart.setShippingAddress(
 						ShippingAddressSerDes.toDTO(
 							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "shippingMethod")) {
+				if (jsonParserFieldValue != null) {
+					cart.setShippingMethod((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "shippingOption")) {
+				if (jsonParserFieldValue != null) {
+					cart.setShippingOption((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "status")) {

@@ -25,17 +25,12 @@ import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.math.BigDecimal;
-
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 import javax.annotation.Generated;
-
-import javax.validation.Valid;
-import javax.validation.constraints.DecimalMin;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -161,22 +156,18 @@ public class Price {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String discountPercentage;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
-	public BigDecimal getDiscountPercentageLevel1() {
+	public Double getDiscountPercentageLevel1() {
 		return discountPercentageLevel1;
 	}
 
-	public void setDiscountPercentageLevel1(
-		BigDecimal discountPercentageLevel1) {
-
+	public void setDiscountPercentageLevel1(Double discountPercentageLevel1) {
 		this.discountPercentageLevel1 = discountPercentageLevel1;
 	}
 
 	@JsonIgnore
 	public void setDiscountPercentageLevel1(
-		UnsafeSupplier<BigDecimal, Exception>
+		UnsafeSupplier<Double, Exception>
 			discountPercentageLevel1UnsafeSupplier) {
 
 		try {
@@ -193,24 +184,20 @@ public class Price {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected BigDecimal discountPercentageLevel1;
+	protected Double discountPercentageLevel1;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
-	public BigDecimal getDiscountPercentageLevel2() {
+	public Double getDiscountPercentageLevel2() {
 		return discountPercentageLevel2;
 	}
 
-	public void setDiscountPercentageLevel2(
-		BigDecimal discountPercentageLevel2) {
-
+	public void setDiscountPercentageLevel2(Double discountPercentageLevel2) {
 		this.discountPercentageLevel2 = discountPercentageLevel2;
 	}
 
 	@JsonIgnore
 	public void setDiscountPercentageLevel2(
-		UnsafeSupplier<BigDecimal, Exception>
+		UnsafeSupplier<Double, Exception>
 			discountPercentageLevel2UnsafeSupplier) {
 
 		try {
@@ -227,24 +214,20 @@ public class Price {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected BigDecimal discountPercentageLevel2;
+	protected Double discountPercentageLevel2;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
-	public BigDecimal getDiscountPercentageLevel3() {
+	public Double getDiscountPercentageLevel3() {
 		return discountPercentageLevel3;
 	}
 
-	public void setDiscountPercentageLevel3(
-		BigDecimal discountPercentageLevel3) {
-
+	public void setDiscountPercentageLevel3(Double discountPercentageLevel3) {
 		this.discountPercentageLevel3 = discountPercentageLevel3;
 	}
 
 	@JsonIgnore
 	public void setDiscountPercentageLevel3(
-		UnsafeSupplier<BigDecimal, Exception>
+		UnsafeSupplier<Double, Exception>
 			discountPercentageLevel3UnsafeSupplier) {
 
 		try {
@@ -261,24 +244,20 @@ public class Price {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected BigDecimal discountPercentageLevel3;
+	protected Double discountPercentageLevel3;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
-	public BigDecimal getDiscountPercentageLevel4() {
+	public Double getDiscountPercentageLevel4() {
 		return discountPercentageLevel4;
 	}
 
-	public void setDiscountPercentageLevel4(
-		BigDecimal discountPercentageLevel4) {
-
+	public void setDiscountPercentageLevel4(Double discountPercentageLevel4) {
 		this.discountPercentageLevel4 = discountPercentageLevel4;
 	}
 
 	@JsonIgnore
 	public void setDiscountPercentageLevel4(
-		UnsafeSupplier<BigDecimal, Exception>
+		UnsafeSupplier<Double, Exception>
 			discountPercentageLevel4UnsafeSupplier) {
 
 		try {
@@ -295,7 +274,7 @@ public class Price {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected BigDecimal discountPercentageLevel4;
+	protected Double discountPercentageLevel4;
 
 	@Schema
 	public Double getFinalPrice() {

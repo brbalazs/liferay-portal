@@ -69,6 +69,20 @@ public class BillingAddressSerDes {
 			sb.append("\"");
 		}
 
+		if (billingAddress.getCountry() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"country\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(billingAddress.getCountry()));
+
+			sb.append("\"");
+		}
+
 		if (billingAddress.getCountryISOCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -151,6 +165,20 @@ public class BillingAddressSerDes {
 			sb.append("\"");
 
 			sb.append(_escape(billingAddress.getPhoneNumber()));
+
+			sb.append("\"");
+		}
+
+		if (billingAddress.getRegion() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"region\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(billingAddress.getRegion()));
 
 			sb.append("\"");
 		}
@@ -265,6 +293,13 @@ public class BillingAddressSerDes {
 			map.put("city", String.valueOf(billingAddress.getCity()));
 		}
 
+		if (billingAddress.getCountry() == null) {
+			map.put("country", null);
+		}
+		else {
+			map.put("country", String.valueOf(billingAddress.getCountry()));
+		}
+
 		if (billingAddress.getCountryISOCode() == null) {
 			map.put("countryISOCode", null);
 		}
@@ -316,6 +351,13 @@ public class BillingAddressSerDes {
 		else {
 			map.put(
 				"phoneNumber", String.valueOf(billingAddress.getPhoneNumber()));
+		}
+
+		if (billingAddress.getRegion() == null) {
+			map.put("region", null);
+		}
+		else {
+			map.put("region", String.valueOf(billingAddress.getRegion()));
 		}
 
 		if (billingAddress.getRegionISOCode() == null) {
@@ -388,6 +430,11 @@ public class BillingAddressSerDes {
 					billingAddress.setCity((String)jsonParserFieldValue);
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "country")) {
+				if (jsonParserFieldValue != null) {
+					billingAddress.setCountry((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "countryISOCode")) {
 				if (jsonParserFieldValue != null) {
 					billingAddress.setCountryISOCode(
@@ -425,6 +472,11 @@ public class BillingAddressSerDes {
 			else if (Objects.equals(jsonParserFieldName, "phoneNumber")) {
 				if (jsonParserFieldValue != null) {
 					billingAddress.setPhoneNumber((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "region")) {
+				if (jsonParserFieldValue != null) {
+					billingAddress.setRegion((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "regionISOCode")) {

@@ -176,10 +176,12 @@ public abstract class BaseBillingAddressResourceTestCase {
 		BillingAddress billingAddress = randomBillingAddress();
 
 		billingAddress.setCity(regex);
+		billingAddress.setCountry(regex);
 		billingAddress.setCountryISOCode(regex);
 		billingAddress.setDescription(regex);
 		billingAddress.setName(regex);
 		billingAddress.setPhoneNumber(regex);
+		billingAddress.setRegion(regex);
 		billingAddress.setRegionISOCode(regex);
 		billingAddress.setStreet1(regex);
 		billingAddress.setStreet2(regex);
@@ -194,10 +196,12 @@ public abstract class BaseBillingAddressResourceTestCase {
 		billingAddress = BillingAddressSerDes.toDTO(json);
 
 		Assert.assertEquals(regex, billingAddress.getCity());
+		Assert.assertEquals(regex, billingAddress.getCountry());
 		Assert.assertEquals(regex, billingAddress.getCountryISOCode());
 		Assert.assertEquals(regex, billingAddress.getDescription());
 		Assert.assertEquals(regex, billingAddress.getName());
 		Assert.assertEquals(regex, billingAddress.getPhoneNumber());
+		Assert.assertEquals(regex, billingAddress.getRegion());
 		Assert.assertEquals(regex, billingAddress.getRegionISOCode());
 		Assert.assertEquals(regex, billingAddress.getStreet1());
 		Assert.assertEquals(regex, billingAddress.getStreet2());
@@ -360,6 +364,14 @@ public abstract class BaseBillingAddressResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("country", additionalAssertFieldName)) {
+				if (billingAddress.getCountry() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("countryISOCode", additionalAssertFieldName)) {
 				if (billingAddress.getCountryISOCode() == null) {
 					valid = false;
@@ -402,6 +414,14 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 			if (Objects.equals("phoneNumber", additionalAssertFieldName)) {
 				if (billingAddress.getPhoneNumber() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("region", additionalAssertFieldName)) {
+				if (billingAddress.getRegion() == null) {
 					valid = false;
 				}
 
@@ -521,6 +541,17 @@ public abstract class BaseBillingAddressResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("country", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						billingAddress1.getCountry(),
+						billingAddress2.getCountry())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("countryISOCode", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						billingAddress1.getCountryISOCode(),
@@ -589,6 +620,17 @@ public abstract class BaseBillingAddressResourceTestCase {
 				if (!Objects.deepEquals(
 						billingAddress1.getPhoneNumber(),
 						billingAddress2.getPhoneNumber())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("region", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						billingAddress1.getRegion(),
+						billingAddress2.getRegion())) {
 
 					return false;
 				}
@@ -684,6 +726,17 @@ public abstract class BaseBillingAddressResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("country", fieldName)) {
+				if (!Objects.deepEquals(
+						billingAddress.getCountry(),
+						jsonObject.getString("country"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("countryISOCode", fieldName)) {
 				if (!Objects.deepEquals(
 						billingAddress.getCountryISOCode(),
@@ -753,6 +806,17 @@ public abstract class BaseBillingAddressResourceTestCase {
 				if (!Objects.deepEquals(
 						billingAddress.getPhoneNumber(),
 						jsonObject.getString("phoneNumber"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("region", fieldName)) {
+				if (!Objects.deepEquals(
+						billingAddress.getRegion(),
+						jsonObject.getString("region"))) {
 
 					return false;
 				}
@@ -891,6 +955,14 @@ public abstract class BaseBillingAddressResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("country")) {
+			sb.append("'");
+			sb.append(String.valueOf(billingAddress.getCountry()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("countryISOCode")) {
 			sb.append("'");
 			sb.append(String.valueOf(billingAddress.getCountryISOCode()));
@@ -933,6 +1005,14 @@ public abstract class BaseBillingAddressResourceTestCase {
 		if (entityFieldName.equals("phoneNumber")) {
 			sb.append("'");
 			sb.append(String.valueOf(billingAddress.getPhoneNumber()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("region")) {
+			sb.append("'");
+			sb.append(String.valueOf(billingAddress.getRegion()));
 			sb.append("'");
 
 			return sb.toString();
@@ -1011,6 +1091,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 		return new BillingAddress() {
 			{
 				city = RandomTestUtil.randomString();
+				country = RandomTestUtil.randomString();
 				countryISOCode = RandomTestUtil.randomString();
 				description = RandomTestUtil.randomString();
 				id = RandomTestUtil.randomLong();
@@ -1018,6 +1099,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 				longitude = RandomTestUtil.randomDouble();
 				name = RandomTestUtil.randomString();
 				phoneNumber = RandomTestUtil.randomString();
+				region = RandomTestUtil.randomString();
 				regionISOCode = RandomTestUtil.randomString();
 				street1 = RandomTestUtil.randomString();
 				street2 = RandomTestUtil.randomString();

@@ -15,8 +15,9 @@
 package com.liferay.headless.commerce.delivery.cart.client.dto.v1_0;
 
 import com.liferay.headless.commerce.delivery.cart.client.function.UnsafeSupplier;
-import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.OrderItemSerDes;
+import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.CartPostSerDes;
 
+import java.util.Map;
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -26,7 +27,28 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class OrderItem {
+public class CartPost {
+
+	public Long getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(Long accountId) {
+		this.accountId = accountId;
+	}
+
+	public void setAccountId(
+		UnsafeSupplier<Long, Exception> accountIdUnsafeSupplier) {
+
+		try {
+			accountId = accountIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long accountId;
 
 	public BillingAddress getBillingAddress() {
 		return billingAddress;
@@ -71,87 +93,68 @@ public class OrderItem {
 
 	protected Long billingAddressId;
 
-	public Long getId() {
-		return id;
+	public CartItemPost[] getCartItemPosts() {
+		return cartItemPosts;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setCartItemPosts(CartItemPost[] cartItemPosts) {
+		this.cartItemPosts = cartItemPosts;
 	}
 
-	public void setId(UnsafeSupplier<Long, Exception> idUnsafeSupplier) {
+	public void setCartItemPosts(
+		UnsafeSupplier<CartItemPost[], Exception> cartItemPostsUnsafeSupplier) {
+
 		try {
-			id = idUnsafeSupplier.get();
+			cartItemPosts = cartItemPostsUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected Long id;
+	protected CartItemPost[] cartItemPosts;
 
-	public String getOptions() {
-		return options;
+	public Map<String, ?> getCustomFields() {
+		return customFields;
 	}
 
-	public void setOptions(String options) {
-		this.options = options;
+	public void setCustomFields(Map<String, ?> customFields) {
+		this.customFields = customFields;
 	}
 
-	public void setOptions(
-		UnsafeSupplier<String, Exception> optionsUnsafeSupplier) {
+	public void setCustomFields(
+		UnsafeSupplier<Map<String, ?>, Exception> customFieldsUnsafeSupplier) {
 
 		try {
-			options = optionsUnsafeSupplier.get();
+			customFields = customFieldsUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected String options;
+	protected Map<String, ?> customFields;
 
-	public Long getProductId() {
-		return productId;
+	public String getPaymentMethod() {
+		return paymentMethod;
 	}
 
-	public void setProductId(Long productId) {
-		this.productId = productId;
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
 	}
 
-	public void setProductId(
-		UnsafeSupplier<Long, Exception> productIdUnsafeSupplier) {
+	public void setPaymentMethod(
+		UnsafeSupplier<String, Exception> paymentMethodUnsafeSupplier) {
 
 		try {
-			productId = productIdUnsafeSupplier.get();
+			paymentMethod = paymentMethodUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected Long productId;
-
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
-	public void setQuantity(
-		UnsafeSupplier<Integer, Exception> quantityUnsafeSupplier) {
-
-		try {
-			quantity = quantityUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected Integer quantity;
+	protected String paymentMethod;
 
 	public ShippingAddress getShippingAddress() {
 		return shippingAddress;
@@ -196,19 +199,61 @@ public class OrderItem {
 
 	protected Long shippingAddressId;
 
+	public String getShippingMethod() {
+		return shippingMethod;
+	}
+
+	public void setShippingMethod(String shippingMethod) {
+		this.shippingMethod = shippingMethod;
+	}
+
+	public void setShippingMethod(
+		UnsafeSupplier<String, Exception> shippingMethodUnsafeSupplier) {
+
+		try {
+			shippingMethod = shippingMethodUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String shippingMethod;
+
+	public String getShippingOption() {
+		return shippingOption;
+	}
+
+	public void setShippingOption(String shippingOption) {
+		this.shippingOption = shippingOption;
+	}
+
+	public void setShippingOption(
+		UnsafeSupplier<String, Exception> shippingOptionUnsafeSupplier) {
+
+		try {
+			shippingOption = shippingOptionUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String shippingOption;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
 			return true;
 		}
 
-		if (!(object instanceof OrderItem)) {
+		if (!(object instanceof CartPost)) {
 			return false;
 		}
 
-		OrderItem orderItem = (OrderItem)object;
+		CartPost cartPost = (CartPost)object;
 
-		return Objects.equals(toString(), orderItem.toString());
+		return Objects.equals(toString(), cartPost.toString());
 	}
 
 	@Override
@@ -219,7 +264,7 @@ public class OrderItem {
 	}
 
 	public String toString() {
-		return OrderItemSerDes.toJSON(this);
+		return CartPostSerDes.toJSON(this);
 	}
 
 }

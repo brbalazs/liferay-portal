@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.CartItem;
 import com.liferay.headless.commerce.delivery.cart.client.http.HttpInvoker;
 import com.liferay.headless.commerce.delivery.cart.client.pagination.Page;
+import com.liferay.headless.commerce.delivery.cart.client.pagination.Pagination;
 import com.liferay.headless.commerce.delivery.cart.client.resource.v1_0.CartItemResource;
 import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.CartItemSerDes;
 import com.liferay.petra.string.StringBundler;
@@ -177,6 +178,8 @@ public abstract class BaseCartItemResourceTestCase {
 		CartItem cartItem = randomCartItem();
 
 		cartItem.setName(regex);
+		cartItem.setOptions(regex);
+		cartItem.setSku(regex);
 
 		String json = CartItemSerDes.toJSON(cartItem);
 
@@ -185,31 +188,33 @@ public abstract class BaseCartItemResourceTestCase {
 		cartItem = CartItemSerDes.toDTO(json);
 
 		Assert.assertEquals(regex, cartItem.getName());
+		Assert.assertEquals(regex, cartItem.getOptions());
+		Assert.assertEquals(regex, cartItem.getSku());
 	}
 
 	@Test
-	public void testGetChannelCartCartItemsPage() throws Exception {
-		Page<CartItem> page = cartItemResource.getChannelCartCartItemsPage(
-			testGetChannelCartCartItemsPage_getChannelId(),
-			testGetChannelCartCartItemsPage_getCartId());
+	public void testGetChannelCartItemsPage() throws Exception {
+		Page<CartItem> page = cartItemResource.getChannelCartItemsPage(
+			testGetChannelCartItemsPage_getChannelId(),
+			testGetChannelCartItemsPage_getCartId(), Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
-		Long channelId = testGetChannelCartCartItemsPage_getChannelId();
+		Long channelId = testGetChannelCartItemsPage_getChannelId();
 		Long irrelevantChannelId =
-			testGetChannelCartCartItemsPage_getIrrelevantChannelId();
-		Long cartId = testGetChannelCartCartItemsPage_getCartId();
+			testGetChannelCartItemsPage_getIrrelevantChannelId();
+		Long cartId = testGetChannelCartItemsPage_getCartId();
 		Long irrelevantCartId =
-			testGetChannelCartCartItemsPage_getIrrelevantCartId();
+			testGetChannelCartItemsPage_getIrrelevantCartId();
 
 		if ((irrelevantChannelId != null) && (irrelevantCartId != null)) {
 			CartItem irrelevantCartItem =
-				testGetChannelCartCartItemsPage_addCartItem(
+				testGetChannelCartItemsPage_addCartItem(
 					irrelevantChannelId, irrelevantCartId,
 					randomIrrelevantCartItem());
 
-			page = cartItemResource.getChannelCartCartItemsPage(
-				irrelevantChannelId, irrelevantCartId);
+			page = cartItemResource.getChannelCartItemsPage(
+				irrelevantChannelId, irrelevantCartId, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -219,13 +224,14 @@ public abstract class BaseCartItemResourceTestCase {
 			assertValid(page);
 		}
 
-		CartItem cartItem1 = testGetChannelCartCartItemsPage_addCartItem(
+		CartItem cartItem1 = testGetChannelCartItemsPage_addCartItem(
 			channelId, cartId, randomCartItem());
 
-		CartItem cartItem2 = testGetChannelCartCartItemsPage_addCartItem(
+		CartItem cartItem2 = testGetChannelCartItemsPage_addCartItem(
 			channelId, cartId, randomCartItem());
 
-		page = cartItemResource.getChannelCartCartItemsPage(channelId, cartId);
+		page = cartItemResource.getChannelCartItemsPage(
+			channelId, cartId, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -235,7 +241,45 @@ public abstract class BaseCartItemResourceTestCase {
 		assertValid(page);
 	}
 
-	protected CartItem testGetChannelCartCartItemsPage_addCartItem(
+	@Test
+	public void testGetChannelCartItemsPageWithPagination() throws Exception {
+		Long channelId = testGetChannelCartItemsPage_getChannelId();
+		Long cartId = testGetChannelCartItemsPage_getCartId();
+
+		CartItem cartItem1 = testGetChannelCartItemsPage_addCartItem(
+			channelId, cartId, randomCartItem());
+
+		CartItem cartItem2 = testGetChannelCartItemsPage_addCartItem(
+			channelId, cartId, randomCartItem());
+
+		CartItem cartItem3 = testGetChannelCartItemsPage_addCartItem(
+			channelId, cartId, randomCartItem());
+
+		Page<CartItem> page1 = cartItemResource.getChannelCartItemsPage(
+			channelId, cartId, Pagination.of(1, 2));
+
+		List<CartItem> cartItems1 = (List<CartItem>)page1.getItems();
+
+		Assert.assertEquals(cartItems1.toString(), 2, cartItems1.size());
+
+		Page<CartItem> page2 = cartItemResource.getChannelCartItemsPage(
+			channelId, cartId, Pagination.of(2, 2));
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<CartItem> cartItems2 = (List<CartItem>)page2.getItems();
+
+		Assert.assertEquals(cartItems2.toString(), 1, cartItems2.size());
+
+		Page<CartItem> page3 = cartItemResource.getChannelCartItemsPage(
+			channelId, cartId, Pagination.of(1, 3));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(cartItem1, cartItem2, cartItem3),
+			(List<CartItem>)page3.getItems());
+	}
+
+	protected CartItem testGetChannelCartItemsPage_addCartItem(
 			Long channelId, Long cartId, CartItem cartItem)
 		throws Exception {
 
@@ -243,45 +287,40 @@ public abstract class BaseCartItemResourceTestCase {
 			"This method needs to be implemented");
 	}
 
-	protected Long testGetChannelCartCartItemsPage_getChannelId()
-		throws Exception {
-
+	protected Long testGetChannelCartItemsPage_getChannelId() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long testGetChannelCartCartItemsPage_getIrrelevantChannelId()
+	protected Long testGetChannelCartItemsPage_getIrrelevantChannelId()
 		throws Exception {
 
 		return null;
 	}
 
-	protected Long testGetChannelCartCartItemsPage_getCartId()
-		throws Exception {
-
+	protected Long testGetChannelCartItemsPage_getCartId() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long testGetChannelCartCartItemsPage_getIrrelevantCartId()
+	protected Long testGetChannelCartItemsPage_getIrrelevantCartId()
 		throws Exception {
 
 		return null;
 	}
 
 	@Test
-	public void testPostChannelCartCartItem() throws Exception {
+	public void testPostChannelCartItem() throws Exception {
 		CartItem randomCartItem = randomCartItem();
 
-		CartItem postCartItem = testPostChannelCartCartItem_addCartItem(
+		CartItem postCartItem = testPostChannelCartItem_addCartItem(
 			randomCartItem);
 
 		assertEquals(randomCartItem, postCartItem);
 		assertValid(postCartItem);
 	}
 
-	protected CartItem testPostChannelCartCartItem_addCartItem(
-			CartItem cartItem)
+	protected CartItem testPostChannelCartItem_addCartItem(CartItem cartItem)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -289,26 +328,26 @@ public abstract class BaseCartItemResourceTestCase {
 	}
 
 	@Test
-	public void testDeleteChannelCartCartItem() throws Exception {
-		CartItem cartItem = testDeleteChannelCartCartItem_addCartItem();
+	public void testDeleteChannelCartItemCartItem() throws Exception {
+		CartItem cartItem = testDeleteChannelCartItemCartItem_addCartItem();
 
 		assertHttpResponseStatusCode(
 			204,
-			cartItemResource.deleteChannelCartCartItemHttpResponse(
+			cartItemResource.deleteChannelCartItemCartItemHttpResponse(
 				null, null, cartItem.getId()));
 
 		assertHttpResponseStatusCode(
 			404,
-			cartItemResource.getChannelCartCartItemHttpResponse(
+			cartItemResource.getChannelCartItemCartItemHttpResponse(
 				null, null, cartItem.getId()));
 
 		assertHttpResponseStatusCode(
 			404,
-			cartItemResource.getChannelCartCartItemHttpResponse(
+			cartItemResource.getChannelCartItemCartItemHttpResponse(
 				null, null, 0L));
 	}
 
-	protected CartItem testDeleteChannelCartCartItem_addCartItem()
+	protected CartItem testDeleteChannelCartItemCartItem_addCartItem()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -316,10 +355,10 @@ public abstract class BaseCartItemResourceTestCase {
 	}
 
 	@Test
-	public void testGetChannelCartCartItem() throws Exception {
-		CartItem postCartItem = testGetChannelCartCartItem_addCartItem();
+	public void testGetChannelCartItemCartItem() throws Exception {
+		CartItem postCartItem = testGetChannelCartItemCartItem_addCartItem();
 
-		CartItem getCartItem = cartItemResource.getChannelCartCartItem(
+		CartItem getCartItem = cartItemResource.getChannelCartItemCartItem(
 			postCartItem.getChannelId(), postCartItem.getCartId(),
 			postCartItem.getId());
 
@@ -327,7 +366,7 @@ public abstract class BaseCartItemResourceTestCase {
 		assertValid(getCartItem);
 	}
 
-	protected CartItem testGetChannelCartCartItem_addCartItem()
+	protected CartItem testGetChannelCartItemCartItem_addCartItem()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -335,7 +374,7 @@ public abstract class BaseCartItemResourceTestCase {
 	}
 
 	@Test
-	public void testGraphQLGetChannelCartCartItem() throws Exception {
+	public void testGraphQLGetChannelCartItemCartItem() throws Exception {
 		CartItem cartItem = testGraphQLCartItem_addCartItem();
 
 		List<GraphQLField> graphQLFields = getGraphQLFields();
@@ -343,7 +382,7 @@ public abstract class BaseCartItemResourceTestCase {
 		GraphQLField graphQLField = new GraphQLField(
 			"query",
 			new GraphQLField(
-				"channelCartCartItem",
+				"channelCartItemCartItem",
 				new HashMap<String, Object>() {
 					{
 						put("channelId", cartItem.getChannelId());
@@ -360,16 +399,17 @@ public abstract class BaseCartItemResourceTestCase {
 
 		Assert.assertTrue(
 			equalsJSONObject(
-				cartItem, dataJSONObject.getJSONObject("channelCartCartItem")));
+				cartItem,
+				dataJSONObject.getJSONObject("channelCartItemCartItem")));
 	}
 
 	@Test
-	public void testPatchChannelCartCartItem() throws Exception {
-		CartItem postCartItem = testPatchChannelCartCartItem_addCartItem();
+	public void testPatchChannelCartItemCartItem() throws Exception {
+		CartItem postCartItem = testPatchChannelCartItemCartItem_addCartItem();
 
 		CartItem randomPatchCartItem = randomPatchCartItem();
 
-		CartItem patchCartItem = cartItemResource.patchChannelCartCartItem(
+		CartItem patchCartItem = cartItemResource.patchChannelCartItemCartItem(
 			postCartItem.getId(), randomPatchCartItem);
 
 		CartItem expectedPatchCartItem = (CartItem)BeanUtils.cloneBean(
@@ -385,7 +425,7 @@ public abstract class BaseCartItemResourceTestCase {
 		assertValid(getCartItem);
 	}
 
-	protected CartItem testPatchChannelCartCartItem_addCartItem()
+	protected CartItem testPatchChannelCartItemCartItem_addCartItem()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -393,8 +433,8 @@ public abstract class BaseCartItemResourceTestCase {
 	}
 
 	@Test
-	public void testPutChannelCartCartItem() throws Exception {
-		CartItem postCartItem = testPutChannelCartCartItem_addCartItem();
+	public void testPutChannelCartItemCartItem() throws Exception {
+		CartItem postCartItem = testPutChannelCartItemCartItem_addCartItem();
 
 		CartItem randomCartItem = randomCartItem();
 
@@ -411,7 +451,7 @@ public abstract class BaseCartItemResourceTestCase {
 		assertValid(getCartItem);
 	}
 
-	protected CartItem testPutChannelCartCartItem_addCartItem()
+	protected CartItem testPutChannelCartItemCartItem_addCartItem()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -500,8 +540,24 @@ public abstract class BaseCartItemResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("customFields", additionalAssertFieldName)) {
+				if (cartItem.getCustomFields() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("name", additionalAssertFieldName)) {
 				if (cartItem.getName() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("options", additionalAssertFieldName)) {
+				if (cartItem.getOptions() == null) {
 					valid = false;
 				}
 
@@ -516,8 +572,40 @@ public abstract class BaseCartItemResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("productId", additionalAssertFieldName)) {
+				if (cartItem.getProductId() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("quantity", additionalAssertFieldName)) {
 				if (cartItem.getQuantity() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("sku", additionalAssertFieldName)) {
+				if (cartItem.getSku() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("skuId", additionalAssertFieldName)) {
+				if (cartItem.getSkuId() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("subscription", additionalAssertFieldName)) {
+				if (cartItem.getSubscription() == null) {
 					valid = false;
 				}
 
@@ -577,6 +665,17 @@ public abstract class BaseCartItemResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("customFields", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						cartItem1.getCustomFields(),
+						cartItem2.getCustomFields())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("id", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(cartItem1.getId(), cartItem2.getId())) {
 					return false;
@@ -595,6 +694,16 @@ public abstract class BaseCartItemResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("options", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						cartItem1.getOptions(), cartItem2.getOptions())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("price", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						cartItem1.getPrice(), cartItem2.getPrice())) {
@@ -605,9 +714,50 @@ public abstract class BaseCartItemResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("productId", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						cartItem1.getProductId(), cartItem2.getProductId())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("quantity", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						cartItem1.getQuantity(), cartItem2.getQuantity())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("sku", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						cartItem1.getSku(), cartItem2.getSku())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("skuId", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						cartItem1.getSkuId(), cartItem2.getSkuId())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("subscription", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						cartItem1.getSubscription(),
+						cartItem2.getSubscription())) {
 
 					return false;
 				}
@@ -647,10 +797,63 @@ public abstract class BaseCartItemResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("options", fieldName)) {
+				if (!Objects.deepEquals(
+						cartItem.getOptions(),
+						jsonObject.getString("options"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("productId", fieldName)) {
+				if (!Objects.deepEquals(
+						cartItem.getProductId(),
+						jsonObject.getLong("productId"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("quantity", fieldName)) {
 				if (!Objects.deepEquals(
 						cartItem.getQuantity(),
 						jsonObject.getInt("quantity"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("sku", fieldName)) {
+				if (!Objects.deepEquals(
+						cartItem.getSku(), jsonObject.getString("sku"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("skuId", fieldName)) {
+				if (!Objects.deepEquals(
+						cartItem.getSkuId(), jsonObject.getLong("skuId"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("subscription", fieldName)) {
+				if (!Objects.deepEquals(
+						cartItem.getSubscription(),
+						jsonObject.getBoolean("subscription"))) {
 
 					return false;
 				}
@@ -715,6 +918,11 @@ public abstract class BaseCartItemResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
+		if (entityFieldName.equals("customFields")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("id")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -728,12 +936,43 @@ public abstract class BaseCartItemResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("options")) {
+			sb.append("'");
+			sb.append(String.valueOf(cartItem.getOptions()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("price")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("productId")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("quantity")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("sku")) {
+			sb.append("'");
+			sb.append(String.valueOf(cartItem.getSku()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("skuId")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("subscription")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -764,7 +1003,12 @@ public abstract class BaseCartItemResourceTestCase {
 			{
 				id = RandomTestUtil.randomLong();
 				name = RandomTestUtil.randomString();
+				options = RandomTestUtil.randomString();
+				productId = RandomTestUtil.randomLong();
 				quantity = RandomTestUtil.randomInt();
+				sku = RandomTestUtil.randomString();
+				skuId = RandomTestUtil.randomLong();
+				subscription = RandomTestUtil.randomBoolean();
 			}
 		};
 	}

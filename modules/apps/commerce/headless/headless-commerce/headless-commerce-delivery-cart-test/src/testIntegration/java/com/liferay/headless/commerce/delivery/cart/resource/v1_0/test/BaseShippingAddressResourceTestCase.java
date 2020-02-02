@@ -176,10 +176,12 @@ public abstract class BaseShippingAddressResourceTestCase {
 		ShippingAddress shippingAddress = randomShippingAddress();
 
 		shippingAddress.setCity(regex);
+		shippingAddress.setCountry(regex);
 		shippingAddress.setCountryISOCode(regex);
 		shippingAddress.setDescription(regex);
 		shippingAddress.setName(regex);
 		shippingAddress.setPhoneNumber(regex);
+		shippingAddress.setRegion(regex);
 		shippingAddress.setRegionISOCode(regex);
 		shippingAddress.setStreet1(regex);
 		shippingAddress.setStreet2(regex);
@@ -193,10 +195,12 @@ public abstract class BaseShippingAddressResourceTestCase {
 		shippingAddress = ShippingAddressSerDes.toDTO(json);
 
 		Assert.assertEquals(regex, shippingAddress.getCity());
+		Assert.assertEquals(regex, shippingAddress.getCountry());
 		Assert.assertEquals(regex, shippingAddress.getCountryISOCode());
 		Assert.assertEquals(regex, shippingAddress.getDescription());
 		Assert.assertEquals(regex, shippingAddress.getName());
 		Assert.assertEquals(regex, shippingAddress.getPhoneNumber());
+		Assert.assertEquals(regex, shippingAddress.getRegion());
 		Assert.assertEquals(regex, shippingAddress.getRegionISOCode());
 		Assert.assertEquals(regex, shippingAddress.getStreet1());
 		Assert.assertEquals(regex, shippingAddress.getStreet2());
@@ -360,6 +364,14 @@ public abstract class BaseShippingAddressResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("country", additionalAssertFieldName)) {
+				if (shippingAddress.getCountry() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("countryISOCode", additionalAssertFieldName)) {
 				if (shippingAddress.getCountryISOCode() == null) {
 					valid = false;
@@ -402,6 +414,14 @@ public abstract class BaseShippingAddressResourceTestCase {
 
 			if (Objects.equals("phoneNumber", additionalAssertFieldName)) {
 				if (shippingAddress.getPhoneNumber() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("region", additionalAssertFieldName)) {
+				if (shippingAddress.getRegion() == null) {
 					valid = false;
 				}
 
@@ -515,6 +535,17 @@ public abstract class BaseShippingAddressResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("country", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						shippingAddress1.getCountry(),
+						shippingAddress2.getCountry())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("countryISOCode", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						shippingAddress1.getCountryISOCode(),
@@ -584,6 +615,17 @@ public abstract class BaseShippingAddressResourceTestCase {
 				if (!Objects.deepEquals(
 						shippingAddress1.getPhoneNumber(),
 						shippingAddress2.getPhoneNumber())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("region", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						shippingAddress1.getRegion(),
+						shippingAddress2.getRegion())) {
 
 					return false;
 				}
@@ -668,6 +710,17 @@ public abstract class BaseShippingAddressResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("country", fieldName)) {
+				if (!Objects.deepEquals(
+						shippingAddress.getCountry(),
+						jsonObject.getString("country"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("countryISOCode", fieldName)) {
 				if (!Objects.deepEquals(
 						shippingAddress.getCountryISOCode(),
@@ -737,6 +790,17 @@ public abstract class BaseShippingAddressResourceTestCase {
 				if (!Objects.deepEquals(
 						shippingAddress.getPhoneNumber(),
 						jsonObject.getString("phoneNumber"))) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("region", fieldName)) {
+				if (!Objects.deepEquals(
+						shippingAddress.getRegion(),
+						jsonObject.getString("region"))) {
 
 					return false;
 				}
@@ -865,6 +929,14 @@ public abstract class BaseShippingAddressResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("country")) {
+			sb.append("'");
+			sb.append(String.valueOf(shippingAddress.getCountry()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("countryISOCode")) {
 			sb.append("'");
 			sb.append(String.valueOf(shippingAddress.getCountryISOCode()));
@@ -907,6 +979,14 @@ public abstract class BaseShippingAddressResourceTestCase {
 		if (entityFieldName.equals("phoneNumber")) {
 			sb.append("'");
 			sb.append(String.valueOf(shippingAddress.getPhoneNumber()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("region")) {
+			sb.append("'");
+			sb.append(String.valueOf(shippingAddress.getRegion()));
 			sb.append("'");
 
 			return sb.toString();
@@ -977,6 +1057,7 @@ public abstract class BaseShippingAddressResourceTestCase {
 		return new ShippingAddress() {
 			{
 				city = RandomTestUtil.randomString();
+				country = RandomTestUtil.randomString();
 				countryISOCode = RandomTestUtil.randomString();
 				description = RandomTestUtil.randomString();
 				id = RandomTestUtil.randomLong();
@@ -984,6 +1065,7 @@ public abstract class BaseShippingAddressResourceTestCase {
 				longitude = RandomTestUtil.randomDouble();
 				name = RandomTestUtil.randomString();
 				phoneNumber = RandomTestUtil.randomString();
+				region = RandomTestUtil.randomString();
 				regionISOCode = RandomTestUtil.randomString();
 				street1 = RandomTestUtil.randomString();
 				street2 = RandomTestUtil.randomString();

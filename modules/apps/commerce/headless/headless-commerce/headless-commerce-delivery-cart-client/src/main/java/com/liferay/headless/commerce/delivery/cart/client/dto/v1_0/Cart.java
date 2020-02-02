@@ -18,6 +18,7 @@ import com.liferay.headless.commerce.delivery.cart.client.function.UnsafeSupplie
 import com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0.CartSerDes;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -135,6 +136,27 @@ public class Cart {
 
 	protected CartItem[] cartItems;
 
+	public String getCouponCode() {
+		return couponCode;
+	}
+
+	public void setCouponCode(String couponCode) {
+		this.couponCode = couponCode;
+	}
+
+	public void setCouponCode(
+		UnsafeSupplier<String, Exception> couponCodeUnsafeSupplier) {
+
+		try {
+			couponCode = couponCodeUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String couponCode;
+
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -156,6 +178,27 @@ public class Cart {
 
 	protected Date createDate;
 
+	public Map<String, ?> getCustomFields() {
+		return customFields;
+	}
+
+	public void setCustomFields(Map<String, ?> customFields) {
+		this.customFields = customFields;
+	}
+
+	public void setCustomFields(
+		UnsafeSupplier<Map<String, ?>, Exception> customFieldsUnsafeSupplier) {
+
+		try {
+			customFields = customFieldsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Map<String, ?> customFields;
+
 	public Long getId() {
 		return id;
 	}
@@ -174,6 +217,48 @@ public class Cart {
 	}
 
 	protected Long id;
+
+	public Date getLastPriceUpdateDate() {
+		return lastPriceUpdateDate;
+	}
+
+	public void setLastPriceUpdateDate(Date lastPriceUpdateDate) {
+		this.lastPriceUpdateDate = lastPriceUpdateDate;
+	}
+
+	public void setLastPriceUpdateDate(
+		UnsafeSupplier<Date, Exception> lastPriceUpdateDateUnsafeSupplier) {
+
+		try {
+			lastPriceUpdateDate = lastPriceUpdateDateUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Date lastPriceUpdateDate;
+
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public void setModifiedDate(
+		UnsafeSupplier<Date, Exception> modifiedDateUnsafeSupplier) {
+
+		try {
+			modifiedDate = modifiedDateUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Date modifiedDate;
 
 	public Note[] getNotes() {
 		return notes;
@@ -217,6 +302,27 @@ public class Cart {
 
 	protected String paymentMethod;
 
+	public String getPaymentMethodLabel() {
+		return paymentMethodLabel;
+	}
+
+	public void setPaymentMethodLabel(String paymentMethodLabel) {
+		this.paymentMethodLabel = paymentMethodLabel;
+	}
+
+	public void setPaymentMethodLabel(
+		UnsafeSupplier<String, Exception> paymentMethodLabelUnsafeSupplier) {
+
+		try {
+			paymentMethodLabel = paymentMethodLabelUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String paymentMethodLabel;
+
 	public Integer getPaymentStatus() {
 		return paymentStatus;
 	}
@@ -237,6 +343,27 @@ public class Cart {
 	}
 
 	protected Integer paymentStatus;
+
+	public String getPaymentStatusLabel() {
+		return paymentStatusLabel;
+	}
+
+	public void setPaymentStatusLabel(String paymentStatusLabel) {
+		this.paymentStatusLabel = paymentStatusLabel;
+	}
+
+	public void setPaymentStatusLabel(
+		UnsafeSupplier<String, Exception> paymentStatusLabelUnsafeSupplier) {
+
+		try {
+			paymentStatusLabel = paymentStatusLabelUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String paymentStatusLabel;
 
 	public String getPrintedNote() {
 		return printedNote;
@@ -259,6 +386,27 @@ public class Cart {
 
 	protected String printedNote;
 
+	public String getPurchaseOrderNumber() {
+		return purchaseOrderNumber;
+	}
+
+	public void setPurchaseOrderNumber(String purchaseOrderNumber) {
+		this.purchaseOrderNumber = purchaseOrderNumber;
+	}
+
+	public void setPurchaseOrderNumber(
+		UnsafeSupplier<String, Exception> purchaseOrderNumberUnsafeSupplier) {
+
+		try {
+			purchaseOrderNumber = purchaseOrderNumberUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String purchaseOrderNumber;
+
 	public ShippingAddress getShippingAddress() {
 		return shippingAddress;
 	}
@@ -280,6 +428,48 @@ public class Cart {
 	}
 
 	protected ShippingAddress shippingAddress;
+
+	public String getShippingMethod() {
+		return shippingMethod;
+	}
+
+	public void setShippingMethod(String shippingMethod) {
+		this.shippingMethod = shippingMethod;
+	}
+
+	public void setShippingMethod(
+		UnsafeSupplier<String, Exception> shippingMethodUnsafeSupplier) {
+
+		try {
+			shippingMethod = shippingMethodUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String shippingMethod;
+
+	public String getShippingOption() {
+		return shippingOption;
+	}
+
+	public void setShippingOption(String shippingOption) {
+		this.shippingOption = shippingOption;
+	}
+
+	public void setShippingOption(
+		UnsafeSupplier<String, Exception> shippingOptionUnsafeSupplier) {
+
+		try {
+			shippingOption = shippingOptionUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String shippingOption;
 
 	public String getStatus() {
 		return status;

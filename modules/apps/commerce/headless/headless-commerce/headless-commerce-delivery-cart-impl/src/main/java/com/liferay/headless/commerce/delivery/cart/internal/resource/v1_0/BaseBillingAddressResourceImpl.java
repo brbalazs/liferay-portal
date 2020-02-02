@@ -16,8 +16,12 @@ package com.liferay.headless.commerce.delivery.cart.internal.resource.v1_0;
 
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.BillingAddress;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.BillingAddressResource;
+import com.liferay.oauth2.provider.scope.ScopeChecker;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.GroupedModel;
+import com.liferay.portal.kernel.service.ResourceActionLocalService;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.util.ActionUtil;
 import com.liferay.portal.vulcan.util.TransformUtil;
@@ -60,7 +64,7 @@ public abstract class BaseBillingAddressResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/billingAddress'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/billing-address'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -71,7 +75,7 @@ public abstract class BaseBillingAddressResourceImpl
 			@Parameter(in = ParameterIn.PATH, name = "cartId")
 		}
 	)
-	@Path("/channels/{channelId}/carts/{cartId}/billingAddress")
+	@Path("/channels/{channelId}/carts/{cartId}/billing-address")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "BillingAddress")})
 	public BillingAddress getChannelCartBillingAddress(
@@ -86,7 +90,7 @@ public abstract class BaseBillingAddressResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/billingAddress' -d $'{"city": ___, "countryISOCode": ___, "description": ___, "id": ___, "latitude": ___, "longitude": ___, "name": ___, "phoneNumber": ___, "regionISOCode": ___, "street1": ___, "street2": ___, "street3": ___, "vatNumber": ___, "zip": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/billing-address' -d $'{"city": ___, "country": ___, "countryISOCode": ___, "description": ___, "id": ___, "latitude": ___, "longitude": ___, "name": ___, "phoneNumber": ___, "region": ___, "regionISOCode": ___, "street1": ___, "street2": ___, "street3": ___, "vatNumber": ___, "zip": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -97,7 +101,7 @@ public abstract class BaseBillingAddressResourceImpl
 			@Parameter(in = ParameterIn.PATH, name = "cartId")
 		}
 	)
-	@Path("/channels/{channelId}/carts/{cartId}/billingAddress")
+	@Path("/channels/{channelId}/carts/{cartId}/billing-address")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "BillingAddress")})
 	public Response patchChannelCartBillingAddress(
@@ -148,7 +152,8 @@ public abstract class BaseBillingAddressResourceImpl
 		String actionName, GroupedModel groupedModel, String methodName) {
 
 		return ActionUtil.addAction(
-			actionName, getClass(), groupedModel, methodName, contextUriInfo);
+			actionName, getClass(), groupedModel, methodName,
+			contextScopeChecker, contextUriInfo);
 	}
 
 	protected Map<String, String> addAction(
@@ -156,8 +161,8 @@ public abstract class BaseBillingAddressResourceImpl
 		Long siteId) {
 
 		return ActionUtil.addAction(
-			actionName, getClass(), id, methodName, permissionName, siteId,
-			contextUriInfo);
+			actionName, getClass(), id, methodName, permissionName,
+			contextScopeChecker, siteId, contextUriInfo);
 	}
 
 	protected Map<String, String> addAction(
@@ -205,6 +210,10 @@ public abstract class BaseBillingAddressResourceImpl
 	protected com.liferay.portal.kernel.model.User contextUser;
 	protected HttpServletRequest contextHttpServletRequest;
 	protected HttpServletResponse contextHttpServletResponse;
+	protected ResourceActionLocalService resourceActionLocalService;
+	protected ResourcePermissionLocalService resourcePermissionLocalService;
+	protected RoleLocalService roleLocalService;
+	protected ScopeChecker contextScopeChecker;
 	protected UriInfo contextUriInfo;
 
 }

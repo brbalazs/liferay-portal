@@ -53,6 +53,16 @@ public class CartItemSerDes {
 
 		sb.append("{");
 
+		if (cartItem.getCustomFields() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"customFields\": ");
+
+			sb.append(_toJSON(cartItem.getCustomFields()));
+		}
+
 		if (cartItem.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -77,6 +87,20 @@ public class CartItemSerDes {
 			sb.append("\"");
 		}
 
+		if (cartItem.getOptions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"options\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(cartItem.getOptions()));
+
+			sb.append("\"");
+		}
+
 		if (cartItem.getPrice() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -87,6 +111,16 @@ public class CartItemSerDes {
 			sb.append(String.valueOf(cartItem.getPrice()));
 		}
 
+		if (cartItem.getProductId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"productId\": ");
+
+			sb.append(cartItem.getProductId());
+		}
+
 		if (cartItem.getQuantity() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -95,6 +129,40 @@ public class CartItemSerDes {
 			sb.append("\"quantity\": ");
 
 			sb.append(cartItem.getQuantity());
+		}
+
+		if (cartItem.getSku() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"sku\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(cartItem.getSku()));
+
+			sb.append("\"");
+		}
+
+		if (cartItem.getSkuId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"skuId\": ");
+
+			sb.append(cartItem.getSkuId());
+		}
+
+		if (cartItem.getSubscription() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subscription\": ");
+
+			sb.append(cartItem.getSubscription());
 		}
 
 		sb.append("}");
@@ -115,6 +183,13 @@ public class CartItemSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (cartItem.getCustomFields() == null) {
+			map.put("customFields", null);
+		}
+		else {
+			map.put("customFields", String.valueOf(cartItem.getCustomFields()));
+		}
+
 		if (cartItem.getId() == null) {
 			map.put("id", null);
 		}
@@ -129,6 +204,13 @@ public class CartItemSerDes {
 			map.put("name", String.valueOf(cartItem.getName()));
 		}
 
+		if (cartItem.getOptions() == null) {
+			map.put("options", null);
+		}
+		else {
+			map.put("options", String.valueOf(cartItem.getOptions()));
+		}
+
 		if (cartItem.getPrice() == null) {
 			map.put("price", null);
 		}
@@ -136,11 +218,39 @@ public class CartItemSerDes {
 			map.put("price", String.valueOf(cartItem.getPrice()));
 		}
 
+		if (cartItem.getProductId() == null) {
+			map.put("productId", null);
+		}
+		else {
+			map.put("productId", String.valueOf(cartItem.getProductId()));
+		}
+
 		if (cartItem.getQuantity() == null) {
 			map.put("quantity", null);
 		}
 		else {
 			map.put("quantity", String.valueOf(cartItem.getQuantity()));
+		}
+
+		if (cartItem.getSku() == null) {
+			map.put("sku", null);
+		}
+		else {
+			map.put("sku", String.valueOf(cartItem.getSku()));
+		}
+
+		if (cartItem.getSkuId() == null) {
+			map.put("skuId", null);
+		}
+		else {
+			map.put("skuId", String.valueOf(cartItem.getSkuId()));
+		}
+
+		if (cartItem.getSubscription() == null) {
+			map.put("subscription", null);
+		}
+		else {
+			map.put("subscription", String.valueOf(cartItem.getSubscription()));
 		}
 
 		return map;
@@ -163,7 +273,14 @@ public class CartItemSerDes {
 			CartItem cartItem, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "id")) {
+			if (Objects.equals(jsonParserFieldName, "customFields")) {
+				if (jsonParserFieldValue != null) {
+					cartItem.setCustomFields(
+						(Map)CartItemSerDes.toMap(
+							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
 					cartItem.setId(Long.valueOf((String)jsonParserFieldValue));
 				}
@@ -173,16 +290,43 @@ public class CartItemSerDes {
 					cartItem.setName((String)jsonParserFieldValue);
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "options")) {
+				if (jsonParserFieldValue != null) {
+					cartItem.setOptions((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "price")) {
 				if (jsonParserFieldValue != null) {
 					cartItem.setPrice(
 						PriceSerDes.toDTO((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "productId")) {
+				if (jsonParserFieldValue != null) {
+					cartItem.setProductId(
+						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "quantity")) {
 				if (jsonParserFieldValue != null) {
 					cartItem.setQuantity(
 						Integer.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "sku")) {
+				if (jsonParserFieldValue != null) {
+					cartItem.setSku((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "skuId")) {
+				if (jsonParserFieldValue != null) {
+					cartItem.setSkuId(
+						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "subscription")) {
+				if (jsonParserFieldValue != null) {
+					cartItem.setSubscription((Boolean)jsonParserFieldValue);
 				}
 			}
 			else {

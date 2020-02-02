@@ -42,10 +42,38 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName("OrderItem")
+@GraphQLName("CartPost")
 @JsonFilter("Liferay.Vulcan")
-@XmlRootElement(name = "OrderItem")
-public class OrderItem {
+@XmlRootElement(name = "CartPost")
+public class CartPost {
+
+	@Schema
+	public Long getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(Long accountId) {
+		this.accountId = accountId;
+	}
+
+	@JsonIgnore
+	public void setAccountId(
+		UnsafeSupplier<Long, Exception> accountIdUnsafeSupplier) {
+
+		try {
+			accountId = accountIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Long accountId;
 
 	@Schema
 	@Valid
@@ -107,18 +135,21 @@ public class OrderItem {
 	protected Long billingAddressId;
 
 	@Schema
-	public Long getId() {
-		return id;
+	@Valid
+	public CartItemPost[] getCartItemPosts() {
+		return cartItemPosts;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setCartItemPosts(CartItemPost[] cartItemPosts) {
+		this.cartItemPosts = cartItemPosts;
 	}
 
 	@JsonIgnore
-	public void setId(UnsafeSupplier<Long, Exception> idUnsafeSupplier) {
+	public void setCartItemPosts(
+		UnsafeSupplier<CartItemPost[], Exception> cartItemPostsUnsafeSupplier) {
+
 		try {
-			id = idUnsafeSupplier.get();
+			cartItemPosts = cartItemPostsUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -130,23 +161,24 @@ public class OrderItem {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Long id;
+	protected CartItemPost[] cartItemPosts;
 
 	@Schema
-	public String getOptions() {
-		return options;
+	@Valid
+	public Map<String, ?> getCustomFields() {
+		return customFields;
 	}
 
-	public void setOptions(String options) {
-		this.options = options;
+	public void setCustomFields(Map<String, ?> customFields) {
+		this.customFields = customFields;
 	}
 
 	@JsonIgnore
-	public void setOptions(
-		UnsafeSupplier<String, Exception> optionsUnsafeSupplier) {
+	public void setCustomFields(
+		UnsafeSupplier<Map<String, ?>, Exception> customFieldsUnsafeSupplier) {
 
 		try {
-			options = optionsUnsafeSupplier.get();
+			customFields = customFieldsUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -158,23 +190,23 @@ public class OrderItem {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String options;
+	protected Map<String, ?> customFields;
 
 	@Schema
-	public Long getProductId() {
-		return productId;
+	public String getPaymentMethod() {
+		return paymentMethod;
 	}
 
-	public void setProductId(Long productId) {
-		this.productId = productId;
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
 	}
 
 	@JsonIgnore
-	public void setProductId(
-		UnsafeSupplier<Long, Exception> productIdUnsafeSupplier) {
+	public void setPaymentMethod(
+		UnsafeSupplier<String, Exception> paymentMethodUnsafeSupplier) {
 
 		try {
-			productId = productIdUnsafeSupplier.get();
+			paymentMethod = paymentMethodUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -186,35 +218,7 @@ public class OrderItem {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Long productId;
-
-	@Schema
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
-	@JsonIgnore
-	public void setQuantity(
-		UnsafeSupplier<Integer, Exception> quantityUnsafeSupplier) {
-
-		try {
-			quantity = quantityUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Integer quantity;
+	protected String paymentMethod;
 
 	@Schema
 	@Valid
@@ -275,19 +279,75 @@ public class OrderItem {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long shippingAddressId;
 
+	@Schema
+	public String getShippingMethod() {
+		return shippingMethod;
+	}
+
+	public void setShippingMethod(String shippingMethod) {
+		this.shippingMethod = shippingMethod;
+	}
+
+	@JsonIgnore
+	public void setShippingMethod(
+		UnsafeSupplier<String, Exception> shippingMethodUnsafeSupplier) {
+
+		try {
+			shippingMethod = shippingMethodUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String shippingMethod;
+
+	@Schema
+	public String getShippingOption() {
+		return shippingOption;
+	}
+
+	public void setShippingOption(String shippingOption) {
+		this.shippingOption = shippingOption;
+	}
+
+	@JsonIgnore
+	public void setShippingOption(
+		UnsafeSupplier<String, Exception> shippingOptionUnsafeSupplier) {
+
+		try {
+			shippingOption = shippingOptionUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String shippingOption;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
 			return true;
 		}
 
-		if (!(object instanceof OrderItem)) {
+		if (!(object instanceof CartPost)) {
 			return false;
 		}
 
-		OrderItem orderItem = (OrderItem)object;
+		CartPost cartPost = (CartPost)object;
 
-		return Objects.equals(toString(), orderItem.toString());
+		return Objects.equals(toString(), cartPost.toString());
 	}
 
 	@Override
@@ -301,6 +361,16 @@ public class OrderItem {
 		StringBundler sb = new StringBundler();
 
 		sb.append("{");
+
+		if (accountId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"accountId\": ");
+
+			sb.append(accountId);
+		}
 
 		if (billingAddress != null) {
 			if (sb.length() > 1) {
@@ -322,48 +392,48 @@ public class OrderItem {
 			sb.append(billingAddressId);
 		}
 
-		if (id != null) {
+		if (cartItemPosts != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"id\": ");
+			sb.append("\"cartItemPosts\": ");
 
-			sb.append(id);
+			sb.append("[");
+
+			for (int i = 0; i < cartItemPosts.length; i++) {
+				sb.append(String.valueOf(cartItemPosts[i]));
+
+				if ((i + 1) < cartItemPosts.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
-		if (options != null) {
+		if (customFields != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"options\": ");
+			sb.append("\"customFields\": ");
+
+			sb.append(_toJSON(customFields));
+		}
+
+		if (paymentMethod != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"paymentMethod\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(options));
+			sb.append(_escape(paymentMethod));
 
 			sb.append("\"");
-		}
-
-		if (productId != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"productId\": ");
-
-			sb.append(productId);
-		}
-
-		if (quantity != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"quantity\": ");
-
-			sb.append(quantity);
 		}
 
 		if (shippingAddress != null) {
@@ -386,13 +456,41 @@ public class OrderItem {
 			sb.append(shippingAddressId);
 		}
 
+		if (shippingMethod != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingMethod\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(shippingMethod));
+
+			sb.append("\"");
+		}
+
+		if (shippingOption != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingOption\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(shippingOption));
+
+			sb.append("\"");
+		}
+
 		sb.append("}");
 
 		return sb.toString();
 	}
 
 	@Schema(
-		defaultValue = "com.liferay.headless.commerce.delivery.cart.dto.v1_0.OrderItem",
+		defaultValue = "com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartPost",
 		name = "x-class-name"
 	)
 	public String xClassName;

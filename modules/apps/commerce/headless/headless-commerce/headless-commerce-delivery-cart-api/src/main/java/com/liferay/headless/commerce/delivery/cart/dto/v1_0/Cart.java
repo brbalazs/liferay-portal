@@ -195,6 +195,34 @@ public class Cart {
 	protected CartItem[] cartItems;
 
 	@Schema
+	public String getCouponCode() {
+		return couponCode;
+	}
+
+	public void setCouponCode(String couponCode) {
+		this.couponCode = couponCode;
+	}
+
+	@JsonIgnore
+	public void setCouponCode(
+		UnsafeSupplier<String, Exception> couponCodeUnsafeSupplier) {
+
+		try {
+			couponCode = couponCodeUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String couponCode;
+
+	@Schema
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -223,6 +251,35 @@ public class Cart {
 	protected Date createDate;
 
 	@Schema
+	@Valid
+	public Map<String, ?> getCustomFields() {
+		return customFields;
+	}
+
+	public void setCustomFields(Map<String, ?> customFields) {
+		this.customFields = customFields;
+	}
+
+	@JsonIgnore
+	public void setCustomFields(
+		UnsafeSupplier<Map<String, ?>, Exception> customFieldsUnsafeSupplier) {
+
+		try {
+			customFields = customFieldsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Map<String, ?> customFields;
+
+	@Schema
 	public Long getId() {
 		return id;
 	}
@@ -247,6 +304,62 @@ public class Cart {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long id;
+
+	@Schema
+	public Date getLastPriceUpdateDate() {
+		return lastPriceUpdateDate;
+	}
+
+	public void setLastPriceUpdateDate(Date lastPriceUpdateDate) {
+		this.lastPriceUpdateDate = lastPriceUpdateDate;
+	}
+
+	@JsonIgnore
+	public void setLastPriceUpdateDate(
+		UnsafeSupplier<Date, Exception> lastPriceUpdateDateUnsafeSupplier) {
+
+		try {
+			lastPriceUpdateDate = lastPriceUpdateDateUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Date lastPriceUpdateDate;
+
+	@Schema
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	@JsonIgnore
+	public void setModifiedDate(
+		UnsafeSupplier<Date, Exception> modifiedDateUnsafeSupplier) {
+
+		try {
+			modifiedDate = modifiedDateUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Date modifiedDate;
 
 	@Schema
 	@Valid
@@ -305,6 +418,34 @@ public class Cart {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String paymentMethod;
 
+	@Schema
+	public String getPaymentMethodLabel() {
+		return paymentMethodLabel;
+	}
+
+	public void setPaymentMethodLabel(String paymentMethodLabel) {
+		this.paymentMethodLabel = paymentMethodLabel;
+	}
+
+	@JsonIgnore
+	public void setPaymentMethodLabel(
+		UnsafeSupplier<String, Exception> paymentMethodLabelUnsafeSupplier) {
+
+		try {
+			paymentMethodLabel = paymentMethodLabelUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String paymentMethodLabel;
+
 	@DecimalMin("0")
 	@Schema
 	public Integer getPaymentStatus() {
@@ -335,6 +476,34 @@ public class Cart {
 	protected Integer paymentStatus;
 
 	@Schema
+	public String getPaymentStatusLabel() {
+		return paymentStatusLabel;
+	}
+
+	public void setPaymentStatusLabel(String paymentStatusLabel) {
+		this.paymentStatusLabel = paymentStatusLabel;
+	}
+
+	@JsonIgnore
+	public void setPaymentStatusLabel(
+		UnsafeSupplier<String, Exception> paymentStatusLabelUnsafeSupplier) {
+
+		try {
+			paymentStatusLabel = paymentStatusLabelUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String paymentStatusLabel;
+
+	@Schema
 	public String getPrintedNote() {
 		return printedNote;
 	}
@@ -361,6 +530,34 @@ public class Cart {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String printedNote;
+
+	@Schema
+	public String getPurchaseOrderNumber() {
+		return purchaseOrderNumber;
+	}
+
+	public void setPurchaseOrderNumber(String purchaseOrderNumber) {
+		this.purchaseOrderNumber = purchaseOrderNumber;
+	}
+
+	@JsonIgnore
+	public void setPurchaseOrderNumber(
+		UnsafeSupplier<String, Exception> purchaseOrderNumberUnsafeSupplier) {
+
+		try {
+			purchaseOrderNumber = purchaseOrderNumberUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String purchaseOrderNumber;
 
 	@Schema
 	@Valid
@@ -391,6 +588,62 @@ public class Cart {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ShippingAddress shippingAddress;
+
+	@Schema
+	public String getShippingMethod() {
+		return shippingMethod;
+	}
+
+	public void setShippingMethod(String shippingMethod) {
+		this.shippingMethod = shippingMethod;
+	}
+
+	@JsonIgnore
+	public void setShippingMethod(
+		UnsafeSupplier<String, Exception> shippingMethodUnsafeSupplier) {
+
+		try {
+			shippingMethod = shippingMethodUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String shippingMethod;
+
+	@Schema
+	public String getShippingOption() {
+		return shippingOption;
+	}
+
+	public void setShippingOption(String shippingOption) {
+		this.shippingOption = shippingOption;
+	}
+
+	@JsonIgnore
+	public void setShippingOption(
+		UnsafeSupplier<String, Exception> shippingOptionUnsafeSupplier) {
+
+		try {
+			shippingOption = shippingOptionUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String shippingOption;
 
 	@Schema
 	public String getStatus() {
@@ -547,6 +800,20 @@ public class Cart {
 			sb.append("]");
 		}
 
+		if (couponCode != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"couponCode\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(couponCode));
+
+			sb.append("\"");
+		}
+
 		if (createDate != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -561,6 +828,16 @@ public class Cart {
 			sb.append("\"");
 		}
 
+		if (customFields != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"customFields\": ");
+
+			sb.append(_toJSON(customFields));
+		}
+
 		if (id != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -569,6 +846,34 @@ public class Cart {
 			sb.append("\"id\": ");
 
 			sb.append(id);
+		}
+
+		if (lastPriceUpdateDate != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"lastPriceUpdateDate\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(lastPriceUpdateDate));
+
+			sb.append("\"");
+		}
+
+		if (modifiedDate != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"modifiedDate\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(modifiedDate));
+
+			sb.append("\"");
 		}
 
 		if (notes != null) {
@@ -605,6 +910,20 @@ public class Cart {
 			sb.append("\"");
 		}
 
+		if (paymentMethodLabel != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"paymentMethodLabel\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(paymentMethodLabel));
+
+			sb.append("\"");
+		}
+
 		if (paymentStatus != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -613,6 +932,20 @@ public class Cart {
 			sb.append("\"paymentStatus\": ");
 
 			sb.append(paymentStatus);
+		}
+
+		if (paymentStatusLabel != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"paymentStatusLabel\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(paymentStatusLabel));
+
+			sb.append("\"");
 		}
 
 		if (printedNote != null) {
@@ -629,6 +962,20 @@ public class Cart {
 			sb.append("\"");
 		}
 
+		if (purchaseOrderNumber != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"purchaseOrderNumber\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(purchaseOrderNumber));
+
+			sb.append("\"");
+		}
+
 		if (shippingAddress != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -637,6 +984,34 @@ public class Cart {
 			sb.append("\"shippingAddress\": ");
 
 			sb.append(String.valueOf(shippingAddress));
+		}
+
+		if (shippingMethod != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingMethod\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(shippingMethod));
+
+			sb.append("\"");
+		}
+
+		if (shippingOption != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingOption\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(shippingOption));
+
+			sb.append("\"");
 		}
 
 		if (status != null) {

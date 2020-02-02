@@ -15,12 +15,18 @@
 package com.liferay.headless.commerce.delivery.cart.internal.resource.v1_0;
 
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
-import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Order;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CartPost;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.CouponCode;
 import com.liferay.headless.commerce.delivery.cart.resource.v1_0.CartResource;
+import com.liferay.oauth2.provider.scope.ScopeChecker;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.GroupedModel;
+import com.liferay.portal.kernel.service.ResourceActionLocalService;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
+import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.util.ActionUtil;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
@@ -43,12 +49,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.PATCH;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 /**
@@ -69,13 +78,20 @@ public abstract class BaseCartResourceImpl implements CartResource {
 	@Operation(
 		description = "Retrieves carts for specific account in the given channl."
 	)
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "channelId")})
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "channelId"),
+			@Parameter(in = ParameterIn.QUERY, name = "page"),
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+		}
+	)
 	@Path("/channels/{channelId}/carts")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
 	public Page<Cart> getChannelCartsPage(
 			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-				channelId)
+				channelId,
+			@Context Pagination pagination)
 		throws Exception {
 
 		return Page.of(Collections.emptyList());
@@ -84,7 +100,7 @@ public abstract class BaseCartResourceImpl implements CartResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts' -d $'{"billingAddress": ___, "billingAddressId": ___, "orderItems": ___, "shippingAddress": ___, "shippingAddressId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts' -d $'{"billingAddress": ___, "billingAddressId": ___, "cartItemPosts": ___, "customFields": ___, "paymentMethod": ___, "shippingAddress": ___, "shippingAddressId": ___, "shippingMethod": ___, "shippingOption": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -96,10 +112,37 @@ public abstract class BaseCartResourceImpl implements CartResource {
 	public Cart postChannelCart(
 			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
 				channelId,
-			Order order)
+			CartPost cartPost)
 		throws Exception {
 
 		return new Cart();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@DELETE
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "channelId"),
+			@Parameter(in = ParameterIn.PATH, name = "cartId")
+		}
+	)
+	@Path("/channels/{channelId}/carts/{cartId}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Cart")})
+	public Response deleteChannelCart(
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId)
+		throws Exception {
+
+		Response.ResponseBuilder responseBuilder = Response.ok();
+
+		return responseBuilder.build();
 	}
 
 	/**
@@ -131,11 +174,11 @@ public abstract class BaseCartResourceImpl implements CartResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}' -d $'{"billingAddress": ___, "billingAddressId": ___, "orderItems": ___, "shippingAddress": ___, "shippingAddressId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}' -d $'{"billingAddress": ___, "billingAddressId": ___, "cartItemPosts": ___, "customFields": ___, "paymentMethod": ___, "shippingAddress": ___, "shippingAddressId": ___, "shippingMethod": ___, "shippingOption": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
-	@PUT
+	@PATCH
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "channelId"),
@@ -145,11 +188,41 @@ public abstract class BaseCartResourceImpl implements CartResource {
 	@Path("/channels/{channelId}/carts/{cartId}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Cart")})
-	public Cart putChannelCart(
+	public Cart patchChannelCart(
 			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
 				channelId,
 			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
-			Order order)
+			CartPost cartPost)
+		throws Exception {
+
+		return new Cart();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts/{cartId}/coupon-code' -d $'{"code": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@Operation(
+		description = "Add new Items to a Cart, return the whole Cart updated."
+	)
+	@POST
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "channelId"),
+			@Parameter(in = ParameterIn.PATH, name = "cartId")
+		}
+	)
+	@Path("/channels/{channelId}/carts/{cartId}/coupon-code")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Cart")})
+	public Cart postChannelCartCouponCode(
+			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
+				channelId,
+			@NotNull @Parameter(hidden = true) @PathParam("cartId") Long cartId,
+			CouponCode couponCode)
 		throws Exception {
 
 		return new Cart();
@@ -191,7 +264,8 @@ public abstract class BaseCartResourceImpl implements CartResource {
 		String actionName, GroupedModel groupedModel, String methodName) {
 
 		return ActionUtil.addAction(
-			actionName, getClass(), groupedModel, methodName, contextUriInfo);
+			actionName, getClass(), groupedModel, methodName,
+			contextScopeChecker, contextUriInfo);
 	}
 
 	protected Map<String, String> addAction(
@@ -199,8 +273,8 @@ public abstract class BaseCartResourceImpl implements CartResource {
 		Long siteId) {
 
 		return ActionUtil.addAction(
-			actionName, getClass(), id, methodName, permissionName, siteId,
-			contextUriInfo);
+			actionName, getClass(), id, methodName, permissionName,
+			contextScopeChecker, siteId, contextUriInfo);
 	}
 
 	protected Map<String, String> addAction(
@@ -247,6 +321,10 @@ public abstract class BaseCartResourceImpl implements CartResource {
 	protected com.liferay.portal.kernel.model.User contextUser;
 	protected HttpServletRequest contextHttpServletRequest;
 	protected HttpServletResponse contextHttpServletResponse;
+	protected ResourceActionLocalService resourceActionLocalService;
+	protected ResourcePermissionLocalService resourcePermissionLocalService;
+	protected RoleLocalService roleLocalService;
+	protected ScopeChecker contextScopeChecker;
 	protected UriInfo contextUriInfo;
 
 }

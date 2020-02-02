@@ -76,6 +76,34 @@ public class ShippingAddress {
 	protected String city;
 
 	@Schema
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	@JsonIgnore
+	public void setCountry(
+		UnsafeSupplier<String, Exception> countryUnsafeSupplier) {
+
+		try {
+			country = countryUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String country;
+
+	@Schema
 	public String getCountryISOCode() {
 		return countryISOCode;
 	}
@@ -271,6 +299,34 @@ public class ShippingAddress {
 	protected String phoneNumber;
 
 	@Schema
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+	@JsonIgnore
+	public void setRegion(
+		UnsafeSupplier<String, Exception> regionUnsafeSupplier) {
+
+		try {
+			region = regionUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String region;
+
+	@Schema
 	public String getRegionISOCode() {
 		return regionISOCode;
 	}
@@ -450,6 +506,20 @@ public class ShippingAddress {
 			sb.append("\"");
 		}
 
+		if (country != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"country\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(country));
+
+			sb.append("\"");
+		}
+
 		if (countryISOCode != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -532,6 +602,20 @@ public class ShippingAddress {
 			sb.append("\"");
 
 			sb.append(_escape(phoneNumber));
+
+			sb.append("\"");
+		}
+
+		if (region != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"region\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(region));
 
 			sb.append("\"");
 		}

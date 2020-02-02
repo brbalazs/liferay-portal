@@ -69,6 +69,20 @@ public class ShippingAddressSerDes {
 			sb.append("\"");
 		}
 
+		if (shippingAddress.getCountry() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"country\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(shippingAddress.getCountry()));
+
+			sb.append("\"");
+		}
+
 		if (shippingAddress.getCountryISOCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -151,6 +165,20 @@ public class ShippingAddressSerDes {
 			sb.append("\"");
 
 			sb.append(_escape(shippingAddress.getPhoneNumber()));
+
+			sb.append("\"");
+		}
+
+		if (shippingAddress.getRegion() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"region\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(shippingAddress.getRegion()));
 
 			sb.append("\"");
 		}
@@ -251,6 +279,13 @@ public class ShippingAddressSerDes {
 			map.put("city", String.valueOf(shippingAddress.getCity()));
 		}
 
+		if (shippingAddress.getCountry() == null) {
+			map.put("country", null);
+		}
+		else {
+			map.put("country", String.valueOf(shippingAddress.getCountry()));
+		}
+
 		if (shippingAddress.getCountryISOCode() == null) {
 			map.put("countryISOCode", null);
 		}
@@ -305,6 +340,13 @@ public class ShippingAddressSerDes {
 			map.put(
 				"phoneNumber",
 				String.valueOf(shippingAddress.getPhoneNumber()));
+		}
+
+		if (shippingAddress.getRegion() == null) {
+			map.put("region", null);
+		}
+		else {
+			map.put("region", String.valueOf(shippingAddress.getRegion()));
 		}
 
 		if (shippingAddress.getRegionISOCode() == null) {
@@ -370,6 +412,11 @@ public class ShippingAddressSerDes {
 					shippingAddress.setCity((String)jsonParserFieldValue);
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "country")) {
+				if (jsonParserFieldValue != null) {
+					shippingAddress.setCountry((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "countryISOCode")) {
 				if (jsonParserFieldValue != null) {
 					shippingAddress.setCountryISOCode(
@@ -409,6 +456,11 @@ public class ShippingAddressSerDes {
 				if (jsonParserFieldValue != null) {
 					shippingAddress.setPhoneNumber(
 						(String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "region")) {
+				if (jsonParserFieldValue != null) {
+					shippingAddress.setRegion((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "regionISOCode")) {

@@ -17,8 +17,6 @@ package com.liferay.headless.commerce.delivery.cart.client.serdes.v1_0;
 import com.liferay.headless.commerce.delivery.cart.client.dto.v1_0.Summary;
 import com.liferay.headless.commerce.delivery.cart.client.json.BaseJSONParser;
 
-import java.math.BigDecimal;
-
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
@@ -55,6 +53,20 @@ public class SummarySerDes {
 
 		sb.append("{");
 
+		if (summary.getCurrency() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"currency\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(summary.getCurrency()));
+
+			sb.append("\"");
+		}
+
 		if (summary.getItemsQuantity() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -65,44 +77,30 @@ public class SummarySerDes {
 			sb.append(summary.getItemsQuantity());
 		}
 
-		if (summary.getShippingDiscountPercentageLevel1() != null) {
+		if (summary.getShippingDiscountPercentages() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"shippingDiscountPercentageLevel1\": ");
+			sb.append("\"shippingDiscountPercentages\": ");
 
-			sb.append(summary.getShippingDiscountPercentageLevel1());
-		}
+			sb.append("[");
 
-		if (summary.getShippingDiscountPercentageLevel2() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
+			for (int i = 0; i < summary.getShippingDiscountPercentages().length;
+				 i++) {
+
+				sb.append("\"");
+
+				sb.append(_escape(summary.getShippingDiscountPercentages()[i]));
+
+				sb.append("\"");
+
+				if ((i + 1) < summary.getShippingDiscountPercentages().length) {
+					sb.append(", ");
+				}
 			}
 
-			sb.append("\"shippingDiscountPercentageLevel2\": ");
-
-			sb.append(summary.getShippingDiscountPercentageLevel2());
-		}
-
-		if (summary.getShippingDiscountPercentageLevel3() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"shippingDiscountPercentageLevel3\": ");
-
-			sb.append(summary.getShippingDiscountPercentageLevel3());
-		}
-
-		if (summary.getShippingDiscountPercentageLevel4() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"shippingDiscountPercentageLevel4\": ");
-
-			sb.append(summary.getShippingDiscountPercentageLevel4());
+			sb.append("]");
 		}
 
 		if (summary.getShippingDiscountValue() != null) {
@@ -112,9 +110,19 @@ public class SummarySerDes {
 
 			sb.append("\"shippingDiscountValue\": ");
 
+			sb.append(summary.getShippingDiscountValue());
+		}
+
+		if (summary.getShippingDiscountValueFormatted() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingDiscountValueFormatted\": ");
+
 			sb.append("\"");
 
-			sb.append(_escape(summary.getShippingDiscountValue()));
+			sb.append(_escape(summary.getShippingDiscountValueFormatted()));
 
 			sb.append("\"");
 		}
@@ -126,9 +134,19 @@ public class SummarySerDes {
 
 			sb.append("\"shippingValue\": ");
 
+			sb.append(summary.getShippingValue());
+		}
+
+		if (summary.getShippingValueFormatted() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingValueFormatted\": ");
+
 			sb.append("\"");
 
-			sb.append(_escape(summary.getShippingValue()));
+			sb.append(_escape(summary.getShippingValueFormatted()));
 
 			sb.append("\"");
 		}
@@ -140,51 +158,33 @@ public class SummarySerDes {
 
 			sb.append("\"subtotal\": ");
 
-			sb.append("\"");
-
-			sb.append(_escape(summary.getSubtotal()));
-
-			sb.append("\"");
+			sb.append(summary.getSubtotal());
 		}
 
-		if (summary.getSubtotalDiscountPercentageLevel1() != null) {
+		if (summary.getSubtotalDiscountPercentages() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"subtotalDiscountPercentageLevel1\": ");
+			sb.append("\"subtotalDiscountPercentages\": ");
 
-			sb.append(summary.getSubtotalDiscountPercentageLevel1());
-		}
+			sb.append("[");
 
-		if (summary.getSubtotalDiscountPercentageLevel2() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
+			for (int i = 0; i < summary.getSubtotalDiscountPercentages().length;
+				 i++) {
+
+				sb.append("\"");
+
+				sb.append(_escape(summary.getSubtotalDiscountPercentages()[i]));
+
+				sb.append("\"");
+
+				if ((i + 1) < summary.getSubtotalDiscountPercentages().length) {
+					sb.append(", ");
+				}
 			}
 
-			sb.append("\"subtotalDiscountPercentageLevel2\": ");
-
-			sb.append(summary.getSubtotalDiscountPercentageLevel2());
-		}
-
-		if (summary.getSubtotalDiscountPercentageLevel3() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"subtotalDiscountPercentageLevel3\": ");
-
-			sb.append(summary.getSubtotalDiscountPercentageLevel3());
-		}
-
-		if (summary.getSubtotalDiscountPercentageLevel4() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"subtotalDiscountPercentageLevel4\": ");
-
-			sb.append(summary.getSubtotalDiscountPercentageLevel4());
+			sb.append("]");
 		}
 
 		if (summary.getSubtotalDiscountValue() != null) {
@@ -194,9 +194,33 @@ public class SummarySerDes {
 
 			sb.append("\"subtotalDiscountValue\": ");
 
+			sb.append(summary.getSubtotalDiscountValue());
+		}
+
+		if (summary.getSubtotalDiscountValueFormatted() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalDiscountValueFormatted\": ");
+
 			sb.append("\"");
 
-			sb.append(_escape(summary.getSubtotalDiscountValue()));
+			sb.append(_escape(summary.getSubtotalDiscountValueFormatted()));
+
+			sb.append("\"");
+		}
+
+		if (summary.getSubtotalFormatted() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(summary.getSubtotalFormatted()));
 
 			sb.append("\"");
 		}
@@ -208,9 +232,19 @@ public class SummarySerDes {
 
 			sb.append("\"taxValue\": ");
 
+			sb.append(summary.getTaxValue());
+		}
+
+		if (summary.getTaxValueFormatted() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"taxValueFormatted\": ");
+
 			sb.append("\"");
 
-			sb.append(_escape(summary.getTaxValue()));
+			sb.append(_escape(summary.getTaxValueFormatted()));
 
 			sb.append("\"");
 		}
@@ -222,51 +256,33 @@ public class SummarySerDes {
 
 			sb.append("\"total\": ");
 
-			sb.append("\"");
-
-			sb.append(_escape(summary.getTotal()));
-
-			sb.append("\"");
+			sb.append(summary.getTotal());
 		}
 
-		if (summary.getTotalDiscountPercentageLevel1() != null) {
+		if (summary.getTotalDiscountPercentages() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"totalDiscountPercentageLevel1\": ");
+			sb.append("\"totalDiscountPercentages\": ");
 
-			sb.append(summary.getTotalDiscountPercentageLevel1());
-		}
+			sb.append("[");
 
-		if (summary.getTotalDiscountPercentageLevel2() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
+			for (int i = 0; i < summary.getTotalDiscountPercentages().length;
+				 i++) {
+
+				sb.append("\"");
+
+				sb.append(_escape(summary.getTotalDiscountPercentages()[i]));
+
+				sb.append("\"");
+
+				if ((i + 1) < summary.getTotalDiscountPercentages().length) {
+					sb.append(", ");
+				}
 			}
 
-			sb.append("\"totalDiscountPercentageLevel2\": ");
-
-			sb.append(summary.getTotalDiscountPercentageLevel2());
-		}
-
-		if (summary.getTotalDiscountPercentageLevel3() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"totalDiscountPercentageLevel3\": ");
-
-			sb.append(summary.getTotalDiscountPercentageLevel3());
-		}
-
-		if (summary.getTotalDiscountPercentageLevel4() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"totalDiscountPercentageLevel4\": ");
-
-			sb.append(summary.getTotalDiscountPercentageLevel4());
+			sb.append("]");
 		}
 
 		if (summary.getTotalDiscountValue() != null) {
@@ -276,9 +292,33 @@ public class SummarySerDes {
 
 			sb.append("\"totalDiscountValue\": ");
 
+			sb.append(summary.getTotalDiscountValue());
+		}
+
+		if (summary.getTotalDiscountValueFormatted() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalDiscountValueFormatted\": ");
+
 			sb.append("\"");
 
-			sb.append(_escape(summary.getTotalDiscountValue()));
+			sb.append(_escape(summary.getTotalDiscountValueFormatted()));
+
+			sb.append("\"");
+		}
+
+		if (summary.getTotalFormatted() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(summary.getTotalFormatted()));
 
 			sb.append("\"");
 		}
@@ -301,6 +341,13 @@ public class SummarySerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (summary.getCurrency() == null) {
+			map.put("currency", null);
+		}
+		else {
+			map.put("currency", String.valueOf(summary.getCurrency()));
+		}
+
 		if (summary.getItemsQuantity() == null) {
 			map.put("itemsQuantity", null);
 		}
@@ -309,40 +356,13 @@ public class SummarySerDes {
 				"itemsQuantity", String.valueOf(summary.getItemsQuantity()));
 		}
 
-		if (summary.getShippingDiscountPercentageLevel1() == null) {
-			map.put("shippingDiscountPercentageLevel1", null);
+		if (summary.getShippingDiscountPercentages() == null) {
+			map.put("shippingDiscountPercentages", null);
 		}
 		else {
 			map.put(
-				"shippingDiscountPercentageLevel1",
-				String.valueOf(summary.getShippingDiscountPercentageLevel1()));
-		}
-
-		if (summary.getShippingDiscountPercentageLevel2() == null) {
-			map.put("shippingDiscountPercentageLevel2", null);
-		}
-		else {
-			map.put(
-				"shippingDiscountPercentageLevel2",
-				String.valueOf(summary.getShippingDiscountPercentageLevel2()));
-		}
-
-		if (summary.getShippingDiscountPercentageLevel3() == null) {
-			map.put("shippingDiscountPercentageLevel3", null);
-		}
-		else {
-			map.put(
-				"shippingDiscountPercentageLevel3",
-				String.valueOf(summary.getShippingDiscountPercentageLevel3()));
-		}
-
-		if (summary.getShippingDiscountPercentageLevel4() == null) {
-			map.put("shippingDiscountPercentageLevel4", null);
-		}
-		else {
-			map.put(
-				"shippingDiscountPercentageLevel4",
-				String.valueOf(summary.getShippingDiscountPercentageLevel4()));
+				"shippingDiscountPercentages",
+				String.valueOf(summary.getShippingDiscountPercentages()));
 		}
 
 		if (summary.getShippingDiscountValue() == null) {
@@ -354,12 +374,30 @@ public class SummarySerDes {
 				String.valueOf(summary.getShippingDiscountValue()));
 		}
 
+		if (summary.getShippingDiscountValueFormatted() == null) {
+			map.put("shippingDiscountValueFormatted", null);
+		}
+		else {
+			map.put(
+				"shippingDiscountValueFormatted",
+				String.valueOf(summary.getShippingDiscountValueFormatted()));
+		}
+
 		if (summary.getShippingValue() == null) {
 			map.put("shippingValue", null);
 		}
 		else {
 			map.put(
 				"shippingValue", String.valueOf(summary.getShippingValue()));
+		}
+
+		if (summary.getShippingValueFormatted() == null) {
+			map.put("shippingValueFormatted", null);
+		}
+		else {
+			map.put(
+				"shippingValueFormatted",
+				String.valueOf(summary.getShippingValueFormatted()));
 		}
 
 		if (summary.getSubtotal() == null) {
@@ -369,40 +407,13 @@ public class SummarySerDes {
 			map.put("subtotal", String.valueOf(summary.getSubtotal()));
 		}
 
-		if (summary.getSubtotalDiscountPercentageLevel1() == null) {
-			map.put("subtotalDiscountPercentageLevel1", null);
+		if (summary.getSubtotalDiscountPercentages() == null) {
+			map.put("subtotalDiscountPercentages", null);
 		}
 		else {
 			map.put(
-				"subtotalDiscountPercentageLevel1",
-				String.valueOf(summary.getSubtotalDiscountPercentageLevel1()));
-		}
-
-		if (summary.getSubtotalDiscountPercentageLevel2() == null) {
-			map.put("subtotalDiscountPercentageLevel2", null);
-		}
-		else {
-			map.put(
-				"subtotalDiscountPercentageLevel2",
-				String.valueOf(summary.getSubtotalDiscountPercentageLevel2()));
-		}
-
-		if (summary.getSubtotalDiscountPercentageLevel3() == null) {
-			map.put("subtotalDiscountPercentageLevel3", null);
-		}
-		else {
-			map.put(
-				"subtotalDiscountPercentageLevel3",
-				String.valueOf(summary.getSubtotalDiscountPercentageLevel3()));
-		}
-
-		if (summary.getSubtotalDiscountPercentageLevel4() == null) {
-			map.put("subtotalDiscountPercentageLevel4", null);
-		}
-		else {
-			map.put(
-				"subtotalDiscountPercentageLevel4",
-				String.valueOf(summary.getSubtotalDiscountPercentageLevel4()));
+				"subtotalDiscountPercentages",
+				String.valueOf(summary.getSubtotalDiscountPercentages()));
 		}
 
 		if (summary.getSubtotalDiscountValue() == null) {
@@ -414,11 +425,38 @@ public class SummarySerDes {
 				String.valueOf(summary.getSubtotalDiscountValue()));
 		}
 
+		if (summary.getSubtotalDiscountValueFormatted() == null) {
+			map.put("subtotalDiscountValueFormatted", null);
+		}
+		else {
+			map.put(
+				"subtotalDiscountValueFormatted",
+				String.valueOf(summary.getSubtotalDiscountValueFormatted()));
+		}
+
+		if (summary.getSubtotalFormatted() == null) {
+			map.put("subtotalFormatted", null);
+		}
+		else {
+			map.put(
+				"subtotalFormatted",
+				String.valueOf(summary.getSubtotalFormatted()));
+		}
+
 		if (summary.getTaxValue() == null) {
 			map.put("taxValue", null);
 		}
 		else {
 			map.put("taxValue", String.valueOf(summary.getTaxValue()));
+		}
+
+		if (summary.getTaxValueFormatted() == null) {
+			map.put("taxValueFormatted", null);
+		}
+		else {
+			map.put(
+				"taxValueFormatted",
+				String.valueOf(summary.getTaxValueFormatted()));
 		}
 
 		if (summary.getTotal() == null) {
@@ -428,40 +466,13 @@ public class SummarySerDes {
 			map.put("total", String.valueOf(summary.getTotal()));
 		}
 
-		if (summary.getTotalDiscountPercentageLevel1() == null) {
-			map.put("totalDiscountPercentageLevel1", null);
+		if (summary.getTotalDiscountPercentages() == null) {
+			map.put("totalDiscountPercentages", null);
 		}
 		else {
 			map.put(
-				"totalDiscountPercentageLevel1",
-				String.valueOf(summary.getTotalDiscountPercentageLevel1()));
-		}
-
-		if (summary.getTotalDiscountPercentageLevel2() == null) {
-			map.put("totalDiscountPercentageLevel2", null);
-		}
-		else {
-			map.put(
-				"totalDiscountPercentageLevel2",
-				String.valueOf(summary.getTotalDiscountPercentageLevel2()));
-		}
-
-		if (summary.getTotalDiscountPercentageLevel3() == null) {
-			map.put("totalDiscountPercentageLevel3", null);
-		}
-		else {
-			map.put(
-				"totalDiscountPercentageLevel3",
-				String.valueOf(summary.getTotalDiscountPercentageLevel3()));
-		}
-
-		if (summary.getTotalDiscountPercentageLevel4() == null) {
-			map.put("totalDiscountPercentageLevel4", null);
-		}
-		else {
-			map.put(
-				"totalDiscountPercentageLevel4",
-				String.valueOf(summary.getTotalDiscountPercentageLevel4()));
+				"totalDiscountPercentages",
+				String.valueOf(summary.getTotalDiscountPercentages()));
 		}
 
 		if (summary.getTotalDiscountValue() == null) {
@@ -471,6 +482,23 @@ public class SummarySerDes {
 			map.put(
 				"totalDiscountValue",
 				String.valueOf(summary.getTotalDiscountValue()));
+		}
+
+		if (summary.getTotalDiscountValueFormatted() == null) {
+			map.put("totalDiscountValueFormatted", null);
+		}
+		else {
+			map.put(
+				"totalDiscountValueFormatted",
+				String.valueOf(summary.getTotalDiscountValueFormatted()));
+		}
+
+		if (summary.getTotalFormatted() == null) {
+			map.put("totalFormatted", null);
+		}
+		else {
+			map.put(
+				"totalFormatted", String.valueOf(summary.getTotalFormatted()));
 		}
 
 		return map;
@@ -493,46 +521,23 @@ public class SummarySerDes {
 			Summary summary, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "itemsQuantity")) {
+			if (Objects.equals(jsonParserFieldName, "currency")) {
+				if (jsonParserFieldValue != null) {
+					summary.setCurrency((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "itemsQuantity")) {
 				if (jsonParserFieldValue != null) {
 					summary.setItemsQuantity(
 						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(
-						jsonParserFieldName,
-						"shippingDiscountPercentageLevel1")) {
+						jsonParserFieldName, "shippingDiscountPercentages")) {
 
 				if (jsonParserFieldValue != null) {
-					summary.setShippingDiscountPercentageLevel1(
-						(BigDecimal)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(
-						jsonParserFieldName,
-						"shippingDiscountPercentageLevel2")) {
-
-				if (jsonParserFieldValue != null) {
-					summary.setShippingDiscountPercentageLevel2(
-						(BigDecimal)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(
-						jsonParserFieldName,
-						"shippingDiscountPercentageLevel3")) {
-
-				if (jsonParserFieldValue != null) {
-					summary.setShippingDiscountPercentageLevel3(
-						(BigDecimal)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(
-						jsonParserFieldName,
-						"shippingDiscountPercentageLevel4")) {
-
-				if (jsonParserFieldValue != null) {
-					summary.setShippingDiscountPercentageLevel4(
-						(BigDecimal)jsonParserFieldValue);
+					summary.setShippingDiscountPercentages(
+						toStrings((Object[])jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(
@@ -540,53 +545,44 @@ public class SummarySerDes {
 
 				if (jsonParserFieldValue != null) {
 					summary.setShippingDiscountValue(
+						Double.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName,
+						"shippingDiscountValueFormatted")) {
+
+				if (jsonParserFieldValue != null) {
+					summary.setShippingDiscountValueFormatted(
 						(String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "shippingValue")) {
 				if (jsonParserFieldValue != null) {
-					summary.setShippingValue((String)jsonParserFieldValue);
+					summary.setShippingValue(
+						Double.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "shippingValueFormatted")) {
+
+				if (jsonParserFieldValue != null) {
+					summary.setShippingValueFormatted(
+						(String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "subtotal")) {
 				if (jsonParserFieldValue != null) {
-					summary.setSubtotal((String)jsonParserFieldValue);
+					summary.setSubtotal(
+						Double.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(
-						jsonParserFieldName,
-						"subtotalDiscountPercentageLevel1")) {
+						jsonParserFieldName, "subtotalDiscountPercentages")) {
 
 				if (jsonParserFieldValue != null) {
-					summary.setSubtotalDiscountPercentageLevel1(
-						(BigDecimal)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(
-						jsonParserFieldName,
-						"subtotalDiscountPercentageLevel2")) {
-
-				if (jsonParserFieldValue != null) {
-					summary.setSubtotalDiscountPercentageLevel2(
-						(BigDecimal)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(
-						jsonParserFieldName,
-						"subtotalDiscountPercentageLevel3")) {
-
-				if (jsonParserFieldValue != null) {
-					summary.setSubtotalDiscountPercentageLevel3(
-						(BigDecimal)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(
-						jsonParserFieldName,
-						"subtotalDiscountPercentageLevel4")) {
-
-				if (jsonParserFieldValue != null) {
-					summary.setSubtotalDiscountPercentageLevel4(
-						(BigDecimal)jsonParserFieldValue);
+					summary.setSubtotalDiscountPercentages(
+						toStrings((Object[])jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(
@@ -594,56 +590,67 @@ public class SummarySerDes {
 
 				if (jsonParserFieldValue != null) {
 					summary.setSubtotalDiscountValue(
+						Double.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName,
+						"subtotalDiscountValueFormatted")) {
+
+				if (jsonParserFieldValue != null) {
+					summary.setSubtotalDiscountValueFormatted(
 						(String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "subtotalFormatted")) {
+				if (jsonParserFieldValue != null) {
+					summary.setSubtotalFormatted((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "taxValue")) {
 				if (jsonParserFieldValue != null) {
-					summary.setTaxValue((String)jsonParserFieldValue);
+					summary.setTaxValue(
+						Double.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "taxValueFormatted")) {
+				if (jsonParserFieldValue != null) {
+					summary.setTaxValueFormatted((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "total")) {
 				if (jsonParserFieldValue != null) {
-					summary.setTotal((String)jsonParserFieldValue);
+					summary.setTotal(
+						Double.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(
-						jsonParserFieldName, "totalDiscountPercentageLevel1")) {
+						jsonParserFieldName, "totalDiscountPercentages")) {
 
 				if (jsonParserFieldValue != null) {
-					summary.setTotalDiscountPercentageLevel1(
-						(BigDecimal)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(
-						jsonParserFieldName, "totalDiscountPercentageLevel2")) {
-
-				if (jsonParserFieldValue != null) {
-					summary.setTotalDiscountPercentageLevel2(
-						(BigDecimal)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(
-						jsonParserFieldName, "totalDiscountPercentageLevel3")) {
-
-				if (jsonParserFieldValue != null) {
-					summary.setTotalDiscountPercentageLevel3(
-						(BigDecimal)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(
-						jsonParserFieldName, "totalDiscountPercentageLevel4")) {
-
-				if (jsonParserFieldValue != null) {
-					summary.setTotalDiscountPercentageLevel4(
-						(BigDecimal)jsonParserFieldValue);
+					summary.setTotalDiscountPercentages(
+						toStrings((Object[])jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(
 						jsonParserFieldName, "totalDiscountValue")) {
 
 				if (jsonParserFieldValue != null) {
-					summary.setTotalDiscountValue((String)jsonParserFieldValue);
+					summary.setTotalDiscountValue(
+						Double.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "totalDiscountValueFormatted")) {
+
+				if (jsonParserFieldValue != null) {
+					summary.setTotalDiscountValueFormatted(
+						(String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "totalFormatted")) {
+				if (jsonParserFieldValue != null) {
+					summary.setTotalFormatted((String)jsonParserFieldValue);
 				}
 			}
 			else {
