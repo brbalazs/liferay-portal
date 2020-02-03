@@ -23,6 +23,7 @@ import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.discount.discovery.CommerceDiscountDiscovery;
+import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.price.CommercePriceDiscovery;
 import com.liferay.commerce.price.CommercePriceValue;
 import com.liferay.commerce.price.CommerceProductPrice;
@@ -34,6 +35,8 @@ import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.tax.CommerceTaxCalculation;
+import com.liferay.commerce.tax.CommerceTaxValue;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
@@ -129,7 +132,7 @@ public class CommerceProductPriceCalculationV2Impl
 			finalPriceValues, quantity, true);
 
 		commerceProductPriceImpl.setTaxValue(
-			_getTaxValue(cpInstanceId, commerceContext));
+			_getTaxValue(cpInstanceId, commerceContext, finalDiscountedPrice));
 
 		commerceProductPriceImpl.setFinalPrice(
 			_commerceMoneyFactory.create(
@@ -474,11 +477,47 @@ public class CommerceProductPriceCalculationV2Impl
 	}
 
 	private BigDecimal _getTaxValue(
-		long cpInstanceId, CommerceContext commerceContext) {
+			long cpInstanceId, CommerceContext commerceContext,
+			BigDecimal finalPrice)
+		throws PortalException {
 
-		// how shall i calculate the tax value for a product. Is it still in scope?
+		List<CommerceTaxValue> commerceTaxValues = null;
 
-		return null;
+		CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
+
+		if (commerceOrder == null) {
+			CommerceAccount commerceAccount =
+				commerceContext.getCommerceAccount();
+
+			if (commerceAccount == null) {
+				return BigDecimal.ZERO;
+			}
+
+			CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
+				cpInstanceId);
+
+			commerceTaxValues = _commerceTaxCalculation.getCommerceTaxValues(
+				commerceContext.getSiteGroupId(), cpInstance.getCPInstanceId(),
+				commerceAccount.getDefaultBillingAddressId(),
+				commerceAccount.getDefaultBillingAddressId(), finalPrice,
+				commerceContext);
+		}
+		else {
+			commerceTaxValues = _commerceTaxCalculation.getCommerceTaxValues(
+				commerceOrder, commerceContext);
+		}
+
+		if ((commerceTaxValues == null) || commerceTaxValues.isEmpty()) {
+			return BigDecimal.ZERO;
+		}
+
+		BigDecimal taxAmount = BigDecimal.ZERO;
+
+		for (CommerceTaxValue commerceTaxValue : commerceTaxValues) {
+			taxAmount = taxAmount.add(commerceTaxValue.getAmount());
+		}
+
+		return taxAmount;
 	}
 
 	private boolean _hasViewPricePermission(CommerceContext commerceContext)
@@ -517,6 +556,9 @@ public class CommerceProductPriceCalculationV2Impl
 
 	@Reference
 	private CommercePriceListDiscovery _commercePriceListDiscovery;
+
+	@Reference
+	private CommerceTaxCalculation _commerceTaxCalculation;
 
 	@Reference
 	private CPInstanceLocalService _cpInstanceLocalService;
