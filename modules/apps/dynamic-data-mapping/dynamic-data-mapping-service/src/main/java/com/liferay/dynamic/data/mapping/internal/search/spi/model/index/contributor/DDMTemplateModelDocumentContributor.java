@@ -60,9 +60,9 @@ public class DDMTemplateModelDocumentContributor
 			document.addKeyword(Field.STATUS, templateVersion.getStatus());
 			document.addKeyword(Field.VERSION, templateVersion.getVersion());
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(pe, pe);
+				_log.debug(portalException, portalException);
 			}
 		}
 
