@@ -536,22 +536,6 @@ public class CommerceTestUtil {
 			commerceChannelId, serviceContext);
 	}
 
-	public static CommerceOrder checkoutOrder(CommerceOrder commerceOrder)
-		throws Exception {
-
-		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(
-				commerceOrder.getGroupId());
-
-		CommerceContext commerceContext = new TestCommerceContext(
-			commerceOrder.getCommerceCurrency(), null, null,
-			serviceContext.getScopeGroup(), null, commerceOrder);
-
-		return CommerceOrderLocalServiceUtil.checkoutCommerceOrder(
-			commerceOrder.getCommerceOrderId(), commerceContext,
-			serviceContext);
-	}
-
 	public static CommerceOrder createCommerceOrderForShipping(
 			long companyId, long userId, long currencyId, long siteGroupId,
 			BigDecimal value)

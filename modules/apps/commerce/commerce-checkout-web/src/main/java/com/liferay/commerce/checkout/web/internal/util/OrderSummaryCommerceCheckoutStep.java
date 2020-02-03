@@ -16,8 +16,7 @@ package com.liferay.commerce.checkout.web.internal.util;
 
 import com.liferay.commerce.checkout.web.internal.display.context.OrderSummaryCheckoutStepDisplayContext;
 import com.liferay.commerce.constants.CommerceCheckoutWebKeys;
-import com.liferay.commerce.constants.CommerceWebKeys;
-import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.exception.CommerceOrderBillingAddressException;
 import com.liferay.commerce.exception.CommerceOrderPaymentMethodException;
 import com.liferay.commerce.exception.CommerceOrderShippingAddressException;
@@ -26,6 +25,7 @@ import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
+import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.payment.engine.CommercePaymentEngine;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
@@ -39,8 +39,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
-import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
@@ -168,16 +166,9 @@ public class OrderSummaryCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 				CommerceCheckoutWebKeys.COMMERCE_ORDER);
 
 		if (commerceOrder.isOpen()) {
-			ServiceContext serviceContext = ServiceContextFactory.getInstance(
-				CommerceOrder.class.getName(), httpServletRequest);
-
-			CommerceContext commerceContext =
-				(CommerceContext)httpServletRequest.getAttribute(
-					CommerceWebKeys.COMMERCE_CONTEXT);
-
-			_commerceOrderService.checkoutCommerceOrder(
-				commerceOrder.getCommerceOrderId(), commerceContext,
-				serviceContext);
+			_commerceOrderEngine.transitionCommerceOrder(
+				commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
+				_portal.getUserId(httpServletRequest));
 		}
 	}
 
@@ -230,6 +221,9 @@ public class OrderSummaryCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
 	@Reference
 	private CommerceInventoryEngine _commerceInventoryEngine;
+
+	@Reference
+	private CommerceOrderEngine _commerceOrderEngine;
 
 	@Reference
 	private CommerceOrderHttpHelper _commerceOrderHttpHelper;

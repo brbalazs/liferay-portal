@@ -28,6 +28,7 @@ import com.liferay.commerce.notification.service.CommerceNotificationQueueEntryL
 import com.liferay.commerce.notification.service.CommerceNotificationTemplateLocalService;
 import com.liferay.commerce.notification.service.CommerceNotificationTemplateLocalServiceUtil;
 import com.liferay.commerce.notification.test.util.CommerceNotificationTestUtil;
+import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.product.model.CommerceChannelConstants;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceOrderLocalService;
@@ -134,7 +135,9 @@ public class CommerceOrderStatusNotificationTest {
 		CommerceTestUtil.addCheckoutDetailsToUserOrder(
 			_commerceOrder, _user.getUserId(), false);
 
-		_commerceOrder = CommerceTestUtil.checkoutOrder(_commerceOrder);
+		_commerceOrder = _commerceOrderEngine.transitionCommerceOrder(
+			_commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
+			_serviceContext.getUserId());
 
 		_commerceOrderLocalService.setCommerceOrderToTransmit(
 			_commerceOrder.getUserId(), _commerceOrder);
@@ -258,6 +261,9 @@ public class CommerceOrderStatusNotificationTest {
 
 	@DeleteAfterTestRun
 	private CommerceOrder _commerceOrder;
+
+	@Inject
+	private CommerceOrderEngine _commerceOrderEngine;
 
 	@Inject
 	private CommerceOrderLocalService _commerceOrderLocalService;

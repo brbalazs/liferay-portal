@@ -35,6 +35,7 @@ import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.model.CommerceShipmentItem;
 import com.liferay.commerce.model.CommerceShippingEngine;
 import com.liferay.commerce.model.CommerceShippingMethod;
+import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.product.model.CPDefinition;
@@ -147,14 +148,9 @@ public class CommerceShipmentTest {
 
 		_commerceOrders.add(commerceOrder);
 
-		CommerceContext commerceContext = new TestCommerceContext(
-			commerceOrder.getCommerceCurrency(), commerceChannel, null, null,
-			null, commerceOrder);
-
-		_commerceOrderLocalService.checkoutCommerceOrder(
-			commerceOrder.getCommerceOrderId(), commerceContext,
-			ServiceContextTestUtil.getServiceContext(
-				commerceOrder.getGroupId()));
+		_commerceOrderEngine.transitionCommerceOrder(
+			commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
+			_user.getUserId());
 	}
 
 	@Test
@@ -644,17 +640,12 @@ public class CommerceShipmentTest {
 
 		_commerceOrderLocalService.updateCommerceOrder(commerceOrder);
 
-		CommerceContext commerceContext = new TestCommerceContext(
-			commerceOrder.getCommerceCurrency(), commerceChannel, null, null,
-			null, commerceOrder);
-
 		CommerceShipmentTestUtil.createEmptyOrderShipment(
 			commerceOrder.getGroupId(), commerceOrder.getCommerceOrderId());
 
-		_commerceOrderLocalService.checkoutCommerceOrder(
-			commerceOrder.getCommerceOrderId(), commerceContext,
-			ServiceContextTestUtil.getServiceContext(
-				commerceOrder.getGroupId()));
+		_commerceOrderEngine.transitionCommerceOrder(
+			commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
+			_user.getUserId());
 	}
 
 	@Test
@@ -983,6 +974,9 @@ public class CommerceShipmentTest {
 	private CommerceChannelRelLocalService _commerceChannelRelLocalService;
 
 	private CommerceCurrency _commerceCurrency;
+
+	@Inject
+	private CommerceOrderEngine _commerceOrderEngine;
 
 	@Inject
 	private CommerceOrderItemLocalService _commerceOrderItemLocalService;

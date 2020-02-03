@@ -15,10 +15,12 @@
 package com.liferay.commerce.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
+import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
+import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.portal.kernel.model.Group;
@@ -28,6 +30,7 @@ import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 
@@ -87,7 +90,9 @@ public class CommerceCheckoutTest {
 		CommerceTestUtil.addCheckoutDetailsToUserOrder(
 			commerceOrder, commerceOrder.getUserId(), false);
 
-		commerceOrder = CommerceTestUtil.checkoutOrder(commerceOrder);
+		commerceOrder = _commerceOrderEngine.transitionCommerceOrder(
+			commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
+			_user.getUserId());
 
 		Assert.assertEquals(
 			WorkflowConstants.STATUS_APPROVED, commerceOrder.getStatus());
@@ -127,6 +132,9 @@ public class CommerceCheckoutTest {
 
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
+
+	@Inject
+	private CommerceOrderEngine _commerceOrderEngine;
 
 	@DeleteAfterTestRun
 	private Group _group;

@@ -119,20 +119,6 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 	}
 
 	@Override
-	public CommerceOrder checkoutCommerceOrder(
-			long commerceOrderId, CommerceContext commerceContext,
-			ServiceContext serviceContext)
-		throws PortalException {
-
-		_commerceOrderModelResourcePermission.check(
-			getPermissionChecker(), commerceOrderId,
-			CommerceOrderActionKeys.CHECKOUT_COMMERCE_ORDER);
-
-		return commerceOrderLocalService.checkoutCommerceOrder(
-			commerceOrderId, commerceContext, serviceContext);
-	}
-
-	@Override
 	public void deleteCommerceOrder(long commerceOrderId)
 		throws PortalException {
 
@@ -530,17 +516,6 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 
 		return commerceOrderLocalService.reorderCommerceOrder(
 			getUserId(), commerceOrderId, commerceContext);
-	}
-
-	@Override
-	public CommerceOrder submitCommerceOrder(long commerceOrderId)
-		throws PortalException {
-
-		_commerceOrderModelResourcePermission.check(
-			getPermissionChecker(), commerceOrderId, ActionKeys.UPDATE);
-
-		return commerceOrderLocalService.submitCommerceOrder(
-			getUserId(), commerceOrderId);
 	}
 
 	@Override

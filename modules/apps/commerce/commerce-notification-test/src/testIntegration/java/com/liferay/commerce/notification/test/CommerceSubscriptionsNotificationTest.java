@@ -18,6 +18,7 @@ import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.test.util.CommerceAccountTestUtil;
+import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.constants.CommerceSubscriptionNotificationConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
@@ -29,6 +30,7 @@ import com.liferay.commerce.notification.service.CommerceNotificationQueueEntryL
 import com.liferay.commerce.notification.service.CommerceNotificationTemplateLocalService;
 import com.liferay.commerce.notification.service.CommerceNotificationTemplateLocalServiceUtil;
 import com.liferay.commerce.notification.test.util.CommerceNotificationTestUtil;
+import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.payment.engine.CommerceSubscriptionEngine;
 import com.liferay.commerce.product.model.CommerceChannelConstants;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
@@ -139,10 +141,9 @@ public class CommerceSubscriptionsNotificationTest {
 		_commerceOrder = CommerceTestUtil.addCheckoutDetailsToUserOrder(
 			_commerceOrder, _user.getUserId(), true);
 
-		_commerceOrder = CommerceTestUtil.checkoutOrder(_commerceOrder);
-
-		_commerceOrderLocalService.setCommerceOrderToTransmit(
-			_commerceOrder.getUserId(), _commerceOrder);
+		_commerceOrder = _commerceOrderEngine.transitionCommerceOrder(
+			_commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
+			_user.getUserId());
 
 		Thread.sleep(5000);
 
@@ -256,6 +257,9 @@ public class CommerceSubscriptionsNotificationTest {
 
 	@DeleteAfterTestRun
 	private CommerceOrder _commerceOrder;
+
+	@Inject
+	private CommerceOrderEngine _commerceOrderEngine;
 
 	@Inject
 	private CommerceOrderLocalService _commerceOrderLocalService;

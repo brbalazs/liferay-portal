@@ -35,7 +35,6 @@ import com.liferay.commerce.exception.CommerceOrderStatusException;
 import com.liferay.commerce.exception.CommercePaymentEngineException;
 import com.liferay.commerce.exception.GuestCartMaxAllowedException;
 import com.liferay.commerce.internal.order.comparator.CommerceOrderModifiedDateComparator;
-import com.liferay.commerce.inventory.model.CommerceInventoryBookedQuantity;
 import com.liferay.commerce.inventory.service.CommerceInventoryBookedQuantityLocalService;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
@@ -336,99 +335,6 @@ public class CommerceOrderLocalServiceImpl
 			commerceOrder.getOrderStatus());
 
 		return commerceOrder;
-	}
-
-	@Indexable(type = IndexableType.REINDEX)
-	@Override
-	public CommerceOrder checkoutCommerceOrder(
-			long commerceOrderId, CommerceContext commerceContext,
-			ServiceContext serviceContext)
-		throws PortalException {
-
-		// Commerce order
-
-		CommerceOrder commerceOrder = commerceOrderPersistence.findByPrimaryKey(
-			commerceOrderId);
-
-		// Book quantities
-
-		_bookQuantities(commerceOrder);
-
-		WorkflowInstanceLink workflowInstanceLink =
-			workflowInstanceLinkLocalService.fetchWorkflowInstanceLink(
-				commerceOrder.getCompanyId(), commerceOrder.getScopeGroupId(),
-				CommerceOrder.class.getName(),
-				commerceOrder.getCommerceOrderId());
-
-		if ((workflowInstanceLink != null) &&
-			(commerceOrder.getStatus() != WorkflowConstants.STATUS_APPROVED)) {
-
-			throw new PortalException(
-				"Order" + commerceOrderId + "needs to be approved");
-		}
-
-		WorkflowDefinitionLink workflowDefinitionLink =
-			workflowDefinitionLinkLocalService.fetchWorkflowDefinitionLink(
-				commerceOrder.getCompanyId(), commerceOrder.getGroupId(),
-				CommerceOrder.class.getName(), 0,
-				CommerceOrderConstants.TYPE_PK_APPROVAL, true);
-
-		if ((workflowDefinitionLink != null) &&
-			(commerceOrder.getStatus() != WorkflowConstants.STATUS_APPROVED)) {
-
-			throw new PortalException(
-				"Order" + commerceOrderId + "needs to be approved");
-		}
-
-		if (commerceOrder.getOrderStatus() ==
-				CommerceOrderConstants.ORDER_STATUS_OPEN) {
-
-			commerceOrder = commerceOrderLocalService.recalculatePrice(
-				commerceOrder.getCommerceOrderId(), commerceContext);
-		}
-
-		commerceOrder = commerceOrderLocalService.approveCommerceOrder(
-			serviceContext.getUserId(), commerceOrder.getCommerceOrderId());
-
-		validateCheckout(commerceOrder);
-
-		serviceContext.setScopeGroupId(commerceOrder.getGroupId());
-
-		commerceOrder.setOrderStatus(
-			CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS);
-
-		// Commerce addresses
-
-		long billingAddressId = commerceOrder.getBillingAddressId();
-
-		if (billingAddressId > 0) {
-			CommerceAddress commerceAddress =
-				commerceAddressLocalService.copyCommerceAddress(
-					billingAddressId, commerceOrder.getModelClassName(),
-					commerceOrder.getCommerceOrderId(), serviceContext);
-
-			billingAddressId = commerceAddress.getCommerceAddressId();
-		}
-
-		long shippingAddressId = commerceOrder.getShippingAddressId();
-
-		if (shippingAddressId > 0) {
-			CommerceAddress commerceAddress =
-				commerceAddressLocalService.copyCommerceAddress(
-					shippingAddressId, commerceOrder.getModelClassName(),
-					commerceOrder.getCommerceOrderId(), serviceContext);
-
-			shippingAddressId = commerceAddress.getCommerceAddressId();
-		}
-
-		if ((billingAddressId > 0) || (shippingAddressId > 0)) {
-			commerceOrder.setBillingAddressId(billingAddressId);
-			commerceOrder.setShippingAddressId(shippingAddressId);
-		}
-
-		commerceOrder.setOrderDate(new Date());
-
-		return commerceOrderPersistence.update(commerceOrder);
 	}
 
 	@Indexable(type = IndexableType.DELETE)
@@ -979,36 +885,6 @@ public class CommerceOrderLocalServiceImpl
 
 		return startWorkflowInstance(
 			serviceContext.getUserId(), commerceOrder, serviceContext);
-	}
-
-	@Indexable(type = IndexableType.REINDEX)
-	@Override
-	public CommerceOrder submitCommerceOrder(long userId, long commerceOrderId)
-		throws PortalException {
-
-		CommerceOrder commerceOrder = commerceOrderPersistence.findByPrimaryKey(
-			commerceOrderId);
-
-		if (!commerceOrder.isDraft() || commerceOrder.isEmpty()) {
-			return commerceOrder;
-		}
-
-		ServiceContext serviceContext = new ServiceContext();
-
-		serviceContext.setScopeGroupId(commerceOrder.getGroupId());
-		serviceContext.setUserId(userId);
-		serviceContext.setWorkflowAction(WorkflowConstants.ACTION_PUBLISH);
-
-		commerceOrder = startWorkflowInstance(
-			serviceContext.getUserId(), commerceOrder, serviceContext);
-
-		// Messaging
-
-		sendOrderStatusMessage(
-			commerceOrderId, commerceOrder.getOrderStatus(),
-			commerceOrder.getOrderStatus());
-
-		return commerceOrder;
 	}
 
 	@Override
@@ -1860,61 +1736,6 @@ public class CommerceOrderLocalServiceImpl
 		CommerceOrderConstants.ORDER_STATUS_DECLINED,
 		CommerceOrderConstants.ORDER_STATUS_DISPUTED
 	};
-
-	private void _bookQuantities(CommerceOrder commerceOrder)
-		throws PortalException {
-
-		List<CommerceOrderItem> commerceOrderItems =
-			commerceOrder.getCommerceOrderItems();
-
-		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
-			Map<String, String> context = new HashMap<>();
-
-			context.put(
-				"OrderId ",
-				String.valueOf(commerceOrderItem.getCommerceOrderId()));
-			context.put(
-				"OrderItemId ",
-				String.valueOf(commerceOrderItem.getCommerceOrderItemId()));
-
-			CommerceInventoryBookedQuantity commerceInventoryBookedQuantity =
-				_commerceInventoryBookedQuantityLocalService.
-					addCommerceBookedQuantity(
-						commerceOrderItem.getUserId(),
-						commerceOrderItem.getSku(),
-						commerceOrderItem.getQuantity(), null, context);
-
-			commerceOrderItemLocalService.updateCommerceOrderItem(
-				commerceOrderItem.getCommerceOrderItemId(),
-				commerceInventoryBookedQuantity.
-					getCommerceInventoryBookedQuantityId());
-		}
-
-		// Low stock action
-
-		for (CommerceOrderItem commerceOrderItem :
-				commerceOrder.getCommerceOrderItems()) {
-
-			TransactionCommitCallbackUtil.registerCallback(
-				new Callable<Void>() {
-
-					@Override
-					public Void call() throws Exception {
-						Message message = new Message();
-
-						message.put(
-							"cpInstanceId",
-							commerceOrderItem.getCPInstanceId());
-
-						MessageBusUtil.sendMessage(
-							CommerceDestinationNames.STOCK_QUANTITY, message);
-
-						return null;
-					}
-
-				});
-		}
-	}
 
 	private void _setCommerceOrderShippingDiscountValue(
 		CommerceOrder commerceOrder,

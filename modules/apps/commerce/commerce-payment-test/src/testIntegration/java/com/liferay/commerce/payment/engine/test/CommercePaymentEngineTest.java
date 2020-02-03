@@ -19,6 +19,7 @@ import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.payment.engine.CommercePaymentEngine;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelLocalService;
 import com.liferay.commerce.payment.test.util.TestCommercePaymentMethod;
@@ -164,8 +165,10 @@ public class CommercePaymentEngineTest {
 			commerceOrder.getCommerceOrderId(), cpInstance.getCPInstanceId(),
 			1);
 
-		CommerceOrder checkoutOrder = CommerceTestUtil.checkoutOrder(
-			commerceOrder);
+		CommerceOrder checkoutOrder =
+			_commerceOrderEngine.transitionCommerceOrder(
+				commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
+				_user.getUserId());
 
 		_commercePaymentEngine.processPayment(
 			commerceOrder.getCommerceOrderId(), null, _httpServletRequest);
@@ -244,8 +247,10 @@ public class CommercePaymentEngineTest {
 			commerceOrder.getCommerceOrderId(), cpInstance.getCPInstanceId(),
 			1);
 
-		CommerceOrder checkoutOrder = CommerceTestUtil.checkoutOrder(
-			commerceOrder);
+		CommerceOrder checkoutOrder =
+			_commerceOrderEngine.transitionCommerceOrder(
+				commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
+				_user.getUserId());
 
 		_commercePaymentEngine.processPayment(
 			commerceOrder.getCommerceOrderId(), null, _httpServletRequest);
@@ -265,6 +270,9 @@ public class CommercePaymentEngineTest {
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
 	private CommerceChannel _commerceChannel;
+
+	@Inject
+	private CommerceOrderEngine _commerceOrderEngine;
 
 	@Inject
 	private CommerceOrderLocalService _commerceOrderLocalService;

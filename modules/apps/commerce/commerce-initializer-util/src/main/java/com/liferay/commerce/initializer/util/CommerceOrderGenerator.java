@@ -34,6 +34,7 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceShippingEngine;
 import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.model.CommerceShippingOption;
+import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.catalog.CPQuery;
 import com.liferay.commerce.product.catalog.CPSku;
@@ -211,9 +212,9 @@ public class CommerceOrderGenerator {
 
 		// Checkout commerce order
 
-		_commerceOrderLocalService.checkoutCommerceOrder(
-			commerceOrder.getCommerceOrderId(), commerceContext,
-			serviceContext);
+		_commerceOrderEngine.transitionCommerceOrder(
+			commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
+			serviceContext.getUserId());
 
 		// Update payment status
 
@@ -510,6 +511,9 @@ public class CommerceOrderGenerator {
 
 	@Reference
 	private CommerceInventoryEngine _commerceInventoryEngine;
+
+	@Reference
+	private CommerceOrderEngine _commerceOrderEngine;
 
 	@Reference
 	private CommerceOrderItemLocalService _commerceOrderItemLocalService;
