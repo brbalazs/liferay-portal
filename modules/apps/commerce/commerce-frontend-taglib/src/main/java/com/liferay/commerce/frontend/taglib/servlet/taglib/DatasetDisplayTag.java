@@ -169,7 +169,7 @@ public class DatasetDisplayTag extends IncludeTag {
 	protected void cleanUp() {
 		super.cleanUp();
 
-		_clayCreationMenu = null;
+		_clayCreationMenu = new ClayCreationMenu();
 		_clayDataSetDataJSONBuilder = null;
 		_clayDataSetDisplayViewsContext = null;
 		_clayDataSetDisplayViewSerializer = null;
@@ -331,7 +331,7 @@ public class DatasetDisplayTag extends IncludeTag {
 	private static final Log _log = LogFactoryUtil.getLog(
 		DatasetDisplayTag.class);
 
-	private ClayCreationMenu _clayCreationMenu;
+	private ClayCreationMenu _clayCreationMenu = new ClayCreationMenu();
 	private ClayDataSetDataJSONBuilder _clayDataSetDataJSONBuilder;
 	private Object _clayDataSetDisplayViewsContext;
 	private ClayDataSetDisplayViewSerializer _clayDataSetDisplayViewSerializer;
