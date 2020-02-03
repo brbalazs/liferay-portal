@@ -321,17 +321,17 @@ paths:
             operationId: deleteAvailabilityEstimate
             parameters:
                 - in: path
-                  explode: false
-                  name: id
-                  required: true
-                  schema:
-                      description:
-                          The resource Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: id
+                    required: true
+                    schema:
+                        description:
+                            The resource Id
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
             responses:
                 204:
                     description:
@@ -350,7 +350,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.write
+                    - HeadlessCommerceAdminSiteSetting.write
             summary: Deletes an Availability Estimate by ID.
             tags:
                 - AvailabilityEstimate
@@ -358,17 +358,17 @@ paths:
             operationId: getAvailabilityEstimate
             parameters:
                 - in: path
-                  explode: false
-                  name: id
-                  required: true
-                  schema:
-                      description:
-                          The resource Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: id
+                    required: true
+                    schema:
+                        description:
+                            The resource Id
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
             responses:
                 200:
                     content:
@@ -417,7 +417,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.read
+                    - HeadlessCommerceAdminSiteSetting.read
             summary: Gets an Availability Estimate by ID.
             tags:
                 - AvailabilityEstimate
@@ -425,17 +425,17 @@ paths:
             operationId: putAvailabilityEstimate
             parameters:
                 - in: path
-                  explode: false
-                  name: id
-                  required: true
-                  schema:
-                      description:
-                          The resource Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: id
+                    required: true
+                    schema:
+                        description:
+                            The resource Id
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
             requestBody:
                 content:
                     application/json:
@@ -489,7 +489,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.write
+                    - HeadlessCommerceAdminSiteSetting.write
             summary: Updates an Availability Estimate by ID.
             tags:
                 - AvailabilityEstimate
@@ -498,31 +498,31 @@ paths:
             operationId: getCommerceAdminSiteSettingGroupAvailabilityEstimatePage
             parameters:
                 - in: path
-                  explode: false
-                  name: groupId
-                  required: true
-                  schema:
-                      description:
-                          Group to filter (Liferay site)
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: groupId
+                    required: true
+                    schema:
+                        description:
+                            Group to filter (Liferay site)
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
                 - in: query
-                  explode: true
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
-                  style: form
+                    explode: true
+                    name: page
+                    required: false
+                    schema:
+                        type: integer
+                    style: form
                 - in: query
-                  explode: true
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
-                  style: form
+                    explode: true
+                    name: pageSize
+                    required: false
+                    schema:
+                        type: integer
+                    style: form
             responses:
                 200:
                     content:
@@ -572,7 +572,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.read
+                    - HeadlessCommerceAdminSiteSetting.read
             summary: Gets a list of Availability Estimate.
             tags:
                 - AvailabilityEstimate
@@ -580,17 +580,17 @@ paths:
             operationId: postCommerceAdminSiteSettingGroupAvailabilityEstimate
             parameters:
                 - in: path
-                  explode: false
-                  name: groupId
-                  required: true
-                  schema:
-                      description:
-                          Group to filter (Liferay site)
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: groupId
+                    required: true
+                    schema:
+                        description:
+                            Group to filter (Liferay site)
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
             requestBody:
                 content:
                     application/json:
@@ -654,7 +654,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.write
+                    - HeadlessCommerceAdminSiteSetting.write
             summary: Creates or Updates an Availability Estimate.
             tags:
                 - AvailabilityEstimate
@@ -663,44 +663,44 @@ paths:
             operationId: getCommerceAdminSiteSettingGroupMeasurementUnitPage
             parameters:
                 - in: path
-                  explode: false
-                  name: groupId
-                  required: true
-                  schema:
-                      description:
-                          Group to filter (Liferay site)
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: groupId
+                    required: true
+                    schema:
+                        description:
+                            Group to filter (Liferay site)
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
                 - in: query
-                  explode: true
-                  name: type
-                  required: false
-                  schema:
-                      description:
-                          Type to filter
-                      example: 0
-                      format: int32
-                      maximum: 1
-                      minimum: 0
-                      type: integer
-                  style: form
+                    explode: true
+                    name: page
+                    required: false
+                    schema:
+                        type: integer
+                    style: form
                 - in: query
-                  explode: true
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
-                  style: form
+                    explode: true
+                    name: pageSize
+                    required: false
+                    schema:
+                        type: integer
+                    style: form
                 - in: query
-                  explode: true
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
-                  style: form
+                    explode: true
+                    name: type
+                    required: false
+                    schema:
+                        description:
+                            Type to filter
+                        example: 0
+                        format: int32
+                        maximum: 1
+                        minimum: 0
+                        type: integer
+                    style: form
             responses:
                 200:
                     content:
@@ -750,7 +750,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.read
+                    - HeadlessCommerceAdminSiteSetting.read
             summary: Gets a list of Measurement Unit.
             tags:
                 - MeasurementUnit
@@ -758,17 +758,17 @@ paths:
             operationId: postCommerceAdminSiteSettingGroupMeasurementUnit
             parameters:
                 - in: path
-                  explode: false
-                  name: groupId
-                  required: true
-                  schema:
-                      description:
-                          Group to filter (Liferay site)
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: groupId
+                    required: true
+                    schema:
+                        description:
+                            Group to filter (Liferay site)
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
             requestBody:
                 content:
                     application/json:
@@ -832,7 +832,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.write
+                    - HeadlessCommerceAdminSiteSetting.write
             summary: Creates a Measurement Unit.
             tags:
                 - MeasurementUnit
@@ -841,31 +841,31 @@ paths:
             operationId: getCommerceAdminSiteSettingGroupTaxCategoryPage
             parameters:
                 - in: path
-                  explode: false
-                  name: groupId
-                  required: true
-                  schema:
-                      description:
-                          Group to filter (Liferay site)
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: groupId
+                    required: true
+                    schema:
+                        description:
+                            Group to filter (Liferay site)
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
                 - in: query
-                  explode: true
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
-                  style: form
+                    explode: true
+                    name: page
+                    required: false
+                    schema:
+                        type: integer
+                    style: form
                 - in: query
-                  explode: true
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
-                  style: form
+                    explode: true
+                    name: pageSize
+                    required: false
+                    schema:
+                        type: integer
+                    style: form
             responses:
                 200:
                     content:
@@ -915,7 +915,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.read
+                    - HeadlessCommerceAdminSiteSetting.read
             summary: Gets a list of Tax Category.
             tags:
                 - TaxCategory
@@ -923,17 +923,17 @@ paths:
             operationId: postCommerceAdminSiteSettingGroupTaxCategory
             parameters:
                 - in: path
-                  explode: false
-                  name: groupId
-                  required: true
-                  schema:
-                      description:
-                          Group to filter (Liferay site)
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: groupId
+                    required: true
+                    schema:
+                        description:
+                            Group to filter (Liferay site)
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
             requestBody:
                 content:
                     application/json:
@@ -997,7 +997,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.write
+                    - HeadlessCommerceAdminSiteSetting.write
             summary: Creates a Tax Category.
             tags:
                 - TaxCategory
@@ -1006,41 +1006,41 @@ paths:
             operationId: getCommerceAdminSiteSettingGroupWarehousePage
             parameters:
                 - in: path
-                  explode: false
-                  name: groupId
-                  required: true
-                  schema:
-                      description:
-                          Group to filter (Liferay site)
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: groupId
+                    required: true
+                    schema:
+                        description:
+                            Group to filter (Liferay site)
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
                 - in: query
-                  explode: true
-                  name: active
-                  required: false
-                  schema:
-                      description:
-                          Active to filter
-                      example: true
-                      type: boolean
-                  style: form
+                    explode: true
+                    name: active
+                    required: false
+                    schema:
+                        description:
+                            Active to filter
+                        example: true
+                        type: boolean
+                    style: form
                 - in: query
-                  explode: true
-                  name: page
-                  required: false
-                  schema:
-                      type: integer
-                  style: form
+                    explode: true
+                    name: page
+                    required: false
+                    schema:
+                        type: integer
+                    style: form
                 - in: query
-                  explode: true
-                  name: pageSize
-                  required: false
-                  schema:
-                      type: integer
-                  style: form
+                    explode: true
+                    name: pageSize
+                    required: false
+                    schema:
+                        type: integer
+                    style: form
             responses:
                 200:
                     content:
@@ -1090,7 +1090,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.read
+                    - HeadlessCommerceAdminSiteSetting.read
             summary: Gets a list of Warehouse.
             tags:
                 - Warehouse
@@ -1098,17 +1098,17 @@ paths:
             operationId: postCommerceAdminSiteSettingGroupWarehouse
             parameters:
                 - in: path
-                  explode: false
-                  name: groupId
-                  required: true
-                  schema:
-                      description:
-                          Group to filter (Liferay site)
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: groupId
+                    required: true
+                    schema:
+                        description:
+                            Group to filter (Liferay site)
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
             requestBody:
                 content:
                     application/json:
@@ -1172,7 +1172,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.write
+                    - HeadlessCommerceAdminSiteSetting.write
             summary: Creates a Warehouse.
             tags:
                 - Warehouse
@@ -1181,17 +1181,17 @@ paths:
             operationId: deleteMeasurementUnit
             parameters:
                 - in: path
-                  explode: false
-                  name: id
-                  required: true
-                  schema:
-                      description:
-                          The resource Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: id
+                    required: true
+                    schema:
+                        description:
+                            The resource Id
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
             responses:
                 204:
                     description:
@@ -1210,7 +1210,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.write
+                    - HeadlessCommerceAdminSiteSetting.write
             summary: Deletes a Measurement Unit by ID.
             tags:
                 - MeasurementUnit
@@ -1218,17 +1218,17 @@ paths:
             operationId: getMeasurementUnit
             parameters:
                 - in: path
-                  explode: false
-                  name: id
-                  required: true
-                  schema:
-                      description:
-                          The resource Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: id
+                    required: true
+                    schema:
+                        description:
+                            The resource Id
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
             responses:
                 200:
                     content:
@@ -1277,7 +1277,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.read
+                    - HeadlessCommerceAdminSiteSetting.read
             summary: Gets a Measurement Unit by ID.
             tags:
                 - MeasurementUnit
@@ -1285,17 +1285,17 @@ paths:
             operationId: putMeasurementUnit
             parameters:
                 - in: path
-                  explode: false
-                  name: id
-                  required: true
-                  schema:
-                      description:
-                          The resource Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: id
+                    required: true
+                    schema:
+                        description:
+                            The resource Id
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
             requestBody:
                 content:
                     application/json:
@@ -1349,7 +1349,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.write
+                    - HeadlessCommerceAdminSiteSetting.write
             summary: Updates a Measurement Unit by ID.
             tags:
                 - MeasurementUnit
@@ -1358,17 +1358,17 @@ paths:
             operationId: deleteTaxCategory
             parameters:
                 - in: path
-                  explode: false
-                  name: id
-                  required: true
-                  schema:
-                      description:
-                          The resource Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: id
+                    required: true
+                    schema:
+                        description:
+                            The resource Id
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
             responses:
                 204:
                     description:
@@ -1387,7 +1387,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.write
+                    - HeadlessCommerceAdminSiteSetting.write
             summary: Deletes a Tax Category by ID.
             tags:
                 - TaxCategory
@@ -1395,17 +1395,17 @@ paths:
             operationId: getTaxCategory
             parameters:
                 - in: path
-                  explode: false
-                  name: id
-                  required: true
-                  schema:
-                      description:
-                          The resource Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: id
+                    required: true
+                    schema:
+                        description:
+                            The resource Id
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
             responses:
                 200:
                     content:
@@ -1454,7 +1454,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.read
+                    - HeadlessCommerceAdminSiteSetting.read
             summary: Gets a Tax Category by ID.
             tags:
                 - TaxCategory
@@ -1462,17 +1462,17 @@ paths:
             operationId: putTaxCategory
             parameters:
                 - in: path
-                  explode: false
-                  name: id
-                  required: true
-                  schema:
-                      description:
-                          The resource Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: id
+                    required: true
+                    schema:
+                        description:
+                            The resource Id
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
             requestBody:
                 content:
                     application/json:
@@ -1526,7 +1526,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.write
+                    - HeadlessCommerceAdminSiteSetting.write
             summary: Updates a Tax Category by ID.
             tags:
                 - TaxCategory
@@ -1535,17 +1535,17 @@ paths:
             operationId: deleteWarehouse
             parameters:
                 - in: path
-                  explode: false
-                  name: id
-                  required: true
-                  schema:
-                      description:
-                          The resource Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: id
+                    required: true
+                    schema:
+                        description:
+                            The resource Id
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
             responses:
                 204:
                     description:
@@ -1564,7 +1564,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.write
+                    - HeadlessCommerceAdminSiteSetting.write
             summary: Deletes a Warehouse by ID.
             tags:
                 - Warehouse
@@ -1572,17 +1572,17 @@ paths:
             operationId: getWarehouse
             parameters:
                 - in: path
-                  explode: false
-                  name: id
-                  required: true
-                  schema:
-                      description:
-                          The resource Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: id
+                    required: true
+                    schema:
+                        description:
+                            The resource Id
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
             responses:
                 200:
                     content:
@@ -1631,7 +1631,7 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.read
+                    - HeadlessCommerceAdminSiteSetting.read
             summary: Gets a Warehouse by ID.
             tags:
                 - Warehouse
@@ -1639,17 +1639,17 @@ paths:
             operationId: putWarehouse
             parameters:
                 - in: path
-                  explode: false
-                  name: id
-                  required: true
-                  schema:
-                      description:
-                          The resource Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
+                    explode: false
+                    name: id
+                    required: true
+                    schema:
+                        description:
+                            The resource Id
+                        example: 30130
+                        format: int64
+                        minimum: 0
+                        type: integer
+                    style: simple
             requestBody:
                 content:
                     application/json:
@@ -1703,68 +1703,68 @@ paths:
                 - BasicAuth: []
                 - BearerAuth: []
                 - OAuth2:
-                      - HeadlessCommerceAdminSiteSetting.write
+                    - HeadlessCommerceAdminSiteSetting.write
             summary: Updates a Warehouse by ID.
             tags:
                 - Warehouse
 servers:
     - description:
-          Liferay Commerce API server
+        Liferay Commerce API server
       url: https://commerce.{environment}.liferay.com/commerce-admin-site-setting/{basePath}
       variables:
-          basePath:
-              default: v1.0
-          environment:
-              default: api
-              enum:
-                  - api
-                  - api.dev
-                  - api.uat
+        basePath:
+            default: v1.0
+        environment:
+            default: api
+            enum:
+                - api
+                - api.dev
+                - api.uat
     - description:
-          Liferay Commerce Local Development (Hosts file)
+        Liferay Commerce Local Development (Hosts file)
       url: "{protocol}://{host}:{port}/o/commerce-admin-site-setting/{basePath}"
       variables:
-          basePath:
-              default: v1.0
-          host:
-              default: test.dev
-          port:
-              default: "8080"
-              enum:
-                  - "443"
-                  - "8080"
-                  - "8443"
-          protocol:
-              default: http
-              enum:
-                  - http
-                  - https
+        basePath:
+            default: v1.0
+        host:
+            default: test.dev
+        port:
+            default: "8080"
+            enum:
+                - "443"
+                - "8080"
+                - "8443"
+        protocol:
+            default: http
+            enum:
+                - http
+                - https
     - description:
-          Liferay Commerce Local Development with Ngrok
+        Liferay Commerce Local Development with Ngrok
       url: "{protocol}://{host}.ngrok.io/o/commerce-admin-site-setting/{basePath}"
       variables:
-          basePath:
-              default: v1.0
-          host:
-              default: commerce
-          protocol:
-              default: http
-              enum:
-                  - http
-                  - https
+        basePath:
+            default: v1.0
+        host:
+            default: commerce
+        protocol:
+            default: http
+            enum:
+                - http
+                - https
     - description:
-          SwaggerHub API Auto Mocking
+        SwaggerHub API Auto Mocking
       url: https://virtserver.swaggerhub.com/liferay6/commerce-admin-site-setting/v1.0
 tags:
     - description:
-          Operations on Availability Estimates
+        Operations on Availability Estimates
       name: AvailabilityEstimate
     - description:
-          Operations on Measurement Units
+        Operations on Measurement Units
       name: MeasurementUnit
     - description:
-          Operations on Tax Categories
+        Operations on Tax Categories
       name: TaxCategory
     - description:
-          Operations on Warehouses
+        Operations on Warehouses
       name: Warehouse

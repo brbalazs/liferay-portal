@@ -36,7 +36,9 @@ html {
 		}
 	}
 
-	body.has-control-menu.has-edit-mode-menu.signed-in & .minium-frame__toolbar {
+	body.has-control-menu.has-edit-mode-menu.signed-in
+		&
+		.minium-frame__toolbar {
 		top: 120px;
 	}
 
@@ -48,7 +50,9 @@ html {
 		}
 	}
 
-	body.has-control-menu.has-edit-mode-menu.signed-in & .minium-frame__sidebar {
+	body.has-control-menu.has-edit-mode-menu.signed-in
+		&
+		.minium-frame__sidebar {
 		top: 120px;
 	}
 

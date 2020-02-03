@@ -43,6 +43,10 @@ public class ShipmentItem {
 		return _shipmentItemId;
 	}
 
+	public int getShippableQuantity() {
+		return _shippableQuantity;
+	}
+
 	public int getShippedQuantity() {
 		return _shippedQuantity;
 	}
@@ -51,15 +55,11 @@ public class ShipmentItem {
 		return _sku;
 	}
 
-	public int getShippableQuantity() {
-		return _shippableQuantity;
-	}
-
 	private final int _orderedCount;
 	private final long _orderId;
 	private final long _shipmentItemId;
+	private final int _shippableQuantity;
 	private final int _shippedQuantity;
 	private final String _sku;
-	private final int _shippableQuantity;
 
 }
