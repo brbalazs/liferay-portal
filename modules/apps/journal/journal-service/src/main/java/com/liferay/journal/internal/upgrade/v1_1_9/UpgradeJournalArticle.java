@@ -34,7 +34,39 @@ import java.util.List;
  */
 public class UpgradeJournalArticle extends UpgradeProcess {
 
-	protected String convertRadioElements(String content) throws Exception {
+	@Override
+	protected void doUpgrade() throws Exception {
+		try (PreparedStatement ps1 = connection.prepareStatement(
+				"select id_, content from JournalArticle where content like " +
+					"?")) {
+
+			ps1.setString(1, "%type=\"radio\"%");
+
+			ResultSet rs1 = ps1.executeQuery();
+
+			while (rs1.next()) {
+				long id = rs1.getLong("id_");
+
+				String content = rs1.getString("content");
+
+				content = _convertRadioElements(content);
+
+				try (PreparedStatement ps2 =
+						AutoBatchPreparedStatementUtil.concurrentAutoBatch(
+							connection,
+							"update JournalArticle set content = ? where id_ " +
+								"= ?")) {
+
+					ps2.setString(1, content);
+					ps2.setLong(2, id);
+
+					ps2.executeUpdate();
+				}
+			}
+		}
+	}
+
+	private String _convertRadioElements(String content) throws Exception {
 		Document contentDocument = SAXReaderUtil.read(content);
 
 		contentDocument = contentDocument.clone();
@@ -64,38 +96,6 @@ public class UpgradeJournalArticle extends UpgradeProcess {
 		}
 
 		return contentDocument.formattedString();
-	}
-
-	@Override
-	protected void doUpgrade() throws Exception {
-		try (PreparedStatement ps1 = connection.prepareStatement(
-				"select id_, content from JournalArticle where content like " +
-					"?")) {
-
-			ps1.setString(1, "%type=\"radio\"%");
-
-			ResultSet rs1 = ps1.executeQuery();
-
-			while (rs1.next()) {
-				long id = rs1.getLong("id_");
-
-				String content = rs1.getString("content");
-
-				content = convertRadioElements(content);
-
-				try (PreparedStatement ps2 =
-						AutoBatchPreparedStatementUtil.concurrentAutoBatch(
-							connection,
-							"update JournalArticle set content = ? where id_ " +
-								"= ?")) {
-
-					ps2.setString(1, content);
-					ps2.setLong(2, id);
-
-					ps2.executeUpdate();
-				}
-			}
-		}
 	}
 
 }
