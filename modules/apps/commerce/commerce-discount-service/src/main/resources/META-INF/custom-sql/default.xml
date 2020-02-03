@@ -284,4 +284,35 @@
 				(CommerceDiscount.type_ = ?)
 		]]>
 	</sql>
+	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountFinder.findPriceListDiscountProduct">
+		<![CDATA[
+			SELECT
+				DISTINCT CommerceDiscount.*
+			FROM
+				CommerceDiscount
+			INNER JOIN
+				CommercePriceListDiscountRel ON
+					CommercePriceListDiscountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
+			INNER JOIN
+				CommerceDiscountRel ON
+					CommerceDiscountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
+			WHERE
+				(CommerceDiscount.active_ = [$TRUE$]) AND
+				(CommercePriceListDiscountRel.commerceDiscountId IN ([$DISCOUNT_IDS$])) AND
+				(
+					(
+						(CommerceDiscountRel.classPK = ?) AND
+						(CommerceDiscountRel.classNameId = ?)
+					) OR
+					(
+						(CommerceDiscountRel.classPK IN ([$CLASS_PK_CATEGORIES$])) AND
+						(CommerceDiscountRel.classNameId = ?)
+					) OR
+					(
+						(CommerceDiscountRel.classPK IN ([$CLASS_PK_PRICING_CLASSES$])) AND
+						(CommerceDiscountRel.classNameId = ?)
+					)
+				)
+		]]>
+	</sql>
 </custom-sql>
