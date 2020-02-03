@@ -16,11 +16,6 @@ package com.liferay.commerce.order.web.internal.frontend;
 
 import com.liferay.commerce.constants.CommerceOrderPaymentConstants;
 import com.liferay.commerce.currency.model.CommerceMoney;
-import com.liferay.commerce.frontend.ClayTable;
-import com.liferay.commerce.frontend.ClayTableSchema;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilder;
-import com.liferay.commerce.frontend.ClayTableSchemaBuilderFactory;
-import com.liferay.commerce.frontend.ClayTableSchemaField;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
@@ -50,16 +45,11 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = {
-		"commerce.data.provider.key=" + CommercePaymentClayTable.NAME,
-		"commerce.table.name=" + CommercePaymentClayTable.NAME
-	},
-	service = {ClayTable.class, CommerceDataSetDataProvider.class}
+	property = "commerce.data.provider.key=" + CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PAYMENTS,
+	service = CommerceDataSetDataProvider.class
 )
-public class CommercePaymentClayTable
-	implements ClayTable, CommerceDataSetDataProvider<Payment> {
-
-	public static final String NAME = "commerceOrderPayments";
+public class CommercePaymentDataSetDataProvider
+	implements CommerceDataSetDataProvider<Payment> {
 
 	@Override
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
@@ -70,30 +60,6 @@ public class CommercePaymentClayTable
 
 		return _commerceOrderPaymentLocalService.getCommerceOrderPaymentsCount(
 			commerceOrderId);
-	}
-
-	@Override
-	public ClayTableSchema getClayTableSchema() {
-		ClayTableSchemaBuilder clayTableSchemaBuilder =
-			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
-
-		ClayTableSchemaField typeField = clayTableSchemaBuilder.addField(
-			"type", "type");
-
-		typeField.setContentRenderer("label");
-
-		clayTableSchemaBuilder.addField("amount", "amount");
-
-		clayTableSchemaBuilder.addField("createDate", "create-date");
-
-		clayTableSchemaBuilder.addField("content", "content");
-
-		return clayTableSchemaBuilder.build();
-	}
-
-	@Override
-	public String getId() {
-		return NAME;
 	}
 
 	@Override
@@ -144,9 +110,6 @@ public class CommercePaymentClayTable
 
 		return payments;
 	}
-
-	@Reference
-	private ClayTableSchemaBuilderFactory _clayTableSchemaBuilderFactory;
 
 	@Reference
 	private CommerceOrderPaymentLocalService _commerceOrderPaymentLocalService;

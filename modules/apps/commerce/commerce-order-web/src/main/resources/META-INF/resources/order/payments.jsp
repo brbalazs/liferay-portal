@@ -20,7 +20,6 @@
 CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrderEditDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommerceOrder commerceOrder = commerceOrderEditDisplayContext.getCommerceOrder();
-SearchContainer<CommerceOrderPayment> commerceOrderPaymentsSearchContainer = commerceOrderEditDisplayContext.getCommerceOrderPaymentsSearchContainer();
 %>
 
 <div class="row">
@@ -106,8 +105,8 @@ SearchContainer<CommerceOrderPayment> commerceOrderPaymentsSearchContainer = com
 
 			<commerce-ui:dataset-display
 				contextParams="<%= contextParams %>"
-				dataProviderKey="<%= CommercePaymentClayTable.NAME %>"
-				id="<%= CommercePaymentClayTable.NAME %>"
+				dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENTS %>"
+				id="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_SHIPMENTS %>"
 				itemsPerPage="<%= 10 %>"
 				namespace="<%= renderResponse.getNamespace() %>"
 				pageNumber="<%= 1 %>"
