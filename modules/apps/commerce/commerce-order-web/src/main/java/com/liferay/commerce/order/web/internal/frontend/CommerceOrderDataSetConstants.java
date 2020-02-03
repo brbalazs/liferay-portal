@@ -19,6 +19,9 @@ package com.liferay.commerce.order.web.internal.frontend;
  */
 public class CommerceOrderDataSetConstants {
 
+	public static final String COMMERCE_DATA_SET_KEY_NOTIFICATIONS =
+		"commerceNotificationQueueEntries";
+
 	public static final String COMMERCE_DATA_SET_KEY_ORDER_ITEMS =
 		"commerceOrderItems";
 
