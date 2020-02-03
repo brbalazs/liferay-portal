@@ -27,6 +27,7 @@ import com.liferay.analytics.settings.security.constants.AnalyticsSecurityConsta
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.Message;
@@ -85,6 +86,39 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class AnalyticsConfigurationTrackerImpl
 	implements AnalyticsConfigurationTracker, ManagedServiceFactory {
+
+	@Override
+	public boolean deleteCompanyConfiguration(long companyId) {
+		ObjectValuePair<Configuration, AnalyticsConfiguration> objectValuePair =
+			_analyticsConfigurations.remove(companyId);
+
+		if (objectValuePair == null) {
+			return false;
+		}
+
+		Configuration configuration = objectValuePair.getKey();
+
+		try {
+			Dictionary<String, Object> properties =
+				configuration.getProperties();
+
+			configuration.delete();
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(
+					StringBundler.concat(
+						"Deleted configuration ",
+						AnalyticsConfiguration.class.getName(), " for company ",
+						String.valueOf(companyId), " with properties: ",
+						String.valueOf(properties)));
+			}
+		}
+		catch (IOException ioe) {
+			throw new SystemException(ioe);
+		}
+
+		return true;
+	}
 
 	@Override
 	public void deleted(String pid) {
@@ -169,7 +203,40 @@ public class AnalyticsConfigurationTrackerImpl
 	@Override
 	public String getName() {
 		return "com.liferay.analytics.settings.configuration." +
-			"AnalyticsConfiguration.scoped";
+			"AnalyticsConfiguration";
+	}
+
+	@Override
+	public void saveCompanyConfiguration(
+		long companyId, Dictionary<String, Object> properties) {
+
+		if (properties == null) {
+			properties = new HashMapDictionary<>();
+		}
+
+		properties.put("companyId", companyId);
+
+		ObjectValuePair<Configuration, AnalyticsConfiguration> objectValuePair =
+			_analyticsConfigurations.get(companyId);
+
+		try {
+			Configuration configuration = _getFactoryConfiguration(companyId);
+
+			if (configuration == null) {
+				configuration = _configurationAdmin.createFactoryConfiguration(
+					AnalyticsConfiguration.class.getName(),
+					StringPool.QUESTION);
+			}
+
+			if (objectValuePair != null) {
+				_onBeforeSave(objectValuePair.getValue(), properties);
+			}
+
+			configuration.update(properties);
+		}
+		catch (Exception e) {
+			throw new SystemException("Unable to update configuration", e);
+		}
 	}
 
 	@Override
@@ -454,6 +521,21 @@ public class AnalyticsConfigurationTrackerImpl
 		}
 
 		return false;
+	}
+
+	private void _onBeforeSave(
+		AnalyticsConfiguration analyticsConfiguration,
+		Dictionary<String, Object> properties) {
+
+		properties.put(
+			"previousSyncAllContacts",
+			analyticsConfiguration.syncAllContacts());
+
+		String token = analyticsConfiguration.token();
+
+		if (token != null) {
+			properties.put("previousToken", token);
+		}
 	}
 
 	private void _sync(Dictionary<String, ?> dictionary) {
