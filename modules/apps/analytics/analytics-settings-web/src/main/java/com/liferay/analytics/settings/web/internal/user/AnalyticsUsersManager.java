@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.portal.search.constants.SearchContextAttributes;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -158,8 +157,6 @@ public class AnalyticsUsersManager {
 	private SearchContext _createSearchContext() {
 		SearchContext searchContext = new SearchContext();
 
-		searchContext.setAttribute(
-			SearchContextAttributes.ATTRIBUTE_KEY_EMPTY_SEARCH, Boolean.TRUE);
 		searchContext.setEntryClassNames(new String[] {User.class.getName()});
 
 		QueryConfig queryConfig = searchContext.getQueryConfig();
