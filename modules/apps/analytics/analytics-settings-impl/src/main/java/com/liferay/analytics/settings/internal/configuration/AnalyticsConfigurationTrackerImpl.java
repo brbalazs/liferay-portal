@@ -43,10 +43,14 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.HashMapDictionary;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.service.access.policy.model.SAPEntry;
 import com.liferay.portal.security.service.access.policy.service.SAPEntryLocalService;
+
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -56,12 +60,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Stream;
 
 import org.osgi.framework.Constants;
+import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.service.cm.Configuration;
 import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.cm.ManagedServiceFactory;
@@ -77,7 +80,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	configurationPid = "com.liferay.analytics.settings.configuration.AnalyticsConfiguration",
 	immediate = true,
-	property = Constants.SERVICE_PID + "=com.liferay.analytics.settings.configuration.AnalyticsConfiguration.scoped",
+	property = Constants.SERVICE_PID + "=com.liferay.analytics.settings.configuration.AnalyticsConfiguration",
 	service = {AnalyticsConfigurationTracker.class, ManagedServiceFactory.class}
 )
 public class AnalyticsConfigurationTrackerImpl
@@ -98,57 +101,64 @@ public class AnalyticsConfigurationTrackerImpl
 
 	@Override
 	public AnalyticsConfiguration getAnalyticsConfiguration(long companyId) {
-		return _analyticsConfigurations.getOrDefault(
-			companyId, _systemAnalyticsConfiguration);
+		ObjectValuePair<Configuration, AnalyticsConfiguration> objectValuePair =
+			_analyticsConfigurations.get(companyId);
+
+		if (objectValuePair == null) {
+			return _systemAnalyticsConfiguration;
+		}
+
+		return objectValuePair.getValue();
 	}
 
 	@Override
 	public AnalyticsConfiguration getAnalyticsConfiguration(String pid) {
-		Long companyId = _pidCompanyIdMapping.get(pid);
+		long companyId = _pidCompanyIdMapping.get(pid);
 
-		if (companyId == null) {
-			return _systemAnalyticsConfiguration;
-		}
+		ObjectValuePair<Configuration, AnalyticsConfiguration> objectValuePair =
+			_analyticsConfigurations.get(companyId);
 
-		return getAnalyticsConfiguration(companyId);
+		return objectValuePair.getValue();
 	}
 
 	@Override
 	public Dictionary<String, Object> getAnalyticsConfigurationProperties(
 		long companyId) {
 
-		Set<Map.Entry<String, Long>> entries = _pidCompanyIdMapping.entrySet();
+		ObjectValuePair<Configuration, AnalyticsConfiguration> objectValuePair =
+			_analyticsConfigurations.get(companyId);
 
-		Stream<Map.Entry<String, Long>> stream = entries.stream();
-
-		String pid = stream.filter(
-			entry -> Objects.equals(entry.getValue(), companyId)
-		).map(
-			Map.Entry::getKey
-		).findFirst(
-		).orElse(
-			null
-		);
-
-		try {
-			Configuration configuration = _configurationAdmin.getConfiguration(
-				pid, StringPool.QUESTION);
-
-			return configuration.getProperties();
+		if (objectValuePair == null) {
+			objectValuePair = _analyticsConfigurations.get(
+				CompanyConstants.SYSTEM);
 		}
-		catch (Exception exception) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(
-					"Unable to get configuration for company ID " + companyId);
-			}
 
-			return null;
+		if (objectValuePair == null) {
+			return new HashMapDictionary<>();
 		}
+
+		Configuration configuration = objectValuePair.getKey();
+
+		return configuration.getProperties();
 	}
 
 	@Override
 	public Map<Long, AnalyticsConfiguration> getAnalyticsConfigurations() {
-		return _analyticsConfigurations;
+		Map<Long, AnalyticsConfiguration> analyticsConfigurations =
+			new HashMap<>();
+
+		for (Map.Entry
+				<Long, ObjectValuePair<Configuration, AnalyticsConfiguration>>
+					entry : _analyticsConfigurations.entrySet()) {
+
+			ObjectValuePair<Configuration, AnalyticsConfiguration>
+				objectValuePair = entry.getValue();
+
+			analyticsConfigurations.put(
+				entry.getKey(), objectValuePair.getValue());
+		}
+
+		return analyticsConfigurations;
 	}
 
 	@Override
@@ -163,19 +173,40 @@ public class AnalyticsConfigurationTrackerImpl
 	}
 
 	@Override
-	public void updated(String pid, Dictionary<String, ?> dictionary) {
+	public void updated(String pid, Dictionary dictionary) {
 		_unmapPid(pid);
 
 		long companyId = GetterUtil.getLong(
 			dictionary.get("companyId"), CompanyConstants.SYSTEM);
 
 		if (companyId != CompanyConstants.SYSTEM) {
-			_pidCompanyIdMapping.put(pid, companyId);
+			try {
+				Configuration configuration = _getFactoryConfiguration(
+					companyId);
 
-			_analyticsConfigurations.put(
-				companyId,
-				ConfigurableUtil.createConfigurable(
-					AnalyticsConfiguration.class, dictionary));
+				if (configuration == null) {
+					configuration =
+						_configurationAdmin.createFactoryConfiguration(
+							AnalyticsConfiguration.class.getName(),
+							StringPool.QUESTION);
+
+					configuration.update(dictionary);
+				}
+
+				AnalyticsConfiguration analyticsConfiguration =
+					ConfigurableUtil.createConfigurable(
+						AnalyticsConfiguration.class, dictionary);
+
+				_analyticsConfigurations.put(
+					companyId,
+					new ObjectValuePair<>(
+						configuration, analyticsConfiguration));
+
+				_pidCompanyIdMapping.put(pid, companyId);
+			}
+			catch (Exception e) {
+				_log.error(e, e);
+			}
 		}
 
 		if (!_initializedCompanyIds.contains(companyId)) {
@@ -382,6 +413,29 @@ public class AnalyticsConfigurationTrackerImpl
 		}
 	}
 
+	private Configuration _getFactoryConfiguration(long companyId) {
+		try {
+			String filterString = StringBundler.concat(
+				"(&(service.factoryPid=",
+				AnalyticsConfiguration.class.getName(), ")(companyId=",
+				companyId, "))");
+
+			Configuration[] configurations =
+				_configurationAdmin.listConfigurations(filterString);
+
+			if (configurations != null) {
+				return configurations[0];
+			}
+
+			return null;
+		}
+		catch (InvalidSyntaxException | IOException e) {
+			_log.error(e, e);
+
+			return null;
+		}
+	}
+
 	private boolean _hasConfiguration() throws Exception {
 		Configuration[] configurations = _configurationAdmin.listConfigurations(
 			"(service.pid=" + AnalyticsConfiguration.class.getName() + "*)");
@@ -552,8 +606,9 @@ public class AnalyticsConfigurationTrackerImpl
 	private static final Log _log = LogFactoryUtil.getLog(
 		AnalyticsConfigurationTrackerImpl.class);
 
-	private final Map<Long, AnalyticsConfiguration> _analyticsConfigurations =
-		new ConcurrentHashMap<>();
+	private final Map
+		<Long, ObjectValuePair<Configuration, AnalyticsConfiguration>>
+			_analyticsConfigurations = new ConcurrentHashMap<>();
 
 	@Reference
 	private AnalyticsMessageLocalService _analyticsMessageLocalService;
