@@ -28,16 +28,16 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	property = {
 		"javax.portlet.name=" + AnalyticsSettingsPortletKeys.ANALYTICS_ADMIN_PORTLET,
-		"mvc.command.name=/analytics_settings/edit_synced_organizations"
+		"mvc.command.name=/analytics/edit_synced_sites"
 	},
 	service = MVCRenderCommand.class
 )
-public class EditSyncedContactsOrganizationsMVCRenderCommand
+public class EditSyncedSitesMVCRenderCommand
 	extends BaseAnalyticsMVCRenderCommand {
 
 	@Override
 	protected String getJspPath() {
-		return "/edit_synced_contacts_organizations.jsp";
+		return "/edit_synced_sites.jsp";
 	}
 
 	@Reference(

@@ -14,7 +14,7 @@
 
 package com.liferay.analytics.settings.web.internal.portlet.action;
 
-import com.liferay.configuration.admin.constants.ConfigurationAdminPortletKeys;
+import com.liferay.analytics.settings.web.internal.constants.AnalyticsSettingsPortletKeys;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 
 import javax.servlet.ServletContext;
@@ -27,7 +27,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	property = {
-		"javax.portlet.name=" + ConfigurationAdminPortletKeys.INSTANCE_SETTINGS,
+		"javax.portlet.name=" + AnalyticsSettingsPortletKeys.ANALYTICS_ADMIN_PORTLET,
 		"mvc.command.name=/analytics_settings/edit_synced_contacts_groups"
 	},
 	service = MVCRenderCommand.class
