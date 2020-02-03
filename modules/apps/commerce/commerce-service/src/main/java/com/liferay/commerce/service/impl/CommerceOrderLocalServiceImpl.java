@@ -808,8 +808,8 @@ public class CommerceOrderLocalServiceImpl
 			_commerceOrderPriceCalculation.getCommerceOrderPrice(
 				commerceOrder, false, commerceContext);
 
-		CommerceMoney shippingValue = commerceOrderPrice.getShippingValue();
 		CommerceMoney subtotal = commerceOrderPrice.getSubtotal();
+		CommerceMoney shippingValue = commerceOrderPrice.getShippingValue();
 		CommerceMoney taxValue = commerceOrderPrice.getTaxValue();
 		CommerceMoney total = commerceOrderPrice.getTotal();
 
@@ -818,12 +818,14 @@ public class CommerceOrderLocalServiceImpl
 		commerceOrder.setTaxAmount(taxValue.getPrice());
 		commerceOrder.setTotal(total.getPrice());
 
-		_setCommerceOrderShippingDiscountValue(
-			commerceOrder, commerceOrderPrice.getShippingDiscountValue());
-		_setCommerceOrderSubtotalDiscountValue(
-			commerceOrder, commerceOrderPrice.getSubtotalDiscountValue());
-		_setCommerceOrderTotalDiscountValue(
-			commerceOrder, commerceOrderPrice.getTotalDiscountValue());
+		if (!commerceOrder.isManuallyAdjusted()) {
+			_setCommerceOrderSubtotalDiscountValue(
+				commerceOrder, commerceOrderPrice.getSubtotalDiscountValue());
+			_setCommerceOrderShippingDiscountValue(
+				commerceOrder, commerceOrderPrice.getShippingDiscountValue());
+			_setCommerceOrderTotalDiscountValue(
+				commerceOrder, commerceOrderPrice.getTotalDiscountValue());
+		}
 
 		return commerceOrderPersistence.update(commerceOrder);
 	}

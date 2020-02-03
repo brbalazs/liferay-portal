@@ -593,6 +593,7 @@ public class CommerceOrderItemLocalServiceImpl
 		commerceOrderItem.setDiscountPercentageLevel2(discountPercentageLevel2);
 		commerceOrderItem.setDiscountPercentageLevel3(discountPercentageLevel3);
 		commerceOrderItem.setDiscountPercentageLevel4(discountPercentageLevel4);
+		commerceOrderItem.setManuallyAdjusted(true);
 
 		return commerceOrderItemPersistence.update(commerceOrderItem);
 	}
@@ -624,6 +625,7 @@ public class CommerceOrderItemLocalServiceImpl
 
 		commerceOrderItem.setQuantity(quantity);
 		commerceOrderItem.setUnitPrice(unitPrice);
+		commerceOrderItem.setManuallyAdjusted(true);
 
 		return commerceOrderItemPersistence.update(commerceOrderItem);
 	}
