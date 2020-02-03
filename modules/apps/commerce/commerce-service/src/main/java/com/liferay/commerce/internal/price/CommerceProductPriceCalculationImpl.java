@@ -55,7 +55,10 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Marco Leo
  */
-@Component(service = CommerceProductPriceCalculation.class)
+@Component(
+	property = "commerce.price.calculation.key=v1.0",
+	service = CommerceProductPriceCalculation.class
+)
 public class CommerceProductPriceCalculationImpl
 	implements CommerceProductPriceCalculation {
 
