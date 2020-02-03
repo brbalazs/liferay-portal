@@ -38,6 +38,7 @@ import com.liferay.portal.kernel.model.CompanyConstants;
 import com.liferay.portal.kernel.model.Contact;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.role.RoleConstants;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -60,6 +61,7 @@ import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -286,12 +288,12 @@ public class AnalyticsConfigurationTrackerImpl
 
 		if (Validator.isNull(dictionary.get("token"))) {
 			if (Validator.isNotNull(dictionary.get("previousToken"))) {
-				_disable((Long)dictionary.get("companyId"));
+				_disable(companyId);
 			}
 		}
 		else {
 			if (Validator.isNull(dictionary.get("previousToken"))) {
-				_enable((Long)dictionary.get("companyId"));
+				_enable(companyId);
 			}
 
 			_sync(dictionary);
@@ -319,8 +321,23 @@ public class AnalyticsConfigurationTrackerImpl
 
 		Company company = _companyLocalService.getCompany(companyId);
 
-		Role role = _roleLocalService.getRole(
-			companyId, "Analytics Administrator");
+		Role role = _roleLocalService.fetchRole(
+			companyId, RoleConstants.ANALYTICS_ADMINISTRATOR);
+
+		if (role == null) {
+			Map<Locale, String> descriptionMap = new HashMap<>();
+
+			descriptionMap.put(
+				LocaleUtil.getDefault(),
+				"Analytics Administrators are users who can view data across " +
+					"the company but cannot make changes except to the " +
+						"company preferences.");
+
+			role = _roleLocalService.addRole(
+				_userLocalService.getDefaultUserId(companyId), null, 0,
+				RoleConstants.ANALYTICS_ADMINISTRATOR, null, descriptionMap,
+				RoleConstants.TYPE_REGULAR, null, null);
+		}
 
 		user = _userLocalService.addUser(
 			0, companyId, true, null, null, false,
@@ -401,8 +418,8 @@ public class AnalyticsConfigurationTrackerImpl
 					memberships.put(
 						entityModelListener.getModelClassName(), membershipIds);
 				}
-				catch (Exception exception) {
-					_log.error(exception, exception);
+				catch (Exception e) {
+					_log.error(e, e);
 				}
 			}
 
@@ -446,8 +463,8 @@ public class AnalyticsConfigurationTrackerImpl
 			_deleteSAPEntry(companyId);
 			_disableAuthVerifier();
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 		}
 	}
 
@@ -466,8 +483,8 @@ public class AnalyticsConfigurationTrackerImpl
 			_addSAPEntry(companyId);
 			_enableAuthVerifier();
 		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
+		catch (Exception e) {
+			_log.error(e, e);
 		}
 	}
 
@@ -551,8 +568,8 @@ public class AnalyticsConfigurationTrackerImpl
 				try {
 					entityModelListener.syncAll();
 				}
-				catch (Exception exception) {
-					_log.error(exception, exception);
+				catch (Exception e) {
+					_log.error(e, e);
 				}
 			}
 		}
@@ -566,8 +583,11 @@ public class AnalyticsConfigurationTrackerImpl
 		}
 		else {
 			_syncOrganizationUsers(
-				(String[])dictionary.get("syncedOrganizationIds"));
-			_syncUserGroupUsers((String[])dictionary.get("syncedUserGroupIds"));
+				GetterUtil.getStringValues(
+					dictionary.get("syncedOrganizationIds")));
+			_syncUserGroupUsers(
+				GetterUtil.getStringValues(
+					dictionary.get("syncedUserGroupIds")));
 		}
 
 		Message message = new Message();
@@ -629,7 +649,7 @@ public class AnalyticsConfigurationTrackerImpl
 
 					_addUsersAnalyticsMessages(users);
 				}
-				catch (Exception exception) {
+				catch (Exception e) {
 					if (_log.isInfoEnabled()) {
 						_log.info(
 							"Unable to get organization users for " +
