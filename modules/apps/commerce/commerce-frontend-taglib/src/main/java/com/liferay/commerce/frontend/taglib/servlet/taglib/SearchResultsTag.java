@@ -44,8 +44,11 @@ public class SearchResultsTag extends ComponentRendererTag {
 			CommerceAccount commerceAccount =
 				commerceContext.getCommerceAccount();
 
-			putValue(
-				"commerceAccountId", commerceAccount.getCommerceAccountId());
+			if (commerceAccount != null) {
+				putValue(
+					"commerceAccountId",
+					commerceAccount.getCommerceAccountId());
+			}
 		}
 		catch (PortalException pe) {
 			_log.error(pe, pe);
