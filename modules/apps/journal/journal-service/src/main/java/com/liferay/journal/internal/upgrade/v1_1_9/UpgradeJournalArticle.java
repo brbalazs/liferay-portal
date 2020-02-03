@@ -68,10 +68,6 @@ public class UpgradeJournalArticle extends UpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws Exception {
-		updateJournalArticleContent();
-	}
-
-	protected void updateJournalArticleContent() throws Exception {
 		try (PreparedStatement ps1 = connection.prepareStatement(
 				"select id_, content from JournalArticle where content like " +
 					"?")) {
