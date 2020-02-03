@@ -387,6 +387,15 @@ public class CommerceDiscountLocalServiceUtil {
 		return getService().findByUnqualifiedProduct(cpDefinitionId);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscount>
+			findPriceListDiscountProduct(
+				long[] commerceDiscountIds, long cpDefinitionId) {
+
+		return getService().findPriceListDiscountProduct(
+			commerceDiscountIds, cpDefinitionId);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

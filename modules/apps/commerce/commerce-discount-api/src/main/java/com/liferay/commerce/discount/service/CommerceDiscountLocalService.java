@@ -281,6 +281,9 @@ public interface CommerceDiscountLocalService
 
 	public List<CommerceDiscount> findByUnqualifiedProduct(long cpDefinitionId);
 
+	public List<CommerceDiscount> findPriceListDiscountProduct(
+		long[] commerceDiscountIds, long cpDefinitionId);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 

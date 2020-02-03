@@ -409,6 +409,15 @@ public class CommerceDiscountLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
+		findPriceListDiscountProduct(
+			long[] commerceDiscountIds, long cpDefinitionId) {
+
+		return _commerceDiscountLocalService.findPriceListDiscountProduct(
+			commerceDiscountIds, cpDefinitionId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
