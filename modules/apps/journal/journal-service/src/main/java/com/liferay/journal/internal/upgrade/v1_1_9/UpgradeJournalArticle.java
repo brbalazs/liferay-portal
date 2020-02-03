@@ -49,7 +49,7 @@ public class UpgradeJournalArticle extends UpgradeProcess {
 
 				String content = rs1.getString("content");
 
-				content = _convertRadioElements(content);
+				content = _convertRadioDynamicElements(content);
 
 				try (PreparedStatement ps2 =
 						AutoBatchPreparedStatementUtil.concurrentAutoBatch(
@@ -66,7 +66,9 @@ public class UpgradeJournalArticle extends UpgradeProcess {
 		}
 	}
 
-	private String _convertRadioElements(String content) throws Exception {
+	private String _convertRadioDynamicElements(String content)
+		throws Exception {
+
 		Document contentDocument = SAXReaderUtil.read(content);
 
 		contentDocument = contentDocument.clone();
@@ -74,12 +76,12 @@ public class UpgradeJournalArticle extends UpgradeProcess {
 		XPath xPath = SAXReaderUtil.createXPath(
 			"//dynamic-element[@type='radio']");
 
-		List<Node> radioNodes = xPath.selectNodes(contentDocument);
+		List<Node> nodes = xPath.selectNodes(contentDocument);
 
-		for (Node radioNode : radioNodes) {
-			Element radioElement = (Element)radioNode;
+		for (Node node : nodes) {
+			Element element = (Element)node;
 
-			List<Element> dynamicContentElements = radioElement.elements(
+			List<Element> dynamicContentElements = element.elements(
 				"dynamic-content");
 
 			for (Element dynamicContentElement : dynamicContentElements) {
