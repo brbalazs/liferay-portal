@@ -33,6 +33,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Matija Petanjek
  */
@@ -157,6 +160,8 @@ public class CPInstanceOptionValueRelUpgradeProcess extends UpgradeProcess {
 
 		String json = rs.getString("json");
 
+		Map<String, String> processedCPInstanceOptions = new HashMap<>();
+
 		JSONArray jsonArray = _jsonFactory.createJSONArray(json);
 
 		for (int i = 0; i < jsonArray.length(); i++) {
@@ -167,18 +172,28 @@ public class CPInstanceOptionValueRelUpgradeProcess extends UpgradeProcess {
 			long cpDefinitionOptionRelId = _getCPDefinitionOptionRelId(
 				cpDefinitionId, cpDefinitionOptionRelKey);
 
-			JSONArray cpDefinitionOptionValueJSONArray =
+			JSONArray cpDefinitionOptionValueRelJSONArray =
 				jsonObject.getJSONArray("value");
 
-			for (int j = 0; j < cpDefinitionOptionValueJSONArray.length();
+			for (int j = 0; j < cpDefinitionOptionValueRelJSONArray.length();
 				 j++) {
 
-				String cpDefinitionOptionValueKey =
-					cpDefinitionOptionValueJSONArray.getString(j);
+				String cpDefinitionOptionValueRelKey =
+					cpDefinitionOptionValueRelJSONArray.getString(j);
+
+				if (_isDuplicatedCPInstanceOption(
+						processedCPInstanceOptions, cpDefinitionOptionRelKey,
+						cpDefinitionOptionValueRelKey)) {
+
+					continue;
+				}
+
+				processedCPInstanceOptions.put(
+					cpDefinitionOptionRelKey, cpDefinitionOptionValueRelKey);
 
 				long cpDefinitionOptionValueRelId =
 					_getCPDefinitionOptionValueRelId(
-						cpDefinitionOptionRelId, cpDefinitionOptionValueKey);
+						cpDefinitionOptionRelId, cpDefinitionOptionValueRelKey);
 
 				String uuid = PortalUUIDUtil.generate();
 				long cpInstanceOptionValueRelId = increment();
@@ -202,6 +217,23 @@ public class CPInstanceOptionValueRelUpgradeProcess extends UpgradeProcess {
 				ps.addBatch();
 			}
 		}
+	}
+
+	private boolean _isDuplicatedCPInstanceOption(
+		Map<String, String> processedCPInstanceOptions,
+		String cpDefinitionOptionRelKey, String cpDefinitionOptionValueKey) {
+
+		String processedCPDefinitionOptionValueKey =
+			processedCPInstanceOptions.get(cpDefinitionOptionRelKey);
+
+		if ((processedCPDefinitionOptionValueKey != null) &&
+			processedCPDefinitionOptionValueKey.equals(
+				cpDefinitionOptionValueKey)) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	private final JSONFactory _jsonFactory;
