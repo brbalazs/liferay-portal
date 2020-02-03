@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * @author Matthew Chan
  */
-public class UpgradeJournalArticleRadioFields extends UpgradeProcess {
+public class UpgradeJournalArticle extends UpgradeProcess {
 
 	protected String convertRadioElements(String content) throws Exception {
 		Document contentDocument = SAXReaderUtil.read(content);
