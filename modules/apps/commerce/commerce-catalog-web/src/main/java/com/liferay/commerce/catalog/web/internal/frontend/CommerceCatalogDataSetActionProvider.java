@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 package com.liferay.commerce.catalog.web.internal.frontend;
 
 import com.liferay.commerce.catalog.web.internal.model.Catalog;
@@ -14,15 +28,18 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
+
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Gianmarco Brunialti Masera
@@ -34,22 +51,23 @@ import java.util.List;
 )
 public class CommerceCatalogDataSetActionProvider
 	implements ClayDataSetActionProvider {
+
 	@Override
 	public List<ClayDataSetAction> clayDataSetActions(
-		HttpServletRequest httpServletRequest, long groupId, Object model)
+			HttpServletRequest httpServletRequest, long groupId, Object model)
 		throws PortalException {
 
 		List<ClayDataSetAction> clayDataSetActions = new ArrayList<>();
 
-		Catalog catalog = (Catalog) model;
+		Catalog catalog = (Catalog)model;
 
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		if (_commerceCatalogModelResourcePermission
-			.contains(themeDisplay.getPermissionChecker(),
-				catalog.getCatalogId(), ActionKeys.UPDATE)) {
+		if (_commerceCatalogModelResourcePermission.contains(
+				themeDisplay.getPermissionChecker(), catalog.getCatalogId(),
+				ActionKeys.UPDATE)) {
 
 			PortletURL editURL = _getCatalogEditURL(
 				catalog.getCatalogId(), httpServletRequest);
@@ -62,9 +80,9 @@ public class CommerceCatalogDataSetActionProvider
 			clayDataSetActions.add(editClayDataSetAction);
 		}
 
-		if (_commerceCatalogModelResourcePermission
-			.contains(themeDisplay.getPermissionChecker(),
-				catalog.getCatalogId(), ActionKeys.DELETE)) {
+		if (_commerceCatalogModelResourcePermission.contains(
+				themeDisplay.getPermissionChecker(), catalog.getCatalogId(),
+				ActionKeys.DELETE)) {
 
 			PortletURL deleteURL = _getCatalogDeleteURL(
 				catalog.getCatalogId(), httpServletRequest);
@@ -80,26 +98,8 @@ public class CommerceCatalogDataSetActionProvider
 		return clayDataSetActions;
 	}
 
-	private PortletURL _getCatalogEditURL(
-		long catalogId, HttpServletRequest httpServletRequest)
-		throws PortalException {
-
-		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			httpServletRequest, CPPortletKeys.COMMERCE_CATALOGS,
-			PortletRequest.RENDER_PHASE);
-
-		portletURL.setParameter(
-			"mvcRenderCommandName", "editCommerceCatalog");
-		portletURL.setParameter(
-			"redirect", _portal.getCurrentURL(httpServletRequest));
-		portletURL.setParameter(
-			"commerceCatalogId", String.valueOf(catalogId));
-
-		return portletURL;
-	}
-
 	private PortletURL _getCatalogDeleteURL(
-		long catalogId, HttpServletRequest httpServletRequest)
+			long catalogId, HttpServletRequest httpServletRequest)
 		throws PortalException {
 
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
@@ -111,18 +111,34 @@ public class CommerceCatalogDataSetActionProvider
 		portletURL.setParameter(Constants.CMD, Constants.DELETE);
 		portletURL.setParameter(
 			"redirect", _portal.getCurrentURL(httpServletRequest));
-		portletURL.setParameter(
-			"commerceCatalogId", String.valueOf(catalogId));
+		portletURL.setParameter("commerceCatalogId", String.valueOf(catalogId));
 
 		return portletURL;
 	}
 
-	@Reference
-	private Portal _portal;
+	private PortletURL _getCatalogEditURL(
+			long catalogId, HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		PortletURL portletURL = _portal.getControlPanelPortletURL(
+			httpServletRequest, CPPortletKeys.COMMERCE_CATALOGS,
+			PortletRequest.RENDER_PHASE);
+
+		portletURL.setParameter("mvcRenderCommandName", "editCommerceCatalog");
+		portletURL.setParameter(
+			"redirect", _portal.getCurrentURL(httpServletRequest));
+		portletURL.setParameter("commerceCatalogId", String.valueOf(catalogId));
+
+		return portletURL;
+	}
 
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.product.model.CommerceCatalog)"
 	)
 	private ModelResourcePermission<CommerceCatalog>
 		_commerceCatalogModelResourcePermission;
+
+	@Reference
+	private Portal _portal;
+
 }

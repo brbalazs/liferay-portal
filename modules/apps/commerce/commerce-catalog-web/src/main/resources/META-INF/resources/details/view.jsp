@@ -14,35 +14,34 @@
  */
 --%>
 
-<%@ include file="../init.jsp" %>
+<%@ include file="/init.jsp" %>
 
 <%
+CommerceCatalogDisplayContext commerceCatalogDisplayContext = (CommerceCatalogDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-	CommerceCatalogDisplayContext commerceCatalogDisplayContext = (CommerceCatalogDisplayContext) request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+CommerceCatalog commerceCatalog = commerceCatalogDisplayContext.getCommerceCatalog();
 
-	CommerceCatalog commerceCatalog = commerceCatalogDisplayContext.getCommerceCatalog();
+String headerTitle = null;
 
-	String headerTitle = null;
+if (commerceCatalog != null) {
+	headerTitle = commerceCatalog.getName();
+}
 
-	if (commerceCatalog != null) {
-		headerTitle = commerceCatalog.getName();
-	}
+portletDisplay.setShowBackIcon(true);
 
-	portletDisplay.setShowBackIcon(true);
-
-	if (redirect == null) {
-		portletDisplay.setURLBack(String.valueOf(renderResponse.createRenderURL()));
-	}
-	else {
-		portletDisplay.setURLBack(redirect);
-	}
+if (redirect == null) {
+	portletDisplay.setURLBack(String.valueOf(renderResponse.createRenderURL()));
+}
+else {
+	portletDisplay.setURLBack(redirect);
+}
 %>
 
 <commerce-ui:header
 	actions="<%= commerceCatalogDisplayContext.getHeaderActionModels() %>"
 	assignerModalUrl="/assigner/modal/url"
-	beanIdLabel="catalog-id"
 	bean="<%= commerceCatalog %>"
+	beanIdLabel="catalog-id"
 	dropdownItems="<%= commerceCatalogDisplayContext.getDropdownItems() %>"
 	externalReferenceCode="<%= commerceCatalog.getExternalReferenceCode() %>"
 	externalReferenceCodeEditUrl="/external/reference/code/edit/url"

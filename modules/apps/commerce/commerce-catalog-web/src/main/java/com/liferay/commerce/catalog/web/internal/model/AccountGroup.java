@@ -5,8 +5,6 @@ package com.liferay.commerce.catalog.web.internal.model;
  */
 public class AccountGroup {
 
-	private final String _name;
-
 	public AccountGroup(String name) {
 		_name = name;
 	}
@@ -14,4 +12,7 @@ public class AccountGroup {
 	public String getName() {
 		return _name;
 	}
+
+	private final String _name;
+
 }

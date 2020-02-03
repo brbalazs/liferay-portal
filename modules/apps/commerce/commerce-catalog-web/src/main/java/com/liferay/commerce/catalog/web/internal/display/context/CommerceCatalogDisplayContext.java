@@ -16,6 +16,8 @@ package com.liferay.commerce.catalog.web.internal.display.context;
 
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.frontend.ClayCreationMenu;
+import com.liferay.commerce.frontend.ClayCreationMenuItem;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.constants.CPPortletKeys;
@@ -94,6 +96,21 @@ public class CommerceCatalogDisplayContext
 		return portletURL.toString();
 	}
 
+	public ClayCreationMenu getClayCreationMenu() {
+		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
+
+		ClayCreationMenuItem createCatalogClayCreationMenuItem =
+			new ClayCreationMenuItem(
+				getCreateCommerceCatalogActionURL(),
+				LanguageUtil.get(httpServletRequest, "add-catalog"),
+				ClayCreationMenuItem.CLAY_CREATION_MENU_ITEM_TYPE_MODAL);
+
+		clayCreationMenu.addClayCreationMenuItems(
+			createCatalogClayCreationMenuItem);
+
+		return clayCreationMenu;
+	}
+
 	public CommerceCatalog getCommerceCatalog() throws PortalException {
 		long commerceCatalogId = ParamUtil.getLong(
 			httpServletRequest, "commerceCatalogId");
@@ -111,6 +128,71 @@ public class CommerceCatalogDisplayContext
 		return _commerceCurrencyService.getCommerceCurrencies(
 			cpRequestHelper.getCompanyId(), true, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS, null);
+	}
+
+	public String getCreateCommerceCatalogActionURL() {
+		PortletURL portletURL = _portal.getControlPanelPortletURL(
+			httpServletRequest, CPPortletKeys.COMMERCE_CATALOGS,
+			PortletRequest.RENDER_PHASE);
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "createCommerceCatalog");
+
+		return portletURL.toString();
+	}
+
+	public List<DropdownItem> getDropdownItems() {
+		List<DropdownItem> headerDropdownItems = new ArrayList<>();
+
+		DropdownItem headerDropdownItem1 = new DropdownItem();
+
+		headerDropdownItem1.setLabel("First link");
+		headerDropdownItem1.setHref("/first-link");
+		headerDropdownItem1.setIcon("home");
+
+		headerDropdownItems.add(headerDropdownItem1);
+
+		DropdownItem headerDropdownItem2 = new DropdownItem();
+
+		headerDropdownItem2.setLabel("Second link");
+		headerDropdownItem2.setIcon("blogs");
+		headerDropdownItem2.setHref("/second-link");
+		headerDropdownItem2.setActive(true);
+
+		headerDropdownItems.add(headerDropdownItem2);
+
+		return headerDropdownItems;
+	}
+
+	public List<HeaderActionModel> getHeaderActionModels() {
+		HttpServletRequest request = cpRequestHelper.getRequest();
+
+		List<HeaderActionModel> headerActionModels = new ArrayList<>();
+
+		HeaderActionModel headerActionModelCancel = new HeaderActionModel();
+
+		headerActionModelCancel.setLabel(LanguageUtil.get(request, "cancel"));
+		headerActionModelCancel.setAdditionalClasses("btn-unstyled");
+
+		headerActionModels.add(headerActionModelCancel);
+
+		HeaderActionModel headerActionModelSave = new HeaderActionModel();
+
+		headerActionModelSave.setLabel(LanguageUtil.get(request, "save"));
+		headerActionModelSave.setAdditionalClasses("btn-secondary");
+
+		headerActionModels.add(headerActionModelSave);
+
+		HeaderActionModel headerActionModelSaveAndPublish =
+			new HeaderActionModel();
+
+		headerActionModelSaveAndPublish.setLabel(
+			LanguageUtil.get(request, "save-and-publish"));
+		headerActionModelSaveAndPublish.setAdditionalClasses("btn-primary");
+
+		headerActionModels.add(headerActionModelSaveAndPublish);
+
+		return headerActionModels;
 	}
 
 	@Override
@@ -139,63 +221,6 @@ public class CommerceCatalogDisplayContext
 		}
 
 		return portletURL;
-	}
-
-	public List<HeaderActionModel> getHeaderActionModels() {
-
-		HttpServletRequest request = cpRequestHelper.getRequest();
-
-		List<HeaderActionModel> headerActionModels = new ArrayList<>();
-
-		HeaderActionModel headerActionModelCancel = new HeaderActionModel();
-
-		headerActionModelCancel.setLabel(
-			LanguageUtil.get(request, "cancel"));
-		headerActionModelCancel.setAdditionalClasses("btn-unstyled");
-
-		headerActionModels.add(headerActionModelCancel);
-
-		HeaderActionModel headerActionModelSave = new HeaderActionModel();
-
-		headerActionModelSave.setLabel(
-			LanguageUtil.get(request, "save"));
-		headerActionModelSave.setAdditionalClasses("btn-secondary");
-
-		headerActionModels.add(headerActionModelSave);
-
-		HeaderActionModel headerActionModelSaveAndPublish =
-			new HeaderActionModel();
-
-		headerActionModelSaveAndPublish.setLabel(
-			LanguageUtil.get(request, "save-and-publish"));
-		headerActionModelSaveAndPublish.setAdditionalClasses("btn-primary");
-
-		headerActionModels.add(headerActionModelSaveAndPublish);
-
-		return headerActionModels;
-	}
-
-	public List<DropdownItem> getDropdownItems() {
-		List<DropdownItem> headerDropdownItems = new ArrayList<>();
-
-		DropdownItem headerDropdownItem1 = new DropdownItem();
-
-		headerDropdownItem1.setLabel("First link");
-		headerDropdownItem1.setHref("/first-link");
-		headerDropdownItem1.setIcon("home");
-
-		headerDropdownItems.add(headerDropdownItem1);
-
-		DropdownItem headerDropdownItem2 = new DropdownItem();
-
-		headerDropdownItem2.setLabel("Second link");
-		headerDropdownItem2.setIcon("blogs");
-		headerDropdownItem2.setHref("/second-link");
-		headerDropdownItem2.setActive(true);
-
-		headerDropdownItems.add(headerDropdownItem2);
-
-		return headerDropdownItems;
 	}
 
 	@Override

@@ -38,7 +38,7 @@
 	<div class="col-8">
 		<commerce-ui:panel
 			elementClasses="flex-fill"
-			title='<%= LanguageUtil.get(request, "details")%>'
+			title='<%= LanguageUtil.get(request, "details") %>'
 		>
 			<div class="col-12 lfr-form-content">
 				<aui:form action="<%= editCommerceCatalogActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
@@ -88,10 +88,11 @@
 
 						<div class="row">
 							<div class="col-6">
-								<aui:input label="group-accounts-filter" name="groupAccountsFilter" type="toggle-switch" inlineLabel="true" localized="true" />
+								<aui:input inlineLabel="true" label="group-accounts-filter" localized="<%= true %>" name="groupAccountsFilter" type="toggle-switch" />
 							</div>
+
 							<div class="col-6">
-								<aui:input label="channel-filter" name="ChannelFilter" type="toggle-switch" inlineLabel="true" localized="true"/>
+								<aui:input inlineLabel="true" label="channel-filter" localized="<%= true %>" name="ChannelFilter" type="toggle-switch" />
 							</div>
 						</div>
 					</aui:fieldset>
@@ -103,11 +104,11 @@
 	<div class="col-4">
 		<commerce-ui:panel
 			elementClasses="flex-fill h-100"
-			title='<%= LanguageUtil.get(request, "default-catalog-image")%>'>
-
+			title='<%= LanguageUtil.get(request, "default-catalog-image") %>'
+		>
 			<div class="row">
 				<div class="col-12 h-100">
-					<img src="<%-- TODO get --%>" alt="<%= LanguageUtil.get(request, "default-catalog-image") %>" />
+					<img alt="<%= LanguageUtil.get(request, "default-catalog-image") %>" src="<%-- TODO get --%>" />
 				</div>
 			</div>
 		</commerce-ui:panel>
@@ -118,7 +119,7 @@
 	<div class="col-8">
 		<commerce-ui:panel
 			elementClasses="flex-fill"
-			title='<%= LanguageUtil.get(request, "revenue")%>'
+			title='<%= LanguageUtil.get(request, "revenue") %>'
 		>
 
 		</commerce-ui:panel>
@@ -127,11 +128,11 @@
 	<div class="col-4">
 		<commerce-ui:panel
 			elementClasses="flex-fill h-100"
-			title='<%= LanguageUtil.get(request, "default-catalog-image")%>'>
-
+			title='<%= LanguageUtil.get(request, "default-catalog-image") %>'
+		>
 			<div class="row">
 				<div class="col-12 h-100">
-					<img src="<%-- TODO get --%>" alt="<%= LanguageUtil.get(request, "default-catalog-image") %>" />
+					<img alt="<%= LanguageUtil.get(request, "default-catalog-image") %>" src="<%-- TODO get --%>" />
 				</div>
 			</div>
 		</commerce-ui:panel>

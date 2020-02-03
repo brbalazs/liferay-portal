@@ -5,8 +5,9 @@ package com.liferay.commerce.catalog.web.internal.model;
  */
 public class Catalog {
 
-	public Catalog(long catalogId, String catalogName, String defaultLanguageId,
-				   String currencyCode) {
+	public Catalog(
+		long catalogId, String catalogName, String defaultLanguageId,
+		String currencyCode) {
 
 		_catalogName = catalogName;
 		_catalogId = catalogId;
@@ -30,8 +31,9 @@ public class Catalog {
 		return _defaultLanguageId;
 	}
 
-	private final String _catalogName;
 	private final long _catalogId;
+	private final String _catalogName;
 	private final String _currencyCode;
 	private final String _defaultLanguageId;
+
 }

@@ -6,14 +6,17 @@ import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
+
+import java.io.IOException;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Locale;
-import java.util.ResourceBundle;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 @Component(
 	property = {
@@ -23,7 +26,8 @@ import java.util.ResourceBundle;
 	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
 )
 public class CommerceCatalogInfoScreenNavigationEntry
-	implements ScreenNavigationCategory, ScreenNavigationEntry<CommerceCatalog> {
+	implements ScreenNavigationCategory,
+			   ScreenNavigationEntry<CommerceCatalog> {
 
 	@Override
 	public String getCategoryKey() {
@@ -52,8 +56,8 @@ public class CommerceCatalogInfoScreenNavigationEntry
 
 	@Override
 	public void render(
-		HttpServletRequest httpServletRequest,
-		HttpServletResponse httpServletResponse)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse)
 		throws IOException {
 
 		_jspRenderer.renderJSP(
@@ -62,4 +66,5 @@ public class CommerceCatalogInfoScreenNavigationEntry
 
 	@Reference
 	private JSPRenderer _jspRenderer;
+
 }

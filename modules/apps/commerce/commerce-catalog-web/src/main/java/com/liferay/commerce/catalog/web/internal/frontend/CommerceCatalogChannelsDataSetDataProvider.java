@@ -12,12 +12,14 @@ import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.util.ParamUtil;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Gianmarco Brunialti Masera
@@ -29,9 +31,9 @@ import java.util.List;
 )
 public class CommerceCatalogChannelsDataSetDataProvider
 	implements CommerceDataSetDataProvider<Channel> {
+
 	@Override
-	public int countItems(
-		HttpServletRequest httpServletRequest, Filter filter)
+	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
 		long commerceCatalogId = ParamUtil.getLong(
@@ -43,30 +45,29 @@ public class CommerceCatalogChannelsDataSetDataProvider
 
 	@Override
 	public List<Channel> getItems(
-		HttpServletRequest httpServletRequest, Filter filter,
-		Pagination pagination, Sort sort) throws PortalException {
+			HttpServletRequest httpServletRequest, Filter filter,
+			Pagination pagination, Sort sort)
+		throws PortalException {
 
 		List<Channel> channels = new ArrayList<>();
 
 		long commerceCatalogId = ParamUtil.getLong(
 			httpServletRequest, "commerceCatalogId");
 
-		List<CommerceChannelRel> commerceChannels = _commerceChannelRelService
-			.getCommerceChannelRels(
-				CommerceCatalog.class.getName(),
-				commerceCatalogId,
-				pagination.getStartPosition(),
-				pagination.getEndPosition(), null);
+		List<CommerceChannelRel> commerceChannels =
+			_commerceChannelRelService.getCommerceChannelRels(
+				CommerceCatalog.class.getName(), commerceCatalogId,
+				pagination.getStartPosition(), pagination.getEndPosition(),
+				null);
 
 		for (CommerceChannelRel commerceChannelRel : commerceChannels) {
-			CommerceChannel commerceChannel = commerceChannelRel.getCommerceChannel();
+			CommerceChannel commerceChannel =
+				commerceChannelRel.getCommerceChannel();
 
 			channels.add(
 				new Channel(
 					commerceChannel.getCommerceChannelId(),
-					commerceChannel.getName(),
-					commerceChannel.getType())
-			);
+					commerceChannel.getName(), commerceChannel.getType()));
 		}
 
 		return channels;
@@ -77,4 +78,5 @@ public class CommerceCatalogChannelsDataSetDataProvider
 
 	@Reference
 	private CommerceChannelService _commerceChannelService;
+
 }

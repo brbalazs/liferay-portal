@@ -19,17 +19,18 @@ package com.liferay.commerce.catalog.web.internal.servlet.taglib.ui;
  */
 public class CommerceCatalogScreenNavigationConstants {
 
-	public static final String CATEGORY_KEY_COMMERCE_CATALOG_INFO = "info";
+	public static final String CATEGORY_KEY_COMMERCE_CATALOG_ACCOUNT_GROUPS =
+		"account-groups";
 
 	public static final String CATEGORY_KEY_COMMERCE_CATALOG_CHANNELS =
 		"channels";
 
-	public static final String CATEGORY_KEY_COMMERCE_CATALOG_ACCOUNT_GROUPS =
-		"account-groups";
+	public static final String CATEGORY_KEY_COMMERCE_CATALOG_INFO = "info";
 
 	public static final String CATEGORY_KEY_COMMERCE_CATALOG_VERSIONS =
 		"versions";
 
 	public static final String SCREEN_NAVIGATION_KEY_COMMERCE_CATALOG_GENERAL =
 		"commerce.catalog.general";
+
 }
