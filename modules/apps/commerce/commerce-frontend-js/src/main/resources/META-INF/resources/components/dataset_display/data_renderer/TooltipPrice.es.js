@@ -12,46 +12,62 @@
  * details.
  */
 
-import ClayButton from '@clayui/button';
 import ClayIcon from '@clayui/icon';
-import ClayTooltip from '@clayui/tooltip';
+import {ClayTooltipProvider} from '@clayui/tooltip';
 import Proptypes from 'prop-types';
-import React, {useState} from 'react';
+import React from 'react';
+
+function TooltipTable(props) {
+	return (
+		<div className="bg-dark">
+			<table className="tooltip-table">
+				<tbody>
+					{props.value.details.map((detail, i) => (
+						<tr key={i}>
+							<td className="table-column-text-start">
+								{detail.label}
+							</td>
+							<td className="table-column-text-end">
+								{detail.value instanceof Array
+									? detail.value.join(' | ')
+									: detail.value}
+							</td>
+						</tr>
+					))}
+					<tr>
+						<td className="table-column-text-start">
+							{props.value.final.label ||
+								Liferay.Language.get('final-price')}
+						</td>
+						<td className="table-column-text-end">
+							{props.value.final.value}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	);
+}
 
 function TooltipPrice(props) {
-	const [visible, setVisible] = useState(false);
+	if (!props.value) return null;
 
 	return (
 		<>
-			{props.value.final}
-			<ClayButton
-				className="cell-comment text-info px-1 my-n2 inline-item"
-				data-tooltip-align="top"
-				data-tooltip-delay={0}
-				displayType="link"
-				onMouseEnter={() => setVisible(true)}
-				onMouseLeave={() => setVisible(false)}
-			>
-				<ClayIcon symbol="info-circle" />
-			</ClayButton>
-			{props.value.details && visible ? (
-				<ClayTooltip show>
-					<table className="tooltip-table">
-						{props.value.details.map((detail, i) => (
-							<tr key={i}>
-								<td className="table-column-text-start">
-									{detail.label}
-								</td>
-								<td className="table-column-text-end">
-									{detail.value instanceof Array
-										? detail.value.join(' | ')
-										: detail.value}
-								</td>
-							</tr>
-						))}
-					</table>
-				</ClayTooltip>
-			) : null}
+			{props.value.final.value}
+			{props.value.details && (
+				<ClayTooltipProvider
+					contentRenderer={() => <TooltipTable {...props} />}
+					delay={0}
+				>
+					<span
+						className="tooltip-provider"
+						title={Liferay.Language.get('price-summary')}
+					>
+						<ClayIcon symbol="info-circle" />
+					</span>
+				</ClayTooltipProvider>
+			)}
 		</>
 	);
 }
@@ -62,7 +78,10 @@ TooltipPrice.propTypes = {
 			Proptypes.oneOf([
 				Proptypes.shape({
 					label: Proptypes.string,
-					value: Proptypes.string
+					value: Proptypes.oneOfType([
+						Proptypes.number,
+						Proptypes.string
+					])
 				}),
 				Proptypes.shape({
 					label: Proptypes.string,
@@ -73,7 +92,10 @@ TooltipPrice.propTypes = {
 				})
 			])
 		),
-		final: Proptypes.string.isRequired
+		final: Proptypes.shape({
+			label: Proptypes.string,
+			value: Proptypes.string.isRequired
+		}).isRequired
 	})
 };
 

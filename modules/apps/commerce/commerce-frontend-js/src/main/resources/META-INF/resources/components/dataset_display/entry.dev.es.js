@@ -136,25 +136,9 @@ const fluidDataSetDisplayProps = {
 			},
 			name: 'ABS Sensor',
 			price: {
-				details: [
-					{
-						label: 'Catalog price',
-						value: '$ 15'
-					},
-					{
-						label: 'Final price',
-						value: '$ 31.123'
-					},
-					{
-						label: 'Promo price',
-						value: '$ 15.600'
-					},
-					{
-						label: 'Discounts',
-						value: [40, 30, 20, 10]
-					}
-				],
-				final: '12 Gazillions'
+				final: {
+					value: '12 Gazillions'
+				}
 			},
 			productPage: '/test/link/1',
 			skuId: 35663,
@@ -182,6 +166,30 @@ const fluidDataSetDisplayProps = {
 				src: '//via.placeholder.com/500x500'
 			},
 			name: 'SBA Sensor',
+			price: {
+				details: [
+					{
+						label: 'Catalog price',
+						value: '$ 15'
+					},
+					{
+						label: 'Final price',
+						value: '$ 31.123'
+					},
+					{
+						label: 'Promo price',
+						value: '$ 15.600'
+					},
+					{
+						label: 'Discounts',
+						value: [40, 30, 20, 10]
+					}
+				],
+				final: {
+					label: 'Final price',
+					value: '12.000 $'
+				}
+			},
 			productPage: '/test/link/1',
 			skuId: 345345,
 			testLink: {
@@ -290,6 +298,11 @@ const fluidDataSetDisplayProps = {
 					{
 						actionId: 'delete',
 						contentRenderer: 'actionLink'
+					},
+					{
+						contentRenderer: 'tooltipPrice',
+						fieldName: 'price',
+						label: 'Price'
 					},
 					{
 						contentRenderer: 'quantitySelector',
