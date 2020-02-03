@@ -57,8 +57,6 @@ import com.liferay.portal.kernel.messaging.MessageBusUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserConstants;
-import com.liferay.portal.kernel.model.WorkflowDefinitionLink;
-import com.liferay.portal.kernel.model.WorkflowInstanceLink;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
@@ -221,8 +219,11 @@ public class CommerceOrderLocalServiceImpl
 
 		// Workflow
 
-		return startWorkflowInstance(
-			user.getUserId(), commerceOrder, serviceContext);
+		return WorkflowHandlerRegistryUtil.startWorkflowInstance(
+			commerceOrder.getCompanyId(), commerceOrder.getScopeGroupId(),
+			userId, CommerceOrder.class.getName(),
+			commerceOrder.getCommerceOrderId(), commerceOrder, serviceContext,
+			new HashMap<>());
 	}
 
 	@Override
@@ -309,32 +310,6 @@ public class CommerceOrderLocalServiceImpl
 
 		return commerceOrderLocalService.recalculatePrice(
 			commerceOrderId, commerceContext);
-	}
-
-	@Indexable(type = IndexableType.REINDEX)
-	@Override
-	public CommerceOrder approveCommerceOrder(long userId, long commerceOrderId)
-		throws PortalException {
-
-		// Commerce order
-
-		CommerceOrder commerceOrder = commerceOrderLocalService.updateStatus(
-			userId, commerceOrderId, WorkflowConstants.STATUS_APPROVED,
-			new ServiceContext(), null);
-
-		// Workflow
-
-		workflowInstanceLinkLocalService.deleteWorkflowInstanceLinks(
-			commerceOrder.getCompanyId(), commerceOrder.getScopeGroupId(),
-			CommerceOrder.class.getName(), commerceOrder.getCommerceOrderId());
-
-		// Messaging
-
-		sendOrderStatusMessage(
-			commerceOrderId, commerceOrder.getOrderStatus(),
-			commerceOrder.getOrderStatus());
-
-		return commerceOrder;
 	}
 
 	@Indexable(type = IndexableType.DELETE)
@@ -1570,20 +1545,6 @@ public class CommerceOrderLocalServiceImpl
 				}
 
 			});
-	}
-
-	protected CommerceOrder startWorkflowInstance(
-			long userId, CommerceOrder commerceOrder,
-			ServiceContext serviceContext)
-		throws PortalException {
-
-		Map<String, Serializable> workflowContext = new HashMap<>();
-
-		return WorkflowHandlerRegistryUtil.startWorkflowInstance(
-			commerceOrder.getCompanyId(), commerceOrder.getScopeGroupId(),
-			userId, CommerceOrder.class.getName(),
-			commerceOrder.getCommerceOrderId(), commerceOrder, serviceContext,
-			workflowContext);
 	}
 
 	protected CommerceOrder updateAddress(
