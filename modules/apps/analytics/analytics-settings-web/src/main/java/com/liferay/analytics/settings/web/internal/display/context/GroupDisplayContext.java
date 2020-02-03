@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.service.GroupServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.LinkedHashMapBuilder;
@@ -71,8 +72,8 @@ public class GroupDisplayContext {
 				_getGroupParams(), groupSearch.getStart(), groupSearch.getEnd(),
 				new GroupNameComparator(_isOrderByAscending()));
 		}
-		catch (PortalException portalException) {
-			_log.error(portalException, portalException);
+		catch (PortalException pe) {
+			_log.error(pe, pe);
 		}
 
 		groupSearch.setResults(groups);
@@ -83,7 +84,7 @@ public class GroupDisplayContext {
 				Validator.isBlank(_analyticsConfiguration.token()),
 				SetUtil.fromArray(_analyticsConfiguration.syncedGroupIds())));
 
-		int total = GroupServiceUtil.searchCount(
+		int total = GroupLocalServiceUtil.searchCount(
 			_getCompanyId(), _getClassNameIds(), _getKeywords(),
 			_getGroupParams());
 
@@ -107,8 +108,7 @@ public class GroupDisplayContext {
 		PortletURL portletURL = _renderResponse.createRenderURL();
 
 		portletURL.setParameter(
-			"mvcRenderCommandName", "/view_configuration_screen");
-		portletURL.setParameter("configurationScreenKey", "synced-sites");
+			"mvcRenderCommandName", "/analytics/edit_synced_sites");
 
 		return portletURL;
 	}

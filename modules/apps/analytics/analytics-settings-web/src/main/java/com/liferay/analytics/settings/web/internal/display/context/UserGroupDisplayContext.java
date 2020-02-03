@@ -19,7 +19,7 @@ import com.liferay.analytics.settings.web.internal.constants.AnalyticsSettingsWe
 import com.liferay.analytics.settings.web.internal.search.UserGroupChecker;
 import com.liferay.analytics.settings.web.internal.search.UserGroupSearch;
 import com.liferay.portal.kernel.model.UserGroup;
-import com.liferay.portal.kernel.service.UserGroupServiceUtil;
+import com.liferay.portal.kernel.service.UserGroupLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.LinkedHashMapBuilder;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -66,9 +66,8 @@ public class UserGroupDisplayContext {
 		PortletURL portletURL = _renderResponse.createRenderURL();
 
 		portletURL.setParameter(
-			"mvcRenderCommandName", "/view_configuration_screen");
-		portletURL.setParameter(
-			"configurationScreenKey", "synced-contacts-groups");
+			"mvcRenderCommandName",
+			"/analytics_settings/edit_synced_contacts_groups");
 
 		return portletURL;
 	}
@@ -80,7 +79,7 @@ public class UserGroupDisplayContext {
 		userGroupSearch.setOrderByCol(_getOrderByCol());
 		userGroupSearch.setOrderByType(getOrderByType());
 
-		List<UserGroup> userGroups = UserGroupServiceUtil.search(
+		List<UserGroup> userGroups = UserGroupLocalServiceUtil.search(
 			_getCompanyId(), _getKeywords(), _getUserGroupParams(),
 			userGroupSearch.getStart(), userGroupSearch.getEnd(),
 			new UserGroupNameComparator(_isOrderByAscending()));
@@ -93,7 +92,7 @@ public class UserGroupDisplayContext {
 				SetUtil.fromArray(
 					_analyticsConfiguration.syncedUserGroupIds())));
 
-		int total = UserGroupServiceUtil.searchCount(
+		int total = UserGroupLocalServiceUtil.searchCount(
 			_getCompanyId(), _getKeywords(), _getUserGroupParams());
 
 		userGroupSearch.setTotal(total);
