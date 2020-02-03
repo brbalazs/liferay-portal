@@ -52,7 +52,7 @@ import com.liferay.journal.internal.upgrade.v1_1_4.UpgradeUrlTitle;
 import com.liferay.journal.internal.upgrade.v1_1_5.UpgradeContentImages;
 import com.liferay.journal.internal.upgrade.v1_1_6.UpgradeAssetDisplayPageEntry;
 import com.liferay.journal.model.JournalArticle;
-import com.liferay.journal.internal.upgrade.v1_1_9.UpgradeContentRadioFields;
+import com.liferay.journal.internal.upgrade.v1_1_9.UpgradeJournalArticleRadioFields;
 import com.liferay.portal.configuration.upgrade.PrefsPropsToConfigurationUpgradeHelper;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
@@ -186,13 +186,14 @@ public class JournalServiceUpgrade implements UpgradeStepRegistrator {
 			new UpgradeAssetDisplayPageEntry(
 				_assetDisplayPageEntryLocalService, _companyLocalService));
 
+
 		registry.register(
 			"1.1.6", "1.1.7",
 			new UpgradeDiscussionSubscriptionClassName(
 				_subscriptionLocalService, JournalArticle.class.getName(),
 				UpgradeDiscussionSubscriptionClassName.DeletionMode.ADD_NEW));
 
-		registry.register("1.1.8", "1.1.9", new UpgradeContentRadioFields());
+		registry.register("1.1.8", "1.1.9", new UpgradeJournalArticleRadioFields());
 	}
 
 	protected void deleteTempImages() throws Exception {
