@@ -5503,7 +5503,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		group.setFriendlyURL(
 			FriendlyURLNormalizerUtil.normalize(StringPool.SLASH + screenName));
 
-		group = groupPersistence.update(group);
+		groupPersistence.update(group);
 
 		// Groups and organizations
 
