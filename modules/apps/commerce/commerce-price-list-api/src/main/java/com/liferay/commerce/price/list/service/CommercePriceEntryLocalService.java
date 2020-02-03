@@ -294,6 +294,10 @@ public interface CommercePriceEntryLocalService
 	public CommercePriceEntry fetchCommercePriceEntry(
 		long commercePriceListId, String cpInstanceUuid, boolean useAncestor);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommercePriceEntry fetchCommercePriceEntry(
+		long commercePriceListId, String cpInstanceUuid, int status);
+
 	/**
 	 * Returns the commerce price entry with the matching external reference code and company.
 	 *

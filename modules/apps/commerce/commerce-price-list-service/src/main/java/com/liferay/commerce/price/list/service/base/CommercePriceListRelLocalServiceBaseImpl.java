@@ -23,7 +23,6 @@ import com.liferay.commerce.price.list.service.persistence.CommercePriceListComm
 import com.liferay.commerce.price.list.service.persistence.CommercePriceListDiscountRelPersistence;
 import com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder;
 import com.liferay.commerce.price.list.service.persistence.CommercePriceListPersistence;
-import com.liferay.commerce.price.list.service.persistence.CommercePriceListPriceModifierRelPersistence;
 import com.liferay.commerce.price.list.service.persistence.CommercePriceListRelPersistence;
 import com.liferay.commerce.price.list.service.persistence.CommerceTierPriceEntryPersistence;
 import com.liferay.exportimport.kernel.lar.ExportImportHelperUtil;
@@ -106,33 +105,31 @@ public abstract class CommercePriceListRelLocalServiceBaseImpl
 	/**
 	 * Creates a new commerce price list rel with the primary key. Does not add the commerce price list rel to the database.
 	 *
-	 * @param commercePriceListDiscountRelId the primary key for the new commerce price list rel
+	 * @param commercePriceListRelId the primary key for the new commerce price list rel
 	 * @return the new commerce price list rel
 	 */
 	@Override
 	@Transactional(enabled = false)
 	public CommercePriceListRel createCommercePriceListRel(
-		long commercePriceListDiscountRelId) {
+		long commercePriceListRelId) {
 
-		return commercePriceListRelPersistence.create(
-			commercePriceListDiscountRelId);
+		return commercePriceListRelPersistence.create(commercePriceListRelId);
 	}
 
 	/**
 	 * Deletes the commerce price list rel with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * @param commercePriceListDiscountRelId the primary key of the commerce price list rel
+	 * @param commercePriceListRelId the primary key of the commerce price list rel
 	 * @return the commerce price list rel that was removed
 	 * @throws PortalException if a commerce price list rel with the primary key could not be found
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public CommercePriceListRel deleteCommercePriceListRel(
-			long commercePriceListDiscountRelId)
+			long commercePriceListRelId)
 		throws PortalException {
 
-		return commercePriceListRelPersistence.remove(
-			commercePriceListDiscountRelId);
+		return commercePriceListRelPersistence.remove(commercePriceListRelId);
 	}
 
 	/**
@@ -242,10 +239,10 @@ public abstract class CommercePriceListRelLocalServiceBaseImpl
 
 	@Override
 	public CommercePriceListRel fetchCommercePriceListRel(
-		long commercePriceListDiscountRelId) {
+		long commercePriceListRelId) {
 
 		return commercePriceListRelPersistence.fetchByPrimaryKey(
-			commercePriceListDiscountRelId);
+			commercePriceListRelId);
 	}
 
 	/**
@@ -266,17 +263,17 @@ public abstract class CommercePriceListRelLocalServiceBaseImpl
 	/**
 	 * Returns the commerce price list rel with the primary key.
 	 *
-	 * @param commercePriceListDiscountRelId the primary key of the commerce price list rel
+	 * @param commercePriceListRelId the primary key of the commerce price list rel
 	 * @return the commerce price list rel
 	 * @throws PortalException if a commerce price list rel with the primary key could not be found
 	 */
 	@Override
 	public CommercePriceListRel getCommercePriceListRel(
-			long commercePriceListDiscountRelId)
+			long commercePriceListRelId)
 		throws PortalException {
 
 		return commercePriceListRelPersistence.findByPrimaryKey(
-			commercePriceListDiscountRelId);
+			commercePriceListRelId);
 	}
 
 	@Override
@@ -290,7 +287,7 @@ public abstract class CommercePriceListRelLocalServiceBaseImpl
 		actionableDynamicQuery.setModelClass(CommercePriceListRel.class);
 
 		actionableDynamicQuery.setPrimaryKeyPropertyName(
-			"commercePriceListDiscountRelId");
+			"commercePriceListRelId");
 
 		return actionableDynamicQuery;
 	}
@@ -309,7 +306,7 @@ public abstract class CommercePriceListRelLocalServiceBaseImpl
 			CommercePriceListRel.class);
 
 		indexableActionableDynamicQuery.setPrimaryKeyPropertyName(
-			"commercePriceListDiscountRelId");
+			"commercePriceListRelId");
 
 		return indexableActionableDynamicQuery;
 	}
@@ -323,7 +320,7 @@ public abstract class CommercePriceListRelLocalServiceBaseImpl
 		actionableDynamicQuery.setModelClass(CommercePriceListRel.class);
 
 		actionableDynamicQuery.setPrimaryKeyPropertyName(
-			"commercePriceListDiscountRelId");
+			"commercePriceListRelId");
 	}
 
 	@Override
@@ -804,56 +801,6 @@ public abstract class CommercePriceListRelLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the commerce price list price modifier rel local service.
-	 *
-	 * @return the commerce price list price modifier rel local service
-	 */
-	public com.liferay.commerce.price.list.service.
-		CommercePriceListPriceModifierRelLocalService
-			getCommercePriceListPriceModifierRelLocalService() {
-
-		return commercePriceListPriceModifierRelLocalService;
-	}
-
-	/**
-	 * Sets the commerce price list price modifier rel local service.
-	 *
-	 * @param commercePriceListPriceModifierRelLocalService the commerce price list price modifier rel local service
-	 */
-	public void setCommercePriceListPriceModifierRelLocalService(
-		com.liferay.commerce.price.list.service.
-			CommercePriceListPriceModifierRelLocalService
-				commercePriceListPriceModifierRelLocalService) {
-
-		this.commercePriceListPriceModifierRelLocalService =
-			commercePriceListPriceModifierRelLocalService;
-	}
-
-	/**
-	 * Returns the commerce price list price modifier rel persistence.
-	 *
-	 * @return the commerce price list price modifier rel persistence
-	 */
-	public CommercePriceListPriceModifierRelPersistence
-		getCommercePriceListPriceModifierRelPersistence() {
-
-		return commercePriceListPriceModifierRelPersistence;
-	}
-
-	/**
-	 * Sets the commerce price list price modifier rel persistence.
-	 *
-	 * @param commercePriceListPriceModifierRelPersistence the commerce price list price modifier rel persistence
-	 */
-	public void setCommercePriceListPriceModifierRelPersistence(
-		CommercePriceListPriceModifierRelPersistence
-			commercePriceListPriceModifierRelPersistence) {
-
-		this.commercePriceListPriceModifierRelPersistence =
-			commercePriceListPriceModifierRelPersistence;
-	}
-
-	/**
 	 * Returns the commerce price list rel local service.
 	 *
 	 * @return the commerce price list rel local service
@@ -1126,8 +1073,8 @@ public abstract class CommercePriceListRelLocalServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 
@@ -1199,17 +1146,6 @@ public abstract class CommercePriceListRelLocalServiceBaseImpl
 	@BeanReference(type = CommercePriceListDiscountRelPersistence.class)
 	protected CommercePriceListDiscountRelPersistence
 		commercePriceListDiscountRelPersistence;
-
-	@BeanReference(
-		type = com.liferay.commerce.price.list.service.CommercePriceListPriceModifierRelLocalService.class
-	)
-	protected com.liferay.commerce.price.list.service.
-		CommercePriceListPriceModifierRelLocalService
-			commercePriceListPriceModifierRelLocalService;
-
-	@BeanReference(type = CommercePriceListPriceModifierRelPersistence.class)
-	protected CommercePriceListPriceModifierRelPersistence
-		commercePriceListPriceModifierRelPersistence;
 
 	@BeanReference(type = CommercePriceListRelLocalService.class)
 	protected CommercePriceListRelLocalService commercePriceListRelLocalService;

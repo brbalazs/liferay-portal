@@ -8,7 +8,6 @@
 	<import class="com.liferay.commerce.price.list.model.CommercePriceListChannelRel" />
 	<import class="com.liferay.commerce.price.list.model.CommercePriceListCommerceAccountGroupRel" />
 	<import class="com.liferay.commerce.price.list.model.CommercePriceListDiscountRel" />
-	<import class="com.liferay.commerce.price.list.model.CommercePriceListPriceModifierRel" />
 	<import class="com.liferay.commerce.price.list.model.CommercePriceListRel" />
 	<import class="com.liferay.commerce.price.list.model.CommerceTierPriceEntry" />
 	<class name="com.liferay.commerce.price.list.model.impl.CommercePriceEntryImpl" table="CommercePriceEntry">
@@ -127,23 +126,8 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" column="order_" name="order" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="lastPublishDate" type="org.hibernate.type.TimestampType" />
 	</class>
-	<class name="com.liferay.commerce.price.list.model.impl.CommercePriceListPriceModifierRelImpl" table="CPLPriceModifierRel">
-		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" column="CPLPriceModifierRelId" name="commercePriceListPriceModifierRelId" type="long">
-			<generator class="assigned" />
-		</id>
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" column="uuid_" name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="createDate" type="org.hibernate.type.TimestampType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="commercePriceModifierId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="commercePriceListId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" column="order_" name="order" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="lastPublishDate" type="org.hibernate.type.TimestampType" />
-	</class>
 	<class name="com.liferay.commerce.price.list.model.impl.CommercePriceListRelImpl" table="CommercePriceListRel">
-		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="commercePriceListDiscountRelId" type="long">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="commercePriceListRelId" type="long">
 			<generator class="assigned" />
 		</id>
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" column="uuid_" name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" />

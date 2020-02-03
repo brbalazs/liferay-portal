@@ -23,7 +23,6 @@ import com.liferay.commerce.price.list.service.persistence.CommercePriceListComm
 import com.liferay.commerce.price.list.service.persistence.CommercePriceListDiscountRelPersistence;
 import com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder;
 import com.liferay.commerce.price.list.service.persistence.CommercePriceListPersistence;
-import com.liferay.commerce.price.list.service.persistence.CommercePriceListPriceModifierRelPersistence;
 import com.liferay.commerce.price.list.service.persistence.CommercePriceListRelPersistence;
 import com.liferay.commerce.price.list.service.persistence.CommerceTierPriceEntryPersistence;
 import com.liferay.expando.kernel.service.persistence.ExpandoRowPersistence;
@@ -829,56 +828,6 @@ public abstract class CommercePriceEntryLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the commerce price list price modifier rel local service.
-	 *
-	 * @return the commerce price list price modifier rel local service
-	 */
-	public com.liferay.commerce.price.list.service.
-		CommercePriceListPriceModifierRelLocalService
-			getCommercePriceListPriceModifierRelLocalService() {
-
-		return commercePriceListPriceModifierRelLocalService;
-	}
-
-	/**
-	 * Sets the commerce price list price modifier rel local service.
-	 *
-	 * @param commercePriceListPriceModifierRelLocalService the commerce price list price modifier rel local service
-	 */
-	public void setCommercePriceListPriceModifierRelLocalService(
-		com.liferay.commerce.price.list.service.
-			CommercePriceListPriceModifierRelLocalService
-				commercePriceListPriceModifierRelLocalService) {
-
-		this.commercePriceListPriceModifierRelLocalService =
-			commercePriceListPriceModifierRelLocalService;
-	}
-
-	/**
-	 * Returns the commerce price list price modifier rel persistence.
-	 *
-	 * @return the commerce price list price modifier rel persistence
-	 */
-	public CommercePriceListPriceModifierRelPersistence
-		getCommercePriceListPriceModifierRelPersistence() {
-
-		return commercePriceListPriceModifierRelPersistence;
-	}
-
-	/**
-	 * Sets the commerce price list price modifier rel persistence.
-	 *
-	 * @param commercePriceListPriceModifierRelPersistence the commerce price list price modifier rel persistence
-	 */
-	public void setCommercePriceListPriceModifierRelPersistence(
-		CommercePriceListPriceModifierRelPersistence
-			commercePriceListPriceModifierRelPersistence) {
-
-		this.commercePriceListPriceModifierRelPersistence =
-			commercePriceListPriceModifierRelPersistence;
-	}
-
-	/**
 	 * Returns the commerce price list rel local service.
 	 *
 	 * @return the commerce price list rel local service
@@ -1265,17 +1214,6 @@ public abstract class CommercePriceEntryLocalServiceBaseImpl
 	@BeanReference(type = CommercePriceListDiscountRelPersistence.class)
 	protected CommercePriceListDiscountRelPersistence
 		commercePriceListDiscountRelPersistence;
-
-	@BeanReference(
-		type = com.liferay.commerce.price.list.service.CommercePriceListPriceModifierRelLocalService.class
-	)
-	protected com.liferay.commerce.price.list.service.
-		CommercePriceListPriceModifierRelLocalService
-			commercePriceListPriceModifierRelLocalService;
-
-	@BeanReference(type = CommercePriceListPriceModifierRelPersistence.class)
-	protected CommercePriceListPriceModifierRelPersistence
-		commercePriceListPriceModifierRelPersistence;
 
 	@BeanReference(
 		type = com.liferay.commerce.price.list.service.CommercePriceListRelLocalService.class

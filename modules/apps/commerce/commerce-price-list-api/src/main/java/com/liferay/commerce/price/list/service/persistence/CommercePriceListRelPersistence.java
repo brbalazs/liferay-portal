@@ -165,14 +165,14 @@ public interface CommercePriceListRelPersistence
 	/**
 	 * Returns the commerce price list rels before and after the current commerce price list rel in the ordered set where uuid = &#63;.
 	 *
-	 * @param commercePriceListDiscountRelId the primary key of the current commerce price list rel
+	 * @param commercePriceListRelId the primary key of the current commerce price list rel
 	 * @param uuid the uuid
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next commerce price list rel
 	 * @throws NoSuchPriceListRelException if a commerce price list rel with the primary key could not be found
 	 */
 	public CommercePriceListRel[] findByUuid_PrevAndNext(
-			long commercePriceListDiscountRelId, String uuid,
+			long commercePriceListRelId, String uuid,
 			com.liferay.portal.kernel.util.OrderByComparator
 				<CommercePriceListRel> orderByComparator)
 		throws NoSuchPriceListRelException;
@@ -317,7 +317,7 @@ public interface CommercePriceListRelPersistence
 	/**
 	 * Returns the commerce price list rels before and after the current commerce price list rel in the ordered set where uuid = &#63; and companyId = &#63;.
 	 *
-	 * @param commercePriceListDiscountRelId the primary key of the current commerce price list rel
+	 * @param commercePriceListRelId the primary key of the current commerce price list rel
 	 * @param uuid the uuid
 	 * @param companyId the company ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -325,7 +325,7 @@ public interface CommercePriceListRelPersistence
 	 * @throws NoSuchPriceListRelException if a commerce price list rel with the primary key could not be found
 	 */
 	public CommercePriceListRel[] findByUuid_C_PrevAndNext(
-			long commercePriceListDiscountRelId, String uuid, long companyId,
+			long commercePriceListRelId, String uuid, long companyId,
 			com.liferay.portal.kernel.util.OrderByComparator
 				<CommercePriceListRel> orderByComparator)
 		throws NoSuchPriceListRelException;
@@ -464,14 +464,14 @@ public interface CommercePriceListRelPersistence
 	/**
 	 * Returns the commerce price list rels before and after the current commerce price list rel in the ordered set where commercePriceListId = &#63;.
 	 *
-	 * @param commercePriceListDiscountRelId the primary key of the current commerce price list rel
+	 * @param commercePriceListRelId the primary key of the current commerce price list rel
 	 * @param commercePriceListId the commerce price list ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next commerce price list rel
 	 * @throws NoSuchPriceListRelException if a commerce price list rel with the primary key could not be found
 	 */
 	public CommercePriceListRel[] findByCommercePriceListId_PrevAndNext(
-			long commercePriceListDiscountRelId, long commercePriceListId,
+			long commercePriceListRelId, long commercePriceListId,
 			com.liferay.portal.kernel.util.OrderByComparator
 				<CommercePriceListRel> orderByComparator)
 		throws NoSuchPriceListRelException;
@@ -490,6 +490,161 @@ public interface CommercePriceListRelPersistence
 	 * @return the number of matching commerce price list rels
 	 */
 	public int countByCommercePriceListId(long commercePriceListId);
+
+	/**
+	 * Returns all the commerce price list rels where classNameId = &#63; and classPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @return the matching commerce price list rels
+	 */
+	public java.util.List<CommercePriceListRel> findByC_C(
+		long classNameId, long classPK);
+
+	/**
+	 * Returns a range of all the commerce price list rels where classNameId = &#63; and classPK = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommercePriceListRelModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param start the lower bound of the range of commerce price list rels
+	 * @param end the upper bound of the range of commerce price list rels (not inclusive)
+	 * @return the range of matching commerce price list rels
+	 */
+	public java.util.List<CommercePriceListRel> findByC_C(
+		long classNameId, long classPK, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the commerce price list rels where classNameId = &#63; and classPK = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommercePriceListRelModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param start the lower bound of the range of commerce price list rels
+	 * @param end the upper bound of the range of commerce price list rels (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching commerce price list rels
+	 */
+	public java.util.List<CommercePriceListRel> findByC_C(
+		long classNameId, long classPK, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<CommercePriceListRel>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the commerce price list rels where classNameId = &#63; and classPK = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CommercePriceListRelModelImpl</code>.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param start the lower bound of the range of commerce price list rels
+	 * @param end the upper bound of the range of commerce price list rels (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching commerce price list rels
+	 */
+	public java.util.List<CommercePriceListRel> findByC_C(
+		long classNameId, long classPK, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<CommercePriceListRel>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first commerce price list rel in the ordered set where classNameId = &#63; and classPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching commerce price list rel
+	 * @throws NoSuchPriceListRelException if a matching commerce price list rel could not be found
+	 */
+	public CommercePriceListRel findByC_C_First(
+			long classNameId, long classPK,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<CommercePriceListRel> orderByComparator)
+		throws NoSuchPriceListRelException;
+
+	/**
+	 * Returns the first commerce price list rel in the ordered set where classNameId = &#63; and classPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching commerce price list rel, or <code>null</code> if a matching commerce price list rel could not be found
+	 */
+	public CommercePriceListRel fetchByC_C_First(
+		long classNameId, long classPK,
+		com.liferay.portal.kernel.util.OrderByComparator<CommercePriceListRel>
+			orderByComparator);
+
+	/**
+	 * Returns the last commerce price list rel in the ordered set where classNameId = &#63; and classPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching commerce price list rel
+	 * @throws NoSuchPriceListRelException if a matching commerce price list rel could not be found
+	 */
+	public CommercePriceListRel findByC_C_Last(
+			long classNameId, long classPK,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<CommercePriceListRel> orderByComparator)
+		throws NoSuchPriceListRelException;
+
+	/**
+	 * Returns the last commerce price list rel in the ordered set where classNameId = &#63; and classPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching commerce price list rel, or <code>null</code> if a matching commerce price list rel could not be found
+	 */
+	public CommercePriceListRel fetchByC_C_Last(
+		long classNameId, long classPK,
+		com.liferay.portal.kernel.util.OrderByComparator<CommercePriceListRel>
+			orderByComparator);
+
+	/**
+	 * Returns the commerce price list rels before and after the current commerce price list rel in the ordered set where classNameId = &#63; and classPK = &#63;.
+	 *
+	 * @param commercePriceListRelId the primary key of the current commerce price list rel
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next commerce price list rel
+	 * @throws NoSuchPriceListRelException if a commerce price list rel with the primary key could not be found
+	 */
+	public CommercePriceListRel[] findByC_C_PrevAndNext(
+			long commercePriceListRelId, long classNameId, long classPK,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<CommercePriceListRel> orderByComparator)
+		throws NoSuchPriceListRelException;
+
+	/**
+	 * Removes all the commerce price list rels where classNameId = &#63; and classPK = &#63; from the database.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 */
+	public void removeByC_C(long classNameId, long classPK);
+
+	/**
+	 * Returns the number of commerce price list rels where classNameId = &#63; and classPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class pk
+	 * @return the number of matching commerce price list rels
+	 */
+	public int countByC_C(long classNameId, long classPK);
 
 	/**
 	 * Returns the commerce price list rel where commercePriceListId = &#63; and classNameId = &#63; and classPK = &#63; or throws a <code>NoSuchPriceListRelException</code> if it could not be found.
@@ -569,19 +724,19 @@ public interface CommercePriceListRelPersistence
 	/**
 	 * Creates a new commerce price list rel with the primary key. Does not add the commerce price list rel to the database.
 	 *
-	 * @param commercePriceListDiscountRelId the primary key for the new commerce price list rel
+	 * @param commercePriceListRelId the primary key for the new commerce price list rel
 	 * @return the new commerce price list rel
 	 */
-	public CommercePriceListRel create(long commercePriceListDiscountRelId);
+	public CommercePriceListRel create(long commercePriceListRelId);
 
 	/**
 	 * Removes the commerce price list rel with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * @param commercePriceListDiscountRelId the primary key of the commerce price list rel
+	 * @param commercePriceListRelId the primary key of the commerce price list rel
 	 * @return the commerce price list rel that was removed
 	 * @throws NoSuchPriceListRelException if a commerce price list rel with the primary key could not be found
 	 */
-	public CommercePriceListRel remove(long commercePriceListDiscountRelId)
+	public CommercePriceListRel remove(long commercePriceListRelId)
 		throws NoSuchPriceListRelException;
 
 	public CommercePriceListRel updateImpl(
@@ -590,22 +745,20 @@ public interface CommercePriceListRelPersistence
 	/**
 	 * Returns the commerce price list rel with the primary key or throws a <code>NoSuchPriceListRelException</code> if it could not be found.
 	 *
-	 * @param commercePriceListDiscountRelId the primary key of the commerce price list rel
+	 * @param commercePriceListRelId the primary key of the commerce price list rel
 	 * @return the commerce price list rel
 	 * @throws NoSuchPriceListRelException if a commerce price list rel with the primary key could not be found
 	 */
-	public CommercePriceListRel findByPrimaryKey(
-			long commercePriceListDiscountRelId)
+	public CommercePriceListRel findByPrimaryKey(long commercePriceListRelId)
 		throws NoSuchPriceListRelException;
 
 	/**
 	 * Returns the commerce price list rel with the primary key or returns <code>null</code> if it could not be found.
 	 *
-	 * @param commercePriceListDiscountRelId the primary key of the commerce price list rel
+	 * @param commercePriceListRelId the primary key of the commerce price list rel
 	 * @return the commerce price list rel, or <code>null</code> if a commerce price list rel with the primary key could not be found
 	 */
-	public CommercePriceListRel fetchByPrimaryKey(
-		long commercePriceListDiscountRelId);
+	public CommercePriceListRel fetchByPrimaryKey(long commercePriceListRelId);
 
 	/**
 	 * Returns all the commerce price list rels.

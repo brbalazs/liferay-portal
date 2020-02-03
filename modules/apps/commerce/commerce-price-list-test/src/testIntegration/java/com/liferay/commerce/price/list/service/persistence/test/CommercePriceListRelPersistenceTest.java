@@ -161,8 +161,8 @@ public class CommercePriceListRelPersistenceTest {
 			existingCommercePriceListRel.getUuid(),
 			newCommercePriceListRel.getUuid());
 		Assert.assertEquals(
-			existingCommercePriceListRel.getCommercePriceListDiscountRelId(),
-			newCommercePriceListRel.getCommercePriceListDiscountRelId());
+			existingCommercePriceListRel.getCommercePriceListRelId(),
+			newCommercePriceListRel.getCommercePriceListRelId());
 		Assert.assertEquals(
 			existingCommercePriceListRel.getCompanyId(),
 			newCommercePriceListRel.getCompanyId());
@@ -225,6 +225,14 @@ public class CommercePriceListRelPersistenceTest {
 	}
 
 	@Test
+	public void testCountByC_C() throws Exception {
+		_persistence.countByC_C(
+			RandomTestUtil.nextLong(), RandomTestUtil.nextLong());
+
+		_persistence.countByC_C(0L, 0L);
+	}
+
+	@Test
 	public void testCountByC_C_C() throws Exception {
 		_persistence.countByC_C_C(
 			RandomTestUtil.nextLong(), RandomTestUtil.nextLong(),
@@ -261,11 +269,11 @@ public class CommercePriceListRelPersistenceTest {
 
 	protected OrderByComparator<CommercePriceListRel> getOrderByComparator() {
 		return OrderByComparatorFactoryUtil.create(
-			"CommercePriceListRel", "uuid", true,
-			"commercePriceListDiscountRelId", true, "companyId", true, "userId",
-			true, "userName", true, "createDate", true, "modifiedDate", true,
-			"commercePriceListId", true, "classNameId", true, "classPK", true,
-			"order", true, "lastPublishDate", true);
+			"CommercePriceListRel", "uuid", true, "commercePriceListRelId",
+			true, "companyId", true, "userId", true, "userName", true,
+			"createDate", true, "modifiedDate", true, "commercePriceListId",
+			true, "classNameId", true, "classPK", true, "order", true,
+			"lastPublishDate", true);
 	}
 
 	@Test
@@ -426,8 +434,8 @@ public class CommercePriceListRelPersistenceTest {
 
 		dynamicQuery.add(
 			RestrictionsFactoryUtil.eq(
-				"commercePriceListDiscountRelId",
-				newCommercePriceListRel.getCommercePriceListDiscountRelId()));
+				"commercePriceListRelId",
+				newCommercePriceListRel.getCommercePriceListRelId()));
 
 		List<CommercePriceListRel> result = _persistence.findWithDynamicQuery(
 			dynamicQuery);
@@ -447,7 +455,7 @@ public class CommercePriceListRelPersistenceTest {
 
 		dynamicQuery.add(
 			RestrictionsFactoryUtil.eq(
-				"commercePriceListDiscountRelId", RandomTestUtil.nextLong()));
+				"commercePriceListRelId", RandomTestUtil.nextLong()));
 
 		List<CommercePriceListRel> result = _persistence.findWithDynamicQuery(
 			dynamicQuery);
@@ -464,25 +472,24 @@ public class CommercePriceListRelPersistenceTest {
 			CommercePriceListRel.class, _dynamicQueryClassLoader);
 
 		dynamicQuery.setProjection(
-			ProjectionFactoryUtil.property("commercePriceListDiscountRelId"));
+			ProjectionFactoryUtil.property("commercePriceListRelId"));
 
-		Object newCommercePriceListDiscountRelId =
-			newCommercePriceListRel.getCommercePriceListDiscountRelId();
+		Object newCommercePriceListRelId =
+			newCommercePriceListRel.getCommercePriceListRelId();
 
 		dynamicQuery.add(
 			RestrictionsFactoryUtil.in(
-				"commercePriceListDiscountRelId",
-				new Object[] {newCommercePriceListDiscountRelId}));
+				"commercePriceListRelId",
+				new Object[] {newCommercePriceListRelId}));
 
 		List<Object> result = _persistence.findWithDynamicQuery(dynamicQuery);
 
 		Assert.assertEquals(1, result.size());
 
-		Object existingCommercePriceListDiscountRelId = result.get(0);
+		Object existingCommercePriceListRelId = result.get(0);
 
 		Assert.assertEquals(
-			existingCommercePriceListDiscountRelId,
-			newCommercePriceListDiscountRelId);
+			existingCommercePriceListRelId, newCommercePriceListRelId);
 	}
 
 	@Test
@@ -491,11 +498,11 @@ public class CommercePriceListRelPersistenceTest {
 			CommercePriceListRel.class, _dynamicQueryClassLoader);
 
 		dynamicQuery.setProjection(
-			ProjectionFactoryUtil.property("commercePriceListDiscountRelId"));
+			ProjectionFactoryUtil.property("commercePriceListRelId"));
 
 		dynamicQuery.add(
 			RestrictionsFactoryUtil.in(
-				"commercePriceListDiscountRelId",
+				"commercePriceListRelId",
 				new Object[] {RandomTestUtil.nextLong()}));
 
 		List<Object> result = _persistence.findWithDynamicQuery(dynamicQuery);

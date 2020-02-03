@@ -1092,6 +1092,88 @@ public class CommercePriceEntryUtil {
 	}
 
 	/**
+	 * Returns the commerce price entry where commercePriceListId = &#63; and CPInstanceUuid = &#63; and status = &#63; or throws a <code>NoSuchPriceEntryException</code> if it could not be found.
+	 *
+	 * @param commercePriceListId the commerce price list ID
+	 * @param CPInstanceUuid the cp instance uuid
+	 * @param status the status
+	 * @return the matching commerce price entry
+	 * @throws NoSuchPriceEntryException if a matching commerce price entry could not be found
+	 */
+	public static CommercePriceEntry findByC_C_S(
+			long commercePriceListId, String CPInstanceUuid, int status)
+		throws com.liferay.commerce.price.list.exception.
+			NoSuchPriceEntryException {
+
+		return getPersistence().findByC_C_S(
+			commercePriceListId, CPInstanceUuid, status);
+	}
+
+	/**
+	 * Returns the commerce price entry where commercePriceListId = &#63; and CPInstanceUuid = &#63; and status = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param commercePriceListId the commerce price list ID
+	 * @param CPInstanceUuid the cp instance uuid
+	 * @param status the status
+	 * @return the matching commerce price entry, or <code>null</code> if a matching commerce price entry could not be found
+	 */
+	public static CommercePriceEntry fetchByC_C_S(
+		long commercePriceListId, String CPInstanceUuid, int status) {
+
+		return getPersistence().fetchByC_C_S(
+			commercePriceListId, CPInstanceUuid, status);
+	}
+
+	/**
+	 * Returns the commerce price entry where commercePriceListId = &#63; and CPInstanceUuid = &#63; and status = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param commercePriceListId the commerce price list ID
+	 * @param CPInstanceUuid the cp instance uuid
+	 * @param status the status
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching commerce price entry, or <code>null</code> if a matching commerce price entry could not be found
+	 */
+	public static CommercePriceEntry fetchByC_C_S(
+		long commercePriceListId, String CPInstanceUuid, int status,
+		boolean useFinderCache) {
+
+		return getPersistence().fetchByC_C_S(
+			commercePriceListId, CPInstanceUuid, status, useFinderCache);
+	}
+
+	/**
+	 * Removes the commerce price entry where commercePriceListId = &#63; and CPInstanceUuid = &#63; and status = &#63; from the database.
+	 *
+	 * @param commercePriceListId the commerce price list ID
+	 * @param CPInstanceUuid the cp instance uuid
+	 * @param status the status
+	 * @return the commerce price entry that was removed
+	 */
+	public static CommercePriceEntry removeByC_C_S(
+			long commercePriceListId, String CPInstanceUuid, int status)
+		throws com.liferay.commerce.price.list.exception.
+			NoSuchPriceEntryException {
+
+		return getPersistence().removeByC_C_S(
+			commercePriceListId, CPInstanceUuid, status);
+	}
+
+	/**
+	 * Returns the number of commerce price entries where commercePriceListId = &#63; and CPInstanceUuid = &#63; and status = &#63;.
+	 *
+	 * @param commercePriceListId the commerce price list ID
+	 * @param CPInstanceUuid the cp instance uuid
+	 * @param status the status
+	 * @return the number of matching commerce price entries
+	 */
+	public static int countByC_C_S(
+		long commercePriceListId, String CPInstanceUuid, int status) {
+
+		return getPersistence().countByC_C_S(
+			commercePriceListId, CPInstanceUuid, status);
+	}
+
+	/**
 	 * Returns the commerce price entry where companyId = &#63; and externalReferenceCode = &#63; or throws a <code>NoSuchPriceEntryException</code> if it could not be found.
 	 *
 	 * @param companyId the company ID

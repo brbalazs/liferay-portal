@@ -48,8 +48,8 @@ public class CommercePriceListRelCacheModel
 		CommercePriceListRelCacheModel commercePriceListRelCacheModel =
 			(CommercePriceListRelCacheModel)obj;
 
-		if (commercePriceListDiscountRelId ==
-				commercePriceListRelCacheModel.commercePriceListDiscountRelId) {
+		if (commercePriceListRelId ==
+				commercePriceListRelCacheModel.commercePriceListRelId) {
 
 			return true;
 		}
@@ -59,7 +59,7 @@ public class CommercePriceListRelCacheModel
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, commercePriceListDiscountRelId);
+		return HashUtil.hash(0, commercePriceListRelId);
 	}
 
 	@Override
@@ -68,8 +68,8 @@ public class CommercePriceListRelCacheModel
 
 		sb.append("{uuid=");
 		sb.append(uuid);
-		sb.append(", commercePriceListDiscountRelId=");
-		sb.append(commercePriceListDiscountRelId);
+		sb.append(", commercePriceListRelId=");
+		sb.append(commercePriceListRelId);
 		sb.append(", companyId=");
 		sb.append(companyId);
 		sb.append(", userId=");
@@ -107,8 +107,8 @@ public class CommercePriceListRelCacheModel
 			commercePriceListRelImpl.setUuid(uuid);
 		}
 
-		commercePriceListRelImpl.setCommercePriceListDiscountRelId(
-			commercePriceListDiscountRelId);
+		commercePriceListRelImpl.setCommercePriceListRelId(
+			commercePriceListRelId);
 		commercePriceListRelImpl.setCompanyId(companyId);
 		commercePriceListRelImpl.setUserId(userId);
 
@@ -155,7 +155,7 @@ public class CommercePriceListRelCacheModel
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
 
-		commercePriceListDiscountRelId = objectInput.readLong();
+		commercePriceListRelId = objectInput.readLong();
 
 		companyId = objectInput.readLong();
 
@@ -183,7 +183,7 @@ public class CommercePriceListRelCacheModel
 			objectOutput.writeUTF(uuid);
 		}
 
-		objectOutput.writeLong(commercePriceListDiscountRelId);
+		objectOutput.writeLong(commercePriceListRelId);
 
 		objectOutput.writeLong(companyId);
 
@@ -210,7 +210,7 @@ public class CommercePriceListRelCacheModel
 	}
 
 	public String uuid;
-	public long commercePriceListDiscountRelId;
+	public long commercePriceListRelId;
 	public long companyId;
 	public long userId;
 	public String userName;

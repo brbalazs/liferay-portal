@@ -85,6 +85,18 @@ public interface CommerceTierPriceEntryLocalService
 
 	public CommerceTierPriceEntry addCommerceTierPriceEntry(
 			long commercePriceEntryId, BigDecimal price, BigDecimal promoPrice,
+			boolean bulkPricing, int minQuantity, ServiceContext serviceContext)
+		throws PortalException;
+
+	public CommerceTierPriceEntry addCommerceTierPriceEntry(
+			long commercePriceEntryId, BigDecimal price, BigDecimal promoPrice,
+			int minQuantity, ServiceContext serviceContext)
+		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public CommerceTierPriceEntry addCommerceTierPriceEntry(
+			long commercePriceEntryId, String externalReferenceCode,
+			BigDecimal price, BigDecimal promoPrice, boolean bulkPricing,
 			int minQuantity, ServiceContext serviceContext)
 		throws PortalException;
 
@@ -101,7 +113,6 @@ public interface CommerceTierPriceEntryLocalService
 			boolean neverExpire, ServiceContext serviceContext)
 		throws PortalException;
 
-	@Indexable(type = IndexableType.REINDEX)
 	public CommerceTierPriceEntry addCommerceTierPriceEntry(
 			long commercePriceEntryId, String externalReferenceCode,
 			BigDecimal price, BigDecimal promoPrice, int minQuantity,
@@ -267,6 +278,9 @@ public interface CommerceTierPriceEntryLocalService
 		String uuid, long companyId);
 
 	public CommerceTierPriceEntry findClosestCommerceTierPriceEntry(
+		long commercePriceEntryId, int quantity);
+
+	public List<CommerceTierPriceEntry> findCommerceTierPriceEntries(
 		long commercePriceEntryId, int quantity);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

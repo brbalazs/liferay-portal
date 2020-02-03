@@ -54,6 +54,20 @@ public class CommerceTierPriceEntryLocalServiceWrapper
 	public com.liferay.commerce.price.list.model.CommerceTierPriceEntry
 			addCommerceTierPriceEntry(
 				long commercePriceEntryId, java.math.BigDecimal price,
+				java.math.BigDecimal promoPrice, boolean bulkPricing,
+				int minQuantity,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceTierPriceEntryLocalService.addCommerceTierPriceEntry(
+			commercePriceEntryId, price, promoPrice, bulkPricing, minQuantity,
+			serviceContext);
+	}
+
+	@Override
+	public com.liferay.commerce.price.list.model.CommerceTierPriceEntry
+			addCommerceTierPriceEntry(
+				long commercePriceEntryId, java.math.BigDecimal price,
 				java.math.BigDecimal promoPrice, int minQuantity,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -61,6 +75,20 @@ public class CommerceTierPriceEntryLocalServiceWrapper
 		return _commerceTierPriceEntryLocalService.addCommerceTierPriceEntry(
 			commercePriceEntryId, price, promoPrice, minQuantity,
 			serviceContext);
+	}
+
+	@Override
+	public com.liferay.commerce.price.list.model.CommerceTierPriceEntry
+			addCommerceTierPriceEntry(
+				long commercePriceEntryId, String externalReferenceCode,
+				java.math.BigDecimal price, java.math.BigDecimal promoPrice,
+				boolean bulkPricing, int minQuantity,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceTierPriceEntryLocalService.addCommerceTierPriceEntry(
+			commercePriceEntryId, externalReferenceCode, price, promoPrice,
+			bulkPricing, minQuantity, serviceContext);
 	}
 
 	@Override
@@ -359,6 +387,16 @@ public class CommerceTierPriceEntryLocalServiceWrapper
 
 		return _commerceTierPriceEntryLocalService.
 			findClosestCommerceTierPriceEntry(commercePriceEntryId, quantity);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.price.list.model.CommerceTierPriceEntry>
+			findCommerceTierPriceEntries(
+				long commercePriceEntryId, int quantity) {
+
+		return _commerceTierPriceEntryLocalService.findCommerceTierPriceEntries(
+			commercePriceEntryId, quantity);
 	}
 
 	@Override

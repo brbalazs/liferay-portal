@@ -59,9 +59,7 @@ public class CommercePriceListRelWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("uuid", getUuid());
-		attributes.put(
-			"commercePriceListDiscountRelId",
-			getCommercePriceListDiscountRelId());
+		attributes.put("commercePriceListRelId", getCommercePriceListRelId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("userName", getUserName());
@@ -84,11 +82,11 @@ public class CommercePriceListRelWrapper
 			setUuid(uuid);
 		}
 
-		Long commercePriceListDiscountRelId = (Long)attributes.get(
-			"commercePriceListDiscountRelId");
+		Long commercePriceListRelId = (Long)attributes.get(
+			"commercePriceListRelId");
 
-		if (commercePriceListDiscountRelId != null) {
-			setCommercePriceListDiscountRelId(commercePriceListDiscountRelId);
+		if (commercePriceListRelId != null) {
+			setCommercePriceListRelId(commercePriceListRelId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -194,16 +192,6 @@ public class CommercePriceListRelWrapper
 	}
 
 	/**
-	 * Returns the commerce price list discount rel ID of this commerce price list rel.
-	 *
-	 * @return the commerce price list discount rel ID of this commerce price list rel
-	 */
-	@Override
-	public long getCommercePriceListDiscountRelId() {
-		return _commercePriceListRel.getCommercePriceListDiscountRelId();
-	}
-
-	/**
 	 * Returns the commerce price list ID of this commerce price list rel.
 	 *
 	 * @return the commerce price list ID of this commerce price list rel
@@ -211,6 +199,16 @@ public class CommercePriceListRelWrapper
 	@Override
 	public long getCommercePriceListId() {
 		return _commercePriceListRel.getCommercePriceListId();
+	}
+
+	/**
+	 * Returns the commerce price list rel ID of this commerce price list rel.
+	 *
+	 * @return the commerce price list rel ID of this commerce price list rel
+	 */
+	@Override
+	public long getCommercePriceListRelId() {
+		return _commercePriceListRel.getCommercePriceListRelId();
 	}
 
 	/**
@@ -379,19 +377,6 @@ public class CommercePriceListRelWrapper
 	}
 
 	/**
-	 * Sets the commerce price list discount rel ID of this commerce price list rel.
-	 *
-	 * @param commercePriceListDiscountRelId the commerce price list discount rel ID of this commerce price list rel
-	 */
-	@Override
-	public void setCommercePriceListDiscountRelId(
-		long commercePriceListDiscountRelId) {
-
-		_commercePriceListRel.setCommercePriceListDiscountRelId(
-			commercePriceListDiscountRelId);
-	}
-
-	/**
 	 * Sets the commerce price list ID of this commerce price list rel.
 	 *
 	 * @param commercePriceListId the commerce price list ID of this commerce price list rel
@@ -399,6 +384,16 @@ public class CommercePriceListRelWrapper
 	@Override
 	public void setCommercePriceListId(long commercePriceListId) {
 		_commercePriceListRel.setCommercePriceListId(commercePriceListId);
+	}
+
+	/**
+	 * Sets the commerce price list rel ID of this commerce price list rel.
+	 *
+	 * @param commercePriceListRelId the commerce price list rel ID of this commerce price list rel
+	 */
+	@Override
+	public void setCommercePriceListRelId(long commercePriceListRelId) {
+		_commercePriceListRel.setCommercePriceListRelId(commercePriceListRelId);
 	}
 
 	/**

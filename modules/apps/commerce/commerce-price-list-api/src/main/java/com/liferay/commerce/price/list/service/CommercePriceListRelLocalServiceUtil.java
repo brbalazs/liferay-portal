@@ -66,14 +66,13 @@ public class CommercePriceListRelLocalServiceUtil {
 	/**
 	 * Creates a new commerce price list rel with the primary key. Does not add the commerce price list rel to the database.
 	 *
-	 * @param commercePriceListDiscountRelId the primary key for the new commerce price list rel
+	 * @param commercePriceListRelId the primary key for the new commerce price list rel
 	 * @return the new commerce price list rel
 	 */
 	public static com.liferay.commerce.price.list.model.CommercePriceListRel
-		createCommercePriceListRel(long commercePriceListDiscountRelId) {
+		createCommercePriceListRel(long commercePriceListRelId) {
 
-		return getService().createCommercePriceListRel(
-			commercePriceListDiscountRelId);
+		return getService().createCommercePriceListRel(commercePriceListRelId);
 	}
 
 	/**
@@ -95,16 +94,15 @@ public class CommercePriceListRelLocalServiceUtil {
 	/**
 	 * Deletes the commerce price list rel with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * @param commercePriceListDiscountRelId the primary key of the commerce price list rel
+	 * @param commercePriceListRelId the primary key of the commerce price list rel
 	 * @return the commerce price list rel that was removed
 	 * @throws PortalException if a commerce price list rel with the primary key could not be found
 	 */
 	public static com.liferay.commerce.price.list.model.CommercePriceListRel
-			deleteCommercePriceListRel(long commercePriceListDiscountRelId)
+			deleteCommercePriceListRel(long commercePriceListRelId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().deleteCommercePriceListRel(
-			commercePriceListDiscountRelId);
+		return getService().deleteCommercePriceListRel(commercePriceListRelId);
 	}
 
 	public static void deleteCommercePriceListRels(long commercePriceListId) {
@@ -208,10 +206,9 @@ public class CommercePriceListRelLocalServiceUtil {
 	}
 
 	public static com.liferay.commerce.price.list.model.CommercePriceListRel
-		fetchCommercePriceListRel(long commercePriceListDiscountRelId) {
+		fetchCommercePriceListRel(long commercePriceListRelId) {
 
-		return getService().fetchCommercePriceListRel(
-			commercePriceListDiscountRelId);
+		return getService().fetchCommercePriceListRel(commercePriceListRelId);
 	}
 
 	public static com.liferay.commerce.price.list.model.CommercePriceListRel
@@ -246,16 +243,15 @@ public class CommercePriceListRelLocalServiceUtil {
 	/**
 	 * Returns the commerce price list rel with the primary key.
 	 *
-	 * @param commercePriceListDiscountRelId the primary key of the commerce price list rel
+	 * @param commercePriceListRelId the primary key of the commerce price list rel
 	 * @return the commerce price list rel
 	 * @throws PortalException if a commerce price list rel with the primary key could not be found
 	 */
 	public static com.liferay.commerce.price.list.model.CommercePriceListRel
-			getCommercePriceListRel(long commercePriceListDiscountRelId)
+			getCommercePriceListRel(long commercePriceListRelId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().getCommercePriceListRel(
-			commercePriceListDiscountRelId);
+		return getService().getCommercePriceListRel(commercePriceListRelId);
 	}
 
 	/**
@@ -298,6 +294,13 @@ public class CommercePriceListRelLocalServiceUtil {
 			getCommercePriceListRels(long commercePriceListId) {
 
 		return getService().getCommercePriceListRels(commercePriceListId);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceListRel>
+			getCommercePriceListRels(String className, long classPK) {
+
+		return getService().getCommercePriceListRels(className, classPK);
 	}
 
 	/**

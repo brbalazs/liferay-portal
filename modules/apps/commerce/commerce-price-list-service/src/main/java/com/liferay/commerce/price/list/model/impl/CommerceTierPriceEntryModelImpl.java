@@ -1342,7 +1342,7 @@ public class CommerceTierPriceEntryModelImpl
 
 			return user.getUuid();
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			return "";
 		}
 	}

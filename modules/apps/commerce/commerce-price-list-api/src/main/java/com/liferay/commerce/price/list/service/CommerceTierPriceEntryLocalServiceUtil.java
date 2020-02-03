@@ -55,6 +55,19 @@ public class CommerceTierPriceEntryLocalServiceUtil {
 	public static com.liferay.commerce.price.list.model.CommerceTierPriceEntry
 			addCommerceTierPriceEntry(
 				long commercePriceEntryId, java.math.BigDecimal price,
+				java.math.BigDecimal promoPrice, boolean bulkPricing,
+				int minQuantity,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addCommerceTierPriceEntry(
+			commercePriceEntryId, price, promoPrice, bulkPricing, minQuantity,
+			serviceContext);
+	}
+
+	public static com.liferay.commerce.price.list.model.CommerceTierPriceEntry
+			addCommerceTierPriceEntry(
+				long commercePriceEntryId, java.math.BigDecimal price,
 				java.math.BigDecimal promoPrice, int minQuantity,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -62,6 +75,19 @@ public class CommerceTierPriceEntryLocalServiceUtil {
 		return getService().addCommerceTierPriceEntry(
 			commercePriceEntryId, price, promoPrice, minQuantity,
 			serviceContext);
+	}
+
+	public static com.liferay.commerce.price.list.model.CommerceTierPriceEntry
+			addCommerceTierPriceEntry(
+				long commercePriceEntryId, String externalReferenceCode,
+				java.math.BigDecimal price, java.math.BigDecimal promoPrice,
+				boolean bulkPricing, int minQuantity,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addCommerceTierPriceEntry(
+			commercePriceEntryId, externalReferenceCode, price, promoPrice,
+			bulkPricing, minQuantity, serviceContext);
 	}
 
 	public static com.liferay.commerce.price.list.model.CommerceTierPriceEntry
@@ -336,6 +362,15 @@ public class CommerceTierPriceEntryLocalServiceUtil {
 			long commercePriceEntryId, int quantity) {
 
 		return getService().findClosestCommerceTierPriceEntry(
+			commercePriceEntryId, quantity);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.price.list.model.CommerceTierPriceEntry>
+			findCommerceTierPriceEntries(
+				long commercePriceEntryId, int quantity) {
+
+		return getService().findCommerceTierPriceEntries(
 			commercePriceEntryId, quantity);
 	}
 

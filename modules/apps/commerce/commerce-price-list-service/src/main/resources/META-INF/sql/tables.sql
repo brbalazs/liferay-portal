@@ -12,20 +12,6 @@ create table CPLCommerceGroupAccountRel (
 	lastPublishDate DATE null
 );
 
-create table CPLPriceModifierRel (
-	uuid_ VARCHAR(75) null,
-	CPLPriceModifierRelId LONG not null primary key,
-	companyId LONG,
-	userId LONG,
-	userName VARCHAR(75) null,
-	createDate DATE null,
-	modifiedDate DATE null,
-	commercePriceModifierId LONG,
-	commercePriceListId LONG,
-	order_ INTEGER,
-	lastPublishDate DATE null
-);
-
 create table CPLUserSegmentEntryRel (
 	uuid_ VARCHAR(75) null,
 	CPLUserSegmentEntryRelId LONG not null primary key,
@@ -139,7 +125,7 @@ create table CommercePriceListDiscountRel (
 
 create table CommercePriceListRel (
 	uuid_ VARCHAR(75) null,
-	commercePriceListDiscountRelId LONG not null primary key,
+	commercePriceListRelId LONG not null primary key,
 	companyId LONG,
 	userId LONG,
 	userName VARCHAR(75) null,

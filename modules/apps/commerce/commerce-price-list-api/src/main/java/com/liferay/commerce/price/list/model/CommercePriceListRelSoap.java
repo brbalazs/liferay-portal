@@ -34,8 +34,7 @@ public class CommercePriceListRelSoap implements Serializable {
 		CommercePriceListRelSoap soapModel = new CommercePriceListRelSoap();
 
 		soapModel.setUuid(model.getUuid());
-		soapModel.setCommercePriceListDiscountRelId(
-			model.getCommercePriceListDiscountRelId());
+		soapModel.setCommercePriceListRelId(model.getCommercePriceListRelId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
 		soapModel.setUserName(model.getUserName());
@@ -101,11 +100,11 @@ public class CommercePriceListRelSoap implements Serializable {
 	}
 
 	public long getPrimaryKey() {
-		return _commercePriceListDiscountRelId;
+		return _commercePriceListRelId;
 	}
 
 	public void setPrimaryKey(long pk) {
-		setCommercePriceListDiscountRelId(pk);
+		setCommercePriceListRelId(pk);
 	}
 
 	public String getUuid() {
@@ -116,14 +115,12 @@ public class CommercePriceListRelSoap implements Serializable {
 		_uuid = uuid;
 	}
 
-	public long getCommercePriceListDiscountRelId() {
-		return _commercePriceListDiscountRelId;
+	public long getCommercePriceListRelId() {
+		return _commercePriceListRelId;
 	}
 
-	public void setCommercePriceListDiscountRelId(
-		long commercePriceListDiscountRelId) {
-
-		_commercePriceListDiscountRelId = commercePriceListDiscountRelId;
+	public void setCommercePriceListRelId(long commercePriceListRelId) {
+		_commercePriceListRelId = commercePriceListRelId;
 	}
 
 	public long getCompanyId() {
@@ -207,7 +204,7 @@ public class CommercePriceListRelSoap implements Serializable {
 	}
 
 	private String _uuid;
-	private long _commercePriceListDiscountRelId;
+	private long _commercePriceListRelId;
 	private long _companyId;
 	private long _userId;
 	private String _userName;

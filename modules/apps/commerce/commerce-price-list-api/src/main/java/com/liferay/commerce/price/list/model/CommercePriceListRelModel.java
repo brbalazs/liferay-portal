@@ -83,19 +83,18 @@ public interface CommercePriceListRelModel
 	public void setUuid(String uuid);
 
 	/**
-	 * Returns the commerce price list discount rel ID of this commerce price list rel.
+	 * Returns the commerce price list rel ID of this commerce price list rel.
 	 *
-	 * @return the commerce price list discount rel ID of this commerce price list rel
+	 * @return the commerce price list rel ID of this commerce price list rel
 	 */
-	public long getCommercePriceListDiscountRelId();
+	public long getCommercePriceListRelId();
 
 	/**
-	 * Sets the commerce price list discount rel ID of this commerce price list rel.
+	 * Sets the commerce price list rel ID of this commerce price list rel.
 	 *
-	 * @param commercePriceListDiscountRelId the commerce price list discount rel ID of this commerce price list rel
+	 * @param commercePriceListRelId the commerce price list rel ID of this commerce price list rel
 	 */
-	public void setCommercePriceListDiscountRelId(
-		long commercePriceListDiscountRelId);
+	public void setCommercePriceListRelId(long commercePriceListRelId);
 
 	/**
 	 * Returns the company ID of this commerce price list rel.

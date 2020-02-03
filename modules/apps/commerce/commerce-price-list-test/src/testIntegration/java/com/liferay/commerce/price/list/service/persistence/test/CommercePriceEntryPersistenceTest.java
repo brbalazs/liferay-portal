@@ -333,6 +333,16 @@ public class CommercePriceEntryPersistenceTest {
 	}
 
 	@Test
+	public void testCountByC_C_S() throws Exception {
+		_persistence.countByC_C_S(
+			RandomTestUtil.nextLong(), "", RandomTestUtil.nextInt());
+
+		_persistence.countByC_C_S(0L, "null", 0);
+
+		_persistence.countByC_C_S(0L, (String)null, 0);
+	}
+
+	@Test
 	public void testCountByC_ERC() throws Exception {
 		_persistence.countByC_ERC(RandomTestUtil.nextLong(), "");
 
@@ -623,6 +633,23 @@ public class CommercePriceEntryPersistenceTest {
 				ReflectionTestUtil.invoke(
 					existingCommercePriceEntry, "getOriginalCPInstanceUuid",
 					new Class<?>[0])));
+
+		Assert.assertEquals(
+			Long.valueOf(existingCommercePriceEntry.getCommercePriceListId()),
+			ReflectionTestUtil.<Long>invoke(
+				existingCommercePriceEntry, "getOriginalCommercePriceListId",
+				new Class<?>[0]));
+		Assert.assertTrue(
+			Objects.equals(
+				existingCommercePriceEntry.getCPInstanceUuid(),
+				ReflectionTestUtil.invoke(
+					existingCommercePriceEntry, "getOriginalCPInstanceUuid",
+					new Class<?>[0])));
+		Assert.assertEquals(
+			Integer.valueOf(existingCommercePriceEntry.getStatus()),
+			ReflectionTestUtil.<Integer>invoke(
+				existingCommercePriceEntry, "getOriginalStatus",
+				new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingCommercePriceEntry.getCompanyId()),

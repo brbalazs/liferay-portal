@@ -408,6 +408,15 @@ public class CommercePriceEntryLocalServiceWrapper
 			commercePriceListId, cpInstanceUuid, useAncestor);
 	}
 
+	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceEntry
+		fetchCommercePriceEntry(
+			long commercePriceListId, String cpInstanceUuid, int status) {
+
+		return _commercePriceEntryLocalService.fetchCommercePriceEntry(
+			commercePriceListId, cpInstanceUuid, status);
+	}
+
 	/**
 	 * Returns the commerce price entry with the matching external reference code and company.
 	 *

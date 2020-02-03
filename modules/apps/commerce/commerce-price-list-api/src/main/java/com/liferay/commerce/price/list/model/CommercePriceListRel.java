@@ -40,13 +40,12 @@ public interface CommercePriceListRel
 	 * Never modify this interface directly. Add methods to <code>com.liferay.commerce.price.list.model.impl.CommercePriceListRelImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public static final Accessor<CommercePriceListRel, Long>
-		COMMERCE_PRICE_LIST_DISCOUNT_REL_ID_ACCESSOR =
+		COMMERCE_PRICE_LIST_REL_ID_ACCESSOR =
 			new Accessor<CommercePriceListRel, Long>() {
 
 				@Override
 				public Long get(CommercePriceListRel commercePriceListRel) {
-					return commercePriceListRel.
-						getCommercePriceListDiscountRelId();
+					return commercePriceListRel.getCommercePriceListRelId();
 				}
 
 				@Override

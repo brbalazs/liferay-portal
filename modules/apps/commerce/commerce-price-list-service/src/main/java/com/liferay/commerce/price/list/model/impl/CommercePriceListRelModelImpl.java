@@ -76,8 +76,7 @@ public class CommercePriceListRelModelImpl
 	public static final String TABLE_NAME = "CommercePriceListRel";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"uuid_", Types.VARCHAR},
-		{"commercePriceListDiscountRelId", Types.BIGINT},
+		{"uuid_", Types.VARCHAR}, {"commercePriceListRelId", Types.BIGINT},
 		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
 		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP},
@@ -91,7 +90,7 @@ public class CommercePriceListRelModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("commercePriceListDiscountRelId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("commercePriceListRelId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
@@ -105,7 +104,7 @@ public class CommercePriceListRelModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CommercePriceListRel (uuid_ VARCHAR(75) null,commercePriceListDiscountRelId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commercePriceListId LONG,classNameId LONG,classPK LONG,order_ INTEGER,lastPublishDate DATE null)";
+		"create table CommercePriceListRel (uuid_ VARCHAR(75) null,commercePriceListRelId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commercePriceListId LONG,classNameId LONG,classPK LONG,order_ INTEGER,lastPublishDate DATE null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table CommercePriceListRel";
@@ -165,8 +164,7 @@ public class CommercePriceListRelModelImpl
 		CommercePriceListRel model = new CommercePriceListRelImpl();
 
 		model.setUuid(soapModel.getUuid());
-		model.setCommercePriceListDiscountRelId(
-			soapModel.getCommercePriceListDiscountRelId());
+		model.setCommercePriceListRelId(soapModel.getCommercePriceListRelId());
 		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
 		model.setUserName(soapModel.getUserName());
@@ -213,17 +211,17 @@ public class CommercePriceListRelModelImpl
 
 	@Override
 	public long getPrimaryKey() {
-		return _commercePriceListDiscountRelId;
+		return _commercePriceListRelId;
 	}
 
 	@Override
 	public void setPrimaryKey(long primaryKey) {
-		setCommercePriceListDiscountRelId(primaryKey);
+		setCommercePriceListRelId(primaryKey);
 	}
 
 	@Override
 	public Serializable getPrimaryKeyObj() {
-		return _commercePriceListDiscountRelId;
+		return _commercePriceListRelId;
 	}
 
 	@Override
@@ -312,13 +310,15 @@ public class CommercePriceListRelModelImpl
 				try {
 					return constructor.newInstance(invocationHandler);
 				}
-				catch (ReflectiveOperationException roe) {
-					throw new InternalError(roe);
+				catch (ReflectiveOperationException
+							reflectiveOperationException) {
+
+					throw new InternalError(reflectiveOperationException);
 				}
 			};
 		}
-		catch (NoSuchMethodException nsme) {
-			throw new InternalError(nsme);
+		catch (NoSuchMethodException noSuchMethodException) {
+			throw new InternalError(noSuchMethodException);
 		}
 	}
 
@@ -361,27 +361,26 @@ public class CommercePriceListRelModelImpl
 
 			});
 		attributeGetterFunctions.put(
-			"commercePriceListDiscountRelId",
+			"commercePriceListRelId",
 			new Function<CommercePriceListRel, Object>() {
 
 				@Override
 				public Object apply(CommercePriceListRel commercePriceListRel) {
-					return commercePriceListRel.
-						getCommercePriceListDiscountRelId();
+					return commercePriceListRel.getCommercePriceListRelId();
 				}
 
 			});
 		attributeSetterBiConsumers.put(
-			"commercePriceListDiscountRelId",
+			"commercePriceListRelId",
 			new BiConsumer<CommercePriceListRel, Object>() {
 
 				@Override
 				public void accept(
 					CommercePriceListRel commercePriceListRel,
-					Object commercePriceListDiscountRelIdObject) {
+					Object commercePriceListRelIdObject) {
 
-					commercePriceListRel.setCommercePriceListDiscountRelId(
-						(Long)commercePriceListDiscountRelIdObject);
+					commercePriceListRel.setCommercePriceListRelId(
+						(Long)commercePriceListRelIdObject);
 				}
 
 			});
@@ -654,15 +653,13 @@ public class CommercePriceListRelModelImpl
 
 	@JSON
 	@Override
-	public long getCommercePriceListDiscountRelId() {
-		return _commercePriceListDiscountRelId;
+	public long getCommercePriceListRelId() {
+		return _commercePriceListRelId;
 	}
 
 	@Override
-	public void setCommercePriceListDiscountRelId(
-		long commercePriceListDiscountRelId) {
-
-		_commercePriceListDiscountRelId = commercePriceListDiscountRelId;
+	public void setCommercePriceListRelId(long commercePriceListRelId) {
+		_commercePriceListRelId = commercePriceListRelId;
 	}
 
 	@JSON
@@ -706,7 +703,7 @@ public class CommercePriceListRelModelImpl
 
 			return user.getUuid();
 		}
-		catch (PortalException pe) {
+		catch (PortalException portalException) {
 			return "";
 		}
 	}
@@ -918,8 +915,8 @@ public class CommercePriceListRelModelImpl
 			new CommercePriceListRelImpl();
 
 		commercePriceListRelImpl.setUuid(getUuid());
-		commercePriceListRelImpl.setCommercePriceListDiscountRelId(
-			getCommercePriceListDiscountRelId());
+		commercePriceListRelImpl.setCommercePriceListRelId(
+			getCommercePriceListRelId());
 		commercePriceListRelImpl.setCompanyId(getCompanyId());
 		commercePriceListRelImpl.setUserId(getUserId());
 		commercePriceListRelImpl.setUserName(getUserName());
@@ -1040,8 +1037,8 @@ public class CommercePriceListRelModelImpl
 			commercePriceListRelCacheModel.uuid = null;
 		}
 
-		commercePriceListRelCacheModel.commercePriceListDiscountRelId =
-			getCommercePriceListDiscountRelId();
+		commercePriceListRelCacheModel.commercePriceListRelId =
+			getCommercePriceListRelId();
 
 		commercePriceListRelCacheModel.companyId = getCompanyId();
 
@@ -1170,7 +1167,7 @@ public class CommercePriceListRelModelImpl
 
 	private String _uuid;
 	private String _originalUuid;
-	private long _commercePriceListDiscountRelId;
+	private long _commercePriceListRelId;
 	private long _companyId;
 	private long _originalCompanyId;
 	private boolean _setOriginalCompanyId;

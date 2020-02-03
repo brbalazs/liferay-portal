@@ -82,12 +82,12 @@ public interface CommercePriceListRelLocalService
 	/**
 	 * Creates a new commerce price list rel with the primary key. Does not add the commerce price list rel to the database.
 	 *
-	 * @param commercePriceListDiscountRelId the primary key for the new commerce price list rel
+	 * @param commercePriceListRelId the primary key for the new commerce price list rel
 	 * @return the new commerce price list rel
 	 */
 	@Transactional(enabled = false)
 	public CommercePriceListRel createCommercePriceListRel(
-		long commercePriceListDiscountRelId);
+		long commercePriceListRelId);
 
 	/**
 	 * Deletes the commerce price list rel from the database. Also notifies the appropriate model listeners.
@@ -104,13 +104,13 @@ public interface CommercePriceListRelLocalService
 	/**
 	 * Deletes the commerce price list rel with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * @param commercePriceListDiscountRelId the primary key of the commerce price list rel
+	 * @param commercePriceListRelId the primary key of the commerce price list rel
 	 * @return the commerce price list rel that was removed
 	 * @throws PortalException if a commerce price list rel with the primary key could not be found
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	public CommercePriceListRel deleteCommercePriceListRel(
-			long commercePriceListDiscountRelId)
+			long commercePriceListRelId)
 		throws PortalException;
 
 	public void deleteCommercePriceListRels(long commercePriceListId);
@@ -190,7 +190,7 @@ public interface CommercePriceListRelLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommercePriceListRel fetchCommercePriceListRel(
-		long commercePriceListDiscountRelId);
+		long commercePriceListRelId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommercePriceListRel fetchCommercePriceListRel(
@@ -213,13 +213,13 @@ public interface CommercePriceListRelLocalService
 	/**
 	 * Returns the commerce price list rel with the primary key.
 	 *
-	 * @param commercePriceListDiscountRelId the primary key of the commerce price list rel
+	 * @param commercePriceListRelId the primary key of the commerce price list rel
 	 * @return the commerce price list rel
 	 * @throws PortalException if a commerce price list rel with the primary key could not be found
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommercePriceListRel getCommercePriceListRel(
-			long commercePriceListDiscountRelId)
+			long commercePriceListRelId)
 		throws PortalException;
 
 	/**
@@ -253,6 +253,10 @@ public interface CommercePriceListRelLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePriceListRel> getCommercePriceListRels(
 		long commercePriceListId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePriceListRel> getCommercePriceListRels(
+		String className, long classPK);
 
 	/**
 	 * Returns the number of commerce price list rels.
