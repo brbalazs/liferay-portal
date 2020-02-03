@@ -25,7 +25,6 @@ import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceOrderNote;
-import com.liferay.commerce.model.CommerceOrderPayment;
 import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.notification.model.CommerceNotificationQueueEntry;
@@ -39,45 +38,33 @@ import com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelService;
 import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
-import com.liferay.commerce.product.item.selector.criterion.CPInstanceItemSelectorCriterion;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderNoteService;
-import com.liferay.commerce.service.CommerceOrderPaymentLocalService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceShipmentService;
-import com.liferay.commerce.util.CommerceWorkflowedModelHelper;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
-import com.liferay.item.selector.ItemSelector;
-import com.liferay.item.selector.ItemSelectorReturnType;
-import com.liferay.item.selector.criteria.UUIDItemSelectorReturnType;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
-import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
-import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
-import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
-import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.webserver.WebServerServletTokenUtil;
-import com.liferay.portal.kernel.workflow.WorkflowTaskManager;
 
 import java.text.DateFormat;
 import java.text.Format;
@@ -107,7 +94,6 @@ public class CommerceOrderEditDisplayContext {
 				commerceNotificationTemplateService,
 			CommerceNotificationQueueEntryLocalService
 				commerceNotificationQueueEntryLocalService,
-			CommerceWorkflowedModelHelper commerceWorkflowedModelHelper,
 			CommerceOrderService commerceOrderService,
 			CommerceOrderItemService commerceOrderItemService,
 			ModelResourcePermission commerceOrderModelResourcePermission,
@@ -117,9 +103,7 @@ public class CommerceOrderEditDisplayContext {
 				commercePaymentMethodGroupRelService,
 			CommerceOrderPriceCalculation commerceOrderPriceCalculation,
 			CommerceShipmentService commerceShipmentService,
-			ItemSelector itemSelector, RenderRequest renderRequest,
-			UserLocalService userLocalService,
-			WorkflowTaskManager workflowTaskManager)
+			RenderRequest renderRequest)
 		throws PortalException {
 
 		_commerceAddressService = commerceAddressService;
@@ -128,7 +112,6 @@ public class CommerceOrderEditDisplayContext {
 			commerceNotificationTemplateService;
 		_commerceNotificationQueueEntryLocalService =
 			commerceNotificationQueueEntryLocalService;
-		_commerceWorkflowedModelHelper = commerceWorkflowedModelHelper;
 		_commerceOrderService = commerceOrderService;
 		_commerceOrderItemService = commerceOrderItemService;
 		_commerceOrderModelResourcePermission =
@@ -139,9 +122,6 @@ public class CommerceOrderEditDisplayContext {
 			commercePaymentMethodGroupRelService;
 		_commerceOrderPriceCalculation = commerceOrderPriceCalculation;
 		_commerceShipmentService = commerceShipmentService;
-		_itemSelector = itemSelector;
-		_userLocalService = userLocalService;
-		_workflowTaskManager = workflowTaskManager;
 
 		long commerceOrderId = ParamUtil.getLong(
 			renderRequest, "commerceOrderId");
@@ -246,18 +226,6 @@ public class CommerceOrderEditDisplayContext {
 		}
 
 		return null;
-	}
-
-	public long getCommerceNotificationQueueEntryId() throws PortalException {
-		CommerceNotificationQueueEntry commerceNotificationQueueEntry =
-			getCommerceNotificationQueueEntry();
-
-		if (commerceNotificationQueueEntry == null) {
-			return 0;
-		}
-
-		return commerceNotificationQueueEntry.
-			getCommerceNotificationQueueEntryId();
 	}
 
 	public String getCommerceNotificationTemplateType() throws PortalException {
@@ -581,46 +549,7 @@ public class CommerceOrderEditDisplayContext {
 		return headerActionModels;
 	}
 
-	public String getItemSelectorUrl() {
-		RequestBackedPortletURLFactory requestBackedPortletURLFactory =
-			RequestBackedPortletURLFactoryUtil.create(
-				_commerceOrderRequestHelper.getRequest());
-
-		CPInstanceItemSelectorCriterion cpInstanceItemSelectorCriterion =
-			new CPInstanceItemSelectorCriterion();
-
-		cpInstanceItemSelectorCriterion.setDesiredItemSelectorReturnTypes(
-			Collections.<ItemSelectorReturnType>singletonList(
-				new UUIDItemSelectorReturnType()));
-
-		PortletURL itemSelectorURL = _itemSelector.getItemSelectorURL(
-			requestBackedPortletURLFactory, "productInstancesSelectItem",
-			cpInstanceItemSelectorCriterion);
-
-		return itemSelectorURL.toString();
-	}
-
-	public User getNotificationUser(
-			CommerceNotificationQueueEntry commerceNotificationQueueEntry)
-		throws PortalException {
-
-		return _userLocalService.fetchUser(
-			commerceNotificationQueueEntry.getUserId());
-	}
-
-	public String getOrderByCol() {
-		return ParamUtil.getString(
-			_commerceOrderRequestHelper.getLiferayPortletRequest(),
-			"orderByCol", "create-date");
-	}
-
-	public String getOrderByType() {
-		return ParamUtil.getString(
-			_commerceOrderRequestHelper.getLiferayPortletRequest(),
-			"orderByType", "desc");
-	}
-
-	public List<StepModel> getOrderSteps() throws PortalException {
+	public List<StepModel> getOrderSteps() {
 		List<StepModel> steps = new ArrayList<>();
 
 		if (_commerceOrder == null) {
@@ -880,15 +809,6 @@ public class CommerceOrderEditDisplayContext {
 		return portletURL;
 	}
 
-	public String getUserPortraitSrc(User user) {
-		ThemeDisplay themeDisplay =
-			_commerceOrderRequestHelper.getThemeDisplay();
-
-		return StringBundler.concat(
-			themeDisplay.getPathImage(), "/user_portrait?screenName=",
-			user.getScreenName(), "&amp;companyId=", user.getCompanyId());
-	}
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceOrderEditDisplayContext.class);
 
@@ -913,9 +833,5 @@ public class CommerceOrderEditDisplayContext {
 		_commercePaymentMethodGroupRelService;
 	private CommerceShipment _commerceShipment;
 	private final CommerceShipmentService _commerceShipmentService;
-	private final CommerceWorkflowedModelHelper _commerceWorkflowedModelHelper;
-	private final ItemSelector _itemSelector;
-	private final UserLocalService _userLocalService;
-	private final WorkflowTaskManager _workflowTaskManager;
 
 }
