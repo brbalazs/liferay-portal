@@ -151,7 +151,7 @@ public class CommerceCatalogDisplayContext
 
 		headerActionModelCancel.setLabel(
 			LanguageUtil.get(request, "cancel"));
-		headerActionModelCancel.setStyle("unstyled");
+		headerActionModelCancel.setAdditionalClasses("btn-unstyled");
 
 		headerActionModels.add(headerActionModelCancel);
 
@@ -159,7 +159,7 @@ public class CommerceCatalogDisplayContext
 
 		headerActionModelSave.setLabel(
 			LanguageUtil.get(request, "save"));
-		headerActionModelSave.setStyle("secondary");
+		headerActionModelSave.setAdditionalClasses("btn-secondary");
 
 		headerActionModels.add(headerActionModelSave);
 
@@ -168,6 +168,7 @@ public class CommerceCatalogDisplayContext
 
 		headerActionModelSaveAndPublish.setLabel(
 			LanguageUtil.get(request, "save-and-publish"));
+		headerActionModelSaveAndPublish.setAdditionalClasses("btn-primary");
 
 		headerActionModels.add(headerActionModelSaveAndPublish);
 

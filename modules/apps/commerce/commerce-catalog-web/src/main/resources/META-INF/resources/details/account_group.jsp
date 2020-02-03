@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %><%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -19,20 +20,25 @@
 <%
 	CommerceCatalogDisplayContext commerceCatalogDisplayContext = (CommerceCatalogDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-	PortletURL portletURL = commerceCatalogDisplayContext.getPortletURL();
+	CommerceCatalog commerceCatalog =
+		commerceCatalogDisplayContext.getCommerceCatalog();
 
-	portletURL.setParameter("searchContainerId", "commerceCatalogs");
+	Map<String, String> contextParams = new HashMap<>();
+
+	contextParams.put("commerceCatalogId",
+		String.valueOf(commerceCatalog.getCommerceCatalogId()));
 %>
 
 <div class="row">
 	<div class="col-12">
 		<commerce-ui:dataset-display
-			dataProviderKey="<%= CommerceCatalogClayTable.NAME %>"
-			id="<%= CommerceCatalogClayTable.NAME %>"
+			contextParams="<%= contextParams %>"
+			dataProviderKey="<%= CommerceCatalogDataSetConstants.COMMERCE_DATA_SET_KEY_CATALOG_ACCOUNT_GROUPS %>"
+			id="<%= CommerceCatalogDataSetConstants.COMMERCE_DATA_SET_KEY_CATALOG_ACCOUNT_GROUPS %>"
 			itemsPerPage="<%= 10 %>"
 			namespace="<%= renderResponse.getNamespace() %>"
 			pageNumber="<%= 1 %>"
-			portletURL="<%= portletURL %>"
+			portletURL="<%= currentURLObj %>"
 			style="fluid"
 		/>
 	</div>

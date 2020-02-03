@@ -24,6 +24,7 @@ import java.util.ResourceBundle;
 )
 public class CommerceCatalogInfoScreenNavigationEntry
 	implements ScreenNavigationCategory, ScreenNavigationEntry<CommerceCatalog> {
+
 	@Override
 	public String getCategoryKey() {
 		return CommerceCatalogScreenNavigationConstants.

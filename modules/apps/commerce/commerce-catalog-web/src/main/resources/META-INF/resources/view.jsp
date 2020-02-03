@@ -1,4 +1,5 @@
-<%--
+<%@ page
+	import="com.liferay.commerce.catalog.web.internal.frontend.CommerceCatalogDataSetConstants" %><%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -17,18 +18,18 @@
 <%@ include file="/init.jsp" %>
 
 <%
-CommerceCatalogDisplayContext commerceCatalogDisplayContext = (CommerceCatalogDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+CommerceCatalogDisplayContext commerceCatalogDisplayContext =
+	(CommerceCatalogDisplayContext) request.getAttribute(
+		WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 PortletURL portletURL = commerceCatalogDisplayContext.getPortletURL();
-
-portletURL.setParameter("searchContainerId", "commerceCatalogs");
 %>
 
 <div class="row">
 	<div class="col-12">
 		<commerce-ui:dataset-display
-			dataProviderKey="<%= CommerceCatalogClayTable.NAME %>"
-			id="<%= CommerceCatalogClayTable.NAME %>"
+			dataProviderKey="<%= CommerceCatalogDataSetConstants.COMMERCE_DATA_SET_KEY_CATALOGS %>"
+			id="<%= CommerceCatalogDataSetConstants.COMMERCE_DATA_SET_KEY_CATALOGS %>"
 			itemsPerPage="<%= 10 %>"
 			namespace="<%= renderResponse.getNamespace() %>"
 			pageNumber="<%= 1 %>"

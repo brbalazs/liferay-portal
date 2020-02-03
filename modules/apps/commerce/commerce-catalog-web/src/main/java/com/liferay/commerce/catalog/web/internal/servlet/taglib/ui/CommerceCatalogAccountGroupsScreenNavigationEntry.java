@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 @Component(
 	property = {
-		"screen.navigation.category.order:Integer=10",
+		"screen.navigation.category.order:Integer=30",
 		"screen.navigation.entry.order:Integer=10"
 	},
 	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}

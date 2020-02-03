@@ -71,7 +71,7 @@ public class EditCommerceCatalogMVCRenderCommand implements MVCRenderCommand {
 			throw new PortletException(e);
 		}
 
-		return "/details.jsp";
+		return "/details/view.jsp";
 	}
 
 	@Reference(

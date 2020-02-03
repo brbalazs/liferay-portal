@@ -41,11 +41,12 @@
 <commerce-ui:header
 	actions="<%= commerceCatalogDisplayContext.getHeaderActionModels() %>"
 	assignerModalUrl="/assigner/modal/url"
+	beanIdLabel="catalog-id"
 	bean="<%= commerceCatalog %>"
 	dropdownItems="<%= commerceCatalogDisplayContext.getDropdownItems() %>"
-	externalReferenceCode="123asd"
+	externalReferenceCode="<%= commerceCatalog.getExternalReferenceCode() %>"
 	externalReferenceCodeEditUrl="/external/reference/code/edit/url"
-	model="<%= commerceCatalog %>"
+	model="<%= CommerceCatalog.class %>"
 	thumbnailUrl="<%-- TOOO it would be nice to have the proper Default Catalog Image --%>"
 	title="<%= headerTitle %>"
 />

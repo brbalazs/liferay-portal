@@ -1,0 +1,128 @@
+package com.liferay.commerce.catalog.web.internal.frontend;
+
+import com.liferay.commerce.catalog.web.internal.model.Catalog;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
+import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
+import com.liferay.commerce.product.constants.CPPortletKeys;
+import com.liferay.commerce.product.model.CommerceCatalog;
+import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.WebKeys;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletURL;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author Gianmarco Brunialti Masera
+ */
+@Component(
+	immediate = true,
+	property = "commerce.data.provider.key=" + CommerceCatalogDataSetConstants.COMMERCE_DATA_SET_KEY_CATALOGS,
+	service = ClayDataSetActionProvider.class
+)
+public class CommerceCatalogDataSetActionProvider
+	implements ClayDataSetActionProvider {
+	@Override
+	public List<ClayDataSetAction> clayDataSetActions(
+		HttpServletRequest httpServletRequest, long groupId, Object model)
+		throws PortalException {
+
+		List<ClayDataSetAction> clayDataSetActions = new ArrayList<>();
+
+		Catalog catalog = (Catalog) model;
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
+		if (_commerceCatalogModelResourcePermission
+			.contains(themeDisplay.getPermissionChecker(),
+				catalog.getCatalogId(), ActionKeys.UPDATE)) {
+
+			PortletURL editURL = _getCatalogEditURL(
+				catalog.getCatalogId(), httpServletRequest);
+
+			ClayDataSetAction editClayDataSetAction = new ClayDataSetAction(
+				StringPool.BLANK, editURL.toString(), StringPool.BLANK,
+				LanguageUtil.get(httpServletRequest, Constants.EDIT),
+				StringPool.BLANK, false, false);
+
+			clayDataSetActions.add(editClayDataSetAction);
+		}
+
+		if (_commerceCatalogModelResourcePermission
+			.contains(themeDisplay.getPermissionChecker(),
+				catalog.getCatalogId(), ActionKeys.DELETE)) {
+
+			PortletURL deleteURL = _getCatalogDeleteURL(
+				catalog.getCatalogId(), httpServletRequest);
+
+			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
+				StringPool.BLANK, deleteURL.toString(), StringPool.BLANK,
+				LanguageUtil.get(httpServletRequest, Constants.DELETE),
+				StringPool.BLANK, false, false);
+
+			clayDataSetActions.add(deleteClayDataSetAction);
+		}
+
+		return clayDataSetActions;
+	}
+
+	private PortletURL _getCatalogEditURL(
+		long catalogId, HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		PortletURL portletURL = _portal.getControlPanelPortletURL(
+			httpServletRequest, CPPortletKeys.COMMERCE_CATALOGS,
+			PortletRequest.RENDER_PHASE);
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "editCommerceCatalog");
+		portletURL.setParameter(
+			"redirect", _portal.getCurrentURL(httpServletRequest));
+		portletURL.setParameter(
+			"commerceCatalogId", String.valueOf(catalogId));
+
+		return portletURL;
+	}
+
+	private PortletURL _getCatalogDeleteURL(
+		long catalogId, HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		PortletURL portletURL = _portal.getControlPanelPortletURL(
+			httpServletRequest, CPPortletKeys.COMMERCE_CATALOGS,
+			PortletRequest.ACTION_PHASE);
+
+		portletURL.setParameter(
+			ActionRequest.ACTION_NAME, "editCommerceCatalog");
+		portletURL.setParameter(Constants.CMD, Constants.DELETE);
+		portletURL.setParameter(
+			"redirect", _portal.getCurrentURL(httpServletRequest));
+		portletURL.setParameter(
+			"commerceCatalogId", String.valueOf(catalogId));
+
+		return portletURL;
+	}
+
+	@Reference
+	private Portal _portal;
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.product.model.CommerceCatalog)"
+	)
+	private ModelResourcePermission<CommerceCatalog>
+		_commerceCatalogModelResourcePermission;
+}
