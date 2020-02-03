@@ -2,8 +2,10 @@ Bundle-Name: Liferay Commerce Pricing API
 Bundle-SymbolicName: com.liferay.commerce.pricing.api
 Bundle-Version: 1.0.0
 Export-Package:\
+	com.liferay.commerce.pricing.configuration,\
 	com.liferay.commerce.pricing.constants,\
 	com.liferay.commerce.pricing.discovery.modifier,\
+	com.liferay.commerce.pricing.discovery.price,\
 	com.liferay.commerce.pricing.exception,\
 	com.liferay.commerce.pricing.model,\
 	com.liferay.commerce.pricing.service,\
