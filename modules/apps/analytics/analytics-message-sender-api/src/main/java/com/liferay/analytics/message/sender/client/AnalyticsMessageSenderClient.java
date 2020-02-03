@@ -14,7 +14,7 @@
 
 package com.liferay.analytics.message.sender.client;
 
-import org.osgi.annotation.versioning.ProviderType;
+import aQute.bnd.annotation.ProviderType;
 
 /**
  * @author Rachael Koestartyo
