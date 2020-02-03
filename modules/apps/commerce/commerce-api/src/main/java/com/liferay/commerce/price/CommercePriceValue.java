@@ -14,33 +14,18 @@
 
 package com.liferay.commerce.price;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.commerce.currency.model.CommerceMoney;
-import com.liferay.commerce.discount.CommerceDiscountValue;
-
-import java.math.BigDecimal;
-
-import java.util.List;
+import com.liferay.commerce.discount.CommerceDiscountLevel;
 
 /**
- * @author Marco Leo
+ * @author Riccardo Alberti
  */
-@ProviderType
-public interface CommerceProductPrice {
+public interface CommercePriceValue {
 
-	public List<CommercePriceValue> getCommercePriceValues();
+	public CommerceMoney getCommerceMoney();
 
-	public CommerceDiscountValue getDiscountValue();
+	public CommerceDiscountLevel[] getDiscountLevels();
 
-	public CommerceMoney getFinalPrice();
-
-	public int getQuantity();
-
-	public BigDecimal getTaxValue();
-
-	public CommerceMoney getUnitPrice();
-
-	public CommerceMoney getUnitPromoPrice();
+	public int getMinQuantity();
 
 }
