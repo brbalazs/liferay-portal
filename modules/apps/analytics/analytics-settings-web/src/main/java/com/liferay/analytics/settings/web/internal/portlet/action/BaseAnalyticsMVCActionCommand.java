@@ -149,7 +149,7 @@ public abstract class BaseAnalyticsMVCActionCommand
 				return;
 			}
 		}
-		catch (Exception exception) {
+		catch (Exception e) {
 			if (_log.isInfoEnabled()) {
 				_log.info("Analytics configuration not found");
 			}

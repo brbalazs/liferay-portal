@@ -147,8 +147,8 @@ public class AnalyticsSecurityAuthVerifier implements AuthVerifier {
 
 			return authVerifierResult;
 		}
-		catch (Exception exception) {
-			throw new AuthException(exception);
+		catch (Exception e) {
+			throw new AuthException(e);
 		}
 	}
 

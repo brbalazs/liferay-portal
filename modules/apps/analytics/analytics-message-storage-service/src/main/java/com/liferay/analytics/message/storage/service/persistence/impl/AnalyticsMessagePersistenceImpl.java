@@ -234,12 +234,12 @@ public class AnalyticsMessagePersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -398,8 +398,8 @@ public class AnalyticsMessagePersistenceImpl
 
 			return array;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -569,10 +569,10 @@ public class AnalyticsMessagePersistenceImpl
 
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(finderPath, finderArgs);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -744,11 +744,11 @@ public class AnalyticsMessagePersistenceImpl
 
 			return remove(analyticsMessage);
 		}
-		catch (NoSuchMessageException noSuchEntityException) {
-			throw noSuchEntityException;
+		catch (NoSuchMessageException nsme) {
+			throw nsme;
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -772,8 +772,8 @@ public class AnalyticsMessagePersistenceImpl
 				session.delete(analyticsMessage);
 			}
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -828,8 +828,8 @@ public class AnalyticsMessagePersistenceImpl
 			session.flush();
 			session.clear();
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -959,12 +959,12 @@ public class AnalyticsMessagePersistenceImpl
 						AnalyticsMessageImpl.class, primaryKey, nullModel);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				entityCache.removeResult(
 					AnalyticsMessageModelImpl.ENTITY_CACHE_ENABLED,
 					AnalyticsMessageImpl.class, primaryKey);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -1075,8 +1075,8 @@ public class AnalyticsMessagePersistenceImpl
 					AnalyticsMessageImpl.class, primaryKey, nullModel);
 			}
 		}
-		catch (Exception exception) {
-			throw processException(exception);
+		catch (Exception e) {
+			throw processException(e);
 		}
 		finally {
 			closeSession(session);
@@ -1210,12 +1210,12 @@ public class AnalyticsMessagePersistenceImpl
 					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				if (useFinderCache) {
 					finderCache.removeResult(finderPath, finderArgs);
 				}
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);
@@ -1259,11 +1259,11 @@ public class AnalyticsMessagePersistenceImpl
 				finderCache.putResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				finderCache.removeResult(
 					_finderPathCountAll, FINDER_ARGS_EMPTY);
 
-				throw processException(exception);
+				throw processException(e);
 			}
 			finally {
 				closeSession(session);

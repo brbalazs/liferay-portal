@@ -57,13 +57,13 @@ public abstract class BaseAnalyticsMVCRenderCommand
 				PortalUtil.getHttpServletRequest(renderRequest),
 				PortalUtil.getHttpServletResponse(renderResponse));
 		}
-		catch (Exception exception) {
+		catch (Exception e) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("Unable to include JSP " + getJspPath(), exception);
+				_log.warn("Unable to include JSP " + getJspPath(), e);
 			}
 
 			throw new PortletException(
-				"Unable to include JSP " + getJspPath(), exception);
+				"Unable to include JSP " + getJspPath(), e);
 		}
 
 		return MVCRenderConstants.MVC_PATH_VALUE_SKIP_DISPATCH;

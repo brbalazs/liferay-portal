@@ -459,8 +459,8 @@ public abstract class AnalyticsMessageLocalServiceBaseImpl
 			return (AnalyticsMessageBodyBlobModel)session.get(
 				AnalyticsMessageBodyBlobModel.class, primaryKey);
 		}
-		catch (Exception exception) {
-			throw analyticsMessagePersistence.processException(exception);
+		catch (Exception e) {
+			throw analyticsMessagePersistence.processException(e);
 		}
 		finally {
 			analyticsMessagePersistence.closeSession(session);
@@ -489,8 +489,8 @@ public abstract class AnalyticsMessageLocalServiceBaseImpl
 
 			return inputStream;
 		}
-		catch (Exception exception) {
-			throw new SystemException(exception);
+		catch (Exception e) {
+			throw new SystemException(e);
 		}
 	}
 
@@ -552,8 +552,8 @@ public abstract class AnalyticsMessageLocalServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception exception) {
-			throw new SystemException(exception);
+		catch (Exception e) {
+			throw new SystemException(e);
 		}
 	}
 

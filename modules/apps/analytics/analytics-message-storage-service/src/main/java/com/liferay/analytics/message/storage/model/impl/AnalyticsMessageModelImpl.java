@@ -234,15 +234,13 @@ public class AnalyticsMessageModelImpl
 				try {
 					return constructor.newInstance(invocationHandler);
 				}
-				catch (ReflectiveOperationException
-							reflectiveOperationException) {
-
-					throw new InternalError(reflectiveOperationException);
+				catch (ReflectiveOperationException roe) {
+					throw new InternalError(roe);
 				}
 			};
 		}
-		catch (NoSuchMethodException noSuchMethodException) {
-			throw new InternalError(noSuchMethodException);
+		catch (NoSuchMethodException nsme) {
+			throw new InternalError(nsme);
 		}
 	}
 
@@ -483,7 +481,7 @@ public class AnalyticsMessageModelImpl
 
 			return user.getUuid();
 		}
-		catch (PortalException portalException) {
+		catch (PortalException pe) {
 			return "";
 		}
 	}
@@ -527,7 +525,7 @@ public class AnalyticsMessageModelImpl
 					AnalyticsMessageLocalServiceUtil.getBodyBlobModel(
 						getPrimaryKey());
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 			}
 		}
 
