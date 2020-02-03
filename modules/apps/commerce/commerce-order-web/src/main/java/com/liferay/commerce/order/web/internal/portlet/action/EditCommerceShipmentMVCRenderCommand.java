@@ -29,15 +29,11 @@ import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderNoteService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceShipmentService;
-import com.liferay.commerce.util.CommerceWorkflowedModelHelper;
-import com.liferay.item.selector.ItemSelector;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
-import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.kernel.workflow.WorkflowTaskManager;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -69,14 +65,12 @@ public class EditCommerceShipmentMVCRenderCommand implements MVCRenderCommand {
 					_commerceAddressService, _commerceChannelLocalService,
 					_commerceNotificationTemplateService,
 					_commerceNotificationQueueEntryLocalService,
-					_commerceWorkflowedModelHelper, _commerceOrderService,
-					_commerceOrderItemService,
+					_commerceOrderService, _commerceOrderItemService,
 					_commerceOrderModelResourcePermission,
 					_commerceOrderNoteService, _commerceOrderValidatorRegistry,
 					_commercePaymentMethodGroupRelService,
 					_commerceOrderPriceCalculation, _commerceShipmentService,
-					_itemSelector, renderRequest, _userLocalService,
-					_workflowTaskManager);
+					renderRequest);
 
 			renderRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -138,17 +132,5 @@ public class EditCommerceShipmentMVCRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private CommerceShipmentService _commerceShipmentService;
-
-	@Reference
-	private CommerceWorkflowedModelHelper _commerceWorkflowedModelHelper;
-
-	@Reference
-	private ItemSelector _itemSelector;
-
-	@Reference
-	private UserLocalService _userLocalService;
-
-	@Reference
-	private WorkflowTaskManager _workflowTaskManager;
 
 }
