@@ -14,12 +14,11 @@
 
 package com.liferay.analytics.settings.web.internal.portlet.action;
 
-import com.liferay.analytics.settings.configuration.AnalyticsConfiguration;
+import com.liferay.analytics.settings.configuration.AnalyticsConfigurationTracker;
 import com.liferay.analytics.settings.web.internal.constants.AnalyticsSettingsWebKeys;
 import com.liferay.analytics.settings.web.internal.user.AnalyticsUsersManager;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderConstants;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -82,8 +81,8 @@ public abstract class BaseAnalyticsMVCRenderCommand
 
 		httpServletRequest.setAttribute(
 			AnalyticsSettingsWebKeys.ANALYTICS_CONFIGURATION,
-			configurationProvider.getCompanyConfiguration(
-				AnalyticsConfiguration.class, themeDisplay.getCompanyId()));
+			analyticsConfigurationTracker.getAnalyticsConfiguration(
+				themeDisplay.getCompanyId()));
 
 		httpServletRequest.setAttribute(
 			AnalyticsSettingsWebKeys.ANALYTICS_USERS_MANAGER,
@@ -91,10 +90,10 @@ public abstract class BaseAnalyticsMVCRenderCommand
 	}
 
 	@Reference
-	protected AnalyticsUsersManager analyticsUsersManager;
+	protected AnalyticsConfigurationTracker analyticsConfigurationTracker;
 
 	@Reference
-	protected ConfigurationProvider configurationProvider;
+	protected AnalyticsUsersManager analyticsUsersManager;
 
 	protected volatile ServletContext servletContext;
 

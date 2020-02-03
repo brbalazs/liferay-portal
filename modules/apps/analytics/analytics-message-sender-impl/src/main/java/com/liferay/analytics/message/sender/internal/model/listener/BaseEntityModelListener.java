@@ -35,7 +35,6 @@ import com.liferay.portal.kernel.model.BaseModelListener;
 import com.liferay.portal.kernel.model.ShardedModel;
 import com.liferay.portal.kernel.model.TreeModel;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.service.CompanyService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -281,9 +280,8 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 		configurationProperties.put(configurationPropertyName, modelIds);
 
 		try {
-			configurationProvider.saveCompanyConfiguration(
-				AnalyticsConfiguration.class, companyId,
-				configurationProperties);
+			analyticsConfigurationTracker.saveCompanyConfiguration(
+				companyId, configurationProperties);
 		}
 		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
@@ -302,9 +300,6 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 
 	@Reference
 	protected CompanyService companyService;
-
-	@Reference
-	protected ConfigurationProvider configurationProvider;
 
 	@Reference
 	protected UserLocalService userLocalService;

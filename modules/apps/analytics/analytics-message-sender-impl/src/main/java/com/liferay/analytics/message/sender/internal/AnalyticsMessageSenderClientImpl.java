@@ -23,7 +23,6 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.service.CompanyService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.servlet.HttpMethods;
@@ -153,8 +152,8 @@ public class AnalyticsMessageSenderClientImpl
 		}
 
 		try {
-			_configurationProvider.deleteCompanyConfiguration(
-				AnalyticsConfiguration.class, companyId);
+			_analyticsConfigurationTracker.deleteCompanyConfiguration(
+				companyId);
 		}
 		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
@@ -214,9 +213,6 @@ public class AnalyticsMessageSenderClientImpl
 
 	@Reference
 	private CompanyService _companyService;
-
-	@Reference
-	private ConfigurationProvider _configurationProvider;
 
 	@Reference
 	private UserLocalService _userLocalService;
