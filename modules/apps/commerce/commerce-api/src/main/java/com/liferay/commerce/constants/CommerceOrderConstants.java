@@ -82,6 +82,14 @@ public class CommerceOrderConstants {
 		ORDER_STATUS_DISPUTED, ORDER_STATUS_PARTIALLY_REFUNDED
 	};
 
+	public static final int[] ORDER_STATUSES_OPEN = {
+		ORDER_STATUS_IN_PROGRESS, ORDER_STATUS_OPEN
+	};
+
+	public static final int[] ORDER_STATUSES_PENDING = {
+		ORDER_STATUS_TO_FULFILL
+	};
+
 	public static final int PAYMENT_STATUS_AUTHORIZED =
 		WorkflowConstants.STATUS_DRAFT;
 
