@@ -244,6 +244,22 @@ public class CPTestUtil {
 			cpDefinition.getCPDefinitionId(), CPInstanceConstants.DEFAULT_SKU);
 	}
 
+	public static CPInstance addCPInstanceFromCatalog(
+			long groupId, long[] assetCategoryIds)
+		throws PortalException {
+
+		ServiceContext serviceContext =
+			ServiceContextTestUtil.getServiceContext(groupId);
+
+		serviceContext.setAssetCategoryIds(assetCategoryIds);
+
+		CPDefinition cpDefinition = _addCPDefinition(
+			groupId, SimpleCPTypeConstants.NAME, true, true, serviceContext);
+
+		return CPInstanceLocalServiceUtil.getCPInstance(
+			cpDefinition.getCPDefinitionId(), CPInstanceConstants.DEFAULT_SKU);
+	}
+
 	public static CPInstance addCPInstanceWithRandomSku(long groupId)
 		throws PortalException {
 
