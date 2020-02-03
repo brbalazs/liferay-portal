@@ -38,7 +38,6 @@ import java.util.Objects;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import javax.portlet.MutableRenderParameters;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -97,13 +96,10 @@ public abstract class BaseAnalyticsMVCActionCommand
 
 			saveCompanyConfiguration(actionRequest, themeDisplay);
 		}
-		catch (PrincipalException principalException) {
-			SessionErrors.add(actionRequest, principalException.getClass());
+		catch (PrincipalException pe) {
+			SessionErrors.add(actionRequest, pe.getClass());
 
-			MutableRenderParameters mutableRenderParameters =
-				actionResponse.getRenderParameters();
-
-			mutableRenderParameters.setValue("mvcPath", "/error.jsp");
+			actionResponse.setRenderParameter("mvcPath", "/error.jsp");
 		}
 	}
 
