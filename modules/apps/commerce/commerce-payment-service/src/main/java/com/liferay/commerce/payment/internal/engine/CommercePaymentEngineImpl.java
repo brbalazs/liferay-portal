@@ -18,6 +18,7 @@ import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.constants.CommercePaymentConstants;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.payment.engine.CommercePaymentEngine;
 import com.liferay.commerce.payment.engine.CommerceSubscriptionEngine;
 import com.liferay.commerce.payment.method.CommercePaymentMethod;
@@ -174,7 +175,8 @@ public class CommercePaymentEngineImpl implements CommercePaymentEngine {
 		if ((commercePaymentMethod == null) ||
 			!commercePaymentMethod.isCompleteEnabled()) {
 
-			_completeOrderWithoutPaymentMethod(commerceOrderId);
+			_completeOrderWithoutPaymentMethod(
+				commerceOrderId, httpServletRequest);
 
 			return _commercePaymentUtils.emptyResult(commerceOrderId);
 		}
@@ -198,8 +200,9 @@ public class CommercePaymentEngineImpl implements CommercePaymentEngine {
 			(commerceOrder.getPaymentStatus() ==
 				CommerceOrderConstants.PAYMENT_STATUS_PENDING)) {
 
-			_commerceOrderLocalService.setCommerceOrderToTransmit(
-				commerceOrder.getUserId(), commerceOrder);
+			_commerceOrderEngine.transitionCommerceOrder(
+				commerceOrder, CommerceOrderConstants.ORDER_STATUS_TO_FULFILL,
+				_portal.getUserId(httpServletRequest));
 		}
 
 		return commercePaymentResult;
@@ -458,7 +461,8 @@ public class CommercePaymentEngineImpl implements CommercePaymentEngine {
 		if ((commercePaymentMethod == null) ||
 			!commercePaymentMethod.isProcessPaymentEnabled()) {
 
-			_completeOrderWithoutPaymentMethod(commerceOrderId);
+			_completeOrderWithoutPaymentMethod(
+				commerceOrderId, httpServletRequest);
 
 			return _commercePaymentUtils.emptyResult(commerceOrderId);
 		}
@@ -603,19 +607,26 @@ public class CommercePaymentEngineImpl implements CommercePaymentEngine {
 		return commercePaymentMethod.voidTransaction(commercePaymentRequest);
 	}
 
-	private void _completeOrderWithoutPaymentMethod(long commerceOrderId)
+	private void _completeOrderWithoutPaymentMethod(
+			long commerceOrderId, HttpServletRequest httpServletRequest)
 		throws PortalException {
+
+		long userId = _portal.getUserId(httpServletRequest);
 
 		CommerceOrder commerceOrder =
 			_commerceOrderLocalService.getCommerceOrder(commerceOrderId);
 
 		_commerceOrderLocalService.updatePaymentStatusAndTransactionId(
-			commerceOrder.getUserId(), commerceOrderId,
-			CommerceOrderConstants.PAYMENT_STATUS_PAID, StringPool.BLANK);
+			userId, commerceOrderId, CommerceOrderConstants.PAYMENT_STATUS_PAID,
+			StringPool.BLANK);
 
 		_commerceOrderPaymentLocalService.addCommerceOrderPayment(
 			commerceOrderId, CommerceOrderConstants.PAYMENT_STATUS_PAID,
 			StringPool.BLANK);
+
+		_commerceOrderEngine.transitionCommerceOrder(
+			commerceOrder, CommerceOrderConstants.ORDER_STATUS_TO_FULFILL,
+			userId);
 	}
 
 	private List<CommercePaymentMethod> _getCommercePaymentMethodsList(
@@ -649,6 +660,9 @@ public class CommercePaymentEngineImpl implements CommercePaymentEngine {
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommercePaymentEngineImpl.class);
+
+	@Reference
+	private CommerceOrderEngine _commerceOrderEngine;
 
 	@Reference
 	private CommerceOrderLocalService _commerceOrderLocalService;

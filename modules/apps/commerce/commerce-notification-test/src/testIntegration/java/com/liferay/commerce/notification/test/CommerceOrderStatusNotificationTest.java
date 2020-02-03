@@ -139,8 +139,9 @@ public class CommerceOrderStatusNotificationTest {
 			_commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
 			_serviceContext.getUserId());
 
-		_commerceOrderLocalService.setCommerceOrderToTransmit(
-			_commerceOrder.getUserId(), _commerceOrder);
+		_commerceOrder = _commerceOrderEngine.transitionCommerceOrder(
+			_commerceOrder, CommerceOrderConstants.ORDER_STATUS_TO_TRANSMIT,
+			_serviceContext.getUserId());
 
 		// Notifications are asynchronous, give time to send
 

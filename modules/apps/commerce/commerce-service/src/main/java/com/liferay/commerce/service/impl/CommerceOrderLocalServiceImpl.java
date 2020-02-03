@@ -855,39 +855,6 @@ public class CommerceOrderLocalServiceImpl
 	}
 
 	@Override
-	public CommerceOrder setCommerceOrderToTransmit(
-			long userId, CommerceOrder commerceOrder)
-		throws PortalException {
-
-		// Commerce order
-
-		int previousOrderStatus = commerceOrder.getOrderStatus();
-
-		commerceOrder.setOrderStatus(
-			CommerceOrderConstants.ORDER_STATUS_TO_FULFILL);
-		commerceOrder.setStatus(WorkflowConstants.STATUS_PENDING);
-
-		commerceOrder = commerceOrderPersistence.update(commerceOrder);
-
-		// Messaging
-
-		sendOrderStatusMessage(
-			commerceOrder.getCommerceOrderId(), commerceOrder.getOrderStatus(),
-			previousOrderStatus);
-
-		// Workflow
-
-		ServiceContext serviceContext = new ServiceContext();
-
-		serviceContext.setScopeGroupId(commerceOrder.getGroupId());
-		serviceContext.setUserId(userId);
-		serviceContext.setWorkflowAction(WorkflowConstants.ACTION_PUBLISH);
-
-		return startWorkflowInstance(
-			serviceContext.getUserId(), commerceOrder, serviceContext);
-	}
-
-	@Override
 	public CommerceOrder updateAccount(
 			long commerceOrderId, long userId, long commerceAccountId)
 		throws PortalException {
@@ -1234,14 +1201,6 @@ public class CommerceOrderLocalServiceImpl
 		commerceOrder.setPaymentStatus(paymentStatus);
 
 		commerceOrder = commerceOrderPersistence.update(commerceOrder);
-
-		if ((commerceOrder.getOrderStatus() ==
-				CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS) &&
-			(commerceOrder.getPaymentStatus() ==
-				CommerceOrderConstants.PAYMENT_STATUS_PAID)) {
-
-			commerceOrder = setCommerceOrderToTransmit(userId, commerceOrder);
-		}
 
 		// Messaging
 
