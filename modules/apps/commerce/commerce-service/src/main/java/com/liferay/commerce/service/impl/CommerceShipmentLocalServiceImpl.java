@@ -24,6 +24,7 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.model.CommerceShipmentItem;
+import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.service.base.CommerceShipmentLocalServiceBaseImpl;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -36,6 +37,7 @@ import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.util.Date;
 import java.util.List;
@@ -255,13 +257,14 @@ public class CommerceShipmentLocalServiceImpl
 		// Commerce order
 
 		updateCommerceOrderStatus(
-			commerceShipment.getCommerceShipmentId(), status, oldStatus);
+			commerceShipment.getCommerceShipmentId(),
+			commerceShipment.getUserId(), status, oldStatus);
 
 		return commerceShipment;
 	}
 
 	protected void updateCommerceOrderStatus(
-			long commerceShipmentId, int status, int oldStatus)
+			long commerceShipmentId, long userId, int status, int oldStatus)
 		throws PortalException {
 
 		if (status <= oldStatus) {
@@ -286,38 +289,48 @@ public class CommerceShipmentLocalServiceImpl
 			return;
 		}
 
-		long commerceOrderId = commerceOrderItem.getCommerceOrderId();
+		CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
 
 		List<CommerceOrderItem> commerceOrderItems =
-			commerceOrderItemLocalService.
-				getAvailableForShipmentCommerceOrderItems(commerceOrderId);
+			commerceOrder.getCommerceOrderItems();
+
+		boolean allOrderItemsShipped = true;
+
+		for (CommerceOrderItem shippedCommerceOrderItem : commerceOrderItems) {
+			if (shippedCommerceOrderItem.getShippedQuantity() <
+					shippedCommerceOrderItem.getQuantity()) {
+
+				allOrderItemsShipped = false;
+			}
+		}
 
 		if (status ==
 				CommerceShipmentConstants.SHIPMENT_STATUS_READY_TO_BE_SHIPPED) {
 
-			commerceOrderLocalService.updateOrderStatus(
-				commerceOrderId, CommerceOrderConstants.ORDER_STATUS_FULFILLED);
+			_commerceOrderEngine.transitionCommerceOrder(
+				commerceOrder, CommerceOrderConstants.ORDER_STATUS_FULFILLED,
+				userId);
 		}
 		else if (status == CommerceShipmentConstants.SHIPMENT_STATUS_SHIPPED) {
-			if (commerceOrderItems.isEmpty()) {
-				commerceOrderLocalService.updateOrderStatus(
-					commerceOrderId,
-					CommerceOrderConstants.ORDER_STATUS_SHIPPED);
+			if (allOrderItemsShipped) {
+				_commerceOrderEngine.transitionCommerceOrder(
+					commerceOrder, CommerceOrderConstants.ORDER_STATUS_SHIPPED,
+					userId);
 			}
 			else {
-				commerceOrderLocalService.updateOrderStatus(
-					commerceOrderId,
-					CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED);
+				_commerceOrderEngine.transitionCommerceOrder(
+					commerceOrder,
+					CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED,
+					userId);
 			}
 		}
-		else if (status ==
-					CommerceShipmentConstants.SHIPMENT_STATUS_DELIVERED) {
+		else if ((status ==
+					CommerceShipmentConstants.SHIPMENT_STATUS_DELIVERED) &&
+				 allOrderItemsShipped) {
 
-			if (commerceOrderItems.isEmpty()) {
-				commerceOrderLocalService.updateOrderStatus(
-					commerceOrderId,
-					CommerceOrderConstants.ORDER_STATUS_COMPLETED);
-			}
+			_commerceOrderEngine.transitionCommerceOrder(
+				commerceOrder, CommerceOrderConstants.ORDER_STATUS_COMPLETED,
+				userId);
 		}
 	}
 
@@ -360,5 +373,8 @@ public class CommerceShipmentLocalServiceImpl
 			throw new CommerceShipmentStatusException();
 		}
 	}
+
+	@ServiceReference(type = CommerceOrderEngine.class)
+	private CommerceOrderEngine _commerceOrderEngine;
 
 }
