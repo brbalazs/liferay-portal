@@ -235,6 +235,10 @@ public interface CommerceOrderService extends BaseService {
 		throws PortalException;
 
 	public CommerceOrder updateBillingAddress(
+			long commerceOrderId, long billingAddressId)
+		throws PortalException;
+
+	public CommerceOrder updateBillingAddress(
 			long commerceOrderId, String name, String description,
 			String street1, String street2, String street3, String city,
 			String zip, long commerceRegionId, long commerceCountryId,
@@ -320,6 +324,10 @@ public interface CommerceOrderService extends BaseService {
 
 	public CommerceOrder updatePurchaseOrderNumber(
 			long commerceOrderId, String purchaseOrderNumber)
+		throws PortalException;
+
+	public CommerceOrder updateShippingAddress(
+			long commerceOrderId, long shippingAddressId)
 		throws PortalException;
 
 	public CommerceOrder updateShippingAddress(

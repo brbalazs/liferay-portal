@@ -256,6 +256,17 @@ public interface CommerceAddressLocalService
 			long companyId, String className, long classPK)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceAddress> getBillingCommerceAddresses(
+			long companyId, String className, long classPK, String keywords,
+			int start, int end, Sort sort)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getBillingCommerceAddressesCount(
+			long companyId, String className, long classPK, String keywords)
+		throws PortalException;
+
 	/**
 	 * Returns the commerce address with the primary key.
 	 *
@@ -353,6 +364,17 @@ public interface CommerceAddressLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceAddress> getShippingCommerceAddresses(
 			long companyId, String className, long classPK)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceAddress> getShippingCommerceAddresses(
+			long companyId, String className, long classPK, String keywords,
+			int start, int end, Sort sort)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getShippingCommerceAddressesCount(
+			long companyId, String className, long classPK, String keywords)
 		throws PortalException;
 
 	/**

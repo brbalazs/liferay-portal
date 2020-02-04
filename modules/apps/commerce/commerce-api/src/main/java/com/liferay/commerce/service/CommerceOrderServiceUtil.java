@@ -344,6 +344,14 @@ public class CommerceOrderServiceUtil {
 	}
 
 	public static com.liferay.commerce.model.CommerceOrder updateBillingAddress(
+			long commerceOrderId, long billingAddressId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateBillingAddress(
+			commerceOrderId, billingAddressId);
+	}
+
+	public static com.liferay.commerce.model.CommerceOrder updateBillingAddress(
 			long commerceOrderId, String name, String description,
 			String street1, String street2, String street3, String city,
 			String zip, long commerceRegionId, long commerceCountryId,
@@ -513,6 +521,14 @@ public class CommerceOrderServiceUtil {
 
 		return getService().updatePurchaseOrderNumber(
 			commerceOrderId, purchaseOrderNumber);
+	}
+
+	public static com.liferay.commerce.model.CommerceOrder
+			updateShippingAddress(long commerceOrderId, long shippingAddressId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateShippingAddress(
+			commerceOrderId, shippingAddressId);
 	}
 
 	public static com.liferay.commerce.model.CommerceOrder
