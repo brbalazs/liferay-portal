@@ -50,6 +50,7 @@ long cpDefinitionId = cpDefinitionsDisplayContext.getCPDefinitionId();
 				<liferay-asset:asset-tags-selector
 					className="<%= CPDefinition.class.getName() %>"
 					classPK="<%= cpDefinitionId %>"
+					groupIds="<%= new long[] {company.getGroupId()} %>"
 				/>
 			</aui:field-wrapper>
 		</aui:fieldset>
