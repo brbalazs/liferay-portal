@@ -20,8 +20,8 @@ import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.model.CommerceChannelConstants;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.interval.IntervalActionProcessor;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.SearchContext;
@@ -93,12 +93,26 @@ public class ProductFeedXMLGenerator {
 
 		feed.setUpdated(updated);
 
-		List<CPCatalogEntry> cpCatalogEntries = _getCPCatalogEntriesByChannel(
-			commerceChannel);
+		int total = _countCPCatalogEntriesByChannel(commerceChannel);
 
-		for (CPCatalogEntry cpCatalogEntry : cpCatalogEntries) {
-			//TODO COMMERCE-2690 add XML for a product here
-		}
+		final IntervalActionProcessor<Void> intervalActionProcessor =
+			new IntervalActionProcessor<>(total);
+
+		intervalActionProcessor.setPerformIntervalActionMethod(
+			(start, end) -> {
+				List<CPCatalogEntry> cpCatalogEntries =
+					_getCPCatalogEntriesByChannel(commerceChannel, start, end);
+
+				for (CPCatalogEntry cpCatalogEntry : cpCatalogEntries) {
+					//TODO COMMERCE-2690 add XML for a product here
+				}
+
+				intervalActionProcessor.incrementStart(cpCatalogEntries.size());
+
+				return null;
+			});
+
+		intervalActionProcessor.performIntervalActions();
 
 		try {
 			XMLInputFactory xmlInputFactory = new WstxInputFactory();
@@ -122,34 +136,50 @@ public class ProductFeedXMLGenerator {
 		}
 	}
 
-	private List<CPCatalogEntry> _getCPCatalogEntriesByChannel(
-			CommerceChannel commerceChannel)
+	private int _countCPCatalogEntriesByChannel(CommerceChannel commerceChannel)
 		throws PortalException {
 
+		long commerceChannelGroupId = commerceChannel.getGroupId();
+
+		SearchContext searchContext = _getSearchContext(commerceChannel);
+
+		return _cpDefinitionHelper.count(
+			commerceChannelGroupId, searchContext, new CPQuery());
+	}
+
+	private List<CPCatalogEntry> _getCPCatalogEntriesByChannel(
+			CommerceChannel commerceChannel, int start, int end)
+		throws PortalException {
+
+		long commerceChannelGroupId = commerceChannel.getGroupId();
+
+		SearchContext searchContext = _getSearchContext(commerceChannel);
+
+		CPDataSourceResult cpDataSourceResult = _cpDefinitionHelper.search(
+			commerceChannelGroupId, searchContext, new CPQuery(), start, end);
+
+		return cpDataSourceResult.getCPCatalogEntries();
+	}
+
+	private SearchContext _getSearchContext(CommerceChannel commerceChannel) {
 		Map<String, Serializable> attributes = new HashMap<>();
 
 		long commerceChannelGroupId = commerceChannel.getGroupId();
 
-		long[] commerceAccountGroupIds = new long[] {
+		long[] commerceAccountGroupIds = {
 			CommerceAccountConstants.ACCOUNT_ID_GUEST
 		};
 
 		attributes.put(Field.STATUS, WorkflowConstants.STATUS_APPROVED);
-		attributes.put("commerceChannelGroupId", commerceChannelGroupId);
 		attributes.put("commerceAccountGroupIds", commerceAccountGroupIds);
+		attributes.put("commerceChannelGroupId", commerceChannelGroupId);
 
 		SearchContext searchContext = new SearchContext();
 
 		searchContext.setAttributes(attributes);
 		searchContext.setCompanyId(commerceChannel.getCompanyId());
 
-		CPQuery cpQuery = new CPQuery();
-
-		CPDataSourceResult cpDataSourceResult = _cpDefinitionHelper.search(
-			commerceChannelGroupId, searchContext, cpQuery, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS);
-
-		return cpDataSourceResult.getCPCatalogEntries();
+		return searchContext;
 	}
 
 	@Reference
