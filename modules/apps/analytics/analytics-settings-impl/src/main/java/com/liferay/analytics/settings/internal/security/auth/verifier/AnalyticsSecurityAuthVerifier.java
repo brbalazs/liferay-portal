@@ -15,6 +15,7 @@
 package com.liferay.analytics.settings.internal.security.auth.verifier;
 
 import com.liferay.analytics.settings.configuration.AnalyticsConfiguration;
+import com.liferay.analytics.settings.configuration.AnalyticsConfigurationTracker;
 import com.liferay.analytics.settings.security.constants.AnalyticsSecurityConstants;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -85,8 +86,7 @@ public class AnalyticsSecurityAuthVerifier implements AuthVerifier {
 
 		try {
 			AnalyticsConfiguration analyticsConfiguration =
-				_configurationProvider.getCompanyConfiguration(
-					AnalyticsConfiguration.class,
+				_analyticsConfigurationTracker.getAnalyticsConfiguration(
 					_portal.getCompanyId(httpServletRequest));
 
 			if (analyticsConfiguration.token() == null) {
@@ -207,7 +207,7 @@ public class AnalyticsSecurityAuthVerifier implements AuthVerifier {
 		AnalyticsSecurityAuthVerifier.class);
 
 	@Reference
-	private ConfigurationProvider _configurationProvider;
+	private AnalyticsConfigurationTracker _analyticsConfigurationTracker;
 
 	@Reference
 	private Portal _portal;
