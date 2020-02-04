@@ -37,7 +37,7 @@ public class BundleStartStopLogger implements SynchronousBundleListener {
 		Bundle bundle = bundleEvent.getBundle();
 
 		if (bundle.getSymbolicName() == null) {
-			_log.error("{} has a null symbolicName", bundle.getLocation());
+			_log.error("{} has a null symbolic name", bundle.getLocation());
 		}
 
 		if (_portalStarted.get()) {

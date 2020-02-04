@@ -96,8 +96,7 @@ public class AutoDeployDir {
 			}
 		}
 		else if (StringUtil.endsWith(fileName, ".jar") && !_isModule(file)) {
-			throw new AutoDeployException(
-				fileName + " cannot be deployed because is not a valid module");
+			throw new AutoDeployException(fileName + " is an invalid module");
 		}
 		else if (StringUtil.endsWith(fileName, ".lpkg")) {
 			for (String curDirName : dirNames) {
